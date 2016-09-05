@@ -1,0 +1,27 @@
+:global {
+  .authorization-popup {
+    position: fixed;
+    top: 30%;
+    left: 30%;
+    transform: translateX(-50%) translateY(-50%);
+    transform-style: preserve-3d;
+    perspective: 1000px;
+  }
+
+  .authorization-popup-enter {
+    opacity: 0;
+    transform: translateY(-300px) translateZ(-300px);
+  }
+  .authorization-popup-enter-active {
+    opacity: 1;
+    transform: translateY(0px) translateZ(0px);
+  }
+  .authorization-popup-leave {
+    opacity: 1;
+    transform: translateY(0px) translateZ(0px);
+  }
+  .authorization-popup-leave-active {
+    opacity: 0;
+    transform: translateY(-300px) translateZ(-300px);
+  }
+}
