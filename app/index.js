@@ -3,9 +3,13 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import store from './store';
+
 import App from './containers/App';
 import Home from './containers/Home';
+import TelescopeOverview from './pages/telescope-overview';
+
 import Bootstrap from 'bootstrap/dist/css/bootstrap.css';
+import './styles/app.scss';
 import './styles/interface.css';
 import './styles/animations.scss';
 
@@ -44,9 +48,14 @@ var PulseHeader = React.createClass({
 ReactDOM.render(
   <Provider store={store}>
     <Router history={browserHistory}>
+
       <Route path="/" component={App}>
         <IndexRoute component={Home} />
+
+        <Route path="/telescope-overview" component={TelescopeOverview} />
+
       </Route>
+
     </Router>
   </Provider>,
   document.getElementById('app'),

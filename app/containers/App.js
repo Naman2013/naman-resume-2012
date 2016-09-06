@@ -28,7 +28,7 @@ export default class App extends Component {
       <div>
         <Header />
         <Menu source="nav.json" />
-        <section>
+        <section className="app-content-container clearfix">
           {this.props.children}
         </section>
       </div>
