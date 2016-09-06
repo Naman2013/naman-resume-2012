@@ -24,13 +24,21 @@ After you clone the repo:
 
 
 
+### Common libraries and tools
+---
+
+1. [React Bootstrap](https://react-bootstrap.github.io/getting-started.html)
+2. [Bootstrap CSS](http://getbootstrap.com/)
+3. [React Router](https://github.com/reactjs/react-router)
+4. [React](https://facebook.github.io/react/)
+
+
+
 ### Building for Production
 ---
 
 To build the production bundle, run
 
-```
-npm run prod
-```
+`npm run prod`
 
 This will generate the `/dist` directory to be sent to the web server.
