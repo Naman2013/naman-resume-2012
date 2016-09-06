@@ -9,6 +9,7 @@ import Home from './containers/Home';
 import TelescopeOverview from './pages/telescope-overview';
 
 import Bootstrap from 'bootstrap/dist/css/bootstrap.css';
+import './styles/app.scss';
 import './styles/interface.css';
 import './styles/animations.scss';
 
