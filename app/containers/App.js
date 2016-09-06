@@ -5,6 +5,8 @@ import Menu from './Menu';
 import Header from './Header';
 import { checkUser } from '../modules/User';
 
+import style from './app.css';
+
 const { element, func } = PropTypes;
 
 function mapDispatchToProps(dispatch) {
@@ -28,7 +30,7 @@ export default class App extends Component {
       <div>
         <Header />
         <Menu source="nav.json" />
-        <section>
+        <section className={style.appContentContainer}>
           {this.props.children}
         </section>
       </div>
