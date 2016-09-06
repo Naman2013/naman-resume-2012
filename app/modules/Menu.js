@@ -61,7 +61,7 @@ export function fetchMenuItems() {
   return {
     types: [MENU_LOAD_NAV, MENU_LOAD_NAV_SUCCESS, MENU_LOAD_NAV_SUCCESS_FAILURE],
     callAPI: async () => {
-      const { status, body, text } = await superagent.get('https://slooh.enivrez.com/dist/nav.json');
+      const { status, body, text } = await superagent.get('dist/nav.json');
 
       if (status >= 400) {
         throw new Error(body || text);

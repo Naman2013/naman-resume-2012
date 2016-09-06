@@ -9,7 +9,7 @@ export default class Header extends Component {
         <div className="logo" />
         <div className="upcoming">
           <Countdown
-            source="https://saturn.slooh.com:444/events/upcoming?limit=50"
+            source="events/upcoming?limit=50"
             duration={50000}
             updateDurationInterval={1000}
             updateEventsInterval={1000 * 60 * 5 /* 5 minutes */}
