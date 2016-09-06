@@ -63,7 +63,7 @@ module.exports = {
       },
       {
         test: /\.(svg|png|jpg|jpeg|gif|woff)$/,
-        exclude: /node_modules/,
+        //exclude: /node_modules/,
         loader: 'url-loader',
       },
       { // loader for bootstrap
@@ -77,10 +77,6 @@ module.exports = {
       { // loader for bootstrap
         test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
         loader: 'url?limit=10000&mimetype=application/octet-stream'
-      },
-      { // loader for bootstrap
-        test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
-        loader: 'url?limit=10000&mimetype=image/svg+xml'
       }
     ]
   },
