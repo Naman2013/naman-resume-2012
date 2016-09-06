@@ -86,6 +86,11 @@ module.exports = {
         target: 'https://saturn.slooh.com:444',
         changeOrigin: true,
         secure: true
+      },
+      '/dist/nav.json': {
+        target: 'http://slooh.enivrez.com/',
+        changeOrigin: true,
+        secure: false
       }
     }
   }
