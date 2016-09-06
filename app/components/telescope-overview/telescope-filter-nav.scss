@@ -1,0 +1,25 @@
+.telescopeFilterNav {
+  background-color: #fff;
+  padding: 20px 0;
+  -moz-box-shadow:    3px 3px 5px 6px #ccc;
+ -webkit-box-shadow: 3px 3px 5px 6px #ccc;
+ box-shadow:         3px 3px 5px 6px #ccc;
+
+ .telescopeNavList {
+   list-style-type: none;
+   margin: 0 auto;
+   padding: 0;
+   color: #000;
+ }
+
+ .button {
+   color: #000;
+   text-transform: uppercase;
+   text-decoration: none;
+ }
+
+ .button:hover {
+   text-decoration: none;
+   color: #F310A7;
+ }
+}

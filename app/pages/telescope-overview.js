@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 
 import AnnouncementBanner from '../components/common/announcement-banner';
+import TelescopeFilterNav from '../components/telescope-overview/telescope-filter-nav';
 
 class TelescopeOverview extends Component {
 
@@ -25,6 +26,8 @@ class TelescopeOverview extends Component {
         <AnnouncementBanner
           display={this.state.displayBanner}
           closeBanner={this.closeBanner.bind(this)} />
+
+        <TelescopeFilterNav />
 
       </div>
     );
