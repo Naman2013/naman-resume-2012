@@ -5,6 +5,7 @@ import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import store from './store';
 import App from './containers/App';
 import Home from './containers/Home';
+import Bootstrap from 'bootstrap/dist/css/bootstrap.css';
 import './styles/interface.css';
 import './styles/animations.scss';
 
