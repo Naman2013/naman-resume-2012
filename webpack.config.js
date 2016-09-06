@@ -78,8 +78,15 @@ module.exports = {
   ],
   devtool: 'cheap-module-eval-source-map',
   devServer: {
-    contentBase: path.resolve('/'),
+    contentBase: path.resolve( __dirname + '/'),
     historyApiFallback: true,
-    recordsPath: path.resolve('/')
+    recordsPath: path.resolve('/'),
+    proxy: {
+      '/events/**': {
+        target: 'https://saturn.slooh.com:444',
+        changeOrigin: true,
+        secure: true
+      }
+    }
   }
 };
