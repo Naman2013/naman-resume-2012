@@ -44,7 +44,7 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        exclude: /node_modules/,
+        //exclude: /node_modules/,
         loaders: [
           'style',
           'css?modules&importLoaders=1&localIdentName=[local]',
@@ -53,7 +53,7 @@ module.exports = {
       },
       {
         test: /\.scss$/,
-        exclude: /node_modules/,
+        // exclude: /node_modules/,
         loaders: [
           'style',
           'css?modules&importLoaders=1&localIdentName=[local]',
@@ -66,6 +66,22 @@ module.exports = {
         exclude: /node_modules/,
         loader: 'url-loader',
       },
+      { // loader for bootstrap
+        test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
+        loader: 'file'
+      },
+      { // loader for bootstrap
+        test: /\.(woff|woff2)(\?v=\d+\.\d+\.\d+)?$/,
+        loader: 'url?limit=10000&mimetype=application/font-woff'
+      },
+      { // loader for bootstrap
+        test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
+        loader: 'url?limit=10000&mimetype=application/octet-stream'
+      },
+      { // loader for bootstrap
+        test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
+        loader: 'url?limit=10000&mimetype=image/svg+xml'
+      }
     ]
   },
   plugins: [
