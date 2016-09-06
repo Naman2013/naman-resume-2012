@@ -87,6 +87,16 @@ module.exports = {
         changeOrigin: true,
         secure: true
       },
+      '/obs/**': {
+        target: 'https://saturn.slooh.com:444',
+        changeOrigin: true,
+        secure: true
+      },
+      '/hot/**': {
+        target: 'https://saturn.slooh.com:444',
+        changeOrigin: true,
+        secure: true
+      },
       '/dist/nav.json': {
         target: 'http://slooh.enivrez.com/',
         changeOrigin: true,
