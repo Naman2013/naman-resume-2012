@@ -14,9 +14,9 @@ class TelescopeFilterNav extends Component {
     return (
       <div className={style.telescopeFilterNav}>
         <ul className="telescopeNavList clearfix">
-          <li className="col-md-4"><a href="" className={style.button}>All Telescopes</a></li>
-          <li className="col-md-4"><a href="" className={style.button}>Canary Island Telescopes</a></li>
-          <li className="col-md-4"><a href="" className={style.button}>Chili Telescopes</a></li>
+          <li className="col-md-3 col-md-offset-1"><a href="" className={style.button}>All Telescopes</a></li>
+          <li className="col-md-3"><a href="" className={style.button}>Canary Island Telescopes</a></li>
+          <li className="col-md-3"><a href="" className={style.button}>Chili Telescopes</a></li>
         </ul>
       </div>
     );
