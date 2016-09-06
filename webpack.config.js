@@ -63,7 +63,6 @@ module.exports = {
       },
       {
         test: /\.(svg|png|jpg|jpeg|gif|woff)$/,
-        //exclude: /node_modules/,
         loader: 'url-loader',
       },
       { // loader for bootstrap
