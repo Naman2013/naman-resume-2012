@@ -31,7 +31,7 @@ export const hide = creatAction(LOGIN_HIDE);
 
 export async function login(values, dispatch) {
   const { body, body: { loginError } } = await superagent
-    .post('https://saturn.slooh.com:444/users/login')
+    .post('users/login')
     .type('form')
     .send(values);
 
