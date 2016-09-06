@@ -18,6 +18,7 @@
    color: #000;
    text-transform: uppercase;
    text-decoration: none;
+   font-weight: 800;
  }
 
  .action-container {
@@ -33,9 +34,17 @@
  .universal-time {
    text-align: right;
    padding-right: 60px;
+
+   .time-action {
+     font-size: 10px;
+   }
  }
 
  .light-gray {
    color: #9B9B9B;
+ }
+
+ .pink {
+   color: #F310A7;
  }
 }
