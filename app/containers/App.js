@@ -5,7 +5,7 @@ import Menu from './Menu';
 import Header from './Header';
 import { checkUser } from '../modules/User';
 
-import style from './app.css';
+import style from './app.scss';
 
 const { element, func } = PropTypes;
 
@@ -30,7 +30,7 @@ export default class App extends Component {
       <div>
         <Header />
         <Menu source="nav.json" />
-        <section className={style.appContentContainer}>
+        <section>
           {this.props.children}
         </section>
       </div>
