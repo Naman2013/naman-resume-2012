@@ -10,11 +10,19 @@
 import React, { Component, PropTypes } from 'react';
 import TelescopeCard from './telescope-card';
 
+import style from './telescope-cards.scss';
+
 class TelescopeCards extends Component {
   render() {
     return(
       <div className="telescope-cards-container">
-        <ul className="telescope-cards">
+        <ul className="col-md-12 clearfix telescope-cards">
+          <TelescopeCard />
+          <TelescopeCard />
+          <TelescopeCard />
+
+          <TelescopeCard />
+          <TelescopeCard />
           <TelescopeCard />
         </ul>
       </div>

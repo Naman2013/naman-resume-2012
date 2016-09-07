@@ -1,0 +1,25 @@
+.telescope-cards-container {
+  position: relative;
+  top: -280px;
+
+  .telescope-cards {
+    list-style-type: none;
+
+    .telescope-card {
+      text-align: center;
+
+      .header {
+        background: #9B9B9B;
+
+        .title {
+          color: #000;
+          font-weight: 800;
+        }
+
+        .body {
+          color: #fff;
+        }
+      }
+    }
+  }
+}
