@@ -1,11 +1,11 @@
 .observatory-hero {
-  background: url(/assets/images/graphics/mountain-scene-1.jpg) no-repeat center center;
+  background: url(/assets/images/graphics/mountain-scene-1.jpg) no-repeat center -200px;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
 
-  min-height: 550px;
+  min-height: 650px;
   position: relative;
 
 
@@ -23,7 +23,7 @@
     color: #fff;
     font-size: 1.3em;
     position: absolute;
-    bottom: 370px;
+    bottom: 180px;
     left: 20px;
     width: 40%;
     text-shadow: 1px 1px 1px #000;
@@ -48,7 +48,7 @@
     color: #fff;
     position: absolute;
     left: 45%;
-    bottom: 300px;
+    bottom: 120px;
 
     .button {
       color: #B9D9D9;
