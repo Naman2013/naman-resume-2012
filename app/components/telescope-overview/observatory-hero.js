@@ -18,6 +18,12 @@ class ObservatoryHero extends Component {
             A UNESCO World Heritage Site, Tenerife has been named one of the world’s best locations for star-gazing and astronomy thanks to its low-light pollution and pristine night-sky conditions. Enjoy our telescopes situated next to Teide, a 12,198 foot volcanic summit.
           </p>
         </div>
+        <div className="scroll-for-more">
+          <button className="button" href="#">
+            Scroll for more<br />
+            <span className="glyphicon glyphicon-menu-down"></span>
+          </button>
+        </div>
       </div>
     );
   }
