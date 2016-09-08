@@ -1,6 +1,6 @@
 import React, {Component, Props} from 'react';
 import MissionUpdatePost from './mission-update-post';
-import styles from './mission-updates.scss';
+import styles from './mission-sidebar.scss';
 
 export default class MissionUpdates extends React.Component {
 

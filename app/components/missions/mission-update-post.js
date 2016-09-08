@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './mission-updates.scss';
+import styles from './mission-sidebar.scss';
 
 const MissionUpdatePost = () => {
   return (
