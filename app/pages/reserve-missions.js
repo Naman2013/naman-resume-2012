@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { checkUser } from '../modules/User';
 import MissionCard from '../components/missions/mission-card';
 import AnnouncementBanner from '../components/common/announcement-banner';
+import ReserveBanner from '../components/missions/reserve-banner';
 
 const { element, func } = PropTypes;
 
