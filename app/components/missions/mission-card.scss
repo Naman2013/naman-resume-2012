@@ -1,9 +1,59 @@
+.missionCard {
+  position: relative;
+
+  .cardIcon path {
+    fill: red;
+  }
+}
+
 .missionCard.featured {
   color: #fff;
-  padding: 20px 0 20px 150px;
+  padding: 20px 10px 20px 150px;
   background: url('../../../assets/images/graphics/Running-Man-nebula-Ngc-1977.png') no-repeat left top #424242;
   height: 366px;
   margin-bottom: 15px;
+  h2 {
+    margin-top: 0;
+    font-size: 32px;
+  }
+  .cardsubTitle {
+    overflow: hidden;
+    margin: 5px 0;
+    img {
+      float: left;
+      width: 34px;
+    }
+    h3 {
+      float: left;
+      color: #fff;
+      font-size: 21px;
+      font-weight: bold;
+      margin: 7px;
+    }
+  }
+
+  p {
+    font-size: 17px;
+  }
+
+  .join-mission-callout {
+    margin: 15px 0;
+    font-size: 17px;
+    h5 {
+      margin: 0 0 5px 0;
+    }
+  }
+
+  .callOut {
+    position: absolute;
+    left: 0;
+    top: 39%;
+    font-size: 35px;
+    width: 100px;
+    line-height: 1;
+    text-align: center;
+    display: inline-block;
+  }
 }
 
 .missionCard.secondary:nth-child(even) {
