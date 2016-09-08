@@ -23,7 +23,7 @@ class MissionCard extends Component {
 
         <div className="join-mission-callout">
           <h5>Join an existing mission</h5>
-          <p><strong>Thursday, October 18th</strong>: 10:05pm EST  ·  7:05pm PST  ·  03:05 UTC 03:05 UTC</p>
+          <p><strong>Thursday, October 18th</strong>: {!featured ? <br /> : null} 10:05pm EST  ·  7:05pm PST  ·  03:05 UTC 03:05 UTC</p>
           <a className={styles.piggybackCta} href="#">Piggyback on mission</a>
         </div>
       </div>
