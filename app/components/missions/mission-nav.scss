@@ -1,0 +1,17 @@
+.missionNav {
+  height: 60px;
+  li {
+    list-style: none;
+    float: left;
+  }
+  ul>li {
+    text-transform: uppercase;
+    margin: 0 3%;
+  }
+  a {
+    color: #000;
+    &:hover {
+      color: #F310A7;
+    }
+  }
+}

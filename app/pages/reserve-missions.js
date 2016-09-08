@@ -5,6 +5,7 @@ import { checkUser } from '../modules/User';
 import MissionCard from '../components/missions/mission-card';
 import AnnouncementBanner from '../components/common/announcement-banner';
 import ReserveBanner from '../components/missions/reserve-banner';
+import MissionNav from '../components/missions/mission-nav';
 
 const { element, func } = PropTypes;
 
@@ -47,23 +48,18 @@ export default class ReserveMissions extends Component {
           closeBanner={this.closeBanner.bind(this)} />
 
         <ReserveBanner />
+        <MissionNav />
 
-        <div className="row missions-sub-nav">
-          <ul>
-            <li className=""><a href="/reserve/missions">Slooh Recommends</a></li>
-            <li className="#"><a href="/">By List</a></li>
-            <li className="#"><a href="/">By Catalog</a></li>
-            <li className="#"><a href="/">By Coordinates</a></li>
-            <li className="#"><a href="/">By Telescope</a></li>
-            <li className="#"><a href="/">Advanced Scheduling</a></li>
-          </ul>
-        </div>
-
-        <section className="app-content-container clearfix">
-          <MissionCard />
-          <MissionCard />
-          <MissionCard />
-          <MissionCard />
+        <section className="container clearfix">
+          <div className="col-md-8">
+            <MissionCard />
+            <MissionCard />
+            <MissionCard />
+            <MissionCard />
+          </div>
+          <div className="col-md-4">
+            Sidebar
+          </div>
         </section>
       </div>
     );
