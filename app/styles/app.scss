@@ -19,3 +19,27 @@
     padding: 15px;
   }
 }
+
+// overwrite bootstrap button to use pink
+.btn-primary {
+  background: #F310A7;
+  color: #fff;
+  height: 40px;
+  line-height: 40px;
+  line-height: 25px;
+  font-size: 13px;
+  display: block;
+  text-align: center;
+  -webkit-transition: all 0.1s ease-in;
+  -moz-transition: all 0.1s ease-in;
+  -o-transition: all 0.1s ease-in;
+  transition: all 0.1s ease-in;
+  display: inline-block;
+  margin: 15px auto;
+  border: none;
+  border-radius: 0;
+}
+
+.btn-primary:hover {
+  background: #000;
+}

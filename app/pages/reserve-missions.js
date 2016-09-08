@@ -10,6 +10,7 @@ import ReserveBanner from '../components/missions/reserve-banner';
 import MissionNav from '../components/missions/mission-nav';
 import MissionUpdates from '../components/missions/mission-updates';
 import MissionAd from '../components/missions/mission-ad';
+import MissionUpcoming from '../components/missions/mission-upcoming';
 
 const { element, func } = PropTypes;
 
@@ -69,6 +70,7 @@ export default class ReserveMissions extends Component {
           </div>
           <div className="col-md-4 mission-sidebar">
             <MissionAd />
+            <MissionUpcoming />
             <MissionUpdates />
           </div>
         </section>
