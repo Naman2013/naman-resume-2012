@@ -8,7 +8,7 @@ class MissionNav extends Component {
       <div className={styles.missionNav}>
         <ul>
           <li><a href="#">Slooh Recommends</a></li>
-          <li><a href="#">Browser popular objects</a></li>
+          <li><a href="#">Browse popular objects</a></li>
           <li><a href="#">Reserve by telescope</a></li>
           <li><a href="#">Explore by catalog</a></li>
         </ul>

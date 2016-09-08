@@ -1,12 +1,97 @@
+.missionCard {
+  position: relative;
+
+  .cardIcon path {
+    fill: red;
+  }
+}
+
 .missionCard.featured {
   color: #fff;
-  padding: 20px 0 20px 150px;
+  padding: 20px 10px 20px 150px;
   background: url('../../../assets/images/graphics/Running-Man-nebula-Ngc-1977.png') no-repeat left top #424242;
   height: 366px;
+  margin-bottom: 15px;
+  h2 {
+    margin-top: 0;
+    font-size: 32px;
+  }
+  .cardsubTitle {
+    overflow: hidden;
+    margin: 5px 0;
+    img {
+      float: left;
+      width: 34px;
+    }
+    h3 {
+      float: left;
+      color: #fff;
+      font-size: 21px;
+      font-weight: bold;
+      margin: 7px;
+    }
+  }
+
+  p {
+    font-size: 17px;
+  }
+
+  .join-mission-callout {
+    margin: 15px 0;
+    font-size: 17px;
+    h5 {
+      margin: 0 0 5px 0;
+    }
+  }
+
+  .callOut {
+    position: absolute;
+    left: 0;
+    top: 39%;
+    font-size: 35px;
+    width: 100px;
+    line-height: 1;
+    text-align: center;
+    display: inline-block;
+  }
+}
+
+.missionCard.secondary:nth-child(even) {
+  border-right: 8px solid #D8D8D8;
+}
+
+.missionCard.secondary:nth-child(odd) {
+  border-left: 7px solid #D8D8D8;
 }
 
 .missionCard.secondary {
+  margin-bottom: 15px;
+  background: #fff;
+  padding: 0;
+  text-align: center;
 
+  h2 {
+    background: url('../../../assets/images/graphics/stripofstars.jpg') no-repeat;
+    color: #fff;
+    font-size: 16px;
+    margin: 0;
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 9px 10px;
+    height: 34px;
+    margin-bottom: 15px;
+  }
+
+  h3 {
+    font-weight: bold;
+  }
+
+  p {
+    color: #3C4A55;
+    padding: 0 15px;
+  }
 }
 
 .piggybackCta {
@@ -18,4 +103,16 @@
   font-size: 13px;
   display: block;
   text-align: center;
+  -webkit-transition:all 0.1s ease-in;
+  -moz-transition:all 0.1s ease-in;
+  -o-transition:all 0.1s ease-in;
+  transition:all 0.1s ease-in;
+  display: inline-block;
+  margin: 15px auto;
+
+  &:hover {
+    background-color: #111;
+    color: #fff;
+    text-decoration: none;
+  }
 }
