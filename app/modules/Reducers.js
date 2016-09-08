@@ -8,5 +8,5 @@ export default combineReducers({
   form: reducer,
   menu,
   user,
-  login,
+  login
 });

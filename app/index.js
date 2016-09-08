@@ -6,7 +6,10 @@ import store from './store';
 
 import App from './containers/App';
 import Home from './containers/Home';
+
 import TelescopeOverview from './pages/telescope-overview';
+import ReserveMissions from './pages/reserve-missions';
+
 
 import Bootstrap from 'bootstrap/dist/css/bootstrap.css';
 import './styles/app.scss';
@@ -51,9 +54,8 @@ ReactDOM.render(
 
       <Route path="/" component={App}>
         <IndexRoute component={Home} />
-
         <Route path="/telescope-overview" component={TelescopeOverview} />
-
+        <Route path="/missions" component={ReserveMissions} />
       </Route>
 
     </Router>
