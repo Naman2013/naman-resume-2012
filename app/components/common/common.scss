@@ -1,0 +1,15 @@
+$light-gray: #9B9B9B;
+$pink: #F310A7;
+
+.universalTime {
+  text-align: right;
+  color: $light-gray;
+
+  .time {
+    color: #fff;
+  }
+  .time-action {
+    color: $pink;
+    font-size: 12px;
+  }
+}

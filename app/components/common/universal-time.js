@@ -1,12 +1,16 @@
 import React from 'react';
+import styles from './common.scss';
 
-const UniversalTime = () => {
+const UniversalTime = (props) => {
+
+  let className = `${styles.universalTime} ${props.extraClass || ''}`;
   return (
-    <li className="col-md-3 push-right universal-time">
-      <span className="light-gray">Universal Time: </span><span className="time"><b>01:26:42</b></span>
+    <div className={className}>
+      <span className="light-gray">Universal Time: </span>
+      <span className="time"><b>01:26:42</b></span>
       <br />
-      <a className="time-action pink" href="">What is UTC?</a>
-    </li>
+      <a className="time-action" href="#">What is UTC?</a>
+    </div>
   )
 };
 

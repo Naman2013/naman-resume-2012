@@ -46,10 +46,7 @@ export default class ReserveMissions extends Component {
           display={this.state.displayBanner}
           closeBanner={this.closeBanner.bind(this)} />
 
-        <div className="row">
-          <h2>Reserve Mission</h2>
-          <p>Universal Time: 01:26:42 What is UTC</p>
-        </div>
+        <ReserveBanner />
 
         <div className="row missions-sub-nav">
           <ul>

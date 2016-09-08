@@ -1,0 +1,19 @@
+.reserveBanner {
+  background: url('../../../assets/images/graphics/milkeyway_header.jpg') no-repeat;
+  height: 240px;
+  padding: 20px;
+  position: relative;
+  .title {
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+  }
+  h1 {
+    margin: 0;
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: 500;
+    font-size: 36px;
+    float: left;
+  }
+}
