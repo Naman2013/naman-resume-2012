@@ -1,11 +1,23 @@
 import React, { Component, PropTypes } from 'react';
 import classnames from 'classnames';
+import styles from './mission-card.scss';
 
 class MissionCard extends Component {
   render() {
+    let featured = this.props.featured;
+    let className = `${styles.missionCard} ${featured ? 'featured' : 'secondary'}`;
+    console.log(this);
     return (
-      <div>
-        Mission Card
+      <div className={className}>
+        <h2>On a 4 Billion Year Collision Course With The Milky Way…</h2>
+        <h3>Andromeda Galaxy (M31)</h3>
+        <p>Closest galaxy to the Milky Way. In approximately 4.5 billion years it will collide with the Milky Way to create a giant elliptical galaxy. It’s a great time of year to check it out as skies are generally crystal clear over Chile.</p>
+
+        <div className="join-mission-callout">
+          <h5>Join an existing mission</h5>
+          <p><strong>Thursday, October 18th</strong>: 10:05pm EST  ·  7:05pm PST  ·  03:05 UTC 03:05 UTC</p>
+          <a className={styles.piggybackCta} href="#">Piggyback on mission</a>
+        </div>
       </div>
     );
   }

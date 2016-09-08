@@ -52,7 +52,7 @@ export default class ReserveMissions extends Component {
 
         <section className="container clearfix">
           <div className="col-md-8">
-            <MissionCard />
+            <MissionCard featured={true} />
             <MissionCard />
             <MissionCard />
             <MissionCard />
