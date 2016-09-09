@@ -3,12 +3,20 @@ import React, { Component, PropTypes } from 'react';
 import style from './telescope-cards.scss';
 
 class TelescopeCard extends Component {
+
+  handleFlipClick(event) {
+    event.preventDefault();
+
+  }
+
   render() {
     return(
       <li className="col-md-4 telescope-card-front">
         <div className="card-header">
 
-          <button className="flip-card-action">
+          <button
+            onClick={ this.handleFlipClick.bind() }
+            className="flip-card-action">
             <span className="glyphicon glyphicon-share-alt"></span>
           </button>
 

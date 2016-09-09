@@ -34,12 +34,13 @@
  }
 
  .universal-time {
-   text-align: right;
    padding-right: 60px;
 
-   .time-action {
-     font-size: 10px;
+   .telescope-filters-timer .time {
+     padding-right: 0;
+     color: #000;
    }
+
  }
 
  .light-gray {
