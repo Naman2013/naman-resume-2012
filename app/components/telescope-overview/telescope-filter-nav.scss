@@ -1,3 +1,5 @@
+@import "../../styles/variables/colors.scss";
+
 .telescopeFilterNav {
   background-color: #fff;
   padding: 10px 0;
@@ -29,8 +31,8 @@
 
  .button:hover, .button.active {
    text-decoration: none;
-   color: #F310A7;
-   border-bottom: 3px solid #7EC3C4;
+   color: $pink;
+   border-bottom: 3px solid $blueGreen;
  }
 
  .universal-time {
@@ -48,6 +50,6 @@
  }
 
  .pink {
-   color: #F310A7;
+   color: $pink;
  }
 }
