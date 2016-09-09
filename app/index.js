@@ -50,7 +50,7 @@ var PulseHeader = React.createClass({
 
 ReactDOM.render(
   <Provider store={store}>
-    <Router history={browserHistory}>
+    <Router>
 
       <Route path="/" component={App}>
         <IndexRoute component={Home} />
