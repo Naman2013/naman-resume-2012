@@ -7,6 +7,11 @@ class TelescopeCard extends Component {
     return(
       <li className="col-md-4 telescope-card-front">
         <div className="card-header">
+
+          <button className="flip-card-action">
+            <span className="glyphicon glyphicon-share-alt"></span>
+          </button>
+
           <img src="foo/foo.jpg" width="50" height="50" />
           <h3 className="title">High-Magnification 1</h3>
           <p className="body">
@@ -23,6 +28,7 @@ class TelescopeCard extends Component {
           <div className="count-down">
             <h4 className="counter-text">3:18</h4>
           </div>
+
           <div className="image-viewer">
             <h4 className="title">LIVE Mission</h4>
             <div className="telescope-image">
