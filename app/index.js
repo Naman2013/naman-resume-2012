@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { Router, Route, IndexRoute, browserHistory } from 'react-router';
+import { Router, Route, IndexRoute, browserHistory, hashHistory } from 'react-router';
 import store from './store';
 
 import App from './containers/App';
@@ -50,7 +50,7 @@ var PulseHeader = React.createClass({
 
 ReactDOM.render(
   <Provider store={store}>
-    <Router>
+    <Router history={hashHistory}>
 
       <Route path="/" component={App}>
         <IndexRoute component={Home} />
