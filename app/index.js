@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { Router, Route, IndexRoute, browserHistory, hashHistory } from 'react-router';
-import store from './store';
+import configureStore from './store';
 
 import App from './containers/App';
 import Home from './containers/Home';
@@ -15,6 +15,8 @@ import Bootstrap from 'bootstrap/dist/css/bootstrap.css';
 import './styles/app.scss';
 import './styles/interface.css';
 import './styles/animations.scss';
+
+const store = configureStore();
 
 var Wrapper = React.createClass({
   render: function () {
