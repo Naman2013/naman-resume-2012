@@ -20,6 +20,9 @@ class TelescopeCard extends Component {
         </div>
 
         <div className="card-body">
+          <div className="count-down">
+            <h4 className="counter-text">3:18</h4>
+          </div>
           <div className="image-viewer">
             <h4 className="title">LIVE Mission</h4>
             <div className="telescope-image">

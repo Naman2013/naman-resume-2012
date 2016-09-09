@@ -52,6 +52,25 @@
         background: #fff;
         padding: 20px 0;
         margin-bottom: 20px;
+        position: relative;
+
+        .count-down {
+          position: absolute;
+          left: 2.5%;
+          top: 2.5%;
+          background: #000;
+          color: #7EC3C4;
+          padding: 10px;
+          width: 60px;
+          height: 60px;
+          border-radius: 60px;
+          -moz-border-radius: 60px;
+          -webkit-border-radius: 60px;
+
+          .counter-text {
+            font-weight: 300;
+          }
+        }
 
         .image-viewer {
 
