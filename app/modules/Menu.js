@@ -2,6 +2,15 @@ import createReducer from './utils/createReducer';
 import creatAction from './utils/creatAction';
 import superagent from '../utils/superagent';
 
+
+/**
+  TODO:
+  temporarily pull in the nav.json locally
+  once the API is available, replace the static
+  file with the call to the service
+*/
+import temporaryNavJSON from '../nav.js';
+
 const MENU_SUBMENU_ACTIVATE = 'MENU_SUBMENU_ACTIVATE';
 const MENU_SUBMENU_DEACTIVATE = 'MENU_SUBMENU_DEACTIVATE';
 const MENU_LOAD_NAV = 'MENU_LOAD_NAV';
@@ -61,13 +70,14 @@ export function fetchMenuItems() {
   return {
     types: [MENU_LOAD_NAV, MENU_LOAD_NAV_SUCCESS, MENU_LOAD_NAV_SUCCESS_FAILURE],
     callAPI: async () => {
-      const { status, body, text } = await superagent.get('dist/nav.json');
-
-      if (status >= 400) {
-        throw new Error(body || text);
-      }
-
-      return body;
+      // const { status, body, text } = await superagent.get('dist/nav.json');
+      //
+      // if (status >= 400) {
+      //   throw new Error(body || text);
+      // }
+      //
+      // return body;
+      return temporaryNavJSON;
     },
   };
 }
