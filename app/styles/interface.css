@@ -284,15 +284,15 @@ ul.bulleted {
   width: 70px;
   height: 48px;
   margin: 0;
-  background: url('/assets/images/nav/open-menu.png');
+  background: url('../../assets/images/nav/open-menu.png');
 }
 
-.menu:hover { 
+.menu:hover {
   cursor: pointer;
 }
 
 .menu.active {
-  background: url('/assets/images/nav/close-menu.png');
+  background: url('../../assets/images/nav/close-menu.png');
 }
 
 .open-menu, .close-menu {
@@ -301,16 +301,16 @@ ul.bulleted {
   margin: 0;
 }
 
-.open-menu:hover, .close-menu:hover { 
+.open-menu:hover, .close-menu:hover {
   cursor: pointer;
 }
 
 .open-menu {
-  background: url('/assets/images/nav/open-menu.png');
+  background: url('../../assets/images/nav/open-menu.png');
 }
 
 .close-menu {
-  background: url('/assets/images/nav/close-menu.png');
+  background: url('../../assets/images/nav/close-menu.png');
 }
 
 .obs-dayicon {

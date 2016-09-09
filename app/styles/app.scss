@@ -1,5 +1,5 @@
 .app-content-container {
-  background: url(/assets/images/graphics/space-background.jpg) no-repeat center center fixed;
+  background: url(../../assets/images/graphics/space-background.jpg) no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -8,7 +8,7 @@
   position: relative;
   top: 47px;
   left: 69px;
-  width: 95%;
+  margin-right: 68px;
 }
 
 .reserve-missions {

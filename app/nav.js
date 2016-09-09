@@ -1,4 +1,4 @@
-[{
+export default [{
 	"label": {
 		"en": "Home"
 	},
@@ -395,4 +395,4 @@
 		"link": "/account/#notifications",
 		"type": "basic"
 	}]
-}]
+}];
