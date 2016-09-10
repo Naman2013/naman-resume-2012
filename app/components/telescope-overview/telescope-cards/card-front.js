@@ -31,7 +31,7 @@ class CardFront extends Component {
         <div className="image-viewer">
           <h4 className="title">LIVE Mission</h4>
           <div className="telescope-image">
-            <img src="foo/foo.jpg" width="245" height="245" />
+            <img src="../../../assets/images/graphics/galaxy-circle.png" width="245" height="245" />
           </div>
           <h5 className="telescope-image-title">
             Andromeda Galaxy ( M31 )
@@ -39,7 +39,7 @@ class CardFront extends Component {
         </div>
 
         <div className="sponsor">
-          <p>Sponsored by: <img src="foo.jpg" width="200" /></p>
+          <p>Sponsored by: <img src="../../../assets/images/logos/celestron.png" width="150" /></p>
         </div>
       </div>
       </div>
