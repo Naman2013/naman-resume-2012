@@ -47,4 +47,8 @@ class CardBack extends Component {
   }
 }
 
+CardBack.propTypes = {
+  handleFlip: PropTypes.func
+};
+
 export default CardBack;
