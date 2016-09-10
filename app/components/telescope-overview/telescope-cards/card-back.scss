@@ -1,3 +1,7 @@
+@import "../../../styles/variables/colors.scss";
+
+$cardHeight: 601px;
+
 .telescope-cards-container {
 
   .telescope-cards {
@@ -22,14 +26,36 @@
         text-align: center;
         padding: 10px 0;
 
+        .flip-card-action {
+          color: #fff;
+          background: black;
+          position: absolute;
+          top: 2%;
+          right: 2%;
+          border: none;
+          width: 50px;
+          height: 50px;
+          border-radius: 50px;
+          -moz-border-radius: 50px;
+          -webkit-border-radius: 50px;
+          font-size: 1.75em;
+
+          .icon {
+            position: absolute;
+            top: 10px;
+            left: 9px;
+          }
+        }
+
         .title {
           font-size: 1.5em;
         }
       }
 
       .telescope-specs {
-        min-height: 521px;
-        max-height: 521px;
+        min-height: $cardHeight;
+        max-height: $cardHeight;
+        overflow-y: scroll;
         background: #fff;
         padding: 10px 60px;
 
@@ -40,6 +66,24 @@
             color: #9B9B9B;
             font-size: 0.75em;
             margin: 10px 0;
+          }
+        }
+
+        .content {
+          text-align: center;
+
+          .title {
+            color: $blueGreen;
+            font-weight: 800;
+            font-size: 1em;
+          }
+
+          .spec-list {
+            padding: 0;
+            margin: 0;
+            font-size: 0.85em;
+            color: $darkBlueGray;
+            list-style-type: none;
           }
         }
       }

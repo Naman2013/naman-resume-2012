@@ -9,7 +9,7 @@ class CardFront extends Component {
         <button
           onClick={this.props.handleFlip}
           className="flip-card-action">
-          <span className="glyphicon glyphicon-share-alt"></span>
+          <img src="../../../assets/icons/flip-arrow.svg" />
         </button>
 
         <img src="../../../assets/icons/observatory.svg" width="50" height="50" />
