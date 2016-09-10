@@ -11,6 +11,8 @@ import MissionNav from '../components/missions/mission-nav';
 import MissionUpdates from '../components/missions/mission-updates';
 import MissionAd from '../components/missions/mission-ad';
 import MissionUpcoming from '../components/missions/mission-upcoming';
+import MissionConfirmModal from '../components/missions/mission-confirm-modal';
+import * as missionActions from './../modules/Missions';
 
 const { element, func } = PropTypes;
 
@@ -28,6 +30,12 @@ export default class ReserveMissions extends Component {
       displayBanner: true
     };
   }
+
+  static propTypes = {
+    openMissionConfirm: func.isRequired,
+    fetchMenuItems: func.isRequired,
+    closeMissionConfirm: func.isRequired
+  };
 
   closeBanner() {
     this.setState({

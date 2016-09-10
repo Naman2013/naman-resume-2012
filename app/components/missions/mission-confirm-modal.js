@@ -1,20 +1,7 @@
 import React, {Component, Props} from 'react';
 import { Modal } from 'react-bootstrap';
 
-
-function mapStateToProps({ mission }) {
-  return { mission };
-}
-
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ ...missionActions }, dispatch);
-}
-
-@connect(mapStateToProps, mapDispatchToProps);
-
 export default class MissionConfirmModal extends React.Component {
-
-
 
   render() {
     return (
