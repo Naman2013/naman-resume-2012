@@ -47,7 +47,20 @@ class CardFront extends Component {
               :
 
               <div>
-                Offline...
+
+                <div className="image-viewer">
+                  <div className="count-down">
+                    <h4 className="counter-text">3:18</h4>
+                  </div>
+
+                  <h4 className="title">Offline</h4>
+                  <div className="telescope-image">
+                    <img src="../../../assets/images/graphics/telescope-offline.png" width="245" height="245" />
+                  </div>
+                  <p className="telescope-status">
+                    The weather is a bit intense right now so all mission have been cancelled unfortunately.
+                  </p>
+                </div>
               </div>
           }
 
