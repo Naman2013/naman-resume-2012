@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { Link, Element } from 'react-scroll';
 import style from './observatory-hero.scss';
 
+import CurrentWeather from './weather-widgets/current-weather';
 import EarthView from './weather-widgets/earth-view';
 import LunarPhase from './weather-widgets/lunar-phase';
 
@@ -33,7 +34,9 @@ class ObservatoryHero extends Component {
       <div className="observatory-hero">
         <h3 className="title">Canary Islands</h3>
         <ul className="summary-navigation clearfix">
-          <li className="element">Weather</li>
+          <li className="element">
+            <CurrentWeather />
+          </li>
           <li className="element">
             <LunarPhase {...this.fetchLunarPhase()} />
           </li>
