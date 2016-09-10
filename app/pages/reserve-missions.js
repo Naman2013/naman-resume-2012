@@ -42,6 +42,9 @@ export default class ReserveMissions extends Component {
 
     return (
       <div className="reserve-missions">
+
+        <MissionConfirmModal />
+
         <AnnouncementBanner
           display={this.state.displayBanner}
           closeBanner={this.closeBanner.bind(this)} />
