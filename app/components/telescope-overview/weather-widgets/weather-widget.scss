@@ -1,0 +1,27 @@
+.weather-widget {
+
+  .weather-view {
+    width: 170px;
+    height: 105px;
+  }
+
+  .title-label {
+    text-transform: uppercase;
+    color: #fff;
+    padding: 10px;
+    margin: 0;
+  }
+
+  .transparent-background {
+    background: rgba(0,0,0,0.75)
+  }
+
+  .lunar-phase-figure {
+    text-align: center;
+
+    .caption {
+      font-size: 0.75em;
+      padding: 5px 0 0 0;
+    }
+  }
+}

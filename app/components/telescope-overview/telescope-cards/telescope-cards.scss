@@ -5,79 +5,26 @@
   .telescope-cards {
     list-style-type: none;
 
-    .telescope-card-front {
-      text-align: center;
-      min-height: 630px;
+    .card-container {
+      position: relative;
 
-      .card-header {
-        background: #9B9B9B;
-        padding: 20px 20px;
+      /* Set the transition effects */
+      -webkit-transition: -webkit-transform 0.4s;
+      -moz-transition: -moz-transform 0.4s;
+      -o-transition: -o-transform 0.4s;
+      transition: transform 0.4s;
+      -webkit-transform-style: preserve-3d;
+      -moz-transform-style: preserve-3d;
+      -o-transform-style: preserve-3d;
+      transform-style: preserve-3d;
 
-        .title {
-          color: #000;
-          font-weight: 800;
-          margin-bottom: 30px;
-          font-size: 1.2em;
-        }
+    }
 
-        .body {
-          color: #fff;
-          margin-bottom: 30px;
-        }
-
-        .call-to-action {
-
-          .action {
-            color: #fff;
-            background: #F310A7;
-            text-align: center;
-            display: block;
-            padding: 15px 20px;
-            font-size: 0.75em;
-
-          }
-
-          .action:first-child {
-            margin: 0 20px 0 20px;
-          }
-
-          .action:hover {
-            text-decoration: none;
-            background: #3B3B3B;
-          }
-        }
-      }
-
-      .card-body {
-        background: #fff;
-        padding: 20px 0;
-        margin-bottom: 20px;
-
-        .image-viewer {
-
-          .title {
-            margin: 0;
-            font-size: 1.2em;
-            font-weight: 300;
-            margin-bottom: 20px;
-          }
-
-          .telescope-image {
-            margin-bottom: 30px;
-          }
-
-          .telescope-image-title {
-            font-size: 1.5em;
-            font-weight: 800;
-            margin-bottom: 30px;
-          }
-        }
-
-        .sponsor {
-          font-size: 0.85em;
-          color: #3C4A55;
-        }
-      }
+    .flipped {
+      -webkit-transform: rotateY( 180deg );
+      -moz-transform: rotateY( 180deg );
+      -o-transform: rotateY( 180deg );
+      transform: rotateY( 180deg );
     }
   }
 }

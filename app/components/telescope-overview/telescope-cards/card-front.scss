@@ -1,0 +1,129 @@
+$cardHeight: 730px;
+
+.telescope-cards-container {
+
+  .telescope-cards {
+
+    .telescope-card-front {
+      text-align: center;
+      min-height: $cardHeight;
+      max-height: $cardHeight;
+      -webkit-backface-visibility: hidden;
+      -moz-backface-visibility: hidden;
+      -o-backface-visibility: hidden;
+      backface-visibility: hidden;
+
+      .card-header {
+        background: #9B9B9B;
+        padding: 20px 20px;
+        position: relative;
+
+        .flip-card-action {
+          color: #fff;
+          background: #F310A7;
+          position: absolute;
+          top: 2%;
+          right: 2%;
+          border: none;
+          padding: 5px;
+          width: 50px;
+          height: 50px;
+          border-radius: 50px;
+          -moz-border-radius: 50px;
+          -webkit-border-radius: 50px;
+          font-size: 1.75em;
+        }
+
+        .title {
+          color: #000;
+          font-weight: 800;
+          margin-bottom: 30px;
+          font-size: 1.2em;
+        }
+
+        .body {
+          color: #fff;
+          margin-bottom: 30px;
+        }
+
+        .call-to-action {
+
+          .action {
+            color: #fff;
+            background: #F310A7;
+            text-align: center;
+            display: block;
+            padding: 15px 20px;
+            font-size: 0.75em;
+
+          }
+
+          .action:first-child {
+            margin: 0 20px 0 20px;
+          }
+
+          .action:hover {
+            text-decoration: none;
+            background: #3B3B3B;
+          }
+        }
+      }
+
+      .card-body {
+        background: #fff;
+        padding: 20px 0;
+        margin-bottom: 20px;
+        position: relative;
+
+        .count-down {
+          position: absolute;
+          left: 2.5%;
+          top: 2.5%;
+          background: #000;
+          color: #7EC3C4;
+          padding: 10px;
+          width: 60px;
+          height: 60px;
+          border-radius: 60px;
+          -moz-border-radius: 60px;
+          -webkit-border-radius: 60px;
+
+          .counter-text {
+            font-weight: 300;
+          }
+        }
+
+        .image-viewer {
+
+          .title {
+            margin: 0;
+            font-size: 1.2em;
+            font-weight: 300;
+            margin-bottom: 20px;
+          }
+
+          .telescope-image {
+            margin-bottom: 30px;
+          }
+
+          .telescope-image-title {
+            font-size: 1.5em;
+            font-weight: 800;
+            margin-bottom: 30px;
+          }
+
+          .telescope-status {
+            color: #ED1F06;
+            padding: 0 5%;
+            margin: -10px 0 10px 0;
+          }
+        }
+
+        .sponsor {
+          font-size: 0.85em;
+          color: #3C4A55;
+        }
+      }
+    }
+  }
+}
