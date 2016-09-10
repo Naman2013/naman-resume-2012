@@ -1,7 +1,30 @@
 import React, { Component, PropTypes } from 'react';
+import { Link, Element, Events, scroll, scrollSpy } from 'react-scroll';
 import style from './observatory-hero.scss';
 
 class ObservatoryHero extends Component {
+
+  componentDidMount() {
+    Events.scrollEvent.register('begin', (to, element) => {
+      console.log('begin', arguments);
+    });
+
+    Events.scrollEvent.register('end', (to, element) => {
+      console.log('end', arguments);
+    });
+
+    scrollSpy.update();
+  }
+
+  componentWillUmount() {
+    Events.scrollEvent.remove('begin');
+    Events.scrollEvent.remove('end');
+  }
+
+  scrollTop() {
+
+  }
+
   render() {
     return(
       <div className="observatory-hero">
@@ -18,11 +41,18 @@ class ObservatoryHero extends Component {
             A UNESCO World Heritage Site, Tenerife has been named one of the world’s best locations for star-gazing and astronomy thanks to its low-light pollution and pristine night-sky conditions. Enjoy our telescopes situated next to Teide, a 12,198 foot volcanic summit.
           </p>
         </div>
+
         <div className="scroll-for-more">
-          <button className="button" href="#">
+          <Link
+            to="scroll-more"
+            spy={true}
+            smooth={true}
+            duration={500}
+            className="button" href="#">
             Scroll for more<br />
             <span className="glyphicon glyphicon-menu-down"></span>
-          </button>
+          </Link>
+          <Element name="scroll-more" />
         </div>
       </div>
     );
