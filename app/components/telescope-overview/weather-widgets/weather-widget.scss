@@ -4,5 +4,10 @@
     text-transform: uppercase;
     color: #fff;
     padding: 10px;
+    margin: 0;
+  }
+
+  .transparent-background {
+    background: rgba(0,0,0,0.75)
   }
 }
