@@ -16,6 +16,13 @@ class ObservatoryHero extends Component {
     };
   }
 
+  fetchSatelliteEarthView() {
+    return {
+      titleText: 'Satellite view',
+      imageSource: 'http:\/\/sirocco.accuweather.com\/sat_mosaic_640x480_public\/IR\/iscsam.jpg'
+    };
+  }
+
   render() {
     return(
       <div className="observatory-hero">
@@ -24,7 +31,9 @@ class ObservatoryHero extends Component {
           <li className="element">Weather</li>
           <li className="element">Lunar phase</li>
           <li className="element">Weather</li>
-          <li className="element">Satalite view</li>
+          <li className="element">
+            <EarthView {...this.fetchSatelliteEarthView()} />
+          </li>
           <li className="element">
             <EarthView {...this.fetchCurrentEarthView()} />
           </li>
