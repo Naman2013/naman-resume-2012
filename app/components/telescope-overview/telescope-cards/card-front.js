@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import style from './card-front.scss';
 
 class CardFront extends Component {
   render() {
