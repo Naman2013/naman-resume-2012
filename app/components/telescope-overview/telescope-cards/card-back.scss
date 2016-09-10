@@ -5,12 +5,19 @@
     .telescope-card-back {
 
       .card-header {
+        min-height: 110px;
         background: #7EC3C4;
         text-align: center;
         padding: 10px 0;
+
+        .title {
+          font-size: 1.5em;
+        }
       }
 
       .telescope-specs {
+        min-height: 521px;
+        max-height: 521px;
         background: #fff;
         padding: 10px 60px;
 
