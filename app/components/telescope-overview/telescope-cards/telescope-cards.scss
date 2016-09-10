@@ -4,6 +4,26 @@
 
   .telescope-cards {
     list-style-type: none;
-    min-height: 630px;
+
+    .card-container {
+
+      /* Set the transition effects */
+      -webkit-transition: -webkit-transform 0.4s;
+      -moz-transition: -moz-transform 0.4s;
+      -o-transition: -o-transform 0.4s;
+      transition: transform 0.4s;
+      -webkit-transform-style: preserve-3d;
+      -moz-transform-style: preserve-3d;
+      -o-transform-style: preserve-3d;
+      transform-style: preserve-3d;
+
+    }
+
+    .flipped {
+      -webkit-transform: rotateY( 180deg );
+      -moz-transform: rotateY( 180deg );
+      -o-transform: rotateY( 180deg );
+      transform: rotateY( 180deg );
+    }
   }
 }
