@@ -1,8 +1,37 @@
 import React, { Component, PropTypes } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import classnames from 'classnames';
 import styles from './mission-card.scss';
+import {missionConfirmOpen, missionConfirmClose} from './../../modules/Missions';
+
+const { element, func, object } = PropTypes;
+
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators({
+      missionConfirmOpen,
+      missionConfirmClose}, dispatch)
+  };
+}
+
+function mapStateToProps({ missions }) {
+  return { missions };
+}
+
+@connect(mapStateToProps, mapDispatchToProps)
 
 class MissionCard extends Component {
+
+  static propTypes = {
+    children: element,
+    actions: object.isRequired
+  }
+
+  openConfirmModal(event) {
+    event.preventDefault();
+    this.props.actions.missionConfirmOpen();
+  }
 
   render() {
     let featured = this.props.featured;
@@ -24,7 +53,7 @@ class MissionCard extends Component {
         <div className="join-mission-callout">
           <h5>Join an existing mission</h5>
           <p><strong>Thursday, October 18th</strong>: {!featured ? <br /> : null} 10:05pm EST  ·  7:05pm PST  ·  03:05 UTC 03:05 UTC</p>
-          <a className={styles.piggybackCta} href="#">Piggyback on mission</a>
+          <a className={styles.piggybackCta} href="" onClick={this.openConfirmModal.bind(this)}>Piggyback on mission</a>
         </div>
       </div>
     );
