@@ -11,7 +11,7 @@ class CardFront extends Component {
           <span className="glyphicon glyphicon-share-alt"></span>
         </button>
 
-        <img src="../../../assets/icons/Jupiter.svg" width="50" height="50" />
+        <img src="../../../assets/icons/observatory.svg" width="50" height="50" />
         <h3 className="title">High-Magnification 1</h3>
         <p className="body">
           Best for Deep Sky Objects such as galaxies, nebulae, and star clusters.
