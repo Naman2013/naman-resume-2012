@@ -13,7 +13,9 @@ class EarthView extends Component {
 
     return(
       <div className="weather-widget">
-        <div style={inlineStyles} className="weather-view"></div>
+        <div style={inlineStyles} className="weather-view">
+          <h5 className="title-label">Where on Earth?</h5>
+        </div>
       </div>
     );
   }
