@@ -12,15 +12,8 @@ import MissionUpdates from '../components/missions/mission-updates';
 import MissionAd from '../components/missions/mission-ad';
 import MissionUpcoming from '../components/missions/mission-upcoming';
 import MissionConfirmModal from '../components/missions/mission-confirm-modal';
-import * as missionActions from './../modules/Missions';
 
-const { element, func } = PropTypes;
-
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ checkUser }, dispatch);
-}
-
-@connect(null, mapDispatchToProps)
+const { element, func, object } = PropTypes;
 
 export default class ReserveMissions extends Component {
   constructor(props) {
@@ -32,25 +25,13 @@ export default class ReserveMissions extends Component {
   }
 
   static propTypes = {
-    openMissionConfirm: func.isRequired,
-    fetchMenuItems: func.isRequired,
-    closeMissionConfirm: func.isRequired
+    children: element
   };
 
   closeBanner() {
     this.setState({
       displayBanner: false
     });
-  }
-
-
-  static propTypes = {
-    children: element,
-    checkUser: func.isRequired,
-  };
-
-  componentDidMount() {
-    this.props.checkUser();
   }
 
   render() {

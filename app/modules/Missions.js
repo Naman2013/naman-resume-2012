@@ -13,30 +13,20 @@ const initialState = {
 // Mission action creator
 export function missionConfirmOpen(mission) {
   return {
-    type: types.MISSION_CONFIRMATION_OPEN,
-    meal: meal
+    type: MISSION_CONFIRMATION_OPEN,
+    mission: mission
   }
 }
 
 export function missionConfirmClose(mission) {
   return {
-    type: types.MISSION_CONFIRMATION_CLOSE,
-    meal: meal
+    type: MISSION_CONFIRMATION_CLOSE,
+    mission: mission
   }
 }
 
 
-// this reducer changes food object in store every time one of the actions is fired
-export function missionReducer(state = initialState.isOpen, action) {
-  switch (action.type) {
-    case types.MISSION_CONFIRMATION_OPEN:
-      return Object.assign({}, state.mission, action.mission);
-    default:
-      return state;
-  }
-}
-
-
+// this reducer changes missions object in store every time one of the actions is fired
 export default createReducer(initialState, {
   [MISSION_CONFIRMATION_OPEN](state, { mission }) {
     return {

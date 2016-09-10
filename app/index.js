@@ -57,7 +57,7 @@ ReactDOM.render(
       <Route path="/" component={App}>
         <IndexRoute component={Home} />
         <Route path="/telescope-overview" component={TelescopeOverview} />
-        <Route path="/missions" component={ReserveMissions} />
+        <Route path="/recommendations" component={ReserveMissions} />
       </Route>
 
     </Router>
