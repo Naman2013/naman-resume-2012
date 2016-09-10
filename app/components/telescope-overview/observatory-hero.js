@@ -2,7 +2,17 @@ import React, { Component, PropTypes } from 'react';
 import { Link, Element } from 'react-scroll';
 import style from './observatory-hero.scss';
 
+import EarthView from './weather-widgets/earth-view';
+
+// import some dummy data
+import weatherWidgetResponse from './test-data/weather-widget-response';
+
 class ObservatoryHero extends Component {
+
+  fetchCurrentEarthView() {
+    return 'http://oiswww.eumetsat.org/IPPS/html/latestImages/EUMETSAT_MSG_RGBNatColour_WesternAfrica.jpg';
+  }
+
   render() {
     return(
       <div className="observatory-hero">
@@ -12,7 +22,9 @@ class ObservatoryHero extends Component {
           <li className="element">Lunar phase</li>
           <li className="element">Weather</li>
           <li className="element">Satalite view</li>
-          <li className="element">Where on earth</li>
+          <li className="element">
+            <EarthView imageSource={this.fetchCurrentEarthView()} />
+          </li>
         </ul>
         <div className="description">
           <p>
