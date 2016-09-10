@@ -9,8 +9,6 @@ class EarthView extends Component {
       backgroundSize: 'cover'
     };
 
-    console.log(inlineStyles);
-
     return(
       <div className="weather-widget">
         <div style={inlineStyles} className="weather-view">
