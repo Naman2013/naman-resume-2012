@@ -7,7 +7,7 @@ class CardFront extends Component {
       <div className="telescope-card-front">
       <div className="card-header">
         <button
-          onClick={ this.props.handleFlipClick }
+          onClick={this.props.handleFlip}
           className="flip-card-action">
           <span className="glyphicon glyphicon-share-alt"></span>
         </button>
@@ -47,5 +47,9 @@ class CardFront extends Component {
     );
   }
 }
+
+CardFront.propTypes = {
+  handleFlip: PropTypes.func,
+};
 
 export default CardFront;

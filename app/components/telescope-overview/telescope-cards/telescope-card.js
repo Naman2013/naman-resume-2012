@@ -18,7 +18,10 @@ class TelescopeCard extends Component {
 
   handleFlip(event) {
     event.preventDefault();
-    console.log('handle click');
+    const newFlipState = !this.state.flipped;
+    this.setState({
+      flipped: newFlipState
+    });
   }
 
   render() {
