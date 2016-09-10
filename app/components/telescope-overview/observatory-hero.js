@@ -6,7 +6,7 @@ import EarthView from './weather-widgets/earth-view';
 import LunarPhase from './weather-widgets/lunar-phase';
 
 // import some dummy data
-import weatherWidgetResponse from './test-data/weather-widget-response';
+import moonPhase from './test-data/moon-phase';
 
 class ObservatoryHero extends Component {
 
@@ -24,6 +24,10 @@ class ObservatoryHero extends Component {
     };
   }
 
+  fetchLunarPhase() {
+    return moonPhase;
+  }
+
   render() {
     return(
       <div className="observatory-hero">
@@ -31,7 +35,7 @@ class ObservatoryHero extends Component {
         <ul className="summary-navigation clearfix">
           <li className="element">Weather</li>
           <li className="element">
-            <LunarPhase />
+            <LunarPhase {...this.fetchLunarPhase()} />
           </li>
           <li className="element">
             <EarthView {...this.fetchSatelliteEarthView()} />

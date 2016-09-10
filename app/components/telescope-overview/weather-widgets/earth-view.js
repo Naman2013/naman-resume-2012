@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import style from './earth-view.scss';
 
 class EarthView extends Component {
   render() {
