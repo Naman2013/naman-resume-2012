@@ -10,7 +10,10 @@ import weatherWidgetResponse from './test-data/weather-widget-response';
 class ObservatoryHero extends Component {
 
   fetchCurrentEarthView() {
-    return 'http://oiswww.eumetsat.org/IPPS/html/latestImages/EUMETSAT_MSG_RGBNatColour_WesternAfrica.jpg';
+    return {
+      titleText: 'Where on Earth?',
+      imageSource: 'http://oiswww.eumetsat.org/IPPS/html/latestImages/EUMETSAT_MSG_RGBNatColour_WesternAfrica.jpg'
+    };
   }
 
   render() {
@@ -23,7 +26,7 @@ class ObservatoryHero extends Component {
           <li className="element">Weather</li>
           <li className="element">Satalite view</li>
           <li className="element">
-            <EarthView imageSource={this.fetchCurrentEarthView()} />
+            <EarthView {...this.fetchCurrentEarthView()} />
           </li>
         </ul>
         <div className="description">

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import style from './earth-view.scss';
 
 class EarthView extends Component {
@@ -12,11 +12,16 @@ class EarthView extends Component {
     return(
       <div className="weather-widget">
         <div style={inlineStyles} className="weather-view">
-          <h5 className="title-label">Where on Earth?</h5>
+          <h5 className="title-label">{this.props.titleText}</h5>
         </div>
       </div>
     );
   }
 }
+
+EarthView.propTypes = {
+  titleText: PropTypes.string,
+  imageSource: PropTypes.string
+};
 
 export default EarthView;
