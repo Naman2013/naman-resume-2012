@@ -36,7 +36,7 @@ class TelescopeCard extends Component {
       <li className={cardClasses}>
         <CardFront
           handleFlip={this.handleFlip.bind(this)}
-          telescopeOnline={false} />
+          telescopeOnline={true} />
         <CardBack handleFlip={this.handleFlip.bind(this)} />
       </li>
     );

@@ -1,5 +1,9 @@
 import React, { Component, PropTypes } from 'react';
+import CountdownTimer from './countdown-timer';
 import style from './card-front.scss';
+
+
+import moment from 'moment';
 
 class CardFront extends Component {
   render() {
@@ -29,9 +33,8 @@ class CardFront extends Component {
           { /* telescope content */
             !!this.props.telescopeOnline ?
               <div>
-                <div className="count-down">
-                  <h4 className="counter-text">3:18</h4>
-                </div>
+                <CountdownTimer
+                  missionStartTime={this.props.missionStartTime} />
 
                 <div className="image-viewer">
                   <h4 className="title">LIVE Mission</h4>
@@ -74,6 +77,10 @@ class CardFront extends Component {
     );
   }
 }
+
+CardFront.defaultProps = {
+  missionStartTime: moment.now()
+};
 
 CardFront.propTypes = {
   handleFlip: PropTypes.func,
