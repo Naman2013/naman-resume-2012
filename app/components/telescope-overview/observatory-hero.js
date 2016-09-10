@@ -1,30 +1,8 @@
 import React, { Component, PropTypes } from 'react';
-import { Link, Element, Events, scroll, scrollSpy } from 'react-scroll';
+import { Link, Element } from 'react-scroll';
 import style from './observatory-hero.scss';
 
 class ObservatoryHero extends Component {
-
-  componentDidMount() {
-    Events.scrollEvent.register('begin', (to, element) => {
-      console.log('begin', arguments);
-    });
-
-    Events.scrollEvent.register('end', (to, element) => {
-      console.log('end', arguments);
-    });
-
-    scrollSpy.update();
-  }
-
-  componentWillUmount() {
-    Events.scrollEvent.remove('begin');
-    Events.scrollEvent.remove('end');
-  }
-
-  scrollTop() {
-
-  }
-
   render() {
     return(
       <div className="observatory-hero">
