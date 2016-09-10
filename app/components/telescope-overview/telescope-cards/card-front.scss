@@ -1,10 +1,13 @@
+$cardHeight: 730px;
+
 .telescope-cards-container {
 
   .telescope-cards {
 
     .telescope-card-front {
       text-align: center;
-      min-height: 630px;
+      min-height: $cardHeight;
+      max-height: $cardHeight;
       -webkit-backface-visibility: hidden;
       -moz-backface-visibility: hidden;
       -o-backface-visibility: hidden;

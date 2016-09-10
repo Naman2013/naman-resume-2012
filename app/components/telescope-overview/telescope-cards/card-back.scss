@@ -1,6 +1,6 @@
 @import "../../../styles/variables/colors.scss";
 
-$cardHeight: 601px;
+$cardHeight: 730px;
 
 .telescope-cards-container {
 
@@ -8,6 +8,9 @@ $cardHeight: 601px;
 
     .telescope-card-back {
       width: 411px;
+      min-height: $cardHeight;
+      max-height: $cardHeight;
+      background: #fff;
       position: absolute;
       left: 15px;
       top: 0;
@@ -21,7 +24,6 @@ $cardHeight: 601px;
       backface-visibility: hidden;
 
       .card-header {
-        min-height: 110px;
         background: #7EC3C4;
         text-align: center;
         padding: 10px 0;
@@ -52,8 +54,6 @@ $cardHeight: 601px;
       }
 
       .telescope-specs {
-        min-height: $cardHeight;
-        max-height: $cardHeight;
         overflow-y: scroll;
         background: #fff;
         padding: 10px 60px;
