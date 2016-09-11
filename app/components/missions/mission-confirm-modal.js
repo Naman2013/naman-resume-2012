@@ -44,9 +44,18 @@ export default class MissionConfirmModal extends React.Component {
             <img className={styles.cardIcon} src="../../../assets/icons/Jupiter.svg" />
             <h4>Jupiter</h4>
             <p>(Carefully, the gravity is 2.5 times of earth, so tread lightly.)</p>
+
+            <div>
+              <h4>Mission Details:</h4>
+              <p>Thursday, October 18th<br />
+                  10:05pm EST, 7:05pm PST, 3:05 UTC<br />
+                Canary Islands
+              </p>
+            </div>
           </Modal.Body>
           <Modal.Footer>
-            <Button onClick={this.closeModal.bind(this)}>Close</Button>
+            <Button onClick={this.closeModal.bind(this)}>Sorry, Cancel this.</Button>
+            <Button onClick={this.closeModal.bind(this)}>Absolutely!</Button>
           </Modal.Footer>
         </Modal>
     )
