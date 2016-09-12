@@ -1,0 +1,22 @@
+.scroll-for-more {
+  text-align: center;
+  font-size: 0.75em;
+  color: #fff;
+  position: absolute;
+  left: 45%;
+  bottom: 120px;
+
+  .button {
+    color: #B9D9D9;
+    background: transparent;
+    border: none;
+
+    .glyphicon {
+      font-size: 2em;
+    }
+  }
+
+  .button:hover {
+    color: #fff;
+  }
+}
