@@ -1,6 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import style from './hero.scss';
 
+import ScrollForMore from '../common/scroll-for-more';
+
 class Hero extends Component {
   render() {
 
@@ -32,14 +34,7 @@ class Hero extends Component {
           </a>
         </div>
 
-        <div className="read-more-container">
-          <button className="read-more">
-            Scroll for more
-            <br />
-            <span className="glyphicon glyphicon-chevron-down"></span>
-          </button>
-        </div>
-
+        <ScrollForMore />
       </div>
     );
   }
