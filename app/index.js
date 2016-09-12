@@ -10,7 +10,6 @@ import Home from './pages/home';
 import TelescopeOverview from './pages/telescope-overview';
 import ReserveMissions from './pages/reserve-missions';
 
-
 import Bootstrap from 'bootstrap/dist/css/bootstrap.css';
 import './styles/app.scss';
 import './styles/interface.css';
@@ -32,4 +31,3 @@ ReactDOM.render(
   </Provider>,
   document.getElementById('app'),
 );
-// FIXME: ids unnecessary
