@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 
 import Hero from '../components/home/hero';
 
-import CONTENT from './content';
+import CONTENT from '../content/home';
 
 class Home extends Component {
 
