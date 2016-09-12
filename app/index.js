@@ -5,8 +5,8 @@ import { Router, Route, IndexRoute, browserHistory, hashHistory } from 'react-ro
 import configureStore from './store';
 
 import App from './containers/App';
-import Home from './containers/Home';
 
+import Home from './pages/home';
 import TelescopeOverview from './pages/telescope-overview';
 import ReserveMissions from './pages/reserve-missions';
 
