@@ -2,4 +2,31 @@
 
 .hero-container {
   min-height: 650px;
+  color: #fff;
+  text-align: center;
+  padding: 60px 0 0 0;
+
+  .title {
+    text-transform: uppercase;
+    font-size: 3em;
+    font-weight: 300;
+    margin: 0 0 20px 0;
+  }
+
+  .sub-title {
+    font-family: georgia, serif;
+    font-size: 1.75em;
+    width: 60%;
+    margin: 0 auto 100px auto;
+  }
+
+  .fun-fact-container {
+    margin-bottom: 50px;
+
+    .fun-fact-text {
+      font-family: georgia, serif;
+      font-size: 0.75em;
+      margin: 10px 0 0 0;
+    }
+  }
 }

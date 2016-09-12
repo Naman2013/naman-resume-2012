@@ -14,6 +14,32 @@ class Hero extends Component {
         style={heroContainerStyle}
         className="hero-container">
 
+        <h2 className="title">{this.props.mainHeadingText}</h2>
+        <h3 className="sub-title">{this.props.subHeadingText}</h3>
+
+        <div className="fun-fact-container">
+          <figure>
+            <img width="50" src={this.props.funFactImage} />
+            <figcaption className="fun-fact-text">
+              <i>{this.props.funFactText}</i>
+            </figcaption>
+          </figure>
+        </div>
+
+        <div className="call-to-action">
+          <a href={this.props.actionUrl}>
+            {this.props.actionText}
+          </a>
+        </div>
+
+        <div className="read-more-container">
+          <button className="read-more">
+            Scroll for more
+            <br />
+            <span className="glyphicon glyphicon-chevron-down"></span>
+          </button>
+        </div>
+
       </div>
     );
   }
