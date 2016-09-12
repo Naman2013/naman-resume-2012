@@ -27,7 +27,7 @@ class Hero extends Component {
         </div>
 
         <div className="call-to-action">
-          <a href={this.props.actionUrl}>
+          <a className="action" href={this.props.actionUrl}>
             {this.props.actionText}
           </a>
         </div>

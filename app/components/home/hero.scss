@@ -29,4 +29,22 @@
       margin: 10px 0 0 0;
     }
   }
+
+  .call-to-action {
+    width: 20%;
+    margin: 0 auto;
+
+    .action {
+      display: block;
+      padding: 10px 20px;
+      background: $pink;
+      border: none;
+      color: #fff;
+
+      &:hover {
+        text-decoration: none;
+        background: #000;
+      }
+    }
+  }
 }
