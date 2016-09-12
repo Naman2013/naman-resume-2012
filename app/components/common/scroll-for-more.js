@@ -7,11 +7,12 @@ class ScrollForMore extends Component {
     return(
       <div className="scroll-for-more">
         <Link
+          href="#"
           to="scroll-more"
           spy={true}
           smooth={true}
           duration={500}
-          className="button" href="#">
+          className="button">
           Scroll for more<br />
           <span className="glyphicon glyphicon-menu-down"></span>
         </Link>
