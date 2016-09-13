@@ -6,6 +6,7 @@
   "scripts": {
     "start": "webpack-dev-server",
     "prod": "webpack -p",
+    "prod-mars": "apiEnv=https://mars.slooh.com:444 webpack -p",
     "test-prod": "webpack --watch"
   },
   "repository": {
@@ -31,12 +32,12 @@
     "redux": "^3.5.2",
     "redux-devtools-extension": "0.0.1-alpha-1",
     "redux-form": "^6.0.1",
+    "redux-logger": "^2.6.1",
     "redux-thunk": "^2.1.0",
     "superagent": "^2.2.0",
     "superagent-prefix": "0.0.2",
     "superagent-promise-plugin": "^3.2.0",
-    "superagent-use": "0.0.1",
-    "redux-logger": "^2.6.1"
+    "superagent-use": "0.0.1"
   },
   "devDependencies": {
     "babel-core": "^6.10.4",
@@ -59,6 +60,7 @@
     "node-sass": "^3.8.0",
     "postcss-loader": "^0.11.0",
     "sass-loader": "^4.0.0",
+    "string-replace-loader": "^1.0.3",
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",
     "webpack": "^1.13.1",
