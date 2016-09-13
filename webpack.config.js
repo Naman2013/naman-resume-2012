@@ -37,6 +37,7 @@ module.exports = {
       {
         test: /\.(js)$/,
         loader: 'string-replace',
+        exclude: /node_modules/,
         query: {
           search: '/api/',
           replace: `${apiEnvironment}/api/`
