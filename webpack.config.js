@@ -2,7 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
-console.log(process.env.apiEnv);
+const apiEnvironment = process.env.apiEnv || '';
 
 module.exports = {
   entry: {
@@ -34,6 +34,14 @@ module.exports = {
   },
   module: {
     loaders: [
+      {
+        test: /\.(js)$/,
+        loader: 'string-replace',
+        query: {
+          search: '/api/',
+          replace: `${apiEnvironment}/api/`
+        }
+      },
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
