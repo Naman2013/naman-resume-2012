@@ -2,6 +2,8 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
+const apiEnvironment = process.env.apiEnv || '';
+
 module.exports = {
   entry: {
     vendors: [
@@ -32,6 +34,15 @@ module.exports = {
   },
   module: {
     loaders: [
+      {
+        test: /\.(js)$/,
+        loader: 'string-replace',
+        exclude: /node_modules/,
+        query: {
+          search: '/api/',
+          replace: `${apiEnvironment}/api/`
+        }
+      },
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
@@ -93,30 +104,10 @@ module.exports = {
     historyApiFallback: true,
     recordsPath: path.resolve('/'),
     proxy: {
-      '/events/**': {
+      '/api/**': {
         target: 'https://saturn.slooh.com:444',
         changeOrigin: true,
         secure: true
-      },
-      '/obs/**': {
-        target: 'https://saturn.slooh.com:444',
-        changeOrigin: true,
-        secure: true
-      },
-      '/hot/**': {
-        target: 'https://saturn.slooh.com:444',
-        changeOrigin: true,
-        secure: true
-      },
-      '/users/**': {
-        target: 'https://saturn.slooh.com:444',
-        changeOrigin: true,
-        secure: true
-      },
-      '/dist/nav.json': {
-        target: 'http://slooh.enivrez.com/',
-        changeOrigin: true,
-        secure: false
       }
     }
   }
