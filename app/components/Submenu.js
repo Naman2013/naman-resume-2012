@@ -12,13 +12,13 @@ export default class Submenu extends Component {
               if (typeof child.label !== 'undefined') { // FIXME: Is imposible when server return undefined
                 switch (child.label.en) {
                   case 'Upcoming Shows': {
-                    return <UpcomingComponent key={i} source="events/upcoming?limit=50" refreshIntervalDelay={60000} />;
+                    return <UpcomingComponent key={i} source="/api/events/upcoming?limit=50" refreshIntervalDelay={60000} />;
                   }
                   case 'Observatories': {
-                    return <ListObservatories key={i} source="obs/compact" refreshIntervalDelay={60000} />;
+                    return <ListObservatories key={i} source="/api/obs/compact" refreshIntervalDelay={60000} />;
                   }
                   case 'Hot this Month': {
-                    return <ListHotThisMonth key={i} source="hot/thisMonth" />;
+                    return <ListHotThisMonth key={i} source="/api/hot/thisMonth" />;
                   }
                   default: {
                     return <p key={i} className="childlist"><a href={child.link}>{child.label.en}</a></p>;
