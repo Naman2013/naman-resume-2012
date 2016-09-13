@@ -18,7 +18,22 @@ After you clone the repo:
 
 3. Navigate to: [http://localhost:8080/webpack-dev-server/](http://localhost:8080/webpack-dev-server/)
 
+### Building for Production
 
+Due to the nature of this project, handles for altering API call addresses
+have been built into the build process.
+
+Some example builds include:
+
+`npm run prod:mars`
+
+`npm run prod:saturn`
+
+#### Passing custom build addresses
+
+You may also provide any address provided as an argument to the long form of the build command.
+
+`rimraf dist && apiEnv=ANY-ENVIRONMENT-LOCATION webpack -p --progress`
 
 ### Common libraries and tools
 ---
