@@ -1,10 +1,10 @@
 import React, { Component, PropTypes } from 'react';
-import { Link, Element } from 'react-scroll';
 import style from './observatory-hero.scss';
 
 import CurrentWeather from './weather-widgets/current-weather';
 import EarthView from './weather-widgets/earth-view';
 import LunarPhase from './weather-widgets/lunar-phase';
+import ScrollForMore from '../common/scroll-for-more';
 
 // import some dummy data
 import moonPhase from './test-data/moon-phase';
@@ -56,18 +56,7 @@ class ObservatoryHero extends Component {
           </p>
         </div>
 
-        <div className="scroll-for-more">
-          <Link
-            to="scroll-more"
-            spy={true}
-            smooth={true}
-            duration={500}
-            className="button" href="#">
-            Scroll for more<br />
-            <span className="glyphicon glyphicon-menu-down"></span>
-          </Link>
-          <Element name="scroll-more" />
-        </div>
+        <ScrollForMore />
       </div>
     );
   }
