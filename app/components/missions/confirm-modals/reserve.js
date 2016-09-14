@@ -49,17 +49,27 @@ const ReserveConfirm = (props) => {
 
         <div className="mission-tags">
           <h4>MISSION TAGS:</h4>
-          <a href="#">Add a tag</a>
-        </div>
-
-        <div className="mission-image-options">
-          <h4>MISSION TAGS:</h4>
             <ReactTags tags={tags}
                 suggestions={suggestions}
                 handleDelete={handleDelete}
                 handleAddition={handleAddition}
                 handleDrag={handleDrag} />
-          <a href="#">Add a tag</a>
+        </div>
+
+        <div className="mission-image-options">
+          <h4>IMAGE PROCESSING:</h4>
+          <label for="generic">
+            <input type="radio" name="image" id="generic" />
+            Generic
+          </label>
+          <label for="fits">
+            <input type="radio" name="image" id="fits" />
+            FITS
+          </label>
+          <label for="notsure">
+            <input type="radio" name="image" id="notsure" />
+            Not Sure
+          </label>
         </div>
       </Modal.Body>
 
