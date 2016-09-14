@@ -9,7 +9,7 @@ class RecentVideoTile extends Component {
       minHeight: '255px'
     };
     return(
-      <div className="col-md-4">
+      <div className="col-md-4 recent-video-tile-container">
         <div style={inlineStyle} className="recent-video-tile">
           <h4 className="title">{this.props.title}</h4>
         </div>
