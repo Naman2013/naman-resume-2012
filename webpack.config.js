@@ -1,6 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const apiEnvironment = process.env.apiEnv || '';
 
@@ -34,7 +35,7 @@ module.exports = {
   },
   module: {
     loaders: [
-      {
+      { // string-replace loader is here to replace URL's mapped to /api in code
         test: /\.(js)$/,
         loader: 'string-replace',
         exclude: /node_modules/,
@@ -96,7 +97,10 @@ module.exports = {
       template: __dirname + '/app/index.html',
       filename: 'index.html',
       inject: 'body'
-    })
+    }),
+    new CopyWebpackPlugin([
+      { from: './assets/**/*' }
+    ])
   ],
   devtool: 'cheap-module-eval-source-map',
   devServer: {
