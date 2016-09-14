@@ -60,6 +60,72 @@
   }
 }
 
+.reserveMissionModal {
+  .title-bar {
+    background: #000;
+    h3 {
+      margin: 0;
+      padding: 10px 0;
+      color: #B9D9D9;
+      font-size: 14px;
+    }
+  }
+
+  .modal-body > div {
+    margin-bottom: 20px;
+  }
+
+  h4 {
+    color: #3C4A55;
+    font-weight: bold;
+    font-size: 14px;
+    text-transform: uppercase;
+  }
+
+  .share-objectives {
+      textarea {
+        width: 90%;
+        border: 1px solid #979797;
+        padding: 5px;
+      }
+  }
+
+  .ReactTags__tag {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0px 0px 4px 0px #999;
+    padding: 4px 15px 4px 10px;
+    margin: 0 8px;
+    position: relative;
+    .ReactTags__remove {
+      display: none;
+      position: absolute;
+      right: 3px;
+      cursor: pointer;
+    }
+    &:hover {
+      .ReactTags__remove {
+        display: inline-block;
+      }
+    }
+  }
+
+  .ReactTags__tagInput {
+      margin: 15px 0;
+  }
+
+  .mission-image-options {
+    label {
+      margin-right: 15px;
+    }
+
+    input {
+      margin-right: 5px;
+      display: inline-block;
+    }
+  }
+}
+
 body.modal-open #app {
   -webkit-filter: blur(5px);
   filter: blur(5px);

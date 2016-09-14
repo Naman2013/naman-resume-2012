@@ -11,32 +11,36 @@ const initialState = {
 };
 
 // Mission action creator
-export function missionConfirmOpen(mission) {
+export function missionConfirmOpen(mission, type) {
   return {
     type: MISSION_CONFIRMATION_OPEN,
-    mission: mission
+    mission: mission,
+    confirmType: type
   }
 }
 
 export function missionConfirmClose(mission) {
   return {
     type: MISSION_CONFIRMATION_CLOSE,
-    mission: mission
+    mission: mission,
+    confirmType: null
   }
 }
 
 
 // this reducer changes missions object in store every time one of the actions is fired
 export default createReducer(initialState, {
-  [MISSION_CONFIRMATION_OPEN](state, { mission }) {
+  [MISSION_CONFIRMATION_OPEN](state, { mission, confirmType }) {
     return {
       ...mission,
       isConfirmationOpen: true,
+      confirmType
     };
   },
   [MISSION_CONFIRMATION_CLOSE]() {
     return {
       isConfirmationOpen: false,
+      confirmType: null
     };
   },
 });

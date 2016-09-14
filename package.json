@@ -29,6 +29,7 @@
     "react-redux": "^4.4.5",
     "react-router": "^2.7.0",
     "react-scroll": "^1.4.0",
+    "react-tag-input": "^4.3.2",
     "redux": "^3.5.2",
     "redux-devtools-extension": "0.0.1-alpha-1",
     "redux-form": "^6.0.1",
