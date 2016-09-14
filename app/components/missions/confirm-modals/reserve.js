@@ -1,9 +1,30 @@
 import React from 'react';
 import { Modal, Button } from 'react-bootstrap';
+import { WithContext as ReactTags } from 'react-tag-input';
 import styles from '../mission-modals.scss';
 
 const ReserveConfirm = (props) => {
-  console.log(props);
+  let handleDelete = () => {
+      console.log('del');
+  }
+
+  let handleAddition = () => {
+    console.log('add');
+  }
+
+  let handleDrag = () => {
+    console.log('drag');
+  }
+
+  let tags = [
+    {id: 1, text: "galaxy"},
+    {id: 2, text: "andromeda"},
+    {id: 3, text: "canary islands"},
+    {id: 4, text: "m31"},
+    {id: 5, text: "deep space"}
+   ];
+  let suggestions = ["mars", "jupiter", "moon", "saturn"];
+
   return (
     <Modal show={props.mission.isConfirmationOpen} className="missionModal reserveMissionModal">
       <div className="title-bar">
@@ -27,7 +48,18 @@ const ReserveConfirm = (props) => {
         </div>
 
         <div className="mission-tags">
-          <h4>SHARE YOUR MISSION OBJECTIVES:</h4>
+          <h4>MISSION TAGS:</h4>
+          <a href="#">Add a tag</a>
+        </div>
+
+        <div className="mission-image-options">
+          <h4>MISSION TAGS:</h4>
+            <ReactTags tags={tags}
+                suggestions={suggestions}
+                handleDelete={handleDelete}
+                handleAddition={handleAddition}
+                handleDrag={handleDrag} />
+          <a href="#">Add a tag</a>
         </div>
       </Modal.Body>
 
