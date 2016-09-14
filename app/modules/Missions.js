@@ -11,10 +11,11 @@ const initialState = {
 };
 
 // Mission action creator
-export function missionConfirmOpen(mission) {
+export function missionConfirmOpen(mission, type) {
   return {
     type: MISSION_CONFIRMATION_OPEN,
-    mission: mission
+    mission: mission,
+    confirmType: type
   }
 }
 

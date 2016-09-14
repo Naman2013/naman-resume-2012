@@ -28,9 +28,9 @@ class MissionCard extends Component {
     actions: object.isRequired
   }
 
-  openConfirmModal(event) {
+  openConfirmModal(type, event) {
     event.preventDefault();
-    this.props.actions.missionConfirmOpen();
+    this.props.actions.missionConfirmOpen({}, type); //TODO: replace empty object with mission object from API
   }
 
   render() {
@@ -53,7 +53,8 @@ class MissionCard extends Component {
         <div className="join-mission-callout">
           <h5>Join an existing mission</h5>
           <p><strong>Thursday, October 18th</strong>: {!featured ? <br /> : null} 10:05pm EST  ·  7:05pm PST  ·  03:05 UTC 03:05 UTC</p>
-          <a className={styles.piggybackCta} href="" onClick={this.openConfirmModal.bind(this)}>Piggyback on mission</a>
+          <a className={styles.piggybackCta} href="" onClick={ event => this.openConfirmModal('reserve', event) }>Reserve</a>
+          <a className={styles.piggybackCta} href="" onClick={ event => this.openConfirmModal('piggyBack', event) }>Piggyback on mission</a>
         </div>
       </div>
     );
