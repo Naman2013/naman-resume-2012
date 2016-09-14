@@ -6,6 +6,7 @@ import classnames from 'classnames';
 import {missionConfirmOpen, missionConfirmClose} from './../../modules/Missions';
 import styles from './mission-modals.scss';
 import PiggyBackConfirm from './confirm-modals/piggyback';
+import ReserveConfirm from './confirm-modals/reserve';
 
 
 function mapDispatchToProps(dispatch) {
@@ -33,10 +34,11 @@ export default class MissionConfirmModal extends React.Component {
     this.props.actions.missionConfirmClose();
   }
 
-  render() {
-    console.log(this);
+
+
+  render() {    
     return (
-      <PiggyBackConfirm mission={this.props.missions} closeModal={this.closeModal.bind(this)} />
+      this.props.missions.confirmType === 'reserve' ? <ReserveConfirm mission={this.props.missions} closeModal={this.closeModal.bind(this)} />  : <PiggyBackConfirm mission={this.props.missions} closeModal={this.closeModal.bind(this)} />
     )
   }
 };
