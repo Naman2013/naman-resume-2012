@@ -27,5 +27,6 @@ export default {
       content: `This weekend you’ll get a shot at seeing the Perseids at a new level of intensity. Prep is key. Learn all about what you need here.`,
       imageUrl: '../../assets/images/samples/perseids.png'
     }
-  ]
+  ],
+  promoBandContent: 'Slooh Membership: An All-Access Pass to the Night Sky.'
 };
