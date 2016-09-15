@@ -4,7 +4,7 @@ import Hero from '../components/home/hero';
 import RecentVideoTile from '../components/home/recent-video-tile';
 import PromoMessageBand from '../components/home/promo-message-band';
 import SloohFeatures from '../components/home/slooh-features';
-import ViewableObjects from '../components/home/viewable-objects';
+import ViewableObjects from '../components/home/viewable-objects/viewable-objects';
 
 import CONTENT from '../content/home';
 
