@@ -13,6 +13,7 @@ class Sponsors extends Component {
   render() {
     return(
       <div className="sponsor-images-container">
+        <h3 className="title">{this.props.title}</h3>
         <ul className="sponsor-images">
           {this.generateSponsors()}
         </ul>
@@ -20,5 +21,10 @@ class Sponsors extends Component {
     );
   }
 }
+
+Sponsors.propTypes = {
+  title: PropTypes.string,
+  sponsorImages: PropTypes.array
+};
 
 export default Sponsors;
