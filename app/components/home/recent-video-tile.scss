@@ -1,17 +1,25 @@
 @import "../../styles/variables/colors.scss";
 
-.recent-video-tile {
-  position: relative;
-  color: #fff;
-  margin: -15px;
+.recent-video-tile-container {
+  margin-bottom: 50px;
 
-  .title {
-    font-size: 1.2em;
-    text-transform: uppercase;
+  .recent-video-tile {
+    color: #fff;
+    margin: -15px -15px 0 -15px;
+
+    .title {
+      font-weight: 300;
+      font-size: 1.75em;
+      padding: 15px 20px;
+      text-transform: uppercase;
+    }
   }
+
   .content {
-    color: $darkBlueGray;
+    color: $blueGreen;
     font-size: 1em;
     margin-top: 300px;
+    margin: 0;
+    padding: 0 20px;
   }
 }
