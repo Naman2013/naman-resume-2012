@@ -100,7 +100,7 @@ export default {
   COMMUNITY_CONTENT_BAND: 'A Sampling of Slooh Community Content',
   SPONSORS_CONTENT_BAND: 'A World-Class Network of Partners',
   SPONSORS_SUB_TITLE: 'Our partners help to bring live telescope feeds of the cosmos to the world.',
-  SPONSORS: [
+  SPONSOR_IMAGES: [
     '../../assets/images/sponsors/Time_Magazine_Logo.png',
     '../../assets/images/sponsors/42_digital_logo_dark_blue_HI.png',
     '../../assets/images/sponsors/Google_2015_logo',
