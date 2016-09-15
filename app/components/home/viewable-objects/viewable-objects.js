@@ -6,13 +6,14 @@ class ViewableObjects extends Component {
   render() {
     return(
       <div className="viewable-objects-container">
-        Viewable objects...
+        <h4 className="title">{this.props.title}</h4>
       </div>
     );
   }
 }
 
 ViewableObjects.propTypes = {
+  title: PropTypes.string,
   objects: PropTypes.array.isRequired,
   lastestNews: PropTypes.string,
   action:PropTypes.object

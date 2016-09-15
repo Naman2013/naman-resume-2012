@@ -1,0 +1,11 @@
+@import "../../../styles/variables/colors.scss";
+@import "../../../styles/variables/fonts.scss";
+
+.viewable-objects-container {
+  font-family: $primary-font;
+  min-height: 750px;
+  color: #fff;
+  text-align: center;
+  background: url('../../../../assets/images/graphics/perseids-bg.png') no-repeat center center;
+  background-size: cover;
+}
