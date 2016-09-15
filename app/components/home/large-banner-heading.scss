@@ -1,0 +1,10 @@
+@import "../../styles/variables/fonts.scss";
+
+.largeBannerHeading {
+  font-family: $primary-font;
+  font-size: 2em;
+  color: #fff;
+  text-transform: uppercase;
+  text-align: center;
+  margin: 100px 0 40px 0;
+}
