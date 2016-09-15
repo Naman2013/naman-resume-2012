@@ -61,23 +61,33 @@ export default {
     title: 'OK, there are billions of items out there to choose from, but we have to start somewhere...',
     objects: [
       {
+        key: Math.random() * 100,
         title: 'Saturn',
+        imageUrl: '../../assets/images/objects/planet-saturn.png',
         url: '#'
       },
       {
+        key: Math.random() * 100,
         title: 'Jupiter',
+        imageUrl: '../../assets/images/objects/planet-jupiter.png',
         url: '#'
       },
       {
+        key: Math.random() * 100,
         title: 'Perseid Meteor Shower',
+        imageUrl: '../../assets/images/objects/meteor-shower.png',
         url: '#'
       },
       {
+        key: Math.random() * 100,
         title: 'Blood Moon',
+        imageUrl: '../../assets/images/objects/blood-moon.png',
         url: '#'
       },
       {
+        key: Math.random() * 100,
         title: 'Cassiopeia',
+        imageUrl: '../../assets/images/objects/cassiopeia.png',
         url: '#'
       }
     ],
