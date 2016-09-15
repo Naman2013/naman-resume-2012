@@ -1,20 +1,21 @@
 import React, { Component, PropTypes } from 'react';
+import style from './sponsors.scss';
 
 class Sponsors extends Component {
   generateSponsors() {
     return this.props.sponsorImages
       .map((sponsorImage) => (
         <li className="sponsor-image">
-          <img className="sponsor-image" src={sponsorImage} />
+          <img className={style.sponsorImage} src={sponsorImage} />
         </li>
       ));
   }
 
   render() {
     return(
-      <div className="sponsor-images-container">
-        <h3 className="title">{this.props.title}</h3>
-        <ul className="sponsor-images">
+      <div className={style.sponsorImagesContainer}>
+        <h3 className={style.title}>{this.props.title}</h3>
+        <ul className={style.sponsorImages}>
           {this.generateSponsors()}
         </ul>
       </div>
