@@ -19,6 +19,8 @@ class ViewableObjects extends Component {
         </div>
 
         <p className="latest-news">{this.props.latestNews}</p>
+
+        <a className="action" href={this.props.action.url}>{this.props.action.text}</a>
       </div>
     );
   }

@@ -20,5 +20,16 @@
   .latest-news {
     padding: 0 20%;
     font-size: 1.25em;
+    margin-bottom: 50px;
+  }
+
+  .action {
+    color: #fff;
+    background: $pink;
+    padding: 10px 40px;
+
+    &:hover {
+      background: #000;
+    }
   }
 }
