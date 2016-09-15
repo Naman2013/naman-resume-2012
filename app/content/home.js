@@ -31,6 +31,7 @@ export default {
   promoBandContent: 'Slooh Membership: An All-Access Pass to the Night Sky.',
   SLOOH_FEATURES: [
     {
+      key: Math.random() * 100,
       icon: 'foo.jpg',
       title: 'REMOTELY CONTROL POWERFUL ONLINE TELESCOPES.',
       content: 'Slooh allows Members to remotely control professional-grade telescopes in both the Canary Islands and Chile. It’s easy to take deep space photos and share them with others!',
@@ -38,6 +39,7 @@ export default {
       actionText: 'Explore Pricing'
     },
     {
+      key: Math.random() * 100,
       icon: 'foo.jpg',
       title: 'EXPERIENCE MAJOR CELESTIAL EVENTS ALONGSIDE MILLIONS.',
       content: 'Slooh will keep you up-to-date on what’s about to happen and how best to see it. During LIVE streaming events, Slooh’s knowledgable exerts guide you through the night sky and its wonders.',
@@ -45,6 +47,7 @@ export default {
       actionText: 'See Full Schedule'
     },
     {
+      key: Math.random() * 100,
       icon: 'foo.jpg',
       title: 'PARTICIPATE IN A COMMUNITY OF FELLOW EXPLORERS.',
       content: 'Whether you are a high school or college student, practicing astronomer, or a passionate “prosumer” hobbyist, Slooh has something for you. Register today and get one step closer to the cosmos.',
@@ -53,8 +56,8 @@ export default {
     }
   ],
   ADDITIONAL_OFFERING_HEADER: 'CHECK OUT MORE OF WHAT SLOOH HAS TO OFFER:',
-  ADDITIONAL_OFFERING_BAND: 'Currently Featured Events and Objects',
   VIEWABLE_OBJECTS: {
+    ADDITIONAL_OFFERING_BAND: 'Currently Featured Events and Objects',
     objects: [
       {
         title: 'Saturn',
