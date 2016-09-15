@@ -82,5 +82,6 @@ export default {
       text: 'See Object',
       url: '#'
     }
-  }
+  },
+  COMMUNITY_CONTENT_BAND: 'A Sampling of Slooh Community Content'
 };
