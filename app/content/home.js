@@ -51,5 +51,36 @@ export default {
       actionUrl: '#',
       actionText: 'Free Registration'
     }
-  ]
+  ],
+  ADDITIONAL_OFFERING_HEADER: 'CHECK OUT MORE OF WHAT SLOOH HAS TO OFFER:',
+  ADDITIONAL_OFFERING_BAND: 'Currently Featured Events and Objects',
+  VIEWABLE_OBJECTS: {
+    objects: [
+      {
+        title: 'Saturn',
+        url: '#'
+      },
+      {
+        title: 'Jupiter',
+        url: '#'
+      },
+      {
+        title: 'Perseid Meteor Shower',
+        url: '#'
+      },
+      {
+        title: 'Blood Moon',
+        url: '#'
+      },
+      {
+        title: 'Cassiopeia',
+        url: '#'
+      }
+    ],
+    latestNews: 'Earth will pass between Saturn and the sun on June 3, 2016. That is Saturn\'s yearly opposition, and it marks the middle of the best time of year to see this planet. After coming up in the eastern part of the sky in early evening, Saturn will continue to climb upward throughout the evening hours.',
+    action: {
+      text: 'See Object',
+      url: '#'
+    }
+  }
 };
