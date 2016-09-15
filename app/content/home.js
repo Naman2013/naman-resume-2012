@@ -97,5 +97,17 @@ export default {
       url: '#'
     }
   },
-  COMMUNITY_CONTENT_BAND: 'A Sampling of Slooh Community Content'
+  COMMUNITY_CONTENT_BAND: 'A Sampling of Slooh Community Content',
+  SPONSORS_CONTENT_BAND: 'A World-Class Network of Partners',
+  SPONSORS_SUB_TITLE: 'Our partners help to bring live telescope feeds of the cosmos to the world.',
+  SPONSORS: [
+    '../../assets/images/sponsors/Time_Magazine_Logo.png',
+    '../../assets/images/sponsors/42_digital_logo_dark_blue_HI.png',
+    '../../assets/images/sponsors/Google_2015_logo',
+    '../../assets/images/sponsors/Wanderlust-truenorth-web-1.png',
+    '../../assets/images/sponsors/logo-iac.png',
+    '../../assets/images/sponsors/Celestron_Logo_as_of_2015.png',
+    '../../assets/images/sponsors/pontificia.png',
+    '../../assets/images/sponsors/carl-sagan.png'
+  ]
 };
