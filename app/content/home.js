@@ -58,6 +58,7 @@ export default {
   ADDITIONAL_OFFERING_HEADER: 'CHECK OUT MORE OF WHAT SLOOH HAS TO OFFER:',
   VIEWABLE_OBJECTS: {
     ADDITIONAL_OFFERING_BAND: 'Currently Featured Events and Objects',
+    title: 'OK, there are billions of items out there to choose from, but we have to start somewhere...',
     objects: [
       {
         title: 'Saturn',
