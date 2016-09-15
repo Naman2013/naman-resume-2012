@@ -29,7 +29,7 @@ export default {
     }
   ],
   promoBandContent: 'Slooh Membership: An All-Access Pass to the Night Sky.',
-  sloohFeatures: [
+  SLOOH_FEATURES: [
     {
       icon: 'foo.jpg',
       title: 'REMOTELY CONTROL POWERFUL ONLINE TELESCOPES.',
