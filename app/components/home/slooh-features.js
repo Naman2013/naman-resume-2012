@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import style from './slooh-features.scss';
 
 class SloohFeatures extends Component {
   render() {
