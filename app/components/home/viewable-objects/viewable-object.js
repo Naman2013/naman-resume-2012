@@ -10,7 +10,7 @@ class ViewableObject extends Component {
     };
 
     return(
-      <div className="col-md-2 viewable-object"
+      <div className="viewable-object"
         style={viewableObjectInlineStyle}>
         <h5 className="title">{this.props.title}</h5>
       </div>

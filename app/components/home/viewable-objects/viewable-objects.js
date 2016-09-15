@@ -14,7 +14,9 @@ class ViewableObjects extends Component {
       <div className="viewable-objects-container">
         <h4 className="title">{this.props.title}</h4>
 
-        {this.generateViewableObjects()}
+        <div className="objects clearfix">
+          {this.generateViewableObjects()}
+        </div>
       </div>
     );
   }
