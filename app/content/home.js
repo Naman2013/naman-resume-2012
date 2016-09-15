@@ -28,5 +28,28 @@ export default {
       imageUrl: '../../assets/images/samples/perseids.png'
     }
   ],
-  promoBandContent: 'Slooh Membership: An All-Access Pass to the Night Sky.'
+  promoBandContent: 'Slooh Membership: An All-Access Pass to the Night Sky.',
+  sloohFeatures: [
+    {
+      icon: 'foo.jpg',
+      title: 'REMOTELY CONTROL POWERFUL ONLINE TELESCOPES.',
+      content: 'Slooh allows Members to remotely control professional-grade telescopes in both the Canary Islands and Chile. It’s easy to take deep space photos and share them with others!',
+      actionUrl: '#',
+      actionText: 'Explore Pricing'
+    },
+    {
+      icon: 'foo.jpg',
+      title: 'EXPERIENCE MAJOR CELESTIAL EVENTS ALONGSIDE MILLIONS.',
+      content: 'Slooh will keep you up-to-date on what’s about to happen and how best to see it. During LIVE streaming events, Slooh’s knowledgable exerts guide you through the night sky and its wonders.',
+      actionUrl: '#',
+      actionText: 'See Full Schedule'
+    },
+    {
+      icon: 'foo.jpg',
+      title: 'PARTICIPATE IN A COMMUNITY OF FELLOW EXPLORERS.',
+      content: 'Whether you are a high school or college student, practicing astronomer, or a passionate “prosumer” hobbyist, Slooh has something for you. Register today and get one step closer to the cosmos.',
+      actionUrl: '#',
+      actionText: 'Free Registration'
+    }
+  ]
 };
