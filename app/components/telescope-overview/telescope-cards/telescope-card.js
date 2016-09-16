@@ -29,14 +29,16 @@ class TelescopeCard extends Component {
     const cardClasses = classnames({
       'card-container': true,
       'flipped': this.state.flipped,
-      'col-md-4': true
+      'col-md-4': true,
+      'col-sm-4': true,
+      'col-xs-4': true
     });
 
     return(
       <li className={cardClasses}>
         <CardFront
           handleFlip={this.handleFlip.bind(this)}
-          telescopeOnline={true} />
+          telescopeOnline={Math.random() >= 0.5} />
         <CardBack handleFlip={this.handleFlip.bind(this)} />
       </li>
     );

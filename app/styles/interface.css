@@ -84,6 +84,13 @@ ul.bulleted {
   padding-left: 15px;
 }
 
+.menu-container {
+  position: absolute;
+   /* top: 48px; stacey changed to add hamburger */
+  left: 0px;
+  z-index: 9999;
+}
+
 .menu-container > nav {
   height: 100%;
   background-color: #000;
@@ -91,14 +98,6 @@ ul.bulleted {
   overflow-x: hidden;
   transition: .2s ease-in-out;
   z-index: 9999;
-}
-
-.menu-container {
-  position: absolute;
-   /* top: 48px; stacey changed to add hamburger */
-  left: 0px;
-  z-index: 5;
-  height: calc(100% - 48px);
 }
 
 .menu-container h3 {
