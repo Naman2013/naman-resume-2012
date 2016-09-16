@@ -1,0 +1,16 @@
+.viewable-object {
+  min-height: 180px;
+  width: 20%;
+  float: left;
+  position: relative;
+  cursor: pointer;
+
+  .title {
+    text-transform: uppercase;
+    font-size: 1.5em;
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -45%);
+  }
+}

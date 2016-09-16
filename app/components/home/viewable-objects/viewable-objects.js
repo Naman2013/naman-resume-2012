@@ -1,0 +1,36 @@
+import React, { Component, PropTypes } from 'react';
+import ViewableObject from './viewable-object';
+import style from './viewable-objects.scss';
+
+
+class ViewableObjects extends Component {
+
+  generateViewableObjects() {
+    return this.props.objects.map( skyObject => <ViewableObject {...skyObject} /> );
+  }
+
+  render() {
+    return(
+      <div className="viewable-objects-container">
+        <h4 className="title">{this.props.title}</h4>
+
+        <div className="objects clearfix">
+          {this.generateViewableObjects()}
+        </div>
+
+        <p className="latest-news">{this.props.latestNews}</p>
+
+        <a className="action" href={this.props.action.url}>{this.props.action.text}</a>
+      </div>
+    );
+  }
+}
+
+ViewableObjects.propTypes = {
+  title: PropTypes.string,
+  objects: PropTypes.array.isRequired,
+  lastestNews: PropTypes.string,
+  action:PropTypes.object
+};
+
+export default ViewableObjects;

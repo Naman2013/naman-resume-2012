@@ -1,0 +1,36 @@
+@import "../../../styles/variables/colors.scss";
+@import "../../../styles/variables/fonts.scss";
+
+.viewable-objects-container {
+  font-family: $primary-font;
+  min-height: 750px;
+  color: #fff;
+  text-align: center;
+  background: url('../../../../assets/images/graphics/perseids-bg.png') no-repeat center center;
+  background-size: cover;
+  padding-top: 100px;
+
+  .objects {
+    width: 90%;
+    margin: 0 auto;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    margin: 75px auto;
+  }
+
+  .latest-news {
+    padding: 0 20%;
+    font-size: 1.25em;
+    margin-bottom: 50px;
+  }
+
+  .action {
+    color: #fff;
+    background: $pink;
+    padding: 10px 40px;
+
+    &:hover {
+      background: #000;
+    }
+  }
+}
