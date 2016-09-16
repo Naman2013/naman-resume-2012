@@ -29,7 +29,9 @@ class TelescopeCard extends Component {
     const cardClasses = classnames({
       'card-container': true,
       'flipped': this.state.flipped,
-      'col-md-4': true
+      'col-md-4': true,
+      'col-sm-4': true,
+      'col-xs-4': true
     });
 
     return(
