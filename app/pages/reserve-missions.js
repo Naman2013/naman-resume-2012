@@ -12,21 +12,46 @@ import MissionUpdates from '../components/missions/mission-updates';
 import MissionAd from '../components/missions/mission-ad';
 import MissionUpcoming from '../components/missions/mission-upcoming';
 import MissionConfirmModal from '../components/missions/mission-confirm-modal';
+import {missionGetCards} from '../modules/Missions';
 
 const { element, func, object } = PropTypes;
+
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators({
+      missionGetCards
+    }, dispatch)
+  };
+}
+
+function mapStateToProps({ missions }) {
+  return { cardList: missions.cardList };
+}
+
+@connect(mapStateToProps, mapDispatchToProps)
 
 export default class ReserveMissions extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      displayBanner: true
+      displayBanner: true,
+      cardList: [1,2,3]
     };
   }
 
   static propTypes = {
-    children: element
+    children: element,
+    actions: object.isRequired
   };
+
+  componentDidMount() {
+    this.props.actions.missionGetCards( data => {
+      this.setState({
+        cardList: data.cardList
+      })
+    });
+  }
 
   closeBanner() {
     this.setState({
@@ -39,7 +64,7 @@ export default class ReserveMissions extends Component {
       'mission-card': true,
       'featured': true
     });
-
+    console.log(this);
     return (
       <div className="reserve-missions">
 
@@ -54,12 +79,12 @@ export default class ReserveMissions extends Component {
 
         <section className="container clearfix">
           <div className="col-md-8">
-            <MissionCard featured={true} />
-            <MissionCard className="col-md-6" />
-            <MissionCard className="col-md-6" />
-            <MissionCard className="col-md-6" />
-            <MissionCard className="col-md-6" />
+            {this.props.cardList.map(card =>
+              <MissionCard key={card.uniqueId} className="col-md-6" card={card} />
+            )}
+
           </div>
+
           <div className="col-md-4 mission-sidebar">
             <MissionAd />
             <MissionUpcoming />

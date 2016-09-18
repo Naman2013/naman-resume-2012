@@ -36,7 +36,9 @@ class MissionCard extends Component {
   render() {
     let featured = this.props.featured;
     let className = `${styles.missionCard} ${featured ? 'featured' : 'secondary'} ${this.props.className || ''}`;
-    //console.log(this);
+    const card = this.props.card;
+
+    console.log(this);
     return (
       <div className={className}>
         {featured ? <span className="callOut">Don't Miss</span> : null}
@@ -44,10 +46,10 @@ class MissionCard extends Component {
 
         <div className={styles.cardsubTitle}>
           <img className={styles.cardIcon} src="../../../assets/icons/Jupiter.svg" />
-          <h3>Andromeda Galaxy (M31)</h3>
+          <h3>{card.title}</h3>
         </div>
 
-        <p>Closest galaxy to the Milky Way. In approximately 4.5 billion years it will collide with the Milky Way to create a giant elliptical galaxy. It’s a great time of year to check it out as skies are generally crystal clear over Chile.</p>
+        <p>{card.description}</p>
 
 
         <div className="join-mission-callout">
