@@ -31,10 +31,8 @@ export function missionConfirmClose(mission) {
   }
 }
 
-export function missionGetCards(callback) {
-  console.log('calling missionGetCards');
+export function missionGetCards() {
   return dispatch => {
-    //dispatch( creatingOrder(cartObj) );
     return axios.post('/api/recommends/cards', {
       status: 'published',
       ver: 'v1',
@@ -42,10 +40,9 @@ export function missionGetCards(callback) {
       type: 'curated'
     })
     .then(response => {
-      callback(response.data) //called internally in component to update localState
       dispatch( allCards( response ))
     })
-    .catch(error => dispatch( cardsFail( error.data )));
+    .catch(error => dispatch( cardsFail( response )));
   }
 }
 
@@ -68,13 +65,14 @@ export function cardsFail({data}) {
 export default createReducer(initialState, {
   [MISSION_CONFIRMATION_OPEN](state, { mission, confirmType }) {
     return {
-      ...mission,
+      ...state,
       isConfirmationOpen: true,
       confirmType
     };
   },
-  [MISSION_CONFIRMATION_CLOSE]() {
+  [MISSION_CONFIRMATION_CLOSE](state) {
     return {
+      ...state,
       isConfirmationOpen: false,
       confirmType: null
     };
