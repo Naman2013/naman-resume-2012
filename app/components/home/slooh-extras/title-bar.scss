@@ -1,0 +1,9 @@
+@import "../../../styles/variables/colors.scss";
+@import "../../../styles/variables/fonts.scss";
+
+.slooh-extras-title-bar {
+  font-family: $primary-font;
+  color: $light-blue;
+  text-align: center;
+  background: #000;
+}
