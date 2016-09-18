@@ -31,10 +31,9 @@ export function missionConfirmClose(mission) {
   }
 }
 
-export function missionGetCards(callback) {
+export function missionGetCards() {
   console.log('calling missionGetCards');
-  return dispatch => {
-    //dispatch( creatingOrder(cartObj) );
+  return dispatch => {    
     return axios.post('/api/recommends/cards', {
       status: 'published',
       ver: 'v1',
@@ -42,7 +41,6 @@ export function missionGetCards(callback) {
       type: 'curated'
     })
     .then(response => {
-      callback(response.data) //called internally in component to update localState
       dispatch( allCards( response ))
     })
     .catch(error => dispatch( cardsFail( error.data )));

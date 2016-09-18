@@ -46,11 +46,7 @@ export default class ReserveMissions extends Component {
   };
 
   componentDidMount() {
-    this.props.actions.missionGetCards( data => {
-      this.setState({
-        cardList: data.cardList
-      })
-    });
+    this.props.actions.missionGetCards()    
   }
 
   closeBanner() {

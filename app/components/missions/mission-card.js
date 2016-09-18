@@ -34,6 +34,7 @@ class MissionCard extends Component {
   }
 
   render() {
+    console.log(this.props.actions);
     let featured = this.props.featured;
     let className = `${styles.missionCard} ${this.props.className || ''}`;
     const card = this.props.card;
