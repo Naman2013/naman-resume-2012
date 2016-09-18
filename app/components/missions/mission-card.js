@@ -3,45 +3,17 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
 import styles from './mission-card.scss';
-import {missionConfirmOpen, missionConfirmClose} from './../../modules/Missions';
 
-const { element, func, object } = PropTypes;
+const MissionCard = (props) => {
 
-function mapDispatchToProps(dispatch) {
-  return {
-    actions: bindActionCreators({
-      missionConfirmOpen,
-      missionConfirmClose}, dispatch)
-  };
-}
-
-function mapStateToProps({ missions }) {
-  return { missions };
-}
-
-@connect(mapStateToProps, mapDispatchToProps)
-
-class MissionCard extends Component {
-
-  static propTypes = {
-    children: element,
-    actions: object.isRequired
-  }
-
-  openConfirmModal(type, event) {
-    event.preventDefault();
-    this.props.actions.missionConfirmOpen({}, type); //TODO: replace empty object with mission object from API
-  }
-
-  render() {
-    console.log(this.props.actions);
-    let featured = this.props.featured;
-    let className = `${styles.missionCard} ${this.props.className || ''}`;
-    const card = this.props.card;
+    console.log(props);
+    let featured = props.featured;
+    let className = `${styles.missionCard} ${props.className || ''}`;
+    const card = props.card;
 
     return (
       <div className={className}>
-        {this.props.className == 'featured' ? <span className="callOut">Don't Miss</span> : null}
+        {props.className == 'featured' ? <span className="callOut">Don't Miss</span> : null}
         <h2>{card.headline}</h2>
 
         <div className={styles.cardsubTitle}>
@@ -55,12 +27,11 @@ class MissionCard extends Component {
         <div className="join-mission-callout">
           <h5>Join an existing mission</h5>
           <p><strong>Thursday, October 18th</strong>: {!featured ? <br /> : null} 10:05pm EST  ·  7:05pm PST  ·  03:05 UTC 03:05 UTC</p>
-          <a className={styles.piggybackCta} href="" onClick={ event => this.openConfirmModal('reserve', event) }>Reserve</a>
-          <a className={styles.piggybackCta} href="" onClick={ event => this.openConfirmModal('piggyBack', event) }>Piggyback on mission</a>
+          <a className={styles.piggybackCta} href="" onClick={ event => props.openConfirmModal('reserve', event) }>Reserve</a>
+          <a className={styles.piggybackCta} href="" onClick={ event => props.openConfirmModal('piggyBack', event) }>Piggyback on mission</a>
         </div>
       </div>
     );
-  }
 }
 
 export default MissionCard;

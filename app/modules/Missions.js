@@ -33,7 +33,7 @@ export function missionConfirmClose(mission) {
 
 export function missionGetCards() {
   console.log('calling missionGetCards');
-  return dispatch => {    
+  return dispatch => {
     return axios.post('/api/recommends/cards', {
       status: 'published',
       ver: 'v1',
@@ -43,7 +43,7 @@ export function missionGetCards() {
     .then(response => {
       dispatch( allCards( response ))
     })
-    .catch(error => dispatch( cardsFail( error.data )));
+    .catch(error => dispatch( cardsFail( response )));
   }
 }
 

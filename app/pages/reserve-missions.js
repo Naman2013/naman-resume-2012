@@ -12,14 +12,16 @@ import MissionUpdates from '../components/missions/mission-updates';
 import MissionAd from '../components/missions/mission-ad';
 import MissionUpcoming from '../components/missions/mission-upcoming';
 import MissionConfirmModal from '../components/missions/mission-confirm-modal';
-import {missionGetCards} from '../modules/Missions';
+import {missionGetCards, missionConfirmOpen, missionConfirmClose} from '../modules/Missions';
 
 const { element, func, object } = PropTypes;
 
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators({
-      missionGetCards
+      missionGetCards,
+      missionConfirmOpen,
+      missionConfirmClose
     }, dispatch)
   };
 }
@@ -46,7 +48,12 @@ export default class ReserveMissions extends Component {
   };
 
   componentDidMount() {
-    this.props.actions.missionGetCards()    
+    this.props.actions.missionGetCards()
+  }
+
+  openConfirmModal(type, event) {
+    event.preventDefault();
+    this.props.actions.missionConfirmOpen({}, type); //TODO: replace empty object with mission object from API
   }
 
   closeBanner() {
@@ -76,7 +83,12 @@ export default class ReserveMissions extends Component {
         <section className="container clearfix">
           <div className="col-md-8">
             {this.props.cardList.map(card =>
-              <MissionCard key={card.uniqueId} className={`${card.cardType == 2 ? 'featured col-md-12' : 'secondary col-md-6'}`} card={card} />
+              <MissionCard
+                key={card.uniqueId}
+                className={`${card.cardType == 2 ? 'featured col-md-12' : 'secondary col-md-6'}`}
+                card={card}
+                openModal = {this.openConfirmModal}
+                featured={card.cardType == 2}  />
             )}
 
           </div>
