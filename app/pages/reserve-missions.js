@@ -87,7 +87,7 @@ export default class ReserveMissions extends Component {
                 key={card.uniqueId}
                 className={`${card.cardType == 2 ? 'featured col-md-12' : 'secondary col-md-6'}`}
                 card={card}
-                openModal = {this.openConfirmModal}
+                openModal = {this.openConfirmModal.bind(this)}
                 featured={card.cardType == 2}  />
             )}
 
