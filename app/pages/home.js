@@ -7,7 +7,11 @@ import LargeBannerHeading from '../components/home/large-banner-heading';
 import SloohFeatures from '../components/home/slooh-features';
 import ViewableObjects from '../components/home/viewable-objects/viewable-objects';
 import Sponsors from '../components/home/sponsors';
+import Dedication from '../components/home/dedication';
+import Featured from '../components/home/featured';
+import TwitterFeed from '../components/home/twitter-feed';
 
+// static content
 import CONTENT from '../content/home';
 
 class Home extends Component {
@@ -53,6 +57,10 @@ class Home extends Component {
         <Sponsors
           title={CONTENT.SPONSORS_SUB_TITLE}
           sponsorImages={CONTENT.SPONSOR_IMAGES} />
+
+        <Dedication />
+        <Featured />
+        <TwitterFeed />
       </div>
     );
   }
