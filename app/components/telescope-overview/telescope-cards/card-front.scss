@@ -1,6 +1,8 @@
+@import "../../../styles/variables/fonts.scss";
 $cardHeight: 730px;
 
 .telescope-cards-container {
+  font-family: $primary-font;
 
   .telescope-cards {
 
@@ -8,6 +10,7 @@ $cardHeight: 730px;
       text-align: center;
       min-height: $cardHeight;
       max-height: $cardHeight;
+      background: #fff;
       -webkit-backface-visibility: hidden;
       -moz-backface-visibility: hidden;
       -o-backface-visibility: hidden;
@@ -53,13 +56,14 @@ $cardHeight: 730px;
             background: #F310A7;
             text-align: center;
             display: block;
-            padding: 15px 20px;
+            padding: 15px 15px;
             font-size: 0.75em;
+            font-weight: bold;
 
           }
 
           .action:first-child {
-            margin: 0 20px 0 20px;
+            margin-right: 0;
           }
 
           .action:hover {
