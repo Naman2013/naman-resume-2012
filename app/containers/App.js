@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Menu from './Menu';
 import Header from './Header';
+import Footer from '../components/common/footer';
 import { checkUser } from '../modules/User';
 
 const { element, func } = PropTypes;
@@ -29,8 +30,11 @@ export default class App extends Component {
         <Header />
         <Menu source="nav.json" />
         <section className="app-content-container clearfix">
+          <div className="clearfix">
           {this.props.children}
+          </div>
         </section>
+        <Footer />
       </div>
     );
   }
