@@ -6,8 +6,8 @@ class Sponsors extends Component {
     return this.props.sponsorImages
       .map((sponsorImage) => {
         const imageStyle = {
-          background: `url(${sponsorImage}) no-repeat center center`,
-          backgroundSize: '80%'
+          background: `url(${sponsorImage.imageUrl}) no-repeat center center`,
+          backgroundSize: sponsorImage.size
         };
         return(
           <li
@@ -21,12 +21,10 @@ class Sponsors extends Component {
   render() {
     return(
       <div className={style.sponsorImagesContainer}>
-        <div className="content clearfix">
-          <h3 className={style.title}>{this.props.title}</h3>
-          <ul className="sponsorImages clearfix">
-            {this.generateSponsors()}
-          </ul>
-        </div>
+        <h3 className={style.title}>{this.props.title}</h3>
+        <ul className="sponsor-images clearfix">
+          {this.generateSponsors()}
+        </ul>
       </div>
     );
   }
