@@ -12,8 +12,23 @@ import MissionUpdates from '../components/missions/mission-updates';
 import MissionAd from '../components/missions/mission-ad';
 import MissionUpcoming from '../components/missions/mission-upcoming';
 import MissionConfirmModal from '../components/missions/mission-confirm-modal';
+import {missionGetCards} from '../modules/Missions';
 
 const { element, func, object } = PropTypes;
+
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators({
+      missionGetCards
+    }, dispatch)
+  };
+}
+
+function mapStateToProps({ cardList }) {
+  return { cardList };
+}
+
+@connect(mapStateToProps, mapDispatchToProps)
 
 export default class ReserveMissions extends Component {
   constructor(props) {
@@ -25,8 +40,14 @@ export default class ReserveMissions extends Component {
   }
 
   static propTypes = {
-    children: element
+    children: element,
+    actions: object.isRequired
   };
+
+  componentDidMount() {
+    this.props.actions.missionGetCards();
+    //console.log()
+  }
 
   closeBanner() {
     this.setState({
