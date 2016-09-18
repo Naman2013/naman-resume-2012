@@ -1,5 +1,5 @@
 .telescope-cards-container {
-  min-width: 1340px;
+  min-width: 1200px;
   position: relative;
   top: -100px;
 
@@ -19,6 +19,10 @@
       -o-transform-style: preserve-3d;
       transform-style: preserve-3d;
 
+      .card-content {
+        width: 370px;
+        margin: 0 auto;
+      }
     }
 
     .flipped {

@@ -36,10 +36,12 @@ class TelescopeCard extends Component {
 
     return(
       <li className={cardClasses}>
-        <CardFront
-          handleFlip={this.handleFlip.bind(this)}
-          telescopeOnline={Math.random() >= 0.5} />
-        <CardBack handleFlip={this.handleFlip.bind(this)} />
+        <div className="card-content">
+          <CardFront
+            handleFlip={this.handleFlip.bind(this)}
+            telescopeOnline={Math.random() >= 0.5} />
+          <CardBack handleFlip={this.handleFlip.bind(this)} />
+        </div>
       </li>
     );
   }

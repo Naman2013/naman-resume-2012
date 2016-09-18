@@ -23,8 +23,12 @@ class CardFront extends Component {
           </p>
 
           <div className="call-to-action clearfix">
-            <a className="col-md-5 action" href="">Visit Telescope Page</a>
-            <a className="col-md-5 action" href="">Make Reservation</a>
+            <div className="col-md-6">
+              <a className="action" href="">Visit Telescope Page</a>
+            </div>
+            <div className="col-md-6">
+              <a className="action" href="">Make Reservation</a>
+            </div>
           </div>
         </div>
 

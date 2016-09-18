@@ -41,7 +41,7 @@ export default [{
 		"label": {
 			"en": "All Telescopes"
 		},
-		"link": "/telescopes",
+		"link": "/#telescope-overview",
 		"type": "basic"
 	}, {
 		"label": {
