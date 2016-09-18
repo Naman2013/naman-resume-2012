@@ -6,7 +6,7 @@ class TwitterFeed extends Component {
     return(
       <SloohExtrasTile title={this.props.title}>
         <div className="slooh-addon-tile">
-          <h1>Hey.</h1>
+          <h1>Twitter feed...</h1>
         </div>
       </SloohExtrasTile>
     );
