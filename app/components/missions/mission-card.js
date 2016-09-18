@@ -5,8 +5,7 @@ import classnames from 'classnames';
 import styles from './mission-card.scss';
 
 const MissionCard = (props) => {
-
-    console.log(props);
+    
     let featured = props.featured;
     let className = `${styles.missionCard} ${props.className || ''}`;
     const card = props.card;

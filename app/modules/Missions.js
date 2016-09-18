@@ -32,7 +32,6 @@ export function missionConfirmClose(mission) {
 }
 
 export function missionGetCards() {
-  console.log('calling missionGetCards');
   return dispatch => {
     return axios.post('/api/recommends/cards', {
       status: 'published',
@@ -66,13 +65,14 @@ export function cardsFail({data}) {
 export default createReducer(initialState, {
   [MISSION_CONFIRMATION_OPEN](state, { mission, confirmType }) {
     return {
-      ...mission,
+      ...state,
       isConfirmationOpen: true,
       confirmType
     };
   },
-  [MISSION_CONFIRMATION_CLOSE]() {
+  [MISSION_CONFIRMATION_CLOSE](state) {
     return {
+      ...state,
       isConfirmationOpen: false,
       confirmType: null
     };
