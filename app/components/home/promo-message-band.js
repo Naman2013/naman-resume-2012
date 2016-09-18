@@ -4,7 +4,7 @@ import style from './promo-message-band.scss';
 class PromoMessageBand extends Component {
   render() {
     return(
-      <div className="col-md-12 promo-message-band">
+      <div className="promo-message-band">
         <h4 className="title">{this.props.message}</h4>
       </div>
     );
