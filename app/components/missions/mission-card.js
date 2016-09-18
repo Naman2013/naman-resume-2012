@@ -35,14 +35,13 @@ class MissionCard extends Component {
 
   render() {
     let featured = this.props.featured;
-    let className = `${styles.missionCard} ${featured ? 'featured' : 'secondary'} ${this.props.className || ''}`;
+    let className = `${styles.missionCard} ${this.props.className || ''}`;
     const card = this.props.card;
 
-    console.log(this);
     return (
       <div className={className}>
-        {featured ? <span className="callOut">Don't Miss</span> : null}
-        <h2>On a 4 Billion Year Collision Course With The Milky Way…</h2>
+        {this.props.className == 'featured' ? <span className="callOut">Don't Miss</span> : null}
+        <h2>{card.headline}</h2>
 
         <div className={styles.cardsubTitle}>
           <img className={styles.cardIcon} src="../../../assets/icons/Jupiter.svg" />

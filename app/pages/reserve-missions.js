@@ -80,7 +80,7 @@ export default class ReserveMissions extends Component {
         <section className="container clearfix">
           <div className="col-md-8">
             {this.props.cardList.map(card =>
-              <MissionCard key={card.uniqueId} className="col-md-6" card={card} />
+              <MissionCard key={card.uniqueId} className={`${card.cardType == 2 ? 'featured col-md-12' : 'secondary col-md-6'}`} card={card} />
             )}
 
           </div>
