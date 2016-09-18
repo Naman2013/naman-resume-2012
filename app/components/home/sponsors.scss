@@ -3,7 +3,7 @@
 .sponsorImagesContainer {
   font-family: $primary-font;
   background: #fff;
-  padding: 20px 0;
+  padding: 15px 0;
   text-align: center;
 
   &:after {
@@ -12,16 +12,27 @@
     clear: both;
   }
 
+  .content {
+    width: 95%;
+    margin: 0 auto;
+  }
+
   .title {
-    margin-top: 50px;
+    font-weight: 300;
+    margin: 0;
+    margin-bottom: 30px;
   }
 
   .sponsorImages {
     list-style-type: none;
+    padding: 0;
+    margin: 0 auto;
 
     .sponsorImage {
+      width: 110px;
+      height: 100px;
       float: left;
-      margin-right: 5px;
+      margin-right: 30px;
 
       &:last-child {
         margin-right: 0;

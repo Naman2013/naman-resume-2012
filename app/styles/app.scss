@@ -3,18 +3,18 @@ a, a:hover {
 }
 
 .app-content-container {
-  border-left: 100px solid #000;
-  margin-left: -100px;
   background: url(../../assets/images/graphics/space-background.jpg) no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-
+  border-left: 100px solid #000;
   position: relative;
   top: 47px;
   left: 69px;
   margin-right: 68px;
+  margin-left: -100px;
+  min-width: 1280px;
 }
 
 .reserve-missions {
