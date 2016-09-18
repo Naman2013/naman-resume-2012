@@ -36,7 +36,7 @@ class MissionCard extends Component {
   render() {
     let featured = this.props.featured;
     let className = `${styles.missionCard} ${featured ? 'featured' : 'secondary'} ${this.props.className || ''}`;
-    //console.log(this);
+    console.log(this);
     return (
       <div className={className}>
         {featured ? <span className="callOut">Don't Miss</span> : null}

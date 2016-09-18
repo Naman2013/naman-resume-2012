@@ -24,8 +24,8 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-function mapStateToProps({ cardList }) {
-  return { cardList };
+function mapStateToProps({ missions }) {
+  return { cardList: missions.cardList };
 }
 
 @connect(mapStateToProps, mapDispatchToProps)
@@ -35,7 +35,8 @@ export default class ReserveMissions extends Component {
     super(props);
 
     this.state = {
-      displayBanner: true
+      displayBanner: true,
+      cardList: [1,2,3]
     };
   }
 
@@ -45,8 +46,11 @@ export default class ReserveMissions extends Component {
   };
 
   componentDidMount() {
-    this.props.actions.missionGetCards();
-    //console.log()
+    this.props.actions.missionGetCards( data => {
+      this.setState({
+        cardList: data.cardList
+      })
+    });
   }
 
   closeBanner() {
@@ -60,7 +64,7 @@ export default class ReserveMissions extends Component {
       'mission-card': true,
       'featured': true
     });
-
+    console.log(this);
     return (
       <div className="reserve-missions">
 
@@ -75,12 +79,12 @@ export default class ReserveMissions extends Component {
 
         <section className="container clearfix">
           <div className="col-md-8">
-            <MissionCard featured={true} />
-            <MissionCard className="col-md-6" />
-            <MissionCard className="col-md-6" />
-            <MissionCard className="col-md-6" />
-            <MissionCard className="col-md-6" />
+            {this.props.cardList.map(card =>
+              <MissionCard className="col-md-6" card={card} />
+            )}
+
           </div>
+
           <div className="col-md-4 mission-sidebar">
             <MissionAd />
             <MissionUpcoming />

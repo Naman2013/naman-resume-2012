@@ -31,7 +31,7 @@ export function missionConfirmClose(mission) {
   }
 }
 
-export function missionGetCards() {
+export function missionGetCards(callback) {
   console.log('calling missionGetCards');
   return dispatch => {
     //dispatch( creatingOrder(cartObj) );
@@ -41,8 +41,11 @@ export function missionGetCards() {
       lang: 'en',
       type: 'curated'
     })
-      .then(response => dispatch( allCards( response )))
-      .catch(error => dispatch( cardsFail( error.data )));
+    .then(response => {
+      callback(response.data) //called internally in component to update localState
+      dispatch( allCards( response ))
+    })
+    .catch(error => dispatch( cardsFail( error.data )));
   }
 }
 
