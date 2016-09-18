@@ -9,9 +9,10 @@ $cardHeight: 730px;
     .telescope-card-back {
       min-height: $cardHeight;
       max-height: $cardHeight;
+      width: 365px;
       background: #fff;
       position: absolute;
-      left: 15px;
+      
       top: 0;
       -webkit-transform: rotateY( 180deg );
       -moz-transform: rotateY( 180deg );
