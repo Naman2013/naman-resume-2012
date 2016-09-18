@@ -1,13 +1,20 @@
 import React, { Component, PropTypes } from 'react';
+import SloohExtrasTile from './slooh-extras-tile';
 
 class TwitterFeed extends Component {
   render() {
     return(
-      <div className="slooh-addon-tile">
-        <h1>Hey.</h1>
-      </div>
+      <SloohExtrasTile title={this.props.title}>
+        <div className="slooh-addon-tile">
+          <h1>Hey.</h1>
+        </div>
+      </SloohExtrasTile>
     );
   }
 }
+
+TwitterFeed.propTypes = {
+  title: PropTypes.string.isRequired
+};
 
 export default TwitterFeed;

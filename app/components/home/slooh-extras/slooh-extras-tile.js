@@ -6,9 +6,11 @@ import style from './slooh-extras-tile.scss';
 class SloohExtrasTile extends Component {
   render() {
     return(
-      <div className={style.sloohExtrasTile}>
-        <TitleBar title={this.props.title} />
-        {this.props.children}
+      <div className="slooh-extras-tile col-md-4">
+        <div className="slooh-extras-content">
+          <TitleBar title={this.props.title} />
+          {this.props.children}
+        </div>
       </div>
     );
   }
