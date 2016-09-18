@@ -4,13 +4,14 @@ import style from './sponsors.scss';
 class Sponsors extends Component {
   generateSponsors() {
     return this.props.sponsorImages
-      .map((sponsorImage) => {
+      .map((sponsorImage, index) => {
         const imageStyle = {
           background: `url(${sponsorImage.imageUrl}) no-repeat center center`,
           backgroundSize: sponsorImage.size
         };
         return(
           <li
+            key={index}
             style={imageStyle}
             className={style.sponsorImage}>
           </li>
