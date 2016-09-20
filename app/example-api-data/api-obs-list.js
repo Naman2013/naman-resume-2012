@@ -15,7 +15,7 @@ export default {
     "obsName" : "Chile",
     "debugObservatoriesId" : 1
     },
-    -{
+    {
     "obsIndex" : 1,
     "obsId" : "teide",
     "obsUniqueId" : "d7f673a5-7908-11e6-a635-0eb2b1774883",
