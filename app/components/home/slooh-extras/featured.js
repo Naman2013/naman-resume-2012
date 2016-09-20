@@ -5,22 +5,22 @@ import style from './featured.scss';
 
 const RIGHT_COLUMN = [
   {
-    imageUrl: '../../assets/images/sponsors/popular_science.png',
+    imageUrl: 'assets/images/sponsors/popular_science.png',
     width: '120',
     height: '45'
   },
   {
-    imageUrl: '../../assets/images/sponsors/wash_post_white.png',
+    imageUrl: 'assets/images/sponsors/wash_post_white.png',
     width: '160',
     height: '23'
   },
   {
-    imageUrl: '../../assets/images/sponsors/NASA_TV.png',
+    imageUrl: 'assets/images/sponsors/NASA_TV.png',
     width: '112',
     height: '67'
   },
   {
-    imageUrl: '../../assets/images/sponsors/spaceimages-com.png',
+    imageUrl: 'assets/images/sponsors/spaceimages-com.png',
     width: '125',
     height: '37'
   }
@@ -28,22 +28,22 @@ const RIGHT_COLUMN = [
 
 const LEFT_COLUMN = [
   {
-    imageUrl: '../../assets/images/sponsors/the_new_york_times_logo_white1.png',
+    imageUrl: 'assets/images/sponsors/the_new_york_times_logo_white1.png',
     width: '170',
     height: '25'
   },
   {
-    imageUrl: '../../assets/images/sponsors/ABC_News_Logo.png',
+    imageUrl: 'assets/images/sponsors/ABC_News_Logo.png',
     width: '134',
     height: '45'
   },
   {
-    imageUrl: '../../assets/images/sponsors/wired.png',
+    imageUrl: 'assets/images/sponsors/wired.png',
     width: '131',
     height: '25'
   },
   {
-    imageUrl: '../../assets/images/sponsors/National_Geographic_Society.png',
+    imageUrl: 'assets/images/sponsors/National_Geographic_Society.png',
     width: '131',
     height: '39'
   }
@@ -52,8 +52,8 @@ const LEFT_COLUMN = [
 class Featured extends Component {
 
   generateImages(list) {
-    return list.map(image =>
-        <div className="featured-in-logo">
+    return list.map((image, index) =>
+        <div key={index} className="featured-in-logo">
           <img
             src={image.imageUrl}
             width={image.width}

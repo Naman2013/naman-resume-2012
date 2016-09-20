@@ -32,7 +32,7 @@ const ReserveConfirm = (props) => {
       </div>
       <Modal.Header>
         <h1>You’re reserving the Canary Islands 1 Telescope to see:</h1>
-        <img className={styles.cardIcon} src="../../../assets/icons/Jupiter.svg" />
+        <img className={styles.cardIcon} src="assets/icons/Jupiter.svg" />
         <h2>Andromeda Galaxy (M31)</h2>
       </Modal.Header>
 

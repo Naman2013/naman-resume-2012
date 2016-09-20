@@ -13,7 +13,7 @@ const PiggyBackConfirm = (props) => {
       <Modal.Body>
 
         <div className="mission-name">
-          <img className={styles.cardIcon} src="../../../assets/icons/Jupiter.svg" />
+          <img className={styles.cardIcon} src="assets/icons/Jupiter.svg" />
           <h4>Jupiter</h4>
           <p>(Carefully, the gravity is 2.5 times of earth, so tread lightly.)</p>
         </div>

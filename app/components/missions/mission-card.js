@@ -5,18 +5,19 @@ import classnames from 'classnames';
 import styles from './mission-card.scss';
 
 const MissionCard = (props) => {
-    
+
     let featured = props.featured;
     let className = `${styles.missionCard} ${props.className || ''}`;
     const card = props.card;
 
     return (
       <div className={className}>
-        {props.className == 'featured' ? <span className="callOut">Don't Miss</span> : null}
+        { props.className === 'featured' ? <span className="callOut">Don't Miss</span> : null }
+
         <h2>{card.headline}</h2>
 
         <div className={styles.cardsubTitle}>
-          <img className={styles.cardIcon} src="../../../assets/icons/Jupiter.svg" />
+          <img className={styles.cardIcon} src="assets/icons/Jupiter.svg" />
           <h3>{card.title}</h3>
         </div>
 
