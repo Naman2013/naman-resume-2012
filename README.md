@@ -18,6 +18,24 @@ After you clone the repo:
 
 3. Navigate to: [http://localhost:8080/webpack-dev-server/](http://localhost:8080/webpack-dev-server/)
 
+### URL's and Path Building
+
+This project requires that we use relative paths to assets.  The Webpack build process
+will automatically copy the assets directory and include it in dist for you.  That means
+whenever you need to reference an asset, use the relative path:
+
+`assets/{your-asset-path}`
+
+### API's and Proxies
+
+When working locally, the dev server has been configured to proxy to the
+API server for you from the relative path for example:
+
+`api/{your-api-path-here/?foo=bar&etc=etc}`
+
+The build process also requires that your API calls begin with `api/` to be remapped
+according to the production build process.
+
 ### Building for Production
 
 Due to the nature of this project, handles for altering API call addresses
