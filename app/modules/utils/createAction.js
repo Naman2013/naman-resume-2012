@@ -1,4 +1,4 @@
-export default function creatAction(type, ...argNames) {
+export default function createAction(type, ...argNames) {
   return (...args) => {
     const action = { type };
 

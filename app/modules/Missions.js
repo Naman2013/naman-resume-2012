@@ -1,5 +1,5 @@
 import createReducer from './utils/createReducer';
-import creatAction from './utils/creatAction';
+import createAction from './utils/createAction';
 import axios from 'axios';
 
 // Mission action types

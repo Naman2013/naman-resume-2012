@@ -1,7 +1,7 @@
 import { SubmissionError } from 'redux-form';
 import superagent from '../utils/superagent';
 import createReducer from './utils/createReducer';
-import creatAction from './utils/creatAction';
+import createAction from './utils/createAction';
 import * as userActions from './User';
 
 const LOGIN_SHOW = 'LOGIN_SHOW';
@@ -26,8 +26,8 @@ export default createReducer(initialState, {
   },
 });
 
-export const show = creatAction(LOGIN_SHOW, 'index');
-export const hide = creatAction(LOGIN_HIDE);
+export const show = createAction(LOGIN_SHOW, 'index');
+export const hide = createAction(LOGIN_HIDE);
 
 export async function login(values, dispatch) {
   const { body, body: { loginError } } = await superagent
