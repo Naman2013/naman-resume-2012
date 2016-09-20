@@ -13,10 +13,10 @@ class CardFront extends Component {
           <button
             onClick={this.props.handleFlip}
             className="flip-card-action">
-            <img src="../../../assets/icons/flip-arrow.svg" />
+            <img src="assets/icons/flip-arrow.svg" />
           </button>
 
-          <img src="../../../assets/icons/observatory.svg" width="50" height="50" />
+          <img src="assets/icons/observatory.svg" width="50" height="50" />
           <h3 className="title">High-Magnification 1</h3>
           <p className="body">
             Best for Deep Sky Objects such as galaxies, nebulae, and star clusters.
@@ -43,7 +43,7 @@ class CardFront extends Component {
                 <div className="image-viewer">
                   <h4 className="title">LIVE Mission</h4>
                   <div className="telescope-image">
-                    <img src="../../../assets/images/graphics/galaxy-circle.png" width="245" height="245" />
+                    <img src="assets/images/graphics/galaxy-circle.png" width="245" height="245" />
                   </div>
                   <h5 className="telescope-image-title">
                     Andromeda Galaxy ( M31 )
@@ -62,7 +62,7 @@ class CardFront extends Component {
 
                   <h4 className="title">Offline</h4>
                   <div className="telescope-image">
-                    <img src="../../../assets/images/graphics/telescope-offline.png" width="245" height="245" />
+                    <img src="assets/images/graphics/telescope-offline.png" width="245" height="245" />
                   </div>
                   <p className="telescope-status">
                     The weather is a bit intense right now so all mission have been cancelled unfortunately.
@@ -73,7 +73,7 @@ class CardFront extends Component {
 
 
           <div className="sponsor">
-            <p>Sponsored by: <img src="../../../assets/images/logos/celestron.png" width="150" /></p>
+            <p>Sponsored by: <img src="assets/images/logos/celestron.png" width="150" /></p>
           </div>
 
         </div>

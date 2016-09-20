@@ -1,10 +1,10 @@
 export default {
   STATIC_HERO: {
-    backgroundImageUrl: '../../assets/images/graphics/stargazers-bg.png',
+    backgroundImageUrl: 'assets/images/graphics/stargazers-bg.png',
     mainHeadingText: 'WELCOME TO SPACE FOR EVERYONE.',
     subHeadingText: 'Slooh.com is Online Telescopes, LIVE Streaming Events, Original Video Programming, and more.',
     funFactText: 'That light started towards earth 2 million years ago? Seriously?',
-    funFactImage: '../../assets/icons/Emoji_FL@33_MindBlown_F_1308x1976.png',
+    funFactImage: 'assets/icons/Emoji_FL@33_MindBlown_F_1308x1976.png',
     actionUrl: '#',
     actionText: 'Watch Video Tour'
   },
@@ -13,19 +13,19 @@ export default {
       key: 1,
       title: 'BOB BERMAN LIVE',
       content: `Join author and astronomer as he goes live for a full hour, featuring galactic views of Slooh’s scopes this Thurs. at 5 PM EST.`,
-      imageUrl: '../../assets/images/samples/bobpubjpg.png'
+      imageUrl: 'assets/images/samples/bobpubjpg.png'
     },
     {
       key: 2,
       title: 'CAPTURING A COMET’S TAIL',
       content: `Learn all about how Slooh Members managed to image comet 67P’s long trail—the source of meteor showers.`,
-      imageUrl: '../../assets/images/samples/perseid-meteor-shower.png'
+      imageUrl: 'assets/images/samples/perseid-meteor-shower.png'
     },
     {
       key: 3,
       title: 'WATCHING',
       content: `This weekend you’ll get a shot at seeing the Perseids at a new level of intensity. Prep is key. Learn all about what you need here.`,
-      imageUrl: '../../assets/images/samples/perseids.png'
+      imageUrl: 'assets/images/samples/perseids.png'
     }
   ],
   promoBandContent: 'Slooh Membership: An All-Access Pass to the Night Sky.',
@@ -63,31 +63,31 @@ export default {
       {
         key: Math.random() * 100,
         title: 'Saturn',
-        imageUrl: '../../assets/images/objects/planet-saturn.png',
+        imageUrl: 'assets/images/objects/planet-saturn.png',
         url: '#'
       },
       {
         key: Math.random() * 100,
         title: 'Jupiter',
-        imageUrl: '../../assets/images/objects/planet-jupiter.png',
+        imageUrl: 'assets/images/objects/planet-jupiter.png',
         url: '#'
       },
       {
         key: Math.random() * 100,
         title: 'Perseid Meteor Shower',
-        imageUrl: '../../assets/images/objects/meteor-shower.png',
+        imageUrl: 'assets/images/objects/meteor-shower.png',
         url: '#'
       },
       {
         key: Math.random() * 100,
         title: 'Blood Moon',
-        imageUrl: '../../assets/images/objects/blood-moon.png',
+        imageUrl: 'assets/images/objects/blood-moon.png',
         url: '#'
       },
       {
         key: Math.random() * 100,
         title: 'Cassiopeia',
-        imageUrl: '../../assets/images/objects/cassiopeia.png',
+        imageUrl: 'assets/images/objects/cassiopeia.png',
         url: '#'
       }
     ],
@@ -102,35 +102,35 @@ export default {
   SPONSORS_SUB_TITLE: 'Our partners help to bring live telescope feeds of the cosmos to the world.',
   SPONSOR_IMAGES: [
     {
-      imageUrl: '../../assets/images/sponsors/Time_Magazine_Logo.png',
+      imageUrl: 'assets/images/sponsors/Time_Magazine_Logo.png',
       size: '70%'
     },
     {
-      imageUrl: '../../assets/images/sponsors/42_digital_logo_dark_blue_HI.png',
+      imageUrl: 'assets/images/sponsors/42_digital_logo_dark_blue_HI.png',
       size: '80%'
     },
     {
-      imageUrl: '../../assets/images/sponsors/Google_2015_logo.png',
+      imageUrl: 'assets/images/sponsors/Google_2015_logo.png',
       size: '90%'
     },
     {
-      imageUrl: '../../assets/images/sponsors/Wanderlust-truenorth-web-1.png',
+      imageUrl: 'assets/images/sponsors/Wanderlust-truenorth-web-1.png',
       size: '90%'
     },
     {
-      imageUrl: '../../assets/images/sponsors/logo-iac.png',
+      imageUrl: 'assets/images/sponsors/logo-iac.png',
       size: '60%'
     },
     {
-      imageUrl: '../../assets/images/sponsors/Celestron_Logo_as_of_2015.png',
+      imageUrl: 'assets/images/sponsors/Celestron_Logo_as_of_2015.png',
       size: '100%'
     },
     {
-      imageUrl: '../../assets/images/sponsors/pontificia.png',
+      imageUrl: 'assets/images/sponsors/pontificia.png',
       size: '90%'
     },
     {
-      imageUrl: '../../assets/images/sponsors/carl-sagan.png',
+      imageUrl: 'assets/images/sponsors/carl-sagan.png',
       size: '75%'
     }
   ]

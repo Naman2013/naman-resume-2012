@@ -5,12 +5,12 @@ const MissionUpcoming = () => {
   return (
     <div className="widget-container mission-upcoming">
       <div className="widget-header">
-        <img src="../../../assets/images/graphics/peter.jpg" />
-        <h2>Peter's upcoming mission</h2>
+        <img src="assets/images/graphics/peter.jpg" />
+        <h2>Peter&rsquo;s upcoming mission</h2>
       </div>
 
       <div className="cardsubTitle">
-        <img className={styles.cardIcon} src="../../../assets/icons/Jupiter.svg" />
+        <img className={styles.cardIcon} src="assets/icons/Jupiter.svg" />
         <h3>Andromeda Galaxy (M31)</h3>
       </div>
 
