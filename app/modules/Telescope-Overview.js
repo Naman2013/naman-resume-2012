@@ -5,40 +5,39 @@ export const OBSERVATORY_REQUEST_SUCCESS = 'OBSERVATORY_REQUEST_SUCCESS';
 export const OBSERVATORY_REQUEST_FAIL = 'OBSERVATORY_REQUEST_FAIL';
 
 const initialState = {
-  observatoryList: {},
+  observatoryList: [],
   observatoryListError: false
 };
 
-export function getObservatoryList(observatoryId = '') {
+export function getObservatoryList(user, observatoryId = '') {
+  console.log('user from observatory request');
+  console.log(user);
   return dispatch => {
-    console.log('get observatory list called...');
     return axios.post('/api/obs/list', {
-      observatoryId,
       lang: 'en',
       status: 'live',
-      at: '2',
-      cid: '198265',
-      token: '3f0c15c24dd04a8d4f31f4ffba8bcdd71591d235',
+      at: user.at,
+      cid: user.cid,
+      token: user.token,
       listType: 'pageHeader'
     })
     .then(response => dispatch( observatoryListSuccess( response ) ))
-    .catch(error => dispatch( observatoryListError( error ) ))
+    .catch(error => dispatch( observatoryListError(error) ))
   };
 }
-
 
 
 // action creator
 export function observatoryListSuccess(observatoryList) {
-  console.log('observatory list success called....');
   return {
     type: OBSERVATORY_REQUEST_SUCCESS,
-    obseratoryListResponse: observatoryListData
+    observatoryList: observatoryList.data.observatoryList
   };
 }
 
-export function observatoryListError(state, observatoryListError) {
-  console.log('observatory list ERROR called....');
+export function observatoryListError(observatoryListError) {
+  console.log('ERROR------');
+  console.log(observatoryListError);
   return {
     type: OBSERVATORY_REQUEST_FAIL,
     observatoryListError: true
@@ -51,7 +50,7 @@ export default createReducer(initialState, {
   [OBSERVATORY_REQUEST_SUCCESS](state, { observatoryList }) {
     return {
       ...state,
-      observatoryList
+      observatoryList: observatoryList
     };
   },
   [OBSERVATORY_REQUEST_FAIL](state) {
