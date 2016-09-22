@@ -6,9 +6,6 @@ import EarthView from './weather-widgets/earth-view';
 import LunarPhase from './weather-widgets/lunar-phase';
 import ScrollForMore from '../common/scroll-for-more';
 
-// import some dummy data
-import moonPhase from './test-data/moon-phase';
-
 class ObservatoryHero extends Component {
 
   fetchCurrentEarthView() {
@@ -25,8 +22,14 @@ class ObservatoryHero extends Component {
     };
   }
 
-  fetchLunarPhase() {
-    return moonPhase;
+  renderMoonPhase() {
+    if(this.props.MoonPhaseWidgetId) {
+      return(
+        <li className="element">
+          <LunarPhase {...this.props.moonPhaseWidgetResult} />
+        </li>
+      );
+    }
   }
 
   render() {
@@ -46,9 +49,9 @@ class ObservatoryHero extends Component {
           <li className="element">
             <CurrentWeather />
           </li>
-          <li className="element">
-            <LunarPhase {...this.fetchLunarPhase()} />
-          </li>
+
+          {this.renderMoonPhase()}
+
           <li className="element">
             <EarthView {...this.fetchSatelliteEarthView()} />
           </li>
@@ -72,7 +75,9 @@ class ObservatoryHero extends Component {
 ObservatoryHero.propTypes = {
   obsName: PropTypes.string,
   obsHeroURL: PropTypes.string,
-  obsDescription: PropTypes.string
+  obsDescription: PropTypes.string,
+  MoonPhaseWidgetId: PropTypes.string,
+  moonPhaseWidgetResult: PropTypes.object // TODO: break this validation down further
 };
 
 export default ObservatoryHero;
