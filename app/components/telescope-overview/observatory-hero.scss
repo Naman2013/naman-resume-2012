@@ -1,7 +1,8 @@
 @import "./weather-widgets/weather-widget.scss";
 
 .observatory-hero {
-  background: url(../../../assets/images/graphics/mountain-scene-1.jpg) no-repeat center -200px;
+  background-repeat: no-repeat;
+  background-position: center -200px;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;

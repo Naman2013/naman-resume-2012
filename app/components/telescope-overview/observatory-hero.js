@@ -30,9 +30,18 @@ class ObservatoryHero extends Component {
   }
 
   render() {
+
+    const backgroundStyles = {
+      backgroundImage: `url(${this.props.obsHeroURL})`
+    };
+
     return(
-      <div className="observatory-hero">
-        <h3 className="title">Canary Islands</h3>
+      <div
+        style={backgroundStyles}
+        className="observatory-hero">
+
+        <h3 className="title">{this.props.obsName}</h3>
+
         <ul className="summary-navigation clearfix">
           <li className="element">
             <CurrentWeather />
@@ -47,12 +56,10 @@ class ObservatoryHero extends Component {
             <EarthView {...this.fetchCurrentEarthView()} />
           </li>
         </ul>
+
         <div className="description">
           <p>
-            A UNESCO World Heritage Site, Tenerife has been named one of the world’s
-            best locations for star-gazing and astronomy thanks to its low-light
-            pollution and pristine night-sky conditions. Enjoy our telescopes
-            situated next to Teide, a 12,198 foot volcanic summit.
+            {this.props.obsDescription}
           </p>
         </div>
 
@@ -61,5 +68,11 @@ class ObservatoryHero extends Component {
     );
   }
 }
+
+ObservatoryHero.propTypes = {
+  obsName: PropTypes.string,
+  obsHeroURL: PropTypes.string,
+  obsDescription: PropTypes.string
+};
 
 export default ObservatoryHero;

@@ -38,7 +38,8 @@ function mapStateToProps(state, ownProps) {
   return {
     user: dummyUserData, // TODO: state.user,
     observatoryList: state.telescopeOverview.observatoryList,
-    currentObservatoryId: ownProps.params.observatoryId
+    currentObservatoryId: ownProps.params.observatoryId,
+    currentObservatory: state.telescopeOverview.currentObservatory
   };
 }
 
@@ -84,7 +85,8 @@ class TelescopeOverview extends Component {
         <TelescopeFilterNav
           observatoryList={ this.props.observatoryList } />
 
-        <ObservatoryHero />
+        <ObservatoryHero
+          {...this.props.currentObservatory} />
 
         <TelescopeCards />
 
