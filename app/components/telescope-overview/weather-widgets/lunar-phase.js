@@ -5,7 +5,7 @@ class LunarPhase extends Component {
     return(
       <div className="weather-widget">
         <div className="transparent-background weather-view">
-          <h5 className="title-label">Lunar Phase</h5>
+          <h5 className="title-label">{this.props.title}</h5>
           <figure className="lunar-phase-figure">
             <img
               alt={this.props.phaseTextIllum}
@@ -22,6 +22,7 @@ class LunarPhase extends Component {
 }
 
 LunarPhase.propTypes = {
+  title: PropTypes.string.isRequired,
   phaseText: PropTypes.string,
   phaseTextIllum: PropTypes.string,
   phaseImageURL: PropTypes.string
