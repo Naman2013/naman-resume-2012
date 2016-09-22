@@ -1,0 +1,23 @@
+export default {
+    "obsIndex": "0",
+    "obsId": "canary islands",
+    "obsUniqueId": "1",
+    "obsStatus": "live",
+    "obsMenuName": "All Telescopes",
+    "obsName": "CANARY ISLANDS",
+    "obsLogoURL": "",
+    "obsHeroURL": "",
+    "obsLatitudeText": "",
+    "obsLongitudeText": "",
+    "obsAltitude": "",
+    "obsHemisphere": "",
+    "obsHemisphereAbbrev": "",
+    "obsObservatoryCode": "",
+    "obsObservatoryType": "",
+    "obsDescription": "A UNESCO World Heritage Site, Tenerife has been named one of the world’s best locations for star-gazing and astronomy thanks to its low-light pollution and pristine night-sky conditions. Enjoy our telescopes situated next to Teide, a 12,198 foot volcanic summit.",
+    "WeatherWidgetId": "",
+    "MoonPhaseWidgetId": "",
+    "SatelliteWidgetId": "",
+    "MapWidgetId": "",
+    "debugObservatoriesId": "1"
+}

@@ -37,7 +37,8 @@ statusCode: "200"
 function mapStateToProps(state, ownProps) {
   return {
     user: dummyUserData, // TODO: state.user,
-    observatoryList: state.telescopeOverview.observatoryList
+    observatoryList: state.telescopeOverview.observatoryList,
+    currentObservatoryId: ownProps.params.observatoryId
   };
 }
 
@@ -60,7 +61,10 @@ class TelescopeOverview extends Component {
   }
 
   componentDidMount() {
-    this.props.actions.getObservatoryList(this.props.user);
+    this.props.actions.getObservatoryList(
+      this.props.user,
+      this.props.currentObservatoryId
+    );
   }
 
   closeBanner() {
