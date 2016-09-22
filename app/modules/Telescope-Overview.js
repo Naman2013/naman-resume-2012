@@ -7,13 +7,15 @@ export const OBSERVATORY_REQUEST_SUCCESS = 'OBSERVATORY_REQUEST_SUCCESS';
 export const OBSERVATORY_REQUEST_FAIL = 'OBSERVATORY_REQUEST_FAIL';
 export const CHANGE_TELESCOPE_OVERVIEW = 'CHANGE_TELESCOPE_OVERVIEW';
 export const MOON_PHASE_WIDGET_SUCCESS = 'MOON_PHASE_WIDGET_SUCCESS';
+export const SATELLITE_VIEW_WIDGET_RESULT = 'SATELLITE_VIEW_WIDGET_RESULT';
 
 const initialState = {
   observatoryList: [],
   observatoryListError: false,
   currentObservatory: {},
   loadingObservatory: true,
-  moonPhaseWidgetResult: null
+  moonPhaseWidgetResult: null,
+  satelliteViewWidgetResult: null
 };
 
 export function getObservatoryList(user, currentObservatoryId) {
@@ -62,6 +64,7 @@ export function setCurrentTelescopeOverview(observatories, currentObservatoryId)
 
 export function fetchWeatherWidgets(observatory) {
   fetchMoonPhase(observatory);
+  fetchSmallSatelliteView(observatory);
 }
 
 export function fetchMoonPhase(observatory) {
@@ -77,6 +80,19 @@ export function fetchMoonPhase(observatory) {
   };
 }
 
+export function fetchSmallSatelliteView(observatory) {
+  return dispatch => {
+    return axios.post('/api/wx/satellite', {
+      ver: 'v1',
+      lang: 'en',
+      obsId: observatory.obsId,
+      widgetUniqueId: observatory.SatelliteWidgetId,
+      timestamp: new Date().getTime()
+    })
+    .then(result => dispatch(setSatelliteViewWidget(result)));
+  };
+}
+
 export function setMoonPhaseWidget(moonPhaseWidgetResult) {
   return {
     type: MOON_PHASE_WIDGET_SUCCESS,
@@ -84,9 +100,16 @@ export function setMoonPhaseWidget(moonPhaseWidgetResult) {
   };
 }
 
+export function setSatelliteViewWidget(satelliteViewWidgetResult)  {
+  return {
+    type: SATELLITE_VIEW_WIDGET_RESULT,
+    satelliteViewWidgetResult
+  };
+}
+
 
 export default createReducer(initialState, {
-  [OBSERVATORY_REQUEST_SUCCESS](state, { observatoryList }) {
+  [OBSERVATORY_REQUEST_SUCCESS](state, observatoryList) {
     return {
       ...state,
       observatoryList: observatoryList
@@ -108,6 +131,12 @@ export default createReducer(initialState, {
     return {
       ...state,
       moonPhaseWidgetResult
+    };
+  },
+  [SATELLITE_VIEW_WIDGET_RESULT](state, satelliteViewWidgetResult) {
+    return {
+      ...state,
+      satelliteViewWidgetResult
     };
   }
 });
