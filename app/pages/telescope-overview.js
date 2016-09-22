@@ -40,7 +40,8 @@ function mapStateToProps(state, ownProps) {
     observatoryList: state.telescopeOverview.observatoryList,
     currentObservatoryId: ownProps.params.observatoryId,
     currentObservatory: state.telescopeOverview.currentObservatory,
-    moonPhaseWidgetResult: state.telescopeOverview.moonPhaseWidgetResult
+    moonPhaseWidgetResult: state.telescopeOverview.moonPhaseWidgetResult,
+    satelliteViewWidgetResult: state.telescopeOverview.satelliteViewWidgetResult
   };
 }
 
@@ -88,6 +89,7 @@ class TelescopeOverview extends Component {
 
         <ObservatoryHero
           moonPhaseWidgetResult={this.props.moonPhaseWidgetResult}
+          satelliteViewWidgetResult={this.props.satelliteViewWidgetResult}
           {...this.props.currentObservatory} />
 
         <TelescopeCards />
