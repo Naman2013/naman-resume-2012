@@ -78,6 +78,7 @@ ObservatoryHero.propTypes = {
   obsDescription: PropTypes.string,
   MoonPhaseWidgetId: PropTypes.string,
   moonPhaseWidgetResult: PropTypes.object // TODO: break this validation down further
+  satelliteViewWidgetResult: PropTypes.object // TODO: break this validation down further
 };
 
 export default ObservatoryHero;
