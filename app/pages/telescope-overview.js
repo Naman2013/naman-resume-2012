@@ -34,8 +34,7 @@ loginError: "false",
 statusCode: "200"
 };
 
-function mapStateToProps(state) {
-  console.log(state);
+function mapStateToProps(state, ownProps) {
   return {
     user: dummyUserData, // TODO: state.user,
     observatoryList: state.telescopeOverview.observatoryList

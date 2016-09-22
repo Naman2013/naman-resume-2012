@@ -9,10 +9,7 @@ const logger = createLogger();
 export default function configureStore(initialState) {
   let store = createStore(reducers, initialState, compose(
     applyMiddleware( thunkMiddleware, callAPIMiddleware, logger ),
-    window.devToolsExtension ? window.devToolsExtension() : f => f
-    )
-  );
+    window.devToolsExtension ? window.devToolsExtension() : f => f));
 
   return store;
-
 }

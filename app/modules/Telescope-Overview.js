@@ -3,15 +3,16 @@ import axios from 'axios';
 
 export const OBSERVATORY_REQUEST_SUCCESS = 'OBSERVATORY_REQUEST_SUCCESS';
 export const OBSERVATORY_REQUEST_FAIL = 'OBSERVATORY_REQUEST_FAIL';
+export const CHANGE_TELESCOPE_OVERVIEW = 'CHANGE_TELESCOPE_OVERVIEW';
 
 const initialState = {
   observatoryList: [],
-  observatoryListError: false
+  observatoryListError: false,
+  currentObservatory: {},
+  loadingObservatory: true
 };
 
 export function getObservatoryList(user, observatoryId = '') {
-  console.log('user from observatory request');
-  console.log(user);
   return dispatch => {
     return axios.post('/api/obs/list', {
       lang: 'en',
@@ -27,7 +28,7 @@ export function getObservatoryList(user, observatoryId = '') {
 }
 
 
-// action creator
+
 export function observatoryListSuccess(observatoryList) {
   return {
     type: OBSERVATORY_REQUEST_SUCCESS,
@@ -36,11 +37,16 @@ export function observatoryListSuccess(observatoryList) {
 }
 
 export function observatoryListError(observatoryListError) {
-  console.log('ERROR------');
-  console.log(observatoryListError);
   return {
     type: OBSERVATORY_REQUEST_FAIL,
     observatoryListError: true
+  };
+}
+
+export function changeTelescopeOverview(observatoryDetails) {
+  return {
+    type: CHANGE_TELESCOPE_OVERVIEW,
+    observatoryDetails
   };
 }
 
@@ -58,5 +64,12 @@ export default createReducer(initialState, {
       ...state,
       observatoryListError: true
     };
+  },
+  [CHANGE_TELESCOPE_OVERVIEW](state, { observatoryDetails }) {
+    return {
+      ...state,
+      currentObservatory: observatoryDetails,
+      loadingObservatory: false
+    }
   }
 });

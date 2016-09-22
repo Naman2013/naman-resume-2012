@@ -14,7 +14,6 @@ class TelescopeFilterNav extends Component {
   }
 
   render() {
-
     return (
       <div className={style.telescopeFilterNav}>
         <ul className="telescopeNavList clearfix">
