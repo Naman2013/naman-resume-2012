@@ -6,15 +6,17 @@ import defaultObservatoryOverviewDetails from '../content/default-observatory-ov
 export const OBSERVATORY_REQUEST_SUCCESS = 'OBSERVATORY_REQUEST_SUCCESS';
 export const OBSERVATORY_REQUEST_FAIL = 'OBSERVATORY_REQUEST_FAIL';
 export const CHANGE_TELESCOPE_OVERVIEW = 'CHANGE_TELESCOPE_OVERVIEW';
+export const MOON_PHASE_WIDGET_SUCCESS = 'MOON_PHASE_WIDGET_SUCCESS';
 
 const initialState = {
   observatoryList: [],
   observatoryListError: false,
   currentObservatory: {},
-  loadingObservatory: true
+  loadingObservatory: true,
+  moonPhaseWidgetResult: null
 };
 
-export function getObservatoryList(user, currentObservatoryId, observatoryId = '') {
+export function getObservatoryList(user, currentObservatoryId) {
   return dispatch => {
     return axios.post('/api/obs/list', {
       lang: 'en',
@@ -25,7 +27,6 @@ export function getObservatoryList(user, currentObservatoryId, observatoryId = '
       listType: 'pageHeader'
     })
     .then((response) => {
-      const observatoryData = [defaultObservatoryOverviewDetails];
       dispatch( observatoryListSuccess( response ) );
       dispatch( setCurrentTelescopeOverview(
         [defaultObservatoryOverviewDetails, ...response.data.observatoryList] , currentObservatoryId ) );
@@ -52,12 +53,36 @@ export function observatoryListError(observatoryListError) {
 
 export function setCurrentTelescopeOverview(observatories, currentObservatoryId) {
   const observatory = observatories.filter(observatory => observatory.obsUniqueId === currentObservatoryId);
+  dispatch( fetchWeatherWidgets(observatory) );
   return {
     type: CHANGE_TELESCOPE_OVERVIEW,
     observatoryDetails: observatory[0]
   };
 }
 
+export function fetchWeatherWidgets(observatory) {
+  fetchMoonPhase(observatory);
+}
+
+export function fetchMoonPhase(observatory) {
+  return dispatch => {
+    return axios.post('/api/moon/phase', {
+      ver: 'v1',
+      lang: 'en',
+      obsId: observatory.obsId,
+      widgetUniqueId: observatory.MoonPhaseWidgetId,
+      timestamp: new Date().getTime()
+    })
+    .then(result => dispatch(setMoonPhaseWidget, result));
+  };
+}
+
+export function setMoonPhaseWidget(moonPhaseWidgetResult) {
+  return {
+    type: MOON_PHASE_WIDGET_SUCCESS,
+    moonPhaseWidget: moonPhaseWidgetResult
+  };
+}
 
 
 export default createReducer(initialState, {
@@ -78,5 +103,11 @@ export default createReducer(initialState, {
       ...state,
       currentObservatory: observatoryDetails
     }
+  },
+  [MOON_PHASE_WIDGET_SUCCESS](state, moonPhaseWidgetResult) {
+    return {
+      ...state,
+      moonPhaseWidgetResult
+    };
   }
 });
