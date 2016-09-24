@@ -63,11 +63,15 @@ class TelescopeOverview extends Component {
     };
   }
 
-  componentDidMount() {
+  updateObservatory() {
     this.props.actions.getObservatoryList(
       this.props.user,
       this.props.currentObservatoryId
     );
+  }
+
+  componentDidMount() {
+    this.updateObservatory();
   }
 
   closeBanner() {
@@ -77,6 +81,13 @@ class TelescopeOverview extends Component {
   }
 
   render() {
+
+    const { observatoryList, currentObservatoryId } = this.props;
+    const currentObservatory = observatoryList
+      .map( observatory => observatory.obsId === currentObservatoryId );
+    
+    console.log(currentObservatoryId);
+
     return(
       <div>
 
