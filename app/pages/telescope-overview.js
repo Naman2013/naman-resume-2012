@@ -84,9 +84,7 @@ class TelescopeOverview extends Component {
 
     const { observatoryList, currentObservatoryId } = this.props;
     const currentObservatory = observatoryList
-      .map( observatory => observatory.obsId === currentObservatoryId );
-    
-    console.log(currentObservatoryId);
+      .filter( observatory => observatory.obsUniqueId === currentObservatoryId )[0];
 
     return(
       <div>
@@ -101,7 +99,7 @@ class TelescopeOverview extends Component {
         <ObservatoryHero
           moonPhaseWidgetResult={this.props.moonPhaseWidgetResult}
           satelliteViewWidgetResult={this.props.satelliteViewWidgetResult}
-          {...this.props.currentObservatory} />
+          {...currentObservatory} />
 
         <TelescopeCards />
 
