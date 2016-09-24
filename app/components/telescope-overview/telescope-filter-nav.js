@@ -29,15 +29,6 @@ class TelescopeFilterNav extends Component {
       <div className={style.telescopeFilterNav}>
         <ul className="telescopeNavList clearfix">
 
-          <li className="col-md-3 action-container">
-            <Link
-              to="/telescope-overview/1"
-              activeClassName="active"
-              className="button">
-                All Telescopes
-            </Link>
-          </li>
-
           {this.generateDynamicFilters()}
 
           <li className="col-md-3 push-right universal-time">
