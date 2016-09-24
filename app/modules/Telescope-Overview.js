@@ -1,6 +1,12 @@
 import createReducer from './utils/createReducer';
 import axios from 'axios';
 
+/**
+  HACK
+  we patch this default observatory to the response
+  to provide data for the "All observatories"
+  Hopefully we will this returned from the API
+*/
 import defaultObservatoryOverviewDetails from '../content/default-observatory-overview-details';
 
 export const OBSERVATORY_REQUEST_SUCCESS = 'OBSERVATORY_REQUEST_SUCCESS';
@@ -27,7 +33,7 @@ export function getObservatoryList(user, currentObservatoryId) {
       listType: 'pageHeader'
     })
     .then((response) => {
-      const observatoryList = response.data.observatoryList;
+      const observatoryList = [defaultObservatoryOverviewDetails, ...response.data.observatoryList];
       const currentObservatory = observatoryList.filter(observatory => observatory.obsUniqueId === currentObservatoryId)[0];
 
       dispatch( observatoryListSuccess( observatoryList ) );
