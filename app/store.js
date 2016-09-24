@@ -6,9 +6,11 @@ import createLogger from 'redux-logger';
 
 const logger = createLogger();
 
+// TODO: add logger AND dev-tools?
+
 export default function configureStore(initialState) {
   let store = createStore(reducers, initialState, compose(
-    applyMiddleware( thunkMiddleware, callAPIMiddleware, logger ),
+    applyMiddleware( thunkMiddleware, callAPIMiddleware ),
     window.devToolsExtension ? window.devToolsExtension() : f => f));
 
   return store;
