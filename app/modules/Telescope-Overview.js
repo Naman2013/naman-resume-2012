@@ -5,17 +5,15 @@ import defaultObservatoryOverviewDetails from '../content/default-observatory-ov
 
 export const OBSERVATORY_REQUEST_SUCCESS = 'OBSERVATORY_REQUEST_SUCCESS';
 export const OBSERVATORY_REQUEST_FAIL = 'OBSERVATORY_REQUEST_FAIL';
-export const CHANGE_TELESCOPE_OVERVIEW = 'CHANGE_TELESCOPE_OVERVIEW';
 export const MOON_PHASE_WIDGET_SUCCESS = 'MOON_PHASE_WIDGET_SUCCESS';
 export const SATELLITE_VIEW_WIDGET_RESULT = 'SATELLITE_VIEW_WIDGET_RESULT';
 
 const initialState = {
-  observatoryList: [],
-  observatoryListError: false,
-  currentObservatory: {},
-  loadingObservatory: true,
+  observatoryList: [], // list of available observatories
   moonPhaseWidgetResult: null,
-  satelliteViewWidgetResult: null
+  satelliteViewWidgetResult: null,
+  weatherWidgetResult: null,
+  whereOnEarthWidgetResult: null
 };
 
 export function getObservatoryList(user, currentObservatoryId) {
@@ -29,9 +27,12 @@ export function getObservatoryList(user, currentObservatoryId) {
       listType: 'pageHeader'
     })
     .then((response) => {
-      dispatch( observatoryListSuccess( response ) );
-      dispatch( setCurrentTelescopeOverview(
-        [defaultObservatoryOverviewDetails, ...response.data.observatoryList] , currentObservatoryId ) );
+      const observatoryList = response.data.observatoryList;
+      const currentObservatory = observatoryList.filter(observatory => observatory.obsUniqueId === currentObservatoryId)[0];
+
+      dispatch( observatoryListSuccess( observatoryList ) );
+      dispatch( fetchMoonPhase(currentObservatory) );
+      dispatch( fetchSmallSatelliteView(currentObservatory) );
     })
     .catch(error => dispatch( observatoryListError(error) ))
   };
@@ -42,29 +43,16 @@ export function getObservatoryList(user, currentObservatoryId) {
 export function observatoryListSuccess(observatoryList) {
   return {
     type: OBSERVATORY_REQUEST_SUCCESS,
-    observatoryList: observatoryList.data.observatoryList
+    observatoryList
   };
 }
 
 export function observatoryListError(observatoryListError) {
   return {
     type: OBSERVATORY_REQUEST_FAIL,
-    observatoryListError: true
+    observatoryListError: true,
+    error: observatoryListError
   };
-}
-
-export function setCurrentTelescopeOverview(observatories, currentObservatoryId) {
-  const observatory = observatories.filter(observatory => observatory.obsUniqueId === currentObservatoryId);
-  dispatch( fetchWeatherWidgets(observatory) );
-  return {
-    type: CHANGE_TELESCOPE_OVERVIEW,
-    observatoryDetails: observatory[0]
-  };
-}
-
-export function fetchWeatherWidgets(observatory) {
-  fetchMoonPhase(observatory);
-  fetchSmallSatelliteView(observatory);
 }
 
 export function fetchMoonPhase(observatory) {
@@ -76,7 +64,7 @@ export function fetchMoonPhase(observatory) {
       widgetUniqueId: observatory.MoonPhaseWidgetId,
       timestamp: new Date().getTime()
     })
-    .then(result => dispatch(setMoonPhaseWidget, result));
+    .then(result => dispatch( setMoonPhaseWidget(result.data) ) );
   };
 }
 
@@ -89,14 +77,14 @@ export function fetchSmallSatelliteView(observatory) {
       widgetUniqueId: observatory.SatelliteWidgetId,
       timestamp: new Date().getTime()
     })
-    .then(result => dispatch(setSatelliteViewWidget(result)));
+    .then(result => dispatch(setSatelliteViewWidget(result.data)));
   };
 }
 
 export function setMoonPhaseWidget(moonPhaseWidgetResult) {
   return {
     type: MOON_PHASE_WIDGET_SUCCESS,
-    moonPhaseWidget: moonPhaseWidgetResult
+    moonPhaseWidgetResult
   };
 }
 
@@ -109,31 +97,25 @@ export function setSatelliteViewWidget(satelliteViewWidgetResult)  {
 
 
 export default createReducer(initialState, {
-  [OBSERVATORY_REQUEST_SUCCESS](state, observatoryList) {
+  [OBSERVATORY_REQUEST_SUCCESS](state, { observatoryList }) {
     return {
       ...state,
       observatoryList: observatoryList
     };
   },
-  [OBSERVATORY_REQUEST_FAIL](state) {
+  [OBSERVATORY_REQUEST_FAIL](state, error) {
     return {
       ...state,
-      observatoryListError: true
+      observatoryListError: error
     };
   },
-  [CHANGE_TELESCOPE_OVERVIEW](state, { observatoryDetails }) {
-    return {
-      ...state,
-      currentObservatory: observatoryDetails
-    }
-  },
-  [MOON_PHASE_WIDGET_SUCCESS](state, moonPhaseWidgetResult) {
+  [MOON_PHASE_WIDGET_SUCCESS](state, { moonPhaseWidgetResult }) {
     return {
       ...state,
       moonPhaseWidgetResult
     };
   },
-  [SATELLITE_VIEW_WIDGET_RESULT](state, satelliteViewWidgetResult) {
+  [SATELLITE_VIEW_WIDGET_RESULT](state, { satelliteViewWidgetResult }) {
     return {
       ...state,
       satelliteViewWidgetResult
