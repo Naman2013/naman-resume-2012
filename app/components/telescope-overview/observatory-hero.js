@@ -35,7 +35,8 @@ class ObservatoryHero extends Component {
   render() {
 
     const backgroundStyles = {
-      backgroundImage: `url(${this.props.obsHeroURL})`
+      background: `url(${this.props.obsHeroURL}) no-repeat center -200px`,
+      backgroundSize: 'cover'
     };
 
     return(
@@ -77,7 +78,7 @@ ObservatoryHero.propTypes = {
   obsHeroURL: PropTypes.string,
   obsDescription: PropTypes.string,
   MoonPhaseWidgetId: PropTypes.string,
-  moonPhaseWidgetResult: PropTypes.object // TODO: break this validation down further
+  moonPhaseWidgetResult: PropTypes.object, // TODO: break this validation down further
   satelliteViewWidgetResult: PropTypes.object // TODO: break this validation down further
 };
 
