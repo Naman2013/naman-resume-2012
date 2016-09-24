@@ -15,7 +15,7 @@ import style from './telescope-cards.scss';
 class TelescopeCards extends Component {
   render() {
     return(
-      <div className="telescope-cards-container">
+      <div className="telescope-cards-container clearfix">
         <ul className="col-md-12 clearfix telescope-cards">
           <TelescopeCard />
           <TelescopeCard />

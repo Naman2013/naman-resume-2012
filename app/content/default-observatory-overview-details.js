@@ -6,7 +6,7 @@ export default {
     "obsMenuName": "All Telescopes",
     "obsName": "CANARY ISLANDS",
     "obsLogoURL": "",
-    "obsHeroURL": "",
+    "obsHeroURL": "/sloohapp/images/graphics/mountain-scene-1.jpg",
     "obsLatitudeText": "",
     "obsLongitudeText": "",
     "obsAltitude": "",

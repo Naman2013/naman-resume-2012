@@ -35,8 +35,7 @@ class ObservatoryHero extends Component {
   render() {
 
     const backgroundStyles = {
-      background: `url(${this.props.obsHeroURL}) no-repeat center -200px`,
-      backgroundSize: 'cover'
+      backgroundImage: `url(${this.props.obsHeroURL})`
     };
 
     return(
