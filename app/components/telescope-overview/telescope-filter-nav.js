@@ -10,9 +10,10 @@ class TelescopeFilterNav extends Component {
   generateDynamicFilters() {
     return this.props.observatoryList.map( (observatory, index) =>  {
       return (
-        <li className="col-md-3 action-container">
+        <li
+          key={index}
+          className="col-md-3 action-container">
           <Link
-            key={index}
             to={`/telescope-overview/${observatory.obsUniqueId}`}
             activeClassName="active"
             className="button">
