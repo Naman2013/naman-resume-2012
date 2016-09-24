@@ -1,13 +1,13 @@
 import React from 'react';
+import { Link } from 'react-router'
 
-const FilterLink = ( props ) => (
-  <li className="col-md-3 action-container">
-    <a
-      href={`/#telecope-overview/${props.obsUniqueId}`}
-      className="button">
-      {props.obsMenuName}
-    </a>
-  </li>
+const FilterLink = ( { obsUniqueId, obsMenuName } ) => (
+  <Link
+    to={`/telescope-overview/${obsUniqueId}`}
+    activeClassName="active"
+    className="button">
+      {obsMenuName}
+  </Link>
 );
 
 export default FilterLink;

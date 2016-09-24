@@ -1,8 +1,6 @@
 import React, { Component, PropTypes } from 'react';
-import { Link } from 'react-router';
 import UniversalTime from '../common/universal-time';
-import classnames from 'classnames';
-
+import FilterLink from './filter-link';
 import style from './telescope-filter-nav.scss';
 
 class TelescopeFilterNav extends Component {
@@ -13,12 +11,7 @@ class TelescopeFilterNav extends Component {
         <li
           key={index}
           className="col-md-3 action-container">
-          <Link
-            to={`/telescope-overview/${observatory.obsUniqueId}`}
-            activeClassName="active"
-            className="button">
-              {observatory.obsMenuName}
-          </Link>
+          <FilterLink {...observatory} />
         </li>
       )
     });
