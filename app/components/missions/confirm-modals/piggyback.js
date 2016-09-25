@@ -1,9 +1,17 @@
 import React from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import styles from '../mission-modals.scss';
+import moment from 'moment';
 
 const PiggyBackConfirm = (props) => {
-  console.log(props);
+  const {mission} = props.mission;
+  const {time} = props;
+  if (mission.hasOwnProperty('missionList')) {
+    time.EST_start = moment.unix(mission.missionList[0].missionStart).utcOffset(-5, false).format("dddd, MMMM Do");
+    time.EST_start_time = moment.unix(mission.missionList[0].missionStart).utcOffset(-5, false).format("hh:mm a");
+    time.PST_start_time = moment.unix(mission.missionList[0].missionStart).utcOffset(-8, false).format("hh:mm a");
+    time.UTC_start_time = moment.unix(mission.missionList[0].missionStart).format("hh:mm a");
+  }
   return (
     <Modal show={props.mission.isConfirmationOpen} className={styles.missionModal}>
       <Modal.Header>
@@ -20,8 +28,8 @@ const PiggyBackConfirm = (props) => {
 
         <div className="mission-schedule">
           <h4>Mission Details:</h4>
-          <p>Thursday, October 18th<br />
-              10:05pm EST, 7:05pm PST, 3:05 UTC<br />
+          <p>{time.EST_start}<br />
+              {time.EST_start_time} EST, {time.PST_start_time} PST, {time.UTC_start_time} UTC<br />
             Canary Islands
           </p>
         </div>
@@ -33,5 +41,17 @@ const PiggyBackConfirm = (props) => {
     </Modal>
   )
 }
+
+PiggyBackConfirm.defaultProps = {
+  mission: {
+    missionList: []
+  },
+  time: {
+    EST_start : '',
+    EST_start_time: '',
+    PST_start_time: '',
+    UTC_start_time: ''
+  }
+};
 
 export default PiggyBackConfirm;
