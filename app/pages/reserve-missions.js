@@ -6,13 +6,9 @@ import classnames from 'classnames';
 import moment from 'moment';
 
 import MissionCard from '../components/missions/mission-card';
-import AnnouncementBanner from '../components/common/announcement-banner';
-import ReserveBanner from '../components/missions/reserve-banner';
-import MissionNav from '../components/missions/mission-nav';
 import MissionUpdates from '../components/missions/mission-updates';
 import MissionAd from '../components/missions/mission-ad';
 import MissionUpcoming from '../components/missions/mission-upcoming';
-import MissionConfirmModal from '../components/missions/mission-confirm-modal';
 import {missionGetCards, missionConfirmOpen, missionConfirmClose, missionGetInfo} from '../modules/Missions';
 
 const { element, func, object } = PropTypes;
@@ -38,13 +34,6 @@ function mapStateToProps({ missions }) {
 @connect(mapStateToProps, mapDispatchToProps)
 
 export default class ReserveMissions extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      displayBanner: true
-    };
-  }
 
   static propTypes = {
     children: element,
@@ -58,17 +47,12 @@ export default class ReserveMissions extends Component {
 
   openConfirmModal(card, type, event) {
     event.preventDefault();
+
     if (type == 'piggyBack') {
       this.props.actions.missionGetInfo(card, type, event);
     } else {
       this.props.actions.missionConfirmOpen(type); //TODO: replace empty object with mission object from API
     }
-  }
-
-  closeBanner() {
-    this.setState({
-      displayBanner: false
-    });
   }
 
   render() {
@@ -80,16 +64,6 @@ export default class ReserveMissions extends Component {
     let today = moment().utc().format("MM/DD/YYYY");
     return (
       <div className="reserve-missions">
-
-        <MissionConfirmModal />
-
-        <AnnouncementBanner
-          display={this.state.displayBanner}
-          closeBanner={this.closeBanner.bind(this)} />
-
-        <ReserveBanner />
-        <MissionNav />
-
         <section className="container clearfix">
           <div className="col-md-8">
             {this.props.cardList ? this.props.cardList.map(card =>  {

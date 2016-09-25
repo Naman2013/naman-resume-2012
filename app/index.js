@@ -33,9 +33,7 @@ ReactDOM.render(
         <Route path="/reservations" component={Reservations}>
 
           <Route path="/telescope-overview" component={TelescopeOverview} />
-
           <Route path="/slooh-recommends" component={ReserveMissions} />
-
           <Route path="/reserve-by-telescope" component={ReserveByTelescope} />
 
         </Route>
