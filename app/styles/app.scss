@@ -18,12 +18,15 @@ a, a:hover {
   min-width: 1280px;
 }
 
-.reserve-missions {
+.reservations {
   background: #fff;
-  .container {
-    background: #D8D8D8;
-    width: 100%;
-    padding: 15px;
+
+  .reserve-missions {
+    .container {
+      background: #D8D8D8;
+      width: 100%;
+      padding: 15px;
+    }
   }
 }
 

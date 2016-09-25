@@ -21,7 +21,7 @@ export default [{
 		"label": {
 			"en": "Recommendations"
 		},
-		"link": "/#/recommendations",
+		"link": "/#/slooh-recommends",
 		"type": "basic"
 	}, {
 		"label": {
