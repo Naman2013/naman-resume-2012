@@ -22,8 +22,8 @@ const initialState = {
   whereOnEarthWidgetResult: null
 };
 
-export function getObservatoryList(user, currentObservatoryId) {
-  return dispatch => {
+export const getObservatoryList = (user, currentObservatoryId) => (dispatch) => {
+    // TODO: dispatch loading...
     return axios.post('/api/obs/list', {
       lang: 'en',
       status: 'live',
