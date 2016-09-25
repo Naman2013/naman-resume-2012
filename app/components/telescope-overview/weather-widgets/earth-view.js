@@ -4,8 +4,7 @@ class EarthView extends Component {
   render() {
 
     const inlineStyles = {
-      background: `url(${this.props.imageSource}) no-repeat center center`,
-      backgroundSize: 'cover'
+      backgroundImage: `url(${this.props.imageSource})`
     };
 
     return(
