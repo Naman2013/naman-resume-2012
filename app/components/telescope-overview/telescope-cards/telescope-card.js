@@ -25,7 +25,6 @@ class TelescopeCard extends Component {
   }
 
   render() {
-
     const cardClasses = classnames({
       'card-container': true,
       'flipped': this.state.flipped,
@@ -37,14 +36,38 @@ class TelescopeCard extends Component {
     return(
       <li className={cardClasses}>
         <div className="card-content">
+
           <CardFront
+            teleName={this.props.teleName}
+            teleTelescopeUsage={this.props.teleTelescopeUsage}
+            teleLogoURL={this.props.teleLogoURL}
+            teleOfflineImgURL={this.props.teleOfflineImgURL}
+            teleOnlineStatus={this.props.teleOnlineStatus}
+            teleSponsorLinkURL={this.props.teleSponsorLinkURL}
+            teleSponsorLogoURL={this.props.teleSponsorLogoURL}
+
             handleFlip={this.handleFlip.bind(this)}
-            telescopeOnline={Math.random() >= 0.5} />
-          <CardBack handleFlip={this.handleFlip.bind(this)} />
+            telescopeOnline={this.props.teleOnlineStatus === 'online'} />
+
+          <CardBack
+            teleName={this.props.teleName}
+
+            handleFlip={this.handleFlip.bind(this)} />
+
         </div>
       </li>
     );
   }
 }
+
+TelescopeCard.propTypes = {
+  teleName: PropTypes.string,
+  teleTelescopeUsage: PropTypes.string,
+  teleLogoURL: PropTypes.string,
+  teleOnlineStatus: PropTypes.string,
+  teleOfflineImgURL: PropTypes.string,
+  teleSponsorLinkURL: PropTypes.string,
+  teleSponsorLogoURL: PropTypes.string,
+};
 
 export default TelescopeCard;
