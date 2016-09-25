@@ -29,7 +29,7 @@ ReactDOM.render(
       <Route path="/" component={App}>
         <IndexRoute component={Home} />
         <Route path="/telescope-overview/:observatoryId" component={TelescopeOverview} />
-        <Route path="/recommendations" component={ReserveMissions} />
+        <Route path="/slooh-recommends" component={ReserveMissions} />
       </Route>
 
     </Router>
