@@ -2,7 +2,10 @@ import React, { Component, PropTypes } from 'react';
 
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { getObservatoryList, getCurrentObservatory } from '../modules/Telescope-Overview';
+import {
+  getObservatoryList,
+  getCurrentObservatory,
+  fetchAllWidgetsByObservatory } from '../modules/Telescope-Overview';
 
 import AnnouncementBanner from '../components/common/announcement-banner';
 import TelescopeFilterNav from '../components/telescope-overview/telescope-filter-nav';
@@ -48,7 +51,8 @@ function mapStateToProps(state, ownProps) {
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators({
-      getObservatoryList
+      getObservatoryList,
+      fetchAllWidgetsByObservatory
     }, dispatch)
   };
 }
@@ -72,6 +76,15 @@ class TelescopeOverview extends Component {
 
   componentDidMount() {
     this.updateObservatory();
+  }
+
+  componentWillReceiveProps( nextProps ) {
+    if( nextProps.params.observatoryId !== this.props.currentObservatoryId ) {
+      const currentObservatory =
+        getCurrentObservatory( nextProps.observatoryList, nextProps.params.observatoryId );
+        console.log(currentObservatory);
+      this.props.actions.fetchAllWidgetsByObservatory( currentObservatory );
+    }
   }
 
   closeBanner() {

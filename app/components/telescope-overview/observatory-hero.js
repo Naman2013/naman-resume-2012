@@ -12,7 +12,8 @@ class ObservatoryHero extends Component {
     if(this.props.MoonPhaseWidgetId) {
       return(
         <li className="element">
-          <LunarPhase {...this.props.moonPhaseWidgetResult} />
+          <LunarPhase
+            {...this.props.moonPhaseWidgetResult} />
         </li>
       );
     }
