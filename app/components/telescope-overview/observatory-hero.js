@@ -32,6 +32,18 @@ class ObservatoryHero extends Component {
     }
   }
 
+  renderSatelliteView() {
+    if(this.props.satelliteViewWidgetResult) {
+      return (
+        <li className="element">
+          <EarthView
+            title={this.props.satelliteViewWidgetResult.title}
+            imageSource={this.props.satelliteViewWidgetResult.satelliteImageURL} />
+        </li>
+      );
+    }
+  }
+
   render() {
 
     const backgroundStyles = {
@@ -51,10 +63,8 @@ class ObservatoryHero extends Component {
           </li>
 
           {this.renderMoonPhase()}
+          {this.renderSatelliteView()}
 
-          <li className="element">
-            <EarthView {...this.fetchSatelliteEarthView()} />
-          </li>
           <li className="element">
             <EarthView {...this.fetchCurrentEarthView()} />
           </li>

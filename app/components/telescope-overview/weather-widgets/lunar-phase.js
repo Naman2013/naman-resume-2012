@@ -11,7 +11,7 @@ class LunarPhase extends Component {
               alt={this.props.phaseTextIllum}
               src={this.props.phaseImageURL} width="43" height="43" />
             <figcaption className="caption">
-              {this.props.phaseText}
+              {this.props.phaseTextIllum}
             </figcaption>
           </figure>
           <p className="phase-text"></p>

@@ -27,6 +27,8 @@ export const getCurrentObservatory = (observatoryList, observatoryId) => {
     .filter(observatory => observatory.obsUniqueId === observatoryId)[0];
 }
 
+const getCurrentTimeInSeconds = () => new Date().getTime() / 1000;
+
 export const getObservatoryList = (user, currentObservatoryId) => (dispatch) => {
     // TODO: dispatch loading...
     return axios.post('/api/obs/list', {
@@ -71,7 +73,7 @@ const fetchMoonPhase = ( observatory ) => ( dispatch ) => {
     lang: 'en',
     obsId: observatory.obsId,
     widgetUniqueId: observatory.MoonPhaseWidgetId,
-    timestamp: new Date().getTime()
+    timestamp: getCurrentTimeInSeconds()
   })
   .then(result => dispatch( setMoonPhaseWidget(result.data) ) );
 };
@@ -83,7 +85,7 @@ export function fetchSmallSatelliteView(observatory) {
       lang: 'en',
       obsId: observatory.obsId,
       widgetUniqueId: observatory.SatelliteWidgetId,
-      timestamp: new Date().getTime()
+      timestamp: getCurrentTimeInSeconds()
     })
     .then(result => dispatch(setSatelliteViewWidget(result.data)));
   };
