@@ -1,6 +1,11 @@
+@import "../../../styles/mixins/utilities.scss";
+
 .weather-widget {
 
   .weather-view {
+    @include background-image-cover;
+    background-repeat: no-repeat;
+    background-position: center;
     width: 170px;
     height: 105px;
   }
