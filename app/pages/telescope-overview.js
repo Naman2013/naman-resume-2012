@@ -114,7 +114,8 @@ class TelescopeOverview extends Component {
           satelliteViewWidgetResult={this.props.satelliteViewWidgetResult}
           {...currentObservatory} />
 
-        <TelescopeCards />
+        <TelescopeCards
+          observatory={currentObservatory}/>
 
       </div>
     );
