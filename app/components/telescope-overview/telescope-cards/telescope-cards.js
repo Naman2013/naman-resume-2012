@@ -10,10 +10,7 @@ class TelescopeCards extends Component {
       return null; //TODO: no telescope scenerio?
     }
 
-    return obsTelescopes.map( telescope =>
-      <TelescopeCard
-        key={ telescope.teleUniqueId } 
-        { ...telescope } /> );
+    return obsTelescopes.map( telescope => <TelescopeCard key={ telescope.teleUniqueId } {...telescope} /> );
   }
 
   render() {
