@@ -8,20 +8,6 @@ import ScrollForMore from '../common/scroll-for-more';
 
 class ObservatoryHero extends Component {
 
-  fetchCurrentEarthView() {
-    return {
-      titleText: 'Where on Earth?',
-      imageSource: 'http://oiswww.eumetsat.org/IPPS/html/latestImages/EUMETSAT_MSG_RGBNatColour_WesternAfrica.jpg'
-    };
-  }
-
-  fetchSatelliteEarthView() {
-    return {
-      titleText: 'Satellite view',
-      imageSource: 'http:\/\/sirocco.accuweather.com\/sat_mosaic_640x480_public\/IR\/iscsam.jpg'
-    };
-  }
-
   renderMoonPhase() {
     if(this.props.MoonPhaseWidgetId) {
       return(
@@ -58,16 +44,8 @@ class ObservatoryHero extends Component {
         <h3 className="title">{this.props.obsName}</h3>
 
         <ul className="summary-navigation clearfix">
-          <li className="element">
-            <CurrentWeather />
-          </li>
-
           {this.renderMoonPhase()}
           {this.renderSatelliteView()}
-
-          <li className="element">
-            <EarthView {...this.fetchCurrentEarthView()} />
-          </li>
         </ul>
 
         <div className="description">

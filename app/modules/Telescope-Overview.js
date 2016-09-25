@@ -1,6 +1,8 @@
 import createReducer from './utils/createReducer';
 import axios from 'axios';
 
+
+
 /**
   HACK
   we patch this default observatory to the response
@@ -52,20 +54,20 @@ export const getObservatoryList = (user, currentObservatoryId) => (dispatch) => 
 
 
 
-export function observatoryListSuccess(observatoryList) {
-  return {
-    type: OBSERVATORY_REQUEST_SUCCESS,
-    observatoryList
-  };
-}
+export const observatoryListSuccess = ( observatoryList ) => ({
+  type: OBSERVATORY_REQUEST_SUCCESS,
+  observatoryList
+});
 
-export function observatoryListError(observatoryListError) {
-  return {
-    type: OBSERVATORY_REQUEST_FAIL,
-    observatoryListError: true,
-    error: observatoryListError
-  };
-}
+
+
+export const observatoryListError = ( observatoryListError ) => ({
+  type: OBSERVATORY_REQUEST_FAIL,
+  observatoryListError: true,
+  error: observatoryListError
+});
+
+
 
 const fetchMoonPhase = ( observatory ) => ( dispatch ) => {
   return axios.post('/api/moon/phase', {
@@ -78,30 +80,33 @@ const fetchMoonPhase = ( observatory ) => ( dispatch ) => {
   .then(result => dispatch( setMoonPhaseWidget(result.data) ) );
 };
 
-export function fetchSmallSatelliteView(observatory) {
-  return dispatch => {
-    return axios.post('/api/wx/satellite', {
-      ver: 'v1',
-      lang: 'en',
-      obsId: observatory.obsId,
-      widgetUniqueId: observatory.SatelliteWidgetId,
-      timestamp: getCurrentTimeInSeconds()
-    })
-    .then(result => dispatch(setSatelliteViewWidget(result.data)));
-  };
-}
+
+
+const fetchSmallSatelliteView = ( observatory ) => ( dispatch ) => {
+  return axios.post('/api/wx/satellite', {
+    ver: 'v1',
+    lang: 'en',
+    obsId: observatory.obsId,
+    widgetUniqueId: observatory.SatelliteWidgetId,
+    timestamp: getCurrentTimeInSeconds()
+  })
+  .then(result => dispatch(setSatelliteViewWidget(result.data)));
+};
+
+
 
 const setMoonPhaseWidget = ( moonPhaseWidgetResult ) => ({
     type: MOON_PHASE_WIDGET_SUCCESS,
     moonPhaseWidgetResult
 })
 
-export function setSatelliteViewWidget(satelliteViewWidgetResult)  {
-  return {
+
+
+export const setSatelliteViewWidget = ( satelliteViewWidgetResult ) => ({
     type: SATELLITE_VIEW_WIDGET_RESULT,
     satelliteViewWidgetResult
-  };
-}
+});
+
 
 
 export default createReducer(initialState, {
