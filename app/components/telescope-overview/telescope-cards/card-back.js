@@ -14,7 +14,7 @@ class CardBack extends Component {
           </button>
 
           <img src="assets/icons/observatory.svg" width="50" height="50" />
-          <h3 className="title">Telescope Name</h3>
+          <h3 className="title">{this.props.teleName}</h3>
         </div>
 
         <div className="telescope-specs">
@@ -48,7 +48,8 @@ class CardBack extends Component {
 }
 
 CardBack.propTypes = {
-  handleFlip: PropTypes.func
+  teleName: PropTypes.string,
+  handleFlip: PropTypes.func,
 };
 
 export default CardBack;
