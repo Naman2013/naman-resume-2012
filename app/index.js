@@ -30,12 +30,10 @@ ReactDOM.render(
       <Route path="/" component={App}>
         <IndexRoute component={Home} />
 
+        <Route path="/telescope-overview/:observatoryId" component={TelescopeOverview} />
         <Route path="/reservations" component={Reservations}>
-
-          <Route path="/telescope-overview" component={TelescopeOverview} />
           <Route path="/slooh-recommends" component={ReserveMissions} />
           <Route path="/reserve-by-telescope" component={ReserveByTelescope} />
-
         </Route>
 
       </Route>
