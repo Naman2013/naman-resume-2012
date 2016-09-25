@@ -2,7 +2,6 @@ import createReducer from './utils/createReducer';
 import axios from 'axios';
 
 
-
 /**
   HACK
   we patch this default observatory to the response
@@ -20,8 +19,6 @@ const initialState = {
   observatoryList: [], // list of available observatories
   moonPhaseWidgetResult: null,
   satelliteViewWidgetResult: null,
-  weatherWidgetResult: null,
-  whereOnEarthWidgetResult: null
 };
 
 export const getCurrentObservatory = (observatoryList, observatoryId) => {
@@ -39,7 +36,7 @@ export const getObservatoryList = (user, currentObservatoryId) => (dispatch) => 
       at: user.at,
       cid: user.cid,
       token: user.token,
-      listType: 'pageHeader'
+      listType: 'full'
     })
     .then((response) => {
       const observatoryList = [defaultObservatoryOverviewDetails, ...response.data.observatoryList];
