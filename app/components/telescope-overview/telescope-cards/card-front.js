@@ -17,9 +17,9 @@ class CardFront extends Component {
           </button>
 
           <img src="assets/icons/observatory.svg" width="50" height="50" />
-          <h3 className="title">High-Magnification 1</h3>
+          <h3 className="title">{this.props.teleName}</h3>
           <p className="body">
-            Best for Deep Sky Objects such as galaxies, nebulae, and star clusters.
+            {this.props.teleTelescopeUsage}
           </p>
 
           <div className="call-to-action clearfix">
@@ -62,18 +62,25 @@ class CardFront extends Component {
 
                   <h4 className="title">Offline</h4>
                   <div className="telescope-image">
-                    <img src="assets/images/graphics/telescope-offline.png" width="245" height="245" />
+                    <img src={this.props.teleOfflineImgURL} width="245" height="245" />
                   </div>
                   <p className="telescope-status">
-                    The weather is a bit intense right now so all mission have been cancelled unfortunately.
+                    The weather is a bit intense right now so all missions have been cancelled.
                   </p>
                 </div>
               </div>
           }
 
-
           <div className="sponsor">
-            <p>Sponsored by: <img src="assets/images/logos/celestron.png" width="150" /></p>
+            {
+              !!this.props.teleSponsorLinkURL ?
+              <p>
+                Sponsored by: <a target="_blank" href={this.props.teleSponsorLinkURL}><img src={this.props.teleSponsorLogoURL} width="150" /></a>
+              </p>
+              :
+              null
+            }
+
           </div>
 
         </div>
@@ -87,6 +94,13 @@ CardFront.defaultProps = {
 };
 
 CardFront.propTypes = {
+  teleName: PropTypes.string,
+  teleTelescopeUsage: PropTypes.string,
+  teleLogoURL: PropTypes.string,
+  teleOfflineImgURL: PropTypes.string,
+  teleOnlineStatus: PropTypes.string,
+  teleSponsorLinkURL: PropTypes.string,
+  teleSponsorLogoURL: PropTypes.string,
   handleFlip: PropTypes.func,
   telescopeOnline: PropTypes.bool
 };
