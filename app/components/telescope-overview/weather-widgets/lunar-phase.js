@@ -22,7 +22,7 @@ class LunarPhase extends Component {
 }
 
 LunarPhase.propTypes = {
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string,
   phaseText: PropTypes.string,
   phaseTextIllum: PropTypes.string,
   phaseImageURL: PropTypes.string

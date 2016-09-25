@@ -22,6 +22,11 @@ const initialState = {
   whereOnEarthWidgetResult: null
 };
 
+export const getCurrentObservatory = (observatoryList, observatoryId) => {
+  return observatoryList
+    .filter(observatory => observatory.obsUniqueId === observatoryId)[0];
+}
+
 export const getObservatoryList = (user, currentObservatoryId) => (dispatch) => {
     // TODO: dispatch loading...
     return axios.post('/api/obs/list', {
@@ -34,15 +39,14 @@ export const getObservatoryList = (user, currentObservatoryId) => (dispatch) => 
     })
     .then((response) => {
       const observatoryList = [defaultObservatoryOverviewDetails, ...response.data.observatoryList];
-      const currentObservatory = observatoryList.filter(observatory => observatory.obsUniqueId === currentObservatoryId)[0];
+      const currentObservatory = getCurrentObservatory( observatoryList, currentObservatoryId );
 
-      dispatch( observatoryListSuccess( observatoryList ) );
+      dispatch( observatoryListSuccess(observatoryList) );
       dispatch( fetchMoonPhase(currentObservatory) );
       dispatch( fetchSmallSatelliteView(currentObservatory) );
     })
     .catch(error => dispatch( observatoryListError(error) ))
   };
-}
 
 
 
@@ -61,18 +65,16 @@ export function observatoryListError(observatoryListError) {
   };
 }
 
-export function fetchMoonPhase(observatory) {
-  return dispatch => {
-    return axios.post('/api/moon/phase', {
-      ver: 'v1',
-      lang: 'en',
-      obsId: observatory.obsId,
-      widgetUniqueId: observatory.MoonPhaseWidgetId,
-      timestamp: new Date().getTime()
-    })
-    .then(result => dispatch( setMoonPhaseWidget(result.data) ) );
-  };
-}
+const fetchMoonPhase = ( observatory ) => ( dispatch ) => {
+  return axios.post('/api/moon/phase', {
+    ver: 'v1',
+    lang: 'en',
+    obsId: observatory.obsId,
+    widgetUniqueId: observatory.MoonPhaseWidgetId,
+    timestamp: new Date().getTime()
+  })
+  .then(result => dispatch( setMoonPhaseWidget(result.data) ) );
+};
 
 export function fetchSmallSatelliteView(observatory) {
   return dispatch => {
@@ -87,12 +89,10 @@ export function fetchSmallSatelliteView(observatory) {
   };
 }
 
-export function setMoonPhaseWidget(moonPhaseWidgetResult) {
-  return {
+const setMoonPhaseWidget = ( moonPhaseWidgetResult ) => ({
     type: MOON_PHASE_WIDGET_SUCCESS,
     moonPhaseWidgetResult
-  };
-}
+})
 
 export function setSatelliteViewWidget(satelliteViewWidgetResult)  {
   return {

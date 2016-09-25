@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { getObservatoryList } from '../modules/Telescope-Overview';
+import { getObservatoryList, getCurrentObservatory } from '../modules/Telescope-Overview';
 
 import AnnouncementBanner from '../components/common/announcement-banner';
 import TelescopeFilterNav from '../components/telescope-overview/telescope-filter-nav';
@@ -83,8 +83,8 @@ class TelescopeOverview extends Component {
   render() {
 
     const { observatoryList, currentObservatoryId } = this.props;
-    const currentObservatory = observatoryList
-      .filter( observatory => observatory.obsUniqueId === currentObservatoryId )[0];
+    const currentObservatory =
+      getCurrentObservatory( observatoryList, currentObservatoryId );
 
     return(
       <div>
