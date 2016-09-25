@@ -46,12 +46,16 @@ export const getObservatoryList = (user, currentObservatoryId) => (dispatch) => 
       const currentObservatory = getCurrentObservatory( observatoryList, currentObservatoryId );
 
       dispatch( observatoryListSuccess(observatoryList) );
-      dispatch( fetchMoonPhase(currentObservatory) );
-      dispatch( fetchSmallSatelliteView(currentObservatory) );
+      dispatch( fetchAllWidgetsByObservatory(currentObservatory) );
     })
     .catch(error => dispatch( observatoryListError(error) ))
   };
 
+
+export const fetchAllWidgetsByObservatory = ( observatory ) => ( dispatch ) => {
+  dispatch( fetchMoonPhase(observatory) );
+  dispatch( fetchSmallSatelliteView(observatory) );
+};
 
 
 export const observatoryListSuccess = ( observatoryList ) => ({
