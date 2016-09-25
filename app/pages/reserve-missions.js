@@ -58,8 +58,11 @@ export default class ReserveMissions extends Component {
 
   openConfirmModal(card, type, event) {
     event.preventDefault();
-    // this.props.actions.missionConfirmOpen({}, type); //TODO: replace empty object with mission object from API
-    this.props.actions.missionGetInfo(card, type, event);
+    if (type == 'piggyBack') {
+      this.props.actions.missionGetInfo(card, type, event);
+    } else {
+      this.props.actions.missionConfirmOpen(type); //TODO: replace empty object with mission object from API
+    }
   }
 
   closeBanner() {

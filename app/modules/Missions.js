@@ -17,10 +17,9 @@ const initialState = {
 };
 
 // Mission action creator
-export function missionConfirmOpen(mission, type) {
+export function missionConfirmOpen(type) {
   return {
     type: MISSION_CONFIRMATION_OPEN,
-    mission: mission,
     confirmType: type
   }
 }
@@ -61,7 +60,7 @@ export function missionGetInfo(card, type) {
     })
     .then(response => {
       dispatch( getMissionSuccess(response) );
-      dispatch( missionConfirmOpen(response, type) );
+      dispatch( missionConfirmOpen(type) );
     })
     .catch(error => dispatch( getMissionFail( response )));
   }
