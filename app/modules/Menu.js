@@ -1,5 +1,5 @@
 import createReducer from './utils/createReducer';
-import creatAction from './utils/creatAction';
+import createAction from './utils/createAction';
 import superagent from '../utils/superagent';
 
 
@@ -63,8 +63,8 @@ export default createReducer(initialState, {
   },
 });
 
-export const activateMenu = creatAction(MENU_SUBMENU_ACTIVATE, 'index');
-export const deactivateMenu = creatAction(MENU_SUBMENU_DEACTIVATE);
+export const activateMenu = createAction(MENU_SUBMENU_ACTIVATE, 'index');
+export const deactivateMenu = createAction(MENU_SUBMENU_DEACTIVATE);
 
 export function fetchMenuItems() {
   return {

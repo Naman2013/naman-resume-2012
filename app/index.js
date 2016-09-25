@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { Router, Route, IndexRoute, browserHistory, hashHistory } from 'react-router';
+import { Router, Route, IndexRoute, hashHistory } from 'react-router';
+import { syncHistoryWithStore } from 'react-router-redux';
 import configureStore from './store';
 
 // containers
@@ -19,14 +20,15 @@ import './styles/interface.css';
 import './styles/animations.scss';
 
 const store = configureStore();
+const history = syncHistoryWithStore(hashHistory, store);
 
 ReactDOM.render(
   <Provider store={store}>
-    <Router history={hashHistory}>
+    <Router history={history}>
 
       <Route path="/" component={App}>
         <IndexRoute component={Home} />
-        <Route path="/telescope-overview" component={TelescopeOverview} />
+        <Route path="/telescope-overview/:observatoryId" component={TelescopeOverview} />
         <Route path="/recommendations" component={ReserveMissions} />
       </Route>
 

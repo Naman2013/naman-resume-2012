@@ -6,53 +6,52 @@ import EarthView from './weather-widgets/earth-view';
 import LunarPhase from './weather-widgets/lunar-phase';
 import ScrollForMore from '../common/scroll-for-more';
 
-// import some dummy data
-import moonPhase from './test-data/moon-phase';
-
 class ObservatoryHero extends Component {
 
-  fetchCurrentEarthView() {
-    return {
-      titleText: 'Where on Earth?',
-      imageSource: 'http://oiswww.eumetsat.org/IPPS/html/latestImages/EUMETSAT_MSG_RGBNatColour_WesternAfrica.jpg'
-    };
+  renderMoonPhase() {
+    if(this.props.MoonPhaseWidgetId) {
+      return(
+        <li className="element">
+          <LunarPhase
+            {...this.props.moonPhaseWidgetResult} />
+        </li>
+      );
+    }
   }
 
-  fetchSatelliteEarthView() {
-    return {
-      titleText: 'Satellite view',
-      imageSource: 'http:\/\/sirocco.accuweather.com\/sat_mosaic_640x480_public\/IR\/iscsam.jpg'
-    };
-  }
-
-  fetchLunarPhase() {
-    return moonPhase;
+  renderSatelliteView() {
+    if(this.props.satelliteViewWidgetResult) {
+      return (
+        <li className="element">
+          <EarthView
+            title={this.props.satelliteViewWidgetResult.title}
+            imageSource={this.props.satelliteViewWidgetResult.satelliteImageURL} />
+        </li>
+      );
+    }
   }
 
   render() {
+
+    const backgroundStyles = {
+      backgroundImage: `url(${this.props.obsHeroURL})`
+    };
+
     return(
-      <div className="observatory-hero">
-        <h3 className="title">Canary Islands</h3>
+      <div
+        style={backgroundStyles}
+        className="observatory-hero">
+
+        <h3 className="title">{this.props.obsName}</h3>
+
         <ul className="summary-navigation clearfix">
-          <li className="element">
-            <CurrentWeather />
-          </li>
-          <li className="element">
-            <LunarPhase {...this.fetchLunarPhase()} />
-          </li>
-          <li className="element">
-            <EarthView {...this.fetchSatelliteEarthView()} />
-          </li>
-          <li className="element">
-            <EarthView {...this.fetchCurrentEarthView()} />
-          </li>
+          {this.renderMoonPhase()}
+          {this.renderSatelliteView()}
         </ul>
+
         <div className="description">
           <p>
-            A UNESCO World Heritage Site, Tenerife has been named one of the world’s
-            best locations for star-gazing and astronomy thanks to its low-light
-            pollution and pristine night-sky conditions. Enjoy our telescopes
-            situated next to Teide, a 12,198 foot volcanic summit.
+            {this.props.obsDescription}
           </p>
         </div>
 
@@ -61,5 +60,14 @@ class ObservatoryHero extends Component {
     );
   }
 }
+
+ObservatoryHero.propTypes = {
+  obsName: PropTypes.string,
+  obsHeroURL: PropTypes.string,
+  obsDescription: PropTypes.string,
+  MoonPhaseWidgetId: PropTypes.string,
+  moonPhaseWidgetResult: PropTypes.object, // TODO: break this validation down further
+  satelliteViewWidgetResult: PropTypes.object // TODO: break this validation down further
+};
 
 export default ObservatoryHero;

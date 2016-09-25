@@ -1,6 +1,6 @@
 import cookie from 'cookie';
 import createReducer from './utils/createReducer';
-import creatAction from './utils/creatAction';
+import createAction from './utils/createAction';
 
 const SET_USER = 'SET_USER';
 const REMOVE_USER = 'REMOVE_USER';
@@ -23,8 +23,8 @@ export default createReducer(initialState, {
   },
 });
 
-export const set = creatAction(SET_USER, 'user');
-export const remove = creatAction(REMOVE_USER);
+export const set = createAction(SET_USER, 'user');
+export const remove = createAction(REMOVE_USER);
 
 export function store(user) {
   localStorage.setItem('user', JSON.stringify(user));

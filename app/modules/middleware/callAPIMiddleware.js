@@ -5,11 +5,11 @@ export default function callAPIMiddleware({ dispatch, getState }) {
       callAPI,
       shouldCallAPI = () => true,
       payload = {}
-    } = action
+    } = action;
 
     if (!types) {
       // Normal action: pass it on
-      return next(action)
+      return next(action);
     }
 
     if (
@@ -17,29 +17,29 @@ export default function callAPIMiddleware({ dispatch, getState }) {
       types.length !== 3 ||
       !types.every(type => typeof type === 'string')
     ) {
-      throw new Error('Expected an array of three string types.')
+      throw new Error('Expected an array of three string types.');
     }
 
     if (typeof callAPI !== 'function') {
-      throw new Error('Expected callAPI to be a function.')
+      throw new Error('Expected callAPI to be a function.');
     }
 
     if (!shouldCallAPI(getState())) {
-      return
+      return next(action);
     }
 
-    const [ requestType, successType, failureType ] = types
+    const [ requestType, successType, failureType ] = types;
 
-    dispatch(Object.assign({}, payload, {
+    next(Object.assign({}, payload, {
       type: requestType
-    }))
+    }));
 
     return callAPI().then(
-      response => dispatch(Object.assign({}, payload, {
+      response => next(Object.assign({}, payload, {
         response,
         type: successType
       })),
-      error => dispatch(Object.assign({}, payload, {
+      error => next(Object.assign({}, payload, {
         error,
         type: failureType
       }))

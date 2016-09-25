@@ -11,7 +11,7 @@ class EarthView extends Component {
     return(
       <div className="weather-widget">
         <div style={inlineStyles} className="weather-view">
-          <h5 className="title-label">{this.props.titleText}</h5>
+          <h5 className="title-label">{this.props.title}</h5>
         </div>
       </div>
     );
@@ -19,7 +19,7 @@ class EarthView extends Component {
 }
 
 EarthView.propTypes = {
-  titleText: PropTypes.string,
+  title: PropTypes.string,
   imageSource: PropTypes.string
 };
 
