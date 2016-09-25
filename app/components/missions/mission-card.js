@@ -29,7 +29,6 @@ const MissionCard = (props) => {
 
         <p>{card.description}</p>
 
-
         <div className="join-mission-callout">
           <h5>Join an existing mission</h5>
           <p><strong>{EST_start}</strong>: {!featured ? <br /> : null} {EST_start_time} EST  ·  {PST_start_time} PST  ·  {UTC_start_time} UTC</p>
