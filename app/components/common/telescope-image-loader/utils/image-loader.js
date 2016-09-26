@@ -3,13 +3,19 @@
   a telescope.
 
   EventSource:
-  'image1.png|image2.png|0|currentTime'
+  'topImage.png|bottomImage.png|0|currentTime'
   We split the values @ '|' to produce the following array
-  [ image1.png, image2.png, 0, currentTime  ]
+  [ topImage.png, bottomImage.png, 0, currentTime  ]
 
   @params
   imageSize: String - 'THUMBNAIL' | 'LARGE' ( default is large )
   telescopeId: String - Example: teide2highmag
+
+
+  1. Put the bottom image in place
+  2. onload of the bottom image, fire event that places the top image
+    a. If this is the first time an image is loading,
+
 */
 // image size
 
@@ -73,9 +79,6 @@ function processMsg2(msgArray) {
     var adjustedFade = "70s";
     var startingOpacity = "0";
   }
-
-  // Debug statement - remove for production
-  document.getElementById("curr").innerHTML = "top image: " + msgArray[0];
 
   // Get the element that will hold the top image in the stack.
   var topimg = document.getElementById("topimg");
