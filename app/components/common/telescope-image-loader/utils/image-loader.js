@@ -1,3 +1,20 @@
+/*
+  An API for subscribing and receiving image data from
+  a telescope.
+
+  EventSource:
+  'image1.png|image2.png|0|currentTime'
+  We split the values @ '|' to produce the following array
+  [ image1.png, image2.png, 0, currentTime  ]
+
+  @params
+  imageSize: String - 'THUMBNAIL' | 'LARGE' ( default is large )
+  telescopeId: String - Example: teide2highmag
+*/
+// image size
+
+
+
 // Set a flag upon the very first load into the browser (also applies to browser refresh).
 let initialImg = true;
 
@@ -13,9 +30,6 @@ function processMsg(msg) {
   // Full data is: currentImgURL | previousImgURL | schedMissionId | msnStartTime | lastImgTime | serverTime
   // System status is also stored in DynamoDB, but not part of event data yet.
   var msgArray = msg.split("|");
-
-  // Debug statement - remove for production
-  document.getElementById("prev").innerHTML = "bottom image: " + msgArray[1];
 
   // Get the element that will hold the bottom image in the stack.
   var bottomimg = document.getElementById("bottomimg");
