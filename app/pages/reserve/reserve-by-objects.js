@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
 import ReserveObjectsCategory from '../../components/reserve/reserve-by-object-category';
+import styles from '../../components/reserve/reserve-by-object.scss';
 
 class ReserveObjects extends Component {
   render() {
     return (
-      <div className="reserve-by-object-page">
+      <div className={styles.reserveObjectPage}>
         <div className="row">
           <div className="col-md-4">
             <h2><span>1</span> Select Category</h2>

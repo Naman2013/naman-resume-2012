@@ -1,0 +1,30 @@
+.reserveObjectPage {
+  h2 {
+    color: #3C4A55;
+    font-size: 24px;
+    font-weight: bold;
+    span {
+      display: block;
+      width: 25px;
+      height: 25px;
+      background: #3C4A55;
+      color: #7EC3C4;
+      margin: auto;
+      text-align: center;
+    }
+  }
+}
+
+.objectCategories {
+  color: #3C4A55;
+  a {
+    color: #3C4A55;
+  }
+  li {
+    list-style: none;
+
+    .icon {
+      width: 28px;
+    }
+  }
+}
