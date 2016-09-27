@@ -10,7 +10,6 @@ class TelescopeImageLoader extends Component {
     this.state = {
       backImageUrl: null,
       topImageUrl: null,
-      topImageUrlToLoad: null,
       timing: null,
       firstLoad: true,
       adjustedFadeIn: null,
@@ -61,9 +60,7 @@ class TelescopeImageLoader extends Component {
     }
 
     this.setState({
-      topImageUrl: this.state.topImageUrlToLoad,
       firstLoad: false,
-
     });
   }
 
