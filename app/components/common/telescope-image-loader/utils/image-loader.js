@@ -19,6 +19,7 @@
 */
 // image size
 
+const FADE_IN = 70;
 
 
 // Set a flag upon the very first load into the browser (also applies to browser refresh).
@@ -67,7 +68,7 @@ function processMsg2(msgArray) {
       var adjustedFade = "0s";
       var startingOpacity = "1";
     } else {
-      // Otherwise, we have a fade-in in pregress. Set the adjusted fade to the portion remaining, and set the opacity
+      // Otherwise, we have a fade-in in progress. Set the adjusted fade to the portion remaining, and set the opacity
       // to whatever percentage has already faded in.
       var adjustedFade = (70 - progress) + "s";
       var startingOpacity = Math.round((progress / 70) * 100) / 100;
