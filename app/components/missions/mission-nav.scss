@@ -9,9 +9,7 @@
     margin: 0 3%;
     position: relative;
     font-weight: bold;
-    &:hover {
-      border-bottom: 3px solid #7EC3C4;
-    }
+    
     .sub-nav {
       position: absolute;
       text-transform: capitalize;
@@ -27,10 +25,13 @@
       }
     }
   }
-  a {
+  
+  .link {
     color: #000;
-    &:hover {
+    &:hover, &.active {
       color: #F310A7;
+      border-bottom: 3px solid #7EC3C4;
+      text-decoration: none;
     }
   }
 }

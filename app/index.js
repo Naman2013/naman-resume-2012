@@ -11,6 +11,7 @@ import Reservations from './containers/Reservations';
 // pages
 import Home from './pages/home';
 import TelescopeOverview from './pages/telescope-overview';
+import TelescopeDetails from './pages/telescope-details/telescope-details';
 import ReserveMissions from './pages/reserve-missions';
 import ReserveByTelescope from './pages/reserve-by-telescope';
 
@@ -35,6 +36,8 @@ ReactDOM.render(
           <Route path="/slooh-recommends" component={ReserveMissions} />
           <Route path="/reserve-by-telescope" component={ReserveByTelescope} />
         </Route>
+
+        <Route path="/telescope-details" component={TelescopeDetails} />
 
       </Route>
 

@@ -1,0 +1,23 @@
+.telescope-details {
+  padding-top: 100px;
+  .ReactTabs__TabList {
+    text-align: center;
+    margin: 0;
+    border-bottom: 0;
+    .ReactTabs__Tab {
+      background: #3C4A55;
+      // box-shadow: inset 6px 0px 6px 0px rgba(0,0,0,0.50);
+      font-size: 18px;
+      color: #FFFFFF;
+      margin: 0;
+      border: 0;
+      &.ReactTabs__Tab--selected {
+        background: #1F1F1F;
+        color: #FFFFFF;
+      }
+    }
+  }
+  .ReactTabs__TabPanel {
+    background-color: #1F1F1F;
+  }
+}

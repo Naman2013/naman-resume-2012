@@ -7,10 +7,10 @@ class MissionNav extends Component {
   render() {
     return (
       <div className={styles.missionNav}>
-        <ul>
+        <ul>          
           <li>
             <Link href="#" to='slooh-recommends'>Slooh Recommends</Link>
-          </li>
+          </li>          
           <li>
             <ul className="sub-nav">
               <li><a href="#">Existing Missions</a></li>
@@ -20,7 +20,7 @@ class MissionNav extends Component {
           <li><a href="#">Browse popular objects</a></li>
           <li>
             <Link to='reserve-by-telescope'>Reserve by telescope</Link>
-          </li>
+          </li>          
           <li><a href="#">Explore by catalog</a></li>
         </ul>
       </div>
