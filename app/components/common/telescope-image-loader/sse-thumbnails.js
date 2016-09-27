@@ -10,6 +10,7 @@ class TelescopeImageLoader extends Component {
     this.state = {
       backImageUrl: null,
       topImageUrl: null,
+      topImageUrlToLoad: null,
       timing: null,
       firstLoad: true,
       adjustedFadeIn: null,
@@ -43,37 +44,51 @@ class TelescopeImageLoader extends Component {
     if( this.state.firstLoad ) {
       if( progress >= STATIC_PROGRESS ) {
         this.setState({
-          adjustedFade: '0s',
+          adjustedFade: '0',
           startingOpacity: '1',
         });
       } else {
         this.setState({
-          adjustedFade: `${( STATIC_PROGRESS - progress )}s`,
-          startingOpacity: Math.round( ( progress / 70 ) * 100 ) / 100,
+          adjustedFade: STATIC_PROGRESS - progress ),
+          startingOpacity: Math.round( ( progress / STATIC_PROGRESS ) * 100 ) / 100,
         });
       }
     } else {
       this.setState({
-        adjustedFade: `${STATIC_PROGRESS}s`,
+        adjustedFade: STATIC_PROGRESS,
         startingOpacity: '0'
       });
     }
 
     this.setState({
-      topImageUrl:
+      topImageUrl: this.state.topImageUrlToLoad,
       firstLoad: false,
+
     });
   }
 
   render() {
+
+    const opacityTransition = `opacity${this.state.adjustedFade}s`
+
+    const topImageStyle = {
+      WebkitTransition: opacityTransition,
+      transition: opacityTransition,
+      opacity: this.state.startingOpacity,
+    };
+
     return(
       <div className="sse-thumbnails">
         <div className="bottom-image">
-          <img src={this.state.backImage} onLoad={this.handleBackImageOnLoad.bind( this )} />
+          <img
+            src={this.state.backImage}
+            onLoad={this.handleBackImageOnLoad.bind( this )} />
         </div>
 
         <div className="top-image">
-          <img src={this.state.topImageUrl} />
+          <img
+            style={topImageStyle}
+            src={this.state.topImageUrl} />
         </div>
       </div>
     );
