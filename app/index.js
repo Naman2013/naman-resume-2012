@@ -14,6 +14,7 @@ import TelescopeOverview from './pages/telescope-overview';
 import TelescopeDetails from './pages/telescope-details/telescope-details';
 import ReserveMissions from './pages/reserve-missions';
 import ReserveByTelescope from './pages/reserve-by-telescope';
+import ReserveObjects from './pages/reserve/reserve-by-objects';
 
 // global styles
 import Bootstrap from 'bootstrap/dist/css/bootstrap.css';
@@ -34,6 +35,7 @@ ReactDOM.render(
         <Route path="/telescope-overview/:observatoryId" component={TelescopeOverview} />
         <Route path="/reservations" component={Reservations}>
           <Route path="/slooh-recommends" component={ReserveMissions} />
+          <Route path="/reserve-by-objects" component={ReserveObjects} />
           <Route path="/reserve-by-telescope" component={ReserveByTelescope} />
         </Route>
 
