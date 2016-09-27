@@ -10,19 +10,25 @@ class TelescopeImageLoader extends Component {
     this.state = {
       backImageUrl: null,
       topImageUrl: null,
-      timing: null,
+      lastImageTime: null,
+      startTime: null,
       firstLoad: true,
       adjustedFadeIn: null,
       startingOpacity: null,
     };
   }
 
+  static generateThumbnailUrl() {
+    return `/util/thumbnail.php?url=${imageUrl}"&dimension=W&param=100`;
+  }
+
   handleSourceImage( imageData = [] ) {
-    const { backImageUrl, topImageUrl, noop, timing } = imageData.split('|');
+    const { backImageUrl, topImageUrl, startTime, lastImageTime } = imageData.split('|');
     this.setState({
       backImageUrl,
       topImageUrl,
-      timing,
+      startTime,
+      lastImageTime,
     });
   }
 
@@ -38,7 +44,7 @@ class TelescopeImageLoader extends Component {
   }
 
   handleBackImageOnLoad() {
-    const progress = Math.floor(Date.now() / 1000) - this.state.timing;
+    const progress = Math.floor(Date.now() / 1000) - this.state.lastImageTime;
 
     if( this.state.firstLoad ) {
       if( progress >= STATIC_PROGRESS ) {
