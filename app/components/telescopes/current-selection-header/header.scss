@@ -1,0 +1,63 @@
+.current-selection-header {
+	.title-container {
+		border-bottom: 1px solid #979797;
+		padding: 15px 0;
+		text-align: left;
+		margin-bottom: 5px;
+		
+		.telescope-title-container {
+			// display: inline-block;
+
+			.telescope-title {
+				font-size: 2.250em;
+				vertical-align: top;
+			}	
+		}
+		
+
+		.sponsoredby {
+			text-align: right;
+
+			&-text {
+				width: 100px;
+		    word-wrap: break-word;
+		    display: inline-block;
+		    text-align: center;
+			}
+
+			&-logo {
+				vertical-align: top;
+			}
+		}
+	}
+
+	.dates-selection, .tips {
+		// display: inline-block;
+	}
+
+	.dates-selection {
+		text-align: center;
+
+		.col {
+			display: inline-block;
+
+			&.when {
+				vertical-align: middle;
+				margin: 0 15px;
+
+				.subs {
+					color: #9B9B9B
+				}
+
+				.date {
+					font-size: 1.500em;
+				}
+			}
+		}
+	}
+
+	.tips {
+		width: 263px;
+		
+	}
+}

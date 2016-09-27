@@ -4,15 +4,11 @@ import { connect } from 'react-redux';
 import { checkUser } from '../modules/User';
 import classnames from 'classnames';
 
-import MissionCard from '../components/missions/mission-card';
-import AnnouncementBanner from '../components/common/announcement-banner';
-import ReserveBanner from '../components/missions/reserve-banner';
-import MissionNav from '../components/missions/mission-nav';
-import MissionUpdates from '../components/missions/mission-updates';
-import MissionAd from '../components/missions/mission-ad';
-import MissionUpcoming from '../components/missions/mission-upcoming';
-import MissionConfirmModal from '../components/missions/mission-confirm-modal';
 import {missionGetCards, missionConfirmOpen, missionConfirmClose} from '../modules/Missions';
+
+import TelescopeSelection from '../components/telescopes/selection-widget/telescope-selection';
+import CurrentSelectionHeader from '../components/telescopes/current-selection-header/header';
+
 
 const { element, func, object } = PropTypes;
 
@@ -39,31 +35,12 @@ export default class ReserveMissions extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      displayBanner: true
-    };
   }
 
   static propTypes = {
     children: element,
     actions: object.isRequired
   };
-
-  componentDidMount() {
-    console.log('componentDidMount');
-    this.props.actions.missionGetCards()
-  }
-
-  openConfirmModal(type, event) {
-    event.preventDefault();
-    this.props.actions.missionConfirmOpen({}, type); //TODO: replace empty object with mission object from API
-  }
-
-  closeBanner() {
-    this.setState({
-      displayBanner: false
-    });
-  }
 
   render() {
     let cardClassName = classnames({
@@ -72,26 +49,11 @@ export default class ReserveMissions extends Component {
     });
 
     return (
-      <div className="reserve-missions">
-
-        <section className="container clearfix">
-          <div className="col-md-8">
-            {console.log(this.props)}
-            {this.props.cardList ? this.props.cardList.map(card =>
-              <MissionCard
-                key={card.uniqueId}
-                className={`${card.cardType == 2 ? 'featured col-md-12' : 'secondary col-md-6'}`}
-                card={card}
-                openModal = {this.openConfirmModal.bind(this)}
-                featured={card.cardType == 2} />
-            ) : 'waiting...'}
-          </div>
-
-          <div className="col-md-4 mission-sidebar">
-            <MissionAd />
-            <MissionUpcoming />
-            <MissionUpdates />
-          </div>
+      <div className="reserve-by-telescope container">
+        <TelescopeSelection />
+        <CurrentSelectionHeader />
+        <section className="clearfix">
+        
         </section>
       </div>
     );

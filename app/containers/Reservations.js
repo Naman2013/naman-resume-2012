@@ -5,7 +5,7 @@ import AnnouncementBanner from '../components/common/announcement-banner';
 import ReserveBanner from '../components/missions/reserve-banner';
 import MissionNav from '../components/missions/mission-nav';
 
-export default class Reservations extends Component {  
+export default class Reservations extends Component {
   constructor(props) {
     super(props);
 
