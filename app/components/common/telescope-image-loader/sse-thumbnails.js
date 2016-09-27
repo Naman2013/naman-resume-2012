@@ -18,8 +18,9 @@ class TelescopeImageLoader extends Component {
     };
   }
 
-  static generateThumbnailUrl() {
-    return `/util/thumbnail.php?url=${imageUrl}"&dimension=W&param=100`;
+  static generateThumbnailUrl( imageUrl ) {
+    const imageDimension = '100';
+    return `/util/thumbnail.php?url=${imageUrl}&dimension=W&param=${imageDimension}`;
   }
 
   handleSourceImage( imageData = [] ) {
@@ -71,9 +72,10 @@ class TelescopeImageLoader extends Component {
   }
 
   render() {
+    const bottomImageAddress = this.generateThumbnailUrl( this.state.backImage );
+    const topImageAddress = this.generateThumbnailUrl( this.state.topImageUrl );
 
     const opacityTransition = `opacity${this.state.adjustedFade}s`
-
     const topImageStyle = {
       WebkitTransition: opacityTransition,
       transition: opacityTransition,
@@ -84,14 +86,14 @@ class TelescopeImageLoader extends Component {
       <div className="sse-thumbnails">
         <div className="bottom-image">
           <img
-            src={this.state.backImage}
+            src={bottomImageAddress}
             onLoad={this.handleBackImageOnLoad.bind( this )} />
         </div>
 
         <div className="top-image">
           <img
             style={topImageStyle}
-            src={this.state.topImageUrl} />
+            src={topImageAddress} />
         </div>
       </div>
     );
