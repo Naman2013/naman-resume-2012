@@ -6,6 +6,25 @@ import style from './card-front.scss';
 import moment from 'moment';
 
 class CardFront extends Component {
+
+  renderVisitTelescopeButton() {
+    return(
+      this.props.teleHasTelescopePage ?
+        <div className="col-md-6">
+          <a className="action" href="">Visit Telescope Page</a>
+        </div> : null
+    );
+  }
+
+  renderMakeReservationButton() {
+    return(
+      this.props.teleAccessMethod ?
+        <div className="col-md-6">
+          <a className="action" href="">Make Reservation</a>
+        </div> : null
+    );
+  }
+
   render() {
     return(
       <div className="telescope-card-front">
@@ -22,14 +41,12 @@ class CardFront extends Component {
             {this.props.teleTelescopeUsage}
           </p>
 
+
           <div className="call-to-action clearfix">
-            <div className="col-md-6">
-              <a className="action" href="">Visit Telescope Page</a>
-            </div>
-            <div className="col-md-6">
-              <a className="action" href="">Make Reservation</a>
-            </div>
+            { this.renderVisitTelescopeButton() }
+            { this.renderMakeReservationButton() }
           </div>
+
         </div>
 
         <div className="card-body">
@@ -102,7 +119,9 @@ CardFront.propTypes = {
   teleSponsorLinkURL: PropTypes.string,
   teleSponsorLogoURL: PropTypes.string,
   handleFlip: PropTypes.func,
-  telescopeOnline: PropTypes.bool
+  telescopeOnline: PropTypes.bool,
+  teleAccessMethod: PropTypes.string,
+  teleHasTelescopePage: PropTypes.bool,
 };
 
 export default CardFront;

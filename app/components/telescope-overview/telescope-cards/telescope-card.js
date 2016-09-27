@@ -45,6 +45,8 @@ class TelescopeCard extends Component {
             teleOnlineStatus={this.props.teleOnlineStatus}
             teleSponsorLinkURL={this.props.teleSponsorLinkURL}
             teleSponsorLogoURL={this.props.teleSponsorLogoURL}
+            teleAccessMethod={this.props.teleAccessMethod}
+            teleHasTelescopePage={this.props.teleHasTelescopePage}
 
             handleFlip={this.handleFlip.bind(this)}
             telescopeOnline={this.props.teleOnlineStatus === 'online'} />
@@ -68,6 +70,8 @@ TelescopeCard.propTypes = {
   teleOfflineImgURL: PropTypes.string,
   teleSponsorLinkURL: PropTypes.string,
   teleSponsorLogoURL: PropTypes.string,
+  teleAccessMethod: PropTypes.string,
+  teleHasTelescopePage: PropTypes.string,
 };
 
 export default TelescopeCard;
