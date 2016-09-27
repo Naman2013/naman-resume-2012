@@ -18,7 +18,7 @@ class CardFront extends Component {
 
   renderMakeReservationButton() {
     return(
-      this.props.teleAccessMethod ?
+      this.props.teleAccessMethod === 'mission' ?
         <div className="col-md-6">
           <a className="action" href="">Make Reservation</a>
         </div> : null
