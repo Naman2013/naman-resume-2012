@@ -9,16 +9,15 @@ class CardFront extends Component {
 
   renderVisitTelescopeButton() {
     return(
-      this.props.teleHasTelescopePage === '' ?
-        <div className="col-md-6">
-          <a className="action" href="">Visit Telescope Page</a>
-        </div> : null
+      <div className="col-md-6">
+        <a className="action" href="">Visit Telescope Page</a>
+      </div>
     );
   }
 
   renderMakeReservationButton() {
     return(
-      this.props.teleAccessMethod === 'mission' ?
+      this.props.teleAccessMethod === 'missions' ?
         <div className="col-md-6">
           <a className="action" href="">Make Reservation</a>
         </div> : null
@@ -121,7 +120,6 @@ CardFront.propTypes = {
   handleFlip: PropTypes.func,
   telescopeOnline: PropTypes.bool,
   teleAccessMethod: PropTypes.string,
-  teleHasTelescopePage: PropTypes.string,
 };
 
 export default CardFront;
