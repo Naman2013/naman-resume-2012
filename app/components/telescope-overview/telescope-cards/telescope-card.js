@@ -33,6 +33,10 @@ class TelescopeCard extends Component {
       'col-xs-4': true
     });
 
+    if( this.props.teleHasTelescopePage !== 'true' ) {
+      return null;
+    }
+
     return(
       <li className={cardClasses}>
         <div className="card-content">
@@ -46,7 +50,6 @@ class TelescopeCard extends Component {
             teleSponsorLinkURL={this.props.teleSponsorLinkURL}
             teleSponsorLogoURL={this.props.teleSponsorLogoURL}
             teleAccessMethod={this.props.teleAccessMethod}
-            teleHasTelescopePage={this.props.teleHasTelescopePage}
 
             handleFlip={this.handleFlip.bind(this)}
             telescopeOnline={this.props.teleOnlineStatus === 'online'} />

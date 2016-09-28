@@ -9,7 +9,7 @@ class CardFront extends Component {
 
   renderVisitTelescopeButton() {
     return(
-      this.props.teleHasTelescopePage === 'true' ?
+      this.props.teleHasTelescopePage === '' ?
         <div className="col-md-6">
           <a className="action" href="">Visit Telescope Page</a>
         </div> : null
