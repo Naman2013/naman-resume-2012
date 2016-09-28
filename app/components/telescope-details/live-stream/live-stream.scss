@@ -1,0 +1,58 @@
+.live-stream {
+  p {
+    margin: 0;
+  }
+  .top {
+    position: relative;
+    .short {
+      line-height: 24px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      color: #d8d8d8;
+      padding-left: 10px;
+      font-size: 14px;
+      padding-top: 10px;
+    }
+    .toggle-description {
+      color: #3C4A55;
+      background-color: #000;
+      position: absolute;
+      right: 10px;
+      top: 5px;
+      line-height: 25px;
+      width: 25px;
+      height: 25px;
+      text-align: center;
+      border-radius: 50%;
+      font-size: 25px;
+    }
+  }
+  .content {
+    background-color: #000;
+    padding: 10px 10px 20px 70px;
+    position: relative;
+    .description {
+      color: #B9D9D9;
+    }
+    h3 {
+      margin: 10px 0;
+      font-size: 24px;
+    }
+    p {
+      font-size: 18px;
+      &.small {
+        font-size: 12px;
+      }
+    }
+    img {
+      position: absolute;
+      left: 10px;
+      top: 20px;
+    }
+  }
+  .progressbar-container {
+    background-color: #3C4A55;
+  }
+}

@@ -1,0 +1,63 @@
+.live-mission {
+  color: white;
+  p {
+    font-size: 20px;
+  }
+  .content {
+    padding: 10px;
+    background: rgba(31,31,31,0.40);
+    position: relative;
+    .personal-info {
+      padding-left: 60px;
+      position: relative;
+      .photo {
+        position: absolute;
+        left: 0;
+        top: 10px;
+      }
+    }
+    .heart {
+      background: url(/assets/images/icons/icon-white-heart.png) no-repeat;
+      background-size: contain;
+      position: absolute;
+      right: 0;
+      top: 10px;
+      width: 36px;
+      height: 32px;
+      line-height: 32px;
+      text-align: center;
+      font-size: 12px;
+      color: #FC1048;
+    }
+    h3 {
+      font-size: 24px;
+    }
+    .job {
+      font-size: 10px;
+    }
+    .address {
+      font-size: 14px;
+    }
+  }
+  .footer {
+    padding: 10px;
+    background: rgba(31,31,31,0.60);
+    .mission {
+      padding-left: 50px;
+      position: relative;
+      img {
+        position: absolute;
+        left: 0;
+        top: 0;
+        line-height: 28px;
+      }
+      span {
+        position: absolute;
+        right: 0;
+        top: 0;
+        line-height: 28px;
+      }
+    }
+
+  }
+}
