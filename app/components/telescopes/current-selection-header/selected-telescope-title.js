@@ -6,7 +6,7 @@ export default class CurrentSelectionHeader extends Component {
 
   render() {
     return (
-      <div className="title-container clearfix row">
+      <div className="title-container clearfix">
         <div className="telescope-title-container col-md-6">
           <img className="observatory" src="assets/icons/observatory.svg" width="48" height="47"/>
 

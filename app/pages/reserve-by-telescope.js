@@ -11,9 +11,6 @@ import CurrentSelectionHeader from '../components/telescopes/current-selection-h
 
 import Listings from '../components/telescopes/listings/listings';
 
-console.log(Listings);
-
-
 const { element, func, object } = PropTypes;
 
 function mapDispatchToProps(dispatch) {
@@ -53,7 +50,7 @@ export default class ReserveMissions extends Component {
     });
 
     return (
-      <div className="reserve-by-telescope container">
+      <div className="reserve-by-telescope container-fluid">
         <TelescopeSelection />
         <CurrentSelectionHeader />
         

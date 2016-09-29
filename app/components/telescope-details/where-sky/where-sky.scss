@@ -1,0 +1,35 @@
+.where-sky {
+  position: relative;
+  .top {
+    background: #000000;
+    color: #B9D9D9;
+    padding: 10px;
+    text-align: center;
+    h3 {
+      font-size: 24px;
+    }
+    p {
+      /* Our LIVE AllSky cam: */
+      font-size: 14px;
+      line-height: 18px;
+    }
+  }
+  img.main-image {
+    width: 100%;
+  }
+  .zoom-in {
+    position: absolute;
+    left: 20px;
+    bottom: 40px;
+  }
+  .zoom-out {
+    position: absolute;
+    left: 60px;
+    bottom: 20px;
+  }
+  .full-view {
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+  }
+}

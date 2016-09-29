@@ -8,8 +8,12 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import './telescope-details.scss';
 
 import HighMagnification from '../../components/common/high-magnification/high-magnification';
+import Spacer from '../../components/common/spacer';
 import LiveStream from '../../components/telescope-details/live-stream/live-stream';
 import LiveMission from '../../components/telescope-details/live-mission/live-mission';
+import TelescopeWhereSky from '../../components/telescope-details/where-sky/where-sky';
+import TelescopeConditionSnapshot from '../../components/telescope-details/condition-snapshot/condition-snapshot';
+import TelescopeCommunityPerspectives from '../../components/telescope-details/community-perspectives/community-perspectives';
 // import MissionUpcoming from '../components/missions/mission-upcoming';
 // import {missionGetCards, missionConfirmOpen, missionConfirmClose, missionGetInfo} from '../modules/Missions';
 
@@ -56,10 +60,17 @@ export default class TelescopeDetails extends Component {
           </Tabs>
           {/* Live Stream Component */}
           <LiveStream />
+          <Spacer height="50px" />
+          <TelescopeCommunityPerspectives />
         </div>
         <div className='col-md-4'>
           {/* Live Mission Component */}
           <LiveMission />
+          <Spacer height="100px" />
+          {/* Telescope Where Sky Component*/}
+          <TelescopeWhereSky />
+          <Spacer height="50px" />
+          <TelescopeConditionSnapshot />
         </div>
 
       </div>

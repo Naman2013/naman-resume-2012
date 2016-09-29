@@ -1,6 +1,62 @@
-.telescope-listings-item {
-  background: #B9D9D9;
-  border-radius: 13px;
-  padding: 10px 25px;
-  margin-bottom: 20px;
+.telescope-listings {
+  .list {
+    padding: 0;
+
+    .telescope-listings-item {
+      background: #B9D9D9;
+      border-radius: 13px;
+      padding: 10px 25px;
+      margin-bottom: 20px;
+
+      .slot-description {
+
+        .slot {
+          &-logo {
+            margin-right: 10px;
+          }
+
+          &-name{
+
+          }
+        }
+
+      }
+
+      .user-info {
+        &.col-md-4 {
+          width: 29.333333%;
+        }
+      }
+
+      .social-bar {
+        width: 132px;        
+        padding: 0;
+        text-align: center;
+        line-height: 2.5em;
+      }
+
+
+      // states
+      &.available {
+        background: #424242;
+        color: #fff;
+
+        .btn {
+          background: #589A9A;
+          border-radius: 0;
+          border: 0;
+          color: #fff;
+        }
+      }
+
+      &.active {
+
+      }
+
+      &.valid {
+
+      }
+    }
+
+  }
 }
