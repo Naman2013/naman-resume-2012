@@ -1,0 +1,46 @@
+.condition-snapshot {
+  position: relative;
+  color: #B9D9D9;
+  text-align: center;
+  .top {
+    background: #000000;
+    color: #B9D9D9;
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    h3 {
+      font-size: 24px;
+    }
+    p {
+      /* Our LIVE AllSky cam: */
+      font-size: 14px;
+      line-height: 18px;
+    }
+  }
+  .content {
+    background: rgba(31,31,31,0.60);
+    padding-top: 20px;
+    > div {
+      > div {
+        padding-bottom: 20px;
+      }
+
+    }
+    .video {
+      position: relative;
+      img.item {
+        width: calc(100% - 30px);
+      }
+    }
+    .play {
+      position: absolute;
+      left: calc(50% - 38px);
+      top: calc(50% - 38px);
+    }
+    .screen-view {
+      position: absolute;
+      right: 15px;
+      bottom: 30px;
+    }
+  }
+}
