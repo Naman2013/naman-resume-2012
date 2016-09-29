@@ -9,7 +9,7 @@ import MissionCard from '../components/missions/mission-card';
 import MissionUpdates from '../components/missions/mission-updates';
 import MissionAd from '../components/missions/mission-ad';
 import MissionUpcoming from '../components/missions/mission-upcoming';
-import {missionGetCards, missionConfirmOpen, missionConfirmClose, missionGetInfo} from '../modules/Missions';
+import {missionGetCards, missionConfirmOpen, missionConfirmClose, missionGetInfo, missionGetUpdates} from '../modules/Missions';
 
 const { element, func, object } = PropTypes;
 
@@ -19,7 +19,8 @@ function mapDispatchToProps(dispatch) {
       missionGetCards,
       missionConfirmOpen,
       missionConfirmClose,
-      missionGetInfo
+      missionGetInfo,
+      missionGetUpdates
     }, dispatch)
   };
 }
@@ -42,7 +43,8 @@ export default class SloohRecommends extends Component {
 
   componentDidMount() {
     console.log('componentDidMount');
-    this.props.actions.missionGetCards()
+    this.props.actions.missionGetCards();
+    this.props.actions.missionGetUpdates();
   }
 
   openConfirmModal(card, type, event) {
@@ -67,7 +69,7 @@ export default class SloohRecommends extends Component {
         <section className="container clearfix">
 
           <div className="col-md-8">
-            {React.cloneElement(this.props.children, { openConfirmModal: this.openConfirmModal })}            
+            {React.cloneElement(this.props.children, { openConfirmModal: this.openConfirmModal })}
           </div>
 
           <div className="col-md-4 mission-sidebar">
