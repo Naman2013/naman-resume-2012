@@ -7,6 +7,7 @@ import configureStore from './store';
 // containers
 import App from './containers/App';
 import Reservations from './containers/Reservations';
+import SloohRecommends from './containers/SloohRecommends';
 
 // pages
 import Home from './pages/home';
@@ -35,7 +36,7 @@ ReactDOM.render(
         <Route path="/telescope-overview/:observatoryId" component={TelescopeOverview} />
         <Route path="/reservations" component={Reservations}>
 
-          <Route path="/slooh-recommends" component={ReserveMissions}>
+          <Route path="/slooh-recommends" component={SloohRecommends}>
             <Route path="/slooh-recommends/existing" name="existing-missions" component={Reservations} />
             <Route path="/slooh-recommends/new" name="new-missions" component={Reservations} />
           </Route>

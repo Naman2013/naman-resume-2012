@@ -9,7 +9,7 @@ class MissionNav extends Component {
       <div className={styles.missionNav}>
         <ul>
           <li>
-            <Link href="#" to='slooh-recommends'>Slooh Recommends</Link>
+            <Link href="#" to='slooh-recommends/existing'>Slooh Recommends</Link>
           </li>
           <li>
             <ul className="sub-nav">
