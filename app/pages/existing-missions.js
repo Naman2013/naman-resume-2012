@@ -33,49 +33,29 @@ function mapStateToProps({ missions }) {
 
 @connect(mapStateToProps, mapDispatchToProps)
 
-export default class SloohRecommends extends Component {
+export default class ExistingMissions extends Component {
 
   static propTypes = {
     children: element,
     actions: object.isRequired
   };
 
-  componentDidMount() {
-    console.log('componentDidMount');
-    this.props.actions.missionGetCards()
-  }
-
-  openConfirmModal(card, type, event) {
-    event.preventDefault();
-
-    if (type == 'piggyBack') {
-      this.props.actions.missionGetInfo(card, type, event);
-    } else {
-      this.props.actions.missionConfirmOpen(type); //TODO: replace empty object with mission object from API
-    }
-  }
-
   render() {
-    let cardClassName = classnames({
-      'mission-card': true,
-      'featured': true
-    });
-    console.log(this.props.cardList);
+
     let today = moment().utc().format("MM/DD/YYYY");
     return (
-      <div className="reserve-missions">
-        <section className="container clearfix">
-
-          <div className="col-md-8">
-            {React.cloneElement(this.props.children, { openConfirmModal: this.openConfirmModal })}            
-          </div>
-
-          <div className="col-md-4 mission-sidebar">
-            <MissionAd />
-            <MissionUpcoming />
-            <MissionUpdates />
-          </div>
-        </section>
+      <div className="existing-missions">
+        {this.props.cardList ? this.props.cardList.map(card =>  {
+          let end_date = moment.unix(card.end).format("MM/DD/YYYY");
+          if (!moment(today).isAfter(end_date, 'days')) {
+            return (<MissionCard
+              key={card.uniqueId}
+              className={`${card.cardType == 2 ? 'featured col-md-12' : 'secondary col-md-6'}`}
+              card={card}
+              openModal = {this.props.openConfirmModal.bind(this)}
+              featured={card.cardType == 2} />);
+            }
+        }) : 'waiting...'}
       </div>
     );
   }
