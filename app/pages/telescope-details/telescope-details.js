@@ -8,6 +8,8 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import './telescope-details.scss';
 
 import HighMagnification from '../../components/common/high-magnification/high-magnification';
+import LiveStream from '../../components/telescope-details/live-stream/live-stream';
+import LiveMission from '../../components/telescope-details/live-mission/live-mission';
 // import MissionUpcoming from '../components/missions/mission-upcoming';
 // import {missionGetCards, missionConfirmOpen, missionConfirmClose, missionGetInfo} from '../modules/Missions';
 
@@ -52,8 +54,12 @@ export default class TelescopeDetails extends Component {
             <TabPanel>
             </TabPanel>
           </Tabs>
+          {/* Live Stream Component */}
+          <LiveStream />
         </div>
         <div className='col-md-4'>
+          {/* Live Mission Component */}
+          <LiveMission />
         </div>
 
       </div>

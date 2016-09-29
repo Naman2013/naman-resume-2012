@@ -9,6 +9,10 @@ import {missionGetCards, missionConfirmOpen, missionConfirmClose} from '../modul
 import TelescopeSelection from '../components/telescopes/selection-widget/telescope-selection';
 import CurrentSelectionHeader from '../components/telescopes/current-selection-header/header';
 
+import Listings from '../components/telescopes/listings/listings';
+
+console.log(Listings);
+
 
 const { element, func, object } = PropTypes;
 
@@ -52,9 +56,8 @@ export default class ReserveMissions extends Component {
       <div className="reserve-by-telescope container">
         <TelescopeSelection />
         <CurrentSelectionHeader />
-        <section className="clearfix">
         
-        </section>
+        <Listings />
       </div>
     );
   }
