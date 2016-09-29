@@ -7,20 +7,18 @@ class MissionNav extends Component {
   render() {
     return (
       <div className={styles.missionNav}>
-        <ul>          
+        <ul>
           <li>
-            <Link href="#" to='slooh-recommends'>Slooh Recommends</Link>
-          </li>          
+            <Link href="#" to='slooh-recommends/existing'>Slooh Recommends</Link>
+          </li>
           <li>
             <ul className="sub-nav">
-              <li><a href="#">Existing Missions</a></li>
-              <li><a href="#">New Missions</a></li>
+              <li><Link to="slooh-recommends/existing">Existing Missions</Link></li>
+              <li><Link to="slooh-recommends/new">New Missions</Link></li>
             </ul>
           </li>
-          <li><a href="#">Browse popular objects</a></li>
-          <li>
-            <Link to='reserve-by-telescope'>Reserve by telescope</Link>
-          </li>          
+          <li><Link to="reserve-by-objects">Browse popular objects</Link></li>
+          <li><Link to="reserve-by-telescope">Reserve by telescope</Link></li>
           <li><a href="#">Explore by catalog</a></li>
         </ul>
       </div>
