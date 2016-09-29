@@ -62,7 +62,7 @@ export default class SloohRecommends extends Component {
       'mission-card': true,
       'featured': true
     });
-    console.log(this.props.cardList);
+    console.log(this);
     let today = moment().utc().format("MM/DD/YYYY");
     return (
       <div className="reserve-missions">
@@ -75,7 +75,7 @@ export default class SloohRecommends extends Component {
           <div className="col-md-4 mission-sidebar">
             <MissionAd />
             <MissionUpcoming />
-            <MissionUpdates />
+            <MissionUpdates updates={this.props.missions.announcements} />
           </div>
         </section>
       </div>
