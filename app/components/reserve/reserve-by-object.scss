@@ -1,8 +1,16 @@
 .reserveObjectPage {
+  margin-bottom: 25px;
+
+  .row {
+    padding: 0 20px;
+  }
+
   h2 {
     color: #3C4A55;
-    font-size: 24px;
+    font-size: 21px;
     font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
     span {
       display: block;
       width: 25px;
@@ -11,20 +19,34 @@
       color: #7EC3C4;
       margin: auto;
       text-align: center;
+      border-radius: 50px;
+      font-size: 16px;
+      line-height: 26px;
+      margin-bottom: 10px;
     }
   }
 }
 
 .objectCategories {
   color: #3C4A55;
+  height: 300px;
+  overflow-y: scroll;
+
   a {
     color: #3C4A55;
   }
   li {
     list-style: none;
-
+    padding: 4px 0;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    padding-left: 40px;
+    &:hover {
+      background: #B9D9D9;
+    }
     .icon {
-      width: 28px;
+      width: 22px;
+      margin-right: 10px;
     }
   }
 }
