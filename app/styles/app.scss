@@ -4,6 +4,10 @@ a, a:hover {
 p , h3 {
   margin: 0;
 }
+img {
+  max-width: 100%;
+}
+
 .app-content-container {
   background: url(../../assets/images/graphics/space-background.jpg) no-repeat center center fixed;
   -webkit-background-size: cover;
