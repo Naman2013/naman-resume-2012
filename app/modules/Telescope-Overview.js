@@ -97,15 +97,15 @@ const fetchSmallSatelliteView = ( observatory ) => ( dispatch ) => {
 
 
 const setMoonPhaseWidget = ( moonPhaseWidgetResult ) => ({
-    type: MOON_PHASE_WIDGET_SUCCESS,
-    moonPhaseWidgetResult
+  type: MOON_PHASE_WIDGET_SUCCESS,
+  moonPhaseWidgetResult
 })
 
 
 
 export const setSatelliteViewWidget = ( satelliteViewWidgetResult ) => ({
-    type: SATELLITE_VIEW_WIDGET_RESULT,
-    satelliteViewWidgetResult
+  type: SATELLITE_VIEW_WIDGET_RESULT,
+  satelliteViewWidgetResult
 });
 
 

@@ -55,7 +55,11 @@ class MenuComponent extends Component {
           <ul>
             {this.props.menuItems.map((item, index) => {
               return (
-                <MenuLink key={index} index={index} data={item} handleClick={this.handleClick} />
+                <MenuLink
+                  key={index}
+                  index={index}
+                  data={item} 
+                  handleClick={this.handleClick} />
               );
             })}
           </ul>

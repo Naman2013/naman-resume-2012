@@ -14,6 +14,7 @@ import LiveMission from '../../components/telescope-details/live-mission/live-mi
 import TelescopeWhereSky from '../../components/telescope-details/where-sky/where-sky';
 import TelescopeConditionSnapshot from '../../components/telescope-details/condition-snapshot/condition-snapshot';
 import TelescopeCommunityPerspectives from '../../components/telescope-details/community-perspectives/community-perspectives';
+import LiveWebcam from '../../components/telescope-details/live-webcam/live-webcam';
 // import MissionUpcoming from '../components/missions/mission-upcoming';
 // import {missionGetCards, missionConfirmOpen, missionConfirmClose, missionGetInfo} from '../modules/Missions';
 
@@ -62,6 +63,7 @@ export default class TelescopeDetails extends Component {
           <LiveStream />
           <Spacer height="50px" />
           <TelescopeCommunityPerspectives />
+          <LiveWebcam />
         </div>
         <div className='col-md-4'>
           {/* Live Mission Component */}

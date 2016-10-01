@@ -6,6 +6,7 @@ import user from './User';
 import login from './Login';
 import missions from './Missions';
 import telescopeOverview from './Telescope-Overview';
+import announcementBanner from './Announcement-Banner';
 
 export default combineReducers({
   routing: routerReducer,
@@ -14,5 +15,6 @@ export default combineReducers({
   user,
   login,
   missions,
-  telescopeOverview
+  telescopeOverview,
+  announcementBanner,
 });
