@@ -1,4 +1,4 @@
-export default {
+const exampleUser = {
   ver: "v1",
   lang: "en",
   fname: "Brandon",
@@ -16,9 +16,11 @@ export default {
   classroom: "",
   teacher: "",
   redirect: "",
-  token: "3f0c15c24dd04a8d4f31f4ffba8bcdd71591d235",
+  token: "ab94b9f39049348848d807bc1a071e96919e9b1e",
   tokenExp: "",
   validate: "",
   loginError: "false",
   statusCode: "200"
-}
+};
+
+export default exampleUser;
