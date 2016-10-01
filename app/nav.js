@@ -3,7 +3,7 @@ export default [{
 		"en": "Home"
 	},
 	"icon": "/slooh/images/nav/home.png",
-	"link": "/",
+	"link": "/#/",
 	"type": "basic"
 }, {
 	"label": {
@@ -47,7 +47,7 @@ export default [{
 		"label": {
 			"en": "Canary Islands"
 		},
-		"link": "/telescopes/canary-islands",
+		"link": "/#/telescope-overview/d7f673a5-7908-11e6-a635-0eb2b1774883",
 		"type": "statuses",
 		"datasource": "http://slooh.askmp.ca/data/telescopes/statuses?id=1",
 		"children": [{
@@ -85,7 +85,7 @@ export default [{
 		"label": {
 			"en": "Chile"
 		},
-		"link": "/telescopes/Chile",
+		"link": "/#/telescope-overview/3f332115-7908-11e6-a635-0eb2b1774883",
 		"type": "statuses",
 		"datasource": "http://shows.slooh.askmp.ca/telescopes/statuses?id=2",
 		"children": [{
@@ -312,7 +312,7 @@ export default [{
 		"type": "basic"
 	}, {
 		"label": {
-			"en": "Whatâ€™s Visible When?"
+			"en": "What's Visible When?"
 		},
 		"link": "/community/objects",
 		"type": "basic"
