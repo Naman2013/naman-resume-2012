@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import MissionConfirmModal from '../components/missions/mission-confirm-modal';
-import AnnouncementBanner from '../components/common//announcement-banner/announcement-banner';
+import AnnouncementBanner from '../components/common/announcement-banner/announcement-banner';
 import ReserveBanner from '../components/missions/reserve-banner';
 import MissionNav from '../components/missions/mission-nav';
 

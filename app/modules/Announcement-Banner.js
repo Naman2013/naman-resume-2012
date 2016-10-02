@@ -11,6 +11,7 @@ const initialState = {
   messageError: false,
   messageLoading: true,
   bannerDisplayed: false,
+  loadingError: null,
 };
 
 
@@ -24,7 +25,7 @@ export const fetchAnnouncements = ( user ) => ( dispatch ) => {
     token,
     category: 'announcement',
   })
-  .then( (response) => fetchAnnouncementsSuccess() )
+  .then( (response) => fetchAnnouncementsSuccess(response) )
   .catch(error => dispatch( fetchAnnouncementsError( error ) ));
 };
 
@@ -40,7 +41,8 @@ export const fetchAnnouncementsSuccess = ( announcementResult ) => ({
 });
 
 export const fetchAnnouncementsError = ( error ) => ({
-  type: FETCH_ANNOUNCEMENTS_ERROR
+  type: FETCH_ANNOUNCEMENTS_ERROR,
+  error,
 });
 
 export const hideBanner = () => ({
@@ -65,11 +67,12 @@ export default createReducer(initialState, {
       messageLoading: false,
     };
   },
-  [FETCH_ANNOUNCEMENTS_ERROR](state, { messageError }) {
+  [FETCH_ANNOUNCEMENTS_ERROR](state, { error }) {
     return {
       ...state,
       messageError: true,
       messageLoading: false,
+      loadingError: error,
     };
   },
   [HIDE_ANNOUCEMENT_BANNER](state) {

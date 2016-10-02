@@ -13,9 +13,9 @@ export default class Tips extends Component {
         <span>
           You can see all of your existing reservations
           on your
-          <Link>Profile page</Link>.
+          <Link to="/">Profile page</Link>.
         </span>
-      </div>      
+      </div>
     );
   }
 }
