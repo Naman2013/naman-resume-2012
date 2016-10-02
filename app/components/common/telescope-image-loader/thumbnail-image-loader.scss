@@ -1,0 +1,21 @@
+.sse-thumbnails {
+  position: relative;
+
+  img {
+    -webkit-clip-path: circle(92px at center);
+    -moz-clip-path: circle(92px, 92px, 92px);
+    clip-path: circle(92px, 92px, 92px);
+  }
+
+  .top-image {
+    transition: opacity ease-in-out;
+    -moz-transition: opacity ease-in-out;
+    -webkit-transition: opacity ease-in-out;
+  }
+
+  .bottom-image {
+    position: absolute;
+    top: 0;
+    left: 58px;
+  }
+}

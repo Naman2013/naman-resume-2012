@@ -50,7 +50,7 @@ class TelescopeOverview extends Component {
       this.props.currentObservatoryId
     );
   }
-  
+
   componentDidMount() {
     this.updateObservatory();
   }
@@ -59,7 +59,6 @@ class TelescopeOverview extends Component {
     if(nextProps.params.observatoryId !== this.props.currentObservatoryId) {
       const currentObservatory =
         getCurrentObservatory(nextProps.observatoryList, nextProps.params.observatoryId);
-        console.log(currentObservatory);
       this.props.actions.fetchAllWidgetsByObservatory(currentObservatory);
     }
   }

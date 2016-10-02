@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 import CountdownTimer from './countdown-timer';
+import ThumbnailImageLoader from '../../common/telescope-image-loader/thumbnail-image-loader';
 import style from './card-front.scss';
 
 
@@ -25,6 +26,14 @@ class CardFront extends Component {
           <a className="action" href="">Make Reservation</a>
         </div> : null
     );
+  }
+
+  generateSseImageSource() {
+    // TODO: the port number is a dynamic value?
+    // for now referencing the /sse/*** context and using a proxy to a default port
+    // see webpack.config devServer proxies
+    const { teleSystem, telePort } = this.props;
+    return `/sse/${teleSystem}`;
   }
 
   render() {
@@ -61,9 +70,12 @@ class CardFront extends Component {
 
                 <div className="image-viewer">
                   <h4 className="title">LIVE Mission</h4>
+
                   <div className="telescope-image">
-                    <img src="assets/images/graphics/galaxy-circle.png" width="245" height="245" />
+                    <ThumbnailImageLoader
+                      imageSource={this.generateSseImageSource()} />
                   </div>
+
                   <h5 className="telescope-image-title">
                     Andromeda Galaxy ( M31 )
                   </h5>
@@ -123,6 +135,8 @@ CardFront.propTypes = {
   handleFlip: PropTypes.func,
   telescopeOnline: PropTypes.bool,
   teleAccessMethod: PropTypes.string,
+  telePort: PropTypes.string,
+  teleSystem: PropTypes.string,
 };
 
 export default CardFront;
