@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { Link } from 'react-router';
 import CountdownTimer from './countdown-timer';
 import style from './card-front.scss';
 
@@ -10,7 +11,9 @@ class CardFront extends Component {
   renderVisitTelescopeButton() {
     return(
       <div className="col-md-6">
-        <a className="action" href="">Visit Telescope Page</a>
+        <Link to="telescope-details" className="action">
+          Visit Telescope Page
+        </Link>
       </div>
     );
   }

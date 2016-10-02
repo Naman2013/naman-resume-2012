@@ -1,3 +1,15 @@
+$listing_blue: #589A9A;
+$listing_black: #424242;
+
+.dark-gradient {
+  background: $listing_black;
+  background: -webkit-linear-gradient(top, rgb(65, 65, 65) 0%, rgb(32, 32, 32) 100%);
+  background: -o-linear-gradient(top, rgb(65, 65, 65) 0%, rgb(32, 32, 32) 100%);
+  background: -ms-linear-gradient(top, rgb(65, 65, 65) 0%, rgb(32, 32, 32) 100%);
+  background: -moz-linear-gradient(top, rgb(65, 65, 65) 0%, rgb(32, 32, 32) 100%);
+  background: linear-gradient(to bottom, rgb(65, 65, 65) 0%, rgb(32, 32, 32) 100%);
+}
+
 .telescope-listings {
   .list {
     padding: 0;
@@ -5,8 +17,9 @@
     .telescope-listings-item {
       background: #B9D9D9;
       border-radius: 13px;
-      padding: 10px 25px;
+      padding: 20px 25px;
       margin-bottom: 20px;
+      min-height: 100px;
 
       .slot-description {
 
@@ -35,26 +48,109 @@
         line-height: 2.5em;
       }
 
+      &.on-hold {
+        background: #fff;
+        -webkit-box-shadow: 0px 0px 10px 1px #000 inset;
+                box-shadow: 0px 0px 10px 1px #000 inset;
+      }
 
       // states
       &.available {
-        background: #424242;
+        @extend .dark-gradient;
+
         color: #fff;
 
         .btn {
-          background: #589A9A;
+          background: $listing_blue;
           border-radius: 0;
           border: 0;
           color: #fff;
         }
-      }
 
-      &.active {
+        &:hover, &.expanded {
+          -webkit-box-shadow: 0px 0px 0px 5px #fff inset,
+                              0px 0px 10px 0px #000;
+                  box-shadow: 0px 0px 0px 5px #fff inset,
+                              0px 0px 10px 0px #000;
+          -webkit-transition: .1s -webkit-box-shadow ease-in;
+                  transition: .1s box-shadow ease-in;          
+          
+          // hover but not expanded
+          &:not(.expanded) {
+            cursor: pointer;
+          }
+        }
 
-      }
+        &.expanded {
+          height: 632px;
+          overflow: hidden;
 
-      &.valid {
+          .reservation-configuration {
+            .steps {
+              max-width: 1216px;
+              margin: 0 auto;
 
+              .step {
+                &-header {
+                  margin-bottom: 10px;
+                  
+                  &_icon {
+                    @extend .dark-gradient;
+
+                    display: inline-block;
+                    padding: 2px 9px;
+                    border-radius: 20px;
+                    color: $listing_blue;
+                    margin: 10px auto;
+                  }
+
+                  &_label {
+                    font-size: 24px;
+                    font-weight: lighter;
+                  }  
+                }
+
+                &-content {
+                  .option-list {
+                    text-align: left;
+                    width: 350px;
+                    max-height: 300px;
+                    overflow-x: hidden;
+                    overflow-y: scroll;
+
+                    &::-webkit-scrollbar {
+                      width: 5px;
+                    }
+                     
+                    &::-webkit-scrollbar-track {
+                      background: #979797;
+                    }
+                     
+                    &::-webkit-scrollbar-thumb {
+                      background: #3C4A55;                      
+                    }
+
+
+
+                    &_item {
+                      border-radius: 8px;
+                      padding: 5px 20px;
+                      color: #fff;
+
+                      .icon {
+                        margin-right: 10px;
+                      }
+
+                      &:hover {
+                        background: $listing_blue;
+                      }
+                    }
+                  }
+                }                
+              }
+            }
+          }
+        }
       }
     }
 

@@ -2,6 +2,7 @@
   position: relative;
   color: #B9D9D9;
   text-align: center;
+  margin-bottom: 25px;
   .top {
     background: #000000;
     color: #B9D9D9;
@@ -67,30 +68,6 @@
         content: '' !important;
       }
     }
-    .personal-info {
-      text-align: left;
-      padding-left: 60px;
-      position: relative;
-      color: white;
-      margin-bottom: 10px;
-      .name {
-        font-size: 20px;
-      }
-      .job {
-        color: #FC1048;
-        font-size: 10px;
-        margin-top: 10px;
-        margin-left: 5px;
-      }
-      .address {
-        font-size: 14px;
-      }
-      .photo {
-        position: absolute;
-        left: 5px;
-        top: 0  ;
-      }
-    }
     .description {
       h3 {
         font-size: 24px;
@@ -98,5 +75,31 @@
         padding: 5px 0;
       }
     }
+  }
+}
+
+
+.personal-info {
+  text-align: left;
+  padding-left: 60px;
+  position: relative;
+  color: white;
+  margin-bottom: 10px;
+  .name {
+    font-size: 20px;
+  }
+  .job {
+    color: #FC1048;
+    font-size: 10px;
+    margin-top: 10px;
+    margin-left: 5px;
+  }
+  .address {
+    font-size: 14px;
+  }
+  .photo {
+    position: absolute;
+    left: 5px;
+    top: 0  ;
   }
 }

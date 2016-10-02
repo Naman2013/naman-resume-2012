@@ -1,0 +1,50 @@
+.weather-conditions {
+  .content-wrapper {
+    padding: 15px;
+    position: relative;
+    background: rgba(31, 31, 31, 0.6);
+
+    .weather-conditions-controls {
+      display: flex;
+      height: 55px;
+      font-size: 12px;
+      padding: 5px 0 20px 0;
+    }
+    button {
+      background: #589A9A;
+      border: 0;
+      border-radius: 8px;
+      color: #fff;
+      padding: 5px;
+      margin: 0 4px;
+      flex: 1;
+      position: relative;
+      &.active {
+        background: #000;
+        &:after {
+          top: 100%;
+        	left: 50%;
+        	border: solid transparent;
+        	content: " ";
+        	height: 0;
+        	width: 0;
+        	position: absolute;
+        	pointer-events: none;
+        	border-color: rgba(0, 0, 0, 0);
+        	border-top-color: #000000;
+        	border-width: 10px;
+        	margin-left: -12px;
+        }
+      }
+    }
+  }
+}
+
+.weather-conditions-feed {
+  position: relative;
+  .screen-view {
+    position: absolute;
+    right: 15px;
+    bottom: 15px;
+  }
+}

@@ -1,0 +1,44 @@
+.gallery-widget {
+  .content {
+    padding-top: 0;
+    background: none;
+  }
+
+  .item {
+    position: relative;
+    .gallery-item-info {
+      position: absolute;
+      left: 5px;
+      bottom: 15px;
+      width: 100%;
+    }
+  }
+
+  .slick-slider {
+    margin-bottom: 0;
+  }
+
+  .slick-next {
+    background-image: url('/assets/icons/arrow_right.png');
+    background-repeat: no-repeat;;
+    width: 38px;
+    height: 60px;
+    right: 10px;
+    background-size: contain;
+    &:before {
+      content: '' !important;
+    }
+  }
+  .slick-prev {
+    background-image: url('/assets/icons/arrow_left.png');
+    background-repeat: no-repeat;;
+    width: 38px;
+    height: 60px;
+    left: 10px;
+    z-index: 1;
+    background-size: contain;
+    &:before {
+      content: '' !important;
+    }
+  }
+}

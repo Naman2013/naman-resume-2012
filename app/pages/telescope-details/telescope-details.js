@@ -15,6 +15,9 @@ import TelescopeWhereSky from '../../components/telescope-details/where-sky/wher
 import TelescopeConditionSnapshot from '../../components/telescope-details/condition-snapshot/condition-snapshot';
 import TelescopeCommunityPerspectives from '../../components/telescope-details/community-perspectives/community-perspectives';
 import LiveWebcam from '../../components/telescope-details/live-webcam/live-webcam';
+import WeatherConditions from '../../components/telescope-details/weather-conditions/weather-conditions';
+import TelescopeRecommendsWidget from '../../components/telescope-details/recommends-widget/recommends-widget';
+import TelescopeGalleryWidget from '../../components/telescope-details/gallery-widget/gallery-widget';
 // import MissionUpcoming from '../components/missions/mission-upcoming';
 // import {missionGetCards, missionConfirmOpen, missionConfirmClose, missionGetInfo} from '../modules/Missions';
 
@@ -64,6 +67,7 @@ export default class TelescopeDetails extends Component {
           <Spacer height="50px" />
           <TelescopeCommunityPerspectives />
           <LiveWebcam />
+          <WeatherConditions />
         </div>
         <div className='col-md-4'>
           {/* Live Mission Component */}
@@ -73,6 +77,8 @@ export default class TelescopeDetails extends Component {
           <TelescopeWhereSky />
           <Spacer height="50px" />
           <TelescopeConditionSnapshot />
+          <TelescopeRecommendsWidget />
+          <TelescopeGalleryWidget />
         </div>
 
       </div>

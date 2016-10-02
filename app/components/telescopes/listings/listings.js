@@ -5,37 +5,34 @@ const dummyListingsData = [
     // booked
     available: false,
     active: true,
-    ready: true
+    share: true
   },
   {
     // book me!
     available: true,
     active: true,
-    ready: true
   },
   {
     // book me!
     available: true,
     active: true,
-    ready: true
   },
   { 
     // booked
     available: false,
     active: true,
-    ready: true
+    piggyback: true
   },
   {
     // book me!
     available: true,
     active: true,
-    ready: true
   },
   {
     // booked. no object selected
-    available: true,
+    available: false,
     active: true,
-    ready: true
+    onHold: true
   }
 ];
 

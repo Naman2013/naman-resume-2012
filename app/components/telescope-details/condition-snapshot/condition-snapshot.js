@@ -15,7 +15,7 @@ class TelescopeConditionSnapshot extends React.Component {
 
   render() {
     return(
-      <div className="condition-snapshot">
+      <div className="condition-snapshot telescope-details-widget">
         <div className="top">
           <div className="row">
           <div className="col-xs-12 ">
