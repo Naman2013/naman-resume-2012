@@ -37,13 +37,13 @@ class TelescopeGalleryWidget extends React.Component {
                 <div className="item">
                   <img src={'/assets/images/graphics/telescope-image1.jpg'} />
                   <div className="gallery-item-info">
-                    <div class="personal-info">
-                      <div class="clearfix">
-                        <p class="name pull-left">Dave Eberly</p>
-                        <p class="job pull-left">ASTRONOMER</p>
+                    <div className="personal-info">
+                      <div className="clearfix">
+                        <p className="name pull-left">Dave Eberly</p>
+                        <p className="job pull-left">ASTRONOMER</p>
                       </div>
-                      <p class="address">Chicago, IL, USA. Member since 2011</p>
-                      <img src="/assets/images/graphics/dave-photo.png" class="photo" />
+                      <p className="address">Chicago, IL, USA. Member since 2011</p>
+                      <img src="/assets/images/graphics/dave-photo.png" className="photo" />
                     </div>
                   </div>
                 </div>

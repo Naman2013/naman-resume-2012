@@ -12,12 +12,16 @@ export const MISSION_GET_INFO_SUCCESS   = 'MISSION_GET_INFO_SUCCESS';
 export const MISSION_GET_INFO_FAIL      = 'MISSION_GET_INFO_FAIL';
 export const MISSION_GET_UPDATES_SUCCESS= 'MISSION_GET_UPDATES_SUCCESS';
 export const MISSION_GET_UPDATES_FAIL   = 'MISSION_GET_UPDATES_FAIL';
+export const MISSION_GET_PIGGYBACKS     = 'MISSION_GET_PIGGYBACKS';
+export const MISSION_GET_PIGGYBACKS_SUCCESS = 'MISSION_GET_PIGGYBACKS_SUCCESS';
+export const MISSION_GET_PIGGYBACKS_FAIL= 'MISSION_GET_PIGGYBACKS_FAIL';
 
 const initialState = {
   isConfirmationOpen: false,
   mission: {},
   cardList: [],
-  announcements: []
+  announcements: [],
+  piggybacks: []
 };
 
 // Mission action creator
@@ -44,8 +48,9 @@ export function missionGetCards() {
       lang: 'en',
       type: 'curated'
     })
-    .then(response => {
+    .then(response => {      
       dispatch( allCards( response ))
+      dispatch( missionGetPiggybacks(response.data.objectList))
     })
     .catch(error => dispatch( cardsFail( response )));
   }
@@ -134,6 +139,40 @@ export function missionUpdatesFail({data}) {
 };
 
 
+
+export function missionGetPiggybacks(objectList) {
+  return dispatch => {
+    return axios.post('/api/recommends/getNextPiggyback', {
+      cid: "",
+      token: "",
+      requestType: "multiple",
+      uniqueId: "",
+      objectId: "",
+      start: "",
+      objectList: objectList
+    })
+    .then(response => {
+      dispatch( missionGetPiggybackSuccess(response) );
+    })
+    .catch(error => dispatch( missionGetPiggybackFail( response )));
+  }
+}
+
+export function missionGetPiggybackSuccess({data}) {
+  return {
+    type: MISSION_GET_PIGGYBACKS_SUCCESS,
+    piggybacks: data.missionList
+  };
+};
+
+export function missionGetPiggybackFail({data}) {
+  return {
+    type: MISSION_GET_PIGGYBACKS_FAIL,
+    piggybacks: data.error
+  };
+};
+
+
 // this reducer changes missions object in store every time one of the actions is fired
 export default createReducer(initialState, {
   [MISSION_CONFIRMATION_OPEN](state, { mission, confirmType }) {
@@ -172,6 +211,12 @@ export default createReducer(initialState, {
     return {
       ...state,
       announcements: []
+    }
+  },
+  [MISSION_GET_PIGGYBACKS_SUCCESS](state, {piggybacks}) {
+    return {
+      ...state,
+      piggybacks
     }
   }
 });

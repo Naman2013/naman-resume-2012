@@ -111,12 +111,22 @@ module.exports = {
       '/api/**': {
         target: 'https://saturn.slooh.com:444',
         changeOrigin: true,
-        secure: true
+        secure: true,
       },
       '/sloohapp/**': {
         target: 'https://saturn.slooh.com:444',
         changeOrigin: true,
-        secure: true
+        secure: true,
+      },
+      '/sse/**': {
+        target: 'https://mars.slooh.com:3004',
+        changeOrigin: true,
+        secure: true,
+      },
+      '/util/**': {
+        target: 'https://mars.slooh.com',
+        changeOrigin: true,
+        secure: true,
       }
     }
   }

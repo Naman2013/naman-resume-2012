@@ -1,16 +1,33 @@
 import React, { Component, PropTypes } from 'react';
-import classnames from 'classnames';
+import cx from 'classnames';
 import './weather-conditions.scss';
 
 import Progress from 'react-progressbar';
 
 class WeatherConditions extends React.Component {
-
-  constructor(props) {
-    super(props);
+  static propTypes = {
+    tabs: PropTypes.array.isRequired,
   };
 
+  state = {
+    activeTabIdx: 0,
+  };
+
+  setTabIdx(activeTabIdx) {
+    return () => {
+      this.setState({ activeTabIdx });
+    };
+  }
+
   render() {
+    const { tabs } = this.props;
+    const { activeTabIdx } = this.state;
+
+    let tab = null;
+    if (activeTabIdx >= 0) {
+      tab = tabs[activeTabIdx];
+    }
+
     return(
       <div className="telescope-block weather-conditions">
         <div className="top">
@@ -19,16 +36,30 @@ class WeatherConditions extends React.Component {
         </div>
         <div className="content-wrapper">
           <div className="weather-conditions-controls">
-            <button>Conditions</button>
-            <button>Dust</button>
-            <button>Satellite Cloud</button>
-            <button className="active">Wind</button>
-            <button>Sky Brightness</button>
-            <button>Historic Weather</button>
+            {tabs.map((tab, tabIdx) => (
+              <button
+                key={tabIdx}
+                className={cx({
+                  active: tabIdx === activeTabIdx,
+                })}
+                onClick={::this.setTabIdx(tabIdx)}
+              >{tab.title}</button>
+            ))}
           </div>
           <div className="weather-conditions-feed">
-            <img src="/assets/images/icons/icon-white-screen-view.png" className="screen-view" />
-            <img src={'/assets/images/graphics/weather-placeholder.jpg'} />
+            <img
+              src="/assets/images/icons/icon-white-screen-view.png"
+              className="screen-view"
+            />
+
+            {tab && (
+              <img
+                src={tab.src}
+                alt={tab.title}
+                width="784"
+                height="503"
+              />
+            )}
           </div>
         </div>
       </div>

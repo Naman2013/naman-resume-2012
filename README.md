@@ -71,3 +71,32 @@ To build the production bundle, run
 `npm run prod`
 
 This will generate the `/dist` directory to be sent to the web server.
+
+# Generating SSE URL's
+---
+
+### Example SSE URL:
+---
+
+`https://mars.slooh.com:3004/sse/teideallsky`
+
+This url is constructed using properties from a telescopes information.  The telescope information
+should include the `telePort` and `teleSystem` to build the link above.
+
+Sample event data
+
+[currentImgURL, previousImgURL, scheduledMissionId, missionStartTime, lastImgTime, currentServerTimestamp, systemStatus]
+
+currentImgURL: The current image, also known as the bottom image
+
+previousImgURL: The previous image, also known as the top image.
+
+scheduledMissionId: Mission ID scheduled for that telescope.
+
+missionStartTime: Start time for said mission.
+
+lastImgTime: timestamp when the last image was captured at the observatory, IIRC.
+
+currentServerTimestamp: the current server timestamp when the event was sent out.
+
+systemStatus ( IN DEVELOPMENT ): a system status value that may be indicating online or offline

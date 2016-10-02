@@ -42,14 +42,7 @@ class TelescopeCard extends Component {
         <div className="card-content">
 
           <CardFront
-            teleName={this.props.teleName}
-            teleTelescopeUsage={this.props.teleTelescopeUsage}
-            teleLogoURL={this.props.teleLogoURL}
-            teleOfflineImgURL={this.props.teleOfflineImgURL}
-            teleOnlineStatus={this.props.teleOnlineStatus}
-            teleSponsorLinkURL={this.props.teleSponsorLinkURL}
-            teleSponsorLogoURL={this.props.teleSponsorLogoURL}
-            teleAccessMethod={this.props.teleAccessMethod}
+            {...this.props}
 
             handleFlip={this.handleFlip.bind(this)}
             telescopeOnline={this.props.teleOnlineStatus === 'online'} />
