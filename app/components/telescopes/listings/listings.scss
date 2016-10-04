@@ -59,13 +59,17 @@ $listing_black: #424242;
         @extend .dark-gradient;
 
         color: #fff;
+        
+        .reserve-controller {
+          text-align: right;
 
-        .btn {
-          background: $listing_blue;
-          border-radius: 0;
-          border: 0;
-          color: #fff;
-        }
+          .btn {
+            background: $listing_blue;
+            border-radius: 8px;
+            border: 0;
+            color: #fff;
+          }  
+        }        
 
         &:hover, &.expanded {
           -webkit-box-shadow: 0px 0px 0px 5px #fff inset,

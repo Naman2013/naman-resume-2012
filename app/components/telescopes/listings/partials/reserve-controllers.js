@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 
-export default function ReserveControllers() {
+export default function ReserveControllers({ isExpanded, closeHandler }) {
   return (
     <div className="col-md-6 reserve-controller">
       <ul className="list-inline">
@@ -22,7 +22,23 @@ export default function ReserveControllers() {
             Enter Coordinates
           </Link>
         </li>
-      </ul>
+
+        {
+          (() => {
+            function closeItem(evt){
+              closeHandler(evt, true);
+            }
+               
+            if (isExpanded) {
+              return (
+                <li onClick={closeItem}>
+                  <img src="assets/icons/close-btn.png" alt="close this item" />
+                </li>
+              );
+            }
+          })()
+        }
+      </ul>      
     </div>
   );
 }

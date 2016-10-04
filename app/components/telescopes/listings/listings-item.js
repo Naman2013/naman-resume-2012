@@ -24,15 +24,21 @@ export default class ListingsItem extends Component {
     };
   }
 
-  onListingClickHandler = () => {
+  onListingClickHandler = (evt, closeMe) => {
     const { props: { available } } = this;
 
-    if (available) {
+    evt.stopPropagation();
+
+    if( closeMe ) {
+      this.setState({
+        expanded: false
+      });
+    } else if (available) {
       this.setState({
         expanded: true
       });
     }
-  };
+  };  
 
   getConfigurationPanel = () => {
     if (!this.state.expanded) return;
@@ -55,7 +61,7 @@ export default class ListingsItem extends Component {
     const {
       date,
       available,      
-      onHold
+      onHold      
     } = this.props;
 
     return (
@@ -66,7 +72,27 @@ export default class ListingsItem extends Component {
           <ObjectInfo isAvailable={available} onHold={onHold}/>
 
           {
-            getItemRightSection(available, shareOrPiggyBack(this.props))
+            (()=>{
+              if (available) {
+                return (
+                  <ReserveControllers isExpanded={this.state.expanded} closeHandler={this.onListingClickHandler}/>
+                );
+              } else  {
+                return (
+                  <div>
+                    <ReserveBy />
+
+                    <UserAvatar />
+
+                    <UserInfo />
+
+                    {
+                      shareOrPiggyBack.call(this)
+                    }
+                  </div>      
+                );
+              }
+            })()            
           }          
         </div>
 
@@ -78,7 +104,9 @@ export default class ListingsItem extends Component {
   }
 }
 
-function shareOrPiggyBack ({ piggyback, share, onHold }) {
+function shareOrPiggyBack () {
+  const { piggyback, share, onHold } = this.props;
+
   return () => {
     if (piggyback) {
       return (<Piggyback />);
@@ -90,24 +118,6 @@ function shareOrPiggyBack ({ piggyback, share, onHold }) {
   }
 }
 
-function getItemRightSection(isAvailable, getLastSection) {
-  if (isAvailable) {
-    return (
-      <ReserveControllers />
-    );
-  } else  {
-    return (
-      <div>
-        <ReserveBy />
-
-        <UserAvatar />
-
-        <UserInfo />
-
-        {
-          getLastSection()
-        }
-      </div>      
-    );
-  }
+function getRightSection(isAvailable, isExpanded, getLastSection) {
+  
 }

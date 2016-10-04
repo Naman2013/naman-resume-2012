@@ -1,15 +1,34 @@
 .missionNav {
   height: 60px;
+  a {
+    color: #000;
+  }
+  >ul {
+    padding: 10px 75px;
+    height: 65px;
+  }
   li {
     list-style: none;
     float: left;
+    height: 100%;
+    &:hover > a {
+      border-bottom: 3px solid #7EC3C4;
+      color: #000;
+    }
+
+    &:hover .sub-nav {
+      display: block;
+    }
   }
+
   >ul>li {
     text-transform: uppercase;
     margin: 0 3%;
     position: relative;
     font-weight: bold;
-    
+
+
+
     .sub-nav {
       position: absolute;
       text-transform: capitalize;
@@ -17,7 +36,8 @@
       width: 100%;
       min-width: 500px;
       left: -18%;
-      top: 30px;
+      top: 25px;
+      display: none;
       li {
         float: left;
         margin: 0 3% 0 0;
@@ -25,7 +45,7 @@
       }
     }
   }
-  
+
   .link {
     color: #000;
     &:hover, &.active {

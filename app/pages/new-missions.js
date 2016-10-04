@@ -1,62 +1,47 @@
-import React, { Component, PropTypes } from 'react';
-import { bindActionCreators } from 'redux';
+import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { checkUser } from '../modules/User';
-import classnames from 'classnames';
+import cx from 'classnames';
 import moment from 'moment';
-
 import MissionCard from '../components/missions/mission-card';
-import MissionUpdates from '../components/missions/mission-updates';
-import MissionAd from '../components/missions/mission-ad';
-import MissionUpcoming from '../components/missions/mission-upcoming';
-import {missionGetCards, missionConfirmOpen, missionConfirmClose, missionGetInfo} from '../modules/Missions';
 
-const { element, func, object } = PropTypes;
+@connect(({ missions }) => ({
+  cardList: missions.cardList || [],
+}))
 
-function mapDispatchToProps(dispatch) {
-  return {
-    actions: bindActionCreators({
-      missionGetCards,
-      missionConfirmOpen,
-      missionConfirmClose,
-      missionGetInfo
-    }, dispatch)
-  };
-}
-
-function mapStateToProps({ missions }) {
-  return {
-    missions,
-    cardList: missions.cardList || []
-  };
-}
-
-@connect(mapStateToProps, mapDispatchToProps)
-
-export default class NewMissions extends Component {
-
+export default class NewMissions extends React.Component {
   static propTypes = {
-    children: element,
-    actions: object.isRequired
+    cardList: PropTypes.array,
+    openConfirmModal: PropTypes.func.isRequired,
   };
 
   render() {
+    const { cardList, openConfirmModal } = this.props;
 
-    let today = moment().utc().format("MM/DD/YYYY");
+    let cards = null;
+    if (cardList && Array.isArray(cardList)) {
+      cards = cardList.filter(card => {
+        if (card.missionAvailable) {
+          return false;
+        }
 
+        const endDate = moment.unix(card.end);
+        return !moment().isAfter(endDate, 'days');
+      });
+    }
+    
     return (
+
       <div className="new-missions">
-      {this.props.cardList ? this.props.cardList.map(card =>  {
-        let end_date = moment.unix(card.end).format("MM/DD/YYYY");
-        if (!moment(today).isAfter(end_date, 'days')) {
-          return (<MissionCard
+        {!cards && 'waiting...'}
+
+        {cards && cards.map(card => (
+          <MissionCard
             key={card.uniqueId}
-            className={`${card.cardType == 2 ? 'featured col-md-12' : 'secondary col-md-6'}`}
             card={card}
-            openModal = {this.props.openConfirmModal.bind(this)}
-            featured={card.cardType == 2} />);
-          }
-      }) : 'waiting...'}
+            openModal={openConfirmModal}
+            featured={card.cardType == 2}
+          />
+        ))}
       </div>
     );
   }
