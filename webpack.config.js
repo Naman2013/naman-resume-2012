@@ -41,7 +41,8 @@ module.exports = {
         exclude: /node_modules/,
         query: {
           search: '/api/',
-          replace: `${apiEnvironment}/api/`
+          replace: `${apiEnvironment}/api/`,
+          flags: 'g'
         }
       },
       {
