@@ -13,36 +13,24 @@ import {missionGetCards, missionConfirmOpen, missionConfirmClose, missionGetInfo
 
 const { element, func, object } = PropTypes;
 
-function mapDispatchToProps(dispatch) {
-  return {
-    actions: bindActionCreators({
-      missionGetCards,
-      missionConfirmOpen,
-      missionConfirmClose,
-      missionGetInfo,
-      missionGetUpdates
-    }, dispatch)
-  };
-}
-
-function mapStateToProps({ missions }) {
-  return {
-    missions,
-    cardList: missions.cardList || []
-  };
-}
-
-@connect(mapStateToProps, mapDispatchToProps)
-
+@connect(({ missions }) => ({
+  announcements: missions.announcements,
+}), (dispatch) => ({
+  actions: bindActionCreators({
+    missionGetCards,
+    missionConfirmOpen,
+    missionConfirmClose,
+    missionGetInfo,
+    missionGetUpdates
+  }, dispatch)
+}))
 export default class SloohRecommends extends Component {
-
   static propTypes = {
     children: element,
     actions: object.isRequired
   };
 
   componentDidMount() {
-    console.log('componentDidMount');
     this.props.actions.missionGetCards();
     this.props.actions.missionGetUpdates();
   }
@@ -53,29 +41,27 @@ export default class SloohRecommends extends Component {
     if (type == 'piggyBack') {
       this.props.actions.missionGetInfo(card, type, event);
     } else {
-      this.props.actions.missionConfirmOpen(type); //TODO: replace empty object with mission object from API
+      // TODO: replace empty object with mission object from API
+      this.props.actions.missionConfirmOpen(type);
     }
   }
 
   render() {
-    let cardClassName = classnames({
-      'mission-card': true,
-      'featured': true
-    });
-    console.log(this);
-    let today = moment().utc().format("MM/DD/YYYY");
+    const { announcements, children } = this.props;
+
     return (
       <div className="reserve-missions">
         <section className="container clearfix">
-
           <div className="col-md-8">
-            {React.cloneElement(this.props.children, { openConfirmModal: this.openConfirmModal })}
+            {React.cloneElement(children, {
+              openConfirmModal: ::this.openConfirmModal,
+            })}
           </div>
 
           <div className="col-md-4 mission-sidebar">
             <MissionAd />
             <MissionUpcoming />
-            <MissionUpdates updates={this.props.missions.announcements} />
+            <MissionUpdates updates={announcements} />
           </div>
         </section>
       </div>

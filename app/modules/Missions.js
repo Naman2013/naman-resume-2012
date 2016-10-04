@@ -21,7 +21,6 @@ const initialState = {
   mission: {},
   cardList: [],
   announcements: [],
-  piggybacks: []
 };
 
 // Mission action creator
@@ -48,11 +47,11 @@ export function missionGetCards() {
       lang: 'en',
       type: 'curated'
     })
-    .then(response => {      
-      dispatch( allCards( response ))
-      dispatch( missionGetPiggybacks(response.data.objectList))
+    .then(response => {
+      dispatch(allCards(response))
+      dispatch(missionGetPiggybacks(response.data.objectList))
     })
-    .catch(error => dispatch( cardsFail( response )));
+    .catch(error => dispatch(cardsFail(error)));
   }
 }
 
@@ -96,10 +95,10 @@ export function allCards({data}) {
   };
 };
 
-export function cardsFail({data}) {
+export function cardsFail(error) {
   return {
     type: MISSION_ALL_CARDS_FAIL,
-    error: data.error
+    error,
   };
 };
 
@@ -109,7 +108,7 @@ export function missionGetUpdates() {
   return dispatch => {
     return axios.post('/api/info/getAnnouncements', {
       type: 'all',
-      category: 'announcement',
+      category: 'missionControl',
       status: 'published',
       token: '8d02b976e146cb5e5bfe15a10bb96b2365826dca', //hard coded, TODO: change to logged in user
       timestamp: moment().unix(),
@@ -118,9 +117,9 @@ export function missionGetUpdates() {
       at: 3
     })
     .then(response => {
-      dispatch( missionUpdatesSuccess(response) );
+      dispatch(missionUpdatesSuccess(response));
     })
-    .catch(error => dispatch( missionUpdatesFail( response )));
+    .catch(error => dispatch(missionUpdatesFail(error)));
   }
 }
 
@@ -131,10 +130,10 @@ export function missionUpdatesSuccess({data}) {
   };
 };
 
-export function missionUpdatesFail({data}) {
+export function missionUpdatesFail(error) {
   return {
     type: MISSION_GET_UPDATES_FAIL,
-    announcements: data.error
+    error: error
   };
 };
 
@@ -161,14 +160,14 @@ export function missionGetPiggybacks(objectList) {
 export function missionGetPiggybackSuccess({data}) {
   return {
     type: MISSION_GET_PIGGYBACKS_SUCCESS,
-    piggybacks: data.missionList
+    result: data.missionList
   };
 };
 
 export function missionGetPiggybackFail({data}) {
   return {
     type: MISSION_GET_PIGGYBACKS_FAIL,
-    piggybacks: data.error
+    result: data.error
   };
 };
 
@@ -213,10 +212,18 @@ export default createReducer(initialState, {
       announcements: []
     }
   },
-  [MISSION_GET_PIGGYBACKS_SUCCESS](state, {piggybacks}) {
-    return {
-      ...state,
-      piggybacks
+  [MISSION_GET_PIGGYBACKS_SUCCESS](state, { result }) {
+    let cardList = state.cardList;
+
+    if (Array.isArray(cardList) && Array.isArray(result)) {
+      cardList = cardList.map((card, idx) => {
+        const item = result[idx] || {};
+        item.missionAvailable = item.missionAvailable === 'true';
+
+        return { ...card, ...item };
+      });
     }
+
+    return { ...state, cardList };
   }
 });

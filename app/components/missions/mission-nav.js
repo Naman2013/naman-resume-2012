@@ -9,12 +9,10 @@ class MissionNav extends Component {
       <div className={styles.missionNav}>
         <ul>
           <li>
-            <Link href="#" to='reservations/slooh-recommends/existing'>Slooh Recommends</Link>
-          </li>
-          <li>
+            <Link href="#" to='/slooh-recommends/existing'>Slooh Recommends</Link>
             <ul className="sub-nav">
-              <li><Link to="reservations/existing">Existing Missions</Link></li>
-              <li><Link to="reservations/new">New Missions</Link></li>
+              <li><Link to="/slooh-recommends/existing">Existing Missions</Link></li>
+              <li><Link to="/slooh-recommends/new">New Missions</Link></li>
             </ul>
           </li>
           <li><Link to="reservations/reserve-by-objects">Browse popular objects</Link></li>

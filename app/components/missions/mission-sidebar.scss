@@ -67,10 +67,14 @@
   h6.byLine {
     color: #fff;
     font-size: 14px;
-
     em {
-      font-style: normal;
-      color: #F310A7;
+      display: inline-block;
+
+      a {
+        font-style: normal;
+        color: #F310A7;
+        font-size: 13px;
+      }
     }
   }
 }
