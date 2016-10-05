@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import StargazersChildren from './StargazersChildren';
 import MenuSearch from './MenuSearch';
 import MenuSocial from './MenuSocial';
+import axios from 'axios';
 
 export default class ListHotThisMonth extends Component {
   state = {
@@ -14,12 +15,17 @@ export default class ListHotThisMonth extends Component {
   }
 
   serverRequest = () => {
-    $.get(this.props.source, ({ hotPosts, hotTitle }) => {
+    axios.get(this.props.source) 
+     .then(response => {
       this.setState({
-        hotList: hotPosts,
-        hotTitle,
+        hotList: response.data.hotPosts,
+        hotTitle: response.data.hotTitle,
       });
+    })
+    .catch(function (error) {
+      console.log(error);
     });
+ 
   };
 
   render() {

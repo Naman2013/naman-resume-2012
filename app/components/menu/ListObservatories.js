@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ListObservatoryChildren from './ListObservatoryChildren';
+import axios from 'axios';
 
 export default class ListObservatories extends Component {
   state = {
@@ -19,22 +20,31 @@ export default class ListObservatories extends Component {
 
   getDaylingImage(daylight) {
     if (daylight) {
-      return 'assets/images/nav/menu-day.png';
+      return '../assets/images/nav/menu-day.png';
     } else {
-      return 'assets/images/nav/menu-night.png';
+      return '../assets/images/nav/menu-night.png';
     }
   }
 
   serverRequest = () => {
-    $.get(this.props.source, ({ observatoryList }) => {
-      this.setState({ obsList: observatoryList });
+       axios.get(this.props.source) 
+     .then(response => {
+      this.setState({
+        obsList: response.data.observatoryList
+      });
+    })
+    .catch(function (error) {
+      console.log('error: '+error);
     });
+ 
   };
+
+
 
   render() {
     return (
-      <div>
-        <h3>Observatories</h3>
+      <div className="observatory-list">
+        <h4>All Telescopes</h4>
         {this.state.obsList.map((el, i) => {
           if (typeof el.obsName !== 'undefined') {
             return (
