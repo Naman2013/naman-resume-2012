@@ -22,7 +22,7 @@ export default class ListObservatoryChildren extends Component {
     return (
       <p>
         {this.props.data.map((child, i) => {
-          if (typeof child !== 'undefined') { // FIXME: Is imposible when server return undefined
+          if (typeof child !== 'undefined') {
             return (
               <li
                 key={i}

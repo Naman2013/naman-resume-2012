@@ -1,13 +1,14 @@
 :global {
   .authorization-popup {
     position: fixed;
-    top: 30%;
-    left: 30%;
-    transform: translateX(-50%) translateY(-50%);
+    top: 70px;
+    right: 0;
     transform-style: preserve-3d;
     perspective: 1000px;
-    z-index: 9999;
-    background: #fff;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: #FFF;
+   font-family: "brandon-grotesque",sans-serif;
+
   }
 
   .authorization-popup-enter {

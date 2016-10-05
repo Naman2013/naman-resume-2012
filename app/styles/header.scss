@@ -1,0 +1,26 @@
+.main-header {
+  height: 70px;
+  width: calc(100% - 70px);
+  background-color: rgba(0, 0, 0, 0.2);
+  position: fixed;
+  z-index: 100;
+  left: 70px;
+  .logo {
+    position: absolute;
+    text-indent: -9999;
+    background-image: url(../../assets/icons/header/logo.svg);
+    background-position: left center;
+    background-repeat: no-repeat;
+    display: inline-block;
+    width: 48px;
+    height: 48px;
+    margin: 12px 0 0 12px;
+  }
+  .logo-text {
+    display: inline-block;
+    color: #FFF;
+    margin: 8px 0 0 70px;
+    font-size: 34px;
+  }
+}
+

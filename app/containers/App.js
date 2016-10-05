@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Menu from './Menu';
-import Header from './Header';
+import Header from '../components/common/header';
 import Footer from '../components/common/footer';
 import { checkUser } from '../modules/User';
 

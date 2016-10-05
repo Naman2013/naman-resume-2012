@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 export default class MenuLink extends Component {
   handleClick = () => {
     const { props: { handleClick, index } } = this;
+
     handleClick(index);
   };
 
@@ -13,9 +14,7 @@ export default class MenuLink extends Component {
 
     return (
       <li>
-        <a
-          onClick={handleClick}
-          data-nav={parseDataNav(data.label.en)}>
+        <a onClick={handleClick} data-nav={parseDataNav(data.label.en)}>
           {data.label.en}
         </a>
       </li>
