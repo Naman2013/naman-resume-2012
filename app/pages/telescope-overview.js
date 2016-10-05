@@ -19,7 +19,6 @@ function mapStateToProps(state, ownProps) {
     user: exampleUser, // TODO: state.user,
     observatoryList: state.telescopeOverview.observatoryList,
     currentObservatoryId: ownProps.params.observatoryId,
-    currentObservatory: state.telescopeOverview.currentObservatory,
     moonPhaseWidgetResult: state.telescopeOverview.moonPhaseWidgetResult,
     satelliteViewWidgetResult: state.telescopeOverview.satelliteViewWidgetResult,
   };
@@ -68,10 +67,17 @@ class TelescopeOverview extends Component {
     const currentObservatory =
       getCurrentObservatory(observatoryList, currentObservatoryId);
 
+    if(!currentObservatory) {
+      return null;
+    }
+
+    const { obsId } = currentObservatory;
+
     return(
       <div>
 
-        <AnnouncementBanner />
+        <AnnouncementBanner
+          obsId={obsId} />
 
         <TelescopeFilterNav
           observatoryList={this.props.observatoryList} />
