@@ -8,24 +8,33 @@ const HIDE_ANNOUCEMENT_BANNER = 'HIDE_ANNOUCEMENT_BANNER';
 
 const initialState = {
   messages: [],
+  refreshIntervalSec: 600,
   messageError: false,
   messageLoading: true,
-  bannerDisplayed: false,
+  bannerDisplayed: true,
   loadingError: null,
 };
 
+/*
+  TODO: refactor this to be more general purpose for priming announcement state
+  dynamic properties include:
+  category
+  level
+  optional property: obsId
+*/
 
-
-export const fetchAnnouncements = ( user ) => ( dispatch ) => {
+export const fetchAnnouncements = ( user, obsId ) => ( dispatch ) => {
   const { at, cid, token } = user;
   dispatch( startFetchAnnouncements() );
   return axios.post('/api/info/getAnnouncements', {
     at,
     cid,
     token,
+    obsId,
     category: 'announcement',
+    level: 'observatory',
   })
-  .then( (response) => fetchAnnouncementsSuccess(response) )
+  .then( (response) => dispatch( fetchAnnouncementsSuccess(response) ) )
   .catch(error => dispatch( fetchAnnouncementsError( error ) ));
 };
 
@@ -37,7 +46,8 @@ export const startFetchAnnouncements = () => ({
 
 export const fetchAnnouncementsSuccess = ( announcementResult ) => ({
   type: FETCH_ANNOUNCEMENTS_SUCCESS,
-  messages: announcementResult.data.annoucementList,
+  messages: announcementResult.data.announcementList,
+  refreshIntervalSec: announcementResult.data.refreshIntervalSec,
 });
 
 export const fetchAnnouncementsError = ( error ) => ({
@@ -59,10 +69,11 @@ export default createReducer(initialState, {
       messageLoading: true,
     };
   },
-  [FETCH_ANNOUNCEMENTS_SUCCESS](state, { messages }) {
+  [FETCH_ANNOUNCEMENTS_SUCCESS](state, { messages, refreshIntervalSec }) {
     return {
       ...state,
       messages,
+      refreshIntervalSec,
       messageError: false,
       messageLoading: false,
     };

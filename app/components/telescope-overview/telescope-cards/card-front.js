@@ -2,10 +2,12 @@ import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 import CountdownTimer from './countdown-timer';
 import ThumbnailImageLoader from '../../common/telescope-image-loader/thumbnail-image-loader';
+import TelescopeOffline from './telescope-offline';
 import style from './card-front.scss';
 
-
 import moment from 'moment';
+
+const MISSION_READY_TELE_ACCESS_METHOD = 'missions';
 
 class CardFront extends Component {
 
@@ -21,11 +23,15 @@ class CardFront extends Component {
 
   renderMakeReservationButton() {
     return(
-      this.props.teleAccessMethod === 'missions' ?
+      this.isMissionReadyTelescope() ?
         <div className="col-md-6">
           <a className="action" href="">Make Reservation</a>
         </div> : null
     );
+  }
+
+  isMissionReadyTelescope() {
+    return this.props.teleAccessMethod === MISSION_READY_TELE_ACCESS_METHOD;
   }
 
   generateSseImageSource() {
@@ -52,7 +58,6 @@ class CardFront extends Component {
             {this.props.teleTelescopeUsage}
           </p>
 
-
           <div className="call-to-action clearfix">
             { this.renderVisitTelescopeButton() }
             { this.renderMakeReservationButton() }
@@ -65,15 +70,20 @@ class CardFront extends Component {
           { /* telescope content */
             !!this.props.telescopeOnline ?
               <div>
-                <CountdownTimer
-                  missionStartTime={this.props.missionStartTime} />
-
+                {
+                  this.isMissionReadyTelescope() ?
+                  <CountdownTimer
+                    missionStartTime={this.props.missionStartTime} /> : null
+                }
                 <div className="image-viewer">
-                  <h4 className="title">LIVE Mission</h4>
-
+                  {
+                    this.isMissionReadyTelescope() ?
+                      <h4 className="title">LIVE Mission</h4> : null
+                  }
                   <div className="telescope-image">
                     <ThumbnailImageLoader
-                      imageSource={this.generateSseImageSource()} />
+                      imageSource={this.generateSseImageSource()}
+                      teleId={this.props.teleId} />
                   </div>
 
                   <h5 className="telescope-image-title">
@@ -84,36 +94,19 @@ class CardFront extends Component {
 
               :
 
-              <div>
-
-                <div className="image-viewer">
-                  <div className="count-down">
-                    <h4 className="counter-text">3:18</h4>
-                  </div>
-
-                  <h4 className="title">Offline</h4>
-                  <div className="telescope-image">
-                    <img src={this.props.teleOfflineImgURL} width="245" height="245" />
-                  </div>
-                  <p className="telescope-status">
-                    The weather is a bit intense right now so all missions have been cancelled.
-                  </p>
-                </div>
-              </div>
+              <TelescopeOffline
+                offlineImage={this.props.teleOfflineImgURL}
+                offlineStatusMessage={`The weather is a bit intense right now so all missions have been cancelled.`} />
+              
           }
-
           <div className="sponsor">
             {
               !!this.props.teleSponsorLinkURL ?
               <p>
                 Sponsored by: <a target="_blank" href={this.props.teleSponsorLinkURL}><img src={this.props.teleSponsorLogoURL} width="150" /></a>
-              </p>
-              :
-              null
+              </p> : null
             }
-
           </div>
-
         </div>
       </div>
     );
@@ -126,6 +119,7 @@ CardFront.defaultProps = {
 
 CardFront.propTypes = {
   teleName: PropTypes.string,
+  teleId: PropTypes.string,
   teleTelescopeUsage: PropTypes.string,
   teleLogoURL: PropTypes.string,
   teleOfflineImgURL: PropTypes.string,

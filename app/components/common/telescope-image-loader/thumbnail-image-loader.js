@@ -4,6 +4,11 @@ import styles from './thumbnail-image-loader.scss';
 const { string } = PropTypes;
 const STATIC_PROGRESS = 70;
 
+/*
+  TODO: apply the fadeout time and initial opacity from the API call
+  TODO: pass the teleThumbWidth to set the width of the image that is loaded
+*/
+
 class ThumbnailImageLoader extends Component {
   constructor( props ) {
     super( props );
@@ -68,9 +73,18 @@ class ThumbnailImageLoader extends Component {
     this.sseSource.removeEventListener('message', this.handleSourceImage, false);
   }
 
+  generateImageId() {
+    return `tele-id-${this.props.teleId}`;
+  }
+
   componentDidUpdate() {
-    const topImageAddress = ThumbnailImageLoader.generateThumbnailUrl(this.state.topImageUrl);
-    const topImage = document.getElementById('top-image');
+    const { bottomImageUrl, topImageUrl } = this.state;
+    if(!bottomImageUrl && !topImageUrl) {
+      return;
+    }
+
+    const topImageAddress = ThumbnailImageLoader.generateThumbnailUrl(topImageUrl);
+    const topImage = document.getElementById(this.generateImageId());
     topImage.style.transition = 'opacity';
     topImage.style.opacity = '0';
     topImage.src = topImageAddress;
@@ -104,7 +118,7 @@ class ThumbnailImageLoader extends Component {
         <div className="top-image">
           <img
             width="250"
-            id="top-image" />
+            id={this.generateImageId()} />
         </div>
       </div>
     );
@@ -113,6 +127,7 @@ class ThumbnailImageLoader extends Component {
 
 ThumbnailImageLoader.propTypes = {
   imageSource: string,
+  teleId: string,
 };
 
 export default ThumbnailImageLoader;
