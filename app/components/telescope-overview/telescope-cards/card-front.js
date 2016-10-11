@@ -43,6 +43,11 @@ class CardFront extends Component {
   }
 
   render() {
+
+    const missionStatusStyle = {
+      opacity: this.isMissionReadyTelescope() ? 1 : 0,
+    };
+
     return(
       <div className="telescope-card-front">
         <div className="card-header">
@@ -76,14 +81,14 @@ class CardFront extends Component {
                     missionStartTime={this.props.missionStartTime} /> : null
                 }
                 <div className="image-viewer">
-                  {
-                    this.isMissionReadyTelescope() ?
-                      <h4 className="title">LIVE Mission</h4> : null
-                  }
+                  <h4 className="title" style={missionStatusStyle}>LIVE Mission</h4>
+
                   <div className="telescope-image">
                     <ThumbnailImageLoader
                       imageSource={this.generateSseImageSource()}
-                      teleId={this.props.teleId} />
+                      teleId={this.props.teleId}
+                      teleFade={this.props.teleFade}
+                      teleThumbWidth={this.props.teleThumbWidth} />
                   </div>
 
                   <h5 className="telescope-image-title">
@@ -97,7 +102,7 @@ class CardFront extends Component {
               <TelescopeOffline
                 offlineImage={this.props.teleOfflineImgURL}
                 offlineStatusMessage={`The weather is a bit intense right now so all missions have been cancelled.`} />
-              
+
           }
           <div className="sponsor">
             {
@@ -121,6 +126,8 @@ CardFront.propTypes = {
   teleName: PropTypes.string,
   teleId: PropTypes.string,
   teleTelescopeUsage: PropTypes.string,
+  teleThumbWidth: PropTypes.string,
+  teleFade: PropTypes.string,
   teleLogoURL: PropTypes.string,
   teleOfflineImgURL: PropTypes.string,
   teleOnlineStatus: PropTypes.string,

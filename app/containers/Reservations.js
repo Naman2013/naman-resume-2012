@@ -6,19 +6,6 @@ import ReserveBanner from '../components/missions/reserve-banner';
 import MissionNav from '../components/missions/mission-nav';
 
 export default class Reservations extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      displayBanner: true
-    };
-  }
-
-  closeBanner() {
-    this.setState({
-      displayBanner: false
-    });
-  }
 
   render() {
     return (
@@ -26,9 +13,7 @@ export default class Reservations extends Component {
         <div className="clearfix reservations">
           <MissionConfirmModal />
 
-          <AnnouncementBanner
-            display={this.state.displayBanner}
-            closeBanner={this.closeBanner.bind(this)} />
+          <AnnouncementBanner level="general" />
 
           <ReserveBanner />
           <MissionNav />

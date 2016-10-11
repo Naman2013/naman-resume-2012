@@ -2,20 +2,17 @@
   position: relative;
 
   img {
-    -webkit-clip-path: circle(92px at center);
-    -moz-clip-path: circle(92px, 92px, 92px);
-    clip-path: circle(92px, 92px, 92px);
+    -webkit-clip-path: circle(115px at center);
+    -moz-clip-path: circle(115px);
+    clip-path: circle(115px, 115px, 115px);
   }
 
   .top-image {
+    position: relative;
+    top: -244px;
+
     transition: opacity ease-in-out;
     -moz-transition: opacity ease-in-out;
     -webkit-transition: opacity ease-in-out;
-  }
-
-  .bottom-image {
-    position: absolute;
-    top: 0;
-    left: 58px;
   }
 }

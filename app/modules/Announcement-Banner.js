@@ -23,16 +23,16 @@ const initialState = {
   optional property: obsId
 */
 
-export const fetchAnnouncements = ( user, obsId ) => ( dispatch ) => {
-  const { at, cid, token } = user;
+export const fetchAnnouncements = ( user, obsId, category='announcement', level='observatory' ) => ( dispatch ) => {
+  const { at, cid, token } = user;  
   dispatch( startFetchAnnouncements() );
   return axios.post('/api/info/getAnnouncements', {
     at,
     cid,
     token,
     obsId,
-    category: 'announcement',
-    level: 'observatory',
+    category,
+    level
   })
   .then( (response) => dispatch( fetchAnnouncementsSuccess(response) ) )
   .catch(error => dispatch( fetchAnnouncementsError( error ) ));

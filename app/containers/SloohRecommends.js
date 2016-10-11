@@ -29,7 +29,7 @@ export default class SloohRecommends extends Component {
     children: element,
     actions: object.isRequired
   };
-
+  
   componentDidMount() {
     this.props.actions.missionGetCards();
     this.props.actions.missionGetUpdates();
@@ -51,6 +51,7 @@ export default class SloohRecommends extends Component {
 
     return (
       <div className="reserve-missions">
+
         <section className="container clearfix">
           <div className="col-md-8">
             {React.cloneElement(children, {
