@@ -14,50 +14,69 @@ class ThumbnailImageLoader extends Component {
     super( props );
 
     this.state = {
-      bottomImageUrl: null,
-      topImageUrl: null,
-      lastImageTime: null,
-      startTime: null,
+      currentImageUrl: null,
+      previousImageUrl: null,
+      schedMissionId: null,
+      msnStartTime: null,
+      lastImgTime: null,
+      serverTime: null,
       firstLoad: true,
-      transitionDuration: null,
-      imageOpacity: null,
+      adjustedFade: 0, // duration of fade in of new image
+      startingOpacity: null, // starting opacity of the new image
     };
   }
 
-  static generateThumbnailUrl(imageUrl) {
+  generateThumbnailUrl(imageUrl) {
     if(!imageUrl) {
       return;
     }
 
-    const imageWidth = '250';
+    const imageWidth = this.props.teleThumbWidth;
     return `/util/thumbnail.php?url=${imageUrl}&dimension=W&size=${imageWidth}`;
   }
 
   handleSourceImage( imageData ) {
-    let [ bottomImageUrl, topImageUrl, startTime, lastImageTime ] = imageData.split('|');
-    let transitionDuration = '0';
-    let imageOpacity = '1';
-    lastImageTime = Number(lastImageTime) || 0;
+    const [
+      currentImageUrl,
+      previousImageUrl,
+      schedMissionId,
+      msnStartTime,
+      lastImgTime,
+      serverTime ] = imageData.split('|');
 
-    const firstLoad = false;
-    const progress = Math.floor(Date.now() / 1000) - lastImageTime;
+    const { teleFade } = this.props; // expected fade may change based on how much time passed
+    const { firstLoad } = this.state;
+    const progress = Math.floor(Date.now() / 1000) - lastImgTime;
 
-    if(this.state.firstLoad && progress <= STATIC_PROGRESS) {
-      transitionDuration = (STATIC_PROGRESS - progress);
-      imageOpacity = Math.round( (progress / STATIC_PROGRESS) * 100 ) / 100;
-    } else {
-      transitionDuration = '0';
-      imageOpacity = '0';
+    let adjustedFade = teleFade;
+    let startingOpacity = 0;
+
+    /*
+      on first load of these images, we calculate how much
+      time has passed and apply some modification to the initial
+      opacity and timing values to make up for lost time and sync
+      the rest of the experience together
+    */
+    if(firstLoad) {
+      if(progress >= teleFade) {
+        adjustedFade = 0;
+        startingOpacity = 1;
+      } else {
+        adjustedFade = teleFade - progress;
+        startingOpacity = Math.round((progress / teleFade) * 100) / 100;
+      }
     }
 
     this.setState({
-      bottomImageUrl,
-      topImageUrl,
-      startTime,
-      lastImageTime,
-      transitionDuration,
-      imageOpacity,
-      firstLoad,
+      currentImageUrl,
+      previousImageUrl,
+      schedMissionId,
+      msnStartTime,
+      lastImgTime,
+      serverTime,
+      adjustedFade,
+      startingOpacity,
+      firstLoad: false,
     });
   }
 
@@ -78,46 +97,51 @@ class ThumbnailImageLoader extends Component {
   }
 
   componentDidUpdate() {
-    const { bottomImageUrl, topImageUrl } = this.state;
-    if(!bottomImageUrl && !topImageUrl) {
+    const {
+      currentImageUrl,
+      previousImageUrl,
+      startingOpacity,
+      adjustedFade } = this.state;
+
+    if(!currentImageUrl && !previousImageUrl) {
       return;
     }
 
-    const topImageAddress = ThumbnailImageLoader.generateThumbnailUrl(topImageUrl);
+    // we start this work when we are certain we have images to work on
+    const topImageAddress = this.generateThumbnailUrl(currentImageUrl);
     const topImage = document.getElementById(this.generateImageId());
+
     topImage.style.transition = 'opacity';
-    topImage.style.opacity = '0';
+    topImage.style.opacity = startingOpacity;
     topImage.src = topImageAddress;
     window.getComputedStyle(topImage, null).opacity;
-    topImage.style.transition = `opacity ${STATIC_PROGRESS}s`;
+    topImage.style.transition = `opacity ${adjustedFade}s`;
     topImage.style.opacity = '1';
   }
 
   render() {
     const {
-      bottomImageUrl,
-      topImageUrl,
-      transitionDuration,
-      imageOpacity } = this.state;
+      currentImageUrl,
+      previousImageUrl,
+      transitionDuration, } = this.state;
 
-    if(!bottomImageUrl || !topImageUrl) {
+    if(!currentImageUrl || !previousImageUrl) {
       return null;
     }
 
-    const bottomImageAddress = ThumbnailImageLoader.generateThumbnailUrl(bottomImageUrl);
-    const topImageAddress = ThumbnailImageLoader.generateThumbnailUrl(topImageUrl);
+    const bottomImageAddress = this.generateThumbnailUrl(previousImageUrl);
 
     return(
       <div className="sse-thumbnails">
         <div className="bottom-image">
           <img
-            width="250"
-            src={topImageAddress} />
+            width={this.props.teleThumbWidth}
+            src={bottomImageAddress} />
         </div>
 
         <div className="top-image">
           <img
-            width="250"
+            width={this.props.teleThumbWidth}
             id={this.generateImageId()} />
         </div>
       </div>
@@ -128,6 +152,8 @@ class ThumbnailImageLoader extends Component {
 ThumbnailImageLoader.propTypes = {
   imageSource: string,
   teleId: string,
+  teleThumbWidth: string,
+  teleFade: string,
 };
 
 export default ThumbnailImageLoader;

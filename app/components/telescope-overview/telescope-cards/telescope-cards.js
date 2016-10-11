@@ -10,12 +10,28 @@ class TelescopeCards extends Component {
       return null; //TODO: no telescope scenerio?
     }
 
-    return obsTelescopes.map( telescope => <TelescopeCard key={ telescope.teleUniqueId } {...telescope} /> );
+    return obsTelescopes.map((telescope) => {
+      const { statusTeleList } = this.props.observatoryTelecopeStatus.statusList;
+      const telescopeStatus = statusTeleList
+        .find(telescopeStatus => telescope.teleUniqueId === telescopeStatus.teleUniqueId);
+
+      if(!telescopeStatus) {
+        return null;
+      } else {
+        return(
+          <TelescopeCard
+            key={ telescope.teleUniqueId }
+            telescopeStatus={telescopeStatus}
+            {...telescope} />
+        );
+      }
+    });
+
   }
 
   render() {
 
-    if(!this.props.observatory) {
+    if(!this.props.observatory || !this.props.observatoryTelecopeStatus) {
       return null;
     }
 
@@ -29,8 +45,13 @@ class TelescopeCards extends Component {
   }
 }
 
+TelescopeCards.defaultProps = {
+  observatoryTelecopeStatus: {},
+};
+
 TelescopeCards.propTypes = {
-  obsTelescopes: PropTypes.array
+  obsTelescopes: PropTypes.array,
+  observatoryTelecopeStatus: PropTypes.object,
 };
 
 export default TelescopeCards;

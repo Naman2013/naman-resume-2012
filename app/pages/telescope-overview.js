@@ -5,6 +5,7 @@ import {connect} from 'react-redux';
 import {
   getObservatoryList,
   getCurrentObservatory,
+  fetchObservatoryTelescopeStatus,
   fetchAllWidgetsByObservatory} from '../modules/Telescope-Overview';
 
 import AnnouncementBanner from '../components/common/announcement-banner/announcement-banner';
@@ -21,6 +22,7 @@ function mapStateToProps(state, ownProps) {
     currentObservatoryId: ownProps.params.observatoryId,
     moonPhaseWidgetResult: state.telescopeOverview.moonPhaseWidgetResult,
     satelliteViewWidgetResult: state.telescopeOverview.satelliteViewWidgetResult,
+    observatoryTelecopeStatus: state.telescopeOverview.observatoryTelecopeStatus,
   };
 }
 
@@ -29,6 +31,7 @@ function mapDispatchToProps(dispatch) {
     actions: bindActionCreators({
       getObservatoryList,
       fetchAllWidgetsByObservatory,
+      fetchObservatoryTelescopeStatus,
     }, dispatch)
   };
 }
@@ -36,30 +39,41 @@ function mapDispatchToProps(dispatch) {
 @connect(mapStateToProps, mapDispatchToProps)
 class TelescopeOverview extends Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      displayBanner: true
-    };
-  }
-
-  updateObservatory() {
+  componentDidMount() {
     this.props.actions.getObservatoryList(
       this.props.user,
       this.props.currentObservatoryId
     );
   }
 
-  componentDidMount() {
-    this.updateObservatory();
-  }
-
   componentWillReceiveProps(nextProps) {
     if(nextProps.params.observatoryId !== this.props.currentObservatoryId) {
       const currentObservatory =
         getCurrentObservatory(nextProps.observatoryList, nextProps.params.observatoryId);
+
       this.props.actions.fetchAllWidgetsByObservatory(currentObservatory);
+      this.props.actions.fetchObservatoryTelescopeStatus(currentObservatory.obsId);
     }
+
+    this.buildTelescopeStatusTimer();
+  }
+
+  buildTelescopeStatusTimer() {
+    const { observatoryTelecopeStatus } = this.props;
+
+    if(observatoryTelecopeStatus) {
+      clearInterval(this.telescopeStatusTimer);
+      const { statusExpires, requestedObsId } = observatoryTelecopeStatus;
+      const telescopeStatusTimeInMilli = new Date(Number(statusExpires)).getSeconds() * 1000;
+
+      this.telescopeStatusTimer = setInterval(() => {
+        this.props.actions.fetchObservatoryTelescopeStatus(requestedObsId);
+      }, telescopeStatusTimeInMilli);
+    }
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.telescopeStatusTimer);
   }
 
   render() {
@@ -88,6 +102,7 @@ class TelescopeOverview extends Component {
           {...currentObservatory} />
 
         <TelescopeCards
+          observatoryTelecopeStatus={this.props.observatoryTelecopeStatus}
           observatory={currentObservatory}/>
 
       </div>

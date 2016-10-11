@@ -42,10 +42,13 @@ class AnnouncementBanner extends Component {
   }
 
   updateAnnouncements(obsId) {
-    const { user } = this.props;
+    const { user, level, category } = this.props;
+
     this.props.actions.fetchAnnouncements(
       user,
       obsId,
+      category,
+      level,
     );
   }
 
@@ -57,7 +60,7 @@ class AnnouncementBanner extends Component {
     if(nextProps.obsId === this.props.obsId) {
       return;
     }
-    
+
     this.scaffoldAnnouncementUpdates(nextProps.obsId);
   }
 
@@ -75,10 +78,6 @@ class AnnouncementBanner extends Component {
   }
 
   componentWillUnmount() {
-    this.clearComponentInterval();
-  }
-
-  clearComponentInterval() {
     clearInterval(this.refreshInterval);
   }
 

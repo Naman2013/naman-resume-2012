@@ -10,13 +10,19 @@ import axios from 'axios';
 */
 import defaultObservatoryOverviewDetails from '../content/default-observatory-overview-details';
 
-export const OBSERVATORY_REQUEST_SUCCESS = 'OBSERVATORY_REQUEST_SUCCESS';
-export const OBSERVATORY_REQUEST_FAIL = 'OBSERVATORY_REQUEST_FAIL';
-export const MOON_PHASE_WIDGET_SUCCESS = 'MOON_PHASE_WIDGET_SUCCESS';
-export const SATELLITE_VIEW_WIDGET_RESULT = 'SATELLITE_VIEW_WIDGET_RESULT';
+const OBSERVATORY_REQUEST_SUCCESS = 'OBSERVATORY_REQUEST_SUCCESS';
+const OBSERVATORY_REQUEST_FAIL = 'OBSERVATORY_REQUEST_FAIL';
+
+const OBSERVATORY_STATUS_SUCCESS = 'OBSERVATORY_STATUS_SUCCESS';
+const OBSERVATORY_STATUS_FAIL = 'OBSERVATORY_STATUS_FAIL';
+
+const MOON_PHASE_WIDGET_SUCCESS = 'MOON_PHASE_WIDGET_SUCCESS';
+const SATELLITE_VIEW_WIDGET_SUCCESS = 'SATELLITE_VIEW_WIDGET_SUCCESS';
 
 const initialState = {
   observatoryList: [], // list of available observatories
+  observatoryListError: null,
+  observatoryTelecopeStatus: null, // status of various telescopes depends on having a list of observatories..
   moonPhaseWidgetResult: null,
   satelliteViewWidgetResult: null,
 };
@@ -39,15 +45,39 @@ export const getObservatoryList = (user, currentObservatoryId) => (dispatch) => 
       listType: 'full'
     })
     .then((response) => {
-      const observatoryList = [defaultObservatoryOverviewDetails, ...response.data.observatoryList];
-      const currentObservatory = getCurrentObservatory( observatoryList, currentObservatoryId );
+      const { observatoryList } = response.data;
+      const monkeyPatchedObservatoryList = [defaultObservatoryOverviewDetails, ...observatoryList];
+      const currentObservatory = getCurrentObservatory(observatoryList, currentObservatoryId);
 
-      dispatch( observatoryListSuccess(observatoryList) );
-      dispatch( fetchAllWidgetsByObservatory(currentObservatory) );
+      dispatch(observatoryListSuccess(monkeyPatchedObservatoryList));
+      dispatch(fetchAllWidgetsByObservatory(currentObservatory));
+
+      // if we have an observatory to work with, then call for the telescope availability now
+      if(currentObservatory) {
+        const { obsId } = currentObservatory;
+        dispatch(fetchObservatoryTelescopeStatus(obsId));
+      }
     })
-    .catch(error => dispatch( observatoryListError(error) ))
+    .catch(error => dispatch(observatoryListError(error)))
   };
 
+
+export const fetchObservatoryTelescopeStatus = (obsId) => (dispatch) => {
+  return axios.get(`/api/obs/getObservatoryStatus?obsId=${obsId}`)
+    .then((response) => {
+      dispatch(observatoryTelescopeStatusSuccess(response.data));
+    })
+    .catch(error => dispatch(observatoryTelescopeStatusFail()));
+};
+
+const observatoryTelescopeStatusSuccess = (observatoryTelecopeStatus) => ({
+  type: OBSERVATORY_STATUS_SUCCESS,
+  observatoryTelecopeStatus,
+});
+
+const observatoryTelescopeStatusFail = () => ({
+  type: OBSERVATORY_STATUS_FAIL,
+});
 
 export const fetchAllWidgetsByObservatory = ( observatory ) => ( dispatch ) => {
   dispatch( fetchMoonPhase(observatory) );
@@ -55,17 +85,16 @@ export const fetchAllWidgetsByObservatory = ( observatory ) => ( dispatch ) => {
 };
 
 
-export const observatoryListSuccess = ( observatoryList ) => ({
+export const observatoryListSuccess = (observatoryList) => ({
   type: OBSERVATORY_REQUEST_SUCCESS,
-  observatoryList
+  observatoryList,
 });
 
 
 
-export const observatoryListError = ( observatoryListError ) => ({
+export const observatoryListError = (error) => ({
   type: OBSERVATORY_REQUEST_FAIL,
-  observatoryListError: true,
-  error: observatoryListError
+  observatoryListError: error,
 });
 
 
@@ -104,7 +133,7 @@ const setMoonPhaseWidget = ( moonPhaseWidgetResult ) => ({
 
 
 export const setSatelliteViewWidget = ( satelliteViewWidgetResult ) => ({
-  type: SATELLITE_VIEW_WIDGET_RESULT,
+  type: SATELLITE_VIEW_WIDGET_SUCCESS,
   satelliteViewWidgetResult
 });
 
@@ -114,25 +143,38 @@ export default createReducer(initialState, {
   [OBSERVATORY_REQUEST_SUCCESS](state, { observatoryList }) {
     return {
       ...state,
-      observatoryList: observatoryList
+      observatoryList: observatoryList,
     };
   },
-  [OBSERVATORY_REQUEST_FAIL](state, error) {
+  [OBSERVATORY_REQUEST_FAIL](state, {observatoryListError}) {
+    console.log(observatoryListError);
     return {
       ...state,
-      observatoryListError: error
+      observatoryListError,
+    };
+  },
+  [OBSERVATORY_STATUS_SUCCESS](state, { observatoryTelecopeStatus }) {
+    return {
+      ...state,
+      observatoryTelecopeStatus,
+    };
+  },
+  [OBSERVATORY_STATUS_FAIL](state) {
+    return {
+      ...state,
+      observatoryTelecopeStatus: null,
     };
   },
   [MOON_PHASE_WIDGET_SUCCESS](state, { moonPhaseWidgetResult }) {
     return {
       ...state,
-      moonPhaseWidgetResult
+      moonPhaseWidgetResult,
     };
   },
-  [SATELLITE_VIEW_WIDGET_RESULT](state, { satelliteViewWidgetResult }) {
+  [SATELLITE_VIEW_WIDGET_SUCCESS](state, { satelliteViewWidgetResult }) {
     return {
       ...state,
-      satelliteViewWidgetResult
+      satelliteViewWidgetResult,
     };
   }
 });

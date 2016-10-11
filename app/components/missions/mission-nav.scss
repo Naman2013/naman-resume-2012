@@ -15,10 +15,6 @@
       border-bottom: 3px solid #7EC3C4;
       color: #000;
     }
-
-    &:hover .sub-nav {
-      display: block;
-    }
   }
 
   >ul>li {
@@ -37,7 +33,6 @@
       min-width: 500px;
       left: -18%;
       top: 25px;
-      display: none;
       li {
         float: left;
         margin: 0 3% 0 0;

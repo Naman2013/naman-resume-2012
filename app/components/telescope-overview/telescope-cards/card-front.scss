@@ -104,12 +104,14 @@ $cardHeight: 730px;
 
           .title {
             margin: 0;
+            height: 21px;
             font-size: 1.2em;
             font-weight: 300;
             margin-bottom: 20px;
           }
 
           .telescope-image {
+            height: 250px;
             margin-bottom: 30px;
           }
 
@@ -122,11 +124,13 @@ $cardHeight: 730px;
           .telescope-status {
             color: #ED1F06;
             padding: 0 5%;
-            margin: -10px 0 10px 0;
+            margin: -10px 0 24px 0;
           }
         }
 
         .sponsor {
+          position: relative;
+          bottom: -10px;
           font-size: 0.85em;
           color: #3C4A55;
         }

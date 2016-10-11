@@ -1,6 +1,6 @@
 export default {
     "obsIndex": "0",
-    "obsId": "canary islands",
+    "obsId": "teide",
     "obsUniqueId": "1",
     "obsStatus": "live",
     "obsMenuName": "All Telescopes",
