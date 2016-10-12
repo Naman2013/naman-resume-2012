@@ -6,8 +6,8 @@
   "scripts": {
     "start": "webpack-dev-server",
     "prod": "rimraf dist && webpack -p",
-    "prod:mars": "rimraf dist && apiEnv=https://mars.slooh.com:444 webpack -p --progress",
-    "prod:saturn": "rimraf dist && apiEnv=https://saturn.slooh.com:444 webpack -p --progress"
+    "prod:mars": "rimraf dist && apiEnv=https://mars.slooh.com:444 sseEnv=https://mars.slooh.com:3004 webpack -p --progress",
+    "prod:saturn": "rimraf dist && apiEnv=https://saturn.slooh.com:444 sseEnv=https://saturn.slooh.com:3004 webpack -p --progress"
   },
   "repository": {
     "type": "git",

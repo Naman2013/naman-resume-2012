@@ -4,6 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const apiEnvironment = process.env.apiEnv || '';
+const sseEnvironment = process.env.sseEnv || '';
 
 module.exports = {
   entry: {
@@ -45,6 +46,16 @@ module.exports = {
           flags: 'g'
         }
       },
+      { // string-replace to replace sse environment url's with the appropriate address
+        test: /\.(js)$/,
+        loader: 'string-replace',
+        exclude: /node_modules/,
+        query: {
+          search: '/sse/',
+          replace: `${sseEnvironment}/sse/`,
+          flags: 'g'
+        }
+      },
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
@@ -57,7 +68,6 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        //exclude: /node_modules/,
         loaders: [
           'style',
           'css?modules&importLoaders=1&localIdentName=[local]',
@@ -66,7 +76,6 @@ module.exports = {
       },
       {
         test: /\.scss$/,
-        // exclude: /node_modules/,
         loaders: [
           'style',
           'css?modules&importLoaders=1&localIdentName=[local]',
