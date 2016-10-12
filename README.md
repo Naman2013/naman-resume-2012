@@ -31,9 +31,9 @@ whenever you need to reference an asset, use the relative path:
 When working locally, the dev server has been configured to proxy to the
 API server for you from the relative path for example:
 
-`api/{your-api-path-here/?foo=bar&etc=etc}`
+`/api/{your-api-path-here/?foo=bar&etc=etc}`
 
-The build process also requires that your API calls begin with `api/` to be remapped
+The build process also requires that your API calls begin with `/api/` or `/sse/` to be remapped
 according to the production build process.
 
 ### Building for Production
