@@ -1,8 +1,6 @@
 ## Development
 ---
 
-
-
 ### Local Development
 ---
 
@@ -33,7 +31,7 @@ API server for you from the relative path for example:
 
 `/api/{your-api-path-here/?foo=bar&etc=etc}`
 
-The build process also requires that your API calls begin with `/api/` or `/sse/` to be remapped
+The build process also requires that your API calls begin with `/api/` or `/dev-sse/` to be remapped
 according to the production build process.
 
 ### Building for Production
@@ -51,7 +49,18 @@ Some example builds include:
 
 You may also provide any address provided as an argument to the long form of the build command.
 
-`rimraf dist && apiEnv=ANY-ENVIRONMENT-LOCATION webpack -p --progress`
+`rimraf dist && apiUrl=ANY-ENVIRONMENT-LOCATION apiPortNumber=SOME-PORT-NUMBER webpack -p --progress`
+
+####apiUrl
+---
+
+The base url that you wish to map all api calls to.  The build process will rewrite all references
+to `/api/` or `/dev-sse/` to this base url for you.
+
+####apiPortNumber
+---
+
+The port number you provide here will be appended to any generic API calls.
 
 ### Common libraries and tools
 ---
@@ -60,7 +69,6 @@ You may also provide any address provided as an argument to the long form of the
 2. [Bootstrap CSS](http://getbootstrap.com/)
 3. [React Router](https://github.com/reactjs/react-router)
 4. [React](https://facebook.github.io/react/)
-
 
 
 ### Building for Production
@@ -83,7 +91,8 @@ This will generate the `/dist` directory to be sent to the web server.
 This url is constructed using properties from a telescopes information.  The telescope information
 should include the `telePort` and `teleSystem` to build the link above.
 
-Sample event data
+#### Sample event data
+---
 
 [currentImgURL, previousImgURL, scheduledMissionId, missionStartTime, lastImgTime, currentServerTimestamp, systemStatus]
 

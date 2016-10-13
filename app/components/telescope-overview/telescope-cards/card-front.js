@@ -38,8 +38,9 @@ class CardFront extends Component {
     // TODO: the port number is a dynamic value?
     // for now referencing the /sse/*** context and using a proxy to a default port
     // see webpack.config devServer proxies
+    // example https://mars.slooh.com:3004/sse/${teleSystem}
     const { teleSystem, telePort } = this.props;
-    return `/sse/${teleSystem}`;
+    return `/dev-sse/:${telePort}/sse/${teleSystem}`;
   }
 
   render() {

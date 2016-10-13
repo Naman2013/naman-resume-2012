@@ -4,11 +4,6 @@ import styles from './thumbnail-image-loader.scss';
 const { string } = PropTypes;
 const STATIC_PROGRESS = 70;
 
-/*
-  TODO: apply the fadeout time and initial opacity from the API call
-  TODO: pass the teleThumbWidth to set the width of the image that is loaded
-*/
-
 class ThumbnailImageLoader extends Component {
   constructor( props ) {
     super( props );
@@ -31,11 +26,11 @@ class ThumbnailImageLoader extends Component {
       return;
     }
 
-    const imageWidth = this.props.teleThumbWidth;
-    return `/util/thumbnail.php?url=${imageUrl}&dimension=W&size=${imageWidth}`;
+    const { teleThumbWidth } = this.props;
+    return `/util/thumbnail.php?url=${imageUrl}&dimension=W&size=${teleThumbWidth}`;
   }
 
-  handleSourceImage( imageData ) {
+  handleSourceImage(imageData) {
     const [
       currentImageUrl,
       previousImageUrl,
@@ -103,7 +98,7 @@ class ThumbnailImageLoader extends Component {
       startingOpacity,
       adjustedFade } = this.state;
 
-    if(!currentImageUrl && !previousImageUrl) {
+    if(!currentImageUrl || !previousImageUrl) {
       return;
     }
 
