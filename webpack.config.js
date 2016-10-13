@@ -3,8 +3,8 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
-const apiEnvironment = process.env.apiEnv || '';
-const sseEnvironment = process.env.sseEnv || '';
+const apiUrl = process.env.apiUrl || '';
+const apiPortNumber = process.env.apiPortNumber || '';
 
 module.exports = {
   entry: {
@@ -42,7 +42,7 @@ module.exports = {
         exclude: /node_modules/,
         query: {
           search: '/api/',
-          replace: `${apiEnvironment}/api/`,
+          replace: !!apiUrl ? `${apiUrl}:${apiPortNumber}/api/` : '/api/',
           flags: 'g'
         }
       },
@@ -51,8 +51,8 @@ module.exports = {
         loader: 'string-replace',
         exclude: /node_modules/,
         query: {
-          search: '/sse/',
-          replace: `${sseEnvironment}/sse/`,
+          search: '/dev-sse/',
+          replace: `${apiUrl}`,
           flags: 'g'
         }
       },
@@ -128,8 +128,8 @@ module.exports = {
         changeOrigin: true,
         secure: true,
       },
-      '/sse/**': {
-        target: 'https://mars.slooh.com:3004',
+      '/dev-sse/**': {
+        target: 'https://mars.slooh.com',
         changeOrigin: true,
         secure: true,
       },

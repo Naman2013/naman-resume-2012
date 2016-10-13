@@ -19,7 +19,7 @@ export default class ExistingMissions extends Component {
     let cards = null;
     if (cardList && Array.isArray(cardList)) {
       cards = cardList.filter(card => {
-        if (!card.missionAvailable) {
+        if (!card.userHasReservation) {
           return false;
         }
 
