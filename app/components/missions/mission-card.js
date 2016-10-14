@@ -4,12 +4,15 @@ import { connect } from 'react-redux';
 import classnames from 'classnames';
 import styles from './mission-card.scss';
 import moment from 'moment';
+import MissionCardButtonReserve from './mission-card-button-reserve';
+import MissionCardButtonPiggyback from './mission-card-button-piggyback';
 
 const MissionCard = (props) => {
-
+    
+    const { card, piggyback, openModal } = props;
+        
     let featured = props.card.cardType == 2;
-    let className = `${styles.missionCard} ${featured ? 'featured col-md-12' : 'secondary col-md-6'}`;
-    const card = props.card;
+    let className = `${styles.missionCard} ${featured ? 'featured col-md-12' : 'secondary col-md-6'}`;    
     let EST_start = moment.unix(card.start).utcOffset(-5, false).format("dddd, MMMM Do");
     let EST_start_time = moment.unix(card.start).utcOffset(-5, false).format("hh:mm a");
     let PST_start_time = moment.unix(card.start).utcOffset(-8, false).format("hh:mm a");
@@ -32,21 +35,7 @@ const MissionCard = (props) => {
           <h5>Join an existing mission</h5>
           <p><strong>{EST_start}</strong>: {!featured ? <br /> : null} {EST_start_time} EST  ·  {PST_start_time} PST  ·  {UTC_start_time} UTC</p>
 
-          {!card.missionAvailable && (
-            <a
-              className={styles.piggybackCta}
-              href=""
-              onClick={event => props.openModal(card, 'reserve', event)}
-            >Reserve</a>
-          )}
-
-          {card.missionAvailable && (
-            <a
-              className={styles.piggybackCta}
-              href=""
-              onClick={event => props.openModal(card, 'piggyBack', event)}
-            >Piggyback on mission</a>
-          )}
+          {piggyback && piggyback.missionAvailable ? <MissionCardButtonPiggyback openModal={openModal} card={card} /> : <MissionCardButtonReserve openModal={openModal} card={card} />}
         </div>
       </div>
     );

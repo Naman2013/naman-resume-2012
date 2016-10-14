@@ -15,6 +15,8 @@ import TelescopeCards from '../components/telescope-overview/telescope-cards/tel
 
 import exampleUser from '../example-api-data/example-user'
 
+const MINIMUM_TELESCOPE_REFRESH_RATE = 0;
+
 function mapStateToProps(state, ownProps) {
   return {
     user: exampleUser, // TODO: state.user,
@@ -64,11 +66,13 @@ class TelescopeOverview extends Component {
     if(observatoryTelecopeStatus) {
       clearInterval(this.telescopeStatusTimer);
       const { statusExpires, requestedObsId } = observatoryTelecopeStatus;
-      const telescopeStatusTimeInMilli = new Date(Number(statusExpires)).getSeconds() * 1000;
+      const remainingTime = (statusExpires * 1000) - new Date().getTime();
 
-      this.telescopeStatusTimer = setInterval(() => {
-        this.props.actions.fetchObservatoryTelescopeStatus(requestedObsId);
-      }, telescopeStatusTimeInMilli);
+      if(remainingTime > MINIMUM_TELESCOPE_REFRESH_RATE) {
+        this.telescopeStatusTimer = setInterval(() => {
+          this.props.actions.fetchObservatoryTelescopeStatus(requestedObsId);
+        }, remainingTime);
+      }
     }
   }
 
