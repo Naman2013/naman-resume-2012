@@ -29,7 +29,7 @@ const initialState = {
 
 export const getCurrentObservatory = (observatoryList, observatoryId) => {
   return observatoryList
-    .filter(observatory => observatory.obsUniqueId === observatoryId)[0];
+    .find(observatory => observatory.obsUniqueId === observatoryId);
 }
 
 const getCurrentTimeInSeconds = () => new Date().getTime() / 1000;
