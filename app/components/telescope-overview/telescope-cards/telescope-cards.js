@@ -38,6 +38,8 @@ class TelescopeCards extends Component {
       return null; //TODO: no telescope scenerio?
     }
 
+    const { obsUniqueId } = this.props.observatory;
+
     return obsTelescopes.map((telescope) => {
       const { statusTeleList } = this.props.observatoryTelecopeStatus.statusList;
       const { teleStatus, teleHasTelescopePage } = telescope;
@@ -54,6 +56,7 @@ class TelescopeCards extends Component {
           <TelescopeCard
             key={ telescope.teleUniqueId }
             telescopeStatus={telescopeStatus}
+            obsUniqueId={obsUniqueId}
             {...telescope} />
         );
       }

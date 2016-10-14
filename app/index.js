@@ -40,15 +40,15 @@ ReactDOM.render(
 
           <Route path="/slooh-recommends" component={SloohRecommends}>
             <IndexRoute component={ExistingMissions} />
-            <Route path="/slooh-recommends/existing" name="existing-missions" component={ExistingMissions} />
-            <Route path="/slooh-recommends/new" name="new-missions" component={NewMissions} />
+            <Route path="existing" name="existing-missions" component={ExistingMissions} />
+            <Route path="new" name="new-missions" component={NewMissions} />
           </Route>
 
           <Route path="reserve-by-objects" component={ReserveObjects} />
           <Route path="reserve-by-telescope" component={ReserveByTelescope} />
         </Route>
 
-        <Route path="telescope-details" component={TelescopeDetails} />
+        <Route path="telescope-details/:obsUniqueId/:teleUniqueId" component={TelescopeDetails} />
 
       </Route>
 
