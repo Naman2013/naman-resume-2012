@@ -20,11 +20,12 @@ class VideoImageLoader extends Component {
       <div className="video-image-loader">
         <iframe
           id={teleStreamCode}
+          className="video-iframe"
           type="text/html"
           width={teleStreamThumbnailVideoWidth}
           height={teleStreamThumbnailVideoHeight}
           src={this.generateIFrameUrl()}
-          frameborder="0">
+          frameBorder="0">
         </iframe>
       </div>
     );
