@@ -66,6 +66,7 @@ TelescopeCard.propTypes = {
   teleSponsorLogoURL: PropTypes.string,
   teleAccessMethod: PropTypes.string,
   teleHasTelescopePage: PropTypes.string,
+  teleImageSourceType: PropTypes.string,
   telescopeStatus: PropTypes.object, // TODO: refine this validation
 };
 
