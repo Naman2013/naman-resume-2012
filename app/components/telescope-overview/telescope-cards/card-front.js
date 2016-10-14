@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 import CountdownTimer from './countdown-timer';
 import ThumbnailImageLoader from '../../common/telescope-image-loader/thumbnail-image-loader';
+import VideoImageLoader from '../../common/telescope-image-loader/video-image-loader';
 import TelescopeOffline from './telescope-offline';
 import style from './card-front.scss';
 
@@ -41,6 +42,41 @@ class CardFront extends Component {
     // example https://mars.slooh.com:3004/sse/${teleSystem}
     const { teleSystem, telePort } = this.props;
     return `/dev-sse/:${telePort}/sse/${teleSystem}`;
+  }
+
+  determineLoaderType() {
+    /*
+      apply image source loader based
+      on this.props.teleImageSourceType
+      expecting video or SSE
+    */
+    const { teleImageSourceType } = this.props;
+
+    if(teleImageSourceType === 'video') {
+      const {
+        teleStreamCode,
+        teleStreamURL,
+        teleStreamThumbnailVideoWidth,
+        teleStreamThumbnailVideoHeight,
+        teleStreamThumbnailQuality } = this.props;
+
+      return(
+        <VideoImageLoader
+          teleStreamCode={teleStreamCode}
+          teleStreamURL={teleStreamURL}
+          teleStreamThumbnailVideoWidth={teleStreamThumbnailVideoWidth}
+          teleStreamThumbnailVideoHeight={teleStreamThumbnailVideoHeight}
+          teleStreamThumbnailQuality={teleStreamThumbnailQuality} />
+      );
+    } else if(teleImageSourceType === 'SSE') {
+      return(
+        <ThumbnailImageLoader
+          imageSource={this.generateSseImageSource()}
+          teleId={this.props.teleId}
+          teleFade={this.props.teleFade}
+          teleThumbWidth={this.props.teleThumbWidth} />
+      );
+    }
   }
 
   render() {
@@ -85,11 +121,9 @@ class CardFront extends Component {
                   <h4 className="title" style={missionStatusStyle}>LIVE Mission</h4>
 
                   <div className="telescope-image">
-                    <ThumbnailImageLoader
-                      imageSource={this.generateSseImageSource()}
-                      teleId={this.props.teleId}
-                      teleFade={this.props.teleFade}
-                      teleThumbWidth={this.props.teleThumbWidth} />
+                    {
+                      this.determineLoaderType()
+                    }
                   </div>
 
                   <h5 className="telescope-image-title">
@@ -139,6 +173,12 @@ CardFront.propTypes = {
   teleAccessMethod: PropTypes.string,
   telePort: PropTypes.string,
   teleSystem: PropTypes.string,
+  teleImageSourceType: PropTypes.string,
+  teleStreamCode: PropTypes.string,
+  teleStreamURL: PropTypes.string,
+  teleStreamThumbnailVideoWidth: PropTypes.string,
+  teleStreamThumbnailVideoHeight: PropTypes.string,
+  teleStreamThumbnailQuality: PropTypes.string,
 };
 
 export default CardFront;
