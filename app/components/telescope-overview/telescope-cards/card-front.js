@@ -12,10 +12,11 @@ const MISSION_READY_TELE_ACCESS_METHOD = 'missions';
 
 class CardFront extends Component {
 
-  renderVisitTelescopeButton() {
+  renderVisitTelescopeButton(obsUniqueId, teleUniqueId) {
+    const telescopeDetailsUrl = `telescope-details/${obsUniqueId}/${teleUniqueId}`;
     return(
       <div className="col-md-6">
-        <Link to="telescope-details" className="action">
+        <Link to={telescopeDetailsUrl} className="action">
           Visit Telescope Page
         </Link>
       </div>
@@ -81,6 +82,8 @@ class CardFront extends Component {
 
   render() {
 
+    const { obsUniqueId, teleUniqueId } = this.props;
+
     const missionStatusStyle = {
       opacity: this.isMissionReadyTelescope() ? 1 : 0,
     };
@@ -101,7 +104,7 @@ class CardFront extends Component {
           </p>
 
           <div className="call-to-action clearfix">
-            { this.renderVisitTelescopeButton() }
+            { this.renderVisitTelescopeButton(obsUniqueId, teleUniqueId)}
             { this.renderMakeReservationButton() }
           </div>
 
@@ -179,6 +182,8 @@ CardFront.propTypes = {
   teleStreamThumbnailVideoWidth: PropTypes.string,
   teleStreamThumbnailVideoHeight: PropTypes.string,
   teleStreamThumbnailQuality: PropTypes.string,
+  teleUniqueId: PropTypes.string,
+  obsUniqueId: PropTypes.string,
 };
 
 export default CardFront;
