@@ -3,6 +3,34 @@ import TelescopeCard from './telescope-card';
 
 import style from './telescope-cards.scss';
 
+
+
+/*
+  @generateTelescopeStatus
+  this function is needed to normalize the differences between the
+  status object provided by the observatory call and the telescope
+  status api's
+
+  not all telescopes will be represented by the telescope status
+  api, so we need to emulate that response to help reduce internal
+  checks within the component
+
+  note the different property names between both status and telescope
+  we are not provided directly the obsId from this point in the data
+  since the source is located elsewhere in the response from obs/list
+*/
+function generateTelescopeStatus(telescope) {
+  return {
+    index: telescope.teleIndex,
+    obsId: null,
+    telescopeId: telescope.teleId,
+    teleUniqueId: telescope.teleUniqueId,
+    onlineStatus: telescope.teleOnlineStatus,
+  };
+}
+
+
+
 class TelescopeCards extends Component {
 
   renderTelescopeCards(obsTelescopes = []) {
@@ -12,10 +40,14 @@ class TelescopeCards extends Component {
 
     return obsTelescopes.map((telescope) => {
       const { statusTeleList } = this.props.observatoryTelecopeStatus.statusList;
-      const telescopeStatus = statusTeleList
+      const { teleStatus, teleHasTelescopePage } = telescope;
+      let telescopeStatus = statusTeleList
         .find(telescopeStatus => telescope.teleUniqueId === telescopeStatus.teleUniqueId);
 
-      if(!telescopeStatus) {
+      // if a status is provided by the status API, we use that - otherwise we generate one
+      telescopeStatus = telescopeStatus ? telescopeStatus : generateTelescopeStatus(telescope);
+
+      if(teleStatus !== 'live' && !teleHasTelescopePage) {
         return null;
       } else {
         return(
