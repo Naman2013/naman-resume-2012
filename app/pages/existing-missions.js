@@ -6,22 +6,26 @@ import MissionCard from '../components/missions/mission-card';
 
 @connect(({ missions }) => ({
   cardList: missions.cardList || [],
+  piggybacks: missions.piggybacks || []
 }))
 export default class ExistingMissions extends Component {
   static propTypes = {
     cardList: PropTypes.array,
     openConfirmModal: PropTypes.func.isRequired,
+    piggybacks: PropTypes.array
   };
 
   render() {
-    const { cardList, openConfirmModal } = this.props;
+    const { cardList, openConfirmModal, piggybacks } = this.props;
+
+    //console.log('existing piggybacks');
 
     let cards = null;
     if (cardList && Array.isArray(cardList)) {
       cards = cardList.filter(card => {
-        if (!card.userHasReservation) {
-          return false;
-        }
+        // if (!card.userHasReservation) {
+        //   return false;
+        // }
 
         const endDate = moment.unix(card.end);
         return !moment().isAfter(endDate, 'days');
@@ -44,6 +48,7 @@ export default class ExistingMissions extends Component {
             card={card}
             openModal={openConfirmModal}
             featured={card.cardType === 2}
+            piggyback={ piggybacks.find((piggyback) => piggyback.uniqueId == card.uniqueId) }
           />
         ))}
       </div>

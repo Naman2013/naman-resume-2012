@@ -105,7 +105,10 @@ const fetchMoonPhase = ( observatory ) => ( dispatch ) => {
     lang: 'en',
     obsId: observatory.obsId,
     widgetUniqueId: observatory.MoonPhaseWidgetId,
-    timestamp: getCurrentTimeInSeconds()
+    timestamp: getCurrentTimeInSeconds(),
+    token: '8d02b976e146cb5e5bfe15a10bb96b2365826dca', //hard coded, TODO: change to logged in user
+    at: 3,
+    cid: 198267, //hard coded, TODO: change to logged in user
   })
   .then(result => dispatch( setMoonPhaseWidget(result.data) ) );
 };
@@ -118,7 +121,10 @@ const fetchSmallSatelliteView = ( observatory ) => ( dispatch ) => {
     lang: 'en',
     obsId: observatory.obsId,
     widgetUniqueId: observatory.SatelliteWidgetId,
-    timestamp: getCurrentTimeInSeconds()
+    timestamp: getCurrentTimeInSeconds(),
+    token: '8d02b976e146cb5e5bfe15a10bb96b2365826dca', //hard coded, TODO: change to logged in user
+    at: 3,
+    cid: 198267, //hard coded, TODO: change to logged in user
   })
   .then(result => dispatch(setSatelliteViewWidget(result.data)));
 };

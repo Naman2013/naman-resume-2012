@@ -21,6 +21,7 @@ const initialState = {
   mission: {},
   cardList: [],
   announcements: [],
+  piggybacks: []
 };
 
 // Mission action creator
@@ -45,7 +46,10 @@ export function missionGetCards() {
       status: 'published',
       ver: 'v1',
       lang: 'en',
-      type: 'curated'
+      type: 'curated',
+      token: '8d02b976e146cb5e5bfe15a10bb96b2365826dca', //hard coded, TODO: change to logged in user
+      at: 3,
+      cid: 198267, //hard coded, TODO: change to logged in user
     })
     .then(response => {
       dispatch(allCards(response))
@@ -64,13 +68,16 @@ export function missionGetInfo(card, type) {
       lookaheadPiggyback    : card.lookaheadDaysPiggyback,
       start                 : card.start,
       ver                   : 'v1',
-      lang                  : 'en'
+      lang                  : 'en',
+      cid                   : 198267,
+      at                    : 3,
+      token                 : '8d02b976e146cb5e5bfe15a10bb96b2365826dca'
     })
     .then(response => {
       dispatch( getMissionSuccess(response) );
       dispatch( missionConfirmOpen(type) );
     })
-    .catch(error => dispatch( getMissionFail( response )));
+    .catch(error => dispatch( getMissionFail( error )));
   }
 }
 
@@ -109,12 +116,12 @@ export function missionGetUpdates() {
     return axios.post('/api/info/getAnnouncements', {
       type: 'all',
       category: 'missionControl',
-      status: 'published',
-      token: '8d02b976e146cb5e5bfe15a10bb96b2365826dca', //hard coded, TODO: change to logged in user
-      timestamp: moment().unix(),
-      cid: 198267, //hard coded, TODO: change to logged in user
+      status: 'published',      
+      timestamp: moment().unix(),    
       level: 'all',
-      at: 3
+      token: '8d02b976e146cb5e5bfe15a10bb96b2365826dca', //hard coded, TODO: change to logged in user
+      at: 3,
+      cid: 198267, //hard coded, TODO: change to logged in user
     })
     .then(response => {
       dispatch(missionUpdatesSuccess(response));
@@ -148,12 +155,15 @@ export function missionGetPiggybacks(objectList) {
       uniqueId: "",
       objectId: "",
       start: "",
-      objectList: objectList
+      objectList: objectList,
+      cid: 198266,
+      at: 2,
+      token: 'fd024a48fa802fa489893b889f2de8ce88c71d3e'
     })
     .then(response => {
       dispatch( missionGetPiggybackSuccess(response) );
     })
-    .catch(error => dispatch( missionGetPiggybackFail( response )));
+    .catch(error => dispatch( missionGetPiggybackFail( error )));
   }
 }
 
@@ -167,7 +177,7 @@ export function missionGetPiggybackSuccess({data}) {
 export function missionGetPiggybackFail({data}) {
   return {
     type: MISSION_GET_PIGGYBACKS_FAIL,
-    result: data.error
+    result: data
   };
 };
 
@@ -212,18 +222,16 @@ export default createReducer(initialState, {
       announcements: []
     }
   },
-  [MISSION_GET_PIGGYBACKS_SUCCESS](state, { result }) {
-    let cardList = state.cardList;
-
-    if (Array.isArray(cardList) && Array.isArray(result)) {
-      cardList = cardList.map((card, idx) => {
-        const item = result[idx] || {};
-        item.missionAvailable = item.missionAvailable === 'true';
-
-        return { ...card, ...item };
-      });
-    }
-
-    return { ...state, cardList };
+  [MISSION_GET_PIGGYBACKS_SUCCESS](state, { result }) {    
+    return { 
+      ...state, 
+      piggybacks: result
+    };
+  },
+  [MISSION_GET_PIGGYBACKS_FAIL](state, { result }) {    
+    return { 
+      ...state, 
+      piggybacks: result
+    };
   }
 });
