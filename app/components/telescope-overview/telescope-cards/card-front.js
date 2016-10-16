@@ -124,9 +124,7 @@ class CardFront extends Component {
                   <h4 className="title" style={missionStatusStyle}>LIVE Mission</h4>
 
                   <div className="telescope-image">
-                    {
-                      this.determineLoaderType()
-                    }
+                    { this.determineLoaderType() }
                   </div>
 
                   <h5 className="telescope-image-title">
