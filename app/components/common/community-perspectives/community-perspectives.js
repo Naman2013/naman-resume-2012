@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import classnames from 'classnames';
 import Slider from 'react-slick';
 import Spacer from './../../common/spacer';
 
@@ -9,9 +10,16 @@ import './slick-theme.min.css';
 class CommunityPerspectives extends Component {
 
   render() {
-    const { showCallToAction } = this.props;
+    const {
+      showCallToAction,
+      showSliderBorder } = this.props;
 
-    const settings = {
+    const sliderStyle = classnames({
+      slide: true,
+      'with-border': showSliderBorder,
+    });
+
+    const sliderSettings = {
       dots: true,
       infinite: true,
       speed: 500,
@@ -58,7 +66,7 @@ class CommunityPerspectives extends Component {
 
             <div className="col-xs-12">
 
-              <Slider {...settings} className="slide">
+              <Slider {...sliderSettings} className={sliderStyle}>
 
                 <div className="item">
                   <div className="personal-info">
@@ -119,10 +127,12 @@ class CommunityPerspectives extends Component {
 
 CommunityPerspectives.defaultProps = {
   showCallToAction: true,
+  showSliderBorder: true,
 };
 
 CommunityPerspectives.propTypes = {
-  showCallToAction: PropTypes.boolean,
+  showCallToAction: PropTypes.bool,
+  showSliderBorder: PropTypes.bool,
 };
 
 export default CommunityPerspectives;

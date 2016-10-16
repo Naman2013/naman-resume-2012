@@ -80,8 +80,11 @@
     text-align: left;
     margin: 0;
     padding: 20px 0;
-    border-top: 1px dashed #979797;
-    border-bottom: 1px dashed #979797;
+
+    &.with-border {
+      border-top: 1px dashed #979797;
+      border-bottom: 1px dashed #979797;
+    }
 
     .slick-next {
       background-image: url('/assets/images/icons/icon-right-arrow.png');

@@ -53,7 +53,8 @@ class Home extends Component {
 
         <PromoMessageBand title={CONTENT.COMMUNITY_CONTENT_BAND} />
         <CommunityPerspectives
-          showCallToAction={false} />
+          showCallToAction={false}
+          showSliderBorder={false} />
 
         <PromoMessageBand title={CONTENT.SPONSORS_CONTENT_BAND} />
 
