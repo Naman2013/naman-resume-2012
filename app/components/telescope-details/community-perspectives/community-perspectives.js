@@ -8,7 +8,7 @@ import './slick.min.css';
 import './slick-theme.min.css';
 
 
-class TelescopeCommunityPerspectives extends React.Component {
+class CommunityPerspectives extends React.Component {
 
   constructor(props) {
     super(props);
@@ -197,4 +197,4 @@ class TelescopeCommunityPerspectives extends React.Component {
   }
 }
 
-export default TelescopeCommunityPerspectives;
+export default CommunityPerspectives;

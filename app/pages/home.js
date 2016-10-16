@@ -2,10 +2,11 @@ import React, { Component, PropTypes } from 'react';
 
 import Hero from '../components/home/hero';
 import RecentVideoTile from '../components/home/recent-video-tile';
-import PromoMessageBand from '../components/home/promo-message-band';
+import PromoMessageBand from '../components/common/headers/promo-message-band';
 import LargeBannerHeading from '../components/home/large-banner-heading';
 import SloohFeatures from '../components/home/slooh-features';
 import ViewableObjects from '../components/home/viewable-objects/viewable-objects';
+import CommunityPerspectives from '../components/common/community-perspectives/community-perspectives';
 import Sponsors from '../components/home/sponsors';
 import Dedication from '../components/home/slooh-extras/dedication';
 import Featured from '../components/home/slooh-extras/featured';
@@ -47,12 +48,17 @@ class Home extends Component {
 
         <LargeBannerHeading content={CONTENT.ADDITIONAL_OFFERING_HEADER} />
 
-        <PromoMessageBand message={CONTENT.VIEWABLE_OBJECTS.ADDITIONAL_OFFERING_BAND} />
+        <PromoMessageBand title={CONTENT.VIEWABLE_OBJECTS.ADDITIONAL_OFFERING_BAND} />
         <ViewableObjects {...CONTENT.VIEWABLE_OBJECTS} />
 
-        <PromoMessageBand message={CONTENT.COMMUNITY_CONTENT_BAND} />
+        <PromoMessageBand title={CONTENT.COMMUNITY_CONTENT_BAND} />
+        <CommunityPerspectives
+          showCallToAction={false}
+          showSliderBorder={false}
+          showArrows={false}
+          numberOfSlidesToDisplay={3} />
 
-        <PromoMessageBand message={CONTENT.SPONSORS_CONTENT_BAND} />
+        <PromoMessageBand title={CONTENT.SPONSORS_CONTENT_BAND} />
 
         <Sponsors
           title={CONTENT.SPONSORS_SUB_TITLE}

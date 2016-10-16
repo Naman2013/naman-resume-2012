@@ -1,5 +1,5 @@
-@import "../../styles/variables/colors.scss";
-@import "../../styles/variables/fonts.scss";
+@import "../../../styles/variables/colors.scss";
+@import "../../../styles/variables/fonts.scss";
 
 .promo-message-band {
   font-family: $primary-font;
@@ -13,5 +13,11 @@
     margin: 0;
     font-size: 1.75em;
     font-weight: bold;
+  }
+
+  .subtitle {
+    font-family: $secondary-font;
+    margin: 0;
+    padding-top: 10px;
   }
 }

@@ -21,7 +21,8 @@ import LiveStream from '../../components/telescope-details/live-stream/live-stre
 import LiveMission from '../../components/telescope-details/live-mission/live-mission';
 import TelescopeWhereSky from '../../components/telescope-details/where-sky/where-sky';
 import TelescopeConditionSnapshot from '../../components/telescope-details/condition-snapshot/condition-snapshot';
-import TelescopeCommunityPerspectives from '../../components/telescope-details/community-perspectives/community-perspectives';
+import PromoMessageBanner from '../../components/common/headers/promo-message-band';
+import CommunityPerspectives from '../../components/common/community-perspectives/community-perspectives';
 import LiveWebcam from '../../components/telescope-details/live-webcam/live-webcam';
 import WeatherConditions from '../../components/telescope-details/weather-conditions/weather-conditions';
 import TelescopeRecommendsWidget from '../../components/telescope-details/recommends-widget/recommends-widget';
@@ -119,7 +120,11 @@ export default class TelescopeDetails extends Component {
             toggleNeoview={this.state.toggleNeoview} />
 
           <Spacer height="50px" />
-          <TelescopeCommunityPerspectives />
+
+          <PromoMessageBanner
+            title={`Community Perspectives`}
+            subtitle={`Learn more about this object through the various lenses of science, culture, and spirituality.`} />
+          <CommunityPerspectives />
 
           <LiveWebcam
             time={new Date()}

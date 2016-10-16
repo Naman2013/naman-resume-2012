@@ -3,16 +3,22 @@ import style from './promo-message-band.scss';
 
 class PromoMessageBand extends Component {
   render() {
+    const { title, subtitle } = this.props;
     return(
       <div className="promo-message-band">
-        <h4 className="title">{this.props.message}</h4>
+        <h4 className="title">{title}</h4>
+        {
+          subtitle ?
+            <h5 className="subtitle">{this.props.subtitle}</h5> : null
+        }
       </div>
     );
   }
 }
 
 PromoMessageBand.propTypes = {
-  message: PropTypes.string
+  title: PropTypes.string,
+  subtitle: PropTypes.string,
 };
 
 export default PromoMessageBand;
