@@ -139,7 +139,7 @@ CommunityPerspectives.propTypes = {
   showCallToAction: PropTypes.bool,
   showSliderBorder: PropTypes.bool,
   showArrows: PropTypes.bool,
-  numberOfSlidesToDisplay: PropTypes.int,
+  numberOfSlidesToDisplay: PropTypes.number,
 };
 
 export default CommunityPerspectives;
