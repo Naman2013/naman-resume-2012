@@ -36,7 +36,7 @@ class CommunityPerspectives extends Component {
         <div className="content">
           <div className="row">
 
-            <ul className="col-xs-12 categories">
+            <ul className="col-xs-12 clearfix categories">
               <li className="col-xs-3 category">
                 <a className="action" href="#">
                   <p className="title" className="title">Science log</p>
@@ -66,6 +66,10 @@ class CommunityPerspectives extends Component {
                 </a>
               </li>
             </ul>
+
+            <div className="col-xs-12">
+              <div className="col-xs-12 double-border" />
+            </div>
 
             <div className="col-xs-12">
 

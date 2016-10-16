@@ -45,11 +45,11 @@
   font-family: $primary-font;
 
   .content {
-    padding: 0 60px;
+    padding: 0;
     padding-bottom: 20px;
 
     .categories {
-      padding: 20px 0;
+      padding: 20px 60px;
       margin: 0;
 
       .category {
@@ -75,6 +75,12 @@
         }
       }
     }
+
+    .double-border {
+      display: block;
+      border-bottom: 4px double #fff;
+      margin: 0;
+    }
   }
 
   .slide {
@@ -83,7 +89,6 @@
     padding: 20px 0;
 
     &.with-border {
-      border-top: 1px dashed #979797;
       border-bottom: 1px dashed #979797;
     }
 
