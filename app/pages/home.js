@@ -48,13 +48,13 @@ class Home extends Component {
 
         <LargeBannerHeading content={CONTENT.ADDITIONAL_OFFERING_HEADER} />
 
-        <PromoMessageBand message={CONTENT.VIEWABLE_OBJECTS.ADDITIONAL_OFFERING_BAND} />
+        <PromoMessageBand title={CONTENT.VIEWABLE_OBJECTS.ADDITIONAL_OFFERING_BAND} />
         <ViewableObjects {...CONTENT.VIEWABLE_OBJECTS} />
 
-        <PromoMessageBand message={CONTENT.COMMUNITY_CONTENT_BAND} />
+        <PromoMessageBand title={CONTENT.COMMUNITY_CONTENT_BAND} />
         <CommunityPerspectives />
 
-        <PromoMessageBand message={CONTENT.SPONSORS_CONTENT_BAND} />
+        <PromoMessageBand title={CONTENT.SPONSORS_CONTENT_BAND} />
 
         <Sponsors
           title={CONTENT.SPONSORS_SUB_TITLE}

@@ -11,7 +11,7 @@ import './slick-theme.min.css';
 class CommunityPerspectives extends Component {
 
   render() {
-    var settings = {
+    const settings = {
       dots: true,
       infinite: true,
       speed: 500,
@@ -21,14 +21,7 @@ class CommunityPerspectives extends Component {
 
     return(
       <div className="telescope-block community-perspectives">
-        <div className="top">
-          <div className="row">
-          <div className="col-xs-12 ">
-            <h3>Community Perspectives</h3>
-            <p>Learn more about this object through the various lenses of science, culture, and spirituality.</p>
-          </div>
-          </div>
-        </div>
+
         <div className="content">
           <div className="row">
             <div className="col-xs-12 category">
