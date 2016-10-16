@@ -41,7 +41,7 @@ class CommunityPerspectives extends Component {
                 <a className="action" href="#">
                   <p className="title" className="title">Science log</p>
                   <div className="icon">
-                    <img src={'/assets/images/icons/icon-science-active.png'} />
+                    <img height="45" src={'/assets/images/icons/icon-science-active.png'} />
                   </div>
                 </a>
               </li>
@@ -49,7 +49,7 @@ class CommunityPerspectives extends Component {
                 <a className="action" href="#">
                   <p className="title">Art & culture</p>
                   <div className="icon">
-                    <img src={'/assets/images/icons/icon-culture.png'} />
+                    <img height="45" src={'/assets/images/icons/icon-culture.png'} />
                   </div>
                 </a>
               </li>
@@ -57,7 +57,7 @@ class CommunityPerspectives extends Component {
                 <a className="action" href="#">
                   <p className="title">Human spirit</p>
                   <div className="icon">
-                    <img src={'/assets/images/icons/icon-human-spirit.png'} />
+                    <img height="45" src={'/assets/images/icons/icon-human-spirit.png'} />
                   </div>
                 </a>
               </li>
@@ -65,7 +65,7 @@ class CommunityPerspectives extends Component {
                 <a className="action" href="#">
                   <p className="title">diy</p>
                   <div className="icon">
-                    <img src={'/assets/images/icons/icon-DIY.png'} />
+                    <img height="45" src={'/assets/images/icons/icon-DIY.png'} />
                   </div>
                 </a>
               </li>
