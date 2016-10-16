@@ -40,8 +40,9 @@ class CommunityPerspectives extends Component {
               <li className="col-xs-3 category">
                 <a className="action" href="#">
                   <p className="title" className="title">Science log</p>
-                  <img
-                    className="icon" src={'/assets/images/icons/icon-science-active.png'} />
+                  <div className="icon">
+                    <img src={'/assets/images/icons/icon-science-active.png'} />
+                  </div>
                 </a>
               </li>
               <li className="col-xs-3 category">

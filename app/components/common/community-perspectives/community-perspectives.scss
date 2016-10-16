@@ -65,6 +65,20 @@
             margin-bottom: 10px;
           }
 
+          .icon {
+
+            &:after {
+              content: " ";
+              display: block;
+              width: 1px;
+              height: 20px;
+              background-color: #fff;
+              position: relative;
+              bottom: -10px;
+              margin: 0 auto -10px auto;
+            }
+          }
+
           &:hover {
             color: #fff;
           }
