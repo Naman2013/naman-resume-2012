@@ -31,8 +31,13 @@ class HighMagnification extends React.Component {
 
 
   render() {
+
+    let cx = classnames({
+      [`high-magnification ${this.props.className}`]: true
+    })
+
     return(
-      <div className="high-magnification" onMouseOver={this.handleMouseOver} onMouseOut={this.handleMouseOut}>
+      <div className={cx} onMouseOver={this.handleMouseOver} onMouseOut={this.handleMouseOut}>
         <div className="main-container">
           <img src={'/assets/images/graphics/magnification-scene.jpg'}  />
         </div>

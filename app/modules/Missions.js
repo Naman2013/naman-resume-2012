@@ -41,15 +41,16 @@ export function missionConfirmClose(mission) {
 }
 
 export function missionGetCards() {
-  return dispatch => {
+  return (dispatch, getState) => {
+    let { token, at, cid } = getState().user.user; // is this 👍🏻 pattern ?
     return axios.post('/api/recommends/cards', {
       status: 'published',
       ver: 'v1',
       lang: 'en',
       type: 'curated',
-      token: '8d02b976e146cb5e5bfe15a10bb96b2365826dca', //hard coded, TODO: change to logged in user
-      at: 3,
-      cid: 198267, //hard coded, TODO: change to logged in user
+      token,
+      at,
+      cid,
     })
     .then(response => {
       dispatch(allCards(response))
@@ -116,8 +117,8 @@ export function missionGetUpdates() {
     return axios.post('/api/info/getAnnouncements', {
       type: 'all',
       category: 'missionControl',
-      status: 'published',      
-      timestamp: moment().unix(),    
+      status: 'published',
+      timestamp: moment().unix(),
       level: 'all',
       token: '8d02b976e146cb5e5bfe15a10bb96b2365826dca', //hard coded, TODO: change to logged in user
       at: 3,
@@ -222,15 +223,15 @@ export default createReducer(initialState, {
       announcements: []
     }
   },
-  [MISSION_GET_PIGGYBACKS_SUCCESS](state, { result }) {    
-    return { 
-      ...state, 
+  [MISSION_GET_PIGGYBACKS_SUCCESS](state, { result }) {
+    return {
+      ...state,
       piggybacks: result
     };
   },
-  [MISSION_GET_PIGGYBACKS_FAIL](state, { result }) {    
-    return { 
-      ...state, 
+  [MISSION_GET_PIGGYBACKS_FAIL](state, { result }) {
+    return {
+      ...state,
       piggybacks: result
     };
   }

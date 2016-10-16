@@ -6,6 +6,8 @@ import classnames from 'classnames';
 import moment from 'moment';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import './telescope-details.scss';
+import exampleUser from '../../example-api-data/example-user'
+
 
 import {
   getObservatoryList,
@@ -24,10 +26,11 @@ import LiveWebcam from '../../components/telescope-details/live-webcam/live-webc
 import WeatherConditions from '../../components/telescope-details/weather-conditions/weather-conditions';
 import TelescopeRecommendsWidget from '../../components/telescope-details/recommends-widget/recommends-widget';
 import TelescopeGalleryWidget from '../../components/telescope-details/gallery-widget/gallery-widget';
+import Neoview from '../../components/telescope-details/neoview/neoview.js';
 // import MissionUpcoming from '../components/missions/mission-upcoming';
 // import {missionGetCards, missionConfirmOpen, missionConfirmClose, missionGetInfo} from '../modules/Missions';
 
-import exampleUser from '../../example-api-data/example-user'
+const { element, func, object } = PropTypes;
 
 function mapDispatchToProps(dispatch) {
   return {
@@ -36,7 +39,7 @@ function mapDispatchToProps(dispatch) {
       fetchObservatoryTelescopeStatus,
     }, dispatch),
   }
-}
+};
 
 function mapStateToProps({ missions, telescopeOverview }) {
   const { observatoryList } = telescopeOverview;
@@ -44,13 +47,21 @@ function mapStateToProps({ missions, telescopeOverview }) {
     missions,
     observatoryList,
     user: exampleUser, // TODO: state.user
-    cardList: missions.cardList || [],
+    cardList: missions.cardList || []
   };
 }
 
 @connect(mapStateToProps, mapDispatchToProps)
 
 export default class TelescopeDetails extends Component {
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      toggleNeoview: false
+    };
+  }
 
   componentDidMount() {
     const { obsUniqueId } = this.props.params;
@@ -60,8 +71,15 @@ export default class TelescopeDetails extends Component {
     );
   }
 
+
   handleSelect(index, last) {
     console.log('Selected tab: ' + index + ', Last tab: ' + last);
+  }
+
+  handleToggleNeoview() {
+    this.setState({
+      toggleNeoview: !this.state.toggleNeoview
+    });
   }
 
   render() {
@@ -76,67 +94,68 @@ export default class TelescopeDetails extends Component {
     const { obsId } = currentObservatory;
 
     return (
+    <div>
+      <AnnouncementBanner obsId={obsId} />
+      <div className='telescope-details'>
+        <div className='col-md-8'>
+          <Tabs
+            onSelect={this.handleSelect}
+            selectedIndex={0}
+          >
+            <TabList>
+              <Tab>High-Magnification</Tab>
+              <Tab>Wid-Field</Tab>
+            </TabList>
+            <TabPanel>
+              <HighMagnification className={this.state.toggleNeoview ? 'hidden' : 'visible'} />
+              <Neoview className={this.state.toggleNeoview ? 'visible' : 'hidden'} />
+            </TabPanel>
+            <TabPanel>
+            </TabPanel>
+          </Tabs>
 
-      <div>
-        <AnnouncementBanner
-          obsId={obsId} />
+          <LiveStream
+            handleToggle={this.handleToggleNeoview.bind(this)}
+            toggleNeoview={this.state.toggleNeoview} />
 
-        <div className='telescope-details'>
-          <div className='col-md-8'>
-            <Tabs
-              onSelect={this.handleSelect}
-              selectedIndex={0}
-            >
-              <TabList>
-                <Tab>High-Magnification</Tab>
-                <Tab>Wid-Field</Tab>
-              </TabList>
-              <TabPanel>
-                <HighMagnification />
-              </TabPanel>
-              <TabPanel>
-              </TabPanel>
-            </Tabs>
-            {/* Live Stream Component */}
-            <LiveStream />
-            <Spacer height="50px" />
-            <TelescopeCommunityPerspectives />
+          <Spacer height="50px" />
+          <TelescopeCommunityPerspectives />
 
-            <LiveWebcam
-              time={new Date()}
-              tabs={[
-                { title: 'West', src: '/assets/images/graphics/livecam-placeholder.jpg' },
-                { title: 'East', src: '/assets/images/graphics/livecam-placeholder-2.jpeg' },
-                { title: 'South', src: '/assets/images/graphics/livecam-placeholder-3.jpeg' },
-                { title: 'North', src: '/assets/images/graphics/livecam-placeholder-4.jpeg' },
-              ]}
-            />
+          <LiveWebcam
+            time={new Date()}
+            tabs={[
+              { title: 'West', src: '/assets/images/graphics/livecam-placeholder.jpg' },
+              { title: 'East', src: '/assets/images/graphics/livecam-placeholder-2.jpeg' },
+              { title: 'South', src: '/assets/images/graphics/livecam-placeholder-3.jpeg' },
+              { title: 'North', src: '/assets/images/graphics/livecam-placeholder-4.jpeg' },
+            ]}
+          />
 
-            <WeatherConditions
-              tabs={[
-                { title: 'Conditions', src: '/assets/images/graphics/weather-placeholder.jpg' },
-                { title: 'Dust', src: '/assets/images/graphics/weather-placeholder-2.jpeg' },
-                { title: 'Satellite Cloud', src: '/assets/images/graphics/weather-placeholder-3.jpeg' },
-                { title: 'Wind', src: '/assets/images/graphics/weather-placeholder-4.jpeg' },
-                { title: 'Sky Brightness', src: '/assets/images/graphics/weather-placeholder-5.jpeg' },
-                { title: 'Historic Weather', src: '/assets/images/graphics/weather-placeholder-6.jpeg' },
-              ]}
-            />
-          </div>
-          <div className='col-md-4'>
-            {/* Live Mission Component */}
-            <LiveMission />
-            <Spacer height="100px" />
-            {/* Telescope Where Sky Component*/}
-            <TelescopeWhereSky />
-            <Spacer height="50px" />
-            <TelescopeConditionSnapshot />
-            <TelescopeRecommendsWidget />
-            <TelescopeGalleryWidget />
-          </div>
-
+          <WeatherConditions
+            tabs={[
+              { title: 'Conditions', src: '/assets/images/graphics/weather-placeholder.jpg' },
+              { title: 'Dust', src: '/assets/images/graphics/weather-placeholder-2.jpeg' },
+              { title: 'Satellite Cloud', src: '/assets/images/graphics/weather-placeholder-3.jpeg' },
+              { title: 'Wind', src: '/assets/images/graphics/weather-placeholder-4.jpeg' },
+              { title: 'Sky Brightness', src: '/assets/images/graphics/weather-placeholder-5.jpeg' },
+              { title: 'Historic Weather', src: '/assets/images/graphics/weather-placeholder-6.jpeg' },
+            ]}
+          />
         </div>
+        <div className='col-md-4'>
+          {/* Live Mission Component */}
+          <LiveMission />
+          <Spacer height="100px" />
+          {/* Telescope Where Sky Component*/}
+          <TelescopeWhereSky />
+          <Spacer height="50px" />
+          <TelescopeConditionSnapshot />
+          <TelescopeRecommendsWidget />
+          <TelescopeGalleryWidget />
+        </div>
+
       </div>
+    </div>
     );
   }
 }
