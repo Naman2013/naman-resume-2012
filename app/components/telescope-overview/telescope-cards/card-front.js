@@ -139,7 +139,7 @@ class CardFront extends Component {
 
               <TelescopeOffline
                 offlineImage={this.props.teleOfflineImgURL}
-                offlineStatusMessage={`The weather is a bit intense right now so all missions have been cancelled.`} />
+                offlineStatusMessage={this.props.alertText} />
 
           }
           <div className="sponsor">
@@ -184,6 +184,7 @@ CardFront.propTypes = {
   teleStreamThumbnailQuality: PropTypes.string,
   teleUniqueId: PropTypes.string,
   obsUniqueId: PropTypes.string,
+  alertText: PropTypes.string,
 };
 
 export default CardFront;

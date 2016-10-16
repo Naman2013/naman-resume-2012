@@ -41,8 +41,11 @@ class TelescopeCards extends Component {
     const { obsUniqueId } = this.props.observatory;
 
     return obsTelescopes.map((telescope) => {
-      const { statusTeleList } = this.props.observatoryTelecopeStatus.statusList;
+      const { observatoryTelecopeStatus } = this.props;
+      const { statusTeleList } = observatoryTelecopeStatus.statusList;
+      const { obsAlertText } = observatoryTelecopeStatus.alertList.alertListObs;
       const { teleStatus, teleHasTelescopePage } = telescope;
+
       let telescopeStatus = statusTeleList
         .find(telescopeStatus => telescope.teleUniqueId === telescopeStatus.teleUniqueId);
 
@@ -55,8 +58,10 @@ class TelescopeCards extends Component {
         return(
           <TelescopeCard
             key={ telescope.teleUniqueId }
+            alertText={obsAlertText}
             telescopeStatus={telescopeStatus}
             obsUniqueId={obsUniqueId}
+
             {...telescope} />
         );
       }
