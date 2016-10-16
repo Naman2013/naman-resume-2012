@@ -36,38 +36,46 @@ class CommunityPerspectives extends Component {
         <div className="content">
           <div className="row">
 
-            <ul className="col-xs-12 categories">
+            <ul className="col-xs-12 clearfix categories">
               <li className="col-xs-3 category">
                 <a className="action" href="#">
                   <p className="title" className="title">Science log</p>
-                  <img
-                    className="icon" src={'/assets/images/icons/icon-science-active.png'} />
+                  <div className="icon">
+                    <img height="45" src={'/assets/images/icons/icon-science-active.png'} />
+                  </div>
                 </a>
               </li>
               <li className="col-xs-3 category">
                 <a className="action" href="#">
                   <p className="title">Art & culture</p>
-                  <img
-                    className="icon" src={'/assets/images/icons/icon-culture.png'} />
+                  <div className="icon">
+                    <img height="45" src={'/assets/images/icons/icon-culture.png'} />
+                  </div>
                 </a>
               </li>
               <li className="col-xs-3 category">
                 <a className="action" href="#">
                   <p className="title">Human spirit</p>
-                  <img
-                    className="icon" src={'/assets/images/icons/icon-human-spirit.png'} />
+                  <div className="icon">
+                    <img height="45" src={'/assets/images/icons/icon-human-spirit.png'} />
+                  </div>
                 </a>
               </li>
               <li className="col-xs-3 category">
                 <a className="action" href="#">
                   <p className="title">diy</p>
-                  <img
-                    className="icon" src={'/assets/images/icons/icon-DIY.png'} />
+                  <div className="icon">
+                    <img height="45" src={'/assets/images/icons/icon-DIY.png'} />
+                  </div>
                 </a>
               </li>
             </ul>
 
             <div className="col-xs-12">
+              <div className="col-xs-12 double-border" />
+            </div>
+
+            <div className="col-xs-12 slide-container">
 
               <Slider {...sliderSettings} className={sliderStyle}>
 
