@@ -48,22 +48,25 @@ class CommunityPerspectives extends Component {
               <li className="col-xs-3 category">
                 <a className="action" href="#">
                   <p className="title">Art & culture</p>
-                  <img
-                    className="icon" src={'/assets/images/icons/icon-culture.png'} />
+                  <div className="icon">
+                    <img src={'/assets/images/icons/icon-culture.png'} />
+                  </div>
                 </a>
               </li>
               <li className="col-xs-3 category">
                 <a className="action" href="#">
                   <p className="title">Human spirit</p>
-                  <img
-                    className="icon" src={'/assets/images/icons/icon-human-spirit.png'} />
+                  <div className="icon">
+                    <img src={'/assets/images/icons/icon-human-spirit.png'} />
+                  </div>
                 </a>
               </li>
               <li className="col-xs-3 category">
                 <a className="action" href="#">
                   <p className="title">diy</p>
-                  <img
-                    className="icon" src={'/assets/images/icons/icon-DIY.png'} />
+                  <div className="icon">
+                    <img src={'/assets/images/icons/icon-DIY.png'} />
+                  </div>
                 </a>
               </li>
             </ul>
@@ -72,7 +75,7 @@ class CommunityPerspectives extends Component {
               <div className="col-xs-12 double-border" />
             </div>
 
-            <div className="col-xs-12">
+            <div className="col-xs-12 slide-container">
 
               <Slider {...sliderSettings} className={sliderStyle}>
 
