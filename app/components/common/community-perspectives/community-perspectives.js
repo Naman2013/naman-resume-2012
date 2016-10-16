@@ -1,12 +1,10 @@
 import React, { Component, PropTypes } from 'react';
-import classnames from 'classnames';
-import './community-perspectives.scss';
 import Slider from 'react-slick';
 import Spacer from './../../common/spacer';
 
+import './community-perspectives.scss';
 import './slick.min.css';
 import './slick-theme.min.css';
-
 
 class CommunityPerspectives extends Component {
 
@@ -24,26 +22,34 @@ class CommunityPerspectives extends Component {
 
         <div className="content">
           <div className="row">
-            <div className="col-xs-12 category">
-              <div className="col-xs-3">
-                <p>SCIENCE LOG</p>
-                <img src={'/assets/images/icons/icon-science-active.png'} />
-              </div>
-              <div className="col-xs-3">
-                <p>ART & CULTURE</p>
-                <img src={'/assets/images/icons/icon-culture.png'} />
-              </div>
-              <div className="col-xs-3">
-                <p>HUMAN SPIRIT</p>
-                <img src={'/assets/images/icons/icon-human-spirit.png'} />
-              </div>
-              <div className="col-xs-3">
-                <p>DIY</p>
-                <img src={'/assets/images/icons/icon-DIY.png'} />
-              </div>
-            </div>
+
+            <ul className="col-xs-12 categories">
+              <li className="col-xs-3 category">
+                <p className="title" className="title">Science log</p>
+                <img
+                  className="icon" src={'/assets/images/icons/icon-science-active.png'} />
+              </li>
+              <li className="col-xs-3 category">
+                <p className="title">Art & culture</p>
+                <img
+                  className="icon" src={'/assets/images/icons/icon-culture.png'} />
+              </li>
+              <li className="col-xs-3 category">
+                <p className="title">Human spirit</p>
+                <img
+                  className="icon" src={'/assets/images/icons/icon-human-spirit.png'} />
+              </li>
+              <li className="col-xs-3 category">
+                <p className="title">DIY</p>
+                <img
+                  className="icon" src={'/assets/images/icons/icon-DIY.png'} />
+              </li>
+            </ul>
+
             <div className="col-xs-12">
+
               <Slider {...settings} className="slide">
+
                 <div className="item">
                   <div className="personal-info">
                     <div className="clearfix">
@@ -53,12 +59,14 @@ class CommunityPerspectives extends Component {
                     <p className="address">Chicago, IL, USA. Member since 2011</p>
                     <img src={'/assets/images/graphics/dave-photo.png'} className="photo" />
                   </div>
+
                   <div className="description">
                     <h3 className="title">
                       Some cool stats on Andromeda Being
                     </h3>
-                    <p className="desc">approximately 220,000 light years across, it is the largest galaxy of the Local Group, which also contains the Milky Way, the Triangulum Galaxy, and about 44 other smaller galaxies.
-  The light you see has taken 2 million years to get to the earth!</p>
+                    <p className="desc">
+                      Approximately 220,000 light years across, it is the largest galaxy of the Local Group, which also contains the Milky Way, the Triangulum Galaxy, and about 44 other smaller galaxies. The light you see has taken 2 million years to get to the earth!
+                    </p>
                   </div>
                 </div>
 
@@ -75,103 +83,15 @@ class CommunityPerspectives extends Component {
                     <h3 className="title">
                       Some cool stats on Andromeda Being
                     </h3>
-                    <p className="desc">approximately 220,000 light years across, it is the largest galaxy of the Local Group, which also contains the Milky Way, the Triangulum Galaxy, and about 44 other smaller galaxies.
-  The light you see has taken 2 million years to get to the earth!</p>
-                  </div>
-                </div>
-
-                <div className="item">
-                  <div className="personal-info">
-                    <div className="clearfix">
-                      <p className="name pull-left">Dave Eberly</p>
-                      <p className="job pull-left">ASTRONOMER</p>
-                    </div>
-                    <p className="address">Chicago, IL, USA. Member since 2011</p>
-                    <img src={'/assets/images/graphics/dave-photo.png'} className="photo" />
-                  </div>
-                  <div className="description">
-                    <h3 className="title">
-                      Some cool stats on Andromeda Being
-                    </h3>
-                    <p className="desc">approximately 220,000 light years across, it is the largest galaxy of the Local Group, which also contains the Milky Way, the Triangulum Galaxy, and about 44 other smaller galaxies.
-  The light you see has taken 2 million years to get to the earth!</p>
-                  </div>
-                </div>
-
-                <div className="item">
-                  <div className="personal-info">
-                    <div className="clearfix">
-                      <p className="name pull-left">Dave Eberly</p>
-                      <p className="job pull-left">ASTRONOMER</p>
-                    </div>
-                    <p className="address">Chicago, IL, USA. Member since 2011</p>
-                    <img src={'/assets/images/graphics/dave-photo.png'} className="photo" />
-                  </div>
-                  <div className="description">
-                    <h3 className="title">
-                      Some cool stats on Andromeda Being
-                    </h3>
-                    <p className="desc">approximately 220,000 light years across, it is the largest galaxy of the Local Group, which also contains the Milky Way, the Triangulum Galaxy, and about 44 other smaller galaxies.
-  The light you see has taken 2 million years to get to the earth!</p>
-                  </div>
-                </div>
-
-                <div className="item">
-                  <div className="personal-info">
-                    <div className="clearfix">
-                      <p className="name pull-left">Dave Eberly</p>
-                      <p className="job pull-left">ASTRONOMER</p>
-                    </div>
-                    <p className="address">Chicago, IL, USA. Member since 2011</p>
-                    <img src={'/assets/images/graphics/dave-photo.png'} className="photo" />
-                  </div>
-                  <div className="description">
-                    <h3 className="title">
-                      Some cool stats on Andromeda Being
-                    </h3>
-                    <p className="desc">approximately 220,000 light years across, it is the largest galaxy of the Local Group, which also contains the Milky Way, the Triangulum Galaxy, and about 44 other smaller galaxies.
-  The light you see has taken 2 million years to get to the earth!</p>
-                  </div>
-                </div>
-
-                <div className="item">
-                  <div className="personal-info">
-                    <div className="clearfix">
-                      <p className="name pull-left">Dave Eberly</p>
-                      <p className="job pull-left">ASTRONOMER</p>
-                    </div>
-                    <p className="address">Chicago, IL, USA. Member since 2011</p>
-                    <img src={'/assets/images/graphics/dave-photo.png'} className="photo" />
-                  </div>
-                  <div className="description">
-                    <h3 className="title">
-                      Some cool stats on Andromeda Being
-                    </h3>
-                    <p className="desc">approximately 220,000 light years across, it is the largest galaxy of the Local Group, which also contains the Milky Way, the Triangulum Galaxy, and about 44 other smaller galaxies.
-  The light you see has taken 2 million years to get to the earth!</p>
-                  </div>
-                </div>
-
-                <div className="item">
-                  <div className="personal-info">
-                    <div className="clearfix">
-                      <p className="name pull-left">Dave Eberly</p>
-                      <p className="job pull-left">ASTRONOMER</p>
-                    </div>
-                    <p className="address">Chicago, IL, USA. Member since 2011</p>
-                    <img src={'/assets/images/graphics/dave-photo.png'} className="photo" />
-                  </div>
-                  <div className="description">
-                    <h3 className="title">
-                      Some cool stats on Andromeda Being
-                    </h3>
-                    <p className="desc">approximately 220,000 light years across, it is the largest galaxy of the Local Group, which also contains the Milky Way, the Triangulum Galaxy, and about 44 other smaller galaxies.
-  The light you see has taken 2 million years to get to the earth!</p>
+                    <p className="desc">
+                      Approximately 220,000 light years across, it is the largest galaxy of the Local Group, which also contains the Milky Way, the Triangulum Galaxy, and about 44 other smaller galaxies. The light you see has taken 2 million years to get to the earth!
+                    </p>
                   </div>
                 </div>
 
               </Slider>
             </div>
+
             <div className="col-xs-12">
               <Spacer height="20px" />
               <button className="btn">Contribute Content</button>
