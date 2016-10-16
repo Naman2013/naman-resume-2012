@@ -12,7 +12,8 @@ class CommunityPerspectives extends Component {
   render() {
     const {
       showCallToAction,
-      showSliderBorder } = this.props;
+      showSliderBorder,
+      showArrows } = this.props;
 
     const sliderStyle = classnames({
       slide: true,
@@ -24,7 +25,8 @@ class CommunityPerspectives extends Component {
       infinite: true,
       speed: 500,
       slidesToShow: 2,
-      slidesToScroll: 1
+      slidesToScroll: 1,
+      arrows: showArrows,
     };
 
     return(
@@ -128,11 +130,13 @@ class CommunityPerspectives extends Component {
 CommunityPerspectives.defaultProps = {
   showCallToAction: true,
   showSliderBorder: true,
+  showArrows: true,
 };
 
 CommunityPerspectives.propTypes = {
   showCallToAction: PropTypes.bool,
   showSliderBorder: PropTypes.bool,
+  showArrows: PropTypes.bool,
 };
 
 export default CommunityPerspectives;
