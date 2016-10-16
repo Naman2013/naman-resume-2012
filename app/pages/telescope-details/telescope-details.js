@@ -83,6 +83,10 @@ export default class TelescopeDetails extends Component {
     });
   }
 
+  getCurrentTelescope(observatoryTelescopes, telescopeId) => {
+    return observatoryTelescopes.find(telescope => telescope.teleUniqueId === telescopeId);
+  }
+
   render() {
     const { observatoryList } = this.props;
     const { obsUniqueId, teleUniqueId } = this.props.params;
@@ -93,7 +97,7 @@ export default class TelescopeDetails extends Component {
 
     const currentObservatory = getCurrentObservatory(observatoryList, obsUniqueId)
     const { obsId } = currentObservatory;
-
+    console.log(currentObservatory);
     return (
     <div>
       <AnnouncementBanner obsId={obsId} />
