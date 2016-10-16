@@ -1,32 +1,13 @@
 import React, { Component, PropTypes } from 'react';
-import classnames from 'classnames';
 import './live-stream.scss';
 
 import Progress from 'react-progressbar';
 
 class LiveStream extends React.Component {
 
-  constructor(props) {
-    super(props);
-    this.handlerToggle = this.handlerToggle.bind(this);
-    this.state = {
-      classes: [],
-      toggle: false
-    };
-  };
-
-  handlerToggle() {
-    var classes = this.state.classes;
-    if (classes.indexOf('hide') > -1) {
-      classes.splice(classes.indexOf('hide'), 1);
-    } else {
-      classes.push('hide');
-    }
-
-    this.setState({ classes: classes, toggle: !this.state.toggle });
-  };
-
   render() {
+    const { handleToggle, toggleNeoview } = this.props;
+
     return(
       <div className="live-stream">
         <div className="top">
@@ -34,17 +15,17 @@ class LiveStream extends React.Component {
           <p className="short">
             LIVE // 3:18 left of 10:00     Capturing photons onto the sensor… Preparing next mission coordinates…
           </p>
-          <div className="toggle-description" onClick={this.handlerToggle}>
+          <div className="toggle-description" onClick={handleToggle}>
             {(() => {
-              if (this.state.toggle) {
+              if (toggleNeoview) {
                 return <i className="fa fa-angle-down"></i>
               } else {
-                  return <i className="fa fa-angle-up"></i>
+                return <i className="fa fa-angle-up"></i>
               }
             })()}
           </div>
         </div>
-        <div className={classnames('content', this.state.classes)}>
+        <div className='content'>
           <img src={'/assets/images/icons/icon-galaxy.png'} />
           <div className="description">
             <h3>Andromeda Galaxy (M31)</h3>
