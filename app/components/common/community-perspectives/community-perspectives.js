@@ -8,7 +8,7 @@ import './slick.min.css';
 import './slick-theme.min.css';
 
 
-class CommunityPerspectives extends React.Component {
+class CommunityPerspectives extends Component {
 
   constructor(props) {
     super(props);
