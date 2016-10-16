@@ -77,13 +77,24 @@ export default class TelescopeDetails extends Component {
     console.log('Selected tab: ' + index + ', Last tab: ' + last);
   }
 
+  /**
+    * Handling toggle click of neo view (progress bar arrow)
+    * by default the state of neo view is false (hidden)
+    * when user clicks arrow the state is being updated which shows/hides neo view overlay
+    */
   handleToggleNeoview() {
     this.setState({
       toggleNeoview: !this.state.toggleNeoview
     });
   }
 
-  getCurrentTelescope(observatoryTelescopes, telescopeId) => {
+  /**
+    * Getting the current telescope from the API response
+    * @param {array} observatoryTelescopes - Array of all telescopes in the current observatory
+    * @param {string} telescopeId - Id of the current telescope, which available in URL and/or props.params
+    * @returns {Object} telescope - Current telescope object
+    */
+  getCurrentTelescope(observatoryTelescopes, telescopeId) {
     return observatoryTelescopes.find(telescope => telescope.teleUniqueId === telescopeId);
   }
 
@@ -97,7 +108,9 @@ export default class TelescopeDetails extends Component {
 
     const currentObservatory = getCurrentObservatory(observatoryList, obsUniqueId)
     const { obsId } = currentObservatory;
-    console.log(currentObservatory);
+    const currentTelescope = this.getCurrentTelescope(currentObservatory.obsTelescopes, teleUniqueId);
+    console.log(currentTelescope);
+
     return (
     <div>
       <AnnouncementBanner obsId={obsId} />
