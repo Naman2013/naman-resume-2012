@@ -54,12 +54,24 @@
       .category {
         list-style-type: none;
 
-        .title {
-          text-transform: uppercase;
-          margin-bottom: 5px;
-        }
+        .action {
+          display: block;
+          color: #9b9b9b;
 
-        .icon { }
+          .title {
+            font-size: 1.2em;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+          }
+
+          &:hover {
+            color: #fff;
+          }
+
+          &:active {
+            color: #fff;
+          }
+        }
       }
     }
   }

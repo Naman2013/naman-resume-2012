@@ -25,24 +25,32 @@ class CommunityPerspectives extends Component {
 
             <ul className="col-xs-12 categories">
               <li className="col-xs-3 category">
-                <p className="title" className="title">Science log</p>
-                <img
-                  className="icon" src={'/assets/images/icons/icon-science-active.png'} />
+                <a className="action" href="#">
+                  <p className="title" className="title">Science log</p>
+                  <img
+                    className="icon" src={'/assets/images/icons/icon-science-active.png'} />
+                </a>
               </li>
               <li className="col-xs-3 category">
-                <p className="title">Art & culture</p>
-                <img
-                  className="icon" src={'/assets/images/icons/icon-culture.png'} />
+                <a className="action" href="#">
+                  <p className="title">Art & culture</p>
+                  <img
+                    className="icon" src={'/assets/images/icons/icon-culture.png'} />
+                </a>
               </li>
               <li className="col-xs-3 category">
-                <p className="title">Human spirit</p>
-                <img
-                  className="icon" src={'/assets/images/icons/icon-human-spirit.png'} />
+                <a className="action" href="#">
+                  <p className="title">Human spirit</p>
+                  <img
+                    className="icon" src={'/assets/images/icons/icon-human-spirit.png'} />
+                </a>
               </li>
               <li className="col-xs-3 category">
-                <p className="title">DIY</p>
-                <img
-                  className="icon" src={'/assets/images/icons/icon-DIY.png'} />
+                <a className="action" href="#">
+                  <p className="title">diy</p>
+                  <img
+                    className="icon" src={'/assets/images/icons/icon-DIY.png'} />
+                </a>
               </li>
             </ul>
 
