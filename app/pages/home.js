@@ -6,6 +6,7 @@ import PromoMessageBand from '../components/home/promo-message-band';
 import LargeBannerHeading from '../components/home/large-banner-heading';
 import SloohFeatures from '../components/home/slooh-features';
 import ViewableObjects from '../components/home/viewable-objects/viewable-objects';
+import CommunityPerspectives from '../components/common/community-perspectives/community-perspectives';
 import Sponsors from '../components/home/sponsors';
 import Dedication from '../components/home/slooh-extras/dedication';
 import Featured from '../components/home/slooh-extras/featured';
@@ -51,6 +52,7 @@ class Home extends Component {
         <ViewableObjects {...CONTENT.VIEWABLE_OBJECTS} />
 
         <PromoMessageBand message={CONTENT.COMMUNITY_CONTENT_BAND} />
+        <CommunityPerspectives />
 
         <PromoMessageBand message={CONTENT.SPONSORS_CONTENT_BAND} />
 
