@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 
 import Hero from '../components/home/hero';
 import RecentVideoTile from '../components/home/recent-video-tile';
-import PromoMessageBand from '../components/home/promo-message-band';
+import PromoMessageBand from '../components/common/headers/promo-message-band';
 import LargeBannerHeading from '../components/home/large-banner-heading';
 import SloohFeatures from '../components/home/slooh-features';
 import ViewableObjects from '../components/home/viewable-objects/viewable-objects';
