@@ -52,7 +52,8 @@ class Home extends Component {
         <ViewableObjects {...CONTENT.VIEWABLE_OBJECTS} />
 
         <PromoMessageBand title={CONTENT.COMMUNITY_CONTENT_BAND} />
-        <CommunityPerspectives />
+        <CommunityPerspectives
+          showCallToAction={false} />
 
         <PromoMessageBand title={CONTENT.SPONSORS_CONTENT_BAND} />
 

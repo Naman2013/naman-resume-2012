@@ -9,6 +9,8 @@ import './slick-theme.min.css';
 class CommunityPerspectives extends Component {
 
   render() {
+    const { showCallToAction } = this.props;
+
     const settings = {
       dots: true,
       infinite: true,
@@ -100,15 +102,27 @@ class CommunityPerspectives extends Component {
               </Slider>
             </div>
 
-            <div className="col-xs-12">
-              <Spacer height="20px" />
-              <button className="btn">Contribute Content</button>
-            </div>
+            {
+              showCallToAction ?
+                <div className="col-xs-12">
+                  <Spacer height="20px" />
+                  <button className="btn">Contribute Content</button>
+                </div> : null
+            }
+
           </div>
         </div>
       </div>
     );
   }
 }
+
+CommunityPerspectives.defaultProps = {
+  showCallToAction: true,
+};
+
+CommunityPerspectives.propTypes = {
+  showCallToAction: PropTypes.boolean,
+};
 
 export default CommunityPerspectives;
