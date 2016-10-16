@@ -55,7 +55,8 @@ class Home extends Component {
         <CommunityPerspectives
           showCallToAction={false}
           showSliderBorder={false}
-          showArrows={false} />
+          showArrows={false}
+          numberOfSlidesToDisplay={3} />
 
         <PromoMessageBand title={CONTENT.SPONSORS_CONTENT_BAND} />
 
