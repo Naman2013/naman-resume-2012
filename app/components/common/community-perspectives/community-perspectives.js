@@ -10,13 +10,6 @@ import './slick-theme.min.css';
 
 class CommunityPerspectives extends Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-    };
-  };
-
-
   render() {
     var settings = {
       dots: true,
