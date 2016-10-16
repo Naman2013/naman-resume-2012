@@ -44,7 +44,8 @@ class TelescopeCard extends Component {
           <CardFront
             {...this.props}
             handleFlip={this.handleFlip.bind(this)}
-            telescopeOnline={this.props.telescopeStatus.onlineStatus === 'online'} />
+            telescopeOnline={this.props.telescopeStatus.onlineStatus === 'online'}
+            alertText={this.props.alertText} />
 
           <CardBack
             teleName={this.props.teleName}
@@ -68,6 +69,7 @@ TelescopeCard.propTypes = {
   teleHasTelescopePage: PropTypes.string,
   teleImageSourceType: PropTypes.string,
   telescopeStatus: PropTypes.object, // TODO: refine this validation
+  alertText: PropTypes.string,
 };
 
 export default TelescopeCard;
