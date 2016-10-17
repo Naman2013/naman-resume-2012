@@ -136,7 +136,7 @@ export default class TelescopeDetails extends Component {
     return (
     <div className="telescope-details-page-wrapper">
       <AnnouncementBanner obsId={obsId} />
-      <TelescopeSelection />
+      <TelescopeSelection observatoryList={observatoryList} />
 
       <div>
         <div className="col-md-8">
