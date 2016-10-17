@@ -8,10 +8,16 @@ import {missionGetCards, missionConfirmOpen, missionConfirmClose} from '../modul
 
 import TelescopeSelection from '../components/telescopes/selection-widget/telescope-selection';
 import CurrentSelectionHeader from '../components/telescopes/current-selection-header/header';
+import DatesSelection from '../components/telescopes/current-selection-header/dates-selection';
+import Tips from '../components/telescopes/current-selection-header/tips';
 
 import Listings from '../components/telescopes/listings/listings';
 
 const { element, func, object } = PropTypes;
+
+/**
+  @todo Get observatoryList in here for the telescope selection widget
+  */
 
 function mapDispatchToProps(dispatch) {
   return {
@@ -51,9 +57,13 @@ export default class ReserveMissions extends Component {
 
     return (
       <div className="reserve-by-telescope container-fluid">
-        <TelescopeSelection />
+        <TelescopeSelection observatoryList={[]} />
         <CurrentSelectionHeader />
-        
+        <div>
+        	<DatesSelection />
+        	<Tips />
+        </div>
+
         <Listings />
       </div>
     );

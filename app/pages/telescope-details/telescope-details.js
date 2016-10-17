@@ -28,6 +28,8 @@ import WeatherConditions from '../../components/telescope-details/weather-condit
 import TelescopeRecommendsWidget from '../../components/telescope-details/recommends-widget/recommends-widget';
 import TelescopeGalleryWidget from '../../components/telescope-details/gallery-widget/gallery-widget';
 import Neoview from '../../components/telescope-details/neoview/neoview.js';
+import CurrentSelectionHeader from '../../components/telescopes/current-selection-header/header';
+import TelescopeSelection from '../../components/telescopes/selection-widget/telescope-selection';
 // import MissionUpcoming from '../components/missions/mission-upcoming';
 // import {missionGetCards, missionConfirmOpen, missionConfirmClose, missionGetInfo} from '../modules/Missions';
 
@@ -43,10 +45,11 @@ function mapDispatchToProps(dispatch) {
 };
 
 function mapStateToProps({ missions, telescopeOverview }) {
-  const { observatoryList } = telescopeOverview;
+  const { observatoryList, observatoryTelecopeStatus } = telescopeOverview;
   return {
     missions,
     observatoryList,
+    observatoryTelecopeStatus,
     user: exampleUser, // TODO: state.user
     cardList: missions.cardList || []
   };
@@ -77,14 +80,29 @@ export default class TelescopeDetails extends Component {
     console.log('Selected tab: ' + index + ', Last tab: ' + last);
   }
 
+  /**
+    * Handling toggle click of neo view (progress bar arrow)
+    * by default the state of neo view is false (hidden)
+    * when user clicks arrow the state is being updated which shows/hides neo view overlay
+    */
   handleToggleNeoview() {
     this.setState({
       toggleNeoview: !this.state.toggleNeoview
     });
   }
 
+  /**
+    * Getting the current telescope from the API response
+    * @param {array} observatoryTelescopes - Array of all telescopes in the current observatory
+    * @param {string} telescopeId - Id of the current telescope, which available in URL and/or props.params
+    * @returns {Object} telescope - Current telescope object
+    */
+  getCurrentTelescope(observatoryTelescopes, telescopeId) {
+    return observatoryTelescopes.find(telescope => telescope.teleUniqueId === telescopeId);
+  }
+
   render() {
-    const { observatoryList } = this.props;
+    const { observatoryList, observatoryTelecopeStatus } = this.props;
     const { obsUniqueId, teleUniqueId } = this.props.params;
 
     if(observatoryList.length === 0) {
@@ -93,10 +111,42 @@ export default class TelescopeDetails extends Component {
 
     const currentObservatory = getCurrentObservatory(observatoryList, obsUniqueId)
     const { obsId } = currentObservatory;
+    const currentTelescope = this.getCurrentTelescope(currentObservatory.obsTelescopes, teleUniqueId);
+    const { teleSystem, teleAccessMethod } = currentTelescope; // needed for SSE
+    const obsStatus = observatoryTelecopeStatus && observatoryTelecopeStatus.statusList ? observatoryTelecopeStatus.statusList.statusTeleList[0] : null;
+    console.log(teleSystem);
+    console.log(teleAccessMethod);
+    console.log(obsStatus);
+    console.log(currentTelescope);
+
+    /**
+      when teleAccessMethod == 'missions' and obsStatus.onlineStatus == 'online'
+      var source = new EventSource('/dev-sse:3105/sse/chile1highmag');
+      function processMsg(msg) {
+        // Event data is sent as a | separated string.  This breaks it into an array.
+        // Full data is: DTG | message | serverTime
+        var msgArray = msg.split("|");
+        // Spit out the most recent log message
+        console.log( msgArray[0] + " " + msgArray[1] );
+      }
+      source.addEventListener('message', function(e) { processMsg(e.data); }, false);
+
+    **/
 
     return (
-    <div>
+    <div className="telescope-details-page-wrapper">
       <AnnouncementBanner obsId={obsId} />
+      <TelescopeSelection observatoryList={observatoryList} />
+
+      <div>
+        <div className="col-md-8">
+          <CurrentSelectionHeader />
+        </div>
+        <div className="col-md-4">
+          <button className="pull-right btn-primary">Reserve this telescope</button>
+        </div>
+      </div>
+
       <div className='telescope-details'>
         <div className='col-md-8'>
           <Tabs

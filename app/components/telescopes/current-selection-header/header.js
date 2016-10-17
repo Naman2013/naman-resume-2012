@@ -14,13 +14,8 @@ export default class CurrentSelectionHeader extends Component {
   render() {
     return (
       <div className="current-selection-header">
-        <SelectedTelescopeTitle />
-
-        <div>
-        	<DatesSelection />
-        	<Tips />
-        </div>        
-      </div>      
+        <SelectedTelescopeTitle />                
+      </div>
     );
   }
 }

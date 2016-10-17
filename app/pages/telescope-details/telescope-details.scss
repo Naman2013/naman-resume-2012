@@ -1,5 +1,18 @@
+.telescope-details-page-wrapper {
+  .current-selection-header .title-container {
+    color: #fff;
+    border-bottom: none;
+  }
+
+  .telescopesSelectionContainer {
+    .description {
+      color: #fff;
+    }
+  }
+}
+
 .telescope-details {
-  padding-top: 100px;
+
   .ReactTabs__TabList {
     text-align: center;
     margin: 0;
