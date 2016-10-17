@@ -101,18 +101,21 @@ export default class TelescopeDetails extends Component {
         <div className='col-md-8'>
           <Tabs
             onSelect={this.handleSelect}
-            selectedIndex={0}
-          >
+            selectedIndex={0}>
+
             <TabList>
               <Tab>High-Magnification</Tab>
               <Tab>Wid-Field</Tab>
             </TabList>
+
             <TabPanel>
               <HighMagnification className={this.state.toggleNeoview ? 'hidden' : 'visible'} />
               <Neoview className={this.state.toggleNeoview ? 'visible' : 'hidden'} />
             </TabPanel>
+
             <TabPanel>
             </TabPanel>
+
           </Tabs>
 
           <LiveStream
