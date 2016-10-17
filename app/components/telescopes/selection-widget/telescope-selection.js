@@ -52,7 +52,8 @@ export default class TelescopeSelection extends React.Component {
       let newPier = piers.find(pier => pier.obsUniqueId === obs.obsUniqueId);
       this.setState({
         telescopes: newPier.obsTelescopes,
-        activePier: obs.obsUniqueId
+        activePier: obs.obsUniqueId,
+        showTelescopes: true
       });
     }
   }
