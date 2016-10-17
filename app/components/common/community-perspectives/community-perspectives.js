@@ -38,7 +38,7 @@ class CommunityPerspectives extends Component {
 
             <ul className="col-xs-12 clearfix categories">
               <li className="col-xs-3 category">
-                <a className="action" href="#">
+                <a className="action active" href="#">
                   <p className="title" className="title">Science log</p>
                   <div className="icon">
                     <img height="45" src={'/assets/images/icons/icon-science-active.png'} />

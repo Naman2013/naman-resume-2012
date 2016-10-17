@@ -69,7 +69,7 @@
 
           .icon {}
 
-          &:hover {
+          &:hover, &.active {
             color: #fff;
 
             &:after {
