@@ -22,9 +22,11 @@ class CommunityPost extends Component {
           <h3 className="title">
             Some cool stats on Andromeda Being
           </h3>
-          <p className="desc">
-            Approximately 220,000 light years across, it is the largest galaxy of the Local Group, which also contains the Milky Way, the Triangulum Galaxy, and about 44 other smaller galaxies. The light you see has taken 2 million years to get to the earth!
-          </p>
+          <div className="desc">
+            <p>Approximately 220,000 light years across, it is the largest galaxy of the Local Group, which also contains the Milky Way, the Triangulum Galaxy, and about 44 other smaller galaxies. The light you see has taken 2 million years to get to the earth!</p>
+            <p>Approximately 220,000 light years across, it is the largest galaxy of the Local Group, which also contains the Milky Way, the Triangulum Galaxy, and about 44 other smaller galaxies. The light you see has taken 2 million years to get to the earth!</p>
+            <p>Approximately 220,000 light years across, it is the largest galaxy of the Local Group, which also contains the Milky Way, the Triangulum Galaxy, and about 44 other smaller galaxies. The light you see has taken 2 million years to get to the earth!</p>
+          </div>
         </div>
 
         <div className="share-options-container">
