@@ -28,6 +28,8 @@ import WeatherConditions from '../../components/telescope-details/weather-condit
 import TelescopeRecommendsWidget from '../../components/telescope-details/recommends-widget/recommends-widget';
 import TelescopeGalleryWidget from '../../components/telescope-details/gallery-widget/gallery-widget';
 import Neoview from '../../components/telescope-details/neoview/neoview.js';
+import CurrentSelectionHeader from '../../components/telescopes/current-selection-header/header';
+import TelescopeSelection from '../../components/telescopes/selection-widget/telescope-selection';
 // import MissionUpcoming from '../components/missions/mission-upcoming';
 // import {missionGetCards, missionConfirmOpen, missionConfirmClose, missionGetInfo} from '../modules/Missions';
 
@@ -118,7 +120,7 @@ export default class TelescopeDetails extends Component {
     console.log(currentTelescope);
 
     /**
-      when telescope is online 
+      when teleAccessMethod == 'missions' and obsStatus.onlineStatus == 'online'
       var source = new EventSource('/dev-sse:3105/sse/chile1highmag');
       function processMsg(msg) {
         // Event data is sent as a | separated string.  This breaks it into an array.
@@ -132,8 +134,19 @@ export default class TelescopeDetails extends Component {
     **/
 
     return (
-    <div>
+    <div className="telescope-details-page-wrapper">
       <AnnouncementBanner obsId={obsId} />
+      <TelescopeSelection />
+
+      <div>
+        <div className="col-md-8">
+          <CurrentSelectionHeader />
+        </div>
+        <div className="col-md-4">
+          <button className="pull-right btn-primary">Reserve this telescope</button>
+        </div>
+      </div>
+
       <div className='telescope-details'>
         <div className='col-md-8'>
           <Tabs

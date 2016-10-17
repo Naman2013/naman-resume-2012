@@ -6,7 +6,7 @@ export default class TelescopeSelection extends Component {
 
   render() {
     return (
-      <div className="telescopes-selection-container">
+      <div className="telescopesSelectionContainer col-md-6">
 
         <div className="categories">
           <ul>

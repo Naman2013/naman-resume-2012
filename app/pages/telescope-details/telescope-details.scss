@@ -1,5 +1,12 @@
+.telescope-details-page-wrapper {
+  .current-selection-header .title-container {
+    color: #fff;
+    border-bottom: none;
+  }
+}
+
 .telescope-details {
-  padding-top: 100px;
+
   .ReactTabs__TabList {
     text-align: center;
     margin: 0;

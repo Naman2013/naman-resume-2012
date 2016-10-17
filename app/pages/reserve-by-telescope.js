@@ -8,6 +8,8 @@ import {missionGetCards, missionConfirmOpen, missionConfirmClose} from '../modul
 
 import TelescopeSelection from '../components/telescopes/selection-widget/telescope-selection';
 import CurrentSelectionHeader from '../components/telescopes/current-selection-header/header';
+import DatesSelection from '../components/telescopes/current-selection-header/dates-selection';
+import Tips from '../components/telescopes/current-selection-header/tips';
 
 import Listings from '../components/telescopes/listings/listings';
 
@@ -53,7 +55,11 @@ export default class ReserveMissions extends Component {
       <div className="reserve-by-telescope container-fluid">
         <TelescopeSelection />
         <CurrentSelectionHeader />
-        
+        <div>
+        	<DatesSelection />
+        	<Tips />
+        </div>
+
         <Listings />
       </div>
     );
