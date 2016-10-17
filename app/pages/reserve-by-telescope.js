@@ -15,6 +15,10 @@ import Listings from '../components/telescopes/listings/listings';
 
 const { element, func, object } = PropTypes;
 
+/**
+  @todo Get observatoryList in here for the telescope selection widget
+  */
+
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators({
@@ -53,7 +57,7 @@ export default class ReserveMissions extends Component {
 
     return (
       <div className="reserve-by-telescope container-fluid">
-        <TelescopeSelection />
+        <TelescopeSelection observatoryList={[]} />
         <CurrentSelectionHeader />
         <div>
         	<DatesSelection />

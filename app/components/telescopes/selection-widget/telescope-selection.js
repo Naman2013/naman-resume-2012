@@ -2,109 +2,99 @@ import React, { Component } from 'react';
 import { Link } from 'react-router';
 import style from './telescope-selection.scss';
 
-/**
-  * Dummy data when observatoryList is not provided
-  * @return {jsx}
-  */
-const dummyContent = () => {
-  return (
-    <div className="telescopesSelectionContainer col-md-6">
+export default class TelescopeSelection extends React.Component {
+  constructor(props) {
+    super(props);
 
-      <div className="categories">
-        <ul>
-          <li>
-            <Link className="cat-link" to="/">Canary Island Telescopes</Link>
-          </li>
+    this.state = {
+      description: '',
+      piers: [],
+      activePier: null,
+      telescopes: [],
+      showTelescopes: true
+    };
+  }
 
-          <li>
-            <Link className="cat-link" to="/">Chile Telescopes</Link>
-          </li>
+  componentDidMount() {
+    const { observatoryList } = this.props;
 
-          <li>
-            <Link className="cat-link" to="/">Other Telescopes</Link>
-          </li>
-        </ul>
+    /** get only piers with available telescopes **/
+    const piers = observatoryList.filter(obs => obs.obsTelescopes && obs.obsTelescopes.length > 0);
+
+    /**
+      * @todo default description should be the first telescopes content based on pier availability.
+      */
+    this.setState({
+      piers,
+      activePier: piers[0].obsUniqueId,
+      telescopes: piers[0].obsTelescopes,
+      description: piers[0].obsDescription
+    });
+  }
+
+  obsMouseOver(obs) {
+    console.log(obs);
+    this.setState({
+      description: obs.obsDescription
+    });
+  }
+
+  obsMouseOut() {
+
+  }
+
+  pierClickHandler(obs, event) {
+    event.preventDefault();
+    const { activePier, showTelescopes, piers } = this.state;
+    if(activePier == obs.obsUniqueId) {
+      this.setState({showTelescopes: !showTelescopes})
+    } else {
+      let newPier = piers.find(pier => pier.obsUniqueId === obs.obsUniqueId);
+      this.setState({
+        telescopes: newPier.obsTelescopes,
+        activePier: obs.obsUniqueId
+      });
+    }
+  }
+
+  render() {
+    console.log(this.state.telescopes);
+    return (
+      <div className="telescopesSelectionContainer col-md-6">
+
+        <div className="categories">
+          <ul>
+            {this.state.piers.map(obs => {
+              return (
+                <li key={obs.obsUniqueId}
+                  onMouseOver={() => this.obsMouseOver(obs)}
+                  onMouseOut={this.obsMouseOut.bind(this)}
+                  onClick={() => this.pierClickHandler(obs, event)}>
+                  <Link className="cat-link">{obs.obsMenuName}</Link>
+                </li>
+              )
+            })}
+          </ul>
+        </div>
+
+        <div className={ (this.state.showTelescopes ? 'visible' : 'hidden') + ' list'}>
+          <ul>
+          {this.state.telescopes.map(tel => {
+            return (
+              <li key={tel.teleUniqueId} className="icon-container">
+                <Link activeClassName="active" to="/">
+                  <img className="icon img-circle" src={tel.teleLogoURL} />
+                </Link>
+              </li>
+            )
+          })}
+          </ul>
+        </div>
+
+        <div className="description">
+          {this.state.description}
+        </div>
       </div>
-
-      <div className="list">
-        <ul>
-          <li className="icon-container">
-            <Link activeClassName="active" to="/">
-              <img className="icon img-circle" src="assets/images/telescopes-selection/first.png"/>
-            </Link>
-          </li>
-
-          <li className="icon-container">
-            <Link activeClassName="active" to="/">
-              <img className="icon img-circle" src="assets/images/telescopes-selection/second.png"/>
-            </Link>
-          </li>
-
-          <li className="icon-container">
-            <Link activeClassName="active" to="/">
-              <img className="icon img-circle" src="assets/images/telescopes-selection/third.png"/>
-            </Link>
-          </li>
-
-          <li className="icon-container">
-            <Link activeClassName="active" to="/">
-              <img className="icon img-circle" src="assets/images/telescopes-selection/fourth.png"/>
-            </Link>
-          </li>
-
-          <li className="icon-container">
-            <Link activeClassName="active" to="/">
-              <img className="icon img-circle" src="assets/images/telescopes-selection/fifth.png"/>
-            </Link>
-          </li>
-
-          <li className="icon-container">
-            <Link activeClassName="active" to="/">
-              <img className="icon img-circle" src="assets/images/telescopes-selection/sixth.png"/>
-            </Link>
-          </li>
-        </ul>
-      </div>
-
-      <div className="description">
-        <ul>
-          <li className="active">
-            Dummy Description here
-          </li>
-
-          <li>
-            Dummy Description here
-          </li>
-
-          <li>
-            Dummy Description here
-          </li>
-
-          <li>
-            Dummy Description here
-          </li>
-
-          <li>
-            Dummy Description here
-          </li>
-
-          <li>
-            Dummy Description here
-          </li>
-        </ul>
-      </div>
-    </div>
-  );
+    )
+  }
 }
-
-function TelescopeSelection({observatoryList}) {
-
-  return (
-    <div>
-      {dummyContent()}
-    </div>
-  )
-
-}
-
-export default TelescopeSelection;
