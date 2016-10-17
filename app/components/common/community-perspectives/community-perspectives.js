@@ -82,8 +82,7 @@ class CommunityPerspectives extends Component {
                 <div className="item">
                   <div className="personal-info">
                     <div className="clearfix">
-                      <p className="name pull-left">Dave Eberly</p>
-                      <p className="job pull-left">ASTRONOMER</p>
+                      <p className="name">Dave Eberly <span className="job">Astronomer</span></p>
                     </div>
                     <p className="address">Chicago, IL, USA. Member since 2011</p>
                     <img src={'/assets/images/graphics/dave-photo.png'} className="photo" />
@@ -102,8 +101,7 @@ class CommunityPerspectives extends Component {
                 <div className="item">
                   <div className="personal-info">
                     <div className="clearfix">
-                      <p className="name pull-left">Dave Eberly</p>
-                      <p className="job pull-left">ASTRONOMER</p>
+                      <p className="name">Dave Eberly <span className="job">Astronomer</span></p>
                     </div>
                     <p className="address">Chicago, IL, USA. Member since 2011</p>
                     <img src={'/assets/images/graphics/dave-photo.png'} className="photo" />
