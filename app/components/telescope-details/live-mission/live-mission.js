@@ -28,7 +28,9 @@ class LiveMission extends React.Component {
             <img src={'/assets/images/graphics/dave-photo.png'} className="photo" />
           </div>
 
-          <Heart count={`122`} />
+          <div className="heart-container">
+            <Heart count={`122`} />
+          </div>
 
         </div>
         <div className="footer">
