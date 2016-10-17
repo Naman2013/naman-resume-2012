@@ -9,9 +9,7 @@ class HighMagnification extends Component {
         className={`high-magnification ${this.props.className}`}>
 
         <InteractiveViewer>
-          <div className="main-container">
-            <img src={'/assets/images/graphics/magnification-scene.jpg'}  />
-          </div>
+          <img width="100%" src={'/assets/images/graphics/magnification-scene.jpg'}  />
         </InteractiveViewer>
 
       </div>
