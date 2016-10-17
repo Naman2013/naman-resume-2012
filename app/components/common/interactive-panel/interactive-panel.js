@@ -37,12 +37,17 @@ class InteractivePanel extends Component {
   }
 
   render() {
+
+    const { children } = this.props;
+
     return(
       <div
         mouseScroll={this.handleMouseScroll.bind(this)}
         mouseDown={this.handleMouseDown.bind(this)}
         mouseUp={this.handleMouseUp.bind(this)}
         className="interactive-panel">
+
+        {children}
 
       </div>
     );
