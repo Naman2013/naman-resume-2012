@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import classnames from 'classnames';
+import Heart from '../heart/heart';
 import Slider from 'react-slick';
 import Spacer from './../../common/spacer';
 
@@ -114,8 +115,12 @@ class CommunityPerspectives extends Component {
                       Approximately 220,000 light years across, it is the largest galaxy of the Local Group, which also contains the Milky Way, the Triangulum Galaxy, and about 44 other smaller galaxies. The light you see has taken 2 million years to get to the earth!
                     </p>
                   </div>
-                </div>
 
+                  <div className="share-options-container">
+                    <Heart />
+                  </div>
+                </div>
+                
               </Slider>
             </div>
 
