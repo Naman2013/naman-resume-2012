@@ -1,0 +1,40 @@
+.interactive-panel {
+  cursor: pointer;
+  position: relative;
+
+
+  &:hover {
+    .icons {
+      visibility: visible;
+    }
+  }
+
+  .icons {
+    visibility: hidden;
+
+    .icon {
+      position: absolute;
+    }
+
+    .plus {
+      left: 20px;
+      top: 20px;
+    }
+    .minus {
+      left: 60px;
+      top: 60px;
+    }
+    .screen-view {
+      right: 20px;
+      bottom: 20px;
+    }
+    .circular-view {
+      right: 20px;
+      bottom: 80px;
+    }
+    .snapshot {
+      left: 20px;
+      bottom: 20px;
+    }
+  }
+}
