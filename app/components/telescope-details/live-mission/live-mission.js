@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import Heart from  '../../common/heart/heart';
 import classnames from 'classnames';
 import './live-mission.scss';
 
@@ -26,7 +27,9 @@ class LiveMission extends React.Component {
             <p className="description">“Always wanted to get a shot of this amazing galaxy since I was a kid seeing a light smear back in Kansas.”</p>
             <img src={'/assets/images/graphics/dave-photo.png'} className="photo" />
           </div>
-          <div className="heart">122</div>
+
+          <Heart count={`122`} />
+
         </div>
         <div className="footer">
           <p>NEXT MISSION:</p>

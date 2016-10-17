@@ -1,0 +1,15 @@
+@import "../../../styles/variables/colors.scss";
+
+.heart {
+  width: 36px;
+  height: 32px;
+  text-align: center;
+  border: none;
+  background: url(/assets/images/icons/icon-white-heart.png) no-repeat;
+  background-size: contain;
+
+  .count {
+    color: $red;
+    font-size: 12px;
+  }
+}
