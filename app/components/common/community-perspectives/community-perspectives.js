@@ -83,8 +83,10 @@ class CommunityPerspectives extends Component {
               */}
               <Slider {...sliderSettings} className={sliderStyle}>
                 <div><CommunityPost /></div>
+                <div><CommunityPost /></div>
+                <div><CommunityPost /></div>
               </Slider>
-              
+
             </div>
 
             {
