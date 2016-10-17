@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 
 class InteractivePanel extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -11,18 +10,21 @@ class InteractivePanel extends Component {
     };
   }
 
-  /**
-    api
-  */
-  zoomIn(factor) {}
+  /** control api */
+  zoom(factor) {
+    this.setState({
+      currentZ: 0,
+    });
+  }
 
-  zoomOut(factor) {}
+  pan(factor) {
+    this.setState({
+      currentX: 0,
+      currentY: 0,
+    });
+  }
 
-  pan(factor) {}
-
-  /**
-    event api's
-  */
+  /** event api's */
   handleMouseScroll(event) {
     event.preventDefault();
     // TODO: zoom in or zoom out by step of scroll
@@ -36,6 +38,10 @@ class InteractivePanel extends Component {
     // TODO: tear down panning?
   }
 
+  handleMouseEnter(event) {}
+
+  handleMouseLeave(event) {}
+
   render() {
 
     const { children } = this.props;
@@ -45,6 +51,8 @@ class InteractivePanel extends Component {
         mouseScroll={this.handleMouseScroll.bind(this)}
         mouseDown={this.handleMouseDown.bind(this)}
         mouseUp={this.handleMouseUp.bind(this)}
+        mouseEnter={this.handleMouseEnter.bind(this)}
+        mouseLeave={this.handleMouseLeave.bind(this)}
         className="interactive-panel">
 
         {children}
