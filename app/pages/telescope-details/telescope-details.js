@@ -43,10 +43,11 @@ function mapDispatchToProps(dispatch) {
 };
 
 function mapStateToProps({ missions, telescopeOverview }) {
-  const { observatoryList } = telescopeOverview;
+  const { observatoryList, observatoryTelecopeStatus } = telescopeOverview;
   return {
     missions,
     observatoryList,
+    observatoryTelecopeStatus,
     user: exampleUser, // TODO: state.user
     cardList: missions.cardList || []
   };
@@ -99,7 +100,7 @@ export default class TelescopeDetails extends Component {
   }
 
   render() {
-    const { observatoryList } = this.props;
+    const { observatoryList, observatoryTelecopeStatus } = this.props;
     const { obsUniqueId, teleUniqueId } = this.props.params;
 
     if(observatoryList.length === 0) {
@@ -109,7 +110,10 @@ export default class TelescopeDetails extends Component {
     const currentObservatory = getCurrentObservatory(observatoryList, obsUniqueId)
     const { obsId } = currentObservatory;
     const currentTelescope = this.getCurrentTelescope(currentObservatory.obsTelescopes, teleUniqueId);
-    console.log(currentTelescope);
+    const { teleSystem, teleAccessMethod } = currentTelescope; // needed for SSE
+    const obsStatus = observatoryTelecopeStatus && observatoryTelecopeStatus.statusList ? observatoryTelecopeStatus.statusList.statusTeleList[0] : null;
+    // console.log(teleSystem);
+    // console.log(teleAccessMethod);
 
     return (
     <div>

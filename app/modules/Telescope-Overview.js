@@ -152,8 +152,7 @@ export default createReducer(initialState, {
       observatoryList: observatoryList,
     };
   },
-  [OBSERVATORY_REQUEST_FAIL](state, {observatoryListError}) {
-    console.log(observatoryListError);
+  [OBSERVATORY_REQUEST_FAIL](state, {observatoryListError}) {    
     return {
       ...state,
       observatoryListError,
