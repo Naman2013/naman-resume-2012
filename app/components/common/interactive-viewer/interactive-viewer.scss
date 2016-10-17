@@ -1,3 +1,6 @@
+@import "../../../styles/mixins/utilities.scss";
+@import "../../../styles/variables/colors.scss";
+
 .interactive-panel {
   cursor: pointer;
   position: relative;
@@ -11,6 +14,8 @@
 
   .icons {
     visibility: hidden;
+    color: $light-turqoise;
+    text-align: center;
 
     .icon {
       position: absolute;
@@ -19,6 +24,16 @@
     .plus {
       left: 20px;
       top: 20px;
+      width: 50px;
+      height: 50px;
+      @include border-radius(50px);
+      border: 5px solid $turqoise;
+
+      .icon {
+        position: relative;
+        top: -17px;
+        font-size: 3em;
+      }
     }
     .minus {
       left: 60px;

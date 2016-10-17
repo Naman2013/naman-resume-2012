@@ -61,8 +61,10 @@ class InteractivePanel extends Component {
         className="interactive-panel">
 
         <div className="icons">
+
           <img src={'/assets/images/icons/icon-magnification-minus.png'} className="icon minus" />
-          <img src={'/assets/images/icons/icon-magnification-plus.png'} className="icon plus" />
+          <div className="icon plus"><span className="icon glyphicon-plus"></span></div>
+
           <img src={'/assets/images/icons/icon-snapshot.png'} className="icon snapshot" />
           <img src={'/assets/images/icons/icon-circular-view.png'} className="icon circular-view" />
           <img src={'/assets/images/icons/icon-screen-view.png'} className="icon screen-view" />
