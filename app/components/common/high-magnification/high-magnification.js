@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import classnames from 'classnames';
 import './high-magnification.scss';
 
-class HighMagnification extends React.Component {
+class HighMagnification extends Component {
 
   constructor(props) {
     super(props);
