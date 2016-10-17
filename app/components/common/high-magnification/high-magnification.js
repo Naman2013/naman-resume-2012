@@ -28,8 +28,6 @@ class HighMagnification extends React.Component {
     this.setState({ classes: classes });
   }
 
-
-
   render() {
 
     let cx = classnames({
@@ -38,9 +36,12 @@ class HighMagnification extends React.Component {
 
     return(
       <div className={cx} onMouseOver={this.handleMouseOver} onMouseOut={this.handleMouseOut}>
-        <div className="main-container">
-          <img src={'/assets/images/graphics/magnification-scene.jpg'}  />
-        </div>
+
+        <InteractivePanel>
+          <div className="main-container">
+            <img src={'/assets/images/graphics/magnification-scene.jpg'}  />
+          </div>
+        </InteractivePanel>
 
         <div className={classnames('icons', this.state.classes)}>
           <img src={'/assets/images/icons/icon-magnification-minus.png'} className="minus" />
