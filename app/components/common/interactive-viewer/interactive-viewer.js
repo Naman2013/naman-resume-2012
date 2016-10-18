@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import Draggable from 'react-draggable';
 import style from './interactive-viewer.scss';
 
 const ZOOM_MULTIPLIER = 0.5;
@@ -10,20 +11,9 @@ class InteractivePanel extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentX: 0,
-      currentY: 0,
       currentScale: 1,
-      enableMove: false,
       frameViewType: FRAME_VIEW_TYPE_FULL,
     };
-  }
-
-  /** control api */
-  pan(factor) {
-    this.setState({
-      currentX: 0,
-      currentY: 0,
-    });
   }
 
   /** event api's */
@@ -62,25 +52,6 @@ class InteractivePanel extends Component {
     this.setState({
       frameViewType: FRAME_VIEW_TYPE_FULL,
     });
-  }
-
-  handleMouseDown(event) {
-    this.setState({
-      enableMove: true,
-    });
-  }
-
-  handleMouseUp(event) {
-    this.setState({
-      enableMove: false,
-    });
-  }
-
-  handleMouseMove(event) {
-    const { enableMove } = this.state;
-    if(enableMove) {
-      console.log('dragging');
-    }
   }
 
   render() {
@@ -137,18 +108,18 @@ class InteractivePanel extends Component {
           </button>
         */}
 
-        <div
-          onMouseDown={this.handleMouseDown.bind(this)}
-          onMouseUp={this.handleMouseUp.bind(this)}
-          onMouseMove={this.handleMouseMove.bind(this)}
-          className="interactive-panel">
-
+        <div className="interactive-panel">
           <div
             style={viewerContentStyle}
             className="viewer-content">
-            {children}
+            <Draggable>
+              <div>
+                {children}
+              </div>
+            </Draggable>
           </div>
         </div>
+
       </div>
     );
   }
