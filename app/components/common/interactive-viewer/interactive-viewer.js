@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import style from './interactive-viewer.scss';
 
 const ZOOM_MULTIPLIER = 0.5;
+const MINIMUM_ZOOM_SCALE = 1;
 const FRAME_VIEW_TYPE_FULL = 'FRAME_VIEW_TYPE_FULL';
 const FRAME_VIEW_TYPE_CIRCULAR = 'FRAME_VIEW_TYPE_CIRCULAR';
 
@@ -35,8 +36,11 @@ class InteractivePanel extends Component {
 
   handleZoomOutClick(event) {
     const { currentScale } = this.state;
+    let newScale = currentScale - ZOOM_MULTIPLIER;
+    newScale = newScale >= MINIMUM_ZOOM_SCALE ? newScale : MINIMUM_ZOOM_SCALE;
+
     this.setState({
-      currentScale: currentScale - ZOOM_MULTIPLIER,
+      currentScale: newScale,
     });
   }
 
