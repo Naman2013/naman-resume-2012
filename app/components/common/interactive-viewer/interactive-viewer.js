@@ -6,6 +6,7 @@ const ZOOM_MULTIPLIER = 0.5;
 const MINIMUM_ZOOM_SCALE = 1;
 const FRAME_VIEW_TYPE_FULL = 'FRAME_VIEW_TYPE_FULL';
 const FRAME_VIEW_TYPE_CIRCULAR = 'FRAME_VIEW_TYPE_CIRCULAR';
+const BOUNDS_MULTIPLIER = 100;
 
 class InteractivePanel extends Component {
   constructor(props) {
@@ -13,15 +14,19 @@ class InteractivePanel extends Component {
     this.state = {
       currentScale: 1,
       frameViewType: FRAME_VIEW_TYPE_FULL,
+      bounds: 1,
     };
   }
 
   /** event api's */
   handleZoomInClick(event) {
     const { currentScale } = this.state;
+    const newScale = currentScale + ZOOM_MULTIPLIER;
     this.setState({
-      currentScale: currentScale + ZOOM_MULTIPLIER,
+      currentScale: newScale,
+      bounds: newScale * BOUNDS_MULTIPLIER,
     });
+
   }
 
   handleZoomOutClick(event) {
@@ -31,7 +36,9 @@ class InteractivePanel extends Component {
 
     this.setState({
       currentScale: newScale,
+      bounds: newScale / BOUNDS_MULTIPLIER,
     });
+
   }
 
   handleGoingFullScreen(event) {
@@ -57,12 +64,21 @@ class InteractivePanel extends Component {
   render() {
 
     const { children } = this.props;
-    const { currentScale, frameViewType } = this.state;
+    const { currentScale, frameViewType, bounds } = this.state;
 
     const viewerContentStyle = {
       'transform': `scale(${currentScale})`,
       'transformStyle': 'flat',
     };
+
+    const draggableConfiguration = {
+      bounds: {
+        left: -bounds,
+        top: -bounds / 2,
+        bottom: bounds / 2,
+        right: bounds,
+      }
+    }
 
     return(
       <div className="interactive-viewer-container">
@@ -109,15 +125,20 @@ class InteractivePanel extends Component {
         */}
 
         <div className="interactive-panel">
+
           <div
+            id="interactive-content-container"
             style={viewerContentStyle}
             className="viewer-content">
-            <Draggable>
-              <div>
+
+            <Draggable { ...draggableConfiguration }>
+              <div className="content">
                 {children}
               </div>
             </Draggable>
+
           </div>
+
         </div>
 
       </div>
