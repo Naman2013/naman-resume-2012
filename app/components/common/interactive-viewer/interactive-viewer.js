@@ -2,6 +2,8 @@ import React, { Component, PropTypes } from 'react';
 import style from './interactive-viewer.scss';
 
 const ZOOM_MULTIPLIER = 0.5;
+const FRAME_VIEW_TYPE_FULL = 'FRAME_VIEW_TYPE_FULL';
+const FRAME_VIEW_TYPE_CIRCULAR = 'FRAME_VIEW_TYPE_CIRCULAR';
 
 class InteractivePanel extends Component {
   constructor(props) {
@@ -11,6 +13,7 @@ class InteractivePanel extends Component {
       currentY: 0,
       currentScale: 1,
       enableMove: false,
+      frameViewType: FRAME_VIEW_TYPE_FULL,
     };
   }
 
@@ -41,6 +44,22 @@ class InteractivePanel extends Component {
     console.log('go full screen');
   }
 
+  handleCircularViewClick(event) {
+    console.log('apply the clipping mask');
+
+    this.setState({
+      frameViewType: FRAME_VIEW_TYPE_CIRCULAR,
+    });
+  }
+
+  handleFullFrameViewClick(event) {
+    console.log('remove clipping mask');
+
+    this.setState({
+      frameViewType: FRAME_VIEW_TYPE_FULL,
+    });
+  }
+
   handleMouseDown(event) {
     this.setState({
       enableMove: true,
@@ -63,7 +82,7 @@ class InteractivePanel extends Component {
   render() {
 
     const { children } = this.props;
-    const { currentScale } = this.state;
+    const { currentScale, frameViewType } = this.state;
 
     const viewerContentStyle = {
       'transform': `scale(${currentScale})`,
@@ -87,9 +106,24 @@ class InteractivePanel extends Component {
 
         <button
           onClick={this.handleGoingFullScreen.bind(this)}
-          className="action screen-view">
-          Full screen view <span className="icon glyphicon glyphicon-fullscreen"></span>
+          className="action full-screen-view">
+          Full-screen view <span className="icon glyphicon glyphicon-fullscreen"></span>
         </button>
+
+        {
+          frameViewType === FRAME_VIEW_TYPE_CIRCULAR ?
+            <button
+              onClick={this.handleFullFrameViewClick.bind(this)}
+              className="action circular-view">
+                Full-frame view <span className="icon glyphicon glyphicon-sound-stereo"></span>
+            </button>
+            :
+            <button
+              onClick={this.handleCircularViewClick.bind(this)}
+              className="action circular-view">
+                Circular view <span className="icon glyphicon glyphicon-record"></span>
+            </button>
+        }
 
         {/*
           TODO: work out how starshare images will be taken
@@ -98,12 +132,6 @@ class InteractivePanel extends Component {
             <img src={'/assets/images/icons/icon-snapshot.png'} className="icon snapshot" />
           </button>
         */}
-
-        <button
-          className="action circular-view">
-          <img src={'/assets/images/icons/icon-circular-view.png'} className="icon circular-view" />
-        </button>
-
 
         <div
           onMouseDown={this.handleMouseDown.bind(this)}

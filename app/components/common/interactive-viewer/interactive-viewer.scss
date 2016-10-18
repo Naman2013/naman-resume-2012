@@ -1,10 +1,12 @@
 @import "../../../styles/mixins/utilities.scss";
 @import "../../../styles/variables/colors.scss";
+@import "../../../styles/variables/fonts.scss";
 
 .interactive-viewer-container {
   cursor: pointer;
   position: relative;
   overflow: hidden;
+  font-family: $primary-font;
 
   .action {
     background: #000;
@@ -28,8 +30,7 @@
 
       .icon {
         position: relative;
-        top: -21px;
-        left: -2px;
+        top: -17px;
         font-size: 3em;
       }
     }
@@ -39,18 +40,38 @@
       left: 60px;
       top: 60px;
       @include circle-border(35px, $turqoise, 4px);
+
+      .icon {
+        position: relative;
+        top: -10px;
+        font-size: 2em;
+      }
     }
 
-    &.screen-view {
+    &.full-screen-view {
 
-      right: 20px;
-      bottom: 20px;
+      right: 30px;
+      bottom: 30px;
+
+      .icon {
+        font-size: 2em;
+        position: relative;
+        top: 11px;
+        left: 10px;
+      }
     }
 
     &.circular-view {
 
-      right: 20px;
+      right: 30px;
       bottom: 80px;
+
+      .icon {
+        font-size: 2em;
+        position: relative;
+        top: 11px;
+        left: 10px
+      }
     }
 
     &.snapshot {
