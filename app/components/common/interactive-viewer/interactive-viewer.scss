@@ -1,27 +1,25 @@
 @import "../../../styles/mixins/utilities.scss";
 @import "../../../styles/variables/colors.scss";
 
-.interactive-panel {
+.interactive-viewer-container {
   cursor: pointer;
   position: relative;
-
-  .viewer-content {
-    pointer-events: none;
-  }
-
-  &:hover {
-    .icons {
-      visibility: visible;
-    }
-  }
+  overflow: hidden;
 
   .icons {
-    visibility: hidden;
+    visibility: visible;
     color: $light-turqoise;
     text-align: center;
+    position: absolute;
+    z-index: 9999;
 
     .icon {
       position: absolute;
+      background: transparent;
+
+      &:focus {
+        outline: 0;
+      }
     }
 
     .plus {
@@ -34,7 +32,7 @@
 
       .icon {
         position: relative;
-        top: -17px;
+        top: -19px;
         font-size: 3em;
       }
     }
@@ -53,6 +51,23 @@
     .snapshot {
       left: 20px;
       bottom: 20px;
+    }
+  }
+
+
+
+  .interactive-panel {
+
+    .viewer-content {
+      -webkit-transition: -webkit-transform 0.5s;
+      transition: transform 0.5s;
+      pointer-events: none;
+    }
+
+    &:hover {
+      .icons {
+        visibility: visible;
+      }
     }
   }
 }
