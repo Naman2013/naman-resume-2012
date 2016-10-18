@@ -1,0 +1,73 @@
+@import "../../../styles/mixins/utilities.scss";
+@import "../../../styles/variables/colors.scss";
+
+.interactive-viewer-container {
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+
+  .icons {
+    visibility: visible;
+    color: $light-turqoise;
+    text-align: center;
+    position: absolute;
+    z-index: 9999;
+
+    .icon {
+      position: absolute;
+      background: transparent;
+
+      &:focus {
+        outline: 0;
+      }
+    }
+
+    .plus {
+      left: 20px;
+      top: 20px;
+      width: 50px;
+      height: 50px;
+      @include border-radius(50px);
+      border: 5px solid $turqoise;
+
+      .icon {
+        position: relative;
+        top: -19px;
+        font-size: 3em;
+      }
+    }
+    .minus {
+      left: 60px;
+      top: 60px;
+    }
+    .screen-view {
+      right: 20px;
+      bottom: 20px;
+    }
+    .circular-view {
+      right: 20px;
+      bottom: 80px;
+    }
+    .snapshot {
+      left: 20px;
+      bottom: 20px;
+    }
+  }
+
+
+
+  .interactive-panel {
+
+    .viewer-content {
+      -webkit-transition: -webkit-transform 0.5s;
+      transition: transform 0.5s;
+      pointer-events: none;
+    }
+
+    &:hover {
+      .icons {
+        visibility: visible;
+      }
+    }
+  }
+}
