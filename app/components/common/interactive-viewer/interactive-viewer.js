@@ -23,11 +23,22 @@ class InteractivePanel extends Component {
   }
 
   /** event api's */
-  handleZoomClick(event) {
+  handleZoomInClick(event) {
     const { currentScale } = this.state;
     this.setState({
       currentScale: currentScale + ZOOM_MULTIPLIER,
     });
+  }
+
+  handleZoomOutClick(event) {
+    const { currentScale } = this.state;
+    this.setState({
+      currentScale: currentScale - ZOOM_MULTIPLIER,
+    });
+  }
+
+  handleGoingFullScreen(event) {
+    console.log('go full screen');
   }
 
   handleMouseDown(event) {
@@ -62,17 +73,37 @@ class InteractivePanel extends Component {
     return(
       <div className="interactive-viewer-container">
 
-        <div className="icons">
-          <img src={'/assets/images/icons/icon-magnification-minus.png'} className="icon minus" />
+        <button
+          onClick={this.handleZoomOutClick.bind(this)}
+          className="action minus">
+            <span className="icon glyphicon-minus"></span>
+        </button>
+
+        <button
+          onClick={this.handleZoomInClick.bind(this)}
+          className="action plus">
+            <span className="icon glyphicon-plus"></span>
+        </button>
+
+        <button
+          onClick={this.handleGoingFullScreen.bind(this)}
+          className="action screen-view">
+          Full screen view <span className="icon glyphicon glyphicon-fullscreen"></span>
+        </button>
+
+        {/*
+          TODO: work out how starshare images will be taken
           <button
-            onClick={this.handleZoomClick.bind(this)}
-            className="icon plus">
-              <span className="icon glyphicon-plus"></span>
+            className="action snapshot">
+            <img src={'/assets/images/icons/icon-snapshot.png'} className="icon snapshot" />
           </button>
-          <img src={'/assets/images/icons/icon-snapshot.png'} className="icon snapshot" />
+        */}
+
+        <button
+          className="action circular-view">
           <img src={'/assets/images/icons/icon-circular-view.png'} className="icon circular-view" />
-          <img src={'/assets/images/icons/icon-screen-view.png'} className="icon screen-view" />
-        </div>
+        </button>
+
 
         <div
           onMouseDown={this.handleMouseDown.bind(this)}

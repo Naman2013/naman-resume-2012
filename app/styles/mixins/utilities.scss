@@ -11,3 +11,10 @@
   -ms-border-radius: $radius;
   border-radius: $radius;
 }
+
+@mixin circle-border($radius, $color, $border-size) {
+  @include border-radius($radius);
+  width: $radius;
+  height: $radius;
+  border: $border-size solid $color;
+}
