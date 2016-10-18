@@ -11,3 +11,17 @@
   -ms-border-radius: $radius;
   border-radius: $radius;
 }
+
+@mixin circle-border($radius, $color, $border-size) {
+  @include border-radius($radius);
+  width: $radius;
+  height: $radius;
+  border: $border-size solid $color;
+}
+
+@mixin prevent-user-select() {
+  -webkit-user-select: none;  /* Chrome all / Safari all */
+  -moz-user-select: none;     /* Firefox all */
+  -ms-user-select: none;      /* IE 10+ */
+  user-select: none;          /* Likely future */
+}

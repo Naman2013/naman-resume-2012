@@ -1,91 +1,146 @@
 import React, { Component, PropTypes } from 'react';
+import Draggable from 'react-draggable';
 import style from './interactive-viewer.scss';
 
 const ZOOM_MULTIPLIER = 0.5;
+const MINIMUM_ZOOM_SCALE = 1;
+const FRAME_VIEW_TYPE_FULL = 'FRAME_VIEW_TYPE_FULL';
+const FRAME_VIEW_TYPE_CIRCULAR = 'FRAME_VIEW_TYPE_CIRCULAR';
+const BOUNDS_MULTIPLIER = 100;
 
 class InteractivePanel extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentX: 0,
-      currentY: 0,
       currentScale: 1,
-      enableMove: false,
+      frameViewType: FRAME_VIEW_TYPE_FULL,
+      bounds: 1,
     };
   }
 
-  /** control api */
-  pan(factor) {
-    this.setState({
-      currentX: 0,
-      currentY: 0,
-    });
-  }
-
   /** event api's */
-  handleZoomClick(event) {
+  handleZoomInClick(event) {
     const { currentScale } = this.state;
+    const newScale = currentScale + ZOOM_MULTIPLIER;
     this.setState({
-      currentScale: currentScale + ZOOM_MULTIPLIER,
+      currentScale: newScale,
+      bounds: newScale * BOUNDS_MULTIPLIER,
+    });
+
+  }
+
+  handleZoomOutClick(event) {
+    const { currentScale } = this.state;
+    let newScale = currentScale - ZOOM_MULTIPLIER;
+    newScale = newScale >= MINIMUM_ZOOM_SCALE ? newScale : MINIMUM_ZOOM_SCALE;
+
+    this.setState({
+      currentScale: newScale,
+      bounds: newScale / BOUNDS_MULTIPLIER,
+    });
+
+  }
+
+  handleGoingFullScreen(event) {
+    console.log('go full screen');
+  }
+
+  handleCircularViewClick(event) {
+    console.log('apply the clipping mask');
+
+    this.setState({
+      frameViewType: FRAME_VIEW_TYPE_CIRCULAR,
     });
   }
 
-  handleMouseDown(event) {
-    this.setState({
-      enableMove: true,
-    });
-  }
+  handleFullFrameViewClick(event) {
+    console.log('remove clipping mask');
 
-  handleMouseUp(event) {
     this.setState({
-      enableMove: false,
+      frameViewType: FRAME_VIEW_TYPE_FULL,
     });
-  }
-
-  handleMouseMove(event) {
-    const { enableMove } = this.state;
-    if(enableMove) {
-      console.log('dragging');
-    }
   }
 
   render() {
 
     const { children } = this.props;
-    const { currentScale } = this.state;
+    const { currentScale, frameViewType, bounds } = this.state;
 
     const viewerContentStyle = {
       'transform': `scale(${currentScale})`,
       'transformStyle': 'flat',
     };
 
+    const draggableConfiguration = {
+      bounds: {
+        left: -bounds,
+        top: -bounds / 2,
+        bottom: bounds / 2,
+        right: bounds,
+      }
+    }
+
     return(
       <div className="interactive-viewer-container">
 
-        <div className="icons">
-          <img src={'/assets/images/icons/icon-magnification-minus.png'} className="icon minus" />
-          <button
-            onClick={this.handleZoomClick.bind(this)}
-            className="icon plus">
-              <span className="icon glyphicon-plus"></span>
-          </button>
-          <img src={'/assets/images/icons/icon-snapshot.png'} className="icon snapshot" />
-          <img src={'/assets/images/icons/icon-circular-view.png'} className="icon circular-view" />
-          <img src={'/assets/images/icons/icon-screen-view.png'} className="icon screen-view" />
-        </div>
+        <button
+          onClick={this.handleZoomOutClick.bind(this)}
+          className="action minus">
+            <span className="icon glyphicon-minus"></span>
+        </button>
 
-        <div
-          onMouseDown={this.handleMouseDown.bind(this)}
-          onMouseUp={this.handleMouseUp.bind(this)}
-          onMouseMove={this.handleMouseMove.bind(this)}
-          className="interactive-panel">
+        <button
+          onClick={this.handleZoomInClick.bind(this)}
+          className="action plus">
+            <span className="icon glyphicon-plus"></span>
+        </button>
+
+        <button
+          onClick={this.handleGoingFullScreen.bind(this)}
+          className="action full-screen-view">
+          Full-screen view <span className="icon glyphicon glyphicon-fullscreen"></span>
+        </button>
+
+        {
+          frameViewType === FRAME_VIEW_TYPE_CIRCULAR ?
+            <button
+              onClick={this.handleFullFrameViewClick.bind(this)}
+              className="action circular-view">
+                Full-frame view <span className="icon glyphicon glyphicon-sound-stereo"></span>
+            </button>
+            :
+            <button
+              onClick={this.handleCircularViewClick.bind(this)}
+              className="action circular-view">
+                Circular view <span className="icon glyphicon glyphicon-record"></span>
+            </button>
+        }
+
+        {/*
+          TODO: work out how starshare images will be taken
+          <button
+            className="action snapshot">
+            <img src={'/assets/images/icons/icon-snapshot.png'} className="icon snapshot" />
+          </button>
+        */}
+
+        <div className="interactive-panel">
 
           <div
+            id="interactive-content-container"
             style={viewerContentStyle}
             className="viewer-content">
-            {children}
+
+            <Draggable { ...draggableConfiguration }>
+              <div className="content">
+                {children}
+              </div>
+            </Draggable>
+
           </div>
+
         </div>
+
       </div>
     );
   }
