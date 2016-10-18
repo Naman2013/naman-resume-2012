@@ -5,6 +5,9 @@
   cursor: pointer;
   position: relative;
 
+  .viewer-content {
+    pointer-events: none;
+  }
 
   &:hover {
     .icons {

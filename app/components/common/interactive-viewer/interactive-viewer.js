@@ -8,6 +8,7 @@ class InteractivePanel extends Component {
       currentX: 0,
       currentY: 0,
       currentZ: 0,
+      enableMove: false,
     };
   }
 
@@ -26,38 +27,35 @@ class InteractivePanel extends Component {
   }
 
   /** event api's */
-  handleMouseScroll(event) {
-    event.preventDefault();
-    // TODO: zoom in or zoom out by step of scroll
-  }
-
-  handleDrag(event) {
+  handleMouseDown(event) {
     // TODO: control panning
-    console.log(event);
+    this.setState({
+      enableMove: true,
+    });
   }
 
-  handleOnMouseEnter(event) {
-    console.log('mouse enter occurred');
+  handleMouseUp(event) {
+    this.setState({
+      enableMove: false,
+    });
   }
 
-  handleOnMouseLeave(event) {
-    console.log('mouse left... farewell.');
+  handleMouseMove(event) {
+    const { enableMove } = this.state;
+    if(enableMove) {
+      console.log('dragging');
+    }
   }
 
   render() {
 
     const { children } = this.props;
 
-      /* mouseScroll={this.handleMouseScroll.bind(this)}
-      mouseDown={this.handleMouseDown.bind(this)}
-      mouseEnter={this.handleMouseEnter.bind(this)}
-      mouseLeave={this.handleMouseLeave.bind(this)} */
-
     return(
       <div
-        onDrag={this.handleDrag.bind(this)}
-        onMouseEnter={this.handleOnMouseEnter.bind(this)}
-        onMouseLeave={this.handleOnMouseLeave.bind(this)}
+        onMouseDown={this.handleMouseDown.bind(this)}
+        onMouseUp={this.handleMouseUp.bind(this)}
+        onMouseMove={this.handleMouseMove.bind(this)}
         className="interactive-panel">
 
         <div className="icons">
