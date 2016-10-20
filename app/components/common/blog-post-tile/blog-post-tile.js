@@ -30,21 +30,23 @@ const BlogPostTile = ({
             </h3>
           </div>
 
-          <div className="tile-body">
+          <div className="tile-body clearfix">
             <h2 className="title">{title}</h2>
 
             <div className="user-profile-snapshot">
-              <div className="col-md-2">
+              <div className="profile-photo">
                 <img src={user.photo} />
               </div>
 
-              <div className="col-md-10">
+              <div className="profile-name">
                 <h4 className="username">
-                  {user.name} <span className="account-level">${user.accountType}</span>
+                  {user.name} <span className="account-level">{user.accountType}</span>
+                  <br />
+                  <span className="user-details">{user.city}, {user.state}, {user.country}. Member since {user.memberSince}</span>
                 </h4>
               </div>
 
-              <div>
+              <div className="call-to-action col-md-12">
                 See more about <Link to="">{relatedObject} <img src={relatedObjectIcon} width="30" /></Link>
               </div>
             </div>
