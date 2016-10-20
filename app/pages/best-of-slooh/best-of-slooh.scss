@@ -10,16 +10,40 @@
 
   .title-bar {
     padding: 60px 0 25px 15px;
+    color: $light-gray;
     .title {
       text-transform: uppercase;
       margin: 0;
       padding: 0;
+
+      .highlight {
+        color: $turqoise
+      }
     }
 
     .subtitle {
       font-size: 1.25em;
       margin: 0;
       padding: 0;
+    }
+
+    .sponsor {}
+
+    .call-to-action {
+
+      .action {
+        color: #fff;
+        display: block;
+        padding: 15px 25px;
+        background: $pink;
+        width: 70%;
+        float: right;
+        text-align: center;
+
+        &:hover {
+          background: $light-gray;
+        }
+      }
     }
   }
 }

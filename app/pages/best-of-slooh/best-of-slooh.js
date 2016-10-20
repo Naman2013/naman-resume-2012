@@ -11,15 +11,15 @@ class BestOfSlooh extends Component {
   render() {
     return(
       <div className="best-of-slooh col-md-12">
-        <div className="title-bar">
-          <div className="">
+        <div className="title-bar clearfix">
+          <div className="col-md-6">
             <h1 className="title"><span className="highlight">Best of Slooh</span> October 2017</h1>
             <h2 className="subtitle">A curated list of your best expressions about objects in the night sky.</h2>
           </div>
-          <div className="sponsor">
+          <div className="col-md-3 sponsor">
             Sponsored by: <img src="foo.jpg" height="20" />
           </div>
-          <div className="call-to-action">
+          <div className="col-md-3 call-to-action">
             <Link className="action" to="">Create New Post</Link>
           </div>
         </div>
