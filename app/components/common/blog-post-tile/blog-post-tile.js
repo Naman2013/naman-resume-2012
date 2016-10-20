@@ -20,7 +20,9 @@ const BlogPostTile = ({
     <div
       className="slooh-blog-post-tile col-md-6">
 
-        <div style={postTileStyle}>
+        <div
+          style={postTileStyle} 
+          className="tile-content-container">
 
           <div className="topic-heading">
             <h3>

@@ -1,0 +1,14 @@
+@import "../../../styles/variables/fonts.scss";
+@import "../../../styles/variables/colors.scss";
+@import "../../../styles/mixins/utilities.scss";
+
+.slooh-blog-post-tile {
+  font-family: $primary-font;
+  color: #fff;
+
+  .tile-content-container {
+    @include background-image-cover;
+    height: 350px;
+    margin: 0 0 24px 0;
+  }
+}
