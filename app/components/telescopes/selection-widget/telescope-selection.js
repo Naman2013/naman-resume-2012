@@ -52,7 +52,8 @@ export default class TelescopeSelection extends React.Component {
       let newPier = piers.find(pier => pier.obsUniqueId === obs.obsUniqueId);
       this.setState({
         telescopes: newPier.obsTelescopes,
-        activePier: obs.obsUniqueId
+        activePier: obs.obsUniqueId,
+        showTelescopes: true
       });
     }
   }
@@ -70,7 +71,13 @@ export default class TelescopeSelection extends React.Component {
                   onMouseOver={() => this.obsMouseOver(obs)}
                   onMouseOut={this.obsMouseOut.bind(this)}
                   onClick={() => this.pierClickHandler(obs, event)}>
-                  <Link className="cat-link">{obs.obsMenuName}</Link>
+                  <Link className="cat-link">
+                    {obs.obsMenuName + ' '} 
+                    {obs.obsUniqueId === this.state.activePier ?
+                      <span className={this.state.showTelescopes ? 'fa fa-caret-down' : 'fa fa-caret-up'}></span> :
+                      null}
+
+                  </Link>
                 </li>
               )
             })}
