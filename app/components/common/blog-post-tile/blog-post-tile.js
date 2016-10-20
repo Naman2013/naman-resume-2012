@@ -21,11 +21,11 @@ const BlogPostTile = ({
       className="slooh-blog-post-tile col-md-6">
 
         <div
-          style={postTileStyle} 
+          style={postTileStyle}
           className="tile-content-container">
 
           <div className="topic-heading">
-            <h3>
+            <h3 className="title">
               <img src={topicSymbol} width="50" /> {topic}
             </h3>
           </div>
