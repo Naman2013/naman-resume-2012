@@ -52,7 +52,7 @@ module.exports = {
         exclude: /node_modules/,
         query: {
           search: '/dev-sse/',
-          replace: `${apiUrl}`,
+          replace: `${apiUrl}:`,
           flags: 'g'
         }
       },
@@ -128,10 +128,11 @@ module.exports = {
         changeOrigin: true,
         secure: true,
       },
-      '/dev-sse/**': {
-        target: 'https://mars.slooh.com',
+      '/:3004/**': {
+        target: 'https://mars.slooh.com:3004',
         changeOrigin: true,
         secure: true,
+        pathRewrite: { '/:3004/': '' },
       },
       '/util/**': {
         target: 'https://mars.slooh.com',
