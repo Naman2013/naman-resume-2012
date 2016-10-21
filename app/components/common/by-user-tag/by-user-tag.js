@@ -12,17 +12,17 @@ import style from './by-user-tag.scss';
 
 class ByUserTag extends Component {
 
-  const {
-    theme,
-    photo,
-    name,
-    accountType,
-    city,
-    state,
-    country,
-    memberSince } = this.props;
-
   render() {
+    const {
+      theme,
+      photo,
+      name,
+      accountType,
+      city,
+      state,
+      country,
+      memberSince } = this.props;
+
     return(
       <div className="slooh-by-user-tag">
         <div className="profile-photo">
