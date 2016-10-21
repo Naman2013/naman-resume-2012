@@ -6,7 +6,6 @@
   color: #B9D9D9;
   text-align: center;
   margin-bottom: 25px;
-  overflow-x: hidden;
 
   .top {
     background: #000000;
@@ -30,6 +29,11 @@
     background: rgba(31,31,31,0.60);
     padding-top: 15px;
     padding-bottom: 15px;
+
+    .row { /* TODO: consider removing row from this part of the UI */
+      margin-right: 0;
+      margin-left: 0;
+    }
   }
 
   button.btn {
