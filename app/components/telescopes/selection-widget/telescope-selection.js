@@ -72,7 +72,7 @@ export default class TelescopeSelection extends React.Component {
                   onMouseOut={this.obsMouseOut.bind(this)}
                   onClick={() => this.pierClickHandler(obs, event)}>
                   <Link className="cat-link">
-                    {obs.obsMenuName + ' '} 
+                    {obs.obsMenuName + ' '}
                     {obs.obsUniqueId === this.state.activePier ?
                       <span className={this.state.showTelescopes ? 'fa fa-caret-down' : 'fa fa-caret-up'}></span> :
                       null}
@@ -89,7 +89,7 @@ export default class TelescopeSelection extends React.Component {
           {this.state.telescopes.map(tel => {
             return (
               <li key={tel.teleUniqueId} className="icon-container">
-                <Link activeClassName="active" to="/">
+                <Link activeClassName="active" to={tel.telePageURL}>
                   <img className="icon img-circle" src={tel.teleLogoURL} />
                 </Link>
               </li>

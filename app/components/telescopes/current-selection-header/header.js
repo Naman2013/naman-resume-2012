@@ -1,21 +1,35 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
-
 import styles from './header.scss';
-
-import SelectedTelescopeTitle from './selected-telescope-title';
 import DatesSelection from './dates-selection';
 import Tips from './tips';
 
-
-export default class CurrentSelectionHeader extends Component {
-
-
-  render() {
+/**
+  * Current telescope's header with title, reserve button and a sponsor
+  * is used on telescope-details and some other pages (TBD)
+  * @param {object} telescope - currently selected telescope
+  */
+function CurrentSelectionHeader({telescope}) {
     return (
       <div className="current-selection-header">
-        <SelectedTelescopeTitle />                
+        <div className="title-container clearfix">
+          <div className="telescope-title-container col-md-8">
+            <img className={telescope.teleLogoURL} width="48" height="48"/>
+
+            <span className="telescope-title big">{`${telescope.teleName}: ${telescope.teleNameAlt}`}</span>
+          </div>
+
+          <div className="sponsoredby col-md-4">
+            <span className="sponsoredby-text">
+              Sponsored by: {telescope.teleSponsorName}
+            </span>
+            <a href={telescope.teleSponsorLinkURL} target="_blank">
+              <img width="145" className="sponsoredby-logo" src={telescope.teleSponsorLogoURL} />
+            </a>
+          </div>
+        </div>
       </div>
     );
-  }
 }
+
+export default CurrentSelectionHeader;

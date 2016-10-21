@@ -61,18 +61,20 @@ export function missionGetCards() {
 }
 
 export function missionGetInfo(card, type) {
-  return dispatch => {
+  return (dispatch, getState) => {
+    let { token, at, cid } = getState().user.user;
     return axios.post('/api/recommends/getNextPiggyback', {
-      uniqueId              : card.uniqueId,
-      objectId              : card.astroObjectId,
-      lookaheadReservation  : card.lookaheadDaysReservation,
-      lookaheadPiggyback    : card.lookaheadDaysPiggyback,
-      start                 : card.start,
-      ver                   : 'v1',
-      lang                  : 'en',
-      cid                   : 198267,
-      at                    : 3,
-      token                 : '8d02b976e146cb5e5bfe15a10bb96b2365826dca'
+      uniqueId: card.uniqueId,
+      objectId: card.astroObjectId,
+      lookaheadReservation: card.lookaheadDaysReservation,
+      lookaheadPiggyback: card.lookaheadDaysPiggyback,
+      start: card.start,
+      ver: 'v1',
+      lang: 'en',
+      requestType: 'single',
+      token,
+      at,
+      cid,
     })
     .then(response => {
       dispatch( getMissionSuccess(response) );
@@ -85,7 +87,7 @@ export function missionGetInfo(card, type) {
 export function getMissionSuccess({data}) {
   return {
     type: MISSION_GET_INFO_SUCCESS,
-    mission: data
+    mission: data,
   };
 };
 
@@ -205,10 +207,13 @@ export default createReducer(initialState, {
       cardList
     };
   },
-  [MISSION_GET_INFO_SUCCESS](state, {mission}) {
+  [MISSION_GET_INFO_SUCCESS](state, {mission, cardList}) {
+    const uniqueId = mission.missionList[0].uniqueId;
+    const newCardList = state.cardList.findIndex((el, index, arr) => el.uniqueId === uniqueId ? arr[index] = mission.missionList[0] : false);
     return {
       ...state,
-      mission
+      cardList: state.cardList,
+      mission,
     }
   },
   [MISSION_GET_UPDATES_SUCCESS](state, {announcements}) {
