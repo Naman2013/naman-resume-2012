@@ -11,6 +11,7 @@
   .title-bar {
     padding: 60px 0 25px 15px;
     color: $light-gray;
+
     .title {
       text-transform: uppercase;
       margin: 0;
@@ -27,7 +28,10 @@
       padding: 0;
     }
 
-    .sponsor {}
+    .sponsor {
+      position: relative;
+      bottom: -40px;
+    }
 
     .call-to-action {
 
