@@ -2,6 +2,8 @@ import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 import style from './blog-post-tile.scss';
 
+import ByUserTag from '../by-user-tag/by-user-tag';
+
 const BlogPostTile = ({
   topic,
   topicSymbol,
@@ -35,7 +37,7 @@ const BlogPostTile = ({
 
 
             <div className="user-profile-snapshot">
-              <UserProfileSnapshot version={`dark`} />
+              <ByUserTag version={`dark`} {...user} />
 
               <div className="call-to-action col-md-12">
                 See more about <Link className="action" to="">{relatedObject} <img src={relatedObjectIcon} width="30" /></Link>
