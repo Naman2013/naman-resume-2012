@@ -11,8 +11,10 @@ class ObjectPost extends Component {
     return(
       <div className="slooh-object-post clearfix">
         <AnnouncementBanner />
+
         <ObjectTitleBar />
 
+        { /* left column */ }
         <div className="col-xs-8">
           <ContentMainImage
             imageSource={`foo.jpg`}
@@ -21,6 +23,8 @@ class ObjectPost extends Component {
           <h2 className="post-title">My new Gemini painting is finally finished!</h2>
         </div>
 
+
+        { /* right column */ }
         <div className="col-xs-4">
 
         </div>
