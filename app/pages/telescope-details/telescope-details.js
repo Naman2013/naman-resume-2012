@@ -114,9 +114,10 @@ export default class TelescopeDetails extends Component {
     const currentTelescope = this.getCurrentTelescope(currentObservatory.obsTelescopes, teleUniqueId);
     const { teleSystem, teleAccessMethod } = currentTelescope; // needed for SSE
     const obsStatus = observatoryTelecopeStatus && observatoryTelecopeStatus.statusList ? observatoryTelecopeStatus.statusList.statusTeleList[0] : null;
-    console.log(teleSystem);
-    console.log(teleAccessMethod);
-    console.log(obsStatus);
+    // console.log(teleSystem);
+    // console.log(teleAccessMethod);
+    // console.log(obsStatus);
+    console.log('currentTelescope');
     console.log(currentTelescope);
 
     /**
@@ -140,10 +141,10 @@ export default class TelescopeDetails extends Component {
 
       <div>
         <div className="col-md-8">
-          <CurrentSelectionHeader />
+          <CurrentSelectionHeader telescope={currentTelescope} />
         </div>
         <div className="col-md-4">
-          <button className="pull-right btn-primary">Reserve this telescope</button>
+          <button className="pull-right btn-primary" href="">Reserve this telescope</button>
         </div>
       </div>
 
