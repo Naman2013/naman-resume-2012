@@ -2,6 +2,9 @@ import React, { Component, PropTypes } from 'react';
 import style from './by-user-tag.scss';
 
 class ByUserTag extends Component {
+  const variationStyle = {
+    
+  };
   render() {
     return(
       <div className="slooh-by-user-tag">
@@ -22,6 +25,7 @@ class ByUserTag extends Component {
 }
 
 ByUserTag.propTypes = {
+  version: PropTypes.string,
   photo: PropTypes.string,
   name: PropTypes.string,
   accountType: PropTypes.string,
