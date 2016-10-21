@@ -19,6 +19,7 @@ import ExistingMissions from './pages/existing-missions';
 import ReserveByTelescope from './pages/reserve-by-telescope';
 import ReserveObjects from './pages/reserve/reserve-by-objects';
 import BestOfSlooh from './pages/best-of-slooh/best-of-slooh';
+import ObjectPost from './pages/object-post/object-post';
 
 // global styles
 import Bootstrap from 'bootstrap/dist/css/bootstrap.css';
@@ -52,6 +53,7 @@ ReactDOM.render(
         <Route path="telescope-details/:obsUniqueId/:teleUniqueId" component={TelescopeDetails} />
 
         <Route path="best-of-slooh" component={BestOfSlooh} />
+        <Route path="object-post" component={ObjectPost} />
 
       </Route>
 
