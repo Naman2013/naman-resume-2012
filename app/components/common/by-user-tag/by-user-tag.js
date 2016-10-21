@@ -26,14 +26,14 @@ class ByUserTag extends Component {
     return(
       <div className="slooh-by-user-tag">
         <div className="profile-photo">
-          <img src={user.photo} />
+          <img src={photo} />
         </div>
 
         <div className="profile-name">
           <h4 className="username">
-            {user.name} <span className="account-level">{user.accountType}</span>
+            {name} <span className="account-level">{accountType}</span>
             <br />
-            <span className="user-details">{user.city}, {user.state}, {user.country}. Member since {user.memberSince}</span>
+            <span className="user-details">{city}, {state}, {country}. Member since {memberSince}</span>
           </h4>
         </div>
       </div>
