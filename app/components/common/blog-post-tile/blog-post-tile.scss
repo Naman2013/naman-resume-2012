@@ -1,0 +1,83 @@
+@import "../../../styles/variables/fonts.scss";
+@import "../../../styles/variables/colors.scss";
+@import "../../../styles/mixins/utilities.scss";
+
+.slooh-blog-post-tile {
+  font-family: $primary-font;
+  color: #fff;
+  position: relative;
+
+  .tile-content-container {
+    @include background-image-cover;
+    height: 350px;
+    margin: 0 0 24px 0;
+    border-top: 3px solid $pink;
+
+    .topic-heading {
+      padding: 25px 10px 0 30px;
+      color: $light-turqoise;
+
+      .title {
+        font-size: 1em;
+        text-transform: uppercase;
+        font-weight: 600;
+      }
+    }
+
+    .tile-body {
+      position: relative;
+      bottom: -137px;
+      background: rgba(0, 0, 0, 0.5);
+      padding: 20px 25px;
+
+      .title, .username {
+        margin: 0;
+      }
+
+      .title {
+        font-size: 1.4em;
+        margin-bottom: 15px;
+      }
+
+      .user-profile-snapshot {
+
+        .profile-photo, .profile-name {
+          float: left;
+        }
+
+        .profile-name {
+          padding: 0 0 0 20px;
+          margin-bottom: 15px;
+
+            .username {
+              font-size: 1.2em;
+              font-weight: 300;
+
+              .user-details {
+                font-size: 0.65em;
+                color: $light-turqoise;
+              }
+            }
+
+            .account-level {
+              font-size: 0.5em;
+              padding-left: 10px;
+              color: #f00;
+              font-weight: 600;
+              text-transform: uppercase;
+            }
+        }
+
+        .call-to-action {
+          padding: 0;
+
+          .action {
+            color: #fff;
+            font-size: 1.2em;
+            font-weight: 600;
+          }
+        }
+      }
+    }
+  }
+}
