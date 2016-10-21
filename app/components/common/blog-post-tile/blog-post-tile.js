@@ -47,7 +47,7 @@ const BlogPostTile = ({
               </div>
 
               <div className="call-to-action col-md-12">
-                See more about <Link to="">{relatedObject} <img src={relatedObjectIcon} width="30" /></Link>
+                See more about <Link className="action" to="">{relatedObject} <img src={relatedObjectIcon} width="30" /></Link>
               </div>
             </div>
           </div>
