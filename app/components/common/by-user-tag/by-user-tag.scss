@@ -1,5 +1,7 @@
+@import "../../../style/variables/colors.scss";
+
 .slooh-by-user-tag {
-  
+
   .profile-photo, .profile-name {
     float: left;
   }
@@ -12,9 +14,22 @@
         font-size: 1.2em;
         font-weight: 300;
 
+        &.dark {
+          color: #000;
+        }
+        &.light {
+          color: #fff;
+        }
+
         .user-details {
           font-size: 0.65em;
-          color: $light-turqoise;
+
+          &.dark {
+            color: $light-turqoise;
+          }
+          &.light {
+            color: #000;
+          }
         }
       }
 

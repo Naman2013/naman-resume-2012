@@ -13,7 +13,7 @@ import style from './by-user-tag.scss';
 class ByUserTag extends Component {
 
   const {
-    version,
+    theme,
     photo,
     name,
     accountType,
@@ -33,7 +33,7 @@ class ByUserTag extends Component {
           <h4 className="username">
             {name} <span className="account-level">{accountType}</span>
             <br />
-            <span className="user-details">{city}, {state}, {country}. Member since {memberSince}</span>
+            <span className={`user-details ${theme}`}>{city}, {state}, {country}. Member since {memberSince}</span>
           </h4>
         </div>
       </div>
@@ -42,7 +42,7 @@ class ByUserTag extends Component {
 }
 
 ByUserTag.defaultProps = {
-  version: 'dark'
+  version: 'dark',
 };
 
 ByUserTag.propTypes = {
