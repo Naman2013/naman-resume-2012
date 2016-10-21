@@ -37,7 +37,10 @@ const BlogPostTile = ({
 
 
             <div className="user-profile-snapshot">
-              <ByUserTag version={`dark`} {...user} />
+
+              <ByUserTag
+                theme={`dark`}
+                {...user} />
 
               <div className="call-to-action col-md-12">
                 See more about <Link className="action" to="">{relatedObject} <img src={relatedObjectIcon} width="30" /></Link>
