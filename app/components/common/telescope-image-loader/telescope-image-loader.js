@@ -1,10 +1,8 @@
 import React, { Component, PropTypes } from 'react';
-import styles from './thumbnail-image-loader.scss';
+import classnames from 'classnames';
+import styles from './telescope-image-loader.scss';
 
-const { string } = PropTypes;
-const STATIC_PROGRESS = 70;
-
-class ThumbnailImageLoader extends Component {
+class TelescopeImageLoader extends Component {
   constructor( props ) {
     super( props );
 
@@ -118,25 +116,33 @@ class ThumbnailImageLoader extends Component {
     const {
       currentImageUrl,
       previousImageUrl,
-      transitionDuration, } = this.state;
+      transitionDuration } = this.state;
+
+    const {
+      clipped,
+      teleThumbWidth } = this.props;
 
     if(!currentImageUrl || !previousImageUrl) {
       return null;
     }
 
     const bottomImageAddress = this.generateThumbnailUrl(previousImageUrl);
+    const containerClasses = classnames({
+      'sse-thumbnails': 1,
+      'clipped': clipped,
+    });
 
     return(
-      <div className="sse-thumbnails">
+      <div className={containerClasses}>
         <div className="bottom-image">
           <img
-            width={this.props.teleThumbWidth}
+            width={teleThumbWidth}
             src={bottomImageAddress} />
         </div>
 
         <div className="top-image">
           <img
-            width={this.props.teleThumbWidth}
+            width={teleThumbWidth}
             id={this.generateImageId()} />
         </div>
       </div>
@@ -144,11 +150,16 @@ class ThumbnailImageLoader extends Component {
   }
 }
 
-ThumbnailImageLoader.propTypes = {
-  imageSource: string,
-  teleId: string,
-  teleThumbWidth: string,
-  teleFade: string,
+TelescopeImageLoader.defaultProps = {
+  clipped: true,
 };
 
-export default ThumbnailImageLoader;
+TelescopeImageLoader.propTypes = {
+  imageSource: PropTypes.string,
+  teleId: PropTypes.string,
+  teleThumbWidth: PropTypes.string,
+  teleFade: PropTypes.string,
+  clipped: PropTypes.bool,
+};
+
+export default TelescopeImageLoader;
