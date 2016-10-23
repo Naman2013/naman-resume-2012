@@ -15,7 +15,7 @@ import {
   fetchObservatoryTelescopeStatus} from '../../modules/Telescope-Overview';
 
 import AnnouncementBanner from '../../components/common/announcement-banner/announcement-banner';
-import HighMagnification from '../../components/common/high-magnification/high-magnification';
+import TelescopeImageViewer from '../../components/common/telescope-image-viewer/telescope-image-viewer';
 import Spacer from '../../components/common/spacer';
 import LiveStream from '../../components/telescope-details/live-stream/live-stream';
 import LiveMission from '../../components/telescope-details/live-mission/live-mission';
@@ -96,6 +96,7 @@ export default class TelescopeDetails extends Component {
     * @param {array} observatoryTelescopes - Array of all telescopes in the current observatory
     * @param {string} telescopeId - Id of the current telescope, which available in URL and/or props.params
     * @returns {Object} telescope - Current telescope object
+    * TODO: migrate this into the telescope details actions...
     */
   getCurrentTelescope(observatoryTelescopes, telescopeId) {
     return observatoryTelescopes.find(telescope => telescope.teleUniqueId === telescopeId);
@@ -109,13 +110,14 @@ export default class TelescopeDetails extends Component {
       return null;
     }
 
-    const currentObservatory = getCurrentObservatory(observatoryList, obsUniqueId)
+    const currentObservatory = getCurrentObservatory(observatoryList, obsUniqueId);
     const { obsId } = currentObservatory;
     const currentTelescope = this.getCurrentTelescope(currentObservatory.obsTelescopes, teleUniqueId);
-    
+
     return (
     <div className="telescope-details-page-wrapper">
       <AnnouncementBanner obsId={obsId} />
+
       <TelescopeSelection observatoryList={observatoryList} />
 
       <div>
@@ -139,7 +141,10 @@ export default class TelescopeDetails extends Component {
             </TabList>
 
             <TabPanel>
-              <HighMagnification className={this.state.toggleNeoview ? 'hidden' : 'visible'} />
+              <TelescopeImageViewer
+                {...currentTelescope}
+                className={this.state.toggleNeoview ? 'hidden' : 'visible'} />
+
               <Neoview className={this.state.toggleNeoview ? 'visible' : 'hidden'} />
             </TabPanel>
 
