@@ -1,8 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import classnames from 'classnames';
-import styles from './thumbnail-image-loader.scss';
+import styles from './telescope-image-loader.scss';
 
-class ThumbnailImageLoader extends Component {
+class TelescopeImageLoader extends Component {
   constructor( props ) {
     super( props );
 
@@ -150,11 +150,11 @@ class ThumbnailImageLoader extends Component {
   }
 }
 
-ThumbnailImageLoader.defaultProps = {
+TelescopeImageLoader.defaultProps = {
   clipped: true,
 };
 
-ThumbnailImageLoader.propTypes = {
+TelescopeImageLoader.propTypes = {
   imageSource: PropTypes.string,
   teleId: PropTypes.string,
   teleThumbWidth: PropTypes.string,
@@ -162,4 +162,4 @@ ThumbnailImageLoader.propTypes = {
   clipped: PropTypes.bool,
 };
 
-export default ThumbnailImageLoader;
+export default TelescopeImageLoader;

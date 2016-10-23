@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 import CountdownTimer from './countdown-timer';
-import ThumbnailImageLoader from '../../common/telescope-image-loader/thumbnail-image-loader';
+import TelescopeImageLoader from '../../common/telescope-image-loader/telescope-image-loader';
 import VideoImageLoader from '../../common/telescope-image-loader/video-image-loader';
 import TelescopeOffline from './telescope-offline';
 import style from './card-front.scss';
@@ -71,7 +71,7 @@ class CardFront extends Component {
       );
     } else if(teleImageSourceType === 'SSE') {
       return(
-        <ThumbnailImageLoader
+        <TelescopeImageLoader
           imageSource={this.generateSseImageSource()}
           teleId={this.props.teleId}
           teleFade={this.props.teleFade}
