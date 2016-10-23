@@ -1,12 +1,12 @@
 import React, { Component, PropTypes } from 'react';
 import InteractiveViewer from '../interactive-viewer/interactive-viewer';
-import './high-magnification.scss';
+import style from './telescope-image-viewer.scss';
 
 class HighMagnification extends Component {
   render() {
     return(
       <div
-        className={`high-magnification ${this.props.className}`}>
+        className={`telescope-image-viewer ${this.props.className}`}>
 
         <InteractiveViewer>
           <img width="100%" src={'/assets/images/graphics/magnification-scene.jpg'}  />
