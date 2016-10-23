@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import classnames from 'classnames';
 import styles from './thumbnail-image-loader.scss';
 
 class ThumbnailImageLoader extends Component {
@@ -117,17 +118,20 @@ class ThumbnailImageLoader extends Component {
       previousImageUrl,
       transitionDuration } = this.state;
 
-    const { clip } = this.props;
+    const { clipped } = this.props;
 
     if(!currentImageUrl || !previousImageUrl) {
       return null;
     }
 
     const bottomImageAddress = this.generateThumbnailUrl(previousImageUrl);
-    const isClipped = this.props.clipped;
+    const containerClasses = classnames({
+      'sse-thumbnails': 1,
+      'clipped': clipped,
+    });
 
     return(
-      <div className="sse-thumbnails clipped">
+      <div className={containerClasses}>
         <div className="bottom-image">
           <img
             width={this.props.teleThumbWidth}
@@ -143,6 +147,10 @@ class ThumbnailImageLoader extends Component {
     );
   }
 }
+
+ThumbnailImageLoader.defaultProps = {
+  clipped: true,
+};
 
 ThumbnailImageLoader.propTypes = {
   imageSource: PropTypes.string,
