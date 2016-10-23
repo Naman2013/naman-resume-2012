@@ -112,28 +112,7 @@ export default class TelescopeDetails extends Component {
     const currentObservatory = getCurrentObservatory(observatoryList, obsUniqueId)
     const { obsId } = currentObservatory;
     const currentTelescope = this.getCurrentTelescope(currentObservatory.obsTelescopes, teleUniqueId);
-    const { teleSystem, teleAccessMethod } = currentTelescope; // needed for SSE
-    const obsStatus = observatoryTelecopeStatus && observatoryTelecopeStatus.statusList ? observatoryTelecopeStatus.statusList.statusTeleList[0] : null;
-    // console.log(teleSystem);
-    // console.log(teleAccessMethod);
-    // console.log(obsStatus);
-    console.log('currentTelescope');
-    console.log(currentTelescope);
-
-    /**
-      when teleAccessMethod == 'missions' and obsStatus.onlineStatus == 'online'
-      var source = new EventSource('/dev-sse:3105/sse/chile1highmag');
-      function processMsg(msg) {
-        // Event data is sent as a | separated string.  This breaks it into an array.
-        // Full data is: DTG | message | serverTime
-        var msgArray = msg.split("|");
-        // Spit out the most recent log message
-        console.log( msgArray[0] + " " + msgArray[1] );
-      }
-      source.addEventListener('message', function(e) { processMsg(e.data); }, false);
-
-    **/
-
+    
     return (
     <div className="telescope-details-page-wrapper">
       <AnnouncementBanner obsId={obsId} />
