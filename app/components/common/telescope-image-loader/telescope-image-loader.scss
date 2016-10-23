@@ -8,8 +8,8 @@
   }
 
   .top-image {
-    position: relative;
-    top: -244px;
+    position: absolute;
+    top: 0;
 
     transition: opacity ease-in-out;
     -moz-transition: opacity ease-in-out;

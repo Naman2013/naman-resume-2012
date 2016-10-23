@@ -129,7 +129,7 @@ export default class TelescopeDetails extends Component {
         </div>
       </div>
 
-      <div className='telescope-details'>
+      <div className='telescope-details clearfix'>
         <div className='col-md-8'>
           <Tabs
             onSelect={this.handleSelect}

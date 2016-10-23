@@ -17,6 +17,8 @@ $cardHeight: 730px;
       -o-backface-visibility: hidden;
       backface-visibility: hidden;
 
+
+
       .card-header {
         background: #9B9B9B;
         padding: 20px 20px;
@@ -113,6 +115,10 @@ $cardHeight: 730px;
           .telescope-image {
             height: 250px;
             margin-bottom: 30px;
+
+            .top-image { /* HACK: forcing the left position for the top image */
+              left: 20px;
+            }
           }
 
           .telescope-image-title {
