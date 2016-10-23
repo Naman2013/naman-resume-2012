@@ -1,0 +1,6 @@
+@import "../../../style/mixins/utilities.scss";
+
+.object-title-bar {
+
+  @include background-image-cover;
+}

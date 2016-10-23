@@ -1,4 +1,5 @@
 import React from 'react';
+import style from './object-title-bar.scss';
 
 const ObjectTitleBar = ({ icon, title, telescopeUniqueId, objectUniqueId }) => {
 
