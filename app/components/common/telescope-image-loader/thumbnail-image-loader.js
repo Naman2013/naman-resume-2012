@@ -159,7 +159,7 @@ ThumbnailImageLoader.propTypes = {
   teleId: PropTypes.string,
   teleThumbWidth: PropTypes.string,
   teleFade: PropTypes.string,
-  clip: PropTypes.bool,
+  clipped: PropTypes.bool,
 };
 
 export default ThumbnailImageLoader;
