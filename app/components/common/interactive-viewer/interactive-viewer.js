@@ -11,10 +11,20 @@ const BOUNDS_MULTIPLIER = 100;
 class InteractivePanel extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       currentScale: 1,
       frameViewType: FRAME_VIEW_TYPE_FULL,
       bounds: 1,
+      activeDrags: 0,
+      deltaPosition: {
+        x: 0,
+        y: 0,
+      },
+      controlledPosition: {
+        x: 0,
+        y: 0,
+      }
     };
   }
 
@@ -39,6 +49,8 @@ class InteractivePanel extends Component {
       bounds: newScale / BOUNDS_MULTIPLIER,
     });
 
+    this.resetXY();
+
   }
 
   handleGoingFullScreen(event) {
@@ -61,10 +73,41 @@ class InteractivePanel extends Component {
     });
   }
 
+
+  adjustXPos(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    const {x, y} = this.state.controlledPosition;
+    this.setState({controlledPosition: {x: x - 10, y}});
+  }
+
+  adjustYPos(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    const {controlledPosition} = this.state;
+    const {x, y} = this.state.controlledPosition;
+    this.setState({controlledPosition: {x, y: y - 10}});
+  }
+
+  resetXY() {
+    this.setState({controlledPosition: {x: 0, y: 0}});
+  }
+
+  onControlledDrag(event, position) {
+    const {x, y} = position;
+    this.setState({controlledPosition: {x, y}});
+  }
+
+  onControlledDragStop(event, position) {
+    const {x, y} = position;
+    this.setState({controlledPosition: {x, y}});
+  }
+
+
   render() {
 
     const { children } = this.props;
-    const { currentScale, frameViewType, bounds } = this.state;
+    const { currentScale, frameViewType, bounds, controlledPosition } = this.state;
 
     const viewerContentStyle = {
       'transform': `scale(${currentScale})`,
@@ -77,7 +120,9 @@ class InteractivePanel extends Component {
         top: -bounds / 2,
         bottom: bounds / 2,
         right: bounds,
-      }
+      },
+      position: controlledPosition,
+      onDrag: this.onControlledDrag.bind(this),
     }
 
     return(

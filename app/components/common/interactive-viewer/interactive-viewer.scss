@@ -8,14 +8,20 @@
   overflow: hidden;
   font-family: $primary-font;
 
+  &:hover {
+    .action {
+      visibility: visible;
+    }
+  }
+
   .action {
     background: #000;
     border: none;
-    visibility: visible;
     color: $light-turqoise;
     text-align: center;
     position: absolute;
     z-index: 9999;
+    visibility: hidden;
 
 
     &:focus {
