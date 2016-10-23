@@ -1,0 +1,44 @@
+@import "../../../styles/variables/colors.scss";
+
+.slooh-by-user-tag {
+
+  .profile-photo, .profile-name {
+    float: left;
+  }
+
+  .profile-name {
+    padding: 0 0 0 20px;
+    margin-bottom: 15px;
+
+      .username {
+        font-size: 1.2em;
+        font-weight: 300;
+
+        &.dark {
+          color: #000;
+        }
+        &.light {
+          color: #fff;
+        }
+
+        .user-details {
+          font-size: 0.65em;
+
+          &.dark {
+            color: $light-turqoise;
+          }
+          &.light {
+            color: #000;
+          }
+        }
+      }
+
+      .account-level {
+        font-size: 0.5em;
+        padding-left: 10px;
+        color: #f00;
+        font-weight: 600;
+        text-transform: uppercase;
+      }
+  }
+}
