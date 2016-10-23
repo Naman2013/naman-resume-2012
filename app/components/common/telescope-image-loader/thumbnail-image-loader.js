@@ -118,7 +118,9 @@ class ThumbnailImageLoader extends Component {
       previousImageUrl,
       transitionDuration } = this.state;
 
-    const { clipped } = this.props;
+    const {
+      clipped,
+      teleThumbWidth } = this.props;
 
     if(!currentImageUrl || !previousImageUrl) {
       return null;
@@ -134,13 +136,13 @@ class ThumbnailImageLoader extends Component {
       <div className={containerClasses}>
         <div className="bottom-image">
           <img
-            width={this.props.teleThumbWidth}
+            width={teleThumbWidth}
             src={bottomImageAddress} />
         </div>
 
         <div className="top-image">
           <img
-            width={this.props.teleThumbWidth}
+            width={teleThumbWidth}
             id={this.generateImageId()} />
         </div>
       </div>
