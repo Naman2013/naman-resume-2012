@@ -1,9 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import styles from './thumbnail-image-loader.scss';
 
-const { string } = PropTypes;
-const STATIC_PROGRESS = 70;
-
 class ThumbnailImageLoader extends Component {
   constructor( props ) {
     super( props );
@@ -118,16 +115,19 @@ class ThumbnailImageLoader extends Component {
     const {
       currentImageUrl,
       previousImageUrl,
-      transitionDuration, } = this.state;
+      transitionDuration } = this.state;
+
+    const { clip } = this.props;
 
     if(!currentImageUrl || !previousImageUrl) {
       return null;
     }
 
     const bottomImageAddress = this.generateThumbnailUrl(previousImageUrl);
+    const isClipped = this.props.clipped;
 
     return(
-      <div className="sse-thumbnails">
+      <div className="sse-thumbnails clipped">
         <div className="bottom-image">
           <img
             width={this.props.teleThumbWidth}
@@ -145,10 +145,11 @@ class ThumbnailImageLoader extends Component {
 }
 
 ThumbnailImageLoader.propTypes = {
-  imageSource: string,
-  teleId: string,
-  teleThumbWidth: string,
-  teleFade: string,
+  imageSource: PropTypes.string,
+  teleId: PropTypes.string,
+  teleThumbWidth: PropTypes.string,
+  teleFade: PropTypes.string,
+  clip: PropTypes.bool,
 };
 
 export default ThumbnailImageLoader;
