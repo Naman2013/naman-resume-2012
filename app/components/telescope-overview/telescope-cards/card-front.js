@@ -8,6 +8,8 @@ import style from './card-front.scss';
 
 import moment from 'moment';
 
+import generateSseImageSource from '../../../utils/generate-sse-image-source';
+
 const MISSION_READY_TELE_ACCESS_METHOD = 'missions';
 
 class CardFront extends Component {
@@ -45,7 +47,7 @@ class CardFront extends Component {
     return `/dev-sse/${telePort}/sse/${teleSystem}`;
   }
 
-  determineLoaderType() {
+  determineLoaderType(teleSystem, telePort) {
     /*
       apply image source loader based
       on this.props.teleImageSourceType
@@ -72,7 +74,7 @@ class CardFront extends Component {
     } else if(teleImageSourceType === 'SSE') {
       return(
         <TelescopeImageLoader
-          imageSource={this.generateSseImageSource()}
+          imageSource={generateSseImageSource(teleSystem, telePort)}
           teleId={this.props.teleId}
           teleFade={this.props.teleFade}
           teleThumbWidth={this.props.teleThumbWidth} />
@@ -82,7 +84,11 @@ class CardFront extends Component {
 
   render() {
 
-    const { obsUniqueId, teleUniqueId } = this.props;
+    const {
+      obsUniqueId,
+      teleUniqueId,
+      teleSystem,
+      telePort } = this.props;
 
     const missionStatusStyle = {
       opacity: this.isMissionReadyTelescope() ? 1 : 0,
@@ -124,7 +130,7 @@ class CardFront extends Component {
                   <h4 className="title" style={missionStatusStyle}>LIVE Mission</h4>
 
                   <div className="telescope-image">
-                    { this.determineLoaderType() }
+                    { this.determineLoaderType(teleSystem, telePort) }
                   </div>
 
                   <h5 className="telescope-image-title">

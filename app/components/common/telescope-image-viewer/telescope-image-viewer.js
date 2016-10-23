@@ -3,27 +3,37 @@ import InteractiveViewer from '../interactive-viewer/interactive-viewer';
 import TelescopeImageLoader from '../telescope-image-loader/telescope-image-loader';
 import style from './telescope-image-viewer.scss';
 
+import generateSseImageLoader from '../../../utils/generate-sse-image-source';
+
 /**
-  TODO: pass in and validate the current telescope data
-  TODO: implement sse images
   TODO: implement telescope video feed
   TODO: determine whether to display image or video
 */
 
-class HighMagnification extends Component {
+class TelescopeImageViewer extends Component {
   render() {
 
     console.log('the current telescope is...');
     console.log(this.props);
 
-    // test image...
-    //<img width="100%" src={'/assets/images/graphics/magnification-scene.jpg'}  />
+    const { telePort, teleSystem, teleId, teleFade } = this.props;
+    const teleThumbWidth = '875';
+    const imageSource = generateSseImageLoader(teleSystem, telePort);
+    const clipped = false;
+    
     return(
       <div
         className={`telescope-image-viewer ${this.props.className}`}>
 
         <InteractiveViewer>
-          <TelescopeImageLoader />
+
+          <TelescopeImageLoader
+            imageSource={imageSource}
+            teleId={teleId}
+            teleThumbWidth={teleThumbWidth}
+            teleFade={teleFade}
+            clipped={clipped} />
+
         </InteractiveViewer>
 
       </div>
@@ -31,4 +41,4 @@ class HighMagnification extends Component {
   }
 }
 
-export default HighMagnification;
+export default TelescopeImageViewer;
