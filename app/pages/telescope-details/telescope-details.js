@@ -120,7 +120,10 @@ export default class TelescopeDetails extends Component {
 
       <AnnouncementBanner obsId={obsId} />
 
-      <TelescopeSelection key={this.props.params.teleUniqueId} observatoryList={observatoryList} params={this.props.params} />
+      <TelescopeSelection
+        key={this.props.params.teleUniqueId}
+        observatoryList={observatoryList}
+        params={this.props.params} />
 
       <div>
         <div className="col-md-8">
