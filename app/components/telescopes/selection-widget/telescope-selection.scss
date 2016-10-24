@@ -1,3 +1,13 @@
+.obs-telescope-selection-widget {
+  position: relative;
+
+  .universal-time {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+  }
+}
+
 .telescopesSelectionContainer.col-md-7 {
   color: #000;
   margin: 0 auto;
@@ -26,7 +36,7 @@
     li {
 
       .cat-link {
-        color: #F310A7;
+        color: #fff;
         cursor: pointer;
 
         &.active {

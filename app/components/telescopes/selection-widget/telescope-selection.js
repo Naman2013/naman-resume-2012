@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
+import UniversalTime from '../../common/universal-time';
 import style from './telescope-selection.scss';
 
 export default class TelescopeSelection extends React.Component {
@@ -59,10 +60,12 @@ export default class TelescopeSelection extends React.Component {
   }
 
   render() {
-    console.log(this.state.telescopes);
     return (
+      <div className="obs-telescope-selection-widget">
+        <div className="universal-time">
+          <UniversalTime />
+        </div>
       <div className="telescopesSelectionContainer col-md-7">
-
         <div className="categories">
           <ul>
             {this.state.piers.map(obs => {
@@ -101,6 +104,7 @@ export default class TelescopeSelection extends React.Component {
         <div className="description">
           {this.state.description}
         </div>
+      </div>
       </div>
     )
   }
