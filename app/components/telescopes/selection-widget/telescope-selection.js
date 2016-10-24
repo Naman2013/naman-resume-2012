@@ -61,7 +61,7 @@ export default class TelescopeSelection extends React.Component {
   render() {
     console.log(this.state.telescopes);
     return (
-      <div className="telescopesSelectionContainer col-md-6">
+      <div className="telescopesSelectionContainer col-md-7">
 
         <div className="categories">
           <ul>

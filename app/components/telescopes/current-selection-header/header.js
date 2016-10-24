@@ -21,7 +21,7 @@ function CurrentSelectionHeader({telescope}) {
 
           <div className="sponsoredby col-md-4">
             <span className="sponsoredby-text">
-              Sponsored by: {telescope.teleSponsorName}
+              Sponsored by:
             </span>
             <a href={telescope.teleSponsorLinkURL} target="_blank">
               <img width="145" className="sponsoredby-logo" src={telescope.teleSponsorLogoURL} />
