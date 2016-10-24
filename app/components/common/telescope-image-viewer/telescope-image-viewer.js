@@ -11,28 +11,53 @@ import generateSseImageLoader from '../../../utils/generate-sse-image-source';
 */
 
 class TelescopeImageViewer extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      clipped: false,
+    };
+  }
+
+  toggleClipping(event) {
+    const { clipped } = this.state;
+    this.setState({
+      clipped: !clipped,
+    });
+  }
+
   render() {
 
-    console.log('the current telescope is...');
-    console.log(this.props);
+    // console.log('the current telescope is...');
+    // console.log(this.props);
 
-    const { telePort, teleSystem, teleId, teleFade } = this.props;
+    const {
+      telePort,
+      teleSystem,
+      teleId,
+      teleFade, } = this.props;
+
+    const { clipped } = this.state;
+
     const teleThumbWidth = '875';
     const imageSource = generateSseImageLoader(teleSystem, telePort);
-    const clipped = false;
-    
+    const isClipped = clipped ? 'clipped' : '';
+
+    console.log(isClipped);
+
     return(
       <div
-        className={`telescope-image-viewer ${this.props.className}`}>
+        className={`telescope-image-viewer ${isClipped} ${this.props.className}`}>
 
-        <InteractiveViewer>
+        <InteractiveViewer
+          handleClipping={this.toggleClipping.bind(this)}>
 
           <TelescopeImageLoader
             imageSource={imageSource}
             teleId={teleId}
             teleThumbWidth={teleThumbWidth}
             teleFade={teleFade}
-            clipped={clipped} />
+            clipped={false} />
 
         </InteractiveViewer>
 
@@ -40,5 +65,13 @@ class TelescopeImageViewer extends Component {
     );
   }
 }
+
+TelescopeImageViewer.defaultProps = {
+  clipped: false,
+};
+
+TelescopeImageViewer.propTypes = {
+  clipped: PropTypes.bool,
+};
 
 export default TelescopeImageViewer;

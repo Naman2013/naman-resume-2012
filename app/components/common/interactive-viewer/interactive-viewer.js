@@ -57,23 +57,6 @@ class InteractivePanel extends Component {
     console.log('go full screen');
   }
 
-  handleCircularViewClick(event) {
-    console.log('apply the clipping mask');
-
-    this.setState({
-      frameViewType: FRAME_VIEW_TYPE_CIRCULAR,
-    });
-  }
-
-  handleFullFrameViewClick(event) {
-    console.log('remove clipping mask');
-
-    this.setState({
-      frameViewType: FRAME_VIEW_TYPE_FULL,
-    });
-  }
-
-
   adjustXPos(event) {
     event.preventDefault();
     event.stopPropagation();
@@ -106,7 +89,7 @@ class InteractivePanel extends Component {
 
   render() {
 
-    const { children } = this.props;
+    const { children, handleClipping } = this.props;
     const { currentScale, frameViewType, bounds, controlledPosition } = this.state;
 
     const viewerContentStyle = {
@@ -149,13 +132,13 @@ class InteractivePanel extends Component {
         {
           frameViewType === FRAME_VIEW_TYPE_CIRCULAR ?
             <button
-              onClick={this.handleFullFrameViewClick.bind(this)}
+              onClick={handleClipping}
               className="action circular-view">
                 Full-frame view <span className="icon glyphicon glyphicon-sound-stereo"></span>
             </button>
             :
             <button
-              onClick={this.handleCircularViewClick.bind(this)}
+              onClick={handleClipping}
               className="action circular-view">
                 Circular view <span className="icon glyphicon glyphicon-record"></span>
             </button>
@@ -190,5 +173,9 @@ class InteractivePanel extends Component {
     );
   }
 }
+
+InteractivePanel.propTypes = {
+  handleClipping: PropTypes.func,
+};
 
 export default InteractivePanel;
