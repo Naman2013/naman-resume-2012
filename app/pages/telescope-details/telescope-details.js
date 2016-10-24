@@ -190,8 +190,9 @@ export default class TelescopeDetails extends Component {
           />
         </div>
         <div className='col-md-4 telescope-details-sidebar'>
-          {/* Live Mission Component */}
+
           <LiveMission />
+
           <Spacer height="100px" />
           {/* Telescope Where Sky Component*/}
           <TelescopeWhereSky />
