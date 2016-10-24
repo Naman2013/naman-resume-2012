@@ -114,7 +114,7 @@ class InteractivePanel extends Component {
       'transformStyle': 'flat',
     };
 
-    const interactivePanelStyle = fetchCurrentPanelStyle();
+    const interactivePanelStyle = this.fetchCurrentPanelStyle();
 
     const draggableConfiguration = {
       bounds: {
