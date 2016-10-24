@@ -1,39 +1,51 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
+import UniversalTime from '../../common/universal-time';
 import style from './telescope-selection.scss';
 
 export default class TelescopeSelection extends React.Component {
   constructor(props) {
     super(props);
 
+    /**
+      * Grab observatoryId and telescopeId from the URL
+      * So we can set default state and render current selection
+      */
+    const { obsUniqueId, teleUniqueId } = this.props.params;
+
     this.state = {
       description: '',
       piers: [],
-      activePier: null,
+      activePier: obsUniqueId,
       telescopes: [],
-      showTelescopes: true
+      showTelescopes: true,
+      activeTelescopeId: teleUniqueId
     };
+
   }
 
   componentDidMount() {
-    const { observatoryList } = this.props;
+    const { observatoryList, params } = this.props;
 
     /** get only piers with available telescopes **/
     const piers = observatoryList.filter(obs => obs.obsTelescopes && obs.obsTelescopes.length > 0);
+    let currentObservatoryTelescopes;
 
+    piers.find(pier => {
+      currentObservatoryTelescopes = pier.obsUniqueId === params.obsUniqueId ? pier.obsTelescopes : null;
+    });
     /**
       * @todo default description should be the first telescopes content based on pier availability.
       */
     this.setState({
       piers,
-      activePier: piers[0].obsUniqueId,
-      telescopes: piers[0].obsTelescopes,
+      activePier: this.state.activePier || piers[0].obsUniqueId,
+      telescopes: currentObservatoryTelescopes || piers[0].obsTelescopes,
       description: piers[0].obsDescription
     });
   }
 
   obsMouseOver(obs) {
-    console.log(obs);
     this.setState({
       description: obs.obsDescription
     });
@@ -59,10 +71,12 @@ export default class TelescopeSelection extends React.Component {
   }
 
   render() {
-    console.log(this.state.telescopes);
     return (
-      <div className="telescopesSelectionContainer col-md-6">
-
+      <div className="obs-telescope-selection-widget">
+        <div className="universal-time">
+          <UniversalTime />
+        </div>
+      <div className="telescopesSelectionContainer col-md-7">
         <div className="categories">
           <ul>
             {this.state.piers.map(obs => {
@@ -70,8 +84,9 @@ export default class TelescopeSelection extends React.Component {
                 <li key={obs.obsUniqueId}
                   onMouseOver={() => this.obsMouseOver(obs)}
                   onMouseOut={this.obsMouseOut.bind(this)}
-                  onClick={() => this.pierClickHandler(obs, event)}>
-                  <Link className="cat-link">
+                  onClick={() => this.pierClickHandler(obs, event)}
+                  data-obsUniqueId={obs.obsUniqueId}>
+                  <Link className={`cat-link ${this.state.activePier === obs.obsUniqueId ? 'active' : 'inactive'}`}>
                     {obs.obsMenuName + ' '}
                     {obs.obsUniqueId === this.state.activePier ?
                       <span className={this.state.showTelescopes ? 'fa fa-caret-down' : 'fa fa-caret-up'}></span> :
@@ -87,9 +102,10 @@ export default class TelescopeSelection extends React.Component {
         <div className={ (this.state.showTelescopes ? 'visible' : 'hidden') + ' list'}>
           <ul>
           {this.state.telescopes.map(tel => {
+
             return (
               <li key={tel.teleUniqueId} className="icon-container">
-                <Link activeClassName="active" to={tel.telePageURL}>
+                <Link className={`${tel.teleUniqueId === this.state.activeTelescopeId ? 'active' : 'inactive'} `} to={tel.telePageURL}>
                   <img className="icon img-circle" src={tel.teleLogoURL} />
                 </Link>
               </li>
@@ -101,6 +117,7 @@ export default class TelescopeSelection extends React.Component {
         <div className="description">
           {this.state.description}
         </div>
+      </div>
       </div>
     )
   }

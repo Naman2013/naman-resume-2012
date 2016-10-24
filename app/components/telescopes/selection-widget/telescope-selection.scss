@@ -1,4 +1,14 @@
-.telescopesSelectionContainer.col-md-6 {
+.obs-telescope-selection-widget {
+  position: relative;
+
+  .universal-time {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+  }
+}
+
+.telescopesSelectionContainer.col-md-7 {
   color: #000;
   margin: 0 auto;
   float: none;
@@ -26,7 +36,7 @@
     li {
 
       .cat-link {
-        color: #F310A7;
+        color: #fff;
         cursor: pointer;
 
         &.active {
@@ -55,7 +65,8 @@
   .description {
     text-align: center;
     padding: 10px 5px;
-
+    font-size: 14px;
+    
     li {
       display: none;
 

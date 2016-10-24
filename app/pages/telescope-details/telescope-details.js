@@ -113,19 +113,21 @@ export default class TelescopeDetails extends Component {
     const currentObservatory = getCurrentObservatory(observatoryList, obsUniqueId);
     const { obsId } = currentObservatory;
     const currentTelescope = this.getCurrentTelescope(currentObservatory.obsTelescopes, teleUniqueId);
+    console.log(currentTelescope);
 
     return (
     <div className="telescope-details-page-wrapper">
+
       <AnnouncementBanner obsId={obsId} />
 
-      <TelescopeSelection observatoryList={observatoryList} />
+      <TelescopeSelection key={this.props.params.teleUniqueId} observatoryList={observatoryList} params={this.props.params} />
 
       <div>
         <div className="col-md-8">
           <CurrentSelectionHeader telescope={currentTelescope} />
         </div>
         <div className="col-md-4">
-          <button className="pull-right btn-primary" href="">Reserve this telescope</button>
+          <a className="pull-right btn-primary" href={`#${currentTelescope.teleResURL}`}>Reserve this telescope</a>
         </div>
       </div>
 
@@ -143,7 +145,7 @@ export default class TelescopeDetails extends Component {
             <TabPanel>
               <TelescopeImageViewer
                 {...currentTelescope}
-                className={this.state.toggleNeoview ? 'hidden' : 'visible'} />
+                className='visible' />
 
               <Neoview className={this.state.toggleNeoview ? 'visible' : 'hidden'} />
             </TabPanel>
@@ -185,7 +187,7 @@ export default class TelescopeDetails extends Component {
             ]}
           />
         </div>
-        <div className='col-md-4'>
+        <div className='col-md-4 telescope-details-sidebar'>
           {/* Live Mission Component */}
           <LiveMission />
           <Spacer height="100px" />

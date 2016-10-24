@@ -14,14 +14,14 @@ function CurrentSelectionHeader({telescope}) {
       <div className="current-selection-header">
         <div className="title-container clearfix">
           <div className="telescope-title-container col-md-8">
-            <img className={telescope.teleLogoURL} width="48" height="48"/>
+            <img src={telescope.teleLogoURL} width="48" height="48"/>
 
             <span className="telescope-title big">{`${telescope.teleName}: ${telescope.teleNameAlt}`}</span>
           </div>
 
           <div className="sponsoredby col-md-4">
             <span className="sponsoredby-text">
-              Sponsored by: {telescope.teleSponsorName}
+              Sponsored by:
             </span>
             <a href={telescope.teleSponsorLinkURL} target="_blank">
               <img width="145" className="sponsoredby-logo" src={telescope.teleSponsorLogoURL} />

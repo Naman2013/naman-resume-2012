@@ -42,7 +42,6 @@ img {
   color: #fff;
   height: 40px;
   line-height: 40px;
-  line-height: 25px;
   font-size: 13px;
   display: block;
   text-align: center;
@@ -54,6 +53,8 @@ img {
   margin: 15px auto;
   border: none;
   border-radius: 0;
+  text-decoration: none;
+  padding: 0 15px;
 }
 
 .btn-primary:hover {
