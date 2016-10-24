@@ -1,9 +1,3 @@
 .telescope-image-viewer {
   position: relative;
-
-  &.clipped {
-    -webkit-clip-path: circle(305px at center);
-    -moz-clip-path: circle(305px);
-    clip-path: circle(305px, 305px, 305px);
-  }
 }
