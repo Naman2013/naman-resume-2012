@@ -1,5 +1,8 @@
+@import "../../../styles/variables/fonts.scss";
+
 .current-selection-header {
-	
+	font-family: $primary-font;
+
 	.title-container {
 		border-bottom: 1px solid #979797;
 		padding: 5px 0;
