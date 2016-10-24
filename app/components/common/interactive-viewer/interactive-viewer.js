@@ -95,6 +95,14 @@ class InteractivePanel extends Component {
     this.setState({controlledPosition: {x, y}});
   }
 
+  fetchCurrentPanelStyle() {
+    const { clipDimension } = this.props;
+    return this.state.clipped ? {
+      webkitClipPath: `circle(${clipDimension}px at center)`,
+      mozClipPath: `circle(${clipDimension}px)`,
+      clipPath: `circle(${clipDimension}px, ${clipDimension}px, ${clipDimension}px)`,
+    } : {};
+  }
 
   render() {
 
@@ -106,11 +114,7 @@ class InteractivePanel extends Component {
       'transformStyle': 'flat',
     };
 
-    const interactivePanelStyle = {
-      webkitClipPath: `circle(${clipDimension}px at center)`,
-      mozClipPath: `circle(${clipDimension}px)`,
-      clipPath: `circle(${clipDimension}px, ${clipDimension}px, ${clipDimension}px)`,
-    };
+    const interactivePanelStyle = fetchCurrentPanelStyle();
 
     const draggableConfiguration = {
       bounds: {
