@@ -55,9 +55,10 @@ class InteractivePanel extends Component {
   }
 
   handleToggleClipping(event) {
-    const { clipped } = this.state;
+    const { clipped, frameViewType } = this.state;
     this.setState({
       clipped: !clipped,
+      frameViewType: clipped ? FRAME_VIEW_TYPE_CIRCULAR : FRAME_VIEW_TYPE_FULL,
     });
   }
 
@@ -146,13 +147,13 @@ class InteractivePanel extends Component {
         {
           frameViewType === FRAME_VIEW_TYPE_CIRCULAR ?
             <button
-              onClick={handleClipping}
+              onClick={this.handleToggleClipping.bind(this)}
               className="action circular-view">
                 Full-frame view <span className="icon glyphicon glyphicon-sound-stereo"></span>
             </button>
             :
             <button
-              onClick={handleClipping}
+              onClick={this.handleToggleClipping.bind(this)}
               className="action circular-view">
                 Circular view <span className="icon glyphicon glyphicon-record"></span>
             </button>
