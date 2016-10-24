@@ -1,8 +1,13 @@
+@import "../../../styles/variables/fonts.scss";
+
 .live-mission {
+  font-family: $primary-font;
   color: white;
+
   p {
     font-size: 20px;
   }
+
   .content {
     padding: 10px;
     background: rgba(31,31,31,0.40);
