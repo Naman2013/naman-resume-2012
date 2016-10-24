@@ -117,9 +117,10 @@ export default class TelescopeDetails extends Component {
 
     return (
     <div className="telescope-details-page-wrapper">
+
       <AnnouncementBanner obsId={obsId} />
 
-      <TelescopeSelection observatoryList={observatoryList} />
+      <TelescopeSelection key={this.props.params.teleUniqueId} observatoryList={observatoryList} params={this.props.params} />
 
       <div>
         <div className="col-md-8">
@@ -186,7 +187,7 @@ export default class TelescopeDetails extends Component {
             ]}
           />
         </div>
-        <div className='col-md-4'>
+        <div className='col-md-4 telescope-details-sidebar'>
           {/* Live Mission Component */}
           <LiveMission />
           <Spacer height="100px" />
