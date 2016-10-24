@@ -13,6 +13,7 @@ class InteractivePanel extends Component {
     super(props);
 
     this.state = {
+      clipped: false,
       currentScale: 1,
       frameViewType: FRAME_VIEW_TYPE_FULL,
       bounds: 1,
@@ -51,6 +52,13 @@ class InteractivePanel extends Component {
 
     this.resetXY();
 
+  }
+
+  handleToggleClipping(event) {
+    const { clipped } = this.state;
+    this.setState({
+      clipped: !clipped,
+    });
   }
 
   handleGoingFullScreen(event) {
@@ -173,9 +181,5 @@ class InteractivePanel extends Component {
     );
   }
 }
-
-InteractivePanel.propTypes = {
-  handleClipping: PropTypes.func,
-};
 
 export default InteractivePanel;
