@@ -12,45 +12,21 @@ import generateSseImageLoader from '../../../utils/generate-sse-image-source';
 
 class TelescopeImageViewer extends Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      clipped: false,
-    };
-  }
-
-  toggleClipping(event) {
-    const { clipped } = this.state;
-    this.setState({
-      clipped: !clipped,
-    });
-  }
-
   render() {
-
-    // console.log('the current telescope is...');
-    // console.log(this.props);
-
     const {
       telePort,
       teleSystem,
       teleId,
       teleFade, } = this.props;
 
-    const { clipped } = this.state;
-
     const teleThumbWidth = '875';
     const imageSource = generateSseImageLoader(teleSystem, telePort);
-    const isClipped = clipped ? 'clipped' : '';
-
-    console.log(isClipped);
 
     return(
       <div
-        className={`telescope-image-viewer ${isClipped}`}>
+        className="telescope-image-viewer">
 
-        <InteractiveViewer
-          handleClipping={this.toggleClipping.bind(this)}>
+        <InteractiveViewer>
 
           <TelescopeImageLoader
             imageSource={imageSource}
