@@ -1,17 +1,6 @@
 .sse-thumbnails {
   position: relative;
 
-  /*
-    TODO: refactor this style out of here and into the
-    host container of the front of card.  The image loader
-    is not responsible for providing any clipping
-  */
-  &.clipped img {
-    -webkit-clip-path: circle(115px at center);
-    -moz-clip-path: circle(115px);
-    clip-path: circle(115px, 115px, 115px);
-  }
-
   .top-image {
     position: absolute;
     top: 0;
