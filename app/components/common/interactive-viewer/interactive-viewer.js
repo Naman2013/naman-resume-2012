@@ -97,12 +97,18 @@ class InteractivePanel extends Component {
 
   render() {
 
-    const { children, handleClipping } = this.props;
+    const { children, clipDimension } = this.props;
     const { currentScale, frameViewType, bounds, controlledPosition } = this.state;
 
     const viewerContentStyle = {
       'transform': `scale(${currentScale})`,
       'transformStyle': 'flat',
+    };
+
+    const interactivePanelStyle = {
+      webkitClipPath: `circle(${clipDimension}px at center)`,
+      mozClipPath: `circle(${clipDimension}px)`,
+      clipPath: `circle(${clipDimension}px, ${clipDimension}px, ${clipDimension}px)`,
     };
 
     const draggableConfiguration = {
@@ -160,7 +166,9 @@ class InteractivePanel extends Component {
           </button>
         */}
 
-        <div className="interactive-panel">
+        <div
+          style={interactivePanelStyle}
+          className="interactive-panel">
 
           <div
             id="interactive-content-container"
@@ -181,5 +189,13 @@ class InteractivePanel extends Component {
     );
   }
 }
+
+InteractivePanel.defaultProps = {
+  clipDimension: 305,
+};
+
+InteractivePanel.propTypes = {
+  clipDimension: PropTypes.string,
+};
 
 export default InteractivePanel;
