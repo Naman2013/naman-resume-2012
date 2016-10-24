@@ -47,7 +47,7 @@ class TelescopeImageViewer extends Component {
 
     return(
       <div
-        className={`telescope-image-viewer ${isClipped} ${this.props.className}`}>
+        className={`telescope-image-viewer ${isClipped}`}>
 
         <InteractiveViewer
           handleClipping={this.toggleClipping.bind(this)}>

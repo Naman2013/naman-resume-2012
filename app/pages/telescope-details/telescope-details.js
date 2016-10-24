@@ -147,8 +147,7 @@ export default class TelescopeDetails extends Component {
 
             <TabPanel>
               <TelescopeImageViewer
-                {...currentTelescope}
-                className='visible' />
+                {...currentTelescope} />
 
               <Neoview className={this.state.toggleNeoview ? 'visible' : 'hidden'} />
             </TabPanel>
