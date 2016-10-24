@@ -196,7 +196,7 @@ InteractivePanel.defaultProps = {
 };
 
 InteractivePanel.propTypes = {
-  clipDimension: PropTypes.string,
+  clipDimension: PropTypes.number,
 };
 
 export default InteractivePanel;
