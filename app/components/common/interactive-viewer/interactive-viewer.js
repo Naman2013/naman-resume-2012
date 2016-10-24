@@ -8,11 +8,12 @@ const FRAME_VIEW_TYPE_FULL = 'FRAME_VIEW_TYPE_FULL';
 const FRAME_VIEW_TYPE_CIRCULAR = 'FRAME_VIEW_TYPE_CIRCULAR';
 const BOUNDS_MULTIPLIER = 100;
 
-class InteractivePanel extends Component {
+class InteractiveViewer extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      clipped: false,
       currentScale: 1,
       frameViewType: FRAME_VIEW_TYPE_FULL,
       bounds: 1,
@@ -53,6 +54,14 @@ class InteractivePanel extends Component {
 
   }
 
+  handleToggleClipping(event) {
+    const { clipped, frameViewType } = this.state;
+    this.setState({
+      clipped: !clipped,
+      frameViewType: clipped ? FRAME_VIEW_TYPE_FULL : FRAME_VIEW_TYPE_CIRCULAR,
+    });
+  }
+
   handleGoingFullScreen(event) {
     console.log('go full screen');
   }
@@ -86,16 +95,26 @@ class InteractivePanel extends Component {
     this.setState({controlledPosition: {x, y}});
   }
 
+  fetchCurrentPanelStyle() {
+    const { clipDimension } = this.props;
+    return this.state.clipped ? {
+      WebkitClipPath: `circle(${clipDimension}px at center)`,
+      MozClipPath: `circle(${clipDimension}px)`,
+      clipPath: `circle(${clipDimension}px, ${clipDimension}px, ${clipDimension}px)`,
+    } : {};
+  }
 
   render() {
 
-    const { children, handleClipping } = this.props;
+    const { children, clipDimension } = this.props;
     const { currentScale, frameViewType, bounds, controlledPosition } = this.state;
 
     const viewerContentStyle = {
       'transform': `scale(${currentScale})`,
       'transformStyle': 'flat',
     };
+
+    const interactivePanelStyle = this.fetchCurrentPanelStyle();
 
     const draggableConfiguration = {
       bounds: {
@@ -132,13 +151,13 @@ class InteractivePanel extends Component {
         {
           frameViewType === FRAME_VIEW_TYPE_CIRCULAR ?
             <button
-              onClick={handleClipping}
+              onClick={this.handleToggleClipping.bind(this)}
               className="action circular-view">
                 Full-frame view <span className="icon glyphicon glyphicon-sound-stereo"></span>
             </button>
             :
             <button
-              onClick={handleClipping}
+              onClick={this.handleToggleClipping.bind(this)}
               className="action circular-view">
                 Circular view <span className="icon glyphicon glyphicon-record"></span>
             </button>
@@ -152,7 +171,9 @@ class InteractivePanel extends Component {
           </button>
         */}
 
-        <div className="interactive-panel">
+        <div
+          style={interactivePanelStyle}
+          className="interactive-panel">
 
           <div
             id="interactive-content-container"
@@ -174,8 +195,12 @@ class InteractivePanel extends Component {
   }
 }
 
-InteractivePanel.propTypes = {
-  handleClipping: PropTypes.func,
+InteractiveViewer.defaultProps = {
+  clipDimension: 305,
 };
 
-export default InteractivePanel;
+InteractiveViewer.propTypes = {
+  clipDimension: PropTypes.number,
+};
+
+export default InteractiveViewer;

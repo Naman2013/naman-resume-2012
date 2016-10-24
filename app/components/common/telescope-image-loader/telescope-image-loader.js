@@ -118,22 +118,16 @@ class TelescopeImageLoader extends Component {
       previousImageUrl,
       transitionDuration } = this.state;
 
-    const {
-      clipped,
-      teleThumbWidth } = this.props;
+    const { teleThumbWidth } = this.props;
 
     if(!currentImageUrl || !previousImageUrl) {
       return null;
     }
 
     const bottomImageAddress = this.generateThumbnailUrl(previousImageUrl);
-    const containerClasses = classnames({
-      'sse-thumbnails': 1,
-      'clipped': clipped,
-    });
 
     return(
-      <div className={containerClasses}>
+      <div className="sse-thumbnails">
         <div className="bottom-image">
           <img
             width={teleThumbWidth}
@@ -150,16 +144,11 @@ class TelescopeImageLoader extends Component {
   }
 }
 
-TelescopeImageLoader.defaultProps = {
-  clipped: true,
-};
-
 TelescopeImageLoader.propTypes = {
   imageSource: PropTypes.string,
   teleId: PropTypes.string,
   teleThumbWidth: PropTypes.string,
   teleFade: PropTypes.string,
-  clipped: PropTypes.bool,
 };
 
 export default TelescopeImageLoader;

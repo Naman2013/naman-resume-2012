@@ -71,6 +71,7 @@ export default class TelescopeSelection extends React.Component {
   }
 
   render() {
+
     return (
       <div className="obs-telescope-selection-widget">
         <div className="universal-time">

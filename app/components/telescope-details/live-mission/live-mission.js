@@ -41,7 +41,6 @@ class LiveMission extends React.Component {
             <span>in 3:18</span>
           </div>
         </div>
-        <div className="heart hide">122</div>
       </div>
     );
   }

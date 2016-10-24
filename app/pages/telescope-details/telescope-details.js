@@ -120,7 +120,10 @@ export default class TelescopeDetails extends Component {
 
       <AnnouncementBanner obsId={obsId} />
 
-      <TelescopeSelection key={this.props.params.teleUniqueId} observatoryList={observatoryList} params={this.props.params} />
+      <TelescopeSelection
+        key={this.props.params.teleUniqueId}
+        observatoryList={observatoryList}
+        params={this.props.params} />
 
       <div>
         <div className="col-md-8">
@@ -144,8 +147,7 @@ export default class TelescopeDetails extends Component {
 
             <TabPanel>
               <TelescopeImageViewer
-                {...currentTelescope}
-                className='visible' />
+                {...currentTelescope} />
 
               <Neoview className={this.state.toggleNeoview ? 'visible' : 'hidden'} />
             </TabPanel>
@@ -188,8 +190,9 @@ export default class TelescopeDetails extends Component {
           />
         </div>
         <div className='col-md-4 telescope-details-sidebar'>
-          {/* Live Mission Component */}
+
           <LiveMission />
+
           <Spacer height="100px" />
           {/* Telescope Where Sky Component*/}
           <TelescopeWhereSky />
