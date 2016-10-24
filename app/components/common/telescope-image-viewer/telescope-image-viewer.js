@@ -16,11 +16,16 @@ class TelescopeImageViewer extends Component {
     console.log('the current telescope is...');
     console.log(this.props);
 
-    const { telePort, teleSystem, teleId, teleFade } = this.props;
+    const {
+      telePort,
+      teleSystem,
+      teleId,
+      teleFade,
+      clipped } = this.props;
+
     const teleThumbWidth = '875';
     const imageSource = generateSseImageLoader(teleSystem, telePort);
-    const clipped = false;
-    
+
     return(
       <div
         className={`telescope-image-viewer ${this.props.className}`}>
@@ -40,5 +45,13 @@ class TelescopeImageViewer extends Component {
     );
   }
 }
+
+TelescopeImageViewer.defaultProps = {
+  clipped: false,
+};
+
+TelescopeImageViewer.propTypes = {
+  clipped: PropTypes.bool,
+};
 
 export default TelescopeImageViewer;
