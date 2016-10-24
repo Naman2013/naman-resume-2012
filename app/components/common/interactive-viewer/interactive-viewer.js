@@ -8,7 +8,7 @@ const FRAME_VIEW_TYPE_FULL = 'FRAME_VIEW_TYPE_FULL';
 const FRAME_VIEW_TYPE_CIRCULAR = 'FRAME_VIEW_TYPE_CIRCULAR';
 const BOUNDS_MULTIPLIER = 100;
 
-class InteractivePanel extends Component {
+class InteractiveViewer extends Component {
   constructor(props) {
     super(props);
 
@@ -58,7 +58,7 @@ class InteractivePanel extends Component {
     const { clipped, frameViewType } = this.state;
     this.setState({
       clipped: !clipped,
-      frameViewType: clipped ? FRAME_VIEW_TYPE_CIRCULAR : FRAME_VIEW_TYPE_FULL,
+      frameViewType: clipped ? FRAME_VIEW_TYPE_FULL : FRAME_VIEW_TYPE_CIRCULAR,
     });
   }
 
@@ -98,8 +98,8 @@ class InteractivePanel extends Component {
   fetchCurrentPanelStyle() {
     const { clipDimension } = this.props;
     return this.state.clipped ? {
-      webkitClipPath: `circle(${clipDimension}px at center)`,
-      mozClipPath: `circle(${clipDimension}px)`,
+      WebkitClipPath: `circle(${clipDimension}px at center)`,
+      MozClipPath: `circle(${clipDimension}px)`,
       clipPath: `circle(${clipDimension}px, ${clipDimension}px, ${clipDimension}px)`,
     } : {};
   }
@@ -195,12 +195,12 @@ class InteractivePanel extends Component {
   }
 }
 
-InteractivePanel.defaultProps = {
+InteractiveViewer.defaultProps = {
   clipDimension: 305,
 };
 
-InteractivePanel.propTypes = {
+InteractiveViewer.propTypes = {
   clipDimension: PropTypes.number,
 };
 
-export default InteractivePanel;
+export default InteractiveViewer;
