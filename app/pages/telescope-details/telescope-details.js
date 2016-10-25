@@ -2,7 +2,6 @@ import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { checkUser } from '../../modules/User';
-import classnames from 'classnames';
 import moment from 'moment';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import './telescope-details.scss';
@@ -122,8 +121,8 @@ export default class TelescopeDetails extends Component {
         <VideoImageLoader
           teleStreamCode={teleStreamCode}
           teleStreamURL={teleStreamURL}
-          teleStreamThumbnailVideoWidth={teleStreamThumbnailVideoWidth}
-          teleStreamThumbnailVideoHeight={teleStreamThumbnailVideoHeight}
+          teleStreamThumbnailVideoWidth="885"
+          teleStreamThumbnailVideoHeight="600"
           teleStreamThumbnailQuality={teleStreamThumbnailQuality} />
       );
     }

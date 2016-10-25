@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import classnames from 'classnames';
 import style from './video-image-loader.scss';
 
 class VideoImageLoader extends Component {
@@ -13,11 +14,17 @@ class VideoImageLoader extends Component {
       teleStreamCode,
       teleStreamThumbnailVideoWidth,
       teleStreamThumbnailVideoHeight,
-      teleStreamThumbnailQuality
+      teleStreamThumbnailQuality,
+      clipped,
     } = this.props;
 
+    const videoImageLoaderClassnames = classnames({
+      'video-image-loader': 1,
+      'clipped': clipped,
+    });
+
     return(
-      <div className="video-image-loader">
+      <div className={videoImageLoaderClassnames}>
         <iframe
           id={teleStreamCode}
           className="video-iframe"
@@ -32,12 +39,17 @@ class VideoImageLoader extends Component {
   }
 }
 
+VideoImageLoader.defaultProps = {
+  clipped: false,
+};
+
 VideoImageLoader.propTypes = {
   teleStreamCode: PropTypes.string,
   teleStreamURL: PropTypes.string,
   teleStreamThumbnailVideoWidth: PropTypes.string,
   teleStreamThumbnailVideoHeight: PropTypes.string,
   teleStreamThumbnailQuality: PropTypes.string,
+  clipped: PropTypes.bool,
 };
 
 export default VideoImageLoader;
