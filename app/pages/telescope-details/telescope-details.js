@@ -102,6 +102,13 @@ export default class TelescopeDetails extends Component {
     return observatoryTelescopes.find(telescope => telescope.teleUniqueId === telescopeId);
   }
 
+  determineImageLoaderType(currentTelescope) {
+    return(
+      <TelescopeImageViewer
+        {...currentTelescope} />
+    );
+  }
+
   render() {
     const { observatoryList, observatoryTelecopeStatus } = this.props;
     const { obsUniqueId, teleUniqueId } = this.props.params;
@@ -113,6 +120,8 @@ export default class TelescopeDetails extends Component {
     const currentObservatory = getCurrentObservatory(observatoryList, obsUniqueId);
     const { obsId } = currentObservatory;
     const currentTelescope = this.getCurrentTelescope(currentObservatory.obsTelescopes, teleUniqueId);
+
+    console.log('the current telescope is...');
     console.log(currentTelescope);
 
     return (
@@ -146,8 +155,10 @@ export default class TelescopeDetails extends Component {
             </TabList>
 
             <TabPanel>
-              <TelescopeImageViewer
-                {...currentTelescope} />
+
+              {
+                this.determineImageLoaderType(currentTelescope)
+              }
 
               <Neoview className={this.state.toggleNeoview ? 'visible' : 'hidden'} />
             </TabPanel>
