@@ -2,7 +2,6 @@ import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { checkUser } from '../../modules/User';
-import classnames from 'classnames';
 import moment from 'moment';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import './telescope-details.scss';
@@ -16,6 +15,7 @@ import {
 
 import AnnouncementBanner from '../../components/common/announcement-banner/announcement-banner';
 import TelescopeImageViewer from '../../components/common/telescope-image-viewer/telescope-image-viewer';
+import VideoImageLoader from '../../components/common/telescope-image-loader/video-image-loader';
 import Spacer from '../../components/common/spacer';
 import LiveStream from '../../components/telescope-details/live-stream/live-stream';
 import LiveMission from '../../components/telescope-details/live-mission/live-mission';
@@ -102,6 +102,33 @@ export default class TelescopeDetails extends Component {
     return observatoryTelescopes.find(telescope => telescope.teleUniqueId === telescopeId);
   }
 
+  determineImageLoaderType(currentTelescope) {
+    const { teleImageSourceType } = currentTelescope;
+    if(teleImageSourceType === 'SSE') {
+      return(
+        <TelescopeImageViewer
+          {...currentTelescope} />
+      );
+    } else if(teleImageSourceType === 'video') {
+      const {
+        teleStreamCode,
+        teleStreamURL,
+        teleStreamThumbnailVideoWidth,
+        teleStreamThumbnailVideoHeight,
+        teleStreamThumbnailQuality } = currentTelescope;
+
+      return(
+        <VideoImageLoader
+          teleStreamCode={teleStreamCode}
+          teleStreamURL={teleStreamURL}
+          teleStreamThumbnailVideoWidth="885"
+          teleStreamThumbnailVideoHeight="600"
+          teleStreamThumbnailQuality={teleStreamThumbnailQuality} />
+      );
+    }
+
+  }
+
   render() {
     const { observatoryList, observatoryTelecopeStatus } = this.props;
     const { obsUniqueId, teleUniqueId } = this.props.params;
@@ -113,6 +140,8 @@ export default class TelescopeDetails extends Component {
     const currentObservatory = getCurrentObservatory(observatoryList, obsUniqueId);
     const { obsId } = currentObservatory;
     const currentTelescope = this.getCurrentTelescope(currentObservatory.obsTelescopes, teleUniqueId);
+
+    console.log('the current telescope is...');
     console.log(currentTelescope);
 
     return (
@@ -146,8 +175,10 @@ export default class TelescopeDetails extends Component {
             </TabList>
 
             <TabPanel>
-              <TelescopeImageViewer
-                {...currentTelescope} />
+
+              {
+                this.determineImageLoaderType(currentTelescope)
+              }
 
               <Neoview className={this.state.toggleNeoview ? 'visible' : 'hidden'} />
             </TabPanel>

@@ -69,7 +69,8 @@ class CardFront extends Component {
           teleStreamURL={teleStreamURL}
           teleStreamThumbnailVideoWidth={teleStreamThumbnailVideoWidth}
           teleStreamThumbnailVideoHeight={teleStreamThumbnailVideoHeight}
-          teleStreamThumbnailQuality={teleStreamThumbnailQuality} />
+          teleStreamThumbnailQuality={teleStreamThumbnailQuality}
+          clipped={true} />
       );
     } else if(teleImageSourceType === 'SSE') {
       return(
