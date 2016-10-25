@@ -16,6 +16,7 @@ import {
 
 import AnnouncementBanner from '../../components/common/announcement-banner/announcement-banner';
 import TelescopeImageViewer from '../../components/common/telescope-image-viewer/telescope-image-viewer';
+import VideoImageLoader from '../../components/common/telescope-image-loader/video-image-loader';
 import Spacer from '../../components/common/spacer';
 import LiveStream from '../../components/telescope-details/live-stream/live-stream';
 import LiveMission from '../../components/telescope-details/live-mission/live-mission';
@@ -103,10 +104,30 @@ export default class TelescopeDetails extends Component {
   }
 
   determineImageLoaderType(currentTelescope) {
-    return(
-      <TelescopeImageViewer
-        {...currentTelescope} />
-    );
+    const { teleImageSourceType } = currentTelescope;
+    if(teleImageSourceType === 'SSE') {
+      return(
+        <TelescopeImageViewer
+          {...currentTelescope} />
+      );
+    } else if(teleImageSourceType === 'video') {
+      const {
+        teleStreamCode,
+        teleStreamURL,
+        teleStreamThumbnailVideoWidth,
+        teleStreamThumbnailVideoHeight,
+        teleStreamThumbnailQuality } = currentTelescope;
+
+      return(
+        <VideoImageLoader
+          teleStreamCode={teleStreamCode}
+          teleStreamURL={teleStreamURL}
+          teleStreamThumbnailVideoWidth={teleStreamThumbnailVideoWidth}
+          teleStreamThumbnailVideoHeight={teleStreamThumbnailVideoHeight}
+          teleStreamThumbnailQuality={teleStreamThumbnailQuality} />
+      );
+    }
+
   }
 
   render() {
