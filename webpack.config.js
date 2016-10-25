@@ -138,6 +138,16 @@ module.exports = {
         target: 'https://mars.slooh.com',
         changeOrigin: true,
         secure: true,
+      },
+      '/port/**': {
+        target: 'https://mars.slooh.com',
+        changeOrigin: true,
+        secure: true,
+        pathRewrite: function(path, req) {
+          var newPath = `/:${path.split(':')[1]}`;
+          console.log(newPath);
+          return path.replace(path, newPath);
+        }
       }
     }
   }

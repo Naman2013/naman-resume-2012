@@ -3,6 +3,33 @@ import styles from './neoview.scss';
 
 export default class Neoview extends React.Component {
 
+  componentDidMount() {
+    const {port, teleSystem} = this.props;
+    const neoUrl = this.generateNeoSource(port, teleSystem);
+    this.sseSource = new EventSource(neoUrl);
+    this.sseSource.addEventListener(
+      'message',
+      event => this.handleNeoMessages(event), false
+    )
+  }
+
+  componentWillUnmount() {
+    this.sseSource.close();
+    this.sseSource.removeEventListener('message', this.handleNeoMessages, false);
+  }
+
+  handleNeoMessages(data) {
+    console.log(data);
+  }
+
+  generateNeoSource(port, scope) {
+    return `/dev-sse/${port}/sse/${scope}`
+  }
+
+  generateMessages() {
+
+  }
+
   render() {
 
     return (

@@ -180,7 +180,10 @@ export default class TelescopeDetails extends Component {
                 this.determineImageLoaderType(currentTelescope)
               }
 
-              <Neoview className={this.state.toggleNeoview ? 'visible' : 'hidden'} />
+              <Neoview
+                className={this.state.toggleNeoview ? 'visible' : 'hidden'}
+                port={currentTelescope.teleNeoPort}
+                teleSystem={currentTelescope.teleSystem} />
             </TabPanel>
 
             <TabPanel>
