@@ -130,6 +130,26 @@ class InteractiveViewer extends Component {
     return(
       <div className="interactive-viewer-container">
 
+        <div style={interactivePanelStyle} className="interactive-viewer">
+
+          <div
+            className="interactive-panel">
+
+            <div
+              id="interactive-content-container"
+              style={viewerContentStyle}
+              className="viewer-content">
+
+              <Draggable { ...draggableConfiguration }>
+                <div className="content">
+                  {children}
+                </div>
+              </Draggable>
+
+            </div>
+          </div>
+        </div>
+
         <button
           onClick={this.handleZoomOutClick.bind(this)}
           className="action minus">
@@ -162,33 +182,6 @@ class InteractiveViewer extends Component {
                 Circular view <span className="icon glyphicon glyphicon-record"></span>
             </button>
         }
-
-        {/*
-          TODO: work out how starshare images will be taken
-          <button
-            className="action snapshot">
-            <img src={'/assets/images/icons/icon-snapshot.png'} className="icon snapshot" />
-          </button>
-        */}
-
-        <div
-          style={interactivePanelStyle}
-          className="interactive-panel">
-
-          <div
-            id="interactive-content-container"
-            style={viewerContentStyle}
-            className="viewer-content">
-
-            <Draggable { ...draggableConfiguration }>
-              <div className="content">
-                {children}
-              </div>
-            </Draggable>
-
-          </div>
-
-        </div>
 
       </div>
     );
