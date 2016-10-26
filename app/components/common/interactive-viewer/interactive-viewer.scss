@@ -37,7 +37,7 @@
     text-align: center;
     position: absolute;
     z-index: 9999;
-    // visibility: hidden;
+    visibility: hidden;
 
     &:focus {
       outline: 0;
@@ -51,8 +51,7 @@
 
       .icon {
         position: relative;
-        top: -21px;
-        left: -2px;
+        top: -17px;
         font-size: 3em;
       }
     }
@@ -65,8 +64,7 @@
 
       .icon {
         position: relative;
-        top: -14px;
-        left: -2px;
+        top: -10px;
         font-size: 2em;
       }
     }

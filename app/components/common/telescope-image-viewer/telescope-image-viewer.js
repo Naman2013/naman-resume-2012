@@ -5,11 +5,6 @@ import style from './telescope-image-viewer.scss';
 
 import generateSseImageLoader from '../../../utils/generate-sse-image-source';
 
-/**
-  TODO: implement telescope video feed
-  TODO: determine whether to display image or video
-*/
-
 class TelescopeImageViewer extends Component {
 
   render() {
