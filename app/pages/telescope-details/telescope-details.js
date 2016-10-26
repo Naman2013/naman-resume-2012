@@ -63,7 +63,8 @@ export default class TelescopeDetails extends Component {
     super(props);
 
     this.state = {
-      toggleNeoview: false
+      toggleNeoview: false,
+      selectedInstrument: 0, // selected index of available instruments
     };
   }
 
@@ -77,7 +78,9 @@ export default class TelescopeDetails extends Component {
 
 
   handleSelect(index, last) {
-    console.log('Selected tab: ' + index + ', Last tab: ' + last);
+    this.setState({
+      selectedInstrument: index
+    });
   }
 
   /**
@@ -102,28 +105,31 @@ export default class TelescopeDetails extends Component {
     return observatoryTelescopes.find(telescope => telescope.teleUniqueId === telescopeId);
   }
 
-  determineImageLoaderType(currentTelescope) {
-    const { teleImageSourceType } = currentTelescope;
-    if(teleImageSourceType === 'SSE') {
+  determineImageLoaderType(currentInstrument) {
+    const { instrImageSourceType } = currentInstrument;
+
+    if(instrImageSourceType === 'SSE') {
+      const { instrPort, instrSystem, instrId, instrFade } = currentInstrument;
       return(
         <TelescopeImageViewer
-          {...currentTelescope} />
+          telePort={instrPort}
+          teleSystem={instrSystem}
+          teleId={instrId}
+          teleFade={instrFade} />
       );
-    } else if(teleImageSourceType === 'video') {
+    } else if(instrImageSourceType === 'video') {
       const {
-        teleStreamCode,
-        teleStreamURL,
-        teleStreamThumbnailVideoWidth,
-        teleStreamThumbnailVideoHeight,
-        teleStreamThumbnailQuality } = currentTelescope;
+        instrStreamCode,
+        instrStreamURL,
+        instrStreamThumbnailQuality } = currentInstrument;
 
       return(
         <VideoImageLoader
-          teleStreamCode={teleStreamCode}
-          teleStreamURL={teleStreamURL}
+          teleStreamCode={instrStreamCode}
+          teleStreamURL={instrStreamURL}
           teleStreamThumbnailVideoWidth="885"
           teleStreamThumbnailVideoHeight="600"
-          teleStreamThumbnailQuality={teleStreamThumbnailQuality} />
+          teleStreamThumbnailQuality={instrStreamThumbnailQuality} />
       );
     }
 
@@ -131,7 +137,8 @@ export default class TelescopeDetails extends Component {
 
   render() {
     const { observatoryList, observatoryTelecopeStatus } = this.props;
-    const { obsUniqueId, teleUniqueId, instrUniqueId } = this.props.params;
+    const { obsUniqueId, teleUniqueId } = this.props.params;
+    const { selectedInstrument } = this.state;
 
     if(observatoryList.length === 0) {
       return null;
@@ -141,7 +148,6 @@ export default class TelescopeDetails extends Component {
     const { obsId } = currentObservatory;
     const currentTelescope = this.getCurrentTelescope(currentObservatory.obsTelescopes, teleUniqueId);
     const availableInstruments = currentTelescope.teleInstrumentList;
-    const currentInstrument = availableInstruments.find(instrument => ( instrument.instrUniqueId === instrUniqueId ));
 
     return (
     <div className="telescope-details-page-wrapper">
@@ -167,22 +173,23 @@ export default class TelescopeDetails extends Component {
 
           <div className="viewer-container">
             <Tabs
-              onSelect={this.handleSelect}
-              selectedIndex={0}>
+              onSelect={this.handleSelect.bind(this)}
+              selectedIndex={selectedInstrument}>
 
               <TabList>
                 { availableInstruments.map(instrument => (
-                  <Tab key={instrument.instrUniqueId}>
+                  <Tab key={`instrument.instrUniqueId-${Math.floor(Math.random() * 1000)}`}>
                     {instrument.instrTelescopeName}
                   </Tab>
                 )) }
               </TabList>
 
-              <TabPanel>
-                {
-                  this.determineImageLoaderType(currentTelescope)
-                }
-              </TabPanel>
+              { availableInstruments.map(instrument => (
+                <TabPanel key={`instrument.instrUniqueId-${Math.floor(Math.random() * 1000)}`}>
+                  {this.determineImageLoaderType(instrument)}
+                </TabPanel>
+              )) }
+
             </Tabs>
 
             <Neoview className={this.state.toggleNeoview ? 'visible' : 'hidden'} />
