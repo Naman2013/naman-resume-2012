@@ -50,7 +50,7 @@ ReactDOM.render(
           <Route path="reserve-by-telescope" component={ReserveByTelescope} />
         </Route>
 
-        <Route path="telescope-details/:obsUniqueId/:teleUniqueId" component={TelescopeDetails} />
+        <Route path="telescope-details/:obsUniqueId/:teleUniqueId/:instrUniqueId" component={TelescopeDetails} />
 
         <Route path="best-of-slooh" component={BestOfSlooh} />
         <Route path="object-post" component={ObjectPost} />
