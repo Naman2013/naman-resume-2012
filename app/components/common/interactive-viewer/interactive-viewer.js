@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import classnames from 'classnames';
 import Draggable from 'react-draggable';
 import style from './interactive-viewer.scss';
 
@@ -115,12 +116,17 @@ class InteractiveViewer extends Component {
   render() {
 
     const { children, clipDimension } = this.props;
-    const { currentScale, frameViewType, bounds, controlledPosition } = this.state;
+    const { fullScreenMode, currentScale, frameViewType, bounds, controlledPosition } = this.state;
 
     const viewerContentStyle = {
       'transform': `scale(${currentScale})`,
       'transformStyle': 'flat',
     };
+
+    const interactiveViewerContainerStyle = classnames({
+      'interactive-viewer-container': 1,
+      '__full__screen__mode': fullScreenMode
+    });
 
     const interactivePanelStyle = this.fetchCurrentPanelStyle();
 
@@ -136,7 +142,7 @@ class InteractiveViewer extends Component {
     }
 
     return(
-      <div className="interactive-viewer-container">
+      <div className={interactiveViewerContainerStyle}>
 
         <div style={interactivePanelStyle} className="interactive-viewer">
 
