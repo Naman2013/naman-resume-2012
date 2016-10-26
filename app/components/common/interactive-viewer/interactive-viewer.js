@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import classnames from 'classnames';
 import Draggable from 'react-draggable';
 import style from './interactive-viewer.scss';
 
@@ -13,6 +14,7 @@ class InteractiveViewer extends Component {
     super(props);
 
     this.state = {
+      fullScreenMode: false,
       clipped: false,
       currentScale: 1,
       frameViewType: FRAME_VIEW_TYPE_FULL,
@@ -31,6 +33,7 @@ class InteractiveViewer extends Component {
 
   /** event api's */
   handleZoomInClick(event) {
+    event.preventDefault();
     const { currentScale } = this.state;
     const newScale = currentScale + ZOOM_MULTIPLIER;
     this.setState({
@@ -41,6 +44,7 @@ class InteractiveViewer extends Component {
   }
 
   handleZoomOutClick(event) {
+    event.preventDefault();
     const { currentScale } = this.state;
     let newScale = currentScale - ZOOM_MULTIPLIER;
     newScale = newScale >= MINIMUM_ZOOM_SCALE ? newScale : MINIMUM_ZOOM_SCALE;
@@ -55,6 +59,7 @@ class InteractiveViewer extends Component {
   }
 
   handleToggleClipping(event) {
+    event.preventDefault();
     const { clipped, frameViewType } = this.state;
     this.setState({
       clipped: !clipped,
@@ -62,8 +67,12 @@ class InteractiveViewer extends Component {
     });
   }
 
-  handleGoingFullScreen(event) {
-    console.log('go full screen');
+  toggleFullScreenMode(event) {
+    event.preventDefault();
+    const { fullScreenMode } = this.state;
+    this.setState({
+      fullScreenMode: !fullScreenMode,
+    });
   }
 
   adjustXPos(event) {
@@ -107,12 +116,17 @@ class InteractiveViewer extends Component {
   render() {
 
     const { children, clipDimension } = this.props;
-    const { currentScale, frameViewType, bounds, controlledPosition } = this.state;
+    const { fullScreenMode, currentScale, frameViewType, bounds, controlledPosition } = this.state;
 
     const viewerContentStyle = {
       'transform': `scale(${currentScale})`,
       'transformStyle': 'flat',
     };
+
+    const interactiveViewerContainerStyle = classnames({
+      'interactive-viewer-container': 1,
+      '__full__screen__mode': fullScreenMode
+    });
 
     const interactivePanelStyle = this.fetchCurrentPanelStyle();
 
@@ -128,7 +142,7 @@ class InteractiveViewer extends Component {
     }
 
     return(
-      <div className="interactive-viewer-container">
+      <div className={interactiveViewerContainerStyle}>
 
         <div style={interactivePanelStyle} className="interactive-viewer">
 
@@ -163,7 +177,7 @@ class InteractiveViewer extends Component {
         </button>
 
         <button
-          onClick={this.handleGoingFullScreen.bind(this)}
+          onClick={this.toggleFullScreenMode.bind(this)}
           className="action full-screen-view">
           Full-screen view <span className="icon glyphicon glyphicon-fullscreen"></span>
         </button>
