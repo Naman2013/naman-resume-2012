@@ -14,8 +14,8 @@ const MISSION_READY_TELE_ACCESS_METHOD = 'missions';
 
 class CardFront extends Component {
 
-  renderVisitTelescopeButton(obsUniqueId, teleUniqueId) {
-    const telescopeDetailsUrl = `telescope-details/${obsUniqueId}/${teleUniqueId}`;
+  renderVisitTelescopeButton(obsUniqueId, teleUniqueId, defaultInstrumentId) {
+    const telescopeDetailsUrl = `telescope-details/${obsUniqueId}/${teleUniqueId}/${defaultInstrumentId}`;
     return(
       <div className="col-md-6">
         <Link to={telescopeDetailsUrl} className="action">
@@ -96,8 +96,7 @@ class CardFront extends Component {
       opacity: this.isMissionReadyTelescope() ? 1 : 0,
     };
 
-    console.log('the instrument list...');
-    console.log(teleInstrumentList);
+    const defaultInstrumentId = teleInstrumentList[0].instrUniqueId;
 
     return(
       <div className="telescope-card-front">
@@ -115,7 +114,7 @@ class CardFront extends Component {
           </p>
 
           <div className="call-to-action clearfix">
-            { this.renderVisitTelescopeButton(obsUniqueId, teleUniqueId)}
+            { this.renderVisitTelescopeButton(obsUniqueId, teleUniqueId, defaultInstrumentId)}
             { this.renderMakeReservationButton() }
           </div>
 
