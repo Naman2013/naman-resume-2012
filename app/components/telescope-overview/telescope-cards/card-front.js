@@ -14,8 +14,8 @@ const MISSION_READY_TELE_ACCESS_METHOD = 'missions';
 
 class CardFront extends Component {
 
-  renderVisitTelescopeButton(obsUniqueId, teleUniqueId, defaultInstrumentId) {
-    const telescopeDetailsUrl = `telescope-details/${obsUniqueId}/${teleUniqueId}/${defaultInstrumentId}`;
+  renderVisitTelescopeButton(obsUniqueId, teleUniqueId) {
+    const telescopeDetailsUrl = `telescope-details/${obsUniqueId}/${teleUniqueId}`;
     return(
       <div className="col-md-6">
         <Link to={telescopeDetailsUrl} className="action">
@@ -114,7 +114,7 @@ class CardFront extends Component {
           </p>
 
           <div className="call-to-action clearfix">
-            { this.renderVisitTelescopeButton(obsUniqueId, teleUniqueId, defaultInstrumentId)}
+            { this.renderVisitTelescopeButton(obsUniqueId, teleUniqueId)}
             { this.renderMakeReservationButton() }
           </div>
 
