@@ -131,7 +131,7 @@ export default class TelescopeDetails extends Component {
 
   render() {
     const { observatoryList, observatoryTelecopeStatus } = this.props;
-    const { obsUniqueId, teleUniqueId } = this.props.params;
+    const { obsUniqueId, teleUniqueId, instrUniqueId } = this.props.params;
 
     if(observatoryList.length === 0) {
       return null;
@@ -140,9 +140,8 @@ export default class TelescopeDetails extends Component {
     const currentObservatory = getCurrentObservatory(observatoryList, obsUniqueId);
     const { obsId } = currentObservatory;
     const currentTelescope = this.getCurrentTelescope(currentObservatory.obsTelescopes, teleUniqueId);
-
-    console.log('the current telescope is...');
-    console.log(currentTelescope);
+    const availableInstruments = currentTelescope.teleInstrumentList;
+    const currentInstrument = availableInstruments.find(instrument => ( instrument.instrUniqueId === instrUniqueId ));
 
     return (
     <div className="telescope-details-page-wrapper">
@@ -165,28 +164,29 @@ export default class TelescopeDetails extends Component {
 
       <div className='telescope-details clearfix'>
         <div className='col-md-8'>
-          <Tabs
-            onSelect={this.handleSelect}
-            selectedIndex={0}>
 
-            <TabList>
-              <Tab>High-Magnification</Tab>
-              <Tab>Wid-Field</Tab>
-            </TabList>
+          <div className="viewer-container">
+            <Tabs
+              onSelect={this.handleSelect}
+              selectedIndex={0}>
 
-            <TabPanel>
+              <TabList>
+                { availableInstruments.map(instrument => (
+                  <Tab key={instrument.instrUniqueId}>
+                    {instrument.instrTelescopeName}
+                  </Tab>
+                )) }
+              </TabList>
 
-              {
-                this.determineImageLoaderType(currentTelescope)
-              }
+              <TabPanel>
+                {
+                  this.determineImageLoaderType(currentTelescope)
+                }
+              </TabPanel>
+            </Tabs>
 
-              <Neoview className={this.state.toggleNeoview ? 'visible' : 'hidden'} />
-            </TabPanel>
-
-            <TabPanel>
-            </TabPanel>
-
-          </Tabs>
+            <Neoview className={this.state.toggleNeoview ? 'visible' : 'hidden'} />
+          </div>
 
           <LiveStream
             handleToggle={this.handleToggleNeoview.bind(this)}
