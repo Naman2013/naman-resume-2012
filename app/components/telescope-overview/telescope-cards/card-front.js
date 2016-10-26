@@ -89,11 +89,15 @@ class CardFront extends Component {
       obsUniqueId,
       teleUniqueId,
       teleSystem,
-      telePort } = this.props;
+      telePort,
+      teleInstrumentList } = this.props;
 
     const missionStatusStyle = {
       opacity: this.isMissionReadyTelescope() ? 1 : 0,
     };
+
+    console.log('the instrument list...');
+    console.log(teleInstrumentList);
 
     return(
       <div className="telescope-card-front">
@@ -179,7 +183,7 @@ CardFront.propTypes = {
   handleFlip: PropTypes.func,
   telescopeOnline: PropTypes.bool,
   teleAccessMethod: PropTypes.string,
-  telePort: PropTypes.string,
+  telePort: PropTypes.number,
   teleSystem: PropTypes.string,
   teleImageSourceType: PropTypes.string,
   teleStreamCode: PropTypes.string,
@@ -188,6 +192,7 @@ CardFront.propTypes = {
   teleStreamThumbnailVideoHeight: PropTypes.string,
   teleStreamThumbnailQuality: PropTypes.string,
   teleUniqueId: PropTypes.string,
+  teleInstrumentList: PropTypes.array,
   obsUniqueId: PropTypes.string,
   alertText: PropTypes.string,
 };
