@@ -140,20 +140,16 @@ module.exports = {
         secure: true,
         pathRewrite: { '/:3104/': '' },
       },
+      '/:3105/**': {
+        target: 'https://mars.slooh.com:3105',
+        changeOrigin: true,
+        secure: true,
+        pathRewrite: { '/:3105/': '' },
+      },
       '/util/**': {
         target: 'https://mars.slooh.com',
         changeOrigin: true,
         secure: true,
-      },
-      '/port/**': {
-        target: 'https://mars.slooh.com',
-        changeOrigin: true,
-        secure: true,
-        pathRewrite: function(path, req) {
-          var newPath = `:${path.split(':')[1]}`;
-          console.log(newPath);
-          return path.replace(path, newPath);
-        }
       }
     }
   }
