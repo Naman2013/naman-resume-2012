@@ -1,7 +1,20 @@
 import React, {Component} from 'react';
 import styles from './neoview.scss';
 
+/**
+  * @todo convert SSE data into "readable" messages once the real data
+  * starts coming through
+  * @todo figure out proxy post numbers, for now only 3104 and 3105 are handled
+*/
 export default class Neoview extends React.Component {
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      messages: []
+    }
+  }
 
   componentDidMount() {
     const {port, teleSystem} = this.props;
@@ -9,7 +22,7 @@ export default class Neoview extends React.Component {
     this.sseSource = new EventSource(neoUrl);
     this.sseSource.addEventListener(
       'message',
-      event => this.handleNeoMessages(event), false
+      event => this.handleNeoMessages(event.data), false
     )
   }
 
@@ -19,15 +32,14 @@ export default class Neoview extends React.Component {
   }
 
   handleNeoMessages(data) {
-    console.log(data);
+    let messages = this.state.messages
+    this.setState({
+      messages: [...messages, data]
+    })
   }
 
   generateNeoSource(port, scope) {
     return `/dev-sse/${port}/sse/${scope}`
-  }
-
-  generateMessages() {
-
   }
 
   render() {
@@ -37,19 +49,10 @@ export default class Neoview extends React.Component {
         What is this? Slooh telescopes move through a complex process of taking long exposures through
         various filters, ultimate combining that mathematical data into one image. Ever see The Matrix? Think of this as the “Neo View” as the exposure is being processed.
 
-        01:02:03  Initiating photon collection onto the sensor…<br/>
-        01:02:08  Red filter exposure in progress…<br/>
-        02:05:12  Writing Red filter exposure to server…<br/>
-        02:12:22  Green filter exposure in progress…<br/>
-        02:12:22  Hammering together various exposures to make the image<br/>
-        02:12:22  Layering together various exposures to make the image<br/>
-        01:02:03  Initiating photon collection onto the sensor…<br/>
-        01:02:08  Red filter exposure in progress…<br/>
-        02:05:12  Writing Red filter exposure to server…<br/>
-        02:12:22  Green filter exposure in progress…<br/>
-        02:12:22  Hammering together various exposures to make the image<br/>
-        02:12:22  Layering together various exposures to make the image<br/>
-        02:12:22  Initiating next command…<br/>
+        {this.state.messages.map((msg, index) => {
+          return <div key={index}>{msg}</div>
+        })}
+
       </div>
     )
   }
