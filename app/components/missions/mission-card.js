@@ -9,6 +9,7 @@ import MissionCardButtonPiggyback from './mission-card-button-piggyback';
 
 const MissionCard = (props) => {
 
+    // @todo use /api/recommends/getNextReservation for "reserve" cards
     const { card, piggyback, openModal } = props;
     const startTime = piggyback ? piggyback.missionStart : Date.now();
     let featured = props.card.cardType == 2;
