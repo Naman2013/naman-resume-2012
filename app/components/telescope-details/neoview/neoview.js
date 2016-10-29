@@ -39,7 +39,8 @@ export default class Neoview extends React.Component {
     let messages = this.state.messages
     this.setState({
       latestMassege: data.split('|'),
-      messages: [...messages, data.split('|')]
+      //messages: [...messages, data.split('|')]
+      messages: [data.split('|'), ...messages]
     })
   }
 
@@ -54,6 +55,7 @@ export default class Neoview extends React.Component {
     */
   handleToggleNeoview() {
     this.setState({
+      messages: [],
       toggleNeoview: !this.state.toggleNeoview
     });
   }
@@ -64,7 +66,7 @@ export default class Neoview extends React.Component {
       <div className="neoview-container">
         <div className={ `neoview-wrapper ${this.state.toggleNeoview ? 'visible' : 'hidden'}` }>
           {this.state.messages.map((msg, index) => {
-            return <div key={index}>
+            return <div className="neo-message" key={index}>
               <div className="col-md-4 neo-message-time">{msg[0]}</div>
               <div className="col-md-8 neo-message-text">{msg[1]}</div>
             </div>
