@@ -107,7 +107,7 @@ class CardFront extends Component {
             <img src="assets/icons/flip-arrow.svg" />
           </button>
 
-          <img src="assets/icons/observatory.svg" width="50" height="50" />
+          <img className="icon" src="assets/icons/observatory.svg" width="50" height="50" />
           <h3 className="title">{this.props.teleName}</h3>
           <p className="body">
             {this.props.teleTelescopeUsage}
