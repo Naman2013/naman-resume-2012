@@ -164,6 +164,12 @@ module.exports = {
         secure: true,
         pathRewrite: { '/:3103/': '' },
       },
+      '/:3104/**': {
+        target: 'https://mars.slooh.com:3104',
+        changeOrigin: true,
+        secure: true,
+        pathRewrite: { '/:3104/': '' },
+      },
       '/util/**': {
         target: 'https://mars.slooh.com',
         changeOrigin: true,

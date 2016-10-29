@@ -169,8 +169,8 @@ export default class TelescopeDetails extends Component {
                 this.determineImageLoaderType(currentTelescope)
               }
 
-              {currentTelescope.teleOnlineStatus === 'online' && currentTelescope.teleNeoPort > 0 ?
-                <Neoview              
+              {currentTelescope.teleOnlineStatus === 'online' && currentTelescope.teleHasNeoView ?
+                <Neoview
                   port={currentTelescope.teleNeoPort}
                   teleSystem={currentTelescope.teleSystem}
                   showToggleOption={currentTelescope.teleOnlineStatus === 'online'} />

@@ -17,10 +17,11 @@
   z-index: 1;
   display: flex;
   overflow: scroll;
-  flex-direction: column;
+  flex-direction: column-reverse;
 
   .neo-message {
-    align-self: flex-end;    
+    align-self: flex-end;
+    width: 100%;
   }
 }
 
@@ -32,7 +33,7 @@
   bottom: 0;
 
   .short {
-    line-height: 24px;
+    line-height: 35px;
     position: absolute;
     top: 0;
     left: 0;
@@ -40,7 +41,6 @@
     color: #d8d8d8;
     padding-left: 10px;
     font-size: 14px;
-    padding-top: 10px;
   }
   .toggle-description {
     color: #3C4A55;
@@ -85,12 +85,5 @@
   background-color: #3C4A55;
 }
 
-.neoview-wrapper {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
 
 }
