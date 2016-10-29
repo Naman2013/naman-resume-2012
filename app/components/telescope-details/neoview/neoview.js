@@ -75,7 +75,7 @@ export default class Neoview extends React.Component {
       <div className="top">
         <Progress completed={75} color="#589A9A" height="35px" />
         <p className="short">
-          LIVE // 3:18 left of 10:00     Capturing photons onto the sensor… Preparing next mission coordinates…
+          LIVE {this.state.latestMassege}
         </p>
         <div className="toggle-description" onClick={this.handleToggleNeoview.bind(this)}>
           {(() => {
