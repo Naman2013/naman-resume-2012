@@ -6,7 +6,6 @@ import MissionCard from '../components/missions/mission-card';
 
 @connect(({ missions }) => ({
   cardList: missions.cardList || [],
-  piggybacks: missions.piggybacks || [],
   reservations: missions.reservations || []
 }))
 
@@ -14,12 +13,11 @@ export default class NewMissions extends React.Component {
   static propTypes = {
     cardList: PropTypes.array,
     openConfirmModal: PropTypes.func.isRequired,
-    piggybacks: PropTypes.array,
     reservations: PropTypes.array,
   };
 
   render() {
-    const { cardList, openConfirmModal, piggybacks, reservations } = this.props;
+    const { cardList, openConfirmModal, reservations } = this.props;
 
     let cards = null;
     if (cardList && Array.isArray(cardList)) {
@@ -43,7 +41,6 @@ export default class NewMissions extends React.Component {
             card={card}
             openModal={openConfirmModal}
             featured={card.cardType == 2}
-            piggyback={ piggybacks.find((piggyback) => piggyback.uniqueId == card.uniqueId) }
             reservation={ reservations.find((reservations => reservations.uniqueId == card.uniqueId))}
           />
         ))}
