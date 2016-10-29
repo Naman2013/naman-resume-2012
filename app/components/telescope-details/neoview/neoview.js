@@ -12,6 +12,7 @@ export default class Neoview extends React.Component {
     super(props);
 
     this.state = {
+      latestMassege: null,
       messages: []
     }
   }
@@ -34,6 +35,7 @@ export default class Neoview extends React.Component {
   handleNeoMessages(data) {
     let messages = this.state.messages
     this.setState({
+      latestMassege: data.split('|'),
       messages: [...messages, data.split('|')]
     })
   }
@@ -46,9 +48,6 @@ export default class Neoview extends React.Component {
     console.log(this.state)
     return (
       <div className={ `neoview-wrapper ${this.props.className}` }>
-        What is this? Slooh telescopes move through a complex process of taking long exposures through
-        various filters, ultimate combining that mathematical data into one image. Ever see The Matrix? Think of this as the “Neo View” as the exposure is being processed.
-
         {this.state.messages.map((msg, index) => {
           return <div key={index}>
             <div className="col-md-4 neo-message-time">{msg[0]}</div>

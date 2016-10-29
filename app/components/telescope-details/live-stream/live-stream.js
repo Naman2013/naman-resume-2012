@@ -6,7 +6,7 @@ import Progress from 'react-progressbar';
 class LiveStream extends React.Component {
 
   render() {
-    const { handleToggle, toggleNeoview } = this.props;
+    const { handleToggle, toggleNeoview, showToggleOption } = this.props;
 
     return(
       <div className="live-stream">
@@ -17,7 +17,7 @@ class LiveStream extends React.Component {
           </p>
           <div className="toggle-description" onClick={handleToggle}>
             {(() => {
-              if (toggleNeoview) {
+              if (showToggleOption && toggleNeoview) {
                 return <i className="fa fa-angle-down"></i>
               } else {
                 return <i className="fa fa-angle-up"></i>

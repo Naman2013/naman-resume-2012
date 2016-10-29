@@ -196,7 +196,8 @@ export default class TelescopeDetails extends Component {
 
           <LiveStream
             handleToggle={this.handleToggleNeoview.bind(this)}
-            toggleNeoview={this.state.toggleNeoview} />
+            toggleNeoview={this.state.toggleNeoview}
+            showToggleOption={currentTelescope.teleOnlineStatus === 'online'} />
 
           <Spacer height="50px" />
 
