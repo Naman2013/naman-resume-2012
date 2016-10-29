@@ -64,7 +64,7 @@ export default class Neoview extends React.Component {
     console.log(this.state)
     return (
       <div className="neoview-container">
-        <div className={ `neoview-wrapper ${this.state.toggleNeoview ? 'visible' : 'hidden'}` }>
+        <div className={ `neoview-wrapper ${this.state.toggleNeoview ? 'visible' : 'hidden'}` }>          
           {this.state.messages.map((msg, index) => {
             return <div className="neo-message" key={index}>
               <div className="col-md-4 neo-message-time">{msg[0]}</div>
