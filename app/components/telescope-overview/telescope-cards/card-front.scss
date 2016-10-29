@@ -84,7 +84,7 @@ $cardHeight: 730px;
 
       .card-body {
         background: #fff;
-        padding: 20px 0;
+        padding: 10px 0;
         margin-bottom: 20px;
         position: relative;
         height: 389px;
@@ -114,7 +114,6 @@ $cardHeight: 730px;
             height: 21px;
             font-size: 1.2em;
             font-weight: 300;
-            margin-bottom: 20px;
           }
 
           .telescope-image {
@@ -133,19 +132,21 @@ $cardHeight: 730px;
           .telescope-image-title {
             font-size: 1.5em;
             font-weight: 800;
-            margin-bottom: 30px;
+            position: relative;
+            top: -20px;
           }
 
           .telescope-status {
             color: #ED1F06;
             padding: 0 5%;
-            margin: -10px 0 24px 0;
+            margin: -20px 0 24px 0;
           }
         }
 
         .sponsor {
-          position: relative;
-          bottom: -10px;
+          position: absolute;
+          bottom: 16px;
+          left: 18%;
           font-size: 0.85em;
           color: #3C4A55;
         }
