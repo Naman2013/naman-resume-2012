@@ -116,13 +116,17 @@ $cardHeight: 730px;
             height: 250px;
             margin-bottom: 30px;
 
-            -webkit-clip-path: circle(115px at center);
-            -moz-clip-path: circle(115px);
-            clip-path: circle(115px, 115px, 115px);
-
-            .top-image { /* HACK: forcing the left position for the top image */
-              left: 20px;
+            .sse-thumbnails {
+              position: absolute;
+              left: 16%;
             }
+
+            img {
+              -webkit-clip-path: circle(115px at center);
+              -moz-clip-path: circle(115px);
+              clip-path: circle(115px, 115px, 115px);
+            }
+
           }
 
           .telescope-image-title {
