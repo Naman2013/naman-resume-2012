@@ -185,6 +185,35 @@ export function missionGetPiggybackFail({data}) {
 };
 
 
+export function missionGetNextReservation(objectList) {
+  return (dispatch, getState) => {
+    let { token, at, cid } = getState().user.user;
+    return axios.post('/api/recommends/getNextReservation', {
+      cid: "",
+      token: "",
+      requestType: "multiple",
+      uniqueId: "",
+      objectId: "",
+      start: "",
+      objectList: objectList,
+      cid,
+      at,
+      token
+    })
+    .then(response => dispatch( missionGetNextReservationSuccess(response) ))
+    .catch(error => dispatch( missionGetNextReservationFail( error )));
+  }
+}
+
+export function missionGetNextReservationSuccess({ data }) {
+
+}
+
+export function missionGetNextReservationFail({ data }) {
+
+}
+
+
 // this reducer changes missions object in store every time one of the actions is fired
 export default createReducer(initialState, {
   [MISSION_CONFIRMATION_OPEN](state, { mission, confirmType }) {
