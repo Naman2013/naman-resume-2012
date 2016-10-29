@@ -15,6 +15,8 @@ export const MISSION_GET_UPDATES_FAIL   = 'MISSION_GET_UPDATES_FAIL';
 export const MISSION_GET_PIGGYBACKS     = 'MISSION_GET_PIGGYBACKS';
 export const MISSION_GET_PIGGYBACKS_SUCCESS = 'MISSION_GET_PIGGYBACKS_SUCCESS';
 export const MISSION_GET_PIGGYBACKS_FAIL= 'MISSION_GET_PIGGYBACKS_FAIL';
+export const MISSION_GET_NEXT_RESERVATIONS_SUCCESS = 'MISSION_GET_NEXT_RESERVATIONS_SUCCESS';
+export const MISSION_GET_NEXT_RESERVATIONS_FAIL = 'MISSION_GET_NEXT_RESERVATIONS_FAIL';
 
 const initialState = {
   isConfirmationOpen: false,
@@ -55,6 +57,7 @@ export function missionGetCards() {
     .then(response => {
       dispatch(allCards(response))
       dispatch(missionGetPiggybacks(response.data.objectList))
+      dispatch(missionGetNextReservation(response.data.objectList))
     })
     .catch(error => dispatch(cardsFail(error)));
   }
@@ -206,11 +209,17 @@ export function missionGetNextReservation(objectList) {
 }
 
 export function missionGetNextReservationSuccess({ data }) {
-
+  return {
+    type: MISSION_GET_NEXT_RESERVATIONS_SUCCESS,
+    result: data.missionList
+  }
 }
 
 export function missionGetNextReservationFail({ data }) {
-
+  return {
+    type: MISSION_GET_NEXT_RESERVATIONS_FAIL,
+    result: data
+  }
 }
 
 
@@ -267,6 +276,18 @@ export default createReducer(initialState, {
     return {
       ...state,
       piggybacks: result
+    };
+  },
+  [MISSION_GET_NEXT_RESERVATIONS_SUCCESS](state, { result }) {
+    return {
+      ...state,
+      reservations: result
+    };
+  },
+  [MISSION_GET_NEXT_RESERVATIONS_FAIL](state, { result }) {
+    return {
+      ...state,
+      reservations: []
     };
   }
 });

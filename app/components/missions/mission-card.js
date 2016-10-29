@@ -7,12 +7,10 @@ import moment from 'moment';
 import MissionCardButtonReserve from './mission-card-button-reserve';
 import MissionCardButtonPiggyback from './mission-card-button-piggyback';
 
-const MissionCard = (props) => {
-
-    // @todo use /api/recommends/getNextReservation for "reserve" cards
-    const { card, piggyback, openModal } = props;
-    const startTime = piggyback ? piggyback.missionStart : Date.now();
-    let featured = props.card.cardType == 2;
+const MissionCard = ({ card, piggyback, openModal, reservation }) => {
+  
+    const startTime = piggyback ? piggyback.missionStart :reservation.missionStart;
+    let featured = card.cardType == 2;
     let className = `${styles.missionCard} ${featured ? 'featured col-md-12' : 'secondary col-md-6'}`;
     let EST_start = moment.unix(startTime).utcOffset(-5, false).format("dddd, MMMM Do");
     let EST_start_time = moment.unix(startTime).utcOffset(-5, false).format("hh:mm a");
