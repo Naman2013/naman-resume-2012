@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import cx from 'classnames';
 import moment from 'moment';
-import MissionCard from '../components/missions/mission-card';
+import ExistingMissionCard from '../components/missions/existing-mission-card';
 
 @connect(({ missions }) => ({
   cardList: missions.cardList || [],
@@ -30,7 +30,7 @@ export default class ExistingMissions extends Component {
       <div className="existing-missions">
 
         {piggybacks.length > 0 && cards ? cards.map(card => (
-          <MissionCard
+          <ExistingMissionCard
             key={card.uniqueId}
             className={cx({
               featured: card.cardType === 2,

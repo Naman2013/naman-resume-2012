@@ -7,16 +7,12 @@ import moment from 'moment';
 import MissionCardButtonReserve from './mission-card-button-reserve';
 import MissionCardButtonPiggyback from './mission-card-button-piggyback';
 
-const ExistingMissionCard = ({ card, piggyback, openModal, reservation }) => {
+const ExistingMissionCard = ({ card, piggyback, openModal }) => {
 
-    let startTime;
-    if(piggyback && piggyback.missionAvailable) {
-      startTime = piggyback.missionStart;
-    } else if(reservation) {
-      startTime = reservation.missionStart;
-    } else {
-      startTime = Date.now() // fallback
-    }
+    const startTime = piggyback.missionStart;
+    console.log('piggyback card')
+    console.log(card)
+    console.log(piggyback)
 
     let featured = card.cardType == 2;
     let className = `${styles.missionCard} ${featured ? 'featured col-md-12' : 'secondary col-md-6'}`;
@@ -25,10 +21,42 @@ const ExistingMissionCard = ({ card, piggyback, openModal, reservation }) => {
     let PST_start_time = moment.unix(startTime).utcOffset(-8, false).format("hh:mm a");
     let UTC_start_time = moment.unix(startTime).format("hh:mm a");
 
+    const startMissionTime = () => {
+      return <p><strong>{EST_start}</strong>: {!featured ? <br /> : null} {EST_start_time} EST  ·  {PST_start_time} PST  ·  {UTC_start_time} UTC</p>
+    }
+
+    const missionAvailable = () => {
+      return (
+        <div>
+          <h5>Join an existing mission</h5>
+          {startMissionTime()}
+          <MissionCardButtonPiggyback openModal={openModal} card={card} />
+        </div>
+      )
+    }
+
+    const missionNotAvailable = () => {
+      if(piggyback.userHasReservation) {
+        return (
+          <div>
+            <p>You have an upcoming {piggyback.userReservationType}reservation scheduled for {startMissionTime()}</p>
+          </div>
+        )
+      } else {
+        return (
+          <div>
+            <h5>No existing missions are available, click below to make a reservation</h5>
+            <a
+              className={styles.piggybackCta}
+              href="#/slooh-recommends/new">Reserve</a>
+          </div>
+        )
+      }
+    }
+
     return (
       <div className={className}>
-        { featured ? <span className="callOut">Don't Miss</span> : null }
-
+        { featured ? <span className="callOut">Dont Miss</span> : null }
         <h2>{card.headline}</h2>
 
         <div className={styles.cardsubTitle}>
@@ -39,10 +67,7 @@ const ExistingMissionCard = ({ card, piggyback, openModal, reservation }) => {
         <p>{card.description}</p>
 
         <div className="join-mission-callout">
-          <h5>Join an existing mission</h5>
-          <p><strong>{EST_start}</strong>: {!featured ? <br /> : null} {EST_start_time} EST  ·  {PST_start_time} PST  ·  {UTC_start_time} UTC</p>
-
-          {piggyback && piggyback.missionAvailable ? <MissionCardButtonPiggyback openModal={openModal} card={card} /> : <MissionCardButtonReserve openModal={openModal} card={card} />}
+          {piggyback.missionAvailable ? missionAvailable() : missionNotAvailable() }
         </div>
       </div>
     );
