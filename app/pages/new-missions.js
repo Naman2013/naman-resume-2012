@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import cx from 'classnames';
 import moment from 'moment';
-import MissionCard from '../components/missions/mission-card';
+import NewMissionCard from '../components/missions/new-mission-card';
 
 @connect(({ missions }) => ({
   cardList: missions.cardList || [],
@@ -35,8 +35,8 @@ export default class NewMissions extends React.Component {
       <div className="new-missions">
         {!cards && 'waiting...'}
 
-        {cards && cards.map(card => (
-          <MissionCard
+        {reservations.length > 0 && cards && cards.map(card => (
+          <NewMissionCard
             key={card.uniqueId}
             card={card}
             openModal={openConfirmModal}
