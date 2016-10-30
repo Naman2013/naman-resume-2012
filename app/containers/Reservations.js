@@ -16,7 +16,7 @@ export default class Reservations extends Component {
           <AnnouncementBanner level="general" />
 
           <ReserveBanner />
-          <MissionNav />
+          <MissionNav route={this.props.route} location={this.props.location} />
 
           {this.props.children}
         </div>

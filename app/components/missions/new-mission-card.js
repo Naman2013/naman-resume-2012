@@ -5,19 +5,9 @@ import classnames from 'classnames';
 import styles from './mission-card.scss';
 import moment from 'moment';
 import MissionCardButtonReserve from './mission-card-button-reserve';
-import MissionCardButtonPiggyback from './mission-card-button-piggyback';
 
-const MissionCard = ({ card, piggyback, openModal, reservation }) => {
-      
-    let startTime;
-    if(piggyback && piggyback.missionAvailable) {
-      startTime = piggyback.missionStart;
-    } else if(reservation) {
-      startTime = reservation.missionStart;
-    } else {
-      startTime = Date.now() // fallback
-    }
-
+const NewMissionCard = ({ card, openModal, reservation }) => {    
+    const startTime = reservation.missionStart;;
     let featured = card.cardType == 2;
     let className = `${styles.missionCard} ${featured ? 'featured col-md-12' : 'secondary col-md-6'}`;
     let EST_start = moment.unix(startTime).utcOffset(-5, false).format("dddd, MMMM Do");
@@ -27,7 +17,7 @@ const MissionCard = ({ card, piggyback, openModal, reservation }) => {
 
     return (
       <div className={className}>
-        { featured ? <span className="callOut">Don't Miss</span> : null }
+        { featured ? <span className="callOut">Dont Miss</span> : null }
 
         <h2>{card.headline}</h2>
 
@@ -42,10 +32,10 @@ const MissionCard = ({ card, piggyback, openModal, reservation }) => {
           <h5>Join an existing mission</h5>
           <p><strong>{EST_start}</strong>: {!featured ? <br /> : null} {EST_start_time} EST  ·  {PST_start_time} PST  ·  {UTC_start_time} UTC</p>
 
-          {piggyback && piggyback.missionAvailable ? <MissionCardButtonPiggyback openModal={openModal} card={card} /> : <MissionCardButtonReserve openModal={openModal} card={card} />}
+          {reservation.missionAvailable ? <MissionCardButtonReserve openModal={openModal} card={card} /> : <p>No mission is available at this time.</p>}
         </div>
       </div>
     );
 }
 
-export default MissionCard;
+export default NewMissionCard;

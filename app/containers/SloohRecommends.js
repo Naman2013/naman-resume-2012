@@ -5,7 +5,6 @@ import { checkUser } from '../modules/User';
 import classnames from 'classnames';
 import moment from 'moment';
 
-import MissionCard from '../components/missions/mission-card';
 import MissionUpdates from '../components/missions/mission-updates';
 import MissionAd from '../components/missions/mission-ad';
 import MissionUpcoming from '../components/missions/mission-upcoming';
@@ -62,7 +61,7 @@ export default class SloohRecommends extends Component {
   */
   render() {
     const { announcements, children } = this.props;
-
+    
     return (
       <div className="reserve-missions">
 

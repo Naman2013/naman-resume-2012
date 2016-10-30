@@ -5,7 +5,7 @@ import { checkUser } from '../modules/User';
 import classnames from 'classnames';
 import moment from 'moment';
 
-import MissionCard from '../components/missions/mission-card';
+import NewMissionCard from '../components/missions/new-mission-card';
 import MissionUpdates from '../components/missions/mission-updates';
 import MissionAd from '../components/missions/mission-ad';
 import MissionUpcoming from '../components/missions/mission-upcoming';
@@ -40,8 +40,7 @@ export default class ReserveMissions extends Component {
     actions: object.isRequired
   };
 
-  componentDidMount() {
-    console.log('componentDidMount');
+  componentDidMount() {    
     this.props.actions.missionGetCards()
   }
 
@@ -69,7 +68,7 @@ export default class ReserveMissions extends Component {
             {this.props.cardList ? this.props.cardList.map(card =>  {
               let end_date = moment.unix(card.end).format("MM/DD/YYYY");
               if (!moment(today).isAfter(end_date, 'days')) {
-                return (<MissionCard
+                return (<NewMissionCard
                   key={card.uniqueId}
                   className={`${card.cardType == 2 ? 'featured col-md-12' : 'secondary col-md-6'}`}
                   card={card}
