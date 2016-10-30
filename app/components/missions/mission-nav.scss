@@ -11,7 +11,8 @@
     list-style: none;
     float: left;
     height: 100%;
-    &:hover > a {
+    &:hover > a,
+    a.active {
       border-bottom: 3px solid #7EC3C4;
       color: #000;
     }

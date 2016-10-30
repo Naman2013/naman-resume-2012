@@ -6,8 +6,7 @@ import styles from './mission-card.scss';
 import moment from 'moment';
 import MissionCardButtonReserve from './mission-card-button-reserve';
 
-const NewMissionCard = ({ card, openModal, reservation }) => {
-    console.log(reservation)
+const NewMissionCard = ({ card, openModal, reservation }) => {    
     const startTime = reservation.missionStart;;
     let featured = card.cardType == 2;
     let className = `${styles.missionCard} ${featured ? 'featured col-md-12' : 'secondary col-md-6'}`;

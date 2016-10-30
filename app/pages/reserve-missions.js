@@ -40,8 +40,7 @@ export default class ReserveMissions extends Component {
     actions: object.isRequired
   };
 
-  componentDidMount() {
-    console.log('componentDidMount');
+  componentDidMount() {    
     this.props.actions.missionGetCards()
   }
 

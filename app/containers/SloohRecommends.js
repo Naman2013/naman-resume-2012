@@ -61,7 +61,7 @@ export default class SloohRecommends extends Component {
   */
   render() {
     const { announcements, children } = this.props;
-
+    
     return (
       <div className="reserve-missions">
 

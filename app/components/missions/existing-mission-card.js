@@ -10,10 +10,6 @@ import MissionCardButtonPiggyback from './mission-card-button-piggyback';
 const ExistingMissionCard = ({ card, piggyback, openModal }) => {
 
     const startTime = piggyback.missionStart;
-    console.log('piggyback card')
-    console.log(card)
-    console.log(piggyback)
-
     let featured = card.cardType == 2;
     let className = `${styles.missionCard} ${featured ? 'featured col-md-12' : 'secondary col-md-6'}`;
     let EST_start = moment.unix(startTime).utcOffset(-5, false).format("dddd, MMMM Do");
