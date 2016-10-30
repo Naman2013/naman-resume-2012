@@ -41,7 +41,8 @@ export default class TelescopeSelection extends React.Component {
     console.log(this.props);
     console.log('=========================');
 
-    const { observatoryList } = this.props;
+    const { observatoryList, params } = this.props;
+    const { obsUniqueId, teleUniqueId } = params;
 
     console.log(observatoryList);
     return (
@@ -65,7 +66,7 @@ export default class TelescopeSelection extends React.Component {
                         className="cat-link">
                         { observatory.obsMenuName }
                       </Link>
-                      <ul className="available-piers">
+                      <ul className={(observatory.obsUniqueId === obsUniqueId) ? 'visible' : 'hidden'}>
                         {
                           observatory.obsTelescopes.map(telescope => {
                             return(
