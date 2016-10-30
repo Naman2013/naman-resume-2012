@@ -45,7 +45,7 @@ export default class TelescopeSelection extends React.Component {
 
     console.log(observatoryList);
     return (
-      <div className="obs-telescope-selection-widget">
+      <div className="obs-telescope-selection-widget clearfix">
 
         <div className="universal-time">
           <UniversalTime />
@@ -63,8 +63,27 @@ export default class TelescopeSelection extends React.Component {
                         activeClassName="active"
                         to={`telescope-details/${observatory.obsUniqueId}/${this.fetchDefaultTelescopeId(observatory)}`}
                         className="cat-link">
-                        {observatory.obsMenuName}
+                        { observatory.obsMenuName }
                       </Link>
+                      <ul className="available-piers">
+                        {
+                          observatory.obsTelescopes.map(telescope => {
+                            return(
+                              <li
+                                key={ telescope.teleUniqueId }
+                                className="icon-container">
+                                <Link
+                                  activeClassName="active"
+                                  to={`telescope-details/${observatory.obsUniqueId}/${telescope.teleUniqueId}`}>
+                                    <img
+                                      className="icon img-circle"
+                                      src={ telescope.teleLogoURL } />
+                                </Link>
+                              </li>
+                            );
+                          })
+                        }
+                      </ul>
                     </li>
                   );
                 })
