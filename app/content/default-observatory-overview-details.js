@@ -19,5 +19,6 @@ export default {
     "MoonPhaseWidgetId": "",
     "SatelliteWidgetId": "",
     "MapWidgetId": "",
-    "debugObservatoriesId": "1"
+    "debugObservatoriesId": "1",
+    "obsTelescopes": [],
 }
