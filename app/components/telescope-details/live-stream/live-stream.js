@@ -1,30 +1,13 @@
 import React, { Component, PropTypes } from 'react';
 import './live-stream.scss';
 
-import Progress from 'react-progressbar';
-
 class LiveStream extends React.Component {
 
   render() {
-    const { handleToggle, toggleNeoview } = this.props;
+    //const { handleToggle, toggleNeoview, showToggleOption } = this.props;
 
     return(
       <div className="live-stream">
-        <div className="top">
-          <Progress completed={75} color="#589A9A" height="35px" />
-          <p className="short">
-            LIVE // 3:18 left of 10:00     Capturing photons onto the sensor… Preparing next mission coordinates…
-          </p>
-          <div className="toggle-description" onClick={handleToggle}>
-            {(() => {
-              if (toggleNeoview) {
-                return <i className="fa fa-angle-down"></i>
-              } else {
-                return <i className="fa fa-angle-up"></i>
-              }
-            })()}
-          </div>
-        </div>
         <div className='content'>
           <img src={'/assets/images/icons/icon-galaxy.png'} />
           <div className="description">

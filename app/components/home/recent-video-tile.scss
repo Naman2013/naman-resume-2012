@@ -1,7 +1,14 @@
 @import "../../styles/variables/colors.scss";
 
-.recent-video-tile-container {
+.recent-video-tile-container.col-md-4 {
   margin-bottom: 50px;
+  position: relative;
+  min-height: 255px;
+  padding: 0;
+
+  .home-youtube-video {
+    width: 100%;
+  }
 
   .recent-video-tile {
     color: #fff;

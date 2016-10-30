@@ -81,17 +81,6 @@ export default class TelescopeDetails extends Component {
   }
 
   /**
-    * Handling toggle click of neo view (progress bar arrow)
-    * by default the state of neo view is false (hidden)
-    * when user clicks arrow the state is being updated which shows/hides neo view overlay
-    */
-  handleToggleNeoview() {
-    this.setState({
-      toggleNeoview: !this.state.toggleNeoview
-    });
-  }
-
-  /**
     * Getting the current telescope from the API response
     * @param {array} observatoryTelescopes - Array of all telescopes in the current observatory
     * @param {string} telescopeId - Id of the current telescope, which available in URL and/or props.params
@@ -180,11 +169,11 @@ export default class TelescopeDetails extends Component {
                 this.determineImageLoaderType(currentTelescope)
               }
 
-              {currentTelescope.teleOnlineStatus === 'online' && currentTelescope.teleNeoPort > 0 ?
+              {currentTelescope.teleOnlineStatus === 'online' && currentTelescope.teleHasNeoView ?
                 <Neoview
-                  className={this.state.toggleNeoview ? 'visible' : 'hidden'}
                   port={currentTelescope.teleNeoPort}
-                  teleSystem={currentTelescope.teleSystem} />
+                  teleSystem={currentTelescope.teleSystem}
+                  showToggleOption={currentTelescope.teleOnlineStatus === 'online'} />
               : null}
             </TabPanel>
 
@@ -194,9 +183,7 @@ export default class TelescopeDetails extends Component {
 
           </Tabs>
 
-          <LiveStream
-            handleToggle={this.handleToggleNeoview.bind(this)}
-            toggleNeoview={this.state.toggleNeoview} />
+
 
           <Spacer height="50px" />
 

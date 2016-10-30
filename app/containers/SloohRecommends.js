@@ -40,7 +40,7 @@ export default class SloohRecommends extends Component {
     * @todo And based on the response build modal window content
     * @todo If the response is negative
     * We call /getNextPiggyback and refresh only this card content with new data (done.)
-    * @param {object} card - current card ion which modal window is called from
+    * @param {object} card - current card in which modal window is called from
     * @param {string} type - type of mission reservation, either piggyBack or reserve (new reservation)
     * @param {object} event - current event, provided by default from React JSX
     */

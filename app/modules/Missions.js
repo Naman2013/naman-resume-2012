@@ -15,6 +15,8 @@ export const MISSION_GET_UPDATES_FAIL   = 'MISSION_GET_UPDATES_FAIL';
 export const MISSION_GET_PIGGYBACKS     = 'MISSION_GET_PIGGYBACKS';
 export const MISSION_GET_PIGGYBACKS_SUCCESS = 'MISSION_GET_PIGGYBACKS_SUCCESS';
 export const MISSION_GET_PIGGYBACKS_FAIL= 'MISSION_GET_PIGGYBACKS_FAIL';
+export const MISSION_GET_NEXT_RESERVATIONS_SUCCESS = 'MISSION_GET_NEXT_RESERVATIONS_SUCCESS';
+export const MISSION_GET_NEXT_RESERVATIONS_FAIL = 'MISSION_GET_NEXT_RESERVATIONS_FAIL';
 
 const initialState = {
   isConfirmationOpen: false,
@@ -55,6 +57,7 @@ export function missionGetCards() {
     .then(response => {
       dispatch(allCards(response))
       dispatch(missionGetPiggybacks(response.data.objectList))
+      dispatch(missionGetNextReservation(response.data.objectList))
     })
     .catch(error => dispatch(cardsFail(error)));
   }
@@ -185,6 +188,41 @@ export function missionGetPiggybackFail({data}) {
 };
 
 
+export function missionGetNextReservation(objectList) {
+  return (dispatch, getState) => {
+    let { token, at, cid } = getState().user.user;
+    return axios.post('/api/recommends/getNextReservation', {
+      cid: "",
+      token: "",
+      requestType: "multiple",
+      uniqueId: "",
+      objectId: "",
+      start: "",
+      objectList: objectList,
+      cid,
+      at,
+      token
+    })
+    .then(response => dispatch( missionGetNextReservationSuccess(response) ))
+    .catch(error => dispatch( missionGetNextReservationFail( error )));
+  }
+}
+
+export function missionGetNextReservationSuccess({ data }) {
+  return {
+    type: MISSION_GET_NEXT_RESERVATIONS_SUCCESS,
+    result: data.missionList
+  }
+}
+
+export function missionGetNextReservationFail({ data }) {
+  return {
+    type: MISSION_GET_NEXT_RESERVATIONS_FAIL,
+    result: data
+  }
+}
+
+
 // this reducer changes missions object in store every time one of the actions is fired
 export default createReducer(initialState, {
   [MISSION_CONFIRMATION_OPEN](state, { mission, confirmType }) {
@@ -238,6 +276,18 @@ export default createReducer(initialState, {
     return {
       ...state,
       piggybacks: result
+    };
+  },
+  [MISSION_GET_NEXT_RESERVATIONS_SUCCESS](state, { result }) {
+    return {
+      ...state,
+      reservations: result
+    };
+  },
+  [MISSION_GET_NEXT_RESERVATIONS_FAIL](state, { result }) {
+    return {
+      ...state,
+      reservations: []
     };
   }
 });

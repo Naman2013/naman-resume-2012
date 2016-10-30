@@ -7,16 +7,23 @@ import moment from 'moment';
 import MissionCardButtonReserve from './mission-card-button-reserve';
 import MissionCardButtonPiggyback from './mission-card-button-piggyback';
 
-const MissionCard = (props) => {
-    
-    const { card, piggyback, openModal } = props;
-        
-    let featured = props.card.cardType == 2;
-    let className = `${styles.missionCard} ${featured ? 'featured col-md-12' : 'secondary col-md-6'}`;    
-    let EST_start = moment.unix(card.start).utcOffset(-5, false).format("dddd, MMMM Do");
-    let EST_start_time = moment.unix(card.start).utcOffset(-5, false).format("hh:mm a");
-    let PST_start_time = moment.unix(card.start).utcOffset(-8, false).format("hh:mm a");
-    let UTC_start_time = moment.unix(card.start).format("hh:mm a");
+const MissionCard = ({ card, piggyback, openModal, reservation }) => {
+      
+    let startTime;
+    if(piggyback && piggyback.missionAvailable) {
+      startTime = piggyback.missionStart;
+    } else if(reservation) {
+      startTime = reservation.missionStart;
+    } else {
+      startTime = Date.now() // fallback
+    }
+
+    let featured = card.cardType == 2;
+    let className = `${styles.missionCard} ${featured ? 'featured col-md-12' : 'secondary col-md-6'}`;
+    let EST_start = moment.unix(startTime).utcOffset(-5, false).format("dddd, MMMM Do");
+    let EST_start_time = moment.unix(startTime).utcOffset(-5, false).format("hh:mm a");
+    let PST_start_time = moment.unix(startTime).utcOffset(-8, false).format("hh:mm a");
+    let UTC_start_time = moment.unix(startTime).format("hh:mm a");
 
     return (
       <div className={className}>

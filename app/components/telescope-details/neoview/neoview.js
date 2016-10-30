@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import Progress from 'react-progressbar';
 import styles from './neoview.scss';
 
 /**
@@ -12,7 +13,10 @@ export default class Neoview extends React.Component {
     super(props);
 
     this.state = {
-      messages: []
+      latestMassege: null,
+      messages: [],
+      toggleNeoview: false,
+      showToggleOption: this.props.showToggleOption
     }
   }
 
@@ -34,7 +38,9 @@ export default class Neoview extends React.Component {
   handleNeoMessages(data) {
     let messages = this.state.messages
     this.setState({
-      messages: [...messages, data.split('|')]
+      latestMassege: data.split('|'),
+      //messages: [...messages, data.split('|')]
+      messages: [data.split('|'), ...messages]
     })
   }
 
@@ -42,19 +48,47 @@ export default class Neoview extends React.Component {
     return `/dev-sse/${port}/sse/${scope}`
   }
 
+  /**
+    * Handling toggle click of neo view (progress bar arrow)
+    * by default the state of neo view is false (hidden)
+    * when user clicks arrow the state is being updated which shows/hides neo view overlay
+    */
+  handleToggleNeoview() {
+    this.setState({
+      messages: [],
+      toggleNeoview: !this.state.toggleNeoview
+    });
+  }
+
   render() {
     console.log(this.state)
     return (
-      <div className={ `neoview-wrapper ${this.props.className}` }>
-        What is this? Slooh telescopes move through a complex process of taking long exposures through
-        various filters, ultimate combining that mathematical data into one image. Ever see The Matrix? Think of this as the “Neo View” as the exposure is being processed.
+      <div className="neoview-container">
+        <div className={ `neoview-wrapper ${this.state.toggleNeoview ? 'visible' : 'hidden'}` }>          
+          {this.state.messages.map((msg, index) => {
+            return <div className="neo-message" key={index}>
+              <div className="col-md-4 neo-message-time">{msg[0]}</div>
+              <div className="col-md-8 neo-message-text">{msg[1]}</div>
+            </div>
+          })}
 
-        {this.state.messages.map((msg, index) => {
-          return <div key={index}>
-            <div className="col-md-4 neo-message-time">{msg[0]}</div>
-            <div className="col-md-8 neo-message-text">{msg[1]}</div>
-          </div>
-        })}
+        </div>
+
+      <div className="top">
+        <Progress completed={75} color="#589A9A" height="35px" />
+        <p className="short">
+          LIVE {this.state.latestMassege}
+        </p>
+        <div className="toggle-description" onClick={this.handleToggleNeoview.bind(this)}>
+          {(() => {
+            if (this.props.showToggleOption && this.state.toggleNeoview) {
+              return <i className="fa fa-angle-down"></i>
+            } else {
+              return <i className="fa fa-angle-up"></i>
+            }
+          })()}
+        </div>
+      </div>
 
       </div>
     )

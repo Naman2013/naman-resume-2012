@@ -32,15 +32,9 @@ class RecentVideoTile extends Component {
         </div>
     }
 
-    const video = () => {
-      return (
-        <iframe width="405" height="255" src={this.props.videoUrl} seamless allowFullScreen autoPlay="1"></iframe>
-      )
-    }
-
     return(
-      <div className="col-md-4 recent-video-tile-container" onClick={this.playVideo.bind(this)}>        
-        {this.state.isVideoPlay ? video() : cover() }
+      <div className="col-md-4 recent-video-tile-container">
+        <iframe className="home-youtube-video" width="100%" height="255" src={this.props.videoUrl} seamless allowFullScreen autoPlay="1" frameBorder="0"></iframe>
         <p className="content">{this.props.content}</p>
       </div>
     );
