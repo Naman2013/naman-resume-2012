@@ -43,8 +43,9 @@ export default class TelescopeSelection extends React.Component {
 
     const { observatoryList, params } = this.props;
     const { obsUniqueId, teleUniqueId } = params;
+    const activeObservatory = observatoryList.find(observatory => ( obsUniqueId === observatory.obsUniqueId ));
 
-    console.log(observatoryList);
+    console.log(activeObservatory);
     return (
       <div className="obs-telescope-selection-widget clearfix">
 
@@ -52,42 +53,42 @@ export default class TelescopeSelection extends React.Component {
           <UniversalTime />
         </div>
 
-        <div className="telescope-selection-container col-md-7">
+        <div className="telescope-selection-container">
 
           <div className="categories">
             <ul>
               {
                 observatoryList.map(observatory => {
                   return(
-                    <li key={observatory.obsUniqueId}>
+                    <li className="observatory" key={observatory.obsUniqueId}>
                       <Link
                         activeClassName="active"
                         to={`telescope-details/${observatory.obsUniqueId}/${this.fetchDefaultTelescopeId(observatory)}`}
                         className="cat-link">
                         { observatory.obsMenuName }
                       </Link>
-                      <ul className={(observatory.obsUniqueId === obsUniqueId) ? 'visible' : 'hidden'}>
-                        {
-                          observatory.obsTelescopes.map(telescope => {
-                            return(
-                              <li
-                                key={ telescope.teleUniqueId }
-                                className="icon-container">
-                                <Link
-                                  activeClassName="active"
-                                  to={`telescope-details/${observatory.obsUniqueId}/${telescope.teleUniqueId}`}>
-                                    <img
-                                      className="icon img-circle"
-                                      src={ telescope.teleLogoURL } />
-                                </Link>
-                              </li>
-                            );
-                          })
-                        }
-                      </ul>
                     </li>
                   );
                 })
+              }
+            </ul>
+
+            <ul
+              className={`piers ${(activeObservatory.obsUniqueId === obsUniqueId) ? 'visible' : 'hidden'}`}>
+              {
+                activeObservatory.obsTelescopes.map(telescope => (
+                  <li
+                    key={telescope.teleUniqueId}
+                    className="icon-container">
+                    <Link
+                      activeClassName="active"
+                      to={`telescope-details/${obsUniqueId}/${telescope.teleUniqueId}`}>
+                      <img
+                        className="icon img-circle"
+                        src={ telescope.teleLogoURL } />
+                    </Link>
+                  </li>
+                ))
               }
             </ul>
           </div>

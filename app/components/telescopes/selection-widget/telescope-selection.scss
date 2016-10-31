@@ -15,28 +15,14 @@
   color: #000;
   margin: 0 auto;
   text-align: center;
+  padding: 10px 0 20px 0;
 
-  ul {
-    margin: 0;
-    padding: 0;
-
-    li {
-      list-style-type: none;
-    }
-  }
-
-  .categories, .list {
-    li {
-      display: inline-block;
-      margin: 0 10px;
-
-    }
-  }
   .categories {
-    padding: 10px 0px;
     font-size: 1.2em;
 
-    li {
+    .observatory {
+      display: inline-block;
+      margin-left: 30px;
 
       .cat-link {
         color: #fff;
@@ -48,37 +34,28 @@
         }
       }
 
-    }
-
-
-  }
-
-  .list {
-    .icon-container {
-      a {
-        &.active, &:hover {
-          .icon {
-            -webkit-box-shadow: 0px 0px 0px 5px #F310A7;
-            box-shadow: 0px 0px 0px 5px #F310A7;
-          }
-        }
+      &:first-child {
+        margin-left: 0;
       }
     }
+
+    .piers {
+      .icon-container {
+        display: inline-block;
+        margin-left: 20px;
+      }
+
+      &:first-child {
+        margin-left: 0;
+      }
+    }
+
   }
 
   .description {
     text-align: center;
     padding: 10px 5px;
     font-size: 14px;
-
-    li {
-      display: none;
-
-      &.active {
-        display: block;
-      }
-    }
-
-
   }
+
 }
