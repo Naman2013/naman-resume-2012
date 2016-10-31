@@ -75,6 +75,7 @@ class CardFront extends Component {
     } else if(teleImageSourceType === 'SSE') {
       return(
         <TelescopeImageLoader
+          loadThumbnails={true}
           imageSource={generateSseImageSource(teleSystem, telePort)}
           teleId={this.props.teleId}
           teleFade={this.props.teleFade}

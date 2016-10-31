@@ -20,12 +20,12 @@ class TelescopeImageLoader extends Component {
   }
 
   generateThumbnailUrl(imageUrl) {
-    if(!imageUrl) {
-      return;
+    const { teleThumbWidth, loadThumbnails } = this.props;
+    if(loadThumbnails) {
+      return `/util/thumbnail.php?url=${imageUrl}&dimension=W&size=${teleThumbWidth}`;
+    } else {
+      return imageUrl;
     }
-
-    const { teleThumbWidth } = this.props;
-    return `/util/thumbnail.php?url=${imageUrl}&dimension=W&size=${teleThumbWidth}`;
   }
 
   handleSourceImage(imageData) {
@@ -150,11 +150,16 @@ class TelescopeImageLoader extends Component {
   }
 }
 
+TelescopeImageLoader.defaultProps = {
+  loadThumbnails: false,
+};
+
 TelescopeImageLoader.propTypes = {
   imageSource: PropTypes.string,
   teleId: PropTypes.string,
   teleThumbWidth: PropTypes.string,
   teleFade: PropTypes.number,
+  loadThumbnails: PropTypes.bool,
 };
 
 export default TelescopeImageLoader;
