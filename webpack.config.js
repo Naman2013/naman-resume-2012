@@ -138,7 +138,7 @@ module.exports = {
         target: 'https://mars.slooh.com:3101',
         changeOrigin: true,
         secure: true,
-        pathRewrite: { '/:3104/': '' },
+        pathRewrite: { '/:3101/': '' },
       },
       '/:3002/**': {
         target: 'https://mars.slooh.com:3002',
