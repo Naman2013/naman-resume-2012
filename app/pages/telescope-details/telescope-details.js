@@ -130,9 +130,6 @@ export default class TelescopeDetails extends Component {
     const { obsId } = currentObservatory;
     const currentTelescope = this.getCurrentTelescope(currentObservatory.obsTelescopes, teleUniqueId);
 
-    console.log('the current telescope is...');
-    console.log(currentTelescope);
-
     return (
     <div className="telescope-details-page-wrapper">
 
