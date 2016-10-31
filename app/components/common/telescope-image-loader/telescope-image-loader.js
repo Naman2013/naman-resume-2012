@@ -37,40 +37,46 @@ class TelescopeImageLoader extends Component {
       lastImgTime,
       serverTime ] = imageData.split('|');
 
-    const { teleFade } = this.props; // expected fade may change based on how much time passed
-    const { firstLoad } = this.state;
-    const progress = Math.floor(Date.now() / 1000) - lastImgTime;
-
-    let adjustedFade = teleFade;
-    let startingOpacity = 0;
-
     /*
-      on first load of these images, we calculate how much
-      time has passed and apply some modification to the initial
-      opacity and timing values to make up for lost time and sync
-      the rest of the experience together
+      NOTE: checking if the first index is the string heartbeat
+      as to avoid loading malformed messages...
     */
-    if(firstLoad) {
-      if(progress >= teleFade) {
-        adjustedFade = 0;
-        startingOpacity = 1;
-      } else {
-        adjustedFade = teleFade - progress;
-        startingOpacity = Math.round((progress / teleFade) * 100) / 100;
-      }
-    }
+    if(currentImageUrl != 'heartbeat') {
+      const { teleFade } = this.props; // expected fade may change based on how much time passed
+      const { firstLoad } = this.state;
+      const progress = Math.floor(Date.now() / 1000) - lastImgTime;
 
-    this.setState({
-      currentImageUrl,
-      previousImageUrl,
-      schedMissionId,
-      msnStartTime,
-      lastImgTime,
-      serverTime,
-      adjustedFade,
-      startingOpacity,
-      firstLoad: false,
-    });
+      let adjustedFade = teleFade;
+      let startingOpacity = 0;
+
+      /*
+        on first load of these images, we calculate how much
+        time has passed and apply some modification to the initial
+        opacity and timing values to make up for lost time and sync
+        the rest of the experience together
+      */
+      if(firstLoad) {
+        if(progress >= teleFade) {
+          adjustedFade = 0;
+          startingOpacity = 1;
+        } else {
+          adjustedFade = teleFade - progress;
+          startingOpacity = Math.round((progress / teleFade) * 100) / 100;
+        }
+      }
+
+      this.setState({
+        currentImageUrl,
+        previousImageUrl,
+        schedMissionId,
+        msnStartTime,
+        lastImgTime,
+        serverTime,
+        adjustedFade,
+        startingOpacity,
+        firstLoad: false,
+      });
+    }
   }
 
   componentWillMount() {
