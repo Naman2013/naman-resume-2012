@@ -32,7 +32,6 @@ class VideoImageLoader extends Component {
           width={teleStreamThumbnailVideoWidth}
           height={teleStreamThumbnailVideoHeight}
           controls="0"
-          disablekb="1"
           src={this.generateIFrameUrl()}
           frameBorder="0">
         </iframe>

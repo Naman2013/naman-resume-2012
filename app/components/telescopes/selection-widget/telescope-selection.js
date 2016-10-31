@@ -44,6 +44,7 @@ export default class TelescopeSelection extends React.Component {
     const { observatoryList, params } = this.props;
     const { obsUniqueId, teleUniqueId } = params;
     const activeObservatory = observatoryList.find(observatory => ( obsUniqueId === observatory.obsUniqueId ));
+    const activeTelescope = activeObservatory.obsTelescopes.find(telescope => ( teleUniqueId === telescope.teleUniqueId ));
 
     console.log(activeObservatory);
     return (
@@ -56,7 +57,7 @@ export default class TelescopeSelection extends React.Component {
         <div className="telescope-selection-container">
 
           <div className="categories">
-            <ul>
+            <ul className="category-list">
               {
                 observatoryList.map(observatory => {
                   return(
@@ -91,8 +92,13 @@ export default class TelescopeSelection extends React.Component {
                 ))
               }
             </ul>
+
           </div>
 
+        </div>
+
+        <div className="description">
+          { activeTelescope.teleTelescopeUsage }
         </div>
 
       </div>
