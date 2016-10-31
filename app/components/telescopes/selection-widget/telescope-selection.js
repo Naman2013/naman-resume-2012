@@ -56,7 +56,7 @@ export default class TelescopeSelection extends React.Component {
         <div className="telescope-selection-container">
 
           <div className="categories">
-            <ul>
+            <ul className="category-list">
               {
                 observatoryList.map(observatory => {
                   return(
@@ -91,8 +91,13 @@ export default class TelescopeSelection extends React.Component {
                 ))
               }
             </ul>
+
           </div>
 
+        </div>
+
+        <div className="description">
+          You are on High Magnification 2. With slightly more resolution, this telescope is perfect for Deep Sky astrophotography.
         </div>
 
       </div>
