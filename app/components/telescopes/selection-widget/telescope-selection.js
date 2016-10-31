@@ -44,6 +44,7 @@ export default class TelescopeSelection extends React.Component {
     const { observatoryList, params } = this.props;
     const { obsUniqueId, teleUniqueId } = params;
     const activeObservatory = observatoryList.find(observatory => ( obsUniqueId === observatory.obsUniqueId ));
+    const activeTelescope = activeObservatory.obsTelescopes.find(telescope => ( teleUniqueId === telescope.teleUniqueId ));
 
     console.log(activeObservatory);
     return (
@@ -97,7 +98,7 @@ export default class TelescopeSelection extends React.Component {
         </div>
 
         <div className="description">
-          You are on High Magnification 2. With slightly more resolution, this telescope is perfect for Deep Sky astrophotography.
+          { activeTelescope.teleTelescopeUsage }
         </div>
 
       </div>
