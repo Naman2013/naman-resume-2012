@@ -65,7 +65,7 @@ export default class TelescopeSelection extends React.Component {
                       <Link
                         activeClassName="active"
                         to={`telescope-details/${observatory.obsUniqueId}/${this.fetchDefaultTelescopeId(observatory)}`}
-                        className="cat-link">
+                        className={`${observatory.obsUniqueId === obsUniqueId ? 'active' : ''} cat-link`}>
                         { observatory.obsMenuName }
                       </Link>
                     </li>
@@ -82,6 +82,7 @@ export default class TelescopeSelection extends React.Component {
                     key={telescope.teleUniqueId}
                     className="icon-container">
                     <Link
+                      className="telescope-button"
                       activeClassName="active"
                       to={`telescope-details/${obsUniqueId}/${telescope.teleUniqueId}`}>
                       <img

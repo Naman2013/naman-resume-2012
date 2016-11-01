@@ -1,4 +1,5 @@
 @import "../../../styles/variables/fonts.scss";
+@import "../../../styles/variables/colors.scss";
 
 .obs-telescope-selection-widget {
   position: relative;
@@ -53,10 +54,17 @@
 
     .piers {
       margin: 0 0 5px 0;
+      padding-left: 100px;
 
       .icon-container {
         display: inline-block;
-        margin-left: 20px;
+        width: 100px;
+        text-align: center;
+
+        .telescope-button.active .img-circle {
+          border-radius: 50%;
+          border: 5px solid $pink;
+        }
       }
 
       &:first-child {
