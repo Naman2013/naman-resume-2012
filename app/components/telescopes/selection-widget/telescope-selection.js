@@ -36,17 +36,11 @@ export default class TelescopeSelection extends React.Component {
   }
 
   render() {
-
-    console.log('props for the nav menu...');
-    console.log(this.props);
-    console.log('=========================');
-
     const { observatoryList, params } = this.props;
     const { obsUniqueId, teleUniqueId } = params;
     const activeObservatory = observatoryList.find(observatory => ( obsUniqueId === observatory.obsUniqueId ));
     const activeTelescope = activeObservatory.obsTelescopes.find(telescope => ( teleUniqueId === telescope.teleUniqueId ));
 
-    console.log(activeObservatory);
     return (
       <div className="obs-telescope-selection-widget clearfix">
 
