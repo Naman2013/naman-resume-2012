@@ -131,6 +131,9 @@ export default class TelescopeDetails extends Component {
     const currentObservatory = getCurrentObservatory(observatoryList, obsUniqueId);
     const { obsId } = currentObservatory;
     const currentTelescope = this.getCurrentTelescope(currentObservatory.obsTelescopes, teleUniqueId);
+    const { teleInstrumentList } = currentTelescope;
+
+    console.log(teleInstrumentList);
 
     return (
     <div className="telescope-details-page-wrapper">
@@ -162,12 +165,14 @@ export default class TelescopeDetails extends Component {
               selectedIndex={0}>
 
               <TabList>
-                <Tab>High-Magnification</Tab>
-                <Tab>Wid-Field</Tab>
+                {
+                  teleInstrumentList.map(instrument => (
+                    <Tab key={instrument.instrUniqueId}>{instrument.instrTelescopeName}</Tab>
+                  ))
+                }
               </TabList>
 
               <TabPanel>
-
                 {
                   currentTelescope.teleOnlineStatus != 'offline' ?
                   this.determineImageLoaderType(currentTelescope) :
@@ -180,10 +185,7 @@ export default class TelescopeDetails extends Component {
                     teleSystem={currentTelescope.teleSystem}
                     showToggleOption={currentTelescope.teleOnlineStatus === 'online'} />
                 : null}
-              </TabPanel>
 
-
-              <TabPanel>
               </TabPanel>
 
             </Tabs>
