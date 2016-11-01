@@ -82,6 +82,7 @@ export default class TelescopeSelection extends React.Component {
                     key={telescope.teleUniqueId}
                     className="icon-container">
                     <Link
+                      className="telescope-button"
                       activeClassName="active"
                       to={`telescope-details/${obsUniqueId}/${telescope.teleUniqueId}`}>
                       <img
