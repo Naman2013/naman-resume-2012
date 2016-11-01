@@ -28,6 +28,7 @@ import WeatherConditions from '../../components/telescope-details/weather-condit
 import TelescopeRecommendsWidget from '../../components/telescope-details/recommends-widget/recommends-widget';
 import TelescopeGalleryWidget from '../../components/telescope-details/gallery-widget/gallery-widget';
 import Neoview from '../../components/telescope-details/neoview/neoview.js';
+import TelescopeOffline from '../../components/telescope-details/telescope-offline/telescope-offline';
 import CurrentSelectionHeader from '../../components/telescopes/current-selection-header/header';
 import TelescopeSelection from '../../components/telescopes/selection-widget/telescope-selection';
 // import MissionUpcoming from '../components/missions/mission-upcoming';
@@ -130,6 +131,8 @@ export default class TelescopeDetails extends Component {
     const { obsId } = currentObservatory;
     const currentTelescope = this.getCurrentTelescope(currentObservatory.obsTelescopes, teleUniqueId);
 
+    console.log(currentTelescope);
+
     return (
     <div className="telescope-details-page-wrapper">
 
@@ -163,7 +166,9 @@ export default class TelescopeDetails extends Component {
             <TabPanel>
 
               {
-                this.determineImageLoaderType(currentTelescope)
+                currentTelescope.teleOnlineStatus != 'offline' ?
+                this.determineImageLoaderType(currentTelescope) :
+                <TelescopeOffline imageSource={currentTelescope.teleOfflineImgURL} />
               }
 
               {currentTelescope.teleOnlineStatus === 'online' && currentTelescope.teleHasNeoView ?
