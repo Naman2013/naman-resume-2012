@@ -92,6 +92,7 @@ export default class TelescopeDetails extends Component {
   }
 
   determineImageLoaderType(currentTelescope) {
+
     const { teleImageSourceType } = currentTelescope;
     if(teleImageSourceType === 'SSE') {
       return(
@@ -110,7 +111,7 @@ export default class TelescopeDetails extends Component {
         <VideoImageLoader
           teleStreamCode={teleStreamCode}
           teleStreamURL={teleStreamURL}
-          teleStreamThumbnailVideoWidth="885"
+          teleStreamThumbnailVideoWidth="810"
           teleStreamThumbnailVideoHeight="600"
           teleStreamThumbnailQuality={teleStreamThumbnailQuality} />
       );
