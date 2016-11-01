@@ -65,7 +65,7 @@ export default class TelescopeSelection extends React.Component {
                       <Link
                         activeClassName="active"
                         to={`telescope-details/${observatory.obsUniqueId}/${this.fetchDefaultTelescopeId(observatory)}`}
-                        className="cat-link">
+                        className={`${observatory.obsUniqueId === obsUniqueId ? 'active' : ''} cat-link`}>
                         { observatory.obsMenuName }
                       </Link>
                     </li>
