@@ -140,7 +140,10 @@ export default class TelescopeDetails extends Component {
         observatoryList={observatoryList}
         params={this.props.params} />
 
-      <div>
+
+      <div className="details-content-wrapper">
+
+      <div className="telescope-details-header">
         <div className="col-md-8">
           <CurrentSelectionHeader telescope={currentTelescope} />
         </div>
@@ -149,6 +152,7 @@ export default class TelescopeDetails extends Component {
         </div>
       </div>
 
+      { /* begin left column */ }
       <div className='telescope-details clearfix'>
         <div className='col-md-8'>
           <Tabs
@@ -210,6 +214,7 @@ export default class TelescopeDetails extends Component {
             ]}
           />
         </div>
+
         <div className='col-md-4 telescope-details-sidebar'>
 
           <LiveMission />
@@ -224,6 +229,9 @@ export default class TelescopeDetails extends Component {
         </div>
 
       </div>
+
+      </div>
+
     </div>
     );
   }

@@ -14,7 +14,7 @@ class TelescopeImageViewer extends Component {
       teleId,
       teleFade, } = this.props;
 
-    const teleThumbWidth = '875';
+    const teleThumbWidth = '866px';
     const imageSource = generateSseImageLoader(teleSystem, telePort);
 
     return(
