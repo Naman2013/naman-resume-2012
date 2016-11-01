@@ -34,7 +34,9 @@ class RecentVideoTile extends Component {
 
     return(
       <div className="col-md-4 recent-video-tile-container">
-        <iframe className="home-youtube-video" width="100%" height="255" src={this.props.videoUrl} seamless allowFullScreen autoPlay="1" frameBorder="0"></iframe>
+        <div className="video-wrap">
+          <iframe className="home-youtube-video" width="100%" src={this.props.videoUrl} seamless allowFullScreen autoPlay="1" frameBorder="0"></iframe>
+        </div>
         <p className="content">{this.props.content}</p>
       </div>
     );

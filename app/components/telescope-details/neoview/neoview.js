@@ -37,11 +37,14 @@ export default class Neoview extends React.Component {
 
   handleNeoMessages(data) {
     let messages = this.state.messages
-    this.setState({
-      latestMassege: data.split('|'),
-      //messages: [...messages, data.split('|')]
-      messages: [data.split('|'), ...messages]
-    })
+    let message = data.split('|')
+    let notHeartbeat = message[1] !== 'heartbeat' ? message : null
+    if(notHeartbeat) {
+      this.setState({
+        latestMassege: `${notHeartbeat[0]} ${notHeartbeat[1]}`,
+        messages: [notHeartbeat, ...messages]
+      })
+    }
   }
 
   generateNeoSource(port, scope) {
@@ -64,12 +67,12 @@ export default class Neoview extends React.Component {
     console.log(this.state)
     return (
       <div className="neoview-container">
-        <div className={ `neoview-wrapper ${this.state.toggleNeoview ? 'visible' : 'hidden'}` }>          
-          {this.state.messages.map((msg, index) => {
+        <div className={ `neoview-wrapper ${this.state.toggleNeoview ? 'visible' : 'hidden'}` }>
+          {this.state.messages && this.state.messages.map((msg, index) => {
             return <div className="neo-message" key={index}>
-              <div className="col-md-4 neo-message-time">{msg[0]}</div>
-              <div className="col-md-8 neo-message-text">{msg[1]}</div>
-            </div>
+                <div className="col-md-4 neo-message-time">{`${msg[0]} `}</div>
+                <div className="col-md-8 neo-message-text">{msg[1]}</div>
+              </div>
           })}
 
         </div>
