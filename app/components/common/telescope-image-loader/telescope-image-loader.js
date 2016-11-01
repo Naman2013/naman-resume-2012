@@ -17,6 +17,10 @@ class TelescopeImageLoader extends Component {
       adjustedFade: 0, // duration of fade in of new image
       startingOpacity: null, // starting opacity of the new image
     };
+
+    // storing a reference to the source rendered to determine if it changes later
+    // this will flush the current sse for the instance, and rebind to a new source
+    this.previouslyRenderedImageSource = this.props.imageSource;
   }
 
   generateThumbnailUrl(imageUrl) {
@@ -80,15 +84,29 @@ class TelescopeImageLoader extends Component {
   }
 
   componentWillMount() {
+    this.attachSSE(this.props.imageSource);
+  }
+
+  componentWillUnmount() {
+    this.detachSSE();
+  }
+
+  attachSSE(imageSource) {
     this.sseSource = new EventSource( this.props.imageSource );
     this.sseSource.addEventListener(
       'message',
       event => this.handleSourceImage( event.data ), false );
   }
 
-  componentWillUnmount() {
+  detachSSE() {
     this.sseSource.close();
     this.sseSource.removeEventListener('message', this.handleSourceImage, false);
+  }
+
+  rebuildSSE(newImageSource) {
+    this.detachSSE();
+    this.attachSSE(newImageSource);
+    this.previouslyRenderedImageSource = newImageSource;
   }
 
   generateImageId() {
@@ -96,6 +114,12 @@ class TelescopeImageLoader extends Component {
   }
 
   componentDidUpdate() {
+
+    if(this.props.imageSource !== this.previouslyRenderedImageSource) {
+      this.rebuildSSE(this.props.imageSource);
+      return;
+    }
+
     const {
       currentImageUrl,
       previousImageUrl,
