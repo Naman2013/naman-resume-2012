@@ -107,9 +107,9 @@ class InteractiveViewer extends Component {
   fetchCurrentPanelStyle() {
     const { clipDimension } = this.props;
     return this.state.clipped ? {
-      WebkitClipPath: `circle(${clipDimension}px at center)`,
-      MozClipPath: `circle(${clipDimension}px)`,
-      clipPath: `circle(${clipDimension}px, ${clipDimension}px, ${clipDimension}px)`,
+      WebkitClipPath: `circle(35% at 50% 47%)`,
+      MozClipPath: `circle(35%)`,
+      clipPath: `circle(35%, 50%, 47%)`,
     } : {};
   }
 
