@@ -92,29 +92,32 @@ export default class TelescopeDetails extends Component {
     return observatoryTelescopes.find(telescope => telescope.teleUniqueId === telescopeId);
   }
 
-  determineImageLoaderType(currentTelescope) {
+  determineImageLoaderType(currentInstrument) {
 
-    const { teleImageSourceType } = currentTelescope;
-    if(teleImageSourceType === 'SSE') {
+    const { instrImageSourceType } = currentInstrument;
+    if(instrImageSourceType === 'SSE') {
       return(
         <TelescopeImageViewer
-          {...currentTelescope} />
+          telePort={currentInstrument.instrPort}
+          teleSystem={currentInstrument.instrSystem}
+          teleId={currentInstrument.instrId}
+          teleFade={currentInstrument.instrFade} />
       );
-    } else if(teleImageSourceType === 'video') {
+    } else if(instrImageSourceType === 'video') {
       const {
-        teleStreamCode,
-        teleStreamURL,
-        teleStreamThumbnailVideoWidth,
-        teleStreamThumbnailVideoHeight,
-        teleStreamThumbnailQuality } = currentTelescope;
+        instrStreamCode,
+        instrStreamURL,
+        instrStreamThumbnailVideoWidth,
+        instrStreamThumbnailVideoHeight,
+        instrStreamThumbnailQuality } = currentInstrument;
 
       return(
         <VideoImageLoader
-          teleStreamCode={teleStreamCode}
-          teleStreamURL={teleStreamURL}
+          teleStreamCode={instrStreamCode}
+          teleStreamURL={instrStreamURL}
           teleStreamThumbnailVideoWidth="810"
           teleStreamThumbnailVideoHeight="600"
-          teleStreamThumbnailQuality={teleStreamThumbnailQuality} />
+          teleStreamThumbnailQuality={instrStreamThumbnailQuality} />
       );
     }
 
@@ -174,11 +177,11 @@ export default class TelescopeDetails extends Component {
 
               {
                 teleInstrumentList.map(instrument => (
-                  <TabPanel>
+                  <TabPanel key={instrument.instrPort}>
                     {
                       currentTelescope.teleOnlineStatus != 'offline' ?
-                      this.determineImageLoaderType(currentTelescope) :
-                      <TelescopeOffline imageSource={currentTelescope.teleOfflineImgURL} />
+                      this.determineImageLoaderType(instrument) :
+                      <TelescopeOffline imageSource={instrument.instrOfflineImgURL} />
                     }
 
                     {
