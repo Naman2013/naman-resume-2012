@@ -92,29 +92,32 @@ export default class TelescopeDetails extends Component {
     return observatoryTelescopes.find(telescope => telescope.teleUniqueId === telescopeId);
   }
 
-  determineImageLoaderType(currentTelescope) {
+  determineImageLoaderType(currentInstrument) {
 
-    const { teleImageSourceType } = currentTelescope;
-    if(teleImageSourceType === 'SSE') {
+    const { instrImageSourceType } = currentInstrument;
+    if(instrImageSourceType === 'SSE') {
       return(
         <TelescopeImageViewer
-          {...currentTelescope} />
+          telePort={currentInstrument.instrPort}
+          teleSystem={currentInstrument.instrSystem}
+          teleId={currentInstrument.instrId}
+          teleFade={currentInstrument.instrFade} />
       );
-    } else if(teleImageSourceType === 'video') {
+    } else if(instrImageSourceType === 'video') {
       const {
-        teleStreamCode,
-        teleStreamURL,
-        teleStreamThumbnailVideoWidth,
-        teleStreamThumbnailVideoHeight,
-        teleStreamThumbnailQuality } = currentTelescope;
+        instrStreamCode,
+        instrStreamURL,
+        instrStreamThumbnailVideoWidth,
+        instrStreamThumbnailVideoHeight,
+        instrStreamThumbnailQuality } = currentInstrument;
 
       return(
         <VideoImageLoader
-          teleStreamCode={teleStreamCode}
-          teleStreamURL={teleStreamURL}
+          teleStreamCode={instrStreamCode}
+          teleStreamURL={instrStreamURL}
           teleStreamThumbnailVideoWidth="810"
           teleStreamThumbnailVideoHeight="600"
-          teleStreamThumbnailQuality={teleStreamThumbnailQuality} />
+          teleStreamThumbnailQuality={instrStreamThumbnailQuality} />
       );
     }
 
@@ -131,8 +134,9 @@ export default class TelescopeDetails extends Component {
     const currentObservatory = getCurrentObservatory(observatoryList, obsUniqueId);
     const { obsId } = currentObservatory;
     const currentTelescope = this.getCurrentTelescope(currentObservatory.obsTelescopes, teleUniqueId);
+    const { teleInstrumentList } = currentTelescope;
 
-    console.log(currentTelescope);
+    console.log(teleInstrumentList);
 
     return (
     <div className="telescope-details-page-wrapper">
@@ -147,94 +151,96 @@ export default class TelescopeDetails extends Component {
 
       <div className="details-content-wrapper">
 
-      <div className="telescope-details-header">
-        <div className="col-md-8">
-          <CurrentSelectionHeader telescope={currentTelescope} />
+        <div className="telescope-details-header">
+          <div className="col-md-8">
+            <CurrentSelectionHeader telescope={currentTelescope} />
+          </div>
+          <div className="col-md-4">
+            <a className="pull-right btn-primary" href={`#${currentTelescope.teleResURL}`}>Reserve this telescope</a>
+          </div>
         </div>
-        <div className="col-md-4">
-          <a className="pull-right btn-primary" href={`#${currentTelescope.teleResURL}`}>Reserve this telescope</a>
-        </div>
-      </div>
 
-      { /* begin left column */ }
-      <div className='telescope-details clearfix'>
-        <div className='col-md-8'>
-          <Tabs
-            onSelect={this.handleSelect}
-            selectedIndex={0}>
+        { /* begin left column */ }
+        <div className='telescope-details clearfix'>
+          <div className='col-md-8'>
+            <Tabs
+              onSelect={this.handleSelect}
+              selectedIndex={0}>
 
-            <TabList>
-              <Tab>High-Magnification</Tab>
-              <Tab>Wid-Field</Tab>
-            </TabList>
-
-            <TabPanel>
+              <TabList>
+                {
+                  teleInstrumentList.map(instrument => (
+                    <Tab key={instrument.instrUniqueId}>{instrument.instrTelescopeName}</Tab>
+                  ))
+                }
+              </TabList>
 
               {
-                currentTelescope.teleOnlineStatus != 'offline' ?
-                this.determineImageLoaderType(currentTelescope) :
-                <TelescopeOffline imageSource={currentTelescope.teleOfflineImgURL} />
+                teleInstrumentList.map(instrument => (
+                  <TabPanel key={instrument.instrPort}>
+                    {
+                      currentTelescope.teleOnlineStatus != 'offline' ?
+                      this.determineImageLoaderType(instrument) :
+                      <TelescopeOffline imageSource={instrument.instrOfflineImgURL} />
+                    }
+
+                    {
+                      currentTelescope.teleOnlineStatus === 'online' && currentTelescope.teleHasNeoView ?
+                      <Neoview
+                        port={currentTelescope.teleNeoPort}
+                        teleSystem={currentTelescope.teleSystem}
+                        showToggleOption={currentTelescope.teleOnlineStatus === 'online'} /> : null
+                    }
+
+                  </TabPanel>
+                ))
               }
 
-              {currentTelescope.teleOnlineStatus === 'online' && currentTelescope.teleHasNeoView ?
-                <Neoview
-                  port={currentTelescope.teleNeoPort}
-                  teleSystem={currentTelescope.teleSystem}
-                  showToggleOption={currentTelescope.teleOnlineStatus === 'online'} />
-              : null}
-            </TabPanel>
+            </Tabs>
 
+            <Spacer height="50px" />
 
-            <TabPanel>
-            </TabPanel>
+            <PromoMessageBanner
+              title={`Community Perspectives`}
+              subtitle={`Learn more about this object through the various lenses of science, culture, and spirituality.`} />
+            <CommunityPerspectives />
 
-          </Tabs>
+            <LiveWebcam
+              time={new Date()}
+              tabs={[
+                { title: 'West', src: '/assets/images/graphics/livecam-placeholder.jpg' },
+                { title: 'East', src: '/assets/images/graphics/livecam-placeholder-2.jpeg' },
+                { title: 'South', src: '/assets/images/graphics/livecam-placeholder-3.jpeg' },
+                { title: 'North', src: '/assets/images/graphics/livecam-placeholder-4.jpeg' },
+              ]}
+            />
 
+            <WeatherConditions
+              tabs={[
+                { title: 'Conditions', src: '/assets/images/graphics/weather-placeholder.jpg' },
+                { title: 'Dust', src: '/assets/images/graphics/weather-placeholder-2.jpeg' },
+                { title: 'Satellite Cloud', src: '/assets/images/graphics/weather-placeholder-3.jpeg' },
+                { title: 'Wind', src: '/assets/images/graphics/weather-placeholder-4.jpeg' },
+                { title: 'Sky Brightness', src: '/assets/images/graphics/weather-placeholder-5.jpeg' },
+                { title: 'Historic Weather', src: '/assets/images/graphics/weather-placeholder-6.jpeg' },
+              ]}
+            />
+          </div>
 
+          <div className='col-md-4 telescope-details-sidebar'>
 
-          <Spacer height="50px" />
+            <LiveMission />
 
-          <PromoMessageBanner
-            title={`Community Perspectives`}
-            subtitle={`Learn more about this object through the various lenses of science, culture, and spirituality.`} />
-          <CommunityPerspectives />
+            <Spacer height="100px" />
+            {/* Telescope Where Sky Component*/}
+            <TelescopeWhereSky />
+            <Spacer height="50px" />
+            <TelescopeConditionSnapshot />
+            <TelescopeRecommendsWidget />
+            <TelescopeGalleryWidget />
+          </div>
 
-          <LiveWebcam
-            time={new Date()}
-            tabs={[
-              { title: 'West', src: '/assets/images/graphics/livecam-placeholder.jpg' },
-              { title: 'East', src: '/assets/images/graphics/livecam-placeholder-2.jpeg' },
-              { title: 'South', src: '/assets/images/graphics/livecam-placeholder-3.jpeg' },
-              { title: 'North', src: '/assets/images/graphics/livecam-placeholder-4.jpeg' },
-            ]}
-          />
-
-          <WeatherConditions
-            tabs={[
-              { title: 'Conditions', src: '/assets/images/graphics/weather-placeholder.jpg' },
-              { title: 'Dust', src: '/assets/images/graphics/weather-placeholder-2.jpeg' },
-              { title: 'Satellite Cloud', src: '/assets/images/graphics/weather-placeholder-3.jpeg' },
-              { title: 'Wind', src: '/assets/images/graphics/weather-placeholder-4.jpeg' },
-              { title: 'Sky Brightness', src: '/assets/images/graphics/weather-placeholder-5.jpeg' },
-              { title: 'Historic Weather', src: '/assets/images/graphics/weather-placeholder-6.jpeg' },
-            ]}
-          />
         </div>
-
-        <div className='col-md-4 telescope-details-sidebar'>
-
-          <LiveMission />
-
-          <Spacer height="100px" />
-          {/* Telescope Where Sky Component*/}
-          <TelescopeWhereSky />
-          <Spacer height="50px" />
-          <TelescopeConditionSnapshot />
-          <TelescopeRecommendsWidget />
-          <TelescopeGalleryWidget />
-        </div>
-
-      </div>
 
       </div>
 
