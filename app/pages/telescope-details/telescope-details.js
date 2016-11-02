@@ -172,25 +172,28 @@ export default class TelescopeDetails extends Component {
                 }
               </TabList>
 
-              <TabPanel>
-                {
-                  currentTelescope.teleOnlineStatus != 'offline' ?
-                  this.determineImageLoaderType(currentTelescope) :
-                  <TelescopeOffline imageSource={currentTelescope.teleOfflineImgURL} />
-                }
+              {
+                teleInstrumentList.map(instrument => (
+                  <TabPanel>
+                    {
+                      currentTelescope.teleOnlineStatus != 'offline' ?
+                      this.determineImageLoaderType(currentTelescope) :
+                      <TelescopeOffline imageSource={currentTelescope.teleOfflineImgURL} />
+                    }
 
-                {currentTelescope.teleOnlineStatus === 'online' && currentTelescope.teleHasNeoView ?
-                  <Neoview
-                    port={currentTelescope.teleNeoPort}
-                    teleSystem={currentTelescope.teleSystem}
-                    showToggleOption={currentTelescope.teleOnlineStatus === 'online'} />
-                : null}
+                    {
+                      currentTelescope.teleOnlineStatus === 'online' && currentTelescope.teleHasNeoView ?
+                      <Neoview
+                        port={currentTelescope.teleNeoPort}
+                        teleSystem={currentTelescope.teleSystem}
+                        showToggleOption={currentTelescope.teleOnlineStatus === 'online'} /> : null
+                    }
 
-              </TabPanel>
+                  </TabPanel>
+                ))
+              }
 
             </Tabs>
-
-
 
             <Spacer height="50px" />
 
