@@ -139,9 +139,7 @@ export default class TelescopeDetails extends Component {
     const { obsId } = currentObservatory;
     const currentTelescope = this.getCurrentTelescope(currentObservatory.obsTelescopes, teleUniqueId);
     const { teleInstrumentList } = currentTelescope;
-    const currentInstrument = '';
-
-    console.log(teleInstrumentList);
+    const currentInstrument = teleInstrumentList[selectedTab];
 
     return (
     <div className="telescope-details-page-wrapper">
@@ -158,7 +156,12 @@ export default class TelescopeDetails extends Component {
 
         <div className="telescope-details-header">
           <div className="col-md-8">
-            <CurrentSelectionHeader telescope={currentTelescope} />
+            <CurrentSelectionHeader
+              telescopeIcon={currentTelescope.teleLogoURL}
+              teleName={currentTelescope.teleName}
+              teleSponsorLinkURL={currentTelescope.teleSponsorLinkURL}
+              teleSponsorLogoURL={currentTelescope.teleSponsorLogoURL}
+              instrTelescopeName={currentInstrument.instrTelescopeName} />
           </div>
           <div className="col-md-4">
             <a className="pull-right btn-primary" href={`#${currentTelescope.teleResURL}`}>Reserve this telescope</a>
