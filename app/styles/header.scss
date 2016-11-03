@@ -1,12 +1,13 @@
 .main-header {
   height: 70px;
-  width: calc(100% - 70px);
-  background-color: rgba(0, 0, 0, 0.2);
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.9);
   position: fixed;
   z-index: 100;
-  left: 70px;
+
   .logo {
     position: absolute;
+    left: 90px;
     text-indent: -9999;
     background-image: url(../../assets/icons/header/logo.svg);
     background-position: left center;
@@ -17,10 +18,11 @@
     margin: 12px 0 0 12px;
   }
   .logo-text {
+    position: absolute;
+    left: 160px;
+    top: 5px;
     display: inline-block;
     color: #FFF;
-    margin: 8px 0 0 70px;
     font-size: 34px;
   }
 }
-

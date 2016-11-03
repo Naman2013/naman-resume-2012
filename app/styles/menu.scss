@@ -2,7 +2,7 @@
   position: absolute;
   left: 0px;
   color: #FFF;
-  z-index: 5;
+  z-index: 9999;
   background-color: #3C4A55;
 
 
@@ -35,7 +35,7 @@
       color: red;
       margin-right: 4px;
     }
-    .scope_noinfo::before { 
+    .scope_noinfo::before {
       font-weight: bold;
       content: "\2022";
       color: #DDD;
@@ -186,7 +186,7 @@
 
 .menu-social-icons {
   text-align: center;
-  margin-top: 40px; 
+  margin-top: 40px;
 }
 
 
