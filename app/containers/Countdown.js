@@ -16,9 +16,6 @@ function mapStateToProps({ countdown }) {
 }
 
 @connect(mapStateToProps, mapDispatchToProps)
-
-
-
 export default class Countdown extends Component {
   static propTypes = {
     isFetching: bool.isRequired,
