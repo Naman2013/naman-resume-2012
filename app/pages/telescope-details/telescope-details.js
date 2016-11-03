@@ -64,7 +64,8 @@ export default class TelescopeDetails extends Component {
     super(props);
 
     this.state = {
-      toggleNeoview: false
+      toggleNeoview: false,
+      selectedTab: 0,
     };
   }
 
@@ -78,7 +79,9 @@ export default class TelescopeDetails extends Component {
 
 
   handleSelect(index, last) {
-    console.log('Selected tab: ' + index + ', Last tab: ' + last);
+    this.setState({
+      selectedTab: index,
+    });
   }
 
   /**
@@ -124,6 +127,7 @@ export default class TelescopeDetails extends Component {
   }
 
   render() {
+    const { selectedTab } = this.state;
     const { observatoryList, observatoryTelecopeStatus } = this.props;
     const { obsUniqueId, teleUniqueId } = this.props.params;
 
@@ -135,8 +139,7 @@ export default class TelescopeDetails extends Component {
     const { obsId } = currentObservatory;
     const currentTelescope = this.getCurrentTelescope(currentObservatory.obsTelescopes, teleUniqueId);
     const { teleInstrumentList } = currentTelescope;
-
-    console.log(teleInstrumentList);
+    const currentInstrument = teleInstrumentList[selectedTab];
 
     return (
     <div className="telescope-details-page-wrapper">
@@ -153,7 +156,12 @@ export default class TelescopeDetails extends Component {
 
         <div className="telescope-details-header">
           <div className="col-md-8">
-            <CurrentSelectionHeader telescope={currentTelescope} />
+            <CurrentSelectionHeader
+              telescopeIcon={currentTelescope.teleLogoURL}
+              teleName={currentTelescope.teleName}
+              teleSponsorLinkURL={currentTelescope.teleSponsorLinkURL}
+              teleSponsorLogoURL={currentTelescope.teleSponsorLogoURL}
+              instrTelescopeName={currentInstrument.instrTelescopeName} />
           </div>
           <div className="col-md-4">
             <a className="pull-right btn-primary" href={`#${currentTelescope.teleResURL}`}>Reserve this telescope</a>
@@ -164,8 +172,8 @@ export default class TelescopeDetails extends Component {
         <div className='telescope-details clearfix'>
           <div className='col-md-8'>
             <Tabs
-              onSelect={this.handleSelect}
-              selectedIndex={0}>
+              onSelect={this.handleSelect.bind(this)}
+              selectedIndex={selectedTab}>
 
               <TabList>
                 {
