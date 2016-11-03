@@ -154,8 +154,8 @@ export default class TelescopeDetails extends Component {
 
       <div className="details-content-wrapper">
 
-        <div className="telescope-details-header">
-          <div className="col-md-8">
+        <div className="telescope-details-header clearfix">
+          <div className="col-md-10">
             <CurrentSelectionHeader
               telescopeIcon={currentTelescope.teleLogoURL}
               teleName={currentTelescope.teleName}
@@ -163,7 +163,7 @@ export default class TelescopeDetails extends Component {
               teleSponsorLogoURL={currentTelescope.teleSponsorLogoURL}
               instrTelescopeName={currentInstrument.instrTelescopeName} />
           </div>
-          <div className="col-md-4">
+          <div className="col-md-2">
             <a className="pull-right btn-primary" href={`#${currentTelescope.teleResURL}`}>Reserve this telescope</a>
           </div>
         </div>

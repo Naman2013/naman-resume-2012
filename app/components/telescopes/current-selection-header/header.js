@@ -22,19 +22,22 @@ class CurrentSelectionHeader extends Component {
       <div className="current-selection-header">
         <div className="title-container clearfix">
 
-          <div className="telescope-title-container col-md-8">
+          <div className="telescope-title-container">
 
             <img src={telescopeIcon} width="48" height="48"/>
             <span className="telescope-title big">
               {`${teleName}: ${instrTelescopeName}`}
             </span>
 
-            <span className="sponsoredby-text">
-              Sponsored by:
-            </span>
-            <a href={teleSponsorLinkURL} target="_blank">
-              <img width="145" className="sponsoredby-logo" src={teleSponsorLogoURL} />
-            </a>
+            {
+              !!teleSponsorLogoURL ?
+              <span className="sponsoredby-text">
+                Sponsored by:
+                <a href={teleSponsorLinkURL} target="_blank">
+                  <img width="145" className="sponsoredby-logo" src={teleSponsorLogoURL} />
+                </a>
+              </span> : null
+            }
 
           </div>
 
