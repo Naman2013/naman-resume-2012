@@ -16,7 +16,9 @@ function CurrentSelectionHeader({telescope}) {
           <div className="telescope-title-container col-md-8">
 
             <img src={telescope.teleLogoURL} width="48" height="48"/>
-            <span className="telescope-title big">{`${telescope.teleName}: ${telescope.teleNameAlt}`}</span>
+            <span className="telescope-title big">
+              {`${telescope.teleName}: ${telescope.teleNameAlt}`}
+            </span>
 
             <span className="sponsoredby-text">
               Sponsored by:
