@@ -4,9 +4,12 @@ import { connect } from 'react-redux';
 import classnames from 'classnames';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import onClickOutside from 'react-onclickoutside';
-import MenuLink from './../components/MenuLink';
-import Submenu from './../components/Submenu';
+import MenuLink from './../components/menu/MenuLink';
+import Submenu from './../components/menu/Submenu';
 import * as menuActions from './../modules/Menu';
+import styles from '../styles/menu.scss';
+import MenuSocial from './../components/menu/MenuSocial';
+
 
 const { number, bool, string, func, array } = PropTypes;
 
@@ -55,11 +58,7 @@ class MenuComponent extends Component {
           <ul>
             {this.props.menuItems.map((item, index) => {
               return (
-                <MenuLink
-                  key={index}
-                  index={index}
-                  data={item} 
-                  handleClick={this.handleClick} />
+                <MenuLink key={index} index={index} data={item} handleClick={this.handleClick} />
               );
             })}
           </ul>
@@ -78,6 +77,7 @@ class MenuComponent extends Component {
             }
           })}
         </ReactCSSTransitionGroup>
+        <MenuSocial />
       </aside>
     );
   }

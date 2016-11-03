@@ -1,0 +1,226 @@
+.menu-container {
+  position: absolute;
+  left: 0px;
+  color: #FFF;
+  z-index: 9999;
+  background-color: #3C4A55;
+
+
+    h3 {
+    font-weight: normal;
+    font-size: 18px;
+    margin: 20px 0px 5px;
+    }
+    h4 {
+    font-weight: bold;
+    font-size: 14px;
+    margin: 5px 0px 0px;
+    }
+    p {
+    font-size: 13px;
+    }
+    time {
+    font-size: 11px;
+    }
+    .scope_online::before {
+      font-weight: bold;
+      content: "\2022";
+      color: #3FC00D;
+      margin-right: 4px;
+      font-size: 22px;
+    }
+    .scope_offline::before {
+      font-weight: bold;
+      content: "\2022";
+      color: red;
+      margin-right: 4px;
+    }
+    .scope_noinfo::before {
+      font-weight: bold;
+      content: "\2022";
+      color: #DDD;
+      margin-right: 4px;
+    }
+    nav a, nav a:hover {
+    font-size: 0.7rem;
+    font-size: 0.7em;
+    padding-top: 2px;
+    }
+    nav button {
+      appearance: normal;
+      border: 0px;
+      width: 70px;
+      height: 48px;
+      text-align: center;
+      line-height: 48px;
+      font-size: 28px;
+      color: #FFF;
+      background-color: #53585F;
+    }
+    nav a[data-nav="nav-home"] { background-image: url(../../assets/icons/menu/menu-home.svg); }
+    nav a[data-nav="nav-telescopes"] { background-image: url(../../assets/icons/menu/menu-telescopes.svg); }
+    nav a[data-nav="nav-shows"] { background-image: url(../../assets/icons/menu/menu-shows.svg); }
+    nav a[data-nav="nav-community"] { background-image: url(../../assets/icons/menu/menu-community.svg); }
+    nav a[data-nav="nav-about"] { background-image: url(../../assets/icons/menu/menu-about.svg); }
+    nav a[data-nav="nav-help"] { background-image: url(../../assets/icons/menu/menu-help.svg); }
+    nav a[data-nav="nav-settings"] { background-image: url(../../assets/icons/menu/menu-settings.svg); }
+    nav ul {
+      text-indent: none;
+      margin: 0px;
+      padding: 0px;
+      list-style: none;
+      width: 70px;
+      position: relative;
+      z-index: 10;
+    }
+    nav a {
+      background-repeat: no-repeat;
+      background-position: center 7px;
+      background-size: 50%;
+    }
+    nav a, nav a:hover, nav a:active, nav a:visited {
+      text-align: center;
+      display: block;
+      line-height: 110px;
+      height: 70px;
+      color: #FFF;
+      text-decoration: none;
+      position: relative;
+    }
+    nav a::before {
+      content: "";
+      position: absolute;
+      top: 0px;
+      left: -70px;
+      width: 70px;
+      height: 70px;
+      background-color: rgba(0,0,0, 0.3);
+      transition: all 0.2s ease-in-out;
+    }
+    nav a:hover::before {
+      left: 0px;
+    }
+}
+
+
+
+.menu-container > nav {
+  height: 100%;
+  width: 70px;
+  overflow-x: hidden;
+  transition: .2s ease-in-out;
+  z-index: 9999;
+}
+
+
+
+
+
+.left-submenu {
+  position: absolute;
+  left: 70px;
+  top: 70px;
+  width: 200px;
+  height: 100%;
+  max-height: 100%;
+  padding: 20px;
+  background-color: rgba(0,0,0,0.3);
+  z-index: -1;
+  overflow-y: auto;
+  transition-delay: 0.25s;
+  transition: all 0.25s ease-in-out;
+  .observatory-list h4 {
+  margin: 20px 0;
+  font-weight: normal;
+  }
+  ul {
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+    line-height: 1.5em;
+    font-size: 13px;
+    margin-bottom: 10px;
+  }
+  a, a:hover, a:active, a:visited {
+    color: #FFF;
+    text-decoration: none;
+  }
+  ul ul li {
+    padding-left: 10px;
+    margin: 10px 0;
+  }
+  ul ul p li {
+  margin-left: 20px;
+  }
+
+}
+
+
+
+
+
+.left-submenu-enter {
+  top: 0px;
+  left: -200px;
+  transition-delay: 0s;
+}
+
+.left-submenu-enter-active {
+  top: 48px;
+  left: 70px;
+  transition-delay: 0.25s;
+}
+
+.left-submenu-leave {
+  top: 48px;
+  left: 70px;
+  transition-delay: 0.25s;
+}
+
+.left-submenu-leave-active {
+  top: 0px;
+  left: -200px;
+  transition-delay: 0s;
+}
+
+
+.menu-social-icons {
+  text-align: center;
+  margin-top: 40px;
+}
+
+
+.menu {
+  width: 70px;
+  height: 70px;
+  margin: 0;
+  background: #000 url('../../assets/icons/menu/menu-open.png') center center no-repeat;
+  :hover {
+    cursor: pointer;
+  }
+  .menu.active {
+    background: #000 url('../../assets/icons/menu/menu-close.svg') center center no-repeat;
+  }
+}
+
+
+
+
+
+.open-menu, .close-menu {
+  width: 70px;
+  height: 48px;
+  margin: 0;
+}
+
+.open-menu:hover, .close-menu:hover {
+  cursor: pointer;
+}
+
+.open-menu {
+  background: #000 url('../../assets/icons/menu/menu-open.png') center center no-repeat;
+}
+
+.close-menu {
+  background: #000 url('../../assets/icons/menu/menu-close.svg') center center no-repeat;
+}
