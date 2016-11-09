@@ -64,7 +64,6 @@ export default class Neoview extends React.Component {
   }
 
   render() {
-    console.log(this.state)
     return (
       <div className="neoview-container">
         <div className={ `neoview-wrapper ${this.state.toggleNeoview ? 'visible' : 'hidden'}` }>
