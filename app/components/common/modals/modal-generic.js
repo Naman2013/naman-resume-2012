@@ -12,8 +12,8 @@ class ModalGeneric extends Component {
 
         <Modal.Body>
           <div className="mission-schedule">
-            <h4>What is UTC?</h4>
-            <p>UTC is blah blah blah...</p>
+            <h4>{ title }</h4>
+            <p>{ description }</p>
           </div>
         </Modal.Body>
 
@@ -27,6 +27,10 @@ class ModalGeneric extends Component {
     );
   }
 }
+
+ModalGeneric.defaultProps = {
+  open: false,
+};
 
 ModalGeneric.propTypes = {
   closeModal: PropTypes.func,
