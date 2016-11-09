@@ -18,7 +18,7 @@ import NewMissions from './pages/new-missions';
 import ExistingMissions from './pages/existing-missions';
 import ReserveByTelescope from './pages/reserve-by-telescope';
 import ReserveObjects from './pages/reserve/reserve-by-objects';
-import ReserveByCatalog from './pages/reserve/reserve-by-objects';
+import ReserveByCatalog from './pages/reserve/reserve-by-catalog';
 import BestOfSlooh from './pages/best-of-slooh/best-of-slooh';
 import ObjectPost from './pages/object-post/object-post';
 
@@ -48,6 +48,7 @@ ReactDOM.render(
           </Route>
 
           <Route path="reserve-by-objects" component={ReserveObjects} />
+          <Route path="reserve-by-catalog" component={ReserveByCatalog} />
           <Route path="reserve-by-telescope(/:obsUniqueId/:teleUniqueId)" component={ReserveByTelescope} />
         </Route>
         <Route path="telescope-details/:obsUniqueId/:teleUniqueId" component={TelescopeDetails} />

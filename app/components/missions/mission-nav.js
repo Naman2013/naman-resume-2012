@@ -17,7 +17,7 @@ class MissionNav extends Component {
           </li>
           <li><Link to="/reservations/reserve-by-objects" activeClassName="active">Browse popular objects</Link></li>
           <li><Link to="/reservations/reserve-by-telescope" activeClassName="active">Reserve by telescope</Link></li>
-          <li><a href="#">Explore by catalog</a></li>
+          <li><Link to="/reservations/reserve-by-catalog" activeClassName="active">Explore by catalog</Link></li>
         </ul>
       </div>
     );
