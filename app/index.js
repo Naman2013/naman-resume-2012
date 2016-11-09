@@ -18,6 +18,7 @@ import NewMissions from './pages/new-missions';
 import ExistingMissions from './pages/existing-missions';
 import ReserveByTelescope from './pages/reserve-by-telescope';
 import ReserveObjects from './pages/reserve/reserve-by-objects';
+import ReserveByCatalog from './pages/reserve/reserve-by-catalog';
 import BestOfSlooh from './pages/best-of-slooh/best-of-slooh';
 import ObjectPost from './pages/object-post/object-post';
 
@@ -40,16 +41,16 @@ ReactDOM.render(
         <Route path="telescope-overview/:observatoryId" component={TelescopeOverview} />
         <Route path="reservations" component={Reservations}>
 
-          <Route path="/slooh-recommends" component={SloohRecommends}>
+          <Route path="slooh-recommends" component={SloohRecommends}>
             <IndexRoute component={ExistingMissions} />
             <Route path="existing" name="existing-missions" component={ExistingMissions} />
             <Route path="new" name="new-missions" component={NewMissions} />
           </Route>
 
           <Route path="reserve-by-objects" component={ReserveObjects} />
-          <Route path="reserve-by-telescope" component={ReserveByTelescope} />
+          <Route path="reserve-by-catalog" component={ReserveByCatalog} />
+          <Route path="reserve-by-telescope(/:obsUniqueId/:teleUniqueId)" component={ReserveByTelescope} />
         </Route>
-
         <Route path="telescope-details/:obsUniqueId/:teleUniqueId" component={TelescopeDetails} />
 
         <Route path="best-of-slooh" component={BestOfSlooh} />

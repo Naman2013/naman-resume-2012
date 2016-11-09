@@ -44,7 +44,7 @@ const ExistingMissionCard = ({ card, piggyback, openModal }) => {
             <h5>No existing missions are available, click below to make a reservation</h5>
             <a
               className={styles.piggybackCta}
-              href="#/slooh-recommends/new">Reserve</a>
+              href="/reservations/slooh-recommends/new">Reserve</a>
           </div>
         )
       }

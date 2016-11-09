@@ -32,21 +32,16 @@ function mapDispatchToProps(dispatch) {
 function mapStateToProps({ missions }) {
   return {
     missions,
-    cardList: missions.cardList || []
+    cardList: missions.cardList || [],
   };
 }
 
 @connect(mapStateToProps, mapDispatchToProps)
-
 export default class ReserveMissions extends Component {
-  constructor(props) {
-    super(props);
-
-  }
 
   static propTypes = {
     children: element,
-    actions: object.isRequired
+    actions: object.isRequired,
   };
 
   render() {
@@ -57,7 +52,9 @@ export default class ReserveMissions extends Component {
 
     return (
       <div className="reserve-by-telescope container-fluid">
-        <TelescopeSelection observatoryList={[]} />
+
+        { /* <TelescopeSelection observatoryList={[]} /> */ }
+
         <CurrentSelectionHeader />
         <div>
         	<DatesSelection />
