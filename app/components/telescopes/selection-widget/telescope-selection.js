@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { Link, activeClassName } from 'react-router';
 import UniversalTime from '../../common/universal-time';
 import style from './telescope-selection.scss';
 
-export default class TelescopeSelection extends React.Component {
+class TelescopeSelection extends React.Component {
   constructor(props) {
     super(props);
 
@@ -100,3 +100,20 @@ export default class TelescopeSelection extends React.Component {
     )
   }
 }
+
+TelescopeSelection.defaultProps = {
+  params: {
+    obsUniqueId: '',
+    teleUniqueId: '',
+  },
+};
+
+TelescopeSelection.propTypes = {
+  params: PropTypes.shape({
+    obsUniqueId: PropTypes.string.isRequired,
+    teleUniqueId: PropTypes.string.isRequired,
+  }),
+  observatoryList: PropTypes.array,
+};
+
+export default TelescopeSelection;
