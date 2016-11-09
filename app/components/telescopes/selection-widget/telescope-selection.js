@@ -36,7 +36,7 @@ class TelescopeSelection extends React.Component {
   }
 
   render() {
-    const { observatoryList, params } = this.props;
+    const { observatoryList, params, rootRoute } = this.props;
     const { obsUniqueId, teleUniqueId } = params;
     const activeObservatory = observatoryList.find(observatory => ( obsUniqueId === observatory.obsUniqueId ));
     const activeTelescope = activeObservatory.obsTelescopes.find(telescope => ( teleUniqueId === telescope.teleUniqueId ));
@@ -58,7 +58,7 @@ class TelescopeSelection extends React.Component {
                     <li className="observatory" key={observatory.obsUniqueId}>
                       <Link
                         activeClassName="active"
-                        to={`telescope-details/${observatory.obsUniqueId}/${this.fetchDefaultTelescopeId(observatory)}`}
+                        to={`${rootRoute}/${observatory.obsUniqueId}/${this.fetchDefaultTelescopeId(observatory)}`}
                         className={`${observatory.obsUniqueId === obsUniqueId ? 'active' : ''} cat-link`}>
                         { observatory.obsMenuName }
                       </Link>
@@ -106,6 +106,7 @@ TelescopeSelection.defaultProps = {
     obsUniqueId: '',
     teleUniqueId: '',
   },
+  rootRoute: 'telescope-details',
 };
 
 TelescopeSelection.propTypes = {
@@ -113,6 +114,7 @@ TelescopeSelection.propTypes = {
     obsUniqueId: PropTypes.string.isRequired,
     teleUniqueId: PropTypes.string.isRequired,
   }),
+  rootRoute: PropTypes.string.isRequired, // used for internal link building
   observatoryList: PropTypes.array,
 };
 
