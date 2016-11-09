@@ -45,10 +45,6 @@ export default class ReserveMissions extends Component {
   };
 
   render() {
-    let cardClassName = classnames({
-      'mission-card': true,
-      'featured': true
-    });
 
     return (
       <div className="reserve-by-telescope container-fluid">
@@ -61,6 +57,7 @@ export default class ReserveMissions extends Component {
         */}
 
         <CurrentSelectionHeader />
+        
         <div>
         	<DatesSelection />
         	<Tips />
