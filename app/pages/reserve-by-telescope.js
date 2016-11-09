@@ -53,7 +53,12 @@ export default class ReserveMissions extends Component {
     return (
       <div className="reserve-by-telescope container-fluid">
 
-        { /* <TelescopeSelection observatoryList={[]} /> */ }
+        {/*
+        <TelescopeSelection
+          key={this.props.params.teleUniqueId}
+          observatoryList={observatoryList}
+          params={this.props.params} />
+        */}
 
         <CurrentSelectionHeader />
         <div>
