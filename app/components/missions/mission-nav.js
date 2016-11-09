@@ -11,8 +11,20 @@ class MissionNav extends Component {
           <li>
             <Link href="#" to='/reservations/slooh-recommends' activeClassName="active">Slooh Recommends</Link>
             <ul className="sub-nav">
-              <li><Link to="/reservations/slooh-recommends/existing" activeClassName="active">Existing Missions</Link></li>
-              <li><Link to="/reservations/slooh-recommends/new" activeClassName="active">New Missions</Link></li>
+              <li>
+                <Link
+                  to="/reservations/slooh-recommends/existing"
+                  activeClassName="active">
+                  Existing Missions
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/reservations/slooh-recommends/new"
+                  activeClassName="active">
+                  New Missions
+                </Link>
+              </li>
             </ul>
           </li>
           <li><Link to="/reservations/reserve-by-objects" activeClassName="active">Browse popular objects</Link></li>
