@@ -22,7 +22,6 @@ export default class ReserveConfirm extends React.Component {
 
   constructor(props) {
     super(props)
-    this.onImageProcessingChange = this.onImageProcessingChange.bind(this)
     this.onSubmit = this.onSubmit.bind(this)
     this.handleDelete = this.handleDelete.bind(this)
     this.handleAddition = this.handleAddition.bind(this)
@@ -31,7 +30,6 @@ export default class ReserveConfirm extends React.Component {
 
   componentWillMount() {
     this.setState({
-      image_processing: 'generic',
       objective: '',
       tags: [
         {id: 1, text: "galaxy"},
@@ -48,7 +46,7 @@ export default class ReserveConfirm extends React.Component {
   }
 
   handleDelete(){
-      console.log('del');
+    console.log('del');
   }
 
   handleAddition(){
@@ -59,16 +57,13 @@ export default class ReserveConfirm extends React.Component {
     console.log('drag');
   }
 
-  onImageProcessingChange(event){
-    this.setState({image_processing: event.target.value});
-  }
-
   onSubmit(){
     console.log(this.state);
   }
 
   render () {
-    let suggestions = ["mars", "jupiter", "moon", "saturn"];
+    const suggestions = ["mars", "jupiter", "moon", "saturn"];
+    
     return (
       <Modal show={this.props.mission.isConfirmationOpen} className="missionModal reserveMissionModal">
         <div className="title-bar">
@@ -102,21 +97,6 @@ export default class ReserveConfirm extends React.Component {
                   handleDrag={this.handleDrag} />
           </div>
 
-          <div className="mission-image-options">
-            <h4>IMAGE PROCESSING:</h4>
-            <label htmlFor="generic">
-              <input type="radio" name="image" id="generic" value="generic" checked={this.state.image_processing == "generic"} onChange={ this.onImageProcessingChange } />
-              Generic
-            </label>
-            <label htmlFor="fits">
-              <input type="radio" name="image" id="fits" value="fits" checked={ this.state.image_processing == "fits"} onChange={ this.onImageProcessingChange } />
-              FITS
-            </label>
-            <label htmlFor="notsure">
-              <input type="radio" name="image" id="notsure" value="notsure" checked={ this.state.image_processing == "notsure"} onChange={ this.onImageProcessingChange } />
-              Not Sure
-            </label>
-          </div>
         </Modal.Body>
 
         <Modal.Footer>

@@ -1,11 +1,26 @@
 import React, {Component, Props} from 'react';
 import moment from 'moment';
+import ModalGeneric from './modals/modal-generic';
 import styles from './common.scss';
 
 class UniversalTime extends Component {
 
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      time: moment.utc().format('HH:mm:ss'),
+      displayUTCModal: false,
+    };
+
+    this.handleToggleModal = this.handleToggleModal.bind(this);
+  }
+
   componentWillMount() {
-    this.setState({time: moment.utc().format('HH:mm:ss')});
+    this.setState({
+      time: moment.utc().format('HH:mm:ss'),
+      displayUTCModal: false,
+    });
   }
 
   componentDidMount() {
@@ -13,7 +28,7 @@ class UniversalTime extends Component {
     this.setState({intervalCounter});
   }
 
-  timer() {    
+  timer() {
     this.setState({time: moment.utc().format('HH:mm:ss')});
   }
 
@@ -21,14 +36,32 @@ class UniversalTime extends Component {
     clearInterval(this.state.intervalCounter);
   }
 
+  handleToggleModal(event) {
+    event.preventDefault();
+    const { displayUTCModal } = this.state;
+    this.setState({
+      displayUTCModal: !displayUTCModal,
+    });
+  }
+
   render() {
-    let className = `${styles.universalTime} ${this.props.extraClass || ''}`;
+    const { displayUTCModal }  = this.state;
+    const className = `${styles.universalTime} ${this.props.extraClass || ''}`;
     return (
       <div className={className}>
         <span className="light-gray">Universal Time: </span>
         <span className="time"><b>{this.state.time}</b></span>
         <br />
-        <a className="time-action" href="#">What is UTC?</a>
+        <a
+          onClick={ this.handleToggleModal }
+          className="time-action" href="#">What is UTC?</a>
+
+        <ModalGeneric
+          closeModal={ this.handleToggleModal }
+          open={ displayUTCModal }
+          title={`What is UTC?`}
+          description={`Coordinated Universal Time (French: Temps universel coordonné), abbreviated as UTC, is the primary time standard by which the world regulates clocks and time. ... It is one of several closely related successors to Greenwich Mean Time (GMT).`}
+        />
       </div>
     )
   }
