@@ -36,7 +36,6 @@ export default class TelescopeSelection extends React.Component {
   }
 
   render() {
-    return null;
     const { observatoryList, params } = this.props;
     const { obsUniqueId, teleUniqueId } = params;
     const activeObservatory = observatoryList.find(observatory => ( obsUniqueId === observatory.obsUniqueId ));

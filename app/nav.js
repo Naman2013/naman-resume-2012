@@ -21,7 +21,7 @@ export default [{
 		"label": {
 			"en": "Recommendations"
 		},
-		"link": "/reservations/slooh-recommends/existing",
+		"link": "#/reservations/slooh-recommends/existing",
 		"type": "basic"
 	}, {
 		"label": {

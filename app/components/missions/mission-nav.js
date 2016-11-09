@@ -15,14 +15,14 @@ class MissionNav extends Component {
                 <Link
                   to="/reservations/slooh-recommends/existing"
                   activeClassName="active">
-                  Existing Missions
+                  Join Existing Missions
                 </Link>
               </li>
               <li>
                 <Link
                   to="/reservations/slooh-recommends/new"
                   activeClassName="active">
-                  New Missions
+                  Set Up New Missions
                 </Link>
               </li>
             </ul>
