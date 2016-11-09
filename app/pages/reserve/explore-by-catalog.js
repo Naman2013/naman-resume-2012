@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import ReserveObjectsCategory from '../../components/reserve/reserve-by-object-category';
 import styles from '../../components/reserve/reserve-by-object.scss';
 
-class ReserveByObjects extends Component {
+class ReserveByCatalog extends Component {
   render() {
     return (
       <div className={styles.reserveObjectPage}>
@@ -26,4 +26,4 @@ class ReserveByObjects extends Component {
   }
 }
 
-export default ReserveByObjects;
+export default ReserveByCatalog;
