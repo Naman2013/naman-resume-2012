@@ -44,7 +44,7 @@ class TelescopeSelection extends React.Component {
   }
 
   render() {
-    const { observatoryList, params, rootRoute, showUTCTimer } = this.props;
+    const { observatoryList, params, rootRoute, showUTCTimer, theme } = this.props;
     const { obsUniqueId, teleUniqueId } = params;
 
     if(observatoryList.length === 0) {
@@ -54,9 +54,9 @@ class TelescopeSelection extends React.Component {
     const activeObservatory = observatoryList.find(observatory => ( obsUniqueId === observatory.obsUniqueId ));
     const activeTelescope = activeObservatory.obsTelescopes.find(telescope => ( teleUniqueId === telescope.teleUniqueId ));
 
-
     return (
-      <div className="obs-telescope-selection-widget clearfix">
+      <div
+        className={`obs-telescope-selection-widget ${theme} clearfix`}>
 
         {
           showUTCTimer ?
