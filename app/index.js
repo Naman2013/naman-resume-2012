@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { Router, Route, IndexRoute, browserHistory, hashHistory } from 'react-router';
+import { Router, Route, IndexRoute, IndexRedirect, browserHistory, hashHistory } from 'react-router';
 import configureStore from './store';
 
 // containers
@@ -42,7 +42,7 @@ ReactDOM.render(
         <Route path="reservations" component={Reservations}>
 
           <Route path="slooh-recommends" component={SloohRecommends}>
-            <IndexRoute path="existing" component={ExistingMissions} />
+            <IndexRedirect to="existing" />
             <Route path="existing" name="existing-missions" component={ExistingMissions} />
             <Route path="new" name="new-missions" component={NewMissions} />
           </Route>
