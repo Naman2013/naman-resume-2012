@@ -42,7 +42,7 @@ ReactDOM.render(
         <Route path="reservations" component={Reservations}>
 
           <Route path="slooh-recommends" component={SloohRecommends}>
-            <IndexRoute component={ExistingMissions} />
+            <IndexRoute path="existing" component={ExistingMissions} />
             <Route path="existing" name="existing-missions" component={ExistingMissions} />
             <Route path="new" name="new-missions" component={NewMissions} />
           </Route>
