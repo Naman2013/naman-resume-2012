@@ -54,8 +54,14 @@ function mapStateToProps({ missions, telescopeOverview }, ownProps) {
 @connect(mapStateToProps, mapDispatchToProps)
 class ReserveMissions extends Component {
 
-  render() {
+  componentDidMount() {
+    this.props.actions.getObservatoryList(
+      this.props.user,
+      this.props.currentObservatoryId
+    );
+  }
 
+  render() {
     return (
       <div className="reserve-by-telescope container-fluid">
 
@@ -78,10 +84,5 @@ class ReserveMissions extends Component {
     );
   }
 }
-
-ReserveMissions.propTypes = {
-  children: element,
-  actions: object.isRequired,
-};
 
 export default ReserveMissions;
