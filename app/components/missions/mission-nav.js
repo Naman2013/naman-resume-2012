@@ -21,7 +21,7 @@ class MissionNav extends Component {
       <div className={styles.missionNav}>
         <ul className="mission-nav-container">
           <li>
-            <Link href="#" to='/reservations/slooh-recommends' activeClassName="active">Slooh Recommends</Link>
+            <Link href="#" to='/reservations/slooh-recommends/existing' activeClassName="active">Slooh Recommends</Link>
             <ul className="sub-nav">
               <li>
                 <Link
