@@ -3,6 +3,14 @@ import { Link, activeClassName } from 'react-router';
 import UniversalTime from '../../common/universal-time';
 import style from './telescope-selection.scss';
 
+/**
+  THEMES:
+  Since this navigational element needs to be able
+  to sit on light and dark backgrounds, use either the
+  light : for light colored backgrounds
+  dark : for dark colored backgrounds
+*/
+
 class TelescopeSelection extends React.Component {
   constructor(props) {
     super(props);
@@ -36,13 +44,19 @@ class TelescopeSelection extends React.Component {
   }
 
   render() {
-    const { observatoryList, params, rootRoute, showUTCTimer } = this.props;
+    const { observatoryList, params, rootRoute, showUTCTimer, theme } = this.props;
     const { obsUniqueId, teleUniqueId } = params;
+
+    if(observatoryList.length === 0) {
+      return null;
+    }
+
     const activeObservatory = observatoryList.find(observatory => ( obsUniqueId === observatory.obsUniqueId ));
     const activeTelescope = activeObservatory.obsTelescopes.find(telescope => ( teleUniqueId === telescope.teleUniqueId ));
 
     return (
-      <div className="obs-telescope-selection-widget clearfix">
+      <div
+        className={`obs-telescope-selection-widget ${theme} clearfix`}>
 
         {
           showUTCTimer ?
@@ -111,6 +125,7 @@ TelescopeSelection.defaultProps = {
   },
   rootRoute: 'telescope-details',
   showUTCTimer: true,
+  theme: 'dark',
 };
 
 TelescopeSelection.propTypes = {
@@ -121,6 +136,7 @@ TelescopeSelection.propTypes = {
   rootRoute: PropTypes.string.isRequired, // used for internal link building
   observatoryList: PropTypes.array,
   showUTCTimer: PropTypes.bool,
+  theme: PropTypes.string,
 };
 
 export default TelescopeSelection;

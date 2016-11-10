@@ -16,6 +16,25 @@
     text-align: center;
     margin-bottom: 20px;
     font-size: 14px;
+  }
+}
+
+.obs-telescope-selection-widget.light .telescope-selection-container {
+  .description {
+    color: $darkBlueGray;
+  }
+
+  .cat-link {
+    color: $pink;
+  }
+}
+
+.obs-telescope-selection-widget.dark .telescope-selection-container {
+  .description {
+    color: #fff;
+  }
+
+  .cat-link {
     color: #fff;
   }
 }
@@ -39,12 +58,15 @@
       margin-left: 30px;
 
       .cat-link {
-        color: #fff;
         cursor: pointer;
 
         &.active {
           color: #000;
           font-weight: 600;
+        }
+
+        &:focus {
+          text-decoration: none;
         }
       }
 

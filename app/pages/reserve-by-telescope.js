@@ -64,15 +64,11 @@ class ReserveMissions extends Component {
   render() {
     const { observatoryList, params } = this.props;
 
-    // TODO: Move this check into TelescopeSelection component
-    if(observatoryList.length === 0) {
-      return null;
-    }
-
     return (
       <div className="reserve-by-telescope container-fluid">
 
         <TelescopeSelection
+          theme={`light`}
           observatoryList={observatoryList}
           params={params}
           showUTCTimer={false}
