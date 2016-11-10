@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { checkUser } from '../modules/User';
 import classnames from 'classnames';
 
-import {missionGetCards, missionConfirmOpen, missionConfirmClose} from '../modules/Missions';
+import { missionGetCards, missionConfirmOpen, missionConfirmClose } from '../modules/Missions';
 
 import TelescopeSelection from '../components/telescopes/selection-widget/telescope-selection';
 import CurrentSelectionHeader from '../components/telescopes/current-selection-header/header';
@@ -57,7 +57,7 @@ export default class ReserveMissions extends Component {
         */}
 
         <CurrentSelectionHeader />
-        
+
         <div>
         	<DatesSelection />
         	<Tips />
