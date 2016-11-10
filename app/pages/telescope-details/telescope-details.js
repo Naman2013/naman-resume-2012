@@ -126,9 +126,10 @@ export default class TelescopeDetails extends Component {
 
   render() {
     const { selectedTab } = this.state;
-    const { observatoryList, observatoryTelecopeStatus } = this.props;
-    const { obsUniqueId, teleUniqueId } = this.props.params;
+    const { observatoryList, observatoryTelecopeStatus, params } = this.props;
+    const { obsUniqueId, teleUniqueId } = params;
 
+    // TODO: Move this check into TelescopeSelection component
     if(observatoryList.length === 0) {
       return null;
     }
@@ -146,7 +147,7 @@ export default class TelescopeDetails extends Component {
 
       <TelescopeSelection
         observatoryList={observatoryList}
-        params={this.props.params} />
+        params={params} />
 
 
       <div className="details-content-wrapper">
