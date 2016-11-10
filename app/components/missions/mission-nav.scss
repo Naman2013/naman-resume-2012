@@ -4,9 +4,9 @@
 .missionNav {
   font-family: $primary-font;
   margin-bottom: 20px;
+  display: flex;
 
   .mission-nav-container {
-    width: 1050px;
     margin: 0 auto;
     padding: 15px 0 0 0;
   }
