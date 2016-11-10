@@ -10,7 +10,7 @@ import {
   missionConfirmClose } from '../modules/Missions';
 
 import {
-  getObservatoryList, 
+  getObservatoryList,
   getCurrentObservatory } from '../modules/Telescope-Overview';
 
 import TelescopeSelection from '../components/telescopes/selection-widget/telescope-selection';
@@ -52,12 +52,7 @@ function mapStateToProps({ missions, telescopeOverview }, ownProps) {
 }
 
 @connect(mapStateToProps, mapDispatchToProps)
-export default class ReserveMissions extends Component {
-
-  static propTypes = {
-    children: element,
-    actions: object.isRequired,
-  };
+class ReserveMissions extends Component {
 
   render() {
 
@@ -83,3 +78,10 @@ export default class ReserveMissions extends Component {
     );
   }
 }
+
+ReserveMissions.propTypes = {
+  children: element,
+  actions: object.isRequired,
+};
+
+export default ReserveMissions;
