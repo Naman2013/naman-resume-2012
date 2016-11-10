@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { Link, activeClassName } from 'react-router';
 import UniversalTime from '../../common/universal-time';
 import style from './telescope-selection.scss';
 
-export default class TelescopeSelection extends React.Component {
+class TelescopeSelection extends React.Component {
   constructor(props) {
     super(props);
 
@@ -36,7 +36,7 @@ export default class TelescopeSelection extends React.Component {
   }
 
   render() {
-    const { observatoryList, params } = this.props;
+    const { observatoryList, params, rootRoute, showUTCTimer } = this.props;
     const { obsUniqueId, teleUniqueId } = params;
     const activeObservatory = observatoryList.find(observatory => ( obsUniqueId === observatory.obsUniqueId ));
     const activeTelescope = activeObservatory.obsTelescopes.find(telescope => ( teleUniqueId === telescope.teleUniqueId ));
@@ -44,9 +44,12 @@ export default class TelescopeSelection extends React.Component {
     return (
       <div className="obs-telescope-selection-widget clearfix">
 
-        <div className="universal-time">
-          <UniversalTime />
-        </div>
+        {
+          showUTCTimer ?
+          <div className="universal-time">
+            <UniversalTime />
+          </div> : null
+        }
 
         <div className="telescope-selection-container">
 
@@ -58,7 +61,7 @@ export default class TelescopeSelection extends React.Component {
                     <li className="observatory" key={observatory.obsUniqueId}>
                       <Link
                         activeClassName="active"
-                        to={`telescope-details/${observatory.obsUniqueId}/${this.fetchDefaultTelescopeId(observatory)}`}
+                        to={`${rootRoute}/${observatory.obsUniqueId}/${this.fetchDefaultTelescopeId(observatory)}`}
                         className={`${observatory.obsUniqueId === obsUniqueId ? 'active' : ''} cat-link`}>
                         { observatory.obsMenuName }
                       </Link>
@@ -78,7 +81,7 @@ export default class TelescopeSelection extends React.Component {
                     <Link
                       className="telescope-button"
                       activeClassName="active"
-                      to={`telescope-details/${obsUniqueId}/${telescope.teleUniqueId}`}>
+                      to={`${rootRoute}/${obsUniqueId}/${telescope.teleUniqueId}`}>
                       <img
                         className="icon img-circle"
                         src={ telescope.teleLogoURL } />
@@ -100,3 +103,24 @@ export default class TelescopeSelection extends React.Component {
     )
   }
 }
+
+TelescopeSelection.defaultProps = {
+  params: {
+    obsUniqueId: '',
+    teleUniqueId: '',
+  },
+  rootRoute: 'telescope-details',
+  showUTCTimer: true,
+};
+
+TelescopeSelection.propTypes = {
+  params: PropTypes.shape({
+    obsUniqueId: PropTypes.string.isRequired,
+    teleUniqueId: PropTypes.string.isRequired,
+  }),
+  rootRoute: PropTypes.string.isRequired, // used for internal link building
+  observatoryList: PropTypes.array,
+  showUTCTimer: PropTypes.bool,
+};
+
+export default TelescopeSelection;

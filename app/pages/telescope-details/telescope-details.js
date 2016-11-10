@@ -31,8 +31,6 @@ import Neoview from '../../components/telescope-details/neoview/neoview.js';
 import TelescopeOffline from '../../components/telescope-details/telescope-offline/telescope-offline';
 import CurrentSelectionHeader from '../../components/telescopes/current-selection-header/header';
 import TelescopeSelection from '../../components/telescopes/selection-widget/telescope-selection';
-// import MissionUpcoming from '../components/missions/mission-upcoming';
-// import {missionGetCards, missionConfirmOpen, missionConfirmClose, missionGetInfo} from '../modules/Missions';
 
 const { element, func, object } = PropTypes;
 
@@ -128,9 +126,10 @@ export default class TelescopeDetails extends Component {
 
   render() {
     const { selectedTab } = this.state;
-    const { observatoryList, observatoryTelecopeStatus } = this.props;
-    const { obsUniqueId, teleUniqueId } = this.props.params;
+    const { observatoryList, observatoryTelecopeStatus, params } = this.props;
+    const { obsUniqueId, teleUniqueId } = params;
 
+    // TODO: Move this check into TelescopeSelection component
     if(observatoryList.length === 0) {
       return null;
     }
@@ -147,9 +146,8 @@ export default class TelescopeDetails extends Component {
       <AnnouncementBanner obsId={obsId} />
 
       <TelescopeSelection
-        key={this.props.params.teleUniqueId}
         observatoryList={observatoryList}
-        params={this.props.params} />
+        params={params} />
 
 
       <div className="details-content-wrapper">

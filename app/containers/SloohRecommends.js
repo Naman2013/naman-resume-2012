@@ -8,7 +8,12 @@ import moment from 'moment';
 import MissionUpdates from '../components/missions/mission-updates';
 import MissionAd from '../components/missions/mission-ad';
 import MissionUpcoming from '../components/missions/mission-upcoming';
-import {missionGetCards, missionConfirmOpen, missionConfirmClose, missionGetInfo, missionGetUpdates} from '../modules/Missions';
+import {
+  missionGetCards,
+  missionConfirmOpen,
+  missionConfirmClose,
+  missionGetInfo,
+  missionGetUpdates } from '../modules/Missions';
 
 const { element, func, object } = PropTypes;
 
@@ -61,7 +66,7 @@ export default class SloohRecommends extends Component {
   */
   render() {
     const { announcements, children } = this.props;
-    
+
     return (
       <div className="reserve-missions">
 
