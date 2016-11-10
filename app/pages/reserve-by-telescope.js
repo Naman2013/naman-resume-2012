@@ -74,7 +74,9 @@ class ReserveMissions extends Component {
 
         <TelescopeSelection
           observatoryList={observatoryList}
-          params={params} />
+          params={params}
+          showUTCTimer={false}
+          rootRoute={`reservations/reserve-by-telescope`} />
 
         <CurrentSelectionHeader />
 
