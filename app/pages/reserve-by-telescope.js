@@ -4,7 +4,14 @@ import { connect } from 'react-redux';
 import { checkUser } from '../modules/User';
 import classnames from 'classnames';
 
-import { missionGetCards, missionConfirmOpen, missionConfirmClose } from '../modules/Missions';
+import {
+  missionGetCards,
+  missionConfirmOpen,
+  missionConfirmClose } from '../modules/Missions';
+
+import {
+  getObservatoryList, 
+  getCurrentObservatory } from '../modules/Telescope-Overview';
 
 import TelescopeSelection from '../components/telescopes/selection-widget/telescope-selection';
 import CurrentSelectionHeader from '../components/telescopes/current-selection-header/header';
@@ -12,6 +19,9 @@ import DatesSelection from '../components/telescopes/current-selection-header/da
 import Tips from '../components/telescopes/current-selection-header/tips';
 
 import Listings from '../components/telescopes/listings/listings';
+
+// TODO: refactor to use user information from STATE
+import exampleUser from '../example-api-data/example-user'
 
 const { element, func, object } = PropTypes;
 
@@ -24,13 +34,18 @@ function mapDispatchToProps(dispatch) {
     actions: bindActionCreators({
       missionGetCards,
       missionConfirmOpen,
-      missionConfirmClose
+      missionConfirmClose,
+      getObservatoryList,
+      getCurrentObservatory,
     }, dispatch)
   };
 }
 
-function mapStateToProps({ missions }) {
+function mapStateToProps({ missions, telescopeOverview }, ownProps) {
   return {
+    user: exampleUser, // TODO: state.user,
+    observatoryList: telescopeOverview.observatoryList,
+    currentObservatoryId: ownProps.params.observatoryId,
     missions,
     cardList: missions.cardList || [],
   };
