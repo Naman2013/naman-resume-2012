@@ -15,7 +15,7 @@ class CommunityPost extends Component {
             <p className="name">Dave Eberly <span className="job">Astronomer</span></p>
           </div>
           <p className="address">Chicago, IL, USA. Member since 2011</p>
-          <img src={'/assets/images/graphics/dave-photo.png'} className="photo" />
+          <img src={'assets/images/graphics/dave-photo.png'} className="photo" />
         </div>
 
         <div className="description">
