@@ -41,19 +41,19 @@ class CommunityPerspectives extends React.Component {
             <div className="col-xs-12 category">
               <div className="col-xs-3">
                 <p>SCIENCE LOG</p>
-                <img src={'/assets/images/icons/icon-science-active.png'} />
+                <img src={'assets/images/icons/icon-science-active.png'} />
               </div>
               <div className="col-xs-3">
                 <p>ART & CULTURE</p>
-                <img src={'/assets/images/icons/icon-culture.png'} />
+                <img src={'assets/images/icons/icon-culture.png'} />
               </div>
               <div className="col-xs-3">
                 <p>HUMAN SPIRIT</p>
-                <img src={'/assets/images/icons/icon-human-spirit.png'} />
+                <img src={'assets/images/icons/icon-human-spirit.png'} />
               </div>
               <div className="col-xs-3">
                 <p>DIY</p>
-                <img src={'/assets/images/icons/icon-DIY.png'} />
+                <img src={'assets/images/icons/icon-DIY.png'} />
               </div>
             </div>
             <div className="col-xs-12">
@@ -65,7 +65,7 @@ class CommunityPerspectives extends React.Component {
                       <p className="job pull-left">ASTRONOMER</p>
                     </div>
                     <p className="address">Chicago, IL, USA. Member since 2011</p>
-                    <img src={'/assets/images/graphics/dave-photo.png'} className="photo" />
+                    <img src={'assets/images/graphics/dave-photo.png'} className="photo" />
                   </div>
                   <div className="description">
                     <h3 className="title">
@@ -83,7 +83,7 @@ class CommunityPerspectives extends React.Component {
                       <p className="job pull-left">ASTRONOMER</p>
                     </div>
                     <p className="address">Chicago, IL, USA. Member since 2011</p>
-                    <img src={'/assets/images/graphics/dave-photo.png'} className="photo" />
+                    <img src={'assets/images/graphics/dave-photo.png'} className="photo" />
                   </div>
                   <div className="description">
                     <h3 className="title">
@@ -101,7 +101,7 @@ class CommunityPerspectives extends React.Component {
                       <p className="job pull-left">ASTRONOMER</p>
                     </div>
                     <p className="address">Chicago, IL, USA. Member since 2011</p>
-                    <img src={'/assets/images/graphics/dave-photo.png'} className="photo" />
+                    <img src={'assets/images/graphics/dave-photo.png'} className="photo" />
                   </div>
                   <div className="description">
                     <h3 className="title">
@@ -119,7 +119,7 @@ class CommunityPerspectives extends React.Component {
                       <p className="job pull-left">ASTRONOMER</p>
                     </div>
                     <p className="address">Chicago, IL, USA. Member since 2011</p>
-                    <img src={'/assets/images/graphics/dave-photo.png'} className="photo" />
+                    <img src={'assets/images/graphics/dave-photo.png'} className="photo" />
                   </div>
                   <div className="description">
                     <h3 className="title">
@@ -137,7 +137,7 @@ class CommunityPerspectives extends React.Component {
                       <p className="job pull-left">ASTRONOMER</p>
                     </div>
                     <p className="address">Chicago, IL, USA. Member since 2011</p>
-                    <img src={'/assets/images/graphics/dave-photo.png'} className="photo" />
+                    <img src={'assets/images/graphics/dave-photo.png'} className="photo" />
                   </div>
                   <div className="description">
                     <h3 className="title">
@@ -155,7 +155,7 @@ class CommunityPerspectives extends React.Component {
                       <p className="job pull-left">ASTRONOMER</p>
                     </div>
                     <p className="address">Chicago, IL, USA. Member since 2011</p>
-                    <img src={'/assets/images/graphics/dave-photo.png'} className="photo" />
+                    <img src={'assets/images/graphics/dave-photo.png'} className="photo" />
                   </div>
                   <div className="description">
                     <h3 className="title">
@@ -173,7 +173,7 @@ class CommunityPerspectives extends React.Component {
                       <p className="job pull-left">ASTRONOMER</p>
                     </div>
                     <p className="address">Chicago, IL, USA. Member since 2011</p>
-                    <img src={'/assets/images/graphics/dave-photo.png'} className="photo" />
+                    <img src={'assets/images/graphics/dave-photo.png'} className="photo" />
                   </div>
                   <div className="description">
                     <h3 className="title">
