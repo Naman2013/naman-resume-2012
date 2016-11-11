@@ -11,6 +11,10 @@ import MissionAd from '../components/missions/mission-ad';
 import MissionUpcoming from '../components/missions/mission-upcoming';
 import {missionGetCards, missionConfirmOpen, missionConfirmClose, missionGetInfo} from '../modules/Missions';
 
+/**
+  TODO: DEPRECATE?
+*/
+
 const { element, func, object } = PropTypes;
 
 function mapDispatchToProps(dispatch) {
@@ -27,20 +31,15 @@ function mapDispatchToProps(dispatch) {
 function mapStateToProps({ missions }) {
   return {
     missions,
-    cardList: missions.cardList || []
+    cardList: missions.cardList || [],
   };
 }
 
 @connect(mapStateToProps, mapDispatchToProps)
-export default class ReserveMissions extends Component {
-
-  static propTypes = {
-    children: element,
-    actions: object.isRequired
-  };
+class ReserveMissions extends Component {
 
   componentDidMount() {
-    this.props.actions.missionGetCards()
+    this.props.actions.missionGetCards();
   }
 
   openConfirmModal(card, type, event) {
@@ -64,6 +63,7 @@ export default class ReserveMissions extends Component {
     return (
       <div className="reserve-missions">
         <section className="container clearfix">
+
           <div className="col-md-8">
             {
               this.props.cardList ? this.props.cardList.map(card =>  {
@@ -75,7 +75,7 @@ export default class ReserveMissions extends Component {
                     key={card.uniqueId}
                     className={`${card.cardType == 2 ? 'featured col-md-12' : 'secondary col-md-6'}`}
                     card={card}
-                    openModal = {this.openConfirmModal.bind(this)}
+                    openModal={(event) => { this.openConfirmModal(card, 'piggyBack', event) }}
                     featured={card.cardType == 2} />
                   );
                 }
@@ -92,3 +92,5 @@ export default class ReserveMissions extends Component {
     );
   }
 }
+
+export default ReserveMissions;

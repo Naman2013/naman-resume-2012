@@ -13,7 +13,6 @@ import SloohRecommends from './containers/SloohRecommends';
 import Home from './pages/home';
 import TelescopeOverview from './pages/telescope-overview';
 import TelescopeDetails from './pages/telescope-details/telescope-details';
-import ReserveMissions from './pages/reserve-missions';
 import NewMissions from './pages/new-missions';
 import ExistingMissions from './pages/existing-missions';
 import ReserveByTelescope from './pages/reserve-by-telescope';

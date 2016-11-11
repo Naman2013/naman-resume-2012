@@ -53,13 +53,18 @@
         margin: 0 3% 0 0;
         font-weight: normal;
 
-        .active {
-          border: none;
+        a {
           color: $pink;
         }
 
+        .active {
+          border: none;
+          color: #000;
+          font-weight: bold;
+        }
+
         a:hover {
-          color: $pink;
+          color: #000;
           border: none;
         }
       }
