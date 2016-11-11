@@ -1,11 +1,21 @@
 import React, { Component, PropTypes } from 'react';
-import { Link } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { Link } from 'react-router';
 import classnames from 'classnames';
-import styles from './mission-card.scss';
 import moment from 'moment';
 
+import styles from './mission-card.scss';
+import { grabPiggyback } from '../../modules/Piggyback';
+
+
+function mapStateToProps(state, ownProps) {
+  return {
+    user: state.user.user,
+  };
+}
+
+@connect(mapStateToProps)
 class ExistingMissionCard extends Component {
 
   constructor(props) {
@@ -19,7 +29,7 @@ class ExistingMissionCard extends Component {
 
     const { openModal, card } = this.props;
 
-    // TODO: determine whether or not we should open the modal...
+    // TODO: determine whether or not we should open the modal by calling /api/reservation/grabPiggyback
 
     openModal(card, 'piggyBack', event);
   }
@@ -51,7 +61,7 @@ class ExistingMissionCard extends Component {
           <a
             className={styles.piggybackCta}
             href="#"
-            onClick={ handlePiggybackClick }>
+            onClick={ this.handlePiggybackClick }>
             Piggyback on Mission
           </a>
         </div>
