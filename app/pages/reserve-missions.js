@@ -27,20 +27,15 @@ function mapDispatchToProps(dispatch) {
 function mapStateToProps({ missions }) {
   return {
     missions,
-    cardList: missions.cardList || []
+    cardList: missions.cardList || [],
   };
 }
 
 @connect(mapStateToProps, mapDispatchToProps)
-export default class ReserveMissions extends Component {
-
-  static propTypes = {
-    children: element,
-    actions: object.isRequired
-  };
+class ReserveMissions extends Component {
 
   componentDidMount() {
-    this.props.actions.missionGetCards()
+    this.props.actions.missionGetCards();
   }
 
   openConfirmModal(card, type, event) {
@@ -92,3 +87,5 @@ export default class ReserveMissions extends Component {
     );
   }
 }
+
+export default ReserveMissions;
