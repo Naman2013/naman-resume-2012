@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { Link } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
@@ -42,9 +43,11 @@ const ExistingMissionCard = ({ card, piggyback, openModal }) => {
         return (
           <div>
             <h5>No existing missions are available, click below to make a reservation</h5>
-            <a
+            <Link
               className={styles.piggybackCta}
-              href="/reservations/slooh-recommends/new">Reserve</a>
+              to="/reservations/slooh-recommends/new">
+              Reserve
+            </Link>
           </div>
         )
       }
