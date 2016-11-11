@@ -46,7 +46,7 @@ const ExistingMissionCard = ({ card, piggyback, openModal }) => {
             <Link
               className={styles.piggybackCta}
               to="/reservations/slooh-recommends/new">
-              Reserve
+              Make Reservation
             </Link>
           </div>
         )
