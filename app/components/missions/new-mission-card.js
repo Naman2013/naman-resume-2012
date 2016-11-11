@@ -12,12 +12,12 @@ class NewMissionCard extends Component {
     const { openModal, reservation, card } = this.props;
 
     const startTime = reservation.missionStart;
-    let featured = card.cardType == 2;
-    let className = `${styles.missionCard} ${featured ? 'featured col-md-12' : 'secondary col-md-6'}`;
-    let EST_start = moment.unix(startTime).utcOffset(-5, false).format("dddd, MMMM Do");
-    let EST_start_time = moment.unix(startTime).utcOffset(-5, false).format("hh:mm a");
-    let PST_start_time = moment.unix(startTime).utcOffset(-8, false).format("hh:mm a");
-    let UTC_start_time = moment.unix(startTime).format("hh:mm a");
+    const featured = card.cardType == 2;
+    const className = `${styles.missionCard} ${featured ? 'featured col-md-12' : 'secondary col-md-6'}`;
+    const EST_start = moment.unix(startTime).utcOffset(-5, false).format('dddd, MMMM Do');
+    const EST_start_time = moment.unix(startTime).utcOffset(-5, false).format('hh:mm a');
+    const PST_start_time = moment.unix(startTime).utcOffset(-8, false).format('hh:mm a');
+    const UTC_start_time = moment.unix(startTime).format('hh:mm a');
 
     return (
       <div className={className}>
