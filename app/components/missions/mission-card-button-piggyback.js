@@ -7,9 +7,10 @@ const MissionCardButtonPiggyback = (props) => {
   return (
     <a
       className={styles.piggybackCta}
-      href=""
-      onClick={event => props.openModal(props.card, 'piggyBack', event)}
-    >Piggyback on mission</a>
+      href="#"
+      onClick={event => props.openModal(props.card, 'piggyBack', event)}>
+      Piggyback on Mission
+    </a>
   )
 }
 
