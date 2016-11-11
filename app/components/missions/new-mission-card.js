@@ -28,7 +28,13 @@ class NewMissionCard extends Component {
     console.log('objectId', objectId);
     console.groupEnd();
 
+    // TODO: determine whether or not it is appropriate to build a timer...
+    // TODO: if we need to build a timer, build a timer and associate it with the instance
     this.props.actions.updateSingleReservations(uniqueId, objectId);
+  }
+
+  componentWillUnmount() {
+    // TODO: if a timer exists on the instance, destroy it...
   }
 
   renderCallToAction() {
