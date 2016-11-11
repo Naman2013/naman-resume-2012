@@ -42,7 +42,7 @@ const ExistingMissionCard = ({ card, piggyback, openModal }) => {
       } else {
         return (
           <div>
-            <h5>No existing missions are available, click below to make a reservation</h5>
+            <h5>No existing missions are available</h5>
             <Link
               className={styles.piggybackCta}
               to="/reservations/slooh-recommends/new">
@@ -66,7 +66,7 @@ const ExistingMissionCard = ({ card, piggyback, openModal }) => {
         <p>{card.description}</p>
 
         <div className="join-mission-callout">
-          {piggyback.missionAvailable ? missionAvailable() : missionNotAvailable() }
+          { piggyback.missionAvailable ? missionAvailable() : missionNotAvailable() }
         </div>
       </div>
     );
