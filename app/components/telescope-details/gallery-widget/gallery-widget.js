@@ -35,7 +35,7 @@ class TelescopeGalleryWidget extends React.Component {
             <div className="col-xs-12">
               <Slider {...settings} className="slide">
                 <div className="item">
-                  <img src={'/assets/images/graphics/telescope-image1.jpg'} />
+                  <img src={'assets/images/graphics/telescope-image1.jpg'} />
                   <div className="gallery-item-info">
                     <div className="personal-info">
                       <div className="clearfix">
@@ -43,12 +43,12 @@ class TelescopeGalleryWidget extends React.Component {
                         <p className="job pull-left">ASTRONOMER</p>
                       </div>
                       <p className="address">Chicago, IL, USA. Member since 2011</p>
-                      <img src="/assets/images/graphics/dave-photo.png" className="photo" />
+                      <img src="assets/images/graphics/dave-photo.png" className="photo" />
                     </div>
                   </div>
                 </div>
                 <div className="item">
-                  <img src={'/assets/images/graphics/telescope-image2.jpg'} />
+                  <img src={'assets/images/graphics/telescope-image2.jpg'} />
                 </div>
               </Slider>
             </div>
