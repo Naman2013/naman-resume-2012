@@ -323,12 +323,24 @@ export default createReducer(initialState, {
     };
   },
   [UPDATE_SINGLE_RESERVATION_SUCCESS](state, { type, payload }) {
-    // TODO: get the current state, and track down the object that needs updating
-    console.groupCollapsed('Update reservation success action');
-    console.log(payload);
-    console.groupEnd();
+    /**
+      Takes a single reservation from payload, if a match is determined
+      will update the reservations in state to the updated version of the
+      reservations based on the new data
+    */
+    const { reservations } = state;
+    const { uniqueId } = payload.missionList;
+
+    const updatedReservations = reservations.map((reservation) => {
+      if(reservation.uniqueId === uniqueId) {
+        return payload;
+      }
+      return reservation;
+    });
+
     return {
       ...state,
+      reservations: updatedReservations,
     }
   },
   [UPDATE_SINGLE_RESERVATION_FAIL](state, { type, payload }) {
