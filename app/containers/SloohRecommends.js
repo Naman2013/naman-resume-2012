@@ -39,6 +39,10 @@ export default class SloohRecommends extends Component {
     this.props.actions.missionGetUpdates();
   }
 
+  componentDidUpdate() {
+    window.scrollTo(0, 0);
+  }
+
   /**
     * @todo Before the modal window is open we need to call /callpiggyback API
     * @todo And based on the response build modal window content
@@ -72,9 +76,11 @@ export default class SloohRecommends extends Component {
 
         <section className="container clearfix">
           <div className="col-md-8">
-            {React.cloneElement(children, {
-              openConfirmModal: ::this.openConfirmModal,
-            })}
+            {
+              React.cloneElement(children, {
+                openConfirmModal: ::this.openConfirmModal,
+              })
+            }
           </div>
 
           <div className="col-md-4 mission-sidebar">
