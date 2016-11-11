@@ -25,7 +25,7 @@ class LiveMission extends React.Component {
             <p className="job">ASTRONOMER</p>
             <p className="address">Chicago, IL, USA. Member since 2011</p>
             <p className="description">“Always wanted to get a shot of this amazing galaxy since I was a kid seeing a light smear back in Kansas.”</p>
-            <img src={'/assets/images/graphics/dave-photo.png'} className="photo" />
+            <img src={'assets/images/graphics/dave-photo.png'} className="photo" />
           </div>
 
           <div className="heart-container">
@@ -36,7 +36,7 @@ class LiveMission extends React.Component {
         <div className="footer">
           <p>NEXT MISSION:</p>
           <div className="mission">
-            <img src={'/assets/images/icons/icon-planet.png'} />
+            <img src={'assets/images/icons/icon-planet.png'} />
             <p>Counting Saturn’s Moons</p>
             <span>in 3:18</span>
           </div>
