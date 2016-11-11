@@ -214,21 +214,21 @@ export default class TelescopeDetails extends Component {
             <LiveWebcam
               time={new Date()}
               tabs={[
-                { title: 'West', src: '/assets/images/graphics/livecam-placeholder.jpg' },
-                { title: 'East', src: '/assets/images/graphics/livecam-placeholder-2.jpeg' },
-                { title: 'South', src: '/assets/images/graphics/livecam-placeholder-3.jpeg' },
-                { title: 'North', src: '/assets/images/graphics/livecam-placeholder-4.jpeg' },
+                { title: 'West', src: 'assets/images/graphics/livecam-placeholder.jpg' },
+                { title: 'East', src: 'assets/images/graphics/livecam-placeholder-2.jpeg' },
+                { title: 'South', src: 'assets/images/graphics/livecam-placeholder-3.jpeg' },
+                { title: 'North', src: 'assets/images/graphics/livecam-placeholder-4.jpeg' },
               ]}
             />
 
             <WeatherConditions
               tabs={[
-                { title: 'Conditions', src: '/assets/images/graphics/weather-placeholder.jpg' },
-                { title: 'Dust', src: '/assets/images/graphics/weather-placeholder-2.jpeg' },
-                { title: 'Satellite Cloud', src: '/assets/images/graphics/weather-placeholder-3.jpeg' },
-                { title: 'Wind', src: '/assets/images/graphics/weather-placeholder-4.jpeg' },
-                { title: 'Sky Brightness', src: '/assets/images/graphics/weather-placeholder-5.jpeg' },
-                { title: 'Historic Weather', src: '/assets/images/graphics/weather-placeholder-6.jpeg' },
+                { title: 'Conditions', src: 'assets/images/graphics/weather-placeholder.jpg' },
+                { title: 'Dust', src: 'assets/images/graphics/weather-placeholder-2.jpeg' },
+                { title: 'Satellite Cloud', src: 'assets/images/graphics/weather-placeholder-3.jpeg' },
+                { title: 'Wind', src: 'assets/images/graphics/weather-placeholder-4.jpeg' },
+                { title: 'Sky Brightness', src: 'assets/images/graphics/weather-placeholder-5.jpeg' },
+                { title: 'Historic Weather', src: 'assets/images/graphics/weather-placeholder-6.jpeg' },
               ]}
             />
           </div>
