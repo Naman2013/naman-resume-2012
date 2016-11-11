@@ -18,6 +18,9 @@ export const MISSION_GET_PIGGYBACKS_FAIL= 'MISSION_GET_PIGGYBACKS_FAIL';
 export const MISSION_GET_NEXT_RESERVATIONS_SUCCESS = 'MISSION_GET_NEXT_RESERVATIONS_SUCCESS';
 export const MISSION_GET_NEXT_RESERVATIONS_FAIL = 'MISSION_GET_NEXT_RESERVATIONS_FAIL';
 
+const UPDATE_SINGLE_RESERVATION_SUCCESS = 'UPDATE_SINGLE_RESERVATION_SUCCESS';
+const UPDATE_SINGLE_RESERVATION_FAIL = 'UPDATE_SINGLE_RESERVATION_FAIL';
+
 const initialState = {
   isConfirmationOpen: false,
   mission: {},
@@ -192,12 +195,10 @@ export function missionGetNextReservation(objectList) {
   return (dispatch, getState) => {
     let { token, at, cid } = getState().user.user;
     return axios.post('/api/recommends/getNextReservation', {
-      cid: "",
-      token: "",
-      requestType: "multiple",
-      uniqueId: "",
-      objectId: "",
-      start: "",
+      requestType: 'multiple',
+      uniqueId: '',
+      objectId: '',
+      start: '',
       objectList: objectList,
       cid,
       at,
@@ -208,17 +209,48 @@ export function missionGetNextReservation(objectList) {
   }
 }
 
+export function updateSingleReservations(uniqueId, objectId) {
+  return (dispatch, getState) => {
+    const { token, at, cid } = getState().user.user;
+
+    return axios.post('/api/recommends/getNextReservation', {
+      cid,
+      at,
+      token,
+      uniqueId,
+      objectId,
+      requestType: 'single',
+    })
+    .then(response => dispatch( updateReservationsSuccess( response ) ))
+    .catch(error => dispatch( updateReservationsFail( error )));
+  }
+};
+
+function updateReservationsSuccess(getNextReservationResponse) {
+  return {
+    type: UPDATE_SINGLE_RESERVATION_SUCCESS,
+    payload: getNextReservationResponse,
+  }
+}
+
+function updateReservationsSuccess(getNextReservationResponse) {
+  return {
+    type: UPDATE_SINGLE_RESERVATION_FAIL,
+    payload: { responseCode: 500 },
+  }
+}
+
 export function missionGetNextReservationSuccess({ data }) {
   return {
     type: MISSION_GET_NEXT_RESERVATIONS_SUCCESS,
-    result: data.missionList
+    result: data.missionList,
   }
 }
 
 export function missionGetNextReservationFail({ data }) {
   return {
     type: MISSION_GET_NEXT_RESERVATIONS_FAIL,
-    result: data
+    result: data,
   }
 }
 
@@ -229,7 +261,7 @@ export default createReducer(initialState, {
     return {
       ...state,
       isConfirmationOpen: true,
-      confirmType
+      confirmType,
     };
   },
   [MISSION_CONFIRMATION_CLOSE](state) {
@@ -254,40 +286,66 @@ export default createReducer(initialState, {
       mission,
     }
   },
-  [MISSION_GET_UPDATES_SUCCESS](state, {announcements}) {
+  [MISSION_GET_UPDATES_SUCCESS](state, { announcements }) {
     return {
       ...state,
-      announcements
+      announcements,
     }
   },
-  [MISSION_GET_UPDATES_FAIL](state, {announcements}) {
+  [MISSION_GET_UPDATES_FAIL](state, { announcements }) {
     return {
       ...state,
-      announcements: []
+      announcements: [],
     }
   },
   [MISSION_GET_PIGGYBACKS_SUCCESS](state, { result }) {
     return {
       ...state,
-      piggybacks: result
+      piggybacks: result,
     };
   },
   [MISSION_GET_PIGGYBACKS_FAIL](state, { result }) {
     return {
       ...state,
-      piggybacks: result
+      piggybacks: result,
     };
   },
   [MISSION_GET_NEXT_RESERVATIONS_SUCCESS](state, { result }) {
     return {
       ...state,
-      reservations: result
+      reservations: result,
     };
   },
   [MISSION_GET_NEXT_RESERVATIONS_FAIL](state, { result }) {
     return {
       ...state,
-      reservations: []
+      reservations: [],
     };
-  }
+  },
+  [UPDATE_SINGLE_RESERVATION_SUCCESS](state, { type, payload }) {
+    /**
+      Takes a single reservation from payload, if a match is determined
+      will update the reservations in state to the updated version of the
+      reservations based on the new data
+    */
+    const { reservations } = state;
+    const { uniqueId } = payload.missionList;
+
+    const updatedReservations = reservations.map((reservation) => {
+      if(reservation.uniqueId === uniqueId) {
+        return payload;
+      }
+      return reservation;
+    });
+
+    return {
+      ...state,
+      reservations: updatedReservations,
+    }
+  },
+  [UPDATE_SINGLE_RESERVATION_FAIL](state, { type, payload }) {
+    return {
+      ...state,
+    }
+  },
 });
