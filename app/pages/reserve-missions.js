@@ -40,7 +40,7 @@ export default class ReserveMissions extends Component {
     actions: object.isRequired
   };
 
-  componentDidMount() {    
+  componentDidMount() {
     this.props.actions.missionGetCards()
   }
 
@@ -55,25 +55,30 @@ export default class ReserveMissions extends Component {
   }
 
   render() {
-    let cardClassName = classnames({
+    const cardClassName = classnames({
       'mission-card': true,
       'featured': true
     });
-    console.log(this.props.cardList);
-    let today = moment().utc().format("MM/DD/YYYY");
+
+    const today = moment().utc().format('MM/DD/YYYY');
+
     return (
       <div className="reserve-missions">
         <section className="container clearfix">
           <div className="col-md-8">
-            {this.props.cardList ? this.props.cardList.map(card =>  {
-              let end_date = moment.unix(card.end).format("MM/DD/YYYY");
+            {
+              this.props.cardList ? this.props.cardList.map(card =>  {
+              const end_date = moment.unix(card.end).format('MM/DD/YYYY');
+
               if (!moment(today).isAfter(end_date, 'days')) {
-                return (<NewMissionCard
-                  key={card.uniqueId}
-                  className={`${card.cardType == 2 ? 'featured col-md-12' : 'secondary col-md-6'}`}
-                  card={card}
-                  openModal = {this.openConfirmModal.bind(this)}
-                  featured={card.cardType == 2} />);
+                return (
+                  <NewMissionCard
+                    key={card.uniqueId}
+                    className={`${card.cardType == 2 ? 'featured col-md-12' : 'secondary col-md-6'}`}
+                    card={card}
+                    openModal = {this.openConfirmModal.bind(this)}
+                    featured={card.cardType == 2} />
+                  );
                 }
             }) : 'waiting...'}
           </div>
