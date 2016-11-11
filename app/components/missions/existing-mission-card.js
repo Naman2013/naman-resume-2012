@@ -7,6 +7,23 @@ import styles from './mission-card.scss';
 import moment from 'moment';
 
 class ExistingMissionCard extends Component {
+
+  constructor(props) {
+    super(props);
+
+    this.handlePiggybackClick = this.handlePiggybackClick.bind(this);
+  }
+
+  handlePiggybackClick(event) {
+    event.preventDefault();
+
+    const { openModal, card } = this.props;
+
+    // TODO: determine whether or not we should open the modal...
+
+    openModal(card, 'piggyBack', event);
+  }
+
   render() {
     const { card, piggyback, openModal } = this.props;
 
@@ -34,7 +51,7 @@ class ExistingMissionCard extends Component {
           <a
             className={styles.piggybackCta}
             href="#"
-            onClick={event => openModal(card, 'piggyBack', event)}>
+            onClick={ handlePiggybackClick }>
             Piggyback on Mission
           </a>
         </div>
