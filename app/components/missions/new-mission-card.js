@@ -1,12 +1,35 @@
 import React, { Component, PropTypes } from 'react';
-import { Link } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { Link } from 'react-router';
 import classnames from 'classnames';
 import styles from './mission-card.scss';
 import moment from 'moment';
 
+import { updateSingleReservations } from '../../modules/Missions';
+
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators({
+      updateSingleReservations,
+    }, dispatch)
+  };
+}
+
+@connect(null, mapDispatchToProps)
 class NewMissionCard extends Component {
+
+  componentDidMount() {
+    const { uniqueId } = this.props.card;
+    const { objectId } = this.props.reservation;
+
+    console.groupCollapsed('Mission card...');
+    console.log('uniqueId', uniqueId);
+    console.log('objectId', objectId);
+    console.groupEnd();
+
+    this.props.actions.updateSingleReservations(uniqueId, objectId);
+  }
 
   renderCallToAction() {
     const { missionAvailable, missionStart } = this.props.reservation;
@@ -89,6 +112,7 @@ NewMissionCard.propTypes = {
   reservation: PropTypes.shape({
     missionAvailable: PropTypes.bool,
     missionStart: PropTypes.number,
+    objectId: PropTypes.number,
   }),
 };
 
