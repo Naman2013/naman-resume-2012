@@ -34,7 +34,7 @@ class LiveWebcam extends React.Component {
         <div className="top">
           <h3>Canary Islands Observatories LIVE Webcam</h3>
           <p>Use the navigation below to change the view to a different direction.</p>
-          <img className="topLogo" src={'/assets/images/graphics/logo-iac.png'} />
+          <img className="topLogo" src={'assets/images/graphics/logo-iac.png'} />
         </div>
         <div className="live-webcam-feed">
           {tab && (
