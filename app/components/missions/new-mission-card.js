@@ -21,20 +21,21 @@ class NewMissionCard extends Component {
 
   componentDidMount() {
     const { uniqueId } = this.props.card;
-    const { objectId } = this.props.reservation;
+    const { objectId, missionAvailable, expires } = this.props.reservation;
 
-    console.groupCollapsed('Mission card...');
-    console.log('uniqueId', uniqueId);
-    console.log('objectId', objectId);
-    console.groupEnd();
+    if(!missionAvailable) {
+      const interval = moment(expires * 1000).diff(moment());
+      this.props.actions.updateSingleReservations(uniqueId, objectId);
 
-    // TODO: determine whether or not it is appropriate to build a timer...
-    // TODO: if we need to build a timer, build a timer and associate it with the instance
-    this.props.actions.updateSingleReservations(uniqueId, objectId);
+      this.updateReservationTimeout = setInterval(
+        updateSingleReservations(uniqueId, objectId), interval);
+    }
   }
 
   componentWillUnmount() {
-    // TODO: if a timer exists on the instance, destroy it...
+    if(this.updateReservationTimeout) {
+      clearInterval(this.updateReservationTimeout);
+    }
   }
 
   renderCallToAction() {
