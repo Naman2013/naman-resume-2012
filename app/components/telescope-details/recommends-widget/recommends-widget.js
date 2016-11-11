@@ -24,15 +24,15 @@ class TelescopeRecommendsWidget extends React.Component {
           <div className="row">
             <div className="col-xs-12">
               <div className="col-xs-4">
-                <img src={'/assets/icons/saturn.svg'} />
+                <img src={'assets/icons/saturn.svg'} />
                 <p>Saturn</p>
               </div>
               <div className="col-xs-4">
-                <img src={'/assets/icons/galaxy.svg'} />
+                <img src={'assets/icons/galaxy.svg'} />
                 <p>Quasar 3C273</p>
               </div>
               <div className="col-xs-4">
-                <img src={'/assets/icons/Jupiter.svg'} />
+                <img src={'assets/icons/Jupiter.svg'} />
                 <p>Andromeda Galaxy (M31)</p>
               </div>
             </div>
