@@ -44,7 +44,7 @@ class NewMissionCard extends Component {
             <Link
                 className={ styles.piggybackCta }
                 to="#"
-                onClick={ openModal }>
+                onClick={ (event) => { openModal(card, 'piggyBack', event) } }>
                 Reserve
             </Link> :
             <p>No mission is available at this time.</p>
