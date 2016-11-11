@@ -32,7 +32,6 @@ function mapStateToProps({ missions }) {
 }
 
 @connect(mapStateToProps, mapDispatchToProps)
-
 export default class ReserveMissions extends Component {
 
   static propTypes = {
