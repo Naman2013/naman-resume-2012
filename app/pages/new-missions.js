@@ -18,8 +18,8 @@ export default class NewMissions extends React.Component {
 
   render() {
     const { cardList, openConfirmModal, reservations } = this.props;
-
     let cards = null;
+
     if (cardList && Array.isArray(cardList)) {
       cards = cardList.filter(card => {
         if (card.missionAvailable) {
@@ -35,15 +35,18 @@ export default class NewMissions extends React.Component {
       <div className="new-missions">
         {!cards && 'waiting...'}
 
-        {reservations.length > 0 && cards && cards.map(card => (
-          <NewMissionCard
-            key={card.uniqueId}
-            card={card}
-            openModal={openConfirmModal}
-            featured={card.cardType == 2}
-            reservation={ reservations.find((reservations => reservations.uniqueId == card.uniqueId))}
-          />
-        ))}
+        {
+          reservations.length > 0 && cards && cards.map(card => (
+            <NewMissionCard
+              key={card.uniqueId}
+              card={card}
+              openModal={openConfirmModal}
+              featured={card.cardType == 2}
+              reservation={ reservations.find((reservations => reservations.uniqueId == card.uniqueId))}
+            />
+          ))
+        }
+
       </div>
     );
   }
