@@ -11,12 +11,11 @@ import ExistingMissionCard from '../components/missions/existing-mission-card';
 export default class ExistingMissions extends Component {
   static propTypes = {
     cardList: PropTypes.array,
-    openConfirmModal: PropTypes.func.isRequired,
     piggybacks: PropTypes.array,
   };
 
   render() {
-    const { cardList, openConfirmModal, piggybacks } = this.props;
+    const { cardList, piggybacks } = this.props;
 
     let cards = null;
     if (cardList && Array.isArray(cardList)) {
@@ -40,7 +39,6 @@ export default class ExistingMissions extends Component {
                 'col-md-6': card.cardType !== 2,
               })}
               card={card}
-              openModal={openConfirmModal}
               featured={card.cardType === 2}
               piggyback={ piggybacks.find((piggyback) => piggyback.uniqueId == card.uniqueId) }
             />
