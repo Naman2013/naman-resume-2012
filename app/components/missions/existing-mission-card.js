@@ -27,17 +27,20 @@ class ExistingMissionCard extends Component {
   handleGrabPiggybackResponse(result) {
     console.group('Grab piggyback response');
     console.log(result);
-    console.endGroup();
-    const { card } = this.props;
+    console.groupEnd();
+
+    const { card, openModal } = this.props;
+
     // TODO: read the result and if we can open the modal!
     return;
     openModal(card, 'piggyBack');
+
   }
 
   grabPiggybackResponseError(error) {
     console.group('Grab piggyback ERROR');
     console.log(error);
-    console.endGroup();
+    console.groupEnd();
   }
 
   handlePiggybackClick(event) {
@@ -46,19 +49,16 @@ class ExistingMissionCard extends Component {
     const { openModal, card, piggyback, user } = this.props;
     const theMission = {
       ...user,
-      scheduledMissionId: piggyback.uniqueId,
+      scheduledMissionId: piggyback.scheduledMissionId,
       uniqueId: card.uniqueId,
       callSource: 'recommends',
       objectTitle: card.title,
       lookaheadPiggyback: card.lookaheadDaysPiggyback,
     };
 
-    // TODO: determine whether or not we should open the modal by calling /api/reservation/grabPiggyback
-
     const grabPiggybackHandle = grabPiggyback(theMission)
-      .then(this.handleGrabPiggybackResponse)
-      .catch(this.grabPiggybackResponseError);
-
+      .then(this.handleGrabPiggybackResponse.bind(this))
+      .catch(this.grabPiggybackResponseError.bind(this));
   }
 
   render() {
