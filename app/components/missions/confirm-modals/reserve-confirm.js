@@ -63,7 +63,7 @@ export default class ReserveConfirm extends React.Component {
 
   render () {
     const suggestions = ["mars", "jupiter", "moon", "saturn"];
-    
+
     return (
       <Modal show={this.props.mission.isConfirmationOpen} className="missionModal reserveMissionModal">
         <div className="title-bar">
@@ -84,23 +84,23 @@ export default class ReserveConfirm extends React.Component {
           <div className="share-objectives">
             <h4>SHARE YOUR MISSION OBJECTIVES:</h4>
             <textarea placeholder="It’s optional, but would you consider succinctly describing your thoughts on the mission? Anything goes, tweet style."
-              value={this.state.objective}
-              onChange={this.handleChangeObject}></textarea>
+              value={ this.state.objective }
+              onChange={ this.handleChangeObject }></textarea>
           </div>
 
           <div className="mission-tags">
             <h4>MISSION TAGS:</h4>
-              <ReactTags tags={this.state.tags}
-                  suggestions={suggestions}
-                  handleDelete={this.handleDelete}
-                  handleAddition={this.handleAddition}
-                  handleDrag={this.handleDrag} />
+              <ReactTags tags={ this.state.tags }
+                suggestions={ suggestions }
+                handleDelete={ this.handleDelete }
+                handleAddition={ this.handleAddition }
+                handleDrag={ this.handleDrag } />
           </div>
 
         </Modal.Body>
 
         <Modal.Footer>
-          <Button className="btn-primary" onClick={this.props.closeModal}>Sorry, Cancel this.</Button>
+          <Button className="btn-primary" onClick={this.props.closeModal}>Sorry, Cancel This.</Button>
           <Button className="btn-primary" onClick={this.onSubmit}>Absolutely!</Button>
         </Modal.Footer>
       </Modal>
