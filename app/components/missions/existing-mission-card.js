@@ -25,16 +25,15 @@ class ExistingMissionCard extends Component {
   }
 
   handleGrabPiggybackResponse(result) {
-    console.group('Grab piggyback response');
-    console.log(result);
-    console.groupEnd();
-
+    const { data } = result;
+    const mission = data.missionList[0];
     const { card, openModal } = this.props;
 
-    // TODO: read the result and if we can open the modal!
-    return;
-    openModal(card, 'piggyBack');
-
+    if(mission.missionAvailable) {
+      openModal(mission, 'piggyBack');
+    } else {
+      // TODO: Mission is not available... do something else...
+    }
   }
 
   grabPiggybackResponseError(error) {
