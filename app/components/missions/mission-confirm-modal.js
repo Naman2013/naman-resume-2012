@@ -1,4 +1,4 @@
-import React, {Component, PropTypes} from 'react';
+import React, { Component, PropTypes } from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -22,8 +22,13 @@ function mapStateToProps({ missions }) {
 }
 
 @connect(mapStateToProps, mapDispatchToProps)
+class MissionConfirmModal extends Component {
 
-export default class MissionConfirmModal extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.closeModal = this.closeModal.bind(this);
+  }
 
   static propTypes = {
     actions: PropTypes.object.isRequired
@@ -34,11 +39,23 @@ export default class MissionConfirmModal extends React.Component {
     this.props.actions.missionConfirmClose();
   }
 
+  render() {
+    console.group('From mission confirm modal');
+    console.log(this.props.missions);
+    console.groupEnd();
+    const currentMission = this.props.missions[0];
 
-
-  render() {    
     return (
-      this.props.missions.confirmType === 'reserve' ? <ReserveConfirm mission={this.props.missions} closeModal={this.closeModal.bind(this)} />  : <PiggyBackConfirm mission={this.props.missions} closeModal={this.closeModal.bind(this)} />
+      this.props.missions.confirmType === 'reserve' ?
+        <ReserveConfirm
+          mission={ currentMission }
+          closeModal={ this.closeModal } />
+        :
+        <PiggyBackConfirm
+          mission={ currentMission }
+          closeModal={ this.closeModal } />
     )
   }
 };
+
+export default MissionConfirmModal;
