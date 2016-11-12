@@ -38,7 +38,8 @@ class MissionConfirmModal extends Component {
     const {
       mission,
       isConfirmationOpen,
-      confirmType } = this.props.missions;
+      confirmType,
+      currentCard } = this.props.missions;
 
     return (
       confirmType === 'reserve' ?
@@ -48,6 +49,7 @@ class MissionConfirmModal extends Component {
         :
         <PiggyBackConfirm
           mission={ mission }
+          currentCard={ currentCard }
           open={ isConfirmationOpen }
           closeModal={ this.closeModal } />
     )
