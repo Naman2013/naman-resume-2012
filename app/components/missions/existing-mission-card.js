@@ -1,33 +1,103 @@
 import React, { Component, PropTypes } from 'react';
-import { Link } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { Link } from 'react-router';
 import classnames from 'classnames';
-import styles from './mission-card.scss';
 import moment from 'moment';
-import MissionCardButtonReserve from './mission-card-button-reserve';
-import MissionCardButtonPiggyback from './mission-card-button-piggyback';
 
-const ExistingMissionCard = ({ card, piggyback, openModal }) => {
+import styles from './mission-card.scss';
+import { grabPiggyback } from '../../modules/Piggyback';
+import { missionGetInfo } from '../../modules/Missions';
+
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators({
+      missionGetInfo,
+    }, dispatch),
+  };
+}
+
+function mapStateToProps(state, ownProps) {
+  return {
+    user: state.user.user,
+  };
+}
+
+@connect(mapStateToProps, mapDispatchToProps)
+class ExistingMissionCard extends Component {
+
+  constructor(props) {
+    super(props);
+
+    this.handlePiggybackClick = this.handlePiggybackClick.bind(this);
+  }
+
+  handleGrabPiggybackResponse(result) {
+    const { data } = result;
+    const mission = data.missionList[0];
+    const { card } = this.props;
+
+    if(mission.missionAvailable) {
+      this.props.actions.missionGetInfo(card, 'piggyback');
+    } else {
+      // TODO: Mission is not available... do something else...
+    }
+  }
+
+  grabPiggybackResponseError(error) {
+    console.group('Grab piggyback ERROR');
+    console.log(error);
+    console.groupEnd();
+  }
+
+  handlePiggybackClick(event) {
+    event.preventDefault();
+
+    const { openModal, card, piggyback, user } = this.props;
+    const theMission = {
+      ...user,
+      scheduledMissionId: piggyback.scheduledMissionId,
+      uniqueId: card.uniqueId,
+      callSource: 'recommends',
+      objectTitle: card.title,
+      lookaheadPiggyback: card.lookaheadDaysPiggyback,
+    };
+
+    const grabPiggybackHandle = grabPiggyback(theMission)
+      .then(this.handleGrabPiggybackResponse.bind(this))
+      .catch(this.grabPiggybackResponseError.bind(this));
+  }
+
+  render() {
+    const { card, piggyback, openModal } = this.props;
 
     const startTime = piggyback.missionStart;
-    let featured = card.cardType == 2;
-    let className = `${styles.missionCard} ${featured ? 'featured col-md-12' : 'secondary col-md-6'}`;
-    let EST_start = moment.unix(startTime).utcOffset(-5, false).format("dddd, MMMM Do");
-    let EST_start_time = moment.unix(startTime).utcOffset(-5, false).format("hh:mm a");
-    let PST_start_time = moment.unix(startTime).utcOffset(-8, false).format("hh:mm a");
-    let UTC_start_time = moment.unix(startTime).format("hh:mm a");
+    const featured = card.cardType == 2;
+    const className = `${styles.missionCard} ${featured ? 'featured col-md-12' : 'secondary col-md-6'}`;
+    const EST_start = moment.unix(startTime).utcOffset(-5, false).format("dddd, MMMM Do");
+    const EST_start_time = moment.unix(startTime).utcOffset(-5, false).format("hh:mm a");
+    const PST_start_time = moment.unix(startTime).utcOffset(-8, false).format("hh:mm a");
+    const UTC_start_time = moment.unix(startTime).format("hh:mm a");
 
     const startMissionTime = () => {
-      return <p><strong>{EST_start}</strong>: {!featured ? <br /> : null} {EST_start_time} EST  ·  {PST_start_time} PST  ·  {UTC_start_time} UTC</p>
+      return(
+        <p>
+          <strong>{EST_start}</strong>: { !featured ? <br /> : null} { EST_start_time } EST · { PST_start_time } PST · { UTC_start_time } UTC
+        </p>
+      );
     }
 
     const missionAvailable = () => {
       return (
         <div>
           <h5>Join an existing mission</h5>
-          {startMissionTime()}
-          <MissionCardButtonPiggyback openModal={openModal} card={card} />
+          { startMissionTime() }
+          <a
+            className={ styles.piggybackCta }
+            href="#"
+            onClick={ this.handlePiggybackClick }>
+            Piggyback on Mission
+          </a>
         </div>
       )
     }
@@ -36,17 +106,18 @@ const ExistingMissionCard = ({ card, piggyback, openModal }) => {
       if(piggyback.userHasReservation) {
         return (
           <div>
-            <p>You have an upcoming {piggyback.userReservationType}reservation scheduled for {startMissionTime()}</p>
+            { startMissionTime() }
+            <p>You have an upcoming { piggyback.userReservationType } reservation scheduled for { startMissionTime() }</p>
           </div>
         )
       } else {
         return (
           <div>
-            <h5>No existing missions are available, click below to make a reservation</h5>
+            <h5>No existing missions are available</h5>
             <Link
               className={styles.piggybackCta}
               to="/reservations/slooh-recommends/new">
-              Reserve
+              Make Reservation
             </Link>
           </div>
         )
@@ -54,22 +125,30 @@ const ExistingMissionCard = ({ card, piggyback, openModal }) => {
     }
 
     return (
-      <div className={className}>
-        { featured ? <span className="callOut">Dont Miss</span> : null }
-        <h2>{card.headline}</h2>
+      <div className={ className }>
+        { featured ? <span className="callOut">Don't Miss</span> : null }
+        <h2>{ card.headline }</h2>
 
-        <div className={styles.cardsubTitle}>
-          <img className={styles.cardIcon} src="assets/icons/Jupiter.svg" />
-          <h3>{card.title}</h3>
+        <div className={ styles.cardsubTitle }>
+          <img className={ styles.cardIcon } src="assets/icons/Jupiter.svg" />
+          <h3>{ card.title }</h3>
         </div>
 
-        <p>{card.description}</p>
+        <p>{ card.description }</p>
 
         <div className="join-mission-callout">
-          {piggyback.missionAvailable ? missionAvailable() : missionNotAvailable() }
+          { piggyback.missionAvailable ? missionAvailable() : missionNotAvailable() }
         </div>
       </div>
     );
+  }
 }
+
+ExistingMissionCard.propTypes = {
+  piggyback: PropTypes.shape({
+    uniqueId: PropTypes.string,
+    missionAvailable: PropTypes.bool,
+  }),
+};
 
 export default ExistingMissionCard;

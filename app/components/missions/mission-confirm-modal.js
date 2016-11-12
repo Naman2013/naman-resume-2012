@@ -1,12 +1,12 @@
-import React, {Component, PropTypes} from 'react';
+import React, { Component, PropTypes } from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
 import {missionConfirmOpen, missionConfirmClose} from './../../modules/Missions';
 import styles from './mission-modals.scss';
-import PiggyBackConfirm from './confirm-modals/piggyback';
-import ReserveConfirm from './confirm-modals/reserve';
+import PiggyBackConfirm from './confirm-modals/piggyback-confirm';
+import ReserveConfirm from './confirm-modals/reserve-confirm';
 
 
 function mapDispatchToProps(dispatch) {
@@ -22,23 +22,38 @@ function mapStateToProps({ missions }) {
 }
 
 @connect(mapStateToProps, mapDispatchToProps)
+class MissionConfirmModal extends Component {
 
-export default class MissionConfirmModal extends React.Component {
+  constructor(props) {
+    super(props);
 
-  static propTypes = {
-    actions: PropTypes.object.isRequired
+    this.closeModal = this.closeModal.bind(this);
   }
 
-  closeModal(event) {
-    event.preventDefault();
+  closeModal() {
     this.props.actions.missionConfirmClose();
   }
 
+  render() {
+    const {
+      mission,
+      isConfirmationOpen,
+      confirmType,
+      currentCard } = this.props.missions;
 
-
-  render() {    
     return (
-      this.props.missions.confirmType === 'reserve' ? <ReserveConfirm mission={this.props.missions} closeModal={this.closeModal.bind(this)} />  : <PiggyBackConfirm mission={this.props.missions} closeModal={this.closeModal.bind(this)} />
+      confirmType === 'reserve' ?
+        <ReserveConfirm
+          mission={ mission }
+          closeModal={ this.closeModal } />
+        :
+        <PiggyBackConfirm
+          mission={ mission }
+          currentCard={ currentCard }
+          open={ isConfirmationOpen }
+          closeModal={ this.closeModal } />
     )
   }
 };
+
+export default MissionConfirmModal;

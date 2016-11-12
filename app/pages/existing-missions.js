@@ -11,12 +11,11 @@ import ExistingMissionCard from '../components/missions/existing-mission-card';
 export default class ExistingMissions extends Component {
   static propTypes = {
     cardList: PropTypes.array,
-    openConfirmModal: PropTypes.func.isRequired,
     piggybacks: PropTypes.array,
   };
 
   render() {
-    const { cardList, openConfirmModal, piggybacks } = this.props;
+    const { cardList, piggybacks } = this.props;
 
     let cards = null;
     if (cardList && Array.isArray(cardList)) {
@@ -29,21 +28,22 @@ export default class ExistingMissions extends Component {
     return (
       <div className="existing-missions">
 
-        {piggybacks.length > 0 && cards ? cards.map(card => (
-          <ExistingMissionCard
-            key={card.uniqueId}
-            className={cx({
-              featured: card.cardType === 2,
-              'col-md-12': card.cardType === 2,
-              secondary: card.cardType !== 2,
-              'col-md-6': card.cardType !== 2,
-            })}
-            card={card}
-            openModal={openConfirmModal}
-            featured={card.cardType === 2}
-            piggyback={ piggybacks.find((piggyback) => piggyback.uniqueId == card.uniqueId) }
-          />
-        )) : 'waiting...'}
+        {
+          piggybacks.length > 0 && cards ? cards.map(card => (
+            <ExistingMissionCard
+              key={card.uniqueId}
+              className={cx({
+                featured: card.cardType === 2,
+                'col-md-12': card.cardType === 2,
+                secondary: card.cardType !== 2,
+                'col-md-6': card.cardType !== 2,
+              })}
+              card={card}
+              featured={card.cardType === 2}
+              piggyback={ piggybacks.find((piggyback) => piggyback.uniqueId == card.uniqueId) }
+            />
+          )) : 'waiting...'
+        }
       </div>
     );
   }

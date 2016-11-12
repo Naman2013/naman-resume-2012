@@ -26,7 +26,8 @@ const initialState = {
   mission: {},
   cardList: [],
   announcements: [],
-  piggybacks: []
+  piggybacks: [],
+  currentCard: {},
 };
 
 // Mission action creator
@@ -68,7 +69,8 @@ export function missionGetCards() {
 
 export function missionGetInfo(card, type) {
   return (dispatch, getState) => {
-    let { token, at, cid } = getState().user.user;
+    const { token, at, cid } = getState().user.user;
+
     return axios.post('/api/recommends/getNextPiggyback', {
       uniqueId: card.uniqueId,
       objectId: card.astroObjectId,
@@ -83,17 +85,18 @@ export function missionGetInfo(card, type) {
       cid,
     })
     .then(response => {
-      dispatch( getMissionSuccess(response) );
-      dispatch( missionConfirmOpen(type) );
+      dispatch( getMissionSuccess( response, card ) );
+      dispatch( missionConfirmOpen( type ) );
     })
     .catch(error => dispatch( getMissionFail( error )));
   }
 }
 
-export function getMissionSuccess({data}) {
+export function getMissionSuccess({ data }, card) {
   return {
     type: MISSION_GET_INFO_SUCCESS,
     mission: data,
+    currentCard: card,
   };
 };
 
@@ -117,8 +120,6 @@ export function cardsFail(error) {
     error,
   };
 };
-
-
 
 export function missionGetUpdates() {
   return dispatch => {
@@ -255,9 +256,8 @@ export function missionGetNextReservationFail({ data }) {
 }
 
 
-// this reducer changes missions object in store every time one of the actions is fired
 export default createReducer(initialState, {
-  [MISSION_CONFIRMATION_OPEN](state, { mission, confirmType }) {
+  [MISSION_CONFIRMATION_OPEN](state, { confirmType }) {
     return {
       ...state,
       isConfirmationOpen: true,
@@ -277,13 +277,11 @@ export default createReducer(initialState, {
       cardList
     };
   },
-  [MISSION_GET_INFO_SUCCESS](state, {mission, cardList}) {
-    const uniqueId = mission.missionList[0].uniqueId;
-    const newCardList = state.cardList.findIndex((el, index, arr) => el.uniqueId === uniqueId ? arr[index] = mission.missionList[0] : false);
+  [MISSION_GET_INFO_SUCCESS](state, { mission, currentCard }) {
     return {
       ...state,
-      cardList: state.cardList,
       mission,
+      currentCard,
     }
   },
   [MISSION_GET_UPDATES_SUCCESS](state, { announcements }) {
