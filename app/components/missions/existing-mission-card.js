@@ -36,8 +36,7 @@ class ExistingMissionCard extends Component {
     const { data } = result;
     const mission = data.missionList[0];
     const { card } = this.props;
-    console.log(card);
-    console.log(mission);
+
     if(mission.missionAvailable) {
       this.props.actions.missionGetInfo(card, 'piggyback');
     } else {
