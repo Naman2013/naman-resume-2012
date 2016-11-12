@@ -7,7 +7,5 @@ import axios from 'axios';
   for /api/reservation/grabPiggyback documentation
 */
 export function grabPiggyback(mission) {
-  const { cid, at, token } = user;
-
   return axios.post('/api/reservation/grabPiggyback', mission);
 }
