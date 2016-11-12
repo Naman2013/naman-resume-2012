@@ -63,8 +63,19 @@
   .join-mission-callout {
     margin: 20px 0 10px 0;
     font-size: 17px;
+
     h5 {
       margin: 0 0 10px 0;
+    }
+
+    .call-to-action-content {
+      h5 {
+        margin: 0;
+      }
+
+      p {
+        margin-bottom: 10px;
+      }
     }
   }
 

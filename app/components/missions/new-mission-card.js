@@ -63,14 +63,16 @@ class NewMissionCard extends Component {
 
       return(
         <div>
-          <h5>Set up a new mission</h5>
-          <p>
-            <strong>{ EST_start }</strong>:
-              {
-                !featured ? <br /> : null
-              }
-              { EST_start_time } EST · { PST_start_time } PST · { UTC_start_time } UTC
-          </p>
+          <div className="call-to-action-content">
+            <h5>Set up a new mission</h5>
+            <p>
+              <strong>{ EST_start }</strong>:
+                {
+                  !featured ? <br /> : null
+                }
+                { EST_start_time } EST · { PST_start_time } PST · { UTC_start_time } UTC
+            </p>
+          </div>
           <Link
               className={ styles.piggybackCta }
               to="#"
@@ -109,7 +111,7 @@ class NewMissionCard extends Component {
         <div className="card-content-container">
           {
             featured ?
-            <span className="callOut">Don't Miss</span> : null
+            <span className="callOut"><span className="first-word">Don't</span> Miss</span> : null
           }
 
           <h2>{ headline }</h2>
@@ -119,7 +121,7 @@ class NewMissionCard extends Component {
             <h3>{ title }</h3>
           </div>
 
-          <p>{ description }</p>
+          <p className={ styles.cardDescription }>{ description }</p>
 
           <div className="join-mission-callout">
             { this.renderCallToAction() }
