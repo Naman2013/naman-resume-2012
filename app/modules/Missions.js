@@ -119,8 +119,6 @@ export function cardsFail(error) {
   };
 };
 
-
-
 export function missionGetUpdates() {
   return dispatch => {
     return axios.post('/api/info/getAnnouncements', {
@@ -256,9 +254,8 @@ export function missionGetNextReservationFail({ data }) {
 }
 
 
-// this reducer changes missions object in store every time one of the actions is fired
 export default createReducer(initialState, {
-  [MISSION_CONFIRMATION_OPEN](state, { mission, confirmType }) {
+  [MISSION_CONFIRMATION_OPEN](state, { confirmType }) {
     return {
       ...state,
       isConfirmationOpen: true,
