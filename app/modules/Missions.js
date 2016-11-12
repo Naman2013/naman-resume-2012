@@ -31,10 +31,11 @@ const initialState = {
 };
 
 // Mission action creator
-export function missionConfirmOpen(type) {
+export function missionConfirmOpen(card, type) {
   return {
     type: MISSION_CONFIRMATION_OPEN,
-    confirmType: type
+    confirmType: type,
+    currentCard: card,
   }
 }
 
@@ -257,11 +258,12 @@ export function missionGetNextReservationFail({ data }) {
 
 
 export default createReducer(initialState, {
-  [MISSION_CONFIRMATION_OPEN](state, { confirmType }) {
+  [MISSION_CONFIRMATION_OPEN](state, { confirmType, currentCard }) {
     return {
       ...state,
       isConfirmationOpen: true,
       confirmType,
+      currentCard,
     };
   },
   [MISSION_CONFIRMATION_CLOSE](state) {
