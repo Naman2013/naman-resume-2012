@@ -263,7 +263,6 @@ export default createReducer(initialState, {
       ...state,
       isConfirmationOpen: true,
       confirmType,
-      currentCard,
     };
   },
   [MISSION_CONFIRMATION_CLOSE](state) {
