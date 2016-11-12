@@ -20,12 +20,13 @@ class PiggyBackConfirm extends Component {
 
   render() {
 
-    const { mission, closeModal, open } = this.props;
+    const { mission, closeModal, open, currentCard } = this.props;
 
     if( !mission.hasOwnProperty('missionList') ) { return null; }
 
     const currentMission = mission.missionList[0];
     const { missionStart } = currentMission;
+    const { title, headline } = currentCard;
 
     const EST_start = moment.unix(missionStart).utcOffset(-5, false).format('dddd, MMMM Do');
     const EST_start_time = moment.unix(missionStart).utcOffset(-5, false).format('hh:mm a');
@@ -33,7 +34,7 @@ class PiggyBackConfirm extends Component {
     const UTC_start_time = moment.unix(missionStart).format('hh:mm a');
 
     console.group('piggyback confirm');
-    console.log(this.props);
+    console.log(this.props.currentCard);
     console.groupEnd();
 
     return (
@@ -46,8 +47,8 @@ class PiggyBackConfirm extends Component {
 
           <div className="mission-name">
             <img className={styles.cardIcon} src="assets/icons/Jupiter.svg" />
-            <h4>Jupiter</h4>
-            <p>(Carefully, the gravity is 2.5 times of earth, so tread lightly.)</p>
+            <h4>{ title }</h4>
+            <p>{ headline }</p>
           </div>
 
           <div className="mission-schedule">
@@ -70,6 +71,9 @@ class PiggyBackConfirm extends Component {
 
 PiggyBackConfirm.propTypes = {
   open: PropTypes.bool,
+  currentCard: PropTypes.shape({
+    title: PropTypes.string,
+  }),
 };
 
 export default PiggyBackConfirm;
