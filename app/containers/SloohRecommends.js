@@ -53,6 +53,10 @@ export default class SloohRecommends extends Component {
     * @param {object} event - current event, provided by default from React JSX
     */
   openConfirmModal(card, type) {
+    console.group('calling to open the modal');
+    console.log(card);
+    console.log(type);
+    console.groupEnd();
     if (type == 'piggyBack') {
       this.props.actions.missionGetInfo(card, type);
     } else {
