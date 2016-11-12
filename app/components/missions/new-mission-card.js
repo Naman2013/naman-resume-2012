@@ -47,7 +47,7 @@ class NewMissionCard extends Component {
   handleMakeReservationClick(event) {
     event.preventDefault();
     const { openModal, card } = this.props;
-    openModal(card);
+    openModal(card, 'reserve');
   }
 
   renderCallToAction() {
