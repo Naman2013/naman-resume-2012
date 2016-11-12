@@ -134,6 +134,23 @@
     padding: 0 30px;
     line-height: 1.5;
   }
+
+  .join-mission-callout {
+    position: absolute;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+
+    h5 {
+      font-size: 16px;
+    }
+
+    p {
+      font-family: $primary-font;
+      margin-bottom: 20px;
+    }
+  }
 }
 
 .piggybackCta {
