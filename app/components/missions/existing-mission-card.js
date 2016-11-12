@@ -73,7 +73,7 @@ class ExistingMissionCard extends Component {
 
     const startTime = piggyback.missionStart;
     const featured = card.cardType == 2;
-    const className = `${styles.missionCard} ${featured ? 'featured col-md-12' : 'secondary col-md-6'}`;
+
     const EST_start = moment.unix(startTime).utcOffset(-5, false).format("dddd, MMMM Do");
     const EST_start_time = moment.unix(startTime).utcOffset(-5, false).format("hh:mm a");
     const PST_start_time = moment.unix(startTime).utcOffset(-8, false).format("hh:mm a");
@@ -124,21 +124,35 @@ class ExistingMissionCard extends Component {
       }
     }
 
+    const existingMissionCardClassnames = classnames({
+      [styles.missionCard]: 1,
+      'featured col-md-12': featured,
+      'secondary col-md-6': !featured,
+    });
+
     return (
-      <div className={ className }>
-        { featured ? <span className="callOut">Don't Miss</span> : null }
-        <h2>{ card.headline }</h2>
+      <div className={ existingMissionCardClassnames }>
 
-        <div className={ styles.cardsubTitle }>
-          <img className={ styles.cardIcon } src="assets/icons/Jupiter.svg" />
-          <h3>{ card.title }</h3>
+        <div className="card-content-container">
+          {
+            featured ?
+            <span className="callOut"><span className="first-word">Don't</span> Miss</span> : null
+          }
+
+          <h2>{ card.headline }</h2>
+
+          <div className={ styles.cardsubTitle }>
+            <img className={ styles.cardIcon } src="assets/icons/Jupiter.svg" />
+            <h3>{ card.title }</h3>
+          </div>
+
+          <p className={ styles.cardDescription }>{ card.description }</p>
+
+          <div className="join-mission-callout">
+            { piggyback.missionAvailable ? missionAvailable() : missionNotAvailable() }
+          </div>
         </div>
 
-        <p>{ card.description }</p>
-
-        <div className="join-mission-callout">
-          { piggyback.missionAvailable ? missionAvailable() : missionNotAvailable() }
-        </div>
       </div>
     );
   }

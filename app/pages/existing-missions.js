@@ -26,7 +26,7 @@ export default class ExistingMissions extends Component {
     }
 
     return (
-      <div className="existing-missions">
+      <div className="existing-missions clearfix">
 
         {
           piggybacks.length > 0 && cards ? cards.map(card => (
