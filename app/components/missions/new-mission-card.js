@@ -104,21 +104,28 @@ class NewMissionCard extends Component {
     });
 
     return (
-      <div className={newMissionCardContainerClasses}>
-        { featured ? <span className="callOut">Don't Miss</span> : null }
+      <div className={ newMissionCardContainerClasses }>
 
-        <h2>{ headline }</h2>
+        <div className="card-content-container">
+          {
+            featured ?
+            <span className="callOut">Don't Miss</span> : null
+          }
 
-        <div className={ styles.cardsubTitle }>
-          <img className={ styles.cardIcon } src="assets/icons/Jupiter.svg" />
-          <h3>{ title }</h3>
+          <h2>{ headline }</h2>
+
+          <div className={ styles.cardsubTitle }>
+            <img className={ styles.cardIcon } src="assets/icons/Jupiter.svg" />
+            <h3>{ title }</h3>
+          </div>
+
+          <p>{ description }</p>
+
+          <div className="join-mission-callout">
+            { this.renderCallToAction() }
+          </div>
         </div>
 
-        <p>{ description }</p>
-
-        <div className="join-mission-callout">
-          { this.renderCallToAction() }
-        </div>
       </div>
     );
   }
