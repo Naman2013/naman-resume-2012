@@ -7,7 +7,15 @@ import moment from 'moment';
 
 import styles from './mission-card.scss';
 import { grabPiggyback } from '../../modules/Piggyback';
+import { missionGetInfo } from '../../modules/Missions';
 
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators({
+      missionGetInfo,
+    }, dispatch),
+  };
+}
 
 function mapStateToProps(state, ownProps) {
   return {
@@ -15,7 +23,7 @@ function mapStateToProps(state, ownProps) {
   };
 }
 
-@connect(mapStateToProps)
+@connect(mapStateToProps, mapDispatchToProps)
 class ExistingMissionCard extends Component {
 
   constructor(props) {
@@ -27,10 +35,11 @@ class ExistingMissionCard extends Component {
   handleGrabPiggybackResponse(result) {
     const { data } = result;
     const mission = data.missionList[0];
-    const { card, openModal } = this.props;
-
+    const { card } = this.props;
+    console.log(card);
+    console.log(mission);
     if(mission.missionAvailable) {
-      openModal(mission, 'piggyBack');
+      this.props.actions.missionGetInfo(card, 'piggyback');
     } else {
       // TODO: Mission is not available... do something else...
     }
@@ -141,7 +150,6 @@ ExistingMissionCard.propTypes = {
     uniqueId: PropTypes.string,
     missionAvailable: PropTypes.bool,
   }),
-  openModal: PropTypes.func,
 };
 
 export default ExistingMissionCard;
