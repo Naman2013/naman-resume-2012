@@ -24,14 +24,41 @@ class ExistingMissionCard extends Component {
     this.handlePiggybackClick = this.handlePiggybackClick.bind(this);
   }
 
+  handleGrabPiggybackResponse(result) {
+    console.group('Grab piggyback response');
+    console.log(result);
+    console.endGroup();
+    const { card } = this.props;
+    // TODO: read the result and if we can open the modal!
+    return;
+    openModal(card, 'piggyBack');
+  }
+
+  grabPiggybackResponseError(error) {
+    console.group('Grab piggyback ERROR');
+    console.log(error);
+    console.endGroup();
+  }
+
   handlePiggybackClick(event) {
     event.preventDefault();
 
-    const { openModal, card } = this.props;
+    const { openModal, card, piggyback, user } = this.props;
+    const theMission = {
+      ...user,
+      scheduledMissionId: piggyback.uniqueId,
+      uniqueId: card.uniqueId,
+      callSource: 'recommends',
+      objectTitle: card.title,
+      lookaheadPiggyback: card.lookaheadDaysPiggyback,
+    };
 
     // TODO: determine whether or not we should open the modal by calling /api/reservation/grabPiggyback
 
-    openModal(card, 'piggyBack', event);
+    const grabPiggybackHandle = grabPiggyback(theMission)
+      .then(this.handleGrabPiggybackResponse)
+      .catch(this.grabPiggybackResponseError);
+
   }
 
   render() {
@@ -59,7 +86,7 @@ class ExistingMissionCard extends Component {
           <h5>Join an existing mission</h5>
           { startMissionTime() }
           <a
-            className={styles.piggybackCta}
+            className={ styles.piggybackCta }
             href="#"
             onClick={ this.handlePiggybackClick }>
             Piggyback on Mission
@@ -91,16 +118,16 @@ class ExistingMissionCard extends Component {
     }
 
     return (
-      <div className={className}>
+      <div className={ className }>
         { featured ? <span className="callOut">Don't Miss</span> : null }
-        <h2>{card.headline}</h2>
+        <h2>{ card.headline }</h2>
 
-        <div className={styles.cardsubTitle}>
-          <img className={styles.cardIcon} src="assets/icons/Jupiter.svg" />
-          <h3>{card.title}</h3>
+        <div className={ styles.cardsubTitle }>
+          <img className={ styles.cardIcon } src="assets/icons/Jupiter.svg" />
+          <h3>{ card.title }</h3>
         </div>
 
-        <p>{card.description}</p>
+        <p>{ card.description }</p>
 
         <div className="join-mission-callout">
           { piggyback.missionAvailable ? missionAvailable() : missionNotAvailable() }
@@ -109,5 +136,13 @@ class ExistingMissionCard extends Component {
     );
   }
 }
+
+ExistingMissionCard.propTypes = {
+  piggyback: PropTypes.shape({
+    uniqueId: PropTypes.string,
+    missionAvailable: PropTypes.bool,
+  }),
+  openModal: PropTypes.func,
+};
 
 export default ExistingMissionCard;
