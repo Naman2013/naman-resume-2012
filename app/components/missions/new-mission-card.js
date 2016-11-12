@@ -19,6 +19,12 @@ function mapDispatchToProps(dispatch) {
 @connect(null, mapDispatchToProps)
 class NewMissionCard extends Component {
 
+  constructor(props) {
+    super(props);
+
+    this.handleMakeReservationClick = this.handleMakeReservationClick.bind(this);
+  }
+
   componentDidMount() {
     const { uniqueId } = this.props.card;
     const { objectId, missionAvailable, expires } = this.props.reservation;
@@ -36,6 +42,12 @@ class NewMissionCard extends Component {
     if(this.updateReservationTimeout) {
       clearInterval(this.updateReservationTimeout);
     }
+  }
+
+  handleMakeReservationClick(event) {
+    event.preventDefault();
+    const { openModal, card } = this.props;
+    openModal(card, 'piggyBack');
   }
 
   renderCallToAction() {
@@ -62,7 +74,7 @@ class NewMissionCard extends Component {
           <Link
               className={ styles.piggybackCta }
               to="#"
-              onClick={ (event) => { openModal(card, 'piggyBack', event) } }>
+              onClick={ this.handleMakeReservationClick }>
               Make Reservation
           </Link>
         </div>
