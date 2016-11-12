@@ -33,10 +33,6 @@ class PiggyBackConfirm extends Component {
     const PST_start_time = moment.unix(missionStart).utcOffset(-8, false).format('hh:mm a');
     const UTC_start_time = moment.unix(missionStart).format('hh:mm a');
 
-    console.group('piggyback confirm');
-    console.log(this.props.currentCard);
-    console.groupEnd();
-
     return (
       <Modal show={ open } className={ styles.missionModal }>
         <Modal.Header>
