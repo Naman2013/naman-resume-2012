@@ -32,6 +32,10 @@ class PiggyBackConfirm extends Component {
     const PST_start_time = moment.unix(missionStart).utcOffset(-8, false).format('hh:mm a');
     const UTC_start_time = moment.unix(missionStart).format('hh:mm a');
 
+    console.group('piggyback confirm');
+    console.log(this.props);
+    console.groupEnd();
+
     return (
       <Modal show={ open } className={ styles.missionModal }>
         <Modal.Header>
@@ -48,14 +52,15 @@ class PiggyBackConfirm extends Component {
 
           <div className="mission-schedule">
             <h4>Mission Details:</h4>
-            <p>{ EST_start }<br />
-                { EST_start_time } EST, { PST_start_time } PST, { UTC_start_time } UTC<br />
+            <p>
+              { EST_start }<br />
+              { EST_start_time } EST, { PST_start_time } PST, { UTC_start_time } UTC<br />
               Canary Islands
             </p>
           </div>
         </Modal.Body>
         <Modal.Footer>
-          <Button className="btn-primary" onClick={closeModal}>Sorry, Cancel this.</Button>
+          <Button className="btn-primary" onClick={closeModal}>Sorry, Cancel This.</Button>
           <Button className="btn-primary" onClick={ this.handleReservationClick }>Absolutely!</Button>
         </Modal.Footer>
       </Modal>
