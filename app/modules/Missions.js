@@ -26,7 +26,8 @@ const initialState = {
   mission: {},
   cardList: [],
   announcements: [],
-  piggybacks: []
+  piggybacks: [],
+  currentCard: {},
 };
 
 // Mission action creator
@@ -84,17 +85,18 @@ export function missionGetInfo(card, type) {
       cid,
     })
     .then(response => {
-      dispatch( getMissionSuccess( response ) );
+      dispatch( getMissionSuccess( response, card ) );
       dispatch( missionConfirmOpen( type ) );
     })
     .catch(error => dispatch( getMissionFail( error )));
   }
 }
 
-export function getMissionSuccess({data}) {
+export function getMissionSuccess({ data }, card) {
   return {
     type: MISSION_GET_INFO_SUCCESS,
     mission: data,
+    currentCard: card,
   };
 };
 
@@ -275,10 +277,11 @@ export default createReducer(initialState, {
       cardList
     };
   },
-  [MISSION_GET_INFO_SUCCESS](state, {mission, cardList}) {
+  [MISSION_GET_INFO_SUCCESS](state, { mission, currentCard }) {
     return {
       ...state,
       mission,
+      currentCard,
     }
   },
   [MISSION_GET_UPDATES_SUCCESS](state, { announcements }) {
