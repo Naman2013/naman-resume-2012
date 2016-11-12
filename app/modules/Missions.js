@@ -68,7 +68,8 @@ export function missionGetCards() {
 
 export function missionGetInfo(card, type) {
   return (dispatch, getState) => {
-    let { token, at, cid } = getState().user.user;
+    const { token, at, cid } = getState().user.user;
+
     return axios.post('/api/recommends/getNextPiggyback', {
       uniqueId: card.uniqueId,
       objectId: card.astroObjectId,
@@ -83,8 +84,8 @@ export function missionGetInfo(card, type) {
       cid,
     })
     .then(response => {
-      dispatch( getMissionSuccess(response) );
-      dispatch( missionConfirmOpen(type) );
+      dispatch( getMissionSuccess( response ) );
+      dispatch( missionConfirmOpen( type ) );
     })
     .catch(error => dispatch( getMissionFail( error )));
   }
@@ -278,11 +279,8 @@ export default createReducer(initialState, {
     };
   },
   [MISSION_GET_INFO_SUCCESS](state, {mission, cardList}) {
-    const uniqueId = mission.missionList[0].uniqueId;
-    const newCardList = state.cardList.findIndex((el, index, arr) => el.uniqueId === uniqueId ? arr[index] = mission.missionList[0] : false);
     return {
       ...state,
-      cardList: state.cardList,
       mission,
     }
   },
