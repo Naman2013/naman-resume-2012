@@ -1,4 +1,7 @@
+@import '../../styles/variables/fonts.scss';
+
 .missionCard {
+  font-family: $primary-font;
   position: relative;
 
   .cardIcon path {
@@ -7,22 +10,39 @@
 }
 
 .missionCard.featured {
-  color: #fff;
-  padding: 20px 10px 20px 150px;
-  background: url('../../../assets/images/graphics/Running-Man-nebula-Ngc-1977.png') no-repeat left top #424242;
-  height: 366px;
-  margin-bottom: 15px;
+
+  background: #4c4c4c; /* Old browsers */
+  background: -moz-linear-gradient(-45deg,  #4c4c4c 0%, #131313 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(-45deg,  #4c4c4c 0%,#131313 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(135deg,  #4c4c4c 0%,#131313 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', endColorstr='#131313',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+  padding: 0;
+  margin-bottom: 10px;
+
+  .card-content-container {
+    background-image: url('../../../assets/images/graphics/Running-Man-nebula-Ngc-1977.png');
+    background-repeat: no-repeat;
+    background-position: left 50%;
+
+    color: #fff;
+    padding: 20px 10px 5px 150px;
+  }
+
+
   h2 {
     margin-top: 0;
     font-size: 32px;
   }
+
   .cardsubTitle {
     overflow: hidden;
     margin: 5px 0;
+
     img {
       float: left;
       width: 34px;
     }
+
     h3 {
       float: left;
       color: #fff;
@@ -32,27 +52,48 @@
     }
   }
 
+  .cardDescription {
+    font-family: $secondary-font;
+  }
+
   p {
     font-size: 17px;
   }
 
   .join-mission-callout {
-    margin: 15px 0;
+    margin: 20px 0 10px 0;
     font-size: 17px;
+
     h5 {
-      margin: 0 0 5px 0;
+      margin: 0 0 10px 0;
+    }
+
+    .call-to-action-content {
+      h5 {
+        margin: 0;
+      }
+
+      p {
+        margin-bottom: 10px;
+      }
     }
   }
 
   .callOut {
+    text-transform: uppercase;
+    font-weight: 500;
+    font-size: 26px;
     position: absolute;
     left: 0;
     top: 39%;
-    font-size: 35px;
     width: 100px;
     line-height: 1;
     text-align: center;
     display: inline-block;
+
+    .first-word {
+      font-size: 20px;
+    }
   }
 }
 
@@ -110,7 +151,7 @@
   -o-transition:all 0.1s ease-in;
   transition:all 0.1s ease-in;
   display: inline-block;
-  margin: 15px auto;
+  margin: 0;
 
   &:hover {
     background-color: #111;

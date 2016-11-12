@@ -47,7 +47,7 @@ class NewMissionCard extends Component {
   handleMakeReservationClick(event) {
     event.preventDefault();
     const { openModal, card } = this.props;
-    openModal(card);
+    openModal(card, 'reserve');
   }
 
   renderCallToAction() {
@@ -63,14 +63,16 @@ class NewMissionCard extends Component {
 
       return(
         <div>
-          <h5>Set up a new mission</h5>
-          <p>
-            <strong>{ EST_start }</strong>:
-              {
-                !featured ? <br /> : null
-              }
-              { EST_start_time } EST · { PST_start_time } PST · { UTC_start_time } UTC
-          </p>
+          <div className="call-to-action-content">
+            <h5>Set up a new mission</h5>
+            <p>
+              <strong>{ EST_start }</strong>:
+                {
+                  !featured ? <br /> : null
+                }
+                { EST_start_time } EST · { PST_start_time } PST · { UTC_start_time } UTC
+            </p>
+          </div>
           <Link
               className={ styles.piggybackCta }
               to="#"
@@ -104,21 +106,28 @@ class NewMissionCard extends Component {
     });
 
     return (
-      <div className={newMissionCardContainerClasses}>
-        { featured ? <span className="callOut">Don't Miss</span> : null }
+      <div className={ newMissionCardContainerClasses }>
 
-        <h2>{ headline }</h2>
+        <div className="card-content-container">
+          {
+            featured ?
+            <span className="callOut"><span className="first-word">Don't</span> Miss</span> : null
+          }
 
-        <div className={ styles.cardsubTitle }>
-          <img className={ styles.cardIcon } src="assets/icons/Jupiter.svg" />
-          <h3>{ title }</h3>
+          <h2>{ headline }</h2>
+
+          <div className={ styles.cardsubTitle }>
+            <img className={ styles.cardIcon } src="assets/icons/Jupiter.svg" />
+            <h3>{ title }</h3>
+          </div>
+
+          <p className={ styles.cardDescription }>{ description }</p>
+
+          <div className="join-mission-callout">
+            { this.renderCallToAction() }
+          </div>
         </div>
 
-        <p>{ description }</p>
-
-        <div className="join-mission-callout">
-          { this.renderCallToAction() }
-        </div>
       </div>
     );
   }
