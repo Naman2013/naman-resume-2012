@@ -18,7 +18,7 @@ function mapStateToProps({ missions }) {
 @connect(mapStateToProps, mapDispatchToProps)
 
 
-export default class ReserveConfirm extends React.Component {
+class ReserveConfirm extends React.Component {
 
   constructor(props) {
     super(props)
@@ -62,17 +62,25 @@ export default class ReserveConfirm extends React.Component {
   }
 
   render () {
-    const suggestions = ["mars", "jupiter", "moon", "saturn"];
+    const suggestions = ['mars', 'jupiter', 'moon', 'saturn'];
+    const { mission,
+            currentCard,
+            open,
+            closeModal } = this.props;
+
+    const { title, headline } = currentCard;
+
+    // TODO: finish adding the remaining bits of data for making the reservation
 
     return (
-      <Modal show={this.props.mission.isConfirmationOpen} className="missionModal reserveMissionModal">
+      <Modal show={ open } className="missionModal reserveMissionModal">
         <div className="title-bar">
           <h3>Please complete your reservation form within 04:47</h3>
         </div>
         <Modal.Header>
           <h1>You’re reserving the Canary Islands 1 Telescope to see:</h1>
           <img className={styles.cardIcon} src="assets/icons/Jupiter.svg" />
-          <h2>Andromeda Galaxy (M31)</h2>
+          <h2>{ title }</h2>
         </Modal.Header>
 
         <Modal.Body>
@@ -107,3 +115,5 @@ export default class ReserveConfirm extends React.Component {
     )
   }
 }
+
+export default ReserveConfirm;
