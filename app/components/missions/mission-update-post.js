@@ -4,14 +4,14 @@ import moment from 'moment';
 import Markdown from 'react-remarkable';
 
 const MissionUpdatePost = (props) => {
-  const {update} = props;
-  const pubDate = moment.unix(update.start).format('MMM Do, YYYY hh:mm A');
+  const { update } = props;
+  const pubDate = moment.unix(update.start).format('MMMM Do, YYYY h:mm A');
 
   return (
-    <div className={styles.singleMissionUpdate}>
-      <h5>{pubDate}</h5>
+    <div className={ styles.singleMissionUpdate }>
+      <h5>{ pubDate }</h5>
       <h6 className="byLine">from <em><Markdown source={update.author} /></em></h6>
-      <p>{update.text}</p>
+      <p>{ update.text }</p>
     </div>
   )
 }
