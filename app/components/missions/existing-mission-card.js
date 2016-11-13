@@ -74,23 +74,24 @@ class ExistingMissionCard extends Component {
     const startTime = piggyback.missionStart;
     const featured = card.cardType == 2;
 
-    const EST_start = moment.unix(startTime).utcOffset(-5, false).format("dddd, MMMM Do");
-    const EST_start_time = moment.unix(startTime).utcOffset(-5, false).format("hh:mm a");
-    const PST_start_time = moment.unix(startTime).utcOffset(-8, false).format("hh:mm a");
-    const UTC_start_time = moment.unix(startTime).format("hh:mm a");
+    const EST_start = moment.unix(startTime).utcOffset(-5, false).format('dddd, MMMM Do');
+    const EST_start_time = moment.unix(startTime).utcOffset(-5, false).format('h:mma');
+    const PST_start_time = moment.unix(startTime).utcOffset(-8, false).format('h:mma');
+    const UTC_start_time = moment.unix(startTime).format('hh:mm');
 
     const startMissionTime = () => {
       return(
-        <p>
-          <strong>{EST_start}</strong>: { !featured ? <br /> : null} { EST_start_time } EST · { PST_start_time } PST · { UTC_start_time } UTC
+        <p className="start-time">
+          <strong>{EST_start}</strong>
+          { !featured ? <br /> : null} { EST_start_time } EST <span className="highlight">&middot;</span> { PST_start_time } PST <span className="highlight">&middot;</span> { UTC_start_time } UTC
         </p>
       );
     }
 
     const missionAvailable = () => {
       return (
-        <div>
-          <h5>Join an existing mission</h5>
+        <div className="mission-available">
+          <h5 className="title">Join an <i>existing</i> mission</h5>
           { startMissionTime() }
           <a
             className={ styles.piggybackCta }
