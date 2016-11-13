@@ -68,16 +68,6 @@
     h5 {
       margin: 0 0 10px 0;
     }
-
-    .call-to-action-content {
-      h5 {
-        margin: 0;
-      }
-
-      p {
-        margin-bottom: 10px;
-      }
-    }
   }
 
   .callOut {
@@ -156,18 +146,29 @@
 
   .join-mission-callout {
     position: absolute;
-    bottom: 24px;
+    bottom: 15px;
     left: 50%;
     transform: translateX(-50%);
     width: 100%;
 
-    h5 {
-      font-size: 16px;
-    }
+    .mission-available {
+      margin: 0;
 
-    p {
-      font-family: $primary-font;
-      margin-bottom: 20px;
+      .title {
+        font-size: 18px;
+        font-weight: 300;
+        margin: 0 0 5px 0;
+      }
+
+      .start-time {
+        font-family: $primary-font;
+        font-size: 18px;
+        margin-bottom: 10px;
+      }
+
+      .hightlight {
+        color: $pink;
+      }
     }
   }
 }
@@ -186,7 +187,13 @@
   -o-transition:all 0.1s ease-in;
   transition:all 0.1s ease-in;
   display: inline-block;
-  margin: 0;
+  margin: 10px 0 0 0;
+
+  &:hover {
+    background-color: #111;
+    color: #fff;
+    text-decoration: none;
+  }
 
   &:focus {
     color: #fff;

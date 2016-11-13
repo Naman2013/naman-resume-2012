@@ -1,4 +1,7 @@
+@import "../../styles/variables/fonts.scss";
+
 .widget-container {
+  font-family: $primary-font;
   margin-bottom: 15px;
 
   .cardsubTitle {

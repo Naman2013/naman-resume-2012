@@ -6,7 +6,7 @@ const MissionUpcoming = () => {
     <div className="widget-container mission-upcoming">
       <div className="widget-header">
         <img src="assets/images/graphics/peter.jpg" />
-        <h2>Peter&rsquo;s upcoming mission</h2>
+        <h2>Peter&rsquo;s Upcoming Mission</h2>
       </div>
 
       <div className="cardsubTitle">
