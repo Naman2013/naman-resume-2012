@@ -57,34 +57,33 @@ class NewMissionCard extends Component {
     if(missionAvailable) {
 
       const EST_start = moment.unix(missionStart).utcOffset(-5, false).format('dddd, MMMM Do');
-      const EST_start_time = moment.unix(missionStart).utcOffset(-5, false).format('hh:mm a');
-      const PST_start_time = moment.unix(missionStart).utcOffset(-8, false).format('hh:mm a');
-      const UTC_start_time = moment.unix(missionStart).format('hh:mm a');
+      const EST_start_time = moment.unix(missionStart).utcOffset(-5, false).format('h:mma');
+      const PST_start_time = moment.unix(missionStart).utcOffset(-8, false).format('h:mma');
+      const UTC_start_time = moment.unix(missionStart).format('HH:mm');
 
       return(
         <div>
-          <div className="call-to-action-content">
-            <h5>Set up a new mission</h5>
-            <p>
-              <strong>{ EST_start }</strong>:
-                {
-                  !featured ? <br /> : null
-                }
-                { EST_start_time } EST · { PST_start_time } PST · { UTC_start_time } UTC
+          <div className="mission-available">
+            <h5 className="title">Set up a new mission</h5>
+            <p className="start-time">
+              <strong>{ EST_start }{ featured ? ':' : '' }</strong>
+              { !featured ? <br /> : null} { EST_start_time } EST <span className="highlight">&middot;</span> { PST_start_time } PST <span className="highlight">&middot;</span> { UTC_start_time } UTC
             </p>
           </div>
           <Link
-              className={ styles.piggybackCta }
-              to="#"
-              onClick={ this.handleMakeReservationClick }>
-              Make Reservation
+            className={ styles.piggybackCta }
+            to="#"
+            onClick={ this.handleMakeReservationClick }>
+            Make Reservation
           </Link>
         </div>
       );
     }
 
     return(
-      <p className="no-mission-available">No mission is available at this time.</p>
+      <div>
+        <h5>No mission is available at this time.</h5>
+      </div>
     );
   }
 
