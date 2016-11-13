@@ -28,10 +28,13 @@ class PiggyBackConfirm extends Component {
     const { missionStart } = currentMission;
     const { title, headline } = currentCard;
 
+    /**
+      starttime is provided in UTC format
+    */
     const EST_start = moment.unix(missionStart).utcOffset(-5, false).format('dddd, MMMM Do');
-    const EST_start_time = moment.unix(missionStart).utcOffset(-5, false).format('hh:mm a');
-    const PST_start_time = moment.unix(missionStart).utcOffset(-8, false).format('hh:mm a');
-    const UTC_start_time = moment.unix(missionStart).format('hh:mm a');
+    const EST_start_time = moment.unix(missionStart).utcOffset(-5, false).format('h:mma');
+    const PST_start_time = moment.unix(missionStart).utcOffset(-8, false).format('h:mma');
+    const UTC_start_time = moment.unix(missionStart).format('HH:mm');
 
     return (
       <Modal show={ open } className={ styles.missionModal }>
