@@ -199,6 +199,12 @@
   display: inline-block;
   margin: 0;
 
+  &:hover {
+    background-color: #111;
+    color: #fff;
+    text-decoration: none;
+  }
+
   &:focus {
     color: #fff;
     text-decoration: none;
