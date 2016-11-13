@@ -74,10 +74,13 @@ class ExistingMissionCard extends Component {
     const startTime = piggyback.missionStart;
     const featured = card.cardType == 2;
 
+    /**
+      starttime is provided in UTC format
+    */
     const EST_start = moment.unix(startTime).utcOffset(-5, false).format('dddd, MMMM Do');
     const EST_start_time = moment.unix(startTime).utcOffset(-5, false).format('h:mma');
     const PST_start_time = moment.unix(startTime).utcOffset(-8, false).format('h:mma');
-    const UTC_start_time = moment.unix(startTime).format('hh:mm');
+    const UTC_start_time = moment.unix(startTime).format('HH:mm');
 
     const startMissionTime = () => {
       return(
