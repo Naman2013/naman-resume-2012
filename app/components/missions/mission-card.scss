@@ -55,6 +55,12 @@
 
   .cardDescription {
     font-family: $secondary-font;
+    height: 70px;
+    overflow: hidden;
+
+    &:after {
+      content: "&hellip;";
+    }
   }
 
   p {
@@ -97,7 +103,7 @@
 
   .card-content-container {
     background: #fff;
-    height: 500px;
+    height: 375px;
     cursor: pointer;
     -webkit-transition: box-shadow 0.15s ease-in;
     -moz-transition: box-shadow 0.15s ease-in;
@@ -127,7 +133,7 @@
     text-overflow: ellipsis;
     padding: 9px 10px;
     height: 34px;
-    margin-bottom: 15px;
+    margin-bottom: -14px;
     background-repeat: repeat-x;
   }
 
@@ -146,7 +152,7 @@
 
   .join-mission-callout {
     position: absolute;
-    bottom: 15px;
+    bottom: 10px;
     left: 50%;
     transform: translateX(-50%);
     width: 100%;
@@ -163,7 +169,6 @@
       .start-time {
         font-family: $primary-font;
         font-size: 18px;
-        margin-bottom: 10px;
       }
 
       .hightlight {
@@ -187,7 +192,6 @@
   -o-transition:all 0.1s ease-in;
   transition:all 0.1s ease-in;
   display: inline-block;
-  margin: 10px 0 0 0;
 
   &:hover {
     background-color: #111;
