@@ -55,12 +55,6 @@
 
   .cardDescription {
     font-family: $secondary-font;
-    height: 70px;
-    overflow: hidden;
-
-    &:after {
-      content: "&hellip;";
-    }
   }
 
   p {
@@ -127,13 +121,12 @@
     background: url('../../../assets/images/graphics/stripofstars.jpg') no-repeat;
     color: #fff;
     font-size: 14px;
-    margin: 0;
+    margin: 0 0 10px 0;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    padding: 9px 10px;
+    padding: 10px;
     height: 34px;
-    margin-bottom: -14px;
     background-repeat: repeat-x;
   }
 
@@ -148,11 +141,16 @@
     color: #3C4A55;
     padding: 0 30px;
     line-height: 1.5;
+    height: 75px;
+    overflow: hidden;
+      &:after {
+        content: "&hellip;";
+      }
   }
 
   .join-mission-callout {
     position: absolute;
-    bottom: 10px;
+    bottom: 18px;
     left: 50%;
     transform: translateX(-50%);
     width: 100%;
