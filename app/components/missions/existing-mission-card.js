@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import classnames from 'classnames';
 import moment from 'moment';
+import _ from 'lodash';
 
 import styles from './mission-card.scss';
 import { grabPiggyback } from '../../modules/Piggyback';
@@ -150,7 +151,13 @@ class ExistingMissionCard extends Component {
             <h3>{ card.title }</h3>
           </div>
 
-          <p className={ styles.cardDescription }>{ card.description }</p>
+          {
+            featured ?
+              <p className={ styles.cardDescription }>{ card.description }</p>
+              :
+              <p className={ styles.cardDescription }>{ _.truncate(card.description, { 'length': 130, 'separator': ' ' }) }</p>
+          }
+
 
           <div className="join-mission-callout">
             { piggyback.missionAvailable ? missionAvailable() : missionNotAvailable() }

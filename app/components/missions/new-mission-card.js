@@ -5,6 +5,7 @@ import { Link } from 'react-router';
 import classnames from 'classnames';
 import styles from './mission-card.scss';
 import moment from 'moment';
+import _ from 'lodash';
 
 import { updateSingleReservations } from '../../modules/Missions';
 
@@ -120,7 +121,12 @@ class NewMissionCard extends Component {
             <h3>{ title }</h3>
           </div>
 
-          <p className={ styles.cardDescription }>{ description }</p>
+          {
+            featured ?
+              <p className={ styles.cardDescription }>{ description }</p>
+              :
+              <p className={ styles.cardDescription }>{ _.truncate(description, { 'length': 130, 'separator': ' ' }) }</p>
+          }
 
           <div className="join-mission-callout">
             { this.renderCallToAction() }
