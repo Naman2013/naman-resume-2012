@@ -1,39 +1,23 @@
 import React from 'react';
 import styles from './mission-sidebar.scss';
 
-const getContent = (upcomingMission) => {
-  if (upcomingMission) {
-    return (
-      <div>
-        <div className="cardsubTitle">
-          <img className={styles.cardIcon} src={upcomingMission.missionIcon} />
-          <h3>{upcomingMission.missionTitle}</h3>
-        </div>
+const NoContentAvailable = () => <span className="no-upcoming">No upcoming missions</span>;
 
-        <div className="upcoming-mission-date">
-          <strong>{upcomingMission.missionDate}</strong><br />
-          {upcomingMission.missionTime}
-        </div>
-
-        <a href="#" className="btn btn-primary">View Reservations</a>
-      </div>
-    );
-  } else {
-    return <span className="no-upcoming">No upcoming missions</span>;
-  }
-}
-
-const getWidgetContent = (upcomingMission, user) => {
+const UpcomingContent = ({ content }) => {
   return (
-    <div className="widget-container mission-upcoming">
-      <div className="widget-header">
-        <img src={user.avatarUrl} />
-        <h2>{user.name}&rsquo;s Upcoming Mission</h2>
+    <div>
+      <div className="cardsubTitle">
+        <img className={styles.cardIcon} src={content.missionIcon} />
+        <h3>{content.missionTitle}</h3>
       </div>
-      {
-        getContent(upcomingMission) 
-      }      
-    </div>      
+
+      <div className="upcoming-mission-date">
+        <strong>{content.missionDate}</strong><br />
+        {content.missionTime}
+      </div>
+
+      <a href="#" className="btn btn-primary">View Reservations</a>
+    </div>
   );
 }
 
@@ -51,7 +35,20 @@ const MissionUpcoming = (props) => {
     }
   } = props;  
   
-  return getWidgetContent(upcomingMission, user);
+  return (
+    <div className="widget-container mission-upcoming">
+      <div className="widget-header">
+        <img src={user.avatarUrl} />
+        <h2>{user.name}&rsquo;s Upcoming Mission</h2>
+      </div>
+      {
+        upcomingMission ?
+          <UpcomingContent content={upcomingMission} />
+          :
+          <NoContentAvailable />
+      }      
+    </div>      
+  );
 }
 
 export default MissionUpcoming;
