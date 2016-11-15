@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import ReserveObjectsCategory from '../../components/reserve/reserve-by-object-category';
 import styles from '../../components/reserve/reserve-by-object.scss';
+import testData from './reserve-by-objects-data.js'
 
 class ReserveObjects extends Component {
   render() {
