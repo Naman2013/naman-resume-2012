@@ -117,8 +117,8 @@ class ExistingMissionCard extends Component {
         )
       } else {
         return (
-          <div>
-            <h5>No existing missions are available</h5>
+          <div className="mission-unavailable">
+            <h5 className="title">No existing missions are available</h5>
             <Link
               className={styles.piggybackCta}
               to="/reservations/slooh-recommends/new">

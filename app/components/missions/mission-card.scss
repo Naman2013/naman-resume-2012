@@ -152,6 +152,17 @@
     transform: translateX(-50%);
     width: 100%;
 
+    .mission-unavailable {
+
+      .title {
+        font-size: 18px;
+        font-weight: 300;
+        margin: 0 0 5px 0;
+        position: relative;
+        top: -20px;
+      }
+    }
+
     .mission-available {
       margin: 0;
 
