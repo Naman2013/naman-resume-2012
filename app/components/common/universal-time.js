@@ -60,7 +60,7 @@ class UniversalTime extends Component {
           closeModal={ this.handleToggleModal }
           open={ displayUTCModal }
           title={`What is UTC?`}
-          description={`Coordinated Universal Time (French: Temps universel coordonné), abbreviated as UTC, is the primary time standard by which the world regulates clocks and time. ... It is one of several closely related successors to Greenwich Mean Time (GMT).`}
+          description={`Coordinated Universal Time (UTC) is the time standard used by astronomers and Slooh to coordinate the timing of observations from different locations around the world.`}
         />
       </div>
     )
