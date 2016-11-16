@@ -1,28 +1,46 @@
 import React, {Component} from 'react';
 import ReserveObjectsCategory from '../../components/reserve/reserve-by-object-category';
 import styles from '../../components/reserve/reserve-by-object.scss';
-import testData from './reserve-by-objects-data.js'
+import testData from './reserve-by-objects-data.js';
+import _ from 'lodash';
 
 class ReserveObjects extends Component {
+  constructor(props) {
+    super(props);
+    
+    this.state = {    
+      category: null,
+      object: null
+    };
+  }
 
-  onItemClick(itemType) {
-    return (item) => {
-      console.log('clicked: ', item);
-      // TODO: find out how to update the state. redux?
-    }
+  onItemClick(itemType, item, event) {
+    let update = {};
+    update[itemType] = item;
+    this.setState(update);
+    
+    console.log('clicked: ', update, this.state);
+    // TODO: do this with redux
   }
 
   render() {
+    const selectedCategory = this.state.category && _.find(
+      testData.categories,
+      { title: this.state.category.title }
+    ) || {};
+
+    const clickHandler = _.curry(this.onItemClick.bind(this));
+
     return (
       <div className={styles.reserveObjectPage}>
         <div className="row">
           <div className="col-md-4">
             <h2><span>1</span> Select Category</h2>
-            <ReserveObjectsCategory items={testData.categories} onClickHandler={this.onItemClick('category')}/>
+            <ReserveObjectsCategory items={testData.categories} onClickHandler={clickHandler('category')}/>
           </div>
           <div className="col-md-4">
             <h2><span>2</span> Choose Specific Object</h2>
-            <ReserveObjectsCategory onClickHandler={this.onItemClick('object')} />
+            <ReserveObjectsCategory items={selectedCategory.objects} onClickHandler={clickHandler('object')} />
           </div>
           <div className="col-md-4">
             <h2><span>3</span> Object Summary</h2>
