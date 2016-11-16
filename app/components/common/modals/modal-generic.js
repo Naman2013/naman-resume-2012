@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { Modal, Button } from 'react-bootstrap';
+import style from './modal-generic.scss';
 
 class ModalGeneric extends Component {
   render() {
@@ -8,13 +9,14 @@ class ModalGeneric extends Component {
     return(
       <Modal
         show={ open }
-        className="missionModal reserveMissionModal">
+        className="generic-modal">
+
+        <Modal.Header>
+          <h1 className="title">{ title }</h1>
+        </Modal.Header>
 
         <Modal.Body>
-          <div className="mission-schedule">
-            <h4>{ title }</h4>
-            <p>{ description }</p>
-          </div>
+          <p className="body">{ description }</p>
         </Modal.Body>
 
         <Modal.Footer>
