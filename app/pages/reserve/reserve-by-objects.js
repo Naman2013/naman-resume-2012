@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import ReserveObjectsCategory from '../../components/reserve/reserve-by-object-category';
 import ReserveObjectsList from '../../components/reserve/reserve-by-object-list';
+import ReserveObjectsSummary from '../../components/reserve/reserve-by-object-summary';
 import styles from '../../components/reserve/reserve-by-object.scss';
 import testData from './reserve-by-objects-data.js';
 import _ from 'lodash';
@@ -45,7 +46,7 @@ class ReserveObjects extends Component {
           </div>
           <div className="col-md-4">
             <h2><span>3</span> Object Summary</h2>
-            <ReserveObjectsCategory />
+            <ReserveObjectsSummary />
           </div>
         </div>
 

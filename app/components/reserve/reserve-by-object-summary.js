@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './reserve-by-object.scss';
 
-const ReserveObjectsCategory = (props) => {
+const ReserveObjectSummary = (props) => {
   return (
     <div className={styles.objectCategories}>
       Summary...
@@ -9,4 +9,4 @@ const ReserveObjectsCategory = (props) => {
   );
 }
 
-export default ReserveObjectsCategory;
+export default ReserveObjectSummary;
