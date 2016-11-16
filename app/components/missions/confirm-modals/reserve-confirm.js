@@ -78,26 +78,26 @@ class ReserveConfirm extends React.Component {
           <h3>Please complete your reservation form within 04:47</h3>
         </div>
         <Modal.Header>
-          <h1>You’re reserving the Canary Islands 1 Telescope to see:</h1>
+          <h1 className="title-secondary">You’re reserving the Canary Islands 1 Telescope to see:</h1>
           <img className={styles.cardIcon} src="assets/icons/Jupiter.svg" />
-          <h2>{ title }</h2>
+          <h2 className="mission-title">Jupiter</h2>
         </Modal.Header>
 
         <Modal.Body>
           <div className="mission-schedule">
             <h4>Mission Details:</h4>
-            <p>Thursday, October 18th 10:05pm EST, 7:05pm PST, 3:05 UTC</p>
+            <p>Thursday, October 18th &middot; 10:05pm EST &middot; 7:05pm PST &middot; 3:05 UTC</p>
           </div>
 
           <div className="share-objectives">
             <h4>SHARE YOUR MISSION OBJECTIVES:</h4>
-            <textarea placeholder="It’s optional, but would you consider succinctly describing your thoughts on the mission? Anything goes, tweet style."
+            <textarea className="mission-objectives" placeholder="It’s optional, but would you consider succinctly describing your thoughts on the mission? Anything goes, tweet style."
               value={ this.state.objective }
               onChange={ this.handleChangeObject }></textarea>
           </div>
 
           <div className="mission-tags">
-            <h4>MISSION TAGS:</h4>
+            <h4 className="title">MISSION TAGS:</h4>
               <ReactTags tags={ this.state.tags }
                 suggestions={ suggestions }
                 handleDelete={ this.handleDelete }
