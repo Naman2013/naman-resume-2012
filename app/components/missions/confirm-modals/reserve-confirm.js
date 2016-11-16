@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component, PropTypes } from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import { WithContext as ReactTags } from 'react-tag-input';
 import { bindActionCreators } from 'redux';
@@ -6,19 +6,12 @@ import { connect } from 'react-redux';
 import styles from '../mission-modals.scss';
 
 
-function mapDispatchToProps(dispatch) {
-  return {
-  };
-}
-
 function mapStateToProps({ missions }) {
   return { missions };
 }
 
-@connect(mapStateToProps, mapDispatchToProps)
-
-
-class ReserveConfirm extends React.Component {
+@connect(mapStateToProps)
+class ReserveConfirm extends Component {
 
   constructor(props) {
     super(props)
@@ -42,7 +35,7 @@ class ReserveConfirm extends React.Component {
   }
 
   handleChangeObject(event) {
-    this.setState({objective: event.target.value});
+    this.setState({ objective: event.target.value });
   }
 
   handleDelete(){
@@ -63,14 +56,24 @@ class ReserveConfirm extends React.Component {
 
   render () {
     const suggestions = ['mars', 'jupiter', 'moon', 'saturn'];
-    const { mission,
-            currentCard,
-            open,
-            closeModal } = this.props;
+    const {
+      mission,
+      currentCard,
+      open,
+      closeModal } = this.props;
 
     const { title, headline } = currentCard;
 
-    // TODO: finish adding the remaining bits of data for making the reservation
+    console.group('Reserve Confirmation card');
+    console.log(currentCard);
+    console.groupEnd();
+
+    // TODO: finish the timer
+    // TODO: add in the telescope reservation info
+    // TODO: tie in the object icon
+    // TODO: tie in the object name
+    // TODO: tie in the mission time and date
+    // TODO: make the reservation
 
     return (
       <Modal show={ open } className="missionModal reserveMissionModal">
@@ -115,5 +118,7 @@ class ReserveConfirm extends React.Component {
     )
   }
 }
+
+ReserveConfirm.propTypes = {};
 
 export default ReserveConfirm;
