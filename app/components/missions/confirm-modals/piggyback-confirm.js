@@ -39,22 +39,22 @@ class PiggyBackConfirm extends Component {
     return (
       <Modal show={ open } className={ styles.missionModal }>
         <Modal.Header>
-          <h1>Strap yourself in</h1>
-          <h2>Your are joining a pre-scheduled mission to:</h2>
+          <h1 className="title">Strap yourself in</h1>
+          <h2 className="title-secondary">Your are joining a pre-scheduled mission to:</h2>
         </Modal.Header>
         <Modal.Body>
 
           <div className="mission-name">
             <img className={styles.cardIcon} src="assets/icons/Jupiter.svg" />
             <h4>{ title }</h4>
-            <p>{ headline }</p>
+            <p className="headline">{ headline }</p>
           </div>
 
           <div className="mission-schedule">
             <h4>Mission Details:</h4>
             <p>
               { EST_start }<br />
-              { EST_start_time } EST, { PST_start_time } PST, { UTC_start_time } UTC<br />
+              { EST_start_time } EST &middot; { PST_start_time } PST &middot; { UTC_start_time } UTC<br />
               Canary Islands
             </p>
           </div>
