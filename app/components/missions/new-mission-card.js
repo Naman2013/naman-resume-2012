@@ -65,7 +65,6 @@ class NewMissionCard extends Component {
       return(
         <div>
           <div className="mission-available">
-            <h5 className="title">Set up a new mission</h5>
             <p className="start-time">
               <strong>{ EST_start }{ featured ? ':' : '' }</strong>
               { !featured ? <br /> : null} { EST_start_time } EST <span className="highlight">&middot;</span> { PST_start_time } PST <span className="highlight">&middot;</span> { UTC_start_time } UTC
@@ -81,11 +80,7 @@ class NewMissionCard extends Component {
       );
     }
 
-    return(
-      <div>
-        <h5>No mission is available at this time.</h5>
-      </div>
-    );
+    return null;
   }
 
   render() {
@@ -126,6 +121,13 @@ class NewMissionCard extends Component {
               <p className={ styles.cardDescription }>{ description }</p>
               :
               <p className={ styles.cardDescription }>{ _.truncate(description, { 'length': 130, 'separator': ' ' }) }</p>
+          }
+
+          {
+            missionAvailable ?
+              <h5 className="mission-status">Set up a new mission</h5>
+              :
+              <h5 className="mission-status">No mission is available at this time.</h5>
           }
 
           <div className="join-mission-callout">

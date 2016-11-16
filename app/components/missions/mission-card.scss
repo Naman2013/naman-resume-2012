@@ -55,14 +55,21 @@
 
   .cardDescription {
     font-family: $secondary-font;
+    font-size: 17px;
+    margin-bottom: 20px;
   }
 
-  p {
+  .mission-status {
+    margin: 0 0 5px 0;
+  }
+
+  .start-time {
     font-size: 17px;
+    margin-bottom: 10px;
   }
 
   .join-mission-callout {
-    margin: 20px 0 10px 0;
+    margin: 0 0 10px 0;
     font-size: 17px;
 
     h5 {
@@ -115,6 +122,12 @@
         text-decoration: none;
       }
     }
+
+    .mission-status {
+      font-size: 18px;
+      font-weight: 300;
+      margin: 0;
+    }
   }
 
   h2 {
@@ -142,6 +155,7 @@
     padding: 0 30px;
     line-height: 1.5;
     height: 75px;
+    margin-bottom: 20px;
     overflow: hidden;
   }
 

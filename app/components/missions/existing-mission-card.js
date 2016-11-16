@@ -95,7 +95,6 @@ class ExistingMissionCard extends Component {
     const missionAvailable = () => {
       return (
         <div className="mission-available">
-          <h5 className="title">Join an <i>existing</i> mission</h5>
           { startMissionTime() }
           <a
             className={ styles.piggybackCta }
@@ -117,8 +116,7 @@ class ExistingMissionCard extends Component {
         )
       } else {
         return (
-          <div>
-            <h5>No existing missions are available</h5>
+          <div className="mission-unavailable">
             <Link
               className={styles.piggybackCta}
               to="/reservations/slooh-recommends/new">
@@ -156,6 +154,13 @@ class ExistingMissionCard extends Component {
               <p className={ styles.cardDescription }>{ card.description }</p>
               :
               <p className={ styles.cardDescription }>{ _.truncate(card.description, { 'length': 130, 'separator': ' ' }) }</p>
+          }
+
+          {
+            piggyback.missionAvailable ?
+              <h5 className="mission-status">Join an <i>existing</i> mission</h5>
+              :
+              <h5 className="mission-status">No existing missions are available</h5>
           }
 
 

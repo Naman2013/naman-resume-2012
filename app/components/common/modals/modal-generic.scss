@@ -1,0 +1,43 @@
+@import "../../../styles/variables/fonts.scss";
+@import "../../../styles/variables/colors.scss";
+
+.generic-modal {
+  text-align: center;
+
+  .modal-header {
+
+    .title {
+      font-family: $secondary-font;
+      font-size: 48px;
+      font-weight: 300;
+      color: #9B9B9B;
+      margin: 40px 0 20px 0;
+      text-transform: capitalize;
+    }
+  }
+
+  .modal-footer {
+    border-top: 0;
+    display: flex;
+    justify-content: center;
+    width: 50%;
+    min-width: 320px;
+    margin: 0 auto;
+    padding: 0 0 20px 0;
+
+    .btn-primary {
+      width: 150px;
+    }
+  }
+
+  .modal-header,
+  .modal-body,
+  .modal-footer {
+    border: none;
+  }
+
+  .modal-content {
+    border-radius: 0;
+  }
+
+}
