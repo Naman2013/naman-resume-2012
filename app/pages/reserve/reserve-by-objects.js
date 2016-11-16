@@ -20,8 +20,7 @@ class ReserveObjects extends Component {
     let update = {};
     update[itemType] = item;
     this.setState(update);
-    
-    console.log('clicked: ', update, this.state);
+
     // TODO: do this with redux
   }
 
