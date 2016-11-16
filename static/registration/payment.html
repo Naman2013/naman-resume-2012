@@ -14,207 +14,190 @@
     <link rel="stylesheet" type="text/css" href="../assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="../assets/css/slooh-styles.css">
 
+
+    <!-- Latest compiled and minified JavaScript -->
+    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>-->
+
+    <script src="../assets/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+
 </head>
 
 <body id="slooh" class="registration payment">
+    <form>
 
+        <article class="page">
 
-
-    <header class="page white">
-        <h1 class="sloohlogo">
-            <img src="../assets/images/logos/sloohlogos/Logo-Slooh-White-C.svg">Slooh
+            <header class="page margin-bottom-huge">
+                <h1 class="sloohlogo">
+            <img src="../assets/images/logos/sloohlogos/Logo-Slooh-White-C.svg">
         </h1>
-        <h1>Make your payment.</h1>
-        <div class="text-medium white">Fill out your payment information</div>
-    </header>
-    
-    <form class="join">
+                <h1 class="margin-bottom-tiny">Make your payment.</h1>
+                <div class="margin-top-tiny center white">Fill out your payment information</div>
+            </header>
 
-        <section id="stage" class="">
+            <section class="row-xwide">
 
+                <article>
 
-            <article>
+                    <section class="col-md-3">
 
-                <section class="col-md-3">
+                        <aside class="plan backdrop med center padding-reg">
 
-                    <article class="med backdrop text-center padding-reg">
+                            <header class="margin-top-med margin-bottom-med">
 
-                        <header class="margin-top-med margin-bottom-med">
+                                <object class="icon white" type="image/svg+xml" data="../assets/icons/astronaut-white.svg">
+                                    Your browser does not support SVG
+                                </object>
 
-                            <object class="icon white" type="image/svg+xml" data="../assets/icons/astronaut-white.svg">
-                                Your browser does not support SVG
-                            </object>
+                            </header>
 
-                        </header>
+                            <h3 class="center white text-med lighter">Apprentice</h3>
 
-                        <h3>Apprentice</h3>
+                            <div class="divider margin-top-reg margin-bottom-reg text-small">Your Plan</div>
 
-                        <div class="divider margin-top-reg margin-bottom-reg">Your Plan</div>
+                            <section class="backdrop light padding-med">
+                                <div class="text-xlarge"><sup>$</sup>4.95</div>
+                                <div class="divider text-small">Monthly | USD</div>
+                            </section>
 
-                        <section class="light backdrop padding-small">
-                            <p class="text-xlarge"><sup>$</sup>4.95</p>
-                            <p class="divider">Monthly | USD</p>
-                        </section>
+                            <div class="margin-top-med text-small">Renews [Date]</div>
 
-                        <div class="margin-top-med">Renews [Date]</div>
+                            <hr>
 
-                        <hr>
+                            <div class="text-small">Get a 30 Day free trial if you purchase right now.</div>
 
-                        <div class="">Get a 30 Day free trial if you purchase right now.</div>
+                            <hr class="shadow margin-bottom-med">
+                            <ul class="features-tight">
+                                <li>Public Shows</li>
+                                <li>Live Telescope Feeds</li>
+                                <li>Take Pictures</li>
+                                <li>5 Reservations <small>monthly</small> <i class="icon control info-white">info</i>
+                                </li>
+                                <li>Objects: Most Popular</li>
+                                <li>Video On Demand: All</li>
+                            </ul>
+                        </aside>
 
-                        <hr class="shadow margin-bottom-med">
+                    </section>
 
-                        <ul class="features">
-                            <li>Public Shows</li>
-                            <li>Live Telescope Feeds</li>
-                            <li>Take Photos</li>
-                            <li>5 Reservations monthly <i class="icon control info-white">info</i>
-                            </li>
-                            <li>Objects: Most Popular</li>
-                            <li>VOD: All</li>
-                        </ul>
-                    </article>
-
-                </section>
+                    <section class="col-md-8">
 
 
-                <section class="col-md-8">
+                        <fieldset class="border-top border-bottom info-block-row">
 
+                            <div class="info-block-half padding-med">
+                                <div class="">Choose Billing Preference:</div>
+                                <div class="text-small">Special: Pay Annualy to Save <em>[##]</em>%</div>
+                            </div>
 
-                    <fieldset class="border-top border-bottom info-block-row">
+                            <div class="border-left info-block-quarter">
+                                <label for="paycc" class="center vertical-center">
+                                    <input type="radio" name="payschedule" value="monthly" checked> <strong>Pay Monthly</strong>
+                                </label>
+                            </div>
+                            <div class="border-left info-block-quarter">
+                                <label for="paypp" class="center vertical-center">
+                                    <input type="radio" name="payschedule" value="annually"> Pay Annually</label>
+                            </div>
 
-                        <div class="border-right info-block-half">
-                            <h3 class="margin-top-reg">Choose Billing Preference:</h3>
-                            <div>Special: Pay Annualy to Save <em>[##]</em>%</div>
-                        </div>
+                        </fieldset>
 
-                        <div class="info-block-quarter">
-                            <label for="paycc" class="center-center">
-                                <input type="radio" name="payschedule" value="monthly" checked> <strong>Pay Monthly</strong>
+                        <fieldset class="clearfix border-bottom info-block-row margin-bottom-med">
+
+                            <div class="info-block-2third">
+                                <label for="paymonthly" class="vertical-center">
+                                    <input type="radio" name="paywith" value="creditcard" checked> Pay with Credit Card <img src="../assets/images/logos/cc.png" class="margin-left-small">
+                                </label>
+                            </div>
+
+                            <div class="border-left info-block-third ">
+                                <label for="payannually" class="center vertical-center">
+                                    <input type="radio" name="paywith" value="paypal" class=""> Pay with <img src="../assets/images/logos/pp.png">
+                                </label>
+                            </div>
+                        </fieldset>
+
+                        <fieldset class="clearfix form-group required">
+                            <label for="password">Credit Card Number</label>
+                            <input class="form-control input-lg" type="text" name="city">
+                        </fieldset>
+                        <fieldset class="form-group pull-left half-width required">
+                            <label class="" for="firstname">Expiration Date</label>
+                            <input class="form-control input-lg pull-left half-width-margin" type="text" name="expirationdatemonth" placeholder="MM">
+                            <input class="form-control input-lg half-width-margin" type="text" name="expirationdateyear" placeholder="YYYY">
+                        </fieldset>
+                        <fieldset class="form-group pull-left half-width required">
+                            <label class="" for="firstname">CVV2 <a href="">What is this?</a>
                             </label>
-                        </div>
-                        <div class="border-left info-block-quarter">
-                            <label for="paypp" class="center-center">
-                                <input type="radio" name="payschedule" value="annually"> Pay Annually</label>
-                        </div>
-
-                    </fieldset>
-
-                    <fieldset class="clearfix border-bottom info-block-row margin-bottom-med">
-
-                        <div class="info-block-2third">
-                            <label for="paymonthly" class="vertical-center">
-                                <input type="radio" name="paywith" value="creditcard" checked> Pay with Credit Card <img src="../assets/images/logos/cc.png" class="margin-left-med">
-                            </label>
-                        </div>
-
-                        <div class="border-left info-block-third ">
-                            <label for="payannually" class="center-center">
-                                <input type="radio" name="paywith" value="paypal" class=""> Pay with <img src="../assets/images/logos/pp.png">
-                            </label>
-                        </div>
-                    </fieldset>
-
-                    <fieldset class="clearfix form-group required">
-                        <label for="password">Credit Card Number</label>
-                        <input class="form-control input-lg" type="text" name="city">
-                    </fieldset>
-                    <fieldset class="form-group pull-left half-width required">
-                        <label class="" for="firstname">Expiration Date</label>
-                        <input class="form-control input-lg pull-left half-width-margin" type="text" name="expirationdatemonth" placeholder="MM">
-                        <input class="form-control input-lg half-width-margin" type="text" name="expirationdateyear" placeholder="YYYY">
-                    </fieldset>
-                    <fieldset class="form-group pull-left half-width required">
-                        <label class="" for="firstname">CVV2 <a href="">What is this?</a>
-                        </label>
-                        <input class="form-control input-lg" type="text" name="cvv2">
-                    </fieldset>
-                    <hr class="light">
-                    <h3 class="margin-bottom-med">Billing Information:</h3>
-                    <fieldset class="form-group pull-left half-width-margin required">
-                        <label class="" for="firstname">First Name</label>
-                        <input class="form-control input-lg" type="text" name="firstname">
-                    </fieldset>
-                    <fieldset class="form-group pull-right half-width required">
-                        <label class="" for="lastname">Last Name</label>
-                        <input class="form-control input-lg" type="text" name="lastname">
-                    </fieldset>
-                    <fieldset class="clearfix form-group required">
-                        <label class="" for="email">Street Address</label>
-                        <input class="form-control input-lg" type="email" name="streetaddress" placeholder="Street Address and Apt. #">
-                    </fieldset>
-                    <fieldset class="clearfix form-group required">
-                        <label for="password">City</label>
-                        <input class="form-control input-lg" type="text" name="city" placeholder="Enter our City">
-                    </fieldset>
-                    <div class="half-width">
+                            <input class="form-control input-lg" type="text" name="cvv2">
+                        </fieldset>
+                        <hr class="light">
+                        <h3>Billing Information:</h3>
                         <fieldset class="form-group pull-left half-width-margin required">
-                            <label for="firstname">State or Province</label>
+                            <label class="" for="firstname">First Name</label>
                             <input class="form-control input-lg" type="text" name="firstname">
                         </fieldset>
-                        <fieldset class="form-group pull-left half-width-margin required">
-                            <label class="" for="lastname">Zip or Postal Code</label>
+                        <fieldset class="form-group pull-right half-width required">
+                            <label class="" for="lastname">Last Name</label>
                             <input class="form-control input-lg" type="text" name="lastname">
                         </fieldset>
-                    </div>
+                        <fieldset class="clearfix form-group required">
+                            <label class="" for="email">Street Address</label>
+                            <input class="form-control input-lg" type="email" name="streetaddress" placeholder="Street Address and Apt. #">
+                        </fieldset>
+                        <fieldset class="clearfix form-group required">
+                            <label for="password">City</label>
+                            <input class="form-control input-lg" type="text" name="city" placeholder="Enter our City">
+                        </fieldset>
+                        <div class="half-width">
+                            <fieldset class="form-group pull-left half-width-margin required">
+                                <label for="firstname">State or Province</label>
+                                <input class="form-control input-lg" type="text" name="firstname">
+                            </fieldset>
+                            <fieldset class="form-group pull-left half-width-margin required">
+                                <label class="" for="lastname">Zip or Postal Code</label>
+                                <input class="form-control input-lg" type="text" name="lastname">
+                            </fieldset>
+                        </div>
 
 
-                    <fieldset class="form-group pull-right half-width required">
-                        <label for="lastname">Country</label>
-                        <select class="form-control input-lg " type="text" name="lastname">
+                        <fieldset class="form-group pull-right half-width required">
+                            <label for="lastname">Country</label>
+                            <select class="form-control input-lg " type="text" name="lastname">
 
-                            <option>Choose a Country</option>
+                                <option>Choose a Country</option>
 
-                        </select>
-                    </fieldset>
+                            </select>
+                        </fieldset>
 
-                </section>
+                    </section>
 
-            </article>
+                </article>
 
-            <article class="border-top border-bottom margin-top-large info-block-row-double">
-                <section class="info-block-third border-right">
-                    <div class="sloohlogo margin-top-xlarge">
-                        <img src="../assets/images/logos/sloohlogos/Logo-Slooh-Black-C.svg">Slooh
-                    </div>
-                </section>
-                <section class="info-block-2third padding-med">
-                    <p>Your credit card information is safe. View our <a href="">privacy details</a>. There are no charges over and above your membership dues which are billed monthly. You may cancel at anytime. Starting one month after signing up, Slooh will bill your credit card for monthly membership dues of $4.95.</p>
-                    <p>By making this purchase, you authorize Slooh to charge your credit card, debit card, or PayPal account. Your membership will automatically renew. Learn more about our <a href="">Refund Policy</a>.</p>
-                </section>
-            </article>
+                <article class="clearfix border-top border-bottom margin-top-large info-block-row-double">
+                    <section class="info-block-third border-right">
+                        <div class="sloohlogo margin-top-xxlarge">
+                            <img src="../assets/images/logos/sloohlogos/Logo-Slooh-Black-C.svg">Slooh
+                        </div>
+                    </section>
+                    <section class="info-block-2third padding-med border-left">
+                        <p>Your credit card information is safe. View our <a href="">privacy details</a>. There are no charges over and above your membership dues which are billed monthly. You may cancel at anytime. Starting one month after signing up, Slooh will bill your credit card for monthly membership dues of $4.95.</p>
+                        <p>By making this purchase, you authorize Slooh to charge your credit card, debit card, or PayPal account. Your membership will automatically renew. Learn more about our <a href="">Refund Policy</a>.</p>
+                    </section>
+                </article>
 
-
-            <div class="center">
-                <button type="button" class="btn-primary center">Join now</button>
-            </div>
+                <div class="center margin-top-large">
+                    <button type="button" class="btn-primary center">Join now</button>
+                </div>
     </form>
 
-    <footer class="page">
+    <footer class="page margin-top-large">
         Questions?
         <a href="">Contact our upport team</a>.
     </footer>
 
     </section>
 
-    <script src="https://unpkg.com/react@15.3.2/dist/react.min.js"></script>
-    <script src="https://unpkg.com/react-dom@15.3.2/dist/react-dom.min.js"></script>
-
-    <script type="text/javascript">
-        $(function () {
-            $('[data-toggle="tooltip"]').tooltip()
-        })
-        $(function () {
-            $('[data-toggle="popover"]').popover()
-        })
-        $('#example').tooltip(options)
-    </script>
-
-
-    <!-- Latest compiled and minified JavaScript -->
-    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>-->
-
-    <script src="../assets/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
 
 </body>
 
