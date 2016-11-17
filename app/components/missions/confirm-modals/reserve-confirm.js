@@ -114,7 +114,7 @@ class ReserveConfirm extends Component {
         </Modal.Body>
 
         <Modal.Footer>
-          <Button className="btn-primary" onClick={t his.props.closeModal }>Sorry, Cancel This.</Button>
+          <Button className="btn-primary" onClick={ this.props.closeModal }>Sorry, Cancel This.</Button>
           <Button className="btn-primary" onClick={ this.onSubmit }>Absolutely!</Button>
         </Modal.Footer>
       </Modal>
