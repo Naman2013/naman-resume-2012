@@ -4,6 +4,7 @@ import { WithContext as ReactTags } from 'react-tag-input';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import styles from '../mission-modals.scss';
+import moment from 'moment-timezone';
 
 function mapStateToProps({ missions }) {
   return {
@@ -68,10 +69,13 @@ class ReserveConfirm extends Component {
 
     const missionData = currentMissionSlot.missionList[0];
 
+    const EST_start = moment.tz(missionData.missionStart, 'America/New_York').format('dddd, MMMM Do');
+    const EST_start_time = moment.tz(missionData.missionStart, 'America/New_York').format('h:mma z');
+    const PST_start_time = moment.tz(missionData.missionStart, 'America/Los_Angeles').format('h:mma z');
+    const UTC_start_time = moment(missionData.missionStart).format('HH:mm');
+
+
     // TODO: finish the timer
-    // TODO: add in the telescope reservation info
-    // TODO: tie in the object icon
-    // TODO: tie in the object name
     // TODO: tie in the mission time and date
     // TODO: make the reservation
     // TODO: call cancel reservation when the use selects cancel?
@@ -91,7 +95,7 @@ class ReserveConfirm extends Component {
         <Modal.Body>
           <div className="mission-schedule">
             <h4>Mission Details:</h4>
-            <p>Thursday, October 18th &middot; 10:05pm EST &middot; 7:05pm PST &middot; 3:05 UTC</p>
+            <p>{ EST_start } &middot; { EST_start_time } &middot; { PST_start_time } &middot; { UTC_start_time } UTC</p>
           </div>
 
           <div className="share-objectives">
