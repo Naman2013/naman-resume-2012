@@ -222,7 +222,7 @@ export function updateSingleReservations(uniqueId, objectId) {
       objectId,
       requestType: 'single',
     })
-    .then(response => dispatch( updateReservationsSuccess( response ) ))
+    .then(response => dispatch( updateReservationsSuccess( response.data ) ))
     .catch(error => dispatch( updateReservationsFail( error )));
   }
 };
@@ -234,10 +234,10 @@ function updateReservationsSuccess(getNextReservationResponse) {
   }
 }
 
-function updateReservationsFail(getNextReservationResponse) {
+function updateReservationsFail(error) {
   return {
     type: UPDATE_SINGLE_RESERVATION_FAIL,
-    payload: { responseCode: 500 },
+    payload: error,
   }
 }
 
@@ -333,7 +333,7 @@ export default createReducer(initialState, {
 
     const updatedReservations = reservations.map((reservation) => {
       if(reservation.uniqueId === uniqueId) {
-        return payload;
+        return payload.missionList;
       }
       return reservation;
     });
