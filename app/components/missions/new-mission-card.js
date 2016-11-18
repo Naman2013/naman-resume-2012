@@ -50,17 +50,16 @@ class NewMissionCard extends Component {
   handleMakeReservationClick(event) {
     event.preventDefault();
     const { openModal, card, reservation } = this.props;
-    const { updateSingleReservations } = this.props.actions;
-
-    // TODO: call to grabMissionSlot... then determine what to do next...
-    console.group('preparing to open the reservation modal');
-    console.log('card', card);
-    console.log('reservation', reservation);
-    console.groupEnd();
+    const { grabMissionSlot } = this.props.actions;
 
     const mission = {
-
+      ...reservation,
+      callSource: 'recommends',
+      objectTitle: card.title,
+      objectType: card.objectType,
     };
+
+    grabMissionSlot(mission);
 
     // now open the reservation modal
     openModal(card, 'reserve');
