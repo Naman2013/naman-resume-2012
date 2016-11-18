@@ -13,7 +13,8 @@ function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators({
       missionConfirmOpen,
-      missionConfirmClose}, dispatch)
+      missionConfirmClose
+    }, dispatch)
   };
 }
 
