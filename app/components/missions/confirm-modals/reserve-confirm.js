@@ -7,7 +7,7 @@ import styles from '../mission-modals.scss';
 
 function mapStateToProps({ missions }) {
   return {
-    reservations: missions.reservations,
+    currentMissionSlot: missions.currentMissionSlot,
   };
 }
 
@@ -59,9 +59,15 @@ class ReserveConfirm extends Component {
     const suggestions = ['mars', 'jupiter', 'moon', 'saturn'];
     const {
       open,
-      closeModal, } = this.props;
+      closeModal,
+      currentMissionSlot,
+    } = this.props;
 
-    // TODO: do we have all of the information we need?
+    // validate whether or not we have a mission slot ready to render
+    if(!currentMissionSlot) { return null }
+
+    const missionData = currentMissionSlot.missionList[0];
+
     // TODO: finish the timer
     // TODO: add in the telescope reservation info
     // TODO: tie in the object icon
@@ -77,9 +83,9 @@ class ReserveConfirm extends Component {
         </div>
 
         <Modal.Header>
-          <h1 className="title-secondary">You’re reserving the Canary Islands 1 Telescope to see:</h1>
-          <img className={styles.cardIcon} src="assets/icons/Jupiter.svg" />
-          <h2 className="mission-title">Jupiter</h2>
+          <h1 className="title-secondary">You’re reserving the { missionData.telescopeName } telescope to see:</h1>
+          <img className={styles.cardIcon} src={ missionData.objectIconURL } />
+          <h2 className="mission-title">{ missionData.title }</h2>
         </Modal.Header>
 
         <Modal.Body>
