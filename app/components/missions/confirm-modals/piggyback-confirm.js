@@ -31,10 +31,10 @@ class PiggyBackConfirm extends Component {
     /**
       starttime is provided in UTC format
     */
-    const EST_start = moment.unix(missionStart).utcOffset(-5, false).format('dddd, MMMM Do');
-    const EST_start_time = moment.unix(missionStart).utcOffset(-5, false).format('h:mma');
-    const PST_start_time = moment.unix(missionStart).utcOffset(-8, false).format('h:mma');
-    const UTC_start_time = moment.unix(missionStart).format('HH:mm');
+    const EST_start = moment.tz(missionStart, 'America/New_York').format('dddd, MMMM Do');
+    const EST_start_time = moment.tz(missionStart, 'America/New_York').format('h:mma z');
+    const PST_start_time = moment.tz(missionStart, 'America/Los_Angeles').format('h:mma z');
+    const UTC_start_time = moment(missionStart).format('HH:mm');
 
     return (
       <Modal show={ open } className={ styles.missionModal }>
@@ -54,7 +54,7 @@ class PiggyBackConfirm extends Component {
             <h4>Mission Details:</h4>
             <p>
               { EST_start }<br />
-              { EST_start_time } EST &middot; { PST_start_time } PST &middot; { UTC_start_time } UTC<br />
+              { EST_start_time } &middot; { PST_start_time } &middot; { UTC_start_time } UTC<br />
               Canary Islands
             </p>
           </div>

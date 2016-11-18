@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import classnames from 'classnames';
 import styles from './mission-card.scss';
-import moment from 'moment';
+import moment from 'moment-timezone';
 import _ from 'lodash';
 
 import { updateSingleReservations } from '../../modules/Missions';
@@ -64,9 +64,9 @@ class NewMissionCard extends Component {
 
     if(missionAvailable) {
 
-      const EST_start = moment.unix(missionStart).utcOffset(-5, false).format('dddd, MMMM Do');
-      const EST_start_time = moment.unix(missionStart).utcOffset(-5, false).format('h:mma');
-      const PST_start_time = moment.unix(missionStart).utcOffset(-8, false).format('h:mma');
+      const EST_start = moment.tz(missionStart, 'America/New_York').format('dddd, MMMM Do');
+      const EST_start_time = moment.tz(missionStart, 'America/New_York').format('h:mma z');
+      const PST_start_time = moment.tz(missionStart, 'America/Los_Angeles').format('h:mma z');
       const UTC_start_time = moment.unix(missionStart).format('HH:mm');
 
       return(
@@ -74,7 +74,7 @@ class NewMissionCard extends Component {
           <div className="mission-available">
             <p className="start-time">
               <strong>{ EST_start }{ featured ? ':' : '' }</strong>
-              { !featured ? <br /> : null} { EST_start_time } EST <span className="highlight">&middot;</span> { PST_start_time } PST <span className="highlight">&middot;</span> { UTC_start_time } UTC
+              { !featured ? <br /> : null} { EST_start_time } <span className="highlight">&middot;</span> { PST_start_time } <span className="highlight">&middot;</span> { UTC_start_time } UTC
             </p>
           </div>
           <Link
