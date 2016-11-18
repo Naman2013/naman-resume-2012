@@ -7,12 +7,13 @@ import styles from './mission-card.scss';
 import moment from 'moment-timezone';
 import _ from 'lodash';
 
-import { updateSingleReservations } from '../../modules/Missions';
+import { updateSingleReservations, grabMissionSlot } from '../../modules/Missions';
 
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators({
       updateSingleReservations,
+      grabMissionSlot,
     }, dispatch)
   };
 }
@@ -51,8 +52,15 @@ class NewMissionCard extends Component {
     const { openModal, card, reservation } = this.props;
     const { updateSingleReservations } = this.props.actions;
 
-    // first, update the reservation...
-    updateSingleReservations(card.uniqueId, reservation.objectId);
+    // TODO: call to grabMissionSlot... then determine what to do next...
+    console.group('preparing to open the reservation modal');
+    console.log('card', card);
+    console.log('reservation', reservation);
+    console.groupEnd();
+
+    const mission = {
+
+    };
 
     // now open the reservation modal
     openModal(card, 'reserve');
