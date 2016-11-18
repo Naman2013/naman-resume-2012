@@ -91,6 +91,8 @@ const grabMissionSlotStart = () => ({
   type: GRAB_MISSION_SLOT_START,
 });
 
+
+
 export function missionGetCards() {
   return (dispatch, getState) => {
     const { token, at, cid } = getState().user.user; // is this 👍🏻 pattern ?
