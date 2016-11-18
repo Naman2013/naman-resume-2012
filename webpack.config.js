@@ -36,6 +36,10 @@ module.exports = {
   },
   module: {
     loaders: [
+      {
+        test: /\.json$/,
+        loaders: ['json-loader'],
+      },
       { // string-replace loader is here to replace URL's mapped to /api in code
         test: /\.(js)$/,
         loader: 'string-replace',

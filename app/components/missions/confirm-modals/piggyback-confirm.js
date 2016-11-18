@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import styles from '../mission-modals.scss';
-import moment from 'moment';
+import moment from 'moment-timezone';
 
 class PiggyBackConfirm extends Component {
 

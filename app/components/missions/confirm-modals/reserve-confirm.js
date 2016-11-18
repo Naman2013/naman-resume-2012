@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component, PropTypes } from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import { WithContext as ReactTags } from 'react-tag-input';
 import { bindActionCreators } from 'redux';
@@ -6,19 +6,12 @@ import { connect } from 'react-redux';
 import styles from '../mission-modals.scss';
 
 
-function mapDispatchToProps(dispatch) {
-  return {
-  };
-}
-
 function mapStateToProps({ missions }) {
   return { missions };
 }
 
-@connect(mapStateToProps, mapDispatchToProps)
-
-
-class ReserveConfirm extends React.Component {
+@connect(mapStateToProps)
+class ReserveConfirm extends Component {
 
   constructor(props) {
     super(props)
@@ -42,7 +35,7 @@ class ReserveConfirm extends React.Component {
   }
 
   handleChangeObject(event) {
-    this.setState({objective: event.target.value});
+    this.setState({ objective: event.target.value });
   }
 
   handleDelete(){
@@ -63,20 +56,33 @@ class ReserveConfirm extends React.Component {
 
   render () {
     const suggestions = ['mars', 'jupiter', 'moon', 'saturn'];
-    const { mission,
-            currentCard,
-            open,
-            closeModal } = this.props;
+    const {
+      mission,
+      currentCard,
+      open,
+      closeModal } = this.props;
 
     const { title, headline } = currentCard;
 
-    // TODO: finish adding the remaining bits of data for making the reservation
+    console.group('Reserve Confirmation card');
+    console.log(currentCard);
+    console.groupEnd();
+
+    // TODO: do we have all of the information we need?
+    // TODO: finish the timer
+    // TODO: add in the telescope reservation info
+    // TODO: tie in the object icon
+    // TODO: tie in the object name
+    // TODO: tie in the mission time and date
+    // TODO: make the reservation
+    // TODO: call cancel reservation when the use selects cancel?
 
     return (
       <Modal show={ open } className="missionModal reserveMissionModal">
         <div className="title-bar">
           <h3>Please complete your reservation form within 04:47</h3>
         </div>
+
         <Modal.Header>
           <h1 className="title-secondary">You’re reserving the Canary Islands 1 Telescope to see:</h1>
           <img className={styles.cardIcon} src="assets/icons/Jupiter.svg" />
@@ -98,22 +104,24 @@ class ReserveConfirm extends React.Component {
 
           <div className="mission-tags">
             <h4 className="title">MISSION TAGS:</h4>
-              <ReactTags tags={ this.state.tags }
-                suggestions={ suggestions }
-                handleDelete={ this.handleDelete }
-                handleAddition={ this.handleAddition }
-                handleDrag={ this.handleDrag } />
+            <ReactTags tags={ this.state.tags }
+              suggestions={ suggestions }
+              handleDelete={ this.handleDelete }
+              handleAddition={ this.handleAddition }
+              handleDrag={ this.handleDrag } />
           </div>
 
         </Modal.Body>
 
         <Modal.Footer>
-          <Button className="btn-primary" onClick={this.props.closeModal}>Sorry, Cancel This.</Button>
-          <Button className="btn-primary" onClick={this.onSubmit}>Absolutely!</Button>
+          <Button className="btn-primary" onClick={t his.props.closeModal }>Sorry, Cancel This.</Button>
+          <Button className="btn-primary" onClick={ this.onSubmit }>Absolutely!</Button>
         </Modal.Footer>
       </Modal>
     )
   }
 }
+
+ReserveConfirm.propTypes = {};
 
 export default ReserveConfirm;

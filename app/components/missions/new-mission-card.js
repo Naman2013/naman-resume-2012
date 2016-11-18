@@ -29,10 +29,11 @@ class NewMissionCard extends Component {
   componentDidMount() {
     const { uniqueId } = this.props.card;
     const { objectId, missionAvailable, expires } = this.props.reservation;
+    const { updateSingleReservations } = this.props.actions;
 
     if(!missionAvailable) {
       const interval = moment(expires * 1000).diff(moment());
-      this.props.actions.updateSingleReservations(uniqueId, objectId);
+      updateSingleReservations(uniqueId, objectId);
 
       this.updateReservationTimeout = setInterval(
         updateSingleReservations(uniqueId, objectId), interval);
@@ -47,7 +48,13 @@ class NewMissionCard extends Component {
 
   handleMakeReservationClick(event) {
     event.preventDefault();
-    const { openModal, card } = this.props;
+    const { openModal, card, reservation } = this.props;
+    const { updateSingleReservations } = this.props.actions;
+
+    // first, update the reservation...
+    updateSingleReservations(card.uniqueId, reservation.objectId);
+
+    // now open the reservation modal
     openModal(card, 'reserve');
   }
 
