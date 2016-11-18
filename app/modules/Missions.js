@@ -18,6 +18,10 @@ export const MISSION_GET_PIGGYBACKS_FAIL= 'MISSION_GET_PIGGYBACKS_FAIL';
 export const MISSION_GET_NEXT_RESERVATIONS_SUCCESS = 'MISSION_GET_NEXT_RESERVATIONS_SUCCESS';
 export const MISSION_GET_NEXT_RESERVATIONS_FAIL = 'MISSION_GET_NEXT_RESERVATIONS_FAIL';
 
+const GRAB_MISSION_SLOT_START = 'GRAB_MISSION_SLOT_START';
+const GRAB_MISSION_SLOT_SUCCESS = 'GRAB_MISSION_SLOT_SUCCESS';
+const GRAB_MISSION_SLOT_FAIL = 'GRAB_MISSION_SLOT_FAIL';
+
 const UPDATE_SINGLE_RESERVATION_SUCCESS = 'UPDATE_SINGLE_RESERVATION_SUCCESS';
 const UPDATE_SINGLE_RESERVATION_FAIL = 'UPDATE_SINGLE_RESERVATION_FAIL';
 
@@ -27,7 +31,10 @@ const initialState = {
   cardList: [],
   announcements: [],
   piggybacks: [],
-  currentCard: {},
+  currentCard: null,
+  currentMissionSlot: null,
+  currentMissionSlotError: null,
+  fetchingCurrentMissionSlot: false,
 };
 
 // Mission action creator
@@ -43,13 +50,52 @@ export function missionConfirmClose(mission) {
   return {
     type: MISSION_CONFIRMATION_CLOSE,
     mission: mission,
-    confirmType: null
   }
 }
 
+/**
+  see: /api/reservation/grabMissionSlot for providing the appropriate mission shape
+  https://docs.google.com/document/d/1nYo6_O87gWCqyoD3NJ98cbA5Cpxo-8ksB3Dw3PbjAa0/edit#heading=h.tkagqs5w5vit
+*/
+export function grabMissionSlot(mission) {
+  return (dispatch, getState) => {
+    const { token, at, cid } = getState().user.user;
+
+    // reset the state for loading the mission slot
+    grabMissionSlotStart();
+
+    return axios.post('/api/reservation/grabMissionSlot', {
+      token,
+      at,
+      cid,
+      ...mission,
+    })
+    .then(response => {
+      dispatch( grabMissionSlotSuccess(response.data) );
+    })
+    .catch(error => dispatch(grabMissionSlotFail(error)));
+  };
+}
+
+const grabMissionSlotFail = (error) => ({
+  type: GRAB_MISSION_SLOT_FAIL,
+  payload: error,
+});
+
+const grabMissionSlotSuccess = (result) => ({
+  type: GRAB_MISSION_SLOT_SUCCESS,
+  payload: result,
+});
+
+const grabMissionSlotStart = () => ({
+  type: GRAB_MISSION_SLOT_START,
+});
+
+
+
 export function missionGetCards() {
   return (dispatch, getState) => {
-    let { token, at, cid } = getState().user.user; // is this 👍🏻 pattern ?
+    const { token, at, cid } = getState().user.user; // is this 👍🏻 pattern ?
     return axios.post('/api/recommends/cards', {
       status: 'published',
       ver: 'v1',
@@ -223,7 +269,7 @@ export function updateSingleReservations(uniqueId, objectId) {
       objectId,
       requestType: 'single',
     })
-    .then(response => dispatch( updateReservationsSuccess( response ) ))
+    .then(response => dispatch( updateReservationsSuccess( response.data ) ))
     .catch(error => dispatch( updateReservationsFail( error )));
   }
 };
@@ -235,10 +281,10 @@ function updateReservationsSuccess(getNextReservationResponse) {
   }
 }
 
-function updateReservationsSuccess(getNextReservationResponse) {
+function updateReservationsFail(error) {
   return {
     type: UPDATE_SINGLE_RESERVATION_FAIL,
-    payload: { responseCode: 500 },
+    payload: error,
   }
 }
 
@@ -263,13 +309,15 @@ export default createReducer(initialState, {
       ...state,
       isConfirmationOpen: true,
       confirmType,
+      currentCard,
     };
   },
   [MISSION_CONFIRMATION_CLOSE](state) {
     return {
       ...state,
       isConfirmationOpen: false,
-      confirmType: null
+      confirmType: null,
+      currentCard: null,
     };
   },
   [MISSION_ALL_CARDS_SUCCESS](state, {cardList}) {
@@ -332,7 +380,7 @@ export default createReducer(initialState, {
 
     const updatedReservations = reservations.map((reservation) => {
       if(reservation.uniqueId === uniqueId) {
-        return payload;
+        return payload.missionList;
       }
       return reservation;
     });
@@ -340,11 +388,35 @@ export default createReducer(initialState, {
     return {
       ...state,
       reservations: updatedReservations,
-    }
+    };
   },
-  [UPDATE_SINGLE_RESERVATION_FAIL](state, { type, payload }) {
+  [UPDATE_SINGLE_RESERVATION_FAIL](state) {
     return {
       ...state,
-    }
+    };
   },
+  [GRAB_MISSION_SLOT_START](state) {
+    return {
+      ...state,
+      fetchingCurrentMissionSlot: true,
+      currentMissionSlotError: null,
+      currentMissionSlot: null,
+    };
+  },
+  [GRAB_MISSION_SLOT_SUCCESS](state, { payload }) {
+    return {
+      ...state,
+      currentMissionSlotError: null,
+      currentMissionSlot: payload,
+      fetchingCurrentMissionSlot: false,
+    };
+  },
+  [GRAB_MISSION_SLOT_FAIL](state, { payload }) {
+    return {
+      ...state,
+      currentMissionSlotError: payload,
+      currentMissionSlot: null,
+      fetchingCurrentMissionSlot: false,
+    };
+  }
 });

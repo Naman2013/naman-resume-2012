@@ -4,10 +4,12 @@ import { WithContext as ReactTags } from 'react-tag-input';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import styles from '../mission-modals.scss';
-
+import moment from 'moment-timezone';
 
 function mapStateToProps({ missions }) {
-  return { missions };
+  return {
+    currentMissionSlot: missions.currentMissionSlot,
+  };
 }
 
 @connect(mapStateToProps)
@@ -57,22 +59,23 @@ class ReserveConfirm extends Component {
   render () {
     const suggestions = ['mars', 'jupiter', 'moon', 'saturn'];
     const {
-      mission,
-      currentCard,
       open,
-      closeModal } = this.props;
+      closeModal,
+      currentMissionSlot,
+    } = this.props;
 
-    const { title, headline } = currentCard;
+    // validate whether or not we have a mission slot ready to render
+    if(!currentMissionSlot) { return null }
 
-    console.group('Reserve Confirmation card');
-    console.log(currentCard);
-    console.groupEnd();
+    const missionData = currentMissionSlot.missionList[0];
 
-    // TODO: do we have all of the information we need?
+    const EST_start = moment.tz(missionData.missionStart, 'America/New_York').format('dddd, MMMM Do');
+    const EST_start_time = moment.tz(missionData.missionStart, 'America/New_York').format('h:mma z');
+    const PST_start_time = moment.tz(missionData.missionStart, 'America/Los_Angeles').format('h:mma z');
+    const UTC_start_time = moment(missionData.missionStart).format('HH:mm');
+
+
     // TODO: finish the timer
-    // TODO: add in the telescope reservation info
-    // TODO: tie in the object icon
-    // TODO: tie in the object name
     // TODO: tie in the mission time and date
     // TODO: make the reservation
     // TODO: call cancel reservation when the use selects cancel?
@@ -84,15 +87,15 @@ class ReserveConfirm extends Component {
         </div>
 
         <Modal.Header>
-          <h1 className="title-secondary">You’re reserving the Canary Islands 1 Telescope to see:</h1>
-          <img className={styles.cardIcon} src="assets/icons/Jupiter.svg" />
-          <h2 className="mission-title">Jupiter</h2>
+          <h1 className="title-secondary">You’re reserving the { missionData.telescopeName } telescope to see:</h1>
+          <img className={styles.cardIcon} src={ missionData.objectIconURL } />
+          <h2 className="mission-title">{ missionData.title }</h2>
         </Modal.Header>
 
         <Modal.Body>
           <div className="mission-schedule">
             <h4>Mission Details:</h4>
-            <p>Thursday, October 18th &middot; 10:05pm EST &middot; 7:05pm PST &middot; 3:05 UTC</p>
+            <p>{ EST_start } &middot; { EST_start_time } &middot; { PST_start_time } &middot; { UTC_start_time } UTC</p>
           </div>
 
           <div className="share-objectives">
@@ -114,7 +117,7 @@ class ReserveConfirm extends Component {
         </Modal.Body>
 
         <Modal.Footer>
-          <Button className="btn-primary" onClick={ this.props.closeModal }>Sorry, Cancel This.</Button>
+          <Button className="btn-primary" onClick={ closeModal }>Sorry, Cancel This.</Button>
           <Button className="btn-primary" onClick={ this.onSubmit }>Absolutely!</Button>
         </Modal.Footer>
       </Modal>
