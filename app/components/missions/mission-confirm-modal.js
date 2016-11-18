@@ -44,7 +44,6 @@ class MissionConfirmModal extends Component {
     return (
       confirmType === 'reserve' ?
         <ReserveConfirm
-          mission={ mission }
           currentCard={ currentCard }
           open={ isConfirmationOpen }
           closeModal={ this.closeModal } />

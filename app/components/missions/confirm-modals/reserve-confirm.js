@@ -5,12 +5,6 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import styles from '../mission-modals.scss';
 
-
-function mapStateToProps({ missions }) {
-  return { missions };
-}
-
-@connect(mapStateToProps)
 class ReserveConfirm extends Component {
 
   constructor(props) {
@@ -57,15 +51,14 @@ class ReserveConfirm extends Component {
   render () {
     const suggestions = ['mars', 'jupiter', 'moon', 'saturn'];
     const {
-      mission,
       currentCard,
       open,
-      closeModal } = this.props;
+      closeModal, } = this.props;
 
     const { title, headline } = currentCard;
 
     console.group('Reserve Confirmation card');
-    console.log(currentCard);
+    console.log(this.props);
     console.groupEnd();
 
     // TODO: do we have all of the information we need?
@@ -114,7 +107,7 @@ class ReserveConfirm extends Component {
         </Modal.Body>
 
         <Modal.Footer>
-          <Button className="btn-primary" onClick={ this.props.closeModal }>Sorry, Cancel This.</Button>
+          <Button className="btn-primary" onClick={ closeModal }>Sorry, Cancel This.</Button>
           <Button className="btn-primary" onClick={ this.onSubmit }>Absolutely!</Button>
         </Modal.Footer>
       </Modal>
