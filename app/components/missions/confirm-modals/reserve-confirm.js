@@ -58,20 +58,8 @@ class ReserveConfirm extends Component {
   render () {
     const suggestions = ['mars', 'jupiter', 'moon', 'saturn'];
     const {
-      reservations,
-      currentCard,
       open,
       closeModal, } = this.props;
-
-    const { title, headline } = currentCard;
-
-    const currentReservation = reservations
-      .find( currentReservation => currentCard.telescopeId === currentReservation.telescopeId );
-
-    // TODO: sort out getting the mission in here...
-    console.group('Reserve Confirmation card');
-    console.log( currentReservation );
-    console.groupEnd();
 
     // TODO: do we have all of the information we need?
     // TODO: finish the timer
