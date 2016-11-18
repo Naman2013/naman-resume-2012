@@ -53,6 +53,10 @@ export function missionConfirmClose(mission) {
   }
 }
 
+/**
+  see: /api/reservation/grabMissionSlot for providing the appropriate mission shape
+  https://docs.google.com/document/d/1nYo6_O87gWCqyoD3NJ98cbA5Cpxo-8ksB3Dw3PbjAa0/edit#heading=h.tkagqs5w5vit
+*/
 export function grabMissionSlot(mission) {
   return (dispatch, getState) => {
     const { token, at, cid } = getState().user.user;
