@@ -27,7 +27,7 @@ const initialState = {
   cardList: [],
   announcements: [],
   piggybacks: [],
-  currentCard: {},
+  currentCard: null,
 };
 
 // Mission action creator
@@ -43,7 +43,6 @@ export function missionConfirmClose(mission) {
   return {
     type: MISSION_CONFIRMATION_CLOSE,
     mission: mission,
-    confirmType: null
   }
 }
 
@@ -235,7 +234,7 @@ function updateReservationsSuccess(getNextReservationResponse) {
   }
 }
 
-function updateReservationsSuccess(getNextReservationResponse) {
+function updateReservationsFail(getNextReservationResponse) {
   return {
     type: UPDATE_SINGLE_RESERVATION_FAIL,
     payload: { responseCode: 500 },
@@ -263,13 +262,15 @@ export default createReducer(initialState, {
       ...state,
       isConfirmationOpen: true,
       confirmType,
+      currentCard,
     };
   },
   [MISSION_CONFIRMATION_CLOSE](state) {
     return {
       ...state,
       isConfirmationOpen: false,
-      confirmType: null
+      confirmType: null,
+      currentCard: null,
     };
   },
   [MISSION_ALL_CARDS_SUCCESS](state, {cardList}) {
