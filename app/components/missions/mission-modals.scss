@@ -113,36 +113,6 @@
     }
   }
 
-  .mission-tags {
-    .title {
-      margin-bottom: 20px;
-    }
-  }
-
-  .ReactTags__tag {
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 0px 0px 4px 0px #999;
-    padding: 4px 15px 4px 10px;
-    margin: 0 8px;
-    position: relative;
-    .ReactTags__remove {
-      display: none;
-      position: absolute;
-      right: 3px;
-      cursor: pointer;
-    }
-    &:hover {
-      .ReactTags__remove {
-        display: inline-block;
-      }
-    }
-  }
-
-  .ReactTags__tagInput {
-      margin: 15px 0;
-  }
-
   .mission-image-options {
     label {
       margin-right: 15px;
