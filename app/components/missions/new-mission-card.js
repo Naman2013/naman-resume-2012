@@ -4,14 +4,16 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import classnames from 'classnames';
 import styles from './mission-card.scss';
-import moment from 'moment';
+import moment from 'moment-timezone';
+import _ from 'lodash';
 
-import { updateSingleReservations } from '../../modules/Missions';
+import { updateSingleReservations, grabMissionSlot } from '../../modules/Missions';
 
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators({
       updateSingleReservations,
+      grabMissionSlot,
     }, dispatch)
   };
 }
@@ -28,10 +30,11 @@ class NewMissionCard extends Component {
   componentDidMount() {
     const { uniqueId } = this.props.card;
     const { objectId, missionAvailable, expires } = this.props.reservation;
+    const { updateSingleReservations } = this.props.actions;
 
     if(!missionAvailable) {
       const interval = moment(expires * 1000).diff(moment());
-      this.props.actions.updateSingleReservations(uniqueId, objectId);
+      updateSingleReservations(uniqueId, objectId);
 
       this.updateReservationTimeout = setInterval(
         updateSingleReservations(uniqueId, objectId), interval);
@@ -46,7 +49,19 @@ class NewMissionCard extends Component {
 
   handleMakeReservationClick(event) {
     event.preventDefault();
-    const { openModal, card } = this.props;
+    const { openModal, card, reservation } = this.props;
+    const { grabMissionSlot } = this.props.actions;
+
+    const mission = {
+      ...reservation,
+      callSource: 'recommends',
+      objectTitle: card.title,
+      objectType: card.objectType,
+    };
+
+    grabMissionSlot(mission);
+
+    // now open the reservation modal
     openModal(card, 'reserve');
   }
 
@@ -56,18 +71,17 @@ class NewMissionCard extends Component {
 
     if(missionAvailable) {
 
-      const EST_start = moment.unix(missionStart).utcOffset(-5, false).format('dddd, MMMM Do');
-      const EST_start_time = moment.unix(missionStart).utcOffset(-5, false).format('h:mma');
-      const PST_start_time = moment.unix(missionStart).utcOffset(-8, false).format('h:mma');
+      const EST_start = moment.tz(missionStart, 'America/New_York').format('dddd, MMMM Do');
+      const EST_start_time = moment.tz(missionStart, 'America/New_York').format('h:mma z');
+      const PST_start_time = moment.tz(missionStart, 'America/Los_Angeles').format('h:mma z');
       const UTC_start_time = moment.unix(missionStart).format('HH:mm');
 
       return(
         <div>
           <div className="mission-available">
-            <h5 className="title">Set up a new mission</h5>
             <p className="start-time">
               <strong>{ EST_start }{ featured ? ':' : '' }</strong>
-              { !featured ? <br /> : null} { EST_start_time } EST <span className="highlight">&middot;</span> { PST_start_time } PST <span className="highlight">&middot;</span> { UTC_start_time } UTC
+              { !featured ? <br /> : null} { EST_start_time } <span className="highlight">&middot;</span> { PST_start_time } <span className="highlight">&middot;</span> { UTC_start_time } UTC
             </p>
           </div>
           <Link
@@ -80,11 +94,7 @@ class NewMissionCard extends Component {
       );
     }
 
-    return(
-      <div>
-        <h5>No mission is available at this time.</h5>
-      </div>
-    );
+    return null;
   }
 
   render() {
@@ -120,7 +130,19 @@ class NewMissionCard extends Component {
             <h3>{ title }</h3>
           </div>
 
-          <p className={ styles.cardDescription }>{ description }</p>
+          {
+            featured ?
+              <p className={ styles.cardDescription }>{ description }</p>
+              :
+              <p className={ styles.cardDescription }>{ _.truncate(description, { 'length': 130, 'separator': ' ' }) }</p>
+          }
+
+          {
+            missionAvailable ?
+              <h5 className="mission-status">Set up a new mission</h5>
+              :
+              <h5 className="mission-status">No mission is available at this time.</h5>
+          }
 
           <div className="join-mission-callout">
             { this.renderCallToAction() }

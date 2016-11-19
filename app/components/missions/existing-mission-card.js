@@ -3,7 +3,8 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import classnames from 'classnames';
-import moment from 'moment';
+import moment from 'moment-timezone';
+import _ from 'lodash';
 
 import styles from './mission-card.scss';
 import { grabPiggyback } from '../../modules/Piggyback';
@@ -77,16 +78,16 @@ class ExistingMissionCard extends Component {
     /**
       starttime is provided in UTC format
     */
-    const EST_start = moment.unix(startTime).utcOffset(-5, false).format('dddd, MMMM Do');
-    const EST_start_time = moment.unix(startTime).utcOffset(-5, false).format('h:mma');
-    const PST_start_time = moment.unix(startTime).utcOffset(-8, false).format('h:mma');
-    const UTC_start_time = moment.unix(startTime).format('HH:mm');
+    const EST_start = moment.tz(startTime, 'America/New_York').format('dddd, MMMM Do');
+    const EST_start_time = moment.tz(startTime, 'America/New_York').format('h:mma z');
+    const PST_start_time = moment.tz(startTime, 'America/Los_Angeles').format('h:mma z');
+    const UTC_start_time = moment(startTime).format('HH:mm');
 
     const startMissionTime = () => {
       return(
         <p className="start-time">
           <strong>{EST_start}</strong>
-          { !featured ? <br /> : null} { EST_start_time } EST <span className="highlight">&middot;</span> { PST_start_time } PST <span className="highlight">&middot;</span> { UTC_start_time } UTC
+          { !featured ? <br /> : null} { EST_start_time } <span className="highlight">&middot;</span> { PST_start_time } <span className="highlight">&middot;</span> { UTC_start_time } UTC
         </p>
       );
     }
@@ -94,7 +95,6 @@ class ExistingMissionCard extends Component {
     const missionAvailable = () => {
       return (
         <div className="mission-available">
-          <h5 className="title">Join an <i>existing</i> mission</h5>
           { startMissionTime() }
           <a
             className={ styles.piggybackCta }
@@ -116,8 +116,7 @@ class ExistingMissionCard extends Component {
         )
       } else {
         return (
-          <div>
-            <h5>No existing missions are available</h5>
+          <div className="mission-unavailable">
             <Link
               className={styles.piggybackCta}
               to="/reservations/slooh-recommends/new">
@@ -150,7 +149,20 @@ class ExistingMissionCard extends Component {
             <h3>{ card.title }</h3>
           </div>
 
-          <p className={ styles.cardDescription }>{ card.description }</p>
+          {
+            featured ?
+              <p className={ styles.cardDescription }>{ card.description }</p>
+              :
+              <p className={ styles.cardDescription }>{ _.truncate(card.description, { 'length': 130, 'separator': ' ' }) }</p>
+          }
+
+          {
+            piggyback.missionAvailable ?
+              <h5 className="mission-status">Join an <i>existing</i> mission</h5>
+              :
+              <h5 className="mission-status">No existing missions are available</h5>
+          }
+
 
           <div className="join-mission-callout">
             { piggyback.missionAvailable ? missionAvailable() : missionNotAvailable() }

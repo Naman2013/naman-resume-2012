@@ -1,4 +1,9 @@
+@import "../../styles/variables/fonts.scss";
+@import "../../styles/variables/colors.scss";
+
 .missionModal {
+  font-family: $primary-font;
+
   .modal-content {
     text-align: center;
     border-radius: 0;
@@ -6,31 +11,44 @@
 
   .modal-header {
     border-bottom: none;
-    padding-bottom: 0;
-    h1 {
+    padding: 0;
+
+    .title {
+      font-family: $secondary-font;
       font-size: 48px;
+      font-weight: 300;
       color: #9B9B9B;
-      margin: 0 0 20px 0;
+      margin: 40px 0 20px 0;
       text-transform: capitalize;
     }
 
-    h2 {
-      color: #3C4A55;
-      font-size: 18px;
-      font-weight: bold;
+    .title-secondary {
+      color: $darkBlueGray;
+      font-size: 20px;
+      margin-bottom: 20px;
     }
-  } // end header
+
+    .mission-title {
+      color: $black;
+      font-size: 24px;
+      font-weight: 800;
+      margin: 0;
+    }
+  }
 
   .mission-name {
-    margin-bottom: 20px;
+    margin-bottom: 60px;
+
     h4 {
       font-size: 24px;
       color: #000;
       font-weight: bold;
     }
-    p {
+
+    .headline {
+      font-family: $secondary-font;
       color: #3C4A55;
-      font-size: 18px;
+      font-size: 14px;
     }
   }
 
@@ -53,7 +71,9 @@
     justify-content: center;
     width: 50%;
     min-width: 320px;
-    margin: auto;
+    margin: 0 auto;
+    padding: 0 0 20px 0;
+
     .btn-primary {
       width: 150px;
     }
@@ -72,7 +92,7 @@
   }
 
   .modal-body > div {
-    margin-bottom: 20px;
+    margin-bottom: 35px;
   }
 
   h4 {
@@ -83,35 +103,14 @@
   }
 
   .share-objectives {
-      textarea {
-        width: 90%;
-        border: 1px solid #979797;
-        padding: 5px;
-      }
-  }
 
-  .ReactTags__tag {
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 0px 0px 4px 0px #999;
-    padding: 4px 15px 4px 10px;
-    margin: 0 8px;
-    position: relative;
-    .ReactTags__remove {
-      display: none;
-      position: absolute;
-      right: 3px;
-      cursor: pointer;
+    .mission-objectives {
+      width: 90%;
+      border: 1px solid #979797;
+      padding: 10px 10px 20px 10px;
+      font-family: $secondary-font;
+      font-size: 14px;
     }
-    &:hover {
-      .ReactTags__remove {
-        display: inline-block;
-      }
-    }
-  }
-
-  .ReactTags__tagInput {
-      margin: 15px 0;
   }
 
   .mission-image-options {

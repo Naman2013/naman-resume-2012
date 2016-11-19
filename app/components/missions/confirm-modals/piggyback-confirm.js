@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import styles from '../mission-modals.scss';
-import moment from 'moment';
+import moment from 'moment-timezone';
 
 class PiggyBackConfirm extends Component {
 
@@ -31,30 +31,30 @@ class PiggyBackConfirm extends Component {
     /**
       starttime is provided in UTC format
     */
-    const EST_start = moment.unix(missionStart).utcOffset(-5, false).format('dddd, MMMM Do');
-    const EST_start_time = moment.unix(missionStart).utcOffset(-5, false).format('h:mma');
-    const PST_start_time = moment.unix(missionStart).utcOffset(-8, false).format('h:mma');
-    const UTC_start_time = moment.unix(missionStart).format('HH:mm');
+    const EST_start = moment.tz(missionStart, 'America/New_York').format('dddd, MMMM Do');
+    const EST_start_time = moment.tz(missionStart, 'America/New_York').format('h:mma z');
+    const PST_start_time = moment.tz(missionStart, 'America/Los_Angeles').format('h:mma z');
+    const UTC_start_time = moment(missionStart).format('HH:mm');
 
     return (
       <Modal show={ open } className={ styles.missionModal }>
         <Modal.Header>
-          <h1>Strap yourself in</h1>
-          <h2>Your are joining a pre-scheduled mission to:</h2>
+          <h1 className="title">Strap yourself in</h1>
+          <h2 className="title-secondary">Your are joining a pre-scheduled mission to:</h2>
         </Modal.Header>
         <Modal.Body>
 
           <div className="mission-name">
             <img className={styles.cardIcon} src="assets/icons/Jupiter.svg" />
             <h4>{ title }</h4>
-            <p>{ headline }</p>
+            <p className="headline">{ headline }</p>
           </div>
 
           <div className="mission-schedule">
             <h4>Mission Details:</h4>
             <p>
               { EST_start }<br />
-              { EST_start_time } EST, { PST_start_time } PST, { UTC_start_time } UTC<br />
+              { EST_start_time } &middot; { PST_start_time } &middot; { UTC_start_time } UTC<br />
               Canary Islands
             </p>
           </div>

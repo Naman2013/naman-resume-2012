@@ -13,7 +13,8 @@ function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators({
       missionConfirmOpen,
-      missionConfirmClose}, dispatch)
+      missionConfirmClose
+    }, dispatch)
   };
 }
 
@@ -44,7 +45,6 @@ class MissionConfirmModal extends Component {
     return (
       confirmType === 'reserve' ?
         <ReserveConfirm
-          mission={ mission }
           currentCard={ currentCard }
           open={ isConfirmationOpen }
           closeModal={ this.closeModal } />
