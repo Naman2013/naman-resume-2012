@@ -4,6 +4,7 @@
 
 .reserveObjectPage {
   font-family: $primary-font;
+  color: #43555f;
   margin-bottom: 25px;
 
   .row {
@@ -44,7 +45,7 @@
   border-bottom-left-radius: 20px;  
 
   &:hover,
-  .selected {
+  &.selected {
     background: #B9D9D9;
   }
 
@@ -55,17 +56,19 @@
 
 .scrollable {
   color: #3C4A55;
-  height: 300px;
+  height: 420px;
   overflow-y: scroll;  
 }
 
 .objectCategories {
   .item {
     @extend .item-object;
+    font-weight: 500;
 
     .icon {
       width: 22px;
       margin-right: 10px;
+      vertical-align: top;
     }
   }
 }
@@ -117,8 +120,7 @@
 }
 
 .objectSummary {
-  padding: 0 40px;
-  text-align: center;
+  padding: 0 40px;  
 
   a.btn-primary {
     color: #fff;
