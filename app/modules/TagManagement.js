@@ -21,26 +21,34 @@ const fetchTags = ( tagData ) => ( dispatch, getState ) => {
 
 const initialState = {
   isLoading: true,
+  isError: false,
   tags: null,
+  lastErrorMessage: null,
 };
 
 export default createReducer(initialState, {
-  [FETCH_TAGS_START](state, { payload }) {
+  [FETCH_TAGS_START](state) {
     return {
       ...state,
       isLoading: true,
+      isError: false,
+      tags: null,
     };
   },
   [FETCH_TAGS_SUCCESS](state, { payload }) {
     return {
       ...state,
-      isLoading: true,
+      isLoading: false,
+      isError: false,
+      tags: payload,
     };
   },
   [FETCH_TAGS_FAIL](state, { payload }) {
     return {
       ...state,
-      isLoading: true,
+      isLoading: false,
+      isError: true,
+      lastErrorMessage: payload,
     };
   },
 });
