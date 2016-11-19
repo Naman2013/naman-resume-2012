@@ -10,10 +10,22 @@ class ReserveObjects extends Component {
   constructor(props) {
     super(props);
     
-    this.state = {    
+    this.state = this.getDefaultState();
+  }
+
+  getDefaultState(){
+    return {    
       category: null,
       object: null
     };
+  }
+
+  clearBrowse() {
+    this.setState(this.getDefaultState());
+  }
+
+  scheduleMission() {
+    // TODO: build this later
   }
 
   onItemClick(itemType, item, event) {
@@ -44,7 +56,11 @@ class ReserveObjects extends Component {
           </div>
           <div className="col-md-4">
             <h2><span>3</span> Object Summary</h2>
-            <ReserveObjectsSummary object={selectedObject}/>
+            
+            <ReserveObjectsSummary
+              object={selectedObject}
+              clearBrowse={this.clearBrowse}
+              scheduleMission={this.scheduleMission}/>
           </div>
         </div>
       </div>
