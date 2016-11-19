@@ -16,8 +16,23 @@ export const fetchTags = ( tagData ) => ( dispatch, getState ) => {
     at,
     cid,
     ...tagData,
-  });
+  })
+  .then( result => dispatch( fetchTagsSuccess( result.data ) ) )
+  .catch( error => dispatch( fetchTagsFail( error ) ) );
 };
+
+// actions
+const fetchTagsSuccess = payload => ({
+  type: FETCH_TAGS_SUCCESS,
+  payload,
+});
+
+const fetchTagsFail = payload => ({
+  type: FETCH_TAGS_FAIL,
+  payload,
+});
+
+
 
 const initialState = {
   isLoading: true,

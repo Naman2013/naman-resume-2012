@@ -3,8 +3,20 @@ import { WithContext as ReactTags } from 'react-tag-input';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
+import { fetchTags } from '../../../modules/tag-management/Tags';
 import style from './mission-tags.scss';
 
+const mapStateToProps = ({ tags }) => ({
+  tags,
+});
+
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators({
+    fetchTags,
+  }, dispatch),
+});
+
+@connect(mapStateToProps, mapDispatchToProps)
 class MissionTags extends Component {
 
   constructor(props) {
@@ -25,6 +37,22 @@ class MissionTags extends Component {
 
   handleDrag(){
     console.log('drag');
+  }
+
+  componentDidMount() {
+    const {
+      tagClass,
+      tagType,
+      scheduledMissionId,
+      imageId,
+    } = this.props;
+
+    this.props.actions.fetchTags({
+      tagClass,
+      tagType,
+      scheduledMissionId,
+      imageId,
+    });
   }
 
   componentWillMount() {
@@ -56,5 +84,16 @@ class MissionTags extends Component {
     );
   }
 }
+
+MissionTags.defaultProps = {
+  imageId: '',
+};
+
+MissionTags.propTypes = {
+  tagClass: PropTypes.string.isRequired,
+  tagType: PropTypes.string.isRequired,
+  scheduledMissionId: PropTypes.number.isRequired,
+  imageId: PropTypes.string,
+};
 
 export default MissionTags;

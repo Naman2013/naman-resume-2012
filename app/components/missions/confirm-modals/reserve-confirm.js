@@ -26,7 +26,7 @@ class ReserveConfirm extends Component {
 
   constructor(props) {
     super(props)
-    
+
     this.onSubmit = this.onSubmit.bind(this);
   }
 
@@ -94,7 +94,11 @@ class ReserveConfirm extends Component {
 
           <div className="mission-tags">
 
-            <MissionTags />
+            <MissionTags
+              tagClass={ `mission` }
+              tagType={ `objective` }
+              scheduledMissionId={ missionData.scheduledMissionId }
+            />
 
           </div>
 
