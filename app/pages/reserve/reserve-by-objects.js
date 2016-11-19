@@ -15,7 +15,7 @@ class ReserveObjects extends Component {
 
   getDefaultState(){
     return {    
-      category: null,
+      category: {},
       object: null
     };
   }
@@ -37,9 +37,10 @@ class ReserveObjects extends Component {
   }
 
   render() {
-    const selectedCategory = this.state.category || {};
-
-    const selectedObject = this.state.object || null;
+    const {
+      category = {},
+      object = null
+    } = this.state;    
 
     const clickHandler = _.curry(this.onItemClick.bind(this));
 
@@ -52,15 +53,15 @@ class ReserveObjects extends Component {
           </div>
           <div className="col-md-4">
             <h2><span>2</span> Choose Specific Object</h2>
-            <ReserveObjectsList objects={selectedCategory.objects} onClickHandler={clickHandler('object')} />
+            <ReserveObjectsList objects={category.objects} onClickHandler={clickHandler('object')} />
           </div>
           <div className="col-md-4">
             <h2><span>3</span> Object Summary</h2>
             
             <ReserveObjectsSummary
-              object={selectedObject}
-              clearBrowse={this.clearBrowse}
-              scheduleMission={this.scheduleMission}/>
+              object={object}
+              clearBrowse={this.clearBrowse.bind(this)}
+              scheduleMission={this.scheduleMission.bind(this)}/>
           </div>
         </div>
       </div>
