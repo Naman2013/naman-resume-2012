@@ -5,7 +5,7 @@ import styles from './reserve-by-object.scss';
 const ReserveObjectsList = ({ objects = [], onClickHandler }) => {
   return (
     <div className={styles.objectList}>
-      <ul>
+      <ul className="no-padding">
         {
           _.map(objects, (obj, i) => {
             return (
@@ -15,7 +15,7 @@ const ReserveObjectsList = ({ objects = [], onClickHandler }) => {
                 {
                   _.map(obj.items, (item, i) => {
                     return (
-                      <li key={i} onClick={onClickHandler(item)}>{item.title}</li>
+                      <li className="object-item" key={i} onClick={onClickHandler(item)}>{item.title}</li>
                     );
                   })
                 }
