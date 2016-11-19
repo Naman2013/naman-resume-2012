@@ -5,24 +5,19 @@ const attachClickHandler = (ChildComponent, store) => {
   return class clickHandler extends Component {
     constructor(props) {
       super(props);
-
-      this.state = { selectedItem: {} };
     }
 
     handleClickEvent(item) {
-      const preparedHandler = this.props.onClickHandler(item);
-
-      return (evt) => {
-        this.setState({
-          selectedItem: item
-        });
-
-        preparedHandler(evt);
-      };
+      return this.props.onClickHandler(item);
     }
 
     render() {
-      return <ChildComponent handleClickEvent={this.handleClickEvent.bind(this)} {...this.props} {...this.state} />;
+      return (
+        <ChildComponent
+          handleClickEvent={this.handleClickEvent.bind(this)}
+          {...this.state}
+          {...this.props} />
+      );
     }
   };
 };

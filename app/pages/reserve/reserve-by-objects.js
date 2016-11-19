@@ -30,7 +30,14 @@ class ReserveObjects extends Component {
 
   onItemClick(itemType, item, event) {
     let update = {};
+
     update[itemType] = item;
+
+    // clear selected object when clicking a new category
+    if (itemType === 'category') {
+      update.object = null
+    }
+
     this.setState(update);
 
     // TODO: do this with redux
@@ -47,14 +54,25 @@ class ReserveObjects extends Component {
     return (
       <div className={styles.reserveObjectPage}>
         <div className="row">
+          
           <div className="col-md-4">
             <h2><span>1</span> Select Category</h2>
-            <ReserveObjectsCategory items={testData.categories} onClickHandler={clickHandler('category')}/>
+            
+            <ReserveObjectsCategory
+              items={testData.categories}
+              onClickHandler={clickHandler('category')}
+              selectedItem={this.state.category}/>
           </div>
+          
           <div className="col-md-4">
             <h2><span>2</span> Choose Specific Object</h2>
-            <ReserveObjectsList objects={category.objects} onClickHandler={clickHandler('object')} />
+            
+            <ReserveObjectsList
+              objects={category.objects}
+              onClickHandler={clickHandler('object')}
+              selectedItem={this.state.object}/>
           </div>
+          
           <div className="col-md-4">
             <h2><span>3</span> Object Summary</h2>
             
