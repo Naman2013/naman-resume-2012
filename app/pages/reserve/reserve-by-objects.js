@@ -27,7 +27,7 @@ class ReserveObjects extends Component {
   render() {
     const selectedCategory = this.state.category || {};
 
-    const selectedObject = this.state.object || {};
+    const selectedObject = this.state.object || null;
 
     const clickHandler = _.curry(this.onItemClick.bind(this));
 
