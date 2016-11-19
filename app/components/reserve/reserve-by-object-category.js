@@ -1,31 +1,13 @@
 import React, {Component} from 'react';
 import _ from 'lodash';
 import styles from './reserve-by-object.scss';
+import clickHandlerDecorator from './click-handler-decorator';
 import classnames from 'classnames';
 
-
+@clickHandlerDecorator
 class ReserveObjectsCategory extends Component {
-  constructor(props) {
-    super(props);
-    
-    this.state = { selectedCategory: {} };
-  }
-
-  handleClickEvent(item) {
-    const preparedHandler = this.props.onClickHandler(item);
-    
-    return (evt) => {
-      this.setState({
-        selectedCategory: item
-      });            
-
-      preparedHandler(evt);
-    }    
-  }
-
   render() {
-    const { items = [] } = this.props;
-    const { selectedCategory } = this.state;
+    const { items = [], selectedItem, handleClickEvent } = this.props;    
 
     return (
       <div className={styles.objectCategories}>
@@ -33,14 +15,14 @@ class ReserveObjectsCategory extends Component {
           {
             _.map(items, (item, i) => {
               
-              // TODO: replace selectedCategory.title === item.title with id comparisons
+              // TODO: replace selectedItem.title === item.title with id comparisons
               const elementsStyles = classnames({
                 item: true,
-                selected: selectedCategory.title === item.title
+                selected: selectedItem.title === item.title
               });
               
               return (
-                <li key={i} onClick={this.handleClickEvent(item)} className={elementsStyles}>
+                <li key={i} onClick={handleClickEvent(item)} className={elementsStyles}>
                   <img className="icon" src={item.categoryIcon} /> {item.title}
                 </li>   
               );
