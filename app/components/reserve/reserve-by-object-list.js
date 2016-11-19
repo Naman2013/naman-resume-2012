@@ -3,10 +3,12 @@ import _ from 'lodash';
 import styles from './reserve-by-object.scss';
 import ObjectListItems from './object-list-items';
 import classnames from 'classnames';
-import clickHandlerDecorator from './click-handler-decorator';
 
-@clickHandlerDecorator
 class ReserveObjectsList extends Component {
+  handleClickEvent(item) {
+    return this.props.onClickHandler(item);
+  }
+  
   render() {
     const { objects = [], selectedItem } = this.props;
 
@@ -23,7 +25,7 @@ class ReserveObjectsList extends Component {
                   <ObjectListItems
                     items={obj.items}
                     selectedItem={selectedItem}
-                    handleClickEvent={this.props.handleClickEvent.bind(this)} />
+                    handleClickEvent={this.handleClickEvent.bind(this)} />
                 </li>
               );
             })

@@ -1,13 +1,15 @@
-import React, {Component} from 'react';
+import React,  { Component } from 'react';
 import _ from 'lodash';
 import styles from './reserve-by-object.scss';
-import clickHandlerDecorator from './click-handler-decorator';
 import classnames from 'classnames';
 
-@clickHandlerDecorator
 class ReserveObjectsCategory extends Component {
+  handleClickEvent(item) {
+    return this.props.onClickHandler(item);
+  }
+
   render() {
-    const { items = [], selectedItem, handleClickEvent } = this.props;    
+    const { items = [], selectedItem } = this.props;    
 
     return (
       <div className={styles.objectCategories}>
@@ -22,7 +24,7 @@ class ReserveObjectsCategory extends Component {
               });
               
               return (
-                <li key={i} onClick={handleClickEvent(item)} className={elementsStyles}>
+                <li key={i} onClick={this.handleClickEvent(item)} className={elementsStyles}>
                   <img className="icon" src={item.categoryIcon} /> {item.title}
                 </li>   
               );
