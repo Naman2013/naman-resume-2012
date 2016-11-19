@@ -13,6 +13,7 @@
     font-weight: bold;
     text-align: center;
     margin-bottom: 20px;
+    
     span {
       display: block;
       width: 25px;
@@ -35,6 +36,7 @@
 
 .item-object {
   @extend .list-item-padding;
+  
   border-top-left-radius: 20px;
   border-bottom-left-radius: 20px;  
 
@@ -83,7 +85,6 @@
 .no-padding {
   padding: 0;
 }
-  
 
 .objectList {  
   .sub-category {
@@ -91,13 +92,14 @@
 
     .sub-category-title {
       @extend .list-item-padding;
+      
       font-size: 1.3em;
       font-weight: 500;
       margin-bottom: 5px;
       display: block;
     }
 
-    .object-items {      
+    .object-items {
       padding: 0;
 
       .object-item {
