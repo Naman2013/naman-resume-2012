@@ -3,7 +3,7 @@ import styles from './reserve-by-object.scss';
 
 const TextBox = ({ summary }) => {
   return (
-    <div className={styles.objectCategories}>
+    <div className={styles.objectSummary}>
       {summary}
     </div> 
   )
