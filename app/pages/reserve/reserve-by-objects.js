@@ -48,7 +48,7 @@ class ReserveObjects extends Component {
           </div>
         </div>
       </div>
-    )
+    );
   }
 }
 

@@ -26,7 +26,7 @@ const ReserveObjectsList = ({ objects = [], onClickHandler }) => {
         }
       </ul>
     </div>
-  )
+  );
 }
 
 export default ReserveObjectsList;
