@@ -4,14 +4,14 @@ import styles from './reserve-by-object.scss';
 
 const ReserveObjectsList = ({ objects = [], onClickHandler }) => {
   return (
-    <div className={styles.objectCategories}>
+    <div className={styles.objectList}>
       <ul>
         {
           _.map(objects, (obj, i) => {
             return (
-              <li key={i}>
-                {obj.title}
-                <ul>
+              <li key={i} className="sub-category">
+                <span className="sub-category-title">{obj.title}</span>
+                <ul className="object-items">
                 {
                   _.map(obj.items, (item, i) => {
                     return (

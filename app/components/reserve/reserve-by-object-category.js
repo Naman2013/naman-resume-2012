@@ -9,7 +9,7 @@ const ReserveObjectsCategory = ({ items = [], onClickHandler }) => {
         {
           _.map(items, (item, i) => {
             return (
-              <li key={i} onClick={onClickHandler(item)}>
+              <li key={i} onClick={onClickHandler(item)} className="item">
                 <img className="icon" src={item.categoryIcon} /> {item.title}
               </li>   
             );

@@ -25,10 +25,9 @@ class ReserveObjects extends Component {
   }
 
   render() {
-    const selectedCategory = this.state.category && _.find(
-      testData.categories,
-      { title: this.state.category.title }
-    ) || {};
+    const selectedCategory = this.state.category || {};
+
+    const selectedObject = this.state.object || {};
 
     const clickHandler = _.curry(this.onItemClick.bind(this));
 
@@ -45,10 +44,9 @@ class ReserveObjects extends Component {
           </div>
           <div className="col-md-4">
             <h2><span>3</span> Object Summary</h2>
-            <ReserveObjectsSummary />
+            <ReserveObjectsSummary object={selectedObject}/>
           </div>
         </div>
-
       </div>
     )
   }
