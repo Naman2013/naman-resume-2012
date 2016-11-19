@@ -1,4 +1,4 @@
-import createReducer from './utils/createReducer';
+import createReducer from '../utils/createReducer';
 import axios from 'axios';
 
 const FETCH_TAGS_START = 'FETCH_TAGS_START';
