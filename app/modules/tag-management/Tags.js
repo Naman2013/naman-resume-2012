@@ -14,7 +14,7 @@ const SET_TAGS_FAIL = 'SET_TAGS_FAIL';
   see: https://docs.google.com/document/d/1nYo6_O87gWCqyoD3NJ98cbA5Cpxo-8ksB3Dw3PbjAa0/
 */
 export const setTags = ( tagData ) => ( dispatch, getState ) => {
-  const { token, at, cid }  = getState().user.user;
+  const { token, at, cid }  = getState().user;
 
   startSetTag();
 
@@ -47,7 +47,7 @@ const startSetTag = () => ({
   see: https://docs.google.com/document/d/1nYo6_O87gWCqyoD3NJ98cbA5Cpxo-8ksB3Dw3PbjAa0/edit#
 */
 export const fetchTags = ( tagData ) => ( dispatch, getState ) => {
-  const { token, at, cid } = getState().user.user;
+  const { token, at, cid } = getState().user;
   return axios.post('/api/tags/getTags', {
     token,
     at,
