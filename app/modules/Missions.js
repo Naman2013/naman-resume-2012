@@ -188,27 +188,24 @@ export function missionUpdatesFail(error) {
 };
 
 
+export const missionGetPiggybacks = ( objectList ) => ( dispatch, getState ) => {
+  const { token, at, cid } = getState().user;
 
-export function missionGetPiggybacks(objectList) {
-  return dispatch => {
-    return axios.post('/api/recommends/getNextPiggyback', {
-      cid: "",
-      token: "",
-      requestType: "multiple",
-      uniqueId: "",
-      objectId: "",
-      start: "",
-      objectList: objectList,
-      cid: 198266,
-      at: 2,
-      token: 'fd024a48fa802fa489893b889f2de8ce88c71d3e'
-    })
-    .then(response => {
-      dispatch( missionGetPiggybackSuccess(response) );
-    })
-    .catch(error => dispatch( missionGetPiggybackFail( error )));
-  }
-}
+  return axios.post('/api/recommends/getNextPiggyback', {
+    cid,
+    at,
+    token,
+    requestType: 'multiple',
+    objectList: objectList,
+    uniqueId: '',
+    objectId: '',
+    start: '',
+  })
+  .then(response => {
+    dispatch( missionGetPiggybackSuccess( response ) );
+  })
+  .catch(error => dispatch( missionGetPiggybackFail( error )));
+};
 
 export function missionGetPiggybackSuccess({data}) {
   return {

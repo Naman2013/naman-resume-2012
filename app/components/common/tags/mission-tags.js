@@ -3,16 +3,31 @@ import { WithContext as ReactTags } from 'react-tag-input';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import { setTags } from '../../../modules/tag-management/Tags';
+import { setTags, deleteTag } from '../../../modules/tag-management/Tags';
 import style from './mission-tags.scss';
 
+/**
+  example tag structure from API
+  {
+    tagIndex: 0,
+    tagText: 'Sandwich'
+  }
+
+  we map this to:
+  {
+    id: [tagIndex],
+    text: [tagText,]
+  }
+*/
+
 const mapStateToProps = ({ tags }) => ({
-  tags,
+  ...tags,
 });
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
     setTags,
+    deleteTag,
   }, dispatch),
 });
 
@@ -22,17 +37,9 @@ class MissionTags extends Component {
   constructor(props) {
     super(props);
 
-    // TODO: refactor out...
     this.state = {
       tagText: '',
       objective: '',
-      tags: [
-        {id: 1, text: "galaxy"},
-        {id: 2, text: "andromeda"},
-        {id: 3, text: "canary islands"},
-        {id: 4, text: "m31"},
-        {id: 5, text: "deep space"}
-      ]
     };
 
     this.handleDelete = this.handleDelete.bind(this);
@@ -42,8 +49,20 @@ class MissionTags extends Component {
     this.handleTagTextChange = this.handleTagTextChange.bind(this);
   }
 
-  handleDelete() {
-    console.log('del');
+  handleDelete(tag) {
+
+    const { tagClass, tagType, scheduledMissionId, imageId } = this.props;
+
+    const { tagList } = this.props.tags;
+    const deleteTag = tagList.find( originalTag => originalTag.tagIndex === tag );
+
+    this.props.actions.deleteTag({
+      text: deleteTag.tagText,
+      tagClass,
+      tagType,
+      scheduledMissionId,
+      imageId,
+    });
   }
 
   handleAddition() { return false; }
@@ -81,12 +100,19 @@ class MissionTags extends Component {
   render() {
 
     const { tagText } = this.state;
+    const { tags } = this.props;
+
+    let availableTags = [];
+
+    if(tags) {
+      availableTags = tags.tagList.map( tag => ({ id: tag.tagIndex, text: tag.tagText }) );
+    }
 
     return(
       <div className="slooh-mission-tags">
         <h4 className="title">MISSION TAGS:</h4>
         <ReactTags
-          tags={this.state.tags}
+          tags={availableTags}
           handleDelete={this.handleDelete}
           handleAddition={this.handleAddition}
           handleDrag={this.handleDrag} />
@@ -97,6 +123,7 @@ class MissionTags extends Component {
             placeholder="Tag text"
             type="text"
             name="tag-name"
+            autoComplete="off"
             onChange={this.handleTagTextChange}
             value={tagText} />
           <button className="action" type="submit">Add a Tag</button>

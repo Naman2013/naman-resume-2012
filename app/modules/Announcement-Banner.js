@@ -15,14 +15,6 @@ const initialState = {
   loadingError: null,
 };
 
-/*
-  TODO: refactor this to be more general purpose for priming announcement state
-  dynamic properties include:
-  category
-  level
-  optional property: obsId
-*/
-
 export const fetchAnnouncements = ( obsId, category='announcement', level='observatory' ) => ( dispatch, getState ) => {
   const { token, at, cid } = getState().user;
 
@@ -38,8 +30,6 @@ export const fetchAnnouncements = ( obsId, category='announcement', level='obser
   .then( (response) => dispatch( fetchAnnouncementsSuccess(response) ) )
   .catch(error => dispatch( fetchAnnouncementsError( error ) ));
 };
-
-
 
 export const startFetchAnnouncements = () => ({
   type: FETCH_ANNOUNCEMENTS,
