@@ -1,5 +1,14 @@
+@import "../../styles/custom-ui.scss";
+@import "../../styles/variables/fonts.scss";
+
+
 .reserveObjectPage {
+  font-family: $primary-font;
+  color: #43555f;
   margin-bottom: 25px;
+
+  max-width: 1320px;
+  margin: 0 auto;
 
   .row {
     padding: 0 20px;
@@ -11,6 +20,7 @@
     font-weight: bold;
     text-align: center;
     margin-bottom: 20px;
+    
     span {
       display: block;
       width: 25px;
@@ -27,26 +37,103 @@
   }
 }
 
-.objectCategories {
+.list-item-padding {
+  padding: 4px 0 0 40px;
+}
+
+.item-object {
+  @extend .list-item-padding;
+  margin-bottom: 1px;
+  
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;  
+
+  &:hover,
+  &.selected {
+    background: #B9D9D9;
+    font-weight: bold;
+  }
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.scrollable {
   color: #3C4A55;
-  height: 300px;
-  overflow-y: scroll;
+  height: 420px;
+  overflow-y: scroll;  
+}
+
+.objectCategories {
+  .item {
+    @extend .item-object;
+    font-weight: 500;
+
+    .icon {
+      width: 22px;
+      margin-right: 10px;
+      vertical-align: top;
+    }
+  }
+}
+
+.objectCategories,
+.objectList,
+.objectSummary {
+  @extend .custom-scroll-bar;
+  @extend .scrollable;
 
   a {
     color: #3C4A55;
   }
+
   li {
     list-style: none;
-    padding: 4px 0;
-    border-top-left-radius: 20px;
-    border-bottom-left-radius: 20px;
-    padding-left: 40px;
-    &:hover {
-      background: #B9D9D9;
+  }  
+}
+
+.no-padding {
+  padding: 0;
+}
+
+.title {  
+  font-weight: bold;  
+  display: block;
+  text-transform: uppercase;
+}
+
+.objectList {  
+  .sub-category {
+    margin-bottom: 30px;
+
+    .sub-category-title {
+      @extend .list-item-padding;
+      
+      @extend .title;
     }
-    .icon {
-      width: 22px;
-      margin-right: 10px;
+
+    .object-items {
+      padding: 0;
+
+      .object-item {
+        @extend .item-object;
+        font-weight: lighter;
+      }
+    }
+  }
+}
+
+.objectSummary {
+  padding: 0 40px;  
+
+  a.btn-primary {
+    color: #fff;
+    display: block;
+    max-width: 150px;
+
+    &:first-child {
+      margin: 40px auto;
     }
   }
 }

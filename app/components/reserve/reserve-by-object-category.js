@@ -1,29 +1,39 @@
-import React from 'react';
+import React,  { Component } from 'react';
+import _ from 'lodash';
 import styles from './reserve-by-object.scss';
+import classnames from 'classnames';
 
-const ReserveObjectsCategory = (props) => {
-  return (
-    <div className={styles.objectCategories}>
-      <ul>
-        <li><img className="icon" src="assets/icons/saturn.svg" /> <a href="">Solar Systems</a></li>
-        <li><img className="icon" src="assets/icons/Jupiter.svg" /> <a href="">Stars</a></li>
-        <li><img className="icon" src="assets/icons/saturn.svg" /> <a href="">Supernovae</a></li>
-        <li><img className="icon" src="assets/icons/galaxy.svg" /> <a href="">Galaxies</a></li>
-        <li><img className="icon" src="../assets/icons/saturn.svg" /> <a href="">Asteroids</a></li>
-        <li><img className="icon" src="assets/icons/galaxy.svg" /> <a href="">Comets</a></li>
-        <li><img className="icon" src="assets/icons/Jupiter.svg" /> <a href="">Star Clusters</a></li>
-        <li><img className="icon" src="../assets/icons/saturn.svg" /> <a href="">Nebulae</a></li>
-        <li><img className="icon" src="../assets/icons/saturn.svg" /> <a href="">Solar System</a></li>
-        <li><img className="icon" src="assets/icons/Jupiter.svg" /> <a href="">Stars</a></li>
-        <li><img className="icon" src="../assets/icons/saturn.svg" /> <a href="">Supernovae</a></li>
-        <li><img className="icon" src="assets/icons/galaxy.svg" /> <a href="">Galaxies</a></li>
-        <li><img className="icon" src="../assets/icons/saturn.svg" /> <a href="">Asteroids</a></li>
-        <li><img className="icon" src="assets/icons/galaxy.svg" /> <a href="">Comets</a></li>
-        <li><img className="icon" src="assets/icons/Jupiter.svg" /> <a href="">Star Clusters</a></li>
-        <li><img className="icon" src="../assets/icons/saturn.svg" /> <a href="">Nebulae</a></li>
-      </ul>
-    </div>
-  )
+class ReserveObjectsCategory extends Component {
+  handleClickEvent(item) {
+    return this.props.onClickHandler(item);
+  }
+
+  render() {
+    const { items = [], selectedItem } = this.props;    
+
+    return (
+      <div className={styles.objectCategories}>
+        <ul>
+          {
+            _.map(items, (item, i) => {
+              
+              // TODO: replace selectedItem.title === item.title with id comparisons
+              const elementsStyles = classnames({
+                item: true,
+                selected: selectedItem.title === item.title
+              });
+              
+              return (
+                <li key={i} onClick={this.handleClickEvent(item)} className={elementsStyles}>
+                  <img className="icon" src={item.categoryIcon} /> {item.title}
+                </li>   
+              );
+            })
+          }
+        </ul>
+      </div>
+    );
+  }  
 }
 
 export default ReserveObjectsCategory;
