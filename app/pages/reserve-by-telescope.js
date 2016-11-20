@@ -43,7 +43,6 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps({ missions, telescopeOverview }, ownProps) {
   return {
-    user: exampleUser, // TODO: state.user,
     observatoryList: telescopeOverview.observatoryList,
     currentObservatoryId: ownProps.params.observatoryId,
     missions,
