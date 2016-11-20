@@ -76,7 +76,7 @@ export default class Member extends Component {
           <span className={styles.loggedOutWrapper}>
           <a href="https://saturn.slooh.com/subscribe-bt2.php" target="_blank"
             className={classnames('ignore-react-onclickoutside', styles.regButton)}
-            
+
           >
             Free Registration
           </a>
@@ -96,7 +96,9 @@ export default class Member extends Component {
           transitionEnterTimeout={300}
           transitionLeaveTimeout={300}
         >
-          {this.props.loginData.isShowed && <Login />}
+          {
+            this.props.loginData.isShowed && <Login />
+          }
         </ReactCSSTransitionGroup>
       </div>
     );
