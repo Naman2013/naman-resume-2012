@@ -85,7 +85,6 @@ class CardFront extends Component {
   }
 
   render() {
-
     const {
       obsUniqueId,
       teleUniqueId,
@@ -174,7 +173,7 @@ CardFront.propTypes = {
   teleId: PropTypes.string,
   teleTelescopeUsage: PropTypes.string,
   teleThumbWidth: PropTypes.string,
-  teleFade: PropTypes.string,
+  teleFade: PropTypes.number,
   teleLogoURL: PropTypes.string,
   teleOfflineImgURL: PropTypes.string,
   teleOnlineStatus: PropTypes.string,
