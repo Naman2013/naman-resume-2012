@@ -8,7 +8,7 @@ import missions from './Missions';
 import telescopeOverview from './Telescope-Overview';
 import announcementBanner from './Announcement-Banner';
 import tags from './tag-management/Tags';
-import popularObjects from './popular-objects-management/popular-objects';
+import popularObjects from './popular-objects-management/Popular-Objects';
 
 export default combineReducers({
   routing: routerReducer,
