@@ -25,7 +25,7 @@ class Login extends Component {
   render() {
     return (
       <aside className={styles.login}>
-        <form onSubmit={this.props.handleSubmit(loginActions.login)}>
+        <form onSubmit={this.props.handleSubmit( this.props.login )}>
           <h3>To log into your Slooh Account:</h3>
           <div className={styles.row}>
             <Field
