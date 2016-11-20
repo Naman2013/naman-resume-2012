@@ -25,18 +25,6 @@ const GRAB_MISSION_SLOT_FAIL = 'GRAB_MISSION_SLOT_FAIL';
 const UPDATE_SINGLE_RESERVATION_SUCCESS = 'UPDATE_SINGLE_RESERVATION_SUCCESS';
 const UPDATE_SINGLE_RESERVATION_FAIL = 'UPDATE_SINGLE_RESERVATION_FAIL';
 
-const initialState = {
-  isConfirmationOpen: false,
-  mission: {},
-  cardList: [],
-  announcements: [],
-  piggybacks: [],
-  currentCard: null,
-  currentMissionSlot: null,
-  currentMissionSlotError: null,
-  fetchingCurrentMissionSlot: false,
-};
-
 // Mission action creator
 export function missionConfirmOpen(card, type) {
   return {
@@ -168,29 +156,27 @@ export function cardsFail(error) {
   };
 };
 
-export function missionGetUpdates() {
-  return dispatch => {
-    return axios.post('/api/info/getAnnouncements', {
-      type: 'all',
-      category: 'missionControl',
-      status: 'published',
-      timestamp: moment().unix(),
-      level: 'all',
-      token: '8d02b976e146cb5e5bfe15a10bb96b2365826dca', //hard coded, TODO: change to logged in user
-      at: 3,
-      cid: 198267, //hard coded, TODO: change to logged in user
-    })
-    .then(response => {
-      dispatch(missionUpdatesSuccess(response));
-    })
-    .catch(error => dispatch(missionUpdatesFail(error)));
-  }
-}
+export const missionGetUpdates = () => ( dispatch, getState ) => {
+  const { token, at, cid } = getState().user;
 
-export function missionUpdatesSuccess({data}) {
+  return axios.post('/api/info/getAnnouncements', {
+    token,
+    at,
+    cid,
+    type: 'all',
+    category: 'missionControl',
+    status: 'published',
+    timestamp: moment().unix(),
+    level: 'all',
+  })
+  .then( response => dispatch( missionUpdatesSuccess( response.data ) ) )
+  .catch( error => dispatch( missionUpdatesFail( error ) ) );
+};
+
+export function missionUpdatesSuccess( announcementList ) {
   return {
     type: MISSION_GET_UPDATES_SUCCESS,
-    announcements: data.announcementList
+    payload: announcementList,
   };
 };
 
@@ -303,6 +289,19 @@ export function missionGetNextReservationFail({ data }) {
 }
 
 
+const initialState = {
+  isConfirmationOpen: false,
+  mission: {},
+  cardList: [],
+  announcements: [],
+  piggybacks: [],
+  currentCard: null,
+  currentMissionSlot: null,
+  currentMissionSlotError: null,
+  fetchingCurrentMissionSlot: false,
+};
+
+
 export default createReducer(initialState, {
   [MISSION_CONFIRMATION_OPEN](state, { confirmType, currentCard }) {
     return {
@@ -333,10 +332,10 @@ export default createReducer(initialState, {
       currentCard,
     }
   },
-  [MISSION_GET_UPDATES_SUCCESS](state, { announcements }) {
+  [MISSION_GET_UPDATES_SUCCESS](state, { payload }) {
     return {
       ...state,
-      announcements,
+      announcements: payload.announcementList,
     }
   },
   [MISSION_GET_UPDATES_FAIL](state, { announcements }) {

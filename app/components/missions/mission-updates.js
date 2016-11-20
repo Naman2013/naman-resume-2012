@@ -1,9 +1,9 @@
-import React, {Component, Props} from 'react';
+import React, { Component, Props } from 'react';
 import MissionUpdatePost from './mission-update-post';
 import styles from './mission-sidebar.scss';
 import moment from 'moment';
 
-export default class MissionUpdates extends React.Component {
+class MissionUpdates extends Component {
 
   render() {
     return (
@@ -20,5 +20,6 @@ export default class MissionUpdates extends React.Component {
       </div>
     )
   };
-
 }
+
+export default MissionUpdates;

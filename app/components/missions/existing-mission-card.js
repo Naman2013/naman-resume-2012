@@ -37,7 +37,9 @@ class ExistingMissionCard extends Component {
     const { data } = result;
     const mission = data.missionList[0];
     const { card } = this.props;
-
+    console.group('handle grab piggyback response --- NOTE NEED TO PRESENT CALL TO ACTION WHEN NON-AUTHORIZED');
+    console.log(data);
+    console.groupEnd();
     if(mission.missionAvailable) {
       this.props.actions.missionGetInfo(card, 'piggyback');
     } else {

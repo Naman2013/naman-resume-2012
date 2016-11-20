@@ -23,8 +23,9 @@ const initialState = {
   optional property: obsId
 */
 
-export const fetchAnnouncements = ( user, obsId, category='announcement', level='observatory' ) => ( dispatch ) => {
-  const { at, cid, token } = user;  
+export const fetchAnnouncements = ( obsId, category='announcement', level='observatory' ) => ( dispatch, getState ) => {
+  const { token, at, cid } = getState().user;
+
   dispatch( startFetchAnnouncements() );
   return axios.post('/api/info/getAnnouncements', {
     at,

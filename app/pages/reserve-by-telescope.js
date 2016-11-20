@@ -20,9 +20,6 @@ import Tips from '../components/telescopes/current-selection-header/tips';
 
 import Listings from '../components/telescopes/listings/listings';
 
-// TODO: refactor to use user information from STATE
-import exampleUser from '../example-api-data/example-user'
-
 const { element, func, object } = PropTypes;
 
 /**
@@ -43,7 +40,6 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps({ missions, telescopeOverview }, ownProps) {
   return {
-    user: exampleUser, // TODO: state.user,
     observatoryList: telescopeOverview.observatoryList,
     currentObservatoryId: ownProps.params.observatoryId,
     missions,

@@ -182,7 +182,7 @@ TelescopeImageLoader.propTypes = {
   imageSource: PropTypes.string,
   teleId: PropTypes.string,
   teleThumbWidth: PropTypes.string,
-  teleFade: PropTypes.string,
+  teleFade: PropTypes.number,
   loadThumbnails: PropTypes.bool,
 };
 
