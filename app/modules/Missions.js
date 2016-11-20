@@ -59,7 +59,7 @@ export function missionConfirmClose(mission) {
 */
 export function grabMissionSlot(mission) {
   return (dispatch, getState) => {
-    const { token, at, cid } = getState().user.user;
+    const { token, at, cid } = getState().user;
 
     // reset the state for loading the mission slot
     grabMissionSlotStart();
@@ -95,7 +95,7 @@ const grabMissionSlotStart = () => ({
 
 export function missionGetCards() {
   return (dispatch, getState) => {
-    const { token, at, cid } = getState().user.user; // is this 👍🏻 pattern ?
+    const { token, at, cid } = getState().user;
     return axios.post('/api/recommends/cards', {
       status: 'published',
       ver: 'v1',
@@ -116,7 +116,7 @@ export function missionGetCards() {
 
 export function missionGetInfo(card, type) {
   return (dispatch, getState) => {
-    const { token, at, cid } = getState().user.user;
+    const { token, at, cid } = getState().user;
 
     return axios.post('/api/recommends/getNextPiggyback', {
       uniqueId: card.uniqueId,
@@ -241,7 +241,7 @@ export function missionGetPiggybackFail({data}) {
 
 export function missionGetNextReservation(objectList) {
   return (dispatch, getState) => {
-    let { token, at, cid } = getState().user.user;
+    let { token, at, cid } = getState().user;
     return axios.post('/api/recommends/getNextReservation', {
       requestType: 'multiple',
       uniqueId: '',
@@ -259,7 +259,7 @@ export function missionGetNextReservation(objectList) {
 
 export function updateSingleReservations(uniqueId, objectId) {
   return (dispatch, getState) => {
-    const { token, at, cid } = getState().user.user;
+    const { token, at, cid } = getState().user;
 
     return axios.post('/api/recommends/getNextReservation', {
       cid,
