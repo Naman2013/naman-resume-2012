@@ -26,6 +26,8 @@ const GRAB_MISSION_SLOT_FAIL = 'GRAB_MISSION_SLOT_FAIL';
 const CANCEL_MISSION_SLOT = 'CANCEL_MISSION_SLOT';
 
 const RESERVE_MISSION_SLOT_SUCCESS = 'RESERVE_MISSION_SLOT_SUCCESS';
+const RESERVE_MISSION_SLOT_FAIL = 'RESERVE_MISSION_SLOT_FAIL';
+const RESERVE_MISSION_SLOT_RESET = 'RESERVE_MISSION_SLOT_RESET';
 
 const UPDATE_SINGLE_RESERVATION_SUCCESS = 'UPDATE_SINGLE_RESERVATION_SUCCESS';
 const UPDATE_SINGLE_RESERVATION_FAIL = 'UPDATE_SINGLE_RESERVATION_FAIL';
@@ -68,6 +70,10 @@ const reserverMissionSuccess = ( payload ) => ({
 const reserveMissionFail = ( error ) => ({
   type: RESERVE_MISSION_SLOT_FAIL,
   payload: error,
+});
+
+export const resetReserveMission = () => ({
+  type: RESERVE_MISSION_SLOT_RESET,
 });
 
 
@@ -332,18 +338,51 @@ export function missionGetNextReservationFail({ data }) {
 
 const initialState = {
   isConfirmationOpen: false,
+
   mission: {},
+
   cardList: [],
+
   announcements: [],
+
   piggybacks: [],
+
   currentCard: null,
   currentMissionSlot: null,
   currentMissionSlotError: null,
   fetchingCurrentMissionSlot: false,
+
+  missionSlotJustReserved: false,
+  missionSlotReservationError: false,
+  previousMissionSlotReservation: null,
+  previousMissionSlotReservationError: null,
 };
 
 
 export default createReducer(initialState, {
+  [RESERVE_MISSION_SLOT_SUCCESS](state, { payload }) {
+    return {
+      ...state,
+      missionSlotJustReserved: true,
+      missionSlotReservationError: false,
+      previousMissionSlotReservation: payload,
+    };
+  },
+  [RESERVE_MISSION_SLOT_FAIL](state, { payload }) {
+    return {
+      ...state,
+      missionSlotJustReserved: false,
+      missionSlotReservationError: true,
+      previousMissionSlotReservationError: payload,
+    };
+  },
+  [RESERVE_MISSION_SLOT_RESET](state) {
+    return {
+      ...state,
+      missionSlotJustReserved: false,
+      missionSlotReservationError: false,
+    };
+  },
   [MISSION_CONFIRMATION_OPEN](state, { confirmType, currentCard }) {
     return {
       ...state,
