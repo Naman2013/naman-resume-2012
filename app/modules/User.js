@@ -45,7 +45,7 @@ export function checkUser() {
 
     const userJSON = localStorage.getItem('user');
 
-    if (userJSON) {
+    if ( userJSON ) {
       const user = JSON.parse(userJSON);
       dispatch(store(user));
     } else {
