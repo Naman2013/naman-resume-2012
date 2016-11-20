@@ -8,7 +8,26 @@ import _ from 'lodash';
 
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import {
+  setCategory,
+  setObject,
+  clearBrowse
+} from '../../modules/popular-objects-management/Popular-Objects';
 
+
+const mapStateToProps = ({ popularObjects }) => ({
+  ...popularObjects,
+});
+
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators({
+    setCategory,
+    setObject,
+    clearBrowse,
+  }, dispatch),
+});
+
+@connect(mapStateToProps, mapDispatchToProps)
 class ReserveObjects extends Component {
   constructor(props) {
     super(props);
