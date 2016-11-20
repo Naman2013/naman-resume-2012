@@ -3,7 +3,7 @@ import { WithContext as ReactTags } from 'react-tag-input';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import { fetchTags } from '../../../modules/tag-management/Tags';
+import { setTags } from '../../../modules/tag-management/Tags';
 import style from './mission-tags.scss';
 
 const mapStateToProps = ({ tags }) => ({
@@ -12,7 +12,7 @@ const mapStateToProps = ({ tags }) => ({
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
-    fetchTags,
+    setTags,
   }, dispatch),
 });
 
@@ -22,41 +22,8 @@ class MissionTags extends Component {
   constructor(props) {
     super(props);
 
-    this.handleDelete = this.handleDelete.bind(this);
-    this.handleAddition = this.handleAddition.bind(this);
-    this.handleDrag = this.handleDrag.bind(this);
-  }
-
-  handleDelete(){
-    console.log('del');
-  }
-
-  handleAddition(){
-    console.log('add');
-  }
-
-  handleDrag(){
-    console.log('drag');
-  }
-
-  componentDidMount() {
-    const {
-      tagClass,
-      tagType,
-      scheduledMissionId,
-      imageId,
-    } = this.props;
-
-    this.props.actions.fetchTags({
-      tagClass,
-      tagType,
-      scheduledMissionId,
-      imageId,
-    });
-  }
-
-  componentWillMount() {
-    this.setState({
+    // TODO: refactor out...
+    this.state = {
       objective: '',
       tags: [
         {id: 1, text: "galaxy"},
@@ -65,21 +32,55 @@ class MissionTags extends Component {
         {id: 4, text: "m31"},
         {id: 5, text: "deep space"}
       ]
-    });
+    };
+
+    this.handleDelete = this.handleDelete.bind(this);
+    this.handleAddition = this.handleAddition.bind(this);
+    this.handleDrag = this.handleDrag.bind(this);
+  }
+
+  handleDelete() {
+    console.log('del');
+  }
+
+  handleAddition(tag){
+    console.log(tag);
+  }
+
+  handleDrag(){
+    console.log('drag');
+  }
+
+  componentDidMount() {
+    // const {
+    //   tagClass,
+    //   tagType,
+    //   scheduledMissionId,
+    //   imageId,
+    // } = this.props;
+    //
+    // this.props.actions.fetchTags({
+    //   tagClass,
+    //   tagType,
+    //   scheduledMissionId,
+    //   imageId,
+    // });
   }
 
   render() {
-
-    const suggestions = ['mars', 'jupiter', 'moon', 'saturn'];
-
     return(
       <div className="slooh-mission-tags">
         <h4 className="title">MISSION TAGS:</h4>
-        <ReactTags tags={ this.state.tags }
-          suggestions={ suggestions }
-          handleDelete={ this.handleDelete }
-          handleAddition={ this.handleAddition }
-          handleDrag={ this.handleDrag } />
+        <ReactTags
+          tags={this.state.tags}
+          handleDelete={this.handleDelete}
+          handleAddition={this.handleAddition}
+          handleDrag={this.handleDrag} />
+
+        <form className="add-tag-form" onSubmit={this.handleSubmit} method="POST">
+          <input className="tag-text" placeholder="Tag text" type="text" name="tag-name" />
+          <button className="action" type="submit">Add a Tag</button>
+        </form>
       </div>
     );
   }
