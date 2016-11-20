@@ -47,6 +47,7 @@
   &:hover,
   &.selected {
     background: #B9D9D9;
+    font-weight: bold;
   }
 
   &:hover {
@@ -112,6 +113,7 @@
 
       .object-item {
         @extend .item-object;
+        font-weight: lighter;
         
         margin-bottom: 5px;
       }
