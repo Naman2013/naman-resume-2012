@@ -15,6 +15,9 @@ const SET_TAGS_FAIL = 'SET_TAGS_FAIL';
 */
 export const setTags = ( tagData ) => ( dispatch, getState ) => {
   const { token, at, cid }  = getState().user.user;
+
+  startSetTag();
+
   return axios.post('/api/tags/setTag', {
     token,
     at,
@@ -24,6 +27,20 @@ export const setTags = ( tagData ) => ( dispatch, getState ) => {
   .then( result => dispatch( setTagsSuccess( result.data ) ) )
   .catch( error => dispatch( setTagsFail( error ) ) );
 };
+
+const setTagsSuccess = result => ({
+  type: SET_TAGS_SUCCESS,
+  payload: result,
+});
+
+const setTagsFail = error => ({
+  type: SET_TAGS_FAIL,
+  payload: error,
+});
+
+const startSetTag = () => ({
+  type: SET_TAGS_START,
+});
 
 /**
   /api/tags/getTags
