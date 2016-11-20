@@ -38,7 +38,7 @@ export const deleteTag = ( tagData ) => ( dispatch, getState ) => {
 export const setTags = ( tagData ) => ( dispatch, getState ) => {
   const { token, at, cid }  = getState().user;
 
-  startSetTag();
+  dispatch( startSetTag() );
 
   return axios.post('/api/tags/setTag', {
     token,
@@ -70,6 +70,9 @@ const startSetTag = () => ({
 */
 export const fetchTags = ( tagData ) => ( dispatch, getState ) => {
   const { token, at, cid } = getState().user;
+
+  dispatch( fetchTagsStart() );
+
   return axios.post('/api/tags/getTags', {
     token,
     at,
@@ -80,10 +83,13 @@ export const fetchTags = ( tagData ) => ( dispatch, getState ) => {
   .catch( error => dispatch( fetchTagsFail( error ) ) );
 };
 
-// actions
 const fetchTagsSuccess = payload => ({
   type: FETCH_TAGS_SUCCESS,
   payload,
+});
+
+const fetchTagsStart = () => ({
+  type: FETCH_TAGS_START,
 });
 
 const fetchTagsFail = payload => ({
