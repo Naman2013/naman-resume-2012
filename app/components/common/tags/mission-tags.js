@@ -6,8 +6,22 @@ import { connect } from 'react-redux';
 import { setTags } from '../../../modules/tag-management/Tags';
 import style from './mission-tags.scss';
 
+/**
+  example tag structure from API
+  {
+    tagIndex: 0,
+    tagText: 'Sandwich'
+  }
+
+  we map this to:
+  {
+    id: [tagIndex],
+    text: [tagText,]
+  }
+*/
+
 const mapStateToProps = ({ tags }) => ({
-  tags,
+  ...tags,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -26,13 +40,7 @@ class MissionTags extends Component {
     this.state = {
       tagText: '',
       objective: '',
-      tags: [
-        {id: 1, text: "galaxy"},
-        {id: 2, text: "andromeda"},
-        {id: 3, text: "canary islands"},
-        {id: 4, text: "m31"},
-        {id: 5, text: "deep space"}
-      ]
+      tags: []
     };
 
     this.handleDelete = this.handleDelete.bind(this);
@@ -81,12 +89,19 @@ class MissionTags extends Component {
   render() {
 
     const { tagText } = this.state;
+    const { tags } = this.props;
+
+    let availableTags = [];
+
+    if(tags) {
+      availableTags = tags.tagList.map( tag => ({ id: tag.tagIndex, text: tag.tagText }) );
+    }
 
     return(
       <div className="slooh-mission-tags">
         <h4 className="title">MISSION TAGS:</h4>
         <ReactTags
-          tags={this.state.tags}
+          tags={availableTags}
           handleDelete={this.handleDelete}
           handleAddition={this.handleAddition}
           handleDrag={this.handleDrag} />
