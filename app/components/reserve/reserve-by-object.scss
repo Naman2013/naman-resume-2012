@@ -40,6 +40,7 @@
 
 .item-object {
   @extend .list-item-padding;
+  margin-bottom: 1px;
   
   border-top-left-radius: 20px;
   border-bottom-left-radius: 20px;  
@@ -92,12 +93,13 @@
 .no-padding {
   padding: 0;
 }
-.title {
-  font-size: 1.3em;
-  font-weight: 500;
-  margin-bottom: 5px;
+
+.title {  
+  font-weight: bold;  
   display: block;
+  text-transform: uppercase;
 }
+
 .objectList {  
   .sub-category {
     margin-bottom: 30px;
@@ -114,8 +116,6 @@
       .object-item {
         @extend .item-object;
         font-weight: lighter;
-        
-        margin-bottom: 5px;
       }
     }
   }
@@ -128,5 +128,9 @@
     color: #fff;
     display: block;
     max-width: 150px;
+
+    &:first-child {
+      margin: 40px auto;
+    }
   }
 }
