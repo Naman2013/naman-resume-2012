@@ -9,5 +9,7 @@
 
   &::-webkit-scrollbar-thumb {
     background-color: #2e2e37;
+    // add fancy white ribbon from design
+    box-shadow: 3px 0px 0px 3px #fff;
   }
 }
