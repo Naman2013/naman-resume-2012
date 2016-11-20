@@ -24,6 +24,7 @@ class MissionTags extends Component {
 
     // TODO: refactor out...
     this.state = {
+      tagText: '',
       objective: '',
       tags: [
         {id: 1, text: "galaxy"},
@@ -38,6 +39,7 @@ class MissionTags extends Component {
     this.handleAddition = this.handleAddition.bind(this);
     this.handleDrag = this.handleDrag.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleTagTextChange = this.handleTagTextChange.bind(this);
   }
 
   handleDelete() {
@@ -47,28 +49,39 @@ class MissionTags extends Component {
   handleAddition() { return false; }
   handleDrag() { return false; }
 
-  handleSubmit(event) {
-    event.preventDefault();
-    console.log('Submit the new tag...');
+  resetTagText() {
+    this.setState({
+      tagText: '',
+    });
   }
 
-  componentDidMount() {
-    // const {
-    //   tagClass,
-    //   tagType,
-    //   scheduledMissionId,
-    //   imageId,
-    // } = this.props;
-    //
-    // this.props.actions.fetchTags({
-    //   tagClass,
-    //   tagType,
-    //   scheduledMissionId,
-    //   imageId,
-    // });
+  handleTagTextChange(event) {
+    this.setState({
+      tagText: event.target.value,
+    });
+  }
+
+  handleSubmit(event) {
+    event.preventDefault();
+
+    const { tagText } = this.state;
+    const { tagClass, tagType, scheduledMissionId, imageId } = this.props;
+
+    this.props.actions.setTags({
+      text: tagText,
+      tagClass,
+      tagType,
+      scheduledMissionId,
+      imageId,
+    });
+
+    this.resetTagText();
   }
 
   render() {
+
+    const { tagText } = this.state;
+
     return(
       <div className="slooh-mission-tags">
         <h4 className="title">MISSION TAGS:</h4>
@@ -79,7 +92,13 @@ class MissionTags extends Component {
           handleDrag={this.handleDrag} />
 
         <form className="add-tag-form" onSubmit={this.handleSubmit} method="POST">
-          <input className="tag-text" placeholder="Tag text" type="text" name="tag-name" />
+          <input
+            className="tag-text"
+            placeholder="Tag text"
+            type="text"
+            name="tag-name"
+            onChange={this.handleTagTextChange}
+            value={tagText} />
           <button className="action" type="submit">Add a Tag</button>
         </form>
       </div>
