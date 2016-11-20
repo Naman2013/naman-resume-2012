@@ -34,14 +34,16 @@ export const getCurrentObservatory = (observatoryList, observatoryId) => {
 
 const getCurrentTimeInSeconds = () => new Date().getTime() / 1000;
 
-export const getObservatoryList = (user, currentObservatoryId) => (dispatch) => {
+export const getObservatoryList = (user, currentObservatoryId) => (dispatch, getState) => {
     // TODO: dispatch loading...
+    const { token, at, cid }  = getState().user;
+
     return axios.post('/api/obs/list', {
+      at,
+      cid,
+      token,
       lang: 'en',
       status: 'live',
-      at: user.at,
-      cid: user.cid,
-      token: user.token,
       listType: 'full'
     })
     .then((response) => {
@@ -99,32 +101,36 @@ export const observatoryListError = (error) => ({
 
 
 
-const fetchMoonPhase = ( observatory ) => ( dispatch ) => {
+const fetchMoonPhase = ( observatory ) => ( dispatch, getState ) => {
+  const { token, at, cid } = getState().user;
+
   return axios.post('/api/moon/phase', {
+    token,
+    at,
+    cid,
     ver: 'v1',
     lang: 'en',
     obsId: observatory.obsId,
     widgetUniqueId: observatory.MoonPhaseWidgetId,
     timestamp: getCurrentTimeInSeconds(),
-    token: '8d02b976e146cb5e5bfe15a10bb96b2365826dca', //hard coded, TODO: change to logged in user
-    at: 3,
-    cid: 198267, //hard coded, TODO: change to logged in user
   })
   .then(result => dispatch( setMoonPhaseWidget(result.data) ) );
 };
 
 
 
-const fetchSmallSatelliteView = ( observatory ) => ( dispatch ) => {
+const fetchSmallSatelliteView = ( observatory ) => ( dispatch, getState ) => {
+  const { token, at, cid } = getState().user;
+
   return axios.post('/api/wx/satellite', {
+    token,
+    at,
+    cid,
     ver: 'v1',
     lang: 'en',
     obsId: observatory.obsId,
     widgetUniqueId: observatory.SatelliteWidgetId,
     timestamp: getCurrentTimeInSeconds(),
-    token: '8d02b976e146cb5e5bfe15a10bb96b2365826dca', //hard coded, TODO: change to logged in user
-    at: 3,
-    cid: 198267, //hard coded, TODO: change to logged in user
   })
   .then(result => dispatch(setSatelliteViewWidget(result.data)));
 };
@@ -152,7 +158,7 @@ export default createReducer(initialState, {
       observatoryList: observatoryList,
     };
   },
-  [OBSERVATORY_REQUEST_FAIL](state, {observatoryListError}) {    
+  [OBSERVATORY_REQUEST_FAIL](state, {observatoryListError}) {
     return {
       ...state,
       observatoryListError,
