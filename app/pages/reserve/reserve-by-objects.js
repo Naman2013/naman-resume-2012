@@ -6,6 +6,9 @@ import styles from '../../components/reserve/reserve-by-object.scss';
 import testData from './reserve-by-objects-data.js';
 import _ from 'lodash';
 
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+
 class ReserveObjects extends Component {
   constructor(props) {
     super(props);
