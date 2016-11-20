@@ -13,14 +13,6 @@ function mapStateToProps({ missions }) {
   };
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    actions: bindActionCreators({
-      fetchTags,
-    }, dispatch),
-  };
-}
-
 @connect(mapStateToProps)
 class ReserveConfirm extends Component {
 
