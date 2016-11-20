@@ -36,7 +36,7 @@ const getCurrentTimeInSeconds = () => new Date().getTime() / 1000;
 
 export const getObservatoryList = (user, currentObservatoryId) => (dispatch, getState) => {
     // TODO: dispatch loading...
-    const { token, at, cid }  = getState().user;
+    const { token, at, cid } = getState().user;
 
     return axios.post('/api/obs/list', {
       at,
