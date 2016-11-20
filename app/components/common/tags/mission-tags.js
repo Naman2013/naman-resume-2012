@@ -37,18 +37,19 @@ class MissionTags extends Component {
     this.handleDelete = this.handleDelete.bind(this);
     this.handleAddition = this.handleAddition.bind(this);
     this.handleDrag = this.handleDrag.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleDelete() {
     console.log('del');
   }
 
-  handleAddition(tag){
-    console.log(tag);
-  }
+  handleAddition() { return false; }
+  handleDrag() { return false; }
 
-  handleDrag(){
-    console.log('drag');
+  handleSubmit(event) {
+    event.preventDefault();
+    console.log('Submit the new tag...');
   }
 
   componentDidMount() {
