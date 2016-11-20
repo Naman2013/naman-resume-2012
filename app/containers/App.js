@@ -20,7 +20,7 @@ export default class App extends Component {
     checkUser: func.isRequired,
   };
 
-  componentDidMount() {
+  componentWillMount() {
     this.props.checkUser();
   }
 

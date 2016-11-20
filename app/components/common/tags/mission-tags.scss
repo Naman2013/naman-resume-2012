@@ -1,3 +1,6 @@
+@import "../../../styles/variables/fonts.scss";
+@import "../../../styles/variables/colors.scss";
+
 .slooh-mission-tags {
   .title {
     margin-bottom: 20px;
@@ -10,6 +13,7 @@
     padding: 4px 15px 4px 10px;
     margin: 0 8px;
     position: relative;
+
     .ReactTags__remove {
       display: none;
       position: absolute;
@@ -24,6 +28,24 @@
   }
 
   .ReactTags__tagInput {
-      margin: 15px 0;
+      display: none;
+  }
+
+  .add-tag-form {
+    margin: 20px 0 0 0;
+
+    .tag-text {
+      padding: 5px;
+      display: block;
+      margin: 0 auto 10px auto;
+    }
+
+    .action {
+      background: transparent;
+      border: none;
+      color: $pink;
+      display: block;
+      margin: 0 auto;
+    }
   }
 }

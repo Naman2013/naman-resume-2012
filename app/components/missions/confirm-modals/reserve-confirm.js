@@ -13,14 +13,6 @@ function mapStateToProps({ missions }) {
   };
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    actions: bindActionCreators({
-      fetchTags,
-    }, dispatch),
-  };
-}
-
 @connect(mapStateToProps)
 class ReserveConfirm extends Component {
 
@@ -96,7 +88,7 @@ class ReserveConfirm extends Component {
 
             <MissionTags
               tagClass={ `mission` }
-              tagType={ `objective` }
+              tagType={ `user` }
               scheduledMissionId={ missionData.scheduledMissionId }
             />
 
