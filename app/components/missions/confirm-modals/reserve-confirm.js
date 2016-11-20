@@ -46,8 +46,7 @@ class ReserveConfirm extends Component {
     this.props.actions.reserveMissionSlot({
       callSource: 'recommends',
       ...currentMission,
-      objectType: '',
-      objectTitle: '',
+      objectTitle: currentMission.title,
     });
   }
 
