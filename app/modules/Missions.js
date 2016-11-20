@@ -25,6 +25,8 @@ const GRAB_MISSION_SLOT_FAIL = 'GRAB_MISSION_SLOT_FAIL';
 
 const CANCEL_MISSION_SLOT = 'CANCEL_MISSION_SLOT';
 
+const RESERVE_MISSION_SLOT_SUCCESS = 'RESERVE_MISSION_SLOT_SUCCESS';
+
 const UPDATE_SINGLE_RESERVATION_SUCCESS = 'UPDATE_SINGLE_RESERVATION_SUCCESS';
 const UPDATE_SINGLE_RESERVATION_FAIL = 'UPDATE_SINGLE_RESERVATION_FAIL';
 
@@ -46,10 +48,32 @@ export function missionConfirmClose(mission) {
 }
 
 
+export const reserveMissionSlot = ( mission ) => ( dispatch, getState ) => {
+  const { token, at, cid } = getState().user;
+  return axios.post('/api/reservation/reserveMissionSlot', {
+    token,
+    at,
+    cid,
+    ...mission,
+  })
+  .then( result => dispatch( reserveMissionSuccess( result.data ) ) )
+  .catch( error => dispatch( reserveMissionFail( error ) ) );
+};
+
+const reserverMissionSuccess = ( payload ) => ({
+  type: RESERVE_MISSION_SLOT_SUCCESS,
+  payload: payload,
+});
+
+const reserveMissionFail = ( error ) => ({
+  type: RESERVE_MISSION_SLOT_FAIL,
+  payload: error,
+});
+
+
 
 export const cancelMissionSlot = ( mission ) => ( dispatch, getState ) => {
   const { token, at, cid } = getState().user;
-
   return axios.post('/api/reservation/cancelMissionSlot', {
     token,
     at,
