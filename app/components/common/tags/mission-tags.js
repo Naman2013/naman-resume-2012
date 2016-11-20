@@ -123,6 +123,7 @@ class MissionTags extends Component {
             placeholder="Tag text"
             type="text"
             name="tag-name"
+            autoComplete="off"
             onChange={this.handleTagTextChange}
             value={tagText} />
           <button className="action" type="submit">Add a Tag</button>
