@@ -50,7 +50,7 @@ export function missionConfirmClose(mission) {
 export const cancelMissionSlot = ( mission ) => ( dispatch, getState ) => {
   const { token, at, cid } = getState().user;
 
-  return axios('/api/reservation/cancelMissionSlot', {
+  return axios.post('/api/reservation/cancelMissionSlot', {
     token,
     at,
     cid,

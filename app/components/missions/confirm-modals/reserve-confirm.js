@@ -4,22 +4,28 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import moment from 'moment-timezone';
 
+import { cancelMissionSlot } from '../../../modules/Missions';
 import MissionTags from '../../common/tags/mission-tags';
 import styles from '../mission-modals.scss';
 
-function mapStateToProps({ missions }) {
-  return {
-    currentMissionSlot: missions.currentMissionSlot,
-  };
-}
+const mapStateToProps = ({ missions }) => ({
+  currentMissionSlot: missions.currentMissionSlot,
+});
 
-@connect(mapStateToProps)
+const mapDispatchToProps = ( dispatch ) => ({
+  actions: bindActionCreators({
+    cancelMissionSlot,
+  }, dispatch),
+});
+
+@connect(mapStateToProps, mapDispatchToProps)
 class ReserveConfirm extends Component {
 
   constructor(props) {
     super(props)
 
     this.onSubmit = this.onSubmit.bind(this);
+    this.handleCloseModalClick = this.handleCloseModalClick.bind(this);
   }
 
   componentWillMount() {
@@ -32,15 +38,33 @@ class ReserveConfirm extends Component {
     this.setState({ objective: event.target.value });
   }
 
-  onSubmit(){
+  onSubmit() {
     console.log(this.state);
+  }
+
+  handleCloseModalClick(event) {
+    event.preventDefault();
+
+    const { closeModal, currentMissionSlot } = this.props;
+    const {
+      scheduledMissionId,
+      uniqueId
+    } = currentMissionSlot.missionList[0];
+
+    this.props.actions.cancelMissionSlot({
+      scheduledMissionId,
+      uniqueId,
+      grabType: 'notarget',
+      callSource: 'recommends',
+    });
+
+    closeModal();
   }
 
   render () {
 
     const {
       open,
-      closeModal,
       currentMissionSlot,
     } = this.props;
 
@@ -97,7 +121,7 @@ class ReserveConfirm extends Component {
         </Modal.Body>
 
         <Modal.Footer>
-          <Button className="btn-primary" onClick={ closeModal }>Sorry, Cancel This.</Button>
+          <Button className="btn-primary" onClick={ this.handleCloseModalClick }>Sorry, Cancel This.</Button>
           <Button className="btn-primary" onClick={ this.onSubmit }>Absolutely!</Button>
         </Modal.Footer>
       </Modal>
