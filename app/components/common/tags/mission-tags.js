@@ -3,7 +3,7 @@ import { WithContext as ReactTags } from 'react-tag-input';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import { setTags } from '../../../modules/tag-management/Tags';
+import { setTags, deleteTag } from '../../../modules/tag-management/Tags';
 import style from './mission-tags.scss';
 
 /**
@@ -27,6 +27,7 @@ const mapStateToProps = ({ tags }) => ({
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
     setTags,
+    deleteTag,
   }, dispatch),
 });
 
@@ -36,11 +37,9 @@ class MissionTags extends Component {
   constructor(props) {
     super(props);
 
-    // TODO: refactor out...
     this.state = {
       tagText: '',
       objective: '',
-      tags: []
     };
 
     this.handleDelete = this.handleDelete.bind(this);
@@ -50,8 +49,20 @@ class MissionTags extends Component {
     this.handleTagTextChange = this.handleTagTextChange.bind(this);
   }
 
-  handleDelete() {
-    console.log('del');
+  handleDelete(tag) {
+
+    const { tagClass, tagType, scheduledMissionId, imageId } = this.props;
+
+    const { tagList } = this.props.tags;
+    const deleteTag = tagList.find( originalTag => originalTag.tagIndex === tag );
+
+    this.props.actions.deleteTag({
+      text: deleteTag.tagText,
+      tagClass,
+      tagType,
+      scheduledMissionId,
+      imageId,
+    });
   }
 
   handleAddition() { return false; }
