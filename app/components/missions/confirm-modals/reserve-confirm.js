@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import moment from 'moment-timezone';
 
-import { cancelMissionSlot } from '../../../modules/Missions';
+import { cancelMissionSlot, reserveMissionSlot } from '../../../modules/Missions';
 import MissionTags from '../../common/tags/mission-tags';
 import styles from '../mission-modals.scss';
 
@@ -15,6 +15,7 @@ const mapStateToProps = ({ missions }) => ({
 const mapDispatchToProps = ( dispatch ) => ({
   actions: bindActionCreators({
     cancelMissionSlot,
+    reserveMissionSlot,
   }, dispatch),
 });
 
@@ -38,8 +39,16 @@ class ReserveConfirm extends Component {
     this.setState({ objective: event.target.value });
   }
 
-  onSubmit() {
-    console.log(this.state);
+  onSubmit(event) {
+    event.preventDefault();
+    const currentMission = this.props.currentMissionSlot.missionList[0];
+    
+    this.props.actions.reserveMissionSlot({
+      callSource: 'recommends',
+      ...currentMission,
+      objectType: '',
+      objectTitle: '',
+    });
   }
 
   handleCloseModalClick(event) {
