@@ -1,11 +1,31 @@
 import { SubmissionError } from 'redux-form';
-import superagent from '../utils/superagent';
+import axios from 'axios';
 import createReducer from './utils/createReducer';
 import createAction from './utils/createAction';
 import * as userActions from './User';
 
 const LOGIN_SHOW = 'LOGIN_SHOW';
 const LOGIN_HIDE = 'LOGIN_HIDE';
+
+export const show = createAction(LOGIN_SHOW);
+export const hide = createAction(LOGIN_HIDE);
+
+export const login = ( loginFormValues ) => ( dispatch ) => {
+  const { username, passwd } = loginFormValues;
+
+  return axios.post('api/users/login', {
+    username,
+    passwd,
+  })
+  .then((result) => {
+    dispatch( userActions.store( result.data ) );
+    dispatch( hide() );
+  })
+  .catch((error) => {
+    throw new SubmissionError({ _error: 'Your log in was unsuccessful. Please try again.' });
+  });
+};
+
 
 const initialState = {
   isShowed: false,
@@ -25,21 +45,3 @@ export default createReducer(initialState, {
     };
   },
 });
-
-export const show = createAction(LOGIN_SHOW, 'index');
-export const hide = createAction(LOGIN_HIDE);
-
-export async function login(values, dispatch) {
-  const { body, body: { loginError } } = await superagent
-    .post('/api/users/login')
-    .type('form')
-    .send(values);
-
-  if (loginError === 'true') {
-    throw new SubmissionError({ _error: 'Your log in was unsuccessful. Please try again.' });
-  }
-
-  dispatch(hide());
-
-  dispatch(userActions.store(body));
-}
