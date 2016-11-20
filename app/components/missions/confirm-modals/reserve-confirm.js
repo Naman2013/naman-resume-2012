@@ -88,7 +88,7 @@ class ReserveConfirm extends Component {
 
             <MissionTags
               tagClass={ `mission` }
-              tagType={ `objective` }
+              tagType={ `user` }
               scheduledMissionId={ missionData.scheduledMissionId }
             />
 
