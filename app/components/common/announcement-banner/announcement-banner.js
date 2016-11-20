@@ -9,11 +9,10 @@ import {
   hideBanner,
 } from '../../../modules/Announcement-Banner';
 
-import exampleUser from '../../../example-api-data/example-user';
+
 
 function mapStateToProps(state, ownProps) {
   return {
-    user: exampleUser, // TODO: state.user
     announcementMessages: state.announcementBanner.messages,
     announcementsLoading: state.announcementBanner.messageLoading,
     refreshIntervalSec: state.announcementBanner.refreshIntervalSec,
@@ -42,10 +41,9 @@ class AnnouncementBanner extends Component {
   }
 
   updateAnnouncements(obsId) {
-    const { user, level, category } = this.props;
+    const { level, category } = this.props;
 
     this.props.actions.fetchAnnouncements(
-      user,
       obsId,
       category,
       level,
