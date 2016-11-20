@@ -2,6 +2,7 @@ import createReducer from './utils/createReducer';
 import createAction from './utils/createAction';
 import axios from 'axios';
 import moment from 'moment';
+import _ from 'lodash';
 
 // Mission action types
 export const MISSION_CONFIRMATION_OPEN  = 'MISSION_CONFIRMATION_OPEN';
@@ -22,10 +23,13 @@ const GRAB_MISSION_SLOT_START = 'GRAB_MISSION_SLOT_START';
 const GRAB_MISSION_SLOT_SUCCESS = 'GRAB_MISSION_SLOT_SUCCESS';
 const GRAB_MISSION_SLOT_FAIL = 'GRAB_MISSION_SLOT_FAIL';
 
+const CANCEL_MISSION_SLOT = 'CANCEL_MISSION_SLOT';
+
 const UPDATE_SINGLE_RESERVATION_SUCCESS = 'UPDATE_SINGLE_RESERVATION_SUCCESS';
 const UPDATE_SINGLE_RESERVATION_FAIL = 'UPDATE_SINGLE_RESERVATION_FAIL';
 
-// Mission action creator
+
+
 export function missionConfirmOpen(card, type) {
   return {
     type: MISSION_CONFIRMATION_OPEN,
@@ -40,6 +44,22 @@ export function missionConfirmClose(mission) {
     mission: mission,
   }
 }
+
+
+
+export const cancelMissionSlot = ( mission ) => ( dispatch, getState ) => {
+  const { token, at, cid } = getState().user;
+
+  return axios.post('/api/reservation/cancelMissionSlot', {
+    token,
+    at,
+    cid,
+    ...mission,
+  })
+  .then( result => _.noop( result ) )
+  .catch( error => _.noop( error ) );
+};
+
 
 /**
   see: /api/reservation/grabMissionSlot for providing the appropriate mission shape
