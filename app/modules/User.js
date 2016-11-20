@@ -5,57 +5,6 @@ import createAction from './utils/createAction';
 const SET_USER = 'SET_USER';
 const REMOVE_USER = 'REMOVE_USER';
 
-/**
-  * Initial state for the user
-  * for now it's a mock data
-  * @todo update with empty object when login flow is ready
-  */
-const initialState = {
-  isAuthorized: false,
-  user: {
-    ver: "v1",
-    lang: "en",
-    fname: "Brandon",
-    userid: "BrandonS.2016",
-    username: "Frankincense",
-    avatarType: "dummy",
-    avatarURL: "http://images-account.slooh.com/avatar-dummy.png",
-    cid: "198265",
-    at: "2",
-    status: "Active",
-    notifyType: "all",
-    notifyStatus: "unread",
-    notifyCount: "0",
-    school: "",
-    classroom: "",
-    teacher: "",
-    redirect: "",
-    token: "ab94b9f39049348848d807bc1a071e96919e9b1e",
-    tokenExp: "",
-    validate: "",
-    loginError: "false",
-    statusCode: "200"
-  }
-};
-
-/**
-  Default reducer for the user store
-  @param {object} initialState
-  */
-export default createReducer(initialState, {
-  [SET_USER](state, { user }) {
-    return {
-      ...user,
-      isAuthorized: true,
-    };
-  },
-  [REMOVE_USER]() {
-    return {
-      isAuthorized: false,
-    };
-  },
-});
-
 export const set = createAction(SET_USER, 'user');
 export const remove = createAction(REMOVE_USER);
 
@@ -93,7 +42,7 @@ export function destroy() {
   */
 export function checkUser() {
   return (dispatch) => {
-    localStorage.setItem( 'user', JSON.stringify(initialState) );
+
     const userJSON = localStorage.getItem('user');
 
     if (userJSON) {
@@ -104,3 +53,28 @@ export function checkUser() {
     }
   };
 }
+
+
+
+const initialState = {
+  isAuthorized: false,
+  user: {
+    token: '',
+    at: '',
+    cid: '',
+  },
+};
+
+export default createReducer(initialState, {
+  [SET_USER](state, { user }) {
+    return {
+      ...user,
+      isAuthorized: true,
+    };
+  },
+  [REMOVE_USER]() {
+    return {
+      isAuthorized: false,
+    };
+  },
+});
