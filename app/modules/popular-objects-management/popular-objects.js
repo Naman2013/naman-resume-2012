@@ -16,7 +16,9 @@ export const setObject = item => ({
   payload: item,
 });
 
-export const clearBrowse = item => { type: CLEAR_BROWSE, };
+export const clearBrowse = item => ({
+  type: CLEAR_BROWSE,
+});
 
 
 const initialState = {
