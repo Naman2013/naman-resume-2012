@@ -5,12 +5,23 @@ import ObjectListItems from './object-list-items';
 import classnames from 'classnames';
 
 class ReserveObjectsList extends Component {
-  handleClickEvent(item) {
-    return this.props.onClickHandler(item);
+  constructor(props) {
+    super(props);
+
+    this.clickHandler = this.clickHandler.bind(this);
+  }
+
+  clickHandler(subCategoryIndex, item, itemIndex) {
+    this.props.onClickHandler({
+      item,
+      itemIndex: itemIndex,
+      subcategoryIndex: subCategoryIndex
+    });
   }
   
   render() {
-    const { objects = [], selectedItem } = this.props;
+    const { selectedCategory, selectedObject } = this.props;
+    const objects = selectedCategory.item ? selectedCategory.item.objects : [];
 
     return (
       <div className={styles.objectList}>
@@ -18,14 +29,15 @@ class ReserveObjectsList extends Component {
           {
             _.map(objects, (obj, i) => {
               return (
-                <li key={i} className="sub-category">
+                <li key={ i } className="sub-category">
                   
-                  <span className="sub-category-title">{obj.title}</span>
+                  <span className="sub-category-title">{ obj.title }</span>
                   
                   <ObjectListItems
-                    items={obj.items}
-                    selectedItem={selectedItem}
-                    handleClickEvent={this.handleClickEvent.bind(this)} />
+                    items={ obj.items }
+                    selectedSubCategory={ selectedObject.subcategoryIndex === i }
+                    selectedItemIndex={ selectedObject.itemIndex }
+                    handleClickEvent={ (item, index) => { this.clickHandler(i, item, index); } } />
                 </li>
               );
             })

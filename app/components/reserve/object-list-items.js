@@ -2,7 +2,14 @@ import React from 'react';
 import _ from 'lodash';
 import classnames from 'classnames';
 
-const ObjectItems = ({ items, selectedItem, handleClickEvent }) => {
+const ObjectItems = (props) => {
+  const {
+    items,
+    selectedItemIndex,
+    handleClickEvent,
+    selectedSubCategory
+  } = props;
+
   return (
     <ul className="object-items">
 
@@ -12,14 +19,14 @@ const ObjectItems = ({ items, selectedItem, handleClickEvent }) => {
           // TODO: replace selectedItem.title === item.title with id comparisons
           const elementStyles = classnames({
             'object-item': true,
-            selected: selectedItem && selectedItem.title === item.title
+            selected: selectedSubCategory && selectedItemIndex === i
           });
 
           return (
             <li
               className={elementStyles}
               key={i}
-              onClick={handleClickEvent(item)}>
+              onClick={ () => { handleClickEvent(item, i); } }>
               {item.title}
             </li>
           );
