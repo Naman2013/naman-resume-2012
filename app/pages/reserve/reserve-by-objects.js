@@ -32,47 +32,36 @@ class ReserveObjects extends Component {
   constructor(props) {
     super(props);
     
-    this.state = this.getDefaultState();
+    this.setCategory = this.setCategory.bind(this);
+    this.setObject = this.setObject.bind(this);
+    this.clearObject = this.clearObject.bind(this);
+  }
+  
+  clearBrowse() {
+    return () => {
+      this.props.actions.clearBrowse();
+    }
   }
 
-  getDefaultState(){
-    return {    
-      category: {},
-      object: null
+  setCategory(item) {
+    return () => {
+      this.props.actions.setCategory(item);
     };
   }
 
-  clearBrowse() {
-    this.setState(this.getDefaultState());
+  setObject(itemType, item, event) {    
+    return () => {
+      this.props.actions.setObject(item);
+    };
   }
 
   scheduleMission() {
     // TODO: build this later
   }
 
-  onItemClick(itemType, item, event) {
-    let update = {};
-
-    update[itemType] = item;
-
-    // clear selected object when clicking a new category
-    if (itemType === 'category') {
-      update.object = null
-    }
-
-    this.setState(update);
-
-    // TODO: do this with redux
-  }
-
   render() {
-    const {
-      category = {},
-      object = null
-    } = this.state;    
-
-    const clickHandler = _.curry(this.onItemClick.bind(this));
-
+    const { category = {}, object } = this.state;    
+    
     return (
       <div className={styles.reserveObjectPage}>
         <div className="row">
@@ -82,8 +71,8 @@ class ReserveObjects extends Component {
             
             <ReserveObjectsCategory
               items={testData.categories}
-              onClickHandler={clickHandler('category')}
-              selectedItem={this.state.category}/>
+              onClickHandler={this.setCategory}
+              selectedItem={this.state.category} />
           </div>
           
           <div className="col-md-4">
@@ -91,8 +80,8 @@ class ReserveObjects extends Component {
             
             <ReserveObjectsList
               objects={category.objects}
-              onClickHandler={clickHandler('object')}
-              selectedItem={this.state.object}/>
+              onClickHandler={this.setObject}
+              selectedItem={this.state.object} />
           </div>
           
           <div className="col-md-4">
@@ -100,8 +89,8 @@ class ReserveObjects extends Component {
             
             <ReserveObjectsSummary
               object={object}
-              clearBrowse={this.clearBrowse.bind(this)}
-              scheduleMission={this.scheduleMission.bind(this)}/>
+              clearBrowse={this.clearBrowse}
+              scheduleMission={this.scheduleMission.bind(this)} />
           </div>
         </div>
       </div>
