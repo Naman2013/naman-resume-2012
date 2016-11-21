@@ -32,7 +32,18 @@
       color: $black;
       font-size: 24px;
       font-weight: 800;
-      margin: 0;
+      margin: 0 0 20px;
+    }
+
+    .tips-and-tricks {
+      padding: 0 80px;
+      font-family: $secondary-font;
+      color: $darkBlueGray;
+
+      .highlight {
+        color: $pink;
+        font-weight: 600;
+      }
     }
   }
 
@@ -67,20 +78,66 @@
 
   .modal-footer {
     border-top: 0;
-    display: flex;
     justify-content: center;
-    width: 50%;
-    min-width: 320px;
     margin: 0 auto;
-    padding: 0 0 20px 0;
+    padding: 0;
 
-    .btn-primary {
-      width: 150px;
+    .button-row {
+      display: flex;
+
+      .btn-primary {
+        padding: 0 40px;
+      }
     }
+
+    .dark-modal-footer-container {
+      position: relative;
+      width: 100.5%;
+      left: -1px;
+      /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#4c4c4c+0,131313+100 */
+      background: #4c4c4c; /* Old browsers */
+      background: -moz-linear-gradient(top,  #4c4c4c 0%, #131313 100%); /* FF3.6-15 */
+      background: -webkit-linear-gradient(top,  #4c4c4c 0%,#131313 100%); /* Chrome10-25,Safari5.1-6 */
+      background: linear-gradient(to bottom,  #4c4c4c 0%,#131313 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', endColorstr='#131313',GradientType=0 ); /* IE6-9 */
+
+      .dark-modal-footer-content {
+        position: relative;
+        left: 50%;
+
+        .dark-modal-footer-bar {
+          display: flex;
+          margin: 0;
+          transform: translateX(-40%);
+
+          .item {
+            list-style-type: none;
+            text-transform: none;
+            padding: 10px 5px;
+
+            &.text-container .title {
+              text-transform: initial;
+              font-size: 14px;
+              color: $light-blue;
+            }
+
+            &.action-container {
+              font-size: 28px;
+
+              .action {
+                color: $pink;
+              }
+            }
+          }
+        }
+      }
+    }
+
   }
 }
 
 .reserveMissionModal {
+
   .title-bar {
     background: #000;
     h3 {
