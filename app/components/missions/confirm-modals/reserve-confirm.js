@@ -6,6 +6,7 @@ import moment from 'moment-timezone';
 
 import { cancelMissionSlot, reserveMissionSlot } from '../../../modules/Missions';
 import MissionTags from '../../common/tags/mission-tags';
+import NewMissionReservationSuccess from './new-mission-reservation-success';
 import styles from '../mission-modals.scss';
 
 const mapStateToProps = ({ missions }) => ({
@@ -42,7 +43,7 @@ class ReserveConfirm extends Component {
   onSubmit(event) {
     event.preventDefault();
     const currentMission = this.props.currentMissionSlot.missionList[0];
-    
+
     this.props.actions.reserveMissionSlot({
       callSource: 'recommends',
       ...currentMission,
@@ -74,6 +75,7 @@ class ReserveConfirm extends Component {
     const {
       open,
       currentMissionSlot,
+      closeModal,
     } = this.props;
 
     // validate whether or not we have a mission slot ready to render
@@ -93,45 +95,58 @@ class ReserveConfirm extends Component {
 
     return (
       <Modal show={ open } className="missionModal reserveMissionModal">
-        <div className="title-bar">
-          <h3>Please complete your reservation form within 04:47</h3>
-        </div>
 
-        <Modal.Header>
-          <h1 className="title-secondary">You’re reserving the { missionData.telescopeName } telescope to see:</h1>
-          <img className={styles.cardIcon} src={ missionData.objectIconURL } />
-          <h2 className="mission-title">{ missionData.title }</h2>
-        </Modal.Header>
+        {
+          true ?
+            <div>
+              <div className="title-bar">
+                <h3>Please complete your reservation form within 04:47</h3>
+              </div>
 
-        <Modal.Body>
-          <div className="mission-schedule">
-            <h4>Mission Details:</h4>
-            <p>{ EST_start } &middot; { EST_start_time } &middot; { PST_start_time } &middot; { UTC_start_time } UTC</p>
-          </div>
+              <div className="modal-header">
+                <h1 className="title-secondary">You’re reserving the { missionData.telescopeName } telescope to see:</h1>
+                <img className={styles.cardIcon} src={ missionData.objectIconURL } />
+                <h2 className="mission-title">{ missionData.title }</h2>
+              </div>
 
-          <div className="share-objectives">
-            <h4>SHARE YOUR MISSION OBJECTIVES:</h4>
-            <textarea className="mission-objectives" placeholder="It’s optional, but would you consider succinctly describing your thoughts on the mission? Anything goes, tweet style."
-              value={ this.state.objective }
-              onChange={ this.handleChangeObject }></textarea>
-          </div>
+              <div className="modal-body">
+                <div className="mission-schedule">
+                  <h4>Mission Details:</h4>
+                  <p>{ EST_start } &middot; { EST_start_time } &middot; { PST_start_time } &middot; { UTC_start_time } UTC</p>
+                </div>
 
-          <div className="mission-tags">
+                <div className="share-objectives">
+                  <h4>SHARE YOUR MISSION OBJECTIVES:</h4>
+                  <textarea className="mission-objectives" placeholder="It’s optional, but would you consider succinctly describing your thoughts on the mission? Anything goes, tweet style."
+                    value={ this.state.objective }
+                    onChange={ this.handleChangeObject }></textarea>
+                </div>
 
-            <MissionTags
-              tagClass={ `mission` }
-              tagType={ `user` }
-              scheduledMissionId={ missionData.scheduledMissionId }
+                <div className="mission-tags">
+                  <MissionTags
+                    tagClass={ `mission` }
+                    tagType={ `user` }
+                    scheduledMissionId={ missionData.scheduledMissionId }
+                  />
+                </div>
+              </div>
+
+              <div className="modal-footer">
+                <div className="button-row">
+                  <button className="btn-primary" onClick={ this.handleCloseModalClick }>Sorry, Cancel This.</button>
+                  <button className="btn-primary" onClick={ this.onSubmit }>Absolutely!</button>
+                </div>
+              </div>
+            </div>
+            :
+            <NewMissionReservationSuccess
+              closeModal={closeModal}
+              missionStartTime={missionData.missionStart}
+              missionTitle={missionData.title}
+              objectIconURL={missionData.objectIconURL}
             />
+        }
 
-          </div>
-
-        </Modal.Body>
-
-        <Modal.Footer>
-          <Button className="btn-primary" onClick={ this.handleCloseModalClick }>Sorry, Cancel This.</Button>
-          <Button className="btn-primary" onClick={ this.onSubmit }>Absolutely!</Button>
-        </Modal.Footer>
       </Modal>
     )
   }
