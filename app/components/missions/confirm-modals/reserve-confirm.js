@@ -93,6 +93,11 @@ class ReserveConfirm extends Component {
     // TODO: make the reservation
     // TODO: call cancel reservation when the use selects cancel?
 
+    const inlineButtonRowStyle = {
+      'width': '60%',
+      'margin': '0 auto 20px auto',
+    };
+
     return (
       <Modal show={ open } className="missionModal reserveMissionModal">
 
@@ -132,7 +137,7 @@ class ReserveConfirm extends Component {
               </div>
 
               <div className="modal-footer">
-                <div className="button-row">
+                <div style={inlineButtonRowStyle} className="button-row">
                   <button className="btn-primary" onClick={ this.handleCloseModalClick }>Sorry, Cancel This.</button>
                   <button className="btn-primary" onClick={ this.onSubmit }>Absolutely!</button>
                 </div>
