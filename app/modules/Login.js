@@ -13,7 +13,7 @@ export const hide = createAction(LOGIN_HIDE);
 export const login = ( loginFormValues ) => ( dispatch ) => {
   const { username, passwd } = loginFormValues;
 
-  return axios.post('api/users/login', {
+  return axios.post('/api/users/login', {
     username,
     passwd,
   })
