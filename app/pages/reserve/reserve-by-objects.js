@@ -12,7 +12,7 @@ import {
   setCategory,
   setObject,
   clearBrowse
-} from '../../modules/popular-objects-management/Popular-Objects';
+} from '../../modules/browse-by-popular-objects/Popular-Objects';
 
 
 const mapStateToProps = ({ popularObjects }) => ({
@@ -29,27 +29,27 @@ const mapDispatchToProps = dispatch => ({
 
 @connect(mapStateToProps, mapDispatchToProps)
 class ReserveObjects extends Component {
-  
+
   constructor(props) {
     super(props);
 
     this.state = {};
-    
+
     this.setCategory = this.setCategory.bind(this);
     this.setObject = this.setObject.bind(this);
     this.clearBrowse = this.clearBrowse.bind(this);
     this.scheduleMission = this.scheduleMission.bind(this);
   }
-  
+
   clearBrowse() {
-    this.props.actions.clearBrowse();    
+    this.props.actions.clearBrowse();
   }
 
   setCategory(item) {
     this.props.actions.setCategory(item);
   }
 
-  setObject(item) { 
+  setObject(item) {
     this.props.actions.setObject(item);
   }
 
@@ -59,35 +59,35 @@ class ReserveObjects extends Component {
 
   render() {
     const { category, object } = this.props;
-    
+
     const selectedCategory = category || {};
     const selectedObject = object || {};
-    
+
     return (
       <div className={ styles.reserveObjectPage }>
         <div className="row">
 
           <div className="col-md-4">
             <h2><span>1</span> Select Category</h2>
-            
+
             <ReserveObjectsCategory
               items={ testData.categories }
               selectedCategory={ selectedCategory }
               onClickHandler={ this.setCategory } />
           </div>
-          
+
           <div className="col-md-4">
             <h2><span>2</span> Choose Specific Object</h2>
-            
+
             <ReserveObjectsList
               selectedCategory={ selectedCategory }
               selectedObject={ selectedObject }
               onClickHandler={ this.setObject } />
           </div>
-          
+
           <div className="col-md-4">
             <h2><span>3</span> Object Summary</h2>
-            
+
             <ReserveObjectsSummary
               object={ object }
               clearBrowse={ this.clearBrowse }
