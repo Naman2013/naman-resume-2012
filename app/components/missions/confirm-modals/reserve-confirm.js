@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import moment from 'moment-timezone';
 
 import { cancelMissionSlot, reserveMissionSlot } from '../../../modules/Missions';
+import { setTags } from '../../../modules/tag-management/Tags';
 import MissionTags from '../../common/tags/mission-tags';
 import NewMissionReservationSuccess from './new-mission-reservation-success';
 import styles from '../mission-modals.scss';
@@ -18,6 +19,7 @@ const mapDispatchToProps = ( dispatch ) => ({
   actions: bindActionCreators({
     cancelMissionSlot,
     reserveMissionSlot,
+    setTags,
   }, dispatch),
 });
 
@@ -25,20 +27,22 @@ const mapDispatchToProps = ( dispatch ) => ({
 class ReserveConfirm extends Component {
 
   constructor(props) {
-    super(props)
+    super(props);
+
+    this.state = {
+      objective: '',
+    };
 
     this.onSubmit = this.onSubmit.bind(this);
     this.handleCloseModalClick = this.handleCloseModalClick.bind(this);
+    this.handleChangeObjective = this.handleChangeObjective.bind(this);
+    this.handleBlurMissionObjective = this.handleBlurMissionObjective.bind(this);
   }
 
   componentWillMount() {
     this.setState({
       objective: '',
     });
-  }
-
-  handleChangeObject(event) {
-    this.setState({ objective: event.target.value });
   }
 
   onSubmit(event) {
@@ -71,6 +75,23 @@ class ReserveConfirm extends Component {
     closeModal();
   }
 
+  handleChangeObjective(event) {
+    this.setState({ objective: event.target.value });
+  }
+
+  handleBlurMissionObjective(event) {
+    const currentMission = this.props.currentMissionSlot.missionList[0];
+    const { scheduledMissionId } = currentMission;
+    const text = this.state.objective.trim();
+
+    this.props.actions.setTags({
+      tagClass: 'mission',
+      tagType: 'objective',
+      text,
+      scheduledMissionId,
+    });
+  }
+
   render () {
 
     const {
@@ -84,16 +105,16 @@ class ReserveConfirm extends Component {
     if(!currentMissionSlot) { return null }
 
     const missionData = currentMissionSlot.missionList[0];
+    const formattedUTCDate = new Date(missionData.missionStart * 1000);
 
-    const EST_start = moment.tz(missionData.missionStart, 'America/New_York').format('dddd, MMMM Do');
-    const EST_start_time = moment.tz(missionData.missionStart, 'America/New_York').format('h:mma z');
-    const PST_start_time = moment.tz(missionData.missionStart, 'America/Los_Angeles').format('h:mma z');
-    const UTC_start_time = moment(missionData.missionStart).format('HH:mm');
+    const EST_start = moment.tz(formattedUTCDate, 'America/New_York').format('dddd, MMMM Do');
+    const EST_start_time = moment.tz(formattedUTCDate, 'America/New_York').format('h:mma z');
+    const PST_start_time = moment.tz(formattedUTCDate, 'America/Los_Angeles').format('h:mma z');
+    const UTC_start_time = moment.utc(formattedUTCDate).format('HH:mm z');
 
     // TODO: finish the timer
-    // TODO: tie in the mission time and date
-    // TODO: make the reservation
-    // TODO: call cancel reservation when the use selects cancel?
+    // TODO: call to getNextReservation when successfully booked
+    // TODO: clear the state for new data each time the modal is invoked
 
     const inlineButtonRowStyle = {
       'width': '60%',
@@ -126,14 +147,17 @@ class ReserveConfirm extends Component {
             <div className="modal-body">
               <div className="mission-schedule">
                 <h4>Mission Details:</h4>
-                <p>{ EST_start } &middot; { EST_start_time } &middot; { PST_start_time } &middot; { UTC_start_time } UTC</p>
+                <p>{ EST_start } &middot; { EST_start_time } &middot; { PST_start_time } &middot; { UTC_start_time }</p>
               </div>
 
               <div className="share-objectives">
                 <h4>SHARE YOUR MISSION OBJECTIVES:</h4>
-                <textarea className="mission-objectives" placeholder="It’s optional, but would you consider succinctly describing your thoughts on the mission? Anything goes, tweet style."
-                  value={ this.state.objective }
-                  onChange={ this.handleChangeObject }></textarea>
+                <textarea
+                  className="mission-objectives"
+                  placeholder="It’s optional, but would you consider succinctly describing your thoughts on the mission? Anything goes, tweet style."
+                  value={this.state.objective}
+                  onBlur={this.handleBlurMissionObjective}
+                  onChange={this.handleChangeObjective}></textarea>
               </div>
 
               <div className="mission-tags">

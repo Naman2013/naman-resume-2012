@@ -8,10 +8,11 @@ class NewMissionReservationSuccess extends Component {
 
     const { closeModal, missionStartTime, missionTitle, objectIconURL } = this.props;
 
-    const EST_start = moment.tz(missionStartTime, 'America/New_York').format('dddd, MMMM Do');
-    const EST_start_time = moment.tz(missionStartTime, 'America/New_York').format('h:mma z');
-    const PST_start_time = moment.tz(missionStartTime, 'America/Los_Angeles').format('h:mma z');
-    const UTC_start_time = moment(missionStartTime).format('HH:mm');
+    const formattedUTCDate = new Date(missionStart * 1000);
+    const EST_start = moment.tz(formattedUTCDate, 'America/New_York').format('dddd, MMMM Do');
+    const EST_start_time = moment.tz(formattedUTCDate, 'America/New_York').format('h:mma z');
+    const PST_start_time = moment.tz(formattedUTCDate, 'America/Los_Angeles').format('h:mma z');
+    const UTC_start_time = moment(formattedUTCDate).format('HH:mm');
 
     return(
       <div>
