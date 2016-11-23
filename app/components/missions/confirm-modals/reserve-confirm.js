@@ -80,8 +80,6 @@ class ReserveConfirm extends Component {
   }
 
   handleBlurMissionObjective(event) {
-    // TODO: get the text... trim it
-    // TODO: save the text to the mission
     const currentMission = this.props.currentMissionSlot.missionList[0];
     const { scheduledMissionId } = currentMission;
     const text = this.state.objective.trim();
@@ -115,8 +113,8 @@ class ReserveConfirm extends Component {
     const UTC_start_time = moment.utc(formattedUTCDate).format('HH:mm z');
 
     // TODO: finish the timer
-    // TODO: tie in the mission time and date
-    // TODO: save the mission objective
+    // TODO: call to getNextReservation when successfully booked
+    // TODO: clear the state for new data each time the modal is invoked
 
     const inlineButtonRowStyle = {
       'width': '60%',
