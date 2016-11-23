@@ -84,16 +84,16 @@ class ReserveConfirm extends Component {
     if(!currentMissionSlot) { return null }
 
     const missionData = currentMissionSlot.missionList[0];
-
-    const EST_start = moment.tz(missionData.missionStart, 'America/New_York').format('dddd, MMMM Do');
-    const EST_start_time = moment.tz(missionData.missionStart, 'America/New_York').format('h:mma z');
-    const PST_start_time = moment.tz(missionData.missionStart, 'America/Los_Angeles').format('h:mma z');
-    const UTC_start_time = moment(missionData.missionStart).format('HH:mm');
+    const formattedUTCDate = new Date(missionData.missionStart * 1000);
+    
+    const EST_start = moment.tz(formattedUTCDate, 'America/New_York').format('dddd, MMMM Do');
+    const EST_start_time = moment.tz(formattedUTCDate, 'America/New_York').format('h:mma z');
+    const PST_start_time = moment.tz(formattedUTCDate, 'America/Los_Angeles').format('h:mma z');
+    const UTC_start_time = moment.utc(formattedUTCDate).format('HH:mm z');
 
     // TODO: finish the timer
     // TODO: tie in the mission time and date
-    // TODO: make the reservation
-    // TODO: call cancel reservation when the use selects cancel?
+    // TODO: save the mission objective
 
     const inlineButtonRowStyle = {
       'width': '60%',
@@ -126,7 +126,7 @@ class ReserveConfirm extends Component {
             <div className="modal-body">
               <div className="mission-schedule">
                 <h4>Mission Details:</h4>
-                <p>{ EST_start } &middot; { EST_start_time } &middot; { PST_start_time } &middot; { UTC_start_time } UTC</p>
+                <p>{ EST_start } &middot; { EST_start_time } &middot; { PST_start_time } &middot; { UTC_start_time }</p>
               </div>
 
               <div className="share-objectives">

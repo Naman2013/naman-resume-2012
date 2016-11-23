@@ -71,17 +71,19 @@ class NewMissionCard extends Component {
 
     if(missionAvailable) {
 
-      const EST_start = moment.tz(missionStart, 'America/New_York').format('dddd, MMMM Do');
-      const EST_start_time = moment.tz(missionStart, 'America/New_York').format('h:mma z');
-      const PST_start_time = moment.tz(missionStart, 'America/Los_Angeles').format('h:mma z');
-      const UTC_start_time = moment.unix(missionStart).format('HH:mm');
+      const formattedUTCDate = new Date(missionStart * 1000);
+
+      const EST_start = moment.tz(formattedUTCDate, 'America/New_York').format('dddd, MMMM Do');
+      const EST_start_time = moment.tz(formattedUTCDate, 'America/New_York').format('h:mma z');
+      const PST_start_time = moment.tz(formattedUTCDate, 'America/Los_Angeles').format('h:mma z');
+      const UTC_start_time = moment.utc(formattedUTCDate).format('HH:mm z');
 
       return(
         <div>
           <div className="mission-available">
             <p className="start-time">
               <strong>{ EST_start }{ featured ? ':' : '' }</strong>
-              { !featured ? <br /> : null} { EST_start_time } <span className="highlight">&middot;</span> { PST_start_time } <span className="highlight">&middot;</span> { UTC_start_time } UTC
+              { !featured ? <br /> : null} { EST_start_time } <span className="highlight">&middot;</span> { PST_start_time } <span className="highlight">&middot;</span> { UTC_start_time }
             </p>
           </div>
           <Link
