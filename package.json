@@ -7,7 +7,7 @@
     "start": "webpack-dev-server",
     "prod": "rimraf dist && webpack -p",
     "prod:mars": "rimraf dist && apiUrl=https://mars.slooh.com apiPortNumber=444 NODE_ENV=production webpack -p --config webpack.production.config.js --colors --progress",
-    "prod:saturn": "rimraf dist && apiUrl=https://saturn.slooh.com apiPortNumber=444 webpack -p --progress"
+    "prod:saturn": "rimraf dist && apiUrl=https://saturn.slooh.com apiPortNumber=444 NODE_ENV=production webpack -p --config webpack.production.config.js --colors --progress"
   },
   "repository": {
     "type": "git",
