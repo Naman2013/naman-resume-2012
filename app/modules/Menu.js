@@ -1,7 +1,5 @@
 import createReducer from './utils/createReducer';
 import createAction from './utils/createAction';
-import superagent from '../utils/superagent';
-
 
 /**
   TODO:
