@@ -16,13 +16,71 @@
 		 })(document);
 		</script>
 
+		<style>
+			@keyframes flickerAnimation {
+				0%   { opacity:1; }
+				50%  { opacity:0.25; }
+				100% { opacity:1; }
+			}
+			@-o-keyframes flickerAnimation{
+				0%   { opacity:1; }
+				50%  { opacity:0.25; }
+				100% { opacity:1; }
+			}
+			@-moz-keyframes flickerAnimation{
+				0%   { opacity:1; }
+				50%  { opacity:0.25; }
+				100% { opacity:1; }
+			}
+			@-webkit-keyframes flickerAnimation{
+				0%   { opacity:1; }
+				50%  { opacity:0.25; }
+				100% { opacity:1; }
+			}
+
+			.slooh-application-loading {
+				font-family: arial, sans-serif;
+				position: absolute;
+				width: 100%;
+				height: 100%;
+				margin: -20px;
+				background: #000;
+				color: #F310A7;
+				text-align: center;
+				background: #2B3134;
+			  color: #777;
+				font-weight: 300;
+			}
+
+			.slooh-application-loading .loading-message {
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translateX(-50%);
+
+				-webkit-animation: flickerAnimation 0.5s infinite;
+				-moz-animation: flickerAnimation 0.5s infinite;
+				-o-animation: flickerAnimation 0.5s infinite;
+				 animation: flickerAnimation 0.5s infinite;
+			}
+
+			.slooh-application-loading .loading-message .message {
+				font-weight: 300;
+				font-size: 12px;
+				padding: 20px;
+			}
+		</style>
+
 		<meta charset="UTF-8">
 		<title>Slooh</title>
 	</head>
 	<body>
-		<div id="app"></div>
-		<!--<div id="section-header"></div>
-		<div id="community-module"></div>
-		<div id="community-data"></div>-->
+		<div id="app">
+			<div class="slooh-application-loading">
+				<div class="loading-message">
+					<h3 class="message">Loading Slooh Interface</h3>
+				</div>
+			</div>
+		</div>
 	</body>
 </html>
