@@ -99,7 +99,7 @@ module.exports = {
       },
       {
         test: /\.(svg|png|jpg|jpeg|gif|woff)$/,
-        loader: 'url-loader',
+        loader: 'url-loader?limit=10000',
       },
       { // loader for bootstrap
         test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
