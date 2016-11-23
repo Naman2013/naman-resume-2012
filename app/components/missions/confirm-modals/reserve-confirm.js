@@ -31,6 +31,8 @@ class ReserveConfirm extends Component {
 
     this.state = {
       objective: '',
+      countDownTimer: null,
+      countDownText: '',
     };
 
     this.onSubmit = this.onSubmit.bind(this);
@@ -44,6 +46,23 @@ class ReserveConfirm extends Component {
       objective: '',
     });
   }
+
+  componentDidMount() {
+    // TODO: establish the countdown for when this reservation will auto-cancel
+    const currentMission = this.props.currentMissionSlot.missionList[0];
+    const { expires } = currentMission;
+    const convertedExpireTime = moment( new Date( expires * 1000 ) );
+    const timeUntilExpiration = convertedExpireTime.diff( moment() );
+    console.group('mounting and setting up expiration...');
+    console.log( timeUntilExpiration );
+    console.groupEnd();
+
+    // TODO: if we have any time left at all, then setup cancelation
+    // TODO: if not, then just cancel it and refresh the list...
+    // TODO: othersie setup the timer and display the countdown
+  }
+
+  componentWillUnMount() {}
 
   onSubmit(event) {
     event.preventDefault();
@@ -104,6 +123,8 @@ class ReserveConfirm extends Component {
       missionSlotJustReserved,
     } = this.props;
 
+    const { countDownText } = this.state;
+
     // validate whether or not we have a mission slot ready to render
     if(!currentMissionSlot) { return null }
 
@@ -138,7 +159,7 @@ class ReserveConfirm extends Component {
           :
           <div>
             <div className="title-bar">
-              <h3>Please complete your reservation form within 04:47</h3>
+              <h3>Please complete your reservation form within {countDownText}</h3>
             </div>
 
             <div className="modal-header">
