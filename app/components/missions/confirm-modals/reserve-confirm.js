@@ -32,7 +32,7 @@ class ReserveConfirm extends Component {
     this.state = {
       objective: '',
       countDownTimer: null,
-      countDownText: '',
+      remainingTimestamp: '',
     };
 
     this.onSubmit = this.onSubmit.bind(this);
@@ -123,7 +123,7 @@ class ReserveConfirm extends Component {
       missionSlotJustReserved,
     } = this.props;
 
-    const { countDownText } = this.state;
+    const { remainingTimestamp } = this.state;
 
     // validate whether or not we have a mission slot ready to render
     if(!currentMissionSlot) { return null }
@@ -135,6 +135,8 @@ class ReserveConfirm extends Component {
     const EST_start_time = moment.tz(formattedUTCDate, 'America/New_York').format('h:mma z');
     const PST_start_time = moment.tz(formattedUTCDate, 'America/Los_Angeles').format('h:mma z');
     const UTC_start_time = moment.utc(formattedUTCDate).format('HH:mm z');
+
+    const countdownFormatted = remainingTimestamp.format('h:mm');
 
     // TODO: finish the timer
     // TODO: call to getNextReservation when successfully booked
@@ -159,7 +161,7 @@ class ReserveConfirm extends Component {
           :
           <div>
             <div className="title-bar">
-              <h3>Please complete your reservation form within {countDownText}</h3>
+              <h3>Please complete your reservation form within {countdownFormatted}</h3>
             </div>
 
             <div className="modal-header">
