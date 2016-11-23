@@ -25,18 +25,23 @@ class NewMissionCard extends Component {
     super(props);
 
     this.handleMakeReservationClick = this.handleMakeReservationClick.bind(this);
+    this.updateReservation = this.updateReservation.bind(this);
+  }
+
+  updateReservation() {
+    const { uniqueId } = this.props.card;
+    const { objectId } = this.props.reservation;
+    const { updateSingleReservations } = this.props.actions;
+
+    updateSingleReservations(uniqueId, objectId);
   }
 
   componentDidMount() {
-    const { uniqueId } = this.props.card;
-    const { objectId, missionAvailable, expires } = this.props.reservation;
-    const { updateSingleReservations } = this.props.actions;
+    const { missionAvailable, expires } = this.props.reservation;
 
     if(!missionAvailable) {
-      const interval = moment(expires * 1000).diff(moment());
-
-      this.updateReservationTimeout = setInterval(
-        updateSingleReservations(uniqueId, objectId), interval);
+      const timer = moment(expires * 1000).diff(moment());
+      this.updateReservationTimeout = setInterval(this.updateReservation, timer);
     }
   }
 
@@ -119,7 +124,7 @@ class NewMissionCard extends Component {
         <div className="card-content-container">
           {
             featured ?
-            <span className="callOut"><span className="first-word">Don't</span> Miss</span> : null
+            <span className="callOut"><span className="first-word">Don&apos;t</span> Miss</span> : null
           }
 
           <h2>{ headline }</h2>
