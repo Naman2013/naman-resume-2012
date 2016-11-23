@@ -1,4 +1,7 @@
+@import '../../styles/variables/fonts.scss';
+
 .reserveBanner {
+  font-family: $primary-font;
   background: url('../../../assets/images/graphics/milkeyway_header.jpg') no-repeat;
   background-size: cover;
   height: 145px;
@@ -13,7 +16,7 @@
     margin: 0;
     color: #fff;
     text-transform: uppercase;
-    font-weight: 500;
+    font-weight: 600;
     font-size: 36px;
     float: left;
   }
