@@ -54,6 +54,9 @@ class ReserveConfirm extends Component {
       ...currentMission,
       objectTitle: currentMission.title,
     });
+
+    // TODO: refresh the list of reservations...
+
   }
 
   handleCloseModalClick(event) {
