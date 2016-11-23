@@ -34,7 +34,6 @@ class NewMissionCard extends Component {
 
     if(!missionAvailable) {
       const interval = moment(expires * 1000).diff(moment());
-      updateSingleReservations(uniqueId, objectId);
 
       this.updateReservationTimeout = setInterval(
         updateSingleReservations(uniqueId, objectId), interval);
