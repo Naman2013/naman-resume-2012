@@ -32,16 +32,18 @@ class InlineCountdown extends Component {
 
       if( minutesRemaining <= 0 && secondsRemaining <= 0 ) {
         exitAction();
+      } else {
+        this.setState({
+          remainingTime: updatedTime,
+        });
       }
-
-      this.setState({
-        remainingTime: updatedTime,
-      });
     } , 1000 );
   }
 
   componentWillUnmount() {
-    clearInterval( this.timer );
+    if(this.timer) {
+      clearInterval( this.timer );
+    }
   }
 
   render() {

@@ -63,7 +63,7 @@ class ReserveConfirm extends Component {
   }
 
   handleCloseModalClick(event) {
-    event.preventDefault();
+    if(event) { event.preventDefault(); }
 
     const { closeModal, currentMissionSlot } = this.props;
     const {
