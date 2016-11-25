@@ -5,18 +5,43 @@ import style from './inline-countdown.scss';
 
 class InlineCountdown extends Component {
 
+  constructor( props ) {
+    super( props );
+
+    this.state = {
+      remainingTime: null,
+    };
+  }
+
   componentWillMount() {
     const { startTime } = this.props;
 
     const expires = moment( startTime * 1000 );
     const duration = expires.diff( moment() );
-    const formattedDuration = moment( duration ).format('mm:ss');
+
+    this.setState({
+      remainingTime: duration,
+    });
+
+    this.timer = setInterval( () => {
+      const { remainingTime } = this.state;
+      const updatedTime = moment(remainingTime).subtract({ seconds: 1 });
+      this.setState({
+        remainingTime: updatedTime,
+      });
+    } , 1000 );
+  }
+
+  componentWillUnmount() {
+    clearInterval( this.timer );
   }
 
   render() {
+    const { remainingTime } = this.state;
+    const formattedTime = moment( remainingTime ).format( 'm:ss' );
     return(
       <div className="inline-countdown">
-        4:48
+        { formattedTime }
       </div>
     );
   }
