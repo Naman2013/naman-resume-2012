@@ -8,6 +8,7 @@ import { cancelMissionSlot, reserveMissionSlot } from '../../../modules/Missions
 import { setTags } from '../../../modules/tag-management/Tags';
 import MissionTags from '../../common/tags/mission-tags';
 import NewMissionReservationSuccess from './new-mission-reservation-success';
+import InlineCountdown from '../../common/inline-countdown/inline-countdown';
 import styles from '../mission-modals.scss';
 
 const mapStateToProps = ({ missions }) => ({
@@ -97,18 +98,10 @@ class ReserveConfirm extends Component {
     });
   }
 
-  // startTimer() {
-  //   const missionData = currentMissionSlot.missionList[0];
-  //   console.log(missionData);
-  // }
-
-  componentWillUpdate(nextProps, nextState) {
-    const currentMission = nextProps.currentMissionSlot.missionList[0];
-    const expires = moment( currentMission.expires * 1000 );
-    const duration = expires.diff( moment() );
-    const formattedDuration = moment( duration ).format('mm:ss');
-    console.log(formattedDuration);
-
+  updateExpiration(remainingTimestamp) {
+    this.setState({
+      remainingTimestamp,
+    });
   }
 
   render () {
@@ -156,7 +149,9 @@ class ReserveConfirm extends Component {
           :
           <div>
             <div className="title-bar">
-              <h3>Please complete your reservation form within {remainingTimestamp}</h3>
+              <h3>
+                Please complete your reservation form within <InlineCountdown startTime={missionData.expires} exitAction={this.handleCloseModalClick} />
+              </h3>
             </div>
 
             <div className="modal-header">
