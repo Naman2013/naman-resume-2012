@@ -106,12 +106,6 @@ class ReserveConfirm extends Component {
     });
   }
 
-  updateExpiration(remainingTimestamp) {
-    this.setState({
-      remainingTimestamp,
-    });
-  }
-
   render () {
 
     const {
