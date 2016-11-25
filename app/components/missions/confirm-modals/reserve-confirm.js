@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import moment from 'moment-timezone';
 
-import { cancelMissionSlot, reserveMissionSlot } from '../../../modules/Missions';
+import { cancelMissionSlot, reserveMissionSlot, missionGetCards } from '../../../modules/Missions';
 import { setTags } from '../../../modules/tag-management/Tags';
 import MissionTags from '../../common/tags/mission-tags';
 import NewMissionReservationSuccess from './new-mission-reservation-success';
@@ -19,6 +19,7 @@ const mapDispatchToProps = ( dispatch ) => ({
   actions: bindActionCreators({
     cancelMissionSlot,
     reserveMissionSlot,
+    missionGetCards,
     setTags,
   }, dispatch),
 });
@@ -55,7 +56,7 @@ class ReserveConfirm extends Component {
       objectTitle: currentMission.title,
     });
 
-    // TODO: refresh the list of reservations...
+    this.props.actions.missionGetCards();
 
   }
 
