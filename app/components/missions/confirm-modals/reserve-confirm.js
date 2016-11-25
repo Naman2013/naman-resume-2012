@@ -40,6 +40,7 @@ class ReserveConfirm extends Component {
     this.handleCloseModalClick = this.handleCloseModalClick.bind(this);
     this.handleChangeObjective = this.handleChangeObjective.bind(this);
     this.handleBlurMissionObjective = this.handleBlurMissionObjective.bind(this);
+    this.cancelMissionAndCloseModal = this.cancelMissionAndCloseModal.bind(this);
   }
 
   componentWillMount() {
@@ -62,10 +63,8 @@ class ReserveConfirm extends Component {
 
   }
 
-  handleCloseModalClick(event) {
-    if(event) { event.preventDefault(); }
-
-    const { closeModal, currentMissionSlot } = this.props;
+  cancelMissionSlot() {
+    const { currentMissionSlot } = this.props;
     const {
       scheduledMissionId,
       uniqueId
@@ -77,8 +76,17 @@ class ReserveConfirm extends Component {
       grabType: 'notarget',
       callSource: 'recommends',
     });
+  }
 
+  cancelMissionAndCloseModal() {
+    const { closeModal } = this.props;
+    this.cancelMissionSlot();
     closeModal();
+  }
+
+  handleCloseModalClick(event) {
+    event.preventDefault();
+    this.cancelMissionAndCloseModal();
   }
 
   handleChangeObjective(event) {
@@ -150,7 +158,7 @@ class ReserveConfirm extends Component {
           <div>
             <div className="title-bar">
               <h3>
-                Please complete your reservation form within <InlineCountdown startTime={missionData.expires} exitAction={this.handleCloseModalClick} />
+                Please complete your reservation form within <InlineCountdown startTime={missionData.expires} exitAction={this.cancelMissionAndCloseModal} />
               </h3>
             </div>
 
