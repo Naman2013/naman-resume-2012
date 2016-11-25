@@ -32,7 +32,7 @@ class ReserveConfirm extends Component {
     this.state = {
       objective: '',
       countDownTimer: null,
-      remainingTimestamp: '',
+      remainingTimestamp: null,
     };
 
     this.onSubmit = this.onSubmit.bind(this);
@@ -46,23 +46,6 @@ class ReserveConfirm extends Component {
       objective: '',
     });
   }
-
-  componentDidMount() {
-    // TODO: establish the countdown for when this reservation will auto-cancel
-    const currentMission = this.props.currentMissionSlot.missionList[0];
-    const { expires } = currentMission;
-    const convertedExpireTime = moment( new Date( expires * 1000 ) );
-    const timeUntilExpiration = convertedExpireTime.diff( moment() );
-    console.group('mounting and setting up expiration...');
-    console.log( timeUntilExpiration );
-    console.groupEnd();
-
-    // TODO: if we have any time left at all, then setup cancelation
-    // TODO: if not, then just cancel it and refresh the list...
-    // TODO: othersie setup the timer and display the countdown
-  }
-
-  componentWillUnMount() {}
 
   onSubmit(event) {
     event.preventDefault();
@@ -114,6 +97,20 @@ class ReserveConfirm extends Component {
     });
   }
 
+  // startTimer() {
+  //   const missionData = currentMissionSlot.missionList[0];
+  //   console.log(missionData);
+  // }
+
+  componentWillUpdate(nextProps, nextState) {
+    const currentMission = nextProps.currentMissionSlot.missionList[0];
+    const expires = moment( currentMission.expires * 1000 );
+    const duration = expires.diff( moment() );
+    const formattedDuration = moment( duration ).format('mm:ss');
+    console.log(formattedDuration);
+
+  }
+
   render () {
 
     const {
@@ -135,8 +132,6 @@ class ReserveConfirm extends Component {
     const EST_start_time = moment.tz(formattedUTCDate, 'America/New_York').format('h:mma z');
     const PST_start_time = moment.tz(formattedUTCDate, 'America/Los_Angeles').format('h:mma z');
     const UTC_start_time = moment.utc(formattedUTCDate).format('HH:mm z');
-
-    const countdownFormatted = remainingTimestamp.format('h:mm');
 
     // TODO: finish the timer
     // TODO: call to getNextReservation when successfully booked
@@ -161,7 +156,7 @@ class ReserveConfirm extends Component {
           :
           <div>
             <div className="title-bar">
-              <h3>Please complete your reservation form within {countdownFormatted}</h3>
+              <h3>Please complete your reservation form within {remainingTimestamp}</h3>
             </div>
 
             <div className="modal-header">
