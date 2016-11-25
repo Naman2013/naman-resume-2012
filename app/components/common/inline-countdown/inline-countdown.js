@@ -25,7 +25,15 @@ class InlineCountdown extends Component {
 
     this.timer = setInterval( () => {
       const { remainingTime } = this.state;
+      const { exitAction } = this.props;
       const updatedTime = moment(remainingTime).subtract({ seconds: 1 });
+      const minutesRemaining = updatedTime.minutes();
+      const secondsRemaining = updatedTime.seconds();
+
+      if( minutesRemaining <= 0 && secondsRemaining <= 0 ) {
+        exitAction();
+      }
+
       this.setState({
         remainingTime: updatedTime,
       });
