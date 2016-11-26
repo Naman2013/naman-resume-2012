@@ -8,6 +8,7 @@ import { cancelMissionSlot, reserveMissionSlot, missionGetCards } from '../../..
 import { setTags } from '../../../modules/tag-management/Tags';
 import MissionTags from '../../common/tags/mission-tags';
 import NewMissionReservationSuccess from './new-mission-reservation-success';
+import ReservationError from './reservation-error';
 import InlineCountdown from '../../common/inline-countdown/inline-countdown';
 import styles from '../mission-modals.scss';
 
@@ -126,15 +127,24 @@ class ReserveConfirm extends Component {
       closeModal,
     } = this.props;
 
+    const { apiError, errorCode, errorMsg } = currentMissionSlot;
     const missionData = currentMissionSlot.missionList[0];
 
-    return(
-      <NewMissionReservationSuccess
-        closeModal={closeModal}
-        missionStartTime={missionData.missionStart}
-        missionTitle={missionData.title}
-        objectIconURL={missionData.objectIconURL}
-      />
+    console.log(currentMissionSlot);
+
+    return (
+      apiError ?
+        <ReservationError
+          errorCode={errorCode}
+          message={errorMsg}
+        />
+        :
+        <NewMissionReservationSuccess
+          closeModal={closeModal}
+          missionStartTime={missionData.missionStart}
+          missionTitle={missionData.title}
+          objectIconURL={missionData.objectIconURL}
+        />
     );
   }
 
