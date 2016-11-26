@@ -71,8 +71,8 @@ class ExistingMissionCard extends Component {
       .catch(this.grabPiggybackResponseError.bind(this));
   }
 
-  render() {
-    const { card, piggyback, openModal } = this.props;
+  startMissionTime() {
+    const { card, piggyback } = this.props;
     const featured = card.cardType == 2;
 
     const formattedUTCDate = new Date(piggyback.missionStart * 1000);
@@ -82,49 +82,54 @@ class ExistingMissionCard extends Component {
     const PST_start_time = moment.tz(formattedUTCDate, 'America/Los_Angeles').format('h:mma z');
     const UTC_start_time = moment.utc(formattedUTCDate).format('HH:mm z');
 
-    const startMissionTime = () => {
-      return(
-        <p className="start-time">
-          <strong>{EST_start}</strong>
-          {!featured ? <br /> : null} {EST_start_time} <span className="highlight">&middot;</span> {PST_start_time} <span className="highlight">&middot;</span> {UTC_start_time}
-        </p>
-      );
-    }
+    return(
+      <p className="start-time">
+        <strong>{EST_start}</strong>
+        {!featured ? <br /> : null} {EST_start_time} <span className="highlight">&middot;</span> {PST_start_time} <span className="highlight">&middot;</span> {UTC_start_time}
+      </p>
+    );
+  }
 
-    const missionAvailable = () => {
+  missionNotAvailable() {
+    const { card, piggyback } = this.props;
+
+    if(piggyback.userHasReservation) {
       return (
-        <div className="mission-available">
-          { startMissionTime() }
-          <a
-            className={ styles.piggybackCta }
-            href="#"
-            onClick={ this.handlePiggybackClick }>
-            Piggyback on Mission
-          </a>
+        <div>
+          { this.startMissionTime() }
+          <p>You have an upcoming { piggyback.userReservationType } reservation scheduled for { this.startMissionTime() }</p>
+        </div>
+      )
+    } else {
+      return (
+        <div className="mission-unavailable">
+          <Link
+            className={styles.piggybackCta}
+            to="/reservations/slooh-recommends/new">
+            Make Reservation
+          </Link>
         </div>
       )
     }
+  }
 
-    const missionNotAvailable = () => {
-      if(piggyback.userHasReservation) {
-        return (
-          <div>
-            { startMissionTime() }
-            <p>You have an upcoming { piggyback.userReservationType } reservation scheduled for { startMissionTime() }</p>
-          </div>
-        )
-      } else {
-        return (
-          <div className="mission-unavailable">
-            <Link
-              className={styles.piggybackCta}
-              to="/reservations/slooh-recommends/new">
-              Make Reservation
-            </Link>
-          </div>
-        )
-      }
-    }
+  missionAvailable() {
+    return (
+      <div className="mission-available">
+        { this.startMissionTime() }
+        <a
+          className={ styles.piggybackCta }
+          href="#"
+          onClick={ this.handlePiggybackClick }>
+          Piggyback on Mission
+        </a>
+      </div>
+    )
+  }
+
+  render() {
+    const { card, piggyback, openModal } = this.props;
+    const featured = card.cardType == 2;
 
     const existingMissionCardClassnames = classnames({
       [styles.missionCard]: 1,
@@ -152,7 +157,7 @@ class ExistingMissionCard extends Component {
             featured ?
               <p className={ styles.cardDescription }>{ card.description }</p>
               :
-              <p className={ styles.cardDescription }>{ _.truncate(card.description, { 'length': 130, 'separator': ' ' }) }</p>
+              <p className={ styles.cardDescription }>{ _.truncate( card.description, { 'length': 130, 'separator': ' ' } ) }</p>
           }
 
           {
@@ -162,9 +167,8 @@ class ExistingMissionCard extends Component {
               <h5 className="mission-status">No existing missions are available</h5>
           }
 
-
           <div className="join-mission-callout">
-            { piggyback.missionAvailable ? missionAvailable() : missionNotAvailable() }
+            { piggyback.missionAvailable ? this.missionAvailable() : this.missionNotAvailable() }
           </div>
         </div>
 
