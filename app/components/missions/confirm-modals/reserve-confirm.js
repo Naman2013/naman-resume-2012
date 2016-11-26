@@ -71,12 +71,16 @@ class ReserveConfirm extends Component {
       uniqueId
     } = currentMissionSlot.missionList[0];
 
+    // cancel the mission slot...
     this.props.actions.cancelMissionSlot({
       scheduledMissionId,
       uniqueId,
       grabType: 'notarget',
       callSource: 'recommends',
     });
+
+    // refetch missions...
+    this.props.actions.missionGetCards();
   }
 
   cancelMissionAndCloseModal() {
