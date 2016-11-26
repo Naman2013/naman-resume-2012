@@ -4,9 +4,12 @@ import React, { Component, PropTypes } from 'react';
   TODO: determine different displays based on error code?
 */
 
+const DEFAULT_ERROR_MESSAGE = `We are unable to determine the exact issue that occurred.`;
+
 class ReservationError extends Component {
   render() {
-    const { message } = this.props;
+
+    const { message, closeModal } = this.props;
 
     return(
       <div>
@@ -18,7 +21,7 @@ class ReservationError extends Component {
         <div className="modal-body">
           <div className="mission-schedule">
             <h4>Details:</h4>
-            <p>{message}</p>
+            <p>{ message ? message : DEFAULT_ERROR_MESSAGE }</p>
           </div>
         </div>
 
@@ -33,12 +36,13 @@ class ReservationError extends Component {
 }
 
 ReservationError.defaultProps = {
-  message: `We are unable to determine the exact issue that occurred, please continue and try again.`,
+  message: DEFAULT_ERROR_MESSAGE,
 };
 
 ReservationError.propTypes = {
   errorCode: PropTypes.number,
   message: PropTypes.string,
+  closeModal: PropTypes.func.isRequired,
 };
 
 export default ReservationError;

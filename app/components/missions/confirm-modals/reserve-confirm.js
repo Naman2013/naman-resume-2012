@@ -130,11 +130,10 @@ class ReserveConfirm extends Component {
     const { apiError, errorCode, errorMsg } = currentMissionSlot;
     const missionData = currentMissionSlot.missionList[0];
 
-    console.log(currentMissionSlot);
-
     return (
       apiError ?
         <ReservationError
+          closeModal={closeModal}
           errorCode={errorCode}
           message={errorMsg}
         />
