@@ -397,6 +397,7 @@ export default createReducer(initialState, {
       isConfirmationOpen: false,
       confirmType: null,
       currentCard: null,
+      missionSlotJustReserved: false,
     };
   },
   [MISSION_ALL_CARDS_SUCCESS](state, {cardList}) {
