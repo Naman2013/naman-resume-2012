@@ -111,6 +111,33 @@ class ReserveConfirm extends Component {
     });
   }
 
+  /**
+    @handleMissionReservationResponse
+    deals with displaying success or error templates based on the
+    the current state
+  */
+  handleMissionReservationResponse() {
+
+    // TODO: determine if apiError is true, if true return error
+    // otherwise return success...
+
+    const {
+      currentMissionSlot,
+      closeModal,
+    } = this.props;
+
+    const missionData = currentMissionSlot.missionList[0];
+
+    return(
+      <NewMissionReservationSuccess
+        closeModal={closeModal}
+        missionStartTime={missionData.missionStart}
+        missionTitle={missionData.title}
+        objectIconURL={missionData.objectIconURL}
+      />
+    );
+  }
+
   render () {
 
     const {
@@ -147,12 +174,7 @@ class ReserveConfirm extends Component {
 
         {
           missionSlotJustReserved ?
-            <NewMissionReservationSuccess
-              closeModal={closeModal}
-              missionStartTime={missionData.missionStart}
-              missionTitle={missionData.title}
-              objectIconURL={missionData.objectIconURL}
-            />
+            this.handleMissionReservationResponse()
           :
           <div>
             <div className="title-bar">
