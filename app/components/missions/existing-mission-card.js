@@ -138,14 +138,14 @@ class ExistingMissionCard extends Component {
         <div className="card-content-container">
           {
             featured ?
-            <span className="callOut"><span className="first-word">Don't</span> Miss</span> : null
+            <span className="callOut"><span className="first-word">Don&apos;t</span> Miss</span> : null
           }
 
-          <h2>{ card.headline }</h2>
+          <h2>{card.headline}</h2>
 
-          <div className={ styles.cardsubTitle }>
-            <img className={ styles.cardIcon } src="assets/icons/Jupiter.svg" />
-            <h3>{ card.title }</h3>
+          <div className={styles.cardsubTitle}>
+            <img className={styles.cardIcon} src="assets/icons/Jupiter.svg" />
+            <h3>{card.title}</h3>
           </div>
 
           {
