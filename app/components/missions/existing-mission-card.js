@@ -6,6 +6,8 @@ import classnames from 'classnames';
 import moment from 'moment-timezone';
 import _ from 'lodash';
 
+import ModalGeneric from '../common/modals/modal-generic';
+
 import styles from './mission-card.scss';
 import { grabPiggyback } from '../../modules/Piggyback';
 import { missionGetInfo } from '../../modules/Missions';
@@ -24,26 +26,38 @@ function mapStateToProps(state, ownProps) {
   };
 }
 
-@connect(mapStateToProps, mapDispatchToProps)
+@connect( mapStateToProps, mapDispatchToProps )
 class ExistingMissionCard extends Component {
 
   constructor(props) {
     super(props);
 
-    this.handlePiggybackClick = this.handlePiggybackClick.bind(this);
+    this.state = {
+      errorMessage: '',
+      errorModalIsOpen: false,
+    };
+
+    this.handlePiggybackClick = this.handlePiggybackClick.bind( this );
+    this.handleCloseErrorModal = this.handleCloseErrorModal.bind( this );
   }
 
-  handleGrabPiggybackResponse(result) {
-    const { data } = result;
-    const mission = data.missionList[0];
+  handleGrabPiggybackResponse( result ) {
+    const { apiError, errorCode, errorMsg, missionList } = result.data;
+    const mission = missionList[0];
     const { card } = this.props;
+
     console.group('handle grab piggyback response --- NOTE NEED TO PRESENT CALL TO ACTION WHEN NON-AUTHORIZED');
     console.log(data);
     console.groupEnd();
-    if(mission.missionAvailable) {
-      this.props.actions.missionGetInfo(card, 'piggyback');
+
+    if( apiError ) {
+      console.log( 'handle api error message event' );
     } else {
-      // TODO: Mission is not available... do something else...
+      if( mission.missionAvailable ) {
+        this.props.actions.missionGetInfo(card, 'piggyback');
+      } else {
+        console.log( 'mission is no longer available...' );
+      }
     }
   }
 
@@ -127,6 +141,13 @@ class ExistingMissionCard extends Component {
     )
   }
 
+  handleCloseErrorModal() {
+    // TODO: refresh the cards to make sure we have the most up to date information for the user...
+    this.setState({
+      errorModalIsOpen: false,
+    });
+  }
+
   render() {
     const { card, piggyback, openModal } = this.props;
     const featured = card.cardType == 2;
@@ -171,6 +192,13 @@ class ExistingMissionCard extends Component {
             { piggyback.missionAvailable ? this.missionAvailable() : this.missionNotAvailable() }
           </div>
         </div>
+
+        <ModalGeneric
+          closeModal={this.handleCloseErrorModal}
+          open={this.state.errorModalIsOpen}
+          title={`Oops...`}
+          description={this.state.errorMessage}
+        />
 
       </div>
     );
