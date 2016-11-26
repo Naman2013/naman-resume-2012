@@ -118,10 +118,6 @@ class ReserveConfirm extends Component {
     the current state
   */
   handleMissionReservationResponse() {
-
-    // TODO: determine if apiError is true, if true return error
-    // otherwise return success...
-
     const {
       currentMissionSlot,
       closeModal,
