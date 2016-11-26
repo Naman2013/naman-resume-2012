@@ -8,6 +8,7 @@ import { cancelMissionSlot, reserveMissionSlot, missionGetCards } from '../../..
 import { setTags } from '../../../modules/tag-management/Tags';
 import MissionTags from '../../common/tags/mission-tags';
 import NewMissionReservationSuccess from './new-mission-reservation-success';
+import ReservationError from './reservation-error';
 import InlineCountdown from '../../common/inline-countdown/inline-countdown';
 import styles from '../mission-modals.scss';
 
@@ -77,6 +78,8 @@ class ReserveConfirm extends Component {
       grabType: 'notarget',
       callSource: 'recommends',
     });
+
+    this.props.actions.missionGetCards();
   }
 
   cancelMissionAndCloseModal() {
@@ -105,6 +108,37 @@ class ReserveConfirm extends Component {
       text,
       scheduledMissionId,
     });
+  }
+
+  /**
+    @handleMissionReservationResponse
+    deals with displaying success or error templates based on the
+    the current state
+  */
+  handleMissionReservationResponse() {
+    const {
+      currentMissionSlot,
+      closeModal,
+    } = this.props;
+
+    const { apiError, errorCode, errorMsg } = currentMissionSlot;
+    const missionData = currentMissionSlot.missionList[0];
+
+    return (
+      apiError ?
+        <ReservationError
+          closeModal={closeModal}
+          errorCode={errorCode}
+          message={errorMsg}
+        />
+        :
+        <NewMissionReservationSuccess
+          closeModal={closeModal}
+          missionStartTime={missionData.missionStart}
+          missionTitle={missionData.title}
+          objectIconURL={missionData.objectIconURL}
+        />
+    );
   }
 
   render () {
@@ -143,12 +177,7 @@ class ReserveConfirm extends Component {
 
         {
           missionSlotJustReserved ?
-            <NewMissionReservationSuccess
-              closeModal={closeModal}
-              missionStartTime={missionData.missionStart}
-              missionTitle={missionData.title}
-              objectIconURL={missionData.objectIconURL}
-            />
+            this.handleMissionReservationResponse()
           :
           <div>
             <div className="title-bar">
