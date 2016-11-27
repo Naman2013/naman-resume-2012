@@ -10,12 +10,13 @@ import ModalGeneric from '../common/modals/modal-generic';
 
 import styles from './mission-card.scss';
 import { grabPiggyback } from '../../modules/Piggyback';
-import { missionGetInfo } from '../../modules/Missions';
+import { missionGetInfo, missionGetCards } from '../../modules/Missions';
 
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators({
       missionGetInfo,
+      missionGetCards,
     }, dispatch),
   };
 }
@@ -141,8 +142,10 @@ class ExistingMissionCard extends Component {
   }
 
   handleCloseErrorModal() {
-    // TODO: refresh the cards to make sure we have the most up to date information for the user...
+    // refresh the list of cards...
+    this.props.actions.missionGetCards();
 
+    // close the modal...
     this.setState({
       errorModalIsOpen: false,
     });
