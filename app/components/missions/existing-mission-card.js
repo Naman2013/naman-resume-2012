@@ -6,14 +6,17 @@ import classnames from 'classnames';
 import moment from 'moment-timezone';
 import _ from 'lodash';
 
+import ModalGeneric from '../common/modals/modal-generic';
+
 import styles from './mission-card.scss';
 import { grabPiggyback } from '../../modules/Piggyback';
-import { missionGetInfo } from '../../modules/Missions';
+import { missionGetInfo, missionGetCards } from '../../modules/Missions';
 
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators({
       missionGetInfo,
+      missionGetCards,
     }, dispatch),
   };
 }
@@ -24,26 +27,37 @@ function mapStateToProps(state, ownProps) {
   };
 }
 
-@connect(mapStateToProps, mapDispatchToProps)
+@connect( mapStateToProps, mapDispatchToProps )
 class ExistingMissionCard extends Component {
 
   constructor(props) {
     super(props);
 
-    this.handlePiggybackClick = this.handlePiggybackClick.bind(this);
+    this.state = {
+      errorMessage: '',
+      errorModalIsOpen: false,
+    };
+
+    this.handlePiggybackClick = this.handlePiggybackClick.bind( this );
+    this.handleCloseErrorModal = this.handleCloseErrorModal.bind( this );
   }
 
-  handleGrabPiggybackResponse(result) {
-    const { data } = result;
-    const mission = data.missionList[0];
+  handleGrabPiggybackResponse( result ) {
+    const { apiError, errorCode, errorMsg, missionList } = result.data;
+    const mission = missionList[0];
     const { card } = this.props;
-    console.group('handle grab piggyback response --- NOTE NEED TO PRESENT CALL TO ACTION WHEN NON-AUTHORIZED');
-    console.log(data);
-    console.groupEnd();
-    if(mission.missionAvailable) {
-      this.props.actions.missionGetInfo(card, 'piggyback');
+
+    if( apiError ) {
+      this.setState({
+        errorModalIsOpen: true,
+        errorMessage: errorMsg,
+      });
     } else {
-      // TODO: Mission is not available... do something else...
+      if( mission.missionAvailable ) {
+        this.props.actions.missionGetInfo(card, 'piggyback');
+      } else {
+        console.log( 'mission is no longer available...' );
+      }
     }
   }
 
@@ -71,8 +85,8 @@ class ExistingMissionCard extends Component {
       .catch(this.grabPiggybackResponseError.bind(this));
   }
 
-  render() {
-    const { card, piggyback, openModal } = this.props;
+  startMissionTime() {
+    const { card, piggyback } = this.props;
     const featured = card.cardType == 2;
 
     const formattedUTCDate = new Date(piggyback.missionStart * 1000);
@@ -82,49 +96,64 @@ class ExistingMissionCard extends Component {
     const PST_start_time = moment.tz(formattedUTCDate, 'America/Los_Angeles').format('h:mma z');
     const UTC_start_time = moment.utc(formattedUTCDate).format('HH:mm z');
 
-    const startMissionTime = () => {
-      return(
-        <p className="start-time">
-          <strong>{EST_start}</strong>
-          {!featured ? <br /> : null} {EST_start_time} <span className="highlight">&middot;</span> {PST_start_time} <span className="highlight">&middot;</span> {UTC_start_time}
-        </p>
-      );
-    }
+    return(
+      <p className="start-time">
+        <strong>{EST_start}</strong>
+        {!featured ? <br /> : null} {EST_start_time} <span className="highlight">&middot;</span> {PST_start_time} <span className="highlight">&middot;</span> {UTC_start_time}
+      </p>
+    );
+  }
 
-    const missionAvailable = () => {
+  missionNotAvailable() {
+    const { card, piggyback } = this.props;
+
+    if(piggyback.userHasReservation) {
       return (
-        <div className="mission-available">
-          { startMissionTime() }
-          <a
-            className={ styles.piggybackCta }
-            href="#"
-            onClick={ this.handlePiggybackClick }>
-            Piggyback on Mission
-          </a>
+        <div>
+          { this.startMissionTime() }
+          <p>You have an upcoming { piggyback.userReservationType } reservation scheduled for { this.startMissionTime() }</p>
+        </div>
+      )
+    } else {
+      return (
+        <div className="mission-unavailable">
+          <Link
+            className={styles.piggybackCta}
+            to="/reservations/slooh-recommends/new">
+            Make Reservation
+          </Link>
         </div>
       )
     }
+  }
 
-    const missionNotAvailable = () => {
-      if(piggyback.userHasReservation) {
-        return (
-          <div>
-            { startMissionTime() }
-            <p>You have an upcoming { piggyback.userReservationType } reservation scheduled for { startMissionTime() }</p>
-          </div>
-        )
-      } else {
-        return (
-          <div className="mission-unavailable">
-            <Link
-              className={styles.piggybackCta}
-              to="/reservations/slooh-recommends/new">
-              Make Reservation
-            </Link>
-          </div>
-        )
-      }
-    }
+  missionAvailable() {
+    return (
+      <div className="mission-available">
+        { this.startMissionTime() }
+        <a
+          className={ styles.piggybackCta }
+          href="#"
+          onClick={ this.handlePiggybackClick }>
+          Piggyback on Mission
+        </a>
+      </div>
+    )
+  }
+
+  handleCloseErrorModal() {
+    // refresh the list of cards...
+    this.props.actions.missionGetCards();
+
+    // close the modal...
+    this.setState({
+      errorModalIsOpen: false,
+    });
+  }
+
+  render() {
+    const { card, piggyback, openModal } = this.props;
+    const featured = card.cardType == 2;
 
     const existingMissionCardClassnames = classnames({
       [styles.missionCard]: 1,
@@ -138,21 +167,21 @@ class ExistingMissionCard extends Component {
         <div className="card-content-container">
           {
             featured ?
-            <span className="callOut"><span className="first-word">Don't</span> Miss</span> : null
+            <span className="callOut"><span className="first-word">Don&apos;t</span> Miss</span> : null
           }
 
-          <h2>{ card.headline }</h2>
+          <h2>{card.headline}</h2>
 
-          <div className={ styles.cardsubTitle }>
-            <img className={ styles.cardIcon } src="assets/icons/Jupiter.svg" />
-            <h3>{ card.title }</h3>
+          <div className={styles.cardsubTitle}>
+            <img className={styles.cardIcon} src="assets/icons/Jupiter.svg" />
+            <h3>{card.title}</h3>
           </div>
 
           {
             featured ?
               <p className={ styles.cardDescription }>{ card.description }</p>
               :
-              <p className={ styles.cardDescription }>{ _.truncate(card.description, { 'length': 130, 'separator': ' ' }) }</p>
+              <p className={ styles.cardDescription }>{ _.truncate( card.description, { 'length': 130, 'separator': ' ' } ) }</p>
           }
 
           {
@@ -162,11 +191,17 @@ class ExistingMissionCard extends Component {
               <h5 className="mission-status">No existing missions are available</h5>
           }
 
-
           <div className="join-mission-callout">
-            { piggyback.missionAvailable ? missionAvailable() : missionNotAvailable() }
+            { piggyback.missionAvailable ? this.missionAvailable() : this.missionNotAvailable() }
           </div>
         </div>
+
+        <ModalGeneric
+          closeModal={this.handleCloseErrorModal}
+          open={this.state.errorModalIsOpen}
+          title={`Oops...`}
+          description={this.state.errorMessage}
+        />
 
       </div>
     );
