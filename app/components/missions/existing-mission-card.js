@@ -46,12 +46,11 @@ class ExistingMissionCard extends Component {
     const mission = missionList[0];
     const { card } = this.props;
 
-    console.group('handle grab piggyback response --- NOTE NEED TO PRESENT CALL TO ACTION WHEN NON-AUTHORIZED');
-    console.log(data);
-    console.groupEnd();
-
     if( apiError ) {
-      console.log( 'handle api error message event' );
+      this.setState({
+        errorModalIsOpen: true,
+        errorMessage: errorMsg,
+      });
     } else {
       if( mission.missionAvailable ) {
         this.props.actions.missionGetInfo(card, 'piggyback');
@@ -143,6 +142,7 @@ class ExistingMissionCard extends Component {
 
   handleCloseErrorModal() {
     // TODO: refresh the cards to make sure we have the most up to date information for the user...
+
     this.setState({
       errorModalIsOpen: false,
     });
