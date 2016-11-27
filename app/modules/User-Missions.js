@@ -11,16 +11,18 @@ export const fetchUsersUpcomingMissions = () => ( dispatch, getState ) {
 };
 
 const initialState = {
-
+  fetchingMissions: false,
+  fetchingMissionsFailed: false,
+  upcomingMission: null,
 };
 
-export default createReducer({
+export default createReducer(initialState, {
   [FETCH_USERS_UPCOMING_MISSIONS_START]( state ) {
     return {
       ...state,
     };
   }
-  [FETCH_USERS_UPCOMING_MISSIONS_SUCCESS]( state ) {
+  [FETCH_USERS_UPCOMING_MISSIONS_SUCCESS]( state, { payload } ) {
     return {
       ...state,
     };
