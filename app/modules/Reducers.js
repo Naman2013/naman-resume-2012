@@ -9,6 +9,7 @@ import telescopeOverview from './Telescope-Overview';
 import announcementBanner from './Announcement-Banner';
 import tags from './tag-management/Tags';
 import popularObjects from './browse-by-popular-objects/Popular-Objects';
+import usersUpcomingMission from './Users-Upcoming-Missions';
 
 export default combineReducers({
   routing: routerReducer,
@@ -21,4 +22,5 @@ export default combineReducers({
   announcementBanner,
   tags,
   popularObjects,
+  usersUpcomingMission,
 });
