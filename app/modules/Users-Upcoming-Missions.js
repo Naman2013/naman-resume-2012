@@ -7,7 +7,10 @@ const FETCH_USERS_UPCOMING_MISSIONS_SUCCESS = 'FETCH_USERS_UPCOMING_MISSIONS_SUC
 const FETCH_USERS_UPCOMING_MISSIONS_FAIL = 'FECTH_USERS_UPCOMING_MISSIONS_FAIL';
 
 export const fetchUsersUpcomingMissions = () => ( dispatch, getState ) => {
-  const { cid, at, token } = getState.user;
+  const { cid, at, token } = getState().user;
+
+  dispatch( fetchUsersUpcomingMissionsStart() );
+
   return axios.post('/api/reservation/getNextUserMission', {
     cid,
     at,
@@ -16,6 +19,10 @@ export const fetchUsersUpcomingMissions = () => ( dispatch, getState ) => {
   .then( result => dispatch( fetchUsersUpcomingMissionsSuccess( result.data ) ) )
   .catch( error => dispatch( fetchUsersUpcomingMissionsFail( error ) ) );
 };
+
+const fetchUsersUpcomingMissionsStart = () => ({
+  type: FETCH_USERS_UPCOMING_MISSIONS_START,
+});
 
 const fetchUsersUpcomingMissionsSuccess = ( payload ) => ({
   type: FETCH_USERS_UPCOMING_MISSIONS_SUCCESS,
@@ -30,7 +37,7 @@ const fetchUsersUpcomingMissionsFail = ( error ) => ({
 
 
 const initialState = {
-  fetchingMissions: false,
+  fetchingMissions: true,
   fetchingMissionsFailed: false,
   upcomingMission: null,
   upcomingMissionError: null,
