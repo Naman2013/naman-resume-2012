@@ -9,7 +9,12 @@ import styles from './mission-sidebar.scss';
 const NoContentAvailable = () => <span className="no-upcoming">No upcoming missions</span>;
 const FetchingMissions = () => <span className="no-upcoming">Fetching your next mission...</span>;
 
-const UpcomingContent = ({ missionTitle, missionStart, objectIconUrl, objectTitle }) => {
+const UpcomingContent = ({
+  missionTitle,
+  missionStart,
+  objectIconUrl,
+  objectTitle }) => {
+
   return (
     <div>
       <div className="cardsubTitle">
@@ -46,7 +51,6 @@ class MissionUpcoming extends Component {
 
   renderUpcomingMission() {
     if(this.props.usersUpcomingMission) {
-      console.log(this.props.usersUpcomingMission);
       const { missionList } = this.props.usersUpcomingMission.upcomingMission;
       const currentMission = missionList[0];
 
@@ -66,7 +70,12 @@ class MissionUpcoming extends Component {
             </div>
             {
               userHasReservation ?
-                <UpcomingContent content={upcomingMission} />
+                <UpcomingContent
+                  missionTitle={objectTitle}
+                  missionStart={missionStart}
+                  objectIconUrl={objectIconUrl}
+                  objectTitle={objectTitle}
+                />
                 :
                 <NoContentAvailable />
             }
