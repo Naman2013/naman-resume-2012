@@ -23,7 +23,7 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps(state, ownProps) {
   return {
-    user: state.user.user,
+    user: state.user,
   };
 }
 
