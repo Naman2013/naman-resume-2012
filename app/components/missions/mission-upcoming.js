@@ -18,7 +18,7 @@ const FetchingMissions = () => <span className="no-upcoming">Fetching your next 
 const UpcomingContent = ({
   missionTitle,
   missionStart,
-  objectIconUrl,
+  objectIconURL,
   objectTitle }) => {
 
   const formattedUTCDate = new Date(missionStart * 1000);
@@ -31,7 +31,7 @@ const UpcomingContent = ({
   return (
     <div>
       <div className="cardsubTitle">
-        <img className={styles.cardIcon} src={objectIconUrl} />
+        <img className={styles.cardIcon} src={objectIconURL} />
         <h3>{objectTitle}</h3>
       </div>
 
@@ -64,6 +64,9 @@ class MissionUpcoming extends Component {
 
   renderUpcomingMission() {
     if(this.props.usersUpcomingMission) {
+
+      console.log(this.props.usersUpcomingMission);
+
       const { missionList } = this.props.usersUpcomingMission.upcomingMission;
       const currentMission = missionList[0];
 
@@ -86,7 +89,7 @@ class MissionUpcoming extends Component {
                 <UpcomingContent
                   missionTitle={objectTitle}
                   missionStart={missionStart}
-                  objectIconUrl={objectIconUrl}
+                  objectIconURL={objectIconURL}
                   objectTitle={objectTitle}
                 />
                 :
