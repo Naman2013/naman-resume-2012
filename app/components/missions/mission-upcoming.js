@@ -45,17 +45,17 @@ const UpcomingContent = ({
   );
 }
 
-const mapStateToProps = ( state, ownProps ) => ({
+const mapStateToProps = (state, ownProps) => ({
   usersUpcomingMission: state.usersUpcomingMission,
 });
 
-const mapDispatchToProps = ( dispatch ) => ({
+const mapDispatchToProps = (dispatch) => ({
   actions: bindActionCreators({
     fetchUsersUpcomingMissions,
   }, dispatch),
 });
 
-@connect( mapStateToProps, mapDispatchToProps )
+@connect(mapStateToProps, mapDispatchToProps)
 class MissionUpcoming extends Component {
 
   componentWillMount() {
