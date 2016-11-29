@@ -5,11 +5,6 @@ import { checkUser } from '../modules/User';
 import classnames from 'classnames';
 
 import {
-  missionGetCards,
-  missionConfirmOpen,
-  missionConfirmClose } from '../modules/Missions';
-
-import {
   getObservatoryList,
   getCurrentObservatory } from '../modules/Telescope-Overview';
 
@@ -20,20 +15,10 @@ import Tips from '../components/telescopes/current-selection-header/tips';
 
 import Listings from '../components/telescopes/listings/listings';
 
-const { element, func, object } = PropTypes;
-
-/**
-  @todo Get observatoryList in here for the telescope selection widget
-  */
-
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators({
-      missionGetCards,
-      missionConfirmOpen,
-      missionConfirmClose,
       getObservatoryList,
-      getCurrentObservatory,
     }, dispatch)
   };
 }
@@ -59,6 +44,15 @@ class ReserveMissions extends Component {
 
   render() {
     const { observatoryList, params } = this.props;
+    const currentObservatory = getCurrentObservatory(observatoryList, params.obsUniqueId);
+
+    if(!currentObservatory) { return null; }
+    const currentTelescope = currentObservatory.obsTelescopes.find(telescope => telescope.teleUniqueId === params.teleUniqueId);
+    const currentInstrument = currentTelescope.teleInstrumentList[0];
+
+    console.log('current observatory', currentObservatory);
+    console.log('current telescope', currentTelescope);
+    console.log('current instrument', currentInstrument);
 
     return (
       <div className="reserve-by-telescope container-fluid">
@@ -68,9 +62,16 @@ class ReserveMissions extends Component {
           observatoryList={observatoryList}
           params={params}
           showUTCTimer={false}
-          rootRoute={`reservations/reserve-by-telescope`} />
+          rootRoute={`reservations/reserve-by-telescope`}
+        />
 
-        <CurrentSelectionHeader />
+        <CurrentSelectionHeader
+          telescopeIcon={currentObservatory.obsLogoURL}
+          teleName={currentTelescope.teleName}
+          teleSponsorLinkURL={currentTelescope.teleSponsorLinkURL}
+          teleSponsorLogoURL={currentTelescope.teleSponsorLogoURL}
+          instrTelescopeName={currentInstrument.instrTelescopeName}
+        />
 
         <div>
         	<DatesSelection />
