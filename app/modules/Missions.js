@@ -34,7 +34,7 @@ const UPDATE_SINGLE_RESERVATION_FAIL = 'UPDATE_SINGLE_RESERVATION_FAIL';
 
 
 
-export function missionConfirmOpen(card, type) {
+export function missionConfirmOpen(type, card) {
   return {
     type: MISSION_CONFIRMATION_OPEN,
     confirmType: type,
@@ -170,8 +170,8 @@ export function missionGetInfo(card, type) {
       cid,
     })
     .then(response => {
-      dispatch( getMissionSuccess( response, card ) );
-      dispatch( missionConfirmOpen( type ) );
+      dispatch(getMissionSuccess(response, card));
+      dispatch(missionConfirmOpen(type, card));
     })
     .catch(error => dispatch( getMissionFail( error )));
   }

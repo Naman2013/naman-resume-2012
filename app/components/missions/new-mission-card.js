@@ -66,7 +66,7 @@ class NewMissionCard extends Component {
     grabMissionSlot(mission);
 
     // now open the reservation modal
-    openModal(card, 'reserve');
+    openModal('reserve', card);
   }
 
   renderCallToAction() {

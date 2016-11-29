@@ -64,9 +64,6 @@ class MissionUpcoming extends Component {
 
   renderUpcomingMission() {
     if(this.props.usersUpcomingMission) {
-
-      console.log(this.props.usersUpcomingMission);
-
       const { missionList } = this.props.usersUpcomingMission.upcomingMission;
       const currentMission = missionList[0];
 

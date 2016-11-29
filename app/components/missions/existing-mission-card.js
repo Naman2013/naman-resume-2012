@@ -23,7 +23,7 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps(state, ownProps) {
   return {
-    user: state.user.user,
+    user: state.user,
   };
 }
 
@@ -47,7 +47,7 @@ class ExistingMissionCard extends Component {
     const mission = missionList[0];
     const { card } = this.props;
 
-    if( apiError ) {
+    if(apiError) {
       this.setState({
         errorModalIsOpen: true,
         errorMessage: errorMsg,
@@ -104,17 +104,46 @@ class ExistingMissionCard extends Component {
     );
   }
 
-  missionNotAvailable() {
-    const { card, piggyback } = this.props;
+  determineMissionStatusMessage() {
+    const { piggyback } = this.props;
 
     if(piggyback.userHasReservation) {
-      return (
+      return(
         <div>
-          { this.startMissionTime() }
-          <p>You have an upcoming { piggyback.userReservationType } reservation scheduled for { this.startMissionTime() }</p>
+          <h5 className="mission-status">You have an upcoming { piggyback.userReservationType } reservation scheduled for</h5>
+          <div className="join-mission-callout">
+            {this.userHasReservation()}
+          </div>
         </div>
-      )
-    } else {
+      );
+    }
+
+    if(piggyback.missionAvailable) {
+      return(
+        <div>
+          <h5 className="mission-status">Join an <i>existing</i> mission</h5>
+          <div className="join-mission-callout">
+            {this.missionAvailable()}
+          </div>
+        </div>
+      );
+    }
+
+    if(!piggyback.missionAvailable) {
+      return(
+        <div>
+          <h5 className="mission-status">No existing missions are available</h5>
+          <div className="join-mission-callout">
+            {this.missionNotAvailable()}
+          </div>
+        </div>
+      );
+    }
+  }
+
+  missionNotAvailable() {
+    const { card, piggyback } = this.props;
+    if(!piggyback.userHasReservation) {
       return (
         <div className="mission-unavailable">
           <Link
@@ -128,7 +157,7 @@ class ExistingMissionCard extends Component {
   }
 
   missionAvailable() {
-    return (
+    return(
       <div className="mission-available">
         { this.startMissionTime() }
         <a
@@ -139,6 +168,14 @@ class ExistingMissionCard extends Component {
         </a>
       </div>
     )
+  }
+
+  userHasReservation() {
+    return(
+      <div className="mission-available">
+        { this.startMissionTime() }
+      </div>
+    );
   }
 
   handleCloseErrorModal() {
@@ -185,15 +222,9 @@ class ExistingMissionCard extends Component {
           }
 
           {
-            piggyback.missionAvailable ?
-              <h5 className="mission-status">Join an <i>existing</i> mission</h5>
-              :
-              <h5 className="mission-status">No existing missions are available</h5>
+            this.determineMissionStatusMessage()
           }
 
-          <div className="join-mission-callout">
-            { piggyback.missionAvailable ? this.missionAvailable() : this.missionNotAvailable() }
-          </div>
         </div>
 
         <ModalGeneric
