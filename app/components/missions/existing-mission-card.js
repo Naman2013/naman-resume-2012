@@ -47,7 +47,7 @@ class ExistingMissionCard extends Component {
     const mission = missionList[0];
     const { card } = this.props;
 
-    if( apiError ) {
+    if(apiError) {
       this.setState({
         errorModalIsOpen: true,
         errorMessage: errorMsg,
@@ -112,7 +112,7 @@ class ExistingMissionCard extends Component {
         <div>
           <h5 className="mission-status">You have an upcoming { piggyback.userReservationType } reservation scheduled for</h5>
           <div className="join-mission-callout">
-            {this.missionAvailable()}
+            {this.userHasReservation()}
           </div>
         </div>
       );
@@ -157,7 +157,7 @@ class ExistingMissionCard extends Component {
   }
 
   missionAvailable() {
-    return (
+    return(
       <div className="mission-available">
         { this.startMissionTime() }
         <a
@@ -168,6 +168,14 @@ class ExistingMissionCard extends Component {
         </a>
       </div>
     )
+  }
+
+  userHasReservation() {
+    return(
+      <div className="mission-available">
+        { this.startMissionTime() }
+      </div>
+    );
   }
 
   handleCloseErrorModal() {
