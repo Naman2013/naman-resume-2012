@@ -13,6 +13,9 @@ class PiggyBackConfirm extends Component {
 
   handleReservationClick(event) {
     event.preventDefault();
+
+    // TODO: complete making a reservation...
+
     const { closeModal } = this.props;
     console.log('Time to make a reservation!!!');
     closeModal();
@@ -22,7 +25,7 @@ class PiggyBackConfirm extends Component {
 
     const { mission, closeModal, open, currentCard } = this.props;
 
-    if( !mission.hasOwnProperty('missionList') ) { return null; }
+    if( !mission.hasOwnProperty('missionList') || !currentCard ) { return null; }
 
     const currentMission = mission.missionList[0];
     const { missionStart } = currentMission;
@@ -35,14 +38,20 @@ class PiggyBackConfirm extends Component {
     const PST_start_time = moment.tz(formattedUTCDate, 'America/Los_Angeles').format('h:mma z');
     const UTC_start_time = moment.utc(formattedUTCDate).format('HH:mm z');
 
+    const inlineButtonRowStyle = {
+      'width': '60%',
+      'margin': '0 auto 20px auto',
+    };
+
     return (
       <Modal show={ open } className={ styles.missionModal }>
-        <Modal.Header>
+
+        <div className="modal-header">
           <h1 className="title">Strap yourself in</h1>
           <h2 className="title-secondary">Your are joining a pre-scheduled mission to:</h2>
-        </Modal.Header>
-        <Modal.Body>
+        </div>
 
+        <div className="modal-body">
           <div className="mission-name">
             <img className={styles.cardIcon} src="assets/icons/Jupiter.svg" />
             <h4>{ title }</h4>
@@ -57,11 +66,14 @@ class PiggyBackConfirm extends Component {
               Canary Islands
             </p>
           </div>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button className="btn-primary" onClick={closeModal}>Sorry, Cancel This.</Button>
-          <Button className="btn-primary" onClick={ this.handleReservationClick }>Absolutely!</Button>
-        </Modal.Footer>
+        </div>
+
+        <div className="modal-footer">
+          <div style={inlineButtonRowStyle} className="button-row">
+            <Button className="btn-primary" onClick={closeModal}>Sorry, Cancel This.</Button>
+            <Button className="btn-primary" onClick={ this.handleReservationClick }>Absolutely!</Button>
+          </div>
+        </div>
       </Modal>
     );
   }

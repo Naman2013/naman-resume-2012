@@ -163,10 +163,6 @@ class ReserveConfirm extends Component {
     const PST_start_time = moment.tz(formattedUTCDate, 'America/Los_Angeles').format('h:mma z');
     const UTC_start_time = moment.utc(formattedUTCDate).format('HH:mm z');
 
-    // TODO: finish the timer
-    // TODO: call to getNextReservation when successfully booked
-    // TODO: clear the state for new data each time the modal is invoked
-
     const inlineButtonRowStyle = {
       'width': '60%',
       'margin': '0 auto 20px auto',
