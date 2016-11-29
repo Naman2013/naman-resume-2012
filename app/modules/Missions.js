@@ -4,6 +4,8 @@ import axios from 'axios';
 import moment from 'moment';
 import _ from 'lodash';
 
+import { fetchUsersUpcomingMissions } from './Users-Upcoming-Missions';
+
 // Mission action types
 export const MISSION_CONFIRMATION_OPEN  = 'MISSION_CONFIRMATION_OPEN';
 export const MISSION_CONFIRMATION_CLOSE = 'MISSION_CONFIRMATION_CLOSE';
@@ -58,8 +60,11 @@ export const reserveMissionSlot = ( mission ) => ( dispatch, getState ) => {
     cid,
     ...mission,
   })
-  .then( result => dispatch( reserveMissionSuccess( result.data ) ) )
-  .catch( error => dispatch( reserveMissionFail( error ) ) );
+  .then(result => {
+    dispatch(fetchUsersUpcomingMissions());
+    dispatch(reserveMissionSuccess(result.data));
+  })
+  .catch(error => dispatch( reserveMissionFail( error ) ) );
 };
 
 const reserveMissionSuccess = ( payload ) => ({
