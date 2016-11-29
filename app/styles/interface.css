@@ -37,16 +37,6 @@ label.error .error-description {
 }
 
 
-
-.upcoming {
-  display: inline-block;
-  height: 48px;
-  margin-left: 156px;
-  padding: 5px;
-  width: 400px; /*why?*/
-  font-size: 12px;
-}
-
 .upcoming h4 {
   margin: 0px;
   padding: 0px;
