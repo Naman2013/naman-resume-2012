@@ -68,8 +68,8 @@ class ReserveMissions extends Component {
         <CurrentSelectionHeader
           telescopeIcon={currentObservatory.obsLogoURL}
           teleName={currentTelescope.teleName}
-          teleSponsorLinkURL={currentTelescope.teleSponsorLogoURL}
-          teleSponsorLogoURL={currentTelescope.teleSponsorLinkURL}
+          teleSponsorLinkURL={currentTelescope.teleSponsorLinkURL}
+          teleSponsorLogoURL={currentTelescope.teleSponsorLogoURL}
           instrTelescopeName={currentInstrument.instrTelescopeName}
         />
 
