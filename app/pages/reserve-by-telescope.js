@@ -10,7 +10,7 @@ import {
 
 import TelescopeSelection from '../components/telescopes/selection-widget/telescope-selection';
 import CurrentSelectionHeader from '../components/telescopes/current-selection-header/header';
-import DatesSelection from '../components/telescopes/current-selection-header/dates-selection';
+import DateSelectionNavigation from '../components/telescopes/date-selection-navigation/date-selection-navigation';
 import Tips from '../components/telescopes/current-selection-header/tips';
 
 import Listings from '../components/telescopes/listings/listings';
@@ -73,12 +73,11 @@ class ReserveMissions extends Component {
           instrTelescopeName={currentInstrument.instrTelescopeName}
         />
 
-        <div>
-        	<DatesSelection />
-        	<Tips />
-        </div>
+      	<DateSelectionNavigation />
 
+      	<Tips />
         <Listings />
+
       </div>
     );
   }

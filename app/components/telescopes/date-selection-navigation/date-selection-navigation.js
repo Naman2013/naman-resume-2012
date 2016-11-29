@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 
-export default class CurrentSelectionHeader extends Component {
-
+class DateSelectionNavigation extends Component {
 
   render() {
     return (
@@ -11,7 +10,7 @@ export default class CurrentSelectionHeader extends Component {
           <i className="icon arrow previous"></i> Back
         </div>
         <div className="when col">
-          
+
           <div>
             <span className="subs">The night of</span>
           </div>
@@ -27,8 +26,10 @@ export default class CurrentSelectionHeader extends Component {
         <div className="arrow-container col">
           Next Day <i className="icon arrow next"></i>
         </div>
-        
-      </div>      
+
+      </div>
     );
   }
 }
+
+export default DateSelectionNavigation;
