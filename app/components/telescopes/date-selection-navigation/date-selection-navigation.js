@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 import moment from 'moment-timezone';
 import classnames from 'classnames';
+import { hashHistory } from 'react-router';
 
 import style from './date-selection-navigation.scss';
 
@@ -27,7 +28,7 @@ class DateSelectionNavigation extends Component {
   }
 
   componentWillUpdate() {
-    this.validateCurrentDate();
+    //this.validateCurrentDate();
   }
 
   validateCurrentDate() {
@@ -57,15 +58,22 @@ class DateSelectionNavigation extends Component {
     this.setState(updatedState);
   }
 
+  forwardToURL(url) {
+    hashHistory.push(url);
+  }
+
   handleProgressClick(event) {
     event.preventDefault();
     const { progressPast, progressFuture } = this.state;
 
     if(!progressFuture) {
-      console.log('no can do!');
       return;
     }
+
     console.log('progress forward!!');
+    const futureDate = moment(this.props.currentDate).add(1, 'days');
+    // TODO: forward to new date url
+    this.forwardToURL('#/');
   }
 
   handlePreviousClick(event) {
@@ -73,10 +81,12 @@ class DateSelectionNavigation extends Component {
     const { progressPast, progressFuture } = this.state;
 
     if(!progressPast) {
-      console.log('no can do!!!');
       return;
     }
+
     console.log('go previous');
+    const futureDate = moment(this.props.currentDate).subtract(1, 'days');
+    this.forwardToURL('#/');
   }
 
   render() {
