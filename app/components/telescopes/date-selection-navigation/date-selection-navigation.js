@@ -21,6 +21,7 @@ class DateSelectionNavigation extends Component {
 
     this.handleProgressClick = this.handleProgressClick.bind(this);
     this.handlePreviousClick = this.handlePreviousClick.bind(this);
+
   }
 
   componentWillMount() {
@@ -32,7 +33,7 @@ class DateSelectionNavigation extends Component {
   }
 
   validateCurrentDate() {
-    const currentDate = moment(this.props.currentDate, 'YYYY-MM-DD');
+    const currentDate = moment(this.props.reservationDate, 'YYYY-MM-DD');
     const today = moment();
     let updatedState = {
       progressPast: true,
@@ -58,35 +59,29 @@ class DateSelectionNavigation extends Component {
     this.setState(updatedState);
   }
 
-  forwardToURL(url) {
-    hashHistory.push(url);
+  forwardToURL(newDate) {
+    const newRoute = `${this.props.routeRoot}/${newDate}`;
+    hashHistory.push(newRoute);
   }
 
   handleProgressClick(event) {
     event.preventDefault();
     const { progressPast, progressFuture } = this.state;
 
-    if(!progressFuture) {
-      return;
-    }
+    if(!progressFuture) { return; }
 
-    console.log('progress forward!!');
-    const futureDate = moment(this.props.currentDate).add(1, 'days');
-    // TODO: forward to new date url
-    this.forwardToURL('#/');
+    const futureDate = moment(this.props.reservationDate).add(1, 'days').format('YYYY-MM-DD');
+    this.forwardToURL(futureDate);
   }
 
   handlePreviousClick(event) {
     event.preventDefault();
     const { progressPast, progressFuture } = this.state;
 
-    if(!progressPast) {
-      return;
-    }
+    if(!progressPast) { return; }
 
-    console.log('go previous');
-    const futureDate = moment(this.props.currentDate).subtract(1, 'days');
-    this.forwardToURL('#/');
+    const previousDate = moment(this.props.reservationDate).subtract(1, 'days').format('YYYY-MM-DD');
+    this.forwardToURL(previousDate);
   }
 
   render() {
@@ -94,8 +89,8 @@ class DateSelectionNavigation extends Component {
     // TODO: on click of one of the arrows, LINK to the same page with the new date
 
     const { progressPast, progressFuture } = this.state;
-    const currentTime = moment(this.props.currentDate).format('dddd, MMMM D, YYYY');
-    // Wednesday, August 11, 2016
+    const currentTime = moment(this.props.reservationDate).format('dddd, MMMM D, YYYY');
+
     const progressPastStyle = classnames({
       'available': progressPast,
       'fa fa-chevron-circle-left': 1,
@@ -133,11 +128,12 @@ class DateSelectionNavigation extends Component {
 }
 
 DateSelectionNavigation.defaultProps = {
-  currentDate: '2016-11-29',
+  reservationDate: '2016-11-29',
 };
 
 DateSelectionNavigation.propTypes = {
-  currentDate: PropTypes.string,
+  reservationDate: PropTypes.string,
+  routeRoot: PropTypes.string,
 };
 
 export default DateSelectionNavigation;

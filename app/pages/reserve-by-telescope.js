@@ -49,10 +49,14 @@ class ReserveMissions extends Component {
     if(!currentObservatory) { return null; }
     const currentTelescope = currentObservatory.obsTelescopes.find(telescope => telescope.teleUniqueId === params.teleUniqueId);
     const currentInstrument = currentTelescope.teleInstrumentList[0];
+    const reservationDate = params.reservationDate;
+    const rootRoute = `reservations/reserve-by-telescope/${params.obsUniqueId}/${params.teleUniqueId}`;
 
-    console.log('current observatory', currentObservatory);
-    console.log('current telescope', currentTelescope);
-    console.log('current instrument', currentInstrument);
+    console.log(reservationDate);
+    // 
+    // console.log('current observatory', currentObservatory);
+    // console.log('current telescope', currentTelescope);
+    // console.log('current instrument', currentInstrument);
 
     return (
       <div className="reserve-by-telescope container-fluid">
@@ -73,8 +77,11 @@ class ReserveMissions extends Component {
           instrTelescopeName={currentInstrument.instrTelescopeName}
         />
 
-      	<DateSelectionNavigation />
-        
+      	<DateSelectionNavigation
+          routeRoot={rootRoute}
+          reservationDate={reservationDate}
+        />
+
         <Listings />
       </div>
     );
