@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
-import ListingsItem from './listings-item';
 
-import exampleData from './example-data';
-
-// listings building stiles
+import PiggybackOnMission from './reservation-slots/piggyback-on-mission';
 import styles from './listings.scss';
 
 export default class Listings extends Component {
@@ -12,18 +9,15 @@ export default class Listings extends Component {
   }
 
   getListItem(itemData, index) {
-    return (
-      <ListingsItem key={index} {...itemData}/>
-    );
+    // TODO: based on the data, return one type of reservation-slot
+    // from ./reservation-slots
   }
 
   render() {
     return (
       <div className="telescope-listings">
         <ul className="list">
-          {
-            exampleData.map(this.getListItem)
-          }
+          <PiggybackOnMission />
         </ul>
       </div>
     );
