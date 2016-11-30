@@ -48,8 +48,9 @@ ReactDOM.render(
 
           <Route path="reserve-by-objects" component={ReserveObjects} />
           <Route path="reserve-by-catalog" component={ReserveByCatalog} />
-          <Route path="reserve-by-telescope(/:obsUniqueId/:teleUniqueId)" component={ReserveByTelescope} />
+          <Route path="reserve-by-telescope(/:obsUniqueId/:teleUniqueId/:reservationDate)" component={ReserveByTelescope} />
         </Route>
+
         <Route path="telescope-details/:obsUniqueId/:teleUniqueId" component={TelescopeDetails} />
 
         <Route path="best-of-slooh" component={BestOfSlooh} />
