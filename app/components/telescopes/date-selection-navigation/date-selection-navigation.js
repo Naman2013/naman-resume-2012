@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
+
 import style from './date-selection-navigation.scss';
 
 class DateSelectionNavigation extends Component {

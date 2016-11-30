@@ -74,10 +74,8 @@ class ReserveMissions extends Component {
         />
 
       	<DateSelectionNavigation />
-
-      	<Tips />
+        
         <Listings />
-
       </div>
     );
   }
