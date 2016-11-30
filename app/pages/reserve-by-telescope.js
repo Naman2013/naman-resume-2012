@@ -65,6 +65,7 @@ class ReserveMissions extends Component {
           params={params}
           showUTCTimer={false}
           rootRoute={`reservations/reserve-by-telescope`}
+          appendToRoute={`/${reservationDate}`}
         />
 
         <CurrentSelectionHeader
