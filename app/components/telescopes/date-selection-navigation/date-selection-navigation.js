@@ -3,6 +3,7 @@ import { Link } from 'react-router';
 import moment from 'moment-timezone';
 import classnames from 'classnames';
 import { hashHistory } from 'react-router';
+import _ from 'lodash';
 
 import style from './date-selection-navigation.scss';
 
@@ -14,22 +15,8 @@ class DateSelectionNavigation extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      progressPast: false,
-      progressFuture: true,
-    };
-
     this.handleProgressClick = this.handleProgressClick.bind(this);
     this.handlePreviousClick = this.handlePreviousClick.bind(this);
-
-  }
-
-  componentWillMount() {
-    this.validateCurrentDate();
-  }
-
-  componentWillUpdate() {
-    //this.validateCurrentDate();
   }
 
   validateCurrentDate() {
@@ -41,7 +28,7 @@ class DateSelectionNavigation extends Component {
     };
 
     // if the date is today or before today...
-    if(currentDate.diff(today, 'days') <= 0) {
+    if(currentDate.diff(today, 'hours') <= 0) {
       updatedState = {
         progressPast: false,
         progressFuture: true,
@@ -56,7 +43,7 @@ class DateSelectionNavigation extends Component {
       };
     }
 
-    this.setState(updatedState);
+    return updatedState;
   }
 
   forwardToURL(newDate) {
@@ -66,7 +53,7 @@ class DateSelectionNavigation extends Component {
 
   handleProgressClick(event) {
     event.preventDefault();
-    const { progressPast, progressFuture } = this.state;
+    const { progressPast, progressFuture } = this.validateCurrentDate();
 
     if(!progressFuture) { return; }
 
@@ -76,7 +63,7 @@ class DateSelectionNavigation extends Component {
 
   handlePreviousClick(event) {
     event.preventDefault();
-    const { progressPast, progressFuture } = this.state;
+    const { progressPast, progressFuture } = this.validateCurrentDate();
 
     if(!progressPast) { return; }
 
@@ -86,9 +73,7 @@ class DateSelectionNavigation extends Component {
 
   render() {
 
-    // TODO: on click of one of the arrows, LINK to the same page with the new date
-
-    const { progressPast, progressFuture } = this.state;
+    const { progressPast, progressFuture } = this.validateCurrentDate();
     const currentTime = moment(this.props.reservationDate).format('dddd, MMMM D, YYYY');
 
     const progressPastStyle = classnames({
