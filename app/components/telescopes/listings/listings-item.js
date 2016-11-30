@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import classnames from 'classnames';
 
 // listing item building blocks
-import DatesColumn from './partials/dates-column';
+import MissionTime from './partials/mission-time';
 import ObjectInfo from './partials/object-info';
 import ReserveBy from './partials/reserve-by';
 import UserAvatar from './partials/user-avatar';
@@ -38,7 +38,7 @@ export default class ListingsItem extends Component {
         expanded: true
       });
     }
-  };  
+  };
 
   getConfigurationPanel = () => {
     if (!this.state.expanded) return;
@@ -60,40 +60,43 @@ export default class ListingsItem extends Component {
 
     const {
       date,
-      available,      
-      onHold      
+      available,
+      onHold
     } = this.props;
 
     return (
-      <div className={itemState} onClick={this.onListingClickHandler}>
-        <div className="row">
-          <DatesColumn date={date}/>
+      <div
+        className={itemState}
+        onClick={this.onListingClickHandler}
+      >
 
+        <div className="row">
+          <MissionTime date={date}/>
           <ObjectInfo isAvailable={available} onHold={onHold}/>
 
           {
             (()=>{
-              if (available) {
+              if(available) {
                 return (
-                  <ReserveControllers isExpanded={this.state.expanded} closeHandler={this.onListingClickHandler}/>
+                  <ReserveControllers
+                    isExpanded={this.state.expanded}
+                    closeHandler={this.onListingClickHandler}
+                  />
                 );
               } else  {
                 return (
                   <div>
                     <ReserveBy />
-
                     <UserAvatar />
-
                     <UserInfo />
-
                     {
                       shareOrPiggyBack.call(this)
                     }
-                  </div>      
+                  </div>
                 );
               }
-            })()            
-          }          
+            })()
+          }
         </div>
 
         {
@@ -119,5 +122,5 @@ function shareOrPiggyBack () {
 }
 
 function getRightSection(isAvailable, isExpanded, getLastSection) {
-  
+
 }

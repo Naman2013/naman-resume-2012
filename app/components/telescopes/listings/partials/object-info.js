@@ -1,5 +1,10 @@
 import React, { Component } from 'react';
 
+/**
+  based on whether or not this object is available
+  this is responsible for the display of the current status
+*/
+
 export default function ObjectInfo({ isAvailable, onHold }) {
   if (isAvailable) {
     return (
@@ -23,6 +28,5 @@ export default function ObjectInfo({ isAvailable, onHold }) {
       </div>
     );
   }
-  
-}
 
+}

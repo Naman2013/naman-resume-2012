@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-export default function DatesColumn({ something }) {
+const MissionTime = () => {
   return (
     <div className="col-md-2 dates-column">
       <div>
@@ -11,3 +11,4 @@ export default function DatesColumn({ something }) {
   );
 }
 
+export default MissionTime;
