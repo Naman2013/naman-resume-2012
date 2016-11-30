@@ -17,22 +17,20 @@ class DateSelectionNavigation extends Component {
       progressPast: false,
       progressFuture: true,
     };
+
+    this.handleProgressClick = this.handleProgressClick.bind(this);
+    this.handlePreviousClick = this.handlePreviousClick.bind(this);
   }
 
   componentWillMount() {
-    // TODO: validate whether or not the date provided is not in the past!!!
     this.validateCurrentDate();
   }
 
   componentWillUpdate() {
-    console.log('component updating...');
-    // TODO: validate whether or not the date provided is not in the past!!!
     this.validateCurrentDate();
   }
 
   validateCurrentDate() {
-    // if the date is before today, set it to today
-    // if the date is too far in the future, set it to the max future
     const currentDate = moment(this.props.currentDate, 'YYYY-MM-DD');
     const today = moment();
     let updatedState = {
@@ -59,6 +57,28 @@ class DateSelectionNavigation extends Component {
     this.setState(updatedState);
   }
 
+  handleProgressClick(event) {
+    event.preventDefault();
+    const { progressPast, progressFuture } = this.state;
+
+    if(!progressFuture) {
+      console.log('no can do!');
+      return;
+    }
+    console.log('progress forward!!');
+  }
+
+  handlePreviousClick(event) {
+    event.preventDefault();
+    const { progressPast, progressFuture } = this.state;
+
+    if(!progressPast) {
+      console.log('no can do!!!');
+      return;
+    }
+    console.log('go previous');
+  }
+
   render() {
 
     // TODO: on click of one of the arrows, LINK to the same page with the new date
@@ -80,7 +100,7 @@ class DateSelectionNavigation extends Component {
       <div className="reserve-by-telescope-date-selection-navigation">
 
         <div className="progress-time-action">
-          <button className="button">
+          <button onClick={this.handlePreviousClick} className="button">
             <i className={progressPastStyle}></i> Back
           </button>
         </div>
@@ -92,7 +112,7 @@ class DateSelectionNavigation extends Component {
         </div>
 
         <div className="progress-time-action">
-          <button className="button">
+          <button onClick={this.handleProgressClick} className="button">
             Next Day <i className={progressFutureStyle}></i>
           </button>
         </div>
