@@ -1,0 +1,61 @@
+@import '../../../styles/variables/colors.scss';
+
+.reserve-by-telescope-date-selection-navigation {
+  display: flex;
+  padding: 10px 0 0 0;
+  margin-bottom: 20px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  .progress-time-action {
+
+    .button {
+      display: flex;
+      align-items: center;
+      background: none;
+      border: none;
+      font-size: 12px;
+
+      &:focus {
+        outline: 0;
+      }
+
+      .fa {
+        font-size: 35px;
+        padding: 0 20px;
+        color: $light-gray;
+
+        &.available {
+          color: $pink;
+        }
+      }
+    }
+  }
+
+  .current-date-content {
+    min-width: 300px;
+
+
+    .title {
+      font-size: 14px;
+      color: $light-gray;
+      text-transform: uppercase;
+      margin-bottom: 0;
+    }
+
+    .current-time {
+      font-size: 24px;
+      font-weight: 600;
+      color: $darkBlueGray;
+      padding: 0 40px;
+      margin-bottom: 5px;
+    }
+
+    .last-updated {
+      color: $light-gray;
+      font-size: 12px;
+      margin: 0;
+    }
+  }
+}

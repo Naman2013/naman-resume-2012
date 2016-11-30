@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import styles from './header.scss';
-import DatesSelection from './dates-selection';
 import Tips from './tips';
 
 /**

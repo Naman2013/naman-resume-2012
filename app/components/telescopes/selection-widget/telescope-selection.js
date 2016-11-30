@@ -44,7 +44,13 @@ class TelescopeSelection extends React.Component {
   }
 
   render() {
-    const { observatoryList, params, rootRoute, showUTCTimer, theme } = this.props;
+    const {
+      observatoryList,
+      params,
+      rootRoute,
+      appendToRoute,
+      showUTCTimer,
+      theme } = this.props;
     const { obsUniqueId, teleUniqueId } = params;
 
     if(observatoryList.length === 0) {
@@ -75,7 +81,7 @@ class TelescopeSelection extends React.Component {
                     <li className="observatory" key={observatory.obsUniqueId}>
                       <Link
                         activeClassName="active"
-                        to={`${rootRoute}/${observatory.obsUniqueId}/${this.fetchDefaultTelescopeId(observatory)}`}
+                        to={`${rootRoute}/${observatory.obsUniqueId}/${this.fetchDefaultTelescopeId(observatory)}${appendToRoute}`}
                         className={`${observatory.obsUniqueId === obsUniqueId ? 'active' : ''} cat-link`}>
                         { observatory.obsMenuName }
                       </Link>
@@ -95,7 +101,7 @@ class TelescopeSelection extends React.Component {
                     <Link
                       className="telescope-button"
                       activeClassName="active"
-                      to={`${rootRoute}/${obsUniqueId}/${telescope.teleUniqueId}`}>
+                      to={`${rootRoute}/${obsUniqueId}/${telescope.teleUniqueId}${appendToRoute}`}>
                       <img
                         className="icon img-circle"
                         src={ telescope.teleLogoURL } />
@@ -134,6 +140,7 @@ TelescopeSelection.propTypes = {
     teleUniqueId: PropTypes.string.isRequired,
   }),
   rootRoute: PropTypes.string.isRequired, // used for internal link building
+  appendToRoute: PropTypes.string,
   observatoryList: PropTypes.array,
   showUTCTimer: PropTypes.bool,
   theme: PropTypes.string,

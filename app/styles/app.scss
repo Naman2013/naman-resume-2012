@@ -1,3 +1,5 @@
+@import './variables/fonts.scss';
+
 a, a:hover {
   text-decoration: none;
 }
@@ -9,6 +11,7 @@ img {
 }
 
 .app-content-container {
+  font-family: $primary-font;
   background: url(../../assets/images/graphics/space-background.jpg) no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
