@@ -38,17 +38,46 @@ class PiggybackOnMission extends Component {
           />
         </div>
 
-        <div className="col-xs-2 piggyback-on-mission-action">
-          <button className="action">Piggyback on mission</button>
-        </div>
-
-        <div className="piggyback-accepted">
-
-        </div>
-
+        {
+          this.props.piggybackReserved ?
+          <div className="col-xs-2 piggyback-accepted">
+            <ul className="social-icons">
+              <li className="action-container">
+                <button className="action">
+                  <span className="fa fa-twitter-square"></span>
+                </button>
+              </li>
+              <li className="action-container">
+                <button className="action">
+                  <span className="fa fa-facebook-square"></span>
+                </button>
+              </li>
+              <li className="action-container">
+                <button className="action">
+                  <span className="fa fa-google-plus-square"></span>
+                </button>
+              </li>
+              <li className="action-container">
+                <button className="action">
+                  <span className="fa fa-instagram"></span>
+                </button>
+              </li>
+            </ul>
+            
+            <h4 className="title">You have <b>joined</b> this mission.</h4>
+          </div>
+          :
+          <div className="col-xs-2 piggyback-on-mission-action">
+            <button className="action">Piggyback on mission</button>
+          </div>
+        }
       </div>
     );
   }
 }
+
+PiggybackOnMission.defaultProps = {
+  piggybackReserved: true,
+};
 
 export default PiggybackOnMission;
