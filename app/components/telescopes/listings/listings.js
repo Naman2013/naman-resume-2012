@@ -6,15 +6,6 @@ import MissionOnHold from './reservation-slots/mission-on-hold';
 import styles from './listings.scss';
 
 export default class Listings extends Component {
-  constructor(props) {
-    super(props);
-  }
-
-  getListItem(itemData, index) {
-    // TODO: based on the data, return one type of reservation-slot
-    // from ./reservation-slots
-  }
-
   render() {
     return (
       <div className="telescope-listings">
