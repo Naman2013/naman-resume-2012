@@ -122,20 +122,39 @@ $listing_black: #424242;
       // states
       &.available {
         @extend .dark-gradient;
-
         color: #fff;
 
-        .reserve-controller {
-          text-align: right;
 
-          .btn {
-            background: $listing_blue;
-            border-radius: 8px;
-            border: 0;
-            color: #fff;
+        .reservation-options-content {
+
+          .reservation-options {
+            display: flex;
+            align-items: center;
+            float: right;
+
+            .option {
+              list-style-type: none;
+              margin-right: 10px;
+
+              .action {
+                background: $turqoise;
+                border: none;
+                color: $white;
+                padding: 10px;
+                width: 145px;
+                height: 40px;
+
+                &:focus {
+                  outline: 0;
+                }
+              }
+            }
           }
         }
 
+        /**
+          handle hover and menu expanding...
+        */
         &:hover, &.expanded {
           -webkit-box-shadow: 0px 0px 0px 5px #fff inset,
                               0px 0px 10px 0px #000;

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import PiggybackOnMission from './reservation-slots/piggyback-on-mission';
+import AvailableMission from './reservation-slots/available-mission';
 import styles from './listings.scss';
 
 export default class Listings extends Component {
@@ -18,6 +19,7 @@ export default class Listings extends Component {
       <div className="telescope-listings">
         <ul className="list">
           <PiggybackOnMission />
+          <AvailableMission />
         </ul>
       </div>
     );

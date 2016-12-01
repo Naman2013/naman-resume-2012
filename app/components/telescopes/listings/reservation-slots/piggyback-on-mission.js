@@ -13,7 +13,7 @@ class PiggybackOnMission extends Component {
     });
 
     return(
-      <div className={containerClassnames}>
+      <li className={containerClassnames}>
 
         <div className="col-xs-2">
           <MissionTime />
@@ -63,7 +63,7 @@ class PiggybackOnMission extends Component {
                 </button>
               </li>
             </ul>
-            
+
             <h4 className="title">You have <b>joined</b> this mission.</h4>
           </div>
           :
@@ -71,7 +71,7 @@ class PiggybackOnMission extends Component {
             <button className="action">Piggyback on mission</button>
           </div>
         }
-      </div>
+      </li>
     );
   }
 }
