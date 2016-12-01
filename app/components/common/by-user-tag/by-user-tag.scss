@@ -1,14 +1,16 @@
 @import "../../../styles/variables/colors.scss";
 
 .slooh-by-user-tag {
+  display: flex;
+  align-items: center;
 
   .profile-photo, .profile-name {
     float: left;
   }
 
   .profile-name {
-    padding: 0 0 0 20px;
-    margin-bottom: 15px;
+    padding: 0 0 0 10px;
+    margin: 0;
 
       .username {
         font-size: 1.2em;
