@@ -103,7 +103,6 @@ $listing_black: #424242;
             margin-right: 10px;
           }
         }
-
       }
 
       .social-bar {
@@ -117,6 +116,20 @@ $listing_black: #424242;
         background: #fff;
         -webkit-box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.38) inset;
                 box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.38) inset;
+
+        .hold-timer-content {
+          text-align: center;
+
+          .hold-timer {
+            font-weight: bold;
+            font-size: 18px;
+          }
+
+          .title {
+            font-weight: normal;
+            font-size: 10px;
+          }
+        }
       }
 
       &.available {

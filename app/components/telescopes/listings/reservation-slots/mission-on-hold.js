@@ -11,6 +11,8 @@ class MissionOnHold extends Component {
       'on-hold': 1,
     });
 
+    const timer = '44:42';
+
     return(
       <li className={containerClassnames}>
 
@@ -18,9 +20,9 @@ class MissionOnHold extends Component {
           <MissionTime />
         </div>
 
-        <div className="col-xs-4 slot-description">
-          <img className="slot-logo" src="assets/icons/Jupiter.svg" width="38" alt=""/>
-          <span className="slot-name">Jupiter</span>
+        <div className="col-md-4 slot-description">
+          <img className="slot-logo" src="assets/icons/question-mark.png" width="38" alt=""/>
+          <span className="slot-name">On Hold. Object Not Yet Set.</span>
         </div>
 
         <div className="col-xs-4 reserved-by-user-content">
@@ -37,8 +39,9 @@ class MissionOnHold extends Component {
           />
         </div>
 
-        <div className="col-xs-2">
-          
+        <div className="col-xs-2 hold-timer-content">
+          <h5 className="hold-timer">{timer}</h5>
+          <p className="title">Hold time remaining.</p>
         </div>
 
       </li>
