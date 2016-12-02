@@ -132,6 +132,7 @@ TelescopeSelection.defaultProps = {
   rootRoute: 'telescope-details',
   showUTCTimer: true,
   theme: 'dark',
+  appendToRoute: '',
 };
 
 TelescopeSelection.propTypes = {
