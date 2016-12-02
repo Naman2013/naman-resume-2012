@@ -26,7 +26,7 @@ class ByUserTag extends Component {
     return(
       <div className="slooh-by-user-tag">
         <div className="profile-photo">
-          <img src={photo} />
+          <img height="45" src={photo} />
         </div>
 
         <div className="profile-name">
@@ -42,7 +42,7 @@ class ByUserTag extends Component {
 }
 
 ByUserTag.defaultProps = {
-  version: 'dark',
+  theme: 'dark',
 };
 
 ByUserTag.propTypes = {

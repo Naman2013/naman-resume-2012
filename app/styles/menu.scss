@@ -1,27 +1,35 @@
+@import './variables/fonts.scss';
+
 .menu-container {
+  font-family: $primary-font;
   position: absolute;
   left: 0px;
   color: #FFF;
   z-index: 9999;
   background-color: #3C4A55;
+  cursor: pointer;
 
 
     h3 {
-    font-weight: normal;
-    font-size: 18px;
-    margin: 20px 0px 5px;
+      font-weight: normal;
+      font-size: 18px;
+      margin: 20px 0px 5px;
     }
+
     h4 {
-    font-weight: bold;
-    font-size: 14px;
-    margin: 5px 0px 0px;
+      font-weight: bold;
+      font-size: 14px;
+      margin: 5px 0px 0px;
     }
+
     p {
-    font-size: 13px;
+      font-size: 14px;
     }
+
     time {
-    font-size: 11px;
+      font-size: 11px;
     }
+
     .scope_online::before {
       font-weight: bold;
       content: "\2022";
@@ -29,23 +37,27 @@
       margin-right: 4px;
       font-size: 22px;
     }
+
     .scope_offline::before {
       font-weight: bold;
       content: "\2022";
       color: red;
       margin-right: 4px;
     }
+
     .scope_noinfo::before {
       font-weight: bold;
       content: "\2022";
       color: #DDD;
       margin-right: 4px;
     }
+
     nav a, nav a:hover {
-    font-size: 0.7rem;
-    font-size: 0.7em;
-    padding-top: 2px;
+      font-size: 0.7rem;
+      font-size: 0.7em;
+      padding-top: 2px;
     }
+
     nav button {
       appearance: normal;
       border: 0px;
@@ -94,7 +106,7 @@
       left: -70px;
       width: 70px;
       height: 70px;
-      background-color: rgba(0,0,0, 0.3);
+      background-color: rgba(0,0,0, 0.5);
       transition: all 0.2s ease-in-out;
     }
     nav a:hover::before {
@@ -112,10 +124,6 @@
   z-index: 9999;
 }
 
-
-
-
-
 .left-submenu {
   position: absolute;
   left: 70px;
@@ -124,7 +132,7 @@
   height: 100%;
   max-height: 100%;
   padding: 20px;
-  background-color: rgba(0,0,0,0.3);
+  background-color: rgba(0,0,0,0.85);
   z-index: -1;
   overflow-y: auto;
   transition-delay: 0.25s;
