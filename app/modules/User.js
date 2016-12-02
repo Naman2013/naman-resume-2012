@@ -10,7 +10,6 @@ export const remove = createAction(REMOVE_USER);
 
 export function store(user) {
   localStorage.setItem('user', JSON.stringify(user));
-
   document.cookie = cookie.serialize('cid', user.cid, { domain: '.slooh.com' });
   document.cookie = cookie.serialize('token', user.token, { domain: '.slooh.com' });
   document.cookie = cookie.serialize('at', user.at, { domain: '.slooh.com' });
@@ -21,31 +20,37 @@ export function store(user) {
   };
 }
 
-export function destroy() {
-  localStorage.removeItem('user');
+export const logout = () => {
+  destroySession();
+  window.location.reload();
+}
 
-  document.cookie = cookie.serialize('cid', '', { domain: '.slooh.com', expires: new Date('Thu, 01 Jan 1970 00:00:01 GMT') });
-  document.cookie = cookie.serialize('token', '', { domain: '.slooh.com', expires: new Date('Thu, 01 Jan 1970 00:00:01 GMT') });
-  document.cookie = cookie.serialize('at', '', { domain: '.slooh.com', expires: new Date('Thu, 01 Jan 1970 00:00:01 GMT') });
-  document.cookie = cookie.serialize('fname', '', { domain: '.slooh.com', expires: new Date('Thu, 01 Jan 1970 00:00:01 GMT') });
+export function destroy() {
+  destroySession();
 
   return (dispatch) => {
     dispatch(remove());
   };
 }
 
+function destroySession() {
+  localStorage.removeItem('user');
+  document.cookie = cookie.serialize('cid', '', { domain: '.slooh.com', expires: new Date('Thu, 01 Jan 1970 00:00:01 GMT') });
+  document.cookie = cookie.serialize('token', '', { domain: '.slooh.com', expires: new Date('Thu, 01 Jan 1970 00:00:01 GMT') });
+  document.cookie = cookie.serialize('at', '', { domain: '.slooh.com', expires: new Date('Thu, 01 Jan 1970 00:00:01 GMT') });
+  document.cookie = cookie.serialize('fname', '', { domain: '.slooh.com', expires: new Date('Thu, 01 Jan 1970 00:00:01 GMT') });
+}
+
 /**
   Is called on initial app load in App.js
   checks if user is logged in
-  @todo replace below logic to reflect real user sign in
-  @todo remove initialState from localStorage
   */
 export function checkUser() {
   return (dispatch) => {
 
     const userJSON = localStorage.getItem('user');
 
-    if ( userJSON ) {
+    if (userJSON) {
       const user = JSON.parse(userJSON);
       dispatch(store(user));
     } else {

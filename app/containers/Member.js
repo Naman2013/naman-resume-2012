@@ -24,7 +24,7 @@ export default class Member extends Component {
   static propTypes = {
     user: object.isRequired,
     loginData: object.isRequired,
-    destroy: func.isRequired,
+    logout: func.isRequired,
     login: func.isRequired,
     show: func.isRequired,
     hide: func.isRequired,
@@ -39,7 +39,7 @@ export default class Member extends Component {
   };
 
   onLogout = () => {
-    this.props.destroy();
+    this.props.logout();
   };
 
   render() {

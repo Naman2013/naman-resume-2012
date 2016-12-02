@@ -18,8 +18,9 @@ export const login = ( loginFormValues ) => ( dispatch ) => {
     passwd,
   })
   .then((result) => {
-    dispatch( userActions.store( result.data ) );
-    dispatch( hide() );
+    dispatch(userActions.store(result.data));
+    dispatch(hide());
+    window.location.reload();
   })
   .catch((error) => {
     throw new SubmissionError({ _error: 'Your log in was unsuccessful. Please try again.' });
