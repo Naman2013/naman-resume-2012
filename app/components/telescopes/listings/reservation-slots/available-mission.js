@@ -16,6 +16,13 @@ class AvailableMission extends Component {
       <li className={containerClassnames}>
 
         <div className="above-the-fold-content clearfix">
+
+          <div className="close-button">
+            <button className="action">
+              <span className="fa fa-close"></span>
+            </button>
+          </div>
+
           <div className="col-xs-2">
             <MissionTime />
           </div>

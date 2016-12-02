@@ -152,9 +152,30 @@ $listing_black: #424242;
   height: 85px;
 
   .above-the-fold-content {
+    position: relative;
     margin-bottom: 20px;
 
+    .close-button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      font-size: 30px;
+      display: none;
+
+      .action {
+        background: none;
+        border: none;
+        color: $white;
+
+        &:focus {
+          outline: 0;
+        }
+      }
+    }
+
     .slot-description {
+      display: flex;
+      align-items: center;
 
       .slot-logo {
         margin-right: 10px;
@@ -162,6 +183,7 @@ $listing_black: #424242;
     }
 
     .reservation-options-content {
+      padding-right: 50px;
 
       .reservation-options {
         display: flex;
@@ -198,6 +220,10 @@ $listing_black: #424242;
             transition: .1s box-shadow ease-in;
 
     height: 630px;
+
+    .close-button {
+      display: block;
+    }
   }
 
   .reservation-form-container {
