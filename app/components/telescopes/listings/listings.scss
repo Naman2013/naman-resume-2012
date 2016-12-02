@@ -131,103 +131,82 @@ $listing_black: #424242;
           }
         }
       }
+    }
+  }
+}
 
-      &.available {
-        @extend .dark-gradient;
-        color: #fff;
-        overflow: hidden;
-        
-        .reservation-options-content {
+.divider-line {
+  border-top: 1px solid $white;
+  width: 104%;
+  margin-left: -25px;
+  margin-bottom: 5px;
+}
 
-          .reservation-options {
-            display: flex;
-            align-items: center;
-            float: right;
+.telescope-listings-item-inline-reservation {
+  @extend .dark-gradient;
+  color: #fff;
+  overflow: hidden;
+  border-radius: 5px;
+  padding: 22px 25px 0 25px;
+  margin-bottom: 20px;
+  height: 85px;
 
-            .option {
-              list-style-type: none;
-              margin-right: 10px;
+  .above-the-fold-content {
+    margin-bottom: 20px;
 
-              .action {
-                background: $turqoise;
-                border: none;
-                color: $white;
-                padding: 10px;
-                width: 145px;
-                height: 40px;
+    .slot-description {
 
-                &:focus {
-                  outline: 0;
-                }
-              }
-            }
-          }
-        }
+      .slot-logo {
+        margin-right: 10px;
+      }
+    }
 
-        &.expanded {
-          height: 630px;
-          -webkit-box-shadow: 0px 0px 0px 5px #fff inset,
-                              0px 0px 10px 0px #000;
-                  box-shadow: 0px 0px 0px 5px #fff inset,
-                              0px 0px 10px 0px #000;
-          -webkit-transition: .1s -webkit-box-shadow ease-in;
-                  transition: .1s box-shadow ease-in;
+    .reservation-options-content {
 
-          .reservation-configuration {
-            .steps {
-              max-width: 1216px;
-              margin: 0 auto;
+      .reservation-options {
+        display: flex;
+        align-items: center;
+        float: right;
 
-              .step {
-                &-header {
-                  margin-bottom: 10px;
+        .option {
+          list-style-type: none;
+          margin-right: 10px;
 
-                  &_icon {
-                    @extend .dark-gradient;
+          .action {
+            background: $turqoise;
+            border: none;
+            color: $white;
+            padding: 10px;
+            width: 145px;
+            height: 40px;
 
-                    display: inline-block;
-                    padding: 2px 9px;
-                    border-radius: 20px;
-                    color: $listing_blue;
-                    margin: 10px auto;
-                  }
-
-                  &_label {
-                    font-size: 24px;
-                    font-weight: lighter;
-                  }
-                }
-
-                &-content {
-                  .option-list {
-                    text-align: left;
-                    width: 350px;
-                    max-height: 300px;
-                    overflow-x: hidden;
-                    overflow-y: scroll;
-
-                    @extend .custom-scroll-bar;
-
-                    &_item {
-                      border-radius: 8px;
-                      padding: 5px 20px;
-                      color: #fff;
-
-                      .icon {
-                        margin-right: 10px;
-                      }
-
-                      &:hover {
-                        background: $listing_blue;
-                      }
-                    }
-                  }
-                }
-              }
+            &:focus {
+              outline: 0;
             }
           }
         }
       }
     }
   }
+
+  &.expanded {
+    -webkit-box-shadow: 0px 0px 0px 5px #fff inset,
+                        0px 0px 10px 0px #000;
+            box-shadow: 0px 0px 0px 5px #fff inset,
+                        0px 0px 10px 0px #000;
+    -webkit-transition: .1s -webkit-box-shadow ease-in;
+            transition: .1s box-shadow ease-in;
+
+    height: 630px;
+  }
+
+  .reservation-form-container {
+
+    .timer-container {
+      width: 100%;
+      text-align: center;
+      color: $turqoise;
+    }
+  }
+
 }

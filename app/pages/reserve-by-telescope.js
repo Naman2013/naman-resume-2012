@@ -57,7 +57,7 @@ class ReserveMissions extends Component {
     // console.log('current instrument', currentInstrument);
 
     return (
-      <div className="reserve-by-telescope container-fluid">
+      <div className="reserve-by-telescope">
 
         <TelescopeSelection
           theme={`light`}
