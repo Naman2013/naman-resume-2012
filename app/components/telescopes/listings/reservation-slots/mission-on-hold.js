@@ -28,7 +28,7 @@ class MissionOnHold extends Component {
         <div className="col-xs-4 reserved-by-user-content">
           <h3 className="title">Reserved by:</h3>
           <ByUserTag
-            theme={`light`}
+            theme="light"
             photo={`http://images-account.slooh.com/avatar-dummy.png`}
             name={`John`}
             accountType={`astronomer`}
