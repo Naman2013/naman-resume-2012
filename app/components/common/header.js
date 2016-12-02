@@ -8,8 +8,8 @@ export default class header extends Component {
     return (
       <header className="main-header">
         <div className="logo" />
-        <div className = "logo-text">
-          Slooh
+        <div className="logo-text">
+          Slooh <span className="beta">beta</span>
         </div>
         <div className="upcoming">
           {/* <Countdown /> */}
