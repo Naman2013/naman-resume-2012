@@ -58,40 +58,42 @@ class ReserveObjects extends Component {
   }
 
   render() {
-    const { category, object } = this.props;
+    const { category, object, sectionHeight } = this.props;
 
     const selectedCategory = category || {};
     const selectedObject = object || {};
 
     return (
-      <div className={ styles.reserveObjectPage }>
+      <div className={styles.reserveObjectPage}>
         <div className="row">
 
           <div className="col-md-4">
             <h2><span>1</span> Select Category</h2>
 
             <ReserveObjectsCategory
-              items={ testData.categories }
-              selectedCategory={ selectedCategory }
-              onClickHandler={ this.setCategory } />
+              items={testData.categories}
+              selectedCategory={selectedCategory}
+              onClickHandler={this.setCategory} />
           </div>
 
           <div className="col-md-4">
             <h2><span>2</span> Choose Specific Object</h2>
 
             <ReserveObjectsList
-              selectedCategory={ selectedCategory }
-              selectedObject={ selectedObject }
-              onClickHandler={ this.setObject } />
+              selectedCategory={selectedCategory}
+              selectedObject={selectedObject}
+              onClickHandler={this.setObject}
+            />
           </div>
 
           <div className="col-md-4">
             <h2><span>3</span> Object Summary</h2>
 
             <ReserveObjectsSummary
-              object={ object }
-              clearBrowse={ this.clearBrowse }
-              scheduleMission={ this.scheduleMission } />
+              object={object}
+              clearBrowse={this.clearBrowse}
+              scheduleMission={this.scheduleMission}
+            />
           </div>
         </div>
       </div>

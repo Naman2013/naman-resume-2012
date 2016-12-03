@@ -20,7 +20,7 @@
     font-weight: bold;
     text-align: center;
     margin-bottom: 20px;
-    
+
     span {
       display: block;
       width: 25px;
@@ -44,9 +44,9 @@
 .item-object {
   @extend .list-item-padding;
   margin-bottom: 1px;
-  
+
   border-top-left-radius: 20px;
-  border-bottom-left-radius: 20px;  
+  border-bottom-left-radius: 20px;
 
   &:hover,
   &.selected {
@@ -62,7 +62,7 @@
 .scrollable {
   color: #3C4A55;
   height: 420px;
-  overflow-y: scroll;  
+  overflow-y: scroll;
 }
 
 .objectCategories {
@@ -83,6 +83,7 @@
 .objectSummary {
   @extend .custom-scroll-bar;
   @extend .scrollable;
+  line-height: 2;
 
   a {
     color: #3C4A55;
@@ -90,26 +91,26 @@
 
   li {
     list-style: none;
-  }  
+  }
 }
 
 .no-padding {
   padding: 0;
 }
 
-.title {  
-  font-weight: bold;  
+.title {
+  font-weight: bold;
   display: block;
   text-transform: uppercase;
 }
 
-.objectList {  
+.objectList {
   .sub-category {
     margin-bottom: 30px;
 
     .sub-category-title {
       @extend .list-item-padding;
-      
+
       @extend .title;
     }
 
@@ -125,7 +126,7 @@
 }
 
 .objectSummary {
-  padding: 0 40px;  
+  padding: 0 40px;
 
   a.btn-primary {
     color: #fff;
