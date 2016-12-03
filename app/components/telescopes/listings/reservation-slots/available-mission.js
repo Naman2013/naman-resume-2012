@@ -9,43 +9,52 @@ import ReservationByCoordinate from '../forms/reservation-by-coordinate';
 const BY_OBJECTS = 'BY_OBJECTS';
 const BY_CATELOG = 'BY_CATELOG';
 const BY_COORDINATE = 'BY_COORDINATE';
+const NONE = 'NONE';
 
 class AvailableMission extends Component {
-
   constructor(props) {
     super(props);
 
     this.state = {
-      formType: BY_OBJECTS,
+      formType: NONE,
     };
 
-    this.handleBrowserObjectsClick = this.handleBrowserObjectsClick.bind(this);
     this.handleCloseForm = this.handleCloseForm.bind(this);
     this.handleReservationTypeClick = this.handleReservationTypeClick.bind(this);
   }
 
-  handleBrowserObjectsClick(event) {
-    event.preventDefault();
-
-    this.setState({
-      formType: BY_OBJECTS,
-    });
-
-    // TODO: set internal state for browse by objects?
-    this.props.toggleFormDisplay();
-  }
-
   handleCloseForm(event) {
     event.preventDefault();
-    this.props.toggleFormDisplay();
+    this.closeFormDisplay();
   }
 
-  handleReservationTypeClick(formType) {
-    this.setState({
-      formType,
-    });
+  handleReservationTypeClick(newFormType) {
+    const { formType } = this.state;
 
-    this.openFormDisplay();
+    /**
+      when the next form type is the the same as the formType
+      that is already set, then we toggle the form to none
+      and close the menu
+    */
+    if(formType === newFormType || newFormType === NONE) {
+      this.setState({
+        formType: NONE,
+      });
+      this.closeFormDisplay();
+    }
+
+    if(formType != newFormType) {
+      this.setState({
+        formType: newFormType,
+      });
+      this.openFormDisplay();
+    }
+  }
+
+  closeFormDisplay() {
+    if(this.props.formOpen) {
+      this.props.toggleFormDisplay();
+    }
   }
 
   openFormDisplay() {
@@ -55,7 +64,6 @@ class AvailableMission extends Component {
   }
 
   renderForm() {
-
     const { formType } = this.state;
 
     switch(formType) {
@@ -67,13 +75,27 @@ class AvailableMission extends Component {
         break;
       case BY_COORDINATE:
         return(<ReservationByCoordinate />);
+        break;
+      case NONE:
+        return(null);
+        break;
       default:
-        return(<ReservationByObjects />);
+        return(null);
     }
   }
 
-  render() {
+  matchFormType(matchOnFormType) {
+    return this.state.formType === matchOnFormType;
+  }
 
+  buttonRenderedClasses(buttonFormType) {
+    return classnames({
+      'action': 1,
+      'active': this.matchFormType(buttonFormType),
+    });
+  }
+
+  render() {
     const { formOpen } = this.props;
     const { formType } = this.state;
 
@@ -89,7 +111,7 @@ class AvailableMission extends Component {
         <div className="above-the-fold-content clearfix">
           <div className="content">
             <div className="close-button">
-              <button onClick={this.handleCloseForm} className="action">
+              <button onClick={(event) => {this.handleReservationTypeClick(NONE)}} className="action">
                 <span className="fa fa-close"></span>
               </button>
             </div>
@@ -108,7 +130,7 @@ class AvailableMission extends Component {
                 <li className="option">
                   <button
                     onClick={(event) => {this.handleReservationTypeClick(BY_OBJECTS)}}
-                    className="action"
+                    className={this.buttonRenderedClasses(BY_OBJECTS)}
                   >
                     Browser objects
                   </button>
@@ -116,7 +138,7 @@ class AvailableMission extends Component {
                 <li className="option">
                   <button
                     onClick={(event) => {this.handleReservationTypeClick(BY_CATELOG)}}
-                    className="action"
+                    className={this.buttonRenderedClasses(BY_CATELOG)}
                     >
                       Select by catelog #
                   </button>
@@ -124,7 +146,7 @@ class AvailableMission extends Component {
                 <li className="option">
                   <button
                     onClick={(event) => {this.handleReservationTypeClick(BY_COORDINATE)}}
-                    className="action"
+                    className={this.buttonRenderedClasses(BY_COORDINATE)}
                   >
                     Enter coordinate
                   </button>
@@ -137,7 +159,6 @@ class AvailableMission extends Component {
         {
           this.renderForm()
         }
-
       </li>
     );
   }
