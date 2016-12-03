@@ -1,5 +1,7 @@
 import React from 'react';
 
+import InlineCountdown from '../../../../common/inline-countdown/inline-countdown';
+
 const Timer = ({startTime}) => (
   <div className="timer-container">
     <h5 className="timer">
