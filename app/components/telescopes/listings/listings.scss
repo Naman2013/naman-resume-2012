@@ -135,35 +135,41 @@ $listing_black: #424242;
   }
 }
 
-.divider-line {
-  border-top: 1px solid $white;
-  width: 104%;
-  margin-left: -25px;
-  margin-bottom: 5px;
-}
-
 .telescope-listings-item-inline-reservation {
   @extend .dark-gradient;
-  -webkit-transition: .5s ease-out;
-  transition: .5s ease-out;
+  -webkit-transition: .25s ease-out;
+  transition: .25s ease-out;
 
   color: #fff;
   overflow: hidden;
   border-radius: 5px;
-  padding: 22px 25px 0 25px;
+  padding: 0 25px 0 25px;
   margin-bottom: 20px;
   height: 85px;
 
   .above-the-fold-content {
     position: relative;
     margin-bottom: 20px;
+    height: 70px;
+    border-bottom: 1px solid $white;
+    margin-left: -20px;
+    margin-right: -20px;
+
+    padding: 0 20px 70px 20px;
+
+    .content {
+      display: flex;
+      align-items: center;
+    }
 
     .close-button {
       position: absolute;
-      top: 0;
-      right: 0;
+      z-index: 9999;
+      top: 20px;
+      right: 20px;
       font-size: 30px;
       display: none;
+      cursor: pointer;
 
       .action {
         background: none;
@@ -208,6 +214,11 @@ $listing_black: #424242;
             &:focus {
               outline: 0;
             }
+
+            &:hover, &.active {
+              color: $white;
+              background: $black
+            }
           }
         }
       }
@@ -221,6 +232,10 @@ $listing_black: #424242;
                         0px 0px 10px 0px #000;
 
     height: 630px;
+
+    .above-the-fold-content {
+      padding-top: 22px;
+    }
 
     .close-button {
       display: block;
