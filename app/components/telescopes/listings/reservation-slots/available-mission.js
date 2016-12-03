@@ -43,6 +43,14 @@ class AvailableMission extends Component {
     this.setState({
       formType,
     });
+
+    this.openFormDisplay();
+  }
+
+  openFormDisplay() {
+    if(!this.props.formOpen) {
+      this.props.toggleFormDisplay();
+    }
   }
 
   renderForm() {
@@ -56,6 +64,8 @@ class AvailableMission extends Component {
       case BY_CATELOG:
         return(<ReservationByCatalog />);
         break;
+      case BY_COORDINATE:
+        return(<ReservationByCoordinate />);
       default:
         return(<ReservationByObjects />);
     }
@@ -105,12 +115,18 @@ class AvailableMission extends Component {
                 <li className="option">
                   <button
                     onClick={(event) => {this.handleReservationTypeClick(BY_CATELOG)}}
-                    className="action">Select by catelog #</button>
+                    className="action"
+                    >
+                      Select by catelog #
+                  </button>
                 </li>
                 <li className="option">
                   <button
-                    onClick={(event) => {this.handleReservationTypeClick(BY_COORDINATE)}} 
-                    className="action">Enter coordinate</button>
+                    onClick={(event) => {this.handleReservationTypeClick(BY_COORDINATE)}}
+                    className="action"
+                  >
+                    Enter coordinate
+                  </button>
                 </li>
               </ul>
             </div>
