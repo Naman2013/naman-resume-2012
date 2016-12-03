@@ -95,6 +95,20 @@ class AvailableMission extends Component {
     });
   }
 
+  getAvailableSlotText() {
+    const DEFAULT = 'This slot could be yours.';
+    const RESERVING = 'Tell us where to aim this thing...';
+    const { formOpen } = this.props;
+
+    if(!formOpen) {
+      return DEFAULT;
+    }
+    
+    if(formOpen) {
+      return RESERVING;
+    }
+  }
+
   render() {
     const { formOpen } = this.props;
     const { formType } = this.state;
@@ -122,7 +136,7 @@ class AvailableMission extends Component {
 
             <div className="col-xs-4 slot-description">
               <img className="slot-logo" src="assets/icons/alien-head.png" height="40" alt=""/>
-              <span className="slot-name">This slot could be yours.</span>
+              <span className="slot-name">{this.getAvailableSlotText()}</span>
             </div>
 
             <div className="col-xs-6 reservation-options-content">
