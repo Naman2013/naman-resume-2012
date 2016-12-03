@@ -1,15 +1,13 @@
 import React, { Component, PropTypes } from 'react';
 
+import Timer from './common/timer';
+
 class ReservationByObjects extends Component {
   render() {
     return(
       <div className="reservation-form-container">
 
-        <div className="timer-container">
-          <h5 className="timer">
-            <span className="fa fa-clock-o"></span> Please complete your reservation form within 04:47
-          </h5>
-        </div>
+        <Timer />
 
         <div className="form">
           <h3 className="title">Select Category</h3>

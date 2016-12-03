@@ -4,6 +4,7 @@ import classnames from 'classnames';
 import MissionTime from '../partials/mission-time';
 import ReservationByObjects from '../forms/reservation-by-objects';
 import ReservationByCatalog from '../forms/reservation-by-catalog';
+import ReservationByCoordinate from '../forms/reservation-by-coordinate';
 
 const BY_OBJECTS = 'BY_OBJECTS';
 const BY_CATELOG = 'BY_CATELOG';
