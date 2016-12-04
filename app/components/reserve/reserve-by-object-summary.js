@@ -3,7 +3,11 @@ import styles from './reserve-by-object.scss';
 
 class ReserveObjectSummary extends Component {
   render() {
-    const { object, clearBrowse, scheduleMission } = this.props;
+    const {
+      object,
+      clearBrowse,
+      scheduleMission,
+      summaryActions } = this.props;
 
     if(!object) {
       return null;
@@ -15,9 +19,17 @@ class ReserveObjectSummary extends Component {
 
         <p>{object.item.summary}</p>
 
-        <section>
-          <a className="btn-primary" onClick={scheduleMission}>Schedule Mission</a>
-          <a className="btn-primary" onClick={clearBrowse}>Reset Browse</a>
+        <section className="actions-container">
+          {
+            summaryActions.placeOnHold ? <button className="btn-primary" onClick={clearBrowse}>Hold One Hour</button> : null
+          }
+          {
+            summaryActions.resetForm ? <button className="btn-primary" onClick={clearBrowse}>Reset Browse</button> : null
+          }
+
+          {
+            summaryActions.makeReservation ? <button className="btn-primary" onClick={scheduleMission}>Schedule Mission</button> : null
+          }
         </section>
       </div>
     )
@@ -31,6 +43,14 @@ ReserveObjectSummary.defaultProps = {
     makeReservation: true,
     placeOnHold: false,
   }
+};
+
+ReserveObjectSummary.propTypes = {
+  summaryActions: PropTypes.shape({
+    resetForm: PropTypes.bool,
+    makeReservation: PropTypes.bool,
+    placeOnHold: PropTypes.bool,
+  }),
 };
 
 export default ReserveObjectSummary;

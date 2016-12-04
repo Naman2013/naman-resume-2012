@@ -128,13 +128,14 @@
 .objectSummary {
   padding: 0 40px;
 
-  a.btn-primary {
-    color: #fff;
-    display: block;
-    max-width: 150px;
+  .actions-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-    &:first-child {
-      margin: 40px auto;
+    .btn-primary {
+      color: #fff;
+      width: 120px;
     }
   }
 }
