@@ -11,7 +11,7 @@ class EnterDesignationForm extends Component {
         <h3 className="title">Example:</h3>
         <p className="copy">603S</p>
 
-        <h3 className="title">Designation</h3>
+        <h3 className="title">Designation:</h3>
         <input className="generic-text-input" type="text" />
 
         <button className="btn-primary">Verify Availability</button>

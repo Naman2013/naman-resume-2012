@@ -14,9 +14,7 @@ class ReserveObjectSummary extends Component {
     if(!object) {
       return null;
     }
-
-    console.log(this.props);
-
+    
     return(
       <div className={styles.objectSummary}>
         <span className="title">{object.item.title}</span>

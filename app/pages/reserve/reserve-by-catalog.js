@@ -12,10 +12,24 @@ const catalogList = [
   'Collinder Catalog of Open Star Clusters',
   '1st & 2nd Index Catalog of Nebulae and Clusters of Stars',
   'Lynds Catalog of Bright Nebulae',
+  'Morphological Catalog of Galaxies',
+  'Abell Catalog of Galaxy Clusters',
+  'Aitken Double Star Catalog',
+  'Arp Catalog of Peculiar Galaxies',
+  'Jack Bennett Catalogue of Southern Hemisphere Objects',
+  'Caldwell Catalog of 109 Deep Sky Objects',
+  'Collinder Catalog of Open Star Clusters',
+  '1st & 2nd Index Catalog of Nebulae and Clusters of Stars',
+  'Lynds Catalog of Bright Nebulae',
   'Morphological Catalog of Galaxies'
 ];
 
 const imageProcessingOptions = [
+  'Generic',
+  'Bright Star',
+  'Open Cluster',
+  'Globular Cluster',
+  'Bright Galaxy or Comet',
   'Generic',
   'Bright Star',
   'Open Cluster',
@@ -64,7 +78,16 @@ class ReserveByCatalog extends Component {
                 name="imageProcessing"
                 listHeight={170}
               />
+              <p className="sub-text">Your captures will be saved to the My Pictures area of the Telescopes menu.</p>
             </div>
+
+            <div className="objectSummary">
+              <section className="actions-container">
+                <button className="btn-primary">Hold One Hour</button>
+                <button className="btn-primary">Schedule Mission</button>
+              </section>
+            </div>
+
           </div>
 
         </form>
