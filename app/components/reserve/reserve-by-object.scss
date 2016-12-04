@@ -21,7 +21,7 @@
     text-align: center;
     margin-bottom: 20px;
 
-    span {
+    .number {
       display: block;
       width: 25px;
       height: 25px;
@@ -33,6 +33,12 @@
       font-size: 16px;
       line-height: 26px;
       margin-bottom: 10px;
+    }
+
+    .sub-text {
+      font-family: $secondary-font;
+      font-size: 14px;
+      font-weight: normal;
     }
   }
 

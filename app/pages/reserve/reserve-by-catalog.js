@@ -57,7 +57,7 @@ class ReserveByCatalog extends Component {
           <div className="row">
 
             <div className="col-md-4">
-              <h2><span>1</span> Select Catalog</h2>
+              <h2><span className="number">1</span> Select Catalog</h2>
               <ReservationSelectList
                 ref="catalog"
                 options={catalogList}
@@ -66,19 +66,19 @@ class ReserveByCatalog extends Component {
             </div>
 
             <div className="col-md-4">
-              <h2><span>2</span> Enter Designation</h2>
+              <h2><span className="number">2</span> Enter Designation</h2>
               <EnterDesignationForm />
             </div>
 
             <div className="col-md-4">
-              <h2><span>3</span> Select Image Processing</h2>
+              <h2><span className="number">3</span> Select Image Processing</h2>
               <ReservationSelectList
                 ref="imageProcessing"
                 options={imageProcessingOptions}
                 name="imageProcessing"
                 listHeight={170}
               />
-              <p className="sub-text">Your captures will be saved to the My Pictures area of the Telescopes menu.</p>
+              <p className="sub-text">Your captures will be saved to the <br /> My Pictures area of the Telescopes menu.</p>
 
               <section className="actions-container">
                 <button className="btn-primary">Hold One Hour</button>
