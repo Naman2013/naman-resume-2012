@@ -38,10 +38,10 @@ const SET_CURRENT_CARD = 'SET_CURRENT_CARD';
 
 
 
-const setCurrentCard = (card) => (
+const setCurrentCard = (card) => ({
   type: SET_CURRENT_CARD,
-  payload: card,
-);
+  payload: card,  
+});
 
 export function missionConfirmOpen(type) {
   return {
