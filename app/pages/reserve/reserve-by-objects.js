@@ -93,7 +93,9 @@ class ReserveObjects extends Component {
               object={object}
               clearBrowse={this.clearBrowse}
               scheduleMission={this.scheduleMission}
-              summaryActions={this.props.summaryActions}
+              resetForm={this.props.resetForm}
+              makeReservation={this.props.makeReservations}
+              placeOnHold={this.props.placeOnHold}
             />
           </div>
         </div>
@@ -103,19 +105,15 @@ class ReserveObjects extends Component {
 }
 
 ReserveObjects.defaultProps = {
-  summaryActions: {
-    resetForm: true,
-    makeReservation: true,
-    placeOnHold: false,
-  }
+  resetForm: true,
+  makeReservation: true,
+  placeOnHold: false,
 };
 
 ReserveObjects.propTypes = {
-  summaryActions: PropTypes.shape({
-    resetForm: PropTypes.bool,
-    makeReservation: PropTypes.bool,
-    placeOnHold: PropTypes.bool,
-  }),
+  resetForm: PropTypes.bool,
+  makeReservation: PropTypes.bool,
+  placeOnHold: PropTypes.bool,
 };
 
 export default ReserveObjects;

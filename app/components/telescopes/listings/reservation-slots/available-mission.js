@@ -68,7 +68,9 @@ class AvailableMission extends Component {
 
     switch(formType) {
       case BY_OBJECTS:
-        return(<ReservationByObjects />);
+        return(
+          <ReservationByObjects />
+        );
         break;
       case BY_CATELOG:
         return(<ReservationByCatalog />);
@@ -103,7 +105,7 @@ class AvailableMission extends Component {
     if(!formOpen) {
       return DEFAULT;
     }
-    
+
     if(formOpen) {
       return RESERVING;
     }

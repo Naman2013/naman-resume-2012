@@ -7,11 +7,15 @@ class ReserveObjectSummary extends Component {
       object,
       clearBrowse,
       scheduleMission,
-      summaryActions } = this.props;
+      resetForm,
+      makeReservation,
+      placeOnHold } = this.props;
 
     if(!object) {
       return null;
     }
+
+    console.log(this.props);
 
     return(
       <div className={styles.objectSummary}>
@@ -21,14 +25,13 @@ class ReserveObjectSummary extends Component {
 
         <section className="actions-container">
           {
-            summaryActions.placeOnHold ? <button className="btn-primary" onClick={clearBrowse}>Hold One Hour</button> : null
+            placeOnHold ? <button className="btn-primary" onClick={clearBrowse}>Hold One Hour</button> : null
           }
           {
-            summaryActions.resetForm ? <button className="btn-primary" onClick={clearBrowse}>Reset Browse</button> : null
+            resetForm ? <button className="btn-primary" onClick={clearBrowse}>Reset Browse</button> : null
           }
-
           {
-            summaryActions.makeReservation ? <button className="btn-primary" onClick={scheduleMission}>Schedule Mission</button> : null
+            makeReservation ? <button className="btn-primary" onClick={scheduleMission}>Schedule Mission</button> : null
           }
         </section>
       </div>
@@ -38,19 +41,15 @@ class ReserveObjectSummary extends Component {
 
 
 ReserveObjectSummary.defaultProps = {
-  summaryActions: {
-    resetForm: true,
-    makeReservation: true,
-    placeOnHold: false,
-  }
+  resetForm: true,
+  makeReservation: true,
+  placeOnHold: false,
 };
 
 ReserveObjectSummary.propTypes = {
-  summaryActions: PropTypes.shape({
-    resetForm: PropTypes.bool,
-    makeReservation: PropTypes.bool,
-    placeOnHold: PropTypes.bool,
-  }),
+  resetForm: PropTypes.bool,
+  makeReservation: PropTypes.bool,
+  placeOnHold: PropTypes.bool,
 };
 
 export default ReserveObjectSummary;
