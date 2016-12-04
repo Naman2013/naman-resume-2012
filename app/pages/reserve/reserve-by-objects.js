@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component, PropTypes } from 'react';
 import ReserveObjectsCategory from '../../components/reserve/reserve-by-object-category';
 import ReserveObjectsList from '../../components/reserve/reserve-by-object-list';
 import ReserveObjectsSummary from '../../components/reserve/reserve-by-object-summary';
@@ -93,6 +93,7 @@ class ReserveObjects extends Component {
               object={object}
               clearBrowse={this.clearBrowse}
               scheduleMission={this.scheduleMission}
+              summaryActions={this.props.summaryActions}
             />
           </div>
         </div>
@@ -100,5 +101,21 @@ class ReserveObjects extends Component {
     );
   }
 }
+
+ReserveObjects.defaultProps = {
+  summaryActions: {
+    resetForm: true,
+    makeReservation: true,
+    placeOnHold: false,
+  }
+};
+
+ReserveObjects.propTypes = {
+  summaryActions: PropTypes.shape({
+    resetForm: PropTypes.bool,
+    makeReservation: PropTypes.bool,
+    placeOnHold: PropTypes.bool,
+  }),
+};
 
 export default ReserveObjects;
