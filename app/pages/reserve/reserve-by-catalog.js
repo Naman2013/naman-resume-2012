@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
-import ReserveObjectsCategory from '../../components/reserve/reserve-by-object-category';
 import ReservationSelectList from '../../components/common/forms/reservation-select-list';
+import EnterDesignationForm from '../../components/reserve/enter-designation-form';
 import styles from '../../components/reserve/reserve-by-object.scss';
 
 const catalogList = [
@@ -53,7 +53,7 @@ class ReserveByCatalog extends Component {
 
             <div className="col-md-4">
               <h2><span>2</span> Enter Designation</h2>
-              <ReserveObjectsCategory />
+              <EnterDesignationForm />
             </div>
 
             <div className="col-md-4">
@@ -62,6 +62,7 @@ class ReserveByCatalog extends Component {
                 ref="imageProcessing"
                 options={imageProcessingOptions}
                 name="imageProcessing"
+                listHeight={170}
               />
             </div>
           </div>

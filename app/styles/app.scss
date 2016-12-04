@@ -1,4 +1,6 @@
 @import './variables/fonts.scss';
+@import './variables/colors.scss';
+@import './mixins/utilities.scss';
 
 a, a:hover {
   text-decoration: none;
@@ -68,4 +70,14 @@ img {
 .reserve-by-telescope {
   width: 98%;
   margin: 0 auto;
+}
+
+/**
+  generic form elements
+*/
+.generic-text-input {
+  @include border-radius(5px);
+  padding: 10px;
+  border: none;
+  color: $darkBlueGray;
 }
