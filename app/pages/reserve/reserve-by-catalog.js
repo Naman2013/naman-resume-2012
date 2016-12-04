@@ -79,9 +79,7 @@ class ReserveByCatalog extends Component {
                 listHeight={170}
               />
               <p className="sub-text">Your captures will be saved to the My Pictures area of the Telescopes menu.</p>
-            </div>
 
-            <div className="objectSummary">
               <section className="actions-container">
                 <button className="btn-primary">Hold One Hour</button>
                 <button className="btn-primary">Schedule Mission</button>
