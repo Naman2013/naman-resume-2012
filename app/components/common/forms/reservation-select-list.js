@@ -2,6 +2,11 @@ import React, { Component, PropTypes } from 'react';
 import style from './reservation-select-list.scss';
 
 class ReservationSelectList extends Component {
+  generateId(seed) {
+    const random = Math.floor(Math.random() * 99999);
+    return `${seed}-${random}`;
+  }
+
   render() {
     const {
       options,
@@ -19,11 +24,17 @@ class ReservationSelectList extends Component {
         className="reservation-select-list"
         style={inlineStyle}
       >
-        <input value="1" ref="test" className="multi-option-list-option" id="test" name="test" type="radio" />
-        <label className="multi-option-list-label" htmlFor="test">Test 1</label>
-
-        <input value="2" ref="test2" className="multi-option-list-option" id="test2" name="test" type="radio" />
-        <label className="multi-option-list-label" htmlFor="test2">Test 2</label>
+        {
+          options.map((option, index) => {
+            const elementId = this.generateId(index);
+            return(
+              <div key={elementId}>
+                <input value={index} ref={elementId} name={name} id={elementId} className="multi-option-list-option" type="radio" />
+                <label className="multi-option-list-label" htmlFor={elementId}>{option}</label>
+              </div>
+            );
+          })
+        }
       </div>
     );
   }

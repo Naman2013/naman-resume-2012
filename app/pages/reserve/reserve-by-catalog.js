@@ -15,6 +15,14 @@ const catalogList = [
   'Morphological Catalog of Galaxies'
 ];
 
+const imageProcessingOptions = [
+  'Generic',
+  'Bright Star',
+  'Open Cluster',
+  'Globular Cluster',
+  'Bright Galaxy or Comet'
+];
+
 class ReserveByCatalog extends Component {
   constructor(props) {
     super(props);
@@ -33,7 +41,7 @@ class ReserveByCatalog extends Component {
         <form onChange={this.handleFormChange}>
 
           <div className="row">
-            
+
             <div className="col-md-4">
               <h2><span>1</span> Select Catalog</h2>
               <ReservationSelectList
@@ -50,7 +58,11 @@ class ReserveByCatalog extends Component {
 
             <div className="col-md-4">
               <h2><span>3</span> Select Image Processing</h2>
-              <ReserveObjectsCategory />
+              <ReservationSelectList
+                ref="imageProcessing"
+                options={imageProcessingOptions}
+                name="imageProcessing"
+              />
             </div>
           </div>
 
