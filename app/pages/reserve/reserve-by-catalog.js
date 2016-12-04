@@ -33,6 +33,7 @@ class ReserveByCatalog extends Component {
         <form onChange={this.handleFormChange}>
 
           <div className="row">
+            
             <div className="col-md-4">
               <h2><span>1</span> Select Catalog</h2>
               <ReservationSelectList
@@ -41,10 +42,12 @@ class ReserveByCatalog extends Component {
                 name="catalog"
               />
             </div>
+
             <div className="col-md-4">
               <h2><span>2</span> Enter Designation</h2>
               <ReserveObjectsCategory />
             </div>
+
             <div className="col-md-4">
               <h2><span>3</span> Select Image Processing</h2>
               <ReserveObjectsCategory />
