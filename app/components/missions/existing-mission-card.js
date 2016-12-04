@@ -10,12 +10,12 @@ import ModalGeneric from '../common/modals/modal-generic';
 
 import styles from './mission-card.scss';
 import { grabPiggyback } from '../../modules/Piggyback';
-import { missionGetInfo, missionGetCards } from '../../modules/Missions';
+import { getNextPiggybackSingle, missionGetCards } from '../../modules/Missions';
 
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators({
-      missionGetInfo,
+      getNextPiggybackSingle,
       missionGetCards,
     }, dispatch),
   };
@@ -42,7 +42,7 @@ class ExistingMissionCard extends Component {
     this.handleCloseErrorModal = this.handleCloseErrorModal.bind( this );
   }
 
-  handleGrabPiggybackResponse( result ) {
+  handleGrabPiggybackResponse(result) {
     const { apiError, errorCode, errorMsg, missionList } = result.data;
     const mission = missionList[0];
     const { card } = this.props;
@@ -56,7 +56,12 @@ class ExistingMissionCard extends Component {
       if( mission.missionAvailable ) {
         this.props.actions.missionGetInfo(card, 'piggyback');
       } else {
-        console.log( 'mission is no longer available...' );
+        // TODO: refresh the list of reservations
+        // TODO: let the user know the mission is not available
+        this.setState({
+          errorModalIsOpen: true,
+          errorMessage: errorMsg,
+        });
       }
     }
   }
@@ -70,19 +75,24 @@ class ExistingMissionCard extends Component {
   handlePiggybackClick(event) {
     event.preventDefault();
 
-    const { openModal, card, piggyback, user } = this.props;
-    const theMission = {
-      ...user,
-      scheduledMissionId: piggyback.scheduledMissionId,
-      uniqueId: card.uniqueId,
-      callSource: 'recommends',
-      objectTitle: card.title,
-      lookaheadPiggyback: card.lookaheadDaysPiggyback,
-    };
+    // TODO: call getNextPiggyback to determine whether or not the thing is available
+    // TODO: set the selected piggyback to selected piggyback - from there we can run validation
 
-    const grabPiggybackHandle = grabPiggyback(theMission)
-      .then(this.handleGrabPiggybackResponse.bind(this))
-      .catch(this.grabPiggybackResponseError.bind(this));
+    const { card } = this.props;
+    this.props.actions.getNextPiggybackSingle(card);
+
+    // this.props.actions.getNextPiggybackSingle({
+    //   ...user,
+    //   scheduledMissionId: piggyback.scheduledMissionId,
+    //   uniqueId: card.uniqueId,
+    //   callSource: 'recommends',
+    //   objectTitle: card.title,
+    //   lookaheadPiggyback: card.lookaheadDaysPiggyback,
+    // });
+
+    // const grabPiggybackHandle = grabPiggyback(theMission)
+    //   .then(this.handleGrabPiggybackResponse.bind(this))
+    //   .catch(this.grabPiggybackResponseError.bind(this));
   }
 
   startMissionTime() {
