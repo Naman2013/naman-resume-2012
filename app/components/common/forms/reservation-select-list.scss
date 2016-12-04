@@ -1,6 +1,9 @@
 @import '../../../styles/variables/colors.scss';
+@import '../../../styles/custom-ui.scss';
 
 .reservation-select-list {
+  @extend .custom-scroll-bar;
+  overflow-y: scroll;
 
   .multi-option-list-label {
     cursor: pointer;
