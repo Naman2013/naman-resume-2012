@@ -86,4 +86,8 @@ img {
   display: flex;
   align-items: center;
   justify-content: center;
+
+  .btn-primary {
+    min-width: 160px;
+  }
 }
