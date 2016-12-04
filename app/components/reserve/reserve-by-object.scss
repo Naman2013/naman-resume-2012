@@ -21,7 +21,7 @@
     text-align: center;
     margin-bottom: 20px;
 
-    span {
+    .number {
       display: block;
       width: 25px;
       height: 25px;
@@ -34,11 +34,25 @@
       line-height: 26px;
       margin-bottom: 10px;
     }
+
+    .sub-text {
+      font-family: $secondary-font;
+      font-size: 14px;
+      font-weight: normal;
+    }
+  }
+
+  .sub-text {
+    text-align: center;
+    font-family: $secondary-font;
+    margin: 20px 0 40px 0;
+    padding: 0 30px;
+    font-size: 14px;
   }
 }
 
 .list-item-padding {
-  padding: 4px 0 0 40px;
+  padding: 4px 0 0 20px;
 }
 
 .item-object {

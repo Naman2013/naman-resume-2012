@@ -68,7 +68,7 @@ class ReserveObjects extends Component {
         <div className="row">
 
           <div className="col-md-4">
-            <h2><span>1</span> Select Category</h2>
+            <h2><span className="number">1</span> Select Category</h2>
 
             <ReserveObjectsCategory
               items={testData.categories}
@@ -77,7 +77,7 @@ class ReserveObjects extends Component {
           </div>
 
           <div className="col-md-4">
-            <h2><span>2</span> Choose Specific Object</h2>
+            <h2><span className="number">2</span> Choose Specific Object</h2>
 
             <ReserveObjectsList
               selectedCategory={selectedCategory}
@@ -87,7 +87,7 @@ class ReserveObjects extends Component {
           </div>
 
           <div className="col-md-4">
-            <h2><span>3</span> Object Summary</h2>
+            <h2><span className="number">3</span> Object Summary</h2>
 
             <ReserveObjectsSummary
               object={object}

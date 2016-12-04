@@ -1,0 +1,31 @@
+@import '../../../styles/variables/colors.scss';
+@import '../../../styles/custom-ui.scss';
+
+.reservation-select-list {
+  @extend .custom-scroll-bar;
+  overflow-y: scroll;
+
+  .multi-option-list-label {
+    cursor: pointer;
+    display: block;
+    margin-bottom: 2px;
+    padding: 5px 0 5px 20px;
+
+    -webkit-border-top-left-radius: 20px;
+    -webkit-border-bottom-left-radius: 20px;
+    -moz-border-radius-topleft: 20px;
+    -moz-border-radius-bottomleft: 20px;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+  }
+
+  .multi-option-list-option {
+    display: none;
+  }
+
+  .multi-option-list-option:checked + .multi-option-list-label,
+  .multi-option-list-label:hover {
+    color: $white;
+    background: $light-turqoise;
+  }
+}

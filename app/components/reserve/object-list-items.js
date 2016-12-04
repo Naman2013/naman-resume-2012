@@ -15,11 +15,11 @@ const ObjectItems = (props) => {
 
       {
         _.map(items, (item, i) => {
-          
+
           // TODO: replace selectedItem.title === item.title with id comparisons
           const elementStyles = classnames({
             'object-item': true,
-            selected: selectedSubCategory && selectedItemIndex === i
+            'selected': selectedSubCategory && selectedItemIndex === i
           });
 
           return (

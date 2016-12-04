@@ -255,11 +255,16 @@ $listing_black: #424242;
     .reserveObjectPage {
       color: $white;
 
+      /** for less than three columns... */
+      &.two-up {
+        width: 80%;
+      }
+
       h2 {
         color: $white;
         margin: 0 0 30px 0;
 
-        span {
+        .number {
           color: $light-turqoise;
           /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#4c4c4c+0,131313+100 */
           background: #4c4c4c; /* Old browsers */
