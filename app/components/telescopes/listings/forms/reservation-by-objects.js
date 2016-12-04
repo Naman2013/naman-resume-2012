@@ -7,7 +7,11 @@ class ReservationByObjects extends Component {
     return(
       <div className="reservation-form-container">
         <Timer />
-        <ReserveByObjects />
+        <ReserveByObjects
+          resetForm={false}
+          makeReservation={true}
+          placeOnHold={true}
+        />
       </div>
     );
   }
