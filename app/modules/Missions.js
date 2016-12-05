@@ -174,7 +174,6 @@ export function getNextPiggybackSingle(card) {
       objectId: card.astroObjectId,
       lookaheadReservation: card.lookaheadDaysReservation,
       lookaheadPiggyback: card.lookaheadDaysPiggyback,
-      start: card.start,
       ver: 'v1',
       lang: 'en',
       requestType: 'single',
