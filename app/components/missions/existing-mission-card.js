@@ -9,7 +9,6 @@ import _ from 'lodash';
 import ModalGeneric from '../common/modals/modal-generic';
 
 import styles from './mission-card.scss';
-import { grabPiggyback } from '../../modules/Piggyback';
 import { getNextPiggybackSingle, missionGetCards } from '../../modules/Missions';
 
 function mapDispatchToProps(dispatch) {
@@ -66,33 +65,11 @@ class ExistingMissionCard extends Component {
     }
   }
 
-  grabPiggybackResponseError(error) {
-    console.group('Grab piggyback ERROR');
-    console.log(error);
-    console.groupEnd();
-  }
-
   handlePiggybackClick(event) {
     event.preventDefault();
 
-    // TODO: call getNextPiggyback to determine whether or not the thing is available
-    // TODO: set the selected piggyback to selected piggyback - from there we can run validation
-
     const { card } = this.props;
     this.props.actions.getNextPiggybackSingle(card);
-
-    // this.props.actions.getNextPiggybackSingle({
-    //   ...user,
-    //   scheduledMissionId: piggyback.scheduledMissionId,
-    //   uniqueId: card.uniqueId,
-    //   callSource: 'recommends',
-    //   objectTitle: card.title,
-    //   lookaheadPiggyback: card.lookaheadDaysPiggyback,
-    // });
-
-    // const grabPiggybackHandle = grabPiggyback(theMission)
-    //   .then(this.handleGrabPiggybackResponse.bind(this))
-    //   .catch(this.grabPiggybackResponseError.bind(this));
   }
 
   startMissionTime() {

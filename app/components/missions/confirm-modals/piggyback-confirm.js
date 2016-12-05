@@ -1,10 +1,16 @@
 import React, { Component, PropTypes } from 'react';
 import { Modal, Button } from 'react-bootstrap';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import styles from '../mission-modals.scss';
 import moment from 'moment-timezone';
 
-class PiggyBackConfirm extends Component {
+const mapStateToProps = ({ piggyback }) => ({
+  ...piggyback
+});
 
+@connect(mapStateToProps)
+class PiggyBackConfirm extends Component {
   constructor(props) {
     super(props);
 
@@ -14,7 +20,7 @@ class PiggyBackConfirm extends Component {
   handleReservationClick(event) {
     event.preventDefault();
 
-    // TODO: complete making a reservation...
+    // TODO: complete making a piggyback...
 
     const { closeModal } = this.props;
     console.log('Time to make a reservation!!!');

@@ -40,7 +40,7 @@ const SET_CURRENT_CARD = 'SET_CURRENT_CARD';
 
 const setCurrentCard = (card) => ({
   type: SET_CURRENT_CARD,
-  payload: card,  
+  payload: card,
 });
 
 export function missionConfirmOpen(type) {
@@ -432,11 +432,11 @@ export default createReducer(initialState, {
       mission,
     }
   },
-  [SET_CURRENT_CARD](state, { card }) {
+  [SET_CURRENT_CARD](state, { payload }) {
     return {
       ...state,
-      currentCard: card,
-    };
+      currentCard: payload,
+    }
   },
   [MISSION_GET_UPDATES_SUCCESS](state, { payload }) {
     return {
