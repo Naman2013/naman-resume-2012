@@ -17,6 +17,10 @@ const RESERVATION_RESET = 'RESERVATION_RESET';
 const MISSION_UNAVAILABLE = 'MISSION_UNAVAILABLE';
 const RESET_MISSION_UNAVAILABLE = 'RESET_MISSION_UNAVAILABLE';
 
+/**
+  see documentation for reservePiggyback
+  https://docs.google.com/document/d/1nYo6_O87gWCqyoD3NJ98cbA5Cpxo-8ksB3Dw3PbjAa0/edit#
+*/
 export const reservePiggyback = () => (dispatch, getState) => {
   const { token, at, cid } = getState().user;
   const { piggyback } = getState();
