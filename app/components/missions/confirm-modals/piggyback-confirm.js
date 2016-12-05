@@ -4,12 +4,19 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import styles from '../mission-modals.scss';
 import moment from 'moment-timezone';
+import { reservePiggyback } from '../../../modules/Piggyback';
 
 const mapStateToProps = ({ piggyback }) => ({
   ...piggyback
 });
 
-@connect(mapStateToProps)
+const mapDispatchToProps = (dispatch) => ({
+  actions: bindActionCreators({
+    reservePiggyback,
+  }, dispatch),
+});
+
+@connect(mapStateToProps, mapDispatchToProps)
 class PiggyBackConfirm extends Component {
   constructor(props) {
     super(props);
@@ -20,11 +27,10 @@ class PiggyBackConfirm extends Component {
   handleReservationClick(event) {
     event.preventDefault();
 
-    // TODO: complete making a piggyback...
+    this.props.actions.reservePiggyback();
 
-    const { closeModal } = this.props;
-    console.log('Time to make a reservation!!!');
-    closeModal();
+    // const { closeModal } = this.props;
+    // closeModal();
   }
 
   render() {
