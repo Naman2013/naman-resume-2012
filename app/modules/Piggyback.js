@@ -17,9 +17,9 @@ const GRAB_PIGGYBACK_START = 'GRAB_PIGGYBACK_START';
 
 export const grabPiggyback = (mission) => (dispatch, getState) => {
   const { token, at, cid } = getState().user;
+  const { currentCard } = getState().missions;
 
   // this.props.actions.getNextPiggybackSingle({
-  //   ...user,
   //   scheduledMissionId: piggyback.scheduledMissionId,
   //   uniqueId: card.uniqueId,
   //   callSource: 'recommends',
@@ -27,17 +27,23 @@ export const grabPiggyback = (mission) => (dispatch, getState) => {
   //   lookaheadPiggyback: card.lookaheadDaysPiggyback,
   // });
 
-  console.log(mission);
+  console.log('Current card', currentCard);
+  console.log('The mission', mission);
 
   return axios.post('/api/reservation/grabPiggyback', {
     token,
     at,
     cid,
-    callSource: 'recommends',
     scheduledMissionId: mission.scheduledMissionId,
-    ...mission,
+    uniqueId: currentCard.uniqueId,
+    callSource: 'recommends',
+    objectTitle: currentCard.title,
+    lookaheadPiggyback: currentCard.lookaheadDaysPiggyback,
   })
-  .then(result => dispatch(missionConfirmOpen('piggyback')));
+  .then(result => {
+    console.log('the result', result.data);
+    dispatch(missionConfirmOpen('piggyback'));
+  });
 };
 
 const initialState = {
