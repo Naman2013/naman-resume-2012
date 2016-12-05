@@ -10,19 +10,21 @@ import ModalGeneric from '../common/modals/modal-generic';
 
 import styles from './mission-card.scss';
 import { getNextPiggybackSingle, missionGetCards } from '../../modules/Missions';
+import { resetMissionAvailability } from '../../modules/Piggyback';
 
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators({
       getNextPiggybackSingle,
       missionGetCards,
+      resetMissionAvailability,
     }, dispatch),
   };
 }
 
-function mapStateToProps(state, ownProps) {
+function mapStateToProps({ piggyback }, ownProps) {
   return {
-    user: state.user,
+    piggybackMissionAvailable: piggyback.missionAvailable,
   };
 }
 
@@ -37,8 +39,9 @@ class ExistingMissionCard extends Component {
       errorModalIsOpen: false,
     };
 
-    this.handlePiggybackClick = this.handlePiggybackClick.bind( this );
-    this.handleCloseErrorModal = this.handleCloseErrorModal.bind( this );
+    this.handlePiggybackClick = this.handlePiggybackClick.bind(this);
+    this.handleCloseErrorModal = this.handleCloseErrorModal.bind(this);
+    this.resetMissionAvailability = this.resetMissionAvailability.bind(this);
   }
 
   handleGrabPiggybackResponse(result) {
@@ -175,6 +178,12 @@ class ExistingMissionCard extends Component {
     });
   }
 
+  resetMissionAvailability(event) {
+    event.preventDefault();
+    this.props.actions.missionGetCards();
+    this.props.actions.resetMissionAvailability();
+  }
+
   render() {
     const { card, piggyback, openModal } = this.props;
     const featured = card.cardType == 2;
@@ -219,6 +228,13 @@ class ExistingMissionCard extends Component {
           open={this.state.errorModalIsOpen}
           title={`Oops...`}
           description={this.state.errorMessage}
+        />
+
+        <ModalGeneric
+          closeModal={this.resetMissionAvailability}
+          open={!this.props.piggybackMissionAvailable}
+          title="Oops..."
+          description={'The mission you requested is no longer available.'}
         />
 
       </div>

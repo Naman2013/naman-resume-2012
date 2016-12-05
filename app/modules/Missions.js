@@ -199,19 +199,10 @@ const getNextPiggybackSingleSuccess = (getNextPiggybackData) => (dispatch, getSt
   }
 };
 
-// function getNextPiggybackSingleSuccess({ data }, card) {
-//   return {
-//     type: MISSION_GET_INFO_SUCCESS,
-//     mission: data,
-//     currentCard: card,
-//   };
-// };
-
 const getNextPiggybackSingleFail = () => ({
   type: MISSION_GET_INFO_FAIL,
   error: error,
 });
-
 
 export function allCards({data}) {
   return {
@@ -273,9 +264,9 @@ export const missionGetPiggybacks = ( objectList ) => ( dispatch, getState ) => 
     start: '',
   })
   .then(response => {
-    dispatch( missionGetPiggybackSuccess( response ) );
+    dispatch(missionGetPiggybackSuccess(response));
   })
-  .catch(error => dispatch( missionGetPiggybackFail( error )));
+  .catch(error => dispatch(missionGetPiggybackFail(error)));
 };
 
 export function missionGetPiggybackSuccess({data}) {
@@ -285,10 +276,10 @@ export function missionGetPiggybackSuccess({data}) {
   };
 };
 
-export function missionGetPiggybackFail({data}) {
+export function missionGetPiggybackFail(error) {
   return {
     type: MISSION_GET_PIGGYBACKS_FAIL,
-    result: data
+    payload: error
   };
 };
 
@@ -456,10 +447,11 @@ export default createReducer(initialState, {
       piggybacks: result,
     };
   },
-  [MISSION_GET_PIGGYBACKS_FAIL](state, { result }) {
+  [MISSION_GET_PIGGYBACKS_FAIL](state, { payload }) {
+    console.log(payload);
     return {
       ...state,
-      piggybacks: result,
+      piggybacks: payload,
     };
   },
   [MISSION_GET_NEXT_RESERVATIONS_SUCCESS](state, { result }) {
