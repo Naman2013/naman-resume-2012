@@ -9,21 +9,22 @@ import _ from 'lodash';
 import ModalGeneric from '../common/modals/modal-generic';
 
 import styles from './mission-card.scss';
-import { grabPiggyback } from '../../modules/Piggyback';
-import { missionGetInfo, missionGetCards } from '../../modules/Missions';
+import { getNextPiggybackSingle, missionGetCards } from '../../modules/Missions';
+import { resetMissionAvailability } from '../../modules/Piggyback';
 
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators({
-      missionGetInfo,
+      getNextPiggybackSingle,
       missionGetCards,
+      resetMissionAvailability,
     }, dispatch),
   };
 }
 
-function mapStateToProps(state, ownProps) {
+function mapStateToProps({ piggyback }, ownProps) {
   return {
-    user: state.user,
+    piggybackMissionAvailable: piggyback.missionAvailable,
   };
 }
 
@@ -38,11 +39,12 @@ class ExistingMissionCard extends Component {
       errorModalIsOpen: false,
     };
 
-    this.handlePiggybackClick = this.handlePiggybackClick.bind( this );
-    this.handleCloseErrorModal = this.handleCloseErrorModal.bind( this );
+    this.handlePiggybackClick = this.handlePiggybackClick.bind(this);
+    this.handleCloseErrorModal = this.handleCloseErrorModal.bind(this);
+    this.resetMissionAvailability = this.resetMissionAvailability.bind(this);
   }
 
-  handleGrabPiggybackResponse( result ) {
+  handleGrabPiggybackResponse(result) {
     const { apiError, errorCode, errorMsg, missionList } = result.data;
     const mission = missionList[0];
     const { card } = this.props;
@@ -56,33 +58,21 @@ class ExistingMissionCard extends Component {
       if( mission.missionAvailable ) {
         this.props.actions.missionGetInfo(card, 'piggyback');
       } else {
-        console.log( 'mission is no longer available...' );
+        // TODO: refresh the list of reservations
+        // TODO: let the user know the mission is not available
+        this.setState({
+          errorModalIsOpen: true,
+          errorMessage: errorMsg,
+        });
       }
     }
-  }
-
-  grabPiggybackResponseError(error) {
-    console.group('Grab piggyback ERROR');
-    console.log(error);
-    console.groupEnd();
   }
 
   handlePiggybackClick(event) {
     event.preventDefault();
 
-    const { openModal, card, piggyback, user } = this.props;
-    const theMission = {
-      ...user,
-      scheduledMissionId: piggyback.scheduledMissionId,
-      uniqueId: card.uniqueId,
-      callSource: 'recommends',
-      objectTitle: card.title,
-      lookaheadPiggyback: card.lookaheadDaysPiggyback,
-    };
-
-    const grabPiggybackHandle = grabPiggyback(theMission)
-      .then(this.handleGrabPiggybackResponse.bind(this))
-      .catch(this.grabPiggybackResponseError.bind(this));
+    const { card } = this.props;
+    this.props.actions.getNextPiggybackSingle(card);
   }
 
   startMissionTime() {
@@ -188,6 +178,12 @@ class ExistingMissionCard extends Component {
     });
   }
 
+  resetMissionAvailability(event) {
+    event.preventDefault();
+    this.props.actions.missionGetCards();
+    this.props.actions.resetMissionAvailability();
+  }
+
   render() {
     const { card, piggyback, openModal } = this.props;
     const featured = card.cardType == 2;
@@ -232,6 +228,13 @@ class ExistingMissionCard extends Component {
           open={this.state.errorModalIsOpen}
           title={`Oops...`}
           description={this.state.errorMessage}
+        />
+
+        <ModalGeneric
+          closeModal={this.resetMissionAvailability}
+          open={!this.props.piggybackMissionAvailable}
+          title="Oops..."
+          description={'The mission you requested is no longer available.'}
         />
 
       </div>

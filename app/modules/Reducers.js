@@ -10,6 +10,7 @@ import announcementBanner from './Announcement-Banner';
 import tags from './tag-management/Tags';
 import popularObjects from './browse-by-popular-objects/Popular-Objects';
 import usersUpcomingMission from './Users-Upcoming-Missions';
+import piggyback from './Piggyback';
 
 export default combineReducers({
   routing: routerReducer,
@@ -23,4 +24,5 @@ export default combineReducers({
   tags,
   popularObjects,
   usersUpcomingMission,
+  piggyback,
 });

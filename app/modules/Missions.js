@@ -5,8 +5,8 @@ import moment from 'moment';
 import _ from 'lodash';
 
 import { fetchUsersUpcomingMissions } from './Users-Upcoming-Missions';
+import { grabPiggyback } from './Piggyback';
 
-// Mission action types
 export const MISSION_CONFIRMATION_OPEN  = 'MISSION_CONFIRMATION_OPEN';
 export const MISSION_CONFIRMATION_CLOSE = 'MISSION_CONFIRMATION_CLOSE';
 export const MISSION_ALL_CARDS_SUCCESS  = 'MISSION_ALL_CARDS_SUCCESS';
@@ -34,13 +34,19 @@ const RESERVE_MISSION_SLOT_RESET = 'RESERVE_MISSION_SLOT_RESET';
 const UPDATE_SINGLE_RESERVATION_SUCCESS = 'UPDATE_SINGLE_RESERVATION_SUCCESS';
 const UPDATE_SINGLE_RESERVATION_FAIL = 'UPDATE_SINGLE_RESERVATION_FAIL';
 
+const SET_CURRENT_CARD = 'SET_CURRENT_CARD';
 
 
-export function missionConfirmOpen(type, card) {
+
+const setCurrentCard = (card) => ({
+  type: SET_CURRENT_CARD,
+  payload: card,
+});
+
+export function missionConfirmOpen(type) {
   return {
     type: MISSION_CONFIRMATION_OPEN,
     confirmType: type,
-    currentCard: card,
   }
 }
 
@@ -157,9 +163,11 @@ export function missionGetCards() {
   }
 }
 
-export function missionGetInfo(card, type) {
+export function getNextPiggybackSingle(card) {
   return (dispatch, getState) => {
     const { token, at, cid } = getState().user;
+
+    dispatch(setCurrentCard(card));
 
     return axios.post('/api/recommends/getNextPiggyback', {
       uniqueId: card.uniqueId,
@@ -174,28 +182,27 @@ export function missionGetInfo(card, type) {
       at,
       cid,
     })
-    .then(response => {
-      dispatch(getMissionSuccess(response, card));
-      dispatch(missionConfirmOpen(type, card));
-    })
-    .catch(error => dispatch( getMissionFail( error )));
+    .then(response => dispatch(getNextPiggybackSingleSuccess(response.data)))
+    .catch(error => dispatch(getNextPiggybackSingleFail(error)));
   }
 }
 
-export function getMissionSuccess({ data }, card) {
-  return {
-    type: MISSION_GET_INFO_SUCCESS,
-    mission: data,
-    currentCard: card,
-  };
+const getNextPiggybackSingleSuccess = (getNextPiggybackData) => (dispatch, getState) => {
+  const { apiError, missionList } = getNextPiggybackData;
+
+  if(apiError) {
+    dispatch(getNextPiggybackSingleFail(getNextPiggybackData));
+  }
+
+  if(!apiError) {
+    dispatch(grabPiggyback(missionList[0]));
+  }
 };
 
-export function getMissionFail({data}) {
-  return {
-    type: MISSION_GET_INFO_FAIL,
-    error: data.error
-  };
-};
+const getNextPiggybackSingleFail = () => ({
+  type: MISSION_GET_INFO_FAIL,
+  error: error,
+});
 
 export function allCards({data}) {
   return {
@@ -257,9 +264,9 @@ export const missionGetPiggybacks = ( objectList ) => ( dispatch, getState ) => 
     start: '',
   })
   .then(response => {
-    dispatch( missionGetPiggybackSuccess( response ) );
+    dispatch(missionGetPiggybackSuccess(response));
   })
-  .catch(error => dispatch( missionGetPiggybackFail( error )));
+  .catch(error => dispatch(missionGetPiggybackFail(error)));
 };
 
 export function missionGetPiggybackSuccess({data}) {
@@ -269,10 +276,10 @@ export function missionGetPiggybackSuccess({data}) {
   };
 };
 
-export function missionGetPiggybackFail({data}) {
+export function missionGetPiggybackFail(error) {
   return {
     type: MISSION_GET_PIGGYBACKS_FAIL,
-    result: data
+    payload: error
   };
 };
 
@@ -388,12 +395,11 @@ export default createReducer(initialState, {
       missionSlotReservationError: false,
     };
   },
-  [MISSION_CONFIRMATION_OPEN](state, { confirmType, currentCard }) {
+  [MISSION_CONFIRMATION_OPEN](state, { confirmType }) {
     return {
       ...state,
       isConfirmationOpen: true,
       confirmType,
-      currentCard,
     };
   },
   [MISSION_CONFIRMATION_CLOSE](state) {
@@ -411,11 +417,16 @@ export default createReducer(initialState, {
       cardList
     };
   },
-  [MISSION_GET_INFO_SUCCESS](state, { mission, currentCard }) {
+  [MISSION_GET_INFO_SUCCESS](state, { mission }) {
     return {
       ...state,
       mission,
-      currentCard,
+    }
+  },
+  [SET_CURRENT_CARD](state, { payload }) {
+    return {
+      ...state,
+      currentCard: payload,
     }
   },
   [MISSION_GET_UPDATES_SUCCESS](state, { payload }) {
@@ -436,10 +447,11 @@ export default createReducer(initialState, {
       piggybacks: result,
     };
   },
-  [MISSION_GET_PIGGYBACKS_FAIL](state, { result }) {
+  [MISSION_GET_PIGGYBACKS_FAIL](state, { payload }) {
+    console.log(payload);
     return {
       ...state,
-      piggybacks: result,
+      piggybacks: payload,
     };
   },
   [MISSION_GET_NEXT_RESERVATIONS_SUCCESS](state, { result }) {

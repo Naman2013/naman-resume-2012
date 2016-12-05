@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import cx from 'classnames';
+import classnames from 'classnames';
 import moment from 'moment';
 import ExistingMissionCard from '../components/missions/existing-mission-card';
 
@@ -16,8 +16,8 @@ export default class ExistingMissions extends Component {
 
   render() {
     const { cardList, piggybacks } = this.props;
-
     let cards = null;
+
     if (cardList && Array.isArray(cardList)) {
       cards = cardList.filter(card => {
         const endDate = moment.unix(card.end);
@@ -32,7 +32,7 @@ export default class ExistingMissions extends Component {
           piggybacks.length > 0 && cards ? cards.map(card => (
             <ExistingMissionCard
               key={card.uniqueId}
-              className={cx({
+              className={classnames({
                 featured: card.cardType === 2,
                 'col-md-12': card.cardType === 2,
                 secondary: card.cardType !== 2,
