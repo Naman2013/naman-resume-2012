@@ -1,7 +1,7 @@
 import axios from 'axios';
 import createReducer from './utils/createReducer';
 import createAction from './utils/createAction';
-import { missionConfirmOpen, missionConfirmClose } from './Missions';
+import { missionConfirmOpen, missionConfirmClose, missionGetCards } from './Missions';
 
 const GRAB_PIGGYBACK_SUCCESS = 'GRAB_PIGGYBACK_SUCCESS';
 const GRAB_PIGGYBACK_FAIL = 'GRAB_PIGGYBACK_FAIL';
@@ -22,8 +22,9 @@ const CLOSE_CONFIRMATION_MODAL = 'CLOSE_CONFIRMATION_MODAL';
 
 
 export const closeConfirmationModal = () => (dispatch) => {
-  dispatch(resetReservation());
-  dispatch(missionConfirmClose());
+  dispatch(resetReservation()); // reset state props to show the appropriate fields in the future
+  dispatch(missionGetCards()); // refresh the missions displayed to the user
+  dispatch(missionConfirmClose()); // dismiss the modal
 };
 
 

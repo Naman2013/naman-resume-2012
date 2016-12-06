@@ -51,8 +51,6 @@ class PiggyBackConfirm extends Component {
       'margin': '0 auto 20px auto',
     };
 
-    console.log(reservationConfirmed);
-
     return (
       <Modal show={open} className={styles.missionModal}>
 
