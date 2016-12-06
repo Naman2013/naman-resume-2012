@@ -32,11 +32,10 @@ class PiggyBackConfirm extends Component {
   }
 
   render() {
-    const { piggyback, closeModal, open, currentCard } = this.props;
+    const { piggyback, reservationConfirmed, closeModal, open, currentCard } = this.props;
 
     if(!piggyback.hasOwnProperty('missionList') || !currentCard) { return null; }
 
-    const { reservationConfirmed } = piggyback;
     const currentMission = piggyback.missionList[0];
     const { missionStart, objectIconURL } = currentMission;
     const { title, headline } = currentCard;
@@ -52,11 +51,13 @@ class PiggyBackConfirm extends Component {
       'margin': '0 auto 20px auto',
     };
 
+    console.log(reservationConfirmed);
+
     return (
       <Modal show={open} className={styles.missionModal}>
 
         {
-          reservationConfirmed ?
+          !reservationConfirmed ?
           <div>
             <div className="modal-header">
               <h1 className="title">Strap yourself in</h1>
