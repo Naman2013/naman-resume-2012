@@ -1,7 +1,7 @@
 import axios from 'axios';
 import createReducer from './utils/createReducer';
 import createAction from './utils/createAction';
-import { missionConfirmOpen } from './Missions';
+import { missionConfirmOpen, missionConfirmClose } from './Missions';
 
 const GRAB_PIGGYBACK_SUCCESS = 'GRAB_PIGGYBACK_SUCCESS';
 const GRAB_PIGGYBACK_FAIL = 'GRAB_PIGGYBACK_FAIL';
@@ -16,6 +16,17 @@ const RESERVATION_RESET = 'RESERVATION_RESET';
 
 const MISSION_UNAVAILABLE = 'MISSION_UNAVAILABLE';
 const RESET_MISSION_UNAVAILABLE = 'RESET_MISSION_UNAVAILABLE';
+
+const CLOSE_CONFIRMATION_MODAL = 'CLOSE_CONFIRMATION_MODAL';
+
+
+
+export const closeConfirmationModal = () => (dispatch) => {
+  dispatch(resetReservation());
+  dispatch(missionConfirmClose());
+};
+
+
 
 /**
   see documentation for reservePiggyback
