@@ -27,8 +27,9 @@ class DateSelectionNavigation extends Component {
   constructor(props) {
     super(props);
 
-    this.handleProgressClick = this.handleProgressClick.bind(this);
+    this.handleDateChange = this.handleDateChange.bind(this);
     this.handlePreviousClick = this.handlePreviousClick.bind(this);
+    this.handleProgressClick = this.handleProgressClick.bind(this);
   }
 
   componentWillMount() {
@@ -36,56 +37,31 @@ class DateSelectionNavigation extends Component {
     actions.fetchDateRanges({ obsId, telescopeId, domeId });
   }
 
-  validateCurrentDate() {
-    const currentDate = moment(this.props.reservationDate, 'YYYY-MM-DD');
-    const today = moment();
-    let updatedState = {
-      progressPast: true,
-      progressFuture: true,
-    };
-
-    // if the date is today or before today...
-    if(currentDate.diff(today, 'hours') <= 0) {
-      updatedState = {
-        progressPast: false,
-        progressFuture: true,
-      };
-    }
-
-    // if the date is the max allowed or greater
-    if(currentDate.diff(today, 'days') >= MAX_DAYS) {
-      updatedState = {
-        progressPast: true,
-        progressFuture: false,
-      };
-    }
-
-    return updatedState;
-  }
-
   forwardToURL(newDate) {
     const newRoute = `${this.props.routeRoot}/${newDate}`;
     hashHistory.push(newRoute);
   }
 
-  handleProgressClick(event) {
-    event.preventDefault();
-    const { progressPast, progressFuture } = this.validateCurrentDate();
-
-    if(!progressFuture) { return; }
-
-    //const futureDate = moment(this.props.reservationDate).add(1, 'days').format('YYYY-MM-DD');
-    this.forwardToURL(futureDate);
+  handleDateChange(requestedDate) {
+    const { actions, obsId, telescopeId, domeId } = this.props;
+    actions.fetchDateRanges({
+      obsId,
+      telescopeId,
+      domeId,
+      requestedDate,
+    });
   }
 
   handlePreviousClick(event) {
     event.preventDefault();
-    const { progressPast, progressFuture } = this.validateCurrentDate();
+    const newDate = this.props.missionSlotDates.dateRangeResponse.dateList[0].backDate;
+    this.handleDateChange(newDate);
+  }
 
-    if(!progressPast) { return; }
-
-    //const previousDate = moment(this.props.reservationDate).subtract(1, 'days').format('YYYY-MM-DD');
-    this.forwardToURL(previousDate);
+  handleProgressClick(event) {
+    event.preventDefault();
+    const newDate = this.props.missionSlotDates.dateRangeResponse.dateList[0].forwardDate;
+    this.handleDateChange(newDate);
   }
 
   render() {
@@ -93,9 +69,6 @@ class DateSelectionNavigation extends Component {
       dateRangeResponse,
       dateRangeIsError,
       dateRangeIsFetching } = this.props.missionSlotDates;
-
-    console.log(dateRangeIsFetching);
-    console.log(dateRangeIsError);
 
     if(dateRangeIsFetching || dateRangeIsError) {
       return null;
