@@ -37,7 +37,6 @@ class ReserveMissions extends Component {
 
   componentDidMount() {
     this.props.actions.getObservatoryList(
-      this.props.user,
       this.props.currentObservatoryId
     );
   }
