@@ -54,14 +54,18 @@ class DateSelectionNavigation extends Component {
 
   handlePreviousClick(event) {
     event.preventDefault();
-    const newDate = this.props.missionSlotDates.dateRangeResponse.dateList[0].backDate;
-    this.handleDateChange(newDate);
+    const { backEnabled, backDate } = this.props.missionSlotDates.dateRangeResponse.dateList[0];
+    if(backEnabled) {
+      this.handleDateChange(backDate);
+    }
   }
 
   handleProgressClick(event) {
     event.preventDefault();
-    const newDate = this.props.missionSlotDates.dateRangeResponse.dateList[0].forwardDate;
-    this.handleDateChange(newDate);
+    const { forwardEnabled, forwardDate } = this.props.missionSlotDates.dateRangeResponse.dateList[0];
+    if(forwardEnabled) {
+      this.handleDateChange(forwardDate);
+    }
   }
 
   render() {
