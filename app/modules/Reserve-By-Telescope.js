@@ -51,7 +51,7 @@ export default createReducer(initialState, {
       dateRangeIsError: false,
       dateRangeIsFetching: true,
     };
-  }
+  },
   [FETCH_DATE_RANGE_SUCCESS](state, { payload }) {
     return {
       ...state,
@@ -60,7 +60,7 @@ export default createReducer(initialState, {
       dateRangeIsError: false,
       dateRangeIsFetching: false,
     };
-  }
+  },
   [FETCH_DATE_RANGE_FAIL](state, { payload }) {
     return {
       ...state,
@@ -69,5 +69,5 @@ export default createReducer(initialState, {
       dateRangeIsError: true,
       dateRangeIsFetching: false,
     };
-  }
+  },
 });

@@ -4,14 +4,13 @@ import moment from 'moment-timezone';
 import classnames from 'classnames';
 import { hashHistory } from 'react-router';
 import _ from 'lodash';
-
+import { fetchDateRanges } from '../../../modules/Reserve-By-Telescope';
 import style from './date-selection-navigation.scss';
 
 const MIN_DAYS = 0;
 const MAX_DAYS = 7;
 
 class DateSelectionNavigation extends Component {
-
   constructor(props) {
     super(props);
 
@@ -119,6 +118,9 @@ DateSelectionNavigation.defaultProps = {
 DateSelectionNavigation.propTypes = {
   reservationDate: PropTypes.string,
   routeRoot: PropTypes.string,
+  obsId: PropTypes.string.isRequired,
+  telescopeId: PropTypes.string.isRequired,
+  domeId: PropTypes.string.isRequired,
 };
 
 export default DateSelectionNavigation;
