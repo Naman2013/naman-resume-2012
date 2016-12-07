@@ -31,7 +31,7 @@ class DateSelectionNavigation extends Component {
     this.handlePreviousClick = this.handlePreviousClick.bind(this);
   }
 
-  componentDidMount() {
+  componentWillMount() {
     const { actions, obsId, telescopeId, domeId } = this.props;
     actions.fetchDateRanges({ obsId, telescopeId, domeId });
   }
@@ -74,7 +74,7 @@ class DateSelectionNavigation extends Component {
 
     if(!progressFuture) { return; }
 
-    const futureDate = moment(this.props.reservationDate).add(1, 'days').format('YYYY-MM-DD');
+    //const futureDate = moment(this.props.reservationDate).add(1, 'days').format('YYYY-MM-DD');
     this.forwardToURL(futureDate);
   }
 
@@ -84,22 +84,35 @@ class DateSelectionNavigation extends Component {
 
     if(!progressPast) { return; }
 
-    const previousDate = moment(this.props.reservationDate).subtract(1, 'days').format('YYYY-MM-DD');
+    //const previousDate = moment(this.props.reservationDate).subtract(1, 'days').format('YYYY-MM-DD');
     this.forwardToURL(previousDate);
   }
 
   render() {
+    const {
+      dateRangeResponse,
+      dateRangeIsError,
+      dateRangeIsFetching } = this.props.missionSlotDates;
 
-    const { progressPast, progressFuture } = this.validateCurrentDate();
-    const currentTime = moment(this.props.reservationDate).format('dddd, MMMM D, YYYY');
+    console.log(dateRangeIsFetching);
+    console.log(dateRangeIsError);
+
+    if(dateRangeIsFetching || dateRangeIsError) {
+      return null;
+    }
+
+    const {
+      reservationDateFormatted,
+      forwardEnabled,
+      backEnabled } = dateRangeResponse.dateList[0];
 
     const progressPastStyle = classnames({
-      'available': progressPast,
+      'available': backEnabled,
       'fa fa-chevron-circle-left': 1,
     });
 
     const progressFutureStyle = classnames({
-      'available': progressFuture,
+      'available': forwardEnabled,
       'fa fa-chevron-circle-right': 1,
     });
 
@@ -114,7 +127,7 @@ class DateSelectionNavigation extends Component {
 
         <div className="current-date-content">
           <h3 className="title">The night of</h3>
-          <p className="current-time">{currentTime}</p>
+          <p className="current-time">{reservationDateFormatted}</p>
           <h5 className="last-updated">Last updated 21 seconds ago.</h5>
         </div>
 
@@ -129,12 +142,7 @@ class DateSelectionNavigation extends Component {
   }
 }
 
-DateSelectionNavigation.defaultProps = {
-  reservationDate: '2016-11-29',
-};
-
 DateSelectionNavigation.propTypes = {
-  reservationDate: PropTypes.string,
   routeRoot: PropTypes.string,
   obsId: PropTypes.string.isRequired,
   telescopeId: PropTypes.string.isRequired,

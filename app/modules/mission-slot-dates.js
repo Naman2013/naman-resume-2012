@@ -8,6 +8,8 @@ const FETCH_DATE_RANGE_FAIL = 'FETCH_DATE_RANGE_FAIL';
 export const fetchDateRanges = ({ obsId, domeId, telescopeId }) => (dispatch, getState) => {
   const { token, at, cid } = getState().user;
 
+  dispatch(fetchDateRangeStart());
+
   return axios.post('/api/reservation/getMissionSlotDates', {
     token,
     at,
@@ -38,7 +40,7 @@ const initialState = {
   dateRangeResponse: {},
   dateRangeFetchError: {},
   dateRangeIsError: false,
-  dateRangeIsFetching: false,
+  dateRangeIsFetching: true,
 
 };
 
