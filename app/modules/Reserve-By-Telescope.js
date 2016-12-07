@@ -7,7 +7,7 @@ const FETCH_DATE_RANGE_FAIL = 'FETCH_DATE_RANGE_FAIL';
 
 export const fetchDateRanges = ({ obsId, domeId, telescopeId }) => (dispatch, getState) => {
   const { token, at, cid } = getState().user;
-
+  
   return axios.post('/api/reservation/getMissionSlotDates', {
     token,
     at,
@@ -16,8 +16,8 @@ export const fetchDateRanges = ({ obsId, domeId, telescopeId }) => (dispatch, ge
     domeId,
     telescopeId,
   })
-  .then(result => fetchDateRangesSuccess(result.data))
-  .catch(error => fetchDateRangesFail(error));
+  .then(result => dispatch(fetchDateRangesSuccess(result.data)))
+  .catch(error => dispatch(fetchDateRangesFail(error)));
 };
 
 const fetchDateRangesSuccess = (payload) => ({

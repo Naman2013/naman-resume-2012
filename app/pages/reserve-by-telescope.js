@@ -53,9 +53,9 @@ class ReserveMissions extends Component {
     const reservationDate = params.reservationDate;
     const rootRoute = `reservations/reserve-by-telescope/${params.obsUniqueId}/${params.teleUniqueId}`;
 
-    console.log('current observatory', currentObservatory);
-    console.log('current telescope', currentTelescope);
-    console.log('instrument', currentInstrument);
+    // console.log('current observatory', currentObservatory);
+    // console.log('current telescope', currentTelescope);
+    // console.log('instrument', currentInstrument);
 
     return (
       <div className="reserve-by-telescope">
