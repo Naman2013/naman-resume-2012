@@ -1,22 +1,35 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import moment from 'moment-timezone';
 import classnames from 'classnames';
 import { hashHistory } from 'react-router';
 import _ from 'lodash';
-
+import { fetchDateRanges } from '../../../modules/Reserve-By-Telescope';
 import style from './date-selection-navigation.scss';
 
 const MIN_DAYS = 0;
 const MAX_DAYS = 7;
 
-class DateSelectionNavigation extends Component {
+const mapDispatchToProps = (dispatch) => ({
+  actions: bindActionCreators({
+    fetchDateRanges,
+  }, dispatch),
+});
 
+@connect(null, mapDispatchToProps)
+class DateSelectionNavigation extends Component {
   constructor(props) {
     super(props);
 
     this.handleProgressClick = this.handleProgressClick.bind(this);
     this.handlePreviousClick = this.handlePreviousClick.bind(this);
+  }
+
+  componentDidMount() {
+    const { actions, obsId, telescopeId, domeId } = this.props;
+    actions.fetchDateRanges({ obsId, telescopeId, domeId });
   }
 
   validateCurrentDate() {
@@ -119,6 +132,9 @@ DateSelectionNavigation.defaultProps = {
 DateSelectionNavigation.propTypes = {
   reservationDate: PropTypes.string,
   routeRoot: PropTypes.string,
+  obsId: PropTypes.string.isRequired,
+  telescopeId: PropTypes.string.isRequired,
+  domeId: PropTypes.string.isRequired,
 };
 
 export default DateSelectionNavigation;
