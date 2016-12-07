@@ -11,7 +11,7 @@ import tags from './tag-management/Tags';
 import popularObjects from './browse-by-popular-objects/Popular-Objects';
 import usersUpcomingMission from './Users-Upcoming-Missions';
 import piggyback from './Piggyback';
-import reserveByTelescope from './Reserve-By-Telescope';
+import missionSlotDates from './mission-slot-dates';
 
 export default combineReducers({
   routing: routerReducer,
@@ -26,5 +26,5 @@ export default combineReducers({
   popularObjects,
   usersUpcomingMission,
   piggyback,
-  reserveByTelescope,
+  missionSlotDates,
 });
