@@ -26,19 +26,29 @@ class Listings extends Component {
     });
   }
 
+  renderReservationSlot(reservation) {
+    return(
+      <PiggybackOnMission key={reservation.missionIndex} />
+    );
+    // <PiggybackOnMission />
+    // <AvailableMission
+    //   toggleFormDisplay={this.toggleFormDisplay}
+    //   formOpen={formOpen}
+    // />
+    // <MissionOnHold />
+  }
+
   render() {
 
     const { formOpen } = this.state;
+    const { reservations } = this.props;
 
     return (
       <div className="telescope-listings">
         <ul className="list">
-          <PiggybackOnMission />
-          <AvailableMission
-            toggleFormDisplay={this.toggleFormDisplay}
-            formOpen={formOpen}
-          />
-          <MissionOnHold />
+          {
+            reservations.map(reservation => this.renderReservationSlot(reservation))
+          }
         </ul>
       </div>
     );
