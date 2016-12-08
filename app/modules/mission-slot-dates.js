@@ -1,5 +1,7 @@
 import axios from 'axios';
+import moment from 'moment';
 import createReducer from './utils/createReducer';
+import { fetchReservationList } from './mission-slots-by-telescope/mission-slots-by-telescope-actions';
 
 const FETCH_DATE_RANGE_START = 'FETCH_DATE_RANGE_START';
 const FETCH_DATE_RANGE_SUCCESS = 'FETCH_DATE_RANGE_SUCCESS';
@@ -19,7 +21,16 @@ export const fetchDateRanges = ({ obsId, domeId, telescopeId, requestedDate }) =
     telescopeId,
     requestedDate,
   })
-  .then(result => dispatch(fetchDateRangesSuccess(result.data)))
+  .then(result => {
+    dispatch(fetchDateRangesSuccess(result.data));
+    const { reservationDate } = result.data.dateList[0];
+    dispatch(fetchReservationList({
+      obsId,
+      domeId,
+      telescopeId,
+      reservationDate,
+    }));
+  })
   .catch(error => dispatch(fetchDateRangesFail(error)));
 };
 

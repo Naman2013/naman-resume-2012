@@ -10,7 +10,7 @@ export const fetchReservationList = ({
   telescopeId,
   reservationDate }) => (dispatch, getState) => {
   const { cid, at, token } = getState().user;
-  
+
   dispatch(fetchReservationStart());
 
   return axios.post('/api/reservation/getMissionSlotsByTelescope', {
