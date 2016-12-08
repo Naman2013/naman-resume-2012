@@ -3,6 +3,7 @@ import React, { Component, PropTypes } from 'react';
 import PiggybackOnMission from './reservation-slots/piggyback-on-mission';
 import AvailableMission from './reservation-slots/available-mission';
 import MissionOnHold from './reservation-slots/mission-on-hold';
+import MissionConfirmModal from '../../missions/mission-confirm-modal';
 import styles from './listings.scss';
 
 // possible reservation slot status's
@@ -83,6 +84,8 @@ class Listings extends Component {
             reservations.map(reservation => this.renderReservationSlot(reservation))
           }
         </ul>
+
+        <MissionConfirmModal />
       </div>
     );
   }
