@@ -28,7 +28,7 @@ const fetchDateRangesSuccess = (payload) => ({
   payload,
 });
 
-const fetchDateRangesError = (payload) => ({
+const fetchDateRangesFail = (payload) => ({
   type: FETCH_DATE_RANGE_FAIL,
   payload,
 });
