@@ -23,7 +23,7 @@ export const fetchReservationList = ({
     reservationDate,
   })
   .then(result => dispatch(fetchReservationSuccess(result.data)))
-  .error(error => dispatch(fetchReservationError(error)));
+  .catch(error => dispatch(fetchReservationError(error)));
 }
 
 const fetchReservationSuccess = (payload) => ({

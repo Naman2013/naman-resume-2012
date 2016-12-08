@@ -6,7 +6,7 @@ import moment from 'moment-timezone';
 import classnames from 'classnames';
 import { hashHistory } from 'react-router';
 import _ from 'lodash';
-import { fetchDateRanges } from '../../../modules/mission-slot-dates';
+import { fetchDateRanges } from '../../../modules/mission-slots-by-telescope/mission-slot-dates-actions';
 import style from './date-selection-navigation.scss';
 
 const MIN_DAYS = 0;
