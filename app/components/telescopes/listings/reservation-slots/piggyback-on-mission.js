@@ -8,7 +8,7 @@ import Logo from '../../../common/logo/logo';
 class PiggybackOnMission extends Component {
   constructor(props) {
     super(props);
-    
+
     this.handlePiggybackClick = this.handlePiggybackClick.bind(this);
   }
 
@@ -24,7 +24,7 @@ class PiggybackOnMission extends Component {
       return(
         <div className="col-xs-2 piggyback-on-mission-action">
           <button
-            onClick={this.handlePiggybackClick()}
+            onClick={this.handlePiggybackClick}
             className="action"
           >
             Piggyback on mission

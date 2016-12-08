@@ -1,9 +1,12 @@
 import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux';
 
 import PiggybackOnMission from './reservation-slots/piggyback-on-mission';
 import AvailableMission from './reservation-slots/available-mission';
 import MissionOnHold from './reservation-slots/mission-on-hold';
 import MissionConfirmModal from '../../missions/mission-confirm-modal';
+import { getNextPiggybackSingle, missionGetCards } from '../../../modules/Missions';
 import styles from './listings.scss';
 
 // possible reservation slot status's
@@ -12,8 +15,19 @@ const AVAILABLE = 'available';
 const ON_HOLD = 'onhold';
 const NOT_AVAILABLE = 'notavailable';
 
-class Listings extends Component {
+const mapStateToProps = ({ piggyback }) => ({
+  piggyback,
+});
 
+const mapDispatchToProps = () => ({
+  actions: bindActionCreators({
+    getNextPiggybackSingle,
+    resetMissionAvailability,
+  }, dispatch),
+});
+
+@connect(mapStateToProps, mapDispatchToProps)
+class Listings extends Component {
   constructor(props) {
     super(props);
 

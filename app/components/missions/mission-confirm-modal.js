@@ -59,6 +59,8 @@ class MissionConfirmModal extends Component {
         open={isConfirmationOpen}
         closeModal={this.closeModal} />
     }
+
+    return null;
   }
 };
 
