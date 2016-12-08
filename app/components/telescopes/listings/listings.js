@@ -5,6 +5,12 @@ import AvailableMission from './reservation-slots/available-mission';
 import MissionOnHold from './reservation-slots/mission-on-hold';
 import styles from './listings.scss';
 
+// possible reservation slot status's
+const RESERVED = 'reserved';
+const AVAILABLE = 'available';
+const ON_HOLD = 'onhold';
+const NOT_AVAILABLE = 'notavailable';
+
 class Listings extends Component {
 
   constructor(props) {
@@ -27,20 +33,44 @@ class Listings extends Component {
   }
 
   renderReservationSlot(reservation) {
-    return(
-      <PiggybackOnMission key={reservation.missionIndex} />
-    );
-    // <PiggybackOnMission />
-    // <AvailableMission
-    //   toggleFormDisplay={this.toggleFormDisplay}
-    //   formOpen={formOpen}
-    // />
-    // <MissionOnHold />
+    const { formOpen } = this.state;
+    const { slotStatus } = reservation;
+
+    if(slotStatus === RESERVED) {
+      return(
+        <PiggybackOnMission
+          key={reservation.missionIndex}
+        />
+      );
+    }
+
+    if(slotStatus === AVAILABLE) {
+      return(
+        <AvailableMission
+          key={reservation.missionIndex}
+          toggleFormDisplay={this.toggleFormDisplay}
+          formOpen={formOpen}
+        />
+      );
+    }
+
+    if(slotStatus === ON_HOLD) {
+      return(
+        <MissionOnHold
+          key={reservation.missionIndex}
+        />
+      );
+    }
+
+    if(slotStatus === NOT_AVAILABLE) {
+      console.group('TODO: painting reservation list');
+      console.log('create not available slot type component');
+      console.groupEnd();
+      return null;
+    }
   }
 
   render() {
-
-    const { formOpen } = this.state;
     const { reservations } = this.props;
 
     return (
