@@ -3,9 +3,23 @@ import classnames from 'classnames';
 
 import MissionTime from '../partials/mission-time';
 import ByUserTag from '../../../common/by-user-tag/by-user-tag';
+import Logo from '../../../common/logo/logo';
 
 class PiggybackOnMission extends Component {
   render() {
+    const {
+      showSloohUser,
+      showUserDetails,
+      ownerId,
+      ownerFirstName,
+      ownerMembershipType,
+      ownerGuardianFlag,
+      ownerMemberSince,
+      ownerAvatarURL,
+      ownerLocation,
+      slotIconURL,
+      missionStart,
+      slotTitle, } = this.props;
 
     const containerClassnames = classnames({
       'telescope-listings-item': 1,
@@ -26,16 +40,19 @@ class PiggybackOnMission extends Component {
 
         <div className="col-xs-4 reserved-by-user-content">
           <h3 className="title">Reserved by:</h3>
-          <ByUserTag
-            theme="light"
-            photo={`http://images-account.slooh.com/avatar-dummy.png`}
-            name={`John`}
-            accountType={`astronomer`}
-            city={`Millwood`}
-            state={`New York`}
-            country={`USA`}
-            memberSince={`2016`}
-          />
+          {
+            showSloohUser ?
+              <Logo />
+              :
+              <ByUserTag
+                theme="light"
+                photo={ownerAvatarURL}
+                name={ownerFirstName}
+                accountType={ownerMembershipType}
+                location={ownerLocation}
+                memberSince={ownerMemberSince}
+              />
+          }
         </div>
 
         {
@@ -78,6 +95,24 @@ class PiggybackOnMission extends Component {
 
 PiggybackOnMission.defaultProps = {
   piggybackReserved: true,
+};
+
+const { string, number, bool } = PropTypes;
+PiggybackOnMission.propTypes = {
+  showSloohUser: bool.isRequired,
+
+  showUserDetails: bool.isRequired,
+  ownerId: number.isRequired,
+  ownerFirstName: string.isRequired,
+  ownerMembershipType: string.isRequired,
+  ownerGuardianFlag: bool.isRequired,
+  ownerMemberSince: string.isRequired,
+  ownerAvatarURL: string.isRequired,
+  ownerLocation: string.isRequired,
+
+  slotIconURL: string.isRequired,
+  missionStart: number.isRequired,
+  slotTitle: string.isRequired,
 };
 
 export default PiggybackOnMission;

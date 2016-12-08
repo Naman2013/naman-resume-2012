@@ -40,6 +40,7 @@ class Listings extends Component {
       return(
         <PiggybackOnMission
           key={reservation.missionIndex}
+          {...reservation}
         />
       );
     }
@@ -50,6 +51,7 @@ class Listings extends Component {
           key={reservation.missionIndex}
           toggleFormDisplay={this.toggleFormDisplay}
           formOpen={formOpen}
+          {...reservation}
         />
       );
     }
@@ -58,6 +60,7 @@ class Listings extends Component {
       return(
         <MissionOnHold
           key={reservation.missionIndex}
+          {...reservation}
         />
       );
     }
@@ -92,7 +95,7 @@ Listings.propTypes = {
     scheduledMissionId: number.isRequired,
     uniqueId: string.isRequired,
     missionStart: number.isRequired,
-    durationSec: string.isRequired,
+    durationSec: number.isRequired,
     expires: number.isRequired,
     slotStatus: string.isRequired,
     missionType: string.isRequired,
@@ -122,7 +125,7 @@ Listings.propTypes = {
     userHoldType: string.isRequired,
     showSloohUser: bool.isRequired,
     showUserDetails: bool.isRequired,
-    ownerId: string.isRequired,
+    ownerId: number.isRequired,
     ownerLocation: string.isRequired,
     ownerFirstName: string.isRequired,
     ownerDisplayName: string.isRequired,

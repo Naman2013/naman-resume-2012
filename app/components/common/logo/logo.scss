@@ -1,0 +1,35 @@
+@import '../../../styles/variables/fonts.scss';
+@import '../../../styles/variables/colors.scss';
+
+.slooh-brand-logo {
+  display: flex;
+  align-items: center;
+
+  .logo {
+    background-image: url(../../../../assets/icons/header/logo.svg);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 48px;
+    height: 48px;
+
+    margin: 0;
+    padding: 0;
+  }
+
+  .logo-text {
+    font-family: $primary-font;
+    color: #FFF;
+    font-size: 50px;
+    margin: 0;
+    padding: 0;
+    padding-left: 10px;
+
+    .beta {
+      font-size: 10px;
+      text-transform: uppercase;
+      color: $light-turqoise;
+      margin-left: -5px;
+    }
+  }
+}
