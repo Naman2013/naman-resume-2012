@@ -166,16 +166,14 @@ export function getNextPiggybackSingle(card) {
     dispatch(setCurrentCard(card));
 
     return axios.post('/api/recommends/getNextPiggyback', {
+      token,
+      at,
+      cid,
       uniqueId: card.uniqueId,
       objectId: card.astroObjectId,
       lookaheadReservation: card.lookaheadDaysReservation,
       lookaheadPiggyback: card.lookaheadDaysPiggyback,
-      ver: 'v1',
-      lang: 'en',
       requestType: 'single',
-      token,
-      at,
-      cid,
     })
     .then(response => dispatch(getNextPiggybackSingleSuccess(response.data)))
     .catch(error => dispatch(getNextPiggybackSingleFail(error)));
