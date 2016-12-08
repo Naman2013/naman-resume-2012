@@ -1,10 +1,23 @@
 import React, { Component, PropTypes } from 'react';
 import classnames from 'classnames';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 import MissionTime from '../partials/mission-time';
 import ByUserTag from '../../../common/by-user-tag/by-user-tag';
 import Logo from '../../../common/logo/logo';
+import {
+  grabPiggybackByTelescope,
+  resetMissionAvailability } from '../../../../modules/Piggyback';
 
+const mapDispatchToProps = (dispatch) => ({
+  actions: bindActionCreators({
+    grabPiggybackByTelescope,
+    resetMissionAvailability,
+  }, dispatch),
+});
+
+@connect(null, mapDispatchToProps)
 class PiggybackOnMission extends Component {
   constructor(props) {
     super(props);
@@ -14,7 +27,8 @@ class PiggybackOnMission extends Component {
 
   handlePiggybackClick(event) {
     event.preventDefault();
-    this.props.piggybackClick();
+    const { uniqueId, scheduledMissionId } = this.props;
+    this.props.actions.grabPiggybackByTelescope({ uniqueId, scheduledMissionId });
   }
 
   renderMissionStatus() {
@@ -128,7 +142,7 @@ class PiggybackOnMission extends Component {
 
 
 
-const { string, number, bool, func } = PropTypes;
+const { string, number, bool } = PropTypes;
 PiggybackOnMission.propTypes = {
   showSloohUser: bool.isRequired,
 
@@ -148,7 +162,8 @@ PiggybackOnMission.propTypes = {
   showPiggybackButton: bool.isRequired,
   showShareMissionIcons: bool.isRequired,
 
-  piggybackClick: func,
+  uniqueId: string,
+  scheduledMissionId: number,
 };
 
 export default PiggybackOnMission;

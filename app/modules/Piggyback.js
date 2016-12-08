@@ -96,8 +96,25 @@ export const grabPiggyback = (mission) => (dispatch, getState) => {
       dispatch(grabPiggybackSuccess(result.data));
       dispatch(missionConfirmOpen('piggyback'));
     })
-    .catch(error => dispatch(missionUnavailable()));
+    .catch(error => dispatch(missionUnavailable(error)));
   }
+};
+
+export const grabPiggybackByTelescope = ({ uniqueId, scheduledMissionId }) => (dispatch) => {
+  const { token, at, cid } = getState().user;
+  return axios.post('/api/reservation/grabPiggyback', {
+    token,
+    at,
+    cid,
+    uniqueId,
+    scheduledMissionId,
+    callSource: 'byTelescope',
+  })
+  .then(result => {
+    dispatch(grabPiggybackSuccess(result.data));
+    dispatch(missionConfirmOpen('piggyback'));
+  })
+  .catch(error => dispatch(missionUnavailable(error)));
 };
 
 const grabPiggybackSuccess = (payload) => ({

@@ -6,8 +6,7 @@ import PiggybackOnMission from './reservation-slots/piggyback-on-mission';
 import AvailableMission from './reservation-slots/available-mission';
 import MissionOnHold from './reservation-slots/mission-on-hold';
 import MissionConfirmModal from '../../missions/mission-confirm-modal';
-import { getNextPiggybackSingle } from '../../../modules/Missions';
-import { resetMissionAvailability } from '../../../modules/Piggyback';
+
 import styles from './listings.scss';
 
 // possible reservation slot status's
@@ -22,7 +21,7 @@ const mapStateToProps = ({ piggyback }) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   actions: bindActionCreators({
-    getNextPiggybackSingle,
+    grabPiggybackByTelescope,
     resetMissionAvailability,
   }, dispatch),
 });
