@@ -6,13 +6,29 @@ import ByUserTag from '../../../common/by-user-tag/by-user-tag';
 import Logo from '../../../common/logo/logo';
 
 class PiggybackOnMission extends Component {
+  constructor(props) {
+    super(props);
+    
+    this.handlePiggybackClick = this.handlePiggybackClick.bind(this);
+  }
+
+  handlePiggybackClick(event) {
+    event.preventDefault();
+    this.props.piggybackClick();
+  }
+
   renderMissionStatus() {
     const { showPiggybackButton, showShareMissionIcons } = this.props;
 
     if(showPiggybackButton) {
       return(
         <div className="col-xs-2 piggyback-on-mission-action">
-          <button className="action">Piggyback on mission</button>
+          <button
+            onClick={this.handlePiggybackClick()}
+            className="action"
+          >
+            Piggyback on mission
+          </button>
         </div>
       );
     }
@@ -112,7 +128,7 @@ class PiggybackOnMission extends Component {
 
 
 
-const { string, number, bool } = PropTypes;
+const { string, number, bool, func } = PropTypes;
 PiggybackOnMission.propTypes = {
   showSloohUser: bool.isRequired,
 
@@ -131,6 +147,8 @@ PiggybackOnMission.propTypes = {
 
   showPiggybackButton: bool.isRequired,
   showShareMissionIcons: bool.isRequired,
+
+  piggybackClick: func,
 };
 
 export default PiggybackOnMission;
