@@ -23,12 +23,13 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-function mapStateToProps({ missions, telescopeOverview }, ownProps) {
+function mapStateToProps({ missions, telescopeOverview, missionSlotsByTelescope }, ownProps) {
   return {
     observatoryList: telescopeOverview.observatoryList,
     currentObservatoryId: ownProps.params.observatoryId,
     missions,
     cardList: missions.cardList || [],
+    missionSlotsByTelescope,
   };
 }
 
@@ -42,7 +43,8 @@ class ReserveMissions extends Component {
   }
 
   render() {
-    const { observatoryList, params } = this.props;
+    const { observatoryList, params, missionSlotsByTelescope } = this.props;
+    const { reservationListIsFetching, reservationList } = missionSlotsByTelescope;
     const currentObservatory = getCurrentObservatory(observatoryList, params.obsUniqueId);
 
     if(!currentObservatory) { return null; }
@@ -55,6 +57,7 @@ class ReserveMissions extends Component {
     // console.log('current observatory', currentObservatory);
     // console.log('current telescope', currentTelescope);
     // console.log('instrument', currentInstrument);
+    console.log(missionSlotsByTelescope);
 
     return (
       <div className="reserve-by-telescope">
@@ -84,7 +87,14 @@ class ReserveMissions extends Component {
           telescopeId={currentTelescope.teleId}
         />
 
-        <Listings />
+        {
+          reservationListIsFetching ?
+            `Waiting...`
+            :
+            <Listings
+              reservations={reservationList.missionList}
+            />
+        }
       </div>
     );
   }
