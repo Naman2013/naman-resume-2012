@@ -34,7 +34,7 @@ export const getCurrentObservatory = (observatoryList, observatoryId) => {
 
 const getCurrentTimeInSeconds = () => new Date().getTime() / 1000;
 
-export const getObservatoryList = (user, currentObservatoryId) => (dispatch, getState) => {
+export const getObservatoryList = (currentObservatoryId) => (dispatch, getState) => {
     // TODO: dispatch loading...
     const { token, at, cid } = getState().user;
 

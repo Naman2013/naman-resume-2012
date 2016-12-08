@@ -6,11 +6,15 @@ import moment from 'moment-timezone';
 import classnames from 'classnames';
 import { hashHistory } from 'react-router';
 import _ from 'lodash';
-import { fetchDateRanges } from '../../../modules/Reserve-By-Telescope';
+import { fetchDateRanges } from '../../../modules/mission-slot-dates';
 import style from './date-selection-navigation.scss';
 
 const MIN_DAYS = 0;
 const MAX_DAYS = 7;
+
+const mapStateToProps = ({ missionSlotDates }) => ({
+  missionSlotDates,
+});
 
 const mapDispatchToProps = (dispatch) => ({
   actions: bindActionCreators({
@@ -18,45 +22,19 @@ const mapDispatchToProps = (dispatch) => ({
   }, dispatch),
 });
 
-@connect(null, mapDispatchToProps)
+@connect(mapStateToProps, mapDispatchToProps)
 class DateSelectionNavigation extends Component {
   constructor(props) {
     super(props);
 
-    this.handleProgressClick = this.handleProgressClick.bind(this);
+    this.handleDateChange = this.handleDateChange.bind(this);
     this.handlePreviousClick = this.handlePreviousClick.bind(this);
+    this.handleProgressClick = this.handleProgressClick.bind(this);
   }
 
-  componentDidMount() {
+  componentWillMount() {
     const { actions, obsId, telescopeId, domeId } = this.props;
     actions.fetchDateRanges({ obsId, telescopeId, domeId });
-  }
-
-  validateCurrentDate() {
-    const currentDate = moment(this.props.reservationDate, 'YYYY-MM-DD');
-    const today = moment();
-    let updatedState = {
-      progressPast: true,
-      progressFuture: true,
-    };
-
-    // if the date is today or before today...
-    if(currentDate.diff(today, 'hours') <= 0) {
-      updatedState = {
-        progressPast: false,
-        progressFuture: true,
-      };
-    }
-
-    // if the date is the max allowed or greater
-    if(currentDate.diff(today, 'days') >= MAX_DAYS) {
-      updatedState = {
-        progressPast: true,
-        progressFuture: false,
-      };
-    }
-
-    return updatedState;
   }
 
   forwardToURL(newDate) {
@@ -64,38 +42,54 @@ class DateSelectionNavigation extends Component {
     hashHistory.push(newRoute);
   }
 
-  handleProgressClick(event) {
-    event.preventDefault();
-    const { progressPast, progressFuture } = this.validateCurrentDate();
-
-    if(!progressFuture) { return; }
-
-    const futureDate = moment(this.props.reservationDate).add(1, 'days').format('YYYY-MM-DD');
-    this.forwardToURL(futureDate);
+  handleDateChange(requestedDate) {
+    const { actions, obsId, telescopeId, domeId } = this.props;
+    actions.fetchDateRanges({
+      obsId,
+      telescopeId,
+      domeId,
+      requestedDate,
+    });
   }
 
   handlePreviousClick(event) {
     event.preventDefault();
-    const { progressPast, progressFuture } = this.validateCurrentDate();
+    const { backEnabled, backDate } = this.props.missionSlotDates.dateRangeResponse.dateList[0];
+    if(backEnabled) {
+      this.handleDateChange(backDate);
+    }
+  }
 
-    if(!progressPast) { return; }
-
-    const previousDate = moment(this.props.reservationDate).subtract(1, 'days').format('YYYY-MM-DD');
-    this.forwardToURL(previousDate);
+  handleProgressClick(event) {
+    event.preventDefault();
+    const { forwardEnabled, forwardDate } = this.props.missionSlotDates.dateRangeResponse.dateList[0];
+    if(forwardEnabled) {
+      this.handleDateChange(forwardDate);
+    }
   }
 
   render() {
+    const {
+      dateRangeResponse,
+      dateRangeIsError,
+      dateRangeIsFetching } = this.props.missionSlotDates;
 
-    const { progressPast, progressFuture } = this.validateCurrentDate();
-    const currentTime = moment(this.props.reservationDate).format('dddd, MMMM D, YYYY');
+    if(dateRangeIsFetching || dateRangeIsError) {
+      return null;
+    }
+
+    const {
+      reservationDateFormatted,
+      forwardEnabled,
+      backEnabled } = dateRangeResponse.dateList[0];
 
     const progressPastStyle = classnames({
-      'available': progressPast,
+      'available': backEnabled,
       'fa fa-chevron-circle-left': 1,
     });
 
     const progressFutureStyle = classnames({
-      'available': progressFuture,
+      'available': forwardEnabled,
       'fa fa-chevron-circle-right': 1,
     });
 
@@ -110,7 +104,7 @@ class DateSelectionNavigation extends Component {
 
         <div className="current-date-content">
           <h3 className="title">The night of</h3>
-          <p className="current-time">{currentTime}</p>
+          <p className="current-time">{reservationDateFormatted}</p>
           <h5 className="last-updated">Last updated 21 seconds ago.</h5>
         </div>
 
@@ -125,12 +119,7 @@ class DateSelectionNavigation extends Component {
   }
 }
 
-DateSelectionNavigation.defaultProps = {
-  reservationDate: '2016-11-29',
-};
-
 DateSelectionNavigation.propTypes = {
-  reservationDate: PropTypes.string,
   routeRoot: PropTypes.string,
   obsId: PropTypes.string.isRequired,
   telescopeId: PropTypes.string.isRequired,

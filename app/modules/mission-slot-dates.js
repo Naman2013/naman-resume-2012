@@ -5,9 +5,11 @@ const FETCH_DATE_RANGE_START = 'FETCH_DATE_RANGE_START';
 const FETCH_DATE_RANGE_SUCCESS = 'FETCH_DATE_RANGE_SUCCESS';
 const FETCH_DATE_RANGE_FAIL = 'FETCH_DATE_RANGE_FAIL';
 
-export const fetchDateRanges = ({ obsId, domeId, telescopeId }) => (dispatch, getState) => {
+export const fetchDateRanges = ({ obsId, domeId, telescopeId, requestedDate }) => (dispatch, getState) => {
   const { token, at, cid } = getState().user;
-  
+
+  dispatch(fetchDateRangeStart());
+
   return axios.post('/api/reservation/getMissionSlotDates', {
     token,
     at,
@@ -15,6 +17,7 @@ export const fetchDateRanges = ({ obsId, domeId, telescopeId }) => (dispatch, ge
     obsId,
     domeId,
     telescopeId,
+    requestedDate,
   })
   .then(result => dispatch(fetchDateRangesSuccess(result.data)))
   .catch(error => dispatch(fetchDateRangesFail(error)));
@@ -25,7 +28,7 @@ const fetchDateRangesSuccess = (payload) => ({
   payload,
 });
 
-const fetchDateRangesError = (payload) => ({
+const fetchDateRangesFail = (payload) => ({
   type: FETCH_DATE_RANGE_FAIL,
   payload,
 });
@@ -38,7 +41,7 @@ const initialState = {
   dateRangeResponse: {},
   dateRangeFetchError: {},
   dateRangeIsError: false,
-  dateRangeIsFetching: false,
+  dateRangeIsFetching: true,
 
 };
 
@@ -46,10 +49,9 @@ export default createReducer(initialState, {
   [FETCH_DATE_RANGE_START](state) {
     return {
       ...state,
-      dateRangeResponse: {},
       dateRangeFetchError: {},
       dateRangeIsError: false,
-      dateRangeIsFetching: true,
+      dateRangeIsFetching: false,
     };
   },
   [FETCH_DATE_RANGE_SUCCESS](state, { payload }) {
