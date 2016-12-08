@@ -75,7 +75,9 @@ class PiggybackOnMission extends Component {
       <li className={containerClassnames}>
 
         <div className="col-xs-2">
-          <MissionTime />
+          <MissionTime
+            startTime={missionStart}
+          />
         </div>
 
         <div className="col-xs-4 slot-description">
