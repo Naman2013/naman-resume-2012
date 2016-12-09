@@ -16,27 +16,8 @@ const NOT_AVAILABLE = 'notavailable';
 
 
 class Listings extends Component {
-  constructor(props) {
-    super(props);
-
-    this.toggleFormDisplay = this.toggleFormDisplay.bind(this);
-  }
-
-  componentWillMount() {
-    this.setState({
-      formOpen: false,
-    });
-  }
-
-  toggleFormDisplay() {
-    const { formOpen } = this.state;
-    this.setState({
-      formOpen: !formOpen,
-    });
-  }
 
   renderReservationSlot(reservation) {
-    const { formOpen } = this.state;
     const { slotStatus } = reservation;
 
     if(slotStatus === RESERVED) {
@@ -52,8 +33,6 @@ class Listings extends Component {
       return(
         <AvailableMission
           key={reservation.missionIndex}
-          toggleFormDisplay={this.toggleFormDisplay}
-          formOpen={formOpen}
           {...reservation}
         />
       );

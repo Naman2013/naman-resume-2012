@@ -17,15 +17,11 @@ class AvailableMission extends Component {
 
     this.state = {
       formType: NONE,
+      formOpen: false,
     };
 
     this.handleCloseForm = this.handleCloseForm.bind(this);
     this.handleReservationTypeClick = this.handleReservationTypeClick.bind(this);
-  }
-
-  handleCloseForm(event) {
-    event.preventDefault();
-    this.closeFormDisplay();
   }
 
   handleReservationTypeClick(newFormType) {
@@ -51,15 +47,27 @@ class AvailableMission extends Component {
     }
   }
 
+  handleCloseForm(event) {
+    event.preventDefault();
+    this.closeFormDisplay();
+  }
+
+  toggleFormDisplay() {
+    const { formOpen } = this.state;
+    this.setState({
+      formOpen: !formOpen,
+    });
+  }
+
   closeFormDisplay() {
-    if(this.props.formOpen) {
-      this.props.toggleFormDisplay();
+    if(this.state.formOpen) {
+      this.toggleFormDisplay();
     }
   }
 
   openFormDisplay() {
-    if(!this.props.formOpen) {
-      this.props.toggleFormDisplay();
+    if(!this.state.formOpen) {
+      this.toggleFormDisplay();
     }
   }
 
@@ -112,8 +120,7 @@ class AvailableMission extends Component {
   }
 
   render() {
-    const { formOpen } = this.props;
-    const { formType } = this.state;
+    const { formType, formOpen } = this.state;
 
     const containerClassnames = classnames({
       'telescope-listings-item-inline-reservation': 1,
@@ -179,14 +186,5 @@ class AvailableMission extends Component {
     );
   }
 }
-
-AvailableMission.defaultProps = {
-  formOpen: false,
-};
-
-AvailableMission.propTypes = {
-  toggleFormDisplay: PropTypes.func.isRequired,
-  formOpen: PropTypes.bool.isRequired,
-};
 
 export default AvailableMission;
