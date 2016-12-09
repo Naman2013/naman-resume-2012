@@ -15,7 +15,6 @@ module.exports = {
       'cookie',
       'lodash',
       'moment',
-      'moment-countdown',
       'moment-timezone',
       'axios',
       'react',
