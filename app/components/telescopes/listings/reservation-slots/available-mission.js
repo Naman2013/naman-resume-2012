@@ -166,7 +166,7 @@ class AvailableMission extends Component {
                     onClick={(event) => {this.handleReservationTypeClick(BY_CATELOG)}}
                     className={this.buttonRenderedClasses(BY_CATELOG)}
                     >
-                      Select by catelog #
+                      Select by catalog #
                   </button>
                 </li>
                 <li className="option">
