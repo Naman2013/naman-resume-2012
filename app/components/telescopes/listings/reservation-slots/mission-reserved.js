@@ -6,6 +6,7 @@ import { bindActionCreators } from 'redux';
 import MissionTime from '../partials/mission-time';
 import ByUserTag from '../../../common/by-user-tag/by-user-tag';
 import Logo from '../../../common/logo/logo';
+import ShareMission from '../partials/share-mission';
 import {
   grabPiggybackByTelescope,
   resetMissionAvailability } from '../../../../modules/Piggyback';
@@ -18,7 +19,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 @connect(null, mapDispatchToProps)
-class PiggybackOnMission extends Component {
+class MissionReserved extends Component {
   constructor(props) {
     super(props);
 
@@ -32,7 +33,10 @@ class PiggybackOnMission extends Component {
   }
 
   renderMissionStatus() {
-    const { showPiggybackButton, showShareMissionIcons } = this.props;
+    const {
+      showPiggybackButton,
+      showShareMissionIcons,
+      shareMissionIconsText } = this.props;
 
     if(showPiggybackButton) {
       return(
@@ -47,36 +51,15 @@ class PiggybackOnMission extends Component {
       );
     }
 
-    if(showShareMissionIcons) {
+    if(showShareMissionIcons || shareMissionIconsText) {
       return(
-        <div className="col-xs-2 piggyback-accepted">
-          <ul className="social-icons">
-            <li className="action-container">
-              <button className="action">
-                <span className="fa fa-twitter-square"></span>
-              </button>
-            </li>
-            <li className="action-container">
-              <button className="action">
-                <span className="fa fa-facebook-square"></span>
-              </button>
-            </li>
-            <li className="action-container">
-              <button className="action">
-                <span className="fa fa-google-plus-square"></span>
-              </button>
-            </li>
-            <li className="action-container">
-              <button className="action">
-                <span className="fa fa-instagram"></span>
-              </button>
-            </li>
-          </ul>
-
-          <h4 className="title">You have <b>joined</b> this mission.</h4>
-        </div>
+        <ShareMission
+          showShareMissionIcons={showShareMissionIcons}
+          shareMissionIconsText={shareMissionIconsText}
+        />
       );
     }
+
   }
 
   render() {
@@ -93,8 +76,7 @@ class PiggybackOnMission extends Component {
       slotIconURL,
       missionStart,
       slotTitle,
-      showPiggybackButton,
-      showShareMissionIcons } = this.props;
+      showSlotTimes } = this.props;
 
     const containerClassnames = classnames({
       'telescope-listings-item': 1,
@@ -105,9 +87,12 @@ class PiggybackOnMission extends Component {
       <li className={containerClassnames}>
 
         <div className="col-xs-2">
-          <MissionTime
-            startTime={missionStart}
-          />
+          {
+            showSlotTimes ?
+            <MissionTime
+              startTime={missionStart}
+            /> : null
+          }
         </div>
 
         <div className="col-xs-4 slot-description">
@@ -143,7 +128,7 @@ class PiggybackOnMission extends Component {
 
 
 const { string, number, bool } = PropTypes;
-PiggybackOnMission.propTypes = {
+MissionReserved.propTypes = {
   showSloohUser: bool.isRequired,
 
   showUserDetails: bool.isRequired,
@@ -161,9 +146,12 @@ PiggybackOnMission.propTypes = {
 
   showPiggybackButton: bool.isRequired,
   showShareMissionIcons: bool.isRequired,
+  shareMissionIconsText: string.isRequired,
 
   uniqueId: string,
   scheduledMissionId: number,
+
+  showSlotTimes: bool.isRequired,
 };
 
-export default PiggybackOnMission;
+export default MissionReserved;

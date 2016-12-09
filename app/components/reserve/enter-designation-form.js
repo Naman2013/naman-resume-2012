@@ -14,7 +14,7 @@ class EnterDesignationForm extends Component {
         <h3 className="title">Designation:</h3>
         <input className="generic-text-input" type="text" />
 
-        <button className="btn-primary">Verify Availability</button>
+        <button className="btn-primary">Check Visibility</button>
 
         <p className="validation-message">Good news! This object is currently visible.</p>
       </div>

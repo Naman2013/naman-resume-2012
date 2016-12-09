@@ -6,6 +6,10 @@ import ByUserTag from '../../../common/by-user-tag/by-user-tag';
 
 class MissionOnHold extends Component {
   render() {
+    const {
+      missionStart,
+      showSlotTimes } = this.props;
+
     const containerClassnames = classnames({
       'telescope-listings-item': 1,
       'on-hold': 1,
@@ -17,7 +21,12 @@ class MissionOnHold extends Component {
       <li className={containerClassnames}>
 
         <div className="col-xs-2">
-          <MissionTime />
+          {
+            showSlotTimes ?
+            <MissionTime
+              startTime={missionStart}
+            /> : null
+          }
         </div>
 
         <div className="col-md-4 slot-description">
@@ -48,5 +57,11 @@ class MissionOnHold extends Component {
     );
   }
 }
+
+const { string, number, bool } = PropTypes;
+MissionOnHold.propTypes = {
+  showSlotTimes: bool.isRequired,
+  missionStart: number.isRequired,
+};
 
 export default MissionOnHold;

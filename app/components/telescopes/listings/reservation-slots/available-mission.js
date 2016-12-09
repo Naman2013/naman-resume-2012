@@ -17,15 +17,11 @@ class AvailableMission extends Component {
 
     this.state = {
       formType: NONE,
+      formOpen: false,
     };
 
     this.handleCloseForm = this.handleCloseForm.bind(this);
     this.handleReservationTypeClick = this.handleReservationTypeClick.bind(this);
-  }
-
-  handleCloseForm(event) {
-    event.preventDefault();
-    this.closeFormDisplay();
   }
 
   handleReservationTypeClick(newFormType) {
@@ -51,15 +47,27 @@ class AvailableMission extends Component {
     }
   }
 
+  handleCloseForm(event) {
+    event.preventDefault();
+    this.closeFormDisplay();
+  }
+
+  toggleFormDisplay() {
+    const { formOpen } = this.state;
+    this.setState({
+      formOpen: !formOpen,
+    });
+  }
+
   closeFormDisplay() {
-    if(this.props.formOpen) {
-      this.props.toggleFormDisplay();
+    if(this.state.formOpen) {
+      this.toggleFormDisplay();
     }
   }
 
   openFormDisplay() {
-    if(!this.props.formOpen) {
-      this.props.toggleFormDisplay();
+    if(!this.state.formOpen) {
+      this.toggleFormDisplay();
     }
   }
 
@@ -100,7 +108,7 @@ class AvailableMission extends Component {
   getAvailableSlotText() {
     const DEFAULT = 'This slot could be yours.';
     const RESERVING = 'Tell us where to aim this thing...';
-    const { formOpen } = this.props;
+    const { formOpen } = this.state;
 
     if(!formOpen) {
       return DEFAULT;
@@ -112,8 +120,13 @@ class AvailableMission extends Component {
   }
 
   render() {
-    const { formOpen } = this.props;
-    const { formType } = this.state;
+    const { formType, formOpen } = this.state;
+    const {
+      missionStart,
+      showBrowseButton,
+      showCatalogButton,
+      showCoordinateButton,
+      showSlotTimes } = this.props;
 
     const containerClassnames = classnames({
       'telescope-listings-item-inline-reservation': 1,
@@ -133,7 +146,12 @@ class AvailableMission extends Component {
             </div>
 
             <div className="col-xs-2">
-              <MissionTime />
+              {
+                showSlotTimes ?
+                <MissionTime
+                  startTime={missionStart}
+                /> : null
+              }
             </div>
 
             <div className="col-xs-4 slot-description">
@@ -143,30 +161,41 @@ class AvailableMission extends Component {
 
             <div className="col-xs-6 reservation-options-content">
               <ul className="reservation-options">
-                <li className="option">
-                  <button
-                    onClick={(event) => {this.handleReservationTypeClick(BY_OBJECTS)}}
-                    className={this.buttonRenderedClasses(BY_OBJECTS)}
-                  >
-                    Browser objects
-                  </button>
-                </li>
-                <li className="option">
-                  <button
-                    onClick={(event) => {this.handleReservationTypeClick(BY_CATELOG)}}
-                    className={this.buttonRenderedClasses(BY_CATELOG)}
+                {
+                  showBrowseButton ?
+                  <li className="option">
+                    <button
+                      onClick={(event) => {this.handleReservationTypeClick(BY_OBJECTS)}}
+                      className={this.buttonRenderedClasses(BY_OBJECTS)}
                     >
-                      Select by catelog #
-                  </button>
-                </li>
-                <li className="option">
-                  <button
-                    onClick={(event) => {this.handleReservationTypeClick(BY_COORDINATE)}}
-                    className={this.buttonRenderedClasses(BY_COORDINATE)}
-                  >
-                    Enter coordinate
-                  </button>
-                </li>
+                      Browser objects
+                    </button>
+                  </li> : null
+                }
+
+                {
+                  showCatalogButton ?
+                  <li className="option">
+                    <button
+                      onClick={(event) => {this.handleReservationTypeClick(BY_CATELOG)}}
+                      className={this.buttonRenderedClasses(BY_CATELOG)}
+                      >
+                        Select by catalog #
+                    </button>
+                  </li> : null
+                }
+
+                {
+                  showCoordinateButton ?
+                  <li className="option">
+                    <button
+                      onClick={(event) => {this.handleReservationTypeClick(BY_COORDINATE)}}
+                      className={this.buttonRenderedClasses(BY_COORDINATE)}
+                    >
+                      Enter coordinate
+                    </button>
+                  </li> : null
+                }
               </ul>
             </div>
           </div>
@@ -180,13 +209,20 @@ class AvailableMission extends Component {
   }
 }
 
-AvailableMission.defaultProps = {
-  formOpen: false,
-};
-
+const { string, number, bool } = PropTypes;
 AvailableMission.propTypes = {
-  toggleFormDisplay: PropTypes.func.isRequired,
-  formOpen: PropTypes.bool.isRequired,
+  missionStart: number.isRequired,
+  showHoldOneHourButtonWhenExpanded: bool.isRequired,
+  showCancelHoldButtonWhenExpanded: bool.isRequired,
+  showCancelXWhenExpanded: bool.isRequired,
+  showEditCoordinatesButton: bool.isRequired,
+  showFinishReservationButton: bool.isRequired,
+
+  showBrowseButton: bool.isRequired,
+  showCatalogButton: bool.isRequired,
+  showCoordinateButton: bool.isRequired,
+
+  showSlotTimes: bool.isRequired,
 };
 
 export default AvailableMission;

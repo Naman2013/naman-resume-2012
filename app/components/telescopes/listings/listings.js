@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 
-import PiggybackOnMission from './reservation-slots/piggyback-on-mission';
+import MissionReserved from './reservation-slots/mission-reserved';
 import AvailableMission from './reservation-slots/available-mission';
 import MissionOnHold from './reservation-slots/mission-on-hold';
 import MissionConfirmModal from '../../missions/mission-confirm-modal';
@@ -16,32 +16,13 @@ const NOT_AVAILABLE = 'notavailable';
 
 
 class Listings extends Component {
-  constructor(props) {
-    super(props);
-
-    this.toggleFormDisplay = this.toggleFormDisplay.bind(this);
-  }
-
-  componentWillMount() {
-    this.setState({
-      formOpen: false,
-    });
-  }
-
-  toggleFormDisplay() {
-    const { formOpen } = this.state;
-    this.setState({
-      formOpen: !formOpen,
-    });
-  }
 
   renderReservationSlot(reservation) {
-    const { formOpen } = this.state;
     const { slotStatus } = reservation;
 
     if(slotStatus === RESERVED) {
       return(
-        <PiggybackOnMission
+        <MissionReserved
           key={reservation.missionIndex}
           {...reservation}
         />
@@ -52,8 +33,6 @@ class Listings extends Component {
       return(
         <AvailableMission
           key={reservation.missionIndex}
-          toggleFormDisplay={this.toggleFormDisplay}
-          formOpen={formOpen}
           {...reservation}
         />
       );
