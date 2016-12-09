@@ -7,7 +7,6 @@ class ReserveObjectsCategory extends Component {
 
   constructor(props) {
     super(props);
-
     this.clickHandler = this.clickHandler.bind(this);
   }
 
@@ -19,7 +18,7 @@ class ReserveObjectsCategory extends Component {
   }
 
   isItemSelected(selectedCategory, index) {
-    return selectedCategory && selectedCategory.itemIndex === index
+    return selectedCategory && selectedCategory.itemIndex === index;
   }
 
   getElementStyles(selectedCategory, index) {
@@ -41,7 +40,7 @@ class ReserveObjectsCategory extends Component {
                 <li
                   key={i}
                   onClick={ () => { this.clickHandler(item, i); } }
-                  className={this.getElementStyles(selectedCategory, i)} >
+                  className={this.getElementStyles(selectedCategory, i)}>
                   <img className="icon" src={item.categoryIcon} /> {item.title}
                 </li>
               );

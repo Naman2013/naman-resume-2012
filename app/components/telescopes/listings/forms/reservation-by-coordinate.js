@@ -18,6 +18,7 @@ const imageProcessingOptions = [
 
 class ReservationByCoordinate extends Component {
   render() {
+    const { showPlaceOnHold, showCancelHold } = this.props;
     return(
       <div className="reservation-form-container">
         <div className="reserveObjectPage reserve-by-coordinate two-up">
@@ -64,7 +65,14 @@ class ReservationByCoordinate extends Component {
           <div className="row">
             <div className="col-xs-12">
               <section className="actions-container">
-                <button className="btn-primary">Hold One Hour</button>
+                {
+                  showPlaceOnHold ?
+                  <button className="btn-primary">Hold One Hour</button> : null
+                }
+                {
+                  showCancelHold ?
+                  <button className="btn-primary">Cancel Hold</button> : null
+                }
                 <button className="btn-primary">Schedule Mission</button>
               </section>
             </div>
@@ -75,5 +83,16 @@ class ReservationByCoordinate extends Component {
     );
   }
 }
+
+ReservationByCoordinate.defaultProps = {
+  showPlaceOnHold: false,
+  showCancelHold: false,
+};
+
+const { string, number, bool } = PropTypes;
+ReservationByCoordinate.propTypes = {
+  showPlaceOnHold: bool,
+  showCancelHold: bool,
+};
 
 export default ReservationByCoordinate;

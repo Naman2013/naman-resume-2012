@@ -73,18 +73,35 @@ class AvailableMission extends Component {
 
   renderForm() {
     const { formType } = this.state;
+    const {
+      showHoldOneHourButtonWhenExpanded,
+      showCancelHoldButtonWhenExpanded,
+    } = this.props;
 
     switch(formType) {
       case BY_OBJECTS:
         return(
-          <ReservationByObjects />
+          <ReservationByObjects
+            showPlaceOnHold={showHoldOneHourButtonWhenExpanded}
+            showCancelHold={showCancelHoldButtonWhenExpanded}
+          />
         );
         break;
       case BY_CATELOG:
-        return(<ReservationByCatalog />);
+        return(
+          <ReservationByCatalog
+            showPlaceOnHold={showHoldOneHourButtonWhenExpanded}
+            showCancelHold={showCancelHoldButtonWhenExpanded}
+          />
+        );
         break;
       case BY_COORDINATE:
-        return(<ReservationByCoordinate />);
+        return(
+          <ReservationByCoordinate
+            showPlaceOnHold={showHoldOneHourButtonWhenExpanded}
+            showCancelHold={showCancelHoldButtonWhenExpanded}
+          />
+        );
         break;
       case NONE:
         return(null);
@@ -212,8 +229,10 @@ class AvailableMission extends Component {
 const { string, number, bool } = PropTypes;
 AvailableMission.propTypes = {
   missionStart: number.isRequired,
+
   showHoldOneHourButtonWhenExpanded: bool.isRequired,
   showCancelHoldButtonWhenExpanded: bool.isRequired,
+
   showCancelXWhenExpanded: bool.isRequired,
   showEditCoordinatesButton: bool.isRequired,
   showFinishReservationButton: bool.isRequired,
