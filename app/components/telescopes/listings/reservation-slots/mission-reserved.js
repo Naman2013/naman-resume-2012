@@ -19,7 +19,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 @connect(null, mapDispatchToProps)
-class PiggybackOnMission extends Component {
+class MissionReserved extends Component {
   constructor(props) {
     super(props);
 
@@ -75,7 +75,8 @@ class PiggybackOnMission extends Component {
       ownerLocation,
       slotIconURL,
       missionStart,
-      slotTitle } = this.props;
+      slotTitle,
+      showSlotTimes } = this.props;
 
     const containerClassnames = classnames({
       'telescope-listings-item': 1,
@@ -86,9 +87,12 @@ class PiggybackOnMission extends Component {
       <li className={containerClassnames}>
 
         <div className="col-xs-2">
-          <MissionTime
-            startTime={missionStart}
-          />
+          {
+            showSlotTimes ?
+            <MissionTime
+              startTime={missionStart}
+            /> : null
+          }
         </div>
 
         <div className="col-xs-4 slot-description">
@@ -124,7 +128,7 @@ class PiggybackOnMission extends Component {
 
 
 const { string, number, bool } = PropTypes;
-PiggybackOnMission.propTypes = {
+MissionReserved.propTypes = {
   showSloohUser: bool.isRequired,
 
   showUserDetails: bool.isRequired,
@@ -146,6 +150,8 @@ PiggybackOnMission.propTypes = {
 
   uniqueId: string,
   scheduledMissionId: number,
+
+  showSlotTimes: bool.isRequired,
 };
 
-export default PiggybackOnMission;
+export default MissionReserved;

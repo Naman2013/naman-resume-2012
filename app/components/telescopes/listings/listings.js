@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 
-import PiggybackOnMission from './reservation-slots/piggyback-on-mission';
+import MissionReserved from './reservation-slots/mission-reserved';
 import AvailableMission from './reservation-slots/available-mission';
 import MissionOnHold from './reservation-slots/mission-on-hold';
 import MissionConfirmModal from '../../missions/mission-confirm-modal';
@@ -22,7 +22,7 @@ class Listings extends Component {
 
     if(slotStatus === RESERVED) {
       return(
-        <PiggybackOnMission
+        <MissionReserved
           key={reservation.missionIndex}
           {...reservation}
         />

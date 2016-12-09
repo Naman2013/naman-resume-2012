@@ -125,7 +125,8 @@ class AvailableMission extends Component {
       missionStart,
       showBrowseButton,
       showCatalogButton,
-      showCoordinateButton} = this.props;
+      showCoordinateButton,
+      showSlotTimes } = this.props;
 
     const containerClassnames = classnames({
       'telescope-listings-item-inline-reservation': 1,
@@ -145,9 +146,12 @@ class AvailableMission extends Component {
             </div>
 
             <div className="col-xs-2">
-              <MissionTime
-                startTime={missionStart}
-              />
+              {
+                showSlotTimes ?
+                <MissionTime
+                  startTime={missionStart}
+                /> : null
+              }
             </div>
 
             <div className="col-xs-4 slot-description">
@@ -210,9 +214,15 @@ AvailableMission.propTypes = {
   missionStart: number.isRequired,
   showHoldOneHourButtonWhenExpanded: bool.isRequired,
   showCancelHoldButtonWhenExpanded: bool.isRequired,
+  showCancelXWhenExpanded: bool.isRequired,
+  showEditCoordinatesButton: bool.isRequired,
+  showFinishReservationButton: bool.isRequired,
+
   showBrowseButton: bool.isRequired,
   showCatalogButton: bool.isRequired,
   showCoordinateButton: bool.isRequired,
+
+  showSlotTimes: bool.isRequired,
 };
 
 export default AvailableMission;
