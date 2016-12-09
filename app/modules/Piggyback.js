@@ -28,6 +28,12 @@ export const closeConfirmationModal = () => (dispatch) => {
 };
 
 
+export const closeConfirmationModalReserveByTelescope = () => (dispatch) => {
+  dispatch(resetReservation());
+  dispatch();
+  dispatch(missionConfirmClose());
+};
+
 
 /**
   see documentation for reservePiggyback
@@ -100,7 +106,7 @@ export const grabPiggyback = (mission) => (dispatch, getState) => {
   }
 };
 
-export const grabPiggybackByTelescope = ({ uniqueId, scheduledMissionId }) => (dispatch) => {
+export const grabPiggybackByTelescope = ({ uniqueId, scheduledMissionId }) => (dispatch, getState) => {
   const { token, at, cid } = getState().user;
   return axios.post('/api/reservation/grabPiggyback', {
     token,
