@@ -1,6 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux';
 
 import PiggybackOnMission from './reservation-slots/piggyback-on-mission';
 import AvailableMission from './reservation-slots/available-mission';
@@ -15,18 +13,8 @@ const AVAILABLE = 'available';
 const ON_HOLD = 'onhold';
 const NOT_AVAILABLE = 'notavailable';
 
-const mapStateToProps = ({ piggyback }) => ({
-  piggyback,
-});
 
-const mapDispatchToProps = (dispatch) => ({
-  actions: bindActionCreators({
-    grabPiggybackByTelescope,
-    resetMissionAvailability,
-  }, dispatch),
-});
 
-@connect(mapStateToProps, mapDispatchToProps)
 class Listings extends Component {
   constructor(props) {
     super(props);
