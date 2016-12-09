@@ -121,7 +121,11 @@ class AvailableMission extends Component {
 
   render() {
     const { formType, formOpen } = this.state;
-    const { missionStart } = this.props;
+    const {
+      missionStart,
+      showBrowseButton,
+      showCatalogButton,
+      showCoordinateButton} = this.props;
 
     const containerClassnames = classnames({
       'telescope-listings-item-inline-reservation': 1,
@@ -153,30 +157,41 @@ class AvailableMission extends Component {
 
             <div className="col-xs-6 reservation-options-content">
               <ul className="reservation-options">
-                <li className="option">
-                  <button
-                    onClick={(event) => {this.handleReservationTypeClick(BY_OBJECTS)}}
-                    className={this.buttonRenderedClasses(BY_OBJECTS)}
-                  >
-                    Browser objects
-                  </button>
-                </li>
-                <li className="option">
-                  <button
-                    onClick={(event) => {this.handleReservationTypeClick(BY_CATELOG)}}
-                    className={this.buttonRenderedClasses(BY_CATELOG)}
+                {
+                  showBrowseButton ?
+                  <li className="option">
+                    <button
+                      onClick={(event) => {this.handleReservationTypeClick(BY_OBJECTS)}}
+                      className={this.buttonRenderedClasses(BY_OBJECTS)}
                     >
-                      Select by catalog #
-                  </button>
-                </li>
-                <li className="option">
-                  <button
-                    onClick={(event) => {this.handleReservationTypeClick(BY_COORDINATE)}}
-                    className={this.buttonRenderedClasses(BY_COORDINATE)}
-                  >
-                    Enter coordinate
-                  </button>
-                </li>
+                      Browser objects
+                    </button>
+                  </li> : null
+                }
+
+                {
+                  showCatalogButton ?
+                  <li className="option">
+                    <button
+                      onClick={(event) => {this.handleReservationTypeClick(BY_CATELOG)}}
+                      className={this.buttonRenderedClasses(BY_CATELOG)}
+                      >
+                        Select by catalog #
+                    </button>
+                  </li> : null
+                }
+
+                {
+                  showCoordinateButton ?
+                  <li className="option">
+                    <button
+                      onClick={(event) => {this.handleReservationTypeClick(BY_COORDINATE)}}
+                      className={this.buttonRenderedClasses(BY_COORDINATE)}
+                    >
+                      Enter coordinate
+                    </button>
+                  </li> : null
+                }
               </ul>
             </div>
           </div>
@@ -193,6 +208,11 @@ class AvailableMission extends Component {
 const { string, number, bool } = PropTypes;
 AvailableMission.propTypes = {
   missionStart: number.isRequired,
+  showHoldOneHourButtonWhenExpanded: bool.isRequired,
+  showCancelHoldButtonWhenExpanded: bool.isRequired,
+  showBrowseButton: bool.isRequired,
+  showCatalogButton: bool.isRequired,
+  showCoordinateButton: bool.isRequired,
 };
 
 export default AvailableMission;
