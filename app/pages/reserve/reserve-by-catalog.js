@@ -49,6 +49,7 @@ class ReserveByCatalog extends Component {
   }
 
   render() {
+    const { showPlaceOnHold, showCancelHold } = this.props;
     return (
       <div className={styles.reserveObjectPage}>
 
@@ -81,7 +82,14 @@ class ReserveByCatalog extends Component {
               <p className="sub-text">Your captures will be saved to the <br /> My Pictures area of the Telescopes menu.</p>
 
               <section className="actions-container">
-                <button className="btn-primary">Hold One Hour</button>
+                {
+                  showPlaceOnHold ?
+                  <button className="btn-primary">Hold One Hour</button> : null
+                }
+                {
+                  showCancelHold ?
+                  <button className="btn-primary">Cancel Hold</button> : null
+                }
                 <button className="btn-primary">Schedule Mission</button>
               </section>
             </div>
@@ -94,5 +102,16 @@ class ReserveByCatalog extends Component {
     )
   }
 }
+
+ReserveByCatalog.defaultProps = {
+  showPlaceOnHold: false,
+  showCancelHold: false,
+};
+
+const { string, number, bool } = PropTypes;
+ReserveByCatalog.propTypes = {
+  showPlaceOnHold: bool,
+  showCancelHold: bool,
+};
 
 export default ReserveByCatalog;

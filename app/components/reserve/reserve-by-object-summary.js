@@ -2,6 +2,22 @@ import React, { Component, PropTypes } from 'react';
 import styles from './reserve-by-object.scss';
 
 class ReserveObjectSummary extends Component {
+  constructor(props) {
+    super(props);
+    this.handleCancelHold = this.handleCancelHold.bind(this);
+    this.handleCreateHold = this.handleCreateHold.bind(this);
+  }
+
+  handleCancelHold(event) {
+    event.preventDefault();
+    console.log('TODO: handle cancel hold - reserve-by-object-summary');
+  }
+
+  handleCreateHold(event) {
+    event.preventDefault();
+    console.log('TODO: handle create hold - reserve-by-object-summary');
+  }
+
   render() {
     const {
       object,
@@ -9,12 +25,13 @@ class ReserveObjectSummary extends Component {
       scheduleMission,
       resetForm,
       makeReservation,
-      placeOnHold } = this.props;
+      placeOnHold,
+      cancelHold } = this.props;
 
     if(!object) {
       return null;
     }
-    
+
     return(
       <div className={styles.objectSummary}>
         <span className="title">{object.item.title}</span>
@@ -23,7 +40,10 @@ class ReserveObjectSummary extends Component {
 
         <section className="actions-container">
           {
-            placeOnHold ? <button className="btn-primary" onClick={clearBrowse}>Hold One Hour</button> : null
+            cancelHold ? <button className="btn-primary" onClick={this.handleCancelHold}>Cancel Hold</button> : null
+          }
+          {
+            placeOnHold ? <button className="btn-primary" onClick={this.handleCreateHold}>Hold One Hour</button> : null
           }
           {
             resetForm ? <button className="btn-primary" onClick={clearBrowse}>Reset Browse</button> : null
@@ -42,12 +62,15 @@ ReserveObjectSummary.defaultProps = {
   resetForm: true,
   makeReservation: true,
   placeOnHold: false,
+  cancelHold: false,
 };
 
+const { bool } = PropTypes;
 ReserveObjectSummary.propTypes = {
-  resetForm: PropTypes.bool,
-  makeReservation: PropTypes.bool,
-  placeOnHold: PropTypes.bool,
+  resetForm: bool,
+  makeReservation: bool,
+  placeOnHold: bool,
+  cancelHold: bool,
 };
 
 export default ReserveObjectSummary;

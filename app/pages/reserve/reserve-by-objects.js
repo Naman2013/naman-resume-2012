@@ -96,6 +96,7 @@ class ReserveObjects extends Component {
               resetForm={this.props.resetForm}
               makeReservation={this.props.makeReservations}
               placeOnHold={this.props.placeOnHold}
+              cancelHold={this.props.cancelHold}
             />
           </div>
         </div>
@@ -108,6 +109,7 @@ ReserveObjects.defaultProps = {
   resetForm: true,
   makeReservation: true,
   placeOnHold: false,
+  cancelHold: false,
 };
 
 ReserveObjects.propTypes = {
