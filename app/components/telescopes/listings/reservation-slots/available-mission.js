@@ -108,7 +108,7 @@ class AvailableMission extends Component {
   getAvailableSlotText() {
     const DEFAULT = 'This slot could be yours.';
     const RESERVING = 'Tell us where to aim this thing...';
-    const { formOpen } = this.props;
+    const { formOpen } = this.state;
 
     if(!formOpen) {
       return DEFAULT;
