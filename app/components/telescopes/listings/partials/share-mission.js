@@ -31,8 +31,8 @@ const SocialIcons = () => (
   </ul>
 );
 
-const SocialMissionText = () => (
-  <h4 className="title">You have <b>joined</b> this mission.</h4>
+const SocialMissionText = ({ text }) => (
+  <h4 className="title">{text}</h4>
 );
 
 const ShareMission = ({ showShareMissionIcons, shareMissionIconsText }) => {
@@ -40,7 +40,7 @@ const ShareMission = ({ showShareMissionIcons, shareMissionIconsText }) => {
     return(
       <ShareMissionContainer>
         <SocialIcons />
-        <SocialMissionText />
+        <SocialMissionText text={shareMissionIconsText} />
       </ShareMissionContainer>
     );
   }
@@ -56,7 +56,7 @@ const ShareMission = ({ showShareMissionIcons, shareMissionIconsText }) => {
   if(shareMissionIconsText) {
     return(
       <ShareMissionContainer>
-        <SocialMissionText />
+        <SocialMissionText text={shareMissionIconsText} />
       </ShareMissionContainer>
     );
   }

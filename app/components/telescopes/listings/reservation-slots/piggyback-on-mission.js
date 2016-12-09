@@ -142,7 +142,7 @@ PiggybackOnMission.propTypes = {
 
   showPiggybackButton: bool.isRequired,
   showShareMissionIcons: bool.isRequired,
-  shareMissionIconsText: bool.isRequired,
+  shareMissionIconsText: string.isRequired,
 
   uniqueId: string,
   scheduledMissionId: number,
