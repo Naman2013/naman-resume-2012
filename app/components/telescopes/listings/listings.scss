@@ -32,6 +32,20 @@ $listing_black: #424242;
         display: flex;
         align-items: center;
 
+        .slooh-brand-logo {
+          color: $black;
+
+          .logo {
+            width: 35px;
+            height: 35px;
+          }
+
+          .logo-text {
+            color: $black;
+            font-size: 40px;
+          }
+        }
+
         .title {
           margin-right: 10px;
           font-size: 12px;

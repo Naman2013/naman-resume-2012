@@ -18,9 +18,7 @@ class ByUserTag extends Component {
       photo,
       name,
       accountType,
-      city,
-      state,
-      country,
+      location,
       memberSince } = this.props;
 
     return(
@@ -33,7 +31,7 @@ class ByUserTag extends Component {
           <h4 className="username">
             {name} <span className="account-level">{accountType}</span>
             <br />
-            <span className={`user-details ${theme}`}>{city}, {state}, {country}. Member since {memberSince}</span>
+            <span className={`user-details ${theme}`}>{location} Member since {memberSince}</span>
           </h4>
         </div>
       </div>
@@ -50,10 +48,8 @@ ByUserTag.propTypes = {
   photo: PropTypes.string,
   name: PropTypes.string,
   accountType: PropTypes.string,
-  city: PropTypes.string,
-  state: PropTypes.string,
-  country: PropTypes.string,
   memberSince: PropTypes.string,
+  location: PropTypes.string,
 };
 
 export default ByUserTag;

@@ -11,7 +11,8 @@ import tags from './tag-management/Tags';
 import popularObjects from './browse-by-popular-objects/Popular-Objects';
 import usersUpcomingMission from './Users-Upcoming-Missions';
 import piggyback from './Piggyback';
-import missionSlotDates from './mission-slot-dates';
+import missionSlotDates from './mission-slots-by-telescope/mission-slot-dates-reducer';
+import missionSlotsByTelescope from './mission-slots-by-telescope/mission-slots-by-telescope-reducer';
 
 export default combineReducers({
   routing: routerReducer,
@@ -27,4 +28,5 @@ export default combineReducers({
   usersUpcomingMission,
   piggyback,
   missionSlotDates,
+  missionSlotsByTelescope,
 });

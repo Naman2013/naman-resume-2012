@@ -8,6 +8,9 @@ import styles from './mission-modals.scss';
 import PiggyBackConfirm from './confirm-modals/piggyback-confirm';
 import ReserveConfirm from './confirm-modals/reserve-confirm';
 
+// types of reservations...
+const RESERVE = 'reserve';
+const PIGGYBACK = 'piggyback';
 
 function mapDispatchToProps(dispatch) {
   return {
@@ -42,19 +45,22 @@ class MissionConfirmModal extends Component {
       confirmType,
       currentCard } = this.props.missions;
 
-    return (
-      confirmType === 'reserve' ?
-        <ReserveConfirm
-          currentCard={ currentCard }
-          open={ isConfirmationOpen }
-          closeModal={ this.closeModal } />
-        :
-        <PiggyBackConfirm
-          mission={ mission }
-          currentCard={ currentCard }
-          open={ isConfirmationOpen }
-          closeModal={ this.closeModal } />
-    )
+    if(confirmType === RESERVE) {
+      <ReserveConfirm
+        currentCard={currentCard}
+        open={isConfirmationOpen}
+        closeModal={this.closeModal} />
+    }
+
+    if(confirmType === PIGGYBACK) {
+      <PiggyBackConfirm
+        mission={mission}
+        currentCard={currentCard}
+        open={isConfirmationOpen}
+        closeModal={this.closeModal} />
+    }
+
+    return null;
   }
 };
 
