@@ -121,6 +121,7 @@ class AvailableMission extends Component {
 
   render() {
     const { formType, formOpen } = this.state;
+    const { missionStart } = this.props;
 
     const containerClassnames = classnames({
       'telescope-listings-item-inline-reservation': 1,
@@ -140,7 +141,9 @@ class AvailableMission extends Component {
             </div>
 
             <div className="col-xs-2">
-              <MissionTime />
+              <MissionTime
+                startTime={missionStart}
+              />
             </div>
 
             <div className="col-xs-4 slot-description">
@@ -186,5 +189,10 @@ class AvailableMission extends Component {
     );
   }
 }
+
+const { string, number, bool } = PropTypes;
+AvailableMission.propTypes = {
+  missionStart: number.isRequired,
+};
 
 export default AvailableMission;
