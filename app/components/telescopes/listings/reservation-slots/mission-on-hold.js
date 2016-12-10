@@ -31,7 +31,7 @@ class MissionOnHold extends Component {
 
         <div className="col-md-4 slot-description">
           <img className="slot-logo" src="assets/icons/question-mark.png" width="38" alt=""/>
-          <span className="slot-name">On Hold. Object Not Yet Set.</span>
+          <h4 className="slot-name">On Hold. Object Not Yet Set.</h4>
         </div>
 
         <div className="col-xs-4 reserved-by-user-content">

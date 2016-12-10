@@ -37,9 +37,17 @@ class DateSelectionNavigation extends Component {
     actions.fetchDateRanges({ obsId, telescopeId, domeId });
   }
 
-  forwardToURL(newDate) {
-    const newRoute = `${this.props.routeRoot}/${newDate}`;
-    hashHistory.push(newRoute);
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.routeRoot != this.props.routeRoot) {
+      const requestedDate = nextProps.missionSlotDates.dateRangeResponse.dateList[0].reservationDate;
+      const { actions, obsId, telescopeId, domeId } = nextProps;
+      actions.fetchDateRanges({
+        obsId,
+        telescopeId,
+        domeId,
+        requestedDate,
+      });
+    }
   }
 
   handleDateChange(requestedDate) {

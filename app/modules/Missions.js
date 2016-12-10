@@ -106,14 +106,49 @@ export function grabMissionSlot(mission) {
   return (dispatch, getState) => {
     const { token, at, cid } = getState().user;
 
-    // reset the state for loading the mission slot
     grabMissionSlotStart();
+
+    const {
+      scheduledMissionId,
+      callSource,
+      missionType,
+      missionStart,
+      obsId,
+      domeId,
+      telescopeId,
+      objectId,
+      objectType,
+      objectTitle,
+      objectRA,
+      objectDec,
+      catalog,
+      catName,
+      designation,
+      processingRecipe,
+      uniqueId,
+      } = mission;
 
     return axios.post('/api/reservation/grabMissionSlot', {
       token,
       at,
       cid,
-      ...mission,
+      scheduledMissionId,
+      callSource,
+      missionType,
+      missionStart,
+      obsId,
+      domeId,
+      telescopeId,
+      objectId,
+      objectType,
+      objectTitle,
+      objectRA,
+      objectDec,
+      catalog,
+      catName,
+      designation,
+      processingRecipe,
+      uniqueId,
     })
     .then(response => {
       dispatch( grabMissionSlotSuccess(response.data) );
@@ -352,15 +387,15 @@ const initialState = {
 
   piggybacks: [],
 
-  currentCard: null,
-  currentMissionSlot: null,
-  currentMissionSlotError: null,
+  currentCard: {},
+  currentMissionSlot: {},
+  currentMissionSlotError: {},
   fetchingCurrentMissionSlot: false,
 
   missionSlotJustReserved: false,
   missionSlotReservationError: false,
-  previousMissionSlotReservation: null,
-  previousMissionSlotReservationError: null,
+  previousMissionSlotReservation: {},
+  previousMissionSlotReservationError: {},
 };
 
 

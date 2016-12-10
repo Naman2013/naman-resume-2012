@@ -2,6 +2,7 @@ import axios from 'axios';
 import createReducer from './utils/createReducer';
 import createAction from './utils/createAction';
 import { missionConfirmOpen, missionConfirmClose, missionGetCards } from './Missions';
+import { fetchReservationList } from './mission-slots-by-telescope/mission-slots-by-telescope-actions';
 
 const GRAB_PIGGYBACK_SUCCESS = 'GRAB_PIGGYBACK_SUCCESS';
 const GRAB_PIGGYBACK_FAIL = 'GRAB_PIGGYBACK_FAIL';
@@ -20,19 +21,36 @@ const RESET_MISSION_UNAVAILABLE = 'RESET_MISSION_UNAVAILABLE';
 const CLOSE_CONFIRMATION_MODAL = 'CLOSE_CONFIRMATION_MODAL';
 
 
+/**
+  depending on the callSource, byTelescope or recommends
+  run the appropriate actions
+*/
+export const closeConfirmationModal = () => (dispatch, getState) => {
+  const { piggyback, missionSlotDates } = getState();
+  const { callSource, missionList } = piggyback.piggyback;
+  const { obsId, domeId, telescopeId } = missionList[0];
+  const { reservationDate } = missionSlotDates.dateRangeResponse.dateList[0];
+  const BY_TELESCOPE = 'byTelescope';
+  const RECOMMENDS = 'recommends';
 
-export const closeConfirmationModal = () => (dispatch) => {
   dispatch(resetReservation()); // reset state props to show the appropriate fields in the future
-  dispatch(missionGetCards()); // refresh the missions displayed to the user
+
+  if(callSource === BY_TELESCOPE) {
+    dispatch(fetchReservationList({
+      obsId,
+      domeId,
+      telescopeId,
+      reservationDate,
+    })); // refresh telescope reservation list
+  }
+
+  if(callSource === RECOMMENDS) {
+    dispatch(missionGetCards()); // refresh the missions displayed to the user
+  }
+
   dispatch(missionConfirmClose()); // dismiss the modal
 };
 
-
-export const closeConfirmationModalReserveByTelescope = () => (dispatch) => {
-  dispatch(resetReservation());
-  dispatch();
-  dispatch(missionConfirmClose());
-};
 
 
 /**
@@ -42,6 +60,7 @@ export const closeConfirmationModalReserveByTelescope = () => (dispatch) => {
 export const reservePiggyback = () => (dispatch, getState) => {
   const { token, at, cid } = getState().user;
   const { piggyback } = getState();
+  const { callSource } = piggyback.piggyback;
   const currentMission = piggyback.piggyback.missionList[0];
 
   dispatch(startPiggybackReservation());
@@ -50,6 +69,7 @@ export const reservePiggyback = () => (dispatch, getState) => {
     token,
     at,
     cid,
+    callSource,
     ...currentMission
   })
   .then(result => dispatch(reservePiggybackSuccess(result.data)))

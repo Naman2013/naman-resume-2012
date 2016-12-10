@@ -19,8 +19,8 @@ class NewMissionReservationSuccess extends Component {
       <div>
         <div className="modal-header">
           <h1 className="title">Congratulations</h1>
-          <h2 className="title-secondary">We've scheduled your mission to:</h2>
-          <img className={styles.cardIcon} src={ objectIconURL } />
+          <h2 className="title-secondary">We&#8217;ve scheduled your mission to:</h2>
+          <img height="50" className={styles.cardIcon} src={ objectIconURL } />
           <h2 className="mission-title">{ missionTitle }</h2>
           <p className="tips-and-tricks">
             <span className="highlight">Tip:</span> All Images from this mission will be automatically
