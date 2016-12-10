@@ -12,7 +12,7 @@ import TelescopeSelection from '../components/telescopes/selection-widget/telesc
 import CurrentSelectionHeader from '../components/telescopes/current-selection-header/header';
 import DateSelectionNavigation from '../components/telescopes/date-selection-navigation/date-selection-navigation';
 import Tips from '../components/telescopes/current-selection-header/tips';
-
+import GenericLoadingBox from '../components/common/loading-screens/generic-loading-box';
 import Listings from '../components/telescopes/listings/listings';
 
 function mapDispatchToProps(dispatch) {
@@ -51,13 +51,12 @@ class ReserveMissions extends Component {
 
     const currentTelescope = currentObservatory.obsTelescopes.find(telescope => telescope.teleUniqueId === params.teleUniqueId);
     const currentInstrument = currentTelescope.teleInstrumentList[0];
-    const reservationDate = params.reservationDate;
     const rootRoute = `reservations/reserve-by-telescope/${params.obsUniqueId}/${params.teleUniqueId}`;
 
     // console.log('current observatory', currentObservatory);
     // console.log('current telescope', currentTelescope);
     // console.log('instrument', currentInstrument);
-    console.log(missionSlotsByTelescope);
+    // console.log(missionSlotsByTelescope);
 
     return (
       <div className="reserve-by-telescope">
@@ -68,7 +67,6 @@ class ReserveMissions extends Component {
           params={params}
           showUTCTimer={false}
           rootRoute={`reservations/reserve-by-telescope`}
-          appendToRoute={`/${reservationDate}`}
         />
 
         <CurrentSelectionHeader
@@ -81,7 +79,6 @@ class ReserveMissions extends Component {
 
       	<DateSelectionNavigation
           routeRoot={rootRoute}
-          reservationDate={reservationDate}
           obsId={currentObservatory.obsId}
           domeId={currentInstrument.instrDomeId}
           telescopeId={currentTelescope.teleId}
@@ -89,11 +86,11 @@ class ReserveMissions extends Component {
 
         {
           reservationListIsFetching ?
-            `Waiting...`
-            :
-            <Listings
-              reservations={reservationList.missionList}
-            />
+          <GenericLoadingBox />
+          :
+          <Listings
+            reservations={reservationList.missionList}
+          />
         }
       </div>
     );

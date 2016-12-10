@@ -5,7 +5,9 @@ import { connect } from 'react-redux';
 import styles from '../mission-modals.scss';
 import moment from 'moment-timezone';
 import NewMissionReservationSuccess from './new-mission-reservation-success';
-import { reservePiggyback, closeConfirmationModal } from '../../../modules/Piggyback';
+import {
+  reservePiggyback,
+  closeConfirmationModal } from '../../../modules/Piggyback';
 
 const mapStateToProps = ({ piggyback }) => ({
   ...piggyback
@@ -22,7 +24,6 @@ const mapDispatchToProps = (dispatch) => ({
 class PiggyBackConfirm extends Component {
   constructor(props) {
     super(props);
-
     this.handleReservationClick = this.handleReservationClick.bind(this);
   }
 
@@ -34,11 +35,13 @@ class PiggyBackConfirm extends Component {
   render() {
     const { piggyback, reservationConfirmed, closeModal, open, currentCard } = this.props;
 
-    if(!piggyback.hasOwnProperty('missionList') || !currentCard) { return null; }
+    if(!piggyback.hasOwnProperty('missionList')) { return null; }
 
     const currentMission = piggyback.missionList[0];
-    const { missionStart, objectIconURL } = currentMission;
-    const { title, headline } = currentCard;
+    const { missionStart, objectIconURL, title } = currentMission;
+
+    // TODO: working on refactoring currentCard out of this component
+    const { headline } = currentCard || '';
 
     const formattedUTCDate = new Date(missionStart * 1000);
     const EST_start = moment.tz(formattedUTCDate, 'America/New_York').format('dddd, MMMM Do');
@@ -64,8 +67,8 @@ class PiggyBackConfirm extends Component {
 
             <div className="modal-body">
               <div className="mission-name">
-                <img className={styles.cardIcon} src={objectIconURL} />
-                <h4>{ title }</h4>
+                <img height="50" className={styles.cardIcon} src={objectIconURL} />
+                <h4>{title}</h4>
                 <p className="headline">{headline}</p>
               </div>
 
@@ -100,9 +103,9 @@ class PiggyBackConfirm extends Component {
 }
 
 PiggyBackConfirm.propTypes = {
-  open: PropTypes.bool,
+  open: PropTypes.bool.isRequired,
   currentCard: PropTypes.shape({
-    title: PropTypes.string,
+    headline: PropTypes.string,
   }),
 };
 

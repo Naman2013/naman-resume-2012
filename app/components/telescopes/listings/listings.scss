@@ -15,6 +15,7 @@ $listing_black: #424242;
 }
 
 .telescope-listings {
+  min-height: 1000px;
 
   .list {
     padding: 0;
@@ -112,6 +113,8 @@ $listing_black: #424242;
       }
 
       .slot-description {
+        display: flex;
+        align-items: center;
 
         .slot {
           &-logo {
@@ -128,7 +131,7 @@ $listing_black: #424242;
       }
 
       &.on-hold {
-        background: #fff;
+        background: $white;
         -webkit-box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.38) inset;
                 box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.38) inset;
 
@@ -145,6 +148,10 @@ $listing_black: #424242;
             font-size: 10px;
           }
         }
+      }
+
+      &.not-available {
+        background: $gray;
       }
     }
   }

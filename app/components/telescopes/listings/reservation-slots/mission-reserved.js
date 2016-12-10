@@ -2,11 +2,9 @@ import React, { Component, PropTypes } from 'react';
 import classnames from 'classnames';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-
 import MissionTime from '../partials/mission-time';
-import ByUserTag from '../../../common/by-user-tag/by-user-tag';
-import Logo from '../../../common/logo/logo';
 import ShareMission from '../partials/share-mission';
+import UserDetails from '../partials/user-details';
 import {
   grabPiggybackByTelescope,
   resetMissionAvailability } from '../../../../modules/Piggyback';
@@ -22,7 +20,6 @@ const mapDispatchToProps = (dispatch) => ({
 class MissionReserved extends Component {
   constructor(props) {
     super(props);
-
     this.handlePiggybackClick = this.handlePiggybackClick.bind(this);
   }
 
@@ -43,7 +40,7 @@ class MissionReserved extends Component {
         <div className="col-xs-2 piggyback-on-mission-action">
           <button
             onClick={this.handlePiggybackClick}
-            className="action"
+            className="btn-primary"
           >
             Piggyback on mission
           </button>
@@ -66,7 +63,6 @@ class MissionReserved extends Component {
     const {
       showSloohUser,
       showUserDetails,
-      ownerId,
       ownerFirstName,
       ownerMembershipType,
       ownerGuardianFlag,
@@ -97,25 +93,10 @@ class MissionReserved extends Component {
 
         <div className="col-xs-4 slot-description">
           <img className="slot-logo" src={slotIconURL} width="38" alt=""/>
-          <span className="slot-name">{slotTitle}</span>
+          <h4 className="slot-name">{slotTitle}</h4>
         </div>
 
-        <div className="col-xs-4 reserved-by-user-content">
-          <h3 className="title">Reserved by:</h3>
-          {
-            showSloohUser ?
-              <Logo />
-              :
-              <ByUserTag
-                theme="light"
-                photo={ownerAvatarURL}
-                name={ownerFirstName}
-                accountType={ownerMembershipType}
-                location={ownerLocation}
-                memberSince={ownerMemberSince}
-              />
-          }
-        </div>
+        <UserDetails {...this.props} />
 
         {
           this.renderMissionStatus()
@@ -132,7 +113,6 @@ MissionReserved.propTypes = {
   showSloohUser: bool.isRequired,
 
   showUserDetails: bool.isRequired,
-  ownerId: number.isRequired,
   ownerFirstName: string.isRequired,
   ownerMembershipType: string.isRequired,
   ownerGuardianFlag: bool.isRequired,

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import classnames from 'classnames';
 import moment from 'moment';
 import ExistingMissionCard from '../components/missions/existing-mission-card';
+import GenericLoadingBox from '../components/common/loading-screens/generic-loading-box';
 
 @connect(({ missions }) => ({
   cardList: missions.cardList || [],
@@ -42,7 +43,7 @@ export default class ExistingMissions extends Component {
               featured={card.cardType === 2}
               piggyback={ piggybacks.find((piggyback) => piggyback.uniqueId == card.uniqueId) }
             />
-          )) : 'waiting...'
+          )) : <GenericLoadingBox />
         }
       </div>
     );

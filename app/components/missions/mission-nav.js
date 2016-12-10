@@ -15,7 +15,6 @@ import moment from 'moment-timezone';
 
 const DEFAULT_OBSERVATORY_ID = 'd7f673a5-7908-11e6-a635-0eb2b1774883';
 const DEFAULT_INSTRUMENT_ID = '1ff72faa-7909-11e6-a635-0eb2b1774883';
-const DEFAULT_DATE = moment().format('YYYY-MM-DD');
 
 class MissionNav extends Component {
   render() {
@@ -52,7 +51,7 @@ class MissionNav extends Component {
           </li>
           <li>
             <Link
-              to={`/reservations/reserve-by-telescope/${DEFAULT_OBSERVATORY_ID}/${DEFAULT_INSTRUMENT_ID}/${DEFAULT_DATE}`}
+              to={`/reservations/reserve-by-telescope/${DEFAULT_OBSERVATORY_ID}/${DEFAULT_INSTRUMENT_ID}`}
               activeClassName="active">
               Reserve by telescope
             </Link>

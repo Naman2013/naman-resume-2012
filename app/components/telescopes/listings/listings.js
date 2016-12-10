@@ -3,7 +3,7 @@ import React, { Component, PropTypes } from 'react';
 import MissionReserved from './reservation-slots/mission-reserved';
 import AvailableMission from './reservation-slots/available-mission';
 import MissionOnHold from './reservation-slots/mission-on-hold';
-import MissionConfirmModal from '../../missions/mission-confirm-modal';
+import MissionNotAvailable from './reservation-slots/mission-not-available';
 
 import styles from './listings.scss';
 
@@ -16,7 +16,6 @@ const NOT_AVAILABLE = 'notavailable';
 
 
 class Listings extends Component {
-
   renderReservationSlot(reservation) {
     const { slotStatus } = reservation;
 
@@ -48,10 +47,12 @@ class Listings extends Component {
     }
 
     if(slotStatus === NOT_AVAILABLE) {
-      console.group('TODO: painting reservation list');
-      console.log('create not available slot type component');
-      console.groupEnd();
-      return null;
+      return(
+        <MissionNotAvailable
+          key={reservation.missionIndex}
+          {...reservation}
+        />
+      );
     }
   }
 
@@ -65,8 +66,6 @@ class Listings extends Component {
             reservations.map(reservation => this.renderReservationSlot(reservation))
           }
         </ul>
-
-        <MissionConfirmModal />
       </div>
     );
   }

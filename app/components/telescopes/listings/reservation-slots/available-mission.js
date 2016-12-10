@@ -123,7 +123,7 @@ class AvailableMission extends Component {
   }
 
   getAvailableSlotText() {
-    const DEFAULT = 'This slot could be yours.';
+    const DEFAULT = this.props.slotTitle;
     const RESERVING = 'Tell us where to aim this thing...';
     const { formOpen } = this.state;
 
@@ -143,7 +143,8 @@ class AvailableMission extends Component {
       showBrowseButton,
       showCatalogButton,
       showCoordinateButton,
-      showSlotTimes } = this.props;
+      showSlotTimes,
+      slotIconURL } = this.props;
 
     const containerClassnames = classnames({
       'telescope-listings-item-inline-reservation': 1,
@@ -172,8 +173,8 @@ class AvailableMission extends Component {
             </div>
 
             <div className="col-xs-4 slot-description">
-              <img className="slot-logo" src="assets/icons/alien-head.png" height="40" alt=""/>
-              <span className="slot-name">{this.getAvailableSlotText()}</span>
+              <img className="slot-logo" src={slotIconURL} height="40" alt=""/>
+              <h4 className="slot-name">{this.getAvailableSlotText()}</h4>
             </div>
 
             <div className="col-xs-6 reservation-options-content">
@@ -242,6 +243,9 @@ AvailableMission.propTypes = {
   showCoordinateButton: bool.isRequired,
 
   showSlotTimes: bool.isRequired,
+
+  slotIconURL: string.isRequired,
+  slotTitle: string.isRequired,
 };
 
 export default AvailableMission;

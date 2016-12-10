@@ -1,0 +1,14 @@
+@import '../../../styles/variables/fonts.scss';
+@import '../../../styles/variables/colors.scss';
+
+.generic-loading-box {
+  min-height: 600px;
+  padding-top: 100px;
+  text-align: center;
+  font-family: $primary-font;
+
+  .message {
+    color: $darkBlueGray;
+    font-size: 24px;
+  }
+}

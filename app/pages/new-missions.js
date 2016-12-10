@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import cx from 'classnames';
 import moment from 'moment';
 import NewMissionCard from '../components/missions/new-mission-card';
+import GenericLoadingBox from '../components/common/loading-screens/generic-loading-box';
 
 @connect(({ missions }) => ({
   cardList: missions.cardList || [],
@@ -33,7 +34,7 @@ export default class NewMissions extends React.Component {
     return (
 
       <div className="new-missions">
-        {!cards && 'waiting...'}
+        {!cards && <GenericLoadingBox />}
 
         {
           reservations.length > 0 && cards && cards.map(card => (
