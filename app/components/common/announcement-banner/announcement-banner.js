@@ -33,11 +33,14 @@ function mapDispatchToProps(dispatch) {
 class AnnouncementBanner extends Component {
 
   generateMessages() {
-    return this.props.announcementMessages.map(announcement => (
-      <p key={announcement.uniqueId} className={style.announcement}>
-        {announcement.text}
-      </p>
-    ));
+    const { announcementMessages } = this.props;
+    if(announcementMessages) {
+      return this.props.announcementMessages.map(announcement => (
+        <p key={announcement.uniqueId} className={style.announcement}>
+          {announcement.text}
+        </p>
+      ));
+    }
   }
 
   updateAnnouncements(obsId) {

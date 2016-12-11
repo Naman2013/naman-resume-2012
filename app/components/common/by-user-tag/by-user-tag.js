@@ -21,11 +21,13 @@ class ByUserTag extends Component {
       location,
       memberSince } = this.props;
 
+    const profilePhotoStyle = {
+      'backgroundImage': `url(${photo})`,
+    };
+
     return(
       <div className="slooh-by-user-tag">
-        <div className="profile-photo">
-          <img height="45" src={photo} />
-        </div>
+        <div className="profile-photo" style={profilePhotoStyle}></div>
 
         <div className="profile-name">
           <h4 className="username">
