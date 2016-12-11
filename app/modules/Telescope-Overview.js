@@ -1,5 +1,6 @@
 import createReducer from './utils/createReducer';
 import axios from 'axios';
+import { push } from 'react-router-redux';
 
 
 /**
@@ -38,29 +39,33 @@ export const getObservatoryList = (currentObservatoryId) => (dispatch, getState)
     // TODO: dispatch loading...
     const { token, at, cid } = getState().user;
 
-    return axios.post('/api/obs/list', {
-      at,
-      cid,
-      token,
-      lang: 'en',
-      status: 'live',
-      listType: 'full'
-    })
-    .then((response) => {
-      const { observatoryList } = response.data;
-      const monkeyPatchedObservatoryList = [defaultObservatoryOverviewDetails, ...observatoryList];
-      const currentObservatory = getCurrentObservatory(observatoryList, currentObservatoryId);
+    if(!token || !at || !cid) {
+      dispatch(push('/?redirect=not-logged-in'));
+    } else {
+      return axios.post('/api/obs/list', {
+        at,
+        cid,
+        token,
+        lang: 'en',
+        status: 'live',
+        listType: 'full'
+      })
+      .then((response) => {
+        const { observatoryList } = response.data;
+        const monkeyPatchedObservatoryList = [defaultObservatoryOverviewDetails, ...observatoryList];
+        const currentObservatory = getCurrentObservatory(observatoryList, currentObservatoryId);
 
-      dispatch(observatoryListSuccess(monkeyPatchedObservatoryList));
-      dispatch(fetchAllWidgetsByObservatory(currentObservatory));
+        dispatch(observatoryListSuccess(monkeyPatchedObservatoryList));
+        dispatch(fetchAllWidgetsByObservatory(currentObservatory));
 
-      // if we have an observatory to work with, then call for the telescope availability now
-      if(currentObservatory) {
-        const { obsId } = currentObservatory;
-        dispatch(fetchObservatoryTelescopeStatus(obsId));
-      }
-    })
-    .catch(error => dispatch(observatoryListError(error)))
+        // if we have an observatory to work with, then call for the telescope availability now
+        if(currentObservatory) {
+          const { obsId } = currentObservatory;
+          dispatch(fetchObservatoryTelescopeStatus(obsId));
+        }
+      })
+      .catch(error => dispatch(observatoryListError(error)));
+    }
   };
 
 

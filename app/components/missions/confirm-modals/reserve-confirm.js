@@ -3,6 +3,7 @@ import { Modal, Button } from 'react-bootstrap';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import moment from 'moment-timezone';
+import _ from 'lodash';
 
 import { cancelMissionSlot, reserveMissionSlot, missionGetCards } from '../../../modules/Missions';
 import { setTags } from '../../../modules/tag-management/Tags';
@@ -153,8 +154,8 @@ class ReserveConfirm extends Component {
     const { remainingTimestamp } = this.state;
 
     // validate whether or not we have a mission slot ready to render
-    if(!currentMissionSlot) { return null }
-
+    if(_.isEmpty(currentMissionSlot)) { return null; }
+    
     const missionData = currentMissionSlot.missionList[0];
     const formattedUTCDate = new Date(missionData.missionStart * 1000);
 

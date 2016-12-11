@@ -1,6 +1,7 @@
 import cookie from 'cookie';
 import createReducer from './utils/createReducer';
 import createAction from './utils/createAction';
+import { hashHistory } from 'react-router';
 
 const SET_USER = 'SET_USER';
 const REMOVE_USER = 'REMOVE_USER';
@@ -22,6 +23,7 @@ export function store(user) {
 
 export const logout = () => {
   destroySession();
+  hashHistory.push('/');
   window.location.reload();
 }
 
