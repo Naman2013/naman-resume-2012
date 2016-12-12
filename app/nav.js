@@ -3,7 +3,7 @@ export default [{
 		"en": "Home"
 	},
 	"icon": "/slooh/images/nav/home.png",
-	"link": "/#/",
+	"link": "/",
 	"type": "basic"
 }, {
 	"label": {
@@ -21,7 +21,7 @@ export default [{
 		"label": {
 			"en": "Recommendations"
 		},
-		"link": "#/reservations/slooh-recommends/existing",
+		"link": "reservations/slooh-recommends/existing",
 		"type": "basic"
 	}, {
 		"label": {
@@ -33,7 +33,7 @@ export default [{
 		"label": {
 			"en": "My Pictures"
 		},
-		"link": "/account/media",
+		"link": "#/my-pictures",
 		"type": "basic"
 	}, {
 		"type": "space"
@@ -41,13 +41,13 @@ export default [{
 		"label": {
 			"en": "All Telescopes"
 		},
-		"link": "#/telescope-overview/1",
+		"link": "telescope-overview/1",
 		"type": "basic"
 	}, {
 		"label": {
 			"en": "Canary Islands"
 		},
-		"link": "#/telescope-overview/d7f673a5-7908-11e6-a635-0eb2b1774883",
+		"link": "telescope-overview/d7f673a5-7908-11e6-a635-0eb2b1774883",
 		"type": "statuses",
 		"datasource": "http://slooh.askmp.ca/data/telescopes/statuses?id=1",
 		"children": [{
@@ -85,7 +85,7 @@ export default [{
 		"label": {
 			"en": "Chile"
 		},
-		"link": "#/telescope-overview/3f332115-7908-11e6-a635-0eb2b1774883",
+		"link": "telescope-overview/3f332115-7908-11e6-a635-0eb2b1774883",
 		"type": "statuses",
 		"datasource": "http://shows.slooh.askmp.ca/telescopes/statuses?id=2",
 		"children": [{

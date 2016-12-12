@@ -8,6 +8,7 @@ import configureStore from './store';
 import App from './containers/App';
 import Reservations from './containers/Reservations';
 import SloohRecommends from './containers/SloohRecommends';
+import MyPictures from './containers/my-pictures';
 
 // pages
 import Home from './pages/home';
@@ -20,6 +21,11 @@ import ReserveObjects from './pages/reserve/reserve-by-objects';
 import ReserveByCatalog from './pages/reserve/reserve-by-catalog';
 import BestOfSlooh from './pages/best-of-slooh/best-of-slooh';
 import ObjectPost from './pages/object-post/object-post';
+import PhotoRoll from './pages/my-pictures/photo-roll';
+import Galleries from './pages/my-pictures/galleries';
+import Missions from './pages/my-pictures/missions';
+import Favorites from './pages/my-pictures/favorites';
+import SloohMostPopular from './pages/my-pictures/slooh-most-popular';
 
 // global styles
 import Bootstrap from 'bootstrap/dist/css/bootstrap.css';
@@ -55,6 +61,15 @@ ReactDOM.render(
 
         <Route path="best-of-slooh" component={BestOfSlooh} />
         <Route path="object-post" component={ObjectPost} />
+
+        <Route path="my-pictures" component={MyPictures}>
+          <IndexRedirect to="photo-roll" />
+          <Route path="photo-roll" component={PhotoRoll} />
+          <Route path="favorites" component={Favorites} />
+          <Route path="galleries" component={Galleries} />
+          <Route path="missions" component={Missions} />
+          <Route path="slooh-most-popular" component={SloohMostPopular} />
+        </Route>
 
       </Route>
 

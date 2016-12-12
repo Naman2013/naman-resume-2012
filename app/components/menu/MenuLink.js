@@ -1,23 +1,38 @@
 import React, { Component } from 'react';
+import { Link, hashHistory } from 'react-router';
 
-export default class MenuLink extends Component {
-  handleClick = () => {
-    const { props: { handleClick, index } } = this;
 
+
+class MenuLink extends Component {
+  constructor(props) {
+    super(props);
+    this.handleMenuClick = this.handleMenuClick.bind(this);
+  }
+
+  handleMenuClick() {
+    const { handleClick, index, data } = this.props;
+    if(data.link) {
+      hashHistory.push(data.link);
+    }
     handleClick(index);
-  };
+  }
 
-  parseDataNav = en => `nav-${en.toLowerCase()}`;
+  parseDataNav(en) {
+    return `nav-${en.toLowerCase()}`;
+  }
 
   render() {
-    const { handleClick, parseDataNav, props: { data } } = this;
+    const { data } = this.props;
+    const { label } = data;
 
     return (
       <li>
-        <a onClick={handleClick} data-nav={parseDataNav(data.label.en)}>
-          {data.label.en}
+        <a onClick={this.handleMenuClick} data-nav={this.parseDataNav(label.en)}>
+          {label.en}
         </a>
       </li>
     );
   }
 }
+
+export default MenuLink;

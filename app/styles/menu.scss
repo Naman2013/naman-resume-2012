@@ -1,4 +1,5 @@
 @import './variables/fonts.scss';
+@import './variables/colors.scss';
 
 .menu-container {
   font-family: $primary-font;
@@ -20,10 +21,6 @@
       font-weight: bold;
       font-size: 14px;
       margin: 5px 0px 0px;
-    }
-
-    p {
-      font-size: 14px;
     }
 
     time {
@@ -199,20 +196,17 @@
 
 
 .menu {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 70px;
   height: 70px;
+  font-size: 34px;
   margin: 0;
-  background: #000 url('../../assets/icons/menu/menu-open.png') center center no-repeat;
-  :hover {
-    cursor: pointer;
-  }
-  .menu.active {
-    background: #000 url('../../assets/icons/menu/menu-close.svg') center center no-repeat;
-  }
+  cursor: pointer;
+  background: $black;
+  color: $white;
 }
-
-
-
 
 
 .open-menu, .close-menu {
