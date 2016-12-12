@@ -24,7 +24,11 @@ const initialState = {
 };
 
 export default createReducer(initialState, {
-  [MENU_SUBMENU_ACTIVATE](state, { index }) {
+  [MENU_SUBMENU_ACTIVATE](state, { index }) {;
+    /**
+      TODO: rebuild the left menu to handle all use cases
+      index 0 === home, there are no child navigation elements
+    */
     return {
       ...state,
       isActive: true,
@@ -61,7 +65,19 @@ export default createReducer(initialState, {
   },
 });
 
-export const activateMenu = createAction(MENU_SUBMENU_ACTIVATE, 'index');
+// export const activateMenu = createAction(MENU_SUBMENU_ACTIVATE, 'index');
+
+export const activateMenu = (index) => (dispatch) => {
+  if(index === 0) {
+    dispatch(deactivateMenu());
+  } else {
+    dispatch({
+      type: MENU_SUBMENU_ACTIVATE,
+      index,
+    });
+  }
+};
+
 export const deactivateMenu = createAction(MENU_SUBMENU_DEACTIVATE);
 
 export function fetchMenuItems() {

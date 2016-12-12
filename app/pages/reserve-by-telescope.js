@@ -90,6 +90,7 @@ class ReserveMissions extends Component {
           :
           <Listings
             reservations={reservationList.missionList}
+            allowReservations={reservationList.allowReservations}
           />
         }
       </div>

@@ -13,7 +13,7 @@ import MenuSocial from './../components/menu/MenuSocial';
 
 const { number, bool, string, func, array } = PropTypes;
 
-class MenuComponent extends Component {
+class Menu extends Component {
   static propTypes = {
     source: string.isRequired,
     fetchMenuItems: func.isRequired,
@@ -24,26 +24,34 @@ class MenuComponent extends Component {
     menuItems: array.isRequired,
   };
 
+  constructor(props) {
+    super(props);
+
+    this.toggleDrawer = this.toggleDrawer.bind(this);
+    this.handleClickOutside = this.handleClickOutside.bind(this);
+    this.handleRootNavigationClick = this.handleRootNavigationClick.bind(this);
+  }
+
   componentDidMount() {
     this.props.fetchMenuItems();
   }
 
   getPrimaryMenuLink = el => (el.type === 'basic' ? el.link : `/${el.label.en.toLowerCase()}`);
 
-  toggleDrawer = () => {
+  toggleDrawer() {
     if (!this.props.isActive) {
-      this.props.activateMenu();
+      this.props.activateMenu(1);
     } else {
       this.props.deactivateMenu();
     }
   }
 
-  handleClickOutside = () => {
+  handleClickOutside() {
     this.props.deactivateMenu();
   }
 
-  handleClick = (index) => {
-    if (this.props.activeMenuIndex === index) {
+  handleRootNavigationClick(index) {
+    if(this.props.activeMenuIndex === index || index === 0) {
       this.props.deactivateMenu();
     } else {
       this.props.activateMenu(index);
@@ -51,18 +59,32 @@ class MenuComponent extends Component {
   }
 
   render() {
+    const { isActive, menuItems } = this.props;
+
     return (
       <aside className="menu-container">
-        <p className={classnames('menu', { active: this.props.isActive })} onClick={this.toggleDrawer} />
+        {
+          isActive ?
+          <p className="menu" onClick={this.toggleDrawer}><span className="fa fa-close"></span></p>
+          :
+          <p className="menu" onClick={this.toggleDrawer}><span className="fa fa-bars"></span></p>
+        }
+
         <nav>
           <ul>
-            {this.props.menuItems.map((item, index) => {
-              return (
-                <MenuLink key={index} index={index} data={item} handleClick={this.handleClick} />
-              );
-            })}
+            {
+              menuItems.map((item, index) => (
+                <MenuLink
+                  key={index}
+                  index={index}
+                  data={item}
+                  handleClick={this.handleRootNavigationClick}
+                />
+              ))
+            }
           </ul>
         </nav>
+
         <ReactCSSTransitionGroup
           component="div"
           transitionName="left-submenu"
@@ -70,15 +92,17 @@ class MenuComponent extends Component {
           transitionLeaveTimeout={250}
         >
           {this.props.menuItems.map((item, index) => {
-            if (item.type === 'children' && this.props.activeMenuIndex === index) {
+            if(item.type === 'children' && this.props.activeMenuIndex === index) {
               return (
                 <Submenu key={index} data={item.children} />
               );
             }
           })}
         </ReactCSSTransitionGroup>
+
         <MenuSocial />
-      </aside>
+
+    </aside>
     );
   }
 }
@@ -91,4 +115,5 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(menuActions, dispatch);
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(onClickOutside(MenuComponent));
+
+export default connect(mapStateToProps, mapDispatchToProps)(onClickOutside(Menu));

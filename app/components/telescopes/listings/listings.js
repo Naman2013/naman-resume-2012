@@ -4,6 +4,7 @@ import MissionReserved from './reservation-slots/mission-reserved';
 import AvailableMission from './reservation-slots/available-mission';
 import MissionOnHold from './reservation-slots/mission-on-hold';
 import MissionNotAvailable from './reservation-slots/mission-not-available';
+import NoMissionsAvailable from './reservation-slots/no-missions-available';
 
 import styles from './listings.scss';
 
@@ -17,7 +18,17 @@ const NOT_AVAILABLE = 'notavailable';
 
 class Listings extends Component {
   renderReservationSlot(reservation) {
+    const { allowReservations } = this.props;
     const { slotStatus } = reservation;
+
+    if(!allowReservations && slotStatus === NOT_AVAILABLE) {
+      return(
+        <NoMissionsAvailable
+          key={reservation.missionIndex}
+          {...reservation}
+        />
+      );
+    }
 
     if(slotStatus === RESERVED) {
       return(
@@ -71,9 +82,10 @@ class Listings extends Component {
   }
 }
 
-const { string, number, bool } = PropTypes;
+const { string, number, bool, arrayOf } = PropTypes;
 Listings.propTypes = {
-  reservations: PropTypes.arrayOf(PropTypes.shape({
+  allowReservations: bool.isRequired,
+  reservations: arrayOf(PropTypes.shape({
     missionIndex: number.isRequired,
     scheduledMissionId: number.isRequired,
     uniqueId: string.isRequired,
