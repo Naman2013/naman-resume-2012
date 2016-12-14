@@ -38,7 +38,12 @@ class PiggyBackConfirm extends Component {
     if(!piggyback.hasOwnProperty('missionList')) { return null; }
 
     const currentMission = piggyback.missionList[0];
-    const { missionStart, objectIconURL, title } = currentMission;
+    const {
+      missionStart,
+      objectIconURL,
+      title,
+      obsName,
+      telescopeName } = currentMission;
 
     // TODO: working on refactoring currentCard out of this component
     const { headline } = currentCard || '';
@@ -56,7 +61,6 @@ class PiggyBackConfirm extends Component {
 
     return (
       <Modal show={open} className={styles.missionModal}>
-
         {
           !reservationConfirmed ?
           <div>
@@ -77,7 +81,7 @@ class PiggyBackConfirm extends Component {
                 <p>
                   {EST_start}<br />
                   {EST_start_time} &middot; {PST_start_time} &middot; {UTC_start_time}<br />
-                  Canary Islands
+                  {telescopeName}
                 </p>
               </div>
             </div>
@@ -95,6 +99,7 @@ class PiggyBackConfirm extends Component {
             missionStartTime={missionStart}
             missionTitle={title}
             objectIconURL={objectIconURL}
+            telescopeName={telescopeName}
           />
         }
       </Modal>

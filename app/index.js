@@ -26,6 +26,7 @@ import Galleries from './pages/my-pictures/galleries';
 import Missions from './pages/my-pictures/missions';
 import Favorites from './pages/my-pictures/favorites';
 import SloohMostPopular from './pages/my-pictures/slooh-most-popular';
+import PublishPost from './pages/community/publish-post';
 
 // global styles
 import Bootstrap from 'bootstrap/dist/css/bootstrap.css';
@@ -61,6 +62,7 @@ ReactDOM.render(
 
         <Route path="best-of-slooh" component={BestOfSlooh} />
         <Route path="object-post" component={ObjectPost} />
+        <Route path="publish-post" component={PublishPost} />
 
         <Route path="my-pictures" component={MyPictures}>
           <IndexRedirect to="photo-roll" />

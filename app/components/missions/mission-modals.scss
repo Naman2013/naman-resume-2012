@@ -140,11 +140,18 @@
 
   .title-bar {
     background: #000;
-    h3 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 0;
+
+    .title {
       margin: 0;
-      padding: 10px 0;
       color: #B9D9D9;
       font-size: 14px;
+      font-weight: normal;
+      text-transform: none;
+      padding-left: 10px;
     }
   }
 

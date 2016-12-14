@@ -65,8 +65,28 @@ class NewMissionCard extends Component {
 
     grabMissionSlot(mission);
 
-    // now open the reservation modal
     openModal('reserve', card);
+  }
+
+  renderMissionTime() {
+    const { featured } = this.props;
+    const { missionStart } = this.props.reservation;
+
+    const formattedUTCDate = new Date(missionStart * 1000);
+
+    const EST_start = moment.tz(formattedUTCDate, 'America/New_York').format('dddd, MMMM Do');
+    const EST_start_time = moment.tz(formattedUTCDate, 'America/New_York').format('h:mma z');
+    const PST_start_time = moment.tz(formattedUTCDate, 'America/Los_Angeles').format('h:mma z');
+    const UTC_start_time = moment.utc(formattedUTCDate).format('HH:mm z');
+
+    return(
+      <div className="mission-available">
+        <p className="start-time">
+          <strong>{ EST_start }{ featured ? ':' : '' }</strong>
+          { !featured ? <br /> : null} { EST_start_time } <span className="highlight">&middot;</span> { PST_start_time } <span className="highlight">&middot;</span> { UTC_start_time }
+        </p>
+      </div>
+    );
   }
 
   renderCallToAction() {
@@ -74,22 +94,9 @@ class NewMissionCard extends Component {
     const { openModal, card, featured } = this.props;
 
     if(missionAvailable) {
-
-      const formattedUTCDate = new Date(missionStart * 1000);
-
-      const EST_start = moment.tz(formattedUTCDate, 'America/New_York').format('dddd, MMMM Do');
-      const EST_start_time = moment.tz(formattedUTCDate, 'America/New_York').format('h:mma z');
-      const PST_start_time = moment.tz(formattedUTCDate, 'America/Los_Angeles').format('h:mma z');
-      const UTC_start_time = moment.utc(formattedUTCDate).format('HH:mm z');
-
       return(
         <div>
-          <div className="mission-available">
-            <p className="start-time">
-              <strong>{ EST_start }{ featured ? ':' : '' }</strong>
-              { !featured ? <br /> : null} { EST_start_time } <span className="highlight">&middot;</span> { PST_start_time } <span className="highlight">&middot;</span> { UTC_start_time }
-            </p>
-          </div>
+          {this.renderMissionTime()}
           <Link
             className={ styles.piggybackCta }
             to="#"
@@ -101,6 +108,33 @@ class NewMissionCard extends Component {
     }
 
     return null;
+  }
+
+  determineMissionStatusMessage() {
+    const { reservation } = this.props;
+
+    if(reservation.userHasReservation) {
+      return(
+        <div>
+          <h5 className="mission-status">You have an upcoming { reservation.userReservationType } reservation scheduled for</h5>
+          <div className="join-mission-callout">
+            {this.renderMissionTime()}
+          </div>
+        </div>
+      );
+    }
+
+    if(reservation.missionAvailable) {
+      return(
+        <h5 className="mission-status">Set up a new mission</h5>
+      );
+    }
+
+    if(!reservation.missionAvailable) {
+      return(
+        <h5 className="mission-status">No existing missions are available</h5>
+      );
+    }
   }
 
   render() {
@@ -144,14 +178,11 @@ class NewMissionCard extends Component {
           }
 
           {
-            missionAvailable ?
-              <h5 className="mission-status">Set up a new mission</h5>
-              :
-              <h5 className="mission-status">No mission is available at this time.</h5>
+            this.determineMissionStatusMessage()
           }
 
           <div className="join-mission-callout">
-            { this.renderCallToAction() }
+            {this.renderCallToAction()}
           </div>
         </div>
 

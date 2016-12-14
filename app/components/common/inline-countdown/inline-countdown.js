@@ -11,17 +11,34 @@ class InlineCountdown extends Component {
     this.state = {
       remainingTime: null,
     };
+
+    this.bootstrapTimer = this.bootstrapTimer.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     const { startTime } = this.props;
+    this.bootstrapTimer(startTime);
+  }
 
-    const expires = moment( startTime * 1000 );
-    const duration = expires.diff( moment() );
+  componentWillReceiveProps(nextProps) {
+    const nextStartTime = nextProps.startTime;
+    const currentStartTime = this.props.startTime;
+    if(nextStartTime != currentStartTime) {
+      this.bootstrapTimer(nextStartTime);
+    }
+  }
+
+  bootstrapTimer(time) {
+    const expires = moment(time * 1000);
+    const duration = expires.diff(moment());
 
     this.setState({
       remainingTime: duration,
     });
+
+    if(this.timer) {
+      clearInterval(this.timer);
+    }
 
     this.timer = setInterval( () => {
       const { remainingTime } = this.state;
@@ -30,14 +47,14 @@ class InlineCountdown extends Component {
       const minutesRemaining = updatedTime.minutes();
       const secondsRemaining = updatedTime.seconds();
 
-      if( minutesRemaining <= 0 && secondsRemaining <= 0 ) {
+      if(minutesRemaining <= 0 && secondsRemaining <= 0) {
         exitAction();
       } else {
         this.setState({
           remainingTime: updatedTime,
         });
       }
-    } , 1000 );
+    }, 1000);
   }
 
   componentWillUnmount() {
@@ -47,6 +64,9 @@ class InlineCountdown extends Component {
   }
 
   render() {
+
+
+
     const { remainingTime } = this.state;
     const formattedTime = moment( remainingTime ).format( 'm:ss' );
     return(
