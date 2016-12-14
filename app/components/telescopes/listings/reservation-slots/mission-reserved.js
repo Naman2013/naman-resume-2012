@@ -42,7 +42,7 @@ class MissionReserved extends Component {
             onClick={this.handlePiggybackClick}
             className="btn-primary"
           >
-            Piggyback on mission
+            Piggyback on Mission
           </button>
         </div>
       );
@@ -61,14 +61,6 @@ class MissionReserved extends Component {
 
   render() {
     const {
-      showSloohUser,
-      showUserDetails,
-      ownerFirstName,
-      ownerMembershipType,
-      ownerGuardianFlag,
-      ownerMemberSince,
-      ownerAvatarURL,
-      ownerLocation,
       slotIconURL,
       missionStart,
       slotTitle,
@@ -113,7 +105,7 @@ MissionReserved.propTypes = {
   showSloohUser: bool.isRequired,
 
   showUserDetails: bool.isRequired,
-  ownerFirstName: string.isRequired,
+  ownerDisplayName: string.isRequired,
   ownerMembershipType: string.isRequired,
   ownerGuardianFlag: bool.isRequired,
   ownerMemberSince: string.isRequired,

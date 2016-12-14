@@ -5,8 +5,12 @@ import styles from '../mission-modals.scss';
 
 class NewMissionReservationSuccess extends Component {
   render() {
-
-    const { closeModal, missionStartTime, missionTitle, objectIconURL } = this.props;
+    const {
+      closeModal,
+      missionStartTime,
+      missionTitle,
+      objectIconURL,
+      telescopeName } = this.props;
 
     const formattedUTCDate = new Date(missionStartTime * 1000);
 
@@ -33,7 +37,8 @@ class NewMissionReservationSuccess extends Component {
             <h4>Mission Details:</h4>
             <p>
               {EST_start}<br />
-              {EST_start_time} &middot; {PST_start_time} &middot; {UTC_start_time}
+              {EST_start_time} &middot; {PST_start_time} &middot; {UTC_start_time}<br />
+              {telescopeName}
             </p>
           </div>
         </div>
@@ -65,6 +70,7 @@ NewMissionReservationSuccess.propTypes = {
   missionStartTime: PropTypes.number.isRequired,
   missionTitle: PropTypes.string.isRequired,
   objectIconURL: PropTypes.string.isRequired,
+  telescopeName: PropTypes.string.isRequired,
 };
 
 export default NewMissionReservationSuccess;

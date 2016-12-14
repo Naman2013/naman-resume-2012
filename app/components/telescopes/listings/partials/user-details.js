@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import ByUserTag from '../../../common/by-user-tag/by-user-tag';
+import Logo from '../../../common/logo/logo';
 
 const UserDetailsContainer = ({ children }) => (
   <div className="col-xs-4 reserved-by-user-content">
@@ -14,26 +15,26 @@ class UserDetails extends Component {
       showUserDetails,
       showSloohUser,
       ownerAvatarURL,
-      ownerFirstName,
+      ownerDisplayName,
       ownerMembershipType,
       ownerLocation,
       ownerMemberSince } = this.props;
 
-    if(showUserDetails) {
-      if(showSloohUser) {
-        return(
-          <UserDetailsContainer>
-            <Logo />
-          </UserDetailsContainer>
-        );
-      }
+    if(showSloohUser) {
+      return(
+        <UserDetailsContainer>
+          <Logo />
+        </UserDetailsContainer>
+      );
+    }
 
+    if(showUserDetails) {
       return(
         <UserDetailsContainer>
           <ByUserTag
             theme="light"
             photo={ownerAvatarURL}
-            name={ownerFirstName}
+            name={ownerDisplayName}
             accountType={ownerMembershipType}
             location={ownerLocation}
             memberSince={ownerMemberSince}
@@ -51,7 +52,7 @@ UserDetails.propTypes = {
   showUserDetails: bool.isRequired,
   showSloohUser: bool.isRequired,
   ownerAvatarURL: string.isRequired,
-  ownerFirstName: string.isRequired,
+  ownerDisplayName: string.isRequired,
   ownerMembershipType: string.isRequired,
   ownerLocation: string.isRequired,
   ownerMemberSince: string.isRequired,

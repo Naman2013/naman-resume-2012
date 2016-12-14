@@ -35,8 +35,6 @@ class ReserveConfirm extends Component {
 
     this.state = {
       objective: '',
-      countDownTimer: null,
-      remainingTimestamp: null,
     };
 
     this.onSubmit = this.onSubmit.bind(this);
@@ -151,11 +149,9 @@ class ReserveConfirm extends Component {
       missionSlotJustReserved,
     } = this.props;
 
-    const { remainingTimestamp } = this.state;
-
     // validate whether or not we have a mission slot ready to render
     if(_.isEmpty(currentMissionSlot)) { return null; }
-    
+
     const missionData = currentMissionSlot.missionList[0];
     const formattedUTCDate = new Date(missionData.missionStart * 1000);
 
@@ -170,7 +166,7 @@ class ReserveConfirm extends Component {
     };
 
     return (
-      <Modal show={ open } className="missionModal reserveMissionModal">
+      <Modal show={open} className="missionModal reserveMissionModal">
 
         {
           missionSlotJustReserved ?
@@ -178,7 +174,8 @@ class ReserveConfirm extends Component {
           :
           <div>
             <div className="title-bar">
-              <h3>
+              <div className="icon"><img width="25" height="25" src="https://vega.slooh.com/icons/reservations/stopwatch.svg" /></div>
+              <h3 className="title">
                 Please complete your reservation form within <InlineCountdown startTime={missionData.expires} exitAction={this.cancelMissionAndCloseModal} />
               </h3>
             </div>

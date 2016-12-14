@@ -6,6 +6,7 @@ import moment from 'moment-timezone';
 import classnames from 'classnames';
 import { hashHistory } from 'react-router';
 import _ from 'lodash';
+import LastRefreshed from './last-refreshed';
 import { fetchDateRanges } from '../../../modules/mission-slots-by-telescope/mission-slot-dates-actions';
 import style from './date-selection-navigation.scss';
 
@@ -22,10 +23,16 @@ const mapDispatchToProps = (dispatch) => ({
   }, dispatch),
 });
 
+const INITIAL_REFRESH_TIME = 0;
+
 @connect(mapStateToProps, mapDispatchToProps)
 class DateSelectionNavigation extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      lastRefreshed: INITIAL_REFRESH_TIME,
+    };
 
     this.handleDateChange = this.handleDateChange.bind(this);
     this.handlePreviousClick = this.handlePreviousClick.bind(this);
@@ -46,6 +53,10 @@ class DateSelectionNavigation extends Component {
         telescopeId,
         domeId,
         requestedDate,
+      });
+
+      this.setState({
+        lastRefreshed: INITIAL_REFRESH_TIME,
       });
     }
   }
@@ -82,6 +93,8 @@ class DateSelectionNavigation extends Component {
       dateRangeIsError,
       dateRangeIsFetching } = this.props.missionSlotDates;
 
+    const { lastRefreshed } = this.state;
+
     if(dateRangeIsFetching || dateRangeIsError) {
       return null;
     }
@@ -113,7 +126,7 @@ class DateSelectionNavigation extends Component {
         <div className="current-date-content">
           <h3 className="title">The night of</h3>
           <p className="current-time">{reservationDateFormatted}</p>
-          <h5 className="last-updated">Last updated 21 seconds ago.</h5>
+          <h5 className="last-updated">Last updated <LastRefreshed startCounter={lastRefreshed} />.</h5>
         </div>
 
         <div className="progress-time-action">

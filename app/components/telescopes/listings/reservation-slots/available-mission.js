@@ -186,7 +186,7 @@ class AvailableMission extends Component {
                       onClick={(event) => {this.handleReservationTypeClick(BY_OBJECTS)}}
                       className={this.buttonRenderedClasses(BY_OBJECTS)}
                     >
-                      Browser objects
+                      Browse Objects
                     </button>
                   </li> : null
                 }
@@ -198,7 +198,7 @@ class AvailableMission extends Component {
                       onClick={(event) => {this.handleReservationTypeClick(BY_CATELOG)}}
                       className={this.buttonRenderedClasses(BY_CATELOG)}
                       >
-                        Select by catalog #
+                        Select by Catalog #
                     </button>
                   </li> : null
                 }
@@ -210,7 +210,7 @@ class AvailableMission extends Component {
                       onClick={(event) => {this.handleReservationTypeClick(BY_COORDINATE)}}
                       className={this.buttonRenderedClasses(BY_COORDINATE)}
                     >
-                      Enter coordinate
+                      Enter Coordinates
                     </button>
                   </li> : null
                 }
