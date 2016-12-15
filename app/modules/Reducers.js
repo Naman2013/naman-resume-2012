@@ -13,6 +13,8 @@ import usersUpcomingMission from './Users-Upcoming-Missions';
 import piggyback from './Piggyback';
 import missionSlotDates from './mission-slots-by-telescope/mission-slot-dates-reducer';
 import missionSlotsByTelescope from './mission-slots-by-telescope/mission-slots-by-telescope-reducer';
+import currentMission from './current-mission/get-current-mission-reducer';
+import activeTelescopeMissions from './active-telescope-missions/active-telescope-missions-reducer';
 
 export default combineReducers({
   routing: routerReducer,
@@ -29,4 +31,6 @@ export default combineReducers({
   piggyback,
   missionSlotDates,
   missionSlotsByTelescope,
+  currentMission,
+  activeTelescopeMissions,
 });

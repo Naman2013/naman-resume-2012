@@ -4,6 +4,7 @@ import CountdownTimer from './countdown-timer';
 import TelescopeImageLoader from '../../common/telescope-image-loader/telescope-image-loader';
 import VideoImageLoader from '../../common/telescope-image-loader/video-image-loader';
 import TelescopeOffline from './telescope-offline';
+import obsIdTeleIdDomeIdFromTeleId from '../../../utils/obsid-teleid-domeid-from-teleid';
 import style from './card-front.scss';
 
 import moment from 'moment';
@@ -53,7 +54,8 @@ class CardFront extends Component {
       on this.props.teleImageSourceType
       expecting video or SSE
     */
-    const { teleImageSourceType } = this.props;
+    const { teleImageSourceType, teleId } = this.props;
+    const idSet = obsIdTeleIdDomeIdFromTeleId(teleId);
 
     if(teleImageSourceType === 'video') {
       const {
@@ -77,9 +79,13 @@ class CardFront extends Component {
         <TelescopeImageLoader
           loadThumbnails={true}
           imageSource={generateSseImageSource(teleSystem, telePort)}
-          teleId={this.props.teleId}
-          teleFade={this.props.teleFade}
-          teleThumbWidth={this.props.teleThumbWidth} />
+          teleId={idSet.teleId}
+          obsId={idSet.obsId}
+          domeId={idSet.domeId}
+          teleFade={String(this.props.teleFade)}
+          teleThumbWidth={this.props.teleThumbWidth}
+          missionFormat="compact"
+        />
       );
     }
   }

@@ -34,7 +34,10 @@ export const fetchDateRanges = ({
       reservationDate,
     }));
   })
-  .catch(error => dispatch(fetchDateRangesFail(error)));
+  .catch(error => {
+    dispatch(fetchDateRangesFail(error));
+    throw(error);
+  });
 };
 
 const fetchDateRangesSuccess = (payload) => ({
