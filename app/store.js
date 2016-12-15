@@ -20,6 +20,7 @@ export default function configureStore(initialState) {
       applyMiddleware(
         thunkMiddleware,
         callAPIMiddleware,
+        logger,
         routerMiddleware(hashHistory)
       ),
       window.devToolsExtension ? window.devToolsExtension() : f => f

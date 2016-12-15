@@ -26,7 +26,7 @@ function mapDispatchToProps(dispatch) {
 function mapStateToProps({ missions, telescopeOverview, missionSlotsByTelescope }, ownProps) {
   return {
     observatoryList: telescopeOverview.observatoryList,
-    currentObservatoryId: ownProps.params.observatoryId,
+    currentObservatoryId: ownProps.params.obsUniqueId,
     missions,
     cardList: missions.cardList || [],
     missionSlotsByTelescope,
@@ -37,6 +37,8 @@ function mapStateToProps({ missions, telescopeOverview, missionSlotsByTelescope 
 class ReserveMissions extends Component {
 
   componentDidMount() {
+    console.log('seeking currentObservatoryId');
+    console.log(this.props);
     this.props.actions.getObservatoryList(
       this.props.currentObservatoryId,
     );

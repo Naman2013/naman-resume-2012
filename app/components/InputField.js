@@ -9,15 +9,16 @@ export default class renderField extends Component {
     label: string.isRequired,
     type: string.isRequired,
     meta: object.isRequired,
+    className: string,
   };
 
   render() {
-    const { input, label, type, meta: { touched, error } } = this.props;
+    const { input, label, type, meta: { touched, error }, className } = this.props;
 
     return (
       <label className={classnames({ error: touched && error })}>
         <span>{label}</span>
-        <input type={type} {...input} />
+        <input type={type} {...input} className={className}/>
         {touched && error && <span className="error-description">{error}</span>}
       </label>
     );

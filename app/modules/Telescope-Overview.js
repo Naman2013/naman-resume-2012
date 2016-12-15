@@ -54,7 +54,7 @@ export const getObservatoryList = (currentObservatoryId) => (dispatch, getState)
         const { observatoryList } = response.data;
         const monkeyPatchedObservatoryList = [defaultObservatoryOverviewDetails, ...observatoryList];
         const currentObservatory = getCurrentObservatory(observatoryList, currentObservatoryId);
-
+        
         dispatch(observatoryListSuccess(monkeyPatchedObservatoryList));
         dispatch(fetchAllWidgetsByObservatory(currentObservatory));
 
@@ -64,7 +64,10 @@ export const getObservatoryList = (currentObservatoryId) => (dispatch, getState)
           dispatch(fetchObservatoryTelescopeStatus(obsId));
         }
       })
-      .catch(error => dispatch(observatoryListError(error)));
+      .catch(error => {
+        dispatch(observatoryListError(error));
+        throw error;
+      });
     }
   };
 
@@ -86,9 +89,10 @@ const observatoryTelescopeStatusFail = () => ({
   type: OBSERVATORY_STATUS_FAIL,
 });
 
-export const fetchAllWidgetsByObservatory = ( observatory ) => ( dispatch ) => {
-  dispatch( fetchMoonPhase(observatory) );
-  dispatch( fetchSmallSatelliteView(observatory) );
+export const fetchAllWidgetsByObservatory = (observatory) => (dispatch) => {
+  console.log(observatory);
+  dispatch(fetchMoonPhase(observatory));
+  dispatch(fetchSmallSatelliteView(observatory));
 };
 
 
@@ -96,7 +100,6 @@ export const observatoryListSuccess = (observatoryList) => ({
   type: OBSERVATORY_REQUEST_SUCCESS,
   observatoryList,
 });
-
 
 
 export const observatoryListError = (error) => ({

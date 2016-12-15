@@ -4,6 +4,7 @@ import TelescopeImageLoader from '../telescope-image-loader/telescope-image-load
 import style from './telescope-image-viewer.scss';
 
 import generateSseImageLoader from '../../../utils/generate-sse-image-source';
+import obsIdTeleIdDomeIdFromTeleId from '../../../utils/obsid-teleid-domeid-from-teleid';
 
 class TelescopeImageViewer extends Component {
 
@@ -12,7 +13,9 @@ class TelescopeImageViewer extends Component {
       telePort,
       teleSystem,
       teleId,
-      teleFade, } = this.props;
+      teleFade } = this.props;
+
+    const setIds = obsIdTeleIdDomeIdFromTeleId(teleId);
 
     const teleThumbWidth = '866px';
     const imageSource = generateSseImageLoader(teleSystem, telePort);
@@ -25,10 +28,14 @@ class TelescopeImageViewer extends Component {
 
           <TelescopeImageLoader
             imageSource={imageSource}
-            teleId={teleId}
+            teleId={setIds.teleId}
+            obsId={setIds.obsId}
+            domeId={setIds.domeId}
             teleThumbWidth={teleThumbWidth}
             teleFade={teleFade}
-            clipped={false} />
+            clipped={false}
+            missionFormat="full"
+          />
 
         </InteractiveViewer>
 

@@ -1,7 +1,17 @@
 import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import classnames from 'classnames';
+import { updateTelescopeActiveMission } from '../../../modules/active-telescope-missions/active-telescope-missions-actions';
 import styles from './telescope-image-loader.scss';
 
+const mapDispatchToProps = (dispatch) => ({
+  actions: bindActionCreators({
+    updateTelescopeActiveMission,
+  }, dispatch),
+});
+
+@connect(null, mapDispatchToProps)
 class TelescopeImageLoader extends Component {
   constructor( props ) {
     super( props );
@@ -44,9 +54,23 @@ class TelescopeImageLoader extends Component {
     /*
       NOTE: checking if the first index is the string heartbeat
       as to avoid loading malformed messages...
+
+      NOTE: along with setting up the image, we are firing actions associated
+      with the telescope mission
     */
     if(currentImageUrl != 'heartbeat') {
-      const { teleFade } = this.props; // expected fade may change based on how much time passed
+      const { teleFade, obsId, teleId, domeId, actions, missionFormat } = this.props; // expected fade may change based on how much time passed
+
+      // TODO: this may be problematic...
+      // lets think of how we can detangle this mission info request
+      // from the image loader component ( even through SSE events provide the message content )
+      actions.updateTelescopeActiveMission({
+        obsId,
+        domeId,
+        format: missionFormat,
+        telescopeId: teleId,
+      });
+
       const { firstLoad } = this.state;
       const progress = Math.floor(Date.now() / 1000) - lastImgTime;
 
@@ -181,9 +205,12 @@ TelescopeImageLoader.defaultProps = {
 TelescopeImageLoader.propTypes = {
   imageSource: PropTypes.string,
   teleId: PropTypes.string,
+  obsId: PropTypes.string,
+  domeId: PropTypes.string,
   teleThumbWidth: PropTypes.string,
-  teleFade: PropTypes.number,
+  teleFade: PropTypes.string,
   loadThumbnails: PropTypes.bool,
+  missionFormat: PropTypes.string.isRequired,
 };
 
 export default TelescopeImageLoader;

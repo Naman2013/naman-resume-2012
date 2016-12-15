@@ -10,7 +10,6 @@ import {
 } from '../../../modules/Announcement-Banner';
 
 
-
 function mapStateToProps(state, ownProps) {
   return {
     announcementMessages: state.announcementBanner.messages,

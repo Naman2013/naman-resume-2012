@@ -36,6 +36,14 @@ label.error .error-description {
   color: maroon;
 }
 
+.error textarea {
+  border-color: maroon;
+}
+
+.error .error-description {
+  color: maroon;
+}
+
 
 .upcoming h4 {
   margin: 0px;

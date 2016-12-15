@@ -93,11 +93,11 @@ class DateSelectionNavigation extends Component {
       dateRangeIsError,
       dateRangeIsFetching } = this.props.missionSlotDates;
 
-    const { lastRefreshed } = this.state;
-
-    if(dateRangeIsFetching || dateRangeIsError) {
+    if(dateRangeIsFetching || dateRangeIsError || _.isEmpty(dateRangeResponse)) {
       return null;
     }
+    
+    const { lastRefreshed } = this.state;
 
     const {
       reservationDateFormatted,

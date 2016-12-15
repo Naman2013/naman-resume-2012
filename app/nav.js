@@ -219,25 +219,25 @@ export default [{
 		"label": {
 			"en": "Our Mission"
 		},
-		"link": "/about",
+		"link": "/about/mission",
 		"type": "basic"
 	}, {
 		"label": {
 			"en": "In the News"
 		},
-		"link": "/about/media",
+		"link": "/about/news",
 		"type": "basic"
 	}, {
 		"label": {
-			"en": "The Team"
+			"en": "Work With Us"
 		},
-		"link": "/about/#team",
+		"link": "/about/job",
 		"type": "basic"
 	}, {
 		"label": {
-			"en": "Advisors & Guest Profiles"
+			"en": "Leadership"
 		},
-		"link": "/about/#advisors",
+		"link": "/about/leadership",
 		"type": "basic"
 	}, {
 		"label": {
@@ -253,9 +253,15 @@ export default [{
 		"type": "basic"
 	}, {
 		"label": {
+			"en": "Advisors & Guest Profiles"
+		},
+		"link": "/about/media",
+		"type": "basic"
+	}, {
+		"label": {
 			"en": "Contact Us"
 		},
-		"link": "/about/#contact",
+		"link": "/about/contact",
 		"type": "basic"
 	}, {
 		"label": {
