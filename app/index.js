@@ -72,11 +72,11 @@ ReactDOM.render(
         <Route path="object-post" component={ObjectPost} />
 
         <Route path="about" component={About} >
-            <IndexRedirect to="mission" />
-            <Route path="news" component={News} title="In The News" subTitle="[Sub-title for news page]"/>
-            <Route path="job" component={Job}  title="Work With Us" subTitle="[Sub-title for news page]"/>
-            <Route path="contact" component={Contact}  title="Contact US" subTitle="[Sub-title for news page]"/>
-            <Route path="leadership" component={Leadership}  title="Leadership" subTitle="[Sub-title for news page]"/>
+          <IndexRedirect to="mission" />
+          <Route path="news" component={News} title="In The News" subTitle="[Sub-title for news page]"/>
+          <Route path="job" component={Job}  title="Work With Us" subTitle="[Sub-title for news page]"/>
+          <Route path="contact" component={Contact}  title="Contact US" subTitle="[Sub-title for news page]"/>
+          <Route path="leadership" component={Leadership}  title="Leadership" subTitle="[Sub-title for news page]"/>
         </Route>
 
         <Route path="about/mission" component={Mission} />

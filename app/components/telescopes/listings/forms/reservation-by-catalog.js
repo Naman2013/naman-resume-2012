@@ -4,11 +4,12 @@ import ReserveByCatalog from '../../../../pages/reserve/reserve-by-catalog';
 
 class ReservationByCatalog extends Component {
   render() {
-    const { showPlaceOnHold, showCancelHold } = this.props;
+    const { telescopeId, showPlaceOnHold, showCancelHold } = this.props;
     return(
       <div className="reservation-form-container">
         <Timer />
         <ReserveByCatalog
+          telescopeId={telescopeId}
           showPlaceOnHold={showPlaceOnHold}
           showCancelHold={showCancelHold}
         />
@@ -26,6 +27,7 @@ const { string, number, bool } = PropTypes;
 ReservationByCatalog.propTypes = {
   showPlaceOnHold: bool,
   showCancelHold: bool,
+  telescopeId: string.isRequired,
 };
 
 export default ReservationByCatalog;

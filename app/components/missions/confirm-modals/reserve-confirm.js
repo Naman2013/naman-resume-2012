@@ -6,7 +6,7 @@ import moment from 'moment-timezone';
 import _ from 'lodash';
 
 import { cancelMissionSlot, reserveMissionSlot, missionGetCards } from '../../../modules/Missions';
-import { setTags } from '../../../modules/tag-management/Tags';
+import { setTags, resetClientTagData } from '../../../modules/tag-management/Tags';
 import MissionTags from '../../common/tags/mission-tags';
 import NewMissionReservationSuccess from './new-mission-reservation-success';
 import ReservationError from './reservation-error';
@@ -24,6 +24,7 @@ const mapDispatchToProps = ( dispatch ) => ({
     reserveMissionSlot,
     missionGetCards,
     setTags,
+    resetClientTagData,
   }, dispatch),
 });
 
@@ -48,6 +49,8 @@ class ReserveConfirm extends Component {
     this.setState({
       objective: '',
     });
+
+    this.props.actions.resetClientTagData();
   }
 
   onSubmit(event) {
