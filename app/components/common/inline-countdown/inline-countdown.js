@@ -48,7 +48,9 @@ class InlineCountdown extends Component {
       const secondsRemaining = updatedTime.seconds();
 
       if(minutesRemaining <= 0 && secondsRemaining <= 0) {
-        exitAction();
+        if(typeof exitAction === 'function') {
+          exitAction();
+        }
       } else {
         this.setState({
           remainingTime: updatedTime,

@@ -76,6 +76,7 @@ class AvailableMission extends Component {
     const {
       showHoldOneHourButtonWhenExpanded,
       showCancelHoldButtonWhenExpanded,
+      telescopeId,
     } = this.props;
 
     switch(formType) {
@@ -90,6 +91,7 @@ class AvailableMission extends Component {
       case BY_CATELOG:
         return(
           <ReservationByCatalog
+            telescopeId={telescopeId}
             showPlaceOnHold={showHoldOneHourButtonWhenExpanded}
             showCancelHold={showCancelHoldButtonWhenExpanded}
           />
@@ -229,6 +231,8 @@ class AvailableMission extends Component {
 
 const { string, number, bool } = PropTypes;
 AvailableMission.propTypes = {
+  telescopeId: string.isRequired,
+
   missionStart: number.isRequired,
 
   showHoldOneHourButtonWhenExpanded: bool.isRequired,

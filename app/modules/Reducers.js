@@ -15,6 +15,7 @@ import missionSlotDates from './mission-slots-by-telescope/mission-slot-dates-re
 import missionSlotsByTelescope from './mission-slots-by-telescope/mission-slots-by-telescope-reducer';
 import currentMission from './current-mission/get-current-mission-reducer';
 import activeTelescopeMissions from './active-telescope-missions/active-telescope-missions-reducer';
+import catalog from './catalog/get-catalog-reducer';
 
 export default combineReducers({
   routing: routerReducer,
@@ -33,4 +34,5 @@ export default combineReducers({
   missionSlotsByTelescope,
   currentMission,
   activeTelescopeMissions,
+  catalog,
 });

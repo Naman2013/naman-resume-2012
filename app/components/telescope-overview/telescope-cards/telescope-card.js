@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
 import classnames from 'classnames';
 
 import CardFront from './card-front';
@@ -6,8 +7,12 @@ import CardBack from './card-back';
 
 import style from './telescope-cards.scss';
 
-class TelescopeCard extends Component {
+const mapStateToProps = ({ activeTelescopeMissions }) => ({
+ activeTelescopeMissions,
+});
 
+@connect(mapStateToProps)
+class TelescopeCard extends Component {
   constructor(props) {
     super(props);
 
@@ -25,6 +30,8 @@ class TelescopeCard extends Component {
   }
 
   render() {
+    const { teleId, activeTelescopeMissions } = this.props;
+    const activeMission = activeTelescopeMissions.telescopes.find(telescopeMissionData => telescopeMissionData.telescopeId === teleId);
     const cardClasses = classnames({
       'card-container': true,
       'flipped': this.state.flipped,
@@ -43,6 +50,7 @@ class TelescopeCard extends Component {
 
           <CardFront
             {...this.props}
+            activeMission={activeMission}
             handleFlip={this.handleFlip.bind(this)}
             telescopeOnline={this.props.telescopeStatus.onlineStatus === 'online'}
             alertText={this.props.alertText} />
@@ -57,19 +65,21 @@ class TelescopeCard extends Component {
   }
 }
 
+const { string, number, bool, object } = PropTypes;
 TelescopeCard.propTypes = {
-  teleName: PropTypes.string,
-  teleTelescopeUsage: PropTypes.string,
-  teleLogoURL: PropTypes.string,
-  teleOnlineStatus: PropTypes.string,
-  teleOfflineImgURL: PropTypes.string,
-  teleSponsorLinkURL: PropTypes.string,
-  teleSponsorLogoURL: PropTypes.string,
-  teleAccessMethod: PropTypes.string,
-  teleHasTelescopePage: PropTypes.string,
-  teleImageSourceType: PropTypes.string,
-  telescopeStatus: PropTypes.object, // TODO: refine this validation
-  alertText: PropTypes.string,
+  teleId: string.isRequired,
+  teleName: string,
+  teleTelescopeUsage: string,
+  teleLogoURL: string,
+  teleOnlineStatus: string,
+  teleOfflineImgURL: string,
+  teleSponsorLinkURL: string,
+  teleSponsorLogoURL: string,
+  teleAccessMethod: string,
+  teleHasTelescopePage: string,
+  teleImageSourceType: string,
+  telescopeStatus: object, // TODO: refine this validation
+  alertText: string,
 };
 
 export default TelescopeCard;

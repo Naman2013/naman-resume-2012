@@ -36,6 +36,10 @@ function mapStateToProps({ missions, telescopeOverview, missionSlotsByTelescope 
 @connect(mapStateToProps, mapDispatchToProps)
 class ReserveMissions extends Component {
 
+  componentWillMount() {
+    window.scrollTo(0, 0);
+  }
+
   componentDidMount() {
     this.props.actions.getObservatoryList(
       this.props.currentObservatoryId,
@@ -89,6 +93,7 @@ class ReserveMissions extends Component {
           <GenericLoadingBox />
           :
           <Listings
+            telescopeId={currentTelescope.teleId}
             reservations={reservationList.missionList}
             allowReservations={reservationList.allowReservations}
           />

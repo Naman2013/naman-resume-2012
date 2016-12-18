@@ -50,6 +50,7 @@ const updateActiveMissionCompact = ({ telescopeId, payload }) => (dispatch, getS
       if(telescope.telescopeId === telescopeId) {
         return Object.assign(telescope, {
           activeMission: {
+            ...telescope.activeMission,
             compact: payload,
             compactError: {},
             fetchingCompact: false,
@@ -83,6 +84,7 @@ const updateActiveMissionFull = ({ telescopeId, payload }) => (dispatch, getStat
       if(telescope.telescopeId === telescopeId) {
         return Object.assign(telescope, {
           activeMission: {
+            ...telescope.activeMission,
             full: payload,
             fullError: {},
             fetchingFull: false,

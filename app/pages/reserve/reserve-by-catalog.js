@@ -1,55 +1,79 @@
 import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import _ from 'lodash';
 import ReservationSelectList from '../../components/common/forms/reservation-select-list';
 import EnterDesignationForm from '../../components/reserve/enter-designation-form';
+import { fetchCatalog } from '../../modules/catalog/get-catalog-actions';
+import { fetchPresetOptions } from '../../modules/get-preset-options/get-preset-options-actions';
 import styles from '../../components/reserve/reserve-by-object.scss';
 
-const catalogList = [
-  'Abell Catalog of Galaxy Clusters',
-  'Aitken Double Star Catalog',
-  'Arp Catalog of Peculiar Galaxies',
-  'Jack Bennett Catalogue of Southern Hemisphere Objects',
-  'Caldwell Catalog of 109 Deep Sky Objects',
-  'Collinder Catalog of Open Star Clusters',
-  '1st & 2nd Index Catalog of Nebulae and Clusters of Stars',
-  'Lynds Catalog of Bright Nebulae',
-  'Morphological Catalog of Galaxies',
-  'Abell Catalog of Galaxy Clusters',
-  'Aitken Double Star Catalog',
-  'Arp Catalog of Peculiar Galaxies',
-  'Jack Bennett Catalogue of Southern Hemisphere Objects',
-  'Caldwell Catalog of 109 Deep Sky Objects',
-  'Collinder Catalog of Open Star Clusters',
-  '1st & 2nd Index Catalog of Nebulae and Clusters of Stars',
-  'Lynds Catalog of Bright Nebulae',
-  'Morphological Catalog of Galaxies'
-];
 
-const imageProcessingOptions = [
-  'Generic',
-  'Bright Star',
-  'Open Cluster',
-  'Globular Cluster',
-  'Bright Galaxy or Comet',
-  'Generic',
-  'Bright Star',
-  'Open Cluster',
-  'Globular Cluster',
-  'Bright Galaxy or Comet'
-];
 
+const mapStateToProps = ({ catalog }) => ({
+  ...catalog
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  actions: bindActionCreators({
+    fetchCatalog,
+  }, dispatch),
+});
+
+@connect(mapStateToProps, mapDispatchToProps)
 class ReserveByCatalog extends Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      visibilityValid: false,
+      presetOptions: null,
+    };
+
     this.handleFormChange = this.handleFormChange.bind(this);
+  }
+
+  componentWillMount() {
+    this.props.actions.fetchCatalog();
+    this.fetchImageProcessing();
+  }
+
+  fetchImageProcessing(telescopeId) {
+    const normalizedTelescopeIdSource = this.props.telescopeId || telescopeId;
+    if(normalizedTelescopeIdSource) {
+      fetchPresetOptions({
+        telescopeId: normalizedTelescopeIdSource,
+      })
+      .then(result => {
+        this.setState({
+          presetOptions: result.data,
+        });
+      });
+    }
   }
 
   handleFormChange(event) {
     console.log(this);
+
+    // if the designation is valid, then fetchImageProcessing
   }
 
   render() {
-    const { showPlaceOnHold, showCancelHold } = this.props;
+    const { showPlaceOnHold, showCancelHold, catalog } = this.props;
+    const { presetOptions } = this.state;
+
+    let catalogList = [];
+    if(_.has(catalog, 'catalogList')) {
+      catalogList = catalog.catalogList.map(catalogItem => (
+        <span><img src={catalogItem.catIconURL} height="15" /> {catalogItem.catFullName}</span>
+      ));
+    }
+
+    let imageOptions = [];
+    if(_.has(presetOptions, 'telescopeList')) {
+      imageOptions = presetOptions.telescopeList[0].telePresetList.map(presetOption => presetOption.presetDisplayName);
+    }
+
     return (
       <div className={styles.reserveObjectPage}>
 
@@ -68,14 +92,16 @@ class ReserveByCatalog extends Component {
 
             <div className="col-md-4">
               <h2><span className="number">2</span> Enter Designation</h2>
-              <EnterDesignationForm />
+              <EnterDesignationForm
+                ref="designation"
+              />
             </div>
 
             <div className="col-md-4">
               <h2><span className="number">3</span> Select Image Processing</h2>
               <ReservationSelectList
                 ref="imageProcessing"
-                options={imageProcessingOptions}
+                options={imageOptions}
                 name="imageProcessing"
                 listHeight={170}
               />
@@ -112,6 +138,7 @@ const { string, number, bool } = PropTypes;
 ReserveByCatalog.propTypes = {
   showPlaceOnHold: bool,
   showCancelHold: bool,
+  telescopeId: string,
 };
 
 export default ReserveByCatalog;

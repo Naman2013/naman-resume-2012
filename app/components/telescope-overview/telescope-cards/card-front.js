@@ -6,15 +6,12 @@ import VideoImageLoader from '../../common/telescope-image-loader/video-image-lo
 import TelescopeOffline from './telescope-offline';
 import obsIdTeleIdDomeIdFromTeleId from '../../../utils/obsid-teleid-domeid-from-teleid';
 import style from './card-front.scss';
-
 import moment from 'moment';
-
 import generateSseImageSource from '../../../utils/generate-sse-image-source';
 
 const MISSION_READY_TELE_ACCESS_METHOD = 'missions';
 
 class CardFront extends Component {
-
   renderVisitTelescopeButton(obsUniqueId, teleUniqueId) {
     const telescopeDetailsUrl = `telescope-details/${obsUniqueId}/${teleUniqueId}`;
     return(
@@ -27,10 +24,12 @@ class CardFront extends Component {
   }
 
   renderMakeReservationButton() {
+    const { obsUniqueId, teleUniqueId } = this.props
+    const reservationLink = `/reservations/reserve-by-telescope/${obsUniqueId}/${teleUniqueId}`;
     return(
       this.isMissionReadyTelescope() ?
         <div className="col-md-6">
-          <a className="action" href="">Make Reservation</a>
+          <Link to={reservationLink} className="action">Make Reservation</Link>
         </div> : null
     );
   }
@@ -96,7 +95,19 @@ class CardFront extends Component {
       teleUniqueId,
       teleSystem,
       telePort,
-      teleInstrumentList } = this.props;
+      teleInstrumentList,
+      activeMission } = this.props;
+
+    console.log(activeMission);
+
+    const cardContent = {
+      objectTitle: '',
+      expires: null,
+    };
+
+    if(activeMission) {
+      Object.assign(cardContent, activeMission.activeMission.compact.missionList[0]);
+    }
 
     const missionStatusStyle = {
       opacity: this.isMissionReadyTelescope() ? 1 : 0,
@@ -134,7 +145,7 @@ class CardFront extends Component {
                 {
                   this.isMissionReadyTelescope() ?
                   <CountdownTimer
-                    missionStartTime={this.props.missionStartTime} /> : null
+                    missionStartTime={cardContent.expires} /> : null
                 }
                 <div className="image-viewer">
                   <h4 className="title" style={missionStatusStyle}>LIVE Mission</h4>
@@ -144,7 +155,7 @@ class CardFront extends Component {
                   </div>
 
                   <h5 className="telescope-image-title">
-                    Andromeda Galaxy ( M31 )
+                    {cardContent.objectTitle}
                   </h5>
                 </div>
               </div>
@@ -175,6 +186,7 @@ CardFront.defaultProps = {
 };
 
 CardFront.propTypes = {
+  activeMission: PropTypes.object,
   teleName: PropTypes.string,
   teleId: PropTypes.string,
   teleTelescopeUsage: PropTypes.string,

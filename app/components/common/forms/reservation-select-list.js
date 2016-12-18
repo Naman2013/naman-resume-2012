@@ -45,7 +45,7 @@ ReservationSelectList.defaultProps = {
 };
 
 ReservationSelectList.propTypes = {
-  options: PropTypes.arrayOf(PropTypes.string).isRequired,
+  options: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.object])).isRequired, // strings or react components
   name: PropTypes.string.isRequired,
   activeSelection: PropTypes.number,
   callback: PropTypes.func,
