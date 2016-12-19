@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+import { fetchObjectContent } from '../community-content/get-object-content-actions';
+
 export const UPDATE_TELESCOPE_MISSION_FULL_START = 'UPDATE_TELESCOPE_MISSION_FULL_START';
 export const UPDATE_TELESCOPE_MISSION_COMPACT_START = 'UPDATE_TELESCOPE_MISSION_COMPACT_START';
 export const COMMIT_ACTIVE_MISSION_CHANGE = 'COMMIT_ACTIVE_MISSION_CHANGE';
@@ -37,7 +39,21 @@ export const updateTelescopeActiveMission = ({ telescopeId, obsId, domeId, forma
     }
 
     if(format === FORMAT_FULL) {
+      const hasMission = result.data.missionList.length > 0;
+      const currentMission = result.data.missionList[0];
+
       dispatch(updateActiveMissionFull({ telescopeId, payload: result.data, }));
+
+      // if we have a mission, fetch the community content...
+      if(hasMission) {
+        const { objectId } = currentMission;
+        const callSource = 'telescopeDetails';
+
+        dispatch(fetchObjectContent({
+          objectId,
+          callSource,
+        }));
+      }
     }
   });
 };
