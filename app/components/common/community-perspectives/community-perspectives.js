@@ -1,35 +1,133 @@
 import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
 import classnames from 'classnames';
 import CommunityPost from './community-post';
+import CallToAction from './call-to-action';
 import Heart from '../heart/heart';
 import Slider from 'react-slick';
 import Spacer from './../../common/spacer';
-
 import './community-perspectives.scss';
 import './slick.min.css';
 import './slick-theme.min.css';
 
+import exampleCommunityContent from '../../../content/example-community-content';
+
+const SCIENCE_LOG = 'SCIENCE_LOG';
+const ART_CULTURE = 'ART_CULTURE';
+const HUMAN_SPIRIT = 'HUMAN_SPIRIT';
+const DIY = 'DIY';
+
+const perspectiveCatagories = [
+  {
+    title: 'Science log',
+    icon: 'https://vega.slooh.com/icons/community/science_log.svg',
+    catagory: SCIENCE_LOG,
+    contentKey: 'scienceLog',
+  },
+  {
+    title: 'Art & culture',
+    icon: 'https://vega.slooh.com/icons/community/art_culture.svg',
+    catagory: ART_CULTURE,
+    contentKey: 'artCulture',
+  },
+  {
+    title: 'Human spirit',
+    icon: 'https://vega.slooh.com/icons/community/human_spirit.svg',
+    catagory: HUMAN_SPIRIT,
+    contentKey: 'humanSpirit',
+  },
+  {
+    title: 'diy',
+    icon: 'https://vega.slooh.com/icons/community/DIY.svg',
+    catagory: DIY,
+    contentKey: 'diy',
+  },
+];
+
+const mapStateToProps = ({ communityObjectContent }) => ({
+  communityObjectContent,
+});
+
+@connect(mapStateToProps)
 class CommunityPerspectives extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      activeCatagory: SCIENCE_LOG,
+    };
+
+    this.handleNavigationClick = this.handleNavigationClick.bind(this);
+  }
+
+  handleNavigationClick(event, activeCatagory) {
+    event.preventDefault();
+    this.setState({
+      activeCatagory,
+    });
+  }
+
+  filterPosts(posts = []) {
+    const { activeCatagory } = this.state;
+    const matchContentKey = perspectiveCatagories.find(profile => profile.catagory === activeCatagory).contentKey;
+    return posts.filter(post => post.type === matchContentKey);
+  }
+
+  hasRelevantPosts() {
+    const { posts } = this.props.communityObjectContent.communityContent;
+    // const { posts } = exampleCommunityContent;
+    const filteredPosts = this.filterPosts(posts);
+    return filteredPosts.length > 0;
+  }
+
+  generatePosts() {
+    const { posts } = this.props.communityObjectContent.communityContent;
+    // console.warn('RENDERING STATIC COMMUNITY CONTENT FROM COMMUNITY PERSPERTIVES COMPONENT');
+    // const { posts } = exampleCommunityContent;
+    const filteredPosts = this.filterPosts(posts);
+    const hasPosts = filteredPosts.length > 0;
+
+    // if there ARE posts, show them
+    if(hasPosts) {
+      return filteredPosts.map(post => (
+        <div key={post.postId}>
+          <CommunityPost
+            {...post}
+          />
+        </div>
+      ));
+    }
+
+    // if there are no posts, ask the user to create one
+    if(!hasPosts) {
+      return(
+        <div>
+          <CallToAction />
+        </div>
+      );
+    }
+  }
 
   render() {
     const {
       showCallToAction,
       showSliderBorder,
-      numberOfSlidesToDisplay,
-      showArrows } = this.props;
+      showArrows,
+      numberOfSlidesToDisplay } = this.props;
 
-    const sliderStyle = classnames({
-      slide: true,
+    const sliderStyle = classnames('slide', {
       'with-border': showSliderBorder,
     });
+
+    const hasRelevantPosts = this.hasRelevantPosts();
 
     const sliderSettings = {
       dots: true,
       infinite: false,
       speed: 500,
-      slidesToShow: numberOfSlidesToDisplay,
+      slidesToShow: hasRelevantPosts ? numberOfSlidesToDisplay : 1,
       slidesToScroll: 1,
-      arrows: showArrows,
+      arrows: hasRelevantPosts ? showArrows : false,
     };
 
     return(
@@ -39,38 +137,27 @@ class CommunityPerspectives extends Component {
           <div className="row">
 
             <ul className="col-xs-12 clearfix categories">
-              <li className="col-xs-3 category">
-                <a className="action active" href="#">
-                  <p className="title" className="title">Science log</p>
-                  <div className="icon">
-                    <img height="45" src={'/assets/images/icons/icon-science-active.png'} />
-                  </div>
-                </a>
-              </li>
-              <li className="col-xs-3 category">
-                <a className="action" href="#">
-                  <p className="title">Art & culture</p>
-                  <div className="icon">
-                    <img height="45" src={'/assets/images/icons/icon-culture.png'} />
-                  </div>
-                </a>
-              </li>
-              <li className="col-xs-3 category">
-                <a className="action" href="#">
-                  <p className="title">Human spirit</p>
-                  <div className="icon">
-                    <img height="45" src={'/assets/images/icons/icon-human-spirit.png'} />
-                  </div>
-                </a>
-              </li>
-              <li className="col-xs-3 category">
-                <a className="action" href="#">
-                  <p className="title">diy</p>
-                  <div className="icon">
-                    <img height="45" src={'/assets/images/icons/icon-DIY.png'} />
-                  </div>
-                </a>
-              </li>
+              {
+                perspectiveCatagories.map((perspective, index) => {
+                  const navigationClasses = classnames('action', {
+                    active: this.state.activeCatagory === perspective.catagory,
+                  });
+                  return(
+                    <li key={index} className="col-xs-3 category">
+                      <a
+                        onClick={(event) => this.handleNavigationClick(event, perspective.catagory)}
+                        className={navigationClasses}
+                        href="#"
+                      >
+                        <p className="title" className="title">{perspective.title}</p>
+                        <div className="icon">
+                          <img height="45" src={perspective.icon} />
+                        </div>
+                      </a>
+                    </li>
+                  )
+                })
+              }
             </ul>
 
             <div className="col-xs-12">
@@ -82,18 +169,15 @@ class CommunityPerspectives extends Component {
                 WARNING: each slider element requires a parent div
               */}
               <Slider {...sliderSettings} className={sliderStyle}>
-                <div><CommunityPost /></div>
-                <div><CommunityPost /></div>
-                <div><CommunityPost /></div>
+                {this.generatePosts()}
               </Slider>
-
             </div>
 
             {
               showCallToAction ?
                 <div className="col-xs-12">
                   <Spacer height="20px" />
-                  <button className="btn">Contribute Content</button>
+                  <button className="btn-primary">Contribute Content</button>
                 </div> : null
             }
 
