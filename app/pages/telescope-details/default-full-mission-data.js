@@ -1,6 +1,6 @@
 export default {
   "missionIndex": 0,
-  "missionAvailable": true,
+  "missionAvailable": false,
   "missionObjective": "",
   "missionLikeCount": 0,
   "missionStart": 1479505320,
@@ -23,7 +23,7 @@ export default {
   "objectMoonProximity": "---",
   "objectMoonAltitude": "-9",
   "objectMoonIllumination": "75",
-  "nextMissionAvailable": true,
+  "nextMissionAvailable": false,
   "nextScheduledMissionId": "1478561",
   "nextStart": 1479505620,
   "nextTitle": "Target name is not available",

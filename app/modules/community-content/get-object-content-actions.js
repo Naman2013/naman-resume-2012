@@ -1,13 +1,13 @@
 import axios from 'axios';
 
-export const FETCH_OBJECT_CONTENT_START = 'FETCH_OBJECT_CONTENT_START';
+export const FETCH_OBJECT_CONTENT_RESET = 'FETCH_OBJECT_CONTENT_START';
 export const FETCH_OBJECT_CONTENT_SUCCESS = 'FETCH_OBJECT_CONTENT_SUCCESS';
 export const FETCH_OBJECT_CONTENT_FAIL = 'FETCH_OBJECT_CONTENT_FAIL';
 
 export const fetchObjectContent = ({ objectId, callSource, scope, count, page, customKey, customValue }) => (dispatch, getState) => {
   const { at, token, cid } = getState().user;
 
-  dispatch(fetchContentStart());
+  dispatch(fetchContentReset());
 
   return axios.post('/api/content/getObjectContent', {
     at,
@@ -35,6 +35,6 @@ const fetchContentError = (error) => ({
   payload: error,
 });
 
-const fetchContentStart = () => ({
-  type: FETCH_OBJECT_CONTENT_START,
+export const fetchContentReset = () => ({
+  type: FETCH_OBJECT_CONTENT_RESET,
 });

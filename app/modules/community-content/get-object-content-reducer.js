@@ -1,6 +1,6 @@
 import createReducer from '../utils/createReducer';
 import {
-  FETCH_OBJECT_CONTENT_START,
+  FETCH_OBJECT_CONTENT_RESET,
   FETCH_OBJECT_CONTENT_SUCCESS,
   FETCH_OBJECT_CONTENT_FAIL
 } from './get-object-content-actions';
@@ -13,7 +13,7 @@ const generateInitialState = () => ({
 });
 
 export default createReducer(generateInitialState(), {
-  [FETCH_OBJECT_CONTENT_START](state) {
+  [FETCH_OBJECT_CONTENT_RESET](state) {
     return {
       ...state,
       ...generateInitialState,

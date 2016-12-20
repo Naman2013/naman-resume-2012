@@ -6,6 +6,7 @@ import CallToAction from './call-to-action';
 import Heart from '../heart/heart';
 import Slider from 'react-slick';
 import Spacer from './../../common/spacer';
+import GET_OBJECT_CONTENT_RESPONSE_CODES from '../../../constants/get-object-content-response-codes';
 import './community-perspectives.scss';
 import './slick.min.css';
 import './slick-theme.min.css';
@@ -129,6 +130,8 @@ class CommunityPerspectives extends Component {
       slidesToScroll: 1,
       arrows: hasRelevantPosts ? showArrows : false,
     };
+
+    console.log(this.props.communityObjectContent);
 
     return(
       <div className="telescope-block community-perspectives">

@@ -2,23 +2,53 @@ import React, { Component, PropTypes } from 'react';
 import './live-stream.scss';
 
 class LiveStream extends React.Component {
-
   render() {
-    //const { handleToggle, toggleNeoview, showToggleOption } = this.props;
+    const {
+      objectIconURL,
+      objectTitle,
+      objectDescription,
+      objectRA,
+      objectDec,
+      objectConstellation,
+      objectMagnitude,
+      objectSizeArcMinutes,
+      objectDistance,
+      objectRiseTime,
+      objectTransitTime,
+      objectSetTime,
+      objectMoonProximity } = this.props;
 
     return(
       <div className="live-stream">
         <div className='content'>
-          <img src={'/assets/images/icons/icon-galaxy.png'} />
-          <div className="description">
-            <h3>Andromeda Galaxy (M31)</h3>
-            <p>Also known as Messier 31, M31, or NGC 224, the one trillion stars of the Andromedia Galaxy constitute a spiral approximately 780 kiloparsecs from Earth. It is the nearest major galaxy to the Milky Way.</p>
-            <p className="small">RA (degrees): 12.6057     Decl (degrees): 25.9915     Constellation: Coma Berenices     Magnitude: 9.61     Size (arc seconds): 960 Distance: 31 million light years      Rise Time: 7:18 UTC     Transit Time:  13:19     Set Time: 19:20 UTC     Moon Proximity: ????     </p>
+          <img height="50" src={objectIconURL} />
+          <div>
+            <h3 className="title">{objectTitle}</h3>
+            <p className="description">{objectDescription}</p>
+            <p className="small">RA (degrees): {objectRA} Decl (degrees): {objectDec} Constellation: {objectConstellation} Magnitude: {objectMagnitude} Size (arc minutes): {objectSizeArcMinutes}  Distance: {objectDistance} Rise Time: {objectRiseTime} Transit Time: {objectTransitTime} Set Time: {objectSetTime} Moon Proximity: {objectMoonProximity}</p>
           </div>
         </div>
       </div>
     );
   }
 }
+
+const { string, number, bool } = PropTypes;
+LiveStream.propTypes = {
+  objectIconURL: string.isRequired,
+  objectTitle: string.isRequired,
+  objectDescription: string.isRequired,
+
+  objectRA: string.isRequired,
+  objectDec: string.isRequired,
+  objectConstellation: string.isRequired,
+  objectMagnitude: string.isRequired,
+  objectSizeArcMinutes: number.isRequired,
+  objectDistance: string.isRequired,
+  objectRiseTime: string.isRequired,
+  objectTransitTime:  string.isRequired,
+  objectSetTime: string.isRequired,
+  objectMoonProximity: string.isRequired,
+};
 
 export default LiveStream;

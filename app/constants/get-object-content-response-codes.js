@@ -1,0 +1,5 @@
+const GET_OBJECT_CONTENT_RESPONSE_CODES = {
+  '20001': 'Invalid object',
+};
+
+export default GET_OBJECT_CONTENT_RESPONSE_CODES;

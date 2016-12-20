@@ -151,11 +151,6 @@ export default class TelescopeDetails extends Component {
 
   }
 
-  fetchCommunityPerspectives(currentMission) {
-    // TODO: use an action to populate the community perspectives content
-    // based on the current mission...
-  }
-
   render() {
     const { selectedTab } = this.state;
     const { observatoryList, observatoryTelecopeStatus, params, activeTelescopeMissions } = this.props;
@@ -174,11 +169,12 @@ export default class TelescopeDetails extends Component {
     // setup the current mission - setting defaults based on the original design of the API
     const currentMission = DEFAULT_FULL_MISSION_DATA;
     const currentTelescopeMissionData = activeTelescopeMissions.telescopes.find(telescope => telescope.telescopeId === teleId);
+
     if(currentTelescopeMissionData) {
-      Object.assign(currentMission, currentTelescopeMissionData.full.missionList[0]);
+      Object.assign(currentMission, currentTelescopeMissionData.activeMission.full.missionList[0]);
     }
 
-    this.fetchCommunityPerspectives(currentMission);
+    const { missionAvailable } = currentMission;
 
     // TODO: refactor this patchwork to more appropriatly set default values for the selected
     // instrument.  Problem here is the index for the tab falls out of sync with the
@@ -256,6 +252,13 @@ export default class TelescopeDetails extends Component {
                   ))
                 }
               </Tabs>
+
+              {
+                missionAvailable ?
+                <LiveStream
+                  {...currentMission}
+                /> : null
+              }
 
               <Spacer height="50px" />
 
