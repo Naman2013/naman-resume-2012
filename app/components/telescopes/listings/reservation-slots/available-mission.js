@@ -133,9 +133,7 @@ class AvailableMission extends Component {
       return DEFAULT;
     }
 
-    if(formOpen) {
-      return RESERVING;
-    }
+    return RESERVING;
   }
 
   render() {

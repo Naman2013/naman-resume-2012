@@ -33,36 +33,46 @@ class LiveMission extends Component {
     return(
       <div className="live-mission">
         <div className="content">
-          <div className="header">
-            <h3 className="title">CURRENT LIVE MISSION:</h3>
-            <p className="mission-title">{objectTitle}</p>
-          </div>
-
-          <ByUserTag
-            theme="dark"
-            photo={ownerAvatarURL}
-            name={ownerDisplayName}
-            accountType={ownerMembershipType}
-            memberSince={ownerMemberSince}
-            location={ownerLocation}
-          />
 
           {
-            missionObjective ?
-            <div className="users-quote">
-              <p>
-                &quot;{missionObjective}&quot;
-              </p>
-            </div> : null
+            missionAvailable ?
+                <div>
+                  <div className="header">
+                    <h3 className="title">CURRENT LIVE MISSION:</h3>
+                    <p className="mission-title">{objectTitle}</p>
+                  </div>
+
+                  <ByUserTag
+                    theme="dark"
+                    photo={ownerAvatarURL}
+                    name={ownerDisplayName}
+                    accountType={ownerMembershipType}
+                    memberSince={ownerMemberSince}
+                    location={ownerLocation}
+                  />
+
+                  {
+                    missionObjective ?
+                    <div className="users-quote">
+                      <p>
+                        &quot;{missionObjective}&quot;
+                      </p>
+                    </div> : null
+                  }
+                </div>
+            :
+            <div className="header">
+              <h3 className="title">Standby...</h3>
+            </div>
           }
-        </div>
+          </div>
 
         {
           nextMissionAvailable ?
             <div className="footer">
               <p>NEXT MISSION:</p>
               <div className="mission">
-                <img className="mission-icon" src={nextObjectIconURL} />
+                <img height="25" className="mission-icon" src={nextObjectIconURL} />
                 <p>{nextTitle}</p>
                 <span className="count-down">in <InlineCountdown startTime={expires} /></span>
               </div>
