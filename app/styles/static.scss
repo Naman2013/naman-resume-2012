@@ -107,7 +107,7 @@ body {
         text-align: center;
     }
     .membership .sigil {
-        background: $slooh-blue-xxlight url('../assets//icons/astronaut-white.svg') no-repeat top center;
+        background: $slooh-blue-xxlight url('../assets/icons/astronaut-white.svg') no-repeat top center;
         background-size: cover;
         border: 10px solid $slooh-white;
         border-radius: 50% 50%;
@@ -147,7 +147,7 @@ body {
     .headshot.member {
         color: transparent;
         background-color: $slooh-blue-xxlight;
-        background-image: url('../assets//icons/astronaut-white.svg');
+        background-image: url('../assets/icons/astronaut-white.svg');
         background-repeat: no-repeat;
         background-position: center center;
         background-size: contain;
