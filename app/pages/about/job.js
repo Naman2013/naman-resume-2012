@@ -9,7 +9,9 @@ class Job extends Component {
     render() {
         return(
             <section className="job-posts">
+                
                 {this.props.careerList.map((v, k) => <CareerList key={k} value={v} /> )}
+            
             </section>
         );
     }

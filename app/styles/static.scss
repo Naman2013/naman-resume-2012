@@ -31,9 +31,7 @@ body {
     letter-spacing: .02em;
     margin: 0;
     padding: 0;
-}
 
-#slooh {
     #stage {
         max-width: 950px;
         overflow: visible;
@@ -639,7 +637,7 @@ body {
         @include opacity(0.6);
         padding: 0;
     }
-    #slooh.welcome header {
+    body .welcome header {
         height: 5em;
         overflow: visible;
         position: relative;
@@ -1839,7 +1837,7 @@ body {
     }
 }
 
-#slooh.our-mission header.page {
+#about.mission header.page {
     clear: both;
     min-height: 600px !important;
     overflow: visible;
@@ -1847,7 +1845,7 @@ body {
     margin-bottom: 100px;
 }
 
-#slooh.about header.page {
+#about header.page {
     background: linear-gradient(to right, rgba($slooh-blue-dark, .3), rgba($slooh-blue-xdark, .5)), url($slooh-header-bg-image) $slooh-blue-dark center center;
     background-size: cover;
     display: block;
@@ -1858,7 +1856,7 @@ body {
     width: 100%;
 }
 
-#slooh.about {
+#about {
     .sigil.slooh {
         display: block;
         height: 100px;
@@ -1872,7 +1870,7 @@ body {
     }
 }
 
-#slooh.registration {
+body .registration {
     background: url($slooh-header-bg-image) $slooh-white center no-repeat fixed;
     background-size: cover;
     color: $slooh-gray-xdark;
@@ -1934,11 +1932,11 @@ body {
     }
 }
 
-#slooh.plans {
+.plans {
     background: $slooh-white;
 }
 
-#slooh.payment {
+.payment {
     background-repeat: repeat-x;
     background-size: 100% 250px;
     background-position: top center;
@@ -1949,10 +1947,10 @@ body {
 /* Small devices (tablets, 768px and up) */
 
 @media (min-width: 768px) {
-    body#slooh.about header.page {
+    #about header.page {
         padding: 110px 60px;
     }
-    #slooh {
+    body {
         .row-xwide {
             max-width: 560px;
             min-width: 560px;
@@ -1964,7 +1962,7 @@ body {
 /* Medium devices (desktops, 992px and up) */
 
 @media (min-width: 992px) {
-    #slooh {
+    body {
         article.page {
             margin-left: 90px;
             z-index: -1;
@@ -2024,7 +2022,7 @@ body {
 /* Large devices (large desktops, 1350px and up) */
 
 @media (min-width: 1350px) {
-    #slooh {
+    body {
         .row-xxwide {
             max-width: 1220px;
             margin: 0 auto;

@@ -7,11 +7,11 @@ class Mission extends Component {
     render() {
         return (
 
-            <article className="static-page">
+            <article className="static-page mission" id="about">
                 <header className="static">
 
                     <h1 className="big-board">
-                        <div className="text-xlarge">Our Mission:</div>
+                        <div className="text-xlarge">Our Mission: to boldly </div>
                         <div className="text-regular margin-top-large margin-bottom-small">Everyone Should Have access to</div>
                         <div className="text-xxlarge">The Wonders of </div>
                         <div className="text-ginormous">Space</div>
@@ -20,7 +20,7 @@ class Mission extends Component {
                 </header>
 
                 <i className="sigil">
-                    <img src="/assets/chrome/Siggle-Slooh.svg" width="100" height="100" className="center-center"/>
+                    <img src="../chrome/Siggle-Slooh.svg" width="100" height="100" className="center-center"/>
                 </i>
 
                 <section className="row-col margin-bottom-xxlarge">
@@ -54,7 +54,7 @@ class Mission extends Component {
                         </figure>
 
                         <div className="margin-top-med center-center" style={{width: 270}}>
-                            <img src="/assets/chrome/signiture-michael.svg" width="200"/>
+                            <img src="../chrome/signiture-michael.svg" width="200"/>
                         </div>
 
                     </aside>
@@ -65,7 +65,7 @@ class Mission extends Component {
 
                     <header className="row-col margin-bottom-xlarge margin-top-xxlarge">
                         <i className="pull-left margin-bottom-med margin-right-med">
-                            <img src="./assets/icons/icon-SLT-live.svg" width="60"/>
+                            <img src="../icons/icon-SLT-live.svg" width="60"/>
                         </i>
                         <h1 className="white">Syndicate Live Telescope Coverage</h1>
                         <div className="white text-large">Join our media list and we will provide you with updates on events which include embed codes.</div>
