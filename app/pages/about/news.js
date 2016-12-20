@@ -9,7 +9,7 @@ class News extends Component {
                 <article className="margin-bottom-large">
 
                     <figure className="article">
-                        <img src="../assets/images/photos/stellar-community.jpg" />
+                        <img src="../images/photos/stellar-community.jpg" />
                             <figcaption><cite>[Citation]</cite></figcaption>
                     </figure>
 
@@ -24,9 +24,9 @@ class News extends Component {
                         </aside>
 
                         <aside className="social-media">
-                            <span className="flame"><i><img src="../assets/icons/flame.png" /></i> <strong>[###]</strong>/[###]</span>
-                            <span className="like"><i><img src="../assets/icons/heart.svg" /><span className="number">###</span></i> Like</span>
-                            <span className="share"><i><img src="../assets/icons/share.svg" /></i> Share</span>
+                            <span className="flame"><i><img src="../icons/flame.png" /></i> <strong>[###]</strong>/[###]</span>
+                            <span className="like"><i><img src="../icons/heart.svg" /><span className="number">###</span></i> Like</span>
+                            <span className="share"><i><img src="../icons/share.svg" /></i> Share</span>
                         </aside>
 
                     </header>

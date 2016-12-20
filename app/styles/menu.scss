@@ -66,13 +66,13 @@
       color: #FFF;
       background-color: #53585F;
     }
-    nav a[data-nav="nav-home"] { background-image: url(../../assets/icons/menu/menu-home.svg); }
-    nav a[data-nav="nav-telescopes"] { background-image: url(../../assets/icons/menu/menu-telescopes.svg); }
-    nav a[data-nav="nav-shows"] { background-image: url(../../assets/icons/menu/menu-shows.svg); }
-    nav a[data-nav="nav-community"] { background-image: url(../../assets/icons/menu/menu-community.svg); }
-    nav a[data-nav="nav-about"] { background-image: url(../../assets/icons/menu/menu-about.svg); }
-    nav a[data-nav="nav-help"] { background-image: url(../../assets/icons/menu/menu-help.svg); }
-    nav a[data-nav="nav-settings"] { background-image: url(../../assets/icons/menu/menu-settings.svg); }
+    nav a[data-nav="nav-home"] { background-image: url(../../icons/menu/menu-home.svg); }
+    nav a[data-nav="nav-telescopes"] { background-image: url(../../icons/menu/menu-telescopes.svg); }
+    nav a[data-nav="nav-shows"] { background-image: url(../../icons/menu/menu-shows.svg); }
+    nav a[data-nav="nav-community"] { background-image: url(../../icons/menu/menu-community.svg); }
+    nav a[data-nav="nav-about"] { background-image: url(../../icons/menu/menu-about.svg); }
+    nav a[data-nav="nav-help"] { background-image: url(../../icons/menu/menu-help.svg); }
+    nav a[data-nav="nav-settings"] { background-image: url(../../icons/menu/menu-settings.svg); }
     nav ul {
       text-indent: none;
       margin: 0px;
@@ -220,9 +220,9 @@
 }
 
 .open-menu {
-  background: #000 url('../../assets/icons/menu/menu-open.png') center center no-repeat;
+  background: #000 url('../../icons/menu/menu-open.png') center center no-repeat;
 }
 
 .close-menu {
-  background: #000 url('../../assets/icons/menu/menu-close.svg') center center no-repeat;
+  background: #000 url('../../icons/menu/menu-close.svg') center center no-repeat;
 }

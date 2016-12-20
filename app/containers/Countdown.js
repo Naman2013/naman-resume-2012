@@ -78,7 +78,7 @@ export default class Countdown extends Component {
                   <strong><a target="_blank" href={eventDetailsDecodedURL}>{eventTitle}</a></strong>
                   <p>
                     <span className="countdown">{duration}</span>
-                    <img className="reminder-header" src="../assets/images/header/reminder.png" />
+                    <img className="reminder-header" src="../images/header/reminder.png" />
                   </p>
                 </span>
               </div>

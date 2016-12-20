@@ -107,7 +107,7 @@ body {
         text-align: center;
     }
     .membership .sigil {
-        background: $slooh-blue-xxlight url('../assets/icons/astronaut-white.svg') no-repeat top center;
+        background: $slooh-blue-xxlight url('../icons/astronaut-white.svg') no-repeat top center;
         background-size: cover;
         border: 10px solid $slooh-white;
         border-radius: 50% 50%;
@@ -142,12 +142,12 @@ body {
         transition: background-color .2s linear;
     }
     .sigil.slooh {
-        background: transparent url('../assets/chrome/Siggle-Slooh.svg') center no-repeat;
+        background: transparent url('../chrome/Siggle-Slooh.svg') center no-repeat;
     }
     .headshot.member {
         color: transparent;
         background-color: $slooh-blue-xxlight;
-        background-image: url('../assets/icons/astronaut-white.svg');
+        background-image: url('../icons/astronaut-white.svg');
         background-repeat: no-repeat;
         background-position: center center;
         background-size: contain;
@@ -159,7 +159,7 @@ body {
         left: 0;
     }
     .byline .headshot {
-        background: $slooh-gray-xxlight url(../assets/icons/astronaut.) center center no-repeat;
+        background: $slooh-gray-xxlight url(../icons/astronaut.svg) center center no-repeat;
         background-size: cover;
         border-radius: 25px;
         float: left;
@@ -191,13 +191,13 @@ body {
         z-index: 100000;
     }
     .card#leadership1 .headshot {
-        background-image: url(../assets/images/photos/people/jct.jpg);
+        background-image: url(../images/photos/people/jct.jpg);
     }
     .card#leadership2 .headshot {
-        background-image: url(../assets/images/photos/people/jct.jpg);
+        background-image: url(../images/photos/people/jct.jpg);
     }
     .card#leadership3 .headshot {
-        background-image: url(../assets/images/photos/people/jct.jpg);
+        background-image: url(../images/photos/people/jct.jpg);
     }
     .sans {
         font-family: $slooh-sans;
@@ -445,10 +445,10 @@ body {
         opacity: .6;
     }
     .twitter i.icon {
-        background-image: url(../assets/icons/twitter.svg);
+        background-image: url(../icons/twitter.svg);
     }
     .email i.icon {
-        background-image: url('../assets//icons/email.svg');
+        background-image: url('..//icons/email.svg');
     }
     .icon.control {
         color: $slooh-black !important;
@@ -754,7 +754,7 @@ body {
         position: relative;
     }
     .like .number {
-        background: transparent url(../assets/icons/heart.svg) no-repeat center;
+        background: transparent url(../icons/heart.svg) no-repeat center;
         color: $slooh-white;
         padding: 10px;
         text-align: center;
@@ -1439,34 +1439,34 @@ body {
         padding-left: 30px;
     }
     .icon-location {
-        background-image: url(../assets/icons/location.svg);
+        background-image: url(../icons/location.svg);
     }
     .icon-calendar {
-        background-image: url(../assets/icons/calendar.svg);
+        background-image: url(../icons/calendar.svg);
     }
     .icon-weather {
-        background-image: url(../assets/icons/weather.svg);
+        background-image: url(../icons/weather.svg);
     }
     .icon-telescope {
-        background-image: url(../assets/icons/telescope.svg);
+        background-image: url(../icons/telescope.svg);
     }
     .icon-planet {
-        background-image: url(../assets/icons/planet.svg);
+        background-image: url(../icons/planet.svg);
     }
     .icon-science {
-        background-image: url(../assets/icons/science_log.svg);
+        background-image: url(../icons/science_log.svg);
     }
     .icon-galaxy {
-        background-image: url(../assets/icons/galaxy.svg);
+        background-image: url(../icons/galaxy.svg);
     }
     .icon-diy {
-        background-image: url(../assets/icons/diy.svg);
+        background-image: url(../icons/diy.svg);
     }
     .icon-spirit {
-        background-image: url(../assets/icons/spirit.svg);
+        background-image: url(../icons/spirit.svg);
     }
     .icon-art {
-        background-image: url(../assets/icons/art.svg);
+        background-image: url(../icons/art.svg);
     }
     .title {
         vertical-align: middle;
