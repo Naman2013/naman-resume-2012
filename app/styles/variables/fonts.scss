@@ -1,7 +1,80 @@
 
-/* VARIABLES: Typefaces 
+/* VARIABLES: Typefaces
  * */
 
 $slooh-header: "Brandon Grotesque", "brandon-grotesque", sans-serif;
 $slooh-body:  "Adobe Garamond Pro", "adobe-garamond-pro", "Adobe Garamond", "Garamond", serif;
 $slooh-sans: "Brandon Grotesque", "brandon-grotesque", sans-serif;
+
+
+$primary-font: brandon-grotesque, sans-serif;
+$secondary-font: georgia, serif;
+
+$slooh-headers: brandon-grotesque, sans-serif;
+$slooh-body: brandon-grotesque, sans-serif;
+
+
+%visuallyhidden {
+  margin: -1px;
+  padding: 0;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip: rect(0, 0, 0, 0);
+  position: absolute;
+}
+
+@font-face {
+  font-family: 'Brandon Grotesque';
+  src: url('/assets/fonts/BrandonGrotesque-Thin.otf')  format('opentype');
+  font-weight: 100;
+  font-style: normal;
+  font-stretch: normal;
+  font-variant: normal;
+}
+
+@font-face {
+  font-family: 'Brandon Grotesque';
+  src: url('/assets/fonts/BrandonGrotesque-Light.otf')  format('opentype');
+  font-weight: 300;
+  font-style: normal;
+  font-stretch: normal;
+  font-variant: normal;
+}
+
+@font-face {
+  font-family: 'Brandon Grotesque';
+  src: url('/assets/fonts/BrandonGrotesque-Regular.otf')  format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-stretch: normal;
+  font-variant: normal;
+}
+
+@font-face {
+  font-family: 'Brandon Grotesque';
+  src: url('/assets/fonts/BrandonGrotesque-Medium.otf')  format('opentype');
+  font-weight: 500;
+  font-style: normal;
+  font-stretch: normal;
+  font-variant: normal;
+}
+
+@font-face {
+  font-family: 'Brandon Grotesque';
+  src: url('/assets/fonts/BrandonGrotesque-Bold.otf')  format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-stretch: normal;
+  font-variant: normal;
+}
+
+@font-face {
+  font-family: 'Brandon Grotesque';
+  src: url('/assets/fonts/BrandonGrotesque-black.otf')  format('opentype');
+  font-weight: 900;
+  font-style: normal;
+  font-stretch: normal;
+  font-variant: normal;
+}
