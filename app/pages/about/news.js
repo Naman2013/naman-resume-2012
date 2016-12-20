@@ -66,7 +66,7 @@ class News extends Component {
                         <a href="" className="tag">Tag 2</a>
                         <a href="" className="tag">Tag 3</a>
                         <a href="" className="tag">Tag 4</a>
-                        <a href="" className="tag">Tag 5</a>
+                        <a href="" className="tag">Tag 5</a> 
                     </aside>
 
                     <aside className="comments clearfix">

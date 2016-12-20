@@ -1,0 +1,27 @@
+/* VARIABLES: Layout
+ * */
+
+$slooh-sapcing-ginormous: 148px;
+$slooh-spacing-huge: 120px;
+$slooh-spacing-xxlarge: 96px;
+$slooh-spacing-xlarge: 60px;
+$slooh-spacing-large: 48px;
+$slooh-spacing-med: 36px;
+$slooh-spacing-reg: 24px;
+$slooh-spacing-small: 18px;
+$slooh-spacing-xsmall: 12px;
+$slooh-spacing-xxsmall: 6px;
+$slooh-spacing-tiny: 3px;
+$slooh-spacing-micro: 1px;
+$slooh-spacing-none: 0;
+
+%visuallyhidden {
+  margin: -1px;
+  padding: 0;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip: rect(0, 0, 0, 0);
+  position: absolute;
+}

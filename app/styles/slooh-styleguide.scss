@@ -1,0 +1,152 @@
+// _slooh-styleguide.sass
+
+
+@import 'slooh-variables';
+
+.slooh-color-white { background-color: $slooh-white; }
+.slooh-color-primary-xxlight { background-color: $slooh-primary-xxlight; }
+.slooh-color-primary-xlight { background-color: $slooh-primary-xlight; }
+.slooh-color-primary-light { background-color: $slooh-primary-light; }
+.slooh-color-primary { background-color: $slooh-primary; }
+.slooh-color-primary-dark { background-color: $slooh-primary-dark; }
+.slooh-color-primary-xdark { background-color: $slooh-primary-xdark; }
+.slooh-color-primary-xxdark { background-color: $slooh-primary-xxdark; }
+.slooh-color-primary-xdark { background-color: $slooh-primary-xdark; }
+
+.slooh-color-gray-xxlight { background-color: $slooh-gray-xxlight; }
+.slooh-color-gray-xlight { background-color: $slooh-gray-xlight; }
+.slooh-color-gray-light { background-color: $slooh-gray-light; }
+.slooh-color-gray { background-color: $slooh-gray; }
+.slooh-color-gray-dark { background-color: $slooh-gray-dark; }
+.slooh-color-gray-xdark { background-color: $slooh-gray-xdark; }
+.slooh-color-gray-xxdark { background-color: $slooh-gray-xxdark; }
+
+.slooh-color-blue-xxlight { background-color: $slooh-blue-xxlight; }
+.slooh-color-blue-xlight { background-color: $slooh-blue-xlight; }
+.slooh-color-blue-light { background-color: $slooh-blue-light; }
+.slooh-color-blue { background-color: $slooh-blue; }
+.slooh-color-blue-dark { background-color: $slooh-blue-dark; }
+.slooh-color-blue-xdark { background-color: $slooh-blue-xdark; }
+.slooh-color-blue-xxdark { background-color: $slooh-blue-xxdark; }
+
+.slooh-color-black { background-color: $slooh-black; }
+
+.slooh-color-bg-primary-xxlight { background-color: $slooh-primary-xxlight; }
+.slooh-color-bg-primary-xlight { background-color: $slooh-primary-xlight; }
+.slooh-color-bg-primary-light { background-color: $slooh-primary-light; }
+.slooh-color-bg-primary { background-color: $slooh-primary; }
+.slooh-color-bg-primary-dark { background-color: $slooh-primary-dark; }
+.slooh-color-bg-primary-xdark { background-color: $slooh-primary-xdark; }
+.slooh-color-bg-primary-xxdark { background-color: $slooh-primary-xxdark; }
+.slooh-color-bg-primary-xdark { background-color: $slooh-primary-xdark; }
+
+.slooh-color-bg-gray-xxlight { background-color: $slooh-gray-xxlight; }
+.slooh-color-bg-gray-xlight { background-color: $slooh-gray-xlight; }
+.slooh-color-bg-gray-light { background-color: $slooh-gray-light; }
+.slooh-color-bg-gray { background-color: $slooh-gray; }
+.slooh-color-bg-gray-dark { background-color: $slooh-gray-dark; }
+.slooh-color-bg-gray-xdark { background-color: $slooh-gray-xdark; }
+.slooh-color-bg-gray-xxdark { background-color: $slooh-gray-xxdark; }
+
+.slooh-color-bg-blue-xxlight { background-color: $slooh-blue-xxlight; }
+.slooh-color-bg-blue-xlight { background-color: $slooh-blue-xlight; }
+.slooh-color-bg-blue-light { background-color: $slooh-blue-light; }
+.slooh-color-bg-blue { background-color: $slooh-blue; }
+.slooh-color-bg-blue-dark { background-color: $slooh-blue-dark; }
+.slooh-color-bg-blue-xdark { background-color: $slooh-blue-xdark; }
+.slooh-color-bg-blue-xxdark { background-color: $slooh-blue-xxdark; }
+
+
+.slooh-color-bg-white { background-color: $slooh-white; }
+.slooh-color-bg-black { background-color: $slooh-black; }
+
+
+
+.slooh-color-border-primary-xxlight { border-color: $slooh-primary-xxlight; }
+.slooh-color-border-primary-xlight { border-color: $slooh-primary-xlight; }
+.slooh-color-border-primary-light { border-color: $slooh-primary-light; }
+.slooh-color-border-primary { border-color: $slooh-primary; }
+.slooh-color-border-primary-dark { border-color: $slooh-primary-dark; }
+.slooh-color-border-primary-xdark { border-color: $slooh-primary-xdark; }
+.slooh-color-border-primary-xxdark { border-color: $slooh-primary-xxdark; }
+.slooh-color-border-primary-xdark { border-color: $slooh-primary-xdark; }
+
+.slooh-color-border-gray-xxlight { border-color: $slooh-gray-xxlight !important; }
+.slooh-color-border-gray-xlight { border-color: $slooh-gray-xlight; }
+.slooh-color-border-gray-light { border-color: $slooh-gray-light; }
+.slooh-color-border-gray { border-color: $slooh-gray; }
+.slooh-color-border-gray-dark { border-color: $slooh-gray-dark; }
+.slooh-color-border-gray-xdark { border-color: $slooh-gray-xdark; }
+.slooh-color-border-gray-xxdark { border-color: $slooh-gray-xxdark; }
+
+.slooh-color-border-blue-xxlight { background-color: $slooh-blue-xxlight; }
+.slooh-color-border-blue-xlight { background-color: $slooh-blue-xlight; }
+.slooh-color-border-blue-light { background-color: $slooh-blue-light; }
+.slooh-color-border-blue { background-color: $slooh-blue; }
+.slooh-color-border-blue-dark { background-color: $slooh-blue-dark; }
+.slooh-color-border-blue-xdark { background-color: $slooh-blue-xdark; }
+.slooh-color-border-blue-xxdark { background-color: $slooh-blue-xxdark; }
+
+.slooh-color-border-white { border-color: $slooh-white; }
+.slooh-color-border-black { border-color: $slooh-black; }
+
+
+.slooh-header {
+    font-family: $slooh-header;
+}
+.slooh-body {
+    font-family: $slooh-body;
+}
+
+
+
+.color-block {
+    clear: both;
+    vertical-align: middle;
+    margin: 40px 0;
+    overflow: visible;
+    height: auto;
+}
+
+.color-block .swatch {
+    border: 1px solid transparent;
+    border-radius: 50%;
+    float: left;
+    height: 80px;
+    margin: 0 10px 0 0;
+    overflow: visible;
+    vertical-align: middle;
+    width: 80px;
+}
+
+.color-block ul {
+    margin: 0;
+    padding: 0;
+}
+
+.color-block ul li {
+    font-family: Brandon Grotesque;
+    list-style: none;
+    line-height: 0;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.color-block ul li:first-child {
+    font-size: 1.6em !important;
+    font-weight: bold;
+}
+
+article {
+   Margin: 40px;
+    width: 100%;
+}
+
+
+
+.page {
+    margin: 0 auto;
+    width: 100%;
+    max-width: 1280px;
+    min-width: 360px;
+}

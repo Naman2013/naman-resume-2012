@@ -1,6 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import {Link} from 'react-router';
-// import style from './about.scss';
+// import style from './static.scss';
 
 class Mission extends Component {
 
