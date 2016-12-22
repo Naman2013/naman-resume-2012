@@ -1,13 +1,44 @@
 import React, { Component, PropTypes } from 'react';
+import reservationApiErrorCodes from '../../../constants/reservation-api-error-codes';
 
-const DEFAULT_ERROR_MESSAGE = `We are unable to determine the exact issue that occurred.`;
+/**
+  NOTE:
+  if the component is provided an error code,
+  check if that error code is supported by the constant library
+  and display the appropriate message from that collection
+
+  business order:
+  1. display content based on errorCode provided / default content if none provided
+  2. display raw content provided by parent component
+  3. display default content
+*/
+
 const DEFAULT_TITLE = `Oops...`;
 const DEFAULT_SUBTITLE = `There was a problem reserving your mission.`;
+const DEFAULT_ERROR_MESSAGE = `We are unable to determine the exact issue that occurred.`;
 
 class ReservationError extends Component {
-  render() {
+  composeErrorMessage() {
+    const { message, title, subTitle, errorCode } = this.props;
 
-    const { message, title, subTitle, closeModal } = this.props;
+    const errorMessage = {
+      title,
+      subTitle,
+      message,
+    };
+
+    if(errorCode) {
+      if(reservationApiErrorCodes.hadOwnProperty(errorCode)) {
+        Object.assign(errorMessage, reservationApiErrorCodes[errorCode]);
+      }
+    }
+
+    return errorMessage;
+  }
+
+  render() {
+    const { title, subTitle, message } = this.composeErrorMessage();
+    const { closeModal } = this.props;
 
     return(
       <div>
@@ -19,7 +50,7 @@ class ReservationError extends Component {
         <div className="modal-body">
           <div className="mission-schedule">
             <h4>Details:</h4>
-            <p>{ message ? message : DEFAULT_ERROR_MESSAGE }</p>
+            <p>{message}</p>
           </div>
         </div>
 

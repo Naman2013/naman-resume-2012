@@ -5,9 +5,8 @@ import { connect } from 'react-redux';
 import styles from '../mission-modals.scss';
 import moment from 'moment-timezone';
 import NewMissionReservationSuccess from './new-mission-reservation-success';
-import {
-  reservePiggyback,
-  closeConfirmationModal } from '../../../modules/Piggyback';
+import ReservationError from './reservation-error';
+import { reservePiggyback, closeConfirmationModal } from '../../../modules/Piggyback';
 
 const mapStateToProps = ({ piggyback }) => ({
   ...piggyback
@@ -30,6 +29,49 @@ class PiggyBackConfirm extends Component {
   handleReservationClick(event) {
     event.preventDefault();
     this.props.actions.reservePiggyback();
+  }
+
+  handleMissionReservationResponse() {
+    const { piggyback } = this.props;
+    const { apiError, errorCode, missionCount } = piggyback;
+
+    if(apiError || missionCount === 0) {
+      return(
+        <ReservationError
+          closeModal={this.props.actions.closeConfirmationModal}
+        />
+      );
+    }
+
+    const currentMission = piggyback.missionList[0];
+    const {
+      missionStart,
+      objectIconURL,
+      title,
+      obsName,
+      telescopeName,
+      missionAvailable,
+      explanation } = currentMission;
+
+    if(!missionAvailable) {
+      return(
+        <ReservationError
+          errorCode={errorCode}
+          message={explanation}
+          closeModal={this.props.actions.closeConfirmationModal}
+        />
+      );
+    }
+
+    return(
+      <NewMissionReservationSuccess
+        missionStartTime={missionStart}
+        missionTitle={title}
+        objectIconURL={objectIconURL}
+        telescopeName={telescopeName}
+        closeModal={this.props.actions.closeConfirmationModal}
+      />
+    );
   }
 
   render() {
@@ -62,45 +104,39 @@ class PiggyBackConfirm extends Component {
     return (
       <Modal show={open} className={styles.missionModal}>
         {
-          !reservationConfirmed ?
-          <div>
-            <div className="modal-header">
-              <h1 className="title">Strap yourself in</h1>
-              <h2 className="title-secondary">Your are joining a pre-scheduled mission to:</h2>
-            </div>
-
-            <div className="modal-body">
-              <div className="mission-name">
-                <img height="50" className={styles.cardIcon} src={objectIconURL} />
-                <h4>{title}</h4>
-                <p className="headline">{headline}</p>
-              </div>
-
-              <div className="mission-schedule">
-                <h4>Mission Details:</h4>
-                <p>
-                  {EST_start}<br />
-                  {EST_start_time} &middot; {PST_start_time} &middot; {UTC_start_time}<br />
-                  {telescopeName}
-                </p>
-              </div>
-            </div>
-
-            <div className="modal-footer">
-              <div style={inlineButtonRowStyle} className="button-row">
-                <Button className="btn-primary" onClick={closeModal}>Sorry, Cancel This.</Button>
-                <Button className="btn-primary" onClick={ this.handleReservationClick }>Absolutely!</Button>
-              </div>
-            </div>
-          </div>
+          reservationConfirmed ?
+            this.handleMissionReservationResponse()
           :
-          <NewMissionReservationSuccess
-            closeModal={this.props.actions.closeConfirmationModal}
-            missionStartTime={missionStart}
-            missionTitle={title}
-            objectIconURL={objectIconURL}
-            telescopeName={telescopeName}
-          />
+            <div>
+              <div className="modal-header">
+                <h1 className="title">Strap yourself in</h1>
+                <h2 className="title-secondary">Your are joining a pre-scheduled mission to:</h2>
+              </div>
+
+              <div className="modal-body">
+                <div className="mission-name">
+                  <img height="50" className={styles.cardIcon} src={objectIconURL} />
+                  <h4>{title}</h4>
+                  <p className="headline">{headline}</p>
+                </div>
+
+                <div className="mission-schedule">
+                  <h4>Mission Details:</h4>
+                  <p>
+                    {EST_start}<br />
+                    {EST_start_time} &middot; {PST_start_time} &middot; {UTC_start_time}<br />
+                    {telescopeName}
+                  </p>
+                </div>
+              </div>
+
+              <div className="modal-footer">
+                <div style={inlineButtonRowStyle} className="button-row">
+                  <Button className="btn-primary" onClick={closeModal}>Sorry, Cancel This.</Button>
+                  <Button className="btn-primary" onClick={ this.handleReservationClick }>Absolutely!</Button>
+                </div>
+              </div>
+            </div>
         }
       </Modal>
     );

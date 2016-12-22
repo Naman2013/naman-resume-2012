@@ -103,6 +103,8 @@ export const grabPiggyback = (mission) => (dispatch, getState) => {
   const { currentCard } = getState().missions;
   const { missionAvailable } = mission;
 
+  dispatch(startGrabPiggyback());
+
   if(!missionAvailable) {
     dispatch(missionUnavailable());
   }
@@ -128,6 +130,9 @@ export const grabPiggyback = (mission) => (dispatch, getState) => {
 
 export const grabPiggybackByTelescope = ({ uniqueId, scheduledMissionId }) => (dispatch, getState) => {
   const { token, at, cid } = getState().user;
+
+  dispatch(startGrabPiggyback());
+
   return axios.post('/api/reservation/grabPiggyback', {
     token,
     at,
@@ -142,6 +147,10 @@ export const grabPiggybackByTelescope = ({ uniqueId, scheduledMissionId }) => (d
   })
   .catch(error => dispatch(missionUnavailable(error)));
 };
+
+const startGrabPiggyback = () => ({
+  type: GRAB_PIGGYBACK_START,
+});
 
 const grabPiggybackSuccess = (payload) => ({
   type: GRAB_PIGGYBACK_SUCCESS,

@@ -118,28 +118,42 @@ class ReserveConfirm extends Component {
     the current state
   */
   handleMissionReservationResponse() {
-    const {
-      currentMissionSlot,
-      closeModal,
-    } = this.props;
+    const { currentMissionSlot, closeModal } = this.props;
+    const { apiError, errorCode, missionCount } = currentMissionSlot;
 
-    const { apiError, errorCode, errorMsg } = currentMissionSlot;
-    const missionData = currentMissionSlot.missionList[0];
-
-    return (
-      apiError ?
+    if(apiError || missionCount === 0) {
+      return(
         <ReservationError
           closeModal={closeModal}
+        />
+      );
+    }
+
+    const missionData = currentMissionSlot.missionList[0];
+    const {
+      explanation,
+      missionAvailable,
+      missionStart,
+      title,
+      objectIconURL } = missionData;
+
+    if(!missionAvailable) {
+      return(
+        <ReservationError
           errorCode={errorCode}
-          message={errorMsg}
-        />
-        :
-        <NewMissionReservationSuccess
+          message={explanation}
           closeModal={closeModal}
-          missionStartTime={missionData.missionStart}
-          missionTitle={missionData.title}
-          objectIconURL={missionData.objectIconURL}
         />
+      );
+    }
+
+    return(
+      <NewMissionReservationSuccess
+        closeModal={closeModal}
+        missionStartTime={missionData.missionStart}
+        missionTitle={missionData.title}
+        objectIconURL={missionData.objectIconURL}
+      />
     );
   }
 

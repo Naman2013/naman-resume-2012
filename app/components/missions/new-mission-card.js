@@ -130,7 +130,7 @@ class NewMissionCard extends Component {
 
     if(!reservation.missionAvailable) {
       return(
-        <h5 className="mission-status">No existing missions are available</h5>
+        <h5 className="mission-status">No missions are available</h5>
       );
     }
   }
