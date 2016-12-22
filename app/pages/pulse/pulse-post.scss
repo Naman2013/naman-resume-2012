@@ -1,0 +1,61 @@
+@import "../../styles/variables/fonts";
+@import "../../styles/variables/colors";
+
+.pulsePost {
+
+  .pulsePostImage{
+    img{
+      height: 450px;
+      width: 100%;
+    }
+    .pulsePostImageBy{
+      font-size: 12px;
+      color: $turqoise;
+      text-align: right;
+    }
+  }
+
+
+  .pulsePostInfo{
+    font-size: 16px;
+    color: $black;
+    padding: 1px 20px 30px 20px;
+
+    .pulsePostInfoTitle{
+      font-size: 45px;
+      color: $pink;
+    }
+
+    .pulsePostInfoDateCategory{
+      padding: 5px 0;
+
+      a{
+        color: $pink;
+      }
+
+      img{
+        width: 18px;
+        height: 17px;
+        margin: 0 10px;
+        vertical-align: top;
+      }
+    }
+
+    .pulsePostInfoDesc{
+      margin-bottom: 10px;
+      a{
+        color: $pink;
+      }
+    }
+  }
+
+  &:after{
+    content: "";
+    display: block;
+    width: 30%;
+    margin: 10px auto 50px;
+    background: #979797;
+    height: 1px;
+  }
+
+}

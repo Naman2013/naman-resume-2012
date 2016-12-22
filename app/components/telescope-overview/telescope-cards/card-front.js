@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
+import _ from 'lodash';
 import CountdownTimer from './countdown-timer';
 import TelescopeImageLoader from '../../common/telescope-image-loader/telescope-image-loader';
 import VideoImageLoader from '../../common/telescope-image-loader/video-image-loader';
@@ -105,7 +106,7 @@ class CardFront extends Component {
       expires: null,
     };
 
-    if(activeMission) {
+    if(_.has(activeMission, 'activeMission.compact.missionList')) {
       Object.assign(cardContent, activeMission.activeMission.compact.missionList[0]);
     }
 

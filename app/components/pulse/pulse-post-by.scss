@@ -1,0 +1,24 @@
+@import "../../styles/variables/fonts";
+@import "../../styles/variables/colors";
+
+.pulsePostBy {
+  img {
+    width: 46px;
+    height: 46px;
+    display: inline;
+    float: left;
+    border-radius: 100%;
+    border: 1px solid #ECECEA;
+    padding-right: 0;
+    box-sizing: border-box;
+    margin: 3px 10px 0 0;
+  }
+  .pulsePostByName {
+    font-size: 20px;
+    color: $black;
+  }
+  .pulsePostByFrom {
+    font-size: 14px;
+    color: $darkBlueGray;
+  }
+}

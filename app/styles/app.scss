@@ -41,6 +41,15 @@ img {
   }
 }
 
+.pulse {
+  background: #fff;
+
+  .container {
+    width: 100%;
+    padding: 0 0 15px;
+  }
+}
+
 // overwrite bootstrap button to use pink
 .btn-primary {
   background: #F310A7;

@@ -9,7 +9,7 @@ import GenericLoadingBox from '../components/common/loading-screens/generic-load
   cardList: missions.cardList || [],
   piggybacks: missions.piggybacks || []
 }))
-export default class ExistingMissions extends Component {
+export default class PulsePageExistingMissions extends Component {
   static propTypes = {
     cardList: PropTypes.array,
     piggybacks: PropTypes.array,

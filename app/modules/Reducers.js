@@ -17,6 +17,7 @@ import currentMission from './current-mission/get-current-mission-reducer';
 import activeTelescopeMissions from './active-telescope-missions/active-telescope-missions-reducer';
 import catalog from './catalog/get-catalog-reducer';
 import communityObjectContent from './community-content/get-object-content-reducer';
+import publishPost from './community-content/publish-post';
 
 export default combineReducers({
   routing: routerReducer,
@@ -37,4 +38,5 @@ export default combineReducers({
   activeTelescopeMissions,
   catalog,
   communityObjectContent,
+  publishPost
 });

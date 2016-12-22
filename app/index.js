@@ -8,6 +8,8 @@ import configureStore from './store';
 import App from './containers/App';
 import About from './containers/About';
 import Reservations from './containers/Reservations';
+import SloohPulse from './containers/SloohPulse';
+import SloohPulsePage from './containers/SloohPulsePage';
 import SloohRecommends from './containers/SloohRecommends';
 import MyPictures from './containers/my-pictures';
 
@@ -33,6 +35,7 @@ import Missions from './pages/my-pictures/missions';
 import Favorites from './pages/my-pictures/favorites';
 import SloohMostPopular from './pages/my-pictures/slooh-most-popular';
 import PublishPost from './pages/community/publish-post';
+import PulsePost from './pages/pulse/pulse-post';
 
 // global styles
 import Bootstrap from 'bootstrap/dist/css/bootstrap.css';
@@ -70,13 +73,29 @@ ReactDOM.render(
 
         <Route path="best-of-slooh" component={BestOfSlooh} />
         <Route path="object-post" component={ObjectPost} />
+        <Route path="publish-post" component={PublishPost} />
+
+        <Route path="slooh-pulse" component={SloohPulse}>
+          <IndexRedirect to="latest-posts" />
+
+          <Route path="latest-posts" component={SloohPulsePage}>
+            <IndexRedirect to="all" />
+            <Route path="all" name="all" component={PulsePost} />
+            <Route path="science-log" name="science-log" component={PulsePost} />
+            <Route path="art-culture" name="art-culture" component={PulsePost} />
+            <Route path="human-spirit" name="human-spirit" component={PulsePost} />
+            <Route path="diy" name="diy" component={PulsePost} />
+          </Route>
+
+          <Route path="hottest-posts" component={ReserveObjects} />
+        </Route>
 
         <Route path="about" component={About} >
           <IndexRedirect to="mission" />
-          <Route path="news" component={News} title="In The News" subTitle="[Sub-title for news page]"/>
-          <Route path="job" component={Job}  title="Work With Us" subTitle="[Sub-title for news page]"/>
-          <Route path="contact" component={Contact}  title="Contact US" subTitle="[Sub-title for news page]"/>
-          <Route path="leadership" component={Leadership}  title="Leadership" subTitle="[Sub-title for news page]"/>
+          <Route path="news" component={News} title="In The News" subTitle="[Sub-title for news page]" />
+          <Route path="job" component={Job}  title="Work With Us" subTitle="[Sub-title for news page]" />
+          <Route path="contact" component={Contact}  title="Contact US" subTitle="[Sub-title for news page]" />
+          <Route path="leadership" component={Leadership}  title="Leadership" subTitle="[Sub-title for news page]" />
         </Route>
 
         <Route path="about/mission" component={Mission} />

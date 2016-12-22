@@ -1,0 +1,53 @@
+@import '../../styles/variables/fonts.scss';
+@import '../../styles/variables/colors.scss';
+
+.pulsePopular {
+  font-family: $primary-font;
+  padding: 20px 0;
+  position: relative;
+  margin: 20px 0;
+  width: 415px;
+
+  .header {
+    background: $darkBlueGray;
+    color: $light-blue;
+    border-bottom: 3px solid $light-blue;
+    text-align: center;
+    padding: 12px 5px;
+
+    h4 {
+      font-size: 24px;
+      margin-top: 0;
+    }
+
+    p {
+      font-size: 14px;
+    }
+  }
+
+  .popularContainer {
+    list-style: none;
+    padding: 15px;
+    padding-left: 0;
+
+    li {
+      overflow: hidden;
+      width: 100%;
+      padding: 4px 0;
+
+      a {
+        width: 80%;
+        color: $pink;
+        font-size: 18px;
+        float: left;
+      }
+    }
+
+    .icon {
+      float: left;
+      margin: 5px 20px;
+      width: 26px;
+      height: 25px;
+    }
+  }
+}
