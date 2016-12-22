@@ -1,0 +1,35 @@
+@import "../../styles/variables/fonts.scss";
+@import "../../styles/variables/colors.scss";
+
+.publish-post-list {
+  padding: 40px 185px;
+  background: $slooh-white;
+  list-style: none;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+
+  .item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 18px;
+    font-weight: bold;
+    border-bottom: 1px solid $blueGreen;
+    padding: 35px 0;
+  }
+
+  .number {
+    display: block;
+    width: 30px;
+    height: 30px;
+    background: $darkBlueGray;
+    color: $blueGreen;
+    padding: 5px;
+    border-radius: 50%;
+  }
+
+  .description {
+    margin: 10px auto;
+  }
+}

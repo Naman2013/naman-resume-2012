@@ -1,0 +1,78 @@
+@import "../../styles/variables/fonts.scss";
+@import "../../styles/variables/colors.scss";
+
+.pulseNav {
+  font-family: $primary-font;
+  margin-bottom: 20px;
+  display: flex;
+
+  .pulseNavContainer {
+    margin: 0 auto;
+    padding: 15px 0 0 0;
+    height: 65px;
+    text-transform: uppercase;
+    position: relative;
+    font-weight: bold;
+
+    li {
+      list-style: none;
+      float: left;
+      margin: 0 35px;
+      height: 50%;
+
+      a {
+        color: #000;
+
+        &:focus {
+          text-decoration: none;
+        }
+
+        &.active {
+          border-bottom: 5px solid #7EC3C4;
+          color: #000;
+        }
+      }
+
+      &:hover > a {
+        border-bottom: 5px solid #7EC3C4;
+        color: #000;
+      }
+    }
+
+    .pulseSubNavContainer {
+      position: absolute;
+      left: -100px;
+      text-transform: capitalize;
+      padding: 0;
+      min-width: 500px;
+      top: 50px;
+
+      li {
+        float: left;
+        margin: 0 3% 0 0;
+        font-weight: normal;
+
+        a {
+          color: $pink;
+
+          &:focus {
+            text-decoration: none;
+          }
+
+          &:hover {
+            color: #000;
+            border: none;
+          }
+
+          &.active {
+            border: none;
+            color: #000;
+            font-weight: bold;
+          }
+
+        }
+      }
+    }
+
+  }
+}

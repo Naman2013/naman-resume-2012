@@ -152,7 +152,7 @@ class CommunityPerspectives extends Component {
                         className={navigationClasses}
                         href="#"
                       >
-                        <p className="title" className="title">{perspective.title}</p>
+                        <p className="title">{perspective.title}</p>
                         <div className="icon">
                           <img height="45" src={perspective.icon} />
                         </div>

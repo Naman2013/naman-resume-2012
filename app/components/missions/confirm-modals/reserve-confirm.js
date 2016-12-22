@@ -170,7 +170,6 @@ class ReserveConfirm extends Component {
 
     return (
       <Modal show={open} className="missionModal reserveMissionModal">
-
         {
           missionSlotJustReserved ?
             this.handleMissionReservationResponse()

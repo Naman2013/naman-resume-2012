@@ -170,7 +170,7 @@ export default class TelescopeDetails extends Component {
     const currentMission = DEFAULT_FULL_MISSION_DATA;
     const currentTelescopeMissionData = activeTelescopeMissions.telescopes.find(telescope => telescope.telescopeId === teleId);
 
-    if(currentTelescopeMissionData) {
+    if(currentTelescopeMissionData && currentTelescopeMissionData.activeMission.full.missionList) {
       Object.assign(currentMission, currentTelescopeMissionData.activeMission.full.missionList[0]);
     }
 

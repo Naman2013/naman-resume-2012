@@ -1,0 +1,55 @@
+@import '../../styles/variables/fonts.scss';
+@import '../../styles/variables/colors.scss';
+
+.pulseRecommended {
+  font-family: $primary-font;
+  padding: 20px 0;
+  position: relative;
+  margin: 20px 0;
+  width: 415px;
+
+  .header {
+    background: $darkBlueGray;
+    color: $light-blue;
+    border-bottom: 3px solid $light-blue;
+    text-align: center;
+    padding: 12px 5px;
+
+    h4 {
+      font-size: 24px;
+      margin-top: 0;
+    }
+
+    p {
+      font-size: 14px;
+    }
+  }
+
+  .recommendedContainer {
+    list-style: none;
+    color: $font-black;
+    text-align: center;
+    font-size: 18px;
+    padding: 25px 50px;
+
+    .text {
+      margin: 20px;
+    }
+
+    .headline {
+      font-size: 16px;
+      padding-bottom: 20px;
+    }
+
+    h4 {
+      font-size: 24px;
+    }
+
+    .dotted {
+      border-bottom: 1px dotted $black;
+      width: 70%;
+      margin: 20px auto;
+    }
+
+  }
+}
