@@ -25,7 +25,7 @@ class News extends Component {
 
                         <aside className="social-media">
                             <span className="flame"><i><img src="../icons/flame.png" /></i> <strong>[###]</strong>/[###]</span>
-                            <span className="like"><i><img src="../icons/heart.svg" /><span className="number">###</span></i> Like</span>
+                            <span className="like margin-left-med margin-right-med"><i><span className="number">###</span></i> Like</span>
                             <span className="share"><i><img src="../icons/share.svg" /></i> Share</span>
                         </aside>
 

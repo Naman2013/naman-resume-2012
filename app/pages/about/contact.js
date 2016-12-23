@@ -20,8 +20,8 @@ class Contact extends Component {
     render() {
         let {handleSubmit, contact, error} = this.props;
         return (
-            <section className="job-posts">
-                <article className="card-wide">
+            <section className="contact-us">
+                <article className="card-wide padding-med">
                     <header className="margin-bottom-reg">
                     </header>
 

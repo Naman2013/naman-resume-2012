@@ -8,22 +8,25 @@ class Mission extends Component {
         return (
 
             <article className="static-page mission" id="about">
-                <header className="static">
+                
+                <header className="static page">
 
                     <h1 className="big-board">
-                        <div className="text-xlarge">Our Mission: to boldly </div>
+                        <div className="text-xlarge">Our Mission:</div>
                         <div className="text-regular margin-top-large margin-bottom-small">Everyone Should Have access to</div>
                         <div className="text-xxlarge">The Wonders of </div>
                         <div className="text-ginormous">Space</div>
                     </h1>
+ 
 
                 </header>
 
-                <i className="sigil">
-                    <img src="../chrome/Siggle-Slooh.svg" width="100" height="100" className="center-center"/>
+                   
+                <i className="sigil slooh">
+                    <img src="../app/chrome/Siggle-Slooh.svg" width="100" height="100" className="center-center"/>
                 </i>
 
-                <section className="row-col margin-bottom-xxlarge">
+                <section className="row-col margin-bottom-xxlarge move-up-xxlarge">
 
                     <article className="col-2third">
                         <p>
@@ -46,7 +49,7 @@ class Mission extends Component {
                     <aside className="col-third">
 
                         <figure className="">
-                            <img src="" width="270" height="317" />
+                            <img src="../app/images/photos/people/michael_paolucci.jpg" width="270" height="317" />
                                 <figcaption>
                                     <div className="name">Michael Paolucci</div>
                                     <div className="title">Founder &amp; CEO</div>
@@ -54,21 +57,23 @@ class Mission extends Component {
                         </figure>
 
                         <div className="margin-top-med center-center" style={{width: 270}}>
-                            <img src="../chrome/signiture-michael.svg" width="200"/>
+                            <img src="../app/chrome/signiture-michael.svg" width="200"/>
                         </div>
 
                     </aside>
 
                 </section>
 
-                <footer className="page">
+                <footer className="page padding-top-large padding-top-large">
 
-                    <header className="row-col margin-bottom-xlarge margin-top-xxlarge">
+                    <header className="row-col margin-bottom-xlarge">
                         <i className="pull-left margin-bottom-med margin-right-med">
-                            <img src="../icons/icon-SLT-live.svg" width="60"/>
+                            <img src="../app/icons/icon-SLT-live.svg" width="60"/>
                         </i>
-                        <h1 className="white">Syndicate Live Telescope Coverage</h1>
-                        <div className="white text-large">Join our media list and we will provide you with updates on events which include embed codes.</div>
+                        <div class="pull-right col-med">
+                            <h1 className="white">Syndicate Live Telescope Coverage</h1>
+                            <div className="white text-large">Join our media list and we will provide you with updates on events which include embed codes.</div>
+                        </div>
                     </header>
 
                     <article className="row-col">
@@ -83,7 +88,6 @@ class Mission extends Component {
                         <article className="white padding-tb-reg border-dark-top border-dark-bottom">
                             <Link to="about/contact"  className="btn-primary margin-right-large">Contact Us</Link>
                             To join our media list, please send a request to press@slooh.com or call 877-427-5664 x3.
-
                         </article>
                     </footer>
 

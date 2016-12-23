@@ -2,10 +2,10 @@ import React, { Component, PropTypes } from 'react';
 
 export const CareerList = ({value}) => {
     return (
-        <article className="card-wide" >
+        <article className="card-wide padding-med" >
             <header className="margin-bottom-reg">
                 <h1 className="name">{value.jobTitle}</h1>
-                <h2 className="title location">{value.location}</h2>
+                <h2 className="title location icon-small icon-location">{value.location}</h2>
             </header>
             <p>{value.jobText}</p>
             <footer>
