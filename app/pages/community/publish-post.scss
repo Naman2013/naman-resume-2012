@@ -9,7 +9,7 @@
   display: flex;
   flex-direction: column;
 
-  .item {
+  & > .item {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -31,5 +31,25 @@
 
   .description {
     margin: 10px auto;
+
+    .param {
+      font-weight: normal;
+    }
+  }
+
+  .select-object-category-and-topic-wrapper {
+    width: 100%;
+    text-align: left;
+    display: flex;
+    justify-content: space-around;
+    font-size: 16px;
+    padding-top: 20px;
+    height: 226px;
+    overflow: auto;
+
+    .select-object-category,
+    .select-object-topic {
+      flex: 1 0 45%;
+    }
   }
 }

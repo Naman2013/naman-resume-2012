@@ -18,11 +18,11 @@ const imageProcessingOptions = [
 
 class ReservationByCoordinate extends Component {
   render() {
-    const { showPlaceOnHold, showCancelHold } = this.props;
+    const { showPlaceOnHold, showCancelHold, expires, expireCallback } = this.props;
     return(
       <div className="reservation-form-container">
         <div className="reserveObjectPage reserve-by-coordinate two-up">
-          <Timer />
+          <Timer startTime={expires} expireCallback={expireCallback} />
 
           <div className="row">
             <div className="col-xs-6">
@@ -53,7 +53,6 @@ class ReservationByCoordinate extends Component {
             <div className="col-xs-6">
               <h2><span className="number">2</span> Select Image Processing</h2>
                 <ReservationSelectList
-                  ref="imageProcessing"
                   options={imageProcessingOptions}
                   name="imageProcessing"
                   listHeight={170}
@@ -89,10 +88,12 @@ ReservationByCoordinate.defaultProps = {
   showCancelHold: false,
 };
 
-const { string, number, bool } = PropTypes;
+const { string, number, bool, func } = PropTypes;
 ReservationByCoordinate.propTypes = {
   showPlaceOnHold: bool,
   showCancelHold: bool,
+  expires: number.isRequired,
+  expireCallback: func.isRequired,
 };
 
 export default ReservationByCoordinate;

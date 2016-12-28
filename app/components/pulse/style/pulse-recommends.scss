@@ -1,0 +1,79 @@
+@import '../../../styles/variables/fonts';
+@import '../../../styles/variables/colors';
+
+.pulseRecommended {
+  font-family: $primary-font;
+  padding: 20px 0;
+  position: relative;
+  margin: 20px 0;
+  width: 415px;
+
+  .pulseRecommendedHeader {
+    background: $darkBlueGray;
+    color: $light-turqoise;
+    border-bottom: 3px solid $blueGreen;
+    text-align: center;
+    padding: 12px 5px;
+
+    h4 {
+      font-size: 24px;
+      margin: 0;
+      font-weight: 700;
+    }
+
+    p {
+      font-size: 14px;
+      font-weight: 100;
+    }
+  }
+
+  .pulseRecommendedContainer {
+    list-style: none;
+    color: $font-black;
+    text-align: center;
+    font-size: 18px;
+    padding: 25px 20px 0 20px;
+
+    .text {
+      margin: 20px 0 10px;
+      font-weight: 100;
+    }
+
+    .desc {
+      margin: 20px;
+      font-weight: 100;
+    }
+
+    .headline {
+      font-size: 15px;
+      padding-bottom: 20px;
+      font-weight: 700;
+    }
+
+    .dot{
+      color: $pink;
+      padding: 0 5px;
+    }
+
+    .button {
+      margin-bottom: 20px;
+    }
+
+    h5 {
+      font-size: 24px;
+      font-weight: bold;
+      margin-top: 0;
+    }
+
+    &:last-child .dotted{
+      display: none;
+    }
+
+    .dotted {
+      border-bottom: 1px dotted $black;
+      width: 70%;
+      margin: 20px auto;
+    }
+
+  }
+}

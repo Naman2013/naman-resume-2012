@@ -69,10 +69,24 @@ img {
   border-radius: 0;
   text-decoration: none;
   padding: 0 15px;
-}
 
-.btn-primary:hover {
-  background: #000;
+  &.disabled {
+    background: $slooh-gray;
+    cursor: not-allowed;
+  }
+
+  &:hover {
+    background: #000;
+
+    &.disabled {
+      background: $slooh-gray;
+    }
+  }
+
+  &:hover,
+  &:focus {
+    outline: none;
+  }
 }
 
 

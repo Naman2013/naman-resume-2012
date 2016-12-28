@@ -1,114 +1,76 @@
 import React, { Component, PropTypes } from 'react';
-import { Link } from 'react-router'
 import PulsePostBy from '../../components/pulse/pulse-post-by'
-import { iconCategory } from '../../components/pulse/pulse-icon'
+import PulsePostDate from '../../components/pulse/pulse-post-date'
+import PulsePostImage from '../../components/pulse/pulse-post-image'
+import PulsePostTag from '../../components/pulse/pulse-post-tag'
+import PulsePostTools from '../../components/pulse/tools/pulse-post-tools'
 import styles from './pulse-post.scss';
 
-const categoryName = {
-  art: "Arts & Culture",
-  since: "Science Log",
-  human: "Human Spirit",
-  diy: "Arts & Culture"
+const post = {
+  id: 1,
+  postImage: "",
+  postImageBy: "Image by Sarah Blake, all rights reserved.",
+  postTitle: "My new Gemini painting is finally finished!",
+  postDate: "March 12, 2017",
+  postCategory: "ART_CULTURE",
+  postDesc: "I just finished this painting in my studio and thought I would share it with the Slooh community. " +
+  "Hope you like it. It took me about 5 months to get it done, since I have a full time job. I have been really " +
+  "thinking through what it means to be a Gemini and the conflict with the perception Carl Sagan had that its a " +
+  "“pseudo-science” to consider the stars can have any power over our lives. I respectfully disagree with " +
+  "Mr. Sagan and have been completing a series of paintings on each of the zodiacal symbols. " +
+  "I wanted to realy a little bit more about the process \r\n \r \n" +
+  "I just finished this painting in my studio and thought I would share it with the Slooh community. " +
+  "Hope you like it. It took me about 5 months to get it done, since I have a full time job. I have been really " +
+  "thinking through what it means to be a Gemini and the conflict with the perception Carl Sagan had that its a " +
+  "“pseudo-science” to consider the stars can have any power over our lives. I respectfully disagree with " +
+  "Mr. Sagan and have been completing a series of paintings on each of the zodiacal symbols. " +
+  "I wanted to realy a little bit more about the process \r\n \r \n" +
+  "I just finished this painting in my studio and thought I would share it with the Slooh community. " +
+  "Hope you like it. It took me about 5 months to get it done, since I have a full time job. I have been really " +
+  "thinking through what it means to be a Gemini and the conflict with the perception Carl Sagan had that its a " +
+  "“pseudo-science” to consider the stars can have any power over our lives. I respectfully disagree with " +
+  "Mr. Sagan and have been completing a series of paintings on each of the zodiacal symbols. " +
+  "I wanted to realy a little bit more about the process \r\n \r \n",
+  postBy: {
+    image: "",
+    name: "Sarah Blake",
+    post: "guardian",
+    from: "New York, NY, USA. Member since 2011"
+  },
+  postTag: ["astro", "super-star", "victor"],
+  postTools: {
+    hot: 250,
+    likes: 1250,
+  }
 };
 
-const list = [
-  {
-    id: 1,
-    postImage: "",
-    postImageBy: "Image by Sarah Blake, all rights reserved.",
-    postTitle: "My new Gemini painting is finally finished!",
-    postDate: "March 12, 2017",
-    postCategory: "ART_CULTURE",
-    postDesc: "I just finished this painting in my studio and thought I would share it with the Slooh community. " +
-    "Hope you like it. It took me about 5 months to get it done, since I have a full time job. I have been really " +
-    "thinking through what it means to be a Gemini and the conflict with the perception Carl Sagan had that its a " +
-    "“pseudo-science” to consider the stars can have any power over our lives. I respectfully disagree with " +
-    "Mr. Sagan and have been completing a series of paintings on each of the zodiacal symbols. " +
-    "I wanted to realy a little bit more about the process",
-    postBy: {
-      image: "",
-      name: "Sarah Blake",
-      post: "guardian",
-      from: "New York, NY, USA. Member since 2011"
-    }
-  }, {
-    id: 2,
-    postImage: "",
-    postImageBy: "Image by Sarah Blake, all rights reserved.",
-    postTitle: "My new Gemini painting is finally finished!",
-    postDate: "March 12, 2017",
-    postCategory: "SCIENCE_LOG",
-    postDesc: "I just finished this painting in my studio and thought I would share it with the Slooh community. " +
-    "Hope you like it. It took me about 5 months to get it done, since I have a full time job. I have been really " +
-    "thinking through what it means to be a Gemini and the conflict with the perception Carl Sagan had that its a " +
-    "“pseudo-science” to consider the stars can have any power over our lives. I respectfully disagree with " +
-    "Mr. Sagan and have been completing a series of paintings on each of the zodiacal symbols. " +
-    "I wanted to realy a little bit more about the process",
-    postBy: {
-      image: "",
-      name: "Sarah Blake",
-      post: "guardian",
-      from: "New York, NY, USA. Member since 2011"
-    }
-  }, {
-    id: 3,
-    postImage: "",
-    postImageBy: "Image by Sarah Blake, all rights reserved.",
-    postTitle: "My new Gemini painting is finally finished!",
-    postDate: "March 12, 2017",
-    postCategory: "DIY",
-    postDesc: "I just finished this painting in my studio and thought I would share it with the Slooh community. " +
-    "Hope you like it. It took me about 5 months to get it done, since I have a full time job. I have been really " +
-    "thinking through what it means to be a Gemini and the conflict with the perception Carl Sagan had that its a " +
-    "“pseudo-science” to consider the stars can have any power over our lives. I respectfully disagree with " +
-    "Mr. Sagan and have been completing a series of paintings on each of the zodiacal symbols. " +
-    "I wanted to realy a little bit more about the process",
-    postBy: {
-      image: "",
-      name: "Sarah Blake",
-      post: "guardian",
-      from: "New York, NY, USA. Member since 2011"
-    },
-  }
-];
+const PulsePostContent = () =>
 
-class PulsePost extends Component {
+  <div className={styles.PulsePostList}>
 
-  prepareData = (list, url) =>
-    list.map(v =>
-      <div className={styles.pulsePost} key={v.id}>
-        <figure className={styles.pulsePostImage}>
-          <img src={v.postImage}/>
-          <figcaption className={styles.pulsePostImageBy}>{v.postImageBy}</figcaption>
-        </figure>
+    <PulsePostImage image={post.postImage} imageBy={post.postImageBy}/>
 
-        <figure className={styles.pulsePostInfo}>
-          <h2 className={styles.pulsePostInfoTitle}>{v.postTitle}</h2>
+    <figure className={styles.PulsePostListInfo}>
+      <h2 className={styles.PulsePostListInfoTitle}>{post.postTitle}</h2>
 
-          <div className={styles.pulsePostInfoDateCategory}>
-            Posted on {v.postDate} in
-            <Link
-              to={url.substring(0, url.lastIndexOf("/") + 1) + v.postCategory}> {iconCategory.title[v.postCategory]} </Link>
-            <img src={iconCategory.icon[v.postCategory]}/>
-          </div>
-
-          <figcaption className={styles.pulsePostInfoDesc}>
-            {v.postDesc}... (<Link to={"#"}>See full entry</Link>)
-          </figcaption>
-
-          <PulsePostBy {...v.postBy} />
-        </figure>
+      <div className="row">
+        <div className="col-md-6">
+          <PulsePostBy {...post.postBy} />
+        </div>
+        <div className="col-md-5 pull-right">
+          <PulsePostTools {...post.postTools} />
+        </div>
       </div>
-    );
 
-  render() {
-    const { location: { pathname } } = this.props;
-    return (
-      <div>
-        {this.prepareData(list, pathname)}
-      </div>
-    );
-  }
-}
+      <PulsePostDate date={post.postDate} category={post.postCategory}/>
 
-export default PulsePost;
+      <figcaption className={styles.PulsePostListInfoDesc}>{post.postDesc}</figcaption>
+
+      <PulsePostTag tags={post.postTag}/>
+    </figure>
+
+  </div>;
+
+
+export default PulsePostContent;
+

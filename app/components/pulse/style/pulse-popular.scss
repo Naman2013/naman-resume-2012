@@ -1,31 +1,36 @@
-@import '../../styles/variables/fonts.scss';
-@import '../../styles/variables/colors.scss';
+@import '../../../styles/variables/fonts';
+@import '../../../styles/variables/colors';
 
 .pulsePopular {
   font-family: $primary-font;
-  padding: 20px 0;
   position: relative;
   margin: 20px 0;
   width: 415px;
 
-  .header {
+  .pulsePopularHeader {
     background: $darkBlueGray;
-    color: $light-blue;
-    border-bottom: 3px solid $light-blue;
+    color: $light-turqoise;
+    border-bottom: 4px solid $blueGreen;
     text-align: center;
     padding: 12px 5px;
 
     h4 {
       font-size: 24px;
-      margin-top: 0;
+      margin: 0;
+      font-weight: 700;
+
+      .tag{
+        color: $white;
+      }
     }
 
     p {
       font-size: 14px;
+      font-weight: 100;
     }
   }
 
-  .popularContainer {
+  .pulsePopularContainer {
     list-style: none;
     padding: 15px;
     padding-left: 0;

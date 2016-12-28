@@ -1,5 +1,24 @@
+@import '../styles/variables/fonts';
+@import '../styles/variables/colors';
+
+
 .countdown {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  float: right;
+  height: 100%;
+  flex-direction: row;
+  color: $blueGreen;
+  font-family: $primary-font;
+  font-weight: 600;
+  padding: 10px 90px 10px 10px;
+
+  span{
+    color: $white;
+    font-size: 13px;
+  }
+
+  a{
+    color: $blueGreen;
+    font-size: 13px;
+  }
 }

@@ -131,7 +131,7 @@ class CommunityPerspectives extends Component {
       arrows: hasRelevantPosts ? showArrows : false,
     };
 
-    console.log(this.props.communityObjectContent);
+    // console.log(this.props.communityObjectContent);
 
     return(
       <div className="telescope-block community-perspectives">

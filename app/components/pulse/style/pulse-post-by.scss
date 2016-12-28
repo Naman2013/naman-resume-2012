@@ -1,7 +1,9 @@
-@import "../../styles/variables/fonts";
-@import "../../styles/variables/colors";
+@import "../../../styles/variables/fonts";
+@import "../../../styles/variables/colors";
 
 .pulsePostBy {
+  margin: 30px 0;
+
   img {
     width: 46px;
     height: 46px;
@@ -15,10 +17,17 @@
   }
   .pulsePostByName {
     font-size: 20px;
-    color: $black;
+    color: $darkBlueGray;
   }
   .pulsePostByFrom {
     font-size: 14px;
-    color: $darkBlueGray;
+    color: $light-gray;
+  }
+  .pulsePostByPost {
+    font-size: 10px;
+    color: $red;
+    font-weight: 900;
+    text-transform: uppercase;
+    padding-left: 8px;
   }
 }

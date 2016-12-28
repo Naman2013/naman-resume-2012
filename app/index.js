@@ -8,10 +8,11 @@ import configureStore from './store';
 import App from './containers/App';
 import About from './containers/About';
 import Reservations from './containers/Reservations';
-import SloohPulse from './containers/SloohPulse';
-import SloohPulsePage from './containers/SloohPulsePage';
 import SloohRecommends from './containers/SloohRecommends';
 import MyPictures from './containers/my-pictures';
+import PulseList from './containers/pulse/PulseList';
+import PulseWrapper from './containers/pulse/PulseWrapper';
+import PulsePost from './containers/pulse/PulsePost';
 
 // pages
 import Home from './pages/home';
@@ -35,7 +36,8 @@ import Missions from './pages/my-pictures/missions';
 import Favorites from './pages/my-pictures/favorites';
 import SloohMostPopular from './pages/my-pictures/slooh-most-popular';
 import PublishPost from './pages/community/publish-post';
-import PulsePost from './pages/pulse/pulse-post';
+import PulsePostList from './pages/pulse/pulse-post-list';
+import PulsePostContent from './pages/pulse/pulse-post';
 
 // global styles
 import Bootstrap from 'bootstrap/dist/css/bootstrap.css';
@@ -75,19 +77,25 @@ ReactDOM.render(
         <Route path="object-post" component={ObjectPost} />
         <Route path="publish-post" component={PublishPost} />
 
-        <Route path="slooh-pulse" component={SloohPulse}>
+        <Route path="slooh-pulse" component={PulseList}>
           <IndexRedirect to="latest-posts" />
 
-          <Route path="latest-posts" component={SloohPulsePage}>
+          <Route path="latest-posts" component={PulseWrapper}>
             <IndexRedirect to="all" />
-            <Route path="all" name="all" component={PulsePost} />
-            <Route path="science-log" name="science-log" component={PulsePost} />
-            <Route path="art-culture" name="art-culture" component={PulsePost} />
-            <Route path="human-spirit" name="human-spirit" component={PulsePost} />
-            <Route path="diy" name="diy" component={PulsePost} />
+            <Route path="all" name="all" component={PulsePostList} />
+            <Route path="science-log" name="science-log" component={PulsePostList} />
+            <Route path="art-culture" name="art-culture" component={PulsePostList} />
+            <Route path="human-spirit" name="human-spirit" component={PulsePostList} />
+            <Route path="diy" name="diy" component={PulsePostList} />
           </Route>
 
-          <Route path="hottest-posts" component={ReserveObjects} />
+          <Route path="hottest-posts" component={PulseWrapper} />
+        </Route>
+
+        <Route path="slooh-pulse" component={PulsePost} >
+          <Route component={PulseWrapper} >
+            <Route path="post(/:id)" name="post" component={PulsePostContent} />
+          </Route>
         </Route>
 
         <Route path="about" component={About} >
