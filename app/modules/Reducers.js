@@ -5,6 +5,7 @@ import menu from './Menu';
 import user from './User';
 import login from './Login';
 import missions from './Missions';
+import countdown from './CountdownModule';
 import telescopeOverview from './Telescope-Overview';
 import announcementBanner from './Announcement-Banner';
 import tags from './tag-management/Tags';
@@ -18,10 +19,12 @@ import activeTelescopeMissions from './active-telescope-missions/active-telescop
 import catalog from './catalog/get-catalog-reducer';
 import communityObjectContent from './community-content/get-object-content-reducer';
 import publishPost from './community-content/publish-post';
+import telescopeSlots from './grab-telescope-slot/reducer';
 
 export default combineReducers({
   routing: routerReducer,
   form: reducer,
+  countdown,
   menu,
   user,
   login,
@@ -38,5 +41,6 @@ export default combineReducers({
   activeTelescopeMissions,
   catalog,
   communityObjectContent,
-  publishPost
+  publishPost,
+  telescopeSlots,
 });

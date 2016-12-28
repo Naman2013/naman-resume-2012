@@ -3,16 +3,22 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import CircleTimer from '../containers/CircleTimer';
 import * as countDownEvents from '../modules/CountdownModule';
+import {fetchActiveOrUpcomingEvent} from '../modules/CountdownModule';
 import classes from '../styles/countdown.scss';
 
 const { bool, number, string, object, func } = PropTypes;
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ countDownEvents }, dispatch);
+  return bindActionCreators({
+    fetchActiveOrUpcomingEvent: fetchActiveOrUpcomingEvent,
+    countDownEvents
+  }, dispatch);
 }
 
-function mapStateToProps({ countdown }) {
-  return { countdown };
+function mapStateToProps(state) {
+  console.log(state);
+  let { countdown } = state;
+  return countdown;
 }
 
 @connect(mapStateToProps, mapDispatchToProps)
@@ -52,6 +58,7 @@ export default class Countdown extends Component {
       isFetching,
       activeOrUpcomingEvent,
       duration,
+      fetchActiveOrUpcomingEvent,
     } = this.props;
 
     if (!isFetching) {
@@ -71,15 +78,12 @@ export default class Countdown extends Component {
         if (eventStart > currentTime && currentTime < eventEnd) {
           return (
             <div className={classes.countdown}>
-              <CircleTimer size={35} eventStartIn={eventStart} />
               <div>
-                <span>Upcoming LIVE Event: </span>
+                <CircleTimer fetchActiveOrUpcomingEvent={fetchActiveOrUpcomingEvent} size={35} eventStartIn={eventStart} />
+                <span>Next LIVE Event: </span>
                 <span>
                   <strong><a target="_blank" href={eventDetailsDecodedURL}>{eventTitle}</a></strong>
-                  <p>
-                    <span className="countdown">{duration}</span>
-                    <img className="reminder-header" src="../assets/images/header/reminder.png" />
-                  </p>
+                  <span>{duration}</span>
                 </span>
               </div>
             </div>

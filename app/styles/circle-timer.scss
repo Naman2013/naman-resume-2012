@@ -1,6 +1,29 @@
 .circleTimer {
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
+
+  img{
+    height: 22px;
+    margin: 0 5px;
+  }
+
+  .circle{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 35px;
+    height: 35px;
+    margin-right: 10px;
+    font-size: 12px;
+
+    svg{
+      position: absolute;
+    }
+
+    span{
+      color: #bbdbdb;
+    }
+  }
 }

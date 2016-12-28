@@ -1,0 +1,24 @@
+@import "../../../styles/variables/fonts";
+@import "../../../styles/variables/colors";
+
+.PulsePostTags {
+  color: $darkBlueGray;
+  font-size: 16px;
+  display: inline-flex;
+
+  .PulsePostTag {
+    border: 1px solid #d5d5d5;
+    margin: 0 0 0 10px;
+    box-shadow: 0 0 4px 0 #c4c4c4;
+    border-radius: 8px;
+    height: 20px;
+
+    a {
+      font-size: 12px;
+      padding: 0 12px;
+      color: #171717;
+      display: block;
+      font-weight: 100;
+    }
+  }
+}

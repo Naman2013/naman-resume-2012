@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router'
-import styles from './pulse-nav.scss';
+import styles from './style/pulse-nav.scss';
 
 class PulseNav extends Component {
 
@@ -21,9 +21,7 @@ class PulseNav extends Component {
             </ul>
           }
         </li>
-
       )
-
     });
 
   render() {
@@ -41,3 +39,9 @@ class PulseNav extends Component {
 }
 
 export default PulseNav;
+
+PulseNav.propTypes = {
+  route: PropTypes.object.isRequired,
+  location: PropTypes.object.isRequired,
+  list: PropTypes.array.isRequired,
+};

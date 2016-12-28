@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import classnames from 'classnames';
-
+import InlineCountdown from '../../../common/inline-countdown/inline-countdown';
 import MissionTime from '../partials/mission-time';
 import ByUserTag from '../../../common/by-user-tag/by-user-tag';
 
@@ -8,17 +8,16 @@ class MissionOnHold extends Component {
   render() {
     const {
       missionStart,
-      showSlotTimes } = this.props;
-
-    const containerClassnames = classnames({
-      'telescope-listings-item': 1,
-      'on-hold': 1,
-    });
-
-    const timer = '44:42';
+      showSlotTimes,
+      expires,
+      ownerAvatarURL,
+      ownerDisplayName,
+      ownerLocation,
+      ownerMembershipType,
+      ownerMemberSince } = this.props;
 
     return(
-      <li className={containerClassnames}>
+      <li className="telescope-listings-item on-hold">
 
         <div className="col-xs-2">
           {
@@ -38,18 +37,16 @@ class MissionOnHold extends Component {
           <h3 className="title">Reserved by:</h3>
           <ByUserTag
             theme="light"
-            photo={`http://images-account.slooh.com/avatar-dummy.png`}
-            name={`John`}
-            accountType={`astronomer`}
-            city={`Millwood`}
-            state={`New York`}
-            country={`USA`}
-            memberSince={`2016`}
+            photo={ownerAvatarURL}
+            name={ownerDisplayName}
+            accountType={ownerMembershipType}
+            location={ownerLocation}
+            memberSince={ownerMemberSince}
           />
         </div>
 
         <div className="col-xs-2 hold-timer-content">
-          <h5 className="hold-timer">{timer}</h5>
+          <h5 className="hold-timer"><InlineCountdown startTime={expires} /></h5>
           <p className="title">Hold time remaining.</p>
         </div>
 
@@ -62,6 +59,13 @@ const { string, number, bool } = PropTypes;
 MissionOnHold.propTypes = {
   showSlotTimes: bool.isRequired,
   missionStart: number.isRequired,
+  expires: number.isRequired,
+
+  ownerAvatarURL: string.isRequired,
+  ownerDisplayName: string.isRequired,
+  ownerLocation: string.isRequired,
+  ownerMembershipType: string.isRequired,
+  ownerMemberSince: string.isRequired,
 };
 
 export default MissionOnHold;

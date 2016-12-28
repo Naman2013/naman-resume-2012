@@ -1,5 +1,12 @@
 import React, { Component, PropTypes } from 'react';
 import classnames from 'classnames';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import {
+  grabTelescopeSlot,
+  getReservationOnHold,
+  cancelReservation,
+  cancelReservationAndRefresh } from '../../../../modules/grab-telescope-slot/actions';
 
 import MissionTime from '../partials/mission-time';
 import ReservationByObjects from '../forms/reservation-by-objects';
@@ -11,6 +18,24 @@ const BY_CATELOG = 'BY_CATELOG';
 const BY_COORDINATE = 'BY_COORDINATE';
 const NONE = 'NONE';
 
+
+
+const mapStateToProps = ({ telescopeSlots, missionSlotDates }) => ({
+  telescopeSlots,
+  missionSlotDates,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  actions: bindActionCreators({
+    cancelReservation,
+    grabTelescopeSlot,
+    cancelReservationAndRefresh,
+  }, dispatch),
+});
+
+
+
+@connect(mapStateToProps, mapDispatchToProps)
 class AvailableMission extends Component {
   constructor(props) {
     super(props);
@@ -20,36 +45,41 @@ class AvailableMission extends Component {
       formOpen: false,
     };
 
-    this.handleCloseForm = this.handleCloseForm.bind(this);
+    this.cancelHoldOnMission = this.cancelHoldOnMission.bind(this);
+    this.handleTimerExpiration = this.handleTimerExpiration.bind(this);
     this.handleReservationTypeClick = this.handleReservationTypeClick.bind(this);
   }
 
   handleReservationTypeClick(newFormType) {
-    const { formType } = this.state;
-
     /**
       when the next form type is the the same as the formType
       that is already set, then we toggle the form to none
       and close the menu
     */
+    const { formType } = this.state;
+    const { scheduledMissionId, uniqueId, telescopeSlots, actions } = this.props;
+    const reservation = getReservationOnHold(uniqueId, telescopeSlots.missions);
+
+    // handle placing the timeslot on hold
+    if(!reservation) {
+      actions.grabTelescopeSlot({
+        scheduledMissionId,
+        uniqueId,
+        grabType: 'notarget',
+      });
+    }
+
+    // handle displaying the appropriate form
     if(formType === newFormType || newFormType === NONE) {
       this.setState({
         formType: NONE,
       });
-      this.closeFormDisplay();
-    }
-
-    if(formType != newFormType) {
+      this.cancelHoldOnMission();
+    } else {
       this.setState({
         formType: newFormType,
       });
-      this.openFormDisplay();
     }
-  }
-
-  handleCloseForm(event) {
-    event.preventDefault();
-    this.closeFormDisplay();
   }
 
   toggleFormDisplay() {
@@ -59,25 +89,47 @@ class AvailableMission extends Component {
     });
   }
 
-  closeFormDisplay() {
-    if(this.state.formOpen) {
-      this.toggleFormDisplay();
-    }
-  }
-
   openFormDisplay() {
     if(!this.state.formOpen) {
       this.toggleFormDisplay();
     }
   }
 
+  cancelHoldOnMission() {
+    const { actions, uniqueId, scheduledMissionId } = this.props;
+    actions.cancelReservation({
+      uniqueId,
+      scheduledMissionId,
+    });
+  }
+
+  handleTimerExpiration() {
+    this.actions.cancelReservationAndRefresh();
+  }
+
   renderForm() {
     const { formType } = this.state;
     const {
+      uniqueId,
+      scheduledMissionId,
       showHoldOneHourButtonWhenExpanded,
       showCancelHoldButtonWhenExpanded,
       telescopeId,
-    } = this.props;
+      telescopeSlots,
+      missionStart,
+      missionSlotDates } = this.props;
+
+    const reservationOnHold = getReservationOnHold(uniqueId, telescopeSlots.missions);
+
+    if(!reservationOnHold) {
+      return null;
+    }
+
+    const currentMissionOnHold = reservationOnHold.mission.missionList[0];
+    const { expires } = currentMissionOnHold;
+    const { domeId, obsId } = missionSlotDates.dateRangeResponse.dateList[0];
+
+    console.log(domeId, obsId);
 
     switch(formType) {
       case BY_OBJECTS:
@@ -85,6 +137,8 @@ class AvailableMission extends Component {
           <ReservationByObjects
             showPlaceOnHold={showHoldOneHourButtonWhenExpanded}
             showCancelHold={showCancelHoldButtonWhenExpanded}
+            expires={expires}
+            expireCallback={this.handleTimerExpiration}
           />
         );
         break;
@@ -94,6 +148,11 @@ class AvailableMission extends Component {
             telescopeId={telescopeId}
             showPlaceOnHold={showHoldOneHourButtonWhenExpanded}
             showCancelHold={showCancelHoldButtonWhenExpanded}
+            expires={expires}
+            expireCallback={this.handleTimerExpiration}
+            missionStart={missionStart}
+            domeId={domeId}
+            obsId={obsId}
           />
         );
         break;
@@ -102,6 +161,8 @@ class AvailableMission extends Component {
           <ReservationByCoordinate
             showPlaceOnHold={showHoldOneHourButtonWhenExpanded}
             showCancelHold={showCancelHoldButtonWhenExpanded}
+            expires={expires}
+            expireCallback={this.handleTimerExpiration}
           />
         );
         break;
@@ -144,12 +205,25 @@ class AvailableMission extends Component {
       showCatalogButton,
       showCoordinateButton,
       showSlotTimes,
-      slotIconURL } = this.props;
+      slotIconURL,
+      uniqueId,
+      telescopeSlots } = this.props;
 
-    const containerClassnames = classnames({
-      'telescope-listings-item-inline-reservation': 1,
-      'available': 1,
-      'expanded': formOpen,
+    const templateContent = {
+      missionAvailable: false,
+      expires: undefined,
+      explanation: '',
+      missionOnHold: false,
+    };
+
+    const reservationOnHold = getReservationOnHold(uniqueId, telescopeSlots.missions);
+
+    if(reservationOnHold) {
+      Object.assign(templateContent, reservationOnHold.mission.missionList[0], { missionOnHold: true, });
+    }
+
+    const containerClassnames = classnames('telescope-listings-item-inline-reservation available', {
+      'expanded': templateContent.missionAvailable,
     });
 
     return(

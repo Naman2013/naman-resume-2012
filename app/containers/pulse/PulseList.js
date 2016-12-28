@@ -1,7 +1,8 @@
-import React, { Component } from 'react';
-import AnnouncementBanner from '../components/common/announcement-banner/announcement-banner'
-import ReserveBanner from '../components/pulse/reserve-banner';
-import PulseNav from '../components/pulse/pulse-nav';
+import React, { Component, PropTypes } from 'react';
+import AnnouncementBanner from '../../components/common/announcement-banner/announcement-banner'
+import PulseListHeader from '../../components/pulse/pulse-list-header';
+import PulseNav from '../../components/pulse/pulse-nav';
+
 
 const list = [
   {
@@ -31,23 +32,27 @@ const list = [
   }
 ];
 
-export default class SloohPulse extends Component {
+class PulseList extends Component {
 
   render() {
-
     const { route, location, children } = this.props;
 
     return (
-      <div>
-        <div className="clearfix pulse">
-          <AnnouncementBanner />
-          <ReserveBanner />
+      <div className="clearfix pulse">
+        <AnnouncementBanner />
+        <PulseListHeader />
 
-          <PulseNav route={route} location={location} list={list}/>
+        <PulseNav route={route} location={location} list={list}/>
 
-          {children}
-        </div>
+        {children}
+
       </div>
-    );
+    )
   }
 }
+
+export default PulseList;
+
+PulseList.propTypes = {
+  children: PropTypes.element.isRequired
+};

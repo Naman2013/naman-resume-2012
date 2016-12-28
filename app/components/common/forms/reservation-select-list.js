@@ -11,8 +11,8 @@ class ReservationSelectList extends Component {
     const {
       options,
       name,
-      activeSelection,
-      callback,
+      selectedIndex,
+      handleSelectChange,
       listHeight } = this.props;
 
     const inlineStyle = {
@@ -27,9 +27,10 @@ class ReservationSelectList extends Component {
         {
           options.map((option, index) => {
             const elementId = this.generateId(index);
+            const isChecked = selectedIndex == index;
             return(
               <div key={elementId}>
-                <input value={index} ref={elementId} name={name} id={elementId} className="multi-option-list-option" type="radio" />
+                <input checked={isChecked} onChange={handleSelectChange} value={index} ref={elementId} name={name} id={elementId} className="multi-option-list-option" type="radio" />
                 <label className="multi-option-list-label" htmlFor={elementId}>{option}</label>
               </div>
             );
@@ -47,9 +48,9 @@ ReservationSelectList.defaultProps = {
 ReservationSelectList.propTypes = {
   options: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.object])).isRequired, // strings or react components
   name: PropTypes.string.isRequired,
-  activeSelection: PropTypes.number,
-  callback: PropTypes.func,
+  handleSelectChange: PropTypes.func,
   listHeight: PropTypes.number,
+  selectedIndex: PropTypes.string,
 };
 
 export default ReservationSelectList;

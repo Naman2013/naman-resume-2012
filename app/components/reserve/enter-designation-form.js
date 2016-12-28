@@ -1,25 +1,81 @@
 import React, { Component, PropTypes } from 'react';
+import classnames from 'classnames';
 import style from './enter-designation-form.scss';
 
 class EnterDesignationForm extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      showValidation: false,
+    };
+  }
+
+  componentDidMount() {
+    this.focusDesignationInput();
+  }
+
+  componentWillUpdate() {
+    this.focusDesignationInput();
+  }
+
+  focusDesignationInput() {
+    this.designationInput.focus();
+  }
+
   render() {
+    const { showValidation } = this.state;
+    const { visibilityStatusExplanation } = this.props;
+
+    const {
+      exampleFormat,
+      example,
+      designation,
+      designationChangeCallback,
+      checkVisibilityEnabled,
+      handleVisibilityCheck } = this.props;
+
+    const buttonClasses = classnames('btn-primary', {
+      'disabled': !checkVisibilityEnabled,
+    });
+
     return(
       <div className="enter-designation-form">
         <h3 className="title">Format:</h3>
-        <p className="copy">1 to 4076 (main catalog), 1S to 1174S</p>
+        <p className="copy">{exampleFormat}</p>
 
         <h3 className="title">Example:</h3>
-        <p className="copy">603S</p>
+        <p className="copy">{example}</p>
 
         <h3 className="title">Designation:</h3>
-        <input className="generic-text-input" type="text" />
+        <input
+          ref={(input) => { this.designationInput = input }}
+          onChange={designationChangeCallback}
+          value={designation}
+          className="generic-text-input" type="text" />
 
-        <button className="btn-primary">Check Visibility</button>
+        <button
+          onClick={handleVisibilityCheck}
+          className={buttonClasses}>Check Visibility</button>
 
-        <p className="validation-message">Good news! This object is currently visible.</p>
+        {
+          visibilityStatusExplanation ?
+            <p className="validation-message">{visibilityStatusExplanation}</p> : null
+        }
       </div>
     );
   }
 }
+
+const { string, number, bool, func } = PropTypes;
+EnterDesignationForm.propTypes = {
+  exampleFormat: string.isRequired,
+  example: string.isRequired,
+  designation: string.isRequired,
+  designationChangeCallback: func.isRequired,
+  checkVisibilityEnabled: bool.isRequired,
+  handleVisibilityCheck: func.isRequired,
+  visibilityStatusExplanation: string,
+};
 
 export default EnterDesignationForm;

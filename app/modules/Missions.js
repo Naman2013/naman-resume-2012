@@ -92,7 +92,7 @@ export const resetReserveMission = () => ({
 
 
 
-export const cancelMissionSlot = ( mission ) => ( dispatch, getState ) => {
+export const cancelMissionSlot = (mission) => (dispatch, getState) => {
   const { token, at, cid } = getState().user;
   return axios.post('/api/reservation/cancelMissionSlot', {
     token,
@@ -100,8 +100,8 @@ export const cancelMissionSlot = ( mission ) => ( dispatch, getState ) => {
     cid,
     ...mission,
   })
-  .then( result => _.noop( result ) )
-  .catch( error => _.noop( error ) );
+  .then(result => _.noop(result))
+  .catch(error => _.noop(error));
 };
 
 
