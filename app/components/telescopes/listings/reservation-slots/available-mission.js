@@ -129,8 +129,6 @@ class AvailableMission extends Component {
     const { expires } = currentMissionOnHold;
     const { domeId, obsId } = missionSlotDates.dateRangeResponse.dateList[0];
 
-    console.log(domeId, obsId);
-
     switch(formType) {
       case BY_OBJECTS:
         return(
@@ -153,6 +151,8 @@ class AvailableMission extends Component {
             missionStart={missionStart}
             domeId={domeId}
             obsId={obsId}
+            uniqueId={uniqueId}
+            scheduledMissionId={scheduledMissionId}
           />
         );
         break;

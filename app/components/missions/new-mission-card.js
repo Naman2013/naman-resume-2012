@@ -88,8 +88,7 @@ class NewMissionCard extends Component {
   }
 
   renderCallToAction() {
-    const { missionAvailable, missionStart } = this.props.reservation;
-    const { openModal, card, featured } = this.props;
+    const { missionAvailable } = this.props.reservation;
 
     if(missionAvailable) {
       return(

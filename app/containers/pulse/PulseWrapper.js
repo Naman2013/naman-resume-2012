@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import PulsePopular from '../../components/pulse/sidebar/pulse-popular';
 import PulseRecommended from '../../components/pulse/sidebar/pulse-recommends';
+import PulseMeet from '../../components/pulse/sidebar/pulse-meet';
 import MissionAd from '../../components/missions/mission-ad';
 
 const list = [
@@ -56,6 +57,14 @@ const list3 = [
   }
 ];
 
+const list4 = {
+  image: "",
+  name: "Sarah Blake",
+  post: ["guardian", "astronomer"],
+  from: "New York, NY, USA. Member since 2011",
+  message: "Sarrag has been reserve a mission by clicking below on these visible objects, Sarrag has been reserve a mission by clicking below on these visible objects"
+};
+
 const tag = "The Moon";
 
 const PulseWrapper = ({ children }) =>
@@ -69,6 +78,7 @@ const PulseWrapper = ({ children }) =>
 
       <div className="col-md-4 mission-sidebar">
         <MissionAd />
+        <PulseMeet list={list4}/>
         <PulseRecommended list={list2}/>
         <PulseRecommended list={list3}/>
         <PulsePopular list={list}/>

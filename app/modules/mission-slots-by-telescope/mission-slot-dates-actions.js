@@ -1,7 +1,6 @@
 import axios from 'axios';
 import moment from 'moment';
 import { fetchReservationList } from './mission-slots-by-telescope-actions';
-import { cancelAllReservations } from '../grab-telescope-slot/actions';
 
 export const FETCH_DATE_RANGE_START = 'FETCH_DATE_RANGE_START';
 export const FETCH_DATE_RANGE_SUCCESS = 'FETCH_DATE_RANGE_SUCCESS';
@@ -15,9 +14,6 @@ export const fetchDateRanges = ({
   const { token, at, cid } = getState().user;
 
   dispatch(fetchDateRangeStart());
-
-  // cancel all active reservations...
-  dispatch(cancelAllReservations());
 
   return axios.post('/api/reservation/getMissionSlotDates', {
     token,

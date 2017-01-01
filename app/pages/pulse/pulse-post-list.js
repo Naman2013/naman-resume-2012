@@ -22,7 +22,7 @@ const list = [
     postBy: {
       image: "",
       name: "Sarah Blake",
-      post: "guardian",
+      post: ["guardian"],
       from: "New York, NY, USA. Member since 2011"
     }
   }, {
@@ -41,7 +41,7 @@ const list = [
     postBy: {
       image: "",
       name: "Sarah Blake",
-      post: "guardian",
+      post: ["guardian"],
       from: "New York, NY, USA. Member since 2011"
     }
   }, {
@@ -60,7 +60,7 @@ const list = [
     postBy: {
       image: "",
       name: "Sarah Blake",
-      post: "guardian",
+      post: ["guardian", "astronomer"],
       from: "New York, NY, USA. Member since 2011"
     },
   }
@@ -68,16 +68,16 @@ const list = [
 
 class PulsePostList extends Component {
 
-  prepareData = (list, url) =>
-    list.map(v =>
+  prepareData(list, url) {
+    return list.map(v =>
       <div className={styles.PulsePostList} key={v.id}>
 
-        <PulsePostImage image={v.postImage} imageBy={v.postImageBy} />
+        <PulsePostImage image={v.postImage} imageBy={v.postImageBy}/>
 
         <figure className={styles.PulsePostListInfo}>
           <Link to={`slooh-pulse/post/${v.id}`}><h2 className={styles.PulsePostListInfoTitle}>{v.postTitle}</h2></Link>
 
-          <PulsePostDate date={v.postDate} category={v.postCategory} />
+          <PulsePostDate date={v.postDate} category={v.postCategory}/>
 
           <figcaption className={styles.PulsePostListInfoDesc}>
             {v.postDesc}... (<Link to={"#"}>See full entry</Link>)
@@ -90,6 +90,7 @@ class PulsePostList extends Component {
         <hr/>
       </div>
     );
+  }
 
   render() {
 

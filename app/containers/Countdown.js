@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PureComponent, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import CircleTimer from '../containers/CircleTimer';
@@ -15,14 +15,12 @@ function mapDispatchToProps(dispatch) {
   }, dispatch);
 }
 
-function mapStateToProps(state) {
-  console.log(state);
-  let { countdown } = state;
+function mapStateToProps({ countdown }) {
   return countdown;
 }
 
 @connect(mapStateToProps, mapDispatchToProps)
-export default class Countdown extends Component {
+export default class Countdown extends PureComponent {
   static propTypes = {
     isFetching: bool.isRequired,
     updateEventsInterval: number.isRequired,

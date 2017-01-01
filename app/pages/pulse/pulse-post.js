@@ -34,7 +34,7 @@ const post = {
   postBy: {
     image: "",
     name: "Sarah Blake",
-    post: "guardian",
+    post: ["guardian"],
     from: "New York, NY, USA. Member since 2011"
   },
   postTag: ["astro", "super-star", "victor"],
@@ -58,7 +58,7 @@ const PulsePostContent = () =>
           <PulsePostBy {...post.postBy} />
         </div>
         <div className="col-md-5 pull-right">
-          <PulsePostTools {...post.postTools} />
+          <PulsePostTools {...post.postTools} share={true} />
         </div>
       </div>
 

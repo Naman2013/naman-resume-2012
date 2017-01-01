@@ -7,6 +7,7 @@ import SelectObjectTopic from '../../components/reserve/reserve-by-object-list';
 import AddContent from '../../components/publish-post/add-content';
 import AddTags from '../../components/publish-post/add-tags';
 import testData from '../reserve/reserve-by-objects-data';
+import UploadImage from '../../components/publish-post/upload-image';
 import style from './publish-post.scss';
 
 class PublishPost extends Component {
@@ -79,6 +80,19 @@ class PublishPost extends Component {
             <p className="description">Add Tags <span className="param">(optional)</span></p>
 
             <AddTags />
+          </li>
+
+          <li className="item">
+            <span className="number">5</span>
+            <p className="description">Upload Image <span className="param">(optional)</span></p>
+
+            <UploadImage />
+          </li>
+
+          <li className="item">
+            <button className="call-to-action-btn cancel-btn">Sorry, Cancel This.</button>
+            <button className="call-to-action-btn">Save Work</button>
+            <button className="call-to-action-btn">Submit for Review</button>
           </li>
         </ul>
       </div>

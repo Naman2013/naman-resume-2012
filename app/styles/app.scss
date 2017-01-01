@@ -12,6 +12,10 @@ img {
   max-width: 100%;
 }
 
+.live .col-md-9{
+  padding: 0;
+}
+
 .app-content-container {
   font-family: $primary-font;
   background: url(../../assets/images/graphics/space-background.jpg) no-repeat center center fixed;

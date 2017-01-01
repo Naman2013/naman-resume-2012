@@ -1,5 +1,5 @@
 /**
-  determining which visibility call to make
+  ~ determining which visibility call to make ~
   the optional props
   missionStart
   obsId
@@ -9,6 +9,14 @@
 
   Otherwise, we use the more work intensive checkCatalogVisibility
   that attempts to try to fill in the missing information
+
+  Additionally, scheduleMissionId gets a little complex coming into making
+  a reservation.  When the component is provided a scheduledMissionId as a prop
+  it will use that instead of the data provided from checkTargetVisibility - as
+  the API assumes that the client already knows what scheduleMissionId it is interested in.
+
+  When a scheduledMissionId is NOT provided, it will assume that the call to checkCatalogVisibility is
+  made, and the scheduledMissionId is stored there within the components internal state.
 */
 
 import React, { Component, PropTypes } from 'react';
@@ -19,14 +27,19 @@ import _ from 'lodash';
 import ReservationSelectList from '../../components/common/forms/reservation-select-list';
 import EnterDesignationForm from '../../components/reserve/enter-designation-form';
 import { fetchCatalog } from '../../modules/catalog/get-catalog-actions';
-import { checkTargetVisibility } from '../../modules/check-target-visibility/api';
+import { checkTargetVisibility, checkCatalogVisibility } from '../../modules/check-target-visibility/api';
 import { fetchPresetOptions } from '../../modules/get-preset-options/get-preset-options-actions';
 import styles from '../../components/reserve/reserve-by-object.scss';
 
-const ImageProcessingHelperText = () => (
+import {
+  grabMissionSlot,
+  missionConfirmOpen,
+  missionConfirmClose } from '../../modules/Missions';
+
+const ImageProcessingHelperText = ({ content }) => (
   <div>
     <p className="sub-text">
-      Your captures will be saved to the <br /> My Pictures area of the Telescopes menu.
+      {content}
     </p>
   </div>
 );
@@ -39,6 +52,8 @@ const mapStateToProps = ({ catalog, user }) => ({
 const mapDispatchToProps = (dispatch) => ({
   actions: bindActionCreators({
     fetchCatalog,
+    grabMissionSlot,
+    missionConfirmOpen,
   }, dispatch),
 });
 
@@ -50,17 +65,20 @@ class ReserveByCatalog extends Component {
     this.state = {
       visibilityValid: false,
       presetOptions: null,
-      showImageProcessingHelpText: false,
 
       selectedCatalogIndex: undefined,
       designation: '',
       checkVisibilityEnabled: false,
       visibilityStatus: {},
+
+      selectedImageProcessingIndex: undefined,
     };
 
     this.handleVisibilityCheck = this.handleVisibilityCheck.bind(this);
     this.handleCatalogSelect = this.handleCatalogSelect.bind(this);
+    this.handleSelectImageProcessing = this.handleSelectImageProcessing.bind(this);
     this.handleDesignationChange = this.handleDesignationChange.bind(this);
+    this.handleFormSubmit = this.handleFormSubmit.bind(this);
   }
 
   componentWillMount() {
@@ -73,6 +91,14 @@ class ReserveByCatalog extends Component {
       selectedCatalogIndex: event.target.value,
       designation: '',
       checkVisibilityEnabled: false,
+      presetOptions: null,
+      visibilityStatus: {},
+    });
+  }
+
+  handleSelectImageProcessing(event) {
+    this.setState({
+      selectedImageProcessingIndex: event.target.value,
     });
   }
 
@@ -98,37 +124,88 @@ class ReserveByCatalog extends Component {
     }
   }
 
+  get selectedImageProcessing() {
+    const { presetOptions, selectedImageProcessingIndex } = this.state;
+    const hasSelectedImageProcessing = selectedImageProcessingIndex;
+    if(hasSelectedImageProcessing) {
+      return presetOptions.telescopeList[0].telePresetList[selectedImageProcessingIndex];
+    }
+
+    return {};
+  }
+
+  get imageProcessingList() {
+    const { presetOptions } = this.state;
+    if(_.has(presetOptions, 'telescopeList')) {
+      return presetOptions.telescopeList[0].telePresetList.map(presetOption => presetOption.presetDisplayName);
+    }
+    return [];
+  }
+
+  get selectedCatalog() {
+    const { selectedCatalogIndex } = this.state;
+    const { catalog } = this.props;
+    return catalog.catalogList[selectedCatalogIndex];
+  }
+
   handleFormSubmit(event) {
     event.preventDefault();
-    console.log('form submitted');
+
+    const { uniqueId, callSource } = this.props;
+    const { visibilityStatus, designation } = this.state;
+    const { objectDec, objectRA } = visibilityStatus;
+
+    // determining from which source to read these parameters
+    const scheduledMissionId = visibilityStatus.scheduledMissionId || this.props.scheduledMissionId;
+    const missionStart = visibilityStatus.missionStart || this.props.missionStart;
+    const telescopeId = visibilityStatus.telescopeId || this.props.telescopeId;
+    const obsId = visibilityStatus.obsId || this.props.obsId;
+    const domeId = visibilityStatus.domeId || this.props.domeId;
+
+    const selectedCatalog = this.selectedCatalog;
+    const selectedImageFormat = this.selectedImageProcessing;
+
+    this.props.actions.grabMissionSlot({
+      domeId,
+      objectDec,
+      objectRA,
+      obsId,
+      scheduledMissionId,
+      telescopeId,
+      missionStart,
+      designation,
+      uniqueId,
+      processingRecipe: selectedImageFormat.presetOption,
+      catalog: selectedCatalog.catalog,
+      catName: selectedCatalog.catName,
+      callSource,
+      missionType: 'catalog',
+    });
+
+    this.props.actions.missionConfirmOpen('reserve');
   }
 
   renderStepThree() {
-    const { presetOptions, showImageProcessingHelpText, scheduleMissionEnabled } = this.state;
+    const { presetOptions, selectedImageProcessingIndex } = this.state;
     const { showPlaceOnHold, showCancelHold } = this.props;
 
-    const scheduleMissionButtonClasses = classnames('btn-primary', {
-      'disabled': !scheduleMissionEnabled,
-    });
+    const hasSelectedImageProcessing = !!selectedImageProcessingIndex;
 
-    let imageOptions = [];
-    if(_.has(presetOptions, 'telescopeList')) {
-      imageOptions = presetOptions.telescopeList[0].telePresetList.map(presetOption => presetOption.presetDisplayName);
-    }
+    const scheduleMissionButtonClasses = classnames('btn-primary', {
+      'disabled': !hasSelectedImageProcessing,
+    });
 
     return(
       <div>
         <ReservationSelectList
-          ref="imageProcessing"
-          options={imageOptions}
+          options={this.imageProcessingList}
           name="imageProcessing"
+          selectedIndex={selectedImageProcessingIndex}
+          handleSelectChange={this.handleSelectImageProcessing}
           listHeight={170}
         />
 
-        {
-          showImageProcessingHelpText ?
-            <ImageProcessingHelperText /> : null
-        }
+        <ImageProcessingHelperText content={this.selectedImageProcessing.presetHelpText} />
 
         <section className="actions-container">
           {
@@ -158,19 +235,37 @@ class ReserveByCatalog extends Component {
     if(checkVisibilityEnabled) {
       const currentCatalog = catalog.catalogList[selectedCatalogIndex];
 
-      checkTargetVisibility({
-        cid,
-        at,
-        token,
-        missionStart,
-        obsId,
-        domeId,
-        designation,
-        catalog: currentCatalog.catalog,
-        catName: currentCatalog.catName,
-        missionType: 'catalog',
-      })
-      .then(result => this.handleVisibilityResult(result.data));
+      if(domeId && obsId && missionStart) {
+        checkTargetVisibility({
+          cid,
+          at,
+          token,
+          missionStart,
+          obsId,
+          domeId,
+          designation,
+          catalog: currentCatalog.catalog,
+          catName: currentCatalog.catName,
+          missionType: 'catalog',
+        })
+        .then(result => {
+          this.handleVisibilityResult(result.data);
+          this.fetchImageProcessing(result.data.telescopeId);
+        });
+      } else {
+        checkCatalogVisibility({
+          cid,
+          at,
+          token,
+          designation,
+          catalog: currentCatalog.catalog,
+          catName: currentCatalog.catName,
+        })
+        .then(result => {
+          this.handleVisibilityResult(result.data);
+          this.fetchImageProcessing(result.data.telescopeId);
+        });
+      }
     }
   }
 
@@ -254,6 +349,10 @@ ReserveByCatalog.defaultProps = {
   showCancelHold: false,
 };
 
+ReserveByCatalog.defaultProps = {
+  callSource: 'byCatalog',
+};
+
 const { string, number, bool } = PropTypes;
 ReserveByCatalog.propTypes = {
   showPlaceOnHold: bool,
@@ -262,6 +361,9 @@ ReserveByCatalog.propTypes = {
   telescopeId: string,
   obsId: string,
   domeId: number,
+  uniqueId: string,
+  scheduledMissionId: number,
+  callSource: string.isRequired,
 };
 
 export default ReserveByCatalog;

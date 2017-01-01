@@ -12,5 +12,5 @@ const PulsePostHot = ({ hot }) =>
 export default PulsePostHot;
 
 PulsePostHot.propTypes = {
-  hot: PropTypes.string
+  hot: PropTypes.any
 };
