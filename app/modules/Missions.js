@@ -61,13 +61,55 @@ export const missionConfirmClose = () => ({
   type: MISSION_CONFIRMATION_CLOSE,
 });
 
-export const reserveMissionSlot = ( mission ) => ( dispatch, getState ) => {
+export const reserveMissionSlot = ({
+  scheduledMissionId,
+  callSource,
+  missionType,
+  missionStart,
+  objectId,
+  objectType,
+  objectTitle,
+  objectRA,
+  objectDec,
+  catalog,
+  catName,
+  designation,
+  processingRecipe,
+  obsId,
+  domeId,
+  telescopeId,
+  obsName,
+  telescopeName,
+  objectIconURL,
+  uniqueId,
+  targetName
+}) => (dispatch, getState) => {
   const { token, at, cid } = getState().user;
   return axios.post('/api/reservation/reserveMissionSlot', {
     token,
     at,
     cid,
-    ...mission,
+    scheduledMissionId,
+    callSource,
+    missionType,
+    missionStart,
+    objectId,
+    objectType,
+    objectTitle,
+    objectRA,
+    objectDec,
+    catalog,
+    catName,
+    designation,
+    processingRecipe,
+    obsId,
+    domeId,
+    telescopeId,
+    obsName,
+    telescopeName,
+    objectIconURL,
+    uniqueId,
+    targetName,
   })
   .then(result => {
     dispatch(fetchUsersUpcomingMissions());
@@ -109,31 +151,28 @@ export const cancelMissionSlot = (mission) => (dispatch, getState) => {
   see: /api/reservation/grabMissionSlot for providing the appropriate mission shape
   https://docs.google.com/document/d/1nYo6_O87gWCqyoD3NJ98cbA5Cpxo-8ksB3Dw3PbjAa0/edit#heading=h.tkagqs5w5vit
 */
-export function grabMissionSlot(mission) {
-  return (dispatch, getState) => {
+export const grabMissionSlot = ({
+    scheduledMissionId,
+    callSource,
+    missionType,
+    missionStart,
+    obsId,
+    domeId,
+    telescopeId,
+    objectId,
+    objectType,
+    objectTitle,
+    objectRA,
+    objectDec,
+    catalog,
+    catName,
+    designation,
+    processingRecipe,
+    uniqueId
+  }) => (dispatch, getState) => {
     const { token, at, cid } = getState().user;
 
     grabMissionSlotStart();
-
-    const {
-      scheduledMissionId,
-      callSource,
-      missionType,
-      missionStart,
-      obsId,
-      domeId,
-      telescopeId,
-      objectId,
-      objectType,
-      objectTitle,
-      objectRA,
-      objectDec,
-      catalog,
-      catName,
-      designation,
-      processingRecipe,
-      uniqueId,
-      } = mission;
 
     return axios.post('/api/reservation/grabMissionSlot', {
       token,
@@ -158,10 +197,15 @@ export function grabMissionSlot(mission) {
       uniqueId,
     })
     .then(response => {
-      dispatch( grabMissionSlotSuccess(response.data) );
+      /**
+        patching the callsource to ensure that it is always included for
+        future requests
+      */
+      dispatch(grabMissionSlotSuccess(Object.assign(response.data, {
+        callSource,
+      })));
     })
     .catch(error => dispatch(grabMissionSlotFail(error)));
-  };
 }
 
 const grabMissionSlotFail = (error) => ({

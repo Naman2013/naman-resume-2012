@@ -1,0 +1,79 @@
+@import "../../styles/variables/fonts";
+@import "../../styles/variables/colors";
+
+.ObjectPostList {
+  display: flex;
+
+  .row{
+    display: flex;
+    align-items: center;
+  }
+
+  .ObjectPostListID{
+    font-size: 110px;
+    color: $light-blue;
+    padding: 0 20px 10px 30px;
+    display: block;
+    font-weight: 700;
+  }
+
+  .ObjectPostListInfo{
+    font-size: 16px;
+    color: $black;
+    padding: 35px 140px 10px 30px;
+
+    .PulsePostTools{
+      margin: 20px 0;
+    }
+    .pulsePostBy{
+      margin: 0;
+    }
+
+    .icon{
+      width: 35px;
+      height: 35px;
+    }
+
+    .ObjectPostListInfoTitle{
+      font-size: 35px;
+      color: $pink;
+      text-decoration: none;
+      font-weight: 500;
+      margin: 0;
+      display: flex;
+      align-items: flex-end;
+      height: 90px;
+    }
+
+    .ObjectPostListInfoDesc{
+      margin-bottom: 0;
+      white-space: pre-wrap;
+      margin-top: 15px;
+
+      h3{
+        font-weight: 700;
+        color: #546069;
+        font-size: 15px;
+        padding-bottom: 5px;
+      }
+    }
+  }
+
+}
+
+hr.ObjectPostListHr{
+  display: block;
+  width: 90%;
+  margin: 15px auto -10px;
+  background: #E6E6E4;
+  height: 1px;
+  border: 0;
+
+  &:last-child{
+    //display: none;
+  }
+}
+
+.pulse .col-md-8{
+  padding-right: 5px;
+}

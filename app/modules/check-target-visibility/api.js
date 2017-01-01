@@ -29,3 +29,23 @@ export const checkTargetVisibility = ({
     dec,
   });
 };
+
+export const checkCatalogVisibility = ({
+  at,
+  cid,
+  token,
+  catalog,
+  catName,
+  designation,
+  lookaheadReservation }) => {
+
+  return axios.post('/api/reservation/checkCatalogVisibility', {
+    at,
+    cid,
+    token,
+    catalog,
+    catName,
+    designation,
+    lookaheadReservation,
+  });
+};

@@ -13,6 +13,8 @@ import MyPictures from './containers/my-pictures';
 import PulseList from './containers/pulse/PulseList';
 import PulseWrapper from './containers/pulse/PulseWrapper';
 import PulsePost from './containers/pulse/PulsePost';
+import ObjectList from './containers/pulse/ObjectList';
+import Live from './containers/live/Live';
 
 // pages
 import Home from './pages/home';
@@ -38,6 +40,7 @@ import SloohMostPopular from './pages/my-pictures/slooh-most-popular';
 import PublishPost from './pages/community/publish-post';
 import PulsePostList from './pages/pulse/pulse-post-list';
 import PulsePostContent from './pages/pulse/pulse-post';
+import ObjectPostList from './pages/pulse/object-post-list';
 
 // global styles
 import Bootstrap from 'bootstrap/dist/css/bootstrap.css';
@@ -90,6 +93,25 @@ ReactDOM.render(
           </Route>
 
           <Route path="hottest-posts" component={PulseWrapper} />
+        </Route>
+
+        <Route path="objects-list" component={ObjectList}>
+          <IndexRedirect to="all-time-best" />
+
+          <Route path="all-time-best" component={PulseWrapper}>
+            <IndexRedirect to="all" />
+            <Route path="all" name="all" component={ObjectPostList} />
+            <Route path="science-log" name="science-log" component={ObjectPostList} />
+            <Route path="art-culture" name="art-culture" component={ObjectPostList} />
+            <Route path="human-spirit" name="human-spirit" component={ObjectPostList} />
+            <Route path="diy" name="diy" component={ObjectPostList} />
+          </Route>
+
+          <Route path="latest-entries" component={PulseWrapper} />
+        </Route>
+
+        <Route path="live" component={Live}>
+          {/**/}
         </Route>
 
         <Route path="slooh-pulse" component={PulsePost} >

@@ -15,5 +15,5 @@ const PulsePostLikes = ({ likes }) =>
 export default PulsePostLikes;
 
 PulsePostLikes.propTypes = {
-  likes: PropTypes.string
+  likes: PropTypes.any
 };

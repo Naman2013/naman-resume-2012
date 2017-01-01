@@ -17,6 +17,12 @@
     font-weight: bold;
     border-bottom: 1px solid $blueGreen;
     padding: 35px 0;
+
+    &:last-child {
+      border-bottom: 0;
+      flex-direction: row;
+      justify-content: center;
+    }
   }
 
   .number {
@@ -50,6 +56,20 @@
     .select-object-category,
     .select-object-topic {
       flex: 1 0 45%;
+    }
+  }
+
+  .call-to-action-btn {
+    margin: 0 30px;
+    font-size: 14px;
+    padding: 10px 15px;
+    width: 148px;
+    color: $slooh-white;
+    background: $pink;
+    border: 0;
+
+    &.cancel-btn {
+      background: $slooh-black;
     }
   }
 }

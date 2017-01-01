@@ -1,0 +1,127 @@
+@import '../../styles/variables/fonts';
+@import '../../styles/variables/colors';
+
+.liveView {
+  font-family: $primary-font;
+  padding: 10px 20px 0 20px;
+  background: #1F1F1F;
+  color: white;
+  position: relative;
+
+  .liveViewHeader {
+    display: inline-flex;
+    justify-content: space-between;
+    width: 100%;
+
+    h2 {
+      margin: 0;
+    }
+  }
+
+  .liveViewContent {
+    background: seagreen;
+    width: 100%;
+    height: 520px;
+    margin-top: 10px;
+    box-shadow: 0 5px 10px 0 #1f1f1f;
+    z-index: 80;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 300px;
+  }
+
+  .liveCameraTabs {
+    display: inline-flex;
+    justify-content: flex-start;
+    width: 100%;
+    padding: 10px 0;
+    align-items: center;
+
+    .camera {
+      width: 90px;
+      height: 50px;
+      margin-right: 10px;
+      border: 1px solid #ececec;
+      outline: none;
+      counter-increment: i;
+      position: relative;
+
+      &:before {
+        content: counter(i);
+        position: absolute;
+        right: 50%;
+        top: calc(50% - 10px);
+      }
+
+    }
+    .camera-icon {
+      margin-right: 15px;
+    }
+  }
+
+  .sponsored {
+    margin: 0;
+    display: inline-flex;
+    align-items: center;
+    img {
+      margin-left: 10px;
+      height: 30px;
+    }
+  }
+
+}
+
+.liveTelescopeTabs {
+  z-index: 70;
+  display: inline-flex;
+  position: absolute;
+  right: 0;
+  bottom: -63px;
+
+  li {
+    height: 120px;
+    width: 100px;
+    background: #1F1F1F;
+    border-radius: 0 0 60px 60px;
+    margin-right: 21px;
+    text-align: center;
+    list-style: none;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+    font-weight: 100;
+    font-size: 15px;
+    counter-increment: i;
+    position: relative;
+    cursor: pointer;
+    outline: none;
+
+    &:before {
+      content: counter(i);
+      position: absolute;
+      right: calc(50% - 3px);
+      bottom: 5px;
+    }
+
+    &.ReactTabs__Tab--selected {
+      background: $turqoise;
+    }
+
+    h6 {
+      margin-bottom: 15px;
+    }
+
+    .telescope {
+      width: 40px;
+      height: 40px;
+      border-radius: 100%;
+      background: #bebebe;
+      border: 1px solid #ececec;
+      margin-top: 3px;
+    }
+  }
+}

@@ -4,8 +4,8 @@ import styles from './style/pulse-nav.scss';
 
 class PulseNav extends Component {
 
-  prepareNav = (list, main) =>
-    list.map((v, k) => {
+  prepareNav(list, main){
+    return list.map((v, k) => {
 
       const route = `${main}/${v.route}`;
 
@@ -23,13 +23,14 @@ class PulseNav extends Component {
         </li>
       )
     });
+  }
 
   render() {
 
-    const { list, route:{ path } } = this.props;
+    const { list, className, route:{ path } } = this.props;
 
     return (
-      <div className={styles.pulseNav}>
+      <div className={`${styles.pulseNav} ${className}`}>
         <ul className={styles.pulseNavContainer}>
           {this.prepareNav(list, path)}
         </ul>

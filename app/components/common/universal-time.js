@@ -1,4 +1,4 @@
-import React, {Component, Props} from 'react';
+import React, { Component, Props } from 'react';
 import moment from 'moment';
 import ModalGeneric from './modals/modal-generic';
 import styles from './common.scss';
@@ -25,11 +25,11 @@ class UniversalTime extends Component {
 
   componentDidMount() {
     let intervalCounter = setInterval(this.timer.bind(this), 1000);
-    this.setState({intervalCounter});
+    this.setState({ intervalCounter });
   }
 
   timer() {
-    this.setState({time: moment.utc().format('HH:mm:ss')});
+    this.setState({ time: moment.utc().format('HH:mm:ss') });
   }
 
   componentWillUnmount() {
@@ -65,6 +65,6 @@ class UniversalTime extends Component {
       </div>
     )
   }
-};
+}
 
 export default UniversalTime;

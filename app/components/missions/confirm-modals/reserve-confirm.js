@@ -16,6 +16,7 @@ import styles from '../mission-modals.scss';
 const mapStateToProps = ({ missions }) => ({
   currentMissionSlot: missions.currentMissionSlot,
   missionSlotJustReserved: missions.missionSlotJustReserved,
+  previousMissionSlotReservation: missions.previousMissionSlotReservation,
 });
 
 const mapDispatchToProps = ( dispatch ) => ({
@@ -55,14 +56,16 @@ class ReserveConfirm extends Component {
 
   onSubmit(event) {
     event.preventDefault();
+    const { callSource } = this.props.currentMissionSlot;
     const currentMission = this.props.currentMissionSlot.missionList[0];
 
     this.props.actions.reserveMissionSlot({
-      callSource: 'recommends',
-      ...currentMission,
+      callSource,
+      ...currentMission, // allowing the currentMission to overwrite the callSource
       objectTitle: currentMission.title,
     });
 
+    // TODO: will need to add more intellegence to how onSubmit works
     this.props.actions.missionGetCards();
 
   }
@@ -73,12 +76,13 @@ class ReserveConfirm extends Component {
       scheduledMissionId,
       uniqueId
     } = currentMissionSlot.missionList[0];
+    const { callSource } = currentMissionSlot;
 
     this.props.actions.cancelMissionSlot({
       scheduledMissionId,
       uniqueId,
+      callSource,
       grabType: 'notarget',
-      callSource: 'recommends',
     });
 
     this.props.actions.missionGetCards();
@@ -118,8 +122,8 @@ class ReserveConfirm extends Component {
     the current state
   */
   handleMissionReservationResponse() {
-    const { currentMissionSlot, closeModal } = this.props;
-    const { apiError, errorCode, missionCount } = currentMissionSlot;
+    const { currentMissionSlot, previousMissionSlotReservation, closeModal } = this.props;
+    const { apiError, errorCode, missionCount } = previousMissionSlotReservation;
 
     if(apiError || missionCount === 0) {
       return(
@@ -129,13 +133,19 @@ class ReserveConfirm extends Component {
       );
     }
 
-    const missionData = currentMissionSlot.missionList[0];
+    const missionData = previousMissionSlotReservation.missionList[0];
     const {
       explanation,
       missionAvailable,
       missionStart,
       title,
       objectIconURL } = missionData;
+
+    /**
+      fetching bits of the mission information from the currentMissionSlot that are missing from
+      the response from reserveMission
+    */
+    const { telescopeName } = currentMissionSlot.missionList[0];
 
     if(!missionAvailable) {
       return(
@@ -153,25 +163,17 @@ class ReserveConfirm extends Component {
         missionStartTime={missionData.missionStart}
         missionTitle={missionData.title}
         objectIconURL={missionData.objectIconURL}
+        telescopeName={telescopeName}
       />
     );
   }
 
-  render () {
-
-    const {
-      open,
-      currentMissionSlot,
-      closeModal,
-      missionSlotJustReserved,
-    } = this.props;
-
-    // validate whether or not we have a mission slot ready to render
-    if(_.isEmpty(currentMissionSlot)) { return null; }
-
+  renderModalContent() {
+    const { currentMissionSlot, missionSlotJustReserved, closeModal } = this.props;
     const missionData = currentMissionSlot.missionList[0];
-    const formattedUTCDate = new Date(missionData.missionStart * 1000);
+    const { explanation, missionAvailable, missionStart, title } = missionData;
 
+    const formattedUTCDate = new Date(missionStart * 1000);
     const EST_start = moment.tz(formattedUTCDate, 'America/New_York').format('dddd, MMMM Do');
     const EST_start_time = moment.tz(formattedUTCDate, 'America/New_York').format('h:mma z');
     const PST_start_time = moment.tz(formattedUTCDate, 'America/Los_Angeles').format('h:mma z');
@@ -182,65 +184,81 @@ class ReserveConfirm extends Component {
       'margin': '0 auto 20px auto',
     };
 
+    if(!missionAvailable) {
+      return(
+        <ReservationError
+          closeModal={closeModal}
+          message={explanation}
+        />
+      );
+    }
+
+    if(missionSlotJustReserved) {
+      return this.handleMissionReservationResponse();
+    }
+
+    return(
+      <div>
+        <div className="title-bar">
+          <div className="icon"><img width="25" height="25" src="https://vega.slooh.com/icons/reservations/stopwatch.svg" /></div>
+          <h3 className="title">
+            Please complete your reservation form within <InlineCountdown startTime={missionData.expires} exitAction={this.cancelMissionAndCloseModal} />
+          </h3>
+        </div>
+
+        <div className="modal-header">
+          <h1 className="title-secondary">You’re reserving the {missionData.telescopeName} telescope to see:</h1>
+          <img height="50" className={styles.cardIcon} src={missionData.objectIconURL} />
+          <h2 className="mission-title">{ missionData.title }</h2>
+        </div>
+
+        <div className="modal-body">
+          <div className="mission-schedule">
+            <h4>Mission Details:</h4>
+            <p>{ EST_start } &middot; { EST_start_time } &middot; { PST_start_time } &middot; { UTC_start_time }</p>
+          </div>
+
+          <div className="share-objectives">
+            <h4>SHARE YOUR MISSION OBJECTIVES:</h4>
+            <textarea
+              className="mission-objectives"
+              placeholder="It’s optional, but would you consider succinctly describing your thoughts on the mission? Anything goes, tweet style."
+              value={this.state.objective}
+              onBlur={this.handleBlurMissionObjective}
+              onChange={this.handleChangeObjective}></textarea>
+          </div>
+
+          <div className="mission-tags">
+            <MissionTags
+              tagClass={"mission"}
+              tagType={"user"}
+              scheduledMissionId={ missionData.scheduledMissionId }
+            />
+          </div>
+        </div>
+
+        <div className="modal-footer">
+          <div style={inlineButtonRowStyle} className="button-row">
+            <button className="btn-primary" onClick={ this.handleCloseModalClick }>Sorry, Cancel This.</button>
+            <button className="btn-primary" onClick={ this.onSubmit }>Absolutely!</button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  render () {
+    const { open, currentMissionSlot } = this.props;
+
+    // validate whether or not we have a mission slot ready to render
+    if(_.isEmpty(currentMissionSlot)) { return null; }
+
     return (
       <Modal show={open} className="missionModal reserveMissionModal">
-        {
-          missionSlotJustReserved ?
-            this.handleMissionReservationResponse()
-          :
-          <div>
-            <div className="title-bar">
-              <div className="icon"><img width="25" height="25" src="https://vega.slooh.com/icons/reservations/stopwatch.svg" /></div>
-              <h3 className="title">
-                Please complete your reservation form within <InlineCountdown startTime={missionData.expires} exitAction={this.cancelMissionAndCloseModal} />
-              </h3>
-            </div>
-
-            <div className="modal-header">
-              <h1 className="title-secondary">You’re reserving the { missionData.telescopeName } telescope to see:</h1>
-              <img className={styles.cardIcon} src={ missionData.objectIconURL } />
-              <h2 className="mission-title">{ missionData.title }</h2>
-            </div>
-
-            <div className="modal-body">
-              <div className="mission-schedule">
-                <h4>Mission Details:</h4>
-                <p>{ EST_start } &middot; { EST_start_time } &middot; { PST_start_time } &middot; { UTC_start_time }</p>
-              </div>
-
-              <div className="share-objectives">
-                <h4>SHARE YOUR MISSION OBJECTIVES:</h4>
-                <textarea
-                  className="mission-objectives"
-                  placeholder="It’s optional, but would you consider succinctly describing your thoughts on the mission? Anything goes, tweet style."
-                  value={this.state.objective}
-                  onBlur={this.handleBlurMissionObjective}
-                  onChange={this.handleChangeObjective}></textarea>
-              </div>
-
-              <div className="mission-tags">
-                <MissionTags
-                  tagClass={ `mission` }
-                  tagType={ `user` }
-                  scheduledMissionId={ missionData.scheduledMissionId }
-                />
-              </div>
-            </div>
-
-            <div className="modal-footer">
-              <div style={inlineButtonRowStyle} className="button-row">
-                <button className="btn-primary" onClick={ this.handleCloseModalClick }>Sorry, Cancel This.</button>
-                <button className="btn-primary" onClick={ this.onSubmit }>Absolutely!</button>
-              </div>
-            </div>
-          </div>
-        }
-
+        { this.renderModalContent() }
       </Modal>
     )
   }
 }
-
-ReserveConfirm.propTypes = {};
 
 export default ReserveConfirm;

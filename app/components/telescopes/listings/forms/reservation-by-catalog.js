@@ -12,7 +12,9 @@ class ReservationByCatalog extends Component {
       expireCallback,
       missionStart,
       obsId,
-      domeId } = this.props;
+      domeId,
+      uniqueId,
+      scheduledMissionId } = this.props;
 
     return(
       <div className="reservation-form-container">
@@ -24,6 +26,9 @@ class ReservationByCatalog extends Component {
           missionStart={missionStart}
           obsId={obsId}
           domeId={domeId}
+          uniqueId={uniqueId}
+          callSource="byTelescope"
+          scheduledMissionId={scheduledMissionId}
         />
       </div>
     );
@@ -39,6 +44,8 @@ const { string, number, bool, func } = PropTypes;
 ReservationByCatalog.propTypes = {
   showPlaceOnHold: bool,
   showCancelHold: bool,
+  uniqueid: string,
+  scheduledMissionId: number.isRequired,
   telescopeId: string.isRequired,
   expires: number.isRequired,
   expireCallback: func.isRequired,

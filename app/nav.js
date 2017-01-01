@@ -189,7 +189,7 @@ export default [{
 		"label": {
 			"en": "Full Objects List"
 		},
-		"link": "/community/objects",
+		"link": "/objects-list",
 		"type": "basic"
 	}, {
 		"type": "space"
