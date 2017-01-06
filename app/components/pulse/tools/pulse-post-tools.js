@@ -7,9 +7,9 @@ import PulsePostShare from './pulse-post-share'
 const PulsePostTools = ({ hot, likes, share }) =>
   <div className={styles.PulsePostTools}>
     
-    {hot !== undefined ? <PulsePostHot hot={hot} /> : ""}
-    {likes !== undefined ? <PulsePostLikes likes={likes} /> : ""}
-    {share !== undefined ? <PulsePostShare /> : ""}
+    {hot ? <PulsePostHot hot={hot} /> : ""}
+    {likes ? <PulsePostLikes likes={likes} /> : ""}
+    {share ? <PulsePostShare /> : ""}
   
   </div>;
 

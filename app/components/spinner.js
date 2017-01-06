@@ -12,9 +12,9 @@ const Spinner = ({ children, fetching }) => {
 };
 
 
-export default Spinner;
-
 Spinner.propTypes = {
-  fetching: PropTypes.bool.isRequired,
-  children: PropTypes.any
+    fetching: PropTypes.bool.isRequired,
+    children: PropTypes.any
 };
+
+export default Spinner;
