@@ -1,4 +1,4 @@
-import React, { Component, PropTypes, Children, cloneElement } from 'react';
+import React, { Component, PropTypes, cloneElement } from 'react';
 import PulsePopular from '../../components/pulse/sidebar/pulse-popular';
 import PulseRecommended from '../../components/pulse/sidebar/pulse-recommends';
 import MissionAd from '../../components/missions/mission-ad';
@@ -84,20 +84,16 @@ class PulseWrapper extends Component {
   render() {
   
     const {fetchLatestPosts, latestPosts, childPath, children } = this.props;
-    
-    const childrenWithProps = Children.map(children, child => {
-      return cloneElement(child, {
-        fetchLatestPosts: fetchLatestPosts,
-        latestPosts: latestPosts,
-        childPath: childPath
-      });
-    });
   
     return (
       <section className="container clearfix">
         
         <div className="col-md-8 nopadding">
-          {childrenWithProps}
+            {cloneElement(children, {
+                fetchLatestPosts: fetchLatestPosts,
+                latestPosts: latestPosts,
+                childPath: childPath
+            })}
         </div>
         
         <div className="col-md-4 mission-sidebar">

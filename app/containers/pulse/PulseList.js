@@ -1,4 +1,4 @@
-import React, { Component, PropTypes, Children, cloneElement } from 'react';
+import React, { Component, PropTypes, cloneElement } from 'react';
 import AnnouncementBanner from '../../components/common/announcement-banner/announcement-banner'
 import PulseListHeader from '../../components/pulse/pulse-list-header';
 import PulseNav from '../../components/pulse/pulse-nav';
@@ -36,7 +36,7 @@ function mapStateToProps(state, ownProps) {
   const {children: {props}} = ownProps;
   return {
     latestPosts: state.latestPosts,
-    childPath: props.route.path !== 'all' ? props.children.props.route.path : false
+    childPath: props.children.props.route.path !== 'all' ? props.children.props.route.path : false
   };
 }
 
@@ -51,20 +51,8 @@ function mapDispatchToProps(dispatch) {
 @connect(mapStateToProps, mapDispatchToProps)
 class PulseList extends Component {
   
-  constructor(props) {
-    super(props)
-  }
-  
   render() {
     const { route, location, actions: {fetchLatestPosts}, latestPosts, childPath, children } = this.props;
-  
-    const childrenWithProps = Children.map(children, child => {
-        return cloneElement(child, {
-          fetchLatestPosts: fetchLatestPosts,
-          latestPosts: latestPosts,
-          childPath: childPath
-        });
-    });
     
     return (
       <div className="clearfix pulse">
@@ -72,8 +60,12 @@ class PulseList extends Component {
         <PulseListHeader />
         
         <PulseNav route={route} location={location} list={list}/>
-        
-        {childrenWithProps}
+    
+          {cloneElement(children, {
+              fetchLatestPosts: fetchLatestPosts,
+              latestPosts: latestPosts,
+              childPath: childPath
+          })}
       
       </div>
     )
