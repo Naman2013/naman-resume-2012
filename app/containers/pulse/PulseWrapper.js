@@ -1,7 +1,6 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component, PropTypes, Children, cloneElement } from 'react';
 import PulsePopular from '../../components/pulse/sidebar/pulse-popular';
 import PulseRecommended from '../../components/pulse/sidebar/pulse-recommends';
-import PulseMeet from '../../components/pulse/sidebar/pulse-meet';
 import MissionAd from '../../components/missions/mission-ad';
 
 const list = [
@@ -67,26 +66,52 @@ const list4 = {
 
 const tag = "The Moon";
 
-const PulseWrapper = ({ children }) =>
-
-  <section className="container clearfix">
-    <div className="row">
-
-      <div className="col-md-8">
-        {children}
-      </div>
-
-      <div className="col-md-4 mission-sidebar">
-        <MissionAd />
-        <PulseMeet list={list4}/>
-        <PulseRecommended list={list2}/>
-        <PulseRecommended list={list3}/>
-        <PulsePopular list={list}/>
-        <PulsePopular tag={tag} list={list}/>
-      </div>
-
-    </div>
-  </section>;
+class PulseWrapper extends Component {
+  
+  componentDidMount() {
+    const { fetchLatestPosts, childPath } = this.props;
+    
+    fetchLatestPosts(childPath, 1);
+  }
+  
+  componentWillReceiveProps(nextProps) {
+    const { fetchLatestPosts, childPath } = this.props;
+    if (nextProps.childPath !== childPath) {
+      fetchLatestPosts(nextProps.childPath, 1);
+    }
+  }
+  
+  render() {
+  
+    const {fetchLatestPosts, latestPosts, childPath, children } = this.props;
+    
+    const childrenWithProps = Children.map(children, child => {
+      return cloneElement(child, {
+        fetchLatestPosts: fetchLatestPosts,
+        latestPosts: latestPosts,
+        childPath: childPath
+      });
+    });
+  
+    return (
+      <section className="container clearfix">
+        
+        <div className="col-md-8 nopadding">
+          {childrenWithProps}
+        </div>
+        
+        <div className="col-md-4 mission-sidebar">
+          <MissionAd />
+          
+          <PulsePopular list={list}/>
+          <PulsePopular tag={tag} list={list}/>
+          <PulseRecommended list={list2}/>
+        </div>
+      
+      </section>
+    )
+  }
+}
 
 export default PulseWrapper;
 

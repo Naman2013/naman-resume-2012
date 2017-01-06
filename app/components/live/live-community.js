@@ -27,7 +27,9 @@ class LiveCommunity extends Component {
     )
   }
 
-  thumbVertical = ({ style, ...props }) => <div {...props} style={style} className="scroll-bar-thumb"/>;
+  thumbVertical({ style, ...props }) {
+      return <div {...props} style={style} className="scroll-bar-thumb"/>
+  };
 
   render() {
 

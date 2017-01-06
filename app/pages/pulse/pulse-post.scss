@@ -15,9 +15,14 @@
       font-weight: 100;
     }
 
+    .PulsePostTools{
+      margin: 20px 0;
+    }
+
     .PulsePostListInfoDesc{
-      margin-bottom: 30px;
+      margin: 10px 0 30px;
       white-space: pre-wrap;
+
       a{
         color: $pink;
       }

@@ -88,8 +88,8 @@ export const cancelReservationAndRefresh = ({ uniqueId, scheduledMissionId }) =>
   dispatch(refreshListings());
 };
 
-const refreshListings = () => (dispatch, getState) => {
-  const { obsId, telescopeId, domeId } = getState().reservationList;
+export const refreshListings = () => (dispatch, getState) => {
+  const { obsId, telescopeId, domeId } = getState().missionSlotsByTelescope.reservationList;
   const { reservationDate } = getState().missionSlotDates.dateRangeResponse.dateList[0];
   if(!obsId || !telescopeId || !domeId) { return; }
   dispatch(fetchDateRanges({
@@ -130,6 +130,16 @@ export const cancelAllReservations = () => (dispatch, getState) => {
   });
 
   dispatch(commitUpdatedReservations([]));
+};
+
+export const placeOneHourHold = ({scheduledMissionId, uniqueId}) => (dispatch, getState) => {
+  dispatch(grabTelescopeSlot({
+    scheduledMissionId,
+    uniqueId,
+    grabType: 'placeholder',
+  }));
+
+  dispatch(refreshListings());
 };
 
 

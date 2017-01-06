@@ -86,9 +86,9 @@ ReactDOM.render(
           <Route path="latest-posts" component={PulseWrapper}>
             <IndexRedirect to="all" />
             <Route path="all" name="all" component={PulsePostList} />
-            <Route path="science-log" name="science-log" component={PulsePostList} />
-            <Route path="art-culture" name="art-culture" component={PulsePostList} />
-            <Route path="human-spirit" name="human-spirit" component={PulsePostList} />
+            <Route path="scienceLog" name="scienceLog" component={PulsePostList} />
+            <Route path="artCulture" name="artCulture" component={PulsePostList} />
+            <Route path="humanSpirit" name="humanSpirit" component={PulsePostList} />
             <Route path="diy" name="diy" component={PulsePostList} />
           </Route>
 

@@ -29,6 +29,7 @@ import EnterDesignationForm from '../../components/reserve/enter-designation-for
 import { fetchCatalog } from '../../modules/catalog/get-catalog-actions';
 import { checkTargetVisibility, checkCatalogVisibility } from '../../modules/check-target-visibility/api';
 import { fetchPresetOptions } from '../../modules/get-preset-options/get-preset-options-actions';
+import { placeOneHourHold } from '../../modules/grab-telescope-slot/actions';
 import styles from '../../components/reserve/reserve-by-object.scss';
 
 import {
@@ -54,6 +55,7 @@ const mapDispatchToProps = (dispatch) => ({
     fetchCatalog,
     grabMissionSlot,
     missionConfirmOpen,
+    placeOneHourHold,
   }, dispatch),
 });
 
@@ -79,6 +81,7 @@ class ReserveByCatalog extends Component {
     this.handleSelectImageProcessing = this.handleSelectImageProcessing.bind(this);
     this.handleDesignationChange = this.handleDesignationChange.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
+    this.handlePlaceHourHold = this.handlePlaceHourHold.bind(this);
   }
 
   componentWillMount() {
@@ -185,6 +188,25 @@ class ReserveByCatalog extends Component {
     this.props.actions.missionConfirmOpen('reserve');
   }
 
+  // TODO: continue to build out and use normalizeMissionInfo instead of running the || guard checks in other places
+  normalizedMissionInfo() {
+    const scheduledMissionId = this.props.scheduledMissionId || this.state.visibilityStatus.scheduledMissionId;
+    const uniqueId = this.props.uniqueId || this.state.visibilityStatus.uniqueId;
+    return {
+      scheduledMissionId,
+      uniqueId,
+    };
+  };
+
+  handlePlaceHourHold(event) {
+    event.preventDefault();
+    const { scheduledMissionId, uniqueId } = this.normalizedMissionInfo();
+    this.props.actions.placeOneHourHold({
+      scheduledMissionId,
+      uniqueId,
+    });
+  }
+
   renderStepThree() {
     const { presetOptions, selectedImageProcessingIndex } = this.state;
     const { showPlaceOnHold, showCancelHold } = this.props;
@@ -210,7 +232,9 @@ class ReserveByCatalog extends Component {
         <section className="actions-container">
           {
             showPlaceOnHold ?
-            <button className="btn-primary">Hold One Hour</button> : null
+            <button
+              onClick={this.handlePlaceHourHold}
+              className="btn-primary">Hold One Hour</button> : null
           }
           {
             showCancelHold ?

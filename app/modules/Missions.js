@@ -118,12 +118,12 @@ export const reserveMissionSlot = ({
   .catch(error => dispatch( reserveMissionFail( error ) ) );
 };
 
-const reserveMissionSuccess = ( payload ) => ({
+const reserveMissionSuccess = (payload) => ({
   type: RESERVE_MISSION_SLOT_SUCCESS,
   payload: payload,
 });
 
-const reserveMissionFail = ( error ) => ({
+const reserveMissionFail = (error) => ({
   type: RESERVE_MISSION_SLOT_FAIL,
   payload: error,
 });

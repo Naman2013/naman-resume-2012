@@ -17,6 +17,11 @@ const BY_OBJECTS = 'BY_OBJECTS';
 const BY_CATELOG = 'BY_CATELOG';
 const BY_COORDINATE = 'BY_COORDINATE';
 const NONE = 'NONE';
+const DEFAULT_FORM = BY_OBJECTS;
+
+// hold types
+const NO_TARGET = 'notarget';
+const PLACE_HOLDER = 'placeholder';
 
 
 
@@ -57,7 +62,13 @@ class AvailableMission extends Component {
       and close the menu
     */
     const { formType } = this.state;
-    const { scheduledMissionId, uniqueId, telescopeSlots, actions } = this.props;
+    const {
+      scheduledMissionId,
+      uniqueId,
+      telescopeSlots,
+      actions,
+      userHasHold,
+      userHoldType } = this.props;
     const reservation = getReservationOnHold(uniqueId, telescopeSlots.missions);
 
     // handle placing the timeslot on hold
@@ -66,6 +77,7 @@ class AvailableMission extends Component {
         scheduledMissionId,
         uniqueId,
         grabType: 'notarget',
+        finalizeReservation: userHasHold,
       });
     }
 
@@ -163,6 +175,11 @@ class AvailableMission extends Component {
             showCancelHold={showCancelHoldButtonWhenExpanded}
             expires={expires}
             expireCallback={this.handleTimerExpiration}
+            scheduledMissionId={scheduledMissionId}
+            domeId={domeId}
+            obsId={obsId}
+            missionStart={missionStart}
+            telescopeId={telescopeId}
           />
         );
         break;
@@ -179,8 +196,7 @@ class AvailableMission extends Component {
   }
 
   buttonRenderedClasses(buttonFormType) {
-    return classnames({
-      'action': 1,
+    return classnames('action', {
       'active': this.matchFormType(buttonFormType),
     });
   }
@@ -322,6 +338,9 @@ AvailableMission.propTypes = {
 
   slotIconURL: string.isRequired,
   slotTitle: string.isRequired,
+
+  userHasHold: bool.isRequired,
+  userHoldType: string.isRequired,
 };
 
 export default AvailableMission;
