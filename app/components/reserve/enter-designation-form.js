@@ -3,14 +3,6 @@ import classnames from 'classnames';
 import style from './enter-designation-form.scss';
 
 class EnterDesignationForm extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      showValidation: false,
-    };
-  }
-
   componentDidMount() {
     this.focusDesignationInput();
   }
@@ -24,7 +16,6 @@ class EnterDesignationForm extends Component {
   }
 
   render() {
-    const { showValidation } = this.state;
     const { visibilityStatusExplanation } = this.props;
 
     const {

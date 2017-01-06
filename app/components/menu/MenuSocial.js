@@ -5,10 +5,10 @@ export default class MenuSocial extends Component {
     return (
       <div>
         <div className="menu-social-icons">
-          <p><a><img src="assets/icons/menu/social-fb.png" /></a></p>
-          <p><a><img src="assets/icons/menu/social-twitter.png" /></a></p>
-          <p><a><img src="assets/icons/menu/social-google.png" /></a></p>
-          <p><a><img src="assets/icons/menu/social-instagram.svg" /></a></p>
+          <a className="icon fb"></a>
+          <a className="icon twitter"></a>
+          <a className="icon google"></a>
+          <a className="icon instagram"></a>
         </div>
       </div>
     );

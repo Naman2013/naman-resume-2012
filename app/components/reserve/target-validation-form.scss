@@ -1,0 +1,17 @@
+@import '../../styles/variables/colors.scss';
+@import '../../styles/variables/fonts.scss';
+
+.target-validation-form {
+  padding-left: 20px;
+
+  .generic-text-input {
+    display: block;
+    margin-bottom: 20px;
+    margin-top: 10px;
+  }
+
+  .validation-message {
+    color: $gold;
+    font-family: $secondary-font;
+  }
+}

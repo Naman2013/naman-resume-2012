@@ -20,6 +20,7 @@ import catalog from './catalog/get-catalog-reducer';
 import communityObjectContent from './community-content/get-object-content-reducer';
 import publishPost from './community-content/publish-post';
 import telescopeSlots from './grab-telescope-slot/reducer';
+import latestPosts from './pulse/get-latest-posts-reducer';
 
 export default combineReducers({
   routing: routerReducer,
@@ -43,4 +44,5 @@ export default combineReducers({
   communityObjectContent,
   publishPost,
   telescopeSlots,
+  latestPosts,
 });

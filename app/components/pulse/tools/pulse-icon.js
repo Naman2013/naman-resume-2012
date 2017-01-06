@@ -1,9 +1,9 @@
 import React from 'react';
 
-const SCIENCE_LOG = 'SCIENCE_LOG';
-const ART_CULTURE = 'ART_CULTURE';
-const HUMAN_SPIRIT = 'HUMAN_SPIRIT';
-const DIY = 'DIY';
+const SCIENCE_LOG = 'scienceLog';
+const ART_CULTURE = 'artCulture';
+const HUMAN_SPIRIT = 'humanSpirit';
+const DIY = 'diy';
 
 export const iconCategory = {
   title: {
@@ -17,12 +17,6 @@ export const iconCategory = {
     [SCIENCE_LOG]: 'https://vega.slooh.com/icons/community/science_log.svg',
     [DIY]: 'https://vega.slooh.com/icons/community/DIY.svg',
     [HUMAN_SPIRIT]: 'https://vega.slooh.com/icons/community/human_spirit.svg'
-  },
-  contentKey: {
-    [ART_CULTURE]: 'art-culture',
-    [SCIENCE_LOG]: 'science-log',
-    [DIY]: 'diy',
-    [HUMAN_SPIRIT]: 'human-spirit'
   }
 };
 

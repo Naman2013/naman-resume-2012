@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { AVAILABLE_SLOT_MISSION_USER_HAS_HOLD_DEFAULT_PROPS } from './constants';
 
 export const FETCH_MISSION_SLOTS_START = 'FETCH_MISSION_SLOTS_START';
 export const FETCH_MISSION_SLOTS_SUCCESS = 'FETCH_MISSIONS_SLOTS_SUCCESS';
@@ -39,3 +40,19 @@ const fetchReservationError = (payload) => ({
 const fetchReservationStart = () => ({
   type: FETCH_MISSION_SLOTS_START,
 });
+
+export const startCompleteReservation = (missionIndex) => (dispatch, getState) => {
+  const { missionSlotsByTelescope } = getState();
+  const { reservationList } = missionSlotsByTelescope;
+
+  const updatedMissionList = reservationList.missionList.map(mission => {
+    if(mission.missionIndex === missionIndex) {
+      return Object.assign({}, mission, AVAILABLE_SLOT_MISSION_USER_HAS_HOLD_DEFAULT_PROPS);
+    }
+    return mission;
+  });
+
+  dispatch(fetchReservationSuccess(
+    Object.assign({}, reservationList, { missionList: updatedMissionList }))
+  );
+};

@@ -51,7 +51,8 @@ class PiggyBackConfirm extends Component {
       obsName,
       telescopeName,
       missionAvailable,
-      explanation } = currentMission;
+      explanation,
+      tip } = currentMission;
 
     if(!missionAvailable) {
       return(
@@ -69,6 +70,7 @@ class PiggyBackConfirm extends Component {
         missionTitle={title}
         objectIconURL={objectIconURL}
         telescopeName={telescopeName}
+        tip={tip}
         closeModal={this.props.actions.closeConfirmationModal}
       />
     );

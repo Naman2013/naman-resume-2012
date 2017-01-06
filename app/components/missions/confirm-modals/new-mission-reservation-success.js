@@ -9,6 +9,7 @@ class NewMissionReservationSuccess extends Component {
       closeModal,
       missionStartTime,
       missionTitle,
+      tip,
       objectIconURL,
       telescopeName } = this.props;
 
@@ -25,10 +26,9 @@ class NewMissionReservationSuccess extends Component {
           <h1 className="title">Congratulations</h1>
           <h2 className="title-secondary">We&#8217;ve scheduled your mission to:</h2>
           <img height="50" className={styles.cardIcon} src={ objectIconURL } />
-          <h2 className="mission-title">{ missionTitle }</h2>
+          <h2 className="mission-title">{missionTitle}</h2>
           <p className="tips-and-tricks">
-            <span className="highlight">Tip:</span> All Images from this mission will be automatically
-            saved to your "My Pictures area" within the Telescope menu.
+            <span className="highlight">Tip:</span> {tip}
           </p>
         </div>
 

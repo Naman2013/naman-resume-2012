@@ -6,6 +6,7 @@ import moment from 'moment-timezone';
 import _ from 'lodash';
 
 import { cancelMissionSlot, reserveMissionSlot, missionGetCards } from '../../../modules/Missions';
+import { refreshListings } from '../../../modules/grab-telescope-slot/actions';
 import { setTags, resetClientTagData } from '../../../modules/tag-management/Tags';
 import MissionTags from '../../common/tags/mission-tags';
 import NewMissionReservationSuccess from './new-mission-reservation-success';
@@ -26,6 +27,7 @@ const mapDispatchToProps = ( dispatch ) => ({
     missionGetCards,
     setTags,
     resetClientTagData,
+    refreshListings,
   }, dispatch),
 });
 
@@ -65,9 +67,14 @@ class ReserveConfirm extends Component {
       objectTitle: currentMission.title,
     });
 
-    // TODO: will need to add more intellegence to how onSubmit works
-    this.props.actions.missionGetCards();
+    // depending on the callsource, run the appropriate background actions
+    if(callSource === 'byTelescope') {
+      this.props.actions.refreshListings();
+    }
 
+    if(callSource === 'recommends') {
+      this.props.actions.missionGetCards();
+    }
   }
 
   cancelMissionSlot() {
@@ -139,7 +146,8 @@ class ReserveConfirm extends Component {
       missionAvailable,
       missionStart,
       title,
-      objectIconURL } = missionData;
+      objectIconURL,
+      tip } = missionData;
 
     /**
       fetching bits of the mission information from the currentMissionSlot that are missing from
@@ -164,6 +172,7 @@ class ReserveConfirm extends Component {
         missionTitle={missionData.title}
         objectIconURL={missionData.objectIconURL}
         telescopeName={telescopeName}
+        tip={tip}
       />
     );
   }

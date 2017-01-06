@@ -1,10 +1,46 @@
 import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import classnames from 'classnames';
 import InlineCountdown from '../../../common/inline-countdown/inline-countdown';
 import MissionTime from '../partials/mission-time';
 import ByUserTag from '../../../common/by-user-tag/by-user-tag';
+import { startCompleteReservation } from '../../../../modules/mission-slots-by-telescope/mission-slots-by-telescope-actions';
 
+const FinishReservationButton = ({handleFinishReservationClick}) => (
+  <div className="col-xs-2">
+    <button onClick={handleFinishReservationClick} className="btn-primary">
+      Finish Reservation
+    </button>
+  </div>
+);
+
+const CountDown = ({expires}) => (
+  <div className="col-xs-2 hold-timer-content">
+    <h5 className="hold-timer"><InlineCountdown startTime={expires} /></h5>
+    <p className="title">Hold time remaining.</p>
+  </div>
+);
+
+const mapDispatchToProps = (dispatch) => ({
+  actions: bindActionCreators({
+    startCompleteReservation,
+  }, dispatch),
+});
+
+@connect(null, mapDispatchToProps)
 class MissionOnHold extends Component {
+  constructor(props) {
+    super(props);
+
+    this.handleFinishReservationClick = this.handleFinishReservationClick.bind(this);
+  }
+
+  handleFinishReservationClick(event) {
+    event.preventDefault();
+    this.props.actions.startCompleteReservation(this.props.missionIndex);
+  }
+
   render() {
     const {
       missionStart,
@@ -14,7 +50,8 @@ class MissionOnHold extends Component {
       ownerDisplayName,
       ownerLocation,
       ownerMembershipType,
-      ownerMemberSince } = this.props;
+      ownerMemberSince,
+      showFinishReservationButton } = this.props;
 
     return(
       <li className="telescope-listings-item on-hold">
@@ -45,10 +82,12 @@ class MissionOnHold extends Component {
           />
         </div>
 
-        <div className="col-xs-2 hold-timer-content">
-          <h5 className="hold-timer"><InlineCountdown startTime={expires} /></h5>
-          <p className="title">Hold time remaining.</p>
-        </div>
+        {
+          showFinishReservationButton ?
+            <FinishReservationButton handleFinishReservationClick={this.handleFinishReservationClick} />
+            :
+            <CountDown expires={expires} />
+        }
 
       </li>
     );
@@ -66,6 +105,10 @@ MissionOnHold.propTypes = {
   ownerLocation: string.isRequired,
   ownerMembershipType: string.isRequired,
   ownerMemberSince: string.isRequired,
+
+  showFinishReservationButton: bool.isRequired,
+
+  missionIndex: number.isRequired,
 };
 
 export default MissionOnHold;
