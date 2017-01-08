@@ -1,5 +1,20 @@
+@import '../styles/variables/fonts';
+@import '../styles/variables/colors';
+
 .my-pictures-container {
-  h1 {
-    color: #fff;
+  background: $gray;
+  padding: 40px 60px 30px 60px;
+}
+
+.my-pictures-sidebar {
+  background: $white;
+  margin: 0 auto;
+  padding: 10px 60px 0 60px;
+
+  h2 {
+    text-align: center;
+    border-bottom: 1px solid #609293;
+    padding-bottom: 10px;
+    color: $darkBlueGray;
   }
 }

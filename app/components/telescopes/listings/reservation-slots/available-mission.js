@@ -116,7 +116,7 @@ class AvailableMission extends Component {
   }
 
   handleTimerExpiration() {
-    this.actions.cancelReservationAndRefresh();
+    this.props.actions.cancelReservationAndRefresh();
   }
 
   renderForm() {
@@ -180,6 +180,7 @@ class AvailableMission extends Component {
             obsId={obsId}
             missionStart={missionStart}
             telescopeId={telescopeId}
+            uniqueId={uniqueId}
           />
         );
         break;

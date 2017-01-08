@@ -18,7 +18,7 @@ class Contact extends Component {
     };
 
     render() {
-        let {handleSubmit, contact, error} = this.props;
+        const {handleSubmit, contact, error} = this.props;
         return (
             <section className="job-posts">
                 <article className="card-wide">

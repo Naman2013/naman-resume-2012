@@ -1,0 +1,54 @@
+@import "../../styles/variables/fonts";
+@import "../../styles/variables/colors";
+
+.MyPicturesGallery {
+  display: flex;
+  flex-flow: row wrap;
+  flex-grow: 1;
+  justify-content: space-between;
+
+  .image {
+    background: #e3e3e3;
+    height: 300px;
+    width: 32%;
+    margin-bottom: 30px;
+  }
+
+}
+
+.MyPicturesControl {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  font-weight: 700;
+
+  .count {
+    color: $darkBlueGray;
+    padding: 0 250px;
+  }
+
+  .left {
+    color: $light-gray;
+    span {
+      background: $light-gray;
+    }
+  }
+
+  .right {
+    color: $pink;
+    span {
+      background: $pink;
+    }
+  }
+
+  .left, .right {
+    display: block;
+    span {
+      color: $gray;
+      padding: 5px 8px;
+      border-radius: 100%;
+      margin: 10px;
+    }
+  }
+}

@@ -2,6 +2,7 @@ import React, { Component, PropTypes, cloneElement } from 'react';
 import PulsePopular from '../../components/pulse/sidebar/pulse-popular';
 import PulseRecommended from '../../components/pulse/sidebar/pulse-recommends';
 import MissionAd from '../../components/missions/mission-ad';
+import Spinner from 'react-spinner'
 
 const list = [
   {
@@ -83,17 +84,20 @@ class PulseWrapper extends Component {
   
   render() {
   
-    const {fetchLatestPosts, latestPosts, childPath, children } = this.props;
+    const {children, fetching, latestPosts: {posts, pages}} = this.props;
   
     return (
       <section className="container clearfix">
         
         <div className="col-md-8 nopadding">
-            {cloneElement(children, {
-                fetchLatestPosts: fetchLatestPosts,
-                latestPosts: latestPosts,
-                childPath: childPath
-            })}
+          
+          {
+            fetching ? <Spinner /> : cloneElement(children, {
+                posts: posts,
+                pages: pages
+              })
+          }
+            
         </div>
         
         <div className="col-md-4 mission-sidebar">

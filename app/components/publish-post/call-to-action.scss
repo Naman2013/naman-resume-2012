@@ -3,7 +3,7 @@
 
 .call-to-action-wrapper {
   background: linear-gradient(to bottom,  $slooh-gray-xdark 0%, $black 100%);
-  color: white;
+  color: $white;
   padding: 80px 15px 5px;
 
   .header {
@@ -14,12 +14,10 @@
     position: relative;
   }
 
-  .cancel-btn {
-    border-radius: 0;
-    background: $slooh-primary-light;
+  .btn-primary {
     position: absolute;
-    right: 10px;
-    bottom: 10px;
-    padding: 10px 40px;
+    right: 7px;
+    bottom: -10px;
+    width: 150px;
   }
 }
