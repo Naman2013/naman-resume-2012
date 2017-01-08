@@ -20,12 +20,12 @@ const PulsePostItem =
         <PulsePostDate date={creationDate} type={type} iconURL={typeIconURL}/>
         
         <figcaption className={styles.PulsePostListInfoDesc}>
-          {content} ... (<Link to={"#"}>See full entry</Link>)
+          <div dangerouslySetInnerHTML={{__html: content}} />  ... (<Link to={`/slooh-pulse/post/${postId}`}>See full entry</Link>)
         </figcaption>
         
         <div className="row flex-center">
           <div className="col-md-11">
-            <ByUserTag photo={avatarURL} name={displayName} accountType={membershipType}
+            <ByUserTag theme={"light"} photo={avatarURL} name={displayName} accountType={membershipType}
                        memberSince={memberSince} location={location}/>
           </div>
           

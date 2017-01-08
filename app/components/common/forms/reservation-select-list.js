@@ -1,3 +1,29 @@
+/**
+  select list API documentation:
+
+  this list will generate a list with either just elements
+  or sections with titles and elements.
+
+  to incorporate a section title, use the object API to
+  include the title in the very first element in the
+  next set
+
+  [ // flat select design
+    {
+      title:
+      option:
+    },
+    'option',
+    {
+      title:
+      option:
+    },
+    'option',
+    'option',
+  ]
+
+*/
+
 import React, { Component, PropTypes } from 'react';
 import style from './reservation-select-list.scss';
 
@@ -28,10 +54,20 @@ class ReservationSelectList extends Component {
           options.map((option, index) => {
             const elementId = this.generateId(index);
             const isChecked = selectedIndex == index;
+
+            // here is where we determine whether or not we have a titled Option
+            const titledOptions = option.hasOwnProperty('title');
+            const title = titledOptions ? option.title : false;
+            const optionContent = titledOptions ? option.option : option;
+
             return(
               <div key={elementId}>
+                {
+                  title ?
+                  <h5 className="title">{title}</h5> : null
+                }
                 <input checked={isChecked} onChange={handleSelectChange} value={index} ref={elementId} name={name} id={elementId} className="multi-option-list-option" type="radio" />
-                <label className="multi-option-list-label" htmlFor={elementId}>{option}</label>
+                <label className="multi-option-list-label" htmlFor={elementId}>{optionContent}</label>
               </div>
             );
           })

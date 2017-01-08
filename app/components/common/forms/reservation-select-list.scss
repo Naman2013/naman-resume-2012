@@ -5,6 +5,12 @@
   @extend .custom-scroll-bar;
   overflow-y: scroll;
 
+  .title {
+    padding: 10px 0 0 20px;
+    font-size: 18px;
+    font-weight: normal;
+  }
+
   .multi-option-list-label {
     cursor: pointer;
     display: block;

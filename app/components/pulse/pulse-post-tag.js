@@ -7,9 +7,9 @@ const PulsePostTag = ({ tags }) =>
   <figure className={styles.PulsePostTags}>
     <span>Tags: </span>
 
-    {tags.map((tag, key) =>
-      <div key={key} className={styles.PulsePostTag}>
-        <Link to="#">{tag}</Link>
+    {tags.map(tag =>
+      <div key={tag.id} className={styles.PulsePostTag}>
+        <Link to="#"><div dangerouslySetInnerHTML={{__html: tag.title}}/></Link>
       </div>
     )}
   </figure>;

@@ -32,10 +32,10 @@ const list = [
   }
 ];
 
-function mapStateToProps(state, ownProps) {
+function mapStateToProps({latestPosts}, ownProps) {
   const {children: {props}} = ownProps;
   return {
-    latestPosts: state.latestPosts,
+    ...latestPosts,
     childPath: props.children.props.route.path !== 'all' ? props.children.props.route.path : false
   };
 }
@@ -52,7 +52,7 @@ function mapDispatchToProps(dispatch) {
 class PulseList extends Component {
   
   render() {
-    const { route, location, actions: {fetchLatestPosts}, latestPosts, childPath, children } = this.props;
+    const { route, location, actions: {fetchLatestPosts}, latestPosts, fetching, childPath, children } = this.props;
     
     return (
       <div className="clearfix pulse">
@@ -63,8 +63,9 @@ class PulseList extends Component {
     
           {cloneElement(children, {
               fetchLatestPosts: fetchLatestPosts,
+              childPath: childPath,
               latestPosts: latestPosts,
-              childPath: childPath
+              fetching: fetching,
           })}
       
       </div>

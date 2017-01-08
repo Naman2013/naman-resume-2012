@@ -115,9 +115,7 @@ ReactDOM.render(
         </Route>
 
         <Route path="slooh-pulse" component={PulsePost} >
-          <Route component={PulseWrapper} >
-            <Route path="post(/:id)" name="post" component={PulsePostContent} />
-          </Route>
+            <Route path="post(/:id)" name="post" component={PulsePostContent} onUpdate={() => window.scrollTo(0, 0)} />
         </Route>
 
         <Route path="about" component={About} >
@@ -130,14 +128,12 @@ ReactDOM.render(
 
         <Route path="about/mission" component={Mission} />
 
-        <Route path="publish-post" component={PublishPost} />
-
         <Route path="my-pictures" component={MyPictures}>
           <IndexRedirect to="photo-roll" />
-          <Route path="photo-roll" component={PhotoRoll} />
+          <Route path="photo-roll" component={PhotoRoll} title="Photo roll" />
           <Route path="favorites" component={Favorites} />
           <Route path="galleries" component={Galleries} />
-          <Route path="missions" component={Missions} />
+          <Route path="missions" component={Missions} title="Mission" />
           <Route path="slooh-most-popular" component={SloohMostPopular} />
         </Route>
 

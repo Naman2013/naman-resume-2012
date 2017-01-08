@@ -1,5 +1,4 @@
-import React,  { Component } from 'react';
-import _ from 'lodash';
+import React,  { Component, PropTypes } from 'react';
 import styles from './reserve-by-object.scss';
 import classnames from 'classnames';
 
@@ -10,46 +9,56 @@ class ReserveObjectsCategory extends Component {
     this.clickHandler = this.clickHandler.bind(this);
   }
 
-  clickHandler(item, i) {
+  clickHandler(item, itemIndex) {
     this.props.onClickHandler({
       item,
-      itemIndex: i
+      itemIndex,
     });
   }
 
-  isItemSelected(selectedCategory, index) {
+  isItemSelected(index) {
+    const { selectedCategory } = this.props;
     return selectedCategory && selectedCategory.itemIndex === index;
   }
 
-  getElementStyles(selectedCategory, index) {
+  getElementStyles(index) {
+    const { selectedCategory } = this.props;
     return classnames({
       item: true,
-      selected: this.isItemSelected(selectedCategory, index)
+      selected: this.isItemSelected(index)
     });
   }
 
   render() {
-    const { items = [], selectedCategory, onClickHandler } = this.props;
+    const { items = [], onClickHandler } = this.props;
 
     return (
       <div className={styles.objectCategories}>
         <ul>
           {
-            _.map(items, (item, i) => {
-              return (
-                <li
-                  key={i}
-                  onClick={ () => { this.clickHandler(item, i); } }
-                  className={this.getElementStyles(selectedCategory, i)}>
-                  <img className="icon" src={item.categoryIcon} /> {item.title}
-                </li>
-              );
-            })
+            items.map((item, index) => (
+              <li
+                key={index}
+                onClick={() => {this.clickHandler(item, index)}}
+                className={this.getElementStyles(index)}
+              >
+                <img className="icon" src={item.categoryIcon} /> {item.title}
+              </li>
+            ))
           }
         </ul>
       </div>
     );
   }
 }
+
+const { array, number, string, bool, func, shape } = PropTypes;
+ReserveObjectsCategory.propTypes = {
+  items: array,
+  selectedCategory: shape({
+    itemIndex: number,
+  }),
+  onClickHandler: func.isRequired,
+};
 
 export default ReserveObjectsCategory;
