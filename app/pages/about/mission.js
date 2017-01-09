@@ -8,7 +8,7 @@ class Mission extends Component {
         return (
 
             <article className="static-page mission" id="about">
-                
+
                 <header className="static page">
 
                     <h1 className="big-board">
@@ -17,11 +17,11 @@ class Mission extends Component {
                         <div className="text-xxlarge">The Wonders of </div>
                         <div className="text-ginormous">Space</div>
                     </h1>
- 
+
 
                 </header>
 
-                   
+
                 <i className="sigil slooh">
                     <img src="../app/chrome/Siggle-Slooh.svg" width="100" height="100" className="center-center"/>
                 </i>
@@ -70,7 +70,7 @@ class Mission extends Component {
                         <i className="pull-left margin-bottom-med margin-right-med">
                             <img src="../app/icons/icon-SLT-live.svg" width="60"/>
                         </i>
-                        <div class="pull-right col-med">
+                        <div className="pull-right col-med">
                             <h1 className="white">Syndicate Live Telescope Coverage</h1>
                             <div className="white text-large">Join our media list and we will provide you with updates on events which include embed codes.</div>
                         </div>
