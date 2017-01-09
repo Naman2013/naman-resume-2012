@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { Link } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { checkUser } from '../../modules/User';
@@ -6,7 +7,7 @@ import moment from 'moment';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import './telescope-details.scss';
 import exampleUser from '../../example-api-data/example-user'
-
+import DEFAULT_FULL_MISSION_DATA from './default-full-mission-data';
 
 import {
   getObservatoryList,
@@ -32,6 +33,8 @@ import TelescopeOffline from '../../components/telescope-details/telescope-offli
 import CurrentSelectionHeader from '../../components/telescopes/current-selection-header/header';
 import TelescopeSelection from '../../components/telescopes/selection-widget/telescope-selection';
 
+
+
 const { element, func, object } = PropTypes;
 
 function mapDispatchToProps(dispatch) {
@@ -43,14 +46,14 @@ function mapDispatchToProps(dispatch) {
   }
 };
 
-function mapStateToProps({ missions, telescopeOverview }) {
+function mapStateToProps({ missions, telescopeOverview, activeTelescopeMissions }) {
   const { observatoryList, observatoryTelecopeStatus } = telescopeOverview;
   return {
     missions,
     observatoryList,
     observatoryTelecopeStatus,
-    user: exampleUser, // TODO: state.user
-    cardList: missions.cardList || []
+    cardList: missions.cardList || [],
+    activeTelescopeMissions,
   };
 }
 
@@ -64,6 +67,10 @@ export default class TelescopeDetails extends Component {
       toggleNeoview: false,
       selectedTab: 0,
     };
+  }
+
+  componentWillMount() {
+    window.scrollTo(0, 0);
   }
 
   componentDidMount() {
@@ -146,7 +153,7 @@ export default class TelescopeDetails extends Component {
 
   render() {
     const { selectedTab } = this.state;
-    const { observatoryList, observatoryTelecopeStatus, params } = this.props;
+    const { observatoryList, observatoryTelecopeStatus, params, activeTelescopeMissions } = this.props;
     const { obsUniqueId, teleUniqueId } = params;
 
     // TODO: Move this check into TelescopeSelection component
@@ -157,7 +164,17 @@ export default class TelescopeDetails extends Component {
     const currentObservatory = getCurrentObservatory(observatoryList, obsUniqueId);
     const { obsId } = currentObservatory;
     const currentTelescope = this.getCurrentTelescope(currentObservatory.obsTelescopes, teleUniqueId);
-    const { teleInstrumentList } = currentTelescope;
+    const { teleInstrumentList, teleId } = currentTelescope;
+
+    // setup the current mission - setting defaults based on the original design of the API
+    const currentMission = DEFAULT_FULL_MISSION_DATA;
+    const currentTelescopeMissionData = activeTelescopeMissions.telescopes.find(telescope => telescope.telescopeId === teleId);
+
+    if(currentTelescopeMissionData && currentTelescopeMissionData.activeMission.full.missionList) {
+      Object.assign(currentMission, currentTelescopeMissionData.activeMission.full.missionList[0]);
+    }
+
+    const { missionAvailable } = currentMission;
 
     // TODO: refactor this patchwork to more appropriatly set default values for the selected
     // instrument.  Problem here is the index for the tab falls out of sync with the
@@ -177,7 +194,6 @@ export default class TelescopeDetails extends Component {
           observatoryList={observatoryList}
           params={params} />
 
-
         <div className="details-content-wrapper">
 
           <div className="telescope-details-header clearfix">
@@ -187,10 +203,17 @@ export default class TelescopeDetails extends Component {
                 teleName={currentTelescope.teleName}
                 teleSponsorLinkURL={currentTelescope.teleSponsorLinkURL}
                 teleSponsorLogoURL={currentTelescope.teleSponsorLogoURL}
-                instrTelescopeName={currentInstrument.instrTelescopeName} />
+                instrTelescopeName={currentInstrument.instrTelescopeName}
+              />
             </div>
+
             <div className="col-md-2">
-              <a className="pull-right btn-primary" href={`#${currentTelescope.teleResURL}`}>Reserve this telescope</a>
+              <Link
+                className="pull-right btn-primary"
+                to={`/reservations/reserve-by-telescope/${obsUniqueId}/${teleUniqueId}`}
+              >
+                Reserve this telescope
+              </Link>
             </div>
           </div>
 
@@ -225,58 +248,73 @@ export default class TelescopeDetails extends Component {
                           teleSystem={currentTelescope.teleSystem}
                           showToggleOption={currentTelescope.teleOnlineStatus === 'online'} /> : null
                       }
-
                     </TabPanel>
                   ))
                 }
-
               </Tabs>
+
+              {
+                missionAvailable ?
+                <LiveStream
+                  {...currentMission}
+                /> : null
+              }
 
               <Spacer height="50px" />
 
               <PromoMessageBanner
                 title={`Community Perspectives`}
                 subtitle={`Learn more about this object through the various lenses of science, culture, and spirituality.`} />
+
               <CommunityPerspectives />
 
-              <LiveWebcam
-                time={new Date()}
-                tabs={[
-                  { title: 'West', src: 'assets/images/graphics/livecam-placeholder.jpg' },
-                  { title: 'East', src: 'assets/images/graphics/livecam-placeholder-2.jpeg' },
-                  { title: 'South', src: 'assets/images/graphics/livecam-placeholder-3.jpeg' },
-                  { title: 'North', src: 'assets/images/graphics/livecam-placeholder-4.jpeg' },
-                ]}
-              />
+              {
+                /**
+                coming soon...
+                <LiveWebcam
+                  time={new Date()}
+                  tabs={[
+                    { title: 'West', src: 'assets/images/graphics/livecam-placeholder.jpg' },
+                    { title: 'East', src: 'assets/images/graphics/livecam-placeholder-2.jpeg' },
+                    { title: 'South', src: 'assets/images/graphics/livecam-placeholder-3.jpeg' },
+                    { title: 'North', src: 'assets/images/graphics/livecam-placeholder-4.jpeg' },
+                  ]}
+                />
 
-              <WeatherConditions
-                tabs={[
-                  { title: 'Conditions', src: 'assets/images/graphics/weather-placeholder.jpg' },
-                  { title: 'Dust', src: 'assets/images/graphics/weather-placeholder-2.jpeg' },
-                  { title: 'Satellite Cloud', src: 'assets/images/graphics/weather-placeholder-3.jpeg' },
-                  { title: 'Wind', src: 'assets/images/graphics/weather-placeholder-4.jpeg' },
-                  { title: 'Sky Brightness', src: 'assets/images/graphics/weather-placeholder-5.jpeg' },
-                  { title: 'Historic Weather', src: 'assets/images/graphics/weather-placeholder-6.jpeg' },
-                ]}
-              />
+                <WeatherConditions
+                  tabs={[
+                    { title: 'Conditions', src: 'assets/images/graphics/weather-placeholder.jpg' },
+                    { title: 'Dust', src: 'assets/images/graphics/weather-placeholder-2.jpeg' },
+                    { title: 'Satellite Cloud', src: 'assets/images/graphics/weather-placeholder-3.jpeg' },
+                    { title: 'Wind', src: 'assets/images/graphics/weather-placeholder-4.jpeg' },
+                    { title: 'Sky Brightness', src: 'assets/images/graphics/weather-placeholder-5.jpeg' },
+                    { title: 'Historic Weather', src: 'assets/images/graphics/weather-placeholder-6.jpeg' },
+                  ]}
+                />
+                */
+              }
             </div>
 
             <div className='col-md-4 telescope-details-sidebar'>
 
-              <LiveMission />
+              <LiveMission
+                {...currentMission}
+              />
 
-              <Spacer height="100px" />
-              <TelescopeWhereSky />
-              <Spacer height="50px" />
-              <TelescopeConditionSnapshot />
-              <TelescopeRecommendsWidget />
-              <TelescopeGalleryWidget />
+              {
+                /**
+                  coming soon...
+                  <Spacer height="100px" />
+                  <TelescopeWhereSky />
+                  <Spacer height="50px" />
+                  <TelescopeConditionSnapshot />
+                  <TelescopeRecommendsWidget />
+                  <TelescopeGalleryWidget />
+                */
+              }
             </div>
-
           </div>
-
         </div>
-
       </div>
     );
   }

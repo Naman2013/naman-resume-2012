@@ -1,0 +1,19 @@
+@import "../../../styles/variables/fonts";
+@import "../../../styles/variables/colors";
+
+
+.PulsePostDate{
+  padding: 5px 0;
+  font-weight: 700;
+
+  a{
+    color: $pink;
+  }
+
+  img{
+    width: 18px;
+    height: 17px;
+    margin: 0 3px;
+    vertical-align: top;
+  }
+}

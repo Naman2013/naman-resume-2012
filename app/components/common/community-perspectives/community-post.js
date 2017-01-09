@@ -2,38 +2,48 @@ import React, { Component, PropTypes } from 'react';
 import Heart from '../heart/heart';
 import ByUserTag from '../by-user-tag/by-user-tag';
 
-/**
-  TODO: need to display user profile information
-  add new props and place them here...
-*/
-
 class CommunityPost extends Component {
   render() {
+    const {
+      content,
+      slug,
+      tags,
+      displayName,
+      location,
+      membershipType,
+      memberSince,
+      avatarURL } = this.props;
+
+    const title = tags[0].title;
+
     return(
       <div className="item">
 
         <ByUserTag
-          photo="assets/images/graphics/dave-photo.png"
-          name="John.1234"
-          accountType="Astronomer"
-          memberSince="2016"
-          location="Millwood, NY"
+          photo={avatarURL}
+          name={displayName}
+          accountType={membershipType}
+          memberSince={memberSince}
+          location={location}
         />
 
         <div className="description">
           <h3 className="title">
-            Some cool stats on Andromeda
+            <span dangerouslySetInnerHTML={{__html: title}}></span>
           </h3>
           <div className="desc">
-            <p>Approximately 220,000 light years across, it is the largest galaxy of the Local Group, which also contains the Milky Way, the Triangulum Galaxy, and about 44 other smaller galaxies. The light you see has taken 2 million years to get to the earth!</p>
-            <p>Approximately 220,000 light years across, it is the largest galaxy of the Local Group, which also contains the Milky Way, the Triangulum Galaxy, and about 44 other smaller galaxies. The light you see has taken 2 million years to get to the earth!</p>
-            <p>Approximately 220,000 light years across, it is the largest galaxy of the Local Group, which also contains the Milky Way, the Triangulum Galaxy, and about 44 other smaller galaxies. The light you see has taken 2 million years to get to the earth!</p>
+            <p dangerouslySetInnerHTML={{__html: content}}></p>
           </div>
         </div>
 
-        <div className="share-options-container">
-          <Heart />
-        </div>
+        {
+          /**
+           coming soon...
+           <div className="share-options-container">
+             <Heart />
+           </div>
+          */
+        }
       </div>
     );
   }
@@ -44,9 +54,19 @@ CommunityPost.defaultProps = {
   title: '',
 };
 
+const { string, number, bool, arrayOf, shape } = PropTypes;
 CommunityPost.PropTypes = {
-  content: PropTypes.string,
-  title: PropTypes.string,
+  content: string.isRequired,
+  slug: string.isRequired,
+  tags: arrayOf(shape({
+    title: string.isRequired,
+  })),
+
+  displayName: string.isRequired,
+  location: string.isRequired,
+  membershipType: string.isRequired,
+  memberSince: string.isRequired,
+  avatarURL: string.isRequired,
 };
 
 export default CommunityPost;

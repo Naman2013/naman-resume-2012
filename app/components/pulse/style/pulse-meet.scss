@@ -1,0 +1,34 @@
+@import '../../../styles/variables/fonts';
+@import '../../../styles/variables/colors';
+
+.pulseMeet {
+  font-family: $primary-font;
+  padding: 20px 0;
+  position: relative;
+  margin: 20px 0;
+  .pulseMeetHeader {
+    background: #7EC3C3;
+    color: $white;
+    border-bottom: 3px solid $darkBlueGray;
+    text-align: center;
+    padding: 12px 5px;
+
+    h4 {
+      font-size: 24px;
+      margin: 0;
+      font-weight: 700;
+    }
+
+    p {
+      font-size: 14px;
+      font-weight: 100;
+    }
+  }
+
+  .pulseMeetContainer {
+    color: $font-black;
+    font-size: 18px;
+    text-align: center;
+    font-weight: 100;
+  }
+}

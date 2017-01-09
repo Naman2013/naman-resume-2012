@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import * as countDownEvents from '../modules/CountdownModule';
-import circlecounter from '../components/circlecounter';
+import CircleCounter from '../components/circle-counter';
 import classes from '../styles/circle-timer.scss';
 
 
@@ -14,8 +14,6 @@ function mapDispatchToProps(dispatch) {
 }
 
 @connect(null, mapDispatchToProps)
-
-
 export default class CircleTimer extends Component {
   static propTypes = {
     size: number,
@@ -117,6 +115,7 @@ export default class CircleTimer extends Component {
         >
           <span>{getDoubleNumber(secondsTo)}</span>
         </CircleCounter>
+        <img src="../assets/images/header/reminder.png" />
       </div>
     );
   }

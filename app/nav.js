@@ -33,7 +33,7 @@ export default [{
 		"label": {
 			"en": "My Pictures"
 		},
-		"link": "#/my-pictures",
+		"link": "my-pictures",
 		"type": "basic"
 	}, {
 		"type": "space"
@@ -165,13 +165,13 @@ export default [{
 		"label": {
 			"en": "Latest Pulse"
 		},
-		"link": "/community",
+		"link": "/slooh-pulse",
 		"type": "basic"
 	}, {
 		"label": {
 			"en": "Best of Slooh"
 		},
-		"link": "/community/highlight",
+		"link": "/best-of-slooh",
 		"type": "basic"
 	}, {
 		"label": {
@@ -189,7 +189,7 @@ export default [{
 		"label": {
 			"en": "Full Objects List"
 		},
-		"link": "/community/objects",
+		"link": "/objects-list",
 		"type": "basic"
 	}, {
 		"type": "space"

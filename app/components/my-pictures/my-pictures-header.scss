@@ -1,0 +1,26 @@
+@import '../../styles/variables/fonts';
+@import '../../styles/variables/colors';
+
+.myPictureHeader {
+  font-family: $primary-font;
+  background: url('../../../assets/images/graphics/milkeyway_header.jpg') no-repeat;
+  background-size: cover;
+  height: 145px;
+  display: inline-flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: flex-end;
+  padding: 10px 50px;
+
+  h1 {
+    margin: 0;
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 36px;
+  }
+
+  button {
+    margin-right: 30px;
+  }
+}

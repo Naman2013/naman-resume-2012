@@ -43,7 +43,7 @@ const UpcomingContent = ({
       <a href="#" className="btn btn-primary">View Reservations</a>
     </div>
   );
-}
+};
 
 const mapStateToProps = (state, ownProps) => ({
   usersUpcomingMission: state.usersUpcomingMission,

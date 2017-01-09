@@ -1,0 +1,21 @@
+@import "../../styles/variables/colors";
+
+.image-list-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 15px auto;
+  justify-content: center;
+}
+
+.step-description {
+  font-weight: 300;
+}
+
+.file-input-label {
+  color: $pink;
+  cursor: pointer;
+
+  [type=file] {
+    display: none;
+  }
+}

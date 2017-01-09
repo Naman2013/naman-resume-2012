@@ -1,7 +1,10 @@
 import axios from 'axios';
 
+import { fetchObjectContent, fetchContentReset } from '../community-content/get-object-content-actions';
+
 export const UPDATE_TELESCOPE_MISSION_FULL_START = 'UPDATE_TELESCOPE_MISSION_FULL_START';
 export const UPDATE_TELESCOPE_MISSION_COMPACT_START = 'UPDATE_TELESCOPE_MISSION_COMPACT_START';
+export const UPDATE_TELESCOPE_MISSION_FAIL = 'UPDATE_TELESCOPE_MISSION_FAIL';
 export const COMMIT_ACTIVE_MISSION_CHANGE = 'COMMIT_ACTIVE_MISSION_CHANGE';
 export const REMOVE_TELESCOPE_MISSION = 'REMOVE_TELESCOPE_MISSION';
 
@@ -22,6 +25,8 @@ export const updateTelescopeActiveMission = ({ telescopeId, obsId, domeId, forma
     format,
   }));
 
+  dispatch(fetchContentReset());
+
   return axios.post('/api/reservation/getCurrentMission', {
     token,
     cid,
@@ -37,9 +42,24 @@ export const updateTelescopeActiveMission = ({ telescopeId, obsId, domeId, forma
     }
 
     if(format === FORMAT_FULL) {
+      const hasMission = result.data.missionList.length > 0;
+      const currentMission = result.data.missionList[0];
+
       dispatch(updateActiveMissionFull({ telescopeId, payload: result.data, }));
+
+      // if we have a mission, fetch the community content...
+      if(hasMission) {
+        const { objectId } = currentMission;
+        const callSource = 'telescopeDetails';
+
+        dispatch(fetchObjectContent({
+          objectId,
+          callSource,
+        }));
+      }
     }
-  });
+  })
+  .catch(error => dispatch(failedFetchMission(error)));
 };
 
 const updateActiveMissionCompact = ({ telescopeId, payload }) => (dispatch, getState) => {
@@ -50,6 +70,7 @@ const updateActiveMissionCompact = ({ telescopeId, payload }) => (dispatch, getS
       if(telescope.telescopeId === telescopeId) {
         return Object.assign(telescope, {
           activeMission: {
+            ...telescope.activeMission,
             compact: payload,
             compactError: {},
             fetchingCompact: false,
@@ -83,6 +104,7 @@ const updateActiveMissionFull = ({ telescopeId, payload }) => (dispatch, getStat
       if(telescope.telescopeId === telescopeId) {
         return Object.assign(telescope, {
           activeMission: {
+            ...telescope.activeMission,
             full: payload,
             fullError: {},
             fetchingFull: false,
@@ -113,6 +135,16 @@ const commitActiveMissionChange = (payload) => ({
   payload,
 });
 
+const failedFetchMission = (error) => (dispatch) => {
+  // reset the community content
+  dispatch(fetchContentReset());
+  return {
+    type: UPDATE_TELESCOPE_MISSION_FAIL,
+    payload: error,
+  };
+};
+
+
 const fetchingMissionData = ({ telescopeId, format }) => (dispatch) => {
   if(format === FORMAT_COMPACT) {
     dispatch(fetchingMissionCompact({ telescopeId }));
@@ -127,7 +159,7 @@ const fetchingMissionCompact = ({ telescopeId }) => ({
   telescopeId,
 });
 
-const fetchingMissionFull = ({ telescopeId }) => ({
-  type: UPDATE_TELESCOPE_MISSION_FULL_START,
-  telescopeId,
+const fetchingMissionFull = (error) => ({
+  type: UPDATE_TELESCOPE_MISSION_FAIL,
+  payload: error,
 });

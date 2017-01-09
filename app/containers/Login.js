@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import onClickOutside from 'react-onclickoutside';
-import InputField from '../components/InputField';
+import InputField from '../components/form/InputField';
 import { createValidator, required } from '../modules/utils/validation';
 import * as loginActions from './../modules/Login';
 import styles from '../styles/login.scss';

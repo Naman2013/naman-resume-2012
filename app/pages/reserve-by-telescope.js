@@ -36,33 +36,14 @@ function mapStateToProps({ missions, telescopeOverview, missionSlotsByTelescope 
 @connect(mapStateToProps, mapDispatchToProps)
 class ReserveMissions extends Component {
 
+  componentWillMount() {
+    window.scrollTo(0, 0);
+  }
+
   componentDidMount() {
-    console.log('seeking currentObservatoryId');
-    console.log(this.props);
     this.props.actions.getObservatoryList(
       this.props.currentObservatoryId,
     );
-  }
-
-  setupTelescopeRefresh() {
-    const { missionSlotsByTelescope, currentObservatoryId } = this.props;
-    const { refreshIntervalSec } = missionSlotsByTelescope.reservationList;
-
-    if(this.telescopeTimer) {
-      clearInterval(this.telescopeTimer);
-    }
-
-    if(refreshIntervalSec) {
-      this.telescopeTimer = setInterval(() => {
-        this.props.actions.getObservatoryList(
-          this.props.currentObservatoryId,
-        );
-      }, refreshIntervalSec * 1000);
-    }
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.telescopeTimer);
   }
 
   render() {
@@ -75,8 +56,6 @@ class ReserveMissions extends Component {
     const currentTelescope = currentObservatory.obsTelescopes.find(telescope => telescope.teleUniqueId === params.teleUniqueId);
     const currentInstrument = currentTelescope.teleInstrumentList[0];
     const rootRoute = `reservations/reserve-by-telescope/${params.obsUniqueId}/${params.teleUniqueId}`;
-
-    this.setupTelescopeRefresh();
 
     // console.log('current observatory', currentObservatory);
     // console.log('current telescope', currentTelescope);
@@ -114,6 +93,7 @@ class ReserveMissions extends Component {
           <GenericLoadingBox />
           :
           <Listings
+            telescopeId={currentTelescope.teleId}
             reservations={reservationList.missionList}
             allowReservations={reservationList.allowReservations}
           />

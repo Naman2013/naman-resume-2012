@@ -4,10 +4,10 @@ import Timer from './common/timer';
 
 class ReservationByObjects extends Component {
   render() {
-    const { showMakeReservation, showPlaceOnHold, showCancelHold } = this.props;
+    const { showMakeReservation, showPlaceOnHold, showCancelHold, expires, expireCallback } = this.props;
     return(
       <div className="reservation-form-container">
-        <Timer />
+        <Timer startTime={expires} expireCallback={expireCallback} />
         <ReserveByObjects
           resetForm={false}
           makeReservation={showMakeReservation}
@@ -25,11 +25,13 @@ ReservationByObjects.defaultProps = {
   showCancelHold: false,
 };
 
-const { string, number, bool } = PropTypes;
+const { string, number, bool, func } = PropTypes;
 ReservationByObjects.propTypes = {
   showMakeReservation: bool,
   showPlaceOnHold: bool,
   showCancelHold: bool,
+  expires: number.isRequired,
+  expireCallback: func.isRequired,
 };
 
 export default ReservationByObjects;

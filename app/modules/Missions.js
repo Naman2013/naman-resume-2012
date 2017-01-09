@@ -10,15 +10,19 @@ import { grabPiggyback } from './Piggyback';
 
 const MISSION_CONFIRMATION_OPEN = 'MISSION_CONFIRMATION_OPEN';
 const MISSION_CONFIRMATION_CLOSE = 'MISSION_CONFIRMATION_CLOSE';
+
 const MISSION_ALL_CARDS_SUCCESS = 'MISSION_ALL_CARDS_SUCCESS';
 const MISSION_ALL_CARDS_FAIL = 'MISSION_ALL_CARDS_FAIL';
-const MISSION_GET_INFO_SUCCESS = 'MISSION_GET_INFO_SUCCESS';
+
 const MISSION_GET_INFO_FAIL = 'MISSION_GET_INFO_FAIL';
+
 const MISSION_GET_UPDATES_SUCCESS = 'MISSION_GET_UPDATES_SUCCESS';
 const MISSION_GET_UPDATES_FAIL = 'MISSION_GET_UPDATES_FAIL';
+
 const MISSION_GET_PIGGYBACKS = 'MISSION_GET_PIGGYBACKS';
 const MISSION_GET_PIGGYBACKS_SUCCESS = 'MISSION_GET_PIGGYBACKS_SUCCESS';
 const MISSION_GET_PIGGYBACKS_FAIL = 'MISSION_GET_PIGGYBACKS_FAIL';
+
 const MISSION_GET_NEXT_RESERVATIONS_SUCCESS = 'MISSION_GET_NEXT_RESERVATIONS_SUCCESS';
 const MISSION_GET_NEXT_RESERVATIONS_FAIL = 'MISSION_GET_NEXT_RESERVATIONS_FAIL';
 
@@ -36,6 +40,8 @@ const UPDATE_SINGLE_RESERVATION_SUCCESS = 'UPDATE_SINGLE_RESERVATION_SUCCESS';
 const UPDATE_SINGLE_RESERVATION_FAIL = 'UPDATE_SINGLE_RESERVATION_FAIL';
 
 const SET_CURRENT_CARD = 'SET_CURRENT_CARD';
+
+const COMMIT_UPDATED_PIGGYBACKS = 'COMMIT_UPDATED_PIGGYBACKS';
 
 
 
@@ -55,13 +61,55 @@ export const missionConfirmClose = () => ({
   type: MISSION_CONFIRMATION_CLOSE,
 });
 
-export const reserveMissionSlot = ( mission ) => ( dispatch, getState ) => {
+export const reserveMissionSlot = ({
+  scheduledMissionId,
+  callSource,
+  missionType,
+  missionStart,
+  objectId,
+  objectType,
+  objectTitle,
+  objectRA,
+  objectDec,
+  catalog,
+  catName,
+  designation,
+  processingRecipe,
+  obsId,
+  domeId,
+  telescopeId,
+  obsName,
+  telescopeName,
+  objectIconURL,
+  uniqueId,
+  targetName
+}) => (dispatch, getState) => {
   const { token, at, cid } = getState().user;
   return axios.post('/api/reservation/reserveMissionSlot', {
     token,
     at,
     cid,
-    ...mission,
+    scheduledMissionId,
+    callSource,
+    missionType,
+    missionStart,
+    objectId,
+    objectType,
+    objectTitle,
+    objectRA,
+    objectDec,
+    catalog,
+    catName,
+    designation,
+    processingRecipe,
+    obsId,
+    domeId,
+    telescopeId,
+    obsName,
+    telescopeName,
+    objectIconURL,
+    uniqueId,
+    targetName,
   })
   .then(result => {
     dispatch(fetchUsersUpcomingMissions());
@@ -70,12 +118,12 @@ export const reserveMissionSlot = ( mission ) => ( dispatch, getState ) => {
   .catch(error => dispatch( reserveMissionFail( error ) ) );
 };
 
-const reserveMissionSuccess = ( payload ) => ({
+const reserveMissionSuccess = (payload) => ({
   type: RESERVE_MISSION_SLOT_SUCCESS,
   payload: payload,
 });
 
-const reserveMissionFail = ( error ) => ({
+const reserveMissionFail = (error) => ({
   type: RESERVE_MISSION_SLOT_FAIL,
   payload: error,
 });
@@ -86,7 +134,7 @@ export const resetReserveMission = () => ({
 
 
 
-export const cancelMissionSlot = ( mission ) => ( dispatch, getState ) => {
+export const cancelMissionSlot = (mission) => (dispatch, getState) => {
   const { token, at, cid } = getState().user;
   return axios.post('/api/reservation/cancelMissionSlot', {
     token,
@@ -94,8 +142,8 @@ export const cancelMissionSlot = ( mission ) => ( dispatch, getState ) => {
     cid,
     ...mission,
   })
-  .then( result => _.noop( result ) )
-  .catch( error => _.noop( error ) );
+  .then(result => _.noop(result))
+  .catch(error => _.noop(error));
 };
 
 
@@ -103,31 +151,28 @@ export const cancelMissionSlot = ( mission ) => ( dispatch, getState ) => {
   see: /api/reservation/grabMissionSlot for providing the appropriate mission shape
   https://docs.google.com/document/d/1nYo6_O87gWCqyoD3NJ98cbA5Cpxo-8ksB3Dw3PbjAa0/edit#heading=h.tkagqs5w5vit
 */
-export function grabMissionSlot(mission) {
-  return (dispatch, getState) => {
+export const grabMissionSlot = ({
+    scheduledMissionId,
+    callSource,
+    missionType,
+    missionStart,
+    obsId,
+    domeId,
+    telescopeId,
+    objectId,
+    objectType,
+    objectTitle,
+    objectRA,
+    objectDec,
+    catalog,
+    catName,
+    designation,
+    processingRecipe,
+    uniqueId
+  }) => (dispatch, getState) => {
     const { token, at, cid } = getState().user;
 
     grabMissionSlotStart();
-
-    const {
-      scheduledMissionId,
-      callSource,
-      missionType,
-      missionStart,
-      obsId,
-      domeId,
-      telescopeId,
-      objectId,
-      objectType,
-      objectTitle,
-      objectRA,
-      objectDec,
-      catalog,
-      catName,
-      designation,
-      processingRecipe,
-      uniqueId,
-      } = mission;
 
     return axios.post('/api/reservation/grabMissionSlot', {
       token,
@@ -152,10 +197,15 @@ export function grabMissionSlot(mission) {
       uniqueId,
     })
     .then(response => {
-      dispatch( grabMissionSlotSuccess(response.data) );
+      /**
+        patching the callsource to ensure that it is always included for
+        future requests
+      */
+      dispatch(grabMissionSlotSuccess(Object.assign(response.data, {
+        callSource,
+      })));
     })
     .catch(error => dispatch(grabMissionSlotFail(error)));
-  };
 }
 
 const grabMissionSlotFail = (error) => ({
@@ -260,8 +310,8 @@ export const missionGetUpdates = () => ( dispatch, getState ) => {
     timestamp: moment().unix(),
     level: 'all',
   })
-  .then( response => dispatch( missionUpdatesSuccess( response.data ) ) )
-  .catch( error => dispatch( missionUpdatesFail( error ) ) );
+  .then(response => dispatch(missionUpdatesSuccess(response.data)))
+  .catch(error => dispatch(missionUpdatesFail(error)));
 };
 
 export function missionUpdatesSuccess( announcementList ) {
@@ -336,6 +386,42 @@ export function missionGetNextReservation(objectList) {
   }
 }
 
+export const updatePiggyback = ({ uniqueId, objectId }) => (dispatch, getState) => {
+  const { at, cid, token } = getState().user;
+  return axios.post('/api/recommends/getNextPiggyback', {
+    at,
+    token,
+    cid,
+    uniqueId,
+    objectId,
+  })
+  .then(result => dispatch(updateSinglePiggyback(result.data)))
+  .catch(error => dispatch(updateSinglePiggybackError(error)));
+};
+
+const updateSinglePiggyback = (data) => (dispatch, getState) => {
+  const { piggybacks } = getState().missions;
+  const newMission = data.missionList[0];
+  const newMissionUniqueId = newMission.uniqueId;
+  const updatedPiggybacks = piggybacks.map(piggyback => {
+    if(piggyback.uniqueId === newMissionUniqueId) {
+      return newMission;
+    }
+    return piggyback;
+  });
+
+  dispatch(commitPiggybackUpdate(updatedPiggybacks));
+};
+
+const updateSinglePiggybackError = (error) => {
+  throw error;
+};
+
+const commitPiggybackUpdate = (updatedPiggybacks) => ({
+  type: COMMIT_UPDATED_PIGGYBACKS,
+  payload: updatedPiggybacks,
+});
+
 export function updateSingleReservations(uniqueId, objectId) {
   return (dispatch, getState) => {
     const { token, at, cid } = getState().user;
@@ -383,25 +469,25 @@ export function missionGetNextReservationFail({ data }) {
 
 
 const initialState = {
-  isConfirmationOpen: false,
-
-  mission: {},
-
-  cardList: [],
-
   announcements: [],
 
-  piggybacks: [],
+  isConfirmationOpen: false,
 
-  currentCard: {},
-  currentMissionSlot: {},
+  cardList: [], // all available cards ( featured and non )
+  piggybacks: [], // all available piggybacks
+  reservations: [], // all available active missions
+  currentCard: {}, // selected card DEPRECATE - current dependency is on piggyback on mission
+
+  selectedMissionSlot: {}, // the next available mission slot - called at the time of mission selection
+  currentMissionSlot: {}, // response from grabMission, should use selectedMissionSlot for source data
   currentMissionSlotError: {},
   fetchingCurrentMissionSlot: false,
+  grabMissionSlotError: false,
 
   missionSlotJustReserved: false,
   missionSlotReservationError: false,
-  previousMissionSlotReservation: {},
-  previousMissionSlotReservationError: {},
+  previousMissionSlotReservation: {}, // stores a reference to the previous mission after successful reservation
+  previousMissionSlotReservationError: {}, // stores an error for an attempted mission reservation
 };
 
 
@@ -412,6 +498,7 @@ export default createReducer(initialState, {
       missionSlotJustReserved: true,
       missionSlotReservationError: false,
       previousMissionSlotReservation: payload,
+      previousMissionSlotReservationError: {},
     };
   },
   [RESERVE_MISSION_SLOT_FAIL](state, { payload }) {
@@ -419,6 +506,7 @@ export default createReducer(initialState, {
       ...state,
       missionSlotJustReserved: false,
       missionSlotReservationError: true,
+      previousMissionSlotReservation: {},
       previousMissionSlotReservationError: payload,
     };
   },
@@ -427,8 +515,11 @@ export default createReducer(initialState, {
       ...state,
       missionSlotJustReserved: false,
       missionSlotReservationError: false,
+      previousMissionSlotReservation: {},
+      previousMissionSlotReservationError: {},
     };
   },
+
   [MISSION_CONFIRMATION_OPEN](state, { confirmType }) {
     return {
       ...state,
@@ -445,24 +536,21 @@ export default createReducer(initialState, {
       missionSlotJustReserved: false,
     };
   },
+
   [MISSION_ALL_CARDS_SUCCESS](state, {cardList}) {
     return {
       ...state,
       cardList
     };
   },
-  [MISSION_GET_INFO_SUCCESS](state, { mission }) {
-    return {
-      ...state,
-      mission,
-    }
-  },
+
   [SET_CURRENT_CARD](state, { payload }) {
     return {
       ...state,
       currentCard: payload,
     }
   },
+
   [MISSION_GET_UPDATES_SUCCESS](state, { payload }) {
     return {
       ...state,
@@ -475,6 +563,7 @@ export default createReducer(initialState, {
       announcements: [],
     }
   },
+
   [MISSION_GET_PIGGYBACKS_SUCCESS](state, { result }) {
     return {
       ...state,
@@ -488,6 +577,7 @@ export default createReducer(initialState, {
       piggybacks: payload,
     };
   },
+
   [MISSION_GET_NEXT_RESERVATIONS_SUCCESS](state, { result }) {
     return {
       ...state,
@@ -526,28 +616,39 @@ export default createReducer(initialState, {
       ...state,
     };
   },
+
   [GRAB_MISSION_SLOT_START](state) {
     return {
       ...state,
       fetchingCurrentMissionSlot: true,
-      currentMissionSlotError: null,
-      currentMissionSlot: null,
+      currentMissionSlotError: {},
+      currentMissionSlot: {},
+      grabMissionSlotError: false,
     };
   },
   [GRAB_MISSION_SLOT_SUCCESS](state, { payload }) {
     return {
       ...state,
-      currentMissionSlotError: null,
+      currentMissionSlotError: {},
       currentMissionSlot: payload,
       fetchingCurrentMissionSlot: false,
+      grabMissionSlotError: false,
     };
   },
   [GRAB_MISSION_SLOT_FAIL](state, { payload }) {
     return {
       ...state,
       currentMissionSlotError: payload,
-      currentMissionSlot: null,
+      currentMissionSlot: {},
       fetchingCurrentMissionSlot: false,
+      grabMissionSlotError: true,
     };
-  }
+  },
+
+  [COMMIT_UPDATED_PIGGYBACKS](state, { payload }) {
+    return {
+      ...state,
+      piggybacks: payload,
+    };
+  },
 });

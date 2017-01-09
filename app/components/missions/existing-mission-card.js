@@ -9,7 +9,10 @@ import _ from 'lodash';
 import ModalGeneric from '../common/modals/modal-generic';
 
 import styles from './mission-card.scss';
-import { getNextPiggybackSingle, missionGetCards } from '../../modules/Missions';
+import {
+  getNextPiggybackSingle,
+  missionGetCards,
+  updatePiggyback } from '../../modules/Missions';
 import { resetMissionAvailability } from '../../modules/Piggyback';
 
 function mapDispatchToProps(dispatch) {
@@ -18,6 +21,7 @@ function mapDispatchToProps(dispatch) {
       getNextPiggybackSingle,
       missionGetCards,
       resetMissionAvailability,
+      updatePiggyback,
     }, dispatch),
   };
 }
@@ -42,6 +46,23 @@ class ExistingMissionCard extends Component {
     this.handlePiggybackClick = this.handlePiggybackClick.bind(this);
     this.handleCloseErrorModal = this.handleCloseErrorModal.bind(this);
     this.resetMissionAvailability = this.resetMissionAvailability.bind(this);
+    this.update = this.update.bind(this);
+  }
+
+  componentDidMount() {
+    const { expires } = this.props.piggyback;
+    const timer = moment.unix(expires).diff(moment());
+    this.updateReservationTimeout = setInterval(this.update, timer);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.updateReservationTimeout);
+  }
+
+  update() {
+    const { uniqueId, objectId } = this.props.piggyback;
+    const { updatePiggyback } = this.props.actions;
+    updatePiggyback({uniqueId, objectId});
   }
 
   handleGrabPiggybackResponse(result) {

@@ -1,49 +1,107 @@
 import React, { Component, PropTypes } from 'react';
-import Heart from  '../../common/heart/heart';
 import classnames from 'classnames';
+import ByUserTag from '../../common/by-user-tag/by-user-tag';
+import InlineCountdown from '../../common/inline-countdown/inline-countdown';
 import './live-mission.scss';
 
-class LiveMission extends React.Component {
-
+class LiveMission extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       classes: []
     };
   };
 
   render() {
+    const {
+      missionAvailable,
+      missionObjective,
+      missionLikeCount,
+      expires,
+      objectTitle,
+      nextMissionAvailable,
+      nextStart,
+      nextTitle,
+      nextObjectIconURL,
+      ownerLocation,
+      ownerDisplayName,
+      ownerMembershipType,
+      ownerMemberSince,
+      ownerAvatarURL } = this.props;
+
     return(
       <div className="live-mission">
         <div className="content">
-          <div className="top">
-            <h3>CURRENT LIVE MISSION:</h3>
-            <p>Andromeda Galaxy (M31)</p>
-          </div>
-          <div className="personal-info">
-            <p className="name">Dave Eberly</p>
-            <p className="job">ASTRONOMER</p>
-            <p className="address">Chicago, IL, USA. Member since 2011</p>
-            <p className="description">“Always wanted to get a shot of this amazing galaxy since I was a kid seeing a light smear back in Kansas.”</p>
-            <img src={'assets/images/graphics/dave-photo.png'} className="photo" />
+
+          {
+            missionAvailable ?
+                <div>
+                  <div className="header">
+                    <h3 className="title">CURRENT LIVE MISSION:</h3>
+                    <p className="mission-title">{objectTitle}</p>
+                  </div>
+
+                  <ByUserTag
+                    theme="dark"
+                    photo={ownerAvatarURL}
+                    name={ownerDisplayName}
+                    accountType={ownerMembershipType}
+                    memberSince={ownerMemberSince}
+                    location={ownerLocation}
+                  />
+
+                  {
+                    missionObjective ?
+                    <div className="users-quote">
+                      <p>
+                        &quot;{missionObjective}&quot;
+                      </p>
+                    </div> : null
+                  }
+                </div>
+            :
+            <div className="header">
+              <h3 className="title">Standby...</h3>
+            </div>
+          }
           </div>
 
-          <div className="heart-container">
-            <Heart count={`122`} />
-          </div>
+        {
+          nextMissionAvailable ?
+            <div className="footer">
+              <p>NEXT MISSION:</p>
+              <div className="mission">
+                <img height="25" className="mission-icon" src={nextObjectIconURL} />
+                <p>{nextTitle}</p>
+                <span className="count-down">in <InlineCountdown startTime={expires} /></span>
+              </div>
+            </div> : null
+        }
 
-        </div>
-        <div className="footer">
-          <p>NEXT MISSION:</p>
-          <div className="mission">
-            <img src={'assets/images/icons/icon-planet.png'} />
-            <p>Counting Saturn’s Moons</p>
-            <span>in 3:18</span>
-          </div>
-        </div>
       </div>
     );
   }
 }
+
+const { string, number, bool } = PropTypes;
+LiveMission.propTypes = {
+  missionAvailable: bool.isRequired,
+  missionObjective: string.isRequired,
+  missionLikeCount: number.isRequired,
+  expires: number.isRequired,
+  objectTitle: string.isRequired,
+  nextMissionAvailable: bool.isRequired,
+
+  nextStart: number.isRequired,
+  nextTitle: string.isRequired,
+  nextObjectIconURL: string.isRequired,
+
+  ownerLocation: string.isRequired,
+  ownerDisplayName: string.isRequired,
+  ownerMembershipType: string.isRequired,
+  ownerMemberSince: string.isRequired,
+  ownerAvatarURL: string.isRequired,
+};
 
 export default LiveMission;

@@ -7,7 +7,10 @@ import styles from './mission-card.scss';
 import moment from 'moment-timezone';
 import _ from 'lodash';
 
-import { updateSingleReservations, grabMissionSlot } from '../../modules/Missions';
+import {
+  updateSingleReservations,
+  grabMissionSlot,
+  updateSinglePiggyback } from '../../modules/Missions';
 
 function mapDispatchToProps(dispatch) {
   return {
@@ -37,18 +40,13 @@ class NewMissionCard extends Component {
   }
 
   componentDidMount() {
-    const { missionAvailable, expires } = this.props.reservation;
-
-    if(!missionAvailable) {
-      const timer = moment(expires * 1000).diff(moment());
-      this.updateReservationTimeout = setInterval(this.updateReservation, timer);
-    }
+    const { expires } = this.props.reservation;
+    const timer = moment.unix(expires).diff(moment());
+    this.updateReservationTimeout = setInterval(this.updateReservation, timer);
   }
 
   componentWillUnmount() {
-    if(this.updateReservationTimeout) {
-      clearInterval(this.updateReservationTimeout);
-    }
+    clearInterval(this.updateReservationTimeout);
   }
 
   handleMakeReservationClick(event) {
@@ -90,8 +88,7 @@ class NewMissionCard extends Component {
   }
 
   renderCallToAction() {
-    const { missionAvailable, missionStart } = this.props.reservation;
-    const { openModal, card, featured } = this.props;
+    const { missionAvailable } = this.props.reservation;
 
     if(missionAvailable) {
       return(
@@ -132,7 +129,7 @@ class NewMissionCard extends Component {
 
     if(!reservation.missionAvailable) {
       return(
-        <h5 className="mission-status">No existing missions are available</h5>
+        <h5 className="mission-status">No missions are available</h5>
       );
     }
   }

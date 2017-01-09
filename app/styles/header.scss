@@ -1,14 +1,14 @@
 @import './variables/fonts.scss';
 @import './variables/colors.scss';
 
-.main-header {
+.mainHeader {
   height: 70px;
   width: 100%;
   background-color: rgba(0, 0, 0, 0.9);
   position: fixed;
   z-index: 100;
 
-  .logo {
+  .mainHeaderLogo {
     position: absolute;
     left: 90px;
     text-indent: -9999;
@@ -21,7 +21,7 @@
     margin: 12px 0 0 12px;
   }
 
-  .logo-text {
+  .mainHeaderLogoText {
     font-family: $primary-font;
     position: absolute;
     left: 160px;

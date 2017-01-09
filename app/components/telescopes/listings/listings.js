@@ -9,16 +9,16 @@ import NoMissionsAvailable from './reservation-slots/no-missions-available';
 import styles from './listings.scss';
 
 // possible reservation slot status's
-const RESERVED = 'reserved';
-const AVAILABLE = 'available';
-const ON_HOLD = 'onhold';
-const NOT_AVAILABLE = 'notavailable';
+export const RESERVED = 'reserved';
+export const AVAILABLE = 'available';
+export const ON_HOLD = 'onhold';
+export const NOT_AVAILABLE = 'notavailable';
 
 
 
 class Listings extends Component {
   renderReservationSlot(reservation) {
-    const { allowReservations } = this.props;
+    const { allowReservations, telescopeId } = this.props;
     const { slotStatus } = reservation;
 
     if(!allowReservations && slotStatus === NOT_AVAILABLE) {
@@ -43,6 +43,7 @@ class Listings extends Component {
       return(
         <AvailableMission
           key={reservation.missionIndex}
+          telescopeId={telescopeId}
           {...reservation}
         />
       );
@@ -85,6 +86,7 @@ class Listings extends Component {
 const { string, number, bool, arrayOf } = PropTypes;
 Listings.propTypes = {
   allowReservations: bool.isRequired,
+  telescopeId: string.isRequired,
   reservations: arrayOf(PropTypes.shape({
     missionIndex: number.isRequired,
     scheduledMissionId: number.isRequired,

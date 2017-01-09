@@ -1,24 +1,60 @@
 import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import classnames from 'classnames';
-
+import InlineCountdown from '../../../common/inline-countdown/inline-countdown';
 import MissionTime from '../partials/mission-time';
 import ByUserTag from '../../../common/by-user-tag/by-user-tag';
+import { startCompleteReservation } from '../../../../modules/mission-slots-by-telescope/mission-slots-by-telescope-actions';
 
+const FinishReservationButton = ({handleFinishReservationClick}) => (
+  <div className="col-xs-2">
+    <button onClick={handleFinishReservationClick} className="btn-primary">
+      Finish Reservation
+    </button>
+  </div>
+);
+
+const CountDown = ({expires}) => (
+  <div className="col-xs-2 hold-timer-content">
+    <h5 className="hold-timer"><InlineCountdown startTime={expires} /></h5>
+    <p className="title">Hold time remaining.</p>
+  </div>
+);
+
+const mapDispatchToProps = (dispatch) => ({
+  actions: bindActionCreators({
+    startCompleteReservation,
+  }, dispatch),
+});
+
+@connect(null, mapDispatchToProps)
 class MissionOnHold extends Component {
+  constructor(props) {
+    super(props);
+
+    this.handleFinishReservationClick = this.handleFinishReservationClick.bind(this);
+  }
+
+  handleFinishReservationClick(event) {
+    event.preventDefault();
+    this.props.actions.startCompleteReservation(this.props.missionIndex);
+  }
+
   render() {
     const {
       missionStart,
-      showSlotTimes } = this.props;
-
-    const containerClassnames = classnames({
-      'telescope-listings-item': 1,
-      'on-hold': 1,
-    });
-
-    const timer = '44:42';
+      showSlotTimes,
+      expires,
+      ownerAvatarURL,
+      ownerDisplayName,
+      ownerLocation,
+      ownerMembershipType,
+      ownerMemberSince,
+      showFinishReservationButton } = this.props;
 
     return(
-      <li className={containerClassnames}>
+      <li className="telescope-listings-item on-hold">
 
         <div className="col-xs-2">
           {
@@ -38,20 +74,20 @@ class MissionOnHold extends Component {
           <h3 className="title">Reserved by:</h3>
           <ByUserTag
             theme="light"
-            photo={`http://images-account.slooh.com/avatar-dummy.png`}
-            name={`John`}
-            accountType={`astronomer`}
-            city={`Millwood`}
-            state={`New York`}
-            country={`USA`}
-            memberSince={`2016`}
+            photo={ownerAvatarURL}
+            name={ownerDisplayName}
+            accountType={ownerMembershipType}
+            location={ownerLocation}
+            memberSince={ownerMemberSince}
           />
         </div>
 
-        <div className="col-xs-2 hold-timer-content">
-          <h5 className="hold-timer">{timer}</h5>
-          <p className="title">Hold time remaining.</p>
-        </div>
+        {
+          showFinishReservationButton ?
+            <FinishReservationButton handleFinishReservationClick={this.handleFinishReservationClick} />
+            :
+            <CountDown expires={expires} />
+        }
 
       </li>
     );
@@ -62,6 +98,17 @@ const { string, number, bool } = PropTypes;
 MissionOnHold.propTypes = {
   showSlotTimes: bool.isRequired,
   missionStart: number.isRequired,
+  expires: number.isRequired,
+
+  ownerAvatarURL: string.isRequired,
+  ownerDisplayName: string.isRequired,
+  ownerLocation: string.isRequired,
+  ownerMembershipType: string.isRequired,
+  ownerMemberSince: string.isRequired,
+
+  showFinishReservationButton: bool.isRequired,
+
+  missionIndex: number.isRequired,
 };
 
 export default MissionOnHold;

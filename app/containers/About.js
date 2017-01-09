@@ -5,7 +5,7 @@ import styles from '../styles/menu.scss';
 class MenuComponent extends Component {
 
   render() {
-    let {children} = this.props;
+    const {children} = this.props;
     return (
         <article className="static-page">
             <header className="static">

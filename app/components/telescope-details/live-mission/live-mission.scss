@@ -3,47 +3,52 @@
 .live-mission {
   font-family: $primary-font;
   color: white;
-
-  p {
-    font-size: 20px;
-  }
+  padding: 15px;
+  margin-top: 9px;
+  background: rgba(31,31,31,0.40);
 
   .content {
-    padding: 10px;
-    background: rgba(31,31,31,0.40);
     position: relative;
-    .personal-info {
-      padding-left: 60px;
-      position: relative;
-      .photo {
-        position: absolute;
-        left: 0;
-        top: 10px;
+
+    .header {
+
+      .title {
+        font-size: 24px;
+        margin-bottom: 5px;
+      }
+
+      .mission-title {
+        font-weight: 600;
+        margin-bottom: 20px;
       }
     }
-    h3 {
-      font-size: 24px;
-    }
-    .job {
-      font-size: 10px;
-    }
-    .address {
-      font-size: 14px;
+
+    .users-quote {
+      font-family: $secondary-font;
+      font-size: 18px;
+      font-style: italic;
+      font-weight: 300;
+      padding-left: 50px;
+      margin-bottom: 30px;
     }
   }
+
   .footer {
     padding: 10px;
+    margin: 0 -15px -15px -15px;
     background: rgba(31,31,31,0.60);
+
     .mission {
       padding-left: 50px;
       position: relative;
-      img {
+
+      .mission-icon {
         position: absolute;
         left: 0;
         top: 0;
         line-height: 28px;
       }
-      span {
+      .count-down {
         position: absolute;
         right: 0;
         top: 0;

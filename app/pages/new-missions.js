@@ -7,7 +7,7 @@ import GenericLoadingBox from '../components/common/loading-screens/generic-load
 
 @connect(({ missions }) => ({
   cardList: missions.cardList || [],
-  reservations: missions.reservations || []
+  reservations: missions.reservations || [],
 }))
 
 export default class NewMissions extends React.Component {

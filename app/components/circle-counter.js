@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 
 const { number, string } = PropTypes;
 
-export default class circlecounter extends Component {
+export default class CircleCounter extends Component {
   static propTypes = {
     progress: number,
     total: number,
@@ -64,43 +64,11 @@ export default class circlecounter extends Component {
     };
 
     return (
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          width: size,
-          height: size,
-        }}
-      >
-        <svg
-          width={size}
-          height={size}
-          viewBox={`0 0 ${size} ${size}`}
-          style={{ position: 'absolute' }}
-        >
-          {progress > 0 ?
-            <path
-              d={progressPath}
-              style={progressStyle}
-            />
-          : null}
-          {progress > 0 ?
-            <circle
-              cx={s.x}
-              cy={s.y}
-              r={cornersWidth}
-              fill={progressColor}
-            />
-          : null}
-          {progress > 0 ?
-            <circle
-              cx={e.x}
-              cy={e.y}
-              r={cornersWidth}
-              fill={progressColor}
-            />
-          : null}
+      <div className="circle">
+        <svg  width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
+          {progress > 0 ? <path d={progressPath} style={progressStyle} /> : null}
+          {progress > 0 ? <circle cx={s.x} cy={s.y} r={cornersWidth} fill={progressColor} /> : null}
+          {progress > 0 ? <circle cx={e.x} cy={e.y} r={cornersWidth} fill={progressColor} /> : null}
         </svg>
         {this.props.children}
       </div>

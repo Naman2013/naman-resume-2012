@@ -2,8 +2,8 @@ import React, {Component, PropTypes} from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {Field, reduxForm} from 'redux-form';
-import InputField from '../../components/InputField';
-import TextareaField from '../../components/TextareaField';
+import InputField from '../../components/form/InputField';
+import TextareaField from '../../components/form/TextareaField';
 import {createValidator, required} from '../../modules/utils/validation';
 import {contact} from '../../modules/Contact';
 // import styles from '../styles/login.scss';
@@ -18,7 +18,7 @@ class Contact extends Component {
     };
 
     render() {
-        let {handleSubmit, contact, error} = this.props;
+        const {handleSubmit, contact, error} = this.props;
         return (
             <section className="contact-us">
                 <article className="card-wide padding-med">

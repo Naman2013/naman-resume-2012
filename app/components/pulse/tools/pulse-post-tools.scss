@@ -1,0 +1,59 @@
+@import "../../../styles/variables/fonts";
+@import "../../../styles/variables/colors";
+
+.PulsePostTools {
+  display: inline-flex;
+  margin: 40px 0;
+}
+
+.PulsePostHot{
+  font-size: 13px;
+  color: $darkBlueGray;
+  display: inline-flex;
+  align-items: center;
+  margin-right: 50px;
+
+  img{
+    width: 30px;
+    height: 30px;
+    margin-right: 5px;
+  }
+}
+
+.PulsePostLikes{
+  font-size: 13px;
+  color: $darkBlueGray;
+  display: inline-flex;
+  align-items: center;
+  margin-right: 50px;
+
+  &Icon{
+    position: relative;
+    span{
+      position: absolute;
+      left: 30%;
+      color: $black;
+      font-size: 10px;
+      top: 7px;
+    }
+    img{
+      width: 30px;
+      height: 30px;
+      margin-right: 5px;
+    }
+  }
+}
+
+.PulsePostShare{
+  font-size: 13px;
+  color: $darkBlueGray;
+  display: inline-flex;
+  align-items: center;
+  margin-right: 50px;
+
+  img{
+    width: 30px;
+    height: 30px;
+    margin-right: 5px;
+  }
+}

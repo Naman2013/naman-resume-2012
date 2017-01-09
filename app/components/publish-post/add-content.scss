@@ -1,0 +1,37 @@
+@import "../../styles/custom-ui.scss";
+@import "../../styles/variables/colors.scss";
+
+.add-content-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+
+  .label {
+    padding: 30px 0 10px;
+    font-size: 14px;
+    color: $slooh-gray-xxdark;
+  }
+
+  .input {
+    width: 100%;
+    max-width: 750px;
+    box-shadow: inset 0px 2px 5px -2px $light-gray;
+    border: 1px solid $light-gray;
+    padding: 12px 25px 10px;
+
+
+    &-headline {
+      font-size: 24px;
+    }
+
+    &-textarea {
+      font-weight: normal;
+      @extend .custom-scroll-bar;
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
+}
