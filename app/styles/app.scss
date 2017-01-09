@@ -17,9 +17,9 @@ img {
   margin: 0 !important;
 }
 
-.app-content-container {
+.app-content-container, .static-app-content-container {
   font-family: $primary-font;
-  background: url(../../assets/images/graphics/space-background.jpg) no-repeat center center fixed;
+  background: url(../images/photos/stellar-community-low.jpg) no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;

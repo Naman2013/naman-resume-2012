@@ -1,6 +1,6 @@
 @import "../../../styles/mixins/utilities.scss";
 
 .object-title-bar {
-  background-image: url('../../../../assets/images/graphics/moon-surface.png');
+  background-image: url('../../../../images/graphics/moon-surface.png');
   @include background-image-cover;
 }

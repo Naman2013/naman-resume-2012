@@ -173,7 +173,7 @@ export default {
     }]
   }, {
     title: 'Asteroids',
-    categoryIcon: '../assets/icons/saturn.svg',
+    categoryIcon: '../icons/saturn.svg',
     objects: [{
       title: 'sub category',
       items: [{
@@ -293,7 +293,7 @@ export default {
     }]
   }, {
     title: 'Nebulae',
-    categoryIcon: '../assets/icons/saturn.svg',
+    categoryIcon: '../icons/saturn.svg',
     objects: [{
       title: 'sub category',
       items: [{
@@ -333,7 +333,7 @@ export default {
     }]
   }, {
     title: 'Solar System',
-    categoryIcon: '../assets/icons/saturn.svg',
+    categoryIcon: '../icons/saturn.svg',
     objects: [{
       title: 'sub category',
       items: [{
@@ -413,7 +413,7 @@ export default {
     }]
   }, {
     title: 'Supernovae',
-    categoryIcon: '../assets/icons/saturn.svg',
+    categoryIcon: '../icons/saturn.svg',
     objects: [{
       title: 'sub category',
       items: [{
@@ -447,7 +447,7 @@ export default {
     }]
   }, {
     title: 'Asteroids',
-    categoryIcon: '../assets/icons/saturn.svg',
+    categoryIcon: '../icons/saturn.svg',
     objects: [{
       title: 'sub category',
       items: [{
@@ -533,7 +533,7 @@ export default {
     }]
   }, {
     title: 'Nebulae',
-    categoryIcon: '../assets/icons/saturn.svg',
+    categoryIcon: '../icons/saturn.svg',
     objects: [{
       title: 'sub category',
       items: [{

@@ -6,7 +6,7 @@ import configureStore from './store';
 
 // containers
 import App from './containers/App';
-import About from './containers/About';
+import StaticAppContainer from './containers/static-app-container';
 import Reservations from './containers/Reservations';
 import SloohRecommends from './containers/SloohRecommends';
 import MyPictures from './containers/my-pictures';
@@ -55,6 +55,15 @@ const store = configureStore();
 ReactDOM.render(
   <Provider store={store}>
     <Router history={hashHistory}>
+
+      <Route path="about" component={StaticAppContainer}>
+        <IndexRedirect to="mission" />
+        <Route path="mission" component={Mission} />
+        <Route path="news" component={News} title="In The News" subTitle="[Sub-title for news page]" />
+        <Route path="job" component={Job}  title="Work With Us" subTitle="[Sub-title for news page]" />
+        <Route path="contact" component={Contact}  title="Contact US" subTitle="[Sub-title for news page]" />
+        <Route path="leadership" component={Leadership}  title="Leadership" subTitle="[Sub-title for news page]" />
+      </Route>
 
       <Route path="/" component={App}>
         <IndexRoute component={Home} />
@@ -115,18 +124,9 @@ ReactDOM.render(
         </Route>
 
         <Route path="slooh-pulse" component={PulsePost} >
-            <Route path="post(/:id)" name="post" component={PulsePostContent} onUpdate={() => window.scrollTo(0, 0)} />
+          <Route path="post(/:id)" name="post" component={PulsePostContent} onUpdate={() => window.scrollTo(0, 0)} />
         </Route>
 
-        <Route path="about" component={About} >
-          <IndexRedirect to="mission" />
-          <Route path="news" component={News} title="In The News" subTitle="[Sub-title for news page]" />
-          <Route path="job" component={Job}  title="Work With Us" subTitle="[Sub-title for news page]" />
-          <Route path="contact" component={Contact}  title="Contact US" subTitle="[Sub-title for news page]" />
-          <Route path="leadership" component={Leadership}  title="Leadership" subTitle="[Sub-title for news page]" />
-        </Route>
-
-        <Route path="about/mission" component={Mission} />
 
         <Route path="my-pictures" component={MyPictures}>
           <IndexRedirect to="photo-roll" />
