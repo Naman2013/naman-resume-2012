@@ -1,0 +1,1233 @@
+/** SLOOH CSS **/
+/* VARIABLES: COLOR 
+ * */
+/* VARIABLES: Typefaces 
+ * */
+/* MIXINS 
+ * */
+@font-face {
+  font-family: 'Brandon Grotesque';
+  src: url("../assets/fonts/BrandonGrotesque-Thin.otf") format("opentype");
+  font-weight: 100;
+  font-style: normal;
+  font-stretch: normal;
+  font-variant: normal;
+}
+
+@font-face {
+  font-family: 'Brandon Grotesque';
+  src: url("../assets/fonts/BrandonGrotesque-Light.otf") format("opentype");
+  font-weight: 300;
+  font-style: normal;
+  font-stretch: normal;
+  font-variant: normal;
+}
+
+@font-face {
+  font-family: 'Brandon Grotesque';
+  src: url("../assets/fonts/BrandonGrotesque-Regular.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-stretch: normal;
+  font-variant: normal;
+}
+
+@font-face {
+  font-family: 'Brandon Grotesque';
+  src: url("../assets/fonts/BrandonGrotesque-Medium.otf") format("opentype");
+  font-weight: 500;
+  font-style: normal;
+  font-stretch: normal;
+  font-variant: normal;
+}
+
+@font-face {
+  font-family: 'Brandon Grotesque';
+  src: url("../assets/fonts/BrandonGrotesque-Bold.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+  font-stretch: normal;
+  font-variant: normal;
+}
+
+@font-face {
+  font-family: 'Brandon Grotesque';
+  src: url("../assets/fonts/BrandonGrotesque-black.otf") format("opentype");
+  font-weight: 900;
+  font-style: normal;
+  font-stretch: normal;
+  font-variant: normal;
+}
+
+/* CSS Universal Transition by Jason CranfordTeague | www.cranforteague.com */
+/* line 161, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+:link,
+:visited,
+:hover,
+:active,
+:focus {
+  -webkit-transition: color 0.2s linear, background-color 0.2s linear, border-color 0.2s linear, opacity 0.2s linear, box-shadow 0.2s linear;
+  -moz-transition: color 0.2s linear, background-color 0.2s linear, border-color 0.2s linear, opacity 0.2s linear, box-shadow 0.2s linear;
+  -ms-transition: color 0.2s linear, background-color 0.2s linear, border-color 0.2s linear, opacity 0.2s linear, box-shadow 0.2s linear;
+  -o-transition: color 0.2s linear, background-color 0.2s linear, border-color 0.2s linear, opacity 0.2s linear, box-shadow 0.2s linear;
+  transition: color 0.2s linear, background-color 0.2s linear, border-color 0.2s linear, opacity 0.2s linear, box-shadow 0.2s linear;
+}
+
+/* line 169, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+body#slooh {
+  background: url(../images/photos/stellar-community-low.jpg) white center no-repeat fixed;
+  background-size: cover;
+  color: #7f849a;
+  font-family: "Brandon Grotesque", sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: .02em;
+}
+
+/* line 179, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+body#slooh.plans {
+  background-repeat: repeat-x;
+  background-size: 100% 520px;
+  background-position: top center;
+}
+
+/* line 185, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+body#slooh.payment {
+  background-repeat: repeat-x;
+  background-size: 100% 180px;
+  background-position: top center;
+}
+
+/* line 192, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh #stage {
+  max-width: 950px;
+  overflow: visible;
+}
+
+/* line 196, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh #pop1 {
+  display: none;
+  left: 450px;
+  top: 350px;
+}
+
+/* line 201, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh #join {
+  margin: 0 auto;
+  max-width: 700px;
+  text-align: center;
+}
+
+/* line 206, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh .clearfix {
+  clear: both;
+}
+
+/* line 209, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh .backdrop.light {
+  color: white;
+  border-color: #b9d9d9;
+  border-radius: 8px;
+  box-shadow: none;
+  position: relative;
+}
+
+/* line 216, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh .dark {
+  color: rgba(1, 7, 23, 0.7);
+  border-color: rgba(1, 7, 23, 0.7);
+}
+
+/* line 220, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh .white {
+  color: white;
+}
+
+/* line 223, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh .shadow {
+  border: none;
+  box-shadow: 0 13px 25px rgba(1, 7, 23, 0.4);
+  height: 1 !important;
+  margin-left: -5%;
+  padding: 0;
+  overflow: hidden;
+  width: 110%;
+}
+
+/* line 232, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh .plans {
+  height: 710px;
+  position: relative;
+  top: 65px;
+}
+
+/* line 237, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh .left {
+  text-align: left;
+}
+
+/* line 240, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh .info-white {
+  background: url(../icons/info-white.svg);
+  cursor: help;
+}
+
+/* line 244, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh .close {
+  background: url(../icons/close-1.svg);
+  cursor: pointer;
+}
+
+/* line 248, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh .half-width {
+  width: 50%;
+}
+
+/* line 251, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh .move-up {
+  overflow: visible;
+  position: relative;
+  top: -30px;
+}
+
+/* line 256, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh .continue {
+  display: block;
+  font-size: 18px;
+  font-size: 1.5rem;
+  font-weight: 500;
+  height: 50px;
+  margin: 0 auto;
+  padding: 1em 1.5em;
+  position: relative;
+  z-index: 0;
+}
+
+/* line 266, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh .icon {
+  fill: white;
+  width: 26px;
+  margin: 0 auto;
+  list-style: decimal-leading-zero;
+}
+
+/* line 272, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh .icon.control {
+  color: #010717 !important;
+  display: inline-block;
+  height: 15px;
+  opacity: 1;
+  filter: alpha(opacity=100);
+  overflow: hidden;
+  position: absolute;
+  right: 5px;
+  text-indent: 50px;
+  top: 5px;
+  width: 15px;
+  z-index: 999;
+}
+
+/* line 287, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh .control:hover {
+  opacity: 1;
+  filter: alpha(opacity=100);
+}
+
+/* line 290, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh .backdrop {
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  -ms-border-radius: 20px;
+  border-radius: 20px;
+  box-shadow: 0 0 10px rgba(20, 27, 57, 0.6);
+  color: white;
+  margin: 0 auto;
+  padding: 0;
+  position: relative;
+  width: 100%;
+}
+
+/* line 299, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh .backdrop:hover {
+  box-shadow: 0 0 10px rgba(20, 27, 57, 0.8);
+}
+
+/* line 302, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh .backdrop.light {
+  background-color: white;
+  color: #5b6072;
+}
+
+/* line 306, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh .backdrop.dark {
+  background-color: rgba(1, 7, 23, 0.7);
+  color: white;
+}
+
+/* line 310, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh .backdrop.med {
+  background-color: #44495a;
+  color: white;
+}
+
+/* line 314, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh .border-top {
+  border-top: 1px solid #b9d9d9;
+  width: 100%;
+}
+
+/* line 318, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh .border-dark-top {
+  border-top: 2px solid #010717;
+  width: 100%;
+}
+
+/* line 322, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh .border-dark-bottom {
+  border-bottom: 2px solid #010717;
+  width: 100%;
+}
+
+/* line 326, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh .border-bottom {
+  border-bottom: 1px solid #b9d9d9;
+  width: 100%;
+}
+
+/* line 330, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh .border-right {
+  border-right: 1px solid #b9d9d9;
+  height: 100%;
+  vertical-align: middle;
+}
+
+/* line 335, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh .border-dark-right {
+  border-right: 1px solid #010717;
+  height: 100%;
+}
+
+/* line 339, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh .border-dark-left {
+  border-left: 2px solid #010717;
+  height: 100%;
+  left: -1px;
+}
+
+/* line 344, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh .border-left {
+  border-left: 1px solid #b9d9d9;
+  height: 100%;
+  left: -1px;
+}
+
+/* line 349, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh .divider,
+#slooh .divider-img {
+  display: block;
+  font-weight: 200;
+  padding: 0;
+  white-space: nowrap;
+  width: auto;
+}
+
+/* line 357, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh .divider-img {
+  background-size: contain;
+  font-size: 1.5em;
+  width: 100%;
+}
+
+/* line 362, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh .divider:before,
+#slooh .divider:after {
+  border-bottom: 1px solid #313645;
+  display: inline;
+  position: relative;
+  top: .6em;
+  width: 20%;
+  content: "";
+}
+
+/* line 371, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh .divider:before {
+  float: left;
+}
+
+/* line 374, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh .divider:after {
+  float: right;
+}
+
+/* line 377, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh .divider-img {
+  background: url(../chrome/line-1.png) transparent no-repeat center center;
+}
+
+/* line 380, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh .popup-message {
+  background-color: white;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  -ms-border-radius: 8px;
+  border-radius: 8px;
+  box-shadow: 0 2 4 rgba(146, 151, 170, 0.4);
+  color: #9297aa;
+  display: block;
+  font-size: 11px;
+  left: 0;
+  padding: 15px;
+  position: absolute;
+  text-align: left;
+  top: 0;
+  width: 210px;
+  z-index: 9999;
+}
+
+/* line 395, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh .popup-message footer {
+  border-top: solid 1px rgba(1, 7, 23, 0.1);
+  margin-top: 5px;
+  padding-top: 5px;
+  text-align: center;
+}
+
+/* line 401, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh .passwordstrength {
+  font-size: 36px;
+  position: absolute;
+  right: -.4em;
+  top: .25em;
+  width: 5px;
+  text-align: left;
+  padding: 0;
+  margin: 0;
+}
+
+/* line 411, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh .passwordstrength span {
+  display: block;
+  line-height: .35;
+  margin: 0;
+  opacity: 0.6;
+  filter: alpha(opacity=60);
+  padding: 0;
+}
+
+/* line 418, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh .col-md-4 {
+  float: left;
+  margin-left: 20px;
+  position: relative;
+  width: 215px;
+}
+
+/* line 424, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh #slooh.welcome header {
+  height: 5em;
+  overflow: visible;
+  position: relative;
+  top: 25px;
+  vertical-align: middle;
+}
+
+/* line 431, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh .spotlight-icon {
+  background-color: white;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  border-radius: 50%;
+  box-shadow: 0 0 10px #010717;
+  height: 65px;
+  line-height: 0;
+  margin: 0 auto;
+  padding: 15px;
+  position: relative;
+  text-align: center;
+  vertical-align: middle;
+  width: 65px;
+  z-index: 999;
+}
+
+/* line 445, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh .spotlight-icon img {
+  opacity: 0.8;
+  filter: alpha(opacity=80);
+}
+
+/* line 448, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh .not {
+  color: #141b39 !important;
+  padding-left: 20px !important;
+}
+
+/* line 452, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh .not:before {
+  background: url(../icons/not.svg) transparent top right no-repeat;
+  background-size: cover;
+  content: "";
+  height: 10px;
+  left: 0;
+  position: absolute;
+  text-align: center;
+  top: 8px;
+  width: 10px;
+  z-index: 99999;
+}
+
+/* line 464, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh .background-page {
+  background-color: white;
+  padding-top: 4rem;
+}
+
+/* line 468, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh .sloohlogo {
+  color: transparent;
+  font-size: 0;
+  font-weight: 0;
+  margin: 3rem auto;
+  padding: 0;
+  position: relative;
+  text-align: center;
+  vertical-align: middle;
+  width: 80%;
+}
+
+/* line 478, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh .sloohlogo img {
+  height: 25px;
+  position: relative;
+  vertical-align: middle;
+  padding: 0;
+  margin: 0;
+  line-height: 0;
+}
+
+/* line 487, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh .sloohlogo.crosspromo {
+  height: 50px;
+}
+
+/* line 490, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh .contrast-shadow {
+  text-shadow: 0 0 8px #010717, 2px 2px 8px #010717, -2px -2px 8px #010717, 2px -2px 12px #010717, -2px 2px 8px #010717;
+  padding: 4px 0;
+}
+
+/* line 494, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh .break-box {
+  overflow: visible;
+  position: relative;
+}
+
+/* line 498, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh .move-down {
+  position: relative;
+  top: 30px;
+  z-index: 99;
+}
+
+/* line 503, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh .message {
+  display: none;
+}
+
+/* line 506, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh .price sup {
+  font-size: .5em;
+  padding-right: .25em;
+  vertical-align: 0;
+}
+
+/* line 511, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh .vertical-center {
+  height: 100%;
+  line-height: 5.8em;
+}
+
+/* line 515, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh .center-center {
+  height: auto;
+  line-height: 5.8em;
+  text-align: center;
+}
+
+/* line 520, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh .center {
+  clear: both;
+  margin: inherit auto;
+  text-align: center;
+}
+
+/* line 525, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh .info-block-quarter {
+  float: left;
+  height: 100%;
+  width: 25%;
+}
+
+/* line 530, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh .info-block-row {
+  height: 80px;
+}
+
+/* line 533, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh .info-block-row-double {
+  height: 160px;
+}
+
+/* line 536, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh .info-block-half {
+  float: left;
+  height: 100%;
+  vertical-align: middle;
+  width: 50%;
+}
+
+/* line 542, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh .info-block-2third {
+  float: left;
+  height: 100%;
+  width: 66%;
+}
+
+/* line 547, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh .info-block-third {
+  float: left;
+  height: 100%;
+  width: 34%;
+}
+
+/* line 552, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh .text-capitalize {
+  text-transform: uppercase;
+}
+
+/* line 555, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh .text-huge {
+  font-size: 72px;
+  font-size: 6rem;
+}
+
+/* line 558, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh .text-xxlarge {
+  font-size: 48px;
+  font-size: 4rem;
+}
+
+/* line 561, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh .text-xlarge {
+  font-size: 36px;
+  font-size: 3rem;
+}
+
+/* line 564, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh .text-large {
+  font-size: 24px;
+  font-size: 2rem;
+}
+
+/* line 567, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh .text-medium {
+  font-size: 18px;
+  font-size: 1.5rem;
+}
+
+/* line 570, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh .text-regular {
+  font-size: 16px;
+  font-size: 1.33333rem;
+}
+
+/* line 573, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh .text-small {
+  font-size: 14px;
+  font-size: 1.16667rem;
+}
+
+/* line 576, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh .text-xsmall {
+  font-size: 12px;
+  font-size: 1rem;
+}
+
+/* line 579, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh .text-xxsmall {
+  font-size: 10px;
+  font-size: 0.83333rem;
+}
+
+/* line 582, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh .text-tiny {
+  font-size: 8px;
+  font-size: 0.66667rem;
+}
+
+/* line 585, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh .margin-top-xxlarge {
+  margin-top: 90px;
+}
+
+/* line 588, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh .margin-top-xlarge {
+  margin-top: 60px;
+}
+
+/* line 591, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh .margin-top-large {
+  margin-top: 40px;
+}
+
+/* line 594, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh .margin-top-med {
+  margin-top: 30px;
+}
+
+/* line 597, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh .margin-top-reg {
+  margin-top: 20px;
+}
+
+/* line 600, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh .margin-bottom-xxlarge {
+  margin-bottom: 90px;
+}
+
+/* line 603, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh .margin-bottom-xlarge {
+  margin-bottom: 60px;
+}
+
+/* line 606, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh .margin-bottom-large {
+  margin-bottom: 40px;
+}
+
+/* line 609, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh .margin-bottom-med {
+  margin-bottom: 30px;
+}
+
+/* line 612, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh .margin-bottom-reg {
+  margin-bottom: 20px;
+}
+
+/* line 615, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh .margin-left-xxlarge {
+  margin-left: 40px;
+}
+
+/* line 618, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh .margin-left-xlarge {
+  margin-left: 30px;
+}
+
+/* line 621, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh .margin-left-large {
+  margin-left: 20px;
+}
+
+/* line 624, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh .margin-left-med {
+  margin-left: 10px;
+}
+
+/* line 627, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh .margin-left-reg {
+  margin-left: 5px;
+}
+
+/* line 630, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh .margin-right-xxlarge {
+  margin-right: 30px;
+}
+
+/* line 633, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh .margin-right-xlarge {
+  margin-right: 30px;
+}
+
+/* line 636, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh .margin-right-large {
+  margin-right: 20px;
+}
+
+/* line 639, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh .margin-right-med {
+  margin-right: 15px;
+}
+
+/* line 642, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh .half-width-margin {
+  width: 45%;
+  margin-right: 5%;
+  float: left;
+}
+
+/* line 647, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh .fifth-width-margin {
+  width: 16%;
+  margin-right: 3%;
+  float: left;
+}
+
+/* line 652, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh .half-width-margin:last-of-kind {
+  width: 45%;
+  margin-right: 5%;
+}
+
+/* line 656, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh .padding-xxlarge {
+  padding: 55px;
+}
+
+/* line 659, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh .padding-xlarge {
+  padding: 40px;
+}
+
+/* line 662, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh .padding-tb-reg {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+/* line 667, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh .padding-tb-xlarge {
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+
+/* line 671, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh .padding-med {
+  padding: 20px;
+}
+
+/* line 674, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh .padding-reg {
+  padding: 10px;
+}
+
+/* line 677, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh .padding-small {
+  padding: 5px;
+}
+
+/* line 680, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh .padding-right-med {
+  padding-right: 15px;
+}
+
+/* line 683, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh .padding-left-med {
+  padding-right: 15px;
+}
+
+/* line 686, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh .padding-lr-xxlarge {
+  padding-left: 60px;
+  padding-right: 60px;
+}
+
+/* line 690, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh .padding-lr-xlarge {
+  padding-left: 40px;
+  padding-right: 40px;
+}
+
+/* line 694, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh button.sign-in {
+  float: left;
+  font-size: 12px;
+  height: 40px;
+  margin-left: 9px;
+  width: 100px;
+}
+
+/* line 701, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh .control-close {
+  height: 20px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 20px;
+}
+
+/* line 708, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh section {
+  margin: 0 auto;
+  position: relative;
+  height: auto;
+  overflow: auto;
+}
+
+/* line 714, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh article {
+  clear: both;
+  overflow: auto;
+}
+
+/* line 718, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh header.page {
+  clear: both;
+  display: block;
+  height: auto;
+  margin: 50px 0;
+  padding: 0;
+  text-align: center;
+  top: 0;
+  vertical-align: middle;
+  width: 100%;
+}
+
+/* line 729, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh header p {
+  color: white;
+  font-size: 16px;
+  font-weight: 400;
+  margin: 1em auto;
+}
+
+/* line 735, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh footer {
+  overflow: auto;
+}
+
+/* line 738, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh footer.page {
+  font-size: 18px;
+  font-size: 1.5rem;
+  text-align: center;
+  width: 100%;
+}
+
+/* line 743, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh h1, #slooh h2, #slooh h3, #slooh h4, #slooh h5, #slooh h6 {
+  height: auto;
+  letter-spacing: .03em;
+  font-family: "Brandon Grotesque", sans-serif;
+  font-weight: 300;
+  font-size: 2.5rem;
+  margin: 0;
+  padding: .1em;
+  overflow: auto;
+  height: auto;
+}
+
+/* line 754, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh h2 {
+  font-size: 2.2em;
+  font-weight: 200;
+  line-height: 1.3;
+  margin: 0;
+  padding: 0;
+}
+
+/* line 762, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh h3 {
+  font-size: 22px;
+  font-size: 1.83333rem;
+  font-weight: 200;
+}
+
+/* line 767, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh h4 {
+  font-size: 1.2em;
+}
+
+/* line 771, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh h5 {
+  font-size: 1.1em;
+}
+
+/* line 775, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh h6 {
+  font-size: 1em;
+}
+
+/* line 779, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh object {
+  fill: white !important;
+}
+
+/* line 782, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh hr {
+  border-top: 1px solid #313645;
+  clear: both;
+  padding: 10px 0;
+  position: relative;
+  top: 20px;
+  height: 1em;
+}
+
+/* line 790, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh hr.light {
+  border-top-color: #b9d9d9;
+}
+
+/* line 793, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh a,
+#slooh a:link,
+#slooh a:visited {
+  color: #fa0fb4;
+  text-decoration: none;
+}
+
+/* line 799, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh a:hover {
+  border-bottom: 1px solid #be0f82;
+  color: #fa0fb4;
+  text-decoration: none;
+}
+
+/* line 804, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh a:active {
+  color: #be0f82;
+}
+
+/* line 807, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh ul {
+  margin: 0 10px;
+  padding: 0;
+}
+
+/* line 811, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh ul.features li {
+  border-bottom: 1px solid #313645;
+  color: white;
+  list-style: none;
+  padding: .5em 0 1.2em;
+  text-align: left;
+}
+
+/* line 818, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh ul li:last-of-type {
+  border-bottom: none;
+}
+
+/* line 821, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh form {
+  clear: both;
+  text-align: left;
+}
+
+/* line 824, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh form fieldset,
+#slooh form fieldset input {
+  position: relative;
+}
+
+/* line 828, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh form fieldset.required:before,
+#slooh form fieldset.required:after {
+  background-size: cover;
+  height: 30px;
+  right: 10px;
+  position: absolute;
+  text-align: center;
+  top: 50%;
+  width: 20px;
+  z-index: 99999;
+}
+
+/* line 839, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh form fieldset.required:before {
+  background: url(../icons/check.svg) transparent top right no-repeat;
+  content: "";
+  visibility: hidden;
+}
+
+/* line 844, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh form fieldset.required:after {
+  background: url(../icons/warning.svg) transparent top right no-repeat;
+  content: "";
+  display: block;
+  visibility: hidden;
+}
+
+/* line 850, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh form label {
+  display: block;
+  font-size: 1.1em;
+  font-weight: 200;
+  letter-spacing: .05em;
+  text-align: left;
+}
+
+/* line 857, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh form input,
+#slooh form select {
+  border: none;
+  box-shadow: inset 0 0 6px rgba(1, 7, 23, 0.4);
+  opacity: 0.4;
+  filter: alpha(opacity=40);
+  z-index: 0;
+}
+
+/* line 865, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh form input.input-lg,
+#slooh form select.input-lg {
+  height: 40px;
+  padding: 10px 16px;
+  border-radius: 4px;
+}
+
+/* line 872, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh form input[type="radio"] {
+  margin-right: .8em;
+  vertical-align: text;
+}
+
+/* line 876, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh form input:hover {
+  opacity: 0.8;
+  filter: alpha(opacity=80);
+}
+
+/* line 879, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh form input:focus {
+  opacity: 1;
+  filter: alpha(opacity=100);
+}
+
+/* line 882, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh form input:active {
+  opacity: 0.8;
+  filter: alpha(opacity=80);
+}
+
+/* line 885, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh form button {
+  font-size: 1.75em;
+  font-weight: 700;
+  margin: 1em 0;
+  padding: .5em 2em;
+}
+
+/* line 891, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh form .required label:before {
+  color: #d20f96;
+  content: "*";
+  margin-left: -.5em;
+  margin-right: .25em;
+}
+
+/* line 897, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh form .required input {
+  padding-right: 1.8em;
+}
+
+/* line 901, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh button {
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  outline: none;
+  overflow: visible;
+  padding: .8em 1em;
+}
+
+/* line 909, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh button.btn-primary {
+  background: #be0f82;
+  border: 1px solid #b40f78;
+  box-shadow: inset 0 0 10px #b40f78;
+  font-weight: 400;
+  font-size: 16px;
+  font-size: 1.33333rem;
+  height: 40px;
+  padding: 0 3em;
+}
+
+/* line 918, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh button.btn-primary:hover {
+  background: #fa0fb4;
+}
+
+/* line 921, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh button:hover {
+  opacity: 1;
+  filter: alpha(opacity=100);
+}
+
+/* line 924, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh p,
+#slooh li {
+  font-size: 12px;
+  letter-spacing: .05em;
+  margin: .5em auto;
+  position: relative;
+}
+
+/* line 931, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh div {
+  position: relative;
+  font-size: 12px;
+}
+
+/* line 935, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh em {
+  color: deeppink;
+  font-style: normal;
+}
+
+/* line 939, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh i.caution {
+  background: url(../icons/warning.svg) transparent top right no-repeat;
+  display: inline-block;
+  height: 15px;
+  margin-left: 8px;
+  position: relative;
+  vertical-align: text-top;
+  width: 15px;
+}
+
+/* line 948, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+#slooh i.close {
+  background: url(../icons/close-1.svg) transparent top right no-repeat;
+  display: inline-block;
+  height: 25px;
+  opacity: 1;
+  position: relative;
+  right: 10px;
+  top: 10px;
+  vertical-align: text-top;
+  width: 25px;
+}
+
+/* line 961, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+.margin-top-small {
+  margin-top: 8px;
+}
+
+/* line 965, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+.spacer-huge {
+  clear: both;
+  content: "";
+  height: 20px;
+  overflow: auto;
+  width: 100%;
+}
+
+/* line 975, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+.bottom-left {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+/* line 981, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+.sec-med {
+  width: 545px;
+}
+
+/* line 985, /Users/jasoncranfordteague/Library/Mobile Documents/com~apple~CloudDocs/CranfordTeague Group/Clients/Slooh/Development/assets/css/scss/slooh-styles.scss */
+.col-md-3 {
+  width: 230px;
+}
+
+/*# sourceMappingURL=../slooh-styles.map */
