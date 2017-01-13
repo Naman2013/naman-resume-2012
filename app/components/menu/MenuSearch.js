@@ -1,12 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-export default class MenuSearch extends Component {
-  render() {
-    return (
-      <div className="menu-search">
-        <input type="text" className="menu-searchinput" placeholder="Search Objects" />
-        <img className="menu-searchimage" src="../images/nav/search-icon.png" alt="Search" />
-      </div>
-    );
-  }
-}
+const MenuSearch = () => (
+  <div className="static-item">
+    <input type="text" className="menu-searchinput" placeholder="Search Objects" />
+  </div>
+);
+
+export default MenuSearch;

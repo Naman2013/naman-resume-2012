@@ -1,10 +1,9 @@
-import React, { Component } from 'react';
-import StargazersChildren from './StargazersChildren';
-import MenuSearch from './MenuSearch';
-import MenuSocial from './MenuSocial';
+import React, { Component, PropTypes } from 'react';
 import axios from 'axios';
+import StargazersChildren from './StargazersChildren';
+import MenuSocial from './MenuSocial';
 
-export default class ListHotThisMonth extends Component {
+class ListHotThisMonth extends Component {
   state = {
     title: [],
     hotList: [],
@@ -14,41 +13,42 @@ export default class ListHotThisMonth extends Component {
     this.serverRequest();
   }
 
-  serverRequest = () => {
-    axios.get(this.props.source) 
-     .then(response => {
+  serverRequest() {
+    axios.get(this.props.source)
+    .then((response) => {
       this.setState({
         hotList: response.data.hotPosts,
         hotTitle: response.data.hotTitle,
       });
-    })
-    .catch(function (error) {
-      console.log(error);
     });
- 
-  };
+  }
 
   render() {
     const hotTitle = this.state.hotTitle;
 
     return (
-      <div>
-        <h3>{hotTitle}</h3>
-        {this.state.hotList.map((el, i) => {
-          return (
-            <div key={i}>
-              <p>
-                <a href={el.hotURL}>
-                  <span className="hot-title">{el.title}</span>
-                </a>
-              </p>
-            </div>
-          );
-        })}
+      <li>
+        <h3 className="menu-title">{hotTitle}</h3>
+        <ul>
+        {
+          this.state.hotList.map((el, i) => (
+            <li key={i}>
+              <a className="item" href={el.hotURL}>
+                <span className="hot-title">{el.title}</span>
+              </a>
+            </li>
+          ))
+        }
+        </ul>
         <StargazersChildren />
-        <MenuSearch />
         <MenuSocial />
-      </div>
+      </li>
     );
   }
 }
+
+ListHotThisMonth.propTypes = {
+  source: PropTypes.string.isRequired,
+};
+
+export default ListHotThisMonth;

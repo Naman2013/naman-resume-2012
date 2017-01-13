@@ -2,7 +2,7 @@ import createReducer from '../utils/createReducer';
 import {
   FETCH_OBJECT_CONTENT_RESET,
   FETCH_OBJECT_CONTENT_SUCCESS,
-  FETCH_OBJECT_CONTENT_FAIL
+  FETCH_OBJECT_CONTENT_FAIL,
 } from './get-object-content-actions';
 
 const generateInitialState = () => ({

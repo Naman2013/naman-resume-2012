@@ -9,7 +9,7 @@ import App from './containers/App';
 import StaticAppContainer from './containers/static-app-container';
 import Reservations from './containers/Reservations';
 import SloohRecommends from './containers/SloohRecommends';
-import MyPictures from './containers/my-pictures';
+import MyPictures from './containers/Pictures';
 import PulseList from './containers/pulse/PulseList';
 import PulseWrapper from './containers/pulse/PulseWrapper';
 import PulsePost from './containers/pulse/PulsePost';

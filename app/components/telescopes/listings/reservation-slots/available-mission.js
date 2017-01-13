@@ -23,22 +23,18 @@ const DEFAULT_FORM = BY_OBJECTS;
 const NO_TARGET = 'notarget';
 const PLACE_HOLDER = 'placeholder';
 
-
-
 const mapStateToProps = ({ telescopeSlots, missionSlotDates }) => ({
   telescopeSlots,
   missionSlotDates,
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
     cancelReservation,
     grabTelescopeSlot,
     cancelReservationAndRefresh,
   }, dispatch),
 });
-
-
 
 @connect(mapStateToProps, mapDispatchToProps)
 class AvailableMission extends Component {
@@ -149,6 +145,12 @@ class AvailableMission extends Component {
             showCancelHold={showCancelHoldButtonWhenExpanded}
             expires={expires}
             expireCallback={this.handleTimerExpiration}
+            uniqueId={uniqueId}
+            scheduledMissionId={scheduledMissionId}
+            missionStart={missionStart}
+            obsId={obsId}
+            domeId={domeId}
+            telescopeId={telescopeId}
           />
         );
         break;

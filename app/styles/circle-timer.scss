@@ -10,6 +10,7 @@
   }
 
   .circle{
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -20,6 +21,8 @@
 
     svg{
       position: absolute;
+      top: 0;
+      left: 0;
     }
 
     span{

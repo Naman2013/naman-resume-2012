@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import MyPicturesItem from './item'
 import styles from "./my-pictures-gallery.scss";
 
 class PhotoRoll extends Component {
@@ -16,7 +17,7 @@ class PhotoRoll extends Component {
     return (
       <div>
         <div className={styles.MyPicturesGallery}>
-          {pictures.map(v => <div key={v.id} className="image"><img src={v.url}/>{v.id}</div>)}
+          {pictures.map(v => <MyPicturesItem key={v.id} data={v} />)}
         </div>
         <div className={styles.MyPicturesControl}>
           <div className="left"><span className="fa fa-chevron-left"></span>Previous</div>

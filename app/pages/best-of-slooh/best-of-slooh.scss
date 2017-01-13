@@ -8,11 +8,11 @@
   margin-bottom: -50px; /* pull the app container up a bit to hide the image bg */
   padding: 0 0 150px 0;
 
-  .title-bar {
+  .best-header {
     padding: 60px 0 25px 15px;
     color: $light-gray;
 
-    .title {
+    &-title {
       text-transform: uppercase;
       margin: 0;
       padding: 0;
@@ -22,18 +22,18 @@
       }
     }
 
-    .subtitle {
+    &-subtitle {
       font-size: 1.25em;
       margin: 0;
       padding: 0;
     }
 
-    .sponsor {
+    &-sponsor {
       position: relative;
       bottom: -40px;
     }
 
-    .call-to-action {
+    &-call {
 
       .action {
         color: #fff;

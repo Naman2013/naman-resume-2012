@@ -72,7 +72,7 @@ const LiveClub = () =>
         <li className="hide">Social Flow</li>
         <li className="active">Perspectives</li>
         <li className="hide">World View</li>
-        <li>Upcoming Shows</li>
+        <li className="menu-title">Upcoming Shows</li>
         <li>Slooh Recommends</li>
       </ul>
     </nav>

@@ -30,24 +30,30 @@ class Submenu extends Component {
     return (
       <section className="left-submenu">
         <ul>
-            {this.props.data.map((child, i) => {
-              if (typeof child.label !== 'undefined') {
-                switch (child.label.en) {
-                  case 'Upcoming Shows': {
-                    return <UpcomingComponent key={i} source="/api/events/upcoming?limit=50" refreshIntervalDelay={60000} />;
-                  }
-                  case 'All Telescopes': {
-                    return <ListObservatories key={i} source="/api/obs/compact" refreshIntervalDelay={60000} />;
-                  }
-                  case 'Hot this Month': {
-                    return <ListHotThisMonth key={i} source="/api/hot/thisMonth" />;
-                  }
-                  default: {
-                    return <p key={i} className="childlist"><a onClick={(event) => {this.handleClick(event, child.link)}}>{child.label.en}</a></p>;
-                  }
+          {this.props.data.map((child, i) => {
+            if (typeof child.label !== 'undefined') {
+              switch (child.label.en) {
+                case 'Upcoming Shows': {
+                  return <UpcomingComponent key={i} source="/api/events/upcoming?limit=50" refreshIntervalDelay={60000} />;
+                }
+                case 'All Telescopes': {
+                  return <ListObservatories key={i} source="/api/obs/compact" refreshIntervalDelay={60000} />;
+                }
+                case 'Hot this Month': {
+                  return <ListHotThisMonth key={i} source="/api/hot/thisMonth" />;
+                }
+                default: {
+                  return (
+                    <li key={i}>
+                      <a className="item" onClick={(event) => { this.handleClick(event, child.link); }}>
+                        {child.label.en}
+                      </a>
+                    </li>
+                  );
                 }
               }
-            })}
+            }
+          })}
         </ul>
       </section>
     );

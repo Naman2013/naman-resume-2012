@@ -1,59 +1,43 @@
 import React, { Component, PropTypes } from 'react';
+import _ from 'lodash';
 import styles from './reserve-by-object.scss';
 
 class ReserveObjectSummary extends Component {
-  constructor(props) {
-    super(props);
-    this.handleCancelHold = this.handleCancelHold.bind(this);
-    this.handleCreateHold = this.handleCreateHold.bind(this);
-  }
-
-  handleCancelHold(event) {
-    event.preventDefault();
-    console.log('TODO: handle cancel hold - reserve-by-object-summary');
-  }
-
-  handleCreateHold(event) {
-    event.preventDefault();
-    console.log('TODO: handle create hold - reserve-by-object-summary');
-  }
-
   render() {
     const {
-      object,
-      clearBrowse,
-      scheduleMission,
+      objectTitle,
+      objectSummary,
+      handleClearBrowse,
+      handleScheduleMission,
+      handlePlaceHold,
+      handleCancelHold,
       resetForm,
       makeReservation,
       placeOnHold,
       cancelHold } = this.props;
 
-    if(!object) {
-      return null;
-    }
-
-    return(
+    return (
       <div className={styles.objectSummary}>
-        <span className="title">{object.item.title}</span>
+        <span className="title">{objectTitle}</span>
 
-        <p>{object.item.summary}</p>
+        <p>{objectSummary}</p>
 
         <section className="actions-container">
           {
-            cancelHold ? <button className="btn-primary" onClick={this.handleCancelHold}>Cancel Hold</button> : null
+            cancelHold ? <button className="btn-primary" onClick={handleCancelHold}>Cancel Hold</button> : null
           }
           {
-            placeOnHold ? <button className="btn-primary" onClick={this.handleCreateHold}>Hold One Hour</button> : null
+            placeOnHold ? <button className="btn-primary" onClick={handlePlaceHold}>Hold One Hour</button> : null
           }
           {
-            resetForm ? <button className="btn-primary" onClick={clearBrowse}>Reset Browse</button> : null
+            resetForm ? <button className="btn-primary" onClick={handleClearBrowse}>Reset Browse</button> : null
           }
           {
-            makeReservation ? <button className="btn-primary" onClick={scheduleMission}>Schedule Mission</button> : null
+            makeReservation ? <button className="btn-primary" onClick={handleScheduleMission}>Schedule Mission</button> : null
           }
         </section>
       </div>
-    )
+    );
   }
 }
 
@@ -63,10 +47,18 @@ ReserveObjectSummary.defaultProps = {
   makeReservation: true,
   placeOnHold: false,
   cancelHold: false,
+  handleClearBrowse: () => { _.noop(); },
+  handleScheduleMission: () => { _.noop(); },
 };
 
-const { bool } = PropTypes;
+const { bool, string, func } = PropTypes;
 ReserveObjectSummary.propTypes = {
+  objectTitle: string.isRequired,
+  objectSummary: string.isRequired,
+  handleClearBrowse: func,
+  handleScheduleMission: func,
+  // handlePlaceHold: func,
+  // handleCancelHold: func,
   resetForm: bool,
   makeReservation: bool,
   placeOnHold: bool,

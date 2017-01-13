@@ -1,25 +1,22 @@
-import React, {Component, PropTypes} from 'react';
+import React, { Component, PropTypes } from 'react';
 
-import {bindActionCreators} from 'redux';
-import {connect} from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import {
   getObservatoryList,
   getCurrentObservatory,
   fetchObservatoryTelescopeStatus,
-  fetchAllWidgetsByObservatory} from '../modules/Telescope-Overview';
+  fetchAllWidgetsByObservatory } from '../modules/Telescope-Overview';
 
 import AnnouncementBanner from '../components/common/announcement-banner/announcement-banner';
 import TelescopeFilterNav from '../components/telescope-overview/telescope-filter-nav';
 import ObservatoryHero from '../components/telescope-overview/observatory-hero';
 import TelescopeCards from '../components/telescope-overview/telescope-cards/telescope-cards';
 
-import exampleUser from '../example-api-data/example-user'
-
 const MINIMUM_TELESCOPE_REFRESH_RATE = 0;
 
 function mapStateToProps(state, ownProps) {
   return {
-    user: exampleUser, // TODO: state.user,
     observatoryList: state.telescopeOverview.observatoryList,
     currentObservatoryId: ownProps.params.observatoryId,
     moonPhaseWidgetResult: state.telescopeOverview.moonPhaseWidgetResult,
@@ -34,7 +31,7 @@ function mapDispatchToProps(dispatch) {
       getObservatoryList,
       fetchAllWidgetsByObservatory,
       fetchObservatoryTelescopeStatus,
-    }, dispatch)
+    }, dispatch),
   };
 }
 
@@ -48,7 +45,7 @@ class TelescopeOverview extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if(nextProps.params.observatoryId !== this.props.currentObservatoryId) {
+    if (nextProps.params.observatoryId !== this.props.currentObservatoryId) {
       const currentObservatory =
         getCurrentObservatory(nextProps.observatoryList, nextProps.params.observatoryId);
 
@@ -59,15 +56,19 @@ class TelescopeOverview extends Component {
     this.buildTelescopeStatusTimer();
   }
 
+  componentWillUnmount() {
+    clearInterval(this.telescopeStatusTimer);
+  }
+
   buildTelescopeStatusTimer() {
     const { observatoryTelecopeStatus } = this.props;
 
-    if(observatoryTelecopeStatus) {
+    if (observatoryTelecopeStatus) {
       clearInterval(this.telescopeStatusTimer);
       const { statusExpires, requestedObsId } = observatoryTelecopeStatus;
       const remainingTime = (statusExpires * 1000) - new Date().getTime();
 
-      if(remainingTime > MINIMUM_TELESCOPE_REFRESH_RATE) {
+      if (remainingTime > MINIMUM_TELESCOPE_REFRESH_RATE) {
         this.telescopeStatusTimer = setInterval(() => {
           this.props.actions.fetchObservatoryTelescopeStatus(requestedObsId);
         }, remainingTime);
@@ -75,42 +76,78 @@ class TelescopeOverview extends Component {
     }
   }
 
-  componentWillUnmount() {
-    clearInterval(this.telescopeStatusTimer);
-  }
-
   render() {
-    const {observatoryList, currentObservatoryId} = this.props;
+    const { observatoryList, currentObservatoryId } = this.props;
     const currentObservatory =
       getCurrentObservatory(observatoryList, currentObservatoryId);
 
-    if(!currentObservatory) {
+    if (!currentObservatory) {
       return null;
     }
 
     const { obsId } = currentObservatory;
 
-    return(
+    return (
       <div>
 
         <AnnouncementBanner
-          obsId={obsId} />
+          obsId={obsId}
+        />
 
         <TelescopeFilterNav
-          observatoryList={this.props.observatoryList} />
+          observatoryList={this.props.observatoryList}
+        />
 
         <ObservatoryHero
           moonPhaseWidgetResult={this.props.moonPhaseWidgetResult}
           satelliteViewWidgetResult={this.props.satelliteViewWidgetResult}
-          {...currentObservatory} />
+          {...currentObservatory}
+        />
 
         <TelescopeCards
           observatoryTelecopeStatus={this.props.observatoryTelecopeStatus}
-          observatory={currentObservatory}/>
+          observatory={currentObservatory}
+        />
 
       </div>
     );
   }
 }
+
+const { shape, string, arrayOf, func } = PropTypes;
+
+TelescopeOverview.defaultProps = {
+  observatoryTelecopeStatus: {},
+  satelliteViewWidgetResult: {},
+  moonPhaseWidgetResult: {},
+  observatoryList: [],
+  currentObservatoryId: '',
+  actions: {},
+};
+
+TelescopeOverview.propTypes = {
+  observatoryTelecopeStatus: shape({
+    statusExpires: string,
+    requestedObsId: string,
+  }),
+  satelliteViewWidgetResult: shape({
+    expiration: string,
+    obsId: string,
+    satelliteImageURL: string,
+  }),
+  moonPhaseWidgetResult: shape({
+    phaseImageURL: string,
+  }),
+  observatoryList: arrayOf(shape({
+    obsDescription: string,
+    obsHeroURL: string,
+  })),
+  currentObservatoryId: string,
+  actions: shape({
+    getObservatoryList: func,
+    fetchAllWidgetsByObservatory: func,
+    fetchObservatoryTelescopeStatus: func,
+  }),
+};
 
 export default TelescopeOverview;

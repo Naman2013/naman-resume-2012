@@ -87,6 +87,7 @@ class Menu extends Component {
 
         <ReactCSSTransitionGroup
           component="div"
+          className="left-submenu-wrapper"
           transitionName="left-submenu"
           transitionEnterTimeout={250}
           transitionLeaveTimeout={250}

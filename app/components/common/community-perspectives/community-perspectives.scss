@@ -148,6 +148,11 @@
 
       @extend .custom-scroll-bar;
 
+      .item-header{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
       .description {
         h3 {
           font-size: 24px;

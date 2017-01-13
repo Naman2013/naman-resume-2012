@@ -1,17 +1,17 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
+import { bindActionCreators } from 'redux';
 import CommunityPost from './community-post';
 import CallToAction from './call-to-action';
-import Heart from '../heart/heart';
 import Slider from 'react-slick';
 import Spacer from './../../common/spacer';
 import GET_OBJECT_CONTENT_RESPONSE_CODES from '../../../constants/get-object-content-response-codes';
 import './community-perspectives.scss';
 import './slick.min.css';
 import './slick-theme.min.css';
-
-import exampleCommunityContent from '../../../content/example-community-content';
+import { fetchCommunityContent }
+from '../../../modules/community-content/get-object-content-actions';
 
 const SCIENCE_LOG = 'SCIENCE_LOG';
 const ART_CULTURE = 'ART_CULTURE';
@@ -45,20 +45,30 @@ const perspectiveCatagories = [
   },
 ];
 
-const mapStateToProps = ({ communityObjectContent }) => ({
-  communityObjectContent,
+const mapStateToProps = ({ communityContent }) => ({
+  ...communityContent,
 });
 
-@connect(mapStateToProps)
+const mapDispatchToProps = (dispatch) => ({
+  actions: bindActionCreators({
+    fetchCommunityContent,
+  }, dispatch),
+});
+
+@connect(mapStateToProps, mapDispatchToProps)
 class CommunityPerspectives extends Component {
   constructor(props) {
     super(props);
-
+    
     this.state = {
       activeCatagory: SCIENCE_LOG,
     };
-
+    
     this.handleNavigationClick = this.handleNavigationClick.bind(this);
+  }
+
+  componentWillMount() {
+    this.props.actions.fetchCommunityContent();
   }
 
   handleNavigationClick(event, activeCatagory) {
@@ -75,21 +85,20 @@ class CommunityPerspectives extends Component {
   }
 
   hasRelevantPosts() {
-    const { posts } = this.props.communityObjectContent.communityContent;
-    // const { posts } = exampleCommunityContent;
+    const { posts } = this.props.communityContent;
+
     const filteredPosts = this.filterPosts(posts);
     return filteredPosts.length > 0;
   }
 
   generatePosts() {
-    const { posts } = this.props.communityObjectContent.communityContent;
-    // console.warn('RENDERING STATIC COMMUNITY CONTENT FROM COMMUNITY PERSPERTIVES COMPONENT');
-    // const { posts } = exampleCommunityContent;
+    const { posts } = this.props.communityContent;
+
     const filteredPosts = this.filterPosts(posts);
     const hasPosts = filteredPosts.length > 0;
 
     // if there ARE posts, show them
-    if(hasPosts) {
+    if (hasPosts) {
       return filteredPosts.map(post => (
         <div key={post.postId}>
           <CommunityPost
@@ -97,11 +106,8 @@ class CommunityPerspectives extends Component {
           />
         </div>
       ));
-    }
-
-    // if there are no posts, ask the user to create one
-    if(!hasPosts) {
-      return(
+    } else {
+      return (
         <div>
           <CallToAction />
         </div>
@@ -114,7 +120,8 @@ class CommunityPerspectives extends Component {
       showCallToAction,
       showSliderBorder,
       showArrows,
-      numberOfSlidesToDisplay } = this.props;
+      numberOfSlidesToDisplay,
+    } = this.props;
 
     const sliderStyle = classnames('slide', {
       'with-border': showSliderBorder,
@@ -131,9 +138,7 @@ class CommunityPerspectives extends Component {
       arrows: hasRelevantPosts ? showArrows : false,
     };
 
-    // console.log(this.props.communityObjectContent);
-
-    return(
+    return (
       <div className="telescope-block community-perspectives">
 
         <div className="content">
@@ -145,20 +150,20 @@ class CommunityPerspectives extends Component {
                   const navigationClasses = classnames('action', {
                     active: this.state.activeCatagory === perspective.catagory,
                   });
-                  return(
+                  return (
                     <li key={index} className="col-xs-3 category">
                       <a
                         onClick={(event) => this.handleNavigationClick(event, perspective.catagory)}
                         className={navigationClasses}
-                        href="#"
+                        href="#/"
                       >
                         <p className="title">{perspective.title}</p>
                         <div className="icon">
-                          <img height="45" src={perspective.icon} />
+                          <img height="45" src={perspective.icon} alt="" />
                         </div>
                       </a>
                     </li>
-                  )
+                  );
                 })
               }
             </ul>
@@ -169,8 +174,8 @@ class CommunityPerspectives extends Component {
 
             <div className="col-xs-12 slide-container">
               {/*
-                WARNING: each slider element requires a parent div
-              */}
+               WARNING: each slider element requires a parent div
+               */}
               <Slider {...sliderSettings} className={sliderStyle}>
                 {this.generatePosts()}
               </Slider>
@@ -203,6 +208,8 @@ CommunityPerspectives.propTypes = {
   showSliderBorder: PropTypes.bool,
   showArrows: PropTypes.bool,
   numberOfSlidesToDisplay: PropTypes.number,
+  communityContent: PropTypes.object,
+  actions: PropTypes.object,
 };
 
 export default CommunityPerspectives;

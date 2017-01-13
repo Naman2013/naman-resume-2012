@@ -3,14 +3,14 @@ import createReducer from '../utils/createReducer';
 import {
   FETCH_LATEST_POSTS_START,
   FETCH_LATEST_POSTS_SUCCESS,
-  FETCH_LATEST_POSTS_FAIL
+  FETCH_LATEST_POSTS_FAIL,
 } from './get-latest-posts-action';
 
 const initialState = {
   latestPosts: {},
   error: {},
   failed: false,
-  fetching: true
+  fetching: true,
 };
 
 export default createReducer(initialState, {
@@ -19,7 +19,7 @@ export default createReducer(initialState, {
       ...state,
       latestPosts: {},
       error: {},
-      fetching: true
+      fetching: true,
     };
   },
   [FETCH_LATEST_POSTS_SUCCESS](state, { payload }) {
@@ -27,7 +27,7 @@ export default createReducer(initialState, {
       ...state,
       latestPosts: payload,
       error: {},
-      fetching: false
+      fetching: false,
     };
   },
   [FETCH_LATEST_POSTS_FAIL](state, { payload }) {
@@ -35,7 +35,7 @@ export default createReducer(initialState, {
       ...state,
       latestPosts: {},
       error: payload,
-      fetching: false
+      fetching: false,
     };
   },
 });

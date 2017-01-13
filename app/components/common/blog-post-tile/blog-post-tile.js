@@ -5,50 +5,46 @@ import style from './blog-post-tile.scss';
 import ByUserTag from '../by-user-tag/by-user-tag';
 
 const BlogPostTile = ({
-  topic,
-  topicSymbol,
+  imageURL,
   title,
-  coverPhoto,
-  relatedObject,
-  relatedObjectUniqueId,
-  relatedObjectIcon,
-  user }) => {
-
+  typeIconURL,
+  slugDesc,
+  typeDesc,
+  avatarURL,
+  displayName,
+  membershipType,
+  memberSince,
+  location,
+  slugIconURL
+}) => {
   const postTileStyle = {
-    backgroundImage: `url(${coverPhoto})`,
+    backgroundImage: `url(${imageURL})`,
   };
-
   return (
-    <div
-      className="slooh-blog-post-tile col-md-6">
-
-        <div
-          style={postTileStyle}
-          className="tile-content-container">
-
-          <div className="topic-heading">
-            <h3 className="title">
-              <img src={topicSymbol} width="50" /> {topic}
-            </h3>
-          </div>
-
-          <div className="tile-body clearfix">
-            <h2 className="title">{title}</h2>
-
-
-            <div className="user-profile-snapshot">
-
-              <ByUserTag
-                theme={`dark`}
-                {...user} />
-
-              <div className="call-to-action col-md-12">
-                See more about <Link className="action" to="">{relatedObject} <img src={relatedObjectIcon} width="30" /></Link>
-              </div>
+    <div className="best-post col-md-6">
+      <div style={postTileStyle} className="best-post-container">
+        <div className="best-post-header">
+          <h3 className="best-post-header-title">
+            <img src={typeIconURL} width="50" alt="" /> {typeDesc}
+          </h3>
+        </div>
+        <div className="best-post-body clearfix">
+          <h2 className="title">
+            <div dangerouslySetInnerHTML={{ __html: title }} />
+          </h2>
+          <div className="user-profile-snapshot">
+            <ByUserTag
+              theme={'dark'} photo={avatarURL} name={displayName}
+              accountType={membershipType}
+              memberSince={memberSince} location={location}
+            />
+            <div className="call-to-action col-md-12">
+              See more about <Link className="action" to="">{slugDesc}
+                <img src={slugIconURL} alt="" /></Link>
             </div>
           </div>
-
         </div>
+      </div>
     </div>
   );
 };

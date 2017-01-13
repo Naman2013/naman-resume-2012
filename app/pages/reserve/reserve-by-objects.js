@@ -1,67 +1,217 @@
 import React, { Component, PropTypes } from 'react';
-import ReserveObjectsCategory from '../../components/reserve/reserve-by-object-category';
-import ReserveObjectsList from '../../components/reserve/reserve-by-object-list';
-import ReserveObjectsSummary from '../../components/reserve/reserve-by-object-summary';
-import styles from '../../components/reserve/reserve-by-object.scss';
-import testData from './reserve-by-objects-data.js';
-import _ from 'lodash';
-
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import {
-  setCategory,
-  setObject,
-  clearBrowse
-} from '../../modules/browse-by-popular-objects/Popular-Objects';
+import { flatten } from 'lodash';
+import ReserveObjectsSummary from '../../components/reserve/reserve-by-object-summary';
+import ReservationSelectList from '../../components/common/forms/reservation-select-list';
+import styles from '../../components/reserve/reserve-by-object.scss';
+
+import { fetchCatagoryList, fetchPopularObjectList } from '../../modules/browse-popular-objects/api';
+import { grabMissionSlot, missionConfirmOpen } from '../../modules/Missions';
 
 
-const mapStateToProps = ({ popularObjects }) => ({
-  ...popularObjects,
+const { number, string, shape } = PropTypes;
+
+const mapStateToProps = ({ user, popularObjects }) => ({
+  user,
+  popularObjects,
 });
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
-    setCategory,
-    setObject,
-    clearBrowse,
+    grabMissionSlot,
+    missionConfirmOpen,
   }, dispatch),
 });
 
+const Catagory = ({ text, imageURL }) => (
+  <span>
+    {imageURL ? <img height="15" alt={`Icon representing ${text}`} src={imageURL} /> : null} {text}
+  </span>
+);
+
+Catagory.defaultProps = {
+  imageURL: '',
+};
+
+Catagory.propTypes = {
+  imageURL: string,
+  text: string.isRequired,
+};
+
+const defaultCatagoryList = {
+  categoryList: [],
+};
+
+const defaultObjectsList = {
+  categoryList: [],
+};
+
+const defaultFormState = {
+  selectedCatagoryIndex: undefined,
+  catagoryList: defaultCatagoryList,
+
+  selectedObjectIndex: undefined,
+  objects: defaultObjectsList,
+};
+
 @connect(mapStateToProps, mapDispatchToProps)
 class ReserveObjects extends Component {
-
   constructor(props) {
     super(props);
 
-    this.state = {};
+    this.state = defaultFormState;
 
-    this.setCategory = this.setCategory.bind(this);
-    this.setObject = this.setObject.bind(this);
-    this.clearBrowse = this.clearBrowse.bind(this);
-    this.scheduleMission = this.scheduleMission.bind(this);
+    this.handleCatagorySelectChange = this.handleCatagorySelectChange.bind(this);
+    this.handleObjectSelectChange = this.handleObjectSelectChange.bind(this);
+    this.handleClearBrowse = this.handleClearBrowse.bind(this);
+    this.handleScheduleMission = this.handleScheduleMission.bind(this);
   }
 
-  clearBrowse() {
-    this.props.actions.clearBrowse();
+  componentDidMount() {
+    const { callSource } = this.props;
+    const { at, cid, token } = this.props.user;
+
+    fetchCatagoryList({
+      at,
+      cid,
+      token,
+      callSource,
+    }).then(result => this.setCatagoryList(result.data));
   }
 
-  setCategory(item) {
-    this.props.actions.setCategory(item);
+  setCatagoryList(catagoryList) {
+    this.setState({
+      catagoryList,
+    });
   }
 
-  setObject(item) {
-    this.props.actions.setObject(item);
+  getSelectedCategory(selectedIndex) {
+    const { catagoryList } = this.state;
+    return catagoryList.categoryList[selectedIndex];
   }
 
-  scheduleMission() {
-    // TODO: build this later
+  setObjects(objects) {
+    this.setState({
+      objects,
+    });
+  }
+
+  handleCatagorySelectChange(event) {
+    const {
+      callSource,
+      uniqueId,
+      scheduledMissionId,
+      missionStart,
+      obsId,
+      domeId,
+      telescopeId,
+    } = this.props;
+
+    const { at, cid, token } = this.props.user;
+    const { categorySlug } = this.getSelectedCategory(event.target.value);
+
+    fetchPopularObjectList({
+      at,
+      cid,
+      token,
+      categorySlug,
+      callSource,
+      uniqueId,
+      scheduledMissionId,
+      missionStart,
+      obsId,
+      domeId,
+      telescopeId,
+      includeDescription: true,
+    }).then(result => this.setObjects(result.data));
+
+    this.setState({
+      selectedCatagoryIndex: event.target.value,
+      selectedObjectIndex: undefined,
+      objects: defaultObjectsList,
+    });
+  }
+
+  handleObjectSelectChange(event) {
+    this.setState({
+      selectedObjectIndex: event.target.value,
+    });
+  }
+
+  handleClearBrowse(event) {
+    event.preventDefault();
+    this.setState({
+      selectedCatagoryIndex: undefined,
+      selectedObjectIndex: undefined,
+      objects: defaultObjectsList,
+    });
+  }
+
+  handleScheduleMission(event) {
+    event.preventDefault();
+
+    const { callSource, uniqueId } = this.props;
+    const {
+      missionStart,
+      scheduledMissionId,
+      obsId,
+      domeId,
+      telescopeId,
+      objectId,
+      objectType,
+      objectTitle,
+    } = this.currentObjectSelection;
+
+    const missionType = (callSource === 'byTelescope') ? 'member' : undefined;
+
+    this.props.actions.grabMissionSlot({
+      scheduledMissionId,
+      callSource,
+      missionType,
+      missionStart,
+      obsId,
+      domeId,
+      telescopeId,
+      objectId,
+      objectType,
+      objectTitle,
+      uniqueId,
+    });
+
+    this.props.actions.missionConfirmOpen('reserve');
+  }
+
+  get mappedObjects() {
+    const { objects } = this.state;
+    return flatten(objects.categoryList.map((category) => {
+      return category.categoryTopicList.map((object) => {
+        if (object.topicIsSubcategory) {
+          return {
+            title: object.objectTitle,
+          };
+        }
+
+        return Object.assign({}, {
+          option: <Catagory text={object.topicName} />,
+          enabled: object.topicIsEnabled,
+        }, object);
+      });
+    }));
+  }
+
+  get currentObjectSelection() {
+    const { selectedObjectIndex } = this.state;
+    return this.mappedObjects[selectedObjectIndex];
   }
 
   render() {
-    const { category, object, sectionHeight } = this.props;
+    const { selectedCatagoryIndex, catagoryList, selectedObjectIndex } = this.state;
+    const catagories = catagoryList.categoryList.map(catagory =>
+      <Catagory text={catagory.categoryDisplayName} imageURL={catagory.categoryIconURL} />,
+    );
 
-    const selectedCategory = category || {};
-    const selectedObject = object || {};
+    const currentObjectSelection = this.currentObjectSelection;
 
     return (
       <div className={styles.reserveObjectPage}>
@@ -70,34 +220,35 @@ class ReserveObjects extends Component {
           <div className="col-md-4">
             <h2><span className="number">1</span> Select Category</h2>
 
-            <ReserveObjectsCategory
-              items={testData.categories}
-              selectedCategory={selectedCategory}
-              onClickHandler={this.setCategory} />
+            <ReservationSelectList
+              selectedIndex={selectedCatagoryIndex}
+              handleSelectChange={this.handleCatagorySelectChange}
+              options={catagories}
+              name="catagory"
+            />
           </div>
 
           <div className="col-md-4">
             <h2><span className="number">2</span> Choose Specific Object</h2>
-
-            <ReserveObjectsList
-              selectedCategory={selectedCategory}
-              selectedObject={selectedObject}
-              onClickHandler={this.setObject}
+            <ReservationSelectList
+              selectedIndex={selectedObjectIndex}
+              handleSelectChange={this.handleObjectSelectChange}
+              options={this.mappedObjects}
+              name="object"
             />
           </div>
 
           <div className="col-md-4">
             <h2><span className="number">3</span> Object Summary</h2>
-
-            <ReserveObjectsSummary
-              object={object}
-              clearBrowse={this.clearBrowse}
-              scheduleMission={this.scheduleMission}
-              resetForm={this.props.resetForm}
-              makeReservation={this.props.makeReservations}
-              placeOnHold={this.props.placeOnHold}
-              cancelHold={this.props.cancelHold}
-            />
+            {
+              currentObjectSelection ?
+                <ReserveObjectsSummary
+                  objectTitle={currentObjectSelection.topicDisplayName}
+                  objectSummary={currentObjectSelection.topicDescription}
+                  handleClearBrowse={this.handleClearBrowse}
+                  handleScheduleMission={this.handleScheduleMission}
+                /> : null
+            }
           </div>
         </div>
       </div>
@@ -110,12 +261,37 @@ ReserveObjects.defaultProps = {
   makeReservation: true,
   placeOnHold: false,
   cancelHold: false,
+  callSource: 'byPopularObjects',
+  user: {
+    cid: '',
+    at: 0,
+    token: '',
+  },
+  uniqueId: undefined,
+  scheduledMissionId: undefined,
+  missionStart: undefined,
+  obsId: undefined,
+  domeId: undefined,
+  telescopeId: undefined,
 };
 
 ReserveObjects.propTypes = {
-  resetForm: PropTypes.bool,
-  makeReservation: PropTypes.bool,
-  placeOnHold: PropTypes.bool,
+  user: shape({
+    cid: string.isRequired,
+    at: number.isRequired,
+    token: string.isRequired,
+  }),
+  callSource: string,
+  // resetForm: bool.isRequired,
+  // showMakeReservation: bool.isRequired,
+  // showPlaceOnHold: bool.isRequired,
+  // showCancelHold: bool.isRequired,
+  uniqueId: string,
+  scheduledMissionId: string,
+  missionStart: number,
+  obsId: string,
+  domeId: string,
+  telescopeId: string,
 };
 
 export default ReserveObjects;
