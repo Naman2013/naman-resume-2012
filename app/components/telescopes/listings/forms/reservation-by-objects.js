@@ -1,23 +1,37 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 import ReserveByObjects from '../../../../pages/reserve/reserve-by-objects';
 import Timer from './common/timer';
 
-class ReservationByObjects extends Component {
-  render() {
-    const { showMakeReservation, showPlaceOnHold, showCancelHold, expires, expireCallback } = this.props;
-    return(
-      <div className="reservation-form-container">
-        <Timer startTime={expires} expireCallback={expireCallback} />
-        <ReserveByObjects
-          resetForm={false}
-          makeReservation={showMakeReservation}
-          placeOnHold={showPlaceOnHold}
-          cancelHold={showCancelHold}
-        />
-      </div>
-    );
-  }
-}
+const ReservationByObjects = ({
+  showMakeReservation,
+  showPlaceOnHold,
+  showCancelHold,
+  expires,
+  expireCallback,
+  uniqueId,
+  scheduledMissionId,
+  missionStart,
+  obsId,
+  domeId,
+  telescopeId,
+  }) => (
+    <div className="reservation-form-container">
+      <Timer startTime={expires} expireCallback={expireCallback} />
+      <ReserveByObjects
+        resetForm={false}
+        showMakeReservation={showMakeReservation}
+        showPlaceOnHold={showPlaceOnHold}
+        showCancelHold={showCancelHold}
+        callSource={'byTelescope'}
+        uniqueId={uniqueId}
+        scheduledMissionId={scheduledMissionId}
+        missionStart={missionStart}
+        obsId={obsId}
+        domeId={domeId}
+        telescopeId={telescopeId}
+      />
+    </div>
+  );
 
 ReservationByObjects.defaultProps = {
   showMakeReservation: true,
@@ -32,6 +46,12 @@ ReservationByObjects.propTypes = {
   showCancelHold: bool,
   expires: number.isRequired,
   expireCallback: func.isRequired,
+  uniqueId: string.isRequired,
+  scheduledMissionId: string.isRequired,
+  missionStart: number.isRequired,
+  obsId: string.isRequired,
+  domeId: string.isRequired,
+  telescopeId: string.isRequired,
 };
 
 export default ReservationByObjects;

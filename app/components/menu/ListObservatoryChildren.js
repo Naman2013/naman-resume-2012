@@ -1,41 +1,36 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 
-export default class ListObservatoryChildren extends Component {
-  getStatusClass(status) {
-    switch (status) {
-      case 'offline': {
-        return 'scope_offline'; // FIXME: Use `scope-offline` instead of `scope_offline`
-      }
-      case 'noinfo': {
-        return 'scope_noinfo';
-      }
-      case 'online': {
-        return 'scope_online';
-      }
-      default: {
-        return '';
-      }
-    }
-  }
-
+class ListObservatoryChildren extends Component {
   render() {
     return (
-      <p>
-        {this.props.data.map((child, i) => {
-          if (typeof child !== 'undefined') {
-            return (
-              <li
-                key={i}
-                className={this.getStatusClass(child.teleOnlineStatus)}
-              >
-                <a href={child.telePageURL}>
-                  {child.teleName}
-                </a>
-              </li>
-            );
-          }
-        })}
-      </p>
+      <ul>
+        {
+          this.props.data.map((child, i) => (
+            <li key={i}>
+              <a className={`item scope-${child.teleOnlineStatus}`} href={child.telePageURL}>
+                {child.teleName}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
     );
   }
 }
+
+ListObservatoryChildren.defaultProps = {
+  data: {},
+};
+
+ListObservatoryChildren.propTypes = {
+  data: PropTypes.arrayOf(
+    PropTypes.shape({
+      child: PropTypes.shape({
+        teleName: PropTypes.string,
+        teleOnlineStatus: PropTypes.string,
+      }),
+    }),
+  ),
+};
+
+export default ListObservatoryChildren;

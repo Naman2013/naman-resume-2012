@@ -23,6 +23,11 @@
     -moz-border-radius-bottomleft: 20px;
     border-top-left-radius: 20px;
     border-bottom-left-radius: 20px;
+
+    &.disabled {
+      cursor: not-allowed;
+      color: $light-gray;
+    }
   }
 
   .multi-option-list-option {

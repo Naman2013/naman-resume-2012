@@ -1,16 +1,18 @@
 @import './variables/fonts.scss';
 @import './variables/colors.scss';
+@import './variables/layout.scss';
 
 .mainHeader {
-  height: 70px;
-  width: 100%;
+  height: $slooh-header-height;
   background-color: rgba(0, 0, 0, 0.9);
   position: fixed;
-  z-index: 100;
+  z-index: 9999;
+  left: $slooh-menu-width;
+  right: 0;
 
   .mainHeaderLogo {
     position: absolute;
-    left: 90px;
+    left: 20px;
     text-indent: -9999;
     background-image: url(../../icons/header/logo.svg);
     background-position: left center;
@@ -24,7 +26,7 @@
   .mainHeaderLogoText {
     font-family: $primary-font;
     position: absolute;
-    left: 160px;
+    left: 90px;
     top: 5px;
     display: inline-block;
     color: #FFF;

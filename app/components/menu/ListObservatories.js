@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import ListObservatoryChildren from './ListObservatoryChildren';
+import React, { Component, PropTypes } from 'react';
 import axios from 'axios';
+import ListObservatoryChildren from './ListObservatoryChildren';
 
-export default class ListObservatories extends Component {
+class ListObservatories extends Component {
   state = {
     obsName: [],
     obsList: [],
@@ -10,7 +10,6 @@ export default class ListObservatories extends Component {
 
   componentDidMount() {
     this.serverRequest();
-
     this.refreshIntervalId = setInterval(this.serverRequest, this.props.refreshIntervalDelay);
   }
 
@@ -21,48 +20,49 @@ export default class ListObservatories extends Component {
   getDaylingImage(daylight) {
     if (daylight) {
       return '../images/nav/menu-day.png';
-    } else {
-      return '../images/nav/menu-night.png';
     }
+
+    return '../images/nav/menu-night.png';
   }
 
   serverRequest = () => {
-       axios.get(this.props.source) 
-     .then(response => {
+    axios.get(this.props.source)
+    .then((response) => {
       this.setState({
-        obsList: response.data.observatoryList
+        obsList: response.data.observatoryList,
       });
-    })
-    .catch(function (error) {
-      console.log('error: '+error);
     });
- 
   };
-
-
 
   render() {
     return (
-      <div className="observatory-list">
-        <h4>All Telescopes</h4>
-        {this.state.obsList.map((el, i) => {
+      <li className="observatory-list">
+        <h4 className="menu-title">All Telescopes</h4>
+        <ul className="list">
+          <li className="static-item scope-online">Currently Online</li>
+          <li className="static-item scope-offline">Currently Offline</li>
+        </ul>
+        {
+          this.state.obsList.map((el, i) => {
           if (typeof el.obsName !== 'undefined') {
             return (
               <ul key={i}>
-                <li>
-                  <img className="obs-dayicon" src={this.getDaylingImage(el.obsDaylight)} />
+                <li className="static-item">
+                  <img alt="daylight status" className="obs-dayicon" src={this.getDaylingImage(el.obsDaylight)} />
                   <span className="obs-location">{el.obsName}</span>
                 </li>
-                <ListObservatoryChildren data={el.obsTelescopes}/>
+                <ListObservatoryChildren data={el.obsTelescopes} />
               </ul>
             );
           }
         })}
-        <div className="obs-status-legend">
-          <p className="scope_online">Currently Online</p>
-          <p className="scope_offline">Currently Offline</p>
-        </div>
-      </div>
+      </li>
     );
   }
 }
+
+ListObservatories.propTypes = {
+  source: PropTypes.string.isRequired,
+};
+
+export default ListObservatories;

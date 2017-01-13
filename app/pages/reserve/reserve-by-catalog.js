@@ -211,10 +211,10 @@ class ReserveByCatalog extends Component {
     const hasSelectedImageProcessing = !!selectedImageProcessingIndex;
 
     const scheduleMissionButtonClasses = classnames('btn-primary', {
-      'disabled': !hasSelectedImageProcessing,
+      disabled: !hasSelectedImageProcessing,
     });
 
-    return(
+    return (
       <div>
         <ReservationSelectList
           options={this.imageProcessingList}

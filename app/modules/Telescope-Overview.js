@@ -1,15 +1,6 @@
-import createReducer from './utils/createReducer';
 import axios from 'axios';
 import { push } from 'react-router-redux';
-
-
-/**
-  HACK
-  we patch this default observatory to the response
-  to provide data for the "All observatories"
-  Hopefully we will this returned from the API
-*/
-import defaultObservatoryOverviewDetails from '../content/default-observatory-overview-details';
+import createReducer from './utils/createReducer';
 
 const OBSERVATORY_REQUEST_SUCCESS = 'OBSERVATORY_REQUEST_SUCCESS';
 const OBSERVATORY_REQUEST_FAIL = 'OBSERVATORY_REQUEST_FAIL';
@@ -21,9 +12,11 @@ const MOON_PHASE_WIDGET_SUCCESS = 'MOON_PHASE_WIDGET_SUCCESS';
 const SATELLITE_VIEW_WIDGET_SUCCESS = 'SATELLITE_VIEW_WIDGET_SUCCESS';
 
 const initialState = {
-  observatoryList: [], // list of available observatories
+  // list of available observatories
+  observatoryList: [],
   observatoryListError: null,
-  observatoryTelecopeStatus: null, // status of various telescopes depends on having a list of observatories..
+  // status of various telescopes depends on having a list of observatories..
+  observatoryTelecopeStatus: null,
   moonPhaseWidgetResult: null,
   satelliteViewWidgetResult: null,
 };
@@ -37,7 +30,7 @@ const getCurrentTimeInSeconds = () => new Date().getTime() / 1000;
 
 export const getObservatoryList = (currentObservatoryId) => (dispatch, getState) => {
     // TODO: dispatch loading...
-    const { token, at, cid } = getState().user;
+  const { token, at, cid } = getState().user;
 
     if(!token || !at || !cid) {
       dispatch(push('/?redirect=not-logged-in'));
@@ -52,10 +45,9 @@ export const getObservatoryList = (currentObservatoryId) => (dispatch, getState)
       })
       .then((response) => {
         const { observatoryList } = response.data;
-        const monkeyPatchedObservatoryList = [defaultObservatoryOverviewDetails, ...observatoryList];
         const currentObservatory = getCurrentObservatory(observatoryList, currentObservatoryId);
 
-        dispatch(observatoryListSuccess(monkeyPatchedObservatoryList));
+        dispatch(observatoryListSuccess(observatoryList));
         dispatch(fetchAllWidgetsByObservatory(currentObservatory));
 
         // if we have an observatory to work with, then call for the telescope availability now

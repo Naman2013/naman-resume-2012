@@ -25,14 +25,16 @@
 */
 
 import React, { Component, PropTypes } from 'react';
-import style from './reservation-select-list.scss';
+import _ from 'lodash';
+import classnames from 'classnames';
+import './reservation-select-list.scss';
+
+function generateId(seed) {
+  const random = Math.floor(Math.random() * 99999);
+  return `${seed}-${random}`;
+}
 
 class ReservationSelectList extends Component {
-  generateId(seed) {
-    const random = Math.floor(Math.random() * 99999);
-    return `${seed}-${random}`;
-  }
-
   render() {
     const {
       options,
@@ -45,29 +47,46 @@ class ReservationSelectList extends Component {
       height: `${listHeight}px`,
     };
 
-    return(
+    return (
       <div
         className="reservation-select-list"
         style={inlineStyle}
       >
         {
           options.map((option, index) => {
-            const elementId = this.generateId(index);
-            const isChecked = selectedIndex == index;
-
+            const elementId = generateId(index);
+            const isChecked = parseInt(selectedIndex, 10) === index;
             // here is where we determine whether or not we have a titled Option
-            const titledOptions = option.hasOwnProperty('title');
-            const title = titledOptions ? option.title : false;
-            const optionContent = titledOptions ? option.option : option;
+            const isTitle = _.has(option, 'title');
+            const optionContent = option.option || option;
 
-            return(
+            // if the option has a property enabled to read - use that - otherwise set it to true
+            const enabled = (_.has(option, 'enabled')) ? option.enabled : true;
+
+            const labelClasses = classnames('multi-option-list-label', {
+              disabled: !enabled,
+            });
+
+            if (isTitle) {
+              return (
+                <div key={elementId}>
+                  <h5 className="title">{option.title}</h5>
+                </div>
+              );
+            }
+
+            return (
               <div key={elementId}>
                 {
-                  title ?
-                  <h5 className="title">{title}</h5> : null
+                  enabled ?
+                    <input checked={isChecked} onChange={handleSelectChange} value={index} ref={elementId} name={name} id={elementId} className="multi-option-list-option" type="radio" /> : null
                 }
-                <input checked={isChecked} onChange={handleSelectChange} value={index} ref={elementId} name={name} id={elementId} className="multi-option-list-option" type="radio" />
-                <label className="multi-option-list-label" htmlFor={elementId}>{optionContent}</label>
+                <label
+                  className={labelClasses}
+                  htmlFor={elementId}
+                >
+                  {optionContent}
+                </label>
               </div>
             );
           })
@@ -79,14 +98,16 @@ class ReservationSelectList extends Component {
 
 ReservationSelectList.defaultProps = {
   listHeight: 340,
+  selectedIndex: undefined,
 };
 
 ReservationSelectList.propTypes = {
-  options: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.object])).isRequired, // strings or react components
+  // strings or react components
+  options: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.object])).isRequired,
   name: PropTypes.string.isRequired,
-  handleSelectChange: PropTypes.func,
-  listHeight: PropTypes.number,
+  handleSelectChange: PropTypes.func.isRequired,
   selectedIndex: PropTypes.string,
+  listHeight: PropTypes.number,
 };
 
 export default ReservationSelectList;

@@ -1,6 +1,7 @@
 export default {
   STATIC_HERO: {
-    backgroundImageUrl: 'assets/images/graphics/stargazers-bg.png',
+    //backgroundImageUrl: 'assets/images/graphics/stargazers-bg.png',
+    backgroundImageUrl: '',
     mainHeadingText: 'WELCOME TO SPACE FOR EVERYONE.',
     subHeadingText: 'Slooh.com is Online Telescopes, LIVE Streaming Events, Original Video Programming, and more.',
     funFactText: 'That light started towards earth 2 million years ago? Seriously?',

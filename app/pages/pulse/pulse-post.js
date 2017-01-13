@@ -6,7 +6,7 @@ import PulsePostTag from '../../components/pulse/pulse-post-tag'
 import PulsePostTools from '../../components/pulse/tools/pulse-post-tools'
 import styles from './pulse-post.scss';
 
-const PulsePostContent = ({post: { S3Files, tags, postTitle, creationDate, type, typeIconURL, content, avatarURL, displayName, membershipType, memberSince, location, likesCount }}) => {
+const PulsePostContent = ({post: { S3Files, tags, title, creationDate, type, typeIconURL, content, avatarURL, displayName, membershipType, memberSince, location, likesCount }}) => {
     
     return (
     
@@ -15,7 +15,7 @@ const PulsePostContent = ({post: { S3Files, tags, postTitle, creationDate, type,
             <PulsePostImage image={S3Files[0]} imageBy={""}/>
         
             <figure className={styles.PulsePostListInfo}>
-                <h2 className={styles.PulsePostListInfoTitle}>{postTitle}</h2>
+                <h2 className={styles.PulsePostListInfoTitle}><div dangerouslySetInnerHTML={{__html: title}}/></h2>
             
                 <div className="row">
                     <div className="col-md-6">
