@@ -1,56 +1,40 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 import ImageFile from './image-file';
 import style from './upload-image.scss';
 
-class UploadImage extends Component {
-  // for documentation purposes...
-  update(event) {
-    event.preventDefault();
-    this.setState({
-      value: event.target.value,
-      files: event.target.files
-    });
-  }
+function UploadImage({ handleUploadImage, displayImages }) {
+  const images = displayImages.map((image, index) => <ImageFile key={index} imageURL={image} />);
+  return (
+    <div>
+      <i className="step-description">Upload JPEGS, GIFS, or PNGs here to add punch and meaning to your post</i>
 
-  render() {
-    const { handleUploadImage, displayImages } = this.props;
-
-    // TODO: map over the images and render ImageFile component
-    // const images = [];
-    // for (let i = 0; i < files.length; i++) {
-    //   images.push(<ImageFile key={i} file={files[i]} />)
-    // }
-
-    return (
-      <div>
-        <i className="step-description">Upload JPEGS, GIFS, or PNGs here to add punch and meaning to your post</i>
-
-        <div className="image-list-wrapper">
+      <div className="image-list-wrapper">
         {
-          /**
-          TODO: render image list...
-            {images}
-          */
+          images
         }
-        </div>
-
-        <label className="file-input-label">
-          Browse for Image
-          <input
-            type="file"
-            onChange={handleUploadImage}
-            accept="image/*"
-            multiple
-          />
-        </label>
       </div>
-    )
-  }
+
+      <label htmlFor="image-upload" className="file-input-label">
+        Browse for Image
+        <input
+          id="image-upload"
+          type="file"
+          onChange={handleUploadImage}
+          accept="image/*"
+          multiple
+        />
+      </label>
+    </div>
+  );
 }
+
+UploadImage.defaultProps = {
+  displayImages: [],
+};
 
 UploadImage.propTypes = {
   handleUploadImage: PropTypes.func.isRequired,
-  displayImages: PropTypes.array.isRequired,
+  displayImages: PropTypes.arrayOf(PropTypes.string),
 };
 
 export default UploadImage;

@@ -1,20 +1,34 @@
 import axios from 'axios';
 
-export const fetchCatagoryList = ({
+export default function fetchCatagoryList({
   cid,
   at,
   token,
   callSource, // byTelescope || byPopularObjects
-}) => {
+}) {
   return axios.post('/api/reservation/getPopularCategoryList', {
     cid,
     at,
     token,
     callSource,
   });
-};
+}
 
-export const fetchPopularObjectList = ({
+export function fetchCategoryTopicList({
+  cid,
+  at,
+  token,
+  status, // optional: published, draft all
+}) {
+  return axios.post('/api/content/getObjectCategoryTopicList', {
+    cid,
+    at,
+    token,
+    status,
+  });
+}
+
+export function fetchPopularObjectList({
   cid,
   at,
   token,
@@ -28,7 +42,7 @@ export const fetchPopularObjectList = ({
   telescopeId,
   lookaheadReservation, // optional
   includeDescription, // optional
-}) => {
+}) {
   return axios.post('/api/reservation/getPopularObjectList', {
     cid,
     at,
@@ -44,4 +58,4 @@ export const fetchPopularObjectList = ({
     lookaheadReservation,
     includeDescription,
   });
-};
+}

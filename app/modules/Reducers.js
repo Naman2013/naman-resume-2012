@@ -18,7 +18,6 @@ import activeTelescopeMissions from './active-telescope-missions/active-telescop
 import catalog from './catalog/get-catalog-reducer';
 import communityObjectContent from './community-content/get-object-content-reducer';
 import communityContent from './community-content/get-community-content-reducer';
-import publishPost from './community-content/publish-post';
 import telescopeSlots from './grab-telescope-slot/reducer';
 import latestPosts from './pulse/get-latest-posts-reducer';
 import post from './pulse/get-post-reducer';
@@ -44,7 +43,6 @@ export default combineReducers({
   catalog,
   communityObjectContent,
   communityContent,
-  publishPost,
   telescopeSlots,
   latestPosts,
   post,

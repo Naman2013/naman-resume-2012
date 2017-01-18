@@ -43,8 +43,6 @@ const SET_CURRENT_CARD = 'SET_CURRENT_CARD';
 
 const COMMIT_UPDATED_PIGGYBACKS = 'COMMIT_UPDATED_PIGGYBACKS';
 
-
-
 const setCurrentCard = (card) => ({
   type: SET_CURRENT_CARD,
   payload: card,
@@ -221,7 +219,6 @@ const grabMissionSlotSuccess = (result) => ({
 const grabMissionSlotStart = () => ({
   type: GRAB_MISSION_SLOT_START,
 });
-
 
 
 export function missionGetCards() {

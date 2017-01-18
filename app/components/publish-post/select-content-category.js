@@ -1,75 +1,83 @@
-import React, { Component } from 'react';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-import { selectContentCategory } from '../../modules/community-content/publish-post';
+import React, { Component, PropTypes } from 'react';
+import classnames from 'classnames';
 import style from './select-content-category.scss';
 
 const categories = [
   {
     title: 'Science log',
     className: 'science-log',
-    description: 'The science category involves stats and data, historical context and explorers, and overall astronomy.'
+    description: 'The science category involves stats and data, historical context and explorers, and overall astronomy.',
+    value: 'scienceLog',
   },
   {
     title: 'Art & culture',
     className: 'art',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi esse praesentium quibusdam saepe.'
+    description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi esse praesentium quibusdam saepe.',
+    value: 'artCulture',
   },
   {
     title: 'Human spirit',
     className: 'spirit',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsam obcaecati rem sit tempora?'
+    description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsam obcaecati rem sit tempora?',
+    value: 'humanSpirit',
   },
   {
     title: 'diy',
     className: 'diy',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. A fuga praesentium repudiandae saepe!'
+    description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. A fuga praesentium repudiandae saepe!',
+    value: 'diy',
   },
 ];
 
-const mapStateToProps = ({publishPost}) => ({
-  ...publishPost
-});
-
-const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({
-    selectContentCategory
-  }, dispatch)
-});
-
-@connect(mapStateToProps, mapDispatchToProps)
 class SelectContentCategory extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {};
-    this.setCategory = this.setCategory.bind(this);
+    this.state = {
+      selectedIndex: 0,
+    };
+
+    this.handleChangeCategoryClick = this.handleChangeCategoryClick.bind(this);
   }
 
-  setCategory(category) {
-    this.props.actions.selectContentCategory(category);
+  handleChangeCategoryClick(event, selectedIndex) {
+    event.preventDefault();
+    this.setState({
+      selectedIndex,
+    });
+    this.props.handleCategoryClick(categories[selectedIndex].value);
   }
 
   render() {
-    const categoryList = categories.map((category, key) => {
+    const { selectedIndex } = this.state;
+
+    const categoryList = categories.map((category, index) => {
+      const categoryClasses = classnames(`category-item ${category.className}`, {
+        active: selectedIndex == index,
+      });
+
       return (
         <li
-          key={key}
-          onClick={() => this.setCategory(category.title)}
-          className={`category-item ${category.className} ${category.title === this.props.selectedCategory ? 'active' : ''}`}
+          key={index}
+          className={categoryClasses}
+          onClick={(event) => { this.handleChangeCategoryClick(event, index); }}
         >
           <h4 className="category-name">{category.title}</h4>
           <p className="category-description">{category.description}</p>
         </li>
-      )
+      );
     });
 
     return (
       <ul className="category-wrapper">
         {categoryList}
       </ul>
-    )
+    );
   }
 }
+
+SelectContentCategory.propTypes = {
+  handleCategoryClick: PropTypes.func.isRequired,
+};
 
 export default SelectContentCategory;
