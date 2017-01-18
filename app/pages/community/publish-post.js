@@ -191,7 +191,6 @@ class PublishPost extends Component {
         token,
         cid,
         objectSlug: topic.topicSlug,
-        status: topic.topicStatus,
         type: contentCategory,
         title: headline,
         content: bodyContent,

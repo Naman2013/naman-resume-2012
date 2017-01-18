@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 
-const { number, string } = PropTypes;
+const { number, string, symbol } = PropTypes;
 
 export default class CircleCounter extends Component {
   static propTypes = {
@@ -9,6 +9,7 @@ export default class CircleCounter extends Component {
     size: number,
     lineWidth: number,
     progressColor: string,
+    children: symbol,
   };
 
   static defaultProps = () => ({
@@ -36,6 +37,7 @@ export default class CircleCounter extends Component {
         size,
         lineWidth,
         progressColor,
+        children,
       },
     } = this;
 
@@ -65,12 +67,12 @@ export default class CircleCounter extends Component {
 
     return (
       <div className="circle">
-        <svg  width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
+        <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
           {progress > 0 ? <path d={progressPath} style={progressStyle} /> : null}
           {progress > 0 ? <circle cx={s.x} cy={s.y} r={cornersWidth} fill={progressColor} /> : null}
           {progress > 0 ? <circle cx={e.x} cy={e.y} r={cornersWidth} fill={progressColor} /> : null}
         </svg>
-        {this.props.children}
+        {children}
       </div>
     );
   }

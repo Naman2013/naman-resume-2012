@@ -3,31 +3,34 @@ import createReducer from '../utils/createReducer';
 import {
   FETCH_PICTURES_START,
   FETCH_PICTURES_SUCCESS,
-  FETCH_PICTURES_FAIL
+  FETCH_PICTURES_FAIL,
 } from './get-pictures-action';
 
 const initialState = {
-  post: {},
+  images: {},
+  count: 0,
   error: {},
   failed: false,
-  fetching: true
+  fetching: true,
 };
 
 export default createReducer(initialState, {
   [FETCH_PICTURES_START](state) {
     return {
       ...state,
-      post: {},
+      images: {},
+      count: 0,
       error: {},
-      fetching: true
+      fetching: true,
     };
   },
   [FETCH_PICTURES_SUCCESS](state, { payload }) {
     return {
       ...state,
-      post: payload.posts[0],
+      images: payload.imageList,
+      count: payload.imageCount,
       error: {},
-      fetching: false
+      fetching: false,
     };
   },
   [FETCH_PICTURES_FAIL](state, { payload }) {
@@ -35,7 +38,7 @@ export default createReducer(initialState, {
       ...state,
       post: {},
       error: payload,
-      fetching: false
+      fetching: false,
     };
   },
 });

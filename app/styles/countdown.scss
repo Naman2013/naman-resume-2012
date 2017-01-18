@@ -4,13 +4,13 @@
 
 .countdown {
   display: flex;
+  flex-direction: column;
   float: right;
   height: 100%;
-  flex-direction: row;
   color: $blueGreen;
   font-family: $primary-font;
   font-weight: 600;
-  padding: 10px 90px 10px 10px;
+  padding: 5px 90px 5px 10px;
 
   span{
     color: $white;
@@ -20,5 +20,28 @@
   a{
     color: $blueGreen;
     font-size: 13px;
+  }
+}
+
+
+.countdown.live{
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+
+  .circle{
+    width: 150px;
+    height: 150px;
+  }
+  .hand{
+    display: none;
+  }
+
+  span, a{
+    font-size: 20px;
+  }
+
+  .circleTimer{
+    padding-bottom: 30px;
   }
 }

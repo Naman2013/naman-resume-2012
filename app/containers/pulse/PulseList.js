@@ -50,26 +50,35 @@ function mapDispatchToProps(dispatch) {
 
 @connect(mapStateToProps, mapDispatchToProps)
 class PulseList extends Component {
-  
+
   render() {
-    const { route, location, actions: {fetchLatestPosts}, latestPosts, fetching, childPath, children } = this.props;
-    
+    const {
+      route,
+      location,
+      actions: { fetchLatestPosts },
+      latestPosts,
+      fetching,
+      childPath,
+      children } = this.props;
+
     return (
       <div className="clearfix pulse">
         <AnnouncementBanner />
         <PulseListHeader />
-        
-        <PulseNav route={route} location={location} list={list}/>
-    
-          {cloneElement(children, {
-              fetchLatestPosts: fetchLatestPosts,
-              childPath: childPath,
-              latestPosts: latestPosts,
-              fetching: fetching,
-          })}
-      
+
+        <PulseNav route={route} location={location} list={list} />
+
+        {
+          cloneElement(children, {
+            fetchLatestPosts,
+            childPath,
+            latestPosts,
+            fetching,
+          })
+        }
+
       </div>
-    )
+    );
   }
 }
 

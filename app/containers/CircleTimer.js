@@ -18,6 +18,7 @@ export default class CircleTimer extends Component {
   static propTypes = {
     size: number,
     eventStartIn: string,
+    lineWidth: string,
     fetchActiveOrUpcomingEvent: func.isRequired,
   };
 
@@ -65,7 +66,7 @@ export default class CircleTimer extends Component {
 
   render() {
     const {
-      props: { size },
+      props: { size, lineWidth },
       state: {
         daysTo,
         hoursTo,
@@ -81,7 +82,7 @@ export default class CircleTimer extends Component {
       <div className={classes.circleTimer}>
         <CircleCounter
           size={size}
-          lineWidth={3}
+          lineWidth={lineWidth}
           total={getDaysInMonth()}
           progress={getDaysInMonth() - daysTo}
           progressColor="rgb(239, 34, 166)"
@@ -90,7 +91,7 @@ export default class CircleTimer extends Component {
         </CircleCounter>
         <CircleCounter
           size={size}
-          lineWidth={3}
+          lineWidth={lineWidth}
           total={24}
           progress={24 - hoursTo}
           progressColor="rgb(241, 210, 54)"
@@ -99,7 +100,7 @@ export default class CircleTimer extends Component {
         </CircleCounter>
         <CircleCounter
           size={size}
-          lineWidth={3}
+          lineWidth={lineWidth}
           total={60}
           progress={60 - (minutesTo + (secondsTo / 60))}
           progressColor="rgb(143, 144, 145)"
@@ -108,14 +109,14 @@ export default class CircleTimer extends Component {
         </CircleCounter>
         <CircleCounter
           size={size}
-          lineWidth={3}
+          lineWidth={lineWidth}
           total={60}
           progress={60 - (secondsTo + (millisecondsTo / 1000))}
           progressColor="rgb(187, 219, 219)"
         >
           <span>{getDoubleNumber(secondsTo)}</span>
         </CircleCounter>
-        <img src="../assets/images/header/reminder.png" />
+        <img className="hand" src="../assets/images/header/reminder.png" />
       </div>
     );
   }
