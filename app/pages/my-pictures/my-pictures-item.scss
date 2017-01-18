@@ -32,7 +32,6 @@
       margin: 0 auto;
       width: 30px;
       height: 30px;
-      background: #ececec;
     }
 
     &:last-child {
@@ -40,11 +39,12 @@
       justify-content: flex-end;
       align-items: flex-end;
 
-      a{
+      .fits{
         color: $white;
         padding: 0 5px;
         background: $blueGreen;
         font-weight: 900;
+        cursor: pointer;
       }
     }
   }
@@ -52,5 +52,14 @@
   &:hover {
     border: 4px solid $pink;
     opacity: 1;
+    color: white;
   }
+  &:focus {
+    color: white;
+    text-decoration: none;
+  }
+}
+
+.MyPicturesItemRoll{
+  opacity: 1;
 }

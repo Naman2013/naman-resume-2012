@@ -32,11 +32,7 @@ import Contact from './pages/about/contact';
 import Leadership from './pages/about/leadership';
 import Mission from './pages/about/mission';
 import News from './pages/about/news';
-import PhotoRoll from './pages/my-pictures/photo-roll';
-import Galleries from './pages/my-pictures/galleries';
-import Missions from './pages/my-pictures/missions';
-import Favorites from './pages/my-pictures/favorites';
-import SloohMostPopular from './pages/my-pictures/slooh-most-popular';
+import Gallery from './pages/my-pictures/gallery';
 import PublishPost from './pages/community/publish-post';
 import PulsePostList from './pages/pulse/pulse-post-list';
 import PulsePostContent from './pages/pulse/pulse-post';
@@ -129,12 +125,14 @@ ReactDOM.render(
 
 
         <Route path="my-pictures" component={MyPictures}>
-          <IndexRedirect to="photo-roll" />
-          <Route path="photo-roll" component={PhotoRoll} title="Photo roll" />
-          <Route path="favorites" component={Favorites} />
-          <Route path="galleries" component={Galleries} />
-          <Route path="missions" component={Missions} title="Mission" />
-          <Route path="slooh-most-popular" component={SloohMostPopular} />
+          <IndexRedirect to="photoRoll" />
+          <Route path="photoRoll" component={Gallery} title="Photo roll" />
+          <Route path="missions" title="Mission" component={Gallery} >
+            <Route path=":id" component={Gallery} />
+          </Route>
+          <Route path="favorites" component={Gallery} />
+          <Route path="galleries" component={Gallery} />
+          <Route path="slooh-most-popular" component={Gallery} />
         </Route>
 
       </Route>

@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import CircleTimer from '../containers/CircleTimer';
 import * as countDownEvents from '../modules/CountdownModule';
-import {fetchActiveOrUpcomingEvent} from '../modules/CountdownModule';
+import { fetchActiveOrUpcomingEvent } from '../modules/CountdownModule';
 import classes from '../styles/countdown.scss';
 
 const { bool, number, string, object, func } = PropTypes;
@@ -11,7 +11,7 @@ const { bool, number, string, object, func } = PropTypes;
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
     fetchActiveOrUpcomingEvent: fetchActiveOrUpcomingEvent,
-    countDownEvents
+    countDownEvents,
   }, dispatch);
 }
 
@@ -29,7 +29,15 @@ export default class Countdown extends PureComponent {
     activeOrUpcomingEvent: object,
     duration: string,
     seconds: number,
+    lineWidth: number,
+    className: string,
+    size: number,
     fetchActiveOrUpcomingEvent: func.isRequired,
+  };
+
+  static defaultProps = {
+    size: 35,
+    lineWidth: 3,
   };
 
   componentDidMount() {
@@ -57,6 +65,9 @@ export default class Countdown extends PureComponent {
       activeOrUpcomingEvent,
       duration,
       fetchActiveOrUpcomingEvent,
+      size,
+      lineWidth,
+      className,
     } = this.props;
 
     if (!isFetching) {
@@ -75,15 +86,20 @@ export default class Countdown extends PureComponent {
 
         if (eventStart > currentTime && currentTime < eventEnd) {
           return (
-            <div className={classes.countdown}>
-              <div>
-                <CircleTimer fetchActiveOrUpcomingEvent={fetchActiveOrUpcomingEvent} size={35} eventStartIn={eventStart} />
+            <div className={`${classes.countdown} ${className}`}>
+              <CircleTimer
+                fetchActiveOrUpcomingEvent={fetchActiveOrUpcomingEvent}
+                lineWidth={lineWidth}
+                size={size}
+                eventStartIn={eventStart}
+              />
+              <span>
                 <span>Next LIVE Event: </span>
                 <span>
                   <strong><a target="_blank" href={eventDetailsDecodedURL}>{eventTitle}</a></strong>
                   <span>{duration}</span>
                 </span>
-              </div>
+              </span>
             </div>
           );
         } else if (eventStart <= currentTime && currentTime <= eventEnd) {

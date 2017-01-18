@@ -8,6 +8,11 @@
   justify-content: space-between;
 }
 
+.my-pictures-container{
+  position: relative;
+  min-height: 300px;
+}
+
 .MyPicturesControl {
   display: flex;
   justify-content: center;

@@ -68,46 +68,48 @@ const list4 = {
 const tag = "The Moon";
 
 class PulseWrapper extends Component {
-  
+
   componentDidMount() {
     const { fetchLatestPosts, childPath } = this.props;
-    
+
     fetchLatestPosts(childPath, 1);
   }
-  
+
   componentWillReceiveProps(nextProps) {
     const { fetchLatestPosts, childPath } = this.props;
     if (nextProps.childPath !== childPath) {
       fetchLatestPosts(nextProps.childPath, 1);
     }
   }
-  
+
   render() {
-  
-    const {children, fetching, latestPosts: {posts, pages}} = this.props;
-  
+    const {
+      children,
+      fetching,
+      latestPosts: { posts, pages }
+    } = this.props;
+
     return (
       <section className="container clearfix">
-        
         <div className="col-md-8 nopadding">
-          
+
           {
             fetching ? <Spinner /> : cloneElement(children, {
-                posts: posts,
-                pages: pages
-              })
+              posts,
+              pages,
+            })
           }
-            
+
         </div>
-        
+
         <div className="col-md-4 mission-sidebar">
           <MissionAd />
-          
+
           <PulsePopular list={list}/>
           <PulsePopular tag={tag} list={list}/>
           <PulseRecommended list={list2}/>
         </div>
-      
+
       </section>
     )
   }
