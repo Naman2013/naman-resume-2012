@@ -6,7 +6,7 @@ import ReserveObjectsSummary from '../../components/reserve/reserve-by-object-su
 import ReservationSelectList from '../../components/common/forms/reservation-select-list';
 import styles from '../../components/reserve/reserve-by-object.scss';
 
-import { fetchCatagoryList, fetchPopularObjectList } from '../../modules/browse-popular-objects/api';
+import fetchCatagoryList, { fetchPopularObjectList } from '../../modules/browse-popular-objects/api';
 import { grabMissionSlot, missionConfirmOpen } from '../../modules/Missions';
 
 

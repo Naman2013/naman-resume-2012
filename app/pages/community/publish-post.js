@@ -1,43 +1,51 @@
 import React, { Component } from 'react';
-import Header from '../../components/publish-post/header';
 import _ from 'lodash';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { setTag, deleteTag } from '../../modules/tag-management/Tags';
+import Header from '../../components/publish-post/header';
+import { setTags, deleteTag } from '../../modules/tag-management/Tags';
 import SelectContentCategory from '../../components/publish-post/select-content-category';
 import ReservationSelectList from '../../components/common/forms/reservation-select-list';
+import { fetchCategoryTopicList } from '../../modules/browse-popular-objects/api';
+import submitObjectContent from '../../modules/community-content/submit-object-content';
+import setPostImages from '../../modules/set-post-images';
 
 import AddContent from '../../components/publish-post/add-content';
 import AddTags from '../../components/publish-post/add-tags';
-import testData from '../reserve/reserve-by-objects-data';
 import UploadImage from '../../components/publish-post/upload-image';
 import style from './publish-post.scss';
 
-const mapStateToProps = ({ tags }) => ({
+const mapStateToProps = ({ user, tags }) => ({
   tags,
+  user,
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
-    setTag,
+    setTags,
     deleteTag,
   }, dispatch),
 });
 
-@connect(mapStateToProps)
+@connect(mapStateToProps, mapDispatchToProps)
 class PublishPost extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      selectedCatagoryIndex: undefined,
-      selectedTopicIndex: undefined,
+      contentCategory: 'scienceLog',
+      selectedCatagoryIndex: null,
+      categoryList: [],
+      postUUID: null,
+      selectedTopicIndex: null,
       headline: '',
       bodyContent: '',
       newTagContent: '',
+      S3URLs: [],
       uploadedImages: [],
     };
 
+    this.handleCategoryListSelect = this.handleCategoryListSelect.bind(this);
     this.handleCatagorySelectChange = this.handleCatagorySelectChange.bind(this);
     this.handleTopicSelectChange = this.handleTopicSelectChange.bind(this);
     this.handleHeadlineChange = this.handleHeadlineChange.bind(this);
@@ -46,21 +54,75 @@ class PublishPost extends Component {
     this.handleRemoveTag = this.handleRemoveTag.bind(this);
     this.handleTagTextChange = this.handleTagTextChange.bind(this);
     this.handleUploadImage = this.handleUploadImage.bind(this);
+    this.handleSubmitPost = this.handleSubmitPost.bind(this);
+  }
+
+  componentWillMount() {
+    this.setupForm();
+  }
+
+  setupForm() {
+    const { cid, at, token } = this.props.user;
+    fetchCategoryTopicList({
+      cid,
+      at,
+      token,
+    }).then(result => this.handleCategoryResponse(result.data));
+  }
+
+  handleCategoryResponse({ categoryList, postUUID }) {
+    this.setState({
+      categoryList,
+      postUUID,
+      selectedCatagoryIndex: null,
+      selectedTopicIndex: null,
+      headline: '',
+      bodyContent: '',
+      newTagContent: '',
+      S3URLs: [],
+      uploadedImages: [],
+    });
+
+    window.scrollTo(0, 0);
+  }
+
+  handleCategoryListSelect(contentCategory) {
+    this.setState({
+      contentCategory,
+    });
   }
 
   handleAddNewTag(event) {
     event.preventDefault();
-    const { newTagContent } = this.state;
-    // TODO: complete set tag function
-    // TODO: clear out newTagContent
-    console.log('call set tag.');
-    // this.props.actions.setTag();
+    const { newTagContent, postUUID } = this.state;
+
+    this.props.actions.setTags({
+      tagClass: 'content',
+      tagType: 'post',
+      uniqueId: postUUID,
+      text: newTagContent,
+    });
+
+    this.setState({
+      newTagContent: '',
+    });
   }
 
   handleRemoveTag(event, tagIndex) {
     event.preventDefault();
-    // TODO: handle removing tag
-    console.log('remove tag...');
+
+    const { postUUID } = this.state;
+    const tagText = this.findTag(tagIndex);
+    this.props.actions.deleteTag({
+      tagClass: 'content',
+      tagType: 'post',
+      uniqueId: postUUID,
+      text: tagText.tagText,
+    });
+  }
+
+  findTag(tagIndex) {
+    return this.tagList[tagIndex];
   }
 
   handleTagTextChange(event) {
@@ -95,52 +157,116 @@ class PublishPost extends Component {
 
   handleUploadImage(event) {
     event.preventDefault();
-    console.log('value...');
-    console.log(event.target.value);
-    console.log('files...');
-    console.log(event.target.files);
-    // TODO: handle uploading the new image and updating internal state
-    console.log('handle upload image');
+
+    const { cid, token, at } = this.props.user;
+    const { postUUID } = this.state;
+    const data = new FormData();
+    data.append('cid', cid);
+    data.append('token', token);
+    data.append('at', at);
+    data.append('uniqueId', postUUID);
+    data.append('imageClass', 'community');
+    data.append('attachment', event.target.files[0]);
+
+    setPostImages(data).then(result => this.handleUploadImageResponse(result.data));
+  }
+
+  handleUploadImageResponse(uploadFileData) {
+    this.setState({
+      S3URLs: uploadFileData.S3URLs,
+      imageList: uploadFileData.imageList,
+    });
+  }
+
+  handleSubmitPost(event) {
+    event.preventDefault();
+    const { at, token, cid } = this.props.user;
+    const tags = this.tagList.map(tag => tag.tagText);
+    const { headline, bodyContent, S3URLs, contentCategory } = this.state;
+    const topic = this.selectedTopic;
+
+    if (topic) {
+      submitObjectContent({
+        at,
+        token,
+        cid,
+        objectSlug: topic.topicSlug,
+        status: topic.topicStatus,
+        type: contentCategory,
+        title: headline,
+        content: bodyContent,
+        postTags: tags,
+        S3URLs,
+      }).then(() => {
+        alert('Your post has been submitted for review.  Your post will appear on the website once it has been approved.');
+        this.setupForm();
+      });
+    } else {
+      alert('Make sure to select a category AND a topic for your post.');
+    }
+  }
+
+  get objectCategories() {
+    return this.state.categoryList.map(category => category.categoryDisplayName);
+  }
+
+  get currentCategory() {
+    const { selectedCatagoryIndex } = this.state;
+    return this.state.categoryList[selectedCatagoryIndex];
+  }
+
+  get currentCategoryTopics() {
+    const { categoryList, selectedCatagoryIndex } = this.state;
+    return (categoryList[selectedCatagoryIndex]
+            && categoryList[selectedCatagoryIndex].categoryTopicList) || [];
+  }
+
+  get formattedCategoryTopics() {
+    return _.flatten(this.currentCategoryTopics.map((topic) => {
+      if (topic.topicIsSubcategory) {
+        return {
+          title: topic.topicName,
+        };
+      }
+
+      return {
+        option: topic.topicDisplayName,
+        ...topic,
+      };
+    }));
+  }
+
+  get selectedTopic() {
+    const { selectedTopicIndex } = this.state;
+    return this.formattedCategoryTopics[selectedTopicIndex];
+  }
+
+  get tagList() {
+    const { tags } = this.props;
+    return _.has(tags, 'tags.tagList') ? tags.tags.tagList : [];
   }
 
   render() {
-    const { tags } = this.props;
     const {
+      selectedCategoryListIndex,
       selectedCatagoryIndex,
       selectedTopicIndex,
       headline,
       bodyContent,
       newTagContent,
-      uploadedImages
+      S3URLs,
     } = this.state;
-    const availableObjectCatagories = testData.categories.map(catagory => catagory.title);
-    const selectedObjectCatagory = testData.categories[selectedCatagoryIndex];
-
-    let objectTopics = [];
-    if(selectedObjectCatagory) {
-      objectTopics = _.flatten(selectedObjectCatagory.objects.map(objectCatagory => {
-        return objectCatagory.items.map((item, index) => {
-          if(index === 0) {
-            return {
-              title: objectCatagory.title,
-              option: item.title,
-            }
-          }
-          return item.title;
-        });
-      }));
-    }
 
     return (
       <div>
-
         <Header />
-
         <ul className="publish-post-list">
           <li className="item">
             <span className="number">1</span>
             <p className="description">Select a Content Category</p>
-            <SelectContentCategory />
+            <SelectContentCategory
+              handleCategoryClick={this.handleCategoryListSelect}
+            />
           </li>
 
           <li className="item">
@@ -150,7 +276,7 @@ class PublishPost extends Component {
             <div className="select-object-category-and-topic-wrapper">
               <div className="select-object-category">
                 <ReservationSelectList
-                  options={availableObjectCatagories}
+                  options={this.objectCategories}
                   name={'catagories'}
                   handleSelectChange={this.handleCatagorySelectChange}
                   selectedIndex={selectedCatagoryIndex}
@@ -159,15 +285,13 @@ class PublishPost extends Component {
 
               <div className="select-object-topic">
                 <ReservationSelectList
-                  options={objectTopics}
+                  options={this.formattedCategoryTopics}
                   name="topics"
                   handleSelectChange={this.handleTopicSelectChange}
                   selectedIndex={selectedTopicIndex}
                 />
               </div>
             </div>
-
-
           </li>
 
           <li className="item">
@@ -189,7 +313,7 @@ class PublishPost extends Component {
               handleTagTextChange={this.handleTagTextChange}
               handleAddNewTag={this.handleAddNewTag}
               handleRemoveTag={this.handleRemoveTag}
-              tags={tags.tags}
+              tags={this.tagList}
             />
           </li>
 
@@ -199,17 +323,17 @@ class PublishPost extends Component {
 
             <UploadImage
               handleUploadImage={this.handleUploadImage}
-              displayImages={uploadedImages}
+              displayImages={S3URLs}
             />
           </li>
 
           <li className="item">
             <button className="btn-primary cancel-btn">Sorry, Cancel This.</button>
-            <button className="btn-primary">Submit for Review</button>
+            <button onClick={this.handleSubmitPost} className="btn-primary">Submit for Review</button>
           </li>
         </ul>
       </div>
-    )
+    );
   }
 }
 

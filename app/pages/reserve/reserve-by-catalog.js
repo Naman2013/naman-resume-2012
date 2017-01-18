@@ -15,8 +15,9 @@
   it will use that instead of the data provided from checkTargetVisibility - as
   the API assumes that the client already knows what scheduleMissionId it is interested in.
 
-  When a scheduledMissionId is NOT provided, it will assume that the call to checkCatalogVisibility is
-  made, and the scheduledMissionId is stored there within the components internal state.
+  When a scheduledMissionId is NOT provided, it will assume that the call to
+  checkCatalogVisibility is made, and the scheduledMissionId is stored
+  there within the components internal state.
 */
 
 import React, { Component, PropTypes } from 'react';
