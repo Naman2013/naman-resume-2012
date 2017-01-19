@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 
-const { number, string, symbol } = PropTypes;
+const { number, string, object } = PropTypes;
 
 export default class CircleCounter extends Component {
   static propTypes = {
@@ -9,7 +9,7 @@ export default class CircleCounter extends Component {
     size: number,
     lineWidth: number,
     progressColor: string,
-    children: symbol,
+    children: object,
   };
 
   static defaultProps = () => ({

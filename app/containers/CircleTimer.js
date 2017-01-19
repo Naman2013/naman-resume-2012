@@ -18,7 +18,7 @@ export default class CircleTimer extends Component {
   static propTypes = {
     size: number,
     eventStartIn: string,
-    lineWidth: string,
+    lineWidth: number,
     fetchActiveOrUpcomingEvent: func.isRequired,
   };
 

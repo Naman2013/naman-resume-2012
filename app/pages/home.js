@@ -28,7 +28,7 @@ class Home extends Component {
   }
 
   generateSloohFeatures() {
-    return CONTENT.SLOOH_FEATURES.map( feature => <SloohFeatures {...feature} /> );
+    return CONTENT.SLOOH_FEATURES.map(feature => <SloohFeatures {...feature} />);
   }
 
   render() {

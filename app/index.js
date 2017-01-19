@@ -123,7 +123,6 @@ ReactDOM.render(
           <Route path="post(/:id)" name="post" component={PulsePostContent} onUpdate={() => window.scrollTo(0, 0)} />
         </Route>
 
-
         <Route path="my-pictures" component={MyPictures}>
           <IndexRedirect to="photoRoll" />
           <Route path="photoRoll" component={Gallery} title="Photo roll" />
