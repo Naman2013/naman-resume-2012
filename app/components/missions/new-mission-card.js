@@ -42,7 +42,9 @@ class NewMissionCard extends Component {
   componentDidMount() {
     const { expires } = this.props.reservation;
     const timer = moment.unix(expires).diff(moment());
-    this.updateReservationTimeout = setInterval(this.updateReservation, timer);
+    if (typeof timer === 'number') {
+      this.updateReservationTimeout = setInterval(this.updateReservation, timer);
+    }
   }
 
   componentWillUnmount() {

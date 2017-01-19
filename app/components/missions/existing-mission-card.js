@@ -52,7 +52,9 @@ class ExistingMissionCard extends Component {
   componentDidMount() {
     const { expires } = this.props.piggyback;
     const timer = moment.unix(expires).diff(moment());
-    this.updateReservationTimeout = setInterval(this.update, timer);
+    if (typeof timer === 'number') {
+      this.updateReservationTimeout = setInterval(this.update, timer);
+    }
   }
 
   componentWillUnmount() {
