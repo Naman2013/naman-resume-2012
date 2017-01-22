@@ -7,7 +7,7 @@ const MyPicturesNavigation = ({ count }) => {
     <nav className={styles.myPictureNavigation}>
       <ul>
         <li>
-          <Link to="my-pictures/photoRoll" activeClassName="active">
+          <Link to="my-pictures/photo-roll" activeClassName="active">
             Photo Roll<span>({count})</span>
           </Link>
         </li>
