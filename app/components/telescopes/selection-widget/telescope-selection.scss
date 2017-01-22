@@ -84,9 +84,23 @@
         width: 100px;
         text-align: center;
 
-        .telescope-button.active .img-circle {
-          border-radius: 50%;
-          border: 5px solid $pink;
+        .telescope-button {
+          width: 100%;
+          display: inline-block;
+
+          &.active,
+          &.hovered {
+            cursor: pointer;
+            .img-circle {
+              border-radius: 50%;
+              border: 5px solid $pink;
+            }
+          }
+          &.active.hovered-exists {
+            .img-circle {
+              border-color: transparent;
+            }
+          }
         }
       }
 

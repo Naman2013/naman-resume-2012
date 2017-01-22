@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-
 import Hero from '../components/home/hero';
 import RecentVideoTile from '../components/home/recent-video-tile';
 import PromoMessageBand from '../components/common/headers/promo-message-band';
@@ -11,6 +10,7 @@ import Sponsors from '../components/home/sponsors';
 import Dedication from '../components/home/slooh-extras/dedication';
 import Featured from '../components/home/slooh-extras/featured';
 import TwitterFeed from '../components/home/slooh-extras/twitter-feed';
+import style from './home.scss';
 
 // static content
 import CONTENT from '../content/home';
@@ -18,13 +18,11 @@ import CONTENT from '../content/home';
 class Home extends Component {
 
   fetchStaticHero() {
-    return(
-      <Hero {...CONTENT.STATIC_HERO} />
-    );
+    return <Hero {...CONTENT.STATIC_HERO} />;
   }
 
   generateRecentVideoTiles() {
-    return CONTENT.RECENT_STUFF.map( videoTile => <RecentVideoTile {...videoTile} /> );
+    return CONTENT.RECENT_STUFF.map(videoTile => <RecentVideoTile {...videoTile} />);
   }
 
   generateSloohFeatures() {
@@ -32,8 +30,8 @@ class Home extends Component {
   }
 
   render() {
-    return(
-      <div>
+    return (
+      <div className={`${style.homeContainer} clearfix`}>
         {this.fetchStaticHero()}
 
         <div className="clearfix">
@@ -56,22 +54,27 @@ class Home extends Component {
           showCallToAction={false}
           showSliderBorder={false}
           showArrows={false}
-          numberOfSlidesToDisplay={3} />
+          numberOfSlidesToDisplay={3}
+        />
 
         <PromoMessageBand title={CONTENT.SPONSORS_CONTENT_BAND} />
 
         <Sponsors
           title={CONTENT.SPONSORS_SUB_TITLE}
-          sponsorImages={CONTENT.SPONSOR_IMAGES} />
+          sponsorImages={CONTENT.SPONSOR_IMAGES}
+        />
 
         <Dedication
-          title="Dedication"/>
+          title="Dedication"
+        />
 
         <Featured
-          title="Where we've been featured..."/>
+          title="Where we've been featured..."
+        />
 
         <TwitterFeed
-          title="Hashtag #slooh"/>
+          title="Hashtag #slooh"
+        />
       </div>
     );
   }

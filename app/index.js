@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { Router, Route, IndexRoute, IndexRedirect, browserHistory, hashHistory } from 'react-router';
+import { Router, Route, IndexRoute, IndexRedirect, hashHistory } from 'react-router';
 import configureStore from './store';
 
 // containers
@@ -9,7 +9,7 @@ import App from './containers/App';
 import StaticAppContainer from './containers/static-app-container';
 import Reservations from './containers/Reservations';
 import SloohRecommends from './containers/SloohRecommends';
-import MyPictures from './containers/Pictures';
+import MyPictures from './containers/MyPictures';
 import PulseList from './containers/pulse/PulseList';
 import PulseWrapper from './containers/pulse/PulseWrapper';
 import PulsePost from './containers/pulse/PulsePost';
@@ -32,8 +32,11 @@ import Contact from './pages/about/contact';
 import Leadership from './pages/about/leadership';
 import Mission from './pages/about/mission';
 import News from './pages/about/news';
-import Gallery from './pages/my-pictures/gallery';
-import PublishPost from './pages/community/publish-post';
+
+import PhotoRoll from './pages/my-pictures/PhotoRoll';
+import Missions from './pages/my-pictures/Missions';
+
+import PublishPost from './pages/publish-post/publish-post';
 import PulsePostList from './pages/pulse/pulse-post-list';
 import PulsePostContent from './pages/pulse/pulse-post';
 import ObjectPostList from './pages/pulse/object-post-list';
@@ -56,9 +59,9 @@ ReactDOM.render(
         <IndexRedirect to="mission" />
         <Route path="mission" component={Mission} />
         <Route path="news" component={News} title="In The News" subTitle="[Sub-title for news page]" />
-        <Route path="job" component={Job}  title="Work With Us" subTitle="[Sub-title for news page]" />
-        <Route path="contact" component={Contact}  title="Contact US" subTitle="[Sub-title for news page]" />
-        <Route path="leadership" component={Leadership}  title="Leadership" subTitle="[Sub-title for news page]" />
+        <Route path="job" component={Job} title="Work With Us" subTitle="Share your passion for astronomy with the world" />
+        <Route path="contact" component={Contact} title="Contact US" subTitle="[Sub-title for news page]" />
+        <Route path="leadership" component={Leadership} title="Leadership" subTitle="[Sub-title for news page]" />
       </Route>
 
       <Route path="/" component={App}>
@@ -100,6 +103,10 @@ ReactDOM.render(
           <Route path="hottest-posts" component={PulseWrapper} />
         </Route>
 
+        <Route path="slooh-pulse" component={PulsePost}>
+          <Route path="post(/:id)" name="post" component={PulsePostContent} onUpdate={() => window.scrollTo(0, 0)} />
+        </Route>
+
         <Route path="objects-list" component={ObjectList}>
           <IndexRedirect to="all-time-best" />
 
@@ -119,19 +126,10 @@ ReactDOM.render(
           {/**/}
         </Route>
 
-        <Route path="slooh-pulse" component={PulsePost} >
-          <Route path="post(/:id)" name="post" component={PulsePostContent} onUpdate={() => window.scrollTo(0, 0)} />
-        </Route>
-
         <Route path="my-pictures" component={MyPictures}>
-          <IndexRedirect to="photoRoll" />
-          <Route path="photoRoll" component={Gallery} title="Photo roll" />
-          <Route path="missions" title="Mission" component={Gallery} >
-            <Route path=":id" component={Gallery} />
-          </Route>
-          <Route path="favorites" component={Gallery} />
-          <Route path="galleries" component={Gallery} />
-          <Route path="slooh-most-popular" component={Gallery} />
+          <IndexRedirect to="photo-roll" />
+          <Route path="photo-roll(/:scheduledMissionId)" title="Photo roll" component={PhotoRoll} />
+          <Route path="missions" title="Missions" component={Missions} />
         </Route>
 
       </Route>

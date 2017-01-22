@@ -1,30 +1,31 @@
 import React, { Component, PropTypes } from 'react';
+import _ from 'lodash';
 import classnames from 'classnames';
 import style from './select-content-category.scss';
 
 const categories = [
   {
+    contentKey: 'scienceLogText',
     title: 'Science log',
     className: 'science-log',
-    description: 'The science category involves stats and data, historical context and explorers, and overall astronomy.',
     value: 'scienceLog',
   },
   {
+    contentKey: 'artCultureText',
     title: 'Art & culture',
     className: 'art',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi esse praesentium quibusdam saepe.',
     value: 'artCulture',
   },
   {
+    contentKey: 'humanSpiritText',
     title: 'Human spirit',
     className: 'spirit',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsam obcaecati rem sit tempora?',
     value: 'humanSpirit',
   },
   {
+    contentKey: 'diyText',
     title: 'diy',
     className: 'diy',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. A fuga praesentium repudiandae saepe!',
     value: 'diy',
   },
 ];
@@ -35,9 +36,57 @@ class SelectContentCategory extends Component {
 
     this.state = {
       selectedIndex: 0,
+      highlightedIndex: 0,
     };
 
     this.handleChangeCategoryClick = this.handleChangeCategoryClick.bind(this);
+    this.handleMouseLeave = this.handleMouseLeave.bind(this);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    /**
+      when a new truth is passed into the component we need to sync up the
+      highlighted and the selected indexs to match the parent expectations
+    */
+    const { contentCategory } = nextProps;
+    const nextSelectedIndex =
+      _.findIndex(categories, category => category.value === contentCategory);
+
+    this.setState({
+      selectedIndex: nextSelectedIndex,
+      highlightedIndex: nextSelectedIndex,
+    });
+  }
+
+  getRelevantContentDescription(contentKey) {
+    const {
+      artCultureText,
+      diyText,
+      humanSpiritText,
+      scienceLogText,
+    } = this.props;
+
+    /**
+      the api returns individual fields for each of the supported category
+      types.  here we match against hard strings to connect the two
+    */
+    if (contentKey === 'artCultureText') {
+      return artCultureText;
+    }
+
+    if (contentKey === 'diyText') {
+      return diyText;
+    }
+
+    if (contentKey === 'humanSpiritText') {
+      return humanSpiritText;
+    }
+
+    if (contentKey === 'scienceLogText') {
+      return scienceLogText;
+    }
+
+    return '';
   }
 
   handleChangeCategoryClick(event, selectedIndex) {
@@ -48,22 +97,37 @@ class SelectContentCategory extends Component {
     this.props.handleCategoryClick(categories[selectedIndex].value);
   }
 
-  render() {
+  handleMouseEnter(highlightedIndex) {
+    this.setState({
+      highlightedIndex,
+    });
+  }
+
+  handleMouseLeave() {
     const { selectedIndex } = this.state;
+    this.setState({
+      highlightedIndex: selectedIndex,
+    });
+  }
+
+  render() {
+    const { highlightedIndex } = this.state;
 
     const categoryList = categories.map((category, index) => {
       const categoryClasses = classnames(`category-item ${category.className}`, {
-        active: selectedIndex == index,
+        active: highlightedIndex == index,
       });
 
       return (
         <li
           key={index}
           className={categoryClasses}
+          onMouseEnter={() => { this.handleMouseEnter(index); }}
+          onMouseLeave={this.handleMouseLeave}
           onClick={(event) => { this.handleChangeCategoryClick(event, index); }}
         >
           <h4 className="category-name">{category.title}</h4>
-          <p className="category-description">{category.description}</p>
+          <p className="category-description">{this.getRelevantContentDescription(category.contentKey)}</p>
         </li>
       );
     });
@@ -76,8 +140,20 @@ class SelectContentCategory extends Component {
   }
 }
 
+SelectContentCategory.defaultProps = {
+  artCultureText: '',
+  diyText: '',
+  humanSpiritText: '',
+  scienceLogText: '',
+};
+
 SelectContentCategory.propTypes = {
+  contentCategory: PropTypes.string.isRequired,
   handleCategoryClick: PropTypes.func.isRequired,
+  artCultureText: PropTypes.string,
+  diyText: PropTypes.string,
+  humanSpiritText: PropTypes.string,
+  scienceLogText: PropTypes.string,
 };
 
 export default SelectContentCategory;

@@ -1,7 +1,6 @@
 export default {
   STATIC_HERO: {
-    //backgroundImageUrl: 'assets/images/graphics/stargazers-bg.png',
-    backgroundImageUrl: '',
+    backgroundImageUrl: 'assets/images/graphics/stargazers-bg.png',
     mainHeadingText: 'WELCOME TO SPACE FOR EVERYONE.',
     subHeadingText: 'Slooh.com is Online Telescopes, LIVE Streaming Events, Original Video Programming, and more.',
     funFactText: 'That light started towards earth 2 million years ago? Seriously?',
@@ -13,14 +12,14 @@ export default {
     {
       key: 1,
       title: 'BOB BERMAN LIVE',
-      content: `Join author and astronomer as he goes live for a full hour, featuring galactic views of Slooh’s scopes this Thurs. at 5 PM EST.`,
+      content: 'Join author and astronomer as he goes live for a full hour, featuring galactic views of Slooh’s scopes this Thurs. at 5 PM EST.',
       imageUrl: 'assets/images/samples/bobpubjpg.png',
       videoUrl: 'https://www.youtube.com/embed/YNq9EJeCruA'
     },
     {
       key: 2,
       title: 'CAPTURING A COMET’S TAIL',
-      content: `Learn all about how Slooh Members managed to image comet 67P’s long trail—the source of meteor showers.`,
+      content: 'Learn all about how Slooh Members managed to image comet 67P\'s long trail—the source of meteor showers.',
       imageUrl: 'assets/images/samples/perseid-meteor-shower.png',
       videoUrl: 'https://www.youtube.com/embed/3s9eAAgGIys'
     },

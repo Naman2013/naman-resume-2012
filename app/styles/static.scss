@@ -111,7 +111,7 @@ body {
         text-align: center;
     }
     .membership .sigil {
-        background: $slooh-blue-xxlight url('../icons/astronaut-white.svg') no-repeat top center;
+        background: $slooh-blue-xxlight url('../../assets/icons/astronaut-white.svg') no-repeat top center;
         background-size: cover;
         border: 10px solid $slooh-white;
         border-radius: 50% 50%;
@@ -146,12 +146,12 @@ body {
         transition: background-color .2s linear;
     }
     .sigil.slooh {
-        background: transparent url('../chrome/Siggle-Slooh.svg') center no-repeat;
+        background: transparent url('../../assets/chrome/Siggle-Slooh.svg') center no-repeat;
     }
     .headshot.member {
         color: transparent;
         background-color: $slooh-blue-xxlight;
-        background-image: url('../icons/astronaut-white.svg');
+        background-image: url('../../assets/icons/astronaut-white.svg');
         background-repeat: no-repeat;
         background-position: center center;
         background-size: contain;
@@ -163,7 +163,7 @@ body {
         left: 0;
     }
     .byline .headshot {
-        background: $slooh-gray-xxlight url(../icons/astronaut.svg) center center no-repeat;
+        background: $slooh-gray-xxlight url(../../assets/icons/astronaut.svg) center center no-repeat;
         background-size: cover;
         border-radius: 25px;
         float: left;
@@ -195,13 +195,13 @@ body {
         z-index: 95;
     }
     .card#leadership1 .headshot {
-        background-image: url(../images/photos/people/jct.jpg);
+        background-image: url(../../assets/images/photos/people/jct.jpg);
     }
     .card#leadership2 .headshot {
-        background-image: url(../images/photos/people/jct.jpg);
+        background-image: url(../../assets/images/photos/people/jct.jpg);
     }
     .card#leadership3 .headshot {
-        background-image: url(../images/photos/people/jct.jpg);
+        background-image: url(../../assets/images/photos/people/jct.jpg);
     }
     .sans {
         font-family: $slooh-sans;
@@ -395,7 +395,7 @@ body {
         text-align: left;
     }
     .info-white {
-        background: url(../icons/info-white.svg);
+        background: url(../../assets/icons/info-white.svg);
         cursor: help;
     }
     .lighter {
@@ -458,10 +458,10 @@ body {
         opacity: .6;
     }
     .twitter i.icon {
-        background-image: url(../icons/twitter.svg);
+        background-image: url(../../assets/icons/twitter.svg);
     }
     .email i.icon {
-        background-image: url('..//icons/email.svg');
+        background-image: url('../../assets/icons/email.svg');
     }
     .icon.control {
         color: $slooh-black !important;
@@ -591,7 +591,7 @@ body {
         float: right;
     }
     .divider-img {
-        background: url(../chrome/line-1.png) transparent no-repeat center center;
+        background: url(../../assets/chrome/line-1.png) transparent no-repeat center center;
     }
     .popup {
         background-color: $slooh-white;
@@ -682,7 +682,7 @@ body {
         padding-left: 20px !important;
     }
     .not:before {
-        background: url(../icons/not.svg) transparent top right no-repeat;
+        background: url(../../assets/icons/not.svg) transparent top right no-repeat;
         background-size: cover;
         content: "";
         height: 10px;
@@ -767,7 +767,7 @@ body {
         position: relative;
     }
     .like .number {
-        background: transparent url(../icons/heart.svg) no-repeat center;
+        background: transparent url(../../assets/icons/heart.svg) no-repeat center;
         color: $slooh-white;
         padding: 10px;
         text-align: center;
@@ -1289,7 +1289,7 @@ body {
         width: 100%;
     }
     footer.page {
-        background-image: linear-gradient(to right, rgba($slooh-blue-dark, .6), rgba($slooh-blue-xdark, .9)), url(../images/photos/stellar.jpg);
+        background-image: linear-gradient(to right, rgba($slooh-blue-dark, .6), rgba($slooh-blue-xdark, .9)), url(../../assets/images/photos/stellar.jpg);
         background-repeat: no-repeat, no-repeat;
         background-size: cover;
         clear: both;
@@ -1457,34 +1457,34 @@ body {
         vertical-align: middle;
     }
     .icon-location {
-        background-image: url(../icons/location.svg);
+        background-image: url(../../assets/icons/location.svg);
     }
     .icon-calendar {
-        background-image: url(../icons/calendar.svg);
+        background-image: url(../../assets/icons/calendar.svg);
     }
     .icon-weather {
-        background-image: url(../icons/weather.svg);
+        background-image: url(../../assets/icons/weather.svg);
     }
     .icon-telescope {
-        background-image: url(../icons/telescope.svg);
+        background-image: url(../../assets/icons/telescope.svg);
     }
     .icon-planet {
-        background-image: url(../icons/planet.svg);
+        background-image: url(../../assets/icons/planet.svg);
     }
     .icon-science {
-        background-image: url(../icons/science_log.svg);
+        background-image: url(../../assets/icons/science_log.svg);
     }
     .icon-galaxy {
-        background-image: url(../icons/galaxy.svg);
+        background-image: url(../../assets/icons/galaxy.svg);
     }
     .icon-diy {
-        background-image: url(../icons/diy.svg);
+        background-image: url(../../assets/icons/diy.svg);
     }
     .icon-spirit {
-        background-image: url(../icons/spirit.svg);
+        background-image: url(../../assets/icons/spirit.svg);
     }
     .icon-art {
-        background-image: url(../icons/art.svg);
+        background-image: url(../../assets/icons/art.svg);
     }
     .title {
         vertical-align: middle;
@@ -1597,12 +1597,12 @@ body {
             z-index: 99999;
         }
         fieldset.required:before {
-            background: url(../icons/check.svg) transparent top right no-repeat;
+            background: url(../../assets/icons/check.svg) transparent top right no-repeat;
             content: "";
             visibility: hidden;
         }
         fieldset.required:after {
-            background: url(../icons/warning.svg)transparent top right no-repeat;
+            background: url(../../assets/icons/warning.svg)transparent top right no-repeat;
             content: "";
             display: block;
             overflow: visible;
@@ -1790,7 +1790,7 @@ body {
         font-style: normal;
     }
     i.caution {
-        background: url(../icons/warning.svg) transparent top right no-repeat;
+        background: url(../../assets/icons/warning.svg) transparent top right no-repeat;
         display: inline-block;
         height: 15px;
         margin-left: 8px;
@@ -1799,7 +1799,7 @@ body {
         width: 15px;
     }
     i.close {
-        background: url(../icons/close-1.svg) transparent top right no-repeat;
+        background: url(../../assets/icons/close-1.svg) transparent top right no-repeat;
         display: inline-block;
         height: 100%;
         opacity: 1;

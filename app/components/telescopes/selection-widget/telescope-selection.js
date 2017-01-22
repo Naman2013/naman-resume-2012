@@ -21,16 +21,23 @@ class TelescopeSelection extends React.Component {
       showTelescopes: true, // used to toggle the display of telescopes
       activeObservatoryId: obsUniqueId,
       activeTelescopeId: teleUniqueId,
+      hoveredTelescope: null,
     };
+
+    this.handleMouseEnter = this.handleMouseEnter.bind(this);
+    this.handleMouseLeave = this.handleMouseLeave.bind(this);
 
   }
 
-  handleMouseEnter(event) {
-    /**
-      TODO: set the current active observatoryID
-    */
+  handleMouseEnter(telescope) {
     this.setState({
-      activeObservatoryId: ``,
+      hoveredTelescope: telescope,
+    });
+  }
+
+  handleMouseLeave() {
+    this.setState({
+      hoveredTelescope: null,
     });
   }
 
@@ -52,8 +59,9 @@ class TelescopeSelection extends React.Component {
       showUTCTimer,
       theme } = this.props;
     const { obsUniqueId, teleUniqueId } = params;
+    const { hoveredTelescope } = this.state;
 
-    if(observatoryList.length === 0) {
+    if (observatoryList.length === 0) {
       return null;
     }
 
@@ -76,8 +84,8 @@ class TelescopeSelection extends React.Component {
           <div className="categories">
             <ul className="category-list">
               {
-                observatoryList.map(observatory => {
-                  return(
+                observatoryList.map((observatory) => {
+                  return (
                     <li className="observatory" key={observatory.obsUniqueId}>
                       <Link
                         activeClassName="active"
@@ -97,14 +105,23 @@ class TelescopeSelection extends React.Component {
                 activeObservatory.obsTelescopes.map(telescope => (
                   <li
                     key={telescope.teleUniqueId}
-                    className="icon-container">
+                    className="icon-container"
+                  >
                     <Link
-                      className="telescope-button"
+                      className={
+                        `${hoveredTelescope && hoveredTelescope.teleUniqueId !== activeTelescope.teleUniqueId ? 'hovered-exists' : ''}
+                         ${hoveredTelescope && hoveredTelescope.teleUniqueId === telescope.teleUniqueId ? 'hovered' : ''}
+                         telescope-button`
+                      }
                       activeClassName="active"
-                      to={`${rootRoute}/${obsUniqueId}/${telescope.teleUniqueId}${appendToRoute}`}>
+                      onMouseEnter={() => this.handleMouseEnter(telescope)}
+                      onMouseLeave={this.handleMouseLeave}
+                      to={`${rootRoute}/${obsUniqueId}/${telescope.teleUniqueId}${appendToRoute}`}
+                    >
                       <img
                         className="icon img-circle"
-                        src={ telescope.teleLogoURL } />
+                        src={telescope.teleLogoURL}
+                      />
                     </Link>
                   </li>
                 ))
@@ -116,7 +133,7 @@ class TelescopeSelection extends React.Component {
         </div>
 
         <div className="description">
-          { activeTelescope.teleTelescopeUsage }
+          {hoveredTelescope ? hoveredTelescope.teleTelescopeUsage : activeTelescope.teleTelescopeUsage}
         </div>
 
       </div>

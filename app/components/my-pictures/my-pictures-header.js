@@ -1,20 +1,9 @@
-import React, { Component, PropTypes } from 'react';
-import styles from "./my-pictures-header.scss"
+import React, { PropTypes } from 'react';
+import styles from './my-pictures-header.scss';
 
-const MyPicturesHeader = ({ title }) =>
+const MyPicturesHeader = () =>
   <div className={styles.myPictureHeader}>
-    
-    <h1>{title}</h1>
-    
-    <div>
-      <button className="button btn-primary">Upload file</button>
-    </div>
-  
+    <h1>My Pictures</h1>
   </div>;
 
-
 export default MyPicturesHeader;
-
-MyPicturesHeader.propTypes = {
-  title: PropTypes.string
-};

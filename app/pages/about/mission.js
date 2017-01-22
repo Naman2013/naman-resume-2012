@@ -21,9 +21,8 @@ class Mission extends Component {
 
                 </header>
 
-
                 <i className="sigil slooh">
-                    <img src="../app/chrome/Siggle-Slooh.svg" width="100" height="100" className="center-center"/>
+                  <img alt="Slooh Sigil" src="assets/chrome/Siggle-Slooh.svg" width="100" height="100" className="center-center" />
                 </i>
 
                 <section className="row-col margin-bottom-xxlarge move-up-xxlarge">
@@ -49,15 +48,15 @@ class Mission extends Component {
                     <aside className="col-third">
 
                         <figure className="">
-                            <img src="../app/images/photos/people/michael_paolucci.jpg" width="270" height="317" />
+                            <img src="assets/images/photos/people/michael_paolucci.jpg" width="270" height="317" />
                                 <figcaption>
                                     <div className="name">Michael Paolucci</div>
                                     <div className="title">Founder &amp; CEO</div>
                                 </figcaption>
                         </figure>
 
-                        <div className="margin-top-med center-center" style={{width: 270}}>
-                            <img src="../app/chrome/signiture-michael.svg" width="200"/>
+                        <div className="margin-top-med center-center" style={{ width: 270 }}>
+                          <img alt="Signiture of Michael Paolucci" src="assets/chrome/signiture-michael.svg" width="200" />
                         </div>
 
                     </aside>
@@ -68,7 +67,7 @@ class Mission extends Component {
 
                     <header className="row-col margin-bottom-xlarge">
                         <i className="pull-left margin-bottom-med margin-right-med">
-                            <img src="../app/icons/icon-SLT-live.svg" width="60"/>
+                            <img src="assets/icons/icon-SLT-live.svg" width="60" />
                         </i>
                         <div className="pull-right col-med">
                             <h1 className="white">Syndicate Live Telescope Coverage</h1>

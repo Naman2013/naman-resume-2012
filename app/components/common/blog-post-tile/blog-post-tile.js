@@ -15,23 +15,27 @@ const BlogPostTile = ({
   membershipType,
   memberSince,
   location,
-  slugIconURL
+  slugIconURL,
+  postId
 }) => {
   const postTileStyle = {
     backgroundImage: `url(${imageURL})`,
   };
+
   return (
     <div className="best-post col-md-6">
       <div style={postTileStyle} className="best-post-container">
         <div className="best-post-header">
           <h3 className="best-post-header-title">
-            <img src={typeIconURL} width="50" alt="" /> {typeDesc}
+            <img src={typeIconURL} width="50" alt="" /> <span dangerouslySetInnerHTML={{ __html: typeDesc }}></span>
           </h3>
         </div>
         <div className="best-post-body clearfix">
-          <h2 className="title">
-            <div dangerouslySetInnerHTML={{ __html: title }} />
-          </h2>
+
+          <Link className="title-link" to={`slooh-pulse/post/${postId}`}>
+            <h2 className="title" dangerouslySetInnerHTML={{ __html: title }}></h2>
+          </Link>
+
           <div className="user-profile-snapshot">
             <ByUserTag
               theme={'dark'} photo={avatarURL} name={displayName}
@@ -50,11 +54,18 @@ const BlogPostTile = ({
 };
 
 BlogPostTile.propTypes = {
-  topic: PropTypes.string,
-  topicSymbol: PropTypes.string,
-  title: PropTypes.string,
-  coverPhoto: PropTypes.string,
-  user: PropTypes.object,
+  imageURL: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  typeIconURL: PropTypes.string.isRequired,
+  slugDesc: PropTypes.string.isRequired,
+  typeDesc: PropTypes.string.isRequired,
+  avatarURL: PropTypes.string.isRequired,
+  displayName: PropTypes.string.isRequired,
+  membershipType: PropTypes.string.isRequired,
+  memberSince: PropTypes.string.isRequired,
+  location: PropTypes.string.isRequired,
+  slugIconURL: PropTypes.string.isRequired,
+  postId: PropTypes.number.isRequired,
 };
 
 export default BlogPostTile;

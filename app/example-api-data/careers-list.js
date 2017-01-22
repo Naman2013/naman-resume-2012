@@ -1,4 +1,4 @@
-const careerList = {
+const careerListData = {
     "ver": "v1",
     "lang": "en",
     "timestamp": "1481643821",
@@ -85,4 +85,4 @@ const careerList = {
 ]
 };
 
-export default careerList;
+export default careerListData;

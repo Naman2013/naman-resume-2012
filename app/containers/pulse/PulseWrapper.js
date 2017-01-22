@@ -69,9 +69,6 @@ class PulseWrapper extends Component {
       fetchLatestPosts,
     } = this.props;
 
-    console.log('looking for fetch latest posts');
-    console.log(this.props);
-
     return (
       <section className="container clearfix">
         <div className="col-md-8 nopadding">
@@ -96,8 +93,22 @@ class PulseWrapper extends Component {
   }
 }
 
-export default PulseWrapper;
+PulseWrapper.defaultProps = {
+  latestPosts: {
+    posts: [],
+    pages: null,
+  },
+  fetching: true,
+};
 
 PulseWrapper.propTypes = {
+  latestPosts: PropTypes.shape({
+    posts: PropTypes.array,
+    pages: PropTypes.number,
+  }),
+  fetchLatestPosts: PropTypes.func,
+  fetching: PropTypes.bool,
   children: PropTypes.element.isRequired,
 };
+
+export default PulseWrapper;
