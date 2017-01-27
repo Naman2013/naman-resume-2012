@@ -28,6 +28,7 @@ img {
   position: relative;
   padding: $slooh-header-height 0 0 $slooh-menu-width;
   min-width: 1280px;
+  overflow: hidden;
 }
 
 .reservations {

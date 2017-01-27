@@ -30,7 +30,7 @@ export default class App extends Component {
     const displayTitle = !!children.props.route.subTitle;
 
     return (
-      <div>
+      <div className="wrapper">
         <Header />
         <Menu source="nav.json" />
         <section className="static-app-content-container clearfix">
