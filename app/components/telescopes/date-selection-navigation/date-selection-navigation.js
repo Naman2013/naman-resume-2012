@@ -140,7 +140,9 @@ class DateSelectionNavigation extends Component {
 
         <div className="progress-time-action">
           <button onClick={this.handlePreviousClick} className="button">
-            <i className={progressPastStyle}></i> Back
+            <div className="flex-box-wrapper">
+              <i className={progressPastStyle}></i> Back
+            </div>
           </button>
         </div>
 
@@ -152,7 +154,9 @@ class DateSelectionNavigation extends Component {
 
         <div className="progress-time-action">
           <button onClick={this.handleProgressClick} className="button">
-            Next Day <i className={progressFutureStyle}></i>
+            <div className="flex-box-wrapper">
+              Next Day <i className={progressFutureStyle}></i>
+            </div>
           </button>
         </div>
 

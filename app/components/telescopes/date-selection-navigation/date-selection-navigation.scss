@@ -11,11 +11,14 @@
   .progress-time-action {
 
     .button {
-      display: flex;
-      align-items: center;
       background: none;
       border: none;
       font-size: 12px;
+
+      .flex-box-wrapper {
+        display: flex;
+        align-items: center;
+      }
 
       &:focus {
         outline: 0;
