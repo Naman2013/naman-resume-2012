@@ -2,13 +2,64 @@
 @import '../../styles/variables/colors.scss';
 
 .photoRoot {
-
+  position: relative;
   .photoLink {
     @include background-image-cover;
+
     background-position: center;
     width: 100%;
     height: 250px;
     margin-bottom: 20px;
     display: block;
+    border: 4px solid transparent;
+
+    &:hover {
+      border: 4px solid $pink;
+      .innerPhotoContainer {
+        opacity: 1;
+      }
+    }
   }
+
+  .innerPhotoContainer {
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    color: $white;
+    padding: 20px;
+    opacity: 0;
+  }
+
+  .photoTitle {
+    color: $white;
+    line-height: 1.2;
+    margin-bottom: 10px;
+  }
+
+  .photoMenu {
+    list-style-type: none;
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+
+    .action {
+      @include border-radius(50%);
+      width: 35px;
+      height: 35px;
+      display: block;
+      border: none;
+      background: $turqoise;
+      color: $white;
+
+      &:hover {
+        background: $light-turqoise;
+        color: $darkBlueGray;
+      }
+
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+
 }

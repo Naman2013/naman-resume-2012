@@ -19,8 +19,13 @@ class PhotoList extends Component {
         <ul className={`${style.photoList} col-xs-12`}>
           {
             imageList.map(photo => (
-              <li key={photo.imageId} className={`${style.item} col-xs-4`}>
-                <Photo handlePhotoClick={this.handlePhotoClick} imageURL={photo.imageURL} />
+              <li key={photo.imageId} className="col-xs-4">
+                <Photo
+                  handlePhotoClick={this.handlePhotoClick}
+                  imageURL={photo.imageURL}
+                  imageTitle={photo.imageTitle}
+                  overlayText={photo.overlayText}
+                />
               </li>
             ))
           }
