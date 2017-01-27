@@ -20,6 +20,10 @@
     border: none;
     color: $light-gray;
 
+    &:focus {
+      outline: none;
+    }
+
     .icon {
       background: $light-gray;
       color: $gray;

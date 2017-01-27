@@ -2,7 +2,8 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import _ from 'lodash';
-import { fetchMissions } from '../../modules/my-pictures/get-pictures-action';
+import { fetchMissions } from '../../modules/my-pictures/actions';
+import MyPicturesNavigation from '../../components/my-pictures/my-pictures-navigation';
 import GenericLoadingBox from '../../components/common/loading-screens/generic-loading-box';
 import MissionList from '../../components/my-pictures/MissionList';
 import Pagination from '../../components/common/pagination/Pagination';
@@ -10,11 +11,11 @@ import style from './my-pictures-gallery.scss';
 
 const IMAGES_PER_PAGE = 9;
 
-const mapStateToProps = ({ pictures }) => ({
-  imageList: pictures.missions.response.imageList,
-  fetching: pictures.missions.fetching,
-  error: pictures.missions.error,
-  errorBody: pictures.missions.errorBody,
+const mapStateToProps = ({ myPictures }) => ({
+  imageList: myPictures.missions.response.imageList,
+  fetching: myPictures.missions.fetching,
+  error: myPictures.missions.error,
+  errorBody: myPictures.missions.errorBody,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -38,6 +39,10 @@ class Missions extends Component {
 
   componentWillMount() {
     this.props.actions.fetchMissions();
+  }
+
+  componentWillUpdate() {
+    window.scrollTo(0, 0);
   }
 
   handleNextPageClick() {
@@ -70,18 +75,24 @@ class Missions extends Component {
 
     return (
       <div>
-        <div className={style.myPicturesGallery}>
-          {
-            fetching ? <GenericLoadingBox /> : <MissionList imageList={imageRange} />
-          }
-          <Pagination
-            totalCount={imageList.length}
-            currentRange={rangeText}
-            handleNextPageClick={this.handleNextPageClick}
-            handlePreviousPageClick={this.handlePreviousPageClick}
-            canNext={canNext}
-            canPrevious={canPrevious}
-          />
+        <MyPicturesNavigation
+          page="missions"
+        />
+
+        <div className="clearfix my-pictures-container">
+          <div className={style.myPicturesGallery}>
+            {
+              fetching ? <GenericLoadingBox /> : <MissionList imageList={imageRange} />
+            }
+            <Pagination
+              totalCount={imageList.length}
+              currentRange={rangeText}
+              handleNextPageClick={this.handleNextPageClick}
+              handlePreviousPageClick={this.handlePreviousPageClick}
+              canNext={canNext}
+              canPrevious={canPrevious}
+            />
+          </div>
         </div>
       </div>
     );

@@ -12,12 +12,19 @@ import {
   FETCH_MISSIONS_START,
   FETCH_MISSIONS_SUCCESS,
   FETCH_MISSIONS_FAIL,
-} from './get-pictures-action';
+
+  UPDATE_BY_OBJECT_FILTER,
+  RESET_OBJECT_TYPE_FILTER,
+
+  UPDATE_SCHEDULE_MISSION_ID,
+  RESET_SCHEDULE_MISSION_ID,
+} from './actions';
 
 const initialState = {
   photoRoll: {
     response: {
       imageList: [],
+      imageCount: 0,
     },
     fetching: false,
     error: false,
@@ -26,25 +33,51 @@ const initialState = {
   missions: {
     response: {
       imageList: [],
+      imageCount: 0,
     },
     fetching: false,
     error: false,
     errorBody: {},
   },
-  images: {},
-  count: 0,
-  error: {},
-  failed: false,
-  fetching: true,
+  objectTypeFilter: {
+    filterByField: '',
+    filterByIndex: null,
+  },
+  scheduledMissionId: '',
 };
 
 export default createReducer(initialState, {
+  [UPDATE_SCHEDULE_MISSION_ID](state, { payload }) {
+    return {
+      ...state,
+      scheduledMissionId: payload,
+    };
+  },
+  [RESET_SCHEDULE_MISSION_ID](state) {
+    return {
+      ...state,
+      scheduledMissionId: '',
+    };
+  },
+  [UPDATE_BY_OBJECT_FILTER](state, { payload }) {
+    return {
+      ...state,
+      objectTypeFilter: payload,
+    };
+  },
+  [RESET_OBJECT_TYPE_FILTER](state) {
+    return {
+      ...state,
+      objectTypeFilter: Object.assign({}, initialState.objectTypeFilter),
+    };
+  },
   [FETCH_MISSIONS_START](state) {
     return {
       ...state,
       missions: {
         response: {
           imageList: [],
+          imageCount: 0,
         },
         fetching: true,
         error: false,
@@ -69,6 +102,7 @@ export default createReducer(initialState, {
       missions: {
         response: {
           imageList: [],
+          imageCount: 0,
         },
         fetching: false,
         error: true,
@@ -82,6 +116,7 @@ export default createReducer(initialState, {
       photoRoll: {
         response: {
           imageList: [],
+          imageCount: 0,
         },
         fetching: true,
         error: false,
@@ -106,6 +141,7 @@ export default createReducer(initialState, {
       photoRoll: {
         response: {
           imageList: [],
+          imageCount: 0,
         },
         fetching: false,
         error: true,

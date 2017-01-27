@@ -22,7 +22,8 @@ import telescopeSlots from './grab-telescope-slot/reducer';
 import latestPosts from './pulse/get-latest-posts-reducer';
 import post from './pulse/get-post-reducer';
 import bestPosts from './best-of-slooh/get-best-reducer';
-import pictures from './my-pictures/get-pictures-reducer';
+import objectTypeList from './object-type-list/reducer';
+import myPictures from './my-pictures/reducer';
 
 export default combineReducers({
   routing: routerReducer,
@@ -48,5 +49,6 @@ export default combineReducers({
   latestPosts,
   post,
   bestPosts,
-  pictures,
+  myPictures,
+  objectTypeList,
 });
