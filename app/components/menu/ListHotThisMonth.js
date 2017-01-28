@@ -1,7 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import axios from 'axios';
-import StargazersChildren from './StargazersChildren';
-import MenuSocial from './MenuSocial';
 
 class ListHotThisMonth extends Component {
   state = {
@@ -31,8 +29,8 @@ class ListHotThisMonth extends Component {
         <h3 className="menu-title">{hotTitle}</h3>
         <ul>
         {
-          this.state.hotList.map((el, i) => (
-            <li key={i}>
+          this.state.hotList.map((el) => (
+            <li key={el.title}>
               <a className="item" href={el.hotURL}>
                 <span className="hot-title">{el.title}</span>
               </a>
@@ -40,8 +38,6 @@ class ListHotThisMonth extends Component {
           ))
         }
         </ul>
-        <StargazersChildren />
-        <MenuSocial />
       </li>
     );
   }

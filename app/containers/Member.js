@@ -19,7 +19,6 @@ function mapDispatchToProps(dispatch) {
 }
 
 @connect(mapStateToProps, mapDispatchToProps)
-
 export default class Member extends Component {
   static propTypes = {
     user: object.isRequired,
@@ -59,34 +58,42 @@ export default class Member extends Component {
               <span className={styles.userMessage}>Keep Looking Up, </span>
               <strong>{this.props.user.fname}</strong>
             </span>
-            <a className={styles.messages}>
-              <i className={classnames(styles.messagesIcon, 'fa fa-bell')} aria-hidden="true" />
-              <sup className={styles.count}>{this.props.user.notifyCount}</sup>
-            </a>
+            {
+              /**
+                COMING SOON...
+                <a className={styles.messages}>
+                  <i className={classnames(styles.messagesIcon, 'fa fa-bell')} aria-hidden="true" />
+                  <sup className={styles.count}>{this.props.user.notifyCount}</sup>
+                </a>
+              */
+            }
           </div>
         )}
-        {this.props.user.isAuthorized ? (
-          <a
-            className={styles.rightButton}
-            onClick={this.onLogout}
-          >
-            Log-out
-          </a>
+        {
+          this.props.user.isAuthorized ? (
+            <a
+              className={styles.rightButton}
+              onClick={this.onLogout}
+            >
+              Log-out
+            </a>
         ) : (
           <span className={styles.loggedOutWrapper}>
-          <a href="https://saturn.slooh.com/subscribe-bt2.php" target="_blank"
-            className={classnames('ignore-react-onclickoutside', styles.regButton)}
+            <a
+              href="https://saturn.slooh.com/subscribe-bt2.php"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={classnames('ignore-react-onclickoutside', styles.regButton)}
+            >
+              Free Registration
+            </a>
 
-          >
-            Free Registration
-          </a>
-
-          <a
-            className={classnames('ignore-react-onclickoutside', styles.rightButton)}
-            onClick={this.onLogin}
-          >
-            Log-in
-          </a>
+            <a
+              className={classnames('ignore-react-onclickoutside', styles.rightButton)}
+              onClick={this.onLogin}
+            >
+              Log-in
+            </a>
           </span>
         )}
         <ReactCSSTransitionGroup

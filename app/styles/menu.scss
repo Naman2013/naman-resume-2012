@@ -83,27 +83,7 @@
     color: #FFF;
     background-color: #53585F;
   }
-  nav a[data-nav="nav-home"] {
-    background: url(../../assets/icons/menu/menu-home.svg) center 16px/36px no-repeat;
-  }
-  nav a[data-nav="nav-telescopes"] {
-    background: url(../../assets/icons/menu/menu-telescopes.svg) center 12px/38px no-repeat;
-  }
-  nav a[data-nav="nav-shows"] {
-    background: url(../../assets/icons/menu/menu-shows.svg) center 9px/32px no-repeat;
-  }
-  nav a[data-nav="nav-community"] {
-    background: url(../../assets/icons/menu/menu-community.svg) center 6px/56px no-repeat;
-  }
-  nav a[data-nav="nav-about"] {
-    background: url(../../assets/icons/menu/menu-about.svg) center 10px/40px no-repeat;
-  }
-  nav a[data-nav="nav-help"] {
-    background: url(../../assets/icons/menu/menu-help.svg) center 6px/38px no-repeat;
-  }
-  nav a[data-nav="nav-settings"] {
-    background: url(../../assets/icons/menu/menu-settings.svg) center 14px/34px no-repeat;
-  }
+
   nav ul {
     text-indent: none;
     margin: 0px;
@@ -113,25 +93,27 @@
     position: relative;
     z-index: 10;
   }
-  nav a {
-    background-repeat: no-repeat;
-    background-position: center 7px;
-    background-size: 50%;
-  }
+
   nav a, nav a:hover, nav a:active, nav a:visited {
     text-align: center;
     display: block;
-    line-height: 115px;
     height: 73px;
     color: #FFF;
     text-decoration: none;
     position: relative;
     z-index: 2;
   }
+  nav a {
+    img {
+      display: block;
+      margin: 5px auto;
+      height: 42px;
+    }
+  }
   nav li {
     position: relative;
 
-    &::before {
+    &:not(.spacer)::before {
       content: "";
       position: absolute;
       top: 0px;
@@ -203,7 +185,7 @@
     .item {
       color: $white;
       text-decoration: none;
-      &:active , &:hover {
+      &:active , &:hover:not(.spacer) {
         background: $black;
         color: $pink;
       }

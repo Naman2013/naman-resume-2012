@@ -1,7 +1,6 @@
 import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux';
 import { reducer } from 'redux-form';
-import menu from './Menu';
 import user from './User';
 import login from './Login';
 import missions from './Missions';
@@ -24,6 +23,8 @@ import post from './pulse/get-post-reducer';
 import bestPosts from './best-of-slooh/get-best-reducer';
 import objectTypeList from './object-type-list/reducer';
 import myPictures from './my-pictures/reducer';
+import browseByPopularObjects from './browse-popular-objects/reducer';
+import menu from './menu/reducer';
 
 export default combineReducers({
   routing: routerReducer,
@@ -51,4 +52,5 @@ export default combineReducers({
   bestPosts,
   myPictures,
   objectTypeList,
+  browseByPopularObjects,
 });

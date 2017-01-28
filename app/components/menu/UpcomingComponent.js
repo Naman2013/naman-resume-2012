@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import moment from 'moment';
 
+const { number } = PropTypes;
 export default class UpcomingComponent extends Component {
   state = {
     eventTitle: [],
@@ -10,6 +11,10 @@ export default class UpcomingComponent extends Component {
     eventDescription: [],
     EventMenu: [],
   };
+
+  static propTypes = {
+    refreshIntervalDelay: number.isRequired,
+  }
 
   componentDidMount() {
     this.loadUpcomingEvent();

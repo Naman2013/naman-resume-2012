@@ -164,16 +164,18 @@ class NewMissionCard extends Component {
 
           <h2>{ headline }</h2>
 
-          <div className={ styles.cardsubTitle }>
-            <img className={ styles.cardIcon } src="assets/icons/Jupiter.svg" />
-            <h3>{ title }</h3>
+          <div className={styles.cardsubTitle}>
+            {
+              card.objectIconURL ? <img alt="Mission icon" className={styles.cardIcon} src={card.objectIconURL} /> : null
+            }
+            <h3>{title}</h3>
           </div>
 
           {
             featured ?
-              <p className={ styles.cardDescription }>{ description }</p>
+              <p className={styles.cardDescription}>{description}</p>
               :
-              <p className={ styles.cardDescription }>{ _.truncate(description, { 'length': 130, 'separator': ' ' }) }</p>
+              <p className={styles.cardDescription}>{_.truncate(description, {'length': 130, 'separator': ' '})}</p>
           }
 
           {

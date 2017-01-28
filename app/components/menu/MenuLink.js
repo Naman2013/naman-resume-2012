@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Link, hashHistory } from 'react-router';
-
-
+import classnames from 'classnames';
 
 class MenuLink extends Component {
   constructor(props) {
@@ -11,8 +10,8 @@ class MenuLink extends Component {
 
   handleMenuClick() {
     const { handleClick, index, data } = this.props;
-    if(data.link) {
-      hashHistory.push(data.link);
+    if(data.pageLink) {
+      hashHistory.push(data.pageLink);
     }
     handleClick(index);
   }
@@ -23,12 +22,14 @@ class MenuLink extends Component {
 
   render() {
     const { data } = this.props;
-    const { label } = data;
-
+    const { text } = data;
+    const isSpacer = data.type === 'NAV_TYPE_MENU_SPACER';
+    const menuLinkClass = classnames({ spacer: isSpacer });
     return (
-      <li>
-        <a onClick={this.handleMenuClick} data-nav={this.parseDataNav(label.en)}>
-          {label.en}
+      <li className={menuLinkClass}>
+        <a onClick={this.handleMenuClick} data-nav={this.parseDataNav(text)}>
+          {!isSpacer && <img src={data.iconUrl} />}
+          {text}
         </a>
       </li>
     );

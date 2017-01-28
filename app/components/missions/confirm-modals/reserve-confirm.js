@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { Modal, Button } from 'react-bootstrap';
+import { Modal } from 'react-bootstrap';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import moment from 'moment-timezone';
@@ -7,6 +7,7 @@ import _ from 'lodash';
 
 import { cancelMissionSlot, reserveMissionSlot, missionGetCards } from '../../../modules/Missions';
 import { refreshListings } from '../../../modules/grab-telescope-slot/actions';
+import { resetBrowseByPopularObjects } from '../../../modules/browse-popular-objects/actions';
 import { setTags, resetClientTagData } from '../../../modules/tag-management/Tags';
 import MissionTags from '../../common/tags/mission-tags';
 import NewMissionReservationSuccess from './new-mission-reservation-success';
@@ -20,7 +21,7 @@ const mapStateToProps = ({ missions }) => ({
   previousMissionSlotReservation: missions.previousMissionSlotReservation,
 });
 
-const mapDispatchToProps = ( dispatch ) => ({
+const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
     cancelMissionSlot,
     reserveMissionSlot,
@@ -28,6 +29,7 @@ const mapDispatchToProps = ( dispatch ) => ({
     setTags,
     resetClientTagData,
     refreshListings,
+    resetBrowseByPopularObjects,
   }, dispatch),
 });
 
@@ -74,6 +76,10 @@ class ReserveConfirm extends Component {
 
     if(callSource === 'recommends') {
       this.props.actions.missionGetCards();
+    }
+
+    if (callSource === 'byPopularObjects') {
+      this.props.actions.resetBrowseByPopularObjects();
     }
   }
 

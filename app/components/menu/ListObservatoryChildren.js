@@ -6,7 +6,7 @@ class ListObservatoryChildren extends Component {
       <ul>
         {
           this.props.data.map((child, i) => (
-            <li key={i}>
+            <li key={child.teleName}>
               <a className={`item scope-${child.teleOnlineStatus}`} href={child.telePageURL}>
                 {child.teleName}
               </a>

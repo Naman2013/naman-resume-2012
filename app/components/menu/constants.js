@@ -1,0 +1,16 @@
+// delays
+export const REFRESH_DELAY_SHOWS = 60000;
+export const REFRESH_DELAY_TELESCOPES = 60000;
+
+// urls
+export const UPCOMING_EVENTS_LIMIT = 50;
+export const UPCOMING_EVENTS_URL = `/api/events/upcoming?limit=${UPCOMING_EVENTS_LIMIT}`;
+export const OBSERVATORIES_URL = '/api/obs/compact';
+export const HOT_THIS_MONTH_URL = '/api/hot/thisMonth';
+export const STARGAZERS_URL = '/api/hot/stargazers';
+
+// types
+export const NAV_TYPE_UPCOMING_SHOWS_COMPONENT = 'NAV_TYPE_UPCOMING_SHOWS_COMPONENT';
+export const NAV_TYPE_OBSERVATORY_MENU_COMPONENT = 'NAV_TYPE_OBSERVATORY_MENU_COMPONENT';
+export const NAV_TYPE_HOT_OBJECTS_COMPONENT = 'NAV_TYPE_HOT_OBJECTS_COMPONENT';
+export const NAV_TYPE_CALLING_ALL_STARGAZERS_COMPONENT = 'NAV_TYPE_CALLING_ALL_STARGAZERS_COMPONENT';
