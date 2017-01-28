@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { CancelToken } from 'axios';
 
 export default function fetchCatagoryList({
   cid,
@@ -13,7 +13,6 @@ export default function fetchCatagoryList({
     callSource,
   });
 }
-
 export function fetchCategoryTopicList({
   cid,
   at,
@@ -43,19 +42,29 @@ export function fetchPopularObjectList({
   lookaheadReservation, // optional
   includeDescription, // optional
 }) {
-  return axios.post('/api/reservation/getPopularObjectList', {
-    cid,
-    at,
-    token,
-    callSource,
-    categorySlug,
-    uniqueId,
-    scheduledMissionId,
-    missionStart,
-    obsId,
-    domeId,
-    telescopeId,
-    lookaheadReservation,
-    includeDescription,
-  });
+  const fetchPopularObjectsSource = CancelToken.source();
+
+  return {
+    cancelToken: fetchPopularObjectsSource,
+    promise: axios({
+      url: '/api/reservation/getPopularObjectList',
+      method: 'post',
+      data: {
+        cid,
+        at,
+        token,
+        callSource,
+        categorySlug,
+        uniqueId,
+        scheduledMissionId,
+        missionStart,
+        obsId,
+        domeId,
+        telescopeId,
+        lookaheadReservation,
+        includeDescription,
+      },
+      cancelToken: fetchPopularObjectsSource.token,
+    }).catch(() => {}),
+  };
 }

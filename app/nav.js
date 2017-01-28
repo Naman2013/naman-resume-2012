@@ -1,3 +1,4 @@
+// deprecated, but leaving here for reference
 export default [{
 	"label": {
 		"en": "Home"

@@ -32,7 +32,7 @@ export default class App extends Component {
     return (
       <div className="wrapper">
         <Header />
-        <Menu source="nav.json" />
+        <Menu />
         <section className="static-app-content-container clearfix">
           <div className="clearfix">
             <article className="static-page">

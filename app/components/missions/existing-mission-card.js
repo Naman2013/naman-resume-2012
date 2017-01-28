@@ -218,26 +218,28 @@ class ExistingMissionCard extends Component {
     });
 
     return (
-      <div className={ existingMissionCardClassnames }>
+      <div className={existingMissionCardClassnames}>
 
         <div className="card-content-container">
           {
             featured ?
-            <span className="callOut"><span className="first-word">Don&apos;t</span> Miss</span> : null
+              <span className="callOut"><span className="first-word">Don&apos;t</span> Miss</span> : null
           }
 
           <h2>{card.headline}</h2>
 
           <div className={styles.cardsubTitle}>
-            <img className={styles.cardIcon} src="assets/icons/Jupiter.svg" />
+            {
+              card.objectIconURL ? <img alt="Mission icon" className={styles.cardIcon} src={card.objectIconURL} /> : null
+            }
             <h3>{card.title}</h3>
           </div>
 
           {
             featured ?
-              <p className={ styles.cardDescription }>{ card.description }</p>
+              <p className={styles.cardDescription}>{card.description}</p>
               :
-              <p className={ styles.cardDescription }>{ _.truncate( card.description, { 'length': 130, 'separator': ' ' } ) }</p>
+              <p className={styles.cardDescription}>{_.truncate( card.description, {'length': 130, 'separator': ' '})}</p>
           }
 
           {

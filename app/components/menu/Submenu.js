@@ -1,11 +1,26 @@
 import React, { Component } from 'react';
+import classnames from 'classnames';
 import ListHotThisMonth from './ListHotThisMonth';
 import ListObservatories from './ListObservatories';
 import UpcomingComponent from './UpcomingComponent';
+import StargazersInfo from './StargazersInfo';
 import { hashHistory } from 'react-router';
-import { deactivateMenu } from '../../modules/Menu';
+import { deactivateMenu } from '../../modules/menu/actions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import {
+  HOT_THIS_MONTH_URL,
+  NAV_TYPE_CALLING_ALL_STARGAZERS_COMPONENT,
+  NAV_TYPE_HOT_OBJECTS_COMPONENT,
+  NAV_TYPE_OBSERVATORY_MENU_COMPONENT,
+  NAV_TYPE_UPCOMING_SHOWS_COMPONENT,
+  OBSERVATORIES_URL,
+  REFRESH_DELAY_SHOWS,
+  REFRESH_DELAY_TELESCOPES,
+  STARGAZERS_URL,
+  UPCOMING_EVENTS_URL,
+
+} from './constants';
 
 const mapDispatchToProps = (dispatch) => ({
   actions: bindActionCreators({
@@ -27,26 +42,53 @@ class Submenu extends Component {
   }
 
   render() {
+    const { data } = this.props;
     return (
       <section className="left-submenu">
         <ul>
-          {this.props.data.map((child, i) => {
-            if (typeof child.label !== 'undefined') {
-              switch (child.label.en) {
-                case 'Upcoming Shows': {
-                  return <UpcomingComponent key={i} source="/api/events/upcoming?limit=50" refreshIntervalDelay={60000} />;
+          {data.map((menuItem, i) => {
+            if (typeof menuItem.menuItemText !== 'undefined') {
+              switch (menuItem.menuItemType) {
+                case NAV_TYPE_UPCOMING_SHOWS_COMPONENT: {
+                  return (<UpcomingComponent
+                    key={NAV_TYPE_UPCOMING_SHOWS_COMPONENT}
+                    source={UPCOMING_EVENTS_URL}
+                    refreshIntervalDelay={REFRESH_DELAY_SHOWS}
+                  />);
                 }
-                case 'All Telescopes': {
-                  return <ListObservatories key={i} source="/api/obs/compact" refreshIntervalDelay={60000} />;
+                case NAV_TYPE_OBSERVATORY_MENU_COMPONENT: {
+                  return (<ListObservatories
+                    key={NAV_TYPE_OBSERVATORY_MENU_COMPONENT}
+                    source={OBSERVATORIES_URL}
+                    refreshIntervalDelay={REFRESH_DELAY_TELESCOPES}
+                  />);
                 }
-                case 'Hot this Month': {
-                  return <ListHotThisMonth key={i} source="/api/hot/thisMonth" />;
+                case NAV_TYPE_CALLING_ALL_STARGAZERS_COMPONENT: {
+                  return (<StargazersInfo
+                    key={NAV_TYPE_CALLING_ALL_STARGAZERS_COMPONENT}
+                    source={STARGAZERS_URL}
+                  />);
+                }
+                case NAV_TYPE_HOT_OBJECTS_COMPONENT: {
+                  return (<ListHotThisMonth
+                    key={NAV_TYPE_HOT_OBJECTS_COMPONENT}
+                    source={HOT_THIS_MONTH_URL}
+                  />);
                 }
                 default: {
-                  return (
-                    <li key={i}>
-                      <a className="item" onClick={(event) => { this.handleClick(event, child.link); }}>
-                        {child.label.en}
+                  const menuItemClass = classnames({
+                    spacer: menuItem.menuItemType === 'NAV_TYPE_SUBMENU_SPACER',
+                    item: true,
+                  });
+                  return (menuItem.showItem &&
+                    <li
+                      key={`${menuItem.menuItemText}-${menuItem.menuItemIndex}`}
+                    >
+                      <a
+                        className={menuItemClass}
+                        onClick={(event) => { this.handleClick(event, menuItem.itemLink); }}
+                      >
+                        {menuItem.menuItemText}
                       </a>
                     </li>
                   );

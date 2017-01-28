@@ -52,7 +52,7 @@ export function missionConfirmOpen(type) {
   return {
     type: MISSION_CONFIRMATION_OPEN,
     confirmType: type,
-  }
+  };
 }
 
 export const missionConfirmClose = () => ({

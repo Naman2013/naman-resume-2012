@@ -46,7 +46,7 @@ class ListObservatories extends Component {
           this.state.obsList.map((el, i) => {
           if (typeof el.obsName !== 'undefined') {
             return (
-              <ul key={i}>
+              <ul key={el.obsName}>
                 <li className="static-item">
                   <img alt="daylight status" className="obs-dayicon" src={this.getDaylingImage(el.obsDaylight)} />
                   <span className="obs-location">{el.obsName}</span>

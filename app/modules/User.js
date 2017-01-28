@@ -61,8 +61,6 @@ export function checkUser() {
   };
 }
 
-
-
 const initialState = {
   isAuthorized: false,
   user: {
