@@ -143,15 +143,13 @@ const NewsArticle = () => (
           celestial events of potentially hazardous asteroids (PHAs), comets,
           transits, eclipses, solar activity, etc., which are syndicated to
           media outlets worldwide, including TIME, National Geographic, Wired,
-          ABC News, CNN and many
-          <a href="https://www.google.com/webhp?sourceid=chrome-instant&ion=1&espv=2&ie=UTF-8#q=slooh&tbm=nws">
+          ABC News, CNN and many <a href="https://www.google.com/webhp?sourceid=chrome-instant&ion=1&espv=2&ie=UTF-8#q=slooh&tbm=nws">
             more
           </a>.
           Celebrate the Transcontinental Eclipse, a Total Solar Eclipse, August
           21st, 2017 in Stanley, Idaho, with Slooh as it hosts a three day
           cultural festival for community members. Slooh recently published a
-          book,
-          <a href="https://www.amazon.com/Saturn-Above-Leo-Tolstoy/dp/0997621109/ref=sr_1_3?m=A237ME1DXB1HVR&s=merchant-items&ie=UTF8&qid=1479317871&sr=1-3">
+          book, <a href="https://www.amazon.com/Saturn-Above-Various/dp/0997621109/ref=sr_1_1?s=books&ie=UTF8&qid=1485711386&sr=1-1&keywords=the+saturn+above+it">
             The Saturn Above It
           </a>, An Anthology of Short Fiction About Space, edited by Karen
           Stevens. Slooh is supported by investment from Connecticut
