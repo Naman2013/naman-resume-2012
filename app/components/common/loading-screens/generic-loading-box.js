@@ -1,10 +1,18 @@
-import React from 'react';
-import style from './generic-loading-box.scss';
+import React, { PropTypes } from 'react';
+import './generic-loading-box.scss';
 
-const GenericLoadingBox = () => (
+const GenericLoadingBox = ({ text }) => (
   <div className="generic-loading-box">
-    <h3 className="message">Loading...</h3>
+    <h3 className="message">{text}</h3>
   </div>
 );
+
+GenericLoadingBox.defaultProps = {
+  text: 'Loading...',
+};
+
+GenericLoadingBox.propTypes = {
+  text: PropTypes.string,
+};
 
 export default GenericLoadingBox;

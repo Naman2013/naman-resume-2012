@@ -11,6 +11,7 @@ import { grabPiggyback } from './Piggyback';
 const MISSION_CONFIRMATION_OPEN = 'MISSION_CONFIRMATION_OPEN';
 const MISSION_CONFIRMATION_CLOSE = 'MISSION_CONFIRMATION_CLOSE';
 
+const MISSION_ALL_CARD_START = 'MISSION_ALL_CARD_START';
 const MISSION_ALL_CARDS_SUCCESS = 'MISSION_ALL_CARDS_SUCCESS';
 const MISSION_ALL_CARDS_FAIL = 'MISSION_ALL_CARDS_FAIL';
 
@@ -19,10 +20,11 @@ const MISSION_GET_INFO_FAIL = 'MISSION_GET_INFO_FAIL';
 const MISSION_GET_UPDATES_SUCCESS = 'MISSION_GET_UPDATES_SUCCESS';
 const MISSION_GET_UPDATES_FAIL = 'MISSION_GET_UPDATES_FAIL';
 
-const MISSION_GET_PIGGYBACKS = 'MISSION_GET_PIGGYBACKS';
+const MISSION_GET_PIGGYBACKS_START = 'MISSION_GET_PIGGYBACKS_START';
 const MISSION_GET_PIGGYBACKS_SUCCESS = 'MISSION_GET_PIGGYBACKS_SUCCESS';
 const MISSION_GET_PIGGYBACKS_FAIL = 'MISSION_GET_PIGGYBACKS_FAIL';
 
+const MISSION_GET_NEXT_RESERVATIONS_START = 'MISSION_GET_NEXT_RESERVATIONS_START';
 const MISSION_GET_NEXT_RESERVATIONS_SUCCESS = 'MISSION_GET_NEXT_RESERVATIONS_SUCCESS';
 const MISSION_GET_NEXT_RESERVATIONS_FAIL = 'MISSION_GET_NEXT_RESERVATIONS_FAIL';
 
@@ -42,6 +44,8 @@ const UPDATE_SINGLE_RESERVATION_FAIL = 'UPDATE_SINGLE_RESERVATION_FAIL';
 const SET_CURRENT_CARD = 'SET_CURRENT_CARD';
 
 const COMMIT_UPDATED_PIGGYBACKS = 'COMMIT_UPDATED_PIGGYBACKS';
+
+const STORE_CARDS_RESPONSE = 'STORE_CARDS_RESPONSE';
 
 const setCurrentCard = (card) => ({
   type: SET_CURRENT_CARD,
@@ -130,9 +134,7 @@ export const resetReserveMission = () => ({
   type: RESERVE_MISSION_SLOT_RESET,
 });
 
-
-
-export const cancelMissionSlot = (mission) => (dispatch, getState) => {
+export const cancelMissionSlot = mission => (dispatch, getState) => {
   const { token, at, cid } = getState().user;
   return axios.post('/api/reservation/cancelMissionSlot', {
     token,
@@ -220,25 +222,42 @@ const grabMissionSlotStart = () => ({
   type: GRAB_MISSION_SLOT_START,
 });
 
+/**
+  if data from the fetch cards API has already been called use that source
+  instead of going all the way back to the API.
 
+  the cards call is good for about a week and does not require to be called
+  for each request to for new missions.
+*/
 export function missionGetCards() {
   return (dispatch, getState) => {
-    const { token, at, cid } = getState().user;
-    return axios.post('/api/recommends/cards', {
-      status: 'published',
-      ver: 'v1',
-      lang: 'en',
-      type: 'curated',
-      token,
-      at,
-      cid,
-    })
-    .then(response => {
-      dispatch(allCards(response))
-      dispatch(missionGetPiggybacks(response.data.objectList))
-      dispatch(missionGetNextReservation(response.data.objectList))
-    })
-    .catch(error => dispatch(cardsFail(error)));
+    const { cardAPIResponse } = getState().missions;
+
+    dispatch(fetchAllCardsStart());
+
+    if (cardAPIResponse) {
+      dispatch(allCards(cardAPIResponse));
+      dispatch(missionGetPiggybacks(cardAPIResponse.data.objectList));
+      dispatch(missionGetNextReservation(cardAPIResponse.data.objectList));
+    } else {
+      const { token, at, cid } = getState().user;
+      return axios.post('/api/recommends/cards', {
+        status: 'published',
+        ver: 'v1',
+        lang: 'en',
+        type: 'curated',
+        token,
+        at,
+        cid,
+      })
+      .then(response => {
+        dispatch(storeCardsResponse(response));
+        dispatch(allCards(response));
+        dispatch(missionGetPiggybacks(response.data.objectList));
+        dispatch(missionGetNextReservation(response.data.objectList));
+      })
+      .catch(error => dispatch(cardsFail(error)));
+    }
   }
 }
 
@@ -280,12 +299,19 @@ const getNextPiggybackSingleFail = () => ({
   error: error,
 });
 
-export function allCards({data}) {
-  return {
-    type: MISSION_ALL_CARDS_SUCCESS,
-    cardList: data.cardList
-  };
-};
+const fetchAllCardsStart = () => ({
+  type: MISSION_ALL_CARD_START,
+});
+
+export const allCards = ({ data }) => ({
+  type: MISSION_ALL_CARDS_SUCCESS,
+  cardList: data.cardList,
+});
+
+const storeCardsResponse = payload => ({
+  type: STORE_CARDS_RESPONSE,
+  payload,
+});
 
 export function cardsFail(error) {
   return {
@@ -326,13 +352,15 @@ export function missionUpdatesFail(error) {
 };
 
 
-export const missionGetPiggybacks = ( objectList ) => ( dispatch, getState ) => {
+export const missionGetPiggybacks = (objectList) => (dispatch, getState) => {
   const { token, at, cid } = getState().user;
 
   // if there is no user, redirect...
   if(!token || !cid || !at) {
     dispatch(push('/?redirect=not-logged-in'));
   } else {
+    dispatch(fetchPiggybacksStart());
+
     return axios.post('/api/recommends/getNextPiggyback', {
       cid,
       at,
@@ -350,10 +378,14 @@ export const missionGetPiggybacks = ( objectList ) => ( dispatch, getState ) => 
   }
 };
 
-export function missionGetPiggybackSuccess({data}) {
+const fetchPiggybacksStart = () => ({
+  type: MISSION_GET_PIGGYBACKS_START,
+});
+
+export function missionGetPiggybackSuccess({ data }) {
   return {
     type: MISSION_GET_PIGGYBACKS_SUCCESS,
-    result: data.missionList
+    result: data.missionList,
   };
 };
 
@@ -367,19 +399,22 @@ export function missionGetPiggybackFail(error) {
 
 export function missionGetNextReservation(objectList) {
   return (dispatch, getState) => {
-    let { token, at, cid } = getState().user;
+    const { token, at, cid } = getState().user;
+
+    dispatch(fetchMissionsStart());
+
     return axios.post('/api/recommends/getNextReservation', {
       requestType: 'multiple',
       uniqueId: '',
       objectId: '',
       start: '',
-      objectList: objectList,
+      objectList,
       cid,
       at,
       token
     })
-    .then(response => dispatch( missionGetNextReservationSuccess(response) ))
-    .catch(error => dispatch( missionGetNextReservationFail( error )));
+    .then(response => dispatch(missionGetNextReservationSuccess(response)))
+    .catch(error => dispatch(missionGetNextReservationFail(error)));
   }
 }
 
@@ -450,6 +485,10 @@ function updateReservationsFail(error) {
   }
 }
 
+const fetchMissionsStart = () => ({
+  type: MISSION_GET_NEXT_RESERVATIONS_START,
+});
+
 export function missionGetNextReservationSuccess({ data }) {
   return {
     type: MISSION_GET_NEXT_RESERVATIONS_SUCCESS,
@@ -461,7 +500,7 @@ export function missionGetNextReservationFail({ data }) {
   return {
     type: MISSION_GET_NEXT_RESERVATIONS_FAIL,
     result: data,
-  }
+  };
 }
 
 
@@ -470,6 +509,11 @@ const initialState = {
 
   isConfirmationOpen: false,
 
+  fetchingCards: false,
+  fetchingPiggybacks: false,
+  fetchingMissions: false,
+
+  cardAPIResponse: null, // original list, if we have it in memory we continue to use it
   cardList: [], // all available cards ( featured and non )
   piggybacks: [], // all available piggybacks
   reservations: [], // all available active missions
@@ -489,6 +533,12 @@ const initialState = {
 
 
 export default createReducer(initialState, {
+  [STORE_CARDS_RESPONSE](state, { payload }) {
+    return  {
+      ...state,
+      cardAPIResponse: payload,
+    };
+  },
   [RESERVE_MISSION_SLOT_SUCCESS](state, { payload }) {
     return {
       ...state,
@@ -533,19 +583,26 @@ export default createReducer(initialState, {
       missionSlotJustReserved: false,
     };
   },
-
-  [MISSION_ALL_CARDS_SUCCESS](state, {cardList}) {
+  [MISSION_ALL_CARD_START](state) {
     return {
       ...state,
-      cardList
+      fetchingCards: true,
+      fetchingPiggybacks: true,
+      fetchingMissions: true,
     };
   },
-
+  [MISSION_ALL_CARDS_SUCCESS](state, { cardList } ) {
+    return {
+      ...state,
+      cardList,
+      fetchingCards: false,
+    };
+  },
   [SET_CURRENT_CARD](state, { payload }) {
     return {
       ...state,
       currentCard: payload,
-    }
+    };
   },
 
   [MISSION_GET_UPDATES_SUCCESS](state, { payload }) {
@@ -560,11 +617,17 @@ export default createReducer(initialState, {
       announcements: [],
     }
   },
-
+  [MISSION_GET_PIGGYBACKS_START](state) {
+    return {
+      ...state,
+      fetchingPiggybacks: true,
+    };
+  },
   [MISSION_GET_PIGGYBACKS_SUCCESS](state, { result }) {
     return {
       ...state,
       piggybacks: result,
+      fetchingPiggybacks: false,
     };
   },
   [MISSION_GET_PIGGYBACKS_FAIL](state, { payload }) {
@@ -574,11 +637,17 @@ export default createReducer(initialState, {
       piggybacks: payload,
     };
   },
-
+  [MISSION_GET_NEXT_RESERVATIONS_START](state) {
+    return {
+      ...state,
+      fetchingMissions: true,
+    };
+  },
   [MISSION_GET_NEXT_RESERVATIONS_SUCCESS](state, { result }) {
     return {
       ...state,
       reservations: result,
+      fetchingMissions: false,
     };
   },
   [MISSION_GET_NEXT_RESERVATIONS_FAIL](state, { result }) {

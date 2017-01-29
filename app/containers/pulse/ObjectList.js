@@ -10,8 +10,8 @@ const list2 = {
 
 const list = [
   {
-    label: 'ALL-TIME BEST',
-    route: 'all-time-best',
+    label: 'LATEST ENTRIES',
+    route: 'latest-entries',
     children: [
       {
         label: 'All Categories',
@@ -30,10 +30,7 @@ const list = [
         route: 'diy',
       },
     ],
-  }, {
-    label: 'LATEST ENTRIES',
-    route: 'latest-entries',
-  },
+  }
 ];
 
 class ObjectList extends Component {

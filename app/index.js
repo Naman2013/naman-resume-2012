@@ -26,7 +26,6 @@ import ReserveByTelescope from './pages/reserve-by-telescope';
 import ReserveObjects from './pages/reserve/reserve-by-objects';
 import ReserveByCatalog from './pages/reserve/reserve-by-catalog';
 import BestOfSlooh from './pages/best-of-slooh/best-of-slooh';
-import ObjectPost from './pages/object-post/object-post';
 import Job from './pages/about/job';
 import Contact from './pages/about/contact';
 import Leadership from './pages/about/leadership';
@@ -85,7 +84,6 @@ ReactDOM.render(
         <Route path="telescope-details/:obsUniqueId/:teleUniqueId" component={TelescopeDetails} />
 
         <Route path="best-of-slooh" component={BestOfSlooh} />
-        <Route path="object-post" component={ObjectPost} />
         <Route path="publish-post" component={PublishPost} />
 
         <Route path="slooh-pulse" component={PulseList}>
