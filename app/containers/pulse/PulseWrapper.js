@@ -1,8 +1,8 @@
 import React, { Component, PropTypes, cloneElement } from 'react';
+import Spinner from 'react-spinner'
 import PulsePopular from '../../components/pulse/sidebar/pulse-popular';
 import PulseRecommended from '../../components/pulse/sidebar/pulse-recommends';
 import MissionAd from '../../components/missions/mission-ad';
-import Spinner from 'react-spinner'
 
 const list = [
   {

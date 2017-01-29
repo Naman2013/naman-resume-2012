@@ -10,10 +10,6 @@ const PulsePostHeader = (list) =>
     </div>
 
     <div className="additional">
-      <div className="sponsored">
-        <div>Sponsored by:</div>
-        <img src="" width={100} height={40}/>
-      </div>
       <div className="button-nav">
         <button className="button btn-primary">Reserve Telescope</button>
         <button className="button btn-primary">Follow This Object</button>
