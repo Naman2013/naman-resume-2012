@@ -34,6 +34,12 @@ class Mission extends Component {
               planet Saturn and reflecting back to us here on Earth.
             </p>
 
+            <blockquote>
+              We encourage you to share your own sense of wonder as we seek to
+              curate our collective human response to space across every style
+              of thought and expression.
+            </blockquote>
+
             <p>
               Over the years we’ve expanded the footprint of our observatories
               and your capacity to control them, but a few things have remained
@@ -60,7 +66,7 @@ class Mission extends Component {
               a way to reflect on the light we see, and its subsequent
               reflection upon others. Look for these new community contributions
               adjacent to our live telescope feeds--and by all means feel free
-              to submit your own!d
+              to submit your own!
             </p>
 
             <p>
@@ -71,12 +77,6 @@ class Mission extends Component {
               that timeless view of Saturn 14 years ago, we&#39;re just getting
               started.
             </p>
-
-            <blockquote>
-              We encourage you to share your own sense of wonder as we seek to
-              curate our collective human response to space across every style
-              of thought and expression.
-            </blockquote>
           </article>
 
           <aside className="col-third">
