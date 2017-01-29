@@ -313,7 +313,7 @@ class ReserveByCatalog extends Component {
     let selectedCatalog = undefined;
     if(_.has(catalog, 'catalogList')) {
       catalogList = catalog.catalogList.map(catalogItem => (
-        <span><img src={catalogItem.catIconURL} height="15" /> {catalogItem.catFullName}</span>
+        <span><img src={catalogItem.catIconURL} /> {catalogItem.catFullName}</span>
       ));
 
       selectedCatalog = catalog.catalogList[selectedCatalogIndex];

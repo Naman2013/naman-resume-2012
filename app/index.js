@@ -78,7 +78,11 @@ ReactDOM.render(
 
           <Route path="reserve-by-objects" component={ReserveObjects} />
           <Route path="reserve-by-catalog" component={ReserveByCatalog} />
-          <Route path="reserve-by-telescope(/:obsUniqueId/:teleUniqueId)" component={ReserveByTelescope} />
+        </Route>
+
+        <Route path="reservations/reserve-by-telescope" component={Reservations}>
+          <IndexRedirect to="telescope/d7f673a5-7908-11e6-a635-0eb2b1774883/1ff72faa-7909-11e6-a635-0eb2b1774883" />
+          <Route path="telescope/:obsUniqueId/:teleUniqueId" component={ReserveByTelescope} />
         </Route>
 
         <Route path="telescope-details/:obsUniqueId/:teleUniqueId" component={TelescopeDetails} />

@@ -41,11 +41,15 @@ class ReservationSelectList extends Component {
       name,
       selectedIndex,
       handleSelectChange,
-      listHeight } = this.props;
+      listHeight,
+      theme
+    } = this.props;
 
     const inlineStyle = {
       height: `${listHeight}px`,
     };
+
+    const themeClassname = `theme-${theme}`;
 
     return (
       <div
@@ -63,7 +67,7 @@ class ReservationSelectList extends Component {
             // if the option has a property enabled to read - use that - otherwise set it to true
             const enabled = (_.has(option, 'enabled')) ? option.enabled : true;
 
-            const labelClasses = classnames('multi-option-list-label', {
+            const labelClasses = classnames(`multi-option-list-label ${themeClassname}`, {
               disabled: !enabled,
             });
 
@@ -99,6 +103,7 @@ class ReservationSelectList extends Component {
 ReservationSelectList.defaultProps = {
   listHeight: 340,
   selectedIndex: undefined,
+  theme: 'light',
 };
 
 ReservationSelectList.propTypes = {
@@ -108,6 +113,7 @@ ReservationSelectList.propTypes = {
   handleSelectChange: PropTypes.func.isRequired,
   selectedIndex: PropTypes.string,
   listHeight: PropTypes.number,
+  theme: PropTypes.oneOf(['light', 'dark']),
 };
 
 export default ReservationSelectList;

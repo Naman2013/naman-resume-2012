@@ -26,8 +26,8 @@ class CardFront extends Component {
 
   renderMakeReservationButton() {
     const { obsUniqueId, teleUniqueId } = this.props
-    const reservationLink = `/reservations/reserve-by-telescope/${obsUniqueId}/${teleUniqueId}`;
-    return(
+    const reservationLink = `/reservations/reserve-by-telescope/telescope/${obsUniqueId}/${teleUniqueId}`;
+    return (
       this.isMissionReadyTelescope() ?
         <div className="col-md-6">
           <Link to={reservationLink} className="action">Make Reservation</Link>

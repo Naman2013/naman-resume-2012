@@ -22,21 +22,26 @@ class MissionNav extends Component {
       <div className={styles.missionNav}>
         <ul className="mission-nav-container">
           <li>
-            <Link href="#"
-              to='/reservations/slooh-recommends'
-              activeClassName="active">Slooh Recommends</Link>
+            <Link
+              to="/reservations/slooh-recommends"
+              activeClassName="active"
+            >
+              Slooh Recommends
+            </Link>
             <ul className="sub-nav">
               <li>
                 <Link
                   to="/reservations/slooh-recommends/existing"
-                  activeClassName="active">
+                  activeClassName="active"
+                >
                   Join Existing Missions
                 </Link>
               </li>
               <li>
                 <Link
                   to="/reservations/slooh-recommends/new"
-                  activeClassName="active">
+                  activeClassName="active"
+                >
                   Set Up New Missions
                 </Link>
               </li>
@@ -45,21 +50,24 @@ class MissionNav extends Component {
           <li>
             <Link
               to="/reservations/reserve-by-objects"
-              activeClassName="active">
+              activeClassName="active"
+            >
               Browse popular objects
             </Link>
           </li>
           <li>
             <Link
-              to={`/reservations/reserve-by-telescope/${DEFAULT_OBSERVATORY_ID}/${DEFAULT_INSTRUMENT_ID}`}
-              activeClassName="active">
+              to="/reservations/reserve-by-telescope"
+              activeClassName="active"
+            >
               Reserve by telescope
             </Link>
           </li>
           <li>
             <Link
               to="/reservations/reserve-by-catalog"
-              activeClassName="active">
+              activeClassName="active"
+            >
               Explore by catalog
             </Link>
           </li>

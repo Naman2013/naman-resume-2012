@@ -210,7 +210,7 @@ export default class TelescopeDetails extends Component {
             <div className="col-md-2">
               <Link
                 className="pull-right btn-primary"
-                to={`/reservations/reserve-by-telescope/${obsUniqueId}/${teleUniqueId}`}
+                to={`/reservations/reserve-by-telescope/telescope/${obsUniqueId}/${teleUniqueId}`}
               >
                 Reserve this telescope
               </Link>

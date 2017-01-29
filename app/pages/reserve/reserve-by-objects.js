@@ -33,7 +33,7 @@ const mapDispatchToProps = dispatch => ({
 
 const Catagory = ({ text, imageURL }) => (
   <span>
-    {imageURL ? <img height="15" alt={`Icon representing ${text}`} src={imageURL} /> : null} {text}
+    {imageURL ? <img alt={`Icon representing ${text}`} src={imageURL} /> : null} {text}
   </span>
 );
 
