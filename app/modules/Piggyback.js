@@ -26,16 +26,18 @@ const CLOSE_CONFIRMATION_MODAL = 'CLOSE_CONFIRMATION_MODAL';
   run the appropriate actions
 */
 export const closeConfirmationModal = () => (dispatch, getState) => {
-  const { piggyback, missionSlotDates } = getState();
+  const { piggyback } = getState();
   const { callSource, missionList } = piggyback.piggyback;
   const { obsId, domeId, telescopeId } = missionList[0];
-  const { reservationDate } = missionSlotDates.dateRangeResponse.dateList[0];
   const BY_TELESCOPE = 'byTelescope';
   const RECOMMENDS = 'recommends';
 
   dispatch(resetReservation()); // reset state props to show the appropriate fields in the future
 
-  if(callSource === BY_TELESCOPE) {
+  // work to be done when by telescope reservation only
+  if (callSource === BY_TELESCOPE) {
+    const { missionSlotDates } = getState();
+    const { reservationDate } = missionSlotDates.dateRangeResponse.dateList[0];
     dispatch(fetchReservationList({
       obsId,
       domeId,
@@ -44,14 +46,12 @@ export const closeConfirmationModal = () => (dispatch, getState) => {
     })); // refresh telescope reservation list
   }
 
-  if(callSource === RECOMMENDS) {
+  if (callSource === RECOMMENDS) {
     dispatch(missionGetCards()); // refresh the missions displayed to the user
   }
 
   dispatch(missionConfirmClose()); // dismiss the modal
 };
-
-
 
 /**
   see documentation for reservePiggyback

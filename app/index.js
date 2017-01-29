@@ -57,7 +57,7 @@ ReactDOM.render(
       <Route path="about" component={StaticAppContainer}>
         <IndexRedirect to="mission" />
         <Route path="mission" component={Mission} />
-        <Route path="news" component={News} title="In The News" subTitle="[Sub-title for news page]" />
+        <Route path="news" component={News} title="In The News" subTitle=" " />
         <Route path="job" component={Job} title="Work With Us" subTitle="Share your passion for astronomy with the world" />
         <Route path="contact" component={Contact} title="Contact US" subTitle="[Sub-title for news page]" />
         <Route path="leadership" component={Leadership} title="Leadership" subTitle="[Sub-title for news page]" />
