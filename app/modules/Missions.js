@@ -117,7 +117,7 @@ export const reserveMissionSlot = ({
     dispatch(fetchUsersUpcomingMissions());
     dispatch(reserveMissionSuccess(result.data));
   })
-  .catch(error => dispatch( reserveMissionFail( error ) ) );
+  .catch(error => dispatch(reserveMissionFail(error)));
 };
 
 const reserveMissionSuccess = (payload) => ({

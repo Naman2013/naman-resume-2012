@@ -5,22 +5,22 @@ import AnnouncementBanner from '../components/common/announcement-banner/announc
 import ReserveBanner from '../components/missions/reserve-banner';
 import MissionNav from '../components/missions/mission-nav';
 
-export default class Reservations extends Component {
+class Reservations extends Component {
 
   render() {
+    console.log(this.props);
     return (
       <div>
         <div className="clearfix reservations">
           <MissionConfirmModal />
-
           <AnnouncementBanner level="general" />
-
           <ReserveBanner />
           <MissionNav route={this.props.route} location={this.props.location} />
-
           {this.props.children}
         </div>
       </div>
     );
   }
 }
+
+export default Reservations;

@@ -1,6 +1,10 @@
 @import '../../../styles/variables/colors.scss';
 @import '../../../styles/custom-ui.scss';
 
+/**
+  theme-dark: for placing over a light background
+*/
+
 .reservation-select-list {
   @extend .custom-scroll-bar;
   overflow-y: scroll;
@@ -17,14 +21,25 @@
     margin-bottom: 2px;
     padding: 5px 0 5px 20px;
     font-size: 16px;
-    color: $darkBlueGray;
-
     -webkit-border-top-left-radius: 20px;
     -webkit-border-bottom-left-radius: 20px;
     -moz-border-radius-topleft: 20px;
     -moz-border-radius-bottomleft: 20px;
     border-top-left-radius: 20px;
     border-bottom-left-radius: 20px;
+
+    span {
+      display: flex;
+    }
+
+    img {
+      margin: 0 10px 0 0;
+      height: 20px;
+    }
+
+    &.theme-dark {
+      color: $darkBlueGray;
+    }
 
     &.disabled {
       cursor: not-allowed;

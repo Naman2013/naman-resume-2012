@@ -34,20 +34,20 @@ export const grabTelescopeSlot = ({ scheduledMissionId, uniqueId, grabType, fina
   .catch(error => dispatch(grabTelescopeSlotFail(error)));
 };
 
-const grabTelescopeSlotSuccess = (result) => (dispatch, getState) => {
+const grabTelescopeSlotSuccess = result => (dispatch, getState) => {
   const { apiError, missionList } = result;
   const { missionAvailable } = missionList[0];
   const currentMissions = getState().telescopeSlots;
   let updatedMissions = [];
 
-  if(apiError) {
+  if (apiError) {
     console.warn('API returned error... check call to grabTelescopeSlot');
     return;
   }
 
   // if the mission slot is not available, refresh the list of missions
   // but do not add the mission to the state
-  if(!missionAvailable) {
+  if (!missionAvailable) {
     dispatch(refreshListings());
     return;
   }
@@ -91,12 +91,13 @@ export const cancelReservationAndRefresh = ({ uniqueId, scheduledMissionId }) =>
 export const refreshListings = () => (dispatch, getState) => {
   const { obsId, telescopeId, domeId } = getState().missionSlotsByTelescope.reservationList;
   const { reservationDate } = getState().missionSlotDates.dateRangeResponse.dateList[0];
-  if(!obsId || !telescopeId || !domeId) { return; }
+  if (!obsId || !telescopeId || !domeId) { return; }
+
   dispatch(fetchDateRanges({
     obsId,
     telescopeId,
     domeId,
-    reservationDate,
+    requestedDate: reservationDate,
   }));
 };
 
