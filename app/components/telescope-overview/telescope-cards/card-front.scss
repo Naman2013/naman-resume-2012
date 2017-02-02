@@ -7,15 +7,13 @@ $cardHeight: 730px;
   .telescope-cards {
 
     .telescope-card-front {
-      width: 378px;
       text-align: center;
+      width: 100%;
       background: #fff;
       -webkit-backface-visibility: hidden;
       -moz-backface-visibility: hidden;
       -o-backface-visibility: hidden;
       backface-visibility: hidden;
-
-
 
       .card-header {
         background: #9B9B9B;
@@ -119,11 +117,6 @@ $cardHeight: 730px;
           .telescope-image {
             height: 250px;
             margin-bottom: 30px;
-
-            .sse-thumbnails {
-              position: absolute;
-              left: 28px;
-            }
 
             img {
               -webkit-clip-path: circle(38% at center);

@@ -1,6 +1,6 @@
 import createReducer from '../utils/createReducer';
 import {
-  FETCH_COMMUNITY_CONTENT,
+  FETCH_COMMUNITY_CONTENT_START,
   FETCH_COMMUNITY_CONTENT_SUCCESS,
   FETCH_COMMUNITY_CONTENT_FAIL,
 } from './get-object-content-actions';
@@ -13,7 +13,7 @@ const generateInitialState = () => ({
 });
 
 export default createReducer(generateInitialState(), {
-  [FETCH_COMMUNITY_CONTENT](state) {
+  [FETCH_COMMUNITY_CONTENT_START](state) {
     return {
       ...state,
       ...generateInitialState,

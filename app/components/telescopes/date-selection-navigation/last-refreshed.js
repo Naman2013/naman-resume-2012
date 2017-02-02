@@ -23,13 +23,17 @@ class LastRefreshed extends Component {
     this.startTimer();
   }
 
+  componentWillUnmount() {
+    clearInterval(this.timer);
+  }
+
   startTimer() {
     const { startCounter } = this.props;
     this.setState({
       currentCounter: startCounter,
     });
 
-    if(this.timer) {
+    if (this.timer) {
       clearInterval(this.timer);
     }
 
@@ -40,20 +44,16 @@ class LastRefreshed extends Component {
     }, 60000);
   }
 
-  componentWillUnmount() {
-    clearInterval(this.timer);
-  }
-
   render() {
     const { currentCounter } = this.state;
     let timeText = DEFAULT_TIME_TEXT;
 
-    if(currentCounter >= 1) {
+    if (currentCounter >= 1) {
       const minuteText = (currentCounter > 1) ? 'minutes' : 'minute';
       timeText = `${currentCounter} ${minuteText} ago`;
     }
 
-    return(
+    return (
       <span>{timeText}</span>
     );
   }

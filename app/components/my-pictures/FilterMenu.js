@@ -65,6 +65,7 @@ class FilterMenu extends Component {
           <li className={s.menu}>
             <h3 className={s.filterTitle}>Object Types:</h3>
             <ReservationSelectList
+              theme="dark"
               selectedIndex={objectFilteredByIndex}
               options={this.objectFilterOptions}
               listHeight={200}

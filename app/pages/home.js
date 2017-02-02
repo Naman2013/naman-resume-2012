@@ -1,4 +1,6 @@
 import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import Hero from '../components/home/hero';
 import RecentVideoTile from '../components/home/recent-video-tile';
 import PromoMessageBand from '../components/common/headers/promo-message-band';
@@ -12,10 +14,27 @@ import Featured from '../components/home/slooh-extras/featured';
 import TwitterFeed from '../components/home/slooh-extras/twitter-feed';
 import style from './home.scss';
 
+import { fetchCommunityContent }
+  from '../modules/community-content/get-object-content-actions';
+
 // static content
 import CONTENT from '../content/home';
 
+const mapStateToProps = ({ communityContent }) => ({
+  communityContent: communityContent.communityContent,
+});
+
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators({
+    fetchCommunityContent,
+  }, dispatch),
+});
+
+@connect(mapStateToProps, mapDispatchToProps)
 class Home extends Component {
+  componentWillMount() {
+    this.props.actions.fetchCommunityContent();
+  }
 
   fetchStaticHero() {
     return <Hero {...CONTENT.STATIC_HERO} />;
@@ -30,6 +49,8 @@ class Home extends Component {
   }
 
   render() {
+    const { posts } = this.props.communityContent;
+
     return (
       <div className={`${style.homeContainer} clearfix`}>
         {this.fetchStaticHero()}
@@ -55,6 +76,7 @@ class Home extends Component {
           showSliderBorder={false}
           showArrows={false}
           numberOfSlidesToDisplay={3}
+          communityContent={posts}
         />
 
         <PromoMessageBand title={CONTENT.SPONSORS_CONTENT_BAND} />
@@ -79,5 +101,11 @@ class Home extends Component {
     );
   }
 }
+
+Home.defaultProps = {
+  communityContent: {
+    posts: [],
+  },
+};
 
 export default Home;

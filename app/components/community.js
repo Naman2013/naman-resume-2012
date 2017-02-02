@@ -40,19 +40,16 @@ this.serverRequest = fetch(this.props.source, {mode: 'no-cors'})
   .then(function(result) {
     return result.json()
   }).then(function(json) {
-    console.log('parsed json', json)
      var lastPost = json.posts[0];
-      console.log(lastPost);
       this.setState({
         title: lastPost.title,
         content: lastPost.content,
         contentType: lastPost.tags[0].slug
       });
       var contentType =  this.state.contentType.split("-")[0];
-      console.log(contentType);
     }.bind(this))
    },
-  
+
 
 
 
@@ -66,7 +63,7 @@ this.serverRequest = fetch(this.props.source, {mode: 'no-cors'})
     return (
       <div>
         {this.state.title}
-       
+
         <span dangerouslySetInnerHTML={{__html: rawMarkup}} />
       </div>
     );
@@ -77,9 +74,9 @@ this.serverRequest = fetch(this.props.source, {mode: 'no-cors'})
 
 ReactDOM.render(
  <CommunityTypeComponent>
-    
+
     {CommunityContentTypes}
-   
+
   </CommunityTypeComponent>,
   document.getElementById('community-module')
 );
@@ -89,4 +86,3 @@ ReactDOM.render(
 ReactDOM.render(
   <LatestObject source="http://sloohgalaxytst.wpengine.com/api/get_category_posts/?slug=jupiter" />,
   document.getElementById('community-data'));
-

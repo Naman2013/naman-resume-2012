@@ -202,7 +202,7 @@ class PublishPost extends Component {
     const { headline, bodyContent, S3URLs, contentCategory } = this.state;
     const publishPostCategory = this.publishPostCategory;
 
-    if (publishPostCategory) {
+    if (publishPostCategory && headline && bodyContent) {
       submitObjectContent({
         at,
         token,
@@ -218,7 +218,7 @@ class PublishPost extends Component {
         this.setupForm();
       });
     } else {
-      alert('Make sure to select a category.');
+      alert('Make sure to add a title, content and to at least select a catagory for this post.');
     }
   }
 
@@ -239,12 +239,6 @@ class PublishPost extends Component {
 
   get formattedCategoryTopics() {
     return _.flatten(this.currentCategoryTopics.map((topic) => {
-      if (topic.topicIsSubcategory) {
-        return {
-          title: topic.topicName,
-        };
-      }
-
       return {
         option: topic.topicDisplayName,
         ...topic,

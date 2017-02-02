@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
-import PulsePostBy from '../../components/pulse/pulse-post-by';
 import PulsePostTools from '../../components/pulse/tools/pulse-post-tools'
 import { iconCategory as icon } from '../../components/pulse/tools/pulse-icon';
 import styles from './object-post.scss';
@@ -105,7 +104,7 @@ class ObjectPostList extends Component {
 
         </div>
 
-        <hr className={styles.ObjectPostListHr}/>
+        <hr className={styles.ObjectPostListHr} />
       </div>
     );
   }

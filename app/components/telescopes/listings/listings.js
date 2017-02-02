@@ -14,8 +14,6 @@ export const AVAILABLE = 'available';
 export const ON_HOLD = 'onhold';
 export const NOT_AVAILABLE = 'notavailable';
 
-
-
 class Listings extends Component {
   renderReservationSlot(reservation) {
     const { allowReservations, telescopeId } = this.props;
@@ -30,7 +28,7 @@ class Listings extends Component {
       );
     }
 
-    if(slotStatus === RESERVED) {
+    if (slotStatus === RESERVED) {
       return(
         <MissionReserved
           key={reservation.missionIndex}
@@ -39,7 +37,7 @@ class Listings extends Component {
       );
     }
 
-    if(slotStatus === AVAILABLE) {
+    if (slotStatus === AVAILABLE) {
       return(
         <AvailableMission
           key={reservation.missionIndex}
@@ -49,7 +47,7 @@ class Listings extends Component {
       );
     }
 
-    if(slotStatus === ON_HOLD) {
+    if (slotStatus === ON_HOLD) {
       return(
         <MissionOnHold
           key={reservation.missionIndex}

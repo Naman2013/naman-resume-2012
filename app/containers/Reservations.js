@@ -8,7 +8,6 @@ import MissionNav from '../components/missions/mission-nav';
 class Reservations extends Component {
 
   render() {
-    console.log(this.props);
     return (
       <div>
         <div className="clearfix reservations">

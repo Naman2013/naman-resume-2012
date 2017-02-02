@@ -5,8 +5,8 @@ import style from './inline-countdown.scss';
 
 class InlineCountdown extends Component {
 
-  constructor( props ) {
-    super( props );
+  constructor(props) {
+    super(props);
 
     this.state = {
       remainingTime: null,
@@ -23,8 +23,14 @@ class InlineCountdown extends Component {
   componentWillReceiveProps(nextProps) {
     const nextStartTime = nextProps.startTime;
     const currentStartTime = this.props.startTime;
-    if(nextStartTime != currentStartTime) {
+    if (nextStartTime !== currentStartTime) {
       this.bootstrapTimer(nextStartTime);
+    }
+  }
+
+  componentWillUnmount() {
+    if (this.timer) {
+      clearInterval(this.timer);
     }
   }
 
@@ -36,42 +42,34 @@ class InlineCountdown extends Component {
       remainingTime: duration,
     });
 
-    if(this.timer) {
+    if (this.timer) {
       clearInterval(this.timer);
     }
 
-    this.timer = setInterval( () => {
+    this.timer = setInterval(() => {
       const { remainingTime } = this.state;
       const { exitAction } = this.props;
       const updatedTime = moment(remainingTime).subtract({ seconds: 1 });
       const minutesRemaining = updatedTime.minutes();
       const secondsRemaining = updatedTime.seconds();
 
-      if(minutesRemaining <= 0 && secondsRemaining <= 0) {
-        if(typeof exitAction === 'function') {
+      if (minutesRemaining <= 0 && secondsRemaining <= 0) {
+        if (typeof exitAction === 'function') {
           exitAction();
         }
-      } else {
-        this.setState({
-          remainingTime: updatedTime,
-        });
+        clearInterval(this.timer);
       }
+
+      this.setState({
+        remainingTime: updatedTime,
+      });
     }, 1000);
   }
 
-  componentWillUnmount() {
-    if(this.timer) {
-      clearInterval( this.timer );
-    }
-  }
-
   render() {
-
-
-
     const { remainingTime } = this.state;
-    const formattedTime = moment( remainingTime ).format( 'm:ss' );
-    return(
+    const formattedTime = moment(remainingTime).format('m:ss');
+    return (
       <div className="inline-countdown">
         { formattedTime }
       </div>

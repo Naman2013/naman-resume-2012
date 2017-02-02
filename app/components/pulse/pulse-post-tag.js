@@ -1,22 +1,26 @@
-import React, { Component, PropTypes } from 'react';
-import { Link } from 'react-router'
+import React, { PropTypes } from 'react';
+import { Link } from 'react-router';
 import styles from './style/pulse-post-tag.scss';
 
 const PulsePostTag = ({ tags }) =>
 
   <figure className={styles.PulsePostTags}>
     <span>Tags: </span>
-
-    {tags.map(tag =>
-      <div key={tag.id} className={styles.PulsePostTag}>
-        <Link to="#"><div dangerouslySetInnerHTML={{__html: tag.title}}/></Link>
-      </div>
-    )}
+    {
+      tags.map(tag =>
+        <div key={tag.id} className={styles.PulsePostTag}>
+          <Link to="#">{tag}</Link>
+        </div>
+      )
+    }
   </figure>;
 
-
-export default PulsePostTag;
+PulsePostTag.defaultProps = {
+  tags: [],
+};
 
 PulsePostTag.propTypes = {
-  tags: PropTypes.array
+  tags: PropTypes.arrayOf(PropTypes.string),
 };
+
+export default PulsePostTag;
