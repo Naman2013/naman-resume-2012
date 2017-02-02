@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import { fetchLatestPosts } from '../../modules/pulse/get-latest-posts-action';
 
 
-const list = [
+const navigationList = [
   {
     label: "THE LATEST POSTS",
     route: "latest-posts",
@@ -66,7 +66,7 @@ class PulseList extends Component {
         <AnnouncementBanner />
         <PulseListHeader />
 
-        <PulseNav route={route} location={location} list={list} />
+        <PulseNav route={route} location={location} list={navigationList} />
 
         {
           cloneElement(children, {

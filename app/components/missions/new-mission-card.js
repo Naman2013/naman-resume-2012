@@ -70,8 +70,7 @@ class NewMissionCard extends Component {
 
   renderMissionTime() {
     const { featured } = this.props;
-    const { missionStart } = this.props.reservation;
-
+    const { missionStart, telescopePierName } = this.props.reservation;
     const formattedUTCDate = new Date(missionStart * 1000);
 
     const EST_start = moment.tz(formattedUTCDate, 'America/New_York').format('dddd, MMMM Do');
@@ -83,7 +82,7 @@ class NewMissionCard extends Component {
       <div className="mission-available">
         <p className="start-time">
           <strong>{ EST_start }{ featured ? ':' : '' }</strong>
-          { !featured ? <br /> : null} { EST_start_time } <span className="highlight">&middot;</span> { PST_start_time } <span className="highlight">&middot;</span> { UTC_start_time }
+          { !featured ? <br /> : null} { EST_start_time } <span className="highlight">&middot;</span> { PST_start_time } <span className="highlight">&middot;</span> {UTC_start_time} <span className={styles.telescopePierName}>{telescopePierName}</span>
         </p>
       </div>
     );
@@ -166,7 +165,9 @@ class NewMissionCard extends Component {
 
           <div className={styles.cardsubTitle}>
             {
-              card.objectIconURL ? <img alt="Mission icon" className={styles.cardIcon} src={card.objectIconURL} /> : null
+              featured ?
+                <img alt="Mission icon" className={styles.cardIcon} src={card.objectIconURL} /> :
+                <img alt="Mission icon" height="50" className={styles.cardIcon} src={card.objectIconURL} />
             }
             <h3>{title}</h3>
           </div>

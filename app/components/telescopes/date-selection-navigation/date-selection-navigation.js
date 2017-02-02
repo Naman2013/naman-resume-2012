@@ -1,24 +1,19 @@
 import React, { Component, PropTypes } from 'react';
-import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import moment from 'moment-timezone';
 import classnames from 'classnames';
-import { hashHistory } from 'react-router';
 import _ from 'lodash';
 import LastRefreshed from './last-refreshed';
 import { fetchDateRanges } from '../../../modules/mission-slots-by-telescope/mission-slot-dates-actions';
 import style from './date-selection-navigation.scss';
 
-const MIN_DAYS = 0;
-const MAX_DAYS = 7;
-
-const mapStateToProps = ({ missionSlotDates, missionSlotsByTelescope }) => ({
+const mapStateToProps = ({ missionSlotDates, missionSlotsByTelescope, telescopeSlots }) => ({
   missionSlotDates,
   missionSlotsByTelescope,
+  activeMissions: telescopeSlots.missions,
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
     fetchDateRanges,
   }, dispatch),
@@ -46,8 +41,9 @@ class DateSelectionNavigation extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if(nextProps.routeRoot != this.props.routeRoot) {
-      const requestedDate = nextProps.missionSlotDates.dateRangeResponse.dateList[0].reservationDate;
+    if (nextProps.routeRoot !== this.props.routeRoot) {
+      const requestedDate =
+        nextProps.missionSlotDates.dateRangeResponse.dateList[0].reservationDate;
       const { actions, obsId, telescopeId, domeId } = nextProps;
       actions.fetchDateRanges({
         obsId,
@@ -62,38 +58,49 @@ class DateSelectionNavigation extends Component {
     }
   }
 
+  componentWillUnmount() {
+    clearTimeout(this.telescopeTimer);
+    clearTimeout(this.telescopeDeferRefreshTimer);
+  }
+
   setupTelescopeListingsRefresh() {
     const { missionSlotsByTelescope, obsId } = this.props;
     const { refreshIntervalSec } = missionSlotsByTelescope.reservationList;
     const { reservationDate } = this.props.missionSlotDates.dateRangeResponse.dateList[0];
 
-    clearInterval(this.telescopeTimer);
-
-    if(refreshIntervalSec) {
-      this.telescopeTimer = setInterval(() => {
+    clearTimeout(this.telescopeTimer);
+    const testTimer = 5000;
+    if (refreshIntervalSec) {
+      this.telescopeTimer = setTimeout(() => {
         this.handleDateChange(reservationDate);
       }, refreshIntervalSec * 1000);
     }
   }
 
-  componentWillUnmount() {
-    clearInterval(this.telescopeTimer);
-  }
-
   handleDateChange(requestedDate) {
-    const { actions, obsId, telescopeId, domeId } = this.props;
-    actions.fetchDateRanges({
-      obsId,
-      telescopeId,
-      domeId,
-      requestedDate,
-    });
+    const { activeMissions } = this.props;
+
+    clearTimeout(this.telescopeDeferRefreshTimer);
+
+    if (activeMissions.length > 0) {
+      this.telescopeDeferRefreshTimer = setTimeout(() => {
+        this.handleDateChange(requestedDate)
+      }, 5000);
+    } else {
+      const { actions, obsId, telescopeId, domeId } = this.props;
+      actions.fetchDateRanges({
+        obsId,
+        telescopeId,
+        domeId,
+        requestedDate,
+      });
+    }
   }
 
   handlePreviousClick(event) {
     event.preventDefault();
     const { backEnabled, backDate } = this.props.missionSlotDates.dateRangeResponse.dateList[0];
-    if(backEnabled) {
+    if (backEnabled) {
       this.handleDateChange(backDate);
     }
   }
@@ -110,9 +117,10 @@ class DateSelectionNavigation extends Component {
     const {
       dateRangeResponse,
       dateRangeIsError,
-      dateRangeIsFetching } = this.props.missionSlotDates;
+      dateRangeIsFetching
+    } = this.props.missionSlotDates;
 
-    if(dateRangeIsFetching || dateRangeIsError || _.isEmpty(dateRangeResponse)) {
+    if (dateRangeIsFetching || dateRangeIsError || _.isEmpty(dateRangeResponse)) {
       return null;
     }
 
@@ -123,14 +131,12 @@ class DateSelectionNavigation extends Component {
       forwardEnabled,
       backEnabled } = dateRangeResponse.dateList[0];
 
-    const progressPastStyle = classnames({
-      'available': backEnabled,
-      'fa fa-chevron-circle-left': 1,
+    const progressPastStyle = classnames('fa fa-chevron-circle-left', {
+      available: backEnabled,
     });
 
-    const progressFutureStyle = classnames({
-      'available': forwardEnabled,
-      'fa fa-chevron-circle-right': 1,
+    const progressFutureStyle = classnames('fa fa-chevron-circle-right', {
+      available: forwardEnabled,
     });
 
     this.setupTelescopeListingsRefresh();
@@ -165,7 +171,12 @@ class DateSelectionNavigation extends Component {
   }
 }
 
+DateSelectionNavigation.defaultProps = {
+  activeMissions: [],
+};
+
 DateSelectionNavigation.propTypes = {
+  activeMissions: PropTypes.array,
   routeRoot: PropTypes.string,
   obsId: PropTypes.string.isRequired,
   telescopeId: PropTypes.string.isRequired,

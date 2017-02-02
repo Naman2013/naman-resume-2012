@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
+import { Link } from 'react-router';
 import { iconPlanet as icon } from './tools/pulse-icon';
 import styles from './style/pulse-header-banner.scss';
 
@@ -11,9 +12,8 @@ const PulsePostHeader = (list) =>
 
     <div className="additional">
       <div className="button-nav">
-        <button className="button btn-primary">Reserve Telescope</button>
-        <button className="button btn-primary">Follow This Object</button>
-        <button className="button btn-primary">Create New Post</button>
+        <Link className="button btn-primary" to="/reservations/slooh-recommends/">Reserve Telescope</Link>
+        <Link className="button btn-primary" to="/publish-post">Create New Post</Link>
       </div>
     </div>
 

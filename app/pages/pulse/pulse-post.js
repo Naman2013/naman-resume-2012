@@ -1,15 +1,15 @@
-import React, { Component, PropTypes } from 'react';
-import ByUserTag from '../../components/common/by-user-tag/by-user-tag'
-import PulsePostDate from '../../components/pulse/pulse-post-date'
-import PulsePostImage from '../../components/pulse/pulse-post-image'
-import PulsePostTag from '../../components/pulse/pulse-post-tag'
-import PulsePostTools from '../../components/pulse/tools/pulse-post-tools'
+import React, { PropTypes } from 'react';
+import ByUserTag from '../../components/common/by-user-tag/by-user-tag';
+import PulsePostDate from '../../components/pulse/pulse-post-date';
+import PulsePostImage from '../../components/pulse/pulse-post-image';
+import PulsePostTag from '../../components/pulse/pulse-post-tag';
+import PulsePostTools from '../../components/pulse/tools/pulse-post-tools';
 import styles from './pulse-post.scss';
 
 const PulsePostContent = ({
   post: {
     S3Files,
-    tags,
+    postTags,
     title,
     creationDate,
     type,
@@ -57,11 +57,18 @@ const PulsePostContent = ({
           <div dangerouslySetInnerHTML={{ __html: content }} />
         </figcaption>
 
-        <PulsePostTag tags={tags} />
+        {
+          postTags.length > 0 ?
+            <PulsePostTag tags={postTags} /> : null
+        }
+
       </figure>
     </div>
-);
+  );
 }
 
+PulsePostContent.defaultProps = {
+  postTags: [],
+};
 
 export default PulsePostContent;

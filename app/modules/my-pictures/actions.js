@@ -65,7 +65,7 @@ const fetchPhotoRollFail = payload => ({
   @scheduledMissionId: number - used when filtering down to a specific set
   of photographs for a specific mission
 */
-export const fetchPhotoRoll = ({ scheduledMissionId }) => (dispatch, getState) => {
+export const fetchPhotoRoll = ({ scheduledMissionId } = {}) => (dispatch, getState) => {
   const { at, token, cid } = getState().user;
   const { objectTypeFilter } = getState().myPictures;
   dispatch(fetchPhotoRollStart());

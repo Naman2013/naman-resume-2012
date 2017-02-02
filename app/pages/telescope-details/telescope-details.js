@@ -2,17 +2,14 @@ import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { checkUser } from '../../modules/User';
-import moment from 'moment';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import './telescope-details.scss';
-import exampleUser from '../../example-api-data/example-user'
 import DEFAULT_FULL_MISSION_DATA from './default-full-mission-data';
 
 import {
   getObservatoryList,
   getCurrentObservatory,
-  fetchObservatoryTelescopeStatus} from '../../modules/Telescope-Overview';
+  fetchObservatoryTelescopeStatus } from '../../modules/Telescope-Overview';
 
 import AnnouncementBanner from '../../components/common/announcement-banner/announcement-banner';
 import TelescopeImageViewer from '../../components/common/telescope-image-viewer/telescope-image-viewer';
@@ -20,20 +17,20 @@ import VideoImageLoader from '../../components/common/telescope-image-loader/vid
 import Spacer from '../../components/common/spacer';
 import LiveStream from '../../components/telescope-details/live-stream/live-stream';
 import LiveMission from '../../components/telescope-details/live-mission/live-mission';
-import TelescopeWhereSky from '../../components/telescope-details/where-sky/where-sky';
-import TelescopeConditionSnapshot from '../../components/telescope-details/condition-snapshot/condition-snapshot';
 import PromoMessageBanner from '../../components/common/headers/promo-message-band';
 import CommunityPerspectives from '../../components/common/community-perspectives/community-perspectives';
-import LiveWebcam from '../../components/telescope-details/live-webcam/live-webcam';
-import WeatherConditions from '../../components/telescope-details/weather-conditions/weather-conditions';
-import TelescopeRecommendsWidget from '../../components/telescope-details/recommends-widget/recommends-widget';
-import TelescopeGalleryWidget from '../../components/telescope-details/gallery-widget/gallery-widget';
-import Neoview from '../../components/telescope-details/neoview/neoview.js';
+import Neoview from '../../components/telescope-details/neoview/neoview';
 import TelescopeOffline from '../../components/telescope-details/telescope-offline/telescope-offline';
 import CurrentSelectionHeader from '../../components/telescopes/current-selection-header/header';
 import TelescopeSelection from '../../components/telescopes/selection-widget/telescope-selection';
 
-
+// TODO: need api's to implement these widgets...
+import TelescopeWhereSky from '../../components/telescope-details/where-sky/where-sky';
+import TelescopeConditionSnapshot from '../../components/telescope-details/condition-snapshot/condition-snapshot';
+import LiveWebcam from '../../components/telescope-details/live-webcam/live-webcam';
+import WeatherConditions from '../../components/telescope-details/weather-conditions/weather-conditions';
+import TelescopeRecommendsWidget from '../../components/telescope-details/recommends-widget/recommends-widget';
+import TelescopeGalleryWidget from '../../components/telescope-details/gallery-widget/gallery-widget';
 
 const { element, func, object } = PropTypes;
 
@@ -46,7 +43,7 @@ function mapDispatchToProps(dispatch) {
   }
 };
 
-function mapStateToProps({ missions, telescopeOverview, activeTelescopeMissions }) {
+function mapStateToProps({ missions, telescopeOverview, activeTelescopeMissions, communityObjectContent }) {
   const { observatoryList, observatoryTelecopeStatus } = telescopeOverview;
   return {
     missions,
@@ -54,11 +51,12 @@ function mapStateToProps({ missions, telescopeOverview, activeTelescopeMissions 
     observatoryTelecopeStatus,
     cardList: missions.cardList || [],
     activeTelescopeMissions,
+    communityContent: communityObjectContent.communityContent.posts,
   };
 }
 
 @connect(mapStateToProps, mapDispatchToProps)
-export default class TelescopeDetails extends Component {
+class TelescopeDetails extends Component {
 
   constructor(props) {
     super(props);
@@ -86,7 +84,7 @@ export default class TelescopeDetails extends Component {
     const { obsUniqueId, teleUniqueId } = params;
     const currentObservatory = getCurrentObservatory(observatoryList, obsUniqueId);
 
-    if(!currentObservatory) { return; }
+    if (!currentObservatory) { return; }
 
     const currentTelescope = this.getCurrentTelescope(currentObservatory.obsTelescopes, teleUniqueId);
     const { teleInstrumentList } = currentTelescope;
@@ -131,7 +129,7 @@ export default class TelescopeDetails extends Component {
           teleFade={currentInstrument.instrFade}
         />
       );
-    } else if(instrImageSourceType === 'video') {
+    } else if (instrImageSourceType === 'video') {
       const {
         instrStreamCode,
         instrStreamURL,
@@ -139,7 +137,7 @@ export default class TelescopeDetails extends Component {
         instrStreamThumbnailVideoHeight,
         instrStreamThumbnailQuality } = currentInstrument;
 
-      return(
+      return (
         <VideoImageLoader
           teleStreamCode={instrStreamCode}
           teleStreamURL={instrStreamURL}
@@ -153,11 +151,11 @@ export default class TelescopeDetails extends Component {
 
   render() {
     const { selectedTab } = this.state;
-    const { observatoryList, observatoryTelecopeStatus, params, activeTelescopeMissions } = this.props;
+    const { observatoryList, observatoryTelecopeStatus, params, activeTelescopeMissions, communityContent } = this.props;
     const { obsUniqueId, teleUniqueId } = params;
 
     // TODO: Move this check into TelescopeSelection component
-    if(observatoryList.length === 0) {
+    if (observatoryList.length === 0) {
       return null;
     }
 
@@ -170,7 +168,7 @@ export default class TelescopeDetails extends Component {
     const currentMission = DEFAULT_FULL_MISSION_DATA;
     const currentTelescopeMissionData = activeTelescopeMissions.telescopes.find(telescope => telescope.telescopeId === teleId);
 
-    if(currentTelescopeMissionData && currentTelescopeMissionData.activeMission.full.missionList) {
+    if (currentTelescopeMissionData && currentTelescopeMissionData.activeMission.full.missionList) {
       Object.assign(currentMission, currentTelescopeMissionData.activeMission.full.missionList[0]);
     }
 
@@ -179,20 +177,21 @@ export default class TelescopeDetails extends Component {
     // TODO: refactor this patchwork to more appropriatly set default values for the selected
     // instrument.  Problem here is the index for the tab falls out of sync with the
     // array of available instruments and throws an error.
-    if(selectedTab > teleInstrumentList.length - 1) {
+    if (selectedTab > teleInstrumentList.length - 1) {
       return null;
     }
 
     const currentInstrument = teleInstrumentList[selectedTab];
 
-    return(
+    return (
       <div className="telescope-details-page-wrapper">
 
         <AnnouncementBanner obsId={obsId} />
 
         <TelescopeSelection
           observatoryList={observatoryList}
-          params={params} />
+          params={params}
+        />
 
         <div className="details-content-wrapper">
 
@@ -218,8 +217,8 @@ export default class TelescopeDetails extends Component {
           </div>
 
           { /* begin left column */ }
-          <div className='telescope-details clearfix'>
-            <div className='col-md-8'>
+          <div className="telescope-details clearfix">
+            <div className="col-md-8">
               <Tabs
                 onSelect={this.handleSelect.bind(this)}
                 selectedIndex={selectedTab}>
@@ -262,11 +261,18 @@ export default class TelescopeDetails extends Component {
 
               <Spacer height="50px" />
 
-              <PromoMessageBanner
-                title={`Community Perspectives`}
-                subtitle={`Learn more about this object through the various lenses of science, culture, and spirituality.`} />
-
-              <CommunityPerspectives />
+              {
+                communityContent.length > 0 ?
+                  <div>
+                    <PromoMessageBanner
+                      title="Community Perspectives"
+                      subtitle="Learn more about this object through the various lenses of science, culture, and spirituality."
+                    />
+                    <CommunityPerspectives
+                      communityContent={communityContent}
+                    />
+                  </div> : null
+              }
 
               {
                 /**
@@ -319,3 +325,9 @@ export default class TelescopeDetails extends Component {
     );
   }
 }
+
+TelescopeDetails.defaultProps = {
+  communityContent: [],
+};
+
+export default TelescopeDetails;

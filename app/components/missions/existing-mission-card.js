@@ -72,13 +72,13 @@ class ExistingMissionCard extends Component {
     const mission = missionList[0];
     const { card } = this.props;
 
-    if(apiError) {
+    if (apiError) {
       this.setState({
         errorModalIsOpen: true,
         errorMessage: errorMsg,
       });
     } else {
-      if( mission.missionAvailable ) {
+      if (mission.missionAvailable) {
         this.props.actions.missionGetInfo(card, 'piggyback');
       } else {
         // TODO: refresh the list of reservations
@@ -100,6 +100,7 @@ class ExistingMissionCard extends Component {
 
   startMissionTime() {
     const { card, piggyback } = this.props;
+    const { telescopePierName } = piggyback;
     const featured = card.cardType == 2;
 
     const formattedUTCDate = new Date(piggyback.missionStart * 1000);
@@ -112,7 +113,7 @@ class ExistingMissionCard extends Component {
     return(
       <p className="start-time">
         <strong>{EST_start}</strong>
-        {!featured ? <br /> : null} {EST_start_time} <span className="highlight">&middot;</span> {PST_start_time} <span className="highlight">&middot;</span> {UTC_start_time}
+        {!featured ? <br /> : null} {EST_start_time} <span className="highlight">&middot;</span> {PST_start_time} <span className="highlight">&middot;</span> {UTC_start_time} <span className={styles.telescopePierName}>{telescopePierName}</span>
       </p>
     );
   }
@@ -219,7 +220,6 @@ class ExistingMissionCard extends Component {
 
     return (
       <div className={existingMissionCardClassnames}>
-
         <div className="card-content-container">
           {
             featured ?
@@ -230,7 +230,9 @@ class ExistingMissionCard extends Component {
 
           <div className={styles.cardsubTitle}>
             {
-              card.objectIconURL ? <img alt="Mission icon" className={styles.cardIcon} src={card.objectIconURL} /> : null
+              featured ?
+                <img alt="Mission icon" className={styles.cardIcon} src={card.objectIconURL} /> :
+                <img alt="Mission icon" height="50" className={styles.cardIcon} src={card.objectIconURL} />
             }
             <h3>{card.title}</h3>
           </div>
@@ -239,7 +241,7 @@ class ExistingMissionCard extends Component {
             featured ?
               <p className={styles.cardDescription}>{card.description}</p>
               :
-              <p className={styles.cardDescription}>{_.truncate( card.description, {'length': 130, 'separator': ' '})}</p>
+              <p className={styles.cardDescription}>{_.truncate(card.description, { length: 130, separator: ' ' })}</p>
           }
 
           {

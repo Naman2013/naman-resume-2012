@@ -7,8 +7,6 @@ class PulsePostList extends Component {
   handlePageChange = (page) => {
     const current = page + 1;
     const { fetchLatestPosts, childPath } = this.props;
-
-    console.log(this.props);
     fetchLatestPosts(childPath, current);
   };
 

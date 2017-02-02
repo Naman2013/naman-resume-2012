@@ -19,7 +19,6 @@ class LiveSocial extends Component {
     this.setState({
       selectedTab: index,
     });
-    console.log(this.state.selectedTab)
   }
 
   render() {

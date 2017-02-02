@@ -1,6 +1,5 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
-import cx from 'classnames';
 import moment from 'moment';
 import NewMissionCard from '../components/missions/new-mission-card';
 import GenericLoadingBox from '../components/common/loading-screens/generic-loading-box';

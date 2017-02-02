@@ -5,18 +5,28 @@
   font-family: $primary-font;
   margin-bottom: 15px;
 
+  .telescopeType {
+    margin: 10px 0;
+  }
+
   .cardsubTitle {
     overflow: hidden;
     margin: 5px 0;
     text-align: center;
+
     img {
       width: 34px;
     }
+
     h3 {
       color: #111;
       font-size: 21px;
       font-weight: bold;
       margin: 7px;
+    }
+
+    .telescopeType {
+      margin: 10px 0;
     }
   }
 }

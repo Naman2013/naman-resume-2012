@@ -10,8 +10,6 @@ import GET_OBJECT_CONTENT_RESPONSE_CODES from '../../../constants/get-object-con
 import './community-perspectives.scss';
 import './slick.min.css';
 import './slick-theme.min.css';
-import { fetchCommunityContent }
-from '../../../modules/community-content/get-object-content-actions';
 
 const SCIENCE_LOG = 'SCIENCE_LOG';
 const ART_CULTURE = 'ART_CULTURE';
@@ -45,30 +43,14 @@ const perspectiveCatagories = [
   },
 ];
 
-const mapStateToProps = ({ communityContent }) => ({
-  ...communityContent,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  actions: bindActionCreators({
-    fetchCommunityContent,
-  }, dispatch),
-});
-
-@connect(mapStateToProps, mapDispatchToProps)
 class CommunityPerspectives extends Component {
   constructor(props) {
     super(props);
-    
+
     this.state = {
       activeCatagory: SCIENCE_LOG,
     };
-    
     this.handleNavigationClick = this.handleNavigationClick.bind(this);
-  }
-
-  componentWillMount() {
-    this.props.actions.fetchCommunityContent();
   }
 
   handleNavigationClick(event, activeCatagory) {
@@ -80,20 +62,20 @@ class CommunityPerspectives extends Component {
 
   filterPosts(posts = []) {
     const { activeCatagory } = this.state;
-    const matchContentKey = perspectiveCatagories.find(profile => profile.catagory === activeCatagory).contentKey;
+    const matchContentKey =
+      perspectiveCatagories.find(profile => profile.catagory === activeCatagory).contentKey;
     return posts.filter(post => post.type === matchContentKey);
   }
 
   hasRelevantPosts() {
-    const { posts } = this.props.communityContent;
+    const posts = this.props.communityContent;
 
     const filteredPosts = this.filterPosts(posts);
     return filteredPosts.length > 0;
   }
 
   generatePosts() {
-    const { posts } = this.props.communityContent;
-
+    const posts = this.props.communityContent;
     const filteredPosts = this.filterPosts(posts);
     const hasPosts = filteredPosts.length > 0;
 
@@ -106,13 +88,13 @@ class CommunityPerspectives extends Component {
           />
         </div>
       ));
-    } else {
-      return (
-        <div>
-          <CallToAction />
-        </div>
-      );
     }
+
+    return (
+      <div>
+        <CallToAction />
+      </div>
+    );
   }
 
   render() {
@@ -153,7 +135,7 @@ class CommunityPerspectives extends Component {
                   return (
                     <li key={index} className="col-xs-3 category">
                       <a
-                        onClick={(event) => this.handleNavigationClick(event, perspective.catagory)}
+                        onClick={event => this.handleNavigationClick(event, perspective.catagory)}
                         className={navigationClasses}
                         href="#/"
                       >
@@ -201,6 +183,7 @@ CommunityPerspectives.defaultProps = {
   showSliderBorder: true,
   showArrows: true,
   numberOfSlidesToDisplay: 2,
+  communityContent: [],
 };
 
 CommunityPerspectives.propTypes = {
@@ -208,7 +191,29 @@ CommunityPerspectives.propTypes = {
   showSliderBorder: PropTypes.bool,
   showArrows: PropTypes.bool,
   numberOfSlidesToDisplay: PropTypes.number,
-  communityContent: PropTypes.object,
+  communityContent: PropTypes.arrayOf(PropTypes.shape({
+    posts: PropTypes.arrayOf(PropTypes.shape({
+      postId: PropTypes.number.isRequired,
+      title: PropTypes.string.isRequired,
+      content: PropTypes.string.isRequired,
+      type: PropTypes.string.isRequired,
+      slug: PropTypes.string.isRequired,
+      objectId: PropTypes.number.isRequired,
+      slugLookupId: PropTypes.number.isRequired,
+      slugDesc: PropTypes.string.isRequired,
+      customerId: PropTypes.string.isRequired,
+      firstName: PropTypes.string.isRequired,
+      location: PropTypes.string.isRequired,
+      membershipType: PropTypes.string.isRequired,
+      displayName: PropTypes.string.isRequired,
+      userId: PropTypes.string.isRequired,
+      memberSince: PropTypes.string.isRequired,
+      avatarType: PropTypes.string.isRequired,
+      avatarURL: PropTypes.string.isRequired,
+      likesCount: PropTypes.number.isRequired,
+      canLikeFlag: PropTypes.number.isRequired,
+    })),
+  })),
   actions: PropTypes.object,
 };
 

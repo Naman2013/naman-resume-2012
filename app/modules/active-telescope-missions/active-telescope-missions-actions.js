@@ -11,8 +11,6 @@ export const REMOVE_TELESCOPE_MISSION = 'REMOVE_TELESCOPE_MISSION';
 export const FORMAT_COMPACT = 'compact';
 export const FORMAT_FULL = 'full';
 
-
-
 /**
   see documentation:
   https://docs.google.com/document/d/1rBvwVp2sRhtQMpVOy-xfjAs2oPCvbH-rV9cnnKwFMDM/edit#
@@ -37,18 +35,18 @@ export const updateTelescopeActiveMission = ({ telescopeId, obsId, domeId, forma
     format,
   })
   .then(result => {
-    if(format === FORMAT_COMPACT) {
-      dispatch(updateActiveMissionCompact({ telescopeId, payload: result.data, }));
+    if (format === FORMAT_COMPACT) {
+      dispatch(updateActiveMissionCompact({ telescopeId, payload: result.data }));
     }
 
-    if(format === FORMAT_FULL) {
+    if (format === FORMAT_FULL) {
       const hasMission = result.data.missionList.length > 0;
       const currentMission = result.data.missionList[0];
 
-      dispatch(updateActiveMissionFull({ telescopeId, payload: result.data, }));
+      dispatch(updateActiveMissionFull({ telescopeId, payload: result.data }));
 
       // if we have a mission, fetch the community content...
-      if(hasMission) {
+      if (hasMission) {
         const { objectId } = currentMission;
         const callSource = 'telescopeDetails';
 

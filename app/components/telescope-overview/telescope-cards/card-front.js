@@ -99,14 +99,12 @@ class CardFront extends Component {
       teleInstrumentList,
       activeMission } = this.props;
 
-    console.log(activeMission);
-
     const cardContent = {
       objectTitle: '',
       expires: null,
     };
 
-    if(_.has(activeMission, 'activeMission.compact.missionList')) {
+    if (_.has(activeMission, 'activeMission.compact.missionList')) {
       Object.assign(cardContent, activeMission.activeMission.compact.missionList[0]);
     }
 
@@ -114,18 +112,17 @@ class CardFront extends Component {
       opacity: this.isMissionReadyTelescope() ? 1 : 0,
     };
 
-    const defaultInstrumentId = teleInstrumentList[0].instrUniqueId;
-
-    return(
+    return (
       <div className="telescope-card-front">
         <div className="card-header">
           <button
             onClick={this.props.handleFlip}
-            className="flip-card-action">
-            <img src="assets/icons/flip-arrow.svg" />
+            className="flip-card-action"
+          >
+            <img alt="click to flip the card" src="assets/icons/flip-arrow.svg" />
           </button>
 
-          <img className="icon" src="assets/icons/observatory.svg" width="50" height="50" />
+          <img alt="this is an observatory" className="icon" src="assets/icons/observatory.svg" width="50" height="50" />
           <h3 className="title">{this.props.teleName}</h3>
           <p className="body">
             {this.props.teleTelescopeUsage}
@@ -141,12 +138,13 @@ class CardFront extends Component {
         <div className="card-body">
 
           { /* telescope content */
-            !!this.props.telescopeOnline ?
+            this.props.telescopeOnline ?
               <div>
                 {
                   this.isMissionReadyTelescope() ?
-                  <CountdownTimer
-                    missionStartTime={cardContent.expires} /> : null
+                    <CountdownTimer
+                      missionStartTime={cardContent.expires}
+                    /> : null
                 }
                 <div className="image-viewer">
                   <h4 className="title" style={missionStatusStyle}>LIVE Mission</h4>

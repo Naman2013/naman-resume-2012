@@ -1,9 +1,12 @@
 .sse-thumbnails {
-  position: relative;
+
+  .bottom-image {
+    position: relative;
+  }
 
   .top-image {
-    position: absolute;
-    top: 0;
+    position: relative;
+    top: -250px;
 
     transition: opacity ease-in-out;
     -moz-transition: opacity ease-in-out;

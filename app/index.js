@@ -124,7 +124,7 @@ ReactDOM.render(
           <Route path="latest-entries" component={PulseWrapper} />
         </Route>
 
-        <Route path="live" component={Live}>
+        <Route path="shows/situation-room" component={Live}>
           {/**/}
         </Route>
 
@@ -132,6 +132,15 @@ ReactDOM.render(
           <IndexRedirect to="photo-roll" />
           <Route path="photo-roll(/:scheduledMissionId)" title="Photo roll" component={PhotoRoll} />
           <Route path="missions" title="Missions" component={Missions} />
+        </Route>
+
+        <Route path="/discussions" component={MyPictures}>
+          <IndexRedirect to="main" />
+          <Route path="main" component={PhotoRoll}>
+            <Route path="most-recent" component={PhotoRoll} />
+            <Route path="most-active" component={PhotoRoll} />
+          </Route>
+
         </Route>
 
       </Route>

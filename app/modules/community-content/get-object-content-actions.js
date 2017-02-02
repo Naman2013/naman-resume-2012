@@ -4,21 +4,20 @@ export const FETCH_OBJECT_CONTENT_RESET = 'FETCH_OBJECT_CONTENT_START';
 export const FETCH_OBJECT_CONTENT_SUCCESS = 'FETCH_OBJECT_CONTENT_SUCCESS';
 export const FETCH_OBJECT_CONTENT_FAIL = 'FETCH_OBJECT_CONTENT_FAIL';
 
-export const FETCH_COMMUNITY_CONTENT = 'FETCH_COMMUNITY_CONTENT_START';
+export const FETCH_COMMUNITY_CONTENT_START = 'FETCH_COMMUNITY_CONTENT_START';
 export const FETCH_COMMUNITY_CONTENT_SUCCESS = 'FETCH_COMMUNITY_CONTENT_SUCCESS';
 export const FETCH_COMMUNITY_CONTENT_FAIL = 'FETCH_COMMUNITY_CONTENT_FAIL';
 
 const fetchCommunityContentStart = () => ({
-  type: FETCH_COMMUNITY_CONTENT,
-  payload: {},
+  type: FETCH_COMMUNITY_CONTENT_START,
 });
 
-const fetchCommunityContentSuccess = (data) => ({
+const fetchCommunityContentSuccess = data => ({
   type: FETCH_COMMUNITY_CONTENT_SUCCESS,
   payload: data,
 });
 
-const fetchCommunityContentError = (error) => ({
+const fetchCommunityContentError = error => ({
   type: FETCH_COMMUNITY_CONTENT_FAIL,
   payload: error,
 });
@@ -27,12 +26,12 @@ export const fetchContentReset = () => ({
   type: FETCH_OBJECT_CONTENT_RESET,
 });
 
-const fetchContentSuccess = (data) => ({
+const fetchContentSuccess = data => ({
   type: FETCH_OBJECT_CONTENT_SUCCESS,
   payload: data,
 });
 
-const fetchContentError = (error) => ({
+const fetchContentError = error => ({
   type: FETCH_OBJECT_CONTENT_FAIL,
   payload: error,
 });

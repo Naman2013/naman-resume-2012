@@ -66,7 +66,7 @@ class ReserveByCatalog extends Component {
       visibilityValid: false,
       presetOptions: null,
 
-      selectedCatalogIndex: undefined,
+      selectedCatalogIndex: null,
       designation: '',
       checkVisibilityEnabled: false,
       visibilityStatus: {},
@@ -90,6 +90,7 @@ class ReserveByCatalog extends Component {
   handleCatalogSelect(event) {
     this.setState({
       selectedCatalogIndex: event.target.value,
+      selectedImageProcessingIndex: null,
       designation: '',
       checkVisibilityEnabled: false,
       presetOptions: null,
@@ -113,7 +114,7 @@ class ReserveByCatalog extends Component {
 
   fetchImageProcessing(telescopeId) {
     const normalizedTelescopeIdSource = this.props.telescopeId || telescopeId;
-    if(normalizedTelescopeIdSource) {
+    if (normalizedTelescopeIdSource) {
       fetchPresetOptions({
         telescopeId: normalizedTelescopeIdSource,
       })
@@ -128,7 +129,7 @@ class ReserveByCatalog extends Component {
   get selectedImageProcessing() {
     const { presetOptions, selectedImageProcessingIndex } = this.state;
     const hasSelectedImageProcessing = selectedImageProcessingIndex;
-    if(hasSelectedImageProcessing) {
+    if (hasSelectedImageProcessing) {
       return presetOptions.telescopeList[0].telePresetList[selectedImageProcessingIndex];
     }
 
@@ -137,7 +138,7 @@ class ReserveByCatalog extends Component {
 
   get imageProcessingList() {
     const { presetOptions } = this.state;
-    if(_.has(presetOptions, 'telescopeList')) {
+    if (_.has(presetOptions, 'telescopeList')) {
       return presetOptions.telescopeList[0].telePresetList.map(presetOption => presetOption.presetDisplayName);
     }
     return [];
@@ -235,6 +236,12 @@ class ReserveByCatalog extends Component {
               className="btn-primary">Hold One Hour</button> : null
           }
           {
+            !showPlaceOnHold ?
+            <button
+              onClick={this.handleCatalogSelect}
+              className="btn-primary">Reset Browse</button> : null
+          }
+          {
             showCancelHold ?
             <button className="btn-primary">Cancel Hold</button> : null
           }
@@ -310,8 +317,8 @@ class ReserveByCatalog extends Component {
     const showStepThree = visibilityStatus.objectIsVisible;
 
     let catalogList = [];
-    let selectedCatalog = undefined;
-    if(_.has(catalog, 'catalogList')) {
+    let selectedCatalog;
+    if (_.has(catalog, 'catalogList')) {
       catalogList = catalog.catalogList.map(catalogItem => (
         <span><img src={catalogItem.catIconURL} /> {catalogItem.catFullName}</span>
       ));
@@ -323,7 +330,8 @@ class ReserveByCatalog extends Component {
       <div className={styles.reserveObjectPage}>
         <form
           onSubmit={this.handleFormSubmit}
-          onChange={this.handleFormChange}>
+          onChange={this.handleFormChange}
+        >
 
           <div className="row">
             <div className="col-md-4">

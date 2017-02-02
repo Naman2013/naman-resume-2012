@@ -13,8 +13,8 @@ const mapDispatchToProps = (dispatch) => ({
 
 @connect(null, mapDispatchToProps)
 class TelescopeImageLoader extends Component {
-  constructor( props ) {
-    super( props );
+  constructor(props) {
+    super(props);
 
     this.state = {
       currentImageUrl: null,
@@ -35,7 +35,7 @@ class TelescopeImageLoader extends Component {
 
   generateThumbnailUrl(imageUrl) {
     const { teleThumbWidth, loadThumbnails } = this.props;
-    if(loadThumbnails) {
+    if (loadThumbnails) {
       return `/util/thumbnail.php?url=${imageUrl}&dimension=W&size=${teleThumbWidth}`;
     } else {
       return imageUrl;
@@ -185,13 +185,15 @@ class TelescopeImageLoader extends Component {
         <div className="bottom-image">
           <img
             width={teleThumbWidth}
-            src={bottomImageAddress} />
-        </div>
+            src={bottomImageAddress}
+          />
 
-        <div className="top-image">
-          <img
-            width={teleThumbWidth}
-            id={this.generateImageId()} />
+          <div className="top-image">
+            <img
+              width={teleThumbWidth}
+              id={this.generateImageId()}
+            />
+          </div>
         </div>
       </div>
     );

@@ -6,7 +6,9 @@ import {
 } from './get-object-content-actions';
 
 const generateInitialState = () => ({
-  communityContent: {},
+  communityContent: {
+    posts: [],
+  },
   error: false,
   errorMessage: {},
   fetching: true,

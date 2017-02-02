@@ -33,9 +33,6 @@ export default createReducer(initialState, {
     };
   },
   [FETCH_DATE_RANGE_FAIL](state, { payload }) {
-    console.group('FETCH DATE RANGE ERROR');
-    console.log(payload);
-    console.groupEnd();
     return {
       ...state,
       dateRangeResponse: {},

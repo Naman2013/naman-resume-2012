@@ -5,10 +5,10 @@ import classnames from 'classnames';
 import CardFront from './card-front';
 import CardBack from './card-back';
 
-import style from './telescope-cards.scss';
+import './telescope-cards.scss';
 
 const mapStateToProps = ({ activeTelescopeMissions }) => ({
- activeTelescopeMissions,
+  activeTelescopeMissions,
 });
 
 @connect(mapStateToProps)
@@ -17,7 +17,7 @@ class TelescopeCard extends Component {
     super(props);
 
     this.state = {
-      flipped: false
+      flipped: false,
     };
   }
 
@@ -31,20 +31,17 @@ class TelescopeCard extends Component {
 
   render() {
     const { teleId, activeTelescopeMissions } = this.props;
-    const activeMission = activeTelescopeMissions.telescopes.find(telescopeMissionData => telescopeMissionData.telescopeId === teleId);
-    const cardClasses = classnames({
-      'card-container': true,
-      'flipped': this.state.flipped,
-      'col-md-4': true,
-      'col-sm-4': true,
-      'col-xs-4': true
+    const activeMission = activeTelescopeMissions.telescopes
+      .find(telescopeMissionData => telescopeMissionData.telescopeId === teleId);
+    const cardClasses = classnames('card-container', {
+      flipped: this.state.flipped,
     });
 
-    if( this.props.teleHasTelescopePage !== 'true' ) {
+    if (this.props.teleHasTelescopePage !== 'true') {
       return null;
     }
 
-    return(
+    return (
       <li className={cardClasses}>
         <div className="card-content">
 

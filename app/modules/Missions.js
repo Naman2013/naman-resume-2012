@@ -631,7 +631,6 @@ export default createReducer(initialState, {
     };
   },
   [MISSION_GET_PIGGYBACKS_FAIL](state, { payload }) {
-    console.log(payload);
     return {
       ...state,
       piggybacks: payload,

@@ -46,7 +46,6 @@ class ReserveConfirm extends Component {
     this.onSubmit = this.onSubmit.bind(this);
     this.handleCloseModalClick = this.handleCloseModalClick.bind(this);
     this.handleChangeObjective = this.handleChangeObjective.bind(this);
-    this.handleBlurMissionObjective = this.handleBlurMissionObjective.bind(this);
     this.cancelMissionAndCloseModal = this.cancelMissionAndCloseModal.bind(this);
   }
 
@@ -63,6 +62,10 @@ class ReserveConfirm extends Component {
     const { callSource } = this.props.currentMissionSlot;
     const currentMission = this.props.currentMissionSlot.missionList[0];
 
+    // set the objective content...
+    this.setObjectiveContent();
+
+    // handle the reservation...
     this.props.actions.reserveMissionSlot({
       callSource,
       ...currentMission, // allowing the currentMission to overwrite the callSource
@@ -70,17 +73,30 @@ class ReserveConfirm extends Component {
     });
 
     // depending on the callsource, run the appropriate background actions
-    if(callSource === 'byTelescope') {
+    if (callSource === 'byTelescope') {
       this.props.actions.refreshListings();
     }
 
-    if(callSource === 'recommends') {
+    if (callSource === 'recommends') {
       this.props.actions.missionGetCards();
     }
 
     if (callSource === 'byPopularObjects') {
       this.props.actions.resetBrowseByPopularObjects();
     }
+  }
+
+  setObjectiveContent() {
+    const currentMission = this.props.currentMissionSlot.missionList[0];
+    const { scheduledMissionId } = currentMission;
+    const text = this.state.objective.trim();
+
+    this.props.actions.setTags({
+      tagClass: 'mission',
+      tagType: 'objective',
+      text,
+      scheduledMissionId,
+    });
   }
 
   cancelMissionSlot() {
@@ -114,19 +130,6 @@ class ReserveConfirm extends Component {
 
   handleChangeObjective(event) {
     this.setState({ objective: event.target.value });
-  }
-
-  handleBlurMissionObjective(event) {
-    const currentMission = this.props.currentMissionSlot.missionList[0];
-    const { scheduledMissionId } = currentMission;
-    const text = this.state.objective.trim();
-
-    this.props.actions.setTags({
-      tagClass: 'mission',
-      tagType: 'objective',
-      text,
-      scheduledMissionId,
-    });
   }
 
   /**
@@ -208,11 +211,11 @@ class ReserveConfirm extends Component {
       );
     }
 
-    if(missionSlotJustReserved) {
+    if (missionSlotJustReserved) {
       return this.handleMissionReservationResponse();
     }
 
-    return(
+    return (
       <div>
         <div className="title-bar">
           <div className="icon"><img width="25" height="25" src="https://vega.slooh.com/icons/reservations/stopwatch.svg" /></div>
@@ -239,7 +242,6 @@ class ReserveConfirm extends Component {
               className="mission-objectives"
               placeholder="It’s optional, but would you consider succinctly describing your thoughts on the mission? Anything goes, tweet style."
               value={this.state.objective}
-              onBlur={this.handleBlurMissionObjective}
               onChange={this.handleChangeObjective}></textarea>
           </div>
 
@@ -266,7 +268,7 @@ class ReserveConfirm extends Component {
     const { open, currentMissionSlot } = this.props;
 
     // validate whether or not we have a mission slot ready to render
-    if(_.isEmpty(currentMissionSlot)) { return null; }
+    if (_.isEmpty(currentMissionSlot)) { return null; }
 
     return (
       <Modal show={open} className="missionModal reserveMissionModal">

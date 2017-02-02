@@ -1,13 +1,20 @@
 .telescope-cards-container {
-  min-width: 1200px;
+  width: 1365px;
+  margin: 0 auto;
   position: relative;
-  top: -100px;
+  top: -120px;
 
   .telescope-cards {
     list-style-type: none;
+    padding: 0;
+    padding-left: 30px;
 
     .card-container {
       position: relative;
+      width: 375px;
+      float: left;
+      padding: 0;
+      margin-right: 70px;
 
       -webkit-transition: all 0.4s ease;
       -moz-transition: all 0.4s ease;
@@ -26,14 +33,15 @@
       transform-style: preserve-3d;
 
       .card-content {
+        width: 100%;
         margin: 0 auto;
       }
 
       &.flipped {
-        -webkit-transform: rotateY( 180deg ) translateX( 40px );
-        -moz-transform: rotateY( 180deg ) translateX( 40px );
-        -o-transform: rotateY( 180deg ) translateX( 40px );
-        transform: rotateY( 180deg ) translateX( 40px );
+        -webkit-transform: rotateY(180deg);
+        -moz-transform: rotateY(180deg);
+        -o-transform: rotateY(180deg);
+        transform: rotateY(180deg);
       }
     }
 

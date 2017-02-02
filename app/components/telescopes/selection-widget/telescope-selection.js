@@ -26,6 +26,7 @@ class TelescopeSelection extends React.Component {
 
     this.handleMouseEnter = this.handleMouseEnter.bind(this);
     this.handleMouseLeave = this.handleMouseLeave.bind(this);
+    this.renderDescription = this.renderDescription.bind(this);
 
   }
 
@@ -48,6 +49,16 @@ class TelescopeSelection extends React.Component {
     } else {
       return null;
     }
+  }
+
+  renderDescription(activeTelescope, hoveredTelescope) {
+    const telescope = hoveredTelescope || activeTelescope;
+    return (
+      <div>
+        {!hoveredTelescope || telescope.teleId === activeTelescope.teleId ? 'You are on ' : null}
+        <strong>{telescope.teleName}.</strong> {telescope.teleTelescopeUsage}
+      </div>
+    );
   }
 
   render() {
@@ -133,11 +144,11 @@ class TelescopeSelection extends React.Component {
         </div>
 
         <div className="description">
-          {hoveredTelescope ? hoveredTelescope.teleTelescopeUsage : activeTelescope.teleTelescopeUsage}
+          {this.renderDescription(activeTelescope, hoveredTelescope)}
         </div>
 
       </div>
-    )
+    );
   }
 }
 

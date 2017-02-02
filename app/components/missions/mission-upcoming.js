@@ -19,8 +19,10 @@ const UpcomingContent = ({
   missionTitle,
   missionStart,
   objectIconURL,
-  objectTitle }) => {
-
+  objectTitle,
+  telescopePierName,
+  userReservationType,
+  }) => {
   const formattedUTCDate = new Date(missionStart * 1000);
 
   const EST_start = moment.tz(formattedUTCDate, 'America/New_York').format('dddd, MMMM Do');
@@ -40,7 +42,8 @@ const UpcomingContent = ({
         {EST_start_time} · {PST_start_time} · {UTC_start_time}
       </div>
 
-      <a href="#" className="btn btn-primary">View Reservations</a>
+      <p className={styles.telescopeType}>{telescopePierName} ({userReservationType})</p>
+      <a href="" className="btn btn-primary">View Reservations</a>
     </div>
   );
 };
@@ -63,12 +66,11 @@ class MissionUpcoming extends Component {
   }
 
   renderUpcomingMission() {
-    if(this.props.usersUpcomingMission) {
+    if (this.props.usersUpcomingMission) {
       const { missionList } = this.props.usersUpcomingMission.upcomingMission;
 
       const currentMission = missionList[0];
-
-      if(!currentMission) { return null; }
+      if (!currentMission) { return null; }
 
       const {
         displayName,
@@ -76,9 +78,12 @@ class MissionUpcoming extends Component {
         objectTitle,
         objectIconURL,
         missionStart,
-        userHasReservation } = currentMission;
+        userHasReservation,
+        telescopePierName,
+        userReservationType,
+      } = currentMission;
 
-        return(
+        return (
           <div>
             <div className="widget-header">
               <img height="50" src={avatarURL} />
@@ -91,6 +96,8 @@ class MissionUpcoming extends Component {
                   missionStart={missionStart}
                   objectIconURL={objectIconURL}
                   objectTitle={objectTitle}
+                  telescopePierName={telescopePierName}
+                  userReservationType={userReservationType}
                 />
                 :
                 <NoContentAvailable />
@@ -99,7 +106,7 @@ class MissionUpcoming extends Component {
         );
     }
 
-    return( <NoContentAvailable /> );
+    return <NoContentAvailable />;
   }
 
   render() {

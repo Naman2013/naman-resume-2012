@@ -1,10 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import TelescopeCard from './telescope-card';
 
-import style from './telescope-cards.scss';
-
-
-
+import './telescope-cards.scss';
 /*
   @generateTelescopeStatus
   this function is needed to normalize the differences between the
@@ -29,13 +26,11 @@ function generateTelescopeStatus(telescope) {
   };
 }
 
-
-
 class TelescopeCards extends Component {
 
   renderTelescopeCards(obsTelescopes = []) {
-    if( obsTelescopes.length === 0 ) {
-      return null; //TODO: no telescope scenerio?
+    if (obsTelescopes.length === 0) {
+      return null; // TODO: no telescope scenerio?
     }
 
     const { obsUniqueId } = this.props.observatory;
@@ -52,33 +47,32 @@ class TelescopeCards extends Component {
       // if a status is provided by the status API, we use that - otherwise we generate one
       telescopeStatus = telescopeStatus ? telescopeStatus : generateTelescopeStatus(telescope);
 
-      if(teleStatus !== 'live' && !teleHasTelescopePage) {
+      if (teleStatus !== 'live' && !teleHasTelescopePage) {
         return null;
-      } else {
-        return(
-          <TelescopeCard
-            key={ telescope.teleUniqueId }
-            alertText={obsAlertText}
-            telescopeStatus={telescopeStatus}
-            obsUniqueId={obsUniqueId}
-
-            {...telescope} />
-        );
       }
-    });
 
+      return (
+        <TelescopeCard
+          key={telescope.teleUniqueId}
+          alertText={obsAlertText}
+          telescopeStatus={telescopeStatus}
+          obsUniqueId={obsUniqueId}
+
+          {...telescope}
+        />
+      );
+    });
   }
 
   render() {
-
-    if(!this.props.observatory || !this.props.observatoryTelecopeStatus) {
+    if (!this.props.observatory || !this.props.observatoryTelecopeStatus) {
       return null;
     }
 
-    return(
+    return (
       <div className="telescope-cards-container clearfix">
-        <ul className="col-md-12 clearfix telescope-cards">
-          { this.renderTelescopeCards( this.props.observatory.obsTelescopes ) }
+        <ul className="telescope-cards clearfix">
+          {this.renderTelescopeCards(this.props.observatory.obsTelescopes)}
         </ul>
       </div>
     );
