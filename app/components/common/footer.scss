@@ -1,4 +1,5 @@
 @import "../../styles/variables/fonts.scss";
+@import "../../styles/variables/layout.scss";
 
 .slooh-global-footer {
   font-family: $primary-font;
@@ -9,4 +10,5 @@
   background: #000;
   position: relative;
   z-index: 9999;
+  min-width: $slooh-menu-width + $slooh-content-width;
 }

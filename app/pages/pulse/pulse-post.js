@@ -1,9 +1,9 @@
-import React, { PropTypes } from 'react';
-import ByUserTag from '../../components/common/by-user-tag/by-user-tag';
-import PulsePostDate from '../../components/pulse/pulse-post-date';
-import PulsePostImage from '../../components/pulse/pulse-post-image';
-import PulsePostTag from '../../components/pulse/pulse-post-tag';
-import PulsePostTools from '../../components/pulse/tools/pulse-post-tools';
+import React, { Component, PropTypes } from 'react';
+import ByUserTag from '../../components/common/by-user-tag/by-user-tag'
+import PulsePostDate from '../../components/pulse/pulse-post-date'
+import PulsePostImage from '../../components/pulse/pulse-post-image'
+import PulsePostTag from '../../components/pulse/pulse-post-tag'
+import CommunityPulseTools from '../../components/community/tools/community-post-tools'
 import styles from './pulse-post.scss';
 
 const PulsePostContent = ({
@@ -47,7 +47,7 @@ const PulsePostContent = ({
             />
           </div>
           <div className="col-md-5 pull-right">
-            <PulsePostTools share={true} />
+            <CommunityPulseTools share={true} />
           </div>
         </div>
 

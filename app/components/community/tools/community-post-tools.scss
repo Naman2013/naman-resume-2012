@@ -1,12 +1,12 @@
 @import "../../../styles/variables/fonts";
 @import "../../../styles/variables/colors";
 
-.PulsePostTools {
+.CommunityPostTools {
   display: inline-flex;
   margin: 40px 0;
 }
 
-.PulsePostHot{
+.CommunityPostHot{
   font-size: 13px;
   color: $darkBlueGray;
   display: inline-flex;
@@ -20,7 +20,7 @@
   }
 }
 
-.PulsePostLikes{
+.CommunityPostLikes{
   font-size: 13px;
   color: $darkBlueGray;
   display: inline-flex;
@@ -44,10 +44,10 @@
   }
 }
 
-.PulsePostShare{
+.CommunityPostShare{
   font-size: 13px;
   color: $darkBlueGray;
-  display: inline-flex;
+  display: none;
   align-items: center;
   margin-right: 50px;
 

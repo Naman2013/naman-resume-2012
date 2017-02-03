@@ -1,11 +1,11 @@
 import React, { Component, PropTypes, cloneElement } from 'react';
-import PulsePopular from '../../components/pulse/sidebar/pulse-popular';
-import PulseRecommended from '../../components/pulse/sidebar/pulse-recommends';
-import PulsePostHeader from '../../components/pulse/pulse-post-header';
-import MissionAd from '../../components/missions/mission-ad';
-import Spinner from 'react-spinner';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import GenericLoadingBox from '../../components/common/loading-screens/generic-loading-box';
+import PulsePopular from '../../components/pulse/sidebar/pulse-popular';
+import PulseRecommended from '../../components/pulse/sidebar/pulse-recommends';
+import CommunityPostHeader from '../../components/community/community-post-header';
+import MissionAd from '../../components/missions/mission-ad';
 import { fetchPost } from '../../modules/pulse/get-post-action';
 
 const list = [
@@ -93,46 +93,46 @@ function mapDispatchToProps(dispatch) {
 
 @connect(mapStateToProps, mapDispatchToProps)
 class PulsePost extends Component {
-  
+
   componentWillMount() {
     const { actions: { fetchPost }, id } = this.props;
     fetchPost(id);
   }
-  
+
   componentDidMount() {
     document.body.scrollTop = 0;
   }
-  
+
   render() {
 
     const { post, fetching, children } = this.props;
-    
+
     return (
       <div className="clearfix pulse">
-        
-        <PulsePostHeader {...list5} />
-        
+
+        <CommunityPostHeader {...list5} />
+
         <section className="container clearfix">
-          
+
           <div className="col-md-8 nopadding">
             {
-              fetching ? <Spinner/> :
-                
+              fetching ? <GenericLoadingBox /> :
+
               cloneElement(children, {
                 post: post
               })
-              
+
             }
           </div>
-          
+
           <aside className="col-md-4 mission-sidebar">
             <MissionAd />
-            
+
             <PulsePopular list={list}/>
             <PulsePopular tag={tag} list={list}/>
             <PulseRecommended list={list2}/>
           </aside>
-        
+
         </section>
       </div>
     )

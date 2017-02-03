@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router'
-import { iconCategory as icon } from '../tools/pulse-icon.js';
+import { iconCategory as icon } from '../../community/tools/community-icon';
 import styles from '../style/pulse-popular.scss';
 
 const PulsePopular = ({ tag, list }) =>

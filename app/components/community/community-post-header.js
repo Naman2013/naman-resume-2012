@@ -1,10 +1,11 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
-import { iconPlanet as icon } from './tools/pulse-icon';
-import styles from './style/pulse-header-banner.scss';
+import { iconPlanet as icon } from './tools/community-icon';
+import styles from './style/community-header-banner.scss';
 
-const PulsePostHeader = (list) =>
-  <div className={styles.pulsePostHeader}>
+
+const CommunityPostHeader = (list) =>
+  <div className={styles.communityPostHeader}>
 
     <div className="title">
       {icon[list.icon]} <h1>{list.name} </h1>
@@ -19,8 +20,8 @@ const PulsePostHeader = (list) =>
 
   </div>;
 
-export default PulsePostHeader;
+export default CommunityPostHeader;
 
-PulsePostHeader.propTypes = {
+CommunityPostHeader.propTypes = {
   list: PropTypes.object
 };

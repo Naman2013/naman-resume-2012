@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import styles from './live-club.scss';
 import Scrollbars from 'react-custom-scrollbars';
-import { instagram } from '../pulse/tools/pulse-icon';
+import { instagram } from '../community/tools/community-icon';
 import Masonry from 'react-masonry-component';
 
 class LiveCommunity extends Component {

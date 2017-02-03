@@ -1,17 +1,24 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 import styles from './style/pulse-post-image.scss';
 
-const PulsePostImage = ({ image, imageBy }) =>
-
-  <figure className={styles.PulsePostImage}>
-    <img src={image}/>
-    <figcaption className={styles.PulsePostImageBy}>{imageBy}</figcaption>
-  </figure>;
+const PulsePostImage = ({ image, imageBy }) => {
+  const coverPhotoInlineStyle = {
+    backgroundImage: `url(${image})`,
+  };
+  return (
+    <figure
+      style={coverPhotoInlineStyle}
+      className={styles.PulsePostImage}
+    >
+      <figcaption className={styles.PulsePostImageBy}>{imageBy}</figcaption>
+    </figure>
+  );
+};
 
 
 export default PulsePostImage;
 
 PulsePostImage.propTypes = {
-  image: PropTypes.string,
-  imageBy: PropTypes.string,
+  image: PropTypes.string.isRequired,
+  imageBy: PropTypes.string.isRequired,
 };
