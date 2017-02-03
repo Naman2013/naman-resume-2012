@@ -13,7 +13,8 @@ import MyPictures from './containers/MyPictures';
 import PulseList from './containers/pulse/PulseList';
 import PulseWrapper from './containers/pulse/PulseWrapper';
 import PulsePost from './containers/pulse/PulsePost';
-import ObjectList from './containers/pulse/ObjectList';
+import ObjectListWrapper from './containers/object-post/ObjectListWrapper';
+import ObjectList from './containers/object-post/ObjectList';
 import Live from './containers/live/Live';
 
 // pages
@@ -38,7 +39,7 @@ import Missions from './pages/my-pictures/Missions';
 import PublishPost from './pages/publish-post/publish-post';
 import PulsePostList from './pages/pulse/pulse-post-list';
 import PulsePostContent from './pages/pulse/pulse-post';
-import ObjectPostList from './pages/pulse/object-post-list';
+import ObjectPostList from './pages/object-post/object-post-list';
 
 // global styles
 import Bootstrap from 'bootstrap/dist/css/bootstrap.css';
@@ -105,23 +106,30 @@ ReactDOM.render(
           <Route path="hottest-posts" component={PulseWrapper} />
         </Route>
 
-        <Route path="slooh-pulse" component={PulsePost}>
+        <Route path="community" component={PulsePost}>
           <Route path="post(/:id)" name="post" component={PulsePostContent} onUpdate={() => window.scrollTo(0, 0)} />
         </Route>
 
-        <Route path="objects-list" component={ObjectList}>
+        <Route path="objects" component={ObjectList}>
           <IndexRedirect to="all-time-best" />
 
-          <Route path="all-time-best" component={PulseWrapper}>
+          <Route path="all-time-best" component={ObjectListWrapper}>
             <IndexRedirect to="all" />
             <Route path="all" name="all" component={ObjectPostList} />
-            <Route path="science-log" name="science-log" component={ObjectPostList} />
-            <Route path="art-culture" name="art-culture" component={ObjectPostList} />
-            <Route path="human-spirit" name="human-spirit" component={ObjectPostList} />
+            <Route path="scienceLog" name="scienceLog" component={ObjectPostList} />
+            <Route path="artCulture" name="artCulture" component={ObjectPostList} />
+            <Route path="humanSpirit" name="humanSpirit" component={ObjectPostList} />
             <Route path="diy" name="diy" component={ObjectPostList} />
           </Route>
 
-          <Route path="latest-entries" component={PulseWrapper} />
+          <Route path="latest-entries" component={ObjectListWrapper}>
+            <IndexRedirect to="all" />
+            <Route path="all" name="all" component={ObjectPostList} />
+            <Route path="scienceLog" name="scienceLog" component={ObjectPostList} />
+            <Route path="artCulture" name="artCulture" component={ObjectPostList} />
+            <Route path="humanSpirit" name="humanSpirit" component={ObjectPostList} />
+            <Route path="diy" name="diy" component={ObjectPostList} />
+          </Route>
         </Route>
 
         <Route path="shows/situation-room" component={Live}>

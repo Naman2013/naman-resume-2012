@@ -22,13 +22,9 @@
     color: $black;
     padding: 35px 140px 10px 30px;
 
-    .PulsePostTools{
+    .CommunityPostTools{
       margin: 20px 0;
     }
-    .pulsePostBy{
-      margin: 0;
-    }
-
     .icon{
       width: 35px;
       height: 35px;
@@ -72,8 +68,4 @@ hr.ObjectPostListHr{
   &:last-child{
     //display: none;
   }
-}
-
-.pulse .col-md-8{
-  padding-right: 5px;
 }

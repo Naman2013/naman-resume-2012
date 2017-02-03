@@ -27,7 +27,7 @@ img {
   background-size: cover;
   position: relative;
   padding: $slooh-header-height 0 0 $slooh-menu-width;
-  min-width: 1280px;
+  min-width: $slooh-content-width;
   overflow: hidden;
 }
 

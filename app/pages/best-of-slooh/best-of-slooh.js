@@ -1,8 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
-import Spinner from 'react-spinner';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import GenericLoadingBox from '../../components/common/loading-screens/generic-loading-box';
 import BlogPostTile from '../../components/common/blog-post-tile/blog-post-tile';
 import { fetchBest } from '../../modules/best-of-slooh/get-best-action';
 import style from './best-of-slooh.scss';
@@ -42,7 +42,7 @@ class BestOfSlooh extends Component {
         </div>
 
         {
-          fetching ? <Spinner /> : bestPosts.map(post => <BlogPostTile key={post.postId} {...post} />)
+          fetching ? <GenericLoadingBox /> : bestPosts.map(post => <BlogPostTile key={post.postId} {...post} />)
         }
 
       </div>

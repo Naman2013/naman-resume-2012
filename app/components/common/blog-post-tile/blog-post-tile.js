@@ -32,7 +32,7 @@ const BlogPostTile = ({
         </div>
         <div className="best-post-body clearfix">
 
-          <Link className="title-link" to={`slooh-pulse/post/${postId}`}>
+          <Link className="title-link" to={`community/post/${postId}`}>
             <h2 className="title" dangerouslySetInnerHTML={{ __html: title }}></h2>
           </Link>
 

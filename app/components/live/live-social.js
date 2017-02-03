@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import SponsoredBy from '../common/sponsored-by';
-import { camera } from '../pulse/tools/pulse-icon';
+import { camera } from '../community/tools/community-icon';
 import styles from './live-social.scss';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 

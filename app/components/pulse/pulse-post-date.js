@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import styles from './style/pulse-post-date.scss';
-import { iconCategory as icon } from './tools/pulse-icon'
+import { iconCategory as icon } from '../community/tools/community-icon'
 import { Link } from 'react-router'
 
 const PulsePostDate = ({ date, type, iconURL }) =>

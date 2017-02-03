@@ -1,7 +1,7 @@
 @import "../../../styles/variables/fonts";
 @import "../../../styles/variables/colors";
 
-.pulseNav {
+.categoriesNav {
   font-family: $primary-font;
   margin-bottom: 30px;
   display: flex;
@@ -9,7 +9,7 @@
   &.grey{
     background: grey;
     margin-top: -20px;
-    .pulseNavContainer{
+    .categoriesNavContainer{
       height: 85px;
       li {
         a {
@@ -19,6 +19,11 @@
             border-bottom: 5px solid $pink;
             color: #000;
           }
+
+          &:not(.active) + .categoriesSubNavContainer {
+            display: none;
+          }
+
         }
 
         &:hover > a {
@@ -28,7 +33,7 @@
       }
 
 
-      .pulseSubNavContainer{
+      .categoriesSubNavContainer{
         color: $white;
 
         li {
@@ -56,7 +61,7 @@
     }
   }
 
-  .pulseNavContainer {
+  .categoriesNavContainer {
     margin: 0 auto;
     padding: 15px 0 0 0;
     height: 65px;
@@ -89,7 +94,7 @@
       }
     }
 
-    .pulseSubNavContainer {
+    .categoriesSubNavContainer {
       position: absolute;
       left: -100px;
       text-transform: capitalize;

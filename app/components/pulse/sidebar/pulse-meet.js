@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import styles from '../style/pulse-meet.scss';
-import PulsePostBy from '../pulse-post-by';
+import ByUserTag from '../../../components/common/by-user-tag/by-user-tag';
 
 
 const PulseMeet = ({list}) =>
@@ -11,7 +11,7 @@ const PulseMeet = ({list}) =>
       <p>This Slooh Member volunteers to curate this object's content</p>
     </header>
 
-    <PulsePostBy {...list}/>
+    <ByUserTag {...list}/>
 
     <div className={styles.pulseMeetContainer}>{list.message}</div>
 

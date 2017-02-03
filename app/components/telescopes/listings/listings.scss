@@ -1,9 +1,12 @@
 @import '../../../styles/variables/colors.scss';
 @import '../../../styles/variables/fonts.scss';
+@import '../../../styles/mixins/utilities.scss';
 @import '../../../styles/custom-ui.scss';
 
 $listing_blue: #589A9A;
 $listing_black: #424242;
+
+$item_height: 85px;
 
 .dark-gradient {
   background: $listing_black;
@@ -12,6 +15,17 @@ $listing_black: #424242;
   background: -ms-linear-gradient(top, rgb(65, 65, 65) 0%, rgb(32, 32, 32) 100%);
   background: -moz-linear-gradient(top, rgb(65, 65, 65) 0%, rgb(32, 32, 32) 100%);
   background: linear-gradient(to bottom, rgb(65, 65, 65) 0%, rgb(32, 32, 32) 100%);
+}
+
+.hover-state {
+  -webkit-box-shadow: 0px 0px 0px 5px $slooh-white inset,
+  0px 0px 10px 0px $slooh-black;
+  box-shadow: 0px 0px 0px 5px $slooh-white inset,
+  0px 0px 10px 0px $slooh-black;
+
+  &.on-hold {
+    border: none;
+  }
 }
 
 .telescope-listings {
@@ -23,11 +37,11 @@ $listing_black: #424242;
     .telescope-listings-item {
       display: flex;
       align-items: center;
-      background: #B9D9D9;
+      background: $light-blue;
       border-radius: 5px;
       padding: 0 25px;
       margin-bottom: 20px;
-      min-height: 85px;
+      min-height: $item_height;
 
       .reserved-by-user-content {
         display: flex;
@@ -134,6 +148,7 @@ $listing_black: #424242;
         background: $white;
         -webkit-box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.38) inset;
                 box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.38) inset;
+        border: none;
 
         .hold-timer-content {
           text-align: center;
@@ -148,10 +163,22 @@ $listing_black: #424242;
             font-size: 10px;
           }
         }
+
+        &:hover {
+          @extend .hover-state;
+        }
       }
 
       &.not-available {
         background: $gray;
+
+        &:hover {
+          @extend .hover-state;
+        }
+      }
+
+      &:hover {
+        @extend .hover-state;
       }
     }
   }
@@ -159,25 +186,22 @@ $listing_black: #424242;
 
 .telescope-listings-item-inline-reservation {
   @extend .dark-gradient;
-  -webkit-transition: .25s ease-out;
-  transition: .25s ease-out;
 
   color: #fff;
   overflow: hidden;
   border-radius: 5px;
   padding: 0 25px 0 25px;
   margin-bottom: 20px;
-  height: 85px;
+  display: flex;
+  flex-direction: column;
+  height: $item_height;
 
   .above-the-fold-content {
     position: relative;
-    margin-bottom: 20px;
-    height: 70px;
-    border-bottom: 1px solid $white;
-    margin-left: -20px;
-    margin-right: -20px;
-
-    padding: 0 20px 70px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex: 0 0 $item_height;
 
     .content {
       display: flex;
@@ -230,7 +254,7 @@ $listing_black: #424242;
             border: none;
             color: $white;
             padding: 10px;
-            width: 145px;
+            width: 150px;
             height: 40px;
 
             &:focus {
@@ -248,16 +272,8 @@ $listing_black: #424242;
   }
 
   &.expanded {
-    -webkit-box-shadow: 0px 0px 0px 5px #fff inset,
-                        0px 0px 10px 0px #000;
-            box-shadow: 0px 0px 0px 5px #fff inset,
-                        0px 0px 10px 0px #000;
-
+    @extend .hover-state;
     height: 630px;
-
-    .above-the-fold-content {
-      padding-top: 22px;
-    }
 
     .close-button {
       display: block;
@@ -329,4 +345,7 @@ $listing_black: #424242;
     }
   }
 
+  &:hover {
+    @extend .hover-state;
+  }
 }

@@ -27,7 +27,7 @@ const PulsePostItem = ({
         }
 
         <figure className={styles.PulsePostListInfo}>
-          <Link to={`slooh-pulse/post/${postId}`}>
+          <Link to={`community/post/${postId}`}>
             <h2 className={styles.PulsePostListInfoTitle}>
               <div dangerouslySetInnerHTML={{__html: title}}/>
             </h2>
@@ -36,7 +36,7 @@ const PulsePostItem = ({
           <PulsePostDate date={creationDate} type={type} iconURL={typeIconURL}/>
 
           <figcaption className={styles.PulsePostListInfoDesc}>
-            <div dangerouslySetInnerHTML={{ __html: content }} />  ... (<Link to={`/slooh-pulse/post/${postId}`}>See full entry</Link>)
+            <div dangerouslySetInnerHTML={{ __html: content }} />  ... (<Link to={`/community/post/${postId}`}>See full entry</Link>)
           </figcaption>
 
           <div className="row flex-center">

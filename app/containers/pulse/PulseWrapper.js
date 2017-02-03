@@ -1,5 +1,5 @@
 import React, { Component, PropTypes, cloneElement } from 'react';
-import Spinner from 'react-spinner'
+import GenericLoadingBox from '../../components/common/loading-screens/generic-loading-box';
 import PulsePopular from '../../components/pulse/sidebar/pulse-popular';
 import PulseRecommended from '../../components/pulse/sidebar/pulse-recommends';
 import MissionAd from '../../components/missions/mission-ad';
@@ -73,7 +73,7 @@ class PulseWrapper extends Component {
       <section className="container clearfix">
         <div className="col-md-8 nopadding">
           {
-            fetching ? <Spinner /> : cloneElement(children, {
+            fetching ? <GenericLoadingBox /> : cloneElement(children, {
               posts,
               pages,
               fetchLatestPosts,

@@ -78,11 +78,11 @@ class NewMissionCard extends Component {
     const PST_start_time = moment.tz(formattedUTCDate, 'America/Los_Angeles').format('h:mma z');
     const UTC_start_time = moment.utc(formattedUTCDate).format('HH:mm z');
 
-    return(
+    return (
       <div className="mission-available">
         <p className="start-time">
           <strong>{ EST_start }{ featured ? ':' : '' }</strong>
-          { !featured ? <br /> : null} { EST_start_time } <span className="highlight">&middot;</span> { PST_start_time } <span className="highlight">&middot;</span> {UTC_start_time} <span className={styles.telescopePierName}>{telescopePierName}</span>
+          { !featured ? <br /> : null} { EST_start_time } <span className="highlight">&middot;</span> { PST_start_time } <span className="highlight">&middot;</span> {UTC_start_time} { !featured ? <br /> : null} <span className={styles.telescopePierName}>{telescopePierName}</span>
         </p>
       </div>
     );
@@ -91,14 +91,14 @@ class NewMissionCard extends Component {
   renderCallToAction() {
     const { missionAvailable } = this.props.reservation;
 
-    if(missionAvailable) {
-      return(
+    if (missionAvailable) {
+      return (
         <div>
           {this.renderMissionTime()}
           <Link
-            className={ styles.piggybackCta }
+            className={styles.piggybackCta}
             to="#"
-            onClick={ this.handleMakeReservationClick }>
+            onClick={this.handleMakeReservationClick}>
             Make Reservation
           </Link>
         </div>
@@ -111,8 +111,8 @@ class NewMissionCard extends Component {
   determineMissionStatusMessage() {
     const { reservation } = this.props;
 
-    if(reservation.userHasReservation) {
-      return(
+    if (reservation.userHasReservation) {
+      return (
         <div>
           <h5 className="mission-status">You have an upcoming { reservation.userReservationType } reservation scheduled for</h5>
           <div className="join-mission-callout">
@@ -122,23 +122,24 @@ class NewMissionCard extends Component {
       );
     }
 
-    if(reservation.missionAvailable) {
-      return(
+    if (reservation.missionAvailable) {
+      return (
         <h5 className="mission-status">Set up a new mission</h5>
       );
     }
 
-    if(!reservation.missionAvailable) {
-      return(
+    if (!reservation.missionAvailable) {
+      return (
         <h5 className="mission-status">No missions are available</h5>
       );
     }
+
+    return null;
   }
 
   render() {
     const { openModal, reservation, card, featured } = this.props;
     const { headline, title, description } = card;
-    const { missionStart, missionAvailable } = reservation;
 
     /**
       NOTE:
@@ -153,7 +154,7 @@ class NewMissionCard extends Component {
     });
 
     return (
-      <div className={ newMissionCardContainerClasses }>
+      <div className={newMissionCardContainerClasses}>
 
         <div className="card-content-container">
           {

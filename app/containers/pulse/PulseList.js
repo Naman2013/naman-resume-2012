@@ -1,7 +1,7 @@
 import React, { Component, PropTypes, cloneElement } from 'react';
 import AnnouncementBanner from '../../components/common/announcement-banner/announcement-banner'
 import PulseListHeader from '../../components/pulse/pulse-list-header';
-import PulseNav from '../../components/pulse/pulse-nav';
+import CategoriesNav from '../../components/community/categories-nav';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { fetchLatestPosts } from '../../modules/pulse/get-latest-posts-action';
@@ -60,13 +60,12 @@ class PulseList extends Component {
       fetching,
       childPath,
       children } = this.props;
-
     return (
       <div className="clearfix pulse">
         <AnnouncementBanner />
         <PulseListHeader />
 
-        <PulseNav route={route} location={location} list={navigationList} />
+        <CategoriesNav route={route} location={location} list={navigationList} />
 
         {
           cloneElement(children, {
