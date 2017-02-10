@@ -86,6 +86,39 @@
   filter: alpha(opacity=$opacity-ie); //IE8
 }
 
+@mixin header {
+  font-family: $primary-font;
+  background: #4c4c4c; /* Old browsers */
+  background: -moz-linear-gradient(180deg,  #4c4c4c 0%, #131313 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(180deg,  #4c4c4c 0%,#131313 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(180deg,  #4c4c4c 0%,#131313 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  height: 145px;
+  display: inline-flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: flex-end;
+  padding: 10px 50px;
+
+  .title-container {
+    margin: 0;
+    color: $white;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 36px;
+    .title {
+      font-size: 34px;
+      text-transform: none;
+      color: $turqoise;
+      display: inline-block;
+      font-weight: 400;
+    }
+  }
+
+  button {
+    margin-right: 30px;
+  }
+}
+
 %visuallyhidden {
     margin: -1px;
     padding: 0;

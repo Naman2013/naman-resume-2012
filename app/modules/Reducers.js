@@ -26,6 +26,8 @@ import myPictures from './my-pictures/reducer';
 import browseByPopularObjects from './browse-popular-objects/reducer';
 import menu from './menu/reducer';
 import objectPostList from './object-post-list/reducer';
+import discussionsThread from './discussions-thread/reducer';
+import discussionsReplies from './discussions-replies/reducer';
 
 export default combineReducers({
   routing: routerReducer,
@@ -55,4 +57,6 @@ export default combineReducers({
   objectTypeList,
   objectPostList,
   browseByPopularObjects,
+  discussionsThread,
+  discussionsReplies,
 });

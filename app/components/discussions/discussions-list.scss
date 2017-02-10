@@ -1,0 +1,105 @@
+@import "../../styles/variables/colors";
+
+.discussions-list {
+  padding-left: 60px;
+  color: $slooh-blue-gray;
+
+  .header {
+    border-bottom: 2px solid $light-gray;
+    padding: 0 70px 10px 15px;
+    font-size: 14px;
+
+    .info {
+      color: $turqoise;
+    }
+  }
+
+  .info {
+    display: flex;
+    align-items: center;
+
+    &-item {
+      flex: 0 0 95px;
+      padding: 0 18px;
+      border-left: 1px solid $light-gray;
+      text-align: center;
+
+      &:first-child {
+        border-left: none;
+        padding-left: 0;
+      }
+
+      &:last-child {
+        padding-right: 0;
+      }
+    }
+  }
+
+  .list-item {
+    padding: 20px 70px 20px 15px;
+    display: flex;
+    position: relative;
+    overflow: hidden;
+
+    .inner {
+      flex: 1 1 auto;
+      display: flex;
+    }
+
+    .description {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding-left: 70px;
+    }
+
+    .topic {
+      color: $pink;
+      font-size: 24px;
+      margin-right: -100%;
+    }
+
+    .slooh-by-user-tag, .topic {
+      margin-left: -55px;
+    }
+
+    .started-by {
+      color: $blueGreen;
+    }
+
+    .within, .started-by, .latest-post-by {
+      font-size: 14px;
+    }
+
+    .info-container {
+      display: flex;
+      flex-direction: column;
+      margin-top: 50px;
+    }
+
+    .latest-post-by {
+      display: block;
+
+
+    }
+
+    .forum-name {
+      color: $pink;
+    }
+
+    &:after {
+      content: '';
+      display: block;
+      height: 0;
+      width: 100%;
+      margin-left: 55px;
+      border-bottom: 1px dashed $light-gray;
+      position: absolute;
+      bottom: 0;
+    }
+
+    &:last-child:after {
+      display: none;
+    }
+  }
+}

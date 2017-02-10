@@ -1,13 +1,13 @@
 import createReducer from '../utils/createReducer';
 
 import {
-  FETCH_PICTURES_START,
-  FETCH_PICTURES_SUCCESS,
-  FETCH_PICTURES_FAIL,
-
   FETCH_PHOTO_ROLL_START,
   FETCH_PHOTO_ROLL_SUCCESS,
   FETCH_PHOTO_ROLL_FAIL,
+
+  FETCH_MISSION_PHOTOS_START,
+  FETCH_MISSION_PHOTOS_SUCCESS,
+  FETCH_MISSION_PHOTOS_FAIL,
 
   FETCH_MISSIONS_START,
   FETCH_MISSIONS_SUCCESS,
@@ -22,6 +22,15 @@ import {
 
 const initialState = {
   photoRoll: {
+    response: {
+      imageList: [],
+      imageCount: 0,
+    },
+    fetching: false,
+    error: false,
+    errorBody: {},
+  },
+  missionPhotos: {
     response: {
       imageList: [],
       imageCount: 0,
@@ -47,6 +56,45 @@ const initialState = {
 };
 
 export default createReducer(initialState, {
+  [FETCH_MISSION_PHOTOS_START](state) {
+    return {
+      ...state,
+      missionPhotos: {
+        response: {
+          imageList: [],
+          imageCount: 0,
+        },
+        fetching: true,
+        error: false,
+        errorBody: {},
+      },
+    };
+  },
+  [FETCH_MISSION_PHOTOS_SUCCESS](state, { payload }) {
+    return {
+      ...state,
+      missionPhotos: {
+        response: payload,
+        fetching: false,
+        error: false,
+        errorBody: {},
+      },
+    };
+  },
+  [FETCH_MISSION_PHOTOS_FAIL](state, { payload }) {
+    return {
+      ...state,
+      missions: {
+        response: {
+          imageList: [],
+          imageCount: 0,
+        },
+        fetching: false,
+        error: true,
+        errorBody: payload,
+      },
+    };
+  },
   [UPDATE_SCHEDULE_MISSION_ID](state, { payload }) {
     return {
       ...state,
@@ -147,32 +195,6 @@ export default createReducer(initialState, {
         error: true,
         errorBody: payload,
       },
-    };
-  },
-  [FETCH_PICTURES_START](state) {
-    return {
-      ...state,
-      images: {},
-      count: 0,
-      error: {},
-      fetching: true,
-    };
-  },
-  [FETCH_PICTURES_SUCCESS](state, { payload }) {
-    return {
-      ...state,
-      images: payload.imageList,
-      count: payload.imageCount,
-      error: {},
-      fetching: false,
-    };
-  },
-  [FETCH_PICTURES_FAIL](state, { payload }) {
-    return {
-      ...state,
-      post: {},
-      error: payload,
-      fetching: false,
     };
   },
 });

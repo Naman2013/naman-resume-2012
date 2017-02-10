@@ -1,0 +1,16 @@
+@import '../missions/mission-nav';
+
+.discussionsNav {
+  @extend .missionNav;
+
+  .discussions-nav-container {
+    @extend .mission-nav-container;
+  }
+  .link {
+    border-color: $pink;
+    &:hover, &.active {
+      color: $slooh-black;
+      border-bottom: 5px solid $pink;
+    }
+  }
+}

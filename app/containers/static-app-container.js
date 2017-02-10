@@ -6,15 +6,19 @@ import Menu from './Menu';
 import Header from '../components/common/header';
 import Footer from '../components/common/footer';
 import { checkUser } from '../modules/User';
+import { validateUserPath } from '../utils/validateUserPath';
 
 const { element, func } = PropTypes;
+
+const mapStateToProps = ({ user }) => ({
+  user,
+});
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({ checkUser }, dispatch);
 }
 
-@connect(null, mapDispatchToProps)
-
+@connect(mapStateToProps, mapDispatchToProps)
 export default class App extends Component {
   static propTypes = {
     children: element,
@@ -23,6 +27,10 @@ export default class App extends Component {
 
   componentWillMount() {
     this.props.checkUser();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    validateUserPath(nextProps.location.pathname, this.props.user);
   }
 
   render() {
@@ -43,7 +51,7 @@ export default class App extends Component {
                       <h1>{children.props.route.title || ""}</h1>
                       <h2 className="text-regular">{children.props.route.subTitle || ""}</h2>
                     </div>
-                    <Link to="about/contact" className="btn-primary pull-right">Contact Us</Link>
+                    <Link to="/about/contact" className="btn-primary pull-right">Contact Us</Link>
                   </header> : null
               }
 

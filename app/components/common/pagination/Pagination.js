@@ -10,8 +10,9 @@ class Pagination extends Component {
   }
 
   static generateRangeText({ startRange, itemsPerPage }) {
-    const modifiedStartRange = startRange < 1 ? 1 : startRange;
-    return `${modifiedStartRange}-${startRange + itemsPerPage}`;
+    const displayStartRange = startRange + 1;
+    const displayEdndRange = (startRange + itemsPerPage);
+    return `${displayStartRange}-${displayEdndRange}`;
   }
 
   constructor(props) {

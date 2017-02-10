@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Hero from '../components/home/hero';
@@ -53,6 +53,7 @@ class Home extends Component {
 
     return (
       <div className={`${style.homeContainer} clearfix`}>
+
         {this.fetchStaticHero()}
 
         <div className="clearfix">

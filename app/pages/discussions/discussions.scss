@@ -1,0 +1,55 @@
+@import "../../styles/variables/fonts";
+@import "../../styles/variables/colors";
+
+$profilePhotoOffset: 45px;
+$infoSpacing: 15px;
+
+@mixin spacing {
+  margin-left: $profilePhotoOffset;
+  margin-bottom: $infoSpacing;
+}
+
+.discussionsItem {
+  padding-left: 50px;
+  border-bottom: 1px solid $gray;
+}
+
+.discussionsInfo {
+  font-size: 16px;
+  color: $black;
+  padding: 1px 20px 20px 0;
+}
+
+.discussionsCreationDate {
+  @include spacing;
+  color: $turqoise;
+
+}
+
+.discussionsTitle {
+  @include spacing;
+  text-decoration: none;
+  color: $darkBlueGray;
+  font-weight: 600;
+}
+
+.discussionsContent {
+  @include spacing;
+}
+
+.discussionsReplies {
+  @include spacing;
+  position: relative;
+  text-decoration: none;
+
+  .discussionsrepliesText {
+    display: inline-block;
+    height: 35px;
+    color: $pink;
+
+    &:active,
+    &:visited {
+      text-decoration: none;
+    }
+  }
+}

@@ -1,0 +1,8 @@
+@import '../../../styles/variables/fonts';
+@import '../../../styles/variables/colors';
+@import '../../../styles/mixins/utilities';
+@import '../discussions.scss';
+
+.DiscussionsReplyHeader {
+  @include header;
+}

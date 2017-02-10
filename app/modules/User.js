@@ -1,7 +1,6 @@
 import cookie from 'cookie';
 import createReducer from './utils/createReducer';
 import createAction from './utils/createAction';
-import { hashHistory } from 'react-router';
 
 const SET_USER = 'SET_USER';
 const REMOVE_USER = 'REMOVE_USER';
@@ -23,7 +22,6 @@ export function store(user) {
 
 export const logout = () => {
   destroySession();
-  hashHistory.push('/');
   window.location.reload();
 }
 
@@ -49,7 +47,6 @@ function destroySession() {
   */
 export function checkUser() {
   return (dispatch) => {
-
     const userJSON = localStorage.getItem('user');
 
     if (userJSON) {
@@ -63,23 +60,23 @@ export function checkUser() {
 
 const initialState = {
   isAuthorized: false,
-  user: {
-    token: '',
-    at: '',
-    cid: '',
-  },
+  statusCode: 200,
+  membershipType: null,
+  apiError: false,
+  errorCode: 0,
 };
 
 export default createReducer(initialState, {
   [SET_USER](state, { user }) {
     return {
+      ...state,
       ...user,
       isAuthorized: true,
     };
   },
   [REMOVE_USER]() {
     return {
-      isAuthorized: false,
+      ...initialState,
     };
   },
 });

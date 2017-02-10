@@ -17,7 +17,7 @@ function mapDispatchToProps(dispatch) {
 export default class CircleTimer extends Component {
   static propTypes = {
     size: number,
-    eventStartIn: string,
+    eventStartIn: number,
     lineWidth: number,
     fetchActiveOrUpcomingEvent: func.isRequired,
   };
@@ -32,7 +32,6 @@ export default class CircleTimer extends Component {
 
   componentDidMount() {
     const { props: { eventStartIn, fetchActiveOrUpcomingEvent } } = this;
-
     this.updateIntervalId = setInterval(() => {
       const difference = (eventStartIn * 1000) - Date.now();
 

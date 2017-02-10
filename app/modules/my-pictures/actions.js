@@ -1,12 +1,12 @@
 import axios from 'axios';
 
-export const FETCH_PICTURES_START = 'FETCH_PICTURES_START';
-export const FETCH_PICTURES_SUCCESS = 'FETCH_PICTURES_SUCCESS';
-export const FETCH_PICTURES_FAIL = 'FETCH_PICTURES_FAIL';
-
 export const FETCH_PHOTO_ROLL_START = 'FETCH_PHOTO_ROLL_START';
 export const FETCH_PHOTO_ROLL_SUCCESS = 'FETCH_PHOTO_ROLL_SUCCESS';
 export const FETCH_PHOTO_ROLL_FAIL = 'FETCH_PHOTO_ROLL_FAIL';
+
+export const FETCH_MISSION_PHOTOS_START = 'FETCH_MISSION_PHOTOS_START';
+export const FETCH_MISSION_PHOTOS_SUCCESS = 'FETCH_MISSION_PHOTOS_SUCCESS';
+export const FETCH_MISSION_PHOTOS_FAIL = 'FETCH_MISSION_PHOTOS_FAIL';
 
 export const FETCH_MISSIONS_START = 'FETCH_MISSIONS_START';
 export const FETCH_MISSIONS_SUCCESS = 'FETCH_MISSIONS_SUCCESS';
@@ -17,6 +17,37 @@ export const RESET_OBJECT_TYPE_FILTER = 'RESET_OBJECT_TYPE_FILTER';
 
 export const UPDATE_SCHEDULE_MISSION_ID = 'UPDATE_SCHEDULE_MISSION_ID';
 export const RESET_SCHEDULE_MISSION_ID = 'RESET_SCHEDULE_MISSION_ID';
+
+const fetchMissionPhotosStart = () => ({
+  type: FETCH_MISSION_PHOTOS_START,
+});
+
+const fetchMissionPhotosSuccess = payload => ({
+  type: FETCH_MISSION_PHOTOS_SUCCESS,
+  payload,
+});
+
+const fetchMissionPhotosFail = payload => ({
+  type: FETCH_MISSION_PHOTOS_FAIL,
+  payload,
+});
+
+export const fetchMissionPhotos = scheduledMissionId => (dispatch, getState) => {
+  const { at, token, cid } = getState().user;
+  const { objectTypeFilter } = getState().myPictures;
+  dispatch(fetchMissionPhotosStart());
+
+  return axios.post('/api/images/getMyPictures', {
+    at,
+    cid,
+    token,
+    scheduledMissionId,
+    filterType: objectTypeFilter.filterByField,
+    viewType: 'missions',
+  })
+  .then(result => dispatch(fetchMissionPhotosSuccess(result.data)))
+  .catch(error => dispatch(fetchMissionPhotosFail(error)));
+};
 
 const fetchMissionsStart = () => ({
   type: FETCH_MISSIONS_START,
@@ -65,19 +96,17 @@ const fetchPhotoRollFail = payload => ({
   @scheduledMissionId: number - used when filtering down to a specific set
   of photographs for a specific mission
 */
-export const fetchPhotoRoll = ({ scheduledMissionId } = {}) => (dispatch, getState) => {
+export const fetchPhotoRoll = () => (dispatch, getState) => {
   const { at, token, cid } = getState().user;
   const { objectTypeFilter } = getState().myPictures;
   dispatch(fetchPhotoRollStart());
-  const viewType = scheduledMissionId ? 'missions' : 'photoRoll';
 
   return axios.post('/api/images/getMyPictures', {
     at,
     cid,
     token,
     filterType: objectTypeFilter.filterByField,
-    scheduledMissionId,
-    viewType,
+    viewType: 'photoRoll',
   })
   .then(result => dispatch(fetchPhotoRollSuccess(result.data)))
   .catch(error => dispatch(fetchPhotoRollFail(error)));

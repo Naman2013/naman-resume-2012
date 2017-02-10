@@ -16,24 +16,16 @@ class UniversalTime extends Component {
     this.handleToggleModal = this.handleToggleModal.bind(this);
   }
 
-  componentWillMount() {
-    this.setState({
-      time: moment.utc().format('HH:mm:ss'),
-      displayUTCModal: false,
-    });
+  componentDidMount() {
+    this.intervalCounter = setInterval(this.timer.bind(this), 1000);
   }
 
-  componentDidMount() {
-    let intervalCounter = setInterval(this.timer.bind(this), 1000);
-    this.setState({ intervalCounter });
+  componentWillUnmount() {
+    clearInterval(this.intervalCounter);
   }
 
   timer() {
     this.setState({ time: moment.utc().format('HH:mm:ss') });
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.state.intervalCounter);
   }
 
   handleToggleModal(event) {
@@ -45,7 +37,7 @@ class UniversalTime extends Component {
   }
 
   render() {
-    const { displayUTCModal }  = this.state;
+    const { displayUTCModal } = this.state;
     const className = `${styles.universalTime} ${this.props.extraClass || ''}`;
     return (
       <div className={className}>
@@ -53,12 +45,12 @@ class UniversalTime extends Component {
         <span className="time"><b>{this.state.time}</b></span>
         <br />
         <a
-          onClick={ this.handleToggleModal }
+          onClick={this.handleToggleModal}
           className="time-action" href="#">What is UTC?</a>
 
         <ModalGeneric
-          closeModal={ this.handleToggleModal }
-          open={ displayUTCModal }
+          closeModal={this.handleToggleModal}
+          open={displayUTCModal}
           title={`What is UTC?`}
           description={`Coordinated Universal Time (UTC) is the time standard used by astronomers and Slooh to coordinate the timing of observations from different locations around the world.`}
         />

@@ -16,6 +16,9 @@ import PulsePost from './containers/pulse/PulsePost';
 import ObjectListWrapper from './containers/object-post/ObjectListWrapper';
 import ObjectList from './containers/object-post/ObjectList';
 import Live from './containers/live/Live';
+import Discussions from './containers/discussions/Discussions';
+import DiscussionsWrapper from './containers/discussions/DiscussionsWrapper';
+import DiscussionsListWrapper from './containers/discussions/DiscussionsListWrapper';
 
 // pages
 import Home from './pages/home';
@@ -35,14 +38,29 @@ import News from './pages/about/news';
 
 import PhotoRoll from './pages/my-pictures/PhotoRoll';
 import Missions from './pages/my-pictures/Missions';
+import MissionImages from './pages/my-pictures/MissionImages';
+
+import UpgradeApprentice from './pages/registration/UpgradeApprentice';
+import UpgradeAstronomer from './pages/registration/UpgradeAstronomer';
+import SignIn from './pages/registration/SignIn';
+
+import Account from './pages/settings/Account';
+import Notifications from './pages/settings/Notifications';
+import PaymentInfo from './pages/settings/PaymentInfo';
+import Profile from './pages/settings/Profile';
+import SocialNetwork from './pages/settings/SocialNetwork';
 
 import PublishPost from './pages/publish-post/publish-post';
 import PulsePostList from './pages/pulse/pulse-post-list';
 import PulsePostContent from './pages/pulse/pulse-post';
 import ObjectPostList from './pages/object-post/object-post-list';
 
+import DiscussionsReplyTo from './pages/discussions/replies/DiscussionsReplyTo';
+import DiscussionsThreadWrapper from './pages/discussions/threads/DiscussionsThreadWrapper';
+import DiscussionsTopicsList from './pages/discussions/topics/DiscussionsTopicsList';
+
 // global styles
-import Bootstrap from 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap/dist/css/bootstrap.css';
 import './styles/app.scss';
 import './styles/interface.css';
 import './styles/animations.scss';
@@ -64,12 +82,27 @@ ReactDOM.render(
         <Route path="leadership" component={Leadership} title="Leadership" subTitle="[Sub-title for news page]" />
       </Route>
 
+      <Route path="registration" component={StaticAppContainer}>
+        <Route path="sign-in" component={SignIn} />
+        <Route path="upgrade-apprentice" component={UpgradeApprentice} />
+        <Route path="upgrade-astronomer" component={UpgradeAstronomer} />
+      </Route>
+
+      <Route path="settings" component={StaticAppContainer}>
+        <Route path="account" component={Account} />
+        <Route path="notifications" component={Notifications} />
+        <Route path="billing" component={PaymentInfo} />
+        <Route path="dashboard" component={Profile} />
+        <Route path="social-network" component={SocialNetwork} />
+      </Route>
+
       <Route path="/" component={App}>
         <IndexRoute component={Home} />
 
         <Route path="telescope-overview/:observatoryId" component={TelescopeOverview} />
 
         <Route path="reservations" component={Reservations}>
+          <IndexRedirect to="slooh-recommends" />
 
           <Route path="slooh-recommends" component={SloohRecommends}>
             <IndexRedirect to="existing" />
@@ -138,18 +171,33 @@ ReactDOM.render(
 
         <Route path="my-pictures" component={MyPictures}>
           <IndexRedirect to="photo-roll" />
-          <Route path="photo-roll(/:scheduledMissionId)" title="Photo roll" component={PhotoRoll} />
+          <Route path="photo-roll" title="Photo roll" component={PhotoRoll} />
+          <Route path="missions/:scheduledMissionId" title="Mission Images" component={MissionImages} />
           <Route path="missions" title="Missions" component={Missions} />
         </Route>
 
-        <Route path="/discussions" component={MyPictures}>
+        <Route path="/discussions" component={Discussions}>
           <IndexRedirect to="main" />
-          <Route path="main" component={PhotoRoll}>
-            <Route path="most-recent" component={PhotoRoll} />
-            <Route path="most-active" component={PhotoRoll} />
+          <Route path="main" component={DiscussionsWrapper}>
+            <IndexRedirect to="most-recent" />
+            <Route path="most-recent" component={DiscussionsListWrapper} />
+            <Route path="most-active" component={DiscussionsListWrapper} />
           </Route>
-
+          <Route path="topics" component={DiscussionsWrapper}>
+            <IndexRedirect to="most-recent" />
+            <Route path="most-recent" component={DiscussionsTopicsList} />
+            <Route path="most-active" component={DiscussionsTopicsList} />
+          </Route>
+          <Route path="topics(/:topicId)/threads" component={DiscussionsWrapper}>
+            <IndexRedirect to="most-recent" />
+            <Route path="most-recent" component={DiscussionsListWrapper} />
+            <Route path="most-active" component={DiscussionsListWrapper} />
+          </Route>
         </Route>
+        <Route path="discussions/topic(/:topicId)(/:threadId)" component={DiscussionsThreadWrapper} />
+        <Route path="discussions/topic(/:topicId)(/:threadId)/new-reply" component={DiscussionsReplyTo} />
+        <Route path="discussions/new-thread" component={DiscussionsReplyTo} />
+        <Route path="discussions/topic(/:topicId)/new-thread" component={DiscussionsReplyTo} />
 
       </Route>
 
