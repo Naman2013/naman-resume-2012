@@ -4,7 +4,7 @@ import Member from '../../containers/Member';
 import styles from '../../styles/header.scss';
 
 const Header = () =>
-  <header className={styles.mainHeader}>
+  <header className={styles.mainHeader} id="mainHeader">
     <div className={styles.mainHeaderLogo}/>
     <div className={styles.mainHeaderLogoText}>
       Slooh <span className="beta">beta</span>

@@ -1,0 +1,19 @@
+@import '../../styles/variables/fonts';
+@import '../../styles/variables/colors';
+@import '../../styles/mixins/utilities';
+
+.DiscussionsHeader {
+  @include header;
+
+  .title-container {
+    font-weight: 400;
+
+    &.center {
+      margin: 0 auto;
+    }
+  }
+}
+
+.DiscussionReplyForm {
+  text-align: center;
+}

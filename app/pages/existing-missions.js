@@ -14,7 +14,8 @@ import GenericLoadingBox from '../components/common/loading-screens/generic-load
 
 class ExistingMissions extends Component {
   get cardList() {
-    const { cardList } = this.props;
+    const cardList = this.props.cardList || [];
+
     return cardList.filter((card) => {
       if (card.missionAvailable) {
         return false;
@@ -26,14 +27,14 @@ class ExistingMissions extends Component {
 
   render() {
     const { cardList, piggybacks, fetchingCards, fetchingPiggybacks } = this.props;
-    let cards = null;
-
-    if (cardList && Array.isArray(cardList)) {
-      cards = cardList.filter(card => {
-        const endDate = moment.unix(card.end);
-        return !moment().isAfter(endDate, 'days');
-      });
-    }
+    // let cards = null;
+    //
+    // if (cardList && Array.isArray(cardList)) {
+    //   cards = cardList.filter((card) => {
+    //     const endDate = moment.unix(card.end);
+    //     return !moment().isAfter(endDate, 'days');
+    //   });
+    // }
 
     return (
       <div className="existing-missions clearfix">

@@ -1,15 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import _ from 'lodash';
 import MyPicturesNavigation from '../../components/my-pictures/my-pictures-navigation';
+import PhotoView from '../../components/my-pictures/PhotoView';
 import { fetchPhotoRoll } from '../../modules/my-pictures/actions';
-import GenericLoadingBox from '../../components/common/loading-screens/generic-loading-box';
-import PhotoList from '../../components/my-pictures/PhotoList';
-import Pagination from '../../components/common/pagination/Pagination';
 import style from './my-pictures-gallery.scss';
-
-const IMAGES_PER_PAGE = 9;
 
 const mapStateToProps = ({ myPictures, objectTypeList }, ownProps) => ({
   imageList: myPictures.photoRoll.response.imageList,
@@ -27,68 +22,13 @@ const mapDispatchToProps = dispatch => ({
 
 @connect(mapStateToProps, mapDispatchToProps)
 class PhotoRoll extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      startRange: 0,
-    };
-
-    this.handleNextPageClick = this.handleNextPageClick.bind(this);
-    this.handlePreviousPageClick = this.handlePreviousPageClick.bind(this);
-  }
-
   componentWillMount() {
     window.scrollTo(0, 0);
-    this.fetchPhotoRoll();
+    this.props.actions.fetchPhotoRoll();
   }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.scheduledMissionId !== this.props.scheduledMissionId) {
-      this.props.actions.fetchPhotoRoll({
-        scheduledMissionId: nextProps.scheduledMissionId,
-      });
-    }
-  }
-
-  fetchPhotoRoll(filterType) {
-    const { scheduledMissionId } = this.props;
-    this.props.actions.fetchPhotoRoll({
-      scheduledMissionId,
-      filterType,
-    });
-  }
-
-  handleNextPageClick() {
-    const { startRange } = this.state;
-    window.scrollTo(0, 0);
-    this.setState({
-      startRange: startRange + IMAGES_PER_PAGE + 1,
-    });
-  }
-
-  handlePreviousPageClick() {
-    const { startRange } = this.state;
-    window.scrollTo(0, 0);
-    this.setState({
-      startRange: startRange - IMAGES_PER_PAGE - 1,
-    });
-  }
-
 
   render() {
-    const { fetching, imageList } = this.props;
-    const { startRange, objectFilterType } = this.state;
-
-    const imageRange = _.slice(imageList, startRange, startRange + IMAGES_PER_PAGE);
-    const rangeText = Pagination.generateRangeText({
-      startRange,
-      itemsPerPage: imageRange.length,
-    });
-
-    const canNext = (startRange + IMAGES_PER_PAGE) < imageList.length;
-    const canPrevious = startRange !== 0;
-
+    const { fetching, imageList, error } = this.props;
     return (
       <div>
         <MyPicturesNavigation
@@ -97,16 +37,11 @@ class PhotoRoll extends Component {
 
         <div className="clearfix my-pictures-container">
           <div className={style.myPicturesGallery}>
-            {
-              fetching ? <GenericLoadingBox /> : <PhotoList imageList={imageRange} />
-            }
-            <Pagination
-              totalCount={imageList.length}
-              currentRange={rangeText}
-              handleNextPageClick={this.handleNextPageClick}
-              handlePreviousPageClick={this.handlePreviousPageClick}
-              canNext={canNext}
-              canPrevious={canPrevious}
+            <PhotoView
+              fetching={fetching}
+              imageList={imageList}
+              error={error}
+              type="images"
             />
           </div>
         </div>

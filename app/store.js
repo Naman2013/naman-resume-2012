@@ -1,10 +1,10 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunkMiddleware from 'redux-thunk';
-import { routerMiddleware } from 'react-router-redux'
+import createLogger from 'redux-logger';
+import { routerMiddleware } from 'react-router-redux';
 import { hashHistory } from 'react-router';
 import reducers from './modules/Reducers';
 import callAPIMiddleware from './modules/middleware/callAPIMiddleware';
-import createLogger from 'redux-logger';
 
 const logger = createLogger({
   duration: true,
@@ -21,9 +21,9 @@ export default function configureStore(initialState) {
         thunkMiddleware,
         callAPIMiddleware,
         logger,
-        routerMiddleware(hashHistory)
+        routerMiddleware(hashHistory),
       ),
-      window.devToolsExtension ? window.devToolsExtension() : f => f
-    )
+      window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : f => f,
+    ),
   );
 }

@@ -1,9 +1,8 @@
-import createReducer from './utils/createReducer';
-import createAction from './utils/createAction';
 import axios from 'axios';
 import moment from 'moment';
 import _ from 'lodash';
 import { push } from 'react-router-redux';
+import createReducer from './utils/createReducer';
 
 import { fetchUsersUpcomingMissions } from './Users-Upcoming-Missions';
 import { grabPiggyback } from './Piggyback';
@@ -352,30 +351,30 @@ export function missionUpdatesFail(error) {
 };
 
 
-export const missionGetPiggybacks = (objectList) => (dispatch, getState) => {
+export const missionGetPiggybacks = objectList => (dispatch, getState) => {
   const { token, at, cid } = getState().user;
 
-  // if there is no user, redirect...
-  if(!token || !cid || !at) {
-    dispatch(push('/?redirect=not-logged-in'));
-  } else {
-    dispatch(fetchPiggybacksStart());
-
-    return axios.post('/api/recommends/getNextPiggyback', {
-      cid,
-      at,
-      token,
-      requestType: 'multiple',
-      objectList: objectList,
-      uniqueId: '',
-      objectId: '',
-      start: '',
-    })
-    .then(response => {
-      dispatch(missionGetPiggybackSuccess(response));
-    })
-    .catch(error => dispatch(missionGetPiggybackFail(error)));
+  if (!token || !cid || !at) {
+    dispatch(push('/registration/sign-in'));
+    return;
   }
+
+  dispatch(fetchPiggybacksStart());
+
+  return axios.post('/api/recommends/getNextPiggyback', {
+    cid,
+    at,
+    token,
+    objectList,
+    uniqueId: '',
+    objectId: '',
+    start: '',
+    requestType: 'multiple',
+  })
+  .then(response => {
+    dispatch(missionGetPiggybackSuccess(response));
+  })
+  .catch(error => dispatch(missionGetPiggybackFail(error)));
 };
 
 const fetchPiggybacksStart = () => ({

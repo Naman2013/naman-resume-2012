@@ -13,7 +13,7 @@ function Mission({
   return (
     <Link
       className={styles.missionContainer}
-      to={`my-pictures/photo-roll/${scheduledMissionId}`}
+      to={`my-pictures/missions/${scheduledMissionId}`}
       style={{ backgroundImage: `url(${imageURL})` }}
     >
       <div className="row"> <b>{imageTitle} </b> <br /> {missionDate} </div>

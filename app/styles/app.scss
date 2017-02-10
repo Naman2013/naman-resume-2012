@@ -18,6 +18,16 @@ img {
   margin: 0 !important;
 }
 
+/**
+  wrapper css to help the notification tool along
+*/
+.wrapper {
+  .notifications-wrapper {
+    position: absolute;
+    z-index: 10000;
+  }
+}
+
 .app-content-container, .static-app-content-container {
   font-family: $primary-font;
   background: url(../../assets/images/photos/stellar-community-low.jpg) no-repeat center center fixed;
@@ -32,7 +42,7 @@ img {
 }
 
 .reservations {
-  background: #fff;
+  background: $white;
 
   .reserve-missions {
     .container {
@@ -44,7 +54,7 @@ img {
 }
 
 .pulse {
-  background: #fff;
+  background: $white;
 
   .container {
     width: 100%;
@@ -59,7 +69,7 @@ img {
 // overwrite bootstrap button to use pink
 .btn-primary {
   background: #F310A7;
-  color: #fff;
+  color: $white;
   height: 40px;
   line-height: 40px;
   font-size: 13px;
@@ -185,4 +195,13 @@ img {
     padding-bottom: 10px;
     color: $darkBlueGray;
   }
+}
+
+.discussions-wrapper {
+  background: $slooh-white;
+}
+.discussions-container {
+  background: $white;
+  padding: 40px 0 30px 0;
+  height: 100vmax;
 }

@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { checkUser } from '../modules/User';
 import classnames from 'classnames';
-
+import Sticky from 'react-stickynode';
 import {
   getObservatoryList,
   getCurrentObservatory } from '../modules/Telescope-Overview';
@@ -58,7 +58,7 @@ class ReserveMissions extends Component {
     const rootRoute = `reservations/reserve-by-telescope/${params.obsUniqueId}/${params.teleUniqueId}`;
 
     return (
-      <div className="reserve-by-telescope">
+      <div className="reserve-by-telescope" id="reserve-by-telescope">
 
         <TelescopeSelection
           theme="light"
@@ -76,12 +76,20 @@ class ReserveMissions extends Component {
           instrTelescopeName={currentInstrument.instrTelescopeName}
         />
 
-        <DateSelectionNavigation
-          routeRoot={rootRoute}
-          obsId={currentObservatory.obsId}
-          domeId={currentInstrument.instrDomeId}
-          telescopeId={currentTelescope.teleId}
-        />
+      <Sticky
+        activeClass="sticky"
+        bottomBoundary="#reserve-by-telescope"
+        enabled={true}
+        innerZ="10"
+        top="#mainHeader"
+      >
+          <DateSelectionNavigation
+            routeRoot={rootRoute}
+            obsId={currentObservatory.obsId}
+            domeId={currentInstrument.instrDomeId}
+            telescopeId={currentTelescope.teleId}
+          />
+        </Sticky>
 
         {
           reservationListIsFetching ?

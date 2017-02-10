@@ -12,7 +12,7 @@
   }
 
   a {
-    color: #000;
+    color: $slooh-black;
   }
   a:focus {
     text-decoration: none;
@@ -27,8 +27,8 @@
     height: 50%;
     &:hover > a,
     a.active {
-      border-bottom: 5px solid #7EC3C4;
-      color: #000;
+      border-bottom: 5px solid $blueGreen;
+      color: $slooh-black;
     }
   }
 
@@ -72,10 +72,10 @@
   }
 
   .link {
-    color: #000;
+    color: $slooh-black;
     &:hover, &.active {
-      color: #F310A7;
-      border-bottom: 3px solid #7EC3C4;
+      color: $pink;
+      border-bottom: 3px solid $blueGreen;
       text-decoration: none;
     }
   }
