@@ -1,9 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { checkUser } from '../modules/User';
-import classnames from 'classnames';
-import moment from 'moment';
 
 import MissionUpdates from '../components/missions/mission-updates';
 import MissionAd from '../components/missions/mission-ad';

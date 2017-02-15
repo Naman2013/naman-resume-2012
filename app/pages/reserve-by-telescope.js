@@ -68,14 +68,6 @@ class ReserveMissions extends Component {
           rootRoute="reservations/reserve-by-telescope/telescope"
         />
 
-        <CurrentSelectionHeader
-          telescopeIcon={currentObservatory.obsLogoURL}
-          teleName={currentTelescope.teleName}
-          teleSponsorLinkURL={currentTelescope.teleSponsorLinkURL}
-          teleSponsorLogoURL={currentTelescope.teleSponsorLogoURL}
-          instrTelescopeName={currentInstrument.instrTelescopeName}
-        />
-
       <Sticky
         activeClass="sticky"
         bottomBoundary="#reserve-by-telescope"
@@ -83,13 +75,20 @@ class ReserveMissions extends Component {
         innerZ="10"
         top="#mainHeader"
       >
-          <DateSelectionNavigation
-            routeRoot={rootRoute}
-            obsId={currentObservatory.obsId}
-            domeId={currentInstrument.instrDomeId}
-            telescopeId={currentTelescope.teleId}
-          />
-        </Sticky>
+        <CurrentSelectionHeader
+          telescopeIcon={currentObservatory.obsLogoURL}
+          teleName={currentTelescope.teleName}
+          teleSponsorLinkURL={currentTelescope.teleSponsorLinkURL}
+          teleSponsorLogoURL={currentTelescope.teleSponsorLogoURL}
+          instrTelescopeName={currentInstrument.instrTelescopeName}
+        />
+        <DateSelectionNavigation
+          routeRoot={rootRoute}
+          obsId={currentObservatory.obsId}
+          domeId={currentInstrument.instrDomeId}
+          telescopeId={currentTelescope.teleId}
+        />
+      </Sticky>
 
         {
           reservationListIsFetching ?

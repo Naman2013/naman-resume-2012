@@ -83,7 +83,8 @@ export const reserveMissionSlot = ({
   telescopeName,
   objectIconURL,
   uniqueId,
-  targetName
+  targetName,
+  objective,
 }) => (dispatch, getState) => {
   const { token, at, cid } = getState().user;
   return axios.post('/api/reservation/reserveMissionSlot', {
@@ -111,6 +112,7 @@ export const reserveMissionSlot = ({
     objectIconURL,
     uniqueId,
     targetName,
+    objective,
   })
   .then(result => {
     dispatch(fetchUsersUpcomingMissions());

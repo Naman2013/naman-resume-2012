@@ -1,0 +1,8 @@
+@import '../../styles/variables/colors.scss';
+@import '../../styles/mixins/utilities.scss';
+
+.eventHeroRoot {
+  @include background-image-cover;
+  width: 100%;
+  height: 640px;
+}

@@ -35,7 +35,7 @@ class MyPicturesNavigation extends Component {
   }
 
   render() {
-    const { page, photoRollCount, missionCount } = this.props;
+    const { page, photoRollCount, missionCount, galleriesCount } = this.props;
     const { hideFilter } = this.state;
     const filterContainerClassnames = classnames(s.filterMenuWrapper, {
       hide: hideFilter,
@@ -56,6 +56,11 @@ class MyPicturesNavigation extends Component {
           <li className={s.rootNavigationItem}>
             <Link to="my-pictures/photo-roll" className={s.button} activeClassName="active">
               Photo Roll<span>({photoRollCount})</span>
+            </Link>
+          </li>
+          <li className={s.rootNavigationItem}>
+            <Link to="my-pictures/galleries" className={s.button} activeClassName="active">
+              Galleries<span>({galleriesCount})</span>
             </Link>
           </li>
           <li className={s.rootNavigationItem}>

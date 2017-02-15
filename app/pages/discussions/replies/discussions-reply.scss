@@ -3,6 +3,43 @@
 @import '../../../styles/mixins/utilities';
 @import '../discussions.scss';
 
+$margin: 15px;
+
+.DiscussionsReply {
+  text-align: center;
+  color: $slooh-black;
+  background-color: $white;
+  min-height: 100vmax;
+}
 .DiscussionsReplyHeader {
   @include header;
+}
+
+.number {
+  @include number;
+  display: inline-block;
+  background-color: $slooh-black;
+}
+
+.DiscussionsLabel {
+  display: block;
+}
+
+.DiscussionsInput {
+  display: block;
+  margin: $margin auto;
+}
+
+.DiscussionsFormInputContainer {
+  margin: $margin 0;
+}
+
+.DiscussionsContent {
+  padding-top: 50px;
+}
+
+.DiscussionsInline {
+  display: inline-block;
+  margin-left: $margin !important;
+  margin-right: $margin !important;
 }

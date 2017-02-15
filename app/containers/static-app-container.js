@@ -1,12 +1,13 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component, PropTypes, cloneElement } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
+import NotificationSystem from 'react-notification-system';
+import notificationStyles from '../components/common/notification-center/inline-styles';
 import Menu from './Menu';
 import Header from '../components/common/header';
 import Footer from '../components/common/footer';
 import { checkUser } from '../modules/User';
-import { validateUserPath } from '../utils/validateUserPath';
 
 const { element, func } = PropTypes;
 
@@ -19,18 +20,44 @@ function mapDispatchToProps(dispatch) {
 }
 
 @connect(mapStateToProps, mapDispatchToProps)
-export default class App extends Component {
+class StaticAppContainer extends Component {
   static propTypes = {
     children: element,
     checkUser: func.isRequired,
   };
 
-  componentWillMount() {
-    this.props.checkUser();
+  constructor(props) {
+    super(props);
+
+    this.notificationSystem = null;
+    this.notifySuccess = this.notifySuccess.bind(this);
+    this.notifyError = this.notifyError.bind(this);
   }
 
-  componentWillReceiveProps(nextProps) {
-    validateUserPath(nextProps.location.pathname, this.props.user);
+  componentWillMount() {
+    // this.props.checkUser();
+  }
+
+  componentDidMount() {
+    this.notificationSystem = this.refs.notificationSystem;
+  }
+
+  notifySuccess({ title, message }) {
+    this.notificationSystem.addNotification({
+      title,
+      message,
+      level: 'success',
+      autoDismiss: 0,
+    });
+  }
+
+  notifyError({ title, message }) {
+    this.notificationSystem.addNotification({
+      title,
+      message,
+      level: 'error',
+      autoDismiss: 0,
+    });
   }
 
   render() {
@@ -39,6 +66,7 @@ export default class App extends Component {
 
     return (
       <div className="wrapper">
+        <NotificationSystem ref="notificationSystem" style={notificationStyles} />
         <Header />
         <Menu />
         <section className="static-app-content-container clearfix">
@@ -48,15 +76,20 @@ export default class App extends Component {
                 displayTitle ?
                   <header className="static">
                     <div className="pull-left">
-                      <h1>{children.props.route.title || ""}</h1>
-                      <h2 className="text-regular">{children.props.route.subTitle || ""}</h2>
+                      <h1>{children.props.route.title || ''}</h1>
+                      <h2 className="text-regular">{children.props.route.subTitle || ''}</h2>
                     </div>
                     <Link to="/about/contact" className="btn-primary pull-right">Contact Us</Link>
                   </header> : null
               }
-
-              {children}
-
+              {
+                cloneElement(children, {
+                  notification: {
+                    success: this.notifySuccess,
+                    error: this.notifyError,
+                  },
+                })
+              }
             </article>
           </div>
         </section>
@@ -65,3 +98,5 @@ export default class App extends Component {
     );
   }
 }
+
+export default StaticAppContainer;

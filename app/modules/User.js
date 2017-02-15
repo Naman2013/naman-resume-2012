@@ -2,6 +2,8 @@ import cookie from 'cookie';
 import createReducer from './utils/createReducer';
 import createAction from './utils/createAction';
 
+import { validateUserPath } from '../utils/validateUserPath';
+
 const SET_USER = 'SET_USER';
 const REMOVE_USER = 'REMOVE_USER';
 
@@ -45,14 +47,22 @@ function destroySession() {
   Is called on initial app load in App.js
   checks if user is logged in
   */
-export function checkUser() {
-  return (dispatch) => {
+export function checkUser(pathname, replace, callback) {
+  console.log(replace);
+  console.log('checking user!!!');
+  return (dispatch, getState) => {
     const userJSON = localStorage.getItem('user');
 
     if (userJSON) {
       const user = JSON.parse(userJSON);
       dispatch(store(user));
+      callback();
     } else {
+      const { shouldRedirect } = validateUserPath(pathname);
+      if (shouldRedirect) {
+        replace('/registration/sign-in');
+      }
+      callback();
       dispatch(destroy());
     }
   };

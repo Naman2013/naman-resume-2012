@@ -1,0 +1,42 @@
+@import "../../styles/variables/colors";
+@import "../../styles/variables/fonts";
+
+.whatToImageNextContainer {
+  background: $slooh-white;
+  color: $font-black;
+  padding: 40px;
+
+  .mainTitle {
+    font-size: 28px;
+    text-transform: none;
+    border-bottom: 1px solid $turqoise;
+  }
+
+  .object {
+    padding: 30px 30px 0;
+  }
+
+  .info {
+    font-weight: bold;
+  }
+
+  .objImage {
+    height: 50px;
+    width: 50px;
+    margin: 15px auto 0;
+  }
+
+  .title {
+    text-transform: none;
+    color: $slooh-black;
+    font-size: 24px;
+  }
+
+  .description {
+    font-family: $slooh-body;
+  }
+
+  .btn-primary {
+    font-weight: bold;
+  }
+}

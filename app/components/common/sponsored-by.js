@@ -1,10 +1,17 @@
-import React, { Component, Props } from 'react';
-import styles from './common.scss';
+import React, { PropTypes } from 'react';
+import './common.scss';
 
-const SponsoredBy = () =>
+const SponsoredBy = ({ sponsorLogoURL, sponsorLinkURL }) =>
   <div className="sponsored">
     <div>Sponsored by:</div>
-    <img src="" width={100} height={40}/>
+    <a href={sponsorLinkURL} rel="noopener noreferrer" target="_blank">
+      <img alt="Sponsored by logo" src={sponsorLogoURL} height={40} />
+    </a>
   </div>;
+
+SponsoredBy.propTypes = {
+  sponsorLogoURL: PropTypes.string.isRequired,
+  sponsorLinkURL: PropTypes.string.isRequired,
+};
 
 export default SponsoredBy;

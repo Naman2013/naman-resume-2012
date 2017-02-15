@@ -13,7 +13,9 @@ const PUBLIC_PATHS = [
   '/about/job',
   '/about/contact',
   '/about/leadership',
+  '/about/pricing',
   '/registration/sign-in',
+  '/registration/plans',
   '/registration/upgrade-apprentice',
   '/registration/upgrade-astronomer',
 ];
@@ -33,11 +35,11 @@ function redirectToHome() {
   hashHistory.push(HOME);
 }
 
-export function validateUserPath(path, user) {
+export function validateUserPath(path, user = {}) {
   const { isAuthorized } = user;
   const publicPath = isPublicPath(path);
 
-  if (!isAuthorized && !publicPath) {
-    redirectToSignIn();
-  }
+  return {
+    shouldRedirect: (!isAuthorized && !publicPath),
+  };
 }
