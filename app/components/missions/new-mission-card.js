@@ -2,15 +2,15 @@ import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
-import classnames from 'classnames';
-import styles from './mission-card.scss';
 import moment from 'moment-timezone';
 import _ from 'lodash';
+import classnames from 'classnames';
+import styles from './mission-card.scss';
 
 import {
   updateSingleReservations,
   grabMissionSlot,
-  updateSinglePiggyback } from '../../modules/Missions';
+} from '../../modules/Missions';
 
 function mapDispatchToProps(dispatch) {
   return {

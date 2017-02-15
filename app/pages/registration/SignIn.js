@@ -1,17 +1,21 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { Link } from 'react-router';
 import Header from './common/Header';
-import { login } from '../../modules/Login';
+import FormErrorMessage from './common/FormErrorMessage';
+import { login, loginReset } from '../../modules/Login';
 
-const mapStateToProps = ({ user }) => ({
+const mapStateToProps = ({ user, login }) => ({
   statusCode: user.statusCode,
   isAuthorized: user.isAuthorized,
+  login,
 });
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
     login,
+    loginReset,
   }, dispatch),
 });
 
@@ -23,22 +27,31 @@ class SignIn extends Component {
     this.state = {
       username: '',
       passwd: '',
+      badLogin: false,
+      passwordFieldType: 'password',
     };
 
     this.handleUsernameChange = this.handleUsernameChange.bind(this);
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
     this.handleSignin = this.handleSignin.bind(this);
+    this.toggleShowPassword = this.toggleShowPassword.bind(this);
   }
 
   handleUsernameChange(event) {
+    this.props.actions.loginReset();
+
     this.setState({
       username: event.target.value,
+      badLogin: false,
     });
   }
 
   handlePasswordChange(event) {
+    this.props.actions.loginReset();
+
     this.setState({
       passwd: event.target.value,
+      badLogin: false,
     });
   }
 
@@ -46,14 +59,30 @@ class SignIn extends Component {
   handleSignin(event) {
     event.preventDefault();
     const { username, passwd } = this.state;
-    this.props.actions.login({
-      username,
-      passwd,
+
+    if (!username || !passwd) {
+      this.setState({
+        badLogin: true,
+      });
+    } else {
+      this.props.actions.login({
+        username,
+        passwd,
+      });
+    }
+  }
+
+  toggleShowPassword(event) {
+    event.preventDefault();
+    const { passwordFieldType } = this.state;
+    this.setState({
+      passwordFieldType: passwordFieldType === 'password' ? 'text' : 'password',
     });
   }
 
   render() {
-    const { username, passwd } = this.state;
+    const { username, passwd, badLogin, passwordFieldType } = this.state;
+    const { loggingIn, loginFailed, loginSuccess } = this.props.login;
 
     return (
       <div className="registration paid-signin">
@@ -85,12 +114,21 @@ class SignIn extends Component {
                   </div>
 
                   <div className="clearfix margin-top-large">
-                    <a href="">Learn more about our plans</a>
+                    <Link to="/about/pricing">Learn more about our plans</Link>
                   </div>
 
                 </section>
 
                 <section className="col-md-6 border-dark-left padding-xxlarge">
+
+                  {
+                    loginFailed || badLogin ?
+                      <FormErrorMessage
+                        messageTitle="Sign in Error"
+                        messageBody="Please check your username and password."
+                      /> : null
+                  }
+
                   <fieldset className="clearfix form-group required margin-top-xlarge">
                     <label className="" htmlFor="email">Email or Username</label>
                     <input
@@ -102,13 +140,13 @@ class SignIn extends Component {
                     />
                   </fieldset>
                   <fieldset className="clearfix form-group required">
-                    <label htmlFor="password">Password <a href="" className="control">Show</a> <a href="" className="control pull-right">Forgotten Password</a>
+                    <label htmlFor="password">Password <a onClick={this.toggleShowPassword} href="" className="control">Show</a> <a href="" className="control pull-right">Forgotten Password</a>
                     </label>
                     <input
                       onChange={this.handlePasswordChange}
                       value={passwd}
                       className="form-control input-lg password"
-                      type="password"
+                      type={passwordFieldType}
                       name="password"
                     />
                   </fieldset>

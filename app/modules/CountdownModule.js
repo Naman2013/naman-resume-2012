@@ -10,7 +10,9 @@ const initialState = {
   isFetching: false,
   updateEventsInterval: 1000 * 60 * 5,
   updateDurationInterval: 1000,
-  activeOrUpcomingEvent: null,
+  activeOrUpcomingEvent: {
+    eventId: null,
+  },
   responseError: null,
 };
 
@@ -19,7 +21,9 @@ export default createReducer(initialState, {
     return {
       ...state,
       isFetching: true,
-      activeOrUpcomingEvent: null,
+      activeOrUpcomingEvent: {
+        eventId: null,
+      },
       responseError: null,
     };
   },

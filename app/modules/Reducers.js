@@ -28,6 +28,7 @@ import menu from './menu/reducer';
 import objectPostList from './object-post-list/reducer';
 import discussionsThread from './discussions-thread/reducer';
 import discussionsReplies from './discussions-replies/reducer';
+import liveShows from './live-shows/live-shows-reducer';
 
 export default combineReducers({
   routing: routerReducer,
@@ -59,4 +60,5 @@ export default combineReducers({
   browseByPopularObjects,
   discussionsThread,
   discussionsReplies,
+  liveShows,
 });

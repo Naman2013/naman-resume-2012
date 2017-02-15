@@ -119,6 +119,16 @@
   }
 }
 
+@mixin number {
+  display: block;
+  width: 30px;
+  height: 30px;
+  background: $darkBlueGray;
+  color: $blueGreen;
+  padding: 3px 0 0 1px;
+  border-radius: 50%;
+}
+
 %visuallyhidden {
     margin: -1px;
     padding: 0;

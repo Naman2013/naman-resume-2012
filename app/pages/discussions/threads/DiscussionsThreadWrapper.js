@@ -45,7 +45,7 @@ DiscussionsThreadWrapper.propTypes = {
   fetchThread: func.isRequired,
   repliesLists: object.isRequired,
   thread: object.isRequired,
-  fetching: bool.isRequired,
+  fetching: bool,
 };
 
 const mapStateToProps = ({ discussionsThread, discussionsReplies }) => ({

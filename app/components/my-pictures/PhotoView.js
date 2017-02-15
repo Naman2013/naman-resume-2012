@@ -18,18 +18,22 @@ class PhotoView extends Component {
   }
 
   handleNextPageClick() {
-    const { imagesPerPage } = this.props;
+    const { imagesPerPage, type } = this.props;
     const { startRange } = this.state;
-    window.scrollTo(0, 0);
+    if (type !== 'gallery') {
+      window.scrollTo(0, 0);
+    }
     this.setState({
       startRange: startRange + imagesPerPage,
     });
   }
 
   handlePreviousPageClick() {
-    const { imagesPerPage } = this.props;
+    const { imagesPerPage, type } = this.props;
     const { startRange } = this.state;
-    window.scrollTo(0, 0);
+    if (type !== 'gallery') {
+      window.scrollTo(0, 0);
+    }
     this.setState({
       startRange: startRange - imagesPerPage,
     });
@@ -70,6 +74,10 @@ class PhotoView extends Component {
           type === 'images' ?
             <PhotoList imageList={imageRange} /> : null
         }
+        {
+          type === 'gallery' ?
+            <PhotoList imageList={imageRange} galleryType /> : null
+        }
         <Pagination
           totalCount={imageList.length}
           currentRange={rangeText}
@@ -96,7 +104,7 @@ PhotoView.propTypes = {
   })).isRequired,
   error: PropTypes.bool.isRequired,
   imagesPerPage: PropTypes.number,
-  type: PropTypes.oneOf(['covers', 'images']).isRequired,
+  type: PropTypes.oneOf(['covers', 'images', 'gallery']).isRequired,
 };
 
 export default PhotoView;

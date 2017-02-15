@@ -61,41 +61,27 @@ class ReserveConfirm extends Component {
     event.preventDefault();
     const { callSource } = this.props.currentMissionSlot;
     const currentMission = this.props.currentMissionSlot.missionList[0];
-
-    // set the objective content...
-    this.setObjectiveContent();
+    const objective = this.state.objective.trim();
 
     // handle the reservation...
     this.props.actions.reserveMissionSlot({
       callSource,
       ...currentMission, // allowing the currentMission to overwrite the callSource
+      objective,
       objectTitle: currentMission.title,
-    });
+    }).then(() => {
+      // depending on the callsource, run the appropriate background actions
+      if (callSource === 'byTelescope') {
+        this.props.actions.refreshListings();
+      }
 
-    // depending on the callsource, run the appropriate background actions
-    if (callSource === 'byTelescope') {
-      this.props.actions.refreshListings();
-    }
+      if (callSource === 'recommends') {
+        this.props.actions.missionGetCards();
+      }
 
-    if (callSource === 'recommends') {
-      this.props.actions.missionGetCards();
-    }
-
-    if (callSource === 'byPopularObjects') {
-      this.props.actions.resetBrowseByPopularObjects();
-    }
-  }
-
-  setObjectiveContent() {
-    const currentMission = this.props.currentMissionSlot.missionList[0];
-    const { scheduledMissionId } = currentMission;
-    const text = this.state.objective.trim();
-
-    this.props.actions.setTags({
-      tagClass: 'mission',
-      tagType: 'objective',
-      text,
-      scheduledMissionId,
+      if (callSource === 'byPopularObjects') {
+        this.props.actions.resetBrowseByPopularObjects();
+      }
     });
   }
 

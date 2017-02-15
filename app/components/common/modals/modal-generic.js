@@ -6,10 +6,11 @@ class ModalGeneric extends Component {
   render() {
     const { closeModal, open, title, description } = this.props;
 
-    return(
+    return (
       <Modal
-        show={ open }
-        className="generic-modal">
+        show={open}
+        className="generic-modal"
+        >
 
         <Modal.Header>
           <h1 className="title">{ title }</h1>
@@ -22,7 +23,7 @@ class ModalGeneric extends Component {
         <Modal.Footer>
           <Button
             className="btn-primary"
-            onClick={ closeModal }>Dismiss
+            onClick={closeModal}>Dismiss
           </Button>
         </Modal.Footer>
       </Modal>

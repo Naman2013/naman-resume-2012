@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { Router, Route, IndexRoute, IndexRedirect, hashHistory } from 'react-router';
 import configureStore from './store';
+import { checkUser } from './modules/User';
 
 // containers
 import App from './containers/App';
@@ -15,7 +16,7 @@ import PulseWrapper from './containers/pulse/PulseWrapper';
 import PulsePost from './containers/pulse/PulsePost';
 import ObjectListWrapper from './containers/object-post/ObjectListWrapper';
 import ObjectList from './containers/object-post/ObjectList';
-import Live from './containers/live/Live';
+
 import Discussions from './containers/discussions/Discussions';
 import DiscussionsWrapper from './containers/discussions/DiscussionsWrapper';
 import DiscussionsListWrapper from './containers/discussions/DiscussionsListWrapper';
@@ -30,16 +31,23 @@ import ReserveByTelescope from './pages/reserve-by-telescope';
 import ReserveObjects from './pages/reserve/reserve-by-objects';
 import ReserveByCatalog from './pages/reserve/reserve-by-catalog';
 import BestOfSlooh from './pages/best-of-slooh/best-of-slooh';
+
+import SituationRoom from './pages/situation-room/SituationRoom';
+import EventDetails from './pages/situation-room/EventDetails';
+
 import Job from './pages/about/job';
 import Contact from './pages/about/contact';
 import Leadership from './pages/about/leadership';
 import Mission from './pages/about/mission';
 import News from './pages/about/news';
+import PlansChange from './pages/about/PlansChange';
 
 import PhotoRoll from './pages/my-pictures/PhotoRoll';
+import Galleries from './pages/my-pictures/Galleries';
 import Missions from './pages/my-pictures/Missions';
 import MissionImages from './pages/my-pictures/MissionImages';
 
+import Plans from './pages/registration/Plans';
 import UpgradeApprentice from './pages/registration/UpgradeApprentice';
 import UpgradeAstronomer from './pages/registration/UpgradeAstronomer';
 import SignIn from './pages/registration/SignIn';
@@ -68,6 +76,9 @@ import './styles/static.scss';
 
 const store = configureStore();
 
+const validateUser = (nextState, replace, callback) => {
+  store.dispatch(checkUser(nextState.location.pathname, replace, callback));
+};
 
 ReactDOM.render(
   <Provider store={store}>
@@ -78,17 +89,19 @@ ReactDOM.render(
         <Route path="mission" component={Mission} />
         <Route path="news" component={News} title="In The News" subTitle=" " />
         <Route path="job" component={Job} title="Work With Us" subTitle="Share your passion for astronomy with the world" />
-        <Route path="contact" component={Contact} title="Contact US" subTitle="[Sub-title for news page]" />
-        <Route path="leadership" component={Leadership} title="Leadership" subTitle="[Sub-title for news page]" />
+        <Route path="contact" component={Contact} title="Contact US" subTitle=" " />
+        <Route path="leadership" component={Leadership} title="Leadership" subTitle=" " />
+        <Route path="pricing" component={PlansChange} title="Plans" subTitle=" " />
       </Route>
 
       <Route path="registration" component={StaticAppContainer}>
+        <Route path="plans" component={Plans} />
         <Route path="sign-in" component={SignIn} />
         <Route path="upgrade-apprentice" component={UpgradeApprentice} />
         <Route path="upgrade-astronomer" component={UpgradeAstronomer} />
       </Route>
 
-      <Route path="settings" component={StaticAppContainer}>
+      <Route path="settings" component={StaticAppContainer} onEnter={validateUser}>
         <Route path="account" component={Account} />
         <Route path="notifications" component={Notifications} />
         <Route path="billing" component={PaymentInfo} />
@@ -99,9 +112,9 @@ ReactDOM.render(
       <Route path="/" component={App}>
         <IndexRoute component={Home} />
 
-        <Route path="telescope-overview/:observatoryId" component={TelescopeOverview} />
+        <Route path="telescope-overview/:observatoryId" component={TelescopeOverview} onEnter={validateUser} />
 
-        <Route path="reservations" component={Reservations}>
+        <Route path="reservations" component={Reservations} onEnter={validateUser}>
           <IndexRedirect to="slooh-recommends" />
 
           <Route path="slooh-recommends" component={SloohRecommends}>
@@ -114,15 +127,15 @@ ReactDOM.render(
           <Route path="reserve-by-catalog" component={ReserveByCatalog} />
         </Route>
 
-        <Route path="reservations/reserve-by-telescope" component={Reservations}>
+        <Route path="reservations/reserve-by-telescope" component={Reservations} onEnter={validateUser}>
           <IndexRedirect to="telescope/d7f673a5-7908-11e6-a635-0eb2b1774883/1ff72faa-7909-11e6-a635-0eb2b1774883" />
           <Route path="telescope/:obsUniqueId/:teleUniqueId" component={ReserveByTelescope} />
         </Route>
 
-        <Route path="telescope-details/:obsUniqueId/:teleUniqueId" component={TelescopeDetails} />
+        <Route path="telescope-details/:obsUniqueId/:teleUniqueId" component={TelescopeDetails} onEnter={validateUser} />
 
         <Route path="best-of-slooh" component={BestOfSlooh} />
-        <Route path="publish-post" component={PublishPost} />
+        <Route path="publish-post" component={PublishPost} onEnter={validateUser} />
 
         <Route path="slooh-pulse" component={PulseList}>
           <IndexRedirect to="latest-posts" />
@@ -165,18 +178,18 @@ ReactDOM.render(
           </Route>
         </Route>
 
-        <Route path="shows/situation-room" component={Live}>
-          {/**/}
-        </Route>
+        <Route path="shows/situation-room(/:showId)" component={SituationRoom} />
+        <Route path="shows/event-details/:showId" component={EventDetails} />
 
-        <Route path="my-pictures" component={MyPictures}>
+        <Route path="my-pictures" component={MyPictures} onEnter={validateUser}>
           <IndexRedirect to="photo-roll" />
           <Route path="photo-roll" title="Photo roll" component={PhotoRoll} />
+          <Route path="galleries" title="Galleries" component={Galleries} />
           <Route path="missions/:scheduledMissionId" title="Mission Images" component={MissionImages} />
           <Route path="missions" title="Missions" component={Missions} />
         </Route>
 
-        <Route path="/discussions" component={Discussions}>
+        <Route path="/discussions" component={Discussions} onEnter={validateUser}>
           <IndexRedirect to="main" />
           <Route path="main" component={DiscussionsWrapper}>
             <IndexRedirect to="most-recent" />
@@ -194,10 +207,10 @@ ReactDOM.render(
             <Route path="most-active" component={DiscussionsListWrapper} />
           </Route>
         </Route>
-        <Route path="discussions/topic(/:topicId)(/:threadId)" component={DiscussionsThreadWrapper} />
-        <Route path="discussions/topic(/:topicId)(/:threadId)/new-reply" component={DiscussionsReplyTo} />
-        <Route path="discussions/new-thread" component={DiscussionsReplyTo} />
-        <Route path="discussions/topic(/:topicId)/new-thread" component={DiscussionsReplyTo} />
+        <Route path="discussions/topic(/:topicId)(/:threadId)" component={DiscussionsThreadWrapper} onEnter={validateUser} />
+        <Route path="discussions/topic(/:topicId)(/:threadId)/new-reply" component={DiscussionsReplyTo} onEnter={validateUser} />
+        <Route path="discussions/new-thread" component={DiscussionsReplyTo} onEnter={validateUser} />
+        <Route path="discussions/topic(/:topicId)/new-thread" component={DiscussionsReplyTo} onEnter={validateUser} />
 
       </Route>
 

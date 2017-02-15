@@ -34,7 +34,7 @@ const Plans = () => (
               <li>Take Occasional Pictures</li>
               <li>Community</li>
               <li className="not">Reservations</li>
-              <li>Objects: Most Popular</li>
+              <li className="not">Objects: Most Popular</li>
               <li>Video On Demand: Featured</li>
             </ul>
           </article>

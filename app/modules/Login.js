@@ -8,35 +8,82 @@ import * as userActions from './User';
 const LOGIN_SHOW = 'LOGIN_SHOW';
 const LOGIN_HIDE = 'LOGIN_HIDE';
 
+const LOGIN_FAIL = 'LOGIN_FAIL';
+const LOGIN_START = 'LOGIN_START';
+const LOGIN_RESET = 'LOGIN_RESET';
+
 export const show = createAction(LOGIN_SHOW);
 export const hide = createAction(LOGIN_HIDE);
 
+const loginFailed = payload => ({
+  type: LOGIN_FAIL,
+  payload,
+});
+
+const startLogin = () => ({
+  type: LOGIN_START,
+});
+
+export const loginReset = () => ({
+  type: LOGIN_RESET,
+});
+
 export const login = loginFormValues => (dispatch) => {
   const { username, passwd } = loginFormValues;
+
+  dispatch(startLogin());
 
   return axios.post('/api/users/login', {
     username,
     passwd,
   })
   .then((result) => {
-    console.log('the user response object...');
-    console.log(result);
+    const { apiError } = result.data;
 
-    dispatch(userActions.store(result.data));
-    dispatch(hide());
-    dispatch(push('/'));
-    window.location.reload();
+    if (apiError) {
+      dispatch(loginFailed(result.data));
+    } else {
+      dispatch(loginReset());
+      dispatch(userActions.store(result.data));
+      dispatch(hide());
+      dispatch(push('/'));
+      window.location.reload();
+    }
   })
-  .catch(error => {
-    throw new SubmissionError({ _error: 'Your log in was unsuccessful. Please try again.' });
+  .catch((error) => {
+    dispatch(loginFailed(error));
   });
 };
 
 const initialState = {
   isShowed: false,
+
+  loginFailed: false,
+  loggingIn: false,
 };
 
 export default createReducer(initialState, {
+  [LOGIN_RESET](state) {
+    return {
+      ...state,
+      loginFailed: false,
+      loggingIn: false,
+    };
+  },
+  [LOGIN_START](state) {
+    return {
+      ...state,
+      loginFailed: false,
+      loggingIn: true,
+    };
+  },
+  [LOGIN_FAIL](state) {
+    return {
+      ...state,
+      loginFailed: true,
+      loggingIn: false,
+    };
+  },
   [LOGIN_SHOW](state) {
     return {
       ...state,
