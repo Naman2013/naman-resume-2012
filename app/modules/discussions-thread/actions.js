@@ -34,7 +34,6 @@ export const fetchThreadList = ({
   const { cid, at, token } = getState().user;
   const processedSortBy = sortBy && sortBy.replace('-', '');
   dispatch(fetchThreadListStart());
-  console.log(topicId)
   return axios.post('/api/forum/getThreadList', {
     cid,
     at,

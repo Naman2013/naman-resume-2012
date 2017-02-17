@@ -3,9 +3,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import SocialSidebar from '../../components/pulse/sidebar/social-sidebar';
 import Header from '../../components/situation-room/Header';
-import LiveSocial from '../../components/situation-room/live-social';
-import LiveClub from '../../components/situation-room/live-club';
-import VideoFeed from '../../components/situation-room/VideoFeed';
+import SituationVideoViewer from '../../components/situation-room/SituationVideoViewer';
+import CommunityMashup from '../../components/situation-room/CommunityMashup';
 import MissionAd from '../../components/missions/mission-ad';
 import { fetchLiveShowInfo } from '../../modules/live-shows/live-shows-actions';
 
@@ -22,7 +21,7 @@ const mapStateToProps = ({ countdown, liveShows }, ownProps) => ({
 });
 
 @connect(mapStateToProps, mapDispatchToProps)
-class Live extends Component {
+class SituationRoom extends Component {
   componentWillMount() {
     const { showId } = this.props;
     if (showId) {
@@ -47,7 +46,6 @@ class Live extends Component {
 
   render() {
     const { currentLiveShow } = this.props;
-
     return (
       <section className="clearfix live">
 
@@ -58,15 +56,27 @@ class Live extends Component {
         </div>
 
         <div className="col-md-9 nopadding">
-          <LiveSocial />
-          <LiveClub />
-          <VideoFeed
+          <SituationVideoViewer
             videoInProgress={currentLiveShow.inProgressFlag}
             videoEmbedCode={currentLiveShow.embedCode}
             eventTitle={currentLiveShow.title}
             hasSponsor={currentLiveShow.sponsorInformation.SponsorFlag}
             sponsorLogoURL={currentLiveShow.sponsorInformation.SponsorLogoURL}
             sponsorLinkURL={currentLiveShow.sponsorInformation.SponsorLinkURL}
+
+            additionalFeeds={currentLiveShow.additionalFeeds}
+            starShareAvailable={currentLiveShow.canStarShare}
+            initialStreamCode={currentLiveShow.showStreamCode}
+            initialStreamURL={currentLiveShow.showStreamURL}
+
+            hasAdditionalFeeds={currentLiveShow.hasAdditionalFeeds}
+          />
+
+          <CommunityMashup
+            hasSocialFlow={currentLiveShow.hasSocialFlow}
+            hasPerspectives={currentLiveShow.hasPerspectives}
+            hasUpcomingShows={currentLiveShow.hasUpcomingShows}
+            hasRecommends={currentLiveShow.hasRecommends}
           />
         </div>
 
@@ -80,15 +90,21 @@ class Live extends Component {
   }
 }
 
-Live.defaultProps = {
+SituationRoom.defaultProps = {
   showId: null,
   upcomingEventEventId: null,
 };
 
-Live.propTypes = {
+SituationRoom.propTypes = {
   showId: PropTypes.string,
   upcomingEventEventId: PropTypes.number,
   currentLiveShow: PropTypes.shape({
+    hasSocialFlow: PropTypes.bool.isRequired,
+    hasPerspectives: PropTypes.bool.isRequired,
+    hasUpcomingShows: PropTypes.bool.isRequired,
+    hasRecommends: PropTypes.bool.isRequired,
+    hasAdditionalFeeds: PropTypes.bool.isRequired,
+
     embedCode: PropTypes.string,
     apiError: PropTypes.bool,
     title: PropTypes.string,
@@ -106,4 +122,4 @@ Live.propTypes = {
   }),
 };
 
-export default Live;
+export default SituationRoom;

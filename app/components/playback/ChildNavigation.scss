@@ -1,0 +1,34 @@
+@import '../../styles/variables/colors.scss';
+
+.childNavigationRoot {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+  background: $white;
+  padding: 10px 0;
+
+  .childNavigation {
+    display: flex;
+    margin: 0;
+    padding: 0;
+
+    .navigationItem {
+      list-style-type: none;
+      padding: 0 25px;
+
+      .link {
+        font-weight: normal;
+        text-transform: none;
+        display: block;
+        color: $pink;
+        text-decoration: none;
+        font-size: 16px;
+
+        &.active {
+          color: $black;
+        }
+      }
+    }
+  }
+}

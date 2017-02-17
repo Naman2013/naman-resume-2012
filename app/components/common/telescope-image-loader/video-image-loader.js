@@ -5,7 +5,7 @@ import style from './video-image-loader.scss';
 class VideoImageLoader extends Component {
 
   generateIFrameUrl() {
-    const {teleStreamCode} = this.props;
+    const { teleStreamCode } = this.props;
     return `https://www.youtube.com/embed/${teleStreamCode}?autoplay=1&origin=http://live.slooh.com/`;
   }
 
@@ -18,12 +18,11 @@ class VideoImageLoader extends Component {
       clipped,
     } = this.props;
 
-    const videoImageLoaderClassnames = classnames({
-      'video-image-loader': 1,
-      'clipped': clipped,
+    const videoImageLoaderClassnames = classnames('video-image-loader', {
+      clipped,
     });
 
-    return(
+    return (
       <div className={videoImageLoaderClassnames}>
         <iframe
           id={teleStreamCode}
@@ -33,8 +32,8 @@ class VideoImageLoader extends Component {
           height={teleStreamThumbnailVideoHeight}
           controls="0"
           src={this.generateIFrameUrl()}
-          frameBorder="0">
-        </iframe>
+          frameBorder="0"
+        />
       </div>
     );
   }

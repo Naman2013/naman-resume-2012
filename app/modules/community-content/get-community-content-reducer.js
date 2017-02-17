@@ -16,7 +16,7 @@ export default createReducer(generateInitialState(), {
   [FETCH_COMMUNITY_CONTENT_START](state) {
     return {
       ...state,
-      ...generateInitialState,
+      ...generateInitialState(),
     };
   },
   [FETCH_COMMUNITY_CONTENT_SUCCESS](state, { payload }) {

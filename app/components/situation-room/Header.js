@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react'
 import UniversalTime from '../../components/common/universal-time';
-import styles from './live-header.scss';
+import styles from './Header.scss';
 
 const Header = ({ videoInProgress }) =>
   <header className={styles.liveHeader}>

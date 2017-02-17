@@ -1,8 +1,46 @@
 @import '../../styles/variables/colors.scss';
 @import '../../styles/mixins/utilities.scss';
+@import '../../styles/variables/fonts.scss';
 
 .eventHeroRoot {
   @include background-image-cover;
+  background-color: rgba(0, 0, 0, 0.75);
+  font-family: $slooh-headers;
   width: 100%;
   height: 640px;
+  color: $white;
+  padding: 10px 25px;
+
+  .eventDetailsContainer {
+    margin-top: 100px;
+  }
+
+  .topTitle {
+    font-size: 36px;
+    font-weight: 100;
+  }
+
+  .title {
+    width: 250px;
+    font-size: 56px;
+    font-weight: 100;
+    padding-bottom: 15px;
+  }
+
+  .eventTimeData {
+    display: inline-block;
+    background-color: $black;
+    font-weight: 600;
+    padding: 15px 25px;
+  }
+
+
+  .sponsorBy {
+    margin: 15px 0;
+  }
+
+  .sponsorLogo {
+    height: 20px;
+    margin-left: 5px;
+  }
 }

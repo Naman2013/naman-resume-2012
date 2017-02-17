@@ -1,0 +1,57 @@
+@import '../../styles/variables/colors.scss';
+@import '../../styles/variables/fonts.scss';
+@import '../../styles/mixins/utilities.scss';
+
+.eventDescriptionContainer {
+  font-family: $slooh-body;
+  font-size: 18px;
+  background-color: $white;
+  color: black;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+.eventDescriptionPanel {
+  height: 75px;
+  font-family: $primary-font;
+  padding: 25px;
+}
+
+.eventDescriptionPanelItemMain {
+  color: black;
+  display: inline-block;
+  min-width: 350px;
+  font-size: 18px;
+
+  .icon {
+    color: $blueGreen;
+    font-size: 24px;
+    padding-right: 10px;
+  }
+  .link {
+    color: $pink;
+  }
+}
+
+.eventDescriptionPanelItem {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  
+  .likeText {
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 14px;
+  }
+
+  .heart {
+    vertical-align: middle;
+  }
+}
+
+.eventDescriptionContent {
+  padding: 0 25px;
+  font-size: 20px;
+}

@@ -16,6 +16,7 @@ import PulseWrapper from './containers/pulse/PulseWrapper';
 import PulsePost from './containers/pulse/PulsePost';
 import ObjectListWrapper from './containers/object-post/ObjectListWrapper';
 import ObjectList from './containers/object-post/ObjectList';
+import PlaybackContainer from './containers/PlaybackContainer';
 
 import Discussions from './containers/discussions/Discussions';
 import DiscussionsWrapper from './containers/discussions/DiscussionsWrapper';
@@ -34,6 +35,12 @@ import BestOfSlooh from './pages/best-of-slooh/best-of-slooh';
 
 import SituationRoom from './pages/situation-room/SituationRoom';
 import EventDetails from './pages/situation-room/EventDetails';
+
+import PlaybackWrapper from './pages/playback/PlaybackWrapper';
+import PlaybackViewer from './pages/playback/PlaybackViewer';
+import RecentShows from './pages/playback/RecentShows';
+import SloohMotion from './pages/playback/SloohMotion';
+import UpcomingShows from './pages/playback/UpcomingShows';
 
 import Job from './pages/about/job';
 import Contact from './pages/about/contact';
@@ -84,7 +91,7 @@ ReactDOM.render(
   <Provider store={store}>
     <Router history={hashHistory}>
 
-      <Route path="about" component={StaticAppContainer}>
+      <Route path="about" component={StaticAppContainer} onEnter={validateUser}>
         <IndexRedirect to="mission" />
         <Route path="mission" component={Mission} />
         <Route path="news" component={News} title="In The News" subTitle=" " />
@@ -94,7 +101,7 @@ ReactDOM.render(
         <Route path="pricing" component={PlansChange} title="Plans" subTitle=" " />
       </Route>
 
-      <Route path="registration" component={StaticAppContainer}>
+      <Route path="registration" component={StaticAppContainer} onEnter={validateUser}>
         <Route path="plans" component={Plans} />
         <Route path="sign-in" component={SignIn} />
         <Route path="upgrade-apprentice" component={UpgradeApprentice} />
@@ -110,7 +117,7 @@ ReactDOM.render(
       </Route>
 
       <Route path="/" component={App}>
-        <IndexRoute component={Home} />
+        <IndexRoute component={Home} onEnter={validateUser} />
 
         <Route path="telescope-overview/:observatoryId" component={TelescopeOverview} onEnter={validateUser} />
 
@@ -134,10 +141,10 @@ ReactDOM.render(
 
         <Route path="telescope-details/:obsUniqueId/:teleUniqueId" component={TelescopeDetails} onEnter={validateUser} />
 
-        <Route path="best-of-slooh" component={BestOfSlooh} />
+        <Route path="best-of-slooh" component={BestOfSlooh} onEnter={validateUser} />
         <Route path="publish-post" component={PublishPost} onEnter={validateUser} />
 
-        <Route path="slooh-pulse" component={PulseList}>
+        <Route path="slooh-pulse" component={PulseList} onEnter={validateUser}>
           <IndexRedirect to="latest-posts" />
 
           <Route path="latest-posts" component={PulseWrapper}>
@@ -153,10 +160,10 @@ ReactDOM.render(
         </Route>
 
         <Route path="community" component={PulsePost}>
-          <Route path="post(/:id)" name="post" component={PulsePostContent} onUpdate={() => window.scrollTo(0, 0)} />
+          <Route path="post(/:id)" name="post" component={PulsePostContent} onEnter={validateUser} onUpdate={() => window.scrollTo(0, 0)} />
         </Route>
 
-        <Route path="objects" component={ObjectList}>
+        <Route path="objects" component={ObjectList} onEnter={validateUser}>
           <IndexRedirect to="all-time-best" />
 
           <Route path="all-time-best" component={ObjectListWrapper}>
@@ -178,8 +185,45 @@ ReactDOM.render(
           </Route>
         </Route>
 
-        <Route path="shows/situation-room(/:showId)" component={SituationRoom} />
-        <Route path="shows/event-details/:showId" component={EventDetails} />
+        <Route path="shows/situation-room(/:showId)" component={SituationRoom} onEnter={validateUser} />
+        <Route path="shows/event-details/:showId" component={EventDetails} onEnter={validateUser} />
+
+        <Route path="shows/browse-shows" component={PlaybackContainer} onEnter={validateUser}>
+          <IndexRedirect to="recent-shows" />
+
+          <Route path="recent-shows" component={RecentShows}>
+            <IndexRedirect to="all-categories" />
+            <Route path="all-categories" component={PlaybackViewer} />
+            <Route path="the-moon" component={PlaybackViewer} />
+            <Route path="deep-space" component={PlaybackViewer} />
+            <Route path="planets" component={PlaybackViewer} />
+            <Route path="the-sun" component={PlaybackViewer} />
+            <Route path="comets" component={PlaybackViewer} />
+            <Route path="constellations" component={PlaybackViewer} />
+          </Route>
+
+          <Route path="slooh-motion" component={SloohMotion}>
+            <IndexRedirect to="all-categories" />
+            <Route path="all-categories" component={PlaybackViewer} />
+            <Route path="the-moon" component={PlaybackViewer} />
+            <Route path="deep-space" component={PlaybackViewer} />
+            <Route path="planets" component={PlaybackViewer} />
+            <Route path="the-sun" component={PlaybackViewer} />
+            <Route path="comets" component={PlaybackViewer} />
+            <Route path="constellations" component={PlaybackViewer} />
+          </Route>
+
+          <Route path="upcoming-shows" component={UpcomingShows}>
+            <IndexRedirect to="all-categories" />
+            <Route path="all-categories" component={PlaybackViewer} />
+            <Route path="the-moon" component={PlaybackViewer} />
+            <Route path="deep-space" component={PlaybackViewer} />
+            <Route path="planets" component={PlaybackViewer} />
+            <Route path="the-sun" component={PlaybackViewer} />
+            <Route path="comets" component={PlaybackViewer} />
+            <Route path="constellations" component={PlaybackViewer} />
+          </Route>
+        </Route>
 
         <Route path="my-pictures" component={MyPictures} onEnter={validateUser}>
           <IndexRedirect to="photo-roll" />

@@ -1,0 +1,35 @@
+@import '../../styles/variables/colors.scss';
+@import '../../styles/mixins/utilities.scss';
+
+.communityMashupRoot {
+  margin-bottom: 100px;
+
+  .tabList {
+    padding: 0;
+  }
+
+  .tabList {
+    display: flex;
+    justify-content: space-around;
+    list-style-type: none;
+  }
+
+  .tab {
+    @include border-radius(10px);
+    padding: 10px 0;
+    color: $white;
+    background: $turqoise;
+    cursor: pointer;
+    width: 200px;
+    text-align: center;
+
+    &.ReactTabs__Tab--selected {
+      background: $pink;
+    }
+  }
+
+  .tabPanel {
+    width: 90%;
+    margin: 0 auto;
+  }
+}

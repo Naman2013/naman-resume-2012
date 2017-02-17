@@ -4,13 +4,22 @@
 .heart {
   width: 36px;
   height: 32px;
+  position: relative;
   text-align: center;
-  font-family: $primary-font;
-  border: none;
-  background: url(/assets/images/icons/icon-white-heart.png) no-repeat;
-  background-size: contain;
+  font-size: 3rem;
+
+  &.light {
+    color: $white;
+  }
+
+  &.dark {
+    color: $black;
+  }
 
   .count {
+    position: absolute;
+    top: 17px;
+    left: 14px;
     color: $red;
     font-size: 12px;
     font-weight: 600;

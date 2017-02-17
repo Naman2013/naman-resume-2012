@@ -18,7 +18,7 @@ export default createReducer(generateInitialState(), {
   [FETCH_OBJECT_CONTENT_RESET](state) {
     return {
       ...state,
-      ...generateInitialState,
+      ...generateInitialState(),
     };
   },
   [FETCH_OBJECT_CONTENT_SUCCESS](state, { payload }) {

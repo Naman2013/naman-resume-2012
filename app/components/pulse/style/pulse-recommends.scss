@@ -1,5 +1,6 @@
 @import '../../../styles/variables/fonts';
 @import '../../../styles/variables/colors';
+@import '../../../styles/mixins/utilities';
 
 .pulseRecommended {
   font-family: $primary-font;
@@ -23,11 +24,7 @@
   }
 
   .pulseRecommendedHeader {
-    background: $darkBlueGray;
-    color: $light-turqoise;
-    border-bottom: 3px solid $blueGreen;
-    text-align: center;
-    padding: 12px 5px;
+    @include sideHeader;
 
 
     h4 {
