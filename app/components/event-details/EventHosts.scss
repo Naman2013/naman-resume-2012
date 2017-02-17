@@ -1,0 +1,42 @@
+@import '../../styles/variables/colors.scss';
+@import '../../styles/variables/fonts.scss';
+@import '../../styles/mixins/utilities.scss';
+
+.eventHostsContainer {
+  background-color: $white;
+  padding: 25px;
+  color: $black;
+}
+
+.eventHostsTitle {
+  padding-bottom: 25px;
+  font-weight: 600;
+}
+
+.eventHostsItem {
+  position: relative;
+}
+
+.eventHostsItemTitle {
+  text-transform: uppercase;
+  font-size: 20px;
+}
+
+.eventHostsItemImage {
+  border-radius: 50%;
+  height: 200px;
+  width: 200px;
+  display: inline-block;
+  margin: 10px 25px;
+  vertical-align: middle;
+}
+
+.eventHostsItemInfo {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.eventHostsItemDescription {
+  font-family: $slooh-body;
+  font-size: 18px;
+}

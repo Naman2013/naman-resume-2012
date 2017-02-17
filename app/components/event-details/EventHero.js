@@ -1,26 +1,47 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
+import { Link } from 'react-router';
+import moment from 'moment-timezone';
 import s from './EventHero.scss';
 
-function EventHero() {
-  const heroInlineStyle = {
-    backgroundImage: 'url(../../../assets/images/photos/solar-event.png)',
-  };
+const { object } = PropTypes;
 
+function EventHero({ eventContent }) {
+  const getHeroInlineStyle = imgUrl => ({
+    backgroundImage: `url(${imgUrl})`,
+  });
+  const eventStart = moment.tz(eventContent.eventStart, 'America/New_York').format('dddd, MMMM D, YYYY h:mmA z');
+
+  const sponsorInfo = eventContent.sponsorInformation || {};
   return (
-    <div style={heroInlineStyle} className={s.eventHeroRoot}>
+    <div style={getHeroInlineStyle(eventContent.featuredImageURL)} className={s.eventHeroRoot}>
       <header className={s.titleContainer}>
-        <h1 className={s.title}>Upcoming event</h1>
+        <h2 className={s.topTitle} dangerouslySetInnerHTML={{ __html: eventContent.topTitle }} />
       </header>
 
       <article className={s.eventDetailsContainer}>
-        <h2 className={s.eventTitle}>The LIVE Continental Eclipse</h2>
+        <h1 className={s.title}>
+          <span dangerouslySetInnerHTML={{ __html: eventContent.title }}></span>
+        </h1>
         <h3 className={s.eventTimeData}>
-          Sunday, August 21, 2017 <span className={s.time}>7:00P.M. EST</span> USA
+          {eventStart}
         </h3>
       </article>
+
+      {sponsorInfo.SponsorFlag &&
+        <div className={s.sponsorBy}>Sponsored By:
+          <a href={sponsorInfo.SponsorLinkURL} target="_blank">
+            <img src={sponsorInfo.SponsorLogoURL} className={s.sponsorLogo} />
+          </a>
+        </div>
+      }
+
+      {eventContent.inProgressFlag && <Link to={eventContent.showLink} className="btn btn-primary">Show in Progress!</Link>}
 
     </div>
   );
 }
 
+EventHero.propTypes = {
+  eventContent: object.isRequired,
+}
 export default EventHero;

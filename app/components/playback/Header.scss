@@ -1,0 +1,19 @@
+@import '../../styles/mixins/utilities.scss';
+@import '../../styles/variables/colors.scss';
+
+.playbackHeaderRoot {
+  @include background-image-cover;
+  background-image: url(../../../assets/images/photos/enigma.png);
+  color: $white;
+  width: 100%;
+  height: 140px;
+  margin-top: -20px;
+  position: relative;
+
+  .title {
+    position: absolute;;
+    bottom: 5px;
+    left: 20px;
+    text-transform: uppercase;
+  }
+}

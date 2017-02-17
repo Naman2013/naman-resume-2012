@@ -119,6 +119,14 @@
   }
 }
 
+@mixin sideHeader {
+  background: $darkBlueGray;
+  color: $light-turqoise;
+  border-bottom: 3px solid $blueGreen;
+  text-align: center;
+  padding: 12px 5px;
+}
+
 @mixin number {
   display: block;
   width: 30px;

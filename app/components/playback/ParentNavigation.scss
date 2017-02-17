@@ -1,0 +1,33 @@
+@import '../../styles/variables/colors.scss';
+
+.parentNavigationRoot {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+  background: $white;
+  padding: 10px 0;
+
+  .parentNavigation {
+    display: flex;
+    margin: 0;
+    padding: 0;
+  }
+
+  .navigationItem {
+    list-style-type: none;
+    padding: 0 35px;
+
+    .link {
+      font-weight: 600;
+      text-transform: uppercase;
+      display: block;
+      color: $black;
+      text-decoration: none;
+
+      &.active {
+        border-bottom: 5px solid $pink;
+      }
+    }
+  }
+}

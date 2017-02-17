@@ -29,6 +29,9 @@ import objectPostList from './object-post-list/reducer';
 import discussionsThread from './discussions-thread/reducer';
 import discussionsReplies from './discussions-replies/reducer';
 import liveShows from './live-shows/live-shows-reducer';
+import mashupSettings from './mashup-settings/get-mashup-reducer';
+import eventInfo from './event-info/reducer';
+import featuredContent from './featured-content/reducer';
 
 export default combineReducers({
   routing: routerReducer,
@@ -61,4 +64,7 @@ export default combineReducers({
   discussionsThread,
   discussionsReplies,
   liveShows,
+  mashupSettings,
+  eventInfo,
+  featuredContent,
 });

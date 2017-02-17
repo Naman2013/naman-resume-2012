@@ -1,0 +1,35 @@
+@import '../../styles/variables/colors.scss';
+@import '../../styles/mixins/utilities.scss';
+
+.playerContainer {
+  background: $gray;
+  padding: 0;
+
+  .player {
+    @include background-image-cover;
+    background-image: url(../../../assets/images/photos/eclipse-artwork.png);
+    width: 100%;
+    height: 460px;
+    padding: 0;
+    margin: 0;
+  }
+
+  .videoTilesContainer {
+    padding-top: 25px;
+    padding: 25px 15px 15px 15px;
+
+    .title {
+      font-weight: 300;
+      color: $darkBlueGray;
+      text-transform: uppercase;
+    }
+
+    .videoTiles {
+      display: flex;
+
+      .videoTile {
+        list-style-type: none;
+      }
+    }
+  }
+}
