@@ -17,6 +17,7 @@ import activeTelescopeMissions from './active-telescope-missions/active-telescop
 import catalog from './catalog/get-catalog-reducer';
 import communityObjectContent from './community-content/get-object-content-reducer';
 import communityContent from './community-content/get-community-content-reducer';
+import communityShowContent from './community-content/get-show-content-reducer';
 import telescopeSlots from './grab-telescope-slot/reducer';
 import latestPosts from './pulse/get-latest-posts-reducer';
 import post from './pulse/get-post-reducer';
@@ -32,6 +33,8 @@ import liveShows from './live-shows/live-shows-reducer';
 import mashupSettings from './mashup-settings/get-mashup-reducer';
 import eventInfo from './event-info/reducer';
 import featuredContent from './featured-content/reducer';
+import contactForm from './Contact';
+import appConfig from './app-config/reducer';
 
 export default combineReducers({
   routing: routerReducer,
@@ -53,6 +56,7 @@ export default combineReducers({
   catalog,
   communityObjectContent,
   communityContent,
+  communityShowContent,
   telescopeSlots,
   latestPosts,
   post,
@@ -67,4 +71,6 @@ export default combineReducers({
   mashupSettings,
   eventInfo,
   featuredContent,
+  contactForm,
+  appConfig,
 });

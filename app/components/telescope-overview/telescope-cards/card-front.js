@@ -115,13 +115,17 @@ class CardFront extends Component {
     return (
       <div className="telescope-card-front">
         <div className="card-header">
-          <button
-            onClick={this.props.handleFlip}
-            className="flip-card-action"
-          >
-            <img alt="click to flip the card" src="assets/icons/flip-arrow.svg" />
-          </button>
-
+          {
+            /**
+              TODO: deferred for future feature
+              <button
+                onClick={this.props.handleFlip}
+                className="flip-card-action"
+              >
+              <img alt="click to flip the card" src="assets/icons/flip-arrow.svg" />
+              </button>
+              */
+          }
           <img alt="this is an observatory" className="icon" src="assets/icons/observatory.svg" width="50" height="50" />
           <h3 className="title">{this.props.teleName}</h3>
           <p className="body">

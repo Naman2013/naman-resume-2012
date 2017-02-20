@@ -1,0 +1,28 @@
+@import '../../styles/variables/colors.scss';
+@import '../../styles/mixins/utilities.scss';
+
+.upcomingComponentRoot {
+
+  .upcomingEvent {
+    margin-bottom: 40px;
+  }
+
+  .title {
+    font-weight: 300;
+    margin-bottom: 20px;
+    font-size: 14px;
+  }
+
+  .imageLink {
+    @include background-image-cover;
+    width: 100%;
+    height: 100px;
+    display: block;
+  }
+
+  .upcomingEventLink {
+    color: $pink;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+}

@@ -163,19 +163,17 @@ ReactDOM.render(
           <Route path="post(/:id)" name="post" component={PulsePostContent} onEnter={validateUser} onUpdate={() => window.scrollTo(0, 0)} />
         </Route>
 
+        {
+          /**
+            example id: 6
+            Entry types: latest-entries | all-time-best
+            /objects/all-time-best/6/all
+          */
+        }
         <Route path="objects" component={ObjectList} onEnter={validateUser}>
           <IndexRedirect to="all-time-best" />
 
-          <Route path="all-time-best" component={ObjectListWrapper}>
-            <IndexRedirect to="all" />
-            <Route path="all" name="all" component={ObjectPostList} />
-            <Route path="scienceLog" name="scienceLog" component={ObjectPostList} />
-            <Route path="artCulture" name="artCulture" component={ObjectPostList} />
-            <Route path="humanSpirit" name="humanSpirit" component={ObjectPostList} />
-            <Route path="diy" name="diy" component={ObjectPostList} />
-          </Route>
-
-          <Route path="latest-entries" component={ObjectListWrapper}>
+          <Route path=":entryType/:SlugLookupId" component={ObjectListWrapper}>
             <IndexRedirect to="all" />
             <Route path="all" name="all" component={ObjectPostList} />
             <Route path="scienceLog" name="scienceLog" component={ObjectPostList} />

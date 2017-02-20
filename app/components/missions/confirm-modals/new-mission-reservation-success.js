@@ -48,17 +48,24 @@ class NewMissionReservationSuccess extends Component {
             <button className="btn-primary" onClick={closeModal}>Got It, Thanks.</button>
           </div>
 
-          <div className="dark-modal-footer-container">
-            <div className="dark-modal-footer-content">
-              <ul className="dark-modal-footer-bar">
-                <li className="item text-container"><h4 className="title">Click to tell your friends about your new mission:</h4></li>
-                <li className="item action-container"><a className="action" href="#"><span className="fa fa-facebook-square"></span></a></li>
-                <li className="item action-container"><a className="action" href="#"><span className="fa fa-twitter-square"></span></a></li>
-                <li className="item action-container"><a className="action" href="#"><span className="fa fa-google-plus-square"></span></a></li>
-                <li className="item action-container"><a className="action" href="#"><span className="fa fa-envelope-square"></span></a></li>
-              </ul>
-            </div>
-          </div>
+          {
+            /**
+              deferred for a later build
+              see guide: https://docs.google.com/document/d/1ev1CmnIPv2UlA-PnDePjD5-odzt0yAf-euRFlAq5P24/edit
+
+              <div className="dark-modal-footer-container">
+                <div className="dark-modal-footer-content">
+                  <ul className="dark-modal-footer-bar">
+                    <li className="item text-container"><h4 className="title">Click to tell your friends about your new mission:</h4></li>
+                    <li className="item action-container"><a className="action" href="#"><span className="fa fa-facebook-square"></span></a></li>
+                    <li className="item action-container"><a className="action" href="#"><span className="fa fa-twitter-square"></span></a></li>
+                    <li className="item action-container"><a className="action" href="#"><span className="fa fa-google-plus-square"></span></a></li>
+                    <li className="item action-container"><a className="action" href="#"><span className="fa fa-envelope-square"></span></a></li>
+                  </ul>
+                </div>
+              </div>
+              */
+          }
         </div>
       </div>
     );

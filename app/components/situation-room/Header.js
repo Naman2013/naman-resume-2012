@@ -1,17 +1,17 @@
-import React, { PropTypes } from 'react'
+import React, { PropTypes } from 'react';
 import UniversalTime from '../../components/common/universal-time';
-import styles from './Header.scss';
+import s from './Header.scss';
 
 const Header = ({ videoInProgress }) =>
-  <header className={styles.liveHeader}>
+  <header className={s.liveHeader}>
     {
       videoInProgress ? <span className="live">live</span> : null
     }
-    <h1>SPACE SITUATION ROOM</h1>
+    <img alt="Space Situation Room" src="/assets/images/logos/space-situation-room-logo.svg" height="65" />
     {
       videoInProgress ? <span className="live">live</span> : null
     }
-    <UniversalTime extraClass={styles.liveHeaderUTC} />
+    <UniversalTime extraClass={s.liveHeaderUTC} />
   </header>;
 
 Header.defaultProps = {

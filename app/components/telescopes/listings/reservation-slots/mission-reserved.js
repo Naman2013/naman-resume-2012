@@ -48,14 +48,15 @@ class MissionReserved extends Component {
       );
     }
 
-    if(showShareMissionIcons || shareMissionIconsText) {
-      return(
-        <ShareMission
-          showShareMissionIcons={showShareMissionIcons}
-          shareMissionIconsText={shareMissionIconsText}
-        />
-      );
-    }
+    // TODO: bring these back someday - deferred for launch
+    // if(showShareMissionIcons || shareMissionIconsText) {
+    //   return (
+    //     <ShareMission
+    //       showShareMissionIcons={showShareMissionIcons}
+    //       shareMissionIconsText={shareMissionIconsText}
+    //     />
+    //   );
+    // }
 
   }
 
@@ -84,7 +85,7 @@ class MissionReserved extends Component {
         </div>
 
         <div className="col-xs-4 slot-description">
-          <img className="slot-logo" src={slotIconURL} width="38" alt=""/>
+          <img className="slot-logo" src={slotIconURL} width="38" alt="" />
           <h4 className="slot-name">{slotTitle}</h4>
         </div>
 

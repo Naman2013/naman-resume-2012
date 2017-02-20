@@ -24,7 +24,7 @@ const fetchObjectAllTimeBestFail = payload => ({
 
 export const fetchObjectAllTimeBest = ({
   lang,
-  SlugLookupId = 6,
+  SlugLookupId,
   type,
   ver,
 }) => (dispatch, getState) => {
@@ -62,7 +62,7 @@ export const fetchObjectLatestContent = ({
   objectId,
   page = 1,
   slug,
-  SlugLookupId = 6,
+  SlugLookupId,
   type,
   ver,
 }) => (dispatch, getState) => {
@@ -76,7 +76,7 @@ export const fetchObjectLatestContent = ({
     objectId,
     page,
     slug,
-    SlugLookupId,
+    slugLookupId: SlugLookupId,
     type,
     ver,
   })
@@ -84,8 +84,18 @@ export const fetchObjectLatestContent = ({
   .catch(error => dispatch(fetchObjectLatestContentFail(error)));
 };
 
+/**
+  @param params: {
+    entryType: determines which API source to use
+
+    type: [type] |
+    passes through to the API to set the type of posts we are interested in DIY for example
+
+    SlugLookupId: example 6, the slug lookup ID of a specific object
+  }
+  */
 export const fetchObjectPosts = params => (dispatch, getState) => {
-  if (params.path === 'all-time-best') {
+  if (params.entryType === 'all-time-best') {
     dispatch(fetchObjectAllTimeBest(params));
   } else {
     dispatch(fetchObjectLatestContent(params));

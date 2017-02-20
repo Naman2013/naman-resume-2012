@@ -20,7 +20,7 @@ const RIGHT_COLUMN = [
     height: '67'
   },
   {
-    imageUrl: 'assets/images/sponsors/spaceimages-com.png',
+    imageUrl: 'assets/images/sponsors/NPR-logo.png',
     width: '125',
     height: '37'
   }
@@ -33,9 +33,9 @@ const LEFT_COLUMN = [
     height: '25'
   },
   {
-    imageUrl: 'assets/images/sponsors/ABC_News_Logo.png',
-    width: '134',
-    height: '45'
+    imageUrl: 'assets/images/sponsors/Time_Magazine_Logo.png',
+    width: '135',
+    height: '41',
   },
   {
     imageUrl: 'assets/images/sponsors/wired.png',

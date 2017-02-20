@@ -18,7 +18,7 @@ export default class renderField extends Component {
     return (
       <label className={classnames({ error: touched && error })}>
         <span>{label}</span>
-        <input type={type} {...input} className={className}/>
+        <input type={type} {...input} className={className} />
         {touched && error && <span className="error-description">{error}</span>}
       </label>
     );

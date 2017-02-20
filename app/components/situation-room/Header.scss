@@ -14,6 +14,14 @@
   padding: 0 20px;
   position: relative;
 
+  .situationRoomLogo {
+    height: 65px;
+
+    .situation-room-logo-path {
+      fill: $pink;
+    }
+  }
+
   .live {
     font-size: 36px;
   }

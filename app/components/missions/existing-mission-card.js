@@ -32,7 +32,7 @@ function mapStateToProps({ piggyback }, ownProps) {
   };
 }
 
-@connect( mapStateToProps, mapDispatchToProps )
+@connect(mapStateToProps, mapDispatchToProps)
 class ExistingMissionCard extends Component {
 
   constructor(props) {
@@ -110,7 +110,7 @@ class ExistingMissionCard extends Component {
     const PST_start_time = moment.tz(formattedUTCDate, 'America/Los_Angeles').format('h:mma z');
     const UTC_start_time = moment.utc(formattedUTCDate).format('HH:mm z');
 
-    return(
+    return (
       <p className="start-time">
         <strong>{EST_start}</strong>
         {!featured ? <br /> : null} {EST_start_time} <span className="highlight">&middot;</span> {PST_start_time} <span className="highlight">&middot;</span> {UTC_start_time} <span className={styles.telescopePierName}>{telescopePierName}</span>
@@ -132,8 +132,8 @@ class ExistingMissionCard extends Component {
       );
     }
 
-    if(piggyback.missionAvailable) {
-      return(
+    if (piggyback.missionAvailable) {
+      return (
         <div>
           <h5 className="mission-status">Join an <i>existing</i> mission</h5>
           <div className="join-mission-callout">
@@ -143,8 +143,8 @@ class ExistingMissionCard extends Component {
       );
     }
 
-    if(!piggyback.missionAvailable) {
-      return(
+    if (!piggyback.missionAvailable) {
+      return (
         <div>
           <h5 className="mission-status">No existing missions are available</h5>
           <div className="join-mission-callout">
@@ -153,11 +153,13 @@ class ExistingMissionCard extends Component {
         </div>
       );
     }
+
+    return '';
   }
 
   missionNotAvailable() {
     const { card, piggyback } = this.props;
-    if(!piggyback.userHasReservation) {
+    if (!piggyback.userHasReservation) {
       return (
         <div className="mission-unavailable">
           <Link
@@ -171,13 +173,14 @@ class ExistingMissionCard extends Component {
   }
 
   missionAvailable() {
-    return(
+    return (
       <div className="mission-available">
         { this.startMissionTime() }
         <a
-          className={ styles.piggybackCta }
+          className={styles.piggybackCta}
           href="#"
-          onClick={ this.handlePiggybackClick }>
+          onClick={this.handlePiggybackClick}
+        >
           Piggyback on Mission
         </a>
       </div>
@@ -185,9 +188,9 @@ class ExistingMissionCard extends Component {
   }
 
   userHasReservation() {
-    return(
+    return (
       <div className="mission-available">
-        { this.startMissionTime() }
+        {this.startMissionTime()}
       </div>
     );
   }

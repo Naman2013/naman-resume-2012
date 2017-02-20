@@ -12,13 +12,14 @@ class CategoriesNav extends Component {
           <Link to={route} activeClassName="active">
             {v.label}
           </Link>
-          {(v.children && v.children.length) &&
+          {
+            (v.children && v.children.length) &&
             <ul className={styles.categoriesSubNavContainer}>
               {this.prepareNav(v.children, route)}
             </ul>
           }
         </li>
-      )
+      );
     });
   }
 

@@ -39,6 +39,7 @@ img {
   padding: $slooh-header-height 0 0 $slooh-menu-width;
   min-width: $slooh-content-width;
   overflow: hidden;
+  min-height: 960px;
 }
 
 .reservations {
@@ -208,4 +209,8 @@ img {
   background: $white;
   padding: 40px 0 30px 0;
   height: 100vmax;
+}
+
+.align-right {
+  text-align: right;
 }

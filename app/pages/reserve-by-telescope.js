@@ -14,6 +14,7 @@ import DateSelectionNavigation from '../components/telescopes/date-selection-nav
 import Tips from '../components/telescopes/current-selection-header/tips';
 import GenericLoadingBox from '../components/common/loading-screens/generic-loading-box';
 import Listings from '../components/telescopes/listings/listings';
+import s from './reserve-by-telescope.scss';
 
 function mapDispatchToProps(dispatch) {
   return {
@@ -68,37 +69,39 @@ class ReserveMissions extends Component {
           rootRoute="reservations/reserve-by-telescope/telescope"
         />
 
-      <Sticky
-        activeClass="sticky"
-        bottomBoundary="#reserve-by-telescope"
-        enabled={true}
-        innerZ="10"
-        top="#mainHeader"
-      >
-        <CurrentSelectionHeader
-          telescopeIcon={currentObservatory.obsLogoURL}
-          teleName={currentTelescope.teleName}
-          teleSponsorLinkURL={currentTelescope.teleSponsorLinkURL}
-          teleSponsorLogoURL={currentTelescope.teleSponsorLogoURL}
-          instrTelescopeName={currentInstrument.instrTelescopeName}
-        />
-        <DateSelectionNavigation
-          routeRoot={rootRoute}
-          obsId={currentObservatory.obsId}
-          domeId={currentInstrument.instrDomeId}
-          telescopeId={currentTelescope.teleId}
-        />
-      </Sticky>
+        <Sticky
+          activeClass="sticky"
+          bottomBoundary="#reserve-by-telescope"
+          enabled={true}
+          innerZ="10"
+          top="#mainHeader"
+        >
+          <div className={s.stickyNavigationContainer}>
+            <CurrentSelectionHeader
+              telescopeIcon={currentObservatory.obsLogoURL}
+              teleName={currentTelescope.teleName}
+              teleSponsorLinkURL={currentTelescope.teleSponsorLinkURL}
+              teleSponsorLogoURL={currentTelescope.teleSponsorLogoURL}
+              instrTelescopeName={currentInstrument.instrTelescopeName}
+            />
+            <DateSelectionNavigation
+              routeRoot={rootRoute}
+              obsId={currentObservatory.obsId}
+              domeId={currentInstrument.instrDomeId}
+              telescopeId={currentTelescope.teleId}
+            />
+          </div>
+        </Sticky>
 
         {
           reservationListIsFetching ?
-          <GenericLoadingBox />
+            <GenericLoadingBox />
           :
-          <Listings
-            telescopeId={currentTelescope.teleId}
-            reservations={reservationList.missionList}
-            allowReservations={reservationList.allowReservations}
-          />
+            <Listings
+              telescopeId={currentTelescope.teleId}
+              reservations={reservationList.missionList}
+              allowReservations={reservationList.allowReservations}
+            />
         }
       </div>
     );

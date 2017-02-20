@@ -1,24 +1,29 @@
 import React, { Component, PropTypes } from 'react';
 import moment from 'moment';
+import { Link } from 'react-router';
+import s from './UpcomingComponent.scss';
 
 const { number } = PropTypes;
 export default class UpcomingComponent extends Component {
-  state = {
-    eventTitle: [],
-    eventStart: [],
-    eventImageURL: [],
-    eventDetailsURL: [],
-    eventDescription: [],
-    EventMenu: [],
-  };
-
   static propTypes = {
     refreshIntervalDelay: number.isRequired,
   }
 
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      eventTitle: [],
+      eventStart: [],
+      eventImageURL: [],
+      eventDetailsURL: [],
+      eventDescription: [],
+      EventMenu: [],
+    };
+  }
+
   componentDidMount() {
     this.loadUpcomingEvent();
-
     this.updateIntervalId = setInterval(this.loadUpcomingEvent, this.props.refreshIntervalDelay);
   }
 
@@ -40,28 +45,39 @@ export default class UpcomingComponent extends Component {
 
   render() {
     return (
-      <div>
-        <h3>Upcoming Shows</h3>
-        {this.state.EventMenu.map((event, i) => {
-          if (event.eventStatus === 'published' && typeof event.eventTitle !== 'undefined') {
-            const eventImageURL = decodeURIComponent(event.eventImageURL);
-            const eventDetailsURL = decodeURIComponent(event.eventDetailsURL);
-            const eventStart = moment.unix(event.eventStart).format('dddd MMMM D');
-            const eventStartTime = `${moment.unix(event.eventStart).format('h:mm A')} EDT`;
+      <div className={s.upcomingComponentRoot}>
+        <h3 className={s.title}>Upcoming Shows:</h3>
+        {
+          this.state.EventMenu.map((event, i) => {
+            if (event.eventStatus === 'published' && typeof event.eventTitle !== 'undefined') {
+              const eventImageURL = decodeURIComponent(event.eventImageURL);
+              const eventStart = moment.unix(event.eventStart).format('dddd MMMM D');
+              const eventStartTime = `${moment.unix(event.eventStart).format('h:mm A')} EDT`;
+              const inlineBackgroundImage = {
+                backgroundImage: `url(${eventImageURL})`,
+              };
+              const linkURL = `/shows/event-details/${event.eventId}`;
+              return (
+                <article className={s.upcomingEvent} key={i}>
+                  <Link
+                    style={inlineBackgroundImage}
+                    className={s.imageLink}
+                    to={linkURL}
+                  />
+                  <Link className={s.upcomingEventLink} to={linkURL}>
+                    <h4>{event.eventTitle}</h4>
+                  </Link>
+                  <time>{eventStart}</time>
+                  <p><time>{eventStartTime}</time></p>
+                  <p>{event.eventDescription}</p>
+                </article>
+              );
+            }
 
-            return (
-              <article key={i}>
-                <a href={eventDetailsURL}>
-                  <img className="upcoming-show-preview" src={eventImageURL} />
-                </a>
-                <h4>{event.eventTitle}</h4>
-                <time>{eventStart}</time>
-                <p><time>{eventStartTime}</time></p>
-                <p>{event.eventDescription}</p>
-              </article>
-            );
+            return null;
           }
-        })}
+        )
+      }
       </div>
     );
   }

@@ -11,70 +11,42 @@ const list2 = {
   icon: 'moon',
 };
 
-const list = [
-  {
-    label: 'ALL-TIME BEST',
-    route: 'all-time-best',
-    children: [
-      {
-        label: 'All Categories',
-        route: 'all',
-      }, {
-        label: 'Science Log',
-        route: 'scienceLog',
-      }, {
-        label: 'Art & Culture',
-        route: 'artCulture',
-      }, {
-        label: 'Human Spirit',
-        route: 'humanSpirit',
-      }, {
-        label: 'DIY',
-        route: 'diy',
-      },
-    ],
-  },
-  {
-    label: 'LATEST ENTRIES',
-    route: 'latest-entries',
-    children: [
-      {
-        label: 'All Categories',
-        route: 'all',
-      }, {
-        label: 'Science Log',
-        route: 'scienceLog',
-      }, {
-        label: 'Art & Culture',
-        route: 'artCulture',
-      }, {
-        label: 'Human Spirit',
-        route: 'humanSpirit',
-      }, {
-        label: 'DIY',
-        route: 'diy',
-      },
-    ],
-  },
-];
+function generateList({ SlugLookupId }) {
+  return [
+    {
+      label: 'LATEST ENTRIES',
+      route: `latest-entries/${SlugLookupId}`,
+      children: [
+        {
+          label: 'All Categories',
+          route: 'all',
+        }, {
+          label: 'Science Log',
+          route: 'scienceLog',
+        }, {
+          label: 'Art & Culture',
+          route: 'artCulture',
+        }, {
+          label: 'Human Spirit',
+          route: 'humanSpirit',
+        }, {
+          label: 'DIY',
+          route: 'diy',
+        },
+      ],
+    },
+  ];
+}
 
 class ObjectList extends Component {
 
   componentDidMount() {
-    const { fetchObjectPosts, children } = this.props;
-    // destructure this.props.children.props.route.path
-    const { props: { route: { path } } } = children;
-    // destructure this.props.children.props.children.props.route.path
-    const { props: { children: { props: { route: { path: type } } } } } = children;
-
-    fetchObjectPosts({
-      type: [type],
-      path,
-    });
+    this.updateList();
   }
 
+  // TODO: refactor
   componentWillReceiveProps(nextProps) {
-    const { fetchObjectPosts, children } = this.props;
+    const { children } = this.props;
     // destructure this.props.children.props.route.path
     const { props: { route: { path } } } = children;
     // destructure this.props.children.props.children.props.route.path
@@ -84,21 +56,43 @@ class ObjectList extends Component {
     const { props: { children: { props: { route: { path: nextType } } } } } = nextChildren;
 
     if (type !== nextType || path !== nextPath) {
-      fetchObjectPosts({
-        type: [nextType],
-        path: nextPath,
-      });
+      this.updateList();
     }
   }
-  render() {
-    const { route, location, children } = this.props;
 
+  updateList() {
+    const {
+      fetchObjectPosts,
+      children,
+      entryType,
+      SlugLookupId,
+    } = this.props;
+
+    // TODO: refactor
+    // destructure this.props.children.props.children.props.route.path
+    const { props: { children: { props: { route: { path: type } } } } } = children;
+
+    fetchObjectPosts({
+      type: [type],
+      entryType,
+      SlugLookupId,
+    });
+  }
+
+  render() {
+    const { route, location, SlugLookupId, children } = this.props;
     return (
       <div className="clearfix pulse">
         <AnnouncementBanner />
         <CommunityPostHeader {...list2} />
 
-        <CategoriesNav route={route} location={location} list={list} className="grey" />
+        <CategoriesNav
+          route={route}
+          location={location}
+          list={generateList({ SlugLookupId })}
+          className="grey"
+        />
+
         {children}
       </div>
     );
@@ -108,9 +102,15 @@ class ObjectList extends Component {
 ObjectList.propTypes = {
   children: PropTypes.element.isRequired,
   fetchObjectPosts: PropTypes.func.isRequired,
+  entryType: PropTypes.string.isRequired,
+  SlugLookupId: PropTypes.string.isRequired,
 };
 
-const mapStateToProps = () => ({});
+const mapStateToProps = (state, ownProps) => ({
+  entryType: ownProps.params.entryType,
+  SlugLookupId: ownProps.params.SlugLookupId,
+});
+
 const mapDispatchToProps = dispatch => (bindActionCreators(objectPostActions, dispatch));
 
 export default connect(mapStateToProps, mapDispatchToProps)(ObjectList);

@@ -63,6 +63,7 @@ class StaticAppContainer extends Component {
   render() {
     const { children } = this.props;
     const displayTitle = !!children.props.route.subTitle;
+    const showContactButton = children.props.route.path !== 'contact';
 
     return (
       <div className="wrapper">
@@ -79,7 +80,7 @@ class StaticAppContainer extends Component {
                       <h1>{children.props.route.title || ''}</h1>
                       <h2 className="text-regular">{children.props.route.subTitle || ''}</h2>
                     </div>
-                    <Link to="/about/contact" className="btn-primary pull-right">Contact Us</Link>
+                    {showContactButton && <Link to="/about/contact" className="btn-primary pull-right">Contact Us</Link>}
                   </header> : null
               }
               {

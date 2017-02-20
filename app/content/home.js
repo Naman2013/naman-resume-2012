@@ -11,24 +11,24 @@ export default {
   RECENT_STUFF: [
     {
       key: 1,
-      title: 'BOB BERMAN LIVE',
-      content: 'Join author and astronomer as he goes live for a full hour, featuring galactic views of Slooh’s scopes this Thurs. at 5 PM EST.',
+      title: 'Lunar Eclipse',
+      content: 'A supposedly ho-hum penumbral lunar eclipse is anything but in Slooh’s Chile telescope, covered live with Gerry Monteux and Paul Cox on February 10th.',
       imageUrl: 'assets/images/samples/bobpubjpg.png',
-      videoUrl: 'https://www.youtube.com/embed/YNq9EJeCruA'
+      videoUrl: 'https://www.youtube.com/embed/Ttm-PjbAAQE'
     },
     {
       key: 2,
-      title: 'CAPTURING A COMET’S TAIL',
-      content: 'Learn all about how Slooh Members managed to image comet 67P\'s long trail—the source of meteor showers.',
+      title: 'Total Solar Eclipse',
+      content: 'Road Trip with Slooh to Stanley, Idaho to witness the Total Solar Eclipse on August 21st, or watch our coverage live right here on Slooh.',
       imageUrl: 'assets/images/samples/perseid-meteor-shower.png',
-      videoUrl: 'https://www.youtube.com/embed/3s9eAAgGIys'
+      videoUrl: 'https://www.youtube.com/embed/ZU4Nt_-nLFY'
     },
     {
       key: 3,
-      title: 'WATCHING',
-      content: `This weekend you’ll get a shot at seeing the Perseids at a new level of intensity. Prep is key. Learn all about what you need here.`,
+      title: 'Star of Bethlehem',
+      content: 'Do you believe in miracles? Slooh looked back in time to ponder what the ancients might have seen that fateful night.',
       imageUrl: 'assets/images/samples/perseids.png',
-      videoUrl: 'https://www.youtube.com/embed/ylB2B8L-RtM'
+      videoUrl: 'https://www.youtube.com/embed/lzseVZk6Sx0'
     }
   ],
   promoBandContent: 'Slooh Membership: An All-Access Pass to the Night Sky.',
@@ -67,34 +67,35 @@ export default {
         key: Math.random() * 100,
         title: 'Saturn',
         imageUrl: 'assets/images/objects/planet-saturn.png',
-        url: '#'
+        url: '/objects/latest-entries/3/all',
       },
       {
         key: Math.random() * 100,
         title: 'Jupiter',
         imageUrl: 'assets/images/objects/planet-jupiter.png',
-        url: '#'
+        url: '/objects/latest-entries/6/all',
       },
       {
         key: Math.random() * 100,
         title: 'Perseid Meteor Shower',
         imageUrl: 'assets/images/objects/meteor-shower.png',
-        url: '#'
+        type: 'external',
+        url: 'https://www.slooh.com/Total_Solar_Eclipse_2017.php',
       },
       {
         key: Math.random() * 100,
-        title: 'Blood Moon',
+        title: 'St. Patrick\'s Day Aurora',
         imageUrl: 'assets/images/objects/blood-moon.png',
-        url: '#'
+        url: '/shows/event-details/404',
       },
       {
         key: Math.random() * 100,
-        title: 'Cassiopeia',
+        title: 'Comet 41P Close Approach',
         imageUrl: 'assets/images/objects/cassiopeia.png',
-        url: '#'
-      }
+        url: '/shows/event-details/405',
+      },
     ],
-    latestNews: 'Earth will pass between Saturn and the sun on June 3, 2016. That is Saturn\'s yearly opposition, and it marks the middle of the best time of year to see this planet. After coming up in the eastern part of the sky in early evening, Saturn will continue to climb upward throughout the evening hours.',
+    latestNews: 'We\'ve curated a catalog of our members\' favorite objects and events in the night sky which we call the Slooh 500. These are the best looking objects to see through our telescopes which also have the most interesting folklore created in their name. Our community forms around them.',
     action: {
       text: 'See Object',
       url: '#'
@@ -105,16 +106,12 @@ export default {
   SPONSORS_SUB_TITLE: 'Our partners help to bring live telescope feeds of the cosmos to the world.',
   SPONSOR_IMAGES: [
     {
-      imageUrl: 'assets/images/sponsors/Time_Magazine_Logo.png',
-      size: '70%'
+      imageUrl: 'assets/images/sponsors/ABC_News_Logo.png',
+      size: '90%'
     },
     {
       imageUrl: 'assets/images/sponsors/42_digital_logo_dark_blue_HI.png',
       size: '80%'
-    },
-    {
-      imageUrl: 'assets/images/sponsors/Google_2015_logo.png',
-      size: '90%'
     },
     {
       imageUrl: 'assets/images/sponsors/Wanderlust-truenorth-web-1.png',
@@ -133,8 +130,16 @@ export default {
       size: '90%'
     },
     {
-      imageUrl: 'assets/images/sponsors/carl-sagan.png',
-      size: '75%'
-    }
+      imageUrl: 'assets/images/sponsors/ASP-logo.png',
+      size: '70%'
+    },
+    {
+      imageUrl: 'assets/images/sponsors/OFA-logo.png',
+      size: '70%'
+    },
+    {
+      imageUrl: 'assets/images/sponsors/TimeandDate.png',
+      size: '90%'
+    },
   ]
 };

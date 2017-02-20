@@ -4,20 +4,23 @@ import { bindActionCreators } from 'redux';
 import SocialSidebar from '../../components/pulse/sidebar/social-sidebar';
 import Header from '../../components/situation-room/Header';
 import SituationVideoViewer from '../../components/situation-room/SituationVideoViewer';
+import EventDetails from '../../components/situation-room/EventDetails';
 import CommunityMashup from '../../components/situation-room/CommunityMashup';
 import MissionAd from '../../components/missions/mission-ad';
-import { fetchLiveShowInfo } from '../../modules/live-shows/live-shows-actions';
+import { fetchSitiationRoom } from '../../modules/SituationRoom';
+import s from './SituationRoom.scss';
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
-    fetchLiveShowInfo,
+    fetchSitiationRoom,
   }, dispatch),
 });
 
-const mapStateToProps = ({ countdown, liveShows }, ownProps) => ({
+const mapStateToProps = ({ countdown, liveShows, communityShowContent }, ownProps) => ({
   showId: ownProps.routeParams.showId,
   upcomingEventEventId: countdown.activeOrUpcomingEvent.eventId,
   currentLiveShow: liveShows.liveShowsResponse,
+  communityPosts: communityShowContent.resultBody.posts,
 });
 
 @connect(mapStateToProps, mapDispatchToProps)
@@ -41,13 +44,13 @@ class SituationRoom extends Component {
   }
 
   fetchEventInformation(eventId) {
-    this.props.actions.fetchLiveShowInfo(eventId);
+    this.props.actions.fetchSitiationRoom(eventId);
   }
 
   render() {
-    const { currentLiveShow } = this.props;
+    const { currentLiveShow, communityPosts } = this.props;
     return (
-      <section className="clearfix live">
+      <section className={`${s.situationRoom} clearfix`}>
 
         <div className="col-md-12">
           <Header
@@ -72,11 +75,18 @@ class SituationRoom extends Component {
             hasAdditionalFeeds={currentLiveShow.hasAdditionalFeeds}
           />
 
+          {
+            /** TODO: implement details once SSE is considered
+              <EventDetails />
+            */
+          }
+
           <CommunityMashup
             hasSocialFlow={currentLiveShow.hasSocialFlow}
             hasPerspectives={currentLiveShow.hasPerspectives}
             hasUpcomingShows={currentLiveShow.hasUpcomingShows}
             hasRecommends={currentLiveShow.hasRecommends}
+            communityPosts={communityPosts}
           />
         </div>
 
@@ -93,11 +103,18 @@ class SituationRoom extends Component {
 SituationRoom.defaultProps = {
   showId: null,
   upcomingEventEventId: null,
+  communityPosts: [],
 };
 
 SituationRoom.propTypes = {
   showId: PropTypes.string,
   upcomingEventEventId: PropTypes.number,
+  communityPosts: PropTypes.arrayOf(PropTypes.shape({
+    postId: PropTypes.number.isRequired,
+    title: PropTypes.string.isRequired,
+    content: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
+  })),
   currentLiveShow: PropTypes.shape({
     hasSocialFlow: PropTypes.bool.isRequired,
     hasPerspectives: PropTypes.bool.isRequired,

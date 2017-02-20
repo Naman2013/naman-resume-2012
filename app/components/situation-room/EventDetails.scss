@@ -1,0 +1,44 @@
+@import '../../styles/variables/colors.scss';
+
+.situationRoomEventDetailsRoot {
+  background: rgba(0, 0, 0, 0.75);
+  padding: 15px;
+  width: 97%;
+  margin: 0 auto;
+  margin-bottom: 30px;
+  color: $light-blue;
+
+  .titleContainer {
+    display: flex;
+
+    .icon {
+      margin-right: 20px;
+    }
+
+    .titleText {
+      padding-top: 1%;
+    }
+  }
+
+  .eventDescription {
+    padding: 0 50px;
+    margin-bottom: 20px;
+
+    p {
+      margin-bottom: 10px;
+    }
+  }
+
+  .statsContainer {
+
+    .stat {
+      list-style-type: none;
+      display: inline-block;
+      padding: 0 10px;
+      margin-bottom: 10px;
+      font-size: 12px;
+      font-weight: 300;
+    }
+  }
+
+}

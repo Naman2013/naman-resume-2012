@@ -27,6 +27,7 @@ class CommunityMashup extends Component {
       hasPerspectives,
       hasUpcomingShows,
       hasRecommends,
+      communityPosts,
     } = this.props;
     const { selectedTabIndex } = this.state;
     return (
@@ -76,7 +77,9 @@ class CommunityMashup extends Component {
             hasPerspectives ?
               <TabPanel className={s.tabPanel}>
                 <aside>
-                  <CommunityPerspectives />
+                  <CommunityPerspectives
+                    communityContent={communityPosts}
+                  />
                 </aside>
               </TabPanel> : null
           }
@@ -104,11 +107,21 @@ class CommunityMashup extends Component {
   }
 }
 
+CommunityMashup.defaultProps = {
+  communityPosts: [],
+};
+
 CommunityMashup.propTypes = {
   hasSocialFlow: PropTypes.bool.isRequired,
   hasPerspectives: PropTypes.bool.isRequired,
   hasUpcomingShows: PropTypes.bool.isRequired,
   hasRecommends: PropTypes.bool.isRequired,
+  communityPosts: PropTypes.arrayOf(PropTypes.shape({
+    postId: PropTypes.number.isRequired,
+    title: PropTypes.string.isRequired,
+    content: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
+  })),
 };
 
 export default CommunityMashup;
