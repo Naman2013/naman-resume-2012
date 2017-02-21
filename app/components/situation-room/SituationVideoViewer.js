@@ -4,7 +4,7 @@ import Countdown from '../../containers/Countdown';
 import VideoImageLoader from '../../components/common/telescope-image-loader/video-image-loader';
 import SponsoredBy from '../common/sponsored-by';
 import { camera } from '../community/tools/community-icon';
-import styles from './SituationVideoViewer.scss';
+import s from './SituationVideoViewer.scss';
 
 class SituationVideoViewer extends Component {
   constructor(props) {
@@ -40,9 +40,9 @@ class SituationVideoViewer extends Component {
     Tabs.setUseDefaultStyles(false);
 
     return (
-      <section className={styles.situationVideoViewerRoot}>
+      <section className={s.situationVideoViewerRoot}>
 
-        <header className={styles.liveViewHeader}>
+        <header className={s.liveViewHeader}>
           <h2>{eventTitle}</h2>
           {
             hasSponsor ?
@@ -55,23 +55,25 @@ class SituationVideoViewer extends Component {
 
         <Tabs onSelect={this.handleSelect} selectedIndex={selectedTab}>
 
-          <TabList className={styles.liveTelescopeTabs}>
+          <TabList className={s.liveTelescopeTabs}>
             <Tab>
               <h6>Main Show</h6>
               <div className="telescope" />
             </Tab>
             {
-              additionalFeeds.map(feed => (
-                <Tab>
-                  <h6>Feed tab</h6>
-                  <div className="telescope" />
-                </Tab>
-              ))
+              /** TODO: SSE feeds deferred
+                additionalFeeds.map(feed => (
+                  <Tab>
+                    <h6>Feed tab</h6>
+                    <div className="telescope" />
+                  </Tab>
+                ))
+              */
             }
           </TabList>
 
           <TabPanel>
-            <aside className={styles.liveViewContent}>
+            <aside className={s.liveViewContent}>
               {
                 videoInProgress && initialStreamCode && initialStreamURL ?
                   <VideoImageLoader
@@ -81,28 +83,38 @@ class SituationVideoViewer extends Component {
                     teleStreamThumbnailVideoHeight="550"
                   />
                   :
-                  <Countdown size={150} className="live" lineWidth={10} />
+                  <div className={s.showNotStartedContainer}>
+                    <div className={s.showCountdownContainer}>
+                      <Countdown size={150} className="live" lineWidth={10} />
+                    </div>
+                  </div>
               }
             </aside>
           </TabPanel>
 
           {
+            /** TODO: deferred the SSE work
             additionalFeeds.map(feed => (
               <TabPanel>
-                <aside className={styles.liveViewContent}>Coming soon</aside>
+                <aside className={s.liveViewContent}>Coming soon</aside>
               </TabPanel>
             ))
+            */
           }
         </Tabs>
 
-        <footer className={styles.liveCameraTabs}>
+        <footer className={s.liveCameraTabs}>
           {
             starShareAvailable ?
               <div className="camera-icon">{camera}</div> : null
           }
-          <div className="camera" />
-          <div className="camera" />
-          <div className="camera" />
+          {
+            /** TODO: deferred starshare camera work
+              <div className="camera" />
+              <div className="camera" />
+              <div className="camera" />
+            */
+          }
         </footer>
 
       </section>

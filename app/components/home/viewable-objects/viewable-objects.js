@@ -6,11 +6,11 @@ import style from './viewable-objects.scss';
 class ViewableObjects extends Component {
 
   generateViewableObjects() {
-    return this.props.objects.map( skyObject => <ViewableObject {...skyObject} /> );
+    return this.props.objects.map(skyObject => <ViewableObject {...skyObject} />);
   }
 
   render() {
-    return(
+    return (
       <div className="viewable-objects-container">
         <h4 className="title">{this.props.title}</h4>
 
@@ -19,8 +19,6 @@ class ViewableObjects extends Component {
         </div>
 
         <p className="latest-news">{this.props.latestNews}</p>
-
-        <a className="action" href={this.props.action.url}>{this.props.action.text}</a>
       </div>
     );
   }

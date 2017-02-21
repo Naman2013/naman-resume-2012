@@ -1,98 +1,114 @@
-import React, {Component, PropTypes} from 'react';
-import {bindActionCreators} from 'redux';
-import {connect} from 'react-redux';
-import {Field, reduxForm} from 'redux-form';
+import React, { Component, PropTypes } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { Field, reduxForm } from 'redux-form';
 import InputField from '../../components/form/InputField';
 import TextareaField from '../../components/form/TextareaField';
-import {createValidator, required} from '../../modules/utils/validation';
-import {contact} from '../../modules/Contact';
+import { createValidator, required, maxLength } from '../../modules/utils/validation';
+import { contact } from '../../modules/Contact';
 // import styles from '../styles/login.scss';
-const {func, string} = PropTypes;
+const { bool, func, string } = PropTypes;
 
 class Contact extends Component {
 
-    static propTypes = {
-        contact: func.isRequired,
-        handleSubmit: func.isRequired,
-        error: string,
-    };
+  static propTypes = {
+    contact: func.isRequired,
+    handleSubmit: func.isRequired,
+    contactFormError: string,
+    isSent: bool,
+  };
 
-    render() {
-        const {handleSubmit, contact, error} = this.props;
-        return (
-            <section className="contact-us">
-                <article className="card-wide padding-med">
-                    <header className="margin-bottom-reg">
-                    </header>
+  render() {
+    const { handleSubmit, contact, contactFormError, isSent } = this.props;
+    return (
+      <section className="contact-us">
+        <article className="card-wide padding-med">
+          <header className="margin-bottom-reg" />
 
-                    <form name="contact" onSubmit={handleSubmit(contact)}>
+          <form name="contact" onSubmit={handleSubmit(contact)}>
 
-                        <fieldset className="form-group pull-left half-width-margin required">
-                            <Field
-                                name="firstname"
-                                className="form-control input-lg"
-                                type="text"
-                                label="First Name"
-                                component={InputField}
-                            />
-                        </fieldset>
-                        <fieldset className="form-group pull-right half-width required">
-                            <Field
-                                name="lastname"
-                                className="form-control input-lg"
-                                type="text"
-                                label="Last Name"
-                                component={InputField}
-                            />
-                        </fieldset>
-                        <fieldset className="clearfix form-group required">
-                            <Field
-                                name="email"
-                                className="form-control input-lg"
-                                type="email"
-                                label="Email Address"
-                                component={InputField}
-                            />
-                        </fieldset>
-                        <fieldset className="clearfix form-group required">
-                            <Field
-                                name="message"
-                                type="text"
-                                label="Your Message"
-                                component={TextareaField}
-                            />
-                        </fieldset>
+            <fieldset className="form-group pull-left half-width-margin required">
+              <Field
+                name="firstName"
+                className="form-control input-lg"
+                type="text"
+                label="First Name"
+                maxLength={30}
+                component={InputField}
+              />
+            </fieldset>
+            <fieldset className="form-group pull-right half-width required">
+              <Field
+                name="lastName"
+                className="form-control input-lg"
+                type="text"
+                label="Last Name"
+                maxLength={50}
+                component={InputField}
+              />
+            </fieldset>
+            <fieldset className="clearfix form-group required">
+              <Field
+                name="emailAddress"
+                className="form-control input-lg"
+                type="emailAddress"
+                label="Email Address"
+                maxLength={150}
+                component={InputField}
+              />
+            </fieldset>
+            <fieldset className="clearfix form-group">
+              <Field
+                name="subject"
+                className="form-control input-lg"
+                type="text"
+                label="Subject"
+                maxLength={100}
+                component={InputField}
+              />
+            </fieldset>
+            <fieldset className="clearfix form-group required">
+              <Field
+                name="message"
+                type="text"
+                label="Your Message"
+                maxLength={1800}
+                component={TextareaField}
+              />
+            </fieldset>
 
-                        {error && <strong>{error}</strong>}
+            {contactFormError && <strong>{contactFormError}</strong>}
+            {!contactFormError && isSent && <strong>Message successfully sent.</strong>}
 
-                        <footer>
-                            <button className="btn-primary" >Submit Message</button>
-                        </footer>
-                    </form>
+            <footer>
+              <button className="btn-primary" >Submit Message</button>
+            </footer>
+          </form>
 
 
-                </article>
-            </section>
-        );
-    }
+        </article>
+      </section>
+    );
+  }
 }
 
-function mapDispatchToProps(dispatch) {
-    return {
-        contact: bindActionCreators(contact, dispatch)
-    }
-}
-
-const loginValidation = createValidator({
-    firstname: [required],
-    lastname: [required],
-    email: [required],
-    message: [required],
+const mapStateToProps = ({ contactForm }) => ({
+  ...contactForm,
 });
 
-export default connect(null, mapDispatchToProps)(reduxForm({
-    form: 'contact',
-    validate: loginValidation
+const mapDispatchToProps = dispatch => ({
+  contact: bindActionCreators(contact, dispatch),
+});
+
+const loginValidation = createValidator({
+  firstName: [required, maxLength(30)],
+  lastName: [required, maxLength(50)],
+  emailAddress: [required, maxLength(150)],
+  message: [required, maxLength(1800)],
+  subject: [maxLength(100)],
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({
+  form: 'contact',
+  validate: loginValidation,
 })(Contact));
-
-

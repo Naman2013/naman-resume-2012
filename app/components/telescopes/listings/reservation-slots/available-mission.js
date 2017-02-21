@@ -279,7 +279,7 @@ class AvailableMission extends Component {
                       onClick={(event) => {this.handleReservationTypeClick(BY_OBJECTS)}}
                       className={this.buttonRenderedClasses(BY_OBJECTS)}
                     >
-                      Browse Objects
+                      Browse Slooh 500
                     </button>
                   </li> : null
                 }

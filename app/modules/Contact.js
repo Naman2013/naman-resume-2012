@@ -1,5 +1,6 @@
-import {SubmissionError} from 'redux-form';
+import { SubmissionError } from 'redux-form';
 import axios from 'axios';
+import { reset } from 'redux-form';
 import createReducer from './utils/createReducer';
 import createAction from './utils/createAction';
 
@@ -7,52 +8,81 @@ const SEND_MESSAGE = 'SEND_MESSAGE';
 const SEND_MESSAGE_SUCCESS = 'SEND_MESSAGE_SUCCESS';
 const SEND_MESSAGE_FAILURE = 'SEND_MESSAGE_FAILURE';
 
-export const send = createAction(SEND_MESSAGE);
-export const success = createAction(SEND_MESSAGE_SUCCESS);
-export const fail = createAction(SEND_MESSAGE_FAILURE);
+const send = () => ({
+  type: SEND_MESSAGE,
+});
 
-export const contact = (contactFormValues) => (dispatch) => {
-    const {firstname, lastname, email, message} = contactFormValues;
+const success = payload => ({
+  type: SEND_MESSAGE_SUCCESS,
+  payload,
+});
 
-    dispatch(send());
+const fail = payload => ({
+  type: SEND_MESSAGE_FAILURE,
+  payload,
+});
 
-    return axios.post('/api/users/contact', {
-        firstname,
-        lastname,
-        email,
-        message,
+export const contact = contactFormValues => (dispatch, getState) => {
+  const {
+    firstName,
+    lastName,
+    emailAddress,
+    source,
+    message,
+    subject,
+  } = contactFormValues;
+  const { cid } = getState().user;
+
+  dispatch(send());
+
+  return axios.post('/api/app/sendContactForm', {
+    firstName,
+    lastName,
+    emailAddress,
+    source,
+    message,
+    subject,
+    cid,
+  })
+    .then((result) => {
+      if (result.data && !result.data.apiError) {
+        dispatch(reset('contact'));
+      }
+      dispatch(success(result.data));
     })
-        .then(() => {
-            dispatch(success());
-        })
-        .catch(() => {
-            dispatch(fail());
-            throw new SubmissionError({_error: 'Your message in was unsuccessful. Please try again.'});
-        });
+    .catch((error) => {
+      dispatch(fail(error));
+      throw new SubmissionError({ _error: 'Your message in was unsuccessful. Please try again.' });
+    });
 };
 
 
 const initialState = {
-    isSent: false,
+  isSent: false,
+  contactFormError: '',
 };
 
 export default createReducer(initialState, {
-    [SEND_MESSAGE](state) {
-        return {
-            ...state,
-            isSent: false,
-        };
-    },
-    [SEND_MESSAGE_SUCCESS](state) {
-        return {
-            ...state,
-            isSent: true,
-        };
-    },
-    [SEND_MESSAGE_FAILURE](state) {
-        return {
-            ...state,
-            isSent: false,
-        };
-    },
+  [SEND_MESSAGE](state) {
+    return {
+      ...state,
+      isSent: false,
+    };
+  },
+  [SEND_MESSAGE_SUCCESS](state, { payload }) {
+    const { errorMsg } = payload;
+    return {
+      ...state,
+      isSent: true,
+      contactFormError: errorMsg,
+    };
+  },
+  [SEND_MESSAGE_FAILURE](state, { payload }) {
+    const { errorMsg } = payload;
+    return {
+      ...state,
+      isSent: false,
+      contactFormError: errorMsg,
+    };
+  },
 });

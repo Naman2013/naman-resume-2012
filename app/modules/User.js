@@ -48,8 +48,6 @@ function destroySession() {
   checks if user is logged in
   */
 export function checkUser(pathname, replace, callback) {
-  console.log(replace);
-  console.log('checking user!!!');
   return (dispatch, getState) => {
     const userJSON = localStorage.getItem('user');
 

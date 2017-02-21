@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { Link } from 'react-router';
 import UniversalTime from '../common/universal-time';
 import classnames from 'classnames';
 import styles from './reserve-banner.scss';
@@ -7,9 +8,16 @@ const ReserveBanner = (time) => {
   return (
     <div className={styles.reserveBanner}>
       <div className="title col-md-5 pull-left">
-        <h1>Reserve Telescope</h1>
+        <h1>Reserve Telescopes</h1>
       </div>
-      <UniversalTime extraClass='pull-right' />
+      <section className="pull-right align-right">
+      <UniversalTime />
+        <div className="button-nav">
+          <Link className="button btn-primary" to="/settings/dashboard">
+            View Reservations
+          </Link>
+        </div>
+      </section>
     </div>
   )
 };

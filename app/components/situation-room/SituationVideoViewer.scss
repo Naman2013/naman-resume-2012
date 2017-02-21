@@ -1,5 +1,6 @@
-@import '../../styles/variables/fonts';
-@import '../../styles/variables/colors';
+@import '../../styles/variables/fonts.scss';
+@import '../../styles/variables/colors.scss';
+@import '../../styles/mixins/utilities.scss';
 
 .situationVideoViewerRoot {
   font-family: $primary-font;
@@ -7,7 +8,7 @@
   background: #1F1F1F;
   color: white;
   position: relative;
-  margin-bottom: 130px;
+  margin-bottom: 80px;
 
   .liveViewHeader {
     display: inline-flex;
@@ -70,6 +71,22 @@
     img {
       margin-left: 10px;
       height: 30px;
+    }
+  }
+
+  .showNotStartedContainer {
+    @include background-image-cover;
+    background-size: 110%;
+    width: 100%;
+    height: 100%;
+    background-image: url(../../../assets/images/photos/eclipse-artwork-2.png);
+
+    .showCountdownContainer {
+      width: 100%;
+      height: 560px;
+      display: flex;
+      justify-content: center;
+      background: rgba(0, 0, 0, 0.75);
     }
   }
 

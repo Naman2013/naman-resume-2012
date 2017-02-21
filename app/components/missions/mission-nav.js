@@ -52,7 +52,7 @@ class MissionNav extends Component {
               to="/reservations/reserve-by-objects"
               activeClassName="active"
             >
-              Browse popular objects
+              Browse Slooh 500
             </Link>
           </li>
           <li>
@@ -68,7 +68,7 @@ class MissionNav extends Component {
               to="/reservations/reserve-by-catalog"
               activeClassName="active"
             >
-              Explore by catalog
+              Explore other catalogs
             </Link>
           </li>
         </ul>

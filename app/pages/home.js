@@ -87,16 +87,14 @@ class Home extends Component {
           sponsorImages={CONTENT.SPONSOR_IMAGES}
         />
 
+        <div className="col-md-2" />
+
         <Dedication
           title="Dedication"
         />
 
         <Featured
           title="Where we've been featured..."
-        />
-
-        <TwitterFeed
-          title="Hashtag #slooh"
         />
       </div>
     );

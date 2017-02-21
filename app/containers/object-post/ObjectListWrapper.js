@@ -3,17 +3,20 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import GenericLoadingBox from '../../components/common/loading-screens/generic-loading-box';
 import MissionAd from '../../components/missions/mission-ad';
-import * as objectPostActions from '../../modules/object-post-list/actions';
 
-const tag = 'The Moon';
+const mapStateToProps = ({ objectPostList }) => ({
+  fetchingPosts: objectPostList.fetching,
+  objectPosts: objectPostList.objectPosts,
+  pages: objectPostList.pages,
+});
 
+@connect(mapStateToProps)
 class ObjectListWrapper extends Component {
 
   render() {
     const {
       children,
-      fetching,
-      fetchObjectPosts,
+      fetchingPosts,
       objectPosts,
       pages,
       route: { path }
@@ -23,10 +26,9 @@ class ObjectListWrapper extends Component {
       <section className="container clearfix">
         <div className="col-md-8 nopadding">
           {
-            fetching ? <GenericLoadingBox /> : cloneElement(children, {
+            fetchingPosts ? <GenericLoadingBox /> : cloneElement(children, {
               objectPosts,
               pages,
-              fetchObjectPosts,
               path,
             })
           }
@@ -42,17 +44,12 @@ class ObjectListWrapper extends Component {
 }
 
 ObjectListWrapper.defaultProps = {
-  fetching: true,
+  fetchingPosts: true,
 };
 
 ObjectListWrapper.propTypes = {
   children: PropTypes.element.isRequired,
-  fetching: PropTypes.bool,
-  objectPosts: PropTypes.array.isRequired,
-  fetchObjectPosts: PropTypes.func.isRequired,
+  fetchingPosts: PropTypes.bool,
 };
 
-const mapStateToProps = ({ objectPostList }) => ({ ...objectPostList });
-const mapDispatchToProps = dispatch => (bindActionCreators(objectPostActions, dispatch));
-
-export default connect(mapStateToProps, mapDispatchToProps)(ObjectListWrapper);
+export default ObjectListWrapper;

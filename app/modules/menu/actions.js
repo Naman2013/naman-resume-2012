@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { fetchAppConfig } from '../app-config/actions';
 
 export const MENU_SUBMENU_ACTIVATE = 'MENU_SUBMENU_ACTIVATE';
 export const MENU_SUBMENU_DEACTIVATE = 'MENU_SUBMENU_DEACTIVATE';
@@ -9,6 +10,7 @@ export const MENU_LOAD_NAV_FAILURE = 'MENU_LOAD_NAV_FAILURE';
 
 export const fetchMenuList = ({ lang, ver }) => (dispatch, getState) => {
   dispatch(menuLoadStart());
+  dispatch(fetchAppConfig({}));
   return axios.post('/api/app/getNavMenu', {
     data: {
       lang,
