@@ -35,6 +35,9 @@ import eventInfo from './event-info/reducer';
 import featuredContent from './featured-content/reducer';
 import contactForm from './Contact';
 import appConfig from './app-config/reducer';
+import dashboard from './dashboard/reducer';
+import avatar from './avatar/reducer';
+import tierLimits from './tier-limits/reducer';
 
 export default combineReducers({
   routing: routerReducer,
@@ -73,4 +76,7 @@ export default combineReducers({
   featuredContent,
   contactForm,
   appConfig,
+  dashboard,
+  avatar,
+  tierLimits,
 });

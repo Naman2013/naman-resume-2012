@@ -1,4 +1,5 @@
 @import '../../../styles/variables/colors.scss';
+@import '../../../styles/mixins/utilities.scss';
 
 .headshotAccountDetailRoot {
   display: flex;
@@ -12,18 +13,12 @@
   }
 
   .profilePicture {
+    @include profilePicture;
     background: $slooh-blue-xxlight url('../../../../assets/icons/astronaut-white.svg') no-repeat top center;
-    background-size: 70%;
-    border: 10px solid $slooh-white;
-    border-radius: 50% 50%;
-    box-shadow: 0 0 10px rgba($slooh-black, .5), inset 0 0 10px rgba($slooh-black, .5);
-    display: inline-block;
-    height: 150px;
-    margin: 0 auto;
-    overflow: hidden;
-    position: relative;
-    vertical-align: -50px;
-    width: 150px;
-    z-index: 999;
+  }
+
+  .changeAvatar {
+    color: $pink;
+    cursor: pointer;
   }
 }

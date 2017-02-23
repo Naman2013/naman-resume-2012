@@ -283,22 +283,22 @@ export function getNextPiggybackSingle(card) {
   }
 }
 
-const getNextPiggybackSingleSuccess = (getNextPiggybackData) => (dispatch, getState) => {
+const getNextPiggybackSingleFail = payload => ({
+  type: MISSION_GET_INFO_FAIL,
+  error: payload,
+});
+
+const getNextPiggybackSingleSuccess = getNextPiggybackData => (dispatch, getState) => {
   const { apiError, missionList } = getNextPiggybackData;
 
-  if(apiError) {
+  if (apiError) {
     dispatch(getNextPiggybackSingleFail(getNextPiggybackData));
   }
 
-  if(!apiError) {
+  if (!apiError) {
     dispatch(grabPiggyback(missionList[0]));
   }
 };
-
-const getNextPiggybackSingleFail = () => ({
-  type: MISSION_GET_INFO_FAIL,
-  error: error,
-});
 
 const fetchAllCardsStart = () => ({
   type: MISSION_ALL_CARD_START,

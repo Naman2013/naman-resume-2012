@@ -7,6 +7,11 @@
 
   .tabList {
     padding: 0;
+    border: none;
+  }
+
+  .react-tabs [role=tab][aria-selected=true] {
+    @include border-radius(10px);
   }
 
   .tabList {

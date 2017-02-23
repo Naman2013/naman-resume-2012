@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import TintUp from './TintUp';
 import CommunityPerspectives from '../common/community-perspectives/community-perspectives';
+import SloohRecommends from '../common/recommendations/SloohRecommends';
 import s from './CommunityMashup.scss';
 
 class CommunityMashup extends Component {
@@ -28,6 +29,7 @@ class CommunityMashup extends Component {
       hasUpcomingShows,
       hasRecommends,
       communityPosts,
+      recommends,
     } = this.props;
     const { selectedTabIndex } = this.state;
     return (
@@ -97,7 +99,10 @@ class CommunityMashup extends Component {
             hasRecommends ?
               <TabPanel className={s.tabPanel}>
                 <aside>
-                  <h3>Slooh recommends...</h3>
+                  <SloohRecommends
+                    recommendations={recommends}
+                    type="community"
+                  />
                 </aside>
               </TabPanel> : null
           }
@@ -109,6 +114,7 @@ class CommunityMashup extends Component {
 
 CommunityMashup.defaultProps = {
   communityPosts: [],
+  recommends: [],
 };
 
 CommunityMashup.propTypes = {
@@ -116,6 +122,7 @@ CommunityMashup.propTypes = {
   hasPerspectives: PropTypes.bool.isRequired,
   hasUpcomingShows: PropTypes.bool.isRequired,
   hasRecommends: PropTypes.bool.isRequired,
+  recommends: PropTypes.arrayOf(PropTypes.number.isRequired),
   communityPosts: PropTypes.arrayOf(PropTypes.shape({
     postId: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,

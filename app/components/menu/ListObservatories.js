@@ -19,10 +19,10 @@ class ListObservatories extends Component {
 
   getDaylingImage(daylight) {
     if (daylight) {
-      return '../images/nav/menu-day.png';
+      return '../assets/images/nav/menu-day.png';
     }
 
-    return '../images/nav/menu-night.png';
+    return '../assets/images/nav/menu-night.png';
   }
 
   serverRequest = () => {

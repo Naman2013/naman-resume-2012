@@ -20,9 +20,10 @@ class TelescopeImageViewer extends Component {
     const teleThumbWidth = '866px';
     const imageSource = generateSseImageLoader(teleSystem, telePort);
 
-    return(
+    return (
       <div
-        className="telescope-image-viewer">
+        className="telescope-image-viewer"
+      >
 
         <InteractiveViewer>
 
