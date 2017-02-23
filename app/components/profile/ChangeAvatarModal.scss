@@ -1,0 +1,48 @@
+@import '../../styles/variables/fonts.scss';
+@import '../../styles/variables/colors.scss';
+@import '../../styles/mixins/utilities.scss';
+
+.ChangeAvatarModal {
+  font-family: $primary-font;
+  text-align: center;
+  padding: 25px;
+
+  .ChangeAvatarModalTitle {
+    display: block;
+    font-weight: 300;
+  }
+
+  .ChangeAvatarModalContent {
+    padding: 25px;
+    min-height: 125px;
+  }
+
+  .uploadLabel {
+    display: block;
+    font-family: $primary-font;
+    color: $darkBlueGray;
+    font-weight: 300;
+  }
+
+  .generic-loading-box {
+    height: 200px;
+  }
+
+  .profilePic {
+    @include profilePicture;
+    background: $slooh-blue-xxlight url('../../../assets/icons/astronaut-white.svg') no-repeat top center;
+    height: 150px;
+    width: 150px;
+    margin-top: 25px;
+  }
+
+  .ChangeAvatarModalActionContainer {
+    padding: 25px;
+    color: $pink;
+  }
+
+  .ChangeAvatarModalAction {
+    padding: 25px;
+    cursor: pointer;
+  }
+}

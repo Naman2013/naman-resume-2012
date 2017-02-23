@@ -22,6 +22,7 @@
     font-family: $primary-font;
 
     .interactive-panel {
+
       .viewer-content {
         -webkit-transition: -webkit-transform 0.5s;
         transition: transform 0.5s;
@@ -29,6 +30,11 @@
 
         img {
           pointer-events: none;
+        }
+
+        .top-image {
+          position: absolute;;
+          top: 0;
         }
       }
 

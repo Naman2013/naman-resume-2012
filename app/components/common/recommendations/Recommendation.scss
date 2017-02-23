@@ -1,0 +1,47 @@
+@import '../../../styles/variables/colors.scss';
+@import '../../../styles/variables/fonts.scss';
+
+.recommendationRoot {
+  background: $white;
+  color: $darkBlueGray;
+  text-align: center;
+  font-family: $primary-font;
+  padding: 30px 20px;
+  position: relative;
+  height: 400px;
+
+  .title {
+    font-size: 16px;
+    text-transform: none;
+  }
+
+  .objectName {
+    font-weight: 800;
+    font-size: 24px;
+    margin-bottom: 15px;
+  }
+
+  .description {
+    font-family: $secondary-font;
+    font-size: 16px;
+    height: 60px;
+    overflow: hidden;
+    margin-bottom: 15px;
+  }
+
+  .missionStatusTitle {
+    font-size: 16px;
+    font-weight: normal;
+  }
+
+  .missionDateInfo {
+
+  }
+
+  .callToAction {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 15px;
+  }
+}

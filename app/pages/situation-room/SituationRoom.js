@@ -87,6 +87,7 @@ class SituationRoom extends Component {
             hasUpcomingShows={currentLiveShow.hasUpcomingShows}
             hasRecommends={currentLiveShow.hasRecommends}
             communityPosts={communityPosts}
+            recommends={currentLiveShow.recommends}
           />
         </div>
 
@@ -104,6 +105,9 @@ SituationRoom.defaultProps = {
   showId: null,
   upcomingEventEventId: null,
   communityPosts: [],
+  currentLiveShow: {
+    recommends: [],
+  },
 };
 
 SituationRoom.propTypes = {
@@ -121,6 +125,8 @@ SituationRoom.propTypes = {
     hasUpcomingShows: PropTypes.bool.isRequired,
     hasRecommends: PropTypes.bool.isRequired,
     hasAdditionalFeeds: PropTypes.bool.isRequired,
+
+    recommends: PropTypes.arrayOf(PropTypes.number.isRequired),
 
     embedCode: PropTypes.string,
     apiError: PropTypes.bool,

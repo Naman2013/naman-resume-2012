@@ -1,32 +1,58 @@
-import React, { PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
+import ChangeAvatarModal from '../../../components/profile/ChangeAvatarModal';
 import s from './HeadshotAccountDetail.scss';
 
-const HeadshotAccountDetail = ({ membershipLevel, profileImageURL, membershipType }) => (
-  <div className={s.headshotAccountDetailRoot}>
-    <div className={s.accountDetail}>
-      <p>{membershipLevel}</p>
-    </div>
+class HeadshotAccountDetail extends Component {
+  constructor(props) {
+    super(props);
 
-    {
-      profileImageURL ?
-        <div style={{ backgroundImage: `url(${profileImageURL})` }} className={`${s.profilePicture}`} />
-        :
-        <div className={`${s.profilePicture}`} />
-    }
+    this.state = {
+      avatarModalIsOpen: false,
+    };
+
+    this.toggleModal = this.toggleModal.bind(this);
+  }
+  toggleModal() {
+    const { avatarModalIsOpen } = this.state;
+    this.setState({
+      avatarModalIsOpen: !avatarModalIsOpen,
+    });
+  }
+  render() {
+    const { toggleModal } = this;
+    const { profileImageURL, membershipType } = this.props;
+    const { avatarModalIsOpen } = this.state;
+    return (
+      <div className={s.headshotAccountDetailRoot}>
+        <div className={s.accountDetail}>
+          <p>{membershipType}</p>
+        </div>
+
+        {
+          profileImageURL ?
+            <div style={{ backgroundImage: `url(${profileImageURL})` }} className={`${s.profilePicture}`} />
+            :
+            <div className={`${s.profilePicture}`} />
+        }
 
 
-    <div className={s.accountDetail}>
-      <p>{membershipType}</p>
-    </div>
-  </div>
-);
+        <div className={s.accountDetail}>
+          <span className="changeAvatar" onClick={toggleModal}>Change Avatar</span>
+        </div>
+        {avatarModalIsOpen && <ChangeAvatarModal
+          closeModal={toggleModal}
+        />}
+      </div>
+    );
+  }
+}
 
 HeadshotAccountDetail.defaultProps = {
   profileImageURL: '',
+  membershipType: '',
 };
 
 HeadshotAccountDetail.propTypes = {
-  membershipLevel: PropTypes.string.isRequired,
   profileImageURL: PropTypes.string,
   membershipType: PropTypes.string.isRequired,
 };

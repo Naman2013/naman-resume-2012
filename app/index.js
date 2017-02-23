@@ -5,6 +5,7 @@ import { Router, Route, IndexRoute, IndexRedirect, hashHistory } from 'react-rou
 import configureStore from './store';
 import { checkUser } from './modules/User';
 
+
 // containers
 import App from './containers/App';
 import StaticAppContainer from './containers/static-app-container';
@@ -36,7 +37,6 @@ import BestOfSlooh from './pages/best-of-slooh/best-of-slooh';
 import SituationRoom from './pages/situation-room/SituationRoom';
 import EventDetails from './pages/situation-room/EventDetails';
 
-import PlaybackWrapper from './pages/playback/PlaybackWrapper';
 import PlaybackViewer from './pages/playback/PlaybackViewer';
 import RecentShows from './pages/playback/RecentShows';
 import SloohMotion from './pages/playback/SloohMotion';

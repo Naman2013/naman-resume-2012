@@ -137,6 +137,20 @@
   border-radius: 50%;
 }
 
+@mixin profilePicture {
+  border: 10px solid $white;
+  border-radius: 50% 50%;
+  box-shadow: 0 0 10px rgba($slooh-black, .5), inset 0 0 10px rgba($slooh-black, .5);
+  display: inline-block;
+  height: 150px;
+  margin: 0 auto;
+  overflow: hidden;
+  position: relative;
+  vertical-align: -50px;
+  width: 150px;
+  z-index: 999;
+}
+
 %visuallyhidden {
     margin: -1px;
     padding: 0;

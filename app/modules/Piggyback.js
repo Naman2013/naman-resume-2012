@@ -20,6 +20,23 @@ const RESET_MISSION_UNAVAILABLE = 'RESET_MISSION_UNAVAILABLE';
 
 const CLOSE_CONFIRMATION_MODAL = 'CLOSE_CONFIRMATION_MODAL';
 
+const startPiggybackReservation = () => ({
+  type: RESERVATION_START,
+});
+
+const reservePiggybackSuccess = payload => ({
+  type: RESERVATION_SUCCESS,
+  payload,
+});
+
+const reservePiggybackFail = payload => ({
+  type: RESERVATION_FAIL,
+  payload,
+});
+
+const resetReservation = () => ({
+  type: RESERVATION_RESET,
+});
 
 /**
   depending on the callSource, byTelescope or recommends
@@ -75,24 +92,6 @@ export const reservePiggyback = () => (dispatch, getState) => {
   .then(result => dispatch(reservePiggybackSuccess(result.data)))
   .catch(error => dispatch(reservePiggybackFail(error)));
 };
-
-const startPiggybackReservation = () => ({
-  type: RESERVATION_START,
-});
-
-const reservePiggybackSuccess = (payload) => ({
-  type: RESERVATION_SUCCESS,
-  payload,
-});
-
-const reservePiggybackFail = (payload) => ({
-  type: RESERVATION_FAIL,
-  payload,
-});
-
-const resetReservation = () => ({
-  type: RESERVATION_RESET,
-});
 
 /**
   see https://docs.google.com/document/d/1nYo6_O87gWCqyoD3NJ98cbA5Cpxo-8ksB3Dw3PbjAa0/

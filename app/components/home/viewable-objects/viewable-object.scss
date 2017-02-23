@@ -1,9 +1,12 @@
+@import '../../../styles/mixins/utilities.scss';
+
 .viewable-object {
-  min-height: 180px;
-  width: 20%;
   float: left;
   position: relative;
   cursor: pointer;
+  width: 180px;
+  height: 180px;
+  @include border-radius(50%);
 
   .title {
     text-transform: uppercase;

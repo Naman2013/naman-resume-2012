@@ -77,21 +77,21 @@ export default {
       },
       {
         key: Math.random() * 100,
-        title: 'Perseid Meteor Shower',
-        imageUrl: 'assets/images/objects/meteor-shower.png',
+        title: 'Total solar eclipse',
+        imageUrl: 'assets/images/photos/eclipse.png',
         type: 'external',
         url: 'https://www.slooh.com/Total_Solar_Eclipse_2017.php',
       },
       {
         key: Math.random() * 100,
         title: 'St. Patrick\'s Day Aurora',
-        imageUrl: 'assets/images/objects/blood-moon.png',
+        imageUrl: 'assets/images/photos/patricks-day-sky.png',
         url: '/shows/event-details/404',
       },
       {
         key: Math.random() * 100,
         title: 'Comet 41P Close Approach',
-        imageUrl: 'assets/images/objects/cassiopeia.png',
+        imageUrl: 'assets/images/photos/comet-41p.png',
         url: '/shows/event-details/405',
       },
     ],
@@ -106,7 +106,7 @@ export default {
   SPONSORS_SUB_TITLE: 'Our partners help to bring live telescope feeds of the cosmos to the world.',
   SPONSOR_IMAGES: [
     {
-      imageUrl: 'assets/images/sponsors/ABC_News_Logo.png',
+      imageUrl: 'assets/images/sponsors/ABC_News_Logo.jpg',
       size: '90%'
     },
     {

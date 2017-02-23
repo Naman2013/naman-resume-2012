@@ -221,7 +221,8 @@ class TelescopeDetails extends Component {
             <div className="col-md-8">
               <Tabs
                 onSelect={this.handleSelect.bind(this)}
-                selectedIndex={selectedTab}>
+                selectedIndex={selectedTab}
+              >
 
                 <TabList>
                   {
@@ -235,17 +236,18 @@ class TelescopeDetails extends Component {
                   teleInstrumentList.map(instrument => (
                     <TabPanel key={instrument.instrPort}>
                       {
-                        currentTelescope.teleOnlineStatus != 'offline' ?
+                        currentTelescope.teleOnlineStatus !== 'offline' ?
                         this.determineImageLoaderType(instrument) :
                         <TelescopeOffline imageSource={instrument.instrOfflineImgURL} />
                       }
 
                       {
                         currentTelescope.teleOnlineStatus === 'online' && currentTelescope.teleHasNeoView ?
-                        <Neoview
-                          port={currentTelescope.teleNeoPort}
-                          teleSystem={currentTelescope.teleSystem}
-                          showToggleOption={currentTelescope.teleOnlineStatus === 'online'} /> : null
+                          <Neoview
+                            port={currentTelescope.teleNeoPort}
+                            teleSystem={currentTelescope.teleSystem}
+                            showToggleOption={currentTelescope.teleOnlineStatus === 'online'}
+                          /> : null
                       }
                     </TabPanel>
                   ))
@@ -254,9 +256,9 @@ class TelescopeDetails extends Component {
 
               {
                 missionAvailable ?
-                <LiveStream
-                  {...currentMission}
-                /> : null
+                  <LiveStream
+                    {...currentMission}
+                  /> : null
               }
 
               <Spacer height="50px" />
@@ -301,7 +303,7 @@ class TelescopeDetails extends Component {
               }
             </div>
 
-            <div className='col-md-4 telescope-details-sidebar'>
+            <div className="col-md-4 telescope-details-sidebar">
 
               <LiveMission
                 {...currentMission}

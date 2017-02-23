@@ -58,7 +58,7 @@ class TelescopeImageLoader extends Component {
       NOTE: along with setting up the image, we are firing actions associated
       with the telescope mission
     */
-    if(currentImageUrl != 'heartbeat') {
+    if (currentImageUrl != 'heartbeat') {
       const { teleFade, obsId, teleId, domeId, actions, missionFormat } = this.props; // expected fade may change based on how much time passed
 
       // TODO: this may be problematic...
@@ -83,8 +83,8 @@ class TelescopeImageLoader extends Component {
         opacity and timing values to make up for lost time and sync
         the rest of the experience together
       */
-      if(firstLoad) {
-        if(progress >= teleFade) {
+      if (firstLoad) {
+        if (progress >= teleFade) {
           adjustedFade = 0;
           startingOpacity = 1;
         } else {
@@ -174,22 +174,24 @@ class TelescopeImageLoader extends Component {
 
     const { teleThumbWidth } = this.props;
 
-    if(!currentImageUrl || !previousImageUrl) {
+    if (!currentImageUrl || !previousImageUrl) {
       return null;
     }
 
     const bottomImageAddress = this.generateThumbnailUrl(previousImageUrl);
 
-    return(
+    return (
       <div className="sse-thumbnails">
         <div className="bottom-image">
           <img
+            alt=""
             width={teleThumbWidth}
             src={bottomImageAddress}
           />
 
           <div className="top-image">
             <img
+              alt=""
               width={teleThumbWidth}
               id={this.generateImageId()}
             />

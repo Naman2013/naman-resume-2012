@@ -6,7 +6,7 @@
   min-height: 750px;
   color: #fff;
   text-align: center;
-  background: url('../../../../images/graphics/perseids-bg.png') no-repeat center center;
+  background: url('../../../../assets/images/graphics/perseids-bg.png') no-repeat center center;
   background-size: cover;
   padding-top: 20px;
 
@@ -16,6 +16,8 @@
     margin-top: 50px;
     margin-bottom: 50px;
     margin: 75px auto;
+    display: flex;
+    justify-content: space-around;
   }
 
   .latest-news {
