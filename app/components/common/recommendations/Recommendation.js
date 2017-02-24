@@ -2,15 +2,16 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PiggybackStatus from './PiggybackStatus';
-import { fetchRecommendsCards } from '../../../api/recommendations/recommends-cards';
-import { getNextPiggyback } from '../../../api/recommendations/get-next-piggyback';
+import { fetchRecommendsCards } from '../../../services/recommendations/recommends-cards';
+import { getNextPiggyback } from '../../../services/recommendations/get-next-piggyback';
+import { getNextReservation } from '../../../services/recommendations/get-next-reservation';
 import { getNextPiggybackSingle } from '../../../modules/Missions';
 import s from './Recommendation.scss';
 
-const mapDispatchToProps = () => ({
+const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
-
-  }),
+    getNextPiggybackSingle,
+  }, dispatch),
 });
 
 @connect(null, mapDispatchToProps)
@@ -39,11 +40,22 @@ class Recommendation extends Component {
   }
 
   state = {
+    // flag designed to help understand what type of reservation we are dealing with
+    newMissionMode: false,
+
     cardApiError: false,
     cardData: null,
     cardErrorMessage: null,
     cardErrorBody: null,
     piggybackResult: null,
+
+    newReservationResult: {
+      missionList: [{
+        missionAvailable: false,
+        missionStart: 0,
+      }],
+    },
+    newReservationError: false,
   }
 
   handleCardResult(cardResult) {
@@ -71,7 +83,7 @@ class Recommendation extends Component {
         piggybackResult: result.data,
         cardApiError: cardResult.apiError,
         cardErrorMessage: cardResult.errorMsg,
-        cardData: cardResult.cardList[0],
+        cardData: cardResult,
       });
     })
     .catch(error => this.handleCardError(error));
@@ -85,8 +97,52 @@ class Recommendation extends Component {
     });
   }
 
+  handleReservePiggybackClick = (event) => {
+    event.preventDefault();
+    this.props.actions.getNextPiggybackSingle(this.state.cardData.cardList[0]);
+  }
+
+  handleLoadReservationClick = (event) => {
+    event.preventDefault();
+    const { cid, at, token } = this.props;
+    const { uniqueId, astroObjectId } = this.state.cardData.cardList[0];
+    getNextReservation({
+      cid,
+      at,
+      token,
+      uniqueId,
+      objectId: astroObjectId,
+      requestType: 'single',
+    })
+    .then(result => this.handleLoadNewReservationResult(result.data))
+    .catch(error => this.handleLoadNewReservationError(error));
+  }
+
+  handleLoadNewReservationResult(newReservationResult) {
+    this.setState({
+      newReservationResult,
+      newMissionMode: true,
+    });
+  }
+
+  handleLoadNewReservationError(error) {
+    console.log('there was an error with fetching the reservation info...');
+    console.log(error);
+  }
+
+  handleReserveNewMissionClick = (event) => {
+    event.preventDefault();
+    console.log('Make a new reservation...');
+  }
+
   render() {
-    const { cardData, piggybackResult, error, errorBody } = this.state;
+    const {
+      cardData,
+      piggybackResult,
+      newReservationResult,
+      newMissionMode,
+    } = this.state;
+
     if (!cardData && !piggybackResult) {
       return null;
     }
@@ -96,7 +152,7 @@ class Recommendation extends Component {
       objectIconURL,
       title,
       description,
-    } = cardData;
+    } = cardData.cardList[0];
 
     const { apiError, missionList } = this.state.piggybackResult;
     const { missionAvailable, missionStart } = missionList[0];
@@ -116,8 +172,14 @@ class Recommendation extends Component {
 
         {/** bottom half is dynamic based on result calls */}
         <PiggybackStatus
-          missionAvailable={missionAvailable}
-          missionStart={missionStart}
+          newMissionMode={newMissionMode}
+          piggybackAvailable={missionAvailable}
+          piggybackMissionStart={missionStart}
+          newMissionAvailable={newReservationResult.missionList[0].missionAvailable}
+          newMissionMissionStart={newReservationResult.missionList[0].missionStart}
+          handleReservePiggybackClick={this.handleReservePiggybackClick}
+          handleLoadReservationClick={this.handleLoadReservationClick}
+          handleReserveNewMissionClick={this.handleReserveNewMissionClick}
         />
       </div>
     );

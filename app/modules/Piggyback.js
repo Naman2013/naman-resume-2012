@@ -8,17 +8,13 @@ const GRAB_PIGGYBACK_SUCCESS = 'GRAB_PIGGYBACK_SUCCESS';
 const GRAB_PIGGYBACK_FAIL = 'GRAB_PIGGYBACK_FAIL';
 const GRAB_PIGGYBACK_START = 'GRAB_PIGGYBACK_START';
 
-const CANCEL_PIGGYBACK = 'CANCEL_PIGGYBACK';
-
 const RESERVATION_SUCCESS = 'RESERVATION_SUCCESS';
-const RESERVATION_START  = 'RESERVATION_START';
+const RESERVATION_START = 'RESERVATION_START';
 const RESERVATION_FAIL = 'RESERVATION_FAIL';
 const RESERVATION_RESET = 'RESERVATION_RESET';
 
 const MISSION_UNAVAILABLE = 'MISSION_UNAVAILABLE';
 const RESET_MISSION_UNAVAILABLE = 'RESET_MISSION_UNAVAILABLE';
-
-const CLOSE_CONFIRMATION_MODAL = 'CLOSE_CONFIRMATION_MODAL';
 
 const startPiggybackReservation = () => ({
   type: RESERVATION_START,
@@ -70,6 +66,20 @@ export const closeConfirmationModal = () => (dispatch, getState) => {
   dispatch(missionConfirmClose()); // dismiss the modal
 };
 
+const startGrabPiggyback = () => ({
+  type: GRAB_PIGGYBACK_START,
+});
+
+const grabPiggybackSuccess = payload => ({
+  type: GRAB_PIGGYBACK_SUCCESS,
+  payload,
+});
+
+const missionUnavailable = payload => ({
+  type: MISSION_UNAVAILABLE,
+  payload,
+});
+
 /**
   see documentation for reservePiggyback
   https://docs.google.com/document/d/1nYo6_O87gWCqyoD3NJ98cbA5Cpxo-8ksB3Dw3PbjAa0/edit#
@@ -87,7 +97,7 @@ export const reservePiggyback = () => (dispatch, getState) => {
     at,
     cid,
     callSource,
-    ...currentMission
+    ...currentMission,
   })
   .then(result => dispatch(reservePiggybackSuccess(result.data)))
   .catch(error => dispatch(reservePiggybackFail(error)));
@@ -97,18 +107,18 @@ export const reservePiggyback = () => (dispatch, getState) => {
   see https://docs.google.com/document/d/1nYo6_O87gWCqyoD3NJ98cbA5Cpxo-8ksB3Dw3PbjAa0/
   for /api/reservation/grabPiggyback documentation
 */
-export const grabPiggyback = (mission) => (dispatch, getState) => {
+export const grabPiggyback = mission => (dispatch, getState) => {
   const { token, at, cid } = getState().user;
   const { currentCard } = getState().missions;
   const { missionAvailable } = mission;
 
   dispatch(startGrabPiggyback());
 
-  if(!missionAvailable) {
+  if (!missionAvailable) {
     dispatch(missionUnavailable());
   }
 
-  if(missionAvailable) {
+  if (missionAvailable) {
     return axios.post('/api/reservation/grabPiggyback', {
       token,
       at,
@@ -140,25 +150,12 @@ export const grabPiggybackByTelescope = ({ uniqueId, scheduledMissionId }) => (d
     scheduledMissionId,
     callSource: 'byTelescope',
   })
-  .then(result => {
+  .then((result) => {
     dispatch(grabPiggybackSuccess(result.data));
     dispatch(missionConfirmOpen('piggyback'));
   })
   .catch(error => dispatch(missionUnavailable(error)));
 };
-
-const startGrabPiggyback = () => ({
-  type: GRAB_PIGGYBACK_START,
-});
-
-const grabPiggybackSuccess = (payload) => ({
-  type: GRAB_PIGGYBACK_SUCCESS,
-  payload: payload,
-});
-
-const missionUnavailable = () => ({
-  type: MISSION_UNAVAILABLE,
-});
 
 export const resetMissionAvailability = () => ({
   type: RESET_MISSION_UNAVAILABLE,
@@ -219,11 +216,11 @@ export default createReducer(initialState, {
       reservationError: {},
     };
   },
-  [MISSION_UNAVAILABLE](state) {
+  [MISSION_UNAVAILABLE](state, { payload }) {
     return {
       ...state,
       missionAvailable: false,
-    }
+    };
   },
   [RESET_MISSION_UNAVAILABLE](state) {
     return {

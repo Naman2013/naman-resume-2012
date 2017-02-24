@@ -1,39 +1,92 @@
-import React, { PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 import MissionStart from './MissionStart';
 import s from './Recommendation.scss';
 
-const PiggybackStatus = ({ missionAvailable, missionStart }) => (
-  <div>
-    <div>
-      {
-        missionAvailable ?
-          <div>
-            <h5 className={s.missionStatusTitle}>Join and <i>existing</i> mission:</h5>
-            <date className={s.missionDateInfo}>
-              <MissionStart missionStart={missionStart} />
-            </date>
-          </div>
-          :
-          <div>
-            <h5 className={s.missionStatusTitle}>No existing missions are available</h5>
-          </div>
-      }
-    </div>
+class PiggybackStatus extends Component {
+  static propTypes = {
+    newMissionMode: PropTypes.bool.isRequired,
+    piggybackAvailable: PropTypes.bool.isRequired,
+    newMissionAvailable: PropTypes.bool.isRequired,
+    piggybackMissionStart: PropTypes.number.isRequired,
+    newMissionMissionStart: PropTypes.number.isRequired,
+    handleReservePiggybackClick: PropTypes.func.isRequired,
+    handleLoadReservationClick: PropTypes.func.isRequired,
+    handleReserveNewMissionClick: PropTypes.func.isRequired,
+  }
 
-    <div className={s.callToAction}>
-      {
-        missionAvailable ?
-          <button className="btn-primary">Piggyback on Mission</button>
-          :
-          <button className="btn-primary">Make Reservation</button>
-      }
-    </div>
-  </div>
-);
+  static defaultProps = {
+    getNextReservationResponse: {
+      missionList: [{
+        missionAvailable: true,
+      }],
+    },
+  }
 
-PiggybackStatus.propTypes = {
-  missionAvailable: PropTypes.bool.isRequired,
-  missionStart: PropTypes.number.isRequired,
-};
+  render() {
+    const {
+      newMissionMode,
+      piggybackAvailable,
+      piggybackMissionStart,
+      newMissionMissionStart,
+      handleReservePiggybackClick,
+      handleLoadReservationClick,
+      handleReserveNewMissionClick,
+      newMissionAvailable,
+    } = this.props;
+
+    return (
+      <div>
+        <div>
+          {
+            piggybackAvailable ?
+              <div>
+                <h5 className={s.missionStatusTitle}>Join and <i>existing</i> mission:</h5>
+                <date className={s.missionDateInfo}>
+                  <MissionStart missionStart={piggybackMissionStart} />
+                </date>
+              </div> : null
+          }
+
+          {
+            (newMissionAvailable && newMissionMode) ?
+              <div>
+                <h5 className={s.missionStatusTitle}>Set up a new mission:</h5>
+                <date className={s.missionDateInfo}>
+                  <MissionStart missionStart={newMissionMissionStart} />
+                </date>
+              </div> : null
+          }
+
+          {
+            ((!piggybackAvailable && !newMissionMode) || (!newMissionAvailable && newMissionMode)) ?
+              <div>
+                <h5 className={s.missionStatusTitle}>No existing missions are available</h5>
+              </div> : null
+          }
+
+        </div>
+
+        <div className={s.callToAction}>
+          {
+            piggybackAvailable ?
+              <button onClick={handleReservePiggybackClick} className="btn-primary">
+                Piggyback on Mission
+              </button> : null
+          }
+
+          {
+            (!piggybackAvailable && !newMissionMode) ?
+              <button onClick={handleLoadReservationClick} className="btn-primary">Make Reservation</button> : null
+          }
+
+          {
+            (newMissionAvailable && newMissionMode) ?
+              <button onClick={handleReserveNewMissionClick} className="btn-primary">Make Reservation</button> : null
+          }
+        </div>
+      </div>
+    );
+  }
+}
 
 export default PiggybackStatus;

@@ -46,7 +46,7 @@ const COMMIT_UPDATED_PIGGYBACKS = 'COMMIT_UPDATED_PIGGYBACKS';
 
 const STORE_CARDS_RESPONSE = 'STORE_CARDS_RESPONSE';
 
-const setCurrentCard = (card) => ({
+const setCurrentCard = card => ({
   type: SET_CURRENT_CARD,
   payload: card,
 });
