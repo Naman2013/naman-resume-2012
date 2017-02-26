@@ -43,7 +43,7 @@ class SituationVideoViewer extends Component {
       <section className={s.situationVideoViewerRoot}>
 
         <header className={s.liveViewHeader}>
-          <h2>{eventTitle}</h2>
+          <h2 dangerouslySetInnerHTML={{ __html: eventTitle }}></h2>
           {
             hasSponsor ?
               <SponsoredBy

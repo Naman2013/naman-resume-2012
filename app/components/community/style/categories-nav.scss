@@ -19,11 +19,6 @@
             border-bottom: 5px solid $pink;
             color: #000;
           }
-
-          &:not(.active) + .categoriesSubNavContainer {
-            display: none;
-          }
-
         }
 
         &:hover > a {

@@ -7,9 +7,30 @@ import {
   FETCH_OBJECT_LATEST_CONTENT_START,
   FETCH_OBJECT_LATEST_CONTENT_SUCCESS,
   FETCH_OBJECT_LATEST_CONTENT_FAIL,
+  FETCH_PAGE_META_START,
+  FETCH_PAGE_META_SUCCESS,
+  FETCH_PAGE_META_FAIL,
 } from './actions';
 
+const defaultPageMeta = {
+  headerObjectTitle: 'Loading...',
+  headerIconURL: '',
+  showRecommends: false,
+  showAdUnit: false,
+  showLatestEntriesMenu: false,
+  showPostTypesSubmenu: false,
+  showGuardian: false,
+  showFeaturedObjects: false,
+  showFollowObjectButton: false,
+  showCreateNewPostButton: false,
+  objectId: '',
+};
+
 const initialState = {
+  fetchingPageMeta: false,
+  fetchingPageMetaError: false,
+  fetchingPageMetaErrorBody: null,
+  pageMeta: { ...defaultPageMeta },
   fetching: false,
   objectPostsPath: 'all-time-best',
   pages: 0,
@@ -18,6 +39,33 @@ const initialState = {
 };
 
 export default createReducer(initialState, {
+  [FETCH_PAGE_META_START](state) {
+    return {
+      ...state,
+      fetchingPageMeta: true,
+      fetchingPageMetaError: false,
+      fetchingPageMetaErrorBody: null,
+      pageMeta: { ...defaultPageMeta },
+    };
+  },
+  [FETCH_PAGE_META_SUCCESS](state, { payload }) {
+    return {
+      ...state,
+      fetchingPageMeta: false,
+      fetchingPageMetaError: false,
+      fetchingPageMetaErrorBody: null,
+      pageMeta: payload,
+    };
+  },
+  [FETCH_PAGE_META_FAIL](state, { payload }) {
+    return {
+      ...state,
+      fetchingPageMeta: false,
+      fetchingPageMetaError: true,
+      fetchingPageMetaErrorBody: payload,
+      pageMeta: { ...defaultPageMeta },
+    };
+  },
   [FETCH_OBJECT_ALL_TIME_BEST_START](state) {
     return {
       ...state,

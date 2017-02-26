@@ -3,6 +3,7 @@ import GenericLoadingBox from '../../components/common/loading-screens/generic-l
 import PulsePopular from '../../components/pulse/sidebar/pulse-popular';
 import PulseRecommended from '../../components/pulse/sidebar/pulse-recommends';
 import MissionAd from '../../components/missions/mission-ad';
+import SloohRecommends from '../../components/common/recommendations/SloohRecommends';
 
 const list = [
   {
@@ -67,6 +68,8 @@ class PulseWrapper extends Component {
       fetching,
       latestPosts: { posts, pages },
       fetchLatestPosts,
+      formattedObjectIdList,
+      showRecommends,
     } = this.props;
 
     return (
@@ -83,6 +86,14 @@ class PulseWrapper extends Component {
 
         <div className="col-md-4 mission-sidebar">
           <MissionAd />
+          {
+            showRecommends ?
+              <SloohRecommends
+                title="Slooh Recommends These Objects"
+                subTitle="Reserve a mission by clicking below on these visible objects..."
+                recommendations={formattedObjectIdList}
+              /> : null
+          }
           <PulsePopular list={list} />
           <PulsePopular tag={tag} list={list} />
           <PulseRecommended list={list2} />

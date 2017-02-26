@@ -25,6 +25,7 @@ const { element, func, object } = PropTypes;
     missionGetUpdates
   }, dispatch)
 }))
+
 export default class SloohRecommends extends Component {
   static propTypes = {
     children: element,
@@ -45,12 +46,14 @@ export default class SloohRecommends extends Component {
     * @param {string} type - type of mission reservation, either piggyBack or reserve (new reservation)
     * @param {object} event - current event, provided by default from React JSX
     */
-  openConfirmModal(card, type) {
+  openConfirmModal(type, card) {
+    console.log('card', card);
+    console.log('type', type);
     if (type == 'piggyBack') {
-      this.props.actions.missionGetInfo(card, type);
+      this.props.actions.missionGetInfo(type, card);
     } else {
       // TODO: replace empty object with mission object from API
-      this.props.actions.missionConfirmOpen(card, type);
+      this.props.actions.missionConfirmOpen(type, card);
     }
   }
 

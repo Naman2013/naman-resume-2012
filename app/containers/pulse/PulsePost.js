@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import GenericLoadingBox from '../../components/common/loading-screens/generic-loading-box';
 import PulsePopular from '../../components/pulse/sidebar/pulse-popular';
 import PulseRecommended from '../../components/pulse/sidebar/pulse-recommends';
+import SloohRecommends from '../../components/common/recommendations/SloohRecommends';
 import CommunityPostHeader from '../../components/community/community-post-header';
 import MissionAd from '../../components/missions/mission-ad';
 import { fetchPost } from '../../modules/pulse/get-post-action';
@@ -32,54 +33,12 @@ const list = [
   },
 ];
 
-const list2 = [
-  {
-    headline: "As featured in the first Outer Limits episode.",
-    icon: "galaxy",
-    title: "Andromeda Galaxy (M31)",
-    desc: "Closest galaxy to the Milky Way. In approx. 4.5 billion years it will collide with the Milky Way, creating a giant elliptical galaxy.",
-    date: "Thursday, October 18th",
-    time: "10:05pm EST  ·  7:05pm PST  ·  03:05 UTC",
-  }, {
-    headline: "Don’t miss the red spot!",
-    icon: "jupiter",
-    title: "Jupiter",
-    desc: "The planet Jupiter is fifth out from the Sun, and two and a half times more massive than all the other planets in the solar system combined.",
-    date: "Thursday, October 18th",
-    time: "10:05pm EST  ·  7:05pm PST  ·  03:05 UTC",
-  }
-];
+const tag = 'The Moon';
 
-const list3 = [
-  {
-    headline: "It’s not made of cheese, but 4.5 billion year old rock.",
-    icon: "moon",
-    title: "The Moon",
-    desc: "Where woud the tides be without it? Where would HG Wells? Or Georges Méliès? Our best celestial friend, appearing (almost) nightly.",
-    date: "Thursday, October 18th",
-    time: "10:05pm EST  ·  7:05pm PST  ·  03:05 UTC",
-  }
-];
-
-const list4 = {
-  image: "",
-  name: "Sarah Blake",
-  post: ["guardian", "astronomer"],
-  from: "New York, NY, USA. Member since 2011",
-  message: "Sarrag has been reserve a mission by clicking below on these visible objects, Sarrag has been reserve a mission by clicking below on these visible objects"
-};
-
-const tag = "The Moon";
-
-const list5 = {
-  name: "The Moon",
-  icon: "moon",
-};
-
-function mapStateToProps({post}, ownProps) {
+function mapStateToProps({ post }, ownProps) {
   return {
     ...post,
-    id: ownProps.params.id
+    id: ownProps.params.id,
   };
 }
 
@@ -87,30 +46,41 @@ function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators({
       fetchPost,
-    }, dispatch)
+    }, dispatch),
   };
 }
 
 @connect(mapStateToProps, mapDispatchToProps)
 class PulsePost extends Component {
-
-  componentWillMount() {
-    const { actions: { fetchPost }, id } = this.props;
-    fetchPost(id);
-  }
-
-  componentDidMount() {
-    document.body.scrollTop = 0;
+  constructor(props) {
+    super(props);
+    props.actions.fetchPost(this.props.id);
   }
 
   render() {
+    const {
+      post,
+      fetching,
+      children,
+      pageMeta: {
+        headerIconURL,
+        headerObjectTitle,
+        showRecommends,
+        showCreateNewPostButton,
+        objectId,
+      }
+    } = this.props;
 
-    const { post, fetching, children } = this.props;
+    const recommendations = [Number(objectId)];
 
     return (
       <div className="clearfix pulse">
 
-        <CommunityPostHeader {...list5} />
+        <CommunityPostHeader
+          titleText={headerObjectTitle}
+          objectIconURL={headerIconURL}
+          showCreateNewPostButton={showCreateNewPostButton}
+        />
 
         <section className="container clearfix">
 
@@ -119,7 +89,7 @@ class PulsePost extends Component {
               fetching ? <GenericLoadingBox /> :
 
               cloneElement(children, {
-                post: post
+                post,
               })
 
             }
@@ -127,10 +97,17 @@ class PulsePost extends Component {
 
           <aside className="col-md-4 mission-sidebar">
             <MissionAd />
+            {
+              showRecommends ?
+                <SloohRecommends
+                  title="Reserve A Mission Now"
+                  subTitle={`See ${headerObjectTitle} through Slooh's Telescopes`}
+                  recommendations={recommendations}
+                /> : null
+            }
 
-            <PulsePopular list={list}/>
-            <PulsePopular tag={tag} list={list}/>
-            <PulseRecommended list={list2}/>
+            <PulsePopular list={list} />
+            <PulsePopular tag={tag} list={list} />
           </aside>
 
         </section>

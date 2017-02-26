@@ -4,6 +4,8 @@
 .communityMashupRoot {
   margin-bottom: 100px;
   min-height: 600px;
+  padding: 15px 0;
+  background: rgba(0, 0, 0, 0.5);
 
   .tabList {
     padding: 0;
@@ -22,12 +24,13 @@
 
   .tab {
     @include border-radius(10px);
-    padding: 10px 0;
+    padding: 5px 0;
     color: $white;
     background: $turqoise;
     cursor: pointer;
     width: 200px;
     text-align: center;
+
 
     &.ReactTabs__Tab--selected {
       background: $pink;
@@ -36,6 +39,11 @@
 
   .tabPanel {
     width: 90%;
+    margin: 0 auto;
+  }
+
+  .sloohRecommendsPanel {
+    width: 100%;
     margin: 0 auto;
   }
 }

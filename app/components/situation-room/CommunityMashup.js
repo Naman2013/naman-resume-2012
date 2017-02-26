@@ -98,8 +98,9 @@ class CommunityMashup extends Component {
           {
             hasRecommends ?
               <TabPanel className={s.tabPanel}>
-                <aside>
+                <aside className={s.sloohRecommendsPanel}>
                   <SloohRecommends
+                    columns={2}
                     recommendations={recommends}
                     type="community"
                   />

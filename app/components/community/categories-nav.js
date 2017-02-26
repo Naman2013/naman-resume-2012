@@ -1,14 +1,15 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
+import { uniqueId } from 'lodash';
 import styles from './style/categories-nav.scss';
 
 class CategoriesNav extends Component {
 
   prepareNav(list, main) {
-    return list.map((v, k) => {
+    return list.map((v) => {
       const route = `${main}/${v.route}`;
       return (
-        <li key={k}>
+        <li key={uniqueId()}>
           <Link to={route} activeClassName="active">
             {v.label}
           </Link>

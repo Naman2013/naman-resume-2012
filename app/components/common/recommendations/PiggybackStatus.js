@@ -40,7 +40,7 @@ class PiggybackStatus extends Component {
           {
             piggybackAvailable ?
               <div>
-                <h5 className={s.missionStatusTitle}>Join and <i>existing</i> mission:</h5>
+                <h5 className={s.missionStatusTitle}>Join an <i>existing</i> mission:</h5>
                 <date className={s.missionDateInfo}>
                   <MissionStart missionStart={piggybackMissionStart} />
                 </date>
@@ -58,9 +58,16 @@ class PiggybackStatus extends Component {
           }
 
           {
-            ((!piggybackAvailable && !newMissionMode) || (!newMissionAvailable && newMissionMode)) ?
+            (!piggybackAvailable && !newMissionMode) ?
               <div>
                 <h5 className={s.missionStatusTitle}>No existing missions are available</h5>
+              </div> : null
+          }
+
+          {
+            (!newMissionAvailable && newMissionMode) ?
+              <div>
+                <h5 className={s.missionStatusTitle}>No missions are available</h5>
               </div> : null
           }
 

@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { uniqueId } from 'lodash';
 import * as featuredContentActions from '../../../modules/featured-content/actions';
 import styles from './MoreAboutObject.scss';
 
@@ -33,16 +34,22 @@ class MoreAboutObject extends Component {
           <p>{sectionSubtitle}</p>
         </header>
 
-        {itemList.map((v, k) =>
-          <div className={styles.moreAboutContainer} key={k}>
-            <article>
-              <img className={styles.moreAboutIcon} src={v.itemIconURL} />
-              <Link className={styles.moreAboutLink} to={v.itemURL} dangerouslySetInnerHTML={{ __html: v.itemTitle }} />
-            </article>
-          </div>
-        )}
+        {
+          itemList.map(v =>
+            <div className={styles.moreAboutContainer} key={uniqueId()}>
+              <article>
+                <img alt="" className={styles.moreAboutIcon} src={v.itemIconURL} />
+                <Link
+                  className={styles.moreAboutLink}
+                  to={v.itemURL}
+                  dangerouslySetInnerHTML={{ __html: v.itemTitle }}
+                />
+              </article>
+            </div>
+          )}
 
-      </section>);
+      </section>
+    );
   }
 }
 

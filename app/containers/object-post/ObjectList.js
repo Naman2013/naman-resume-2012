@@ -1,15 +1,10 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component, PropTypes, cloneElement } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import AnnouncementBanner from '../../components/common/announcement-banner/announcement-banner';
 import CategoriesNav from '../../components/community/categories-nav';
 import CommunityPostHeader from '../../components/community/community-post-header';
 import * as objectPostActions from '../../modules/object-post-list/actions';
-
-const list2 = {
-  name: 'The Moon',
-  icon: 'moon',
-};
 
 function generateList({ SlugLookupId }) {
   return [
@@ -38,53 +33,100 @@ function generateList({ SlugLookupId }) {
   ];
 }
 
-class ObjectList extends Component {
+const mapStateToProps = ({ objectPostList }, ownProps) => ({
+  pageMeta: objectPostList.pageMeta,
+  entryType: ownProps.params.entryType,
+  SlugLookupId: ownProps.params.SlugLookupId,
+  filterType: ownProps.params.filterType,
+});
 
-  componentDidMount() {
-    this.updateList();
+const mapDispatchToProps = dispatch => (bindActionCreators(objectPostActions, dispatch));
+
+@connect(mapStateToProps, mapDispatchToProps)
+class ObjectList extends Component {
+  static propTypes = {
+    children: PropTypes.element.isRequired,
+    fetchObjectPosts: PropTypes.func.isRequired,
+    entryType: PropTypes.string.isRequired,
+    filterType: PropTypes.string.isRequired,
+    SlugLookupId: PropTypes.string.isRequired,
+    pageMeta: PropTypes.shape({
+      headerObjectTitle: PropTypes.string.isRequired,
+      headerIconURL: PropTypes.string.isRequired,
+      showRecommends: PropTypes.bool.isRequired,
+      showAdUnit: PropTypes.bool.isRequired,
+      showLatestEntriesMenu: PropTypes.bool,
+      showPostTypesSubmenu: PropTypes.bool.isRequired,
+      showGuardian: PropTypes.bool.isRequired,
+      showFeaturedObjects: PropTypes.bool.isRequired,
+      showFollowObjectButton: PropTypes.bool.isRequired,
+      showCreateNewPostButton: PropTypes.bool.isRequired,
+      objectId: PropTypes.string.isRequired,
+    }).isRequired,
   }
 
-  // TODO: refactor
-  componentWillReceiveProps(nextProps) {
-    const { children } = this.props;
-    // destructure this.props.children.props.route.path
-    const { props: { route: { path } } } = children;
-    // destructure this.props.children.props.children.props.route.path
-    const { props: { children: { props: { route: { path: type } } } } } = children;
-    const { children: nextChildren } = nextProps;
-    const { props: { route: { path: nextPath } } } = nextChildren;
-    const { props: { children: { props: { route: { path: nextType } } } } } = nextChildren;
+  constructor(props) {
+    super(props);
+    this.updateList(props);
+  }
 
-    if (type !== nextType || path !== nextPath) {
-      this.updateList();
+  componentWillReceiveProps(nextProps) {
+    const { SlugLookupId, filterType, entryType } = nextProps.params;
+    if (
+      (SlugLookupId !== this.props.SlugLookupId) ||
+      (filterType !== this.props.filterType) ||
+      (entryType !== this.props.entryType)) {
+      this.updateList(nextProps);
     }
   }
 
-  updateList() {
+  updateList(requestProps) {
+    const { fetchObjectPosts, fetchPageMeta } = this.props;
     const {
-      fetchObjectPosts,
-      children,
       entryType,
       SlugLookupId,
-    } = this.props;
+      filterType,
+    } = requestProps;
 
-    // TODO: refactor
-    // destructure this.props.children.props.children.props.route.path
-    const { props: { children: { props: { route: { path: type } } } } } = children;
+    fetchPageMeta({ slugLookupId: SlugLookupId });
 
     fetchObjectPosts({
-      type: [type],
+      type: [filterType],
       entryType,
       SlugLookupId,
     });
   }
 
   render() {
-    const { route, location, SlugLookupId, children } = this.props;
+    const {
+      route,
+      location,
+      SlugLookupId,
+      children,
+      pageMeta: {
+        headerObjectTitle,
+        headerIconURL,
+        showCreateNewPostButton,
+        showRecommends,
+        showAdUnit,
+        showLatestEntriesMenu,
+        showPostTypesSubmenu,
+        showGuardian,
+        showFeaturedObjects,
+        showFollowObjectButton,
+        objectId,
+      },
+    } = this.props;
+
+    const recommendations = [Number(objectId)];
     return (
       <div className="clearfix pulse">
         <AnnouncementBanner />
-        <CommunityPostHeader {...list2} />
+        <CommunityPostHeader
+          titleText={headerObjectTitle}
+          objectIconURL={headerIconURL}
+          showCreateNewPostButton={showCreateNewPostButton}
+        />
 
         <CategoriesNav
           route={route}
@@ -93,24 +135,24 @@ class ObjectList extends Component {
           className="grey"
         />
 
-        {children}
+        {
+          objectId ?
+            cloneElement(children, {
+              headerObjectTitle,
+              showRecommends,
+              showAdUnit,
+              showLatestEntriesMenu,
+              showPostTypesSubmenu,
+              showGuardian,
+              showFeaturedObjects,
+              showFollowObjectButton,
+              showCreateNewPostButton,
+              recommendationCards: recommendations,
+            }) : null
+        }
       </div>
     );
   }
 }
 
-ObjectList.propTypes = {
-  children: PropTypes.element.isRequired,
-  fetchObjectPosts: PropTypes.func.isRequired,
-  entryType: PropTypes.string.isRequired,
-  SlugLookupId: PropTypes.string.isRequired,
-};
-
-const mapStateToProps = (state, ownProps) => ({
-  entryType: ownProps.params.entryType,
-  SlugLookupId: ownProps.params.SlugLookupId,
-});
-
-const mapDispatchToProps = dispatch => (bindActionCreators(objectPostActions, dispatch));
-
-export default connect(mapStateToProps, mapDispatchToProps)(ObjectList);
+export default ObjectList;

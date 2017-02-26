@@ -1,4 +1,9 @@
 import axios from 'axios';
+import { fetchRecommendsCards } from '../../services/recommendations/recommends-cards';
+
+export const FETCH_PAGE_META_START = 'FETCH_PAGE_META_START';
+export const FETCH_PAGE_META_SUCCESS = 'FETCH_PAGE_META_SUCCESS';
+export const FETCH_PAGE_META_FAIL = 'FETCH_PAGE_META_FAIL';
 
 export const FETCH_OBJECT_ALL_TIME_BEST_START = 'FETCH_OBJECT_ALL_TIME_BEST_START';
 export const FETCH_OBJECT_ALL_TIME_BEST_SUCCESS = 'FETCH_OBJECT_ALL_TIME_BEST_SUCCESS';
@@ -7,6 +12,31 @@ export const FETCH_OBJECT_ALL_TIME_BEST_FAIL = 'FETCH_OBJECT_ALL_TIME_BEST_FAIL'
 export const FETCH_OBJECT_LATEST_CONTENT_START = 'FETCH_OBJECT_LATEST_CONTENT_START';
 export const FETCH_OBJECT_LATEST_CONTENT_SUCCESS = 'FETCH_OBJECT_LATEST_CONTENT_SUCCESS';
 export const FETCH_OBJECT_LATEST_CONTENT_FAIL = 'FETCH_OBJECT_LATEST_CONTENT_FAIL';
+
+const fetchPageMetaStart = () => ({
+  type: FETCH_PAGE_META_START,
+});
+
+const fetchPageMetaSuccess = payload => ({
+  type: FETCH_PAGE_META_SUCCESS,
+  payload,
+});
+
+const fetchPageMetaFail = payload => ({
+  type: FETCH_PAGE_META_FAIL,
+  payload,
+});
+
+export const fetchPageMeta = ({ slugLookupId }) => (dispatch) => {
+  dispatch(fetchPageMetaStart());
+  return axios.post('/api/content/getObjectPostListPageLayout', {
+    slugLookupId,
+  })
+  .then((result) => {
+    dispatch(fetchPageMetaSuccess(result.data));
+  })
+  .catch(error => dispatch(fetchPageMetaFail(error)));
+};
 
 const fetchObjectAllTimeBestStart = () => ({
   type: FETCH_OBJECT_ALL_TIME_BEST_START,

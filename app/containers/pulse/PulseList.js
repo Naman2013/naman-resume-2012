@@ -5,6 +5,7 @@ import CategoriesNav from '../../components/community/categories-nav';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { fetchLatestPosts } from '../../modules/pulse/get-latest-posts-action';
+import './Pulse.scss';
 
 
 const navigationList = [
@@ -32,8 +33,8 @@ const navigationList = [
   }
 ];
 
-function mapStateToProps({latestPosts}, ownProps) {
-  const {children: {props}} = ownProps;
+function mapStateToProps({ latestPosts }, ownProps) {
+  const { children: { props } } = ownProps;
   return {
     ...latestPosts,
     childPath: props.children.props.route.path !== 'all' ? props.children.props.route.path : false
@@ -51,6 +52,12 @@ function mapDispatchToProps(dispatch) {
 @connect(mapStateToProps, mapDispatchToProps)
 class PulseList extends Component {
 
+  static defaultProps = {
+    pageMeta: {
+      objectIdList: [],
+    },
+  }
+
   render() {
     const {
       route,
@@ -59,11 +66,24 @@ class PulseList extends Component {
       latestPosts,
       fetching,
       childPath,
-      children } = this.props;
+      children,
+      pageMeta: {
+        headerTitle,
+        showCreateNewPostButton,
+        objectIdList,
+        showRecommends,
+      },
+    } = this.props;
+
+    const formattedObjectIdList = objectIdList.map(objectId => Number(objectId));
+
     return (
       <div className="clearfix pulse">
         <AnnouncementBanner />
-        <PulseListHeader />
+        <PulseListHeader
+          title={headerTitle}
+          showCreateNewPostButton={showCreateNewPostButton}
+        />
 
         <CategoriesNav route={route} location={location} list={navigationList} />
 
@@ -73,6 +93,8 @@ class PulseList extends Component {
             childPath,
             latestPosts,
             fetching,
+            formattedObjectIdList,
+            showRecommends,
           })
         }
 
@@ -82,7 +104,3 @@ class PulseList extends Component {
 }
 
 export default PulseList;
-
-PulseList.propTypes = {
-  children: PropTypes.element.isRequired
-};
