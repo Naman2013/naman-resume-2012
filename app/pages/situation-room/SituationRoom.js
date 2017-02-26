@@ -107,6 +107,11 @@ SituationRoom.defaultProps = {
   communityPosts: [],
   currentLiveShow: {
     recommends: [],
+    hasSocialFlow: false,
+    hasPerspectives: false,
+    hasUpcomingShows: false,
+    hasRecommends: false,
+    hasAdditionalFeeds: false,
   },
 };
 

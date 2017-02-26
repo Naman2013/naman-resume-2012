@@ -20,7 +20,7 @@ const PulsePostContent = ({
     membershipType,
     memberSince,
     location,
-    likesCount
+    likesCount,
   }
 }) => {
   return (

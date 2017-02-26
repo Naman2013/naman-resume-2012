@@ -1,11 +1,25 @@
 import React, { PropTypes } from 'react';
+import moment from 'moment-timezone';
 
-const MissionStart = ({ missionStart }) => (
-  <div>
-    <b>Thursday, October 18th</b> <br />
-    10:05pm EST • 7:05pm PST • 03:05 UTC
-  </div>
-);
+const dateFormats = (unixTimestamp) => {
+  const formattedUTCDate = new Date(unixTimestamp * 1000);
+  return {
+    estStart: moment.tz(formattedUTCDate, 'America/New_York').format('dddd, MMMM Do'),
+    estStartTime: moment.tz(formattedUTCDate, 'America/New_York').format('h:mma z'),
+    pstStartTime: moment.tz(formattedUTCDate, 'America/Los_Angeles').format('h:mma z'),
+    utcStartTime: moment.utc(formattedUTCDate).format('HH:mm z'),
+  };
+};
+
+const MissionStart = ({ missionStart }) => {
+  const { estStart, estStartTime, pstStartTime, utcStartTime } = dateFormats(missionStart);
+  return (
+    <div>
+      <b>{estStart}</b> <br />
+      {estStartTime} • {pstStartTime} • {utcStartTime}
+    </div>
+  );
+};
 
 MissionStart.propTypes = {
   missionStart: PropTypes.number.isRequired,

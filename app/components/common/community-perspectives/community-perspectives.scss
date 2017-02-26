@@ -157,6 +157,11 @@
         align-items: center;
       }
       .description {
+
+        .descriptionLink {
+          color: inherit;
+        }
+
         h3 {
           font-size: 24px;
           line-height: 30px;

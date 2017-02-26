@@ -1,16 +1,15 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
-import _ from 'lodash';
+import { isEmpty, uniqueId } from 'lodash';
 import ByUserTag from '../../components/common/by-user-tag/by-user-tag';
 import CommunityPostTools from '../../components/community/tools/community-post-tools'
-import { iconCategory as icon } from '../../components/community/tools/community-icon';
 import styles from './object-post.scss';
 
 class ObjectPostList extends Component {
 
   prepareData(objectPosts) {
     return objectPosts.map((v, k) =>
-      <div key={k}>
+      <div key={uniqueId()}>
         <div className={styles.ObjectPostList} key={v.postId}>
           <span className={styles.ObjectPostListID}>{k+1}.</span>
 
@@ -43,7 +42,11 @@ class ObjectPostList extends Component {
             </div>
 
             <figcaption className={styles.ObjectPostListInfoDesc}>
-              <h3>HOW IT MADE THE LIST</h3>
+              {
+                /**
+                  <h3>HOW IT MADE THE LIST</h3>
+                */
+              }
               <span dangerouslySetInnerHTML={{ __html: (v.rubric || v.excerpt) }}></span>
             </figcaption>
 
@@ -58,7 +61,7 @@ class ObjectPostList extends Component {
 
   render() {
     const { objectPosts } = this.props;
-    const isEmpty = !objectPosts || _.isEmpty(objectPosts);
+    const hasPosts = !objectPosts || isEmpty(objectPosts);
     const noPosts = (
       <div>
         <h3>No posts available...</h3>
@@ -67,8 +70,8 @@ class ObjectPostList extends Component {
 
     return (
       <div>
-        {isEmpty && noPosts }
-        {!isEmpty && this.prepareData(objectPosts)}
+        {hasPosts && noPosts }
+        {!hasPosts && this.prepareData(objectPosts)}
       </div>
     );
   }

@@ -1,0 +1,14 @@
+.sloohRecommendsRoot {
+
+  .singleColumn {
+
+    &:after {
+      content: " ";
+      display: block;
+      width: 70%;
+      height: 1px;
+      background: #ddd;
+      margin: 0 auto;
+    }
+  }
+}

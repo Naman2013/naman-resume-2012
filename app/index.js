@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import { Router, Route, IndexRoute, IndexRedirect, hashHistory } from 'react-router';
 import configureStore from './store';
 import { checkUser } from './modules/User';
+import { deactivateMenu } from './modules/menu/actions';
 
 
 // containers
@@ -15,7 +16,6 @@ import MyPictures from './containers/MyPictures';
 import PulseList from './containers/pulse/PulseList';
 import PulseWrapper from './containers/pulse/PulseWrapper';
 import PulsePost from './containers/pulse/PulsePost';
-import ObjectListWrapper from './containers/object-post/ObjectListWrapper';
 import ObjectList from './containers/object-post/ObjectList';
 import PlaybackContainer from './containers/PlaybackContainer';
 
@@ -68,7 +68,7 @@ import SocialNetwork from './pages/settings/SocialNetwork';
 import PublishPost from './pages/publish-post/publish-post';
 import PulsePostList from './pages/pulse/pulse-post-list';
 import PulsePostContent from './pages/pulse/pulse-post';
-import ObjectPostList from './pages/object-post/object-post-list';
+import ObjectPosts from './pages/object-posts/ObjectPosts';
 
 import DiscussionsReplyTo from './pages/discussions/replies/DiscussionsReplyTo';
 import DiscussionsThreadWrapper from './pages/discussions/threads/DiscussionsThreadWrapper';
@@ -87,9 +87,14 @@ const validateUser = (nextState, replace, callback) => {
   store.dispatch(checkUser(nextState.location.pathname, replace, callback));
 };
 
+const onRouteUpdate = () => {
+  window.scrollTo(0, 0);
+  store.dispatch(deactivateMenu());
+};
+
 ReactDOM.render(
   <Provider store={store}>
-    <Router history={hashHistory}>
+    <Router history={hashHistory} onUpdate={onRouteUpdate}>
 
       <Route path="about" component={StaticAppContainer} onEnter={validateUser}>
         <IndexRedirect to="mission" />
@@ -160,7 +165,7 @@ ReactDOM.render(
         </Route>
 
         <Route path="community" component={PulsePost}>
-          <Route path="post(/:id)" name="post" component={PulsePostContent} onEnter={validateUser} onUpdate={() => window.scrollTo(0, 0)} />
+          <Route path="post(/:id)" name="post" component={PulsePostContent} onEnter={validateUser} />
         </Route>
 
         {
@@ -171,16 +176,7 @@ ReactDOM.render(
           */
         }
         <Route path="objects" component={ObjectList} onEnter={validateUser}>
-          <IndexRedirect to="all-time-best" />
-
-          <Route path=":entryType/:SlugLookupId" component={ObjectListWrapper}>
-            <IndexRedirect to="all" />
-            <Route path="all" name="all" component={ObjectPostList} />
-            <Route path="scienceLog" name="scienceLog" component={ObjectPostList} />
-            <Route path="artCulture" name="artCulture" component={ObjectPostList} />
-            <Route path="humanSpirit" name="humanSpirit" component={ObjectPostList} />
-            <Route path="diy" name="diy" component={ObjectPostList} />
-          </Route>
+          <Route path=":entryType/:SlugLookupId/:filterType" component={ObjectPosts} />
         </Route>
 
         <Route path="shows/situation-room(/:showId)" component={SituationRoom} onEnter={validateUser} />

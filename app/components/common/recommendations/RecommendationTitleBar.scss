@@ -1,0 +1,21 @@
+@import '../../../styles/variables/colors.scss';
+.recommendationTitleBarRoot {
+  border-bottom: 3px solid $blueGreen;
+  color: $light-turqoise;
+  text-align: center;
+  background: $darkBlueGray;
+  padding: 15px 5px;
+
+  .title {
+    font-size: 24px;
+    font-weight: 700;
+    margin: 0;
+    text-transform: none;
+  }
+
+  .subTitle {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 300;
+  }
+}

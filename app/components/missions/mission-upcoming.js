@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { Link } from 'react-router';
 import moment from 'moment-timezone';
 
 import { fetchUsersUpcomingMissions } from '../../modules/Users-Upcoming-Missions';
@@ -43,7 +44,7 @@ const UpcomingContent = ({
       </div>
 
       <p className={styles.telescopeType}>{telescopePierName} ({userReservationType})</p>
-      <a href="" className="btn btn-primary">View Reservations</a>
+      <Link to="/settings/dashboard" className="btn btn-primary">View Reservations</Link>
     </div>
   );
 };

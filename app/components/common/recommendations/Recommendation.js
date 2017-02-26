@@ -5,16 +5,43 @@ import PiggybackStatus from './PiggybackStatus';
 import { fetchRecommendsCards } from '../../../services/recommendations/recommends-cards';
 import { getNextPiggyback } from '../../../services/recommendations/get-next-piggyback';
 import { getNextReservation } from '../../../services/recommendations/get-next-reservation';
-import { getNextPiggybackSingle } from '../../../modules/Missions';
+import { getNextPiggybackSingle, grabMissionSlot, missionConfirmOpen } from '../../../modules/Missions';
 import s from './Recommendation.scss';
+
+const defaultState = {
+  newMissionMode: false,
+
+  cardApiError: false,
+  cardData: null,
+  cardErrorMessage: null,
+  cardErrorBody: null,
+  piggybackResult: null,
+
+  newReservationResult: {
+    missionList: {
+      missionAvailable: false,
+      missionStart: 0,
+    },
+  },
+  newReservationError: false,
+
+  piggybackConfirmed: false,
+};
+
+const mapStateToProps = ({ piggyback, missions }) => ({
+  piggybackReservationConfirmed: piggyback.reservationConfirmed,
+  newMissionJustReserved: missions.missionSlotJustReserved,
+});
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
     getNextPiggybackSingle,
+    grabMissionSlot,
+    missionConfirmOpen,
   }, dispatch),
 });
 
-@connect(null, mapDispatchToProps)
+@connect(mapStateToProps, mapDispatchToProps)
 class Recommendation extends Component {
   static defaultProps = {
     at: null,
@@ -33,29 +60,29 @@ class Recommendation extends Component {
 
   constructor(props) {
     super(props);
+    this.initialize();
+  }
+
+  state = { ...defaultState }
+
+  componentWillReceiveProps(nextProps) {
+    // if either a new mission or piggyback had occurred reset the card
+    const { piggybackReservationConfirmed, newMissionJustReserved } = this.props;
+    if (piggybackReservationConfirmed || newMissionJustReserved) {
+      this.reset();
+    }
+  }
+
+  reset() {
+    this.setState({ ...defaultState });
+    this.initialize();
+  }
+
+  initialize() {
     const { at, token, cid, objectId, type } = this.props;
     fetchRecommendsCards({ at, token, cid, objectId, type })
     .then(result => this.handleCardResult(result.data))
     .catch(error => this.handleCardError(error));
-  }
-
-  state = {
-    // flag designed to help understand what type of reservation we are dealing with
-    newMissionMode: false,
-
-    cardApiError: false,
-    cardData: null,
-    cardErrorMessage: null,
-    cardErrorBody: null,
-    piggybackResult: null,
-
-    newReservationResult: {
-      missionList: [{
-        missionAvailable: false,
-        missionStart: 0,
-      }],
-    },
-    newReservationError: false,
   }
 
   handleCardResult(cardResult) {
@@ -115,7 +142,7 @@ class Recommendation extends Component {
       requestType: 'single',
     })
     .then(result => this.handleLoadNewReservationResult(result.data))
-    .catch(error => this.handleLoadNewReservationError(error));
+    // .catch(error => this.handleLoadNewReservationError(error));
   }
 
   handleLoadNewReservationResult(newReservationResult) {
@@ -132,7 +159,19 @@ class Recommendation extends Component {
 
   handleReserveNewMissionClick = (event) => {
     event.preventDefault();
-    console.log('Make a new reservation...');
+    const {
+      newReservationResult: { missionList },
+      cardData: { cardList } } = this.state;
+    const card = cardList[0];
+    const mission = {
+      ...missionList,
+      callSource: 'recommends',
+      objectTitle: card.title,
+      objectType: card.objectType,
+    };
+
+    this.props.actions.grabMissionSlot(mission);
+    this.props.actions.missionConfirmOpen('reserve', card);
   }
 
   render() {
@@ -175,8 +214,8 @@ class Recommendation extends Component {
           newMissionMode={newMissionMode}
           piggybackAvailable={missionAvailable}
           piggybackMissionStart={missionStart}
-          newMissionAvailable={newReservationResult.missionList[0].missionAvailable}
-          newMissionMissionStart={newReservationResult.missionList[0].missionStart}
+          newMissionAvailable={newReservationResult.missionList.missionAvailable}
+          newMissionMissionStart={newReservationResult.missionList.missionStart}
           handleReservePiggybackClick={this.handleReservePiggybackClick}
           handleLoadReservationClick={this.handleLoadReservationClick}
           handleReserveNewMissionClick={this.handleReserveNewMissionClick}

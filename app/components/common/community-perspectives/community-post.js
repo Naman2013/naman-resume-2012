@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import Heart from '../heart/heart';
+import { Link } from 'react-router';
 import ByUserTag from '../by-user-tag/by-user-tag';
 
 const CommunityPost = ({
@@ -11,6 +12,7 @@ const CommunityPost = ({
   memberSince,
   avatarURL,
   likesCount,
+  postId,
 }) => <div className="item">
   <div className="item-header">
     <ByUserTag
@@ -23,9 +25,11 @@ const CommunityPost = ({
     <Heart count={likesCount} />
   </div>
   <div className="description">
-    <h3 className="title">
-      <span dangerouslySetInnerHTML={{ __html: title }} />
-    </h3>
+    <Link className="descriptionLink" to={`/community/post/${postId}`}>
+      <h3 className="title">
+        <span dangerouslySetInnerHTML={{ __html: title }} />
+      </h3>
+    </Link>
     <div className="desc">
       <p dangerouslySetInnerHTML={{ __html: content }} />
     </div>
