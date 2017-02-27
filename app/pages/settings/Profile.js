@@ -6,6 +6,7 @@ import * as dashboardActions from '../../modules/dashboard/actions';
 import Header from './common/header';
 import HeadshotAccountDetail from './common/HeadshotAccountDetail';
 import ReservationsLimit from '../../components/profile/ReservationsLimit';
+import UsersReservations from '../../components/profile/UsersReservations';
 
 const { func } = PropTypes;
 
@@ -16,7 +17,7 @@ class Profile extends Component {
   }
 
   render() {
-    const { profile } = this.props;
+    const { profile, fetchDashboard, refreshIntervalSec } = this.props;
     return (
       <div className="settings profile">
 
@@ -35,137 +36,7 @@ class Profile extends Component {
         <article>
           <section className="missions">
             <h2 className="center margin-top-reg margin-bottom-large">Recent &amp; Upcoming Missions</h2>
-            <article className="card-xwide sans-serif ">
-
-              <section className="col-3fourth border-right padding-top-xxsmall padding-bottom-small padding-left-med">
-                <header className="padding-bottom-xxsmall">
-                  <h3>
-                    <i className="name icon-large icon-galaxy" /> [Mission Title]
-                  </h3>
-                </header>
-
-                <section className="row-page margin-top-xxsmall margin-bottom-xsmall sans-serif border-bottom border-top padding-none">
-                  <div className="col-third padding-small padding-bottom-xxsmall mission-type">
-                    <p className="text-small">[Mission type]</p>
-                  </div>
-                  <div className="col-third border-left border-right padding-small padding-bottom-xxsmall mission-location">
-                    <p className="icon-small icon-location text-small">[Mission Location]</p>
-                  </div>
-                  <div className="col-third padding-small padding-bottom-xxsmall padding-left-none mission-telescope-name">
-                    <p className="icon-small icon-telescope text-small">[Mission Telescope Name]</p>
-                  </div>
-                </section>
-                <section className="row-xxwide sans-serif">
-                  <div className="date-time">
-                    <span className="margin-right-med icon-small icon-calendar ">[Date]</span>
-                    <span>EST <strong>[Time]</strong></span>
-                    <span className="padding-right-xsmall padding-left-xsmall margin-left-xsmall margin-right-xsmall border-right border-left">PST <strong>[Time]</strong> </span>
-                    <span>UTC <strong>[Time]</strong></span>
-                  </div>
-                </section>
-              </section>
-
-              <aside className="col-quarter padding-top-large padding-left-med padding-right-med center-center">
-                <figure>
-
-                  <div className="dhm-label">
-                    <span className="padding-none padding-right-med border-right">D</span>
-                    <span className="padding-none padding-right-reg padding-left-reg border-none">H</span>
-                    <span className="padding-none padding-left-med  border-left">M</span>
-                  </div>
-
-                  <div className="dhm text-xxlarge">
-                    <span className="">00</span>:<span className="">00</span>:<span className="">00</span>
-                  </div>
-
-                  <figcaption className="padding-top-xxsmall">[MESSAGE TEXT]</figcaption>
-                </figure>
-              </aside>
-            </article>
-
-            <article className="card-xwide sans-serif ">
-
-              <section className="col-3fourth border-right padding-top-xxsmall padding-bottom-small padding-left-med">
-                <header className="padding-bottom-xxsmall">
-                  <h3>
-                    <i className="name icon-large icon-planet" /> [Mission Title]</h3>
-                </header>
-
-                <section className="row-page margin-top-xxsmall margin-bottom-xsmall sans-serif border-bottom border-top padding-none">
-                  <div className="col-third padding-small padding-bottom-xxsmall mission-type">
-                    <p className="text-small">[Mission type]</p>
-                  </div>
-                  <div className="col-third border-left border-right padding-small padding-bottom-xxsmall mission-location">
-                    <p className="icon-small icon-location text-small">[Mission Location]</p>
-                  </div>
-                  <div className="col-third padding-small padding-bottom-xxsmall padding-left-none mission-telescope-name">
-                    <p className="icon-small icon-telescope text-small">[Mission Telescope Name]</p>
-                  </div>
-                </section>
-                <section className="row-xxwide sans-serif">
-                  <div className="date-time">
-                    <span className="margin-right-med icon-small icon-calendar ">[Date]</span>
-                    <span>EST <strong>[Time]</strong></span>
-                    <span className="padding-right-xsmall padding-left-xsmall margin-left-xsmall margin-right-xsmall border-right border-left">PST <strong>[Time]</strong> </span>
-                    <span>UTC <strong>[Time]</strong></span>
-                  </div>
-                </section>
-              </section>
-
-              <aside className="col-quarter padding-top-large padding-left-med padding-right-med center-center">
-                <figure>
-                  <div className="dhm-label">
-                    <span className="padding-none padding-right-med border-right">D</span>
-                    <span className="padding-none padding-right-reg padding-left-reg border-none">H</span>
-                    <span className="padding-none padding-left-med  border-left">M</span>
-                  </div>
-
-                  <div className="dhm text-xxlarge">
-                    <span className="">00</span>:<span className="">00</span>:<span className="">00</span>
-                  </div>
-
-                  <figcaption className="padding-top-xxsmall">[MESSAGE TEXT]</figcaption>
-                </figure>
-              </aside>
-
-            </article>
-
-            <article className="card-xwide sans-serif ">
-
-              <section className="col-3fourth border-right padding-top-xxsmall padding-bottom-small padding-left-med">
-                <header className="padding-bottom-xxsmall">
-                  <h3 className=""><i className="name icon-large icon-science" /> [Mission Title]</h3>
-                </header>
-
-                <section className="row-page margin-top-xxsmall margin-bottom-xsmall sans-serif border-bottom border-top padding-none">
-                  <div className="col-third padding-small padding-bottom-xxsmall mission-type">
-                    <p className="text-small">[Mission type]</p>
-                  </div>
-                  <div className="col-third border-left border-right padding-small padding-bottom-xxsmall mission-location">
-                    <p className="icon-small icon-location text-small">[Mission Location]</p>
-                  </div>
-                  <div className="col-third padding-small padding-bottom-xxsmall padding-left-none mission-telescope-name">
-                    <p className="icon-small icon-telescope text-small">[Mission Telescope Name]</p>
-                  </div>
-                </section>
-                <section className="row-xxwide sans-serif">
-                  <div className="date-time">
-                    <span className="margin-right-med icon-small icon-calendar ">[Date]</span>
-                    <span>EST <strong>[Time]</strong></span>
-                    <span className="padding-right-xsmall padding-left-xsmall margin-left-xsmall margin-right-xsmall border-right border-left">PST <strong>[Time]</strong> </span>
-                    <span>UTC <strong>[Time]</strong></span>
-                  </div>
-                </section>
-              </section>
-
-              <aside className="col-quarter padding-top-large padding-left-med padding-right-med center-center">
-                <figure>
-                  <div className="icon-xxlarge icon-weather" />
-                  <figcaption>[MESSAGE TEXT]</figcaption>
-                </figure>
-              </aside>
-            </article>
-
+            <UsersReservations reservationsList={profile.missionList} refreshAction={fetchDashboard} refreshIntervalSec={refreshIntervalSec} />
             <div className="row-xxwide center-center margin-top-large">
               <Link
                 className="btn-primary center-block"

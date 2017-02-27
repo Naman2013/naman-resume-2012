@@ -1,4 +1,5 @@
 import React, { Component, PropTypes, cloneElement } from 'react';
+import { connect } from 'react-redux';
 import GenericLoadingBox from '../../components/common/loading-screens/generic-loading-box';
 import PulsePopular from '../../components/pulse/sidebar/pulse-popular';
 import PulseRecommended from '../../components/pulse/sidebar/pulse-recommends';
@@ -29,28 +30,36 @@ const list = [
   },
 ];
 
-const list2 = [
-  {
-    headline: 'As featured in the first Outer Limits episode.',
-    icon: 'galaxy',
-    title: 'Andromeda Galaxy (M31)',
-    desc: 'Closest galaxy to the Milky Way. In approx. 4.5 billion years it will collide with the Milky Way, creating a giant elliptical galaxy.',
-    date: 'Thursday, October 18th',
-    time: '10:05pm EST  ·  7:05pm PST  ·  03:05 UTC',
-  }, {
-    headline: 'Don’t miss the red spot!',
-    icon: 'jupiter',
-    title: 'Jupiter',
-    desc: 'The planet Jupiter is fifth out from the Sun, and two and a half times more massive than all the other planets in the solar system combined.',
-    date: 'Thursday, October 18th',
-    time: '10:05pm EST  ·  7:05pm PST  ·  03:05 UTC',
-  },
-];
+const mapStateToProps = ({ latestPosts }) => ({
+  fetchingPopularPosts: latestPosts.fetchingPopularPosts,
+  popularPosts: latestPosts.popularPosts,
+});
 
-const tag = 'The Moon';
-
+@connect(mapStateToProps)
 class PulseWrapper extends Component {
-  componentDidMount() {
+  static propTypes = {
+    fetchingPopularPosts: PropTypes.bool,
+    latestPosts: PropTypes.shape({
+      posts: PropTypes.array,
+      pages: PropTypes.number,
+    }),
+    fetchLatestPosts: PropTypes.func,
+    fetching: PropTypes.bool,
+    children: PropTypes.element.isRequired,
+  }
+
+  static defaultProps = {
+    fetchingPopularPosts: false,
+    latestPosts: {
+      posts: [],
+      pages: null,
+    },
+    fetching: true,
+  }
+
+  constructor(props) {
+    super(props);
+
     const { fetchLatestPosts, childPath } = this.props;
     fetchLatestPosts(childPath, 1);
   }
@@ -70,7 +79,10 @@ class PulseWrapper extends Component {
       fetchLatestPosts,
       formattedObjectIdList,
       showRecommends,
+      popularPosts,
     } = this.props;
+
+    console.log(popularPosts);
 
     return (
       <section className="container clearfix">
@@ -87,6 +99,12 @@ class PulseWrapper extends Component {
         <div className="col-md-4 mission-sidebar">
           <MissionAd />
           {
+            popularPosts.itemList.length > 0 ?
+              <PulsePopular
+                list={popularPosts.itemList}
+              /> : null
+          }
+          {
             showRecommends ?
               <SloohRecommends
                 title="Slooh Recommends These Objects"
@@ -94,32 +112,11 @@ class PulseWrapper extends Component {
                 recommendations={formattedObjectIdList}
               /> : null
           }
-          <PulsePopular list={list} />
-          <PulsePopular tag={tag} list={list} />
-          <PulseRecommended list={list2} />
         </div>
 
       </section>
     );
   }
 }
-
-PulseWrapper.defaultProps = {
-  latestPosts: {
-    posts: [],
-    pages: null,
-  },
-  fetching: true,
-};
-
-PulseWrapper.propTypes = {
-  latestPosts: PropTypes.shape({
-    posts: PropTypes.array,
-    pages: PropTypes.number,
-  }),
-  fetchLatestPosts: PropTypes.func,
-  fetching: PropTypes.bool,
-  children: PropTypes.element.isRequired,
-};
 
 export default PulseWrapper;

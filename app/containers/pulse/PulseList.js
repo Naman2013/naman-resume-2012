@@ -75,7 +75,8 @@ class PulseList extends Component {
       },
     } = this.props;
 
-    const formattedObjectIdList = objectIdList.map(objectId => Number(objectId));
+    const formattedObjectIdList =
+      (objectIdList && objectIdList.map(objectId => Number(objectId))) || [];
 
     return (
       <div className="clearfix pulse">
