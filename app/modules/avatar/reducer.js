@@ -3,10 +3,10 @@ import createReducer from '../utils/createReducer';
 import {
   UPLOAD_AVATAR_START,
   UPLOAD_AVATAR_SUCCESS,
-  UPLOAD_AVATAR_FAIL,
+  UPLOAD_AVATAR_FAILURE,
   SET_AVATAR_START,
   SET_AVATAR_SUCCESS,
-  SET_AVATAR_FAIL,
+  SET_AVATAR_FAILURE,
   CLEAR_AVATAR_DATA,
 } from './actions';
 
@@ -15,6 +15,7 @@ const initialState = {
   error: false,
   setAvatarError: false,
   loading: false,
+  uploadError: false,
   oldAvatarType: '',
   oldAvatarURL: '',
   imagesAdded: '',
@@ -30,6 +31,7 @@ export default createReducer(initialState, {
       error: false,
       avatarUploaded: false,
       loading: true,
+      uploadError: false,
       setAvatarError: false,
     };
   },
@@ -56,12 +58,13 @@ export default createReducer(initialState, {
       loading: false,
     };
   },
-  [UPLOAD_AVATAR_FAIL](state, { payload }) {
+  [UPLOAD_AVATAR_FAILURE](state, { payload }) {
     return {
       ...state,
       error: true,
       avatarUploaded: false,
       loading: false,
+      uploadError: true,
     };
   },
   [SET_AVATAR_START](state) {
@@ -81,7 +84,7 @@ export default createReducer(initialState, {
       imageURL,
     };
   },
-  [SET_AVATAR_FAIL](state, { payload }) {
+  [SET_AVATAR_FAILURE](state, { payload }) {
     return {
       ...state,
       setAvatarError: true,

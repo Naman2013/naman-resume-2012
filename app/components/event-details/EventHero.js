@@ -27,7 +27,7 @@ function EventHero({ eventContent }) {
         </h3>
       </article>
 
-      {sponsorInfo.SponsorFlag &&
+      {!!sponsorInfo.SponsorFlag &&
         <div className={s.sponsorBy}>Sponsored By:
           <a href={sponsorInfo.SponsorLinkURL} target="_blank">
             <img src={sponsorInfo.SponsorLogoURL} className={s.sponsorLogo} />

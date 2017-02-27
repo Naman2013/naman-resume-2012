@@ -6,6 +6,10 @@ import {
   FETCH_POST_FAIL,
   FETCH_PAGE_META_START,
   FETCH_PAGE_META_SUCCESS,
+  FETCH_POPULAR_POSTS_START,
+  FETCH_POPULAR_POSTS_SUCCESS,
+  FETCH_MORE_ABOUT_OBJECT_START,
+  FETCH_MORE_ABOUT_OBJECT_SUCCESS,
 } from './get-post-action';
 
 const initialState = {
@@ -20,9 +24,49 @@ const initialState = {
     showCreateNewPostButton: false,
   },
   fetchingPageMeta: false,
+  fetchingPopularPosts: false,
+  popularPosts: {
+    itemList: [],
+  },
+  fetchingMoreAboutObject: false,
+  moreAboutObject: {
+    itemList: [],
+  },
 };
 
 export default createReducer(initialState, {
+  [FETCH_MORE_ABOUT_OBJECT_START](state) {
+    return {
+      ...state,
+      fetchingMoreAboutObject: true,
+      moreAboutObject: {
+        itemList: [],
+      },
+    };
+  },
+  [FETCH_MORE_ABOUT_OBJECT_SUCCESS](state, { payload }) {
+    return {
+      ...state,
+      fetchingMoreAboutObject: false,
+      moreAboutObject: payload,
+    };
+  },
+  [FETCH_POPULAR_POSTS_START](state) {
+    return {
+      ...state,
+      fetchingPopularPosts: true,
+      popularPosts: {
+        itemList: [],
+      },
+    };
+  },
+  [FETCH_POPULAR_POSTS_SUCCESS](state, { payload }) {
+    return {
+      ...state,
+      fetchingPopularPosts: false,
+      popularPosts: payload,
+    };
+  },
   [FETCH_PAGE_META_START](state) {
     return {
       ...state,
@@ -41,7 +85,8 @@ export default createReducer(initialState, {
       ...state,
       post: {},
       error: {},
-      fetching: true
+      fetching: true,
+      failed: false,
     };
   },
   [FETCH_POST_SUCCESS](state, { payload }) {
@@ -49,7 +94,8 @@ export default createReducer(initialState, {
       ...state,
       post: payload.posts[0],
       error: {},
-      fetching: false
+      fetching: false,
+      failed: false,
     };
   },
   [FETCH_POST_FAIL](state, { payload }) {
@@ -57,7 +103,8 @@ export default createReducer(initialState, {
       ...state,
       post: {},
       error: payload,
-      fetching: false
+      fetching: false,
+      failed: true,
     };
   },
 });

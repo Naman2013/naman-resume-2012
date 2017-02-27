@@ -47,7 +47,8 @@ class ChangeAvatarModal extends Component {
 
   render() { // always show Modal, and rely on parent to show/hide modal so component unmounts on close
     const { uploadAvatar, saveAvatar } = this;
-    const { closeModal, loading, imageURL, setAvatarError } = this.props;
+    const { closeModal, loading, imageURL, setAvatarError, uploadError } = this.props;
+    const showGenericError = setAvatarError || uploadError;
     return (
       <Modal show>
         <div className={s.ChangeAvatarModal}>
@@ -57,8 +58,8 @@ class ChangeAvatarModal extends Component {
               Choose a JPEG, GIF, or PNG (max 100kB)
             </div>
             {(!loading && imageURL) && <div style={{ backgroundImage: `url(${imageURL})` }} className={s.profilePic} />}
-            {loading && <GenericLoadingBox />}
-            {setAvatarError &&
+            {(loading && !showGenericError) && <GenericLoadingBox />}
+            {showGenericError &&
               <div>There was an issue uploading your avatar. Please try again.</div>
             }
           </section>
@@ -97,6 +98,7 @@ ChangeAvatarModal.propTypes = {
   clearAvatarData: func.isRequired,
   setAvatar: func.isRequired,
   uploadAvatar: func.isRequired,
+  uploadError: bool,
 };
 
 const mapStateToProps = ({ avatar, user }) => ({

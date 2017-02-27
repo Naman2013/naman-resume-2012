@@ -3,37 +3,10 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import GenericLoadingBox from '../../components/common/loading-screens/generic-loading-box';
 import PulsePopular from '../../components/pulse/sidebar/pulse-popular';
-import PulseRecommended from '../../components/pulse/sidebar/pulse-recommends';
 import SloohRecommends from '../../components/common/recommendations/SloohRecommends';
 import CommunityPostHeader from '../../components/community/community-post-header';
 import MissionAd from '../../components/missions/mission-ad';
 import { fetchPost } from '../../modules/pulse/get-post-action';
-
-const list = [
-  {
-    label: "A Painting Inspired by the possibility of life on Europa",
-    link: "#",
-    type: "ART_CULTURE",
-  }, {
-    label: "New Comet Discovered by Slooh Members",
-    link: "#",
-    type: "SCIENCE_LOG",
-  }, {
-    label: "My image of the M12 Globular Cluster taken from the Canary Islands",
-    link: "#",
-    type: "DIY",
-  }, {
-    label: "My Horoscope Changed! Who Am I Now?",
-    link: "#",
-    type: "HUMAN_SPIRIT",
-  }, {
-    label: "Image of Jupiter Moon transit",
-    link: "#",
-    type: "SCIENCE_LOG",
-  },
-];
-
-const tag = 'The Moon';
 
 function mapStateToProps({ post }, ownProps) {
   return {
@@ -52,15 +25,32 @@ function mapDispatchToProps(dispatch) {
 
 @connect(mapStateToProps, mapDispatchToProps)
 class PulsePost extends Component {
+  static propTypes = {
+    children: PropTypes.element.isRequired,
+  }
+
   constructor(props) {
     super(props);
     props.actions.fetchPost(this.props.id);
   }
 
+  componentWillReceiveProps(nextProps) {
+    const previousPostID = this.props.id;
+    const nextPostID = nextProps.id;
+    if (previousPostID !== nextPostID) {
+      this.props.actions.fetchPost(nextPostID);
+    }
+  }
+
   render() {
     const {
+      fetchingPopularPosts,
+      popularPosts,
+      fetchingMoreAboutObject,
+      moreAboutObject,
       post,
       fetching,
+      failed,
       children,
       pageMeta: {
         headerIconURL,
@@ -78,20 +68,24 @@ class PulsePost extends Component {
 
         <CommunityPostHeader
           titleText={headerObjectTitle}
+          errorOccurred={failed}
           objectIconURL={headerIconURL}
           showCreateNewPostButton={showCreateNewPostButton}
         />
 
         <section className="container clearfix">
-
           <div className="col-md-8 nopadding">
             {
-              fetching ? <GenericLoadingBox /> :
-
-              cloneElement(children, {
-                post,
-              })
-
+              fetching ? <GenericLoadingBox /> : null
+            }
+            {
+              !fetching && !failed ?
+                cloneElement(children, {
+                  post,
+                }) : null
+            }
+            {
+              !fetching && failed ? <GenericLoadingBox text="This post is not available." /> : null
             }
           </div>
 
@@ -106,18 +100,26 @@ class PulsePost extends Component {
                 /> : null
             }
 
-            <PulsePopular list={list} />
-            <PulsePopular tag={tag} list={list} />
+            {
+              moreAboutObject.itemList.length > 0 ?
+                <PulsePopular
+                  tag={headerObjectTitle}
+                  list={moreAboutObject.itemList}
+                /> : null
+            }
+
+            {
+              popularPosts.itemList.length > 0 ?
+                <PulsePopular
+                  list={popularPosts.itemList}
+                /> : null
+            }
           </aside>
 
         </section>
       </div>
-    )
+    );
   }
 }
 
 export default PulsePost;
-
-PulsePost.propTypes = {
-  children: PropTypes.element.isRequired
-};

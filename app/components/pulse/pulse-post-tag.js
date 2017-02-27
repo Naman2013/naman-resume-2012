@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
+import { uniqueId } from 'lodash';
 import styles from './style/pulse-post-tag.scss';
 
 const PulsePostTag = ({ tags }) =>
@@ -8,7 +9,7 @@ const PulsePostTag = ({ tags }) =>
     <span>Tags: </span>
     {
       tags.map(tag =>
-        <div key={tag.id} className={styles.PulsePostTag}>
+        <div key={uniqueId()} className={styles.PulsePostTag}>
           <Link to="#">{tag}</Link>
         </div>
       )

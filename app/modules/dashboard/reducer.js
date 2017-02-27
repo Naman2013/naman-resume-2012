@@ -10,6 +10,9 @@ import {
 } from '../avatar/actions';
 
 const initialState = {
+  refreshIntervalSec: 300,
+  profile: {},
+  error: false,
 };
 
 export default createReducer(initialState, {

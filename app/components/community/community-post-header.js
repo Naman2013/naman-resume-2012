@@ -3,15 +3,14 @@ import { Link } from 'react-router';
 import s from './style/community-header-banner.scss';
 
 
-const CommunityPostHeader = ({ titleText, objectIconURL, showCreateNewPostButton }) =>
+const CommunityPostHeader = ({ titleText, objectIconURL, showCreateNewPostButton, errorOccurred }) =>
   <div className={s.communityPostHeader}>
 
     <div className="title">
       {
-        objectIconURL ? <img alt="Object icon" src={objectIconURL} height="55" /> : null
-
+        (objectIconURL && !errorOccurred) ? <img alt="Object icon" src={objectIconURL} height="55" /> : null
       }
-      <h1>{titleText}</h1>
+      <h1>{!errorOccurred ? titleText : ''}</h1>
     </div>
 
     <div className="additional">
@@ -26,12 +25,14 @@ const CommunityPostHeader = ({ titleText, objectIconURL, showCreateNewPostButton
   </div>;
 
 CommunityPostHeader.propTypes = {
+  errorOccurred: PropTypes.bool,
   titleText: PropTypes.string.isRequired,
   objectIconURL: PropTypes.string.isRequired,
   showCreateNewPostButton: PropTypes.bool,
 };
 
 CommunityPostHeader.defaultProps = {
+  errorOccurred: false,
   showCreateNewPostButton: false,
 };
 

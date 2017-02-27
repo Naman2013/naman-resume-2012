@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import EventHero from '../../components/event-details/EventHero';
 import EventDescription from '../../components/event-details/EventDescription';
 import AnnouncementBanner from '../../components/common/announcement-banner/announcement-banner';
+import GenericLoadingBox from '../../components/common/loading-screens/generic-loading-box';
 import EventHosts from '../../components/event-details/EventHosts';
 import MoreAboutObject from '../../components/common/MoreAboutObject/MoreAboutObject';
 import PulseRecommended from '../../components/pulse/sidebar/pulse-recommends';
@@ -20,28 +21,42 @@ class EventDetails extends Component {
     });
   }
 
+  componentWillReceiveProps(nextProps) {
+    const { fetchEventInfo, routeParams: { showId } } = this.props;
+    const { routeParams: { showId: nextShowId } } = nextProps;
+
+    if (showId !== nextShowId) {
+      fetchEventInfo({
+        showId: nextShowId
+      });
+    }
+  }
+
   render() {
-    const { eventContent, likeEvent, routeParams: { showId } } = this.props;
+    const { eventContent, likeEvent, routeParams: { showId }, fetching } = this.props;
     return (
       <div className={s.eventDetailsRoot}>
-        <AnnouncementBanner />
-        <EventHero eventContent={eventContent} />
-        <section className="row">
-          <section className="col-md-8">
-            <EventDescription
-              eventContent={eventContent}
-              likeEvent={likeEvent}
-              showId={showId}
-            />
-            <EventHosts hosts={eventContent.hosts} />
+        {fetching && <GenericLoadingBox />}
+        {!fetching && <div>
+          <AnnouncementBanner />
+          <EventHero eventContent={eventContent} />
+          <section className="row">
+            <section className="col-md-8">
+              <EventDescription
+                eventContent={eventContent}
+                likeEvent={likeEvent}
+                showId={showId}
+              />
+              <EventHosts hosts={eventContent.hosts} />
+            </section>
+            <aside className="col-md-4">
+              {/* eventContent.hasReserve && <PulseRecommended /> */}
+              {eventContent.hasMoreAbout && <MoreAboutObject
+                slugLookupId={eventContent.moreAbout}
+              />}
+            </aside>
           </section>
-          <aside className="col-md-4">
-            {/* eventContent.hasReserve && <PulseRecommended /> */}
-            {eventContent.hasMoreAbout && <MoreAboutObject
-              slugLookupId={eventContent.moreAbout}
-            />}
-          </aside>
-        </section>
+        </div>}
       </div>
     );
   }
