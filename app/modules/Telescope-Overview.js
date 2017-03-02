@@ -11,57 +11,40 @@ const OBSERVATORY_STATUS_FAIL = 'OBSERVATORY_STATUS_FAIL';
 const MOON_PHASE_WIDGET_SUCCESS = 'MOON_PHASE_WIDGET_SUCCESS';
 const SATELLITE_VIEW_WIDGET_SUCCESS = 'SATELLITE_VIEW_WIDGET_SUCCESS';
 
-const initialState = {
-  // list of available observatories
-  observatoryList: [],
-  observatoryListError: null,
-  // status of various telescopes depends on having a list of observatories..
-  observatoryTelecopeStatus: null,
-  moonPhaseWidgetResult: null,
-  satelliteViewWidgetResult: null,
-};
-
-export const getCurrentObservatory = (observatoryList, observatoryId) => {
-  return observatoryList
-    .find(observatory => observatory.obsUniqueId === observatoryId);
+export const getCurrentObservatory = (observatoryList = [], observatoryId) => {
+  return observatoryList.find(observatory => observatory.obsUniqueId === observatoryId);
 }
-
 const getCurrentTimeInSeconds = () => new Date().getTime() / 1000;
 
 export const getObservatoryList = (currentObservatoryId) => (dispatch, getState) => {
     // TODO: dispatch loading...
   const { token, at, cid } = getState().user;
 
-    if(!token || !at || !cid) {
-      dispatch(push('/?redirect=not-logged-in'));
-    } else {
-      return axios.post('/api/obs/list', {
-        at,
-        cid,
-        token,
-        lang: 'en',
-        status: 'live',
-        listType: 'full'
-      })
-      .then((response) => {
-        const { observatoryList } = response.data;
-        const currentObservatory = getCurrentObservatory(observatoryList, currentObservatoryId);
+  return axios.post('/api/obs/list', {
+    at,
+    cid,
+    token,
+    lang: 'en',
+    status: 'live',
+    listType: 'full'
+  })
+  .then((response) => {
+    const { observatoryList } = response.data;
+    const currentObservatory = getCurrentObservatory(observatoryList, currentObservatoryId);
 
-        dispatch(observatoryListSuccess(observatoryList));
-        dispatch(fetchAllWidgetsByObservatory(currentObservatory));
-
-        // if we have an observatory to work with, then call for the telescope availability now
-        if(currentObservatory) {
-          const { obsId } = currentObservatory;
-          dispatch(fetchObservatoryTelescopeStatus(obsId));
-        }
-      })
-      .catch(error => {
-        dispatch(observatoryListError(error));
-        throw error;
-      });
+    // if we have an observatory to work with, then call for the telescope availability now
+    if (currentObservatory) {
+      const { obsId } = currentObservatory;
+      dispatch(observatoryListSuccess(response.data));
+      dispatch(fetchAllWidgetsByObservatory(currentObservatory));
+      dispatch(fetchObservatoryTelescopeStatus(obsId));
     }
-  };
+  })
+  .catch(error => {
+    dispatch(observatoryListError(error));
+    throw error;
+  });
+};
 
 
 export const fetchObservatoryTelescopeStatus = (obsId) => (dispatch) => {
@@ -89,7 +72,7 @@ export const fetchAllWidgetsByObservatory = (observatory) => (dispatch) => {
 
 export const observatoryListSuccess = (observatoryList) => ({
   type: OBSERVATORY_REQUEST_SUCCESS,
-  observatoryList,
+  payload: observatoryList,
 });
 
 
@@ -98,69 +81,78 @@ export const observatoryListError = (error) => ({
   observatoryListError: error,
 });
 
-
-
-const fetchMoonPhase = ( observatory ) => ( dispatch, getState ) => {
+const fetchMoonPhase = observatory => (dispatch, getState) => {
   const { token, at, cid } = getState().user;
-
-  return axios.post('/api/moon/phase', {
-    token,
-    at,
-    cid,
-    ver: 'v1',
-    lang: 'en',
-    obsId: observatory.obsId,
-    widgetUniqueId: observatory.MoonPhaseWidgetId,
-    timestamp: getCurrentTimeInSeconds(),
-  })
-  .then(result => dispatch( setMoonPhaseWidget(result.data) ) );
+  if (observatory) {
+    return axios.post('/api/moon/phase', {
+      token,
+      at,
+      cid,
+      ver: 'v1',
+      lang: 'en',
+      obsId: observatory.obsId,
+      widgetUniqueId: observatory.MoonPhaseWidgetId,
+      timestamp: getCurrentTimeInSeconds(),
+    })
+    .then(result => dispatch( setMoonPhaseWidget(result.data) ) );
+  }
 };
-
-
 
 const fetchSmallSatelliteView = ( observatory ) => ( dispatch, getState ) => {
   const { token, at, cid } = getState().user;
-
-  return axios.post('/api/wx/satellite', {
-    token,
-    at,
-    cid,
-    ver: 'v1',
-    lang: 'en',
-    obsId: observatory.obsId,
-    widgetUniqueId: observatory.SatelliteWidgetId,
-    timestamp: getCurrentTimeInSeconds(),
-  })
-  .then(result => dispatch(setSatelliteViewWidget(result.data)));
+  if (observatory) {
+    return axios.post('/api/wx/satellite', {
+      token,
+      at,
+      cid,
+      ver: 'v1',
+      lang: 'en',
+      obsId: observatory.obsId,
+      widgetUniqueId: observatory.SatelliteWidgetId,
+      timestamp: getCurrentTimeInSeconds(),
+    })
+    .then(result => dispatch(setSatelliteViewWidget(result.data)));
+  }
 };
 
-
-
-const setMoonPhaseWidget = ( moonPhaseWidgetResult ) => ({
+const setMoonPhaseWidget = moonPhaseWidgetResult => ({
   type: MOON_PHASE_WIDGET_SUCCESS,
-  moonPhaseWidgetResult
-})
+  moonPhaseWidgetResult,
+});
 
-
-
-export const setSatelliteViewWidget = ( satelliteViewWidgetResult ) => ({
+export const setSatelliteViewWidget = satelliteViewWidgetResult => ({
   type: SATELLITE_VIEW_WIDGET_SUCCESS,
-  satelliteViewWidgetResult
+  satelliteViewWidgetResult,
 });
 
 
+const initialState = {
+  // list of available observatories
+  observatoryList: {
+    apiError: false,
+    errorCode: 0,
+    statusCode: 0,
+    errorMsg: '',
+    observatoryList: [],
+  },
+  observatoryListErrorBody: null,
+  // status of various telescopes depends on having a list of observatories..
+  observatoryTelecopeStatus: null,
+  moonPhaseWidgetResult: null,
+  satelliteViewWidgetResult: null,
+};
 
 export default createReducer(initialState, {
-  [OBSERVATORY_REQUEST_SUCCESS](state, { observatoryList }) {
+  [OBSERVATORY_REQUEST_SUCCESS](state, { payload }) {
     return {
       ...state,
-      observatoryList: observatoryList,
+      observatoryList: payload,
     };
   },
-  [OBSERVATORY_REQUEST_FAIL](state, {observatoryListError}) {
+  [OBSERVATORY_REQUEST_FAIL](state, { observatoryListErrorBody }) {
     return {
       ...state,
-      observatoryListError,
+      observatoryListErrorBody,
     };
   },
   [OBSERVATORY_STATUS_SUCCESS](state, { observatoryTelecopeStatus }) {
@@ -186,5 +178,5 @@ export default createReducer(initialState, {
       ...state,
       satelliteViewWidgetResult,
     };
-  }
+  },
 });

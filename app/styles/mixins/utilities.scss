@@ -138,6 +138,7 @@
 }
 
 @mixin profilePicture {
+  @include background-image-cover;
   border: 10px solid $white;
   border-radius: 50% 50%;
   box-shadow: 0 0 10px rgba($slooh-black, .5), inset 0 0 10px rgba($slooh-black, .5);

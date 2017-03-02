@@ -56,8 +56,11 @@ export function checkUser(pathname, replace, callback) {
       dispatch(store(user));
       callback();
     } else {
-      const { shouldRedirect } = validateUserPath(pathname);
-      if (shouldRedirect) {
+      // const { shouldRedirect } = validateUserPath(pathname);
+      // if (shouldRedirect) {
+      //   replace('/registration/sign-in');
+      // }
+      if (pathname !== '/registration/sign-in') {
         replace('/registration/sign-in');
       }
       callback();

@@ -17,7 +17,7 @@ const MINIMUM_TELESCOPE_REFRESH_RATE = 0;
 
 function mapStateToProps(state, ownProps) {
   return {
-    observatoryList: state.telescopeOverview.observatoryList,
+    observatoryList: state.telescopeOverview.observatoryList.observatoryList,
     currentObservatoryId: ownProps.params.observatoryId,
     moonPhaseWidgetResult: state.telescopeOverview.moonPhaseWidgetResult,
     satelliteViewWidgetResult: state.telescopeOverview.satelliteViewWidgetResult,
@@ -78,6 +78,7 @@ class TelescopeOverview extends Component {
 
   render() {
     const { observatoryList, currentObservatoryId } = this.props;
+
     const currentObservatory =
       getCurrentObservatory(observatoryList, currentObservatoryId);
 

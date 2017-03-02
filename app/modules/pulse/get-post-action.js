@@ -23,7 +23,7 @@ const fetchMoreAboutObjectSuccess = payload => ({
   payload,
 });
 
-const fetchMoreAboutObject = ({ slugLookupId, ignorePostId }) => (dispatch) => {
+export const fetchMoreAboutObject = ({ slugLookupId, ignorePostId = 1 }) => (dispatch) => {
   dispatch(fetchMoreAboutObjectStart());
   return getFeaturedContent({
     featuredType: 'moreAbout',

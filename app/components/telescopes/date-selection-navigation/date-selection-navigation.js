@@ -124,6 +124,10 @@ class DateSelectionNavigation extends Component {
       return null;
     }
 
+    if (dateRangeResponse.apiError) {
+      return null;
+    }
+
     const { lastRefreshed } = this.state;
 
     const {

@@ -1,4 +1,6 @@
 import axios from 'axios';
+import _ from 'lodash';
+import { fetchMoreAboutObject } from '../pulse/get-post-action';
 
 export const FETCH_EVENT_INFO_START = 'FETCH_EVENT_INFO_START';
 export const FETCH_EVENT_INFO_SUCCESS = 'FETCH_EVENT_INFO_SUCCESS';
@@ -36,7 +38,12 @@ export const fetchEventInfo = ({
     ver,
     showId,
   })
-  .then(result => dispatch(fetchEventInfoSuccess(result.data)))
+  .then((result) => {
+    dispatch(fetchEventInfoSuccess(result.data));
+    dispatch(fetchMoreAboutObject({
+      slugLookupId: _.get(result, 'data.moreAbout'),
+    }));
+  })
   .catch(error => dispatch(fetchEventInfoFail(error)));
 };
 

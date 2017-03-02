@@ -6,8 +6,8 @@ import EventDescription from '../../components/event-details/EventDescription';
 import AnnouncementBanner from '../../components/common/announcement-banner/announcement-banner';
 import GenericLoadingBox from '../../components/common/loading-screens/generic-loading-box';
 import EventHosts from '../../components/event-details/EventHosts';
-import MoreAboutObject from '../../components/common/MoreAboutObject/MoreAboutObject';
 import PulseRecommended from '../../components/pulse/sidebar/pulse-recommends';
+import PulsePopular from '../../components/pulse/sidebar/pulse-popular';
 import s from './EventDetails.scss';
 import * as eventInfoActions from '../../modules/event-info/actions';
 
@@ -33,7 +33,7 @@ class EventDetails extends Component {
   }
 
   render() {
-    const { eventContent, likeEvent, routeParams: { showId }, fetching } = this.props;
+    const { eventContent, likeEvent, routeParams: { showId }, fetching, moreAboutObject } = this.props;
     return (
       <div className={s.eventDetailsRoot}>
         {fetching && <GenericLoadingBox />}
@@ -51,9 +51,16 @@ class EventDetails extends Component {
             </section>
             <aside className="col-md-4">
               {/* eventContent.hasReserve && <PulseRecommended /> */}
-              {eventContent.hasMoreAbout && <MoreAboutObject
-                slugLookupId={eventContent.moreAbout}
-              />}
+              {(eventContent.hasMoreAbout &&
+                moreAboutObject.itemList.length > 0) &&
+                  <PulsePopular
+                    tag={moreAboutObject.sectionObjectTitle}
+                    list={moreAboutObject.itemList}
+                    subtitle={moreAboutObject.sectionSubtitle}
+                    title={moreAboutObject.sectionTitle}
+                    slugLookupId={eventContent.moreAbout}
+                  />
+              }
             </aside>
           </section>
         </div>}
@@ -68,8 +75,9 @@ EventDetails.propTypes = {
   likeEvent: func.isRequired,
 };
 
-const mapStateToProps = ({ eventInfo }) => ({
+const mapStateToProps = ({ eventInfo, post }) => ({
   ...eventInfo,
+  moreAboutObject: post.moreAboutObject,
 });
 const mapDispatchToProps = dispatch => (bindActionCreators(eventInfoActions, dispatch));
 

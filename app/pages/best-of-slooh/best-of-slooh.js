@@ -42,7 +42,18 @@ class BestOfSlooh extends Component {
         </div>
 
         {
-          fetching ? <GenericLoadingBox /> : bestPosts.map(post => <BlogPostTile key={post.postId} {...post} />)
+          fetching ?
+            <GenericLoadingBox /> : null
+        }
+
+        {
+          (!fetching && bestPosts) ?
+            bestPosts.map(post => <BlogPostTile key={post.postId} {...post} />) : null
+        }
+
+        {
+          (!fetching && !bestPosts) ?
+            <GenericLoadingBox text="No posts available." /> : null
         }
 
       </div>

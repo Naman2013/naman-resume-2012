@@ -1,34 +1,57 @@
 import React, { PropTypes } from 'react';
-import { Link } from 'react-router';
 import { uniqueId } from 'lodash';
 import s from './AccountEnhancements.scss';
 
-const AccountEnhancements = ({ featuresList }) => (
+const AccountEnhancements = ({
+  titleLineOne,
+  titleLineTwo,
+  upgradeButtonPrompt,
+  upgradeAccountLinkURL,
+  featureList,
+  suggestedTier,
+  suggestedTierPricing,
+  featureListTitle,
+  infoIconURL,
+}) => (
   <div className={s.accountEnhancementsRoot}>
     <div className={s.accountTypeContainer}>
-      <h3 className={s.title}>To view this content you must be signed-in as an</h3>
+      <h3 className={s.title}>
+        {titleLineOne} <br /> {titleLineTwo}
+      </h3>
       <div className={s.accountIcon}>
-        <img className={s.icon} alt="Astronaut icon" src="../assets/icons/astronaut.svg" width="70%" />
+        <img className={s.icon} alt="" src={suggestedTier.tierIconURL} height="48" />
       </div>
-      <p className={s.accountName}>Apprentice</p>
+      <p className={s.accountName}>{suggestedTier.tierName}</p>
       <div className={s.price}>
-        <sup>$</sup>4.95
+        <sup>$</sup>{suggestedTierPricing.price}
       </div>
       <div className={s.priceSubtext}>
-        Monthly | USD
+        {suggestedTierPricing.priceDescription1}<br />
+      {suggestedTierPricing.priceDescription2}<br />
+    {suggestedTierPricing.priceDescription3}
       </div>
       <div className={s.callToAction}>
-        <Link to="btn-primary continue bottom-left margin-top-xxlarge">
-          Upgrade Now
-        </Link>
+        <a
+          className="btn-primary"
+          href={upgradeAccountLinkURL}
+        >
+          {upgradeButtonPrompt}
+        </a>
       </div>
     </div>
 
     <div className={s.topicList}>
-      <h3 className={s.title}>What You Get:</h3>
+      <h3 className={s.title}>
+        <img className={s.titleIcon} alt="" height="20" src={infoIconURL} /> {featureListTitle}
+      </h3>
       <ul className={s.upgradeList}>
         {
-          featuresList.map(feature => <li key={uniqueId()} className={s.upgradeItem}>{feature}</li>)
+          featureList.map(
+            feature =>
+              <li key={uniqueId()} className={s.upgradeItem}>
+                {feature.featureText}
+              </li>
+          )
         }
       </ul>
     </div>
@@ -40,7 +63,27 @@ AccountEnhancements.defaultProps = {
 };
 
 AccountEnhancements.propTypes = {
-  featuresList: PropTypes.arrayOf(PropTypes.string.isRequired),
+  upgradeButtonPrompt: PropTypes.string.isRequired,
+  upgradeAccountLinkURL: PropTypes.string.isRequired,
+  suggestedTier: PropTypes.shape({
+    tierIconURL: PropTypes.string.isRequired,
+    tierName: PropTypes.string.isRequired,
+  }).isRequired,
+  suggestedTierPricing: PropTypes.shape({
+    price: PropTypes.string.isRequired,
+    priceDescription1: PropTypes.string.isRequired,
+    priceDescription2: PropTypes.string.isRequired,
+    priceDescription3: PropTypes.string.isRequired,
+  }).isRequired,
+  titleLineOne: PropTypes.string.isRequired,
+  titleLineTwo: PropTypes.string.isRequired,
+  featureListTitle: PropTypes.string.isRequired,
+  infoIconURL: PropTypes.string.isRequired,
+  featureList: PropTypes.arrayOf(PropTypes.shape({
+    featureText: PropTypes.string.isRequired,
+    infoText: PropTypes.string.isRequired,
+    strikeout: PropTypes.string.isRequired,
+  })).isRequired,
 };
 
 export default AccountEnhancements;

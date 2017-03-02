@@ -14,7 +14,7 @@
 
   .profilePicture {
     @include profilePicture;
-    background: $slooh-blue-xxlight url('../../../../assets/icons/astronaut-white.svg') no-repeat top center;
+    background-image: $slooh-blue-xxlight url('../../../../assets/icons/astronaut-white.svg');
   }
 
   .changeAvatar {

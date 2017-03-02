@@ -1,9 +1,9 @@
 import _ from 'lodash';
 import createReducer from '../utils/createReducer';
 import {
-  FETCH_FEATURED_START,
-  FETCH_FEATURED_SUCCESS,
-  FETCH_FEATURED_FAIL,
+  OTHER_FEATURED_OBJECTS_START,
+  OTHER_FEATURED_OBJECTS_SUCCESS,
+  OTHER_FEATURED_OBJECTS_FAIL,
 } from './actions';
 
 const initialState = {
@@ -17,12 +17,12 @@ const initialState = {
 };
 
 export default createReducer(initialState, {
-  [FETCH_FEATURED_START](state) {
+  [OTHER_FEATURED_OBJECTS_START](state) {
     return {
       ...state,
     };
   },
-  [FETCH_FEATURED_SUCCESS](state, { payload }) {
+  [OTHER_FEATURED_OBJECTS_SUCCESS](state, { payload }) {
     const { sectionObjectTitle, sectionTitle, sectionSubtitle, itemList } = payload;
     return {
       ...state,
@@ -35,7 +35,7 @@ export default createReducer(initialState, {
       fetching: false,
     };
   },
-  [FETCH_FEATURED_FAIL](state, { payload }) {
+  [OTHER_FEATURED_OBJECTS_FAIL](state, { payload }) {
     const { errorMsg } = payload;
     return {
       ...state,

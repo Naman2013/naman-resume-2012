@@ -24,11 +24,13 @@ export const fetchShowContent = ({
 }) => (dispatch, getState) => {
   const { cid } = getState().user;
   dispatch(fetchContentStart());
-  return axios.post('/api/content/getShowContent', {
-    cid,
-    showId,
-    listType,
-  })
-  .then(result => dispatch(fetchContentSuccess(result.data)))
-  .catch(error => dispatch(fetchContentFailure(error)));
+  if (showId) {
+    return axios.post('/api/content/getShowContent', {
+      cid,
+      showId,
+      listType,
+    })
+    .then(result => dispatch(fetchContentSuccess(result.data)))
+    .catch(error => dispatch(fetchContentFailure(error)));
+  }
 };

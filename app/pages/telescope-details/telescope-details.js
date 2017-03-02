@@ -45,9 +45,10 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps({ missions, telescopeOverview, activeTelescopeMissions, communityObjectContent }) {
   const { observatoryList, observatoryTelecopeStatus } = telescopeOverview;
+
   return {
     missions,
-    observatoryList,
+    observatoryList: observatoryList.observatoryList,
     observatoryTelecopeStatus,
     cardList: missions.cardList || [],
     activeTelescopeMissions,

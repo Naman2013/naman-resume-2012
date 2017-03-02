@@ -7,6 +7,8 @@ import Header from './common/header';
 import HeadshotAccountDetail from './common/HeadshotAccountDetail';
 import ReservationsLimit from '../../components/profile/ReservationsLimit';
 import UsersReservations from '../../components/profile/UsersReservations';
+import MembershipUpsell from '../../components/profile/MembershipUpsell';
+import s from './Profile.scss';
 
 const { func } = PropTypes;
 
@@ -19,8 +21,7 @@ class Profile extends Component {
   render() {
     const { profile, fetchDashboard, refreshIntervalSec } = this.props;
     return (
-      <div className="settings profile">
-
+      <div className={s.ProfileDashboard}>
         <Header
           headerCopy={`Dashboard for ${profile.memberName} (${profile.displayName})`}
           subHeaderCopy={`Member Since ${profile.memberSinceMDY}`}
@@ -32,7 +33,6 @@ class Profile extends Component {
         />
 
         <ReservationsLimit />
-
         <article>
           <section className="missions">
             <h2 className="center margin-top-reg margin-bottom-large">Recent &amp; Upcoming Missions</h2>
@@ -47,39 +47,12 @@ class Profile extends Component {
             </div>
           </section>
 
-          <aside className="interstital padding-top-xsmall padding-bottom-med margin-top-xlarge margin-bottom-small white sans-serif">
+          <section className="interstital padding-top-xsmall padding-bottom-med margin-top-xlarge margin-bottom-small white sans-serif">
+            <MembershipUpsell upsellDetails={profile.upsellDetails} />
+          </section>
+        </article>
 
-            <article className="row-page padding-top-large center-block">
-              <div className="col-2third">
-                <i className="spotlight-icon icon-large icon-galaxy pull-left" />
-                <div className="pull-left margin-left-small" style={{ width: '490px' }}>
-                  <h2 className="white">Consider an Astronmer upgrade</h2>
-                  <p>
-                    Vestibulum rutrum quam vitae fringilla tincidunt. Suspendisse
-                    nec urnat laoreet sodales nisi, quis iaculis nulla iaculis vitao
-                    ewagittis.
-                  </p>
-                </div>
-              </div>
-
-              <div className="col-third text-center white">
-                <div className="pull-left">
-                  <div className="text-large price margin-botttom-none padding-bottom-tiny">
-                    <sup>$</sup>24.95
-                  </div>
-                  <div>Monthly | USD</div>
-                </div>
-                <Link
-                  className="btn-primary pull-right margin-top-xsmall"
-                  to=""
-                >
-                  Level Up Now!
-              </Link>
-              </div>
-            </article>
-          </aside>
-
-          <section className="recent-pictures row-xxwide">
+          {/*<section className="recent-pictures row-xxwide">
 
             <h2 className="center margin-top-large margin-bottom-large ">Recent Pictures</h2>
             <article>
@@ -109,7 +82,7 @@ class Profile extends Component {
                   Go To My Pictures
               </Link>
             </div>
-          </section>
+          </section>*/}
 
           {
               /**
@@ -174,32 +147,70 @@ class Profile extends Component {
                       </aside>
 
                       <section className="col-3fourth border-left">
+                        <div className="row-full padding-small padding-right-none">
+                            <i className="name icon-large icon-diy pull-left margin-left"></i>
+                            <div className="pull-left">
+                                <span className="text-capitalize text-regular">DIY</span>
+                                <p className="text-small">[diy copy]</p>
+                            </div>
+                        </div>
+                        <div className="row-full border-top border-bottom padding-small padding-right-none">
+                            <i className="name icon-large icon-spirit pull-left"></i>
+                            <span className="text-capitalize text-regular">Human Spirit</span>
+                            <p className="text-small">[Human Spirit copy]</p>
+                        </div>
+                        <div className="row-full padding-small padding-top-small padding-right-none">
+                            <i className="name icon-large icon-art pull-left"></i>
+                            <span className="text-capitalize text-regular">Art &amp; Culture</span>
+                            <p className="text-small">[Art &amp; Culture copy]</p>
+                        </div>
 
-                          <div className="row-full padding-small padding-right-none">
-                              <i className="name icon-large icon-diy pull-left"></i>
-                              <span className="text-capitalize text-regular">DIY</span>
-                              <p className="text-small">[diy copy]</p>
-                          </div>
-                          <div className="row-full border-top border-bottom padding-small padding-right-none">
-                              <i className="name icon-large icon-spirit pull-left"></i>
-                              <span className="text-capitalize text-regular">Human Spirit</span>
-                              <p className="text-small">[Human Spirit copy]</p>
-                          </div>
-                          <div className="row-full padding-small padding-top-small padding-right-none">
-                              <i className="name icon-large icon-art pull-left"></i>
-                              <span className="text-capitalize text-regular">Art &amp; Culture</span>
-                              <p className="text-small">[Art &amp; Culture copy]</p>
-                          </div>
-
-                      </section>
+                    </section>
 
 
-                  </article>
+                </article>
 
-              </section>
-              */
-            }
-        </article>
+                <article className="card-xwide sans-serif ">
+
+                    <aside className="col-quarter padding-med center-center">
+
+                        <i className="name icon-large icon-planet"></i>
+
+                        <h3 className="margin-top-xlarge">[Object Name]</h3>
+                        <p className="text-small">[Object Message]</p>
+
+                        <div className="margin-top-xlarge">
+                            <input className='tgl tgl-flip' id='follow2' type='checkbox' checked>
+                            <label className='tgl-btn  center-block' data-tg-off='Not Following' data-tg-on='Following!' for='follow2'></label>
+                        </div>
+
+                    </aside>
+
+                    <section className="col-3fourth border-left">
+
+                        <div className="row-full padding-small padding-right-none">
+                            <i className="name icon-large icon-diy pull-left"></i>
+                            <span className="text-capitalize text-regular">DIY</span>
+                            <p className="text-small">[diy copy]</p>
+                        </div>
+                        <div className="row-full border-top border-bottom padding-small padding-right-none">
+                            <i className="name icon-large icon-spirit pull-left"></i>
+                            <span className="text-capitalize text-regular">Human Spirit</span>
+                            <p className="text-small">[Human Spirit copy]</p>
+                        </div>
+                        <div className="row-full padding-small padding-top-small padding-right-none">
+                            <i className="name icon-large icon-art pull-left"></i>
+                            <span className="text-capitalize text-regular">Art &amp; Culture</span>
+                            <p className="text-small">[Art &amp; Culture copy]</p>
+                        </div>
+                    </section>
+
+
+                </article>
+
+            </section>
+            */
+          }
       </div>);
   }
 }

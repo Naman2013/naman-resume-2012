@@ -11,7 +11,7 @@ import style from './telescope-selection.scss';
   dark : for dark colored backgrounds
 */
 
-class TelescopeSelection extends React.Component {
+class TelescopeSelection extends Component {
   constructor(props) {
     super(props);
 
@@ -27,7 +27,6 @@ class TelescopeSelection extends React.Component {
     this.handleMouseEnter = this.handleMouseEnter.bind(this);
     this.handleMouseLeave = this.handleMouseLeave.bind(this);
     this.renderDescription = this.renderDescription.bind(this);
-
   }
 
   handleMouseEnter(telescope) {
@@ -44,11 +43,11 @@ class TelescopeSelection extends React.Component {
 
   fetchDefaultTelescopeId(observatory) {
     const { obsTelescopes } = observatory;
-    if(obsTelescopes.length > 0) {
+    if (obsTelescopes.length > 0) {
       return observatory.obsTelescopes[0].teleUniqueId;
-    } else {
-      return null;
     }
+
+    return null;
   }
 
   renderDescription(activeTelescope, hoveredTelescope) {

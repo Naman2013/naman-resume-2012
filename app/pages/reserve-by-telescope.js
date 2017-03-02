@@ -26,7 +26,7 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps({ missions, telescopeOverview, missionSlotsByTelescope }, ownProps) {
   return {
-    observatoryList: telescopeOverview.observatoryList,
+    observatoryList: telescopeOverview.observatoryList.observatoryList,
     currentObservatoryId: ownProps.params.obsUniqueId,
     missions,
     cardList: missions.cardList || [],

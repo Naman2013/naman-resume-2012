@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import ObjectPostList from '../../components/object-post/object-post-list';
 import SloohRecommends from '../../components/common/recommendations/SloohRecommends';
+import OtherFeaturedObjects from '../../components/common/OtherFeaturedObjects/OtherFeaturedObjects';
 import GenericLoadingBox from '../../components/common/loading-screens/generic-loading-box';
 import MissionAd from '../../components/missions/mission-ad';
 
@@ -71,6 +72,7 @@ class ObjectPosts extends Component {
                 recommendations={recommendationCards}
               /> : null
           }
+          <OtherFeaturedObjects />
         </div>
       </section>
     );
