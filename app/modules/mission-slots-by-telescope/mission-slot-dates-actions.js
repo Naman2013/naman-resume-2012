@@ -24,15 +24,18 @@ export const fetchDateRanges = ({
     telescopeId,
     requestedDate,
   })
-  .then(result => {
-    const { reservationDate } = result.data.dateList[0];
-    dispatch(fetchDateRangesSuccess(result.data));
-    dispatch(fetchReservationList({
-      obsId,
-      domeId,
-      telescopeId,
-      reservationDate,
-    }));
+  .then((result) => {
+    const { data } = result;
+    if (!data.apiError) {
+      const { reservationDate } = data.dateList[0];
+      dispatch(fetchReservationList({
+        obsId,
+        domeId,
+        telescopeId,
+        reservationDate,
+      }));
+    }
+    dispatch(fetchDateRangesSuccess(data));
   })
   .catch(error => {
     dispatch(fetchDateRangesFail(error));

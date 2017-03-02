@@ -21,6 +21,9 @@ class PulsePopular extends Component {
       itemURL: PropTypes.string.isRequired,
     })),
     tag: PropTypes.string,
+    title: PropTypes.string,
+    subtitle: PropTypes.string,
+    slugLookupId: PropTypes.number,
   }
 
   static defaultProps = {
@@ -28,13 +31,15 @@ class PulsePopular extends Component {
   }
 
   render() {
-    const { tag, list } = this.props;
+    const { tag, list, title, subtitle, slugLookupId } = this.props;
     return (
       <div className={styles.pulsePopular}>
 
         <header className={styles.pulsePopularHeader}>
-          {tag ? <h4>More About <Link to="#" className="tag">{tag}</Link></h4> : <h4>Popular Posts on Slooh Pulse</h4>}
-          <p>As submitted by the Slooh Community...</p>
+          {tag ? <h4>{title ? `${title} ` : 'More About '} <Link to={`/objects/latest-entries/${slugLookupId}/all`} className="tag">{tag}</Link></h4> : <h4>Popular Posts on Slooh Pulse</h4>}
+          <p>
+            {subtitle || 'As submitted by the Slooh Community...'}
+          </p>
         </header>
 
         <ul className={styles.pulsePopularContainer}>

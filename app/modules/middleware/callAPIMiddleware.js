@@ -1,14 +1,33 @@
+import { push } from 'react-router-redux';
+import { captureErrorState } from '../authorization/actions';
+
+const SIGN_IN_PATH = '/registration/sign-in';
+const REDIRECT_CONFIRMATION_PATH = '/redirect-confirmation';
+const UNAUTHORIZED_STATUS_CODE = 401;
+
 export default function callAPIMiddleware({ dispatch, getState }) {
-  return next => action => {
+  return next => (action) => {
     const {
       types,
       callAPI,
       shouldCallAPI = () => true,
-      payload = {}
+      payload = {},
     } = action;
 
     if (!types) {
-      // Normal action: pass it on
+      // If payload has 401 (unauthorized code) we are redirecting them to upsell page
+      if (action.payload && action.payload.statusCode) {
+        if (action.payload.statusCode === UNAUTHORIZED_STATUS_CODE) {
+          const { apiError, errorCode, statusCode } = action.payload;
+          dispatch(captureErrorState({
+            apiError,
+            errorCode,
+            statusCode,
+          }));
+          dispatch(push(REDIRECT_CONFIRMATION_PATH));
+        }
+      }
+
       return next(action);
     }
 
@@ -35,10 +54,11 @@ export default function callAPIMiddleware({ dispatch, getState }) {
     }));
 
     return callAPI().then(
-      response => next(Object.assign({}, payload, {
+      response => {
+        return next(Object.assign({}, payload, {
         response,
         type: successType
-      })),
+      }))},
       error => next(Object.assign({}, payload, {
         error,
         type: failureType

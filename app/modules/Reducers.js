@@ -3,6 +3,7 @@ import { routerReducer } from 'react-router-redux';
 import { reducer } from 'redux-form';
 import user from './User';
 import login from './Login';
+import authorization from './authorization/reducer';
 import missions from './Missions';
 import countdown from './CountdownModule';
 import telescopeOverview from './Telescope-Overview';
@@ -32,12 +33,12 @@ import discussionsReplies from './discussions-replies/reducer';
 import liveShows from './live-shows/live-shows-reducer';
 import mashupSettings from './mashup-settings/get-mashup-reducer';
 import eventInfo from './event-info/reducer';
-import featuredContent from './featured-content/reducer';
 import contactForm from './Contact';
 import appConfig from './app-config/reducer';
 import dashboard from './dashboard/reducer';
 import avatar from './avatar/reducer';
 import tierLimits from './tier-limits/reducer';
+import otherFeaturedObjects from './other-featured-objects/reducer';
 
 export default combineReducers({
   routing: routerReducer,
@@ -46,6 +47,7 @@ export default combineReducers({
   menu,
   user,
   login,
+  authorization,
   missions,
   telescopeOverview,
   announcementBanner,
@@ -73,10 +75,10 @@ export default combineReducers({
   liveShows,
   mashupSettings,
   eventInfo,
-  featuredContent,
   contactForm,
   appConfig,
   dashboard,
   avatar,
   tierLimits,
+  otherFeaturedObjects,
 });

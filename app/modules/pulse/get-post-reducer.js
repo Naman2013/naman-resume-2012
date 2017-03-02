@@ -31,6 +31,9 @@ const initialState = {
   fetchingMoreAboutObject: false,
   moreAboutObject: {
     itemList: [],
+    sectionObjectTitle: '',
+    sectionTitle: '',
+    sectionSubtitle: '',
   },
 };
 

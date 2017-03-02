@@ -60,10 +60,16 @@
     padding-left: 20px;
 
     .title {
+      display: flex;
+      align-items: center;
       text-align: left;
       border-bottom: none;
       margin: 0;
       margin-bottom: 30px;
+
+      .titleIcon {
+        margin-right: 10px;
+      }
     }
 
     .upgradeList {

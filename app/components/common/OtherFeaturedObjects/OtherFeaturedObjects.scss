@@ -2,7 +2,7 @@
 @import '../../../styles/variables/colors';
 @import '../../../styles/mixins/utilities';
 
-.moreAbout {
+.otherFeaturedObjects {
   font-family: $primary-font;
   padding: 20px 0;
   position: relative;
@@ -12,14 +12,16 @@
   font-size: 15px;
   text-align: center;
 
-  .moreAboutHeader {
+  h2, h3, h4 {
+    font-weight: 700;
+  }
+  .otherFeaturedObjectsHeader {
     @include sideHeader;
 
 
-    h4 {
+    h2 {
       font-size: 24px;
       margin: 0;
-      font-weight: 700;
     }
 
     p {
@@ -29,22 +31,24 @@
     }
   }
 
-  .moreAboutContainer {
-    list-style: none;
-    color: $font-black;
-    text-align: center;
-    font-size: 18px;
-    padding: 25px 20px 0 20px;
-
-    img.moreAboutIcon {
-      height: 25px;
-      width: 25px;
-      padding-right: 5px;
-    }
-
-    .moreAboutLink {
-      color: $pink;
-    }
+  .otherFeaturedObjectsContainer {
+    padding-top: 10px;
   }
 
+  .otherFeaturedObjectsDescription {
+    font-family: $secondary-font;
+    font-size: 18px;
+  }
+
+  img.otherFeaturedObjectsIcon {
+    display: block;
+    height: 50px;
+    width: 50px;
+    margin: 0 auto;
+  }
+
+  .otherFeaturedObjectsHr {
+    width: 80%;
+    height: 5px;
+  }
 }

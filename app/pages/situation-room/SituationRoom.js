@@ -92,7 +92,7 @@ class SituationRoom extends Component {
         </div>
 
         <div className="col-md-3">
-          <MissionAd />
+          <MissionAd size="300x600" />
           {/* <SocialSidebar /> */}
         </div>
 

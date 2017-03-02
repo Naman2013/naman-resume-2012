@@ -6,6 +6,7 @@ import configureStore from './store';
 import { checkUser } from './modules/User';
 import { deactivateMenu } from './modules/menu/actions';
 
+import RedirectConfirmation from './pages/redirect-confirmation/RedirectConfirmation';
 
 // containers
 import App from './containers/App';
@@ -58,6 +59,7 @@ import Plans from './pages/registration/Plans';
 import UpgradeApprentice from './pages/registration/UpgradeApprentice';
 import UpgradeAstronomer from './pages/registration/UpgradeAstronomer';
 import SignIn from './pages/registration/SignIn';
+import Upgrade from './pages/registration/Upgrade';
 
 import Account from './pages/settings/Account';
 import Notifications from './pages/settings/Notifications';
@@ -96,6 +98,8 @@ ReactDOM.render(
   <Provider store={store}>
     <Router history={hashHistory} onUpdate={onRouteUpdate}>
 
+      <Route path="redirect-confirmation" component={RedirectConfirmation} />
+
       <Route path="about" component={StaticAppContainer} onEnter={validateUser}>
         <IndexRedirect to="mission" />
         <Route path="mission" component={Mission} />
@@ -111,6 +115,7 @@ ReactDOM.render(
         <Route path="sign-in" component={SignIn} />
         <Route path="upgrade-apprentice" component={UpgradeApprentice} />
         <Route path="upgrade-astronomer" component={UpgradeAstronomer} />
+        <Route path="upgrade" component={Upgrade} />
       </Route>
 
       <Route path="settings" component={StaticAppContainer} onEnter={validateUser}>

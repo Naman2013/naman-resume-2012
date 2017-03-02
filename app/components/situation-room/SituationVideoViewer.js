@@ -126,7 +126,7 @@ SituationVideoViewer.defaultProps = {
   videoInProgress: false,
   videoEmbedCode: null,
   eventTitle: '',
-  hasSponsor: 0,
+  hasSponsor: false,
   sponsorLogoURL: '',
   sponsorLinkURL: '',
   initialStreamCode: null,
@@ -137,7 +137,7 @@ SituationVideoViewer.propTypes = {
   videoInProgress: PropTypes.bool,
   videoEmbedCode: PropTypes.string,
   eventTitle: PropTypes.string,
-  hasSponsor: PropTypes.number, // number 0 or 1 treated as boolean
+  hasSponsor: PropTypes.bool,
   sponsorLogoURL: PropTypes.string,
   sponsorLinkURL: PropTypes.string,
 

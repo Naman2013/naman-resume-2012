@@ -5,14 +5,11 @@ import s from './Header.scss';
   @param membershipTier: examples are Slooh Crew or Apprentice
 */
 
-const Header = ({ membershipTier, text }) => (
+const Header = ({ title, text }) => (
   <header className={s.registrationHeader}>
-    {
-      membershipTier ?
-        <div className={s.loggedInStatus}>
-          You are logged in as a {membershipTier} member
-        </div> : null
-    }
+    <div className={s.loggedInStatus}>
+      {title}
+    </div>
     <h1 className={s.upgradeStatus}>
       {text}
     </h1>
