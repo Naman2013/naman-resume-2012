@@ -7,7 +7,7 @@ const Header = ({ videoInProgress }) =>
     {
       videoInProgress ? <span className="live">live</span> : null
     }
-    <img alt="Space Situation Room" src="/assets/images/logos/space-situation-room-logo.svg" height="65" />
+    <img alt="Space Situation Room" src="assets/images/logos/space-situation-room-logo.svg" height="65" />
     {
       videoInProgress ? <span className="live">live</span> : null
     }

@@ -111,19 +111,19 @@ class SignIn extends Component {
                   <div className="text-large margin-bottom-large padding-small">To view this content you must be signed-in as an</div>
 
                   <div className="clearfix">
-                    <div className="spotlight-icon visible-lg-inline-block">
+                    <div className="spotlight-icon visible-inline-block">
                       <img alt="Astronaut icon" src="assets/icons/astronaut.svg" width="70%" />
                     </div>
-                    <div className="text-medium visible-lg-inline-block margin-left-xlarge">Apprentice</div>
+                    <div className="text-medium visible-inline-block margin-left-med">Apprentice</div>
                   </div>
 
                   <div className="divider-img clearfix padding-tb-reg">or</div>
 
                   <div className="clearfix">
-                    <div className="spotlight-icon visible-lg-inline-block">
+                    <div className="spotlight-icon visible-inline-block">
                       <img alt="Galaxy icon" src="../assets/icons/galaxy.svg" />
                     </div>
-                    <div className="text-medium visible-lg-inline-block margin-left-xlarge">Astronomer</div>
+                    <div className="text-medium visible-inline-block margin-left-med">Astronomer</div>
                   </div>
 
                   <div className="clearfix margin-top-large">
