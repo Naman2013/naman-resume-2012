@@ -34,6 +34,7 @@ class EventDetails extends Component {
 
   render() {
     const { eventContent, likeEvent, routeParams: { showId }, fetching, moreAboutObject } = this.props;
+
     return (
       <div className={s.eventDetailsRoot}>
         {fetching && <GenericLoadingBox />}
