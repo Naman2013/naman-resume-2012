@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
@@ -6,10 +6,12 @@ import Header from './common/Header';
 import FormErrorMessage from './common/FormErrorMessage';
 import { login, loginReset } from '../../modules/Login';
 
-const mapStateToProps = ({ user, login }) => ({
+const mapStateToProps = ({ user, login, appConfig }) => ({
   statusCode: user.statusCode,
   isAuthorized: user.isAuthorized,
   login,
+  forgotPasswordURL: appConfig.forgotPasswordURL,
+  registerNewMemberURL: appConfig.registerNewMemberURL,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -21,6 +23,16 @@ const mapDispatchToProps = dispatch => ({
 
 @connect(mapStateToProps, mapDispatchToProps)
 class SignIn extends Component {
+  static propTypes = {
+    forgotPasswordURL: PropTypes.string,
+    registerNewMemberURL: PropTypes.string,
+  }
+
+  static defaultProps = {
+    forgotPasswordURL: '',
+    registerNewMemberURL: '',
+  }
+
   constructor(props) {
     super(props);
 
@@ -83,6 +95,7 @@ class SignIn extends Component {
   render() {
     const { username, passwd, badLogin, passwordFieldType } = this.state;
     const { loggingIn, loginFailed, loginSuccess } = this.props.login;
+    const { forgotPasswordURL, registerNewMemberURL } = this.props;
 
     return (
       <div className="registration paid-signin">
@@ -140,7 +153,8 @@ class SignIn extends Component {
                     />
                   </fieldset>
                   <fieldset className="clearfix form-group required">
-                    <label htmlFor="password">Password <a onClick={this.toggleShowPassword} href="" className="control">Show</a> <a href="" className="control pull-right">Forgotten Password</a>
+                    <label htmlFor="password">
+                      Password <a onClick={this.toggleShowPassword} href="" className="control">Show</a> <a href={forgotPasswordURL} className="control pull-right">Forgotten Password</a>
                     </label>
                     <input
                       onChange={this.handlePasswordChange}
@@ -168,7 +182,7 @@ class SignIn extends Component {
                     */
                   }
                   <div className="spacer-huge" />
-                  <div className="clearfix margin-top-med">Don&apos;t have an account yet? <a href="">Join now</a>
+                  <div className="clearfix margin-top-med">Don&apos;t have an account yet? <a href={registerNewMemberURL}>Join now</a>
                   </div>
                 </section>
               </article>

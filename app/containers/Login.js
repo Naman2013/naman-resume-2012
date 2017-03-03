@@ -16,7 +16,14 @@ class Login extends Component {
     login: func.isRequired,
     handleSubmit: func.isRequired,
     error: string,
+    forgotPasswordURL: string,
+    registerNewMemberURL: string,
   };
+
+  static defaultProps = {
+    forgotPasswordURL: '',
+    registerNewMemberURL: '',
+  }
 
   handleClickOutside = () => {
     this.props.hide();
@@ -44,8 +51,8 @@ class Login extends Component {
           {this.props.error && this.props.error}
           <button className="btn-primary">Sign in</button>
           <div className={styles.bottomOutside}>
-            <a>Forgot Password</a>
-            <a href="https://saturn.slooh.com/subscribe-bt3.php">Create Account</a>
+            <a href={this.props.forgotPasswordURL}>Forgot Password</a>
+            <a href={this.props.registerNewMemberURL}>Create Account</a>
           </div>
         </form>
       </aside>
@@ -57,9 +64,16 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(loginActions, dispatch);
 }
 
+function mapStateToProps({ appConfig }) {
+  return {
+    forgotPasswordURL: appConfig.forgotPasswordURL,
+    registerNewMemberURL: appConfig.registerNewMemberURL,
+  };
+}
+
 const loginValidation = createValidator({
   username: [required],
   passwd: [required],
 });
 
-export default connect(null, mapDispatchToProps)(reduxForm({ form: 'login', validate: loginValidation })(onClickOutside(Login)));
+export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({ form: 'login', validate: loginValidation })(onClickOutside(Login)));
