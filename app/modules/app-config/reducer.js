@@ -22,6 +22,7 @@ const initialState = {
   upgradeToApprenticeURL: '',
   upgradeToAstronomerURL: '',
   renewMembershipURL: '',
+  forgotPasswordURL: '',
 };
 
 export default createReducer(initialState, {
@@ -32,38 +33,9 @@ export default createReducer(initialState, {
     };
   },
   [FETCH_APP_CONFIG_SUCCESS](state, { payload }) {
-    const {
-      footerBackgroundRGB,
-      copyrightNotice,
-      copyrightRGB,
-      hostname,
-      hostnameRGB,
-      gaTrackingId,
-      adroll_adv_id,
-      adroll_pix_id,
-      registerNewMemberURL,
-      registerNewPaidMemberURL,
-      upgradeMembershipURL,
-      upgradeToApprenticeURL,
-      upgradeToAstronomerURL,
-      renewMembershipURL,
-    } = payload;
     return {
       ...state,
-      footerBackgroundRGB,
-      copyrightNotice,
-      copyrightRGB,
-      hostname,
-      hostnameRGB,
-      gaTrackingId,
-      adroll_adv_id,
-      adroll_pix_id,
-      registerNewMemberURL,
-      registerNewPaidMemberURL,
-      upgradeMembershipURL,
-      upgradeToApprenticeURL,
-      upgradeToAstronomerURL,
-      renewMembershipURL,
+      ...payload,
     };
   },
   [FETCH_APP_CONFIG_FAIL](state, { payload }) {

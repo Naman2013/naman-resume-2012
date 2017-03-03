@@ -16,7 +16,14 @@ class Login extends Component {
     login: func.isRequired,
     handleSubmit: func.isRequired,
     error: string,
+    forgotPasswordURL: string,
+    registerNewMemberURL: string,
   };
+
+  static defaultProps = {
+    forgotPasswordURL: '',
+    registerNewMemberURL: '',
+  }
 
   handleClickOutside = () => {
     this.props.hide();
@@ -26,8 +33,8 @@ class Login extends Component {
     return (
       <aside className={styles.login}>
         <form onSubmit={this.props.handleSubmit( this.props.login )}>
-          <h3>To log into your Slooh Account:</h3>
-          <div className={styles.row}>
+          <h3>Log into your Slooh account:</h3>
+          <div>
             <Field
               name="username"
               type="text"
@@ -41,11 +48,11 @@ class Login extends Component {
               component={InputField}
             />
           </div>
-          {this.props.error && <strong>{this.props.error}</strong>}
-          <button>Sign in</button>
+          {this.props.error && this.props.error}
+          <button className="btn-primary">Sign in</button>
           <div className={styles.bottomOutside}>
-            <a>Forgot Password</a>
-            <a href="https://saturn.slooh.com/subscribe-bt3.php">Create Account</a>
+            <a href={this.props.forgotPasswordURL}>Forgot Password</a>
+            <a href={this.props.registerNewMemberURL}>Create Account</a>
           </div>
         </form>
       </aside>
@@ -57,9 +64,16 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(loginActions, dispatch);
 }
 
+function mapStateToProps({ appConfig }) {
+  return {
+    forgotPasswordURL: appConfig.forgotPasswordURL,
+    registerNewMemberURL: appConfig.registerNewMemberURL,
+  };
+}
+
 const loginValidation = createValidator({
   username: [required],
   passwd: [required],
 });
 
-export default connect(null, mapDispatchToProps)(reduxForm({ form: 'login', validate: loginValidation })(onClickOutside(Login)));
+export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({ form: 'login', validate: loginValidation })(onClickOutside(Login)));
