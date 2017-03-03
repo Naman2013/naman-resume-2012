@@ -26,8 +26,8 @@ class Login extends Component {
     return (
       <aside className={styles.login}>
         <form onSubmit={this.props.handleSubmit( this.props.login )}>
-          <h3>To log into your Slooh Account:</h3>
-          <div className={styles.row}>
+          <h3>Log into your Slooh account:</h3>
+          <div>
             <Field
               name="username"
               type="text"
@@ -41,8 +41,8 @@ class Login extends Component {
               component={InputField}
             />
           </div>
-          {this.props.error && <strong>{this.props.error}</strong>}
-          <button>Sign in</button>
+          {this.props.error && this.props.error}
+          <button className="btn-primary">Sign in</button>
           <div className={styles.bottomOutside}>
             <a>Forgot Password</a>
             <a href="https://saturn.slooh.com/subscribe-bt3.php">Create Account</a>
