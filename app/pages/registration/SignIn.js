@@ -135,7 +135,7 @@ class SignIn extends Component {
                       onChange={this.handleUsernameChange}
                       value={username}
                       className="form-control input-lg"
-                      type="email"
+                      type="text"
                       name="email"
                     />
                   </fieldset>

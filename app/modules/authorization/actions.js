@@ -42,10 +42,15 @@ export const fetchErrors = () => (dispatch, getState) => {
     dispatch(fetchErrorsSuccess(result.data));
 
     const MEMBER_UPSELL = 'memberUpsell';
+    const GOTO_HOMEPAGE = 'gotoHomePage';
     const { responseType } = result.data;
 
     if (responseType === MEMBER_UPSELL) {
       dispatch(push('registration/upgrade'));
+    }
+
+    if (responseType === GOTO_HOMEPAGE) {
+      dispatch(push('/'));
     }
   });
 };

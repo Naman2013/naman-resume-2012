@@ -18,13 +18,15 @@ export default function callAPIMiddleware({ dispatch, getState }) {
       // If payload has 401 (unauthorized code) we are redirecting them to upsell page
       if (action.payload && action.payload.statusCode) {
         if (action.payload.statusCode === UNAUTHORIZED_STATUS_CODE) {
-          const { apiError, errorCode, statusCode } = action.payload;
-          dispatch(captureErrorState({
-            apiError,
-            errorCode,
-            statusCode,
-          }));
-          dispatch(push(REDIRECT_CONFIRMATION_PATH));
+          const { apiError, errorCode, statusCode, loginError } = action.payload;
+          if (typeof loginError === 'undefined') {
+            dispatch(captureErrorState({
+              apiError,
+              errorCode,
+              statusCode,
+            }));
+            dispatch(push(REDIRECT_CONFIRMATION_PATH));
+          }
         }
       }
 
