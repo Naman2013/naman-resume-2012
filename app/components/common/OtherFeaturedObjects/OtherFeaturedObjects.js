@@ -44,7 +44,7 @@ class OtherFeaturedObjects extends Component {
                 <p className={styles.otherFeaturedObjectsDescription} dangerouslySetInnerHTML={{ __html: v.itemDescription }} />
                 <Link
                   className={`btn btn-primary ${styles.otherFeaturedObjectsLink}`}
-                  to={v.itemURL}
+                  to={v.itemURL ? v.itemURL : `/objects/latest-entries/${v.slugLookupId}/all`}
                 >
                   Go to Object Page
                 </Link>

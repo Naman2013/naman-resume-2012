@@ -7,13 +7,17 @@ import CircleCounter from '../components/circle-counter';
 import classes from '../styles/circle-timer.scss';
 
 
-const { func, string, number } = PropTypes;
+const { func, string, number, bool } = PropTypes;
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({ countDownEvents }, dispatch);
 }
 
-@connect(null, mapDispatchToProps)
+const mapStateToProps = ({ countdown }) => ({
+  eventIsLive: countdown.activeOrUpcomingEvent.eventIsLive,
+});
+
+@connect(mapStateToProps, mapDispatchToProps)
 export default class CircleTimer extends Component {
   static propTypes = {
     size: number,
@@ -33,7 +37,8 @@ export default class CircleTimer extends Component {
   componentDidMount() {
     const { props: { eventStartIn, fetchActiveOrUpcomingEvent } } = this;
     this.updateIntervalId = setInterval(() => {
-      const difference = (eventStartIn * 1000) - Date.now();
+      const difference = moment.unix(eventStartIn).diff(moment.utc());
+      const { eventIsLive } = this.props;
 
       if (difference >= 0) {
         const duration = moment.duration(difference, 'milliseconds');
@@ -45,10 +50,12 @@ export default class CircleTimer extends Component {
           secondsTo: duration.seconds(),
           millisecondsTo: duration.milliseconds(),
         });
-      } else {
+      }
+
+      if (!eventIsLive && (difference <= 0)) {
         fetchActiveOrUpcomingEvent();
       }
-    }, 1000 / 30);
+    }, 1000);
   }
 
   componentWillUnmount() {

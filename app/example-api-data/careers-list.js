@@ -19,7 +19,7 @@ const careerListData = {
         "category": "operations",
         "jobTitle": "Operations Manager",
         "location": "Anywhere",
-        "jobText": "This role encompasses the day-to-day operation of Slooh's observatories to maximize uptime and quality; diagnosing and resolving technical issues that may arise. It involves the day-to-day remote management of the observatory equipment, and the management of telescope schedules to maximize availability to members. You\u0092ll have a methodical work ethic with attention to detail. Experience with the equipment Slooh uses would be highly beneficial. Flexibility regarding working hours is required.",
+        "jobText": "This role encompasses the day-to-day operation of Slooh's observatories to maximize uptime and quality; diagnosing and resolving technical issues that may arise. It involves the day-to-day remote management of the observatory equipment, and the management of telescope schedules to maximize availability to members. You'll have a methodical work ethic with attention to detail. Experience with the equipment Slooh uses would be highly beneficial. Flexibility regarding working hours is required.",
         "applyLink": "mailto:paul@slooh.com"
     },
     {

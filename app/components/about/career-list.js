@@ -7,7 +7,7 @@ export default function CareerList({ value }) {
         <h1 className="name">{value.jobTitle}</h1>
         <h2 className="title location icon-small icon-location">{value.location}</h2>
       </header>
-      <p>{value.jobText}</p>
+      <p className="notransform" dangerouslySetInnerHTML={{ __html: value.jobText }} />
       <footer>
         <a href={`${value.applyLink}?subject=${value.jobTitle}`} className="btn-primary pull-left" >Apply</a>
       </footer>
