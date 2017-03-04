@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Countdown from '../../containers/Countdown';
 import Member from '../../containers/Member';
 import styles from '../../styles/header.scss';
 
 const Header = () =>
   <header className={styles.mainHeader} id="mainHeader">
-    <div className={styles.mainHeaderLogo}/>
+    <div className={styles.mainHeaderLogo} />
     <div className={styles.mainHeaderLogoText}>
       Slooh <span className="beta">sneak peek</span>
     </div>

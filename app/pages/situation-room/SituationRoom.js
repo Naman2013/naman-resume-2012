@@ -29,23 +29,6 @@ const mapStateToProps = ({ countdown, liveShows, communityShowContent }, ownProp
 
 @connect(mapStateToProps, mapDispatchToProps)
 class SituationRoom extends Component {
-  constructor(props) {
-    super(props);
-
-    this.countdownInterval = setInterval(() => {
-      const { upcomingEventStartTime, eventEndTime, eventIsLive } = this.props;
-      const now = moment.utc();
-      // there is no live event, and the current time and start time are the same
-      if (now.diff(moment.unix(upcomingEventStartTime)) >= 0 && !eventIsLive) {
-        window.location.reload();
-      }
-      // there is a live event, and he end time is now
-      if (now.diff(moment.unix(eventEndTime)) >= 0 && eventIsLive) {
-        window.location.reload();
-      }
-    }, 1000);
-  }
-
   componentWillMount() {
     const { showId } = this.props;
     if (showId) {
@@ -54,18 +37,20 @@ class SituationRoom extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { showId, upcomingEventEventId } = this.props;
+    const { showId, upcomingEventEventId, eventIsLive } = this.props;
+    const nextUpcomingEventId = nextProps.upcomingEventEventId;
+    const nextUpcomingEventLiveStatus = nextProps.eventIsLive;
     if (showId) {
       return;
     }
 
-    if (nextProps.upcomingEventEventId !== upcomingEventEventId) {
+    if (
+      nextUpcomingEventId &&
+      (nextUpcomingEventId !== upcomingEventEventId) && // we may or may not have received a new eventID
+      (nextUpcomingEventLiveStatus !== eventIsLive) // whether or not the event live status changed
+    ) {
       this.fetchEventInformation(nextProps.upcomingEventEventId);
     }
-  }
-
-  componentWillUnMount() {
-    clearInterval(this.countdownInterval);
   }
 
   fetchEventInformation(eventId) {

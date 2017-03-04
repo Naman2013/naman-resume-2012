@@ -214,6 +214,11 @@ body {
         padding: 5px;
         width: 250px;
         overflow-y: hidden;
+
+        .btn-primary {
+          max-width: 145px;
+          cursor: pointer;
+        }
     }
     .redeem-code input[type="text"] {
         @include font-size(14px);

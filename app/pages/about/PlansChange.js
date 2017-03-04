@@ -1,22 +1,20 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import ModalGeneric from '../../components/common/modals/modal-generic';
 
 const PLAN_DESCRIPTIONS = {
-  FREE_TRIAL: {
-    title: 'This is all about free trials',
-    description: 'Something about free trials being awesome!',
-  },
   RESERVATION_LIMIT_5: {
     title: '5 Reservation Limit',
-    description: 'Five reservations is pretty good.',
+    description: 'Point any Slooh telescope at any of the Slooh 500.',
   },
   RESERVATION_LIMIT_UNLIMITED: {
     title: 'Unlimited Reservations',
-    description: 'This is more like it!',
+    description: 'Point any Slooh telescope at any object in the sky, as selected from existing astro-catalogs or by entering coordinates.',
   },
-  OBJECTS_ALL: {
-    title: 'Objects All',
-    description: 'This is another type of reservation, you can reserve any type of object',
+  OBJECTS_SLOOH_500: {
+    title: 'Objects: Slooh 500',
+    description: 'The Slooh 500 are the most popular objects in the night sky as chosen by the Slooh community.',
   },
 };
 
@@ -42,7 +40,6 @@ class PlansChange extends Component {
   }
 
   openModal(modalContent) {
-    console.log(modalContent);
     this.setState({
       ...modalContent,
       modalOpen: true,
@@ -51,7 +48,7 @@ class PlansChange extends Component {
 
   render() {
     const { modalOpen, title, description } = this.state;
-
+    const { registerNewSloohCrewURL, registerNewApprenticeURL, registerNewAstronomerURL } = this.props;
     return (
       <div className="about pricing">
         <ModalGeneric
@@ -70,7 +67,7 @@ class PlansChange extends Component {
               <article className="plan">
                 <header className="move-down text-center">
                   <div className="spotlight-icon">
-                    <img alt="Jupiter icon" className="" src="../assets/icons/jupiter.svg" />
+                    <img alt="Slooh Crew icon" className="" src="https://vega.slooh.com/icons/registration/sloohcrew.svg" />
                   </div>
                 </header>
                 <article className="backdrop dark text-center padding-reg">
@@ -85,17 +82,18 @@ class PlansChange extends Component {
                   </div>
 
                   <ul className="features">
-                    <li>Public Shows</li>
+                    <li>Shows: Public Only</li>
                     <li className="not">Live Telescope Feeds</li>
-                    <li>Take Occasional Pictures</li>
+                    <li className="not">Take Pictures</li>
                     <li>Community</li>
                     <li className="not">Reservations</li>
-                    <li className="not">Objects: Most Popular</li>
-                    <li>Video On Demand: Featured</li>
+                    <li>Objects: None</li>
+                    <li className="not">Space Situation Room</li>
+                    <li className="not">Slooh Road Trip</li>
                   </ul>
                 </article>
                 <footer>
-                  <button className="btn-primary continue">Get This Plan</button>
+                  <a className="btn-primary continue" href={registerNewSloohCrewURL}>Get This Plan</a>
                 </footer>
               </article>
 
@@ -103,7 +101,7 @@ class PlansChange extends Component {
 
                 <header className="move-down text-center">
                   <div className="spotlight-icon">
-                    <img alt="Astronout icon" src="../assets/icons/astronaut.svg" width="70%" />
+                    <img alt="Apprentice icon" src="https://vega.slooh.com/icons/registration/apprentice.svg" width="70%" />
                   </div>
                 </header>
 
@@ -115,21 +113,22 @@ class PlansChange extends Component {
                   <p className="margin-large margin-none">Monthly | USD</p>
 
                   <div className="margin-top-med margin-bottom-large pos-relative">30 Day free trial
-                    <br />if you act now <i onClick={() => {this.openModal(PLAN_DESCRIPTIONS.FREE_TRIAL)}} className="icon control info-white">info</i>
+                    <br />if you act now
                   </div>
                   <ul className="features">
-                    <li>Public Shows</li>
+                    <li>Shows: All</li>
                     <li>Live Telescope Feeds</li>
                     <li>Take Pictures</li>
                     <li>Community</li>
                     <li>5 Reservations <small>monthly</small> <i onClick={() => {this.openModal(PLAN_DESCRIPTIONS.RESERVATION_LIMIT_5)}} className="icon control info-white">info</i></li>
-                    <li>Objects: Most Popular</li>
-                    <li>Video On Demand: All</li>
+                    <li>Objects: Slooh 500 <i onClick={() => {this.openModal(PLAN_DESCRIPTIONS.OBJECTS_SLOOH_500)}} className="icon control info-white">info</i></li>
+                    <li>Space Situation Room</li>
+                    <li>Slooh Road Trip</li>
                   </ul>
                 </article>
 
                 <footer>
-                  <button className="btn-primary continue">Get This Plan</button>
+                  <a className="btn-primary continue" href={registerNewApprenticeURL}>Get This Plan</a>
                 </footer>
 
               </article>
@@ -137,7 +136,7 @@ class PlansChange extends Component {
               <article className="plan">
 
                 <header className="move-down text-center">
-                  <div className="spotlight-icon"><img alt="Galaxy icon" src="../assets/icons/galaxy.svg" /></div>
+                  <div className="spotlight-icon"><img alt="astronomer icon" src="https://vega.slooh.com/icons/registration/astronomer.svg" /></div>
                 </header>
 
                 <article className="dark backdrop text-center padding-reg">
@@ -151,20 +150,21 @@ class PlansChange extends Component {
                       <br />Slooh Community</div>
 
                   <ul className="features">
-                    <li>Public Shows</li>
+                    <li>Shows: All</li>
                     <li>Live Telescope Feeds</li>
                     <li>Take Pictures</li>
                     <li>Community</li>
                     <li>Unlimited Reservations <i onClick={() => {this.openModal(PLAN_DESCRIPTIONS.RESERVATION_LIMIT_UNLIMITED)}} className="icon control info-white">info</i>
                     </li>
-                    <li>Objects: All <i onClick={() => {this.openModal(PLAN_DESCRIPTIONS.OBJECTS_ALL)}} className="icon control info-white">info</i>
+                    <li>Objects: All
                     </li>
-                    <li>Video On Demand: All</li>
+                    <li>Space Situation Room</li>
+                    <li>Slooh Road Trip</li>
                   </ul>
                 </article>
 
                 <footer>
-                  <button className="btn-primary continue">Get This Plan</button>
+                  <a className="btn-primary continue" href={registerNewAstronomerURL}>Get This Plan</a>
                 </footer>
 
               </article>
@@ -180,15 +180,12 @@ class PlansChange extends Component {
                 <div className="col-full sans-serif padding-small">
 
                   <input className="pull-right top-stack" id="faq-one" type="checkbox" name="tabs" />
-                  <label className="top-stack" htmlFor="faq-one">Question</label>
+                  <label className="top-stack" htmlFor="faq-one">How many telescopes do you have?
+</label>
 
                   <div className="tab-content">
                     <p>
-                      Answer So she was considering in her own mind (as well as she
-                      could, for the hot day made her feel very sleepy and stupid),
-                      whether the pleasure of making a daisy-chain would be worth
-                      the trouble of getting up and picking the daisies, when
-                      suddenly a White Rabbit with pink eyes ran close by her.
+                      Slooh has seven telescopes situated at its flagship observatory, at the Institute of Astrophysics of the Canary Islands, one of the world’s top observatory sites, and three telescopes based in Santiago, Chile, situated at the Catholic University and offering complementary views of the southern skies. We also have a network of over 25 partner observatories bringing you live feeds of outer space.
                     </p>
                   </div>
                 </div>
@@ -199,15 +196,11 @@ class PlansChange extends Component {
                 <div className="col-full sans-serif padding-small">
 
                   <input className="pull-right top-stack" id="faq-two" type="checkbox" name="tabs" />
-                  <label className="top-stack" htmlFor="faq-two">Question</label>
+                  <label className="top-stack" htmlFor="faq-two">Is Slooh for novices or experts? </label>
 
                   <div className="tab-content">
                     <p>
-                      Answer So she was considering in her own mind (as well as she
-                      could, for the hot day made her feel very sleepy and stupid),
-                      whether the pleasure of making a daisy-chain would be worth
-                      the trouble of getting up and picking the daisies, when
-                      suddenly a White Rabbit with pink eyes ran close by her.
+                      Slooh Apprentice is perfect for people who share a basic curiosity about space and Slooh Astronomer is appropriate for advanced amateur astronomers who want to track asteroids, comets, supernovae, etc. as well as participate in leading the community.
                     </p>
                   </div>
                 </div>
@@ -218,15 +211,11 @@ class PlansChange extends Component {
                 <div className="col-full sans-serif padding-small">
 
                   <input className="pull-right top-stack" id="faq-three" type="checkbox" name="tabs" />
-                  <label className="top-stack" htmlFor="faq-three">Question</label>
+                  <label className="top-stack" htmlFor="faq-three">How do I control the telescope?</label>
 
                   <div className="tab-content">
                     <p>
-                      Answer So she was considering in her own mind (as well as she
-                      could, for the hot day made her feel very sleepy and stupid),
-                      whether the pleasure of making a daisy-chain would be worth
-                      the trouble of getting up and picking the daisies, when
-                      suddenly a White Rabbit with pink eyes ran close by her.
+                      You make a reservation for a 5 or 10 minute “mission” on any one of the telescopes. Slooh works like a jukebox--one member is in control while all other paying members can watch along.
                     </p>
                   </div>
                 </div>
@@ -236,15 +225,26 @@ class PlansChange extends Component {
                 <div className="col-full sans-serif padding-small">
 
                   <input className="pull-right top-stack" id="faq-four" type="checkbox" name="tabs" />
-                  <label className="top-stack" htmlFor="faq-four">Question</label>
+                  <label className="top-stack" htmlFor="faq-four">Do I need a strong science background to use Slooh?</label>
 
                   <div className="tab-content">
                     <p>
-                      Answer So she was considering in her own mind (as well as she
-                        could, for the hot day made her feel very sleepy and stupid),
-                        whether the pleasure of making a daisy-chain would be worth
-                        the trouble of getting up and picking the daisies, when
-                        suddenly a White Rabbit with pink eyes ran close by her.
+                      No, Slooh embraces all perspectives about what is ‘out there’ and the community is open to the spiritual, the artistic, the imaginative, along with the scientific. You will find David Bowie and Vincent Van Gogh next to Albert Einstein and Carl Sagan.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="border-top margin-bottom-none">
+                <div className="col-full sans-serif padding-small">
+
+                  <input className="pull-right top-stack" id="faq-five" type="checkbox" name="tabs" />
+                  <label className="top-stack" htmlFor="faq-five">Is there any limit to the number of photos I can take?
+</label>
+
+                  <div className="tab-content">
+                    <p>
+                      No, you can snap as many pictures as desired, which will be saved in your “My Pictures” gallery, which you can freely share, on your way to collecting all solar systems objects, Messier objects, Slooh 500, and other catalogs and challenges we create for you.
                     </p>
                   </div>
                 </div>
@@ -257,4 +257,9 @@ class PlansChange extends Component {
   }
 }
 
-export default PlansChange;
+const mapStateToProps = ({ appConfig }) => ({
+  ...appConfig,
+});
+const mapDispatchToProps = dispatch => (bindActionCreators({}, dispatch));
+
+export default connect(mapStateToProps, mapDispatchToProps)(PlansChange);

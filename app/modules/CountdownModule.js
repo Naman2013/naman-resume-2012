@@ -53,23 +53,13 @@ export function fetchActiveOrUpcomingEvent() {
 
     try {
       const { status, data, data: { eventList } } = await axios.get('/api/events/upcoming?limit=50');
-      const currentTime = Math.round(Date.now() / 1000);
 
       if (status >= 400) {
         throw new Error(data);
       }
 
-      const activeOrUpcomingEvent = eventList.find((event) => {
-        if (
-          event.eventStatus === 'published' &&
-          ((event.eventStart <= currentTime && currentTime <= event.eventEnd) ||
-          (event.eventStart > currentTime && currentTime < event.eventEnd))
-        ) {
-          return event;
-        }
-      });
-
-      dispatch(upcomingEventsResponseSuccess(activeOrUpcomingEvent));
+      // using the first event in the list as the next or upcoming event source
+      dispatch(upcomingEventsResponseSuccess(eventList[0]));
     } catch (err) {
       dispatch(upcomingEventsResponseFailure(err));
     }
