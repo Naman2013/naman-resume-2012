@@ -45,10 +45,10 @@ const ImageProcessingHelperText = ({ content }) => (
 
 const mapStateToProps = ({ catalog, user }) => ({
   ...catalog,
-  user: user,
+  user,
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
     fetchCatalog,
     grabMissionSlot,

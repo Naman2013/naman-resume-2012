@@ -10,9 +10,9 @@ function EventHero({ eventContent }) {
     backgroundImage: `url(${imgUrl})`,
   });
 
-  const eventStart = moment.tz(eventContent.startDate, 'America/New_York').format('dddd, MMMM D, YYYY h:mmA z');
-
+  const eventStart = moment.unix(eventContent.startDate).format('dddd, MMMM D, YYYY h:mmA z');
   const sponsorInfo = eventContent.sponsorInformation || {};
+
   return (
     <div style={getHeroInlineStyle(eventContent.featuredImageURL)} className={s.eventHeroRoot}>
       <header className={s.titleContainer}>

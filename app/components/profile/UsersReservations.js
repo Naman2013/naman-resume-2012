@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 import moment from 'moment-timezone';
 import classnames from 'classnames';
-import InlineCountdown from '../../components/common/inline-countdown/inline-countdown';
+import InlineDaysCountdown from '../../components/common/inline-countdown/inline-days-countdown';
 import s from './UsersReservations.scss';
 
 const { array, func } = PropTypes;
@@ -73,10 +73,10 @@ const UsersReservations = ({ reservationsList, refreshAction }) => {
               </section>
               <section className="row-xxwide sans-serif">
                 <div className="date-time">
-                  <span className="icon-small icon-calendar" /> {estStart}
-                  <span>EST <strong>{estStartTime}</strong></span>
-                  <span className="padding-right-xsmall padding-left-xsmall margin-left-xsmall margin-right-xsmall border-right border-left">PST <strong>{pstStartTime}</strong> </span>
-                  <span>UTC <strong>{utcStartTime}</strong></span>
+                  <span className="icon-small icon-calendar" /> <span className="padding-right-xsmall margin-right-xsmall">{estStart}</span>
+                  <span><strong>{estStartTime}</strong></span>
+                  <span className="padding-right-xsmall padding-left-xsmall margin-left-xsmall margin-right-xsmall border-right border-left"><strong>{pstStartTime}</strong> </span>
+                  <span><strong>{utcStartTime}</strong></span>
                 </div>
               </section>
             </section>
@@ -85,7 +85,7 @@ const UsersReservations = ({ reservationsList, refreshAction }) => {
               <figure>
                 <div>
                   {/* we want to render the inline countdown if it has a mission start time
-                    so we can use InlineCountdown's exitAction logic to fire the refresh action when
+                    so we can use InlineDaysCountdown's exitAction logic to fire the refresh action when
                     we have reached the mission start time. However, we only want to show the countdown
                     to the user if the showCountdownToMission flag is set to true which is why we are doing a display:none
                   */}
@@ -96,7 +96,7 @@ const UsersReservations = ({ reservationsList, refreshAction }) => {
                       <span className="padding-none padding-left-med  border-left">M</span>
                     </div>
 
-                    <section className="dhm text-xxlarge"><InlineCountdown startTime={reservation.expires} format="hh:mm:ss" exitAction={refreshAction} /></section>
+                    <section className="dhm text-xxlarge"><InlineDaysCountdown startTime={reservation.expires} exitAction={refreshAction} /></section>
                   </div>}
                   {(reservation.showMissionResultIcon || reservation.showMissionInProgress) && <img className={s.missionIconXtraLarge} src={reservation.missionResultIconURL} />}
                 </div>

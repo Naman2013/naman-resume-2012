@@ -1,7 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { flatten, has } from 'lodash';
+import { flatten } from 'lodash';
+import { validateResponseAccess } from '../../modules/authorization/actions';
 import ReserveObjectsSummary from '../../components/reserve/reserve-by-object-summary';
 import ReservationSelectList from '../../components/common/forms/reservation-select-list';
 import GenericLoadingBox from '../../components/common/loading-screens/generic-loading-box';
@@ -28,6 +29,7 @@ const mapDispatchToProps = dispatch => ({
     setCategoryIndex,
     setObjectIndex,
     resetBrowseByPopularObjects,
+    validateResponseAccess,
   }, dispatch),
 });
 
@@ -80,7 +82,12 @@ class ReserveObjects extends Component {
       cid,
       token,
       callSource,
-    }).then(result => this.setCatagoryList(result.data));
+    }).then((result) => {
+      this.props.actions.validateResponseAccess(result.data);
+      if (!result.data.apiError) {
+        this.setCatagoryList(result.data);
+      }
+    });
   }
 
   setCatagoryList(catagoryList) {

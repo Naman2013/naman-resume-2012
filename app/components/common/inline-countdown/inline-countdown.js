@@ -50,11 +50,10 @@ class InlineCountdown extends Component {
       const { remainingTime } = this.state;
       const { exitAction } = this.props;
       const updatedTime = moment(remainingTime).subtract(1, 'seconds');
-      const hoursRemaining = updatedTime.hours();
       const minutesRemaining = updatedTime.minutes();
       const secondsRemaining = updatedTime.seconds();
 
-      if (hoursRemaining <= 0 && minutesRemaining <= 0 && secondsRemaining <= 0) {
+      if (minutesRemaining <= 0 && secondsRemaining <= 0) {
         if (typeof exitAction === 'function') {
           exitAction({});
         }

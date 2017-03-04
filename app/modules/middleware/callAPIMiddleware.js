@@ -1,9 +1,4 @@
-import { push } from 'react-router-redux';
-import { captureErrorState } from '../authorization/actions';
-
-const SIGN_IN_PATH = '/registration/sign-in';
-const REDIRECT_CONFIRMATION_PATH = '/redirect-confirmation';
-const UNAUTHORIZED_STATUS_CODE = 401;
+import { validateResponseAccess } from '../authorization/actions';
 
 export default function callAPIMiddleware({ dispatch, getState }) {
   return next => (action) => {
@@ -14,22 +9,13 @@ export default function callAPIMiddleware({ dispatch, getState }) {
       payload = {},
     } = action;
 
+    // =================================================
+    // here is where the access validation magic occurrs
+    // =================================================
     if (!types) {
-      // If payload has 401 (unauthorized code) we are redirecting them to upsell page
       if (action.payload && action.payload.statusCode) {
-        if (action.payload.statusCode === UNAUTHORIZED_STATUS_CODE) {
-          const { apiError, errorCode, statusCode, loginError } = action.payload;
-          if (typeof loginError === 'undefined') {
-            dispatch(captureErrorState({
-              apiError,
-              errorCode,
-              statusCode,
-            }));
-            dispatch(push(REDIRECT_CONFIRMATION_PATH));
-          }
-        }
+        dispatch(validateResponseAccess(action.payload));
       }
-
       return next(action);
     }
 
