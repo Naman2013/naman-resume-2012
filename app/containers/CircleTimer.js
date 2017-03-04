@@ -15,6 +15,7 @@ function mapDispatchToProps(dispatch) {
 
 const mapStateToProps = ({ countdown }) => ({
   eventIsLive: countdown.activeOrUpcomingEvent.eventIsLive,
+  eventEnd: countdown.activeOrUpcomingEvent.eventEnd,
 });
 
 @connect(mapStateToProps, mapDispatchToProps)
@@ -24,6 +25,8 @@ export default class CircleTimer extends Component {
     eventStartIn: number,
     lineWidth: number,
     fetchActiveOrUpcomingEvent: func.isRequired,
+    eventEnd: number,
+    eventIsLive: bool,
   };
 
   state = {
@@ -37,8 +40,11 @@ export default class CircleTimer extends Component {
   componentDidMount() {
     const { props: { eventStartIn, fetchActiveOrUpcomingEvent } } = this;
     this.updateIntervalId = setInterval(() => {
+      const { eventIsLive, eventEnd } = this.props;
       const difference = moment.unix(eventStartIn).diff(moment.utc());
-      const { eventIsLive } = this.props;
+      const endOfEventDifference = moment.unix(eventEnd).diff(moment.utc());
+      const REFRESH_DELAY = -3000;
+
 
       if (difference >= 0) {
         const duration = moment.duration(difference, 'milliseconds');
@@ -52,7 +58,11 @@ export default class CircleTimer extends Component {
         });
       }
 
-      if (!eventIsLive && (difference <= 0)) {
+      if (!eventIsLive && (difference <= REFRESH_DELAY)) {
+        fetchActiveOrUpcomingEvent();
+      }
+
+      if (eventIsLive && (endOfEventDifference <= REFRESH_DELAY)) {
         fetchActiveOrUpcomingEvent();
       }
     }, 1000);
