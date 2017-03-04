@@ -131,7 +131,7 @@ module.exports = {
     recordsPath: path.resolve('/'),
     proxy: {
       '/api/**': {
-        target: 'https://saturn.slooh.com:444',
+        target: 'https://mars.slooh.com:444',
         changeOrigin: true,
         secure: true,
       },

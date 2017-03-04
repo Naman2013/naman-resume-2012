@@ -51,7 +51,7 @@ export default class UpcomingComponent extends Component {
         <h3 className={s.title}>Upcoming Shows:</h3>
         {
           this.state.EventMenu.map((event) => {
-            if (event.eventStatus === 'published' && typeof event.eventTitle !== 'undefined') {
+            if ((event.eventStatus === 'published' || event.eventStatus === 'live') && event.eventTitle) {
               const eventImageURL = decodeURIComponent(event.eventImageURL);
 
               return (
