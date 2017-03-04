@@ -7,6 +7,8 @@ export const FETCH_ERRORS_SUCCESS = 'FETCH_ERRORS_SUCCESS';
 export const CAPTURE_ERROR_STATE = 'CAPTURE_ERROR_STATE';
 export const RESET_ERROR_STATE = 'RESET_ERROR_STATE';
 
+export const VALIDATE_RESPONSE = 'VALIDATE_RESPONSE';
+
 const fetchErrorsStart = () => ({
   type: FETCH_ERRORS_START,
 });
@@ -53,4 +55,22 @@ export const fetchErrors = () => (dispatch, getState) => {
       dispatch(push('/'));
     }
   });
+};
+
+export const validateResponseAccess = apiResponse => (dispatch) => {
+  const SIGN_IN_PATH = '/registration/sign-in';
+  const REDIRECT_CONFIRMATION_PATH = '/redirect-confirmation';
+  const UNAUTHORIZED_STATUS_CODE = 401;
+
+  const { apiError, errorCode, statusCode, loginError } = apiResponse;
+  if (statusCode === UNAUTHORIZED_STATUS_CODE) {
+    if (typeof loginError === 'undefined') {
+      dispatch(captureErrorState({
+        apiError,
+        errorCode,
+        statusCode,
+      }));
+      dispatch(push(REDIRECT_CONFIRMATION_PATH));
+    }
+  }
 };

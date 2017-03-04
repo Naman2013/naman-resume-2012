@@ -47,9 +47,9 @@ class Profile extends Component {
             </div>
           </section>
 
-          <section className="interstital padding-top-xsmall padding-bottom-med margin-top-xlarge margin-bottom-small white sans-serif">
+          {profile.showUpsellMessage && <section className="interstital padding-top-xsmall padding-bottom-med margin-top-xlarge margin-bottom-small white sans-serif">
             <MembershipUpsell upsellDetails={profile.upsellDetails} />
-          </section>
+          </section>}
         </article>
 
           {/*<section className="recent-pictures row-xxwide">

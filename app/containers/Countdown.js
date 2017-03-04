@@ -1,6 +1,7 @@
 import React, { PureComponent, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { Link } from 'react-router';
 import CircleTimer from '../containers/CircleTimer';
 import * as countDownEvents from '../modules/CountdownModule';
 import { fetchActiveOrUpcomingEvent } from '../modules/CountdownModule';
@@ -96,7 +97,7 @@ export default class Countdown extends PureComponent {
               <span>
                 <span>Next LIVE Event: </span>
                 <span>
-                  <strong><a target="_blank" href={eventDetailsDecodedURL}>{eventTitle}</a></strong>
+                  <strong><Link to={`/shows/event-details/${activeOrUpcomingEvent.eventId}`}>{eventTitle}</Link></strong>
                   <span>{duration}</span>
                 </span>
               </span>

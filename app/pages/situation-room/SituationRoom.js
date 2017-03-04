@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import moment from 'moment';
 import SocialSidebar from '../../components/pulse/sidebar/social-sidebar';
 import Header from '../../components/situation-room/Header';
 import SituationVideoViewer from '../../components/situation-room/SituationVideoViewer';
@@ -19,12 +20,32 @@ const mapDispatchToProps = dispatch => ({
 const mapStateToProps = ({ countdown, liveShows, communityShowContent }, ownProps) => ({
   showId: ownProps.routeParams.showId,
   upcomingEventEventId: countdown.activeOrUpcomingEvent.eventId,
+  upcomingEventStartTime: countdown.activeOrUpcomingEvent.eventStart,
+  eventEndTime: countdown.activeOrUpcomingEvent.eventEnd,
+  eventIsLive: countdown.activeOrUpcomingEvent.eventIsLive,
   currentLiveShow: liveShows.liveShowsResponse,
   communityPosts: communityShowContent.resultBody.posts,
 });
 
 @connect(mapStateToProps, mapDispatchToProps)
 class SituationRoom extends Component {
+  constructor(props) {
+    super(props);
+
+    this.countdownInterval = setInterval(() => {
+      const { upcomingEventStartTime, eventEndTime, eventIsLive } = this.props;
+      const now = moment.utc();
+      // there is no live event, and the current time and start time are the same
+      if (now.diff(moment.unix(upcomingEventStartTime)) >= 0 && !eventIsLive) {
+        window.location.reload();
+      }
+      // there is a live event, and he end time is now
+      if (now.diff(moment.unix(eventEndTime)) >= 0 && eventIsLive) {
+        window.location.reload();
+      }
+    }, 1000);
+  }
+
   componentWillMount() {
     const { showId } = this.props;
     if (showId) {
@@ -41,6 +62,10 @@ class SituationRoom extends Component {
     if (nextProps.upcomingEventEventId !== upcomingEventEventId) {
       this.fetchEventInformation(nextProps.upcomingEventEventId);
     }
+  }
+
+  componentWillUnMount() {
+    clearInterval(this.countdownInterval);
   }
 
   fetchEventInformation(eventId) {

@@ -37,6 +37,7 @@ class SituationVideoViewer extends Component {
       initialStreamURL,
     } = this.props;
     const { selectedTab } = this.state;
+
     Tabs.setUseDefaultStyles(false);
 
     return (

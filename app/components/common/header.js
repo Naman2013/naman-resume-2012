@@ -7,7 +7,7 @@ const Header = () =>
   <header className={styles.mainHeader} id="mainHeader">
     <div className={styles.mainHeaderLogo}/>
     <div className={styles.mainHeaderLogoText}>
-      Slooh <span className="beta">beta</span>
+      Slooh <span className="beta">sneak peek</span>
     </div>
     <Member />
     <Countdown />
