@@ -103,16 +103,18 @@ class Mission extends Component {
             </i>
             <div className="pull-right col-med">
               <h1 className="white">Syndicate Live Telescope Coverage</h1>
-              <div className="white text-large">Join our media list and we will provide you with updates on events which include embed codes.</div>
+              <div className="white text-large">Join our media list for updates on upcoming events and partner with Slooh in a variety of ways.</div>
             </div>
           </header>
 
           <article className="row-col">
-            <p className="col-2third">Since 2003 our live coverage of celestial events has been watched by hundreds of millions of viewers worldwide as eclipses, transits, comets, asteroids and other celestial phenomena unfold in real-time and high definition, while Slooh hosts Bob Berman and Paul Cox interview expert guests. Our coverage has been syndicated to media outlets such as NBC, ABC, CNN, Fox News, National Geographic, Wired, The Weather Channel, the Google Doodle, and was recently covered in The New York Times.</p>
-
-            <figure className="col-third">
-              <video />
-            </figure>
+            <p>
+              Slooh&apos;s automated observatories develop celestial image streams in real-time for broadcast to the Internet, and Slooh’s technology is protected by Patent No.: US 7,194,146 B2 which was awarded in 2006.  Slooh's flagship observatory is situated at the Institute of Astrophysics of the Canary Islands (IAC), one of the finest observatory sites in the world and home to the largest telescope in the world. Slooh has traveled with a mobile observatory to Kenya, the Faroe Islands, Indonesia, Iceland, Australia, and Alaska, and partnered with observatories in Arizona, Japan, Hawaii, Cypress, Dubai, South Africa, Australia, New Zealand, Norway and many more to broadcast live celestial events of potentially hazardous asteroids (PHAs), comets, transits, eclipses, solar activity, etc., which are syndicated to media outlets worldwide, including TIME, National Geographic, NPR, Wired, ABC News, the New York Times, Washington Post and many more.
+            </p>
+            <p>
+              Slooh has a variety of options for media partners that want to embed live telescope feeds into their websites during featured shows, as well as daily coverage of the moon, sun and other celestial phenomena.
+            </p>
+            <p>To join our media list, please submit a request via the <Link to="/about/contact">Contact Us form</Link>, send an email to <a mailto="press@slooh.com">press@slooh.com</a> or call 877-427-5664, x3. To partner with Slooh, please provide your contact information so we can follow up via phone to discuss partnership options. We look forward to hearing from you.</p>
           </article>
 
           <footer className="row-col">
