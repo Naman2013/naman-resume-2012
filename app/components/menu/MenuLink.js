@@ -10,10 +10,17 @@ class MenuLink extends Component {
 
   handleMenuClick() {
     const { handleClick, index, data } = this.props;
-    if(data.pageLink) {
-      hashHistory.push(data.pageLink);
+    const hasPageLinkProtocol = data.pageLink.split(':')[0] === 'https';
+    if (data.pageLink) {
+      if (hasPageLinkProtocol) {
+        window.open(data.pageLink);
+      } else {
+        hashHistory.push(data.pageLink);
+      }
     }
-    handleClick(index);
+    if (!hasPageLinkProtocol) {
+      handleClick(index);
+    }
   }
 
   parseDataNav(en) {
@@ -28,7 +35,9 @@ class MenuLink extends Component {
     return (
       <li className={menuLinkClass}>
         <a onClick={this.handleMenuClick} data-nav={this.parseDataNav(text)}>
-          {!isSpacer && <img src={data.iconUrl} />}
+          {
+            !isSpacer && <img alt="" src={data.iconUrl} />
+          }
           {text}
         </a>
       </li>

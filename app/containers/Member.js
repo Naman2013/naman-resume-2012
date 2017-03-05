@@ -10,8 +10,8 @@ import styles from '../styles/member.scss';
 
 const { object, func } = PropTypes;
 
-function mapStateToProps({ user, login }) {
-  return { user, loginData: login };
+function mapStateToProps({ user, login, appConfig }) {
+  return { appConfig, user, loginData: login };
 }
 
 function mapDispatchToProps(dispatch) {
@@ -80,7 +80,7 @@ export default class Member extends Component {
         ) : (
           <span className={styles.loggedOutWrapper}>
             <a
-              href="https://saturn.slooh.com/subscribe-bt2.php"
+              href={this.props.appConfig.registerNewMemberURL}
               target="_blank"
               rel="noopener noreferrer"
               className={classnames('ignore-react-onclickoutside', styles.regButton)}

@@ -45,6 +45,7 @@ export const fetchErrors = () => (dispatch, getState) => {
 
     const MEMBER_UPSELL = 'memberUpsell';
     const GOTO_HOMEPAGE = 'gotoHomePage';
+    const LOGIN_UPSELL = 'loginUpsell';
     const { responseType } = result.data;
 
     if (responseType === MEMBER_UPSELL) {
@@ -53,6 +54,10 @@ export const fetchErrors = () => (dispatch, getState) => {
 
     if (responseType === GOTO_HOMEPAGE) {
       dispatch(push('/'));
+    }
+
+    if (responseType === LOGIN_UPSELL) {
+      dispatch(push('/registration/sign-in'));
     }
   });
 };
