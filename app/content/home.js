@@ -12,23 +12,23 @@ export default {
     {
       key: 1,
       title: 'Lunar Eclipse',
-      content: 'A supposedly ho-hum penumbral lunar eclipse is anything but in Slooh’s Chile telescope, covered live with Gerry Monteux and Paul Cox on February 10th.',
+      content: 'A penumbral lunar eclipse from Slooh’s Chile observatory exciting Slooh hosts Gerry Monteux and Paul Cox on February 10th',
       imageUrl: 'assets/images/samples/bobpubjpg.png',
-      videoUrl: 'https://www.youtube.com/embed/Ttm-PjbAAQE'
+      videoUrl: 'https://www.youtube.com/embed/Ttm-PjbAAQE?rel=0&amp;showinfo=0'
     },
     {
       key: 2,
       title: 'Total Solar Eclipse',
       content: 'Road Trip with Slooh to Stanley, Idaho to witness the Total Solar Eclipse on August 21st, or watch our coverage live right here on Slooh.',
       imageUrl: 'assets/images/samples/perseid-meteor-shower.png',
-      videoUrl: 'https://www.youtube.com/embed/ZU4Nt_-nLFY'
+      videoUrl: 'https://www.youtube.com/embed/ZU4Nt_-nLFY?rel=0&amp;showinfo=0'
     },
     {
       key: 3,
       title: 'Star of Bethlehem',
       content: 'Do you believe in miracles? Slooh looked back in time to ponder what the ancients might have seen that fateful night.',
       imageUrl: 'assets/images/samples/perseids.png',
-      videoUrl: 'https://www.youtube.com/embed/lzseVZk6Sx0'
+      videoUrl: 'https://www.youtube.com/embed/lzseVZk6Sx0?rel=0&amp;showinfo=0'
     }
   ],
   promoBandContent: 'Slooh Membership: An All-Access Pass to the Night Sky.',
@@ -44,16 +44,16 @@ export default {
     {
       key: Math.random() * 100,
       icon: 'assets/icons/jupiter-icon.png',
-      title: 'EXPERIENCE MAJOR CELESTIAL EVENTS ALONGSIDE MILLIONS.',
-      content: 'Slooh will keep you up-to-date on what’s about to happen and how best to see it. During LIVE streaming events, Slooh’s knowledgable exerts guide you through the night sky and its wonders.',
+      title: 'EXPERIENCE MAJOR CELESTIAL EVENTS IN THE SPACE SITUATION ROOM.',
+      content: 'Slooh will keep you up-to-date on what’s happening in space with LIVE streaming events and feeds from observatory partners around the world. Slooh’s knowledgeable experts guide you through the night sky and its wonders.',
       actionUrl: '#',
-      actionText: 'See Full Schedule'
+      actionText: 'See Upcoming'
     },
     {
       key: Math.random() * 100,
       icon: 'assets/icons/three-amigos.png',
       title: 'PARTICIPATE IN A COMMUNITY OF FELLOW EXPLORERS.',
-      content: 'Whether you are a high school or college student, practicing astronomer, or a passionate “prosumer” hobbyist, Slooh has something for you. Register today and get one step closer to the cosmos.',
+      content: 'Space is more interesting as a social experience. Register today to see and share diverse perspectives about what is "out there", including the spiritual, the artistic, the imaginative, along with the scientific.',
       actionUrl: '#',
       actionText: 'Free Registration'
     }

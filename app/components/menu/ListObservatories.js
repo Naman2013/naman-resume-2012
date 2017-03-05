@@ -38,10 +38,6 @@ class ListObservatories extends Component {
     return (
       <li className="observatory-list">
         <h4 className="menu-title">All Telescopes</h4>
-        <ul className="list">
-          <li className="static-item scope-online">Currently Online</li>
-          <li className="static-item scope-offline">Currently Offline</li>
-        </ul>
         {
           this.state.obsList.map((el, i) => {
           if (typeof el.obsName !== 'undefined') {
@@ -56,6 +52,10 @@ class ListObservatories extends Component {
             );
           }
         })}
+        <ul className="list">
+          <li className="static-item scope-online">Currently Online</li>
+          <li className="static-item scope-offline">Currently Offline</li>
+        </ul>
       </li>
     );
   }
