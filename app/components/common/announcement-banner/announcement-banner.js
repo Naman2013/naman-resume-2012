@@ -33,7 +33,7 @@ class AnnouncementBanner extends Component {
 
   generateMessages() {
     const { announcementMessages } = this.props;
-    if(announcementMessages) {
+    if (announcementMessages) {
       return this.props.announcementMessages.map(announcement => (
         <p key={announcement.uniqueId} className={style.announcement}>
           {announcement.text}
@@ -57,7 +57,7 @@ class AnnouncementBanner extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if(nextProps.obsId === this.props.obsId) {
+    if (nextProps.obsId === this.props.obsId) {
       return;
     }
 
@@ -67,14 +67,17 @@ class AnnouncementBanner extends Component {
   // TODO: refactor to use componentWillReceiveProps and destruct nextProps
   scaffoldAnnouncementUpdates(obsId) {
     this.updateAnnouncements(obsId);
+    const { refreshIntervalSec } = this.props;
 
-    const intervalInSeconds = this.props.refreshIntervalSec * 1000;
-    if(typeof this.refreshInterval === Number) {
-      this.clearComponentInterval();
+    const intervalInSeconds = refreshIntervalSec * 1000;
+
+    clearInterval(this.refreshInterval);
+
+    if (intervalInSeconds) {
+      this.refreshInterval = setInterval(() => {
+        this.updateAnnouncements();
+      }, intervalInSeconds);
     }
-    this.refreshInterval = setInterval(() => {
-      this.updateAnnouncements();
-    }, intervalInSeconds);
   }
 
   componentWillUnmount() {
