@@ -16,10 +16,12 @@ function Mission({
       to={`my-pictures/missions/${scheduledMissionId}`}
       style={{ backgroundImage: `url(${imageURL})` }}
     >
-      <div className="row"> <b>{imageTitle} </b> <br /> {missionDate} </div>
-      <div className="row"><img height="80" src={objectIconURL} alt={imageTitle} /></div>
-      <div className="row">{fitsIsAvailable ? <span className="fits">FITS</span> : ''}</div>
-    </Link>
+      <div className="content">
+        <div className="row"> <b>{imageTitle} </b> <br /> {missionDate} </div>
+        <div className="row"><img height="80" src={objectIconURL} alt={imageTitle} /></div>
+        <div className="row">{fitsIsAvailable ? <span className="fits">FITS</span> : ''}</div>
+      </div>
+  </Link>
   );
 }
 

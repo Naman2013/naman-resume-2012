@@ -63,7 +63,7 @@ const fetchMissionsFail = payload => ({
   payload,
 });
 
-export const fetchMissions = () => (dispatch, getState) => {
+const fetchMissions = () => (dispatch, getState) => {
   const { at, token, cid } = getState().user;
   const { objectTypeFilter } = getState().myPictures;
   dispatch(fetchMissionsStart());
@@ -96,7 +96,7 @@ const fetchPhotoRollFail = payload => ({
   @scheduledMissionId: number - used when filtering down to a specific set
   of photographs for a specific mission
 */
-export const fetchPhotoRoll = () => (dispatch, getState) => {
+const fetchPhotoRoll = () => (dispatch, getState) => {
   const { at, token, cid } = getState().user;
   const { objectTypeFilter } = getState().myPictures;
   dispatch(fetchPhotoRollStart());
@@ -148,24 +148,21 @@ export const photoRollResetScheduledMissionId = () => (dispatch) => {
   TODO: consider creating system constants that we can use to import and use for
   checks in other parts of the app to stay consistent.
 */
+
+export const fetchPhotoRollandMissionRoll = () => (dispatch) => {
+  dispatch(fetchMissions());
+  dispatch(fetchPhotoRoll());
+};
+
 export const updateObjectFilterBy = (payload, page) => (dispatch) => {
   dispatch(setObjectFilterBy(payload));
-  if (page === 'missions') {
-    dispatch(fetchMissions());
-  }
-
-  if (page === 'photoRoll') {
-    dispatch(fetchPhotoRoll());
-  }
+  dispatch(fetchMissions());
+  dispatch(fetchPhotoRoll());
 };
 
 export const resetObjectFilter = page => (dispatch) => {
   dispatch(resetObjectTypeFilter());
-  if (page === 'missions') {
-    dispatch(fetchMissions());
-  }
+  dispatch(fetchMissions());
+  dispatch(fetchPhotoRoll());
 
-  if (page === 'photoRoll') {
-    dispatch(fetchPhotoRoll());
-  }
 };

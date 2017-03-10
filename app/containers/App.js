@@ -6,25 +6,19 @@ import notificationStyles from '../components/common/notification-center/inline-
 import Menu from './Menu';
 import Header from '../components/common/header';
 import Footer from '../components/common/footer';
-import { checkUser } from '../modules/User';
-
-const { element, func } = PropTypes;
-
-const mapStateToProps = ({ user }) => ({
-  user,
-});
+import { fetchEvents } from '../modules/upcoming-events/upcoming-events-actions';
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
-    checkUser,
+    fetchEvents,
   }, dispatch);
 }
 
-@connect(mapStateToProps, mapDispatchToProps)
+@connect(null, mapDispatchToProps)
 class App extends Component {
   constructor(props) {
     super(props);
-
+    props.fetchEvents();
     this.notificationSystem = null;
   }
 
@@ -73,10 +67,5 @@ class App extends Component {
     );
   }
 }
-
-App.propTypes = {
-  children: element,
-  checkUser: func,
-};
 
 export default App;

@@ -14,7 +14,7 @@ function EventDescription({ eventContent, likeEvent, showId }) {
     <article className={s.eventDescriptionContainer}>
       <section className={s.eventDescriptionPanel}>
         {(eventContent.mode === 'members' || eventContent.mode === 'paidmembers') &&
-        <span className={s.eventDescriptionPanelItemMain}><i className="fa fa-lock icon" />Membership Required. <Link to={eventContent.registerURL} className={s.link}>Learn More.</Link></span>
+        <span className={s.eventDescriptionPanelItemMain}><i className="fa fa-lock icon" />Membership Required. <a href={eventContent.registerURL} className={s.link}>Learn More.</a></span>
         }
         <div className={s.eventDescriptionPanelItem}>
           <Heart

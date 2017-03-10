@@ -47,7 +47,7 @@ class Profile extends Component {
             </div>
           </section>
 
-          {profile.showUpsellMessage && <section className="interstital padding-top-xsmall padding-bottom-med margin-top-xlarge margin-bottom-small white sans-serif">
+          {profile.showUpsellMessage && profile.membershipType !== 'ASTRONOMER' && <section className="interstital padding-top-xsmall padding-bottom-med margin-top-xlarge margin-bottom-small white sans-serif">
             <MembershipUpsell upsellDetails={profile.upsellDetails} />
           </section>}
         </article>

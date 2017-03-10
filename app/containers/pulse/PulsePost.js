@@ -58,6 +58,7 @@ class PulsePost extends Component {
         showRecommends,
         showCreateNewPostButton,
         objectId,
+        slugLookupId,
       }
     } = this.props;
 
@@ -105,6 +106,7 @@ class PulsePost extends Component {
                 <PulsePopular
                   tag={headerObjectTitle}
                   list={moreAboutObject.itemList}
+                  slugLookupId={slugLookupId}
                 /> : null
             }
 

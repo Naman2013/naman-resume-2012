@@ -2,34 +2,38 @@ import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import moment from 'moment';
-import * as countDownEvents from '../modules/CountdownModule';
+import { eventGoLive, endEvent } from '../modules/upcoming-events/upcoming-events-actions';
 import CircleCounter from '../components/circle-counter';
 import classes from '../styles/circle-timer.scss';
 
-
-const { func, string, number, bool } = PropTypes;
+const { number, bool } = PropTypes;
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ countDownEvents }, dispatch);
+  return bindActionCreators({
+    eventGoLive,
+    endEvent,
+  }, dispatch);
 }
 
-const mapStateToProps = ({ countdown }) => ({
-  eventIsLive: countdown.activeOrUpcomingEvent.eventIsLive,
-  eventEnd: countdown.activeOrUpcomingEvent.eventEnd,
-});
-
-@connect(mapStateToProps, mapDispatchToProps)
+@connect(null, mapDispatchToProps)
 export default class CircleTimer extends Component {
   static propTypes = {
+    serverTime: number.isRequired,
+    eventStartIn: number.isRequired,
+    eventEndIn: number.isRequired,
+    eventIsLive: bool.isRequired,
+    eventId: number.isRequired,
     size: number,
-    eventStartIn: number,
     lineWidth: number,
-    fetchActiveOrUpcomingEvent: func.isRequired,
-    eventEnd: number,
-    eventIsLive: bool,
   };
 
+  constructor(props) {
+    super(props);
+    this.scaffoldEventTimer();
+  }
+
   state = {
+    currentTime: this.props.serverTime,
     daysTo: 0,
     hoursTo: 0,
     minutesTo: 0,
@@ -37,35 +41,12 @@ export default class CircleTimer extends Component {
     secondsTo: 0,
   };
 
-  componentDidMount() {
-    const { props: { eventStartIn, fetchActiveOrUpcomingEvent } } = this;
-    this.updateIntervalId = setInterval(() => {
-      const { eventIsLive, eventEnd } = this.props;
-      const difference = moment.unix(eventStartIn).diff(moment.utc());
-      const endOfEventDifference = moment.unix(eventEnd).diff(moment.utc());
-      const REFRESH_DELAY = -3000;
-
-
-      if (difference >= 0) {
-        const duration = moment.duration(difference, 'milliseconds');
-
-        this.setState({
-          daysTo: duration.days(),
-          hoursTo: duration.hours(),
-          minutesTo: duration.minutes(),
-          secondsTo: duration.seconds(),
-          millisecondsTo: duration.milliseconds(),
-        });
-      }
-
-      if (!eventIsLive && (difference <= REFRESH_DELAY)) {
-        fetchActiveOrUpcomingEvent();
-      }
-
-      if (eventIsLive && (endOfEventDifference <= REFRESH_DELAY)) {
-        fetchActiveOrUpcomingEvent();
-      }
-    }, 1000);
+  componentWillReceiveProps(nextProps) {
+    const nextEventId = nextProps.eventId;
+    const currentEventId = this.props.eventId;
+    if (nextEventId !== currentEventId) {
+      this.scaffoldEventTimer();
+    }
   }
 
   componentWillUnmount() {
@@ -78,6 +59,51 @@ export default class CircleTimer extends Component {
 
   getDoubleNumber(number) {
     return number.toString().length === 1 ? `0${number}` : number;
+  }
+
+  scaffoldEventTimer() {
+    if (this.updateIntervalId) {
+      clearInterval(this.updateIntervalId);
+    }
+
+    this.updateIntervalId = setInterval(() => {
+      const { eventStartIn, eventEndIn, eventIsLive } = this.props;
+      const { currentTime } = this.state;
+      const convertedEventStartTime = moment.unix(currentTime);
+      const startTimeDifference = moment.unix(eventStartIn).diff(convertedEventStartTime);
+      const endTimeDifference = moment.unix(eventEndIn).diff(convertedEventStartTime);
+
+      if (startTimeDifference >= 0) {
+        const duration = moment.duration(startTimeDifference, 'milliseconds');
+
+        this.setState(prevState => ({
+          currentTime: prevState.currentTime + 1,
+          daysTo: duration.days(),
+          hoursTo: duration.hours(),
+          minutesTo: duration.minutes(),
+          secondsTo: duration.seconds(),
+          millisecondsTo: duration.milliseconds(),
+        }));
+      } else {
+        this.setState(prevState => ({
+          currentTime: prevState.currentTime + 1,
+        }));
+      }
+
+      // the event is not live
+      // the event start time has past the current time
+      // the event end time has not past the current time
+      if (!eventIsLive && startTimeDifference <= 0 && endTimeDifference >= 0) {
+        this.props.eventGoLive();
+      }
+
+      // the event is live
+      // the end time has not past the current time by 1 second
+      // delaying the ending by 1 second...
+      if (endTimeDifference < -1000) {
+        this.props.endEvent();
+      }
+    }, 1000);
   }
 
   render() {
@@ -105,6 +131,7 @@ export default class CircleTimer extends Component {
         >
           <span>{getDoubleNumber(daysTo)}</span>
         </CircleCounter>
+
         <CircleCounter
           size={size}
           lineWidth={lineWidth}
@@ -114,6 +141,7 @@ export default class CircleTimer extends Component {
         >
           <span>{getDoubleNumber(hoursTo)}</span>
         </CircleCounter>
+
         <CircleCounter
           size={size}
           lineWidth={lineWidth}
@@ -123,6 +151,7 @@ export default class CircleTimer extends Component {
         >
           <span>{getDoubleNumber(minutesTo)}</span>
         </CircleCounter>
+
         <CircleCounter
           size={size}
           lineWidth={lineWidth}
@@ -132,7 +161,13 @@ export default class CircleTimer extends Component {
         >
           <span>{getDoubleNumber(secondsTo)}</span>
         </CircleCounter>
-        <img className="hand" src="../assets/images/header/reminder.png" />
+
+        {
+          /**
+            TODO: reminder features
+            <img alt="Reminder icon" className="hand" src="../assets/images/header/reminder.png" />
+          */
+        }
       </div>
     );
   }

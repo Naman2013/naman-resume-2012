@@ -5,32 +5,39 @@ import { Link } from 'react-router';
 import moment from 'moment';
 import CircleTimer from '../containers/CircleTimer';
 import * as countDownEvents from '../modules/CountdownModule';
-import { fetchActiveOrUpcomingEvent } from '../modules/CountdownModule';
 import classes from '../styles/countdown.scss';
 
-const { bool, number, string, object, func } = PropTypes;
+const { bool, number, string, shape } = PropTypes;
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
-    fetchActiveOrUpcomingEvent,
     countDownEvents,
   }, dispatch);
 }
 
-function mapStateToProps({ countdown }) {
-  return countdown;
+function mapStateToProps({ countdown, upcomingEvents }) {
+  return {
+    countdown,
+    nextEvent: upcomingEvents.nextEvent,
+    fetchingEvents: upcomingEvents.fetchingEvents,
+    serverTime: upcomingEvents.upcomingEvents.timestamp,
+  };
 }
 
 @connect(mapStateToProps, mapDispatchToProps)
 export default class Countdown extends PureComponent {
   static propTypes = {
-    isFetching: bool.isRequired,
-    updateEventsInterval: number.isRequired,
-    updateDurationInterval: number.isRequired,
-    responseError: object,
-    activeOrUpcomingEvent: object,
-    duration: string,
-    seconds: number,
+    serverTime: number,
+    fetchingEvents: bool.isRequired,
+    nextEvent: shape({
+      eventDescription: string.isRequired,
+      eventDetailsURL: string.isRequired,
+      eventEnd: number.isRequired,
+      eventIconURL: string.isRequired,
+      eventId: number.isRequired,
+      eventImageURL: string.isRequired,
+      eventIsLive: bool.isRequired,
+    }).isRequired,
     lineWidth: number,
     className: string,
     size: number,
@@ -41,68 +48,65 @@ export default class Countdown extends PureComponent {
     lineWidth: 3,
   };
 
-  componentDidMount() {
-    const {
-      props: {
-        updateEventsInterval,
-      },
-    } = this;
-    this.props.fetchActiveOrUpcomingEvent();
-    this.updateEventsIntervalId = setInterval(fetchActiveOrUpcomingEvent, updateEventsInterval);
-  }
-
-  componentWillUnmount() {
-    const { updateEventsIntervalId } = this;
-    clearInterval(updateEventsIntervalId);
-  }
-
   render() {
     const {
-      isFetching,
-      activeOrUpcomingEvent,
-      duration,
       size,
       lineWidth,
       className,
+      nextEvent,
+      fetchingEvents,
+      serverTime,
     } = this.props;
 
-    if (!isFetching && activeOrUpcomingEvent) {
+    if (!fetchingEvents && nextEvent) {
       const {
         eventTitle,
         eventStart,
         eventEnd,
         eventId,
         eventIsLive,
-      } = activeOrUpcomingEvent;
+      } = nextEvent;
 
-      const currentTimeMoment = moment.utc();
+      const currentTimeMoment = moment.unix(serverTime);
       const eventStartTime = moment.unix(eventStart);
       const eventEndTime = moment.unix(eventEnd);
 
       const eventHasStarted = eventStartTime.diff(currentTimeMoment) <= 0;
       const eventHasEnded = eventEndTime.diff(currentTimeMoment) <= 0;
-      const link = eventHasStarted && !eventHasEnded ? '/shows/situation-room' : `/shows/event-details/${eventId}`;
+      const link = ((eventHasStarted && !eventHasEnded) || eventIsLive) ? '/shows/situation-room' : `/shows/event-details/${eventId}`;
+
+      let testEventIsLive = eventStart;
+      let testEndTime = eventEnd;
+
+      // USE THIS FOR TESTING TIMES
+      // this website helps: https://www.epochconverter.com/
+      // if (eventId == 404) {
+      //   testEventIsLive = 1489065680;
+      //   testEndTime = 1489065740;
+      // }
 
       return (
         <div className={`${classes.countdown} ${className}`}>
           <CircleTimer
-            fetchActiveOrUpcomingEvent={this.props.fetchActiveOrUpcomingEvent}
             lineWidth={lineWidth}
             size={size}
-            eventStartIn={eventStart}
+            eventStartIn={testEventIsLive}
+            eventEndIn={testEndTime}
+            serverTime={serverTime}
+            eventIsLive={eventIsLive}
+            eventId={eventId}
           />
           <span>
             {
-              eventHasStarted && !eventHasEnded ?
+              eventIsLive ?
                 <span>Event is LIVE: </span> : null
             }
             {
-              !eventHasStarted && !eventHasEnded ?
+              !eventIsLive ?
                 <span>Next LIVE Event: </span> : null
             }
             <span>
               <strong><Link to={link}>{eventTitle}</Link></strong>
-              <span>{duration}</span>
             </span>
           </span>
         </div>

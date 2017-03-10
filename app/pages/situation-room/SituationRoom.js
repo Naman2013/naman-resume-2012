@@ -17,20 +17,22 @@ const mapDispatchToProps = dispatch => ({
   }, dispatch),
 });
 
-const mapStateToProps = ({ countdown, liveShows, communityShowContent }, ownProps) => ({
+const mapStateToProps = ({ upcomingEvents, liveShows, communityShowContent }, ownProps) => ({
   showId: ownProps.routeParams.showId,
-  upcomingEventEventId: countdown.activeOrUpcomingEvent.eventId,
-  upcomingEventStartTime: countdown.activeOrUpcomingEvent.eventStart,
-  eventEndTime: countdown.activeOrUpcomingEvent.eventEnd,
-  eventIsLive: countdown.activeOrUpcomingEvent.eventIsLive,
+  upcomingEventEventId: upcomingEvents.nextEvent.eventId,
+  upcomingEventStartTime: upcomingEvents.nextEvent.eventStart,
+  eventEndTime: upcomingEvents.nextEvent.eventEnd,
+  eventIsLive: upcomingEvents.nextEvent.eventIsLive,
   currentLiveShow: liveShows.liveShowsResponse,
   communityPosts: communityShowContent.resultBody.posts,
 });
 
 @connect(mapStateToProps, mapDispatchToProps)
 class SituationRoom extends Component {
-  componentWillMount() {
-    const { showId } = this.props;
+  constructor(props) {
+    super(props);
+
+    const { showId } = props;
     if (showId) {
       this.fetchEventInformation(showId);
     }
@@ -40,15 +42,12 @@ class SituationRoom extends Component {
     const { showId, upcomingEventEventId, eventIsLive } = this.props;
     const nextUpcomingEventId = nextProps.upcomingEventEventId;
     const nextUpcomingEventLiveStatus = nextProps.eventIsLive;
-    if (showId) {
+
+    if (showId || !nextUpcomingEventId) {
       return;
     }
 
-    if (
-      nextUpcomingEventId &&
-      (nextUpcomingEventId !== upcomingEventEventId) && // we may or may not have received a new eventID
-      (nextUpcomingEventLiveStatus !== eventIsLive) // whether or not the event live status changed
-    ) {
+    if (nextUpcomingEventId !== upcomingEventEventId) {
       this.fetchEventInformation(nextProps.upcomingEventEventId);
     }
   }
@@ -58,7 +57,8 @@ class SituationRoom extends Component {
   }
 
   render() {
-    const { currentLiveShow, communityPosts } = this.props;
+    const { currentLiveShow, communityPosts, eventIsLive } = this.props;
+
     return (
       <section className={`${s.situationRoom} clearfix`}>
 
@@ -70,7 +70,7 @@ class SituationRoom extends Component {
 
         <div className="col-md-9 nopadding">
           <SituationVideoViewer
-            videoInProgress={currentLiveShow.inProgressFlag}
+            videoInProgress={eventIsLive}
             videoEmbedCode={currentLiveShow.embedCode}
             eventTitle={currentLiveShow.title}
             hasSponsor={currentLiveShow.sponsorInformation.SponsorFlag}
@@ -112,6 +112,7 @@ class SituationRoom extends Component {
 }
 
 SituationRoom.defaultProps = {
+  eventIsLive: false,
   showId: null,
   upcomingEventEventId: null,
   communityPosts: [],
@@ -126,6 +127,7 @@ SituationRoom.defaultProps = {
 };
 
 SituationRoom.propTypes = {
+  eventIsLive: PropTypes.bool,
   showId: PropTypes.string,
   upcomingEventEventId: PropTypes.number,
   communityPosts: PropTypes.arrayOf(PropTypes.shape({

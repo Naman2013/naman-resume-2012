@@ -1,56 +1,67 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import GenericLoadingBox from '../common/loading-screens/generic-loading-box';
+import * as forumsActions from '../../modules/discussions-forums/actions';
+import { SORT_ALPHABETIC } from '../../services/discussions/get-forum-list';
 import styles from './forums-index.scss';
 
-const forums = [
-  {
-    topic: 'Images',
-    threads: 20,
-  },
-  {
-    topic: 'Science',
-    threads: 20,
-  },
-  {
-    topic: 'Artistic',
-    threads: 20,
-  },
-  {
-    topic: 'Spiritual',
-    threads: 20,
-  },
-  {
-    topic: 'Technical',
-    threads: 20,
-  },
-];
+const { bool, object, func } = PropTypes;
 
 class ForumsIndex extends Component {
+  static propTypes = {
+    fetchForumList: func.isRequired,
+    fetching: bool.isRequired,
+    forumList: object.isRequired,
+  };
+
+  componentDidMount() {
+    const { fetchForumList } = this.props;
+    fetchForumList({
+      sortBy: SORT_ALPHABETIC,
+      count: -1,
+      page: 1,
+    });
+  }
+
   render() {
+    const { fetching, forumList } = this.props;
     return (
       <div className="forums-index-wrapper">
         <div className="forums-index-header">
           Forums Index
           <span className="description">Conversations across the Slooh Community</span>
         </div>
-        <div className="forums-index-sub-header">
-          <div className="cell">Topics</div>
-          <div className="cell">Threads</div>
-        </div>
-        <ul className="forums-index-list">
-          {forums.map((forum) => {
-            return (
-              <li>
+        {fetching && <GenericLoadingBox />}
+        {!fetching && <div>
+          <div className="forums-index-sub-header">
+            <div className="cell">Topics</div>
+            <div className="cell">Threads</div>
+          </div>
+          <ul className="forums-index-list">
+            {forumList.map(forum => (
+              <li
+                key={forum.forumId}
+              >
                 <a className="forums-link">
-                  <span className="cell topic">{forum.topic}</span>
-                  <span className="cell threads">{forum.threads}</span>
+                  <span className="cell topic">{forum.title}</span>
+                  <span className="cell threads">{forum.topicCount}</span>
                 </a>
               </li>
-            );
-          })}
-        </ul>
+              ))}
+          </ul>
+        </div>}
       </div>
     );
   }
 }
 
-export default ForumsIndex;
+const mapStateToProps = ({ discussionsForums }) => ({
+  fetching: discussionsForums.fetching,
+  forumList: discussionsForums.forumList,
+});
+const mapDispatchToProps = dispatch => (bindActionCreators({
+  ...forumsActions,
+}, dispatch));
+
+export default connect(mapStateToProps, mapDispatchToProps)(ForumsIndex);

@@ -51,7 +51,7 @@ const NewsArticle = () => (
         </aside>
 
         <p>
-          Washington Depot, CT - February 24, 2017 - On Friday, February 24<sup>th</sup>,
+          Washington Depot, CT - On Friday, February 24<sup>th</sup>,
           Slooh, the only company to bring live celestial viewings to anybody
           with an internet connection, will launch a new version of its innovative
           technology. Slooh provides social viewing and control of robotic
