@@ -4,9 +4,8 @@ import moment from 'moment';
 import style from './inline-countdown.scss';
 
 const formatDoubleDigit = num => (num > 9 ? num : '0'.concat(num));
-const getRemaining = (time) => {
-  const expires = moment(time * 1000);
-  const diff = expires.diff(moment());
+const getRemaining = (expires, currentTime) => {
+  const diff = expires.diff(currentTime);
   const duration = moment.duration(diff);
   const daysRemaining = duration.days();
   const hoursRemaining = duration.hours();
@@ -38,7 +37,7 @@ class InlineDaysCountdown extends Component {
   componentWillReceiveProps(nextProps) {
     const nextStartTime = nextProps.startTime;
     const currentStartTime = this.props.startTime;
-    if (nextStartTime !== currentStartTime) {
+    if (nextStartTime > 0 && nextStartTime !== currentStartTime) {
       this.bootstrapTimer(nextStartTime);
     }
   }
@@ -50,7 +49,8 @@ class InlineDaysCountdown extends Component {
   }
 
   bootstrapTimer = (time) => {
-    const remaining = getRemaining(time);
+    const expires = moment(time * 1000);
+    const remaining = getRemaining(expires, moment());
 
     // set initial countdown
     this.setState({
@@ -60,26 +60,24 @@ class InlineDaysCountdown extends Component {
     if (this.timer) {
       clearInterval(this.timer);
     }
-
     // update countdown in 1 second intervals to keep it percise
     this.timer = setInterval(() => {
       const { exitAction } = this.props;
-      const updatedRemaining = getRemaining(time);
+      const currentTime = moment();
       if (
-        updatedRemaining.days <= 0 &&
-        updatedRemaining.hours <= 0 &&
-        updatedRemaining.minutes <= 0 &&
-        updatedRemaining.seconds <= 0
+        expires.isSame(currentTime) ||
+        expires.isBefore(currentTime)
       ) {
         if (typeof exitAction === 'function') {
           exitAction({});
         }
         clearInterval(this.timer);
+      } else {
+        const updatedRemaining = getRemaining(expires, currentTime);
+        this.setState({
+          countdown: `${formatDoubleDigit(updatedRemaining.days)}:${formatDoubleDigit(updatedRemaining.hours)}:${formatDoubleDigit(updatedRemaining.minutes)}`,
+        });
       }
-
-      this.setState({
-        countdown: `${formatDoubleDigit(updatedRemaining.days)}:${formatDoubleDigit(updatedRemaining.hours)}:${formatDoubleDigit(updatedRemaining.minutes)}`,
-      });
     }, 1000);
   }
 

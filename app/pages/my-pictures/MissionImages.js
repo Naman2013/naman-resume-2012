@@ -36,7 +36,7 @@ class MissionImages extends Component {
         />
 
         <div className="clearfix my-pictures-container">
-          <div className={s.myPicturesGallery}>
+          <div>
             <PhotoView
               fetching={fetching}
               imageList={imageList}

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import MyPicturesNavigation from '../../components/my-pictures/my-pictures-navigation';
 import PhotoView from '../../components/my-pictures/PhotoView';
-import { fetchPhotoRoll } from '../../modules/my-pictures/actions';
+import { fetchPhotoRollandMissionRoll } from '../../modules/my-pictures/actions';
 import style from './my-pictures-gallery.scss';
 
 const mapStateToProps = ({ myPictures, objectTypeList }, ownProps) => ({
@@ -16,7 +16,7 @@ const mapStateToProps = ({ myPictures, objectTypeList }, ownProps) => ({
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
-    fetchPhotoRoll,
+    fetchPhotoRollandMissionRoll,
   }, dispatch),
 });
 
@@ -24,7 +24,7 @@ const mapDispatchToProps = dispatch => ({
 class PhotoRoll extends Component {
   componentWillMount() {
     window.scrollTo(0, 0);
-    this.props.actions.fetchPhotoRoll();
+    this.props.actions.fetchPhotoRollandMissionRoll();
   }
 
   render() {

@@ -1,5 +1,4 @@
 import React, { PropTypes } from 'react';
-import { Link } from 'react-router';
 
 const { object } = PropTypes;
 
@@ -8,7 +7,7 @@ const MembershipUpsell = ({ upsellDetails }) => (
       <div className="col-2third">
         <img
           src={upsellDetails.upsellIconURL}
-          className="spotlight-icon icon-large icon-galaxy pull-left"
+          className="spotlight-icon pull-left"
         />
         <div className="pull-left margin-left-small" style={{ width: '490px' }}>
           <h2 className="white" dangerouslySetInnerHTML={{__html: upsellDetails.upsellTitle}} />
@@ -24,9 +23,9 @@ const MembershipUpsell = ({ upsellDetails }) => (
           <div dangerouslySetInnerHTML={{__html: upsellDetails.upsellPriceLine2}} >
           </div>
         </div>
-        <Link
+        <a
           className="btn-primary pull-right margin-top-xsmall"
-          to={upsellDetails.upsellLink}
+          href={upsellDetails.upsellLink}
           dangerouslySetInnerHTML={{__html: upsellDetails.upsellButtonCaption}}
         />
 

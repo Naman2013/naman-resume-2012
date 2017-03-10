@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { fetchMissions } from '../../modules/my-pictures/actions';
+import { fetchPhotoRollandMissionRoll } from '../../modules/my-pictures/actions';
 import MyPicturesNavigation from '../../components/my-pictures/my-pictures-navigation';
 import PhotoView from '../../components/my-pictures/PhotoView';
 
@@ -16,14 +16,14 @@ const mapStateToProps = ({ myPictures }) => ({
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
-    fetchMissions,
+    fetchPhotoRollandMissionRoll,
   }, dispatch),
 });
 
 @connect(mapStateToProps, mapDispatchToProps)
 class Missions extends Component {
   componentWillMount() {
-    this.props.actions.fetchMissions();
+    this.props.actions.fetchPhotoRollandMissionRoll();
   }
 
   componentWillUpdate() {

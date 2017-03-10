@@ -7,35 +7,22 @@ import notificationStyles from '../components/common/notification-center/inline-
 import Menu from './Menu';
 import Header from '../components/common/header';
 import Footer from '../components/common/footer';
-import { checkUser } from '../modules/User';
-
-const { element, func } = PropTypes;
-
-const mapStateToProps = ({ user }) => ({
-  user,
-});
+import { fetchEvents } from '../modules/upcoming-events/upcoming-events-actions';
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ checkUser }, dispatch);
+  return bindActionCreators({
+    fetchEvents,
+  }, dispatch);
 }
 
-@connect(mapStateToProps, mapDispatchToProps)
+@connect(null, mapDispatchToProps)
 class StaticAppContainer extends Component {
-  static propTypes = {
-    children: element,
-    checkUser: func.isRequired,
-  };
-
   constructor(props) {
     super(props);
-
+    props.fetchEvents();
     this.notificationSystem = null;
     this.notifySuccess = this.notifySuccess.bind(this);
     this.notifyError = this.notifyError.bind(this);
-  }
-
-  componentWillMount() {
-    // this.props.checkUser();
   }
 
   componentDidMount() {

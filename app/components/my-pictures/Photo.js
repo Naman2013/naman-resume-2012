@@ -26,7 +26,7 @@ class Photo extends Component {
     return (
       <div className={s.photoRoot}>
         <Link onClick={handlePhotoClick} className={s.photoLink} style={inlinePhotoStyle} to="">
-          <div className={s.innerPhotoContainer}>
+          <div className={`${s.innerPhotoContainer} content`}>
             <h3 className={s.photoTitle}>{imageTitle}</h3>
             <div className={s.photoMarkdownContent}>
               {
