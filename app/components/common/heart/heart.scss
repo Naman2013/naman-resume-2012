@@ -5,22 +5,37 @@
   width: 36px;
   height: 32px;
   position: relative;
-  text-align: center;
   font-size: 3rem;
+  background: none;
+  border: none;
+  padding: 0;
+
+  &:active, &:focus {
+    outline: none;
+  }
 
   &.light {
     color: $white;
+
+    .count {
+      color: $red;
+    }
   }
 
   &.dark {
-    color: $black;
+    color: $darkBlueGray;
+
+    .count {
+      color: $white;
+    }
   }
 
   .count {
     position: absolute;
-    top: 17px;
-    left: 14px;
-    color: $red;
+    top: 15px;
+    left: 0;
+    width: 100%;
+    text-align: center;
     font-size: 12px;
     font-weight: 600;
   }

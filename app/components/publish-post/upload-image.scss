@@ -1,4 +1,5 @@
-@import "../../styles/variables/colors";
+@import '../../styles/variables/colors.scss';
+@import '../../styles/mixins/utilities.scss';
 
 .image-list-wrapper {
   display: flex;

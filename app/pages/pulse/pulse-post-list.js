@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import Pagination from 'rc-pagination';
 import 'rc-pagination/assets/index.css';
+import { uniqueId } from 'lodash';
 import PulsePostItem from './pulse-post-item';
 
 class PulsePostList extends Component {
@@ -25,7 +26,7 @@ class PulsePostList extends Component {
     return (
       <div>
         {
-          posts.map((data, key) => <PulsePostItem {...data} key={key} />)
+          posts.map(data => <PulsePostItem {...data} key={uniqueId()} />)
         }
         <Pagination onChange={this.handlePageChange} current={0} total={pages} />
       </div>

@@ -2,12 +2,13 @@ import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 import { isEmpty, uniqueId } from 'lodash';
 import ByUserTag from '../../components/common/by-user-tag/by-user-tag';
-import CommunityPostTools from '../../components/community/tools/community-post-tools'
+import CommunityPostTools from '../../components/community/tools/community-post-tools';
 import styles from './object-post.scss';
 
 class ObjectPostList extends Component {
 
   prepareData(objectPosts) {
+    console.log(objectPosts);
     return objectPosts.map((v, k) =>
       <div key={uniqueId()}>
         <div className={styles.ObjectPostList} key={v.postId}>
@@ -19,7 +20,7 @@ class ObjectPostList extends Component {
             </Link>
 
             <div className="row">
-              <div className="col-md-6">
+              <div className="col-xs-6">
                 <ByUserTag
                   photo={v.avatarURL}
                   name={v.displayName}
@@ -34,9 +35,12 @@ class ObjectPostList extends Component {
                 <img className="icon" src={v.typeIconURL} />
               </div>
 
-              <div className="col-md-3 pull-right">
+              <div className="col-xs-3 pull-right">
                 <div className={styles.ObjectPostListToolsHot}>
-                  <CommunityPostTools {...v.postTools} share={false} />
+                  <CommunityPostTools
+                    likesCount={v.likesCount}
+                    likeId={v.postId}
+                  />
                 </div>
               </div>
             </div>
@@ -70,7 +74,7 @@ class ObjectPostList extends Component {
 
     return (
       <div>
-        {hasPosts && noPosts }
+        {hasPosts && noPosts}
         {!hasPosts && this.prepareData(objectPosts)}
       </div>
     );

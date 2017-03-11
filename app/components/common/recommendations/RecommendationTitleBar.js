@@ -12,7 +12,8 @@ const RecommendationTitleBar = ({ title, subTitle }) => {
         title ? <h3 className={s.title}>{title}</h3> : null
       }
       {
-        subTitle ? <h5 className={s.subTitle}>{subTitle}</h5> : null
+        subTitle ?
+          <h5 dangerouslySetInnerHTML={{ __html: subTitle }} className={s.subTitle} /> : null
       }
     </div>
   );

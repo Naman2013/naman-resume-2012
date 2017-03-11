@@ -1,6 +1,8 @@
-@import "../../styles/variables/colors";
+@import '../../styles/variables/colors.scss';
+@import '../../styles/mixins/utilities.scss';
 
 .image-wrapper {
+  @include background-image-cover;
   width: 100px;
   height: 100px;
   margin: 10px 15px;
@@ -8,6 +10,21 @@
   border-radius: 4px;
   position: relative;
   overflow: hidden;
+
+  .deleteButton {
+    @include border-radius(50%);
+    width: 20px;
+    height: 20px;
+    padding: 2px 1px 0 0;
+    position: absolute;
+    text-align: center;
+    font-size: 10px;
+    top: 6px;
+    right: 5px;
+    color: $darkBlueGray;
+    background: $white;
+    border: none;
+  }
 
   .loading {
     width: 100%;

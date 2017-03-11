@@ -11,20 +11,24 @@ function EventHosts({ hosts }) {
         <h2>Your Hosts</h2>
       </section>
       {hosts.map((host, i) => {
+        const inlineSpeakerImageStyle = {
+          backgroundImage: `url(${host.hostPhotoURL})`
+        };
         return (
           <section
             className={`${s.eventHostsItem} row`}
             key={`${i}-${host.hostName}`}
           >
-            <div className="col-md-4">
-              <img className={s.eventHostsItemImage} src={host.hostPhotoURL} />
+            <div className="col-xs-4">
+              <div style={inlineSpeakerImageStyle} className={`${s.eventHostsItemImage}`} />
             </div>
-            <div className={`${s.eventHostsItemInfo} col-md-8`}>
+
+            <div className={`${s.eventHostsItemInfo} col-xs-8`}>
               <h4 className={s.eventHostsItemTitle}>
                 {
                   host.hostURL ?
-                  <Link to={host.hostURL} dangerouslySetInnerHTML={{ __html: host.hostName }} /> :
-                  <span dangerouslySetInnerHTML={{ __html: host.hostName }} />
+                    <a href={host.hostURL} dangerouslySetInnerHTML={{ __html: host.hostName }} /> :
+                    <span dangerouslySetInnerHTML={{ __html: host.hostName }} />
                 }
               </h4>
               <div className={s.eventHostsItemDescription} dangerouslySetInnerHTML={{ __html: host.hostDesc }} />

@@ -23,6 +23,7 @@ class PulsePostContent extends Component {
         memberSince,
         location,
         likesCount,
+        postId,
       }
     } = this.props;
 
@@ -50,7 +51,13 @@ class PulsePostContent extends Component {
               />
             </div>
             <div className="col-md-5 pull-right">
-              <CommunityPulseTools share={true} />
+              {
+                postId ?
+                  <CommunityPulseTools
+                    likesCount={likesCount}
+                    likeId={postId}
+                  /> : null
+              }
             </div>
           </div>
 
