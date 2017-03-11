@@ -35,7 +35,7 @@ export function destroy() {
   };
 }
 
-function destroySession() {
+export function destroySession() {
   localStorage.removeItem('user');
   document.cookie = cookie.serialize('cid', '', { domain: '.slooh.com', expires: new Date('Thu, 01 Jan 1970 00:00:01 GMT') });
   document.cookie = cookie.serialize('token', '', { domain: '.slooh.com', expires: new Date('Thu, 01 Jan 1970 00:00:01 GMT') });

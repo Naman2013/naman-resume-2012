@@ -53,13 +53,14 @@ class ObjectPosts extends Component {
         <div className="col-md-8 nopadding">
 
           {
-            fetchingPosts ? <GenericLoadingBox />
+            fetchingPosts ?
+              <GenericLoadingBox />
             :
-            <ObjectPostList
-              objectPosts={objectPosts}
-              pages={pages}
-              path={path}
-            />
+              <ObjectPostList
+                objectPosts={objectPosts}
+                pages={pages}
+                path={path}
+              />
           }
         </div>
 

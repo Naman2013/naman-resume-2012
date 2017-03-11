@@ -1,15 +1,25 @@
 import React, { PropTypes } from 'react';
-import style from './image-file.scss';
+import s from './image-file.scss';
 
-function ImageFile({ imageURL }) {
+function ImageFile({ handleDeleteImage, imageURL }) {
+  const inlineStyle = {
+    backgroundImage: `url(${imageURL})`,
+  };
+
   return (
-    <div className="image-wrapper">
-      <img src={imageURL} alt="" />
+    <div style={inlineStyle} className="image-wrapper">
+      <button
+        onClick={() => handleDeleteImage(imageURL)}
+        className={s.deleteButton}
+      >
+        X
+      </button>
     </div>
   );
 }
 
 ImageFile.propTypes = {
+  handleDeleteImage: PropTypes.func.isRequired,
   imageURL: PropTypes.string.isRequired,
 };
 

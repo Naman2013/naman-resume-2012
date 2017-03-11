@@ -6,23 +6,29 @@ import s from './EventDescription.scss';
 
 const { object, func } = PropTypes;
 
-function EventDescription({ eventContent, likeEvent, showId }) {
-  const likeClass = classnames({
-    clickable: eventContent.canLikeFlag
-  });
+function EventDescription({ eventContent, showId }) {
   return (
     <article className={s.eventDescriptionContainer}>
-      <section className={s.eventDescriptionPanel}>
-        {(eventContent.mode === 'members' || eventContent.mode === 'paidmembers') &&
-        <span className={s.eventDescriptionPanelItemMain}><i className="fa fa-lock icon" />Membership Required. <a href={eventContent.registerURL} className={s.link}>Learn More.</a></span>
+      <section className={`${s.eventDescriptionPanel} clearfix`}>
+        {
+          (eventContent.mode === 'members' || eventContent.mode === 'paidmembers') &&
+          <span className={s.eventDescriptionPanelItemMain}>
+            <i className="fa fa-lock icon" />Membership Required. <a href={eventContent.registerURL} className={s.link}>Learn More.</a>
+          </span>
         }
-        <div className={s.eventDescriptionPanelItem}>
-          <Heart
-            className={likeClass}
-            count={eventContent.likesCount}
-            handleClick={() => (likeEvent({ likeId: showId }))}
-            theme="dark"
-          /> <span className={s.likeText}>Like </span>
+        <div className={s.sharingOptionsMenu}>
+          <div className={s.eventDescriptionPanelItem}>
+            {
+              /**
+                TODO: bring this back once we know how to handle the API properties for liking an event
+                <Heart
+                  count={eventContent.likesCount}
+                  likeId={showId}
+                  theme="dark"
+                /> <span className={s.likeText}>Like </span>
+                */
+            }
+          </div>
         </div>
       </section>
       <section className={s.eventDescriptionContent}>
@@ -34,6 +40,5 @@ function EventDescription({ eventContent, likeEvent, showId }) {
 
 EventDescription.propTypes = {
   eventContent: object.isRequired,
-  likeEvent: func.isRequired,
 }
 export default EventDescription;

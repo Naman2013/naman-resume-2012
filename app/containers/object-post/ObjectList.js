@@ -55,7 +55,7 @@ class ObjectList extends Component {
       headerIconURL: PropTypes.string.isRequired,
       showRecommends: PropTypes.bool.isRequired,
       showAdUnit: PropTypes.bool.isRequired,
-      showLatestEntriesMenu: PropTypes.bool,
+      showLatestEntriesMenu: PropTypes.bool.isRequired,
       showPostTypesSubmenu: PropTypes.bool.isRequired,
       showGuardian: PropTypes.bool.isRequired,
       showFeaturedObjects: PropTypes.bool.isRequired,

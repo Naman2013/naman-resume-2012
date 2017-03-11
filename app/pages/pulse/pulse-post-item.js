@@ -29,7 +29,7 @@ const PulsePostItem = ({
         <figure className={styles.PulsePostListInfo}>
           <Link to={`community/post/${postId}`}>
             <h2 className={styles.PulsePostListInfoTitle}>
-              <div dangerouslySetInnerHTML={{__html: title}}/>
+              <div dangerouslySetInnerHTML={{__html: title}} />
             </h2>
           </Link>
 
@@ -41,11 +41,22 @@ const PulsePostItem = ({
 
           <div className="row flex-center">
             <div className="col-md-11">
-              <ByUserTag theme={"light"} photo={avatarURL} name={displayName} accountType={membershipType} memberSince={memberSince} location={location}/>
+              <ByUserTag
+                theme="light"
+                photo={avatarURL}
+                name={displayName}
+                accountType={membershipType}
+                memberSince={memberSince}
+                location={location}
+              />
             </div>
 
-            <div className={`col-md-1`}>
-              <Heart count={likesCount}/>
+            <div className="col-md-1">
+              <Heart
+                count={likesCount}
+                likeId={postId}
+                theme="dark"
+              />
             </div>
           </div>
         </figure>

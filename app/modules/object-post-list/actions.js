@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { fetchRecommendsCards } from '../../services/recommendations/recommends-cards';
 
 export const FETCH_PAGE_META_START = 'FETCH_PAGE_META_START';
 export const FETCH_PAGE_META_SUCCESS = 'FETCH_PAGE_META_SUCCESS';

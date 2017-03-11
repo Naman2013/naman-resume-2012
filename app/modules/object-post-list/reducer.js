@@ -42,10 +42,8 @@ export default createReducer(initialState, {
   [FETCH_PAGE_META_START](state) {
     return {
       ...state,
+      ...initialState,
       fetchingPageMeta: true,
-      fetchingPageMetaError: false,
-      fetchingPageMetaErrorBody: null,
-      pageMeta: { ...defaultPageMeta },
     };
   },
   [FETCH_PAGE_META_SUCCESS](state, { payload }) {

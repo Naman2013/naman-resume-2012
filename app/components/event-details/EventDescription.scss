@@ -14,9 +14,12 @@
 }
 
 .eventDescriptionPanel {
-  height: 75px;
   font-family: $primary-font;
   padding: 25px;
+
+  .sharingOptionsMenu {
+    float: right;
+  }
 }
 
 .eventDescriptionPanelItemMain {
@@ -37,13 +40,14 @@
 
 .eventDescriptionPanelItem {
   position: relative;
-  display: inline-block;
-  vertical-align: middle;
-  
+  display: flex;
+  align-items: flex-end;
+
   .likeText {
     display: inline-block;
     vertical-align: middle;
     font-size: 14px;
+    padding-left: 10px;
   }
 
   .heart {

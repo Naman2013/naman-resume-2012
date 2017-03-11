@@ -1,15 +1,19 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 import styles from './community-post-tools.scss';
-import CommunityPostHot from './community-post-hot'
-import CommunityPostLikes from './community-post-likes'
-import CommunityPostShare from './community-post-share'
+import CommunityPostHot from './community-post-hot';
+import CommunityPostShare from './community-post-share';
+import Heart from '../../common/heart/heart';
 
-const CommunityPostTools = ({ hot, likes, share }) =>
+const CommunityPostTools = ({ hot, likesCount, likeId, share }) =>
   <div className={styles.CommunityPostTools}>
 
-    {hot ? <CommunityPostHot hot={hot} /> : ""}
-    {likes ? <CommunityPostLikes likes={likes} /> : ""}
-    {share ? <CommunityPostShare /> : ""}
+    <Heart
+      theme="dark"
+      count={likesCount}
+      likeId={likeId}
+    />
+    {hot ? <CommunityPostHot hot={hot} /> : null}
+    {share ? <CommunityPostShare /> : null}
 
   </div>;
 
@@ -20,4 +24,6 @@ CommunityPostTools.propTypes = {
   hot: PropTypes.any,
   likes: PropTypes.any,
   share: PropTypes.bool,
+  likesCount: PropTypes.number.isRequired,
+  likeId: PropTypes.number.isRequired,
 };

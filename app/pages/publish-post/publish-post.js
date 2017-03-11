@@ -9,6 +9,7 @@ import ReservationSelectList from '../../components/common/forms/reservation-sel
 import { fetchCategoryTopicList } from '../../modules/browse-popular-objects/api';
 import submitObjectContent from '../../modules/community-content/submit-object-content';
 import setPostImages from '../../modules/set-post-images';
+import deletePostImage from '../../services/post-creation/delete-post-image';
 
 import AddContent from '../../components/publish-post/add-content';
 import AddTags from '../../components/publish-post/add-tags';
@@ -163,6 +164,7 @@ class PublishPost extends Component {
   handleCategorySelectChange(event) {
     this.setState({
       selectedCategoryIndex: event.target.value,
+      selectedTopicIndex: null,
     });
   }
 
@@ -186,6 +188,17 @@ class PublishPost extends Component {
     data.append('attachment', event.target.files[0]);
 
     setPostImages(data).then(result => this.handleUploadImageResponse(result.data));
+  }
+
+  handleDeleteImage = (imageURL) => {
+    if (!imageURL) { return; }
+
+    const { cid, token, at } = this.props;
+    const { postUUID } = this.state;
+    const imageClass = 'community';
+    deletePostImage({
+      cid, token, at, postUUID, imageClass, imageURL
+    }).then(result => this.handleUploadImageResponse(result.data));
   }
 
   handleUploadImageResponse(uploadFileData) {
@@ -352,6 +365,7 @@ class PublishPost extends Component {
             <p className="description">Upload Image <span className="param">(optional)</span></p>
 
             <UploadImage
+              handleDeleteImage={this.handleDeleteImage}
               handleUploadImage={this.handleUploadImage}
               displayImages={S3URLs}
             />
