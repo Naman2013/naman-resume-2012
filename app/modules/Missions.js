@@ -6,6 +6,7 @@ import createReducer from './utils/createReducer';
 
 import { fetchUsersUpcomingMissions } from './Users-Upcoming-Missions';
 import { grabPiggyback } from './Piggyback';
+import { cancelAllReservations } from './grab-telescope-slot/actions';
 
 const MISSION_CONFIRMATION_OPEN = 'MISSION_CONFIRMATION_OPEN';
 const MISSION_CONFIRMATION_CLOSE = 'MISSION_CONFIRMATION_CLOSE';
@@ -30,8 +31,6 @@ const MISSION_GET_NEXT_RESERVATIONS_FAIL = 'MISSION_GET_NEXT_RESERVATIONS_FAIL';
 const GRAB_MISSION_SLOT_START = 'GRAB_MISSION_SLOT_START';
 const GRAB_MISSION_SLOT_SUCCESS = 'GRAB_MISSION_SLOT_SUCCESS';
 const GRAB_MISSION_SLOT_FAIL = 'GRAB_MISSION_SLOT_FAIL';
-
-const CANCEL_MISSION_SLOT = 'CANCEL_MISSION_SLOT';
 
 const RESERVE_MISSION_SLOT_SUCCESS = 'RESERVE_MISSION_SLOT_SUCCESS';
 const RESERVE_MISSION_SLOT_FAIL = 'RESERVE_MISSION_SLOT_FAIL';
@@ -60,6 +59,16 @@ export function missionConfirmOpen(type) {
 
 export const missionConfirmClose = () => ({
   type: MISSION_CONFIRMATION_CLOSE,
+});
+
+const reserveMissionSuccess = payload => ({
+  type: RESERVE_MISSION_SLOT_SUCCESS,
+  payload,
+});
+
+const reserveMissionFail = error => ({
+  type: RESERVE_MISSION_SLOT_FAIL,
+  payload: error,
 });
 
 export const reserveMissionSlot = ({
@@ -114,22 +123,14 @@ export const reserveMissionSlot = ({
     targetName,
     objective,
   })
-  .then(result => {
+  .then((result) => {
+    dispatch(cancelAllReservations());
     dispatch(fetchUsersUpcomingMissions());
     dispatch(reserveMissionSuccess(result.data));
   })
   .catch(error => dispatch(reserveMissionFail(error)));
 };
 
-const reserveMissionSuccess = (payload) => ({
-  type: RESERVE_MISSION_SLOT_SUCCESS,
-  payload: payload,
-});
-
-const reserveMissionFail = (error) => ({
-  type: RESERVE_MISSION_SLOT_FAIL,
-  payload: error,
-});
 
 export const resetReserveMission = () => ({
   type: RESERVE_MISSION_SLOT_RESET,
@@ -323,7 +324,7 @@ export function cardsFail(error) {
   };
 };
 
-export const missionGetUpdates = () => ( dispatch, getState ) => {
+export const missionGetUpdates = () => (dispatch, getState) => {
   const { token, at, cid } = getState().user;
 
   return axios.post('/api/info/getAnnouncements', {
@@ -340,7 +341,7 @@ export const missionGetUpdates = () => ( dispatch, getState ) => {
   .catch(error => dispatch(missionUpdatesFail(error)));
 };
 
-export function missionUpdatesSuccess( announcementList ) {
+export function missionUpdatesSuccess(announcementList) {
   return {
     type: MISSION_GET_UPDATES_SUCCESS,
     payload: announcementList,

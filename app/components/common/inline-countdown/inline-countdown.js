@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import moment from 'moment';
+import { noop } from 'lodash';
 
 import style from './inline-countdown.scss';
 
@@ -54,10 +55,9 @@ class InlineCountdown extends Component {
       const secondsRemaining = updatedTime.seconds();
 
       if (minutesRemaining <= 0 && secondsRemaining <= 0) {
-        if (typeof exitAction === 'function') {
-          exitAction({});
-        }
+        exitAction({});
         clearInterval(this.timer);
+        return;
       }
 
       this.setState({
@@ -79,6 +79,7 @@ class InlineCountdown extends Component {
 }
 InlineCountdown.defaultProps = {
   format: 'm:ss',
+  exitAction: noop,
 };
 
 InlineCountdown.propTypes = {

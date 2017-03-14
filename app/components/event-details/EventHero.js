@@ -10,7 +10,7 @@ function EventHero({ eventContent }) {
     backgroundImage: `url(${imgUrl})`,
   });
 
-  const eventStart = moment.unix(eventContent.startDate).format('dddd, MMMM D, YYYY h:mmA z');
+  const eventStart = moment.tz(eventContent.startDate * 1000, 'America/New_York').format('dddd, MMMM D, YYYY h:mmA z');
   const sponsorInfo = eventContent.sponsorInformation || {};
 
   return (
@@ -24,7 +24,7 @@ function EventHero({ eventContent }) {
           <span dangerouslySetInnerHTML={{ __html: eventContent.title }}></span>
         </h1>
         <h3 className={s.eventTimeData}>
-          {eventStart} EST
+          {eventStart}
         </h3>
       </article>
 

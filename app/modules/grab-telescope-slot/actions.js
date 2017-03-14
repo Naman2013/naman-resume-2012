@@ -76,18 +76,6 @@ const grabTelescopeSlotFail = (error) => {
   throw error;
 };
 
-/**
-  @cancelReservationAndRefresh
-  cancels a specific mission slot hold - then refreshes the list of time slots
-*/
-export const cancelReservationAndRefresh = ({ uniqueId, scheduledMissionId }) => (dispatch, getState) => {
-  const { obsId, telescopeId, domeId } = getState().reservationList;
-  const { reservationDate } = getState().missionSlotDates.dateRangeResponse.dateList[0];
-
-  dispatch(cancelReservation({ uniqueId, scheduledMissionId }));
-  dispatch(refreshListings());
-};
-
 export const refreshListings = () => (dispatch, getState) => {
   const { obsId, telescopeId, domeId } = getState().missionSlotsByTelescope.reservationList;
   const { reservationDate } = getState().missionSlotDates.dateRangeResponse.dateList[0];
@@ -117,9 +105,18 @@ export const cancelReservation = ({ uniqueId, scheduledMissionId }) => (dispatch
   }));
 };
 
+/**
+  @cancelReservationAndRefresh
+  cancels a specific mission slot hold - then refreshes the list of time slots
+*/
+export const cancelReservationAndRefresh = ({ uniqueId, scheduledMissionId }) => (dispatch) => {
+  dispatch(cancelReservation({ uniqueId, scheduledMissionId }));
+  dispatch(refreshListings());
+};
+
 export const cancelAllReservations = () => (dispatch, getState) => {
   const { telescopeSlots } = getState();
-  telescopeSlots.missions.forEach(heldMission => {
+  telescopeSlots.missions.forEach((heldMission) => {
     const cancelMission = heldMission.mission.missionList[0];
     const { uniqueId, scheduledMissionId } = cancelMission;
     dispatch(cancelMissionSlot({

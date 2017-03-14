@@ -18,18 +18,19 @@ class UserDetails extends Component {
       ownerDisplayName,
       ownerMembershipType,
       ownerLocation,
-      ownerMemberSince } = this.props;
+      ownerMemberSince,
+    } = this.props;
 
-    if(showSloohUser) {
-      return(
+    if (showSloohUser) {
+      return (
         <UserDetailsContainer>
           <Logo />
         </UserDetailsContainer>
       );
     }
 
-    if(showUserDetails) {
-      return(
+    if (showUserDetails) {
+      return (
         <UserDetailsContainer>
           <ByUserTag
             theme="light"

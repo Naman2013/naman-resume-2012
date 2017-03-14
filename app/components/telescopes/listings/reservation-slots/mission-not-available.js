@@ -2,13 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import classnames from 'classnames';
 import MissionTime from '../partials/mission-time';
 import UserDetails from '../partials/user-details';
-
-const UserDetailsContainer = ({ children }) => (
-  <div className="col-xs-4 reserved-by-user-content">
-    <h3 className="title">Reserved by:</h3>
-    {children}
-  </div>
-);
+import ShareMission from '../partials/share-mission';
 
 class MissionNotAvailable extends Component {
   render() {
@@ -16,22 +10,26 @@ class MissionNotAvailable extends Component {
       showSlotTimes,
       slotIconURL,
       missionStart,
-      slotTitle } = this.props;
+      slotTitle,
+      showEditCoordinatesButton,
+      showShareMissionIcons,
+      shareMissionIconsText,
+     } = this.props;
 
     const containerClassnames = classnames({
       'telescope-listings-item': 1,
       'not-available': 1,
     });
 
-    return(
+    return (
       <li className={containerClassnames}>
 
         <div className="col-xs-2">
           {
             showSlotTimes ?
-            <MissionTime
-              startTime={missionStart}
-            /> : null
+              <MissionTime
+                startTime={missionStart}
+              /> : null
           }
         </div>
 
@@ -41,6 +39,12 @@ class MissionNotAvailable extends Component {
         </div>
 
         <UserDetails {...this.props} />
+
+        <ShareMission
+          showEditCoordinatesButton={showEditCoordinatesButton}
+          showShareMissionIcons={showShareMissionIcons}
+          shareMissionIconsText={shareMissionIconsText}
+        />
       </li>
     );
   }
@@ -49,6 +53,8 @@ class MissionNotAvailable extends Component {
 const { string, number, bool } = PropTypes;
 MissionNotAvailable.propTypes = {
   showSloohUser: bool.isRequired,
+  showShareMissionIcons: bool.isRequired,
+  shareMissionIconsText: string.isRequired,
 
   showUserDetails: bool.isRequired,
   ownerFirstName: string.isRequired,
@@ -63,6 +69,8 @@ MissionNotAvailable.propTypes = {
   slotTitle: string.isRequired,
 
   showSlotTimes: bool.isRequired,
+
+  showEditCoordinatesButton: bool.isRequired,
 };
 
 export default MissionNotAvailable;

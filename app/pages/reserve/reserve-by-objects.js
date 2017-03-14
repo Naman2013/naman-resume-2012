@@ -332,10 +332,10 @@ ReserveObjects.propTypes = {
   // showPlaceOnHold: bool.isRequired,
   // showCancelHold: bool.isRequired,
   uniqueId: string,
-  scheduledMissionId: string,
+  scheduledMissionId: number,
   missionStart: number,
   obsId: string,
-  domeId: string,
+  domeId: number,
   telescopeId: string,
 };
 
