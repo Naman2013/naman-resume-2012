@@ -99,7 +99,11 @@ class AvailableMission extends Component {
   }
 
   handleTimerExpiration() {
-    this.props.actions.cancelReservationAndRefresh();
+    const { uniqueId, scheduledMissionId } = this.props;
+    this.props.actions.cancelReservationAndRefresh({
+      uniqueId,
+      scheduledMissionId,
+    });
   }
 
   renderForm() {
@@ -279,26 +283,26 @@ class AvailableMission extends Component {
 
                 {
                   showCatalogButton ?
-                  <li className="option">
-                    <button
-                      onClick={(event) => {this.handleReservationTypeClick(BY_CATELOG)}}
-                      className={this.buttonRenderedClasses(BY_CATELOG)}
-                  >
-                        Select by Catalog #
-                    </button>
-                  </li> : null
+                    <li className="option">
+                      <button
+                        onClick={(event) => {this.handleReservationTypeClick(BY_CATELOG)}}
+                        className={this.buttonRenderedClasses(BY_CATELOG)}
+                      >
+                          Select by Catalog #
+                      </button>
+                    </li> : null
                 }
 
                 {
                   showCoordinateButton ?
-                  <li className="option">
-                    <button
-                      onClick={(event) => {this.handleReservationTypeClick(BY_COORDINATE)}}
-                      className={this.buttonRenderedClasses(BY_COORDINATE)}
-                    >
-                      Enter Coordinates
-                    </button>
-                  </li> : null
+                    <li className="option">
+                      <button
+                        onClick={(event) => {this.handleReservationTypeClick(BY_COORDINATE)}}
+                        className={this.buttonRenderedClasses(BY_COORDINATE)}
+                      >
+                        Enter Coordinates
+                      </button>
+                    </li> : null
                 }
               </ul>
             </div>
@@ -337,6 +341,9 @@ AvailableMission.propTypes = {
 
   userHasHold: bool.isRequired,
   userHoldType: string.isRequired,
+
+  uniqueId: string.isRequired,
+  scheduledMissionId: number.isRequired,
 };
 
 export default AvailableMission;

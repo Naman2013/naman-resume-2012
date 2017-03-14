@@ -47,10 +47,10 @@ ReservationByObjects.propTypes = {
   expires: number.isRequired,
   expireCallback: func.isRequired,
   uniqueId: string.isRequired,
-  scheduledMissionId: string.isRequired,
+  scheduledMissionId: number.isRequired,
   missionStart: number.isRequired,
   obsId: string.isRequired,
-  domeId: string.isRequired,
+  domeId: number.isRequired,
   telescopeId: string.isRequired,
 };
 

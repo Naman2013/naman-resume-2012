@@ -69,7 +69,7 @@ class DateSelectionNavigation extends Component {
     const { reservationDate } = this.props.missionSlotDates.dateRangeResponse.dateList[0];
 
     clearTimeout(this.telescopeTimer);
-    const testTimer = 5000;
+
     if (refreshIntervalSec) {
       this.telescopeTimer = setTimeout(() => {
         this.handleDateChange(reservationDate);
@@ -84,7 +84,7 @@ class DateSelectionNavigation extends Component {
 
     if (activeMissions.length > 0) {
       this.telescopeDeferRefreshTimer = setTimeout(() => {
-        this.handleDateChange(requestedDate)
+        this.handleDateChange(requestedDate);
       }, 5000);
     } else {
       const { actions, obsId, telescopeId, domeId } = this.props;

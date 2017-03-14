@@ -441,7 +441,7 @@ class ReservationByCoordinate extends Component {
       visibilityStatus
     } = this.state;
 
-    return(
+    return (
       <div className="reservation-form-container">
         <form onSubmit={this.handleFormSubmit} method="POST">
 

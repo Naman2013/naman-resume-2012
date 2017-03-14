@@ -9,7 +9,7 @@ import {
   grabPiggybackByTelescope,
   resetMissionAvailability } from '../../../../modules/Piggyback';
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
     grabPiggybackByTelescope,
     resetMissionAvailability,
@@ -33,10 +33,12 @@ class MissionReserved extends Component {
     const {
       showPiggybackButton,
       showShareMissionIcons,
-      shareMissionIconsText } = this.props;
+      shareMissionIconsText,
+      showEditCoordinatesButton,
+     } = this.props;
 
-    if(showPiggybackButton) {
-      return(
+    if (showPiggybackButton) {
+      return (
         <div className="col-xs-2 piggyback-on-mission-action">
           <button
             onClick={this.handlePiggybackClick}
@@ -48,16 +50,17 @@ class MissionReserved extends Component {
       );
     }
 
-    // TODO: bring these back someday - deferred for launch
-    // if(showShareMissionIcons || shareMissionIconsText) {
-    //   return (
-    //     <ShareMission
-    //       showShareMissionIcons={showShareMissionIcons}
-    //       shareMissionIconsText={shareMissionIconsText}
-    //     />
-    //   );
-    // }
+    if (showShareMissionIcons || shareMissionIconsText || showEditCoordinatesButton) {
+      return (
+        <ShareMission
+          showEditCoordinatesButton={showEditCoordinatesButton}
+          showShareMissionIcons={showShareMissionIcons}
+          shareMissionIconsText={shareMissionIconsText}
+        />
+      );
+    }
 
+    return null;
   }
 
   render() {
@@ -69,18 +72,18 @@ class MissionReserved extends Component {
 
     const containerClassnames = classnames({
       'telescope-listings-item': 1,
-      'reserved': 1,
+      reserved: 1,
     });
 
-    return(
+    return (
       <li className={containerClassnames}>
 
         <div className="col-xs-2">
           {
             showSlotTimes ?
-            <MissionTime
-              startTime={missionStart}
-            /> : null
+              <MissionTime
+                startTime={missionStart}
+              /> : null
           }
         </div>
 
@@ -98,8 +101,6 @@ class MissionReserved extends Component {
     );
   }
 }
-
-
 
 const { string, number, bool } = PropTypes;
 MissionReserved.propTypes = {
@@ -125,6 +126,7 @@ MissionReserved.propTypes = {
   scheduledMissionId: number,
 
   showSlotTimes: bool.isRequired,
+  showEditCoordinatesButton: bool.isRequired,
 };
 
 export default MissionReserved;

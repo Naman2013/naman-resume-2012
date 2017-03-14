@@ -19,8 +19,8 @@ class Listings extends Component {
     const { allowReservations, telescopeId } = this.props;
     const { slotStatus } = reservation;
 
-    if(!allowReservations && slotStatus === NOT_AVAILABLE) {
-      return(
+    if (!allowReservations && slotStatus === NOT_AVAILABLE) {
+      return (
         <NoMissionsAvailable
           key={reservation.missionIndex}
           {...reservation}
@@ -29,7 +29,7 @@ class Listings extends Component {
     }
 
     if (slotStatus === RESERVED) {
-      return(
+      return (
         <MissionReserved
           key={reservation.missionIndex}
           {...reservation}
