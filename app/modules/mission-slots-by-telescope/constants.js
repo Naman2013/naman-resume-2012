@@ -27,4 +27,5 @@ export const AVAILABLE_SLOT_MISSION_USER_HAS_HOLD_DEFAULT_PROPS = {
   "userHasHold": true,
   "showSloohUser": false,
   "showUserDetails": false,
+  "missionAvailable": true,
 };

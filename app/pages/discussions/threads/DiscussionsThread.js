@@ -8,7 +8,7 @@ const { array, object, string } = PropTypes;
 
 class DiscussionsThread extends Component {
   render() {
-    const { repliesList, thread, topicId } = this.props;
+    const { repliesList, thread, topicId, forumId } = this.props;
 
     return (
       <div>
@@ -27,7 +27,7 @@ class DiscussionsThread extends Component {
             dangerouslySetInnerHTML={{ __html: thread.content }}
           />
           <div className={styles.discussionsReplies}>
-            <Link className={styles.discussionsrepliesText} to={`discussions/topic/${topicId}/${thread.threadId}/new-reply`}>
+            <Link className={styles.discussionsrepliesText} to={`discussions/forums/${forumId}/topics/${topicId}/threads/${thread.threadId}/new-reply`}>
               <span>Reply</span>
             </Link>
           </div>

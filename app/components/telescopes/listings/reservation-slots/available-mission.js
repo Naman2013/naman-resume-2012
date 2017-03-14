@@ -43,7 +43,6 @@ class AvailableMission extends Component {
 
     this.state = {
       formType: NONE,
-      formOpen: false,
     };
 
     this.cancelHoldOnMission = this.cancelHoldOnMission.bind(this);
@@ -65,10 +64,11 @@ class AvailableMission extends Component {
       actions,
       userHasHold,
       userHoldType } = this.props;
+
     const reservation = getReservationOnHold(uniqueId, telescopeSlots.missions);
 
     // handle placing the timeslot on hold
-    if(!reservation) {
+    if (!reservation) {
       actions.grabTelescopeSlot({
         scheduledMissionId,
         uniqueId,
@@ -78,7 +78,7 @@ class AvailableMission extends Component {
     }
 
     // handle displaying the appropriate form
-    if(formType === newFormType || newFormType === NONE) {
+    if (formType === newFormType || newFormType === NONE) {
       this.setState({
         formType: NONE,
       });
@@ -87,19 +87,6 @@ class AvailableMission extends Component {
       this.setState({
         formType: newFormType,
       });
-    }
-  }
-
-  toggleFormDisplay() {
-    const { formOpen } = this.state;
-    this.setState({
-      formOpen: !formOpen,
-    });
-  }
-
-  openFormDisplay() {
-    if(!this.state.formOpen) {
-      this.toggleFormDisplay();
     }
   }
 
@@ -129,7 +116,7 @@ class AvailableMission extends Component {
 
     const reservationOnHold = getReservationOnHold(uniqueId, telescopeSlots.missions);
 
-    if(!reservationOnHold) {
+    if (!reservationOnHold) {
       return null;
     }
 
@@ -137,61 +124,64 @@ class AvailableMission extends Component {
     const { expires } = currentMissionOnHold;
     const { domeId, obsId } = missionSlotDates.dateRangeResponse.dateList[0];
 
-    switch(formType) {
-      case BY_OBJECTS:
-        return(
-          <ReservationByObjects
-            showPlaceOnHold={showHoldOneHourButtonWhenExpanded}
-            showCancelHold={showCancelHoldButtonWhenExpanded}
-            expires={expires}
-            expireCallback={this.handleTimerExpiration}
-            uniqueId={uniqueId}
-            scheduledMissionId={scheduledMissionId}
-            missionStart={missionStart}
-            obsId={obsId}
-            domeId={domeId}
-            telescopeId={telescopeId}
-          />
-        );
-        break;
-      case BY_CATELOG:
-        return(
-          <ReservationByCatalog
-            telescopeId={telescopeId}
-            showPlaceOnHold={showHoldOneHourButtonWhenExpanded}
-            showCancelHold={showCancelHoldButtonWhenExpanded}
-            expires={expires}
-            expireCallback={this.handleTimerExpiration}
-            missionStart={missionStart}
-            domeId={domeId}
-            obsId={obsId}
-            uniqueId={uniqueId}
-            scheduledMissionId={scheduledMissionId}
-          />
-        );
-        break;
-      case BY_COORDINATE:
-        return(
-          <ReservationByCoordinate
-            showPlaceOnHold={showHoldOneHourButtonWhenExpanded}
-            showCancelHold={showCancelHoldButtonWhenExpanded}
-            expires={expires}
-            expireCallback={this.handleTimerExpiration}
-            scheduledMissionId={scheduledMissionId}
-            domeId={domeId}
-            obsId={obsId}
-            missionStart={missionStart}
-            telescopeId={telescopeId}
-            uniqueId={uniqueId}
-          />
-        );
-        break;
-      case NONE:
-        return(null);
-        break;
-      default:
-        return(null);
+    if (formType === NONE) {
+      this.setState({
+        formType: BY_OBJECTS,
+      });
     }
+
+    if (formType === BY_OBJECTS) {
+      return (
+        <ReservationByObjects
+          showPlaceOnHold={showHoldOneHourButtonWhenExpanded}
+          showCancelHold={showCancelHoldButtonWhenExpanded}
+          expires={expires}
+          expireCallback={this.handleTimerExpiration}
+          uniqueId={uniqueId}
+          scheduledMissionId={scheduledMissionId}
+          missionStart={missionStart}
+          obsId={obsId}
+          domeId={domeId}
+          telescopeId={telescopeId}
+        />
+      );
+    }
+
+    if (formType === BY_CATELOG) {
+      return (
+        <ReservationByCatalog
+          telescopeId={telescopeId}
+          showPlaceOnHold={showHoldOneHourButtonWhenExpanded}
+          showCancelHold={showCancelHoldButtonWhenExpanded}
+          expires={expires}
+          expireCallback={this.handleTimerExpiration}
+          missionStart={missionStart}
+          domeId={domeId}
+          obsId={obsId}
+          uniqueId={uniqueId}
+          scheduledMissionId={scheduledMissionId}
+        />
+      );
+    }
+
+    if (formType === BY_COORDINATE) {
+      return (
+        <ReservationByCoordinate
+          showPlaceOnHold={showHoldOneHourButtonWhenExpanded}
+          showCancelHold={showCancelHoldButtonWhenExpanded}
+          expires={expires}
+          expireCallback={this.handleTimerExpiration}
+          scheduledMissionId={scheduledMissionId}
+          domeId={domeId}
+          obsId={obsId}
+          missionStart={missionStart}
+          telescopeId={telescopeId}
+          uniqueId={uniqueId}
+        />
+      );
+    }
+
+    return null;
   }
 
   matchFormType(matchOnFormType) {
@@ -200,7 +190,7 @@ class AvailableMission extends Component {
 
   buttonRenderedClasses(buttonFormType) {
     return classnames('action', {
-      'active': this.matchFormType(buttonFormType),
+      active: this.matchFormType(buttonFormType),
     });
   }
 
@@ -209,7 +199,7 @@ class AvailableMission extends Component {
     const RESERVING = 'Tell us where to aim this thing...';
     const { formOpen } = this.state;
 
-    if(!formOpen) {
+    if (!formOpen) {
       return DEFAULT;
     }
 
@@ -217,7 +207,6 @@ class AvailableMission extends Component {
   }
 
   render() {
-    const { formType, formOpen } = this.state;
     const {
       missionStart,
       showBrowseButton,
@@ -226,7 +215,8 @@ class AvailableMission extends Component {
       showSlotTimes,
       slotIconURL,
       uniqueId,
-      telescopeSlots } = this.props;
+      telescopeSlots,
+    } = this.props;
 
     const templateContent = {
       missionAvailable: false,
@@ -237,36 +227,39 @@ class AvailableMission extends Component {
 
     const reservationOnHold = getReservationOnHold(uniqueId, telescopeSlots.missions);
 
-    if(reservationOnHold) {
-      Object.assign(templateContent, reservationOnHold.mission.missionList[0], { missionOnHold: true, });
+    if (reservationOnHold) {
+      Object.assign(
+        templateContent,
+        reservationOnHold.mission.missionList[0],
+      );
     }
 
     const containerClassnames = classnames('telescope-listings-item-inline-reservation available', {
-      'expanded': templateContent.missionAvailable,
+      expanded: templateContent.missionAvailable,
     });
 
-    return(
+    return (
       <li className={containerClassnames}>
 
         <div className="above-the-fold-content clearfix">
           <div className="content">
             <div className="close-button">
-              <button onClick={(event) => {this.handleReservationTypeClick(NONE)}} className="action">
-                <span className="fa fa-close"></span>
+              <button onClick={() => { this.handleReservationTypeClick(NONE); }} className="action">
+                <span className="fa fa-close" />
               </button>
             </div>
 
             <div className="col-xs-2">
               {
                 showSlotTimes ?
-                <MissionTime
-                  startTime={missionStart}
-                /> : null
+                  <MissionTime
+                    startTime={missionStart}
+                  /> : null
               }
             </div>
 
             <div className="col-xs-4 slot-description">
-              <img className="slot-logo" src={slotIconURL} height="40" alt=""/>
+              <img className="slot-logo" src={slotIconURL} height="40" alt="" />
               <h4 className="slot-name">{this.getAvailableSlotText()}</h4>
             </div>
 
@@ -274,14 +267,14 @@ class AvailableMission extends Component {
               <ul className="reservation-options">
                 {
                   showBrowseButton ?
-                  <li className="option">
-                    <button
-                      onClick={(event) => {this.handleReservationTypeClick(BY_OBJECTS)}}
-                      className={this.buttonRenderedClasses(BY_OBJECTS)}
-                    >
-                      Browse Slooh 500
-                    </button>
-                  </li> : null
+                    <li className="option">
+                      <button
+                        onClick={() => { this.handleReservationTypeClick(BY_OBJECTS); }}
+                        className={this.buttonRenderedClasses(BY_OBJECTS)}
+                      >
+                        Browse Slooh 500
+                      </button>
+                    </li> : null
                 }
 
                 {
@@ -290,7 +283,7 @@ class AvailableMission extends Component {
                     <button
                       onClick={(event) => {this.handleReservationTypeClick(BY_CATELOG)}}
                       className={this.buttonRenderedClasses(BY_CATELOG)}
-                      >
+                  >
                         Select by Catalog #
                     </button>
                   </li> : null
@@ -313,7 +306,7 @@ class AvailableMission extends Component {
         </div>
 
         {
-          this.renderForm()
+          templateContent.missionAvailable ? this.renderForm() : null
         }
       </li>
     );

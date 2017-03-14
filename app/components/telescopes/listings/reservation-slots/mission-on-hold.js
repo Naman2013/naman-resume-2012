@@ -1,13 +1,12 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import classnames from 'classnames';
 import InlineCountdown from '../../../common/inline-countdown/inline-countdown';
 import MissionTime from '../partials/mission-time';
 import ByUserTag from '../../../common/by-user-tag/by-user-tag';
 import { startCompleteReservation } from '../../../../modules/mission-slots-by-telescope/mission-slots-by-telescope-actions';
 
-const FinishReservationButton = ({handleFinishReservationClick}) => (
+const FinishReservationButton = ({ handleFinishReservationClick }) => (
   <div className="col-xs-2">
     <button onClick={handleFinishReservationClick} className="btn-primary">
       Finish Reservation
@@ -15,14 +14,14 @@ const FinishReservationButton = ({handleFinishReservationClick}) => (
   </div>
 );
 
-const CountDown = ({expires}) => (
+const CountDown = ({ expires }) => (
   <div className="col-xs-2 hold-timer-content">
     <h5 className="hold-timer"><InlineCountdown startTime={expires} /></h5>
     <p className="title">Hold time remaining.</p>
   </div>
 );
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
     startCompleteReservation,
   }, dispatch),
@@ -30,13 +29,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 @connect(null, mapDispatchToProps)
 class MissionOnHold extends Component {
-  constructor(props) {
-    super(props);
-
-    this.handleFinishReservationClick = this.handleFinishReservationClick.bind(this);
-  }
-
-  handleFinishReservationClick(event) {
+  handleFinishReservationClick = (event) => {
     event.preventDefault();
     this.props.actions.startCompleteReservation(this.props.missionIndex);
   }
@@ -54,7 +47,6 @@ class MissionOnHold extends Component {
       showFinishReservationButton,
       userHasHold
     } = this.props;
-
 
     return (
       <li className="telescope-listings-item on-hold">

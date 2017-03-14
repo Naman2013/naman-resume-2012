@@ -169,7 +169,8 @@ export const grabMissionSlot = ({
     catName,
     designation,
     processingRecipe,
-    uniqueId
+    uniqueId,
+    targetName,
   }) => (dispatch, getState) => {
     const { token, at, cid } = getState().user;
 
@@ -196,6 +197,7 @@ export const grabMissionSlot = ({
       designation,
       processingRecipe,
       uniqueId,
+      targetName,
     })
     .then(response => {
       /**

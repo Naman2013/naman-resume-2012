@@ -2,25 +2,65 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import DiscussionsNav from '../../components/discussions/DiscussionsNav';
-import MissionAd from '../../components/missions/mission-ad';
 import ForumsIndex from '../../components/discussions/forums-index';
 import * as threadActions from '../../modules/discussions-thread/actions';
 
-const { func } = PropTypes;
-class DiscussionsWrapper extends Component {
+const { func, object } = PropTypes;
+const buildLink = ({ forumId, topicId, path }) => {
+  if (forumId && topicId) {
+    return `discussions/forums/${forumId}/topics/${topicId}/threads/${path}`;
+  }
+  return `/discussions/main/${path}`;
+};
 
+class DiscussionsWrapper extends Component {
+  static propTypes = {
+    fetchThreadList: func.isRequired,
+    children: object,
+  }
+
+  static defaultProps = {
+    children: {},
+  }
+  componentDidMount() {
+    const { fetchThreadList, children, params: { topicId } } = this.props;
+    const { props: { route: { path } } } = children;
+
+    fetchThreadList({
+      sortBy: path,
+      topicId,
+    });
+
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { fetchThreadList, children } = this.props;
+    const { props: { route: { path } } } = children;
+    const { children: nextChildren, params: { topicId } } = nextProps;
+    const { props: { route: { path: nextPath } } } = nextChildren;
+    if (path !== nextPath) {
+      fetchThreadList({
+        sortBy: nextPath,
+        topicId,
+      });
+    }
+  }
   render() {
-    const { children } = this.props;
+    const { children, params: { forumId, topicId } } = this.props;
+    const mostRecentLink = buildLink({ forumId, topicId, path: 'most-recent' });
+    const mostActiveLink = buildLink({ forumId, topicId, path: 'most-active' });
     return (
-      <div className="discussions-wrapper container-fluid">
-        <DiscussionsNav />
+      <div className="discussions-wrapper container-fluid auto-height">
+        <DiscussionsNav
+          mostRecentLink={mostRecentLink}
+          mostActiveLink={mostActiveLink}
+        />
         <div className="row">
           <div className="col-md-8">
             {children}
           </div>
           <div className="col-md-4">
-            <MissionAd />
-            <ForumsIndex />
+            <ForumsIndex currentForumId={forumId} />
           </div>
         </div>
       </div>
@@ -31,6 +71,8 @@ class DiscussionsWrapper extends Component {
 const mapStateToProps = ({ discussionsThread }) => ({
   ...discussionsThread,
 });
-const mapDispatchToProps = dispatch => (bindActionCreators(threadActions, dispatch));
+const mapDispatchToProps = dispatch => (bindActionCreators({
+  ...threadActions,
+}, dispatch));
 
 export default connect(mapStateToProps, mapDispatchToProps)(DiscussionsWrapper);

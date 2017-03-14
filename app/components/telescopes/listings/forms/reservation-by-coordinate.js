@@ -15,15 +15,12 @@ import { fetchPresetOptions } from '../../../../modules/get-preset-options/get-p
 import { checkTargetVisibility } from '../../../../modules/check-target-visibility/api';
 import { grabMissionSlot, missionConfirmOpen, missionConfirmClose } from '../../../../modules/Missions';
 
-
-
 function round(number, precision) {
   const factor = Math.pow(10, precision);
   const tempNumber = number * factor;
   const roundedTempNumber = Math.round(tempNumber);
   return roundedTempNumber / factor;
 }
-
 
 const mapStateToProps = ({ user }) => ({
   user,
@@ -407,7 +404,7 @@ class ReservationByCoordinate extends Component {
       targetName
     } = this.state;
 
-    if(selectedImageProcessIndex) {
+    if (selectedImageProcessIndex) {
       const selectedImageProcess = presetOptions.telescopeList[0].telePresetList[selectedImageProcessIndex];
 
       this.props.actions.grabMissionSlot({

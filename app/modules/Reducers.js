@@ -19,6 +19,7 @@ import dashboard from './dashboard/reducer';
 import discussionsForums from './discussions-forums/reducer';
 import discussionsReplies from './discussions-replies/reducer';
 import discussionsThread from './discussions-thread/reducer';
+import discussionsTopics from './discussions-topics/reducer';
 import eventInfo from './event-info/reducer';
 import latestPosts from './pulse/get-latest-posts-reducer';
 import liveShows from './live-shows/live-shows-reducer';
@@ -63,6 +64,7 @@ export default combineReducers({
   discussionsForums,
   discussionsReplies,
   discussionsThread,
+  discussionsTopics,
   eventInfo,
   latestPosts,
   liveShows,

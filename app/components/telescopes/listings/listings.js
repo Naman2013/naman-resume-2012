@@ -38,7 +38,7 @@ class Listings extends Component {
     }
 
     if (slotStatus === AVAILABLE) {
-      return(
+      return (
         <AvailableMission
           key={reservation.missionIndex}
           telescopeId={telescopeId}
@@ -48,7 +48,7 @@ class Listings extends Component {
     }
 
     if (slotStatus === ON_HOLD) {
-      return(
+      return (
         <MissionOnHold
           key={reservation.missionIndex}
           {...reservation}
@@ -56,8 +56,8 @@ class Listings extends Component {
       );
     }
 
-    if(slotStatus === NOT_AVAILABLE) {
-      return(
+    if (slotStatus === NOT_AVAILABLE) {
+      return (
         <MissionNotAvailable
           key={reservation.missionIndex}
           {...reservation}

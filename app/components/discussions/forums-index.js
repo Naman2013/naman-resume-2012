@@ -1,18 +1,25 @@
 import React, { Component, PropTypes } from 'react';
+import { Link } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import classnames from 'classnames';
 import GenericLoadingBox from '../common/loading-screens/generic-loading-box';
 import * as forumsActions from '../../modules/discussions-forums/actions';
 import { SORT_ALPHABETIC } from '../../services/discussions/get-forum-list';
 import styles from './forums-index.scss';
 
-const { bool, object, func } = PropTypes;
+const { bool, object, func, string } = PropTypes;
 
 class ForumsIndex extends Component {
   static propTypes = {
     fetchForumList: func.isRequired,
     fetching: bool.isRequired,
     forumList: object.isRequired,
+    currentForumId: string,
+  };
+
+  static defaultProps = {
+    currentForumId: undefined,
   };
 
   componentDidMount() {
@@ -25,7 +32,7 @@ class ForumsIndex extends Component {
   }
 
   render() {
-    const { fetching, forumList } = this.props;
+    const { fetching, forumList, currentForumId } = this.props;
     return (
       <div className="forums-index-wrapper">
         <div className="forums-index-header">
@@ -39,16 +46,22 @@ class ForumsIndex extends Component {
             <div className="cell">Threads</div>
           </div>
           <ul className="forums-index-list">
-            {forumList.map(forum => (
+            {forumList.map(forum => {
+              const linkStyle = classnames({
+                highlight: currentForumId == forum.forumId,
+              });
+              return (
               <li
                 key={forum.forumId}
               >
-                <a className="forums-link">
+                <Link className={`forums-link ${linkStyle}`} to={`discussions/forums/${forum.forumId}/topics`}>
                   <span className="cell topic">{forum.title}</span>
                   <span className="cell threads">{forum.topicCount}</span>
-                </a>
+                </Link>
               </li>
-              ))}
+              )
+            }
+            )}
           </ul>
         </div>}
       </div>
