@@ -2,22 +2,23 @@ import React, { Component, PropTypes, cloneElement } from 'react';
 import AnnouncementBanner from '../../components/common/announcement-banner/announcement-banner';
 import DiscussionsHeader from '../../components/discussions/DiscussionsHeader';
 
-const { object } = PropTypes;
-
-const Discussions = ({ children, params }) => {
-  const { topicId } = params;
-
-  return (<div className="clearfix">
+const { func, object, string } = PropTypes;
+const Discussions = ({ children }) => (
+  <div className="clearfix">
     <AnnouncementBanner />
-    <DiscussionsHeader title={topicId && 'Forum Name: Topic Name'}/>
+    <DiscussionsHeader />
     <section>
       {cloneElement(children)}
     </section>
-  </div>);
-};
+  </div>
+);
 
 Discussions.propTypes = {
-  children: PropTypes.object,
-};
+  children: object,
+}
+
+Discussions.defaultProps = {
+  children: {},
+}
 
 export default Discussions;

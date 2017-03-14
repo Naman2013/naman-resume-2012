@@ -7,45 +7,28 @@ import DiscussionsList from '../../components/discussions/DiscussionsList';
 import DiscussionsListHeader from '../../components/discussions/DiscussionsListHeader';
 import * as threadActions from '../../modules/discussions-thread/actions';
 
-const { func, array, bool, object } = PropTypes;
+const { func, arrayOf, bool, shape, object } = PropTypes;
 
 class DiscussionsListWrapper extends Component {
-  componentDidMount() {
-    const { fetchThreadList, route: { path }, params: { topicId } } = this.props;
-
-    fetchThreadList({
-      sortBy: path,
-      topicId
-    });
-  }
-
-  componentWillReceiveProps(nextProps) {
-    const { fetchThreadList, route: { path } } = this.props;
-    const { route: { path: nextPath }, params: { topicId } } = nextProps;
-
-    if (path !== nextPath) {
-      fetchThreadList({
-        sortBy: nextPath,
-        topicId,
-      });
-    }
-  }
 
   render() {
-    const { threadList, fetching } = this.props;
+    const { threadList, fetching, route: { path } } = this.props;
 
     return (
       <div className="discussions-list">
-        <DiscussionsListHeader />
+        <DiscussionsListHeader activeLink={path} />
         { fetching ? <GenericLoadingBox /> : <DiscussionsList discussions={threadList} />}
+        {(!threadList || threadList.length === 0) && <article className="no-availability">There are no threads to display</article>}
       </div>
     );
   }
 }
+DiscussionsListWrapper.defaultProps = {
+  threadList: [],
+};
 
 DiscussionsListWrapper.propTypes = {
-  fetchThreadList: func.isRequired,
-  threadList: array.isRequired,
+  threadList: arrayOf(object),
   fetching: bool.isRequired,
 };
 

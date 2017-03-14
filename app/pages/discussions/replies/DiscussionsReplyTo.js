@@ -87,13 +87,13 @@ class DiscussionsReplyTo extends Component {
     window.scrollTo(0, 0);
   }
   render() {
-    const { routeParams: { threadId, topicId }, submitting, replySubmitted, thread } = this.props;
+    const { routeParams: { forumId, threadId, topicId }, submitting, replySubmitted, thread } = this.props;
     const { content, S3URLs } = this.state;
     return (<div className={styles.DiscussionsReply}>
       {submitting && <div className={styles.DiscussionsContent}>Submitting Reply...</div>}
       {replySubmitted && <div className={styles.DiscussionsContent}>
         <h3>Reply Submitted!</h3>
-          <Link className="button btn-primary" to={`/discussions/topic/${topicId}/${threadId}`}>
+          <Link className="button btn-primary" to={`/discussions/forums/${forumId}/topics/${topicId}/threads/${threadId}`}>
             Go back to thread
           </Link>
       </div>}
@@ -101,12 +101,12 @@ class DiscussionsReplyTo extends Component {
         <header className={styles.DiscussionsReplyHeader}>
           <h1 className="title-container center">Reply To Thread</h1>
           <div className="button-nav">
-            <Link className="button btn-primary" to={`/discussions/topic/${topicId}/${threadId}`}>
+            <Link className="button btn-primary" to={`/discussions/forums/${forumId}/topics/${topicId}/threads/${threadId}`}>
               <i className="fa fa-plus"/> Cancel This
             </Link>
           </div>
         </header>
-        <section className="discussions-container clearfix">
+        <section className="discussions-container auto-height clearfix">
           <form className={styles.DiscussionReplyForm}>
             <h4>Submit your reply to:</h4>
             <h4>
@@ -141,7 +141,7 @@ class DiscussionsReplyTo extends Component {
                 />
               </div>
               <hr />
-              <Link className={`button btn-primary btn-cancel ${styles.DiscussionsInline}`} to={`/discussions/topic/${topicId}/${threadId}`}>
+              <Link className={`button btn-primary btn-cancel ${styles.DiscussionsInline}`} to={`/discussions/forums/${forumId}/topics/${topicId}/threads/${threadId}`}>
                 Sorry, Cancel This.
               </Link>
               <button

@@ -1,20 +1,26 @@
 import React, { PropTypes } from 'react';
 import DiscussionsListItem from './DiscussionsListItem';
 
-const { array } = PropTypes;
+const { arrayOf, number, shape } = PropTypes;
 const DiscussionsList = ({ discussions }) => (
   <div>
     {
-      discussions.map((item) => {
-        return (
-          <DiscussionsListItem key={item.threadId} item={item} />
-        );
-      })
+      discussions && discussions.map(item => (<DiscussionsListItem
+        key={item.threadId}
+        item={item}
+      />),
+      )
     }
   </div>
 );
 
+DiscussionsList.defaultProps = {
+  discussions: [],
+};
 DiscussionsList.propTypes = {
+  discussions: arrayOf(shape({
+    threadId: number.isRequired,
+  })),
 };
 
 export default DiscussionsList;

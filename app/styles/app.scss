@@ -211,11 +211,15 @@ img {
 
 .discussions-wrapper {
   background: $slooh-white;
+  height: 100vmax;
 }
 .discussions-container {
   background: $white;
   padding: 40px 0 30px 0;
-  height: 100vmax;
+}
+
+.auto-height {
+  height: auto;
 }
 
 .align-right {

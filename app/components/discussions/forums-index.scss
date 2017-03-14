@@ -62,7 +62,7 @@
       cursor: pointer;
       @extend .table-row;
 
-      &:hover {
+      &:hover, &.highlight {
         background: $turqoise;
         color: $white;
 

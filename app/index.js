@@ -23,6 +23,7 @@ import PlaybackContainer from './containers/PlaybackContainer';
 import Discussions from './containers/discussions/Discussions';
 import DiscussionsWrapper from './containers/discussions/DiscussionsWrapper';
 import DiscussionsListWrapper from './containers/discussions/DiscussionsListWrapper';
+import DiscussionsTopicsWrapper from './containers/discussions/DiscussionsTopicsWrapper';
 
 // pages
 import Home from './pages/home';
@@ -232,28 +233,29 @@ ReactDOM.render(
           <Route path="missions" title="Missions" component={Missions} />
         </Route>
 
-        <Route path="/discussions" component={Discussions} onEnter={validateUser}>
+        <Route path="discussions" component={Discussions} onEnter={validateUser}>
           <IndexRedirect to="main" />
           <Route path="main" component={DiscussionsWrapper}>
             <IndexRedirect to="most-recent" />
             <Route path="most-recent" component={DiscussionsListWrapper} />
             <Route path="most-active" component={DiscussionsListWrapper} />
           </Route>
-          <Route path="topics" component={DiscussionsWrapper}>
-            <IndexRedirect to="most-recent" />
-            <Route path="most-recent" component={DiscussionsTopicsList} />
-            <Route path="most-active" component={DiscussionsTopicsList} />
-          </Route>
-          <Route path="topics(/:topicId)/threads" component={DiscussionsWrapper}>
+          <Route path="forums(/:forumId)/topics(/:topicId)/threads" component={DiscussionsWrapper}>
             <IndexRedirect to="most-recent" />
             <Route path="most-recent" component={DiscussionsListWrapper} />
             <Route path="most-active" component={DiscussionsListWrapper} />
           </Route>
         </Route>
-        <Route path="discussions/topic(/:topicId)(/:threadId)" component={DiscussionsThreadWrapper} onEnter={validateUser} />
-        <Route path="discussions/topic(/:topicId)(/:threadId)/new-reply" component={DiscussionsReplyTo} onEnter={validateUser} />
+        <Route path="discussions/forums(/:forumId)/topics" component={DiscussionsTopicsWrapper}>
+          <IndexRedirect to="alphabetic" />
+          <Route path="alphabetic" component={DiscussionsTopicsList} />
+          <Route path="most-recent" component={DiscussionsTopicsList} />
+          <Route path="most-active" component={DiscussionsTopicsList} />
+        </Route>
+        <Route path="discussions/forums(/:forumId)/topics(/:topicId)/threads(/:threadId)" component={DiscussionsThreadWrapper} onEnter={validateUser} />
+        <Route path="discussions/forums(/:forumId)/topics(/:topicId)/threads(/:threadId)/new-reply" component={DiscussionsReplyTo} onEnter={validateUser} />
         <Route path="discussions/new-thread" component={DiscussionsReplyTo} onEnter={validateUser} />
-        <Route path="discussions/topic(/:topicId)/new-thread" component={DiscussionsReplyTo} onEnter={validateUser} />
+        <Route path="discussions/forums(/:forumId)/topics(/:topicId)/new-thread" component={DiscussionsReplyTo} onEnter={validateUser} />
 
       </Route>
 

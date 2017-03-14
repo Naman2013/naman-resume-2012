@@ -34,7 +34,12 @@ export const grabTelescopeSlot = ({ scheduledMissionId, uniqueId, grabType, fina
   .catch(error => dispatch(grabTelescopeSlotFail(error)));
 };
 
-const grabTelescopeSlotSuccess = result => (dispatch, getState) => {
+const commitUpdatedReservations = updatedMissions => ({
+  type: COMMIT_UPDATED_RESERVATIONS,
+  payload: updatedMissions,
+});
+
+export const grabTelescopeSlotSuccess = result => (dispatch, getState) => {
   const { apiError, missionList } = result;
   const { missionAvailable } = missionList[0];
   const currentMissions = getState().telescopeSlots;
@@ -52,7 +57,7 @@ const grabTelescopeSlotSuccess = result => (dispatch, getState) => {
     return;
   }
 
-  if(!hasReserverationOnHold(missionList[0].uniqueId, currentMissions.missions)) {
+  if (!hasReserverationOnHold(missionList[0].uniqueId, currentMissions.missions)) {
     updatedMissions = [
       ...currentMissions.missions,
       {
@@ -66,11 +71,6 @@ const grabTelescopeSlotSuccess = result => (dispatch, getState) => {
 
   dispatch(commitUpdatedReservations(updatedMissions));
 };
-
-const commitUpdatedReservations = (updatedMissions) => ({
-  type: COMMIT_UPDATED_RESERVATIONS,
-  payload: updatedMissions,
-});
 
 const grabTelescopeSlotFail = (error) => {
   throw error;
@@ -146,7 +146,7 @@ export const placeOneHourHold = ({scheduledMissionId, uniqueId}) => (dispatch, g
 
 // helpers
 export const getReservationOnHold = (uniqueId, missions) => {
-  return missions.find(mission => mission.mission.missionList[0].uniqueId === uniqueId);
+  return missions.find(mission => mission.uniqueId === uniqueId);
 };
 
 const hasReserverationOnHold = (uniqueId, missions) => {

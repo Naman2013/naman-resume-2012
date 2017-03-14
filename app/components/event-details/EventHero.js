@@ -24,7 +24,7 @@ function EventHero({ eventContent }) {
           <span dangerouslySetInnerHTML={{ __html: eventContent.title }}></span>
         </h1>
         <h3 className={s.eventTimeData}>
-          {eventStart}
+          {eventStart} EST
         </h3>
       </article>
 

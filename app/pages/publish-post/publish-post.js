@@ -193,11 +193,11 @@ class PublishPost extends Component {
   handleDeleteImage = (imageURL) => {
     if (!imageURL) { return; }
 
-    const { cid, token, at } = this.props;
+    const { cid, token, at } = this.props.user;
     const { postUUID } = this.state;
     const imageClass = 'community';
     deletePostImage({
-      cid, token, at, postUUID, imageClass, imageURL
+      cid, token, at, uniqueId: postUUID, imageClass, imageURL
     }).then(result => this.handleUploadImageResponse(result.data));
   }
 
