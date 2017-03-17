@@ -1,4 +1,8 @@
-export default {
+import createReducer from '../utils/createReducer';
+
+import { UPDATE_SLOOH_FEATURE_THREE } from './actions';
+
+const initialState = {
   STATIC_HERO: {
     backgroundImageUrl: 'assets/images/graphics/stargazers-bg.png',
     mainHeadingText: 'WELCOME TO SPACE FOR EVERYONE.',
@@ -151,3 +155,23 @@ export default {
     },
   ],
 };
+
+export default createReducer(initialState, {
+  [UPDATE_SLOOH_FEATURE_THREE](state, { payload }) {
+    console.log('FIRED ACTIONS');
+    const updateFeatures = [state.SLOOH_FEATURES[0], state.SLOOH_FEATURES[1],
+      {
+        key: Math.random() * 100,
+        icon: 'assets/icons/three-amigos.png',
+        title: 'PARTICIPATE IN A COMMUNITY OF FELLOW EXPLORERS.',
+        content: 'Space is more interesting as a social experience. Register today to see and share diverse perspectives about what is "out there", including the spiritual, the artistic, the imaginative, along with the scientific.',
+        actionUrl: '#',
+        actionText: 'Free Registration',
+        ...payload,
+      }];
+    return {
+      ...state,
+      SLOOH_FEATURES: updateFeatures,
+    };
+  },
+});

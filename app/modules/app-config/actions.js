@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { updateFeatureThree } from '../home-content/actions';
 
 export const FETCH_APP_CONFIG_START = 'FETCH_APP_CONFIG_START';
 export const FETCH_APP_CONFIG_SUCCESS = 'FETCH_APP_CONFIG_SUCCESS';
@@ -21,12 +22,15 @@ const fetchAppConfigFail = payload => ({
 export const fetchAppConfig = ({
   lang,
   ver,
-}) => (dispatch, getState) => {
+}) => (dispatch) => {
   dispatch(fetchAppConfigStart());
   return axios.get('/api/app/getFooter', {
     ver,
     lang,
   })
-  .then(result => dispatch(fetchAppConfigSuccess(result.data)))
+  .then((result) => {
+    dispatch(updateFeatureThree({ registrationURL: result.data.registerNewMemberURL }));
+    dispatch(fetchAppConfigSuccess(result.data));
+  })
   .catch(error => dispatch(fetchAppConfigFail(error)));
 };

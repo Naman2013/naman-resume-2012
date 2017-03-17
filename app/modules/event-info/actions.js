@@ -26,6 +26,7 @@ export const fetchEventInfo = ({
   showId,
 }) => (dispatch, getState) => {
   const { cid, at, token } = getState().user;
+
   dispatch(fetchEventInfoStart());
   return axios.post('/api/events/getEventInfo', {
     cid,
