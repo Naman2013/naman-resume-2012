@@ -17,11 +17,9 @@ import style from './home.scss';
 import { fetchCommunityContent }
   from '../modules/community-content/get-object-content-actions';
 
-// static content
-import CONTENT from '../content/home';
-
-const mapStateToProps = ({ communityContent }) => ({
+const mapStateToProps = ({ communityContent, homeContent }) => ({
   communityContent: communityContent.communityContent,
+  homeContent,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -37,18 +35,22 @@ class Home extends Component {
   }
 
   fetchStaticHero() {
-    return <Hero {...CONTENT.STATIC_HERO} />;
+    const { homeContent } = this.props;
+    return <Hero {...homeContent.STATIC_HERO} />;
   }
 
   generateRecentVideoTiles() {
-    return CONTENT.RECENT_STUFF.map(videoTile => <RecentVideoTile {...videoTile} />);
+    const { homeContent } = this.props;
+    return homeContent.RECENT_STUFF.map(videoTile => <RecentVideoTile {...videoTile} />);
   }
 
   generateSloohFeatures() {
-    return CONTENT.SLOOH_FEATURES.map(feature => <SloohFeatures {...feature} />);
+    const { homeContent } = this.props;
+    return homeContent.SLOOH_FEATURES.map(feature => <SloohFeatures {...feature} />);
   }
 
   render() {
+    const { homeContent } = this.props;
     const { posts } = this.props.communityContent;
 
     return (
@@ -60,18 +62,18 @@ class Home extends Component {
           {this.generateRecentVideoTiles()}
         </div>
 
-        <PromoMessageBand message={CONTENT.promoBandContent} />
+        <PromoMessageBand message={homeContent.promoBandContent} />
 
         <div className="clearfix">
           {this.generateSloohFeatures()}
         </div>
 
-        <LargeBannerHeading content={CONTENT.ADDITIONAL_OFFERING_HEADER} />
+        <LargeBannerHeading content={homeContent.ADDITIONAL_OFFERING_HEADER} />
 
-        <PromoMessageBand title={CONTENT.VIEWABLE_OBJECTS.ADDITIONAL_OFFERING_BAND} />
-        <ViewableObjects {...CONTENT.VIEWABLE_OBJECTS} />
+        <PromoMessageBand title={homeContent.VIEWABLE_OBJECTS.ADDITIONAL_OFFERING_BAND} />
+        <ViewableObjects {...homeContent.VIEWABLE_OBJECTS} />
 
-        <PromoMessageBand title={CONTENT.COMMUNITY_CONTENT_BAND} />
+        <PromoMessageBand title={homeContent.COMMUNITY_CONTENT_BAND} />
         <CommunityPerspectives
           showCallToAction={false}
           showSliderBorder={false}
@@ -80,11 +82,11 @@ class Home extends Component {
           communityContent={posts}
         />
 
-        <PromoMessageBand title={CONTENT.SPONSORS_CONTENT_BAND} />
+        <PromoMessageBand title={homeContent.SPONSORS_CONTENT_BAND} />
 
         <Sponsors
-          title={CONTENT.SPONSORS_SUB_TITLE}
-          sponsorImages={CONTENT.SPONSOR_IMAGES}
+          title={homeContent.SPONSORS_SUB_TITLE}
+          sponsorImages={homeContent.SPONSOR_IMAGES}
         />
 
         <div className="col-md-2" />

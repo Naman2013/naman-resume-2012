@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 import styles from './discussions-header.scss';
 
-const { string } = PropTypes;
+const { arrayOf, string } = PropTypes;
 
 const DiscussionsHeader = ({ title }) =>
   <header className={styles.DiscussionsHeader}>
@@ -19,8 +19,12 @@ const DiscussionsHeader = ({ title }) =>
     </div>
   </header>;
 
-export default DiscussionsHeader;
+DiscussionsHeader.defaultProps = {
+  title: undefined,
+};
 
 DiscussionsHeader.propTypes = {
   title: string,
 };
+
+export default DiscussionsHeader;

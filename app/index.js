@@ -186,7 +186,7 @@ ReactDOM.render(
         </Route>
 
         <Route path="shows/situation-room(/:showId)" component={SituationRoom} onEnter={validateUser} />
-        <Route path="shows/event-details/:showId" component={EventDetails} onEnter={validateUser} />
+        <Route path="shows/event-details(/:showId)" component={EventDetails} onEnter={validateUser} />
 
         <Route path="shows/browse-shows" component={PlaybackContainer} onEnter={validateUser}>
           <IndexRedirect to="recent-shows" />

@@ -53,3 +53,66 @@ $infoSpacing: 15px;
     }
   }
 }
+
+.discussionsThreadHeader {
+  position: relative;
+  font-family: $primary-font;
+  background: #4c4c4c; /* Old browsers */
+  background: -moz-linear-gradient(180deg,  #4c4c4c 0%, #131313 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(180deg,  #4c4c4c 0%,#131313 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(180deg,  #4c4c4c 0%,#131313 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  height: 145px;
+  display: block;
+  width: 100%;
+  padding: 10px 50px;
+
+  .breadcrumbs {
+    flex: 3 0 0;
+    color: $white;
+
+    a {
+      color: $white;
+
+      &:hover {
+        color: $pink;
+      }
+    }
+  }
+
+  .container {
+    font-weight: 400;
+    width: 100%;
+    padding: 0;
+    height: 100px;
+    bottom: 0;
+  }
+
+  .title-container {
+    position: absolute;
+    bottom: 5px;
+    color: $white;
+    text-transform: uppercase;
+    font-size: 36px;
+
+    .title {
+      font-size: 34px;
+      text-transform: none;
+      color: $turqoise;
+      display: inline-block;
+      font-weight: 400;
+    }
+
+    &.center {
+      margin: 0 auto;
+    }
+  }
+
+  .button-nav {
+    position: absolute;
+    right: 50px;
+    bottom: 5px;
+    text-align: right;
+    padding: 0;
+  }
+
+}

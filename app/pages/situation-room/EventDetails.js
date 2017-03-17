@@ -15,15 +15,25 @@ const { func, object } = PropTypes;
 class EventDetails extends Component {
   constructor(props) {
     super(props);
-    const { fetchEventInfo, routeParams: { showId } } = props;
-    fetchEventInfo({
-      showId
-    });
+    const { fetchEventInfo, routeParams: { showId } } = this.props;
+    if (showId) {
+      fetchEventInfo({
+        showId,
+      });
+    }
   }
 
   componentWillReceiveProps(nextProps) {
     const { fetchEventInfo, routeParams: { showId } } = this.props;
     const { routeParams: { showId: nextShowId } } = nextProps;
+
+    if (!showId && (this.props.nextEvent.eventId !== nextProps.nextEvent.eventId)) {
+      if (nextProps.nextEvent.eventId !== 0) {
+        fetchEventInfo({
+          showId: nextProps.nextEvent.eventId
+        });
+      }
+    }
 
     if (showId !== nextShowId) {
       fetchEventInfo({
@@ -46,7 +56,8 @@ class EventDetails extends Component {
     return (
       <div className={s.eventDetailsRoot}>
         {fetching && <GenericLoadingBox />}
-        {!fetching && <div>
+        {!fetching && !title && <GenericLoadingBox text="Details about this event are currently unavailable." />}
+        {!fetching && title && <div>
           <EventHero eventContent={eventContent} />
           <section className="row">
             <section className="col-md-8">
@@ -91,10 +102,11 @@ EventDetails.propTypes = {
   fetchEventInfo: func.isRequired,
 };
 
-const mapStateToProps = ({ eventInfo, post, user }) => ({
+const mapStateToProps = ({ eventInfo, post, user, upcomingEvents }) => ({
   ...eventInfo,
   user,
   moreAboutObject: post.moreAboutObject,
+  nextEvent: upcomingEvents.nextEvent,
 });
 const mapDispatchToProps = dispatch => (bindActionCreators(eventInfoActions, dispatch));
 
