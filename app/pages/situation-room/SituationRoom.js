@@ -8,12 +8,12 @@ import SituationVideoViewer from '../../components/situation-room/SituationVideo
 import EventDetails from '../../components/situation-room/EventDetails';
 import CommunityMashup from '../../components/situation-room/CommunityMashup';
 import MissionAd from '../../components/missions/mission-ad';
-import { fetchSitiationRoom } from '../../modules/SituationRoom';
+import { fetchEvents } from '../../modules/upcoming-events/upcoming-events-actions';
 import s from './SituationRoom.scss';
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
-    fetchSitiationRoom,
+    fetchEvents,
   }, dispatch),
 });
 
@@ -31,29 +31,9 @@ const mapStateToProps = ({ upcomingEvents, liveShows, communityShowContent }, ow
 class SituationRoom extends Component {
   constructor(props) {
     super(props);
-
-    const { showId } = props;
-    if (showId) {
-      this.fetchEventInformation(showId);
-    }
-  }
-
-  componentWillReceiveProps(nextProps) {
-    const { showId, upcomingEventEventId, eventIsLive } = this.props;
-    const nextUpcomingEventId = nextProps.upcomingEventEventId;
-    const nextUpcomingEventLiveStatus = nextProps.eventIsLive;
-
-    if (showId || !nextUpcomingEventId) {
-      return;
-    }
-
-    if (nextUpcomingEventId !== upcomingEventEventId) {
-      this.fetchEventInformation(nextProps.upcomingEventEventId);
-    }
-  }
-
-  fetchEventInformation(eventId) {
-    this.props.actions.fetchSitiationRoom(eventId);
+    // onload of the page, refetch the event information
+    console.log('mounting...');
+    props.actions.fetchEvents();
   }
 
   render() {

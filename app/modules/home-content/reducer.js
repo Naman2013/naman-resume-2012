@@ -158,7 +158,6 @@ const initialState = {
 
 export default createReducer(initialState, {
   [UPDATE_SLOOH_FEATURE_THREE](state, { payload }) {
-    console.log('FIRED ACTIONS');
     const updateFeatures = [state.SLOOH_FEATURES[0], state.SLOOH_FEATURES[1],
       {
         key: Math.random() * 100,
