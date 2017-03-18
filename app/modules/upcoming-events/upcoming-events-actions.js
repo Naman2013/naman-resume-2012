@@ -1,4 +1,6 @@
 import fetchUpcomingEvents from '../../services/events/fetch-upcoming-events';
+import { fetchLiveShowInfo } from '../live-shows/live-shows-actions';
+import { fetchSituationRoom } from '../SituationRoom';
 
 export const FETCH_EVENTS_START = 'FETCH_EVENTS_START';
 export const FETCH_EVENTS_SUCCESS = 'FETCH_EVENTS_SUCCESS';
@@ -55,20 +57,17 @@ export const endEvent = () => (dispatch, getState) => {
   dispatch(fetchEventsSuccess(updatedEvents));
 };
 
-export const fetchEvents = () => (dispatch, getState) => {
-  const { eventsFetched } = getState().upcomingEvents;
-  if (!eventsFetched) {
-    dispatch(fetchEventsStart());
+export const fetchEvents = () => (dispatch) => {
+  dispatch(fetchEventsStart());
 
-    return fetchUpcomingEvents()
-    .then((result) => {
-      if (!result.data.apiError) {
-        dispatch(setNextEvent(result.data.eventList[0]));
-        dispatch(fetchEventsSuccess(result.data));
-      }
-    })
-    .catch(error => dispatch(fetchEventsFail(error)));
-  }
-
-  return null;
+  return fetchUpcomingEvents()
+  .then((result) => {
+    if (!result.data.apiError) {
+      dispatch(fetchLiveShowInfo(result.data.eventList[0].eventId));
+      dispatch(fetchSituationRoom(result.data.eventList[0].eventId));
+      dispatch(setNextEvent(result.data.eventList[0]));
+      dispatch(fetchEventsSuccess(result.data));
+    }
+  })
+  .catch(error => dispatch(fetchEventsFail(error)));
 };
