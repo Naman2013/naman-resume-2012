@@ -73,6 +73,7 @@ import PulsePostList from './pages/pulse/pulse-post-list';
 import PulsePostContent from './pages/pulse/pulse-post';
 import ObjectPosts from './pages/object-posts/ObjectPosts';
 
+import NewDiscussionsThread from './pages/discussions/threads/NewDiscussionsThread';
 import DiscussionsReplyTo from './pages/discussions/replies/DiscussionsReplyTo';
 import DiscussionsThreadWrapper from './pages/discussions/threads/DiscussionsThreadWrapper';
 import DiscussionsTopicsList from './pages/discussions/topics/DiscussionsTopicsList';
@@ -246,7 +247,7 @@ ReactDOM.render(
             <Route path="most-active" component={DiscussionsListWrapper} />
           </Route>
         </Route>
-        <Route path="discussions/forums(/:forumId)/topics" component={DiscussionsTopicsWrapper}>
+        <Route path="discussions/forums(/:forumId)/topics" component={DiscussionsTopicsWrapper} onEnter={validateUser}>
           <IndexRedirect to="alphabetic" />
           <Route path="alphabetic" component={DiscussionsTopicsList} />
           <Route path="most-recent" component={DiscussionsTopicsList} />
@@ -254,8 +255,10 @@ ReactDOM.render(
         </Route>
         <Route path="discussions/forums(/:forumId)/topics(/:topicId)/threads(/:threadId)" component={DiscussionsThreadWrapper} onEnter={validateUser} />
         <Route path="discussions/forums(/:forumId)/topics(/:topicId)/threads(/:threadId)/new-reply" component={DiscussionsReplyTo} onEnter={validateUser} />
-        <Route path="discussions/new-thread" component={DiscussionsReplyTo} onEnter={validateUser} />
-        <Route path="discussions/forums(/:forumId)/topics(/:topicId)/new-thread" component={DiscussionsReplyTo} onEnter={validateUser} />
+        <Route path="discussions/new-thread" component={NewDiscussionsThread} onEnter={validateUser} />
+        <Route path="discussions/forums(/:forumId)/topics/new-thread" component={NewDiscussionsThread} onEnter={validateUser} />
+        <Route path="discussions/forums(/:forumId)/topics(/:topicId)/threads/new-thread" component={NewDiscussionsThread} onEnter={validateUser} />
+        <Route path="discussions/forums(/:forumId)/topics(/:topicId)/threads(/:threadId)/new-thread" component={NewDiscussionsThread} onEnter={validateUser} />
 
       </Route>
 

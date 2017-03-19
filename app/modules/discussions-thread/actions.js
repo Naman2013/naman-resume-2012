@@ -28,7 +28,7 @@ export const fetchThreadList = ({
   ver,
   topicId,
   page,
-  count,
+  count = 10,
   sortBy,
 }) => (dispatch, getState) => {
   const { cid, at, token } = getState().user;
@@ -45,7 +45,10 @@ export const fetchThreadList = ({
     count,
     sortBy: processedSortBy,
   })
-  .then(result => dispatch(fetchThreadListSuccess(result.data)))
+  .then(result => dispatch(fetchThreadListSuccess(Object.assign(
+    { page },
+    result.data,
+  ))))
   .catch(error => dispatch(fetchThreadListFail(error)));
 };
 

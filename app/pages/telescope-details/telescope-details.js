@@ -9,7 +9,8 @@ import DEFAULT_FULL_MISSION_DATA from './default-full-mission-data';
 import {
   getObservatoryList,
   getCurrentObservatory,
-  fetchObservatoryTelescopeStatus } from '../../modules/Telescope-Overview';
+  fetchObservatoryTelescopeStatus,
+  fetchObservatoryWebcam } from '../../modules/Telescope-Overview';
 
 import AnnouncementBanner from '../../components/common/announcement-banner/announcement-banner';
 import TelescopeImageViewer from '../../components/common/telescope-image-viewer/telescope-image-viewer';
@@ -25,7 +26,7 @@ import CurrentSelectionHeader from '../../components/telescopes/current-selectio
 import TelescopeSelection from '../../components/telescopes/selection-widget/telescope-selection';
 
 // TODO: need api's to implement these widgets...
-import TelescopeWhereSky from '../../components/telescope-details/where-sky/where-sky';
+import TelescopeAllSky from '../../components/telescope-details/telescope-all-sky/TelescopeAllSky';
 import TelescopeConditionSnapshot from '../../components/telescope-details/condition-snapshot/condition-snapshot';
 import LiveWebcam from '../../components/telescope-details/live-webcam/live-webcam';
 import WeatherConditions from '../../components/telescope-details/weather-conditions/weather-conditions';
@@ -39,6 +40,7 @@ function mapDispatchToProps(dispatch) {
     actions: bindActionCreators({
       getObservatoryList,
       fetchObservatoryTelescopeStatus,
+      fetchObservatoryWebcam,
     }, dispatch),
   }
 };
@@ -68,14 +70,11 @@ class TelescopeDetails extends Component {
     };
   }
 
-  componentWillMount() {
-    window.scrollTo(0, 0);
-  }
-
   componentDidMount() {
     const { obsUniqueId } = this.props.params;
     this.props.actions.getObservatoryList(
       obsUniqueId,
+      'details',
     );
   }
 
@@ -84,18 +83,21 @@ class TelescopeDetails extends Component {
     const { observatoryList, observatoryTelecopeStatus, params } = this.props;
     const { obsUniqueId, teleUniqueId } = params;
     const currentObservatory = getCurrentObservatory(observatoryList, obsUniqueId);
+    const nextObservatory = getCurrentObservatory(observatoryList, nextProps.params.obsUniqueId);
 
     if (!currentObservatory) { return; }
+
+    this.props.actions.fetchObservatoryWebcam(nextObservatory);
 
     const currentTelescope = this.getCurrentTelescope(currentObservatory.obsTelescopes, teleUniqueId);
     const { teleInstrumentList } = currentTelescope;
 
-    if(selectedTab > teleInstrumentList.length - 1) {
+    if (selectedTab > teleInstrumentList.length - 1) {
       this.handleSelect(0);
     }
   }
 
-  handleSelect(index, last) {
+  handleSelect(index) {
     this.setState({
       selectedTab: index,
     });
@@ -121,8 +123,8 @@ class TelescopeDetails extends Component {
       instrObsId,
       instrTelescopeId } = currentInstrument;
 
-    if(instrImageSourceType === 'SSE') {
-      return(
+    if (instrImageSourceType === 'SSE') {
+      return (
         <TelescopeImageViewer
           telePort={currentInstrument.instrPort}
           teleSystem={currentInstrument.instrSystem}
@@ -148,11 +150,18 @@ class TelescopeDetails extends Component {
       );
     }
 
+    return null;
   }
 
   render() {
     const { selectedTab } = this.state;
-    const { observatoryList, observatoryTelecopeStatus, params, activeTelescopeMissions, communityContent } = this.props;
+    const {
+      observatoryList,
+      observatoryTelecopeStatus,
+      params,
+      activeTelescopeMissions,
+      communityContent,
+    } = this.props;
     const { obsUniqueId, teleUniqueId } = params;
 
     // TODO: Move this check into TelescopeSelection component
@@ -219,7 +228,7 @@ class TelescopeDetails extends Component {
 
           { /* begin left column */ }
           <div className="telescope-details clearfix">
-            <div className="col-md-8">
+            <div className={currentTelescope.teleOnlineStatus !== 'offline' ? 'col-xs-8' : 'col-xs-12'}>
               <Tabs
                 onSelect={this.handleSelect.bind(this)}
                 selectedIndex={selectedTab}
@@ -277,18 +286,11 @@ class TelescopeDetails extends Component {
                   </div> : null
               }
 
+              <LiveWebcam />
+
               {
                 /**
                 coming soon...
-                <LiveWebcam
-                  time={new Date()}
-                  tabs={[
-                    { title: 'West', src: 'assets/images/graphics/livecam-placeholder.jpg' },
-                    { title: 'East', src: 'assets/images/graphics/livecam-placeholder-2.jpeg' },
-                    { title: 'South', src: 'assets/images/graphics/livecam-placeholder-3.jpeg' },
-                    { title: 'North', src: 'assets/images/graphics/livecam-placeholder-4.jpeg' },
-                  ]}
-                />
 
                 <WeatherConditions
                   tabs={[
@@ -306,15 +308,26 @@ class TelescopeDetails extends Component {
 
             <div className="col-md-4 telescope-details-sidebar">
 
-              <LiveMission
-                {...currentMission}
-              />
+              {
+                currentMission.missionAvailable || currentMission.nextMissionAvailable ?
+                  <div>
+                    <LiveMission
+                      {...currentMission}
+                    />
+
+                    <TelescopeAllSky
+                      obsId={currentObservatory.obsId}
+                      AllskyWidgetId={currentObservatory.AllskyWidgetId}
+                      scheduledMissionId={currentMission.scheduledMissionId}
+                    />
+                  </div>
+                : null
+              }
 
               {
                 /**
                   coming soon...
                   <Spacer height="100px" />
-                  <TelescopeWhereSky />
                   <Spacer height="50px" />
                   <TelescopeConditionSnapshot />
                   <TelescopeRecommendsWidget />

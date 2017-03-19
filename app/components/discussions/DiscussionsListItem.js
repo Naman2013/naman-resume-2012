@@ -11,7 +11,7 @@ const DiscussionsListItem = ({ item }) => (
       <div className="col-md-7 description">
         <div className="topic">
           <Link to={`discussions/forums/${item.forumId}/topics/${item.topicId}/threads/${item.threadId}`}>
-            <span dangerouslySetInnerHTML={{ __html: item.title }} />
+            <span dangerouslySetInnerHTML={{ __html: item.title }} /> {item.closedFlag === 'yes' && <img className="closed-icon" src={item.closedIconURL} />}
           </Link>
         </div>
         <div className="started-by">Started by:</div>

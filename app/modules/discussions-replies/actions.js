@@ -32,8 +32,8 @@ export const fetchReplies = ({
   topicId,
   threadId,
   parentId,
-  page,
-  count,
+  page = 1,
+  count = 10,
   replyTo,
 }) => (dispatch, getState) => {
   const { cid, at, token } = getState().user;
@@ -68,7 +68,7 @@ export const fetchReplies = ({
     });
     */
 
-    dispatch(fetchRepliesSuccess(Object.assign(result.data, { threadId })));
+    dispatch(fetchRepliesSuccess(Object.assign(result.data, { threadId, page })));
   })
   .catch(error => dispatch(fetchRepliesFail(error)));
 };

@@ -26,6 +26,7 @@ class DiscussionsTopicsWrapper extends Component {
       fetchTopicList({
         sortBy: path,
         forumId,
+        page: 1,
       });
     }
   }
@@ -44,9 +45,10 @@ class DiscussionsTopicsWrapper extends Component {
   }
   render() {
     const { children, params: { forumId }, forumName } = this.props;
+    const newThreadUrl = `discussions/forums/${forumId}/topics/new-thread`;
     return (
       <div className="clearfix">
-        <DiscussionsHeader title={`Topics for forum: ${forumName}`} />
+        <DiscussionsHeader title={`Topics for forum: ${forumName}`} newThreadUrl={newThreadUrl} />
         <div className="discussions-wrapper container-fluid">
           <DiscussionsNav
             alphabeticLink={`discussions/forums/${forumId}/topics/alphabetic`}

@@ -37,6 +37,7 @@ function generateId(seed) {
 class ReservationSelectList extends Component {
   render() {
     const {
+      className,
       options,
       name,
       selectedIndex,
@@ -53,7 +54,7 @@ class ReservationSelectList extends Component {
 
     return (
       <div
-        className="reservation-select-list"
+        className={`reservation-select-list ${className}`}
         style={inlineStyle}
       >
         {
@@ -104,6 +105,7 @@ ReservationSelectList.defaultProps = {
   listHeight: 340,
   selectedIndex: undefined,
   theme: 'light',
+  className: '',
 };
 
 ReservationSelectList.propTypes = {
@@ -114,6 +116,7 @@ ReservationSelectList.propTypes = {
   selectedIndex: PropTypes.string,
   listHeight: PropTypes.number,
   theme: PropTypes.oneOf(['light', 'dark']),
+  className: PropTypes.string,
 };
 
 export default ReservationSelectList;

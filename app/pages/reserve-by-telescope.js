@@ -37,7 +37,7 @@ function mapStateToProps({ missions, telescopeOverview, missionSlotsByTelescope 
 @connect(mapStateToProps, mapDispatchToProps)
 class ReserveMissions extends Component {
   componentWillMount() {
-    this.props.actions.getObservatoryList(this.props.currentObservatoryId);
+    this.props.actions.getObservatoryList(this.props.currentObservatoryId, 'byTelescope');
   }
 
   render() {

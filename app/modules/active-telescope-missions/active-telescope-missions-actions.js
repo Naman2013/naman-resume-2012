@@ -34,7 +34,7 @@ export const updateTelescopeActiveMission = ({ telescopeId, obsId, domeId, forma
     domeId,
     format,
   })
-  .then(result => {
+  .then((result) => {
     if (format === FORMAT_COMPACT) {
       dispatch(updateActiveMissionCompact({ telescopeId, payload: result.data }));
     }
@@ -144,10 +144,10 @@ const failedFetchMission = (error) => (dispatch) => {
 
 
 const fetchingMissionData = ({ telescopeId, format }) => (dispatch) => {
-  if(format === FORMAT_COMPACT) {
+  if (format === FORMAT_COMPACT) {
     dispatch(fetchingMissionCompact({ telescopeId }));
   }
-  if(format === FORMAT_FULL) {
+  if (format === FORMAT_FULL) {
     dispatch(fetchingMissionFull({ telescopeId }));
   }
 };
@@ -157,7 +157,7 @@ const fetchingMissionCompact = ({ telescopeId }) => ({
   telescopeId,
 });
 
-const fetchingMissionFull = (error) => ({
+const fetchingMissionFull = error => ({
   type: UPDATE_TELESCOPE_MISSION_FAIL,
   payload: error,
 });

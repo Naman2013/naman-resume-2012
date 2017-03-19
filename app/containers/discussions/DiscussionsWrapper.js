@@ -29,6 +29,7 @@ class DiscussionsWrapper extends Component {
     fetchThreadList({
       sortBy: path,
       topicId,
+      page: 1,
     });
 
   }

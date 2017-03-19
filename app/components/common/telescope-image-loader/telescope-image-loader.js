@@ -1,11 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import classnames from 'classnames';
 import { updateTelescopeActiveMission } from '../../../modules/active-telescope-missions/active-telescope-missions-actions';
 import styles from './telescope-image-loader.scss';
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
     updateTelescopeActiveMission,
   }, dispatch),

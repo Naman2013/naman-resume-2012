@@ -42,7 +42,7 @@ export default createReducer(initialState, {
       telescopes: payload,
     };
   },
-  [UPDATE_TELESCOPE_MISSION_FULL_START](state, { payload }) {
+  [UPDATE_TELESCOPE_MISSION_FULL_START](state) {
     return {
       ...state,
     };
@@ -59,7 +59,7 @@ export default createReducer(initialState, {
       telescopes: payload,
     };
   },
-  [UPDATE_TELESCOPE_MISSION_COMPACT_START](state, { payload }) {
+  [UPDATE_TELESCOPE_MISSION_COMPACT_START](state) {
     return {
       ...state,
     };

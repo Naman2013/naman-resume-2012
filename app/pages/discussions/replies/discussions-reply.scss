@@ -5,13 +5,13 @@
 
 $margin: 15px;
 
-.DiscussionsReply {
+.DiscussionsReply, .DiscussionsNewThread {
   text-align: center;
   color: $slooh-black;
   background-color: $white;
   min-height: 100vmax;
 }
-.DiscussionsReplyHeader {
+.DiscussionsReplyHeader, .DiscussionsNewThreadHeader {
   @include header;
 }
 
@@ -28,6 +28,13 @@ $margin: 15px;
 .DiscussionsInput {
   display: block;
   margin: $margin auto;
+}
+
+.DiscussionsTextArea {
+  border-width: 1px;
+  height: 200px;
+  padding: 15px;
+  width: 100%;
 }
 
 .DiscussionsFormInputContainer {
