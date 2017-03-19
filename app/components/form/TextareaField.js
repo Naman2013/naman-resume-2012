@@ -13,13 +13,13 @@ export default class renderField extends Component {
     };
 
     render() {
-        const {input, label, type, meta: {touched, error}, className} = this.props;
+        const { input, label, type, meta: { touched, error }, className } = this.props;
 
         return (
             <div className={classnames({error: touched && error})}>
                 <label>
                     <span>{label}</span>
-                    <textarea type={type} {...input} >{input}</textarea>
+                    <textarea className={className} type={type} {...input} >{input}</textarea>
                     {touched && error && <span className="error-description">{error}</span>}
                 </label>
 

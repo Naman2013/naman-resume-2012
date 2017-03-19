@@ -1,6 +1,8 @@
 import axios from 'axios';
 import { push } from 'react-router-redux';
 import createReducer from './utils/createReducer';
+import fetchStarChart from '../services/sky-widgets/star-chart';
+import fetchFacilityWebcam from '../services/sky-widgets/facility-webcam';
 
 const OBSERVATORY_REQUEST_SUCCESS = 'OBSERVATORY_REQUEST_SUCCESS';
 const OBSERVATORY_REQUEST_FAIL = 'OBSERVATORY_REQUEST_FAIL';
@@ -9,24 +11,33 @@ const OBSERVATORY_STATUS_SUCCESS = 'OBSERVATORY_STATUS_SUCCESS';
 const OBSERVATORY_STATUS_FAIL = 'OBSERVATORY_STATUS_FAIL';
 
 const MOON_PHASE_WIDGET_SUCCESS = 'MOON_PHASE_WIDGET_SUCCESS';
+
 const SATELLITE_VIEW_WIDGET_SUCCESS = 'SATELLITE_VIEW_WIDGET_SUCCESS';
+
+const SKYCHART_WIDGET_SUCCESS = 'SKYCHART_WIDGET_SUCCESS';
+const SKYCHART_WIDGET_START = 'SKYCHART_WIDGET_START';
+
+const OBSERVATORY_WEBCAM_START = 'OBSERVATORY_WEBCAM_START';
+const OBSERVATORY_WEBCAM_SUCCESS = 'OBSERVATORY_WEBCAM_SUCCESS';
+
 
 export const getCurrentObservatory = (observatoryList = [], observatoryId) => {
   return observatoryList.find(observatory => observatory.obsUniqueId === observatoryId);
 }
 const getCurrentTimeInSeconds = () => new Date().getTime() / 1000;
 
-export const getObservatoryList = (currentObservatoryId) => (dispatch, getState) => {
+// @param: callSource : STRING | details || byTelescope
+export const getObservatoryList = (currentObservatoryId, callSource) => (dispatch, getState) => {
     // TODO: dispatch loading...
   const { token, at, cid } = getState().user;
-
   return axios.post('/api/obs/list', {
     at,
     cid,
     token,
+    callSource,
     lang: 'en',
     status: 'live',
-    listType: 'full'
+    listType: 'full',
   })
   .then((response) => {
     const { observatoryList } = response.data;
@@ -64,11 +75,6 @@ const observatoryTelescopeStatusFail = () => ({
   type: OBSERVATORY_STATUS_FAIL,
 });
 
-export const fetchAllWidgetsByObservatory = (observatory) => (dispatch) => {
-  dispatch(fetchMoonPhase(observatory));
-  dispatch(fetchSmallSatelliteView(observatory));
-};
-
 
 export const observatoryListSuccess = (observatoryList) => ({
   type: OBSERVATORY_REQUEST_SUCCESS,
@@ -94,11 +100,11 @@ const fetchMoonPhase = observatory => (dispatch, getState) => {
       widgetUniqueId: observatory.MoonPhaseWidgetId,
       timestamp: getCurrentTimeInSeconds(),
     })
-    .then(result => dispatch( setMoonPhaseWidget(result.data) ) );
+    .then(result => dispatch(setMoonPhaseWidget(result.data)));
   }
 };
 
-const fetchSmallSatelliteView = ( observatory ) => ( dispatch, getState ) => {
+const fetchSmallSatelliteView = observatory => (dispatch, getState) => {
   const { token, at, cid } = getState().user;
   if (observatory) {
     return axios.post('/api/wx/satellite', {
@@ -125,6 +131,60 @@ export const setSatelliteViewWidget = satelliteViewWidgetResult => ({
   satelliteViewWidgetResult,
 });
 
+const setSkyChartWidget = skyChartWidgetResult => ({
+  type: SKYCHART_WIDGET_SUCCESS,
+  skyChartWidgetResult,
+});
+
+const startFetchSkyChartWidget = () => ({
+  type: SKYCHART_WIDGET_START,
+});
+
+export const fetchSkyChartWidget = ({ obsId, AllskyWidgetId, scheduledMissionId }) => (dispatch) => {
+  dispatch(startFetchSkyChartWidget);
+  if (obsId && AllskyWidgetId && scheduledMissionId) {
+    fetchStarChart({
+      scheduledMissionId,
+      obsId,
+      widgetUniqueId: AllskyWidgetId,
+    }).then((result) => {
+      if (!result.data.apiError) {
+        dispatch(setSkyChartWidget(result.data));
+      }
+    });
+  }
+};
+
+const startFetchObservatoryWebcam = () => ({
+  type: OBSERVATORY_WEBCAM_START,
+});
+
+const fetchObservatoryWebcamSuccess = observatoryLiveWebcamResult => ({
+  type: OBSERVATORY_WEBCAM_SUCCESS,
+  observatoryLiveWebcamResult,
+});
+
+export const fetchObservatoryWebcam = observatory => (dispatch, getState) => {
+  const { observatoryLiveWebcamResult } = getState().telescopeOverview;
+
+  if (observatoryLiveWebcamResult.obsId !== observatory.obsId) {
+    dispatch(startFetchObservatoryWebcam());
+    return fetchFacilityWebcam({
+      obsId: observatory.obsId,
+      widgetUniqueId: observatory.FacilityWebcamWidgetId,
+    }).then((result) => {
+      if (!result.data.apiError) {
+        dispatch(fetchObservatoryWebcamSuccess(result.data));
+      }
+    });
+  }
+};
+
+export const fetchAllWidgetsByObservatory = observatory => (dispatch) => {
+  dispatch(fetchMoonPhase(observatory));
+  dispatch(fetchSmallSatelliteView(observatory));
+};
+
 
 const initialState = {
   // list of available observatories
@@ -136,10 +196,27 @@ const initialState = {
     observatoryList: [],
   },
   observatoryListErrorBody: null,
+
   // status of various telescopes depends on having a list of observatories..
   observatoryTelecopeStatus: null,
   moonPhaseWidgetResult: null,
   satelliteViewWidgetResult: null,
+  skyChartWidgetResult: {
+    apiError: false,
+    title: 'Loading...',
+    subTitle: '',
+    starChartURL: '',
+  },
+  observatoryLiveWebcamResult: {
+    apiError: false,
+    title: 'Loading',
+    subtitle: '',
+    credits: '',
+    logoURL: '',
+    refreshIntervalSec: 0,
+    facilityWebcamURL: '',
+    obsId: 0,
+  },
 };
 
 export default createReducer(initialState, {
@@ -177,6 +254,30 @@ export default createReducer(initialState, {
     return {
       ...state,
       satelliteViewWidgetResult,
+    };
+  },
+  [SKYCHART_WIDGET_START](state) {
+    return {
+      ...state,
+      skyChartWidgetResult: { ...initialState.skyChartWidgetResult },
+    };
+  },
+  [SKYCHART_WIDGET_SUCCESS](state, { skyChartWidgetResult }) {
+    return {
+      ...state,
+      skyChartWidgetResult,
+    };
+  },
+  [OBSERVATORY_WEBCAM_START](state) {
+    return {
+      ...state,
+      observatoryLiveWebcamResult: { ...initialState.observatoryLiveWebcamResult },
+    };
+  },
+  [OBSERVATORY_WEBCAM_SUCCESS](state, { observatoryLiveWebcamResult }) {
+    return {
+      ...state,
+      observatoryLiveWebcamResult,
     };
   },
 });

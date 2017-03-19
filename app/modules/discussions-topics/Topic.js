@@ -1,6 +1,6 @@
 import { Record } from 'immutable';
 
-const Forum = Record({
+const Topic = Record({
   topicId: undefined, // (integer) ‘post’ ID of the topic
   title: '', // (string) Topic title
   topicDesc: '', // (string) Topic description (‘content’)
@@ -14,4 +14,4 @@ const Forum = Record({
   closedIconURL: '', // (string) Icon to display if forum is closed
 });
 
-export default Forum;
+export default Topic;

@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import classnames from 'classnames';
 import ByUserTag from '../../common/by-user-tag/by-user-tag';
 import InlineCountdown from '../../common/inline-countdown/inline-countdown';
 import './live-mission.scss';
@@ -30,42 +29,38 @@ class LiveMission extends Component {
       ownerMemberSince,
       ownerAvatarURL } = this.props;
 
-    return(
+    return (
       <div className="live-mission">
         <div className="content">
-
           {
             missionAvailable ?
-                <div>
-                  <div className="header">
-                    <h3 className="title">CURRENT LIVE MISSION:</h3>
-                    <p className="mission-title">{objectTitle}</p>
-                  </div>
+              <div>
+                <div className="header">
+                  <h3 className="title">CURRENT LIVE MISSION:</h3>
+                  <p className="mission-title">{objectTitle}</p>
+                </div>
 
-                  <ByUserTag
-                    theme="dark"
-                    photo={ownerAvatarURL}
-                    name={ownerDisplayName}
-                    accountType={ownerMembershipType}
-                    memberSince={ownerMemberSince}
-                    location={ownerLocation}
-                  />
+                <ByUserTag
+                  theme="dark"
+                  photo={ownerAvatarURL}
+                  name={ownerDisplayName}
+                  accountType={ownerMembershipType}
+                  memberSince={ownerMemberSince}
+                  location={ownerLocation}
+                />
 
-                  {
-                    missionObjective ?
+                {
+                  missionObjective ?
                     <div className="users-quote">
                       <p>
                         &quot;{missionObjective}&quot;
                       </p>
                     </div> : null
-                  }
-                </div>
-            :
-            <div className="header">
-              <h3 className="title">Standby...</h3>
-            </div>
+                }
+              </div>
+            : null
           }
-          </div>
+        </div>
 
         {
           nextMissionAvailable ?
@@ -78,7 +73,6 @@ class LiveMission extends Component {
               </div>
             </div> : null
         }
-
       </div>
     );
   }

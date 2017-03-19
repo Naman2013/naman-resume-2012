@@ -1,0 +1,46 @@
+@import '../../../styles/variables/fonts';
+@import '../../../styles/variables/colors';
+@import '../../../styles/mixins/utilities';
+@import '../discussions.scss';
+@import '../replies/discussions-reply.scss';
+
+.DiscussionsNewThread {
+    .DiscussionsSelectList {
+      margin: 0 50px;
+    }
+
+    label { /* dynamically added by redux form*/
+      min-width: 50%;
+      margin: 10px 0;
+
+      &:not(.error) {
+        .DiscussionsInput,
+        .DiscussionsTextArea {
+          border-color: $black;
+        }
+      }
+    }
+
+    .DiscussionsLabel {
+      text-transform: uppercase;
+    }
+
+    .DiscussionsInput {
+      border-style: solid;
+      border-width: 1px;
+      padding: 15px;
+      min-width: 50%;
+      margin: 0 auto;
+    }
+
+    .DiscussionsError {
+      color: $red;
+    }
+
+    .DiscussionsTextArea {
+      border-width: 1px;
+      height: 200px;
+      padding: 15px;
+      width: 100%;
+    }
+}

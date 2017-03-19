@@ -29,9 +29,10 @@ class Discussions extends Component {
     const { topicList, children, forumName, params: { forumId, topicId  } } = this.props;
     const currentTopic = topicList.find(topic => (topic.topicId === Number(topicId)));
     const showHeaderTitle = topicId && currentTopic;
+    const newThreadUrl = forumId && topicId ? `discussions/forums/${forumId}/topics/${topicId}/threads/new-thread` : null;
     return (
       <div className="clearfix">
-        <DiscussionsHeader title={showHeaderTitle && `Forum: ${forumName}   Topic: ${currentTopic.get('title')}`} />
+        <DiscussionsHeader newThreadUrl={newThreadUrl} title={showHeaderTitle && `Forum: ${forumName}   Topic: ${currentTopic.get('title')}`} />
         <section>
           {cloneElement(children)}
         </section>

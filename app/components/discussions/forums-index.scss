@@ -6,6 +6,11 @@
   .cell {
     flex: 0 0 50%;
 
+    .icon {
+      height: 50px;
+      width: 50px;
+    }
+
     &:first-child {
       padding-left: 14%;
     }

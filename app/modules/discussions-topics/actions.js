@@ -23,7 +23,7 @@ export const fetchTopicList = ({
   lang,
   ver,
   page,
-  count,
+  count = 10,
   sortBy,
   forumId,
 }) => (dispatch, getState) => {
@@ -41,6 +41,9 @@ export const fetchTopicList = ({
     sortBy: processedSortBy,
     forumId,
   })
-  .then(result => dispatch(fetchTopicListSuccess(result.data)))
+  .then(result => dispatch(fetchTopicListSuccess(Object.assign(
+    { page },
+    result.data,
+  ))))
   .catch(error => dispatch(fetchTopicListFail(error)));
 };

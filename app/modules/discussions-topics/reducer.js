@@ -13,7 +13,8 @@ const InitialState = Record({
   fetching: false,
   topicList: new List(),
   forumName: '',
-  pages: 0,
+  page: 0,
+  resultsCount: 0,
   error: false,
 });
 
@@ -23,21 +24,23 @@ export default createReducer(new InitialState(), {
       .set('fetching', true);
   },
   [FETCH_TOPIC_LIST_SUCCESS](state, { payload }) {
-    const { topics, pages, forumName } = payload;
-
+    const { topics, forumName, resultsCount, page } = payload;
+    const newTopics = new List(topics
+      .map(json => (new Topic(json))),
+    );
     return state
-      .set('topicList', new List(topics
-        .map(json => (new Topic(json))),
-      ))
-      .set('pages', pages)
+      .set('topicList', state.topicList.concat(newTopics))
+      .set('resultsCount', resultsCount)
       .set('forumName', forumName)
+      .set('page', page)
       .set('fetching', false);
   },
   [FETCH_TOPIC_LIST_FAIL](state) {
     return state
       .set('error', true)
-      .set('pages', 0)
       .set('forumName', '')
+      .set('page', 0)
+      .set('resultsCount', 0)
       .set('fetching', false);
   },
 });

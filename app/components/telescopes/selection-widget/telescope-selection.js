@@ -75,8 +75,8 @@ class TelescopeSelection extends Component {
       return null;
     }
 
-    const activeObservatory = observatoryList.find(observatory => ( obsUniqueId === observatory.obsUniqueId ));
-    const activeTelescope = activeObservatory.obsTelescopes.find(telescope => ( teleUniqueId === telescope.teleUniqueId ));
+    const activeObservatory = observatoryList.find(observatory => (obsUniqueId === observatory.obsUniqueId));
+    const activeTelescope = activeObservatory.obsTelescopes.find(telescope => (teleUniqueId === telescope.teleUniqueId));
 
     return (
       <div

@@ -26,6 +26,11 @@ $infoSpacing: 15px;
 
 }
 
+.discussionsImages {
+  display: block;
+  margin: 15px $profilePhotoOffset;
+}
+
 .discussionsTitle {
   @include spacing;
   text-decoration: none;
@@ -53,6 +58,19 @@ $infoSpacing: 15px;
     }
   }
 }
+
+.load-more {
+  text-align: center;
+  font-size: 2rem;
+  margin: 15px 0;
+  color: $pink;
+  cursor: pointer;
+}
+
+.generic-loading-box {
+  min-height: 150px;
+}
+
 
 .discussionsThreadHeader {
   position: relative;

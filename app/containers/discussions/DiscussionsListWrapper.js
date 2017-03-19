@@ -11,14 +11,25 @@ const { func, arrayOf, bool, shape, object } = PropTypes;
 
 class DiscussionsListWrapper extends Component {
 
-  render() {
-    const { threadList, fetching, route: { path } } = this.props;
+  fetchMoreThreads = () => {
+    const { fetchThreadList, page, route: { path }, params: { topicId } } = this.props;
+    fetchThreadList({
+      sortBy: path,
+      topicId,
+      page: page + 1,
+    });
+  }
 
+  render() {
+    const { fetchMoreThreads } = this;
+    const { threadList, fetching, route: { path }, threadCount } = this.props;
     return (
       <div className="discussions-list">
         <DiscussionsListHeader activeLink={path} />
-        { fetching ? <GenericLoadingBox /> : <DiscussionsList discussions={threadList} />}
-        {(!threadList || threadList.length === 0) && <article className="no-availability">There are no threads to display</article>}
+        <DiscussionsList discussions={threadList} />
+        {fetching && <GenericLoadingBox />}
+        {(!fetching && threadList.length < threadCount) && <div className="load-more" onClick={fetchMoreThreads}>Load more...</div>}
+        {(!threadList || (threadList.length === 0 && !fetching)) && <article className="no-availability">There are no threads to display</article>}
       </div>
     );
   }

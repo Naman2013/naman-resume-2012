@@ -12,7 +12,8 @@ import {
 const initialState = {
   fetching: false,
   threadList: [],
-  pages: 0,
+  page: 0,
+  threadCount: 0,
   error: false,
   thread: {}
 };
@@ -25,11 +26,13 @@ export default createReducer(initialState, {
     };
   },
   [FETCH_THREAD_LIST_SUCCESS](state, { payload }) {
-    const { threads } = payload;
+    const { threads, threadCount, page } = payload;
     return {
       ...state,
       fetching: false,
-      threadList: threads,
+      threadCount,
+      page,
+      threadList: state.threadList.concat(threads),
     };
   },
   [FETCH_THREAD_LIST_FAIL](state, { payload }) {
@@ -38,7 +41,8 @@ export default createReducer(initialState, {
       fetching: false,
       error: true,
       threadList: [],
-      pages: 0,
+      threadCount: 0,
+      page: 0,
     };
   },
   [FETCH_THREAD_START](state) {
@@ -61,7 +65,7 @@ export default createReducer(initialState, {
       fetching: false,
       error: true,
       thread: {},
-      pages: 0,
+      page: 0,
     };
   },
 });

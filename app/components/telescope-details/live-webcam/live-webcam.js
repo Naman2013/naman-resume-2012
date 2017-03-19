@@ -1,69 +1,100 @@
 import React, { Component, PropTypes } from 'react';
-import cx from 'classnames';
-import Progress from 'react-progressbar';
-import moment from 'moment';
+import { connect } from 'react-redux';
+import { uniqueId } from 'lodash';
+import GenericLoadingBox from '../../common/loading-screens/generic-loading-box';
 import './live-webcam.scss';
 
-class LiveWebcam extends React.Component {
+const mapStateToProps = ({ telescopeOverview }) => ({
+  ...telescopeOverview.observatoryLiveWebcamResult,
+});
+
+@connect(mapStateToProps)
+class LiveWebcam extends Component {
   static propTypes = {
-    tabs: PropTypes.array.isRequired,
-    time: PropTypes.object.isRequired,
+    apiError: PropTypes.bool.isRequired,
+    title: PropTypes.string.isRequired,
+    subtitle: PropTypes.string.isRequired,
+    credits: PropTypes.string.isRequired,
+    logoURL: PropTypes.string.isRequired,
+    refreshIntervalSec: PropTypes.number.isRequired,
+    facilityWebcamURL: PropTypes.string.isRequired,
   };
+
+  constructor(props) {
+    super(props);
+    const { refreshIntervalSec, facilityWebcamURL } = this.props;
+    this.refreshLiveImageInterval = this.scaffoldTimer({
+      refreshIntervalSec,
+      facilityWebcamURL,
+    });
+  }
 
   state = {
-    activeTabIdx: 0,
-  };
+    facilityWebcamURL: this.generateNewWebcamURL(),
+  }
 
-  setTabIdx(activeTabIdx) {
-    return () => {
-      this.setState({ activeTabIdx });
-    };
+  componentWillReceiveProps(nextProps) {
+    const { facilityWebcamURL } = this.props;
+    if (facilityWebcamURL !== nextProps.facilityWebcamURL) {
+      this.setState({
+        facilityWebcamURL: nextProps.facilityWebcamURL,
+      });
+      this.scaffoldTimer({
+        refreshIntervalSec: nextProps.refreshIntervalSec,
+        facilityWebcamURL: nextProps.facilityWebcamURL,
+      });
+    }
+  }
+
+  setNewWebcamURL() {
+    const facilityWebcamURL = this.generateNewWebcamURL();
+    this.setState({
+      facilityWebcamURL,
+    });
+  }
+
+  generateNewWebcamURL() {
+    const { facilityWebcamURL } = this.props;
+    if (facilityWebcamURL) {
+      return `${facilityWebcamURL}?cache-bust=${uniqueId()}`;
+    }
+    return '';
+  }
+
+
+  refreshLiveImageInterval = null
+
+  scaffoldTimer({ refreshIntervalSec, facilityWebcamURL }) {
+    clearInterval(this.refreshLiveImageInterval);
+    if (refreshIntervalSec && facilityWebcamURL) {
+      this.refreshLiveImageInterval = setInterval(::this.setNewWebcamURL, refreshIntervalSec * 10);
+    }
   }
 
   render() {
-    const { time, tabs } = this.props;
-    const { activeTabIdx } = this.state;
+    const {
+      title,
+      subtitle,
+      logoURL,
+    } = this.props;
+    const { facilityWebcamURL } = this.state;
 
-    let tab = null;
-    if (activeTabIdx >= 0) {
-      tab = tabs[activeTabIdx];
-    }
-
-    return(
+    return (
       <div className="telescope-block live-webcam">
         <div className="top">
-          <h3>Canary Islands Observatories LIVE Webcam</h3>
-          <p>Use the navigation below to change the view to a different direction.</p>
-          <img className="topLogo" src={'assets/images/graphics/logo-iac.png'} />
+          <h3>{title}</h3>
+          <p>{subtitle}</p>
+          <img alt="Sponsored by logo" className="topLogo" height="40" src={logoURL} />
         </div>
         <div className="live-webcam-feed">
-          {tab && (
-            <img
-              src={tab.src}
-              alt={tab.title}
-              width="820"
-              height="438"
-            />
-          )}
-
-          <div className="live-feed-footer">
-            <div className="row">
-              <div className="col-md-6">
-                {moment(time).format('DD/MM/YYYY HH:mm:ss')}
-              </div>
-              <div className="col-md-6 feed-controls">
-                {tabs.map((tab, tabIdx) => (
-                  <button
-                    key={tabIdx}
-                    className={cx({
-                      active: tabIdx === activeTabIdx,
-                    })}
-                    onClick={::this.setTabIdx(tabIdx)}
-                  >{tab.title}</button>
-                ))}
-              </div>
-            </div>
-          </div>
+          {
+            facilityWebcamURL ?
+              <img
+                alt="Webcam feed"
+                src={facilityWebcamURL}
+                width="100%"
+              /> : <GenericLoadingBox />
+          }
         </div>
       </div>
     );

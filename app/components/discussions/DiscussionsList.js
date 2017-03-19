@@ -5,7 +5,7 @@ const { arrayOf, number, shape } = PropTypes;
 const DiscussionsList = ({ discussions }) => (
   <div>
     {
-      discussions && discussions.map(item => (<DiscussionsListItem
+      discussions.map(item => (<DiscussionsListItem
         key={item.threadId}
         item={item}
       />),

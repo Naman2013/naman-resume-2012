@@ -17,6 +17,7 @@ import countdown from './CountdownModule';
 import currentMission from './current-mission/get-current-mission-reducer';
 import dashboard from './dashboard/reducer';
 import discussionsForums from './discussions-forums/reducer';
+import discussionsNewThread from './discussions-new-thread/reducer';
 import discussionsReplies from './discussions-replies/reducer';
 import discussionsThread from './discussions-thread/reducer';
 import discussionsTopics from './discussions-topics/reducer';
@@ -63,6 +64,7 @@ export default combineReducers({
   currentMission,
   dashboard,
   discussionsForums,
+  discussionsNewThread,
   discussionsReplies,
   discussionsThread,
   discussionsTopics,

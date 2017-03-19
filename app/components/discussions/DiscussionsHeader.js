@@ -4,7 +4,7 @@ import styles from './discussions-header.scss';
 
 const { arrayOf, string } = PropTypes;
 
-const DiscussionsHeader = ({ title }) =>
+const DiscussionsHeader = ({ title, newThreadUrl }) =>
   <header className={styles.DiscussionsHeader}>
     {title &&
       <h1 className="title-container">Discussions: <span className="title">{title}</span></h1>
@@ -13,7 +13,7 @@ const DiscussionsHeader = ({ title }) =>
       <h1 className="title-container">Discussions</h1>
     }
     <div className="button-nav">
-      <Link className="button btn-primary" to="/discussions/new-thread">
+      <Link className="button btn-primary" to={newThreadUrl || '/discussions/new-thread'}>
         <i className="fa fa-plus" /> New Thread
       </Link>
     </div>

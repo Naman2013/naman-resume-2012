@@ -4,12 +4,20 @@ import DiscussionsReplyItem from '../../../components/discussions/DiscussionsRep
 import styles from '../discussions.scss';
 import ByUserTag from '../../../components/common/by-user-tag/by-user-tag';
 
-const { array, object, string } = PropTypes;
+const { array, func, object, string, number } = PropTypes;
 
 class DiscussionsThread extends Component {
   render() {
-    const { repliesList, thread, topicId, forumId } = this.props;
-
+    const {
+      fetchReplies,
+      forumId,
+      repliesCount,
+      repliesList,
+      thread,
+      topicId,
+      page,
+    } = this.props;
+    const images = thread.S3Files || [];
     return (
       <div>
         <article className={styles.discussionsItem}>
@@ -26,31 +34,45 @@ class DiscussionsThread extends Component {
             className={styles.discussionsTitle}
             dangerouslySetInnerHTML={{ __html: thread.content }}
           />
-          <div className={styles.discussionsReplies}>
+          {images.map(img => <img className={styles.discussionsImages} key={img} alt="image" src={img} />)}
+          {thread.closedFlag === 'no' && <div className={styles.discussionsReplies}>
             <Link className={styles.discussionsrepliesText} to={`discussions/forums/${forumId}/topics/${topicId}/threads/${thread.threadId}/new-reply`}>
               <span>Reply</span>
             </Link>
-          </div>
+          </div>}
         </article>
-          {
-            repliesList.map(reply => (
-              <div key={reply.replyId} className={styles.discussionsItem}>
-                <DiscussionsReplyItem
-                  reply={reply}
-                  styles={styles}
-                />
-              </div>
-            ))
-          }
+        {
+          repliesList.map(reply => (
+            <div key={reply.replyId} className={styles.discussionsItem}>
+              <DiscussionsReplyItem
+                reply={reply}
+                styles={styles}
+              />
+            </div>
+          ))
+        }
+        {(repliesList.length < repliesCount) && <div className="load-more" onClick={() => fetchReplies({
+          page: page+1,
+          parentId: thread.threadId,
+          topicId,
+          threadId: thread.threadId,
+          replyTo: thread.threadId,
+        })}>Load more...</div>}
       </div>
     );
   }
 }
+DiscussionsThread.defaultProps = {
+  repliesCount: 0,
+};
 
 DiscussionsThread.propTypes = {
+  fetchReplies: func.isRequired,
   repliesList: array.isRequired,
+  repliesCount: number,
   thread: object.isRequired,
   topicId: string.isRequired,
+  page: number.isRequired,
 };
 
 export default DiscussionsThread;

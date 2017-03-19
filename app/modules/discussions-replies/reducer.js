@@ -4,7 +4,7 @@ import {
   FETCH_REPLIES_START,
   FETCH_REPLIES_SUCCESS,
   FETCH_REPLIES_FAIL,
-  PREPARE_REPLY_START,
+// PREPARE_REPLY_START,
   PREPARE_REPLY_SUCCESS,
   PREPARE_REPLY_FAIL,
   SUBMIT_REPLY_START,
@@ -15,12 +15,13 @@ import {
 
 const initialState = {
   fetching: false,
-  pages: 0,
+  page: 0,
   error: false,
   repliesLists: {},
   postUUID: '',
   replySubmitted: false,
   submitting: false,
+  resultsCount: 0,
 };
 
 export default createReducer(initialState, {
@@ -31,13 +32,15 @@ export default createReducer(initialState, {
     };
   },
   [FETCH_REPLIES_SUCCESS](state, { payload }) {
-    const { replies, threadId } = payload;
+    const { replies, threadId, page, resultsCount } = payload;
     const newState = _.cloneDeep(state.repliesLists);
-    newState[threadId] = replies;
+    newState[threadId] = newState[threadId] ? newState[threadId].concat(replies) : replies;
     return {
       ...state,
       fetching: false,
+      page,
       repliesLists: newState,
+      resultsCount,
     };
   },
   [FETCH_REPLIES_FAIL](state, { payload }) {
@@ -46,7 +49,8 @@ export default createReducer(initialState, {
       fetching: false,
       error: true,
       repliesLists: {},
-      pages: 0,
+      resultsCount: 0,
+      page: 0,
     };
   },
   [PREPARE_REPLY_SUCCESS](state, { payload }) {

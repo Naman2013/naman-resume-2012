@@ -1,35 +1,40 @@
 import React, { Component, PropTypes } from 'react';
 import { Link, hashHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
+import { List } from 'immutable';
 import { connect } from 'react-redux';
+import { Field, reduxForm } from 'redux-form';
 import _ from 'lodash';
+import TextareaField from '../../../components/form/TextareaField';
 import UploadImage from '../../../components/publish-post/upload-image';
 import { fetchThread } from '../../../modules/discussions-thread/actions';
+import { fetchTopicList } from '../../../modules/discussions-topics/actions';
 import * as replyActions from '../../../modules/discussions-replies/actions';
 import setPostImages from '../../../modules/set-post-images';
+import { createValidator, required } from '../../../modules/utils/validation';
+
 import styles from './discussions-reply.scss';
 
-const { bool, object, func, string } = PropTypes;
+const { bool, object, func, string, instanceOf } = PropTypes;
 
 class DiscussionsReplyTo extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      content: '',
       s3URLs: [],
     };
 
     this.handleUploadImage = this.handleUploadImage.bind(this);
     this.handleUploadImageResponse = this.handleUploadImageResponse.bind(this);
-    this.handleBodyContentChange = this.handleBodyContentChange.bind(this);
     this.submitReply = this.submitReply.bind(this);
   }
   componentDidMount() {
     const {
+      fetchTopicList,
       fetchThread,
       thread,
-      routeParams: { threadId, topicId },
+      routeParams: { threadId, topicId, forumId },
       prepareReply,
     } = this.props;
     if (_.isEmpty(thread)) {
@@ -39,18 +44,16 @@ class DiscussionsReplyTo extends Component {
       });
     }
 
+    fetchTopicList({
+      forumId,
+    });
+
     prepareReply({});
   }
 
   componentWillUnmount() {
     const { resetReplyState } = this.props;
     resetReplyState();
-  }
-
-  handleBodyContentChange(event) {
-    this.setState({
-      content: event.target.value,
-    });
   }
 
   handleUploadImage(event) {
@@ -73,21 +76,27 @@ class DiscussionsReplyTo extends Component {
       S3URLs: uploadFileData.S3URLs,
     });
   }
-  submitReply() {
+  submitReply(e) {
     const { submitReply, routeParams: { threadId, topicId }, thread } = this.props;
-    const { content, S3URLs } = this.state;
+    const { S3URLs } = this.state;
 
     submitReply({
       topicId,
       threadId,
       title: thread.title,
-      content,
+      content: e.replyContent,
       S3URLs,
     });
     window.scrollTo(0, 0);
   }
+
+  get currentTopic() {
+    const { topicList, routeParams: { threadId, topicId } } = this.props;
+    return topicList.find(topic => topic.topicId === Number(topicId)) || {};
+  }
   render() {
-    const { routeParams: { forumId, threadId, topicId }, submitting, replySubmitted, thread } = this.props;
+    const { currentTopic } = this;
+    const { routeParams: { forumId, threadId, topicId }, forumName, submitting, replySubmitted, thread, handleSubmit } = this.props;
     const { content, S3URLs } = this.state;
     return (<div className={styles.DiscussionsReply}>
       {submitting && <div className={styles.DiscussionsContent}>Submitting Reply...</div>}
@@ -107,27 +116,23 @@ class DiscussionsReplyTo extends Component {
           </div>
         </header>
         <section className="discussions-container auto-height clearfix">
-          <form className={styles.DiscussionReplyForm}>
+          <form name="new-reply" onSubmit={handleSubmit(this.submitReply)} className={styles.DiscussionReplyForm}>
             <h4>Submit your reply to:</h4>
-            <h4>
-              <span className={styles.DiscussionsInline}>Forum: <span dangerouslySetInnerHTML={{ __html: thread.forum }} /></span>
-              <span className={styles.DiscussionsInline}>Topic: <span dangerouslySetInnerHTML={{ __html: thread.topic }} /></span>
-            </h4>
+            <h4>Forum: <span dangerouslySetInnerHTML={{ __html: forumName}} /></h4>
+            <h4>Topic: <span dangerouslySetInnerHTML={{ __html: currentTopic.title }} /></h4>
             <h4>Thread: <span dangerouslySetInnerHTML={{ __html: thread.title }} /></h4>
             <div>
               <div className={styles.DiscussionsFormInputContainer}>
                 <span className={styles.number}>1</span>
                 <div>
-                  <label htmlFor="content" className={styles.DiscussionsLabel}>Paste or type your thread reply comments here:</label>
-                  <textarea
-                    onChange={this.handleBodyContentChange}
-                    value={content}
-                    name=""
-                    id="content"
+                  <Field
+                    name="replyContent"
+                    className={styles.DiscussionsTextArea}
+                    type="text"
                     cols="50"
                     rows="10"
-                    className={styles.DiscussionsInput}
-                    placeholder=""
+                    label="Paste or type your thread reply comments here:"
+                    component={TextareaField}
                   />
                 </div>
               </div>
@@ -146,7 +151,7 @@ class DiscussionsReplyTo extends Component {
               </Link>
               <button
                 className={`button btn-primary ${styles.DiscussionsInline}`}
-                onClick={this.submitReply}
+                type="submit"
               >
                 Submit Reply
               </button>
@@ -158,18 +163,28 @@ class DiscussionsReplyTo extends Component {
   }
 }
 
+DiscussionsReplyTo.defaultProps = {
+  topicList: new List(),
+  forumName: '',
+};
+
 DiscussionsReplyTo.propTypes = {
+  fetchTopicList: func.isRequired,
   fetchThread: func.isRequired,
   postUUID: string.isRequired,
   prepareReply: func.isRequired,
   replySubmitted: bool.isRequired,
   submitting: bool.isRequired,
   user: object.isRequired,
+  handleSubmit: func.isRequired,
+  topicList: instanceOf(List),
+  forumName: string,
 };
 
 const mapStateToProps = ({
   discussionsReplies,
   discussionsThread,
+  discussionsTopics,
   user,
 }) => ({
   ...discussionsReplies,
@@ -178,10 +193,20 @@ const mapStateToProps = ({
   user,
   submitting: discussionsReplies.submitting,
   replySubmitted: discussionsReplies.replySubmitted,
+  forumName: discussionsTopics.forumName,
+  topicList: discussionsTopics.topicList,
 });
 const mapDispatchToProps = dispatch => (bindActionCreators({
   ...replyActions,
   fetchThread,
+  fetchTopicList,
 }, dispatch));
 
-export default connect(mapStateToProps, mapDispatchToProps)(DiscussionsReplyTo);
+const replyValidation = createValidator({
+  replyContent: [required],
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({
+  form: 'new-reply',
+  validate: replyValidation,
+})(DiscussionsReplyTo));
