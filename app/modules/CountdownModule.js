@@ -1,6 +1,6 @@
+import axios from 'axios';
 import createReducer from './utils/createReducer';
 import createAction from './utils/createAction';
-import axios from 'axios';
 
 const COUNTDOWN_UPCOMING_EVENTS_REQUEST = 'COUNTDOWN_UPCOMING_EVENTS_REQUEST';
 const COUNTDOWN_UPCOMING_EVENTS_RESPONSE_SUCCESS = 'COUNTDOWN_UPCOMING_EVENTS_RESPONSE_SUCCESS';
