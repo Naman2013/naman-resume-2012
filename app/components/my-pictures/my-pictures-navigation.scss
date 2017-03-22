@@ -29,6 +29,16 @@
       }
     }
 
+    .filterDisplayName {
+      padding-left: 5px;
+      padding-right: 5px;
+    }
+
+    .filterDisplayIcon {
+      padding-right: 5px;
+      z-index: 3;
+    }
+
     .button {
       text-transform: uppercase;
       background: none;
@@ -76,6 +86,9 @@
       -moz-border-radius-topright: 20px;
       border-top-left-radius: 20px;
       border-top-right-radius: 20px;
+      width: 325px;
+      padding-left: 25px;
+      padding-right: 25px;
 
       .active {
         background: $white;
@@ -85,9 +98,11 @@
 
         .filterMenuWrapper {
           position: absolute;
-          top: 49px;
-          left: -20px;
+          top: 45px;
           z-index: 999;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 100%;
         }
       }
     }

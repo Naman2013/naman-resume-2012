@@ -19,17 +19,19 @@ const InitialState = Record({
 });
 
 export default createReducer(new InitialState(), {
-  [FETCH_TOPIC_LIST_START](state) {
+  [FETCH_TOPIC_LIST_START](state, { payload }) {
+    const { appendToList } = payload.params;
     return state
+      .set('topicList', appendToList ? state.topicList : new List()) // clear out current list if it isnt pagination
       .set('fetching', true);
   },
   [FETCH_TOPIC_LIST_SUCCESS](state, { payload }) {
-    const { topics, forumName, resultsCount, page } = payload;
+    const { topics, forumName, resultsCount, page, appendToList } = payload;
     const newTopics = new List(topics
       .map(json => (new Topic(json))),
     );
     return state
-      .set('topicList', state.topicList.concat(newTopics))
+      .set('topicList', appendToList ? state.topicList.concat(newTopics) : newTopics)
       .set('resultsCount', resultsCount)
       .set('forumName', forumName)
       .set('page', page)

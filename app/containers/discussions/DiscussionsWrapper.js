@@ -43,6 +43,7 @@ class DiscussionsWrapper extends Component {
       fetchThreadList({
         sortBy: nextPath,
         topicId,
+        page: 1,
       });
     }
   }
@@ -51,7 +52,7 @@ class DiscussionsWrapper extends Component {
     const mostRecentLink = buildLink({ forumId, topicId, path: 'most-recent' });
     const mostActiveLink = buildLink({ forumId, topicId, path: 'most-active' });
     return (
-      <div className="discussions-wrapper container-fluid auto-height">
+      <div className="discussions-wrapper container-fluid">
         <DiscussionsNav
           mostRecentLink={mostRecentLink}
           mostActiveLink={mostActiveLink}

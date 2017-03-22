@@ -32,9 +32,11 @@ export default createReducer(initialState, {
     };
   },
   [FETCH_REPLIES_SUCCESS](state, { payload }) {
-    const { replies, threadId, page, resultsCount } = payload;
+    const { replies, threadId, page, resultsCount, appendToList } = payload;
     const newState = _.cloneDeep(state.repliesLists);
-    newState[threadId] = newState[threadId] ? newState[threadId].concat(replies) : replies;
+    newState[threadId] = (newState[threadId] && appendToList) ?
+      newState[threadId].concat(replies) : replies;
+
     return {
       ...state,
       fetching: false,

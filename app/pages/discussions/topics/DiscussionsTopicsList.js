@@ -17,6 +17,7 @@ class DiscussionsTopicsList extends Component {
       sortBy: path,
       forumId,
       page: page + 1,
+      appendToList: true,
     });
   }
 

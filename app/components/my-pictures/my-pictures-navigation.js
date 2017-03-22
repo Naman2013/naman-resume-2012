@@ -1,16 +1,27 @@
 import React, { Component, PropTypes } from 'react';
+import _ from 'lodash';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import classnames from 'classnames';
 import FilterMenu from './FilterMenu';
+import { resetObjectFilter } from '../../modules/my-pictures/actions';
 import s from './my-pictures-navigation.scss';
 
-const mapStateToProps = ({ myPictures }) => ({
+const mapStateToProps = ({ objectTypeList, myPictures }) => ({
   photoRollCount: myPictures.photoRoll.response.imageCount,
   missionCount: myPictures.missions.response.imageCount,
+  objectFilterList: objectTypeList.objectListResponse.objectTypeList,
+  objectTypeFilter: myPictures.objectTypeFilter,
 });
 
-@connect(mapStateToProps)
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators({
+    resetObjectFilter,
+  }, dispatch),
+});
+
+@connect(mapStateToProps, mapDispatchToProps)
 class MyPicturesNavigation extends Component {
   constructor(props) {
     super(props);
@@ -27,6 +38,12 @@ class MyPicturesNavigation extends Component {
     this.toggleFilterDisplay();
   }
 
+  handleResetObjectFilter(event) {
+    const { actions } = this.props;
+    event.stopPropagation();
+    actions.resetObjectFilter();
+  }
+
   toggleFilterDisplay() {
     const { hideFilter } = this.state;
     this.setState({
@@ -34,11 +51,23 @@ class MyPicturesNavigation extends Component {
     });
   }
 
+  get objectFilterDisplayName() {
+    const { objectFilterList, objectTypeFilter } = this.props;
+    return _(objectFilterList)
+      .filter(objectFilter => objectFilter.objectTypeFilter === objectTypeFilter.filterByField)
+      .map('objectTypeDisplayName')
+      .value()[0];
+  }
+
   render() {
     const { page, photoRollCount, missionCount, galleriesCount } = this.props;
     const { hideFilter } = this.state;
+    const filterDisplayName = this.objectFilterDisplayName ? this.objectFilterDisplayName : 'None';
     const filterContainerClassnames = classnames(s.filterMenuWrapper, {
       hide: hideFilter,
+    });
+    const clearDisplayClassnames = classnames('fa fa-close filterDisplayIcon', {
+      hide: !this.objectFilterDisplayName,
     });
 
     const filterButtonIconClassnames = classnames('fa', {
@@ -49,7 +78,6 @@ class MyPicturesNavigation extends Component {
     const rootNavigationFilterItemClassnames = classnames(`${s.rootNavigationItem} ${s.filters}`, {
       active: !hideFilter,
     });
-
     return (
       <nav className={s.myPictureNavigationRoot}>
         <ul className={s.myPictureNavigationContainer}>
@@ -67,7 +95,10 @@ class MyPicturesNavigation extends Component {
           <li className={rootNavigationFilterItemClassnames}>
             <div className={s.filterMenuContainer}>
               <button onClick={this.handleFilterClick} className={s.button}>
-                Filter by <span className={filterButtonIconClassnames} />
+                Filter by:
+                <span className={s.filterDisplayName} dangerouslySetInnerHTML={{ __html: filterDisplayName }} />
+                <span className={clearDisplayClassnames} onClick={e => this.handleResetObjectFilter(e)} />
+                <span className={filterButtonIconClassnames} />
               </button>
               <div className={filterContainerClassnames}>
                 <FilterMenu
@@ -84,10 +115,22 @@ class MyPicturesNavigation extends Component {
 
 MyPicturesNavigation.defaultProps = {
   page: 'photoRoll',
+  objectFilterList: [],
+  objectTypeFilter: '',
 };
 
 MyPicturesNavigation.propTypes = {
   page: PropTypes.string,
+  objectFilterList: PropTypes.arrayOf(PropTypes.shape({
+    objectTypeDisplayName: PropTypes.string,
+    objectTypeDisplayOrder: PropTypes.number,
+    objectTypeFilter: PropTypes.string,
+    objectTypeFilterLookupId: PropTypes.number,
+    objectTypeIconURL: PropTypes.string,
+    objectTypeIndex: PropTypes.number,
+    objectTypeName: PropTypes.string,
+  })),
+  objectTypeFilter: PropTypes.string,
 };
 
 export default MyPicturesNavigation;

@@ -5,8 +5,11 @@ export const FETCH_TOPIC_LIST_START = 'FETCH_TOPIC_LIST_START';
 export const FETCH_TOPIC_LIST_SUCCESS = 'FETCH_TOPIC_LIST_SUCCESS';
 export const FETCH_TOPIC_LIST_FAIL = 'FETCH_TOPIC_LIST_FAIL';
 
-const fetchTopicListStart = () => ({
+const fetchTopicListStart = params => ({
   type: FETCH_TOPIC_LIST_START,
+  payload: {
+    params,
+  },
 });
 
 const fetchTopicListSuccess = payload => ({
@@ -22,14 +25,15 @@ const fetchTopicListFail = payload => ({
 export const fetchTopicList = ({
   lang,
   ver,
-  page,
+  page = 1,
   count = 10,
   sortBy,
   forumId,
+  appendToList = false,
 }) => (dispatch, getState) => {
   const { cid, at, token } = getState().user;
   const processedSortBy = sortBy && sortBy.replace('-', '');
-  dispatch(fetchTopicListStart());
+  dispatch(fetchTopicListStart({ appendToList }));
   return getTopicList({
     cid,
     at,
@@ -42,7 +46,7 @@ export const fetchTopicList = ({
     forumId,
   })
   .then(result => dispatch(fetchTopicListSuccess(Object.assign(
-    { page },
+    { appendToList, page },
     result.data,
   ))))
   .catch(error => dispatch(fetchTopicListFail(error)));

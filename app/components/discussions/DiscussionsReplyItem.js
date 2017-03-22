@@ -6,6 +6,7 @@ const { object } = PropTypes;
 class DiscussionsReply extends Component {
   prepareData(reply, replies) {
     const { styles } = this.props;
+    const images = reply.S3Files || [];
     return (
       <section key={reply.replyId}>
         <article className={styles.discussionsInfo}>
@@ -22,6 +23,7 @@ class DiscussionsReply extends Component {
             className={styles.discussionsContent}
             dangerouslySetInnerHTML={{ __html: reply.content }}
           />
+        {images.map(img => <img className={styles.discussionsImages} key={img} alt="image" src={img} />)}
         <div className={styles.discussionsReplies}>
           {/* For next iteration: <span className={styles.discussionsrepliesText}>Reply</span> */}
         </div>
