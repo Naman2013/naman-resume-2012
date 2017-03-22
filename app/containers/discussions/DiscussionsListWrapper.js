@@ -17,6 +17,7 @@ class DiscussionsListWrapper extends Component {
       sortBy: path,
       topicId,
       page: page + 1,
+      appendToList: true,
     });
   }
 

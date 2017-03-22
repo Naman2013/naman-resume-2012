@@ -19,7 +19,8 @@ class ByUserTag extends Component {
       name,
       accountType,
       location,
-      memberSince } = this.props;
+      memberSince
+    } = this.props;
 
     const profilePhotoStyle = {
       'backgroundImage': `url(${photo})`,

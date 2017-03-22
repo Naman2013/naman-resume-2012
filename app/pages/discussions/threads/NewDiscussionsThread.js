@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import _ from 'lodash';
-import { List, Record } from 'immutable';
+import { List } from 'immutable';
 import InputField from '../../../components/form/InputField';
 import TextareaField from '../../../components/form/TextareaField';
 import { createValidator, required } from '../../../modules/utils/validation';
@@ -12,6 +12,8 @@ import UploadImage from '../../../components/publish-post/upload-image';
 import ReservationSelectList from '../../../components/common/forms/reservation-select-list';
 import * as newThreadActions from '../../../modules/discussions-new-thread/actions';
 import setPostImages from '../../../modules/set-post-images';
+import deletePostImage from '../../../services/post-creation/delete-post-image';
+
 import styles from './discussions-new-thread.scss';
 
 const { bool, object, instanceOf, func, string } = PropTypes;
@@ -94,6 +96,17 @@ class NewDiscussionsThread extends Component {
     });
   }
 
+  handleDeleteImage = (imageURL) => {
+    if (!imageURL) { return; }
+
+    const { cid, token, at } = this.props.user;
+    const { postUUID } = this.props;
+    const imageClass = 'discussion';
+    deletePostImage({
+      cid, token, at, uniqueId: postUUID, imageClass, imageURL
+    }).then(result => this.handleUploadImageResponse(result.data));
+  }
+
   handleForumSelectChange = (evt) => {
     this.setState({
       selectedForumIndex: Number(evt.target.value),
@@ -158,7 +171,7 @@ class NewDiscussionsThread extends Component {
     window.scrollTo(0, 0);
   }
   render() {
-    const { forumOptions, topicOptions, submitThread } = this;
+    const { forumOptions, topicOptions, submitThread, handleDeleteImage, handleUploadImage } = this;
     const { handleSubmit, routeParams: { forumId, threadId, topicId }, submitting, threadSubmitted, submitError } = this.props;
     const { S3URLs, selectedForumIndex, selectedTopicIndex, undefinedIndexError } = this.state;
     return (<div className={styles.DiscussionsNewThread}>
@@ -226,8 +239,9 @@ class NewDiscussionsThread extends Component {
                 <span className={styles.number}>3</span>
                 <div><b>Upload Image</b> (optional)</div>
                 <UploadImage
-                  handleUploadImage={this.handleUploadImage}
+                  handleUploadImage={handleUploadImage}
                   displayImages={S3URLs}
+                  handleDeleteImage={handleDeleteImage}
                 />
               </div>
               <hr />

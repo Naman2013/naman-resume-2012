@@ -108,7 +108,6 @@ DiscussionsThreadWrapper.propTypes = {
   fetching: bool,
   forumName: string,
   repliesCount: number,
-  page: number.isRequired,
 };
 
 const mapStateToProps = ({ discussionsThread, discussionsReplies, discussionsTopics }) => ({

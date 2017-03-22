@@ -26,13 +26,14 @@ export default createReducer(initialState, {
     };
   },
   [FETCH_THREAD_LIST_SUCCESS](state, { payload }) {
-    const { threads, threadCount, page } = payload;
+    const { threads, threadCount, page, appendToList } = payload;
+    const threadList = appendToList ? state.threadList.concat(threads) : threads;
     return {
       ...state,
       fetching: false,
       threadCount,
       page,
-      threadList: state.threadList.concat(threads),
+      threadList,
     };
   },
   [FETCH_THREAD_LIST_FAIL](state, { payload }) {

@@ -16,6 +16,9 @@ const DiscussionsListItem = ({ item }) => (
         </div>
         <div className="started-by">Started by:</div>
         <ByUserTag
+          accountType={item.membershipType}
+          photo={item.avatarURL}
+          name={item.displayName}
           {...item}
         />
         <div className="within">within the <Link className="forum-name" to={`discussions/forums/${item.forumId}/topics`}>{item.forumName}</Link></div>

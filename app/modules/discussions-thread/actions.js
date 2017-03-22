@@ -26,8 +26,9 @@ const fetchThreadListFail = payload => ({
 export const fetchThreadList = ({
   lang,
   ver,
+  appendToList = false,
   topicId,
-  page,
+  page = 1,
   count = 10,
   sortBy,
 }) => (dispatch, getState) => {
@@ -46,7 +47,10 @@ export const fetchThreadList = ({
     sortBy: processedSortBy,
   })
   .then(result => dispatch(fetchThreadListSuccess(Object.assign(
-    { page },
+    {
+      page,
+      appendToList,
+   },
     result.data,
   ))))
   .catch(error => dispatch(fetchThreadListFail(error)));

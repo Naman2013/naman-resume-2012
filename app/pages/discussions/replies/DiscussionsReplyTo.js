@@ -11,6 +11,7 @@ import { fetchThread } from '../../../modules/discussions-thread/actions';
 import { fetchTopicList } from '../../../modules/discussions-topics/actions';
 import * as replyActions from '../../../modules/discussions-replies/actions';
 import setPostImages from '../../../modules/set-post-images';
+import deletePostImage from '../../../services/post-creation/delete-post-image';
 import { createValidator, required } from '../../../modules/utils/validation';
 
 import styles from './discussions-reply.scss';
@@ -58,7 +59,6 @@ class DiscussionsReplyTo extends Component {
 
   handleUploadImage(event) {
     event.preventDefault();
-
     const { cid, token, at } = this.props.user;
     const { postUUID } = this.props;
     const data = new FormData();
@@ -68,7 +68,6 @@ class DiscussionsReplyTo extends Component {
     data.append('uniqueId', postUUID);
     data.append('imageClass', 'discussion');
     data.append('attachment', event.target.files[0]);
-
     setPostImages(data).then(result => this.handleUploadImageResponse(result.data));
   }
   handleUploadImageResponse(uploadFileData) {
@@ -76,6 +75,18 @@ class DiscussionsReplyTo extends Component {
       S3URLs: uploadFileData.S3URLs,
     });
   }
+
+  handleDeleteImage = (imageURL) => {
+    if (!imageURL) { return; }
+
+    const { cid, token, at } = this.props.user;
+    const { postUUID } = this.props;
+    const imageClass = 'discussion';
+    deletePostImage({
+      cid, token, at, uniqueId: postUUID, imageClass, imageURL
+    }).then(result => this.handleUploadImageResponse(result.data));
+  }
+
   submitReply(e) {
     const { submitReply, routeParams: { threadId, topicId }, thread } = this.props;
     const { S3URLs } = this.state;
@@ -143,6 +154,7 @@ class DiscussionsReplyTo extends Component {
                 <UploadImage
                   handleUploadImage={this.handleUploadImage}
                   displayImages={S3URLs}
+                  handleDeleteImage={this.handleDeleteImage}
                 />
               </div>
               <hr />

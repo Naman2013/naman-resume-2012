@@ -52,7 +52,8 @@ class DiscussionsThread extends Component {
           ))
         }
         {(repliesList.length < repliesCount) && <div className="load-more" onClick={() => fetchReplies({
-          page: page+1,
+          page: page + 1,
+          appendToList: true,
           parentId: thread.threadId,
           topicId,
           threadId: thread.threadId,

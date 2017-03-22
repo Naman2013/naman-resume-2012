@@ -42,8 +42,8 @@ class ForumsIndex extends Component {
         {fetching && <GenericLoadingBox />}
         {!fetching && <div>
           <div className="forums-index-sub-header">
+            <div className="cell">Forum</div>
             <div className="cell">Topics</div>
-            <div className="cell">Threads</div>
           </div>
           <ul className="forums-index-list">
             {forumList.map(forum => {
