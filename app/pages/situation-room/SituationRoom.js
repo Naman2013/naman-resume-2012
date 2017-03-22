@@ -9,11 +9,14 @@ import EventDetails from '../../components/situation-room/EventDetails';
 import CommunityMashup from '../../components/situation-room/CommunityMashup';
 import MissionAd from '../../components/missions/mission-ad';
 import { fetchEvents } from '../../modules/upcoming-events/upcoming-events-actions';
+import { fetchSituationRoom, fetchEventsAndSituationRoom } from '../../modules/SituationRoom';
 import s from './SituationRoom.scss';
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
     fetchEvents,
+    fetchSituationRoom,
+    fetchEventsAndSituationRoom,
   }, dispatch),
 });
 
@@ -29,11 +32,8 @@ const mapStateToProps = ({ upcomingEvents, liveShows, communityShowContent }, ow
 
 @connect(mapStateToProps, mapDispatchToProps)
 class SituationRoom extends Component {
-  constructor(props) {
-    super(props);
-    // onload of the page, refetch the event information
-    console.log('mounting...');
-    props.actions.fetchEvents();
+  componentWillMount() {
+    this.props.actions.fetchEventsAndSituationRoom();
   }
 
   render() {

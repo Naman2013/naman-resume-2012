@@ -10,21 +10,21 @@ export const SET_NEXT_EVENT = 'SET_NEXT_EVENT';
 export const EVENT_GO_LIVE = 'EVENT_GO_LIVE';
 export const END_EVENT = 'END_EVENT';
 
-const fetchEventsStart = () => ({
+export const fetchEventsStart = () => ({
   type: FETCH_EVENTS_START,
 });
 
-const fetchEventsSuccess = payload => ({
+export const fetchEventsSuccess = payload => ({
   type: FETCH_EVENTS_SUCCESS,
   payload,
 });
 
-const fetchEventsFail = payload => ({
+export const fetchEventsFail = payload => ({
   type: FETCH_EVENTS_FAIL,
   payload,
 });
 
-const setNextEvent = event => ({
+export const setNextEvent = event => ({
   type: SET_NEXT_EVENT,
   payload: event,
 });
@@ -63,8 +63,6 @@ export const fetchEvents = () => (dispatch) => {
   return fetchUpcomingEvents()
   .then((result) => {
     if (!result.data.apiError) {
-      dispatch(fetchLiveShowInfo(result.data.eventList[0].eventId));
-      dispatch(fetchSituationRoom(result.data.eventList[0].eventId));
       dispatch(setNextEvent(result.data.eventList[0]));
       dispatch(fetchEventsSuccess(result.data));
     }
