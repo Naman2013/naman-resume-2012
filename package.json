@@ -33,6 +33,7 @@
     "react-custom-scrollbars": "^4.0.0",
     "react-dom": "^15.2.0",
     "react-draggable": "^2.2.2",
+    "react-images": "^0.5.2",
     "react-masonry-component": "^5.0.0",
     "react-notification-system": "^0.2.11",
     "react-onclickoutside": "^5.3.3",

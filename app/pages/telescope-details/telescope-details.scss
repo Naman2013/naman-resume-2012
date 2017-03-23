@@ -9,7 +9,6 @@ $CONTAINER_WIDTH: 1260px;
   @include background-image-cover;
   background-position: center;
   min-width: $CONTAINER_WIDTH;
-  height: 100vmax;
 
   .current-selection-header .title-container {
     color: #fff;

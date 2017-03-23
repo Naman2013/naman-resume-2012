@@ -14,7 +14,13 @@ function mapDispatchToProps(dispatch) {
   }, dispatch);
 }
 
-@connect(null, mapDispatchToProps)
+function mapStateToProps({ isLanding }) {
+  return {
+    isLanding,
+  };
+}
+
+@connect(mapStateToProps, mapDispatchToProps)
 class App extends Component {
   constructor(props) {
     super(props);
@@ -45,8 +51,9 @@ class App extends Component {
   }
 
   render() {
+    const { isLanding } = this.props;
     return (
-      <div className="wrapper">
+      <div className={`wrapper ${isLanding ? 'is-landing' : null}`}>
         <NotificationSystem ref="notificationSystem" style={notificationStyles} />
         <Header />
         <Menu source="nav.json" />

@@ -10,6 +10,10 @@
   left: $slooh-menu-width;
   right: 0;
 
+  .is-landing & {
+    left: 0;
+  }
+
   .mainHeaderLogo {
     position: absolute;
     left: 20px;

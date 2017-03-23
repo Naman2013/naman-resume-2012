@@ -44,6 +44,10 @@ img {
   min-width: $slooh-content-width;
   overflow: hidden;
   min-height: 960px;
+
+  .is-landing & {
+    padding: 0;
+  }
 }
 
 .reservations {

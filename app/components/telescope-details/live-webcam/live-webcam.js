@@ -23,7 +23,7 @@ class LiveWebcam extends Component {
   constructor(props) {
     super(props);
     const { refreshIntervalSec, facilityWebcamURL } = this.props;
-    this.refreshLiveImageInterval = this.scaffoldTimer({
+    this.scaffoldTimer({
       refreshIntervalSec,
       facilityWebcamURL,
     });
@@ -46,6 +46,10 @@ class LiveWebcam extends Component {
     }
   }
 
+  componentWillUnmount() {
+    clearInterval(this.refreshLiveImageInterval);
+  }
+
   setNewWebcamURL() {
     const facilityWebcamURL = this.generateNewWebcamURL();
     this.setState({
@@ -61,13 +65,12 @@ class LiveWebcam extends Component {
     return '';
   }
 
-
   refreshLiveImageInterval = null
 
   scaffoldTimer({ refreshIntervalSec, facilityWebcamURL }) {
     clearInterval(this.refreshLiveImageInterval);
     if (refreshIntervalSec && facilityWebcamURL) {
-      this.refreshLiveImageInterval = setInterval(::this.setNewWebcamURL, refreshIntervalSec * 10);
+      this.refreshLiveImageInterval = setInterval(::this.setNewWebcamURL, refreshIntervalSec * 100);
     }
   }
 

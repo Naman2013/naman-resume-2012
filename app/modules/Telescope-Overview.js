@@ -4,6 +4,7 @@ import createReducer from './utils/createReducer';
 import fetchStarChart from '../services/sky-widgets/star-chart';
 import fetchFacilityWebcam from '../services/sky-widgets/facility-webcam';
 
+const OBSERVATORY_REQUEST_START = 'OBSERVATORY_REQUEST_START';
 const OBSERVATORY_REQUEST_SUCCESS = 'OBSERVATORY_REQUEST_SUCCESS';
 const OBSERVATORY_REQUEST_FAIL = 'OBSERVATORY_REQUEST_FAIL';
 
@@ -26,9 +27,41 @@ export const getCurrentObservatory = (observatoryList = [], observatoryId) => {
 }
 const getCurrentTimeInSeconds = () => new Date().getTime() / 1000;
 
+export const fetchObservatoryTelescopeStatus = (obsId) => (dispatch) => {
+  return axios.get(`/api/obs/getObservatoryStatus?obsId=${obsId}`)
+    .then((response) => {
+      dispatch(observatoryTelescopeStatusSuccess(response.data));
+    })
+    .catch(error => dispatch(observatoryTelescopeStatusFail()));
+};
+
+const observatoryTelescopeStatusSuccess = (observatoryTelecopeStatus) => ({
+  type: OBSERVATORY_STATUS_SUCCESS,
+  observatoryTelecopeStatus,
+});
+
+const observatoryTelescopeStatusFail = () => ({
+  type: OBSERVATORY_STATUS_FAIL,
+});
+
+const observatoryListStart = () => ({
+  type: OBSERVATORY_REQUEST_START,
+});
+
+export const observatoryListSuccess = (observatoryList) => ({
+  type: OBSERVATORY_REQUEST_SUCCESS,
+  payload: observatoryList,
+});
+
+
+export const observatoryListError = error => ({
+  type: OBSERVATORY_REQUEST_FAIL,
+  observatoryListError: error,
+});
+
 // @param: callSource : STRING | details || byTelescope
 export const getObservatoryList = (currentObservatoryId, callSource) => (dispatch, getState) => {
-    // TODO: dispatch loading...
+  dispatch(observatoryListStart());
   const { token, at, cid } = getState().user;
   return axios.post('/api/obs/list', {
     at,
@@ -56,36 +89,6 @@ export const getObservatoryList = (currentObservatoryId, callSource) => (dispatc
     throw error;
   });
 };
-
-
-export const fetchObservatoryTelescopeStatus = (obsId) => (dispatch) => {
-  return axios.get(`/api/obs/getObservatoryStatus?obsId=${obsId}`)
-    .then((response) => {
-      dispatch(observatoryTelescopeStatusSuccess(response.data));
-    })
-    .catch(error => dispatch(observatoryTelescopeStatusFail()));
-};
-
-const observatoryTelescopeStatusSuccess = (observatoryTelecopeStatus) => ({
-  type: OBSERVATORY_STATUS_SUCCESS,
-  observatoryTelecopeStatus,
-});
-
-const observatoryTelescopeStatusFail = () => ({
-  type: OBSERVATORY_STATUS_FAIL,
-});
-
-
-export const observatoryListSuccess = (observatoryList) => ({
-  type: OBSERVATORY_REQUEST_SUCCESS,
-  payload: observatoryList,
-});
-
-
-export const observatoryListError = (error) => ({
-  type: OBSERVATORY_REQUEST_FAIL,
-  observatoryListError: error,
-});
 
 const fetchMoonPhase = observatory => (dispatch, getState) => {
   const { token, at, cid } = getState().user;
@@ -140,6 +143,11 @@ const startFetchSkyChartWidget = () => ({
   type: SKYCHART_WIDGET_START,
 });
 
+export const fetchAllWidgetsByObservatory = observatory => (dispatch) => {
+  dispatch(fetchMoonPhase(observatory));
+  dispatch(fetchSmallSatelliteView(observatory));
+};
+
 export const fetchSkyChartWidget = ({ obsId, AllskyWidgetId, scheduledMissionId }) => (dispatch) => {
   dispatch(startFetchSkyChartWidget);
   if (obsId && AllskyWidgetId && scheduledMissionId) {
@@ -180,11 +188,6 @@ export const fetchObservatoryWebcam = observatory => (dispatch, getState) => {
   }
 };
 
-export const fetchAllWidgetsByObservatory = observatory => (dispatch) => {
-  dispatch(fetchMoonPhase(observatory));
-  dispatch(fetchSmallSatelliteView(observatory));
-};
-
 
 const initialState = {
   // list of available observatories
@@ -220,6 +223,12 @@ const initialState = {
 };
 
 export default createReducer(initialState, {
+  [OBSERVATORY_REQUEST_START](state) {
+    return {
+      ...state,
+      observatoryList: { ...initialState.observatoryList },
+    };
+  },
   [OBSERVATORY_REQUEST_SUCCESS](state, { payload }) {
     return {
       ...state,

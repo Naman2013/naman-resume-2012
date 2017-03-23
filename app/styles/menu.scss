@@ -11,6 +11,10 @@
   background-color: #3C4A55;
   height: 100%;
 
+  .is-landing & {
+    left: -$slooh-menu-width;
+  }
+
   .menu-sub-content {
     padding-left: 60px;
     margin-bottom: 20px;
