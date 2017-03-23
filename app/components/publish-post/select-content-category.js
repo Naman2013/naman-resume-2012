@@ -3,7 +3,7 @@ import _ from 'lodash';
 import classnames from 'classnames';
 import style from './select-content-category.scss';
 
-const categories = [
+export const categories = [
   {
     contentKey: 'scienceLogText',
     title: 'Science log',

@@ -1,0 +1,64 @@
+@import '../../styles/variables/colors.scss';
+
+.heroWrapper {
+  height: 697px;
+  background: url(/assets/images/roadtrip-lander/roadtrip-background.png) center/cover no-repeat;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .header {
+    text-transform: uppercase;
+    display: flex;
+    flex-direction: column;
+    color: $slooh-white;
+    padding-top: 244px;
+
+    span:nth-child(1) {
+      font-size: 44px;
+      line-height: 44px;
+    }
+
+    span:nth-child(2) {
+      font-size: 118px;
+      line-height: 96px;
+    }
+
+    span:nth-child(3) {
+      font-size: 86px;
+      line-height: 68px;
+    }
+  }
+
+  .sideLines {
+    position: relative;
+    align-self: center;
+    font-size: 13px;
+    margin-top: 24px;
+
+    &:before, &:after {
+      content: '';
+      display: block;
+      position: absolute;
+      width: 134px;
+      height: 2px;
+      background: $slooh-blue-gray;
+      left: -150px;
+      top: 50%;
+      margin-top: -1px;
+    }
+
+    &:after {
+      left: auto;
+      right: -150px;
+    }
+  }
+
+  .actionBtn {
+    background: $pink;
+    color: $slooh-white;
+    padding: 14px 38px;
+    margin-top: 74px;
+    cursor: pointer;
+  }
+}

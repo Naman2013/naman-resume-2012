@@ -1,0 +1,88 @@
+@import '../../styles/variables/fonts.scss';
+@import '../../styles/variables/colors.scss';
+
+.eventDescriptionWrapper {
+  background: $slooh-white;
+  display: flex;
+  color: $darkBlueGray;
+
+  .container {
+    flex: 0 0 1040px;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    text-transform: uppercase;
+    padding: 25px 0 36px;
+    font-size: 14px;
+    border-bottom: 2px solid $light-gray;
+    font-weight: bold;
+  }
+
+  .btnGroup {
+    display: flex;
+  }
+
+  .shareBtn, .bookmarkBtn {
+    display: block;
+    width: 22px;
+    height: 22px;
+    margin-left: 10px;
+    background: url(http://placehold.it/22x22) center/cover no-repeat;
+    cursor: pointer;
+  }
+
+  .content {
+    display: flex;
+    justify-content: space-between;
+    padding: 74px 0 56px;
+    font-family: Arial, sans-serif;
+  }
+
+  .description {
+    flex: 0 0 60%;
+    font-size: 19px;
+    line-height: 1.79;
+  }
+
+  .data {
+    flex: 0 0 30%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .dataItemHeader {
+    font-size: 13px;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-family: $primary-font;
+  }
+
+  .dataItemContent {
+    font-size: 16px;
+    line-height: 1.56;
+    margin: 10px 0;
+  }
+
+  .dataItemBtn {
+    background: transparent;
+    color: $pink;
+    font-weight: bold;
+    border: none;
+    font-size: 14px;
+    padding: 0;
+  }
+
+  .date {
+    margin: 10px 0 50px;
+  }
+
+  .date, .place {
+    padding-left: 40px;
+    background: url(http://placehold.it/24x24) no-repeat;
+  }
+}

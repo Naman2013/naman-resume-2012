@@ -38,12 +38,14 @@ import otherFeaturedObjects from './other-featured-objects/reducer';
 import piggyback from './Piggyback';
 import post from './pulse/get-post-reducer';
 import tags from './tag-management/Tags';
+import telescopeDetails from './telescope-details/reducer';
 import telescopeOverview from './Telescope-Overview';
 import telescopeSlots from './grab-telescope-slot/reducer';
 import tierLimits from './tier-limits/reducer';
 import upcomingEvents from './upcoming-events/upcoming-events-reducer';
 import user from './User';
 import usersUpcomingMission from './Users-Upcoming-Missions';
+import isLanding from './landing/reducer';
 
 export default combineReducers({
   routing: routerReducer,
@@ -85,10 +87,12 @@ export default combineReducers({
   piggyback,
   post,
   tags,
+  telescopeDetails,
   telescopeOverview,
   telescopeSlots,
   tierLimits,
   upcomingEvents,
   user,
   usersUpcomingMission,
+  isLanding,
 });

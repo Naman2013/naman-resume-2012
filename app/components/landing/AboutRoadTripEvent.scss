@@ -1,0 +1,108 @@
+@import '../../styles/variables/colors.scss';
+
+.aboutRoadTripEventWrapper {
+  background: url(/assets/images/roadtrip-lander/mountains-background.png) center 216px no-repeat $slooh-white;
+  display: flex;
+  justify-content: center;
+  color: $darkBlueGray;
+
+  .container {
+    flex: 0 0 960px;
+  }
+
+  .header {
+    margin: 70px 0 72px;
+  }
+
+  .eclipseIcon {
+    flex: 0 0 209px;
+    height: 54px;
+    background: url(/assets/images/roadtrip-lander/peanut-icon.png) center no-repeat;
+  }
+
+  .description {
+    font-family: Arial, sans-serif;
+    font-size: 19px;
+    line-height: 1.79;
+
+    p {
+      margin: 34px auto;
+    }
+  }
+
+  .firstDescription {
+    padding: 0 60px;
+    margin-bottom: 608px;
+  }
+
+  .inner {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 100px;
+  }
+
+  .leftSide {
+    flex: 0 0 64%;
+  }
+
+  .rightSide {
+    flex: 0 0 24%;
+    overflow: hidden;
+  }
+
+  .roadTripHeader {
+    text-transform: uppercase;
+    font-size: 55px;
+    font-weight: bold;
+    line-height: 0.98;
+    margin-bottom: 50px;
+  }
+
+  .listWrapper {
+    margin-top: 342px;
+  }
+
+  .hostList {
+    margin: 0;
+    padding: 0;
+  }
+
+  .listHeader {
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 23px;
+    line-height: 2.17;
+  }
+
+  .host {
+    margin: 28px 0;
+    display: flex;
+    align-items: stretch;
+
+    img {
+      border-radius: 50%;
+    }
+  }
+
+  .hostInfo {
+    margin-left: 45px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .name {
+    display: flex;
+    flex-direction: column;
+    font-size: 16px;
+    line-height: 1.25;
+    text-transform: uppercase;
+    font-weight: bold;
+  }
+
+  .link {
+    color: $pink;
+    font-weight: bold;
+    font-size: 14px;
+  }
+}

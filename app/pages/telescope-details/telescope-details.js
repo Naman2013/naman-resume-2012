@@ -70,7 +70,7 @@ class TelescopeDetails extends Component {
     };
   }
 
-  componentDidMount() {
+  componentWillMount() {
     const { obsUniqueId } = this.props.params;
     this.props.actions.getObservatoryList(
       obsUniqueId,
@@ -228,12 +228,11 @@ class TelescopeDetails extends Component {
 
           { /* begin left column */ }
           <div className="telescope-details clearfix">
-            <div className={currentTelescope.teleOnlineStatus !== 'offline' ? 'col-xs-8' : 'col-xs-12'}>
+            <div className="col-xs-8">
               <Tabs
                 onSelect={this.handleSelect.bind(this)}
                 selectedIndex={selectedTab}
               >
-
                 <TabList>
                   {
                     teleInstrumentList.map(instrument => (
@@ -325,11 +324,23 @@ class TelescopeDetails extends Component {
               }
 
               {
+                currentObservatory.obsId && currentObservatory.CurrentConditionsWidgetId ?
+                  <TelescopeConditionSnapshot
+                    obsId={currentObservatory.obsId}
+                    CurrentConditionsWidgetId={currentObservatory.CurrentConditionsWidgetId}
+                    DayNightBarWidgetId={currentObservatory.DayNightBarWidgetId}
+                    DayNightMapWidgetId={currentObservatory.DayNightMapWidgetId}
+                    AllskyWidgetId={currentObservatory.AllskyWidgetId}
+                    DomecamWidgetId={currentObservatory.DomecamWidgetId}
+                  /> : null
+              }
+
+              {
                 /**
                   coming soon...
                   <Spacer height="100px" />
                   <Spacer height="50px" />
-                  <TelescopeConditionSnapshot />
+
                   <TelescopeRecommendsWidget />
                   <TelescopeGalleryWidget />
                 */
