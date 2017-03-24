@@ -42,6 +42,7 @@ class NewDiscussionsThread extends Component {
     selectedTopicIndex: undefined,
     s3URLs: [],
     undefinedIndexError: false,
+    uploadError: null,
   };
 
   componentDidMount() {
@@ -87,7 +88,15 @@ class NewDiscussionsThread extends Component {
     data.append('imageClass', 'discussion');
     data.append('attachment', event.target.files[0]);
 
-    setPostImages(data).then(result => this.handleUploadImageResponse(result.data));
+    this.setState({
+      uploadError: null,
+    });
+
+    setPostImages(data)
+      .then(res => this.handleUploadImageResponse(res.data))
+      .catch(err => this.setState({
+        uploadError: err.message,
+      }));
   }
 
   handleUploadImageResponse = (uploadFileData) => {
@@ -173,7 +182,7 @@ class NewDiscussionsThread extends Component {
   render() {
     const { forumOptions, topicOptions, submitThread, handleDeleteImage, handleUploadImage } = this;
     const { handleSubmit, routeParams: { forumId, threadId, topicId }, submitting, threadSubmitted, submitError } = this.props;
-    const { S3URLs, selectedForumIndex, selectedTopicIndex, undefinedIndexError } = this.state;
+    const { S3URLs, selectedForumIndex, selectedTopicIndex, undefinedIndexError, uploadError } = this.state;
     return (<div className={styles.DiscussionsNewThread}>
       {submitError && <strong>{submitError}</strong>}
       {submitting && <div className={styles.DiscussionsContent}>Submitting Thread...</div>}
@@ -186,7 +195,7 @@ class NewDiscussionsThread extends Component {
             </Link>
           </div>
         </header>
-        <section className="discussions-container auto-height clearfix">
+        <section className="discussions-container new clearfix">
           <form name="new-thread" onSubmit={handleSubmit(submitThread)} className={styles.DiscussionsNewThreadForm}>
             <div className={styles.DiscussionsFormInputContainer}>
               <span className={styles.number}>1</span>
@@ -243,6 +252,7 @@ class NewDiscussionsThread extends Component {
                   displayImages={S3URLs}
                   handleDeleteImage={handleDeleteImage}
                 />
+                {uploadError && <span className="errorMsg">{uploadError}</span>}
               </div>
               <hr />
               <Link className={`button btn-primary btn-cancel ${styles.DiscussionsInline}`} to="/discussions">
@@ -252,7 +262,7 @@ class NewDiscussionsThread extends Component {
                 type="submit"
                 className={`button btn-primary ${styles.DiscussionsInline}`}
               >
-                Submit Reply
+                Submit New Thread
               </button>
               </div>
           </form>

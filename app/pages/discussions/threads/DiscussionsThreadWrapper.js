@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { List } from 'immutable';
+import _ from 'lodash';
 import * as topicsActions from '../../../modules/discussions-topics/actions';
 import * as threadActions from '../../../modules/discussions-thread/actions';
 import * as replyActions from '../../../modules/discussions-replies/actions';
@@ -12,7 +13,6 @@ import ForumsIndex from '../../../components/discussions/forums-index';
 import styles from '../discussions.scss';
 
 const { instanceOf, bool, func, string, object, number } = PropTypes;
-const getBreadcrumbs = args => (args.map(arg => (`<a href="${arg.url}">${arg.name}</a>`)));
 class DiscussionsThreadWrapper extends Component {
   componentDidMount() {
     const { fetchTopicList, fetchThread, routeParams: { threadId, topicId, forumId } } = this.props;
@@ -42,24 +42,15 @@ class DiscussionsThreadWrapper extends Component {
     const currentReplyList = repliesLists[threadId] || [];
     const newThreadUrl = forumId && topicId && threadId ? `discussions/forums/${forumId}/topics/${topicId}/threads/${threadId}/new-thread` : null;
     const currentTopic = topicList.find(topic => (topic.topicId === Number(topicId)));
-    const breadcrumbs = [
-      {
-        url: '/#/discussions/main',
-        name: 'Discussions Main'
-      },
-      {
-        url: `/#/discussions/forums/${forumId}/topics`,
-        name: forumName || 'Forum',
-      },
-      {
-        url: `/#/discussions/forums/${forumId}/topics/${topicId}/threads`,
-        name: currentTopic && currentTopic.get('title') || 'Topic',
-      },
-    ];
+
     return (
       <div>
         <header className={styles.discussionsThreadHeader}>
-          {breadcrumbs && <span className="breadcrumbs" dangerouslySetInnerHTML={{ __html: getBreadcrumbs(breadcrumbs).join(' + ') }}></span>}
+          <span className="breadcrumbs">
+            <Link to="/discussions/main">Discussions Main </Link> +
+            <Link to={`/discussions/forums/${forumId}/topics`}> {forumName || 'Forum'} </Link> +
+            <Link to={`/discussions/forums/${forumId}/topics/${topicId}/threads`}> {currentTopic ? currentTopic.get('title') : 'Topic'}</Link>
+          </span>
           <div className="container row">
             <h1 className="title-container col-md-10">Discussions: <span className="title">{thread.title}</span> {thread.closedFlag === 'yes' && <img className="closed-icon" src={thread.closedIconURL} />}</h1>
             {thread.closedFlag === 'no' && <div className="button-nav col-md-2">
@@ -71,7 +62,8 @@ class DiscussionsThreadWrapper extends Component {
         </header>
         <section className="discussions-container container-fluid clearfix">
           <div className="col-md-8 nopadding">
-            {fetching ? <GenericLoadingBox /> : <DiscussionsThread
+            {fetching && <GenericLoadingBox /> }
+            {!fetching && !_.isEmpty(thread) && <DiscussionsThread
               repliesList={currentReplyList}
               forumId={forumId}
               thread={thread}
@@ -117,6 +109,7 @@ const mapStateToProps = ({ discussionsThread, discussionsReplies, discussionsTop
   forumName: discussionsTopics.forumName,
   repliesCount: discussionsReplies.resultsCount,
   repliesPage: discussionsReplies.page,
+  fetching: discussionsThread.fetching,
 });
 const mapDispatchToProps = dispatch => (bindActionCreators({
   ...topicsActions,

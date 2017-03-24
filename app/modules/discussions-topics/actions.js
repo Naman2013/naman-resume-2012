@@ -5,11 +5,9 @@ export const FETCH_TOPIC_LIST_START = 'FETCH_TOPIC_LIST_START';
 export const FETCH_TOPIC_LIST_SUCCESS = 'FETCH_TOPIC_LIST_SUCCESS';
 export const FETCH_TOPIC_LIST_FAIL = 'FETCH_TOPIC_LIST_FAIL';
 
-const fetchTopicListStart = params => ({
+const fetchTopicListStart = payload => ({
   type: FETCH_TOPIC_LIST_START,
-  payload: {
-    params,
-  },
+  payload,
 });
 
 const fetchTopicListSuccess = payload => ({

@@ -30,7 +30,7 @@ class DiscussionsListWrapper extends Component {
         <DiscussionsList discussions={threadList} />
         {fetching && <GenericLoadingBox />}
         {(!fetching && threadList.length < threadCount) && <div className="load-more" onClick={fetchMoreThreads}>Load more...</div>}
-        {(!threadList || (threadList.length === 0 && !fetching)) && <article className="no-availability">There are no threads to display</article>}
+        {!fetching && (!threadList || threadList.length === 0) && <article className="no-availability">There are no threads to display</article>}
       </div>
     );
   }

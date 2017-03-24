@@ -20,7 +20,7 @@ const InitialState = Record({
 
 export default createReducer(new InitialState(), {
   [FETCH_TOPIC_LIST_START](state, { payload }) {
-    const { appendToList } = payload.params;
+    const { appendToList } = payload;
     return state
       .set('topicList', appendToList ? state.topicList : new List()) // clear out current list if it isnt pagination
       .set('fetching', true);
