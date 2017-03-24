@@ -47,6 +47,7 @@ class DiscussionsWrapper extends Component {
       });
     }
   }
+
   render() {
     const { children, params: { forumId, topicId } } = this.props;
     const mostRecentLink = buildLink({ forumId, topicId, path: 'most-recent' });

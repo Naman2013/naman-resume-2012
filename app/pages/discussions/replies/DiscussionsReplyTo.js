@@ -19,17 +19,11 @@ import styles from './discussions-reply.scss';
 const { bool, object, func, string, instanceOf } = PropTypes;
 
 class DiscussionsReplyTo extends Component {
-  constructor(props) {
-    super(props);
+  state = {
+    s3URLs: [],
+    uploadError: null,
+  };
 
-    this.state = {
-      s3URLs: [],
-    };
-
-    this.handleUploadImage = this.handleUploadImage.bind(this);
-    this.handleUploadImageResponse = this.handleUploadImageResponse.bind(this);
-    this.submitReply = this.submitReply.bind(this);
-  }
   componentDidMount() {
     const {
       fetchTopicList,
@@ -57,7 +51,7 @@ class DiscussionsReplyTo extends Component {
     resetReplyState();
   }
 
-  handleUploadImage(event) {
+  handleUploadImage = (event)  => {
     event.preventDefault();
     const { cid, token, at } = this.props.user;
     const { postUUID } = this.props;
@@ -68,9 +62,17 @@ class DiscussionsReplyTo extends Component {
     data.append('uniqueId', postUUID);
     data.append('imageClass', 'discussion');
     data.append('attachment', event.target.files[0]);
-    setPostImages(data).then(result => this.handleUploadImageResponse(result.data));
+
+    this.setState({
+      uploadError: null,
+    });
+    setPostImages(data)
+      .then(result => this.handleUploadImageResponse(result.data))
+      .catch(err => this.setState({
+        uploadError: err.message,
+      }));
   }
-  handleUploadImageResponse(uploadFileData) {
+  handleUploadImageResponse = (uploadFileData) => {
     this.setState({
       S3URLs: uploadFileData.S3URLs,
     });
@@ -87,7 +89,7 @@ class DiscussionsReplyTo extends Component {
     }).then(result => this.handleUploadImageResponse(result.data));
   }
 
-  submitReply(e) {
+  submitReply = (e) => {
     const { submitReply, routeParams: { threadId, topicId }, thread } = this.props;
     const { S3URLs } = this.state;
 
@@ -108,7 +110,7 @@ class DiscussionsReplyTo extends Component {
   render() {
     const { currentTopic } = this;
     const { routeParams: { forumId, threadId, topicId }, forumName, submitting, replySubmitted, thread, handleSubmit } = this.props;
-    const { content, S3URLs } = this.state;
+    const { S3URLs, uploadError } = this.state;
     return (<div className={styles.DiscussionsReply}>
       {submitting && <div className={styles.DiscussionsContent}>Submitting Reply...</div>}
       {replySubmitted && <div className={styles.DiscussionsContent}>
@@ -126,7 +128,7 @@ class DiscussionsReplyTo extends Component {
             </Link>
           </div>
         </header>
-        <section className="discussions-container auto-height clearfix">
+        <section className="discussions-container new clearfix">
           <form name="new-reply" onSubmit={handleSubmit(this.submitReply)} className={styles.DiscussionReplyForm}>
             <h4>Submit your reply to:</h4>
             <h4>Forum: <span dangerouslySetInnerHTML={{ __html: forumName}} /></h4>
@@ -156,6 +158,7 @@ class DiscussionsReplyTo extends Component {
                   displayImages={S3URLs}
                   handleDeleteImage={this.handleDeleteImage}
                 />
+                {uploadError && <span className="errorMsg">{uploadError}</span>}
               </div>
               <hr />
               <Link className={`button btn-primary btn-cancel ${styles.DiscussionsInline}`} to={`/discussions/forums/${forumId}/topics/${topicId}/threads/${threadId}`}>

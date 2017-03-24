@@ -9,8 +9,9 @@ export const FETCH_THREAD_START = 'FETCH_THREAD_START';
 export const FETCH_THREAD_SUCCESS = 'FETCH_THREAD_SUCCESS';
 export const FETCH_THREAD_FAIL = 'FETCH_THREAD_FAIL';
 
-const fetchThreadListStart = () => ({
+const fetchThreadListStart = payload => ({
   type: FETCH_THREAD_LIST_START,
+  payload,
 });
 
 const fetchThreadListSuccess = payload => ({
@@ -34,7 +35,7 @@ export const fetchThreadList = ({
 }) => (dispatch, getState) => {
   const { cid, at, token } = getState().user;
   const processedSortBy = sortBy && sortBy.replace('-', '');
-  dispatch(fetchThreadListStart());
+  dispatch(fetchThreadListStart({ appendToList }));
   return axios.post('/api/forum/getThreadList', {
     cid,
     at,
@@ -84,7 +85,7 @@ export const fetchThread = ({
     ver,
 
   })
-  .then(result => {
+  .then((result) => {
     const { thread } = result.data;
     dispatch(fetchThreadSuccess(result.data));
     dispatch(fetchReplies({

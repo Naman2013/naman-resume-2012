@@ -48,6 +48,7 @@ class PublishPost extends Component {
       newTagContent: '',
       S3URLs: [],
       uploadedImages: [],
+      uploadError: null,
     };
 
     this.handleCategoryListSelect = this.handleCategoryListSelect.bind(this);
@@ -187,7 +188,15 @@ class PublishPost extends Component {
     data.append('imageClass', 'community');
     data.append('attachment', event.target.files[0]);
 
-    setPostImages(data).then(result => this.handleUploadImageResponse(result.data));
+    this.setState({
+      uploadError: null,
+    });
+
+    setPostImages(data)
+      .then(result => this.handleUploadImageResponse(result.data))
+      .catch(err => this.setState({
+        uploadError: err.message,
+      }));
   }
 
   handleDeleteImage = (imageURL) => {
@@ -291,6 +300,7 @@ class PublishPost extends Component {
       diyText,
       humanSpiritText,
       scienceLogText,
+      uploadError,
     } = this.state;
 
     return (
@@ -369,6 +379,7 @@ class PublishPost extends Component {
               handleUploadImage={this.handleUploadImage}
               displayImages={S3URLs}
             />
+          {uploadError && <span className="errorMsg">{uploadError}</span>}
           </li>
 
           <li className="item">

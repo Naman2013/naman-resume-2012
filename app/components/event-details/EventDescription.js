@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 import classnames from 'classnames';
 import Heart from '../common/heart/heart';
+import like from '../../services/events/like';
 import s from './EventDescription.scss';
 
 const { object, func } = PropTypes;
@@ -18,16 +19,13 @@ function EventDescription({ eventContent, showId }) {
         }
         <div className={s.sharingOptionsMenu}>
           <div className={s.eventDescriptionPanelItem}>
-            {
-              /**
-                TODO: bring this back once we know how to handle the API properties for liking an event
-                <Heart
-                  count={eventContent.likesCount}
-                  likeId={showId}
-                  theme="dark"
-                /> <span className={s.likeText}>Like </span>
-                */
-            }
+            <Heart
+              count={eventContent.likesCount}
+              canLikeFlag={eventContent.canLikeFlag}
+              likeAction={like}
+              likeId={showId}
+              theme="dark"
+            /> <span className={s.likeText}>Like </span>
           </div>
         </div>
       </section>

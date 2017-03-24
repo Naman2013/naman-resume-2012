@@ -7,6 +7,7 @@ import {
   FETCH_THREAD_START,
   FETCH_THREAD_SUCCESS,
   FETCH_THREAD_FAIL,
+  RESET_THREAD_LIST
 } from './actions';
 
 const initialState = {
@@ -19,9 +20,11 @@ const initialState = {
 };
 
 export default createReducer(initialState, {
-  [FETCH_THREAD_LIST_START](state) {
+  [FETCH_THREAD_LIST_START](state, { payload }) {
+    const { appendToList } = payload;
     return {
       ...state,
+      threadList: appendToList ? state.threadList : [],
       fetching: true,
     };
   },
@@ -49,6 +52,7 @@ export default createReducer(initialState, {
   [FETCH_THREAD_START](state) {
     return {
       ...state,
+      thread: {},
       fetching: true,
     };
   },
