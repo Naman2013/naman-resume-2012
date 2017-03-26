@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import _ from 'lodash';
 import GenericLoadingBox from '../../components/common/loading-screens/generic-loading-box';
 import DiscussionsList from '../../components/discussions/DiscussionsList';
 import DiscussionsListHeader from '../../components/discussions/DiscussionsListHeader';

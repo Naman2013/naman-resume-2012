@@ -5,7 +5,7 @@ import { List } from 'immutable';
 import DiscussionsHeader from '../../components/discussions/DiscussionsHeader';
 import * as topicsActions from '../../modules/discussions-topics/actions';
 
-const { func, instanceOf, string } = PropTypes;
+const { func, instanceOf } = PropTypes;
 class Discussions extends Component {
   static propTypes = {
     fetchTopicList: func.isRequired,
@@ -30,6 +30,9 @@ class Discussions extends Component {
     const currentTopic = topicList.find(topic => (topic.topicId === Number(topicId)));
     const showHeaderTitle = topicId && currentTopic;
     const newThreadUrl = forumId && topicId ? `discussions/forums/${forumId}/topics/${topicId}/threads/new-thread` : null;
+
+    console.log('the new thread URL');
+    console.log(newThreadUrl);
     return (
       <div className="clearfix">
         <DiscussionsHeader newThreadUrl={newThreadUrl} title={showHeaderTitle && `Forum: ${forumName}   Topic: ${currentTopic.get('title')}`} />
