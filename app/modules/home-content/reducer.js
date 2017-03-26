@@ -16,9 +16,9 @@ const initialState = {
     {
       key: 1,
       title: 'Lunar Eclipse',
-      content: 'A penumbral lunar eclipse from Slooh’s Chile observatory exciting Slooh hosts Gerry Monteux and Paul Cox on February 10th',
+      content: 'On February 26th we witnessed the ring of fire solar eclipse with Slooh host Gerry Monteux and special guests including Burnie Burns of Rooster Teeth',
       imageUrl: 'assets/images/samples/bobpubjpg.png',
-      videoUrl: 'https://www.youtube.com/embed/Ttm-PjbAAQE?rel=0&amp;showinfo=0'
+      videoUrl: 'https://www.youtube.com/embed/rQMCVtyvsOQ?rel=0&amp;showinfo=0'
     },
     {
       key: 2,
@@ -30,9 +30,9 @@ const initialState = {
     {
       key: 3,
       title: 'Star of Bethlehem',
-      content: 'Do you believe in miracles? Slooh looked back in time to ponder what the ancients might have seen that fateful night.',
+      content: 'Slooh welcomed in the spring season (in the northern hemisphere, at least) on March 20th with a fun show that centered around the equinox and the mysterious glow of the Zodiacal Light.',
       imageUrl: 'assets/images/samples/perseids.png',
-      videoUrl: 'https://www.youtube.com/embed/lzseVZk6Sx0?rel=0&amp;showinfo=0'
+      videoUrl: 'https://www.youtube.com/embed/uvNDUdzRp8Y?rel=0&amp;showinfo=0'
     }
   ],
   promoBandContent: 'Slooh Membership: An All-Access Pass to the Night Sky.',

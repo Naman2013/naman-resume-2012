@@ -256,12 +256,14 @@ ReactDOM.render(
           <Route path="most-recent" component={DiscussionsTopicsList} />
           <Route path="most-active" component={DiscussionsTopicsList} />
         </Route>
-        <Route path="discussions/forums(/:forumId)/topics(/:topicId)/threads(/:threadId)" component={DiscussionsThreadWrapper} onEnter={validateUser} />
-        <Route path="discussions/forums(/:forumId)/topics(/:topicId)/threads(/:threadId)/new-reply" component={DiscussionsReplyTo} onEnter={validateUser} />
-        <Route path="discussions/new-thread" component={NewDiscussionsThread} onEnter={validateUser} />
+
         <Route path="discussions/forums(/:forumId)/topics/new-thread" component={NewDiscussionsThread} onEnter={validateUser} />
         <Route path="discussions/forums(/:forumId)/topics(/:topicId)/threads/new-thread" component={NewDiscussionsThread} onEnter={validateUser} />
         <Route path="discussions/forums(/:forumId)/topics(/:topicId)/threads(/:threadId)/new-thread" component={NewDiscussionsThread} onEnter={validateUser} />
+
+        <Route path="discussions/forums(/:forumId)/topics(/:topicId)/threads(/:threadId)" component={DiscussionsThreadWrapper} onEnter={validateUser} />
+        <Route path="discussions/forums(/:forumId)/topics(/:topicId)/threads(/:threadId)/new-reply" component={DiscussionsReplyTo} onEnter={validateUser} />
+        <Route path="discussions/new-thread" component={NewDiscussionsThread} onEnter={validateUser} />
 
         <Route path="road-trip" component={Landing} onEnter={onEnterLanding(store)} onLeave={onLeaveLanding(store)} />
 

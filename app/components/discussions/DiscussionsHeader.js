@@ -7,7 +7,7 @@ const { arrayOf, string } = PropTypes;
 const DiscussionsHeader = ({ title, newThreadUrl }) =>
   <header className={styles.DiscussionsHeader}>
     {title &&
-      <h1 className="title-container">Discussions: <span className="title">{title}</span></h1>
+      <h1 className="title-container">Discussions: <span dangerouslySetInnerHTML={{ __html: title }} className="title" /></h1>
     }
     {!title &&
       <h1 className="title-container">Discussions</h1>

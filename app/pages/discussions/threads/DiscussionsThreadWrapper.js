@@ -48,8 +48,8 @@ class DiscussionsThreadWrapper extends Component {
         <header className={styles.discussionsThreadHeader}>
           <span className="breadcrumbs">
             <Link to="/discussions/main">Discussions Main </Link> +
-            <Link to={`/discussions/forums/${forumId}/topics`}> {forumName || 'Forum'} </Link> +
-            <Link to={`/discussions/forums/${forumId}/topics/${topicId}/threads`}> {currentTopic ? currentTopic.get('title') : 'Topic'}</Link>
+            <Link to={`/discussions/forums/${forumId}/topics`}> <span dangerouslySetInnerHTML={{ __html: forumName || 'Forum' }}></span></Link> +
+            <Link to={`/discussions/forums/${forumId}/topics/${topicId}/threads`}> <span dangerouslySetInnerHTML={{ __html: currentTopic ? currentTopic.get('title') : 'Topic' }}></span></Link>
           </span>
           <div className="container row">
             <h1 className="title-container col-md-10">Discussions: <span className="title">{thread.title}</span> {thread.closedFlag === 'yes' && <img className="closed-icon" src={thread.closedIconURL} />}</h1>

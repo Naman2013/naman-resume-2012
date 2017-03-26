@@ -5,6 +5,8 @@ import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import { List } from 'immutable';
+import { Editor, EditorState, convertToRaw } from 'draft-js';
+import { stateToHTML } from 'draft-js-export-html';
 import InputField from '../../../components/form/InputField';
 import TextareaField from '../../../components/form/TextareaField';
 import { createValidator, required } from '../../../modules/utils/validation';
@@ -43,6 +45,7 @@ class NewDiscussionsThread extends Component {
     s3URLs: [],
     undefinedIndexError: false,
     uploadError: null,
+    editorState: EditorState.createEmpty(),
   };
 
   componentDidMount() {
@@ -66,13 +69,16 @@ class NewDiscussionsThread extends Component {
             selectedTopicIndex: _.get(currentTopic, 'topicIndex'),
           });
         }
-      })
-
+      });
   }
 
   componentWillUnmount() {
     const { resetNewThreadState } = this.props;
     resetNewThreadState();
+  }
+
+  handleEditorChange = (editorState) => {
+    this.setState({ editorState });
   }
 
   handleUploadImage = (event) => {
@@ -156,17 +162,19 @@ class NewDiscussionsThread extends Component {
   submitThread = (e) => {
     const { selectedForum, selectedTopic } = this;
     const { createNewThread } = this.props;
-    const { S3URLs } = this.state;
-    const { threadContent: content, threadTitle: title } = e;
+    const { S3URLs, editorState } = this.state;
+    const { threadTitle: title } = e;
+
+    const threadContent = stateToHTML(editorState.getCurrentContent());
 
     if (selectedForum && selectedTopic) {
       createNewThread({
         title,
-        content,
         S3URLs,
+        content: threadContent,
         forumId: selectedForum && selectedForum.get('forumId'),
         topicId: selectedTopic && selectedTopic.get('topicId'),
-      }).then(res => {
+      }).then((res) => {
         if (!res.payload.apiError) {
           const { threadId } = res.payload.thread;
           hashHistory.push(`discussions/forums/${selectedForum.get('forumId')}/topics/${selectedTopic.get('topicId')}/threads/${threadId}`);
@@ -177,6 +185,7 @@ class NewDiscussionsThread extends Component {
         undefinedIndexError: true,
       });
     }
+
     window.scrollTo(0, 0);
   }
   render() {
@@ -232,15 +241,16 @@ class NewDiscussionsThread extends Component {
                     label="Type in a simple headline for your post."
                     component={InputField}
                   />
-                  <Field
-                    name="threadContent"
-                    className={`${styles.DiscussionsTextArea}`}
-                    type="text"
-                    cols="50"
-                    rows="10"
-                    label="Type or Paste Your Content"
-                    component={TextareaField}
-                  />
+
+                  <div className={styles.editor}>
+                    <label>
+                      <span>Type of Paste Your Content</span>
+                      <Editor
+                        editorState={this.state.editorState}
+                        onChange={this.handleEditorChange}
+                      />
+                    </label>
+                  </div>
                 </div>
               </div>
               <hr />
