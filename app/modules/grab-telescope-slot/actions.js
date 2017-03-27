@@ -28,7 +28,7 @@ export const grabTelescopeSlot = ({ scheduledMissionId, uniqueId, grabType, fina
     scheduledMissionId,
     uniqueId,
     grabType,
-    finalizeReservation
+    finalizeReservation,
   })
   .then(result => dispatch(grabTelescopeSlotSuccess(result.data)))
   .catch(error => dispatch(grabTelescopeSlotFail(error)));

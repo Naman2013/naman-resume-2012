@@ -14,12 +14,12 @@ class PhotoList extends Component {
   }
 
   render() {
-    const { imageList, galleryType } = this.props;
+    const { imageList, galleryType, colNum } = this.props;
     const containerColClassNames = classnames({
       'col-xs-12': !galleryType,
     });
     const listColClassNames = classnames({
-      'col-xs-4': !galleryType,
+      [`col-xs-${colNum}`]: !galleryType,
       'col-xs-12': galleryType,
     });
     return (
@@ -45,6 +45,7 @@ class PhotoList extends Component {
 
 PhotoList.defaultProps = {
   galleryType: false,
+  colNum: '4',
 };
 
 PhotoList.propTypes = {
@@ -53,6 +54,7 @@ PhotoList.propTypes = {
     imageURL: PropTypes.string.isRequired,
   })).isRequired,
   galleryType: PropTypes.bool,
+  colNum: PropTypes.string,
 };
 
 export default PhotoList;

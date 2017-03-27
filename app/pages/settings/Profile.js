@@ -3,23 +3,28 @@ import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as dashboardActions from '../../modules/dashboard/actions';
+import { fetchPhotoRoll } from '../../modules/my-pictures/actions';
 import Header from './common/header';
 import HeadshotAccountDetail from './common/HeadshotAccountDetail';
 import ReservationsLimit from '../../components/profile/ReservationsLimit';
 import UsersReservations from '../../components/profile/UsersReservations';
 import MembershipUpsell from '../../components/profile/MembershipUpsell';
+import UsersPictures from '../../components/profile/UsersPictures';
 import s from './Profile.scss';
 
-const { func } = PropTypes;
+const { arrayOf, bool, number, string, shape, func } = PropTypes;
 
 class Profile extends Component {
-  componentWillMount() {
-    const { fetchDashboard } = this.props;
+  constructor(props) {
+    super(props);
+    const {
+      fetchDashboard,
+    } = props;
     fetchDashboard({});
   }
 
   render() {
-    const { profile, fetchDashboard, refreshIntervalSec } = this.props;
+    const { profile, fetchDashboard, photosFetching, fetchPhotoRoll: fetchPhotos, refreshIntervalSec, imageList, photoRollError } = this.props;
     return (
       <div className={s.ProfileDashboard}>
         <Header
@@ -52,37 +57,23 @@ class Profile extends Component {
           </section>}
         </article>
 
-          {/*<section className="recent-pictures row-xxwide">
+        <section className="recent-pictures row-xxwide">
+          <h2 className="center margin-top-large margin-bottom-large ">Recent Pictures</h2>
+          <article>
+            {(photosFetching && !photoRollError) && <div className="center">Refreshing photos..</div>}
+            {!photoRollError && <UsersPictures fetchPhotosAction={fetchPhotos} imageList={imageList} colNum="3" />}
+            {photoRollError && <div className="center">There was an error fetching your images...</div>}
+          </article>
 
-            <h2 className="center margin-top-large margin-bottom-large ">Recent Pictures</h2>
-            <article>
-
-              <a href="">
-                <div className="slooh-thumbnail" style={{ backgroundImage: 'url(../assets/images/photos/stellar-1.jpg)' }} />
-              </a>
-
-              <a href="">
-                <div className="slooh-thumbnail" style={{ backgroundImage: 'url(../assets/images/photos/stellar-2.jpg)' }} />
-              </a>
-
-              <a href="">
-                <div className="slooh-thumbnail" style={{ backgroundImage: 'url(../assets/images/photos/stellar-3.jpg)' }} />
-              </a>
-
-              <a href="">
-                <div className="slooh-thumbnail" style={{ backgroundImage: 'url(../assets/images/photos/stellar-4.jpg)' }} />
-              </a>
-            </article>
-
-            <div className="row-xxwide center-center">
-              <Link
-                className="btn-primary center-block"
-                to="/my-pictures"
-              >
-                  Go To My Pictures
-              </Link>
-            </div>
-          </section>*/}
+          <div className="row-xxwide center-center">
+            <Link
+              className="btn-primary center-block"
+              to="/my-pictures"
+            >
+                Go To My Pictures
+            </Link>
+          </div>
+        </section>
 
           {
               /**
@@ -216,14 +207,29 @@ class Profile extends Component {
 }
 Profile.defaultProps = {
   profile: {},
+  imageList: [],
+  photoRollError: false,
 };
 Profile.propTypes = {
   fetchDashboard: func.isRequired,
+  fetchPhotoRoll: func.isRequired,
+  imageList: arrayOf(shape({
+    imageURL: string.isRequired,
+    imageId: number.isRequired,
+  })),
+  photoRollError: bool,
 };
 
-const mapStateToProps = ({ dashboard }) => ({
+const mapStateToProps = ({ dashboard, myPictures }) => ({
   ...dashboard,
+  imageList: myPictures.photoRoll.response.imageList,
+  photosFetching: myPictures.photoRoll.fetching,
+  photoRollError: myPictures.photoRoll.error,
+  errorBody: myPictures.photoRoll.errorBody,
 });
-const mapDispatchToProps = dispatch => (bindActionCreators(dashboardActions, dispatch));
+const mapDispatchToProps = dispatch => (bindActionCreators({
+  ...dashboardActions,
+  fetchPhotoRoll,
+}, dispatch));
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);

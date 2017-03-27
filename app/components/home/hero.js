@@ -5,32 +5,48 @@ import ScrollForMore from '../common/scroll-for-more';
 
 class Hero extends Component {
   render() {
+    const {
+      heroEventId,
+      heroEventIsLive,
+      heroImageURL,
+      heroHeadline,
+      heroSubheadline,
+      heroFactoidText,
+      heroFactoidIconURL,
+      heroButtonText,
+      heroButtonURL,
+    } = this.props;
 
     const heroContainerStyle = {
-      background: `url(${this.props.backgroundImageUrl}) no-repeat center center`,
-      backgroundSize: 'cover'
+      background: `url(${heroImageURL}) center/cover no-repeat`,
     };
+
+    const buttonUrl = heroEventId === 0 ? heroButtonURL :
+      // construct link for space situation room
+      heroEventIsLive ? '/shows/situation-room' :
+      // construct link for video event page
+      `/shows/event-details/${heroEventId}`;
 
     return(
       <div
         style={heroContainerStyle}
         className="hero-container">
 
-        <h2 className="title">{this.props.mainHeadingText}</h2>
-        <h3 className="sub-title">{this.props.subHeadingText}</h3>
+        <h2 className="title">{heroHeadline}</h2>
+        <h3 className="sub-title">{heroSubheadline}</h3>
 
         <div className="fun-fact-container">
           <figure>
-            <img width="50" src={this.props.funFactImage} />
-            <figcaption className="fun-fact-text">
-              <i>{this.props.funFactText}</i>
-            </figcaption>
+            {heroFactoidIconURL ? <img width="50" src={heroFactoidIconURL} /> : null}
+            {heroFactoidText ? <figcaption className="fun-fact-text">
+              <i>{heroFactoidText}</i>
+            </figcaption> : null}
           </figure>
         </div>
 
         <div className="call-to-action">
-          <a className="action" href={this.props.actionUrl}>
-            {this.props.actionText}
+          <a className="action" href={buttonUrl}>
+            {heroButtonText}
           </a>
         </div>
 
@@ -41,13 +57,15 @@ class Hero extends Component {
 }
 
 Hero.propTypes = {
-  backgroundImageUrl: PropTypes.string,
-  mainHeadingText: PropTypes.string,
-  subHeadingText: PropTypes.string,
-  funFactImage: PropTypes.string,
-  funFactText: PropTypes.string,
-  actionUrl: PropTypes.string,
-  actionText: PropTypes.string,
+  heroEventId: PropTypes.number,
+  heroEventIsLive: PropTypes.bool,
+  heroImageURL: PropTypes.string,
+  heroHeadline: PropTypes.string,
+  heroSubheadline: PropTypes.string,
+  heroFactoidText: PropTypes.string,
+  heroFactoidIconURL: PropTypes.string,
+  heroButtonText: PropTypes.string,
+  heroButtonURL: PropTypes.string,
 };
 
 export default Hero;
