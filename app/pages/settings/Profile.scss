@@ -2,4 +2,28 @@
   .interstital {
     z-index: 0 !important;
   }
+
+  .innerPhotoContainer {
+    /*
+      normally, we do not use tag selectors
+      but we must
+      override parent styles from legacy code
+    */
+    padding: 5px 10px;
+    h3 {
+      font-size: 1.3rem
+    }
+
+    p {
+      font-size: .9rem;
+      margin: 0;
+    }
+    button {
+      padding: 0;
+    }
+  }
+  .photoMenu {
+    right: 5px;
+    bottom: 5px;
+  }
 }

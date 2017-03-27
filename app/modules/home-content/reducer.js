@@ -1,17 +1,9 @@
 import createReducer from '../utils/createReducer';
 
-import { UPDATE_SLOOH_FEATURE_THREE } from './actions';
+import { UPDATE_SLOOH_FEATURE_THREE, GET_HOME_PAGE_START, GET_HOME_PAGE_SUCCESS, GET_HOME_PAGE_FAIL} from './actions';
 
 const initialState = {
-  STATIC_HERO: {
-    backgroundImageUrl: 'assets/images/graphics/stargazers-bg.png',
-    mainHeadingText: 'WELCOME TO SPACE FOR EVERYONE.',
-    subHeadingText: 'Slooh.com is Online Telescopes, LIVE Streaming Events, Original Video Programming, and more.',
-    funFactText: 'That light started towards earth 2 million years ago? Seriously?',
-    funFactImage: 'assets/icons/Emoji_FL@33_MindBlown_F_1308x1976.png',
-    actionUrl: '#',
-    actionText: 'Watch Video Tour'
-  },
+  refreshIntervalSec: 600,
   RECENT_STUFF: [
     {
       key: 1,
@@ -171,6 +163,21 @@ export default createReducer(initialState, {
     return {
       ...state,
       SLOOH_FEATURES: updateFeatures,
+    };
+  },
+  [GET_HOME_PAGE_START](state) {
+    return state;
+  },
+  [GET_HOME_PAGE_SUCCESS](state, { data }) {
+    return {
+      ...state,
+      ...data,
+    };
+  },
+  [GET_HOME_PAGE_FAIL](state, { error }) {
+    return {
+      ...state,
+      error,
     };
   },
 });

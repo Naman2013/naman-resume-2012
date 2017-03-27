@@ -29,13 +29,13 @@ class Discussions extends Component {
     const { topicList, children, forumName, params: { forumId, topicId  } } = this.props;
     const currentTopic = topicList.find(topic => (topic.topicId === Number(topicId)));
     const showHeaderTitle = topicId && currentTopic;
-    const newThreadUrl = forumId && topicId ? `discussions/forums/${forumId}/topics/${topicId}/threads/new-thread` : null;
+    const isSubPage = forumId && topicId;
+    const newThreadUrl = isSubPage ? `discussions/forums/${forumId}/topics/${topicId}/threads/new-thread` : null;
+    const imgUrl = isSubPage ? undefined : 'https://vega.slooh.com/images/graphics/discussionLanding.jpg';
 
-    console.log('the new thread URL');
-    console.log(newThreadUrl);
     return (
       <div className="clearfix">
-        <DiscussionsHeader newThreadUrl={newThreadUrl} title={showHeaderTitle && `Forum: ${forumName}   Topic: ${currentTopic.get('title')}`} />
+        <DiscussionsHeader imgUrl={imgUrl} newThreadUrl={newThreadUrl} title={showHeaderTitle && `Forum: ${forumName}   Topic: ${currentTopic.get('title')}`} />
         <section>
           {cloneElement(children)}
         </section>

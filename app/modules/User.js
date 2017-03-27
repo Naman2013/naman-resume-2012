@@ -60,15 +60,15 @@ export function checkUser(pathname, replace, callback) {
       // if (shouldRedirect) {
       //   replace('/registration/sign-in');
       // }
-      if (pathname === '/') {
-        callback();
-        dispatch(destroy());
-        return;
-      }
-
-      if (pathname !== '/registration/sign-in') {
-        replace('/registration/sign-in');
-      }
+      // if (pathname === '/') {
+      //   callback();
+      //   dispatch(destroy());
+      //   return;
+      // }
+      //
+      // if (pathname !== '/registration/sign-in') {
+      //   replace('/registration/sign-in');
+      // }
       callback();
       dispatch(destroy());
     }

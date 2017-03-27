@@ -96,7 +96,7 @@ const fetchPhotoRollFail = payload => ({
   @scheduledMissionId: number - used when filtering down to a specific set
   of photographs for a specific mission
 */
-const fetchPhotoRoll = () => (dispatch, getState) => {
+export const fetchPhotoRoll = ({ noFilter = false }) => (dispatch, getState) => {
   const { at, token, cid } = getState().user;
   const { objectTypeFilter } = getState().myPictures;
   dispatch(fetchPhotoRollStart());
@@ -105,7 +105,7 @@ const fetchPhotoRoll = () => (dispatch, getState) => {
     at,
     cid,
     token,
-    filterType: objectTypeFilter.filterByField,
+    filterType: noFilter ? '' : objectTypeFilter.filterByField,
     viewType: 'photoRoll',
   })
   .then(result => dispatch(fetchPhotoRollSuccess(result.data)))
@@ -132,12 +132,12 @@ const resetScheduledMissionId = () => ({
 
 export const photoRollUpdateScheduledMissionId = payload => (dispatch) => {
   dispatch(setScheduledMissionId(payload));
-  dispatch(fetchPhotoRoll());
+  dispatch(fetchPhotoRoll({}));
 };
 
 export const photoRollResetScheduledMissionId = () => (dispatch) => {
   dispatch(resetScheduledMissionId());
-  dispatch(fetchPhotoRoll());
+  dispatch(fetchPhotoRoll({}));
 };
 
 /**
@@ -151,18 +151,18 @@ export const photoRollResetScheduledMissionId = () => (dispatch) => {
 
 export const fetchPhotoRollandMissionRoll = () => (dispatch) => {
   dispatch(fetchMissions());
-  dispatch(fetchPhotoRoll());
+  dispatch(fetchPhotoRoll({}));
 };
 
 export const updateObjectFilterBy = (payload, page) => (dispatch) => {
   dispatch(setObjectFilterBy(payload));
   dispatch(fetchMissions());
-  dispatch(fetchPhotoRoll());
+  dispatch(fetchPhotoRoll({}));
 };
 
 export const resetObjectFilter = page => (dispatch) => {
   dispatch(resetObjectTypeFilter());
   dispatch(fetchMissions());
-  dispatch(fetchPhotoRoll());
+  dispatch(fetchPhotoRoll({}));
 
 };

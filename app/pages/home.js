@@ -16,6 +16,7 @@ import style from './home.scss';
 
 import { fetchCommunityContent }
   from '../modules/community-content/get-object-content-actions';
+import { getHomePage, trackUser } from '../modules/home-content/actions';
 
 const mapStateToProps = ({ communityContent, homeContent }) => ({
   communityContent: communityContent.communityContent,
@@ -25,6 +26,8 @@ const mapStateToProps = ({ communityContent, homeContent }) => ({
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
     fetchCommunityContent,
+    getHomePage,
+    trackUser,
   }, dispatch),
 });
 
@@ -32,11 +35,22 @@ const mapDispatchToProps = dispatch => ({
 class Home extends Component {
   componentWillMount() {
     this.props.actions.fetchCommunityContent();
+
+    this.props.actions.getHomePage();
+
+    this.homePageRerfreshInterval = setInterval(() => {
+      this.props.actions.getHomePage();
+    }, this.props.homeContent.refreshIntervalSec * 1000);
   }
 
-  fetchStaticHero() {
-    const { homeContent } = this.props;
-    return <Hero {...homeContent.STATIC_HERO} />;
+  componentDidMount() {
+    this.props.actions.trackUser();
+  }
+
+  componentWillUnmount() {
+    if (this.homePageRerfreshInterval) {
+      clearInterval(this.homePageRerfreshInterval);
+    }
   }
 
   generateRecentVideoTiles() {
@@ -53,10 +67,15 @@ class Home extends Component {
     const { homeContent } = this.props;
     const { posts } = this.props.communityContent;
 
+    let heroProps = {};
+    Object.keys(homeContent).filter(key => /^hero/.test(key)).forEach((key) => {
+      heroProps[key] = homeContent[key];
+    });
+
     return (
       <div className={`${style.homeContainer} clearfix`}>
 
-        {this.fetchStaticHero()}
+        <Hero {...heroProps} />
 
         <div className="clearfix">
           {this.generateRecentVideoTiles()}

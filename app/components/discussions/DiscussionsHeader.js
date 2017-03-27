@@ -4,8 +4,12 @@ import styles from './discussions-header.scss';
 
 const { arrayOf, string } = PropTypes;
 
-const DiscussionsHeader = ({ title, newThreadUrl }) =>
-  <header className={styles.DiscussionsHeader}>
+const getHeaderStyle = imgUrl => ({
+  backgroundImage: `url(${imgUrl})`,
+  backgroundSize: 'cover',
+});
+const DiscussionsHeader = ({ title, newThreadUrl, imgUrl }) =>
+  <header style={imgUrl && getHeaderStyle(imgUrl)} className={styles.DiscussionsHeader}>
     {title &&
       <h1 className="title-container">Discussions: <span dangerouslySetInnerHTML={{ __html: title }} className="title" /></h1>
     }
@@ -21,10 +25,14 @@ const DiscussionsHeader = ({ title, newThreadUrl }) =>
 
 DiscussionsHeader.defaultProps = {
   title: undefined,
+  imgUrl: undefined,
+  newThreadUrl: '',
 };
 
 DiscussionsHeader.propTypes = {
   title: string,
+  imgUrl: string,
+  newThreadUrl: string,
 };
 
 export default DiscussionsHeader;
