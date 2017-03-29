@@ -42,13 +42,19 @@ class TelescopeImageLoader extends Component {
   }
 
   handleSourceImage(imageData) {
-    const [
-      currentImageUrl,
-      previousImageUrl,
-      schedMissionId,
+    const {
+      astroObjectID,
+      currentImgURL,
+      previousImgURL,
+      imageID,
+      lastImageTime,
+      messageText,
+      messageType,
       msnStartTime,
-      lastImgTime,
-      serverTime ] = imageData.split('|');
+      scheduledMissionID,
+      serverTime,
+      statusCode,
+    } = JSON.parse(imageData);
 
     /*
       NOTE: checking if the first index is the string heartbeat
@@ -57,7 +63,7 @@ class TelescopeImageLoader extends Component {
       NOTE: along with setting up the image, we are firing actions associated
       with the telescope mission
     */
-    if (currentImageUrl != 'heartbeat') {
+    if (messageType !== 'HEARTBEAT') {
       const { teleFade, obsId, teleId, domeId, actions, missionFormat } = this.props; // expected fade may change based on how much time passed
 
       // TODO: this may be problematic...
@@ -71,7 +77,7 @@ class TelescopeImageLoader extends Component {
       });
 
       const { firstLoad } = this.state;
-      const progress = Math.floor(Date.now() / 1000) - lastImgTime;
+      const progress = Math.floor(Date.now() / 1000) - lastImageTime;
 
       let adjustedFade = teleFade;
       let startingOpacity = 0;
@@ -93,14 +99,18 @@ class TelescopeImageLoader extends Component {
       }
 
       this.setState({
-        currentImageUrl,
-        previousImageUrl,
-        schedMissionId,
+        currentImageUrl: currentImgURL,
+        previousImageUrl: previousImgURL,
+        schedMissionId: scheduledMissionID,
         msnStartTime,
-        lastImgTime,
+        lastImgTime: lastImageTime,
         serverTime,
         adjustedFade,
         startingOpacity,
+        astroObjectID,
+        imageID,
+        messageText,
+        statusCode,
         firstLoad: false,
       });
     }
