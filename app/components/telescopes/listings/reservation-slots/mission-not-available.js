@@ -11,7 +11,6 @@ class MissionNotAvailable extends Component {
       slotIconURL,
       missionStart,
       slotTitle,
-      showEditCoordinatesButton,
       showShareMissionIcons,
       shareMissionIconsText,
      } = this.props;
@@ -41,7 +40,6 @@ class MissionNotAvailable extends Component {
         <UserDetails {...this.props} />
 
         <ShareMission
-          showEditCoordinatesButton={showEditCoordinatesButton}
           showShareMissionIcons={showShareMissionIcons}
           shareMissionIconsText={shareMissionIconsText}
         />
@@ -69,8 +67,6 @@ MissionNotAvailable.propTypes = {
   slotTitle: string.isRequired,
 
   showSlotTimes: bool.isRequired,
-
-  showEditCoordinatesButton: bool.isRequired,
 };
 
 export default MissionNotAvailable;

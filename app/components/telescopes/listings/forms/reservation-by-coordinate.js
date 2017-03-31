@@ -1,7 +1,7 @@
 /**
   NOTES:
-  underscores used in some naming to improved legability
-*/
+  underscores used in some naming to improve legability
+  */
 
 import React, { Component, PropTypes } from 'react';
 import classnames from 'classnames';
@@ -13,7 +13,7 @@ import Timer from './common/timer';
 import style from './reservation-by-coordinate.scss';
 import { fetchPresetOptions } from '../../../../modules/get-preset-options/get-preset-options-actions';
 import { checkTargetVisibility } from '../../../../modules/check-target-visibility/api';
-import { grabMissionSlot, missionConfirmOpen, missionConfirmClose } from '../../../../modules/Missions';
+import { grabMissionSlot, grabUpdateMissionSlot, missionConfirmOpen } from '../../../../modules/Missions';
 
 function round(number, precision) {
   const factor = Math.pow(10, precision);
@@ -26,9 +26,10 @@ const mapStateToProps = ({ user }) => ({
   user,
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
     grabMissionSlot,
+    grabUpdateMissionSlot,
     missionConfirmOpen,
   }, dispatch),
 });
@@ -48,12 +49,12 @@ class ReservationByCoordinate extends Component {
       ra_h: 0,
       ra_m: 0,
       ra_s: 0,
-      ra: 0.0,
+      ra: this.props.objectRA,
 
       dec_d: 90,
       dec_m: 0,
       dec_s: 0,
-      dec: 90.0,
+      dec: this.props.objectDec,
     };
 
     this.handleRaHChange = this.handleRaHChange.bind(this);
@@ -69,6 +70,11 @@ class ReservationByCoordinate extends Component {
     this.handleTargetChange = this.handleTargetChange.bind(this);
     this.handleSelectImageTypeChange = this.handleSelectImageTypeChange.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
+  }
+
+  componentDidMount() {
+    this.handleRAChange({ target: { value: this.state.ra } });
+    this.handleDECChange({ target: { value: this.state.dec } });
   }
 
   cleanCalcInput(value = 0) {
@@ -117,7 +123,7 @@ class ReservationByCoordinate extends Component {
     let ra = this.cleanCalcInput(event.target.value);
     let { ra_h, ra_m, ra_s} = this.state;
 
-    if(ra >= 24) {
+    if (ra >= 24) {
       ra_h = 0;
       ra_m = 0;
       ra_s = 0;
@@ -157,14 +163,14 @@ class ReservationByCoordinate extends Component {
     let dec = this.cleanCalcInput(event.target.value);
     let sign = 1;
 
-    if(dec > 90) {
+    if (dec > 90) {
       dec_d = 90;
       dec_m = 0;
       dec_s = 0;
       dec = 90.0;
     }
 
-    if(dec < -90) {
+    if (dec < -90) {
       dec_d = -90;
       dec_m = 0;
       dec_s = 0;
@@ -178,15 +184,15 @@ class ReservationByCoordinate extends Component {
     dec_m = Math.trunc((absoluteDec - dec_d) * 60);
     dec_s = Math.round((((absoluteDec - dec_d) * 60) - dec_m) * 60);
 
-    if(dec_s == 60) {
+    if (dec_s == 60) {
       dec_s = 0;
       dec_m = dec_m++;
 
-      if(dec_m == 60) {
+      if (dec_m == 60) {
         dec_m = 0;
         dec_d = dec_d++;
 
-        if(dec_d > 90) {
+        if (dec_d > 90) {
           dec_d = 90;
           dec = sign * 90.0;
         }
@@ -259,14 +265,14 @@ class ReservationByCoordinate extends Component {
       domeId,
       missionStart,
       telescopeId,
-    }).then(result => {
+    }).then((result) => {
       this.handleVisibilityResult(result.data);
       this.fetchImageOptions(result.data.objectIsVisible);
     });
   }
 
   fetchImageOptions(objectIsVisible) {
-    if(objectIsVisible) {
+    if (objectIsVisible) {
       const { telescopeId } = this.props;
       fetchPresetOptions({
         telescopeId,
@@ -299,18 +305,18 @@ class ReservationByCoordinate extends Component {
   }
 
   renderStepThree() {
-    const { showPlaceOnHold, showCancelHold } = this.props;
+    const { showPlaceOnHold, showCancelHold, userHasReservation } = this.props;
     const { visibilityStatus, presetOptions, selectedImageProcessIndex } = this.state;
     const scheduleMissionButtonClasses = classnames('btn-primary', {
       disabled: !!selectedImageProcessIndex ? false : true,
     });
     let presetOptionsText = [];
-    if(presetOptions) {
+    if (presetOptions) {
       presetOptionsText = presetOptions.telescopeList[0].telePresetList.map(presetOption => presetOption.presetDisplayName);
     }
 
-    if(visibilityStatus.objectIsVisible) {
-      return(
+    if (visibilityStatus.objectIsVisible) {
+      return (
         <div>
           <ReservationSelectList
             options={presetOptionsText}
@@ -332,8 +338,14 @@ class ReservationByCoordinate extends Component {
                 showCancelHold ?
                 <button className="btn-primary">Cancel Hold</button> : null
               }
-
-              <button className={scheduleMissionButtonClasses}>Schedule Mission</button>
+              {
+                userHasReservation ?
+                <button className={scheduleMissionButtonClasses}>Update Mission</button> : null
+              }
+              {
+                !userHasReservation ?
+                <button className={scheduleMissionButtonClasses}>Schedule Mission</button> : null
+              }
             </section>
           </div>
         </div>
@@ -393,7 +405,8 @@ class ReservationByCoordinate extends Component {
       telescopeId,
       missionStart,
       uniqueId,
-      scheduledMissionId
+      scheduledMissionId,
+      userHasReservation,
     } = this.props;
 
     const {
@@ -406,8 +419,7 @@ class ReservationByCoordinate extends Component {
 
     if (selectedImageProcessIndex) {
       const selectedImageProcess = presetOptions.telescopeList[0].telePresetList[selectedImageProcessIndex];
-
-      this.props.actions.grabMissionSlot({
+      const missionPayload = {
         callSource: 'byTelescope',
         missionType: 'coord',
         scheduledMissionId,
@@ -420,7 +432,13 @@ class ReservationByCoordinate extends Component {
         domeId,
         telescopeId,
         uniqueId,
-      });
+      };
+
+      if (userHasReservation) {
+        this.props.actions.grabUpdateMissionSlot(missionPayload);
+      } else {
+        this.props.actions.grabMissionSlot(missionPayload);
+      }
 
       this.props.actions.missionConfirmOpen('reserve');
     }
@@ -510,6 +528,8 @@ class ReservationByCoordinate extends Component {
 ReservationByCoordinate.defaultProps = {
   showPlaceOnHold: false,
   showCancelHold: false,
+  objectRA: 0.0,
+  objectDec: 90.0,
 };
 
 const { string, number, bool, func } = PropTypes;
@@ -524,6 +544,9 @@ ReservationByCoordinate.propTypes = {
   telescopeId: string.isRequired,
   uniqueId: string.isRequired,
   scheduledMissionId: number.isRequired,
+  objectRA: PropTypes.oneOfType([number, string]),
+  objectDec: PropTypes.oneOfType([number, string]),
+  userHasReservation: bool.isRequired,
 };
 
 export default ReservationByCoordinate;

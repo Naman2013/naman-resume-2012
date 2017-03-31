@@ -7,6 +7,10 @@ import createReducer from './utils/createReducer';
 import { fetchUsersUpcomingMissions } from './Users-Upcoming-Missions';
 import { grabPiggyback } from './Piggyback';
 import { cancelAllReservations } from './grab-telescope-slot/actions';
+import grabUpdatedSlot from '../services/reservations/grab-updated-slot';
+import updateMissionSlot from '../services/reservations/update-mission-slot';
+
+import RESERVATION_TYPES from '../constants/reservation-types';
 
 const MISSION_CONFIRMATION_OPEN = 'MISSION_CONFIRMATION_OPEN';
 const MISSION_CONFIRMATION_CLOSE = 'MISSION_CONFIRMATION_CLOSE';
@@ -131,6 +135,66 @@ export const reserveMissionSlot = ({
   .catch(error => dispatch(reserveMissionFail(error)));
 };
 
+export const updateReservation = ({
+  scheduledMissionId,
+  callSource,
+  missionType,
+  missionStart,
+  objectId,
+  objectType,
+  objectTitle,
+  objectRA,
+  objectDec,
+  catalog,
+  catName,
+  designation,
+  processingRecipe,
+  obsId,
+  domeId,
+  telescopeId,
+  obsName,
+  telescopeName,
+  objectIconURL,
+  uniqueId,
+  targetName,
+  objective,
+}) => (dispatch, getState) => {
+  const { token, at, cid } = getState().user;
+  return updateMissionSlot({
+    token,
+    at,
+    cid,
+    scheduledMissionId,
+    callSource,
+    missionType,
+    missionStart,
+    objectId,
+    objectType,
+    objectTitle,
+    objectRA,
+    objectDec,
+    catalog,
+    catName,
+    designation,
+    processingRecipe,
+    obsId,
+    domeId,
+    telescopeId,
+    obsName,
+    telescopeName,
+    objectIconURL,
+    uniqueId,
+    targetName,
+    objective,
+  })
+  .then((result) => {
+    dispatch(cancelAllReservations());
+    dispatch(fetchUsersUpcomingMissions());
+    dispatch(reserveMissionSuccess(result.data));
+  })
+  .catch(error => dispatch(reserveMissionFail(error)));
+};
+
 
 export const resetReserveMission = () => ({
   type: RESERVE_MISSION_SLOT_RESET,
@@ -148,6 +212,19 @@ export const cancelMissionSlot = mission => (dispatch, getState) => {
   .catch(error => _.noop(error));
 };
 
+const grabMissionSlotFail = error => ({
+  type: GRAB_MISSION_SLOT_FAIL,
+  payload: error,
+});
+
+const grabMissionSlotSuccess = result => ({
+  type: GRAB_MISSION_SLOT_SUCCESS,
+  payload: result,
+});
+
+const grabMissionSlotStart = () => ({
+  type: GRAB_MISSION_SLOT_START,
+});
 
 /**
   see: /api/reservation/grabMissionSlot for providing the appropriate mission shape
@@ -200,31 +277,82 @@ export const grabMissionSlot = ({
       uniqueId,
       targetName,
     })
-    .then(response => {
+    .then((response) => {
       /**
         patching the callsource to ensure that it is always included for
         future requests
       */
       dispatch(grabMissionSlotSuccess(Object.assign(response.data, {
         callSource,
+        reservationType: RESERVATION_TYPES.NEW_RESERVATION,
       })));
     })
     .catch(error => dispatch(grabMissionSlotFail(error)));
-}
+  };
 
-const grabMissionSlotFail = (error) => ({
-  type: GRAB_MISSION_SLOT_FAIL,
-  payload: error,
-});
+export const grabUpdateMissionSlot = ({
+    scheduledMissionId,
+    callSource,
+    missionType,
+    missionStart,
+    obsId,
+    domeId,
+    telescopeId,
+    objectId,
+    objectType,
+    objectTitle,
+    objectRA,
+    objectDec,
+    catalog,
+    catName,
+    designation,
+    processingRecipe,
+    uniqueId,
+    targetName,
+  }) => (dispatch, getState) => {
+    const { token, at, cid } = getState().user;
 
-const grabMissionSlotSuccess = (result) => ({
-  type: GRAB_MISSION_SLOT_SUCCESS,
-  payload: result,
-});
+    grabMissionSlotStart();
 
-const grabMissionSlotStart = () => ({
-  type: GRAB_MISSION_SLOT_START,
-});
+    return grabUpdatedSlot({
+      token,
+      at,
+      cid,
+      scheduledMissionId,
+      callSource,
+      missionType,
+      missionStart,
+      obsId,
+      domeId,
+      telescopeId,
+      objectId,
+      objectType,
+      objectTitle,
+      objectRA,
+      objectDec,
+      catalog,
+      catName,
+      designation,
+      processingRecipe,
+      uniqueId,
+      targetName,
+    })
+    .then((response) => {
+      /**
+        patching the callsource to ensure that it is always included for
+        future requests
+
+        patching reservationType to allow future calls to know what type
+        of reservation this is.  In particular, whether or not this is
+        simply updating an existing reservation
+      */
+      dispatch(grabMissionSlotSuccess(Object.assign(response.data, {
+        callSource,
+        reservationType: RESERVATION_TYPES.UPDATE,
+      })));
+    })
+    .catch(error => dispatch(grabMissionSlotFail(error)));
+  };
 
 /**
   if data from the fetch cards API has already been called use that source

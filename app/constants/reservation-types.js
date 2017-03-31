@@ -1,0 +1,4 @@
+export default {
+  UPDATE: 'UPDATE',
+  NEW_RESERVATION: 'NEW_RESERVATION',
+};
