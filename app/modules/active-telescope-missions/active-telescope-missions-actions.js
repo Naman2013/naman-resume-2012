@@ -11,6 +11,107 @@ export const REMOVE_TELESCOPE_MISSION = 'REMOVE_TELESCOPE_MISSION';
 export const FORMAT_COMPACT = 'compact';
 export const FORMAT_FULL = 'full';
 
+const fetchingMissionCompact = ({ telescopeId }) => ({
+  type: UPDATE_TELESCOPE_MISSION_COMPACT_START,
+  telescopeId,
+});
+
+const fetchingMissionFull = error => ({
+  type: UPDATE_TELESCOPE_MISSION_FAIL,
+  payload: error,
+});
+
+const fetchingMissionData = ({ telescopeId, format }) => (dispatch) => {
+  if (format === FORMAT_COMPACT) {
+    dispatch(fetchingMissionCompact({ telescopeId }));
+  }
+  if (format === FORMAT_FULL) {
+    dispatch(fetchingMissionFull({ telescopeId }));
+  }
+};
+
+const commitActiveMissionChange = payload => ({
+  type: COMMIT_ACTIVE_MISSION_CHANGE,
+  payload,
+});
+
+const failedFetchMission = error => (dispatch) => {
+  // reset the community content
+  dispatch(fetchContentReset());
+  return {
+    type: UPDATE_TELESCOPE_MISSION_FAIL,
+    payload: error,
+  };
+};
+
+const updateActiveMissionCompact = ({ telescopeId, payload }) => (dispatch, getState) => {
+  const { telescopes } = getState().activeTelescopeMissions;
+  let updatedTelescopes = telescopes;
+  if (telescopes.some(telescope => telescope.telescopeId === telescopeId)) {
+    updatedTelescopes = telescopes.map((telescope) => {
+      if (telescope.telescopeId === telescopeId) {
+        return Object.assign(telescope, {
+          activeMission: {
+            ...telescope.activeMission,
+            compact: payload,
+            compactError: {},
+            fetchingCompact: false,
+          },
+        });
+      }
+      return telescope;
+    });
+  } else {
+    updatedTelescopes.push({
+      telescopeId,
+      activeMission: {
+        full: {},
+        fullError: {},
+        fetchingFull: false,
+        compact: payload,
+        compactError: {},
+        fetchingCompact: false,
+      },
+    });
+  }
+
+  dispatch(commitActiveMissionChange(updatedTelescopes));
+};
+
+const updateActiveMissionFull = ({ telescopeId, payload }) => (dispatch, getState) => {
+  const { telescopes } = getState().activeTelescopeMissions;
+  let updatedTelescopes = telescopes;
+  if (telescopes.some(telescope => telescope.telescopeId === telescopeId)) {
+    updatedTelescopes = telescopes.map((telescope) => {
+      if (telescope.telescopeId === telescopeId) {
+        return Object.assign(telescope, {
+          activeMission: {
+            ...telescope.activeMission,
+            full: payload,
+            fullError: {},
+            fetchingFull: false,
+          },
+        });
+      }
+      return telescope;
+    });
+  } else {
+    updatedTelescopes.push({
+      telescopeId,
+      activeMission: {
+        full: payload,
+        fullError: {},
+        fetchingFull: false,
+        compact: {},
+        compactError: {},
+        fetchingCompact: false,
+      },
+    });
+  }
+
+  dispatch(commitActiveMissionChange(updatedTelescopes));
+};
+
 /**
   see documentation:
   https://docs.google.com/document/d/1rBvwVp2sRhtQMpVOy-xfjAs2oPCvbH-rV9cnnKwFMDM/edit#
@@ -59,105 +160,3 @@ export const updateTelescopeActiveMission = ({ telescopeId, obsId, domeId, forma
   })
   .catch(error => dispatch(failedFetchMission(error)));
 };
-
-const updateActiveMissionCompact = ({ telescopeId, payload }) => (dispatch, getState) => {
-  const { telescopes } = getState().activeTelescopeMissions;
-  let updatedTelescopes = telescopes;
-  if(telescopes.some(telescope => telescope.telescopeId === telescopeId)) {
-    updatedTelescopes = telescopes.map(telescope => {
-      if(telescope.telescopeId === telescopeId) {
-        return Object.assign(telescope, {
-          activeMission: {
-            ...telescope.activeMission,
-            compact: payload,
-            compactError: {},
-            fetchingCompact: false,
-          },
-        });
-      }
-      return telescope;
-    });
-  } else {
-    updatedTelescopes.push({
-      telescopeId,
-      activeMission: {
-        full: {},
-        fullError: {},
-        fetchingFull: false,
-        compact: payload,
-        compactError: {},
-        fetchingCompact: false,
-      }
-    });
-  }
-
-  dispatch(commitActiveMissionChange(updatedTelescopes));
-};
-
-const updateActiveMissionFull = ({ telescopeId, payload }) => (dispatch, getState) => {
-  const { telescopes } = getState().activeTelescopeMissions;
-  let updatedTelescopes = telescopes;
-  if(telescopes.some(telescope => telescope.telescopeId === telescopeId)) {
-    updatedTelescopes = telescopes.map(telescope => {
-      if(telescope.telescopeId === telescopeId) {
-        return Object.assign(telescope, {
-          activeMission: {
-            ...telescope.activeMission,
-            full: payload,
-            fullError: {},
-            fetchingFull: false,
-          },
-        });
-      }
-      return telescope;
-    });
-  } else {
-    updatedTelescopes.push({
-      telescopeId,
-      activeMission: {
-        full: payload,
-        fullError: {},
-        fetchingFull: false,
-        compact: {},
-        compactError: {},
-        fetchingCompact: false,
-      }
-    });
-  }
-
-  dispatch(commitActiveMissionChange(updatedTelescopes));
-};
-
-const commitActiveMissionChange = (payload) => ({
-  type: COMMIT_ACTIVE_MISSION_CHANGE,
-  payload,
-});
-
-const failedFetchMission = (error) => (dispatch) => {
-  // reset the community content
-  dispatch(fetchContentReset());
-  return {
-    type: UPDATE_TELESCOPE_MISSION_FAIL,
-    payload: error,
-  };
-};
-
-
-const fetchingMissionData = ({ telescopeId, format }) => (dispatch) => {
-  if (format === FORMAT_COMPACT) {
-    dispatch(fetchingMissionCompact({ telescopeId }));
-  }
-  if (format === FORMAT_FULL) {
-    dispatch(fetchingMissionFull({ telescopeId }));
-  }
-};
-
-const fetchingMissionCompact = ({ telescopeId }) => ({
-  type: UPDATE_TELESCOPE_MISSION_COMPACT_START,
-  telescopeId,
-});
-
-const fetchingMissionFull = error => ({
-  type: UPDATE_TELESCOPE_MISSION_FAIL,
-  payload: error,
-});

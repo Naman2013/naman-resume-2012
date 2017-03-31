@@ -6,6 +6,7 @@ import {
   grabTelescopeSlot,
   getReservationOnHold,
   cancelReservation,
+  cancelEditMission,
   cancelReservationAndRefresh } from '../../../../modules/grab-telescope-slot/actions';
 
 import MissionTime from '../partials/mission-time';
@@ -13,15 +14,7 @@ import ReservationByObjects from '../forms/reservation-by-objects';
 import ReservationByCatalog from '../forms/reservation-by-catalog';
 import ReservationByCoordinate from '../forms/reservation-by-coordinate';
 
-const BY_OBJECTS = 'BY_OBJECTS';
-const BY_CATELOG = 'BY_CATELOG';
-const BY_COORDINATE = 'BY_COORDINATE';
-const NONE = 'NONE';
-const DEFAULT_FORM = BY_OBJECTS;
-
-// hold types
-const NO_TARGET = 'notarget';
-const PLACE_HOLDER = 'placeholder';
+import SUPPORTED_RESERVATION_TAB_FORM_TYPES from '../../../../constants/supported-reservation-tab-form-types';
 
 const mapStateToProps = ({ telescopeSlots, missionSlotDates }) => ({
   telescopeSlots,
@@ -31,6 +24,7 @@ const mapStateToProps = ({ telescopeSlots, missionSlotDates }) => ({
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
     cancelReservation,
+    cancelEditMission,
     grabTelescopeSlot,
     cancelReservationAndRefresh,
   }, dispatch),
@@ -38,72 +32,10 @@ const mapDispatchToProps = dispatch => ({
 
 @connect(mapStateToProps, mapDispatchToProps)
 class AvailableMission extends Component {
-  constructor(props) {
-    super(props);
 
-    this.state = {
-      formType: NONE,
-    };
-
-    this.cancelHoldOnMission = this.cancelHoldOnMission.bind(this);
-    this.handleTimerExpiration = this.handleTimerExpiration.bind(this);
-    this.handleReservationTypeClick = this.handleReservationTypeClick.bind(this);
-  }
-
-  handleReservationTypeClick(newFormType) {
-    /**
-      when the next form type is the the same as the formType
-      that is already set, then we toggle the form to none
-      and close the menu
-    */
-    const { formType } = this.state;
-    const {
-      scheduledMissionId,
-      uniqueId,
-      telescopeSlots,
-      actions,
-      userHasHold,
-      userHoldType } = this.props;
-
-    const reservation = getReservationOnHold(uniqueId, telescopeSlots.missions);
-
-    // handle placing the timeslot on hold
-    if (!reservation) {
-      actions.grabTelescopeSlot({
-        scheduledMissionId,
-        uniqueId,
-        grabType: 'notarget',
-        finalizeReservation: userHasHold,
-      });
-    }
-
-    // handle displaying the appropriate form
-    if (formType === newFormType || newFormType === NONE) {
-      this.setState({
-        formType: NONE,
-      });
-      this.cancelHoldOnMission();
-    } else {
-      this.setState({
-        formType: newFormType,
-      });
-    }
-  }
-
-  cancelHoldOnMission() {
-    const { actions, uniqueId, scheduledMissionId } = this.props;
-    actions.cancelReservation({
-      uniqueId,
-      scheduledMissionId,
-    });
-  }
-
-  handleTimerExpiration() {
-    const { uniqueId, scheduledMissionId } = this.props;
-    this.props.actions.cancelReservationAndRefresh({
-      uniqueId,
-      scheduledMissionId,
-    });
+  // either set a defaultFormTab from the state OR fallback to none at all
+  state = {
+    formType: SUPPORTED_RESERVATION_TAB_FORM_TYPES.NONE,
   }
 
   renderForm() {
@@ -116,7 +48,8 @@ class AvailableMission extends Component {
       telescopeId,
       telescopeSlots,
       missionStart,
-      missionSlotDates } = this.props;
+      missionSlotDates,
+    } = this.props;
 
     const reservationOnHold = getReservationOnHold(uniqueId, telescopeSlots.missions);
 
@@ -124,17 +57,19 @@ class AvailableMission extends Component {
       return null;
     }
 
+    const adjustedFormType = reservationOnHold.defaultFormTab || formType;
+
     const currentMissionOnHold = reservationOnHold.mission.missionList[0];
     const { expires } = currentMissionOnHold;
     const { domeId, obsId } = missionSlotDates.dateRangeResponse.dateList[0];
 
-    if (formType === NONE) {
+    if (adjustedFormType === SUPPORTED_RESERVATION_TAB_FORM_TYPES.NONE) {
       this.setState({
-        formType: BY_OBJECTS,
+        formType: SUPPORTED_RESERVATION_TAB_FORM_TYPES.BY_OBJECTS,
       });
     }
 
-    if (formType === BY_OBJECTS) {
+    if (adjustedFormType === SUPPORTED_RESERVATION_TAB_FORM_TYPES.BY_OBJECTS) {
       return (
         <ReservationByObjects
           showPlaceOnHold={showHoldOneHourButtonWhenExpanded}
@@ -151,7 +86,7 @@ class AvailableMission extends Component {
       );
     }
 
-    if (formType === BY_CATELOG) {
+    if (adjustedFormType === SUPPORTED_RESERVATION_TAB_FORM_TYPES.BY_CATELOG) {
       return (
         <ReservationByCatalog
           telescopeId={telescopeId}
@@ -168,7 +103,9 @@ class AvailableMission extends Component {
       );
     }
 
-    if (formType === BY_COORDINATE) {
+    if (adjustedFormType === SUPPORTED_RESERVATION_TAB_FORM_TYPES.BY_COORDINATE) {
+      const { objectDec, objectRA, userHasReservation } = reservationOnHold.mission.missionList[0];
+
       return (
         <ReservationByCoordinate
           showPlaceOnHold={showHoldOneHourButtonWhenExpanded}
@@ -181,6 +118,9 @@ class AvailableMission extends Component {
           missionStart={missionStart}
           telescopeId={telescopeId}
           uniqueId={uniqueId}
+          objectDec={objectDec}
+          objectRA={objectRA}
+          userHasReservation={userHasReservation}
         />
       );
     }
@@ -208,6 +148,82 @@ class AvailableMission extends Component {
     }
 
     return RESERVING;
+  }
+
+  handleTimerExpiration = () => {
+    const { uniqueId, scheduledMissionId } = this.props;
+    this.props.actions.cancelReservationAndRefresh({
+      uniqueId,
+      scheduledMissionId,
+    });
+  }
+
+  cancelHoldOnMission = () => {
+    const { actions, uniqueId, scheduledMissionId } = this.props;
+    actions.cancelReservation({
+      uniqueId,
+      scheduledMissionId,
+    });
+  }
+
+  cancelEditingMission() {
+    const { actions, uniqueId, scheduledMissionId, missionIndex } = this.props;
+    actions.cancelEditMission({ uniqueId, scheduledMissionId, missionIndex });
+  }
+
+  handleReservationTypeClick = (newFormType) => {
+    /**
+      when the next form type is the the same as the formType
+      that is already set, then we toggle the form to none
+      and close the menu
+    */
+    const { formType } = this.state;
+    const {
+      scheduledMissionId,
+      uniqueId,
+      telescopeSlots,
+      actions,
+      userHasHold,
+      userHoldType } = this.props;
+
+    // this is a lookup of the reservation to see if the user is already viewing
+    // this timeslot
+    const reservation = getReservationOnHold(uniqueId, telescopeSlots.missions);
+
+    // handle placing the timeslot on hold
+    if (!reservation) {
+      actions.grabTelescopeSlot({
+        scheduledMissionId,
+        uniqueId,
+        grabType: 'notarget',
+        finalizeReservation: userHasHold,
+      });
+    }
+
+    // handle displaying the appropriate form
+    if (formType === newFormType || newFormType === SUPPORTED_RESERVATION_TAB_FORM_TYPES.NONE) {
+      this.setState({
+        formType: SUPPORTED_RESERVATION_TAB_FORM_TYPES.NONE,
+      });
+
+      const { userHasReservation } = reservation.mission.missionList[0];
+      if (userHasReservation) {
+        console.log('cancel editing the mission...');
+        this.cancelEditingMission();
+      } else {
+        console.log('cancel hold on mission...');
+        this.cancelHoldOnMission();
+      }
+    } else {
+      this.setState({
+        formType: newFormType,
+      });
+    }
+  }
+
+  get activeMission() {
+    const { uniqueId, telescopeSlots } = this.props;
+    return getReservationOnHold(uniqueId, telescopeSlots.missions);
   }
 
   render() {
@@ -248,7 +264,7 @@ class AvailableMission extends Component {
         <div className="above-the-fold-content clearfix">
           <div className="content">
             <div className="close-button">
-              <button onClick={() => { this.handleReservationTypeClick(NONE); }} className="action">
+              <button onClick={() => { this.handleReservationTypeClick(SUPPORTED_RESERVATION_TAB_FORM_TYPES.NONE); }} className="action">
                 <span className="fa fa-close" />
               </button>
             </div>
@@ -273,8 +289,8 @@ class AvailableMission extends Component {
                   showBrowseButton ?
                     <li className="option">
                       <button
-                        onClick={() => { this.handleReservationTypeClick(BY_OBJECTS); }}
-                        className={this.buttonRenderedClasses(BY_OBJECTS)}
+                        onClick={() => { this.handleReservationTypeClick(SUPPORTED_RESERVATION_TAB_FORM_TYPES.BY_OBJECTS); }}
+                        className={this.buttonRenderedClasses(SUPPORTED_RESERVATION_TAB_FORM_TYPES.BY_OBJECTS)}
                       >
                         Browse Slooh 500
                       </button>
@@ -285,8 +301,8 @@ class AvailableMission extends Component {
                   showCatalogButton ?
                     <li className="option">
                       <button
-                        onClick={(event) => {this.handleReservationTypeClick(BY_CATELOG)}}
-                        className={this.buttonRenderedClasses(BY_CATELOG)}
+                        onClick={(event) => {this.handleReservationTypeClick(SUPPORTED_RESERVATION_TAB_FORM_TYPES.BY_CATELOG)}}
+                        className={this.buttonRenderedClasses(SUPPORTED_RESERVATION_TAB_FORM_TYPES.BY_CATELOG)}
                       >
                           Select by Catalog #
                       </button>
@@ -297,8 +313,8 @@ class AvailableMission extends Component {
                   showCoordinateButton ?
                     <li className="option">
                       <button
-                        onClick={(event) => {this.handleReservationTypeClick(BY_COORDINATE)}}
-                        className={this.buttonRenderedClasses(BY_COORDINATE)}
+                        onClick={(event) => {this.handleReservationTypeClick(SUPPORTED_RESERVATION_TAB_FORM_TYPES.BY_COORDINATE)}}
+                        className={this.buttonRenderedClasses(SUPPORTED_RESERVATION_TAB_FORM_TYPES.BY_COORDINATE)}
                       >
                         Enter Coordinates
                       </button>
@@ -320,6 +336,7 @@ class AvailableMission extends Component {
 const { string, number, bool } = PropTypes;
 AvailableMission.propTypes = {
   telescopeId: string.isRequired,
+  missionIndex: number.isRequired,
 
   missionStart: number.isRequired,
 

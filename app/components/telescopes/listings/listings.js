@@ -64,6 +64,8 @@ class Listings extends Component {
         />
       );
     }
+
+    return null;
   }
 
   render() {

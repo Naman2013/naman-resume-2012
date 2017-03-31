@@ -9,10 +9,15 @@ import {
   grabPiggybackByTelescope,
   resetMissionAvailability } from '../../../../modules/Piggyback';
 
+import { grabEditCoordinateMission } from '../../../../modules/grab-telescope-slot/actions';
+import { editCoordinateMission } from '../../../../modules/mission-slots-by-telescope/mission-slots-by-telescope-actions';
+
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
     grabPiggybackByTelescope,
     resetMissionAvailability,
+    grabEditCoordinateMission,
+    editCoordinateMission,
   }, dispatch),
 });
 
@@ -27,6 +32,12 @@ class MissionReserved extends Component {
     event.preventDefault();
     const { uniqueId, scheduledMissionId } = this.props;
     this.props.actions.grabPiggybackByTelescope({ uniqueId, scheduledMissionId });
+  }
+
+  handleEditCoordinatesClick = (event) => {
+    event.preventDefault();
+    const { missionIndex } = this.props;
+    this.props.actions.editCoordinateMission(missionIndex);
   }
 
   renderMissionStatus() {
@@ -50,13 +61,22 @@ class MissionReserved extends Component {
       );
     }
 
-    if (showShareMissionIcons || shareMissionIconsText || showEditCoordinatesButton) {
+    if (showShareMissionIcons || shareMissionIconsText) {
       return (
         <ShareMission
-          showEditCoordinatesButton={showEditCoordinatesButton}
           showShareMissionIcons={showShareMissionIcons}
           shareMissionIconsText={shareMissionIconsText}
         />
+      );
+    }
+
+    if (showEditCoordinatesButton) {
+      return (
+        <div className="col-xs-2 piggyback-on-mission-action">
+          <button onClick={this.handleEditCoordinatesClick} className="btn-primary">
+            Edit Coordinates
+          </button>
+        </div>
       );
     }
 
@@ -122,11 +142,16 @@ MissionReserved.propTypes = {
   showShareMissionIcons: bool.isRequired,
   shareMissionIconsText: string.isRequired,
 
-  uniqueId: string,
-  scheduledMissionId: number,
-
+  uniqueId: string.isRequired,
+  scheduledMissionId: number.isRequired,
+  callSource: string,
+  missionType: string.isRequired,
   showSlotTimes: bool.isRequired,
   showEditCoordinatesButton: bool.isRequired,
+};
+
+MissionReserved.defaultProps = {
+  callSource: null,
 };
 
 export default MissionReserved;

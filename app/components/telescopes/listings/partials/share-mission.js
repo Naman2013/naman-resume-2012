@@ -37,8 +37,7 @@ const SocialMissionText = ({ text }) => (
 
 const ShareMission = ({
   showShareMissionIcons,
-  shareMissionIconsText,
-  showEditCoordinatesButton }) => {
+  shareMissionIconsText, }) => {
   // TODO: future feature to include social sharing
   // for now we only display the text
   // if (showShareMissionIcons && shareMissionIconsText) {
@@ -66,22 +65,16 @@ const ShareMission = ({
     );
   }
 
-  // TODO: work on this in new branch... this is an entire new flow
-  // if (showEditCoordinatesButton) {
-  //   return (
-  //     <ShareMissionContainer>
-  //       <button className="btn-primary">
-  //         Edit Coordinates
-  //       </button>
-  //     </ShareMissionContainer>
-  //   );
-  // }
-
   return null;
 };
 
 ShareMission.propTypes = {
-  showEditCoordinatesButton: PropTypes.bool.isRequired,
+  showShareMissionIcons: PropTypes.bool.isRequired,
+  shareMissionIconsText: PropTypes.string,
+};
+
+ShareMission.defaultProps = {
+  shareMissionIconsText: '',
 };
 
 export default ShareMission;

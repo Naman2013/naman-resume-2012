@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import moment from 'moment-timezone';
 import _ from 'lodash';
 
-import { cancelMissionSlot, reserveMissionSlot, missionGetCards } from '../../../modules/Missions';
+import { cancelMissionSlot, reserveMissionSlot, updateReservation, missionGetCards } from '../../../modules/Missions';
 import { refreshListings } from '../../../modules/grab-telescope-slot/actions';
 import { resetBrowseByPopularObjects } from '../../../modules/browse-popular-objects/actions';
 import { setTags, resetClientTagData } from '../../../modules/tag-management/Tags';
@@ -25,6 +25,7 @@ const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
     cancelMissionSlot,
     reserveMissionSlot,
+    updateReservation,
     missionGetCards,
     setTags,
     resetClientTagData,
@@ -59,30 +60,43 @@ class ReserveConfirm extends Component {
 
   onSubmit(event) {
     event.preventDefault();
-    const { callSource } = this.props.currentMissionSlot;
+    const { callSource, reservationType } = this.props.currentMissionSlot;
     const currentMission = this.props.currentMissionSlot.missionList[0];
     const objective = this.state.objective.trim();
 
     // handle the reservation...
-    this.props.actions.reserveMissionSlot({
-      callSource,
-      ...currentMission, // allowing the currentMission to overwrite the callSource
-      objective,
-      objectTitle: currentMission.title,
-    }).then(() => {
-      // depending on the callsource, run the appropriate background actions
-      if (callSource === 'byTelescope') {
-        this.props.actions.refreshListings();
-      }
+    if (reservationType === 'UPDATE') {
+      // update existing reservation
+      this.props.actions.updateReservation({
+        callSource,
+        ...currentMission, // allowing the currentMission to overwrite the callSource
+        objective,
+        objectTitle: currentMission.title,
+      }).then(this.flushReservationProcess(callSource));
+    } else {
+      // make a new reservation
+      this.props.actions.reserveMissionSlot({
+        callSource,
+        ...currentMission, // allowing the currentMission to overwrite the callSource
+        objective,
+        objectTitle: currentMission.title,
+      }).then(this.flushReservationProcess(callSource));
+    }
+  }
 
-      if (callSource === 'recommends') {
-        this.props.actions.missionGetCards();
-      }
+  flushReservationProcess(callSource) {
+    // depending on the callsource, run the appropriate background actions
+    if (callSource === 'byTelescope') {
+      this.props.actions.refreshListings();
+    }
 
-      if (callSource === 'byPopularObjects') {
-        this.props.actions.resetBrowseByPopularObjects();
-      }
-    });
+    if (callSource === 'recommends') {
+      this.props.actions.missionGetCards();
+    }
+
+    if (callSource === 'byPopularObjects') {
+      this.props.actions.resetBrowseByPopularObjects();
+    }
   }
 
   cancelMissionSlot() {
@@ -126,9 +140,8 @@ class ReserveConfirm extends Component {
   handleMissionReservationResponse() {
     const { currentMissionSlot, previousMissionSlotReservation, closeModal } = this.props;
     const { apiError, errorCode, missionCount } = previousMissionSlotReservation;
-
-    if(apiError || missionCount === 0) {
-      return(
+    if (apiError || missionCount === 0) {
+      return (
         <ReservationError
           closeModal={closeModal}
         />
@@ -188,8 +201,8 @@ class ReserveConfirm extends Component {
       'margin': '0 auto 20px auto',
     };
 
-    if(!missionAvailable) {
-      return(
+    if (!missionAvailable) {
+      return (
         <ReservationError
           closeModal={closeModal}
           message={explanation}
@@ -242,8 +255,8 @@ class ReserveConfirm extends Component {
 
         <div className="modal-footer">
           <div style={inlineButtonRowStyle} className="button-row">
-            <button className="btn-primary" onClick={ this.handleCloseModalClick }>Sorry, Cancel This.</button>
-            <button className="btn-primary" onClick={ this.onSubmit }>Absolutely!</button>
+            <button className="btn-primary" onClick={this.handleCloseModalClick}>Sorry, Cancel This.</button>
+            <button className="btn-primary" onClick={this.onSubmit}>Absolutely!</button>
           </div>
         </div>
       </div>
