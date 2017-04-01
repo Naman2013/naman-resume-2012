@@ -4,26 +4,32 @@ import style from './modal-generic.scss';
 
 class ModalGeneric extends Component {
   render() {
-    const { closeModal, open, title, description } = this.props;
+    const { closeModal, open, title, description, closeButtonText } = this.props;
 
     return (
       <Modal
         show={open}
         className="generic-modal"
-        >
+      >
 
         <Modal.Header>
-          <h1 className="title">{ title }</h1>
+          <div className="title">
+            {title}
+          </div>
         </Modal.Header>
 
         <Modal.Body>
-          <p className="body">{ description }</p>
+          <div className="body">
+            {description}
+          </div>
         </Modal.Body>
 
         <Modal.Footer>
           <Button
             className="btn-primary"
-            onClick={closeModal}>Dismiss
+            onClick={closeModal}
+          >
+            {closeButtonText}
           </Button>
         </Modal.Footer>
       </Modal>
@@ -33,6 +39,7 @@ class ModalGeneric extends Component {
 
 ModalGeneric.defaultProps = {
   open: false,
+  closeButtonText: 'Dismiss',
 };
 
 ModalGeneric.propTypes = {
@@ -40,6 +47,7 @@ ModalGeneric.propTypes = {
   open: PropTypes.bool,
   title: PropTypes.string,
   description: PropTypes.string,
+  closeButtonText: PropTypes.string,
 };
 
 export default ModalGeneric;

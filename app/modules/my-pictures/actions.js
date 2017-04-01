@@ -1,4 +1,5 @@
 import axios from 'axios';
+import getMissionFits from '../../services/pictures/get-mission-fits';
 
 export const FETCH_PHOTO_ROLL_START = 'FETCH_PHOTO_ROLL_START';
 export const FETCH_PHOTO_ROLL_SUCCESS = 'FETCH_PHOTO_ROLL_SUCCESS';
@@ -17,6 +18,37 @@ export const RESET_OBJECT_TYPE_FILTER = 'RESET_OBJECT_TYPE_FILTER';
 
 export const UPDATE_SCHEDULE_MISSION_ID = 'UPDATE_SCHEDULE_MISSION_ID';
 export const RESET_SCHEDULE_MISSION_ID = 'RESET_SCHEDULE_MISSION_ID';
+
+export const FETCH_FIT_IMAGES_START = 'FETCH_FIT_IMAGES_START';
+export const FETCH_FIT_IMAGES_SUCCESS = 'FETCH_FIT_IMAGES_SUCCESS';
+export const RESET_FIT_IMAGES = 'RESET_FIT_IMAGES';
+
+
+const fetchFITImagesStart = () => ({
+  type: FETCH_FIT_IMAGES_START,
+});
+
+const fetchFITImagesSuccess = payload => ({
+  type: FETCH_FIT_IMAGES_SUCCESS,
+  payload,
+});
+
+export const resetFITImages = () => ({
+  type: RESET_FIT_IMAGES,
+});
+
+export const loadFITImages = ({ scheduledMissionId }) => (dispatch, getState) => {
+  const { cid, at, token } = getState().user;
+  dispatch(fetchFITImagesStart());
+  return getMissionFits({
+    cid,
+    at,
+    token,
+    scheduledMissionId,
+  })
+  .then(result => dispatch(fetchFITImagesSuccess(result.data)))
+  .catch(error => () => { throw error; });
+};
 
 const fetchMissionPhotosStart = () => ({
   type: FETCH_MISSION_PHOTOS_START,

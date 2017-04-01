@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { fetchMissionPhotos } from '../../modules/my-pictures/actions';
+import { fetchMissionPhotos, loadFITImages } from '../../modules/my-pictures/actions';
 import MyPicturesNavigation from '../../components/my-pictures/my-pictures-navigation';
 import PhotoView from '../../components/my-pictures/PhotoView';
 import s from './my-pictures-gallery.scss';
@@ -17,6 +17,7 @@ const mapStateToProps = ({ myPictures, objectTypeList }, ownProps) => ({
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
     fetchMissionPhotos,
+    loadFITImages,
   }, dispatch),
 });
 
@@ -27,13 +28,24 @@ class MissionImages extends Component {
     this.props.actions.fetchMissionPhotos(scheduledMissionId);
   }
 
+  handleFITClick = () => {
+    const { scheduledMissionId } = this.props;
+    this.props.actions.loadFITImages({ scheduledMissionId });
+  }
+
   render() {
     const { fetching, imageList, error } = this.props;
     return (
-      <div>
+      <div className={s.missionImages}>
         <MyPicturesNavigation
           page="missions"
         />
+
+      <div className={`${s.missionImageControl} clearfix`}>
+          <div className={s.navigation}>
+            <button onClick={this.handleFITClick} className={s.FITButton}>FITS</button>
+          </div>
+        </div>
 
         <div className="clearfix my-pictures-container">
           <div>
