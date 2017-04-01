@@ -1,0 +1,50 @@
+@import '../../../styles/variables/fonts.scss';
+@import '../../../styles/variables/colors.scss';
+
+.FITModalHeader {
+  font-family: $primary-font;
+
+  .FITModalHeaderBar {
+    position: absolute;
+    width: 100%;
+    top: 0px;
+    left: 0px;
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#494949+1,000000+100 */
+    background: #494949; /* Old browsers */
+    background: -moz-linear-gradient(top,  #494949 1%, #000000 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top,  #494949 1%,#000000 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom,  #494949 1%,#000000 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#494949', endColorstr='#000000',GradientType=0 ); /* IE6-9 */
+
+    .FITTitle {
+      color: white;
+      font-size: 16px;
+      margin: 10px 0;
+    }
+  }
+
+  .titleBody {
+    margin-top: 50px;
+
+    .titleLine {
+      font-size: 26px;
+      margin-bottom: 10px;
+    }
+  }
+
+  .takenBy {
+    margin: 20px auto;
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .inlineLabel {
+      padding-right: 10px;
+    }
+
+    .username {
+      text-align: left;
+    }
+  }
+}

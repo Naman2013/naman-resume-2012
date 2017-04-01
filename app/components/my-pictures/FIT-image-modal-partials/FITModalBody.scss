@@ -1,0 +1,36 @@
+@import '../../../styles/variables/fonts.scss';
+
+.FITModalBody {
+  font-family: $primary-font;
+  text-align: left;
+
+  .FITImageList {
+
+    .imageGroup {
+      list-style-type: none;
+
+      .imageGroupTitle {
+        margin-bottom: 10px;
+      }
+
+      .imageList {
+        margin: 0 0 15px 0;
+        padding: 0px;
+
+        .image {
+          list-style-type: none;
+          margin-bottom: 10px;
+
+          .imageLink {
+            color: #000;
+          }
+        }
+      }
+    }
+  }
+
+  .subTitle {
+    margin-top: 20px;
+    text-align: center;
+  }
+}

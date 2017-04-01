@@ -40,10 +40,11 @@
       align-items: flex-end;
 
       .fits{
+        border: none;
         color: $white;
         padding: 0 5px;
         background: $blueGreen;
-        font-weight: 900;
+        font-weight: 600;
         cursor: pointer;
       }
     }

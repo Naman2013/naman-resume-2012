@@ -18,6 +18,10 @@ import {
 
   UPDATE_SCHEDULE_MISSION_ID,
   RESET_SCHEDULE_MISSION_ID,
+
+  FETCH_FIT_IMAGES_START,
+  FETCH_FIT_IMAGES_SUCCESS,
+  RESET_FIT_IMAGES,
 } from './actions';
 
 const initialState = {
@@ -53,9 +57,56 @@ const initialState = {
     filterByIndex: null,
   },
   scheduledMissionId: '',
+  loadedFITSImages: {
+    fetchingImages: false,
+    error: false,
+    images: {
+      popupTitleText: '',
+      imageCount: 0,
+      apiError: false,
+      ownerLocation: '',
+      ownerFirstName: '',
+      ownerDisplayName: '',
+      ownerMembershipType: '',
+      ownerMemberSince: '',
+      ownerAvatarURL: '',
+
+      buttonText: '',
+      infoText: '',
+      missionDateTime: '',
+      missionIconURL: '',
+      missionObsName: '',
+      missionPierName: '',
+      missionTitle: '',
+
+      groupList: [],
+    },
+  },
 };
 
 export default createReducer(initialState, {
+  [FETCH_FIT_IMAGES_START](state) {
+    return {
+      ...state,
+      loadedFITSImages: Object.assign({}, initialState.loadedFITSImages, { fetchingImages: true }),
+    };
+  },
+  [FETCH_FIT_IMAGES_SUCCESS](state, { payload }) {
+    return {
+      ...state,
+      loadedFITSImages: {
+        fetchingImages: false,
+        error: false,
+        images: payload,
+      },
+    };
+  },
+  [RESET_FIT_IMAGES](state) {
+    return {
+      ...state,
+      loadedFITSImages: Object.assign({}, initialState.loadedFITSImages),
+    };
+  },
   [FETCH_MISSION_PHOTOS_START](state) {
     return {
       ...state,
