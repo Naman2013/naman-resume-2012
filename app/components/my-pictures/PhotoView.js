@@ -115,6 +115,7 @@ class PhotoView extends Component {
               missionObsName={FITImages.missionObsName}
               missionPierName={FITImages.missionPierName}
               missionTitle={FITImages.missionTitle}
+              takenByText={FITImages.takenByText}
             />
           }
           description={

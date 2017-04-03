@@ -1,6 +1,5 @@
 import axios from 'axios';
 import createReducer from './utils/createReducer';
-import createAction from './utils/createAction';
 import { missionConfirmOpen, missionConfirmClose, missionGetCards } from './Missions';
 import { fetchReservationList } from './mission-slots-by-telescope/mission-slots-by-telescope-actions';
 
