@@ -15,6 +15,7 @@ export default function FITModalHeader({
   missionObsName,
   missionPierName,
   missionTitle,
+  takenByText,
 }) {
   return (
     <div className={s.FITModalHeader}>
@@ -31,7 +32,7 @@ export default function FITModalHeader({
 
       <div className={s.takenBy}>
 
-        <span className={s.inlineLabel}>Taken by:</span>
+        <span className={s.inlineLabel}>{takenByText}</span>
 
         <ByUserTag
           name={ownerDisplayName}
@@ -59,4 +60,5 @@ FITModalHeader.propTypes = {
   ownerMembershipType: PropTypes.string.isRequired,
   ownerMemberSince: PropTypes.string.isRequired,
   ownerAvatarURL: PropTypes.string.isRequired,
+  takenByText: PropTypes.string.isRequired,
 };

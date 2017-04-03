@@ -11,7 +11,8 @@ class NewMissionReservationSuccess extends Component {
       missionTitle,
       tip,
       objectIconURL,
-      telescopeName } = this.props;
+      telescopeName,
+    } = this.props;
 
     const formattedUTCDate = new Date(missionStartTime * 1000);
 
@@ -20,12 +21,12 @@ class NewMissionReservationSuccess extends Component {
     const PST_start_time = moment.tz(formattedUTCDate, 'America/Los_Angeles').format('h:mma z');
     const UTC_start_time = moment.utc(formattedUTCDate).format('HH:mm z');
 
-    return(
+    return (
       <div>
         <div className="modal-header">
           <h1 className="title">Congratulations</h1>
           <h2 className="title-secondary">We&#8217;ve scheduled your mission to:</h2>
-          <img height="50" className={styles.cardIcon} src={ objectIconURL } />
+          <img height="50" className={styles.cardIcon} src={objectIconURL} />
           <h2 className="mission-title">{missionTitle}</h2>
           <p className="tips-and-tricks">
             <span className="highlight">Tip:</span> {tip}

@@ -78,6 +78,7 @@ const initialState = {
       missionObsName: '',
       missionPierName: '',
       missionTitle: '',
+      takenByText: '',
 
       groupList: [],
     },

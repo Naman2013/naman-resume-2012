@@ -2,17 +2,17 @@ import React, { Component, PropTypes } from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import styles from '../mission-modals.scss';
 import moment from 'moment-timezone';
+import styles from '../mission-modals.scss';
 import NewMissionReservationSuccess from './new-mission-reservation-success';
 import ReservationError from './reservation-error';
 import { reservePiggyback, closeConfirmationModal } from '../../../modules/Piggyback';
 
 const mapStateToProps = ({ piggyback }) => ({
-  ...piggyback
+  ...piggyback,
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
     reservePiggyback,
     closeConfirmationModal,
@@ -32,18 +32,19 @@ class PiggyBackConfirm extends Component {
   }
 
   handleMissionReservationResponse() {
-    const { piggyback } = this.props;
-    const { apiError, errorCode, missionCount } = piggyback;
+    const { reservationConfirmation } = this.props;
+    const { apiError, errorCode, missionCount } = reservationConfirmation;
 
-    if(apiError || missionCount === 0) {
-      return(
+    if (apiError || missionCount === 0) {
+      return (
         <ReservationError
           closeModal={this.props.actions.closeConfirmationModal}
         />
       );
     }
 
-    const currentMission = piggyback.missionList[0];
+    const currentMission = reservationConfirmation.missionList[0];
+
     const {
       missionStart,
       objectIconURL,
@@ -52,10 +53,11 @@ class PiggyBackConfirm extends Component {
       telescopeName,
       missionAvailable,
       explanation,
-      tip } = currentMission;
+      tip,
+    } = currentMission;
 
-    if(!missionAvailable) {
-      return(
+    if (!missionAvailable) {
+      return (
         <ReservationError
           errorCode={errorCode}
           message={explanation}
@@ -64,7 +66,7 @@ class PiggyBackConfirm extends Component {
       );
     }
 
-    return(
+    return (
       <NewMissionReservationSuccess
         missionStartTime={missionStart}
         missionTitle={title}
@@ -135,7 +137,7 @@ class PiggyBackConfirm extends Component {
               <div className="modal-footer">
                 <div style={inlineButtonRowStyle} className="button-row">
                   <Button className="btn-primary" onClick={closeModal}>Sorry, Cancel This.</Button>
-                  <Button className="btn-primary" onClick={ this.handleReservationClick }>Absolutely!</Button>
+                  <Button className="btn-primary" onClick={this.handleReservationClick}>Absolutely!</Button>
                 </div>
               </div>
             </div>
