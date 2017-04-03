@@ -48,9 +48,9 @@ const observatoryListStart = () => ({
   type: OBSERVATORY_REQUEST_START,
 });
 
-export const observatoryListSuccess = (observatoryList) => ({
+export const observatoryListSuccess = payload => ({
   type: OBSERVATORY_REQUEST_SUCCESS,
-  payload: observatoryList,
+  payload,
 });
 
 
@@ -75,11 +75,10 @@ export const getObservatoryList = (currentObservatoryId, callSource) => (dispatc
   .then((response) => {
     const { observatoryList } = response.data;
     const currentObservatory = getCurrentObservatory(observatoryList, currentObservatoryId);
-
+    dispatch(observatoryListSuccess(response.data));
     // if we have an observatory to work with, then call for the telescope availability now
     if (currentObservatory) {
       const { obsId } = currentObservatory;
-      dispatch(observatoryListSuccess(response.data));
       dispatch(fetchAllWidgetsByObservatory(currentObservatory));
       dispatch(fetchObservatoryTelescopeStatus(obsId));
     }
