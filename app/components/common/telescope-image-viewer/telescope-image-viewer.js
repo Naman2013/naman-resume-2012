@@ -1,10 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 import InteractiveViewer from '../interactive-viewer/interactive-viewer';
 import TelescopeImageLoader from '../telescope-image-loader/telescope-image-loader';
-import style from './telescope-image-viewer.scss';
-
 import generateSseImageLoader from '../../../utils/generate-sse-image-source';
 import obsIdTeleIdDomeIdFromTeleId from '../../../utils/obsid-teleid-domeid-from-teleid';
+
+import style from './telescope-image-viewer.scss';
 
 class TelescopeImageViewer extends Component {
 

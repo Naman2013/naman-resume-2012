@@ -2,11 +2,13 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { updateTelescopeActiveMission } from '../../../modules/active-telescope-missions/active-telescope-missions-actions';
+import { setImageDataToSnapshot } from '../../../modules/Telescope-Overview';
 import styles from './telescope-image-loader.scss';
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
     updateTelescopeActiveMission,
+    setImageDataToSnapshot,
   }, dispatch),
 });
 
@@ -98,6 +100,14 @@ class TelescopeImageLoader extends Component {
         }
       }
 
+      // assign the image URL to the image data for processing later
+      this.props.actions.setImageDataToSnapshot({
+        imageURL: currentImgURL,
+        imageID,
+        scheduledMissionID,
+        astroObjectID,
+      });
+
       this.setState({
         currentImageUrl: currentImgURL,
         previousImageUrl: previousImgURL,
@@ -125,10 +135,10 @@ class TelescopeImageLoader extends Component {
   }
 
   attachSSE(imageSource) {
-    this.sseSource = new EventSource( this.props.imageSource );
+    this.sseSource = new EventSource(this.props.imageSource);
     this.sseSource.addEventListener(
       'message',
-      event => this.handleSourceImage( event.data ), false );
+      event => this.handleSourceImage(event.data), false );
   }
 
   detachSSE() {
