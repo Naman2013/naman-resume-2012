@@ -1,5 +1,4 @@
 .neoview-container {
-  margin-bottom: 35px;
 
 .neoview-wrapper {
   padding: 20px 30px;
@@ -21,7 +20,7 @@
 
 
 .top {
-  position: absolute;
+  position: relative;
   z-index: 10;
   width: 100%;
 
@@ -34,6 +33,9 @@
     color: #d8d8d8;
     padding-left: 10px;
     font-size: 14px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
   }
   .toggle-description {
     color: #3C4A55;

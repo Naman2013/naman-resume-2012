@@ -21,6 +21,13 @@ const SKYCHART_WIDGET_START = 'SKYCHART_WIDGET_START';
 const OBSERVATORY_WEBCAM_START = 'OBSERVATORY_WEBCAM_START';
 const OBSERVATORY_WEBCAM_SUCCESS = 'OBSERVATORY_WEBCAM_SUCCESS';
 
+const SET_IMAGE_DATA_TO_SNAPSHOT = 'SET_IMAGE_DATA_TO_SNAPSHOT';
+const SNAP_IMAGE_START = 'SNAP_IMAGE_START';
+const SNAP_IMAGE_SUCCESS = 'SNAP_IMAGE_SUCCESS';
+const RESET_SNAPSHOT_LIST = 'RESET_SNAPSHOT_LIST';
+
+const RESET_IMAGE_TO_SNAP = 'RESET_IMAGE_TO_SNAP';
+
 
 export const getCurrentObservatory = (observatoryList = [], observatoryId) => {
   return observatoryList.find(observatory => observatory.obsUniqueId === observatoryId);
@@ -187,6 +194,61 @@ export const fetchObservatoryWebcam = observatory => (dispatch, getState) => {
   }
 };
 
+const setImageData = data => ({
+  type: SET_IMAGE_DATA_TO_SNAPSHOT,
+  data,
+});
+
+export const setImageDataToSnapshot = data => (dispatch) => {
+  dispatch(setImageData(data));
+};
+
+const snapImageStart = () => ({
+  type: SNAP_IMAGE_START,
+});
+
+const snapImageSuccess = imageData => ({
+  type: SNAP_IMAGE_SUCCESS,
+  imageData,
+});
+
+export const resetImageToSnap = () => ({
+  type: RESET_IMAGE_TO_SNAP,
+});
+
+export const snapImage = () => (dispatch, getState) => {
+  const {
+    user: { token, at, cid },
+    telescopeOverview: { imageDataToSnapshot },
+  } = getState();
+
+  dispatch(snapImageStart());
+  const { callSource, imageURL, imageID } = imageDataToSnapshot;
+
+  if (callSource && imageURL && imageID) {
+    return axios.post('/api/images/snapImage', {
+      token,
+      at,
+      cid,
+      ...imageDataToSnapshot,
+    }).then((result) => {
+      if (!result.data.apiError) {
+        dispatch(snapImageSuccess(imageDataToSnapshot));
+      }
+    });
+  }
+
+  console.warn('Not enough image data was provided to capture the image.');
+};
+
+const resetSnapshots = () => ({
+  type: RESET_SNAPSHOT_LIST,
+});
+
+
+export const resetSnapshotList = () => (dispatch) => {
+  dispatch(resetSnapshots());
+};
 
 const initialState = {
   // list of available observatories
@@ -219,6 +281,18 @@ const initialState = {
     facilityWebcamURL: '',
     obsId: 0,
   },
+  imageDataToSnapshot: {
+    callSource: 'details',
+    zoom: 1,
+    originX: 0,
+    originY: 0,
+    masked: false,
+    astroObjectID: '0',
+    scheduledMissionID: '0',
+    imageURL: '',
+    imageID: '',
+  },
+  snapshotList: [{}, {}, {}],
 };
 
 export default createReducer(initialState, {
@@ -286,6 +360,35 @@ export default createReducer(initialState, {
     return {
       ...state,
       observatoryLiveWebcamResult,
+    };
+  },
+  [SET_IMAGE_DATA_TO_SNAPSHOT](state, { data }) {
+    return {
+      ...state,
+      imageDataToSnapshot: {
+        ...state.imageDataToSnapshot,
+        ...data,
+      },
+    };
+  },
+  [SNAP_IMAGE_SUCCESS](state, { imageData: { imageURL, imageID } }) {
+    return {
+      ...state,
+      snapshotList: [{ imageURL, imageID }, ...state.snapshotList].slice(0, 3),
+    };
+  },
+  [RESET_SNAPSHOT_LIST](state) {
+    return {
+      ...state,
+      snapshotList: initialState.snapshotList,
+    };
+  },
+  [RESET_IMAGE_TO_SNAP](state) {
+    return {
+      ...state,
+      imageDataToSnapshot: {
+        ...initialState.imageDataToSnapshot,
+      },
     };
   },
 });

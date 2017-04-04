@@ -1,6 +1,9 @@
 import React, { Component, PropTypes } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import classnames from 'classnames';
 import Draggable from 'react-draggable';
+import { setImageDataToSnapshot } from '../../../modules/Telescope-Overview';
 import style from './interactive-viewer.scss';
 
 const ZOOM_MULTIPLIER = 0.5;
@@ -9,6 +12,13 @@ const FRAME_VIEW_TYPE_FULL = 'FRAME_VIEW_TYPE_FULL';
 const FRAME_VIEW_TYPE_CIRCULAR = 'FRAME_VIEW_TYPE_CIRCULAR';
 const BOUNDS_MULTIPLIER = 100;
 
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators({
+    setImageDataToSnapshot,
+  }, dispatch),
+});
+
+@connect(null, mapDispatchToProps)
 class InteractiveViewer extends Component {
   constructor(props) {
     super(props);
@@ -55,12 +65,15 @@ class InteractiveViewer extends Component {
     });
 
     this.resetXY();
-
   }
 
   handleToggleClipping(event) {
     event.preventDefault();
     const { clipped, frameViewType } = this.state;
+
+    // set the new clipped state
+    this.props.actions.setImageDataToSnapshot({ masked: !clipped });
+
     this.setState({
       clipped: !clipped,
       frameViewType: clipped ? FRAME_VIEW_TYPE_FULL : FRAME_VIEW_TYPE_CIRCULAR,
@@ -111,6 +124,14 @@ class InteractiveViewer extends Component {
       MozClipPath: `circle(35%)`,
       clipPath: `circle(35%, 50%, 47%)`,
     } : {};
+  }
+
+  componentWillUpdate(nextProps, nextState) {
+    this.props.actions.setImageDataToSnapshot({
+      zoom: nextState.currentScale,
+      originX: nextState.controlledPosition.x,
+      originY: nextState.controlledPosition.y,
+    });
   }
 
   render() {

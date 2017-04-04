@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import './live-stream.scss';
 
-class LiveStream extends React.Component {
+class LiveStream extends Component {
   render() {
     const {
       objectIconURL,
@@ -16,7 +16,8 @@ class LiveStream extends React.Component {
       objectRiseTime,
       objectTransitTime,
       objectSetTime,
-      objectMoonProximity } = this.props;
+      objectMoonProximity,
+    } = this.props;
 
     return(
       <div className="live-stream">

@@ -10,7 +10,8 @@ import {
   getObservatoryList,
   getCurrentObservatory,
   fetchObservatoryTelescopeStatus,
-  fetchObservatoryWebcam } from '../../modules/Telescope-Overview';
+  fetchObservatoryWebcam,
+  resetSnapshotList } from '../../modules/Telescope-Overview';
 
 import AnnouncementBanner from '../../components/common/announcement-banner/announcement-banner';
 import TelescopeImageViewer from '../../components/common/telescope-image-viewer/telescope-image-viewer';
@@ -32,6 +33,7 @@ import LiveWebcam from '../../components/telescope-details/live-webcam/live-webc
 import WeatherConditions from '../../components/telescope-details/weather-conditions/weather-conditions';
 import TelescopeRecommendsWidget from '../../components/telescope-details/recommends-widget/recommends-widget';
 import TelescopeGalleryWidget from '../../components/telescope-details/gallery-widget/gallery-widget';
+import StarShareCamera from '../../components/telescope-details/star-share-camera/star-share-camera';
 
 const { element, func, object } = PropTypes;
 
@@ -41,9 +43,10 @@ function mapDispatchToProps(dispatch) {
       getObservatoryList,
       fetchObservatoryTelescopeStatus,
       fetchObservatoryWebcam,
+      resetSnapshotList,
     }, dispatch),
-  }
-};
+  };
+}
 
 function mapStateToProps({ missions, telescopeOverview, activeTelescopeMissions, communityObjectContent }) {
   const { observatoryList, observatoryTelecopeStatus } = telescopeOverview;
@@ -76,6 +79,7 @@ class TelescopeDetails extends Component {
       obsUniqueId,
       'details',
     );
+    this.props.actions.resetSnapshotList();
   }
 
   componentWillUpdate(nextProps) {
@@ -146,7 +150,8 @@ class TelescopeDetails extends Component {
           teleStreamURL={instrStreamURL}
           teleStreamThumbnailVideoWidth="810"
           teleStreamThumbnailVideoHeight="600"
-          teleStreamThumbnailQuality={instrStreamThumbnailQuality} />
+          teleStreamThumbnailQuality={instrStreamThumbnailQuality}
+        />
       );
     }
 
@@ -257,6 +262,11 @@ class TelescopeDetails extends Component {
                             teleSystem={currentTelescope.teleSystem}
                             showToggleOption={currentTelescope.teleOnlineStatus === 'online'}
                           /> : null
+                      }
+
+                      {
+                        currentTelescope.teleOnlineStatus === 'online' && instrument.instrStarShareCamera === true ?
+                          <StarShareCamera /> : null
                       }
                     </TabPanel>
                   ))
