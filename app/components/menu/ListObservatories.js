@@ -8,7 +8,7 @@ class ListObservatories extends Component {
     obsList: [],
   };
 
-  componentDidMount() {
+  componentWillMount() {
     this.serverRequest();
     this.refreshIntervalId = setInterval(this.serverRequest, this.props.refreshIntervalDelay);
   }

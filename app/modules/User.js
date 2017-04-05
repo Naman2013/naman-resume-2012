@@ -23,10 +23,18 @@ export function store(user) {
   };
 }
 
+export function destroySession() {
+  localStorage.removeItem('user');
+  document.cookie = cookie.serialize('cid', '', { domain: '.slooh.com', expires: new Date('Thu, 01 Jan 1970 00:00:01 GMT') });
+  document.cookie = cookie.serialize('token', '', { domain: '.slooh.com', expires: new Date('Thu, 01 Jan 1970 00:00:01 GMT') });
+  document.cookie = cookie.serialize('at', '', { domain: '.slooh.com', expires: new Date('Thu, 01 Jan 1970 00:00:01 GMT') });
+  document.cookie = cookie.serialize('fname', '', { domain: '.slooh.com', expires: new Date('Thu, 01 Jan 1970 00:00:01 GMT') });
+}
+
 export const logout = () => {
   destroySession();
   hashHistory.push('/');
-  // window.location.reload();
+  window.location.reload();
 }
 
 export function destroy() {
@@ -35,14 +43,6 @@ export function destroy() {
   return (dispatch) => {
     dispatch(remove());
   };
-}
-
-export function destroySession() {
-  localStorage.removeItem('user');
-  document.cookie = cookie.serialize('cid', '', { domain: '.slooh.com', expires: new Date('Thu, 01 Jan 1970 00:00:01 GMT') });
-  document.cookie = cookie.serialize('token', '', { domain: '.slooh.com', expires: new Date('Thu, 01 Jan 1970 00:00:01 GMT') });
-  document.cookie = cookie.serialize('at', '', { domain: '.slooh.com', expires: new Date('Thu, 01 Jan 1970 00:00:01 GMT') });
-  document.cookie = cookie.serialize('fname', '', { domain: '.slooh.com', expires: new Date('Thu, 01 Jan 1970 00:00:01 GMT') });
 }
 
 /**

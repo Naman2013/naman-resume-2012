@@ -4,6 +4,8 @@ import { bindActionCreators } from 'redux';
 import { List } from 'immutable';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
+import { Editor, EditorState } from 'draft-js';
+import { stateToHTML } from 'draft-js-export-html';
 import _ from 'lodash';
 import TextareaField from '../../../components/form/TextareaField';
 import UploadImage from '../../../components/publish-post/upload-image';
@@ -22,6 +24,7 @@ class DiscussionsReplyTo extends Component {
   state = {
     s3URLs: [],
     uploadError: null,
+    editorState: EditorState.createEmpty(),
   };
 
   componentDidMount() {
@@ -49,6 +52,10 @@ class DiscussionsReplyTo extends Component {
   componentWillUnmount() {
     const { resetReplyState } = this.props;
     resetReplyState();
+  }
+
+  handleEditorChange = (editorState) => {
+    this.setState({ editorState });
   }
 
   handleUploadImage = (event)  => {
@@ -91,13 +98,14 @@ class DiscussionsReplyTo extends Component {
 
   submitReply = (e) => {
     const { submitReply, routeParams: { threadId, topicId }, thread } = this.props;
-    const { S3URLs } = this.state;
+    const { S3URLs, editorState } = this.state;
+    const replyContent = stateToHTML(editorState.getCurrentContent());
 
     submitReply({
       topicId,
       threadId,
       title: thread.title,
-      content: e.replyContent,
+      content: replyContent,
       S3URLs,
     });
     window.scrollTo(0, 0);
@@ -137,16 +145,14 @@ class DiscussionsReplyTo extends Component {
             <div>
               <div className={styles.DiscussionsFormInputContainer}>
                 <span className={styles.number}>1</span>
-                <div>
-                  <Field
-                    name="replyContent"
-                    className={styles.DiscussionsTextArea}
-                    type="text"
-                    cols="50"
-                    rows="10"
-                    label="Paste or type your thread reply comments here:"
-                    component={TextareaField}
-                  />
+                <div className={styles.editor}>
+                  <label>
+                    <span>Paste or type your thread reply comments here:</span>
+                    <Editor
+                      editorState={this.state.editorState}
+                      onChange={this.handleEditorChange}
+                    />
+                  </label>
                 </div>
               </div>
               <hr />
