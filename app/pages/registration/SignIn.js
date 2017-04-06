@@ -2,16 +2,19 @@ import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
+import { uniqueId } from 'lodash';
 import Header from './common/Header';
+import Tier from './common/Tier';
 import FormErrorMessage from './common/FormErrorMessage';
 import { login, loginReset } from '../../modules/Login';
 
-const mapStateToProps = ({ user, login, appConfig }) => ({
+const mapStateToProps = ({ authorization, user, login, appConfig }) => ({
   statusCode: user.statusCode,
   isAuthorized: user.isAuthorized,
   login,
   forgotPasswordURL: appConfig.forgotPasswordURL,
   registerNewMemberURL: appConfig.registerNewMemberURL,
+  errorHandlerBody: authorization.errorHandlerBody,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -95,12 +98,39 @@ class SignIn extends Component {
   render() {
     const { username, passwd, badLogin, passwordFieldType } = this.state;
     const { loggingIn, loginFailed, loginSuccess } = this.props.login;
-    const { forgotPasswordURL, registerNewMemberURL } = this.props;
+    const { forgotPasswordURL, registerNewMemberURL, errorHandlerBody } = this.props;
+
+    if (!errorHandlerBody.upsellPageArray) {
+      return null;
+    }
+
+    const {
+      title1,
+      title2,
+      tiersPrompt1,
+      tiersPrompt2,
+      tiersSeparator,
+      plansLinkPrompt,
+      plansLinkTitle,
+      plansLinkURL,
+      emailUsernamePrompt,
+      passwordPrompt,
+      passwordShowTitle,
+      forgotPasswordPrompt,
+      forgotPasswordTitle,
+      forgotPasswordLinkURL,
+      signInButtonPrompt,
+      registerAccountPrompt,
+      registerAccountTitle,
+      registerAccountLinkURL,
+      membershipTierCount,
+      membershipTierArray,
+    } = errorHandlerBody.upsellPageArray;
 
     return (
       <div className="registration paid-signin">
         <Header
-          text="Sign-In To Slooh"
+          text={title2}
         />
 
         <form method="POST" onSubmit={this.handleSignin}>
@@ -108,26 +138,27 @@ class SignIn extends Component {
             <section className="row-wide">
               <article className="dark backdrop">
                 <section className="col-md-6 border-dark-right padding-xxlarge center">
-                  <div className="text-large margin-bottom-large padding-small">To view this content you must be signed-in as an</div>
+                  <div className="text-large margin-bottom-large padding-small">{tiersPrompt1}<br />{tiersPrompt2}</div>
 
-                  <div className="clearfix">
-                    <div className="spotlight-icon visible-inline-block">
-                      <img alt="Astronaut icon" src="assets/icons/astronaut.svg" width="70%" />
-                    </div>
-                    <div className="text-medium visible-inline-block margin-left-med">Apprentice</div>
-                  </div>
-
-                  <div className="divider-img clearfix padding-tb-reg">or</div>
-
-                  <div className="clearfix">
-                    <div className="spotlight-icon visible-inline-block">
-                      <img alt="Galaxy icon" src="../assets/icons/galaxy.svg" />
-                    </div>
-                    <div className="text-medium visible-inline-block margin-left-med">Astronomer</div>
-                  </div>
+                  {
+                    membershipTierArray.map((tier, index) => (
+                      <div key={uniqueId()}>
+                        <Tier
+                          tierName={tier.tierName}
+                          tierIconURL={tier.tierIconURL}
+                        />
+                        {
+                          /** display this if we are not on the last tier type */
+                          membershipTierArray.length - 1 !== index ?
+                            <div className="divider-img clearfix padding-tb-reg">{tiersSeparator}</div> : null
+                        }
+                      </div>
+                      ),
+                    )
+                  }
 
                   <div className="clearfix margin-top-large">
-                    <Link to="/about/pricing">Learn more about our plans</Link>
+                    <Link to="/about/pricing">{plansLinkTitle}</Link>
                   </div>
 
                 </section>
@@ -143,7 +174,7 @@ class SignIn extends Component {
                   }
 
                   <fieldset className="clearfix form-group required margin-top-xlarge">
-                    <label className="" htmlFor="email">Email or Username</label>
+                    <label className="" htmlFor="email">{emailUsernamePrompt}</label>
                     <input
                       onChange={this.handleUsernameChange}
                       value={username}
@@ -154,7 +185,7 @@ class SignIn extends Component {
                   </fieldset>
                   <fieldset className="clearfix form-group required">
                     <label htmlFor="password">
-                      Password <a onClick={this.toggleShowPassword} href="" className="control">Show</a> <a href={forgotPasswordURL} className="control pull-right">Forgotten Password</a>
+                      {passwordPrompt} <a onClick={this.toggleShowPassword} href="" className="control">{passwordShowTitle}</a> <a href={forgotPasswordLinkURL} className="control pull-right">{forgotPasswordTitle}</a>
                     </label>
                     <input
                       onChange={this.handlePasswordChange}
@@ -168,8 +199,8 @@ class SignIn extends Component {
                   <button
                     type="submit"
                     className="btn btn-lg btn-primary clearfix col-sm-12"
-                    >
-                      Sign in
+                  >
+                    {signInButtonPrompt}
                   </button>
                   {
                     /**
@@ -182,7 +213,7 @@ class SignIn extends Component {
                     */
                   }
                   <div className="spacer-huge" />
-                  <div className="clearfix margin-top-med">Don&apos;t have an account yet? <a href={registerNewMemberURL}>Join now</a>
+                  <div className="clearfix margin-top-med">{registerAccountPrompt} <a href={registerAccountLinkURL}>{registerAccountTitle}</a>
                   </div>
                 </section>
               </article>

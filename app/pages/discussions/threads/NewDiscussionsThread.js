@@ -5,16 +5,14 @@ import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import { List } from 'immutable';
-import { Editor, EditorState, convertToRaw } from 'draft-js';
-import { stateToHTML } from 'draft-js-export-html';
 import InputField from '../../../components/form/InputField';
-import TextareaField from '../../../components/form/TextareaField';
 import { createValidator, required } from '../../../modules/utils/validation';
 import UploadImage from '../../../components/publish-post/upload-image';
 import ReservationSelectList from '../../../components/common/forms/reservation-select-list';
 import * as newThreadActions from '../../../modules/discussions-new-thread/actions';
 import setPostImages from '../../../modules/set-post-images';
 import deletePostImage from '../../../services/post-creation/delete-post-image';
+import RichTextEditor from '../../../components/rich-text-editor/RichTextEditor';
 
 import styles from './discussions-new-thread.scss';
 
@@ -45,7 +43,7 @@ class NewDiscussionsThread extends Component {
     s3URLs: [],
     undefinedIndexError: false,
     uploadError: null,
-    editorState: EditorState.createEmpty(),
+    editorValue: '',
   };
 
   componentDidMount() {
@@ -77,8 +75,8 @@ class NewDiscussionsThread extends Component {
     resetNewThreadState();
   }
 
-  handleEditorChange = (editorState) => {
-    this.setState({ editorState });
+  handleEditorChange = (editorHTML) => {
+    this.setState({ editorValue: editorHTML });
   }
 
   handleUploadImage = (event) => {
@@ -162,16 +160,13 @@ class NewDiscussionsThread extends Component {
   submitThread = (e) => {
     const { selectedForum, selectedTopic } = this;
     const { createNewThread } = this.props;
-    const { S3URLs, editorState } = this.state;
+    const { S3URLs, editorValue } = this.state;
     const { threadTitle: title } = e;
-
-    const threadContent = stateToHTML(editorState.getCurrentContent());
-
     if (selectedForum && selectedTopic) {
       createNewThread({
         title,
         S3URLs,
-        content: threadContent,
+        content: editorValue,
         forumId: selectedForum && selectedForum.get('forumId'),
         topicId: selectedTopic && selectedTopic.get('topicId'),
       }).then((res) => {
@@ -244,9 +239,9 @@ class NewDiscussionsThread extends Component {
 
                   <div className={styles.editor}>
                     <label>
-                      <span>Type of Paste Your Content</span>
-                      <Editor
-                        editorState={this.state.editorState}
+                      <span>Type or Paste Your Content</span>
+                      <RichTextEditor
+                        editorValue={this.state.editorValue}
                         onChange={this.handleEditorChange}
                       />
                     </label>

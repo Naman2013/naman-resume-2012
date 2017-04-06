@@ -20,6 +20,7 @@
     "bootstrap": "^3.3.7",
     "classnames": "^2.2.5",
     "cookie": "^0.3.1",
+    "draft-convert": "^1.4.3",
     "draft-js": "^0.10.0",
     "draft-js-export-html": "^0.5.2",
     "immutable": "^3.8.1",

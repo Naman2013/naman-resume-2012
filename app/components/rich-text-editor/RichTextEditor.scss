@@ -1,0 +1,91 @@
+@import '../../styles/variables/fonts';
+@import '../../styles/variables/colors';
+@import '../../styles/mixins/utilities';
+
+$headerSize: 1rem;
+
+.RichTextEditor {
+  font-family: $secondary-font;
+  font-weight: normal;
+  margin: 20px 0;
+  min-width: 100%;
+
+  .DraftEditor-root {
+    border: 1px solid #000;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: left;
+
+    .public-DraftEditor-content {
+      min-height: 220px;
+    }
+  }
+
+  .RichEditor-controls-container {
+    padding-top: 5px;
+    border: 1px solid;
+    border-bottom: 0;
+  }
+
+  .buttons, .urlInputContainer {
+    margin-bottom: 10px;
+  }
+
+  .urlInputContainer {
+
+  }
+
+  .urlInput {
+    font-family: $secondary-font;
+    margin-right: 10px;
+    padding: 3px;
+  }
+
+  .editor {
+    border: 1px solid #ccc;
+    cursor: text;
+    min-height: 80px;
+    padding: 10px;
+  }
+
+  .link {
+    color: $turqoise;
+    text-decoration: underline;
+  }
+
+  .header-icon-h1 {
+    font-size: $headerSize;
+  }
+
+  .header-icon-h2 {
+    font-size: $headerSize*.9;
+  }
+
+  .header-icon-h3 {
+    font-size: $headerSize*.8;
+  }
+
+  .header-icon-h4 {
+    font-size: $headerSize*.7;
+  }
+
+  .header-icon-h5 {
+    font-size: $headerSize*.6;
+  }
+
+  .header-icon-h6 {
+    font-size: $headerSize*.5;
+  }
+
+  .RichEditor-styleButton {
+    color: $black;
+    cursor: pointer;
+    margin-right: 16px;
+    padding: 2px 0;
+    display: inline-block;
+  }
+
+  .RichEditor-activeButton {
+    color: $pink;
+  }
+}

@@ -2,6 +2,11 @@ import { validateResponseAccess } from '../authorization/actions';
 
 export default function callAPIMiddleware({ dispatch, getState }) {
   return next => (action) => {
+
+    if (!action) {
+      return;
+    }
+
     const {
       types,
       callAPI,
