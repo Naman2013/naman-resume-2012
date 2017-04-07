@@ -27,10 +27,10 @@ class EnterDesignationForm extends Component {
       handleVisibilityCheck } = this.props;
 
     const buttonClasses = classnames('btn-primary', {
-      'disabled': !checkVisibilityEnabled,
+      disabled: !checkVisibilityEnabled,
     });
 
-    return(
+    return (
       <div className="enter-designation-form">
         <h3 className="title">Format:</h3>
         <p className="copy">{exampleFormat}</p>
@@ -43,11 +43,15 @@ class EnterDesignationForm extends Component {
           ref={(input) => { this.designationInput = input }}
           onChange={designationChangeCallback}
           value={designation}
-          className="generic-text-input" type="text" />
+          className="generic-text-input" type="text"
+        />
 
         <button
           onClick={handleVisibilityCheck}
-          className={buttonClasses}>Check Visibility</button>
+          className={buttonClasses}
+        >
+          Check Visibility
+        </button>
 
         {
           visibilityStatusExplanation ?

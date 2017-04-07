@@ -38,7 +38,6 @@ class TelescopeAllSky extends Component {
   constructor(props) {
     super(props);
     const { obsId, AllskyWidgetId, scheduledMissionId } = this.props;
-    console.log('trying to fetch content');
     this.props.actions.fetchSkyChartWidget({
       obsId,
       AllskyWidgetId,
@@ -47,7 +46,6 @@ class TelescopeAllSky extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('got new props...');
     const { obsId, AllskyWidgetId, scheduledMissionId } = this.props;
     if (
       obsId !== nextProps.obsId ||
@@ -62,7 +60,6 @@ class TelescopeAllSky extends Component {
   }
 
   render() {
-    console.log('dont forget to remove the test installation of all sky widget');
     const { apiError, title, subTitle, starChartURL  } = this.props.skyChartWidgetResult;
 
     return (

@@ -82,8 +82,6 @@ class PulseWrapper extends Component {
       popularPosts,
     } = this.props;
 
-    console.log(popularPosts);
-
     return (
       <section className="container clearfix">
         <div className="col-md-8 nopadding">

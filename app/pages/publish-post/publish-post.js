@@ -10,6 +10,7 @@ import { fetchCategoryTopicList } from '../../modules/browse-popular-objects/api
 import submitObjectContent from '../../modules/community-content/submit-object-content';
 import setPostImages from '../../modules/set-post-images';
 import deletePostImage from '../../services/post-creation/delete-post-image';
+import { validateResponseAccess } from '../../modules/authorization/actions';
 
 import AddContent from '../../components/publish-post/add-content';
 import AddTags from '../../components/publish-post/add-tags';
@@ -25,6 +26,7 @@ const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
     setTags,
     deleteTag,
+    validateResponseAccess,
   }, dispatch),
 });
 
@@ -74,7 +76,11 @@ class PublishPost extends Component {
       cid,
       at,
       token,
-    }).then(result => this.handleCategoryResponse(result.data));
+    })
+    .then((result) => {
+      this.props.actions.validateResponseAccess(result.data);
+      this.handleCategoryResponse(result.data)
+    });
   }
 
   handleCategoryResponse({
@@ -84,7 +90,10 @@ class PublishPost extends Component {
     diyText,
     humanSpiritText,
     scienceLogText,
+    apiError,
   }) {
+    if (apiError) { return; }
+
     this.setState({
       contentCategory: 'scienceLog',
       categoryList,

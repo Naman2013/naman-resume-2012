@@ -2,6 +2,7 @@ import axios from 'axios';
 import createReducer from './utils/createReducer';
 import { missionConfirmOpen, missionConfirmClose, missionGetCards } from './Missions';
 import { fetchReservationList } from './mission-slots-by-telescope/mission-slots-by-telescope-actions';
+import { fetchUsersUpcomingMissions } from './Users-Upcoming-Missions';
 
 const GRAB_PIGGYBACK_SUCCESS = 'GRAB_PIGGYBACK_SUCCESS';
 const GRAB_PIGGYBACK_FAIL = 'GRAB_PIGGYBACK_FAIL';
@@ -60,6 +61,7 @@ export const closeConfirmationModal = () => (dispatch, getState) => {
 
   if (callSource === RECOMMENDS) {
     dispatch(missionGetCards()); // refresh the missions displayed to the user
+    dispatch(fetchUsersUpcomingMissions()); // refresh the users upcoming missions
   }
 
   dispatch(missionConfirmClose()); // dismiss the modal
@@ -128,7 +130,7 @@ export const grabPiggyback = mission => (dispatch, getState) => {
       objectTitle: currentCard.title,
       lookaheadPiggyback: currentCard.lookaheadDaysPiggyback,
     })
-    .then(result => {
+    .then((result) => {
       dispatch(grabPiggybackSuccess(result.data));
       dispatch(missionConfirmOpen('piggyback'));
     })

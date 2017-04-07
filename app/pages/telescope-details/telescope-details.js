@@ -213,11 +213,11 @@ class TelescopeDetails extends Component {
           <div className="telescope-details-header clearfix">
             <div className="col-md-10">
               <CurrentSelectionHeader
-                telescopeIcon={currentTelescope.teleLogoURL}
-                teleName={currentTelescope.teleName}
+                telescopeIcon={currentObservatory.obsLogoURL}
+                teleName={currentObservatory.obsName}
                 teleSponsorLinkURL={currentTelescope.teleSponsorLinkURL}
                 teleSponsorLogoURL={currentTelescope.teleSponsorLogoURL}
-                instrTelescopeName={currentInstrument.instrTelescopeName}
+                instrTelescopeName={currentTelescope.teleName}
               />
             </div>
 

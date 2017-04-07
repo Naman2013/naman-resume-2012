@@ -5,7 +5,8 @@ import PiggybackStatus from './PiggybackStatus';
 import { fetchRecommendsCards } from '../../../services/recommendations/recommends-cards';
 import { getNextPiggyback } from '../../../services/recommendations/get-next-piggyback';
 import { getNextReservation } from '../../../services/recommendations/get-next-reservation';
-import { getNextPiggybackSingle, grabMissionSlot, missionConfirmOpen } from '../../../modules/Missions';
+import { getNextPiggybackSingle, getNextPiggybackSingleSuccess, grabMissionSlot, missionConfirmOpen, setCurrentCard } from '../../../modules/Missions';
+import { validateResponseAccess } from '../../../modules/authorization/actions';
 import s from './Recommendation.scss';
 
 const defaultState = {
@@ -35,9 +36,12 @@ const mapStateToProps = ({ piggyback, missions }) => ({
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
-    getNextPiggybackSingle,
+    getNextPiggybackSingle, //  TODO: do we still need this?
+    getNextPiggybackSingleSuccess,
     grabMissionSlot,
     missionConfirmOpen,
+    validateResponseAccess,
+    setCurrentCard,
   }, dispatch),
 });
 
@@ -65,7 +69,7 @@ class Recommendation extends Component {
 
   state = { ...defaultState }
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps() {
     // if either a new mission or piggyback had occurred reset the card
     const { piggybackReservationConfirmed, newMissionJustReserved } = this.props;
     if (piggybackReservationConfirmed || newMissionJustReserved) {
@@ -106,12 +110,15 @@ class Recommendation extends Component {
       requestType: 'single',
     })
     .then((result) => {
-      this.setState({
-        piggybackResult: result.data,
-        cardApiError: cardResult.apiError,
-        cardErrorMessage: cardResult.errorMsg,
-        cardData: cardResult,
-      });
+      const validatedPiggyback = this.props.actions.validateResponseAccess(result.data);
+      if (validatedPiggyback) {
+        this.setState({
+          piggybackResult: result.data,
+          cardApiError: cardResult.apiError,
+          cardErrorMessage: cardResult.errorMsg,
+          cardData: cardResult,
+        });
+      }
     })
     .catch(error => this.handleCardError(error));
   }
@@ -126,7 +133,9 @@ class Recommendation extends Component {
 
   handleReservePiggybackClick = (event) => {
     event.preventDefault();
-    this.props.actions.getNextPiggybackSingle(this.state.cardData.cardList[0]);
+    const { piggybackResult, cardData } = this.state;
+    this.props.actions.setCurrentCard(cardData.cardList[0]);
+    this.props.actions.getNextPiggybackSingleSuccess(piggybackResult);
   }
 
   handleLoadReservationClick = (event) => {
@@ -141,8 +150,10 @@ class Recommendation extends Component {
       objectId: astroObjectId,
       requestType: 'single',
     })
-    .then(result => this.handleLoadNewReservationResult(result.data))
-    // .catch(error => this.handleLoadNewReservationError(error));
+    .then((result) => {
+      this.props.actions.validateResponseAccess(result.data);
+      this.handleLoadNewReservationResult(result.data);
+    });
   }
 
   handleLoadNewReservationResult(newReservationResult) {

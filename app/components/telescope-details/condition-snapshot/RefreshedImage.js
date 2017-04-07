@@ -44,7 +44,7 @@ export default class RefreshedImage extends Component {
         this.setState({
           imageURL: `${imageURL}?cb=${uniqueId()}`,
         });
-      }, refreshIntervalSec * 100);
+      }, refreshIntervalSec * 1000);
     }
   }
 

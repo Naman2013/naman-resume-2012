@@ -72,10 +72,10 @@ class ReserveMissions extends Component {
           <div className={s.stickyNavigationContainer}>
             <CurrentSelectionHeader
               telescopeIcon={currentObservatory.obsLogoURL}
-              teleName={currentTelescope.teleName}
+              teleName={currentObservatory.obsName}
               teleSponsorLinkURL={currentTelescope.teleSponsorLinkURL}
               teleSponsorLogoURL={currentTelescope.teleSponsorLogoURL}
-              instrTelescopeName={currentInstrument.instrTelescopeName}
+              instrTelescopeName={currentTelescope.teleName}
             />
             <DateSelectionNavigation
               routeRoot={rootRoute}
