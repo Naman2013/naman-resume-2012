@@ -49,7 +49,7 @@ const COMMIT_UPDATED_PIGGYBACKS = 'COMMIT_UPDATED_PIGGYBACKS';
 
 const STORE_CARDS_RESPONSE = 'STORE_CARDS_RESPONSE';
 
-const setCurrentCard = card => ({
+export const setCurrentCard = card => ({
   type: SET_CURRENT_CARD,
   payload: card,
 });
@@ -419,7 +419,7 @@ const getNextPiggybackSingleFail = payload => ({
   error: payload,
 });
 
-const getNextPiggybackSingleSuccess = getNextPiggybackData => (dispatch, getState) => {
+export const getNextPiggybackSingleSuccess = getNextPiggybackData => (dispatch, getState) => {
   const { apiError, missionList } = getNextPiggybackData;
 
   if (apiError) {

@@ -355,28 +355,6 @@ class ReservationByCoordinate extends Component {
     return null;
   }
 
-  render() {
-    const {
-      expires,
-      expireCallback,
-      handleVisibilityCheck,
-    } = this.props;
-
-
-    const { ra_h, ra_m } = this.state;
-    const ra_s = this.cleanRAInput(event.target.value);
-    const ra = this.calculateRAField({
-      ra_h,
-      ra_m,
-      ra_s,
-    });
-
-    this.setState({
-      ra_s,
-      ra,
-    });
-  }
-
   resetRAFields() {
     this.setState({
       ra_h: 0,
@@ -386,11 +364,10 @@ class ReservationByCoordinate extends Component {
     });
   }
 
-  calculateRAField({ra_h, ra_m, ra_s}) {
-    const calculatedRA = round(ra_h + (ra_m / 60) + (ra_s / 3600), 6)
-    if(calculatedRA > 24) {
+  calculateRAField({ ra_h, ra_m, ra_s }) {
+    const calculatedRA = round(ra_h + (ra_m / 60) + (ra_s / 3600), 6);
+    if (calculatedRA > 24) {
       this.resetRAFields();
-      return;
     }
 
     return calculatedRA;
@@ -456,7 +433,7 @@ class ReservationByCoordinate extends Component {
       dec_s,
       dec,
       targetName,
-      visibilityStatus
+      visibilityStatus,
     } = this.state;
 
     return (

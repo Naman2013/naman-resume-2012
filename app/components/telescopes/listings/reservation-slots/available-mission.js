@@ -7,7 +7,8 @@ import {
   getReservationOnHold,
   cancelReservation,
   cancelEditMission,
-  cancelReservationAndRefresh } from '../../../../modules/grab-telescope-slot/actions';
+  cancelReservationAndRefresh,
+} from '../../../../modules/grab-telescope-slot/actions';
 
 import MissionTime from '../partials/mission-time';
 import ReservationByObjects from '../forms/reservation-by-objects';
@@ -208,10 +209,8 @@ class AvailableMission extends Component {
 
       const { userHasReservation } = reservation.mission.missionList[0];
       if (userHasReservation) {
-        console.log('cancel editing the mission...');
         this.cancelEditingMission();
       } else {
-        console.log('cancel hold on mission...');
         this.cancelHoldOnMission();
       }
     } else {

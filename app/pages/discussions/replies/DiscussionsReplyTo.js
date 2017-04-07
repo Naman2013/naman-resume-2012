@@ -3,11 +3,8 @@ import { Link, hashHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { List } from 'immutable';
 import { connect } from 'react-redux';
-import { Field, reduxForm } from 'redux-form';
-import { Editor, EditorState } from 'draft-js';
-import { stateToHTML } from 'draft-js-export-html';
+import { reduxForm } from 'redux-form';
 import _ from 'lodash';
-import TextareaField from '../../../components/form/TextareaField';
 import UploadImage from '../../../components/publish-post/upload-image';
 import { fetchThread } from '../../../modules/discussions-thread/actions';
 import { fetchTopicList } from '../../../modules/discussions-topics/actions';
@@ -15,6 +12,7 @@ import * as replyActions from '../../../modules/discussions-replies/actions';
 import setPostImages from '../../../modules/set-post-images';
 import deletePostImage from '../../../services/post-creation/delete-post-image';
 import { createValidator, required } from '../../../modules/utils/validation';
+import RichTextEditor from '../../../components/rich-text-editor/RichTextEditor';
 
 import styles from './discussions-reply.scss';
 
@@ -24,7 +22,7 @@ class DiscussionsReplyTo extends Component {
   state = {
     s3URLs: [],
     uploadError: null,
-    editorState: EditorState.createEmpty(),
+    editorValue: '',
   };
 
   componentDidMount() {
@@ -54,8 +52,8 @@ class DiscussionsReplyTo extends Component {
     resetReplyState();
   }
 
-  handleEditorChange = (editorState) => {
-    this.setState({ editorState });
+  handleEditorChange = (editorHTML) => {
+    this.setState({ editorValue: editorHTML });
   }
 
   handleUploadImage = (event)  => {
@@ -98,14 +96,13 @@ class DiscussionsReplyTo extends Component {
 
   submitReply = (e) => {
     const { submitReply, routeParams: { threadId, topicId }, thread } = this.props;
-    const { S3URLs, editorState } = this.state;
-    const replyContent = stateToHTML(editorState.getCurrentContent());
+    const { S3URLs, editorValue } = this.state;
 
     submitReply({
       topicId,
       threadId,
       title: thread.title,
-      content: replyContent,
+      content: editorValue,
       S3URLs,
     });
     window.scrollTo(0, 0);
@@ -148,8 +145,8 @@ class DiscussionsReplyTo extends Component {
                 <div className={styles.editor}>
                   <label>
                     <span>Paste or type your thread reply comments here:</span>
-                    <Editor
-                      editorState={this.state.editorState}
+                    <RichTextEditor
+                      editorValue={this.state.editorValue}
                       onChange={this.handleEditorChange}
                     />
                   </label>

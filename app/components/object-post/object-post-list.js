@@ -8,7 +8,6 @@ import styles from './object-post.scss';
 class ObjectPostList extends Component {
 
   prepareData(objectPosts) {
-    console.log(objectPosts);
     return objectPosts.map((v, k) =>
       <div key={uniqueId()}>
         <div className={styles.ObjectPostList} key={v.postId}>

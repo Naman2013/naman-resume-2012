@@ -1,12 +1,10 @@
 import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
+import { Link } from 'react-router';
 import classnames from 'classnames';
-import { bindActionCreators } from 'redux';
+import Slider from 'react-slick';
 import CommunityPost from './community-post';
 import CallToAction from './call-to-action';
-import Slider from 'react-slick';
 import Spacer from './../../common/spacer';
-import GET_OBJECT_CONTENT_RESPONSE_CODES from '../../../constants/get-object-content-response-codes';
 import './community-perspectives.scss';
 import './slick.min.css';
 import './slick-theme.min.css';
@@ -167,7 +165,7 @@ class CommunityPerspectives extends Component {
               showCallToAction ?
                 <div className="col-xs-12">
                   <Spacer height="20px" />
-                  <button className="btn-primary">Contribute Content</button>
+                  <Link to="/publish-post" className="btn-primary">Contribute Content</Link>
                 </div> : null
             }
 

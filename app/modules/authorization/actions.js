@@ -83,5 +83,7 @@ export const validateResponseAccess = apiResponse => (dispatch) => {
       }));
       dispatch(push(REDIRECT_CONFIRMATION_PATH));
     }
+    return false;
   }
+  return true;
 };
