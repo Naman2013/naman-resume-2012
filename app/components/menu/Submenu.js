@@ -19,7 +19,7 @@ import {
   REFRESH_DELAY_TELESCOPES,
   STARGAZERS_URL,
   UPCOMING_EVENTS_URL,
-
+  NAV_TYPE_SUBMENU_EXTERNAL,
 } from './constants';
 
 const mapDispatchToProps = (dispatch) => ({
@@ -75,10 +75,26 @@ class Submenu extends Component {
                     source={HOT_THIS_MONTH_URL}
                   />);
                 }
+                case NAV_TYPE_SUBMENU_EXTERNAL: {
+                  if (menuItem.showItem) {
+                    return (
+                      <li
+                        key={`${menuItem.menuItemText}-${menuItem.menuItemIndex}`}
+                      >
+                        <a
+                          className="item"
+                          href={menuItem.itemLink}
+                        >
+                          {menuItem.menuItemText}
+                        </a>
+                      </li>
+                    );
+                  }
+                  return null;
+                }
                 default: {
-                  const menuItemClass = classnames({
+                  const menuItemClass = classnames('item', {
                     spacer: menuItem.menuItemType === 'NAV_TYPE_SUBMENU_SPACER',
-                    item: true,
                   });
                   return (menuItem.showItem &&
                     <li

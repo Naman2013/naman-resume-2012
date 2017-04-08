@@ -143,7 +143,7 @@ class DiscussionsReplyTo extends Component {
               <div className={styles.DiscussionsFormInputContainer}>
                 <span className={styles.number}>1</span>
                 <div className={styles.editor}>
-                  <label>
+                  <label className={styles.editorLabel}>
                     <span>Paste or type your thread reply comments here:</span>
                     <RichTextEditor
                       editorValue={this.state.editorValue}

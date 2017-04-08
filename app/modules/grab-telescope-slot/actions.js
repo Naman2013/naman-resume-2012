@@ -29,7 +29,7 @@ const setDefaultFormView = (grabTelescopeSuccessResult) => {
   return defaultFormTab;
 };
 
-const commitUpdatedReservations = updatedMissions => ({
+export const commitUpdatedReservations = updatedMissions => ({
   type: COMMIT_UPDATED_RESERVATIONS,
   payload: updatedMissions,
 });
@@ -59,14 +59,16 @@ export const grabTelescopeSlotSuccess = result => (dispatch, getState) => {
   // if the grab was successful and the mission is not already on hold then
   // add the mission to the collection of missions the user is reviewing
   // otherwise simply return the list of missions we are tracking
+  // if defaultFormTab does not exist - then add the default as BY_OBJECT
+  // TODO: deprecate defaultFormTab OR how we are patching the mission
   if (!hasReserverationOnHold(missionList[0].uniqueId, currentMissions.missions)) {
     updatedMissions = [
       ...currentMissions.missions,
       {
         uniqueId: missionList[0].uniqueId,
         defaultFormTab: setDefaultFormView(result),
-        mission: result,
-      }
+        mission: Object.assign({ defaultFormType: SUPPORTED_RESERVATION_TAB_FORM_TYPES.DEFAULT_FORM }, result),
+      },
     ];
   } else {
     updatedMissions = [...currentMissions.missions];
@@ -88,7 +90,7 @@ const grabTelescopeSlotFail = (error) => {
   @uniqueId: required
   @scheduledMissionId: required
 */
-export const grabTelescopeSlot = ({ scheduledMissionId, uniqueId, grabType, finalizeReservation }) => (dispatch, getState) => {
+export const grabTelescopeSlot = ({ defaultFormType, scheduledMissionId, uniqueId, grabType, finalizeReservation }) => (dispatch, getState) => {
   const { at, cid, token } = getState().user;
 
   return axios.post('/api/reservation/grabTelescopeSlot', {
@@ -100,7 +102,7 @@ export const grabTelescopeSlot = ({ scheduledMissionId, uniqueId, grabType, fina
     grabType,
     finalizeReservation,
   })
-  .then(result => dispatch(grabTelescopeSlotSuccess(result.data)))
+  .then(result => dispatch(grabTelescopeSlotSuccess(Object.assign({}, result.data, { defaultFormType }))))
   .catch(error => dispatch(grabTelescopeSlotFail(error)));
 };
 
@@ -117,20 +119,32 @@ export const refreshListings = () => (dispatch, getState) => {
   }));
 };
 
-const removeMissionFromConsideration = ({ uniqueId }) => (dispatch, getState) => {
+export const removeMissionFromConsideration = ({ uniqueId }) => (dispatch, getState) => {
   const { telescopeSlots } = getState();
   const updatedMissions = telescopeSlots.missions.filter(missionSlot =>
-    (missionSlot.mission.missionList[0].uniqueId != uniqueId));
+    (missionSlot.uniqueId !== uniqueId));
 
   dispatch(commitUpdatedReservations(updatedMissions));
 };
 
-export const cancelReservation = ({ uniqueId, scheduledMissionId }) => (dispatch, getState) => {
+/**
+  @changeFormType: responsible for changing the selected form type in state
+  associated with a specific mission
+  */
+export const changeFormType = ({ formType, uniqueId }) => (dispatch, getState) => {
   const { telescopeSlots } = getState();
-  const updatedMissions = telescopeSlots.missions.filter(missionSlot =>
-    (missionSlot.mission.missionList[0].uniqueId != uniqueId));
 
+  const updatedMissions = telescopeSlots.missions.map((missionSlot) => {
+    if (missionSlot.uniqueId === uniqueId) {
+      return Object.assign({}, missionSlot, { mission: Object.assign({}, missionSlot.mission, { defaultFormType: formType }) });
+    }
+    return missionSlot;
+  });
   dispatch(commitUpdatedReservations(updatedMissions));
+}
+
+export const cancelReservation = ({ uniqueId, scheduledMissionId }) => (dispatch) => {
+  dispatch(removeMissionFromConsideration({ uniqueId }));
 
   dispatch(cancelMissionSlot({
     uniqueId,
@@ -140,7 +154,7 @@ export const cancelReservation = ({ uniqueId, scheduledMissionId }) => (dispatch
   }));
 };
 
-export const cancelEditMission = ({ uniqueId, scheduledMissionId, missionIndex }) => (dispatch, getState) => {
+export const cancelEditMission = ({ uniqueId, missionIndex }) => (dispatch, getState) => {
   dispatch(removeMissionFromConsideration({ uniqueId }));
 
   // revert the mission slot back to its state before we started editing it...

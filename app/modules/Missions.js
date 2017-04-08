@@ -6,7 +6,7 @@ import createReducer from './utils/createReducer';
 
 import { fetchUsersUpcomingMissions } from './Users-Upcoming-Missions';
 import { grabPiggyback } from './Piggyback';
-import { cancelAllReservations } from './grab-telescope-slot/actions';
+import { cancelAllReservations, removeMissionFromConsideration } from './grab-telescope-slot/actions';
 import grabUpdatedSlot from '../services/reservations/grab-updated-slot';
 import updateMissionSlot from '../services/reservations/update-mission-slot';
 
@@ -201,7 +201,14 @@ export const resetReserveMission = () => ({
 });
 
 export const cancelMissionSlot = mission => (dispatch, getState) => {
-  const { token, at, cid } = getState().user;
+  const { user: { token, at, cid } } = getState();
+
+  /**
+    remove the mission from the considerationed missions this will close up
+    any of the mission slots the user could have been looking at
+    */
+  dispatch(removeMissionFromConsideration({ uniqueId: mission.uniqueId }));
+
   return axios.post('/api/reservation/cancelMissionSlot', {
     token,
     at,

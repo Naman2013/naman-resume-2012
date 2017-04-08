@@ -8,6 +8,7 @@ import {
   cancelReservation,
   cancelEditMission,
   cancelReservationAndRefresh,
+  changeFormType,
 } from '../../../../modules/grab-telescope-slot/actions';
 
 import MissionTime from '../partials/mission-time';
@@ -28,6 +29,7 @@ const mapDispatchToProps = dispatch => ({
     cancelEditMission,
     grabTelescopeSlot,
     cancelReservationAndRefresh,
+    changeFormType,
   }, dispatch),
 });
 
@@ -40,7 +42,6 @@ class AvailableMission extends Component {
   }
 
   renderForm() {
-    const { formType } = this.state;
     const {
       uniqueId,
       scheduledMissionId,
@@ -58,17 +59,11 @@ class AvailableMission extends Component {
       return null;
     }
 
-    const adjustedFormType = reservationOnHold.defaultFormTab || formType;
+    const adjustedFormType = reservationOnHold.defaultFormTab || reservationOnHold.mission.defaultFormType;
 
     const currentMissionOnHold = reservationOnHold.mission.missionList[0];
     const { expires } = currentMissionOnHold;
     const { domeId, obsId } = missionSlotDates.dateRangeResponse.dateList[0];
-
-    if (adjustedFormType === SUPPORTED_RESERVATION_TAB_FORM_TYPES.NONE) {
-      this.setState({
-        formType: SUPPORTED_RESERVATION_TAB_FORM_TYPES.BY_OBJECTS,
-      });
-    }
 
     if (adjustedFormType === SUPPORTED_RESERVATION_TAB_FORM_TYPES.BY_OBJECTS) {
       return (
@@ -129,10 +124,6 @@ class AvailableMission extends Component {
     return null;
   }
 
-  matchFormType(matchOnFormType) {
-    return this.state.formType === matchOnFormType;
-  }
-
   buttonRenderedClasses(buttonFormType) {
     return classnames('action', {
       active: this.matchFormType(buttonFormType),
@@ -149,6 +140,15 @@ class AvailableMission extends Component {
     }
 
     return RESERVING;
+  }
+
+  matchFormType(matchOnFormType) {
+    const { uniqueId, telescopeSlots } = this.props;
+    const reservationOnHold = getReservationOnHold(uniqueId, telescopeSlots.missions);
+    if (reservationOnHold) {
+      return reservationOnHold.mission.defaultFormType === matchOnFormType;
+    }
+    return false;
   }
 
   handleTimerExpiration = () => {
@@ -185,7 +185,8 @@ class AvailableMission extends Component {
       telescopeSlots,
       actions,
       userHasHold,
-      userHoldType } = this.props;
+      userHoldType,
+    } = this.props;
 
     // this is a lookup of the reservation to see if the user is already viewing
     // this timeslot
@@ -194,29 +195,24 @@ class AvailableMission extends Component {
     // handle placing the timeslot on hold
     if (!reservation) {
       actions.grabTelescopeSlot({
+        defaultFormType: newFormType,
         scheduledMissionId,
         uniqueId,
         grabType: 'notarget',
         finalizeReservation: userHasHold,
       });
-    }
-
-    // handle displaying the appropriate form
-    if (formType === newFormType || newFormType === SUPPORTED_RESERVATION_TAB_FORM_TYPES.NONE) {
-      this.setState({
-        formType: SUPPORTED_RESERVATION_TAB_FORM_TYPES.NONE,
-      });
-
-      const { userHasReservation } = reservation.mission.missionList[0];
-      if (userHasReservation) {
-        this.cancelEditingMission();
-      } else {
-        this.cancelHoldOnMission();
-      }
     } else {
-      this.setState({
-        formType: newFormType,
-      });
+      // handle setting the new form type
+      const { userHasReservation } = reservation.mission.missionList[0];
+      if (newFormType === SUPPORTED_RESERVATION_TAB_FORM_TYPES.NONE) {
+        if (userHasReservation) {
+          this.cancelEditingMission();
+        } else {
+          this.cancelHoldOnMission();
+        }
+      } else {
+        this.props.actions.changeFormType({ formType: newFormType, uniqueId });
+      }
     }
   }
 
