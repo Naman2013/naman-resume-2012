@@ -35,6 +35,11 @@ class RichTextEditor extends React.Component {
       editorState,
     });
     const threadContent = convertToHTML({
+      blockToHTML: (block) => {
+        if (block.text === '') {
+          return <p><br/></p>;
+        }
+      },
       entityToHTML: (entity, originalText) => {
         if (entity.type === 'LINK') {
           return <a href={entity.data.url} target="_blank" rel="noopener noreferrer">{originalText}</a>;

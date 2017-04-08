@@ -238,7 +238,7 @@ class NewDiscussionsThread extends Component {
                   />
 
                   <div className={styles.editor}>
-                    <label>
+                    <label className={styles.editorLabel}>
                       <span>Type or Paste Your Content</span>
                       <RichTextEditor
                         editorValue={this.state.editorValue}
