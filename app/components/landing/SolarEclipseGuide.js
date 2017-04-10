@@ -15,7 +15,7 @@ const sponsors = [
 function SolarEclipseGuide() {
   return (
     <div className={style.solarEclipseGuideWrapper}>
-      <div className={style.container}>
+      {/*<div className={style.container}>
         <div className={style.inner}>
           <div className={style.subHeader}>
             Also available from Slooh:
@@ -28,7 +28,7 @@ function SolarEclipseGuide() {
           </div>
           <button className={style.actionBtn}>Buy Now</button>
         </div>
-      </div>
+      </div>*/}
       <div className={style.sponsorsContainer}>
         <div className={style.sponsorsHeader}>
           Our Sponsors

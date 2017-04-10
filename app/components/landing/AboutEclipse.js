@@ -21,7 +21,7 @@ function AboutEclipse() {
         </div>
         <div className={style.btnGroup}>
           <button className={style.actionBtn}>Set Reminder</button>
-          <button className={style.actionBtn}>Learn More</button>
+          <a href="/#/shows/event-details/393" className={style.actionBtn}>Learn More</a>
         </div>
       </div>
     </div>
