@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import Progress from 'react-progressbar';
 import styles from './neoview.scss';
 
@@ -16,12 +16,13 @@ export default class Neoview extends React.Component {
       latestMassege: null,
       messages: [],
       toggleNeoview: false,
-      showToggleOption: this.props.showToggleOption
+      showToggleOption: this.props.showToggleOption,
     }
   }
 
   componentDidMount() {
-    const {port, teleSystem} = this.props;
+    const { port, teleSystem, currentMissionServerTime } = this.props;
+
     const neoUrl = this.generateNeoSource(port, teleSystem);
     this.sseSource = new EventSource(neoUrl);
     this.sseSource.addEventListener(
@@ -36,14 +37,14 @@ export default class Neoview extends React.Component {
   }
 
   handleNeoMessages(data) {
-    let messages = this.state.messages
-    let message = data.split('|')
-    let notHeartbeat = message[1] !== 'heartbeat' ? message : null
-    if(notHeartbeat) {
+    const messages = this.state.messages;
+    const message = JSON.parse(data); data.split('|');
+    const notHeartbeat = message.messageType !== 'HEARTBEAT';
+    if (notHeartbeat) {
       this.setState({
-        latestMassege: `${notHeartbeat[0]} ${notHeartbeat[1]}`,
-        messages: [notHeartbeat, ...messages]
-      })
+        latestMassege: `${message.messageText ? message.messageText : ''} ${message.logMessage}`,
+        messages: [notHeartbeat, ...messages],
+      });
     }
   }
 
@@ -64,33 +65,38 @@ export default class Neoview extends React.Component {
   }
 
   render() {
+    const { percentageMissionTimeRemaining } = this.props;
+    // console.log(percentageMissionTimeRemaining);
     return (
       <div className="neoview-container">
-        <div className={ `neoview-wrapper ${this.state.toggleNeoview ? 'visible' : 'hidden'}` }>
+        <div className={`neoview-wrapper ${this.state.toggleNeoview ? 'visible' : 'hidden'}`}>
           {this.state.messages && this.state.messages.map((msg, index) => {
-            return <div className="neo-message" key={index}>
+            return (
+              <div className="neo-message" key={index}>
                 <div className="col-md-4 neo-message-time">{`${msg[0]} `}</div>
                 <div className="col-md-8 neo-message-text">{msg[1]}</div>
               </div>
+            );
           })}
-
         </div>
 
-      <div className="top">
-        <Progress completed={75} color="#589A9A" height="35px" />
-        <p className="short">
-          LIVE {this.state.latestMassege}
-        </p>
-        <div className="toggle-description" onClick={this.handleToggleNeoview.bind(this)}>
-          {(() => {
-            if (this.props.showToggleOption && this.state.toggleNeoview) {
-              return <i className="fa fa-angle-down"></i>
-            } else {
-              return <i className="fa fa-angle-up"></i>
-            }
-          })()}
+        <div className="top">
+
+          <Progress completed={percentageMissionTimeRemaining} color="#589A9A" height="35px" />
+
+          <p className="short">
+            LIVE {this.state.latestMassege}
+          </p>
+          <div className="toggle-description" onClick={this.handleToggleNeoview.bind(this)}>
+            {(() => {
+              if (this.props.showToggleOption && this.state.toggleNeoview) {
+                return <i className="fa fa-angle-down"></i>
+              } else {
+                return <i className="fa fa-angle-up"></i>
+              }
+            })()}
+          </div>
         </div>
-      </div>
 
       </div>
     )

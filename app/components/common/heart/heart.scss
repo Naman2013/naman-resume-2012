@@ -9,9 +9,14 @@
   background: none;
   border: none;
   padding: 0;
+  cursor: default;
 
   &:active, &:focus {
     outline: none;
+  }
+
+  &.clickable {
+    cursor: pointer;
   }
 
   &.light {

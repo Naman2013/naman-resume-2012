@@ -41,7 +41,7 @@ class Profile extends Component {
         <article>
           <section className="missions">
             <h2 className="center margin-top-reg margin-bottom-large">Recent &amp; Upcoming Missions</h2>
-            <UsersReservations reservationsList={profile.missionList} refreshAction={fetchDashboard} refreshIntervalSec={refreshIntervalSec} />
+            <UsersReservations unixTimestamp={profile.timestamp * 1000} reservationsList={profile.missionList} refreshAction={fetchDashboard} refreshIntervalSec={refreshIntervalSec} />
             <div className="row-xxwide center-center margin-top-large">
               <Link
                 className="btn-primary center-block"
@@ -59,7 +59,7 @@ class Profile extends Component {
 
         <section className="recent-pictures row-xxwide">
           <h2 className="center margin-top-large margin-bottom-large ">Recent Pictures</h2>
-          <article>
+          <article className={s.ProfilePictures}>
             {(photosFetching && !photoRollError) && <div className="center">Refreshing photos..</div>}
             {!photoRollError && <UsersPictures fetchPhotosAction={fetchPhotos} imageList={imageList} colNum="3" />}
             {photoRollError && <div className="center">There was an error fetching your images...</div>}

@@ -22,7 +22,7 @@ const CommunityPost = ({
       memberSince={memberSince}
       location={location}
     />
-    <Heart count={likesCount} />
+  <Heart count={likesCount} likeId={postId} canLikeFlag={false} />
   </div>
   <div className="description">
     <Link className="descriptionLink" to={`/community/post/${postId}`}>

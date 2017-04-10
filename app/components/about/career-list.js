@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import { Link } from 'react-router';
 
 export default function CareerList({ value }) {
   return (
@@ -9,7 +10,7 @@ export default function CareerList({ value }) {
       </header>
       <p className="notransform" dangerouslySetInnerHTML={{ __html: value.jobText }} />
       <footer>
-        <a href={`${value.applyLink}?subject=${value.jobTitle}`} className="btn-primary pull-left" >Apply</a>
+        <Link to="/about/contact" className="btn-primary pull-left" >Apply</Link>
       </footer>
     </article>
   );

@@ -267,7 +267,7 @@ const initialState = {
   satelliteViewWidgetResult: null,
   skyChartWidgetResult: {
     apiError: false,
-    title: 'Loading...',
+    title: '',
     subTitle: '',
     starChartURL: '',
   },

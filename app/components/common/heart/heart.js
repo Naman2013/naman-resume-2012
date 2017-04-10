@@ -1,5 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
+import classnames from 'classnames';
 import like from '../../../services/community-content/like';
 import style from './heart.scss';
 /*
@@ -59,13 +60,19 @@ export default class Heart extends Component {
   }
 
   render() {
-    const { theme } = this.props;
+    const { theme, canLikeFlag } = this.props;
     const { count } = this.state;
-
+    const heartClass = classnames(
+      style.heart,
+      theme,
+      {
+        clickable: canLikeFlag,
+      }
+    );
     return (
       <button
         onClick={this.handleClick}
-        className={`${style.heart} ${theme}`}
+        className={heartClass}
       >
         <i className="fa fa-heart" />
         <span className={style.count}>{count}</span>

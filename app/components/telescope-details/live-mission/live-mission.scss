@@ -17,9 +17,15 @@
         margin-bottom: 5px;
       }
 
-      .mission-title {
-        font-weight: 600;
+      .current-mission-title {
+        display: flex;
+        align-items: center;
         margin-bottom: 20px;
+
+        .mission-title {
+          font-weight: 600;
+          padding-left: 10px;
+        }
       }
     }
 
@@ -39,21 +45,7 @@
     background: rgba(31,31,31,0.60);
 
     .mission {
-      padding-left: 50px;
-      position: relative;
-
-      .mission-icon {
-        position: absolute;
-        left: 0;
-        top: 0;
-        line-height: 28px;
-      }
-      .count-down {
-        position: absolute;
-        right: 0;
-        top: 0;
-        line-height: 28px;
-      }
+      margin-top: 10px;
     }
   }
 

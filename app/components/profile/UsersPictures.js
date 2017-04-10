@@ -5,7 +5,7 @@ import PhotoList from '../my-pictures/PhotoList';
 
 const { arrayOf, shape, string, number, func } = PropTypes;
 
-class UsersReservations extends Component {
+class UsersPictures extends Component {
   constructor(props) {
     super(props);
     this.setPhotoRefreshInterval();
@@ -41,11 +41,11 @@ class UsersReservations extends Component {
   }
 }
 
-UsersReservations.defaultProps = {
+UsersPictures.defaultProps = {
   imageList: [],
 };
 
-UsersReservations.propTypes = {
+UsersPictures.propTypes = {
   imageList: arrayOf(shape({
     imageURL: string.isRequired,
     imageId: number.isRequired,
@@ -53,4 +53,4 @@ UsersReservations.propTypes = {
   fetchPhotosAction: func.isRequired,
 };
 
-export default UsersReservations;
+export default UsersPictures;

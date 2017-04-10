@@ -1,12 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 import { Link, hashHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
-import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import { List } from 'immutable';
-import InputField from '../../../components/form/InputField';
-import { createValidator, required } from '../../../modules/utils/validation';
+import classnames from 'classnames';
 import UploadImage from '../../../components/publish-post/upload-image';
 import ReservationSelectList from '../../../components/common/forms/reservation-select-list';
 import * as newThreadActions from '../../../modules/discussions-new-thread/actions';
@@ -29,7 +27,6 @@ class NewDiscussionsThread extends Component {
     user: object.isRequired,
     forumList: instanceOf(List).isRequired,
     resetNewThreadState: func.isRequired,
-    handleSubmit: func.isRequired,
     submitError: string,
   };
 
@@ -44,6 +41,9 @@ class NewDiscussionsThread extends Component {
     undefinedIndexError: false,
     uploadError: null,
     editorValue: '',
+    titleValue: '',
+    editorError: null,
+    titleError: null,
   };
 
   componentDidMount() {
@@ -132,6 +132,12 @@ class NewDiscussionsThread extends Component {
     });
   }
 
+  handleTitleChange = (evt) => {
+    this.setState({
+      titleValue: evt.target.value,
+    });
+  }
+
   get selectedForum() {
     const { forumList } = this.props;
     const { selectedForumIndex } = this.state;
@@ -141,7 +147,7 @@ class NewDiscussionsThread extends Component {
   get selectedTopic() {
     const { selectedForum } = this;
     const { selectedTopicIndex } = this.state;
-    return selectedForum.get('forumTopicList').find(topic => topic.topicIndex === selectedTopicIndex);
+    return selectedForum && selectedForum.get('forumTopicList').find(topic => topic.topicIndex === selectedTopicIndex);
   }
 
   get forumOptions() {
@@ -157,14 +163,58 @@ class NewDiscussionsThread extends Component {
         .map(topic => topic.get('topicTitle')), t => t.topicIndex) || [];
   }
 
+  validateForm = () => {
+    const { selectedForum, selectedTopic } = this;
+    const { editorValue, titleValue } = this.state;
+
+    // do manual validation because draftjs is not an input.
+    // TODO: figure out a way to manually trigger error for draftjs so we can continue using redux-form
+    this.setState({
+      undefinedIndexError: false,
+      titleError: false,
+      editorError: false,
+    });
+
+    if (!selectedForum || !selectedTopic) {
+      this.setState({
+        undefinedIndexError: true,
+      });
+    }
+
+    if (!titleValue) {
+      this.setState({
+        titleError: true,
+      });
+    }
+
+    if (!editorValue) {
+      this.setState({
+        editorError: true,
+      });
+    }
+
+    if (selectedForum && selectedTopic && titleValue && editorValue) {
+      this.setState({
+        editorError: false,
+        titleError: false,
+        undefinedIndexError: false,
+      });
+
+      return true;
+    }
+
+    return false;
+  }
+
   submitThread = (e) => {
+    e.preventDefault();
     const { selectedForum, selectedTopic } = this;
     const { createNewThread } = this.props;
-    const { S3URLs, editorValue } = this.state;
-    const { threadTitle: title } = e;
-    if (selectedForum && selectedTopic) {
+    const { S3URLs, editorValue, titleValue } = this.state;
+
+    if (this.validateForm()) {
       createNewThread({
-        title,
+        title: titleValue,
         S3URLs,
         content: editorValue,
         forumId: selectedForum && selectedForum.get('forumId'),
@@ -175,10 +225,6 @@ class NewDiscussionsThread extends Component {
           hashHistory.push(`discussions/forums/${selectedForum.get('forumId')}/topics/${selectedTopic.get('topicId')}/threads/${threadId}`);
         }
       });
-    } else {
-      this.setState({
-        undefinedIndexError: true,
-      });
     }
 
     window.scrollTo(0, 0);
@@ -186,7 +232,7 @@ class NewDiscussionsThread extends Component {
   render() {
     const { forumOptions, topicOptions, submitThread, handleDeleteImage, handleUploadImage } = this;
     const { handleSubmit, routeParams: { forumId, threadId, topicId }, submitting, threadSubmitted, submitError } = this.props;
-    const { S3URLs, selectedForumIndex, selectedTopicIndex, undefinedIndexError, uploadError } = this.state;
+    const { S3URLs, selectedForumIndex, selectedTopicIndex, undefinedIndexError, uploadError, editorError, titleError } = this.state;
     return (<div className={styles.DiscussionsNewThread}>
       {submitError && <strong>{submitError}</strong>}
       {submitting && <div className={styles.DiscussionsContent}>Submitting Thread...</div>}
@@ -200,7 +246,7 @@ class NewDiscussionsThread extends Component {
           </div>
         </header>
         <section className="discussions-container new clearfix">
-          <form name="new-thread" onSubmit={handleSubmit(submitThread)} className={styles.DiscussionsNewThreadForm}>
+          <form name="new-thread" className={styles.DiscussionsNewThreadForm}>
             <div className={styles.DiscussionsFormInputContainer}>
               <span className={styles.number}>1</span>
               <h4>Submit a forum and topic for your post from the lists below</h4>
@@ -229,21 +275,25 @@ class NewDiscussionsThread extends Component {
                 <span className={styles.number}>2</span>
                 <div>
                   <h4>Add Your Content</h4>
-                  <Field
-                    name="threadTitle"
-                    className={`${styles.DiscussionsInput}`}
-                    type="text"
-                    label="Type in a simple headline for your post."
-                    component={InputField}
-                  />
+                  <label className={classnames({ validationError: titleError })}>
+                    <span>Type in a simple headline for your post.</span>
+                      <input name="threadTitle"
+                        className={`${styles.DiscussionsInput}`}
+                        type="text"
+                        onChange={this.handleTitleChange}
+                        value={this.state.titleValue}
+                      />
+                    {titleError && <div className={`error ${styles.DiscussionsError}`}>Required</div>}
+                  </label>
 
                   <div className={styles.editor}>
-                    <label className={styles.editorLabel}>
+                    <label className={classnames(styles.editorLabel, { validationError: editorError })}>
                       <span>Type or Paste Your Content</span>
                       <RichTextEditor
                         editorValue={this.state.editorValue}
                         onChange={this.handleEditorChange}
                       />
+                      {editorError && <div className={`error ${styles.DiscussionsError}`}>Required</div>}
                     </label>
                   </div>
                 </div>
@@ -264,8 +314,8 @@ class NewDiscussionsThread extends Component {
                 Sorry, Cancel This.
               </Link>
               <button
-                type="submit"
                 className={`button btn-primary ${styles.DiscussionsInline}`}
+                onClick={submitThread}
               >
                 Submit New Thread
               </button>
@@ -292,12 +342,4 @@ const mapDispatchToProps = dispatch => (bindActionCreators({
   ...newThreadActions,
 }, dispatch));
 
-const threadValidation = createValidator({
-  threadTitle: [required],
-  threadContent: [required],
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({
-  form: 'new-thread',
-  validate: threadValidation,
-})(NewDiscussionsThread));
+export default connect(mapStateToProps, mapDispatchToProps)(NewDiscussionsThread);
