@@ -1,16 +1,30 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 import _ from 'lodash';
+import moment from 'moment-timezone';
 import CountdownTimer from './countdown-timer';
 import TelescopeImageLoader from '../../common/telescope-image-loader/telescope-image-loader';
 import VideoImageLoader from '../../common/telescope-image-loader/video-image-loader';
 import TelescopeOffline from './telescope-offline';
 import obsIdTeleIdDomeIdFromTeleId from '../../../utils/obsid-teleid-domeid-from-teleid';
 import style from './card-front.scss';
-import moment from 'moment';
 import generateSseImageSource from '../../../utils/generate-sse-image-source';
 
 const MISSION_READY_TELE_ACCESS_METHOD = 'missions';
+
+function validMissionExpireTime(unixStartTime, unixEndTime) {
+  const MAX_MINUTES_ALLOWABLE = 10;
+  const convertedTimestamp = unixStartTime * 1000;
+  const convertedServerTimestamp = unixEndTime * 1000;
+
+  const difference = moment(convertedTimestamp).diff(convertedServerTimestamp, 'minutes');
+
+  if (difference <= 0 || difference >= MAX_MINUTES_ALLOWABLE) {
+    return false;
+  }
+
+  return true;
+}
 
 class CardFront extends Component {
   renderVisitTelescopeButton(obsUniqueId, teleUniqueId) {
@@ -57,7 +71,7 @@ class CardFront extends Component {
     const { teleImageSourceType, teleId } = this.props;
     const idSet = obsIdTeleIdDomeIdFromTeleId(teleId);
 
-    if(teleImageSourceType === 'video') {
+    if (teleImageSourceType === 'video') {
       const {
         teleStreamCode,
         teleStreamURL,
@@ -65,17 +79,18 @@ class CardFront extends Component {
         teleStreamThumbnailVideoHeight,
         teleStreamThumbnailQuality } = this.props;
 
-      return(
+      return (
         <VideoImageLoader
           teleStreamCode={teleStreamCode}
           teleStreamURL={teleStreamURL}
           teleStreamThumbnailVideoWidth={teleStreamThumbnailVideoWidth}
           teleStreamThumbnailVideoHeight={teleStreamThumbnailVideoHeight}
           teleStreamThumbnailQuality={teleStreamThumbnailQuality}
-          clipped={true} />
+          clipped={true}
+        />
       );
-    } else if(teleImageSourceType === 'SSE') {
-      return(
+    } else if (teleImageSourceType === 'SSE') {
+      return (
         <TelescopeImageLoader
           loadThumbnails={true}
           imageSource={generateSseImageSource(teleSystem, telePort)}
@@ -145,7 +160,8 @@ class CardFront extends Component {
             this.props.telescopeOnline ?
               <div>
                 {
-                  this.isMissionReadyTelescope() ?
+                  this.isMissionReadyTelescope() &&
+                  validMissionExpireTime(cardContent.expires, cardContent.startTime) ?
                     <CountdownTimer
                       missionStartTime={cardContent.expires}
                     /> : null
@@ -162,12 +178,11 @@ class CardFront extends Component {
                   </h5>
                 </div>
               </div>
-
               :
-
               <TelescopeOffline
                 offlineImage={this.props.teleOfflineImgURL}
-                offlineStatusMessage={this.props.alertText} />
+                offlineStatusMessage={this.props.alertText}
+              />
 
           }
           <div className="sponsor">

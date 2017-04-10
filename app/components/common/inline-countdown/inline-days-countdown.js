@@ -21,6 +21,10 @@ const getRemaining = (expires, currentTime) => {
 }
 class InlineDaysCountdown extends Component {
 
+  static defaultProps = {
+    unixTimestamp: moment(),
+  }
+
   constructor(props) {
     super(props);
 
@@ -30,8 +34,8 @@ class InlineDaysCountdown extends Component {
   }
 
   componentDidMount() {
-    const { startTime } = this.props;
-    this.bootstrapTimer(startTime);
+    const { startTime, unixTimestamp } = this.props;
+    this.bootstrapTimer(startTime, unixTimestamp);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -48,9 +52,10 @@ class InlineDaysCountdown extends Component {
     }
   }
 
-  bootstrapTimer = (time) => {
+  bootstrapTimer = (time, unixTimestamp) => {
     const expires = moment(time * 1000);
-    const remaining = getRemaining(expires, moment());
+    let timestamp = moment(unixTimestamp);
+    const remaining = getRemaining(expires, timestamp);
 
     // set initial countdown
     this.setState({
@@ -63,17 +68,17 @@ class InlineDaysCountdown extends Component {
     // update countdown in 1 second intervals to keep it percise
     this.timer = setInterval(() => {
       const { exitAction } = this.props;
-      const currentTime = moment();
+      timestamp = moment(timestamp + 1000); // one second has elapsed
       if (
-        expires.isSame(currentTime) ||
-        expires.isBefore(currentTime)
+        expires.isSame(timestamp) ||
+        expires.isBefore(timestamp)
       ) {
         if (typeof exitAction === 'function') {
           exitAction({});
         }
         clearInterval(this.timer);
       } else {
-        const updatedRemaining = getRemaining(expires, currentTime);
+        const updatedRemaining = getRemaining(expires, timestamp);
         this.setState({
           countdown: `${formatDoubleDigit(updatedRemaining.days)}:${formatDoubleDigit(updatedRemaining.hours)}:${formatDoubleDigit(updatedRemaining.minutes)}`,
         });
@@ -92,6 +97,7 @@ class InlineDaysCountdown extends Component {
 }
 
 InlineDaysCountdown.propTypes = {
+  unixTimestamp: PropTypes.number,
   startTime: PropTypes.number, // works with unix timestamp
   exitAction: PropTypes.func, // called for you when timer expires
 };

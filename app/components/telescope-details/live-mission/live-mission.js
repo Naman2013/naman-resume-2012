@@ -4,13 +4,9 @@ import InlineCountdown from '../../common/inline-countdown/inline-countdown';
 import './live-mission.scss';
 
 class LiveMission extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      classes: []
-    };
-  };
+  state = {
+    classes: [],
+  }
 
   render() {
     const {
@@ -19,6 +15,7 @@ class LiveMission extends Component {
       missionLikeCount,
       expires,
       objectTitle,
+      objectIconURL,
       nextMissionAvailable,
       nextStart,
       nextTitle,
@@ -27,7 +24,10 @@ class LiveMission extends Component {
       ownerDisplayName,
       ownerMembershipType,
       ownerMemberSince,
-      ownerAvatarURL } = this.props;
+      ownerAvatarURL,
+      showSloohUser,
+      showUserDetails,
+     } = this.props;
 
     return (
       <div className="live-mission">
@@ -37,17 +37,30 @@ class LiveMission extends Component {
               <div>
                 <div className="header">
                   <h3 className="title">CURRENT LIVE MISSION:</h3>
-                  <p className="mission-title">{objectTitle}</p>
+                  <div className="current-mission-title">
+                    <img height="25" src={objectIconURL} />
+                    <p className="mission-title">{objectTitle}</p>
+                  </div>
                 </div>
 
-                <ByUserTag
-                  theme="dark"
-                  photo={ownerAvatarURL}
-                  name={ownerDisplayName}
-                  accountType={ownerMembershipType}
-                  memberSince={ownerMemberSince}
-                  location={ownerLocation}
-                />
+                {
+                  showSloohUser ?
+                    <div>
+                      <img alt="Slooh" height="50" src={ownerAvatarURL} />
+                    </div> : null
+                }
+
+                {
+                  showUserDetails ?
+                    <ByUserTag
+                      theme="dark"
+                      photo={ownerAvatarURL}
+                      name={ownerDisplayName}
+                      accountType={ownerMembershipType}
+                      memberSince={ownerMemberSince}
+                      location={ownerLocation}
+                    /> : null
+                }
 
                 {
                   missionObjective ?
@@ -66,10 +79,21 @@ class LiveMission extends Component {
           nextMissionAvailable ?
             <div className="footer">
               <p>NEXT MISSION:</p>
-              <div className="mission">
-                <img height="25" className="mission-icon" src={nextObjectIconURL} />
-                <p>{nextTitle}</p>
-                <span className="count-down">in <InlineCountdown startTime={expires} /></span>
+              <div className="mission clearfix">
+
+                <div className="col-xs-2">
+                  <img alt="" height="25" className="mission-icon" src={nextObjectIconURL} />
+                </div>
+
+                <div className="col-xs-7 nopadding">
+                  <p>
+                    {nextTitle}
+                  </p>
+                </div>
+
+                <div className="col-xs-3 push-right">
+                  <span className="count-down">in <InlineCountdown startTime={expires} /></span>
+                </div>
               </div>
             </div> : null
         }
@@ -86,6 +110,7 @@ LiveMission.propTypes = {
   expires: number.isRequired,
   objectTitle: string.isRequired,
   nextMissionAvailable: bool.isRequired,
+  objectIconURL: string.isRequired,
 
   nextStart: number.isRequired,
   nextTitle: string.isRequired,
@@ -96,6 +121,9 @@ LiveMission.propTypes = {
   ownerMembershipType: string.isRequired,
   ownerMemberSince: string.isRequired,
   ownerAvatarURL: string.isRequired,
+
+  showSloohUser: bool.isRequired,
+  showUserDetails: bool.isRequired,
 };
 
 export default LiveMission;

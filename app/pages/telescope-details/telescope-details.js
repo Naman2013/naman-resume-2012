@@ -70,6 +70,7 @@ class TelescopeDetails extends Component {
     this.state = {
       toggleNeoview: false,
       selectedTab: 0,
+      missionPercentageRemaining: 0,
     };
   }
 
@@ -80,11 +81,14 @@ class TelescopeDetails extends Component {
       'details',
     );
     this.props.actions.resetSnapshotList();
+
+    this.bootstrapMissionCompleteTicker();
   }
 
   componentWillUpdate(nextProps) {
     const { selectedTab } = this.state;
-    const { observatoryList, observatoryTelecopeStatus, params } = this.props;
+    const { activeTelescopeMissions, observatoryList, observatoryTelecopeStatus, params } = this.props;
+    const nextActiveTelescopeMissions = nextProps.activeTelescopeMissions;
     const { obsUniqueId, teleUniqueId } = params;
     const currentObservatory = getCurrentObservatory(observatoryList, obsUniqueId);
     const nextObservatory = getCurrentObservatory(observatoryList, nextProps.params.obsUniqueId);
@@ -94,11 +98,26 @@ class TelescopeDetails extends Component {
     this.props.actions.fetchObservatoryWebcam(nextObservatory);
 
     const currentTelescope = this.getCurrentTelescope(currentObservatory.obsTelescopes, teleUniqueId);
-    const { teleInstrumentList } = currentTelescope;
-
+    const { teleInstrumentList, teleId } = currentTelescope;
+    const currentTelescopeMissionData = activeTelescopeMissions.telescopes.find(telescope => telescope.telescopeId === teleId);
+    const nextTelescopeMissionData = nextActiveTelescopeMissions.telescopes.find(telescope => telescope.telescopeId === teleId);
     if (selectedTab > teleInstrumentList.length - 1) {
       this.handleSelect(0);
     }
+
+    /**
+      if we have different scheduledMissionId's then rebootstrap the ticker for tracking
+      the mission duration progress
+      */
+    if (currentTelescopeMissionData && nextTelescopeMissionData) {
+      if (currentTelescopeMissionData.missionList[0].scheduledMissionId !== nextTelescopeMissionData.missionList[0].scheduledMissionId) {
+        this.bootstrapMissionCompleteTicker();
+      }
+    }
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.missionProgressInterval);
   }
 
   handleSelect(index) {
@@ -125,7 +144,8 @@ class TelescopeDetails extends Component {
       instrSystem,
       instrDomeId,
       instrObsId,
-      instrTelescopeId } = currentInstrument;
+      instrTelescopeId,
+    } = currentInstrument;
 
     if (instrImageSourceType === 'SSE') {
       return (
@@ -158,8 +178,47 @@ class TelescopeDetails extends Component {
     return null;
   }
 
+  bootstrapMissionCompleteTicker() {
+    clearInterval(this.missionProgressInterval);
+
+    const { activeTelescopeMissions, observatoryList, params: { obsUniqueId, teleUniqueId } } = this.props;
+    const currentObservatory = getCurrentObservatory(observatoryList, obsUniqueId);
+    if (typeof currentObservatory !== 'undefined') {
+      const currentTelescope = this.getCurrentTelescope(currentObservatory.obsTelescopes, teleUniqueId);
+      const { teleId } = currentTelescope;
+      const currentTelescopeMissionData = activeTelescopeMissions.telescopes.find(telescope => telescope.telescopeId === teleId);
+
+      if (typeof currentTelescopeMissionData !== 'undefined') {
+        // total duration / remaining duration / percentage completed
+        this.trackedProgressTime = currentTelescopeMissionData.timestamp;
+        this.missionProgressInterval = setInterval(() => {
+          const { missionStart, expires } = currentTelescopeMissionData.missionList[0];
+
+          const missionDuration = expires - missionStart;
+          const timePassed = expires - this.trackedProgressTime;
+          let percentageTimeRemaining = (timePassed / missionDuration) * 100;
+
+          if (percentageTimeRemaining <= 0) {
+            percentageTimeRemaining = 0;
+          }
+
+          if (percentageTimeRemaining >= 100) {
+            percentageTimeRemaining = 100;
+            clearInterval(this.missionProgressInterval);
+          }
+
+          this.trackedProgressTime -= 1;
+
+          this.setState({
+            missionPercentageRemaining: percentageTimeRemaining,
+          });
+        }, 1000);
+      }
+    }
+  }
+
   render() {
-    const { selectedTab } = this.state;
+    const { selectedTab, missionPercentageRemaining } = this.state;
     const {
       observatoryList,
       observatoryTelecopeStatus,
@@ -167,6 +226,7 @@ class TelescopeDetails extends Component {
       activeTelescopeMissions,
       communityContent,
     } = this.props;
+
     const { obsUniqueId, teleUniqueId } = params;
 
     // TODO: Move this check into TelescopeSelection component
@@ -261,6 +321,7 @@ class TelescopeDetails extends Component {
                             port={currentTelescope.teleNeoPort}
                             teleSystem={currentTelescope.teleSystem}
                             showToggleOption={currentTelescope.teleOnlineStatus === 'online'}
+                            percentageMissionTimeRemaining={missionPercentageRemaining}
                           /> : null
                       }
 
@@ -272,7 +333,6 @@ class TelescopeDetails extends Component {
                   ))
                 }
               </Tabs>
-
               {
                 missionAvailable ?
                   <LiveStream
@@ -316,7 +376,6 @@ class TelescopeDetails extends Component {
             </div>
 
             <div className="col-md-4 telescope-details-sidebar">
-
               {
                 currentMission.missionAvailable || currentMission.nextMissionAvailable ?
                   <div>

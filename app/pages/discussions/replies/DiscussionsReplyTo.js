@@ -1,10 +1,10 @@
 import React, { Component, PropTypes } from 'react';
-import { Link, hashHistory } from 'react-router';
+import { Link } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { List } from 'immutable';
 import { connect } from 'react-redux';
-import { reduxForm } from 'redux-form';
 import _ from 'lodash';
+import classnames from 'classnames';
 import UploadImage from '../../../components/publish-post/upload-image';
 import { fetchThread } from '../../../modules/discussions-thread/actions';
 import { fetchTopicList } from '../../../modules/discussions-topics/actions';
@@ -23,6 +23,7 @@ class DiscussionsReplyTo extends Component {
     s3URLs: [],
     uploadError: null,
     editorValue: '',
+    editorError: false,
   };
 
   componentDidMount() {
@@ -95,17 +96,28 @@ class DiscussionsReplyTo extends Component {
   }
 
   submitReply = (e) => {
+    e.preventDefault();
     const { submitReply, routeParams: { threadId, topicId }, thread } = this.props;
     const { S3URLs, editorValue } = this.state;
-
-    submitReply({
-      topicId,
-      threadId,
-      title: thread.title,
-      content: editorValue,
-      S3URLs,
+    this.setState({
+      editorError: true,
     });
-    window.scrollTo(0, 0);
+
+    if (!editorValue) {
+      this.setState({
+        editorError: true,
+      });
+    } else {
+      submitReply({
+        topicId,
+        threadId,
+        title: thread.title,
+        content: editorValue,
+        S3URLs,
+      });
+
+      window.scrollTo(0, 0);
+    }
   }
 
   get currentTopic() {
@@ -115,7 +127,7 @@ class DiscussionsReplyTo extends Component {
   render() {
     const { currentTopic } = this;
     const { routeParams: { forumId, threadId, topicId }, forumName, submitting, replySubmitted, thread, handleSubmit } = this.props;
-    const { S3URLs, uploadError } = this.state;
+    const { S3URLs, uploadError, editorError } = this.state;
     return (<div className={styles.DiscussionsReply}>
       {submitting && <div className={styles.DiscussionsContent}>Submitting Reply...</div>}
       {replySubmitted && <div className={styles.DiscussionsContent}>
@@ -134,7 +146,7 @@ class DiscussionsReplyTo extends Component {
           </div>
         </header>
         <section className="discussions-container new clearfix">
-          <form name="new-reply" onSubmit={handleSubmit(this.submitReply)} className={styles.DiscussionReplyForm}>
+          <form name="new-reply" className={styles.DiscussionReplyForm}>
             <h4>Submit your reply to:</h4>
             <h4>Forum: <span dangerouslySetInnerHTML={{ __html: forumName}} /></h4>
             <h4>Topic: <span dangerouslySetInnerHTML={{ __html: currentTopic.title }} /></h4>
@@ -143,12 +155,13 @@ class DiscussionsReplyTo extends Component {
               <div className={styles.DiscussionsFormInputContainer}>
                 <span className={styles.number}>1</span>
                 <div className={styles.editor}>
-                  <label className={styles.editorLabel}>
+                  <label className={classnames(styles.editorLabel, { validationError: editorError })}>
                     <span>Paste or type your thread reply comments here:</span>
                     <RichTextEditor
                       editorValue={this.state.editorValue}
                       onChange={this.handleEditorChange}
                     />
+                  {editorError && <div className={`error ${styles.DiscussionsError}`}>Required</div>}
                   </label>
                 </div>
               </div>
@@ -168,6 +181,7 @@ class DiscussionsReplyTo extends Component {
                 Sorry, Cancel This.
               </Link>
               <button
+                onClick={this.submitReply}
                 className={`button btn-primary ${styles.DiscussionsInline}`}
                 type="submit"
               >
@@ -194,7 +208,6 @@ DiscussionsReplyTo.propTypes = {
   replySubmitted: bool.isRequired,
   submitting: bool.isRequired,
   user: object.isRequired,
-  handleSubmit: func.isRequired,
   topicList: instanceOf(List),
   forumName: string,
 };
@@ -224,7 +237,4 @@ const replyValidation = createValidator({
   replyContent: [required],
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({
-  form: 'new-reply',
-  validate: replyValidation,
-})(DiscussionsReplyTo));
+export default connect(mapStateToProps, mapDispatchToProps)(DiscussionsReplyTo);

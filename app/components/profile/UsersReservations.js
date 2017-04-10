@@ -5,7 +5,7 @@ import classnames from 'classnames';
 import InlineDaysCountdown from '../../components/common/inline-countdown/inline-days-countdown';
 import s from './UsersReservations.scss';
 
-const { array, func } = PropTypes;
+const { array, func, number } = PropTypes;
 const dateFormats = (unixTimestamp) => {
   const formattedUTCDate = new Date(unixTimestamp * 1000);
   return {
@@ -16,7 +16,7 @@ const dateFormats = (unixTimestamp) => {
   };
 };
 
-const UsersReservations = ({ reservationsList, refreshAction }) => {
+const UsersReservations = ({ reservationsList, refreshAction, unixTimestamp }) => {
   return (
     <div>
       {reservationsList.map((reservation) => {
@@ -96,7 +96,7 @@ const UsersReservations = ({ reservationsList, refreshAction }) => {
                       <span className="padding-none padding-left-med  border-left">M</span>
                     </div>
 
-                    <section className="dhm text-xxlarge"><InlineDaysCountdown startTime={reservation.expires} exitAction={refreshAction} /></section>
+                    <section className="dhm text-xxlarge"><InlineDaysCountdown unixTimestamp={unixTimestamp} startTime={reservation.expires} exitAction={refreshAction} /></section>
                   </div>}
                   {(reservation.showMissionResultIcon || reservation.showMissionInProgress) && <img className={s.missionIconXtraLarge} src={reservation.missionResultIconURL} />}
                 </div>
@@ -117,10 +117,12 @@ const UsersReservations = ({ reservationsList, refreshAction }) => {
 
 UsersReservations.defaultProps = {
   reservationsList: [],
+  unixTimestamp: moment(),
 };
 
 UsersReservations.propTypes = {
   reservationsList: array,
+  unixTimestamp: number,
   refreshAction: func.isRequired,
 };
 

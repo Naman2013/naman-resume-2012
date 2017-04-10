@@ -13,7 +13,10 @@ const SCIENCE_LOG = 'SCIENCE_LOG';
 const ART_CULTURE = 'ART_CULTURE';
 const HUMAN_SPIRIT = 'HUMAN_SPIRIT';
 const DIY = 'DIY';
-
+const getIconStyleInline = svgUrl => ({
+  maskImage: `url(${svgUrl})`,
+  WebkitMaskImage: `url(${svgUrl})`
+});
 const perspectiveCatagories = [
   {
     title: 'Science log',
@@ -138,8 +141,7 @@ class CommunityPerspectives extends Component {
                         href="#/"
                       >
                         <p className="title">{perspective.title}</p>
-                        <div className="icon">
-                          <img height="45" src={perspective.icon} alt="" />
+                        <div className={`icon ${navigationClasses}`} style={getIconStyleInline(perspective.icon)}>
                         </div>
                       </a>
                     </li>

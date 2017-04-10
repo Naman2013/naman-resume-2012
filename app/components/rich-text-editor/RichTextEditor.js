@@ -34,7 +34,8 @@ class RichTextEditor extends React.Component {
     this.setState({
       editorState,
     });
-    const threadContent = convertToHTML({
+    const content = editorState.getCurrentContent();
+    const threadContent = content.getPlainText().trim() && convertToHTML({
       blockToHTML: (block) => {
         if (block.text === '') {
           return <p><br/></p>;
@@ -46,8 +47,7 @@ class RichTextEditor extends React.Component {
         }
         return originalText;
       }
-    })(editorState.getCurrentContent());
-
+    })(content);
     onChange(threadContent);
   }
 

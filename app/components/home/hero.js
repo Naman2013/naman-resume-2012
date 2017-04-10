@@ -27,7 +27,7 @@ class Hero extends Component {
       // construct link for video event page
       `/shows/event-details/${heroEventId}`;
 
-    return(
+    return (
       <div
         style={heroContainerStyle}
         className="hero-container">
@@ -35,20 +35,23 @@ class Hero extends Component {
         <h2 className="title">{heroHeadline}</h2>
         <h3 className="sub-title">{heroSubheadline}</h3>
 
-        {/*<div className="fun-fact-container">*/}
-          {/*<figure>*/}
-            {/*{heroFactoidIconURL ? <img width="50" src={heroFactoidIconURL} /> : null}*/}
-            {/*{heroFactoidText ? <figcaption className="fun-fact-text">*/}
-              {/*<i>{heroFactoidText}</i>*/}
-            {/*</figcaption> : null}*/}
-          {/*</figure>*/}
-        {/*</div>*/}
+        <div className="fun-fact-container">
+          <figure>
+            {heroFactoidIconURL ? <img width="50" src={heroFactoidIconURL} /> : null}
+            {heroFactoidText ? <figcaption className="fun-fact-text">
+              <i>{heroFactoidText}</i>
+            </figcaption> : null}
+          </figure>
+        </div>
 
-        {/*<div className="call-to-action">*/}
-          {/*<a className="action" href={buttonUrl}>*/}
-            {/*{heroButtonText}*/}
-          {/*</a>*/}
-        {/*</div>*/}
+        <div className="call-to-action">
+          {
+            buttonUrl ?
+              <a className="action" href={buttonUrl}>
+                {heroButtonText}
+              </a> : <div style={{width: '100px', height: '100px'}} />
+          }
+        </div>
 
         <ScrollForMore />
       </div>

@@ -26,10 +26,25 @@ $infoSpacing: 15px;
 
 }
 
+.DiscussionsError {
+  color: $red;
+}
+
+.DiscussionsInput, .DraftEditor-root {
+    border: 1px solid $black;
+}
+
+.validationError {
+  .DiscussionsInput, .DraftEditor-root {
+      border: 1px solid $red;
+  }
+}
+
+
 .discussionsImages {
   display: block;
   margin: 15px $profilePhotoOffset;
-  max-width: 80%;
+  width: 100%;
 }
 
 .discussionsTitle {
