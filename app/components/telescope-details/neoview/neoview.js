@@ -38,7 +38,7 @@ export default class Neoview extends React.Component {
 
   handleNeoMessages(data) {
     const messages = this.state.messages;
-    const message = JSON.parse(data); data.split('|');
+    const message = JSON.parse(data);
     const notHeartbeat = message.messageType !== 'HEARTBEAT';
     if (notHeartbeat) {
       this.setState({
@@ -49,7 +49,7 @@ export default class Neoview extends React.Component {
   }
 
   generateNeoSource(port, scope) {
-    return `/dev-sse/${port}/sse/${scope}`
+    return `/dev-sse/${port}/sse/${scope}`;
   }
 
   /**

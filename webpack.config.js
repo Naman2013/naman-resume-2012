@@ -131,7 +131,7 @@ module.exports = {
     recordsPath: path.resolve('/'),
     proxy: {
       '/api/**': {
-        target: 'https://saturn.slooh.com:444',
+        target: 'https://mars.slooh.com:444',
         changeOrigin: true,
         secure: true,
       },
@@ -146,11 +146,23 @@ module.exports = {
         secure: true,
         pathRewrite: { '/:3004/': '' },
       },
-      '/:3101/**': {
-        target: 'https://mars.slooh.com:3101',
+      '/:3007/**': {
+        target: 'https://mars.slooh.com:3007',
         changeOrigin: true,
         secure: true,
-        pathRewrite: { '/:3101/': '' },
+        pathRewrite: { '/:3007/': '' },
+      },
+      '/:3007/**': {
+        target: 'https://mars.slooh.com:3007',
+        changeOrigin: true,
+        secure: true,
+        pathRewrite: { '/:3007/': '' },
+      },
+      '/:3107/**': {
+        target: 'https://mars.slooh.com:3107',
+        changeOrigin: true,
+        secure: true,
+        pathRewrite: { '/:3107/': '' },
       },
       '/:3002/**': {
         target: 'https://mars.slooh.com:3002',

@@ -110,7 +110,7 @@ class TelescopeDetails extends Component {
       the mission duration progress
       */
     if (currentTelescopeMissionData && nextTelescopeMissionData) {
-      if (currentTelescopeMissionData.missionList[0].scheduledMissionId !== nextTelescopeMissionData.missionList[0].scheduledMissionId) {
+      if (!this.missionProgressInterval || currentTelescopeMissionData.activeMission.full.missionList[0].scheduledMissionId !== nextTelescopeMissionData.activeMission.full.missionList[0].scheduledMissionId) {
         this.bootstrapMissionCompleteTicker();
       }
     }
@@ -190,10 +190,9 @@ class TelescopeDetails extends Component {
 
       if (typeof currentTelescopeMissionData !== 'undefined') {
         // total duration / remaining duration / percentage completed
-        this.trackedProgressTime = currentTelescopeMissionData.timestamp;
+        this.trackedProgressTime = currentTelescopeMissionData.activeMission.full.timestamp;
         this.missionProgressInterval = setInterval(() => {
-          const { missionStart, expires } = currentTelescopeMissionData.missionList[0];
-
+          const { missionStart, expires } = currentTelescopeMissionData.activeMission.full.missionList[0];
           const missionDuration = expires - missionStart;
           const timePassed = expires - this.trackedProgressTime;
           let percentageTimeRemaining = (timePassed / missionDuration) * 100;
@@ -305,7 +304,6 @@ class TelescopeDetails extends Component {
                     ))
                   }
                 </TabList>
-
                 {
                   teleInstrumentList.map(instrument => (
                     <TabPanel key={instrument.instrPort}>
@@ -321,7 +319,7 @@ class TelescopeDetails extends Component {
                             port={currentTelescope.teleNeoPort}
                             teleSystem={currentTelescope.teleSystem}
                             showToggleOption={currentTelescope.teleOnlineStatus === 'online'}
-                            percentageMissionTimeRemaining={missionPercentageRemaining}
+                            percentageMissionTimeRemaining={100}
                           /> : null
                       }
 
@@ -333,6 +331,7 @@ class TelescopeDetails extends Component {
                   ))
                 }
               </Tabs>
+
               {
                 missionAvailable ?
                   <LiveStream
@@ -343,7 +342,7 @@ class TelescopeDetails extends Component {
               <Spacer height="50px" />
 
               {
-                communityContent.length > 0 ?
+                (communityContent && communityContent.length > 0) ?
                   <div>
                     <PromoMessageBanner
                       title="Community Perspectives"
@@ -356,11 +355,9 @@ class TelescopeDetails extends Component {
               }
 
               <LiveWebcam />
-
               {
                 /**
                 coming soon...
-
                 <WeatherConditions
                   tabs={[
                     { title: 'Conditions', src: 'assets/images/graphics/weather-placeholder.jpg' },
@@ -385,7 +382,7 @@ class TelescopeDetails extends Component {
 
                     <TelescopeAllSky
                       obsId={currentObservatory.obsId}
-                      AllskyWidgetId={currentObservatory.AllskyWidgetId}
+                      AllskyWidgetId={currentObservatory.SkyChartWidgetId}
                       scheduledMissionId={currentMission.scheduledMissionId}
                     />
                   </div>

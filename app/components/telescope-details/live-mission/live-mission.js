@@ -45,8 +45,8 @@ class LiveMission extends Component {
 
                 {
                   showSloohUser ?
-                    <div>
-                      <img alt="Slooh" height="50" src={ownerAvatarURL} />
+                    <div style={{ marginBottom: '20px' }}>
+                      <img alt="Slooh" height="30" src={ownerAvatarURL} />
                     </div> : null
                 }
 
