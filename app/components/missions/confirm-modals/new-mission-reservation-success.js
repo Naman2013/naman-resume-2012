@@ -1,9 +1,54 @@
 import React, { Component, PropTypes } from 'react';
 import moment from 'moment-timezone';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
+import { missionGetCards } from '../../../modules/Missions';
+import { refreshListings } from '../../../modules/grab-telescope-slot/actions';
+import { resetBrowseByPopularObjects } from '../../../modules/browse-popular-objects/actions';
 
 import styles from '../mission-modals.scss';
 
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators({
+    missionGetCards,
+    refreshListings,
+    resetBrowseByPopularObjects,
+  }, dispatch),
+});
+
+@connect(null, mapDispatchToProps)
 class NewMissionReservationSuccess extends Component {
+  static propTypes = {
+    closeModal: PropTypes.func.isRequired,
+    missionStartTime: PropTypes.number.isRequired,
+    missionTitle: PropTypes.string.isRequired,
+    objectIconURL: PropTypes.string.isRequired,
+    telescopeName: PropTypes.string.isRequired,
+    callSource: PropTypes.string.isRequired,
+  }
+
+  flushReservationProcess = (event) => {
+    event.preventDefault();
+
+    // depending on the callsource, run the appropriate background actions
+    const { callSource } = this.props;
+
+    if (callSource === 'byTelescope') {
+      this.props.actions.refreshListings();
+    }
+
+    if (callSource === 'recommends') {
+      this.props.actions.missionGetCards();
+    }
+
+    if (callSource === 'byPopularObjects') {
+      this.props.actions.resetBrowseByPopularObjects();
+    }
+
+    this.props.closeModal();
+  }
+
   render() {
     const {
       closeModal,
@@ -46,7 +91,7 @@ class NewMissionReservationSuccess extends Component {
 
         <div className="modal-footer">
           <div className="button-row">
-            <button className="btn-primary" onClick={closeModal}>Got It, Thanks.</button>
+            <button className="btn-primary" onClick={this.flushReservationProcess}>Got It, Thanks.</button>
           </div>
 
           {
@@ -72,13 +117,5 @@ class NewMissionReservationSuccess extends Component {
     );
   }
 }
-
-NewMissionReservationSuccess.propTypes = {
-  closeModal: PropTypes.func.isRequired,
-  missionStartTime: PropTypes.number.isRequired,
-  missionTitle: PropTypes.string.isRequired,
-  objectIconURL: PropTypes.string.isRequired,
-  telescopeName: PropTypes.string.isRequired,
-};
 
 export default NewMissionReservationSuccess;

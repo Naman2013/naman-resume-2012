@@ -3,21 +3,21 @@ import style from './AboutRoadTripEvent.scss';
 
 const hosts = [
   {
-    firstName: 'Michael',
-    lastName: 'Paolucci',
-    photoUrl: '/assets/images/roadtrip-lander/host1.jpeg',
+    firstName: 'Gerry',
+    lastName: 'Monteux',
+    photoUrl: 'assets/images/roadtrip-lander/host1.jpeg',
   }, {
     firstName: 'Paul',
     lastName: 'Cox',
-    photoUrl: '/assets/images/roadtrip-lander/host2.jpeg',
-  }, {
-    firstName: 'Jerry',
-    lastName: 'Lastname',
-    photoUrl: '/assets/images/roadtrip-lander/host3.jpeg',
+    photoUrl: 'assets/images/roadtrip-lander/host2.jpeg',
   }, {
     firstName: 'Eric',
-    lastName: 'Lastname',
-    photoUrl: '/assets/images/roadtrip-lander/host4.jpeg',
+    lastName: 'Edelman',
+    photoUrl: 'assets/images/roadtrip-lander/host3.jpeg',
+  }, {
+    firstName: 'Helen',
+    lastName: 'Avery',
+    photoUrl: 'assets/images/roadtrip-lander/host4.jpeg',
   },
 ];
 
@@ -58,7 +58,6 @@ function AboutRoadTripEvent() {
                           <span>{host.firstName}</span>
                           <span>{host.lastName}</span>
                         </div>
-                        <a href="#" className={style.link}>View Bio</a>
                       </div>
                     </li>
                   );

@@ -22,14 +22,24 @@ function EventDescription() {
               <div className={style.dataItemContent}>
                 Fri. August 18 - Tues. August 22 Starting 11:00 AM PST
               </div>
-              <button className={style.dataItemBtn}>Add to Calendar</button>
+              {
+                /**
+                <button className={style.dataItemBtn}>Add to Calendar</button>
+                */
+              }
             </div>
             <div className={style.place}>
               <div className={style.dataItemHeader}>Location:</div>
               <div className={style.dataItemContent}>
                 The Elk Creek Campground Clearweater National Park, Forest Rd 3311, Elk River, ID 83827
               </div>
-              <button className={style.dataItemBtn}>View Map</button></div>
+
+              {
+                /**
+                  <button className={style.dataItemBtn}>View Map</button>
+                */
+              }
+              </div>
           </div>
         </div>
       </div>

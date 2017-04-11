@@ -12,10 +12,10 @@ function SloohRoadTrips() {
             Road Trips
           </div>
           <div className={style.description}>
-            Nam dapibus nisl vitae elit fringilla rutrum. Aenean sollicitudin, erat a elementum rutrum, neque sem pretium metus, quis mollis nisl nunc et massa. Vestibulum sed metus in lorem tristique ullamcorper id vitae erat. Nulla mollis sapien sollicitudin lacinia lacinia.
+            For years we've been on expeditions to Kenya, Nigeria, the Faroe Islands, Iceland, Indonesia, Australia, Chile and Alaska with our mobile observatory to witness the most compelling moments in space. Now we're taking you with us. Introducing Slooh Road Trips.
           </div>
-          <div className={style.actionBtn}>
-            Learn More
+          <div style={{marginTop: '20px'}}>
+            <a style={{color: '#fff'}} href="/#/shows/event-details/393" className={style.actionBtn}>Learn More</a>
           </div>
         </div>
       </div>
