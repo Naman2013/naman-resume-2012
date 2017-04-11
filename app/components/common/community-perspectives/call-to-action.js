@@ -7,10 +7,6 @@ class CallToAction extends Component {
     return (
       <div className={s.CallToAction}>
         <h1>Nothing here yet...  Create something new!</h1>
-        <hr className={s.Divider} />
-        <Link className="button btn-primary" to="/publish-post">
-          Contribute Content
-        </Link>
       </div>
     );
   }
