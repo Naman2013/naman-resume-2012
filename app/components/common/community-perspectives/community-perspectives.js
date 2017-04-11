@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 import classnames from 'classnames';
 import Slider from 'react-slick';
+import _ from 'lodash';
 import CommunityPost from './community-post';
 import CallToAction from './call-to-action';
 import Spacer from './../../common/spacer';
@@ -51,20 +52,35 @@ class CommunityPerspectives extends Component {
     this.state = {
       activeCatagory: SCIENCE_LOG,
     };
-    this.handleNavigationClick = this.handleNavigationClick.bind(this);
   }
 
-  handleNavigationClick(event, activeCatagory) {
+  componentWillReceiveProps(nextProps) {
+    if (this.props.communityContent.length !== nextProps.communityContent.length) { // communityContent has loaded
+      const perspectiveCategory = _.find(
+        perspectiveCatagories,
+        c => (this.filterPosts(nextProps.communityContent, c.catagory).length > 0)
+      );
+
+      if (perspectiveCategory) {
+        this.setState({
+          activeCatagory: perspectiveCategory.catagory,
+        });
+      }
+    }
+  }
+
+  handleNavigationClick = (event, activeCatagory) => {
     event.preventDefault();
     this.setState({
       activeCatagory,
     });
   }
 
-  filterPosts(posts = []) {
+  filterPosts(posts = [], category) {
     const { activeCatagory } = this.state;
+    const active = category || activeCatagory;
     const matchContentKey =
-      perspectiveCatagories.find(profile => profile.catagory === activeCatagory).contentKey;
+      perspectiveCatagories.find(profile => profile.catagory === active).contentKey;
     return posts.filter(post => post.type === matchContentKey);
   }
 

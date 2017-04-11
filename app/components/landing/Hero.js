@@ -10,7 +10,7 @@ function Hero() {
         <span>Road Trip</span>
         <span className={style.sideLines}>Slooh Road Trips</span>
       </div>
-      <div className={style.actionBtn}>Register Comming Soon</div>
+      <div className={style.actionBtn}>Register Coming Soon</div>
     </div>
   );
 }

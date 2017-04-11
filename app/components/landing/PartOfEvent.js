@@ -18,8 +18,12 @@ function PartOfEvent() {
               In keeping with its mission, Slooh will set the stage for the community to step forward and offer their own visions of the eclipse. We are open to the spiritual, the artistic, the imaginative, along with the scientific, just as members express themselves on the website every day together looking up at space through Slooh’s global network of telescopes.
             </div>
             <div className={style.btnGroup}>
-              <button className={style.actionBtn}>Apply Now</button>
-              <button className={`${style.actionBtn} ${style.inverse}`}>Terms & Conditions</button>
+              {
+                /**
+                  <button className={style.actionBtn}>Apply Now</button>
+                  <button className={`${style.actionBtn} ${style.inverse}`}>Terms & Conditions</button>
+                */
+              }
             </div>
           </div>
         </div>

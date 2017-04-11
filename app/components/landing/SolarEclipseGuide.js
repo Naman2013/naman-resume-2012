@@ -5,11 +5,6 @@ const sponsors = [
   '/assets/images/roadtrip-lander/sponsor-rmr.png',
   '/assets/images/roadtrip-lander/sponsor-redit.png',
   '/assets/images/roadtrip-lander/sponsor-stanley.png',
-  '/assets/images/roadtrip-lander/sponsor-rmr.png',
-  '/assets/images/roadtrip-lander/sponsor-redit.png',
-  '/assets/images/roadtrip-lander/sponsor-stanley.png',
-  '/assets/images/roadtrip-lander/sponsor-rmr.png',
-  '/assets/images/roadtrip-lander/sponsor-redit.png',
 ];
 
 function SolarEclipseGuide() {
@@ -31,7 +26,7 @@ function SolarEclipseGuide() {
       </div>*/}
       <div className={style.sponsorsContainer}>
         <div className={style.sponsorsHeader}>
-          Our Sponsors
+          Our Partners
         </div>
         <ul className={style.sponsors}>
           {sponsors.map((sponsor, i) => {

@@ -6,8 +6,6 @@ import moment from 'moment-timezone';
 import _ from 'lodash';
 
 import { cancelMissionSlot, reserveMissionSlot, updateReservation, missionGetCards } from '../../../modules/Missions';
-import { refreshListings } from '../../../modules/grab-telescope-slot/actions';
-import { resetBrowseByPopularObjects } from '../../../modules/browse-popular-objects/actions';
 import { setTags, resetClientTagData } from '../../../modules/tag-management/Tags';
 import MissionTags from '../../common/tags/mission-tags';
 import NewMissionReservationSuccess from './new-mission-reservation-success';
@@ -26,11 +24,9 @@ const mapDispatchToProps = dispatch => ({
     cancelMissionSlot,
     reserveMissionSlot,
     updateReservation,
-    missionGetCards,
     setTags,
     resetClientTagData,
-    refreshListings,
-    resetBrowseByPopularObjects,
+    missionGetCards,
   }, dispatch),
 });
 
@@ -72,7 +68,7 @@ class ReserveConfirm extends Component {
         ...currentMission, // allowing the currentMission to overwrite the callSource
         objective,
         objectTitle: currentMission.title,
-      }).then(this.flushReservationProcess(callSource));
+      });
     } else {
       // make a new reservation
       this.props.actions.reserveMissionSlot({
@@ -80,22 +76,7 @@ class ReserveConfirm extends Component {
         ...currentMission, // allowing the currentMission to overwrite the callSource
         objective,
         objectTitle: currentMission.title,
-      }).then(this.flushReservationProcess(callSource));
-    }
-  }
-
-  flushReservationProcess(callSource) {
-    // depending on the callsource, run the appropriate background actions
-    if (callSource === 'byTelescope') {
-      this.props.actions.refreshListings();
-    }
-
-    if (callSource === 'recommends') {
-      this.props.actions.missionGetCards();
-    }
-
-    if (callSource === 'byPopularObjects') {
-      this.props.actions.resetBrowseByPopularObjects();
+      });
     }
   }
 
@@ -103,8 +84,9 @@ class ReserveConfirm extends Component {
     const { currentMissionSlot } = this.props;
     const {
       scheduledMissionId,
-      uniqueId
+      uniqueId,
     } = currentMissionSlot.missionList[0];
+
     const { callSource } = currentMissionSlot;
 
     this.props.actions.cancelMissionSlot({
@@ -139,6 +121,7 @@ class ReserveConfirm extends Component {
   */
   handleMissionReservationResponse() {
     const { currentMissionSlot, previousMissionSlotReservation, closeModal } = this.props;
+    const { callSource } = currentMissionSlot;
     const { apiError, errorCode, missionCount } = previousMissionSlotReservation;
     if (apiError || missionCount === 0) {
       return (
@@ -152,10 +135,8 @@ class ReserveConfirm extends Component {
     const {
       explanation,
       missionAvailable,
-      missionStart,
-      title,
-      objectIconURL,
-      tip } = missionData;
+      tip,
+    } = missionData;
 
     /**
       fetching bits of the mission information from the currentMissionSlot that are missing from
@@ -163,8 +144,8 @@ class ReserveConfirm extends Component {
     */
     const { telescopeName } = currentMissionSlot.missionList[0];
 
-    if(!missionAvailable) {
-      return(
+    if (!missionAvailable) {
+      return (
         <ReservationError
           errorCode={errorCode}
           message={explanation}
@@ -173,7 +154,7 @@ class ReserveConfirm extends Component {
       );
     }
 
-    return(
+    return (
       <NewMissionReservationSuccess
         closeModal={closeModal}
         missionStartTime={missionData.missionStart}
@@ -181,6 +162,7 @@ class ReserveConfirm extends Component {
         objectIconURL={missionData.objectIconURL}
         telescopeName={telescopeName}
         tip={tip}
+        callSource={callSource}
       />
     );
   }
@@ -263,7 +245,7 @@ class ReserveConfirm extends Component {
     );
   }
 
-  render () {
+  render() {
     const { open, currentMissionSlot } = this.props;
 
     // validate whether or not we have a mission slot ready to render
@@ -273,7 +255,7 @@ class ReserveConfirm extends Component {
       <Modal show={open} className="missionModal reserveMissionModal">
         { this.renderModalContent() }
       </Modal>
-    )
+    );
   }
 }
 
