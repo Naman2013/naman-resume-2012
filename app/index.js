@@ -2,6 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { Router, Route, IndexRoute, IndexRedirect, hashHistory } from 'react-router';
+
+// polyfills
+import 'eventsource/lib/eventsource-polyfill';
+
 import configureStore from './store';
 import { checkUser } from './modules/User';
 import { deactivateMenu } from './modules/menu/actions';

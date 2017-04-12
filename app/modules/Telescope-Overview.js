@@ -24,6 +24,8 @@ const OBSERVATORY_WEBCAM_SUCCESS = 'OBSERVATORY_WEBCAM_SUCCESS';
 const SET_IMAGE_DATA_TO_SNAPSHOT = 'SET_IMAGE_DATA_TO_SNAPSHOT';
 const SNAP_IMAGE_START = 'SNAP_IMAGE_START';
 const SNAP_IMAGE_SUCCESS = 'SNAP_IMAGE_SUCCESS';
+const SNAP_IMAGE_FAIL = 'SNAP_IMAGE_FAIL';
+const RESET_SNAP_IMAGE_MESSAGE = 'RESET_SNAP_IMAGE_MESSAGE';
 const RESET_SNAPSHOT_LIST = 'RESET_SNAPSHOT_LIST';
 
 const RESET_IMAGE_TO_SNAP = 'RESET_IMAGE_TO_SNAP';
@@ -98,7 +100,7 @@ export const getObservatoryList = (currentObservatoryId, callSource) => (dispatc
 
 const fetchMoonPhase = observatory => (dispatch, getState) => {
   const { token, at, cid } = getState().user;
-  if (observatory) {
+  if (observatory && observatory.MoonPhaseWidgetId) { // only make call if /api/obs/list response has MoonPhaseWidgetId defined
     return axios.post('/api/moon/phase', {
       token,
       at,
@@ -115,7 +117,7 @@ const fetchMoonPhase = observatory => (dispatch, getState) => {
 
 const fetchSmallSatelliteView = observatory => (dispatch, getState) => {
   const { token, at, cid } = getState().user;
-  if (observatory) {
+  if (observatory && observatory.SatelliteWidgetId) {  // only make call if /api/obs/list response has SatelliteWidgetId defined
     return axios.post('/api/wx/satellite', {
       token,
       at,
@@ -212,6 +214,15 @@ const snapImageSuccess = imageData => ({
   imageData,
 });
 
+const snapImageFail = error => ({
+  type: SNAP_IMAGE_FAIL,
+  error,
+});
+
+export const resetsnapImageMsg = () => ({
+  type: RESET_SNAP_IMAGE_MESSAGE,
+});
+
 export const resetImageToSnap = () => ({
   type: RESET_IMAGE_TO_SNAP,
 });
@@ -224,7 +235,6 @@ export const snapImage = () => (dispatch, getState) => {
 
   dispatch(snapImageStart());
   const { callSource, imageURL, imageID } = imageDataToSnapshot;
-
   if (callSource && imageURL && imageID) {
     return axios.post('/api/images/snapImage', {
       token,
@@ -233,7 +243,9 @@ export const snapImage = () => (dispatch, getState) => {
       ...imageDataToSnapshot,
     }).then((result) => {
       if (!result.data.apiError) {
-        dispatch(snapImageSuccess(imageDataToSnapshot));
+        dispatch(snapImageSuccess(Object.assign({ explanation: result.data.explanation }, imageDataToSnapshot)));
+      } else {
+        dispatch(snapImageFail(result.data));
       }
     });
   }
@@ -292,6 +304,7 @@ const initialState = {
     imageURL: '',
     imageID: '',
   },
+  snapshotMsg: '',
   snapshotList: [{}, {}, {}],
 };
 
@@ -371,10 +384,23 @@ export default createReducer(initialState, {
       },
     };
   },
-  [SNAP_IMAGE_SUCCESS](state, { imageData: { imageURL, imageID } }) {
+  [SNAP_IMAGE_SUCCESS](state, { imageData: { imageURL, imageID, explanation } }) {
     return {
       ...state,
       snapshotList: [{ imageURL, imageID }, ...state.snapshotList].slice(0, 3),
+      snapshotMsg: explanation,
+    };
+  },
+  [SNAP_IMAGE_FAIL](state, { error }) {
+    return {
+      ...state,
+      snapshotMsg: error.explanation,
+    };
+  },
+  [RESET_SNAP_IMAGE_MESSAGE](state) {
+    return {
+      ...state,
+      snapshotMsg: '',
     };
   },
   [RESET_SNAPSHOT_LIST](state) {

@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import Lightbox from 'react-images';
 import classnames from 'classnames';
+import { uniqueId } from 'lodash';
 import RefreshedImage from './RefreshedImage';
 import Offline from './Offline';
 import s from './AllSkyCamera.scss';
@@ -43,7 +44,7 @@ export default class AllSkyCamera extends Component {
   }
 
   render() {
-    const { offlineImageURL, onlineStatus } = this.props;
+    const { offlineImageURL, onlineStatus, refreshIntervalSec } = this.props;
     const { isLightboxOpen, hideOpenLightbox } = this.state;
 
     const buttonClassnames = classnames(s.openModalAction, {
@@ -59,7 +60,7 @@ export default class AllSkyCamera extends Component {
         >
           <RefreshedImage
             imageURL={this.props.allSkyCamURL}
-            refreshIntervalSec={this.props.refreshIntervalSec}
+            refreshIntervalSec={refreshIntervalSec}
             imageAltText="All sky camera"
           />
 
@@ -71,7 +72,7 @@ export default class AllSkyCamera extends Component {
           </button>
 
           <Lightbox
-            images={[{ src: this.props.allSkyCamURL }]}
+            images={[{ src: `${this.props.allSkyCamURL}?cb=${uniqueId()}` }]}
             isOpen={isLightboxOpen}
             onClose={this.closeLightbox}
             backdropClosesModal={true}

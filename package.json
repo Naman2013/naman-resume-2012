@@ -25,6 +25,7 @@
     "draft-convert": "^1.4.3",
     "draft-js": "^0.10.0",
     "draft-js-export-html": "^0.5.2",
+    "eventsource": "^0.2.2",
     "immutable": "^3.8.1",
     "lodash": "^4.16.4",
     "moment": "^2.14.1",

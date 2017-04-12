@@ -6,7 +6,10 @@ import {
     UPDATE_TELESCOPE_MISSION_COMPACT_START,
     UPDATE_TELESCOPE_MISSION_COMPACT_SUCCESS,
     UPDATE_TELESCOPE_MISSION_COMPACT_FAIL,
-    COMMIT_ACTIVE_MISSION_CHANGE } from './active-telescope-missions-actions';
+    COMMIT_ACTIVE_MISSION_CHANGE,
+    UPDATE_ACTIVE_TELESCOPE_MISSION_ID,
+    RESET_ACTIVE_TELESCOPE_MISSION_ID,
+   } from './active-telescope-missions-actions';
 
 /**
 example of state architecture
@@ -31,11 +34,24 @@ const initialState = {
 */
 
 const initialState = {
+  activeTelescopeMissionID: null,
   error: false,
   telescopes: [],
 };
 
 export default createReducer(initialState, {
+  [UPDATE_ACTIVE_TELESCOPE_MISSION_ID](state, { payload }) {
+    return {
+      ...state,
+      activeTelescopeMissionID: payload,
+    };
+  },
+  [RESET_ACTIVE_TELESCOPE_MISSION_ID](state) {
+    return {
+      ...state,
+      activeTelescopeMissionID: null,
+    };
+  },
   [COMMIT_ACTIVE_MISSION_CHANGE](state, { payload }) {
     return {
       ...state,

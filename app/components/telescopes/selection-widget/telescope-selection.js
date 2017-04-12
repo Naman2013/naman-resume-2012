@@ -53,7 +53,7 @@ class TelescopeSelection extends Component {
   renderDescription(activeTelescope, hoveredTelescope) {
     const telescope = hoveredTelescope || activeTelescope;
     return (
-      <div>
+      <div className="description">
         {!hoveredTelescope || telescope.teleId === activeTelescope.teleId ? 'You are on ' : null}
         <strong>{telescope.teleName}.</strong> {telescope.teleTelescopeUsage}
       </div>
@@ -139,13 +139,8 @@ class TelescopeSelection extends Component {
             </ul>
 
           </div>
-
-        </div>
-
-        <div className="description">
           {this.renderDescription(activeTelescope, hoveredTelescope)}
         </div>
-
       </div>
     );
   }

@@ -81,8 +81,6 @@ class TelescopeDetails extends Component {
       'details',
     );
     this.props.actions.resetSnapshotList();
-
-    this.bootstrapMissionCompleteTicker();
   }
 
   componentWillUpdate(nextProps) {
@@ -103,16 +101,6 @@ class TelescopeDetails extends Component {
     const nextTelescopeMissionData = nextActiveTelescopeMissions.telescopes.find(telescope => telescope.telescopeId === teleId);
     if (selectedTab > teleInstrumentList.length - 1) {
       this.handleSelect(0);
-    }
-
-    /**
-      if we have different scheduledMissionId's then rebootstrap the ticker for tracking
-      the mission duration progress
-      */
-    if (currentTelescopeMissionData && nextTelescopeMissionData) {
-      if (!this.missionProgressInterval || currentTelescopeMissionData.activeMission.full.missionList[0].scheduledMissionId !== nextTelescopeMissionData.activeMission.full.missionList[0].scheduledMissionId) {
-        this.bootstrapMissionCompleteTicker();
-      }
     }
   }
 
@@ -178,6 +166,7 @@ class TelescopeDetails extends Component {
     return null;
   }
 
+  // TODO: rethink how we work with progressing the timer bar...
   bootstrapMissionCompleteTicker() {
     clearInterval(this.missionProgressInterval);
 

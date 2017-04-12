@@ -66,7 +66,7 @@ export default class Neoview extends React.Component {
 
   render() {
     const { percentageMissionTimeRemaining } = this.props;
-    // console.log(percentageMissionTimeRemaining);
+
     return (
       <div className="neoview-container">
         <div className={`neoview-wrapper ${this.state.toggleNeoview ? 'visible' : 'hidden'}`}>
@@ -74,7 +74,7 @@ export default class Neoview extends React.Component {
             return (
               <div className="neo-message" key={index}>
                 <div className="col-md-4 neo-message-time">{`${msg[0]} `}</div>
-                <div className="col-md-8 neo-message-text">{msg[1]}</div>
+                <div className="col-md-8 neo-message-text">{ msg[1] ? msg[1] : '' }</div>
               </div>
             );
           })}
@@ -85,17 +85,23 @@ export default class Neoview extends React.Component {
           <Progress completed={percentageMissionTimeRemaining} color="#589A9A" height="35px" />
 
           <p className="short">
-            LIVE {this.state.latestMassege}
+            {this.state.latestMassege}
           </p>
-          <div className="toggle-description" onClick={this.handleToggleNeoview.bind(this)}>
-            {(() => {
-              if (this.props.showToggleOption && this.state.toggleNeoview) {
-                return <i className="fa fa-angle-down"></i>
-              } else {
-                return <i className="fa fa-angle-up"></i>
-              }
-            })()}
-          </div>
+          {
+            /**
+              TODO: bring this back...  it toggles the neoview layover display
+              it had been broken at some point and needs to be revisited
+              <div className="toggle-description" onClick={this.handleToggleNeoview.bind(this)}>
+                {(() => {
+                  if (this.props.showToggleOption && this.state.toggleNeoview) {
+                    return <i className="fa fa-angle-down"></i>
+                  } else {
+                    return <i className="fa fa-angle-up"></i>
+                  }
+                })()}
+              </div>
+            */
+          }
         </div>
 
       </div>

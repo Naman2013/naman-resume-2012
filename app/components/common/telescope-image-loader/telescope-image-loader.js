@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { updateTelescopeActiveMission } from '../../../modules/active-telescope-missions/active-telescope-missions-actions';
+import { updateTelescopeActiveMission, setActiveTelescopeMissionID } from '../../../modules/active-telescope-missions/active-telescope-missions-actions';
 import { setImageDataToSnapshot } from '../../../modules/Telescope-Overview';
 import styles from './telescope-image-loader.scss';
 
@@ -9,10 +9,16 @@ const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
     updateTelescopeActiveMission,
     setImageDataToSnapshot,
+    setActiveTelescopeMissionID,
   }, dispatch),
 });
 
-@connect(null, mapDispatchToProps)
+// ugh... this is to determine when to make calls to the various content APIs
+const mapStateToProps = ({ activeTelescopeMissions }) => ({
+  activeTelescopeMissionID: activeTelescopeMissions.activeTelescopeMissionID,
+});
+
+@connect(mapStateToProps, mapDispatchToProps)
 class TelescopeImageLoader extends Component {
   constructor(props) {
     super(props);
@@ -66,17 +72,34 @@ class TelescopeImageLoader extends Component {
       with the telescope mission
     */
     if (messageType !== 'HEARTBEAT') {
-      const { teleFade, obsId, teleId, domeId, actions, missionFormat } = this.props; // expected fade may change based on how much time passed
+      const { teleFade, obsId, teleId, domeId, actions, missionFormat, activeTelescopeMissionID } = this.props; // expected fade may change based on how much time passed
 
       // TODO: this may be problematic...
       // lets think of how we can detangle this mission info request
       // from the image loader component ( even through SSE events provide the message content )
-      actions.updateTelescopeActiveMission({
-        obsId,
-        domeId,
-        format: missionFormat,
-        telescopeId: teleId,
-      });
+      // isolating this work to compact requests for telescope overview
+      if (missionFormat === 'compact') {
+        actions.updateTelescopeActiveMission({
+          obsId,
+          domeId,
+          format: missionFormat,
+          telescopeId: teleId,
+        });
+      }
+
+      // TODO: when the missionFormat is full - update the telescopeDetailsActiveTelescopeMissionID with this new missionID
+      // this will inform whomever what the current missionID is
+      if (missionFormat === 'full') {
+        if (scheduledMissionID && scheduledMissionID !== activeTelescopeMissionID) {
+          actions.setActiveTelescopeMissionID(scheduledMissionID);
+          actions.updateTelescopeActiveMission({
+            obsId,
+            domeId,
+            format: missionFormat,
+            telescopeId: teleId,
+          });
+        }
+      }
 
       const { firstLoad } = this.state;
       const progress = Math.floor(Date.now() / 1000) - lastImageTime;

@@ -21,12 +21,12 @@ class LiveStream extends Component {
 
     return(
       <div className="live-stream">
-        <div className='content'>
-          <img height="50" src={objectIconURL} />
+        <div className="content">
+          <img alt="" height="50" src={objectIconURL} />
           <div>
             <h3 className="title">{objectTitle}</h3>
             <p className="description">{objectDescription}</p>
-            <p className="small">RA (degrees): {objectRA} Decl (degrees): {objectDec} Constellation: {objectConstellation} Magnitude: {objectMagnitude} Size (arc minutes): {objectSizeArcMinutes}  Distance: {objectDistance} Rise Time: {objectRiseTime} Transit Time: {objectTransitTime} Set Time: {objectSetTime} Moon Proximity: {objectMoonProximity}</p>
+            <p className="small">RA (decimal): {objectRA} Decl (decimal): {objectDec} Constellation: {objectConstellation} Magnitude: {objectMagnitude} Size (arc minutes): {objectSizeArcMinutes}  Distance: {objectDistance} Rise Time: {objectRiseTime} Transit Time: {objectTransitTime} Set Time: {objectSetTime} Moon Proximity: {objectMoonProximity}</p>
           </div>
         </div>
       </div>
