@@ -70,7 +70,7 @@ class LiveWebcam extends Component {
   scaffoldTimer({ refreshIntervalSec, facilityWebcamURL }) {
     clearInterval(this.refreshLiveImageInterval);
     if (refreshIntervalSec && facilityWebcamURL) {
-      this.refreshLiveImageInterval = setInterval(::this.setNewWebcamURL, refreshIntervalSec * 100);
+      this.refreshLiveImageInterval = setInterval(::this.setNewWebcamURL, refreshIntervalSec * 1000);
     }
   }
 

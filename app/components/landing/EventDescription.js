@@ -8,8 +8,12 @@ function EventDescription() {
         <div className={style.header}>
           <span>This Event is Free to all members of Slooh!</span>
           <div className={style.btnGroup}>
-            <span className={style.shareBtn} />
-            <span className={style.bookmarkBtn} />
+            {
+              /**
+              <span className={style.shareBtn} />
+              <span className={style.bookmarkBtn} />
+              */
+            }
           </div>
         </div>
         <div className={style.content}>
@@ -31,7 +35,7 @@ function EventDescription() {
             <div className={style.place}>
               <div className={style.dataItemHeader}>Location:</div>
               <div className={style.dataItemContent}>
-                The Elk Creek Campground Clearweater National Park, Forest Rd 3311, Elk River, ID 83827
+                The Elk Creek Campground Clearwater National Park, Forest Rd 3311, Elk River, ID 83827
               </div>
 
               {

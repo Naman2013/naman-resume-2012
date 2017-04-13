@@ -51,6 +51,7 @@ class CommunityPerspectives extends Component {
 
     this.state = {
       activeCatagory: SCIENCE_LOG,
+      hoverCategory: null,
     };
   }
 
@@ -82,6 +83,12 @@ class CommunityPerspectives extends Component {
     const matchContentKey =
       perspectiveCatagories.find(profile => profile.catagory === active).contentKey;
     return posts.filter(post => post.type === matchContentKey);
+  }
+
+  onMouseOver = (e, hoverCategory) => {
+    this.setState({
+      hoverCategory,
+    });
   }
 
   hasRelevantPosts() {
@@ -146,15 +153,22 @@ class CommunityPerspectives extends Component {
             <ul className="col-xs-12 clearfix categories">
               {
                 perspectiveCatagories.map((perspective, index) => {
+                  const isActiveNonHoveredCategory = !this.state.hoverCategory && (this.state.activeCatagory === perspective.catagory);
+                  const isHoverCategory = this.state.hoverCategory === perspective.catagory;
                   const navigationClasses = classnames('action', {
-                    active: this.state.activeCatagory === perspective.catagory,
+                    active: isActiveNonHoveredCategory || isHoverCategory,
                   });
                   return (
-                    <li key={index} className="col-xs-3 category">
+                    <li
+                      key={index}
+                      className="col-xs-3 category"
+                      onMouseOver={(e) => { this.onMouseOver(e, perspective.catagory); }}
+                    >
                       <a
                         onClick={event => this.handleNavigationClick(event, perspective.catagory)}
                         className={navigationClasses}
                         href="#/"
+                        id={perspective.catagory}
                       >
                         <p className="title">{perspective.title}</p>
                         <div className={`icon ${navigationClasses}`} style={getIconStyleInline(perspective.icon)}>

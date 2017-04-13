@@ -1,7 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { snapImage, resetImageToSnap } from '../../../modules/Telescope-Overview';
+import ModalGeneric from '../../../components/common/modals/modal-generic';
+import { snapImage, resetImageToSnap, resetsnapImageMsg } from '../../../modules/Telescope-Overview';
 
 import s from './star-share-camera.scss';
 
@@ -9,17 +10,52 @@ const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
     snapImage,
     resetImageToSnap,
+    resetsnapImageMsg,
   }, dispatch),
 });
 
 const mapStateToProps = ({ telescopeOverview }) => ({
   snapshotList: telescopeOverview.snapshotList,
+  snapshotMsg: telescopeOverview.snapshotMsg,
 });
 
 @connect(mapStateToProps, mapDispatchToProps)
 class StarShareCamera extends Component {
+  static propTypes = {
+    snapImage: PropTypes.func.isRequired,
+    resetImageToSnap: PropTypes.func.isRequired,
+    resetsnapImageMsg: PropTypes.func.isRequired,
+    snapshotMsg: PropTypes.string,
+  };
+
+  static defaultProps = {
+    snapshotMsg: '',
+  };
+  state = {
+    openedModal: false,
+  };
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.snapshotMsg !== nextProps.snapshotMsg) {
+      this.openModal();
+    }
+  }
+
   takeSnapshot = () => {
     this.props.actions.snapImage();
+  }
+
+  openModal = () => {
+    this.setState({
+      openedModal: true,
+    });
+  }
+
+  closeModal = () => {
+    this.setState({
+      openedModal: false,
+    });
+    this.props.actions.resetsnapImageMsg();
   }
 
   render() {
@@ -40,6 +76,11 @@ class StarShareCamera extends Component {
             );
           })
         }
+        {this.props.snapshotMsg && <ModalGeneric
+          open={this.state.openedModal}
+          closeModal={this.closeModal}
+          description={String(this.props.snapshotMsg)}
+        />}
       </div>
     );
   }

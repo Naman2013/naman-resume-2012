@@ -61,7 +61,6 @@ class TelescopeAllSky extends Component {
 
   render() {
     const { apiError, title, subTitle, starChartURL  } = this.props.skyChartWidgetResult;
-
     return (
       <div className="where-sky">
         <div className="top">

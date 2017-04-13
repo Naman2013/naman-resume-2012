@@ -8,6 +8,9 @@ export const UPDATE_TELESCOPE_MISSION_FAIL = 'UPDATE_TELESCOPE_MISSION_FAIL';
 export const COMMIT_ACTIVE_MISSION_CHANGE = 'COMMIT_ACTIVE_MISSION_CHANGE';
 export const REMOVE_TELESCOPE_MISSION = 'REMOVE_TELESCOPE_MISSION';
 
+export const UPDATE_ACTIVE_TELESCOPE_MISSION_ID = 'UPDATE_ACTIVE_TELESCOPE_MISSION_ID';
+export const RESET_ACTIVE_TELESCOPE_MISSION_ID = 'RESET_ACTIVE_TELESCOPE_MISSION_ID';
+
 export const FORMAT_COMPACT = 'compact';
 export const FORMAT_FULL = 'full';
 
@@ -160,3 +163,12 @@ export const updateTelescopeActiveMission = ({ telescopeId, obsId, domeId, forma
   })
   .catch(error => dispatch(failedFetchMission(error)));
 };
+
+export const setActiveTelescopeMissionID = telescopeMissionID => ({
+  type: UPDATE_ACTIVE_TELESCOPE_MISSION_ID,
+  payload: telescopeMissionID,
+});
+
+export const resetActiveTelescopeMissionID = () => ({
+  type: RESET_ACTIVE_TELESCOPE_MISSION_ID,
+});
