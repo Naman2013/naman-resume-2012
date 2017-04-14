@@ -16,7 +16,7 @@ class ReservationByCatalog extends Component {
       uniqueId,
       scheduledMissionId } = this.props;
 
-    return(
+    return (
       <div className="reservation-form-container">
         <Timer startTime={expires} expireCallback={expireCallback} />
         <ReserveByCatalog
@@ -44,7 +44,7 @@ const { string, number, bool, func } = PropTypes;
 ReservationByCatalog.propTypes = {
   showPlaceOnHold: bool,
   showCancelHold: bool,
-  uniqueid: string,
+  uniqueId: string.isRequired,
   scheduledMissionId: number.isRequired,
   telescopeId: string.isRequired,
   expires: number.isRequired,

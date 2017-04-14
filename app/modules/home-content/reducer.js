@@ -80,15 +80,15 @@ const initialState = {
       },
       {
         key: Math.random() * 100,
-        title: 'St. Patrick\'s Day Aurora',
-        imageUrl: 'assets/images/photos/patricks-day-sky.png',
-        url: '/shows/event-details/404',
+        title: 'Earth Day',
+        imageUrl: 'assets/images/photos/earth-circle.png',
+        url: '/shows/event-details/418',
       },
       {
         key: Math.random() * 100,
-        title: 'Comet 41P Close Approach',
-        imageUrl: 'assets/images/photos/comet-41p.png',
-        url: '/shows/event-details/405',
+        title: '"The Rock" Asteroid',
+        imageUrl: 'assets/images/photos/asteroid-circle.png',
+        url: '/shows/event-details/422',
       },
     ],
     latestNews: 'We\'ve curated a catalog of our members\' favorite objects and events in the night sky which we call the Slooh 500. These are the best looking objects to see through our telescopes which also have the most interesting folklore created in their name. Our community forms around them.',
@@ -116,10 +116,6 @@ const initialState = {
     {
       imageUrl: 'assets/images/sponsors/logo-iac.png',
       size: '60%'
-    },
-    {
-      imageUrl: 'assets/images/sponsors/Celestron_Logo_as_of_2015.png',
-      size: '100%'
     },
     {
       imageUrl: 'assets/images/sponsors/pontificia.png',

@@ -134,15 +134,15 @@ class ReservationByCoordinate extends Component {
     ra_m = Math.trunc((ra - ra_h) * 60);
     ra_s = Math.round((((ra - ra_h) * 60) - ra_m) * 60);
 
-    if(ra_s == 60) {
+    if (ra_s == 60) {
       ra_s = 0;
       ra_m = ra_m++;
 
-      if(ra_m == 60) {
+      if (ra_m == 60) {
         ra_m = 0;
         ra_h = ra_h++;
 
-        if(ra_h == 24) {
+        if (ra_h == 24) {
           ra_h = 0;
           ra = 0.0;
         }
@@ -213,21 +213,21 @@ class ReservationByCoordinate extends Component {
     let dec = round(dec_d + (dec_m / 60) + (dec_s / 3600), 6);
     let ra = round(ra_h + (ra_m / 60) + (ra_s / 3600), 6);
 
-    if(dec > 90) {
+    if (dec > 90) {
       dec = 90.0;
       dec_d = 90;
       dec_m = 0;
       dec_s = 0;
     }
 
-    if(dec < -90) {
+    if (dec < -90) {
       dec = -90.0;
       dec_d = -90;
       dec_m = 0;
       dec_s = 0;
     }
 
-    if(ra >= 24) {
+    if (ra >= 24) {
       ra = 0.0;
       ra_h = 0;
       ra_m = 0;
@@ -315,44 +315,44 @@ class ReservationByCoordinate extends Component {
       presetOptionsText = presetOptions.telescopeList[0].telePresetList.map(presetOption => presetOption.presetDisplayName);
     }
 
-    if (visibilityStatus.objectIsVisible) {
-      return (
-        <div>
-          <ReservationSelectList
-            options={presetOptionsText}
-            selectedIndex={selectedImageProcessIndex}
-            handleSelectChange={this.handleSelectImageTypeChange}
-            name="imageProcessing"
-            listHeight={170}
-          />
+    return (
+      <div>
+        {
+          visibilityStatus.objectIsVisible ?
+            <div>
+              <ReservationSelectList
+                options={presetOptionsText}
+                selectedIndex={selectedImageProcessIndex}
+                handleSelectChange={this.handleSelectImageTypeChange}
+                name="imageProcessing"
+                listHeight={170}
+              />
 
-          <p className="sub-text">Your captures will be saved to the <br /> My Pictures area of the Telescopes menu.</p>
-
-          <div className="col-xs-12">
-            <section className="actions-container">
-              {
-                showPlaceOnHold ?
+              <p className="sub-text">Your captures will be saved to the <br /> My Pictures area of the Telescopes menu.</p>
+            </div> : null
+        }
+        <div className="col-xs-12">
+          <section className="actions-container">
+            {
+              showPlaceOnHold ?
                 <button className="btn-primary">Hold One Hour</button> : null
-              }
-              {
-                showCancelHold ?
+            }
+            {
+              visibilityStatus.objectIsVisible && showCancelHold ?
                 <button className="btn-primary">Cancel Hold</button> : null
-              }
-              {
-                userHasReservation ?
+            }
+            {
+              userHasReservation ?
                 <button className={scheduleMissionButtonClasses}>Update Mission</button> : null
-              }
-              {
-                !userHasReservation ?
+            }
+            {
+              visibilityStatus.objectIsVisible && !userHasReservation ?
                 <button className={scheduleMissionButtonClasses}>Schedule Mission</button> : null
-              }
-            </section>
-          </div>
+            }
+          </section>
         </div>
-      );
-    }
-
-    return null;
+      </div>
+    );
   }
 
   resetRAFields() {

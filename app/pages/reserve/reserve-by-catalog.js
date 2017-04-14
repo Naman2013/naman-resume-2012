@@ -195,7 +195,7 @@ class ReserveByCatalog extends Component {
       scheduledMissionId,
       uniqueId,
     };
-  };
+  }
 
   handlePlaceHourHold(event) {
     event.preventDefault();
@@ -208,13 +208,6 @@ class ReserveByCatalog extends Component {
 
   renderStepThree() {
     const { presetOptions, selectedImageProcessingIndex } = this.state;
-    const { showPlaceOnHold, showCancelHold } = this.props;
-
-    const hasSelectedImageProcessing = !!selectedImageProcessingIndex;
-
-    const scheduleMissionButtonClasses = classnames('btn-primary', {
-      disabled: !hasSelectedImageProcessing,
-    });
 
     return (
       <div>
@@ -227,30 +220,6 @@ class ReserveByCatalog extends Component {
         />
 
         <ImageProcessingHelperText content={this.selectedImageProcessing.presetHelpText} />
-
-        <section className="actions-container">
-          {
-            showPlaceOnHold ?
-            <button
-              onClick={this.handlePlaceHourHold}
-              className="btn-primary">Hold One Hour</button> : null
-          }
-          {
-            !showPlaceOnHold ?
-            <button
-              onClick={this.handleCatalogSelect}
-              className="btn-primary">Reset Browse</button> : null
-          }
-          {
-            showCancelHold ?
-            <button className="btn-primary">Cancel Hold</button> : null
-          }
-          <button
-            type="submit"
-            className={scheduleMissionButtonClasses}>
-              Schedule Mission
-          </button>
-        </section>
       </div>
     );
   }
@@ -261,10 +230,10 @@ class ReserveByCatalog extends Component {
     const { user, catalog, domeId, obsId, missionStart } = this.props;
     const { cid, at, token } = user;
 
-    if(checkVisibilityEnabled) {
+    if (checkVisibilityEnabled) {
       const currentCatalog = catalog.catalogList[selectedCatalogIndex];
 
-      if(domeId && obsId && missionStart) {
+      if (domeId && obsId && missionStart) {
         checkTargetVisibility({
           cid,
           at,
@@ -305,12 +274,19 @@ class ReserveByCatalog extends Component {
   }
 
   render() {
-    const { catalog } = this.props;
+    const { catalog, showPlaceOnHold, showCancelHold } = this.props;
     const {
       selectedCatalogIndex,
       designation,
       checkVisibilityEnabled,
-      visibilityStatus } = this.state;
+      visibilityStatus,
+      selectedImageProcessingIndex,
+    } = this.state;
+
+    const hasSelectedImageProcessing = !!selectedImageProcessingIndex;
+    const scheduleMissionButtonClasses = classnames('btn-primary', {
+      disabled: !hasSelectedImageProcessing,
+    });
 
     // showStepTwo when we detect a catalog has been selected
     const showStepTwo = !!selectedCatalogIndex;
@@ -320,7 +296,7 @@ class ReserveByCatalog extends Component {
     let selectedCatalog;
     if (_.has(catalog, 'catalogList')) {
       catalogList = catalog.catalogList.map(catalogItem => (
-        <span><img src={catalogItem.catIconURL} /> {catalogItem.catFullName}</span>
+        <span><img alt="" src={catalogItem.catIconURL} /> {catalogItem.catFullName}</span>
       ));
 
       selectedCatalog = catalog.catalogList[selectedCatalogIndex];
@@ -366,6 +342,33 @@ class ReserveByCatalog extends Component {
                 showStepThree ?
                   this.renderStepThree() : null
               }
+
+              <section className="actions-container">
+                {
+                  showPlaceOnHold ?
+                  <button
+                    onClick={this.handlePlaceHourHold}
+                    className="btn-primary">Hold One Hour</button> : null
+                }
+                {
+                  !showPlaceOnHold && hasSelectedImageProcessing ?
+                  <button
+                    onClick={this.handleCatalogSelect}
+                    className="btn-primary">Reset Browse</button> : null
+                }
+                {
+                  showCancelHold && hasSelectedImageProcessing ?
+                  <button className="btn-primary">Cancel Hold</button> : null
+                }
+                {
+                  hasSelectedImageProcessing ?
+                    <button
+                      type="submit"
+                      className={scheduleMissionButtonClasses}>
+                        Schedule Mission
+                    </button> : null
+                }
+              </section>
             </div>
           </div>
         </form>
