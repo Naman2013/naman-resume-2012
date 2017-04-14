@@ -2,7 +2,7 @@ export default {
   STATIC_HERO: {
     backgroundImageUrl: 'assets/images/graphics/stargazers-bg.png',
     mainHeadingText: 'WELCOME TO SPACE FOR EVERYONE.',
-    subHeadingText: 'Slooh.com is Online Telescopes, LIVE Streaming Events, Original Video Programming, and more.',
+    subHeadingText: 'Slooh.com is Online Telescopes, LIVE Streaming Events, Community and more.',
     funFactText: 'That light started towards earth 2 million years ago? Seriously?',
     funFactImage: 'assets/icons/Emoji_FL@33_MindBlown_F_1308x1976.png',
     actionUrl: '#',
@@ -84,15 +84,15 @@ export default {
       },
       {
         key: Math.random() * 100,
-        title: 'St. Patrick\'s Day Aurora',
-        imageUrl: 'assets/images/photos/patricks-day-sky.png',
-        url: '/shows/event-details/404',
+        title: 'Earth Day',
+        imageUrl: 'assets/images/photos/earth-circle.png',
+        url: '/shows/event-details/418',
       },
       {
         key: Math.random() * 100,
-        title: 'Comet 41P Close Approach',
-        imageUrl: 'assets/images/photos/comet-41p.png',
-        url: '/shows/event-details/405',
+        title: '"The Rock" Asteroid',
+        imageUrl: 'assets/images/photos/asteroid-circle.png',
+        url: '/shows/event-details/422',
       },
     ],
     latestNews: 'We\'ve curated a catalog of our members\' favorite objects and events in the night sky which we call the Slooh 500. These are the best looking objects to see through our telescopes which also have the most interesting folklore created in their name. Our community forms around them.',
@@ -120,10 +120,6 @@ export default {
     {
       imageUrl: 'assets/images/sponsors/logo-iac.png',
       size: '60%'
-    },
-    {
-      imageUrl: 'assets/images/sponsors/Celestron_Logo_as_of_2015.png',
-      size: '100%'
     },
     {
       imageUrl: 'assets/images/sponsors/pontificia.png',

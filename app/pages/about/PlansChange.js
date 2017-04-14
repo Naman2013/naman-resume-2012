@@ -16,6 +16,10 @@ const PLAN_DESCRIPTIONS = {
     title: 'Objects: Slooh 500',
     description: 'The Slooh 500 are the most popular objects in the night sky as chosen by the Slooh community.',
   },
+  SLOOH_ROAD_TRIP: {
+    title: 'Slooh Road Trip',
+    description: 'Join Slooh for outdoor events such as the Total Solar Eclipse in Stanley, Idaho on August 21st, 2017',
+  }
 };
 
 class PlansChange extends Component {
@@ -123,7 +127,7 @@ class PlansChange extends Component {
                     <li>5 Reservations <small>monthly</small> <i onClick={() => {this.openModal(PLAN_DESCRIPTIONS.RESERVATION_LIMIT_5)}} className="icon control info-white">info</i></li>
                     <li>Objects: Slooh 500 <i onClick={() => {this.openModal(PLAN_DESCRIPTIONS.OBJECTS_SLOOH_500)}} className="icon control info-white">info</i></li>
                     <li>Space Situation Room</li>
-                    <li>Slooh Road Trip</li>
+                    <li>Slooh Road Trip <i onClick={() => {this.openModal(PLAN_DESCRIPTIONS.SLOOH_ROAD_TRIP)}} className="icon control info-white">info</i></li>
                   </ul>
                 </article>
 
@@ -159,7 +163,7 @@ class PlansChange extends Component {
                     <li>Objects: All
                     </li>
                     <li>Space Situation Room</li>
-                    <li>Slooh Road Trip</li>
+                    <li>Slooh Road Trip <i onClick={() => {this.openModal(PLAN_DESCRIPTIONS.SLOOH_ROAD_TRIP)}} className="icon control info-white">info</i></li>
                   </ul>
                 </article>
 

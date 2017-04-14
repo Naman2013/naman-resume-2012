@@ -63,7 +63,7 @@ const fetchLatestPostsFail = payload => ({
 export const fetchLatestPosts = (type, page) => (dispatch, getState) => {
   const { cid } = getState().user;
 
-  const postsType = type ? { type } : '';
+  const postsType = type ? { type: [type] } : '';
 
   dispatch(fetchLatestPostsStart());
   dispatch(fetchPageMeta());

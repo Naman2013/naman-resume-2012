@@ -47,11 +47,11 @@ const NewsArticle = () => (
       <article className="col-wide">
 
         <aside className="date-section">
-          Posted on <date>01/30/2017</date>
+          Posted on <date>04/13/2017</date>
         </aside>
 
         <p>
-          Washington Depot, CT - On Friday, February 24<sup>th</sup>,
+          Washington Depot, CT - On Monday, April 17<sup>th</sup>,
           Slooh, the only company to bring live celestial viewings to anybody
           with an internet connection, will launch a new version of its innovative
           technology. Slooh provides social viewing and control of robotic
