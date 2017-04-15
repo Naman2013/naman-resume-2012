@@ -1,6 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { truncate } from 'lodash';
+import ReactTooltip from 'react-tooltip';
 import PiggybackStatus from './PiggybackStatus';
 import { fetchRecommendsCards } from '../../../services/recommendations/recommends-cards';
 import { getNextPiggyback } from '../../../services/recommendations/get-next-piggyback';
@@ -90,7 +92,7 @@ class Recommendation extends Component {
   }
 
   handleCardResult(cardResult) {
-    // TODO: now fetch a possible piggyback for the next upcoming mission for this card
+    // fetch a possible piggyback for the next upcoming mission for this card
     const { apiError } = cardResult;
     if (!apiError) {
       this.fetchPiggybackInfo(cardResult);
@@ -203,8 +205,10 @@ class Recommendation extends Component {
       title,
       description,
     } = cardData.cardList[0];
+    const truncatedDescription = truncate(description, { length: 150, omission: '...', separator: ' ' });
+    const piggybackMissionResult = piggybackResult.missionList[0];
 
-    const { apiError, missionList } = this.state.piggybackResult;
+    const { missionList } = this.state.piggybackResult;
     const { missionAvailable, missionStart } = missionList[0];
 
     return (
@@ -217,7 +221,12 @@ class Recommendation extends Component {
             <img alt="" src={objectIconURL} height="60" />
           </span>
           <h3 className={s.objectName}>{title}</h3>
-          <p className={s.description}>{description}</p>
+          <p data-tip={description} className={s.description}>{truncatedDescription}</p>
+          <ReactTooltip
+            className={s.descriptionTooltip}
+            place="left"
+            effect="solid"
+          />
         </div>
 
         {/** bottom half is dynamic based on result calls */}
@@ -225,6 +234,8 @@ class Recommendation extends Component {
           newMissionMode={newMissionMode}
           piggybackAvailable={missionAvailable}
           piggybackMissionStart={missionStart}
+          userHasReservation={piggybackMissionResult.userHasReservation}
+          telescopePierName={piggybackMissionResult.telescopePierName}
           newMissionAvailable={newReservationResult.missionList.missionAvailable}
           newMissionMissionStart={newReservationResult.missionList.missionStart}
           handleReservePiggybackClick={this.handleReservePiggybackClick}

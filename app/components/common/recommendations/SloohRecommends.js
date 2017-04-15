@@ -1,11 +1,5 @@
-/**
-  carries the installation of the modal to make the installation
-  of recommendations simpler in the application
-
-  TODO: how to handle different display formats...
-  */
-
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { uniqueId, difference } from 'lodash';
 import classnames from 'classnames';
@@ -73,6 +67,7 @@ class SloohRecommends extends Component {
     const recommendationContainerClassnames = classnames(COLUMN_COUNT_CLASSES[columns], {
       singleColumn: columns === 1,
     });
+
     return (
       <div className="clearfix sloohRecommendsRoot">
 

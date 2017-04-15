@@ -56,9 +56,6 @@ class AvailableMission extends Component {
       targetName,
     } = this.props;
 
-    console.log('looking for more information to populate the edit coordinate form...');
-    console.log(this.props);
-
     const reservationOnHold = getReservationOnHold(uniqueId, telescopeSlots.missions);
 
     if (!reservationOnHold) {

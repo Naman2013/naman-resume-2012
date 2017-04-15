@@ -13,9 +13,24 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://staceypeters@bitbucket.org/staceypeters/slooh2016.git"
+    "url": "https://bitbucket.org/sloohdev/website"
   },
-  "author": "Stacey Peters",
+  "author": "http://ecmastack.com/",
+  "contributors": [
+    {
+      "name": "John Masse",
+      "email": "john@ecmastack.com",
+      "url": "https://jjmasse.com"
+    },
+    {
+      "name": "Alex Bachuk",
+      "email": "alex@ecmastack.com",
+      "url": "http://alexbachuk.com/"
+    },
+    {
+      "name": "Stacy Peters"
+    }
+  ],
   "license": "ISC",
   "dependencies": {
     "axios": "^0.15.3",
@@ -25,11 +40,12 @@
     "draft-convert": "^1.4.3",
     "draft-js": "^0.10.0",
     "draft-js-export-html": "^0.5.2",
-    "eventsource": "^0.2.2",
+    "event-source-polyfill": "0.0.9",
     "immutable": "^3.8.1",
     "lodash": "^4.16.4",
     "moment": "^2.14.1",
     "moment-timezone": "^0.5.9",
+    "prop-types": "^15.5.8",
     "rc-pagination": "^1.6.3",
     "react": "^15.2.0",
     "react-addons-create-fragment": "^15.4.1",
@@ -48,12 +64,13 @@
     "react-remarkable": "^1.1.1",
     "react-router": "^2.7.0",
     "react-router-redux": "^4.0.6",
-    "react-scroll": "^1.4.0",
+    "react-scroll": "1.4.0",
     "react-slick": "^0.14.4",
     "react-spinner": "^0.2.6",
     "react-stickynode": "^1.2.1",
     "react-tabs": "^0.8.0",
     "react-tag-input": "^4.3.2",
+    "react-tooltip": "^3.3.0",
     "redux": "^3.5.2",
     "redux-devtools-extension": "0.0.1-alpha-1",
     "redux-form": "^6.0.1",

@@ -225,7 +225,7 @@ class TelescopeDetails extends Component {
     const currentObservatory = getCurrentObservatory(observatoryList, obsUniqueId);
     const { obsId } = currentObservatory;
     const currentTelescope = this.getCurrentTelescope(currentObservatory.obsTelescopes, teleUniqueId);
-    const { teleInstrumentList, teleId } = currentTelescope;
+    const { teleInstrumentList, teleId, teleCanReserveMissions } = currentTelescope;
 
     // setup the current mission - setting defaults based on the original design of the API
     const currentMission = DEFAULT_FULL_MISSION_DATA;
@@ -270,12 +270,15 @@ class TelescopeDetails extends Component {
             </div>
 
             <div className="col-md-2">
-              <Link
-                className="pull-right btn-primary"
-                to={`/reservations/reserve-by-telescope/telescope/${obsUniqueId}/${teleUniqueId}`}
-              >
-                Reserve this telescope
-              </Link>
+              {
+                teleCanReserveMissions ?
+                  <Link
+                    className="pull-right btn-primary"
+                    to={`/reservations/reserve-by-telescope/telescope/${obsUniqueId}/${teleUniqueId}`}
+                  >
+                    Reserve this telescope
+                  </Link> : null
+              }
             </div>
           </div>
 
