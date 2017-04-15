@@ -103,6 +103,7 @@ export const editCoordinateMission = missionIndex => (dispatch, getState) => {
     domeId,
     reservationDate,
     scheduledMissionId: editMission.scheduledMissionId,
+    type: 'editCoords',
   }).then((result) => {
     /**
       - gather the information about the mission we need to update

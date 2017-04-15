@@ -154,6 +154,11 @@ export const cancelReservation = ({ uniqueId, scheduledMissionId }) => (dispatch
   }));
 };
 
+export const cancelEditCoordinateMission = ({ uniqueId }) => (dispatch) => {
+  dispatch(removeMissionFromConsideration({ uniqueId }));
+  dispatch(refreshListings());
+};
+
 export const cancelEditMission = ({ uniqueId, missionIndex }) => (dispatch, getState) => {
   dispatch(removeMissionFromConsideration({ uniqueId }));
 

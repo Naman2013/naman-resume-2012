@@ -44,7 +44,7 @@ class ReservationByCoordinate extends Component {
       presetOptions: null,
 
       visibilityStatus: {},
-      targetName: '', // used for grabMissionSlot api call
+      targetName: this.props.targetName,
 
       ra_h: 0,
       ra_m: 0,
@@ -507,6 +507,7 @@ ReservationByCoordinate.defaultProps = {
   showCancelHold: false,
   objectRA: 0.0,
   objectDec: 90.0,
+  targetName: '',
 };
 
 const { string, number, bool, func } = PropTypes;
@@ -524,6 +525,7 @@ ReservationByCoordinate.propTypes = {
   objectRA: PropTypes.oneOfType([number, string]),
   objectDec: PropTypes.oneOfType([number, string]),
   userHasReservation: bool.isRequired,
+  targetName: string,
 };
 
 export default ReservationByCoordinate;
