@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import { Router, Route, IndexRoute, IndexRedirect, hashHistory } from 'react-router';
 
 // polyfills
-import 'eventsource/lib/eventsource-polyfill';
+import 'event-source-polyfill/eventsource.min';
 
 import configureStore from './store';
 import { checkUser } from './modules/User';

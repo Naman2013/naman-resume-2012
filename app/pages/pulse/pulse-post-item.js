@@ -37,7 +37,7 @@ const PulsePostItem = ({
           <PulsePostDate date={creationDate} type={type} iconURL={typeIconURL}/>
 
           <figcaption className={styles.PulsePostListInfoDesc}>
-            <div dangerouslySetInnerHTML={{ __html: excerpt }} />  ... (<Link to={`/community/post/${postId}`}>See full entry</Link>)
+            <div dangerouslySetInnerHTML={{ __html: excerpt }} />(<Link to={`/community/post/${postId}`}>See full entry</Link>)
           </figcaption>
 
           <div className="row flex-center">

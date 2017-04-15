@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
 
@@ -37,7 +38,7 @@ class TelescopeCard extends Component {
       flipped: this.state.flipped,
     });
 
-    if (this.props.teleHasTelescopePage !== 'true') {
+    if (!this.props.teleHasTelescopePage) {
       return null;
     }
 
@@ -73,7 +74,7 @@ TelescopeCard.propTypes = {
   teleSponsorLinkURL: string,
   teleSponsorLogoURL: string,
   teleAccessMethod: string,
-  teleHasTelescopePage: string,
+  teleHasTelescopePage: bool,
   teleImageSourceType: string,
   telescopeStatus: object, // TODO: refine this validation
   alertText: string,

@@ -6,7 +6,7 @@
   color: $darkBlueGray;
   text-align: center;
   font-family: $primary-font;
-  padding: 30px 20px;
+  padding: 30px 5px;
   position: relative;
   height: 400px;
   margin-bottom: 20px;
@@ -23,11 +23,16 @@
   }
 
   .description {
+    position: relative;
     font-family: $secondary-font;
     font-size: 16px;
     height: 60px;
     overflow: hidden;
     margin-bottom: 15px;
+  }
+
+  .descriptionTooltip {
+    width: 400px;
   }
 
   .missionStatusTitle {
