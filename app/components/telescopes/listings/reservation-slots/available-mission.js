@@ -8,6 +8,7 @@ import {
   cancelReservation,
   cancelEditMission,
   cancelReservationAndRefresh,
+  cancelEditCoordinateMission,
   changeFormType,
 } from '../../../../modules/grab-telescope-slot/actions';
 
@@ -29,6 +30,7 @@ const mapDispatchToProps = dispatch => ({
     cancelEditMission,
     grabTelescopeSlot,
     cancelReservationAndRefresh,
+    cancelEditCoordinateMission,
     changeFormType,
   }, dispatch),
 });
@@ -51,7 +53,11 @@ class AvailableMission extends Component {
       telescopeSlots,
       missionStart,
       missionSlotDates,
+      targetName,
     } = this.props;
+
+    console.log('looking for more information to populate the edit coordinate form...');
+    console.log(this.props);
 
     const reservationOnHold = getReservationOnHold(uniqueId, telescopeSlots.missions);
 
@@ -117,6 +123,7 @@ class AvailableMission extends Component {
           objectDec={objectDec}
           objectRA={objectRA}
           userHasReservation={userHasReservation}
+          targetName={targetName}
         />
       );
     }
@@ -152,11 +159,20 @@ class AvailableMission extends Component {
   }
 
   handleTimerExpiration = () => {
-    const { uniqueId, scheduledMissionId } = this.props;
-    this.props.actions.cancelReservationAndRefresh({
-      uniqueId,
-      scheduledMissionId,
-    });
+    /**
+      Using userHasReservation to determine to cancel coordinate editing or
+      if we are canceling the reservation flow
+      */
+    const { uniqueId, scheduledMissionId, userHasReservation } = this.props;
+
+    if (userHasReservation) {
+      this.props.actions.cancelEditCoordinateMission({ uniqueId });
+    } else {
+      this.props.actions.cancelReservationAndRefresh({
+        uniqueId,
+        scheduledMissionId,
+      });
+    }
   }
 
   cancelHoldOnMission = () => {

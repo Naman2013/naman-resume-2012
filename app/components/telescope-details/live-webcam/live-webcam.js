@@ -60,7 +60,7 @@ class LiveWebcam extends Component {
   generateNewWebcamURL() {
     const { facilityWebcamURL } = this.props;
     if (facilityWebcamURL) {
-      return `${facilityWebcamURL}?cache-bust=${uniqueId()}`;
+      return `${facilityWebcamURL}#cache-bust=${new Date().getTime()}`;
     }
     return '';
   }

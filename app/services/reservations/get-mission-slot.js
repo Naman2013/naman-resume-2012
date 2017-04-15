@@ -14,6 +14,8 @@
   /api/reservation/getMissionSlotsByTelescope,  as returned by
   /api/reservation/getMissionSlotDates )
 
+  type  optional  'editCoords'
+
   ver optional API version
 
   lang optional API language
@@ -29,6 +31,7 @@ export default function fetchMissionSlot({
   obsId,
   domeId,
   reservationDate,
+  type,
 }) {
   return axios.post('/api/reservation/getMissionSlot', {
     cid,
@@ -38,5 +41,6 @@ export default function fetchMissionSlot({
     obsId,
     domeId,
     reservationDate,
+    type,
   });
 }
