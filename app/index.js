@@ -1,3 +1,4 @@
+import 'babel-polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
@@ -5,6 +6,7 @@ import { Router, Route, IndexRoute, IndexRedirect, hashHistory } from 'react-rou
 
 // polyfills
 import 'event-source-polyfill/eventsource.min';
+import './utils/manual-polyfills';
 
 import configureStore from './store';
 import { checkUser } from './modules/User';
