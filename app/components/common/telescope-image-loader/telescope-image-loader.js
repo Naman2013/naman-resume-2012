@@ -246,6 +246,7 @@ class TelescopeImageLoader extends Component {
 
 TelescopeImageLoader.defaultProps = {
   loadThumbnails: false,
+  missionFormat: null,
 };
 
 TelescopeImageLoader.propTypes = {
@@ -256,7 +257,7 @@ TelescopeImageLoader.propTypes = {
   teleThumbWidth: PropTypes.string,
   teleFade: PropTypes.string,
   loadThumbnails: PropTypes.bool,
-  missionFormat: PropTypes.string.isRequired,
+  missionFormat: PropTypes.string,
 };
 
 export default TelescopeImageLoader;
