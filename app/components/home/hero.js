@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { Link } from 'react-router';
 import style from './hero.scss';
 
 import ScrollForMore from '../common/scroll-for-more';
@@ -47,9 +48,9 @@ class Hero extends Component {
         <div className="call-to-action">
           {
             buttonUrl ?
-              <a className="action" href={buttonUrl}>
+              <Link className="action" to={buttonUrl}>
                 {heroButtonText}
-              </a> : <div style={{width: '100px', height: '100px'}} />
+              </Link> : <div style={{width: '100px', height: '100px'}} />
           }
         </div>
 
