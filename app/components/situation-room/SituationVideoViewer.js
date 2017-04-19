@@ -9,6 +9,10 @@ import SponsoredBy from '../common/sponsored-by';
 import { camera } from '../community/tools/community-icon';
 import s from './SituationVideoViewer.scss';
 
+const getInlineBgStyle = imgUrl => ({
+  backgroundImage: `url(${imgUrl})`,
+});
+
 class SituationVideoViewer extends Component {
   constructor(props) {
     super(props);
@@ -60,14 +64,18 @@ class SituationVideoViewer extends Component {
 
           <TabList className={s.liveTelescopeTabs}>
             <Tab>
-              {selectedTab === 0 && <h6>Main Show</h6>}
-              <div className="telescope" />
+              <div className={s.liveTelescopeTitle}>
+                {selectedTab === 0 && <h6>Main Show</h6>}
+              </div>
+              <div className="telescope" style={getInlineBgStyle()} />
             </Tab>
             {
                 additionalFeeds.map((feed, i) => (
                   <Tab key={feed.videoStreamCode}>
-                    {selectedTab === i + 1 && <h6>{feed.TelescopeName}</h6>}
-                    <div className="telescope" />
+                    <div className={s.liveTelescopeTitle}>
+                      {selectedTab === i + 1 && <h6>{feed.TelescopeName}</h6> }
+                    </div>
+                    <div className="telescope" style={getInlineBgStyle(feed.tabIconURL)} />
                   </Tab>
                 ))
             }
@@ -95,7 +103,7 @@ class SituationVideoViewer extends Component {
 
           {
             additionalFeeds.map(feed => {
-              const imageSource = generateSseImageLoader(feed.SSEsystem, feed.SSEport);
+              const imageSource = generateSseImageLoader(feed.systemId, feed.SSEport);
               return (
               <TabPanel key={feed.videoStreamCode}>
                 <aside className={s.liveViewContent}>
@@ -111,9 +119,9 @@ class SituationVideoViewer extends Component {
                       imageSource={imageSource}
                       teleId={feed.TelescopeId}
                       obsId={feed.ObsId}
-                      domeId={feed.DomeId}
-                      teleThumbWidth={1000}
-                      teleFade={feed.SSEfade}
+                      domeId={String(feed.DomeId)}
+                      teleThumbWidth="1000"
+                      teleFade={String(feed.SSEfade)}
                       clipped={false}
                     />
                   }
