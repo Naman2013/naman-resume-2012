@@ -1,7 +1,10 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import Countdown from '../../containers/Countdown';
 import VideoImageLoader from '../../components/common/telescope-image-loader/video-image-loader';
+import TelescopeImageLoader from '../../components/common/telescope-image-loader/telescope-image-loader';
+import generateSseImageLoader from '../../utils/generate-sse-image-source';
 import SponsoredBy from '../common/sponsored-by';
 import { camera } from '../community/tools/community-icon';
 import s from './SituationVideoViewer.scss';
@@ -37,7 +40,6 @@ class SituationVideoViewer extends Component {
       initialStreamURL,
     } = this.props;
     const { selectedTab } = this.state;
-
     Tabs.setUseDefaultStyles(false);
 
     return (
@@ -58,18 +60,16 @@ class SituationVideoViewer extends Component {
 
           <TabList className={s.liveTelescopeTabs}>
             <Tab>
-              <h6>Main Show</h6>
+              {selectedTab === 0 && <h6>Main Show</h6>}
               <div className="telescope" />
             </Tab>
             {
-              /** TODO: SSE feeds deferred
-                additionalFeeds.map(feed => (
-                  <Tab>
-                    <h6>Feed tab</h6>
+                additionalFeeds.map((feed, i) => (
+                  <Tab key={feed.videoStreamCode}>
+                    {selectedTab === i + 1 && <h6>{feed.TelescopeName}</h6>}
                     <div className="telescope" />
                   </Tab>
                 ))
-              */
             }
           </TabList>
 
@@ -94,13 +94,33 @@ class SituationVideoViewer extends Component {
           </TabPanel>
 
           {
-            /** TODO: deferred the SSE work
-            additionalFeeds.map(feed => (
-              <TabPanel>
-                <aside className={s.liveViewContent}>Coming soon</aside>
+            additionalFeeds.map(feed => {
+              const imageSource = generateSseImageLoader(feed.SSEsystem, feed.SSEport);
+              return (
+              <TabPanel key={feed.videoStreamCode}>
+                <aside className={s.liveViewContent}>
+                  {feed.imageSourceType === 'video' ?
+                    <VideoImageLoader
+                      teleStreamCode={feed.videoStreamCode}
+                      teleStreamURL={feed.videoStreamURL}
+                      teleStreamThumbnailVideoWidth="1000"
+                      teleStreamThumbnailVideoHeight="550"
+                    />
+                  :
+                    <TelescopeImageLoader
+                      imageSource={imageSource}
+                      teleId={feed.TelescopeId}
+                      obsId={feed.ObsId}
+                      domeId={feed.DomeId}
+                      teleThumbWidth={1000}
+                      teleFade={feed.SSEfade}
+                      clipped={false}
+                    />
+                  }
+                </aside>
               </TabPanel>
-            ))
-            */
+            )
+          })
           }
         </Tabs>
 
