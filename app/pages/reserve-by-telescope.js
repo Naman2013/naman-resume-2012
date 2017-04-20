@@ -91,6 +91,8 @@ class ReserveMissions extends Component {
             <GenericLoadingBox />
           :
             <Listings
+              obsId={currentObservatory.obsId}
+              domeId={currentInstrument.instrDomeId}
               telescopeId={currentTelescope.teleId}
               reservations={reservationList.missionList}
               allowReservations={reservationList.allowReservations}

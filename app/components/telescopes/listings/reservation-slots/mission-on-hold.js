@@ -5,6 +5,7 @@ import InlineCountdown from '../../../common/inline-countdown/inline-countdown';
 import MissionTime from '../partials/mission-time';
 import ByUserTag from '../../../common/by-user-tag/by-user-tag';
 import { startCompleteReservation } from '../../../../modules/mission-slots-by-telescope/mission-slots-by-telescope-actions';
+import { fetchDateRanges } from '../../../../modules/mission-slots-by-telescope/mission-slot-dates-actions';
 
 const FinishReservationButton = ({ handleFinishReservationClick }) => (
   <div className="col-xs-2">
@@ -24,6 +25,7 @@ const CountDown = ({ expires }) => (
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
     startCompleteReservation,
+    fetchDateRanges,
   }, dispatch),
 });
 
@@ -35,19 +37,31 @@ class MissionOnHold extends Component {
   }
 
   render() {
+    let { expires } = this.props;
     const {
       missionStart,
       showSlotTimes,
-      expires,
       ownerAvatarURL,
       ownerDisplayName,
       ownerLocation,
       ownerMembershipType,
       ownerMemberSince,
       showFinishReservationButton,
-      userHasHold
+      userHasHold,
+      actions,
+      obsId,
+      domeId,
+      telescopeId,
     } = this.props;
 
+    const refreshAction = () => {
+      actions.fetchDateRanges({
+        obsId,
+        domeId,
+        telescopeId,
+      });
+    };
+    
     return (
       <li className="telescope-listings-item on-hold">
 
@@ -64,7 +78,7 @@ class MissionOnHold extends Component {
           <img className="slot-logo" src="assets/icons/question-mark.png" width="38" alt="This slot is marked as on hold" />
           {
             userHasHold ?
-              <h4 className="slot-name">On Hold. Finish Reservation Within <InlineCountdown startTime={expires} /></h4>
+              <h4 className="slot-name">On Hold. Finish Reservation Within <InlineCountdown startTime={expires} exitAction={refreshAction} /></h4>
             :
               <h4 className="slot-name">On Hold. Object Not Yet Set.</h4>
           }
