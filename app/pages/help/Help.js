@@ -27,6 +27,46 @@ class Help extends Component {
     return nextProps.anchor !== this.props.anchor;
   }
 
+  renderSubParagraph = (paragraphObj) => {
+    const {
+      paragraphAnchor,
+      title,
+      paragraphs,
+      textParagraphs,
+    } = paragraphObj;
+
+    return (
+      <p
+        key={paragraphAnchor || title}
+        className=""
+      >
+        {title ?
+          <p
+            className="help-page-sub-title help-page-paragraph"
+            dangerouslySetInnerHTML={{__html: title}}
+          /> : null}
+        {textParagraphs.map(p => {
+          if (typeof p === 'string') {
+            return this.renderTextParagraph(p);
+          }
+          return (
+            <ul key={p[0].slice(10, 30)}>
+              {p.map((item) => {
+                return (
+                  <li
+                    className="help-page-paragraph"
+                    key={item.slice(10, 30)}
+                    dangerouslySetInnerHTML={{ __html: item }}
+                  />
+                );
+              })}
+            </ul>
+          );
+        })}
+      </p>
+    );
+  }
+
   renderAnchorParagraph(paragraphObj) {
     const { anchor } = this.props;
     const {
@@ -65,7 +105,7 @@ class Help extends Component {
             </ul>
           );
         })}
-        {paragraphs ? paragraphs.map(p => this.renderAnchorParagraph(p)) : null}
+        {paragraphs ? paragraphs.map(p => this.renderSubParagraph(p)) : null}
       </AnchorParagraph>
     );
   }
