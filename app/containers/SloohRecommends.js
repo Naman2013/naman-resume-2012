@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 import MissionUpdates from '../components/missions/mission-updates';
 import MissionAd from '../components/missions/mission-ad';
 import MissionUpcoming from '../components/missions/mission-upcoming';
+import { getRandomAdvertisementIndex } from '../modules/utils';
+
 import {
   missionGetCards,
   missionConfirmOpen,
@@ -31,6 +33,13 @@ export default class SloohRecommends extends Component {
     children: element,
     actions: object.isRequired
   };
+
+  constructor(props) {
+    super(props);
+
+    this.randomAdIdx = getRandomAdvertisementIndex();
+
+  }
 
   componentDidMount() {
     this.props.actions.missionGetCards();
@@ -77,7 +86,7 @@ export default class SloohRecommends extends Component {
           </div>
 
           <div className="col-md-4 mission-sidebar">
-            <MissionAd />
+            <MissionAd index={this.randomAdIdx} />
             <MissionUpcoming />
             <MissionUpdates updates={announcements} />
           </div>

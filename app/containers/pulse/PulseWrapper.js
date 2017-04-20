@@ -5,6 +5,8 @@ import PulsePopular from '../../components/pulse/sidebar/pulse-popular';
 import PulseRecommended from '../../components/pulse/sidebar/pulse-recommends';
 import MissionAd from '../../components/missions/mission-ad';
 import SloohRecommends from '../../components/common/recommendations/SloohRecommends';
+import { getRandomAdvertisementIndex } from '../../modules/utils';
+
 
 const list = [
   {
@@ -62,6 +64,8 @@ class PulseWrapper extends Component {
 
     const { fetchLatestPosts, childPath } = this.props;
     fetchLatestPosts(childPath, 1);
+
+    this.randomAdIdx = getRandomAdvertisementIndex();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -95,7 +99,7 @@ class PulseWrapper extends Component {
         </div>
 
         <div className="col-md-4 mission-sidebar">
-          <MissionAd />
+          <MissionAd index={this.randomAdIdx} />
           {
             popularPosts.itemList.length > 0 ?
               <PulsePopular
