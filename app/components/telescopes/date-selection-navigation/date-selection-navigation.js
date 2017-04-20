@@ -69,7 +69,6 @@ class DateSelectionNavigation extends Component {
     const { reservationDate } = this.props.missionSlotDates.dateRangeResponse.dateList[0];
 
     clearTimeout(this.telescopeTimer);
-
     if (refreshIntervalSec) {
       this.telescopeTimer = setTimeout(() => {
         this.handleDateChange(reservationDate);
