@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import classnames from 'classnames';
@@ -25,19 +26,17 @@ const INITIAL_REFRESH_TIME = 0;
 class DateSelectionNavigation extends Component {
   constructor(props) {
     super(props);
+    const { actions, obsId, telescopeId, domeId } = props;
 
     this.state = {
       lastRefreshed: INITIAL_REFRESH_TIME,
     };
 
+    actions.fetchDateRanges({ obsId, telescopeId, domeId });
+
     this.handleDateChange = this.handleDateChange.bind(this);
     this.handlePreviousClick = this.handlePreviousClick.bind(this);
     this.handleProgressClick = this.handleProgressClick.bind(this);
-  }
-
-  componentWillMount() {
-    const { actions, obsId, telescopeId, domeId } = this.props;
-    actions.fetchDateRanges({ obsId, telescopeId, domeId });
   }
 
   componentWillReceiveProps(nextProps) {
@@ -45,6 +44,7 @@ class DateSelectionNavigation extends Component {
       const requestedDate =
         nextProps.missionSlotDates.dateRangeResponse.dateList[0].reservationDate;
       const { actions, obsId, telescopeId, domeId } = nextProps;
+
       actions.fetchDateRanges({
         obsId,
         telescopeId,
