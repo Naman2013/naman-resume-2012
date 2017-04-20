@@ -1,16 +1,29 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import styles from './mission-sidebar.scss';
-const { string } = PropTypes;
+import { getRandomAdvertisementIndex } from '../../modules/utils';
+
+const { string, number } = PropTypes;
+
+export const images300x250 = [
+  'assets/images/graphics/ad-banner_300x250_book.gif',
+  'assets/images/graphics/ad-banner_300x250_gift.gif',
+  // temporary
+  'assets/images/graphics/PASS_LA_300x250.jpg',
+  'assets/images/graphics/PASS_LA_1_300x250.jpg',
+  'assets/images/graphics/PASS_LA_2_300x250.jpg',
+];
+const images300x600 = [
+  'assets/images/graphics/ad-banner_300x600_book.gif',
+  'assets/images/graphics/ad-banner_300x600_gift.gif',
+  // temporary
+  'assets/images/graphics/PASS_LA_300x600.jpg',
+  'assets/images/graphics/PASS_LA_1_300x600.jpg',
+  'assets/images/graphics/PASS_LA_2_300x600.jpg',
+];
+
 const generateRandomImage = (size, i) => {
-  const images300x250 = [
-    'assets/images/graphics/ad-banner_300x250_book.gif',
-    'assets/images/graphics/ad-banner_300x250_gift.gif',
-  ];
-  const images300x600 = [
-    'assets/images/graphics/ad-banner_300x600_book.gif',
-    'assets/images/graphics/ad-banner_300x600_gift.gif',
-  ];
 
   const possibleSizes = {
     images300x250,
@@ -23,17 +36,19 @@ const getUrl = (i) => {
   const urls = [
     'https://www.amazon.com/dp/0997621109', // book
     'https://www.amazon.com/dp/B01MDNJXIR', // gift
-    'https://www.amazon.com/dp/B01N9HALCW', // glasses
+    // temporary
+    'https://www.amazon.co.uk/Passengers-Chris-Pratt/dp/B01N0R2CW7/ref=as_li_ss_tl?s=instant-video&ie=UTF8&qid=1491493702&sr=1-1&keywords=passengers+2016&linkCode=sl1&tag=sonypassengers-21&linkId=549de0a304f43e8d1eed3087819e0983',
+    'https://www.amazon.co.uk/Passengers-Chris-Pratt/dp/B01N0R2CW7/ref=as_li_ss_tl?s=instant-video&ie=UTF8&qid=1491493702&sr=1-1&keywords=passengers+2016&linkCode=sl1&tag=sonypassengers-21&linkId=549de0a304f43e8d1eed3087819e0983',
+    'https://www.amazon.co.uk/Passengers-Chris-Pratt/dp/B01N0R2CW7/ref=as_li_ss_tl?s=instant-video&ie=UTF8&qid=1491493702&sr=1-1&keywords=passengers+2016&linkCode=sl1&tag=sonypassengers-21&linkId=549de0a304f43e8d1eed3087819e0983',
   ];
   return urls[i];
 };
 
-const MissionAd = ({ size }) => {
-  const randomIdx = Math.floor(Math.random() * 2);
+const MissionAd = ({ size, index }) => {
   return (
     <div className="mission-ad widget-container">
-      <Link href={getUrl(randomIdx)} target="_blank">
-        <img alt="advertisement" src={generateRandomImage(size, randomIdx)} />
+      <Link href={getUrl(index)} target="_blank">
+        <img alt="advertisement" src={generateRandomImage(size, index)} />
       </Link>
       <p>Advertisement</p>
     </div>
@@ -42,10 +57,12 @@ const MissionAd = ({ size }) => {
 
 MissionAd.defaultProps = {
   size: '300x250',
+  number: getRandomAdvertisementIndex(),
 };
 
 MissionAd.propTypes = {
   size: string,
+  index: number,
 };
 
 export default MissionAd;
