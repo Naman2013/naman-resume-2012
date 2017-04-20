@@ -40,30 +40,33 @@ class ForumsIndex extends Component {
           <span className="description">Conversations across the Slooh Community</span>
         </div>
         {fetching && <GenericLoadingBox />}
-        {!fetching && <div>
-          <div className="forums-index-sub-header">
-            <div className="cell">Forum</div>
-            <div className="cell">Topics</div>
+        {!fetching &&
+          <div>
+            <div className="forums-index-sub-header">
+              <div className="cell">Forum</div>
+              <div className="cell">Topics</div>
+            </div>
+            <ul className="forums-index-list">
+              {
+                forumList.toArray().map((forum) => {
+                  const linkStyle = classnames({
+                    highlight: currentForumId == forum.forumId,
+                  });
+                  return (
+                    <li
+                      key={forum.forumId}
+                    >
+                      <Link className={`forums-link ${linkStyle}`} to={`discussions/forums/${forum.forumId}/topics`}>
+                        <span className="cell topic">{forum.title} {forum.closedFlag === 'yes' && <img alt="" className="closed-icon" src={forum.closedIconURL} />}</span>
+                        <span className="cell threads">{forum.topicCount}</span>
+                      </Link>
+                    </li>
+                  );
+                },
+              )}
+            </ul>
           </div>
-          <ul className="forums-index-list">
-            {forumList.map(forum => {
-              const linkStyle = classnames({
-                highlight: currentForumId == forum.forumId,
-              });
-              return (
-              <li
-                key={forum.forumId}
-              >
-                <Link className={`forums-link ${linkStyle}`} to={`discussions/forums/${forum.forumId}/topics`}>
-                  <span className="cell topic">{forum.title} {forum.closedFlag === 'yes' && <img className="closed-icon" src={forum.closedIconURL} />}</span>
-                  <span className="cell threads">{forum.topicCount}</span>
-                </Link>
-              </li>
-              )
-            }
-            )}
-          </ul>
-        </div>}
+        }
       </div>
     );
   }
