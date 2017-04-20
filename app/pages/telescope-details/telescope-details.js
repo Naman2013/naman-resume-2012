@@ -75,17 +75,14 @@ class TelescopeDetails extends Component {
   }
 
   componentWillMount() {
-    const { obsUniqueId } = this.props.params;
-    this.props.actions.getObservatoryList(
-      obsUniqueId,
-      'details',
-    );
+    this.scaffoldObservatoryList();
     this.props.actions.resetSnapshotList();
   }
 
   componentWillUpdate(nextProps) {
     const { selectedTab } = this.state;
-    const { activeTelescopeMissions, observatoryList, observatoryTelecopeStatus, params } = this.props;
+    const { activeTelescopeMissions, observatoryList, params } = this.props;
+    const { observatoryTelecopeStatus } = nextProps;
     const nextActiveTelescopeMissions = nextProps.activeTelescopeMissions;
     const { obsUniqueId, teleUniqueId } = params;
     const currentObservatory = getCurrentObservatory(observatoryList, obsUniqueId);
@@ -93,18 +90,29 @@ class TelescopeDetails extends Component {
 
     if (!currentObservatory) { return; }
 
+    // check if we have a telescopeStatus
+    // if we do, then scaffold the refresh timer
+    if (observatoryTelecopeStatus) {
+      const { statusExpires, statusTimestamp } = observatoryTelecopeStatus;
+      const refreshTime = (statusExpires - statusTimestamp) * 1000;
+      this.scaffoldRefreshTimer(refreshTime);
+    }
+
     this.props.actions.fetchObservatoryWebcam(nextObservatory);
 
     const currentTelescope = this.getCurrentTelescope(currentObservatory.obsTelescopes, teleUniqueId);
     const { teleInstrumentList, teleId } = currentTelescope;
     const currentTelescopeMissionData = activeTelescopeMissions.telescopes.find(telescope => telescope.telescopeId === teleId);
     const nextTelescopeMissionData = nextActiveTelescopeMissions.telescopes.find(telescope => telescope.telescopeId === teleId);
+
+    // reset the selected tab if it is outside of the bounds of available tabs
     if (selectedTab > teleInstrumentList.length - 1) {
       this.handleSelect(0);
     }
   }
 
   componentWillUnmount() {
+    clearInterval(this.refreshDetailsInterval);
     clearInterval(this.missionProgressInterval);
   }
 
@@ -123,6 +131,23 @@ class TelescopeDetails extends Component {
     */
   getCurrentTelescope(observatoryTelescopes, telescopeId) {
     return observatoryTelescopes.find(telescope => telescope.teleUniqueId === telescopeId);
+  }
+
+  scaffoldObservatoryList() {
+    const { obsUniqueId } = this.props.params;
+    this.props.actions.getObservatoryList(
+      obsUniqueId,
+      'details',
+    );
+  }
+
+  refreshDetailsInterval = null
+
+  scaffoldRefreshTimer(increment = 6000) {
+    clearInterval(this.refreshDetailsInterval);
+    this.refreshDetailsInterval = setInterval(() => {
+      this.scaffoldObservatoryList();
+    }, increment);
   }
 
   determineImageLoaderType(currentInstrument) {

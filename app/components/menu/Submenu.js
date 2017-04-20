@@ -5,7 +5,7 @@ import ListObservatories from './ListObservatories';
 import UpcomingComponent from './UpcomingComponent';
 import StargazersInfo from './StargazersInfo';
 import { hashHistory } from 'react-router';
-import { deactivateMenu } from '../../modules/menu/actions';
+import { setHelpPageAnchor } from '../../modules/help-page/actions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import {
@@ -24,7 +24,7 @@ import {
 
 const mapDispatchToProps = (dispatch) => ({
   actions: bindActionCreators({
-    deactivateMenu,
+    setHelpPageAnchor,
   }, dispatch),
 });
 
@@ -37,8 +37,19 @@ class Submenu extends Component {
 
   handleClick(event, link) {
     event.preventDefault();
-    hashHistory.push(link);
-    this.props.actions.deactivateMenu();
+    const isHelpPage = /^\/help/.test(link);
+
+    if (!isHelpPage) {
+      hashHistory.push(link);
+      return;
+    }
+
+    const res = link.split('#');
+    const linkWithOutAnchor = res[0];
+    const anchor = res[1];
+
+    this.props.actions.setHelpPageAnchor(anchor);
+    hashHistory.push(linkWithOutAnchor);
   }
 
   render() {

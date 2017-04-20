@@ -87,6 +87,8 @@ import DiscussionsTopicsList from './pages/discussions/topics/DiscussionsTopicsL
 import Landing from './pages/landing/Landing';
 import { onEnterLanding, onLeaveLanding } from './modules/landing/actions';
 
+import Help from './pages/help/Help';
+
 // global styles
 import 'bootstrap/dist/css/bootstrap.css';
 import './styles/app.scss';
@@ -272,6 +274,8 @@ ReactDOM.render(
         <Route path="discussions/new-thread" component={NewDiscussionsThread} onEnter={validateUser} />
 
         <Route path="road-trip" component={Landing} onEnter={onEnterLanding(store)} onLeave={onLeaveLanding(store)} />
+
+        <Route path="help" component={Help} />
 
       </Route>
 

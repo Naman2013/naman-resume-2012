@@ -46,6 +46,7 @@ import upcomingEvents from './upcoming-events/upcoming-events-reducer';
 import user from './User';
 import usersUpcomingMission from './Users-Upcoming-Missions';
 import isLanding from './landing/reducer';
+import helpPage from './help-page/reducer';
 
 export default combineReducers({
   routing: routerReducer,
@@ -95,4 +96,5 @@ export default combineReducers({
   user,
   usersUpcomingMission,
   isLanding,
+  helpPage,
 });

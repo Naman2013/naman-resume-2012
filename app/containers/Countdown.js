@@ -1,4 +1,5 @@
-import React, { PureComponent, PropTypes } from 'react';
+import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
@@ -7,7 +8,7 @@ import CircleTimer from '../containers/CircleTimer';
 import * as countDownEvents from '../modules/CountdownModule';
 import classes from '../styles/countdown.scss';
 
-const { bool, number, string, shape } = PropTypes;
+const { bool, number, string, shape, instanceOf } = PropTypes;
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
@@ -20,14 +21,14 @@ function mapStateToProps({ countdown, upcomingEvents }) {
     countdown,
     nextEvent: upcomingEvents.nextEvent,
     fetchingEvents: upcomingEvents.fetchingEvents,
-    serverTime: upcomingEvents.upcomingEvents.timestamp,
+    calculatedEventValues: upcomingEvents.calculatedEventValues,
+    countdownEventTimer: upcomingEvents.eventTimer,
   };
 }
 
 @connect(mapStateToProps, mapDispatchToProps)
 export default class Countdown extends PureComponent {
   static propTypes = {
-    serverTime: number,
     fetchingEvents: bool.isRequired,
     nextEvent: shape({
       eventDescription: string.isRequired,
@@ -37,6 +38,14 @@ export default class Countdown extends PureComponent {
       eventId: number.isRequired,
       eventImageURL: string.isRequired,
       eventIsLive: bool.isRequired,
+    }).isRequired,
+    calculatedEventValues: shape({
+      currentTimeMoment: instanceOf(moment).isRequired,
+      eventStartMomentDiff: number.isRequired,
+      eventEndMomentDiff: number.isRequired,
+      eventStartMoment: instanceOf(moment).isRequired,
+      eventEndMoment: instanceOf(moment).isRequired,
+      eventLink: string.isRequired,
     }).isRequired,
     lineWidth: number,
     className: string,
@@ -55,46 +64,27 @@ export default class Countdown extends PureComponent {
       className,
       nextEvent,
       fetchingEvents,
-      serverTime,
+      countdownEventTimer,
+      calculatedEventValues,
     } = this.props;
 
     if (!fetchingEvents && nextEvent) {
       const {
-        eventTitle,
-        eventStart,
-        eventEnd,
-        eventId,
+        eventLink,
+      } = calculatedEventValues;
+
+      const {
         eventIsLive,
+        eventTitle,
       } = nextEvent;
 
-      const currentTimeMoment = moment.unix(serverTime);
-      const eventStartTime = moment.unix(eventStart);
-      const eventEndTime = moment.unix(eventEnd);
-
-      const eventHasStarted = eventStartTime.diff(currentTimeMoment) <= 0;
-      const eventHasEnded = eventEndTime.diff(currentTimeMoment) <= 0;
-      const link = ((eventHasStarted && !eventHasEnded) || eventIsLive) ? '/shows/situation-room' : `/shows/event-details/${eventId}`;
-
-      let testEventIsLive = eventStart;
-      let testEndTime = eventEnd;
-
-      // USE THIS FOR TESTING TIMES
-      // this website helps: https://www.epochconverter.com/
-      // if (eventId == 404) {
-      //   testEventIsLive = 1489065680;
-      //   testEndTime = 1489065740;
-      // }
 
       return (
         <div className={`${classes.countdown} ${className}`}>
           <CircleTimer
             lineWidth={lineWidth}
             size={size}
-            eventStartIn={testEventIsLive}
-            eventEndIn={testEndTime}
-            serverTime={serverTime}
-            eventIsLive={eventIsLive}
-            eventId={eventId}
+            countdownEventTimer={countdownEventTimer}
           />
           <span>
             {
@@ -106,7 +96,7 @@ export default class Countdown extends PureComponent {
                 <span>Next LIVE Event: </span> : null
             }
             <span>
-              <strong><Link to={link}>{eventTitle}</Link></strong>
+              <strong><Link to={eventLink}>{eventTitle}</Link></strong>
             </span>
           </span>
         </div>

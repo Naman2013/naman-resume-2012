@@ -1,12 +1,15 @@
 import createReducer from '../utils/createReducer';
+import moment from 'moment';
 import {
   FETCH_EVENTS_START,
   FETCH_EVENTS_SUCCESS,
   FETCH_EVENTS_FAIL,
   SET_NEXT_EVENT,
+  SET_TIMER_VALUES,
+  SET_CALCULATED_EVENT_VALUES,
 } from './upcoming-events-actions';
 
-
+const currentTimePlaceholder = moment();
 const initialState = {
   fetchingEvents: false,
   eventsFetched: false,
@@ -28,6 +31,21 @@ const initialState = {
     eventListType: null,
     eventList: [],
   },
+  calculatedEventValues: {
+    currentTimeMoment: currentTimePlaceholder,
+    eventStartMomentDiff: 0,
+    eventEndMomentDiff: 0,
+    eventEndMoment: moment.unix(currentTimePlaceholder),
+    eventStartMoment: moment.unix(currentTimePlaceholder),
+    eventLink: '/shows/situation-room',
+  },
+  eventTimer: {
+    currentTime: 0,
+    daysTo: 0,
+    hoursTo: 0,
+    minutesTo: 0,
+    secondsTo: 0,
+  }
 };
 
 export default createReducer(initialState, {
@@ -58,6 +76,22 @@ export default createReducer(initialState, {
       fetchingEvents: false,
       errorOccurred: true,
       errorBody: payload,
+    };
+  },
+  [SET_CALCULATED_EVENT_VALUES](state, { payload }) {
+    return {
+      ...state,
+      calculatedEventValues: {
+        ...payload,
+      }
+    };
+  },
+  [SET_TIMER_VALUES](state, { payload }) {
+    return {
+      ...state,
+      eventTimer: {
+        ...payload,
+      }
     };
   },
 });
