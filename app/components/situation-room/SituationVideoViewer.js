@@ -5,7 +5,7 @@ import Countdown from '../../containers/Countdown';
 import VideoImageLoader from '../../components/common/telescope-image-loader/video-image-loader';
 import TelescopeImageViewer from '../../components/common/telescope-image-viewer/telescope-image-viewer';
 import SponsoredBy from '../common/sponsored-by';
-import { camera } from '../community/tools/community-icon';
+import StarShareCamera from '../../components/telescope-details/star-share-camera/star-share-camera';
 import s from './SituationVideoViewer.scss';
 
 const getInlineBgStyle = imgUrl => ({
@@ -137,7 +137,7 @@ class SituationVideoViewer extends Component {
         <footer className={s.liveCameraTabs}>
           {
             this.isStarShareAvailable ?
-              <div className="camera-icon">{camera}</div> : null
+              <StarShareCamera /> : null
           }
         </footer>
 
