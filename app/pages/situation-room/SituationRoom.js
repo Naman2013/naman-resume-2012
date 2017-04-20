@@ -10,6 +10,8 @@ import CommunityMashup from '../../components/situation-room/CommunityMashup';
 import MissionAd from '../../components/missions/mission-ad';
 import { fetchEvents } from '../../modules/upcoming-events/upcoming-events-actions';
 import { fetchSituationRoom, fetchEventsAndSituationRoom } from '../../modules/SituationRoom';
+import { getRandomAdvertisementIndex } from '../../modules/utils';
+
 import s from './SituationRoom.scss';
 
 const mapDispatchToProps = dispatch => ({
@@ -32,6 +34,12 @@ const mapStateToProps = ({ upcomingEvents, liveShows, communityShowContent }, ow
 
 @connect(mapStateToProps, mapDispatchToProps)
 class SituationRoom extends Component {
+  constructor(props) {
+    super(props);
+
+    this.randomAdIdx = getRandomAdvertisementIndex();
+
+  }
   componentWillMount() {
     this.props.actions.fetchEventsAndSituationRoom();
   }
@@ -82,7 +90,7 @@ class SituationRoom extends Component {
         </div>
 
         <div className="col-md-3">
-          <MissionAd size="300x600" />
+          <MissionAd size="300x600" index={this.randomAdIdx} />
           {/* <SocialSidebar /> */}
         </div>
 
