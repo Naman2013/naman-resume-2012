@@ -63,6 +63,8 @@ class SituationRoom extends Component {
             initialStreamCode={currentLiveShow.showStreamCode}
             initialStreamURL={currentLiveShow.showStreamURL}
 
+            eventIconURL={currentLiveShow.EventIconUrl}
+
             hasAdditionalFeeds={currentLiveShow.hasAdditionalFeeds}
           />
 
