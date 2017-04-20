@@ -4,7 +4,6 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import Countdown from '../../containers/Countdown';
 import VideoImageLoader from '../../components/common/telescope-image-loader/video-image-loader';
 import TelescopeImageViewer from '../../components/common/telescope-image-viewer/telescope-image-viewer';
-import generateSseImageLoader from '../../utils/generate-sse-image-source';
 import SponsoredBy from '../common/sponsored-by';
 import { camera } from '../community/tools/community-icon';
 import s from './SituationVideoViewer.scss';
@@ -28,6 +27,13 @@ class SituationVideoViewer extends Component {
     this.setState({
       selectedTab: index,
     });
+  }
+
+  get isStarShareAvailable() {
+    const { starShareAvailable, additionalFeeds } = this.props;
+    const { selectedTab } = this.state;
+
+    return selectedTab === 0 ? starShareAvailable : additionalFeeds[selectedTab - 1].canStarShare
   }
 
   render() {
@@ -130,15 +136,8 @@ class SituationVideoViewer extends Component {
 
         <footer className={s.liveCameraTabs}>
           {
-            starShareAvailable ?
+            this.isStarShareAvailable ?
               <div className="camera-icon">{camera}</div> : null
-          }
-          {
-            /** TODO: deferred starshare camera work
-              <div className="camera" />
-              <div className="camera" />
-              <div className="camera" />
-            */
           }
         </footer>
 
@@ -157,6 +156,7 @@ SituationVideoViewer.defaultProps = {
   initialStreamCode: null,
   initialStreamURL: null,
   eventIconURL: '',
+  additionalFeeds: [],
 };
 
 SituationVideoViewer.propTypes = {
