@@ -16,7 +16,7 @@ export const NOT_AVAILABLE = 'notavailable';
 
 class Listings extends Component {
   renderReservationSlot(reservation) {
-    const { allowReservations, telescopeId } = this.props;
+    const { allowReservations, telescopeId, obsId, domeId } = this.props;
     const { slotStatus } = reservation;
 
     if (!allowReservations && slotStatus === NOT_AVAILABLE) {
@@ -50,6 +50,9 @@ class Listings extends Component {
     if (slotStatus === ON_HOLD) {
       return (
         <MissionOnHold
+          obsId={obsId}
+          domeId={domeId}
+          telescopeId={telescopeId}
           key={reservation.missionIndex}
           {...reservation}
         />
