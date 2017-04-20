@@ -1,0 +1,50 @@
+@import "../../styles/variables/colors.scss";
+@import "../../styles/variables/fonts.scss";
+
+.help-page-header {
+  padding: 60px 30px;
+  display: flex;
+  justify-content: space-between;
+
+  .btn-primary {
+    margin: 0;
+  }
+}
+
+.help-page-title {
+  text-transform: uppercase;
+  color: $white;
+  margin: 0;
+
+  &.help-page-paragraph {
+    font-size: 22px;
+    text-transform: none;
+    color: $font-black;
+    font-weight: bold;
+  }
+}
+
+.help-page-inner {
+  background: $white;
+  padding: 30px 25% 30px 30px;
+  color: $font-black;
+  font-size: 18px;
+  font: $primary-font;
+}
+
+.help-page-section {
+  border-bottom: 1px solid $slooh-gray-xxdark;
+  overflow: hidden;
+
+  &:last-child {
+    border-bottom: 0;
+  }
+
+  .help-page-paragraph + & {
+    border-top: 1px solid $slooh-gray-xxdark;
+  }
+}
+
+.help-page-paragraph {
+  margin: 15px auto;
+}
