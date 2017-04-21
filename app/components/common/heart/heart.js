@@ -2,6 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
 import like from '../../../services/community-content/like';
+import ModalGeneric from '../../common/modals/modal-generic';
 import style from './heart.scss';
 /*
 
@@ -35,6 +36,7 @@ export default class Heart extends Component {
 
   state = {
     count: this.props.count,
+    showPrompt: false,
   }
 
   // for caching purposes if we need this information later
@@ -42,11 +44,16 @@ export default class Heart extends Component {
 
   handleClick = (event) => {
     event.preventDefault();
-    const { at, likeAction, token, canLikeFlag, cid, likeId, likeType } = this.props;
-    if (!canLikeFlag) return;
-    likeAction({
-      at, token, cid, likeId, likeType,
-    }).then(result => this.handleLikeResult(result.data));
+    const { at, likeAction, token, canLikeFlag, cid, likeId, likeType, showLikePrompt } = this.props;
+    if (showLikePrompt) {
+      this.setState({
+        showPrompt: true,
+      });
+    } else {
+      likeAction({
+        at, token, cid, likeId, likeType,
+      }).then(result => this.handleLikeResult(result.data));
+    }
   }
 
   handleLikeResult(likeResult) {
@@ -59,8 +66,14 @@ export default class Heart extends Component {
     }
   }
 
+  closeModal = () => {
+    this.setState({
+      showPrompt: false,
+    });
+  }
+
   render() {
-    const { theme, canLikeFlag } = this.props;
+    const { theme, canLikeFlag, likePrompt } = this.props;
     const { count } = this.state;
     const heartClass = classnames(
       style.heart,
@@ -69,6 +82,7 @@ export default class Heart extends Component {
         clickable: canLikeFlag,
       }
     );
+
     return (
       <button
         onClick={this.handleClick}
@@ -76,6 +90,11 @@ export default class Heart extends Component {
       >
         <i className="fa fa-heart" />
         <span className={style.count}>{count}</span>
+        <ModalGeneric
+          open={this.state.showPrompt}
+          closeModal={this.closeModal}
+          description={String(likePrompt)}
+        />
       </button>
     );
   }
