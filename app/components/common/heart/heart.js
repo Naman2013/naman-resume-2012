@@ -63,16 +63,18 @@ export default class Heart extends Component {
   }
 
   handleLikeResult(likeResult) {
-    const { apiError, errorMsg } = likeResult;
+    const { apiError, showLikePrompt, likePrompt } = likeResult;
     this.likeResult = likeResult;
     if (!apiError) {
       this.setState(prevState => ({
         count: prevState.count + 1,
       }));
-    } else {
+    }
+
+    if (showLikePrompt) {
       this.setState({
         showPrompt: true,
-        likePrompt: errorMsg,
+        likePrompt,
       });
     }
   }
