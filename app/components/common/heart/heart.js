@@ -18,6 +18,8 @@ const mapStateToProps = ({ user }) => ({
 @connect(mapStateToProps)
 export default class Heart extends Component {
   static propTypes = {
+    showLikePrompt: PropTypes.bool,
+    likePrompt: PropTypes.string,
     canLikeFlag: PropTypes.bool,
     likeAction: PropTypes.func,
     count: PropTypes.number,
@@ -27,6 +29,8 @@ export default class Heart extends Component {
   }
 
   static defaultProps = {
+    likePrompt: '',
+    showLikePrompt: false,
     likeAction: like,
     canLikeFlag: true,
     count: 0,
@@ -37,6 +41,7 @@ export default class Heart extends Component {
   state = {
     count: this.props.count,
     showPrompt: false,
+    likePrompt: this.props.likePrompt,
   }
 
   // for caching purposes if we need this information later
@@ -57,12 +62,17 @@ export default class Heart extends Component {
   }
 
   handleLikeResult(likeResult) {
-    const { apiError } = likeResult;
+    const { apiError, errorMsg } = likeResult;
     this.likeResult = likeResult;
     if (!apiError) {
       this.setState(prevState => ({
         count: prevState.count + 1,
       }));
+    } else {
+      this.setState({
+        showPrompt: true,
+        likePrompt: errorMsg,
+      });
     }
   }
 
@@ -73,8 +83,8 @@ export default class Heart extends Component {
   }
 
   render() {
-    const { theme, canLikeFlag, likePrompt } = this.props;
-    const { count } = this.state;
+    const { theme, canLikeFlag } = this.props;
+    const { count, likePrompt, showPrompt } = this.state;
     const heartClass = classnames(
       style.heart,
       theme,
@@ -91,7 +101,7 @@ export default class Heart extends Component {
         <i className="fa fa-heart" />
         <span className={style.count}>{count}</span>
         <ModalGeneric
-          open={this.state.showPrompt}
+          open={showPrompt}
           closeModal={this.closeModal}
           description={String(likePrompt)}
         />

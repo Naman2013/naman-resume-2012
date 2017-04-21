@@ -65,6 +65,8 @@ CommunityPost.PropTypes = {
   memberSince: string.isRequired,
   avatarURL: string.isRequired,
   likesCount: bool,
+  showLikePrompt: bool,
+  likePrompt: string,
 };
 
 export default CommunityPost;
