@@ -1,10 +1,12 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import Heart from '../heart/heart';
 import { Link } from 'react-router';
 import ByUserTag from '../by-user-tag/by-user-tag';
 
 const CommunityPost = ({
   content,
+  canLikeFlag,
   title,
   displayName,
   location,
@@ -12,6 +14,8 @@ const CommunityPost = ({
   memberSince,
   avatarURL,
   likesCount,
+  showLikePrompt,
+  likePrompt,
   postId,
 }) => <div className="item">
   <div className="item-header">
@@ -22,7 +26,13 @@ const CommunityPost = ({
       memberSince={memberSince}
       location={location}
     />
-  <Heart count={likesCount} likeId={postId} canLikeFlag={false} />
+  <Heart
+    count={likesCount}
+    likeId={postId}
+    canLikeFlag={canLikeFlag}
+    likePrompt={likePrompt}
+    showLikePrompt={showLikePrompt}
+  />
   </div>
   <div className="description">
     <Link className="descriptionLink" to={`/community/post/${postId}`}>
@@ -55,6 +65,8 @@ CommunityPost.PropTypes = {
   memberSince: string.isRequired,
   avatarURL: string.isRequired,
   likesCount: bool,
+  showLikePrompt: bool,
+  likePrompt: string,
 };
 
 export default CommunityPost;

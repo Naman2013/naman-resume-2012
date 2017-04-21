@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import ByUserTag from '../../components/common/by-user-tag/by-user-tag'
 import PulsePostDate from '../../components/pulse/pulse-post-date'
 import PulsePostImage from '../../components/pulse/pulse-post-image'
@@ -22,6 +23,8 @@ class PulsePostContent extends Component {
         membershipType,
         memberSince,
         location,
+        likePrompt,
+        showLikePrompt,
         likesCount,
         postId,
       }
@@ -54,6 +57,8 @@ class PulsePostContent extends Component {
               {
                 postId ?
                   <CommunityPulseTools
+                    showLikePrompt={showLikePrompt}
+                    likePrompt={likePrompt}
                     likesCount={likesCount}
                     likeId={postId}
                   /> : null
