@@ -2,6 +2,7 @@ import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux';
 import { reducer } from 'redux-form';
 import activeTelescopeMissions from './active-telescope-missions/active-telescope-missions-reducer';
+import adStats from './ad-management/ad-stats';
 import announcementBanner from './Announcement-Banner';
 import appConfig from './app-config/reducer';
 import authorization from './authorization/reducer';
@@ -52,6 +53,7 @@ export default combineReducers({
   routing: routerReducer,
   form: reducer,
   activeTelescopeMissions,
+  adStats,
   announcementBanner,
   appConfig,
   authorization,
