@@ -20,6 +20,8 @@ function EventDescription({ eventContent, showId }) {
         <div className={s.sharingOptionsMenu}>
           <div className={s.eventDescriptionPanelItem}>
             <Heart
+              showLikePrompt={eventContent.showLikePrompt}
+              likePrompt={eventContent.likePrompt}
               count={eventContent.likesCount}
               canLikeFlag={eventContent.canLikeFlag}
               likeAction={like}

@@ -20,6 +20,8 @@ const PulsePostItem = ({
   membershipType,
   memberSince,
   location,
+  likePrompt,
+  showLikePrompt,
   likesCount }) => (
     <div>
       <div className={styles.PulsePostList}>
@@ -54,6 +56,8 @@ const PulsePostItem = ({
 
             <div className="col-md-1">
               <Heart
+                showLikePrompt={showLikePrompt}
+                likePrompt={likePrompt}
                 count={likesCount}
                 likeId={postId}
                 theme="dark"

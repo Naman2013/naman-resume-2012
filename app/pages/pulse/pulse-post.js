@@ -22,6 +22,8 @@ class PulsePostContent extends Component {
         membershipType,
         memberSince,
         location,
+        likePrompt,
+        showLikePrompt,
         likesCount,
         postId,
       }
@@ -54,6 +56,8 @@ class PulsePostContent extends Component {
               {
                 postId ?
                   <CommunityPulseTools
+                    showLikePrompt={showLikePrompt}
+                    likePrompt={likePrompt}
                     likesCount={likesCount}
                     likeId={postId}
                   /> : null
