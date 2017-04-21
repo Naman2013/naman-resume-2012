@@ -100,10 +100,11 @@ class TelescopeDetails extends Component {
 
     this.props.actions.fetchObservatoryWebcam(nextObservatory);
 
+    // TODO: make sure that we are refreshing this list at the appropriate time!!!
+    this.props.actions.resetSnapshotList();
+
     const currentTelescope = this.getCurrentTelescope(currentObservatory.obsTelescopes, teleUniqueId);
-    const { teleInstrumentList, teleId } = currentTelescope;
-    const currentTelescopeMissionData = activeTelescopeMissions.telescopes.find(telescope => telescope.telescopeId === teleId);
-    const nextTelescopeMissionData = nextActiveTelescopeMissions.telescopes.find(telescope => telescope.telescopeId === teleId);
+    const { teleInstrumentList } = currentTelescope;
 
     // reset the selected tab if it is outside of the bounds of available tabs
     if (selectedTab > teleInstrumentList.length - 1) {
