@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import styles from './community-post-tools.scss';
 import CommunityPostHot from './community-post-hot';
 import CommunityPostShare from './community-post-share';

@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import { isEmpty, uniqueId } from 'lodash';
 import ByUserTag from '../../components/common/by-user-tag/by-user-tag';
