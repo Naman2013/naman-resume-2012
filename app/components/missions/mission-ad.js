@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { incrementAdDisplayCounter } from '../../modules/ad-management/ad-stats';
 import styles from './mission-sidebar.scss';
 import { getRandomAdvertisementIndex } from '../../modules/utils';
 
@@ -44,15 +47,29 @@ const getUrl = (i) => {
   return urls[i];
 };
 
-const MissionAd = ({ size, index }) => {
-  return (
-    <div className="mission-ad widget-container">
-      <Link href={getUrl(index)} target="_blank">
-        <img alt="advertisement" src={generateRandomImage(size, index)} />
-      </Link>
-      <p>Advertisement</p>
-    </div>
-  );
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators({
+    incrementAdDisplayCounter,
+  }, dispatch),
+});
+
+@connect(null, mapDispatchToProps)
+class MissionAd extends Component {
+  constructor(props) {
+    super(props);
+    this.props.actions.incrementAdDisplayCounter();
+  }
+  render() {
+    const { size, index } = this.props;
+    return (
+      <div className="mission-ad widget-container">
+        <Link href={getUrl(index)} target="_blank">
+          <img alt="advertisement" src={generateRandomImage(size, index)} />
+        </Link>
+        <p>Advertisement</p>
+      </div>
+    );
+  }
 }
 
 MissionAd.defaultProps = {

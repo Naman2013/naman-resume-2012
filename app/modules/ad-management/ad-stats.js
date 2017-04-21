@@ -11,8 +11,8 @@ const initialState = {
 };
 
 export default createReducer(initialState, {
-  INCREMENT_ADS_DISPLAYED: (state, getState) => {
-    let { adsDisplayed } = getState().adStats;
+  [INCREMENT_ADS_DISPLAYED](state) {
+    let { adsDisplayed } = state;
     return {
       adsDisplayed: (adsDisplayed += 1),
     };
