@@ -47,6 +47,11 @@
     font-size: 11px;
   }
 
+  .status-legend .static-item {
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+
   .scope-online::before {
     font-weight: bold;
     content: "\2022";
@@ -131,6 +136,13 @@
     &:hover::before {
       left: 0px;
     }
+  }
+}
+
+.obs-location {
+  color: $white;
+  &:hover {
+    color: $pink;
   }
 }
 
