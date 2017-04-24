@@ -94,8 +94,8 @@ export default class Header extends Component {
     //  USE THIS FOR TESTING TIMES
     //  this website helps: https://www.epochconverter.com/
       // if (eventId == 421) {
-      //   testEventStart = moment.unix(1492944968);
-      //   testEventEnd = moment.unix(1492945028);
+      //   testEventStart = moment.unix(1493057127);
+      //   testEventEnd = moment.unix(1493057187);
       // }
 
       this.props.tickEvent({

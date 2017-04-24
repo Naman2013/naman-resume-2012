@@ -70,6 +70,7 @@ export const endEvent = () => (dispatch, getState) => {
     showId: updatedEventList[0].eventId,
     listType: 'sluglookupids',
   }));
+  dispatch(fetchSituationRoom(updatedEventList[0].eventId));
   dispatch(fetchEventsSuccess(updatedEvents));
 };
 
