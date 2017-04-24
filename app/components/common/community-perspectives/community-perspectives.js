@@ -85,7 +85,7 @@ class CommunityPerspectives extends Component {
     return posts.filter(post => post.type === matchContentKey);
   }
 
-  onMouseOver = (e, hoverCategory) => {
+  changeHoverCategory = (e, hoverCategory) => {
     this.setState({
       hoverCategory,
     });
@@ -162,7 +162,8 @@ class CommunityPerspectives extends Component {
                     <li
                       key={index}
                       className="col-xs-3 category"
-                      onMouseOver={(e) => { this.onMouseOver(e, perspective.catagory); }}
+                      onMouseOver={(e) => { this.changeHoverCategory(e, perspective.catagory); }}
+                      onMouseOut={(e) => { this.changeHoverCategory(e, this.state.activeCatagory); }}
                     >
                       <a
                         onClick={event => this.handleNavigationClick(event, perspective.catagory)}
