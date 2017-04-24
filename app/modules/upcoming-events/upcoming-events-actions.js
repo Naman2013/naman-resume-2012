@@ -1,5 +1,6 @@
 import moment from 'moment';
 import fetchUpcomingEvents from '../../services/events/fetch-upcoming-events';
+import { fetchShowContent } from '../community-content/get-show-content-actions';
 import { fetchLiveShowInfo } from '../live-shows/live-shows-actions';
 import { fetchSituationRoom } from '../SituationRoom';
 
@@ -65,6 +66,10 @@ export const endEvent = () => (dispatch, getState) => {
   };
 
   dispatch(setNextEvent(updatedEventList[0]));
+  dispatch(fetchShowContent({
+    showId: updatedEventList[0].eventId,
+    listType: 'sluglookupids',
+  }));
   dispatch(fetchEventsSuccess(updatedEvents));
 };
 
