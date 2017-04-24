@@ -24,7 +24,7 @@ function EventDescription() {
             <div className={style.date}>
               <div className={style.dataItemHeader}>Date & Time:</div>
               <div className={style.dataItemContent}>
-                Fri. August 18 - Tues. August 22 Starting 11:00 AM PST
+                Fri. August 18 - Tues. August 22 Starting 12:00 PM PMT
               </div>
               {
                 /**
@@ -35,7 +35,7 @@ function EventDescription() {
             <div className={style.place}>
               <div className={style.dataItemHeader}>Location:</div>
               <div className={style.dataItemContent}>
-                The Elk Creek Campground Clearwater National Park, Forest Rd 3311, Elk River, ID 83827
+                Elk Creek Campground, Sawtooth National Forest Stanley, ID
               </div>
 
               {

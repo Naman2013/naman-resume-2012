@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import s from './FormErrorMessage.scss';
 
 const FormErrorMessage = ({ messageTitle, messageBody }) => (
-  <div className={s.formErrorMessageRoot}>
+  <div className={`${s.formErrorMessageRoot} form-error-message`}>
     <h5>{messageTitle}</h5>
     <p>{messageBody}</p>
   </div>

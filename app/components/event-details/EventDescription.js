@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import classnames from 'classnames';
 import Heart from '../common/heart/heart';
@@ -20,6 +21,8 @@ function EventDescription({ eventContent, showId }) {
         <div className={s.sharingOptionsMenu}>
           <div className={s.eventDescriptionPanelItem}>
             <Heart
+              showLikePrompt={eventContent.showLikePrompt}
+              likePrompt={eventContent.likePrompt}
               count={eventContent.likesCount}
               canLikeFlag={eventContent.canLikeFlag}
               likeAction={like}

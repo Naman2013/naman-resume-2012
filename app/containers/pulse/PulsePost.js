@@ -7,6 +7,7 @@ import SloohRecommends from '../../components/common/recommendations/SloohRecomm
 import CommunityPostHeader from '../../components/community/community-post-header';
 import MissionAd from '../../components/missions/mission-ad';
 import { fetchPost } from '../../modules/pulse/get-post-action';
+import { getRandomAdvertisementIndex } from '../../modules/utils';
 
 function mapStateToProps({ post }, ownProps) {
   return {
@@ -31,6 +32,8 @@ class PulsePost extends Component {
 
   constructor(props) {
     super(props);
+
+    this.randomAdIdx = getRandomAdvertisementIndex();
     props.actions.fetchPost(this.props.id);
   }
 
@@ -91,7 +94,7 @@ class PulsePost extends Component {
           </div>
 
           <aside className="col-md-4 mission-sidebar">
-            <MissionAd />
+            <MissionAd index={this.randomAdIdx}/>
             {
               showRecommends ?
                 <SloohRecommends

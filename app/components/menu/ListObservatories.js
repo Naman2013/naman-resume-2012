@@ -44,15 +44,17 @@ class ListObservatories extends Component {
             return (
               <ul key={el.obsName}>
                 <li className="static-item">
-                  <img alt="daylight status" className="obs-dayicon" src={this.getDaylingImage(el.obsDaylight)} />
-                  <span className="obs-location">{el.obsName}</span>
+                  <a href={el.obsTeleOverviewURL} className="obs-location">
+                    <img alt="daylight status" className="obs-dayicon" src={this.getDaylingImage(el.obsDaylight)} />
+                    <span className="obs-location">{el.obsName}</span>
+                  </a>
                 </li>
                 <ListObservatoryChildren data={el.obsTelescopes} />
               </ul>
             );
           }
         })}
-        <ul className="list">
+        <ul className="list status-legend">
           <li className="static-item scope-online">Currently Online</li>
           <li className="static-item scope-offline">Currently Offline</li>
         </ul>

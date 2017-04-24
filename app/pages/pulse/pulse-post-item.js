@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router'
 import PulsePostDate from '../../components/pulse/pulse-post-date'
 import PulsePostImage from '../../components/pulse/pulse-post-image'
@@ -20,6 +21,8 @@ const PulsePostItem = ({
   membershipType,
   memberSince,
   location,
+  likePrompt,
+  showLikePrompt,
   likesCount }) => (
     <div>
       <div className={styles.PulsePostList}>
@@ -54,6 +57,8 @@ const PulsePostItem = ({
 
             <div className="col-md-1">
               <Heart
+                showLikePrompt={showLikePrompt}
+                likePrompt={likePrompt}
                 count={likesCount}
                 likeId={postId}
                 theme="dark"
