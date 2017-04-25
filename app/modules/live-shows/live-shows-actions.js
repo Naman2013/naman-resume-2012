@@ -20,6 +20,7 @@ const fetchLiveShowFail = payload => ({
 
 export const fetchLiveShowInfo = showId => (dispatch, getState) => {
   const { at, token, cid } = getState().user;
+  let testShowId = showId;
   dispatch(fetchLiveShowStart());
 
   /* for testing purposes */
@@ -29,7 +30,7 @@ export const fetchLiveShowInfo = showId => (dispatch, getState) => {
     at,
     token,
     cid,
-    showId,
+    showId: testShowId,
   })
   .then(result => dispatch(fetchLiveShowInfoSuccess(result.data)))
   .catch(error => dispatch(fetchLiveShowFail(error)));

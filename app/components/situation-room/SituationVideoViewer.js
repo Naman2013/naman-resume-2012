@@ -30,10 +30,10 @@ class SituationVideoViewer extends Component {
   }
 
   get isStarShareAvailable() {
-    const { starShareAvailable, additionalFeeds } = this.props;
+    const { starShareAvailable, additionalFeeds, videoInProgress } = this.props;
     const { selectedTab } = this.state;
 
-    return selectedTab === 0 ? starShareAvailable : additionalFeeds[selectedTab - 1].canStarShare
+    return selectedTab === 0 ? (starShareAvailable && videoInProgress) : additionalFeeds[selectedTab - 1].canStarShare
   }
 
   render() {
@@ -76,7 +76,7 @@ class SituationVideoViewer extends Component {
               <div className="telescope" style={getInlineBgStyle(eventIconURL)} />
             </Tab>
             {
-                additionalFeeds.map((feed, i) => (
+                videoInProgress && additionalFeeds.map((feed, i) => (
                   <Tab key={feed.videoStreamCode}>
                     <div className={s.liveTelescopeTitle}>
                       {(selectedTab === i + 1) && <h6>{feed.TelescopeName}</h6> }
@@ -108,7 +108,7 @@ class SituationVideoViewer extends Component {
           </TabPanel>
 
           {
-            additionalFeeds.map(feed => (
+            videoInProgress && additionalFeeds.map(feed => (
               <TabPanel key={feed.videoStreamCode}>
                 <aside className={s.liveViewContent}>
                   {feed.imageSourceType === 'video' ?
