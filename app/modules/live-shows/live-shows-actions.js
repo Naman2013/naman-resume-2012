@@ -20,17 +20,16 @@ const fetchLiveShowFail = payload => ({
 
 export const fetchLiveShowInfo = showId => (dispatch, getState) => {
   const { at, token, cid } = getState().user;
-  let testShowId = showId;
   dispatch(fetchLiveShowStart());
 
   /* for testing purposes */
-  testShowId = 388;
+  // testShowId = 388;
 
   return axios.post('/api/events/getLiveShowInfo', {
     at,
     token,
     cid,
-    showId: testShowId,
+    showId,
   })
   .then(result => dispatch(fetchLiveShowInfoSuccess(result.data)))
   .catch(error => dispatch(fetchLiveShowFail(error)));
