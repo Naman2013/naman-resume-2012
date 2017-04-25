@@ -102,7 +102,7 @@ class CommunityPerspectives extends Component {
     const posts = this.props.communityContent;
     const filteredPosts = this.filterPosts(posts);
     const hasPosts = filteredPosts.length > 0;
-    const sortedPosts = _.orderBy(filteredPosts, ['likesCount'], ['desc']); // _.orderBy(filteredPosts, ['likesCount', 'creationDate'], ['desc', 'desc']);
+    const sortedPosts = _.orderBy(filteredPosts, ['likesCount', 'creationDate'], ['desc', 'desc']);
 
     // if there ARE posts, show them
     if (hasPosts) {
