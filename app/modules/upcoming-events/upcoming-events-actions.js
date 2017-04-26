@@ -100,7 +100,7 @@ export const calculateEventTimes = ({
 
   const eventStartMomentDiff = eventStartMoment.diff(currentTimeMoment);
   const eventEndMomentDiff = eventEndMoment.diff(currentTimeMoment);
-  const eventLink = ((eventStartMomentDiff <= 0 && !eventEndMomentDiff) <= 0 || eventIsLive) ? '/shows/situation-room' : `/shows/event-details/${eventId}`;
+  const eventLink = ((eventStartMomentDiff <= 0 && !eventEndMomentDiff <= 0) || eventIsLive) ? '/shows/situation-room' : `/shows/event-details/${eventId}`;
 
   return {
     type: SET_CALCULATED_EVENT_VALUES,
