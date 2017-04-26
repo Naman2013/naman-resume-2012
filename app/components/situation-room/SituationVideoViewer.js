@@ -1,10 +1,16 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import Countdown from '../../containers/Countdown';
 import VideoImageLoader from '../../components/common/telescope-image-loader/video-image-loader';
+import TelescopeImageViewer from '../../components/common/telescope-image-viewer/telescope-image-viewer';
 import SponsoredBy from '../common/sponsored-by';
-import { camera } from '../community/tools/community-icon';
+import StarShareCamera from '../../components/telescope-details/star-share-camera/star-share-camera';
 import s from './SituationVideoViewer.scss';
+
+const getInlineBgStyle = imgUrl => ({
+  backgroundImage: `url(${imgUrl})`,
+});
 
 class SituationVideoViewer extends Component {
   constructor(props) {
@@ -23,6 +29,13 @@ class SituationVideoViewer extends Component {
     });
   }
 
+  get isStarShareAvailable() {
+    const { starShareAvailable, additionalFeeds, videoInProgress } = this.props;
+    const { selectedTab } = this.state;
+
+    return selectedTab === 0 ? (starShareAvailable && videoInProgress) : additionalFeeds[selectedTab - 1].canStarShare
+  }
+
   render() {
     const {
       videoInProgress,
@@ -31,13 +44,12 @@ class SituationVideoViewer extends Component {
       sponsorLogoURL,
       sponsorLinkURL,
       additionalFeeds,
-
+      eventIconURL,
       starShareAvailable,
       initialStreamCode,
       initialStreamURL,
     } = this.props;
     const { selectedTab } = this.state;
-
     Tabs.setUseDefaultStyles(false);
 
     return (
@@ -58,18 +70,20 @@ class SituationVideoViewer extends Component {
 
           <TabList className={s.liveTelescopeTabs}>
             <Tab>
-              <h6>Main Show</h6>
-              <div className="telescope" />
+              <div className={s.liveTelescopeTitle}>
+                {selectedTab === 0 && <h6>Main Show</h6>}
+              </div>
+              <div className="telescope" style={getInlineBgStyle(eventIconURL)} />
             </Tab>
             {
-              /** TODO: SSE feeds deferred
-                additionalFeeds.map(feed => (
-                  <Tab>
-                    <h6>Feed tab</h6>
-                    <div className="telescope" />
+                videoInProgress && additionalFeeds.map((feed, i) => (
+                  <Tab key={feed.videoStreamCode}>
+                    <div className={s.liveTelescopeTitle}>
+                      {(selectedTab === i + 1) && <h6>{feed.TelescopeName}</h6> }
+                    </div>
+                    <div className="telescope" style={getInlineBgStyle(feed.tabIconURL)} />
                   </Tab>
                 ))
-              */
             }
           </TabList>
 
@@ -94,27 +108,36 @@ class SituationVideoViewer extends Component {
           </TabPanel>
 
           {
-            /** TODO: deferred the SSE work
-            additionalFeeds.map(feed => (
-              <TabPanel>
-                <aside className={s.liveViewContent}>Coming soon</aside>
-              </TabPanel>
-            ))
-            */
-          }
+            videoInProgress && additionalFeeds.map(feed => (
+              <TabPanel key={feed.videoStreamCode}>
+                <aside className={s.liveViewContent}>
+                  {feed.imageSourceType === 'video' ?
+                    <VideoImageLoader
+                      teleStreamCode={feed.videoStreamCode}
+                      teleStreamURL={feed.videoStreamURL}
+                      teleStreamThumbnailVideoWidth="1000"
+                      teleStreamThumbnailVideoHeight="550"
+                    />
+                  : // else feed.imageSourceType === 'SSE'
+                    <TelescopeImageViewer
+                      teleSystem={feed.systemId}
+                      telePort={feed.SSEport}
+                      teleId={feed.TelescopeId}
+                      obsId={feed.ObsId}
+                      domeId={String(feed.DomeId)}
+                      teleFade={String(feed.SSEfade)}
+                      clipped={false}
+                    />
+                  }
+                </aside>
+              </TabPanel>)
+            )}
         </Tabs>
 
         <footer className={s.liveCameraTabs}>
           {
-            starShareAvailable ?
-              <div className="camera-icon">{camera}</div> : null
-          }
-          {
-            /** TODO: deferred starshare camera work
-              <div className="camera" />
-              <div className="camera" />
-              <div className="camera" />
-            */
+            this.isStarShareAvailable ?
+              <StarShareCamera /> : null
           }
         </footer>
 
@@ -132,6 +155,8 @@ SituationVideoViewer.defaultProps = {
   sponsorLinkURL: '',
   initialStreamCode: null,
   initialStreamURL: null,
+  eventIconURL: '',
+  additionalFeeds: [],
 };
 
 SituationVideoViewer.propTypes = {
@@ -141,7 +166,7 @@ SituationVideoViewer.propTypes = {
   hasSponsor: PropTypes.bool,
   sponsorLogoURL: PropTypes.string,
   sponsorLinkURL: PropTypes.string,
-
+  eventIconURL: PropTypes.string,
   additionalFeeds: PropTypes.array,
   starShareAvailable: PropTypes.bool.isRequired,
   initialStreamCode: PropTypes.string,

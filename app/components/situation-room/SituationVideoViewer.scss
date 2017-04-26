@@ -26,7 +26,6 @@
     width: 100%;
     margin-top: 10px;
     box-shadow: 0 5px 10px 0 #1f1f1f;
-    z-index: 80;
     position: relative;
     display: flex;
     justify-content: center;
@@ -92,8 +91,12 @@
 
 }
 
+.liveTelescopeTitle {
+  height: 30px;
+}
+
 .liveTelescopeTabs {
-  z-index: 70;
+  z-index: 99;
   display: inline-flex;
   position: absolute;
   right: 0;
@@ -138,8 +141,6 @@
       width: 40px;
       height: 40px;
       border-radius: 100%;
-      background: #bebebe;
-      border: 1px solid #ececec;
       margin-top: 3px;
     }
   }

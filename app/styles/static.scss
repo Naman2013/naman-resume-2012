@@ -621,7 +621,7 @@ input[type="number"] {
         top: 0;
         visibility: show;
         width: 210px;
-        z-index: 9999;
+        z-index: 999;
         p {
             @include font-size(11px);
             line-height: 1.4em;
