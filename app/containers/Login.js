@@ -28,6 +28,11 @@ class Login extends Component {
     registerNewMemberURL: '',
   }
 
+  componentWillUnmount() {
+    const { loginReset } = this.props;
+    loginReset();
+  }
+
   handleClickOutside = () => {
     this.props.hide();
   }
