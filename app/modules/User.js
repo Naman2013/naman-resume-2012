@@ -72,7 +72,7 @@ export function checkUser(pathname, replace, callback) {
       //   replace('/registration/sign-in');
       // }
       callback();
-      dispatch(destroy());
+      // dispatch(destroy());
     }
   };
 }
