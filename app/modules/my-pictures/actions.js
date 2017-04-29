@@ -23,6 +23,20 @@ export const FETCH_FIT_IMAGES_START = 'FETCH_FIT_IMAGES_START';
 export const FETCH_FIT_IMAGES_SUCCESS = 'FETCH_FIT_IMAGES_SUCCESS';
 export const RESET_FIT_IMAGES = 'RESET_FIT_IMAGES';
 
+export const FETCH_MY_PICTURES_COUNT_START = 'FETCH_MY_PICTURES_COUNT_START';
+export const FETCH_MY_PICTURES_COUNT_SUCCESS = 'FETCH_MY_PICTURES_COUNT_SUCCESS';
+export const FETCH_MY_PICTURES_COUNT_FAIL = 'FETCH_MY_PICTURES_COUNT_FAIL';
+
+export const FETCH_MISSION_PHOTOS_COUNT_START = 'FETCH_MISSION_PHOTOS_COUNT_START';
+export const FETCH_MISSION_PHOTOS_COUNT_SUCCESS = 'FETCH_MISSION_PHOTOS_COUNT_SUCCESS';
+export const FETCH_MISSION_PHOTOS_COUNT_FAIL = 'FETCH_MISSION_PHOTOS_COUNT_FAIL';
+
+
+export const FETCH_MISSION_COUNT_START = 'FETCH_MISSION_COUNT_START';
+export const FETCH_MISSION_COUNT_SUCCESS = 'FETCH_MISSION_COUNT_SUCCESS';
+export const FETCH_MISSION_COUNT_FAIL = 'FETCH_MISSION_COUNT_FAIL';
+
+
 
 const fetchFITImagesStart = () => ({
   type: FETCH_FIT_IMAGES_START,
@@ -64,20 +78,32 @@ const fetchMissionPhotosFail = payload => ({
   payload,
 });
 
-export const fetchMissionPhotos = scheduledMissionId => (dispatch, getState) => {
+export const fetchMissionPhotos = ({
+  scheduledMissionId,
+  maxImageCount,
+  firstImageNumber,
+}) => (dispatch, getState) => {
   const { at, token, cid } = getState().user;
   const { objectTypeFilter } = getState().myPictures;
   dispatch(fetchMissionPhotosStart());
+  dispatch(fetchMissionPhotosCount()); // for pagination
 
   return axios.post('/api/images/getMyPictures', {
     at,
     cid,
     token,
+    pagingMode: 'api',
+    maxImageCount,
+    firstImageNumber,
     scheduledMissionId,
     filterType: objectTypeFilter.filterByField,
     viewType: 'missions',
   })
-  .then(result => dispatch(fetchMissionPhotosSuccess(result.data)))
+  .then(result => dispatch(fetchMissionPhotosSuccess(
+    Object.assign({
+      maxImageCount,
+      firstImageNumber,
+    }, result.data))))
   .catch(error => dispatch(fetchMissionPhotosFail(error)));
 };
 
@@ -95,7 +121,10 @@ const fetchMissionsFail = payload => ({
   payload,
 });
 
-const fetchMissions = () => (dispatch, getState) => {
+const fetchMissions = ({
+  firstMissionNumber,
+  maxMissionCount,
+}) => (dispatch, getState) => {
   const { at, token, cid } = getState().user;
   const { objectTypeFilter } = getState().myPictures;
   dispatch(fetchMissionsStart());
@@ -104,9 +133,17 @@ const fetchMissions = () => (dispatch, getState) => {
     token,
     at,
     cid,
+    pagingMode: 'api',
+    firstMissionNumber,
+    maxMissionCount,
     filterType: objectTypeFilter.filterByField,
   })
-  .then(result => dispatch(fetchMissionsSuccess(result.data)))
+  .then(result => dispatch(fetchMissionsSuccess(
+    Object.assign({
+      firstMissionNumber,
+      maxMissionCount,
+    }, result.data)
+  )))
   .catch(error => dispatch(fetchMissionsFail(error)));
 };
 
@@ -128,7 +165,11 @@ const fetchPhotoRollFail = payload => ({
   @scheduledMissionId: number - used when filtering down to a specific set
   of photographs for a specific mission
 */
-export const fetchPhotoRoll = ({ noFilter = false }) => (dispatch, getState) => {
+export const fetchPhotoRoll = ({
+  noFilter = false,
+  maxImageCount,
+  firstImageNumber,
+}) => (dispatch, getState) => {
   const { at, token, cid } = getState().user;
   const { objectTypeFilter } = getState().myPictures;
   dispatch(fetchPhotoRollStart());
@@ -137,10 +178,17 @@ export const fetchPhotoRoll = ({ noFilter = false }) => (dispatch, getState) => 
     at,
     cid,
     token,
+    pagingMode: 'api',
+    maxImageCount,
+    firstImageNumber,
     filterType: noFilter ? '' : objectTypeFilter.filterByField,
     viewType: 'photoRoll',
   })
-  .then(result => dispatch(fetchPhotoRollSuccess(result.data)))
+  .then(result => dispatch(fetchPhotoRollSuccess(
+    Object.assign({
+      maxImageCount,
+      firstImageNumber,
+    }, result.data))))
   .catch(error => dispatch(fetchPhotoRollFail(error)));
 };
 
@@ -181,20 +229,131 @@ export const photoRollResetScheduledMissionId = () => (dispatch) => {
   checks in other parts of the app to stay consistent.
 */
 
-export const fetchPhotoRollandMissionRoll = () => (dispatch) => {
-  dispatch(fetchMissions());
+export const fetchPhotoRollAndCounts = () => (dispatch) => {
+  dispatch(fetchMissionCount());
+  dispatch(fetchMyPicturesCount());
   dispatch(fetchPhotoRoll({}));
+};
+
+export const fetchMissionsAndCounts = () => (dispatch) => {
+  dispatch(fetchMissionCount());
+  dispatch(fetchMyPicturesCount());
+  dispatch(fetchMissions({}));
 };
 
 export const updateObjectFilterBy = (payload, page) => (dispatch) => {
   dispatch(setObjectFilterBy(payload));
-  dispatch(fetchMissions());
-  dispatch(fetchPhotoRoll({}));
+  dispatch(fetchMissionCount());
+  dispatch(fetchMyPicturesCount());
+
+  if (page === 'photoRoll') {
+    dispatch(fetchPhotoRoll({}));
+  } else if (page === 'missions') {
+    dispatch(fetchMissions());
+  }
 };
 
 export const resetObjectFilter = page => (dispatch) => {
   dispatch(resetObjectTypeFilter());
-  dispatch(fetchMissions());
-  dispatch(fetchPhotoRoll({}));
+  dispatch(fetchMissionCount());
+  dispatch(fetchMyPicturesCount());
 
+  if (page === 'photoRoll') {
+    dispatch(fetchPhotoRoll({}));
+  } else if (page === 'missions') {
+    dispatch(fetchMissions());
+  }
+
+};
+
+const fetchMyPicturesCountStart = payload => ({
+  type: FETCH_MY_PICTURES_COUNT_START,
+  payload,
+});
+
+const fetchMyPicturesCountSuccess = payload => ({
+  type: FETCH_MY_PICTURES_COUNT_SUCCESS,
+  payload,
+});
+
+const fetchMyPicturesCountFail = payload => ({
+  type: FETCH_MY_PICTURES_COUNT_FAIL,
+  payload,
+});
+
+export const fetchMyPicturesCount = () => (dispatch, getState) => {
+  const { at, token, cid } = getState().user;
+  const { objectTypeFilter } = getState().myPictures;
+  dispatch(fetchMyPicturesCountStart());
+
+  return axios.post('/api/images/getMyPicturesCount', {
+    at,
+    cid,
+    token,
+    filterType: objectTypeFilter.filterByField,
+    viewType: 'photoRoll',
+  })
+  .then(result => dispatch(fetchMyPicturesCountSuccess(result.data)))
+  .catch(error => dispatch(fetchMyPicturesCountFail(error)));
+};
+
+const fetchMissionPhotosCountStart = payload => ({
+  type: FETCH_MISSION_PHOTOS_COUNT_START,
+  payload,
+});
+
+const fetchMissionPhotosCountSuccess = payload => ({
+  type: FETCH_MISSION_PHOTOS_COUNT_SUCCESS,
+  payload,
+});
+
+const fetchMissionPhotosCountFail = payload => ({
+  type: FETCH_MISSION_PHOTOS_COUNT_FAIL,
+  payload,
+});
+
+export const fetchMissionPhotosCount = () => (dispatch, getState) => {
+  const { at, token, cid } = getState().user;
+  const { objectTypeFilter } = getState().myPictures;
+  dispatch(fetchMissionPhotosCountStart());
+
+  return axios.post('/api/images/getMyPicturesCount', {
+    at,
+    cid,
+    token,
+    filterType: objectTypeFilter.filterByField,
+    viewType: 'missions',
+  })
+  .then(result => dispatch(fetchMissionPhotosCountSuccess(result.data)))
+  .catch(error => dispatch(fetchMissionPhotosCountFail(error)));
+};
+
+const fetchMissionCountStart = payload => ({
+  type: FETCH_MISSION_COUNT_START,
+  payload,
+});
+
+const fetchMissionCountSuccess = payload => ({
+  type: FETCH_MISSION_COUNT_SUCCESS,
+  payload,
+});
+
+const fetchMissionCountFail = payload => ({
+  type: FETCH_MISSION_COUNT_FAIL,
+  payload,
+});
+
+export const fetchMissionCount = () => (dispatch, getState) => {
+  const { at, token, cid } = getState().user;
+  const { objectTypeFilter } = getState().myPictures;
+  dispatch(fetchMissionCountStart());
+
+  return axios.post('/api/images/getMissionCount', {
+    at,
+    cid,
+    token,
+    filterType: objectTypeFilter.filterByField,
+  })
+  .then(result => dispatch(fetchMissionCountSuccess(result.data)))
+  .catch(error => dispatch(fetchMissionCountFail(error)));
 };

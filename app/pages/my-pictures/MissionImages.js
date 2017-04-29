@@ -25,7 +25,7 @@ const mapDispatchToProps = dispatch => ({
 class MissionImages extends Component {
   componentWillMount() {
     const { scheduledMissionId } = this.props;
-    this.props.actions.fetchMissionPhotos(scheduledMissionId);
+    this.props.actions.fetchMissionPhotos({ scheduledMissionId });
   }
 
   handleFITClick = () => {
