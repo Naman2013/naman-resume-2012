@@ -131,6 +131,8 @@ export default createReducer(initialState, {
           imageList: [],
         },
         imageCount: state.missionPhotos.imageCount, // different call handles this
+        firstImageNumber: state.missionPhotos.firstImageNumber,
+        maxImageCount: state.missionPhotos.maxImageCount,
         fetching: true,
         error: false,
         errorBody: {},
@@ -160,6 +162,8 @@ export default createReducer(initialState, {
           imageCount: 0,
         },
         imageCount: state.missionPhotos.imageCount, // different call handles this
+        firstImageNumber: state.missionPhotos.firstImageNumber,
+        maxImageCount: state.missionPhotos.maxImageCount,
         fetching: false,
         error: true,
         errorBody: payload,
@@ -198,8 +202,8 @@ export default createReducer(initialState, {
           imageList: [],
         },
         imageCount: state.missions.imageCount, // different call handles this
-        firstMissionNumber: 1,
-        maxMissionCount: 9,
+        firstMissionNumber: state.missions.firstMissionNumber,
+        maxMissionCount: state.missions.maxMissionCount,
         fetching: true,
         error: false,
         errorBody: {},
@@ -228,8 +232,8 @@ export default createReducer(initialState, {
           imageList: [],
         },
         imageCount: state.missions.imageCount, // different call handles this
-        firstMissionNumber: 1,
-        maxMissionCount: 9,
+        firstMissionNumber: state.missions.firstMissionNumber,
+        maxMissionCount: state.missions.maxMissionCount,
         fetching: false,
         error: true,
         errorBody: payload,
@@ -244,6 +248,8 @@ export default createReducer(initialState, {
           imageList: [],
         },
         imageCount: state.photoRoll.imageCount, // different call handles this
+        maxImageCount: state.photoRoll.maxImageCount,
+        firstImageNumber: state.photoRoll.firstImageNumber,
         fetching: true,
         error: false,
         errorBody: {},
@@ -272,6 +278,8 @@ export default createReducer(initialState, {
           imageList: [],
         },
         imageCount: state.photoRoll.imageCount, // different call handles this
+        maxImageCount: state.photoRoll.maxImageCount,
+        firstImageNumber: state.photoRoll.firstImageNumber,
         fetching: false,
         error: true,
         errorBody: payload,

@@ -86,8 +86,9 @@ export const fetchMissionPhotos = ({
   const { at, token, cid } = getState().user;
   const { objectTypeFilter } = getState().myPictures;
   dispatch(fetchMissionPhotosStart());
-  dispatch(fetchMissionPhotosCount()); // for pagination
-
+  dispatch(fetchMissionPhotosCount({ scheduledMissionId })); // for pagination
+  dispatch(fetchMissionCount()); // for deeplinking
+  dispatch(fetchMyPicturesCount());// for deeplinking
   return axios.post('/api/images/getMyPictures', {
     at,
     cid,
@@ -99,11 +100,7 @@ export const fetchMissionPhotos = ({
     filterType: objectTypeFilter.filterByField,
     viewType: 'missions',
   })
-  .then(result => dispatch(fetchMissionPhotosSuccess(
-    Object.assign({
-      maxImageCount,
-      firstImageNumber,
-    }, result.data))))
+  .then(result => dispatch(fetchMissionPhotosSuccess(result.data)))
   .catch(error => dispatch(fetchMissionPhotosFail(error)));
 };
 
@@ -138,12 +135,7 @@ const fetchMissions = ({
     maxMissionCount,
     filterType: objectTypeFilter.filterByField,
   })
-  .then(result => dispatch(fetchMissionsSuccess(
-    Object.assign({
-      firstMissionNumber,
-      maxMissionCount,
-    }, result.data)
-  )))
+  .then(result => dispatch(fetchMissionsSuccess(result.data)))
   .catch(error => dispatch(fetchMissionsFail(error)));
 };
 
@@ -184,11 +176,7 @@ export const fetchPhotoRoll = ({
     filterType: noFilter ? '' : objectTypeFilter.filterByField,
     viewType: 'photoRoll',
   })
-  .then(result => dispatch(fetchPhotoRollSuccess(
-    Object.assign({
-      maxImageCount,
-      firstImageNumber,
-    }, result.data))))
+  .then(result => dispatch(fetchPhotoRollSuccess(result.data)))
   .catch(error => dispatch(fetchPhotoRollFail(error)));
 };
 
@@ -314,7 +302,7 @@ const fetchMissionPhotosCountFail = payload => ({
   payload,
 });
 
-export const fetchMissionPhotosCount = () => (dispatch, getState) => {
+export const fetchMissionPhotosCount = ({ scheduledMissionId }) => (dispatch, getState) => {
   const { at, token, cid } = getState().user;
   const { objectTypeFilter } = getState().myPictures;
   dispatch(fetchMissionPhotosCountStart());
@@ -324,6 +312,7 @@ export const fetchMissionPhotosCount = () => (dispatch, getState) => {
     cid,
     token,
     filterType: objectTypeFilter.filterByField,
+    scheduledMissionId,
     viewType: 'missions',
   })
   .then(result => dispatch(fetchMissionPhotosCountSuccess(result.data)))

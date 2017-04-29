@@ -88,13 +88,12 @@ class PhotoView extends Component {
     } = this.props;
 
     const firstImageNumberIndex = firstImageNumber - 1;
-    const imageRange = _.slice(imageList, firstImageNumberIndex, firstImageNumber + maxImageCount);
     const rangeText = Pagination.generateRangeText({
-      firstImageNumber: firstImageNumberIndex,
-      itemsPerPage: imageRange.length,
+      startRange: firstImageNumberIndex,
+      itemsPerPage: imageList.length, // use length here because there may be less than maxImageCount
     });
 
-    const canNext = (firstImageNumberIndex + maxImageCount) < imageList.length;
+    const canNext = (firstImageNumberIndex + maxImageCount) < imageCount;
     const canPrevious = firstImageNumberIndex !== 0;
     const showFITSModal = FITImages.imageCount > 0;
 
@@ -143,15 +142,15 @@ class PhotoView extends Component {
 
         {
           type === 'covers' ?
-            <MissionList imageList={imageRange} /> : null
+            <MissionList imageList={imageList} /> : null
         }
         {
           type === 'images' ?
-            <PhotoList imageList={imageRange} /> : null
+            <PhotoList imageList={imageList} /> : null
         }
         {
           type === 'gallery' ?
-            <PhotoList imageList={imageRange} galleryType /> : null
+            <PhotoList imageList={imageList} galleryType /> : null
         }
 
         <Pagination
