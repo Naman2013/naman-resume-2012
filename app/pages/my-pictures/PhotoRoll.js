@@ -7,10 +7,13 @@ import { fetchPhotoRollAndCounts } from '../../modules/my-pictures/actions';
 import style from './my-pictures-gallery.scss';
 
 const mapStateToProps = ({ myPictures, objectTypeList }, ownProps) => ({
-  imageList: myPictures.photoRoll.response.imageList,
-  fetching: myPictures.photoRoll.fetching,
   error: myPictures.photoRoll.error,
   errorBody: myPictures.photoRoll.errorBody,
+  fetching: myPictures.photoRoll.fetching,
+  firstImageNumber: myPictures.photoRoll.firstImageNumber,
+  imageCount: myPictures.photoRoll.imageCount,
+  imageList: myPictures.photoRoll.response.imageList,
+  maxImageCount: myPictures.photoRoll.maxImageCount,
   scheduledMissionId: ownProps.routeParams.scheduledMissionId,
 });
 
@@ -24,11 +27,19 @@ const mapDispatchToProps = dispatch => ({
 class PhotoRoll extends Component {
   componentWillMount() {
     window.scrollTo(0, 0);
-    this.props.actions.fetchPhotoRollAndCounts();
+    this.props.actions.fetchPhotoRollAndCounts({});
   }
 
   render() {
-    const { fetching, imageList, error } = this.props;
+    const {
+      actions,
+      error,
+      fetching,
+      firstImageNumber,
+      imageCount,
+      imageList,
+      maxImageCount,
+    } = this.props;
     return (
       <div>
         <MyPicturesNavigation
@@ -38,6 +49,10 @@ class PhotoRoll extends Component {
         <div className="clearfix my-pictures-container">
           <div>
             <PhotoView
+              paginate={actions.fetchPhotoRollAndCounts}
+              imageCount={imageCount}
+              maxImageCount={maxImageCount}
+              firstImageNumber={firstImageNumber}
               fetching={fetching}
               imageList={imageList}
               error={error}
@@ -54,6 +69,9 @@ PhotoRoll.defaultProps = {
   imageList: [],
   fetching: false,
   error: false,
+  imageCount: 0,
+  maxImageCount: 9,
+  firstImageNumber: 1,
 };
 
 PhotoRoll.propTypes = {
@@ -61,6 +79,9 @@ PhotoRoll.propTypes = {
     imageURL: PropTypes.string.isRequired,
     imageId: PropTypes.number.isRequired,
   })),
+  imageCount: PropTypes.number,
+  maxImageCount: PropTypes.number,
+  firstImageNumber: PropTypes.number,
   fetching: PropTypes.bool,
   error: PropTypes.bool,
 };

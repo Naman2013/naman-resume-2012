@@ -129,8 +129,8 @@ export default createReducer(initialState, {
       missionPhotos: {
         response: {
           imageList: [],
-          imageCount: 0,
         },
+        imageCount: state.missionPhotos.imageCount, // different call handles this
         fetching: true,
         error: false,
         errorBody: {},
@@ -142,6 +142,7 @@ export default createReducer(initialState, {
       ...state,
       missionPhotos: {
         response: payload,
+        imageCount: state.missionPhotos.imageCount, // different call handles this
         maxImageCount: payload.maxImageCount,
         firstImageNumber: payload.firstImageNumber,
         fetching: false,
@@ -158,6 +159,7 @@ export default createReducer(initialState, {
           imageList: [],
           imageCount: 0,
         },
+        imageCount: state.missionPhotos.imageCount, // different call handles this
         fetching: false,
         error: true,
         errorBody: payload,
@@ -195,6 +197,7 @@ export default createReducer(initialState, {
         response: {
           imageList: [],
         },
+        imageCount: state.missions.imageCount, // different call handles this
         firstMissionNumber: 1,
         maxMissionCount: 9,
         fetching: true,
@@ -208,6 +211,7 @@ export default createReducer(initialState, {
       ...state,
       missions: {
         response: payload,
+        imageCount: state.missions.imageCount, // different call handles this
         firstMissionNumber: payload.firstMissionNumber,
         maxMissionCount: payload.maxMissionCount,
         fetching: false,
@@ -223,6 +227,7 @@ export default createReducer(initialState, {
         response: {
           imageList: [],
         },
+        imageCount: state.missions.imageCount, // different call handles this
         firstMissionNumber: 1,
         maxMissionCount: 9,
         fetching: false,
@@ -238,6 +243,7 @@ export default createReducer(initialState, {
         response: {
           imageList: [],
         },
+        imageCount: state.photoRoll.imageCount, // different call handles this
         fetching: true,
         error: false,
         errorBody: {},
@@ -249,6 +255,7 @@ export default createReducer(initialState, {
       ...state,
       photoRoll: {
         response: payload,
+        imageCount: state.photoRoll.imageCount, // different call handles this
         maxImageCount: payload.maxImageCount,
         firstImageNumber: payload.firstImageNumber,
         fetching: false,
@@ -264,6 +271,7 @@ export default createReducer(initialState, {
         response: {
           imageList: [],
         },
+        imageCount: state.photoRoll.imageCount, // different call handles this
         fetching: false,
         error: true,
         errorBody: payload,
@@ -274,6 +282,7 @@ export default createReducer(initialState, {
     return {
       ...state,
       photoRoll: {
+        ...state.photoRoll,
         imageCount: payload.imageCount,
       },
     };
@@ -282,6 +291,7 @@ export default createReducer(initialState, {
     return {
       ...state,
       photoRoll: {
+        ...state.photoRoll,
         imageCount: 0,
       },
     };
@@ -290,6 +300,7 @@ export default createReducer(initialState, {
     return {
       ...state,
       missions: {
+        ...state.missions,
         imageCount: payload.imageCount,
       },
     };
@@ -298,6 +309,7 @@ export default createReducer(initialState, {
     return {
       ...state,
       missions: {
+        ...state.missions,
         imageCount: 0,
       },
     };
@@ -306,6 +318,7 @@ export default createReducer(initialState, {
     return {
       ...state,
       missionPhotos: {
+        ...state.missionPhotos,
         imageCount: payload.imageCount,
       },
     };
@@ -314,6 +327,7 @@ export default createReducer(initialState, {
     return {
       ...state,
       missionPhotos: {
+        ...state.missionPhotos,
         imageCount: 0,
       },
     };

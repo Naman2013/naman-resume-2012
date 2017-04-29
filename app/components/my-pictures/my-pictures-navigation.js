@@ -9,8 +9,8 @@ import { resetObjectFilter } from '../../modules/my-pictures/actions';
 import s from './my-pictures-navigation.scss';
 
 const mapStateToProps = ({ objectTypeList, myPictures }) => ({
-  photoRollCount: myPictures.photoRoll.response.imageCount,
-  missionCount: myPictures.missions.response.imageCount,
+  photoRollCount: myPictures.photoRoll.imageCount,
+  missionCount: myPictures.missions.imageCount,
   objectFilterList: objectTypeList.objectListResponse.objectTypeList,
   objectTypeFilter: myPictures.objectTypeFilter,
 });

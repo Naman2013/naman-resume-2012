@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import _ from 'lodash';
@@ -32,29 +33,39 @@ class PhotoView extends Component {
     this.handlePreviousPageClick = this.handlePreviousPageClick.bind(this);
   }
 
-  state = {
-    startRange: 0,
-  }
-
   handleNextPageClick() {
-    const { imagesPerPage, type } = this.props;
-    const { startRange } = this.state;
+    const {
+      firstImageNumber,
+      maxImageCount,
+      paginate,
+      paginateParams,
+      type,
+    } = this.props;
     if (type !== 'gallery') {
       window.scrollTo(0, 0);
     }
-    this.setState({
-      startRange: startRange + imagesPerPage,
+    paginate({
+      ...paginateParams,
+      firstImageNumber: firstImageNumber + maxImageCount,
+      maxImageCount,
     });
   }
 
   handlePreviousPageClick() {
-    const { imagesPerPage, type } = this.props;
-    const { startRange } = this.state;
+    const {
+      firstImageNumber,
+      maxImageCount,
+      paginate,
+      paginateParams,
+      type,
+    } = this.props;
     if (type !== 'gallery') {
       window.scrollTo(0, 0);
     }
-    this.setState({
-      startRange: startRange - imagesPerPage,
+    paginate({
+      ...paginateParams,
+      firstImageNumber: firstImageNumber - maxImageCount,
+      maxImageCount,
     });
   }
 
@@ -68,22 +79,23 @@ class PhotoView extends Component {
       imageList,
       error,
       type,
-      imagesPerPage,
+      firstImageNumber,
+      imageCount,
+      maxImageCount,
       fetchingFIT,
       fetchingFITError,
       FITImages,
     } = this.props;
 
-    const { startRange } = this.state;
-
-    const imageRange = _.slice(imageList, startRange, startRange + imagesPerPage);
+    const firstImageNumberIndex = firstImageNumber - 1;
+    const imageRange = _.slice(imageList, firstImageNumberIndex, firstImageNumber + maxImageCount);
     const rangeText = Pagination.generateRangeText({
-      startRange,
+      firstImageNumber: firstImageNumberIndex,
       itemsPerPage: imageRange.length,
     });
 
-    const canNext = (startRange + imagesPerPage) < imageList.length;
-    const canPrevious = startRange !== 0;
+    const canNext = (firstImageNumberIndex + maxImageCount) < imageList.length;
+    const canPrevious = firstImageNumberIndex !== 0;
     const showFITSModal = FITImages.imageCount > 0;
 
     if (fetching) {
@@ -143,7 +155,7 @@ class PhotoView extends Component {
         }
 
         <Pagination
-          totalCount={imageList.length}
+          totalCount={imageCount}
           currentRange={rangeText}
           handleNextPageClick={this.handleNextPageClick}
           handlePreviousPageClick={this.handlePreviousPageClick}
@@ -156,7 +168,10 @@ class PhotoView extends Component {
 }
 
 PhotoView.defaultProps = {
-  imagesPerPage: 9,
+  maxImageCount: 9,
+  imageCount: 0,
+  firstImageNumber: 1,
+  paginateParams: {},
 };
 
 // TODO: increase validation for the imageList types.
@@ -166,8 +181,12 @@ PhotoView.propTypes = {
     imageURL: PropTypes.string.isRequired,
     imageId: PropTypes.number.isRequired,
   })).isRequired,
+  paginateParams: PropTypes.object,
+  paginate: PropTypes.func.isRequired,
+  imageCount: PropTypes.number,
+  maxImageCount: PropTypes.number,
+  firstImageNumber: PropTypes.number,
   error: PropTypes.bool.isRequired,
-  imagesPerPage: PropTypes.number,
   type: PropTypes.oneOf(['covers', 'images', 'gallery']).isRequired,
 };
 

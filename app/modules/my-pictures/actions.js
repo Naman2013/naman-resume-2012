@@ -80,8 +80,8 @@ const fetchMissionPhotosFail = payload => ({
 
 export const fetchMissionPhotos = ({
   scheduledMissionId,
-  maxImageCount,
-  firstImageNumber,
+  maxImageCount = 9,
+  firstImageNumber = 1,
 }) => (dispatch, getState) => {
   const { at, token, cid } = getState().user;
   const { objectTypeFilter } = getState().myPictures;
@@ -122,8 +122,8 @@ const fetchMissionsFail = payload => ({
 });
 
 const fetchMissions = ({
-  firstMissionNumber,
-  maxMissionCount,
+  firstMissionNumber = 1,
+  maxMissionCount = 9,
 }) => (dispatch, getState) => {
   const { at, token, cid } = getState().user;
   const { objectTypeFilter } = getState().myPictures;
@@ -167,8 +167,8 @@ const fetchPhotoRollFail = payload => ({
 */
 export const fetchPhotoRoll = ({
   noFilter = false,
-  maxImageCount,
-  firstImageNumber,
+  maxImageCount = 9,
+  firstImageNumber = 1,
 }) => (dispatch, getState) => {
   const { at, token, cid } = getState().user;
   const { objectTypeFilter } = getState().myPictures;
@@ -229,10 +229,12 @@ export const photoRollResetScheduledMissionId = () => (dispatch) => {
   checks in other parts of the app to stay consistent.
 */
 
-export const fetchPhotoRollAndCounts = () => (dispatch) => {
+export const fetchPhotoRollAndCounts = (params) => (dispatch) => {
   dispatch(fetchMissionCount());
   dispatch(fetchMyPicturesCount());
-  dispatch(fetchPhotoRoll({}));
+  dispatch(fetchPhotoRoll({
+    ...params,
+  }));
 };
 
 export const fetchMissionsAndCounts = () => (dispatch) => {
@@ -249,7 +251,7 @@ export const updateObjectFilterBy = (payload, page) => (dispatch) => {
   if (page === 'photoRoll') {
     dispatch(fetchPhotoRoll({}));
   } else if (page === 'missions') {
-    dispatch(fetchMissions());
+    dispatch(fetchMissions({}));
   }
 };
 
@@ -261,7 +263,7 @@ export const resetObjectFilter = page => (dispatch) => {
   if (page === 'photoRoll') {
     dispatch(fetchPhotoRoll({}));
   } else if (page === 'missions') {
-    dispatch(fetchMissions());
+    dispatch(fetchMissions({}));
   }
 
 };
