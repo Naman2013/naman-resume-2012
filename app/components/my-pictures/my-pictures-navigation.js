@@ -39,9 +39,9 @@ class MyPicturesNavigation extends Component {
   }
 
   handleResetObjectFilter(event) {
-    const { actions } = this.props;
+    const { actions, page } = this.props;
     event.stopPropagation();
-    actions.resetObjectFilter();
+    actions.resetObjectFilter(page);
   }
 
   toggleFilterDisplay() {

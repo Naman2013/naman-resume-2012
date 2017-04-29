@@ -53,6 +53,7 @@ class Missions extends Component {
         <div className="clearfix my-pictures-container">
           <div>
             <PhotoView
+              missions={true}
               paginate={actions.fetchMissionsAndCounts}
               imageCount={imageCount}
               maxImageCount={maxMissionCount}

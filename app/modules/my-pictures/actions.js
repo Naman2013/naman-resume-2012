@@ -158,7 +158,6 @@ const fetchPhotoRollFail = payload => ({
   of photographs for a specific mission
 */
 export const fetchPhotoRoll = ({
-  noFilter = false,
   maxImageCount = 9,
   firstImageNumber = 1,
 }) => (dispatch, getState) => {
@@ -173,7 +172,7 @@ export const fetchPhotoRoll = ({
     pagingMode: 'api',
     maxImageCount,
     firstImageNumber,
-    filterType: noFilter ? '' : objectTypeFilter.filterByField,
+    filterType: objectTypeFilter.filterByField,
     viewType: 'photoRoll',
   })
   .then(result => dispatch(fetchPhotoRollSuccess(result.data)))
@@ -225,10 +224,10 @@ export const fetchPhotoRollAndCounts = (params) => (dispatch) => {
   }));
 };
 
-export const fetchMissionsAndCounts = () => (dispatch) => {
+export const fetchMissionsAndCounts = (params) => (dispatch) => {
   dispatch(fetchMissionCount());
   dispatch(fetchMyPicturesCount());
-  dispatch(fetchMissions({}));
+  dispatch(fetchMissions(params));
 };
 
 export const updateObjectFilterBy = (payload, page) => (dispatch) => {
