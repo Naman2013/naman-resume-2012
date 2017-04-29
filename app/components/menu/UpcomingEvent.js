@@ -16,10 +16,9 @@ class UpcomingEvent extends Component {
     super(props);
     const { eventStartUTCUnixTimestamp } = props;
     const unixTimestamp = moment.unix(eventStartUTCUnixTimestamp);
-    const now = moment();
-    const remainingTime = unixTimestamp.diff(now);
+    const remainingTime = unixTimestamp.diff(moment());
 
-    if (unixTimestamp.isBefore(now) || unixTimestamp.isSame(now)) {
+    if (unixTimestamp.isSame(moment()) || unixTimestamp.isBefore(moment())) {
       this.eventTimer = setTimeout(() => {
         this.setState({
           linkToURL: '/shows/situation-room',
