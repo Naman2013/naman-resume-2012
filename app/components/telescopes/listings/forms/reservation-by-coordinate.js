@@ -3,7 +3,8 @@
   underscores used in some naming to improve legability
   */
 
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -197,6 +198,12 @@ class ReservationByCoordinate extends Component {
           dec = sign * 90.0;
         }
       }
+    }
+
+    if (sign == -1 && dec_d == 0) {
+      dec_d = '-' + dec_d;
+    } else {
+      dec_d = sign * dec_d;
     }
 
     this.setState({
