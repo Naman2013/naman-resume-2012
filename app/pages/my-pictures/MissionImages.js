@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { fetchMissionPhotos, loadFITImages } from '../../modules/my-pictures/actions';
@@ -7,10 +8,13 @@ import PhotoView from '../../components/my-pictures/PhotoView';
 import s from './my-pictures-gallery.scss';
 
 const mapStateToProps = ({ myPictures, objectTypeList }, ownProps) => ({
-  imageList: myPictures.missionPhotos.response.imageList,
-  fetching: myPictures.missionPhotos.fetching,
   error: myPictures.missionPhotos.error,
   errorBody: myPictures.missionPhotos.errorBody,
+  fetching: myPictures.missionPhotos.fetching,
+  firstImageNumber: myPictures.missionPhotos.firstImageNumber,
+  imageCount: myPictures.missionPhotos.imageCount,
+  imageList: myPictures.missionPhotos.response.imageList,
+  maxImageCount: myPictures.missionPhotos.maxImageCount,
   scheduledMissionId: ownProps.routeParams.scheduledMissionId,
 });
 
@@ -25,7 +29,7 @@ const mapDispatchToProps = dispatch => ({
 class MissionImages extends Component {
   componentWillMount() {
     const { scheduledMissionId } = this.props;
-    this.props.actions.fetchMissionPhotos(scheduledMissionId);
+    this.props.actions.fetchMissionPhotos({ scheduledMissionId });
   }
 
   handleFITClick = () => {
@@ -34,7 +38,16 @@ class MissionImages extends Component {
   }
 
   render() {
-    const { fetching, imageList, error } = this.props;
+    const {
+      actions,
+      error,
+      fetching,
+      firstImageNumber,
+      imageCount,
+      imageList,
+      maxImageCount,
+      scheduledMissionId,
+    } = this.props;
     return (
       <div className={s.missionImages}>
         <MyPicturesNavigation
@@ -50,6 +63,11 @@ class MissionImages extends Component {
         <div className="clearfix my-pictures-container">
           <div>
             <PhotoView
+              paginateParams={{ scheduledMissionId }}
+              paginate={actions.fetchMissionPhotos}
+              imageCount={imageCount}
+              maxImageCount={maxImageCount}
+              firstImageNumber={firstImageNumber}
               fetching={fetching}
               imageList={imageList}
               error={error}
@@ -66,6 +84,9 @@ MissionImages.defaultProps = {
   imageList: [],
   fetching: false,
   error: false,
+  imageCount: 0,
+  maxImageCount: 9,
+  firstImageNumber: 1,
 };
 
 MissionImages.propTypes = {
@@ -73,6 +94,9 @@ MissionImages.propTypes = {
     imageURL: PropTypes.string.isRequired,
     imageId: PropTypes.number.isRequired,
   })),
+  imageCount: PropTypes.number,
+  maxImageCount: PropTypes.number,
+  firstImageNumber: PropTypes.number,
   fetching: PropTypes.bool,
   error: PropTypes.bool,
 };
