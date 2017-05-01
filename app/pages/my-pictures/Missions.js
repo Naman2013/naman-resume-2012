@@ -13,8 +13,8 @@ const mapStateToProps = ({ myPictures }) => ({
   fetching: myPictures.missions.fetching,
   error: myPictures.missions.error,
   errorBody: myPictures.missions.errorBody,
-  firstMissionNumber: myPictures.missions.firstImageNumber,
-  maxMissionCount: myPictures.missions.maxImageCount,
+  firstMissionNumber: myPictures.missions.firstMissionNumber,
+  maxMissionCount: myPictures.missions.maxMissionCount,
   imageCount: myPictures.missions.imageCount,
 });
 
@@ -53,6 +53,7 @@ class Missions extends Component {
         <div className="clearfix my-pictures-container">
           <div>
             <PhotoView
+              missions={true}
               paginate={actions.fetchMissionsAndCounts}
               imageCount={imageCount}
               maxImageCount={maxMissionCount}

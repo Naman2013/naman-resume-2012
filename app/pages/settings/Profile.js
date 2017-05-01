@@ -24,7 +24,7 @@ class Profile extends Component {
   }
 
   render() {
-    const { profile, fetchDashboard, photosFetching, fetchPhotoRoll: fetchPhotos, refreshIntervalSec, imageList, photoRollError } = this.props;
+    const { profile, fetchDashboard, refreshIntervalSec, imageList } = this.props;
     return (
       <div className={s.ProfileDashboard}>
         <Header
@@ -60,9 +60,7 @@ class Profile extends Component {
         <section className="recent-pictures row-xxwide">
           <h2 className="center margin-top-large margin-bottom-large ">Recent Pictures</h2>
           <article className={s.ProfilePictures}>
-            {(photosFetching && !photoRollError) && <div className="center">Refreshing photos..</div>}
-            {!photoRollError && <UsersPictures fetchPhotosAction={fetchPhotos} imageList={imageList} colNum="3" />}
-            {photoRollError && <div className="center">There was an error fetching your images...</div>}
+            <UsersPictures fetchPhotosAction={fetchDashboard} imageList={imageList} colNum="3" />
           </article>
 
           <div className="row-xxwide center-center">
@@ -222,10 +220,7 @@ Profile.propTypes = {
 
 const mapStateToProps = ({ dashboard, myPictures }) => ({
   ...dashboard,
-  imageList: myPictures.photoRoll.response.imageList,
-  photosFetching: myPictures.photoRoll.fetching,
-  photoRollError: myPictures.photoRoll.error,
-  errorBody: myPictures.photoRoll.errorBody,
+  imageList: dashboard.profile.imageList,
 });
 const mapDispatchToProps = dispatch => (bindActionCreators({
   ...dashboardActions,

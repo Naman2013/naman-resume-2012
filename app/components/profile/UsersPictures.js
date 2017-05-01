@@ -17,18 +17,13 @@ class UsersPictures extends Component {
 
   setPhotoRefreshInterval() {
     const { fetchPhotosAction } = this.props;
-    fetchPhotosAction({
-      noFilter: true,
-    });
 
     if (this.photoTimer) {
       clearInterval(this.photoTimer);
     }
 
     this.photoTimer = setInterval(() => {
-      fetchPhotosAction({
-        noFilter: true,
-      });
+      fetchPhotosAction({});
     }, 300000);
   }
 

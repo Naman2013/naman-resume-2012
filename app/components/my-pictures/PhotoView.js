@@ -39,16 +39,26 @@ class PhotoView extends Component {
       maxImageCount,
       paginate,
       paginateParams,
+      missions,
       type,
     } = this.props;
     if (type !== 'gallery') {
       window.scrollTo(0, 0);
     }
-    paginate({
-      ...paginateParams,
-      firstImageNumber: firstImageNumber + maxImageCount,
-      maxImageCount,
-    });
+
+    if (missions) {
+      paginate({
+        ...paginateParams,
+        firstMissionNumber: firstImageNumber + maxImageCount,
+        maxMissionCount: maxImageCount,
+      });
+    } else {
+      paginate({
+        ...paginateParams,
+        firstImageNumber: firstImageNumber + maxImageCount,
+        maxImageCount,
+      });
+    }
   }
 
   handlePreviousPageClick() {
@@ -58,15 +68,24 @@ class PhotoView extends Component {
       paginate,
       paginateParams,
       type,
+      missions,
     } = this.props;
     if (type !== 'gallery') {
       window.scrollTo(0, 0);
     }
-    paginate({
-      ...paginateParams,
-      firstImageNumber: firstImageNumber - maxImageCount,
-      maxImageCount,
-    });
+    if (missions) {
+      paginate({
+        ...paginateParams,
+        firstMissionNumber: firstImageNumber - maxImageCount,
+        maxMissionCount: maxImageCount,
+      });
+    } else {
+      paginate({
+        ...paginateParams,
+        firstImageNumber: firstImageNumber - maxImageCount,
+        maxImageCount,
+      });
+    }
   }
 
   handleCloseFITSModal = () => {
@@ -171,6 +190,7 @@ PhotoView.defaultProps = {
   imageCount: 0,
   firstImageNumber: 1,
   paginateParams: {},
+  missions: false,
 };
 
 // TODO: increase validation for the imageList types.
@@ -186,6 +206,7 @@ PhotoView.propTypes = {
   maxImageCount: PropTypes.number,
   firstImageNumber: PropTypes.number,
   error: PropTypes.bool.isRequired,
+  missions: PropTypes.bool,
   type: PropTypes.oneOf(['covers', 'images', 'gallery']).isRequired,
 };
 
