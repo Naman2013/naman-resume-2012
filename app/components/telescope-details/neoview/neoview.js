@@ -2,22 +2,13 @@ import React, { Component } from 'react';
 import Progress from 'react-progressbar';
 import styles from './neoview.scss';
 
-/**
-  * @todo convert SSE data into "readable" messages once the real data
-  * starts coming through
-  * @todo figure out proxy post numbers, for now only 3104 and 3105 are handled
-*/
-export default class Neoview extends React.Component {
+export default class Neoview extends Component {
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      latestMassege: null,
-      messages: [],
-      toggleNeoview: false,
-      showToggleOption: this.props.showToggleOption,
-    }
+  state = {
+    latestMassege: null,
+    messages: [],
+    toggleNeoview: false,
+    showToggleOption: this.props.showToggleOption,
   }
 
   componentDidMount() {
@@ -57,7 +48,7 @@ export default class Neoview extends React.Component {
     * by default the state of neo view is false (hidden)
     * when user clicks arrow the state is being updated which shows/hides neo view overlay
     */
-  handleToggleNeoview() {
+  handleToggleNeoview = () => {
     this.setState({
       messages: [],
       toggleNeoview: !this.state.toggleNeoview
@@ -88,19 +79,12 @@ export default class Neoview extends React.Component {
             {this.state.latestMassege}
           </p>
           {
-            /**
-              TODO: bring this back...  it toggles the neoview layover display
-              it had been broken at some point and needs to be revisited
-              <div className="toggle-description" onClick={this.handleToggleNeoview.bind(this)}>
-                {(() => {
-                  if (this.props.showToggleOption && this.state.toggleNeoview) {
-                    return <i className="fa fa-angle-down"></i>
-                  } else {
-                    return <i className="fa fa-angle-up"></i>
-                  }
-                })()}
-              </div>
-            */
+            <div className="toggle-description" onClick={this.handleToggleNeoview}>
+              {
+                (this.props.showToggleOption && this.state.toggleNeoview) ?
+                  <i className="fa fa-angle-down" /> : <i className="fa fa-angle-up" />
+            }
+            </div>
           }
         </div>
 
