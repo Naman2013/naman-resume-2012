@@ -8,6 +8,10 @@ import { Router, Route, IndexRoute, IndexRedirect, hashHistory } from 'react-rou
 import 'event-source-polyfill/eventsource.min';
 import './utils/manual-polyfills';
 
+// utilities
+import firePageview from './utils/ga-wrapper';
+
+// redux store
 import configureStore from './store';
 import { checkUser } from './modules/User';
 import { deactivateMenu } from './modules/menu/actions';
@@ -106,6 +110,13 @@ const onRouteUpdate = () => {
   window.scrollTo(0, 0);
   store.dispatch(deactivateMenu());
 };
+
+// handle to the listen callback on changes to the history
+const unlisten = hashHistory.listen((location, action) => {
+  firePageview({
+    location: location.pathname,
+  });
+});
 
 ReactDOM.render(
   <Provider store={store}>
