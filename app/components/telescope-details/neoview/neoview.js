@@ -39,10 +39,9 @@ export default class Neoview extends Component {
     const notHeartbeat = message.messageType !== 'HEARTBEAT';
 
     if (notHeartbeat) {
-      const latestMessage = `${message.messageText ? message.messageText : ''} ${message.logMessage}`;
       this.setState({
-        latestMessage,
-        messages: [latestMessage, ...messages],
+        latestMessage: message.logMessage,
+        messages: [message.logMessage, ...messages],
       });
     }
   }
