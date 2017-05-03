@@ -6,7 +6,7 @@ import styles from './neoview.scss';
 export default class Neoview extends Component {
 
   state = {
-    latestMassege: null,
+    latestMessage: null,
     messages: [],
     toggleNeoview: false,
     showToggleOption: this.props.showToggleOption,
@@ -33,9 +33,10 @@ export default class Neoview extends Component {
     const message = JSON.parse(data);
     const notHeartbeat = message.messageType !== 'HEARTBEAT';
     if (notHeartbeat) {
+      const latestMessage = `${message.messageText ? message.messageText : ''} ${message.logMessage}`;
       this.setState({
-        latestMassege: `${message.messageText ? message.messageText : ''} ${message.logMessage}`,
-        messages: [notHeartbeat, ...messages],
+        latestMessage,
+        messages: [latestMessage, ...messages],
       });
     }
   }
@@ -63,6 +64,9 @@ export default class Neoview extends Component {
       hidden: !this.state.toggleNeoview,
     });
 
+    console.log('looking to fix the undefined messages.');
+    console.log(this.state);
+
     return (
       <div className="neoview-container">
 
@@ -70,7 +74,7 @@ export default class Neoview extends Component {
           {this.state.messages && this.state.messages.map((msg, index) => {
             return (
               <div className="neo-message" key={index}>
-                <div className="col-md-4 neo-message-time">{`${msg[0]} `}</div>
+                <div className="col-md-4 neo-message-time">{`${msg[0]}`}</div>
                 <div className="col-md-8 neo-message-text">{ msg[1] ? msg[1] : '' }</div>
               </div>
             );
@@ -82,7 +86,7 @@ export default class Neoview extends Component {
           <Progress completed={percentageMissionTimeRemaining} color="#589A9A" height="35px" />
 
           <p className="short">
-            {this.state.latestMassege}
+            {this.state.latestMessage}
           </p>
           {
             <div className="toggle-description" onClick={this.handleToggleNeoview}>
