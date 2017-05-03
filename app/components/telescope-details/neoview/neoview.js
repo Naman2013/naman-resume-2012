@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Progress from 'react-progressbar';
 import classnames from 'classnames';
+import { uniqueId } from 'lodash';
 import styles from './neoview.scss';
 
 export default class Neoview extends Component {
@@ -51,10 +52,10 @@ export default class Neoview extends Component {
     * when user clicks arrow the state is being updated which shows/hides neo view overlay
     */
   handleToggleNeoview = () => {
-    this.setState({
-      messages: [],
-      toggleNeoview: !this.state.toggleNeoview
-    });
+    this.setState(prevState => ({
+      messages: [prevState.latestMessage],
+      toggleNeoview: !prevState.toggleNeoview,
+    }));
   }
 
   render() {
@@ -71,14 +72,15 @@ export default class Neoview extends Component {
       <div className="neoview-container">
 
         <div className={neoviewContainerClassnames}>
-          {this.state.messages && this.state.messages.map((msg, index) => {
-            return (
-              <div className="neo-message" key={index}>
-                <div className="col-md-4 neo-message-time">{`${msg[0]}`}</div>
-                <div className="col-md-8 neo-message-text">{ msg[1] ? msg[1] : '' }</div>
-              </div>
-            );
-          })}
+          {
+            this.state.messages && this.state.messages.map((msg) => {
+              return (
+                <div className="neo-message" key={uniqueId()}>
+                  <div className="col-xs-12 neo-message-text">{msg}</div>
+                </div>
+              );
+            })
+          }
         </div>
 
         <div className="top">
