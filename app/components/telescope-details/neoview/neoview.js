@@ -2,7 +2,11 @@ import React, { Component } from 'react';
 import Progress from 'react-progressbar';
 import classnames from 'classnames';
 import { uniqueId } from 'lodash';
-import styles from './neoview.scss';
+import s from './neoview.scss';
+
+// TODO: handle images flowing up and out of the viewer...
+// TODO: handle the appropriate positioning and display of the neoviews core container
+// TODO: display a timestamp with each message
 
 export default class Neoview extends Component {
 
@@ -33,6 +37,7 @@ export default class Neoview extends Component {
     const messages = this.state.messages;
     const message = JSON.parse(data);
     const notHeartbeat = message.messageType !== 'HEARTBEAT';
+
     if (notHeartbeat) {
       const latestMessage = `${message.messageText ? message.messageText : ''} ${message.logMessage}`;
       this.setState({
@@ -84,22 +89,20 @@ export default class Neoview extends Component {
         </div>
 
         <div className="top">
-
           <Progress completed={percentageMissionTimeRemaining} color="#589A9A" height="35px" />
+          <div className={s.progressBarStatus}>
+            <p className="short">
+              {this.state.latestMessage}
+            </p>
 
-          <p className="short">
-            {this.state.latestMessage}
-          </p>
-          {
-            <div className="toggle-description" onClick={this.handleToggleNeoview}>
+            <button className="toggle-description" onClick={this.handleToggleNeoview}>
               {
                 (this.props.showToggleOption && this.state.toggleNeoview) ?
                   <i className="fa fa-angle-down" /> : <i className="fa fa-angle-up" />
               }
-            </div>
-          }
+            </button>
+          </div>
         </div>
-
       </div>
     )
   }
