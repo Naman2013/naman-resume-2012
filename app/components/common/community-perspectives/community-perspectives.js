@@ -55,18 +55,16 @@ class CommunityPerspectives extends Component {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (this.props.communityContent.length !== nextProps.communityContent.length) { // communityContent has loaded
-      const perspectiveCategory = _.find(
-        perspectiveCatagories,
-        c => (this.filterPosts(nextProps.communityContent, c.catagory).length > 0)
-      );
+  componentWillMount(nextProps) {
+    const perspectiveCategory = _.find(
+      perspectiveCatagories,
+      c => (this.filterPosts(this.props.communityContent, c.catagory).length > 0)
+    );
 
-      if (perspectiveCategory) {
-        this.setState({
-          activeCatagory: perspectiveCategory.catagory,
-        });
-      }
+    if (perspectiveCategory) {
+      this.setState({
+        activeCatagory: perspectiveCategory.catagory,
+      });
     }
   }
 
@@ -135,6 +133,7 @@ class CommunityPerspectives extends Component {
     });
 
     const hasRelevantPosts = this.hasRelevantPosts();
+    const posts = this.generatePosts();
 
     const sliderSettings = {
       dots: true,
@@ -142,7 +141,7 @@ class CommunityPerspectives extends Component {
       speed: 500,
       slidesToShow: hasRelevantPosts ? numberOfSlidesToDisplay : 1,
       slidesToScroll: 1,
-      arrows: hasRelevantPosts ? showArrows : false,
+      arrows: hasRelevantPosts && posts.length > 1 ? showArrows : false,
     };
 
     return (
@@ -191,7 +190,7 @@ class CommunityPerspectives extends Component {
                WARNING: each slider element requires a parent div
                */}
               <Slider {...sliderSettings} className={sliderStyle}>
-                {this.generatePosts()}
+                {posts}
               </Slider>
             </div>
 
