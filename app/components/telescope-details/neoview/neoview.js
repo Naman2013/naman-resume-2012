@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Progress from 'react-progressbar';
+import classnames from 'classnames';
 import styles from './neoview.scss';
 
 export default class Neoview extends Component {
@@ -57,10 +58,15 @@ export default class Neoview extends Component {
 
   render() {
     const { percentageMissionTimeRemaining } = this.props;
+    const neoviewContainerClassnames = classnames('neoview-wrapper', {
+      visible: this.state.toggleNeoview,
+      hidden: !this.state.toggleNeoview,
+    });
 
     return (
       <div className="neoview-container">
-        <div className={`neoview-wrapper ${this.state.toggleNeoview ? 'visible' : 'hidden'}`}>
+
+        <div className={neoviewContainerClassnames}>
           {this.state.messages && this.state.messages.map((msg, index) => {
             return (
               <div className="neo-message" key={index}>
@@ -83,7 +89,7 @@ export default class Neoview extends Component {
               {
                 (this.props.showToggleOption && this.state.toggleNeoview) ?
                   <i className="fa fa-angle-down" /> : <i className="fa fa-angle-up" />
-            }
+              }
             </div>
           }
         </div>
