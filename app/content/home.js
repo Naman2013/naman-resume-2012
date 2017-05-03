@@ -84,9 +84,9 @@ export default {
       },
       {
         key: Math.random() * 100,
-        title: 'Earth Day',
-        imageUrl: 'assets/images/photos/earth-circle.png',
-        url: '/shows/event-details/418',
+        title: 'Exploding Galaxy M82',
+        imageUrl: 'assets/images/photos/exploding-galaxy-M82.png',
+        url: '/objects/latest-entries/7/all',
       },
       {
         key: Math.random() * 100,
