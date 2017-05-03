@@ -5,8 +5,9 @@ import { uniqueId } from 'lodash';
 import s from './neoview.scss';
 
 // TODO: handle images flowing up and out of the viewer...
-// TODO: handle the appropriate positioning and display of the neoviews core container
+// √ TODO: handle the appropriate positioning and display of the neoviews core container
 // TODO: display a timestamp with each message
+// TODO: make the neoview message color gold per the design
 
 export default class Neoview extends Component {
 
@@ -14,7 +15,6 @@ export default class Neoview extends Component {
     latestMessage: null,
     messages: [],
     toggleNeoview: false,
-    showToggleOption: this.props.showToggleOption,
   }
 
   componentDidMount() {
@@ -105,5 +105,4 @@ export default class Neoview extends Component {
       </div>
     )
   }
-
 }

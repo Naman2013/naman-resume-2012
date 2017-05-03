@@ -340,6 +340,13 @@ class TelescopeDetails extends Component {
                           /> : null
                       }
 
+                      <Neoview
+                        port={currentTelescope.teleNeoPort}
+                        teleSystem={currentTelescope.teleSystem}
+                        showToggleOption={currentTelescope.teleOnlineStatus === 'online'}
+                        percentageMissionTimeRemaining={100}
+                      />
+
                       {
                         currentTelescope.teleOnlineStatus === 'online' && instrument.instrStarShareCamera === true ?
                           <StarShareCamera /> : null
