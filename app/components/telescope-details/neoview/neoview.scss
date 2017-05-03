@@ -1,6 +1,7 @@
 @import '../../../styles/variables/fonts.scss';
 
 .neoview-container {
+  overflow: hidden;
 
   .neoview-wrapper {
     padding: 20px 30px 50px 30px;
@@ -37,6 +38,7 @@
       padding: 5px 15px;
 
       .short {
+        font-style: italic;
         color: #d8d8d8;
         font-size: 14px;
         white-space: nowrap;
@@ -45,6 +47,7 @@
       }
 
       .toggle-description {
+        display: relative;
         border: none;
         color: #3C4A55;
         background-color: #000;
@@ -56,6 +59,12 @@
 
         &:focus {
           outline: none;
+        }
+
+        .fa {
+          position: absolute;
+          top: 0;
+          left: 5px;
         }
       }
     }
