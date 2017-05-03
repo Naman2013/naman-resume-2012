@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 import DiscussionsReplyItem from '../../../components/discussions/DiscussionsReplyItem';
 import styles from '../discussions.scss';
 import ByUserTag from '../../../components/common/by-user-tag/by-user-tag';
-
+import Heart from '../../../components/common/heart/heart';
 const { array, func, object, string, number } = PropTypes;
 
 class DiscussionsThread extends Component {
