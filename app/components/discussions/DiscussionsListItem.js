@@ -2,7 +2,8 @@ import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 import _ from 'lodash';
 import ByUserTag from '../common/by-user-tag/by-user-tag';
-
+import Heart from '../common/heart/heart';
+import { likeThread } from '../../services/discussions/like';
 const { arrayOf, number, shape, string } = PropTypes;
 
 const DiscussionsListItem = ({ item }) => (
@@ -30,6 +31,21 @@ const DiscussionsListItem = ({ item }) => (
           <span className="info-item">{item.freshness}</span>
         </div>
         {!_.isEmpty(item.mostRecentAuthor) && <div className="latest-post-by row">Latest post by {item.mostRecentAuthor.displayName}</div>}
+      </div>
+      <div className="auto-top">
+        <Heart
+          likeAction={likeThread}
+          theme="dark"
+          count={item.likesCount}
+          showLikePrompt={item.showLikePrompt}
+          likePrompt={item.likePrompt}
+          params={{
+            threadId: item.threadId,
+            authorId: item.userid,
+            forumId: item.forumId,
+            topicId: item.topicId,
+          }}
+        />
       </div>
     </div>
   </div>

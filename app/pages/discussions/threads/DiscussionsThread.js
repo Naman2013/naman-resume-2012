@@ -64,6 +64,8 @@ class DiscussionsThread extends Component {
               <DiscussionsReplyItem
                 reply={reply}
                 styles={styles}
+                topicId={topicId}
+                forumId={forumId}
               />
             </div>
           ))

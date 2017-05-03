@@ -159,4 +159,14 @@ $infoSpacing: 15px;
   display: inline-block;
   margin-left: 50px;
   margin-top: -15px;
+
+  &.no-margin {
+    margin-left: 0;
+  }
+}
+
+.discussionsHelperText {
+  font-size: .9rem;
+  margin-left: 10px;
+  display: inline-block;
 }
