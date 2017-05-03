@@ -55,18 +55,16 @@ class CommunityPerspectives extends Component {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (this.props.communityContent.length !== nextProps.communityContent.length) { // communityContent has loaded
-      const perspectiveCategory = _.find(
-        perspectiveCatagories,
-        c => (this.filterPosts(nextProps.communityContent, c.catagory).length > 0)
-      );
+  componentWillMount(nextProps) {
+    const perspectiveCategory = _.find(
+      perspectiveCatagories,
+      c => (this.filterPosts(this.props.communityContent, c.catagory).length > 0)
+    );
 
-      if (perspectiveCategory) {
-        this.setState({
-          activeCatagory: perspectiveCategory.catagory,
-        });
-      }
+    if (perspectiveCategory) {
+      this.setState({
+        activeCatagory: perspectiveCategory.catagory,
+      });
     }
   }
 
