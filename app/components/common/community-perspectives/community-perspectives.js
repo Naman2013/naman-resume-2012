@@ -133,6 +133,7 @@ class CommunityPerspectives extends Component {
     });
 
     const hasRelevantPosts = this.hasRelevantPosts();
+    const posts = this.generatePosts();
 
     const sliderSettings = {
       dots: true,
@@ -140,7 +141,7 @@ class CommunityPerspectives extends Component {
       speed: 500,
       slidesToShow: hasRelevantPosts ? numberOfSlidesToDisplay : 1,
       slidesToScroll: 1,
-      arrows: hasRelevantPosts ? showArrows : false,
+      arrows: hasRelevantPosts && posts.length > 1 ? showArrows : false,
     };
 
     return (
@@ -189,7 +190,7 @@ class CommunityPerspectives extends Component {
                WARNING: each slider element requires a parent div
                */}
               <Slider {...sliderSettings} className={sliderStyle}>
-                {this.generatePosts()}
+                {posts}
               </Slider>
             </div>
 
