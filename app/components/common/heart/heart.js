@@ -26,7 +26,8 @@ export default class Heart extends Component {
     count: PropTypes.number,
     theme: PropTypes.string,
     likeType: PropTypes.string,
-    likeId: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+    likeId: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    params: PropTypes.object,
   }
 
   static defaultProps = {
@@ -50,14 +51,14 @@ export default class Heart extends Component {
 
   handleClick = (event) => {
     event.preventDefault();
-    const { at, likeAction, token, canLikeFlag, cid, likeId, likeType, showLikePrompt } = this.props;
+    const { at, likeAction, token, canLikeFlag, cid, likeId, likeType, showLikePrompt, params } = this.props;
     if (showLikePrompt) {
       this.setState({
         showPrompt: true,
       });
     } else {
       likeAction({
-        at, token, cid, likeId, likeType,
+        ...params, at, token, cid, likeId, likeType,
       }).then(result => this.handleLikeResult(result.data));
     }
   }

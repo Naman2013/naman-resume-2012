@@ -77,9 +77,13 @@ export const fetchThread = ({
   threadId,
   topicId,
 }) => (dispatch, getState) => {
+  const { cid, at, token } = getState().user;
   dispatch(fetchThreadStart());
 
   return axios.post('/api/forum/getThread', {
+    cid,
+    at,
+    token,
     threadId,
     lang,
     ver,

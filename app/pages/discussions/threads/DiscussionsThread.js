@@ -3,7 +3,8 @@ import { Link } from 'react-router';
 import DiscussionsReplyItem from '../../../components/discussions/DiscussionsReplyItem';
 import styles from '../discussions.scss';
 import ByUserTag from '../../../components/common/by-user-tag/by-user-tag';
-
+import Heart from '../../../components/common/heart/heart';
+import { likeThread } from '../../../services/discussions/like';
 const { array, func, object, string, number } = PropTypes;
 
 class DiscussionsThread extends Component {
@@ -18,6 +19,12 @@ class DiscussionsThread extends Component {
       page,
     } = this.props;
     const images = thread.S3Files || [];
+    const likeParams = {
+      threadId: thread.threadId,
+      authorId: thread.userid,
+      forumId,
+      topicId,
+    }
     return (
       <div>
         <article className={styles.discussionsItem}>
@@ -36,9 +43,19 @@ class DiscussionsThread extends Component {
           />
           {images.map(img => <img className={styles.discussionsImages} key={img} alt="image" src={img} />)}
           {thread.closedFlag === 'no' && <div className={styles.discussionsReplies}>
-            <Link className={styles.discussionsrepliesText} to={`discussions/forums/${forumId}/topics/${topicId}/threads/${thread.threadId}/new-reply`}>
+            <Link className={`${styles.discussionsrepliesText} inline-block`} to={`discussions/forums/${forumId}/topics/${topicId}/threads/${thread.threadId}/new-reply`}>
               <span>Reply</span>
             </Link>
+            <div className={styles.discussionsInlineHeart}>
+              <Heart
+                likeAction={likeThread}
+                theme="dark"
+                count={thread.likesCount}
+                showLikePrompt={thread.showLikePrompt}
+                likePrompt={thread.likePrompt}
+                params={likeParams}
+              />
+            </div>
           </div>}
         </article>
         {
@@ -47,6 +64,8 @@ class DiscussionsThread extends Component {
               <DiscussionsReplyItem
                 reply={reply}
                 styles={styles}
+                topicId={topicId}
+                forumId={forumId}
               />
             </div>
           ))
