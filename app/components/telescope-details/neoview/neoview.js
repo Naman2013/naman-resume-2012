@@ -3,6 +3,7 @@ import Progress from 'react-progressbar';
 import classnames from 'classnames';
 import { uniqueId } from 'lodash';
 import NeoViewDescription from './NeoViewDescription';
+import NewViewMessage from './NeoViewMessage';
 import s from './neoview.scss';
 
 // √ TODO: handle messages flowing up and out of the viewer...
@@ -61,7 +62,7 @@ export default class Neoview extends Component {
     */
   handleToggleNeoview = () => {
     this.setState(prevState => ({
-      messages: [<NeoViewDescription />, prevState.latestMessage],
+      messages: [prevState.latestMessage],
       toggleNeoview: !prevState.toggleNeoview,
     }));
   }
@@ -77,29 +78,10 @@ export default class Neoview extends Component {
       <div className="neoview-container">
 
         <div className={neoviewContainerClassnames}>
-          { /*
-            this.state.messages && this.state.messages.map((msg) => {
-              return (
-                <div className="neo-message" key={uniqueId()}>
-                  <div className="col-xs-12 neo-message-text">{msg}</div>
-                </div>
-              );
-            })
-            */
+          {
+            this.state.messages.map(message => <NewViewMessage message={message} />)
           }
-
-          <div className="neo-message" key={uniqueId()}>
-            <div className="neo-message-text">Initiating photon collection sensor...</div>
-          </div>
-          <div className="neo-message" key={uniqueId()}>
-            <div className="neo-message-text">Initiating photon collection sensor...</div>
-          </div>
-          <div className="neo-message" key={uniqueId()}>
-            <div className="neo-message-text">Initiating photon collection sensor...</div>
-          </div>
-
           <NeoViewDescription />
-
         </div>
 
         <div className="top">
