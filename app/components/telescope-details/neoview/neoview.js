@@ -5,11 +5,11 @@ import { uniqueId } from 'lodash';
 import NeoViewDescription from './NeoViewDescription';
 import s from './neoview.scss';
 
-// TODO: handle messages flowing up and out of the viewer...
+// √ TODO: handle messages flowing up and out of the viewer...
 // √ TODO: handle the appropriate positioning and display of the neoviews core container
 // TODO: display a timestamp with each message
 // √ TODO: make the neoview message color gold per the design
-// TODO: separate the about message into its own component
+// √ TODO: separate the about message into its own component
 // √ TODO: prepend the neoview description to the feed state
 
 export default class Neoview extends Component {
@@ -72,8 +72,6 @@ export default class Neoview extends Component {
       visible: this.state.toggleNeoview,
       hidden: !this.state.toggleNeoview,
     });
-
-    console.log(this.state);
 
     return (
       <div className="neoview-container">
