@@ -94,12 +94,15 @@ export default class Neoview extends Component {
               {this.state.latestMessage}
             </p>
 
-            <button className="toggle-description" onClick={this.handleToggleNeoview}>
-              {
-                (this.props.showToggleOption && this.state.toggleNeoview) ?
-                  <i className="fa fa-angle-down" /> : <i className="fa fa-angle-up" />
-              }
-            </button>
+            {
+              this.props.showToggleOption &&
+                <button className="toggle-description" onClick={this.handleToggleNeoview}>
+                  {
+                    this.state.toggleNeoview ?
+                      <i className="fa fa-angle-down" /> : <i className="fa fa-angle-up" />
+                  }
+                </button>
+            }
           </div>
         </div>
       </div>
