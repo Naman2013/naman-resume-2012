@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Progress from 'react-progressbar';
 import classnames from 'classnames';
 import { uniqueId } from 'lodash';
+import NeoViewDescription from './NeoViewDescription';
 import s from './neoview.scss';
 
 // TODO: handle images flowing up and out of the viewer...
@@ -9,7 +10,7 @@ import s from './neoview.scss';
 // TODO: display a timestamp with each message
 // √ TODO: make the neoview message color gold per the design
 // TODO: separate the about message into its own component
-// TODO: prepend the neoview description to the feed state
+// √ TODO: prepend the neoview description to the feed state
 
 export default class Neoview extends Component {
 
@@ -56,10 +57,11 @@ export default class Neoview extends Component {
     * Handling toggle click of neo view (progress bar arrow)
     * by default the state of neo view is false (hidden)
     * when user clicks arrow the state is being updated which shows/hides neo view overlay
+    * we prepend the most recent message and the neoview description
     */
   handleToggleNeoview = () => {
     this.setState(prevState => ({
-      messages: [prevState.latestMessage],
+      messages: [<NeoViewDescription />, prevState.latestMessage],
       toggleNeoview: !prevState.toggleNeoview,
     }));
   }
@@ -99,12 +101,7 @@ export default class Neoview extends Component {
             <div className="neo-message-text">Initiating photon collection sensor...</div>
           </div>
 
-          <p className={s.neoviewDescription}>
-            <span className={s.neoviewDescriptionHighlight}>What is this?</span> Slooh&apost;s telescopes
-             go through a complex process of taking long exposures through various filters, ultimately
-             combining that data into a single color image stream.  Ever see The Matrix?  Think of
-             this as the &quot;Neo View&quot; as the exposure is being processed.
-          </p>
+          <NeoViewDescription />
 
         </div>
 
