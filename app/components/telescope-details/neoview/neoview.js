@@ -7,7 +7,9 @@ import s from './neoview.scss';
 // TODO: handle images flowing up and out of the viewer...
 // √ TODO: handle the appropriate positioning and display of the neoviews core container
 // TODO: display a timestamp with each message
-// TODO: make the neoview message color gold per the design
+// √ TODO: make the neoview message color gold per the design
+// TODO: separate the about message into its own component
+// TODO: prepend the neoview description to the feed state
 
 export default class Neoview extends Component {
 
@@ -76,7 +78,7 @@ export default class Neoview extends Component {
       <div className="neoview-container">
 
         <div className={neoviewContainerClassnames}>
-          {
+          { /*
             this.state.messages && this.state.messages.map((msg) => {
               return (
                 <div className="neo-message" key={uniqueId()}>
@@ -84,7 +86,26 @@ export default class Neoview extends Component {
                 </div>
               );
             })
+            */
           }
+
+          <div className="neo-message" key={uniqueId()}>
+            <div className="neo-message-text">Initiating photon collection sensor...</div>
+          </div>
+          <div className="neo-message" key={uniqueId()}>
+            <div className="neo-message-text">Initiating photon collection sensor...</div>
+          </div>
+          <div className="neo-message" key={uniqueId()}>
+            <div className="neo-message-text">Initiating photon collection sensor...</div>
+          </div>
+
+          <p className={s.neoviewDescription}>
+            <span className={s.neoviewDescriptionHighlight}>What is this?</span> Slooh&apost;s telescopes
+             go through a complex process of taking long exposures through various filters, ultimately
+             combining that data into a single color image stream.  Ever see The Matrix?  Think of
+             this as the &quot;Neo View&quot; as the exposure is being processed.
+          </p>
+
         </div>
 
         <div className="top">
