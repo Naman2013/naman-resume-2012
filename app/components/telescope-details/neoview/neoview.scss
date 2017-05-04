@@ -16,7 +16,19 @@
     display: flex;
     flex-direction: column-reverse;
 
+    .neoviewDescription {
+      margin-bottom: 30px;
+      font-size: 18px;
+      font-family: $secondary-font;
+
+      .neoviewDescriptionHighlight {
+        font-weight: 600;
+        font-family: $primary-font;
+      }
+    }
+
     .neo-message {
+      color: $yellow;
       align-self: flex-end;
       width: 100%;
       padding: 5px 0;
