@@ -1,4 +1,5 @@
 @import '../../../styles/variables/fonts.scss';
+@import '../../../styles/variables/colors.scss';
 
 .neoview-container {
   overflow: hidden;
@@ -50,7 +51,7 @@
         position: relative;
         border: none;
         color: #3C4A55;
-        background-color: #000;
+        background-color: $white;
         width: 25px;
         height: 25px;
         text-align: center;
@@ -64,7 +65,7 @@
         .fa {
           position: absolute;
           top: 0;
-          left: 5px;
+          left: 4.7px;
         }
       }
     }
