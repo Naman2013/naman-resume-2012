@@ -247,3 +247,8 @@ img {
 .auto-top {
   margin-top: auto;
 }
+
+.rc-pagination-item-active {
+  background-color: $pink;
+  border-color: $pink;
+}

@@ -190,7 +190,14 @@ ReactDOM.render(
             <Route path="diy" name="diy" component={PulsePostList} />
           </Route>
 
-          <Route path="hottest-posts" component={PulseWrapper} />
+          <Route path="hottest-posts" component={PulseWrapper}>
+            <IndexRedirect to="all" />
+            <Route path="all" name="all" component={PulsePostList} />
+            <Route path="scienceLog" name="scienceLog" component={PulsePostList} />
+            <Route path="artCulture" name="artCulture" component={PulsePostList} />
+            <Route path="humanSpirit" name="humanSpirit" component={PulsePostList} />
+            <Route path="diy" name="diy" component={PulsePostList} />
+          </Route>
         </Route>
 
         <Route path="community" component={PulsePost}>
