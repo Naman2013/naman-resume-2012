@@ -12,9 +12,9 @@ After you clone the repo:
 
 1. `npm install`
 
-2. `npm run`
+2. `npm start`
 
-3. Navigate to: [http://localhost:8080/webpack-dev-server/](http://localhost:8080/webpack-dev-server/)
+3. Navigate to: [http://localhost:8080/](http://localhost:8080/)
 
 ### URL's and Path Building
 
