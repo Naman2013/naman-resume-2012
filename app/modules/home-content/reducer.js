@@ -1,6 +1,12 @@
 import createReducer from '../utils/createReducer';
 
-import { UPDATE_SLOOH_FEATURE_THREE, GET_HOME_PAGE_START, GET_HOME_PAGE_SUCCESS, GET_HOME_PAGE_FAIL} from './actions';
+import {
+  UPDATE_SLOOH_FEATURE_THREE,
+  GET_HOME_PAGE_START,
+  GET_HOME_PAGE_SUCCESS,
+  GET_HOME_PAGE_FAIL,
+  SET_UPCOMING_EVENT_URL,
+} from './actions';
 
 const initialState = {
   refreshIntervalSec: 600,
@@ -145,6 +151,24 @@ const initialState = {
 };
 
 export default createReducer(initialState, {
+  [SET_UPCOMING_EVENT_URL](state, { upcomingEventDetailsURL }) {
+    const updateFeatures = [
+      state.SLOOH_FEATURES[0],
+      {
+        key: Math.random() * 100,
+        icon: 'assets/icons/jupiter-icon.png',
+        title: 'EXPERIENCE MAJOR CELESTIAL EVENTS IN THE SPACE SITUATION ROOM.',
+        content: 'Slooh will keep you up-to-date on what’s happening in space with LIVE streaming events and feeds from observatory partners around the world. Slooh’s knowledgeable experts guide you through the night sky and its wonders.',
+        actionUrl: upcomingEventDetailsURL,
+        actionText: 'See Upcoming',
+      },
+      state.SLOOH_FEATURES[1],
+    ];
+    return {
+      ...state,
+      SLOOH_FEATURES: updateFeatures,
+    };
+  },
   [UPDATE_SLOOH_FEATURE_THREE](state, { payload }) {
     const updateFeatures = [state.SLOOH_FEATURES[0], state.SLOOH_FEATURES[1],
       {
