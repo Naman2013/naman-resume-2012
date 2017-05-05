@@ -2,6 +2,7 @@ import moment from 'moment';
 import fetchUpcomingEvents from '../../services/events/fetch-upcoming-events';
 import { fetchShowContent } from '../community-content/get-show-content-actions';
 import { fetchLiveShowInfo } from '../live-shows/live-shows-actions';
+import { setUpcomingEventDetailsURL } from '../home-content/actions';
 import { fetchSituationRoom } from '../SituationRoom';
 
 export const FETCH_EVENTS_START = 'FETCH_EVENTS_START';
@@ -82,6 +83,7 @@ export const fetchEvents = () => (dispatch) => {
     if (!result.data.apiError) {
       dispatch(setNextEvent(result.data.eventList[0]));
       dispatch(fetchEventsSuccess(result.data));
+      dispatch(setUpcomingEventDetailsURL({ upcomingEventDetailsURL: `#/shows/event-details/${result.data.eventList[0].eventId}` }));
     }
   })
   .catch(error => dispatch(fetchEventsFail(error)));
