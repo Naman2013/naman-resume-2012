@@ -1,84 +1,120 @@
+@import '../../../styles/variables/fonts.scss';
+@import '../../../styles/variables/colors.scss';
+
 .neoview-container {
+  overflow: hidden;
 
-.neoview-wrapper {
-  padding: 20px 30px;
-  color: #B9D9D9;
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  background: rgba(0,0,0,0.6);
-  z-index: 1;
-  display: flex;
-  flex-direction: column-reverse;
-
-  .neo-message {
-    align-self: flex-end;
-    width: 100%;
-  }
-}
-
-
-.top {
-  position: relative;
-  z-index: 10;
-  width: 100%;
-
-  .short {
-    line-height: 35px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    color: #d8d8d8;
-    padding-left: 10px;
-    font-size: 14px;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
-  }
-  .toggle-description {
-    color: #3C4A55;
-    background-color: #000;
-    position: absolute;
-    right: 10px;
-    top: 5px;
-    line-height: 25px;
-    width: 25px;
-    height: 25px;
-    text-align: center;
-    border-radius: 50%;
-    font-size: 25px;
-  }
-}
-
-.content {
-  background-color: #000;
-  padding: 10px 10px 20px 70px;
-  position: relative;
-  .description {
+  .neoview-wrapper {
+    padding: 20px 30px 120px 30px;
     color: #B9D9D9;
-  }
-  h3 {
-    margin: 10px 0;
-    font-size: 24px;
-  }
-  p {
-    font-size: 18px;
-    &.small {
-      font-size: 12px;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    background: rgba(0,0,0,0.6);
+    z-index: 1;
+    display: flex;
+    flex-direction: column-reverse;
+    overflow: hidden;
+
+    .neoviewDescription {
+      margin-bottom: 30px;
+      font-size: 18px;
+      font-family: $secondary-font;
+
+      .neoviewDescriptionHighlight {
+        font-weight: 600;
+        font-family: $primary-font;
+      }
+    }
+
+    .neo-message {
+      color: $yellow;
+      align-self: flex-end;
+      width: 100%;
+      padding: 5px 0;
     }
   }
-  img {
-    position: absolute;
-    left: 10px;
-    top: 20px;
-  }
-}
 
-.progressbar-container {
-  background-color: #3C4A55;
-}
+  .top {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+
+    .progressBarStatus {
+      position: absolute;
+      top: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-family: $secondary-font;
+      width: 100%;
+      padding: 5px 15px;
+
+      .short {
+        font-style: italic;
+        color: #d8d8d8;
+        font-size: 14px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+      }
+
+      .toggle-description {
+        position: relative;
+        border: none;
+        color: #3C4A55;
+        background-color: $white;
+        width: 25px;
+        height: 25px;
+        text-align: center;
+        border-radius: 50%;
+        font-size: 25px;
+
+        &:focus {
+          outline: none;
+        }
+
+        .fa {
+          position: absolute;
+          top: 0;
+          left: 4.7px;
+        }
+      }
+    }
+  }
+
+  .content {
+    background-color: #000;
+    padding: 10px 10px 20px 70px;
+    position: relative;
+
+    .description {
+      color: #B9D9D9;
+    }
+
+    h3 {
+      margin: 10px 0;
+      font-size: 24px;
+    }
+
+    p {
+      font-size: 18px;
+      &.small {
+        font-size: 12px;
+      }
+    }
+
+    img {
+      position: absolute;
+      left: 10px;
+      top: 20px;
+    }
+  }
+
+  .progressbar-container {
+    background-color: #3C4A55;
+  }
 
 
 }

@@ -1,23 +1,24 @@
 import React, { Component } from 'react';
 import Progress from 'react-progressbar';
-import styles from './neoview.scss';
+import classnames from 'classnames';
+import { uniqueId } from 'lodash';
+import NeoViewDescription from './NeoViewDescription';
+import NewViewMessage from './NeoViewMessage';
+import s from './neoview.scss';
 
-/**
-  * @todo convert SSE data into "readable" messages once the real data
-  * starts coming through
-  * @todo figure out proxy post numbers, for now only 3104 and 3105 are handled
-*/
-export default class Neoview extends React.Component {
+// √ TODO: handle messages flowing up and out of the viewer...
+// √ TODO: handle the appropriate positioning and display of the neoviews core container
+// TODO: display a timestamp with each message
+// √ TODO: make the neoview message color gold per the design
+// √ TODO: separate the about message into its own component
+// √ TODO: prepend the neoview description to the feed state
 
-  constructor(props) {
-    super(props);
+export default class Neoview extends Component {
 
-    this.state = {
-      latestMassege: null,
-      messages: [],
-      toggleNeoview: false,
-      showToggleOption: this.props.showToggleOption,
-    }
+  state = {
+    latestMessage: null,
+    messages: [],
+    toggleNeoview: false,
   }
 
   componentDidMount() {
@@ -40,10 +41,11 @@ export default class Neoview extends React.Component {
     const messages = this.state.messages;
     const message = JSON.parse(data);
     const notHeartbeat = message.messageType !== 'HEARTBEAT';
+
     if (notHeartbeat) {
       this.setState({
-        latestMassege: `${message.messageText ? message.messageText : ''} ${message.logMessage}`,
-        messages: [notHeartbeat, ...messages],
+        latestMessage: message.logMessage,
+        messages: [message.logMessage, ...messages],
       });
     }
   }
@@ -56,56 +58,51 @@ export default class Neoview extends React.Component {
     * Handling toggle click of neo view (progress bar arrow)
     * by default the state of neo view is false (hidden)
     * when user clicks arrow the state is being updated which shows/hides neo view overlay
+    * we prepend the most recent message and the neoview description
     */
-  handleToggleNeoview() {
-    this.setState({
-      messages: [],
-      toggleNeoview: !this.state.toggleNeoview
-    });
+  handleToggleNeoview = () => {
+    this.setState(prevState => ({
+      messages: [prevState.latestMessage],
+      toggleNeoview: !prevState.toggleNeoview,
+    }));
   }
 
   render() {
     const { percentageMissionTimeRemaining } = this.props;
+    const neoviewContainerClassnames = classnames('neoview-wrapper', {
+      visible: this.state.toggleNeoview,
+      hidden: !this.state.toggleNeoview,
+    });
 
     return (
       <div className="neoview-container">
-        <div className={`neoview-wrapper ${this.state.toggleNeoview ? 'visible' : 'hidden'}`}>
-          {this.state.messages && this.state.messages.map((msg, index) => {
-            return (
-              <div className="neo-message" key={index}>
-                <div className="col-md-4 neo-message-time">{`${msg[0]} `}</div>
-                <div className="col-md-8 neo-message-text">{ msg[1] ? msg[1] : '' }</div>
-              </div>
-            );
-          })}
+
+        <div className={neoviewContainerClassnames}>
+          {
+            this.state.messages.map(message => <NewViewMessage message={message} />)
+          }
+          <NeoViewDescription />
         </div>
 
         <div className="top">
-
           <Progress completed={percentageMissionTimeRemaining} color="#589A9A" height="35px" />
+          <div className={s.progressBarStatus}>
+            <p className="short">
+              {this.state.latestMessage}
+            </p>
 
-          <p className="short">
-            {this.state.latestMassege}
-          </p>
-          {
-            /**
-              TODO: bring this back...  it toggles the neoview layover display
-              it had been broken at some point and needs to be revisited
-              <div className="toggle-description" onClick={this.handleToggleNeoview.bind(this)}>
-                {(() => {
-                  if (this.props.showToggleOption && this.state.toggleNeoview) {
-                    return <i className="fa fa-angle-down"></i>
-                  } else {
-                    return <i className="fa fa-angle-up"></i>
+            {
+              this.props.showToggleOption &&
+                <button className="toggle-description" onClick={this.handleToggleNeoview}>
+                  {
+                    this.state.toggleNeoview ?
+                      <i className="fa fa-angle-down" /> : <i className="fa fa-angle-up" />
                   }
-                })()}
-              </div>
-            */
-          }
+                </button>
+            }
+          </div>
         </div>
-
       </div>
     )
   }
-
 }
