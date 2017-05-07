@@ -52,7 +52,7 @@ class DiscussionsThreadWrapper extends Component {
             <Link to={`/discussions/forums/${forumId}/topics/${topicId}/threads`}> <span dangerouslySetInnerHTML={{ __html: currentTopic ? currentTopic.get('title') : 'Topic' }}></span></Link>
           </span>
           <div className="container row">
-            <h1 className="title-container col-md-10">Discussions: <span className="title" dangerouslySetInnerHTML={{ __html: thread.title }}></span> {thread.closedFlag === 'yes' && <img className="closed-icon" src={thread.closedIconURL} />}</h1>
+            <h1 className="title-container col-md-10">Discussions: <span className="title" dangerouslySetInnerHTML={{ __html: thread.title }} /> {thread.closedFlag === 'yes' && <img alt="" className="closed-icon" src={thread.closedIconURL} />}</h1>
             {thread.closedFlag === 'no' && <div className="button-nav col-md-2">
               <Link className="button btn-primary" to={newThreadUrl}>
                 <i className="fa fa-plus" /> New Thread

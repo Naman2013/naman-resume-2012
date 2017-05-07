@@ -152,7 +152,7 @@ class NewDiscussionsThread extends Component {
 
   get forumOptions() {
     const { forumList } = this.props;
-    return _.sortBy(forumList.toArray().map(forum => forum.get('forumTitle')), f => f.forumIndex) || [];
+    return _.sortBy(forumList.toArray().map(forum => <span dangerouslySetInnerHTML={{ __html: forum.get('forumTitle') }} />), f => f.forumIndex) || [];
   }
 
   get topicOptions() {
@@ -160,7 +160,7 @@ class NewDiscussionsThread extends Component {
     return _.sortBy(selectedForum &&
       selectedForum
         .get('forumTopicList')
-        .map(topic => topic.get('topicTitle')), t => t.topicIndex) || [];
+        .map(topic => <span dangerouslySetInnerHTML={{ __html: topic.get('topicTitle') }} />), t => t.topicIndex) || [];
   }
 
   validateForm = () => {
@@ -241,7 +241,7 @@ class NewDiscussionsThread extends Component {
           <h1 className="title-container center">Create Thread</h1>
           <div className="button-nav">
             <Link className="button btn-primary" to="/discussions">
-              <i className="fa fa-plus"/> Cancel This
+              <i className="fa fa-plus" /> Cancel This
             </Link>
           </div>
         </header>
@@ -277,7 +277,8 @@ class NewDiscussionsThread extends Component {
                   <h4>Add Your Content</h4>
                   <label className={classnames({ validationError: titleError })}>
                     <span>Type in a simple headline for your post.</span>
-                      <input name="threadTitle"
+                      <input
+                        name="threadTitle"
                         className={`${styles.DiscussionsInput}`}
                         type="text"
                         onChange={this.handleTitleChange}
