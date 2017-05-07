@@ -14,10 +14,6 @@ export const FETCH_LATEST_POSTS_START = 'FETCH_LATEST_POSTS_START';
 export const FETCH_LATEST_POSTS_SUCCESS = 'FETCH_LATEST_POSTS_SUCCESS';
 export const FETCH_LATEST_POSTS_FAIL = 'FETCH_LATEST_POSTS_FAIL';
 
-export const FETCH_HOTTEST_POSTS_START = 'FETCH_HOTTEST_POSTS_START';
-export const FETCH_HOTTEST_POSTS_SUCCESS = 'FETCH_HOTTEST_POSTS_SUCCESS';
-export const FETCH_HOTTEST_POSTS_FAIL = 'FETCH_HOTTEST_POSTS_FAIL';
-
 const fetchPopularPostsStart = () => ({
   type: FETCH_POPULAR_POSTS_START,
 });
@@ -83,37 +79,4 @@ export const fetchLatestPosts = (path, type, page) => (dispatch, getState) => {
   })
   .then(result => dispatch(fetchLatestPostsSuccess(Object.assign({ page }, result.data))))
   .catch(error => dispatch(fetchLatestPostsFail(error)));
-};
-
-const fetchHottestPostsStart = () => ({
-  type: FETCH_HOTTEST_POSTS_START,
-});
-
-const fetchHottestPostsSuccess = payload => ({
-  type: FETCH_HOTTEST_POSTS_SUCCESS,
-  payload,
-});
-
-const fetchHottestPostsFail = payload => ({
-  type: FETCH_HOTTEST_POSTS_FAIL,
-  payload,
-});
-
-export const fetchHottestPosts = (type, page) => (dispatch, getState) => {
-  const { cid } = getState().user;
-
-  const postsType = type ? { type: [type] } : '';
-
-  dispatch(fetchHottestPostsStart());
-  dispatch(fetchPageMeta());
-  // dispatch(fetchPopularPosts());
-
-  return axios.post('/api/content/getHottestContent', {
-    cid,
-    count: 10,
-    page,
-    ...postsType
-  })
-  .then(result => dispatch(fetchHottestPostsSuccess(result.data)))
-  .catch(error => dispatch(fetchHottestPostsFail(error)));
 };
