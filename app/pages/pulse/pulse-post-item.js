@@ -57,6 +57,7 @@ const PulsePostItem = ({
 
             <div className="col-md-1">
               <Heart
+                membershipType={membershipType}
                 showLikePrompt={showLikePrompt}
                 likePrompt={likePrompt}
                 count={likesCount}

@@ -19,6 +19,7 @@ const mapStateToProps = ({ user }) => ({
 @connect(mapStateToProps)
 export default class Heart extends Component {
   static propTypes = {
+    membershipType: PropTypes.string,
     showLikePrompt: PropTypes.bool,
     likePrompt: PropTypes.string,
     canLikeFlag: PropTypes.bool,
@@ -31,6 +32,7 @@ export default class Heart extends Component {
   }
 
   static defaultProps = {
+    membershipType: '',
     likePrompt: '',
     showLikePrompt: false,
     likeAction: like,
@@ -51,14 +53,14 @@ export default class Heart extends Component {
 
   handleClick = (event) => {
     event.preventDefault();
-    const { at, likeAction, token, canLikeFlag, cid, likeId, likeType, showLikePrompt, params } = this.props;
+    const { at, likeAction, token, canLikeFlag, cid, likeId, likeType, showLikePrompt, params, membershipType } = this.props;
     if (showLikePrompt) {
       this.setState({
         showPrompt: true,
       });
     } else {
       likeAction({
-        ...params, at, token, cid, likeId, likeType,
+        ...params, at, token, cid, likeId, likeType, membershipType,
       }).then(result => this.handleLikeResult(result.data));
     }
   }

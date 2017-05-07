@@ -34,6 +34,7 @@ export function likeReply({
   authorId,
   forumId,
   topicId,
+  membershipType,
 }) {
   return axios.post('/api/forum/likeReply', {
     at,
@@ -43,6 +44,7 @@ export function likeReply({
     authorId,
     forumId,
     topicId,
+    membershipType,
   });
 }
 
@@ -54,6 +56,7 @@ export function likeThread({
   authorId,
   forumId,
   topicId,
+  membershipType,
 }) {
   return axios.post('/api/forum/likeThread', {
     at,
@@ -63,5 +66,6 @@ export function likeThread({
     authorId,
     forumId,
     topicId,
+    membershipType,
   });
 }
