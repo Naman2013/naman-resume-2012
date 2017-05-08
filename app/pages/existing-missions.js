@@ -60,7 +60,7 @@ class ExistingMissions extends Component {
         }
 
         {
-          !fetchingCards && !fetchingCards && piggybacks.length === 0 && <GenericLoadingBox text="No PIGGYBACKS where found, please try again later." />
+          !fetchingCards && !fetchingCards && piggybacks.length === 0 && <GenericLoadingBox text="No PIGGYBACKS were found, please try again later." />
         }
 
         {
