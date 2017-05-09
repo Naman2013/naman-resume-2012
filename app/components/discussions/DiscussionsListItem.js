@@ -34,6 +34,7 @@ const DiscussionsListItem = ({ item }) => (
       </div>
       <div className="auto-top">
         <Heart
+          membershipType={item.membershipType}
           likeAction={likeThread}
           theme="dark"
           count={item.likesCount}

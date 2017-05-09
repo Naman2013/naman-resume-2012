@@ -35,6 +35,7 @@ class DiscussionsReply extends Component {
           {/* For next iteration: <span className={styles.discussionsrepliesText}>Reply</span> */}
           <div className={`${styles.discussionsInlineHeart} no-margin`}>
             <Heart
+              membershipType={reply.membershipType}
               likeAction={likeReply}
               theme="dark"
               count={reply.likesCount}

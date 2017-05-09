@@ -48,6 +48,7 @@ class DiscussionsThread extends Component {
             </Link>
             <div className={styles.discussionsInlineHeart}>
               <Heart
+                membershipType={thread.membershipType}
                 likeAction={likeThread}
                 theme="dark"
                 count={thread.likesCount}

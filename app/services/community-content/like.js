@@ -20,6 +20,7 @@ export default function like({
   cid,
   likeType,
   likeId,
+  membershipType,
 }) {
   return axios.post('/api/content/like', {
     at,
@@ -27,5 +28,6 @@ export default function like({
     cid,
     likeType,
     likeId,
+    membershipType,
   });
 }
