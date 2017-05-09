@@ -87,7 +87,7 @@ class RoadtripRegistration extends Component {
                       name="address2"
                       className="form-control input-lg"
                       type="text"
-                      label="Address line 1"
+                      label="Address line 2"
                       component={InputField}
                     />
                   </fieldset>
@@ -107,28 +107,28 @@ class RoadtripRegistration extends Component {
                       <label className="required"> Number in party </label>
                     </span>
                     <Field
-                      name="partysize"
+                      name="partySize"
                       type="radio"
                       value="1"
                       label="1"
                       component={InputField}
                     />
                     <Field
-                      name="partysize"
+                      name="partySize"
                       type="radio"
                       value="2"
                       label="2"
                       component={InputField}
                     />
                     <Field
-                      name="partysize"
+                      name="partySize"
                       type="radio"
                       value="3"
                       label="3"
                       component={InputField}
                     />
                     <Field
-                      name="partysize"
+                      name="partySize"
                       type="radio"
                       value="4"
                       label="4"
@@ -137,7 +137,7 @@ class RoadtripRegistration extends Component {
                   </fieldset>
                   <fieldset className="clearfix form-group required">
                     <Field
-                      name="partynames"
+                      name="partyNames"
                       type="text"
                       label="List names in your party"
                       maxLength={1800}
@@ -234,8 +234,8 @@ class RoadtripRegistration extends Component {
   }
 }
 
-const mapStateToProps = ({ registrationForm }) => ({
-  ...registrationForm,
+const mapStateToProps = ({ roadtripRegistration }) => ({
+  ...roadtripRegistration,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -249,8 +249,8 @@ const formValidation = createValidator({
   address1: [required, maxLength(150)],
   address2: [maxLength(150)],
   citstatzip: [required, maxLength(150)],
-  partysize: [required],
-  partynames: [maxLength(1800)],
+  partySize: [required],
+  partyNames: [maxLength(1800)],
   camprv: [required],
   basecamp: [required],
   bringing: [required, maxLength(1800)],

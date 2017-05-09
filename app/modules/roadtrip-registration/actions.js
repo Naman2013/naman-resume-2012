@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { SubmissionError, reset } from 'redux-form';
 import { fetchErrors } from '../authorization/actions';
 
 const SEND_ROADTRIP_FORM_START = 'SEND_ROADTRIP_FORM_START';
@@ -25,16 +26,19 @@ export const authenticateRegistrationPage = (pathname, replace, callback) => (di
   .catch(() => dispatch(authenticateRegistrationPageFail()));
 };
 
-const sendRoadtripFormStart = () => ({
+const sendRoadtripFormStart = (payload) => ({
   type: SEND_ROADTRIP_FORM_START,
+  payload,
 });
 
-const sendRoadtripFormSuccess = () => ({
+const sendRoadtripFormSuccess = (payload) => ({
   type: SEND_ROADTRIP_FORM_SUCCESS,
+  payload,
 });
 
-const sendRoadtripFormFailure = () => ({
+const sendRoadtripFormFailure = (payload) => ({
   type: SEND_ROADTRIP_FORM_FAILURE,
+  payload,
 });
 
 export const sendRoadtripForm = (contactFormValues) => (dispatch, getState) => {
@@ -45,8 +49,8 @@ export const sendRoadtripForm = (contactFormValues) => (dispatch, getState) => {
     address1,
     address2,
     citstatzip,
-    partysize,
-    partynames,
+    partySize,
+    partyNames,
     camprv,
     basecamp,
     bringing,
@@ -63,12 +67,20 @@ export const sendRoadtripForm = (contactFormValues) => (dispatch, getState) => {
     address1,
     address2,
     citstatzip,
-    partysize,
-    partynames,
+    partySize,
+    partyNames,
     camprv,
     basecamp,
     bringing,
   })
-  .then(result => dispatch(sendRoadtripFormSuccess(result.data)))
-  .catch(error => dispatch(sendRoadtripFormFailure(error)));
+  .then(result => {
+    if (result.data && !result.data.apiError) {
+      dispatch(reset('contact'));
+    }
+    dispatch(sendRoadtripFormSuccess(result.data))
+  })
+  .catch(error => {
+    dispatch(sendRoadtripFormFailure(error));
+    throw new SubmissionError({ _error: 'Your message in was unsuccessful. Please try again.' });
+  });
 };
