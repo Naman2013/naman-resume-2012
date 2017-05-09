@@ -47,7 +47,13 @@ export const fetchErrors = () => (dispatch, getState) => {
     const MEMBER_UPSELL = 'memberUpsell';
     const GOTO_HOMEPAGE = 'gotoHomePage';
     const LOGIN_UPSELL = 'loginUpsell';
-    const { responseType } = result.data;
+    const GOTO_PAGE_ID = 'gotoPageId';
+    const GOTO_URL = 'gotoURL';
+    const GOTO_URL_NEW_TAB = 'gotoURLNewTab';
+    const POPUP_MESSAGE = 'popupMessage';
+    const IGNORE = 'ignore';
+
+    const { responseType, responseURL } = result.data;
 
     if (responseType === MEMBER_UPSELL) {
       dispatch(push('registration/upgrade'));
@@ -59,6 +65,10 @@ export const fetchErrors = () => (dispatch, getState) => {
 
     if (responseType === LOGIN_UPSELL) {
       dispatch(push('/registration/sign-in'));
+    }
+
+    if (responseType === GOTO_URL) {
+      window.location.href = decodeURIComponent(responseURL);
     }
   });
 };
