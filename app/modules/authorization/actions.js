@@ -67,15 +67,16 @@ export const validateResponseAccess = apiResponse => (dispatch) => {
   const SIGN_IN_PATH = '/registration/sign-in';
   const REDIRECT_CONFIRMATION_PATH = '/redirect-confirmation';
   const UNAUTHORIZED_STATUS_CODE = 401;
+  const EXPIRED_ACCOUNT_STATUS_CODE = 418;
   const BAD_LOGIN_SESSION_CODE = 60003;
 
   const { apiError, errorCode, statusCode, loginError } = apiResponse;
-  if (statusCode === UNAUTHORIZED_STATUS_CODE) {
+  if (statusCode === UNAUTHORIZED_STATUS_CODE || statusCode === EXPIRED_ACCOUNT_STATUS_CODE) {
     if (typeof loginError === 'undefined') {
       if (errorCode === BAD_LOGIN_SESSION_CODE) {
-        // destroy the user session
         destroySession();
       }
+
       dispatch(captureErrorState({
         apiError,
         errorCode,
