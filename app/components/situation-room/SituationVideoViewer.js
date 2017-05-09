@@ -10,6 +10,7 @@ import s from './SituationVideoViewer.scss';
 
 const getInlineBgStyle = imgUrl => ({
   backgroundImage: `url(${imgUrl})`,
+  backgroundSize: '100%',
 });
 
 class SituationVideoViewer extends Component {
@@ -79,7 +80,7 @@ class SituationVideoViewer extends Component {
                 videoInProgress && additionalFeeds.map((feed, i) => (
                   <Tab key={feed.videoStreamCode}>
                     <div className={s.liveTelescopeTitle}>
-                      {(selectedTab === i + 1) && <h6>{feed.TelescopeName}</h6> }
+                      {<h6>{feed.TelescopeName}</h6> }
                     </div>
                     <div className="telescope" style={getInlineBgStyle(feed.tabIconURL)} />
                   </Tab>
