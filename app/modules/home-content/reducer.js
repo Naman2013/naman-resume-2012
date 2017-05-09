@@ -82,7 +82,7 @@ const initialState = {
         title: 'Total solar eclipse',
         imageUrl: 'assets/images/photos/eclipse.png',
         type: '',
-        url: '/shows/event-details/393',
+        url: '/road-trip',
       },
       {
         key: Math.random() * 100,

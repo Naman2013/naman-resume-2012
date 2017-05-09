@@ -86,13 +86,13 @@ class PlansChange extends Component {
                   </div>
 
                   <ul className="features">
-                    <li>Shows: Public Only</li>
-                    <li className="not">Live Telescope Feeds</li>
+                    <li>Shows: All</li>
+                    <li className="not">Telescopes</li>
                     <li className="not">Take Pictures</li>
                     <li>Community</li>
                     <li className="not">Reservations</li>
                     <li>Objects: None</li>
-                    <li className="not">Space Situation Room</li>
+                    <li>Space Situation Room</li>
                     <li className="not">Slooh Road Trip</li>
                   </ul>
                 </article>
@@ -121,7 +121,7 @@ class PlansChange extends Component {
                   </div>
                   <ul className="features">
                     <li>Shows: All</li>
-                    <li>Live Telescope Feeds</li>
+                    <li>Telescopes</li>
                     <li>Take Pictures</li>
                     <li>Community</li>
                     <li>5 Reservations <small>monthly</small> <i onClick={() => {this.openModal(PLAN_DESCRIPTIONS.RESERVATION_LIMIT_5)}} className="icon control info-white">info</i></li>
@@ -155,7 +155,7 @@ class PlansChange extends Component {
 
                   <ul className="features">
                     <li>Shows: All</li>
-                    <li>Live Telescope Feeds</li>
+                    <li>Telescopes</li>
                     <li>Take Pictures</li>
                     <li>Community</li>
                     <li>Unlimited Reservations <i onClick={() => {this.openModal(PLAN_DESCRIPTIONS.RESERVATION_LIMIT_UNLIMITED)}} className="icon control info-white">info</i>

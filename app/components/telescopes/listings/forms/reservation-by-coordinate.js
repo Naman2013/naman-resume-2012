@@ -1,6 +1,9 @@
 /**
   NOTES:
   underscores used in some naming to improve legability
+
+  TODO: refactor how the form works to allow users to use the minus key while
+  entering a coordinate
   */
 
 import React, { Component } from 'react';
@@ -35,6 +38,14 @@ const mapDispatchToProps = dispatch => ({
   }, dispatch),
 });
 
+// TODO: move this into a utility file
+function cleanCalcInput(value) {
+  let cleanedInput = value || 0;
+  if (isNaN(cleanedInput)) cleanedInput = 0;
+
+  return parseFloat(cleanedInput);
+}
+
 @connect(mapStateToProps, mapDispatchToProps)
 class ReservationByCoordinate extends Component {
   constructor(props) {
@@ -65,7 +76,6 @@ class ReservationByCoordinate extends Component {
     this.handleDecMChange = this.handleDecMChange.bind(this);
     this.handleDecSChange = this.handleDecSChange.bind(this);
 
-    this.handleRAChange = this.handleRAChange.bind(this);
     this.handleDECChange = this.handleDECChange.bind(this);
     this.handleVisibilityCheck = this.handleVisibilityCheck.bind(this);
     this.handleTargetChange = this.handleTargetChange.bind(this);
@@ -78,51 +88,78 @@ class ReservationByCoordinate extends Component {
     this.handleDECChange({ target: { value: this.state.dec } });
   }
 
-  cleanCalcInput(value = 0) {
-    return Number(value);
-  }
-
   // RA change events...
   handleRaHChange(event) {
+    const newRAH = event.target.value;
+    if (!newRAH) {
+      this.setState({
+        ra_h: newRAH,
+      });
+      return;
+    }
+
     this.calculateFields({
-      ra_h: this.cleanCalcInput(event.target.value),
+      ra_h: cleanCalcInput(newRAH),
+    });
+  }
+
+  handleRaHBlur = (event) => {
+    this.calculateFields({
+      ra_h: cleanCalcInput(event.target.value),
     });
   }
 
   handleRaMChange(event) {
+    const newRAM = event.target.value;
+
+    if (!newRAM) {
+      this.setState({
+        ra_m: newRAM,
+      });
+      return;
+    }
+
     this.calculateFields({
-      ra_m: this.cleanCalcInput(event.target.value),
+      ra_m: cleanCalcInput(newRAM),
+    });
+  }
+
+  handleRaMBlur = (event) => {
+    this.calculateFields({
+      ra_m: cleanCalcInput(event.target.value),
     });
   }
 
   handleRaSChange(event) {
+    const ras = event.target.value;
+    if (!ras) {
+      this.setState({
+        ra_s: ras,
+      });
+
+      return;
+    }
+
     this.calculateFields({
-      ra_s: this.cleanCalcInput(event.target.value),
+      ra_s: cleanCalcInput(ras),
     });
   }
 
-  // DEC change events
-  handleDecDChange(event) {
+  handleRaSBlur = (event) => {
     this.calculateFields({
-      dec_d: this.cleanCalcInput(event.target.value),
+      ra_s: cleanCalcInput(event.target.value),
     });
   }
 
-  handleDecMChange(event) {
-    this.calculateFields({
-      dec_m: this.cleanCalcInput(event.target.value),
+  updateRA = (ra) => {
+    this.setState({
+      ra,
     });
   }
 
-  handleDecSChange(event) {
-    this.calculateFields({
-      dec_s: this.cleanCalcInput(event.target.value),
-    });
-  }
-
-  handleRAChange(event) {
-    let ra = this.cleanCalcInput(event.target.value);
-    let { ra_h, ra_m, ra_s} = this.state;
+  recalculateRA(newRAValue) {
+    let ra = cleanCalcInput(newRAValue);
+    let { ra_h, ra_m, ra_s } = this.state;
 
     if (ra >= 24) {
       ra_h = 0;
@@ -159,9 +196,91 @@ class ReservationByCoordinate extends Component {
     });
   }
 
-  handleDECChange(event) {
+  handleRAChange = (event) => {
+    const newRA = event.target.value;
+    if (!newRA) {
+      this.updateRA(newRA);
+      return;
+    }
+
+    this.recalculateRA(newRA);
+  }
+
+  handleRABlur = (event) => {
+    this.recalculateRA(event.target.value);
+  }
+
+  // DEC change events
+  handleDecDChange(event) {
+    const decD = event.target.value;
+    if (!decD) {
+      this.setState({
+        dec_d: decD,
+      });
+      return;
+    }
+
+    this.calculateFields({
+      dec_d: cleanCalcInput(decD),
+    });
+  }
+
+  handleDecDBlur = (event) => {
+    this.calculateFields({
+      dec_d: cleanCalcInput(event.target.value),
+    });
+  }
+
+  handleDecMChange(event) {
+    const decM = event.target.value;
+    if (!decM) {
+      this.setState({
+        dec_m: decM,
+      });
+      return;
+    }
+
+    this.calculateFields({
+      dec_m: cleanCalcInput(decM),
+    });
+  }
+
+  handleDecMBlur = (event) => {
+    this.calculateFields({
+      dec_m: cleanCalcInput(event.target.value),
+    });
+  }
+
+  handleDecSChange(event) {
+    const decS = event.target.value;
+    if (!decS) {
+      this.setState({
+        dec_s: decS,
+      });
+
+      return;
+    }
+
+    this.calculateFields({
+      dec_s: cleanCalcInput(decS),
+    });
+  }
+
+  handleDecSBlur = (event) => {
+    this.calculateFields({
+      dec_s: cleanCalcInput(event.target.value),
+    });
+  }
+
+  updateDEC(dec) {
+    this.setState({
+      dec,
+    });
+  }
+
+  recalculateDEC(newDec) {
+    let dec = cleanCalcInput(newDec);
     let { dec_d, dec_m, dec_s } = this.state;
-    let dec = this.cleanCalcInput(event.target.value);
     let sign = 1;
 
     if (dec > 90) {
@@ -213,6 +332,20 @@ class ReservationByCoordinate extends Component {
       dec,
       visibilityStatus: {},
     });
+  }
+
+  handleDECChange(event) {
+    const newDEC = event.target.value;
+    if (!newDEC) {
+      this.updateDEC(newDEC);
+      return;
+    }
+
+    this.recalculateDEC(newDEC);
+  }
+
+  handleDECBlur = (event) => {
+    this.recalculateDEC(event.target.value);
   }
 
   calculateFields(values) {
@@ -429,7 +562,7 @@ class ReservationByCoordinate extends Component {
   }
 
   render() {
-    const { showPlaceOnHold, showCancelHold, expires, expireCallback } = this.props;
+    const { expires, expireCallback } = this.props;
     const {
       ra_h,
       ra_m,
@@ -445,7 +578,7 @@ class ReservationByCoordinate extends Component {
 
     return (
       <div className="reservation-form-container">
-        <form onSubmit={this.handleFormSubmit} method="POST">
+        <form onSubmit={this.handleFormSubmit} method="POST" noValidate>
 
           <div className="reserveObjectPage reserve-by-coordinate">
             <Timer startTime={expires} expireCallback={expireCallback} />
@@ -458,20 +591,20 @@ class ReservationByCoordinate extends Component {
                 </h2>
 
                 <div className="form-row-container">
-                  <div className="form-row">RA: <input value={ra_h} onChange={this.handleRaHChange} size="2" className="generic-text-input" type="number" /> <span className="symbol-character">h</span></div>
-                  <div className="form-row"><input value={ra_m} onChange={this.handleRaMChange} size="2" className="generic-text-input" type="number" /> <span className="symbol-character">m</span></div>
-                  <div className="form-row"><input value={ra_s} onChange={this.handleRaSChange} size="2" className="generic-text-input" type="number" /> <span className="symbol-character">s</span></div>
+                  <div className="form-row">RA: <input value={ra_h} onChange={this.handleRaHChange} onBlur={this.handleRaHBlur} size="2" className="generic-text-input" type="number" /> <span className="symbol-character">h</span></div>
+                  <div className="form-row"><input value={ra_m} onChange={this.handleRaMChange} onBlur={this.handleRaMBlur} size="2" className="generic-text-input" type="number" /> <span className="symbol-character">m</span></div>
+                  <div className="form-row"><input value={ra_s} onChange={this.handleRaSChange} onBlur={this.handleRaSBlur} size="2" className="generic-text-input" type="number" /> <span className="symbol-character">s</span></div>
                 </div>
 
                 <div className="form-row-container">
-                  <div className="form-row">Dec: <input value={dec_d} onChange={this.handleDecDChange} size="2" className="generic-text-input" type="number" /> <span className="symbol-character">d</span></div>
-                  <div className="form-row"><input value={dec_m} onChange={this.handleDecMChange} size="2" className="generic-text-input" type="number" /> <span className="symbol-character">m</span></div>
-                  <div className="form-row"><input value={dec_s} onChange={this.handleDecSChange} size="2" className="generic-text-input" type="number" /> <span className="symbol-character">s</span></div>
+                  <div className="form-row">Dec: <input value={dec_d} onChange={this.handleDecDChange} onBlur={this.handleDecDBlur} size="2" className="generic-text-input" type="number" /> <span className="symbol-character">d</span></div>
+                  <div className="form-row"><input value={dec_m} onChange={this.handleDecMChange} onBlur={this.handleDecMBlur} size="2" className="generic-text-input" type="number" /> <span className="symbol-character">m</span></div>
+                  <div className="form-row"><input value={dec_s} onChange={this.handleDecSChange} onBlur={this.handleDecSBlur} size="2" className="generic-text-input" type="number" /> <span className="symbol-character">s</span></div>
                 </div>
 
                 <div className="form-row-container highlighted">
-                  <div className="form-row">RA: <input value={ra} onChange={this.handleRAChange} size="8" className="generic-text-input" type="number" /></div>
-                  <div className="form-row">Dec: <input value={dec} onChange={this.handleDECChange} size="8" className="generic-text-input" type="number" /></div>
+                  <div className="form-row">RA: <input value={ra} onChange={this.handleRAChange} onBlur={this.handleRABlur} size="8" className="generic-text-input" type="number" /></div>
+                  <div className="form-row">Dec: <input value={dec} onChange={this.handleDECChange} onBlur={this.handleDECBlur} size="8" className="generic-text-input" type="number" /></div>
                 </div>
               </div>
 
