@@ -6,5 +6,8 @@
 }
 
 .roadtripRegistrationForm {
-  text-transform: none;
+
+  .card-wide {
+    text-transform: none !important;
+  }
 }

@@ -37,18 +37,37 @@ const sendRoadtripFormFailure = () => ({
   type: SEND_ROADTRIP_FORM_FAILURE,
 });
 
-export const sendRoadtripForm = ({
-  lang,
-  ver,
-}) => (dispatch, getState) => {
+export const sendRoadtripForm = (contactFormValues) => (dispatch, getState) => {
+  const {
+    firstName,
+    lastName,
+    emailAddress,
+    address1,
+    address2,
+    citstatzip,
+    partysize,
+    partynames,
+    camprv,
+    basecamp,
+    bringing,
+  } = contactFormValues;
   const { cid, at, token } = getState().user;
   dispatch(sendRoadtripFormStart());
   return axios.post('/api/app/sendRoadtripForm', {
     cid,
     at,
     token,
-    lang,
-    ver,
+    firstName,
+    lastName,
+    emailAddress,
+    address1,
+    address2,
+    citstatzip,
+    partysize,
+    partynames,
+    camprv,
+    basecamp,
+    bringing,
   })
   .then(result => dispatch(sendRoadtripFormSuccess(result.data)))
   .catch(error => dispatch(sendRoadtripFormFailure(error)));

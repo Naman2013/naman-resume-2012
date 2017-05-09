@@ -17,8 +17,9 @@ export default class renderField extends Component {
 
     return (
       <label className={classnames({ error: touched && error })}>
-        <span>{label}</span>
+        {type !== 'radio' && <span>{label}</span>}
         <input type={type} {...input} className={className} />
+        &nbsp;{type === 'radio' && <span>{label}</span>}
         {touched && error && <span className="error-description">{error}</span>}
       </label>
     );

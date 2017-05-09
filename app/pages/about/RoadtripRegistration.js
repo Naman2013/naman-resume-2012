@@ -42,6 +42,16 @@ class RoadtripRegistration extends Component {
                 <p>Campers will need to provide their own food/water. However, food truck visits and grills will be available for use at various times throughout the weekend.  There are no bathroom/shower or RV hook up facilities available at the campground.  Portable toilets will be provided during the event.  One central campfire will be used for the event and will be the gathering place for all festival attendees. Individual campfires are not allowed.</p>
                 <form name="roadtrip-registration" onSubmit={handleSubmit(registration)}>
 
+                  <fieldset className="clearfix form-group required">
+                    <Field
+                      name="emailAddress"
+                      className="form-control input-lg"
+                      type="emailAddress"
+                      label="Email Address"
+                      maxLength={150}
+                      component={InputField}
+                    />
+                  </fieldset>
                   <fieldset className="form-group pull-left half-width-margin required">
                     <Field
                       name="firstName"
@@ -62,31 +72,145 @@ class RoadtripRegistration extends Component {
                       component={InputField}
                     />
                   </fieldset>
+
                   <fieldset className="clearfix form-group required">
                     <Field
-                      name="emailAddress"
+                      name="address1"
                       className="form-control input-lg"
-                      type="emailAddress"
-                      label="Email Address"
-                      maxLength={150}
+                      type="text"
+                      label="Address line 1"
                       component={InputField}
                     />
                   </fieldset>
                   <fieldset className="clearfix form-group">
                     <Field
-                      name="subject"
+                      name="address2"
                       className="form-control input-lg"
                       type="text"
-                      label="Subject"
-                      maxLength={100}
+                      label="Address line 1"
+                      component={InputField}
+                    />
+                  </fieldset>
+
+                  <fieldset className="clearfix form-group required">
+                    <Field
+                      name="citstatzip"
+                      className="form-control input-lg"
+                      type="text"
+                      label="City, State and Zip"
+                      component={InputField}
+                    />
+                  </fieldset>
+
+                  <fieldset className="clearfix form-group">
+                    <span className="required">
+                      <label className="required"> Number in party </label>
+                    </span>
+                    <Field
+                      name="partysize"
+                      type="radio"
+                      value="1"
+                      label="1"
+                      component={InputField}
+                    />
+                    <Field
+                      name="partysize"
+                      type="radio"
+                      value="2"
+                      label="2"
+                      component={InputField}
+                    />
+                    <Field
+                      name="partysize"
+                      type="radio"
+                      value="3"
+                      label="3"
+                      component={InputField}
+                    />
+                    <Field
+                      name="partysize"
+                      type="radio"
+                      value="4"
+                      label="4"
                       component={InputField}
                     />
                   </fieldset>
                   <fieldset className="clearfix form-group required">
                     <Field
-                      name="message"
+                      name="partynames"
                       type="text"
-                      label="Your Message"
+                      label="List names in your party"
+                      maxLength={1800}
+                      component={TextareaField}
+                    />
+                  </fieldset>
+
+                  <fieldset className="clearfix form-group">
+                    <span className="required">
+                      <label> Are you camping or bringing an RV? </label>
+                    </span>
+                    <Field
+                      name="camprv"
+                      type="radio"
+                      value="camping"
+                      label="Camping in a tent"
+                      component={InputField}
+                    />
+                    <Field
+                      name="camprv"
+                      type="radio"
+                      value="rv"
+                      label="Sleeping in an RV"
+                      component={InputField}
+                    />
+                  </fieldset>
+
+                  <fieldset className="clearfix form-group">
+                    <span className="required">
+                      <label> Which is your preferred basecamp? </label>
+                    </span>
+                    <Field
+                      name="basecamp"
+                      type="radio"
+                      value="sciencelog"
+                      label="Science Log"
+                      component={InputField}
+                    />
+                    <Field
+                      name="basecamp"
+                      type="radio"
+                      value="artCulture"
+                      label="Art & Culture"
+                      component={InputField}
+                    />
+                    <Field
+                      name="basecamp"
+                      type="radio"
+                      value="humanSpirit"
+                      label="Human Spirit"
+                      component={InputField}
+                    />
+                    <Field
+                      name="basecamp"
+                      type="radio"
+                      value="diy"
+                      label="Do-it-Yourself"
+                      component={InputField}
+                    />
+                    <Field
+                      name="basecamp"
+                      type="radio"
+                      value="any"
+                      label="Surprise me"
+                      component={InputField}
+                    />
+                  </fieldset>
+
+                  <fieldset className="clearfix form-group required">
+                    <Field
+                      name="bringing"
+                      type="text"
+                      label="What will you do or bring to the event that will enrich the experience for all?"
                       maxLength={1800}
                       component={TextareaField}
                     />
@@ -122,8 +246,14 @@ const formValidation = createValidator({
   firstName: [required, maxLength(30)],
   lastName: [required, maxLength(50)],
   emailAddress: [required, maxLength(150)],
-  message: [required, maxLength(1800)],
-  subject: [maxLength(100)],
+  address1: [required, maxLength(150)],
+  address2: [maxLength(150)],
+  citstatzip: [required, maxLength(150)],
+  partysize: [required],
+  partynames: [maxLength(1800)],
+  camprv: [required],
+  basecamp: [required],
+  bringing: [required, maxLength(1800)],
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({
