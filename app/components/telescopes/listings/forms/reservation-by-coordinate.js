@@ -38,6 +38,14 @@ const mapDispatchToProps = dispatch => ({
   }, dispatch),
 });
 
+// TODO: move this into a utility file
+function cleanCalcInput(value) {
+  let cleanedInput = value || 0;
+  if (isNaN(cleanedInput)) cleanedInput = 0;
+
+  return parseFloat(cleanedInput);
+}
+
 @connect(mapStateToProps, mapDispatchToProps)
 class ReservationByCoordinate extends Component {
   constructor(props) {
@@ -68,7 +76,6 @@ class ReservationByCoordinate extends Component {
     this.handleDecMChange = this.handleDecMChange.bind(this);
     this.handleDecSChange = this.handleDecSChange.bind(this);
 
-    this.handleRAChange = this.handleRAChange.bind(this);
     this.handleDECChange = this.handleDECChange.bind(this);
     this.handleVisibilityCheck = this.handleVisibilityCheck.bind(this);
     this.handleTargetChange = this.handleTargetChange.bind(this);
@@ -81,51 +88,53 @@ class ReservationByCoordinate extends Component {
     this.handleDECChange({ target: { value: this.state.dec } });
   }
 
-  cleanCalcInput(value = 0) {
-    return Number(value);
-  }
-
   // RA change events...
   handleRaHChange(event) {
     this.calculateFields({
-      ra_h: this.cleanCalcInput(event.target.value),
+      ra_h: cleanCalcInput(event.target.value),
     });
   }
 
   handleRaMChange(event) {
     this.calculateFields({
-      ra_m: this.cleanCalcInput(event.target.value),
+      ra_m: cleanCalcInput(event.target.value),
     });
   }
 
   handleRaSChange(event) {
     this.calculateFields({
-      ra_s: this.cleanCalcInput(event.target.value),
+      ra_s: cleanCalcInput(event.target.value),
     });
   }
 
   // DEC change events
   handleDecDChange(event) {
     this.calculateFields({
-      dec_d: this.cleanCalcInput(event.target.value),
+      dec_d: cleanCalcInput(event.target.value),
     });
   }
 
   handleDecMChange(event) {
     this.calculateFields({
-      dec_m: this.cleanCalcInput(event.target.value),
+      dec_m: cleanCalcInput(event.target.value),
     });
   }
 
   handleDecSChange(event) {
     this.calculateFields({
-      dec_s: this.cleanCalcInput(event.target.value),
+      dec_s: cleanCalcInput(event.target.value),
     });
   }
 
-  handleRAChange(event) {
-    let ra = this.cleanCalcInput(event.target.value);
-    let { ra_h, ra_m, ra_s} = this.state;
+  updateRA = (ra) => {
+    this.setState({
+      ra,
+    });
+  }
+
+  recalculateRA(newRAValue) {
+    let ra = cleanCalcInput(newRAValue);
+    let { ra_h, ra_m, ra_s } = this.state;
 
     if (ra >= 24) {
       ra_h = 0;
@@ -162,9 +171,23 @@ class ReservationByCoordinate extends Component {
     });
   }
 
+  handleRAChange = (event) => {
+    const newRA = event.target.value;
+    if (!newRA) {
+      this.updateRA(newRA);
+      return;
+    }
+
+    this.recalculateRA(newRA);
+  }
+
+  handleRABlur = (event) => {
+    this.recalculateRA(event.target.value);
+  }
+
   handleDECChange(event) {
     let { dec_d, dec_m, dec_s } = this.state;
-    let dec = this.cleanCalcInput(event.target.value);
+    let dec = cleanCalcInput(event.target.value);
     let sign = 1;
 
     if (dec > 90) {
@@ -432,7 +455,7 @@ class ReservationByCoordinate extends Component {
   }
 
   render() {
-    const { showPlaceOnHold, showCancelHold, expires, expireCallback } = this.props;
+    const { expires, expireCallback } = this.props;
     const {
       ra_h,
       ra_m,
@@ -448,7 +471,7 @@ class ReservationByCoordinate extends Component {
 
     return (
       <div className="reservation-form-container">
-        <form onSubmit={this.handleFormSubmit} method="POST">
+        <form onSubmit={this.handleFormSubmit} method="POST" noValidate>
 
           <div className="reserveObjectPage reserve-by-coordinate">
             <Timer startTime={expires} expireCallback={expireCallback} />
@@ -473,7 +496,7 @@ class ReservationByCoordinate extends Component {
                 </div>
 
                 <div className="form-row-container highlighted">
-                  <div className="form-row">RA: <input value={ra} onChange={this.handleRAChange} size="8" className="generic-text-input" type="number" /></div>
+                  <div className="form-row">RA: <input value={ra} onChange={this.handleRAChange} onBlur={this.handleRABlur} size="8" className="generic-text-input" type="number" /></div>
                   <div className="form-row">Dec: <input value={dec} onChange={this.handleDECChange} size="8" className="generic-text-input" type="number" /></div>
                 </div>
               </div>
