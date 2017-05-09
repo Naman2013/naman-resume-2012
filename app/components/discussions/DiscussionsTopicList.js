@@ -5,7 +5,7 @@ import DiscussionsTopicListItem from './DiscussionsTopicItem';
 const { instanceOf } = PropTypes;
 const DiscussionsTopicList = ({ topics }) => (
   <div>
-    { topics && topics.map(item => (
+    { topics && topics.toArray().map(item => (
       <DiscussionsTopicListItem key={item.topicId} item={item} />
     ))}
   </div>
