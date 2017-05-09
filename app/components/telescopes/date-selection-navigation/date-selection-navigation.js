@@ -26,17 +26,20 @@ const INITIAL_REFRESH_TIME = 0;
 class DateSelectionNavigation extends Component {
   constructor(props) {
     super(props);
-    const { actions, obsId, telescopeId, domeId } = props;
 
-    this.state = {
-      lastRefreshed: INITIAL_REFRESH_TIME,
-    };
-
-    actions.fetchDateRanges({ obsId, telescopeId, domeId });
-
+    // TODO: refactor into arrows to remove this constructor
     this.handleDateChange = this.handleDateChange.bind(this);
     this.handlePreviousClick = this.handlePreviousClick.bind(this);
     this.handleProgressClick = this.handleProgressClick.bind(this);
+  }
+
+  state = {
+    lastRefreshed: INITIAL_REFRESH_TIME,
+  }
+
+  componentWillMount() {
+    const { actions, obsId, telescopeId, domeId } = this.props;
+    actions.fetchDateRanges({ obsId, telescopeId, domeId });
   }
 
   componentWillReceiveProps(nextProps) {
@@ -183,7 +186,7 @@ DateSelectionNavigation.propTypes = {
   routeRoot: PropTypes.string,
   obsId: PropTypes.string.isRequired,
   telescopeId: PropTypes.string.isRequired,
-  domeId: PropTypes.string.isRequired,
+  domeId: PropTypes.number.isRequired,
 };
 
 export default DateSelectionNavigation;

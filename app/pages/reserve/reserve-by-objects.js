@@ -72,7 +72,7 @@ class ReserveObjects extends Component {
     selectedObjectIndex: null,
   }
 
-  componentDidMount() {
+  componentWillMount() {
     const { callSource } = this.props;
     const { at, cid, token } = this.props.user;
 
