@@ -60,6 +60,7 @@ import Leadership from './pages/about/leadership';
 import Mission from './pages/about/mission';
 import News from './pages/about/news';
 import PlansChange from './pages/about/PlansChange';
+import RoadtripRegistration from './pages/about/RoadtripRegistration';
 
 import PhotoRoll from './pages/my-pictures/PhotoRoll';
 import Galleries from './pages/my-pictures/Galleries';
@@ -90,6 +91,7 @@ import DiscussionsTopicsList from './pages/discussions/topics/DiscussionsTopicsL
 
 import Landing from './pages/landing/Landing';
 import { onEnterLanding, onLeaveLanding } from './modules/landing/actions';
+import { authenticateRegistrationPage } from './modules/roadtrip-registration/actions';
 
 import Help from './pages/help/Help';
 
@@ -104,6 +106,10 @@ const store = configureStore();
 
 const validateUser = (nextState, replace, callback) => {
   store.dispatch(checkUser(nextState.location.pathname, replace, callback));
+};
+
+const validateRoadtripRegistration = (nextState, replace, callback) => {
+  store.dispatch(authenticateRegistrationPage(nextState.location.pathname, replace, callback));
 };
 
 const onRouteUpdate = () => {
@@ -292,6 +298,7 @@ ReactDOM.render(
         <Route path="discussions/new-thread" component={NewDiscussionsThread} onEnter={validateUser} />
 
         <Route path="road-trip" component={Landing} onEnter={onEnterLanding(store)} onLeave={onLeaveLanding(store)} />
+        <Route path="road-trip/registration" component={RoadtripRegistration} onEnter={validateRoadtripRegistration} />
 
         <Route path="help" component={Help} />
 
