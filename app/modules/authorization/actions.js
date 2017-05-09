@@ -32,50 +32,65 @@ export const fetchErrors = () => (dispatch, getState) => {
   const { cid, token, at } = getState().user;
   const { apiError, errorCode, statusCode, currentPageID } = getState().authorization;
 
-  return fetchHandleErrors({
-    cidCheck: cid,
-    atCheck: at,
-    tokenCheck: token,
-    apiErrorCheck: apiError,
-    errorCodeCheck: errorCode,
-    statusCodeCheck: statusCode,
-    currentPageId: currentPageID,
-  })
-  .then((result) => {
-    dispatch(fetchErrorsSuccess(result.data));
+  if (!apiError || !errorCode || !statusCode) {
+    dispatch(push('/'));
+  } else {
+    return fetchHandleErrors({
+      cidCheck: cid,
+      atCheck: at,
+      tokenCheck: token,
+      apiErrorCheck: apiError,
+      errorCodeCheck: errorCode,
+      statusCodeCheck: statusCode,
+      currentPageId: currentPageID,
+    })
+    .then((result) => {
+      dispatch(fetchErrorsSuccess(result.data));
 
-    const MEMBER_UPSELL = 'memberUpsell';
-    const GOTO_HOMEPAGE = 'gotoHomePage';
-    const LOGIN_UPSELL = 'loginUpsell';
-    const { responseType } = result.data;
+      const MEMBER_UPSELL = 'memberUpsell';
+      const GOTO_HOMEPAGE = 'gotoHomePage';
+      const LOGIN_UPSELL = 'loginUpsell';
+      const GOTO_PAGE_ID = 'gotoPageId';
+      const GOTO_URL = 'gotoURL';
+      const GOTO_URL_NEW_TAB = 'gotoURLNewTab';
+      const POPUP_MESSAGE = 'popupMessage';
+      const IGNORE = 'ignore';
 
-    if (responseType === MEMBER_UPSELL) {
-      dispatch(push('registration/upgrade'));
-    }
+      const { responseType, responseURL } = result.data;
 
-    if (responseType === GOTO_HOMEPAGE) {
-      dispatch(push('/'));
-    }
+      if (responseType === MEMBER_UPSELL) {
+        dispatch(push('registration/upgrade'));
+      }
 
-    if (responseType === LOGIN_UPSELL) {
-      dispatch(push('/registration/sign-in'));
-    }
-  });
+      if (responseType === GOTO_HOMEPAGE) {
+        dispatch(push('/'));
+      }
+
+      if (responseType === LOGIN_UPSELL) {
+        dispatch(push('/registration/sign-in'));
+      }
+
+      if (responseType === GOTO_URL) {
+        window.location.href = decodeURIComponent(responseURL);
+      }
+    });
+  }
 };
 
 export const validateResponseAccess = apiResponse => (dispatch) => {
   const SIGN_IN_PATH = '/registration/sign-in';
   const REDIRECT_CONFIRMATION_PATH = '/redirect-confirmation';
   const UNAUTHORIZED_STATUS_CODE = 401;
+  const EXPIRED_ACCOUNT_STATUS_CODE = 418;
   const BAD_LOGIN_SESSION_CODE = 60003;
 
   const { apiError, errorCode, statusCode, loginError } = apiResponse;
-  if (statusCode === UNAUTHORIZED_STATUS_CODE) {
+  if (statusCode === UNAUTHORIZED_STATUS_CODE || statusCode === EXPIRED_ACCOUNT_STATUS_CODE) {
     if (typeof loginError === 'undefined') {
       if (errorCode === BAD_LOGIN_SESSION_CODE) {
-        // destroy the user session
         destroySession();
       }
+
       dispatch(captureErrorState({
         apiError,
         errorCode,
