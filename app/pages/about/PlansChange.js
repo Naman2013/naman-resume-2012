@@ -86,13 +86,13 @@ class PlansChange extends Component {
                   </div>
 
                   <ul className="features">
-                    <li>Shows: Public Only</li>
+                    <li>Shows: All</li>
                     <li className="not">Live Telescope Feeds</li>
                     <li className="not">Take Pictures</li>
                     <li>Community</li>
                     <li className="not">Reservations</li>
                     <li>Objects: None</li>
-                    <li className="not">Space Situation Room</li>
+                    <li>Space Situation Room</li>
                     <li className="not">Slooh Road Trip</li>
                   </ul>
                 </article>
