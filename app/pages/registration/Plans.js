@@ -30,7 +30,7 @@ const Plans = () => (
 
             <ul className="features">
               <li>Public Shows</li>
-              <li className="not">Live Telescope Feeds</li>
+              <li className="not">Telescopes</li>
               <li>Take Occasional Pictures</li>
               <li>Community</li>
               <li className="not">Reservations</li>
@@ -61,7 +61,7 @@ const Plans = () => (
             </div>
             <ul className="features">
               <li>Public Shows</li>
-              <li>Live Telescope Feeds</li>
+              <li>Telescopes</li>
               <li>Take Pictures</li>
               <li>Community</li>
               <li>5 Reservations <small>monthly</small> <i className="icon control info-white">info</i></li>
@@ -93,7 +93,7 @@ const Plans = () => (
 
             <ul className="features">
               <li>Public Shows</li>
-              <li>Live Telescope Feeds</li>
+              <li>Telescopes</li>
               <li>Take Pictures</li>
               <li>Community</li>
               <li>Unlimited Reservations <i className="icon control info-white">info</i>
@@ -131,7 +131,7 @@ const Plans = () => (
 
             <ul className="features">
               <li>Public Shows</li>
-              <li>Live Telescope Feeds <i className="icon control info-white">info</i>
+              <li>Telescopes <i className="icon control info-white">info</i>
               </li>
               <li>Take Pictures</li>
               <li>Community</li>
