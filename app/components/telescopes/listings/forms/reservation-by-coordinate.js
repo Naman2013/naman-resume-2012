@@ -210,6 +210,20 @@ class ReservationByCoordinate extends Component {
 
   // DEC change events
   handleDecDChange(event) {
+    const decD = event.target.value;
+    if (!decD) {
+      this.setState({
+        dec_d: decD,
+      });
+      return;
+    }
+
+    this.calculateFields({
+      dec_d: cleanCalcInput(decD),
+    });
+  }
+
+  handleDecDBlur = (event) => {
     this.calculateFields({
       dec_d: cleanCalcInput(event.target.value),
     });
@@ -552,7 +566,7 @@ class ReservationByCoordinate extends Component {
                 </div>
 
                 <div className="form-row-container">
-                  <div className="form-row">Dec: <input value={dec_d} onChange={this.handleDecDChange} size="2" className="generic-text-input" type="number" /> <span className="symbol-character">d</span></div>
+                  <div className="form-row">Dec: <input value={dec_d} onChange={this.handleDecDChange} onBlur={this.handleDecDBlur} size="2" className="generic-text-input" type="number" /> <span className="symbol-character">d</span></div>
                   <div className="form-row"><input value={dec_m} onChange={this.handleDecMChange} size="2" className="generic-text-input" type="number" /> <span className="symbol-character">m</span></div>
                   <div className="form-row"><input value={dec_s} onChange={this.handleDecSChange} size="2" className="generic-text-input" type="number" /> <span className="symbol-character">s</span></div>
                 </div>
