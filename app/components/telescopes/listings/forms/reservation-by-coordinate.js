@@ -107,25 +107,6 @@ class ReservationByCoordinate extends Component {
     });
   }
 
-  // DEC change events
-  handleDecDChange(event) {
-    this.calculateFields({
-      dec_d: cleanCalcInput(event.target.value),
-    });
-  }
-
-  handleDecMChange(event) {
-    this.calculateFields({
-      dec_m: cleanCalcInput(event.target.value),
-    });
-  }
-
-  handleDecSChange(event) {
-    this.calculateFields({
-      dec_s: cleanCalcInput(event.target.value),
-    });
-  }
-
   updateRA = (ra) => {
     this.setState({
       ra,
@@ -185,9 +166,34 @@ class ReservationByCoordinate extends Component {
     this.recalculateRA(event.target.value);
   }
 
-  handleDECChange(event) {
+  // DEC change events
+  handleDecDChange(event) {
+    this.calculateFields({
+      dec_d: cleanCalcInput(event.target.value),
+    });
+  }
+
+  handleDecMChange(event) {
+    this.calculateFields({
+      dec_m: cleanCalcInput(event.target.value),
+    });
+  }
+
+  handleDecSChange(event) {
+    this.calculateFields({
+      dec_s: cleanCalcInput(event.target.value),
+    });
+  }
+
+  updateDEC(dec) {
+    this.setState({
+      dec,
+    });
+  }
+
+  recalculateDEC(newDec) {
+    let dec = cleanCalcInput(newDec);
     let { dec_d, dec_m, dec_s } = this.state;
-    let dec = cleanCalcInput(event.target.value);
     let sign = 1;
 
     if (dec > 90) {
@@ -239,6 +245,20 @@ class ReservationByCoordinate extends Component {
       dec,
       visibilityStatus: {},
     });
+  }
+
+  handleDECChange(event) {
+    const newDEC = event.target.value;
+    if (!newDEC) {
+      this.updateDEC(newDEC);
+      return;
+    }
+
+    this.recalculateDEC(newDEC);
+  }
+
+  handleDECBlur = (event) => {
+    this.recalculateDEC(event.target.value);
   }
 
   calculateFields(values) {
@@ -497,7 +517,7 @@ class ReservationByCoordinate extends Component {
 
                 <div className="form-row-container highlighted">
                   <div className="form-row">RA: <input value={ra} onChange={this.handleRAChange} onBlur={this.handleRABlur} size="8" className="generic-text-input" type="number" /></div>
-                  <div className="form-row">Dec: <input value={dec} onChange={this.handleDECChange} size="8" className="generic-text-input" type="number" /></div>
+                  <div className="form-row">Dec: <input value={dec} onChange={this.handleDECChange} onBlur={this.handleDECBlur} size="8" className="generic-text-input" type="number" /></div>
                 </div>
               </div>
 
