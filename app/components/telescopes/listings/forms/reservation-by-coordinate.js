@@ -90,12 +90,41 @@ class ReservationByCoordinate extends Component {
 
   // RA change events...
   handleRaHChange(event) {
+    const newRAH = event.target.value;
+    if (!newRAH) {
+      this.setState({
+        ra_h: newRAH,
+      });
+      return;
+    }
+
+    this.calculateFields({
+      ra_h: cleanCalcInput(newRAH),
+    });
+  }
+
+  handleRaHBlur = (event) => {
     this.calculateFields({
       ra_h: cleanCalcInput(event.target.value),
     });
   }
 
   handleRaMChange(event) {
+    const newRAM = event.target.value;
+
+    if (!newRAM) {
+      this.setState({
+        ra_m: newRAM,
+      });
+      return;
+    }
+
+    this.calculateFields({
+      ra_m: cleanCalcInput(newRAM),
+    });
+  }
+
+  handleRaMBlur = (event) => {
     this.calculateFields({
       ra_m: cleanCalcInput(event.target.value),
     });
@@ -504,7 +533,7 @@ class ReservationByCoordinate extends Component {
                 </h2>
 
                 <div className="form-row-container">
-                  <div className="form-row">RA: <input value={ra_h} onChange={this.handleRaHChange} size="2" className="generic-text-input" type="number" /> <span className="symbol-character">h</span></div>
+                  <div className="form-row">RA: <input value={ra_h} onChange={this.handleRaHChange} onBlur={this.handleRaHBlur} size="2" className="generic-text-input" type="number" /> <span className="symbol-character">h</span></div>
                   <div className="form-row"><input value={ra_m} onChange={this.handleRaMChange} size="2" className="generic-text-input" type="number" /> <span className="symbol-character">m</span></div>
                   <div className="form-row"><input value={ra_s} onChange={this.handleRaSChange} size="2" className="generic-text-input" type="number" /> <span className="symbol-character">s</span></div>
                 </div>
