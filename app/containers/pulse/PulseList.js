@@ -1,10 +1,11 @@
-import React, { Component, PropTypes, cloneElement } from 'react';
+import React, { Component, cloneElement } from 'react';
+import PropTypes from 'prop-types';
 import AnnouncementBanner from '../../components/common/announcement-banner/announcement-banner'
 import PulseListHeader from '../../components/pulse/pulse-list-header';
 import CategoriesNav from '../../components/community/categories-nav';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { fetchLatestPosts } from '../../modules/pulse/get-latest-posts-action';
+import { fetchLatestPosts, fetchHottestPosts } from '../../modules/pulse/get-latest-posts-action';
 import './Pulse.scss';
 
 
@@ -12,6 +13,28 @@ const navigationList = [
   {
     label: "THE LATEST POSTS",
     route: "latest-posts",
+    children: [
+      {
+        label: "All Categories",
+        route: "all",
+      }, {
+        label: "Science Log",
+        route: "scienceLog",
+      }, {
+        label: "Art & Culture",
+        route: "artCulture",
+      }, {
+        label: "Human Spirit",
+        route: "humanSpirit",
+      }, {
+        label: "DIY",
+        route: "diy",
+      },
+    ]
+  },
+  {
+    label: "THE HOTTEST POSTS",
+    route: "hottest-posts",
     children: [
       {
         label: "All Categories",
@@ -45,6 +68,7 @@ function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators({
       fetchLatestPosts,
+      fetchHottestPosts,
     }, dispatch)
   };
 }
@@ -62,7 +86,7 @@ class PulseList extends Component {
     const {
       route,
       location,
-      actions: { fetchLatestPosts },
+      actions: { fetchLatestPosts, fetchHottestPosts },
       latestPosts,
       fetching,
       childPath,
@@ -91,6 +115,7 @@ class PulseList extends Component {
         {
           cloneElement(children, {
             fetchLatestPosts,
+            fetchHottestPosts,
             childPath,
             latestPosts,
             fetching,

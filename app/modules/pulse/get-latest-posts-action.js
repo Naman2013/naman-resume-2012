@@ -60,8 +60,10 @@ const fetchLatestPostsFail = payload => ({
   payload,
 });
 
-export const fetchLatestPosts = (type, page) => (dispatch, getState) => {
+export const fetchLatestPosts = (path, type, page) => (dispatch, getState) => {
   const { cid } = getState().user;
+  const { postsPerPage } = getState().latestPosts;
+  const url = path === 'latest-posts' ? '/api/content/getLatestContent' : '/api/content/getHottestContent';
 
   const postsType = type ? { type: [type] } : '';
 
@@ -69,12 +71,12 @@ export const fetchLatestPosts = (type, page) => (dispatch, getState) => {
   dispatch(fetchPageMeta());
   dispatch(fetchPopularPosts());
 
-  return axios.post('/api/content/getLatestContent', {
+  return axios.post(url, {
     cid,
-    count: 10,
+    count: postsPerPage,
     page,
     ...postsType
   })
-  .then(result => dispatch(fetchLatestPostsSuccess(result.data)))
+  .then(result => dispatch(fetchLatestPostsSuccess(Object.assign({ page }, result.data))))
   .catch(error => dispatch(fetchLatestPostsFail(error)));
 };

@@ -1,4 +1,5 @@
-import React, { Component, PropTypes, cloneElement } from 'react';
+import React, { Component, cloneElement } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import GenericLoadingBox from '../../components/common/loading-screens/generic-loading-box';
 import PulsePopular from '../../components/pulse/sidebar/pulse-popular';
@@ -33,6 +34,8 @@ const list = [
 ];
 
 const mapStateToProps = ({ latestPosts }) => ({
+  page: latestPosts.page,
+  postsPerPage: latestPosts.postsPerPage,
   fetchingPopularPosts: latestPosts.fetchingPopularPosts,
   popularPosts: latestPosts.popularPosts,
 });
@@ -45,6 +48,9 @@ class PulseWrapper extends Component {
       posts: PropTypes.array,
       pages: PropTypes.number,
     }),
+    page: PropTypes.number,
+    postsPerPage: PropTypes.number,
+    fetchHottestPosts: PropTypes.func,
     fetchLatestPosts: PropTypes.func,
     fetching: PropTypes.bool,
     children: PropTypes.element.isRequired,
@@ -56,22 +62,26 @@ class PulseWrapper extends Component {
       posts: [],
       pages: null,
     },
+    page: 1,
+    postsPerPage: 10,
     fetching: true,
   }
 
   constructor(props) {
     super(props);
 
-    const { fetchLatestPosts, childPath } = this.props;
-    fetchLatestPosts(childPath, 1);
+    const { fetchLatestPosts, childPath, route: { path }, page } = this.props;
+    fetchLatestPosts(path, childPath, page);
+
 
     this.randomAdIdx = getRandomAdvertisementIndex();
   }
 
   componentWillReceiveProps(nextProps) {
-    const { fetchLatestPosts, childPath } = this.props;
-    if (nextProps.childPath !== childPath) {
-      fetchLatestPosts(nextProps.childPath, 1);
+    const { fetchLatestPosts, childPath, route: { path }, page } = this.props;
+
+    if (nextProps.childPath !== childPath || nextProps.route.path !== path) {
+      fetchLatestPosts(nextProps.route.path, nextProps.childPath, 1);
     }
   }
 
@@ -79,7 +89,10 @@ class PulseWrapper extends Component {
     const {
       children,
       fetching,
-      latestPosts: { posts, pages },
+      latestPosts: { posts, postsCount },
+      route: { path },
+      page,
+      postsPerPage,
       fetchLatestPosts,
       formattedObjectIdList,
       showRecommends,
@@ -91,8 +104,11 @@ class PulseWrapper extends Component {
         <div className="col-md-8 nopadding">
           {
             fetching ? <GenericLoadingBox /> : cloneElement(children, {
+              path,
+              page,
+              postsPerPage,
               posts,
-              pages,
+              postsCount,
               fetchLatestPosts,
             })
           }

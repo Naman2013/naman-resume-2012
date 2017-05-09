@@ -34,6 +34,8 @@ const initialState = {
   fetching: true,
   fetchingPageMeta: false,
   pageMeta: { ...defaultPageMeta },
+  page: 1,
+  postsPerPage: 10,
 };
 
 export default createReducer(initialState, {
@@ -80,6 +82,7 @@ export default createReducer(initialState, {
       ...state,
       latestPosts: payload,
       error: {},
+      page: payload.page,
       fetching: false,
     };
   },
