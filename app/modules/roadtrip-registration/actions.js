@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { SubmissionError, reset } from 'redux-form';
-import { fetchErrors } from '../authorization/actions';
+import { captureErrorState } from '../authorization/actions';
 
 const SEND_ROADTRIP_FORM_START = 'SEND_ROADTRIP_FORM_START';
 const SEND_ROADTRIP_FORM_SUCCESS = 'SEND_ROADTRIP_FORM_SUCCESS';
@@ -8,11 +8,11 @@ const SEND_ROADTRIP_FORM_FAILURE = 'SEND_ROADTRIP_FORM_FAILURE';
 
 const authenticateRegistrationPageSuccess = (pathname, replace, callback) => (callback());
 
-const authenticateRegistrationPageFail = () => {
-  // if (pathname !== '/registration/sign-in') {
-  //   replace('/registration/sign-in');
-  // }
-  fetchErrors();
+const authenticateRegistrationPageFail = (apiRes, pathname, replace, callback) => (dispatch) => {
+  dispatch(captureErrorState(apiRes));
+  replace('/redirect-confirmation');
+  callback();
+
 };
 
 export const authenticateRegistrationPage = (pathname, replace, callback) => (dispatch, getState) => {
@@ -22,8 +22,14 @@ export const authenticateRegistrationPage = (pathname, replace, callback) => (di
     at,
     token,
   })
-  .then(() => dispatch(authenticateRegistrationPageSuccess(pathname, replace, callback)))
-  .catch(() => dispatch(authenticateRegistrationPageFail()));
+  .then((res) => {
+    if (!res.data.apiError) {
+      dispatch(authenticateRegistrationPageSuccess(pathname, replace, callback));
+    } else {
+      dispatch(authenticateRegistrationPageFail(res.data, pathname, replace, callback));
+    }
+  })
+  .catch((error) => dispatch(authenticateRegistrationPageFail(error, pathname, replace, callback)));
 };
 
 const sendRoadtripFormStart = (payload) => ({
@@ -75,7 +81,7 @@ export const sendRoadtripForm = (contactFormValues) => (dispatch, getState) => {
   })
   .then(result => {
     if (result.data && !result.data.apiError) {
-      dispatch(reset('contact'));
+      dispatch(reset('roadtrip-registration'));
     }
     dispatch(sendRoadtripFormSuccess(result.data))
   })

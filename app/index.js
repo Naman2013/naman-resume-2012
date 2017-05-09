@@ -109,6 +109,7 @@ const validateUser = (nextState, replace, callback) => {
 };
 
 const validateRoadtripRegistration = (nextState, replace, callback) => {
+  store.dispatch(checkUser(nextState.location.pathname, replace, callback));
   store.dispatch(authenticateRegistrationPage(nextState.location.pathname, replace, callback));
 };
 

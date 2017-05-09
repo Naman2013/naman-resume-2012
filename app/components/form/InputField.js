@@ -20,7 +20,7 @@ export default class renderField extends Component {
         {type !== 'radio' && <span>{label}</span>}
         <input type={type} {...input} className={className} />
         &nbsp;{type === 'radio' && <span>{label}</span>}
-        {touched && error && <span className="error-description">{error}</span>}
+        {type !== 'radio' && touched && error && <span className="error-description">{error}</span>}
       </label>
     );
   }

@@ -31,7 +31,6 @@ export const fetchErrors = () => (dispatch, getState) => {
   dispatch(fetchErrorsStart());
   const { cid, token, at } = getState().user;
   const { apiError, errorCode, statusCode, currentPageID } = getState().authorization;
-
   return fetchHandleErrors({
     cidCheck: cid,
     atCheck: at,
@@ -43,7 +42,6 @@ export const fetchErrors = () => (dispatch, getState) => {
   })
   .then((result) => {
     dispatch(fetchErrorsSuccess(result.data));
-
     const MEMBER_UPSELL = 'memberUpsell';
     const GOTO_HOMEPAGE = 'gotoHomePage';
     const LOGIN_UPSELL = 'loginUpsell';
