@@ -6,7 +6,7 @@ import InputField from '../../components/form/InputField';
 import TextareaField from '../../components/form/TextareaField';
 import { createValidator, required, maxLength } from '../../modules/utils/validation';
 import { sendRoadtripForm } from '../../modules/roadtrip-registration/actions';
-// import styles from '../styles/login.scss';
+import styles from './roadtrip-registration.scss';
 const { bool, func, string } = PropTypes;
 
 class RoadtripRegistration extends Component {
@@ -21,7 +21,7 @@ class RoadtripRegistration extends Component {
   render() {
     const { handleSubmit, registration, registrationFormError, isSent } = this.props;
     return (
-      <section className="static-app-content-container clearfix">
+      <section className={`static-app-content-container clearfix ${styles.roadtripRegistration}`}>
         <div className="clearfix">
           <article className="static-page">
             <header className="static">
@@ -30,7 +30,7 @@ class RoadtripRegistration extends Component {
               </div>
             </header>
 
-            <section className="roadtrip-registration">
+            <section className={styles.roadtripRegistrationForm}>
               <article className="card-wide padding-med">
                 <header className="margin-bottom-reg" />
                 <p>We look forward to bringing the Slooh community together in scenic Stanley, Idaho for the Total Solar Eclipse on August 21st, 2017.  This family friendly celebration commences at noon local time on Friday, August 18th, and closes down August 22nd at noon. Space is limited so reserve your spot today! Open to Slooh Apprentice and Astronomer Members and their families. Limit 1 campsite of 4 persons per Slooh account. Otherwise FREE to attend! </p>
