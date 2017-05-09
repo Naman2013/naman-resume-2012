@@ -1,0 +1,13 @@
+@import '../../styles/variables/colors.scss';
+
+.roadtripRegistration {
+  padding: 0 !important;
+  background-color: $white !important;
+}
+
+.roadtripRegistrationForm {
+
+  .card-wide {
+    text-transform: none !important;
+  }
+}

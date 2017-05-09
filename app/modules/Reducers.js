@@ -38,6 +38,7 @@ import objectTypeList from './object-type-list/reducer';
 import otherFeaturedObjects from './other-featured-objects/reducer';
 import piggyback from './Piggyback';
 import post from './pulse/get-post-reducer';
+import roadtripRegistration from './roadtrip-registration/reducer';
 import tags from './tag-management/Tags';
 import telescopeDetails from './telescope-details/reducer';
 import telescopeOverview from './Telescope-Overview';
@@ -89,6 +90,7 @@ export default combineReducers({
   otherFeaturedObjects,
   piggyback,
   post,
+  roadtripRegistration,
   tags,
   telescopeDetails,
   telescopeOverview,
