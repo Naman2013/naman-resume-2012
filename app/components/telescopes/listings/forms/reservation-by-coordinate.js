@@ -131,15 +131,17 @@ class ReservationByCoordinate extends Component {
   }
 
   handleRaSChange(event) {
-    const newRAS = event.target.value;
-    if (!newRAS) {
+    const ras = event.target.value;
+    if (!ras) {
       this.setState({
-        ra_s: newRAS,
+        ra_s: ras,
       });
+
+      return;
     }
 
     this.calculateFields({
-      ra_s: cleanCalcInput(newRAS),
+      ra_s: cleanCalcInput(ras),
     });
   }
 
@@ -250,6 +252,21 @@ class ReservationByCoordinate extends Component {
   }
 
   handleDecSChange(event) {
+    const decS = event.target.value;
+    if (!decS) {
+      this.setState({
+        dec_s: decS,
+      });
+
+      return;
+    }
+
+    this.calculateFields({
+      dec_s: cleanCalcInput(decS),
+    });
+  }
+
+  handleDecSBlur = (event) => {
     this.calculateFields({
       dec_s: cleanCalcInput(event.target.value),
     });
@@ -582,7 +599,7 @@ class ReservationByCoordinate extends Component {
                 <div className="form-row-container">
                   <div className="form-row">Dec: <input value={dec_d} onChange={this.handleDecDChange} onBlur={this.handleDecDBlur} size="2" className="generic-text-input" type="number" /> <span className="symbol-character">d</span></div>
                   <div className="form-row"><input value={dec_m} onChange={this.handleDecMChange} onBlur={this.handleDecMBlur} size="2" className="generic-text-input" type="number" /> <span className="symbol-character">m</span></div>
-                  <div className="form-row"><input value={dec_s} onChange={this.handleDecSChange} size="2" className="generic-text-input" type="number" /> <span className="symbol-character">s</span></div>
+                  <div className="form-row"><input value={dec_s} onChange={this.handleDecSChange} onBlur={this.handleDecSBlur} size="2" className="generic-text-input" type="number" /> <span className="symbol-character">s</span></div>
                 </div>
 
                 <div className="form-row-container highlighted">
