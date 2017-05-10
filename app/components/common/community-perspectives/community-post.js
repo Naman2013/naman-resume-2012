@@ -14,6 +14,9 @@ const CommunityPost = ({
   memberSince,
   avatarURL,
   likesCount,
+  type,
+  customerId,
+  slug,
   showLikePrompt,
   likePrompt,
   postId,
@@ -27,6 +30,9 @@ const CommunityPost = ({
       location={location}
     />
   <Heart
+    type={type}
+    authorId={customerId}
+    objectSlug={slug}
     count={likesCount}
     likeId={postId}
     canLikeFlag={canLikeFlag}

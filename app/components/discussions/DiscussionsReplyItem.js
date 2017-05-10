@@ -10,7 +10,6 @@ class DiscussionsReply extends Component {
     const images = reply.S3Files || [];
     const likeParams = {
       replyId: reply.replyId,
-      authorId: reply.userid,
       forumId,
       topicId,
     }
@@ -39,6 +38,7 @@ class DiscussionsReply extends Component {
               likeAction={likeReply}
               theme="dark"
               count={reply.likesCount}
+              authorId={reply.customerId}
               showLikePrompt={reply.showLikePrompt}
               likePrompt={reply.likePrompt}
               params={likeParams}

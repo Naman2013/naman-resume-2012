@@ -21,7 +21,6 @@ class DiscussionsThread extends Component {
     const images = thread.S3Files || [];
     const likeParams = {
       threadId: thread.threadId,
-      authorId: thread.userid,
       forumId,
       topicId,
     }
@@ -48,6 +47,9 @@ class DiscussionsThread extends Component {
             </Link>
             <div className={styles.discussionsInlineHeart}>
               <Heart
+                type={thread.type}
+                authorId={thread.customerId}
+                objectSlug={thread.slug}
                 membershipType={thread.membershipType}
                 likeAction={likeThread}
                 theme="dark"

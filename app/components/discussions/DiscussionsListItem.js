@@ -40,9 +40,9 @@ const DiscussionsListItem = ({ item }) => (
           count={item.likesCount}
           showLikePrompt={item.showLikePrompt}
           likePrompt={item.likePrompt}
+          authorId={item.customerId}
           params={{
             threadId: item.threadId,
-            authorId: item.userid,
             forumId: item.forumId,
             topicId: item.topicId,
           }}

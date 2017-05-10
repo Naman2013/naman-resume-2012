@@ -5,7 +5,7 @@ import CommunityPostHot from './community-post-hot';
 import CommunityPostShare from './community-post-share';
 import Heart from '../../common/heart/heart';
 
-const CommunityPostTools = ({ hot, likesCount, likeId, share, showLikePrompt, likePrompt }) =>
+const CommunityPostTools = ({ hot, type, authorId, objectSlug, likesCount, likeId, share, showLikePrompt, likePrompt }) =>
   <div className={styles.CommunityPostTools}>
 
     <Heart
@@ -14,6 +14,9 @@ const CommunityPostTools = ({ hot, likesCount, likeId, share, showLikePrompt, li
       likeId={likeId}
       showLikePrompt={showLikePrompt}
       likePrompt={likePrompt}
+      type={type}
+      authorId={authorId}
+      objectSlug={objectSlug}
     />
     {hot ? <CommunityPostHot hot={hot} /> : null}
     {share ? <CommunityPostShare /> : null}
