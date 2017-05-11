@@ -1,6 +1,21 @@
 /**
   NOTES:
   underscores used in some naming to improve legability
+
+  Example calculation of Decimal to Degrees:
+  -18° 13' 52" = -18.23111
+
+  52 seconds/60 = 0.86666667 minutes
+
+  13 minutes + 0.86666667 minutes = 13.86666667 minutes
+
+  13.86666667 minutes/60 = 0.23111 degrees
+
+  18 degrees + 0.23111 degrees = 18.23111 degrees
+
+  Make result negative OR:
+
+  -18 degrees -0.23111 degrees = -18.23111 degrees
   */
 
 import React, { Component } from 'react';
@@ -278,7 +293,6 @@ class ReservationByCoordinate extends Component {
   recalculateDEC(newDec) {
     let dec = cleanCalcInput(newDec);
     let { dec_d, dec_m, dec_s } = this.state;
-    let sign = 1;
 
     if (dec > 90) {
       dec_d = 90;
@@ -294,9 +308,8 @@ class ReservationByCoordinate extends Component {
       dec = -90.0;
     }
 
-    sign = (dec >= 0) ? sign : -1;
-
     const absoluteDec = Math.abs(dec);
+
     dec_d = Math.trunc(absoluteDec);
     dec_m = Math.trunc((absoluteDec - dec_d) * 60);
     dec_s = Math.round((((absoluteDec - dec_d) * 60) - dec_m) * 60);
@@ -314,12 +327,6 @@ class ReservationByCoordinate extends Component {
           dec = sign * 90.0;
         }
       }
-    }
-
-    if (sign == -1 && dec_d == 0) {
-      dec_d = '-' + dec_d;
-    } else {
-      dec_d = sign * dec_d;
     }
 
     this.setState({
@@ -347,7 +354,14 @@ class ReservationByCoordinate extends Component {
 
   calculateFields(values) {
     let { dec_d, dec_m, dec_s, ra_h, ra_m, ra_s } = Object.assign({}, this.state, values);
-    let dec = round(dec_d + (dec_m / 60) + (dec_s / 3600), 6);
+
+    // TODO: if dec_d is negative, make all numbers negative.
+    const decimalToDegreeFigures = {
+      decMDivisor: (dec_d >= 0) ? 60 : -60,
+      decSDivisor: (dec_d >= 0) ? 3600 : -3600,
+    };
+
+    let dec = round(dec_d + (dec_m / decimalToDegreeFigures.decMDivisor) + (dec_s / decimalToDegreeFigures.decSDivisor), 6);
     let ra = round(ra_h + (ra_m / 60) + (ra_s / 3600), 6);
 
     if (dec > 90) {
