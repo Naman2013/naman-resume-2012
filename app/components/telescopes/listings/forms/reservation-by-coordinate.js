@@ -1,9 +1,6 @@
 /**
   NOTES:
   underscores used in some naming to improve legability
-
-  TODO: refactor how the form works to allow users to use the minus key while
-  entering a coordinate
   */
 
 import React, { Component } from 'react';
