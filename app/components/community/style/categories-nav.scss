@@ -125,4 +125,10 @@
     }
 
   }
+
+  &.single {
+    .categoriesSubNavContainer {
+      left: -115px;
+    }
+  }
 }

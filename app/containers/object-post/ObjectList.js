@@ -132,7 +132,7 @@ class ObjectList extends Component {
           route={route}
           location={location}
           list={generateList({ SlugLookupId })}
-          className="grey"
+          className="grey single"
         />
 
         {
