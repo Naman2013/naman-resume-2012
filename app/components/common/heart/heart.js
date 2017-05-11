@@ -53,14 +53,37 @@ export default class Heart extends Component {
 
   handleClick = (event) => {
     event.preventDefault();
-    const { at, likeAction, token, canLikeFlag, cid, likeId, likeType, showLikePrompt, params, membershipType } = this.props;
+    const {
+      at,
+      authorId,
+      type,
+      likeAction,
+      token,
+      canLikeFlag,
+      cid,
+      likeId,
+      objectSlug,
+      likeType,
+      showLikePrompt,
+      params,
+      membershipType
+    } = this.props;
     if (showLikePrompt) {
       this.setState({
         showPrompt: true,
       });
     } else {
       likeAction({
-        ...params, at, token, cid, likeId, likeType, membershipType,
+        ...params,
+        authorId,
+        at,
+        type,
+        token,
+        cid,
+        likeId,
+        likeType,
+        membershipType,
+        objectSlug,
       }).then(result => this.handleLikeResult(result.data));
     }
   }

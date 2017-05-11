@@ -8,8 +8,10 @@ import Heart from '../../components/common/heart/heart'
 import styles from './pulse-post.scss';
 
 const PulsePostItem = ({
+  customerId,
   S3Files,
   postId,
+  slug,
   title,
   creationDate,
   excerpt,
@@ -57,6 +59,9 @@ const PulsePostItem = ({
 
             <div className="col-md-1">
               <Heart
+                type={type}
+                authorId={customerId}
+                objectSlug={slug}
                 membershipType={membershipType}
                 showLikePrompt={showLikePrompt}
                 likePrompt={likePrompt}

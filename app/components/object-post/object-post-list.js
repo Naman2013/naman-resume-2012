@@ -38,6 +38,9 @@ class ObjectPostList extends Component {
               <div className="col-xs-3 pull-right">
                 <div className={styles.ObjectPostListToolsHot}>
                   <CommunityPostTools
+                    type={v.type}
+                    authorId={v.customerId}
+                    objectSlug={v.slug}
                     likesCount={v.likesCount}
                     showLikePrompt={v.showLikePrompt}
                     likePrompt={v.likePrompt}
