@@ -1,4 +1,3 @@
-import { SubmissionError } from 'redux-form';
 import axios from 'axios';
 import { push } from 'react-router-redux';
 import createReducer from './utils/createReducer';
