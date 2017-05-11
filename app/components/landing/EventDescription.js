@@ -24,7 +24,7 @@ function EventDescription() {
             <div className={style.date}>
               <div className={style.dataItemHeader}>Date & Time:</div>
               <div className={style.dataItemContent}>
-                Fri. August 18 - Tues. August 22 Starting 12:00 PM PMT
+                Fri. August 18 - Tues. August 22 Starting 12:00 PM MDT
               </div>
               {
                 /**
