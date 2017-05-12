@@ -12,9 +12,7 @@ import './utils/manual-polyfills';
 import firePageview from './utils/ga-wrapper';
 
 // redux store
-import configureStore from './store';
-import { checkUser } from './modules/User';
-import { deactivateMenu } from './modules/menu/actions';
+import store from './store';
 
 import RedirectConfirmation from './pages/redirect-confirmation/RedirectConfirmation';
 
@@ -91,9 +89,14 @@ import DiscussionsTopicsList from './pages/discussions/topics/DiscussionsTopicsL
 
 import Landing from './pages/landing/Landing';
 import { onEnterLanding, onLeaveLanding } from './modules/landing/actions';
-import { authenticateRegistrationPage } from './modules/roadtrip-registration/actions';
 
 import Help from './pages/help/Help';
+
+// router functions
+import validateUser from './route-functions/validateUser';
+import validateRoadtripRegistration from './route-functions/validateRoadtripRegistration';
+import globalOnRouteUpdate from './route-functions/globalOnRouteUpdate';
+import validateRegistrationPaths from './route-functions/validateRegistrationPaths';
 
 // global styles
 import 'bootstrap/dist/css/bootstrap.css';
@@ -101,22 +104,6 @@ import './styles/app.scss';
 import './styles/interface.css';
 import './styles/animations.scss';
 import './styles/static.scss';
-
-const store = configureStore();
-
-const validateUser = (nextState, replace, callback) => {
-  store.dispatch(checkUser(nextState.location.pathname, replace, callback));
-};
-
-const validateRoadtripRegistration = (nextState, replace, callback) => {
-  store.dispatch(checkUser(nextState.location.pathname, replace, callback));
-  store.dispatch(authenticateRegistrationPage(nextState.location.pathname, replace, callback));
-};
-
-const onRouteUpdate = () => {
-  window.scrollTo(0, 0);
-  store.dispatch(deactivateMenu());
-};
 
 // handle to the listen callback on changes to the history
 const unlisten = hashHistory.listen((location, action) => {
@@ -127,7 +114,7 @@ const unlisten = hashHistory.listen((location, action) => {
 
 ReactDOM.render(
   <Provider store={store}>
-    <Router history={hashHistory} onUpdate={onRouteUpdate}>
+    <Router history={hashHistory} onUpdate={globalOnRouteUpdate}>
 
       <Route path="redirect-confirmation" component={RedirectConfirmation} />
 
@@ -141,7 +128,7 @@ ReactDOM.render(
         <Route path="pricing" component={PlansChange} title="Plans" subTitle=" " />
       </Route>
 
-      <Route path="registration" component={StaticAppContainer} onEnter={validateUser}>
+      <Route path="registration" component={StaticAppContainer} onEnter={validateRegistrationPaths}>
         <Route path="plans" component={Plans} />
         <Route path="sign-in" component={SignIn} />
         <Route path="upgrade-apprentice" component={UpgradeApprentice} />

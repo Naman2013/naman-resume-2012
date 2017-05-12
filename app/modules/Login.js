@@ -1,6 +1,4 @@
-import { SubmissionError } from 'redux-form';
 import axios from 'axios';
-import { push } from 'react-router-redux';
 import createReducer from './utils/createReducer';
 import createAction from './utils/createAction';
 import * as userActions from './User';
@@ -46,7 +44,6 @@ export const login = loginFormValues => (dispatch) => {
       dispatch(loginReset());
       dispatch(userActions.store(result.data));
       dispatch(hide());
-      dispatch(push('/'));
       window.location.reload();
     }
   })
