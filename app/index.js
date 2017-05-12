@@ -96,6 +96,7 @@ import Help from './pages/help/Help';
 import validateUser from './route-functions/validateUser';
 import validateRoadtripRegistration from './route-functions/validateRoadtripRegistration';
 import globalOnRouteUpdate from './route-functions/globalOnRouteUpdate';
+import validateRegistrationPaths from './route-functions/validateRegistrationPaths';
 
 // global styles
 import 'bootstrap/dist/css/bootstrap.css';
@@ -127,7 +128,7 @@ ReactDOM.render(
         <Route path="pricing" component={PlansChange} title="Plans" subTitle=" " />
       </Route>
 
-      <Route path="registration" component={StaticAppContainer} onEnter={validateUser}>
+      <Route path="registration" component={StaticAppContainer} onEnter={validateRegistrationPaths}>
         <Route path="plans" component={Plans} />
         <Route path="sign-in" component={SignIn} />
         <Route path="upgrade-apprentice" component={UpgradeApprentice} />
