@@ -96,6 +96,7 @@ import Help from './pages/help/Help';
 
 // router functions
 import validateUser from './route-functions/validateUser';
+import validateRoadtripRegistration from './route-functions/validateRoadtripRegistration';
 
 // global styles
 import 'bootstrap/dist/css/bootstrap.css';
@@ -103,11 +104,6 @@ import './styles/app.scss';
 import './styles/interface.css';
 import './styles/animations.scss';
 import './styles/static.scss';
-
-const validateRoadtripRegistration = (nextState, replace, callback) => {
-  store.dispatch(checkUser(nextState.location.pathname, replace, callback));
-  store.dispatch(authenticateRegistrationPage(nextState.location.pathname, replace, callback));
-};
 
 const onRouteUpdate = () => {
   window.scrollTo(0, 0);
