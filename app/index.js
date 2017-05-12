@@ -13,8 +13,6 @@ import firePageview from './utils/ga-wrapper';
 
 // redux store
 import store from './store';
-import { checkUser } from './modules/User';
-import { deactivateMenu } from './modules/menu/actions';
 
 import RedirectConfirmation from './pages/redirect-confirmation/RedirectConfirmation';
 
@@ -97,6 +95,7 @@ import Help from './pages/help/Help';
 // router functions
 import validateUser from './route-functions/validateUser';
 import validateRoadtripRegistration from './route-functions/validateRoadtripRegistration';
+import globalOnRouteUpdate from './route-functions/globalOnRouteUpdate';
 
 // global styles
 import 'bootstrap/dist/css/bootstrap.css';
@@ -104,11 +103,6 @@ import './styles/app.scss';
 import './styles/interface.css';
 import './styles/animations.scss';
 import './styles/static.scss';
-
-const onRouteUpdate = () => {
-  window.scrollTo(0, 0);
-  store.dispatch(deactivateMenu());
-};
 
 // handle to the listen callback on changes to the history
 const unlisten = hashHistory.listen((location, action) => {
@@ -119,7 +113,7 @@ const unlisten = hashHistory.listen((location, action) => {
 
 ReactDOM.render(
   <Provider store={store}>
-    <Router history={hashHistory} onUpdate={onRouteUpdate}>
+    <Router history={hashHistory} onUpdate={globalOnRouteUpdate}>
 
       <Route path="redirect-confirmation" component={RedirectConfirmation} />
 
