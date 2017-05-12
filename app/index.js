@@ -91,9 +91,11 @@ import DiscussionsTopicsList from './pages/discussions/topics/DiscussionsTopicsL
 
 import Landing from './pages/landing/Landing';
 import { onEnterLanding, onLeaveLanding } from './modules/landing/actions';
-import { authenticateRegistrationPage } from './modules/roadtrip-registration/actions';
 
 import Help from './pages/help/Help';
+
+// router functions
+import validateUser from './route-functions/validateUser';
 
 // global styles
 import 'bootstrap/dist/css/bootstrap.css';
@@ -101,11 +103,6 @@ import './styles/app.scss';
 import './styles/interface.css';
 import './styles/animations.scss';
 import './styles/static.scss';
-
-const validateUser = (nextState, replace, callback) => {
-  console.log(store.getState());
-  store.dispatch(checkUser(nextState.location.pathname, replace, callback));
-};
 
 const validateRoadtripRegistration = (nextState, replace, callback) => {
   store.dispatch(checkUser(nextState.location.pathname, replace, callback));
