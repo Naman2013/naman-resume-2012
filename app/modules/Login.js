@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { push } from 'react-router-redux';
 import createReducer from './utils/createReducer';
 import createAction from './utils/createAction';
 import * as userActions from './User';
