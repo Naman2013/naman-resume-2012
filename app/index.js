@@ -12,7 +12,7 @@ import './utils/manual-polyfills';
 import firePageview from './utils/ga-wrapper';
 
 // redux store
-import configureStore from './store';
+import store from './store';
 import { checkUser } from './modules/User';
 import { deactivateMenu } from './modules/menu/actions';
 
@@ -102,9 +102,8 @@ import './styles/interface.css';
 import './styles/animations.scss';
 import './styles/static.scss';
 
-const store = configureStore();
-
 const validateUser = (nextState, replace, callback) => {
+  console.log(store.getState());
   store.dispatch(checkUser(nextState.location.pathname, replace, callback));
 };
 

@@ -5,7 +5,7 @@ import { hashHistory } from 'react-router';
 import reducers from './modules/Reducers';
 import callAPIMiddleware from './modules/middleware/callAPIMiddleware';
 
-export default function configureStore(initialState) {
+function configureStore(initialState) {
   return createStore(
     reducers,
     initialState,
@@ -19,3 +19,5 @@ export default function configureStore(initialState) {
     ),
   );
 }
+
+export default configureStore();
