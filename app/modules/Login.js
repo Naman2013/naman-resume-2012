@@ -45,7 +45,6 @@ export const login = loginFormValues => (dispatch) => {
       dispatch(loginReset());
       dispatch(userActions.store(result.data));
       dispatch(hide());
-      dispatch(push('/'));
       window.location.reload();
     }
   })
