@@ -1,7 +1,7 @@
+import { hashHistory } from 'react-router';
 import cookie from 'cookie';
 import createReducer from './utils/createReducer';
 import createAction from './utils/createAction';
-import { hashHistory } from 'react-router';
 
 import { validateUserPath } from '../utils/validateUserPath';
 
@@ -58,21 +58,7 @@ export function checkUser(pathname, replace, callback) {
       dispatch(store(user));
       callback();
     } else {
-      // const { shouldRedirect } = validateUserPath(pathname);
-      // if (shouldRedirect) {
-      //   replace('/registration/sign-in');
-      // }
-      // if (pathname === '/') {
-      //   callback();
-      //   dispatch(destroy());
-      //   return;
-      // }
-      //
-      // if (pathname !== '/registration/sign-in') {
-      //   replace('/registration/sign-in');
-      // }
       callback();
-      // dispatch(destroy());
     }
   };
 }
