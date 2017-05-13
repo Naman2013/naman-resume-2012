@@ -3,8 +3,6 @@ import cookie from 'cookie';
 import createReducer from './utils/createReducer';
 import createAction from './utils/createAction';
 
-import { validateUserPath } from '../utils/validateUserPath';
-
 const SET_USER = 'SET_USER';
 const REMOVE_USER = 'REMOVE_USER';
 

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { push } from 'react-router-redux';
 import createReducer from './utils/createReducer';
 import createAction from './utils/createAction';
 import * as userActions from './User';
@@ -26,7 +27,8 @@ export const loginReset = () => ({
   type: LOGIN_RESET,
 });
 
-export const login = loginFormValues => (dispatch) => {
+export const login = loginFormValues => (dispatch, getState) => {
+  const { signInReturnURL } = getState().authorization;
   const { username, passwd } = loginFormValues;
 
   dispatch(startLogin());
@@ -44,6 +46,13 @@ export const login = loginFormValues => (dispatch) => {
       dispatch(loginReset());
       dispatch(userActions.store(result.data));
       dispatch(hide());
+      if (signInReturnURL) {
+        /**
+          split at the ? to remove QA, take the first half - then remove the hash from the beginning
+          */
+        dispatch(push(signInReturnURL.split('?')[0].substr(1)));
+        hashHistory.push(signInReturnURL.substr(1));
+      }
       window.location.reload();
     }
   })
