@@ -38,8 +38,7 @@ export const captureErrorState = ({ apiError, errorCode, statusCode, currentPage
 export const fetchErrors = () => (dispatch, getState) => {
   dispatch(fetchErrorsStart());
   const { cid, token, at } = getState().user;
-  const { apiError, errorCode, statusCode, currentPageID } = getState().authorization;
-
+  const { apiError, errorCode, statusCode, currentPageID, signInReturnURL } = getState().authorization;
   if (!apiError || !errorCode || !statusCode) {
     dispatch(push('/'));
   } else {
@@ -50,7 +49,7 @@ export const fetchErrors = () => (dispatch, getState) => {
       apiErrorCheck: apiError,
       errorCodeCheck: errorCode,
       statusCodeCheck: statusCode,
-      currentPageId: currentPageID,
+      currentPageId: signInReturnURL.split('?')[0],
     })
     .then((result) => {
       dispatch(fetchErrorsSuccess(result.data));
