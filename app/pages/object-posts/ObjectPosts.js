@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import ObjectPostList from '../../components/object-post/object-post-list';
 import SloohRecommends from '../../components/common/recommendations/SloohRecommends';
 import OtherFeaturedObjects from '../../components/common/OtherFeaturedObjects/OtherFeaturedObjects';
+import Guardian from '../../components/common/guardian/Guardian';
 import GenericLoadingBox from '../../components/common/loading-screens/generic-loading-box';
 import MissionAd from '../../components/missions/mission-ad';
 
@@ -44,6 +45,7 @@ class ObjectPosts extends Component {
       showFeaturedObjects,
       showFollowObjectButton,
       showCreateNewPostButton,
+      SlugLookupId,
       headerObjectTitle,
       route: { path }
     } = this.props;
@@ -74,6 +76,7 @@ class ObjectPosts extends Component {
               /> : null
           }
           <OtherFeaturedObjects />
+          {showGuardian && <Guardian slugLookupId={SlugLookupId} />}
         </div>
       </section>
     );
