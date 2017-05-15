@@ -309,10 +309,11 @@ class ReservationByCoordinate extends Component {
     }
 
     const absoluteDec = Math.abs(dec);
+    const truncatedDec = Math.trunc(absoluteDec);
 
-    dec_d = Math.trunc(absoluteDec);
-    dec_m = Math.trunc((absoluteDec - dec_d) * 60);
-    dec_s = Math.round((((absoluteDec - dec_d) * 60) - dec_m) * 60);
+    dec_d = Math.trunc(dec);
+    dec_m = Math.trunc((absoluteDec - truncatedDec) * 60);
+    dec_s = Math.round((((absoluteDec - truncatedDec) * 60) - dec_m) * 60);
 
     if (dec_s == 60) {
       dec_s = 0;
