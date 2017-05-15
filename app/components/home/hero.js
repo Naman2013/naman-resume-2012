@@ -31,7 +31,8 @@ class Hero extends Component {
     return (
       <div
         style={heroContainerStyle}
-        className="hero-container">
+        className="hero-container"
+      >
 
         <h2 className="title">{heroHeadline}</h2>
         <h3 className="sub-title">{heroSubheadline}</h3>
