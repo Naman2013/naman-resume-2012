@@ -604,8 +604,8 @@ class ReservationByCoordinate extends Component {
 
                 <div className="form-row-container">
                   <div className="form-row">RA: <input value={ra_h} onChange={this.handleRaHChange} onBlur={this.handleRaHBlur} size="2" className="generic-text-input" type="number" /> <span className="symbol-character">h</span></div>
-                  <div className="form-row"><input value={ra_m} onChange={this.handleRaMChange} onBlur={this.handleRaMBlur} size="2" className="generic-text-input" type="number" /> <span className="symbol-character">m</span></div>
-                  <div className="form-row"><input value={ra_s} onChange={this.handleRaSChange} onBlur={this.handleRaSBlur} size="2" className="generic-text-input" type="number" /> <span className="symbol-character">s</span></div>
+                  <div className="form-row"><input value={ra_m} onChange={this.handleRaMChange} onBlur={this.handleRaMBlur} size="2" min="0" className="generic-text-input" type="number" /> <span className="symbol-character">m</span></div>
+                  <div className="form-row"><input value={ra_s} onChange={this.handleRaSChange} onBlur={this.handleRaSBlur} size="2" min="0" className="generic-text-input" type="number" /> <span className="symbol-character">s</span></div>
                 </div>
 
                 <div className="form-row-container">
