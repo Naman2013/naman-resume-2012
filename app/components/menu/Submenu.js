@@ -37,19 +37,8 @@ class Submenu extends Component {
 
   handleClick(event, link) {
     event.preventDefault();
-    const isHelpPage = /^\/help/.test(link);
 
-    if (!isHelpPage || (isHelpPage && link === '/help/posting-guidelines')) {
-      hashHistory.push(link);
-      return;
-    }
-
-    const res = link.split('#');
-    const linkWithOutAnchor = res[0];
-    const anchor = res[1];
-
-    this.props.actions.setHelpPageAnchor(anchor);
-    hashHistory.push(linkWithOutAnchor);
+    hashHistory.push(link);
   }
 
   render() {
