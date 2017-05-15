@@ -92,6 +92,15 @@ import { onEnterLanding, onLeaveLanding } from './modules/landing/actions';
 
 import Help from './pages/help/Help';
 import PostingGuidelines from './pages/help/PostingGuidelines';
+import NewToSlooh from './pages/help/NewToSlooh';
+import TelescopesAndReservations from './pages/help/TelescopesAndReservations';
+import Community from './pages/help/Community';
+import SpaceSituationRoom from './pages/help/SpaceSituationRoom';
+import MembershipLevels from './pages/help/MembershipLevels';
+import CustomerService from './pages/help/CustomerService';
+import SiteFeedback from './pages/help/SiteFeedback';
+import TermsAndConditions from './pages/help/TermsAndConditions';
+import Privacy from './pages/help/Privacy';
 
 // router functions
 import validateUser from './route-functions/validateUser';
@@ -291,6 +300,15 @@ ReactDOM.render(
 
         <Route path="help" component={Help} />
         <Route path="help/posting-guidelines" component={PostingGuidelines} />
+        <Route path="help/new-to-slooh" component={NewToSlooh} />
+        <Route path="help/telescopes-and-reservations" component={TelescopesAndReservations} />
+        <Route path="help/community" component={Community} />
+        <Route path="help/space-situation-room" component={SpaceSituationRoom} />
+        <Route path="help/membership-levels" component={MembershipLevels} />
+        <Route path="help/customer-service" component={CustomerService} />
+        <Route path="help/site-feedback" component={SiteFeedback} />
+        <Route path="help/terms-and-conditions" component={TermsAndConditions} />
+        <Route path="help/privacy" component={Privacy} />
 
       </Route>
 
