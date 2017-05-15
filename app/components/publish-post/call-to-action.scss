@@ -14,10 +14,19 @@
     position: relative;
   }
 
-  .btn-primary {
+  .cta-container {
     position: absolute;
     right: 7px;
     bottom: -10px;
-    width: 150px;
   }
+
+  .btn-primary {
+    text-transform: none;
+    width: 150px;
+
+    &:first-child {
+      margin-right: 5px;
+    }
+  }
+
 }

@@ -39,7 +39,7 @@ class Submenu extends Component {
     event.preventDefault();
     const isHelpPage = /^\/help/.test(link);
 
-    if (!isHelpPage) {
+    if (!isHelpPage || (isHelpPage && link === '/help/posting-guidelines')) {
       hashHistory.push(link);
       return;
     }

@@ -47,6 +47,11 @@
 
 .help-page-paragraph {
   margin: 15px auto;
+
+  .tableCell {
+    border: 1px solid $slooh-gray-xxdark;
+    padding: 5px;
+  }
 }
 
 .help-page-sub-title {

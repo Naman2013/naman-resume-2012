@@ -91,6 +91,7 @@ import Landing from './pages/landing/Landing';
 import { onEnterLanding, onLeaveLanding } from './modules/landing/actions';
 
 import Help from './pages/help/Help';
+import PostingGuidelines from './pages/help/PostingGuidelines';
 
 // router functions
 import validateUser from './route-functions/validateUser';
@@ -289,6 +290,7 @@ ReactDOM.render(
         <Route path="road-trip/registration" component={RoadtripRegistration} onEnter={validateRoadtripRegistration} />
 
         <Route path="help" component={Help} />
+        <Route path="help/posting-guidelines" component={PostingGuidelines} />
 
       </Route>
 
