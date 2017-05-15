@@ -14,9 +14,9 @@ class PulsePostList extends Component {
   render() {
     const { posts, postsCount, postsPerPage, page } = this.props;
 
-    if (!posts) {
+    if (!posts.length) {
       return (
-        <div>
+        <div className="center">
           <h3>No posts available...</h3>
         </div>
       );
