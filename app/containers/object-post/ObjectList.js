@@ -139,6 +139,7 @@ class ObjectList extends Component {
           objectId ?
             cloneElement(children, {
               headerObjectTitle,
+              SlugLookupId,
               showRecommends,
               showAdUnit,
               showLatestEntriesMenu,
