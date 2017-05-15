@@ -39,7 +39,7 @@ class Hero extends Component {
 
         <div className="fun-fact-container">
           <figure>
-            {heroFactoidIconURL ? <img width="50" src={heroFactoidIconURL} /> : null}
+            {heroFactoidIconURL ? <img alt="" width="50" src={heroFactoidIconURL} /> : null}
             {heroFactoidText ? <figcaption className="fun-fact-text">
               <i>{heroFactoidText}</i>
             </figcaption> : null}
@@ -51,7 +51,7 @@ class Hero extends Component {
             buttonUrl ?
               <Link className="action" to={buttonUrl}>
                 {heroButtonText}
-              </Link> : <div style={{width: '100px', height: '100px'}} />
+              </Link> : <div style={{ width: '100px', height: '100px' }} />
           }
         </div>
 
