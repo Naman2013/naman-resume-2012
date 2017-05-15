@@ -5,7 +5,6 @@ import ListObservatories from './ListObservatories';
 import UpcomingComponent from './UpcomingComponent';
 import StargazersInfo from './StargazersInfo';
 import { hashHistory } from 'react-router';
-import { setHelpPageAnchor } from '../../modules/help-page/actions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import {
@@ -24,7 +23,6 @@ import {
 
 const mapDispatchToProps = (dispatch) => ({
   actions: bindActionCreators({
-    setHelpPageAnchor,
   }, dispatch),
 });
 
