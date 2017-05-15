@@ -10,6 +10,14 @@ export const RESET_ERROR_STATE = 'RESET_ERROR_STATE';
 
 export const VALIDATE_RESPONSE = 'VALIDATE_RESPONSE';
 
+// URL to return to when the user successfully signs in
+export const SET_SIGN_IN_RETURN_URL = 'SET_SIGN_IN_RETURN_URL';
+
+const setSignInReturnURL = signInReturnURL => ({
+  type: SET_SIGN_IN_RETURN_URL,
+  signInReturnURL,
+});
+
 const fetchErrorsStart = () => ({
   type: FETCH_ERRORS_START,
 });
@@ -30,8 +38,7 @@ export const captureErrorState = ({ apiError, errorCode, statusCode, currentPage
 export const fetchErrors = () => (dispatch, getState) => {
   dispatch(fetchErrorsStart());
   const { cid, token, at } = getState().user;
-  const { apiError, errorCode, statusCode, currentPageID } = getState().authorization;
-
+  const { apiError, errorCode, statusCode, currentPageID, signInReturnURL } = getState().authorization;
   if (!apiError || !errorCode || !statusCode) {
     dispatch(push('/'));
   } else {
@@ -42,7 +49,7 @@ export const fetchErrors = () => (dispatch, getState) => {
       apiErrorCheck: apiError,
       errorCodeCheck: errorCode,
       statusCodeCheck: statusCode,
-      currentPageId: currentPageID,
+      currentPageId: signInReturnURL.split('?')[0],
     })
     .then((result) => {
       dispatch(fetchErrorsSuccess(result.data));
@@ -67,6 +74,7 @@ export const fetchErrors = () => (dispatch, getState) => {
       }
 
       if (responseType === LOGIN_UPSELL) {
+
         dispatch(push('/registration/sign-in'));
       }
 
@@ -86,7 +94,9 @@ export const validateResponseAccess = apiResponse => (dispatch) => {
 
   const { apiError, errorCode, statusCode, loginError } = apiResponse;
   if (statusCode === UNAUTHORIZED_STATUS_CODE || statusCode === EXPIRED_ACCOUNT_STATUS_CODE) {
+
     if (typeof loginError === 'undefined') {
+      dispatch(setSignInReturnURL(window.location.hash));
       if (errorCode === BAD_LOGIN_SESSION_CODE) {
         destroySession();
       }
