@@ -90,7 +90,6 @@ import DiscussionsTopicsList from './pages/discussions/topics/DiscussionsTopicsL
 import Landing from './pages/landing/Landing';
 import { onEnterLanding, onLeaveLanding } from './modules/landing/actions';
 
-import Help from './pages/help/Help';
 import PostingGuidelines from './pages/help/PostingGuidelines';
 import NewToSlooh from './pages/help/NewToSlooh';
 import TelescopesAndReservations from './pages/help/TelescopesAndReservations';
@@ -298,7 +297,6 @@ ReactDOM.render(
         <Route path="road-trip" component={Landing} onEnter={onEnterLanding(store)} onLeave={onLeaveLanding(store)} />
         <Route path="road-trip/registration" component={RoadtripRegistration} onEnter={validateRoadtripRegistration} />
 
-        <Route path="help" component={Help} />
         <Route path="help/posting-guidelines" component={PostingGuidelines} />
         <Route path="help/new-to-slooh" component={NewToSlooh} />
         <Route path="help/telescopes-and-reservations" component={TelescopesAndReservations} />
