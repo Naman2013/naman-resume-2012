@@ -197,22 +197,6 @@ const initialState = {
       ],
       paragraphAnchor: 'privacy',
     },
-    {
-      title: 'Known Bugs',
-      textParagraphs: [
-        'During the beta phase of our new website we are working to eliminate all known bugs.  Here are those we’re currently aware of:',
-        [
-          'Some versions of Internet Explorer may not load the site.',
-          'FITS notification emails aren’t being sent at present.',
-          'My Pictures filtering doesn’t operate when it “Mission” view.',
-          'Reservations below the “Soft Horizon” are currently disallowed rather than receiving a low-altitude warning.',
-          'When making a coordinate reservation using the Edge browser, coordinates are entered, "Check Visibility" used with "Good News" returned, processing option selected, but when the "Schedule Mission" button is pressed the coordinate entry fields turn red with a warning "You must enter a valid value".',
-          'The navigation bar disappears when viewing some Road Trip pages.',
-        ],
-        'You can keep track of or submit your own beta bug reports here: <a href="https://slooh.com/#/discussions/forums/187/topics/285">https://slooh.com/#/discussions/forums/187/topics/285</a>',
-      ],
-      paragraphAnchor: 'bugs',
-    },
   ],
 };
 
