@@ -16,6 +16,7 @@ export const images300x250 = [
   // prority ads below
 
   // normal ads below
+  'assets/images/graphics/300x250_Event_gif_L.gif',
   'assets/images/graphics/ad-banner_300x250_book.gif',
   'assets/images/graphics/ad-banner_300x250_gift.gif',
 ];
@@ -25,6 +26,7 @@ const images300x600 = [
   // priority ads below
 
   // normal ads below
+  'assets/images/graphics/300x600_Events_gif_L.gif',
   'assets/images/graphics/ad-banner_300x600_book.gif',
   'assets/images/graphics/ad-banner_300x600_gift.gif',
 ];
@@ -43,6 +45,7 @@ const getUrl = (i) => {
     // priority ad links below
 
     // normal ad links below
+    '/#/road-trip',
     'https://www.amazon.com/dp/0997621109', // book
     'https://www.amazon.com/dp/B01MDNJXIR', // gift
   ];
