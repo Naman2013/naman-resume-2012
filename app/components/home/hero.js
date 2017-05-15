@@ -54,7 +54,7 @@ class Hero extends Component {
 
         <div className="fun-fact-container">
           <figure>
-            {heroFactoidIconURL ? <img width="50" src={heroFactoidIconURL} /> : null}
+            {heroFactoidIconURL ? <img alt="" width="50" src={heroFactoidIconURL} /> : null}
             {heroFactoidText ? <figcaption className="fun-fact-text">
               <i>{heroFactoidText}</i>
             </figcaption> : null}
