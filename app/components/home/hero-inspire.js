@@ -37,8 +37,8 @@ function HeroInspire({
       className="hero-container-inspire"
     >
       <video className={style.videoBackground} playsinline autoPlay muted loop>
-        <source src="assets/video/stars-lo.webm" type="video/webm" />
-        <source src="assets/video/stars-lo.mp4" type="video/mp4" />
+        <source src="assets/video/stars-high-720.webm" type="video/webm" />
+        <source src="assets/video/stars-high-720.mp4" type="video/mp4" />
       </video>
 
       <div className={style.contentContainer}>
