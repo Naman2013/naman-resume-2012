@@ -75,6 +75,8 @@ class HeroInspire extends Component {
           <h2 className="title">Space for everyone</h2>
           <h3 className="sub-title">Online Telescopes, LIVE Streaming Events, Original Video Programming, and more.</h3>
 
+          <img className={style.iconSpacer} alt="" src="assets/icons/three-amigos-with-bar.svg" />
+
           <div className="call-to-action">
             <Link className="action" to="/">
               Register Free Today
