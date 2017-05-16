@@ -9,7 +9,20 @@
   text-align: center;
   padding: 60px 0 0 0;
 
+  .videoBackground {
+    position: absolute;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    left: 0;
+    top: 0;
+    z-index: 0;
+  }
+
   .contentContainer {
+    position: relative;
+    z-index: 10;
     width: 300px;
     margin: 0 auto;
     padding-top: 100px;
