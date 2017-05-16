@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Hero from '../components/home/hero';
+import HeroInspire from '../components/home/hero-inspire';
 import RecentVideoTile from '../components/home/recent-video-tile';
 import PromoMessageBand from '../components/common/headers/promo-message-band';
 import LargeBannerHeading from '../components/home/large-banner-heading';
@@ -74,8 +75,12 @@ class Home extends Component {
 
     return (
       <div className={`${style.homeContainer} clearfix`}>
-
-        <Hero {...heroProps} />
+        {
+          /**
+            <Hero {...heroProps} />
+          */
+        }
+        <HeroInspire {...heroProps} />
 
         <div className="clearfix">
           {this.generateRecentVideoTiles()}

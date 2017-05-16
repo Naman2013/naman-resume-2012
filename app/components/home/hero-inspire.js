@@ -6,7 +6,7 @@
   */
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
-import style from './hero.scss';
+import style from './hero-inspire.scss';
 
 import ScrollForMore from '../common/scroll-for-more';
 
@@ -34,29 +34,23 @@ function HeroInspire({
   return (
     <div
       style={heroContainerStyle}
-      className="hero-container"
+      className="hero-container-inspire"
     >
 
-      <h2 className="title">{heroHeadline}</h2>
-      <h3 className="sub-title">{heroSubheadline}</h3>
+      <div className={style.contentContainer}>
+        <h2 className="title">Space for everyone</h2>
+        <h3 className="sub-title">Online Telescopes, LIVE Streaming Events, Original Video Programming, and more.</h3>
 
-      <div className="fun-fact-container">
-        <figure>
-          {heroFactoidIconURL ? <img alt="" width="50" src={heroFactoidIconURL} /> : null}
-          {heroFactoidText ? <figcaption className="fun-fact-text">
-            <i>{heroFactoidText}</i>
-          </figcaption> : null}
-        </figure>
+        <div className="call-to-action">
+          {
+            buttonUrl ?
+              <Link className="action" to={buttonUrl}>
+                {heroButtonText}
+              </Link> : <div style={{ width: '100px', height: '100px' }} />
+          }
+        </div>
       </div>
 
-      <div className="call-to-action">
-        {
-          buttonUrl ?
-            <Link className="action" to={buttonUrl}>
-              {heroButtonText}
-            </Link> : <div style={{ width: '100px', height: '100px' }} />
-        }
-      </div>
 
       <ScrollForMore />
     </div>
@@ -75,4 +69,4 @@ HeroInspire.propTypes = {
   heroButtonURL: PropTypes.string,
 };
 
-export default Hero;
+export default HeroInspire;
