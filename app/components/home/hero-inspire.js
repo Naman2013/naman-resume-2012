@@ -42,12 +42,9 @@ function HeroInspire({
         <h3 className="sub-title">Online Telescopes, LIVE Streaming Events, Original Video Programming, and more.</h3>
 
         <div className="call-to-action">
-          {
-            buttonUrl ?
-              <Link className="action" to={buttonUrl}>
-                {heroButtonText}
-              </Link> : <div style={{ width: '100px', height: '100px' }} />
-          }
+          <Link className="action" to="/">
+            Register Free Today
+          </Link>
         </div>
       </div>
 
