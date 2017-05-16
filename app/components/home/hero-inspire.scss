@@ -25,15 +25,16 @@
       font-family: $primary-font;
       font-weight: 300;
       font-size: 18px;
+      line-height: 1.5;
     }
 
     .call-to-action {
-      width: 20%;
-      margin: 0 auto;
+      width: 215px;
+      margin: 20px auto;
 
       .action {
         display: block;
-        padding: 10px 20px;
+        padding: 15px 20px;
         background: $pink;
         border: none;
         color: #fff;
