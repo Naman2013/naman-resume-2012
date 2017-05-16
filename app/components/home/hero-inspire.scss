@@ -6,6 +6,7 @@
   min-height: 650px;
   font-family: $primary-font;
   color: #fff;
+  background: $black;
   text-align: center;
   padding: 60px 0 0 0;
 
@@ -18,6 +19,12 @@
     left: 0;
     top: 0;
     z-index: 0;
+    opacity: 0.25;
+    transition: 1s opacity;
+  }
+
+  .maxOpacity {
+    opacity: 1;
   }
 
   .contentContainer {
