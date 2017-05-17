@@ -18,7 +18,7 @@ const { element, func, object } = PropTypes;
 
 @connect(({ missions }) => ({
   announcements: missions.announcements,
-}), (dispatch) => ({
+}), dispatch => ({
   actions: bindActionCreators({
     missionGetCards,
     missionConfirmOpen,
