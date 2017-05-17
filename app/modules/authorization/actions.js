@@ -1,4 +1,4 @@
-import { push } from 'react-router-redux';
+import { push, go } from 'react-router-redux';
 import { fetchHandleErrors } from '../../services/authorization/handle-error';
 import { destroySession } from '../User';
 
@@ -42,9 +42,9 @@ export const captureErrorState = ({ apiError, errorCode, statusCode, currentPage
 export const fetchErrors = () => (dispatch, getState) => {
   dispatch(fetchErrorsStart());
   const { cid, token, at } = getState().user;
-  const { apiError, errorCode, statusCode, currentPageID, signInReturnURL } = getState().authorization;
+  const { apiError, errorCode, statusCode, signInReturnURL } = getState().authorization;
   if (!apiError || !errorCode || !statusCode) {
-    dispatch(push('/'));
+    dispatch(go(-2));
   } else {
     return fetchHandleErrors({
       cidCheck: cid,
