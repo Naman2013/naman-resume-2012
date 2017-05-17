@@ -49,7 +49,9 @@ class HeroInspire extends Component {
       heroButtonText,
       heroButtonURL,
     } = this.props;
-
+    console.log('hero props');
+    console.log(this.props);
+    console.log('============');
     const { videoLoaded } = this.state;
 
     const heroContainerStyle = {
@@ -82,8 +84,8 @@ class HeroInspire extends Component {
         }
 
         <div className={style.contentContainer}>
-          <h2 className="title">Space for everyone</h2>
-          <h3 className="sub-title">Online Telescopes, LIVE Streaming Events, Original Video Programming, and more.</h3>
+          <h2 className="title">{heroHeadline}</h2>
+          <h3 className="sub-title">{heroSubheadline}</h3>
 
           <img className={style.iconSpacer} alt="" src="assets/icons/three-amigos-with-bar.svg" />
 
