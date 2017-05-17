@@ -497,12 +497,6 @@ export function missionUpdatesFail(error) {
 
 export const missionGetPiggybacks = objectList => (dispatch, getState) => {
   const { token, at, cid } = getState().user;
-
-  if (!token || !cid || !at) {
-    dispatch(push('/registration/sign-in'));
-    return;
-  }
-
   dispatch(fetchPiggybacksStart());
 
   return axios.post('/api/recommends/getNextPiggyback', {

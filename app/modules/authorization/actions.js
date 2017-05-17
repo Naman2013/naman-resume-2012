@@ -70,7 +70,7 @@ export const fetchErrors = () => (dispatch, getState) => {
       const { responseType, responseURL } = result.data;
 
       if (responseType === MEMBER_UPSELL) {
-        dispatch(push('registration/upgrade'));
+        dispatch(push('/registration/upgrade'));
       }
 
       if (responseType === GOTO_HOMEPAGE) {
@@ -95,7 +95,6 @@ export const fetchErrors = () => (dispatch, getState) => {
 export const validateResponseAccess = apiResponse => (dispatch, getState) => {
   const { handlingScenario } = getState().authorization;
 
-  const SIGN_IN_PATH = '/registration/sign-in';
   const REDIRECT_CONFIRMATION_PATH = '/redirect-confirmation';
   const UNAUTHORIZED_STATUS_CODE = 401;
   const EXPIRED_ACCOUNT_STATUS_CODE = 418;
