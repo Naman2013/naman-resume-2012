@@ -17,20 +17,24 @@ class HeroInspire extends Component {
   };
 
   componentDidMount() {
-    this.videoRenderedTimer = setInterval(() => {
-      const video = document.getElementById('heroInspireVideoBackground');
-      if (video.readyState === 4) {
-        this.setState({
-          videoLoaded: true,
-        });
-        clearInterval(this.videoRenderedTimer);
-      }
-    }, 500);
+    const video = document.getElementById('heroInspireVideoBackground');
+    if (video !== null) {
+      this.videoRenderedTimer = setInterval(() => {
+        if (video.readyState === 4) {
+          this.setState({
+            videoLoaded: true,
+          });
+          clearInterval(this.videoRenderedTimer);
+        }
+      }, 500);
+    }
   }
 
   componentWillUnmount() {
     clearInterval(this.videoRenderedTimer);
   }
+
+  videoRenderedTimer = null;
 
   render() {
     const {
@@ -66,10 +70,15 @@ class HeroInspire extends Component {
         style={heroContainerStyle}
         className="hero-container-inspire"
       >
-        <video id="heroInspireVideoBackground" className={videoClassnames} playsinline autoPlay muted>
-          <source src="assets/video/stars-high-720.webm" type="video/webm" />
-          <source src="assets/video/stars-high-720.mp4" type="video/mp4" />
-        </video>
+
+        {
+          screen.width < 800 ?
+            <div className={`${style.videoBackground} ${style.staticImageBackground} ${style.maxOpacity}`} /> :
+            <video id="heroInspireVideoBackground" className={videoClassnames} playsInline autoPlay muted>
+              <source src="assets/video/stars-high-720.webm" type="video/webm" />
+              <source src="assets/video/stars-high-720.mp4" type="video/mp4" />
+            </video>
+        }
 
         <div className={style.contentContainer}>
           <h2 className="title">Space for everyone</h2>

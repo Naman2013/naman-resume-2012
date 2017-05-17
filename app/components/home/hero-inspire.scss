@@ -1,5 +1,6 @@
 @import "../../styles/variables/colors.scss";
 @import "../../styles/variables/fonts.scss";
+@import "../../styles/mixins/utilities.scss";
 
 .hero-container-inspire {
   position: relative;
@@ -21,6 +22,11 @@
     z-index: 0;
     opacity: 0.25;
     transition: 1s opacity;
+  }
+
+  .staticImageBackground {
+    background: url('../../../assets/images/photos/hero-inspire-background.png') no-repeat center center;
+    @include background-image-cover;
   }
 
   .maxOpacity {
