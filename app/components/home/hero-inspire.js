@@ -4,7 +4,8 @@
   this version introduces a video background to sit behind the primary
   call to action
   */
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { Link } from 'react-router';
 import style from './hero-inspire.scss';
@@ -39,19 +40,11 @@ class HeroInspire extends Component {
 
   render() {
     const {
-      heroEventId,
-      heroEventIsLive,
-      heroImageURL,
       heroHeadline,
       heroSubheadline,
-      heroFactoidText,
-      heroFactoidIconURL,
-      heroButtonText,
-      heroButtonURL,
+      freeRegistrationURL,
     } = this.props;
-    console.log('hero props');
-    console.log(this.props);
-    console.log('============');
+
     const { videoLoaded } = this.state;
 
     const heroContainerStyle = {
@@ -61,12 +54,6 @@ class HeroInspire extends Component {
     const videoClassnames = classnames(`${style.videoBackground}`, {
       maxOpacity: videoLoaded,
     });
-
-    const buttonUrl = heroEventId === 0 ? heroButtonURL :
-      // construct link for space situation room
-      heroEventIsLive ? '/shows/situation-room' :
-      // construct link for video event page
-      `/shows/event-details/${heroEventId}`;
 
     return (
       <div
@@ -90,9 +77,9 @@ class HeroInspire extends Component {
           <img className={style.iconSpacer} alt="" src="assets/icons/three-amigos-with-bar.svg" />
 
           <div className="call-to-action">
-            <Link className="action" to="/">
+            <a className="action" href={freeRegistrationURL}>
               Register Free Today
-            </Link>
+            </a>
           </div>
         </div>
 
@@ -104,15 +91,9 @@ class HeroInspire extends Component {
 }
 
 HeroInspire.propTypes = {
-  heroEventId: PropTypes.number,
-  heroEventIsLive: PropTypes.bool,
-  heroImageURL: PropTypes.string,
-  heroHeadline: PropTypes.string,
-  heroSubheadline: PropTypes.string,
-  heroFactoidText: PropTypes.string,
-  heroFactoidIconURL: PropTypes.string,
-  heroButtonText: PropTypes.string,
-  heroButtonURL: PropTypes.string,
+  heroHeadline: PropTypes.string.isRequired,
+  heroSubheadline: PropTypes.string.isRequired,
+  freeRegistrationURL: PropTypes.string.isRequired,
 };
 
 export default HeroInspire;
