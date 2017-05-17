@@ -677,7 +677,7 @@ const initialState = {
 
 export default createReducer(initialState, {
   [STORE_CARDS_RESPONSE](state, { payload }) {
-    return  {
+    return {
       ...state,
       cardAPIResponse: payload,
     };

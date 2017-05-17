@@ -42,10 +42,6 @@ class NewMissions extends Component {
               />
             ))
         }
-
-        {
-          !fetchingMissions && reservations.length === 0 && <GenericLoadingBox text="No NEW RESERVATIONS were found, please try again later." />
-        }
       </div>
     );
   }
