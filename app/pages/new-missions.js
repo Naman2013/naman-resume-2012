@@ -44,11 +44,7 @@ class NewMissions extends Component {
         }
 
         {
-          !fetchingMissions && reservations.length === 0 && <GenericLoadingBox text="No RESERVATIONS where found, please try again later." />
-        }
-
-        {
-          !fetchingCards && this.cardList.length === 0 && <GenericLoadingBox text="No MISSIONS where found, please try again later." />
+          !fetchingMissions && reservations.length === 0 && <GenericLoadingBox text="No NEW RESERVATIONS were found, please try again later." />
         }
       </div>
     );
