@@ -73,9 +73,7 @@ class Home extends Component {
     Object.keys(homeContent).filter(key => /^hero/.test(key)).forEach((key) => {
       heroProps[key] = homeContent[key];
     });
-    console.log('home content seeking registration URL =');
-    console.log(homeContent);
-    console.log('================');
+
     return (
       <div className={`${style.homeContainer} clearfix`}>
         {
