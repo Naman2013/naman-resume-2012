@@ -1,13 +1,15 @@
 import React, { Component, PropTypes, cloneElement } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import Pagination from 'rc-pagination';
 import GenericLoadingBox from '../../components/common/loading-screens/generic-loading-box';
 import PulsePopular from '../../components/pulse/sidebar/pulse-popular';
 import SloohRecommends from '../../components/common/recommendations/SloohRecommends';
 import CommunityPostHeader from '../../components/community/community-post-header';
 import MissionAd from '../../components/missions/mission-ad';
-import { fetchPost } from '../../modules/pulse/get-post-action';
+import { fetchPost, fetchAuthorContent } from '../../modules/pulse/get-post-action';
 import { getRandomAdvertisementIndex } from '../../modules/utils';
+import PulsePostContent from '../../pages/pulse/pulse-post';
 
 function mapStateToProps({ post }, ownProps) {
   return {
@@ -20,6 +22,7 @@ function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators({
       fetchPost,
+      fetchAuthorContent,
     }, dispatch),
   };
 }
@@ -45,6 +48,15 @@ class PulsePost extends Component {
     }
   }
 
+  fetchMoreAuthorPosts = (page) => {
+    const { actions, authorContent, post } = this.props;
+    actions.fetchAuthorContent({
+      page,
+      authorId: post.customerId,
+      ignorePostId: post.postId,
+    });
+  }
+
   render() {
     const {
       fetchingPopularPosts,
@@ -62,9 +74,9 @@ class PulsePost extends Component {
         showCreateNewPostButton,
         objectId,
         slugLookupId,
-      }
+      },
+      authorContent,
     } = this.props;
-
     const recommendations = [Number(objectId)];
 
     return (
@@ -91,10 +103,18 @@ class PulsePost extends Component {
             {
               !fetching && failed ? <GenericLoadingBox text="This post is not available." /> : null
             }
+            {authorContent.posts &&
+              <div>
+                <h4 className="center">More posts from this author</h4>
+                <hr />
+                {authorContent.posts.map(data => <PulsePostContent showExcerpt post={data} key={data.postId} />)}
+                <Pagination onChange={this.fetchMoreAuthorPosts} defaultPageSize={authorContent.count} current={authorContent.page} total={authorContent.postsCount} />
+              </div>
+            }
           </div>
 
           <aside className="col-md-4 mission-sidebar">
-            <MissionAd index={this.randomAdIdx}/>
+            <MissionAd index={this.randomAdIdx} />
             {
               showRecommends ?
                 <SloohRecommends
