@@ -60,7 +60,7 @@ class Home extends Component {
 
   generateSloohFeatures() {
     const { homeContent } = this.props;
-    return homeContent.SLOOH_FEATURES.map(feature => <SloohFeatures {...feature} />);
+    return homeContent.membershipTierArray.map(feature => <SloohFeatures {...feature} key={feature.tierIndex} />);
   }
 
   render() {
