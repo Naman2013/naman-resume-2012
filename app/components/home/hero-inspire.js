@@ -10,6 +10,7 @@ import { Link } from 'react-router';
 import style from './hero-inspire.scss';
 
 import ScrollForMore from '../common/scroll-for-more';
+import isMobileScreenSize from '../../utils/content-loading-conditions';
 
 class HeroInspire extends Component {
   state = {
@@ -72,7 +73,7 @@ class HeroInspire extends Component {
       >
 
         {
-          screen.width < 800 ?
+          isMobileScreenSize() ?
             <div className={`${style.videoBackground} ${style.staticImageBackground} ${style.maxOpacity}`} /> :
             <video id="heroInspireVideoBackground" className={videoClassnames} playsInline autoPlay muted>
               <source src="assets/video/stars-high-720.webm" type="video/webm" />
