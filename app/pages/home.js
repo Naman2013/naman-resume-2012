@@ -81,7 +81,6 @@ class Home extends Component {
             <Hero {...heroProps} /> :
             <HeroInspire
               {...heroProps}
-              freeRegistrationURL={appConfig.registerNewMemberURL}
             />
         }
 
