@@ -13,6 +13,11 @@ export const VALIDATE_RESPONSE = 'VALIDATE_RESPONSE';
 // URL to return to when the user successfully signs in
 export const SET_SIGN_IN_RETURN_URL = 'SET_SIGN_IN_RETURN_URL';
 
+const setSignInReturnURL = signInReturnURL => ({
+  type: SET_SIGN_IN_RETURN_URL,
+  signInReturnURL,
+});
+
 const resetErrorState = () => ({
   type: RESET_ERROR_STATE,
 });
@@ -88,7 +93,7 @@ export const fetchErrors = () => (dispatch, getState) => {
 };
 
 export const validateResponseAccess = apiResponse => (dispatch, getState) => {
-  const { handlingScenario } = getState().authorize;
+  const { handlingScenario } = getState().authorization;
 
   const SIGN_IN_PATH = '/registration/sign-in';
   const REDIRECT_CONFIRMATION_PATH = '/redirect-confirmation';
@@ -97,9 +102,9 @@ export const validateResponseAccess = apiResponse => (dispatch, getState) => {
 
   const { apiError, errorCode, statusCode, loginError } = apiResponse;
   if (statusCode === UNAUTHORIZED_STATUS_CODE || statusCode === EXPIRED_ACCOUNT_STATUS_CODE) {
-
     // if it is not a log in error, and we are not currently handling something already
     if (typeof loginError === 'undefined' && !handlingScenario) {
+      dispatch(setSignInReturnURL(window.location.hash));
       dispatch(captureErrorState({
         apiError,
         errorCode,
