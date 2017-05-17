@@ -13,9 +13,8 @@ export const VALIDATE_RESPONSE = 'VALIDATE_RESPONSE';
 // URL to return to when the user successfully signs in
 export const SET_SIGN_IN_RETURN_URL = 'SET_SIGN_IN_RETURN_URL';
 
-const setSignInReturnURL = signInReturnURL => ({
-  type: SET_SIGN_IN_RETURN_URL,
-  signInReturnURL,
+const resetErrorState = () => ({
+  type: RESET_ERROR_STATE,
 });
 
 const fetchErrorsStart = () => ({
@@ -81,11 +80,16 @@ export const fetchErrors = () => (dispatch, getState) => {
       if (responseType === GOTO_URL) {
         window.location.href = decodeURIComponent(responseURL);
       }
+
+      // TODO: this may need to happen during other parts of resolution
+      dispatch(resetErrorState());
     });
   }
 };
 
-export const validateResponseAccess = apiResponse => (dispatch) => {
+export const validateResponseAccess = apiResponse => (dispatch, getState) => {
+  const { handlingScenario } = getState().authorize;
+
   const SIGN_IN_PATH = '/registration/sign-in';
   const REDIRECT_CONFIRMATION_PATH = '/redirect-confirmation';
   const UNAUTHORIZED_STATUS_CODE = 401;
@@ -94,9 +98,8 @@ export const validateResponseAccess = apiResponse => (dispatch) => {
   const { apiError, errorCode, statusCode, loginError } = apiResponse;
   if (statusCode === UNAUTHORIZED_STATUS_CODE || statusCode === EXPIRED_ACCOUNT_STATUS_CODE) {
 
-    if (typeof loginError === 'undefined') {
-      dispatch(setSignInReturnURL(window.location.hash));
-
+    // if it is not a log in error, and we are not currently handling something already
+    if (typeof loginError === 'undefined' && !handlingScenario) {
       dispatch(captureErrorState({
         apiError,
         errorCode,
