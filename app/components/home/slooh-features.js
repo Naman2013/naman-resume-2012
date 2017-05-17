@@ -6,10 +6,10 @@ class SloohFeatures extends Component {
     return(
       <div className="col-md-4">
         <div className="slooh-features-container col-md-12">
-          <img src={this.props.icon} width="50" />
-          <h5 className="title">{this.props.title}</h5>
-          <p className="content">{this.props.content}</p>
-          <a className="action" href={this.props.actionUrl}>{this.props.actionText}</a>
+          <img src={this.props.tierIconURL} width="50" />
+          <h5 className="title">{this.props.tierTitle}</h5>
+          <p className="content">{this.props.tierDescription}</p>
+          <a className="action" href={this.props.tierButtonURL}>{this.props.tierButtonText}</a>
         </div>
       </div>
     );
@@ -17,11 +17,11 @@ class SloohFeatures extends Component {
 }
 
 SloohFeatures.propTypes = {
-  icon: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
-  content: PropTypes.string.isRequired,
-  actionUrl: PropTypes.string.isRequired,
-  actionText: PropTypes.string.isRequired
+  tierIconURL: PropTypes.string.isRequired,
+  tierTitle: PropTypes.string.isRequired,
+  tierDescription: PropTypes.string.isRequired,
+  tierButtonURL: PropTypes.string.isRequired,
+  tierButtonText: PropTypes.string.isRequired
 };
 
 export default SloohFeatures;

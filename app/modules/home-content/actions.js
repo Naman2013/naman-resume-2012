@@ -1,28 +1,12 @@
 import axios from 'axios';
 
-export const UPDATE_SLOOH_FEATURE_THREE = 'UPDATE_SLOOH_FEATURE_THREE';
-
 export const GET_HOME_PAGE_START = 'GET_HOME_PAGE_START';
 export const GET_HOME_PAGE_SUCCESS = 'GET_HOME_PAGE_SUCCESS';
 export const GET_HOME_PAGE_FAIL = 'GET_HOME_PAGE_FAIL';
 
-export const SET_UPCOMING_EVENT_URL = 'SET_UPCOMING_EVENT_URL';
-
 export const TRACK_USER_START = 'TRACK_USER_START';
 export const TRACK_USER_SUCCESS = 'TRACK_USER_SUCCESS';
 export const TRACK_USER_FAIL = 'TRACK_USER_FAIL';
-
-export const setUpcomingEventDetailsURL = ({ upcomingEventDetailsURL }) => ({
-  type: SET_UPCOMING_EVENT_URL,
-  upcomingEventDetailsURL,
-});
-
-export const updateFeatureThree = ({ registrationURL }) => ({
-  type: UPDATE_SLOOH_FEATURE_THREE,
-  payload: {
-    actionUrl: registrationURL,
-  },
-});
 
 export const getHomePageStart = () => ({
   type: GET_HOME_PAGE_START,
