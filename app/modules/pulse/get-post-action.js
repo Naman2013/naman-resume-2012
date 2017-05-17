@@ -14,6 +14,10 @@ export const FETCH_POPULAR_POSTS_SUCCESS = 'FETCH_POPULAR_POSTS_SUCCESS';
 export const FETCH_MORE_ABOUT_OBJECT_START = 'FETCH_MORE_ABOUT_OBJECT_START';
 export const FETCH_MORE_ABOUT_OBJECT_SUCCESS = 'FETCH_MORE_ABOUT_OBJECT_SUCCESS';
 
+export const FETCH_AUTHOR_CONTENT_START = 'FETCH_AUTHOR_CONTENT_START';
+export const FETCH_AUTHOR_CONTENT_SUCCESS = 'FETCH_AUTHOR_CONTENT_SUCCESS';
+export const FETCH_AUTHOR_CONTENT_FAIL = 'FETCH_AUTHOR_CONTENT_FAIL';
+
 const fetchMoreAboutObjectStart = () => ({
   type: FETCH_MORE_ABOUT_OBJECT_START,
 });
@@ -67,6 +71,38 @@ const fetchMeta = slugLookupId => (dispatch) => {
   .then(result => dispatch(fetchMetaSuccess(result.data)));
 };
 
+const fetchAuthorContentStart = () => ({
+  type: FETCH_AUTHOR_CONTENT_START,
+});
+
+const fetchAuthorContentSuccess = payload => ({
+  type: FETCH_AUTHOR_CONTENT_SUCCESS,
+  payload,
+});
+
+const fetchAuthorContentFail = payload => ({
+  type: FETCH_AUTHOR_CONTENT_SUCCESS,
+  payload,
+});
+
+export const fetchAuthorContent = ({ page = 1, ignorePostId, authorId }) => (dispatch, getState) => {
+  const { cid, at, token } = getState().user;
+  const { authorContent } = getState().post;
+  dispatch(fetchAuthorContentStart());
+  return axios.post(' /api/content/getContent', {
+    cid,
+    at,
+    token,
+    excludePosts: [ignorePostId],
+    authorId,
+    page,
+    count: authorContent.count,
+  })
+  .then(result => dispatch(fetchAuthorContentSuccess(Object.assign({ page }, result.data))))
+  .catch(error => dispatch(fetchAuthorContentFail(error)));
+};
+
+
 const fetchPostStart = () => ({
   type: FETCH_POST_START,
 });
@@ -104,6 +140,10 @@ export const fetchPost = id => (dispatch, getState) => {
       dispatch(fetchPostSuccess(result.data));
       dispatch(fetchMoreAboutObject({
         slugLookupId: result.data.posts[0].slugLookupId,
+        ignorePostId: id,
+      }));
+      dispatch(fetchAuthorContent({
+        authorId: result.data.posts[0].customerId,
         ignorePostId: id,
       }));
     } else {

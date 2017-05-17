@@ -27,6 +27,7 @@ class PulsePostContent extends Component {
         showLikePrompt,
         likesCount,
         postId,
+        showExcerpt,
       }
     } = this.props;
 
@@ -69,7 +70,7 @@ class PulsePostContent extends Component {
           <PulsePostDate date={creationDate} type={type} iconURL={typeIconURL} />
 
           <figcaption className={styles.PulsePostListInfoDesc}>
-            <div dangerouslySetInnerHTML={{ __html: content }} />
+            <div dangerouslySetInnerHTML={{ __html: showExcerpt ? excerpt : content }} />
           </figcaption>
 
           {
@@ -85,6 +86,7 @@ class PulsePostContent extends Component {
 
 PulsePostContent.defaultProps = {
   postTags: [],
+  showExcerpt: false,
 };
 
 export default PulsePostContent;
