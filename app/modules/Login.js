@@ -28,7 +28,7 @@ export const loginReset = () => ({
 });
 
 export const login = loginFormValues => (dispatch, getState) => {
-  const { signInReturnURL } = getState().authorization;
+  const { errorHandlerBody } = getState().authorization;
   const { username, passwd } = loginFormValues;
 
   dispatch(startLogin());
@@ -46,14 +46,8 @@ export const login = loginFormValues => (dispatch, getState) => {
       dispatch(loginReset());
       dispatch(userActions.store(result.data));
       dispatch(hide());
-      if (signInReturnURL) {
-        /**
-          split at the ? to remove QA, take the first half - then remove the hash from the beginning
-          */
-        dispatch(push(signInReturnURL.split('?')[0].substr(1)));
-        hashHistory.push(signInReturnURL.substr(1));
-      }
-      window.location.reload();
+
+      dispatch(push(errorHandlerBody.currentPageId.substr(2)));
     }
   })
   .catch((error) => {

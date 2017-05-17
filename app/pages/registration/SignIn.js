@@ -8,13 +8,13 @@ import Tier from './common/Tier';
 import FormErrorMessage from './common/FormErrorMessage';
 import { login, loginReset } from '../../modules/Login';
 
-const mapStateToProps = ({ authorization, user, login, appConfig }) => ({
-  statusCode: user.statusCode,
-  isAuthorized: user.isAuthorized,
-  login,
-  forgotPasswordURL: appConfig.forgotPasswordURL,
-  registerNewMemberURL: appConfig.registerNewMemberURL,
-  errorHandlerBody: authorization.errorHandlerBody,
+const mapStateToProps = state => ({
+  statusCode: state.user.statusCode,
+  isAuthorized: state.user.isAuthorized,
+  login: state.login,
+  forgotPasswordURL: state.appConfig.forgotPasswordURL,
+  registerNewMemberURL: state.appConfig.registerNewMemberURL,
+  errorHandlerBody: state.authorization.errorHandlerBody,
 });
 
 const mapDispatchToProps = dispatch => ({
