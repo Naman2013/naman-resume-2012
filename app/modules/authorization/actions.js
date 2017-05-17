@@ -74,7 +74,7 @@ export const fetchErrors = () => (dispatch, getState) => {
       }
 
       if (responseType === LOGIN_UPSELL) {
-
+        destroySession();
         dispatch(push('/registration/sign-in'));
       }
 
@@ -90,16 +90,12 @@ export const validateResponseAccess = apiResponse => (dispatch) => {
   const REDIRECT_CONFIRMATION_PATH = '/redirect-confirmation';
   const UNAUTHORIZED_STATUS_CODE = 401;
   const EXPIRED_ACCOUNT_STATUS_CODE = 418;
-  const BAD_LOGIN_SESSION_CODE = 60003;
 
   const { apiError, errorCode, statusCode, loginError } = apiResponse;
   if (statusCode === UNAUTHORIZED_STATUS_CODE || statusCode === EXPIRED_ACCOUNT_STATUS_CODE) {
 
     if (typeof loginError === 'undefined') {
       dispatch(setSignInReturnURL(window.location.hash));
-      if (errorCode === BAD_LOGIN_SESSION_CODE) {
-        destroySession();
-      }
 
       dispatch(captureErrorState({
         apiError,
