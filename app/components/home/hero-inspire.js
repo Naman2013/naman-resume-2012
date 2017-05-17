@@ -7,7 +7,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { Link } from 'react-router';
 import style from './hero-inspire.scss';
 
 import ScrollForMore from '../common/scroll-for-more';
@@ -42,7 +41,8 @@ class HeroInspire extends Component {
     const {
       heroHeadline,
       heroSubheadline,
-      freeRegistrationURL,
+      heroButtonText,
+      heroButtonURL,
     } = this.props;
 
     const { videoLoaded } = this.state;
@@ -77,12 +77,11 @@ class HeroInspire extends Component {
           <img className={style.iconSpacer} alt="" src="assets/icons/three-amigos-with-bar.svg" />
 
           <div className="call-to-action">
-            <a className="action" href={freeRegistrationURL}>
-              Register Free Today
+            <a className="action" href={heroButtonText}>
+              {heroButtonText}
             </a>
           </div>
         </div>
-
 
         <ScrollForMore />
       </div>
@@ -93,7 +92,8 @@ class HeroInspire extends Component {
 HeroInspire.propTypes = {
   heroHeadline: PropTypes.string.isRequired,
   heroSubheadline: PropTypes.string.isRequired,
-  freeRegistrationURL: PropTypes.string.isRequired,
+  heroButtonText: PropTypes.string.isRequired,
+  heroButtonURL: PropTypes.string.isRequired,
 };
 
 export default HeroInspire;
