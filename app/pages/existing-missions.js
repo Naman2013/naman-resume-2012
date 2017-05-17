@@ -35,7 +35,6 @@ class ExistingMissions extends Component {
     //     return !moment().isAfter(endDate, 'days');
     //   });
     // }
-
     return (
       <div className="existing-missions clearfix">
 

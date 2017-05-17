@@ -374,7 +374,11 @@ export function missionGetCards() {
 
     dispatch(fetchAllCardsStart());
 
-    if (cardAPIResponse) {
+    /**
+      if we already have a cardAPIResponse with an actual missionList, we want
+      to use that
+      */
+    if (cardAPIResponse && cardAPIResponse.data.missionList.length !== 0) {
       dispatch(allCards(cardAPIResponse));
       dispatch(missionGetPiggybacks(cardAPIResponse.data.objectList));
       dispatch(missionGetNextReservation(cardAPIResponse.data.objectList));
@@ -389,7 +393,7 @@ export function missionGetCards() {
         at,
         cid,
       })
-      .then(response => {
+      .then((response) => {
         dispatch(storeCardsResponse(response));
         dispatch(allCards(response));
         dispatch(missionGetPiggybacks(response.data.objectList));

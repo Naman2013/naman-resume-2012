@@ -24,8 +24,8 @@ const { element, func, object } = PropTypes;
     missionConfirmOpen,
     missionConfirmClose,
     missionGetInfo,
-    missionGetUpdates
-  }, dispatch)
+    missionGetUpdates,
+  }, dispatch),
 }))
 
 export default class SloohRecommends extends Component {
@@ -36,9 +36,7 @@ export default class SloohRecommends extends Component {
 
   constructor(props) {
     super(props);
-
     this.randomAdIdx = getRandomAdvertisementIndex();
-
   }
 
   componentDidMount() {
