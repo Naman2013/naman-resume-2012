@@ -19,9 +19,10 @@ import { fetchCommunityContent }
   from '../modules/community-content/get-object-content-actions';
 import { getHomePage, trackUser } from '../modules/home-content/actions';
 
-const mapStateToProps = ({ communityContent, homeContent }) => ({
+const mapStateToProps = ({ communityContent, homeContent, appConfig }) => ({
   communityContent: communityContent.communityContent,
   homeContent,
+  appConfig,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -65,22 +66,26 @@ class Home extends Component {
   }
 
   render() {
-    const { homeContent } = this.props;
+    const { homeContent, appConfig } = this.props;
     const { posts } = this.props.communityContent;
 
-    let heroProps = {};
+    const heroProps = {};
     Object.keys(homeContent).filter(key => /^hero/.test(key)).forEach((key) => {
       heroProps[key] = homeContent[key];
     });
-
+    console.log('home content seeking registration URL =');
+    console.log(homeContent);
+    console.log('================');
     return (
       <div className={`${style.homeContainer} clearfix`}>
         {
-          /**
-            <Hero {...heroProps} />
-          */
+          heroProps.heroEventId ?
+            <Hero {...heroProps} /> :
+            <HeroInspire
+              {...heroProps}
+              freeRegistrationURL={appConfig.registerNewMemberURL}
+            />
         }
-        <HeroInspire {...heroProps} />
 
         <div className="clearfix">
           {this.generateRecentVideoTiles()}
