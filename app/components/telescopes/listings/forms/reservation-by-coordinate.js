@@ -309,10 +309,11 @@ class ReservationByCoordinate extends Component {
     }
 
     const absoluteDec = Math.abs(dec);
+    const truncatedDec = Math.trunc(absoluteDec);
 
-    dec_d = Math.trunc(absoluteDec);
-    dec_m = Math.trunc((absoluteDec - dec_d) * 60);
-    dec_s = Math.round((((absoluteDec - dec_d) * 60) - dec_m) * 60);
+    dec_d = Math.trunc(dec);
+    dec_m = Math.trunc((absoluteDec - truncatedDec) * 60);
+    dec_s = Math.round((((absoluteDec - truncatedDec) * 60) - dec_m) * 60);
 
     if (dec_s == 60) {
       dec_s = 0;
@@ -603,14 +604,14 @@ class ReservationByCoordinate extends Component {
 
                 <div className="form-row-container">
                   <div className="form-row">RA: <input value={ra_h} onChange={this.handleRaHChange} onBlur={this.handleRaHBlur} size="2" className="generic-text-input" type="number" /> <span className="symbol-character">h</span></div>
-                  <div className="form-row"><input value={ra_m} onChange={this.handleRaMChange} onBlur={this.handleRaMBlur} size="2" className="generic-text-input" type="number" /> <span className="symbol-character">m</span></div>
-                  <div className="form-row"><input value={ra_s} onChange={this.handleRaSChange} onBlur={this.handleRaSBlur} size="2" className="generic-text-input" type="number" /> <span className="symbol-character">s</span></div>
+                  <div className="form-row"><input value={ra_m} onChange={this.handleRaMChange} onBlur={this.handleRaMBlur} size="2" min="0" className="generic-text-input" type="number" /> <span className="symbol-character">m</span></div>
+                  <div className="form-row"><input value={ra_s} onChange={this.handleRaSChange} onBlur={this.handleRaSBlur} size="2" min="0" className="generic-text-input" type="number" /> <span className="symbol-character">s</span></div>
                 </div>
 
                 <div className="form-row-container">
                   <div className="form-row">Dec: <input value={dec_d} onChange={this.handleDecDChange} onBlur={this.handleDecDBlur} size="2" className="generic-text-input" type="number" /> <span className="symbol-character">d</span></div>
-                  <div className="form-row"><input value={dec_m} onChange={this.handleDecMChange} onBlur={this.handleDecMBlur} size="2" className="generic-text-input" type="number" /> <span className="symbol-character">m</span></div>
-                  <div className="form-row"><input value={dec_s} onChange={this.handleDecSChange} onBlur={this.handleDecSBlur} size="2" className="generic-text-input" type="number" /> <span className="symbol-character">s</span></div>
+                  <div className="form-row"><input value={dec_m} onChange={this.handleDecMChange} onBlur={this.handleDecMBlur} size="2" min="0" className="generic-text-input" type="number" /> <span className="symbol-character">m</span></div>
+                  <div className="form-row"><input value={dec_s} onChange={this.handleDecSChange} onBlur={this.handleDecSBlur} size="2" min="0" className="generic-text-input" type="number" /> <span className="symbol-character">s</span></div>
                 </div>
 
                 <div className="form-row-container highlighted">
