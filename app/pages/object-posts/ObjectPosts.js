@@ -67,6 +67,7 @@ class ObjectPosts extends Component {
         </div>
 
         <div className="col-md-4 mission-sidebar">
+          {showGuardian && <Guardian slugLookupId={SlugLookupId} />}
           {
             showRecommends ?
               <SloohRecommends
@@ -76,7 +77,6 @@ class ObjectPosts extends Component {
               /> : null
           }
           <OtherFeaturedObjects />
-          {showGuardian && <Guardian slugLookupId={SlugLookupId} />}
         </div>
       </section>
     );
