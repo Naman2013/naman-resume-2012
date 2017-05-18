@@ -44,7 +44,7 @@ export const fetchErrors = () => (dispatch, getState) => {
   const { cid, token, at } = getState().user;
   const { apiError, errorCode, statusCode, signInReturnURL } = getState().authorization;
   if (!apiError || !errorCode || !statusCode) {
-    dispatch(go(-2));
+    dispatch(push('/'));
   } else {
     return fetchHandleErrors({
       cidCheck: cid,
