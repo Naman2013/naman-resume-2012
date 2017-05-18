@@ -18,6 +18,8 @@ class Hero extends Component {
       heroButtonURL,
     } = this.props;
 
+
+
     const heroContainerStyle = {
       background: `url(${heroImageURL}) center/cover no-repeat`,
     };
