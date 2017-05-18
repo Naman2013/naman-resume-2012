@@ -244,11 +244,17 @@ class TelescopeDetails extends Component {
     const { obsUniqueId, teleUniqueId } = params;
 
     // TODO: Move this check into TelescopeSelection component
-    if (observatoryList.length === 0) {
+    if (observatoryList && observatoryList.length === 0) {
       return null;
     }
 
     const currentObservatory = getCurrentObservatory(observatoryList, obsUniqueId);
+
+    // TODO: refactor how this page opperates so we can remove these checks
+    if (!currentObservatory) {
+      return null;
+    }
+
     const { obsId } = currentObservatory;
     const currentTelescope = this.getCurrentTelescope(currentObservatory.obsTelescopes, teleUniqueId);
     const { teleInstrumentList, teleId, teleCanReserveMissions } = currentTelescope;
