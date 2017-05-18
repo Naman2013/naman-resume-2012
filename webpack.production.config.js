@@ -2,6 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const WebpackMd5Hash = require('webpack-md5-hash');
 
 const apiUrl = process.env.apiUrl || '';
 const apiPortNumber = process.env.apiPortNumber || '';
@@ -40,7 +41,7 @@ module.exports = {
   },
   output: {
     path: __dirname + '/dist',
-    filename: '[name].js',
+    filename: '[chunkhash].[id].[name].js',
     sourceMapFilename: '[name].js.map',
   },
   module: {
@@ -128,6 +129,7 @@ module.exports = {
     }),
     new CopyWebpackPlugin([
       { from: './assets/**/*' }
-    ])
+    ]),
+    new WebpackMd5Hash(),
   ],
 };

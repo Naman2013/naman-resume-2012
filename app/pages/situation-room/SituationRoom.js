@@ -47,6 +47,11 @@ class SituationRoom extends Component {
 
   render() {
     const { currentLiveShow, communityPosts, eventIsLive } = this.props;
+    const { apiError } = currentLiveShow;
+
+    if (apiError) {
+      return null;
+    }
 
     return (
       <section className={`${s.situationRoom} clearfix`}>

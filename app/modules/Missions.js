@@ -1,7 +1,6 @@
 import axios from 'axios';
 import moment from 'moment';
 import _ from 'lodash';
-import { push } from 'react-router-redux';
 import createReducer from './utils/createReducer';
 
 import { fetchUsersUpcomingMissions } from './Users-Upcoming-Missions';
@@ -361,6 +360,10 @@ export const grabUpdateMissionSlot = ({
     .catch(error => dispatch(grabMissionSlotFail(error)));
   };
 
+const fetchAllCardsStart = () => ({
+  type: MISSION_ALL_CARD_START,
+});
+
 /**
   if data from the fetch cards API has already been called use that source
   instead of going all the way back to the API.
@@ -374,7 +377,11 @@ export function missionGetCards() {
 
     dispatch(fetchAllCardsStart());
 
-    if (cardAPIResponse) {
+    /**
+      if we already have a cardAPIResponse with an actual missionList, we want
+      to use that
+      */
+    if (cardAPIResponse && _.has(cardAPIResponse, 'data.missionList') && cardAPIResponse.data.missionList.length !== 0) {
       dispatch(allCards(cardAPIResponse));
       dispatch(missionGetPiggybacks(cardAPIResponse.data.objectList));
       dispatch(missionGetNextReservation(cardAPIResponse.data.objectList));
@@ -389,7 +396,7 @@ export function missionGetCards() {
         at,
         cid,
       })
-      .then(response => {
+      .then((response) => {
         dispatch(storeCardsResponse(response));
         dispatch(allCards(response));
         dispatch(missionGetPiggybacks(response.data.objectList));
@@ -437,10 +444,6 @@ export const getNextPiggybackSingleSuccess = getNextPiggybackData => (dispatch, 
     dispatch(grabPiggyback(missionList[0]));
   }
 };
-
-const fetchAllCardsStart = () => ({
-  type: MISSION_ALL_CARD_START,
-});
 
 export const allCards = ({ data }) => ({
   type: MISSION_ALL_CARDS_SUCCESS,
@@ -493,12 +496,6 @@ export function missionUpdatesFail(error) {
 
 export const missionGetPiggybacks = objectList => (dispatch, getState) => {
   const { token, at, cid } = getState().user;
-
-  if (!token || !cid || !at) {
-    dispatch(push('/registration/sign-in'));
-    return;
-  }
-
   dispatch(fetchPiggybacksStart());
 
   return axios.post('/api/recommends/getNextPiggyback', {
@@ -673,7 +670,7 @@ const initialState = {
 
 export default createReducer(initialState, {
   [STORE_CARDS_RESPONSE](state, { payload }) {
-    return  {
+    return {
       ...state,
       cardAPIResponse: payload,
     };

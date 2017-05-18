@@ -27,14 +27,6 @@ class ExistingMissions extends Component {
 
   render() {
     const { cardList, piggybacks, fetchingCards, fetchingPiggybacks } = this.props;
-    // let cards = null;
-    //
-    // if (cardList && Array.isArray(cardList)) {
-    //   cards = cardList.filter((card) => {
-    //     const endDate = moment.unix(card.end);
-    //     return !moment().isAfter(endDate, 'days');
-    //   });
-    // }
 
     return (
       <div className="existing-missions clearfix">
@@ -57,14 +49,6 @@ class ExistingMissions extends Component {
                 piggyback={piggybacks.find((piggyback) => piggyback.uniqueId == card.uniqueId)}
               />
             ))
-        }
-
-        {
-          !fetchingCards && !fetchingCards && piggybacks.length === 0 && <GenericLoadingBox text="No PIGGYBACKS were found, please try again later." />
-        }
-
-        {
-          !fetchingCards && this.cardList.length === 0 && <GenericLoadingBox text="No MISSIONS where found, please try again later." />
         }
       </div>
     );

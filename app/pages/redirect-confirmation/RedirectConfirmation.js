@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { fetchErrors } from '../../modules/authorization/actions';
@@ -16,7 +16,7 @@ const mapDispatchToProps = dispatch => ({
 
 @connect(mapStateToProps, mapDispatchToProps)
 class RedirectConfirmation extends Component {
-  componentWillMount() {
+  componentDidMount() {
     this.props.actions.fetchErrors();
   }
 

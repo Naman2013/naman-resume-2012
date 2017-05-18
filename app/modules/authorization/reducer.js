@@ -9,6 +9,14 @@ import {
 } from './actions';
 
 const initialState = {
+  /**
+    @handlingScenario: boolean used to determine whether or not we are dealing
+    with an upsell or account issue it should be reset after a working issue
+    has been resolved in case future scenarios occur this flag is used to
+    help understand that the user has already been asked to address their account
+    */
+  handlingScenario: false,
+
   fetchingErrorBody: false,
   errorHandlerBody: {},
 
@@ -47,6 +55,7 @@ export default createReducer(initialState, {
       errorCode,
       statusCode,
       currentPageID,
+      handlingScenario: true,
     };
   },
   [RESET_ERROR_STATE](state) {
@@ -56,6 +65,8 @@ export default createReducer(initialState, {
       errorCode: null,
       statusCode: null,
       currentPageID: null,
+      handlingScenario: false,
+      signInReturnURL: '',
     };
   },
 });
