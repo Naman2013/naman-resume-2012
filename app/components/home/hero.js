@@ -1,10 +1,25 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
+import { connect } from 'react-redux';
+import isExternalURL from '../../utils/is-external-url';
 import style from './hero.scss';
-
 import ScrollForMore from '../common/scroll-for-more';
 
+const mapStateToProps = ({ appConfig }) => ({
+  registerNewSloohCrewURL: appConfig.registerNewSloohCrewURL,
+});
+
+@connect(mapStateToProps)
 class Hero extends Component {
+  renderCallToAction(buttonUrl) {
+    const { heroButtonText, heroButtonURL, registerNewSloohCrewURL } = this.props;
+    // const URLIsExternal = isExternalURL(heroButtonURL);
+    // TODO: this is temporary until we have the API return absolute URL's
+    return buttonUrl === '/join.php?type=r' ?
+      <a className="action" href={registerNewSloohCrewURL}>{heroButtonText}</a> :
+      <Link className="action" to={heroButtonURL}>{heroButtonText}</Link>
+  }
+
   render() {
     const {
       heroEventId,
@@ -31,7 +46,8 @@ class Hero extends Component {
     return (
       <div
         style={heroContainerStyle}
-        className="hero-container">
+        className="hero-container"
+      >
 
         <h2 className="title">{heroHeadline}</h2>
         <h3 className="sub-title">{heroSubheadline}</h3>
@@ -48,9 +64,8 @@ class Hero extends Component {
         <div className="call-to-action">
           {
             buttonUrl ?
-              <Link className="action" to={buttonUrl}>
-                {heroButtonText}
-              </Link> : <div style={{width: '100px', height: '100px'}} />
+              this.renderCallToAction(buttonUrl) :
+              <div style={{ width: '100px', height: '100px' }} />
           }
         </div>
 

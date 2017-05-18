@@ -55,6 +55,33 @@ export const login = loginFormValues => (dispatch, getState) => {
   });
 };
 
+export const globalHeaderlogin = loginFormValues => (dispatch, getState) => {
+  const { errorHandlerBody } = getState().authorization;
+  const { username, passwd } = loginFormValues;
+
+  dispatch(startLogin());
+
+  return axios.post('/api/users/login', {
+    username,
+    passwd,
+  })
+  .then((result) => {
+    const { apiError } = result.data;
+
+    if (apiError) {
+      dispatch(loginFailed(result.data));
+    } else {
+      dispatch(loginReset());
+      dispatch(userActions.store(result.data));
+      dispatch(hide());
+      window.location.reload();
+    }
+  })
+  .catch((error) => {
+    dispatch(loginFailed(error));
+  });
+};
+
 const initialState = {
   isShowed: false,
 

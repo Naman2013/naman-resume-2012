@@ -14,7 +14,7 @@ const { bool, func, string } = PropTypes;
 class Login extends Component {
   static propTypes = {
     hide: func.isRequired,
-    login: func.isRequired,
+    globalHeaderlogin: func.isRequired,
     handleSubmit: func.isRequired,
     error: string,
     forgotPasswordURL: string,
@@ -41,7 +41,7 @@ class Login extends Component {
     const { loginFailed } = this.props;
     return (
       <aside className={styles.login}>
-        <form onSubmit={this.props.handleSubmit(this.props.login)}>
+        <form onSubmit={this.props.handleSubmit(this.props.globalHeaderlogin)}>
           <h3>Log into your Slooh account:</h3>
           {
             loginFailed ?
