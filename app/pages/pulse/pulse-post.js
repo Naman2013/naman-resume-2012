@@ -14,6 +14,7 @@ class PulsePostContent extends Component {
         S3Files,
         postTags,
         title,
+        excerpt,
         creationDate,
         type,
         typeIconURL,
@@ -27,8 +28,8 @@ class PulsePostContent extends Component {
         showLikePrompt,
         likesCount,
         postId,
-        showExcerpt,
-      }
+      },
+      showExcerpt
     } = this.props;
 
     return (

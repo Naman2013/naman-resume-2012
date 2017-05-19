@@ -105,9 +105,9 @@ class PulsePost extends Component {
             }
             {authorContent.posts &&
               <div>
-                <h4 className="center">More posts from this author</h4>
+                <h3 className="center">More posts from this author</h3>
                 <hr />
-                {authorContent.posts.map(data => <PulsePostContent showExcerpt post={data} key={data.postId} />)}
+                {authorContent.posts.map(data => <PulsePostContent showExcerpt="true" post={data} key={data.postId} />)}
                 <Pagination onChange={this.fetchMoreAuthorPosts} defaultPageSize={authorContent.count} current={authorContent.page} total={authorContent.postsCount} />
               </div>
             }
