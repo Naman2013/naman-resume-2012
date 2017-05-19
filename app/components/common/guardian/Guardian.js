@@ -33,7 +33,7 @@ class GuardianWidget extends Component {
         </header>
 
         <div className={styles.otherFeaturedObjectsContainer} key={uniqueId()}>
-          <article>
+          <article className={styles.guardianContainer}>
             <ByUserTag
               accountType={guardianInfo.membershipType}
               memberSince={guardianInfo.memberSince}

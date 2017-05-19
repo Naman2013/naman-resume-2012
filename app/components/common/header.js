@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import moment from 'moment';
+import { Link } from 'react-router';
 
 import { tickEvent } from '../../modules/upcoming-events/upcoming-events-actions';
 import Countdown from '../../containers/Countdown';
@@ -110,10 +111,12 @@ export default class Header extends Component {
   render() {
     return (
       <header className={styles.mainHeader} id="mainHeader">
-        <div className={styles.mainHeaderLogo} />
-        <div className={styles.mainHeaderLogoText}>
-          Slooh <span className="beta">beta</span>
-        </div>
+        <Link to="/">
+          <div className={styles.mainHeaderLogo} />
+          <div className={styles.mainHeaderLogoText}>
+            Slooh <span className="beta">beta</span>
+          </div>
+        </Link>
         <Member />
         <Countdown />
       </header>

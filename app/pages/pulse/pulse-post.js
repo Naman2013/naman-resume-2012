@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router';
 import ByUserTag from '../../components/common/by-user-tag/by-user-tag'
 import PulsePostDate from '../../components/pulse/pulse-post-date'
 import PulsePostImage from '../../components/pulse/pulse-post-image'
@@ -13,7 +14,9 @@ class PulsePostContent extends Component {
       post: {
         S3Files,
         postTags,
+        postId,
         title,
+        excerpt,
         creationDate,
         type,
         typeIconURL,
@@ -26,9 +29,8 @@ class PulsePostContent extends Component {
         likePrompt,
         showLikePrompt,
         likesCount,
-        postId,
-        showExcerpt,
-      }
+      },
+      showExcerpt
     } = this.props;
 
     return (
@@ -39,9 +41,11 @@ class PulsePostContent extends Component {
         }
 
         <figure className={styles.PulsePostListInfo}>
-          <h2 className={styles.PulsePostListInfoTitle}>
-            <div dangerouslySetInnerHTML={{ __html: title }} />
-          </h2>
+          <Link to={`/community/post/${postId}`}>
+            <h2 className={styles.PulsePostListInfoTitle}>
+              <div dangerouslySetInnerHTML={{ __html: title }} />
+            </h2>
+          </Link>
 
           <div className="row">
             <div className="col-md-6">
