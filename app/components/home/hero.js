@@ -1,17 +1,23 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
+import { connect } from 'react-redux';
 import isExternalURL from '../../utils/is-external-url';
 import style from './hero.scss';
 import ScrollForMore from '../common/scroll-for-more';
 
+const mapStateToProps = ({ appConfig }) => ({
+  registerNewMemberURL: appConfig.registerNewMemberURL,
+});
+
+@connect(mapStateToProps)
 class Hero extends Component {
   renderCallToAction(buttonUrl) {
-    const { heroButtonText } = this.props;
+    const { heroButtonText, registerNewMemberURL } = this.props;
     // considered temporary HAXXX
     // const URLIsExternal = isExternalURL(buttonUrl);
     return buttonUrl === '/join.php?type=r' ?
-      <a className="action" href={`${window.location.hostname}${buttonUrl}`}>{heroButtonText}</a> :
+      <a className="action" href={registerNewMemberURL}>{heroButtonText}</a> :
       <Link className="action" to={buttonUrl}>{heroButtonText}</Link>
   }
 
