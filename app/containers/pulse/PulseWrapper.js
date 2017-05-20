@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import GenericLoadingBox from '../../components/common/loading-screens/generic-loading-box';
 import PulsePopular from '../../components/pulse/sidebar/pulse-popular';
-import MissionAd from '../../components/missions/mission-ad';
 import GoogleAd from '../../components/common/google-ads/GoogleAd';
 import SloohRecommends from '../../components/common/recommendations/SloohRecommends';
 
