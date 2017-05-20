@@ -61,7 +61,7 @@ class HomeHeroVariant extends Component {
 
   generateSloohFeatures() {
     const { homeContent } = this.props;
-    return homeContent.SLOOH_FEATURES.map(feature => <SloohFeatures {...feature} />);
+    return homeContent.membershipTierArray.map(feature => <SloohFeatures {...feature} key={feature.tierIndex} />);
   }
 
   render() {
@@ -76,7 +76,7 @@ class HomeHeroVariant extends Component {
     return (
       <div className={`${style.homeContainer} clearfix`}>
         {
-          homeContent && heroProps.heroEventId !== 0 ?
+          heroProps.heroEventId !== 0 ?
             <Hero {...heroProps} /> :
             <HeroInspire
               {...heroProps}

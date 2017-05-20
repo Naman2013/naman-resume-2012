@@ -13,12 +13,11 @@ const mapStateToProps = ({ appConfig }) => ({
 @connect(mapStateToProps)
 class Hero extends Component {
   renderCallToAction(buttonUrl) {
-    const { heroButtonText, heroButtonURL, registerNewSloohCrewURL } = this.props;
-    // const URLIsExternal = isExternalURL(heroButtonURL);
-    // TODO: this is temporary until we have the API return absolute URL's
-    return buttonUrl === '/join.php?type=r' ?
-      <a className="action" href={registerNewSloohCrewURL}>{heroButtonText}</a> :
-      <Link className="action" to={heroButtonURL}>{heroButtonText}</Link>
+    const { heroButtonText } = this.props;
+    const URLIsExternal = isExternalURL(buttonUrl);
+    return URLIsExternal ?
+      <a className="action" href={buttonUrl}>{heroButtonText}</a> :
+      <Link className="action" to={buttonUrl}>{heroButtonText}</Link>
   }
 
   render() {
