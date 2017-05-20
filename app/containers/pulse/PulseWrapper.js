@@ -3,35 +3,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import GenericLoadingBox from '../../components/common/loading-screens/generic-loading-box';
 import PulsePopular from '../../components/pulse/sidebar/pulse-popular';
-import PulseRecommended from '../../components/pulse/sidebar/pulse-recommends';
 import MissionAd from '../../components/missions/mission-ad';
 import SloohRecommends from '../../components/common/recommendations/SloohRecommends';
 import { getRandomAdvertisementIndex } from '../../modules/utils';
-
-
-const list = [
-  {
-    label: 'A Painting Inspired by the possibility of life on Europa',
-    link: '#',
-    type: 'ART_CULTURE',
-  }, {
-    label: 'New Comet Discovered by Slooh Members',
-    link: '#',
-    type: 'SCIENCE_LOG',
-  }, {
-    label: 'My image of the M12 Globular Cluster taken from the Canary Islands',
-    link: '#',
-    type: 'DIY',
-  }, {
-    label: 'My Horoscope Changed! Who Am I Now?',
-    link: '#',
-    type: 'HUMAN_SPIRIT',
-  }, {
-    label: 'Image of Jupiter Moon transit',
-    link: '#',
-    type: 'SCIENCE_LOG',
-  },
-];
 
 const mapStateToProps = ({ latestPosts }) => ({
   page: latestPosts.page,
