@@ -6,6 +6,7 @@ import Header from '../../components/situation-room/Header';
 import SituationVideoViewer from '../../components/situation-room/SituationVideoViewer';
 import CommunityMashup from '../../components/situation-room/CommunityMashup';
 import MissionAd from '../../components/missions/mission-ad';
+import GoogleAd from '../../components/common/google-ads/GoogleAd';
 import { fetchEvents } from '../../modules/upcoming-events/upcoming-events-actions';
 import { fetchSituationRoom, fetchEventsAndSituationRoom } from '../../modules/SituationRoom';
 import { getRandomAdvertisementIndex } from '../../modules/utils';
@@ -36,7 +37,6 @@ class SituationRoom extends Component {
     super(props);
 
     this.randomAdIdx = getRandomAdvertisementIndex();
-
   }
   componentWillMount() {
     this.props.actions.fetchEventsAndSituationRoom();
@@ -95,8 +95,12 @@ class SituationRoom extends Component {
         </div>
 
         <div className="col-md-3">
-          <MissionAd size="300x600" index={this.randomAdIdx} />
-          {/* <SocialSidebar /> */}
+          <GoogleAd
+            adURL={'/5626790/SituationRoom'}
+            adWidth={300}
+            adHeight={600}
+            targetDivID={'div-gpt-ad-1495111054219-0'}
+          />
         </div>
 
       </section>
