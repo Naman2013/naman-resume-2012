@@ -2,12 +2,42 @@
 
 exports[`renders correctly 1`] = `
 <div
-  id="advertisement-target"
-  style={
-    Object {
-      "height": 250,
-      "width": 300,
+  className="root"
+  data-jsx={1944505430}
+>
+  <div
+    className="advertisement"
+    data-jsx={1944505430}
+    id="advertisement-target"
+    style={
+      Object {
+        "height": 250,
+        "width": 300,
+      }
     }
-  }
-/>
+  />
+  <p
+    data-jsx={1944505430}
+  >
+    Advertisement
+  </p>
+  <style
+    jsx={true}
+  >
+    
+                .root {
+                  text-align: center;
+                }
+    
+                .advertisement {
+                  margin: 0 auto;
+                }
+    
+                p {
+                  font-size: 10px;
+                  margin-top: 10px;
+                }
+              
+  </style>
+</div>
 `;
