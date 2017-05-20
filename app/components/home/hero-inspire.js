@@ -14,7 +14,6 @@ import ScrollForMore from '../common/scroll-for-more';
 import isMobileScreenSize from '../../utils/content-loading-conditions';
 import isExternalURL from '../../utils/is-external-url';
 
-
 class HeroInspire extends Component {
   state = {
     videoLoaded: false,
@@ -42,9 +41,10 @@ class HeroInspire extends Component {
 
   renderCallToAction(buttonUrl) {
     const { heroButtonText } = this.props;
-    const URLIsExternal = isExternalURL(buttonUrl);
-    return URLIsExternal ?
-      <a className="action" href={buttonUrl}>{heroButtonText}</a> :
+    // considered temporary HAXXX
+    // const URLIsExternal = isExternalURL(buttonUrl);
+    return buttonUrl === '/join.php?type=r' ?
+      <a className="action" href={`${window.location.hostname}${buttonUrl}`}>{heroButtonText}</a> :
       <Link className="action" to={buttonUrl}>{heroButtonText}</Link>
   }
 

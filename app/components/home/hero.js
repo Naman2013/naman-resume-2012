@@ -8,9 +8,10 @@ import ScrollForMore from '../common/scroll-for-more';
 class Hero extends Component {
   renderCallToAction(buttonUrl) {
     const { heroButtonText } = this.props;
-    const URLIsExternal = isExternalURL(buttonUrl);
-    return URLIsExternal ?
-      <a className="action" href={buttonUrl}>{heroButtonText}</a> :
+    // considered temporary HAXXX
+    // const URLIsExternal = isExternalURL(buttonUrl);
+    return buttonUrl === '/join.php?type=r' ?
+      <a className="action" href={`${window.location.hostname}${buttonUrl}`}>{heroButtonText}</a> :
       <Link className="action" to={buttonUrl}>{heroButtonText}</Link>
   }
 
