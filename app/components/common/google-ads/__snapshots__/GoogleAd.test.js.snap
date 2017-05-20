@@ -3,11 +3,11 @@
 exports[`renders correctly 1`] = `
 <div
   className="root"
-  data-jsx={1944505430}
+  data-jsx={924738684}
 >
   <div
     className="advertisement"
-    data-jsx={1944505430}
+    data-jsx={924738684}
     id="advertisement-target"
     style={
       Object {
@@ -17,7 +17,7 @@ exports[`renders correctly 1`] = `
     }
   />
   <p
-    data-jsx={1944505430}
+    data-jsx={924738684}
   >
     Advertisement
   </p>
@@ -27,6 +27,7 @@ exports[`renders correctly 1`] = `
     
                 .root {
                   text-align: center;
+                  margin-bottom: 10px;
                 }
     
                 .advertisement {
@@ -35,7 +36,7 @@ exports[`renders correctly 1`] = `
     
                 p {
                   font-size: 10px;
-                  margin-top: 10px;
+                  margin-top: 5px;
                 }
               
   </style>

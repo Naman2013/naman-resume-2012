@@ -42,6 +42,7 @@ class GoogleAd extends Component {
           {`
             .root {
               text-align: center;
+              margin-bottom: 10px;
             }
 
             .advertisement {
@@ -50,7 +51,7 @@ class GoogleAd extends Component {
 
             p {
               font-size: 10px;
-              margin-top: 10px;
+              margin-top: 5px;
             }
           `}</style>
       </div>
