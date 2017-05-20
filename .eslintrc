@@ -8,6 +8,7 @@
     "test": true,
     "it": true,
     "expect": true,
+    "window": true,
   },
   "eslintConfig": {
     "env": {

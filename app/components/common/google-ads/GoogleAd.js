@@ -13,10 +13,15 @@ class GoogleAd extends Component {
     const { adURL, adWidth, adHeight, targetDivID } = this.props;
 
     if (window.googletag) {
-      googletag.cmd.push(() => {
-        googletag.defineSlot(adURL, [adWidth, adHeight], targetDivID).addService(googletag.pubads());
-        googletag.pubads().enableSingleRequest();
-        googletag.enableServices();
+      window.googletag.cmd.push(() => {
+        window.googletag.defineSlot(
+          adURL,
+          [adWidth, adHeight],
+          targetDivID)
+          .addService(window.googletag.pubads());
+        window.googletag.pubads().enableSingleRequest();
+        window.googletag.enableServices();
+        window.googletag.display(targetDivID);
       });
     }
   }
