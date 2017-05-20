@@ -156,7 +156,6 @@ ReactDOM.render(
 
       <Route path="/" component={App}>
         <IndexRoute component={Home} onEnter={validateUser} />
-
         <Route path="%2Fnew-video-hero" component={HomeHeroVariant} onEnter={validateUser} />
 
         <Route path="telescope-overview/:observatoryId" component={TelescopeOverview} onEnter={validateUser} />
