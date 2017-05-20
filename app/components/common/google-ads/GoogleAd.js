@@ -10,11 +10,13 @@ class GoogleAd extends Component {
   };
 
   componentDidMount() {
-    googletag.cmd.push(function() {
-      googletag.defineSlot('/5626790/Community', [300, 250], 'div-gpt-ad-1495110800300-0').addService(googletag.pubads());
-      googletag.pubads().enableSingleRequest();
-      googletag.enableServices();
-    });
+    if (window.googletag) {
+      googletag.cmd.push(() => {
+        googletag.defineSlot('/5626790/Community', [300, 250], 'div-gpt-ad-1495110800300-0').addService(googletag.pubads());
+        googletag.pubads().enableSingleRequest();
+        googletag.enableServices();
+      });
+    }
   }
 
   render() {

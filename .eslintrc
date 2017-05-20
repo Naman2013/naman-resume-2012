@@ -6,6 +6,8 @@
   },
   "globals": {
     "test": true,
+    "it": true,
+    "expect": true,
   },
   "eslintConfig": {
     "env": {
