@@ -10,9 +10,11 @@ class GoogleAd extends Component {
   };
 
   componentDidMount() {
+    const { adURL, adWidth, adHeight, targetDivID } = this.props;
+
     if (window.googletag) {
       googletag.cmd.push(() => {
-        googletag.defineSlot('/5626790/Community', [300, 250], 'div-gpt-ad-1495110800300-0').addService(googletag.pubads());
+        googletag.defineSlot(adURL, [adWidth, adHeight], targetDivID).addService(googletag.pubads());
         googletag.pubads().enableSingleRequest();
         googletag.enableServices();
       });
