@@ -12,7 +12,6 @@ import CommunityPerspectives from '../components/common/community-perspectives/c
 import Sponsors from '../components/home/sponsors';
 import Dedication from '../components/home/slooh-extras/dedication';
 import Featured from '../components/home/slooh-extras/featured';
-import TwitterFeed from '../components/home/slooh-extras/twitter-feed';
 import style from './home.scss';
 
 import { fetchCommunityContent }
@@ -34,7 +33,7 @@ const mapDispatchToProps = dispatch => ({
 });
 
 @connect(mapStateToProps, mapDispatchToProps)
-class Home extends Component {
+class HomeHeroVariant extends Component {
   componentWillMount() {
     this.props.actions.fetchCommunityContent();
 
@@ -76,7 +75,13 @@ class Home extends Component {
 
     return (
       <div className={`${style.homeContainer} clearfix`}>
-        <Hero {...heroProps} />
+        {
+          homeContent && heroProps.heroEventId !== 0 ?
+            <Hero {...heroProps} /> :
+            <HeroInspire
+              {...heroProps}
+            />
+        }
 
         <div className="clearfix">
           {this.generateRecentVideoTiles()}
@@ -122,10 +127,10 @@ class Home extends Component {
   }
 }
 
-Home.defaultProps = {
+HomeHeroVariant.defaultProps = {
   communityContent: {
     posts: [],
   },
 };
 
-export default Home;
+export default HomeHeroVariant;
