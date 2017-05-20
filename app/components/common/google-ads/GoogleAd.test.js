@@ -6,7 +6,7 @@ const TEST_DATA = {
   targetDivID: 'advertisement-target',
   adURL: 'slooh.com',
   adWidth: 300,
-  adHeight: 300,
+  adHeight: 250,
 };
 
 it('renders correctly', () => {

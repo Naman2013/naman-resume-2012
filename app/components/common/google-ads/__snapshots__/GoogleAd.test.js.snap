@@ -3,5 +3,11 @@
 exports[`renders correctly 1`] = `
 <div
   id="advertisement-target"
+  style={
+    Object {
+      "height": 250,
+      "width": 300,
+    }
+  }
 />
 `;

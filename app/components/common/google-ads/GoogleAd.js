@@ -27,10 +27,14 @@ class GoogleAd extends Component {
   }
 
   render() {
-    const { targetDivID } = this.props;
+    const { targetDivID, adWidth, adHeight } = this.props;
+    const adInlineStyle = {
+      width: adWidth,
+      height: adHeight,
+    };
 
     return (
-      <div id={targetDivID} />
+      <div style={adInlineStyle} id={targetDivID} />
     );
   }
 }
