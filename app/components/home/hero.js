@@ -1,16 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
-import { connect } from 'react-redux';
 import isExternalURL from '../../utils/is-external-url';
 import style from './hero.scss';
 import ScrollForMore from '../common/scroll-for-more';
 
-const mapStateToProps = ({ appConfig }) => ({
-  registerNewSloohCrewURL: appConfig.registerNewSloohCrewURL,
-});
-
-@connect(mapStateToProps)
 class Hero extends Component {
   renderCallToAction(buttonUrl) {
     const { heroButtonText } = this.props;

@@ -5,12 +5,15 @@
   call to action
   */
 import React, { Component } from 'react';
+import { Link } from 'react-router'
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import style from './hero-inspire.scss';
 
 import ScrollForMore from '../common/scroll-for-more';
 import isMobileScreenSize from '../../utils/content-loading-conditions';
+import isExternalURL from '../../utils/is-external-url';
+
 
 class HeroInspire extends Component {
   state = {
@@ -37,12 +40,22 @@ class HeroInspire extends Component {
 
   videoRenderedTimer = null;
 
+  renderCallToAction(buttonUrl) {
+    const { heroButtonText } = this.props;
+    const URLIsExternal = isExternalURL(buttonUrl);
+    return URLIsExternal ?
+      <a className="action" href={buttonUrl}>{heroButtonText}</a> :
+      <Link className="action" to={buttonUrl}>{heroButtonText}</Link>
+  }
+
   render() {
     const {
       heroHeadline,
       heroSubheadline,
       heroButtonText,
       heroButtonURL,
+      heroEventIsLive,
+      heroEventId,
     } = this.props;
 
     const { videoLoaded } = this.state;
@@ -54,6 +67,12 @@ class HeroInspire extends Component {
     const videoClassnames = classnames(`${style.videoBackground}`, {
       maxOpacity: videoLoaded,
     });
+
+    const buttonUrl = heroEventId === 0 ? heroButtonURL :
+      // construct link for space situation room
+      heroEventIsLive ? '/shows/situation-room' :
+      // construct link for video event page
+      `/shows/event-details/${heroEventId}`;
 
     return (
       <div
@@ -77,9 +96,11 @@ class HeroInspire extends Component {
           <img className={style.iconSpacer} alt="" src="assets/icons/three-amigos-with-bar.svg" />
 
           <div className="call-to-action">
-            <a className="action" href={heroButtonText}>
-              {heroButtonText}
-            </a>
+            {
+              buttonUrl ?
+                this.renderCallToAction(buttonUrl) :
+                <div style={{ width: '100px', height: '100px' }} />
+            }
           </div>
         </div>
 
