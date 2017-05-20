@@ -34,7 +34,26 @@ class GoogleAd extends Component {
     };
 
     return (
-      <div style={adInlineStyle} id={targetDivID} />
+      <div className="root">
+        <div className="advertisement" id={targetDivID} style={adInlineStyle} />
+        <p>Advertisement</p>
+
+        <style jsx>
+          {`
+            .root {
+              text-align: center;
+            }
+
+            .advertisement {
+              margin: 0 auto;
+            }
+
+            p {
+              font-size: 10px;
+              margin-top: 10px;
+            }
+          `}</style>
+      </div>
     );
   }
 }

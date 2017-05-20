@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import GenericLoadingBox from '../../components/common/loading-screens/generic-loading-box';
 import PulsePopular from '../../components/pulse/sidebar/pulse-popular';
 import MissionAd from '../../components/missions/mission-ad';
+import GoogleAd from '../../components/common/google-ads/GoogleAd';
 import SloohRecommends from '../../components/common/recommendations/SloohRecommends';
-import { getRandomAdvertisementIndex } from '../../modules/utils';
 
 const mapStateToProps = ({ latestPosts }) => ({
   page: latestPosts.page,
@@ -43,12 +43,8 @@ class PulseWrapper extends Component {
 
   constructor(props) {
     super(props);
-
     const { fetchLatestPosts, childPath, route: { path }, page } = this.props;
     fetchLatestPosts(path, childPath, page);
-
-
-    this.randomAdIdx = getRandomAdvertisementIndex();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -89,7 +85,13 @@ class PulseWrapper extends Component {
         </div>
 
         <div className="col-md-4 mission-sidebar">
-          <MissionAd index={this.randomAdIdx} />
+          <GoogleAd
+            adURL={'/5626790/Community'}
+            adWidth={300}
+            adHeight={250}
+            targetDivID={'div-gpt-ad-1495110800300-0'}
+          />
+
           {
             popularPosts.itemList.length > 0 ?
               <PulsePopular
