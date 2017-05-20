@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Hero from '../components/home/hero';
+import HeroInspire from '../components/home/hero-inspire';
 import RecentVideoTile from '../components/home/recent-video-tile';
 import PromoMessageBand from '../components/common/headers/promo-message-band';
 import LargeBannerHeading from '../components/home/large-banner-heading';
@@ -18,9 +19,10 @@ import { fetchCommunityContent }
   from '../modules/community-content/get-object-content-actions';
 import { getHomePage, trackUser } from '../modules/home-content/actions';
 
-const mapStateToProps = ({ communityContent, homeContent }) => ({
+const mapStateToProps = ({ communityContent, homeContent, appConfig }) => ({
   communityContent: communityContent.communityContent,
   homeContent,
+  appConfig,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -64,17 +66,16 @@ class Home extends Component {
   }
 
   render() {
-    const { homeContent } = this.props;
+    const { homeContent, appConfig } = this.props;
     const { posts } = this.props.communityContent;
 
-    let heroProps = {};
+    const heroProps = {};
     Object.keys(homeContent).filter(key => /^hero/.test(key)).forEach((key) => {
       heroProps[key] = homeContent[key];
     });
 
     return (
       <div className={`${style.homeContainer} clearfix`}>
-
         <Hero {...heroProps} />
 
         <div className="clearfix">

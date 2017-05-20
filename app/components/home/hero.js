@@ -1,23 +1,18 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router';
-import { connect } from 'react-redux';
 import isExternalURL from '../../utils/is-external-url';
 import style from './hero.scss';
 import ScrollForMore from '../common/scroll-for-more';
 
-const mapStateToProps = ({ appConfig }) => ({
-  registerNewSloohCrewURL: appConfig.registerNewSloohCrewURL,
-});
-
-@connect(mapStateToProps)
 class Hero extends Component {
   renderCallToAction(buttonUrl) {
-    const { heroButtonText, heroButtonURL, registerNewSloohCrewURL } = this.props;
-    // const URLIsExternal = isExternalURL(heroButtonURL);
-    // TODO: this is temporary until we have the API return absolute URL's
+    const { heroButtonText } = this.props;
+    // considered temporary HAXXX
+    // const URLIsExternal = isExternalURL(buttonUrl);
     return buttonUrl === '/join.php?type=r' ?
-      <a className="action" href={registerNewSloohCrewURL}>{heroButtonText}</a> :
-      <Link className="action" to={heroButtonURL}>{heroButtonText}</Link>
+      <a className="action" href={`${window.location.hostname}${buttonUrl}`}>{heroButtonText}</a> :
+      <Link className="action" to={buttonUrl}>{heroButtonText}</Link>
   }
 
   render() {
@@ -54,7 +49,7 @@ class Hero extends Component {
 
         <div className="fun-fact-container">
           <figure>
-            {heroFactoidIconURL ? <img width="50" src={heroFactoidIconURL} /> : null}
+            {heroFactoidIconURL ? <img alt="" width="50" src={heroFactoidIconURL} /> : null}
             {heroFactoidText ? <figcaption className="fun-fact-text">
               <i>{heroFactoidText}</i>
             </figcaption> : null}
