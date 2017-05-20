@@ -90,6 +90,7 @@
     "babel-runtime": "^6.11.6",
     "copy-webpack-plugin": "^3.0.1",
     "css-loader": "^0.24.0",
+    "enzyme": "^2.8.2",
     "eslint": "^3.13.1",
     "eslint-config-airbnb": "^14.0.0",
     "eslint-plugin-import": "^2.2.0",
