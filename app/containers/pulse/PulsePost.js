@@ -6,9 +6,8 @@ import GenericLoadingBox from '../../components/common/loading-screens/generic-l
 import PulsePopular from '../../components/pulse/sidebar/pulse-popular';
 import SloohRecommends from '../../components/common/recommendations/SloohRecommends';
 import CommunityPostHeader from '../../components/community/community-post-header';
-import MissionAd from '../../components/missions/mission-ad';
+import GoogleAd from '../../components/common/google-ads/GoogleAd';
 import { fetchPost, fetchAuthorContent } from '../../modules/pulse/get-post-action';
-import { getRandomAdvertisementIndex } from '../../modules/utils';
 import PulsePostContent from '../../pages/pulse/pulse-post';
 
 function mapStateToProps({ post }, ownProps) {
@@ -35,8 +34,6 @@ class PulsePost extends Component {
 
   constructor(props) {
     super(props);
-
-    this.randomAdIdx = getRandomAdvertisementIndex();
     props.actions.fetchPost(this.props.id);
   }
 
@@ -108,13 +105,24 @@ class PulsePost extends Component {
                 <h3 className="center">More posts from this author</h3>
                 <hr />
                 {authorContent.posts.map(data => <PulsePostContent showExcerpt="true" post={data} key={data.postId} />)}
-                <Pagination onChange={this.fetchMoreAuthorPosts} defaultPageSize={authorContent.count} current={authorContent.page} total={authorContent.postsCount} />
+                <Pagination
+                  onChange={this.fetchMoreAuthorPosts}
+                  defaultPageSize={authorContent.count}
+                  current={authorContent.page}
+                  total={authorContent.postsCount}
+                />
               </div>
             }
           </div>
 
           <aside className="col-md-4 mission-sidebar">
-            <MissionAd index={this.randomAdIdx} />
+            <GoogleAd
+              adURL={'/5626790/Community'}
+              adWidth={300}
+              adHeight={250}
+              targetDivID={'div-gpt-ad-1495110800300-0'}
+            />
+
             {
               showRecommends ?
                 <SloohRecommends
