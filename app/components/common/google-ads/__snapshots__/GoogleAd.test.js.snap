@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div
+  className="root"
+  data-jsx={924738684}
+>
+  <div
+    className="advertisement"
+    data-jsx={924738684}
+    id="advertisement-target"
+    style={
+      Object {
+        "height": 250,
+        "width": 300,
+      }
+    }
+  />
+  <p
+    data-jsx={924738684}
+  >
+    Advertisement
+  </p>
+  <style
+    jsx={true}
+  >
+    
+                .root {
+                  text-align: center;
+                  margin-bottom: 10px;
+                }
+    
+                .advertisement {
+                  margin: 0 auto;
+                }
+    
+                p {
+                  font-size: 10px;
+                  margin-top: 5px;
+                }
+              
+  </style>
+</div>
+`;

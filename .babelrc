@@ -1,0 +1,4 @@
+{
+  "plugins": ["transform-react-jsx", "transform-class-properties", "styled-jsx/babel"],
+  "presets": ["es2015", "es2016", "es2017", "react"]
+}

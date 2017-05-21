@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 import MissionUpdates from '../components/missions/mission-updates';
 import MissionAd from '../components/missions/mission-ad';
+import GoogleAd from '../components/common/google-ads/GoogleAd';
 import MissionUpcoming from '../components/missions/mission-upcoming';
 import { getRandomAdvertisementIndex } from '../modules/utils';
 
@@ -84,7 +85,12 @@ export default class SloohRecommends extends Component {
           </div>
 
           <div className="col-md-4 mission-sidebar">
-            <MissionAd index={this.randomAdIdx} />
+            <GoogleAd
+              adURL={'/5626790/Recommends'}
+              adWidth={300}
+              adHeight={250}
+              targetDivID={'div-gpt-ad-1495111021281-0'}
+            />
             <MissionUpcoming />
             <MissionUpdates updates={announcements} />
           </div>

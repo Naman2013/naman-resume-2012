@@ -2,16 +2,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import moment from 'moment';
-import SocialSidebar from '../../components/pulse/sidebar/social-sidebar';
 import Header from '../../components/situation-room/Header';
 import SituationVideoViewer from '../../components/situation-room/SituationVideoViewer';
-import EventDetails from '../../components/situation-room/EventDetails';
 import CommunityMashup from '../../components/situation-room/CommunityMashup';
-import MissionAd from '../../components/missions/mission-ad';
+import GoogleAd from '../../components/common/google-ads/GoogleAd';
 import { fetchEvents } from '../../modules/upcoming-events/upcoming-events-actions';
 import { fetchSituationRoom, fetchEventsAndSituationRoom } from '../../modules/SituationRoom';
-import { getRandomAdvertisementIndex } from '../../modules/utils';
 
 import s from './SituationRoom.scss';
 
@@ -35,12 +31,6 @@ const mapStateToProps = ({ upcomingEvents, liveShows, communityShowContent }, ow
 
 @connect(mapStateToProps, mapDispatchToProps)
 class SituationRoom extends Component {
-  constructor(props) {
-    super(props);
-
-    this.randomAdIdx = getRandomAdvertisementIndex();
-
-  }
   componentWillMount() {
     this.props.actions.fetchEventsAndSituationRoom();
   }
@@ -98,8 +88,12 @@ class SituationRoom extends Component {
         </div>
 
         <div className="col-md-3">
-          <MissionAd size="300x600" index={this.randomAdIdx} />
-          {/* <SocialSidebar /> */}
+          <GoogleAd
+            adURL={'/5626790/SituationRoom'}
+            adWidth={300}
+            adHeight={600}
+            targetDivID={'div-gpt-ad-1495111054219-0'}
+          />
         </div>
 
       </section>

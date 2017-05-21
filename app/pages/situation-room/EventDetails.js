@@ -5,7 +5,7 @@ import EventHero from '../../components/event-details/EventHero';
 import EventDescription from '../../components/event-details/EventDescription';
 import GenericLoadingBox from '../../components/common/loading-screens/generic-loading-box';
 import EventHosts from '../../components/event-details/EventHosts';
-import PulseRecommended from '../../components/pulse/sidebar/pulse-recommends';
+import GoogleAd from '../../components/common/google-ads/GoogleAd';
 import SloohRecommends from '../../components/common/recommendations/SloohRecommends';
 import PulsePopular from '../../components/pulse/sidebar/pulse-popular';
 import s from './EventDetails.scss';
@@ -68,7 +68,12 @@ class EventDetails extends Component {
               <EventHosts hosts={eventContent.hosts} />
             </section>
             <aside className="sideBar col-md-4">
-
+              <GoogleAd
+                adURL={'/5626790/EventPages'}
+                adWidth={300}
+                adHeight={250}
+                targetDivID={'div-gpt-ad-1495118105329-0'}
+              />
               {
                 recommends.length > 0 ?
                   <SloohRecommends

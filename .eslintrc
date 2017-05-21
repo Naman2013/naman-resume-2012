@@ -4,4 +4,16 @@
   "rules": {
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
   },
+  "globals": {
+    "test": true,
+    "it": true,
+    "expect": true,
+    "window": true,
+  },
+  "eslintConfig": {
+    "env": {
+      "browser": true,
+      "node": true
+    }
+  }
 }
