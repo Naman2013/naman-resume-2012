@@ -3,10 +3,8 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import MissionUpdates from '../components/missions/mission-updates';
-import MissionAd from '../components/missions/mission-ad';
 import GoogleAd from '../components/common/google-ads/GoogleAd';
 import MissionUpcoming from '../components/missions/mission-upcoming';
-import { getRandomAdvertisementIndex } from '../modules/utils';
 
 import {
   missionGetCards,
@@ -34,11 +32,6 @@ export default class SloohRecommends extends Component {
     children: element,
     actions: object.isRequired
   };
-
-  constructor(props) {
-    super(props);
-    this.randomAdIdx = getRandomAdvertisementIndex();
-  }
 
   componentDidMount() {
     this.props.actions.missionGetCards();
