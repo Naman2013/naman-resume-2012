@@ -89,7 +89,7 @@ class HeroInspire extends Component {
         {
           isMobileScreenSize() ?
             <div className={`${style.videoBackground} ${style.staticImageBackground} ${style.maxOpacity}`} /> :
-            <video id="heroInspireVideoBackground" className={videoClassnames} playsInline autoPlay muted>
+            <video id="heroInspireVideoBackground" className={videoClassnames} playsInline autoPlay muted loop>
               <source src="assets/video/stars-high-720.webm" type="video/webm" />
               <source src="assets/video/stars-high-720.mp4" type="video/mp4" />
             </video>

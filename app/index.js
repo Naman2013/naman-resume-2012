@@ -35,7 +35,6 @@ import DiscussionsTopicsWrapper from './containers/discussions/DiscussionsTopics
 
 // pages
 import Home from './pages/home';
-import HomeHeroVariant from './pages/home-hero-variant';
 import TelescopeOverview from './pages/telescope-overview';
 import TelescopeDetails from './pages/telescope-details/telescope-details';
 import NewMissions from './pages/new-missions';
@@ -156,9 +155,6 @@ ReactDOM.render(
 
       <Route path="/" component={App}>
         <IndexRoute component={Home} onEnter={validateUser} />
-        <Route path="%2Fnew-video-hero" component={HomeHeroVariant} onEnter={validateUser} />
-
-        <Route path="%2Fnew-video-hero" component={HomeHeroVariant} onEnter={validateUser} />
 
         <Route path="telescope-overview/:observatoryId" component={TelescopeOverview} onEnter={validateUser} />
 

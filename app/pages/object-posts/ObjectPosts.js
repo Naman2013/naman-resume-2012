@@ -5,7 +5,6 @@ import SloohRecommends from '../../components/common/recommendations/SloohRecomm
 import OtherFeaturedObjects from '../../components/common/OtherFeaturedObjects/OtherFeaturedObjects';
 import Guardian from '../../components/common/guardian/Guardian';
 import GenericLoadingBox from '../../components/common/loading-screens/generic-loading-box';
-import MissionAd from '../../components/missions/mission-ad';
 
 const mapStateToProps = ({ objectPostList }) => ({
   fetchingPosts: objectPostList.fetching,
