@@ -7,8 +7,8 @@ class SloohFeatures extends Component {
       <div className="col-md-4">
         <div className="slooh-features-container col-md-12">
           <img src={this.props.tierIconURL} width="50" />
-          <h5 className="title">{this.props.tierTitle}</h5>
-          <p className="content">{this.props.tierDescription}</p>
+          <h5 className="title" dangerouslySetInnerHTML={{ __html: this.props.tierTitle }} />
+          <p className="content" dangerouslySetInnerHTML={{ __html: this.props.tierDescription }} />
           <a className="action" href={this.props.tierButtonURL}>{this.props.tierButtonText}</a>
         </div>
       </div>
