@@ -8,6 +8,7 @@ function BookclubHandoff() {
     <div className="bookclub-container">
       <Header />
       <Description />
+      <img alt="Book" className="bookclub-img" src="/assets/images/bookclub/KindlePromo.png" />
       <style jsx>{`
 
         .bookclub-container {

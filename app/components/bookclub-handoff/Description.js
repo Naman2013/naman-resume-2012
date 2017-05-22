@@ -1,5 +1,6 @@
 import React from 'react';
 import { darkBlueGray, gray } from '../../styles/variables/colors';
+import { secondaryFont, primaryFont } from '../../styles/variables/fonts';
 
 
 function Description() {
@@ -29,6 +30,7 @@ function Description() {
         .description-title {
           text-transform: uppercase;
           margin: 10px 0;
+          font-family: ${primaryFont};
         }
         .description-main {
           border-top: 1px solid ${gray};
@@ -36,6 +38,7 @@ function Description() {
           flex-direction: row;
           justify-content: space-between;
           padding-top: 15px;
+          font-family: ${secondaryFont};
         }
         .description-leftpanel {
           flex: 1;
