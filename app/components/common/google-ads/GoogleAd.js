@@ -26,6 +26,10 @@ class GoogleAd extends Component {
     }
   }
 
+  componentWillUnmount() {
+    window.googletag.destroySlots();
+  }
+
   render() {
     const { targetDivID, adWidth, adHeight } = this.props;
     const adInlineStyle = {
