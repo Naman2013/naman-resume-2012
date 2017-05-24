@@ -160,7 +160,7 @@ class TelescopeImageLoader extends Component {
     this.sseSource = new EventSource(this.props.imageSource);
     this.sseSource.addEventListener(
       'message',
-      event => this.handleSourceImage(event.data), false );
+      event => this.handleSourceImage(event.data), false);
   }
 
   detachSSE() {

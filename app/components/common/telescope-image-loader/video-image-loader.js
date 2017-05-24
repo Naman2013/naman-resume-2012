@@ -1,23 +1,55 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import generateSseImageLoader from '../../../utils/generate-sse-image-source';
-import style from './video-image-loader.scss';
+import { setImageDataToSnapshot } from '../../../modules/Telescope-Overview';
+import './video-image-loader.scss';
 
 const SSE = 'SSE';
 
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators({
+    setImageDataToSnapshot,
+  }, dispatch),
+});
+
+@connect(mapDispatchToProps)
 class VideoImageLoader extends Component {
 
   componentDidMount() {
     const { teleSystem, telePort, cameraSourceType } = this.props;
     if (cameraSourceType === SSE) {
-      // TODO: generate an SSE eventsource URL
-      // TODO: connect to the SSE eventsource and provide the callback
+      const eventSourceURL = generateSseImageLoader(teleSystem, telePort);
+      this.sseSource = new EventSource(eventSourceURL);
+      this.sseSource.addEventListener('message', event => this.handleEventSource(event.data), false);
     }
   }
 
   componentWillUnmount() {
-    // TODO: tear down the EventSource
+    this.sseSource.close();
+    this.sseSource.removeEventListener('message', this.handleEventSource);
+  }
+
+  handleEventSource(imageData) {
+    const {
+      astroObjectID,
+      currentImgURL,
+      imageID,
+      messageType,
+      scheduledMissionID,
+    } = JSON.parse(imageData);
+
+    if (messageType !== 'HEARTBEAT') {
+      // assign the image URL to the image data for processing later
+      this.props.actions.setImageDataToSnapshot({
+        imageURL: currentImgURL,
+        imageID,
+        scheduledMissionID,
+        astroObjectID,
+      });
+    }
   }
 
   generateIFrameUrl() {
@@ -69,6 +101,9 @@ VideoImageLoader.propTypes = {
   telePort: PropTypes.string.isRequired,
   cameraSourceType: PropTypes.string.isRequired,
   clipped: PropTypes.bool,
+  actions: PropTypes.shape({
+    setImageDataToSnapshot: PropTypes.func.isRequired,
+  }).isRequired,
 };
 
 export default VideoImageLoader;
