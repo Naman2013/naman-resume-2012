@@ -44,9 +44,8 @@ class TelescopeImageLoader extends Component {
     const { teleThumbWidth, loadThumbnails } = this.props;
     if (loadThumbnails) {
       return `/util/thumbnail.php?url=${imageUrl}&dimension=W&size=${teleThumbWidth}`;
-    } else {
-      return imageUrl;
     }
+    return imageUrl;
   }
 
   handleSourceImage(imageData) {
