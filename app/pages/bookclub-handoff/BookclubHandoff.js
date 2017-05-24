@@ -9,7 +9,7 @@ function BookclubHandoff() {
     <div className="bookclub-container">
       <Header />
       <Description />
-      <img alt="Book" className="bookclub-img" src="/assets/images/bookclub/KindlePromo.png" />
+      <img alt="Book" className="bookclub-img" src="assets/images/bookclub/KindlePromo.png" />
       <Footer />
       <style jsx>{`
 
