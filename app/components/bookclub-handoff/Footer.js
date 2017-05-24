@@ -42,7 +42,6 @@ class Footer extends Component {
   constructor(props) {
     super(props);
     props.actions.fetchContent({
-      count: 10,
       slug: 'space-book-club',
       slugLookupId: '611',
     });
@@ -52,6 +51,7 @@ class Footer extends Component {
     const {
       communityPosts
     } = this.props;
+
     return (
       <div>
         <img alt="Book" className="bookclub-img" src="/assets/images/bookclub/Space_BookClub_Logo.png" />
