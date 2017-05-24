@@ -110,7 +110,7 @@ class Description extends Component {
         <style jsx>{`
           .description-container {
             color: ${darkBlueGray};
-            padding: 100px 250px;
+            padding: 75px 250px;
             font-size: 19px;
           }
           .description-title {

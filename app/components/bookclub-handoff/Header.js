@@ -35,7 +35,7 @@ function Header() {
         .title-text {
           margin-left: 150px;
           text-transform: uppercase;
-          color: ${white}
+          color: ${white};
         }
         .primary-text {
           font-weight: bold;
