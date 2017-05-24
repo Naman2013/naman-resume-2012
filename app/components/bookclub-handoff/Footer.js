@@ -57,7 +57,7 @@ class Footer extends Component {
           <img alt="Book" className="bookclub-img" src="/assets/images/bookclub/Space_BookClub_Logo.png" />
         </div>
         <div className="community-title center">
-          <span className="community-name">Community Perspectives</span>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="/publish-post" className="community-link">Upload your own</a>
+          Community Perspectives&nbsp;&nbsp;|&nbsp;&nbsp;<a href="/#/publish-post" className="community-link">Upload your own</a>
         </div>
         <CommunityPerspectives
           communityContent={communityPosts}
@@ -65,22 +65,21 @@ class Footer extends Component {
         <style jsx>{`
           a.community-link {
             color: ${pink};
-          }
-          .community-name {
-            font-size: .9rem;
-            text-transform: uppercase;
+            cursor: pointer;
           }
           .center {
             margin: 0 auto;
           }
           .logo-container {
-            margin-top: 75px;
-            margin-bottom: 75px;
+            margin-top: 50px;
+            margin-bottom: 50px;
             text-align: center;
             width: 250px;
           }
           .community-title {
+            text-transform: uppercase;
             margin-bottom: 25px;
+            font-weight: bold;
           }
         `}</style>
       </div>

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Modal from 'react-modal';
+import { pink } from '../../styles/variables/colors';
+import { profilePhotoStyle } from '../../styles/mixins/utilities';
 
 export const profilePhotoWrapperStyle = `
   .profile-photo {
@@ -11,62 +12,72 @@ export const profilePhotoWrapperStyle = `
 `;
 class PersonDetail extends Component {
 
+  static defaultProps = {
+    photo: '',
+    firstName: '',
+    lastName: '',
+    bio: '',
+    toggleModal: null,
+  };
+
+  static propTypes = {
+    photo: PropTypes.string,
+    lastName: PropTypes.string,
+    firstName: PropTypes.string,
+    bio: PropTypes.string,
+    toggleModal: PropTypes.func,
+  };
+
   render() {
     const {
       toggleModal,
       photo,
-      name,
+      firstName,
+      lastName,
       bio,
       index,
     } = this.props;
 
-    const profilePhotoStyle = {
-      'backgroundImage': `url(${photo})`,
-      height: '100px',
-      width: '100px',
-      borderRadius: '50%',
-      backgroundSize: '100%',
-      backgroundPosition: 'center',
-      display: 'inline-block'
-    };
-
     return (
       <div className="person-detail">
-        <div className="profile-photo" style={profilePhotoStyle}></div>
+        <div className="profile-photo" style={profilePhotoStyle(photo)}></div>
 
         <div className="profile-name">
           <h4 className="username">
-            {name}
+            <div>{firstName}</div>
+            <div>{lastName}</div>
           </h4>
           <a onClick={() => toggleModal(true, index)} className="link">View Bio</a>
         </div>
 
         <style jsx>{`
-          .person-detail {}
-          .profile-name {
-            display: inline-block
+          .person-detail {
+            display: flex;
+            flex-direction: row;
+            margin-bottom: 15px;
           }
-          .username {}
-          .link {}
+          .profile-name {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            margin-left: 25px;
+          }
+          .username {
+            font-size: 16px;
+            text-transform: uppercase;
+            font-weight: bold;
+          }
+          a.link {
+            color: ${pink};
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: bold;
+          }
           ${profilePhotoWrapperStyle}
           `}</style>
       </div>
     );
   }
 }
-
-PersonDetail.defaultProps = {
-  photo: '',
-  name: '',
-  bio: '',
-  toggleModal: null,
-};
-
-PersonDetail.propTypes = {
-  photo: PropTypes.string,
-  name: PropTypes.string,
-  bio: PropTypes.string,
-  toggleModal: PropTypes.func,
-};
 
 export default PersonDetail;

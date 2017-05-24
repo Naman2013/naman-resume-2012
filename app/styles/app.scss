@@ -257,3 +257,8 @@ img {
   text-align: center;
   margin: 50px auto;
 }
+
+// React Modal
+.ReactModal__Overlay {
+  z-index: 9999;
+}
