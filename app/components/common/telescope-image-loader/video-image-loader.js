@@ -4,7 +4,21 @@ import classnames from 'classnames';
 import generateSseImageLoader from '../../../utils/generate-sse-image-source';
 import style from './video-image-loader.scss';
 
+const SSE = 'SSE';
+
 class VideoImageLoader extends Component {
+
+  componentDidMount() {
+    const { teleSystem, telePort, cameraSourceType } = this.props;
+    if (cameraSourceType === SSE) {
+      // TODO: generate an SSE eventsource URL
+      // TODO: connect to the SSE eventsource and provide the callback
+    }
+  }
+
+  componentWillUnmount() {
+    // TODO: tear down the EventSource
+  }
 
   generateIFrameUrl() {
     const { teleStreamCode } = this.props;
@@ -53,7 +67,7 @@ VideoImageLoader.propTypes = {
   teleStreamThumbnailQuality: PropTypes.string.isRequired,
   teleSystem: PropTypes.string.isRequired,
   telePort: PropTypes.string.isRequired,
-  teleAccessMethod: PropTypes.string.isRequired,
+  cameraSourceType: PropTypes.string.isRequired,
   clipped: PropTypes.bool,
 };
 
