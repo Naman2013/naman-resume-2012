@@ -78,7 +78,7 @@ class PulsePostContent extends Component {
           </figcaption>
 
           {
-            postTags.length > 0 ?
+            postTags && postTags.length > 0 ?
               <PulsePostTag tags={postTags} /> : null
           }
 
