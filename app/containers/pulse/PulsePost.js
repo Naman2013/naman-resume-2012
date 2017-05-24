@@ -7,7 +7,7 @@ import PulsePopular from '../../components/pulse/sidebar/pulse-popular';
 import SloohRecommends from '../../components/common/recommendations/SloohRecommends';
 import CommunityPostHeader from '../../components/community/community-post-header';
 import GoogleAd from '../../components/common/google-ads/GoogleAd';
-import { fetchPost, fetchAuthorContent } from '../../modules/pulse/get-post-action';
+import { fetchPost, fetchContent } from '../../modules/pulse/get-post-action';
 import PulsePostContent from '../../pages/pulse/pulse-post';
 
 function mapStateToProps({ post }, ownProps) {
@@ -21,7 +21,7 @@ function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators({
       fetchPost,
-      fetchAuthorContent,
+      fetchContent,
     }, dispatch),
   };
 }
@@ -46,8 +46,8 @@ class PulsePost extends Component {
   }
 
   fetchMoreAuthorPosts = (page) => {
-    const { actions, authorContent, post } = this.props;
-    actions.fetchAuthorContent({
+    const { actions, content, post } = this.props;
+    actions.fetchContent({
       page,
       authorId: post.customerId,
       ignorePostId: post.postId,
@@ -72,7 +72,7 @@ class PulsePost extends Component {
         objectId,
         slugLookupId,
       },
-      authorContent,
+      content,
     } = this.props;
     const recommendations = [Number(objectId)];
 
@@ -100,16 +100,16 @@ class PulsePost extends Component {
             {
               !fetching && failed ? <GenericLoadingBox text="This post is not available." /> : null
             }
-            {authorContent.posts &&
+            {content.posts &&
               <div>
                 <h3 className="center">More posts from this author</h3>
                 <hr />
-                {authorContent.posts.map(data => <PulsePostContent showExcerpt="true" post={data} key={data.postId} />)}
+                {content.posts.map(data => <PulsePostContent showExcerpt="true" post={data} key={data.postId} />)}
                 <Pagination
                   onChange={this.fetchMoreAuthorPosts}
-                  defaultPageSize={authorContent.count}
-                  current={authorContent.page}
-                  total={authorContent.postsCount}
+                  defaultPageSize={content.count}
+                  current={content.page}
+                  total={content.postsCount}
                 />
               </div>
             }

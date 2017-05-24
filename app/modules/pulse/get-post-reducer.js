@@ -10,9 +10,9 @@ import {
   FETCH_POPULAR_POSTS_SUCCESS,
   FETCH_MORE_ABOUT_OBJECT_START,
   FETCH_MORE_ABOUT_OBJECT_SUCCESS,
-  FETCH_AUTHOR_CONTENT_START,
-  FETCH_AUTHOR_CONTENT_SUCCESS,
-  FETCH_AUTHOR_CONTENT_FAIL,
+  FETCH_CONTENT_START,
+  FETCH_CONTENT_SUCCESS,
+  FETCH_CONTENT_FAIL,
 } from './get-post-action';
 
 const initialState = {
@@ -38,7 +38,7 @@ const initialState = {
     sectionTitle: '',
     sectionSubtitle: '',
   },
-  authorContent: {
+  content: {
     page: 1,
     count: 5,
   }
@@ -111,41 +111,41 @@ export default createReducer(initialState, {
   [FETCH_POST_FAIL](state, { payload }) {
     return {
       ...state,
-      authorContent: {},
+      content: {},
       error: payload,
       fetching: false,
       failed: true,
     };
   },
-  [FETCH_AUTHOR_CONTENT_START](state) {
+  [FETCH_CONTENT_START](state) {
     return {
       ...state,
-      authorContent: {
-        count: initialState.authorContent.count,
+      content: {
+        count: initialState.content.count,
       },
       error: {},
       fetching: true,
       failed: false,
     };
   },
-  [FETCH_AUTHOR_CONTENT_SUCCESS](state, { payload }) {
+  [FETCH_CONTENT_SUCCESS](state, { payload }) {
     return {
       ...state,
-      authorContent: {
+      content: {
         ...payload,
-        count: initialState.authorContent.count
+        count: initialState.content.count
       },
       error: {},
       fetching: false,
       failed: false,
     };
   },
-  [FETCH_AUTHOR_CONTENT_FAIL](state, { payload }) {
+  [FETCH_CONTENT_FAIL](state, { payload }) {
     return {
       ...state,
-      authorContent: {
+      content: {
         page: 1,
-        count: initialState.authorContent.count,
+        count: initialState.content.count,
       },
       error: payload,
       fetching: false,

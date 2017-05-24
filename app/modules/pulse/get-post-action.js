@@ -14,9 +14,9 @@ export const FETCH_POPULAR_POSTS_SUCCESS = 'FETCH_POPULAR_POSTS_SUCCESS';
 export const FETCH_MORE_ABOUT_OBJECT_START = 'FETCH_MORE_ABOUT_OBJECT_START';
 export const FETCH_MORE_ABOUT_OBJECT_SUCCESS = 'FETCH_MORE_ABOUT_OBJECT_SUCCESS';
 
-export const FETCH_AUTHOR_CONTENT_START = 'FETCH_AUTHOR_CONTENT_START';
-export const FETCH_AUTHOR_CONTENT_SUCCESS = 'FETCH_AUTHOR_CONTENT_SUCCESS';
-export const FETCH_AUTHOR_CONTENT_FAIL = 'FETCH_AUTHOR_CONTENT_FAIL';
+export const FETCH_CONTENT_START = 'FETCH_CONTENT_START';
+export const FETCH_CONTENT_SUCCESS = 'FETCH_CONTENT_SUCCESS';
+export const FETCH_CONTENT_FAIL = 'FETCH_CONTENT_FAIL';
 
 const fetchMoreAboutObjectStart = () => ({
   type: FETCH_MORE_ABOUT_OBJECT_START,
@@ -71,35 +71,45 @@ const fetchMeta = slugLookupId => (dispatch) => {
   .then(result => dispatch(fetchMetaSuccess(result.data)));
 };
 
-const fetchAuthorContentStart = () => ({
-  type: FETCH_AUTHOR_CONTENT_START,
+const fetchContentStart = () => ({
+  type: FETCH_CONTENT_START,
 });
 
-const fetchAuthorContentSuccess = payload => ({
-  type: FETCH_AUTHOR_CONTENT_SUCCESS,
+const fetchContentSuccess = payload => ({
+  type: FETCH_CONTENT_SUCCESS,
   payload,
 });
 
-const fetchAuthorContentFail = payload => ({
-  type: FETCH_AUTHOR_CONTENT_SUCCESS,
+const fetchContentFail = payload => ({
+  type: FETCH_CONTENT_SUCCESS,
   payload,
 });
 
-export const fetchAuthorContent = ({ page = 1, ignorePostId, authorId }) => (dispatch, getState) => {
+export const fetchContent = ({
+  page = 1,
+  ignorePostId,
+  authorId,
+  slug,
+  slugLookupId,
+  callSource = 'community',
+}) => (dispatch, getState) => {
   const { cid, at, token } = getState().user;
-  const { authorContent } = getState().post;
-  dispatch(fetchAuthorContentStart());
+  const { content } = getState().post;
+  dispatch(fetchContentStart());
   return axios.post(' /api/content/getContent', {
     cid,
     at,
     token,
-    excludePosts: [ignorePostId],
+    callSource,
+    excludePosts: ignorePostId ? [ignorePostId] : null,
     authorId,
     page,
-    count: authorContent.count,
+    slug,
+    slugLookupId,
+    count: content.count,
   })
-  .then(result => dispatch(fetchAuthorContentSuccess(Object.assign({ page }, result.data))))
-  .catch(error => dispatch(fetchAuthorContentFail(error)));
+  .then(result => dispatch(fetchContentSuccess(Object.assign({ page }, result.data))))
+  .catch(error => dispatch(fetchContentFail(error)));
 };
 
 
@@ -142,7 +152,7 @@ export const fetchPost = id => (dispatch, getState) => {
         slugLookupId: result.data.posts[0].slugLookupId,
         ignorePostId: id,
       }));
-      dispatch(fetchAuthorContent({
+      dispatch(fetchContent({
         authorId: result.data.posts[0].customerId,
         ignorePostId: id,
       }));
