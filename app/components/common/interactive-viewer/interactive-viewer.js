@@ -165,7 +165,8 @@ class InteractiveViewer extends Component {
         <div style={interactivePanelStyle} className="interactive-viewer">
 
           <div
-            className="interactive-panel">
+            className="interactive-panel"
+          >
 
             <div
               id="interactive-content-container"

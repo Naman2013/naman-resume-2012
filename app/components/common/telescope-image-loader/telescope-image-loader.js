@@ -254,7 +254,7 @@ TelescopeImageLoader.propTypes = {
   obsId: PropTypes.string,
   domeId: PropTypes.string,
   teleThumbWidth: PropTypes.string,
-  teleFade: PropTypes.string,
+  teleFade: PropTypes.number,
   loadThumbnails: PropTypes.bool,
   missionFormat: PropTypes.string,
 };

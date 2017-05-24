@@ -1,5 +1,7 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import classnames from 'classnames';
+import generateSseImageLoader from '../../../utils/generate-sse-image-source';
 import style from './video-image-loader.scss';
 
 class VideoImageLoader extends Component {
@@ -44,11 +46,14 @@ VideoImageLoader.defaultProps = {
 };
 
 VideoImageLoader.propTypes = {
-  teleStreamCode: PropTypes.string,
-  teleStreamURL: PropTypes.string,
-  teleStreamThumbnailVideoWidth: PropTypes.string,
-  teleStreamThumbnailVideoHeight: PropTypes.string,
-  teleStreamThumbnailQuality: PropTypes.string,
+  teleStreamCode: PropTypes.string.isRequired,
+  teleStreamURL: PropTypes.string.isRequired,
+  teleStreamThumbnailVideoWidth: PropTypes.string.isRequired,
+  teleStreamThumbnailVideoHeight: PropTypes.string.isRequired,
+  teleStreamThumbnailQuality: PropTypes.string.isRequired,
+  teleSystem: PropTypes.string.isRequired,
+  telePort: PropTypes.string.isRequired,
+  teleAccessMethod: PropTypes.string.isRequired,
   clipped: PropTypes.bool,
 };
 

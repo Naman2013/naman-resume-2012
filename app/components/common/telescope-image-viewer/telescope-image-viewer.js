@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import InteractiveViewer from '../interactive-viewer/interactive-viewer';
 import TelescopeImageLoader from '../telescope-image-loader/telescope-image-loader';
 import generateSseImageLoader from '../../../utils/generate-sse-image-source';
