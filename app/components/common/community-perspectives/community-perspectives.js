@@ -55,12 +55,25 @@ class CommunityPerspectives extends Component {
     };
   }
 
-  componentWillMount(nextProps) {
+  componentWillMount() {
     const perspectiveCategory = _.find(
       perspectiveCatagories,
       c => (this.filterPosts(this.props.communityContent, c.catagory).length > 0)
     );
 
+    if (perspectiveCategory) {
+      this.setState({
+        activeCatagory: perspectiveCategory.catagory,
+      });
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const perspectiveCategory = _.find(
+      perspectiveCatagories,
+      c => (this.filterPosts(nextProps.communityContent, c.catagory).length > 0)
+    );
+    
     if (perspectiveCategory) {
       this.setState({
         activeCatagory: perspectiveCategory.catagory,

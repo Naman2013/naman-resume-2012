@@ -101,6 +101,8 @@ import SiteFeedback from './pages/help/SiteFeedback';
 import TermsAndConditions from './pages/help/TermsAndConditions';
 import Privacy from './pages/help/Privacy';
 
+import BookclubHandoff from './pages/bookclub-handoff/BookclubHandoff';
+
 // router functions
 import validateUser from './route-functions/validateUser';
 import validateRoadtripRegistration from './route-functions/validateRoadtripRegistration';
@@ -308,6 +310,7 @@ ReactDOM.render(
         <Route path="help/terms-and-conditions" component={TermsAndConditions} />
         <Route path="help/privacy" component={Privacy} />
 
+        <Route path="bookclub" component={BookclubHandoff} />
       </Route>
 
     </Router>
