@@ -30,9 +30,6 @@ import TelescopeSelection from '../../components/telescopes/selection-widget/tel
 import TelescopeAllSky from '../../components/telescope-details/telescope-all-sky/TelescopeAllSky';
 import TelescopeConditionSnapshot from '../../components/telescope-details/condition-snapshot/condition-snapshot';
 import LiveWebcam from '../../components/telescope-details/live-webcam/live-webcam';
-import WeatherConditions from '../../components/telescope-details/weather-conditions/weather-conditions';
-import TelescopeRecommendsWidget from '../../components/telescope-details/recommends-widget/recommends-widget';
-import TelescopeGalleryWidget from '../../components/telescope-details/gallery-widget/gallery-widget';
 import StarShareCamera from '../../components/telescope-details/star-share-camera/star-share-camera';
 
 const { element, func, object } = PropTypes;
