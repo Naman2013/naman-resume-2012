@@ -26,7 +26,6 @@ import TelescopeOffline from '../../components/telescope-details/telescope-offli
 import CurrentSelectionHeader from '../../components/telescopes/current-selection-header/header';
 import TelescopeSelection from '../../components/telescopes/selection-widget/telescope-selection';
 
-// TODO: need api's to implement these widgets...
 import TelescopeAllSky from '../../components/telescope-details/telescope-all-sky/TelescopeAllSky';
 import TelescopeConditionSnapshot from '../../components/telescope-details/condition-snapshot/condition-snapshot';
 import LiveWebcam from '../../components/telescope-details/live-webcam/live-webcam';

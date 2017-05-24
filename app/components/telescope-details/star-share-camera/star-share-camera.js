@@ -31,6 +31,7 @@ class StarShareCamera extends Component {
   static defaultProps = {
     snapshotMsg: '',
   };
+
   state = {
     openedModal: false,
   };
