@@ -21,7 +21,7 @@ class VideoImageLoader extends Component {
 
   componentDidMount() {
     const { teleSystem, telePort, cameraSourceType } = this.props;
-    this.actions.resetImageToSnap();
+    this.props.actions.resetImageToSnap();
     if (cameraSourceType === SSE && teleSystem && telePort) {
       const eventSourceURL = generateSseImageLoader(teleSystem, telePort);
       this.sseSource = new EventSource(eventSourceURL);
@@ -100,7 +100,7 @@ VideoImageLoader.propTypes = {
   teleStreamThumbnailVideoHeight: PropTypes.string.isRequired,
   teleStreamThumbnailQuality: PropTypes.string.isRequired,
   teleSystem: PropTypes.string.isRequired,
-  telePort: PropTypes.string.isRequired,
+  telePort: PropTypes.number.isRequired,
   cameraSourceType: PropTypes.string.isRequired,
   clipped: PropTypes.bool,
   actions: PropTypes.shape({
