@@ -16,7 +16,7 @@ const mapDispatchToProps = dispatch => ({
   }, dispatch),
 });
 
-@connect(mapDispatchToProps)
+@connect(null, mapDispatchToProps)
 class VideoImageLoader extends Component {
 
   componentDidMount() {
