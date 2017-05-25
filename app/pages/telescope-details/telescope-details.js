@@ -155,6 +155,7 @@ class TelescopeDetails extends Component {
       instrDomeId,
       instrObsId,
       instrTelescopeId,
+      instrCameraSourceType,
     } = currentInstrument;
 
     if (instrImageSourceType === 'SSE') {
@@ -181,6 +182,9 @@ class TelescopeDetails extends Component {
           teleStreamThumbnailVideoWidth="810"
           teleStreamThumbnailVideoHeight="600"
           teleStreamThumbnailQuality={instrStreamThumbnailQuality}
+          teleSystem={currentInstrument.instrSystem}
+          telePort={currentInstrument.instrPort}
+          cameraSourceType={instrCameraSourceType}
         />
       );
     }
