@@ -4,7 +4,7 @@ import classnames from 'classnames';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import generateSseImageLoader from '../../../utils/generate-sse-image-source';
-import { setImageDataToSnapshot } from '../../../modules/Telescope-Overview';
+import { setImageDataToSnapshot, resetImageToSnap } from '../../../modules/Telescope-Overview';
 import './video-image-loader.scss';
 
 const SSE = 'SSE';
@@ -12,6 +12,7 @@ const SSE = 'SSE';
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
     setImageDataToSnapshot,
+    resetImageToSnap,
   }, dispatch),
 });
 
@@ -20,6 +21,7 @@ class VideoImageLoader extends Component {
 
   componentDidMount() {
     const { teleSystem, telePort, cameraSourceType } = this.props;
+    this.actions.resetImageToSnap();
     if (cameraSourceType === SSE && teleSystem && telePort) {
       const eventSourceURL = generateSseImageLoader(teleSystem, telePort);
       this.sseSource = new EventSource(eventSourceURL);
@@ -103,6 +105,7 @@ VideoImageLoader.propTypes = {
   clipped: PropTypes.bool,
   actions: PropTypes.shape({
     setImageDataToSnapshot: PropTypes.func.isRequired,
+    resetImageToSnap: PropTypes.func.isRequired,
   }).isRequired,
 };
 
