@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import ModalGeneric from '../../../components/common/modals/modal-generic';
 import { snapImage, resetImageToSnap, resetsnapImageMsg } from '../../../modules/Telescope-Overview';
 
-import s from './star-share-camera.scss';
+import './star-share-camera.scss';
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
@@ -22,9 +22,11 @@ const mapStateToProps = ({ telescopeOverview }) => ({
 @connect(mapStateToProps, mapDispatchToProps)
 class StarShareCamera extends Component {
   static propTypes = {
-    snapImage: PropTypes.func.isRequired,
-    resetImageToSnap: PropTypes.func.isRequired,
-    resetsnapImageMsg: PropTypes.func.isRequired,
+    actions: PropTypes.shape({
+      snapImage: PropTypes.func.isRequired,
+      resetImageToSnap: PropTypes.func.isRequired,
+      resetsnapImageMsg: PropTypes.func.isRequired,
+    }).isRequired,
     snapshotMsg: PropTypes.string,
   };
 
