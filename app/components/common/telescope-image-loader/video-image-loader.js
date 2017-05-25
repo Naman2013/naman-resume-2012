@@ -19,6 +19,26 @@ const mapDispatchToProps = dispatch => ({
 @connect(null, mapDispatchToProps)
 class VideoImageLoader extends Component {
 
+  static propTypes = {
+    teleStreamCode: PropTypes.string.isRequired,
+    teleStreamURL: PropTypes.string.isRequired,
+    teleStreamThumbnailVideoWidth: PropTypes.string.isRequired,
+    teleStreamThumbnailVideoHeight: PropTypes.string.isRequired,
+    teleStreamThumbnailQuality: PropTypes.string.isRequired,
+    teleSystem: PropTypes.string.isRequired,
+    telePort: PropTypes.number.isRequired,
+    cameraSourceType: PropTypes.string.isRequired,
+    clipped: PropTypes.bool,
+    actions: PropTypes.shape({
+      setImageDataToSnapshot: PropTypes.func.isRequired,
+      resetImageToSnap: PropTypes.func.isRequired,
+    }).isRequired,
+  };
+
+  static defaultProps = {
+    clipped: false,
+  };
+
   componentDidMount() {
     const { teleSystem, telePort, cameraSourceType } = this.props;
     this.props.actions.resetImageToSnap();
@@ -88,25 +108,5 @@ class VideoImageLoader extends Component {
     );
   }
 }
-
-VideoImageLoader.defaultProps = {
-  clipped: false,
-};
-
-VideoImageLoader.propTypes = {
-  teleStreamCode: PropTypes.string.isRequired,
-  teleStreamURL: PropTypes.string.isRequired,
-  teleStreamThumbnailVideoWidth: PropTypes.string.isRequired,
-  teleStreamThumbnailVideoHeight: PropTypes.string.isRequired,
-  teleStreamThumbnailQuality: PropTypes.string.isRequired,
-  teleSystem: PropTypes.string.isRequired,
-  telePort: PropTypes.number.isRequired,
-  cameraSourceType: PropTypes.string.isRequired,
-  clipped: PropTypes.bool,
-  actions: PropTypes.shape({
-    setImageDataToSnapshot: PropTypes.func.isRequired,
-    resetImageToSnap: PropTypes.func.isRequired,
-  }).isRequired,
-};
 
 export default VideoImageLoader;
