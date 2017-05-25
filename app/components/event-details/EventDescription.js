@@ -29,7 +29,7 @@ function EventDescription({ eventContent, showId }) {
               likeAction={like}
               likeId={showId}
               theme="dark"
-            /> <span className={s.likeText}>Like </span>
+            />
           </div>
         </div>
       </section>

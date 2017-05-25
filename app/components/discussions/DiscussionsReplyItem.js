@@ -44,7 +44,6 @@ class DiscussionsReply extends Component {
               params={likeParams}
             />
           </div>
-          <div className={styles.discussionsHelperText}>Like this answer</div>
         </div>
         </article>
         {/* For next iteration: replies && replies.map(reply => (this.prepareData(reply))) */}
