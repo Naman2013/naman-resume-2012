@@ -20,7 +20,7 @@ class VideoImageLoader extends Component {
 
   componentDidMount() {
     const { teleSystem, telePort, cameraSourceType } = this.props;
-    if (cameraSourceType === SSE) {
+    if (cameraSourceType === SSE && teleSystem && telePort) {
       const eventSourceURL = generateSseImageLoader(teleSystem, telePort);
       this.sseSource = new EventSource(eventSourceURL);
       this.sseSource.addEventListener('message', event => this.handleEventSource(event.data), false);
