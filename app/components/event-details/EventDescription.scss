@@ -14,17 +14,17 @@
 }
 
 .eventDescriptionPanel {
+  display: flex;
   font-family: $primary-font;
   padding: 25px;
 
   .sharingOptionsMenu {
-    float: right;
   }
 }
 
 .eventDescriptionPanelItemMain {
+  flex: 3;
   color: black;
-  display: inline-block;
   min-width: 350px;
   font-size: 18px;
 
@@ -43,16 +43,6 @@
   display: flex;
   align-items: flex-end;
 
-  .likeText {
-    display: inline-block;
-    vertical-align: middle;
-    font-size: 14px;
-    padding-left: 10px;
-  }
-
-  .heart {
-    vertical-align: middle;
-  }
 }
 
 .eventDescriptionContent {

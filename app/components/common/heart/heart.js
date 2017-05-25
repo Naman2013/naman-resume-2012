@@ -123,18 +123,39 @@ export default class Heart extends Component {
     );
 
     return (
-      <button
-        onClick={this.handleClick}
-        className={heartClass}
-      >
-        <i className="fa fa-heart" />
-        <span className={style.count}>{count}</span>
+      <div className="heart-wrapper">
+        <button
+          onClick={this.handleClick}
+          className={`${heartClass} heart-button`}
+        >
+          <i className="fa fa-heart" />
+          <span className={style.count}>{count}</span>
+        </button>
+        <span onClick={this.handleClick} className="likeText">Like</span>
         <ModalGeneric
           open={showPrompt}
           closeModal={this.closeModal}
           description={String(likePrompt)}
         />
-      </button>
+        <style jsx>{`
+          .heart-wrapper {
+            height: 45px;
+            width: 75px;
+            margin-top: -15px;
+          }
+          .heart-button {
+            display: inline-block;
+          }
+          .likeText {
+            display: inline-block;
+            font-size: 14px;
+            padding-left: 10px;
+            margin-top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+          }
+        `}</style>
+      </div>
     );
   }
 }
