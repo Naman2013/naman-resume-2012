@@ -26,6 +26,8 @@ class PulsePostContent extends Component {
         membershipType,
         memberSince,
         location,
+        slug,
+        customerId,
         likePrompt,
         showLikePrompt,
         likesCount,
@@ -66,6 +68,9 @@ class PulsePostContent extends Component {
                     likePrompt={likePrompt}
                     likesCount={likesCount}
                     likeId={postId}
+                    type={type}
+                    authorId={customerId}
+                    objectSlug={slug}
                   /> : null
               }
             </div>

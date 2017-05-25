@@ -21,7 +21,6 @@ class PulsePostList extends Component {
         </div>
       );
     }
-
     return (
       <div>
         {
