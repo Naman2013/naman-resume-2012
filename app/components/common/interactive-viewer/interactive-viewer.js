@@ -37,7 +37,7 @@ class InteractiveViewer extends Component {
       controlledPosition: {
         x: 0,
         y: 0,
-      }
+      },
     };
   }
 
@@ -50,7 +50,6 @@ class InteractiveViewer extends Component {
       currentScale: newScale,
       bounds: newScale * BOUNDS_MULTIPLIER,
     });
-
   }
 
   handleZoomOutClick(event) {
@@ -135,18 +134,16 @@ class InteractiveViewer extends Component {
   }
 
   render() {
-
     const { children, clipDimension } = this.props;
     const { fullScreenMode, currentScale, frameViewType, bounds, controlledPosition } = this.state;
 
     const viewerContentStyle = {
-      'transform': `scale(${currentScale})`,
-      'transformStyle': 'flat',
+      transform: `scale(${currentScale})`,
+      transformStyle: 'flat',
     };
 
-    const interactiveViewerContainerStyle = classnames({
-      'interactive-viewer-container': 1,
-      '__full__screen__mode': fullScreenMode
+    const interactiveViewerContainerStyle = classnames('interactive-viewer-container', {
+      __full__screen__mode: fullScreenMode,
     });
 
     const interactivePanelStyle = this.fetchCurrentPanelStyle();
@@ -162,20 +159,22 @@ class InteractiveViewer extends Component {
       onDrag: this.onControlledDrag.bind(this),
     }
 
-    return(
+    return (
       <div className={interactiveViewerContainerStyle}>
 
         <div style={interactivePanelStyle} className="interactive-viewer">
 
           <div
-            className="interactive-panel">
+            className="interactive-panel"
+          >
 
             <div
               id="interactive-content-container"
               style={viewerContentStyle}
-              className="viewer-content">
+              className="viewer-content"
+            >
 
-              <Draggable { ...draggableConfiguration }>
+              <Draggable {...draggableConfiguration}>
                 <div className="content">
                   {children}
                 </div>

@@ -44,9 +44,8 @@ class TelescopeImageLoader extends Component {
     const { teleThumbWidth, loadThumbnails } = this.props;
     if (loadThumbnails) {
       return `/util/thumbnail.php?url=${imageUrl}&dimension=W&size=${teleThumbWidth}`;
-    } else {
-      return imageUrl;
     }
+    return imageUrl;
   }
 
   handleSourceImage(imageData) {
@@ -161,7 +160,7 @@ class TelescopeImageLoader extends Component {
     this.sseSource = new EventSource(this.props.imageSource);
     this.sseSource.addEventListener(
       'message',
-      event => this.handleSourceImage(event.data), false );
+      event => this.handleSourceImage(event.data), false);
   }
 
   detachSSE() {
@@ -255,7 +254,7 @@ TelescopeImageLoader.propTypes = {
   obsId: PropTypes.string,
   domeId: PropTypes.string,
   teleThumbWidth: PropTypes.string,
-  teleFade: PropTypes.string,
+  teleFade: PropTypes.number,
   loadThumbnails: PropTypes.bool,
   missionFormat: PropTypes.string,
 };

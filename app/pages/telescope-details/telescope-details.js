@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -26,13 +27,9 @@ import TelescopeOffline from '../../components/telescope-details/telescope-offli
 import CurrentSelectionHeader from '../../components/telescopes/current-selection-header/header';
 import TelescopeSelection from '../../components/telescopes/selection-widget/telescope-selection';
 
-// TODO: need api's to implement these widgets...
 import TelescopeAllSky from '../../components/telescope-details/telescope-all-sky/TelescopeAllSky';
 import TelescopeConditionSnapshot from '../../components/telescope-details/condition-snapshot/condition-snapshot';
 import LiveWebcam from '../../components/telescope-details/live-webcam/live-webcam';
-import WeatherConditions from '../../components/telescope-details/weather-conditions/weather-conditions';
-import TelescopeRecommendsWidget from '../../components/telescope-details/recommends-widget/recommends-widget';
-import TelescopeGalleryWidget from '../../components/telescope-details/gallery-widget/gallery-widget';
 import StarShareCamera from '../../components/telescope-details/star-share-camera/star-share-camera';
 
 const { element, func, object } = PropTypes;
@@ -159,6 +156,7 @@ class TelescopeDetails extends Component {
       instrDomeId,
       instrObsId,
       instrTelescopeId,
+      instrCameraSourceType,
     } = currentInstrument;
 
     if (instrImageSourceType === 'SSE') {
@@ -185,6 +183,9 @@ class TelescopeDetails extends Component {
           teleStreamThumbnailVideoWidth="810"
           teleStreamThumbnailVideoHeight="600"
           teleStreamThumbnailQuality={instrStreamThumbnailQuality}
+          teleSystem={currentInstrument.instrSystem}
+          telePort={currentInstrument.instrPort}
+          cameraSourceType={instrCameraSourceType}
         />
       );
     }

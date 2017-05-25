@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { push } from 'react-router-redux';
 import createReducer from './utils/createReducer';
 import fetchStarChart from '../services/sky-widgets/star-chart';
 import fetchFacilityWebcam from '../services/sky-widgets/facility-webcam';
@@ -243,14 +242,16 @@ export const snapImage = () => (dispatch, getState) => {
       ...imageDataToSnapshot,
     }).then((result) => {
       if (!result.data.apiError) {
-        dispatch(snapImageSuccess(Object.assign({ explanation: result.data.explanation }, imageDataToSnapshot)));
+        dispatch(snapImageSuccess(
+          Object.assign({
+            explanation: result.data.explanation,
+          }, imageDataToSnapshot)),
+        );
       } else {
         dispatch(snapImageFail(result.data));
       }
     });
   }
-
-  console.warn('Not enough image data was provided to capture the image.');
 };
 
 const resetSnapshots = () => ({

@@ -146,6 +146,12 @@ module.exports = {
         secure: true,
         pathRewrite: { '/:3004/': '' },
       },
+      '/:3020/**': {
+        target: 'https://slooh.com:3020',
+        changeOrigin: true,
+        secure: true,
+        pathRewrite: { '/:3020/': '' },
+      },
       '/:3007/**': {
         target: 'https://slooh.com:3007',
         changeOrigin: true,
