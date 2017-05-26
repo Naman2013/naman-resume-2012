@@ -37,7 +37,7 @@ class RecentVideoTile extends Component {
         <div className="video-wrap">
           <iframe className="home-youtube-video" width="100%" src={this.props.videoUrl} seamless allowFullScreen autoPlay="1" frameBorder="0"></iframe>
         </div>
-        <p className="content">{this.props.content}</p>
+        <p className="content"><a href={this.props.content_link}>{this.props.content}</a></p>
       </div>
     );
   }
