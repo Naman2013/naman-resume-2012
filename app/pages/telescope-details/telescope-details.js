@@ -61,15 +61,11 @@ function mapStateToProps({ missions, telescopeOverview, activeTelescopeMissions,
 @connect(mapStateToProps, mapDispatchToProps)
 class TelescopeDetails extends Component {
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      toggleNeoview: false,
-      selectedTab: 0,
-      missionPercentageRemaining: 0,
-    };
-  }
+  state = {
+    toggleNeoview: false,
+    selectedTab: 0,
+    missionPercentageRemaining: 0,
+  };
 
   componentWillMount() {
     this.scaffoldObservatoryList();
@@ -139,7 +135,7 @@ class TelescopeDetails extends Component {
     );
   }
 
-  refreshDetailsInterval = null
+  refreshDetailsInterval = null;
 
   scaffoldRefreshTimer(increment = 6000) {
     clearInterval(this.refreshDetailsInterval);
