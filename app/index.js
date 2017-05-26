@@ -52,6 +52,8 @@ import RecentShows from './pages/playback/RecentShows';
 import SloohMotion from './pages/playback/SloohMotion';
 import UpcomingShows from './pages/playback/UpcomingShows';
 
+import BrowseShowsWrapper from './pages/browse-video-viewer/BrowseShowsWrapper';
+
 import Job from './pages/about/job';
 import Contact from './pages/about/contact';
 import Leadership from './pages/about/leadership';
@@ -222,6 +224,15 @@ ReactDOM.render(
 
         <Route path="shows/situation-room(/:showId)" component={SituationRoom} onEnter={validateUser} />
         <Route path="shows/event-details(/:showId)" component={EventDetails} onEnter={validateUser} />
+
+        <Route path="shows/video-viewer/browse" component={BrowseShowsWrapper}>
+          <IndexRedirect to="recent-shows" />
+          <Route path="recent-shows" component={RecentShows} />
+          <Route path="slooh-motion" component={SloohMotion} />
+          <Route path="upcoming-shows" component={UpcomingShows} />
+        </Route>
+
+        <Route path="shows/video-viewer(/:showId)" component={EventDetails} onEnter={validateUser} />
 
         <Route path="shows/browse-shows" component={PlaybackContainer} onEnter={validateUser}>
           <IndexRedirect to="recent-shows" />

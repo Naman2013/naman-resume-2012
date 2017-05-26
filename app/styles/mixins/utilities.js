@@ -6,3 +6,14 @@ export const profilePhotoStyle = photoUrl => ({
   backgroundSize: '100%',
   backgroundPosition: 'center',
 });
+
+
+export const backgroundImageCover = `
+  background-repeat: no-repeat;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+`;
