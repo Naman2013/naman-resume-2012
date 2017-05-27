@@ -7,7 +7,7 @@ const SET_USER = 'SET_USER';
 const REMOVE_USER = 'REMOVE_USER';
 
 export const set = createAction(SET_USER, 'user');
-export const remove = createAction(REMOVE_USER);
+export const removeUser = createAction(REMOVE_USER);
 
 export function store(user) {
   localStorage.setItem('user', JSON.stringify(user));
@@ -39,7 +39,7 @@ export function destroy() {
   destroySession();
 
   return (dispatch) => {
-    dispatch(remove());
+    dispatch(removeUser());
   };
 }
 
