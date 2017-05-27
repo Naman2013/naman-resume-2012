@@ -389,21 +389,6 @@ class TelescopeDetails extends Component {
               }
 
               <LiveWebcam />
-              {
-                /**
-                coming soon...
-                <WeatherConditions
-                  tabs={[
-                    { title: 'Conditions', src: 'assets/images/graphics/weather-placeholder.jpg' },
-                    { title: 'Dust', src: 'assets/images/graphics/weather-placeholder-2.jpeg' },
-                    { title: 'Satellite Cloud', src: 'assets/images/graphics/weather-placeholder-3.jpeg' },
-                    { title: 'Wind', src: 'assets/images/graphics/weather-placeholder-4.jpeg' },
-                    { title: 'Sky Brightness', src: 'assets/images/graphics/weather-placeholder-5.jpeg' },
-                    { title: 'Historic Weather', src: 'assets/images/graphics/weather-placeholder-6.jpeg' },
-                  ]}
-                />
-                */
-              }
             </div>
 
             <div className="col-md-4 telescope-details-sidebar">
