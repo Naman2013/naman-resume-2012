@@ -179,11 +179,11 @@ class TelescopeDetails extends Component {
     clearInterval(this.missionProgressInterval);
   }
 
-  handleSelect(index) {
+  handleSelect = (index) => {
     this.setState({
       selectedTab: index,
     });
-  }
+  };
 
   scaffoldObservatoryList() {
     const { obsUniqueId } = this.props.params;
@@ -328,7 +328,7 @@ class TelescopeDetails extends Component {
           <div className="telescope-details clearfix">
             <div className="col-xs-8">
               <Tabs
-                onSelect={this.handleSelect.bind(this)}
+                onSelect={this.handleSelect}
                 selectedIndex={selectedTab}
               >
                 <TabList>
