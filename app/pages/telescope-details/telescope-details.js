@@ -202,45 +202,6 @@ class TelescopeDetails extends Component {
     }, increment);
   }
 
-  // TODO: rethink how we work with progressing the timer bar...
-  bootstrapMissionCompleteTicker() {
-    clearInterval(this.missionProgressInterval);
-
-    const { activeTelescopeMissions, observatoryList, params: { obsUniqueId, teleUniqueId } } = this.props;
-    const currentObservatory = getCurrentObservatory(observatoryList, obsUniqueId);
-    if (typeof currentObservatory !== 'undefined') {
-      const currentTelescope = getCurrentTelescope(currentObservatory.obsTelescopes, teleUniqueId);
-      const { teleId } = currentTelescope;
-      const currentTelescopeMissionData = activeTelescopeMissions.telescopes.find(telescope => telescope.telescopeId === teleId);
-
-      if (typeof currentTelescopeMissionData !== 'undefined') {
-        // total duration / remaining duration / percentage completed
-        this.trackedProgressTime = currentTelescopeMissionData.activeMission.full.timestamp;
-        this.missionProgressInterval = setInterval(() => {
-          const { missionStart, expires } = currentTelescopeMissionData.activeMission.full.missionList[0];
-          const missionDuration = expires - missionStart;
-          const timePassed = expires - this.trackedProgressTime;
-          let percentageTimeRemaining = (timePassed / missionDuration) * 100;
-
-          if (percentageTimeRemaining <= 0) {
-            percentageTimeRemaining = 0;
-          }
-
-          if (percentageTimeRemaining >= 100) {
-            percentageTimeRemaining = 100;
-            clearInterval(this.missionProgressInterval);
-          }
-
-          this.trackedProgressTime -= 1;
-
-          this.setState({
-            missionPercentageRemaining: percentageTimeRemaining,
-          });
-        }, 1000);
-      }
-    }
-  }
-
   render() {
     const { selectedTab } = this.state;
     const {
