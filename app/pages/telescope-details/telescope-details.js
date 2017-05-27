@@ -434,17 +434,6 @@ class TelescopeDetails extends Component {
                     DomecamWidgetId={currentObservatory.DomecamWidgetId}
                   /> : null
               }
-
-              {
-                /**
-                  coming soon...
-                  <Spacer height="100px" />
-                  <Spacer height="50px" />
-
-                  <TelescopeRecommendsWidget />
-                  <TelescopeGalleryWidget />
-                */
-              }
             </div>
           </div>
         </div>
