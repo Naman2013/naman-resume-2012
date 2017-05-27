@@ -44,6 +44,47 @@ function getCurrentTelescope(observatoryTelescopes, telescopeId) {
   return observatoryTelescopes.find(telescope => telescope.teleUniqueId === telescopeId);
 }
 
+function determineImageLoaderType(currentInstrument) {
+  const {
+    instrImageSourceType,
+    instrCameraSourceType,
+  } = currentInstrument;
+
+  if (instrImageSourceType === 'SSE') {
+    return (
+      <TelescopeImageViewer
+        telePort={currentInstrument.instrPort}
+        teleSystem={currentInstrument.instrSystem}
+        teleId={currentInstrument.instrTelescopeId}
+        teleFade={currentInstrument.instrFade}
+      />
+    );
+  } else if (instrImageSourceType === 'video') {
+    const {
+      instrStreamCode,
+      instrStreamURL,
+      instrStreamThumbnailVideoWidth,
+      instrStreamThumbnailVideoHeight,
+      instrStreamThumbnailQuality,
+    } = currentInstrument;
+
+    return (
+      <VideoImageLoader
+        teleStreamCode={instrStreamCode}
+        teleStreamURL={instrStreamURL}
+        teleStreamThumbnailVideoWidth="810"
+        teleStreamThumbnailVideoHeight="600"
+        teleStreamThumbnailQuality={instrStreamThumbnailQuality}
+        teleSystem={currentInstrument.instrSystem}
+        telePort={currentInstrument.instrPort}
+        cameraSourceType={instrCameraSourceType}
+      />
+    );
+  }
+
+  return null;
+}
+
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators({
@@ -76,6 +117,18 @@ function mapStateToProps({
 
 @connect(mapStateToProps, mapDispatchToProps)
 class TelescopeDetails extends Component {
+
+  static propTypes = {
+    params: PropTypes.shape({
+      obsUniqueId: PropTypes.string.isRequired,
+      teleUniqueId: PropTypes.string.isRequired,
+    }).isRequired,
+    actions: PropTypes.shape({
+      getObservatoryList: PropTypes.func.isRequired,
+      resetSnapshotList: PropTypes.func.isRequired,
+      fetchObservatoryWebcam: PropTypes.func.isRequired,
+    }).isRequired,
+  };
 
   state = {
     toggleNeoview: false,
@@ -147,51 +200,6 @@ class TelescopeDetails extends Component {
     this.refreshDetailsInterval = setInterval(() => {
       this.scaffoldObservatoryList();
     }, increment);
-  }
-
-  determineImageLoaderType(currentInstrument) {
-    const {
-      instrImageSourceType,
-      instrPort,
-      instrSystem,
-      instrDomeId,
-      instrObsId,
-      instrTelescopeId,
-      instrCameraSourceType,
-    } = currentInstrument;
-
-    if (instrImageSourceType === 'SSE') {
-      return (
-        <TelescopeImageViewer
-          telePort={currentInstrument.instrPort}
-          teleSystem={currentInstrument.instrSystem}
-          teleId={currentInstrument.instrTelescopeId}
-          teleFade={currentInstrument.instrFade}
-        />
-      );
-    } else if (instrImageSourceType === 'video') {
-      const {
-        instrStreamCode,
-        instrStreamURL,
-        instrStreamThumbnailVideoWidth,
-        instrStreamThumbnailVideoHeight,
-        instrStreamThumbnailQuality } = currentInstrument;
-
-      return (
-        <VideoImageLoader
-          teleStreamCode={instrStreamCode}
-          teleStreamURL={instrStreamURL}
-          teleStreamThumbnailVideoWidth="810"
-          teleStreamThumbnailVideoHeight="600"
-          teleStreamThumbnailQuality={instrStreamThumbnailQuality}
-          teleSystem={currentInstrument.instrSystem}
-          telePort={currentInstrument.instrPort}
-          cameraSourceType={instrCameraSourceType}
-        />
-      );
-    }
-
-    return null;
   }
 
   // TODO: rethink how we work with progressing the timer bar...
@@ -335,7 +343,7 @@ class TelescopeDetails extends Component {
                     <TabPanel key={instrument.instrPort}>
                       {
                         currentTelescope.teleOnlineStatus !== 'offline' ?
-                        this.determineImageLoaderType(instrument) :
+                        determineImageLoaderType(instrument) :
                         <TelescopeOffline imageSource={instrument.instrOfflineImgURL} />
                       }
 
