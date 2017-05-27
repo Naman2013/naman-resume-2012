@@ -14,6 +14,8 @@ import {
   fetchObservatoryWebcam,
   resetSnapshotList } from '../../modules/Telescope-Overview';
 
+import { fetchObjectContent } from '../../modules/community-content/community-object-content-actions';
+
 import AnnouncementBanner from '../../components/common/announcement-banner/announcement-banner';
 import TelescopeImageViewer from '../../components/common/telescope-image-viewer/telescope-image-viewer';
 import VideoImageLoader from '../../components/common/telescope-image-loader/video-image-loader';
@@ -32,7 +34,15 @@ import TelescopeConditionSnapshot from '../../components/telescope-details/condi
 import LiveWebcam from '../../components/telescope-details/live-webcam/live-webcam';
 import StarShareCamera from '../../components/telescope-details/star-share-camera/star-share-camera';
 
-const { element, func, object } = PropTypes;
+/**
+  * Getting the current telescope from the API response
+  * @param {array} observatoryTelescopes - Array of all telescopes in the current observatory
+  * @param {string} telescopeId - Id of the current telescope, which available in URL and/or props.params
+  * @returns {Object} telescope - Current telescope object
+  */
+function getCurrentTelescope(observatoryTelescopes, telescopeId) {
+  return observatoryTelescopes.find(telescope => telescope.teleUniqueId === telescopeId);
+}
 
 function mapDispatchToProps(dispatch) {
   return {
@@ -41,11 +51,17 @@ function mapDispatchToProps(dispatch) {
       fetchObservatoryTelescopeStatus,
       fetchObservatoryWebcam,
       resetSnapshotList,
+      fetchObjectContent,
     }, dispatch),
   };
 }
 
-function mapStateToProps({ missions, telescopeOverview, activeTelescopeMissions, communityObjectContent }) {
+function mapStateToProps({
+  missions,
+  telescopeOverview,
+  activeTelescopeMissions,
+  communityObjectContent,
+}) {
   const { observatoryList, observatoryTelecopeStatus } = telescopeOverview;
 
   return {
@@ -96,7 +112,7 @@ class TelescopeDetails extends Component {
     // TODO: make sure that we are refreshing this list at the appropriate time!!!
     this.props.actions.resetSnapshotList();
 
-    const currentTelescope = this.getCurrentTelescope(currentObservatory.obsTelescopes, teleUniqueId);
+    const currentTelescope = getCurrentTelescope(currentObservatory.obsTelescopes, teleUniqueId);
     const { teleInstrumentList } = currentTelescope;
 
     // reset the selected tab if it is outside of the bounds of available tabs
@@ -114,17 +130,6 @@ class TelescopeDetails extends Component {
     this.setState({
       selectedTab: index,
     });
-  }
-
-  /**
-    * Getting the current telescope from the API response
-    * @param {array} observatoryTelescopes - Array of all telescopes in the current observatory
-    * @param {string} telescopeId - Id of the current telescope, which available in URL and/or props.params
-    * @returns {Object} telescope - Current telescope object
-    * TODO: migrate this into the telescope details actions...
-    */
-  getCurrentTelescope(observatoryTelescopes, telescopeId) {
-    return observatoryTelescopes.find(telescope => telescope.teleUniqueId === telescopeId);
   }
 
   scaffoldObservatoryList() {
@@ -196,7 +201,7 @@ class TelescopeDetails extends Component {
     const { activeTelescopeMissions, observatoryList, params: { obsUniqueId, teleUniqueId } } = this.props;
     const currentObservatory = getCurrentObservatory(observatoryList, obsUniqueId);
     if (typeof currentObservatory !== 'undefined') {
-      const currentTelescope = this.getCurrentTelescope(currentObservatory.obsTelescopes, teleUniqueId);
+      const currentTelescope = getCurrentTelescope(currentObservatory.obsTelescopes, teleUniqueId);
       const { teleId } = currentTelescope;
       const currentTelescopeMissionData = activeTelescopeMissions.telescopes.find(telescope => telescope.telescopeId === teleId);
 
@@ -253,7 +258,7 @@ class TelescopeDetails extends Component {
     }
 
     const { obsId } = currentObservatory;
-    const currentTelescope = this.getCurrentTelescope(currentObservatory.obsTelescopes, teleUniqueId);
+    const currentTelescope = getCurrentTelescope(currentObservatory.obsTelescopes, teleUniqueId);
     const { teleInstrumentList, teleId, teleCanReserveMissions } = currentTelescope;
 
     // setup the current mission - setting defaults based on the original design of the API
