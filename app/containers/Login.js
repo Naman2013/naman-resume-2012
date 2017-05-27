@@ -26,6 +26,7 @@ class Login extends Component {
     loginFailed: false,
     forgotPasswordURL: '',
     registerNewMemberURL: '',
+    error: '',
   }
 
   componentWillUnmount() {
@@ -39,6 +40,7 @@ class Login extends Component {
 
   render() {
     const { loginFailed } = this.props;
+
     return (
       <aside className={styles.login}>
         <form onSubmit={this.props.handleSubmit(this.props.globalHeaderlogin)}>
@@ -64,7 +66,9 @@ class Login extends Component {
               component={InputField}
             />
           </div>
+
           {this.props.error && this.props.error}
+
           <button className="btn-primary">Sign in</button>
           <div className={styles.bottomOutside}>
             <a href={this.props.forgotPasswordURL}>Forgot Password</a>

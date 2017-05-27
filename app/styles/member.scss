@@ -59,6 +59,11 @@
     -webkit-user-select: none;
     -ms-user-select: none;
     padding: 0 20px;
+    border: none;
+
+    &:focus {
+      outline: none;
+    }
   }
   .regButton {
     display: flex;
