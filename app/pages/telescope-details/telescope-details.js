@@ -242,10 +242,9 @@ class TelescopeDetails extends Component {
   }
 
   render() {
-    const { selectedTab, missionPercentageRemaining } = this.state;
+    const { selectedTab } = this.state;
     const {
       observatoryList,
-      observatoryTelecopeStatus,
       params,
       activeTelescopeMissions,
       communityContent,
@@ -271,7 +270,8 @@ class TelescopeDetails extends Component {
 
     // setup the current mission - setting defaults based on the original design of the API
     const currentMission = DEFAULT_FULL_MISSION_DATA;
-    const currentTelescopeMissionData = activeTelescopeMissions.telescopes.find(telescope => telescope.telescopeId === teleId);
+    const currentTelescopeMissionData =
+      activeTelescopeMissions.telescopes.find(telescope => telescope.telescopeId === teleId);
 
     if (currentTelescopeMissionData && currentTelescopeMissionData.activeMission.full.missionList) {
       Object.assign(currentMission, currentTelescopeMissionData.activeMission.full.missionList[0]);
@@ -285,8 +285,6 @@ class TelescopeDetails extends Component {
     if (selectedTab > teleInstrumentList.length - 1) {
       return null;
     }
-
-    const currentInstrument = teleInstrumentList[selectedTab];
 
     return (
       <div className="telescope-details-page-wrapper">
@@ -342,7 +340,7 @@ class TelescopeDetails extends Component {
                   teleInstrumentList.map(instrument => (
                     <TabPanel key={instrument.instrPort}>
                       {
-                        currentTelescope.teleOnlineStatus !== 'offline' ?
+                        currentTelescope.teleOnlineStatus === 'online' ?
                         determineImageLoaderType(instrument) :
                         <TelescopeOffline imageSource={instrument.instrOfflineImgURL} />
                       }
