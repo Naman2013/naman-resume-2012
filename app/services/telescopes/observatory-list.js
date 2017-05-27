@@ -9,17 +9,14 @@ export default function fetchObservatoryList({
   cid,
   token,
   callSource,
-  lang,
-  status,
-  listType,
 }) {
   return axios.post({
     at,
     cid,
     token,
     callSource,
-    lang,
-    status,
-    listType,
+    lang: DEFAULT_LANG,
+    status: DEFAULT_STATUS,
+    listType: DEFAULT_LIST_TYPE,
   });
 }
