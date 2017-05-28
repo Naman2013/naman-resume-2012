@@ -33,9 +33,10 @@ export const bootstrapTelescopeDetails = (dispatch, getState) => ({ callSource }
     token,
     callSource,
   }).then((result) => {
-
+    // TODO: fire associated actions needed to set content for the observatories
+    // TODO: fire other actions accociated with fetching the observatory info
   }).catch((error) => {
-
+    // TODO: handle error scenario when we have no information
   });
 };
 
