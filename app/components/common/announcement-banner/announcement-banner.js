@@ -1,6 +1,7 @@
-import React, {Component, PropTypes} from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import classnames from 'classnames';
 import style from './announcement-banner.scss';
 
@@ -10,7 +11,7 @@ import {
 } from '../../../modules/Announcement-Banner';
 
 
-function mapStateToProps(state, ownProps) {
+function mapStateToProps(state) {
   return {
     announcementMessages: state.announcementBanner.messages,
     announcementsLoading: state.announcementBanner.messageLoading,
@@ -24,22 +25,26 @@ function mapDispatchToProps(dispatch) {
     actions: bindActionCreators({
       fetchAnnouncements,
       hideBanner,
-    }, dispatch)
+    }, dispatch),
   };
 }
 
 @connect(mapStateToProps, mapDispatchToProps)
 class AnnouncementBanner extends Component {
 
-  generateMessages() {
-    const { announcementMessages } = this.props;
-    if (announcementMessages) {
-      return this.props.announcementMessages.map(announcement => (
-        <p key={announcement.uniqueId} className={style.announcement}>
-          {announcement.text}
-        </p>
-      ));
+  componentWillMount() {
+    this.scaffoldAnnouncementUpdates(this.props.obsId);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.obsId === this.props.obsId) {
+      return;
     }
+    this.scaffoldAnnouncementUpdates(nextProps.obsId);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.refreshInterval);
   }
 
   updateAnnouncements(obsId) {
@@ -52,16 +57,16 @@ class AnnouncementBanner extends Component {
     );
   }
 
-  componentWillMount() {
-    this.scaffoldAnnouncementUpdates(this.props.obsId);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.obsId === this.props.obsId) {
-      return;
+  generateMessages() {
+    const { announcementMessages } = this.props;
+    if (announcementMessages) {
+      return this.props.announcementMessages.map(announcement => (
+        <p key={announcement.uniqueId} className={style.announcement}>
+          {announcement.text}
+        </p>
+      ));
     }
-
-    this.scaffoldAnnouncementUpdates(nextProps.obsId);
+    return null;
   }
 
   // TODO: refactor to use componentWillReceiveProps and destruct nextProps
@@ -80,17 +85,13 @@ class AnnouncementBanner extends Component {
     }
   }
 
-  componentWillUnmount() {
-    clearInterval(this.refreshInterval);
-  }
-
   render() {
     const displayBannerStyles = classnames({
       hide: !this.props.showAnnouncementsBanner,
       announcementBanner: true,
     });
 
-    return(
+    return (
       <div className={displayBannerStyles}>
         {this.generateMessages()}
 

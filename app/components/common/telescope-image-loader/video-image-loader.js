@@ -50,8 +50,10 @@ class VideoImageLoader extends Component {
   }
 
   componentWillUnmount() {
-    this.sseSource.close();
-    this.sseSource.removeEventListener('message', this.handleEventSource);
+    if (this.sseSource) {
+      this.sseSource.close();
+      this.sseSource.removeEventListener('message', this.handleEventSource);
+    }
   }
 
   handleEventSource(imageData) {
