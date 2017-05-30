@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import BrowseShowsNavigation from '../../components/video-viewer/BrowseShowsNavigation';
-import SloohRecommends from '../../components/common/recommendations/SloohRecommends';
+import OtherFeaturedObjects from '../../components/common/OtherFeaturedObjects/OtherFeaturedObjects';
 import { backgroundImageCover } from '../../styles/mixins/utilities';
 import { white } from '../../styles/variables/colors';
 
@@ -19,7 +22,27 @@ const NAV_ITEMS = [
   },
 ];
 
+function mapStateToProps() {
+  return {
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators({
+    }, dispatch),
+  };
+}
+
+@connect(mapStateToProps, mapDispatchToProps)
 class BrowseShows extends Component {
+
+  constructor(props) {
+    super(props);
+
+    const { actions } = props;
+
+  }
 
   render() {
     return (
@@ -30,11 +53,7 @@ class BrowseShows extends Component {
         <BrowseShowsNavigation
           navigationItems={NAV_ITEMS}
         />
-        <SloohRecommends
-          title="Slooh Recommends These Objects"
-          subTitle="Reserve a mission by clicking below on these visible objects..."
-          recommendations={[6, 94]}
-        /> : null
+        <OtherFeaturedObjects params={{ featuredType: 'videoViewer' }} layoutDirection="row" />
         <style jsx>{`
           .header {
             ${backgroundImageCover}

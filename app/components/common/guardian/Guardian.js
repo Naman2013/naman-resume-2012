@@ -59,7 +59,7 @@ GuardianWidget.propTypes = {
     guardianFlag: bool,
     guardianTitle: string,
     guardianText: string,
-    customerId: string,
+    customerId: number,
     firstName: string,
     location: string,
     membershipType: string,
