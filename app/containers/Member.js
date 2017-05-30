@@ -44,39 +44,32 @@ export default class Member extends Component {
   render() {
     return (
       <div className={styles.member}>
-        {this.props.user.isAuthorized && (
-          <div
-            className={styles.memberInfo}
-          >
-            <span
-              className={styles.avatar}
-              style={{
-                backgroundImage: `url(${this.props.user.avatarURL})`,
-              }}
-            />
-            <span className={styles.usernameContainer}>
-              <span className={styles.userMessage}>Keep Looking Up, </span>
-              <strong>{this.props.user.fname}</strong>
-            </span>
-            {
-              /**
-                COMING SOON...
-                <a className={styles.messages}>
-                  <i className={classnames(styles.messagesIcon, 'fa fa-bell')} aria-hidden="true" />
-                  <sup className={styles.count}>{this.props.user.notifyCount}</sup>
-                </a>
-              */
-            }
-          </div>
+        {
+          this.props.user.isAuthorized && (
+            <div
+              className={styles.memberInfo}
+            >
+              <span
+                className={styles.avatar}
+                style={{
+                  backgroundImage: `url(${this.props.user.avatarURL})`,
+                }}
+              />
+              <span className={styles.usernameContainer}>
+                <span className={styles.userMessage}>Keep Looking Up, </span>
+                <strong>{this.props.user.fname}</strong>
+              </span>
+            </div>
         )}
+
         {
           this.props.user.isAuthorized ? (
-            <a
+            <button
               className={styles.rightButton}
               onClick={this.onLogout}
             >
               Log-out
-            </a>
+            </button>
         ) : (
           <span className={styles.loggedOutWrapper}>
             <a

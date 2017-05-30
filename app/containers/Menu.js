@@ -1,16 +1,15 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import classnames from 'classnames';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import onClickOutside from 'react-onclickoutside';
 import MenuLink from './../components/menu/MenuLink';
 import Submenu from './../components/menu/Submenu';
 import * as menuActions from './../modules/menu/actions';
-import styles from '../styles/menu.scss';
-import MenuSocial from './../components/menu/MenuSocial';
+import '../styles/menu.scss';
 
-const { number, bool, string, func, array, object } = PropTypes;
+const { number, bool, func, array } = PropTypes;
 
 class Menu extends Component {
   static propTypes = {
@@ -67,44 +66,44 @@ class Menu extends Component {
           <p className="menu" onClick={this.toggleDrawer}><span className="fa fa-bars"></span></p>
         }
 
-          <nav>
-            <ul>
-              {
-                menuList.map((item, index) => (
-                  item.showMenu && <MenuLink
-                    key={index}
-                    index={index}
-                    data={item}
-                    handleClick={this.handleRootNavigationClick}
-                  />
-                ))
-              }
-            </ul>
-          </nav>
+        <nav>
+          <ul>
+            {
+              menuList.map((item, index) => (
+                item.showMenu && <MenuLink
+                  key={index}
+                  index={index}
+                  data={item}
+                  handleClick={this.handleRootNavigationClick}
+                />
+              ))
+            }
+          </ul>
+        </nav>
 
-          <ReactCSSTransitionGroup
-            component="div"
-            className="left-submenu-wrapper"
-            transitionName="left-submenu"
-            transitionEnterTimeout={250}
-            transitionLeaveTimeout={250}
-          >
-            { menuList.map((listItem, index) => {
+        <ReactCSSTransitionGroup
+          component="div"
+          className="left-submenu-wrapper"
+          transitionName="left-submenu"
+          transitionEnterTimeout={250}
+          transitionLeaveTimeout={250}
+        >
+          {
+            menuList.map((listItem, index) => {
               if (activeMenuIndex === index) {
                 return (
                   <Submenu key={`${listItem.text}-${index}`} data={listItem.menuItems} />
                 );
               }
-            })}
-          </ReactCSSTransitionGroup>
+            })
+          }
+        </ReactCSSTransitionGroup>
       </aside>
     );
   }
 }
 
 const mapStateToProps = ({ menu }) => ({ ...menu });
-
 const mapDispatchToProps = dispatch => (bindActionCreators(menuActions, dispatch));
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(onClickOutside(Menu));
