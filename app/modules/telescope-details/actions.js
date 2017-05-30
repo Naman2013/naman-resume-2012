@@ -3,6 +3,11 @@ import fetchDayNightBar from '../../services/sky-widgets/day-night-bar';
 import fetchDayNightMap from '../../services/sky-widgets/day-night-map';
 import fetchAllSkyCamera from '../../services/sky-widgets/all-sky-camera';
 import fetchDomeCam from '../../services/sky-widgets/dome-cam';
+import fetchObservatoryList from '../../services/telescopes/observatory-list';
+
+export const BOOTSTRAP_TELESCOPE_DETAILS_START = 'BOOTSTRAP_TELESCOPE_DETAILS_START';
+export const BOOTSTRAP_TELESCOPE_DETAILS = 'BOOTSTRAP_TELESCOPE_DETAILS';
+export const BOOTSTRAP_TELESCOPE_DETAILS_FAIL = 'BOOTSTRAP_TELESCOPE_DETAILS_FAIL';
 
 export const FETCH_CURRENT_WEATHER_CONDITIONS_START = 'FETCH_CURRENT_WEATHER_CONDITIONS_START';
 export const FETCH_CURRENT_WEATHER_CONDITIONS_SUCCESS = 'FETCH_CURRENT_WEATHER_CONDITIONS_SUCCESS';
@@ -18,6 +23,22 @@ export const FETCH_ALL_SKY_SUCCESS = 'FETCH_ALL_SKY_SUCCESS';
 
 export const FETCH_DOME_CAM_START = 'FETCH_DOME_CAM_START';
 export const FETCH_DOME_CAM_SUCCESS = 'FETCH_DOME_CAM_SUCCESS';
+
+export const bootstrapTelescopeDetails = (dispatch, getState) => ({ callSource }) => {
+  const { at, cid, token } = getState().user;
+
+  return fetchObservatoryList({
+    at,
+    cid,
+    token,
+    callSource,
+  }).then((result) => {
+    // TODO: fire associated actions needed to set content for the observatories
+    // TODO: fire other actions accociated with fetching the observatory info
+  }).catch((error) => {
+    // TODO: handle error scenario when we have no information
+  });
+};
 
 const fetchDomeCamStart = () => ({
   type: FETCH_DOME_CAM_START,

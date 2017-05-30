@@ -5,7 +5,7 @@ import TelescopeImageLoader from '../telescope-image-loader/telescope-image-load
 import generateSseImageLoader from '../../../utils/generate-sse-image-source';
 import obsIdTeleIdDomeIdFromTeleId from '../../../utils/obsid-teleid-domeid-from-teleid';
 
-import style from './telescope-image-viewer.scss';
+import './telescope-image-viewer.scss';
 
 class TelescopeImageViewer extends Component {
 
@@ -14,7 +14,8 @@ class TelescopeImageViewer extends Component {
       telePort,
       teleSystem,
       teleId,
-      teleFade } = this.props;
+      teleFade,
+    } = this.props;
 
     const setIds = obsIdTeleIdDomeIdFromTeleId(teleId);
 

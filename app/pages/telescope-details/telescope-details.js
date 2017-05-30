@@ -14,6 +14,8 @@ import {
   fetchObservatoryWebcam,
   resetSnapshotList } from '../../modules/Telescope-Overview';
 
+import { fetchObjectContent } from '../../modules/community-content/community-object-content-actions';
+
 import AnnouncementBanner from '../../components/common/announcement-banner/announcement-banner';
 import TelescopeImageViewer from '../../components/common/telescope-image-viewer/telescope-image-viewer';
 import VideoImageLoader from '../../components/common/telescope-image-loader/video-image-loader';
@@ -32,7 +34,56 @@ import TelescopeConditionSnapshot from '../../components/telescope-details/condi
 import LiveWebcam from '../../components/telescope-details/live-webcam/live-webcam';
 import StarShareCamera from '../../components/telescope-details/star-share-camera/star-share-camera';
 
-const { element, func, object } = PropTypes;
+/**
+  * Getting the current telescope from the API response
+  * @param {array} observatoryTelescopes - Array of all telescopes in the current observatory
+  * @param {string} telescopeId - Id of the current telescope, which available in URL and/or props.params
+  * @returns {Object} telescope - Current telescope object
+  */
+function getCurrentTelescope(observatoryTelescopes, telescopeId) {
+  return observatoryTelescopes.find(telescope => telescope.teleUniqueId === telescopeId);
+}
+
+function determineImageLoaderType(currentInstrument) {
+  const {
+    instrImageSourceType,
+    instrCameraSourceType,
+  } = currentInstrument;
+
+  if (instrImageSourceType === 'SSE') {
+    return (
+      <TelescopeImageViewer
+        telePort={currentInstrument.instrPort}
+        teleSystem={currentInstrument.instrSystem}
+        teleId={currentInstrument.instrTelescopeId}
+        teleFade={currentInstrument.instrFade}
+      />
+    );
+  } else if (instrImageSourceType === 'video') {
+    const {
+      instrStreamCode,
+      instrStreamURL,
+      instrStreamThumbnailVideoWidth,
+      instrStreamThumbnailVideoHeight,
+      instrStreamThumbnailQuality,
+    } = currentInstrument;
+
+    return (
+      <VideoImageLoader
+        teleStreamCode={instrStreamCode}
+        teleStreamURL={instrStreamURL}
+        teleStreamThumbnailVideoWidth="810"
+        teleStreamThumbnailVideoHeight="600"
+        teleStreamThumbnailQuality={instrStreamThumbnailQuality}
+        teleSystem={currentInstrument.instrSystem}
+        telePort={currentInstrument.instrPort}
+        cameraSourceType={instrCameraSourceType}
+      />
+    );
+  }
+
+  return null;
+}
 
 function mapDispatchToProps(dispatch) {
   return {
@@ -41,11 +92,17 @@ function mapDispatchToProps(dispatch) {
       fetchObservatoryTelescopeStatus,
       fetchObservatoryWebcam,
       resetSnapshotList,
+      fetchObjectContent,
     }, dispatch),
   };
 }
 
-function mapStateToProps({ missions, telescopeOverview, activeTelescopeMissions, communityObjectContent }) {
+function mapStateToProps({
+  missions,
+  telescopeOverview,
+  activeTelescopeMissions,
+  communityObjectContent,
+}) {
   const { observatoryList, observatoryTelecopeStatus } = telescopeOverview;
 
   return {
@@ -61,15 +118,23 @@ function mapStateToProps({ missions, telescopeOverview, activeTelescopeMissions,
 @connect(mapStateToProps, mapDispatchToProps)
 class TelescopeDetails extends Component {
 
-  constructor(props) {
-    super(props);
+  static propTypes = {
+    params: PropTypes.shape({
+      obsUniqueId: PropTypes.string.isRequired,
+      teleUniqueId: PropTypes.string.isRequired,
+    }).isRequired,
+    actions: PropTypes.shape({
+      getObservatoryList: PropTypes.func.isRequired,
+      resetSnapshotList: PropTypes.func.isRequired,
+      fetchObservatoryWebcam: PropTypes.func.isRequired,
+    }).isRequired,
+  };
 
-    this.state = {
-      toggleNeoview: false,
-      selectedTab: 0,
-      missionPercentageRemaining: 0,
-    };
-  }
+  state = {
+    toggleNeoview: false,
+    selectedTab: 0,
+    missionPercentageRemaining: 0,
+  };
 
   componentWillMount() {
     this.scaffoldObservatoryList();
@@ -100,7 +165,7 @@ class TelescopeDetails extends Component {
     // TODO: make sure that we are refreshing this list at the appropriate time!!!
     this.props.actions.resetSnapshotList();
 
-    const currentTelescope = this.getCurrentTelescope(currentObservatory.obsTelescopes, teleUniqueId);
+    const currentTelescope = getCurrentTelescope(currentObservatory.obsTelescopes, teleUniqueId);
     const { teleInstrumentList } = currentTelescope;
 
     // reset the selected tab if it is outside of the bounds of available tabs
@@ -114,22 +179,11 @@ class TelescopeDetails extends Component {
     clearInterval(this.missionProgressInterval);
   }
 
-  handleSelect(index) {
+  handleSelect = (index) => {
     this.setState({
       selectedTab: index,
     });
-  }
-
-  /**
-    * Getting the current telescope from the API response
-    * @param {array} observatoryTelescopes - Array of all telescopes in the current observatory
-    * @param {string} telescopeId - Id of the current telescope, which available in URL and/or props.params
-    * @returns {Object} telescope - Current telescope object
-    * TODO: migrate this into the telescope details actions...
-    */
-  getCurrentTelescope(observatoryTelescopes, telescopeId) {
-    return observatoryTelescopes.find(telescope => telescope.teleUniqueId === telescopeId);
-  }
+  };
 
   scaffoldObservatoryList() {
     const { obsUniqueId } = this.props.params;
@@ -139,7 +193,7 @@ class TelescopeDetails extends Component {
     );
   }
 
-  refreshDetailsInterval = null
+  refreshDetailsInterval = null;
 
   scaffoldRefreshTimer(increment = 6000) {
     clearInterval(this.refreshDetailsInterval);
@@ -148,95 +202,10 @@ class TelescopeDetails extends Component {
     }, increment);
   }
 
-  determineImageLoaderType(currentInstrument) {
-    const {
-      instrImageSourceType,
-      instrPort,
-      instrSystem,
-      instrDomeId,
-      instrObsId,
-      instrTelescopeId,
-      instrCameraSourceType,
-    } = currentInstrument;
-
-    if (instrImageSourceType === 'SSE') {
-      return (
-        <TelescopeImageViewer
-          telePort={currentInstrument.instrPort}
-          teleSystem={currentInstrument.instrSystem}
-          teleId={currentInstrument.instrTelescopeId}
-          teleFade={currentInstrument.instrFade}
-        />
-      );
-    } else if (instrImageSourceType === 'video') {
-      const {
-        instrStreamCode,
-        instrStreamURL,
-        instrStreamThumbnailVideoWidth,
-        instrStreamThumbnailVideoHeight,
-        instrStreamThumbnailQuality } = currentInstrument;
-
-      return (
-        <VideoImageLoader
-          teleStreamCode={instrStreamCode}
-          teleStreamURL={instrStreamURL}
-          teleStreamThumbnailVideoWidth="810"
-          teleStreamThumbnailVideoHeight="600"
-          teleStreamThumbnailQuality={instrStreamThumbnailQuality}
-          teleSystem={currentInstrument.instrSystem}
-          telePort={currentInstrument.instrPort}
-          cameraSourceType={instrCameraSourceType}
-        />
-      );
-    }
-
-    return null;
-  }
-
-  // TODO: rethink how we work with progressing the timer bar...
-  bootstrapMissionCompleteTicker() {
-    clearInterval(this.missionProgressInterval);
-
-    const { activeTelescopeMissions, observatoryList, params: { obsUniqueId, teleUniqueId } } = this.props;
-    const currentObservatory = getCurrentObservatory(observatoryList, obsUniqueId);
-    if (typeof currentObservatory !== 'undefined') {
-      const currentTelescope = this.getCurrentTelescope(currentObservatory.obsTelescopes, teleUniqueId);
-      const { teleId } = currentTelescope;
-      const currentTelescopeMissionData = activeTelescopeMissions.telescopes.find(telescope => telescope.telescopeId === teleId);
-
-      if (typeof currentTelescopeMissionData !== 'undefined') {
-        // total duration / remaining duration / percentage completed
-        this.trackedProgressTime = currentTelescopeMissionData.activeMission.full.timestamp;
-        this.missionProgressInterval = setInterval(() => {
-          const { missionStart, expires } = currentTelescopeMissionData.activeMission.full.missionList[0];
-          const missionDuration = expires - missionStart;
-          const timePassed = expires - this.trackedProgressTime;
-          let percentageTimeRemaining = (timePassed / missionDuration) * 100;
-
-          if (percentageTimeRemaining <= 0) {
-            percentageTimeRemaining = 0;
-          }
-
-          if (percentageTimeRemaining >= 100) {
-            percentageTimeRemaining = 100;
-            clearInterval(this.missionProgressInterval);
-          }
-
-          this.trackedProgressTime -= 1;
-
-          this.setState({
-            missionPercentageRemaining: percentageTimeRemaining,
-          });
-        }, 1000);
-      }
-    }
-  }
-
   render() {
-    const { selectedTab, missionPercentageRemaining } = this.state;
+    const { selectedTab } = this.state;
     const {
       observatoryList,
-      observatoryTelecopeStatus,
       params,
       activeTelescopeMissions,
       communityContent,
@@ -257,12 +226,13 @@ class TelescopeDetails extends Component {
     }
 
     const { obsId } = currentObservatory;
-    const currentTelescope = this.getCurrentTelescope(currentObservatory.obsTelescopes, teleUniqueId);
+    const currentTelescope = getCurrentTelescope(currentObservatory.obsTelescopes, teleUniqueId);
     const { teleInstrumentList, teleId, teleCanReserveMissions } = currentTelescope;
 
     // setup the current mission - setting defaults based on the original design of the API
     const currentMission = DEFAULT_FULL_MISSION_DATA;
-    const currentTelescopeMissionData = activeTelescopeMissions.telescopes.find(telescope => telescope.telescopeId === teleId);
+    const currentTelescopeMissionData =
+      activeTelescopeMissions.telescopes.find(telescope => telescope.telescopeId === teleId);
 
     if (currentTelescopeMissionData && currentTelescopeMissionData.activeMission.full.missionList) {
       Object.assign(currentMission, currentTelescopeMissionData.activeMission.full.missionList[0]);
@@ -276,8 +246,6 @@ class TelescopeDetails extends Component {
     if (selectedTab > teleInstrumentList.length - 1) {
       return null;
     }
-
-    const currentInstrument = teleInstrumentList[selectedTab];
 
     return (
       <div className="telescope-details-page-wrapper">
@@ -319,7 +287,7 @@ class TelescopeDetails extends Component {
           <div className="telescope-details clearfix">
             <div className="col-xs-8">
               <Tabs
-                onSelect={this.handleSelect.bind(this)}
+                onSelect={this.handleSelect}
                 selectedIndex={selectedTab}
               >
                 <TabList>
@@ -333,8 +301,8 @@ class TelescopeDetails extends Component {
                   teleInstrumentList.map(instrument => (
                     <TabPanel key={instrument.instrPort}>
                       {
-                        currentTelescope.teleOnlineStatus !== 'offline' ?
-                        this.determineImageLoaderType(instrument) :
+                        currentTelescope.teleOnlineStatus === 'online' ?
+                        determineImageLoaderType(instrument) :
                         <TelescopeOffline imageSource={instrument.instrOfflineImgURL} />
                       }
 
@@ -380,21 +348,6 @@ class TelescopeDetails extends Component {
               }
 
               <LiveWebcam />
-              {
-                /**
-                coming soon...
-                <WeatherConditions
-                  tabs={[
-                    { title: 'Conditions', src: 'assets/images/graphics/weather-placeholder.jpg' },
-                    { title: 'Dust', src: 'assets/images/graphics/weather-placeholder-2.jpeg' },
-                    { title: 'Satellite Cloud', src: 'assets/images/graphics/weather-placeholder-3.jpeg' },
-                    { title: 'Wind', src: 'assets/images/graphics/weather-placeholder-4.jpeg' },
-                    { title: 'Sky Brightness', src: 'assets/images/graphics/weather-placeholder-5.jpeg' },
-                    { title: 'Historic Weather', src: 'assets/images/graphics/weather-placeholder-6.jpeg' },
-                  ]}
-                />
-                */
-              }
             </div>
 
             <div className="col-xs-4 telescope-details-sidebar">
@@ -424,17 +377,6 @@ class TelescopeDetails extends Component {
                     AllskyWidgetId={currentObservatory.AllskyWidgetId}
                     DomecamWidgetId={currentObservatory.DomecamWidgetId}
                   /> : null
-              }
-
-              {
-                /**
-                  coming soon...
-                  <Spacer height="100px" />
-                  <Spacer height="50px" />
-
-                  <TelescopeRecommendsWidget />
-                  <TelescopeGalleryWidget />
-                */
               }
             </div>
           </div>

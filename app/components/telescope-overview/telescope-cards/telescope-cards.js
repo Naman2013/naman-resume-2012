@@ -42,7 +42,7 @@ class TelescopeCards extends Component {
       const { teleStatus, teleHasTelescopePage } = telescope;
 
       let telescopeStatus = statusTeleList
-        .find(telescopeStatus => telescope.teleUniqueId === telescopeStatus.teleUniqueId);
+        .find(status => telescope.teleUniqueId === status.teleUniqueId);
 
       // if a status is provided by the status API, we use that - otherwise we generate one
       telescopeStatus = telescopeStatus ? telescopeStatus : generateTelescopeStatus(telescope);

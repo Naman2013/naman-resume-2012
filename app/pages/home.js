@@ -15,7 +15,7 @@ import Featured from '../components/home/slooh-extras/featured';
 import style from './home.scss';
 
 import { fetchCommunityContent }
-  from '../modules/community-content/get-object-content-actions';
+  from '../modules/community-content/community-object-content-actions';
 import { getHomePage, trackUser } from '../modules/home-content/actions';
 
 const mapStateToProps = ({ communityContent, homeContent, appConfig }) => ({

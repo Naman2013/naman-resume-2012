@@ -84,6 +84,7 @@ export const getObservatoryList = (currentObservatoryId, callSource) => (dispatc
     const { observatoryList } = response.data;
     const currentObservatory = getCurrentObservatory(observatoryList, currentObservatoryId);
     dispatch(observatoryListSuccess(response.data));
+
     // if we have an observatory to work with, then call for the telescope availability now
     if (currentObservatory) {
       const { obsId } = currentObservatory;

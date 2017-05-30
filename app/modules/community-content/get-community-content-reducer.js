@@ -3,7 +3,7 @@ import {
   FETCH_COMMUNITY_CONTENT_START,
   FETCH_COMMUNITY_CONTENT_SUCCESS,
   FETCH_COMMUNITY_CONTENT_FAIL,
-} from './get-object-content-actions';
+} from './community-object-content-actions';
 
 const generateInitialState = () => ({
   communityContent: {},
