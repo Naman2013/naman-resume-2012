@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, cloneElement } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -45,6 +45,7 @@ class BrowseShows extends Component {
   }
 
   render() {
+    const { children } = this.props;
     return (
       <div>
         <header className="header">
@@ -53,6 +54,7 @@ class BrowseShows extends Component {
         <BrowseShowsNavigation
           navigationItems={NAV_ITEMS}
         />
+        { cloneElement(children) }
         <OtherFeaturedObjects params={{ featuredType: 'videoViewer' }} layoutDirection="row" />
         <style jsx>{`
           .header {

@@ -49,6 +49,7 @@ import upcomingEvents from './upcoming-events/upcoming-events-reducer';
 import user from './User';
 import usersUpcomingMission from './Users-Upcoming-Missions';
 import isLanding from './landing/reducer';
+import videoViewerBrowser from './browse-video-viewer/reducer';
 
 export default combineReducers({
   routing: routerReducer,
@@ -101,4 +102,5 @@ export default combineReducers({
   user,
   usersUpcomingMission,
   isLanding,
+  videoViewerBrowser,
 });
