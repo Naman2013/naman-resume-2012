@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import ShowsList from '../../components/video-viewer/ShowsList';
 import { fetchPreviousShows } from '../../modules/browse-video-viewer/previous-shows-actions';
 // import CategoryNavigation from '../../components/video-viewer/CategoryNavigation';
 /*
@@ -65,8 +66,7 @@ class RecentShows extends Component {
     });
   }
   render() {
-    const { itemList } = this.props;
-    console.log('ITEM LIST ===>>>', itemList)
+    const { eventList } = this.props;
     return (
       <div>
         { /*
@@ -74,6 +74,7 @@ class RecentShows extends Component {
           navigationItems={NAV_ITEMS}
         />
         */ }
+        <ShowsList eventList={eventList} />
       </div>
     );
   }
