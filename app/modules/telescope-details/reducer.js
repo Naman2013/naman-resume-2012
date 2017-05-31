@@ -19,7 +19,7 @@ import {
 
 
 const initialState = {
-  fetchingObservatoryList: false,
+  fetchingObservatoryList: true,
   fetchingObservatoryListFail: false,
   fetchingObservatoryListErrorBody: null,
 

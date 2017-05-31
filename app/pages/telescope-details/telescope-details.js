@@ -118,10 +118,12 @@ class TelescopeDetails extends Component {
     // NOTE: that this component will receive new properties associated with mission data...
 
     const { selectedTab } = this.state;
-    const { activeTelescopeMissions, observatoryList, params } = this.props;
+
+    const { observatoryList, params, currentTelescope } = this.props;
+
     const { observatoryTelecopeStatus } = nextProps;
-    const nextActiveTelescopeMissions = nextProps.activeTelescopeMissions;
-    const { obsUniqueId, teleUniqueId } = params;
+    const { obsUniqueId } = params;
+
     const currentObservatory = getCurrentObservatory(observatoryList, obsUniqueId);
     const nextObservatory = getCurrentObservatory(observatoryList, nextProps.params.obsUniqueId);
 
@@ -135,16 +137,14 @@ class TelescopeDetails extends Component {
       this.scaffoldRefreshTimer(refreshTime);
     }
 
+    // TODO: handle this in actions and not in the component
     this.props.actions.fetchObservatoryWebcam(nextObservatory);
 
     // TODO: make sure that we are refreshing this list at the appropriate time!!!
     this.props.actions.resetSnapshotList();
 
-    const currentTelescope = getCurrentTelescope(currentObservatory.obsTelescopes, teleUniqueId);
-    const { teleInstrumentList } = currentTelescope;
-
     // reset the selected tab if it is outside of the bounds of available tabs
-    if (selectedTab > teleInstrumentList.length - 1) {
+    if (selectedTab > currentTelescope.teleInstrumentList.length - 1) {
       this.handleSelect(0);
     }
   }
@@ -197,11 +197,6 @@ class TelescopeDetails extends Component {
     const { obsUniqueId, teleUniqueId } = params;
     const { obsId } = currentObservatory;
     const { teleInstrumentList, teleId, teleCanReserveMissions } = currentTelescope;
-
-    // TODO: refactor how this page opperates so we can remove these checks
-    if (!currentObservatory) {
-      return null;
-    }
 
     // setup the current mission - setting defaults based on the original design of the API
     const currentMission = DEFAULT_FULL_MISSION_DATA;
