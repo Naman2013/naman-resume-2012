@@ -1,4 +1,4 @@
-import { observatoryListSuccess } from '../Telescope-Overview';
+import { observatoryListSuccess, getCurrentObservatory } from '../Telescope-Overview';
 
 import fetchCurrentConditions from '../../services/sky-widgets/current-conditions';
 import fetchDayNightBar from '../../services/sky-widgets/day-night-bar';
@@ -29,6 +29,16 @@ export const FETCH_DOME_CAM_SUCCESS = 'FETCH_DOME_CAM_SUCCESS';
 export const SET_CURRENT_OBSERVATORY = 'SET_CURRENT_OBSERVATORY';
 export const SET_CURRENT_TELESCOPE = 'SET_CURRENT_TELESCOPE';
 
+/**
+  * Getting the current telescope from the API response
+  * @param {array} observatoryTelescopes - Array of all telescopes in the current observatory
+  * @param {string} telescopeId - Id of the current telescope, which available in URL and/or props.params
+  * @returns {Object} telescope - Current telescope object
+  */
+function getCurrentTelescope(observatoryTelescopes, telescopeId) {
+  return observatoryTelescopes.find(telescope => telescope.teleUniqueId === telescopeId);
+}
+
 const bootstrapTelescopeDetailsStart = () => ({
   type: BOOTSTRAP_TELESCOPE_DETAILS_START,
 });
@@ -43,9 +53,14 @@ const bootstrapTelescopeDetailsFail = payload => ({
   payload,
 });
 
-const setCurrentObservatory = observatory => ({
+const setCurrentObservatory = currentObservatory => ({
   type: SET_CURRENT_OBSERVATORY,
-  observatory,
+  currentObservatory,
+});
+
+const setCurrentTelescope = currentTelescope => ({
+  type: SET_CURRENT_TELESCOPE,
+  currentTelescope,
 });
 
 export const bootstrapTelescopeDetails = ({ obsUniqueId, teleUniqueId }) => (dispatch, getState) => {
@@ -57,10 +72,12 @@ export const bootstrapTelescopeDetails = ({ obsUniqueId, teleUniqueId }) => (dis
     token,
     callSource: 'details',
   }).then((result) => {
+    const { observatoryList } = result.data;
+    const currentObservatory = getCurrentObservatory(observatoryList, obsUniqueId);
+    const currentTelescope = getCurrentTelescope(currentObservatory.obsTelescopes, teleUniqueId);
 
-    // TODO: isolate an observatory that matches the passed unique ID
-    // TODO: isolate a telescope that matches the passed unique ID
-
+    dispatch(setCurrentObservatory(currentObservatory));
+    dispatch(setCurrentTelescope(currentTelescope ));
     dispatch(observatoryListSuccess(result.data));
 
   }).catch((error) => {
