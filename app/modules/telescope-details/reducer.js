@@ -1,5 +1,8 @@
 import createReducer from '../utils/createReducer';
 import {
+  BOOTSTRAP_TELESCOPE_DETAILS_START,
+  BOOTSTRAP_TELESCOPE_DETAILS,
+  BOOTSTRAP_TELESCOPE_DETAILS_FAIL,
   FETCH_CURRENT_WEATHER_CONDITIONS_START,
   FETCH_CURRENT_WEATHER_CONDITIONS_SUCCESS,
   FETCH_DAY_NIGHT_BAR_START,
@@ -18,7 +21,7 @@ import {
 const initialState = {
   fetchingObservatoryList: false,
   fetchingObservatoryListFail: false,
-  fetchingObservatoryListErrorBody: {},
+  fetchingObservatoryListErrorBody: null,
 
   currentObservatory: {},
   currentTelescope: {},
@@ -63,6 +66,30 @@ const initialState = {
 };
 
 export default createReducer(initialState, {
+  [BOOTSTRAP_TELESCOPE_DETAILS_START](state) {
+    return {
+      ...state,
+      fetchingObservatoryList: true,
+      fetchingObservatoryListFail: false,
+      fetchingObservatoryListErrorBody: null,
+    };
+  },
+  [BOOTSTRAP_TELESCOPE_DETAILS](state) {
+    return {
+      ...state,
+      fetchingObservatoryList: false,
+      fetchingObservatoryListFail: false,
+      fetchingObservatoryListErrorBody: null,
+    };
+  },
+  [BOOTSTRAP_TELESCOPE_DETAILS_FAIL](state, { payload }) {
+    return {
+      ...state,
+      fetchingObservatoryList: false,
+      fetchingObservatoryListFail: true,
+      fetchingObservatoryListErrorBody: payload,
+    };
+  },
   [SET_CURRENT_OBSERVATORY](state, { currentObservatory }) {
     return {
       ...state,

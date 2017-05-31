@@ -43,9 +43,8 @@ const bootstrapTelescopeDetailsStart = () => ({
   type: BOOTSTRAP_TELESCOPE_DETAILS_START,
 });
 
-const bootStrapTelescopeDetailsSuccess = payload => ({
+const bootStrapTelescopeDetailsSuccess = () => ({
   type: BOOTSTRAP_TELESCOPE_DETAILS,
-  payload,
 });
 
 const bootstrapTelescopeDetailsFail = payload => ({
@@ -66,6 +65,8 @@ const setCurrentTelescope = currentTelescope => ({
 export const bootstrapTelescopeDetails = ({ obsUniqueId, teleUniqueId }) => (dispatch, getState) => {
   const { at, cid, token } = getState().user;
 
+  dispatch(bootstrapTelescopeDetailsStart());
+
   return fetchObservatoryList({
     at,
     cid,
@@ -77,11 +78,12 @@ export const bootstrapTelescopeDetails = ({ obsUniqueId, teleUniqueId }) => (dis
     const currentTelescope = getCurrentTelescope(currentObservatory.obsTelescopes, teleUniqueId);
 
     dispatch(setCurrentObservatory(currentObservatory));
-    dispatch(setCurrentTelescope(currentTelescope ));
+    dispatch(setCurrentTelescope(currentTelescope));
     dispatch(observatoryListSuccess(result.data));
-
-  }).catch((error) => {
+    dispatch(bootStrapTelescopeDetailsSuccess());
+  }).catch(() => {
     // TODO: handle error scenario when we have no information
+    dispatch(bootstrapTelescopeDetailsFail());
   });
 };
 

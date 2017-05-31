@@ -62,16 +62,21 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-// TODO: start peeling back the complexity of tracking down the telescope and observatory
 function mapStateToProps({
   missions,
   telescopeOverview,
   activeTelescopeMissions,
   communityObjectContent,
+
+  telescopeDetails,
 }) {
   const { observatoryList, observatoryTelecopeStatus } = telescopeOverview;
 
   return {
+    currentObservatory: telescopeDetails.currentObservatory,
+    currentTelescope: telescopeDetails.currentTelescope,
+    fetchingObservatoryList: telescopeDetails.fetchingObservatoryList,
+
     missions,
     observatoryList: observatoryList.observatoryList,
     observatoryTelecopeStatus,
@@ -175,29 +180,28 @@ class TelescopeDetails extends Component {
   render() {
     const { selectedTab } = this.state;
     const {
+      currentObservatory,
+      currentTelescope,
+      fetchingObservatoryList,
+
       observatoryList,
       params,
       activeTelescopeMissions,
       communityContent,
     } = this.props;
 
-    const { obsUniqueId, teleUniqueId } = params;
-
-    // TODO: Move this check into TelescopeSelection component
-    if (observatoryList && observatoryList.length === 0) {
+    if (fetchingObservatoryList) {
       return null;
     }
 
-    const currentObservatory = getCurrentObservatory(observatoryList, obsUniqueId);
+    const { obsUniqueId, teleUniqueId } = params;
+    const { obsId } = currentObservatory;
+    const { teleInstrumentList, teleId, teleCanReserveMissions } = currentTelescope;
 
     // TODO: refactor how this page opperates so we can remove these checks
     if (!currentObservatory) {
       return null;
     }
-
-    const { obsId } = currentObservatory;
-    const currentTelescope = getCurrentTelescope(currentObservatory.obsTelescopes, teleUniqueId);
-    const { teleInstrumentList, teleId, teleCanReserveMissions } = currentTelescope;
 
     // setup the current mission - setting defaults based on the original design of the API
     const currentMission = DEFAULT_FULL_MISSION_DATA;
@@ -209,13 +213,6 @@ class TelescopeDetails extends Component {
     }
 
     const { missionAvailable } = currentMission;
-
-    // TODO: refactor this patchwork to more appropriatly set default values for the selected
-    // instrument.  Problem here is the index for the tab falls out of sync with the
-    // array of available instruments and throws an error.
-    if (selectedTab > teleInstrumentList.length - 1) {
-      return null;
-    }
 
     return (
       <div className="telescope-details-page-wrapper">
