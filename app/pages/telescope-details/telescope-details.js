@@ -20,9 +20,9 @@ import {
 
 import { fetchObjectContent } from '../../modules/community-content/community-object-content-actions';
 
+import determineImageLoader from '../../components/telescope-details/determine-image-loader';
+
 import AnnouncementBanner from '../../components/common/announcement-banner/announcement-banner';
-import TelescopeImageViewer from '../../components/common/telescope-image-viewer/telescope-image-viewer';
-import VideoImageLoader from '../../components/common/telescope-image-loader/video-image-loader';
 import Spacer from '../../components/common/spacer';
 import LiveStream from '../../components/telescope-details/live-stream/live-stream';
 import LiveMission from '../../components/telescope-details/live-mission/live-mission';
@@ -48,47 +48,6 @@ function getCurrentTelescope(observatoryTelescopes, telescopeId) {
   return observatoryTelescopes.find(telescope => telescope.teleUniqueId === telescopeId);
 }
 
-function determineImageLoaderType(currentInstrument) {
-  const {
-    instrImageSourceType,
-    instrCameraSourceType,
-  } = currentInstrument;
-
-  if (instrImageSourceType === 'SSE') {
-    return (
-      <TelescopeImageViewer
-        telePort={currentInstrument.instrPort}
-        teleSystem={currentInstrument.instrSystem}
-        teleId={currentInstrument.instrTelescopeId}
-        teleFade={currentInstrument.instrFade}
-      />
-    );
-  } else if (instrImageSourceType === 'video') {
-    const {
-      instrStreamCode,
-      instrStreamURL,
-      instrStreamThumbnailVideoWidth,
-      instrStreamThumbnailVideoHeight,
-      instrStreamThumbnailQuality,
-    } = currentInstrument;
-
-    return (
-      <VideoImageLoader
-        teleStreamCode={instrStreamCode}
-        teleStreamURL={instrStreamURL}
-        teleStreamThumbnailVideoWidth="810"
-        teleStreamThumbnailVideoHeight="600"
-        teleStreamThumbnailQuality={instrStreamThumbnailQuality}
-        teleSystem={currentInstrument.instrSystem}
-        telePort={currentInstrument.instrPort}
-        cameraSourceType={instrCameraSourceType}
-      />
-    );
-  }
-
-  return null;
-}
-
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators({
@@ -103,6 +62,7 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
+// TODO: start peeling back the complexity of tracking down the telescope and observatory
 function mapStateToProps({
   missions,
   telescopeOverview,
@@ -149,6 +109,9 @@ class TelescopeDetails extends Component {
   }
 
   componentWillUpdate(nextProps) {
+    // TODO: refactor to use the params from the URL to determine when to rebootstrap the viewer
+    // NOTE: that this component will receive new properties associated with mission data...
+
     const { selectedTab } = this.state;
     const { activeTelescopeMissions, observatoryList, params } = this.props;
     const { observatoryTelecopeStatus } = nextProps;
@@ -309,7 +272,7 @@ class TelescopeDetails extends Component {
                     <TabPanel key={instrument.instrPort}>
                       {
                         currentTelescope.teleOnlineStatus === 'online' ?
-                        determineImageLoaderType(instrument) :
+                        determineImageLoader(instrument) :
                         <TelescopeOffline imageSource={instrument.instrOfflineImgURL} />
                       }
 
