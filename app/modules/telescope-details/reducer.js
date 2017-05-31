@@ -10,10 +10,19 @@ import {
   FETCH_ALL_SKY_SUCCESS,
   FETCH_DOME_CAM_START,
   FETCH_DOME_CAM_SUCCESS,
+  SET_CURRENT_OBSERVATORY,
+  SET_CURRENT_TELESCOPE,
 } from './actions';
 
 
 const initialState = {
+  fetchingObservatoryList: false,
+  fetchingObservatoryListFail: false,
+  fetchingObservatoryListErrorBody: {},
+
+  currentObservatory: {},
+  currentTelescope: {},
+
   fetchingWeatherWidget: false,
   fetchingDayNightBar: false,
   fetchingDayNightMap: false,
@@ -54,6 +63,18 @@ const initialState = {
 };
 
 export default createReducer(initialState, {
+  [SET_CURRENT_OBSERVATORY](state, { currentObservatory }) {
+    return {
+      ...state,
+      currentObservatory,
+    };
+  },
+  [SET_CURRENT_TELESCOPE](state, { currentTelescope }) {
+    return {
+      ...state,
+      currentTelescope,
+    };
+  },
   [FETCH_DOME_CAM_START](state) {
     return {
       ...state,

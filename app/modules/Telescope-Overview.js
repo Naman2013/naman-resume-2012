@@ -32,18 +32,11 @@ const RESET_IMAGE_TO_SNAP = 'RESET_IMAGE_TO_SNAP';
 
 export const getCurrentObservatory = (observatoryList = [], observatoryId) => {
   return observatoryList.find(observatory => observatory.obsUniqueId === observatoryId);
-}
-const getCurrentTimeInSeconds = () => new Date().getTime() / 1000;
-
-export const fetchObservatoryTelescopeStatus = (obsId) => (dispatch) => {
-  return axios.get(`/api/obs/getObservatoryStatus?obsId=${obsId}`)
-    .then((response) => {
-      dispatch(observatoryTelescopeStatusSuccess(response.data));
-    })
-    .catch(error => dispatch(observatoryTelescopeStatusFail()));
 };
 
-const observatoryTelescopeStatusSuccess = (observatoryTelecopeStatus) => ({
+const getCurrentTimeInSeconds = () => new Date().getTime() / 1000;
+
+const observatoryTelescopeStatusSuccess = observatoryTelecopeStatus => ({
   type: OBSERVATORY_STATUS_SUCCESS,
   observatoryTelecopeStatus,
 });
@@ -51,6 +44,14 @@ const observatoryTelescopeStatusSuccess = (observatoryTelecopeStatus) => ({
 const observatoryTelescopeStatusFail = () => ({
   type: OBSERVATORY_STATUS_FAIL,
 });
+
+export const fetchObservatoryTelescopeStatus = obsId => (dispatch) => {
+  return axios.get(`/api/obs/getObservatoryStatus?obsId=${obsId}`)
+    .then((response) => {
+      dispatch(observatoryTelescopeStatusSuccess(response.data));
+    })
+    .catch(() => dispatch(observatoryTelescopeStatusFail()));
+};
 
 const observatoryListStart = () => ({
   type: OBSERVATORY_REQUEST_START,
@@ -66,6 +67,11 @@ export const observatoryListError = error => ({
   type: OBSERVATORY_REQUEST_FAIL,
   observatoryListError: error,
 });
+
+export const fetchAllWidgetsByObservatory = observatory => (dispatch) => {
+  dispatch(fetchMoonPhase(observatory));
+  dispatch(fetchSmallSatelliteView(observatory));
+};
 
 // @param: callSource : STRING | details || byTelescope
 export const getObservatoryList = (currentObservatoryId, callSource) => (dispatch, getState) => {
@@ -92,7 +98,7 @@ export const getObservatoryList = (currentObservatoryId, callSource) => (dispatc
       dispatch(fetchObservatoryTelescopeStatus(obsId));
     }
   })
-  .catch(error => {
+  .catch((error) => {
     dispatch(observatoryListError(error));
     throw error;
   });
@@ -100,6 +106,7 @@ export const getObservatoryList = (currentObservatoryId, callSource) => (dispatc
 
 const fetchMoonPhase = observatory => (dispatch, getState) => {
   const { token, at, cid } = getState().user;
+
   if (observatory && observatory.MoonPhaseWidgetId) { // only make call if /api/obs/list response has MoonPhaseWidgetId defined
     return axios.post('/api/moon/phase', {
       token,
@@ -150,11 +157,6 @@ const setSkyChartWidget = skyChartWidgetResult => ({
 const startFetchSkyChartWidget = () => ({
   type: SKYCHART_WIDGET_START,
 });
-
-export const fetchAllWidgetsByObservatory = observatory => (dispatch) => {
-  dispatch(fetchMoonPhase(observatory));
-  dispatch(fetchSmallSatelliteView(observatory));
-};
 
 export const fetchSkyChartWidget = ({ obsId, AllskyWidgetId, scheduledMissionId }) => (dispatch) => {
   dispatch(startFetchSkyChartWidget);

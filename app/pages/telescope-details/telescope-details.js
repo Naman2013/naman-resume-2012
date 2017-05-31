@@ -7,12 +7,16 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import './telescope-details.scss';
 import DEFAULT_FULL_MISSION_DATA from './default-full-mission-data';
 
+import { bootstrapTelescopeDetails } from '../../modules/telescope-details/actions';
+
 import {
   getObservatoryList,
   getCurrentObservatory,
+
   fetchObservatoryTelescopeStatus,
   fetchObservatoryWebcam,
-  resetSnapshotList } from '../../modules/Telescope-Overview';
+  resetSnapshotList,
+} from '../../modules/Telescope-Overview';
 
 import { fetchObjectContent } from '../../modules/community-content/community-object-content-actions';
 
@@ -88,6 +92,8 @@ function determineImageLoaderType(currentInstrument) {
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators({
+      bootstrapTelescopeDetails,
+
       getObservatoryList,
       fetchObservatoryTelescopeStatus,
       fetchObservatoryWebcam,
@@ -124,6 +130,7 @@ class TelescopeDetails extends Component {
       teleUniqueId: PropTypes.string.isRequired,
     }).isRequired,
     actions: PropTypes.shape({
+      bootstrapTelescopeDetails: PropTypes.func.isRequired,
       getObservatoryList: PropTypes.func.isRequired,
       resetSnapshotList: PropTypes.func.isRequired,
       fetchObservatoryWebcam: PropTypes.func.isRequired,
@@ -186,11 +193,11 @@ class TelescopeDetails extends Component {
   };
 
   scaffoldObservatoryList() {
-    const { obsUniqueId } = this.props.params;
-    this.props.actions.getObservatoryList(
+    const { obsUniqueId, teleUniqueId } = this.props.params;
+    this.props.actions.bootstrapTelescopeDetails({
       obsUniqueId,
-      'details',
-    );
+      teleUniqueId,
+    });
   }
 
   refreshDetailsInterval = null;

@@ -1,3 +1,5 @@
+import { observatoryListSuccess } from '../Telescope-Overview';
+
 import fetchCurrentConditions from '../../services/sky-widgets/current-conditions';
 import fetchDayNightBar from '../../services/sky-widgets/day-night-bar';
 import fetchDayNightMap from '../../services/sky-widgets/day-night-map';
@@ -24,17 +26,43 @@ export const FETCH_ALL_SKY_SUCCESS = 'FETCH_ALL_SKY_SUCCESS';
 export const FETCH_DOME_CAM_START = 'FETCH_DOME_CAM_START';
 export const FETCH_DOME_CAM_SUCCESS = 'FETCH_DOME_CAM_SUCCESS';
 
-export const bootstrapTelescopeDetails = (dispatch, getState) => ({ callSource }) => {
+export const SET_CURRENT_OBSERVATORY = 'SET_CURRENT_OBSERVATORY';
+export const SET_CURRENT_TELESCOPE = 'SET_CURRENT_TELESCOPE';
+
+const bootstrapTelescopeDetailsStart = () => ({
+  type: BOOTSTRAP_TELESCOPE_DETAILS_START,
+});
+
+const bootStrapTelescopeDetailsSuccess = payload => ({
+  type: BOOTSTRAP_TELESCOPE_DETAILS,
+  payload,
+});
+
+const bootstrapTelescopeDetailsFail = payload => ({
+  type: BOOTSTRAP_TELESCOPE_DETAILS_FAIL,
+  payload,
+});
+
+const setCurrentObservatory = observatory => ({
+  type: SET_CURRENT_OBSERVATORY,
+  observatory,
+});
+
+export const bootstrapTelescopeDetails = ({ obsUniqueId, teleUniqueId }) => (dispatch, getState) => {
   const { at, cid, token } = getState().user;
 
   return fetchObservatoryList({
     at,
     cid,
     token,
-    callSource,
+    callSource: 'details',
   }).then((result) => {
-    // TODO: fire associated actions needed to set content for the observatories
-    // TODO: fire other actions accociated with fetching the observatory info
+
+    // TODO: isolate an observatory that matches the passed unique ID
+    // TODO: isolate a telescope that matches the passed unique ID
+
+    dispatch(observatoryListSuccess(result.data));
+
   }).catch((error) => {
     // TODO: handle error scenario when we have no information
   });
