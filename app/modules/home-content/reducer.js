@@ -14,7 +14,7 @@ const initialState = {
       key: 1,
       title: 'Lunar Eclipse',
       content: 'On February 26th we witnessed the ring of fire solar eclipse with Slooh host Gerry Monteux and special guests including Burnie Burns of Rooster Teeth',
-      content_link: '',
+      contentLink: '',
       imageUrl: 'assets/images/samples/bobpubjpg.png',
       videoUrl: 'https://www.youtube.com/embed/rQMCVtyvsOQ?rel=0&amp;showinfo=0'
     },
@@ -22,7 +22,7 @@ const initialState = {
       key: 2,
       title: 'Total Solar Eclipse',
       content: 'Road Trip with Slooh to Stanley, Idaho to witness the Total Solar Eclipse on August 21st, or watch our coverage live right here on Slooh.',
-      content_link: 'https://www.slooh.com/#/road-trip?_k=8u86a2',
+      contentLink: 'https://www.slooh.com/#/road-trip?_k=8u86a2',
       imageUrl: 'assets/images/samples/perseid-meteor-shower.png',
       videoUrl: 'https://www.youtube.com/embed/ZU4Nt_-nLFY?rel=0&amp;showinfo=0'
     },
@@ -30,7 +30,7 @@ const initialState = {
       key: 3,
       title: 'Gazing at the Milky Way',
       content: 'How does light pollution affect your view of the universe? On May 25th, we explored the importance of dark skies while looking live at the Milky Way with special guests, Julie Fletcher and Athena Brensberger.',
-      content_link: '',
+      contentLink: '',
       imageUrl: 'assets/images/samples/perseids.png',
       videoUrl: 'https://www.youtube.com/embed/Mr8qK-aM9JE?rel=0&amp;showinfo=0'
     }

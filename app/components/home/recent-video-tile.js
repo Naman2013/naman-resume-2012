@@ -37,17 +37,22 @@ class RecentVideoTile extends Component {
         <div className="video-wrap">
           <iframe className="home-youtube-video" width="100%" src={this.props.videoUrl} seamless allowFullScreen autoPlay="1" frameBorder="0"></iframe>
         </div>
-        <p className="content"><a href={this.props.content_link}>{this.props.content}</a></p>
+        <p className="content">{this.props.content}</p>
       </div>
     );
   }
 }
 
+// var setAnchor = () => {
+//   return{__html: <a href={this.props.content_link}>{this.props.content}</a> }
+// }
+// <a href={this.props.content_link}>{this.props.content}</a>
+// dangerouslySetInnerHTML={__html:{<a href={this.props.content_link}></a>}}>{this.props.content}</p>
 RecentVideoTile.propTypes = {
   title: PropTypes.string.isRequired,
   content: PropTypes.string,
   imageUrl: PropTypes.string.isRequired,
-  videoUrl: PropTypes.string.isRequired
+  videoUrl: PropTypes.string.isRequired,
 };
 
 export default RecentVideoTile;
