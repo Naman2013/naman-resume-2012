@@ -1,6 +1,6 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { uniqueId } from 'lodash';
 import GenericLoadingBox from '../../common/loading-screens/generic-loading-box';
 import './live-webcam.scss';
 
