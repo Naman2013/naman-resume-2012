@@ -24,7 +24,9 @@ const initialState = {
   fetchingObservatoryListErrorBody: null,
 
   currentObservatory: {},
-  currentTelescope: {},
+  currentTelescope: {
+    teleInstrumentList: [],
+  },
 
   fetchingWeatherWidget: false,
   fetchingDayNightBar: false,

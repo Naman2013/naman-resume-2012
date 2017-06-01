@@ -30,6 +30,12 @@ const initialState = {
     statusCode: 200,
     eventListType: null,
     eventList: [],
+    nextEvent: {
+      eventStart: 0,
+      eventEnd: 0,
+      eventId: 0,
+      eventIsLive: false,
+    },
   },
   calculatedEventValues: {
     currentTimeMoment: currentTimePlaceholder,
