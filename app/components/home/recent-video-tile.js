@@ -43,11 +43,16 @@ class RecentVideoTile extends Component {
   }
 }
 
+// var setAnchor = () => {
+//   return{__html: <a href={this.props.content_link}>{this.props.content}</a> }
+// }
+// <a href={this.props.content_link}>{this.props.content}</a>
+// dangerouslySetInnerHTML={__html:{<a href={this.props.content_link}></a>}}>{this.props.content}</p>
 RecentVideoTile.propTypes = {
   title: PropTypes.string.isRequired,
   content: PropTypes.string,
   imageUrl: PropTypes.string.isRequired,
-  videoUrl: PropTypes.string.isRequired
+  videoUrl: PropTypes.string.isRequired,
 };
 
 export default RecentVideoTile;
