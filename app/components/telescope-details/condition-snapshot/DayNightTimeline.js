@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import RefreshedImage from './RefreshedImage';
+import RefreshedImage from '../../common/refreshed-static-image/RefreshedImage';
 
 export default class DayNightTimeline extends Component {
   static propTypes = {

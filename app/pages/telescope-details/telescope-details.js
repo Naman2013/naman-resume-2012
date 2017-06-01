@@ -14,7 +14,6 @@ import {
   getCurrentObservatory,
 
   fetchObservatoryTelescopeStatus,
-  fetchObservatoryWebcam,
   resetSnapshotList,
 } from '../../modules/Telescope-Overview';
 
@@ -55,7 +54,6 @@ function mapDispatchToProps(dispatch) {
 
       getObservatoryList,
       fetchObservatoryTelescopeStatus,
-      fetchObservatoryWebcam,
       resetSnapshotList,
       fetchObjectContent,
     }, dispatch),
@@ -98,7 +96,6 @@ class TelescopeDetails extends Component {
       bootstrapTelescopeDetails: PropTypes.func.isRequired,
       getObservatoryList: PropTypes.func.isRequired,
       resetSnapshotList: PropTypes.func.isRequired,
-      fetchObservatoryWebcam: PropTypes.func.isRequired,
     }).isRequired,
   };
 
@@ -119,34 +116,37 @@ class TelescopeDetails extends Component {
 
     const { selectedTab } = this.state;
 
-    const { observatoryList, params, currentTelescope } = this.props;
-
+    const { observatoryList, params, currentObservatory, currentTelescope } = this.props;
+    const { obsUniqueId, teleUniqueId } = params;
     const { observatoryTelecopeStatus } = nextProps;
-    const { obsUniqueId } = params;
 
-    const currentObservatory = getCurrentObservatory(observatoryList, obsUniqueId);
-    const nextObservatory = getCurrentObservatory(observatoryList, nextProps.params.obsUniqueId);
+    // console.log('the current telescope...');
+    // console.log(currentTelescope);
+    // console.log('========================');
+    //
+    // console.log('obsUniqueId', obsUniqueId);
+    // console.log('teleUniqueId', teleUniqueId);
 
-    if (!currentObservatory) { return; }
+    // const currentObservatory = getCurrentObservatory(observatoryList, obsUniqueId);
+    // const nextObservatory = getCurrentObservatory(observatoryList, nextProps.params.obsUniqueId);
+
+    // if (!currentObservatory) { return; }
 
     // check if we have a telescopeStatus
     // if we do, then scaffold the refresh timer
-    if (observatoryTelecopeStatus) {
-      const { statusExpires, statusTimestamp } = observatoryTelecopeStatus;
-      const refreshTime = (statusExpires - statusTimestamp) * 1000;
-      this.scaffoldRefreshTimer(refreshTime);
-    }
-
-    // TODO: handle this in actions and not in the component
-    this.props.actions.fetchObservatoryWebcam(nextObservatory);
+    // if (observatoryTelecopeStatus) {
+    //   const { statusExpires, statusTimestamp } = observatoryTelecopeStatus;
+    //   const refreshTime = (statusExpires - statusTimestamp) * 1000;
+    //   this.scaffoldRefreshTimer(refreshTime);
+    // }
 
     // TODO: make sure that we are refreshing this list at the appropriate time!!!
-    this.props.actions.resetSnapshotList();
+    //this.props.actions.resetSnapshotList();
 
     // reset the selected tab if it is outside of the bounds of available tabs
-    if (selectedTab > currentTelescope.teleInstrumentList.length - 1) {
-      this.handleSelect(0);
-    }
+    // if (selectedTab > currentTelescope.teleInstrumentList.length - 1) {
+    //   this.handleSelect(0);
+    // }
   }
 
   componentWillUnmount() {
@@ -309,7 +309,11 @@ class TelescopeDetails extends Component {
                   </div> : null
               }
 
-              <LiveWebcam />
+              <LiveWebcam
+                obsId={obsId}
+                facilityWebcamWidgetId={currentObservatory.FacilityWebcamWidgetId}
+              />
+
             </div>
 
             <div className="col-md-4 telescope-details-sidebar">

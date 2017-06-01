@@ -182,20 +182,22 @@ const fetchObservatoryWebcamSuccess = observatoryLiveWebcamResult => ({
   observatoryLiveWebcamResult,
 });
 
-export const fetchObservatoryWebcam = observatory => (dispatch, getState) => {
-  const { observatoryLiveWebcamResult } = getState().telescopeOverview;
-
-  if (observatoryLiveWebcamResult.obsId !== observatory.obsId) {
-    dispatch(startFetchObservatoryWebcam());
-    return fetchFacilityWebcam({
-      obsId: observatory.obsId,
-      widgetUniqueId: observatory.FacilityWebcamWidgetId,
-    }).then((result) => {
-      if (!result.data.apiError) {
-        dispatch(fetchObservatoryWebcamSuccess(result.data));
-      }
-    });
-  }
+// TODO: should this be made available through telescope details?
+export const fetchObservatoryWebcam = ({
+  obsId,
+  facilityWebcamWidgetId,
+}) => (dispatch) => {
+  dispatch(startFetchObservatoryWebcam());
+  console.log(obsId);
+  console.log(facilityWebcamWidgetId);
+  return fetchFacilityWebcam({
+    obsId,
+    widgetUniqueId: facilityWebcamWidgetId,
+  }).then((result) => {
+    if (!result.data.apiError) {
+      dispatch(fetchObservatoryWebcamSuccess(result.data));
+    }
+  });
 };
 
 const setImageData = data => ({
@@ -275,7 +277,10 @@ const initialState = {
     errorMsg: '',
     observatoryList: [],
   },
+
   observatoryListErrorBody: null,
+
+  fetchingObservatoryLiveWebcamResult: true,
 
   // status of various telescopes depends on having a list of observatories..
   observatoryTelecopeStatus: null,
@@ -295,7 +300,6 @@ const initialState = {
     logoURL: '',
     refreshIntervalSec: 0,
     facilityWebcamURL: '',
-    obsId: 0,
   },
   imageDataToSnapshot: {
     callSource: 'details',
@@ -370,12 +374,14 @@ export default createReducer(initialState, {
   [OBSERVATORY_WEBCAM_START](state) {
     return {
       ...state,
+      fetchingObservatoryLiveWebcamResult: true,
       observatoryLiveWebcamResult: { ...initialState.observatoryLiveWebcamResult },
     };
   },
   [OBSERVATORY_WEBCAM_SUCCESS](state, { observatoryLiveWebcamResult }) {
     return {
       ...state,
+      fetchingObservatoryLiveWebcamResult: false,
       observatoryLiveWebcamResult,
     };
   },
