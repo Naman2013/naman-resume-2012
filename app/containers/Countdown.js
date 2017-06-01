@@ -55,6 +55,15 @@ export default class Countdown extends PureComponent {
   static defaultProps = {
     size: 35,
     lineWidth: 3,
+    nextEvent: {
+      eventDescription: '',
+      eventDetailsURL: '',
+      eventEnd: 0,
+      eventIconURL: '',
+      eventId: 0,
+      eventImageURL: '',
+      eventIsLive: false,
+    },
   };
 
   render() {
