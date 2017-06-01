@@ -62,6 +62,20 @@ const setCurrentTelescope = currentTelescope => ({
   currentTelescope,
 });
 
+const fetchCommunityContent = telescope => (dispatch, getState) => {
+  // TODO: check in on the telescope and determine what community content we need to display
+  const { teleContentType, teleContentCount, teleContentList } = telescope;
+
+  const NONE = 'none';
+  const MISSION_OBJECT_ID = 'missionObjectId';
+  const STATIC_OBJECT_ID = 'staticObjectId';
+  const STATIC_SLUG_LOOKUP_ID = 'staticSlugLookupId';
+  const STATIC_SLUG = 'staticSlug';
+
+  // TODO: document the teleContentTypes
+  // TODO: based on the content type fetch the community content
+};
+
 export const bootstrapTelescopeDetails = ({ obsUniqueId, teleUniqueId }) => (dispatch, getState) => {
   const { at, cid, token } = getState().user;
 
@@ -77,6 +91,7 @@ export const bootstrapTelescopeDetails = ({ obsUniqueId, teleUniqueId }) => (dis
     const currentObservatory = getCurrentObservatory(observatoryList, obsUniqueId);
     const currentTelescope = getCurrentTelescope(currentObservatory.obsTelescopes, teleUniqueId);
 
+    dispatch(fetchCommunityContent(currentTelescope));
     dispatch(setCurrentObservatory(currentObservatory));
     dispatch(setCurrentTelescope(currentTelescope));
     dispatch(observatoryListSuccess(result.data));
