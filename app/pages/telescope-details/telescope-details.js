@@ -112,13 +112,7 @@ class TelescopeDetails extends Component {
     const { obsUniqueId, teleUniqueId } = params;
     const { observatoryTelecopeStatus } = nextProps;
 
-    // TODO: fire an action that will set the observatory and telescope
-    // TODO: if the telescope is unique, update the telescope
-    // TODO: if the observatory is unique, update the observatory
-
-    // console.log('obsUniqueId', obsUniqueId);
-    // console.log('teleUniqueId', teleUniqueId);
-
+    // new observatory
     if (this.props.params.obsUniqueId !== nextProps.params.obsUniqueId) {
       this.props.actions.setObservatory({
         obsUniqueId: nextProps.params.obsUniqueId,
@@ -126,6 +120,7 @@ class TelescopeDetails extends Component {
       });
     }
 
+    // new telescope
     if (this.props.params.teleUniqueId !== nextProps.params.teleUniqueId) {
       this.props.actions.setTelescope({
         obsUniqueId: nextProps.params.obsUniqueId,
@@ -143,9 +138,6 @@ class TelescopeDetails extends Component {
     //   const refreshTime = (statusExpires - statusTimestamp) * 1000;
     //   this.scaffoldRefreshTimer(refreshTime);
     // }
-
-    // TODO: handle snapshot refreshing when we set a telescope
-    //this.props.actions.resetSnapshotList();
 
     // TODO: make sure to reset the tabs while navigating between telescopes
     // if (selectedTab > currentTelescope.teleInstrumentList.length - 1) {
