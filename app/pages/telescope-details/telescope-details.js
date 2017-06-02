@@ -133,18 +133,9 @@ class TelescopeDetails extends Component {
       });
     }
 
-    // console.log('the current telescope...');
-    // console.log(currentTelescope);
-    // console.log('========================');
-    //
-    // console.log('obsUniqueId', obsUniqueId);
-    // console.log('teleUniqueId', teleUniqueId);
-
-    // const currentObservatory = getCurrentObservatory(observatoryList, obsUniqueId);
-    // const nextObservatory = getCurrentObservatory(observatoryList, nextProps.params.obsUniqueId);
-
-    // if (!currentObservatory) { return; }
-
+    // TODO: bring the fetching of the telescope status back into the bootstrap method
+    // TODO: design an update status method that will deal with fetching the current telescope status
+    // TODO: tie in the status result into how we represent the display of ONLY THE FEED portion of the view
     // check if we have a telescopeStatus
     // if we do, then scaffold the refresh timer
     // if (observatoryTelecopeStatus) {
@@ -153,10 +144,10 @@ class TelescopeDetails extends Component {
     //   this.scaffoldRefreshTimer(refreshTime);
     // }
 
-    // TODO: make sure that we are refreshing this list at the appropriate time!!!
+    // TODO: handle snapshot refreshing when we set a telescope
     //this.props.actions.resetSnapshotList();
 
-    // reset the selected tab if it is outside of the bounds of available tabs
+    // TODO: make sure to reset the tabs while navigating between telescopes
     // if (selectedTab > currentTelescope.teleInstrumentList.length - 1) {
     //   this.handleSelect(0);
     // }
@@ -211,6 +202,7 @@ class TelescopeDetails extends Component {
     const { obsId } = currentObservatory;
     const { teleInstrumentList, teleId, teleCanReserveMissions } = currentTelescope;
 
+    // TODO: write new actions that will store the current mission information and get this out of the view
     // setup the current mission - setting defaults based on the original design of the API
     const currentMission = DEFAULT_FULL_MISSION_DATA;
     const currentTelescopeMissionData =
@@ -221,6 +213,7 @@ class TelescopeDetails extends Component {
     }
 
     const { missionAvailable } = currentMission;
+    // ---- end the mission related work...
 
     return (
       <div className="telescope-details-page-wrapper">
