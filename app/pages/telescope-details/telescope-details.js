@@ -34,16 +34,6 @@ import TelescopeConditionSnapshot from '../../components/telescope-details/condi
 import LiveWebcam from '../../components/telescope-details/live-webcam/live-webcam';
 import StarShareCamera from '../../components/telescope-details/star-share-camera/star-share-camera';
 
-/**
-  * Getting the current telescope from the API response
-  * @param {array} observatoryTelescopes - Array of all telescopes in the current observatory
-  * @param {string} telescopeId - Id of the current telescope, which available in URL and/or props.params
-  * @returns {Object} telescope - Current telescope object
-  */
-function getCurrentTelescope(observatoryTelescopes, telescopeId) {
-  return observatoryTelescopes.find(telescope => telescope.teleUniqueId === telescopeId);
-}
-
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators({
@@ -114,6 +104,8 @@ class TelescopeDetails extends Component {
     const { observatoryList, params, currentObservatory, currentTelescope } = this.props;
     const { obsUniqueId, teleUniqueId } = params;
     const { observatoryTelecopeStatus } = nextProps;
+
+    // TODO: fire an action that will set the observatory and telescope
 
     // console.log('the current telescope...');
     // console.log(currentTelescope);
