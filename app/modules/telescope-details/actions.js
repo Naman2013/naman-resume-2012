@@ -29,6 +29,8 @@ export const FETCH_DOME_CAM_SUCCESS = 'FETCH_DOME_CAM_SUCCESS';
 export const SET_CURRENT_OBSERVATORY = 'SET_CURRENT_OBSERVATORY';
 export const SET_CURRENT_TELESCOPE = 'SET_CURRENT_TELESCOPE';
 
+export const RESET_DETAILS_SELECTED_ELEMENTS = 'RESET_DETAILS_SELECTED_ELEMENTS';
+
 /**
   * Getting the current telescope from the API response
   * @param {array} observatoryTelescopes - Array of all telescopes in the current observatory
@@ -38,6 +40,10 @@ export const SET_CURRENT_TELESCOPE = 'SET_CURRENT_TELESCOPE';
 function getCurrentTelescope(observatoryTelescopes, telescopeId) {
   return observatoryTelescopes.find(telescope => telescope.teleUniqueId === telescopeId);
 }
+
+const resetSelectedDetailsElements = () => ({
+  type: RESET_DETAILS_SELECTED_ELEMENTS,
+});
 
 const bootstrapTelescopeDetailsStart = () => ({
   type: BOOTSTRAP_TELESCOPE_DETAILS_START,
@@ -80,6 +86,7 @@ export const bootstrapTelescopeDetails = ({ obsUniqueId, teleUniqueId }) => (dis
   const { at, cid, token } = getState().user;
 
   dispatch(bootstrapTelescopeDetailsStart());
+  dispatch(resetSelectedDetailsElements());
 
   return fetchObservatoryList({
     at,
@@ -101,6 +108,40 @@ export const bootstrapTelescopeDetails = ({ obsUniqueId, teleUniqueId }) => (dis
     dispatch(bootstrapTelescopeDetailsFail());
   });
 };
+
+export const setObservatory = ({ obsUniqueId, teleUniqueId }) => (dispatch, getState) => {
+  const {
+    telescopeDetails: { currentObservatory, fetchingObservatoryList },
+    telescopeOverview: { observatoryList },
+  } = getState();
+
+  if (!currentObservatory) {
+    dispatch(bootstrapTelescopeDetails({ obsUniqueId, teleUniqueId }));
+  } else if (!fetchingObservatoryList) {
+    const nextObservatory = getCurrentObservatory(observatoryList, obsUniqueId);
+    dispatch(setCurrentObservatory(nextObservatory));
+  }
+};
+
+export const setTelescope = ({ obsUniqueId, teleUniqueId }) => (dispatch, getState) => {
+  const {
+    telescopeDetails: { currentObservatory, fetchingObservatoryList },
+    telescopeOverview: { observatoryList },
+  } = getState();
+
+  if (!currentObservatory) {
+    dispatch(bootstrapTelescopeDetails({ obsUniqueId, teleUniqueId }));
+  } else if (!fetchingObservatoryList) {
+    const nextObservatory = getCurrentObservatory(observatoryList, obsUniqueId);
+    const nextTelescope = getCurrentTelescope(nextObservatory.obsTelescopes, teleUniqueId);
+    dispatch(setCurrentTelescope(nextTelescope));
+  }
+};
+
+export const updateObservatoryAndTelescope = ({ obsUniqueId, teleUniqueId }) => (dispatch) => {
+  dispatch(setObservatory({ obsUniqueId, teleUniqueId }));
+  dispatch(setTelescope({ obsUniqueId, teleUniqueId }));
+}
 
 const fetchDomeCamStart = () => ({
   type: FETCH_DOME_CAM_START,

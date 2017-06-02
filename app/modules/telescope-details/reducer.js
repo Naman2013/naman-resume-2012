@@ -15,6 +15,7 @@ import {
   FETCH_DOME_CAM_SUCCESS,
   SET_CURRENT_OBSERVATORY,
   SET_CURRENT_TELESCOPE,
+  RESET_DETAILS_SELECTED_ELEMENTS,
 } from './actions';
 
 
@@ -23,7 +24,7 @@ const initialState = {
   fetchingObservatoryListFail: false,
   fetchingObservatoryListErrorBody: null,
 
-  currentObservatory: {},
+  currentObservatory: null,
   currentTelescope: {
     teleInstrumentList: [],
   },
@@ -68,6 +69,15 @@ const initialState = {
 };
 
 export default createReducer(initialState, {
+  [RESET_DETAILS_SELECTED_ELEMENTS](state) {
+    return {
+      ...state,
+      currentObservatory: null,
+      currentTelescope: {
+        teleInstrumentList: [],
+      },
+    };
+  },
   [BOOTSTRAP_TELESCOPE_DETAILS_START](state) {
     return {
       ...state,
