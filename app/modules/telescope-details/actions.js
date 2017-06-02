@@ -118,7 +118,7 @@ export const setObservatory = ({ obsUniqueId, teleUniqueId }) => (dispatch, getS
   if (!currentObservatory) {
     dispatch(bootstrapTelescopeDetails({ obsUniqueId, teleUniqueId }));
   } else if (!fetchingObservatoryList) {
-    const nextObservatory = getCurrentObservatory(observatoryList, obsUniqueId);
+    const nextObservatory = getCurrentObservatory(observatoryList.observatoryList, obsUniqueId);
     dispatch(setCurrentObservatory(nextObservatory));
   }
 };
@@ -132,7 +132,7 @@ export const setTelescope = ({ obsUniqueId, teleUniqueId }) => (dispatch, getSta
   if (!currentObservatory) {
     dispatch(bootstrapTelescopeDetails({ obsUniqueId, teleUniqueId }));
   } else if (!fetchingObservatoryList) {
-    const nextObservatory = getCurrentObservatory(observatoryList, obsUniqueId);
+    const nextObservatory = getCurrentObservatory(observatoryList.observatoryList, obsUniqueId);
     const nextTelescope = getCurrentTelescope(nextObservatory.obsTelescopes, teleUniqueId);
     dispatch(setCurrentTelescope(nextTelescope));
   }

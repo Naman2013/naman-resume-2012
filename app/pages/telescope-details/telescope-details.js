@@ -7,7 +7,11 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import './telescope-details.scss';
 import DEFAULT_FULL_MISSION_DATA from './default-full-mission-data';
 
-import { bootstrapTelescopeDetails } from '../../modules/telescope-details/actions';
+import {
+  bootstrapTelescopeDetails,
+  setObservatory,
+  setTelescope,
+} from '../../modules/telescope-details/actions';
 
 import {
   fetchObservatoryTelescopeStatus,
@@ -38,6 +42,8 @@ function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators({
       bootstrapTelescopeDetails,
+      setObservatory,
+      setTelescope,
 
       fetchObservatoryTelescopeStatus,
       resetSnapshotList,
@@ -64,7 +70,6 @@ function mapStateToProps({
     missions,
     observatoryList: observatoryList.observatoryList,
     observatoryTelecopeStatus,
-    cardList: missions.cardList || [],
     activeTelescopeMissions,
     communityContent: communityObjectContent.communityContent.posts,
   };
@@ -81,6 +86,8 @@ class TelescopeDetails extends Component {
     actions: PropTypes.shape({
       bootstrapTelescopeDetails: PropTypes.func.isRequired,
       resetSnapshotList: PropTypes.func.isRequired,
+      setObservatory: PropTypes.func.isRequired,
+      setTelescope: PropTypes.func.isRequired,
     }).isRequired,
   };
 
@@ -106,6 +113,25 @@ class TelescopeDetails extends Component {
     const { observatoryTelecopeStatus } = nextProps;
 
     // TODO: fire an action that will set the observatory and telescope
+    // TODO: if the telescope is unique, update the telescope
+    // TODO: if the observatory is unique, update the observatory
+
+    // console.log('obsUniqueId', obsUniqueId);
+    // console.log('teleUniqueId', teleUniqueId);
+
+    if (this.props.params.obsUniqueId !== nextProps.params.obsUniqueId) {
+      this.props.actions.setObservatory({
+        obsUniqueId: nextProps.params.obsUniqueId,
+        teleUniqueId: nextProps.params.teleUniqueId
+      });
+    }
+
+    if (this.props.params.teleUniqueId !== nextProps.params.teleUniqueId) {
+      this.props.actions.setTelescope({
+        obsUniqueId: nextProps.params.obsUniqueId,
+        teleUniqueId: nextProps.params.teleUniqueId,
+      });
+    }
 
     // console.log('the current telescope...');
     // console.log(currentTelescope);
