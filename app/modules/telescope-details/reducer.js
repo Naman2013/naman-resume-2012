@@ -1,5 +1,6 @@
 import createReducer from '../utils/createReducer';
 import {
+  SET_DISPLAY_COMMUNITY_CONTENT,
   BOOTSTRAP_TELESCOPE_DETAILS_START,
   BOOTSTRAP_TELESCOPE_DETAILS,
   BOOTSTRAP_TELESCOPE_DETAILS_FAIL,
@@ -23,6 +24,8 @@ const initialState = {
   fetchingObservatoryList: true,
   fetchingObservatoryListFail: false,
   fetchingObservatoryListErrorBody: null,
+
+  displayCommunityContent: false,
 
   currentObservatory: null,
   currentTelescope: {
@@ -69,6 +72,12 @@ const initialState = {
 };
 
 export default createReducer(initialState, {
+  [SET_DISPLAY_COMMUNITY_CONTENT](state, { payload }) {
+    return {
+      ...state,
+      displayCommunityContent: payload,
+    };
+  },
   [RESET_DETAILS_SELECTED_ELEMENTS](state) {
     return {
       ...state,
