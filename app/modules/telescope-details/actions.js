@@ -1,4 +1,8 @@
-import { observatoryListSuccess, getCurrentObservatory } from '../Telescope-Overview';
+import {
+  observatoryListSuccess,
+  getCurrentObservatory,
+  resetSnapshotList,
+} from '../Telescope-Overview';
 
 import fetchCurrentConditions from '../../services/sky-widgets/current-conditions';
 import fetchDayNightBar from '../../services/sky-widgets/day-night-bar';
@@ -101,6 +105,7 @@ export const bootstrapTelescopeDetails = ({ obsUniqueId, teleUniqueId }) => (dis
     dispatch(fetchCommunityContent(currentTelescope));
     dispatch(setCurrentObservatory(currentObservatory));
     dispatch(setCurrentTelescope(currentTelescope));
+    dispatch(resetSnapshotList());
     dispatch(observatoryListSuccess(result.data));
     dispatch(bootStrapTelescopeDetailsSuccess());
   }).catch(() => {
@@ -135,13 +140,14 @@ export const setTelescope = ({ obsUniqueId, teleUniqueId }) => (dispatch, getSta
     const nextObservatory = getCurrentObservatory(observatoryList.observatoryList, obsUniqueId);
     const nextTelescope = getCurrentTelescope(nextObservatory.obsTelescopes, teleUniqueId);
     dispatch(setCurrentTelescope(nextTelescope));
+    dispatch(resetSnapshotList());
   }
 };
 
 export const updateObservatoryAndTelescope = ({ obsUniqueId, teleUniqueId }) => (dispatch) => {
   dispatch(setObservatory({ obsUniqueId, teleUniqueId }));
   dispatch(setTelescope({ obsUniqueId, teleUniqueId }));
-}
+};
 
 const fetchDomeCamStart = () => ({
   type: FETCH_DOME_CAM_START,
