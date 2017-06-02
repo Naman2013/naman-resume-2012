@@ -10,9 +10,6 @@ import DEFAULT_FULL_MISSION_DATA from './default-full-mission-data';
 import { bootstrapTelescopeDetails } from '../../modules/telescope-details/actions';
 
 import {
-  getObservatoryList,
-  getCurrentObservatory,
-
   fetchObservatoryTelescopeStatus,
   resetSnapshotList,
 } from '../../modules/Telescope-Overview';
@@ -52,7 +49,6 @@ function mapDispatchToProps(dispatch) {
     actions: bindActionCreators({
       bootstrapTelescopeDetails,
 
-      getObservatoryList,
       fetchObservatoryTelescopeStatus,
       resetSnapshotList,
       fetchObjectContent,
@@ -94,7 +90,6 @@ class TelescopeDetails extends Component {
     }).isRequired,
     actions: PropTypes.shape({
       bootstrapTelescopeDetails: PropTypes.func.isRequired,
-      getObservatoryList: PropTypes.func.isRequired,
       resetSnapshotList: PropTypes.func.isRequired,
     }).isRequired,
   };
