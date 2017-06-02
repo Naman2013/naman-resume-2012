@@ -2,6 +2,7 @@ import {
   observatoryListSuccess,
   getCurrentObservatory,
   resetSnapshotList,
+  fetchObservatoryTelescopeStatus,
 } from '../Telescope-Overview';
 
 import fetchCurrentConditions from '../../services/sky-widgets/current-conditions';
@@ -86,7 +87,10 @@ const fetchCommunityContent = telescope => (dispatch, getState) => {
   // TODO: based on the content type fetch the community content
 };
 
-export const bootstrapTelescopeDetails = ({ obsUniqueId, teleUniqueId }) => (dispatch, getState) => {
+export const bootstrapTelescopeDetails = ({
+  obsUniqueId,
+  teleUniqueId,
+}) => (dispatch, getState) => {
   const { at, cid, token } = getState().user;
 
   dispatch(bootstrapTelescopeDetailsStart());
@@ -102,6 +106,7 @@ export const bootstrapTelescopeDetails = ({ obsUniqueId, teleUniqueId }) => (dis
     const currentObservatory = getCurrentObservatory(observatoryList, obsUniqueId);
     const currentTelescope = getCurrentTelescope(currentObservatory.obsTelescopes, teleUniqueId);
 
+    dispatch(fetchObservatoryTelescopeStatus(currentObservatory.obsId));
     dispatch(fetchCommunityContent(currentTelescope));
     dispatch(setCurrentObservatory(currentObservatory));
     dispatch(setCurrentTelescope(currentTelescope));
