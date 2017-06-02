@@ -46,6 +46,11 @@ function getCurrentTelescope(observatoryTelescopes, telescopeId) {
   return observatoryTelescopes.find(telescope => telescope.teleUniqueId === telescopeId);
 }
 
+const setDisplayCommunityContent = payload => ({
+  type: SET_DISPLAY_COMMUNITY_CONTENT,
+  payload,
+});
+
 const resetSelectedDetailsElements = () => ({
   type: RESET_DETAILS_SELECTED_ELEMENTS,
 });
@@ -83,7 +88,16 @@ const fetchCommunityContent = telescope => (dispatch, getState) => {
   const STATIC_SLUG_LOOKUP_ID = 'staticSlugLookupId';
   const STATIC_SLUG = 'staticSlug';
 
-  // TODO: document the teleContentTypes
+  const displayCommunityContent = (() => {
+    if (teleContentType === NONE) {
+      return false;
+    }
+
+    return true;
+  });
+
+  dispatch(setDisplayCommunityContent(displayCommunityContent));
+
   // TODO: based on the content type fetch the community content
 };
 
