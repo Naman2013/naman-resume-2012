@@ -7,8 +7,15 @@ import GenericLoadingBox from '../../common/loading-screens/generic-loading-box'
 import { fetchObservatoryWebcam } from '../../../modules/Telescope-Overview';
 import './live-webcam.scss';
 
-const mapStateToProps = ({ telescopeOverview }) => ({
-  ...telescopeOverview.observatoryLiveWebcamResult,
+const mapStateToProps = ({
+  telescopeOverview,
+  telescopeOverview: { observatoryLiveWebcamResult },
+}) => ({
+  title: observatoryLiveWebcamResult.title,
+  subtitle: observatoryLiveWebcamResult.subtitle,
+  logoURL: observatoryLiveWebcamResult.logoURL,
+  refreshIntervalSec: observatoryLiveWebcamResult.refreshIntervalSec,
+  facilityWebcamURL: observatoryLiveWebcamResult.facilityWebcamURL,
   fetchingObservatoryLiveWebcamResult: telescopeOverview.fetchingObservatoryLiveWebcamResult,
 });
 
@@ -40,6 +47,15 @@ class LiveWebcam extends Component {
       obsId,
       facilityWebcamWidgetId,
     });
+  }
+
+  componentWillUpdate(nextProps) {
+    if (this.props.facilityWebcamWidgetId !== nextProps.facilityWebcamWidgetId && this.props.obsId !== nextProps.obsId) {
+      this.props.actions.fetchObservatoryWebcam({
+        obsId: nextProps.obsId,
+        facilityWebcamWidgetId: nextProps.facilityWebcamWidgetId,
+      });
+    }
   }
 
   refreshLiveImageInterval = null;
