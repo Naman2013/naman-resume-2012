@@ -40,14 +40,6 @@ class TelescopeImageLoader extends Component {
     this.previouslyRenderedImageSource = this.props.imageSource;
   }
 
-  generateThumbnailUrl(imageUrl) {
-    const { teleThumbWidth, loadThumbnails } = this.props;
-    if (loadThumbnails) {
-      return `/util/thumbnail.php?url=${imageUrl}&dimension=W&size=${teleThumbWidth}`;
-    }
-    return imageUrl;
-  }
-
   handleSourceImage(imageData) {
     const {
       astroObjectID,
@@ -156,16 +148,55 @@ class TelescopeImageLoader extends Component {
     this.detachSSE();
   }
 
+  generateThumbnailUrl(imageUrl) {
+    const { teleThumbWidth, loadThumbnails } = this.props;
+    if (loadThumbnails) {
+      return `/util/thumbnail.php?url=${imageUrl}&dimension=W&size=${teleThumbWidth}`;
+    }
+    return imageUrl;
+  }
+
+  componentDidUpdate() {
+    if (this.props.imageSource !== this.previouslyRenderedImageSource) {
+      console.log('rebuild sse');
+      this.rebuildSSE(this.props.imageSource);
+      return;
+    }
+
+    const {
+      currentImageUrl,
+      previousImageUrl,
+      startingOpacity,
+      adjustedFade } = this.state;
+
+    if (!currentImageUrl || !previousImageUrl) {
+      return;
+    }
+
+    // we start this work when we are certain we have images to work on
+    const topImageAddress = this.generateThumbnailUrl(currentImageUrl);
+    const topImage = document.getElementById(this.generateImageId());
+
+    if (topImage) {
+      topImage.style.transition = 'opacity';
+      topImage.style.opacity = startingOpacity;
+      topImage.src = topImageAddress;
+      window.getComputedStyle(topImage, null).opacity;
+      topImage.style.transition = `opacity ${adjustedFade}s`;
+      topImage.style.opacity = '1';
+    }
+  }
+
   attachSSE(imageSource) {
-    this.sseSource = new EventSource(this.props.imageSource);
+    this.sseSource = new EventSource(imageSource);
     this.sseSource.addEventListener(
       'message',
       event => this.handleSourceImage(event.data), false);
   }
 
   detachSSE() {
-    this.sseSource.close();
     this.sseSource.removeEventListener('message', this.handleSourceImage, false);
+    this.sseSource.close();
   }
 
   rebuildSSE(newImageSource) {
@@ -178,40 +209,11 @@ class TelescopeImageLoader extends Component {
     return `tele-id-${this.props.teleId}`;
   }
 
-  componentDidUpdate() {
-
-    if(this.props.imageSource !== this.previouslyRenderedImageSource) {
-      this.rebuildSSE(this.props.imageSource);
-      return;
-    }
-
-    const {
-      currentImageUrl,
-      previousImageUrl,
-      startingOpacity,
-      adjustedFade } = this.state;
-
-    if(!currentImageUrl || !previousImageUrl) {
-      return;
-    }
-
-    // we start this work when we are certain we have images to work on
-    const topImageAddress = this.generateThumbnailUrl(currentImageUrl);
-    const topImage = document.getElementById(this.generateImageId());
-
-    topImage.style.transition = 'opacity';
-    topImage.style.opacity = startingOpacity;
-    topImage.src = topImageAddress;
-    window.getComputedStyle(topImage, null).opacity;
-    topImage.style.transition = `opacity ${adjustedFade}s`;
-    topImage.style.opacity = '1';
-  }
-
   render() {
     const {
       currentImageUrl,
       previousImageUrl,
-      transitionDuration } = this.state;
+    } = this.state;
 
     const { teleThumbWidth } = this.props;
 

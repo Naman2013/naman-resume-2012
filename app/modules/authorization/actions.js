@@ -1,6 +1,6 @@
 import { push, go } from 'react-router-redux';
 import { fetchHandleErrors } from '../../services/authorization/handle-error';
-import { destroySession } from '../User';
+import { destroySession, removeUser } from '../User';
 
 export const FETCH_ERRORS_START = 'FETCH_ERRORS_START';
 export const FETCH_ERRORS_SUCCESS = 'FETCH_ERRORS_SUCCESS';
@@ -79,6 +79,7 @@ export const fetchErrors = () => (dispatch, getState) => {
 
       if (responseType === LOGIN_UPSELL) {
         destroySession();
+        dispatch(removeUser());
         dispatch(push('/registration/sign-in'));
       }
 

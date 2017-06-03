@@ -14,6 +14,7 @@ const initialState = {
       key: 1,
       title: 'Lunar Eclipse',
       content: 'On February 26th we witnessed the ring of fire solar eclipse with Slooh host Gerry Monteux and special guests including Burnie Burns of Rooster Teeth',
+      contentLink: '',
       imageUrl: 'assets/images/samples/bobpubjpg.png',
       videoUrl: 'https://www.youtube.com/embed/rQMCVtyvsOQ?rel=0&amp;showinfo=0'
     },
@@ -21,15 +22,17 @@ const initialState = {
       key: 2,
       title: 'Total Solar Eclipse',
       content: 'Road Trip with Slooh to Stanley, Idaho to witness the Total Solar Eclipse on August 21st, or watch our coverage live right here on Slooh.',
+      contentLink: 'https://www.slooh.com/#/road-trip?_k=8u86a2',
       imageUrl: 'assets/images/samples/perseid-meteor-shower.png',
       videoUrl: 'https://www.youtube.com/embed/ZU4Nt_-nLFY?rel=0&amp;showinfo=0'
     },
     {
       key: 3,
-      title: 'Star of Bethlehem',
-      content: 'Slooh welcomed in the spring season (in the northern hemisphere, at least) on March 20th with a fun show that centered around the equinox and the mysterious glow of the Zodiacal Light.',
+      title: 'Gazing at the Milky Way',
+      content: 'How does light pollution affect your view of the universe? On May 25th, we explored the importance of dark skies while looking live at the Milky Way with special guests, Julie Fletcher and Athena Brensberger.',
+      contentLink: '',
       imageUrl: 'assets/images/samples/perseids.png',
-      videoUrl: 'https://www.youtube.com/embed/uvNDUdzRp8Y?rel=0&amp;showinfo=0'
+      videoUrl: 'https://www.youtube.com/embed/Mr8qK-aM9JE?rel=0&amp;showinfo=0'
     }
   ],
   promoBandContent: 'Slooh Membership: An All-Access Pass to the Night Sky.',

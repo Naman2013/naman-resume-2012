@@ -11,7 +11,7 @@ import bestPosts from './best-of-slooh/get-best-reducer';
 import browseByPopularObjects from './browse-popular-objects/reducer';
 import catalog from './catalog/get-catalog-reducer';
 import communityContent from './community-content/get-community-content-reducer';
-import communityObjectContent from './community-content/get-object-content-reducer';
+import communityObjectContent from './community-content/community-object-content-reducer';
 import communityShowContent from './community-content/get-show-content-reducer';
 import contactForm from './Contact';
 import countdown from './CountdownModule';
