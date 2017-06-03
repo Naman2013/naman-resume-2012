@@ -29,7 +29,7 @@ class DiscussionsReply extends Component {
             className={styles.discussionsContent}
             dangerouslySetInnerHTML={{ __html: reply.content }}
           />
-        {images.map(img => <img className={styles.discussionsImages} key={img} alt="image" src={img} />)}
+        {images.map(img => <a href={img} rel="noopener noreferrer" target="_blank"><img className={styles.discussionsImages} key={img} alt="image" src={img} /></a>)}
         <div className={styles.discussionsReplies}>
           {/* For next iteration: <span className={styles.discussionsrepliesText}>Reply</span> */}
           <div className={`${styles.discussionsInlineHeart} no-margin`}>

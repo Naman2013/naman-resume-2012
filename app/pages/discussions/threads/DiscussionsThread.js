@@ -40,7 +40,7 @@ class DiscussionsThread extends Component {
             className={styles.discussionsTitle}
             dangerouslySetInnerHTML={{ __html: thread.content }}
           />
-          {images.map(img => <img className={styles.discussionsImages} key={img} alt="image" src={img} />)}
+          {images.map(img => <a href={img} rel="noopener noreferrer" target="_blank"><img className={styles.discussionsImages} key={img} alt="image" src={img} /></a>)}
           {thread.closedFlag === 'no' && <div className={styles.discussionsReplies}>
             <Link className={`${styles.discussionsrepliesText} inline-block`} to={`discussions/forums/${forumId}/topics/${topicId}/threads/${thread.threadId}/new-reply`}>
               <span>Reply</span>
