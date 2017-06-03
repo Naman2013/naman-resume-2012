@@ -79,7 +79,7 @@ export default class Neoview extends Component {
 
         <div className={neoviewContainerClassnames}>
           {
-            this.state.messages.map(message => <NewViewMessage message={message} />)
+            this.state.messages.map(message => <NewViewMessage key={uniqueId()} message={message} />)
           }
           <NeoViewDescription />
         </div>
