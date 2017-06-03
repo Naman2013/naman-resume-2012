@@ -19,16 +19,14 @@ const fetchPreviousShowsFail = payload => ({
 });
 
 export const fetchPreviousShows = ({
-  limit,
   page,
 }) => (dispatch, getState) => {
-  const { count } = getState().videoViewerBrowser;
+  const { limit } = getState().videoViewerBrowser;
   dispatch(fetchPreviousShowsStart());
 
   return axios.get(' /api/events/previous', {
     params: {
       limit,
-      count,
       page,
     }
   })
