@@ -22,6 +22,7 @@ export const FETCH_TELESCOPE_STATUS_FAIL = 'FETCH_TELESCOPE_STATUS_FAIL';
 
 export const RESET_CURRENT_OBSERVATORY_STATUS = 'RESET_CURRENT_OBSERVATORY_STATUS';
 export const SET_CURRENT_OBSERVATORY_STATUS = 'SET_CURRENT_OBSERVATORY_STATUS';
+export const UPDATE_TELESCOPE_STATUS = 'UPDATE_TELESCOPE_STATUS';
 
 export const FETCH_CURRENT_WEATHER_CONDITIONS_START = 'FETCH_CURRENT_WEATHER_CONDITIONS_START';
 export const FETCH_CURRENT_WEATHER_CONDITIONS_SUCCESS = 'FETCH_CURRENT_WEATHER_CONDITIONS_SUCCESS';
@@ -44,6 +45,7 @@ export const SET_CURRENT_TELESCOPE = 'SET_CURRENT_TELESCOPE';
 export const RESET_DETAILS_SELECTED_ELEMENTS = 'RESET_DETAILS_SELECTED_ELEMENTS';
 export const SET_DISPLAY_COMMUNITY_CONTENT = 'SET_DISPLAY_COMMUNITY_CONTENT';
 
+
 /**
   * Getting the current telescope from the API response
   * @param {array} observatoryTelescopes - Array of all telescopes in the current observatory
@@ -53,6 +55,7 @@ export const SET_DISPLAY_COMMUNITY_CONTENT = 'SET_DISPLAY_COMMUNITY_CONTENT';
 function getCurrentTelescope(observatoryTelescopes, telescopeId) {
   return observatoryTelescopes.find(telescope => telescope.teleUniqueId === telescopeId);
 }
+
 
 const setTelescopeOnlineStatus = currentTelescopeOnlineStatus => ({
   type: SET_CURRENT_OBSERVATORY_STATUS,
@@ -69,7 +72,19 @@ const fetchTelescopeStatusError = payload => ({
   payload,
 });
 
-const fetchAllTelescopeStatus = ({ obsId, teleUniqueId }) => (dispatch, getState) => {
+export const updateTelescopeStatus = ({ teleUniqueId }) => (dispatch, getState) => {
+  const {
+    telescopeDetails: { allObservatoryTelescopeStatus: { statusList: { statusTeleList } } },
+  } = getState();
+
+  dispatch(
+    setTelescopeOnlineStatus(
+      statusTeleList
+        .find(telescopeStatus => telescopeStatus.teleUniqueId === teleUniqueId)),
+    );
+};
+
+const fetchAllTelescopeStatus = ({ obsId, teleUniqueId }) => (dispatch) => {
   // TODO: once we have the result, set the selectedTelescope Online status
   return fetchTelescopeStatus(obsId)
     .then((result) => {

@@ -11,16 +11,14 @@ import {
   bootstrapTelescopeDetails,
   setObservatory,
   setTelescope,
+  updateTelescopeStatus,
 } from '../../modules/telescope-details/actions';
 
 import {
-  fetchObservatoryTelescopeStatus,
   resetSnapshotList,
 } from '../../modules/Telescope-Overview';
 
 import { fetchObjectContent } from '../../modules/community-content/community-object-content-actions';
-
-import determineImageLoader from '../../components/telescope-details/determine-image-loader';
 
 import AnnouncementBanner from '../../components/common/announcement-banner/announcement-banner';
 import Spacer from '../../components/common/spacer';
@@ -28,8 +26,8 @@ import LiveStream from '../../components/telescope-details/live-stream/live-stre
 import LiveMission from '../../components/telescope-details/live-mission/live-mission';
 import PromoMessageBanner from '../../components/common/headers/promo-message-band';
 import CommunityPerspectives from '../../components/common/community-perspectives/community-perspectives';
+import LiveFeed from '../../components/telescope-details/live-feed/LiveFeed';
 import Neoview from '../../components/telescope-details/neoview/neoview';
-import TelescopeOffline from '../../components/telescope-details/telescope-offline/telescope-offline';
 import CurrentSelectionHeader from '../../components/telescopes/current-selection-header/header';
 import TelescopeSelection from '../../components/telescopes/selection-widget/telescope-selection';
 
@@ -44,8 +42,8 @@ function mapDispatchToProps(dispatch) {
       bootstrapTelescopeDetails,
       setObservatory,
       setTelescope,
+      updateTelescopeStatus,
 
-      fetchObservatoryTelescopeStatus,
       resetSnapshotList,
       fetchObjectContent,
     }, dispatch),
@@ -57,19 +55,22 @@ function mapStateToProps({
   telescopeOverview,
   activeTelescopeMissions,
   communityObjectContent,
-
   telescopeDetails,
 }) {
-  const { observatoryList, observatoryTelecopeStatus } = telescopeOverview;
+  const { observatoryList } = telescopeOverview;
 
   return {
+    fetchingObservatoryList: telescopeDetails.fetchingObservatoryList,
+    fetchingObservatoryStatus: telescopeDetails.fetchingObservatoryStatus,
+
     currentObservatory: telescopeDetails.currentObservatory,
     currentTelescope: telescopeDetails.currentTelescope,
-    fetchingObservatoryList: telescopeDetails.fetchingObservatoryList,
+    currentTelescopeOnlineStatus: telescopeDetails.currentTelescopeOnlineStatus,
+
+    displayCommunityContent: telescopeDetails.displayCommunityContent,
 
     missions,
     observatoryList: observatoryList.observatoryList,
-    observatoryTelecopeStatus,
     activeTelescopeMissions,
     communityContent: communityObjectContent.communityContent.posts,
   };
@@ -88,6 +89,7 @@ class TelescopeDetails extends Component {
       resetSnapshotList: PropTypes.func.isRequired,
       setObservatory: PropTypes.func.isRequired,
       setTelescope: PropTypes.func.isRequired,
+      updateTelescopeStatus: PropTypes.func.isRequired,
     }).isRequired,
   };
 
@@ -103,29 +105,38 @@ class TelescopeDetails extends Component {
   }
 
   componentWillUpdate(nextProps) {
-    // TODO: refactor to use the params from the URL to determine when to rebootstrap the viewer
     // NOTE: that this component will receive new properties associated with mission data...
-
-    const { selectedTab } = this.state;
-
-    const { observatoryList, params, currentObservatory, currentTelescope } = this.props;
-    const { obsUniqueId, teleUniqueId } = params;
-    const { observatoryTelecopeStatus } = nextProps;
+    const isNewObservatory = this.props.params.obsUniqueId !== nextProps.params.obsUniqueId;
+    const isNewTelescope = this.props.params.teleUniqueId !== nextProps.params.teleUniqueId;
 
     // new observatory
-    if (this.props.params.obsUniqueId !== nextProps.params.obsUniqueId) {
+    if (isNewObservatory) {
+      // set the selected observatory
       this.props.actions.setObservatory({
         obsUniqueId: nextProps.params.obsUniqueId,
-        teleUniqueId: nextProps.params.teleUniqueId
+        teleUniqueId: nextProps.params.teleUniqueId,
       });
+
+      // fetch the observatories latest status
     }
 
-    // new telescope
-    if (this.props.params.teleUniqueId !== nextProps.params.teleUniqueId) {
+    // new telescope if the teleUniqueID is different, but the observatory is the same
+    if (isNewTelescope) {
+      // whenever we change the telescope, default the selected tab to 0
+      this.handleSelect(0);
+
+      // set the selected telescope
       this.props.actions.setTelescope({
         obsUniqueId: nextProps.params.obsUniqueId,
         teleUniqueId: nextProps.params.teleUniqueId,
       });
+
+      // if the observatory is the same, don't bother because on update
+      // of the observatory status we will set the telescope status
+      // this will prevent a potential race condition
+      if (!isNewObservatory) {
+        this.props.actions.updateTelescopeStatus({ teleUniqueId: nextProps.params.teleUniqueId });
+      }
     }
 
     // TODO: bring the fetching of the telescope status back into the bootstrap method
@@ -137,11 +148,6 @@ class TelescopeDetails extends Component {
     //   const { statusExpires, statusTimestamp } = observatoryTelecopeStatus;
     //   const refreshTime = (statusExpires - statusTimestamp) * 1000;
     //   this.scaffoldRefreshTimer(refreshTime);
-    // }
-
-    // TODO: make sure to reset the tabs while navigating between telescopes
-    // if (selectedTab > currentTelescope.teleInstrumentList.length - 1) {
-    //   this.handleSelect(0);
     // }
   }
 
@@ -174,11 +180,25 @@ class TelescopeDetails extends Component {
   }
 
   render() {
+    /**
+      TODO: track down the observatory status and tie that into the display of the
+      status of the telescope
+
+      TODO: a counter needs to be setup to fetch the telescope status
+
+      TODO: based on the type of community content we display the component
+      so we need to discover the content needed and tie that into the field
+      */
     const { selectedTab } = this.state;
     const {
+      fetchingObservatoryList,
+      fetchingObservatoryStatus,
+
       currentObservatory,
       currentTelescope,
-      fetchingObservatoryList,
+      currentTelescopeOnlineStatus,
+
+      displayCommunityContent,
 
       observatoryList,
       params,
@@ -193,6 +213,7 @@ class TelescopeDetails extends Component {
     const { obsUniqueId, teleUniqueId } = params;
     const { obsId } = currentObservatory;
     const { teleInstrumentList, teleId, teleCanReserveMissions } = currentTelescope;
+
 
     // TODO: write new actions that will store the current mission information and get this out of the view
     // setup the current mission - setting defaults based on the original design of the API
@@ -260,14 +281,19 @@ class TelescopeDetails extends Component {
                 {
                   teleInstrumentList.map(instrument => (
                     <TabPanel key={instrument.instrPort}>
-                      {
-                        currentTelescope.teleOnlineStatus === 'online' ?
-                        determineImageLoader(instrument) :
-                        <TelescopeOffline imageSource={instrument.instrOfflineImgURL} />
-                      }
+
+                      <LiveFeed
+                        fetchingOnlineStatus={fetchingObservatoryStatus}
+                        onlineStatus={
+                          currentTelescopeOnlineStatus && currentTelescopeOnlineStatus.onlineStatus
+                        }
+                        instrument={instrument}
+                        offlineImageSource={instrument.instrOfflineImgURL}
+                      />
 
                       {
-                        currentTelescope.teleOnlineStatus === 'online' && currentTelescope.teleHasNeoView ?
+                        /** load the neoview */
+                        (currentTelescopeOnlineStatus && currentTelescopeOnlineStatus.onlineStatus === 'online') && currentTelescope.teleHasNeoView ?
                           <Neoview
                             port={currentTelescope.teleNeoPort}
                             teleSystem={currentTelescope.teleSystem}
@@ -295,7 +321,7 @@ class TelescopeDetails extends Component {
               <Spacer height="50px" />
 
               {
-                (communityContent && communityContent.length > 0) ?
+                displayCommunityContent ?
                   <div>
                     <PromoMessageBanner
                       title="Community Perspectives"
