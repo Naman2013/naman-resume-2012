@@ -12,6 +12,7 @@ import {
   setObservatory,
   setTelescope,
   updateTelescopeStatus,
+  fetchAllTelescopeStatus,
 } from '../../modules/telescope-details/actions';
 
 import {
@@ -43,6 +44,7 @@ function mapDispatchToProps(dispatch) {
       setObservatory,
       setTelescope,
       updateTelescopeStatus,
+      fetchAllTelescopeStatus,
 
       resetSnapshotList,
       fetchObjectContent,
@@ -90,6 +92,7 @@ class TelescopeDetails extends Component {
       setObservatory: PropTypes.func.isRequired,
       setTelescope: PropTypes.func.isRequired,
       updateTelescopeStatus: PropTypes.func.isRequired,
+      fetchAllTelescopeStatus: PropTypes.func.isRequired,
     }).isRequired,
   };
 
@@ -109,7 +112,6 @@ class TelescopeDetails extends Component {
     const isNewObservatory = this.props.params.obsUniqueId !== nextProps.params.obsUniqueId;
     const isNewTelescope = this.props.params.teleUniqueId !== nextProps.params.teleUniqueId;
 
-    // new observatory
     if (isNewObservatory) {
       // set the selected observatory
       this.props.actions.setObservatory({
@@ -118,9 +120,12 @@ class TelescopeDetails extends Component {
       });
 
       // fetch the observatories latest status
+      this.props.actions.fetchAllTelescopeStatus({
+        obsId: nextProps.params.obsUniqueId,
+        teleUniqueId: nextProps.params.teleUniqueId
+      });
     }
 
-    // new telescope if the teleUniqueID is different, but the observatory is the same
     if (isNewTelescope) {
       // whenever we change the telescope, default the selected tab to 0
       this.handleSelect(0);

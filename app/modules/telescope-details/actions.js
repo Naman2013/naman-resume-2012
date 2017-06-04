@@ -84,8 +84,13 @@ export const updateTelescopeStatus = ({ teleUniqueId }) => (dispatch, getState) 
     );
 };
 
-const fetchAllTelescopeStatus = ({ obsId, teleUniqueId }) => (dispatch) => {
-  // TODO: once we have the result, set the selectedTelescope Online status
+const startFetchTelescopeStatus = () => ({
+  type: FETCH_TELESCOPE_STATUS_START,
+});
+
+export const fetchAllTelescopeStatus = ({ obsId, teleUniqueId }) => (dispatch) => {
+  dispatch(startFetchTelescopeStatus());
+
   return fetchTelescopeStatus(obsId)
     .then((result) => {
       const { statusList: { statusTeleList } } = result.data;
