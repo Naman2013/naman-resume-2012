@@ -188,8 +188,6 @@ export const fetchObservatoryWebcam = ({
   facilityWebcamWidgetId,
 }) => (dispatch) => {
   dispatch(startFetchObservatoryWebcam());
-  console.log(obsId);
-  console.log(facilityWebcamWidgetId);
   return fetchFacilityWebcam({
     obsId,
     widgetUniqueId: facilityWebcamWidgetId,
