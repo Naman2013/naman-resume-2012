@@ -88,8 +88,13 @@ const startFetchTelescopeStatus = () => ({
   type: FETCH_TELESCOPE_STATUS_START,
 });
 
-export const fetchAllTelescopeStatus = ({ obsId, teleUniqueId }) => (dispatch) => {
-  dispatch(startFetchTelescopeStatus());
+export const fetchAllTelescopeStatus = ({ obsId, teleUniqueId, isRefresh }) => (dispatch) => {
+
+  // if we are not refreshing inline then reset the flags
+  // otherwise we expect to update in place seamlessly
+  if (!isRefresh) {
+    dispatch(startFetchTelescopeStatus());
+  }
 
   return fetchTelescopeStatus(obsId)
     .then((result) => {
@@ -165,7 +170,6 @@ export const bootstrapTelescopeDetails = ({
   const { at, cid, token } = getState().user;
 
   dispatch(bootstrapTelescopeDetailsStart());
-  // dispatch(resetSelectedDetailsElements());
 
   return fetchObservatoryList({
     at,

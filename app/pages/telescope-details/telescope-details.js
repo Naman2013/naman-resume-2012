@@ -96,21 +96,26 @@ class TelescopeDetails extends Component {
     }).isRequired,
   };
 
+  constructor(props) {
+    super(props);
+    this.scaffoldObservatoryList();
+  }
+
   state = {
     toggleNeoview: false,
     selectedTab: 0,
     missionPercentageRemaining: 0,
   };
 
-  componentWillMount() {
-    this.scaffoldObservatoryList();
-    this.props.actions.resetSnapshotList();
+  componentDidMount() {
+    this.scaffoldRefreshInterval();
   }
 
   componentWillUpdate(nextProps) {
     // NOTE: that this component will receive new properties associated with mission data...
     const isNewObservatory = this.props.params.obsUniqueId !== nextProps.params.obsUniqueId;
     const isNewTelescope = this.props.params.teleUniqueId !== nextProps.params.teleUniqueId;
+    const { observatoryList } = this.props;
 
     if (isNewObservatory) {
       // set the selected observatory
@@ -121,9 +126,12 @@ class TelescopeDetails extends Component {
 
       // fetch the observatories latest status
       this.props.actions.fetchAllTelescopeStatus({
-        obsId: nextProps.params.obsUniqueId,
-        teleUniqueId: nextProps.params.teleUniqueId
+        obsId: observatoryList.find(observatory => observatory.obsUniqueId === nextProps.params.obsUniqueId).obsId,
+        teleUniqueId: nextProps.params.teleUniqueId,
       });
+
+      // reset the timer to refetch the telescope status since we are calling it now anyhow
+      this.scaffoldRefreshInterval();
     }
 
     if (isNewTelescope) {
@@ -143,22 +151,10 @@ class TelescopeDetails extends Component {
         this.props.actions.updateTelescopeStatus({ teleUniqueId: nextProps.params.teleUniqueId });
       }
     }
-
-    // TODO: bring the fetching of the telescope status back into the bootstrap method
-    // TODO: design an update status method that will deal with fetching the current telescope status
-    // TODO: tie in the status result into how we represent the display of ONLY THE FEED portion of the view
-    // check if we have a telescopeStatus
-    // if we do, then scaffold the refresh timer
-    // if (observatoryTelecopeStatus) {
-    //   const { statusExpires, statusTimestamp } = observatoryTelecopeStatus;
-    //   const refreshTime = (statusExpires - statusTimestamp) * 1000;
-    //   this.scaffoldRefreshTimer(refreshTime);
-    // }
   }
 
   componentWillUnmount() {
-    clearInterval(this.refreshDetailsInterval);
-    clearInterval(this.missionProgressInterval);
+    clearInterval(this.refreshTelescopeStatusInterval);
   }
 
   handleSelect = (index) => {
@@ -175,12 +171,18 @@ class TelescopeDetails extends Component {
     });
   }
 
-  refreshDetailsInterval = null;
+  refreshTelescopeStatusInterval = null;
 
-  scaffoldRefreshTimer(increment = 6000) {
-    clearInterval(this.refreshDetailsInterval);
-    this.refreshDetailsInterval = setInterval(() => {
-      this.scaffoldObservatoryList();
+  // once per 10 minutes, fetch the latest telescope status
+  scaffoldRefreshInterval(increment = 600000) {
+    clearInterval(this.refreshTelescopeStatusInterval);
+    this.refreshTelescopeStatusInterval = setInterval(() => {
+      const { observatoryList, params: { obsUniqueId, teleUniqueId } } = this.props;
+      this.props.actions.fetchAllTelescopeStatus({
+        obsId: observatoryList.find(observatory => observatory.obsUniqueId === obsUniqueId).obsId,
+        teleUniqueId,
+        isRefresh: true,
+      });
     }, increment);
   }
 
@@ -188,8 +190,6 @@ class TelescopeDetails extends Component {
     /**
       TODO: track down the observatory status and tie that into the display of the
       status of the telescope
-
-      TODO: a counter needs to be setup to fetch the telescope status
 
       TODO: based on the type of community content we display the component
       so we need to discover the content needed and tie that into the field
