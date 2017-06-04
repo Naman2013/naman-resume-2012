@@ -2,7 +2,6 @@ import {
   observatoryListSuccess,
   getCurrentObservatory,
   resetSnapshotList,
-  fetchObservatoryTelescopeStatus,
 } from '../Telescope-Overview';
 
 import fetchCurrentConditions from '../../services/sky-widgets/current-conditions';
@@ -11,10 +10,18 @@ import fetchDayNightMap from '../../services/sky-widgets/day-night-map';
 import fetchAllSkyCamera from '../../services/sky-widgets/all-sky-camera';
 import fetchDomeCam from '../../services/sky-widgets/dome-cam';
 import fetchObservatoryList from '../../services/telescopes/observatory-list';
+import fetchTelescopeStatus from '../../services/telescopes/telescope-status';
 
 export const BOOTSTRAP_TELESCOPE_DETAILS_START = 'BOOTSTRAP_TELESCOPE_DETAILS_START';
 export const BOOTSTRAP_TELESCOPE_DETAILS = 'BOOTSTRAP_TELESCOPE_DETAILS';
 export const BOOTSTRAP_TELESCOPE_DETAILS_FAIL = 'BOOTSTRAP_TELESCOPE_DETAILS_FAIL';
+
+export const FETCH_TELESCOPE_STATUS_START = 'FETCH_TELESCOPE_STATUS_START';
+export const FETCH_TELESCOPE_STATUS_SUCCESS = 'FETCH_TELESCOPE_STATUS';
+export const FETCH_TELESCOPE_STATUS_FAIL = 'FETCH_TELESCOPE_STATUS_FAIL';
+
+export const RESET_CURRENT_OBSERVATORY_STATUS = 'RESET_CURRENT_OBSERVATORY_STATUS';
+export const SET_CURRENT_OBSERVATORY_STATUS = 'SET_CURRENT_OBSERVATORY_STATUS';
 
 export const FETCH_CURRENT_WEATHER_CONDITIONS_START = 'FETCH_CURRENT_WEATHER_CONDITIONS_START';
 export const FETCH_CURRENT_WEATHER_CONDITIONS_SUCCESS = 'FETCH_CURRENT_WEATHER_CONDITIONS_SUCCESS';
@@ -35,6 +42,7 @@ export const SET_CURRENT_OBSERVATORY = 'SET_CURRENT_OBSERVATORY';
 export const SET_CURRENT_TELESCOPE = 'SET_CURRENT_TELESCOPE';
 
 export const RESET_DETAILS_SELECTED_ELEMENTS = 'RESET_DETAILS_SELECTED_ELEMENTS';
+export const SET_DISPLAY_COMMUNITY_CONTENT = 'SET_DISPLAY_COMMUNITY_CONTENT';
 
 /**
   * Getting the current telescope from the API response
@@ -45,6 +53,35 @@ export const RESET_DETAILS_SELECTED_ELEMENTS = 'RESET_DETAILS_SELECTED_ELEMENTS'
 function getCurrentTelescope(observatoryTelescopes, telescopeId) {
   return observatoryTelescopes.find(telescope => telescope.teleUniqueId === telescopeId);
 }
+
+const setTelescopeOnlineStatus = currentTelescopeOnlineStatus => ({
+  type: SET_CURRENT_OBSERVATORY_STATUS,
+  currentTelescopeOnlineStatus,
+});
+
+const fetchTelescopeStatusSuccess = payload => ({
+  type: FETCH_TELESCOPE_STATUS_SUCCESS,
+  payload,
+});
+
+const fetchTelescopeStatusError = payload => ({
+  type: FETCH_TELESCOPE_STATUS_FAIL,
+  payload,
+});
+
+const fetchAllTelescopeStatus = ({ obsId, teleUniqueId }) => (dispatch, getState) => {
+  // TODO: once we have the result, set the selectedTelescope Online status
+  return fetchTelescopeStatus(obsId)
+    .then((result) => {
+      const { statusList: { statusTeleList } } = result.data;
+      const currentTelescopeStatus =
+        statusTeleList.find(teleStatus => teleStatus.teleUniqueId === teleUniqueId);
+
+      dispatch(setTelescopeOnlineStatus(currentTelescopeStatus));
+      dispatch(fetchTelescopeStatusSuccess(result.data));
+    })
+    .catch(error => dispatch(fetchTelescopeStatusError(error)));
+};
 
 const setDisplayCommunityContent = payload => ({
   type: SET_DISPLAY_COMMUNITY_CONTENT,
@@ -108,7 +145,7 @@ export const bootstrapTelescopeDetails = ({
   const { at, cid, token } = getState().user;
 
   dispatch(bootstrapTelescopeDetailsStart());
-  dispatch(resetSelectedDetailsElements());
+  // dispatch(resetSelectedDetailsElements());
 
   return fetchObservatoryList({
     at,
@@ -120,16 +157,17 @@ export const bootstrapTelescopeDetails = ({
     const currentObservatory = getCurrentObservatory(observatoryList, obsUniqueId);
     const currentTelescope = getCurrentTelescope(currentObservatory.obsTelescopes, teleUniqueId);
 
-    dispatch(fetchObservatoryTelescopeStatus(currentObservatory.obsId));
+    dispatch(fetchAllTelescopeStatus({ obsId: currentObservatory.obsId, teleUniqueId }));
     dispatch(fetchCommunityContent(currentTelescope));
     dispatch(setCurrentObservatory(currentObservatory));
     dispatch(setCurrentTelescope(currentTelescope));
     dispatch(resetSnapshotList());
     dispatch(observatoryListSuccess(result.data));
     dispatch(bootStrapTelescopeDetailsSuccess());
-  }).catch(() => {
+  }).catch((error) => {
     // TODO: handle error scenario when we have no information
-    dispatch(bootstrapTelescopeDetailsFail());
+    throw error;
+    // dispatch(bootstrapTelescopeDetailsFail());
   });
 };
 

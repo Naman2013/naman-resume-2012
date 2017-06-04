@@ -4,6 +4,11 @@ import {
   BOOTSTRAP_TELESCOPE_DETAILS_START,
   BOOTSTRAP_TELESCOPE_DETAILS,
   BOOTSTRAP_TELESCOPE_DETAILS_FAIL,
+  FETCH_TELESCOPE_STATUS_START,
+  FETCH_TELESCOPE_STATUS_SUCCESS,
+  FETCH_TELESCOPE_STATUS_FAIL,
+  RESET_CURRENT_OBSERVATORY_STATUS,
+  SET_CURRENT_OBSERVATORY_STATUS,
   FETCH_CURRENT_WEATHER_CONDITIONS_START,
   FETCH_CURRENT_WEATHER_CONDITIONS_SUCCESS,
   FETCH_DAY_NIGHT_BAR_START,
@@ -31,6 +36,10 @@ const initialState = {
   currentTelescope: {
     teleInstrumentList: [],
   },
+
+  fetchingObservatoryStatus: true,
+  currentTelescopeOnlineStatus: null,
+  allObservatoryTelescopeStatus: null,
 
   fetchingWeatherWidget: false,
   fetchingDayNightBar: false,
@@ -85,6 +94,37 @@ export default createReducer(initialState, {
       currentTelescope: {
         teleInstrumentList: [],
       },
+    };
+  },
+  [FETCH_TELESCOPE_STATUS_START](state) {
+    return {
+      ...state,
+      fetchingObservatoryStatus: true,
+      currentTelescopeOnlineStatus: null,
+      allObservatoryTelescopeStatus: null,
+    };
+  },
+  [FETCH_TELESCOPE_STATUS_SUCCESS](state, { payload }) {
+    return {
+      ...state,
+      allObservatoryTelescopeStatus: payload,
+    };
+  },
+  [FETCH_TELESCOPE_STATUS_FAIL](state) {
+    return {
+      ...state,
+    };
+  },
+  [RESET_CURRENT_OBSERVATORY_STATUS](state) {
+    return {
+      ...state,
+    };
+  },
+  [SET_CURRENT_OBSERVATORY_STATUS](state, { currentTelescopeOnlineStatus }) {
+    return {
+      ...state,
+      fetchingObservatoryStatus: false,
+      currentTelescopeOnlineStatus,
     };
   },
   [BOOTSTRAP_TELESCOPE_DETAILS_START](state) {
