@@ -53,7 +53,6 @@ function mapDispatchToProps(dispatch) {
 }
 
 function mapStateToProps({
-  missions,
   telescopeOverview,
   activeTelescopeMissions,
   communityObjectContent,
@@ -71,7 +70,6 @@ function mapStateToProps({
 
     displayCommunityContent: telescopeDetails.displayCommunityContent,
 
-    missions,
     observatoryList: observatoryList.observatoryList,
     activeTelescopeMissions,
     communityContent: communityObjectContent.communityContent.posts,
