@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import './telescope-details.scss';
-import DEFAULT_FULL_MISSION_DATA from './default-full-mission-data';
+import newMissionData from './default-full-mission-data';
 
 import {
   bootstrapTelescopeDetails,
@@ -217,20 +217,20 @@ class TelescopeDetails extends Component {
     const { obsId } = currentObservatory;
     const { teleInstrumentList, teleId, teleCanReserveMissions } = currentTelescope;
 
-
     // TODO: write new actions that will store the current mission information and get this out of the view
     // setup the current mission - setting defaults based on the original design of the API
-    const currentMission = DEFAULT_FULL_MISSION_DATA;
+    const currentMission = newMissionData();
     const currentTelescopeMissionData =
       activeTelescopeMissions.telescopes.find(telescope => telescope.telescopeId === teleId);
 
     if (currentTelescopeMissionData && currentTelescopeMissionData.activeMission.full.missionList) {
-      Object.assign(currentMission, currentTelescopeMissionData.activeMission.full.missionList[0]);
+      Object.assign(
+        currentMission,
+        currentTelescopeMissionData.activeMission.full.missionList[0]);
     }
 
     const { missionAvailable } = currentMission;
     // ---- end the mission related work...
-
     return (
       <div className="telescope-details-page-wrapper">
 
