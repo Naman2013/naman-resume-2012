@@ -54,6 +54,7 @@ export default createReducer(initialState, {
   [FETCH_REPLIES_SUCCESS](state, { payload }) {
     const { replies, threadId, page, resultsCount, appendToList, appendToId } = payload;
     const newState = _.cloneDeep(state.repliesLists);
+    
     if (newState[threadId] && appendToId) { // nested replies
       const nestedReplyLocation = findNestedReply(newState[threadId], appendToId);
       const replyToAppendTo = findReplyBasedOnSteps(newState[threadId], nestedReplyLocation.index, nestedReplyLocation.steps);

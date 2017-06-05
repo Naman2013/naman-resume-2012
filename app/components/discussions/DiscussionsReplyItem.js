@@ -10,7 +10,7 @@ function generateId(seed) {
   return `${seed}-${random}`;
 }
 class DiscussionsReply extends Component {
-  prepareData(reply, replies) {
+  prepareData(reply, replies, margin = 0) {
     const { styles, forumId, topicId, threadId } = this.props;
     const images = reply.S3Files || [];
     const likeParams = {
@@ -19,7 +19,7 @@ class DiscussionsReply extends Component {
       topicId,
     };
     return (
-      <section key={generateId(reply.replyId)}>
+      <section key={generateId(reply.replyId)} style={{ marginLeft: margin }}>
         <article className={styles.discussionsInfo}>
           <ByUserTag
             photo={reply.avatarURL}
@@ -53,7 +53,7 @@ class DiscussionsReply extends Component {
           </div>
         </div>
         </article>
-        {reply.replies && reply.replies.map(childReply => (this.prepareData(childReply, childReply.replies)))}
+        {reply.replies && reply.replies.map(childReply => (this.prepareData(childReply, childReply.replies, margin + 50)))}
       </section>
     );
   }
