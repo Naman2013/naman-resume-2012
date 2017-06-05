@@ -34,11 +34,15 @@ export const fetchReplies = ({
   parentId,
   page = 1,
   count = 10,
-  appendToList = false,
+  appendToList, // for pagination
+  appendToId, // for nested replies
   replyTo,
 }) => (dispatch, getState) => {
   const { cid, at, token } = getState().user;
-  dispatch(fetchRepliesStart());
+
+  if (!appendToId) {
+    dispatch(fetchRepliesStart());
+  }
 
   return axios.post('/api/forum/getReplies', {
     cid,
@@ -55,21 +59,19 @@ export const fetchReplies = ({
   })
   .then(result => {
     const { replies } = result.data;
-    // Below will be implemented in the next iteration.
-    /*
     replies.forEach(reply => {
-      if (reply.replies.length > 0) {
+      if (reply.replyCount > 0) {
         dispatch(fetchReplies({
-          parentId,
-          threadId: reply.threadId,
+          parentId: threadId,
+          threadId,
           topicId,
-          replyTo: reply.threadId,
+          replyTo: reply.replyId,
+          appendToId: reply.replyId,
         }))
       }
     });
-    */
 
-    dispatch(fetchRepliesSuccess(Object.assign(result.data, { threadId, page, appendToList })));
+    dispatch(fetchRepliesSuccess(Object.assign(result.data, { threadId, page, appendToId, appendToList })));
   })
   .catch(error => dispatch(fetchRepliesFail(error)));
 };

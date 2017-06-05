@@ -58,6 +58,18 @@ export default class Header extends Component {
     }).isRequired,
   };
 
+  static defaultProps = {
+    nextEvent: {
+      eventDescription: '',
+      eventDetailsURL: '',
+      eventEnd: 0,
+      eventIconURL: '',
+      eventId: 0,
+      eventImageURL: '',
+      eventIsLive: false,
+    },
+  };
+
   constructor(props) {
     super(props);
     this.scaffoldEventTimer();

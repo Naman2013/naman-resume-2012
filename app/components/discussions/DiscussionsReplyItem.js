@@ -5,6 +5,10 @@ import Heart from '../common/heart/heart';
 import { likeReply } from '../../services/discussions/like';
 const { object } = PropTypes;
 
+function generateId(seed) {
+  const random = Math.floor(Math.random() * 99999);
+  return `${seed}-${random}`;
+}
 class DiscussionsReply extends Component {
   prepareData(reply, replies) {
     const { styles, forumId, topicId, threadId } = this.props;
@@ -13,9 +17,9 @@ class DiscussionsReply extends Component {
       replyId: reply.replyId,
       forumId,
       topicId,
-    }
+    };
     return (
-      <section key={reply.replyId}>
+      <section key={generateId(reply.replyId)}>
         <article className={styles.discussionsInfo}>
           <ByUserTag
             photo={reply.avatarURL}
@@ -30,7 +34,7 @@ class DiscussionsReply extends Component {
             className={styles.discussionsContent}
             dangerouslySetInnerHTML={{ __html: reply.content }}
           />
-        {images.map(img => <a href={img} rel="noopener noreferrer" target="_blank"><img className={styles.discussionsImages} key={img} alt="image" src={img} /></a>)}
+        {images.map(img => <a href={img} key={img} rel="noopener noreferrer" target="_blank"><img className={styles.discussionsImages} key={img} alt="image" src={img} /></a>)}
         <div className={styles.discussionsReplies}>
         <Link className={`${styles.discussionsrepliesText} inline-block`} to={`discussions/forums/${forumId}/topics/${topicId}/threads/${threadId}/${reply.replyId}/new-reply`}>
           <span>Reply </span>
@@ -49,7 +53,7 @@ class DiscussionsReply extends Component {
           </div>
         </div>
         </article>
-        {/* For next iteration: replies && replies.map(reply => (this.prepareData(reply))) */}
+        {reply.replies && reply.replies.map(childReply => (this.prepareData(childReply, childReply.replies)))}
       </section>
     );
   }
