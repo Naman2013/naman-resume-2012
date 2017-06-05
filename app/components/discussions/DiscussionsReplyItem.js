@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { Link } from 'react-router';
 import ByUserTag from '../common/by-user-tag/by-user-tag';
 import Heart from '../common/heart/heart';
 import { likeReply } from '../../services/discussions/like';
@@ -6,7 +7,7 @@ const { object } = PropTypes;
 
 class DiscussionsReply extends Component {
   prepareData(reply, replies) {
-    const { styles, forumId, topicId } = this.props;
+    const { styles, forumId, topicId, threadId } = this.props;
     const images = reply.S3Files || [];
     const likeParams = {
       replyId: reply.replyId,
@@ -31,8 +32,10 @@ class DiscussionsReply extends Component {
           />
         {images.map(img => <a href={img} rel="noopener noreferrer" target="_blank"><img className={styles.discussionsImages} key={img} alt="image" src={img} /></a>)}
         <div className={styles.discussionsReplies}>
-          {/* For next iteration: <span className={styles.discussionsrepliesText}>Reply</span> */}
-          <div className={`${styles.discussionsInlineHeart} no-margin`}>
+        <Link className={`${styles.discussionsrepliesText} inline-block`} to={`discussions/forums/${forumId}/topics/${topicId}/threads/${threadId}/${reply.replyId}/new-reply`}>
+          <span>Reply </span>
+        </Link>
+          <div className={styles.discussionsInlineHeart}>
             <Heart
               membershipType={reply.membershipType}
               likeAction={likeReply}

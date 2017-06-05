@@ -69,6 +69,7 @@ class DiscussionsThread extends Component {
                 styles={styles}
                 topicId={topicId}
                 forumId={forumId}
+                threadId={thread.threadId}
               />
             </div>
           ))
