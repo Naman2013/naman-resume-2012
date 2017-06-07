@@ -53,9 +53,9 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps({
   telescopeOverview,
-  activeTelescopeMissions,
   communityObjectContent,
   telescopeDetails,
+  activeTelescopeMissions,
 }) {
   const { observatoryList } = telescopeOverview;
 
@@ -70,7 +70,7 @@ function mapStateToProps({
     displayCommunityContent: telescopeDetails.displayCommunityContent,
 
     observatoryList: observatoryList.observatoryList,
-    activeTelescopeMissions,
+
     activeTelescopeMission: activeTelescopeMissions.activeTelescopeMission,
     communityContent: communityObjectContent.communityContent.posts,
   };
@@ -110,7 +110,6 @@ class TelescopeDetails extends Component {
   }
 
   componentWillUpdate(nextProps) {
-    // NOTE: that this component will receive new properties associated with mission data...
     const isNewObservatory = this.props.params.obsUniqueId !== nextProps.params.obsUniqueId;
     const isNewTelescope = this.props.params.teleUniqueId !== nextProps.params.teleUniqueId;
     const { observatoryList } = this.props;
@@ -186,9 +185,6 @@ class TelescopeDetails extends Component {
 
   render() {
     /**
-      TODO: track down the observatory status and tie that into the display of the
-      status of the telescope
-
       TODO: based on the type of community content we display the component
       so we need to discover the content needed and tie that into the field
       */
@@ -206,7 +202,6 @@ class TelescopeDetails extends Component {
       observatoryList,
       params,
 
-      activeTelescopeMissions,
       activeTelescopeMission,
 
       communityContent,
