@@ -6,6 +6,8 @@ import {
 
 import { resetActiveMission } from '../active-telescope-missions/active-telescope-missions-actions';
 
+import { fetchObjectContent, fetchContentReset } from '../community-content/community-object-content-actions';
+
 import fetchCurrentConditions from '../../services/sky-widgets/current-conditions';
 import fetchDayNightBar from '../../services/sky-widgets/day-night-bar';
 import fetchDayNightMap from '../../services/sky-widgets/day-night-map';
@@ -147,9 +149,7 @@ const resetMissionAndSetTelescope = currentTelescope => (dispatch) => {
   dispatch(setCurrentTelescope(currentTelescope));
 };
 
-// TODO: finish implementing the community content methods for fetching non-
-const fetchCommunityContent = telescope => (dispatch, getState) => {
-  // TODO: check in on the telescope and determine what community content we need to display
+const fetchCommunityContent = telescope => (dispatch) => {
   const { teleContentType, teleContentCount, teleContentList } = telescope;
 
   const NONE = 'none';
@@ -158,17 +158,20 @@ const fetchCommunityContent = telescope => (dispatch, getState) => {
   const STATIC_SLUG_LOOKUP_ID = 'staticSlugLookupId';
   const STATIC_SLUG = 'staticSlug';
 
-  const displayCommunityContent = (() => {
-    if (teleContentType === NONE) {
-      return false;
-    }
+  const displayCommunityContent = teleContentType !== NONE;
 
-    return true;
-  });
-
+  // sets fields for whether or not to display the community content fields
+  // and resets the content
+  dispatch(fetchContentReset());
   dispatch(setDisplayCommunityContent(displayCommunityContent));
 
   // TODO: based on the content type fetch the community content
+  if (STATIC_OBJECT_ID) {
+    dispatch(fetchObjectContent({
+      objectId: teleContentList[0],
+      callSource: 'telescopeDetails',
+    }));
+  }
 };
 
 export const bootstrapTelescopeDetails = ({
