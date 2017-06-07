@@ -5,7 +5,6 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import './telescope-details.scss';
-import newMissionData from './default-full-mission-data';
 
 import {
   bootstrapTelescopeDetails,
@@ -72,6 +71,7 @@ function mapStateToProps({
 
     observatoryList: observatoryList.observatoryList,
     activeTelescopeMissions,
+    activeTelescopeMission: activeTelescopeMissions.activeTelescopeMission,
     communityContent: communityObjectContent.communityContent.posts,
   };
 }
@@ -205,7 +205,10 @@ class TelescopeDetails extends Component {
 
       observatoryList,
       params,
+
       activeTelescopeMissions,
+      activeTelescopeMission,
+
       communityContent,
     } = this.props;
 
@@ -217,20 +220,6 @@ class TelescopeDetails extends Component {
     const { obsId } = currentObservatory;
     const { teleInstrumentList, teleId, teleCanReserveMissions } = currentTelescope;
 
-    // TODO: write new actions that will store the current mission information and get this out of the view
-    // setup the current mission - setting defaults based on the original design of the API
-    const currentMission = newMissionData();
-    const currentTelescopeMissionData =
-      activeTelescopeMissions.telescopes.find(telescope => telescope.telescopeId === teleId);
-
-    if (currentTelescopeMissionData && currentTelescopeMissionData.activeMission.full.missionList) {
-      Object.assign(
-        currentMission,
-        currentTelescopeMissionData.activeMission.full.missionList[0]);
-    }
-
-    const { missionAvailable } = currentMission;
-    // ---- end the mission related work...
     return (
       <div className="telescope-details-page-wrapper">
 
@@ -315,9 +304,9 @@ class TelescopeDetails extends Component {
               </Tabs>
 
               {
-                missionAvailable ?
+                activeTelescopeMission.missionAvailable ?
                   <LiveStream
-                    {...currentMission}
+                    {...activeTelescopeMission}
                   /> : null
               }
 
@@ -345,16 +334,16 @@ class TelescopeDetails extends Component {
 
             <div className="col-md-4 telescope-details-sidebar">
               {
-                currentMission.missionAvailable || currentMission.nextMissionAvailable ?
+                activeTelescopeMission.missionAvailable || activeTelescopeMission.nextMissionAvailable ?
                   <div>
                     <LiveMission
-                      {...currentMission}
+                      {...activeTelescopeMission}
                     />
 
                     <TelescopeAllSky
                       obsId={currentObservatory.obsId}
                       AllskyWidgetId={currentObservatory.SkyChartWidgetId}
-                      scheduledMissionId={currentMission.scheduledMissionId}
+                      scheduledMissionId={activeTelescopeMission.scheduledMissionId}
                     />
                   </div>
                 : null
