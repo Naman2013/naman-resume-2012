@@ -187,7 +187,6 @@ export const bootstrapTelescopeDetails = ({
     const currentObservatory = getCurrentObservatory(observatoryList, obsUniqueId);
     const currentTelescope = getCurrentTelescope(currentObservatory.obsTelescopes, teleUniqueId);
 
-    dispatch(resetActiveMission());
     dispatch(fetchAllTelescopeStatus({ obsId: currentObservatory.obsId, teleUniqueId }));
     dispatch(fetchCommunityContent(currentTelescope));
     dispatch(setCurrentObservatory(currentObservatory));
