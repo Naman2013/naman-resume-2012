@@ -1,9 +1,10 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { updateTelescopeActiveMission, setActiveTelescopeMissionID } from '../../../modules/active-telescope-missions/active-telescope-missions-actions';
 import { setImageDataToSnapshot } from '../../../modules/Telescope-Overview';
-import styles from './telescope-image-loader.scss';
+import './telescope-image-loader.scss';
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
@@ -40,6 +41,14 @@ class TelescopeImageLoader extends Component {
     this.previouslyRenderedImageSource = this.props.imageSource;
   }
 
+  componentWillMount() {
+    this.attachSSE(this.props.imageSource);
+  }
+
+  componentWillUnmount() {
+    this.detachSSE();
+  }
+
   handleSourceImage(imageData) {
     const {
       astroObjectID,
@@ -63,7 +72,15 @@ class TelescopeImageLoader extends Component {
       with the telescope mission
     */
     if (messageType !== 'HEARTBEAT') {
-      const { teleFade, obsId, teleId, domeId, actions, missionFormat, activeTelescopeMissionID } = this.props; // expected fade may change based on how much time passed
+      const {
+        teleFade,
+        obsId,
+        teleId,
+        domeId,
+        actions,
+        missionFormat,
+        activeTelescopeMissionID,
+      } = this.props;
 
       // TODO: this may be problematic...
       // lets think of how we can detangle this mission info request
@@ -78,10 +95,13 @@ class TelescopeImageLoader extends Component {
         });
       }
 
-      // TODO: when the missionFormat is full - update the telescopeDetailsActiveTelescopeMissionID with this new missionID
-      // this will inform whomever what the current missionID is
+      /**
+        - scheduledMissionID comes from SSE
+        - activeTelescopeMissionID is a stored reference to the scheduledMissionID
+          that had been previously handled
+        */
       if (missionFormat === 'full') {
-        if (scheduledMissionID && scheduledMissionID !== activeTelescopeMissionID) {
+        if (scheduledMissionID !== activeTelescopeMissionID) {
           actions.setActiveTelescopeMissionID(scheduledMissionID);
           actions.updateTelescopeActiveMission({
             obsId,
@@ -138,14 +158,6 @@ class TelescopeImageLoader extends Component {
         firstLoad: false,
       });
     }
-  }
-
-  componentWillMount() {
-    this.attachSSE(this.props.imageSource);
-  }
-
-  componentWillUnmount() {
-    this.detachSSE();
   }
 
   generateThumbnailUrl(imageUrl) {
