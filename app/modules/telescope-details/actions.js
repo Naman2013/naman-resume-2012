@@ -4,6 +4,8 @@ import {
   resetSnapshotList,
 } from '../Telescope-Overview';
 
+import { resetActiveMission } from '../active-telescope-missions/active-telescope-missions-actions';
+
 import fetchCurrentConditions from '../../services/sky-widgets/current-conditions';
 import fetchDayNightBar from '../../services/sky-widgets/day-night-bar';
 import fetchDayNightMap from '../../services/sky-widgets/day-night-map';
@@ -181,6 +183,7 @@ export const bootstrapTelescopeDetails = ({
     const currentObservatory = getCurrentObservatory(observatoryList, obsUniqueId);
     const currentTelescope = getCurrentTelescope(currentObservatory.obsTelescopes, teleUniqueId);
 
+    dispatch(resetActiveMission());
     dispatch(fetchAllTelescopeStatus({ obsId: currentObservatory.obsId, teleUniqueId }));
     dispatch(fetchCommunityContent(currentTelescope));
     dispatch(setCurrentObservatory(currentObservatory));
