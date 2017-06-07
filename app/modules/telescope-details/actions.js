@@ -137,15 +137,17 @@ const setCurrentObservatory = currentObservatory => ({
   currentObservatory,
 });
 
-const setCurrentTelescope = currentTelescope => (dispatch) => {
+const setCurrentTelescope = currentTelescope => ({
+  type: SET_CURRENT_TELESCOPE,
+  currentTelescope,
+});
+
+const resetMissionAndSetTelescope = currentTelescope => (dispatch) => {
   dispatch(resetActiveMission());
-  return {
-    type: SET_CURRENT_TELESCOPE,
-    currentTelescope,
-  };
+  dispatch(setCurrentTelescope(currentTelescope));
 };
 
-// TODO: finish implementing the community content methods for fetching non-mission associated content
+// TODO: finish implementing the community content methods for fetching non-
 const fetchCommunityContent = telescope => (dispatch, getState) => {
   // TODO: check in on the telescope and determine what community content we need to display
   const { teleContentType, teleContentCount, teleContentList } = telescope;
@@ -187,10 +189,11 @@ export const bootstrapTelescopeDetails = ({
     const currentObservatory = getCurrentObservatory(observatoryList, obsUniqueId);
     const currentTelescope = getCurrentTelescope(currentObservatory.obsTelescopes, teleUniqueId);
 
+    dispatch(resetActiveMission());
     dispatch(fetchAllTelescopeStatus({ obsId: currentObservatory.obsId, teleUniqueId }));
     dispatch(fetchCommunityContent(currentTelescope));
     dispatch(setCurrentObservatory(currentObservatory));
-    dispatch(setCurrentTelescope(currentTelescope));
+    dispatch(resetMissionAndSetTelescope(currentTelescope));
     dispatch(resetSnapshotList());
     dispatch(observatoryListSuccess(result.data));
     dispatch(bootStrapTelescopeDetailsSuccess());
@@ -226,7 +229,7 @@ export const setTelescope = ({ obsUniqueId, teleUniqueId }) => (dispatch, getSta
   } else if (!fetchingObservatoryList) {
     const nextObservatory = getCurrentObservatory(observatoryList.observatoryList, obsUniqueId);
     const nextTelescope = getCurrentTelescope(nextObservatory.obsTelescopes, teleUniqueId);
-    dispatch(setCurrentTelescope(nextTelescope));
+    dispatch(resetMissionAndSetTelescope(nextTelescope));
     dispatch(resetSnapshotList());
   }
 };
