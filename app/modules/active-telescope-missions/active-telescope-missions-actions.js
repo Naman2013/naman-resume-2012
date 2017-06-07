@@ -163,7 +163,6 @@ export const updateTelescopeActiveMission = ({
     if (format === FORMAT_FULL) {
       const hasMission = result.data.missionList.length > 0;
       const currentMission = result.data.missionList[0];
-      // dispatch(updateActiveMissionFull({ telescopeId, payload: result.data }));
 
       if (!result.data.apiError) {
         dispatch(setActiveTelescopeMission(currentMission));
