@@ -137,11 +137,15 @@ const setCurrentObservatory = currentObservatory => ({
   currentObservatory,
 });
 
-const setCurrentTelescope = currentTelescope => ({
-  type: SET_CURRENT_TELESCOPE,
-  currentTelescope,
-});
+const setCurrentTelescope = currentTelescope => (dispatch) => {
+  dispatch(resetActiveMission());
+  return {
+    type: SET_CURRENT_TELESCOPE,
+    currentTelescope,
+  };
+};
 
+// TODO: finish implementing the community content methods for fetching non-mission associated content
 const fetchCommunityContent = telescope => (dispatch, getState) => {
   // TODO: check in on the telescope and determine what community content we need to display
   const { teleContentType, teleContentCount, teleContentList } = telescope;
