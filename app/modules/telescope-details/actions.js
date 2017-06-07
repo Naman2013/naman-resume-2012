@@ -144,11 +144,6 @@ const setCurrentTelescope = currentTelescope => ({
   currentTelescope,
 });
 
-const resetMissionAndSetTelescope = currentTelescope => (dispatch) => {
-  dispatch(resetActiveMission());
-  dispatch(setCurrentTelescope(currentTelescope));
-};
-
 const fetchCommunityContent = telescope => (dispatch) => {
   const { teleContentType, teleContentCount, teleContentList } = telescope;
 
@@ -174,6 +169,12 @@ const fetchCommunityContent = telescope => (dispatch) => {
   }
 };
 
+const resetMissionAndSetTelescope = currentTelescope => (dispatch) => {
+  dispatch(fetchCommunityContent(currentTelescope));
+  dispatch(resetActiveMission());
+  dispatch(setCurrentTelescope(currentTelescope));
+};
+
 export const bootstrapTelescopeDetails = ({
   obsUniqueId,
   teleUniqueId,
@@ -194,7 +195,6 @@ export const bootstrapTelescopeDetails = ({
 
     dispatch(resetActiveMission());
     dispatch(fetchAllTelescopeStatus({ obsId: currentObservatory.obsId, teleUniqueId }));
-    dispatch(fetchCommunityContent(currentTelescope));
     dispatch(setCurrentObservatory(currentObservatory));
     dispatch(resetMissionAndSetTelescope(currentTelescope));
     dispatch(resetSnapshotList());
