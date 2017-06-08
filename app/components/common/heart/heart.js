@@ -142,6 +142,7 @@ export default class Heart extends Component {
             height: 45px;
             width: 75px;
             margin-top: -15px;
+            white-space: nowrap;
           }
           .heart-button {
             display: inline-block;

@@ -70,6 +70,7 @@ class DiscussionsThread extends Component {
                 topicId={topicId}
                 forumId={forumId}
                 threadId={thread.threadId}
+                allowedLevels={3}
               />
             </div>
           ))

@@ -22,7 +22,6 @@ class DiscussionsReply extends Component {
       count: 5,
       page: 1,
       resultsCount: 0,
-
     };
   }
 
@@ -81,7 +80,7 @@ class DiscussionsReply extends Component {
   }
 
   prepareData(reply) {
-    const { styles, forumId, topicId, threadId } = this.props;
+    const { styles, forumId, topicId, threadId, allowedLevels } = this.props;
     const { replies, repliesLoading, repliesError, resultsCount } = this.state;
     const images = reply.S3Files || [];
     const likeParams = {
@@ -89,6 +88,7 @@ class DiscussionsReply extends Component {
       forumId,
       topicId,
     };
+    const showReplyButton = (allowedLevels - 1) > 0;
 
     return (
       <section key={generateId(reply.replyId)}>
@@ -108,10 +108,10 @@ class DiscussionsReply extends Component {
           />
         {images.map(img => <a href={img} key={img} rel="noopener noreferrer" target="_blank"><img className={styles.discussionsImages} key={img} alt="image" src={img} /></a>)}
         <div className={styles.discussionsReplies}>
-        <Link className={`${styles.discussionsrepliesText} inline-block`} to={`discussions/forums/${forumId}/topics/${topicId}/threads/${threadId}/${reply.replyId}/new-reply`}>
-          <span>Reply </span>
-        </Link>
-          <div className={styles.discussionsInlineHeart}>
+          {showReplyButton && <Link className={`${styles.discussionsrepliesText} inline-block`} to={`discussions/forums/${forumId}/topics/${topicId}/threads/${threadId}/${reply.replyId}/new-reply`}>
+            <span>Reply </span>
+          </Link>}
+          <div className={showReplyButton ? styles.discussionsInlineHeart : null}>
             <Heart
               membershipType={reply.membershipType}
               likeAction={likeReply}
@@ -132,6 +132,7 @@ class DiscussionsReply extends Component {
             forumId={forumId}
             topicId={topicId}
             styles={styles}
+            allowedLevels={allowedLevels - 1}
             key={childReply.replyId}
           />))}
           {reply.replyCount > 0 && repliesLoading && <span className="padded-bottom">
