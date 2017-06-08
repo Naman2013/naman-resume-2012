@@ -31,7 +31,7 @@ class DiscussionsReplyTo extends Component {
       fetchTopicList,
       fetchThread,
       thread,
-      routeParams: { threadId, topicId, forumId, replyId },
+      routeParams: { threadId, topicId, forumId },
       prepareReply,
     } = this.props;
     if (_.isEmpty(thread)) {
@@ -97,7 +97,7 @@ class DiscussionsReplyTo extends Component {
 
   submitReply = (e) => {
     e.preventDefault();
-    const { submitReply, routeParams: { threadId, topicId, replyId }, thread } = this.props;
+    const { submitReply, routeParams: { threadId, topicId }, thread } = this.props;
     const { S3URLs, editorValue } = this.state;
     this.setState({
       editorError: true,
@@ -114,7 +114,6 @@ class DiscussionsReplyTo extends Component {
         title: thread.title,
         content: editorValue,
         S3URLs,
-        replyTo: replyId,
       });
 
       window.scrollTo(0, 0);
@@ -127,9 +126,8 @@ class DiscussionsReplyTo extends Component {
   }
   render() {
     const { currentTopic } = this;
-    const { routeParams: { forumId, threadId, topicId, replyId }, forumName, submitting, replySubmitted, thread, handleSubmit, repliesLists } = this.props;
+    const { routeParams: { forumId, threadId, topicId }, forumName, submitting, replySubmitted, thread, handleSubmit } = this.props;
     const { S3URLs, uploadError, editorError } = this.state;
-    const currentReply = (repliesLists && repliesLists[threadId] && replyId) && repliesLists[threadId].filter(reply => String(reply.replyId) === String(replyId));
     return (<div className={styles.DiscussionsReply}>
       {submitting && <div className={styles.DiscussionsContent}>Submitting Reply...</div>}
       {replySubmitted && <div className={styles.DiscussionsContent}>
@@ -153,7 +151,6 @@ class DiscussionsReplyTo extends Component {
             <h4>Forum: <span dangerouslySetInnerHTML={{ __html: forumName}} /></h4>
             <h4>Topic: <span dangerouslySetInnerHTML={{ __html: currentTopic.title }} /></h4>
             <h4>Thread: <span dangerouslySetInnerHTML={{ __html: thread.title }} /></h4>
-            {currentReply && currentReply[0] && <h4>Reply: <span dangerouslySetInnerHTML={{ __html: currentReply[0].excerpt }} /></h4>}
             <div>
               <div className={styles.DiscussionsFormInputContainer}>
                 <span className={styles.number}>1</span>
@@ -223,7 +220,6 @@ const mapStateToProps = ({
 }) => ({
   ...discussionsReplies,
   thread: discussionsThread.thread,
-  replies: discussionsReplies.repliesLists,
   postUUID: discussionsReplies.postUUID,
   user,
   submitting: discussionsReplies.submitting,

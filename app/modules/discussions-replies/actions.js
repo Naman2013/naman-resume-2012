@@ -31,16 +31,14 @@ export const fetchReplies = ({
   ver,
   topicId,
   threadId,
-  parentId,
   page = 1,
   count = 10,
   appendToList, // for pagination
-  appendToId, // for nested replies
   replyTo,
 }) => (dispatch, getState) => {
   const { cid, at, token } = getState().user;
 
-  if (!appendToId) {
+  if (!appendToList) {
     dispatch(fetchRepliesStart());
   }
 
@@ -52,26 +50,12 @@ export const fetchReplies = ({
     ver,
     threadId,
     topicId,
-    parentId,
     page,
     count,
     replyTo,
   })
-  .then(result => {
-    const { replies } = result.data;
-    replies.forEach(reply => {
-      if (reply.replyCount > 0) {
-        dispatch(fetchReplies({
-          parentId: threadId,
-          threadId,
-          topicId,
-          replyTo: reply.replyId,
-          appendToId: reply.replyId,
-        }))
-      }
-    });
-
-    dispatch(fetchRepliesSuccess(Object.assign(result.data, { threadId, page, appendToId, appendToList })));
+  .then((result) => {
+    dispatch(fetchRepliesSuccess(Object.assign(result.data, { threadId, page, appendToList })));
   })
   .catch(error => dispatch(fetchRepliesFail(error)));
 };

@@ -24,26 +24,6 @@ const initialState = {
   resultsCount: 0,
 };
 
-function findNestedReply(rep, id, steps = 0) {
-  const appendToIndex = _.findIndex(rep,
-    reply => (reply.replyId === id));
-  return {
-    index: appendToIndex || findNestedReply(rep.replies, id, steps + 1),
-    steps,
-  };
-}
-
-function findReplyBasedOnSteps(replies, index, steps) {
-  let nestedReply = replies;
-  if (steps > 0) {
-    while (steps) {
-      nestedReply = nestedReply.replies
-      steps--;
-    }
-  }
-  return nestedReply[index];
-}
-
 export default createReducer(initialState, {
   [FETCH_REPLIES_START](state) {
     return {
@@ -52,24 +32,17 @@ export default createReducer(initialState, {
     };
   },
   [FETCH_REPLIES_SUCCESS](state, { payload }) {
-    const { replies, threadId, page, resultsCount, appendToList, appendToId } = payload;
+    const { replies, threadId, page, resultsCount, appendToList } = payload;
     const newState = _.cloneDeep(state.repliesLists);
-    
-    if (newState[threadId] && appendToId) { // nested replies
-      const nestedReplyLocation = findNestedReply(newState[threadId], appendToId);
-      const replyToAppendTo = findReplyBasedOnSteps(newState[threadId], nestedReplyLocation.index, nestedReplyLocation.steps);
-      replyToAppendTo.replies = replyToAppendTo.replies ?
-      replyToAppendTo.replies.concat(replies) : replies;
-    } else {
-      newState[threadId] = newState[threadId] && appendToList ? // pagination
-        newState[threadId].concat(replies) : replies;
-    }
+    newState[threadId] = (newState[threadId] && appendToList) ?
+      newState[threadId].concat(replies) : replies;
+
     return {
       ...state,
       fetching: false,
       page,
       repliesLists: newState,
-      resultsCount: appendToId ? state.resultsCount : resultsCount,
+      resultsCount,
     };
   },
   [FETCH_REPLIES_FAIL](state, { payload }) {

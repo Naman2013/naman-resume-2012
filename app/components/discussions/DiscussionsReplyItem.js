@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 import ByUserTag from '../common/by-user-tag/by-user-tag';
 import Heart from '../common/heart/heart';
+import { getReplies } from '../../services/discussions/get-replies';
 import { likeReply } from '../../services/discussions/like';
 const { object } = PropTypes;
 
@@ -10,7 +11,32 @@ function generateId(seed) {
   return `${seed}-${random}`;
 }
 class DiscussionsReply extends Component {
-  prepareData(reply, replies, margin = 0) {
+  constructor(props) {
+    super(props);
+    const {
+      reply,
+      forumId,
+      topicId,
+      threadId,
+    } = props;
+    this.state = {
+      replies: [],
+    };
+
+    if (reply.replyCount > 0) {
+      getReplies({
+        forumId,
+        topicId,
+        threadId,
+        replyTo: reply.replyId,
+      }).then((res) => {
+        this.setState({
+          replies: res.data.replies
+        });
+      });
+    }
+  }
+  prepareData(reply, replies) {
     const { styles, forumId, topicId, threadId } = this.props;
     const images = reply.S3Files || [];
     const likeParams = {
@@ -18,8 +44,10 @@ class DiscussionsReply extends Component {
       forumId,
       topicId,
     };
+
+
     return (
-      <section key={generateId(reply.replyId)} style={{ marginLeft: margin }}>
+      <section key={generateId(reply.replyId)}>
         <article className={styles.discussionsInfo}>
           <ByUserTag
             photo={reply.avatarURL}
@@ -53,14 +81,23 @@ class DiscussionsReply extends Component {
           </div>
         </div>
         </article>
-        {reply.replies && reply.replies.map(childReply => (this.prepareData(childReply, childReply.replies, margin + 50)))}
+        <div style={{ marginLeft: '50px' }}>
+          {this.state.replies && this.state.replies.map(childReply => (<DiscussionsReply
+            reply={childReply}
+            threadId={threadId}
+            forumId={forumId}
+            topicId={topicId}
+            styles={styles}
+            key={childReply.replyId}
+          />))}
+        </div>
+
       </section>
     );
   }
 
   render() {
     const { reply } = this.props;
-
     return (
       <div>
         {this.prepareData(reply)}
