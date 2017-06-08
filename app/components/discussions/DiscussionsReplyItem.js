@@ -4,6 +4,8 @@ import ByUserTag from '../common/by-user-tag/by-user-tag';
 import Heart from '../common/heart/heart';
 import { getReplies } from '../../services/discussions/get-replies';
 import { likeReply } from '../../services/discussions/like';
+import { pink } from '../../styles/variables/colors';
+
 const { object } = PropTypes;
 
 function generateId(seed) {
@@ -13,31 +15,58 @@ function generateId(seed) {
 class DiscussionsReply extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      replies: [],
+      repliesLoading: false,
+      repliesError: false,
+    };
+  }
+
+  componentDidMount() {
+    const {
+      reply,
+    } = this.props;
+
+    if (reply.replyCount > 0) {
+      this.fetchReplies();
+    }
+  }
+
+  fetchReplies = () => {
     const {
       reply,
       forumId,
       topicId,
       threadId,
-    } = props;
-    this.state = {
-      replies: [],
-    };
+    } = this.props;
 
-    if (reply.replyCount > 0) {
-      getReplies({
-        forumId,
-        topicId,
-        threadId,
-        replyTo: reply.replyId,
-      }).then((res) => {
+    this.setState({
+      repliesLoading: true,
+      repliesError: false,
+    });
+    getReplies({
+      forumId,
+      topicId,
+      threadId,
+      replyTo: reply.replyId,
+    }).then((res) => {
+      if (!res.data.apiError) {
         this.setState({
-          replies: res.data.replies
+          replies: res.data.replies,
+          repliesLoading: false,
         });
-      });
-    }
+      } else {
+        this.setState({
+          repliesLoading: false,
+          repliesError: true,
+        });
+      }
+    });
   }
-  prepareData(reply, replies) {
+
+  prepareData(reply) {
     const { styles, forumId, topicId, threadId } = this.props;
+    const { replies, repliesLoading, repliesError } = this.state;
     const images = reply.S3Files || [];
     const likeParams = {
       replyId: reply.replyId,
@@ -81,8 +110,8 @@ class DiscussionsReply extends Component {
           </div>
         </div>
         </article>
-        <div style={{ marginLeft: '50px' }}>
-          {this.state.replies && this.state.replies.map(childReply => (<DiscussionsReply
+        {(replies.length || repliesLoading || repliesError) && <div style={{ marginLeft: '50px', marginBottom: replies.length ? '0' : '25px' }}>
+          {replies && replies.map(childReply => (<DiscussionsReply
             reply={childReply}
             threadId={threadId}
             forumId={forumId}
@@ -90,8 +119,23 @@ class DiscussionsReply extends Component {
             styles={styles}
             key={childReply.replyId}
           />))}
-        </div>
+          {reply.replyCount > 0 && repliesLoading && <span>
+            <h3>Loading replies...</h3>
+          </span>}
+          {repliesError && <span>
+            <h3>There was an error fetching replies.</h3>
+            <div>
+              <a onClick={this.fetchReplies} className="link">Try again</a>
+            </div>
+          </span>}
+        </div>}
+        <style jsx>{`
 
+          .link {
+            color: ${pink};
+            cursor: pointer;
+          }
+        `}</style>
       </section>
     );
   }
