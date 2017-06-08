@@ -1,4 +1,4 @@
-import { push, go } from 'react-router-redux';
+import { push } from 'react-router-redux';
 import { fetchHandleErrors } from '../../services/authorization/handle-error';
 import { destroySession } from '../User';
 
