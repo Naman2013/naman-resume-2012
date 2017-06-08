@@ -19,6 +19,10 @@ class DiscussionsReply extends Component {
       replies: [],
       repliesLoading: false,
       repliesError: false,
+      count: 5,
+      page: 1,
+      resultsCount: 0,
+
     };
   }
 
@@ -28,33 +32,45 @@ class DiscussionsReply extends Component {
     } = this.props;
 
     if (reply.replyCount > 0) {
-      this.fetchReplies();
+      this.fetchReplies({});
     }
   }
 
-  fetchReplies = () => {
+  loadMoreReplies = () => {
+    this.setState({
+      page: this.state.page + 1,
+    }, () => {
+      this.fetchReplies({ appendToList: true });
+    });
+  }
+
+  fetchReplies = ({ appendToList }) => {
     const {
       reply,
       forumId,
       topicId,
       threadId,
     } = this.props;
+    const { page, count } = this.state;
 
     this.setState({
       repliesLoading: true,
       repliesError: false,
     });
     getReplies({
+      page,
+      count,
       forumId,
       topicId,
       threadId,
       replyTo: reply.replyId,
     }).then((res) => {
       if (!res.data.apiError) {
-        this.setState({
-          replies: res.data.replies,
+        this.setState(state => ({
+          replies: appendToList ? state.replies.concat(res.data.replies) : res.data.replies,
           repliesLoading: false,
-        });
+          resultsCount: res.data.resultsCount
+        }));
       } else {
         this.setState({
           repliesLoading: false,
@@ -66,14 +82,13 @@ class DiscussionsReply extends Component {
 
   prepareData(reply) {
     const { styles, forumId, topicId, threadId } = this.props;
-    const { replies, repliesLoading, repliesError } = this.state;
+    const { replies, repliesLoading, repliesError, resultsCount } = this.state;
     const images = reply.S3Files || [];
     const likeParams = {
       replyId: reply.replyId,
       forumId,
       topicId,
     };
-
 
     return (
       <section key={generateId(reply.replyId)}>
@@ -119,18 +134,25 @@ class DiscussionsReply extends Component {
             styles={styles}
             key={childReply.replyId}
           />))}
-          {reply.replyCount > 0 && repliesLoading && <span>
+          {reply.replyCount > 0 && repliesLoading && <span className="padded-bottom">
             <h3>Loading replies...</h3>
           </span>}
-          {repliesError && <span>
+          {repliesError && <span className="padded-bottom">
             <h3>There was an error fetching replies.</h3>
             <div>
               <a onClick={this.fetchReplies} className="link">Try again</a>
             </div>
           </span>}
+          {(resultsCount > replies.length && !repliesLoading) && <div className="padded-bottom">
+            <h3>
+              <a onClick={this.loadMoreReplies} className="link">Load more replies</a>
+            </h3>
+          </div>}
         </div>}
         <style jsx>{`
-
+          .padded-bottom {
+            padding-bottom: 15px;
+          }
           .link {
             color: ${pink};
             cursor: pointer;
