@@ -33,7 +33,7 @@ export default function determineImageLoader(instrument) {
         teleStreamCode={instrStreamCode}
         teleStreamURL={instrStreamURL}
         teleStreamThumbnailVideoWidth="810"
-        teleStreamThumbnailVideoHeight="600"
+        teleStreamThumbnailVideoHeight="455"
         teleStreamThumbnailQuality={instrStreamThumbnailQuality}
         teleSystem={instrSystem}
         telePort={instrPort}
