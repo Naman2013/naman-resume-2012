@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import classnames from 'classnames';
 import Draggable from 'react-draggable';
 import { setImageDataToSnapshot } from '../../../modules/Telescope-Overview';
-import style from './interactive-viewer.scss';
+import './interactive-viewer.scss';
 
 const ZOOM_MULTIPLIER = 0.5;
 const MINIMUM_ZOOM_SCALE = 1;
@@ -20,26 +20,22 @@ const mapDispatchToProps = dispatch => ({
 
 @connect(null, mapDispatchToProps)
 class InteractiveViewer extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      fullScreenMode: false,
-      clipped: false,
-      currentScale: 1,
-      frameViewType: FRAME_VIEW_TYPE_FULL,
-      bounds: 1,
-      activeDrags: 0,
-      deltaPosition: {
-        x: 0,
-        y: 0,
-      },
-      controlledPosition: {
-        x: 0,
-        y: 0,
-      },
-    };
-  }
+  state = {
+    fullScreenMode: false,
+    clipped: true,
+    currentScale: 1,
+    frameViewType: FRAME_VIEW_TYPE_FULL,
+    bounds: 1,
+    activeDrags: 0,
+    deltaPosition: {
+      x: 0,
+      y: 0,
+    },
+    controlledPosition: {
+      x: 0,
+      y: 0,
+    },
+  };
 
   /** event api's */
   handleZoomInClick(event) {
@@ -68,7 +64,7 @@ class InteractiveViewer extends Component {
 
   handleToggleClipping(event) {
     event.preventDefault();
-    const { clipped, frameViewType } = this.state;
+    const { clipped } = this.state;
 
     // set the new clipped state
     this.props.actions.setImageDataToSnapshot({ masked: !clipped });
