@@ -82,10 +82,6 @@ class TelescopeImageLoader extends Component {
         activeTelescopeMissionID,
       } = this.props;
 
-      // TODO: this may be problematic...
-      // lets think of how we can detangle this mission info request
-      // from the image loader component ( even through SSE events provide the message content )
-      // isolating this work to compact requests for telescope overview
       if (missionFormat === 'compact') {
         actions.updateTelescopeActiveMission({
           obsId,
@@ -109,6 +105,7 @@ class TelescopeImageLoader extends Component {
             domeId,
             format: missionFormat,
             telescopeId: teleId,
+            scheduledMissionId: scheduledMissionID,
           });
         }
       }
