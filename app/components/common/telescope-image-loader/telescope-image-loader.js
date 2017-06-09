@@ -92,6 +92,7 @@ class TelescopeImageLoader extends Component {
           domeId,
           format: missionFormat,
           telescopeId: teleId,
+          scheduledMissionId: scheduledMissionID,
         });
       }
 
