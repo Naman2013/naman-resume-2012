@@ -29,21 +29,28 @@ export default function determineImageLoader(instrument) {
     } = instrument;
 
     return (
-      <div>
-        <VideoImageLoader
-          teleStreamCode={instrStreamCode}
-          teleStreamURL={instrStreamURL}
-          teleStreamThumbnailVideoWidth="810"
-          teleStreamThumbnailVideoHeight="455"
-          teleStreamThumbnailQuality={instrStreamThumbnailQuality}
-          teleSystem={instrSystem}
-          telePort={instrPort}
-          cameraSourceType={instrCameraSourceType}
-        />
+      <div className="root">
+        <div className="mask">
+          <VideoImageLoader
+            teleStreamCode={instrStreamCode}
+            teleStreamURL={instrStreamURL}
+            teleStreamThumbnailVideoWidth="810"
+            teleStreamThumbnailVideoHeight="600"
+            teleStreamThumbnailQuality={instrStreamThumbnailQuality}
+            teleSystem={instrSystem}
+            telePort={instrPort}
+            cameraSourceType={instrCameraSourceType}
+          />
+        </div>
         <style jsx>{`
-          div {
-            height: 370px;
+          .root {
+            height: 455px;
             overflow: hidden;
+          }
+
+          .mask {
+            top: -71px;
+            position: relative;
           }
       `}</style>
       </div>
