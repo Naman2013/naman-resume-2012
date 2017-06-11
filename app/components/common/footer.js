@@ -18,15 +18,21 @@ const Footer = props => (
     <div className="columns">
     {props.menuList.map(menuList => (<div>
       {menuList.map(menu => <div>
-        <span
+        <span className="header"
             dangerouslySetInnerHTML={{ __html: menu.text }}
         />
         <ul className="list">
-          {menu.menuItems.map(item => (<li><a className="link" href={item.itemLink}>
-            <span
-                dangerouslySetInnerHTML={{ __html: item.menuItemText }}
-            />
-            </a></li>))}
+          {menu.menuItems.map(item => (<li>
+            {item.itemLink ? <a className="link" href={item.itemLink}>
+              <span
+                  dangerouslySetInnerHTML={{ __html: item.menuItemText }}
+              />
+              </a> :
+              <span
+                  dangerouslySetInnerHTML={{ __html: item.menuItemText }}
+              />}
+              </li>
+          ))}
         </ul>
       </div>)}
     </div>))}
@@ -57,6 +63,9 @@ const Footer = props => (
         background: #000;
         position: relative;
         z-index: 999;
+      }
+      .header {
+        font-weight: bold;
       }
       .list {
         list-style: none;
