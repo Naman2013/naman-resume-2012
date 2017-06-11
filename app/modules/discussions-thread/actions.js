@@ -93,7 +93,6 @@ export const fetchThread = ({
     const { thread } = result.data;
     dispatch(fetchThreadSuccess(result.data));
     dispatch(fetchReplies({
-      parentId: thread.threadId,
       topicId,
       threadId: thread.threadId,
       replyTo: thread.threadId,

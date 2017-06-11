@@ -69,6 +69,8 @@ class DiscussionsThread extends Component {
                 styles={styles}
                 topicId={topicId}
                 forumId={forumId}
+                threadId={thread.threadId}
+                allowedLevels={3}
               />
             </div>
           ))

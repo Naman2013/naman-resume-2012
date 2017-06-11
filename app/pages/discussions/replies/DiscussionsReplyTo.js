@@ -31,7 +31,7 @@ class DiscussionsReplyTo extends Component {
       fetchTopicList,
       fetchThread,
       thread,
-      routeParams: { threadId, topicId, forumId },
+      routeParams: { threadId, topicId, forumId, replyId },
       prepareReply,
     } = this.props;
     if (_.isEmpty(thread)) {
@@ -97,7 +97,7 @@ class DiscussionsReplyTo extends Component {
 
   submitReply = (e) => {
     e.preventDefault();
-    const { submitReply, routeParams: { threadId, topicId }, thread } = this.props;
+    const { submitReply, routeParams: { threadId, topicId, replyId }, thread } = this.props;
     const { S3URLs, editorValue } = this.state;
     this.setState({
       editorError: true,
@@ -114,6 +114,7 @@ class DiscussionsReplyTo extends Component {
         title: thread.title,
         content: editorValue,
         S3URLs,
+        replyTo: replyId
       });
 
       window.scrollTo(0, 0);
