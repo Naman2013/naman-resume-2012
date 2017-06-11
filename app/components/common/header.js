@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import { Link } from 'react-router';
@@ -94,9 +94,9 @@ export default class Header extends Component {
       clearInterval(this.updateIntervalId);
     }
 
-
     this.updateIntervalId = setInterval(() => {
       const { serverTime, countdownEventTimer, calculatedEventValues, nextEvent } = this.props;
+
       const { eventStartMoment, eventEndMoment } = calculatedEventValues;
       const { currentTime } = countdownEventTimer;
       const { eventIsLive, eventId } = nextEvent;

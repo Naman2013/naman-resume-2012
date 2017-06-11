@@ -3,8 +3,8 @@
   and refreshing the image based on some duration
   */
 
-import React, { Component, PropTypes } from 'react';
-import { uniqueId } from 'lodash';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 export default class RefreshedImage extends Component {
   static propTypes = {

@@ -11,8 +11,20 @@ export const REMOVE_TELESCOPE_MISSION = 'REMOVE_TELESCOPE_MISSION';
 export const UPDATE_ACTIVE_TELESCOPE_MISSION_ID = 'UPDATE_ACTIVE_TELESCOPE_MISSION_ID';
 export const RESET_ACTIVE_TELESCOPE_MISSION_ID = 'RESET_ACTIVE_TELESCOPE_MISSION_ID';
 
+export const SET_ACTIVE_TELESCOPE_MISSION = 'SET_ACTIVE_TELESCOPE_MISSION';
+export const RESET_ACTIVE_MISSION = 'RESET_ACTIVE_MISSION';
+
 export const FORMAT_COMPACT = 'compact';
 export const FORMAT_FULL = 'full';
+
+const setActiveTelescopeMission = payload => ({
+  type: SET_ACTIVE_TELESCOPE_MISSION,
+  payload,
+});
+
+export const resetActiveMission = () => ({
+  type: RESET_ACTIVE_MISSION,
+});
 
 const fetchingMissionCompact = ({ telescopeId }) => ({
   type: UPDATE_TELESCOPE_MISSION_COMPACT_START,
@@ -119,7 +131,12 @@ const updateActiveMissionFull = ({ telescopeId, payload }) => (dispatch, getStat
   see documentation:
   https://docs.google.com/document/d/1rBvwVp2sRhtQMpVOy-xfjAs2oPCvbH-rV9cnnKwFMDM/edit#
 */
-export const updateTelescopeActiveMission = ({ telescopeId, obsId, domeId, format }) => (dispatch, getState) => {
+export const updateTelescopeActiveMission = ({
+  telescopeId,
+  obsId,
+  domeId,
+  format,
+}) => (dispatch, getState) => {
   const { token, cid, at } = getState().user;
 
   dispatch(fetchingMissionData({
@@ -146,17 +163,22 @@ export const updateTelescopeActiveMission = ({ telescopeId, obsId, domeId, forma
     if (format === FORMAT_FULL) {
       const hasMission = result.data.missionList.length > 0;
       const currentMission = result.data.missionList[0];
-      dispatch(updateActiveMissionFull({ telescopeId, payload: result.data }));
 
-      // if we have a mission, fetch the community content...
-      if (hasMission) {
-        const { objectId } = currentMission;
-        const callSource = 'telescopeDetails';
+      if (!result.data.apiError) {
+        dispatch(setActiveTelescopeMission(currentMission));
 
-        dispatch(fetchObjectContent({
-          objectId,
-          callSource,
-        }));
+        // if we have a mission, fetch the community content...
+        if (hasMission) {
+          const { objectId } = currentMission;
+          const callSource = 'telescopeDetails';
+
+          dispatch(fetchObjectContent({
+            objectId,
+            callSource,
+          }));
+        }
+      } else {
+        dispatch(resetActiveMission());
       }
     }
   })

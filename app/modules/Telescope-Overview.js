@@ -32,18 +32,11 @@ const RESET_IMAGE_TO_SNAP = 'RESET_IMAGE_TO_SNAP';
 
 export const getCurrentObservatory = (observatoryList = [], observatoryId) => {
   return observatoryList.find(observatory => observatory.obsUniqueId === observatoryId);
-}
-const getCurrentTimeInSeconds = () => new Date().getTime() / 1000;
-
-export const fetchObservatoryTelescopeStatus = (obsId) => (dispatch) => {
-  return axios.get(`/api/obs/getObservatoryStatus?obsId=${obsId}`)
-    .then((response) => {
-      dispatch(observatoryTelescopeStatusSuccess(response.data));
-    })
-    .catch(error => dispatch(observatoryTelescopeStatusFail()));
 };
 
-const observatoryTelescopeStatusSuccess = (observatoryTelecopeStatus) => ({
+const getCurrentTimeInSeconds = () => new Date().getTime() / 1000;
+
+const observatoryTelescopeStatusSuccess = observatoryTelecopeStatus => ({
   type: OBSERVATORY_STATUS_SUCCESS,
   observatoryTelecopeStatus,
 });
@@ -51,6 +44,14 @@ const observatoryTelescopeStatusSuccess = (observatoryTelecopeStatus) => ({
 const observatoryTelescopeStatusFail = () => ({
   type: OBSERVATORY_STATUS_FAIL,
 });
+
+export const fetchObservatoryTelescopeStatus = obsId => (dispatch) => {
+  return axios.get(`/api/obs/getObservatoryStatus?obsId=${obsId}`)
+    .then((response) => {
+      dispatch(observatoryTelescopeStatusSuccess(response.data));
+    })
+    .catch(() => dispatch(observatoryTelescopeStatusFail()));
+};
 
 const observatoryListStart = () => ({
   type: OBSERVATORY_REQUEST_START,
@@ -66,6 +67,11 @@ export const observatoryListError = error => ({
   type: OBSERVATORY_REQUEST_FAIL,
   observatoryListError: error,
 });
+
+export const fetchAllWidgetsByObservatory = observatory => (dispatch) => {
+  dispatch(fetchMoonPhase(observatory));
+  dispatch(fetchSmallSatelliteView(observatory));
+};
 
 // @param: callSource : STRING | details || byTelescope
 export const getObservatoryList = (currentObservatoryId, callSource) => (dispatch, getState) => {
@@ -92,7 +98,7 @@ export const getObservatoryList = (currentObservatoryId, callSource) => (dispatc
       dispatch(fetchObservatoryTelescopeStatus(obsId));
     }
   })
-  .catch(error => {
+  .catch((error) => {
     dispatch(observatoryListError(error));
     throw error;
   });
@@ -100,6 +106,7 @@ export const getObservatoryList = (currentObservatoryId, callSource) => (dispatc
 
 const fetchMoonPhase = observatory => (dispatch, getState) => {
   const { token, at, cid } = getState().user;
+
   if (observatory && observatory.MoonPhaseWidgetId) { // only make call if /api/obs/list response has MoonPhaseWidgetId defined
     return axios.post('/api/moon/phase', {
       token,
@@ -151,11 +158,6 @@ const startFetchSkyChartWidget = () => ({
   type: SKYCHART_WIDGET_START,
 });
 
-export const fetchAllWidgetsByObservatory = observatory => (dispatch) => {
-  dispatch(fetchMoonPhase(observatory));
-  dispatch(fetchSmallSatelliteView(observatory));
-};
-
 export const fetchSkyChartWidget = ({ obsId, AllskyWidgetId, scheduledMissionId }) => (dispatch) => {
   dispatch(startFetchSkyChartWidget);
   if (obsId && AllskyWidgetId && scheduledMissionId) {
@@ -180,20 +182,20 @@ const fetchObservatoryWebcamSuccess = observatoryLiveWebcamResult => ({
   observatoryLiveWebcamResult,
 });
 
-export const fetchObservatoryWebcam = observatory => (dispatch, getState) => {
-  const { observatoryLiveWebcamResult } = getState().telescopeOverview;
-
-  if (observatoryLiveWebcamResult.obsId !== observatory.obsId) {
-    dispatch(startFetchObservatoryWebcam());
-    return fetchFacilityWebcam({
-      obsId: observatory.obsId,
-      widgetUniqueId: observatory.FacilityWebcamWidgetId,
-    }).then((result) => {
-      if (!result.data.apiError) {
-        dispatch(fetchObservatoryWebcamSuccess(result.data));
-      }
-    });
-  }
+// TODO: should this be made available through telescope details?
+export const fetchObservatoryWebcam = ({
+  obsId,
+  facilityWebcamWidgetId,
+}) => (dispatch) => {
+  dispatch(startFetchObservatoryWebcam());
+  return fetchFacilityWebcam({
+    obsId,
+    widgetUniqueId: facilityWebcamWidgetId,
+  }).then((result) => {
+    if (!result.data.apiError) {
+      dispatch(fetchObservatoryWebcamSuccess(result.data));
+    }
+  });
 };
 
 const setImageData = data => ({
@@ -273,7 +275,10 @@ const initialState = {
     errorMsg: '',
     observatoryList: [],
   },
+
   observatoryListErrorBody: null,
+
+  fetchingObservatoryLiveWebcamResult: true,
 
   // status of various telescopes depends on having a list of observatories..
   observatoryTelecopeStatus: null,
@@ -293,7 +298,6 @@ const initialState = {
     logoURL: '',
     refreshIntervalSec: 0,
     facilityWebcamURL: '',
-    obsId: 0,
   },
   imageDataToSnapshot: {
     callSource: 'details',
@@ -368,12 +372,14 @@ export default createReducer(initialState, {
   [OBSERVATORY_WEBCAM_START](state) {
     return {
       ...state,
+      fetchingObservatoryLiveWebcamResult: true,
       observatoryLiveWebcamResult: { ...initialState.observatoryLiveWebcamResult },
     };
   },
   [OBSERVATORY_WEBCAM_SUCCESS](state, { observatoryLiveWebcamResult }) {
     return {
       ...state,
+      fetchingObservatoryLiveWebcamResult: false,
       observatoryLiveWebcamResult,
     };
   },

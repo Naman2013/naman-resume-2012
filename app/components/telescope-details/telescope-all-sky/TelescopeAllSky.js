@@ -23,7 +23,7 @@ class TelescopeAllSky extends Component {
     skyChartWidgetResult: PropTypes.shape({
       apiError: PropTypes.bool.isRequired,
       title: PropTypes.string.isRequired,
-      subTitle: PropTypes.string.isRequired,
+      subTitle: PropTypes.string,
       starChartURL: PropTypes.string.isRequired,
     }).isRequired,
     actions: PropTypes.shape({
@@ -33,6 +33,7 @@ class TelescopeAllSky extends Component {
 
   static defaultProps = {
     fetchSkyChartWidget: () => { console.warning('No method to fetch skychart info provided'); },
+    subTitle: '',
   }
 
   constructor(props) {
