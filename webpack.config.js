@@ -38,9 +38,9 @@ module.exports = {
     bundle: './app/index.js',
   },
   output: {
-    path: __dirname + '/dist',
+    path: `${__dirname}/dist`,
     filename: '[name].js',
-    sourceMapFilename: "[name].js.map",
+    sourceMapFilename: '[name].js.map',
   },
   module: {
     loaders: [
@@ -66,6 +66,16 @@ module.exports = {
           search: '/dev-sse/',
           replace: `${apiUrl}:`,
           flags: 'g'
+        }
+      },
+      { // string-replace replace localhost with slooh.com
+        test: /\.(js)$/,
+        loader: 'string-replace',
+        exclude: /node_modules/,
+        query: {
+          search: 'localhost',
+          replace: 'slooh.com',
+          flags: 'g',
         }
       },
       {
