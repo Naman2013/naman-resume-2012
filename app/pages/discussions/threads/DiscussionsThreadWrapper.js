@@ -37,6 +37,7 @@ class DiscussionsThreadWrapper extends Component {
       repliesPage,
       routeParams: { forumId, threadId, topicId },
       thread,
+      user,
       topicList,
     } = this.props;
     const currentReplyList = repliesLists[threadId] || [];
@@ -60,7 +61,7 @@ class DiscussionsThreadWrapper extends Component {
             </div>}
           </div>
         </header>
-        <section className="discussions-container container-fluid clearfix">
+        <section className="discussions-container thread-list container-fluid clearfix">
           <div className="col-md-8 nopadding">
             {fetching && <GenericLoadingBox /> }
             {!fetching && !_.isEmpty(thread) && <DiscussionsThread
@@ -71,6 +72,7 @@ class DiscussionsThreadWrapper extends Component {
               fetchReplies={fetchReplies}
               repliesCount={repliesCount}
               page={repliesPage}
+              user={user}
             />}
           </div>
 
@@ -102,7 +104,7 @@ DiscussionsThreadWrapper.propTypes = {
   repliesCount: number,
 };
 
-const mapStateToProps = ({ discussionsThread, discussionsReplies, discussionsTopics }) => ({
+const mapStateToProps = ({ discussionsThread, discussionsReplies, discussionsTopics, user }) => ({
   topicList: discussionsTopics.topicList,
   thread: discussionsThread.thread,
   repliesLists: discussionsReplies.repliesLists,
@@ -110,6 +112,7 @@ const mapStateToProps = ({ discussionsThread, discussionsReplies, discussionsTop
   repliesCount: discussionsReplies.resultsCount,
   repliesPage: discussionsReplies.page,
   fetching: discussionsThread.fetching,
+  user,
 });
 const mapDispatchToProps = dispatch => (bindActionCreators({
   ...topicsActions,
