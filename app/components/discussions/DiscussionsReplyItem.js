@@ -49,6 +49,7 @@ class DiscussionsReply extends Component {
       forumId,
       topicId,
       threadId,
+      user,
     } = this.props;
     const { page, count } = this.state;
 
@@ -63,6 +64,9 @@ class DiscussionsReply extends Component {
       topicId,
       threadId,
       replyTo: reply.replyId,
+      cid: user.cid,
+      at: user.at,
+      token: user.token,
     }).then((res) => {
       if (!res.data.apiError) {
         this.setState(state => ({

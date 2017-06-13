@@ -17,6 +17,7 @@ class DiscussionsThread extends Component {
       thread,
       topicId,
       page,
+      user,
     } = this.props;
     const images = thread.S3Files || [];
     const likeParams = {
@@ -71,6 +72,7 @@ class DiscussionsThread extends Component {
                 forumId={forumId}
                 threadId={thread.threadId}
                 allowedLevels={3}
+                user={user}
               />
             </div>
           ))
