@@ -9,14 +9,14 @@ const REMOVE_USER = 'REMOVE_USER';
 export const set = createAction(SET_USER, 'user');
 export const removeUser = createAction(REMOVE_USER);
 
-export function store(user) {
-  window.document.cookie = cookie.serialize('cid', user.cid, { domain: 'localhost' });
-  window.document.cookie = cookie.serialize('token', user.token, { domain: 'localhost' });
-  window.document.cookie = cookie.serialize('at', user.at, { domain: 'localhost' });
-  window.document.cookie = cookie.serialize('fname', user.fname, { domain: 'localhost' });
+export function store({ cid, token, at, fname }) {
+  window.document.cookie = cookie.serialize('cid', cid, { domain: 'localhost' });
+  window.document.cookie = cookie.serialize('token', token, { domain: 'localhost' });
+  window.document.cookie = cookie.serialize('at', at, { domain: 'localhost' });
+  window.document.cookie = cookie.serialize('fname', fname, { domain: 'localhost' });
 
   return (dispatch) => {
-    dispatch(set(user));
+    dispatch(set({ cid, token, at, fname }));
   };
 }
 

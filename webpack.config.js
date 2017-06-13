@@ -68,16 +68,6 @@ module.exports = {
           flags: 'g'
         }
       },
-      { // string-replace replace localhost with slooh.com
-        test: /\.(js)$/,
-        loader: 'string-replace',
-        exclude: /node_modules/,
-        query: {
-          search: 'localhost',
-          replace: 'slooh.com',
-          flags: 'g',
-        }
-      },
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
