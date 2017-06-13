@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { uniqueId } from 'lodash';
 import { primaryFont } from '../../styles/variables/fonts';
 import { lightGray } from '../../styles/variables/colors';
 
@@ -16,13 +17,13 @@ const Footer = props => (
     }}
   >
     <div className="columns">
-    {props.menuList.map(menuList => (<div>
-      {menuList.map(menu => <div>
+    {props.menuList.map(menuList => (<div key={uniqueId()}>
+      {menuList.map(menu => <div key={uniqueId()}>
         <span className="header"
             dangerouslySetInnerHTML={{ __html: menu.text }}
         />
         <ul className="list">
-          {menu.menuItems.map(item => (<li>
+          {menu.menuItems.map(item => (<li key={uniqueId()}>
             {item.itemLink ? <a className="link" href={item.itemLink}>
               <span
                   dangerouslySetInnerHTML={{ __html: item.menuItemText }}
