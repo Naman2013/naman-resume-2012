@@ -9,31 +9,30 @@ const REMOVE_USER = 'REMOVE_USER';
 export const set = createAction(SET_USER, 'user');
 export const removeUser = createAction(REMOVE_USER);
 
-export function store(user) {
-  localStorage.setItem('user', JSON.stringify(user));
-  document.cookie = cookie.serialize('cid', user.cid, { domain: '.slooh.com' });
-  document.cookie = cookie.serialize('token', user.token, { domain: '.slooh.com' });
-  document.cookie = cookie.serialize('at', user.at, { domain: '.slooh.com' });
-  document.cookie = cookie.serialize('fname', user.fname, { domain: '.slooh.com' });
+export function store({ cid, token, at, fname }) {
+  window.document.cookie = cookie.serialize('cid', cid, { domain: 'localhost' });
+  window.document.cookie = cookie.serialize('token', token, { domain: 'localhost' });
+  window.document.cookie = cookie.serialize('at', at, { domain: 'localhost' });
+  window.document.cookie = cookie.serialize('fname', fname, { domain: 'localhost' });
 
   return (dispatch) => {
-    dispatch(set(user));
+    dispatch(set({ cid, token, at, fname }));
   };
 }
 
 export function destroySession() {
-  localStorage.removeItem('user');
-  document.cookie = cookie.serialize('cid', '', { domain: '.slooh.com', expires: new Date('Thu, 01 Jan 1970 00:00:01 GMT') });
-  document.cookie = cookie.serialize('token', '', { domain: '.slooh.com', expires: new Date('Thu, 01 Jan 1970 00:00:01 GMT') });
-  document.cookie = cookie.serialize('at', '', { domain: '.slooh.com', expires: new Date('Thu, 01 Jan 1970 00:00:01 GMT') });
-  document.cookie = cookie.serialize('fname', '', { domain: '.slooh.com', expires: new Date('Thu, 01 Jan 1970 00:00:01 GMT') });
+  window.localStorage.removeItem('user');
+  window.document.cookie = cookie.serialize('cid', '', { domain: 'localhost', expires: new Date('Thu, 01 Jan 1970 00:00:01 GMT') });
+  window.document.cookie = cookie.serialize('token', '', { domain: 'localhost', expires: new Date('Thu, 01 Jan 1970 00:00:01 GMT') });
+  window.document.cookie = cookie.serialize('at', '', { domain: 'localhost', expires: new Date('Thu, 01 Jan 1970 00:00:01 GMT') });
+  window.document.cookie = cookie.serialize('fname', '', { domain: 'localhost', expires: new Date('Thu, 01 Jan 1970 00:00:01 GMT') });
 }
 
 export const logout = () => {
   destroySession();
   hashHistory.push('/');
   window.location.reload();
-}
+};
 
 export function destroy() {
   destroySession();
@@ -48,12 +47,16 @@ export function destroy() {
   checks if user is logged in
   */
 export function checkUser(pathname, replace, callback) {
-  return (dispatch, getState) => {
-    const userJSON = localStorage.getItem('user');
+  return (dispatch) => {
+    const { cid, token, at, fname } = cookie.parse(window.document.cookie);
 
-    if (userJSON) {
-      const user = JSON.parse(userJSON);
-      dispatch(store(user));
+    if (cid && token && at && fname) {
+      dispatch(store({
+        cid,
+        token,
+        at,
+        fname,
+      }));
       callback();
     } else {
       callback();

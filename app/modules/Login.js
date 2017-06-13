@@ -39,14 +39,12 @@ export const login = loginFormValues => (dispatch, getState) => {
   })
   .then((result) => {
     const { apiError } = result.data;
-
     if (apiError) {
       dispatch(loginFailed(result.data));
     } else {
       dispatch(loginReset());
       dispatch(userActions.store(result.data));
       dispatch(hide());
-
       dispatch(push(errorHandlerBody.currentPageId.substr(2)));
     }
   })

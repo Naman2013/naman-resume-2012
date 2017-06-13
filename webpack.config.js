@@ -38,9 +38,9 @@ module.exports = {
     bundle: './app/index.js',
   },
   output: {
-    path: __dirname + '/dist',
+    path: `${__dirname}/dist`,
     filename: '[name].js',
-    sourceMapFilename: "[name].js.map",
+    sourceMapFilename: '[name].js.map',
   },
   module: {
     loaders: [
