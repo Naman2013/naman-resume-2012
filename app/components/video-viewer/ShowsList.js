@@ -34,7 +34,7 @@ class ShowsList extends Component {
       resultsCount,
       page,
       pages,
-      limit,
+      count,
     } = this.props;
     const containerColClassNames = classnames({
       'col-xs-12': !galleryType,
@@ -43,13 +43,13 @@ class ShowsList extends Component {
       [`col-xs-${colNum}`]: !galleryType,
       'col-xs-12': galleryType,
     });
-    const firstImageNumberIndex = (eventList[0] && eventList.eventIndex) || 0;
+    const firstImageNumberIndex = (eventList[0] && eventList[0].eventIndex) || 0;
     const rangeText = Pagination.generateRangeText({
       startRange: firstImageNumberIndex,
       itemsPerPage: eventList.length, // use length here because there may be less than maxImageCount
     });
 
-    const canNext = (firstImageNumberIndex + limit) < resultsCount;
+    const canNext = (firstImageNumberIndex + count) < resultsCount;
     const canPrevious = firstImageNumberIndex !== 0;
 
     return (
@@ -78,7 +78,7 @@ class ShowsList extends Component {
         <style jsx>{`
           .show-list-root {
             background-color: ${gray};
-            padding-top: 25px;
+            padding: 25px;
           }
           .show-list {
             list-style: none;

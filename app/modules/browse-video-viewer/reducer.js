@@ -7,7 +7,7 @@ import {
 
 const initialState = {
   page: 1,
-  limit: 9,
+  count: 9,
   pages: 0,
   resultsCount: 0,
   eventList: [],

@@ -72,7 +72,7 @@ class RecentShows extends Component {
       resultsCount,
       page,
       pages,
-      limit,
+      count,
     } = this.props;
 
     return (
@@ -87,7 +87,7 @@ class RecentShows extends Component {
           resultsCount={resultsCount}
           pages={pages}
           page={page}
-          limit={limit}
+          count={count}
           paginate={actions.fetchPreviousShows}
         />
       </div>
