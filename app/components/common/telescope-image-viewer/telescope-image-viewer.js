@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import InteractiveViewer from '../interactive-viewer/interactive-viewer';
 import TelescopeImageLoader from '../telescope-image-loader/telescope-image-loader';
@@ -7,44 +7,40 @@ import obsIdTeleIdDomeIdFromTeleId from '../../../utils/obsid-teleid-domeid-from
 
 import './telescope-image-viewer.scss';
 
-class TelescopeImageViewer extends Component {
+// TODO: test this to make sure we are still functioning
+function TelescopeImageViewer({
+  telePort,
+  teleSystem,
+  teleId,
+  teleFade,
+  clipped,
+}) {
+  const setIds = obsIdTeleIdDomeIdFromTeleId(teleId);
+  const teleThumbWidth = '866px';
+  const imageSource = generateSseImageLoader(teleSystem, telePort);
 
-  render() {
-    const {
-      telePort,
-      teleSystem,
-      teleId,
-      teleFade,
-    } = this.props;
+  return (
+    <div
+      className="telescope-image-viewer"
+    >
 
-    const setIds = obsIdTeleIdDomeIdFromTeleId(teleId);
+      <InteractiveViewer>
 
-    const teleThumbWidth = '866px';
-    const imageSource = generateSseImageLoader(teleSystem, telePort);
+        <TelescopeImageLoader
+          imageSource={imageSource}
+          teleId={setIds.teleId}
+          obsId={setIds.obsId}
+          domeId={setIds.domeId}
+          teleThumbWidth={teleThumbWidth}
+          teleFade={teleFade}
+          clipped={clipped}
+          missionFormat="full"
+        />
 
-    return (
-      <div
-        className="telescope-image-viewer"
-      >
+      </InteractiveViewer>
 
-        <InteractiveViewer>
-
-          <TelescopeImageLoader
-            imageSource={imageSource}
-            teleId={setIds.teleId}
-            obsId={setIds.obsId}
-            domeId={setIds.domeId}
-            teleThumbWidth={teleThumbWidth}
-            teleFade={teleFade}
-            clipped={false}
-            missionFormat="full"
-          />
-
-        </InteractiveViewer>
-
-      </div>
-    );
-  }
+    </div>
+  );
 }
 
 TelescopeImageViewer.defaultProps = {

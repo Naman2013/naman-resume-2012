@@ -1,7 +1,8 @@
-import React, { Component, PropTypes } from 'react';
-import { Link, activeClassName } from 'react-router';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router';
 import UniversalTime from '../../common/universal-time';
-import style from './telescope-selection.scss';
+import './telescope-selection.scss';
 
 /**
   THEMES:

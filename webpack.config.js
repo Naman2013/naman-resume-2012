@@ -38,9 +38,9 @@ module.exports = {
     bundle: './app/index.js',
   },
   output: {
-    path: __dirname + '/dist',
+    path: `${__dirname}/dist`,
     filename: '[name].js',
-    sourceMapFilename: "[name].js.map",
+    sourceMapFilename: '[name].js.map',
   },
   module: {
     loaders: [
@@ -151,6 +151,18 @@ module.exports = {
         changeOrigin: true,
         secure: true,
         pathRewrite: { '/:3020/': '' },
+      },
+      '/:3003/**': {
+        target: 'https://slooh.com:3003',
+        changeOrigin: true,
+        secure: true,
+        pathRewrite: { '/:3003/': '' },
+      },
+      '/:3006/**': {
+        target: 'https://slooh.com:3006',
+        changeOrigin: true,
+        secure: true,
+        pathRewrite: { '/:3006/': '' },
       },
       '/:3007/**': {
         target: 'https://slooh.com:3007',

@@ -10,7 +10,7 @@ export default function fetchObservatoryList({
   token,
   callSource,
 }) {
-  return axios.post({
+  return axios.post('/api/obs/list', {
     at,
     cid,
     token,

@@ -5,27 +5,29 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import './telescope-details.scss';
-import DEFAULT_FULL_MISSION_DATA from './default-full-mission-data';
 
 import {
-  getObservatoryList,
-  getCurrentObservatory,
-  fetchObservatoryTelescopeStatus,
-  fetchObservatoryWebcam,
-  resetSnapshotList } from '../../modules/Telescope-Overview';
+  bootstrapTelescopeDetails,
+  setObservatory,
+  setTelescope,
+  updateTelescopeStatus,
+  fetchAllTelescopeStatus,
+} from '../../modules/telescope-details/actions';
+
+import {
+  resetSnapshotList,
+} from '../../modules/Telescope-Overview';
 
 import { fetchObjectContent } from '../../modules/community-content/community-object-content-actions';
 
 import AnnouncementBanner from '../../components/common/announcement-banner/announcement-banner';
-import TelescopeImageViewer from '../../components/common/telescope-image-viewer/telescope-image-viewer';
-import VideoImageLoader from '../../components/common/telescope-image-loader/video-image-loader';
 import Spacer from '../../components/common/spacer';
 import LiveStream from '../../components/telescope-details/live-stream/live-stream';
 import LiveMission from '../../components/telescope-details/live-mission/live-mission';
 import PromoMessageBanner from '../../components/common/headers/promo-message-band';
 import CommunityPerspectives from '../../components/common/community-perspectives/community-perspectives';
+import LiveFeed from '../../components/telescope-details/live-feed/LiveFeed';
 import Neoview from '../../components/telescope-details/neoview/neoview';
-import TelescopeOffline from '../../components/telescope-details/telescope-offline/telescope-offline';
 import CurrentSelectionHeader from '../../components/telescopes/current-selection-header/header';
 import TelescopeSelection from '../../components/telescopes/selection-widget/telescope-selection';
 
@@ -34,63 +36,15 @@ import TelescopeConditionSnapshot from '../../components/telescope-details/condi
 import LiveWebcam from '../../components/telescope-details/live-webcam/live-webcam';
 import StarShareCamera from '../../components/telescope-details/star-share-camera/star-share-camera';
 
-/**
-  * Getting the current telescope from the API response
-  * @param {array} observatoryTelescopes - Array of all telescopes in the current observatory
-  * @param {string} telescopeId - Id of the current telescope, which available in URL and/or props.params
-  * @returns {Object} telescope - Current telescope object
-  */
-function getCurrentTelescope(observatoryTelescopes, telescopeId) {
-  return observatoryTelescopes.find(telescope => telescope.teleUniqueId === telescopeId);
-}
-
-function determineImageLoaderType(currentInstrument) {
-  const {
-    instrImageSourceType,
-    instrCameraSourceType,
-  } = currentInstrument;
-
-  if (instrImageSourceType === 'SSE') {
-    return (
-      <TelescopeImageViewer
-        telePort={currentInstrument.instrPort}
-        teleSystem={currentInstrument.instrSystem}
-        teleId={currentInstrument.instrTelescopeId}
-        teleFade={currentInstrument.instrFade}
-      />
-    );
-  } else if (instrImageSourceType === 'video') {
-    const {
-      instrStreamCode,
-      instrStreamURL,
-      instrStreamThumbnailVideoWidth,
-      instrStreamThumbnailVideoHeight,
-      instrStreamThumbnailQuality,
-    } = currentInstrument;
-
-    return (
-      <VideoImageLoader
-        teleStreamCode={instrStreamCode}
-        teleStreamURL={instrStreamURL}
-        teleStreamThumbnailVideoWidth="810"
-        teleStreamThumbnailVideoHeight="600"
-        teleStreamThumbnailQuality={instrStreamThumbnailQuality}
-        teleSystem={currentInstrument.instrSystem}
-        telePort={currentInstrument.instrPort}
-        cameraSourceType={instrCameraSourceType}
-      />
-    );
-  }
-
-  return null;
-}
-
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators({
-      getObservatoryList,
-      fetchObservatoryTelescopeStatus,
-      fetchObservatoryWebcam,
+      bootstrapTelescopeDetails,
+      setObservatory,
+      setTelescope,
+      updateTelescopeStatus,
+      fetchAllTelescopeStatus,
+
       resetSnapshotList,
       fetchObjectContent,
     }, dispatch),
@@ -98,19 +52,26 @@ function mapDispatchToProps(dispatch) {
 }
 
 function mapStateToProps({
-  missions,
   telescopeOverview,
-  activeTelescopeMissions,
   communityObjectContent,
+  telescopeDetails,
+  activeTelescopeMissions,
 }) {
-  const { observatoryList, observatoryTelecopeStatus } = telescopeOverview;
+  const { observatoryList } = telescopeOverview;
 
   return {
-    missions,
+    fetchingObservatoryList: telescopeDetails.fetchingObservatoryList,
+    fetchingObservatoryStatus: telescopeDetails.fetchingObservatoryStatus,
+
+    currentObservatory: telescopeDetails.currentObservatory,
+    currentTelescope: telescopeDetails.currentTelescope,
+    currentTelescopeOnlineStatus: telescopeDetails.currentTelescopeOnlineStatus,
+
+    displayCommunityContent: telescopeDetails.displayCommunityContent,
+
     observatoryList: observatoryList.observatoryList,
-    observatoryTelecopeStatus,
-    cardList: missions.cardList || [],
-    activeTelescopeMissions,
+
+    activeTelescopeMission: activeTelescopeMissions.activeTelescopeMission,
     communityContent: communityObjectContent.communityContent.posts,
   };
 }
@@ -124,11 +85,19 @@ class TelescopeDetails extends Component {
       teleUniqueId: PropTypes.string.isRequired,
     }).isRequired,
     actions: PropTypes.shape({
-      getObservatoryList: PropTypes.func.isRequired,
+      bootstrapTelescopeDetails: PropTypes.func.isRequired,
       resetSnapshotList: PropTypes.func.isRequired,
-      fetchObservatoryWebcam: PropTypes.func.isRequired,
+      setObservatory: PropTypes.func.isRequired,
+      setTelescope: PropTypes.func.isRequired,
+      updateTelescopeStatus: PropTypes.func.isRequired,
+      fetchAllTelescopeStatus: PropTypes.func.isRequired,
     }).isRequired,
   };
+
+  constructor(props) {
+    super(props);
+    this.scaffoldObservatoryList();
+  }
 
   state = {
     toggleNeoview: false,
@@ -136,47 +105,53 @@ class TelescopeDetails extends Component {
     missionPercentageRemaining: 0,
   };
 
-  componentWillMount() {
-    this.scaffoldObservatoryList();
-    this.props.actions.resetSnapshotList();
+  componentDidMount() {
+    this.scaffoldRefreshInterval();
   }
 
   componentWillUpdate(nextProps) {
-    const { selectedTab } = this.state;
-    const { activeTelescopeMissions, observatoryList, params } = this.props;
-    const { observatoryTelecopeStatus } = nextProps;
-    const nextActiveTelescopeMissions = nextProps.activeTelescopeMissions;
-    const { obsUniqueId, teleUniqueId } = params;
-    const currentObservatory = getCurrentObservatory(observatoryList, obsUniqueId);
-    const nextObservatory = getCurrentObservatory(observatoryList, nextProps.params.obsUniqueId);
+    const isNewObservatory = this.props.params.obsUniqueId !== nextProps.params.obsUniqueId;
+    const isNewTelescope = this.props.params.teleUniqueId !== nextProps.params.teleUniqueId;
+    const { observatoryList } = this.props;
 
-    if (!currentObservatory) { return; }
+    if (isNewObservatory) {
+      // set the selected observatory
+      this.props.actions.setObservatory({
+        obsUniqueId: nextProps.params.obsUniqueId,
+        teleUniqueId: nextProps.params.teleUniqueId,
+      });
 
-    // check if we have a telescopeStatus
-    // if we do, then scaffold the refresh timer
-    if (observatoryTelecopeStatus) {
-      const { statusExpires, statusTimestamp } = observatoryTelecopeStatus;
-      const refreshTime = (statusExpires - statusTimestamp) * 1000;
-      this.scaffoldRefreshTimer(refreshTime);
+      // fetch the observatories latest status
+      this.props.actions.fetchAllTelescopeStatus({
+        obsId: observatoryList.find(observatory => observatory.obsUniqueId === nextProps.params.obsUniqueId).obsId,
+        teleUniqueId: nextProps.params.teleUniqueId,
+      });
+
+      // reset the timer to refetch the telescope status since we are calling it now anyhow
+      this.scaffoldRefreshInterval();
     }
 
-    this.props.actions.fetchObservatoryWebcam(nextObservatory);
-
-    // TODO: make sure that we are refreshing this list at the appropriate time!!!
-    this.props.actions.resetSnapshotList();
-
-    const currentTelescope = getCurrentTelescope(currentObservatory.obsTelescopes, teleUniqueId);
-    const { teleInstrumentList } = currentTelescope;
-
-    // reset the selected tab if it is outside of the bounds of available tabs
-    if (selectedTab > teleInstrumentList.length - 1) {
+    if (isNewTelescope) {
+      // whenever we change the telescope, default the selected tab to 0
       this.handleSelect(0);
+
+      // set the selected telescope
+      this.props.actions.setTelescope({
+        obsUniqueId: nextProps.params.obsUniqueId,
+        teleUniqueId: nextProps.params.teleUniqueId,
+      });
+
+      // if the observatory is the same, don't bother because on update
+      // of the observatory status we will set the telescope status
+      // this will prevent a potential race condition
+      if (!isNewObservatory) {
+        this.props.actions.updateTelescopeStatus({ teleUniqueId: nextProps.params.teleUniqueId });
+      }
     }
   }
 
   componentWillUnmount() {
-    clearInterval(this.refreshDetailsInterval);
-    clearInterval(this.missionProgressInterval);
+    clearInterval(this.refreshTelescopeStatusInterval);
   }
 
   handleSelect = (index) => {
@@ -186,66 +161,59 @@ class TelescopeDetails extends Component {
   };
 
   scaffoldObservatoryList() {
-    const { obsUniqueId } = this.props.params;
-    this.props.actions.getObservatoryList(
+    const { obsUniqueId, teleUniqueId } = this.props.params;
+    this.props.actions.bootstrapTelescopeDetails({
       obsUniqueId,
-      'details',
-    );
+      teleUniqueId,
+    });
   }
 
-  refreshDetailsInterval = null;
+  refreshTelescopeStatusInterval = null;
 
-  scaffoldRefreshTimer(increment = 6000) {
-    clearInterval(this.refreshDetailsInterval);
-    this.refreshDetailsInterval = setInterval(() => {
-      this.scaffoldObservatoryList();
+  // once per 10 minutes, fetch the latest telescope status
+  scaffoldRefreshInterval(increment = 600000) {
+    clearInterval(this.refreshTelescopeStatusInterval);
+    this.refreshTelescopeStatusInterval = setInterval(() => {
+      const { observatoryList, params: { obsUniqueId, teleUniqueId } } = this.props;
+      this.props.actions.fetchAllTelescopeStatus({
+        obsId: observatoryList.find(observatory => observatory.obsUniqueId === obsUniqueId).obsId,
+        teleUniqueId,
+        isRefresh: true,
+      });
     }, increment);
   }
 
   render() {
+    /**
+      TODO: based on the type of community content we display the component
+      so we need to discover the content needed and tie that into the field
+      */
     const { selectedTab } = this.state;
     const {
+      fetchingObservatoryList,
+      fetchingObservatoryStatus,
+
+      currentObservatory,
+      currentTelescope,
+      currentTelescopeOnlineStatus,
+
+      displayCommunityContent,
+
       observatoryList,
       params,
-      activeTelescopeMissions,
+
+      activeTelescopeMission,
+
       communityContent,
     } = this.props;
 
+    if (fetchingObservatoryList) {
+      return null;
+    }
+
     const { obsUniqueId, teleUniqueId } = params;
-
-    // TODO: Move this check into TelescopeSelection component
-    if (observatoryList && observatoryList.length === 0) {
-      return null;
-    }
-
-    const currentObservatory = getCurrentObservatory(observatoryList, obsUniqueId);
-
-    // TODO: refactor how this page opperates so we can remove these checks
-    if (!currentObservatory) {
-      return null;
-    }
-
     const { obsId } = currentObservatory;
-    const currentTelescope = getCurrentTelescope(currentObservatory.obsTelescopes, teleUniqueId);
     const { teleInstrumentList, teleId, teleCanReserveMissions } = currentTelescope;
-
-    // setup the current mission - setting defaults based on the original design of the API
-    const currentMission = DEFAULT_FULL_MISSION_DATA;
-    const currentTelescopeMissionData =
-      activeTelescopeMissions.telescopes.find(telescope => telescope.telescopeId === teleId);
-
-    if (currentTelescopeMissionData && currentTelescopeMissionData.activeMission.full.missionList) {
-      Object.assign(currentMission, currentTelescopeMissionData.activeMission.full.missionList[0]);
-    }
-
-    const { missionAvailable } = currentMission;
-
-    // TODO: refactor this patchwork to more appropriatly set default values for the selected
-    // instrument.  Problem here is the index for the tab falls out of sync with the
-    // array of available instruments and throws an error.
-    if (selectedTab > teleInstrumentList.length - 1) {
-      return null;
-    }
 
     return (
       <div className="telescope-details-page-wrapper">
@@ -300,14 +268,19 @@ class TelescopeDetails extends Component {
                 {
                   teleInstrumentList.map(instrument => (
                     <TabPanel key={instrument.instrPort}>
-                      {
-                        currentTelescope.teleOnlineStatus === 'online' ?
-                        determineImageLoaderType(instrument) :
-                        <TelescopeOffline imageSource={instrument.instrOfflineImgURL} />
-                      }
+
+                      <LiveFeed
+                        fetchingOnlineStatus={fetchingObservatoryStatus}
+                        onlineStatus={
+                          currentTelescopeOnlineStatus && currentTelescopeOnlineStatus.onlineStatus
+                        }
+                        instrument={instrument}
+                        offlineImageSource={instrument.instrOfflineImgURL}
+                      />
 
                       {
-                        currentTelescope.teleOnlineStatus === 'online' && currentTelescope.teleHasNeoView ?
+                        /** load the neoview */
+                        (currentTelescopeOnlineStatus && currentTelescopeOnlineStatus.onlineStatus === 'online') && currentTelescope.teleHasNeoView ?
                           <Neoview
                             port={currentTelescope.teleNeoPort}
                             teleSystem={currentTelescope.teleSystem}
@@ -326,16 +299,16 @@ class TelescopeDetails extends Component {
               </Tabs>
 
               {
-                missionAvailable ?
+                activeTelescopeMission.missionAvailable ?
                   <LiveStream
-                    {...currentMission}
+                    {...activeTelescopeMission}
                   /> : null
               }
 
               <Spacer height="50px" />
 
               {
-                (communityContent && communityContent.length > 0) ?
+                displayCommunityContent ?
                   <div>
                     <PromoMessageBanner
                       title="Community Perspectives"
@@ -347,21 +320,25 @@ class TelescopeDetails extends Component {
                   </div> : null
               }
 
-              <LiveWebcam />
+              <LiveWebcam
+                obsId={obsId}
+                facilityWebcamWidgetId={currentObservatory.FacilityWebcamWidgetId}
+              />
+
             </div>
 
             <div className="col-xs-4 telescope-details-sidebar">
               {
-                currentMission.missionAvailable || currentMission.nextMissionAvailable ?
+                activeTelescopeMission.missionAvailable || activeTelescopeMission.nextMissionAvailable ?
                   <div>
                     <LiveMission
-                      {...currentMission}
+                      {...activeTelescopeMission}
                     />
 
                     <TelescopeAllSky
                       obsId={currentObservatory.obsId}
                       AllskyWidgetId={currentObservatory.SkyChartWidgetId}
-                      scheduledMissionId={currentMission.scheduledMissionId}
+                      scheduledMissionId={activeTelescopeMission.scheduledMissionId}
                     />
                   </div>
                 : null

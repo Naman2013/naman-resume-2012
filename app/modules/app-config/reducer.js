@@ -23,6 +23,7 @@ const initialState = {
   upgradeToAstronomerURL: '',
   renewMembershipURL: '',
   forgotPasswordURL: '',
+  menuList: [],
 };
 
 export default createReducer(initialState, {

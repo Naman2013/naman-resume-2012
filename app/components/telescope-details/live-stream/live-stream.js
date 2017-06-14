@@ -44,7 +44,7 @@ LiveStream.propTypes = {
   objectDec: string.isRequired,
   objectConstellation: string.isRequired,
   objectMagnitude: string.isRequired,
-  objectSizeArcMinutes: number.isRequired,
+  objectSizeArcMinutes: string.isRequired,
   objectDistance: string.isRequired,
   objectRiseTime: string.isRequired,
   objectTransitTime:  string.isRequired,

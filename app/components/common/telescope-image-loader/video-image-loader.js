@@ -78,7 +78,7 @@ class VideoImageLoader extends Component {
 
   generateIFrameUrl() {
     const { teleStreamCode } = this.props;
-    return `https://www.youtube.com/embed/${teleStreamCode}?autoplay=1&origin=http://live.slooh.com/`;
+    return `https://www.youtube.com/embed/${teleStreamCode}?autoplay=1&modestbranding=1&controls=0&showinfo=0&vq=hd720&origin=http://live.slooh.com/`;
   }
 
   render() {
@@ -86,7 +86,6 @@ class VideoImageLoader extends Component {
       teleStreamCode,
       teleStreamThumbnailVideoWidth,
       teleStreamThumbnailVideoHeight,
-      teleStreamThumbnailQuality,
       clipped,
     } = this.props;
 
@@ -102,7 +101,6 @@ class VideoImageLoader extends Component {
           type="text/html"
           width={teleStreamThumbnailVideoWidth}
           height={teleStreamThumbnailVideoHeight}
-          controls="0"
           src={this.generateIFrameUrl()}
           frameBorder="0"
         />

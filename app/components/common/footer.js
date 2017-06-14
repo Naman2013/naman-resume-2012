@@ -1,7 +1,9 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import style from './footer.scss';
+import { uniqueId } from 'lodash';
+import { primaryFont } from '../../styles/variables/fonts';
+import { lightGray } from '../../styles/variables/colors';
 
 const {
   string,
@@ -14,19 +16,72 @@ const Footer = props => (
       backgroundColor: props.footerBackgroundRGB,
     }}
   >
-    <span
-      dangerouslySetInnerHTML={{ __html: props.copyrightNotice }}
-      style={{
-        color: props.copyrightRGB,
-      }}
-    />
-    <span
-      dangerouslySetInnerHTML={{ __html: props.hostname }}
-      className="pull-right"
-      style={{
-        color: props.hostnameRGB,
-      }}
-    />
+    <div className="columns">
+    {props.menuList.map(menuList => (<div key={uniqueId()}>
+      {menuList.map(menu => <div key={uniqueId()}>
+        <span className="header"
+            dangerouslySetInnerHTML={{ __html: menu.text }}
+        />
+        <ul className="list">
+          {menu.menuItems.map(item => (<li key={uniqueId()}>
+            {item.itemLink ? <a className="link" href={item.itemLink}>
+              <span
+                  dangerouslySetInnerHTML={{ __html: item.menuItemText }}
+              />
+              </a> :
+              <span
+                  dangerouslySetInnerHTML={{ __html: item.menuItemText }}
+              />}
+              </li>
+          ))}
+        </ul>
+      </div>)}
+    </div>))}
+    </div>
+    <div>
+      <span
+        dangerouslySetInnerHTML={{ __html: props.copyrightNotice }}
+        style={{
+          color: props.copyrightRGB,
+        }}
+      />
+      <span
+        dangerouslySetInnerHTML={{ __html: props.hostname }}
+        className="pull-right"
+        style={{
+          color: props.hostnameRGB,
+        }}
+      />
+    </div>
+    <style jsx>
+    {`
+      .slooh-global-footer {
+        font-family: ${primaryFont};
+        font-size: 0.75em;
+        color: #fff;
+        padding: 25px 0;
+        padding-left: 100px;
+        background: #000;
+        position: relative;
+        z-index: 999;
+      }
+      .header {
+        font-weight: bold;
+      }
+      .list {
+        list-style: none;
+        padding: 0;
+      }
+      .columns {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+      }
+      .link {
+        color: ${lightGray};
+      }
+    `}
+    </style>
   </footer>
 );
 
@@ -36,6 +91,10 @@ Footer.propTypes = {
   copyrightRGB: string.isRequired,
   hostname: string.isRequired,
   hostnameRGB: string.isRequired,
+};
+
+Footer.defaultProps = {
+  menuList: [],
 };
 
 const mapStateToProps = ({ appConfig }) => ({

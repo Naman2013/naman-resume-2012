@@ -70,12 +70,15 @@ class SituationVideoViewer extends Component {
         <Tabs onSelect={this.handleSelect} selectedIndex={selectedTab}>
 
           <TabList className={s.liveTelescopeTabs}>
-            <Tab>
-              <div className={s.liveTelescopeTitle}>
-                {selectedTab === 0 && <h6>Main Show</h6>}
-              </div>
-              <div className="telescope" style={getInlineBgStyle(eventIconURL)} />
-            </Tab>
+          {
+              videoInProgress &&
+              <Tab>
+                <div className={s.liveTelescopeTitle}>
+                  {selectedTab === 0 && <h6>Main Show</h6>}
+                </div>
+                <div className="telescope" style={getInlineBgStyle(eventIconURL)} />
+              </Tab>
+          }
             {
                 videoInProgress && additionalFeeds.map((feed, i) => (
                   <Tab key={feed.videoStreamCode}>

@@ -227,6 +227,11 @@ img {
     padding: 40px 185px 30px 185px;
     height: inherit;
   }
+
+  &.thread-list {
+    height: inherit;
+    overflow: inherit;
+  }
 }
 
 .align-right {
