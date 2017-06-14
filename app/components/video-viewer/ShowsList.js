@@ -35,8 +35,13 @@ class ShowsList extends Component {
           }
         </ul>
         <style jsx>{`
-          .show-list-root {}
-          .show-list {}
+          .show-list-root {
+            background-color: white;
+            padding-top: 25px;
+          }
+          .show-list {
+            list-style: none;
+          }
           `}</style>
       </div>
     );
