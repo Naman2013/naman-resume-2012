@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
-import { white, black, pink } from '../../styles/variables/colors';
+import { white, black, pink, gray } from '../../styles/variables/colors';
 
 
 function BrowseShowsNavigation({ navigationItems }) {
@@ -28,7 +28,7 @@ function BrowseShowsNavigation({ navigationItems }) {
           justify-content: center;
           align-items: center;
           height: 40px;
-          background: ${white};
+          background: ${gray};
           padding: 10px 0;
         }
 

@@ -66,7 +66,15 @@ class RecentShows extends Component {
     });
   }
   render() {
-    const { eventList } = this.props;
+    const {
+      actions,
+      eventList,
+      resultsCount,
+      page,
+      pages,
+      limit,
+    } = this.props;
+
     return (
       <div>
         { /*
@@ -74,7 +82,14 @@ class RecentShows extends Component {
           navigationItems={NAV_ITEMS}
         />
         */ }
-        <ShowsList eventList={eventList} />
+        <ShowsList
+          eventList={eventList}
+          resultsCount={resultsCount}
+          pages={pages}
+          page={page}
+          limit={limit}
+          paginate={actions.fetchPreviousShows}
+        />
       </div>
     );
   }
