@@ -1,5 +1,6 @@
-import createReducer from '../utils/createReducer';
 import moment from 'moment';
+import createReducer from '../utils/createReducer';
+
 import {
   FETCH_EVENTS_START,
   FETCH_EVENTS_SUCCESS,
