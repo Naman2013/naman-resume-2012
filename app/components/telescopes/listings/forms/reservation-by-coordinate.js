@@ -313,7 +313,7 @@ class ReservationByCoordinate extends Component {
 
     dec_d = Math.trunc(dec);
     dec_m = Math.trunc((absoluteDec - truncatedDec) * 60);
-    dec_s = Math.round((((absoluteDec - truncatedDec) * 60) - dec_m) * 60);
+    dec_s = Math.trunc((((absoluteDec - truncatedDec) * 60) - dec_m) * 60);
 
     if (dec_s == 60) {
       dec_s = 0;
@@ -660,6 +660,7 @@ ReservationByCoordinate.defaultProps = {
   objectRA: 0.0,
   objectDec: 90.0,
   targetName: '',
+  userHasReservation: false,
 };
 
 const { string, number, bool, func } = PropTypes;
@@ -676,7 +677,7 @@ ReservationByCoordinate.propTypes = {
   scheduledMissionId: number.isRequired,
   objectRA: PropTypes.oneOfType([number, string]),
   objectDec: PropTypes.oneOfType([number, string]),
-  userHasReservation: bool.isRequired,
+  userHasReservation: bool,
   targetName: string,
 };
 
