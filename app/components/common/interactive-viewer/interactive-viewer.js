@@ -230,12 +230,4 @@ class InteractiveViewer extends Component {
   }
 }
 
-InteractiveViewer.defaultProps = {
-  clipDimension: 305,
-};
-
-InteractiveViewer.propTypes = {
-  clipDimension: PropTypes.number,
-};
-
 export default InteractiveViewer;
