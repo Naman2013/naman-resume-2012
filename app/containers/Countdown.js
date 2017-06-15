@@ -32,7 +32,6 @@ export default class Countdown extends PureComponent {
     fetchingEvents: bool.isRequired,
     nextEvent: shape({
       eventDescription: string.isRequired,
-      eventDetailsURL: string.isRequired,
       eventEnd: number.isRequired,
       eventIconURL: string.isRequired,
       eventId: number.isRequired,
@@ -57,7 +56,6 @@ export default class Countdown extends PureComponent {
     lineWidth: 3,
     nextEvent: {
       eventDescription: '',
-      eventDetailsURL: '',
       eventEnd: 0,
       eventIconURL: '',
       eventId: 0,

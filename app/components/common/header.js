@@ -34,7 +34,6 @@ export default class Header extends Component {
     serverTime: number,
     nextEvent: shape({
       eventDescription: string.isRequired,
-      eventDetailsURL: string.isRequired,
       eventEnd: number.isRequired,
       eventIconURL: string.isRequired,
       eventId: number.isRequired,
@@ -61,7 +60,6 @@ export default class Header extends Component {
   static defaultProps = {
     nextEvent: {
       eventDescription: '',
-      eventDetailsURL: '',
       eventEnd: 0,
       eventIconURL: '',
       eventId: 0,
