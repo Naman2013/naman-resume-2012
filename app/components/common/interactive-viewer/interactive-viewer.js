@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
@@ -9,8 +9,6 @@ import './interactive-viewer.scss';
 const ZOOM_MULTIPLIER = 0.5;
 const MIN_ZOOM_SCALE = 1;
 const MAX_ZOOM_SCALE = 3;
-const FRAME_VIEW_TYPE_FULL = 'FRAME_VIEW_TYPE_FULL';
-const FRAME_VIEW_TYPE_CIRCULAR = 'FRAME_VIEW_TYPE_CIRCULAR';
 const BOUNDS_MULTIPLIER = 100;
 
 const mapDispatchToProps = dispatch => ({
@@ -37,21 +35,14 @@ class InteractiveViewer extends Component {
     },
   };
 
-  /** event api's */
-  toggleFullScreenMode = (event) => {
-    event.preventDefault();
-    const { fullScreenMode } = this.state;
-    this.setState({
-      fullScreenMode: !fullScreenMode,
-    });
-
+  onControlledDrag = (event, position) => {
+    const { x, y } = position;
+    this.setState({ controlledPosition: { x, y } });
   };
 
-  adjustXPos(event) {
-    event.preventDefault();
-    event.stopPropagation();
-    const { x, y } = this.state.controlledPosition;
-    this.setState({ controlledPosition: { x: x - 10, y } });
+  onControlledDragStop(event, position) {
+    const { x, y } = position;
+    this.setState({ controlledPosition: { x, y } });
   }
 
   adjustYPos(event) {
@@ -65,15 +56,20 @@ class InteractiveViewer extends Component {
     this.setState({ controlledPosition: { x: 0, y: 0 } });
   }
 
-  onControlledDrag = (event, position) => {
-    const { x, y } = position;
-    this.setState({ controlledPosition: { x, y } });
-  };
-
-  onControlledDragStop(event, position) {
-    const { x, y } = position;
-    this.setState({ controlledPosition: { x, y } });
+  adjustXPos(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    const { x, y } = this.state.controlledPosition;
+    this.setState({ controlledPosition: { x: x - 10, y } });
   }
+
+  toggleFullScreenMode = (event) => {
+    event.preventDefault();
+    const { fullScreenMode } = this.state;
+    this.setState({
+      fullScreenMode: !fullScreenMode,
+    });
+  };
 
   handleToggleClipping = (event) => {
     event.preventDefault();
@@ -206,7 +202,6 @@ class InteractiveViewer extends Component {
           </button>
           */
         }
-
 
         {
           clipped ?
