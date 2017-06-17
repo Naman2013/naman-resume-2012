@@ -75,7 +75,7 @@ module.exports = {
         exclude: /node_modules/,
         query: {
           search: 'domain: \'localhost\', secure: false',
-          replace: 'domain: .slooh.com, secure: true',
+          replace: 'domain: \'.slooh.com\', secure: true',
           flags: 'g',
         }
       },
