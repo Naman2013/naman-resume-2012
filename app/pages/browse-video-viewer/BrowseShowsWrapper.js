@@ -37,13 +37,6 @@ function mapDispatchToProps(dispatch) {
 @connect(mapStateToProps, mapDispatchToProps)
 class BrowseShows extends Component {
 
-  constructor(props) {
-    super(props);
-
-    const { actions } = props;
-
-  }
-
   render() {
     const { children } = this.props;
     return (
