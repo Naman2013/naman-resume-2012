@@ -64,9 +64,9 @@ class DiscussionsReply extends Component {
       topicId,
       threadId,
       replyTo: reply.replyId,
-      cid: user.cid,
-      at: user.at,
-      token: user.token,
+      cid: user && user.cid,
+      at: user && user.at,
+      token: user && user.token,
     }).then((res) => {
       if (!res.data.apiError) {
         this.setState(state => ({
