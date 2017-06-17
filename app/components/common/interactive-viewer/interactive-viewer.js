@@ -19,6 +19,11 @@ const mapDispatchToProps = dispatch => ({
 
 @connect(null, mapDispatchToProps)
 class InteractiveViewer extends Component {
+  constructor(props) {
+    super(props);
+    this.animationTick = setInterval(this.handleViewerTick, 1000);
+  }
+
   state = {
     fullScreenMode: false,
     clipped: true,
@@ -33,7 +38,16 @@ class InteractiveViewer extends Component {
       x: 0,
       y: 0,
     },
+    timerTick: 0,
   };
+
+  componentWillUpdate() {
+    const { currentScale } = this.state;
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.animationTick);
+  }
 
   onControlledDrag = (event, position) => {
     const { x, y } = position;
@@ -43,6 +57,14 @@ class InteractiveViewer extends Component {
   onControlledDragStop(event, position) {
     const { x, y } = position;
     this.setState({ controlledPosition: { x, y } });
+  }
+
+  autoZoomFactor = 50;
+
+  handleViewerTick() {
+    this.setState(prevState => ({
+      currentScale: prevState.currentScale + (prevState.currentScale / this.autoZoomFactor),
+    }));
   }
 
   adjustYPos(event) {
@@ -128,7 +150,16 @@ class InteractiveViewer extends Component {
 
   render() {
     const { children } = this.props;
-    const { fullScreenMode, currentScale, clipped, bounds, controlledPosition } = this.state;
+    const {
+      fullScreenMode,
+      currentScale,
+      clipped,
+      bounds,
+      controlledPosition,
+      timerTick,
+    } = this.state;
+
+    console.log(timerTick);
 
     const viewerContentStyle = {
       transform: `scale(${currentScale})`,
