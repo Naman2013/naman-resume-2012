@@ -19,22 +19,20 @@ class Show extends Component {
     const showStartDate = `${moment(Number(eventStart)*1000).format('dddd, MMMM D, YYYY h:mmA z')} EST`;
     return (
       <div className="photoRoot">
-        <Link onClick={handleShowClick} to="">
-          <div className="photoLink" style={inlineShowStyle}>
-          <div className="inner-show-content content">
+        <div className="photoLink" style={inlineShowStyle}>
+        <div className="inner-show-content content">
+          <h3 className="show-title">{eventTitle}</h3>
+          <h5>{showStartDate}</h5>
+          <img className="show-icon" src={decodeURIComponent(eventIconURL)} />
+        </div>
+          <div className="innerPhotoContainer content">
             <h3 className="show-title">{eventTitle}</h3>
             <h5>{showStartDate}</h5>
-            <img className="show-icon" src={decodeURIComponent(eventIconURL)} />
-          </div>
-            <div className="innerPhotoContainer content">
-              <h3 className="show-title">{eventTitle}</h3>
-              <h5>{showStartDate}</h5>
-              <div className="show-content">
-                <span dangerouslySetInnerHTML={{ __html: eventShortDescription }} />
-              </div>
+            <div className="show-content">
+              <span dangerouslySetInnerHTML={{ __html: eventShortDescription }} />
             </div>
           </div>
-        </Link>
+        </div>
         <style jsx>{`
             .inner-show-content {
               width: 100%;
@@ -76,7 +74,6 @@ Show.propTypes = {
   eventImageURL: PropTypes.string.isRequired,
   eventTitle: PropTypes.string.isRequired,
   eventShortDescription: PropTypes.string.isRequired,
-  handleShowClick: PropTypes.func.isRequired,
 };
 
 export default Show;

@@ -50,6 +50,8 @@ import RecentShows from './pages/browse-video-viewer/RecentShows';
 import SloohMotion from './pages/browse-video-viewer/SloohMotion';
 import UpcomingShows from './pages/browse-video-viewer/UpcomingShows';
 
+import ShowVideoViewer from './pages/show-video-viewer/ShowVideoViewer';
+
 import BrowseShowsWrapper from './pages/browse-video-viewer/BrowseShowsWrapper';
 
 import Job from './pages/about/job';
@@ -263,7 +265,7 @@ ReactDOM.render(
           </Route>
         </Route>
 
-        <Route path="shows/video-viewer(/:showId)" component={EventDetails} onEnter={validateUser} />
+        <Route path="shows/video-viewer(/:showId)" component={ShowVideoViewer} onEnter={validateUser} />
 
         <Route path="my-pictures" component={MyPictures} onEnter={validateUser}>
           <IndexRedirect to="photo-roll" />

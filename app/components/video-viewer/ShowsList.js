@@ -1,4 +1,6 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router';
 import classnames from 'classnames';
 import Show from './Show';
 import Pagination from '../common/pagination/Pagination';
@@ -9,9 +11,6 @@ class ShowsList extends Component {
     super(props);
   }
 
-  handleShowClick = event => {
-    event.preventDefault();
-  }
   handleNextPageClick = () => {
     const { paginate, page } = this.props;
     paginate({
@@ -58,10 +57,11 @@ class ShowsList extends Component {
           {
             eventList.map(event => (
               <li key={event.eventId} className={listColClassNames}>
-                <Show
-                  handleShowClick={this.handleShowClick}
-                  {...event}
-                />
+                <Link to={`/shows/video-viewer/${event.eventId}`}>
+                  <Show
+                    {...event}
+                  />
+                </Link>
               </li>
             ))
           }

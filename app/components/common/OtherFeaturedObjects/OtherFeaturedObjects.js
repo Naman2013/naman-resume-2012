@@ -70,7 +70,7 @@ class OtherFeaturedObjects extends Component {
 
 OtherFeaturedObjects.defaultProps = {
   layoutDirection: 'column',
-  style: {}
+  style: {},
 };
 
 OtherFeaturedObjects.propTypes = {
