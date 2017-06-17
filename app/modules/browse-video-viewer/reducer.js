@@ -5,6 +5,12 @@ import {
   FETCH_PREVIOUS_SHOWS_FAIL,
 } from './previous-shows-actions';
 
+import {
+  FETCH_HIGHLIGHTS_SHOWS_START,
+  FETCH_HIGHLIGHTS_SHOWS_SUCCESS,
+  FETCH_HIGHLIGHTS_SHOWS_FAIL,
+} from './highlights-shows-actions';
+
 const initialState = {
   page: 1,
   count: 9,
@@ -26,6 +32,25 @@ export default createReducer(initialState, {
     };
   },
   [FETCH_PREVIOUS_SHOWS_FAIL]() {
+    return {
+      ...initialState,
+      apiError: true,
+    };
+  },
+  [FETCH_HIGHLIGHTS_SHOWS_START]() {
+    return {
+      ...initialState,
+    };
+  },
+  [FETCH_HIGHLIGHTS_SHOWS_SUCCESS](state, { payload }) {
+    console.log('payload', payload)
+    return {
+      ...state,
+      ...payload,
+    };
+  },
+  [FETCH_HIGHLIGHTS_SHOWS_FAIL]() {
+    console.log('failure')
     return {
       ...initialState,
       apiError: true,
