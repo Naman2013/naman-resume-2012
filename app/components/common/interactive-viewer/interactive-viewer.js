@@ -10,6 +10,9 @@ const ZOOM_MULTIPLIER = 0.5;
 const MIN_ZOOM_SCALE = 1;
 const MAX_ZOOM_SCALE = 3;
 const BOUNDS_MULTIPLIER = 100;
+const ZOOM_FACTOR_IN = 1500;
+const ZOOM_FACTOR_OUT = -ZOOM_FACTOR_IN;
+const ZOOM_FACTOR_NONE = 0;
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
@@ -21,7 +24,7 @@ const mapDispatchToProps = dispatch => ({
 class InteractiveViewer extends Component {
   constructor(props) {
     super(props);
-    this.animationTick = setInterval(this.handleViewerTick, 1000);
+    this.animationTick = setInterval(::this.handleViewerTick, 100);
   }
 
   state = {
@@ -39,10 +42,17 @@ class InteractiveViewer extends Component {
       y: 0,
     },
     timerTick: 0,
+    zoomfactor: ZOOM_FACTOR_IN,
   };
 
-  componentWillUpdate() {
+  componentWillUpdate(nextProps, nextState) {
     const { currentScale } = this.state;
+
+    this.props.actions.setImageDataToSnapshot({
+      zoom: nextState.currentScale,
+      originX: nextState.controlledPosition.x,
+      originY: nextState.controlledPosition.y,
+    });
   }
 
   componentWillUnmount() {
@@ -59,11 +69,10 @@ class InteractiveViewer extends Component {
     this.setState({ controlledPosition: { x, y } });
   }
 
-  autoZoomFactor = 50;
-
   handleViewerTick() {
+    const { zoomfactor } = this.state;
     this.setState(prevState => ({
-      currentScale: prevState.currentScale + (prevState.currentScale / this.autoZoomFactor),
+      currentScale: prevState.currentScale + ((zoomfactor > 0) ? prevState.currentScale / zoomfactor : zoomfactor),
     }));
   }
 
@@ -108,6 +117,9 @@ class InteractiveViewer extends Component {
   handleZoomOutClick = (event) => {
     event.preventDefault();
     const { currentScale } = this.state;
+
+    this.giveUserControl();
+
     let newScale = currentScale - ZOOM_MULTIPLIER;
     newScale = newScale >= MIN_ZOOM_SCALE ? newScale : MIN_ZOOM_SCALE;
 
@@ -119,10 +131,12 @@ class InteractiveViewer extends Component {
     this.resetXY();
   };
 
-
   handleZoomInClick = (event) => {
     event.preventDefault();
     const { currentScale } = this.state;
+
+    this.giveUserControl();
+
     const newScale = currentScale + ZOOM_MULTIPLIER;
     if (newScale <= MAX_ZOOM_SCALE) {
       this.setState({
@@ -140,11 +154,9 @@ class InteractiveViewer extends Component {
     } : {};
   }
 
-  componentWillUpdate(nextProps, nextState) {
-    this.props.actions.setImageDataToSnapshot({
-      zoom: nextState.currentScale,
-      originX: nextState.controlledPosition.x,
-      originY: nextState.controlledPosition.y,
+  giveUserControl() {
+    this.setState({
+      zoomfactor: ZOOM_FACTOR_NONE,
     });
   }
 
@@ -158,8 +170,6 @@ class InteractiveViewer extends Component {
       controlledPosition,
       timerTick,
     } = this.state;
-
-    console.log(timerTick);
 
     const viewerContentStyle = {
       transform: `scale(${currentScale})`,
