@@ -86,7 +86,7 @@ class RecentShows extends Component {
       eventStatus: string,
       eventTitle: string,
     })),
-    resultsCount: number,
+    resultsCount: string,
     page: number,
     pages: number,
     count: number,
@@ -96,7 +96,7 @@ class RecentShows extends Component {
       fetchPreviousShows: _.noop,
     },
     eventList: [],
-    resultsCount: 0,
+    resultsCount: '0',
     page: 0,
     pages: 0,
     count: number,
@@ -119,7 +119,7 @@ class RecentShows extends Component {
       pages,
       count,
     } = this.props;
-    
+
     return (
       <div>
         { /*

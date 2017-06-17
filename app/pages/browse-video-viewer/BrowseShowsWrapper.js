@@ -48,7 +48,7 @@ class BrowseShows extends Component {
           navigationItems={NAV_ITEMS}
         />
         { cloneElement(children) }
-        <OtherFeaturedObjects params={{ featuredType: 'videoViewer' }} layoutDirection="row" />
+        <OtherFeaturedObjects params={{ featuredType: 'videoViewer' }} layoutDirection="row" style={{ margin: 0 }} />
         <style jsx>{`
           .header {
             ${backgroundImageCover}

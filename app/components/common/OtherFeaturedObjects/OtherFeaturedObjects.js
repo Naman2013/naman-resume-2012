@@ -6,7 +6,7 @@ import { uniqueId } from 'lodash';
 import * as otherFeaturedObjectsActions from '../../../modules/other-featured-objects/actions';
 import styles from './OtherFeaturedObjects.scss';
 
-const { func, number, string, array } = PropTypes;
+const { func, number, string, array, shape, any } = PropTypes;
 
 class OtherFeaturedObjects extends Component {
   componentWillMount() {
@@ -28,11 +28,12 @@ class OtherFeaturedObjects extends Component {
       sectionSubtitle,
       itemList,
       layoutDirection,
+      style,
     } = this.props;
     const title = sectionTitle + sectionObjectTitle;
     const itemStyles = { flexDirection: layoutDirection, padding: layoutDirection === 'row' ? '25px' : 'auto' };
     return (
-      <section className={styles.otherFeaturedObjects}>
+      <section className={styles.otherFeaturedObjects} style={style}>
         <header className={styles.otherFeaturedObjectsHeader}>
           <h2 dangerouslySetInnerHTML={{ __html: title }} />
           <p dangerouslySetInnerHTML={{ __html: sectionSubtitle }} />
@@ -69,6 +70,7 @@ class OtherFeaturedObjects extends Component {
 
 OtherFeaturedObjects.defaultProps = {
   layoutDirection: 'column',
+  style: {}
 };
 
 OtherFeaturedObjects.propTypes = {
@@ -78,6 +80,7 @@ OtherFeaturedObjects.propTypes = {
   sectionSubtitle: string,
   itemList: array,
   layoutDirection: string,
+  style: shape(any),
 };
 
 const mapStateToProps = ({ otherFeaturedObjects }) => ({

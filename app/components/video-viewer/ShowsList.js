@@ -67,7 +67,7 @@ class ShowsList extends Component {
           }
         </ul>
         <Pagination
-          totalCount={resultsCount}
+          totalCount={Number(resultsCount)}
           currentRange={rangeText}
           handleNextPageClick={this.handleNextPageClick}
           handlePreviousPageClick={this.handlePreviousPageClick}

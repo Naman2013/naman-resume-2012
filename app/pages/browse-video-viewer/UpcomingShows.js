@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import ShowsList from '../../components/video-viewer/ShowsList';
-import { fetchHighlightsShows } from '../../modules/browse-video-viewer/highlights-shows-actions';
+import { fetchUpcomingShows } from '../../modules/browse-video-viewer/upcoming-shows-actions';
 // import CategoryNavigation from '../../components/video-viewer/CategoryNavigation';
 
 const {
@@ -58,16 +58,16 @@ function mapStateToProps({ videoViewerBrowser }) {
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators({
-      fetchHighlightsShows,
+      fetchUpcomingShows
     }, dispatch),
   };
 }
 
 @connect(mapStateToProps, mapDispatchToProps)
-class SloohMotion extends Component {
+class UpcomingShows extends Component {
   static propTypes = {
     actions: shape({
-      fetchHighlightsShows: func,
+      fetchUpcomingShows: func,
     }),
     eventList: arrayOf(shape({
       eventDescription: string,
@@ -93,7 +93,7 @@ class SloohMotion extends Component {
   }
   static defaultProps = {
     actions: {
-      fetchHighlightsShows: _.noop,
+      fetchUpcomingShows: _.noop,
     },
     eventList: [],
     resultsCount: '0',
@@ -106,7 +106,7 @@ class SloohMotion extends Component {
 
     const { actions } = props;
 
-    actions.fetchHighlightsShows({
+    actions.fetchUpcomingShows({
       page: 1,
     });
   }
@@ -133,7 +133,7 @@ class SloohMotion extends Component {
           pages={pages}
           page={page}
           count={count}
-          paginate={actions.fetchHighlightsShows}
+          paginate={actions.fetchUpcomingShows}
         />
       </div>
     );
@@ -141,4 +141,4 @@ class SloohMotion extends Component {
 
 }
 
-export default SloohMotion;
+export default UpcomingShows;

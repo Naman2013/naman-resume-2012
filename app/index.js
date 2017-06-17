@@ -48,7 +48,7 @@ import EventDetails from './pages/situation-room/EventDetails';
 
 import RecentShows from './pages/browse-video-viewer/RecentShows';
 import SloohMotion from './pages/browse-video-viewer/SloohMotion';
-import UpcomingShows from './pages/playback/UpcomingShows';
+import UpcomingShows from './pages/browse-video-viewer/UpcomingShows';
 
 import BrowseShowsWrapper from './pages/browse-video-viewer/BrowseShowsWrapper';
 
