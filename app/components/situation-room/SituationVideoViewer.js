@@ -70,7 +70,7 @@ class SituationVideoViewer extends Component {
         <Tabs onSelect={this.handleSelect} selectedIndex={selectedTab}>
 
           <TabList className={s.liveTelescopeTabs}>
-          {
+            {
               videoInProgress &&
               <Tab>
                 <div className={s.liveTelescopeTitle}>
@@ -78,16 +78,16 @@ class SituationVideoViewer extends Component {
                 </div>
                 <div className="telescope" style={getInlineBgStyle(eventIconURL)} />
               </Tab>
-          }
+            }
             {
-                videoInProgress && additionalFeeds.map((feed, i) => (
-                  <Tab key={feed.videoStreamCode}>
-                    <div className={s.liveTelescopeTitle}>
-                      {<h6>{feed.TelescopeName}</h6> }
-                    </div>
-                    <div className="telescope" style={getInlineBgStyle(feed.tabIconURL)} />
-                  </Tab>
-                ))
+              videoInProgress && additionalFeeds.map(feed => (
+                <Tab key={feed.videoStreamCode}>
+                  <div className={s.liveTelescopeTitle}>
+                    {<h6>{feed.TelescopeName}</h6> }
+                  </div>
+                  <div className="telescope" style={getInlineBgStyle(feed.tabIconURL)} />
+                </Tab>
+              ))
             }
           </TabList>
 
@@ -100,6 +100,8 @@ class SituationVideoViewer extends Component {
                     teleStreamURL={initialStreamURL}
                     teleStreamThumbnailVideoWidth="1000"
                     teleStreamThumbnailVideoHeight="550"
+                    showVideoControls={1}
+                    showInfo={1}
                   />
                   :
                   <div className={s.showNotStartedContainer}>

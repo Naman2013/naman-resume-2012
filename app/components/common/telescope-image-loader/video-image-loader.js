@@ -33,10 +33,14 @@ class VideoImageLoader extends Component {
       setImageDataToSnapshot: PropTypes.func.isRequired,
       resetImageToSnap: PropTypes.func.isRequired,
     }).isRequired,
+    showVideoControls: PropTypes.number,
+    showInfo: PropTypes.number,
   };
 
   static defaultProps = {
     clipped: false,
+    showVideoControls: 0,
+    showInfo: 0,
   };
 
   componentDidMount() {
@@ -77,8 +81,8 @@ class VideoImageLoader extends Component {
   }
 
   generateIFrameUrl() {
-    const { teleStreamCode } = this.props;
-    return `https://www.youtube.com/embed/${teleStreamCode}?autoplay=1&modestbranding=1&controls=0&showinfo=0&vq=hd720&origin=http://live.slooh.com/`;
+    const { teleStreamCode, showVideoControls, showInfo } = this.props;
+    return `https://www.youtube.com/embed/${teleStreamCode}?autoplay=1&modestbranding=1&controls=${showVideoControls}&showinfo=${showInfo}&vq=hd720&origin=http://live.slooh.com/`;
   }
 
   render() {
