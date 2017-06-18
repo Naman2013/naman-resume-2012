@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
@@ -9,8 +9,6 @@ import './interactive-viewer.scss';
 const ZOOM_MULTIPLIER = 0.5;
 const MIN_ZOOM_SCALE = 1;
 const MAX_ZOOM_SCALE = 3;
-const FRAME_VIEW_TYPE_FULL = 'FRAME_VIEW_TYPE_FULL';
-const FRAME_VIEW_TYPE_CIRCULAR = 'FRAME_VIEW_TYPE_CIRCULAR';
 const BOUNDS_MULTIPLIER = 100;
 
 const mapDispatchToProps = dispatch => ({
@@ -25,7 +23,6 @@ class InteractiveViewer extends Component {
     fullScreenMode: false,
     clipped: true,
     currentScale: 1,
-    frameViewType: FRAME_VIEW_TYPE_FULL,
     bounds: 1,
     activeDrags: 0,
     deltaPosition: {
@@ -38,35 +35,14 @@ class InteractiveViewer extends Component {
     },
   };
 
-  /** event api's */
-  handleToggleClipping = (event) => {
-    event.preventDefault();
-    const { clipped } = this.state;
-
-    // set the new clipped state
-    this.props.actions.setImageDataToSnapshot({ masked: !clipped });
-
-    this.setState({
-      clipped: !clipped,
-      frameViewType: clipped ? FRAME_VIEW_TYPE_FULL : FRAME_VIEW_TYPE_CIRCULAR,
-    });
-
+  onControlledDrag = (event, position) => {
+    const { x, y } = position;
+    this.setState({ controlledPosition: { x, y } });
   };
 
-  toggleFullScreenMode = (event) => {
-    event.preventDefault();
-    const { fullScreenMode } = this.state;
-    this.setState({
-      fullScreenMode: !fullScreenMode,
-    });
-
-  };
-
-  adjustXPos(event) {
-    event.preventDefault();
-    event.stopPropagation();
-    const { x, y } = this.state.controlledPosition;
-    this.setState({ controlledPosition: { x: x - 10, y } });
+  onControlledDragStop(event, position) {
+    const { x, y } = position;
+    this.setState({ controlledPosition: { x, y } });
   }
 
   adjustYPos(event) {
@@ -80,15 +56,32 @@ class InteractiveViewer extends Component {
     this.setState({ controlledPosition: { x: 0, y: 0 } });
   }
 
-  onControlledDrag = (event, position) => {
-    const { x, y } = position;
-    this.setState({ controlledPosition: { x, y } });
+  adjustXPos(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    const { x, y } = this.state.controlledPosition;
+    this.setState({ controlledPosition: { x: x - 10, y } });
+  }
+
+  toggleFullScreenMode = (event) => {
+    event.preventDefault();
+    const { fullScreenMode } = this.state;
+    this.setState({
+      fullScreenMode: !fullScreenMode,
+    });
   };
 
-  onControlledDragStop(event, position) {
-    const { x, y } = position;
-    this.setState({ controlledPosition: { x, y } });
-  }
+  handleToggleClipping = (event) => {
+    event.preventDefault();
+    const { clipped } = this.state;
+
+    // set the new clipped state
+    this.props.actions.setImageDataToSnapshot({ masked: !clipped });
+
+    this.setState({
+      clipped: !clipped,
+    });
+  };
 
   handleZoomOutClick = (event) => {
     event.preventDefault();
@@ -135,7 +128,7 @@ class InteractiveViewer extends Component {
 
   render() {
     const { children } = this.props;
-    const { fullScreenMode, currentScale, frameViewType, bounds, controlledPosition } = this.state;
+    const { fullScreenMode, currentScale, clipped, bounds, controlledPosition } = this.state;
 
     const viewerContentStyle = {
       transform: `scale(${currentScale})`,
@@ -198,15 +191,20 @@ class InteractiveViewer extends Component {
           <span className="icon glyphicon-plus" />
         </button>
 
-        <button
-          onClick={this.toggleFullScreenMode}
-          className="action full-screen-view"
-        >
-          Full-screen view <span className="icon glyphicon glyphicon-fullscreen" />
-        </button>
+        {
+          /**
+          full screen mode...
+          <button
+            onClick={this.toggleFullScreenMode}
+            className="action full-screen-view"
+          >
+            Full-screen view <span className="icon glyphicon glyphicon-fullscreen" />
+          </button>
+          */
+        }
 
         {
-          frameViewType === FRAME_VIEW_TYPE_CIRCULAR ?
+          clipped ?
             <button
               onClick={this.handleToggleClipping}
               className="action circular-view"
@@ -226,13 +224,5 @@ class InteractiveViewer extends Component {
     );
   }
 }
-
-InteractiveViewer.defaultProps = {
-  clipDimension: 305,
-};
-
-InteractiveViewer.propTypes = {
-  clipDimension: PropTypes.number,
-};
 
 export default InteractiveViewer;
