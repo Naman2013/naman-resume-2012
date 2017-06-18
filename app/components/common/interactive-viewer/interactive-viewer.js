@@ -10,9 +10,9 @@ const ZOOM_MULTIPLIER = 0.5;
 const MIN_ZOOM_SCALE = 1;
 const MAX_ZOOM_SCALE = 3;
 const BOUNDS_MULTIPLIER = 100;
-const ZOOM_FACTOR_IN = 1500;
-const ZOOM_FACTOR_OUT = -ZOOM_FACTOR_IN;
-const ZOOM_FACTOR_NONE = 0;
+
+const ZOOM_FACTOR = 3250;
+const ZOOM_THRESHOLD = 1.5;
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
@@ -42,11 +42,16 @@ class InteractiveViewer extends Component {
       y: 0,
     },
     timerTick: 0,
-    zoomfactor: ZOOM_FACTOR_IN,
+    zoomfactor: ZOOM_FACTOR,
+    zoomEnabled: true,
   };
 
   componentWillUpdate(nextProps, nextState) {
-    const { currentScale } = this.state;
+    const { currentScale, zoomEnabled } = nextState;
+    // TODO: when we are at a scale greater than our threshold AND
+
+    console.log(currentScale);
+    // console.log(nextState);
 
     this.props.actions.setImageDataToSnapshot({
       zoom: nextState.currentScale,
@@ -70,10 +75,19 @@ class InteractiveViewer extends Component {
   }
 
   handleViewerTick() {
-    const { zoomfactor } = this.state;
-    this.setState(prevState => ({
-      currentScale: prevState.currentScale + ((zoomfactor > 0) ? prevState.currentScale / zoomfactor : zoomfactor),
-    }));
+    this.autoZoomTick();
+  }
+
+  autoZoomTick() {
+    const { zoomfactor, zoomEnabled, currentScale } = this.state;
+    const newZoomenabled = (currentScale <= ZOOM_THRESHOLD);
+
+    if (zoomEnabled) {
+      this.setState(prevState => ({
+        currentScale: prevState.currentScale + (prevState.currentScale / zoomfactor),
+        zoomEnabled: newZoomenabled,
+      }));
+    }
   }
 
   adjustYPos(event) {
@@ -156,7 +170,7 @@ class InteractiveViewer extends Component {
 
   giveUserControl() {
     this.setState({
-      zoomfactor: ZOOM_FACTOR_NONE,
+      zoomEnabled: false,
     });
   }
 
