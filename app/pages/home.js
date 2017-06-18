@@ -11,6 +11,7 @@ import ViewableObjects from '../components/home/viewable-objects/viewable-object
 import CommunityPerspectives from '../components/common/community-perspectives/community-perspectives';
 import Sponsors from '../components/home/sponsors';
 import Dedication from '../components/home/slooh-extras/dedication';
+import SloohStorePromo from '../components/home/slooh-store';
 import Featured from '../components/home/slooh-extras/featured';
 import style from './home.scss';
 
@@ -112,6 +113,8 @@ class Home extends Component {
           title={homeContent.SPONSORS_SUB_TITLE}
           sponsorImages={homeContent.SPONSOR_IMAGES}
         />
+
+        <SloohStorePromo />
 
         <div className="col-md-2" />
 
