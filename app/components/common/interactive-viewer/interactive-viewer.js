@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
 import Draggable from 'react-draggable';
+
 import { setImageDataToSnapshot } from '../../../modules/Telescope-Overview';
 import './interactive-viewer.scss';
 
@@ -47,11 +48,9 @@ class InteractiveViewer extends Component {
   };
 
   componentWillUpdate(nextProps, nextState) {
-    const { currentScale, zoomEnabled } = nextState;
-    // TODO: when we are at a scale greater than our threshold AND
+    const { currentScale } = nextState;
 
-    console.log(currentScale);
-    // console.log(nextState);
+    // TODO: sort out if we need to reset the image scale to 1
 
     this.props.actions.setImageDataToSnapshot({
       zoom: nextState.currentScale,
@@ -182,7 +181,6 @@ class InteractiveViewer extends Component {
       clipped,
       bounds,
       controlledPosition,
-      timerTick,
     } = this.state;
 
     const viewerContentStyle = {

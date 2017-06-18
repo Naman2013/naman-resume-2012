@@ -119,21 +119,12 @@ const setDisplayCommunityContent = payload => ({
   payload,
 });
 
-const resetSelectedDetailsElements = () => ({
-  type: RESET_DETAILS_SELECTED_ELEMENTS,
-});
-
 const bootstrapTelescopeDetailsStart = () => ({
   type: BOOTSTRAP_TELESCOPE_DETAILS_START,
 });
 
 const bootStrapTelescopeDetailsSuccess = () => ({
   type: BOOTSTRAP_TELESCOPE_DETAILS,
-});
-
-const bootstrapTelescopeDetailsFail = payload => ({
-  type: BOOTSTRAP_TELESCOPE_DETAILS_FAIL,
-  payload,
 });
 
 const setCurrentObservatory = currentObservatory => ({
@@ -147,7 +138,7 @@ const setCurrentTelescope = currentTelescope => ({
 });
 
 const fetchCommunityContent = telescope => (dispatch) => {
-  const { teleContentType, teleContentCount, teleContentList } = telescope;
+  const { teleContentType, teleContentList } = telescope;
 
   const NONE = 'none';
   const MISSION_OBJECT_ID = 'missionObjectId';
@@ -336,7 +327,14 @@ const fetchDayNightBarAction = ({ obsId, DayNightBarWidgetId }) => (dispatch) =>
   .then(result => dispatch(fetchDayNightBarSuccess(result.data)));
 };
 
-export const fetchAllWidgets = ({ obsId, CurrentConditionsWidgetId, DayNightBarWidgetId, DayNightMapWidgetId, AllskyWidgetId, DomecamWidgetId }) => (dispatch) => {
+export const fetchAllWidgets = ({
+  obsId,
+  CurrentConditionsWidgetId,
+  DayNightBarWidgetId,
+  DayNightMapWidgetId,
+  AllskyWidgetId,
+  DomecamWidgetId,
+}) => (dispatch) => {
   dispatch(fetchWeatherConditions({ obsId, CurrentConditionsWidgetId }));
   dispatch(fetchDayNightBarAction({ obsId, DayNightBarWidgetId }));
   dispatch(fetchDayNightMapAction({ obsId, DayNightMapWidgetId }));
