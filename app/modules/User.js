@@ -27,10 +27,10 @@ export function store({ cid, token, at, fname }) {
 
 export function destroySession() {
   window.localStorage.removeItem('user');
-  window.document.cookie = cookie.serialize('cid', '', { domain: 'localhost', expires: new Date('Thu, 01 Jan 1970 00:00:01 GMT') });
-  window.document.cookie = cookie.serialize('token', '', { domain: 'localhost', expires: new Date('Thu, 01 Jan 1970 00:00:01 GMT') });
-  window.document.cookie = cookie.serialize('at', '', { domain: 'localhost', expires: new Date('Thu, 01 Jan 1970 00:00:01 GMT') });
-  window.document.cookie = cookie.serialize('fname', '', { domain: 'localhost', expires: new Date('Thu, 01 Jan 1970 00:00:01 GMT') });
+  window.document.cookie = cookie.serialize('cid', '', { domain: 'localhost', secure: false, expires: new Date('Thu, 01 Jan 1970 00:00:01 GMT') });
+  window.document.cookie = cookie.serialize('token', '', { domain: 'localhost', secure: false, expires: new Date('Thu, 01 Jan 1970 00:00:01 GMT') });
+  window.document.cookie = cookie.serialize('at', '', { domain: 'localhost', secure: false, expires: new Date('Thu, 01 Jan 1970 00:00:01 GMT') });
+  window.document.cookie = cookie.serialize('fname', '', { domain: 'localhost', secure: false, expires: new Date('Thu, 01 Jan 1970 00:00:01 GMT') });
 }
 
 export const logout = () => {
