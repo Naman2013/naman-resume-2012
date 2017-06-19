@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import _ from 'lodash';
+import GoogleAd from '../../components/common/google-ads/GoogleAd';
 import VideoImageLoader from '../../components/common/telescope-image-loader/video-image-loader';
 import CommunityMashup from '../../components/situation-room/CommunityMashup';
 import { fetchShowContent } from '../../modules/community-content/get-show-content-actions';
@@ -105,14 +106,24 @@ class ShowVideoViewer extends Component {
           <h1 className="header-title">Video Viewer</h1>
         </header>
         <main className="main-container">
-          { showStreamCode && <VideoImageLoader
+        <div className="video">
+          <VideoImageLoader
             teleStreamCode={showStreamCode}
             teleStreamURL={showStreamURL}
-            teleStreamThumbnailVideoWidth="1000"
+            teleStreamThumbnailVideoWidth="800"
             teleStreamThumbnailVideoHeight="550"
             showVideoControls={1}
             showInfo={1}
-          />}
+          />
+          </div>
+          <div className="ad">
+            <GoogleAd
+              adURL={'/5626790/Replay'}
+              adWidth={300}
+              adHeight={600}
+              targetDivID={'div-gpt-ad-1495118239378-0'}
+            />
+          </div>
         </main>
         <CommunityMashup
           hasSocialFlow={hasSocialFlow}
@@ -143,6 +154,13 @@ class ShowVideoViewer extends Component {
           .main-container {
             display: flex;
             flex-direction: row;
+          }
+
+          .ad {
+            margin-left: 50px;
+          }
+          .video {
+            margin-left: 50px;
           }
         `}</style>
       </div>
