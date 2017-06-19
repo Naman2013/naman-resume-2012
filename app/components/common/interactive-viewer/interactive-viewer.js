@@ -6,6 +6,8 @@ import Draggable from 'react-draggable';
 import { setImageDataToSnapshot } from '../../../modules/Telescope-Overview';
 import './interactive-viewer.scss';
 
+import LiveSign from '../live-sign/live-sign';
+
 const ZOOM_MULTIPLIER = 0.5;
 const MIN_ZOOM_SCALE = 1;
 const MAX_ZOOM_SCALE = 3;
@@ -191,12 +193,16 @@ class InteractiveViewer extends Component {
           <span className="icon glyphicon-minus" />
         </button>
 
+        <LiveSign />
+
         <button
           onClick={this.handleZoomInClick}
           className="action plus"
         >
           <span className="icon glyphicon-plus" />
         </button>
+
+
 
         <button
           onClick={this.toggleFullScreenMode}
