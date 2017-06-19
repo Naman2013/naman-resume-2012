@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
 import Draggable from 'react-draggable';
+
 import { setImageDataToSnapshot } from '../../../modules/Telescope-Overview';
 import './interactive-viewer.scss';
 
@@ -10,6 +11,9 @@ const ZOOM_MULTIPLIER = 0.5;
 const MIN_ZOOM_SCALE = 1;
 const MAX_ZOOM_SCALE = 3;
 const BOUNDS_MULTIPLIER = 100;
+
+const ZOOM_FACTOR = 3250;
+const ZOOM_THRESHOLD = 1.5;
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
@@ -19,6 +23,11 @@ const mapDispatchToProps = dispatch => ({
 
 @connect(null, mapDispatchToProps)
 class InteractiveViewer extends Component {
+  constructor(props) {
+    super(props);
+    this.animationTick = setInterval(::this.handleViewerTick, 100);
+  }
+
   state = {
     fullScreenMode: false,
     clipped: true,
@@ -33,7 +42,26 @@ class InteractiveViewer extends Component {
       x: 0,
       y: 0,
     },
+    timerTick: 0,
+    zoomfactor: ZOOM_FACTOR,
+    zoomEnabled: true,
   };
+
+  componentWillUpdate(nextProps, nextState) {
+    const { currentScale } = nextState;
+
+    // TODO: sort out if we need to reset the image scale to 1
+
+    this.props.actions.setImageDataToSnapshot({
+      zoom: nextState.currentScale,
+      originX: nextState.controlledPosition.x,
+      originY: nextState.controlledPosition.y,
+    });
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.animationTick);
+  }
 
   onControlledDrag = (event, position) => {
     const { x, y } = position;
@@ -43,6 +71,22 @@ class InteractiveViewer extends Component {
   onControlledDragStop(event, position) {
     const { x, y } = position;
     this.setState({ controlledPosition: { x, y } });
+  }
+
+  handleViewerTick() {
+    this.autoZoomTick();
+  }
+
+  autoZoomTick() {
+    const { zoomfactor, zoomEnabled, currentScale } = this.state;
+    const newZoomenabled = (currentScale <= ZOOM_THRESHOLD);
+
+    if (zoomEnabled) {
+      this.setState(prevState => ({
+        currentScale: prevState.currentScale + (prevState.currentScale / zoomfactor),
+        zoomEnabled: newZoomenabled,
+      }));
+    }
   }
 
   adjustYPos(event) {
@@ -86,6 +130,9 @@ class InteractiveViewer extends Component {
   handleZoomOutClick = (event) => {
     event.preventDefault();
     const { currentScale } = this.state;
+
+    this.giveUserControl();
+
     let newScale = currentScale - ZOOM_MULTIPLIER;
     newScale = newScale >= MIN_ZOOM_SCALE ? newScale : MIN_ZOOM_SCALE;
 
@@ -97,10 +144,12 @@ class InteractiveViewer extends Component {
     this.resetXY();
   };
 
-
   handleZoomInClick = (event) => {
     event.preventDefault();
     const { currentScale } = this.state;
+
+    this.giveUserControl();
+
     const newScale = currentScale + ZOOM_MULTIPLIER;
     if (newScale <= MAX_ZOOM_SCALE) {
       this.setState({
@@ -118,17 +167,21 @@ class InteractiveViewer extends Component {
     } : {};
   }
 
-  componentWillUpdate(nextProps, nextState) {
-    this.props.actions.setImageDataToSnapshot({
-      zoom: nextState.currentScale,
-      originX: nextState.controlledPosition.x,
-      originY: nextState.controlledPosition.y,
+  giveUserControl() {
+    this.setState({
+      zoomEnabled: false,
     });
   }
 
   render() {
     const { children } = this.props;
-    const { fullScreenMode, currentScale, clipped, bounds, controlledPosition } = this.state;
+    const {
+      fullScreenMode,
+      currentScale,
+      clipped,
+      bounds,
+      controlledPosition,
+    } = this.state;
 
     const viewerContentStyle = {
       transform: `scale(${currentScale})`,

@@ -1,4 +1,3 @@
-const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
@@ -75,8 +74,8 @@ module.exports = {
         loader: 'string-replace',
         exclude: /node_modules/,
         query: {
-          search: 'localhost',
-          replace: 'slooh.com',
+          search: 'domain: \'localhost\', secure: false',
+          replace: 'domain: \'.slooh.com\', secure: true',
           flags: 'g',
         }
       },
