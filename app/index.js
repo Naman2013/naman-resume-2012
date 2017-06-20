@@ -297,7 +297,7 @@ ReactDOM.render(
         <Route path="discussions/forums(/:forumId)/topics(/:topicId)/threads(/:threadId)(/:replyId)/new-reply" component={DiscussionsReplyTo} onEnter={validateUser} />
         <Route path="discussions/new-thread" component={NewDiscussionsThread} onEnter={validateUser} />
 
-        <Route path="road-trip" component={Landing} onEnter={onEnterLanding(store)} onLeave={onLeaveLanding(store)} />
+        <Route path="road-trip" component={Landing} />
         <Route path="road-trip/registration" component={RoadtripRegistration} onEnter={validateRoadtripRegistration} />
 
         <Route path="help/posting-guidelines" component={PostingGuidelines} />
