@@ -1,20 +1,12 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import moment from 'moment';
 import CircleTimer from '../containers/CircleTimer';
-import * as countDownEvents from '../modules/CountdownModule';
 import classes from '../styles/countdown.scss';
 
 const { bool, number, string, shape, instanceOf } = PropTypes;
-
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators({
-    countDownEvents,
-  }, dispatch);
-}
 
 function mapStateToProps({ countdown, upcomingEvents }) {
   return {
@@ -26,7 +18,7 @@ function mapStateToProps({ countdown, upcomingEvents }) {
   };
 }
 
-@connect(mapStateToProps, mapDispatchToProps)
+@connect(mapStateToProps)
 export default class Countdown extends PureComponent {
   static propTypes = {
     fetchingEvents: bool.isRequired,

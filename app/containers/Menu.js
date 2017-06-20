@@ -6,7 +6,7 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import onClickOutside from 'react-onclickoutside';
 import MenuLink from './../components/menu/MenuLink';
 import Submenu from './../components/menu/Submenu';
-import * as menuActions from './../modules/menu/actions';
+import { fetchMenuList, activateMenu, deactivateMenu } from './../modules/menu/actions';
 import '../styles/menu.scss';
 
 const { number, bool, func, array } = PropTypes;
@@ -104,6 +104,10 @@ class Menu extends Component {
 }
 
 const mapStateToProps = ({ menu }) => ({ ...menu });
-const mapDispatchToProps = dispatch => (bindActionCreators(menuActions, dispatch));
+const mapDispatchToProps = dispatch => (bindActionCreators({
+  fetchMenuList,
+  activateMenu,
+  deactivateMenu,
+}, dispatch));
 
 export default connect(mapStateToProps, mapDispatchToProps)(onClickOutside(Menu));
