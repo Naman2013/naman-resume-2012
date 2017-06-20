@@ -22,7 +22,7 @@ export function store({ cid, token, at, fname, avatarURL }) {
   window.document.cookie = cookie.serialize('avatarURL', avatarURL, { domain: 'localhost', secure: false, expires: futureDate, path: COOKIE_PATH });
 
   return (dispatch) => {
-    dispatch(set({ cid, token, at, fname }));
+    dispatch(set({ cid, token, at, fname, avatarURL }));
   };
 }
 
