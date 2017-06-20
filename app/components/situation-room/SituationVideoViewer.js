@@ -38,6 +38,15 @@ class SituationVideoViewer extends Component {
     return selectedTab === 0 ? (starShareAvailable && videoInProgress) : additionalFeeds[selectedTab - 1].canStarShare
   }
 
+  get noVideoHtml() {
+    return (<div className={s.showNotStartedContainer}>
+      <div className={s.showCountdownContainer}>
+        <Countdown size={150} className="live" lineWidth={10} />
+      </div>
+    </div>)
+  }
+
+
   render() {
     const {
       videoInProgress,
@@ -53,7 +62,6 @@ class SituationVideoViewer extends Component {
     } = this.props;
     const { selectedTab } = this.state;
     Tabs.setUseDefaultStyles(false);
-
     return (
       <section className={s.situationVideoViewerRoot}>
 
@@ -105,13 +113,8 @@ class SituationVideoViewer extends Component {
                         teleStreamThumbnailVideoHeight="550"
                         showVideoControls={1}
                         showInfo={1}
-                      />
-                      :
-                      <div className={s.showNotStartedContainer}>
-                        <div className={s.showCountdownContainer}>
-                          <Countdown size={150} className="live" lineWidth={10} />
-                        </div>
-                      </div>
+                      /> : this.noVideoHtml
+
                   }
                 </aside>
               </TabPanel>
@@ -144,6 +147,10 @@ class SituationVideoViewer extends Component {
               </TabPanel>)
             )}
         </Tabs>
+
+        {!videoInProgress && <aside className={s.liveViewContent}>
+          {this.noVideoHtml}
+        </aside>}
 
         <footer className={s.liveCameraTabs}>
           {
