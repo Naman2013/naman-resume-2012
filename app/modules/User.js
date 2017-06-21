@@ -4,33 +4,35 @@ import moment from 'moment';
 import createReducer from './utils/createReducer';
 import createAction from './utils/createAction';
 
+const EXPIRATION_DAYS = 90;
+const COOKIE_PATH = '/';
+const futureDate = moment().add(EXPIRATION_DAYS, 'day').toDate();
+
 const SET_USER = 'SET_USER';
 const REMOVE_USER = 'REMOVE_USER';
 
 export const set = createAction(SET_USER, 'user');
 export const removeUser = createAction(REMOVE_USER);
 
-export function store({ cid, token, at, fname }) {
-  const EXPIRATION_DAYS = 90;
-  const COOKIE_PATH = '/';
-  const futureDate = moment().add(EXPIRATION_DAYS, 'day').toDate();
-
+export function store({ cid, token, at, fname, avatarURL }) {
   window.document.cookie = cookie.serialize('cid', cid, { domain: 'localhost', secure: false, expires: futureDate, path: COOKIE_PATH });
   window.document.cookie = cookie.serialize('token', token, { domain: 'localhost', secure: false, expires: futureDate, path: COOKIE_PATH });
   window.document.cookie = cookie.serialize('at', at, { domain: 'localhost', secure: false, expires: futureDate, path: COOKIE_PATH });
   window.document.cookie = cookie.serialize('fname', fname, { domain: 'localhost', secure: false, expires: futureDate, path: COOKIE_PATH });
+  window.document.cookie = cookie.serialize('avatarURL', avatarURL, { domain: 'localhost', secure: false, expires: futureDate, path: COOKIE_PATH });
 
   return (dispatch) => {
-    dispatch(set({ cid, token, at, fname }));
+    dispatch(set({ cid, token, at, fname, avatarURL }));
   };
 }
 
 export function destroySession() {
   window.localStorage.removeItem('user');
-  window.document.cookie = cookie.serialize('cid', '', { domain: 'localhost', secure: false, expires: new Date('Thu, 01 Jan 1970 00:00:01 GMT') });
-  window.document.cookie = cookie.serialize('token', '', { domain: 'localhost', secure: false, expires: new Date('Thu, 01 Jan 1970 00:00:01 GMT') });
-  window.document.cookie = cookie.serialize('at', '', { domain: 'localhost', secure: false, expires: new Date('Thu, 01 Jan 1970 00:00:01 GMT') });
-  window.document.cookie = cookie.serialize('fname', '', { domain: 'localhost', secure: false, expires: new Date('Thu, 01 Jan 1970 00:00:01 GMT') });
+  window.document.cookie = cookie.serialize('cid', '', { domain: 'localhost', secure: false, expires: new Date('Thu, 01 Jan 1970 00:00:01 GMT'), path: COOKIE_PATH });
+  window.document.cookie = cookie.serialize('token', '', { domain: 'localhost', secure: false, expires: new Date('Thu, 01 Jan 1970 00:00:01 GMT'), path: COOKIE_PATH });
+  window.document.cookie = cookie.serialize('at', '', { domain: 'localhost', secure: false, expires: new Date('Thu, 01 Jan 1970 00:00:01 GMT'), path: COOKIE_PATH });
+  window.document.cookie = cookie.serialize('fname', '', { domain: 'localhost', secure: false, expires: new Date('Thu, 01 Jan 1970 00:00:01 GMT'), path: COOKIE_PATH });
+  window.document.cookie = cookie.serialize('avatarURL', '', { domain: 'localhost', secure: false, expires: new Date('Thu, 01 Jan 1970 00:00:01 GMT'), path: COOKIE_PATH });
 }
 
 export const logout = () => {
@@ -53,7 +55,7 @@ export function destroy() {
   */
 export function checkUser(pathname, replace, callback) {
   return (dispatch) => {
-    const { cid, token, at, fname } = cookie.parse(window.document.cookie);
+    const { cid, token, at, fname, avatarURL } = cookie.parse(window.document.cookie);
 
     if (cid && token && at && fname) {
       dispatch(store({
@@ -61,6 +63,7 @@ export function checkUser(pathname, replace, callback) {
         token,
         at,
         fname,
+        avatarURL,
       }));
       callback();
     } else {

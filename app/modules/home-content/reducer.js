@@ -56,14 +56,14 @@ const initialState = {
       {
         key: Math.random() * 100,
         title: 'Total solar eclipse',
-        imageUrl: 'assets/images/photos/eclipse.png',
+        imageUrl: 'assets/images/photos/eclipse.jpg',
         type: '',
         url: '/road-trip',
       },
       {
         key: Math.random() * 100,
         title: 'Exploding Galaxy M82',
-        imageUrl: 'assets/images/photos/exploding-galaxy-M82.png',
+        imageUrl: 'assets/images/photos/exploding-galaxy-M82.jpg',
         url: '/objects/latest-entries/7/all',
       },
       {

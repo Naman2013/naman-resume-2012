@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import { uniqueId } from 'lodash';
 import Countdown from '../../containers/Countdown';
 import VideoImageLoader from '../../components/common/telescope-image-loader/video-image-loader';
 import TelescopeImageViewer from '../../components/common/telescope-image-viewer/telescope-image-viewer';
@@ -37,6 +38,15 @@ class SituationVideoViewer extends Component {
     return selectedTab === 0 ? (starShareAvailable && videoInProgress) : additionalFeeds[selectedTab - 1].canStarShare
   }
 
+  get noVideoHtml() {
+    return (<div className={s.showNotStartedContainer}>
+      <div className={s.showCountdownContainer}>
+        <Countdown size={150} className="live" lineWidth={10} />
+      </div>
+    </div>)
+  }
+
+
   render() {
     const {
       videoInProgress,
@@ -52,7 +62,6 @@ class SituationVideoViewer extends Component {
     } = this.props;
     const { selectedTab } = this.state;
     Tabs.setUseDefaultStyles(false);
-
     return (
       <section className={s.situationVideoViewerRoot}>
 
@@ -81,7 +90,7 @@ class SituationVideoViewer extends Component {
             }
             {
               videoInProgress && additionalFeeds.map(feed => (
-                <Tab key={feed.videoStreamCode}>
+                <Tab key={uniqueId()}>
                   <div className={s.liveTelescopeTitle}>
                     {<h6>{feed.TelescopeName}</h6> }
                   </div>
@@ -91,31 +100,30 @@ class SituationVideoViewer extends Component {
             }
           </TabList>
 
-          <TabPanel>
-            <aside className={s.liveViewContent}>
-              {
-                videoInProgress && initialStreamCode && initialStreamURL ?
-                  <VideoImageLoader
-                    teleStreamCode={initialStreamCode}
-                    teleStreamURL={initialStreamURL}
-                    teleStreamThumbnailVideoWidth="1000"
-                    teleStreamThumbnailVideoHeight="550"
-                    showVideoControls={1}
-                    showInfo={1}
-                  />
-                  :
-                  <div className={s.showNotStartedContainer}>
-                    <div className={s.showCountdownContainer}>
-                      <Countdown size={150} className="live" lineWidth={10} />
-                    </div>
-                  </div>
-              }
-            </aside>
-          </TabPanel>
+          {
+            videoInProgress &&
+              <TabPanel>
+                <aside className={s.liveViewContent}>
+                  {
+                    initialStreamCode && initialStreamURL ?
+                      <VideoImageLoader
+                        teleStreamCode={initialStreamCode}
+                        teleStreamURL={initialStreamURL}
+                        teleStreamThumbnailVideoWidth="1000"
+                        teleStreamThumbnailVideoHeight="550"
+                        showVideoControls={1}
+                        showInfo={1}
+                      /> : this.noVideoHtml
+
+                  }
+                </aside>
+              </TabPanel>
+          }
+
 
           {
             videoInProgress && additionalFeeds.map(feed => (
-              <TabPanel key={feed.videoStreamCode}>
+              <TabPanel key={uniqueId()}>
                 <aside className={s.liveViewContent}>
                   {feed.imageSourceType === 'video' ?
                     <VideoImageLoader
@@ -139,6 +147,10 @@ class SituationVideoViewer extends Component {
               </TabPanel>)
             )}
         </Tabs>
+
+        {!videoInProgress && <aside className={s.liveViewContent}>
+          {this.noVideoHtml}
+        </aside>}
 
         <footer className={s.liveCameraTabs}>
           {
