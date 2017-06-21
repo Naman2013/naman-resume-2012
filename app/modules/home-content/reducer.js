@@ -56,7 +56,7 @@ const initialState = {
       {
         key: Math.random() * 100,
         title: 'Total solar eclipse',
-        imageUrl: 'assets/images/photos/eclipse.png',
+        imageUrl: 'assets/images/photos/eclipse.jpg',
         type: '',
         url: '/road-trip',
       },
