@@ -9,6 +9,10 @@ import CommunityMashup from '../../components/situation-room/CommunityMashup';
 import { fetchShowContent } from '../../modules/community-content/get-show-content-actions';
 import { fetchRecordedShow } from '../../modules/show-video-viewer/recorded-show-actions';
 import { backgroundImageCover } from '../../styles/mixins/utilities';
+import { previousShows } from '../../services/shows/previous-shows';
+import { upcomingShows } from '../../services/shows/upcoming-shows';
+
+
 import { white } from '../../styles/variables/colors';
 
 
@@ -43,6 +47,7 @@ class ShowVideoViewer extends Component {
     actions: shape({
       fetchRecordedShow: func,
       fetchShowContent: func,
+      fetchPreviousShows: func,
     }),
     params: shape({
       showId: string,
@@ -50,6 +55,7 @@ class ShowVideoViewer extends Component {
     showStreamCode: string,
     showStreamURL: string,
     hasSocialFlow: bool,
+    hasRecentShows: bool,
     hasPerspectives: bool,
     hasUpcomingShows: bool,
     hasRecommends: bool,
@@ -65,6 +71,7 @@ class ShowVideoViewer extends Component {
     showStreamURL: '',
     hasSocialFlow: false,
     hasPerspectives: false,
+    hasRecentShows: false,
     hasUpcomingShows: false,
     hasRecommends: false,
     recommends: [],
@@ -76,6 +83,11 @@ class ShowVideoViewer extends Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      upcomingShowsList: [],
+      previousShowsList: [],
+    };
+
     const { actions, params: { showId } } = props;
 
     actions.fetchRecordedShow({
@@ -85,6 +97,24 @@ class ShowVideoViewer extends Component {
     actions.fetchShowContent({
       showId,
       listType: 'sluglookupids',
+    });
+
+    previousShows({
+      page: 1,
+      count: 9,
+    }).then((res) => {
+      this.setState({
+        previousShowsList: res.data.eventList,
+      });
+    });
+
+    upcomingShows({
+      page: 1,
+      count: 9,
+    }).then((res) => {
+      this.setState({
+        upcomingShowsList: res.data.eventList,
+      });
     });
   }
   render() {
@@ -96,9 +126,12 @@ class ShowVideoViewer extends Component {
       hasSocialFlow,
       hasPerspectives,
       hasUpcomingShows,
+      hasRecentShows,
       hasRecommends,
       recommends
     } = this.props;
+
+    const { upcomingShowsList, previousShowsList } = this.state;
 
     return (
       <div>
@@ -129,9 +162,12 @@ class ShowVideoViewer extends Component {
           hasSocialFlow={hasSocialFlow}
           hasPerspectives={hasPerspectives}
           hasUpcomingShows={hasUpcomingShows}
+          hasRecentShows={hasRecentShows}
           hasRecommends={hasRecommends}
           communityPosts={communityPosts}
           recommends={recommends}
+          upcomingShows={upcomingShowsList}
+          recentShows={previousShowsList}
         />
         <style jsx>{`
           .header {

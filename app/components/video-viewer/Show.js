@@ -12,7 +12,7 @@ class Show extends Component {
   }
 
   render() {
-    const { eventImageURL, eventStart, eventIconURL, handleShowClick, eventTitle, eventShortDescription } = this.props;
+    const { eventImageURL, eventStart, eventIconURL, eventTitle, eventShortDescription, textSize } = this.props;
     const inlineShowStyle = {
       backgroundImage: `url(${decodeURIComponent(eventImageURL)})`,
     };
@@ -23,13 +23,13 @@ class Show extends Component {
         <div className="inner-show-content content">
           <h3 className="show-title">{eventTitle}</h3>
           <h5>{showStartDate}</h5>
-          <img className="show-icon" src={decodeURIComponent(eventIconURL)} />
+          {/*}<img className="show-icon" src={decodeURIComponent(eventIconURL)} />*/}
         </div>
           <div className="innerPhotoContainer content">
             <h3 className="show-title">{eventTitle}</h3>
             <h5>{showStartDate}</h5>
             <div className="show-content">
-              <span dangerouslySetInnerHTML={{ __html: eventShortDescription }} />
+              <span style={{ fontSize: textSize || 'inherit' }} dangerouslySetInnerHTML={{ __html: eventShortDescription }} />
             </div>
           </div>
         </div>
@@ -71,9 +71,14 @@ class Show extends Component {
 }
 
 Show.propTypes = {
+  textSize: PropTypes.string,
   eventImageURL: PropTypes.string.isRequired,
   eventTitle: PropTypes.string.isRequired,
   eventShortDescription: PropTypes.string.isRequired,
+};
+
+Show.defaultProps = {
+  textSize: null,
 };
 
 export default Show;

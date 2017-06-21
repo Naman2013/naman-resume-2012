@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { upcomingShows } from '../../services/shows/upcoming-shows';
 
 export const FETCH_UPCOMING_SHOWS_START = 'FETCH_UPCOMING_SHOWS_START';
 export const FETCH_UPCOMING_SHOWS_SUCCESS = 'FETCH_UPCOMING_SHOWS_SUCCESS';
@@ -24,11 +25,9 @@ export const fetchUpcomingShows = ({
   const { count } = getState().videoViewerBrowser;
   dispatch(fetchUpcomingShowsStart());
 
-  return axios.get(' /api/events/upcoming', {
-    params: {
-      count,
-      page,
-    },
+  return upcomingShows({
+    count,
+    page,
   })
     .then(result => dispatch(fetchUpcomingShowsSuccess(Object.assign({ page }, result.data))))
     .catch(error => dispatch(fetchUpcomingShowsFail(error)));

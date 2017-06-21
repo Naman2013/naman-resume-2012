@@ -3,6 +3,7 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import TintUp from './TintUp';
 import CommunityPerspectives from '../common/community-perspectives/community-perspectives';
 import SloohRecommends from '../common/recommendations/SloohRecommends';
+import ShowsList from '../video-viewer/ShowsList';
 import s from './CommunityMashup.scss';
 
 class CommunityMashup extends Component {
@@ -28,8 +29,11 @@ class CommunityMashup extends Component {
       hasPerspectives,
       hasUpcomingShows,
       hasRecommends,
+      hasRecentShows,
       communityPosts,
       recommends,
+      recentShows,
+      upcomingShows,
     } = this.props;
     const { selectedTabIndex } = this.state;
     return (
@@ -54,6 +58,13 @@ class CommunityMashup extends Component {
               hasUpcomingShows ?
                 <Tab className={s.tab}>
                   <h5 className={s.tabTitle}>Upcoming Shows</h5>
+                </Tab> : null
+            }
+
+            {
+              hasRecentShows ?
+                <Tab className={s.tab}>
+                  <h5 className={s.tabTitle}>Recent Shows</h5>
                 </Tab> : null
             }
 
@@ -90,7 +101,16 @@ class CommunityMashup extends Component {
             hasUpcomingShows ?
               <TabPanel className={s.tabPanel}>
                 <aside>
-                  <h3>Upcoming shows...</h3>
+                  <ShowsList eventList={upcomingShows} textSize="12px" />
+                </aside>
+              </TabPanel> : null
+          }
+
+          {
+            hasRecentShows ?
+              <TabPanel className={s.tabPanel}>
+                <aside>
+                  <ShowsList eventList={recentShows} textSize="12px" />
                 </aside>
               </TabPanel> : null
           }
@@ -116,6 +136,9 @@ class CommunityMashup extends Component {
 CommunityMashup.defaultProps = {
   communityPosts: [],
   recommends: [],
+  upcomingShows: [],
+  recentShows: [],
+  hasRecentShows: false,
 };
 
 CommunityMashup.propTypes = {
@@ -123,6 +146,7 @@ CommunityMashup.propTypes = {
   hasPerspectives: PropTypes.bool.isRequired,
   hasUpcomingShows: PropTypes.bool.isRequired,
   hasRecommends: PropTypes.bool.isRequired,
+  hasRecentShows: PropTypes.bool,
   recommends: PropTypes.arrayOf(PropTypes.number.isRequired),
   communityPosts: PropTypes.arrayOf(PropTypes.shape({
     postId: PropTypes.number.isRequired,

@@ -25,6 +25,20 @@ class ShowsList extends Component {
     });
   }
 
+  getEventLink = (event) => {
+    if (event.eventLinkTarget === 'videoviewer') {
+      return `/shows/video-viewer/${event.eventId}`;
+    }
+
+    if (event.eventLinkTarget === 'videoevent') {
+      return `/shows/event-details/${event.eventId}`;
+    }
+
+    if (event.eventLinkTarget === 'ssr') {
+      return `/shows/situation-room/${event.eventId}`;
+    }
+  }
+
   render() {
     const {
       eventList,
@@ -34,6 +48,8 @@ class ShowsList extends Component {
       page,
       pages,
       count,
+      paginate,
+      textSize,
     } = this.props;
     const containerColClassNames = classnames({
       'col-xs-12': !galleryType,
@@ -57,8 +73,9 @@ class ShowsList extends Component {
           {
             eventList.map(event => (
               <li key={event.eventId} className={listColClassNames}>
-                <Link to={`/shows/video-viewer/${event.eventId}`}>
+                <Link to={this.getEventLink(event)}>
                   <Show
+                    textSize={textSize}
                     {...event}
                   />
                 </Link>
@@ -66,14 +83,14 @@ class ShowsList extends Component {
             ))
           }
         </ul>
-        <Pagination
+        {paginate && <Pagination
           totalCount={Number(resultsCount)}
           currentRange={rangeText}
           handleNextPageClick={this.handleNextPageClick}
           handlePreviousPageClick={this.handlePreviousPageClick}
           canNext={canNext}
           canPrevious={canPrevious}
-        />
+        />}
 
         <style jsx>{`
           .show-list-root {
@@ -95,15 +112,25 @@ class ShowsList extends Component {
 ShowsList.defaultProps = {
   galleryType: false,
   colNum: '4',
+  paginate: null,
+  page: 0,
+  count: 0,
+  pages: 0,
+  textSize: null,
 };
 
 ShowsList.propTypes = {
   eventList: PropTypes.arrayOf(PropTypes.shape({
-    eventId: PropTypes.string.isRequired,
+    eventId: PropTypes.number.isRequired,
     eventImageURL: PropTypes.string.isRequired,
   })).isRequired,
   galleryType: PropTypes.bool,
   colNum: PropTypes.string,
+  paginate: PropTypes.func,
+  page: PropTypes.number,
+  count: PropTypes.number,
+  pages: PropTypes.number,
+  textSize: PropTypes.string,
 };
 
 export default ShowsList;

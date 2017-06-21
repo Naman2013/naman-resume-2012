@@ -1,4 +1,6 @@
 import axios from 'axios';
+import { previousShows } from '../../services/shows/previous-shows';
+
 
 export const FETCH_PREVIOUS_SHOWS_START = 'FETCH_PREVIOUS_SHOWS_START';
 export const FETCH_PREVIOUS_SHOWS_SUCCESS = 'FETCH_PREVIOUS_SHOWS_SUCCESS';
@@ -24,11 +26,9 @@ export const fetchPreviousShows = ({
   const { count } = getState().videoViewerBrowser;
   dispatch(fetchPreviousShowsStart());
 
-  return axios.get(' /api/events/previous', {
-    params: {
-      count,
-      page,
-    }
+  return previousShows({
+    count,
+    page,
   })
     .then(result => dispatch(fetchPreviousShowsSuccess(Object.assign({ page }, result.data))))
     .catch(error => dispatch(fetchPreviousShowsFail(error)));

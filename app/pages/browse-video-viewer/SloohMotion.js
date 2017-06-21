@@ -72,7 +72,7 @@ class SloohMotion extends Component {
     eventList: arrayOf(shape({
       eventDescription: string,
       eventDetailsURL: string,
-      eventEnd: string,
+      eventEnd: number,
       eventIconURL: string,
       eventId: string,
       eventImageURL: string,
@@ -82,7 +82,7 @@ class SloohMotion extends Component {
       eventLiveURL: string,
       eventShortDescription: string,
       eventShowRemindersIcon: bool,
-      eventStart: string,
+      eventStart: number,
       eventStatus: string,
       eventTitle: string,
     })),
