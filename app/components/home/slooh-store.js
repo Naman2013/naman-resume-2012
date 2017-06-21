@@ -36,9 +36,9 @@ const SloohStorePromo = () =>
   <style jsx>{`
     .promo-container {
       position: relative;
-      background-image: url('${baseUrl}/BG.png');
-      background-size: 100%;
-      background-repeat: no-repeat;
+      background-image: url('${baseUrl}/gradiant-bg-pattern.jpg');
+      background-repeat: repeat-x;
+      background-position: center -360px;
       height: 1000px;
       width: 100%;
       margin-top: 5px;
