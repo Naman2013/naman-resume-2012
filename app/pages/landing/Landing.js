@@ -7,10 +7,11 @@ import PartOfEvent from '../../components/landing/PartOfEvent';
 import SloohSunglasses from '../../components/landing/SloohSunglasses';
 import SolarEclipseGuide from '../../components/landing/SolarEclipseGuide';
 import SloohRoadTrips from '../../components/landing/SloohRoadTrips';
+import { black } from '../../styles/variables/colors';
 
 function Landing() {
   return (
-    <div>
+    <div className="landing-container">
       <Hero />
       <EventDescription />
       <AboutEclipse />
@@ -19,6 +20,11 @@ function Landing() {
       <SloohSunglasses />
       <SolarEclipseGuide />
       <SloohRoadTrips />
+      <style jsx>{`
+        .landing-container {
+          background-color: ${black};
+        }
+        `}</style>
     </div>
   );
 }
