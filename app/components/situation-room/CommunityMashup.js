@@ -25,6 +25,7 @@ class CommunityMashup extends Component {
 
   render() {
     const {
+      colNum,
       hasSocialFlow,
       hasPerspectives,
       hasUpcomingShows,
@@ -101,7 +102,7 @@ class CommunityMashup extends Component {
             hasUpcomingShows ?
               <TabPanel className={s.tabPanel}>
                 <aside>
-                  <ShowsList eventList={upcomingShows} textSize="12px" />
+                  <ShowsList eventList={upcomingShows} textSize="12px" colNum={colNum} />
                 </aside>
               </TabPanel> : null
           }
@@ -110,7 +111,7 @@ class CommunityMashup extends Component {
             hasRecentShows ?
               <TabPanel className={s.tabPanel}>
                 <aside>
-                  <ShowsList eventList={recentShows} textSize="12px" />
+                  <ShowsList eventList={recentShows} textSize="12px" colNum={colNum} />
                 </aside>
               </TabPanel> : null
           }
@@ -139,6 +140,7 @@ CommunityMashup.defaultProps = {
   upcomingShows: [],
   recentShows: [],
   hasRecentShows: false,
+  colNum: undefined,
 };
 
 CommunityMashup.propTypes = {
@@ -147,6 +149,7 @@ CommunityMashup.propTypes = {
   hasUpcomingShows: PropTypes.bool.isRequired,
   hasRecommends: PropTypes.bool.isRequired,
   hasRecentShows: PropTypes.bool,
+  colNum: PropTypes.string,
   recommends: PropTypes.arrayOf(PropTypes.number.isRequired),
   communityPosts: PropTypes.arrayOf(PropTypes.shape({
     postId: PropTypes.number.isRequired,

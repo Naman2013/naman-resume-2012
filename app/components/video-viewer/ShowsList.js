@@ -51,6 +51,7 @@ class ShowsList extends Component {
       paginate,
       textSize,
     } = this.props;
+
     const containerColClassNames = classnames({
       'col-xs-12': !galleryType,
     });

@@ -8,6 +8,8 @@ import CommunityMashup from '../../components/situation-room/CommunityMashup';
 import GoogleAd from '../../components/common/google-ads/GoogleAd';
 import { fetchEvents } from '../../modules/upcoming-events/upcoming-events-actions';
 import { fetchSituationRoom, fetchEventsAndSituationRoom } from '../../modules/SituationRoom';
+import { previousShows } from '../../services/shows/previous-shows';
+import { upcomingShows } from '../../services/shows/upcoming-shows';
 
 import s from './SituationRoom.scss';
 
@@ -31,12 +33,40 @@ const mapStateToProps = ({ upcomingEvents, liveShows, communityShowContent }, ow
 
 @connect(mapStateToProps, mapDispatchToProps)
 class SituationRoom extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      upcomingShowsList: [],
+      previousShowsList: [],
+    };
+
+    previousShows({
+      page: 1,
+      count: 4,
+    }).then((res) => {
+      this.setState({
+        previousShowsList: res.data.eventList,
+      });
+    });
+
+    upcomingShows({
+      page: 1,
+      count: 4,
+    }).then((res) => {
+      this.setState({
+        upcomingShowsList: res.data.eventList,
+      });
+    });
+  }
+
   componentWillMount() {
     this.props.actions.fetchEventsAndSituationRoom();
   }
 
   render() {
     const { currentLiveShow, communityPosts, eventIsLive } = this.props;
+    const { upcomingShowsList, previousShowsList } = this.state;
     const { apiError } = currentLiveShow;
 
     if (apiError) {
@@ -81,8 +111,12 @@ class SituationRoom extends Component {
             hasSocialFlow={currentLiveShow.hasSocialFlow}
             hasPerspectives={currentLiveShow.hasPerspectives}
             hasUpcomingShows={currentLiveShow.hasUpcomingShows}
+            hasRecentShows={currentLiveShow.hasRecentShows}
             hasRecommends={currentLiveShow.hasRecommends}
             communityPosts={communityPosts}
+            upcomingShows={upcomingShowsList}
+            recentShows={previousShowsList}
+            colNum="6"
             recommends={currentLiveShow.recommends}
           />
         </div>
