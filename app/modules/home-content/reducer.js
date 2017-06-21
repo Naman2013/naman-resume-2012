@@ -63,7 +63,7 @@ const initialState = {
       {
         key: Math.random() * 100,
         title: 'Exploding Galaxy M82',
-        imageUrl: 'assets/images/photos/exploding-galaxy-M82.png',
+        imageUrl: 'assets/images/photos/exploding-galaxy-M82.jpg',
         url: '/objects/latest-entries/7/all',
       },
       {
