@@ -13,26 +13,26 @@ const SloohStorePromo = () =>
   </div>
   <div className="product-container top">
     <a className="btn-primary btn-store" rel="noopener noreferrer" target="_blank" href="https://www.amazon.com/s?marketplaceID=ATVPDKIKX0DER&me=A237ME1DXB1HVR&merchant=A237ME1DXB1HVR&redirect=true">Shop Now</a>
-    <figure className="glasses">
-      <img width="50%" className="product-image" src={`${baseUrl}/glasses.png`} />
+    <figure className="glasses-container">
+      <img className="product-image glasses" src={`${baseUrl}/glasses.png`} />
       <div className="glasses-text">Slooh Solar Eclipse Sunglasses</div>
     </figure>
   </div>
   <div className="flex-row product-container">
     <figure>
-      <img height="50%" className="product-image-book" src={`${baseUrl}/book.png`} />
+      <img className="product-image-book" src={`${baseUrl}/book.png`} />
       <div className="book-text">Slooh Books</div>
     </figure>
     <figure className="kindle-container">
-      <img height="50%" className="product-image kindle" src={`${baseUrl}/KindleDevice.png`} />
+      <img className="product-image kindle" src={`${baseUrl}/KindleDevice.png`} />
       <div className="kindle-text">E-Reader Books</div>
     </figure>
     <figure>
-      <img height="45%" className="product-image giftcard" src={`${baseUrl}/GiftCards.png`} />
+      <img className="product-image giftcard" src={`${baseUrl}/GiftCards.png`} />
       <div className="giftcard-text">Slooh Memberships</div>
     </figure>
   </div>
-    <img height="50%" className="store-tag" src={`${baseUrl}/SloohStoreTag.png`} />
+    <img className="store-tag" src={`${baseUrl}/SloohStoreTag.png`} />
   <style jsx>{`
     .promo-container {
       position: relative;
@@ -61,6 +61,8 @@ const SloohStorePromo = () =>
       position: absolute;
       right: 50px;
       top: -5px;
+      height: 500px;
+      width: auto;
     }
 
     .link {
@@ -70,10 +72,15 @@ const SloohStorePromo = () =>
       vertical-align: middle;
       display: inline-block;
     }
-    .glasses {
+    .glasses-container {
       padding-left: 200px;
       vertical-align: middle;
       display: inline-block;
+    }
+    .glasses {
+      height: 150px;
+      width: auto;
+
     }
 
     .flex-row {
@@ -91,11 +98,11 @@ const SloohStorePromo = () =>
 
     .top {
       padding: 0 100px;
-      margin-top: -15px;
+      margin-top: -95px;
     }
 
     .kindle-container {
-      margin-left: -85px;
+      margin-left: -175px;
     }
 
     .book-text {
@@ -104,6 +111,8 @@ const SloohStorePromo = () =>
 
     .kindle {
       margin-right: 100px;
+      height: auto;
+      width: 325px;
     }
 
     .kindle-text {
@@ -113,6 +122,11 @@ const SloohStorePromo = () =>
     .giftcard-text {
       padding-top: 30px;
       padding-left: 15px;
+    }
+
+    .giftcard {
+      height: auto;
+      width: 615px;
     }
 
     .glasses-text {
