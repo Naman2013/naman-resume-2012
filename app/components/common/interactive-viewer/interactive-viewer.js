@@ -202,8 +202,6 @@ class InteractiveViewer extends Component {
           <span className="icon glyphicon-plus" />
         </button>
 
-
-
         <button
           onClick={this.toggleFullScreenMode}
           className="action full-screen-view"
@@ -227,7 +225,6 @@ class InteractiveViewer extends Component {
                 Circular view <span className="icon glyphicon glyphicon-record" />
             </button>
         }
-
       </div>
     );
   }

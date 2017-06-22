@@ -3,9 +3,6 @@ import React, { Component, PropTypes } from 'react';
 
 
 class LiveSign extends Component {
-  state = {
-
-  }
   render() {
     return (
       <div className="signContainer">
