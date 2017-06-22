@@ -136,7 +136,7 @@ ReactDOM.render(
         <Route path="job" component={Job} title="Work With Us" subTitle="Share your passion for astronomy with the world" />
         <Route path="contact" component={Contact} title="Contact US" subTitle=" " />
         <Route path="leadership" component={Leadership} title="Leadership" subTitle=" " />
-        <Route path="pricing" component={PlansChange} title="Plans" subTitle=" " />
+        <Route path="pricing" component={PlansChange} />
       </Route>
 
       <Route path="registration" component={StaticAppContainer} onEnter={validateRegistrationPaths}>

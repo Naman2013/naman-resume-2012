@@ -34,12 +34,7 @@ img {
 
 .app-content-container, .static-app-content-container {
   font-family: $primary-font;
-  background: url("../../assets/images/photos/stellar-community-low.jpg") no-repeat center center fixed;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-  position: relative;
+  background: #fff;
   padding: $slooh-header-height 0 0 $slooh-menu-width;
   min-width: $slooh-content-width;
   overflow: hidden;
