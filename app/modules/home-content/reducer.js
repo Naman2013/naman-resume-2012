@@ -20,11 +20,11 @@ const initialState = {
     },
     {
       key: 2,
-      title: 'Total Solar Eclipse',
-      content: 'Road Trip with Slooh to Stanley, Idaho to witness the Total Solar Eclipse on August 21st, or watch our coverage live right here on Slooh.',
-      contentLink: 'https://www.slooh.com/#/road-trip?_k=8u86a2',
+      title: 'Summer Solstice With Bill Nye',
+      content: 'We celebrated the Summer Solstice on June 21st with guests Bill Nye of The Planetary Society, Phil Plait, Ari Sarsalari, and Matt Penn from the Citizen CATE Experiment.',
+      contentLink: '',
       imageUrl: 'assets/images/samples/perseid-meteor-shower.png',
-      videoUrl: 'https://www.youtube.com/embed/ZU4Nt_-nLFY?rel=0&amp;showinfo=0'
+      videoUrl: 'https://www.youtube.com/embed/7XzFU-3VGeU?rel=0&amp;showinfo=0'
     },
     {
       key: 3,
