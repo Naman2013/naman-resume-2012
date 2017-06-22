@@ -121,11 +121,11 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: __dirname + '/app/index.html',
       filename: 'index.html',
-      inject: 'body'
+      inject: 'body',
     }),
     new CopyWebpackPlugin([
-      { from: './assets/**/*' }
-    ])
+      { from: './assets/**/*' },
+    ]),
   ],
   devtool: 'cheap-module-eval-source-map',
   devServer: {
