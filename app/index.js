@@ -26,7 +26,6 @@ import PulseList from './containers/pulse/PulseList';
 import PulseWrapper from './containers/pulse/PulseWrapper';
 import PulsePost from './containers/pulse/PulsePost';
 import ObjectList from './containers/object-post/ObjectList';
-import PlaybackContainer from './containers/PlaybackContainer';
 
 import Discussions from './containers/discussions/Discussions';
 import DiscussionsWrapper from './containers/discussions/DiscussionsWrapper';
@@ -47,10 +46,13 @@ import BestOfSlooh from './pages/best-of-slooh/best-of-slooh';
 import SituationRoom from './pages/situation-room/SituationRoom';
 import EventDetails from './pages/situation-room/EventDetails';
 
-import PlaybackViewer from './pages/playback/PlaybackViewer';
-import RecentShows from './pages/playback/RecentShows';
-import SloohMotion from './pages/playback/SloohMotion';
-import UpcomingShows from './pages/playback/UpcomingShows';
+import RecentShows from './pages/browse-video-viewer/RecentShows';
+import SloohMotion from './pages/browse-video-viewer/SloohMotion';
+import UpcomingShows from './pages/browse-video-viewer/UpcomingShows';
+
+import ShowVideoViewer from './pages/show-video-viewer/ShowVideoViewer';
+
+import BrowseShowsWrapper from './pages/browse-video-viewer/BrowseShowsWrapper';
 
 import Job from './pages/about/job';
 import Contact from './pages/about/contact';
@@ -223,42 +225,47 @@ ReactDOM.render(
         <Route path="shows/situation-room(/:showId)" component={SituationRoom} onEnter={validateUser} />
         <Route path="shows/event-details(/:showId)" component={EventDetails} onEnter={validateUser} />
 
-        <Route path="shows/browse-shows" component={PlaybackContainer} onEnter={validateUser}>
+        <Route path="shows/video-viewer/browse" component={BrowseShowsWrapper}>
           <IndexRedirect to="recent-shows" />
-
           <Route path="recent-shows" component={RecentShows}>
+            { /*
             <IndexRedirect to="all-categories" />
-            <Route path="all-categories" component={PlaybackViewer} />
-            <Route path="the-moon" component={PlaybackViewer} />
-            <Route path="deep-space" component={PlaybackViewer} />
-            <Route path="planets" component={PlaybackViewer} />
-            <Route path="the-sun" component={PlaybackViewer} />
-            <Route path="comets" component={PlaybackViewer} />
-            <Route path="constellations" component={PlaybackViewer} />
+            <Route path="all-categories" />
+            <Route path="the-moon" />
+            <Route path="deep-space" />
+            <Route path="planets" />
+            <Route path="the-sun" />
+            <Route path="comets" />
+            <Route path="constellations" />
+          */ }
           </Route>
-
           <Route path="slooh-motion" component={SloohMotion}>
+            { /*
             <IndexRedirect to="all-categories" />
-            <Route path="all-categories" component={PlaybackViewer} />
-            <Route path="the-moon" component={PlaybackViewer} />
-            <Route path="deep-space" component={PlaybackViewer} />
-            <Route path="planets" component={PlaybackViewer} />
-            <Route path="the-sun" component={PlaybackViewer} />
-            <Route path="comets" component={PlaybackViewer} />
-            <Route path="constellations" component={PlaybackViewer} />
+            <Route path="all-categories" />
+            <Route path="the-moon" />
+            <Route path="deep-space" />
+            <Route path="planets" />
+            <Route path="the-sun" />
+            <Route path="comets" />
+            <Route path="constellations" />
+            */ }
           </Route>
-
           <Route path="upcoming-shows" component={UpcomingShows}>
+          { /*
             <IndexRedirect to="all-categories" />
-            <Route path="all-categories" component={PlaybackViewer} />
-            <Route path="the-moon" component={PlaybackViewer} />
-            <Route path="deep-space" component={PlaybackViewer} />
-            <Route path="planets" component={PlaybackViewer} />
-            <Route path="the-sun" component={PlaybackViewer} />
-            <Route path="comets" component={PlaybackViewer} />
-            <Route path="constellations" component={PlaybackViewer} />
+            <Route path="all-categories" />
+            <Route path="the-moon" />
+            <Route path="deep-space" />
+            <Route path="planets" />
+            <Route path="the-sun" />
+            <Route path="comets" />
+            <Route path="constellations" />
+          */ }
           </Route>
         </Route>
+
+        <Route path="shows/video-viewer(/:showId)" component={ShowVideoViewer} onEnter={validateUser} />
 
         <Route path="my-pictures" component={MyPictures} onEnter={validateUser}>
           <IndexRedirect to="photo-roll" />
