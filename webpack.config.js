@@ -98,6 +98,9 @@ module.exports = {
       {
         test: /\.(svg|png|jpg|jpeg|gif|woff)$/,
         loader: 'url-loader',
+        options: {
+          limit: 40,
+        },
       },
       { // loader for bootstrap
         test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,

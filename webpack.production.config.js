@@ -110,7 +110,7 @@ module.exports = {
         test: /\.(svg|png|jpg|jpeg|gif|woff)$/,
         loader: 'url-loader',
         options: {
-          limit: 100,
+          limit: 40,
         },
       },
       { // loader for bootstrap
