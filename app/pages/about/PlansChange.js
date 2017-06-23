@@ -66,38 +66,22 @@ class PlansChange extends Component {
               description={description}
             />
 
-            <div className="row">
-              <div className="col-xs-12 text-center" id="logo_in_header">
-                <a href="/" id="anchor_for_logo_in_header">
-                  <img id="slooh_logo_img" src="https://vega.slooh.com/promos/astronomy-lab/logos/slooh_logo_white.png" alt="Slooh logo" />
-                </a>
+            <div className="row first-row">
+              <div className="col-xs-6 text-left">
+                <h1 className="plan-welcome" id="plan-welcome-head">Pricing Plans</h1>
               </div>
-            </div>
 
-            <div className="row">
-              <div className="col-xs-12 text-center">
-                <h1 className="plan-welcome" id="plan-welcome-head">Welcome</h1>
-              </div>
-            </div>
-
-            <div className="row">
-              <div className="col-xs-12 text-center">
-                <h2 className="plan-welcome" id="plan-welcome-subtitle"> To Become A Member, Choose A Plan Below Thats Best For You </h2>
-              </div>
-            </div>
-
-            <div className="row">
-              <div className="col-xs-12 text-center">
-                <p className="plan-welcome" id="plan-welcome-blurb">Or <a href="/">Continue Exploring</a> The Community</p>
+              <div className="col-xs-6 text-right">
+                <a href="/" className="contact-button regButton"> Contact Us </a>
               </div>
             </div>
 
             <div className="row final-row">
 
-              <div className="col-xs-4 text-center" />
+              <div className="col-lg-3 col-md-3 col-sm-2 col-xs-2 text-center" />
 
 
-              <div className="col-xs-4 text-center">
+              <div className="col-lg-3 col-md-3 col-sm-4 col-xs-4 text-center">
 
                 <article className="plan plan-col">
 
@@ -134,6 +118,10 @@ class PlansChange extends Component {
                   </footer>
 
                 </article>
+
+              </div>
+
+              <div className="col-lg-3 col-md-3 col-sm-4 col-xs-4 text-center">
 
                 <article className="plan plan-col">
 
@@ -176,100 +164,123 @@ class PlansChange extends Component {
 
             </div>
 
-            <div className="col-xs-4 text-center" />
+            <div className="col-lg-3 col-md-3 col-sm-2 col-xs-2 text-center" />
 
           </div>
         </div>
 
         <div className="bg-div-white">
-        <section className="tab faq row-page">
 
-          <h2 className="border-top margin-top-large padding-top-xsmall">FAQ</h2>
+          <div className="row">
 
-          <div className="border-top margin-bottom-none">
+            <div className="col-lg-12">
 
-            <div className="col-full sans-serif padding-small">
+              <section className="tab faq row-page">
 
-              <input className="pull-right top-stack" id="faq-one" type="checkbox" name="tabs" />
-              <label className="top-stack" htmlFor="faq-one">How many telescopes do you have? </label>
+                <h2 className="border-top margin-top-large padding-top-xsmall">FAQ</h2>
 
-              <div className="tab-content">
-                <p>
-                  Slooh has seven telescopes situated at its flagship observatory, at the Institute of Astrophysics of the Canary Islands, one of the world’s top observatory sites, and three telescopes based in Santiago, Chile, situated at the Catholic University and offering complementary views of the southern skies. We also have a network of over 25 partner observatories bringing you live feeds of outer space.
-                </p>
-              </div>
+                <div className="border-top margin-bottom-none">
+
+                  <div className="col-full sans-serif padding-small">
+
+                    <input className="pull-right top-stack" id="faq-one" type="checkbox" name="tabs" />
+                    <label className="top-stack" htmlFor="faq-one">How many telescopes do you have? </label>
+
+                    <div className="tab-content">
+                      <p>
+                        Slooh has seven telescopes situated at its flagship observatory, at the Institute of Astrophysics of the Canary Islands, one of the world’s top observatory sites, and three telescopes based in Santiago, Chile, situated at the Catholic University and offering complementary views of the southern skies. We also have a network of over 25 partner observatories bringing you live feeds of outer space.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="border-top">
+
+                  <div className="col-full sans-serif padding-small">
+
+                    <input className="pull-right top-stack" id="faq-two" type="checkbox" name="tabs" />
+                    <label className="top-stack" htmlFor="faq-two">Is Slooh for novices or experts? </label>
+
+                    <div className="tab-content">
+                      <p>
+                        Slooh Apprentice is perfect for people who share a basic curiosity about space and Slooh Astronomer is appropriate for advanced amateur astronomers who want to track asteroids, comets, supernovae, etc. as well as participate in leading the community.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="border-top margin-bottom-none">
+
+                  <div className="col-full sans-serif padding-small">
+
+                    <input className="pull-right top-stack" id="faq-three" type="checkbox" name="tabs" />
+                    <label className="top-stack" htmlFor="faq-three">How do I control the telescope?</label>
+
+                    <div className="tab-content">
+                      <p>
+                        You make a reservation for a 5 or 10 minute “mission” on any one of the telescopes. Slooh works like a jukebox--one member is in control while all other paying members can watch along.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="border-top margin-bottom-none">
+                  <div className="col-full sans-serif padding-small">
+
+                    <input className="pull-right top-stack" id="faq-four" type="checkbox" name="tabs" />
+                    <label className="top-stack" htmlFor="faq-four">Do I need a strong science background to use Slooh?</label>
+
+                    <div className="tab-content">
+                      <p>
+                        No, Slooh embraces all perspectives about what is ‘out there’ and the community is open to the spiritual, the artistic, the imaginative, along with the scientific. You will find David Bowie and Vincent Van Gogh next to Albert Einstein and Carl Sagan.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="border-top margin-bottom-none">
+                  <div className="col-full sans-serif padding-small">
+
+                    <input className="pull-right top-stack" id="faq-five" type="checkbox" name="tabs" />
+                    <label className="top-stack" htmlFor="faq-five">Is there any limit to the number of photos I can take? </label>
+
+                    <div className="tab-content">
+                      <p>
+                        No, you can snap as many pictures as desired, which will be saved in your “My Pictures” gallery, which you can freely share, on your way to collecting all solar systems objects, Messier objects, Slooh 500, and other catalogs and challenges we create for you.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </section>
             </div>
           </div>
-
-          <div className="border-top">
-
-            <div className="col-full sans-serif padding-small">
-
-              <input className="pull-right top-stack" id="faq-two" type="checkbox" name="tabs" />
-              <label className="top-stack" htmlFor="faq-two">Is Slooh for novices or experts? </label>
-
-              <div className="tab-content">
-                <p>
-                  Slooh Apprentice is perfect for people who share a basic curiosity about space and Slooh Astronomer is appropriate for advanced amateur astronomers who want to track asteroids, comets, supernovae, etc. as well as participate in leading the community.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div className="border-top margin-bottom-none">
-
-            <div className="col-full sans-serif padding-small">
-
-              <input className="pull-right top-stack" id="faq-three" type="checkbox" name="tabs" />
-              <label className="top-stack" htmlFor="faq-three">How do I control the telescope?</label>
-
-              <div className="tab-content">
-                <p>
-                  You make a reservation for a 5 or 10 minute “mission” on any one of the telescopes. Slooh works like a jukebox--one member is in control while all other paying members can watch along.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div className="border-top margin-bottom-none">
-            <div className="col-full sans-serif padding-small">
-
-              <input className="pull-right top-stack" id="faq-four" type="checkbox" name="tabs" />
-              <label className="top-stack" htmlFor="faq-four">Do I need a strong science background to use Slooh?</label>
-
-              <div className="tab-content">
-                <p>
-                  No, Slooh embraces all perspectives about what is ‘out there’ and the community is open to the spiritual, the artistic, the imaginative, along with the scientific. You will find David Bowie and Vincent Van Gogh next to Albert Einstein and Carl Sagan.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div className="border-top margin-bottom-none">
-            <div className="col-full sans-serif padding-small">
-
-              <input className="pull-right top-stack" id="faq-five" type="checkbox" name="tabs" />
-              <label className="top-stack" htmlFor="faq-five">Is there any limit to the number of photos I can take? </label>
-
-              <div className="tab-content">
-                <p>
-                  No, you can snap as many pictures as desired, which will be saved in your “My Pictures” gallery, which you can freely share, on your way to collecting all solar systems objects, Messier objects, Slooh 500, and other catalogs and challenges we create for you.
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
 
         </div>
 
         <style jsx>{`
-          #slooh_logo_img {
-            width: 160px;
-            margin: 50px 0px 50px 0px;
+          .app-content-container, .static-app-content-container {
+            min-width: 400px;
+          }
+
+
+
+          .first-row {
+            margin: 50px 25px 50px 25px;
           }
 
           .plan-welcome {
             color: white;
+          }
+
+          a.contact-button.regButton {
+            font-family: "brandon-grotesque",sans-serif;
+            text-decoration: none;
+            padding: 10px;
+            width: 50px;
+            margin-top: 10px;
+            background-color: #F310A7;
+            color: #fff;
+            cursor: pointer;
           }
 
           #plan-welcome-subtitle {

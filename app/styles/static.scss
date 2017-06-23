@@ -216,7 +216,7 @@ input[type="number"] {
     }
     .plan {
         color: $slooh-white;
-        float: left;
+        // float: left;
         font-family: $slooh-header;
         margin: 0 5px;
         padding: 5px;
@@ -224,7 +224,7 @@ input[type="number"] {
         overflow-y: hidden;
 
         .btn-primary {
-          max-width: 145px;
+          max-width: 170px;
           cursor: pointer;
         }
     }
@@ -1571,7 +1571,7 @@ input[type="number"] {
     ul.features li {
         border-bottom: 1px solid rgba($slooh-gray, .2);
         color: rgba($slooh-white, 1);
-        @include font-size(12px);
+        @include font-size(16px);
         font-weight: 400;
         list-style: none;
         margin: 0;
