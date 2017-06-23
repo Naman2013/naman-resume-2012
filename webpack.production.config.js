@@ -55,7 +55,7 @@ module.exports = {
         exclude: /node_modules/,
         query: {
           search: '/api/',
-          replace: !!apiUrl ? `${apiUrl}:${apiPortNumber}/api/` : '/api/',
+          replace: apiUrl ? `${apiUrl}:${apiPortNumber}/api/` : '/api/',
           flags: 'g'
         }
       },
@@ -109,6 +109,9 @@ module.exports = {
       {
         test: /\.(svg|png|jpg|jpeg|gif|woff)$/,
         loader: 'url-loader',
+        options: {
+          limit: 100,
+        },
       },
       { // loader for bootstrap
         test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
