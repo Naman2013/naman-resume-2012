@@ -72,7 +72,7 @@ class PlansChange extends Component {
               </div>
 
               <div className="col-xs-6 text-right">
-                <a href="/" className="contact-button regButton"> Contact Us </a>
+                <a href="#/about/contact" className="contact-button regButton"> Contact Us </a>
               </div>
             </div>
 
@@ -270,6 +270,7 @@ class PlansChange extends Component {
 
           .plan-welcome {
             color: white;
+            font-weight: 300;
           }
 
           a.contact-button.regButton {
