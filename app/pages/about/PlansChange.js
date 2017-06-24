@@ -219,7 +219,7 @@ class PlansChange extends Component {
 
                     <div className="tab-content">
                       <p>
-                        You make a reservation for a 5 or 10 minute “mission” on any one of the telescopes. Slooh works like a jukebox--one member is in control while all other paying members can watch along.
+                        You make a reservation for a 5 or 10 minute &quot;mission&quot; on any one of the telescopes. Slooh works like a jukebox--one member is in control while all other paying members can watch along.
                       </p>
                     </div>
                   </div>
@@ -233,7 +233,7 @@ class PlansChange extends Component {
 
                     <div className="tab-content">
                       <p>
-                        No, Slooh embraces all perspectives about what is ‘out there’ and the community is open to the spiritual, the artistic, the imaginative, along with the scientific. You will find David Bowie and Vincent Van Gogh next to Albert Einstein and Carl Sagan.
+                        No, Slooh embraces all perspectives about what is &quot;out there&quot; and the community is open to the spiritual, the artistic, the imaginative, along with the scientific. You will find David Bowie and Vincent Van Gogh next to Albert Einstein and Carl Sagan.
                       </p>
                     </div>
                   </div>
@@ -247,7 +247,7 @@ class PlansChange extends Component {
 
                     <div className="tab-content">
                       <p>
-                        No, you can snap as many pictures as desired, which will be saved in your “My Pictures” gallery, which you can freely share, on your way to collecting all solar systems objects, Messier objects, Slooh 500, and other catalogs and challenges we create for you.
+                        No, you can snap as many pictures as desired, which will be saved in your &quot;My Pictures&quot; gallery, which you can freely share, on your way to collecting all solar systems objects, Messier objects, Slooh 500, and other catalogs and challenges we create for you.
                       </p>
                     </div>
                   </div>

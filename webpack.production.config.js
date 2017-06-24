@@ -13,6 +13,7 @@ module.exports = {
       'bootstrap',
       'classnames',
       'cookie',
+      'lodash',
       'moment',
       'moment-timezone',
       'axios',
