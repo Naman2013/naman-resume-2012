@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import style from './recent-video-tile.scss';
+import './recent-video-tile.scss';
 
 class RecentVideoTile extends Component {
 
@@ -8,37 +8,37 @@ class RecentVideoTile extends Component {
     super(props);
 
     this.state = {
-      isVideoPlay: false
-    }
+      isVideoPlay: false,
+    };
   }
 
   playVideo() {
     this.setState({
-      isVideoPlay: true
-    })
+      isVideoPlay: true,
+    });
   }
 
   render() {
     const inlineStyle = {
       background: `url(${this.props.imageUrl}) no-repeat center center`,
       backgroundSize: 'cover',
-      minHeight: '255px'
+      minHeight: '255px',
     };
 
-    const cover = () => {
-      return <div>
-          <div style={inlineStyle} className="recent-video-tile">
-            <h4 className="title">{this.props.title}</h4>
-          </div>
-        </div>
-    }
-
-    return(
+    return (
       <div className="col-md-4 recent-video-tile-container">
         <div className="video-wrap">
-          <iframe className="home-youtube-video" width="100%" src={this.props.videoUrl} seamless allowFullScreen autoPlay="1" frameBorder="0"></iframe>
+          <iframe
+            className="home-youtube-video"
+            width="100%"
+            src={this.props.videoUrl}
+            seamless
+            allowFullScreen
+            autoPlay="1"
+            frameBorder="0"
+          />
         </div>
-        <p className="content">{this.props.content}</p>
+        <p className="content" dangerouslySetInnerHTML={{ __html: this.props.content }} />
       </div>
     );
   }
