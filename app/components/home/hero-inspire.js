@@ -5,7 +5,7 @@
   call to action
   */
 import React, { Component } from 'react';
-import { Link } from 'react-router'
+import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
@@ -13,7 +13,6 @@ import style from './hero-inspire.scss';
 
 import ScrollForMore from '../common/scroll-for-more';
 import isMobileScreenSize from '../../utils/content-loading-conditions';
-import isExternalURL from '../../utils/is-external-url';
 
 const mapStateToProps = ({ appConfig }) => ({
   registerNewMemberURL: appConfig.registerNewMemberURL,
@@ -26,7 +25,7 @@ class HeroInspire extends Component {
   };
 
   componentDidMount() {
-    const video = document.getElementById('heroInspireVideoBackground');
+    const video = window.document.getElementById('heroInspireVideoBackground');
     if (video !== null) {
       this.videoRenderedTimer = setInterval(() => {
         if (video.readyState === 4) {
@@ -96,7 +95,7 @@ class HeroInspire extends Component {
         }
 
         <div className={style.contentContainer}>
-          <h2 className="title">{heroHeadline}</h2>
+          <h2 className="title" dangerouslySetInnerHTML={{ __html: heroHeadline }} />
           <h3 className="sub-title">{heroSubheadline}</h3>
 
           <img className={style.iconSpacer} alt="" src="assets/icons/three-amigos-with-bar.svg" />
