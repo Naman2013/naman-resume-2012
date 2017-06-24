@@ -1,6 +1,4 @@
-import React, { Component, PropTypes } from 'react';
-//import { connect } from 'react-redux';
-
+import React, { Component } from 'react';
 
 class LiveSign extends Component {
   render() {
@@ -8,7 +6,7 @@ class LiveSign extends Component {
       <div className="signContainer">
         <div className="circle circle_blink" />
         <div className="liveSignContainer" >
-          <div className="liveSign  ">
+          <div className="liveSign">
             <div className="">LIVE</div>
           </div>
         </div>
@@ -22,8 +20,7 @@ class LiveSign extends Component {
               background: none;
               padding: 5px;
               width: 270px;
-              /*   border: 1px solid black; */
-              overflow: hidden; /* will contain if #first is longer than #second */
+              overflow: hidden;
             }
 
             .liveSignContainer {
@@ -36,7 +33,7 @@ class LiveSign extends Component {
               -moz-box-shadow:    inset 0 0 5px #000000;
               -webkit-box-shadow: inset 0 0 5px #000000;
               box-shadow:         inset 0 0 5px #000000;
-              overflow: hidden; /* if you don't want #second to wrap below #first */
+              overflow: hidden;
             }
 
             .circle{
@@ -67,8 +64,6 @@ class LiveSign extends Component {
               font-family: 'Oswald', sans-serif;
               font-weight: 700;
               font-size: 24px;
-              /*   border: 5px solid white;
-              border-radius: 25px;*/
               padding: 1px;
             }
             `
@@ -78,4 +73,4 @@ class LiveSign extends Component {
   }
 }
 
-export default LiveSign
+export default LiveSign;
