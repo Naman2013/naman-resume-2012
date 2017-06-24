@@ -214,6 +214,7 @@ class TelescopeDetails extends Component {
     const { obsUniqueId, teleUniqueId } = params;
     const { obsId } = currentObservatory;
     const { teleInstrumentList, teleId, teleCanReserveMissions } = currentTelescope;
+    const telescopeOnline = currentTelescopeOnlineStatus && currentTelescopeOnlineStatus.onlineStatus === 'online';
 
     return (
       <div className="telescope-details-page-wrapper">
@@ -280,7 +281,7 @@ class TelescopeDetails extends Component {
 
                       {
                         /** load the neoview */
-                        (currentTelescopeOnlineStatus && currentTelescopeOnlineStatus.onlineStatus === 'online') && currentTelescope.teleHasNeoView ?
+                        (telescopeOnline && currentTelescope.teleHasNeoView) ?
                           <Neoview
                             port={currentTelescope.teleNeoPort}
                             teleSystem={currentTelescope.teleSystem}
@@ -308,7 +309,7 @@ class TelescopeDetails extends Component {
               <Spacer height="50px" />
 
               {
-                displayCommunityContent ?
+                (displayCommunityContent && telescopeOnline) ?
                   <div>
                     <PromoMessageBanner
                       title="Community Perspectives"
