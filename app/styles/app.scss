@@ -32,11 +32,18 @@ img {
   }
 }
 
+.app-content-container {
+  min-width: $slooh-content-width;
+}
+
+.static-app-content-container {
+  min-width: 540px;
+}
+
 .app-content-container, .static-app-content-container {
   font-family: $primary-font;
   background: #fff;
   padding: $slooh-header-height 0 0 $slooh-menu-width;
-  min-width:  540px;
   overflow: hidden;
   min-height: 960px;
 

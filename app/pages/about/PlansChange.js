@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { Link } from 'react-router';
 import ModalGeneric from '../../components/common/modals/modal-generic';
 
 const PLAN_DESCRIPTIONS = {
@@ -19,7 +20,7 @@ const PLAN_DESCRIPTIONS = {
   SLOOH_ROAD_TRIP: {
     title: 'Slooh Road Trip',
     description: 'Join Slooh for outdoor events such as the Total Solar Eclipse in Stanley, Idaho on August 21st, 2017',
-  }
+  },
 };
 
 class PlansChange extends Component {
@@ -72,7 +73,7 @@ class PlansChange extends Component {
               </div>
 
               <div className="col-xs-6 text-right">
-                <a href="#/about/contact" className="contact-button regButton"> Contact Us </a>
+                <Link to="/about/contact" className="contact-button regButton"> Contact Us </Link>
               </div>
             </div>
 
