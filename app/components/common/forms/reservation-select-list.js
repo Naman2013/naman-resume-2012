@@ -25,7 +25,7 @@
 */
 
 import React, { Component, PropTypes } from 'react';
-import _ from 'lodash';
+import { has } from 'lodash';
 import classnames from 'classnames';
 import './reservation-select-list.scss';
 
@@ -62,11 +62,11 @@ class ReservationSelectList extends Component {
             const elementId = generateId(index);
             const isChecked = parseInt(selectedIndex, 10) === index;
             // here is where we determine whether or not we have a titled Option
-            const isTitle = _.has(option, 'title');
+            const isTitle = has(option, 'title');
             const optionContent = option.option || option;
 
             // if the option has a property enabled to read - use that - otherwise set it to true
-            const enabled = (_.has(option, 'enabled')) ? option.enabled : true;
+            const enabled = (has(option, 'enabled')) ? option.enabled : true;
 
             const labelClasses = classnames(`multi-option-list-label ${themeClassname}`, {
               disabled: !enabled,
