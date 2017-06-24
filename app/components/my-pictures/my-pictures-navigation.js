@@ -1,5 +1,5 @@
-import React, { Component, PropTypes } from 'react';
-import _ from 'lodash';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -52,11 +52,13 @@ class MyPicturesNavigation extends Component {
   }
 
   get objectFilterDisplayName() {
-    const { objectFilterList, objectTypeFilter } = this.props;
-    return _(objectFilterList)
-      .filter(objectFilter => objectFilter.objectTypeFilter === objectTypeFilter.filterByField)
-      .map('objectTypeDisplayName')
-      .value()[0];
+    const { objectFilterList, objectTypeFilter: { filterByIndex } } = this.props;
+
+    if (filterByIndex) {
+      return objectFilterList[filterByIndex].objectTypeDisplayName;
+    }
+
+    return undefined;
   }
 
   render() {

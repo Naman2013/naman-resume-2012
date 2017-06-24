@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import createReducer from '../utils/createReducer';
 import {
   UPLOAD_AVATAR_START,

@@ -2,6 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const apiUrl = process.env.apiUrl || '';
 const apiPortNumber = process.env.apiPortNumber || '';
@@ -12,7 +13,6 @@ module.exports = {
       'bootstrap',
       'classnames',
       'cookie',
-      'lodash',
       'moment',
       'moment-timezone',
       'axios',
@@ -129,6 +129,12 @@ module.exports = {
     new CopyWebpackPlugin([
       { from: './assets/**/*' },
     ]),
+    new BundleAnalyzerPlugin({
+      analyzerMode: 'server',
+      analyzerHost: 'localhost',
+      analyzerPort: 8888,
+      openAnalyzer: false,
+    }),
   ],
   devtool: 'cheap-module-eval-source-map',
   devServer: {

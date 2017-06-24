@@ -1,9 +1,9 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import { Modal } from 'react-bootstrap';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import moment from 'moment-timezone';
-import _ from 'lodash';
+import isEmpty from 'lodash/isEmpty';
 
 import { cancelMissionSlot, reserveMissionSlot, updateReservation, missionGetCards } from '../../../modules/Missions';
 import { setTags, resetClientTagData } from '../../../modules/tag-management/Tags';
@@ -249,7 +249,7 @@ class ReserveConfirm extends Component {
     const { open, currentMissionSlot } = this.props;
 
     // validate whether or not we have a mission slot ready to render
-    if (_.isEmpty(currentMissionSlot)) { return null; }
+    if (isEmpty(currentMissionSlot)) { return null; }
 
     return (
       <Modal show={open} className="missionModal reserveMissionModal">

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Progress from 'react-progressbar';
 import classnames from 'classnames';
-import { uniqueId } from 'lodash';
+import uniqueId from 'lodash/uniqueId';
 import NeoViewDescription from './NeoViewDescription';
 import NewViewMessage from './NeoViewMessage';
 import s from './neoview.scss';

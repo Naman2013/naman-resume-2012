@@ -1,5 +1,6 @@
-import React, { Component, PropTypes } from 'react';
-import _ from 'lodash';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import noop from 'lodash/noop';
 import classnames from 'classnames';
 import styles from './Pagination.scss';
 
@@ -68,8 +69,8 @@ Pagination.defaultProps = {
   pageCount: '0',
   currentRange: '0-0',
   totalCount: 0,
-  handlePreviousPageClick: _.noop,
-  handleNextPageClick: _.noop,
+  handlePreviousPageClick: noop,
+  handleNextPageClick: noop,
   canNext: true,
   canPrevious: true,
 };

@@ -1,6 +1,6 @@
 import React from 'react';
-import { uniqueId } from 'lodash';
 import { PropTypes } from 'prop-types';
+import uniqueId from 'lodash/uniqueId';
 
 export default function NeoViewMessage({ message }) {
   return (

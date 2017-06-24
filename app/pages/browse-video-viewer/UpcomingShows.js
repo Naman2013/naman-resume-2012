@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import _ from 'lodash';
+import noop from 'lodash/noop';
 import ShowsList from '../../components/video-viewer/ShowsList';
 import { fetchUpcomingShows } from '../../modules/browse-video-viewer/upcoming-shows-actions';
 // import CategoryNavigation from '../../components/video-viewer/CategoryNavigation';
@@ -93,7 +93,7 @@ class UpcomingShows extends Component {
   }
   static defaultProps = {
     actions: {
-      fetchUpcomingShows: _.noop,
+      fetchUpcomingShows: noop,
     },
     eventList: [],
     resultsCount: '0',

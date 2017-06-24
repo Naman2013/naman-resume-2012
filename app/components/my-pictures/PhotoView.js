@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import _ from 'lodash';
 import GenericLoadingBox from '../common/loading-screens/generic-loading-box';
 import ModalGeneric from '../common/modals/modal-generic';
 import PhotoList from './PhotoList';

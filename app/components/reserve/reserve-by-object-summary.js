@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import { noop } from 'lodash';
 import styles from './reserve-by-object.scss';
 
 class ReserveObjectSummary extends Component {

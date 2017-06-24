@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { uniqueId } from 'lodash';
+import uniqueId from 'lodash/uniqueId';
 import { primaryFont } from '../../styles/variables/fonts';
 import { lightGray } from '../../styles/variables/colors';
 

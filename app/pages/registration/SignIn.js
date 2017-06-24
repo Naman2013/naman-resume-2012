@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
-import { uniqueId } from 'lodash';
+import uniqueId from 'lodash/uniqueId';
 import Header from './common/Header';
 import Tier from './common/Tier';
 import FormErrorMessage from './common/FormErrorMessage';

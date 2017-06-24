@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import _ from 'lodash';
+import flatten from 'lodash/flatten';
+import has from 'lodash/has';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Header from '../../components/publish-post/header';
@@ -269,7 +270,7 @@ class PublishPost extends Component {
   }
 
   get formattedCategoryTopics() {
-    return _.flatten(this.currentCategoryTopics.map((topic) => {
+    return flatten(this.currentCategoryTopics.map((topic) => {
       return {
         option: topic.topicDisplayName,
         ...topic,
@@ -293,7 +294,7 @@ class PublishPost extends Component {
 
   get tagList() {
     const { tags } = this.props;
-    return _.has(tags, 'tags.tagList') ? tags.tags.tagList : [];
+    return has(tags, 'tags.tagList') ? tags.tags.tagList : [];
   }
 
   render() {

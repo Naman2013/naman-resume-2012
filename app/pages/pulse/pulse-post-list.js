@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import Pagination from 'rc-pagination';
 import 'rc-pagination/assets/index.css';
-import { uniqueId } from 'lodash';
+import uniqueId from 'lodash/uniqueId';
 import PulsePostItem from './pulse-post-item';
 
 class PulsePostList extends Component {

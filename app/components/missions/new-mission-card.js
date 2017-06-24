@@ -1,9 +1,10 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import moment from 'moment-timezone';
-import _ from 'lodash';
+import truncate from 'lodash/truncate';
 import classnames from 'classnames';
 import styles from './mission-card.scss';
 
@@ -177,7 +178,7 @@ class NewMissionCard extends Component {
             featured ?
               <p className={styles.cardDescription}>{description}</p>
               :
-              <p className={styles.cardDescription}>{_.truncate(description, {'length': 130, 'separator': ' '})}</p>
+              <p className={styles.cardDescription}>{truncate(description, {'length': 130, 'separator': ' '})}</p>
           }
 
           {

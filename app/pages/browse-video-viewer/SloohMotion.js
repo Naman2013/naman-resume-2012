@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import _ from 'lodash';
+import noop from 'lodash/noop';
 import ShowsList from '../../components/video-viewer/ShowsList';
 import { fetchHighlightsShows } from '../../modules/browse-video-viewer/highlights-shows-actions';
 // import CategoryNavigation from '../../components/video-viewer/CategoryNavigation';
@@ -93,7 +93,7 @@ class SloohMotion extends Component {
   }
   static defaultProps = {
     actions: {
-      fetchHighlightsShows: _.noop,
+      fetchHighlightsShows: noop,
     },
     eventList: [],
     resultsCount: '0',

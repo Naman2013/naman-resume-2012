@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
-import { uniqueId } from 'lodash';
+import uniqueId from 'lodash/uniqueId';
 import styles from './style/categories-nav.scss';
 
 class CategoriesNav extends Component {
