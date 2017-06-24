@@ -1,7 +1,7 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import _ from 'lodash';
+import has from 'lodash/has';
 import { fetchMashupSettings } from '../../modules/mashup-settings/get-mashup-actions';
 import s from './TintUp.scss';
 
@@ -40,7 +40,7 @@ class TintUp extends Component {
       document.body.removeChild(document.getElementById(SDK_INSTANCE_REFERENCE))
     }
 
-    if (_.has(window, 'HM')) {
+    if (has(window, 'HM')) {
       delete window.HM;
     }
   }

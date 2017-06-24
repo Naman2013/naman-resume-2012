@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import Lightbox from 'react-images';
 import classnames from 'classnames';
-import { uniqueId } from 'lodash';
+import uniqueId from 'lodash/uniqueId';
 import RefreshedImage from '../../common/refreshed-static-image/RefreshedImage';
 import Offline from './Offline';
 import s from './AllSkyCamera.scss';

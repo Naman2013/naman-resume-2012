@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
-import { isEmpty } from 'lodash';
+import isEmpty from 'lodash/isEmpty';
 import ByUserTag from '../common/by-user-tag/by-user-tag';
 import Heart from '../common/heart/heart';
 import { likeThread } from '../../services/discussions/like';

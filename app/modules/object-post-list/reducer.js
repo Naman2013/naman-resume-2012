@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import createReducer from '../utils/createReducer';
 import {
   FETCH_OBJECT_ALL_TIME_BEST_START,

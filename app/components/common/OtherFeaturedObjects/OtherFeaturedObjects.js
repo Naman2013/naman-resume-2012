@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { uniqueId } from 'lodash';
+import uniqueId from 'lodash/uniqueId';
 import * as otherFeaturedObjectsActions from '../../../modules/other-featured-objects/actions';
 import styles from './OtherFeaturedObjects.scss';
 

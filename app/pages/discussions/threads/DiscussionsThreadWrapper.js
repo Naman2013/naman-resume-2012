@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { List } from 'immutable';
-import _ from 'lodash';
+import isEmpty from 'lodash/isEmpty';
 import * as topicsActions from '../../../modules/discussions-topics/actions';
 import * as threadActions from '../../../modules/discussions-thread/actions';
 import * as replyActions from '../../../modules/discussions-replies/actions';
@@ -64,7 +64,7 @@ class DiscussionsThreadWrapper extends Component {
         <section className="discussions-container thread-list container-fluid clearfix">
           <div className="col-md-8 nopadding">
             {fetching && <GenericLoadingBox /> }
-            {!fetching && !_.isEmpty(thread) && <DiscussionsThread
+            {!fetching && !isEmpty(thread) && <DiscussionsThread
               repliesList={currentReplyList}
               forumId={forumId}
               thread={thread}

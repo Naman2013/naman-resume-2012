@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import moment from 'moment-timezone';
-import { truncate } from 'lodash';
+import truncate from 'lodash/truncate';
 import classnames from 'classnames';
 import styles from './mission-card.scss';
 

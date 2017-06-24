@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
-import { uniqueId } from 'lodash';
+import uniqueId from 'lodash/uniqueId';
 import styles from './style/pulse-post-tag.scss';
 
 const PulsePostTag = ({ tags }) =>

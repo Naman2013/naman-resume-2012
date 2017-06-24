@@ -2,7 +2,9 @@ import React, { Component, PropTypes } from 'react';
 import { Link, hashHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import _ from 'lodash';
+import find from 'lodash/find';
+import get from 'lodash/get';
+import sortBy from 'lodash/sortBy';
 import { List } from 'immutable';
 import classnames from 'classnames';
 import UploadImage from '../../../components/publish-post/upload-image';
@@ -60,11 +62,11 @@ class NewDiscussionsThread extends Component {
         // if there's a forumId or a topicId, preselect it in the dropdowns
         if (forumId || topicId) {
           const { forumList } = res.payload;
-          const currentForum = _.find(forumList, forum => forum.forumId === Number(forumId));
-          const currentTopic = _.find(currentForum.forumTopicList, topic => topic.topicId === Number(topicId));
+          const currentForum = find(forumList, forum => forum.forumId === Number(forumId));
+          const currentTopic = find(currentForum.forumTopicList, topic => topic.topicId === Number(topicId));
           this.setState({
-            selectedForumIndex: _.get(currentForum, 'forumIndex'),
-            selectedTopicIndex: _.get(currentTopic, 'topicIndex'),
+            selectedForumIndex: get(currentForum, 'forumIndex'),
+            selectedTopicIndex: get(currentTopic, 'topicIndex'),
           });
         }
       });
@@ -152,12 +154,12 @@ class NewDiscussionsThread extends Component {
 
   get forumOptions() {
     const { forumList } = this.props;
-    return _.sortBy(forumList.toArray().map(forum => <span dangerouslySetInnerHTML={{ __html: forum.get('forumTitle') }} />), f => f.forumIndex) || [];
+    return sortBy(forumList.toArray().map(forum => <span dangerouslySetInnerHTML={{ __html: forum.get('forumTitle') }} />), f => f.forumIndex) || [];
   }
 
   get topicOptions() {
     const { selectedForum } = this;
-    return _.sortBy(selectedForum &&
+    return sortBy(selectedForum &&
       selectedForum
         .get('forumTopicList')
         .map(topic => <span dangerouslySetInnerHTML={{ __html: topic.get('topicTitle') }} />), t => t.topicIndex) || [];

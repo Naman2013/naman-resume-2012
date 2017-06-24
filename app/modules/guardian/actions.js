@@ -1,5 +1,4 @@
 import axios from 'axios';
-import _ from 'lodash';
 
 export const GUARDIAN_INFO_START = 'GUARDIAN_INFO_START';
 export const GUARDIAN_INFO_SUCCESS = 'GUARDIAN_INFO_SUCCESS';

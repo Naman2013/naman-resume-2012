@@ -1,8 +1,9 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import moment from 'moment';
-import { noop } from 'lodash';
+import noop from 'lodash/noop';
 
-import style from './inline-countdown.scss';
+import './inline-countdown.scss';
 
 class InlineCountdown extends Component {
 

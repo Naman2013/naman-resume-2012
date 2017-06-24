@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import _ from 'lodash';
+import noop from 'lodash/noop';
 import GoogleAd from '../../components/common/google-ads/GoogleAd';
 import VideoImageLoader from '../../components/common/telescope-image-loader/video-image-loader';
 import CommunityMashup from '../../components/situation-room/CommunityMashup';
@@ -64,8 +64,8 @@ class ShowVideoViewer extends Component {
   }
   static defaultProps = {
     actions: {
-      fetchRecordedShow: _.noop,
-      fetchShowContent: _.noop,
+      fetchRecordedShow: noop,
+      fetchShowContent: noop,
     },
     showStreamCode: '',
     showStreamURL: '',

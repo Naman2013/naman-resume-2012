@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-import { uniqueId } from 'lodash';
+import uniqueId from 'lodash/uniqueId';
 import Countdown from '../../containers/Countdown';
 import VideoImageLoader from '../../components/common/telescope-image-loader/video-image-loader';
 import TelescopeImageViewer from '../../components/common/telescope-image-viewer/telescope-image-viewer';

@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import cloneDeep from 'lodash/cloneDeep';
 import createReducer from '../utils/createReducer';
 import {
   FETCH_REPLIES_START,
@@ -33,7 +33,7 @@ export default createReducer(initialState, {
   },
   [FETCH_REPLIES_SUCCESS](state, { payload }) {
     const { replies, threadId, page, resultsCount, appendToList } = payload;
-    const newState = _.cloneDeep(state.repliesLists);
+    const newState = cloneDeep(state.repliesLists);
     newState[threadId] = (newState[threadId] && appendToList) ?
       newState[threadId].concat(replies) : replies;
 

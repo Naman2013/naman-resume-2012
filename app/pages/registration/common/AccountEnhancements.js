@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import { uniqueId } from 'lodash';
+import uniqueId from 'lodash/uniqueId';
 import s from './AccountEnhancements.scss';
 
 const AccountEnhancements = ({

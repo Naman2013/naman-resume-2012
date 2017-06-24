@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import classnames from 'classnames';
-import _ from 'lodash';
+import isEmpty from 'lodash/isEmpty';
 import LastRefreshed from './last-refreshed';
 import { fetchDateRanges } from '../../../modules/mission-slots-by-telescope/mission-slot-dates-actions';
-import style from './date-selection-navigation.scss';
+import './date-selection-navigation.scss';
 
 const mapStateToProps = ({ missionSlotDates, missionSlotsByTelescope, telescopeSlots }) => ({
   missionSlotDates,
@@ -122,7 +122,7 @@ class DateSelectionNavigation extends Component {
       dateRangeIsFetching
     } = this.props.missionSlotDates;
 
-    if (dateRangeIsFetching || dateRangeIsError || _.isEmpty(dateRangeResponse)) {
+    if (dateRangeIsFetching || dateRangeIsError || isEmpty(dateRangeResponse)) {
       return null;
     }
 

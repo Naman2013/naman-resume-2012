@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
-import { uniqueId } from 'lodash';
-import { iconCategory as icon } from '../../community/tools/community-icon';
+import uniqueId from 'lodash/uniqueId';
 import styles from '../style/pulse-popular.scss';
 
 class PulsePopular extends Component {

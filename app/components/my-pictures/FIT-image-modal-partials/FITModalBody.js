@@ -1,5 +1,5 @@
 import React from 'react';
-import { uniqueId } from 'lodash';
+import uniqueId from 'lodash/uniqueId';
 import s from './FITModalBody.scss';
 
 export default function FITModalBody({ groupList, infoText }) {

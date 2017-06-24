@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import createReducer from '../utils/createReducer';
 import {
   GUARDIAN_INFO_START,

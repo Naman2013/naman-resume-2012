@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { List } from 'immutable';
 import { connect } from 'react-redux';
-import _ from 'lodash';
+import isEmpty from 'lodash/isEmpty';
 import classnames from 'classnames';
 import UploadImage from '../../../components/publish-post/upload-image';
 import { fetchThread } from '../../../modules/discussions-thread/actions';
@@ -34,7 +34,7 @@ class DiscussionsReplyTo extends Component {
       routeParams: { threadId, topicId, forumId, replyId },
       prepareReply,
     } = this.props;
-    if (_.isEmpty(thread)) {
+    if (isEmpty(thread)) {
       fetchThread({
         topicId,
         threadId,

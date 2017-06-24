@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { uniqueId } from 'lodash';
+import uniqueId from 'lodash/uniqueId';
 import ByUserTag from '../by-user-tag/by-user-tag';
 import * as guardianActions from '../../../modules/guardian/actions';
 import styles from '../OtherFeaturedObjects/OtherFeaturedObjects.scss';

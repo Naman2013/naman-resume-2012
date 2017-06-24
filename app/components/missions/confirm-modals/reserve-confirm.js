@@ -1,9 +1,9 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import { Modal } from 'react-bootstrap';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import moment from 'moment-timezone';
-import { isEmpty } from 'lodash';
+import isEmpty from 'lodash/isEmpty';
 
 import { cancelMissionSlot, reserveMissionSlot, updateReservation, missionGetCards } from '../../../modules/Missions';
 import { setTags, resetClientTagData } from '../../../modules/tag-management/Tags';
