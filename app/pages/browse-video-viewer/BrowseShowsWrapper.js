@@ -1,5 +1,4 @@
 import React, { Component, cloneElement } from 'react';
-import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import BrowseShowsNavigation from '../../components/video-viewer/BrowseShowsNavigation';

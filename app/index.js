@@ -90,7 +90,6 @@ import DiscussionsThreadWrapper from './pages/discussions/threads/DiscussionsThr
 import DiscussionsTopicsList from './pages/discussions/topics/DiscussionsTopicsList';
 
 import Landing from './pages/landing/Landing';
-import { onEnterLanding, onLeaveLanding } from './modules/landing/actions';
 
 import PostingGuidelines from './pages/help/PostingGuidelines';
 import NewToSlooh from './pages/help/NewToSlooh';

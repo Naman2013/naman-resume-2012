@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -12,6 +13,8 @@ import AnnouncementBanner from '../components/common/announcement-banner/announc
 import TelescopeFilterNav from '../components/telescope-overview/telescope-filter-nav';
 import ObservatoryHero from '../components/telescope-overview/observatory-hero';
 import TelescopeCards from '../components/telescope-overview/telescope-cards/telescope-cards';
+
+import { backgroundImageCover } from '../styles/mixins/utilities';
 
 const MINIMUM_TELESCOPE_REFRESH_RATE = 0;
 
@@ -89,7 +92,7 @@ class TelescopeOverview extends Component {
     const { obsId } = currentObservatory;
 
     return (
-      <div>
+      <div className="root">
 
         <AnnouncementBanner
           obsId={obsId}
@@ -109,6 +112,13 @@ class TelescopeOverview extends Component {
           observatoryTelecopeStatus={this.props.observatoryTelecopeStatus}
           observatory={currentObservatory}
         />
+
+        <style jsx>{`
+          .root {
+            ${backgroundImageCover}
+            background-image: url("assets/images/photos/hero-inspire-background.jpg");
+          }
+        `}</style>
 
       </div>
     );
