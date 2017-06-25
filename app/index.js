@@ -238,7 +238,7 @@ ReactDOM.render(
             <Route path="constellations" />
           */ }
           </Route>
-          <Route path="slooh-motion" component={SloohMotion}>
+          <Route path="highlighted" component={SloohMotion}>
             { /*
             <IndexRedirect to="all-categories" />
             <Route path="all-categories" />
