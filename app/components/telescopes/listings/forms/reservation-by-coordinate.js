@@ -2,6 +2,9 @@
   NOTES:
   underscores used in some naming to improve legability
 
+  Calculation inspiration:
+  http://www.rapidtables.com/convert/number/degrees-to-degrees-minutes-seconds.htm
+
   Example calculation of Decimal to Degrees:
   -18° 13' 52" = -18.23111
   90 59 59 =
