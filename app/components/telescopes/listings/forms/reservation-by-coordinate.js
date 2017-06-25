@@ -85,7 +85,6 @@ class ReservationByCoordinate extends Component {
     this.handleRaHChange = this.handleRaHChange.bind(this);
     this.handleRaMChange = this.handleRaMChange.bind(this);
     this.handleRaSChange = this.handleRaSChange.bind(this);
-    this.handleDecMChange = this.handleDecMChange.bind(this);
     this.handleDecSChange = this.handleDecSChange.bind(this);
 
     this.handleDECChange = this.handleDECChange.bind(this);
@@ -242,8 +241,8 @@ class ReservationByCoordinate extends Component {
     });
   }
 
-  handleDecMChange(event) {
-    const decM = event.target.value;
+  handleDecMChange = (event) => {
+    let decM = event.target.value;
     if (!decM) {
       this.setState({
         dec_m: decM,
@@ -361,6 +360,7 @@ class ReservationByCoordinate extends Component {
   }
 
   calculateFields(values) {
+    const MAX_TIME = 59;
     let { dec_d, dec_m, dec_s, ra_h, ra_m, ra_s } = Object.assign({}, this.state, values);
     let dec;
     let ra;
@@ -368,6 +368,11 @@ class ReservationByCoordinate extends Component {
     // if dec_d is negative, make all numbers negative
     const decimalToDegreeFiguresDivisor = (dec_d >= 0) ? 60 : -60;
 
+    // set the appropriate ranges for minutes and seconds
+    dec_s = (dec_s > MAX_TIME) ? MAX_TIME : dec_s;
+    dec_m = (dec_m > MAX_TIME) ? MAX_TIME : dec_m;
+
+    // calculate the dec value from the minutes and seconds provided
     const secondsToMinutes = (dec_s / decimalToDegreeFiguresDivisor);
     const minutesToDegrees = ((dec_m + secondsToMinutes) / decimalToDegreeFiguresDivisor);
     dec = round((dec_d + minutesToDegrees), 6);
