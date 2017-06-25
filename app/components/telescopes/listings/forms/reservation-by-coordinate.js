@@ -292,18 +292,8 @@ class ReservationByCoordinate extends Component {
     let dec = cleanCalcInput(newDec);
     let { dec_d, dec_m, dec_s } = this.state;
 
-    const minutesDivisor = (dec >= 0) ? 60 : -60;
-    const secondsDivisor = (dec >= 0) ? 3600 : -3600;
-
-    const degrees = window.Math.trunc(dec);
-    const minutes = (dec - degrees) * 60;
-
-    console.log('need to convert dec into the appropriate minutes and seconds');
-    console.log('dd', dec);
-    console.log('degrees', degrees);
-    console.log('minutes', minutes);
-    console.log('====');
-
+    const minutesDivisor = 60;
+    const secondsDivisor = 3600;
 
     if (dec >= 90) {
       dec_d = 90;
@@ -319,18 +309,15 @@ class ReservationByCoordinate extends Component {
       dec = -90;
     }
 
-    const absoluteDec = Math.abs(dec);
-    const truncatedDec = Math.trunc(absoluteDec);
-
-    dec_d = Math.trunc(dec);
-    dec_m = Math.trunc((absoluteDec - truncatedDec) * 60);
-    dec_s = Math.trunc((((absoluteDec - truncatedDec) * 60) - dec_m) * 60);
+    const degrees = Math.trunc(dec);
+    const minutes = Math.trunc((dec - degrees) * minutesDivisor);
+    const seconds = Math.trunc((dec - degrees - (minutes / minutesDivisor)) * secondsDivisor);
 
     this.setState({
-      dec_d,
-      dec_m,
-      dec_s,
       dec,
+      dec_d: degrees,
+      dec_m: Math.abs(minutes),
+      dec_s: Math.abs(seconds),
       visibilityStatus: {},
     });
   }
