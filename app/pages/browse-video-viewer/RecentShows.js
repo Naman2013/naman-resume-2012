@@ -96,7 +96,7 @@ class RecentShows extends Component {
       fetchPreviousShows: noop,
     },
     eventList: [],
-    resultsCount: '0',
+    resultsCount: 0,
     page: 0,
     pages: 0,
     count: number,
