@@ -117,6 +117,17 @@ class ShowVideoViewer extends Component {
       });
     });
   }
+
+  componentWillReceiveProps(nextProps) {
+    const { actions, params: { showId } } = nextProps;
+    if (showId === this.props.params.showId) {
+      return;
+    }
+    actions.fetchRecordedShow({
+      showId,
+    });
+  }
+
   render() {
     const {
       actions,
