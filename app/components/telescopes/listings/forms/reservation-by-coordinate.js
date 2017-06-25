@@ -366,16 +366,17 @@ class ReservationByCoordinate extends Component {
     let ra;
 
     // if dec_d is negative, make all numbers negative
-    const decimalToDegreeFiguresDivisor = (dec_d >= 0) ? 60 : -60;
+    const minutesToHoursDivisor = (dec_d >= 0) ? 60 : -60;
+    const secondsToHoursDivisor = (dec_d >= 0) ? 3600 : -3600;
 
     // set the appropriate ranges for minutes and seconds
     dec_s = (dec_s > MAX_TIME) ? MAX_TIME : dec_s;
     dec_m = (dec_m > MAX_TIME) ? MAX_TIME : dec_m;
 
     // calculate the dec value from the minutes and seconds provided
-    const secondsToMinutes = (dec_s / decimalToDegreeFiguresDivisor);
-    const minutesToDegrees = ((dec_m + secondsToMinutes) / decimalToDegreeFiguresDivisor);
-    dec = round((dec_d + minutesToDegrees), 6);
+    const secondsToHours = (dec_s / secondsToHoursDivisor);
+    const minutesToHours = (dec_m / minutesToHoursDivisor);
+    dec = round((dec_d + secondsToHours + minutesToHours), 6);
 
     ra = round(ra_h + (ra_m / 60) + (ra_s / 3600), 6);
 
