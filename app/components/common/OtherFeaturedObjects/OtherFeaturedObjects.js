@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import uniqueId from 'lodash/uniqueId';
-import * as otherFeaturedObjectsActions from '../../../modules/other-featured-objects/actions';
+import { fetchOtherFeaturedObjects } from '../../../modules/other-featured-objects/actions';
 import styles from './OtherFeaturedObjects.scss';
 
 const { func, number, string, array, shape, any } = PropTypes;
@@ -86,6 +86,8 @@ OtherFeaturedObjects.propTypes = {
 const mapStateToProps = ({ otherFeaturedObjects }) => ({
   ...otherFeaturedObjects
 });
-const mapDispatchToProps = dispatch => (bindActionCreators(otherFeaturedObjectsActions, dispatch));
+const mapDispatchToProps = dispatch => (bindActionCreators({
+  fetchOtherFeaturedObjects
+}, dispatch));
 
 export default connect(mapStateToProps, mapDispatchToProps)(OtherFeaturedObjects);

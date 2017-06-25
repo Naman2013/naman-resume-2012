@@ -86,7 +86,7 @@ class RecentShows extends Component {
       eventStatus: string,
       eventTitle: string,
     })),
-    resultsCount: string,
+    resultsCount: number,
     page: number,
     pages: number,
     count: number,
