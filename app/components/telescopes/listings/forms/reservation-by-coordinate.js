@@ -292,18 +292,31 @@ class ReservationByCoordinate extends Component {
     let dec = cleanCalcInput(newDec);
     let { dec_d, dec_m, dec_s } = this.state;
 
-    if (dec > 90) {
+    const minutesDivisor = (dec >= 0) ? 60 : -60;
+    const secondsDivisor = (dec >= 0) ? 3600 : -3600;
+
+    const degrees = window.Math.trunc(dec);
+    const minutes = (dec - degrees) * 60;
+
+    console.log('need to convert dec into the appropriate minutes and seconds');
+    console.log('dd', dec);
+    console.log('degrees', degrees);
+    console.log('minutes', minutes);
+    console.log('====');
+
+
+    if (dec >= 90) {
       dec_d = 90;
       dec_m = 0;
       dec_s = 0;
-      dec = 90.0;
+      dec = 90;
     }
 
-    if (dec < -90) {
+    if (dec <= -90) {
       dec_d = -90;
       dec_m = 0;
       dec_s = 0;
-      dec = -90.0;
+      dec = -90;
     }
 
     const absoluteDec = Math.abs(dec);
@@ -312,21 +325,6 @@ class ReservationByCoordinate extends Component {
     dec_d = Math.trunc(dec);
     dec_m = Math.trunc((absoluteDec - truncatedDec) * 60);
     dec_s = Math.trunc((((absoluteDec - truncatedDec) * 60) - dec_m) * 60);
-
-    if (dec_s == 60) {
-      dec_s = 0;
-      dec_m = dec_m++;
-
-      if (dec_m == 60) {
-        dec_m = 0;
-        dec_d = dec_d++;
-
-        if (dec_d > 90) {
-          dec_d = 90;
-          dec = sign * 90.0;
-        }
-      }
-    }
 
     this.setState({
       dec_d,
@@ -361,8 +359,7 @@ class ReservationByCoordinate extends Component {
 
   calculateFields(values) {
     const MAX_TIME = 59;
-    let { dec_d, dec_m, dec_s, ra_h, ra_m, ra_s } = Object.assign({}, this.state, values);
-    let dec;
+    let { dec, dec_d, dec_m, dec_s, ra_h, ra_m, ra_s } = Object.assign({}, this.state, values);
     let ra;
 
     // if dec_d is negative, make all numbers negative
