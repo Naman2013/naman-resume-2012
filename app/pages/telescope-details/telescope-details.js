@@ -330,7 +330,7 @@ class TelescopeDetails extends Component {
 
             <div className="col-xs-4 telescope-details-sidebar">
               {
-                !activeTelescopeMission.missionAvailable || !activeTelescopeMission.nextMissionAvailable ?
+                activeTelescopeMission.missionAvailable || activeTelescopeMission.nextMissionAvailable ?
                   <div>
                     <LiveMission
                       {...activeTelescopeMission}
