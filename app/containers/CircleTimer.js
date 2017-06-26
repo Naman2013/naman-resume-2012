@@ -46,13 +46,15 @@ export default class CircleTimer extends Component {
       millisecondsTo,
     } = countdownEventTimer;
 
+    const daysProgress = getDaysInMonth() - daysTo;
+
     return (
       <div className={classes.circleTimer}>
         <CircleCounter
           size={size}
           lineWidth={lineWidth}
           total={getDaysInMonth()}
-          progress={getDaysInMonth() - daysTo}
+          progress={daysProgress < 0 ? 1 : daysProgress}
           progressColor="rgb(239, 34, 166)"
         >
           <span>{getDoubleNumber(daysTo)}</span>

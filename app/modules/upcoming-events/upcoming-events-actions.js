@@ -136,7 +136,7 @@ export const tickEvent = ({
     const duration = moment.duration(startTimeDifference, 'milliseconds');
     eventTimerValues = {
       currentTime: currentTime + 1,
-      daysTo: duration.days(),
+      daysTo: Math.floor(duration.asDays()),
       hoursTo: duration.hours(),
       minutesTo: duration.minutes(),
       secondsTo: duration.seconds(),
