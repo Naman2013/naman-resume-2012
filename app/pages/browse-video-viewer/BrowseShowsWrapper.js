@@ -12,8 +12,8 @@ const NAV_ITEMS = [
     link: '/shows/video-viewer/browse/recent-shows',
   },
   {
-    title: 'Slooh motion',
-    link: '/shows/video-viewer/browse/slooh-motion',
+    title: 'Highlighted',
+    link: '/shows/video-viewer/browse/highlighted',
   },
   {
     title: 'Upcoming shows',
