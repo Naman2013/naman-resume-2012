@@ -214,7 +214,7 @@ class ReserveConfirm extends Component {
         <div className="modal-body">
           <div className="mission-schedule">
             <h4>Mission Details:</h4>
-            <p>{ EST_start } &middot; { EST_start_time } &middot; { PST_start_time } &middot; { UTC_start_time }</p>
+            <p>{EST_start} &middot; {EST_start_time} &middot; {PST_start_time} &middot; {UTC_start_time}</p>
           </div>
 
           <div className="share-objectives">
@@ -228,9 +228,9 @@ class ReserveConfirm extends Component {
 
           <div className="mission-tags">
             <MissionTags
-              tagClass={"mission"}
-              tagType={"user"}
-              scheduledMissionId={ missionData.scheduledMissionId }
+              tagClass="mission"
+              tagType="user"
+              scheduledMissionId={missionData.scheduledMissionId}
             />
           </div>
         </div>
