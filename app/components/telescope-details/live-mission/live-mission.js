@@ -33,12 +33,12 @@ class LiveMission extends Component {
       <div className="live-mission">
         <div className="content">
           {
-            missionAvailable ?
+            !missionAvailable ?
               <div>
                 <div className="header">
                   <h3 className="title">CURRENT LIVE MISSION:</h3>
                   <div className="current-mission-title">
-                    <img height="25" src={objectIconURL} />
+                    <img alt="" height="25" src={objectIconURL} />
                     <p className="mission-title">{objectTitle}</p>
                   </div>
                 </div>
