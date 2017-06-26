@@ -214,23 +214,23 @@ class ReserveConfirm extends Component {
         <div className="modal-body">
           <div className="mission-schedule">
             <h4>Mission Details:</h4>
-            <p>{ EST_start } &middot; { EST_start_time } &middot; { PST_start_time } &middot; { UTC_start_time }</p>
+            <p>{EST_start} &middot; {EST_start_time} &middot; {PST_start_time} &middot; {UTC_start_time}</p>
           </div>
 
           <div className="share-objectives">
             <h4>SHARE YOUR MISSION OBJECTIVES:</h4>
             <textarea
               className="mission-objectives"
-              placeholder="It’s optional, but would you consider succinctly describing your thoughts on the mission? Anything goes, tweet style."
+              placeholder="Please help the Slooh community watching your mission understand what they are looking at by posting a few sentences about your target and why.  This will appear in the mission interface for members to see during your mission."
               value={this.state.objective}
               onChange={this.handleChangeObjective}></textarea>
           </div>
 
           <div className="mission-tags">
             <MissionTags
-              tagClass={"mission"}
-              tagType={"user"}
-              scheduledMissionId={ missionData.scheduledMissionId }
+              tagClass="mission"
+              tagType="user"
+              scheduledMissionId={missionData.scheduledMissionId}
             />
           </div>
         </div>
