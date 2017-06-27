@@ -123,6 +123,10 @@ const initialState = {
       imageUrl: 'assets/images/sponsors/ctinnovations.jpg',
       size: '90%'
     },
+    {
+      imageUrl: 'https://vega.slooh.com/logos/PSLogo.png',
+      size: '90%'
+    },
   ],
 };
 
