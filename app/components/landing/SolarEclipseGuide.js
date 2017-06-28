@@ -5,6 +5,7 @@ const sponsors = [
   '/assets/images/roadtrip-lander/sponsor-rmr.png',
   '/assets/images/roadtrip-lander/sponsor-redit.png',
   '/assets/images/roadtrip-lander/sponsor-stanley.png',
+  'https://vega.slooh.com/logos/PSLogo_sm.png',
 ];
 
 function SolarEclipseGuide() {
