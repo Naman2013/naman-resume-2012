@@ -263,7 +263,9 @@ class PlansChange extends Component {
             min-width: 400px;
           }
 
-
+          .plans-container {
+            position: relative !important;
+          }
 
           .first-row {
             margin: 50px 25px 50px 25px;
@@ -319,6 +321,10 @@ class PlansChange extends Component {
             -moz-background-size: cover;
             -o-background-size: cover;
             background-size: cover;
+          }
+
+          .row {
+            margin: 0;
           }
 
         `}</style>
