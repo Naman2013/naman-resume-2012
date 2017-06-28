@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import uniqueId from 'lodash/uniqueId';
 import ByUserTag from '../by-user-tag/by-user-tag';
-import * as guardianActions from '../../../modules/guardian/actions';
+import { fetchGuardianInfo } from '../../../modules/guardian/actions';
 import styles from '../OtherFeaturedObjects/OtherFeaturedObjects.scss';
 
 const { bool, func, number, string, array, shape } = PropTypes;
@@ -74,6 +74,8 @@ GuardianWidget.propTypes = {
 const mapStateToProps = ({ guardian }) => ({
   ...guardian
 });
-const mapDispatchToProps = dispatch => (bindActionCreators(guardianActions, dispatch));
+const mapDispatchToProps = dispatch => (bindActionCreators({
+  fetchGuardianInfo
+}, dispatch));
 
 export default connect(mapStateToProps, mapDispatchToProps)(GuardianWidget);
