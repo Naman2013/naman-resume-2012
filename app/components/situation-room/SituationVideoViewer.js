@@ -102,7 +102,7 @@ class SituationVideoViewer extends Component {
 
           {
             videoInProgress &&
-              <TabPanel>
+              <TabPanel forceRender={true}>
                 <aside className={s.liveViewContent}>
                   {
                     initialStreamCode && initialStreamURL ?
