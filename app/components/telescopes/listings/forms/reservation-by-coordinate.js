@@ -57,9 +57,12 @@ const mapDispatchToProps = dispatch => ({
 // TODO: move this into a utility file
 function cleanCalcInput(value) {
   let cleanedInput = value || 0;
-  if (isNaN(cleanedInput)) cleanedInput = 0;
-
+  cleanedInput = (isNaN(cleanedInput)) ? 0 : cleanedInput;
   return parseFloat(cleanedInput);
+}
+
+function numberOnly(value) {
+  return value.replace(/[^0-9-]/g, '');
 }
 
 @connect(mapStateToProps, mapDispatchToProps)
@@ -85,9 +88,6 @@ class ReservationByCoordinate extends Component {
       dec: this.props.objectDec,
     };
 
-    this.handleRaHChange = this.handleRaHChange.bind(this);
-    this.handleRaMChange = this.handleRaMChange.bind(this);
-    this.handleRaSChange = this.handleRaSChange.bind(this);
     this.handleDecSChange = this.handleDecSChange.bind(this);
 
     this.handleDECChange = this.handleDECChange.bind(this);
@@ -103,8 +103,8 @@ class ReservationByCoordinate extends Component {
   }
 
   // RA change events...
-  handleRaHChange(event) {
-    const newRAH = event.target.value;
+  handleRaHChange = (event) => {
+    const newRAH = numberOnly(event.target.value);
     if (!newRAH) {
       this.setState({
         ra_h: newRAH,
@@ -123,8 +123,8 @@ class ReservationByCoordinate extends Component {
     });
   }
 
-  handleRaMChange(event) {
-    const newRAM = event.target.value;
+  handleRaMChange = (event) => {
+    const newRAM = numberOnly(event.target.value);
 
     if (!newRAM) {
       this.setState({
@@ -144,8 +144,8 @@ class ReservationByCoordinate extends Component {
     });
   }
 
-  handleRaSChange(event) {
-    const ras = event.target.value;
+  handleRaSChange = (event) => {
+    const ras = numberOnly(event.target.value);
     if (!ras) {
       this.setState({
         ra_s: ras,
@@ -226,7 +226,7 @@ class ReservationByCoordinate extends Component {
 
   // DEC change events
   handleDecDChange = (event) => {
-    const dec_d = event.target.value;
+    const dec_d = numberOnly(event.target.value);
     if (!dec_d) {
       this.setState({
         dec_d,
@@ -245,7 +245,7 @@ class ReservationByCoordinate extends Component {
   }
 
   handleDecMChange = (event) => {
-    let decM = event.target.value;
+    let decM = numberOnly(event.target.value);
     if (!decM) {
       this.setState({
         dec_m: decM,
@@ -265,7 +265,7 @@ class ReservationByCoordinate extends Component {
   }
 
   handleDecSChange(event) {
-    const decS = event.target.value;
+    const decS = numberOnly(event.target.value);
     if (!decS) {
       this.setState({
         dec_s: decS,
@@ -349,6 +349,7 @@ class ReservationByCoordinate extends Component {
 
   calculateFields(values) {
     const MAX_TIME = 59;
+
     let { dec, dec_d, dec_m, dec_s, ra_h, ra_m, ra_s } = Object.assign({}, this.state, values);
     let ra;
 
