@@ -76,7 +76,7 @@ class SituationVideoViewer extends Component {
           }
         </header>
 
-        <Tabs onSelect={this.handleSelect} selectedIndex={selectedTab}>
+        <Tabs onSelect={this.handleSelect} selectedIndex={selectedTab} forceRenderTabPanel={true}>
 
           <TabList className={s.liveTelescopeTabs}>
             {
