@@ -83,7 +83,7 @@ class SituationVideoViewer extends Component {
               videoInProgress &&
               <Tab>
                 <div className={s.liveTelescopeTitle}>
-                  {selectedTab === 0 && <h6>Main Show</h6>}
+                  <h6>Main Show</h6>
                 </div>
                 <div className="telescope" style={getInlineBgStyle(eventIconURL)} />
               </Tab>
