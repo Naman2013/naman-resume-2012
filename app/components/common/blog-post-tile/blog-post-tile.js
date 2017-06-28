@@ -15,6 +15,7 @@ const BlogPostTile = ({
   membershipType,
   memberSince,
   location,
+  objectId,
   slugIconURL,
   postId
 }) => {
@@ -43,7 +44,7 @@ const BlogPostTile = ({
               memberSince={memberSince} location={location}
             />
             <div className="call-to-action col-md-12">
-              See more about <Link className="action" to="">{slugDesc}
+              See more about <Link className="action" to={`/objects/latest-entries/${objectId}/all`}>{slugDesc}
                 <img src={slugIconURL} alt="" /></Link>
             </div>
           </div>
