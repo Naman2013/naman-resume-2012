@@ -36,7 +36,7 @@ function EventHero({ eventContent }) {
         </div>
       }
 
-      {eventContent.inProgressFlag && <Link to={eventContent.showLink} className="btn btn-primary">Show in Progress!</Link>}
+      {eventContent.showLink && <a href={eventContent.showLink} className="btn btn-primary" dangerouslySetInnerHTML={{ __html: eventContent.showLinkText }}></a>}
 
     </div>
   );
