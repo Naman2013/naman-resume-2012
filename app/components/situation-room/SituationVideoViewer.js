@@ -76,7 +76,7 @@ class SituationVideoViewer extends Component {
           }
         </header>
 
-        <Tabs onSelect={this.handleSelect} selectedIndex={selectedTab}>
+        <Tabs onSelect={this.handleSelect} selectedIndex={selectedTab} forceRenderTabPanel={true}>
 
           <TabList className={s.liveTelescopeTabs}>
             {
@@ -102,7 +102,7 @@ class SituationVideoViewer extends Component {
 
           {
             videoInProgress &&
-              <TabPanel forceRender={true}>
+              <TabPanel>
                 <aside className={s.liveViewContent}>
                   {
                     initialStreamCode && initialStreamURL ?
