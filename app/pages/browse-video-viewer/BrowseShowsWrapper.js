@@ -12,8 +12,8 @@ const NAV_ITEMS = [
     link: '/shows/video-viewer/browse/recent-shows',
   },
   {
-    title: 'Highlighted',
-    link: '/shows/video-viewer/browse/highlighted',
+    title: 'Highlights',
+    link: '/shows/video-viewer/browse/highlights',
   },
   {
     title: 'Upcoming shows',
