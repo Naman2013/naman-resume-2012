@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { truncate } from 'lodash';
+import truncate from 'lodash/truncate';
 import ReactTooltip from 'react-tooltip';
 import PiggybackStatus from './PiggybackStatus';
 import { fetchRecommendsCards } from '../../../services/recommendations/recommends-cards';

@@ -24,7 +24,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import classnames from 'classnames';
-import _ from 'lodash';
+import has from 'lodash/has';
 import ReservationSelectList from '../../components/common/forms/reservation-select-list';
 import EnterDesignationForm from '../../components/reserve/enter-designation-form';
 import { fetchCatalog } from '../../modules/catalog/get-catalog-actions';
@@ -138,7 +138,7 @@ class ReserveByCatalog extends Component {
 
   get imageProcessingList() {
     const { presetOptions } = this.state;
-    if (_.has(presetOptions, 'telescopeList')) {
+    if (has(presetOptions, 'telescopeList')) {
       return presetOptions.telescopeList[0].telePresetList.map(presetOption => presetOption.presetDisplayName);
     }
     return [];
@@ -294,7 +294,7 @@ class ReserveByCatalog extends Component {
 
     let catalogList = [];
     let selectedCatalog;
-    if (_.has(catalog, 'catalogList')) {
+    if (has(catalog, 'catalogList')) {
       catalogList = catalog.catalogList.map(catalogItem => (
         <span><img alt="" src={catalogItem.catIconURL} /> {catalogItem.catFullName}</span>
       ));

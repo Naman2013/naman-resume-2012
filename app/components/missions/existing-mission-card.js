@@ -1,10 +1,11 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import classnames from 'classnames';
 import moment from 'moment-timezone';
-import _ from 'lodash';
+import truncate from 'lodash/truncate';
 
 import ModalGeneric from '../common/modals/modal-generic';
 
@@ -244,7 +245,7 @@ class ExistingMissionCard extends Component {
             featured ?
               <p className={styles.cardDescription}>{card.description}</p>
               :
-              <p className={styles.cardDescription}>{_.truncate(card.description, { length: 130, separator: ' ' })}</p>
+              <p className={styles.cardDescription}>{truncate(card.description, { length: 130, separator: ' ' })}</p>
           }
 
           {

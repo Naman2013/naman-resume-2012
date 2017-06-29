@@ -1,5 +1,3 @@
-import axios from 'axios';
-import _ from 'lodash';
 import { getFeaturedContent } from '../../services/featured-content/get-featured-content';
 
 export const OTHER_FEATURED_OBJECTS_START = 'OTHER_FEATURED_OBJECTS_START';

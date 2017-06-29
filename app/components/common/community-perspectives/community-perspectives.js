@@ -2,7 +2,8 @@ import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 import classnames from 'classnames';
 import Slider from 'react-slick';
-import _ from 'lodash';
+import find from 'lodash/find';
+import orderBy from 'lodash/orderBy';
 import CommunityPost from './community-post';
 import CallToAction from './call-to-action';
 import Spacer from './../../common/spacer';
@@ -56,7 +57,7 @@ class CommunityPerspectives extends Component {
   }
 
   componentWillMount() {
-    const perspectiveCategory = _.find(
+    const perspectiveCategory = find(
       perspectiveCatagories,
       c => (this.filterPosts(this.props.communityContent, c.catagory).length > 0)
     );
@@ -69,11 +70,11 @@ class CommunityPerspectives extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const perspectiveCategory = _.find(
+    const perspectiveCategory = find(
       perspectiveCatagories,
       c => (this.filterPosts(nextProps.communityContent, c.catagory).length > 0)
     );
-    
+
     if (perspectiveCategory) {
       this.setState({
         activeCatagory: perspectiveCategory.catagory,
@@ -113,7 +114,7 @@ class CommunityPerspectives extends Component {
     const posts = this.props.communityContent;
     const filteredPosts = this.filterPosts(posts);
     const hasPosts = filteredPosts.length > 0;
-    const sortedPosts = _.orderBy(filteredPosts, ['likesCount', 'creationDate'], ['desc', 'desc']);
+    const sortedPosts = orderBy(filteredPosts, ['likesCount', 'creationDate'], ['desc', 'desc']);
 
     // if there ARE posts, show them
     if (hasPosts) {

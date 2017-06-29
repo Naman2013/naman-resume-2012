@@ -4,7 +4,12 @@ import { connect } from 'react-redux';
 import AnnouncementBanner from '../../components/common/announcement-banner/announcement-banner';
 import CategoriesNav from '../../components/community/categories-nav';
 import CommunityPostHeader from '../../components/community/community-post-header';
-import * as objectPostActions from '../../modules/object-post-list/actions';
+import {
+  fetchPageMeta,
+  fetchObjectAllTimeBest,
+  fetchObjectLatestContent,
+  fetchObjectPosts,
+} from '../../modules/object-post-list/actions';
 
 function generateList({ SlugLookupId }) {
   return [
@@ -40,7 +45,12 @@ const mapStateToProps = ({ objectPostList }, ownProps) => ({
   filterType: ownProps.params.filterType,
 });
 
-const mapDispatchToProps = dispatch => (bindActionCreators(objectPostActions, dispatch));
+const mapDispatchToProps = dispatch => (bindActionCreators({
+  fetchObjectAllTimeBest,
+  fetchObjectLatestContent,
+  fetchPageMeta,
+  fetchObjectPosts,
+}, dispatch));
 
 @connect(mapStateToProps, mapDispatchToProps)
 class ObjectList extends Component {

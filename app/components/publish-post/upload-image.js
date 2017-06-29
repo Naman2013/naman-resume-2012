@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
-import { uniqueId } from 'lodash';
+import uniqueId from 'lodash/uniqueId';
 import ImageFile from './image-file';
-import style from './upload-image.scss';
+import './upload-image.scss';
 
 function UploadImage({ handleDeleteImage, handleUploadImage, displayImages }) {
   const images =

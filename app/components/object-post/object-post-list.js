@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
-import { isEmpty, uniqueId } from 'lodash';
+import uniqueId from 'lodash/uniqueId';
+import isEmpty from 'lodash/isEmpty';
 import ByUserTag from '../../components/common/by-user-tag/by-user-tag';
 import CommunityPostTools from '../../components/community/tools/community-post-tools';
 import styles from './object-post.scss';

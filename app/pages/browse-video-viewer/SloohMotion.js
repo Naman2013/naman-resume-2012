@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import _ from 'lodash';
+import noop from 'lodash/noop';
 import ShowsList from '../../components/video-viewer/ShowsList';
 import { fetchHighlightsShows } from '../../modules/browse-video-viewer/highlights-shows-actions';
 // import CategoryNavigation from '../../components/video-viewer/CategoryNavigation';
@@ -74,7 +74,7 @@ class SloohMotion extends Component {
       eventDetailsURL: string,
       eventEnd: number,
       eventIconURL: string,
-      eventId: string,
+      eventId: number,
       eventImageURL: string,
       eventIndex: number,
       eventIsLive: bool,
@@ -86,14 +86,14 @@ class SloohMotion extends Component {
       eventStatus: string,
       eventTitle: string,
     })),
-    resultsCount: string,
+    resultsCount: number,
     page: number,
     pages: number,
     count: number,
   }
   static defaultProps = {
     actions: {
-      fetchHighlightsShows: _.noop,
+      fetchHighlightsShows: noop,
     },
     eventList: [],
     resultsCount: '0',

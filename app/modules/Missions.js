@@ -1,6 +1,7 @@
 import axios from 'axios';
 import moment from 'moment';
-import _ from 'lodash';
+import has from 'lodash/has';
+import noop from 'lodash/noop';
 import createReducer from './utils/createReducer';
 
 import { fetchUsersUpcomingMissions } from './Users-Upcoming-Missions';
@@ -214,8 +215,8 @@ export const cancelMissionSlot = mission => (dispatch, getState) => {
     cid,
     ...mission,
   })
-  .then(result => _.noop(result))
-  .catch(error => _.noop(error));
+  .then(result => noop(result))
+  .catch(error => noop(error));
 };
 
 const grabMissionSlotFail = error => ({
@@ -381,7 +382,7 @@ export function missionGetCards() {
       if we already have a cardAPIResponse with an actual missionList, we want
       to use that
       */
-    if (cardAPIResponse && _.has(cardAPIResponse, 'data.missionList') && cardAPIResponse.data.missionList.length !== 0) {
+    if (cardAPIResponse && has(cardAPIResponse, 'data.missionList') && cardAPIResponse.data.missionList.length !== 0) {
       dispatch(allCards(cardAPIResponse));
       dispatch(missionGetPiggybacks(cardAPIResponse.data.objectList));
       dispatch(missionGetNextReservation(cardAPIResponse.data.objectList));

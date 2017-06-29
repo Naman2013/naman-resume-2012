@@ -1,5 +1,5 @@
 import React from 'react';
-import _ from 'lodash';
+import map from 'lodash/map';
 import classnames from 'classnames';
 
 const ObjectItems = (props) => {
@@ -14,7 +14,7 @@ const ObjectItems = (props) => {
     <ul className="object-items">
 
       {
-        _.map(items, (item, i) => {
+        map(items, (item, i) => {
 
           // TODO: replace selectedItem.title === item.title with id comparisons
           const elementStyles = classnames({

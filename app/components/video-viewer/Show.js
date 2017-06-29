@@ -16,7 +16,8 @@ class Show extends Component {
     const inlineShowStyle = {
       backgroundImage: `url(${decodeURIComponent(eventImageURL)})`,
     };
-    const showStartDate = `${moment(Number(eventStart)*1000).format('dddd, MMMM D, YYYY h:mmA z')} EST`;
+    const t = Number(eventStart)*1000;
+    const showStartDate = `${moment(t).format('dddd, MMMM D, YYYY h:mmA z')} ${moment.tz(t, 'America/New_York').zoneAbbr()}`;
     return (
       <div className="photoRoot">
         <div className="photoLink" style={inlineShowStyle}>

@@ -1,3 +1,4 @@
+import { uniqueId } from 'lodash';
 import createReducer from '../utils/createReducer';
 
 import {
@@ -11,29 +12,29 @@ const initialState = {
   membershipTierArray: [],
   RECENT_STUFF: [
     {
-      key: 1,
-      title: 'Lunar Eclipse',
-      content: 'On February 26th we witnessed the ring of fire solar eclipse with Slooh host Gerry Monteux and special guests including Burnie Burns of Rooster Teeth',
-      contentLink: '',
-      imageUrl: 'assets/images/samples/bobpubjpg.png',
-      videoUrl: 'https://www.youtube.com/embed/rQMCVtyvsOQ?rel=0&amp;showinfo=0'
-    },
-    {
-      key: 2,
+      key: uniqueId(),
       title: 'Summer Solstice With Bill Nye',
       content: 'We celebrated the Summer Solstice on June 21st with guests Bill Nye of The Planetary Society, Phil Plait, Ari Sarsalari, and Matt Penn from the Citizen CATE Experiment.',
       contentLink: '',
       imageUrl: 'assets/images/samples/perseid-meteor-shower.png',
-      videoUrl: 'https://www.youtube.com/embed/7XzFU-3VGeU?rel=0&amp;showinfo=0'
+      videoUrl: 'https://www.youtube.com/embed/7XzFU-3VGeU?rel=0&amp;showinfo=0',
     },
     {
-      key: 3,
+      key: uniqueId(),
+      title: 'Total Solar Eclipse',
+      content: `<a href="#/road-trip?_k=8u86a2">Road Trip with Slooh to Stanley</a>, Idaho to witness the Total Solar Eclipse on August 21st, or watch our coverage live right here on Slooh.`,
+      contentLink: '',
+      imageUrl: 'assets/images/samples/perseid-meteor-shower.png',
+      videoUrl: 'https://www.youtube.com/embed/ZU4Nt_-nLFY?rel=0&amp;showinfo=0',
+    },
+    {
+      key: uniqueId(),
       title: 'Gazing at the Milky Way',
       content: 'How does light pollution affect your view of the universe? On May 25th, we explored the importance of dark skies while looking live at the Milky Way with special guests, Julie Fletcher and Athena Brensberger.',
       contentLink: '',
       imageUrl: 'assets/images/samples/perseids.png',
-      videoUrl: 'https://www.youtube.com/embed/Mr8qK-aM9JE?rel=0&amp;showinfo=0'
-    }
+      videoUrl: 'https://www.youtube.com/embed/Mr8qK-aM9JE?rel=0&amp;showinfo=0',
+    },
   ],
   promoBandContent: 'Slooh Membership: An All-Access Pass to the Night Sky.',
   ADDITIONAL_OFFERING_HEADER: 'CHECK OUT MORE OF WHAT SLOOH HAS TO OFFER:',
@@ -121,6 +122,10 @@ const initialState = {
     },
     {
       imageUrl: 'assets/images/sponsors/ctinnovations.jpg',
+      size: '90%'
+    },
+    {
+      imageUrl: 'https://vega.slooh.com/logos/PSLogo.png',
       size: '90%'
     },
   ],

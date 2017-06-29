@@ -1,5 +1,4 @@
 import React, { Component, cloneElement } from 'react';
-import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import BrowseShowsNavigation from '../../components/video-viewer/BrowseShowsNavigation';
@@ -13,8 +12,8 @@ const NAV_ITEMS = [
     link: '/shows/video-viewer/browse/recent-shows',
   },
   {
-    title: 'Slooh motion',
-    link: '/shows/video-viewer/browse/slooh-motion',
+    title: 'Highlights',
+    link: '/shows/video-viewer/browse/highlights',
   },
   {
     title: 'Upcoming shows',
@@ -52,7 +51,7 @@ class BrowseShows extends Component {
         <style jsx>{`
           .header {
             ${backgroundImageCover}
-            background-image: url(../../../assets/images/photos/enigma.png);
+            background-image: url('assets/images/photos/enigma.png');
             color: ${white};
             width: 100%;
             height: 140px;

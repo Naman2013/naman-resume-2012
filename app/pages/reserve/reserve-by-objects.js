@@ -1,7 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { flatten, uniqueId } from 'lodash';
+import flatten from 'lodash/flatten';
+import uniqueId from 'lodash/uniqueId';
 import { validateResponseAccess } from '../../modules/authorization/actions';
 import ReservationSelectList from '../../components/common/forms/reservation-select-list';
 import GenericLoadingBox from '../../components/common/loading-screens/generic-loading-box';

@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { uniqueId, difference } from 'lodash';
+import uniqueId from 'lodash/uniqueId';
+import difference from 'lodash/difference';
 import classnames from 'classnames';
 import Recommendation from './Recommendation';
 import MissionConfirmModal from '../../missions/mission-confirm-modal';
 import RecommendationTitleBar from './RecommendationTitleBar';
-import s from './SloohRecommends.scss';
+import './SloohRecommends.scss';
 
 const COLUMN_COUNT_CLASSES = {
   1: 'col-xs-12',

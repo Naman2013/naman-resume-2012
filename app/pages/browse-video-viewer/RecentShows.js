@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import _ from 'lodash';
+import noop from 'lodash/noop';
 import ShowsList from '../../components/video-viewer/ShowsList';
 import { fetchPreviousShows } from '../../modules/browse-video-viewer/previous-shows-actions';
 // import CategoryNavigation from '../../components/video-viewer/CategoryNavigation';
@@ -86,17 +86,17 @@ class RecentShows extends Component {
       eventStatus: string,
       eventTitle: string,
     })),
-    resultsCount: string,
+    resultsCount: number,
     page: number,
     pages: number,
     count: number,
   }
   static defaultProps = {
     actions: {
-      fetchPreviousShows: _.noop,
+      fetchPreviousShows: noop,
     },
     eventList: [],
-    resultsCount: '0',
+    resultsCount: 0,
     page: 0,
     pages: 0,
     count: number,

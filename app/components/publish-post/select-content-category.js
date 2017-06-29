@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
-import _ from 'lodash';
+import findIndex from 'lodash/findIndex';
 import classnames from 'classnames';
-import style from './select-content-category.scss';
+import './select-content-category.scss';
 
 export const categories = [
   {
@@ -50,7 +50,7 @@ class SelectContentCategory extends Component {
     */
     const { contentCategory } = nextProps;
     const nextSelectedIndex =
-      _.findIndex(categories, category => category.value === contentCategory);
+      findIndex(categories, category => category.value === contentCategory);
 
     this.setState({
       selectedIndex: nextSelectedIndex,

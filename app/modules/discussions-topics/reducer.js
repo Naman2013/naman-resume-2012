@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import { List, Record } from 'immutable';
 import createReducer from '../utils/createReducer';
 import Topic from './Topic';

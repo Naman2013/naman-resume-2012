@@ -22,7 +22,7 @@ const initialState = {
   page: 1,
   count: 9,
   pages: 0,
-  resultsCount: '0',
+  resultsCount: 0,
   eventList: [],
 };
 

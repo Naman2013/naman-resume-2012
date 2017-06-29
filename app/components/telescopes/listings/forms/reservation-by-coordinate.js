@@ -2,8 +2,12 @@
   NOTES:
   underscores used in some naming to improve legability
 
+  Calculation inspiration:
+  http://www.rapidtables.com/convert/number/degrees-to-degrees-minutes-seconds.htm
+
   Example calculation of Decimal to Degrees:
   -18° 13' 52" = -18.23111
+  90 59 59 =
 
   52 seconds/60 = 0.86666667 minutes
 
@@ -26,13 +30,13 @@ import { bindActionCreators } from 'redux';
 import ReservationSelectList from '../../../common/forms/reservation-select-list';
 import TargetValidationForm from '../../../reserve/target-validation-form';
 import Timer from './common/timer';
-import style from './reservation-by-coordinate.scss';
+import './reservation-by-coordinate.scss';
 import { fetchPresetOptions } from '../../../../modules/get-preset-options/get-preset-options-actions';
 import { checkTargetVisibility } from '../../../../modules/check-target-visibility/api';
 import { grabMissionSlot, grabUpdateMissionSlot, missionConfirmOpen } from '../../../../modules/Missions';
 
 function round(number, precision) {
-  const factor = Math.pow(10, precision);
+  const factor = window.Math.pow(10, precision);
   const tempNumber = number * factor;
   const roundedTempNumber = Math.round(tempNumber);
   return roundedTempNumber / factor;
@@ -84,8 +88,6 @@ class ReservationByCoordinate extends Component {
     this.handleRaHChange = this.handleRaHChange.bind(this);
     this.handleRaMChange = this.handleRaMChange.bind(this);
     this.handleRaSChange = this.handleRaSChange.bind(this);
-    this.handleDecDChange = this.handleDecDChange.bind(this);
-    this.handleDecMChange = this.handleDecMChange.bind(this);
     this.handleDecSChange = this.handleDecSChange.bind(this);
 
     this.handleDECChange = this.handleDECChange.bind(this);
@@ -223,18 +225,17 @@ class ReservationByCoordinate extends Component {
   }
 
   // DEC change events
-  handleDecDChange(event) {
-    const decD = event.target.value;
-    if (!decD) {
+  handleDecDChange = (event) => {
+    const dec_d = event.target.value;
+    if (!dec_d) {
       this.setState({
-        dec_d: decD,
+        dec_d,
       });
-      return;
+    } else {
+      this.calculateFields({
+        dec_d: cleanCalcInput(dec_d),
+      });
     }
-
-    this.calculateFields({
-      dec_d: cleanCalcInput(decD),
-    });
   }
 
   handleDecDBlur = (event) => {
@@ -243,8 +244,8 @@ class ReservationByCoordinate extends Component {
     });
   }
 
-  handleDecMChange(event) {
-    const decM = event.target.value;
+  handleDecMChange = (event) => {
+    let decM = event.target.value;
     if (!decM) {
       this.setState({
         dec_m: decM,
@@ -294,51 +295,44 @@ class ReservationByCoordinate extends Component {
     let dec = cleanCalcInput(newDec);
     let { dec_d, dec_m, dec_s } = this.state;
 
-    if (dec > 90) {
+    const minutesDivisor = 60;
+    const secondsDivisor = 3600;
+
+    if (dec >= 90) {
       dec_d = 90;
       dec_m = 0;
       dec_s = 0;
-      dec = 90.0;
+      dec = 90;
     }
 
-    if (dec < -90) {
+    if (dec <= -90) {
       dec_d = -90;
       dec_m = 0;
       dec_s = 0;
-      dec = -90.0;
+      dec = -90;
     }
 
-    const absoluteDec = Math.abs(dec);
-    const truncatedDec = Math.trunc(absoluteDec);
-
-    dec_d = Math.trunc(dec);
-    dec_m = Math.trunc((absoluteDec - truncatedDec) * 60);
-    dec_s = Math.trunc((((absoluteDec - truncatedDec) * 60) - dec_m) * 60);
-
-    if (dec_s == 60) {
-      dec_s = 0;
-      dec_m = dec_m++;
-
-      if (dec_m == 60) {
-        dec_m = 0;
-        dec_d = dec_d++;
-
-        if (dec_d > 90) {
-          dec_d = 90;
-          dec = sign * 90.0;
-        }
-      }
-    }
+    const degrees = Math.trunc(dec);
+    const minutes = Math.trunc((dec - degrees) * minutesDivisor);
+    const seconds = Math.trunc((dec - degrees - (minutes / minutesDivisor)) * secondsDivisor);
 
     this.setState({
-      dec_d,
-      dec_m,
-      dec_s,
       dec,
+      dec_d: degrees,
+      dec_m: Math.abs(minutes),
+      dec_s: Math.abs(seconds),
       visibilityStatus: {},
     });
   }
 
+  /**
+    two separate methods of setting the Decrementation
+    first, if we are not dealing with a valid event object, then simply
+    set the value.  This is here for when setting values from the server
+
+    secondly, if we have a valid event object we will take the value
+    and recalculate the degrees, minutes and seconds
+    */
   handleDECChange(event) {
     const newDEC = event.target.value;
     if (!newDEC) {
@@ -354,25 +348,33 @@ class ReservationByCoordinate extends Component {
   }
 
   calculateFields(values) {
-    let { dec_d, dec_m, dec_s, ra_h, ra_m, ra_s } = Object.assign({}, this.state, values);
+    const MAX_TIME = 59;
+    let { dec, dec_d, dec_m, dec_s, ra_h, ra_m, ra_s } = Object.assign({}, this.state, values);
+    let ra;
 
-    // TODO: if dec_d is negative, make all numbers negative.
-    const decimalToDegreeFigures = {
-      decMDivisor: (dec_d >= 0) ? 60 : -60,
-      decSDivisor: (dec_d >= 0) ? 3600 : -3600,
-    };
+    // if dec_d is negative, make all numbers negative
+    const minutesToHoursDivisor = (dec_d >= 0) ? 60 : -60;
+    const secondsToHoursDivisor = (dec_d >= 0) ? 3600 : -3600;
 
-    let dec = round(dec_d + (dec_m / decimalToDegreeFigures.decMDivisor) + (dec_s / decimalToDegreeFigures.decSDivisor), 6);
-    let ra = round(ra_h + (ra_m / 60) + (ra_s / 3600), 6);
+    // set the appropriate ranges for minutes and seconds
+    dec_s = (dec_s > MAX_TIME) ? MAX_TIME : dec_s;
+    dec_m = (dec_m > MAX_TIME) ? MAX_TIME : dec_m;
 
-    if (dec > 90) {
+    // calculate the dec value from the minutes and seconds provided
+    const secondsToHours = (dec_s / secondsToHoursDivisor);
+    const minutesToHours = (dec_m / minutesToHoursDivisor);
+    dec = round((dec_d + secondsToHours + minutesToHours), 6);
+
+    ra = round(ra_h + (ra_m / 60) + (ra_s / 3600), 6);
+
+    if (dec >= 90) {
       dec = 90.0;
       dec_d = 90;
       dec_m = 0;
       dec_s = 0;
     }
 
-    if (dec < -90) {
+    if (dec <= -90) {
       dec = -90.0;
       dec_d = -90;
       dec_m = 0;

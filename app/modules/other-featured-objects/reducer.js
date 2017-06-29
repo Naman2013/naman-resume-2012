@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import createReducer from '../utils/createReducer';
 import {
   OTHER_FEATURED_OBJECTS_START,

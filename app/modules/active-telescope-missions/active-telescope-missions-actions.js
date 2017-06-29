@@ -136,6 +136,7 @@ export const updateTelescopeActiveMission = ({
   obsId,
   domeId,
   format,
+  scheduledMissionId,
 }) => (dispatch, getState) => {
   const { token, cid, at } = getState().user;
 
@@ -154,6 +155,7 @@ export const updateTelescopeActiveMission = ({
     obsId,
     domeId,
     format,
+    scheduledMissionId,
   })
   .then((result) => {
     if (format === FORMAT_COMPACT) {

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-import { uniqueId } from 'lodash';
+import uniqueId from 'lodash/uniqueId';
 import Countdown from '../../containers/Countdown';
 import VideoImageLoader from '../../components/common/telescope-image-loader/video-image-loader';
 import TelescopeImageViewer from '../../components/common/telescope-image-viewer/telescope-image-viewer';
@@ -76,14 +76,14 @@ class SituationVideoViewer extends Component {
           }
         </header>
 
-        <Tabs onSelect={this.handleSelect} selectedIndex={selectedTab}>
+        <Tabs onSelect={this.handleSelect} selectedIndex={selectedTab} forceRenderTabPanel={true}>
 
           <TabList className={s.liveTelescopeTabs}>
             {
               videoInProgress &&
               <Tab>
                 <div className={s.liveTelescopeTitle}>
-                  {selectedTab === 0 && <h6>Main Show</h6>}
+                  <h6>Main Show</h6>
                 </div>
                 <div className="telescope" style={getInlineBgStyle(eventIconURL)} />
               </Tab>

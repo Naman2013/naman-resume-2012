@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import _ from 'lodash';
+import take from 'lodash/take';
 import PhotoList from '../my-pictures/PhotoList';
 
 
@@ -31,7 +31,7 @@ class UsersPictures extends Component {
     const { imageList } = this.props;
     const IMAGE_LIST_LIMIT = 12;
     return (
-      <PhotoList imageList={_.take(imageList, IMAGE_LIST_LIMIT)} colNum="3" />
+      <PhotoList imageList={take(imageList, IMAGE_LIST_LIMIT)} colNum="3" />
     );
   }
 }
