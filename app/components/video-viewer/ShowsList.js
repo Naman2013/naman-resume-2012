@@ -56,7 +56,7 @@ class ShowsList extends Component {
       'col-xs-12': !galleryType,
     });
     const listColClassNames = classnames({
-      [`col-xs-${colNum}`]: !galleryType,
+      [`col-lg-${colNum} col-md-6 `]: !galleryType,
       'col-xs-12': galleryType,
     });
     const firstImageNumberIndex = (eventList[0] && eventList[0].eventIndex) || 0;
