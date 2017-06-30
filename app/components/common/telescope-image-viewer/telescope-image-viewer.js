@@ -14,6 +14,7 @@ function TelescopeImageViewer({
   teleId,
   teleFade,
   clipped,
+  missionFormat,
 }) {
   const setIds = obsIdTeleIdDomeIdFromTeleId(teleId);
   const teleThumbWidth = '866px';
@@ -34,7 +35,7 @@ function TelescopeImageViewer({
           teleThumbWidth={teleThumbWidth}
           teleFade={teleFade}
           clipped={clipped}
-          missionFormat="full"
+          missionFormat={missionFormat}
         />
 
       </InteractiveViewer>
@@ -45,10 +46,12 @@ function TelescopeImageViewer({
 
 TelescopeImageViewer.defaultProps = {
   clipped: false,
+  missionFormat: 'full',
 };
 
 TelescopeImageViewer.propTypes = {
   clipped: PropTypes.bool,
+  missionFormat: PropTypes.string,
 };
 
 export default TelescopeImageViewer;
