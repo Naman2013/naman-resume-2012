@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link, hashHistory } from 'react-router';
+import { Link, browserHistory } from 'react-router';
 import classnames from 'classnames';
 
 class MenuLink extends Component {
@@ -15,7 +15,7 @@ class MenuLink extends Component {
       if (hasPageLinkProtocol) {
         window.open(data.pageLink);
       } else {
-        hashHistory.push(data.pageLink);
+        browserHistory.push(data.pageLink);
       }
     }
     if (!hasPageLinkProtocol) {

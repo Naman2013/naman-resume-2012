@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { Link, hashHistory } from 'react-router';
+import { Link, browserHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import find from 'lodash/find';
@@ -224,7 +224,7 @@ class NewDiscussionsThread extends Component {
       }).then((res) => {
         if (!res.payload.apiError) {
           const { threadId } = res.payload.thread;
-          hashHistory.push(`discussions/forums/${selectedForum.get('forumId')}/topics/${selectedTopic.get('topicId')}/threads/${threadId}`);
+          browserHistory.push(`discussions/forums/${selectedForum.get('forumId')}/topics/${selectedTopic.get('topicId')}/threads/${threadId}`);
         }
       });
     }

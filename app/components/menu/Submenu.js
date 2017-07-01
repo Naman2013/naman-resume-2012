@@ -4,7 +4,7 @@ import ListHotThisMonth from './ListHotThisMonth';
 import ListObservatories from './ListObservatories';
 import UpcomingComponent from './UpcomingComponent';
 import StargazersInfo from './StargazersInfo';
-import { hashHistory } from 'react-router';
+import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import {
@@ -36,7 +36,7 @@ class Submenu extends Component {
   handleClick(event, link) {
     event.preventDefault();
 
-    hashHistory.push(link);
+    browserHistory.push(link);
   }
 
   render() {
