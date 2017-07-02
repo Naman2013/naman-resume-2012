@@ -102,14 +102,14 @@ class MyPicturesNavigation extends Component {
                 <span className={clearDisplayClassnames} onClick={e => this.handleResetObjectFilter(e)} />
                 <span className={filterButtonIconClassnames} />
               </button>
-              <div className={filterContainerClassnames}>
-                <FilterMenu
-                  page={page}
-                />
-              </div>
             </div>
           </li>
         </ul>
+        <div className={filterContainerClassnames}>
+          <FilterMenu
+            page={page}
+          />
+        </div>
       </nav>
     );
   }
