@@ -591,7 +591,7 @@ class ReservationByCoordinate extends Component {
                 </h2>
 
                 <div className="form-row-container">
-                  <div className="form-row">RA: <input type="text" value={ra_h} onChange={this.handleRaHChange} onBlur={this.handleRaHBlur} className="generic-text-input" /> <span className="symbol-character">h</span></div>
+                  <div className="form-row">RA: <input type="text" value={ra_h} onChange={(event) => { this.handleFieldChange({ field: 'ra_h', value: event.target.value }); }} onBlur={(event) => { this.handleFieldBlur({ field: 'ra_h', value: event.target.value }); }} className="generic-text-input" /> <span className="symbol-character">h</span></div>
                   <div className="form-row"><input type="text" value={ra_m} onChange={(event) => { this.handleFieldChange({ field: 'ra_m', value: event.target.value, allowNegativeValues: false }); }} onBlur={(event) => { this.handleFieldBlur({ field: 'ra_m', value: event.target.value }); }} className="generic-text-input" /> <span className="symbol-character">m</span></div>
                   <div className="form-row"><input type="text" value={ra_s} onChange={this.handleRaSChange} onBlur={this.handleRaSBlur} className="generic-text-input" /> <span className="symbol-character">s</span></div>
                 </div>
