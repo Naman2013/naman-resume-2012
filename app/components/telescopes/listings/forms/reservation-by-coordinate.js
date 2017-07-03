@@ -69,8 +69,11 @@ function cleanCalcInput(value) {
   If the user leaves the field without entering a valid number, the cleanInput
   methods will set up values that can be calculated
 */
-function validNonCalculatedField(value) {
-  const VALID_NON_CALC_VALUES = ['-', ''];
+function validNonCalculatedField(value, { allowNegativeValues }) {
+  const VALID_NON_CALC_VALUES = [''];
+  if (allowNegativeValues) {
+    VALID_NON_CALC_VALUES.push('-');
+  }
   return VALID_NON_CALC_VALUES.indexOf(value) > -1;
 }
 
@@ -237,43 +240,25 @@ class ReservationByCoordinate extends Component {
     this.recalculateRA(event.target.value);
   }
 
-  // DEC change events
-  handleDecDChange = (event) => {
-    const dec_d = numberOnly(event.target.value);
-    if (validNonCalculatedField(dec_d)) {
+  // ========================
+  // TODO: refactor all inputs to use this method instead of their own unique methods
+  // ========================
+  handleFieldChange({ field, value, allowNegativeValues }) {
+    const numberValue = numberOnly(value);
+    if (validNonCalculatedField(numberValue, { allowNegativeValues })) {
       this.setState({
-        dec_d,
+        [field]: numberValue,
       });
     } else {
       this.calculateFields({
-        dec_d: cleanCalcInput(dec_d),
+        [field]: cleanCalcInput(numberValue),
       });
     }
   }
 
-  handleDecDBlur = (event) => {
+  handleFieldBlur({ field, value }) {
     this.calculateFields({
-      dec_d: cleanCalcInput(event.target.value),
-    });
-  }
-
-  handleDecMChange = (event) => {
-    let decM = numberOnly(event.target.value);
-    if (!decM) {
-      this.setState({
-        dec_m: decM,
-      });
-      return;
-    }
-
-    this.calculateFields({
-      dec_m: cleanCalcInput(decM),
-    });
-  }
-
-  handleDecMBlur = (event) => {
-    this.calculateFields({
-      dec_m: cleanCalcInput(event.target.value),
+      [field]: cleanCalcInput(value),
     });
   }
 
@@ -625,8 +610,8 @@ class ReservationByCoordinate extends Component {
                 </div>
 
                 <div className="form-row-container">
-                  <div className="form-row">Dec: <input type="text" value={dec_d} onChange={this.handleDecDChange} onBlur={this.handleDecDBlur} className="generic-text-input" /> <span className="symbol-character">d</span></div>
-                  <div className="form-row"><input type="text" value={dec_m} onChange={this.handleDecMChange} onBlur={this.handleDecMBlur} className="generic-text-input" /> <span className="symbol-character">m</span></div>
+                  <div className="form-row">Dec: <input type="text" value={dec_d} onChange={(event) => { this.handleFieldChange({ field: 'dec_d', value: event.target.value, allowNegativeValues: true }); }} onBlur={(event) => { this.handleFieldBlur({ field: 'dec_d', value: event.target.value }); }} className="generic-text-input" /> <span className="symbol-character">d</span></div>
+                  <div className="form-row"><input type="text" value={dec_m} onChange={(event) => { this.handleFieldChange({ field: 'dec_m', value: event.target.value }); }} onBlur={(event) => { this.handleFieldBlur({ field: 'dec_m', value: event.target.value }); }} className="generic-text-input" /> <span className="symbol-character">m</span></div>
                   <div className="form-row"><input type="text" value={dec_s} onChange={this.handleDecSChange} onBlur={this.handleDecSBlur} className="generic-text-input" /> <span className="symbol-character">s</span></div>
                 </div>
 
