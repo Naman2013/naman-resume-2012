@@ -319,7 +319,8 @@ class ReservationByCoordinate extends Component {
     const minutesToHoursDivisor = (dec_d >= 0) ? 60 : -60;
     const secondsToHoursDivisor = (dec_d >= 0) ? 3600 : -3600;
 
-    // set the appropriate ranges for minutes and seconds
+    // set the appropriate ranges for minutes, seconds and hours
+    ra_h = cleanTimeInput(ra_h);
     dec_s = cleanTimeInput(dec_s);
     dec_m = cleanTimeInput(dec_m);
     ra_m = cleanTimeInput(ra_m);
