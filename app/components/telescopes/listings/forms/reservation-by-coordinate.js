@@ -124,27 +124,6 @@ class ReservationByCoordinate extends Component {
     this.handleDECChange({ target: { value: this.state.dec } });
   }
 
-  // RA change events...
-  handleRaHChange = (event) => {
-    const newRAH = numberOnly(event.target.value);
-    if (!newRAH) {
-      this.setState({
-        ra_h: newRAH,
-      });
-      return;
-    }
-
-    this.calculateFields({
-      ra_h: cleanCalcInput(newRAH),
-    });
-  }
-
-  handleRaHBlur = (event) => {
-    this.calculateFields({
-      ra_h: cleanCalcInput(event.target.value),
-    });
-  }
-
   handleRaSChange = (event) => {
     const ras = numberOnly(event.target.value);
     if (!ras) {
