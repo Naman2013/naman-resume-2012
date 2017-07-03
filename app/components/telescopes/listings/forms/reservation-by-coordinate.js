@@ -42,6 +42,12 @@ function round(number, precision) {
   return roundedTempNumber / factor;
 }
 
+function cleanTimeInput(timeValue) {
+  const MAX_TIME = 59;
+  const absoluteValue = window.Math.abs(timeValue);
+  return (absoluteValue > MAX_TIME) ? MAX_TIME : absoluteValue;
+}
+
 const mapStateToProps = ({ user }) => ({
   user,
 });
@@ -136,27 +142,6 @@ class ReservationByCoordinate extends Component {
   handleRaHBlur = (event) => {
     this.calculateFields({
       ra_h: cleanCalcInput(event.target.value),
-    });
-  }
-
-  handleRaMChange = (event) => {
-    const newRAM = numberOnly(event.target.value);
-
-    if (!newRAM) {
-      this.setState({
-        ra_m: newRAM,
-      });
-      return;
-    }
-
-    this.calculateFields({
-      ra_m: cleanCalcInput(newRAM),
-    });
-  }
-
-  handleRaMBlur = (event) => {
-    this.calculateFields({
-      ra_m: cleanCalcInput(event.target.value),
     });
   }
 
@@ -356,8 +341,10 @@ class ReservationByCoordinate extends Component {
     const secondsToHoursDivisor = (dec_d >= 0) ? 3600 : -3600;
 
     // set the appropriate ranges for minutes and seconds
-    dec_s = (dec_s > MAX_TIME) ? MAX_TIME : dec_s;
-    dec_m = (dec_m > MAX_TIME) ? MAX_TIME : dec_m;
+    dec_s = cleanTimeInput(dec_s);
+    dec_m = cleanTimeInput(dec_m);
+    ra_m = cleanTimeInput(ra_m);
+    ra_s = cleanTimeInput(ra_s);
 
     // calculate the dec value from the minutes and seconds provided
     const secondsToHours = (dec_s / secondsToHoursDivisor);
@@ -605,7 +592,7 @@ class ReservationByCoordinate extends Component {
 
                 <div className="form-row-container">
                   <div className="form-row">RA: <input type="text" value={ra_h} onChange={this.handleRaHChange} onBlur={this.handleRaHBlur} className="generic-text-input" /> <span className="symbol-character">h</span></div>
-                  <div className="form-row"><input type="text" value={ra_m} onChange={this.handleRaMChange} onBlur={this.handleRaMBlur} className="generic-text-input" /> <span className="symbol-character">m</span></div>
+                  <div className="form-row"><input type="text" value={ra_m} onChange={(event) => { this.handleFieldChange({ field: 'ra_m', value: event.target.value, allowNegativeValues: false }); }} onBlur={(event) => { this.handleFieldBlur({ field: 'ra_m', value: event.target.value }); }} className="generic-text-input" /> <span className="symbol-character">m</span></div>
                   <div className="form-row"><input type="text" value={ra_s} onChange={this.handleRaSChange} onBlur={this.handleRaSBlur} className="generic-text-input" /> <span className="symbol-character">s</span></div>
                 </div>
 
