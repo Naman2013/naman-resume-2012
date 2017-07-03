@@ -141,6 +141,7 @@ class SituationVideoViewer extends Component {
                       domeId={String(feed.DomeId)}
                       teleFade={String(feed.SSEfade)}
                       clipped={false}
+                      missionFormat="none"
                     />
                   }
                 </aside>

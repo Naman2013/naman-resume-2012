@@ -45,8 +45,8 @@ ModalGeneric.defaultProps = {
 ModalGeneric.propTypes = {
   closeModal: PropTypes.func,
   open: PropTypes.bool,
-  title: PropTypes.string,
-  description: PropTypes.string,
+  title: PropTypes.any,
+  description: PropTypes.any,
   closeButtonText: PropTypes.string,
 };
 

@@ -70,7 +70,6 @@ class OtherFeaturedObjects extends Component {
 
 OtherFeaturedObjects.defaultProps = {
   layoutDirection: 'column',
-  style: {},
 };
 
 OtherFeaturedObjects.propTypes = {
@@ -80,7 +79,6 @@ OtherFeaturedObjects.propTypes = {
   sectionSubtitle: string,
   itemList: array,
   layoutDirection: string,
-  style: shape(any),
 };
 
 const mapStateToProps = ({ otherFeaturedObjects }) => ({
