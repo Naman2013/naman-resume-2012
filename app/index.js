@@ -66,6 +66,7 @@ import PhotoRoll from './pages/my-pictures/PhotoRoll';
 import Galleries from './pages/my-pictures/Galleries';
 import Missions from './pages/my-pictures/Missions';
 import MissionImages from './pages/my-pictures/MissionImages';
+import ImageDetails from './pages/my-pictures/ImageDetails';
 
 import Plans from './pages/registration/Plans';
 import UpgradeApprentice from './pages/registration/UpgradeApprentice';
