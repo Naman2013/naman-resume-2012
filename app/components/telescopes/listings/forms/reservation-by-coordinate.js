@@ -61,6 +61,19 @@ function cleanCalcInput(value) {
   return parseFloat(cleanedInput);
 }
 
+/**
+  @validNonCalculatedField
+  Though not all allowed values are calculated, we store a short list of
+  valid values that we will set to an input field
+
+  If the user leaves the field without entering a valid number, the cleanInput
+  methods will set up values that can be calculated
+*/
+function validNonCalculatedField(value) {
+  const VALID_NON_CALC_VALUES = ['-', ''];
+  return VALID_NON_CALC_VALUES.indexOf(value) > -1;
+}
+
 function numberOnly(value) {
   return value.replace(/[^0-9-]/g, '');
 }
@@ -227,7 +240,7 @@ class ReservationByCoordinate extends Component {
   // DEC change events
   handleDecDChange = (event) => {
     const dec_d = numberOnly(event.target.value);
-    if (!dec_d) {
+    if (validNonCalculatedField(dec_d)) {
       this.setState({
         dec_d,
       });
@@ -606,15 +619,15 @@ class ReservationByCoordinate extends Component {
                 </h2>
 
                 <div className="form-row-container">
-                  <div className="form-row">RA: <input value={ra_h} onChange={this.handleRaHChange} onBlur={this.handleRaHBlur} size="2" className="generic-text-input" type="number" /> <span className="symbol-character">h</span></div>
-                  <div className="form-row"><input value={ra_m} onChange={this.handleRaMChange} onBlur={this.handleRaMBlur} size="2" min="0" className="generic-text-input" type="number" /> <span className="symbol-character">m</span></div>
-                  <div className="form-row"><input value={ra_s} onChange={this.handleRaSChange} onBlur={this.handleRaSBlur} size="2" min="0" className="generic-text-input" type="number" /> <span className="symbol-character">s</span></div>
+                  <div className="form-row">RA: <input type="text" value={ra_h} onChange={this.handleRaHChange} onBlur={this.handleRaHBlur} className="generic-text-input" /> <span className="symbol-character">h</span></div>
+                  <div className="form-row"><input type="text" value={ra_m} onChange={this.handleRaMChange} onBlur={this.handleRaMBlur} className="generic-text-input" /> <span className="symbol-character">m</span></div>
+                  <div className="form-row"><input type="text" value={ra_s} onChange={this.handleRaSChange} onBlur={this.handleRaSBlur} className="generic-text-input" /> <span className="symbol-character">s</span></div>
                 </div>
 
                 <div className="form-row-container">
-                  <div className="form-row">Dec: <input value={dec_d} onChange={this.handleDecDChange} onBlur={this.handleDecDBlur} size="2" className="generic-text-input" type="number" /> <span className="symbol-character">d</span></div>
-                  <div className="form-row"><input value={dec_m} onChange={this.handleDecMChange} onBlur={this.handleDecMBlur} size="2" min="0" className="generic-text-input" type="number" /> <span className="symbol-character">m</span></div>
-                  <div className="form-row"><input value={dec_s} onChange={this.handleDecSChange} onBlur={this.handleDecSBlur} size="2" min="0" className="generic-text-input" type="number" /> <span className="symbol-character">s</span></div>
+                  <div className="form-row">Dec: <input type="text" value={dec_d} onChange={this.handleDecDChange} onBlur={this.handleDecDBlur} className="generic-text-input" /> <span className="symbol-character">d</span></div>
+                  <div className="form-row"><input type="text" value={dec_m} onChange={this.handleDecMChange} onBlur={this.handleDecMBlur} className="generic-text-input" /> <span className="symbol-character">m</span></div>
+                  <div className="form-row"><input type="text" value={dec_s} onChange={this.handleDecSChange} onBlur={this.handleDecSBlur} className="generic-text-input" /> <span className="symbol-character">s</span></div>
                 </div>
 
                 <div className="form-row-container highlighted">
