@@ -106,14 +106,14 @@ class MyPicturesNavigation extends Component {
               <button onClick={this.handleFilterClick} className={s.button}>
                 <span className={filterButtonIconClassnames} />
               </button>
-              <div className={filterContainerClassnames}>
-                <FilterMenu
-                  page={page}
-                />
-              </div>
             </div>
           </li>
         </ul>
+        <div className={filterContainerClassnames}>
+          <FilterMenu
+            page={page}
+          />
+        </div>
       </nav>
     );
   }
