@@ -51,12 +51,6 @@ function cleanTimeInput(timeValue) {
   return (absoluteValue > MAX_TIME) ? MAX_TIME : absoluteValue;
 }
 
-function cleanDecimalInput(value) {
-  console.log('expecting things like, 1 and 1.2 and 1...');
-  console.log(value);
-  return value;
-}
-
 // TODO: move this into a utility file
 function cleanCalcInput(value) {
   let cleanedInput = value || 0;
