@@ -123,8 +123,6 @@ class ReservationByCoordinate extends Component {
       dec: this.props.objectDec,
     };
 
-    this.handleDecSChange = this.handleDecSChange.bind(this);
-
     this.handleDECChange = this.handleDECChange.bind(this);
     this.handleVisibilityCheck = this.handleVisibilityCheck.bind(this);
     this.handleTargetChange = this.handleTargetChange.bind(this);
@@ -236,29 +234,29 @@ class ReservationByCoordinate extends Component {
     });
   }
 
-  handleDecSChange(event) {
+  handleSecondsChange({ field, valueRAW }) {
     const MAX_ALLOWED = 59;
-    let value = trim(event.target.value);
+    let value = trim(valueRAW);
 
     // if this is an empty string, set the field without running calculations
     // this is a UX feature to allow users to backspace all content
     if (value === '') {
       this.setState({
-        dec_s: value,
+        [field]: value,
       });
     }
 
     if (validFloat(value)) {
       value = (value > MAX_ALLOWED) ? MAX_ALLOWED : value;
       this.calculateFields({
-        dec_s: value,
+        [field]: value,
       });
     }
   }
 
-  handleDecSBlur = (event) => {
+  handleSecondsBlur({ field, valueRAW }) {
     this.calculateFields({
-      dec_s: cleanCalcInput(event.target.value),
+      [field]: cleanCalcInput(valueRAW),
     });
   }
 
@@ -327,12 +325,12 @@ class ReservationByCoordinate extends Component {
   calculateFields(values) {
     const MAX_TIME = 59;
 
+    let { dec, dec_d, dec_m, dec_s, ra_h, ra_m, ra_s } = Object.assign({}, this.state, values);
+    let ra;
+
     // if dec_d is negative, make all numbers negative
     const minutesToHoursDivisor = (dec_d >= 0) ? 60 : -60;
     const secondsToHoursDivisor = (dec_d >= 0) ? 3600 : -3600;
-
-    let { dec, dec_d, dec_m, dec_s, ra_h, ra_m, ra_s } = Object.assign({}, this.state, values);
-    let ra;
 
     // set the appropriate ranges for minutes, seconds and hours
     dec_m = cleanTimeInput(dec_m);
@@ -344,8 +342,9 @@ class ReservationByCoordinate extends Component {
     // calculate the dec value from the minutes and seconds provided
     const secondsToHours = (dec_s / secondsToHoursDivisor);
     const minutesToHours = (dec_m / minutesToHoursDivisor);
-    dec = round((dec_d + secondsToHours + minutesToHours), 6);
-    ra = round(ra_h + (ra_m / 60) + (ra_s / 3600), 6);
+
+    dec = round((dec_d + secondsToHours + minutesToHours), 7);
+    ra = round(ra_h + (ra_m / 60) + (ra_s / 3600), 7);
 
     if (dec >= 90) {
       dec = 90.0;
@@ -593,12 +592,14 @@ class ReservationByCoordinate extends Component {
                 <div className="form-row-container">
                   <div className="form-row">Dec: <input type="text" value={dec_d} onChange={(event) => { this.handleFieldChange({ field: 'dec_d', value: event.target.value, allowNegativeValues: true }); }} onBlur={(event) => { this.handleFieldBlur({ field: 'dec_d', value: event.target.value }); }} className="generic-text-input" /> <span className="symbol-character">d</span></div>
                   <div className="form-row"><input type="text" value={dec_m} onChange={(event) => { this.handleFieldChange({ field: 'dec_m', value: event.target.value }); }} onBlur={(event) => { this.handleFieldBlur({ field: 'dec_m', value: event.target.value }); }} className="generic-text-input" /> <span className="symbol-character">m</span></div>
-                  <div className="form-row"><input type="text" maxLength="9" value={dec_s} onChange={this.handleDecSChange} onBlur={this.handleDecSBlur} className="generic-text-input" /> <span className="symbol-character">s</span></div>
+                  <div className="form-row">
+                    <input type="text" maxLength="9" value={dec_s} onChange={(event) => { this.handleSecondsChange({ field: 'dec_s', valueRAW: event.target.value }); }} onBlur={(event) => { this.handleSecondsBlur({ field: 'dec_s', valueRAW: event.target.value }); }} className="generic-text-input" /> <span className="symbol-character">s</span>
+                  </div>
                 </div>
 
                 <div className="form-row-container highlighted">
                   <div className="form-row">RA: <input value={ra} onChange={this.handleRAChange} onBlur={this.handleRABlur} size="8" className="generic-text-input" type="number" /></div>
-                  <div className="form-row">Dec: <input value={dec} onChange={this.handleDECChange} onBlur={this.handleDECBlur} size="8" className="generic-text-input" type="number" /></div>
+                  <div className="form-row">Dec: <input value={dec} maxLength="9" onChange={this.handleDECChange} onBlur={this.handleDECBlur} size="8" className="generic-text-input" type="number" /></div>
                 </div>
               </div>
 
