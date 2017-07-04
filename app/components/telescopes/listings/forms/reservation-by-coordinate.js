@@ -289,7 +289,7 @@ class ReservationByCoordinate extends Component {
 
     const degrees = Math.trunc(dec);
     const minutes = Math.trunc((dec - degrees) * minutesDivisor);
-    const seconds = Math.trunc((dec - degrees - (minutes / minutesDivisor)) * secondsDivisor);
+    const seconds = round((dec - degrees - (minutes / minutesDivisor)) * secondsDivisor, 6);
 
     this.setState({
       dec,
@@ -334,7 +334,6 @@ class ReservationByCoordinate extends Component {
 
     // set the appropriate ranges for minutes, seconds and hours
     dec_m = cleanTimeInput(dec_m);
-
     ra_h = cleanTimeInput(ra_h);
     ra_m = cleanTimeInput(ra_m);
     ra_s = cleanTimeInput(ra_s);
