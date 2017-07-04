@@ -336,7 +336,6 @@ class ReservationByCoordinate extends Component {
     dec_m = cleanTimeInput(dec_m);
     ra_h = cleanTimeInput(ra_h);
     ra_m = cleanTimeInput(ra_m);
-    ra_s = cleanTimeInput(ra_s);
 
     // calculate the dec value from the minutes and seconds provided
     const secondsToHours = (dec_s / secondsToHoursDivisor);
@@ -585,7 +584,9 @@ class ReservationByCoordinate extends Component {
                 <div className="form-row-container">
                   <div className="form-row">RA: <input type="text" value={ra_h} onChange={(event) => { this.handleFieldChange({ field: 'ra_h', value: event.target.value }); }} onBlur={(event) => { this.handleFieldBlur({ field: 'ra_h', value: event.target.value }); }} className="generic-text-input" /> <span className="symbol-character">h</span></div>
                   <div className="form-row"><input type="text" value={ra_m} onChange={(event) => { this.handleFieldChange({ field: 'ra_m', value: event.target.value, allowNegativeValues: false }); }} onBlur={(event) => { this.handleFieldBlur({ field: 'ra_m', value: event.target.value }); }} className="generic-text-input" /> <span className="symbol-character">m</span></div>
-                  <div className="form-row"><input type="text" value={ra_s} onChange={this.handleRaSChange} onBlur={this.handleRaSBlur} className="generic-text-input" /> <span className="symbol-character">s</span></div>
+                  <div className="form-row">
+                    <input type="text" maxLength="9" value={ra_s} onChange={(event) => {this.handleSecondsChange({ field: 'ra_s', valueRAW: event.target.value });}} onBlur={(event) => {this.handleSecondsBlur({ field: 'ra_s', valueRAW: event.target.value }); }} className="generic-text-input" /> <span className="symbol-character">s</span>
+                  </div>
                 </div>
 
                 <div className="form-row-container">
