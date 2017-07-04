@@ -175,7 +175,7 @@ class ReservationByCoordinate extends Component {
 
     ra_h = Math.trunc(ra);
     ra_m = Math.trunc((ra - ra_h) * 60);
-    ra_s = Math.round((((ra - ra_h) * 60) - ra_m) * 60);
+    ra_s = round((((ra - ra_h) * 60) - ra_m) * 60, 6);
 
     if (ra_s == 60) {
       ra_s = 0;
@@ -585,7 +585,7 @@ class ReservationByCoordinate extends Component {
                   <div className="form-row">RA: <input type="text" value={ra_h} onChange={(event) => { this.handleFieldChange({ field: 'ra_h', value: event.target.value }); }} onBlur={(event) => { this.handleFieldBlur({ field: 'ra_h', value: event.target.value }); }} className="generic-text-input" /> <span className="symbol-character">h</span></div>
                   <div className="form-row"><input type="text" value={ra_m} onChange={(event) => { this.handleFieldChange({ field: 'ra_m', value: event.target.value, allowNegativeValues: false }); }} onBlur={(event) => { this.handleFieldBlur({ field: 'ra_m', value: event.target.value }); }} className="generic-text-input" /> <span className="symbol-character">m</span></div>
                   <div className="form-row">
-                    <input type="text" maxLength="9" value={ra_s} onChange={(event) => {this.handleSecondsChange({ field: 'ra_s', valueRAW: event.target.value });}} onBlur={(event) => {this.handleSecondsBlur({ field: 'ra_s', valueRAW: event.target.value }); }} className="generic-text-input" /> <span className="symbol-character">s</span>
+                    <input type="text" maxLength="9" value={ra_s} onChange={(event) => { this.handleSecondsChange({ field: 'ra_s', valueRAW: event.target.value }); }} onBlur={(event) => {this.handleSecondsBlur({ field: 'ra_s', valueRAW: event.target.value }); }} className="generic-text-input" /> <span className="symbol-character">s</span>
                   </div>
                 </div>
 
