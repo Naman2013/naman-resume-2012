@@ -46,7 +46,7 @@ function round(number, precision) {
 function cleanTimeInput(timeValue) {
   if (!timeValue) { return timeValue; }
 
-  const MAX_TIME = 59;
+  const MAX_TIME = 60;
   const absoluteValue = window.Math.abs(timeValue);
   return (absoluteValue > MAX_TIME) ? MAX_TIME : absoluteValue;
 }
@@ -229,7 +229,7 @@ class ReservationByCoordinate extends Component {
   }
 
   handleSecondsChange({ field, valueRAW }) {
-    const MAX_ALLOWED = 59;
+    const MAX_ALLOWED = 60;
     let value = trim(valueRAW);
 
     // if this is an empty string, set the field without running calculations
@@ -317,8 +317,6 @@ class ReservationByCoordinate extends Component {
   }
 
   calculateFields(values) {
-    const MAX_TIME = 59;
-
     let { dec, dec_d, dec_m, dec_s, ra_h, ra_m, ra_s } = Object.assign({}, this.state, values);
     let ra;
 
