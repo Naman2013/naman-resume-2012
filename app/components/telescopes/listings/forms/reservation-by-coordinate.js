@@ -27,6 +27,7 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import trim from 'lodash/trim';
 import ReservationSelectList from '../../../common/forms/reservation-select-list';
 import TargetValidationForm from '../../../reserve/target-validation-form';
 import Timer from './common/timer';
@@ -43,22 +44,18 @@ function round(number, precision) {
 }
 
 function cleanTimeInput(timeValue) {
+  if (!timeValue) { return timeValue; }
+
   const MAX_TIME = 59;
   const absoluteValue = window.Math.abs(timeValue);
   return (absoluteValue > MAX_TIME) ? MAX_TIME : absoluteValue;
 }
 
-const mapStateToProps = ({ user }) => ({
-  user,
-});
-
-const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({
-    grabMissionSlot,
-    grabUpdateMissionSlot,
-    missionConfirmOpen,
-  }, dispatch),
-});
+function cleanDecimalInput(value) {
+  console.log('expecting things like, 1 and 1.2 and 1...');
+  console.log(value);
+  return value;
+}
 
 // TODO: move this into a utility file
 function cleanCalcInput(value) {
@@ -86,6 +83,22 @@ function validNonCalculatedField(value, { allowNegativeValues }) {
 function numberOnly(value) {
   return value.replace(/[^0-9-]/g, '');
 }
+
+function validFloat(value) {
+  return (/^\d+(\.)?\d*$/).test(value);
+}
+
+const mapStateToProps = ({ user }) => ({
+  user,
+});
+
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators({
+    grabMissionSlot,
+    grabUpdateMissionSlot,
+    missionConfirmOpen,
+  }, dispatch),
+});
 
 @connect(mapStateToProps, mapDispatchToProps)
 class ReservationByCoordinate extends Component {
@@ -204,9 +217,6 @@ class ReservationByCoordinate extends Component {
     this.recalculateRA(event.target.value);
   }
 
-  // ========================
-  // TODO: refactor all inputs to use this method instead of their own unique methods
-  // ========================
   handleFieldChange({ field, value, allowNegativeValues }) {
     const numberValue = numberOnly(value);
     if (validNonCalculatedField(numberValue, { allowNegativeValues })) {
@@ -227,18 +237,23 @@ class ReservationByCoordinate extends Component {
   }
 
   handleDecSChange(event) {
-    const decS = numberOnly(event.target.value);
-    if (!decS) {
-      this.setState({
-        dec_s: decS,
-      });
+    const MAX_ALLOWED = 59;
+    let value = trim(event.target.value);
 
-      return;
+    // if this is an empty string, set the field without running calculations
+    // this is a UX feature to allow users to backspace all content
+    if (value === '') {
+      this.setState({
+        dec_s: value,
+      });
     }
 
-    this.calculateFields({
-      dec_s: cleanCalcInput(decS),
-    });
+    if (validFloat(value)) {
+      value = (value > MAX_ALLOWED) ? MAX_ALLOWED : value;
+      this.calculateFields({
+        dec_s: value,
+      });
+    }
   }
 
   handleDecSBlur = (event) => {
@@ -312,17 +327,17 @@ class ReservationByCoordinate extends Component {
   calculateFields(values) {
     const MAX_TIME = 59;
 
-    let { dec, dec_d, dec_m, dec_s, ra_h, ra_m, ra_s } = Object.assign({}, this.state, values);
-    let ra;
-
     // if dec_d is negative, make all numbers negative
     const minutesToHoursDivisor = (dec_d >= 0) ? 60 : -60;
     const secondsToHoursDivisor = (dec_d >= 0) ? 3600 : -3600;
 
+    let { dec, dec_d, dec_m, dec_s, ra_h, ra_m, ra_s } = Object.assign({}, this.state, values);
+    let ra;
+
     // set the appropriate ranges for minutes, seconds and hours
-    ra_h = cleanTimeInput(ra_h);
-    dec_s = cleanTimeInput(dec_s);
     dec_m = cleanTimeInput(dec_m);
+
+    ra_h = cleanTimeInput(ra_h);
     ra_m = cleanTimeInput(ra_m);
     ra_s = cleanTimeInput(ra_s);
 
@@ -330,7 +345,6 @@ class ReservationByCoordinate extends Component {
     const secondsToHours = (dec_s / secondsToHoursDivisor);
     const minutesToHours = (dec_m / minutesToHoursDivisor);
     dec = round((dec_d + secondsToHours + minutesToHours), 6);
-
     ra = round(ra_h + (ra_m / 60) + (ra_s / 3600), 6);
 
     if (dec >= 90) {
@@ -579,7 +593,7 @@ class ReservationByCoordinate extends Component {
                 <div className="form-row-container">
                   <div className="form-row">Dec: <input type="text" value={dec_d} onChange={(event) => { this.handleFieldChange({ field: 'dec_d', value: event.target.value, allowNegativeValues: true }); }} onBlur={(event) => { this.handleFieldBlur({ field: 'dec_d', value: event.target.value }); }} className="generic-text-input" /> <span className="symbol-character">d</span></div>
                   <div className="form-row"><input type="text" value={dec_m} onChange={(event) => { this.handleFieldChange({ field: 'dec_m', value: event.target.value }); }} onBlur={(event) => { this.handleFieldBlur({ field: 'dec_m', value: event.target.value }); }} className="generic-text-input" /> <span className="symbol-character">m</span></div>
-                  <div className="form-row"><input type="text" value={dec_s} onChange={this.handleDecSChange} onBlur={this.handleDecSBlur} className="generic-text-input" /> <span className="symbol-character">s</span></div>
+                  <div className="form-row"><input type="text" maxLength="9" value={dec_s} onChange={this.handleDecSChange} onBlur={this.handleDecSBlur} className="generic-text-input" /> <span className="symbol-character">s</span></div>
                 </div>
 
                 <div className="form-row-container highlighted">
