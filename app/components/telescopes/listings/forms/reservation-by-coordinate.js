@@ -36,6 +36,10 @@ import { fetchPresetOptions } from '../../../../modules/get-preset-options/get-p
 import { checkTargetVisibility } from '../../../../modules/check-target-visibility/api';
 import { grabMissionSlot, grabUpdateMissionSlot, missionConfirmOpen } from '../../../../modules/Missions';
 
+const MAX_SECONDS_CHARACTER_LENGTH = 4;
+const MAX_TIME = 60;
+const TIME_CEILING = 59;
+
 function round(number, precision) {
   const factor = window.Math.pow(10, precision);
   const tempNumber = number * factor;
@@ -45,10 +49,12 @@ function round(number, precision) {
 
 function cleanTimeInput(timeValue) {
   if (!timeValue) { return timeValue; }
-
-  const MAX_TIME = 60;
   const absoluteValue = window.Math.abs(timeValue);
-  return (absoluteValue > MAX_TIME) ? MAX_TIME : absoluteValue;
+  return (absoluteValue >= MAX_TIME) ? TIME_CEILING : absoluteValue;
+}
+
+function clearTrailingZeros(value) {
+  return (value * 1).toString();
 }
 
 // TODO: move this into a utility file
@@ -79,7 +85,7 @@ function numberOnly(value) {
 }
 
 function validFloat(value) {
-  return (/^\d+(\.)?\d*$/).test(value);
+  return (/^\d+(\.)?\d{0,1}$/).test(value);
 }
 
 const mapStateToProps = ({ user }) => ({
@@ -129,27 +135,6 @@ class ReservationByCoordinate extends Component {
     this.handleDECChange({ target: { value: this.state.dec } });
   }
 
-  handleRaSChange = (event) => {
-    const ras = numberOnly(event.target.value);
-    if (!ras) {
-      this.setState({
-        ra_s: ras,
-      });
-
-      return;
-    }
-
-    this.calculateFields({
-      ra_s: cleanCalcInput(ras),
-    });
-  }
-
-  handleRaSBlur = (event) => {
-    this.calculateFields({
-      ra_s: cleanCalcInput(event.target.value),
-    });
-  }
-
   updateRA = (ra) => {
     this.setState({
       ra,
@@ -158,32 +143,31 @@ class ReservationByCoordinate extends Component {
 
   recalculateRA(newRAValue) {
     let ra = cleanCalcInput(newRAValue);
-    let { ra_h, ra_m, ra_s } = this.state;
+    let ra_h = Math.trunc(ra);
+    let ra_m = Math.trunc((ra - ra_h) * 60);
+    // ra_s = round((((ra - ra_h) * 60) - ra_m) * 60, 6);
+    let ra_s = round((((ra - ra_h) * 60) - ra_m) * 60, 1);
+
+    if (ra_s >= MAX_TIME) {
+      ra_s = 0;
+      ra_m = ra_m += 1;
+
+      if (ra_m >= MAX_TIME) {
+        ra_m = 0;
+        ra_h = ra_h += 1;
+
+        if (ra_h >= 24) {
+          ra_h = 0;
+          ra = 0.0;
+        }
+      }
+    }
 
     if (ra >= 24) {
       ra_h = 0;
       ra_m = 0;
       ra_s = 0;
       ra = 0.0;
-    }
-
-    ra_h = Math.trunc(ra);
-    ra_m = Math.trunc((ra - ra_h) * 60);
-    ra_s = round((((ra - ra_h) * 60) - ra_m) * 60, 6);
-
-    if (ra_s == 60) {
-      ra_s = 0;
-      ra_m = ra_m++;
-
-      if (ra_m == 60) {
-        ra_m = 0;
-        ra_h = ra_h++;
-
-        if (ra_h == 24) {
-          ra_h = 0;
-          ra = 0.0;
-        }
-      }
     }
 
     this.setState({
@@ -229,7 +213,6 @@ class ReservationByCoordinate extends Component {
   }
 
   handleSecondsChange({ field, valueRAW }) {
-    const MAX_ALLOWED = 60;
     let value = trim(valueRAW);
 
     // if this is an empty string, set the field without running calculations
@@ -241,7 +224,7 @@ class ReservationByCoordinate extends Component {
     }
 
     if (validFloat(value)) {
-      value = (value > MAX_ALLOWED) ? MAX_ALLOWED : value;
+      value = (value >= MAX_TIME) ? TIME_CEILING : value;
       this.calculateFields({
         [field]: value,
       });
@@ -262,7 +245,9 @@ class ReservationByCoordinate extends Component {
 
   recalculateDEC(newDec) {
     let dec = cleanCalcInput(newDec);
-    let { dec_d, dec_m, dec_s } = this.state;
+    let dec_d;
+    let dec_m;
+    let dec_s;
 
     const minutesDivisor = 60;
     const secondsDivisor = 3600;
@@ -283,7 +268,7 @@ class ReservationByCoordinate extends Component {
 
     const degrees = Math.trunc(dec);
     const minutes = Math.trunc((dec - degrees) * minutesDivisor);
-    const seconds = round((dec - degrees - (minutes / minutesDivisor)) * secondsDivisor, 6);
+    const seconds = round((dec - degrees - (minutes / minutesDivisor)) * secondsDivisor, 1);
 
     this.setState({
       dec,
@@ -577,7 +562,7 @@ class ReservationByCoordinate extends Component {
                   <div className="form-row">RA: <input type="text" value={ra_h} onChange={(event) => { this.handleFieldChange({ field: 'ra_h', value: event.target.value }); }} onBlur={(event) => { this.handleFieldBlur({ field: 'ra_h', value: event.target.value }); }} className="generic-text-input" /> <span className="symbol-character">h</span></div>
                   <div className="form-row"><input type="text" value={ra_m} onChange={(event) => { this.handleFieldChange({ field: 'ra_m', value: event.target.value, allowNegativeValues: false }); }} onBlur={(event) => { this.handleFieldBlur({ field: 'ra_m', value: event.target.value }); }} className="generic-text-input" /> <span className="symbol-character">m</span></div>
                   <div className="form-row">
-                    <input type="text" maxLength="9" value={ra_s} onChange={(event) => { this.handleSecondsChange({ field: 'ra_s', valueRAW: event.target.value }); }} onBlur={(event) => {this.handleSecondsBlur({ field: 'ra_s', valueRAW: event.target.value }); }} className="generic-text-input" /> <span className="symbol-character">s</span>
+                    <input type="text" maxLength={MAX_SECONDS_CHARACTER_LENGTH} value={ra_s} onChange={(event) => { this.handleSecondsChange({ field: 'ra_s', valueRAW: event.target.value }); }} onBlur={(event) => {this.handleSecondsBlur({ field: 'ra_s', valueRAW: event.target.value }); }} className="generic-text-input" /> <span className="symbol-character">s</span>
                   </div>
                 </div>
 
@@ -585,7 +570,7 @@ class ReservationByCoordinate extends Component {
                   <div className="form-row">Dec: <input type="text" value={dec_d} onChange={(event) => { this.handleFieldChange({ field: 'dec_d', value: event.target.value, allowNegativeValues: true }); }} onBlur={(event) => { this.handleFieldBlur({ field: 'dec_d', value: event.target.value }); }} className="generic-text-input" /> <span className="symbol-character">d</span></div>
                   <div className="form-row"><input type="text" value={dec_m} onChange={(event) => { this.handleFieldChange({ field: 'dec_m', value: event.target.value }); }} onBlur={(event) => { this.handleFieldBlur({ field: 'dec_m', value: event.target.value }); }} className="generic-text-input" /> <span className="symbol-character">m</span></div>
                   <div className="form-row">
-                    <input type="text" maxLength="9" value={dec_s} onChange={(event) => { this.handleSecondsChange({ field: 'dec_s', valueRAW: event.target.value }); }} onBlur={(event) => { this.handleSecondsBlur({ field: 'dec_s', valueRAW: event.target.value }); }} className="generic-text-input" /> <span className="symbol-character">s</span>
+                    <input type="text" maxLength={MAX_SECONDS_CHARACTER_LENGTH} value={dec_s} onChange={(event) => { this.handleSecondsChange({ field: 'dec_s', valueRAW: event.target.value }); }} onBlur={(event) => { this.handleSecondsBlur({ field: 'dec_s', valueRAW: event.target.value }); }} className="generic-text-input" /> <span className="symbol-character">s</span>
                   </div>
                 </div>
 
