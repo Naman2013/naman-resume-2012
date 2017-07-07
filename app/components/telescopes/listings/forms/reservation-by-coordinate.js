@@ -53,10 +53,6 @@ function cleanTimeInput(timeValue) {
   return (absoluteValue >= MAX_TIME) ? TIME_CEILING : absoluteValue;
 }
 
-function clearTrailingZeros(value) {
-  return (value * 1).toString();
-}
-
 // TODO: move this into a utility file
 function cleanCalcInput(value) {
   let cleanedInput = value || 0;
@@ -90,6 +86,10 @@ function absoluteValue(value) {
 
 function validFloat(value) {
   return (/^\d+(\.)?\d{0,1}$/).test(value);
+}
+
+function removeMinusSign(value) {
+  return value.replace(/[-]/g, '');
 }
 
 const mapStateToProps = ({ user }) => ({
@@ -149,7 +149,6 @@ class ReservationByCoordinate extends Component {
     let ra = cleanCalcInput(newRAValue);
     let ra_h = Math.trunc(ra);
     let ra_m = Math.trunc((ra - ra_h) * 60);
-    // ra_s = round((((ra - ra_h) * 60) - ra_m) * 60, 6);
     let ra_s = round((((ra - ra_h) * 60) - ra_m) * 60, 1);
 
     if (ra_s >= MAX_TIME) {
@@ -184,7 +183,8 @@ class ReservationByCoordinate extends Component {
   }
 
   handleRAChange = (event) => {
-    const newRA = absoluteValue(event.target.value);
+    const newRA = removeMinusSign(event.target.value);
+    console.log(newRA);
     if (!newRA) {
       this.updateRA(newRA);
       return;
@@ -579,8 +579,8 @@ class ReservationByCoordinate extends Component {
                 </div>
 
                 <div className="form-row-container highlighted">
-                  <div className="form-row">RA: <input type="text" value={ra} onChange={this.handleRAChange} onBlur={this.handleRABlur} className="generic-text-input" /></div>
-                  <div className="form-row">Dec: <input type="number" value={dec} maxLength="9" onChange={this.handleDECChange} onBlur={this.handleDECBlur} size="8" className="generic-text-input" /></div>
+                  <div className="form-row">RA: <input type="number" value={ra} maxLength="9" min="0" max="24" step="0.0000001" onChange={this.handleRAChange} onBlur={this.handleRABlur} className="generic-text-input" /></div>
+                  <div className="form-row">Dec: <input type="number" value={dec} maxLength="9" onChange={this.handleDECChange} onBlur={this.handleDECBlur} className="generic-text-input" /></div>
                 </div>
               </div>
 
