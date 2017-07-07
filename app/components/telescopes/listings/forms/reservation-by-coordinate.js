@@ -84,6 +84,10 @@ function numberOnly(value) {
   return value.replace(/[^0-9-]/g, '');
 }
 
+function absoluteValue(value) {
+  return value.replace(/[^0-9]/g, '');
+}
+
 function validFloat(value) {
   return (/^\d+(\.)?\d{0,1}$/).test(value);
 }
@@ -180,7 +184,7 @@ class ReservationByCoordinate extends Component {
   }
 
   handleRAChange = (event) => {
-    const newRA = event.target.value;
+    const newRA = absoluteValue(event.target.value);
     if (!newRA) {
       this.updateRA(newRA);
       return;
@@ -575,8 +579,8 @@ class ReservationByCoordinate extends Component {
                 </div>
 
                 <div className="form-row-container highlighted">
-                  <div className="form-row">RA: <input value={ra} onChange={this.handleRAChange} onBlur={this.handleRABlur} size="8" className="generic-text-input" type="number" /></div>
-                  <div className="form-row">Dec: <input value={dec} maxLength="9" onChange={this.handleDECChange} onBlur={this.handleDECBlur} size="8" className="generic-text-input" type="number" /></div>
+                  <div className="form-row">RA: <input type="text" value={ra} onChange={this.handleRAChange} onBlur={this.handleRABlur} className="generic-text-input" /></div>
+                  <div className="form-row">Dec: <input type="number" value={dec} maxLength="9" onChange={this.handleDECChange} onBlur={this.handleDECBlur} size="8" className="generic-text-input" /></div>
                 </div>
               </div>
 
