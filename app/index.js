@@ -270,9 +270,12 @@ ReactDOM.render(
         <Route path="my-pictures" component={MyPictures} onEnter={validateUser}>
           <IndexRedirect to="photo-roll" />
           <Route path="photo-roll" title="Photo roll" component={PhotoRoll} />
-          <Route path="galleries" title="Galleries" component={Galleries} />
+          <Route path="galleries" tite="Galleries" component={Galleries} />
           <Route path="missions/:scheduledMissionId" title="Mission Images" component={MissionImages} />
           <Route path="missions" title="Missions" component={Missions} />
+
+          <Route path="gallery/show-image/:imageId(/:shareToken)" component={ImageDetails} />
+          <Route path="popular/show-image/:imageId(/:shareToken)" component={ImageDetails} />
         </Route>
 
         <Route path="discussions" component={Discussions} onEnter={validateUser}>
