@@ -27,6 +27,7 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import trim from 'lodash/trim';
 import ReservationSelectList from '../../../common/forms/reservation-select-list';
 import TargetValidationForm from '../../../reserve/target-validation-form';
 import Timer from './common/timer';
@@ -35,11 +36,56 @@ import { fetchPresetOptions } from '../../../../modules/get-preset-options/get-p
 import { checkTargetVisibility } from '../../../../modules/check-target-visibility/api';
 import { grabMissionSlot, grabUpdateMissionSlot, missionConfirmOpen } from '../../../../modules/Missions';
 
+const MAX_SECONDS_CHARACTER_LENGTH = 4;
+const MAX_TIME = 60;
+const TIME_CEILING = 59;
+
 function round(number, precision) {
   const factor = window.Math.pow(10, precision);
   const tempNumber = number * factor;
   const roundedTempNumber = Math.round(tempNumber);
   return roundedTempNumber / factor;
+}
+
+function cleanTimeInput(timeValue) {
+  if (!timeValue) { return timeValue; }
+  const absoluteValue = window.Math.abs(timeValue);
+  return (absoluteValue >= MAX_TIME) ? TIME_CEILING : absoluteValue;
+}
+
+function clearTrailingZeros(value) {
+  return (value * 1).toString();
+}
+
+// TODO: move this into a utility file
+function cleanCalcInput(value) {
+  let cleanedInput = value || 0;
+  cleanedInput = (isNaN(cleanedInput)) ? 0 : cleanedInput;
+  return parseFloat(cleanedInput);
+}
+
+/**
+  @validNonCalculatedField
+  Though not all allowed values are calculated, we store a short list of
+  valid values that we will set to an input field
+
+  If the user leaves the field without entering a valid number, the cleanInput
+  methods will set up values that can be calculated
+*/
+function validNonCalculatedField(value, { allowNegativeValues }) {
+  const VALID_NON_CALC_VALUES = [''];
+  if (allowNegativeValues) {
+    VALID_NON_CALC_VALUES.push('-');
+  }
+  return VALID_NON_CALC_VALUES.indexOf(value) > -1;
+}
+
+function numberOnly(value) {
+  return value.replace(/[^0-9-]/g, '');
+}
+
+function validFloat(value) {
+  return (/^\d+(\.)?\d{0,1}$/).test(value);
 }
 
 const mapStateToProps = ({ user }) => ({
@@ -53,17 +99,6 @@ const mapDispatchToProps = dispatch => ({
     missionConfirmOpen,
   }, dispatch),
 });
-
-// TODO: move this into a utility file
-function cleanCalcInput(value) {
-  let cleanedInput = value || 0;
-  cleanedInput = (isNaN(cleanedInput)) ? 0 : cleanedInput;
-  return parseFloat(cleanedInput);
-}
-
-function numberOnly(value) {
-  return value.replace(/[^0-9-]/g, '');
-}
 
 @connect(mapStateToProps, mapDispatchToProps)
 class ReservationByCoordinate extends Component {
@@ -88,8 +123,6 @@ class ReservationByCoordinate extends Component {
       dec: this.props.objectDec,
     };
 
-    this.handleDecSChange = this.handleDecSChange.bind(this);
-
     this.handleDECChange = this.handleDECChange.bind(this);
     this.handleVisibilityCheck = this.handleVisibilityCheck.bind(this);
     this.handleTargetChange = this.handleTargetChange.bind(this);
@@ -102,69 +135,6 @@ class ReservationByCoordinate extends Component {
     this.handleDECChange({ target: { value: this.state.dec } });
   }
 
-  // RA change events...
-  handleRaHChange = (event) => {
-    const newRAH = numberOnly(event.target.value);
-    if (!newRAH) {
-      this.setState({
-        ra_h: newRAH,
-      });
-      return;
-    }
-
-    this.calculateFields({
-      ra_h: cleanCalcInput(newRAH),
-    });
-  }
-
-  handleRaHBlur = (event) => {
-    this.calculateFields({
-      ra_h: cleanCalcInput(event.target.value),
-    });
-  }
-
-  handleRaMChange = (event) => {
-    const newRAM = numberOnly(event.target.value);
-
-    if (!newRAM) {
-      this.setState({
-        ra_m: newRAM,
-      });
-      return;
-    }
-
-    this.calculateFields({
-      ra_m: cleanCalcInput(newRAM),
-    });
-  }
-
-  handleRaMBlur = (event) => {
-    this.calculateFields({
-      ra_m: cleanCalcInput(event.target.value),
-    });
-  }
-
-  handleRaSChange = (event) => {
-    const ras = numberOnly(event.target.value);
-    if (!ras) {
-      this.setState({
-        ra_s: ras,
-      });
-
-      return;
-    }
-
-    this.calculateFields({
-      ra_s: cleanCalcInput(ras),
-    });
-  }
-
-  handleRaSBlur = (event) => {
-    this.calculateFields({
-      ra_s: cleanCalcInput(event.target.value),
-    });
-  }
-
   updateRA = (ra) => {
     this.setState({
       ra,
@@ -173,32 +143,31 @@ class ReservationByCoordinate extends Component {
 
   recalculateRA(newRAValue) {
     let ra = cleanCalcInput(newRAValue);
-    let { ra_h, ra_m, ra_s } = this.state;
+    let ra_h = Math.trunc(ra);
+    let ra_m = Math.trunc((ra - ra_h) * 60);
+    // ra_s = round((((ra - ra_h) * 60) - ra_m) * 60, 6);
+    let ra_s = round((((ra - ra_h) * 60) - ra_m) * 60, 1);
+
+    if (ra_s >= MAX_TIME) {
+      ra_s = 0;
+      ra_m = ra_m += 1;
+
+      if (ra_m >= MAX_TIME) {
+        ra_m = 0;
+        ra_h = ra_h += 1;
+
+        if (ra_h >= 24) {
+          ra_h = 0;
+          ra = 0.0;
+        }
+      }
+    }
 
     if (ra >= 24) {
       ra_h = 0;
       ra_m = 0;
       ra_s = 0;
       ra = 0.0;
-    }
-
-    ra_h = Math.trunc(ra);
-    ra_m = Math.trunc((ra - ra_h) * 60);
-    ra_s = Math.round((((ra - ra_h) * 60) - ra_m) * 60);
-
-    if (ra_s == 60) {
-      ra_s = 0;
-      ra_m = ra_m++;
-
-      if (ra_m == 60) {
-        ra_m = 0;
-        ra_h = ra_h++;
-
-        if (ra_h == 24) {
-          ra_h = 0;
-          ra = 0.0;
-        }
-      }
     }
 
     this.setState({
@@ -224,64 +193,47 @@ class ReservationByCoordinate extends Component {
     this.recalculateRA(event.target.value);
   }
 
-  // DEC change events
-  handleDecDChange = (event) => {
-    const dec_d = numberOnly(event.target.value);
-    if (!dec_d) {
+  handleFieldChange({ field, value, allowNegativeValues }) {
+    const numberValue = numberOnly(value);
+    if (validNonCalculatedField(numberValue, { allowNegativeValues })) {
       this.setState({
-        dec_d,
+        [field]: numberValue,
       });
     } else {
       this.calculateFields({
-        dec_d: cleanCalcInput(dec_d),
+        [field]: cleanCalcInput(numberValue),
       });
     }
   }
 
-  handleDecDBlur = (event) => {
+  handleFieldBlur({ field, value }) {
     this.calculateFields({
-      dec_d: cleanCalcInput(event.target.value),
+      [field]: cleanCalcInput(value),
     });
   }
 
-  handleDecMChange = (event) => {
-    let decM = numberOnly(event.target.value);
-    if (!decM) {
+  handleSecondsChange({ field, valueRAW }) {
+    let value = trim(valueRAW);
+
+    // if this is an empty string, set the field without running calculations
+    // this is a UX feature to allow users to backspace all content
+    if (value === '') {
       this.setState({
-        dec_m: decM,
+        [field]: value,
       });
-      return;
     }
 
-    this.calculateFields({
-      dec_m: cleanCalcInput(decM),
-    });
-  }
-
-  handleDecMBlur = (event) => {
-    this.calculateFields({
-      dec_m: cleanCalcInput(event.target.value),
-    });
-  }
-
-  handleDecSChange(event) {
-    const decS = numberOnly(event.target.value);
-    if (!decS) {
-      this.setState({
-        dec_s: decS,
+    if (validFloat(value)) {
+      value = (value >= MAX_TIME) ? TIME_CEILING : value;
+      this.calculateFields({
+        [field]: value,
       });
-
-      return;
     }
-
-    this.calculateFields({
-      dec_s: cleanCalcInput(decS),
-    });
   }
 
-  handleDecSBlur = (event) => {
+  handleSecondsBlur({ field, valueRAW }) {
     this.calculateFields({
-      dec_s: cleanCalcInput(event.target.value),
+      [field]: cleanCalcInput(valueRAW),
     });
   }
 
@@ -293,7 +245,9 @@ class ReservationByCoordinate extends Component {
 
   recalculateDEC(newDec) {
     let dec = cleanCalcInput(newDec);
-    let { dec_d, dec_m, dec_s } = this.state;
+    let dec_d;
+    let dec_m;
+    let dec_s;
 
     const minutesDivisor = 60;
     const secondsDivisor = 3600;
@@ -314,7 +268,7 @@ class ReservationByCoordinate extends Component {
 
     const degrees = Math.trunc(dec);
     const minutes = Math.trunc((dec - degrees) * minutesDivisor);
-    const seconds = Math.trunc((dec - degrees - (minutes / minutesDivisor)) * secondsDivisor);
+    const seconds = round((dec - degrees - (minutes / minutesDivisor)) * secondsDivisor, 1);
 
     this.setState({
       dec,
@@ -348,8 +302,6 @@ class ReservationByCoordinate extends Component {
   }
 
   calculateFields(values) {
-    const MAX_TIME = 59;
-
     let { dec, dec_d, dec_m, dec_s, ra_h, ra_m, ra_s } = Object.assign({}, this.state, values);
     let ra;
 
@@ -357,16 +309,17 @@ class ReservationByCoordinate extends Component {
     const minutesToHoursDivisor = (dec_d >= 0) ? 60 : -60;
     const secondsToHoursDivisor = (dec_d >= 0) ? 3600 : -3600;
 
-    // set the appropriate ranges for minutes and seconds
-    dec_s = (dec_s > MAX_TIME) ? MAX_TIME : dec_s;
-    dec_m = (dec_m > MAX_TIME) ? MAX_TIME : dec_m;
+    // set the appropriate ranges for minutes, seconds and hours
+    dec_m = cleanTimeInput(dec_m);
+    ra_h = cleanTimeInput(ra_h);
+    ra_m = cleanTimeInput(ra_m);
 
     // calculate the dec value from the minutes and seconds provided
     const secondsToHours = (dec_s / secondsToHoursDivisor);
     const minutesToHours = (dec_m / minutesToHoursDivisor);
-    dec = round((dec_d + secondsToHours + minutesToHours), 6);
 
-    ra = round(ra_h + (ra_m / 60) + (ra_s / 3600), 6);
+    dec = round((dec_d + secondsToHours + minutesToHours), 7);
+    ra = round(ra_h + (ra_m / 60) + (ra_s / 3600), 7);
 
     if (dec >= 90) {
       dec = 90.0;
@@ -606,20 +559,24 @@ class ReservationByCoordinate extends Component {
                 </h2>
 
                 <div className="form-row-container">
-                  <div className="form-row">RA: <input value={ra_h} onChange={this.handleRaHChange} onBlur={this.handleRaHBlur} size="2" className="generic-text-input" type="number" /> <span className="symbol-character">h</span></div>
-                  <div className="form-row"><input value={ra_m} onChange={this.handleRaMChange} onBlur={this.handleRaMBlur} size="2" min="0" className="generic-text-input" type="number" /> <span className="symbol-character">m</span></div>
-                  <div className="form-row"><input value={ra_s} onChange={this.handleRaSChange} onBlur={this.handleRaSBlur} size="2" min="0" className="generic-text-input" type="number" /> <span className="symbol-character">s</span></div>
+                  <div className="form-row">RA: <input type="text" value={ra_h} onChange={(event) => { this.handleFieldChange({ field: 'ra_h', value: event.target.value }); }} onBlur={(event) => { this.handleFieldBlur({ field: 'ra_h', value: event.target.value }); }} className="generic-text-input" /> <span className="symbol-character">h</span></div>
+                  <div className="form-row"><input type="text" value={ra_m} onChange={(event) => { this.handleFieldChange({ field: 'ra_m', value: event.target.value, allowNegativeValues: false }); }} onBlur={(event) => { this.handleFieldBlur({ field: 'ra_m', value: event.target.value }); }} className="generic-text-input" /> <span className="symbol-character">m</span></div>
+                  <div className="form-row">
+                    <input type="text" maxLength={MAX_SECONDS_CHARACTER_LENGTH} value={ra_s} onChange={(event) => { this.handleSecondsChange({ field: 'ra_s', valueRAW: event.target.value }); }} onBlur={(event) => {this.handleSecondsBlur({ field: 'ra_s', valueRAW: event.target.value }); }} className="generic-text-input" /> <span className="symbol-character">s</span>
+                  </div>
                 </div>
 
                 <div className="form-row-container">
-                  <div className="form-row">Dec: <input value={dec_d} onChange={this.handleDecDChange} onBlur={this.handleDecDBlur} size="2" className="generic-text-input" type="number" /> <span className="symbol-character">d</span></div>
-                  <div className="form-row"><input value={dec_m} onChange={this.handleDecMChange} onBlur={this.handleDecMBlur} size="2" min="0" className="generic-text-input" type="number" /> <span className="symbol-character">m</span></div>
-                  <div className="form-row"><input value={dec_s} onChange={this.handleDecSChange} onBlur={this.handleDecSBlur} size="2" min="0" className="generic-text-input" type="number" /> <span className="symbol-character">s</span></div>
+                  <div className="form-row">Dec: <input type="text" value={dec_d} onChange={(event) => { this.handleFieldChange({ field: 'dec_d', value: event.target.value, allowNegativeValues: true }); }} onBlur={(event) => { this.handleFieldBlur({ field: 'dec_d', value: event.target.value }); }} className="generic-text-input" /> <span className="symbol-character">d</span></div>
+                  <div className="form-row"><input type="text" value={dec_m} onChange={(event) => { this.handleFieldChange({ field: 'dec_m', value: event.target.value }); }} onBlur={(event) => { this.handleFieldBlur({ field: 'dec_m', value: event.target.value }); }} className="generic-text-input" /> <span className="symbol-character">m</span></div>
+                  <div className="form-row">
+                    <input type="text" maxLength={MAX_SECONDS_CHARACTER_LENGTH} value={dec_s} onChange={(event) => { this.handleSecondsChange({ field: 'dec_s', valueRAW: event.target.value }); }} onBlur={(event) => { this.handleSecondsBlur({ field: 'dec_s', valueRAW: event.target.value }); }} className="generic-text-input" /> <span className="symbol-character">s</span>
+                  </div>
                 </div>
 
                 <div className="form-row-container highlighted">
                   <div className="form-row">RA: <input value={ra} onChange={this.handleRAChange} onBlur={this.handleRABlur} size="8" className="generic-text-input" type="number" /></div>
-                  <div className="form-row">Dec: <input value={dec} onChange={this.handleDECChange} onBlur={this.handleDECBlur} size="8" className="generic-text-input" type="number" /></div>
+                  <div className="form-row">Dec: <input value={dec} maxLength="9" onChange={this.handleDECChange} onBlur={this.handleDECBlur} size="8" className="generic-text-input" type="number" /></div>
                 </div>
               </div>
 
