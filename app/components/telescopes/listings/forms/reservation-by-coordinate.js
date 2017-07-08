@@ -250,7 +250,7 @@ class ReservationByCoordinate extends Component {
     const minutesDivisor = 60;
     const secondsDivisor = 3600;
 
-    let degrees = Math.trunc(dec);
+    let degrees = String.prototype.split.call(dec, '.')[0];
     let minutes = Math.trunc((dec - degrees) * minutesDivisor);
     let seconds = round((dec - degrees - (minutes / minutesDivisor)) * secondsDivisor, 1);
 
