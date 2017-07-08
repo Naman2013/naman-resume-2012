@@ -1,33 +1,26 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import MyPicturesNavigation from '../../components/my-pictures/my-pictures-navigation';
-import PhotoView from '../../components/my-pictures/PhotoView';
-import { fetchPhotoRollAndCounts } from '../../modules/my-pictures/actions';
+import { fetchImageDetailsAndCounts } from '../../modules/my-pictures/actions';
 import style from './my-pictures-gallery.scss';
 
-const mapStateToProps = ({ myPictures, objectTypeList }, ownProps) => ({
-  error: myPictures.photoRoll.error,
-  errorBody: myPictures.photoRoll.errorBody,
-  fetching: myPictures.photoRoll.fetching,
-  firstImageNumber: myPictures.photoRoll.firstImageNumber,
-  imageCount: myPictures.photoRoll.imageCount,
-  imageList: myPictures.photoRoll.response.imageList,
-  maxImageCount: myPictures.photoRoll.maxImageCount,
-  scheduledMissionId: ownProps.routeParams.scheduledMissionId,
+const mapStateToProps = ({ myPicturesImageDetails }) => ({
+  ...myPicturesImageDetails
 });
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
-    fetchPhotoRollAndCounts,
+    fetchImageDetailsAndCounts,
   }, dispatch),
 });
 
 @connect(mapStateToProps, mapDispatchToProps)
-class PhotoRoll extends Component {
+class ImageDetails extends Component {
   componentWillMount() {
     window.scrollTo(0, 0);
-    this.props.actions.fetchPhotoRollAndCounts({});
+    this.props.actions.fetchImageDetailsAndCounts({});
   }
 
   render() {
@@ -35,10 +28,6 @@ class PhotoRoll extends Component {
       actions,
       error,
       fetching,
-      firstImageNumber,
-      imageCount,
-      imageList,
-      maxImageCount,
     } = this.props;
     return (
       <div>
@@ -48,16 +37,6 @@ class PhotoRoll extends Component {
 
         <div className="clearfix my-pictures-container">
           <div>
-            <PhotoView
-              paginate={actions.fetchPhotoRollAndCounts}
-              imageCount={imageCount}
-              maxImageCount={maxImageCount}
-              firstImageNumber={firstImageNumber}
-              fetching={fetching}
-              imageList={imageList}
-              error={error}
-              type="images"
-            />
           </div>
         </div>
       </div>
@@ -65,25 +44,51 @@ class PhotoRoll extends Component {
   }
 }
 
-PhotoRoll.defaultProps = {
-  imageList: [],
+ImageDetails.defaultProps = {
   fetching: false,
   error: false,
-  imageCount: 0,
-  maxImageCount: 9,
-  firstImageNumber: 1,
+  imageTitle: '',
+  imageURL: '',
+  zoom: 0,
+  originx: 0,
+  originy: 0,
+  observationLog: '',
+  shareToken: '',
+  likesCount: 0,
+  canLikeFlag: false,
+  showLikePrompt: false,
+  likePrompt: '',
+  canDownloadFlag: false,
+  canEditFlag: false,
+  fileData: {
+    label: '',
+    value: '',
+  },
 };
 
-PhotoRoll.propTypes = {
-  imageList: PropTypes.arrayOf(PropTypes.shape({
-    imageURL: PropTypes.string.isRequired,
-    imageId: PropTypes.number.isRequired,
-  })),
-  imageCount: PropTypes.number,
-  maxImageCount: PropTypes.number,
-  firstImageNumber: PropTypes.number,
+ImageDetails.propTypes = {
   fetching: PropTypes.bool,
   error: PropTypes.bool,
+  imageTitle: PropTypes.string,
+  imageURL: PropTypes.string,
+  zoom: PropTypes.number,
+  originx: PropTypes.number,
+  originy: PropTypes.number,
+  observationLog: PropTypes.string,
+  shareToken: PropTypes.string,
+  likesCount: PropTypes.number,
+  canLikeFlag: PropTypes.bool,
+  showLikePrompt: PropTypes.bool,
+  likePrompt: PropTypes.string,
+  canDownloadFlag: PropTypes.bool,
+  canEditFlag: PropTypes.bool,
+  fileData: PropTypes.arrayOf(PropTypes.shape({
+    label: PropTypes.string,
+    value: PropTypes.string,
+  })),
+
+
+
 };
 
-export default PhotoRoll;
+export default ImageDetails;
