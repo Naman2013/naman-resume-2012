@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import MyPicturesNavigation from '../../components/my-pictures/my-pictures-navigation';
-import { fetchImageDetailsAndCounts } from '../../modules/my-pictures/actions';
+import { fetchImageDetailsAndCounts } from '../../modules/my-pictures-image-details/actions';
 import style from './my-pictures-gallery.scss';
 
 const mapStateToProps = ({ myPicturesImageDetails }) => ({
@@ -20,7 +20,16 @@ const mapDispatchToProps = dispatch => ({
 class ImageDetails extends Component {
   componentWillMount() {
     window.scrollTo(0, 0);
-    this.props.actions.fetchImageDetailsAndCounts({});
+    const {
+      params: {
+        customerImageId,
+        shareToken,
+      }
+    } = this.props;
+    this.props.actions.fetchImageDetailsAndCounts({
+      customerImageId,
+      shareToken,
+    });
   }
 
   render() {
@@ -29,6 +38,7 @@ class ImageDetails extends Component {
       error,
       fetching,
     } = this.props;
+    console.log(this.props)
     return (
       <div>
         <MyPicturesNavigation
@@ -36,8 +46,7 @@ class ImageDetails extends Component {
         />
 
         <div className="clearfix my-pictures-container">
-          <div>
-          </div>
+        hi
         </div>
       </div>
     );
@@ -60,10 +69,7 @@ ImageDetails.defaultProps = {
   likePrompt: '',
   canDownloadFlag: false,
   canEditFlag: false,
-  fileData: {
-    label: '',
-    value: '',
-  },
+  fileData: {}
 };
 
 ImageDetails.propTypes = {
@@ -82,10 +88,7 @@ ImageDetails.propTypes = {
   likePrompt: PropTypes.string,
   canDownloadFlag: PropTypes.bool,
   canEditFlag: PropTypes.bool,
-  fileData: PropTypes.arrayOf(PropTypes.shape({
-    label: PropTypes.string,
-    value: PropTypes.string,
-  })),
+  fileData: PropTypes.shape({})
 
 
 

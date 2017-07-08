@@ -17,7 +17,7 @@ class Photo extends Component {
   }
 
   render() {
-    const { imageURL, handlePhotoClick, imageTitle, overlayText } = this.props;
+    const { imageURL, handlePhotoClick, imageTitle, overlayText, detailsUrl } = this.props;
 
     const inlinePhotoStyle = {
       backgroundImage: `url(${imageURL})`,
@@ -25,7 +25,7 @@ class Photo extends Component {
 
     return (
       <div className={s.photoRoot}>
-        <Link onClick={handlePhotoClick} className={s.photoLink} style={inlinePhotoStyle} to="">
+        <Link to={detailsUrl} className={s.photoLink} style={inlinePhotoStyle}>
           <div className={`${s.innerPhotoContainer} content`}>
             <h3 className={s.photoTitle}>{imageTitle}</h3>
             <div className={s.photoMarkdownContent}>

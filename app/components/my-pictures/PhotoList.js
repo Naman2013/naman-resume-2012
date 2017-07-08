@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Photo from './Photo';
 import classnames from 'classnames';
 import style from './PhotoList.scss';
@@ -29,6 +30,7 @@ class PhotoList extends Component {
             imageList.map(photo => (
               <li key={photo.imageId} className={listColClassNames}>
                 <Photo
+                  detailsUrl={`my-pictures/gallery/show-image/${photo.customerImageId}/${photo.shareToken}`}
                   handlePhotoClick={this.handlePhotoClick}
                   imageURL={photo.imageURL}
                   imageTitle={photo.imageTitle}

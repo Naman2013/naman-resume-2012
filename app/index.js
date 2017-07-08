@@ -274,8 +274,8 @@ ReactDOM.render(
           <Route path="missions/:scheduledMissionId" title="Mission Images" component={MissionImages} />
           <Route path="missions" title="Missions" component={Missions} />
 
-          <Route path="gallery/show-image/:imageId(/:shareToken)" component={ImageDetails} />
-          <Route path="popular/show-image/:imageId(/:shareToken)" component={ImageDetails} />
+          <Route path="gallery/show-image/:customerImageId(/:shareToken)" component={ImageDetails} />
+          <Route path="popular/show-image/:customerImageId(/:shareToken)" component={ImageDetails} />
         </Route>
 
         <Route path="discussions" component={Discussions} onEnter={validateUser}>

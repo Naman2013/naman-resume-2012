@@ -1,9 +1,9 @@
 import createReducer from '../utils/createReducer';
 
 import {
-  FETCH_MY_PICTURE_IMAGE_DETAILS_START,
-  FETCH_MY_PICTURE_IMAGE_DETAILS_SUCCESS,
-  FETCH_MY_PICTURE_IMAGE_DETAILS_FAIL,
+  FETCH_MY_PICTURES_IMAGE_DETAILS_START,
+  FETCH_MY_PICTURES_IMAGE_DETAILS_SUCCESS,
+  FETCH_MY_PICTURES_IMAGE_DETAILS_FAIL,
 } from './actions';
 
 const initialState = {
@@ -22,27 +22,24 @@ const initialState = {
   likePrompt: '',
   canDownloadFlag: false,
   canEditFlag: false,
-  fileData: {
-    label: '',
-    value: '',
-  },
+  fileData: {}
 };
 
 export default createReducer(initialState, {
-  [FETCH_MY_PICTURE_IMAGE_DETAILS_START](state) {
+  [FETCH_MY_PICTURES_IMAGE_DETAILS_START](state) {
     return {
       ...state,
       fetching: true,
     };
   },
-  [FETCH_MY_PICTURE_IMAGE_DETAILS_SUCCESS](state, { payload }) {
+  [FETCH_MY_PICTURES_IMAGE_DETAILS_SUCCESS](state, { payload }) {
     return {
       ...state,
       fetching: false,
       ...payload,
     };
   },
-  [FETCH_MY_PICTURE_IMAGE_DETAILS_FAIL](state) {
+  [FETCH_MY_PICTURES_IMAGE_DETAILS_FAIL](state) {
     return {
       ...state,
       fetching: false,
