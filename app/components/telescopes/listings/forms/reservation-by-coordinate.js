@@ -39,6 +39,8 @@ import { grabMissionSlot, grabUpdateMissionSlot, missionConfirmOpen } from '../.
 const MAX_SECONDS_CHARACTER_LENGTH = 4;
 const MAX_TIME = 60;
 const TIME_CEILING = 59;
+const MAX_DECLINATION = 90;
+const MIN_DECLINATION = -90;
 
 function round(number, precision) {
   const factor = window.Math.pow(10, precision);
@@ -80,16 +82,12 @@ function numberOnly(value) {
   return value.replace(/[^0-9-]/g, '');
 }
 
-function absoluteValue(value) {
-  return value.replace(/[^0-9]/g, '');
-}
-
 function validFloat(value) {
   return (/^\d+(\.)?\d{0,1}$/).test(value);
 }
 
 function removeMinusSign(value) {
-  return value.replace(/[-]/g, '');
+  return String(value).replace(/[-]/g, '');
 }
 
 const mapStateToProps = ({ user }) => ({
@@ -184,7 +182,6 @@ class ReservationByCoordinate extends Component {
 
   handleRAChange = (event) => {
     const newRA = removeMinusSign(event.target.value);
-    console.log(newRA);
     if (!newRA) {
       this.updateRA(newRA);
       return;
@@ -249,36 +246,46 @@ class ReservationByCoordinate extends Component {
 
   recalculateDEC(newDec) {
     let dec = cleanCalcInput(newDec);
-    let dec_d;
-    let dec_m;
-    let dec_s;
 
     const minutesDivisor = 60;
     const secondsDivisor = 3600;
 
-    if (dec >= 90) {
-      dec_d = 90;
-      dec_m = 0;
-      dec_s = 0;
-      dec = 90;
+    let degrees = Math.trunc(dec);
+    let minutes = Math.trunc((dec - degrees) * minutesDivisor);
+    let seconds = round((dec - degrees - (minutes / minutesDivisor)) * secondsDivisor, 1);
+
+    minutes = Math.abs(minutes);
+    seconds = Math.abs(seconds);
+
+    if (seconds >= MAX_TIME) {
+      seconds = 0;
+      minutes += 1;
+
+      if (minutes >= MAX_TIME) {
+        minutes = 0;
+        degrees += 1;
+      }
     }
 
-    if (dec <= -90) {
-      dec_d = -90;
-      dec_m = 0;
-      dec_s = 0;
-      dec = -90;
+    if (degrees >= MAX_DECLINATION || dec >= MAX_DECLINATION) {
+      degrees = MAX_DECLINATION;
+      dec = MAX_DECLINATION;
+      minutes = 0;
+      seconds = 0;
     }
 
-    const degrees = Math.trunc(dec);
-    const minutes = Math.trunc((dec - degrees) * minutesDivisor);
-    const seconds = round((dec - degrees - (minutes / minutesDivisor)) * secondsDivisor, 1);
+    if (degrees <= MIN_DECLINATION || dec <= MIN_DECLINATION) {
+      degrees = MIN_DECLINATION;
+      dec = MIN_DECLINATION;
+      minutes = 0;
+      seconds = 0;
+    }
 
     this.setState({
       dec,
       dec_d: degrees,
-      dec_m: Math.abs(minutes),
-      dec_s: Math.abs(seconds),
+      dec_m: minutes,
+      dec_s: seconds,
       visibilityStatus: {},
     });
   }
