@@ -32,6 +32,7 @@ import CurrentSelectionHeader from '../../components/telescopes/current-selectio
 import TelescopeSelection from '../../components/telescopes/selection-widget/telescope-selection';
 
 import TelescopeAllSky from '../../components/telescope-details/telescope-all-sky/TelescopeAllSky';
+import UpcomingMissions from '../../components/telescope-details/UpcomingMissions/';
 import TelescopeConditionSnapshot from '../../components/telescope-details/condition-snapshot/condition-snapshot';
 import LiveWebcam from '../../components/telescope-details/live-webcam/live-webcam';
 import StarShareCamera from '../../components/telescope-details/star-share-camera/star-share-camera';
@@ -327,6 +328,7 @@ class TelescopeDetails extends Component {
 
             </div>
 
+            { /** right side bar */ }
             <div className="col-xs-4 telescope-details-sidebar">
               {
                 activeTelescopeMission.missionAvailable || activeTelescopeMission.nextMissionAvailable ?
@@ -340,6 +342,8 @@ class TelescopeDetails extends Component {
                       AllskyWidgetId={currentObservatory.SkyChartWidgetId}
                       scheduledMissionId={activeTelescopeMission.scheduledMissionId}
                     />
+
+                    <UpcomingMissions />
                   </div>
                 : null
               }
