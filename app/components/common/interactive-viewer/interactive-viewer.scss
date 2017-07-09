@@ -55,6 +55,7 @@
     position: absolute;
     z-index: 999;
     visibility: hidden;
+    z-index: 9;
 
     &:focus {
       outline: 0;
@@ -82,8 +83,8 @@
 
       .icon {
         position: relative;
-        top: -13px;
-        left: -1px;
+        top: -10px;
+        left: 0;
         font-size: 32px;
       }
     }
