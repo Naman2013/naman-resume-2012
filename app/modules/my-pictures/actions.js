@@ -96,15 +96,12 @@ export const fetchGalleries = ({
   dispatch(fetchGalleriesCount({})); // for pagination
   dispatch(fetchMissionCount()); // for deeplinking
   dispatch(fetchMyPicturesCount());// for deeplinking
-  return axios.post('/api/images/getMyPictures', {
+  return axios.post('/api/images/getGalleryList', {
     at,
     cid,
     token,
-    pagingMode: 'api',
     maxImageCount,
     firstImageNumber,
-    filterType: objectTypeFilter.filterByField,
-    viewType: 'gallery',
   })
   .then(result => dispatch(fetchGalleriesSuccess(result.data)))
   .catch(error => dispatch(fetchGalleriesFail(error)));

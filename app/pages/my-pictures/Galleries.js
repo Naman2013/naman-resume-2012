@@ -7,13 +7,13 @@ import { fetchGalleriesAndCounts } from '../../modules/my-pictures/actions';
 import style from './my-pictures-gallery.scss';
 
 const mapStateToProps = ({ myPictures, objectTypeList }, ownProps) => ({
-  error: myPictures.photoRoll.error,
-  errorBody: myPictures.photoRoll.errorBody,
-  fetching: myPictures.photoRoll.fetching,
-  firstImageNumber: myPictures.photoRoll.firstImageNumber,
-  imageCount: myPictures.photoRoll.imageCount,
-  imageList: myPictures.photoRoll.response.imageList,
-  maxImageCount: myPictures.photoRoll.maxImageCount,
+  error: myPictures.galleries.error,
+  errorBody: myPictures.galleries.errorBody,
+  fetching: myPictures.galleries.fetching,
+  firstImageNumber: myPictures.galleries.firstImageNumber,
+  imageCount: myPictures.galleries.imageCount,
+  imageList: myPictures.galleries.response.imageList,
+  maxImageCount: myPictures.galleries.maxImageCount,
   scheduledMissionId: ownProps.routeParams.scheduledMissionId,
 });
 
