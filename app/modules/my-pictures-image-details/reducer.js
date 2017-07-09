@@ -22,7 +22,7 @@ const initialState = {
   likePrompt: '',
   canDownloadFlag: false,
   canEditFlag: false,
-  fileData: {}
+  fileData: {},
 };
 
 export default createReducer(initialState, {
@@ -43,7 +43,7 @@ export default createReducer(initialState, {
     return {
       ...state,
       fetching: false,
-      error: true
+      error: true,
     };
   },
 });
