@@ -3,11 +3,11 @@
 exports[`renders some text when provided 1`] = `
 <div
   className="root"
-  data-jsx={3118200077}
+  data-jsx={4093112822}
 >
   <h3
     className="title"
-    data-jsx={3118200077}
+    data-jsx={4093112822}
   >
     test title
   </h3>
@@ -18,10 +18,13 @@ exports[`renders some text when provided 1`] = `
             .root {
               background-color: #000;
               text-align: center;
+              padding: 10px 0;
             }
     
             .title {
-              color: #b1cfcf
+              color: #b1cfcf;
+              text-transform: none;
+              font-size: 24px;
             }
           
   </style>

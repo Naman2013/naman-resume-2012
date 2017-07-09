@@ -11,10 +11,13 @@ const SectionHeader = ({ title }) => (
         .root {
           background-color: ${black};
           text-align: center;
+          padding: 10px 0;
         }
 
         .title {
-          color: ${lightTurqoise}
+          color: ${lightTurqoise};
+          text-transform: none;
+          font-size: 24px;
         }
       `
     }</style>
