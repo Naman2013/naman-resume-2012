@@ -51,7 +51,7 @@ class LiveFeed extends Component {
         <style jsx>{
           `
             .root {
-              min-height: 500px;
+              min-height: 456px;
             }
           `
         }</style>

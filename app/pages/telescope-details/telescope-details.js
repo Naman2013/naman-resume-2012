@@ -216,6 +216,9 @@ class TelescopeDetails extends Component {
     const { teleInstrumentList, teleId, teleCanReserveMissions } = currentTelescope;
     const telescopeOnline = currentTelescopeOnlineStatus && currentTelescopeOnlineStatus.onlineStatus === 'online';
 
+    console.log('telescope details props ---');
+    console.log(this.props);
+    console.log('---------------------------');
     return (
       <div className="telescope-details-page-wrapper">
 
