@@ -39,6 +39,8 @@ import { grabMissionSlot, grabUpdateMissionSlot, missionConfirmOpen } from '../.
 const MAX_SECONDS_CHARACTER_LENGTH = 4;
 const MAX_TIME = 60;
 const TIME_CEILING = 59;
+const MAX_DECLINATION = 90;
+const MIN_DECLINATION = -90;
 
 function round(number, precision) {
   const factor = window.Math.pow(10, precision);
@@ -51,10 +53,6 @@ function cleanTimeInput(timeValue) {
   if (!timeValue) { return timeValue; }
   const absoluteValue = window.Math.abs(timeValue);
   return (absoluteValue >= MAX_TIME) ? TIME_CEILING : absoluteValue;
-}
-
-function clearTrailingZeros(value) {
-  return (value * 1).toString();
 }
 
 // TODO: move this into a utility file
@@ -86,6 +84,10 @@ function numberOnly(value) {
 
 function validFloat(value) {
   return (/^\d+(\.)?\d{0,1}$/).test(value);
+}
+
+function removeMinusSign(value) {
+  return String(value).replace(/[-]/g, '');
 }
 
 const mapStateToProps = ({ user }) => ({
@@ -145,7 +147,6 @@ class ReservationByCoordinate extends Component {
     let ra = cleanCalcInput(newRAValue);
     let ra_h = Math.trunc(ra);
     let ra_m = Math.trunc((ra - ra_h) * 60);
-    // ra_s = round((((ra - ra_h) * 60) - ra_m) * 60, 6);
     let ra_s = round((((ra - ra_h) * 60) - ra_m) * 60, 1);
 
     if (ra_s >= MAX_TIME) {
@@ -180,7 +181,7 @@ class ReservationByCoordinate extends Component {
   }
 
   handleRAChange = (event) => {
-    const newRA = event.target.value;
+    const newRA = removeMinusSign(event.target.value);
     if (!newRA) {
       this.updateRA(newRA);
       return;
@@ -245,36 +246,46 @@ class ReservationByCoordinate extends Component {
 
   recalculateDEC(newDec) {
     let dec = cleanCalcInput(newDec);
-    let dec_d;
-    let dec_m;
-    let dec_s;
 
     const minutesDivisor = 60;
     const secondsDivisor = 3600;
 
-    if (dec >= 90) {
-      dec_d = 90;
-      dec_m = 0;
-      dec_s = 0;
-      dec = 90;
+    let degrees = String.prototype.split.call(dec, '.')[0];
+    let minutes = Math.trunc((dec - degrees) * minutesDivisor);
+    let seconds = round((dec - degrees - (minutes / minutesDivisor)) * secondsDivisor, 1);
+
+    minutes = Math.abs(minutes);
+    seconds = Math.abs(seconds);
+
+    if (seconds >= MAX_TIME) {
+      seconds = 0;
+      minutes += 1;
+
+      if (minutes >= MAX_TIME) {
+        minutes = 0;
+        degrees += 1;
+      }
     }
 
-    if (dec <= -90) {
-      dec_d = -90;
-      dec_m = 0;
-      dec_s = 0;
-      dec = -90;
+    if (degrees >= MAX_DECLINATION || dec >= MAX_DECLINATION) {
+      degrees = MAX_DECLINATION;
+      dec = MAX_DECLINATION;
+      minutes = 0;
+      seconds = 0;
     }
 
-    const degrees = Math.trunc(dec);
-    const minutes = Math.trunc((dec - degrees) * minutesDivisor);
-    const seconds = round((dec - degrees - (minutes / minutesDivisor)) * secondsDivisor, 1);
+    if (degrees <= MIN_DECLINATION || dec <= MIN_DECLINATION) {
+      degrees = MIN_DECLINATION;
+      dec = MIN_DECLINATION;
+      minutes = 0;
+      seconds = 0;
+    }
 
     this.setState({
       dec,
       dec_d: degrees,
-      dec_m: Math.abs(minutes),
-      dec_s: Math.abs(seconds),
+      dec_m: minutes,
+      dec_s: seconds,
       visibilityStatus: {},
     });
   }
@@ -575,8 +586,8 @@ class ReservationByCoordinate extends Component {
                 </div>
 
                 <div className="form-row-container highlighted">
-                  <div className="form-row">RA: <input value={ra} onChange={this.handleRAChange} onBlur={this.handleRABlur} size="8" className="generic-text-input" type="number" /></div>
-                  <div className="form-row">Dec: <input value={dec} maxLength="9" onChange={this.handleDECChange} onBlur={this.handleDECBlur} size="8" className="generic-text-input" type="number" /></div>
+                  <div className="form-row">RA: <input type="number" value={ra} maxLength="9" min="0" max="24" step="0.0000001" onChange={this.handleRAChange} onBlur={this.handleRABlur} className="generic-text-input" /></div>
+                  <div className="form-row">Dec: <input type="number" value={dec} maxLength="9" onChange={this.handleDECChange} onBlur={this.handleDECBlur} className="generic-text-input" /></div>
                 </div>
               </div>
 
