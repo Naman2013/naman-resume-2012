@@ -31,7 +31,6 @@ class LiveFeed extends Component {
           <style jsx>{
               `
                 .root {
-                  height: 450px;
                   padding-top: 80px;
                 }
               `
@@ -47,8 +46,15 @@ class LiveFeed extends Component {
     }
 
     return (
-      <div>
+      <div className="root">
         { determineImageLoader(instrument) }
+        <style jsx>{
+          `
+            .root {
+              min-height: 500px;
+            }
+          `
+        }</style>
       </div>
     );
   }

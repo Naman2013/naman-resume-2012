@@ -269,7 +269,6 @@ class TelescopeDetails extends Component {
                 {
                   teleInstrumentList.map(instrument => (
                     <TabPanel key={instrument.instrPort}>
-
                       <LiveFeed
                         fetchingOnlineStatus={fetchingObservatoryStatus}
                         onlineStatus={
