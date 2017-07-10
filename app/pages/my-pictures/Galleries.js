@@ -56,7 +56,7 @@ class Galleries extends Component {
               fetching={fetching}
               galleryList={galleryList}
               error={error}
-              type="images"
+              type="gallery"
             />
           </div>
         </div>

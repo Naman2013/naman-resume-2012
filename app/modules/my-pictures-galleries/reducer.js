@@ -1,9 +1,9 @@
 import createReducer from '../utils/createReducer';
 
 import {
-  FETCH_GALLERIES_START,
-  FETCH_GALLERIES_SUCCESS,
-  FETCH_GALLERIES_FAIL,
+  FETCH_GALLERY_PICS_START,
+  FETCH_GALLERY_PICS_SUCCESS,
+  FETCH_GALLERY_PICS_FAIL,
 } from './actions';
 
 const initialState = {
@@ -13,20 +13,20 @@ const initialState = {
 };
 
 export default createReducer(initialState, {
-  [FETCH_GALLERIES_START](state) {
+  [FETCH_GALLERY_PICS_START](state) {
     return {
       ...state,
       fetching: true,
     };
   },
-  [FETCH_GALLERIES_SUCCESS](state, { payload }) {
+  [FETCH_GALLERY_PICS_SUCCESS](state, { payload }) {
     return {
       ...state,
       fetching: false,
       ...payload,
     };
   },
-  [FETCH_GALLERIES_FAIL](state) {
+  [FETCH_GALLERY_PICS_FAIL](state, { payload }) {
     return {
       ...state,
       fetching: false,

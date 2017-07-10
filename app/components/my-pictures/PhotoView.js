@@ -6,6 +6,7 @@ import GenericLoadingBox from '../common/loading-screens/generic-loading-box';
 import ModalGeneric from '../common/modals/modal-generic';
 import PhotoList from './PhotoList';
 import MissionList from './MissionList';
+import GalleryList from './GalleryList';
 import Pagination from '../common/pagination/Pagination';
 import FITModalHeader from './FIT-image-modal-partials/FITModalHeader';
 import FITModalBody from './FIT-image-modal-partials/FITModalBody';
@@ -97,6 +98,7 @@ class PhotoView extends Component {
       imageList,
       error,
       type,
+      galleryList,
       firstImageNumber,
       imageCount,
       maxImageCount,
@@ -104,7 +106,7 @@ class PhotoView extends Component {
       fetchingFITError,
       FITImages,
     } = this.props;
-
+    console.log(this.props.galleryList)
     const firstImageNumberIndex = firstImageNumber - 1;
     const rangeText = Pagination.generateRangeText({
       startRange: firstImageNumberIndex,
@@ -123,7 +125,7 @@ class PhotoView extends Component {
       return <GenericLoadingBox text="We apologize, there was an issue fetching your images." />;
     }
 
-    if (imageList && imageList.length === 0) {
+    if (type !== 'gallery' ? imageList.length === 0 : galleryList.length === 0) {
       return <GenericLoadingBox text="No images are available." />;
     }
 
@@ -168,7 +170,7 @@ class PhotoView extends Component {
         }
         {
           type === 'gallery' ?
-            <PhotoList imageList={imageList} galleryType /> : null
+            <GalleryList galleryList={galleryList} /> : null
         }
 
         <Pagination
@@ -190,6 +192,8 @@ PhotoView.defaultProps = {
   firstImageNumber: 1,
   paginateParams: {},
   missions: false,
+  imageList: [],
+  galleryList: [],
 };
 
 // TODO: increase validation for the imageList types.
@@ -201,7 +205,7 @@ PhotoView.propTypes = {
   })),
   galleryList: PropTypes.arrayOf(PropTypes.shape({
     imageURL: PropTypes.string.isRequired,
-    galleryId: PropTypes.number.isRequired,
+    galleryId: PropTypes.string.isRequired,
   })),
   paginateParams: PropTypes.object,
   paginate: PropTypes.func.isRequired,
