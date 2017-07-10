@@ -97,9 +97,9 @@ export const fetchGalleries = ({
   dispatch(fetchMissionCount()); // for deeplinking
   dispatch(fetchMyPicturesCount());// for deeplinking
   return axios.post('/api/images/getGalleryList', {
-    at,
-    cid,
-    token,
+    at: 3, // for testing purposes
+    cid: 185651, // for testing purposes
+    token: 'ff278b57d3724d41a3d48194e2f29526b30e9c0f', // for testing purposes
     maxImageCount,
     firstImageNumber,
   })

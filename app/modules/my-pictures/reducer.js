@@ -54,7 +54,7 @@ const initialState = {
   },
   galleries: {
     response: {
-      imageList: [],
+      galleryList: [],
     },
     imageCount: 0,
     maxImageCount: 9,
@@ -309,7 +309,7 @@ export default createReducer(initialState, {
       ...state,
       galleries: {
         response: {
-          imageList: [],
+          galleryList: [],
         },
         imageCount: state.galleries.imageCount, // different call handles this
         maxImageCount: state.galleries.maxImageCount,
@@ -339,7 +339,7 @@ export default createReducer(initialState, {
       ...state,
       galleries: {
         response: {
-          imageList: [],
+          galleryList: [],
         },
         imageCount: state.galleries.imageCount, // different call handles this
         maxImageCount: state.galleries.maxImageCount,

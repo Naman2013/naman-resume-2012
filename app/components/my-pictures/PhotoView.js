@@ -108,7 +108,7 @@ class PhotoView extends Component {
     const firstImageNumberIndex = firstImageNumber - 1;
     const rangeText = Pagination.generateRangeText({
       startRange: firstImageNumberIndex,
-      itemsPerPage: imageList.length, // use length here because there may be less than maxImageCount
+      itemsPerPage: imageList && imageList.length, // use length here because there may be less than maxImageCount
     });
 
     const canNext = (firstImageNumberIndex + maxImageCount) < imageCount;
@@ -123,7 +123,7 @@ class PhotoView extends Component {
       return <GenericLoadingBox text="We apologize, there was an issue fetching your images." />;
     }
 
-    if (imageList.length === 0) {
+    if (imageList && imageList.length === 0) {
       return <GenericLoadingBox text="No images are available." />;
     }
 
@@ -198,7 +198,11 @@ PhotoView.propTypes = {
   imageList: PropTypes.arrayOf(PropTypes.shape({
     imageURL: PropTypes.string.isRequired,
     imageId: PropTypes.number.isRequired,
-  })).isRequired,
+  })),
+  galleryList: PropTypes.arrayOf(PropTypes.shape({
+    imageURL: PropTypes.string.isRequired,
+    galleryId: PropTypes.number.isRequired,
+  })),
   paginateParams: PropTypes.object,
   paginate: PropTypes.func.isRequired,
   imageCount: PropTypes.number,

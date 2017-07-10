@@ -1,22 +1,22 @@
 import axios from 'axios';
 import { fetchMissionCount, fetchMyPicturesCount, fetchGalleriesCount } from '../my-pictures/actions';
 
-export const FETCH_GALLERY_START = 'FETCH_GALLERY_START';
-export const FETCH_GALLERY_SUCCESS = 'FETCH_GALLERY_SUCCESS';
-export const FETCH_GALLERY_FAIL = 'FETCH_GALLERY_FAIL';
+export const FETCH_GALLERY_PICS_START = 'FETCH_GALLERY_PICS_START';
+export const FETCH_GALLERY_PICS_SUCCESS = 'FETCH_GALLERY_PICS_SUCCESS';
+export const FETCH_GALLERY_PICS_FAIL = 'FETCH_GALLERY_PICS_FAIL';
 
 const fetchGalleryPicturesStart = payload => ({
-  type: FETCH_GALLERY_START,
+  type: FETCH_GALLERY_PICS_START,
   payload,
 });
 
 const fetchGalleryPicturesSuccess = payload => ({
-  type: FETCH_GALLERY_SUCCESS,
+  type: FETCH_GALLERY_PICS_SUCCESS,
   payload,
 });
 
 const fetchGalleryPicturesFail = payload => ({
-  type: FETCH_GALLERY_FAIL,
+  type: FETCH_GALLERY_PICS_FAIL,
   payload,
 });
 

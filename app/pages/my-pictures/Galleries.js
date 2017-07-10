@@ -6,15 +6,14 @@ import PhotoView from '../../components/my-pictures/PhotoView';
 import { fetchGalleriesAndCounts } from '../../modules/my-pictures/actions';
 import style from './my-pictures-gallery.scss';
 
-const mapStateToProps = ({ myPictures, objectTypeList }, ownProps) => ({
+const mapStateToProps = ({ myPictures }) => ({
   error: myPictures.galleries.error,
   errorBody: myPictures.galleries.errorBody,
   fetching: myPictures.galleries.fetching,
   firstImageNumber: myPictures.galleries.firstImageNumber,
   imageCount: myPictures.galleries.imageCount,
-  imageList: myPictures.galleries.response.imageList,
+  galleryList: myPictures.galleries.response.galleryList,
   maxImageCount: myPictures.galleries.maxImageCount,
-  scheduledMissionId: ownProps.routeParams.scheduledMissionId,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -37,9 +36,10 @@ class Galleries extends Component {
       fetching,
       firstImageNumber,
       imageCount,
-      imageList,
+      galleryList,
       maxImageCount,
     } = this.props;
+
     return (
       <div>
         <MyPicturesNavigation
@@ -54,7 +54,7 @@ class Galleries extends Component {
               maxImageCount={maxImageCount}
               firstImageNumber={firstImageNumber}
               fetching={fetching}
-              imageList={imageList}
+              galleryList={galleryList}
               error={error}
               type="images"
             />
@@ -66,7 +66,7 @@ class Galleries extends Component {
 }
 
 Galleries.defaultProps = {
-  imageList: [],
+  galleryList: [],
   fetching: false,
   error: false,
   imageCount: 0,
@@ -75,7 +75,7 @@ Galleries.defaultProps = {
 };
 
 Galleries.propTypes = {
-  imageList: PropTypes.arrayOf(PropTypes.shape({
+  galleryList: PropTypes.arrayOf(PropTypes.shape({
     imageURL: PropTypes.string.isRequired,
     imageId: PropTypes.number.isRequired,
   })),

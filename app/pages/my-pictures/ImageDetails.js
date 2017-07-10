@@ -2,8 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import forOwn from 'lodash';
 import MyPicturesNavigation from '../../components/my-pictures/my-pictures-navigation';
 import { fetchImageDetailsAndCounts } from '../../modules/my-pictures-image-details/actions';
+import RichTextEditor from '../../components/rich-text-editor/RichTextEditor';
+
 import style from './my-pictures-gallery.scss';
 
 const mapStateToProps = ({ myPicturesImageDetails }) => ({
@@ -18,6 +21,13 @@ const mapDispatchToProps = dispatch => ({
 
 @connect(mapStateToProps, mapDispatchToProps)
 class ImageDetails extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      editorValue: props.observationLog,
+    };
+  }
   componentWillMount() {
     window.scrollTo(0, 0);
     const {
@@ -32,21 +42,44 @@ class ImageDetails extends Component {
     });
   }
 
+  handleEditorChange = (editorHTML) => {
+    this.setState({ editorValue: editorHTML });
+  }
+
   render() {
     const {
-      actions,
       error,
       fetching,
+      canEditFlag,
+      fileData,
     } = this.props;
-    console.log(this.props)
+
     return (
       <div>
         <MyPicturesNavigation
           page="galleries"
         />
-
         <div className="clearfix my-pictures-container">
-        hi
+        <div>
+
+        </div>
+        <aside>
+          <h3>Observation Log</h3>
+          {canEditFlag ?
+            <div>
+              <RichTextEditor
+                editorValue={this.state.editorValue}
+                onChange={this.handleEditorChange}
+              />
+            </div>
+          : <div>cant edit</div>
+        }
+          <h3>Image Tags</h3>
+          <h3>File Data</h3>
+          <div>{forOwn(fileData, (key, value) => {
+            return <div>{key}: {value}</div>;
+          })}</div>
+        </aside>
         </div>
       </div>
     );
@@ -69,7 +102,8 @@ ImageDetails.defaultProps = {
   likePrompt: '',
   canDownloadFlag: false,
   canEditFlag: false,
-  fileData: {}
+  fileData: {},
+  actions: {},
 };
 
 ImageDetails.propTypes = {
@@ -88,10 +122,14 @@ ImageDetails.propTypes = {
   likePrompt: PropTypes.string,
   canDownloadFlag: PropTypes.bool,
   canEditFlag: PropTypes.bool,
-  fileData: PropTypes.shape({})
-
-
-
+  fileData: PropTypes.shape({}),
+  actions: PropTypes.shape({
+    fetchImageDetailsAndCounts,
+  }),
+  params: PropTypes.shape({
+    customerImageId: PropTypes.string,
+    shareToken: PropTypes.string,
+  }).isRequired,
 };
 
 export default ImageDetails;
