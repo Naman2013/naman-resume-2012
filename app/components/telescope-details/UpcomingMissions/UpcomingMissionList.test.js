@@ -26,4 +26,9 @@ describe('<UpcomingMissions />', () => {
     const upcomingWrapper = shallow(<UpcomingMissionList missions={MISSIONS} />);
     expect(upcomingWrapper.find('.mission')).toHaveLength(2);
   });
+
+  it('should render nothing when no missions provided', () => {
+    const upcomingWrapper = shallow(<UpcomingMissionList />);
+    expect(upcomingWrapper.find('.mission')).toHaveLength(0);
+  })
 });
