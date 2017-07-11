@@ -30,5 +30,5 @@ describe('<UpcomingMissions />', () => {
   it('should render nothing when no missions provided', () => {
     const upcomingWrapper = shallow(<UpcomingMissionList />);
     expect(upcomingWrapper.find('.mission')).toHaveLength(0);
-  })
+  });
 });

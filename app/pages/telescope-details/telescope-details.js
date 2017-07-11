@@ -348,6 +348,8 @@ class TelescopeDetails extends Component {
                 : null
               }
 
+              <UpcomingMissions />
+
               {
                 currentObservatory.obsId && currentObservatory.CurrentConditionsWidgetId ?
                   <TelescopeConditionSnapshot
