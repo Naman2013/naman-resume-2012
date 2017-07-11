@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Mission /> should render a missions title and image 1`] = `
+<div>
+  <div
+    className="imageIcon"
+    style={
+      Object {
+        "backgroundImage": "url(https://vega.slooh.com/icons/reservations/not_available_w.svg)",
+      }
+    }
+  />
+  <div
+    className="missionDetails"
+  >
+    <h4
+      className="title"
+    >
+      Andromeda Galaxy
+    </h4>
+  </div>
+</div>
+`;
