@@ -7,6 +7,11 @@ exports[`<Mission /> should render a missions title and image 1`] = `
     style={
       Object {
         "backgroundImage": "url(https://vega.slooh.com/icons/reservations/not_available_w.svg)",
+        "backgroundPosition": "center center",
+        "backgroundRepeat": "no-repeat",
+        "backgroundSize": "cover",
+        "mozBackgroundSize": "cover",
+        "webkitBackgroundSize": "cover",
       }
     }
   />

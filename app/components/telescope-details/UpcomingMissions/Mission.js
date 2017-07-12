@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { backgroundImageCoverMap } from '../../../styles/mixins/utilities';
 
 function backgroundImage(imageURL) {
   return {
+    ...backgroundImageCoverMap,
     backgroundImage: `url(${imageURL})`,
   };
 }
@@ -20,7 +22,6 @@ const Mission = ({ upcomingTitle, upcomingObjectIconURL }) => (
     </div>
   </div>
 );
-
 
 Mission.propTypes = propTypes;
 

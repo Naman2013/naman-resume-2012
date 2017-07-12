@@ -10,10 +10,17 @@ export const profilePhotoStyle = photoUrl => ({
 
 export const backgroundImageCover = `
   background-repeat: no-repeat;
+  background-position: center;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
 `;
+
+export const backgroundImageCoverMap = {
+  backgroundRepeat: 'no-repeat',
+  webkitBackgroundSize: 'cover',
+  mozBackgroundSize: 'cover',
+  backgroundSize: 'cover',
+  backgroundPosition: 'center center',
+};
