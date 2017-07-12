@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Mission from './Mission';
+import NoUpcomingMission from './NoUpcomingMission';
 
 const propTypes = {
   missions: PropTypes.arrayOf(PropTypes.shape({
@@ -18,8 +19,8 @@ const defaultProps = {
 };
 
 const UpcomingMissionList = ({ missions }) => (
-  <div>
-    <ul>
+  <div className="upcomingMissions">
+    <ul className="missionList">
       {
         missions.map(mission => (
           <li className="mission" key={`${mission.upcomingStart}-${mission.upcomingMissionIndex}`}>
@@ -32,6 +33,17 @@ const UpcomingMissionList = ({ missions }) => (
         ))
       }
     </ul>
+
+    <style jsx>{`
+      .upcomingMissions {
+        background-color: rgba(137, 137, 137, .5);
+        height: 20px;
+      }
+
+      .missionList {
+        margin: 0;
+      }
+    `}</style>
   </div>
 );
 
