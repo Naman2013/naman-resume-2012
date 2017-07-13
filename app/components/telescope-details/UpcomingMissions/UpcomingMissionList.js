@@ -41,12 +41,13 @@ const UpcomingMissionList = ({ missions }) => (
         margin-bottom: 20px;
       }
 
-      .mission {
-        list-style-type: none;
-      }
-
       .missionList {
         margin: 0;
+        padding: 0;
+      }
+
+      .mission {
+        list-style-type: none;
       }
     `}</style>
   </div>

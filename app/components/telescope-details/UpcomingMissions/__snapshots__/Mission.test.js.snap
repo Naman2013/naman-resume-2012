@@ -1,9 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<Mission /> should render a missions title and image 1`] = `
-<div>
+<div
+  className="root"
+  data-jsx={1294109366}
+>
   <div
     className="imageIcon"
+    data-jsx={1294109366}
     style={
       Object {
         "MozBackgroundSize": "cover",
@@ -17,12 +21,36 @@ exports[`<Mission /> should render a missions title and image 1`] = `
   />
   <div
     className="missionDetails"
+    data-jsx={1294109366}
   >
     <h4
       className="title"
+      data-jsx={1294109366}
     >
       Andromeda Galaxy
     </h4>
   </div>
+  <style
+    jsx={true}
+  >
+    
+          .root {
+            display: flex;
+            align-items: stretch;
+            border: 1px solid;
+            padding: 0;
+          }
+    
+          .imageIcon {
+            width: 80px;
+          }
+    
+          .title {
+            color: #F310A7;
+            text-transform: none;
+            padding: 20px 5px 20px 10px;
+          }
+        
+  </style>
 </div>
 `;
