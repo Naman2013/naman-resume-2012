@@ -347,7 +347,7 @@ class TelescopeDetails extends Component {
                       scheduledMissionId={activeTelescopeMission.scheduledMissionId}
                     />
 
-                    <UpcomingMissions missions={MISSIONS} />
+                    <UpcomingMissions missions={activeTelescopeMission.upcomingMissionArray} />
                   </div>
                 : null
               }
