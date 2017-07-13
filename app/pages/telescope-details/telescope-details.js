@@ -37,6 +37,9 @@ import TelescopeConditionSnapshot from '../../components/telescope-details/condi
 import LiveWebcam from '../../components/telescope-details/live-webcam/live-webcam';
 import StarShareCamera from '../../components/telescope-details/star-share-camera/star-share-camera';
 
+// TODO: remove this once we finish implementing and testing
+import { MISSIONS } from '../../components/telescope-details/UpcomingMissions/UpcomingMissionList.test';
+
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators({

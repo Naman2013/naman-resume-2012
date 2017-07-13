@@ -11,7 +11,9 @@
     "prod:saturn": "rimraf dist && rimraf node_modules && npm cache clean && npm install && apiUrl=https://saturn.slooh.com apiPortNumber=444 NODE_ENV=production webpack -p --config webpack.production.config.js --colors --progress",
     "prod:saturn-443": "rimraf dist && rimraf node_modules && npm cache clean && npm install && apiUrl=https://saturn.slooh.com apiPortNumber=443 NODE_ENV=production webpack -p --config webpack.production.config.js --colors --progress",
     "prod:pluto": "rimraf dist && rimraf node_modules && npm cache clean && npm install && apiUrl=https://pluto.slooh.com apiPortNumber=444 NODE_ENV=production webpack -p --config webpack.production.config.js --colors --progress",
-    "prod": "rimraf dist && rimraf node_modules && npm cache clean && npm install && apiUrl=https://slooh.com apiPortNumber=444 NODE_ENV=production webpack -p --config webpack.production.config.js --colors --progress"
+    "prod": "rimraf dist && rimraf node_modules && npm cache clean && npm install && apiUrl=https://slooh.com apiPortNumber=444 NODE_ENV=production webpack -p --config webpack.production.config.js --colors --progress",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "repository": {
     "type": "git",
@@ -122,6 +124,7 @@
     "webpack": "^3.0.0",
     "webpack-bundle-analyzer": "^2.8.2",
     "webpack-dev-server": "^2.5.0",
-    "webpack-md5-hash": "0.0.5"
+    "webpack-md5-hash": "0.0.5",
+    "@storybook/react": "^3.1.8"
   }
 }

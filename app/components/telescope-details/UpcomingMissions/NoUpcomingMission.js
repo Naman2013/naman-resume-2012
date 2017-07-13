@@ -7,7 +7,7 @@ const NoUpcomingMissions = () => (
     <style jsx>{`
       .title {
         margin: 0;
-        padding: 15px 0;
+        padding: 20px 0;
         text-transform: none;
         color: ${gray};
       }

@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 import UpcomingMissionList from './UpcomingMissionList';
 import NoUpcomingMission from './NoUpcomingMission';
 
-const MISSIONS = [
+export const MISSIONS = [
   {
     upcomingMissionIndex: 0,
     upcomingMissionAvailable: true,
