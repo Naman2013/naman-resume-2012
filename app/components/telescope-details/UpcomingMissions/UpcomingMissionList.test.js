@@ -1,6 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import UpcomingMissionList from './UpcomingMissionList';
+import NoUpcomingMission from './NoUpcomingMission';
 
 const MISSIONS = [
   {
@@ -27,8 +28,8 @@ describe('<UpcomingMissions />', () => {
     expect(upcomingWrapper.find('.mission')).toHaveLength(2);
   });
 
-  it('should render nothing when no missions provided', () => {
+  it('when no missions render <NoUpcomingMission />', () => {
     const upcomingWrapper = shallow(<UpcomingMissionList />);
-    expect(upcomingWrapper.find('.mission')).toHaveLength(0);
+    expect(upcomingWrapper.find(NoUpcomingMission)).toHaveLength(1);
   });
 });
