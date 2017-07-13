@@ -21,8 +21,9 @@ const defaultProps = {
 const UpcomingMissionList = ({ missions }) => (
   <div className="upcomingMissions">
     <ul className="missionList">
+      { missions.length === 0 && <li className="mission"><NoUpcomingMission /></li> }
       {
-        missions.map(mission => (
+        missions.length > 0 && missions.map(mission => (
           <li className="mission" key={`${mission.upcomingStart}-${mission.upcomingMissionIndex}`}>
             <Mission
               upcomingStart={mission.upcomingStart}
@@ -37,7 +38,11 @@ const UpcomingMissionList = ({ missions }) => (
     <style jsx>{`
       .upcomingMissions {
         background-color: rgba(137, 137, 137, .5);
-        height: 20px;
+        margin-bottom: 20px;
+      }
+
+      .mission {
+        list-style-type: none;
       }
 
       .missionList {
