@@ -38,7 +38,8 @@ import LiveWebcam from '../../components/telescope-details/live-webcam/live-webc
 import StarShareCamera from '../../components/telescope-details/star-share-camera/star-share-camera';
 
 // TODO: remove this once we finish implementing and testing
-import { MISSIONS } from '../../components/telescope-details/UpcomingMissions/UpcomingMissionList.test';
+import MISSIONS from '../../components/telescope-details/UpcomingMissions/testData';
+// =========================================================
 
 function mapDispatchToProps(dispatch) {
   return {
@@ -188,6 +189,7 @@ class TelescopeDetails extends Component {
   }
 
   render() {
+    console.log(MISSIONS);
     /**
       TODO: based on the type of community content we display the component
       so we need to discover the content needed and tie that into the field
@@ -346,12 +348,12 @@ class TelescopeDetails extends Component {
                       scheduledMissionId={activeTelescopeMission.scheduledMissionId}
                     />
 
-                    <UpcomingMissions />
+                    <UpcomingMissions missions={MISSIONS} />
                   </div>
                 : null
               }
 
-              <UpcomingMissions />
+              <UpcomingMissions missions={MISSIONS} />
 
               {
                 currentObservatory.obsId && currentObservatory.CurrentConditionsWidgetId ?

@@ -19,8 +19,8 @@ export const backgroundImageCover = `
 
 export const backgroundImageCoverMap = {
   backgroundRepeat: 'no-repeat',
-  webkitBackgroundSize: 'cover',
-  mozBackgroundSize: 'cover',
+  WebkitBackgroundSize: 'cover',
+  MozBackgroundSize: 'cover',
   backgroundSize: 'cover',
   backgroundPosition: 'center center',
 };

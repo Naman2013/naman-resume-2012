@@ -6,12 +6,12 @@ exports[`<Mission /> should render a missions title and image 1`] = `
     className="imageIcon"
     style={
       Object {
+        "MozBackgroundSize": "cover",
+        "WebkitBackgroundSize": "cover",
         "backgroundImage": "url(https://vega.slooh.com/icons/reservations/not_available_w.svg)",
         "backgroundPosition": "center center",
         "backgroundRepeat": "no-repeat",
         "backgroundSize": "cover",
-        "mozBackgroundSize": "cover",
-        "webkitBackgroundSize": "cover",
       }
     }
   />

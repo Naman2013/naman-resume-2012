@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Mission from './Mission';
 import NoUpcomingMission from './NoUpcomingMission';
 
-const propTypes = {
+export const propTypes = {
   missions: PropTypes.arrayOf(PropTypes.shape({
     upcomingMissionIndex: PropTypes.number,
     upcomingMissionAvailable: PropTypes.bool,
