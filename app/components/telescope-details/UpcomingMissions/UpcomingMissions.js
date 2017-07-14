@@ -8,7 +8,7 @@ const propTypes = {
 
 const UpcomingMissions = ({ missions }) => (
   <div className="root">
-    <SectionHeader title="Scheduled Missions" />
+    <SectionHeader title="Upcoming Missions" />
     <UpcomingMissionList missions={missions} />
 
     <style jsx>{`
