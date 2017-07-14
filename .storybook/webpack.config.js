@@ -8,7 +8,7 @@
 
 module.exports = {
   plugins: [
-    // your custom plugins
+    // custom plugins
   ],
   module: {
     loaders: [
