@@ -7,9 +7,15 @@ const propTypes = {
 };
 
 const UpcomingMissions = ({ missions }) => (
-  <div>
+  <div className="root">
     <SectionHeader title="Scheduled Missions" />
     <UpcomingMissionList missions={missions} />
+
+    <style jsx>{`
+      .root {
+        margin-top: 10px;
+      }
+    `}</style>
   </div>
 );
 
