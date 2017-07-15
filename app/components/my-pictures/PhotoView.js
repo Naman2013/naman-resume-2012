@@ -106,7 +106,6 @@ class PhotoView extends Component {
       fetchingFITError,
       FITImages,
     } = this.props;
-    console.log(this.props.galleryList)
     const firstImageNumberIndex = firstImageNumber - 1;
     const rangeText = Pagination.generateRangeText({
       startRange: firstImageNumberIndex,
