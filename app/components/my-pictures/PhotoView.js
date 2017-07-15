@@ -109,7 +109,7 @@ class PhotoView extends Component {
     const firstImageNumberIndex = firstImageNumber - 1;
     const rangeText = Pagination.generateRangeText({
       startRange: firstImageNumberIndex,
-      itemsPerPage: imageList && imageList.length, // use length here because there may be less than maxImageCount
+      itemsPerPage: imageList ? imageList.length : galleryList.length, // use length here because there may be less than maxImageCount
     });
 
     const canNext = (firstImageNumberIndex + maxImageCount) < imageCount;
@@ -124,7 +124,7 @@ class PhotoView extends Component {
       return <GenericLoadingBox text="We apologize, there was an issue fetching your images." />;
     }
 
-    if (type !== 'gallery' ? imageList.length === 0 : galleryList.length === 0) {
+    if ((type !== 'gallery' && type !== 'galleryImages') ? imageList.length === 0 : galleryList.length === 0) {
       return <GenericLoadingBox text="No images are available." />;
     }
 
@@ -167,6 +167,12 @@ class PhotoView extends Component {
           type === 'images' ?
             <PhotoList imageList={imageList} /> : null
         }
+
+        {
+          type === 'galleryImages' ?
+            <GalleryList galleryList={galleryList} isImages={true} /> : null
+        }
+
         {
           type === 'gallery' ?
             <GalleryList galleryList={galleryList} /> : null
@@ -204,7 +210,7 @@ PhotoView.propTypes = {
   })),
   galleryList: PropTypes.arrayOf(PropTypes.shape({
     imageURL: PropTypes.string.isRequired,
-    galleryId: PropTypes.string.isRequired,
+    galleryId: PropTypes.any.isRequired,
   })),
   paginateParams: PropTypes.object,
   paginate: PropTypes.func.isRequired,
@@ -213,7 +219,7 @@ PhotoView.propTypes = {
   firstImageNumber: PropTypes.number,
   error: PropTypes.bool.isRequired,
   missions: PropTypes.bool,
-  type: PropTypes.oneOf(['covers', 'images', 'gallery']).isRequired,
+  type: PropTypes.oneOf(['covers', 'images', 'gallery', 'galleryImages']).isRequired,
 };
 
 export default PhotoView;

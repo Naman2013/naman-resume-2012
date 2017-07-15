@@ -351,7 +351,6 @@ export default createReducer(initialState, {
     };
   },
   [FETCH_GALLERIES_COUNT_SUCCESS](state, { payload }) {
-    console.log('payload', payload.galleryCount)
     return {
       ...state,
       galleries: {

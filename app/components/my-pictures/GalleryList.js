@@ -9,7 +9,7 @@ class GalleryList extends Component {
   }
 
   render() {
-    const { galleryList } = this.props;
+    const { galleryList, isImages } = this.props;
     return (
       <div className={`${style.photoListRoot} clearfix`}>
         <ul className={`${style.photoList} col-xs-12`}>
@@ -17,9 +17,13 @@ class GalleryList extends Component {
             galleryList.map(gallery => (
               <li key={gallery.galleryId} className="col-xs-4">
                 <Gallery
+                  isImages={isImages}
+                  galleryId={gallery.galleryId}
                   created={gallery.created}
                   imageURL={gallery.imageURL}
                   imageTitle={gallery.title}
+                  shareToken={gallery.shareToken}
+                  customerImageId={gallery.customerImageId}
                 />
               </li>
             ))
@@ -35,7 +39,7 @@ GalleryList.propTypes = {
     galleryId: PropTypes.string.isRequired,
     imageURL: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
-  })).isRequired,
+  })),
 };
 
 export default GalleryList;

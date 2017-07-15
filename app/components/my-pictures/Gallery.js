@@ -26,15 +26,20 @@ class Gallery extends Component {
 
   render() {
     const {
+      isImages,
+      galleryId,
       created,
       imageURL,
       imageTitle,
+      customerImageId,
+      shareToken
     } = this.props;
     const createdDate = moment(Number(created) * 1000);
+    const url = isImages ? `/#/my-pictures/gallery/show-image/${customerImageId}/${shareToken}` : `/#/my-pictures/galleries/${galleryId}`;
     return (
       <div className="relative">
 
-        <a href={`my-pictures/missions/`} className="gallery-container" style={{ backgroundImage: `url(${imageURL})` }}>
+        <a href={url} className="gallery-container" style={{ backgroundImage: `url(${imageURL})` }}>
           <div className="innerContainer content">
             <div>{imageTitle}</div>
             <div>Created on {createdDate.format('dddd, MMMM Do YYYY')}</div>

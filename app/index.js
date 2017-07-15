@@ -64,6 +64,7 @@ import RoadtripRegistration from './pages/about/RoadtripRegistration';
 
 import PhotoRoll from './pages/my-pictures/PhotoRoll';
 import Galleries from './pages/my-pictures/Galleries';
+import GalleryImages from './pages/my-pictures/GalleryImages';
 import Missions from './pages/my-pictures/Missions';
 import MissionImages from './pages/my-pictures/MissionImages';
 import ImageDetails from './pages/my-pictures/ImageDetails';
@@ -271,11 +272,12 @@ ReactDOM.render(
           <IndexRedirect to="photo-roll" />
           <Route path="photo-roll" title="Photo roll" component={PhotoRoll} />
           <Route path="galleries" tite="Galleries" component={Galleries} />
+          <Route path="galleries/:galleryId" tite="Galleries" component={GalleryImages} />
           <Route path="missions/:scheduledMissionId" title="Mission Images" component={MissionImages} />
           <Route path="missions" title="Missions" component={Missions} />
 
-          <Route path="gallery/show-image/:customerImageId(/:shareToken)" component={ImageDetails} />
-          <Route path="popular/show-image/:customerImageId(/:shareToken)" component={ImageDetails} />
+          <Route path="gallery/show-image(/:customerImageId)(/:shareToken)" component={ImageDetails} />
+          <Route path="popular/show-image(/:customerImageId)(/:shareToken)" component={ImageDetails} />
         </Route>
 
         <Route path="discussions" component={Discussions} onEnter={validateUser}>

@@ -9,7 +9,11 @@ import {
 const initialState = {
   canEditFlag: false,
   imageCount: 0,
+  maxImageCount: 9,
+  firstImageNumber: 1,
   imageList: [],
+  fetching: false,
+  error: false,
 };
 
 export default createReducer(initialState, {
@@ -20,6 +24,7 @@ export default createReducer(initialState, {
     };
   },
   [FETCH_GALLERY_PICS_SUCCESS](state, { payload }) {
+    console.log('payload', payload)
     return {
       ...state,
       fetching: false,
