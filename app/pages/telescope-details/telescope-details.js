@@ -272,6 +272,7 @@ class TelescopeDetails extends Component {
 
                       <LiveFeed
                         fetchingOnlineStatus={fetchingObservatoryStatus}
+                        obsAlert={currentObservatory.obsAlert}
                         onlineStatus={
                           currentTelescopeOnlineStatus && currentTelescopeOnlineStatus.onlineStatus
                         }

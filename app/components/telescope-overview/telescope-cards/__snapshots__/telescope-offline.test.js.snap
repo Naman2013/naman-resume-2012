@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div>
+  <div
+    className="image-viewer"
+  >
+    <h4
+      className="title"
+    >
+      Offline
+    </h4>
+    <div
+      className="telescope-image"
+    >
+      <img
+        alt="This telescope is currently offline"
+        height="245"
+        src={undefined}
+        width="245"
+      />
+    </div>
+    <p
+      className="telescope-status"
+    >
+      
+    </p>
+  </div>
+</div>
+`;
