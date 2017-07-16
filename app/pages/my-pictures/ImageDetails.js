@@ -2,13 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import Pagination from '../../components/common/pagination/Pagination';
 import MyPicturesNavigation from '../../components/my-pictures/my-pictures-navigation';
 import { fetchImageDetailsAndCounts } from '../../modules/my-pictures-image-details/actions';
 import RichTextEditor from '../../components/rich-text-editor/RichTextEditor';
 import MissionTags from '../../components/common/tags/mission-tags';
-import { white } from '../../styles/variables/colors';
-import { backgroundImageCover } from '../../styles/mixins/utilities';
+import { imageDetailsStyle } from './ImageDetailsStyles';
 
 const mapStateToProps = ({ myPicturesImageDetails }) => ({
   myPicturesImageDetails,
@@ -61,11 +59,10 @@ class ImageDetails extends Component {
       fileData,
     } = this.props.myPicturesImageDetails;
 
-
     return (
       <div>
         <MyPicturesNavigation
-          page="galleries"
+          page="photo-roll"
         />
         <div className="clearfix my-pictures-container">
           <div className="container">
@@ -111,61 +108,7 @@ class ImageDetails extends Component {
             </aside>
           </div>
         </div>
-        <style jsx>
-          {`
-            .my-pictures-container {
-              padding: 20px;
-            }
-            .container {
-              width: 100%;
-              display: flex;
-              flex-direction: row;
-              justify-content: space-around;
-            }
-            .image-container {
-              width: 90%;
-            }
-            .image {
-              ${backgroundImageCover}
-              background-position: center;
-              margin-bottom: 20px;
-              display: block;
-            }
-
-            .image:before {
-              display: block;
-              content: "";
-              width: 100%;
-              padding-top: 68.49%;
-            }
-            .content {
-              position: absolute;
-              top: 0;
-              left: 0;
-              right: 0;
-              bottom: 0;
-            }
-            .left {
-              flex: 3;
-            }
-            .right {
-              flex: 1.5;
-              background-color: ${white};
-              padding: 10px;
-            }
-            .right-top {
-              flex: 1.5;
-              padding: 10px;
-            }
-            .bold {
-              font-weight: bold;
-            }
-            .header {
-              text-align: center;
-              font-weight: bold;
-            }
-          `}
-        </style>
+        {imageDetailsStyle}
       </div>
     );
   }
@@ -190,14 +133,11 @@ ImageDetails.defaultProps = {
     canEditFlag: false,
     fileData: {},
   },
-  galleries: {
-    imageList: []
-  },
   actions: {},
 };
 
 ImageDetails.propTypes = {
-  myPicturesImageDetails: {
+  myPicturesImageDetails: PropTypes.shape({
     fetching: PropTypes.bool,
     error: PropTypes.bool,
     imageTitle: PropTypes.string,
@@ -214,12 +154,7 @@ ImageDetails.propTypes = {
     canDownloadFlag: PropTypes.bool,
     canEditFlag: PropTypes.bool,
     fileData: PropTypes.shape({}),
-  },
-  galleries: {
-    imageList: PropTypes.arrayOf(PropTypes.shape({
-      imageURL: PropTypes.string,
-    }))
-  },
+  }),
   // actions: PropTypes.shape({
   //   fetchImageDetailsAndCounts,
   // }),
