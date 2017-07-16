@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import classnames from 'classnames';
 import Draggable from 'react-draggable';
 
-import { setImageDataToSnapshot } from '../../../modules/Telescope-Overview';
+import { setImageDataToSnapshot } from '../../../modules/starshare-camera/starshare-camera-actions';
 import './interactive-viewer.scss';
 
 import LiveSign from '../live-sign/live-sign';

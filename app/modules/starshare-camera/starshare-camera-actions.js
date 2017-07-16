@@ -46,7 +46,7 @@ export const resetImageToSnap = () => ({
 export const snapImage = () => (dispatch, getState) => {
   const {
     user: { token, at, cid },
-    telescopeOverview: { imageDataToSnapshot },
+    starshareCamera: { imageDataToSnapshot },
   } = getState();
 
   const { callSource, imageURL, imageID } = imageDataToSnapshot;

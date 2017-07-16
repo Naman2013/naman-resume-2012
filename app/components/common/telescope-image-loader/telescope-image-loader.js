@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { updateTelescopeActiveMission, setActiveTelescopeMissionID } from '../../../modules/active-telescope-missions/active-telescope-missions-actions';
-import { setImageDataToSnapshot } from '../../../modules/Telescope-Overview';
+import { setImageDataToSnapshot } from '../../../modules/starshare-camera/starshare-camera-actions';
 import './telescope-image-loader.scss';
 
 const mapDispatchToProps = dispatch => ({
