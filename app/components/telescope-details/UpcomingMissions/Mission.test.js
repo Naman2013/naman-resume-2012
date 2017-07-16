@@ -5,6 +5,7 @@ import Mission from './Mission';
 const pendingMission = {
   upcomingTitle: 'Andromeda Galaxy',
   upcomingObjectIconURL: 'https://vega.slooh.com/icons/reservations/not_available_w.svg',
+  upcomingStart: 1499570400,
 };
 
 describe('<Mission />', () => {
@@ -13,6 +14,7 @@ describe('<Mission />', () => {
       <Mission
         upcomingTitle={pendingMission.upcomingTitle}
         upcomingObjectIconURL={pendingMission.upcomingObjectIconURL}
+        upcomingStart={pendingMission.upcomingStart}
       />,
     ).toJSON();
 

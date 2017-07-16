@@ -3,30 +3,36 @@
 exports[`<Mission /> should render a missions title and image 1`] = `
 <div
   className="root"
-  data-jsx={3611550287}
+  data-jsx={334598377}
 >
   <div
     className="imageIcon"
-    data-jsx={3611550287}
+    data-jsx={334598377}
   >
     <img
       alt="Mission target icon"
       className="icon"
-      data-jsx={3611550287}
+      data-jsx={334598377}
       src="https://vega.slooh.com/icons/reservations/not_available_w.svg"
       width="50"
     />
   </div>
   <div
     className="missionDetails"
-    data-jsx={3611550287}
+    data-jsx={334598377}
   >
     <h4
       className="title"
-      data-jsx={3611550287}
+      data-jsx={334598377}
     >
       Andromeda Galaxy
     </h4>
+    <h5
+      className="upcomingStart"
+      data-jsx={334598377}
+    >
+      11:20PM
+    </h5>
   </div>
   <style
     jsx={true}
@@ -42,6 +48,7 @@ exports[`<Mission /> should render a missions title and image 1`] = `
           .imageIcon {
             position: relative;
             padding: 10px 0 0 10px;
+            margin-right: 10px;
             background: #3C4A55;
             min-width: 70px;
           }
@@ -50,13 +57,21 @@ exports[`<Mission /> should render a missions title and image 1`] = `
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            margin: 0 auto;
+          }
+    
+          .missionDetails {
+            padding: 10px 5px 10px 0;
           }
     
           .title {
             color: #F310A7;
             text-transform: none;
-            padding: 15px 5px 15px 10px;
+          }
+    
+          .upcomingStart {
+            color: #fff;
+            font-size: 12px;
+            font-weight: normal;
           }
         
   </style>

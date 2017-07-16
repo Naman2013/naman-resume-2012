@@ -2,11 +2,11 @@
 
 exports[`<NoUpcomingMission /> should render no mission stuff... 1`] = `
 <div
-  data-jsx={3951388774}
+  data-jsx={505941451}
 >
   <h4
     className="title"
-    data-jsx={3951388774}
+    data-jsx={505941451}
   >
     No missions scheduled
   </h4>
