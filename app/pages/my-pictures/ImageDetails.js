@@ -100,9 +100,9 @@ class ImageDetails extends Component {
               flex: 3;
             }
             .right {
-              flex: 1;
+              flex: 1.5;
               background-color: ${white};
-              padding: 5px;
+              padding: 10px;
             }
             .bold {
               font-weight: bold;
