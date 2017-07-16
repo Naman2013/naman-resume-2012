@@ -24,7 +24,6 @@ export default createReducer(initialState, {
     };
   },
   [FETCH_GALLERY_PICS_SUCCESS](state, { payload }) {
-    console.log('payload', payload)
     return {
       ...state,
       fetching: false,

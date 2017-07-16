@@ -100,11 +100,11 @@ class MissionTags extends Component {
   render() {
 
     const { tagText } = this.state;
-    const { tags } = this.props;
+    const { tags, canEditFlag } = this.props;
 
     let availableTags = [];
 
-    if(tags) {
+    if (tags) {
       availableTags = tags.tagList.map( tag => ({ id: tag.tagIndex, text: tag.tagText }) );
     }
 
@@ -112,6 +112,7 @@ class MissionTags extends Component {
       <div className="slooh-mission-tags">
         <h4 className="title">MISSION TAGS:</h4>
         <ReactTags
+          readOnly={canEditFlag}
           tags={availableTags}
           handleDelete={this.handleDelete}
           handleAddition={this.handleAddition}

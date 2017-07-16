@@ -6,6 +6,7 @@ import forOwn from 'lodash';
 import MyPicturesNavigation from '../../components/my-pictures/my-pictures-navigation';
 import { fetchImageDetailsAndCounts } from '../../modules/my-pictures-image-details/actions';
 import RichTextEditor from '../../components/rich-text-editor/RichTextEditor';
+import MissionTags from '../../components/common/tags/mission-tags';
 
 import style from './my-pictures-gallery.scss';
 
@@ -48,38 +49,46 @@ class ImageDetails extends Component {
 
   render() {
     const {
+      scheduledMissionId,
+      observationLog,
       error,
       fetching,
       canEditFlag,
       fileData,
     } = this.props;
-
     return (
       <div>
         <MyPicturesNavigation
           page="galleries"
         />
         <div className="clearfix my-pictures-container">
-        <div>
+          <div>
 
-        </div>
-        <aside>
-          <h3>Observation Log</h3>
-          {canEditFlag ?
+          </div>
+          <aside>
+            <h3>Observation Log</h3>
+            {canEditFlag ?
+              <div>
+                <RichTextEditor
+                  editorValue={this.state.editorValue}
+                  onChange={this.handleEditorChange}
+                />
+              </div>
+            : <div>{observationLog}</div>
+          }
+            <h3>Image Tags</h3>
             <div>
-              <RichTextEditor
-                editorValue={this.state.editorValue}
-                onChange={this.handleEditorChange}
+               <MissionTags
+                tagClass="image"
+                tagType="observation"
+                scheduledMissionId={scheduledMissionId}
               />
             </div>
-          : <div>cant edit</div>
-        }
-          <h3>Image Tags</h3>
-          <h3>File Data</h3>
-          <div>{forOwn(fileData, (key, value) => {
-            return <div>{key}: {value}</div>;
-          })}</div>
-        </aside>
+            <h3>File Data</h3>
+            <div>{forOwn(fileData, (key, value) => {
+              return <div>{key}: {value}</div>;
+            })}</div>
+          </aside>
         </div>
       </div>
     );
