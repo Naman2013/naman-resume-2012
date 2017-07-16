@@ -40,6 +40,7 @@ import otherFeaturedObjects from './other-featured-objects/reducer';
 import piggyback from './Piggyback';
 import post from './pulse/get-post-reducer';
 import roadtripRegistration from './roadtrip-registration/reducer';
+import starshareCamera from './starshare-camera/starshare-camera-reducer';
 import tags from './tag-management/Tags';
 import telescopeDetails from './telescope-details/reducer';
 import telescopeOverview from './Telescope-Overview';
@@ -94,6 +95,7 @@ export default combineReducers({
   piggyback,
   post,
   roadtripRegistration,
+  starshareCamera,
   tags,
   telescopeDetails,
   telescopeOverview,
