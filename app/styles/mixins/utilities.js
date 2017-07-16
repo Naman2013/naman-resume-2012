@@ -17,3 +17,10 @@ export const backgroundImageCover = `
   background-repeat: no-repeat;
   background-position: center;
 `;
+
+export const borderRadius = radius => (`
+  -moz-border-radius: ${radius};
+  -webkit-border-radius: ${radius};
+  -ms-border-radius: ${radius};
+  border-radius: ${radius};
+`);

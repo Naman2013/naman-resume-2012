@@ -55,10 +55,9 @@ class ImageDetails extends Component {
     const {
       firstImageNumber,
       maxImageCount,
-      paginate = this.props.fetchGalleryPictures,
       paginateParams,
     } = this.props.galleries;
-    paginate({
+    this.props.actions.fetchGalleryPictures({
       ...paginateParams,
       firstImageNumber: firstImageNumber + maxImageCount,
       maxImageCount,
@@ -69,11 +68,10 @@ class ImageDetails extends Component {
     const {
       firstImageNumber,
       maxImageCount,
-      paginate = this.props.fetchGalleryPictures,
       paginateParams,
     } = this.props.galleries;
 
-    paginate({
+    this.props.actions.fetchGalleryPictures({
       ...paginateParams,
       firstImageNumber: firstImageNumber - maxImageCount,
       maxImageCount,
@@ -105,7 +103,7 @@ class ImageDetails extends Component {
     const firstImageNumberIndex = firstImageNumber - 1;
     const rangeText = Pagination.generateRangeText({
       startRange: firstImageNumberIndex,
-      itemsPerPage: imageList.length, // use length here because there may be less than maxImageCount
+      itemsPerPage: maxImageCount,
     });
     const canNext = (firstImageNumberIndex + maxImageCount) < imageCount;
     const canPrevious = firstImageNumberIndex !== 0;

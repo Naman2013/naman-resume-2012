@@ -1,23 +1,45 @@
 import React, { Component, PropTypes } from 'react';
 import Markdown from 'react-remarkable';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { fetchGalleries } from '../../modules/my-pictures/actions';
+
 import { Link } from 'react-router';
+import PhotoActions from './PhotoActions';
 import s from './Photo.scss';
 
+const mapStateToProps = ({ myPictures }) => ({
+  error: myPictures.galleries.error,
+  errorBody: myPictures.galleries.errorBody,
+  fetching: myPictures.galleries.fetching,
+  galleryList: myPictures.galleries.response.galleryList,
+});
+
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators({
+    fetchGalleries,
+  }, dispatch),
+});
+
+@connect(mapStateToProps, mapDispatchToProps)
 class Photo extends Component {
   constructor(props) {
     super(props);
-
-    this.handleDownloadPhotoClick = this.handleDownloadPhotoClick.bind(this);
   }
 
-  handleDownloadPhotoClick(event) {
-    event.preventDefault();
-    const { imageURL } = this.props;
-    window.open(imageURL);
+  componentWillMount() {
+    this.props.actions.fetchGalleries({});
   }
 
   render() {
-    const { imageURL, handlePhotoClick, imageTitle, overlayText, detailsUrl } = this.props;
+    const {
+      imageURL,
+      handlePhotoClick,
+      imageTitle,
+      overlayText,
+      detailsUrl,
+      galleryList,
+    } = this.props;
 
     const inlinePhotoStyle = {
       backgroundImage: `url(${imageURL})`,
@@ -35,9 +57,7 @@ class Photo extends Component {
             </div>
             <ul className={s.photoMenu}>
               <li>
-                <button onClick={this.handleDownloadPhotoClick} className={s.action}>
-                  <span className="fa fa-download"></span>
-                </button>
+                <PhotoActions imageURL={imageURL} galleryList={galleryList} />
               </li>
             </ul>
           </div>
