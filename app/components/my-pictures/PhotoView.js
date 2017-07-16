@@ -106,6 +106,7 @@ class PhotoView extends Component {
       fetchingFITError,
       FITImages,
     } = this.props;
+
     const firstImageNumberIndex = firstImageNumber - 1;
     const rangeText = Pagination.generateRangeText({
       startRange: firstImageNumberIndex,
@@ -196,8 +197,8 @@ PhotoView.defaultProps = {
   firstImageNumber: 1,
   paginateParams: {},
   missions: false,
-  imageList: [],
-  galleryList: [],
+  imageList: null,
+  galleryList: null,
 };
 
 // TODO: increase validation for the imageList types.
