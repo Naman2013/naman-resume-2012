@@ -62,6 +62,7 @@ class StarShareCamera extends Component {
   }
 
   render() {
+    console.log(this.props);
     return (
       <div className="star-share-camera-wrapper">
         <button onClick={this.takeSnapshot} className="snapshot-btn">
