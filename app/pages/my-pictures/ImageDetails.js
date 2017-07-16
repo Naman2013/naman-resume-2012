@@ -123,9 +123,9 @@ ImageDetails.propTypes = {
   canDownloadFlag: PropTypes.bool,
   canEditFlag: PropTypes.bool,
   fileData: PropTypes.shape({}),
-  actions: PropTypes.shape({
-    fetchImageDetailsAndCounts,
-  }),
+  // actions: PropTypes.shape({
+  //   fetchImageDetailsAndCounts,
+  // }),
   params: PropTypes.shape({
     customerImageId: PropTypes.string,
     shareToken: PropTypes.string,

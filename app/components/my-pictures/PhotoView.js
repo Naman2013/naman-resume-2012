@@ -111,7 +111,6 @@ class PhotoView extends Component {
       startRange: firstImageNumberIndex,
       itemsPerPage: imageList ? imageList.length : galleryList.length, // use length here because there may be less than maxImageCount
     });
-
     const canNext = (firstImageNumberIndex + maxImageCount) < imageCount;
     const canPrevious = firstImageNumberIndex !== 0;
     const showFITSModal = FITImages.imageCount > 0;

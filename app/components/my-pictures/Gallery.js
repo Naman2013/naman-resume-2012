@@ -1,3 +1,4 @@
+import Markdown from 'react-remarkable';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
@@ -17,7 +18,7 @@ class Gallery extends Component {
   static propTypes = {
     imageURL: PropTypes.string.isRequired,
     imageTitle: PropTypes.string.isRequired,
-    created: PropTypes.string,
+    created: PropTypes.a,
   }
 
   static defaultProps = {
@@ -28,6 +29,7 @@ class Gallery extends Component {
     const {
       isImages,
       galleryId,
+      overlayText,
       created,
       imageURL,
       imageTitle,
@@ -43,6 +45,9 @@ class Gallery extends Component {
           <div className="innerContainer content">
             <div>{imageTitle}</div>
             <div>Created on {createdDate.format('dddd, MMMM Do YYYY')}</div>
+            {
+              overlayText && overlayText.map((markdownText, index) => <Markdown key={`markdown-text-${index}`} source={markdownText} />)
+            }
           </div>
           <style jsx>
             {`

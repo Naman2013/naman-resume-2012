@@ -17,13 +17,9 @@ class GalleryList extends Component {
             galleryList.map(gallery => (
               <li key={gallery.galleryId} className="col-xs-4">
                 <Gallery
+                  {...gallery}
                   isImages={isImages}
-                  galleryId={gallery.galleryId}
-                  created={gallery.created}
-                  imageURL={gallery.imageURL}
-                  imageTitle={gallery.title}
-                  shareToken={gallery.shareToken}
-                  customerImageId={gallery.customerImageId}
+                  imageTitle={gallery.title || gallery.imageTitle}
                 />
               </li>
             ))
@@ -36,9 +32,9 @@ class GalleryList extends Component {
 
 GalleryList.propTypes = {
   galleryList: PropTypes.arrayOf(PropTypes.shape({
-    galleryId: PropTypes.string.isRequired,
+    galleryId: PropTypes.any.isRequired,
     imageURL: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
+    title: PropTypes.string,
   })),
 };
 
