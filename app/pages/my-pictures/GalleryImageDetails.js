@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Pagination from '../../components/common/pagination/Pagination';
 import MyPicturesNavigation from '../../components/my-pictures/my-pictures-navigation';
-import { fetchImageDetailsAndCounts } from '../../modules/my-pictures-image-details/actions';
+import { fetchImageDetailsAndCounts, fetchMyPicturesImageDetails } from '../../modules/my-pictures-image-details/actions';
 import { fetchGalleryPictures } from '../../modules/my-pictures-galleries/actions';
 import RichTextEditor from '../../components/rich-text-editor/RichTextEditor';
 import MissionTags from '../../components/common/tags/mission-tags';
@@ -17,6 +17,7 @@ const mapStateToProps = ({ myPicturesImageDetails, galleries }) => ({
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
+    fetchMyPicturesImageDetails,
     fetchGalleryPictures,
     fetchImageDetailsAndCounts,
   }, dispatch),

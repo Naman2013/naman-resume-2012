@@ -53,7 +53,7 @@ export const fetchGalleryPictures = ({
   .catch(error => dispatch(fetchGalleryPicturesFail(error)));
 };
 
-export const fetchImageDetailsAndCounts = params => (dispatch) => {
+export const fetchGalleryPicturesAndCounts = params => (dispatch) => {
   dispatch(fetchMissionCount());
   dispatch(fetchMyPicturesCount());
   dispatch(fetchGalleriesCount());// for deeplinking

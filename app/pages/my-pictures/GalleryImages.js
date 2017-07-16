@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import MyPicturesNavigation from '../../components/my-pictures/my-pictures-navigation';
 import PhotoView from '../../components/my-pictures/PhotoView';
-import { fetchImageDetailsAndCounts } from '../../modules/my-pictures-galleries/actions';
+import { fetchGalleryPicturesAndCounts } from '../../modules/my-pictures-galleries/actions';
 import style from './my-pictures-gallery.scss';
 
 const mapStateToProps = ({ galleries }) => ({
@@ -19,7 +19,7 @@ const mapStateToProps = ({ galleries }) => ({
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
-    fetchImageDetailsAndCounts,
+    fetchGalleryPicturesAndCounts,
   }, dispatch),
 });
 
@@ -28,7 +28,7 @@ class GalleryImages extends Component {
   componentWillMount() {
     const { params: { galleryId }, firstImageNumber, maxImageCount } = this.props;
     window.scrollTo(0, 0);
-    this.props.actions.fetchImageDetailsAndCounts({
+    this.props.actions.fetchGalleryPicturesAndCounts({
       galleryId,
       firstImageNumber,
       maxImageCount,
@@ -54,7 +54,7 @@ class GalleryImages extends Component {
         <div className="clearfix my-pictures-container">
           <div>
             <PhotoView
-              paginate={actions.fetchImageDetailsAndCounts}
+              paginate={actions.fetchGalleryPicturesAndCounts}
               imageCount={imageCount}
               maxImageCount={maxImageCount}
               firstImageNumber={firstImageNumber}
@@ -81,7 +81,7 @@ GalleryImages.defaultProps = {
 
 GalleryImages.propTypes = {
   actions: PropTypes.shape({
-    fetchImageDetailsAndCounts: PropTypes.func.isRequired,
+    fetchGalleryPicturesAndCounts: PropTypes.func.isRequired,
   }),
   imageList: PropTypes.arrayOf(PropTypes.shape({
     imageURL: PropTypes.string.isRequired,

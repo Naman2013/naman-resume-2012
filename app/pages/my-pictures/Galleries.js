@@ -10,7 +10,7 @@ const mapStateToProps = ({ myPictures }) => ({
   error: myPictures.galleries.error,
   errorBody: myPictures.galleries.errorBody,
   fetching: myPictures.galleries.fetching,
-  firstImageNumber: myPictures.galleries.firstImageNumber,
+  firstGalleryNumber: myPictures.galleries.firstGalleryNumber,
   imageCount: myPictures.galleries.imageCount,
   galleryList: myPictures.galleries.response.galleryList,
   maxImageCount: myPictures.galleries.maxImageCount,
@@ -34,7 +34,7 @@ class Galleries extends Component {
       actions,
       error,
       fetching,
-      firstImageNumber,
+      firstGalleryNumber,
       imageCount,
       galleryList,
       maxImageCount,
@@ -52,7 +52,7 @@ class Galleries extends Component {
               paginate={actions.fetchGalleriesAndCounts}
               imageCount={imageCount}
               maxImageCount={maxImageCount}
-              firstImageNumber={firstImageNumber}
+              firstImageNumber={firstGalleryNumber}
               fetching={fetching}
               galleryList={galleryList}
               error={error}
@@ -71,7 +71,7 @@ Galleries.defaultProps = {
   error: false,
   imageCount: 0,
   maxImageCount: 9,
-  firstImageNumber: 1,
+  firstGalleryNumber: 1,
 };
 
 Galleries.propTypes = {
@@ -81,7 +81,7 @@ Galleries.propTypes = {
   })),
   imageCount: PropTypes.number,
   maxImageCount: PropTypes.number,
-  firstImageNumber: PropTypes.number,
+  firstGalleryNumber: PropTypes.number,
   fetching: PropTypes.bool,
   error: PropTypes.bool,
 };
