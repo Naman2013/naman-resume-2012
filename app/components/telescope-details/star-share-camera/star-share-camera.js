@@ -68,10 +68,9 @@ class StarShareCamera extends Component {
           <i className="fa fa-camera" />
         </button>
         {
-          this.props.snapshotList.map((snapshot, i) => {
+          this.props.snapshotList.map((snapshot) => {
             return (
-              <div key={`${i}_${snapshot.imageID}`} className="snapshot">
-                <div className="snapshot-index">{i + 1}</div>
+              <div key={snapshot.imageID} className="snapshot">
                 {
                   snapshot.imageURL ? <img alt="" key={snapshot.imageID} src={snapshot.imageURL} /> : null
                 }
