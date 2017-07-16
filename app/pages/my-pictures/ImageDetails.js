@@ -2,13 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import forOwn from 'lodash';
 import MyPicturesNavigation from '../../components/my-pictures/my-pictures-navigation';
 import { fetchImageDetailsAndCounts } from '../../modules/my-pictures-image-details/actions';
 import RichTextEditor from '../../components/rich-text-editor/RichTextEditor';
 import MissionTags from '../../components/common/tags/mission-tags';
-
-import style from './my-pictures-gallery.scss';
+import { white } from '../../styles/variables/colors';
 
 const mapStateToProps = ({ myPicturesImageDetails }) => ({
   ...myPicturesImageDetails
@@ -61,12 +59,12 @@ class ImageDetails extends Component {
         <MyPicturesNavigation
           page="galleries"
         />
-        <div className="clearfix my-pictures-container">
-          <div>
+        <div className="clearfix my-pictures-container container">
+          <div className="left">
 
           </div>
-          <aside>
-            <h3>Observation Log</h3>
+          <aside className="right">
+            <h4 className="header">Observation Log</h4>
             {canEditFlag ?
               <div>
                 <RichTextEditor
@@ -74,22 +72,47 @@ class ImageDetails extends Component {
                   onChange={this.handleEditorChange}
                 />
               </div>
-            : <div>{observationLog}</div>
+            : <div dangerouslySetInnerHTML={{ __html: observationLog }} />
           }
-            <h3>Image Tags</h3>
+            <h4 className="header">Image Tags</h4>
             <div>
-               <MissionTags
+              <MissionTags
                 tagClass="image"
                 tagType="observation"
                 scheduledMissionId={scheduledMissionId}
               />
             </div>
-            <h3>File Data</h3>
-            <div>{forOwn(fileData, (key, value) => {
-              return <div>{key}: {value}</div>;
+            <h4 className="header">File Data</h4>
+            <div>{Object.keys(fileData).map((key) => {
+              return <div key={key}><span className="bold">{key}</span>: {fileData[key]}</div>;
             })}</div>
           </aside>
         </div>
+        <style jsx>
+          {`
+            .container {
+              width: 100%;
+              display: flex;
+              flex-direction: row;
+              justify-content: space-around;
+            }
+            .left {
+              flex: 3;
+            }
+            .right {
+              flex: 1;
+              background-color: ${white};
+              padding: 5px;
+            }
+            .bold {
+              font-weight: bold;
+            }
+            .header {
+              text-align: center;
+              font-weight: bold;
+            }
+          `}
+        </style>
       </div>
     );
   }

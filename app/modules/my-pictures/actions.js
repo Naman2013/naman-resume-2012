@@ -102,6 +102,7 @@ export const fetchGalleries = ({
     token: 'ff278b57d3724d41a3d48194e2f29526b30e9c0f', // for testing purposes
     maxImageCount,
     firstImageNumber,
+    filterType: objectTypeFilter.filterByField,
   })
   .then(result => dispatch(fetchGalleriesSuccess(result.data)))
   .catch(error => dispatch(fetchGalleriesFail(error)));
@@ -293,6 +294,8 @@ export const updateObjectFilterBy = (payload, page) => (dispatch) => {
     dispatch(fetchPhotoRoll({}));
   } else if (page === 'missions') {
     dispatch(fetchMissions({}));
+  } else if (page === 'galleries') {
+    dispatch(fetchGalleries({}));
   }
 };
 

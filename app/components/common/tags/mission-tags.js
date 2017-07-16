@@ -99,7 +99,7 @@ class MissionTags extends Component {
 
   render() {
 
-    const { tagText } = this.state;
+    const { tagText, tagClass } = this.state;
     const { tags, canEditFlag } = this.props;
 
     let availableTags = [];
@@ -110,7 +110,7 @@ class MissionTags extends Component {
 
     return(
       <div className="slooh-mission-tags">
-        <h4 className="title">MISSION TAGS:</h4>
+        {tagClass === "mission" && <h4 className="title">MISSION TAGS:</h4>}
         <ReactTags
           readOnly={canEditFlag}
           tags={availableTags}
