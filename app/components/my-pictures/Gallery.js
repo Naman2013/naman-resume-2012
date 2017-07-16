@@ -37,7 +37,7 @@ class Gallery extends Component {
       shareToken
     } = this.props;
     const createdDate = moment(Number(created) * 1000);
-    const url = isImages ? `/#/my-pictures/gallery/show-image/${customerImageId}/${shareToken}` : `/#/my-pictures/galleries/${galleryId}`;
+    const url = isImages ? `/#/my-pictures/gallery/${galleryId}/show-image/${customerImageId}/${shareToken}` : `/#/my-pictures/galleries/${galleryId}`;
     return (
       <div className="relative">
 

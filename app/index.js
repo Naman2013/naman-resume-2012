@@ -68,6 +68,7 @@ import GalleryImages from './pages/my-pictures/GalleryImages';
 import Missions from './pages/my-pictures/Missions';
 import MissionImages from './pages/my-pictures/MissionImages';
 import ImageDetails from './pages/my-pictures/ImageDetails';
+import GalleryImageDetails from './pages/my-pictures/GalleryImageDetails';
 
 import Plans from './pages/registration/Plans';
 import UpgradeApprentice from './pages/registration/UpgradeApprentice';
@@ -276,7 +277,8 @@ ReactDOM.render(
           <Route path="missions/:scheduledMissionId" title="Mission Images" component={MissionImages} />
           <Route path="missions" title="Missions" component={Missions} />
 
-          <Route path="gallery/show-image(/:customerImageId)(/:shareToken)" component={ImageDetails} />
+          <Route path="show-image(/:customerImageId)(/:shareToken)" component={ImageDetails} />
+          <Route path="gallery/:galleryId/show-image(/:customerImageId)(/:shareToken)" component={GalleryImageDetails} />
           <Route path="popular/show-image(/:customerImageId)(/:shareToken)" component={ImageDetails} />
         </Route>
 

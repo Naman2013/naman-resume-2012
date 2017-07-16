@@ -5,17 +5,20 @@ import { bindActionCreators } from 'redux';
 import Pagination from '../../components/common/pagination/Pagination';
 import MyPicturesNavigation from '../../components/my-pictures/my-pictures-navigation';
 import { fetchImageDetailsAndCounts } from '../../modules/my-pictures-image-details/actions';
+import { fetchGalleryPictures } from '../../modules/my-pictures-galleries/actions';
 import RichTextEditor from '../../components/rich-text-editor/RichTextEditor';
 import MissionTags from '../../components/common/tags/mission-tags';
 import { white } from '../../styles/variables/colors';
 import { backgroundImageCover } from '../../styles/mixins/utilities';
 
-const mapStateToProps = ({ myPicturesImageDetails }) => ({
+const mapStateToProps = ({ myPicturesImageDetails, galleries }) => ({
   myPicturesImageDetails,
+  galleries,
 });
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
+    fetchGalleryPictures,
     fetchImageDetailsAndCounts,
   }, dispatch),
 });
@@ -42,8 +45,42 @@ class ImageDetails extends Component {
       customerImageId,
       shareToken,
     });
+    this.props.actions.fetchGalleryPictures({
+      maxImageCount: 1,
+      galleryId,
+      firstImageNumber: 1,
+    });
   }
 
+  handleNextPageClick = () => {
+    const {
+      firstImageNumber,
+      maxImageCount,
+      paginate = this.props.fetchGalleryPictures,
+      paginateParams,
+    } = this.props.galleries;
+    paginate({
+      ...paginateParams,
+      firstImageNumber: firstImageNumber + maxImageCount,
+      maxImageCount,
+    });
+  }
+
+  handlePreviousPageClick = () => {
+    const {
+      firstImageNumber,
+      maxImageCount,
+      paginate = this.props.fetchGalleryPictures,
+      paginateParams,
+    } = this.props.galleries;
+
+    paginate({
+      ...paginateParams,
+      firstImageNumber: firstImageNumber - maxImageCount,
+      maxImageCount,
+    });
+
+  }
 
   handleEditorChange = (editorHTML) => {
     this.setState({ editorValue: editorHTML });
@@ -57,11 +94,23 @@ class ImageDetails extends Component {
       fetching,
       canEditFlag,
       imageTitle,
-      imageURL,
       fileData,
     } = this.props.myPicturesImageDetails;
+    const {
+      firstImageNumber,
+      maxImageCount,
+      imageCount,
+      imageList,
+    } = this.props.galleries;
 
-
+    const firstImageNumberIndex = firstImageNumber - 1;
+    const rangeText = Pagination.generateRangeText({
+      startRange: firstImageNumberIndex,
+      itemsPerPage: imageList.length, // use length here because there may be less than maxImageCount
+    });
+    const canNext = (firstImageNumberIndex + maxImageCount) < imageCount;
+    const canPrevious = firstImageNumberIndex !== 0;
+    const image = imageList[0] && imageList[0].imageURL;
     return (
       <div>
         <MyPicturesNavigation
@@ -69,7 +118,7 @@ class ImageDetails extends Component {
         />
         <div className="clearfix my-pictures-container">
           <div className="container">
-            <div className="left title">
+            <div className="left">
               <h2 dangerouslySetInnerHTML={{ __html: imageTitle }} />
             </div>
             <div className="right-top"></div>
@@ -80,10 +129,18 @@ class ImageDetails extends Component {
                 <div
                   className="image"
                   style={{
-                    backgroundImage: `url(${imageURL})`
+                    backgroundImage: `url(${image})`
                   }}
                 />
               </div>
+              <Pagination
+                totalCount={imageCount}
+                currentRange={rangeText}
+                handleNextPageClick={this.handleNextPageClick}
+                handlePreviousPageClick={this.handlePreviousPageClick}
+                canNext={canNext}
+                canPrevious={canPrevious}
+              />
             </div>
             <aside className="right">
               <h4 className="header">Observation Log</h4>
@@ -113,9 +170,6 @@ class ImageDetails extends Component {
         </div>
         <style jsx>
           {`
-            .my-pictures-container {
-              padding: 20px;
-            }
             .container {
               width: 100%;
               display: flex;
@@ -124,6 +178,7 @@ class ImageDetails extends Component {
             }
             .image-container {
               width: 90%;
+              margin: 0 auto;
             }
             .image {
               ${backgroundImageCover}

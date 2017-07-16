@@ -46,7 +46,10 @@ export const fetchGalleryPictures = ({
     maxImageCount,
     firstImageNumber,
   })
-  .then(result => dispatch(fetchGalleryPicturesSuccess(result.data)))
+  .then(result => dispatch(fetchGalleryPicturesSuccess(Object.assign({
+    maxImageCount,
+    firstImageNumber,
+  }, result.data))))
   .catch(error => dispatch(fetchGalleryPicturesFail(error)));
 };
 
