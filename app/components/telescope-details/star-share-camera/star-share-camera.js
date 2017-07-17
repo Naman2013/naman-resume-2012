@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import uniqueId from 'lodash/uniqueId';
 import ModalGeneric from '../../../components/common/modals/modal-generic';
 import {
   snapImage,
@@ -66,7 +67,6 @@ class StarShareCamera extends Component {
   }
 
   render() {
-    console.log(this.props);
     return (
       <div className="star-share-camera-wrapper">
         <button onClick={this.takeSnapshot} className="snapshot-btn">
@@ -75,7 +75,7 @@ class StarShareCamera extends Component {
         {
           this.props.snapshotList.map((snapshot) => {
             return (
-              <div key={snapshot.imageID} className="snapshot">
+              <div key={`${snapshot.imageID}-${uniqueId()}`} className="snapshot">
                 {
                   snapshot.imageURL ? <img alt="" key={snapshot.imageID} src={snapshot.imageURL} /> : null
                 }
@@ -88,6 +88,48 @@ class StarShareCamera extends Component {
           closeModal={this.closeModal}
           description={String(this.props.snapshotMsg)}
         />}
+
+        <style jsx>{`
+          .star-share-camera-wrapper {
+            display: flex;
+          };
+
+          .snapshot-btn {
+            flex: 0 0 70px;
+            color: $turqoise;
+            background: transparent;
+            border: 0;
+            font-size: 32px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            &:focus {
+              outline: none;
+            }
+          }
+
+          .snapshot {
+            background: $black;
+            flex: 0 0 70px;
+            height: 40px;
+            overflow: hidden;
+            margin: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 0 4px $light-gray;
+            width: 100px;
+            height: 50px;
+          }
+
+          .snapshot-index {
+            position: absolute;
+            color: $white;
+            z-index: 2;
+            font-size: 12px;
+          }
+        `}</style>
       </div>
     );
   }
