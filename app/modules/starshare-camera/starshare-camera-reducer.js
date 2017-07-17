@@ -25,6 +25,7 @@ function generateInitialEmptyStarshareSlots(count) {
   for (let i = 0; i < count; i += 1) {
     emptySlots.push(new EmptySnap());
   }
+  return emptySlots;
 }
 
 const initialState = {
@@ -40,7 +41,7 @@ const initialState = {
     imageID: '',
   },
   snapshotMsg: '',
-  snapshotList: [{}, {}, {}],
+  snapshotList: generateInitialEmptyStarshareSlots(6),
 };
 
 export default createReducer(initialState, {
