@@ -1,3 +1,4 @@
+import uniqueId from 'lodash/uniqueId';
 import createReducer from '../utils/createReducer';
 
 import {
@@ -12,10 +13,17 @@ import {
 const EMPTY = 'EMPTY';
 const SNAP = 'SNAP';
 
-class emptySnap {
+class EmptySnap {
   constructor() {
-    this.type = EMPTY;
     this.imageID = uniqueId();
+    this.type = EMPTY;
+  }
+}
+
+function generateInitialEmptyStarshareSlots(count) {
+  const emptySlots = [];
+  for (let i = 0; i < count; i += 1) {
+    emptySlots.push(new EmptySnap());
   }
 }
 
