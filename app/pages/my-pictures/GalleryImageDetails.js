@@ -28,8 +28,20 @@ class ImageDetails extends Component {
   constructor(props) {
     super(props);
 
+    const {
+      params: {
+        customerImageId,
+        shareToken,
+        galleryId
+      }
+    } = this.props;
+
     this.state = {
       editorValue: props.myPicturesImageDetails.observationLog,
+      paginationParams: {
+        galleryId,
+        pagingMode: 'api'
+      }
     };
   }
   componentWillMount() {
@@ -49,6 +61,7 @@ class ImageDetails extends Component {
       maxImageCount: 1,
       galleryId,
       firstImageNumber: 1,
+      pagingMode: 'api'
     });
   }
 
@@ -56,10 +69,10 @@ class ImageDetails extends Component {
     const {
       firstImageNumber,
       maxImageCount,
-      paginateParams,
     } = this.props.galleries;
+    const { paginationParams } = this.state;
     this.props.actions.fetchGalleryPictures({
-      ...paginateParams,
+      ...paginationParams,
       firstImageNumber: firstImageNumber + maxImageCount,
       maxImageCount,
     });
@@ -69,11 +82,11 @@ class ImageDetails extends Component {
     const {
       firstImageNumber,
       maxImageCount,
-      paginateParams,
     } = this.props.galleries;
+    const { paginationParams } = this.state;
 
     this.props.actions.fetchGalleryPictures({
-      ...paginateParams,
+      ...paginationParams,
       firstImageNumber: firstImageNumber - maxImageCount,
       maxImageCount,
     });

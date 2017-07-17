@@ -14,6 +14,8 @@ const initialState = {
   imageList: [],
   fetching: false,
   error: false,
+  resultsCount: 0,
+
 };
 
 export default createReducer(initialState, {
