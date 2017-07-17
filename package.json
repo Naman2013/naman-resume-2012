@@ -80,7 +80,7 @@
     "redux-form": "^6.0.1",
     "redux-logger": "^2.6.1",
     "redux-thunk": "^2.1.0",
-    "styled-jsx": "^0.5.7"
+    "styled-jsx": "^1.0.8"
   },
   "devDependencies": {
     "babel-core": "^6.10.4",
