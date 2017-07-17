@@ -50,6 +50,7 @@ export const snapImage = () => (dispatch, getState) => {
   } = getState();
 
   const { callSource, imageURL, imageID } = imageDataToSnapshot;
+
   if (callSource && imageURL && imageID) {
     return axios.post('/api/images/snapImage', {
       token,
