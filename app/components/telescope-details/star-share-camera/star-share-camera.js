@@ -9,7 +9,7 @@ import {
   resetsnapImageMsg,
 } from '../../../modules/starshare-camera/starshare-camera-actions';
 
-import { black, lightGray, white, turqoise } from '../../../styles/variables/colors';
+import { black, lightGray, white, turqoise, pink } from '../../../styles/variables/colors';
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
@@ -107,6 +107,10 @@ class StarShareCamera extends Component {
 
           .snapshot-btn:focus {
             outline: none;
+          }
+
+          .snapshot-btn:hover {
+            color: ${pink};
           }
 
           .snapshot {
