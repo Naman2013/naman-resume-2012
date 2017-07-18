@@ -1,6 +1,17 @@
 ## Development
 ---
 
+### Working with components
+---
+
+We have introduced [Storybook](https://github.com/storybooks/storybook) into the project to allow for the engineering of components outside of the context of the application.
+
+Our goal is to build components that may be isolated and contain all of their dependencies.
+
+The benefits of working with components in Storybook, is that we will have an interactive catalog of the components we build.  Building through Storybook will also allow us to work outside of the needing to run the entire application, which as it continues to scale is slower to work on.
+
+#### TODO: provide Storybook instruction
+
 ### Local Development
 ---
 
@@ -10,9 +21,9 @@ being generated from your local machine.
 
 After you clone the repo:
 
-1. `npm install`
+1. `yarn install` or `npm install`
 
-2. `npm start`
+2. `yarn start` or `npm start`
 
 3. Navigate to: [http://localhost:8080/](http://localhost:8080/)
 
@@ -31,13 +42,11 @@ API server for you from the relative path for example:
 
 `/api/{your-api-path-here/?foo=bar&etc=etc}`
 
-The build process also requires that your API calls begin with `/api/` or `/dev-sse/` to be remapped
-according to the production build process.
+The build process also requires that your API calls begin with `/api/` or `/dev-sse/` to be remapped according to the production build process.
 
 ### Building for Production
 
-Due to the nature of this project, handles for altering API call addresses
-have been built into the build process.
+Due to the nature of this project, handles for altering API call addresses have been built into the build process.
 
 Some example builds include:
 
@@ -91,7 +100,7 @@ This will generate the `/dist` directory to be sent to the web server.
 This url is constructed using properties from a telescopes information.  The telescope information
 should include the `telePort` and `teleSystem` to build the link above.
 
-#### Sample event data
+#### Sample event data ( TODO: this has since been updated to JSON format )
 ---
 
 [currentImgURL, previousImgURL, scheduledMissionId, missionStartTime, lastImgTime, currentServerTimestamp, systemStatus]

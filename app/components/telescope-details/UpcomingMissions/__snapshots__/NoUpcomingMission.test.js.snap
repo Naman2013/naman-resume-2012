@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<NoUpcomingMission /> should render no mission stuff... 1`] = `
+<div
+  data-jsx={3951388774}
+>
+  <h4
+    className="title"
+    data-jsx={3951388774}
+  >
+    No missions scheduled
+  </h4>
+  <style
+    jsx={true}
+  >
+    
+          .title {
+            margin: 0;
+            padding: 20px 0;
+            text-transform: none;
+            color: #D9D9D9;
+          }
+        
+  </style>
+</div>
+`;

@@ -9,14 +9,12 @@ import {
   grabPiggybackByTelescope,
   resetMissionAvailability } from '../../../../modules/Piggyback';
 
-import { grabEditCoordinateMission } from '../../../../modules/grab-telescope-slot/actions';
 import { editCoordinateMission } from '../../../../modules/mission-slots-by-telescope/mission-slots-by-telescope-actions';
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
     grabPiggybackByTelescope,
     resetMissionAvailability,
-    grabEditCoordinateMission,
     editCoordinateMission,
   }, dispatch),
 });
