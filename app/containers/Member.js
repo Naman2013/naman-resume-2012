@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import ReactCSSTransitionGroup from 'react-transition-group';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import classnames from 'classnames';

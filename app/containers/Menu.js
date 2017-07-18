@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import ReactCSSTransitionGroup from 'react-transition-group';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import onClickOutside from 'react-onclickoutside';
 import MenuLink from './../components/menu/MenuLink';
 import Submenu from './../components/menu/Submenu';
