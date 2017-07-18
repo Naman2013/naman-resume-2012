@@ -18,7 +18,7 @@ module.exports = {
       'moment-timezone',
       'axios',
       'react',
-      'react-addons-css-transition-group',
+      'react-transition-group',
       'react-bootstrap',
       'react-dom',
       'react-draggable',
