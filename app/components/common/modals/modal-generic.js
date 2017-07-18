@@ -5,18 +5,20 @@ import style from './modal-generic.scss';
 class ModalGeneric extends Component {
   render() {
     const { closeModal, open, title, description, closeButtonText } = this.props;
-
     return (
       <Modal
         show={open}
         className="generic-modal"
       >
 
-        <Modal.Header>
-          <div className="title">
-            {title}
-          </div>
-        </Modal.Header>
+        {
+          title &&
+            <Modal.Header>
+              <div className="title">
+                {title}
+              </div>
+            </Modal.Header>
+        }
 
         <Modal.Body>
           <div className="body">
