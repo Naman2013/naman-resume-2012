@@ -10,6 +10,7 @@ import {
 } from '../../../modules/starshare-camera/starshare-camera-actions';
 
 import { black, lightGray, white, turqoise, pink } from '../../../styles/variables/colors';
+import shakeStyle from './shake-animation';
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
@@ -73,9 +74,9 @@ class StarShareCamera extends Component {
           <i className="fa fa-camera" />
         </button>
         {
-          this.props.snapshotList.map((snapshot) => {
+          this.props.snapshotList.map((snapshot, i) => {
             return (
-              <div key={`${snapshot.imageID}-${uniqueId()}`} className="snapshot">
+              <div key={`${snapshot.imageID}-${uniqueId()}`} className="snapshot shake">
                 {
                   snapshot.imageURL ? <img alt="" key={snapshot.imageID} src={snapshot.imageURL} /> : null
                 }
@@ -88,6 +89,8 @@ class StarShareCamera extends Component {
           closeModal={this.closeModal}
           description={String(this.props.snapshotMsg)}
         />}
+
+        <style jsx>{shakeStyle}</style>
 
         <style jsx>{`
           .star-share-camera-wrapper {
