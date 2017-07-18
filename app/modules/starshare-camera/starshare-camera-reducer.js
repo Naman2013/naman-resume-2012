@@ -1,4 +1,5 @@
 import uniqueId from 'lodash/uniqueId';
+import take from 'lodash/take';
 import createReducer from '../utils/createReducer';
 
 import {
@@ -57,7 +58,7 @@ export default createReducer(initialState, {
   [SNAP_IMAGE_SUCCESS](state, { imageData: { imageURL, imageID, explanation } }) {
     return {
       ...state,
-      snapshotList: [{ imageURL, imageID }, ...state.snapshotList],
+      snapshotList: take([{ imageURL, imageID }, ...state.snapshotList], 6),
       snapshotMsg: explanation,
     };
   },
