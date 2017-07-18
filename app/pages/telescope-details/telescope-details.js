@@ -276,6 +276,7 @@ class TelescopeDetails extends Component {
                     <TabPanel key={instrument.instrPort}>
                       <LiveFeed
                         fetchingOnlineStatus={fetchingObservatoryStatus}
+                        obsAlert={currentObservatory.obsAlert}
                         onlineStatus={
                           currentTelescopeOnlineStatus && currentTelescopeOnlineStatus.onlineStatus
                         }
