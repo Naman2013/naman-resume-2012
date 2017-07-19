@@ -1,20 +1,23 @@
 export default `
   @keyframes shake-keyframes {
-    0% { transform: translate(2px, 1px) rotate(0deg); }
-    10% { transform: translate(-1px, -2px) rotate(-1deg); }
-    20% { transform: translate(-3px, 0px) rotate(1deg); }
-    30% { transform: translate(0px, 2px) rotate(0deg); }
-    40% { transform: translate(1px, -1px) rotate(1deg); }
-    50% { transform: translate(-1px, 2px) rotate(-1deg); }
-    60% { transform: translate(-3px, 1px) rotate(0deg); }
-    70% { transform: translate(2px, 1px) rotate(-1deg); }
-    80% { transform: translate(-1px, -1px) rotate(1deg); }
-    90% { transform: translate(2px, 2px) rotate(0deg); }
-    100% { transform: translate(1px, -2px) rotate(-1deg); }
+    15%,40%,75%,100% {
+      transform-origin:center center
+    }
+    15% {
+      transform:scale(1.4, 1.2);
+    }
+    40% {
+      transform:scale(0.9, 0.9);
+    }
+    75% {
+      transform:scale(1.08, 1);
+    }
+    100% {
+      transform:scale(1, 1);
+    }
   }
 
   .shake {
-    animation: shake-keyframes 0.8s ease-out;
-    transform-origin: 50% 50%;
+    animation: shake-keyframes 0.5s ease-out;
   }
 `;
