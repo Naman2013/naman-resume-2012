@@ -77,16 +77,10 @@ class StarShareCamera extends Component {
         {
           this.props.snapshotList.map((snapshot, i) => {
             return (
-              <div key={`${snapshot.imageID}-${uniqueId()}`} className="snapshot">
-                <ReactCSSTransitionGroup
-                  transitionName="shake"
-                  transitionEnterTimeout={10000}
-                  transitionLeaveTimeout={10000}
-                >
-                  {
-                    snapshot.imageURL ? <img alt="" key={snapshot.imageID} src={snapshot.imageURL} /> : null
-                  }
-                </ReactCSSTransitionGroup>
+              <div key={`${snapshot.imageID}-${uniqueId()}`} className="snapshot shake">
+                {
+                  snapshot.imageURL ? <img alt="" key={snapshot.imageID} src={snapshot.imageURL} /> : null
+                }
               </div>
             );
           })
