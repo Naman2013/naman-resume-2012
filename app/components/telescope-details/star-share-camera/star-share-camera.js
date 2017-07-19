@@ -82,7 +82,6 @@ class StarShareCamera extends Component {
     // still getting some spots in time when we should not be shaking the image
     const { snapAPIError, imagesLastSnapped } = this.props;
     const snappingImages = (!snapAPIError && (imagesLastSnapped > 0));
-    console.log(this.props);
     this.setState({
       snappingImages,
       openedModal: false,

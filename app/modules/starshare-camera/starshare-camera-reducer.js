@@ -74,6 +74,8 @@ export default createReducer(initialState, {
   [SNAP_IMAGE_FAIL](state, { error }) {
     return {
       ...state,
+      apiError: error.apiError,
+      imagesLastSnapped: error.imagedAdded,
       snapshotMsg: error.explanation,
     };
   },
