@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { hashHistory } from 'react-router';
+import { findIndex } from 'lodash';
 import Pagination from '../../components/common/pagination/Pagination';
 import MyPicturesNavigation from '../../components/my-pictures/my-pictures-navigation';
 import { fetchImageDetailsAndCounts, fetchMyPicturesImageDetails } from '../../modules/my-pictures-image-details/actions';
@@ -10,7 +12,7 @@ import RichTextEditor from '../../components/rich-text-editor/RichTextEditor';
 import MissionTags from '../../components/common/tags/mission-tags';
 import { imageDetailsStyle } from './ImageDetailsStyles';
 
-const mapStateToProps = ({ myPicturesImageDetails, galleries }) => ({
+const mapStateToProps = ({ user, myPicturesImageDetails, galleries }) => ({
   myPicturesImageDetails,
   galleries,
 });
@@ -30,18 +32,14 @@ class ImageDetails extends Component {
 
     const {
       params: {
-        customerImageId,
-        shareToken,
         galleryId
-      }
+      },
     } = this.props;
 
     this.state = {
       editorValue: props.myPicturesImageDetails.observationLog,
-      paginationParams: {
-        galleryId,
-        pagingMode: 'api'
-      }
+      galleryId,
+      currentImageIndex: 0,
     };
   }
   componentWillMount() {
@@ -53,44 +51,61 @@ class ImageDetails extends Component {
         galleryId
       }
     } = this.props;
+
     this.props.actions.fetchImageDetailsAndCounts({
       customerImageId,
       shareToken,
     });
     this.props.actions.fetchGalleryPictures({
-      maxImageCount: 1,
       galleryId,
       firstImageNumber: 1,
-      pagingMode: 'api'
     });
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const {
+      params: {
+        customerImageId,
+        shareToken,
+        galleryId,
+      }
+    } = nextProps;
+    if (nextProps.galleries.imageList.length) {
+      const currentImageIndex = findIndex(nextProps.galleries.imageList, image => (image.customerImageId === Number(customerImageId) && image.shareToken === String(shareToken)));
+      this.setState({
+        currentImageIndex,
+      });
+    }
+    if (Number(this.props.params.customerImageId) !== Number(customerImageId) || String(this.props.params.shareToken) !== String(shareToken)) {
+      this.props.actions.fetchImageDetailsAndCounts({
+        customerImageId: nextProps.params.customerImageId,
+        shareToken: nextProps.params.shareToken,
+      });
+      this.props.actions.fetchGalleryPictures({
+        galleryId,
+        firstImageNumber: 1,
+      });
+    }
+
   }
 
   handleNextPageClick = () => {
-    const {
-      firstImageNumber,
-      maxImageCount,
-    } = this.props.galleries;
-    const { paginationParams } = this.state;
-    this.props.actions.fetchGalleryPictures({
-      ...paginationParams,
-      firstImageNumber: firstImageNumber + maxImageCount,
-      maxImageCount,
-    });
+    const { galleries: { imageList } } = this.props;
+    const { currentImageIndex, galleryId } = this.state;
+    const nextImage = imageList[currentImageIndex + 1];
+
+    if (nextImage) {
+      hashHistory.push(`my-pictures/gallery/${galleryId}/show-image/${nextImage.customerImageId}/${nextImage.shareToken}`);
+    }
   }
 
   handlePreviousPageClick = () => {
-    const {
-      firstImageNumber,
-      maxImageCount,
-    } = this.props.galleries;
-    const { paginationParams } = this.state;
-
-    this.props.actions.fetchGalleryPictures({
-      ...paginationParams,
-      firstImageNumber: firstImageNumber - maxImageCount,
-      maxImageCount,
-    });
-
+    const { galleries: { imageList } } = this.props;
+    const { currentImageIndex, galleryId } = this.state;
+    const previousImage = imageList[currentImageIndex - 1];
+    if (previousImage) {
+      hashHistory.push(`my-pictures/gallery/${galleryId}/show-image/${previousImage.customerImageId}/${previousImage.shareToken}`);
+    }
   }
 
   handleEditorChange = (editorHTML) => {
@@ -108,19 +123,19 @@ class ImageDetails extends Component {
       fileData,
     } = this.props.myPicturesImageDetails;
     const {
-      firstImageNumber,
-      maxImageCount,
       imageCount,
       imageList,
     } = this.props.galleries;
+    const {
+      currentImageIndex
+    } = this.state;
 
-    const firstImageNumberIndex = firstImageNumber - 1;
     const rangeText = Pagination.generateRangeText({
-      startRange: firstImageNumberIndex,
-      itemsPerPage: maxImageCount,
+      startRange: currentImageIndex,
+      itemsPerPage: 1,
     });
-    const canNext = (firstImageNumberIndex + maxImageCount) < imageCount;
-    const canPrevious = firstImageNumberIndex !== 0;
+    const canNext = (currentImageIndex + 1) < imageCount;
+    const canPrevious = currentImageIndex !== 0;
     const image = imageList[0] && imageList[0].imageURL;
     return (
       <div>

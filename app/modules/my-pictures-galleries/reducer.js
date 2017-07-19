@@ -4,6 +4,9 @@ import {
   FETCH_GALLERY_PICS_START,
   FETCH_GALLERY_PICS_SUCCESS,
   FETCH_GALLERY_PICS_FAIL,
+  FETCH_GALLERY_PICS_COUNT_START,
+  FETCH_GALLERY_PICS_COUNT_SUCCESS,
+  FETCH_GALLERY_PICS_COUNT_FAIL,
 } from './actions';
 
 const initialState = {
@@ -30,6 +33,7 @@ export default createReducer(initialState, {
       ...state,
       fetching: false,
       ...payload,
+      imageCount: state.imageCount, // another call handles this
     };
   },
   [FETCH_GALLERY_PICS_FAIL](state, { payload }) {
@@ -37,6 +41,18 @@ export default createReducer(initialState, {
       ...state,
       fetching: false,
       error: true,
+    };
+  },
+  [FETCH_GALLERY_PICS_COUNT_SUCCESS](state, { payload }) {
+    return {
+      ...state,
+      imageCount: Number(payload.imageCount),
+    };
+  },
+  [FETCH_GALLERY_PICS_COUNT_FAIL](state) {
+    return {
+      ...state,
+      imageCount: 0,
     };
   },
 });
