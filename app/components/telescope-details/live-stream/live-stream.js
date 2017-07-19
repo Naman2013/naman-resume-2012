@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import './live-stream.scss';
 
 class LiveStream extends Component {
@@ -19,7 +20,7 @@ class LiveStream extends Component {
       objectMoonProximity,
     } = this.props;
 
-    return(
+    return (
       <div className="live-stream">
         <div className="content">
           <img alt="" height="50" src={objectIconURL} />
