@@ -13,9 +13,9 @@ export default `
     100% { -webkit-transform: translate(1px, -2px) rotate(-1deg); }
   }
 
-  .shake {
+  .shake-enter {
     -webkit-animation-name: shake-keyframes;
-    -webkit-animation-duration: 0.8s;
+    -webkit-animation-duration: 10s;
     -webkit-transform-origin:50% 50%;
     -webkit-animation-iteration-count: infinite;
     -webkit-animation-timing-function: linear;

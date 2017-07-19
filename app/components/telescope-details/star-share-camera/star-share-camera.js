@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import uniqueId from 'lodash/uniqueId';
 import ModalGeneric from '../../../components/common/modals/modal-generic';
 import {
@@ -76,10 +77,16 @@ class StarShareCamera extends Component {
         {
           this.props.snapshotList.map((snapshot, i) => {
             return (
-              <div key={`${snapshot.imageID}-${uniqueId()}`} className="snapshot shake">
-                {
-                  snapshot.imageURL ? <img alt="" key={snapshot.imageID} src={snapshot.imageURL} /> : null
-                }
+              <div key={`${snapshot.imageID}-${uniqueId()}`} className="snapshot">
+                <ReactCSSTransitionGroup
+                  transitionName="shake"
+                  transitionEnterTimeout={10000}
+                  transitionLeaveTimeout={10000}
+                >
+                  {
+                    snapshot.imageURL ? <img alt="" key={snapshot.imageID} src={snapshot.imageURL} /> : null
+                  }
+                </ReactCSSTransitionGroup>
               </div>
             );
           })
