@@ -55,9 +55,18 @@ export default createReducer(initialState, {
       },
     };
   },
-  [SNAP_IMAGE_SUCCESS](state, { imageData: { imageURL, imageID, explanation } }) {
+  [SNAP_IMAGE_SUCCESS](state, {
+    imageData: {
+      apiError,
+      imagesLastSnapped,
+      imageURL,
+      imageID,
+      explanation,
+    } }) {
     return {
       ...state,
+      apiError,
+      imagesLastSnapped,
       snapshotList: take([{ imageURL, imageID }, ...state.snapshotList], 6),
       snapshotMsg: explanation,
     };

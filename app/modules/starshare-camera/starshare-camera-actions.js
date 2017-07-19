@@ -62,6 +62,8 @@ export const snapImage = () => (dispatch, getState) => {
         dispatch(snapImageSuccess(
           Object.assign({
             explanation: result.data.explanation,
+            imagesLastSnapped: result.data.imagesAdded,
+            apiError: result.data.apiError,
           }, imageDataToSnapshot)),
         );
       } else {

@@ -14,7 +14,7 @@ export default `
   }
 
   .shake {
-    animation: shake-keyframes 0.8s infinite;
+    animation: shake-keyframes 0.8s ease-out;
     transform-origin: 50% 50%;
   }
 `;
