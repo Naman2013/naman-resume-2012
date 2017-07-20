@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import Lightbox from 'react-images';
 import classnames from 'classnames';
 import uniqueId from 'lodash/uniqueId';
 import ModalGeneric from '../../../components/common/modals/modal-generic';
@@ -59,6 +59,8 @@ class StarShareCamera extends Component {
   state = {
     openedModal: false,
     snappingImages: false,
+    modalOpen: false,
+    modalImage: '',
   };
 
   componentWillReceiveProps(nextProps) {
@@ -66,6 +68,20 @@ class StarShareCamera extends Component {
       this.openModal();
     }
   }
+
+  openModal = (imageSource) => {
+    this.setState({
+      modalOpen: true,
+      modalImage: imageSource,
+    });
+  };
+
+  closeModal = () => {
+    this.setState({
+      modalOpen: false,
+      modalImage: '',
+    });
+  };
 
   takeSnapshot = () => {
     this.props.actions.snapImage();
@@ -90,7 +106,8 @@ class StarShareCamera extends Component {
   }
 
   render() {
-    const { snappingImages } = this.state;
+    const { snappingImages, modalOpen, modalImage } = this.state;
+
     return (
       <div className="star-share-camera-wrapper">
         <button className="snapshot-btn" onClick={this.takeSnapshot}>
@@ -110,11 +127,21 @@ class StarShareCamera extends Component {
             );
           })
         }
-        {this.props.snapshotMsg && <ModalGeneric
-          open={this.state.openedModal}
-          closeModal={this.closeModal}
-          description={String(this.props.snapshotMsg)}
-        />}
+        {
+          this.props.snapshotMsg && <ModalGeneric
+            open={this.state.openedModal}
+            closeModal={this.closeModal}
+            description={String(this.props.snapshotMsg)}
+          />
+        }
+
+        <Lightbox
+          images={[{ src: modalImage }]}
+          isOpen={modalOpen}
+          onClose={this.closeModal}
+          backdropClosesModal={true}
+          showImageCount={false}
+        />
 
         <style jsx>{shakeStyle}</style>
 
