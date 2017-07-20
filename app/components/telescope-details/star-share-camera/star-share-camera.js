@@ -74,6 +74,7 @@ class StarShareCamera extends Component {
     this.setState({
       lightboxOpen: true,
       lightboxImage: imageSource,
+      snappingImages: false,
     });
   };
 
