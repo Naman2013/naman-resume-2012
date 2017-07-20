@@ -369,7 +369,13 @@ export const fetchGalleriesCount = () => (dispatch, getState) => {
     // cid: 185651, // for testing purposes
     // token: 'ff278b57d3724d41a3d48194e2f29526b30e9c0f', // for testing purposes
   })
-  .then(result => dispatch(fetchGalleriesCountSuccess(result.data)))
+  .then(result => {
+    if (result.apiError) {
+      dispatch(fetchGalleriesCountFail(result));
+    } else {
+      dispatch(fetchGalleriesCountSuccess(result.data))
+    }
+  })
   .catch(error => dispatch(fetchGalleriesCountFail(error)));
 };
 
