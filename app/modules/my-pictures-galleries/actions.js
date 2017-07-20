@@ -41,9 +41,9 @@ export const fetchGalleryPictures = ({
     galleryId,
   }));
   return axios.post('/api/images/getGalleryPictures', {
-    at: 3, // for testing purposes
-    cid: 185651, // for testing purposes
-    token: 'ff278b57d3724d41a3d48194e2f29526b30e9c0f', // for testing purposes
+    // at: 3, // for testing purposes
+    // cid: 185651, // for testing purposes
+    // token: 'ff278b57d3724d41a3d48194e2f29526b30e9c0f', // for testing purposes
     galleryId,
     pagingMode,
     timeFilter,
@@ -81,9 +81,9 @@ export const fetchGalleryPicsCount = ({
   const { at, token, cid } = getState().user;
   dispatch(fetchGalleryPicsCountStart());
   return axios.post('/api/images/getGalleryPicturesCount', {
-    at: 3, // for testing purposes
-    cid: 185651, // for testing purposes
-    token: 'ff278b57d3724d41a3d48194e2f29526b30e9c0f', // for testing purposes
+    // at: 3, // for testing purposes
+    // cid: 185651, // for testing purposes
+    // token: 'ff278b57d3724d41a3d48194e2f29526b30e9c0f', // for testing purposes
     galleryId,
   })
   .then(result => dispatch(fetchGalleryPicsCountSuccess(result.data)))

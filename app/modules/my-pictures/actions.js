@@ -97,9 +97,9 @@ export const fetchGalleries = ({
   dispatch(fetchMissionCount()); // for deeplinking
   dispatch(fetchMyPicturesCount());// for deeplinking
   return axios.post('/api/images/getGalleryList', {
-    at: 3, // for testing purposes
-    cid: 185651, // for testing purposes
-    token: 'ff278b57d3724d41a3d48194e2f29526b30e9c0f', // for testing purposes
+    // at: 3, // for testing purposes
+    // cid: 185651, // for testing purposes
+    // token: 'ff278b57d3724d41a3d48194e2f29526b30e9c0f', // for testing purposes
     maxImageCount,
     firstImageNumber,
     filterType: objectTypeFilter.filterByField,
@@ -365,9 +365,9 @@ export const fetchGalleriesCount = () => (dispatch, getState) => {
   dispatch(fetchGalleriesCountStart());
 
   return axios.post('/api/images/getGalleryCount', {
-    at: 3, // for testing purposes
-    cid: 185651, // for testing purposes
-    token: 'ff278b57d3724d41a3d48194e2f29526b30e9c0f', // for testing purposes
+    // at: 3, // for testing purposes
+    // cid: 185651, // for testing purposes
+    // token: 'ff278b57d3724d41a3d48194e2f29526b30e9c0f', // for testing purposes
   })
   .then(result => dispatch(fetchGalleriesCountSuccess(result.data)))
   .catch(error => dispatch(fetchGalleriesCountFail(error)));
