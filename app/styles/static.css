@@ -1961,9 +1961,11 @@ button.text {
       padding: 0 20px; }
 
   .static-app-content-container .card-wide {
-    max-width: 50%;
+    max-width: 80%;
     min-width: 0px;
-    margin: 0px auto 20px; } }
+    margin: 0px auto 20px; }
+    .static-app-content-container .card-wide .name {
+      margin-top: 0px; } }
 @media (max-width: 992px) {
   .best-of-slooh .best-header {
     padding-left: 0px; }
@@ -2001,6 +2003,21 @@ button.text {
 
 /*ipad portrait*/
 @media (max-width: 768px) {
+  .description-container[data-jsx="1673396223"] {
+    padding: 50px !important; }
+
+  .bookclub-container .primary-text {
+    font-size: 30px; }
+  .bookclub-container .title-text {
+    padding: 50px 10px;
+    margin: 0px !important; }
+  .bookclub-container header {
+    display: block !important; }
+  .bookclub-container .description {
+    display: block !important; }
+  .bookclub-container main {
+    padding: 20px !important; }
+
   .viewable-object {
     width: 150px !important;
     min-height: 120px !important;
@@ -2049,20 +2066,20 @@ button.text {
       font-size: 11px; }
 
   .bookclub-container .header-container {
-    height: auto !important; }
+    height: auto !important;
+    position: relative; }
   .bookclub-container header {
     height: auto !important; }
     .bookclub-container header .bookclub-img {
-      max-height: 150px;
       width: auto;
       position: absolute;
+      top: 50px;
       right: 0px;
       margin: 0px;
-      top: 120px; }
+      max-height: 200px; }
   .bookclub-container header + a {
-    margin: -20px auto 0px !important;
-    display: block;
-    float: right; } }
+    margin: 0px 0px 0px 120px !important;
+    float: none; } }
 /*iphone landscape*/
 @media (max-width: 675px) {
   .featured-in-logo {
@@ -2106,18 +2123,6 @@ button.text {
 
   .registration .registrationHeader .upgradeStatus {
     font-size: 38px; }
-
-  .bookclub-container .primary-text {
-    font-size: 30px; }
-  .bookclub-container .title-text {
-    padding: 50px 10px;
-    margin: 0px !important; }
-  .bookclub-container header {
-    display: block !important; }
-  .bookclub-container .description {
-    display: block !important; }
-  .bookclub-container main {
-    padding: 20px !important; }
 
   .communityPostHeader {
     padding-left: 20px;
@@ -2259,7 +2264,7 @@ button.text {
 
   .static-app-content-container header.static {
     height: auto;
-    padding-top: 70px; }
+    padding: 80px 0px 40px; }
 
   .eventHeroRoot {
     padding-top: 50px; }
@@ -2283,19 +2288,20 @@ button.text {
   .bookclub-container .title-text {
     padding: 60px 10px 20px !important; }
   .bookclub-container header {
-    background-position: 0px 50px; }
+    background-position: 0px 50px !important; }
     .bookclub-container header .bookclub-img {
       right: -59px;
       height: 100px;
-      top: 140px; }
+      top: 140px;
+      max-height: 150px; }
     .bookclub-container header .primary-text {
       font-size: 20px !important; }
     .bookclub-container header .secondary-text {
       font-size: 40px;
       margin-top: -10px; }
   .bookclub-container header + a {
-    float: none;
-    margin: 0px auto; }
+    float: none !important;
+    margin: 0px auto !important; }
 
   .help-page-header {
     display: block;
@@ -2327,6 +2333,9 @@ button.text {
     top: 70px;
     margin: 0px;
     box-shadow: 0 4px 0px -2px rgba(0, 0, 0, 0.5); }
+
+  .left-submenu-wrapper {
+    padding-top: 120px; }
 
   .registration .registrationHeader .upgradeStatus {
     margin-top: 20px; }
@@ -2402,11 +2411,25 @@ button.text {
   max-width: 100%; }
 
 @media (max-width: 767px) {
+  .description-main[data-jsx="1673396223"] {
+    font-size: 16px; }
+
   .main-container[data-jsx="2067009604"] {
     display: block !important; }
 
   .ad[data-jsx="2067009604"] {
-    margin: 0px; } }
+    margin: 0px; }
+
+  .bookclub-container header .bookclub-img {
+    right: -59px; }
+  .bookclub-container header .primary-text {
+    font-size: 20px !important; }
+  .bookclub-container header .secondary-text {
+    font-size: 40px;
+    margin-top: -10px; }
+  .bookclub-container header + a {
+    float: none !important;
+    margin: 0px auto !important; } }
 /*responsive video embedd*/
 .video-container {
   position: relative;
@@ -2437,7 +2460,7 @@ button.text {
 
   .eventDescriptionWrapper .container {
     flex: 0px; }
-  .eventDescriptionWrapper .discription {
+  .eventDescriptionWrapper .description {
     flex: 0 0 50%; }
 
   .aboutEclipseWrapper .container {
