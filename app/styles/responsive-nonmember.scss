@@ -57,7 +57,7 @@
 
   .product-container + .col-md-2 {display:none}
   .promo-container{
-    img{height:40% !important;}
+   // img{height:40% !important;}
     .store-tag{height:20%;}
     .col-md-2{display:none}
     .promo-text{
@@ -127,7 +127,8 @@
       height:auto !important;
 
       .bookclub-img{
-        height: 150px;
+        max-height: 150px;
+        width:auto;
         position: absolute;
         right: 0px;
         margin:0px;
