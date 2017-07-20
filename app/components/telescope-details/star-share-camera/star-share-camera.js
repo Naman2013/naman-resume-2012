@@ -59,8 +59,8 @@ class StarShareCamera extends Component {
   state = {
     openedModal: false,
     snappingImages: false,
-    modalOpen: false,
-    modalImage: '',
+    lightboxOpen: false,
+    lightboxImage: '',
   };
 
   componentWillReceiveProps(nextProps) {
@@ -69,17 +69,18 @@ class StarShareCamera extends Component {
     }
   }
 
-  openModal = (imageSource) => {
+  openLightbox = (imageSource, event) => {
+    if (event) { event.preventDefault(); }
     this.setState({
-      modalOpen: true,
-      modalImage: imageSource,
+      lightboxOpen: true,
+      lightboxImage: imageSource,
     });
   };
 
-  closeModal = () => {
+  closeLightbox = () => {
     this.setState({
-      modalOpen: false,
-      modalImage: '',
+      lightboxOpen: false,
+      lightboxImage: '',
     });
   };
 
@@ -106,7 +107,7 @@ class StarShareCamera extends Component {
   }
 
   render() {
-    const { snappingImages, modalOpen, modalImage } = this.state;
+    const { snappingImages, lightboxOpen, lightboxImage } = this.state;
 
     return (
       <div className="star-share-camera-wrapper">
@@ -116,14 +117,15 @@ class StarShareCamera extends Component {
         {
           this.props.snapshotList.map((snapshot, i) => {
             return (
-              <div
+              <button
+                onClick={(event) => { this.openLightbox(snapshot.imageURL, event); }}
                 key={`${snapshot.imageID}-${uniqueId()}`}
                 className={getSnapClasses(i, snappingImages)}
               >
                 {
                   snapshot.imageURL ? <img alt="" key={snapshot.imageID} src={snapshot.imageURL} /> : null
                 }
-              </div>
+              </button>
             );
           })
         }
@@ -135,13 +137,16 @@ class StarShareCamera extends Component {
           />
         }
 
-        <Lightbox
-          images={[{ src: modalImage }]}
-          isOpen={modalOpen}
-          onClose={this.closeModal}
-          backdropClosesModal={true}
-          showImageCount={false}
-        />
+        {
+          lightboxImage &&
+            <Lightbox
+              images={[{ src: lightboxImage }]}
+              isOpen={lightboxOpen}
+              onClose={this.closeLightbox}
+              backdropClosesModal={true}
+              showImageCount={false}
+            />
+        }
 
         <style jsx>{shakeStyle}</style>
 
@@ -180,6 +185,8 @@ class StarShareCamera extends Component {
             box-shadow: 0 0 4px ${lightGray};
             width: 100px;
             height: 50px;
+            outline: 0;
+            border: none;
           }
 
           .snapshot-index {
