@@ -43,7 +43,7 @@ class TelescopeOverview extends Component {
 
   componentDidMount() {
     this.props.actions.getObservatoryList(
-      this.props.currentObservatoryId,
+      this.props.currentObservatoryId
     );
   }
 

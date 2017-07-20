@@ -1923,7 +1923,8 @@ button.text {
 .product-image-book[data-jsx="2121958242"] {
   margin-top: 0px; }
 
-.book-text[data-jsx="2121958242"], .kindle-text[data-jsx="2121958242"] {
+.book-text[data-jsx="2121958242"],
+.kindle-text[data-jsx="2121958242"] {
   margin-top: -25px; }
 
 .giftcard-text[data-jsx="2121958242"] {
@@ -1982,15 +1983,15 @@ button.text {
   .promo-container .promo-text {
     width: 80% !important;
     padding: 40px 100px !important; }
-  .promo-container .book-text, .promo-container .kindle-text {
+  .promo-container .book-text,
+  .promo-container .kindle-text {
     text-align: center;
     padding-left: 0px; }
 
   .static-app-content-container article article h1 {
     font-size: 3rem; }
 
-  .bookclub-container .bookclub-container .title-text
-  main {
+  .bookclub-container .bookclub-container .title-text main {
     padding: 50px 80px !important; } }
 .featured-in-logo {
   margin-bottom: 10px; }
@@ -2007,7 +2008,8 @@ button.text {
     .static-app-content-container .plan .margin-bottom-large {
       margin-bottom: 30px; }
 
-  .contact-us .half-width-margin, .contact-us .half-width {
+  .contact-us .half-width-margin,
+  .contact-us .half-width {
     width: 100%;
     margin-right: 0px; }
 
@@ -2087,7 +2089,8 @@ button.text {
     .communityPostHeader h1 {
       display: block;
       padding-top: 5px; }
-    .communityPostHeader .title, .communityPostHeader .additional {
+    .communityPostHeader .title,
+    .communityPostHeader .additional {
       display: block;
       margin: 0px auto;
       clear: both; }
@@ -2101,14 +2104,16 @@ button.text {
     font-size: 2.5rem; }
   .static-app-content-container article article h2, .static-app-content-container article article h3, .static-app-content-container article article h4, .static-app-content-container article article h5, .static-app-content-container article article h6 {
     font-size: 1.6rem; }
-  .static-app-content-container article article .static-app-content-container p, .static-app-content-container article article .static-app-content-container li {
+  .static-app-content-container article article .static-app-content-container p,
+  .static-app-content-container article article .static-app-content-container li {
     line-height: 1.3; }
 
   header.static {
     padding: 50px 20px 50px 20px;
     height: auto;
     text-align: center; }
-    header.static .pull-left, header.static .pull-right {
+    header.static .pull-left,
+    header.static .pull-right {
       float: none !important; }
 
   .static-app-content-container .card-wide {
@@ -2119,7 +2124,10 @@ button.text {
     padding-right: 10px !important;
     padding-left: 80px; }
 
-  .hero-container-inspire .contentContainer .title, .hero-container-inspire .header span, .heroWrapper .contentContainer .title, .heroWrapper .header span {
+  .hero-container-inspire .contentContainer .title,
+  .hero-container-inspire .header span,
+  .heroWrapper .contentContainer .title,
+  .heroWrapper .header span {
     font-size: 2.5em; }
 
   /* do something with this*/
@@ -2141,7 +2149,10 @@ button.text {
   .mainHeader .mainHeaderLogo {
     left: 0px !important; }
 
-  .hero-container-inspire .contentContainer, .hero-container-inspire .header, .heroWrapper .contentContainer, .heroWrapper .header {
+  .hero-container-inspire .contentContainer,
+  .hero-container-inspire .header,
+  .heroWrapper .contentContainer,
+  .heroWrapper .header {
     text-align: center;
     padding-top: 60px;
     width: auto !important; }
@@ -2279,7 +2290,8 @@ button.text {
   .slooh-extras-tile:first-child {
     margin-top: 20px; }
 
-  .featured-in-logos .leftColumn, .featured-in-logos .rightColumn {
+  .featured-in-logos .leftColumn,
+  .featured-in-logos .rightColumn {
     width: 45%; }
 
   .promo-container {
@@ -2321,7 +2333,9 @@ button.text {
   .community-perspectives .content .categories {
     padding: 10px 0px; }
 
-  .community-perspectives .content .categories .category .action:hover:after, .community-perspectives .content .categories .category .action.active:after, .community-perspectives .content .categories .category .action.focus:after {
+  .community-perspectives .content .categories .category .action:hover:after,
+  .community-perspectives .content .categories .category .action.active:after,
+  .community-perspectives .content .categories .category .action.focus:after {
     display: none; }
 
   .recent-video-tile-container.col-md-4 {
@@ -2335,7 +2349,8 @@ button.text {
     .slooh-features-container .content {
       line-height: 1.75em;
       margin-bottom: 60px; } }
-.app-content-container, .static-app-content-container {
+.app-content-container,
+.static-app-content-container {
   min-width: 0px;
   max-width: 100%; }
 
@@ -2412,7 +2427,8 @@ button.text {
     .sloohSunglassesWrapper .container {
       flex: 0px; } }
 @media (max-width: 675px) {
-  .description, .aboutEclipseWrapper .eclipseDescription {
+  .description,
+  .aboutEclipseWrapper .eclipseDescription {
     line-height: 1.5 !important;
     font-size: 16px !important; }
 
@@ -2436,11 +2452,13 @@ button.text {
   .heroWrapper {
     height: auto;
     padding-bottom: 0px; }
+    .heroWrapper .actionBtn {
+      margin-bottom: 20px; }
     .heroWrapper .header {
       padding-top: 80px !important; }
       .heroWrapper .header span:nth-child(1) {
-         font-size:  28px;
-         line-height:  28px;
+        font-size: 28px;
+        line-height: 28px;
         margin-top: 20px; }
       .heroWrapper .header span:nth-child(2) {
         font-size: 76px;
@@ -2448,14 +2466,15 @@ button.text {
       .heroWrapper .header span:nth-child(3) {
         font-size: 56px;
         line-height: 50px; }
-      .heroWrapper .header span.sideLines  {
+      .heroWrapper .header span.sideLines {
         font-size: 1.5em; }
 
   .eventDescriptionWrapper .content {
     display: block;
     padding: 30px 0px; }
 
-  .eventDescriptionWrapper .date, .eventDescriptionWrapper .place {
+  .eventDescriptionWrapper .date,
+  .eventDescriptionWrapper .place {
     padding-left: 0px; }
 
   .aboutEclipseWrapper .header {
