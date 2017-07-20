@@ -102,11 +102,11 @@ class HeroInspire extends Component {
     });
 
     // Old
-    // const buttonUrl = heroEventId === 0 ? heroButtonURL :
-    //   // construct link for space situation room
-    //   heroEventIsLive ? '/shows/situation-room' :
-    //   // construct link for video event page
-    //   `/shows/event-details/${heroEventId}`;
+    const eventButtonUrl = heroEventId === 0 ? heroButtonURL :
+      // construct link for space situation room
+      heroEventIsLive ? '/shows/situation-room' :
+      // construct link for video event page
+      `/shows/event-details/${heroEventId}`;
 
     // New
     // const buttonUrl = 'https://www.youtube.com/embed/NtlEhGk-tSk&amp;showinfo=0';
@@ -146,6 +146,13 @@ class HeroInspire extends Component {
           <div className="call-to-action">
             {
               buttonUrl ?
+                this.renderCallToAction(eventButtonUrl) :
+                <div style={{ width: '100px', height: '100px' }} />
+            }
+          </div>
+          <div className="call-to-action">
+            {
+              buttonUrl ?
                 this.renderCallToAction(buttonUrl) :
                 <div style={{ width: '100px', height: '100px' }} />
             }
@@ -153,6 +160,14 @@ class HeroInspire extends Component {
         </div>
 
         <ScrollForMore />
+        <style>{`
+          div.call-to-action {
+            display: inline-block;
+            margin-left: 10px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+          }`}
+        </style>
       </div>
     );
   }
