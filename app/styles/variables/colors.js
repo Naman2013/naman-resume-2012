@@ -1,4 +1,5 @@
 export const lightGray = '#9B9B9B';
+export const gray = '#D9D9D9';
 export const pink = '#F310A7';
 export const turqoise = '#589A9B';
 export const blueGreen = '#7EC3C4';
@@ -9,7 +10,6 @@ export const fontBlack = '#3c4a55';
 export const red = '#FC1048';
 export const black = '#000';
 export const white = '#fff';
-export const gray = '#D9D9D9';
 export const gold = '#F3D316';
 export const yellow = '#d7ba16';
 export const lightBlack = '#1F1F1F';

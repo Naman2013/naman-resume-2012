@@ -14,6 +14,10 @@ import style from './hero-inspire.scss';
 import ScrollForMore from '../common/scroll-for-more';
 import isMobileScreenSize from '../../utils/content-loading-conditions';
 
+import ModalGeneric from '../common/modals/modal-generic';
+import VideoModal from './video-modal';
+
+
 const mapStateToProps = ({ appConfig }) => ({
   registerNewMemberURL: appConfig.registerNewMemberURL,
 });
@@ -22,6 +26,8 @@ const mapStateToProps = ({ appConfig }) => ({
 class HeroInspire extends Component {
   state = {
     videoLoaded: false,
+    // New
+    modalOpen: false,
   };
 
   componentDidMount() {
@@ -44,14 +50,36 @@ class HeroInspire extends Component {
 
   videoRenderedTimer = null;
 
+  // New
+  closeModal = (event) => {
+    event.preventDefault();
+
+    this.setState({
+      modalOpen: false,
+    });
+  }
+
+  // New
+  openModal(modalContent) {
+    this.setState({
+      ...modalContent,
+      modalOpen: true,
+    });
+  }
+
+
   renderCallToAction(buttonUrl) {
     const { heroButtonText, registerNewMemberURL } = this.props;
     // considered temporary HAXXX
     // const URLIsExternal = isExternalURL(buttonUrl);
+    console.log('heroButtonText: ', heroButtonText);
     return buttonUrl === '/join.php?type=r' ?
       <a className="action" href={registerNewMemberURL}>{heroButtonText}</a> :
-      <Link className="action" to={buttonUrl}>{heroButtonText}</Link>
+      // <Link className="action" to={buttonUrl}>{heroButtonText}</Link>
+      // New
+      <a className="action" onClick={() => this.openModal()}> Watch Video Tour </a>
   }
+
 
   render() {
     const {
@@ -73,17 +101,32 @@ class HeroInspire extends Component {
       maxOpacity: videoLoaded,
     });
 
-    const buttonUrl = heroEventId === 0 ? heroButtonURL :
-      // construct link for space situation room
-      heroEventIsLive ? '/shows/situation-room' :
-      // construct link for video event page
-      `/shows/event-details/${heroEventId}`;
+    // Old
+    // const buttonUrl = heroEventId === 0 ? heroButtonURL :
+    //   // construct link for space situation room
+    //   heroEventIsLive ? '/shows/situation-room' :
+    //   // construct link for video event page
+    //   `/shows/event-details/${heroEventId}`;
+
+    // New
+    // const buttonUrl = 'https://www.youtube.com/embed/NtlEhGk-tSk&amp;showinfo=0';
+    const buttonUrl = {
+      videoUrl: 'https://www.youtube.com/embed/NtlEhGk-tSk',
+    };
+    // const heroButtonText = 'Watch Video Tour';
 
     return (
       <div
         style={heroContainerStyle}
         className="hero-container-inspire"
       >
+
+        <ModalGeneric
+          open={this.state.modalOpen}
+          closeModal={this.closeModal}
+          title={''}
+          description={<VideoModal {...buttonUrl} />}
+        />
 
         {
           isMobileScreenSize() ?

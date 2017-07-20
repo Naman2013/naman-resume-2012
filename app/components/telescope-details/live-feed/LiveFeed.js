@@ -7,6 +7,7 @@ import determineImageLoader from '../determine-image-loader';
 class LiveFeed extends Component {
   static propTypes = {
     fetchingOnlineStatus: PropTypes.bool.isRequired,
+    obsAlert: PropTypes.string,
     onlineStatus: PropTypes.oneOf(['online', 'offline']),
     instrument: PropTypes.shape({
       instrImageSourceType: PropTypes.string.isRequired,
@@ -18,10 +19,17 @@ class LiveFeed extends Component {
   static defaultProps = {
     onlineStatus: 'offline',
     instrument: null,
+    obsAlert: '',
   };
 
   render() {
-    const { fetchingOnlineStatus, onlineStatus, instrument, offlineImageSource } = this.props;
+    const {
+      fetchingOnlineStatus,
+      obsAlert,
+      onlineStatus,
+      instrument,
+      offlineImageSource,
+    } = this.props;
 
     if (fetchingOnlineStatus) {
       return (
@@ -31,7 +39,6 @@ class LiveFeed extends Component {
           <style jsx>{
               `
                 .root {
-                  height: 450px;
                   padding-top: 80px;
                 }
               `
@@ -42,13 +49,23 @@ class LiveFeed extends Component {
 
     if (onlineStatus === 'offline') {
       return (
-        <TelescopeOffline imageSource={offlineImageSource} />
+        <TelescopeOffline
+          imageSource={offlineImageSource}
+          offlineStatusMessage={obsAlert}
+        />
       );
     }
 
     return (
-      <div>
+      <div className="root">
         { determineImageLoader(instrument) }
+        <style jsx>{
+          `
+            .root {
+              min-height: 456px;
+            }
+          `
+        }</style>
       </div>
     );
   }

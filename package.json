@@ -5,13 +5,15 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server",
-    "test": "jest",
+    "test": "jest  --coverage",
     "prod-simple": "rimraf dist && webpack -p --config webpack.production.config.js",
     "prod:mars": "rimraf dist && rimraf node_modules && npm cache clean && npm install && apiUrl=https://mars.slooh.com apiPortNumber=443 NODE_ENV=production webpack -p --config webpack.production.config.js --colors --progress",
     "prod:saturn": "rimraf dist && rimraf node_modules && npm cache clean && npm install && apiUrl=https://saturn.slooh.com apiPortNumber=443 NODE_ENV=production webpack -p --config webpack.production.config.js --colors --progress",
     "prod:saturn-443": "rimraf dist && rimraf node_modules && npm cache clean && npm install && apiUrl=https://saturn.slooh.com apiPortNumber=443 NODE_ENV=production webpack -p --config webpack.production.config.js --colors --progress",
-    "prod:pluto": "rimraf dist && rimraf node_modules && npm cache clean && npm install && apiUrl=https://pluto.slooh.com apiPortNumber=443 NODE_ENV=production webpack -p --config webpack.production.config.js --colors --progress",
-    "prod": "rimraf dist && rimraf node_modules && npm cache clean && npm install && apiUrl=https://slooh.com apiPortNumber=443 NODE_ENV=production webpack -p --config webpack.production.config.js --colors --progress"
+    "prod:pluto": "rimraf dist && rimraf node_modules && npm cache clean && npm install && apiUrl=https://pluto.slooh.com apiPortNumber=444 NODE_ENV=production webpack -p --config webpack.production.config.js --colors --progress",
+    "prod": "rimraf dist && rimraf node_modules && npm cache clean && npm install && apiUrl=https://slooh.com apiPortNumber=444 NODE_ENV=production webpack -p --config webpack.production.config.js --colors --progress",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "repository": {
     "type": "git",
@@ -54,6 +56,7 @@
     "react-addons-create-fragment": "^15.4.1",
     "react-addons-css-transition-group": "^15.3.1",
     "react-addons-shallow-compare": "^15.4.1",
+    "react-addons-test-utils": "^15.6.0",
     "react-bootstrap": "^0.30.3",
     "react-custom-scrollbars": "^4.0.0",
     "react-dom": "^15.5.4",
@@ -80,6 +83,7 @@
     "redux-form": "^6.0.1",
     "redux-logger": "^2.6.1",
     "redux-thunk": "^2.1.0",
+    "@storybook/react": "^3.1.8",
     "styled-jsx": "^0.5.7"
   },
   "devDependencies": {
@@ -89,6 +93,7 @@
     "babel-loader": "^7.1.0",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-decorators-legacy": "^1.3.4",
+    "babel-plugin-transform-object-rest-spread": "^6.23.0",
     "babel-plugin-transform-react-jsx": "^6.24.1",
     "babel-plugin-transform-runtime": "^6.12.0",
     "babel-preset-es2015": "^6.13.2",

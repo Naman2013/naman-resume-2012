@@ -10,12 +10,11 @@ export const profilePhotoStyle = photoUrl => ({
 
 export const backgroundImageCover = `
   background-repeat: no-repeat;
+  background-position: center;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
 `;
 
 export const borderRadius = radius => (`
@@ -24,3 +23,12 @@ export const borderRadius = radius => (`
   -ms-border-radius: ${radius};
   border-radius: ${radius};
 `);
+
+
+export const backgroundImageCoverMap = {
+  backgroundRepeat: 'no-repeat',
+  WebkitBackgroundSize: 'cover',
+  MozBackgroundSize: 'cover',
+  backgroundSize: 'cover',
+  backgroundPosition: 'center center',
+};
