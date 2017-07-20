@@ -24,3 +24,10 @@ export const backgroundImageCoverMap = {
   backgroundSize: 'cover',
   backgroundPosition: 'center center',
 };
+
+export const borderRadius = radius => (`
+  -moz-border-radius: ${radius};
+  -webkit-border-radius: ${radius};
+  -ms-border-radius: ${radius};
+  border-radius: ${radius};
+`);

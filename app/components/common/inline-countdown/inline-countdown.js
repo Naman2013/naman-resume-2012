@@ -2,20 +2,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import noop from 'lodash/noop';
-
-import './inline-countdown.scss';
+import inlineCountdownStyle from './inline-countdown.style';
 
 class InlineCountdown extends Component {
-
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      remainingTime: null,
-    };
-
-    this.bootstrapTimer = this.bootstrapTimer.bind(this);
-  }
+  state = {
+    remainingTime: null,
+  };
 
   componentDidMount() {
     const { startTime } = this.props;
@@ -36,7 +28,7 @@ class InlineCountdown extends Component {
     }
   }
 
-  bootstrapTimer(time) {
+  bootstrapTimer = (time) => {
     const expires = moment(time * 1000);
     const duration = expires.diff(moment());
 
@@ -65,7 +57,7 @@ class InlineCountdown extends Component {
         remainingTime: updatedTime,
       });
     }, 1000);
-  }
+  };
 
   render() {
     const { remainingTime } = this.state;
@@ -74,17 +66,22 @@ class InlineCountdown extends Component {
     return (
       <div className="inline-countdown">
         { formattedTime }
+
+        <style jsx>{`
+          ${inlineCountdownStyle}
+        `}</style>
       </div>
     );
   }
 }
+
 InlineCountdown.defaultProps = {
   format: 'm:ss',
   exitAction: noop,
 };
 
 InlineCountdown.propTypes = {
-  startTime: PropTypes.number, // works with unix timestamp
+  startTime: PropTypes.number.isRequired, // works with unix timestamp
   exitAction: PropTypes.func, // called for you when timer expires
   format: PropTypes.string,
 };

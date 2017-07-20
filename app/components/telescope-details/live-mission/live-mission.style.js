@@ -1,7 +1,8 @@
-@import "../../../styles/variables/fonts.scss";
+import { primaryFont, secondaryFont } from '../../../styles/variables/fonts';
 
+export default `
 .live-mission {
-  font-family: $primary-font;
+  font-family: ${primaryFont};
   color: white;
   padding: 15px;
   margin-top: 9px;
@@ -30,7 +31,7 @@
     }
 
     .users-quote {
-      font-family: $secondary-font;
+      font-family: ${secondaryFont};
       font-size: 18px;
       font-style: italic;
       font-weight: 300;
@@ -55,3 +56,4 @@
     right: 45px;
   }
 }
+`;

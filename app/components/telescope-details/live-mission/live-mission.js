@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import ByUserTag from '../../common/by-user-tag/by-user-tag';
 import InlineCountdown from '../../common/inline-countdown/inline-countdown';
-import './live-mission.scss';
+import liveMissionStyle from './live-mission.style';
 
 class LiveMission extends Component {
   state = {
@@ -97,6 +97,10 @@ class LiveMission extends Component {
               </div>
             </div> : null
         }
+
+        <style jsx>{`
+          ${liveMissionStyle}
+        `}</style>
       </div>
     );
   }
