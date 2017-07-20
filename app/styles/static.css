@@ -1947,6 +1947,9 @@ button.text {
 
 /*ipad landscape*/
 @media (max-width: 1024px) {
+  .hero-container .title {
+    font-size: 2em; }
+
   .slooh-features-container {
     padding: 40px 0px 40px 0px;
     margin-top: 0px;
@@ -1977,12 +1980,12 @@ button.text {
     display: none; }
 
   .promo-container .store-tag {
-    height: 20%; }
+    height: 30% !important; }
   .promo-container .col-md-2 {
     display: none; }
   .promo-container .promo-text {
     width: 80% !important;
-    padding: 40px 100px !important; }
+    padding: 40px 80px  !important; }
   .promo-container .book-text,
   .promo-container .kindle-text {
     text-align: center;
@@ -1998,6 +2001,13 @@ button.text {
 
 /*ipad portrait*/
 @media (max-width: 768px) {
+  .viewable-object {
+    width: 150px !important;
+    min-height: 120px !important;
+    height: 120px; }
+    .viewable-object .title {
+      font-size: 1em; }
+
   .community-perspectives .slide-container {
     padding: 0px 20px; }
 
@@ -2055,6 +2065,39 @@ button.text {
     float: right; } }
 /*iphone landscape*/
 @media (max-width: 675px) {
+  .featured-in-logo {
+    margin-botom: 25px; }
+
+  .telescope-block {
+    margin-bottom: 0px; }
+    .telescope-block .slick-track .CallToAction h1 {
+      font-size: 30px; }
+
+  .promo-container {
+    height: auto !important; }
+    .promo-container .flex-row.product-container {
+      padding: 25px 20px !important;
+      display: block; }
+      .promo-container .flex-row.product-container figure {
+        display: block;
+        margin: 0px auto 10px; }
+        .promo-container .flex-row.product-container figure img {
+          margin: 5px auto !important;
+          display: block;
+          max-height: 150px;
+          width: auto !important; }
+        .promo-container .flex-row.product-container figure .kindle-text, .promo-container .flex-row.product-container figure .book-text, .promo-container .flex-row.product-container figure .giftcard-text {
+          padding: 0px !important;
+          margin: 5px auto !important; }
+    .promo-container .store-tag {
+      height: 20% !important; }
+    .promo-container .top {
+      margin: 0px !important; }
+    .promo-container .promo-text {
+      padding: 20px 50px !important; }
+      .promo-container .promo-text h2, .promo-container .promo-text .static-app-content-container h3, .static-app-content-container .promo-container .promo-text h3, .promo-container .promo-text .static-app-content-container h4, .static-app-content-container .promo-container .promo-text h4, .promo-container .promo-text .static-app-content-container h5, .static-app-content-container .promo-container .promo-text h5, .promo-container .promo-text .static-app-content-container h6, .static-app-content-container .promo-container .promo-text h6 {
+        font-size: 40px !important; }
+
   .community-perspectives .content .categories .category .action .title {
     font-size: 15px; }
 
@@ -2165,6 +2208,10 @@ button.text {
     margin: 20px auto;
     display: block;
     justify-content: space-around; }
+  .viewable-objects-container .latest-news {
+    font-size: 1em;
+    padding: 0px 10% 10%;
+    margin-bottom: 0px; }
 
   .viewable-object {
     float: none;
@@ -2383,6 +2430,11 @@ button.text {
 
 /*road trip*/
 @media (max-width: 1024px) {
+  .homeContainer .promo-container + .col-md-2 {
+    display: none; }
+  .homeContainer .slooh-extras-tile {
+    margin: 15px 0px; }
+
   .eventDescriptionWrapper .container {
     flex: 0px; }
   .eventDescriptionWrapper .discription {
@@ -2402,6 +2454,20 @@ button.text {
 @media (max-width: 992px) {
   .aboutEclipseWrapper {
     background-size: 100%; }
+
+  .promo-container {
+    height: auto !important; }
+    .promo-container .flex-row.product-container {
+      padding: 0px 20px; }
+    .promo-container .top {
+      margin: 0px !important; }
+    .promo-container figure {
+      text-align: center; }
+      .promo-container figure div {
+        margin: 2px auto !important;
+        padding: 0px !important; }
+        .promo-container figure div .book-text {
+          text-align: left; }
 
   .aboutRoadTripEventWrapper .container {
     flex: 0px; }
@@ -2427,6 +2493,11 @@ button.text {
     .sloohSunglassesWrapper .container {
       flex: 0px; } }
 @media (max-width: 675px) {
+  .hero-container .title {
+    padding: 0px 20px; }
+  .hero-container .call-to-action {
+    width: 50%; }
+
   .description,
   .aboutEclipseWrapper .eclipseDescription {
     line-height: 1.5 !important;
@@ -2521,5 +2592,15 @@ button.text {
     flex: 0px; }
   .sloohRoadTripsWrapper .header {
     font-size: 35px; } }
+/*home page*/
+@media (max-width: 375px) {
+  .hero-container .title {
+    padding: 0px 20px;
+    font-size: 2em; }
+  .hero-container .sub-title {
+    width: 90%;
+    font-size: 1.4em; }
+  .hero-container .call-to-action {
+    width: 80%; } }
 
 /*# sourceMappingURL=static.css.map */

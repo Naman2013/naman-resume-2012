@@ -59,7 +59,7 @@ const Footer = props => (
         font-family: ${primaryFont};
         font-size: 0.75em;
         color: #fff;
-        padding: 25px 0;
+        padding: 25px 10px 25px 0px;
         padding-left: 100px;
         background: #000;
         position: relative;
