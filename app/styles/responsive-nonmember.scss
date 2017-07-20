@@ -447,6 +447,7 @@
 
 
 @media(max-width:640px) {
+  .description-container[data-jsx="1673396223"]{font-size:16px !important; padding:20px !important;}
   .community-perspectives .content .categories {
     .category .action .title {
       font-size: 13px;
@@ -504,7 +505,7 @@
       .bookclub-img {
         right: -59px;
         height: 100px;
-        top: 140px;
+        top: 60px;
         max-height: 150px;
       }
 
@@ -808,6 +809,23 @@
 }
 
 @media(max-width:675px) {
+  .static-app-content-container {
+    blockquote{
+      font-size: 2.5rem;
+      font-weight: 300;
+      line-height: 1;
+    }
+    .big-board{
+      width:100% !important; min-width:0px !important;
+      .text-xxlarge{
+        font-size:36px !important;
+        font-size:3rem !important;
+      }
+      .text-ginormous{
+        font-size:7rem;
+      }
+    }
+  }
   .hero-container {
     .title{
       padding:0px 20px;
