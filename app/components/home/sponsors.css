@@ -1,0 +1,29 @@
+/* VARIABLES: Typefaces
+ * */
+.sponsorImagesContainer {
+  font-family: "Brandon Grotesque", "brandon-grotesque", sans-serif;
+  background: #fff;
+  padding: 15px 10px;
+  text-align: center; }
+  .sponsorImagesContainer:after {
+    content: " ";
+    display: block;
+    clear: both; }
+  .sponsorImagesContainer .title {
+    font-weight: 300;
+    margin: 0;
+    margin-bottom: 30px; }
+  .sponsorImagesContainer .sponsor-images {
+    list-style-type: none;
+    padding: 0;
+    margin: 0 auto;
+    width: 1120px; }
+    .sponsorImagesContainer .sponsor-images .sponsorImage {
+      width: 130px;
+      height: 100px;
+      float: left;
+      margin-right: 10px; }
+      .sponsorImagesContainer .sponsor-images .sponsorImage:last-child {
+        margin-right: 0; }
+
+/*# sourceMappingURL=sponsors.css.map */

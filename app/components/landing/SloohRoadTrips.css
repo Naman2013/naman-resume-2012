@@ -1,44 +1,35 @@
-@import "../../styles/variables/colors";
-
+/* VARIABLES: COLOR
+ * */
 .sloohRoadTripsWrapper {
   background: url("https://vega.slooh.com/images/roadtrip/roadtrip-mobile-home.jpg") center top no-repeat;
   display: flex;
   justify-content: center;
-  color: $slooh-white;
-  padding: 160px 0 386px;
-
-  .container {
+  color: white;
+  padding: 160px 0 386px; }
+  .sloohRoadTripsWrapper .container {
     flex: 0 0 960px;
-    display: flex;
-  }
-
-  .inner {
+    display: flex; }
+  .sloohRoadTripsWrapper .inner {
     flex: 0 0 60%;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .header {
+    align-items: flex-start; }
+  .sloohRoadTripsWrapper .header {
     font-size: 55px;
     font-weight: bold;
     line-height: 0.98;
-    text-transform: uppercase;
-  }
-
-  .description {
+    text-transform: uppercase; }
+  .sloohRoadTripsWrapper .description {
     font-family: Arial, sans-serif;
     font-size: 19px;
     line-height: 1.79;
-    margin: 22px 0 10px;
-  }
-
-  .actionBtn {
+    margin: 22px 0 10px; }
+  .sloohRoadTripsWrapper .actionBtn {
     margin-top: 6px;
-    background: $pink;
+    background: #F310A7;
     padding: 18px 50px;
     font-weight: bold;
     font-size: 18px;
-    border: none;
-  }
-}
+    border: none; }
+
+/*# sourceMappingURL=SloohRoadTrips.css.map */

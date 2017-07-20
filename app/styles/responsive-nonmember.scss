@@ -224,7 +224,9 @@ padding:20px 0px;
   .slooh-global-footer{    padding-right: 10px !important;
     padding-left: 80px;}
 
-  .hero-container-inspire .contentContainer .title{font-size:2.5em}
+  .hero-container-inspire , .heroWrapper {
+    .contentContainer .title, .header span{font-size:2.5em}
+  }
 
   /* do something with this*/
   .countdown {
@@ -247,9 +249,12 @@ padding:20px 0px;
   }
 
 
-  .hero-container-inspire .contentContainer{
-    padding-top:60px;
-    width:auto !important;
+  .hero-container-inspire, .heroWrapper {
+    .contentContainer, .header{
+      text-align:center;
+      padding-top:60px;
+      width:auto !important;
+    }
   }
   .viewable-objects-container .objects{
     width: 95%;
@@ -495,5 +500,210 @@ padding:20px 0px;
   height: 100%;
 }
 
+.solarEclipseGuideWrapper {
 
-/* standardize hero wrapper*/
+  .sponsorsContainer {padding:0px 20px;
+    max-width:100%;
+  }
+
+}
+  /*road trip*/
+@media(max-width:1024px){
+    .eventDescriptionWrapper{
+      .container{
+        flex: 0px;
+      }
+      .discription{
+        flex:0 0 50%
+      }
+
+
+
+    }
+    .aboutEclipseWrapper{
+
+
+      .container{
+        display: block;
+        flex: 0px;
+        padding: 40px 0px 30px 30%;
+      }
+    }
+    .aboutRoadTripEventWrapper {
+      margin-bottom:0px;
+    }
+    .sloohRoadTripsWrapper{
+      display:block;
+      padding:20% 7% 30%;
+    }
+
+  }
+@media(max-width:992px){
+  .aboutEclipseWrapper{
+    background-size:100%;
+  }
+  .aboutRoadTripEventWrapper {
+    .container {
+      flex : 0px;
+    }
+    .inner {
+      display : block;
+    }
+    .listWrapper {
+      margin-top : 0px;
+    }
+    .host {
+      float : left;
+      width : 50%;
+    }
+  }
+    .partOfEventWrapper {
+      .container {flex:0px;}
+        .bg{
+        background-size:40%
+      }
+      .categories{
+        margin:5px 0px;
+      }
+      .categoryItem{
+        flex: 0 0 24%;
+      }
+    }
+  .sloohSunglassesWrapper{
+    padding-bottom:0px;
+    .container{
+      flex:0px;
+    }
+  }
+
+}
+
+@media(max-width:675px){
+  .description, .aboutEclipseWrapper .eclipseDescription{
+    line-height:1.5 !important;
+font-size:16px !important;
+
+  }
+  .aboutRoadTripEventWrapper {
+    .description{
+
+      font-size:16px;
+      p{
+        margin:20px auto;
+      }
+    }
+
+    .roadTripHeader{
+      margin-bottom:40px; font-size:45px;
+    }
+  }
+
+  .partOfEventWrapper{
+    .categoryItem{
+     // height:auto;
+    }
+    .bg{
+      background-size:20%;
+    }
+    .mainContent{
+       flex: 0 0 80%;
+    }
+    padding:20px 0px;
+    .header{font-size:45px}
+
+  }
+
+
+
+}
+
+@media(max-width:375px){
+  .heroWrapper {
+    height:auto; padding-bottom:0px;
+    .header {
+      padding-top:80px !important;
+      span:nth-child(1){
+         font-size: 28px;
+         line-height: 28px;
+        margin-top:20px;
+      }
+      span:nth-child(2){
+        font-size:76px;
+        line-height:65px;
+      }
+      span:nth-child(3){
+        font-size:56px; line-height:50px;
+      }
+      span.sideLines {
+        font-size:1.5em;
+      }
+
+    }
+  }
+  .eventDescriptionWrapper .content{
+    display:block;
+    padding:30px 0px;
+  }
+  .eventDescriptionWrapper .date, .eventDescriptionWrapper .place{
+    padding-left:0px;
+  }
+  .aboutEclipseWrapper {
+    .header{font-size:40px;}
+    .container{
+      padding:20px;
+    }
+  }
+  .aboutRoadTripEventWrapper {
+    .firstDescription{
+      padding:0px;
+    }
+    .roadTripHeader{
+      margin:0px; font-size:30px;
+    }
+    .host{
+      width:100%; float:none;
+    }
+  }
+  .partOfEventWrapper {
+    .bg{
+      background:transparent;
+    }
+    .header{
+      font-size:38px
+    }
+    .description{
+      margin-top:10px;
+    }
+    .mainContent{
+      flex:0px;
+    }
+    .categories{
+      display:block;
+      li.categoryItem{
+        display: block;
+        float: left;
+        width: 48%;
+        flex: 0px;
+        margin-right: 2%;
+        margin-bottom: 2%;
+      }
+    }
+  }
+  .sloohSunglassesWrapper{
+    background-size:100%;
+    .container{
+      padding-bottom:20px;
+    }
+    padding-top:150px;
+    .header{
+      font-szie:37px;
+    }
+  }
+  .sloohRoadTripsWrapper{
+
+   .inner{flex:0px}
+    .header{
+      font-size:35px;
+    }
+  }
+}

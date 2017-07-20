@@ -1,38 +1,31 @@
-@import "../../styles/variables/colors";
-
+/* VARIABLES: COLOR
+ * */
 .sloohSunglassesWrapper {
   background: url("https://vega.slooh.com/images/roadtrip/sunglasses.jpg") center top no-repeat;
   display: flex;
   justify-content: center;
-  color: $slooh-white;
-  padding: 650px 0 134px;
-
-  .container {
-    flex: 0 0 960px;
-  }
-
-  .header {
+  color: white;
+  padding: 650px 0 134px; }
+  .sloohSunglassesWrapper .container {
+    flex: 0 0 960px; }
+  .sloohSunglassesWrapper .header {
     font-size: 42px;
     font-weight: bold;
     line-height: 0.93;
-    text-transform: uppercase;
-  }
-
-  .description {
+    text-transform: uppercase; }
+  .sloohSunglassesWrapper .description {
     font-family: Arial, sans-serif;
     font-size: 19px;
     line-height: 1.79;
-    margin: 22px 0 10px;
-  }
-
-  .actionBtn {
+    margin: 22px 0 10px; }
+  .sloohSunglassesWrapper .actionBtn {
     margin-top: 6px;
-    background: $pink;
+    background: #F310A7;
     padding: 18px 50px;
     font-weight: bold;
     font-size: 18px;
     border: none;
     display: inline-block;
-    color: $white;
-  }
-}
+    color: #fff; }
+
+/*# sourceMappingURL=SloohSunglasses.css.map */

@@ -1,0 +1,102 @@
+/* VARIABLES: COLOR
+ * */
+/* VARIABLES: Typefaces
+ * */
+.interactive-viewer-container.__full__screen__mode {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  border: 1px solid #f00;
+  background: rgba(0, 0, 0, 0.75); }
+.interactive-viewer-container .interactive-viewer {
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  font-family: "Brandon Grotesque", "brandon-grotesque", sans-serif; }
+  .interactive-viewer-container .interactive-viewer .interactive-panel .viewer-content {
+    -webkit-transition: -webkit-transform 0.5s;
+    transition: transform 0.5s;
+    -webkit-user-select: none;
+    /* Chrome all / Safari all */
+    -moz-user-select: none;
+    /* Firefox all */
+    -ms-user-select: none;
+    /* IE 10+ */
+    user-select: none;
+    /* Likely future */ }
+    .interactive-viewer-container .interactive-viewer .interactive-panel .viewer-content img {
+      pointer-events: none; }
+    .interactive-viewer-container .interactive-viewer .interactive-panel .viewer-content .top-image {
+      position: absolute;
+      top: 0; }
+.interactive-viewer-container:hover .action {
+  visibility: visible; }
+.interactive-viewer-container .action {
+  background: #000;
+  border: none;
+  color: #b1cfcf;
+  text-align: center;
+  position: absolute;
+  z-index: 999;
+  visibility: hidden;
+  z-index: 9; }
+  .interactive-viewer-container .action:focus {
+    outline: 0; }
+  .interactive-viewer-container .action.plus {
+    position: absolute;
+    left: 20px;
+    top: 20px;
+    -webkit-border-radius: 45px;
+    -moz-border-radius: 45px;
+    -ms-border-radius: 45px;
+    border-radius: 45px;
+    width: 45px;
+    height: 45px;
+    border: 4px solid #589A9B; }
+    .interactive-viewer-container .action.plus .icon {
+      position: relative;
+      top: -17px;
+      left: 1px;
+      font-size: 48px; }
+  .interactive-viewer-container .action.minus {
+    position: absolute;
+    left: 60px;
+    top: 60px;
+    -webkit-border-radius: 35px;
+    -moz-border-radius: 35px;
+    -ms-border-radius: 35px;
+    border-radius: 35px;
+    width: 35px;
+    height: 35px;
+    border: 4px solid #589A9B; }
+    .interactive-viewer-container .action.minus .icon {
+      position: relative;
+      top: -10px;
+      left: 0;
+      font-size: 32px; }
+  .interactive-viewer-container .action.full-screen-view {
+    right: 30px;
+    bottom: 30px;
+    background: transparent; }
+    .interactive-viewer-container .action.full-screen-view .icon {
+      font-size: 2em;
+      position: relative;
+      top: 11px;
+      left: 10px; }
+  .interactive-viewer-container .action.circular-view {
+    right: 30px;
+    bottom: 80px;
+    background: transparent; }
+    .interactive-viewer-container .action.circular-view .icon {
+      font-size: 2em;
+      position: relative;
+      top: 11px;
+      left: 10px; }
+  .interactive-viewer-container .action.snapshot {
+    left: 20px;
+    bottom: 20px; }
+
+/*# sourceMappingURL=interactive-viewer.css.map */

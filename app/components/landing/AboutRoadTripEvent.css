@@ -1,0 +1,75 @@
+/* VARIABLES: COLOR
+ * */
+.aboutRoadTripEventWrapper {
+  background: url("https://vega.slooh.com/images/roadtrip/mountains-background.jpg") center 216px no-repeat white;
+  display: flex;
+  justify-content: center;
+  color: #3C4A55; }
+  .aboutRoadTripEventWrapper .container {
+    flex: 0 0 960px; }
+  .aboutRoadTripEventWrapper .header {
+    margin: 70px 0 72px; }
+  .aboutRoadTripEventWrapper .eclipseIcon {
+    flex: 0 0 209px;
+    height: 54px;
+    background: url(/assets/images/roadtrip-lander/peanut-icon.png) center no-repeat; }
+  .aboutRoadTripEventWrapper .description {
+    font-family: Arial, sans-serif;
+    font-size: 19px;
+    line-height: 1.79; }
+    .aboutRoadTripEventWrapper .description p {
+      margin: 34px auto; }
+  .aboutRoadTripEventWrapper .firstDescription {
+    padding: 0 60px;
+    margin-bottom: 608px; }
+  .aboutRoadTripEventWrapper .inner {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 100px; }
+  .aboutRoadTripEventWrapper .leftSide {
+    flex: 0 0 64%; }
+  .aboutRoadTripEventWrapper .rightSide {
+    flex: 0 0 24%;
+    overflow: hidden; }
+  .aboutRoadTripEventWrapper .roadTripHeader {
+    text-transform: uppercase;
+    font-size: 55px;
+    font-weight: bold;
+    line-height: 0.98;
+    margin-bottom: 50px; }
+  .aboutRoadTripEventWrapper .listWrapper {
+    margin-top: 342px; }
+  .aboutRoadTripEventWrapper .hostList {
+    margin: 0;
+    padding: 0; }
+  .aboutRoadTripEventWrapper .listHeader {
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 23px;
+    line-height: 2.17; }
+  .aboutRoadTripEventWrapper .host {
+    margin: 28px 0;
+    display: flex;
+    align-items: stretch; }
+    .aboutRoadTripEventWrapper .host img {
+      border-radius: 50%;
+      width: 96px;
+      height: 96px; }
+  .aboutRoadTripEventWrapper .hostInfo {
+    margin-left: 45px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; }
+  .aboutRoadTripEventWrapper .name {
+    display: flex;
+    flex-direction: column;
+    font-size: 16px;
+    line-height: 1.25;
+    text-transform: uppercase;
+    font-weight: bold; }
+  .aboutRoadTripEventWrapper .link {
+    color: #F310A7;
+    font-weight: bold;
+    font-size: 14px; }
+
+/*# sourceMappingURL=AboutRoadTripEvent.css.map */

@@ -1,0 +1,49 @@
+/* VARIABLES: COLOR
+ * */
+.heroWrapper {
+  height: 697px;
+  background: url("https://vega.slooh.com/images/roadtrip/roadtrip-background.jpg") center/cover no-repeat;
+  display: flex;
+  flex-direction: column;
+  align-items: center; }
+  .heroWrapper .header {
+    text-transform: uppercase;
+    display: flex;
+    flex-direction: column;
+    color: white;
+    padding-top: 244px; }
+    .heroWrapper .header span:nth-child(1) {
+      font-size: 44px;
+      line-height: 44px; }
+    .heroWrapper .header span:nth-child(2) {
+      font-size: 118px;
+      line-height: 96px; }
+    .heroWrapper .header span:nth-child(3) {
+      font-size: 86px;
+      line-height: 68px; }
+  .heroWrapper .sideLines {
+    position: relative;
+    align-self: center;
+    font-size: 13px;
+    margin-top: 24px; }
+    .heroWrapper .sideLines:before, .heroWrapper .sideLines:after {
+      content: '';
+      display: block;
+      position: absolute;
+      width: 134px;
+      height: 2px;
+      background: #3c4655;
+      left: -150px;
+      top: 50%;
+      margin-top: -1px; }
+    .heroWrapper .sideLines:after {
+      left: auto;
+      right: -150px; }
+  .heroWrapper .actionBtn {
+    background: #F310A7;
+    color: white;
+    padding: 14px 38px;
+    margin-top: 74px;
+    cursor: pointer; }
+
+/*# sourceMappingURL=Hero.css.map */
