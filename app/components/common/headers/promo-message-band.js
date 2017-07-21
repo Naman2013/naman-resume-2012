@@ -7,7 +7,7 @@ const PromoMessageBand = ({ title, subtitle }) => (
     <h4 className="title">{title}</h4>
     {
       subtitle ?
-        <h5 className="subtitle">{this.props.subtitle}</h5> : null
+        <h5 className="subtitle">{subtitle}</h5> : null
     }
   </div>
 );
