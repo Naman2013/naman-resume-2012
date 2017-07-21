@@ -1,7 +1,8 @@
-import React, {Component, PropTypes} from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-const {object, string} = PropTypes;
+const { object, string } = PropTypes;
 
 export default class renderField extends Component {
     static propTypes = {

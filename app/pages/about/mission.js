@@ -1,6 +1,5 @@
-import React, {Component, PropTypes} from 'react';
-import {Link} from 'react-router';
-// import style from './static.scss';
+import React, { Component } from 'react';
+import { Link } from 'react-router';
 
 class Mission extends Component {
   render() {
