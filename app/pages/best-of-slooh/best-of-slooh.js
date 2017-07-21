@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -6,7 +7,6 @@ import GenericLoadingBox from '../../components/common/loading-screens/generic-l
 import BlogPostTile from '../../components/common/blog-post-tile/blog-post-tile';
 import { fetchBest } from '../../modules/best-of-slooh/get-best-action';
 import style from './best-of-slooh.scss';
-
 
 const mapStateToProps = ({ bestPosts }) => ({ ...bestPosts });
 

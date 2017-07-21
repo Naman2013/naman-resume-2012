@@ -1,8 +1,6 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { checkUser } from '../modules/User';
-import classnames from 'classnames';
 import Sticky from 'react-stickynode';
 import {
   getObservatoryList,

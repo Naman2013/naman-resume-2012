@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import ByUserTag from '../../common/by-user-tag/by-user-tag';
 import InlineCountdown from '../../common/inline-countdown/inline-countdown';
 import liveMissionStyle from './live-mission.style';

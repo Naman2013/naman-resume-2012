@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Timer from './common/timer';
 import ReserveByCatalog from '../../../../pages/reserve/reserve-by-catalog';
 

@@ -1,10 +1,12 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router';
+import { likeThread } from '../../../services/discussions/like';
 import DiscussionsReplyItem from '../../../components/discussions/DiscussionsReplyItem';
 import styles from '../discussions.scss';
 import ByUserTag from '../../../components/common/by-user-tag/by-user-tag';
 import Heart from '../../../components/common/heart/heart';
-import { likeThread } from '../../../services/discussions/like';
+
 const { array, func, object, string, number } = PropTypes;
 
 class DiscussionsThread extends Component {

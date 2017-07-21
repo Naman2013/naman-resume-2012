@@ -1,7 +1,7 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import style from './observatory-hero.scss';
 
-import CurrentWeather from './weather-widgets/current-weather';
 import EarthView from './weather-widgets/earth-view';
 import LunarPhase from './weather-widgets/lunar-phase';
 import ScrollForMore from '../common/scroll-for-more';

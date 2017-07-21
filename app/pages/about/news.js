@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import NewsArticle from './common/news-article';
 
 class News extends Component {

@@ -1,10 +1,9 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import cx from 'classnames';
 import './weather-conditions.scss';
 
-import Progress from 'react-progressbar';
-
-class WeatherConditions extends React.Component {
+class WeatherConditions extends Component {
   static propTypes = {
     tabs: PropTypes.array.isRequired,
   };
