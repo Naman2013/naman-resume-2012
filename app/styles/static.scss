@@ -1799,6 +1799,7 @@ input[type="number"] {
     div {
         position: relative !important;
     }
+
     em {
         color: deeppink;
         font-style: normal;
@@ -2299,6 +2300,7 @@ button.text {
     text-transform: capitalize !important;
 }
 
+
 .top-stack {
   cursor: pointer;
   z-index: 999;
@@ -2324,5 +2326,6 @@ button.text {
 .hide-overflow {
     overflow: hidden !important;
 }
+
 
 @import "responsive-nonmember.scss";

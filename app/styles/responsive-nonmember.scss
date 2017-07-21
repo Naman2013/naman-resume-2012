@@ -118,6 +118,14 @@
 /*ipad portrait*/
 
 @media(max-width:768px) {
+  .memberInfo{
+    font-size:12px;
+    strong{
+      display:block;
+    }
+  }
+
+
   .description-container[data-jsx="1673396223"]{
     padding:50px !important;
   }
@@ -448,6 +456,7 @@
 
 
 @media(max-width:640px) {
+
   .about.pricing{padding-top:70px}
   .header[data-jsx="314331214"]{
     min-height:180px;

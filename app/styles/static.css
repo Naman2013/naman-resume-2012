@@ -2003,6 +2003,11 @@ button.text {
 
 /*ipad portrait*/
 @media (max-width: 768px) {
+  .memberInfo {
+    font-size: 12px; }
+    .memberInfo strong {
+      display: block; }
+
   .description-container[data-jsx="1673396223"] {
     padding: 50px !important; }
 
