@@ -239,6 +239,9 @@
 /*iphone landscape*/
 
 @media(max-width:675px) {
+  .itemsContainer[data-jsx="601891616"]{
+    display:block !important;
+  }
   .featured-in-logo{
     margin-botom:25px;
   }
@@ -956,9 +959,7 @@
       font-size: 13px;
     }
   }
-  .itemsContainer[data-jsx="601891616"]{
-    display:block !important;
-  }
+
   .heroWrapper {
     .actionBtn{
       margin-bottom:20px

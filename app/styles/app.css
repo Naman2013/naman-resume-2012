@@ -48,7 +48,10 @@ img {
   .reservations .reserve-missions .container {
     background: #D8D8D8;
     width: 100%;
-    padding: 15px; }
+    padding: 0px 15px; }
+    @media (min-width: 768px) {
+      .reservations .reserve-missions .container {
+        padding: 15px; } }
 
 .pulse {
   background: #fff;

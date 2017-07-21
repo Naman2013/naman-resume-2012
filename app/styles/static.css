@@ -2087,6 +2087,9 @@ button.text {
     float: none; } }
 /*iphone landscape*/
 @media (max-width: 675px) {
+  .itemsContainer[data-jsx="601891616"] {
+    display: block !important; }
+
   .featured-in-logo {
     margin-botom: 25px; }
 
@@ -2634,9 +2637,6 @@ button.text {
   .myPicturesControl .count {
     padding: 0 30px;
     font-size: 13px; }
-
-  .itemsContainer[data-jsx="601891616"] {
-    display: block !important; }
 
   .heroWrapper {
     height: auto;
