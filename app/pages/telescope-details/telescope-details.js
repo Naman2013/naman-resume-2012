@@ -16,7 +16,7 @@ import {
 
 import {
   resetSnapshotList,
-} from '../../modules/Telescope-Overview';
+} from '../../modules/starshare-camera/starshare-camera-actions';
 
 import { fetchObjectContent } from '../../modules/community-content/community-object-content-actions';
 

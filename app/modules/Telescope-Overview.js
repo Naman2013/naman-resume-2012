@@ -20,15 +20,6 @@ const SKYCHART_WIDGET_START = 'SKYCHART_WIDGET_START';
 const OBSERVATORY_WEBCAM_START = 'OBSERVATORY_WEBCAM_START';
 const OBSERVATORY_WEBCAM_SUCCESS = 'OBSERVATORY_WEBCAM_SUCCESS';
 
-const SET_IMAGE_DATA_TO_SNAPSHOT = 'SET_IMAGE_DATA_TO_SNAPSHOT';
-const SNAP_IMAGE_START = 'SNAP_IMAGE_START';
-const SNAP_IMAGE_SUCCESS = 'SNAP_IMAGE_SUCCESS';
-const SNAP_IMAGE_FAIL = 'SNAP_IMAGE_FAIL';
-const RESET_SNAP_IMAGE_MESSAGE = 'RESET_SNAP_IMAGE_MESSAGE';
-const RESET_SNAPSHOT_LIST = 'RESET_SNAPSHOT_LIST';
-
-const RESET_IMAGE_TO_SNAP = 'RESET_IMAGE_TO_SNAP';
-
 
 export const getCurrentObservatory = (observatoryList = [], observatoryId) => {
   return observatoryList.find(observatory => observatory.obsUniqueId === observatoryId);
@@ -107,7 +98,8 @@ export const getObservatoryList = (currentObservatoryId, callSource) => (dispatc
 const fetchMoonPhase = observatory => (dispatch, getState) => {
   const { token, at, cid } = getState().user;
 
-  if (observatory && observatory.MoonPhaseWidgetId) { // only make call if /api/obs/list response has MoonPhaseWidgetId defined
+   // only make call if /api/obs/list response has MoonPhaseWidgetId defined
+  if (observatory && observatory.MoonPhaseWidgetId) {
     return axios.post('/api/moon/phase', {
       token,
       at,
@@ -198,73 +190,6 @@ export const fetchObservatoryWebcam = ({
   });
 };
 
-const setImageData = data => ({
-  type: SET_IMAGE_DATA_TO_SNAPSHOT,
-  data,
-});
-
-export const setImageDataToSnapshot = data => (dispatch) => {
-  dispatch(setImageData(data));
-};
-
-const snapImageStart = () => ({
-  type: SNAP_IMAGE_START,
-});
-
-const snapImageSuccess = imageData => ({
-  type: SNAP_IMAGE_SUCCESS,
-  imageData,
-});
-
-const snapImageFail = error => ({
-  type: SNAP_IMAGE_FAIL,
-  error,
-});
-
-export const resetsnapImageMsg = () => ({
-  type: RESET_SNAP_IMAGE_MESSAGE,
-});
-
-export const resetImageToSnap = () => ({
-  type: RESET_IMAGE_TO_SNAP,
-});
-
-export const snapImage = () => (dispatch, getState) => {
-  const {
-    user: { token, at, cid },
-    telescopeOverview: { imageDataToSnapshot },
-  } = getState();
-
-  dispatch(snapImageStart());
-  const { callSource, imageURL, imageID } = imageDataToSnapshot;
-  if (callSource && imageURL && imageID) {
-    return axios.post('/api/images/snapImage', {
-      token,
-      at,
-      cid,
-      ...imageDataToSnapshot,
-    }).then((result) => {
-      if (!result.data.apiError) {
-        dispatch(snapImageSuccess(
-          Object.assign({
-            explanation: result.data.explanation,
-          }, imageDataToSnapshot)),
-        );
-      } else {
-        dispatch(snapImageFail(result.data));
-      }
-    });
-  }
-};
-
-const resetSnapshots = () => ({
-  type: RESET_SNAPSHOT_LIST,
-});
-
-
-export const resetSnapshotList = () => (dispatch) => {
-  dispatch(resetSnapshots());
-};
 
 const initialState = {
   // list of available observatories
@@ -299,19 +224,6 @@ const initialState = {
     refreshIntervalSec: 0,
     facilityWebcamURL: '',
   },
-  imageDataToSnapshot: {
-    callSource: 'details',
-    zoom: 1,
-    originX: 0,
-    originY: 0,
-    masked: false,
-    astroObjectID: '0',
-    scheduledMissionID: '0',
-    imageURL: '',
-    imageID: '',
-  },
-  snapshotMsg: '',
-  snapshotList: [{}, {}, {}],
 };
 
 export default createReducer(initialState, {
@@ -381,48 +293,6 @@ export default createReducer(initialState, {
       ...state,
       fetchingObservatoryLiveWebcamResult: false,
       observatoryLiveWebcamResult,
-    };
-  },
-  [SET_IMAGE_DATA_TO_SNAPSHOT](state, { data }) {
-    return {
-      ...state,
-      imageDataToSnapshot: {
-        ...state.imageDataToSnapshot,
-        ...data,
-      },
-    };
-  },
-  [SNAP_IMAGE_SUCCESS](state, { imageData: { imageURL, imageID, explanation } }) {
-    return {
-      ...state,
-      snapshotList: [{ imageURL, imageID }, ...state.snapshotList].slice(0, 3),
-      snapshotMsg: explanation,
-    };
-  },
-  [SNAP_IMAGE_FAIL](state, { error }) {
-    return {
-      ...state,
-      snapshotMsg: error.explanation,
-    };
-  },
-  [RESET_SNAP_IMAGE_MESSAGE](state) {
-    return {
-      ...state,
-      snapshotMsg: '',
-    };
-  },
-  [RESET_SNAPSHOT_LIST](state) {
-    return {
-      ...state,
-      snapshotList: initialState.snapshotList,
-    };
-  },
-  [RESET_IMAGE_TO_SNAP](state) {
-    return {
-      ...state,
-      imageDataToSnapshot: {
-        ...initialState.imageDataToSnapshot,
-      },
     };
   },
 });
