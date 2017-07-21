@@ -2220,7 +2220,6 @@ button.text {
     margin-bottom: 50px;
     margin: 20px auto;
     display: block;
-    height: 150px;
     justify-content: space-around; }
   .viewable-objects-container .latest-news {
     font-size: 1em;
