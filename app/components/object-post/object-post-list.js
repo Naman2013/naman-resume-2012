@@ -21,7 +21,7 @@ class ObjectPostList extends Component {
             </Link>
 
             <div className="row">
-              <div className="col-xs-6">
+              <div className="col-sm-6">
                 <ByUserTag
                   photo={v.avatarURL}
                   name={v.displayName}
@@ -32,7 +32,7 @@ class ObjectPostList extends Component {
                 />
               </div>
 
-              <div className="col-md-2 pull-right">
+              <div className="col-xs-3 pull-right">
                 <img className="icon" src={v.typeIconURL} />
               </div>
 

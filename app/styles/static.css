@@ -2212,6 +2212,7 @@ button.text {
     margin-bottom: 50px;
     margin: 20px auto;
     display: block;
+    height: 150px;
     justify-content: space-around; }
   .viewable-objects-container .latest-news {
     font-size: 1em;
@@ -2248,6 +2249,14 @@ button.text {
       padding: 0px 10px 10px;
       margin: 0px; } }
 @media (max-width: 640px) {
+  .header[data-jsx="314331214"] {
+    min-height: 180px; }
+
+  .navigation-item[data-jsx="3312214801"] {
+    padding: 0 20px !important; }
+    .navigation-item[data-jsx="3312214801"] a {
+      font-size: 13px !important; }
+
   .description-container[data-jsx="1673396223"] {
     font-size: 16px !important;
     padding: 20px !important; }
@@ -2433,7 +2442,26 @@ button.text {
     margin-top: -10px; }
   .bookclub-container header + a {
     float: none !important;
-    margin: 0px auto !important; } }
+    margin: 0px auto !important; }
+
+  .PulsePostListInfoTitle {
+    font-size: 40px; }
+
+  .ObjectPostList {
+    display: block;
+    clear: both; }
+    .ObjectPostList .ObjectPostListID {
+      font-size: 70px;
+      float: left;
+      padding: 0 0px 10px 30px; }
+    .ObjectPostList .ObjectPostListInfo {
+      padding-top: 0px;
+      width: 76%;
+      padding-right: 5px;
+      float: left; }
+      .ObjectPostList .ObjectPostListInfo .ObjectPostListInfoTitle {
+        height: 48px;
+        font-size: 30px; } }
 /*responsive video embedd*/
 .video-container {
   position: relative;
@@ -2520,6 +2548,29 @@ button.text {
     .sloohSunglassesWrapper .container {
       flex: 0px; } }
 @media (max-width: 675px) {
+  .myPicturesControl .count {
+    padding: 0 100px; }
+
+  .otherFeaturedObjects h4, .otherFeaturedObjects .static-app-content-container h5, .static-app-content-container .otherFeaturedObjects h5, .otherFeaturedObjects .static-app-content-container h6, .static-app-content-container .otherFeaturedObjects h6 {
+    font-size: 17px; }
+  .otherFeaturedObjects h2, .otherFeaturedObjects .static-app-content-container h3, .static-app-content-container .otherFeaturedObjects h3, .otherFeaturedObjects .static-app-content-container h4, .static-app-content-container .otherFeaturedObjects h4, .otherFeaturedObjects .static-app-content-container h5, .static-app-content-container .otherFeaturedObjects h5, .otherFeaturedObjects .static-app-content-container h6, .static-app-content-container .otherFeaturedObjects h6 {
+    font-size: 28px;
+    display: block;
+    height: 60px; }
+  .otherFeaturedObjects .otherFeaturedObjectsDescription {
+    font-size: 16px; }
+
+  .glasses-container[data-jsx="2607062345"] {
+    padding-left: 100px !important; }
+
+  .glasses[data-jsx="2607062345"] {
+    height: auto;
+    max-height: 250px;
+    width: auto; }
+
+  #about.mission header.page {
+    min-height: 500px; }
+
   .static-app-content-container blockquote {
     font-size: 2.5rem;
     font-weight: 300;
@@ -2531,7 +2582,11 @@ button.text {
       font-size: 36px !important;
       font-size: 3rem !important; }
     .static-app-content-container .big-board .text-ginormous {
+      font-size: 86px;
       font-size: 7rem; }
+    .static-app-content-container .big-board .text-regular {
+      font-size: 12px;
+      font-size: 1rem; }
 
   .hero-container .title {
     padding: 0px 20px; }
@@ -2560,6 +2615,18 @@ button.text {
     .partOfEventWrapper .header {
       font-size: 45px; } }
 @media (max-width: 375px) {
+  .show-list-root[data-jsx="3256371599"] {
+    padding: 20px 0px !important; }
+    .show-list-root[data-jsx="3256371599"] h3, .show-list-root[data-jsx="3256371599"] .static-app-content-container h4, .static-app-content-container .show-list-root[data-jsx="3256371599"] h4, .show-list-root[data-jsx="3256371599"] .static-app-content-container h5, .static-app-content-container .show-list-root[data-jsx="3256371599"] h5, .show-list-root[data-jsx="3256371599"] .static-app-content-container h6, .static-app-content-container .show-list-root[data-jsx="3256371599"] h6 {
+      font-size: 18px !important; }
+
+  .myPicturesControl .count {
+    padding: 0 30px;
+    font-size: 13px; }
+
+  .itemsContainer[data-jsx="601891616"] {
+    display: block !important; }
+
   .heroWrapper {
     height: auto;
     padding-bottom: 0px; }

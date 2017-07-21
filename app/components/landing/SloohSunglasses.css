@@ -1,7 +1,7 @@
 /* VARIABLES: COLOR
  * */
 .sloohSunglassesWrapper {
-  background: url("https://vega.slooh.com/images/roadtrip/sunglasses.jpg") center top no-repeat;
+  background: url("https://vega.slooh.com/images/roadtrip/sunglasses.jpg") center top no-repeat #424242;
   display: flex;
   justify-content: center;
   color: white;

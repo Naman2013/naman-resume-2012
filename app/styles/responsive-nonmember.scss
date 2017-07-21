@@ -400,6 +400,7 @@
       margin-bottom: 50px;
       margin: 20px auto;
       display: block;
+      height: 150px;
       justify-content: space-around;
     }
     .latest-news{
@@ -447,6 +448,13 @@
 
 
 @media(max-width:640px) {
+  .header[data-jsx="314331214"]{
+    min-height:180px;
+  }
+  .navigation-item[data-jsx="3312214801"]{
+    padding: 0 20px !important;
+    a {font-size:13px !important}
+  }
   .description-container[data-jsx="1673396223"]{font-size:16px !important; padding:20px !important;}
   .community-perspectives .content .categories {
     .category .action .title {
@@ -683,8 +691,27 @@
       margin: 0px auto !important;
     }
   }
+.PulsePostListInfoTitle{
+  font-size:40px;
+}
+  .ObjectPostList {
+    display:block; clear:both;
+    .ObjectPostListID{
+      font-size:70px;
+      float:left;
+      padding:0 0px 10px 30px;
+    }
+    .ObjectPostListInfo{padding-top:0px;
 
+      width: 76%;
+      padding-right: 5px;
 
+      float: left;
+      .ObjectPostListInfoTitle{
+        height: 48px;
+        font-size: 30px;
+      }}
+  }
 
 }
 
@@ -809,6 +836,32 @@
 }
 
 @media(max-width:675px) {
+
+  .myPicturesControl {
+    .count{
+      padding:0 100px;
+    }
+  }
+  .otherFeaturedObjects{
+    h4{
+      font-size:17px;
+    }
+    h2{
+      font-size:28px;
+      display:block; height:60px;
+    }
+    .otherFeaturedObjectsDescription{
+      font-size:16px;
+    }
+  }
+  .glasses-container[data-jsx="2607062345"]{padding-left:100px !important}
+  .glasses[data-jsx="2607062345"] {
+    height:auto; max-height:250px;
+    width: auto;
+  }
+  #about.mission header.page{
+    min-height:500px;
+  }
   .static-app-content-container {
     blockquote{
       font-size: 2.5rem;
@@ -822,7 +875,12 @@
         font-size:3rem !important;
       }
       .text-ginormous{
+        font-size:86px;
         font-size:7rem;
+      }
+      .text-regular {
+        font-size: 12px;
+      font-size: 1rem;
       }
     }
   }
@@ -871,7 +929,22 @@
 }
 
 @media(max-width:375px) {
+  .show-list-root[data-jsx="3256371599"]{
 
+    padding:20px 0px !important;
+    h3{
+      font-size:18px !important;
+    }
+  }
+  .myPicturesControl {
+    .count {
+      padding: 0 30px;
+      font-size: 13px;
+    }
+  }
+  .itemsContainer[data-jsx="601891616"]{
+    display:block !important;
+  }
   .heroWrapper {
     .actionBtn{
       margin-bottom:20px
