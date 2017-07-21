@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { iconPlanet } from '../../community/tools/community-icon';
 import styles from '../style/pulse-recommends.scss';
 
