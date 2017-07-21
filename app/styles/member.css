@@ -1,0 +1,84 @@
+/* VARIABLES: COLOR
+ * */
+/* VARIABLES: Typefaces
+ * */
+.member {
+  display: flex;
+  float: right;
+  height: 100%;
+  flex-direction: row; }
+  .member .memberInfo {
+    color: #fff;
+    font-family: "Brandon Grotesque", "brandon-grotesque", sans-serif;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding-left: 15px;
+    padding-right: 15px; }
+    .member .memberInfo .avatar {
+      width: 30px;
+      height: 30px;
+      background-size: 100%;
+      border-radius: 15px;
+      margin-right: 10px; }
+    .member .memberInfo .messages {
+      display: flex;
+      margin-left: 15px;
+      flex-direction: row; }
+      .member .memberInfo .messages .messagesIcon {
+        font-size: 20px;
+        color: #000; }
+      .member .memberInfo .messages .count {
+        display: flex;
+        width: 16px;
+        height: 16px;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        background-color: #fff;
+        font-size: 11px; }
+  @media (max-width: 670px) {
+    .member .memberInfo {
+      display: none; } }
+  .member .rightButton {
+    display: flex;
+    height: 100%;
+    background: #3C4A55;
+    box-shadow: inset 3px 0px 6px 0px rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    font-family: "brandon-grotesque",sans-serif;
+    cursor: pointer;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    padding: 0 20px;
+    border: none; }
+    .member .rightButton:focus {
+      outline: none; }
+  .member .regButton {
+    display: flex;
+    font-family: "brandon-grotesque",sans-serif;
+    text-decoration: none;
+    height: 60%;
+    margin-top: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-right: 80px;
+    justify-content: center;
+    align-items: center;
+    background-color: #F310A7;
+    color: #fff;
+    cursor: pointer;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none; }
+  .member .loggedOutWrapper {
+    display: flex;
+    height: 100%; }
+
+/*# sourceMappingURL=member.css.map */

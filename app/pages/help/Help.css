@@ -1,0 +1,55 @@
+/* VARIABLES: COLOR
+ * */
+/* VARIABLES: Typefaces
+ * */
+.help-page-header {
+  padding: 60px 30px;
+  display: flex;
+  justify-content: space-between; }
+  .help-page-header .btn-primary {
+    margin: 0; }
+  @media (max-width: 767px) {
+    .help-page-header {
+      padding-left: 10px;
+      padding-right: 10px; } }
+
+.help-page-title {
+  text-transform: uppercase;
+  margin: 0; }
+  .help-page-title.help-page-paragraph {
+    font-size: 22px;
+    text-transform: none;
+    color: #3c4a55;
+    font-weight: bold; }
+
+.help-page-inner {
+  background: #fff;
+  padding: 30px 25% 30px 30px;
+  color: #3c4a55;
+  font-size: 18px;
+  font: "Brandon Grotesque", "brandon-grotesque", sans-serif; }
+
+@media (max-width: 767px) {
+  .help-page-inner {
+    padding: 0px 20px; }
+
+  .help-page-title {
+    font-size: 1.9em; } }
+.help-page-section {
+  border-bottom: 1px solid #557373;
+  overflow: hidden; }
+  .help-page-section:last-child {
+    border-bottom: 0; }
+  .help-page-paragraph + .help-page-section {
+    border-top: 1px solid #557373; }
+
+.help-page-paragraph {
+  margin: 15px auto; }
+  .help-page-paragraph .tableCell {
+    border: 1px solid #557373;
+    padding: 5px; }
+
+.help-page-sub-title {
+  margin: 30px auto; }
+
+/*# sourceMappingURL=Help.css.map */
