@@ -44,6 +44,9 @@ export const fetchGalleryPictures = ({
     // at: 3, // for testing purposes
     // cid: 185651, // for testing purposes
     // token: 'ff278b57d3724d41a3d48194e2f29526b30e9c0f', // for testing purposes
+    at,
+    cid,
+    token,
     galleryId,
     pagingMode,
     timeFilter,
@@ -84,6 +87,9 @@ export const fetchGalleryPicsCount = ({
     // at: 3, // for testing purposes
     // cid: 185651, // for testing purposes
     // token: 'ff278b57d3724d41a3d48194e2f29526b30e9c0f', // for testing purposes
+    at,
+    cid,
+    token,
     galleryId,
   })
   .then(result => dispatch(fetchGalleryPicsCountSuccess(result.data)))

@@ -100,6 +100,9 @@ export const fetchGalleries = ({
     // at: 3, // for testing purposes
     // cid: 185651, // for testing purposes
     // token: 'ff278b57d3724d41a3d48194e2f29526b30e9c0f', // for testing purposes
+    at,
+    cid,
+    token,
     maxImageCount,
     firstImageNumber,
     filterType: objectTypeFilter.filterByField,
@@ -368,6 +371,9 @@ export const fetchGalleriesCount = () => (dispatch, getState) => {
     // at: 3, // for testing purposes
     // cid: 185651, // for testing purposes
     // token: 'ff278b57d3724d41a3d48194e2f29526b30e9c0f', // for testing purposes
+    at,
+    cid,
+    token,
   })
   .then(result => {
     if (result.apiError) {
