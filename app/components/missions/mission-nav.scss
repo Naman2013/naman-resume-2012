@@ -4,7 +4,7 @@
 .missionNav {
   font-family: $primary-font;
   margin-bottom: 20px;
-  display: flex;
+ // display: flex;
 
   .mission-nav-container {
     margin: 0 auto;
@@ -17,56 +17,70 @@
   a:focus {
     text-decoration: none;
   }
-  >ul {
-    padding: 10px 75px;
-    height: 65px;
-  }
-  li {
-    list-style: none;
-    float: left;
-    height: 50%;
-    &:hover > a,
-    a.active {
-      border-bottom: 5px solid $blueGreen;
-      color: $slooh-black;
+  >ul.mission-nav-container {
+    padding: 10px 0px;
+    min-height: 65px;
+    li {
+      list-style: none;
+      float: left;
+      height: 50%;
+      margin-bottom:10px;
+      a{
+        @media(max-width:767px){
+          font-size:14px;
+        }
+      }
+      &:hover > a,
+      a.active {
+        border-bottom: 5px solid $blueGreen;
+        color: $slooh-black;
+      }
     }
   }
 
+
+
+
   >ul>li {
     text-transform: uppercase;
-    margin: 0 35px;
+    margin: 0 25px;
     position: relative;
     font-weight: bold;
 
 
 
-    .sub-nav {
-      position: absolute;
-      text-transform: capitalize;
-      padding: 0;
-      min-width: 500px;
-      left: -52px;
-      top: 32px;
+  }
+  .sub-nav {
+    //position: absolute;
+    //text-transform: capitalize;
+    //padding: 0;
+    //min-width: 500px;
+    //left: -52px;
+    //top: 32px;
+text-align:center;
+    margin:-10px 0px 0px;
+    padding:0px;
+    li {
+      list-style:none;
+     display:inline-block;
+      margin: 0 3% 0 0;
 
-      li {
-        float: left;
-        margin: 0 3% 0 0;
-        font-weight: normal;
 
-        a {
-          color: $pink;
-        }
+      a {
+        font-size:14px;
+        font-weight: normal !important;
+        color: $pink;
+      }
 
-        .active {
-          border: none;
-          color: #000;
-          font-weight: bold;
-        }
+      .active {
+        border: none;
+        color: #000;
+        font-weight: bold;
+      }
 
-        a:hover {
-          color: #000;
-          border: none;
-        }
+      a:hover {
+        color: #000;
+        border: none;
       }
     }
   }
