@@ -1,4 +1,10 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
+
+/**
+  TODO: fully implement the social icons list presented here
+  careful not to delete it for now
+*/
 
 const ShareMissionContainer = ({ children }) => (
   <div className="col-xs-2 piggyback-accepted">

@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import InlineCountdown from '../../../../common/inline-countdown/inline-countdown';
 
 const Timer = ({ startTime, expireCallback }) => (

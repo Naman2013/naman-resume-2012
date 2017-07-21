@@ -1,15 +1,10 @@
-import React, { Component, PropTypes } from 'react';
-import { Link } from 'react-router';
+import React from 'react';
 import s from './call-to-action.scss';
 
-class CallToAction extends Component {
-  render() {
-    return (
-      <div className={s.CallToAction}>
-        <h1>Nothing here yet...  Create something new!</h1>
-      </div>
-    );
-  }
-}
+const CallToAction = () => (
+  <div className={s.CallToAction}>
+    <h1>Nothing here yet...  Create something new!</h1>
+  </div>
+);
 
 export default CallToAction;
