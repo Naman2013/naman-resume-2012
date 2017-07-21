@@ -448,6 +448,7 @@
 
 
 @media(max-width:640px) {
+  .about.pricing{padding-top:70px}
   .header[data-jsx="314331214"]{
     min-height:180px;
   }
@@ -487,6 +488,10 @@
     h1.title {
       font-size: 46px;
     }
+  }
+
+  .eventDescriptionContent {
+    font-size:13px
   }
   .eventDescriptionPanel {
     padding: 20px;

@@ -1499,7 +1499,7 @@ input[type="number"] {
   display: block;
   font-style: normal; }
 .static-app-content-container div {
-  positon: relative !important; }
+  position: relative !important; }
 .static-app-content-container em {
   color: deeppink;
   font-style: normal; }
@@ -2249,6 +2249,9 @@ button.text {
       padding: 0px 10px 10px;
       margin: 0px; } }
 @media (max-width: 640px) {
+  .about.pricing {
+    padding-top: 70px; }
+
   .header[data-jsx="314331214"] {
     min-height: 180px; }
 
@@ -2285,6 +2288,9 @@ button.text {
       font-size: 30px; }
     .eventHeroRoot h1.title {
       font-size: 46px; }
+
+  .eventDescriptionContent {
+    font-size: 13px; }
 
   .eventDescriptionPanel {
     padding: 20px;
