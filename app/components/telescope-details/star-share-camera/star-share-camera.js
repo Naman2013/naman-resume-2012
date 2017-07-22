@@ -4,7 +4,9 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Lightbox from 'react-images';
 import classnames from 'classnames';
+import { canUseDOM } from 'exenv';
 import uniqueId from 'lodash/uniqueId';
+import removeStyle from '../../../utils/removeStyle';
 import ModalGeneric from '../../../components/common/modals/modal-generic';
 import Snap from './Snap';
 import {
@@ -29,6 +31,7 @@ const mapStateToProps = ({ starshareCamera }) => ({
   snapshotMsg: starshareCamera.snapshotMsg,
   snapAPIError: starshareCamera.apiError,
   imagesLastSnapped: starshareCamera.imagesLastSnapped,
+  justSnapped: starshareCamera.justSnapped,
 });
 
 function getSnapClasses(index, snappingImages) {
@@ -59,10 +62,11 @@ class StarShareCamera extends Component {
 
   state = {
     openedModal: false,
-    snappingImages: false,
     lightboxOpen: false,
     lightboxImage: '',
+    snappingPhoto: false,
   };
+
 
   componentWillReceiveProps(nextProps) {
     if (this.props.snapshotMsg !== nextProps.snapshotMsg) {
@@ -75,11 +79,15 @@ class StarShareCamera extends Component {
     this.setState({
       lightboxOpen: true,
       lightboxImage: imageSource,
-      snappingImages: false,
+      snappingPhoto: false,
     });
   };
 
   closeLightbox = () => {
+    if (canUseDOM) {
+      removeStyle(document.getElementsByTagName('body'));
+    }
+
     this.setState({
       lightboxOpen: false,
       lightboxImage: '',
@@ -87,6 +95,9 @@ class StarShareCamera extends Component {
   };
 
   takeSnapshot = () => {
+    this.setState({
+      snappingPhoto: true,
+    });
     this.props.actions.snapImage();
   }
 
@@ -97,19 +108,29 @@ class StarShareCamera extends Component {
   }
 
   closeModal = () => {
-    // close, we need to refine when the flag for snapping is set
-    // still getting some spots in time when we should not be shaking the image
-    const { snapAPIError, imagesLastSnapped } = this.props;
-    const snappingImages = (!snapAPIError && (imagesLastSnapped > 0));
     this.setState({
-      snappingImages,
       openedModal: false,
     });
+
     this.props.actions.resetsnapImageMsg();
   }
 
   render() {
-    const { snappingImages, lightboxOpen, lightboxImage, snapshotMsg, snapAPIError } = this.state;
+    const {
+      lightboxOpen,
+      lightboxImage,
+      snappingPhoto,
+    } = this.state;
+
+    const {
+      snapshotList,
+      snapshotMsg,
+      snapAPIError,
+      imagesLastSnapped,
+      justSnapped,
+    } = this.props;
+
+    const snappingImages = (justSnapped && snappingPhoto);
 
     return (
       <div className="star-share-camera-wrapper">
@@ -117,7 +138,7 @@ class StarShareCamera extends Component {
           <i className="fa fa-camera" />
         </button>
         {
-          this.props.snapshotList.map((snapshot, i) => {
+          snapshotList.map((snapshot, i) => {
             return (
               <button
                 onClick={(event) => { this.openLightbox(snapshot.imageURL, event); }}
@@ -134,10 +155,10 @@ class StarShareCamera extends Component {
           })
         }
         {
-          this.props.snapshotMsg && snapAPIError && <ModalGeneric
+          snapshotMsg && snapAPIError && <ModalGeneric
             open={this.state.openedModal}
             closeModal={this.closeModal}
-            description={String(this.props.snapshotMsg)}
+            description={String(snapshotMsg)}
           />
         }
 

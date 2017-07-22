@@ -10,7 +10,8 @@
     "expect": true,
     "window": true,
     "EventSource": "true",
-    "describe": "true"
+    "describe": "true",
+    "body": "true"
   },
   "eslintConfig": {
     "env": {
