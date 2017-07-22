@@ -6,6 +6,7 @@ import Lightbox from 'react-images';
 import classnames from 'classnames';
 import uniqueId from 'lodash/uniqueId';
 import ModalGeneric from '../../../components/common/modals/modal-generic';
+import Snap from './Snap';
 import {
   snapImage,
   resetImageToSnap,
@@ -124,7 +125,9 @@ class StarShareCamera extends Component {
                 className={getSnapClasses(i, snappingImages)}
               >
                 {
-                  snapshot.imageURL ? <img alt="" key={snapshot.imageID} src={snapshot.imageURL} /> : null
+                  snapshot.imageURL
+                    ? <Snap key={snapshot.imageID} width="100px" height="50px" imageURL={snapshot.imageURL} />
+                    : null
                 }
               </button>
             );
@@ -180,6 +183,7 @@ class StarShareCamera extends Component {
             height: 40px;
             overflow: hidden;
             margin: 10px;
+            padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;

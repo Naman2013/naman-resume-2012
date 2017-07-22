@@ -3,11 +3,12 @@
 exports[`should render a container when an image url is provided 1`] = `
 <div
   className="root"
-  data-jsx={4151419416}
-  data-jsx-ext={undefined}
+  data-jsx={2758523860}
   style={
     Object {
       "backgroundImage": "url(foo.jpg)",
+      "height": "50px",
+      "width": "50px",
     }
   }
 >
@@ -15,6 +16,8 @@ exports[`should render a container when an image url is provided 1`] = `
     jsx={true}
   >
     
+            .root {
+              
       background-repeat: no-repeat;
       background-position: center;
       -webkit-background-size: cover;
@@ -22,12 +25,6 @@ exports[`should render a container when an image url is provided 1`] = `
       -o-background-size: cover;
       background-size: cover;
     
-  </style>
-  <style
-    jsx={true}
-  >
-    
-            .root {
               width: 100%;
               height: 100%;
             }
