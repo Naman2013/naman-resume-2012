@@ -296,7 +296,7 @@ class TelescopeDetails extends Component {
                       }
 
                       {
-                        currentTelescope.teleOnlineStatus === 'online' && instrument.instrStarShareCamera === true ?
+                        telescopeOnline && instrument.instrStarShareCamera === true ?
                           <StarShareCamera /> : null
                       }
                     </TabPanel>
