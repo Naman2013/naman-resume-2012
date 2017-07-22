@@ -3,7 +3,11 @@ import PropTypes from 'prop-types';
 import moment from 'moment-timezone';
 
 const propTypes = {
-  timestampInSeconds: PropTypes.number.isRequired,
+  timestampInSeconds: PropTypes.number,
+};
+
+const defaultProps = {
+  timestampInSeconds: 0,
 };
 
 const Timestamp = ({ timestampInSeconds }) => {
@@ -18,6 +22,8 @@ const Timestamp = ({ timestampInSeconds }) => {
   );
 };
 
+
 Timestamp.propTypes = propTypes;
+Timestamp.defaultProps = defaultProps;
 
 export default Timestamp;
