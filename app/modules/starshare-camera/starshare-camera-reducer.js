@@ -4,6 +4,7 @@ import createReducer from '../utils/createReducer';
 
 import {
   SET_IMAGE_DATA_TO_SNAPSHOT,
+  SNAP_IMAGE_START,
   SNAP_IMAGE_SUCCESS,
   SNAP_IMAGE_FAIL,
   RESET_SNAP_IMAGE_MESSAGE,
@@ -43,6 +44,7 @@ const initialState = {
   },
   snapshotMsg: '',
   snapshotList: generateInitialEmptyStarshareSlots(6),
+  justSnapped: false,
 };
 
 export default createReducer(initialState, {
@@ -53,6 +55,12 @@ export default createReducer(initialState, {
         ...state.imageDataToSnapshot,
         ...data,
       },
+    };
+  },
+  [SNAP_IMAGE_START](state) {
+    return {
+      ...state,
+      justSnapped: false,
     };
   },
   [SNAP_IMAGE_SUCCESS](state, {
@@ -69,6 +77,7 @@ export default createReducer(initialState, {
       imagesLastSnapped,
       snapshotList: take([{ imageURL, imageID }, ...state.snapshotList], 6),
       snapshotMsg: explanation,
+      justSnapped: !apiError,
     };
   },
   [SNAP_IMAGE_FAIL](state, { error }) {
@@ -77,6 +86,7 @@ export default createReducer(initialState, {
       apiError: error.apiError,
       imagesLastSnapped: error.imagedAdded,
       snapshotMsg: error.explanation,
+      justSnapped: false,
     };
   },
   [RESET_SNAP_IMAGE_MESSAGE](state) {

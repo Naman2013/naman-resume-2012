@@ -31,7 +31,13 @@ exports[`<Mission /> should render a missions title and image 1`] = `
       className="upcomingStart"
       data-jsx={334598377}
     >
-      11:20PM
+      <span>
+        11:20pm EDT
+         · 
+        8:20pm PDT
+         · 
+        03:20 UTC
+      </span>
     </h5>
   </div>
   <style

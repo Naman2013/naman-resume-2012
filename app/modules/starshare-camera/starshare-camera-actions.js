@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 export const SET_IMAGE_DATA_TO_SNAPSHOT = 'SET_IMAGE_DATA_TO_SNAPSHOT';
+export const SNAP_IMAGE_START = 'SNAP_IMAGE_START';
 export const SNAP_IMAGE_SUCCESS = 'SNAP_IMAGE_SUCCESS';
 export const SNAP_IMAGE_FAIL = 'SNAP_IMAGE_FAIL';
 export const RESET_SNAP_IMAGE_MESSAGE = 'RESET_SNAP_IMAGE_MESSAGE';
@@ -43,6 +44,10 @@ export const resetImageToSnap = () => ({
   type: RESET_IMAGE_TO_SNAP,
 });
 
+const snapImageStart = () => ({
+  type: SNAP_IMAGE_START,
+});
+
 export const snapImage = () => (dispatch, getState) => {
   const {
     user: { token, at, cid },
@@ -50,6 +55,8 @@ export const snapImage = () => (dispatch, getState) => {
   } = getState();
 
   const { callSource, imageURL, imageID } = imageDataToSnapshot;
+
+  dispatch(snapImageStart());
 
   if (callSource && imageURL && imageID) {
     return axios.post('/api/images/snapImage', {

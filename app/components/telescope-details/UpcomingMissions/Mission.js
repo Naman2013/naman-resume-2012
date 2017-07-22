@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { convertStartTime } from './utilities';
+import Timestamp from '../../common/Timestamp';
 import { pink, darkBlueGray, lightGray, white } from '../../../styles/variables/colors';
 
 const propTypes = {
@@ -16,7 +16,7 @@ const Mission = ({ upcomingTitle, upcomingObjectIconURL, upcomingStart }) => (
     </div>
     <div className="missionDetails">
       <h4 className="title">{upcomingTitle}</h4>
-      <h5 className="upcomingStart">{convertStartTime(upcomingStart)}</h5>
+      <h5 className="upcomingStart"><Timestamp timestampInSeconds={upcomingStart} /></h5>
     </div>
 
     <style jsx>{`

@@ -99,9 +99,7 @@ class LiveMission extends Component {
             </div> : null
         }
 
-        <style jsx>{`
-          ${liveMissionStyle}
-        `}</style>
+        <style jsx>{liveMissionStyle}</style>
       </div>
     );
   }
