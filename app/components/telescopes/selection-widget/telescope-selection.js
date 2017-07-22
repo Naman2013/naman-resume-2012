@@ -111,30 +111,32 @@ class TelescopeSelection extends Component {
             </ul>
 
             <ul
-              className={`piers ${(activeObservatory.obsUniqueId === obsUniqueId) ? 'visible' : 'hidden'}`}>
+              className={`piers ${(activeObservatory.obsUniqueId === obsUniqueId) ? 'visible' : 'hidden'}`}
+            >
               {
                 activeObservatory.obsTelescopes.map(telescope => (
-                  <li
-                    key={telescope.teleUniqueId}
-                    className="icon-container"
-                  >
-                    <Link
-                      className={
-                        `${hoveredTelescope && hoveredTelescope.teleUniqueId !== activeTelescope.teleUniqueId ? 'hovered-exists' : ''}
-                         ${hoveredTelescope && hoveredTelescope.teleUniqueId === telescope.teleUniqueId ? 'hovered' : ''}
-                         telescope-button`
-                      }
-                      activeClassName="active"
-                      onMouseEnter={() => this.handleMouseEnter(telescope)}
-                      onMouseLeave={this.handleMouseLeave}
-                      to={`${rootRoute}/${obsUniqueId}/${telescope.teleUniqueId}${appendToRoute}`}
+                  telescope.teleHasTelescopePage &&
+                    <li
+                      key={telescope.teleUniqueId}
+                      className="icon-container"
                     >
-                      <img
-                        className="icon img-circle"
-                        src={telescope.teleLogoURL}
-                      />
-                    </Link>
-                  </li>
+                      <Link
+                        className={
+                          `${hoveredTelescope && hoveredTelescope.teleUniqueId !== activeTelescope.teleUniqueId ? 'hovered-exists' : ''}
+                           ${hoveredTelescope && hoveredTelescope.teleUniqueId === telescope.teleUniqueId ? 'hovered' : ''}
+                           telescope-button`
+                        }
+                        activeClassName="active"
+                        onMouseEnter={() => this.handleMouseEnter(telescope)}
+                        onMouseLeave={this.handleMouseLeave}
+                        to={`${rootRoute}/${obsUniqueId}/${telescope.teleUniqueId}${appendToRoute}`}
+                      >
+                        <img
+                          className="icon img-circle"
+                          src={telescope.teleLogoURL}
+                        />
+                      </Link>
+                    </li>
                 ))
               }
             </ul>
