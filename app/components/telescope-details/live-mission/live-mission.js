@@ -34,7 +34,7 @@ class LiveMission extends Component {
       <div className="live-mission">
         <div className="content">
           {
-            missionAvailable ?
+            !missionAvailable ?
               <div>
                 <div className="header">
                   <h3 className="title">CURRENT LIVE MISSION:</h3>
@@ -99,9 +99,7 @@ class LiveMission extends Component {
             </div> : null
         }
 
-        <style jsx>{`
-          ${liveMissionStyle}
-        `}</style>
+        <style jsx>{liveMissionStyle}</style>
       </div>
     );
   }

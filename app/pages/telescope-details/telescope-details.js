@@ -335,6 +335,9 @@ class TelescopeDetails extends Component {
 
             { /** right side bar */ }
             <div className="col-xs-4 telescope-details-sidebar">
+              <LiveMission
+                {...activeTelescopeMission}
+              />
               {
                 activeTelescopeMission.missionAvailable || activeTelescopeMission.nextMissionAvailable ?
                   <div>
