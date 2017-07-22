@@ -109,7 +109,7 @@ class StarShareCamera extends Component {
   }
 
   render() {
-    const { snappingImages, lightboxOpen, lightboxImage } = this.state;
+    const { snappingImages, lightboxOpen, lightboxImage, snapshotMsg, snapAPIError } = this.state;
 
     return (
       <div className="star-share-camera-wrapper">
@@ -134,7 +134,7 @@ class StarShareCamera extends Component {
           })
         }
         {
-          this.props.snapshotMsg && <ModalGeneric
+          this.props.snapshotMsg && snapAPIError && <ModalGeneric
             open={this.state.openedModal}
             closeModal={this.closeModal}
             description={String(this.props.snapshotMsg)}
