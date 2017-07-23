@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import styles from '../style/pulse-meet.scss';
 import ByUserTag from '../../../components/common/by-user-tag/by-user-tag';
 

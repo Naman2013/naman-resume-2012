@@ -1,5 +1,4 @@
-import React, {Component, PropTypes} from 'react';
-// import style from './about.scss';
+import React, { Component } from 'react';
 
 class Leadership extends Component {
     render() {

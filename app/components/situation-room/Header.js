@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import UniversalTime from '../../components/common/universal-time';
 import s from './Header.scss';
 

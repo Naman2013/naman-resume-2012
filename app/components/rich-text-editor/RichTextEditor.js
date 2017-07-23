@@ -1,6 +1,7 @@
-import { CompositeDecorator, Editor, EditorState, RichUtils, Modifier } from 'draft-js';
+import { CompositeDecorator, Editor, EditorState, RichUtils } from 'draft-js';
 import { convertToHTML } from 'draft-convert';
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import 'draft-js/dist/Draft.css';
 import styles from './RichTextEditor.scss';

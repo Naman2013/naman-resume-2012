@@ -1,8 +1,6 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import CareerList from '../../components/about/career-list';
 import careerListData from '../../example-api-data/careers-list';
-
-const { array } = PropTypes;
 
 class Job extends Component {
   render() {

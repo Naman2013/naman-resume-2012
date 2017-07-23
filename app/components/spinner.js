@@ -1,5 +1,6 @@
-import React, { Component, PropTypes } from 'react';
-import {Spinner as S} from 'react-spinner';
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Spinner as S } from 'react-spinner';
 
 const Spinner = ({ children, fetching }) => {
   return <div>

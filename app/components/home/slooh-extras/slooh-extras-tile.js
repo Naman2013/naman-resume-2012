@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import TitleBar from './title-bar';
 
 import style from './slooh-extras-tile.scss';

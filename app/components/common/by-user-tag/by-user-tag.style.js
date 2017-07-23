@@ -1,6 +1,7 @@
-@import '../../../styles/variables/colors.scss';
-@import '../../../styles/mixins/utilities.scss';
+import { black, white, lightTurqoise, red } from '../../../styles/variables/colors';
+import { backgroundImageCover, borderRadius } from '../../../styles/mixins/utilities';
 
+export default `
 .slooh-by-user-tag {
   display: flex;
   align-items: center;
@@ -11,8 +12,8 @@
   }
 
   .profile-photo {
-    @include background-image-cover;
-    @include border-radius(50%);
+    ${backgroundImageCover}
+    ${borderRadius('50%')}
     background-repeat: no-repeat;
     background-position: center;
     width: 45px;
@@ -28,20 +29,20 @@
         font-weight: 300;
 
         &.dark {
-          color: #000;
+          color: ${black};
         }
         &.light {
-          color: #fff;
+          color: ${white};
         }
 
         .user-details {
           font-size: 0.65em;
 
           &.dark {
-            color: $light-turqoise;
+            color: ${lightTurqoise};
           }
           &.light {
-            color: #000;
+            color: ${black};
           }
         }
       }
@@ -49,10 +50,11 @@
       .account-level {
         font-size: 0.5em;
         padding-left: 10px;
-        color: #f00;
+        color: ${red};
         font-weight: 600;
         text-transform: uppercase;
         white-space: nowrap;
       }
   }
 }
+`;

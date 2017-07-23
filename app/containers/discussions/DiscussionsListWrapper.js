@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import GenericLoadingBox from '../../components/common/loading-screens/generic-loading-box';
@@ -6,7 +7,7 @@ import DiscussionsList from '../../components/discussions/DiscussionsList';
 import DiscussionsListHeader from '../../components/discussions/DiscussionsListHeader';
 import * as threadActions from '../../modules/discussions-thread/actions';
 
-const { func, arrayOf, bool, shape, object } = PropTypes;
+const { arrayOf, bool, object } = PropTypes;
 
 class DiscussionsListWrapper extends Component {
 

@@ -1,5 +1,5 @@
-import React, { Component, PropTypes } from 'react';
-import moment from 'moment';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 // get the current time
 // display the current time in minutes

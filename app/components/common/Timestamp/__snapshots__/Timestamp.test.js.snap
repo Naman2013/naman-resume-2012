@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render a line of text converting a timestamp in seconds to multiple timezones and utc 1`] = `
+<span>
+  11:15pm EDT
+   · 
+  8:15pm PDT
+   · 
+  03:15 UTC
+</span>
+`;
+
+exports[`should render nothing, when no timestamp is provided 1`] = `null`;

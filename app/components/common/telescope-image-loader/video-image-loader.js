@@ -4,7 +4,7 @@ import classnames from 'classnames';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import generateSseImageLoader from '../../../utils/generate-sse-image-source';
-import { setImageDataToSnapshot, resetImageToSnap } from '../../../modules/Telescope-Overview';
+import { setImageDataToSnapshot, resetImageToSnap } from '../../../modules/starshare-camera/starshare-camera-actions';
 import './video-image-loader.scss';
 
 const SSE = 'SSE';

@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import ByUserTag from '../../common/by-user-tag/by-user-tag';
 import s from './FITModalHeader.scss';
 

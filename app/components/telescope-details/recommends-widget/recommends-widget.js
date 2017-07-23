@@ -1,14 +1,7 @@
-import React, { Component, PropTypes } from 'react';
-import classnames from 'classnames';
+import React, { Component } from 'react';
 import './recommends-widget.scss';
 
-
-class TelescopeRecommendsWidget extends React.Component {
-
-  constructor(props) {
-    super(props);
-  };
-
+class TelescopeRecommendsWidget extends Component {
   render() {
     return(
       <div className="recommends-widget telescope-details-widget">

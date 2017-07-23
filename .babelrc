@@ -1,4 +1,10 @@
 {
-  "plugins": ["transform-react-jsx", "transform-class-properties", "styled-jsx/babel", "transform-object-rest-spread"],
+  "plugins": [
+    "transform-react-jsx",
+    "transform-class-properties",
+    "styled-jsx/babel",
+    "transform-decorators-legacy",
+    "transform-object-rest-spread"
+  ],
   "presets": ["es2015", "es2016", "es2017", "react"]
 }

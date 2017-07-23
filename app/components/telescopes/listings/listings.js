@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import MissionReserved from './reservation-slots/mission-reserved';
 import AvailableMission from './reservation-slots/available-mission';

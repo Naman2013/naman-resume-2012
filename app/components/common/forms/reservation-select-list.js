@@ -24,7 +24,8 @@
 
 */
 
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import has from 'lodash/has';
 import classnames from 'classnames';
 import './reservation-select-list.scss';

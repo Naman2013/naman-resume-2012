@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import RefreshedImage from '../../common/refreshed-static-image/RefreshedImage';
 
 export default function DayNightMap({ refreshIntervalSec, dayNightMapURL }) {

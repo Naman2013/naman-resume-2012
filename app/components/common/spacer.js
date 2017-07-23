@@ -1,21 +1,12 @@
-import React, { Component, PropTypes } from 'react';
-import classnames from 'classnames';
+import React from 'react';
+import PropTypes from 'prop-types';
 
-class Spacer extends React.Component {
+const Spacer = ({ height }) => (
+  <div style={{ height }} />
+);
 
-  constructor(props) {
-    super(props);
-  };
-
-  render() {
-    let divStyle = {
-      height: this.props.height
-    };
-    return(
-      <div style={divStyle}>
-      </div>
-    );
-  }
-}
+Spacer.propTypes = {
+  height: PropTypes.string.isRequired,
+};
 
 export default Spacer;

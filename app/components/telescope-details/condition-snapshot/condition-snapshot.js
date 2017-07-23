@@ -1,7 +1,7 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import CurrentConditions from './CurrentConditions';
 import DayNightTimeline from './DayNightTimeline';
 import DayNightMap from './DayNightMap';
 import AllSkyCamera from './AllSkyCamera';

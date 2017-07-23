@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Photo from './Photo';
 import classnames from 'classnames';
+import Photo from './Photo';
 import style from './PhotoList.scss';
 
 class PhotoList extends Component {
