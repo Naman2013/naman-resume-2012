@@ -13,6 +13,7 @@ export const imageDetailsStyle = <style jsx>{`
   }
   .left {
     flex: 3;
+    padding-right: 25px;
   }
   .right {
     flex: 1.5;

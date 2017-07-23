@@ -147,7 +147,7 @@ class ImageDetails extends Component {
             <div className="right-top"></div>
           </div>
           <div className="container">
-            <div className="left">
+            <div className="left my-pic-galleries">
               <ImageViewer myPicturesImageDetails={this.props.myPicturesImageDetails} currentImage={image} fetching={fetching} error={error}  />
               <Pagination
                 totalCount={imageCount}
@@ -164,6 +164,13 @@ class ImageDetails extends Component {
           </div>
         </div>
         {imageDetailsStyle}
+        <style jsx global>
+        {`
+          .my-pic-galleries .count {
+            padding: 0 200px;
+          }
+        `}
+        </style>
       </div>
     );
   }

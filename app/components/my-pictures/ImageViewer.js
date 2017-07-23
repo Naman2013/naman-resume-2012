@@ -35,7 +35,7 @@ class ImageViewer extends Component {
             }
 
             .image-container {
-              width: 90%;
+              width: 100%;
             }
             .image {
               ${backgroundImageCover}
