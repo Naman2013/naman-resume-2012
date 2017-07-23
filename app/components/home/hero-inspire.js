@@ -67,17 +67,31 @@ class HeroInspire extends Component {
     });
   }
 
+  renderCallToActionJoinOrEvent(buttonUrl) {
+    const { heroButtonText, registerNewMemberURL, userLoggedInFlag } = this.props;
+    // showHeroButton, showVideoTourButton
+    if (userLoggedInFlag === false) {
+      // return join call to action
+      return <a className="action" href={registerNewMemberURL}>{heroButtonText}</a>;
+    } else {
+      return '';
+    }
 
-  renderCallToAction(buttonUrl) {
-    const { heroButtonText, registerNewMemberURL } = this.props;
+    // return buttonUrl === '/join.php?type=r' ?
+    //   <a className="action" href={registerNewMemberURL}>{heroButtonText}</a> :
+    //   // <Link className="action" to={buttonUrl}>{heroButtonText}</Link>
+    //   // New
+    //   <a className="action" onClick={() => this.openModal()}> Watch Video Tour </a>
+  }
+
+
+  renderCallToActionWatchTour(buttonUrl) {
+    const { heroButtonText, registerNewMemberURL, showVideoTourButton, videoTourText } = this.props;
     // considered temporary HAXXX
     // const URLIsExternal = isExternalURL(buttonUrl);
-    console.log('heroButtonText: ', heroButtonText);
-    return buttonUrl === '/join.php?type=r' ?
-      <a className="action" href={registerNewMemberURL}>{heroButtonText}</a> :
-      // <Link className="action" to={buttonUrl}>{heroButtonText}</Link>
-      // New
-      <a className="action" onClick={() => this.openModal()}> Watch Video Tour </a>
+    if (showVideoTourButton === true && videoTourText) {
+      return <a className="action" onClick={() => this.openModal()}>{videoTourText}</a>
+    }
   }
 
 
@@ -89,6 +103,11 @@ class HeroInspire extends Component {
       heroButtonURL,
       heroEventIsLive,
       heroEventId,
+      showHeroButton,
+      showVideoTourButton,
+      videoTourText,
+      videoTourURL,
+      userLoggedInFlag,
     } = this.props;
 
     const { videoLoaded } = this.state;
@@ -108,12 +127,13 @@ class HeroInspire extends Component {
       // construct link for video event page
       `/shows/event-details/${heroEventId}`;
 
-    // New
-    // const buttonUrl = 'https://www.youtube.com/embed/NtlEhGk-tSk&amp;showinfo=0';
+
     const buttonUrl = {
+      // this should be videoUrl: videoTourURL
+      // but videoTourURL is currently a malformed youtube link
+      // awaiting update from richard
       videoUrl: 'https://www.youtube.com/embed/NtlEhGk-tSk',
     };
-    // const heroButtonText = 'Watch Video Tour';
 
     return (
       <div
@@ -141,32 +161,39 @@ class HeroInspire extends Component {
           <h2 className="title" dangerouslySetInnerHTML={{ __html: heroHeadline }} />
           <h3 className="sub-title">{heroSubheadline}</h3>
 
-          <img className={style.iconSpacer} alt="" src="assets/icons/three-amigos-with-bar.svg" />
+          <img className="divider-image" alt="" src="assets/icons/three-amigos-with-bar.svg" />
 
           <div className="call-to-action">
             {
-              buttonUrl ?
-                this.renderCallToAction(eventButtonUrl) :
-                <div style={{ width: '100px', height: '100px' }} />
+              eventButtonUrl && showHeroButton ?
+                this.renderCallToActionJoinOrEvent(eventButtonUrl) :
+                <div />
             }
           </div>
           <div className="call-to-action">
             {
-              buttonUrl ?
-                this.renderCallToAction(buttonUrl) :
-                <div style={{ width: '100px', height: '100px' }} />
+              buttonUrl && showVideoTourButton ?
+                this.renderCallToActionWatchTour(buttonUrl) :
+                <div />
             }
           </div>
         </div>
 
         <ScrollForMore />
         <style>{`
+          img.divider-image {
+            margin-right: 4px;
+          }
           div.call-to-action {
             display: inline-block;
-            margin-left: 10px;
             margin-top: 20px;
             margin-bottom: 20px;
-          }`}
+            margin-right: 10px;
+          }
+          a.action {
+            width: 215px;
+          }
+          `}
         </style>
       </div>
     );
@@ -178,6 +205,11 @@ HeroInspire.propTypes = {
   heroSubheadline: PropTypes.string.isRequired,
   heroButtonText: PropTypes.string.isRequired,
   heroButtonURL: PropTypes.string.isRequired,
+  videoTourText: PropTypes.string.isRequired,
+  videoTourURL: PropTypes.string.isRequired,
+  userLoggedInFlag: PropTypes.bool.isRequired,
+  showHeroButton: PropTypes.bool.isRequired,
+  showVideoTourButton: PropTypes.bool.isRequired,
 };
 
 export default HeroInspire;

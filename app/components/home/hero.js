@@ -36,14 +36,13 @@ class Hero extends Component {
   }
 
   renderCallToAction(buttonUrl) {
-    const { heroButtonText, registerNewMemberURL } = this.props;
+    const { heroButtonText, registerNewMemberURL, videoTourText } = this.props;
     // considered temporary HAXXX
     // const URLIsExternal = isExternalURL(buttonUrl);
-    console.log("buttonUrl: ", buttonUrl);
     return buttonUrl === '/join.php?type=r' ?
       <a className="action" href={registerNewMemberURL}>{heroButtonText}</a> :
       buttonUrl.videoUrl ?
-      <a className="action" onClick={() => this.openModal()}> Watch Video Tour </a> :
+      <a className="action" onClick={() => this.openModal()}>{videoTourText}</a> :
       <Link className="action" to={buttonUrl}>{heroButtonText}</Link>
   }
 
@@ -58,6 +57,11 @@ class Hero extends Component {
       heroFactoidIconURL,
       heroButtonText,
       heroButtonURL,
+      userLoggedInFlag,
+      showHeroButton,
+      showVideoTourButton,
+      videoTourText,
+      videoTourURL,
     } = this.props;
 
     const heroContainerStyle = {
@@ -71,6 +75,9 @@ class Hero extends Component {
       `/shows/event-details/${heroEventId}`;
 
     const tourButtonUrl = {
+      // this should be videoUrl: videoTourURL
+      // but videoTourURL is currently a malformed youtube link
+      // awaiting update from richard
       videoUrl: 'https://www.youtube.com/embed/NtlEhGk-tSk',
     };
 
@@ -101,14 +108,14 @@ class Hero extends Component {
 
         <div className="call-to-action">
           {
-            buttonUrl ?
+            buttonUrl && showHeroButton ?
               this.renderCallToAction(buttonUrl) :
               <div style={{ width: '100px', height: '100px' }} />
           }
         </div>
         <div className="call-to-action">
           {
-            tourButtonUrl ?
+            tourButtonUrl && showVideoTourButton ?
               this.renderCallToAction(tourButtonUrl) :
               <div style={{ width: '100px', height: '100px' }} />
           }
@@ -129,7 +136,7 @@ class Hero extends Component {
 }
 
 Hero.propTypes = {
-  heroEventId: PropTypes.number,
+  heroEventId: PropTypes.string,
   heroEventIsLive: PropTypes.bool,
   heroImageURL: PropTypes.string,
   heroHeadline: PropTypes.string,
@@ -138,6 +145,11 @@ Hero.propTypes = {
   heroFactoidIconURL: PropTypes.string,
   heroButtonText: PropTypes.string,
   heroButtonURL: PropTypes.string,
+  userLoggedInFlag: PropTypes.bool,
+  showHeroButton: PropTypes.bool,
+  showVideoTourButton: PropTypes.bool,
+  videoTourText: PropTypes.string,
+  videoTourURL: PropTypes.string,
 };
 
 export default Hero;

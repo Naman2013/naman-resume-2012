@@ -78,9 +78,37 @@ class Home extends Component {
       <div className={`${style.homeContainer} clearfix`}>
         {
           heroProps.heroEventId !== 0 ?
-            <Hero {...heroProps} /> :
+            <Hero
+              heroHeadline={homeContent.heroHeadline}
+              heroSubheadline={homeContent.heroSubheadline}
+              heroButtonText={homeContent.heroButtonText}
+              heroButtonURL={homeContent.heroButtonURL}
+              videoTourText={homeContent.videoTourText}
+              videoTourURL={homeContent.videoTourURL}
+              heroEventId={homeContent.heroEventId}
+              heroEventIsLive={homeContent.heroEventIsLive}
+              heroImageURL={homeContent.heroImageURL}
+              heroFactoidText={homeContent.heroFactoidText}
+              heroFactoidIconURL={homeContent.heroFactoidIconURL}
+              showHeroButton={homeContent.showHeroButton}
+              showVideoTourButton={homeContent.showVideoTourButton}
+              userLoggedInFlag={homeContent.userLoggedInFlag}
+            /> :
             <HeroInspire
-              {...heroProps}
+              heroHeadline={homeContent.heroHeadline}
+              heroSubheadline={homeContent.heroSubheadline}
+              heroButtonText={homeContent.heroButtonText}
+              heroButtonURL={homeContent.heroButtonURL}
+              videoTourText={homeContent.videoTourText}
+              videoTourURL={homeContent.videoTourURL}
+              heroEventId={homeContent.heroEventId}
+              heroEventIsLive={homeContent.heroEventIsLive}
+              heroImageURL={homeContent.heroImageURL}
+              heroFactoidText={homeContent.heroFactoidText}
+              heroFactoidIconURL={homeContent.heroFactoidIconURL}
+              showHeroButton={homeContent.showHeroButton}
+              showVideoTourButton={homeContent.showVideoTourButton}
+              userLoggedInFlag={homeContent.userLoggedInFlag}
             />
         }
 
