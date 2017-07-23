@@ -132,7 +132,7 @@ class HeroInspire extends Component {
       // this should be videoUrl: videoTourURL
       // but videoTourURL is currently a malformed youtube link
       // awaiting update from richard
-      videoUrl: 'https://www.youtube.com/embed/NtlEhGk-tSk',
+      videoUrl: videoTourURL,
     };
 
     return (

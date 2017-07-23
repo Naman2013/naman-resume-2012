@@ -42,8 +42,8 @@ class Hero extends Component {
     return buttonUrl === '/join.php?type=r' ?
       <a className="action" href={registerNewMemberURL}>{heroButtonText}</a> :
       buttonUrl.videoUrl ?
-      <a className="action" onClick={() => this.openModal()}>{videoTourText}</a> :
-      <Link className="action" to={buttonUrl}>{heroButtonText}</Link>
+        <a className="action" onClick={() => this.openModal()}>{videoTourText}</a> :
+        <a className="action" href={buttonUrl}>{heroButtonText}</a>
   }
 
   render() {
@@ -72,13 +72,14 @@ class Hero extends Component {
       // construct link for space situation room
       heroEventIsLive ? '/shows/situation-room' :
       // construct link for video event page
-      `/shows/event-details/${heroEventId}`;
+      // `/shows/event-details/${heroEventId}`;
+      heroButtonURL
 
     const tourButtonUrl = {
       // this should be videoUrl: videoTourURL
       // but videoTourURL is currently a malformed youtube link
       // awaiting update from richard
-      videoUrl: 'https://www.youtube.com/embed/NtlEhGk-tSk',
+      videoUrl: videoTourURL,
     };
 
     return (
