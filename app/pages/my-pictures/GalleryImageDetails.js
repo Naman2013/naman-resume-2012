@@ -8,9 +8,7 @@ import Pagination from '../../components/common/pagination/Pagination';
 import MyPicturesNavigation from '../../components/my-pictures/my-pictures-navigation';
 import { fetchImageDetailsAndCounts, fetchMyPicturesImageDetails } from '../../modules/my-pictures-image-details/actions';
 import { fetchGalleryPictures } from '../../modules/my-pictures-galleries/actions';
-import RichTextEditor from '../../components/rich-text-editor/RichTextEditor';
 import ImageViewer from '../../components/my-pictures/ImageViewer';
-import MissionTags from '../../components/common/tags/mission-tags';
 import { imageDetailsStyle } from './ImageDetailsStyles';
 import ImageInfoPanel from '../../components/my-pictures/ImageInfoPanel';
 
@@ -165,7 +163,7 @@ class ImageDetails extends Component {
               />
             </div>
             <aside className="right">
-              <ImageInfoPanel myPicturesImageDetails={this.props.myPicturesImageDetails} />
+              <ImageInfoPanel myPicturesImageDetails={this.props.myPicturesImageDetails} customerImageId={this.props.params.customerImageId}  />
             </aside>
           </div>
         </div>

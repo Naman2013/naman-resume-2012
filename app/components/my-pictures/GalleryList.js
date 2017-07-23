@@ -16,15 +16,22 @@ class GalleryList extends Component {
           {
             galleryList.map(gallery => (
               <li key={isImages ? gallery.customerImageId : gallery.galleryId} className="col-xs-4">
-                <Gallery
+                <div className="relative-container"><Gallery
                   {...gallery}
                   isImages={isImages}
                   imageTitle={gallery.title || gallery.imageTitle}
-                />
+                /></div>
               </li>
             ))
           }
         </ul>
+        <style jsx>
+          {`
+            .relative-container {
+              position: relative;
+            }
+          `}
+        </style>
       </div>
     );
   }

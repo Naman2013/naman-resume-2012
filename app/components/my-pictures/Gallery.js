@@ -39,7 +39,7 @@ class Gallery extends Component {
     const createdDate = moment(Number(created) * 1000);
     const url = isImages ? `/my-pictures/gallery/${galleryId}/show-image/${customerImageId}/${shareToken}` : `/my-pictures/galleries/${galleryId}`;
     return (
-      <div className="relative">
+      <div>
         <Link to={url}>
           <a className="gallery-container" style={{ backgroundImage: `url(${imageURL})` }}>
             <div className="innerContainer content">
@@ -51,9 +51,7 @@ class Gallery extends Component {
             </div>
             <style jsx>
               {`
-                .relative {
-                  position: relative;
-                }
+
                 .gallery-container {
                   ${backgroundImageCover}
                   background-position: center;

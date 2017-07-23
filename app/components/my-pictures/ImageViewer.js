@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import MyPicturesNavigation from '../../components/my-pictures/my-pictures-navigation';
 import { backgroundImageCover } from '../../styles/mixins/utilities';
 
 

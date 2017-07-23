@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import MyPicturesNavigation from '../../components/my-pictures/my-pictures-navigation';
 import { setTags } from '../../modules/tag-management/Tags';
 import MissionTags from '../../components/common/tags/mission-tags';
 
@@ -23,17 +22,28 @@ class ImageInfoPanel extends Component {
 
     this.state = {
       editorValue: props.myPicturesImageDetails.observationLog,
+      showSaveButton: false,
     };
   }
 
-  handleEditorChange = (editorHTML) => {
-    this.setState({ editorValue: editorHTML });
-
-    // make call to update changes
+  handleEditorChange = (e) => {
+    this.setState({ editorValue: e.value });
   }
 
-  setObservationLog = (text) => {
+  setObservationLog = () => {
+    this.props.actions.setTags({
+      scheduledMissionId: this.props.myPicturesImageDetails.scheduledMissionId,
+      tagClass: 'image',
+      tagType: 'observation',
+      text: '',
+      customerImageId: this.props.customerImageId,
+    })
+  }
 
+  toggleSaveButton = (value) => {
+    this.setState({
+      showSaveButton: value
+    });
   }
 
   render() {
@@ -49,42 +59,61 @@ class ImageInfoPanel extends Component {
     } = this.props.myPicturesImageDetails;
 
     return (
-      <div>
-        <h4 className="header">Observation Log</h4>
-        {canEditFlag &&
+      <div className="panel-container">
+        <div className="section">
+          <h4 className="header">Observation Log</h4>
+          {true &&
+            <div>
+              <textarea
+                id="observationLog"
+                cols="50"
+                rows="7"
+                value={this.state.editorValue}
+                onChange={this.handleEditorChange}
+                onFocus={() => this.toggleSaveButton(true)}
+              />
+              {this.state.showSaveButton && <button onClick={this.setObservationLog} className="btn btn-primary">Save</button>}
+            </div>
+          }
+          {(!true) && (observationLog.length > 0 ? <div dangerouslySetInnerHTML={{ __html: observationLog }} /> : <div>There is no observation log for this photo.</div>)}
+        </div>
+        <div className="section">
+          <h4 className="header">Image Tags</h4>
           <div>
-            <textarea
-              id="observationLog"
-              cols="50"
-              rows="7"
-              value={this.state.editorValue}
-              onBlur={this.setObservationLog}
-              onChange={this.handleEditorChange}
+            <MissionTags
+              tagClass="image"
+              tagType="observation"
+              customerImageId={this.props.customerImageId}
+              scheduledMissionId={Number(scheduledMissionId)}
+              canEditFlag={true}
             />
           </div>
-        }
-        {!canEditFlag && observationLog.length > 0 ? <div dangerouslySetInnerHTML={{ __html: observationLog }} /> : <div>There is no observation log for this photo.</div>}
-        <h4 className="header">Image Tags</h4>
-        <div>
-          <MissionTags
-            tagClass="image"
-            tagType="observation"
-            scheduledMissionId={Number(scheduledMissionId)}
-            canEditFlag={canEditFlag}
-          />
         </div>
-        <h4 className="header">File Data</h4>
-        <div>{Object.keys(fileData).map((key) => {
-          return <div key={key}><span className="bold">{key}</span>: {fileData[key]}</div>;
-        })}</div>
+        <div className="">
+          <h4 className="header">File Data</h4>
+          <div>{Object.keys(fileData).map((key) => {
+            return <div key={key}><span className="bold">{key}</span>: {fileData[key]}</div>;
+          })}</div>
+        </div>
         <style jsx>
         {`
+          .panel-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+          }
+
+          .section {
+            text-align: center;
+          }
           .bold {
             font-weight: bold;
           }
           .header {
             text-align: center;
             font-weight: bold;
+            margin-bottom: 10px;
           }
           `}
         </style>

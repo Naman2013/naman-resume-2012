@@ -4,10 +4,9 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import MyPicturesNavigation from '../../components/my-pictures/my-pictures-navigation';
 import { fetchImageDetailsAndCounts } from '../../modules/my-pictures-image-details/actions';
-import { setTags } from '../../modules/tag-management/Tags';
-import MissionTags from '../../components/common/tags/mission-tags';
 import ImageViewer from '../../components/my-pictures/ImageViewer';
 import { imageDetailsStyle } from './ImageDetailsStyles';
+import ImageInfoPanel from '../../components/my-pictures/ImageInfoPanel';
 
 const mapStateToProps = ({ myPicturesImageDetails }) => ({
   myPicturesImageDetails,
@@ -80,36 +79,10 @@ class ImageDetails extends Component {
           </div>
           <div className="container">
             <div className="left">
-              <ImageViewer myPicturesImageDetails={this.props.myPicturesImageDetails}/>
+              <ImageViewer myPicturesImageDetails={this.props.myPicturesImageDetails} />
             </div>
             <aside className="right">
-              <h4 className="header">Observation Log</h4>
-              {canEditFlag &&
-                <div>
-                  <textarea
-                    id="observationLog"
-                    cols="50"
-                    rows="7"
-                    value={this.state.editorValue}
-                    onBlur={this.setObservationLog}
-                    onChange={this.handleEditorChange}
-                  />
-                </div>
-              }
-              {!canEditFlag && observationLog.length > 0 ? <div dangerouslySetInnerHTML={{ __html: observationLog }} /> : <div>There is no observation log for this photo.</div>}
-              <h4 className="header">Image Tags</h4>
-              <div>
-                <MissionTags
-                  tagClass="image"
-                  tagType="observation"
-                  scheduledMissionId={Number(scheduledMissionId)}
-                  canEditFlag={canEditFlag}
-                />
-              </div>
-              <h4 className="header">File Data</h4>
-              <div>{Object.keys(fileData).map((key) => {
-                return <div key={key}><span className="bold">{key}</span>: {fileData[key]}</div>;
-              })}</div>
+              <ImageInfoPanel myPicturesImageDetails={this.props.myPicturesImageDetails} customerImageId={this.props.params.customerImageId} />
             </aside>
           </div>
         </div>

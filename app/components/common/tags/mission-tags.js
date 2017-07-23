@@ -84,7 +84,7 @@ class MissionTags extends Component {
     event.preventDefault();
 
     const { tagText } = this.state;
-    const { tagClass, tagType, scheduledMissionId, imageId } = this.props;
+    const { tagClass, tagType, scheduledMissionId, imageId, customerImageId } = this.props;
 
     this.props.actions.setTags({
       text: tagText,
@@ -92,6 +92,7 @@ class MissionTags extends Component {
       tagType,
       scheduledMissionId,
       imageId,
+      customerImageId,
     });
 
     this.resetTagText();
@@ -129,6 +130,7 @@ class MissionTags extends Component {
             value={tagText} />
           <button className="action" type="submit">Add a Tag</button>
         </form>}
+        {!canEditFlag && availableTags.length === 0 && <div>There are no tags.</div>}
       </div>
     );
   }

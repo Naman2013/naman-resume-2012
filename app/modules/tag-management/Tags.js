@@ -50,7 +50,6 @@ export const deleteTag = tagData => (dispatch, getState) => {
 export function setTags(tagData) {
   return function setTagsAction(dispatch, getState) {
     const { token, at, cid } = getState().user;
-
     dispatch(startSetTag());
 
     return axios.post('/api/tags/setTag', {
