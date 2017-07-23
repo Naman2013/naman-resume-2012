@@ -9,8 +9,10 @@ import MyPicturesNavigation from '../../components/my-pictures/my-pictures-navig
 import { fetchImageDetailsAndCounts, fetchMyPicturesImageDetails } from '../../modules/my-pictures-image-details/actions';
 import { fetchGalleryPictures } from '../../modules/my-pictures-galleries/actions';
 import RichTextEditor from '../../components/rich-text-editor/RichTextEditor';
+import ImageViewer from '../../components/my-pictures/ImageViewer';
 import MissionTags from '../../components/common/tags/mission-tags';
 import { imageDetailsStyle } from './ImageDetailsStyles';
+import ImageInfoPanel from '../../components/my-pictures/ImageInfoPanel';
 
 const mapStateToProps = ({ user, myPicturesImageDetails, galleries }) => ({
   myPicturesImageDetails,
@@ -136,7 +138,8 @@ class ImageDetails extends Component {
     });
     const canNext = (currentImageIndex + 1) < imageCount;
     const canPrevious = currentImageIndex !== 0;
-    const image = imageList[0] && imageList[0].imageURL;
+    const image = imageList[currentImageIndex] && imageList[currentImageIndex].imageURL;
+
     return (
       <div>
         <MyPicturesNavigation
@@ -151,14 +154,7 @@ class ImageDetails extends Component {
           </div>
           <div className="container">
             <div className="left">
-              <div className="image-container">
-                <div
-                  className="image"
-                  style={{
-                    backgroundImage: `url(${image})`
-                  }}
-                />
-              </div>
+              <ImageViewer myPicturesImageDetails={this.props.myPicturesImageDetails} currentImage={image} />
               <Pagination
                 totalCount={imageCount}
                 currentRange={rangeText}
@@ -169,29 +165,7 @@ class ImageDetails extends Component {
               />
             </div>
             <aside className="right">
-            {/* TODO pull this into a shared component with ImageDetails.js */}
-              <h4 className="header">Observation Log</h4>
-              {canEditFlag ?
-                <div>
-                  <RichTextEditor
-                    editorValue={this.state.editorValue}
-                    onChange={this.handleEditorChange}
-                  />
-                </div>
-              : <div dangerouslySetInnerHTML={{ __html: observationLog }} />
-            }
-              <h4 className="header">Image Tags</h4>
-              <div>
-                <MissionTags
-                  tagClass="image"
-                  tagType="observation"
-                  scheduledMissionId={scheduledMissionId}
-                />
-              </div>
-              <h4 className="header">File Data</h4>
-              <div>{Object.keys(fileData).map((key) => {
-                return <div key={key}><span className="bold">{key}</span>: {fileData[key]}</div>;
-              })}</div>
+              <ImageInfoPanel myPicturesImageDetails={this.props.myPicturesImageDetails} />
             </aside>
           </div>
         </div>
@@ -227,7 +201,7 @@ ImageDetails.defaultProps = {
 };
 
 ImageDetails.propTypes = {
-  myPicturesImageDetails: {
+  myPicturesImageDetails: PropTypes.shape({
     fetching: PropTypes.bool,
     error: PropTypes.bool,
     imageTitle: PropTypes.string,
@@ -244,12 +218,12 @@ ImageDetails.propTypes = {
     canDownloadFlag: PropTypes.bool,
     canEditFlag: PropTypes.bool,
     fileData: PropTypes.shape({}),
-  },
-  galleries: {
+  }),
+  galleries: PropTypes.shape({
     imageList: PropTypes.arrayOf(PropTypes.shape({
       imageURL: PropTypes.string,
     }))
-  },
+  }),
   // actions: PropTypes.shape({
   //   fetchImageDetailsAndCounts,
   // }),

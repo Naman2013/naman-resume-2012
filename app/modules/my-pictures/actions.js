@@ -93,16 +93,16 @@ export const fetchGalleries = ({
   const { at, token, cid } = getState().user;
   const { objectTypeFilter } = getState().myPictures;
   dispatch(fetchGalleriesStart());
-  dispatch(fetchGalleriesCount({})); // for pagination
-  dispatch(fetchMissionCount()); // for deeplinking
-  dispatch(fetchMyPicturesCount());// for deeplinking
+  // dispatch(fetchGalleriesCount({})); // for pagination
+  // dispatch(fetchMissionCount()); // for deeplinking
+  // dispatch(fetchMyPicturesCount());// for deeplinking
   return axios.post('/api/images/getGalleryList', {
-    // at: 3, // for testing purposes
-    // cid: 185651, // for testing purposes
-    // token: 'ff278b57d3724d41a3d48194e2f29526b30e9c0f', // for testing purposes
-    at,
-    cid,
-    token,
+    at: 3, // for testing purposes
+    cid: 185651, // for testing purposes
+    token: 'ff278b57d3724d41a3d48194e2f29526b30e9c0f', // for testing purposes
+    // at,
+    // cid,
+    // token,
     maxImageCount,
     firstImageNumber,
     filterType: objectTypeFilter.filterByField,
@@ -214,9 +214,9 @@ export const fetchPhotoRoll = ({
   dispatch(fetchPhotoRollStart());
 
   return axios.post('/api/images/getMyPictures', {
-    at,
-    cid,
-    token,
+    at: 3, // for testing purposes
+    cid: 185651, // for testing purposes
+    token: 'ff278b57d3724d41a3d48194e2f29526b30e9c0f', // for testing purposes
     pagingMode: 'api',
     maxImageCount,
     firstImageNumber,
@@ -368,12 +368,12 @@ export const fetchGalleriesCount = () => (dispatch, getState) => {
   dispatch(fetchGalleriesCountStart());
 
   return axios.post('/api/images/getGalleryCount', {
-    // at: 3, // for testing purposes
-    // cid: 185651, // for testing purposes
-    // token: 'ff278b57d3724d41a3d48194e2f29526b30e9c0f', // for testing purposes
-    at,
-    cid,
-    token,
+    at: 3, // for testing purposes
+    cid: 185651, // for testing purposes
+    token: 'ff278b57d3724d41a3d48194e2f29526b30e9c0f', // for testing purposes
+    // at,
+    // cid,
+    // token,
   })
   .then(result => {
     if (result.apiError) {

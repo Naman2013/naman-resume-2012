@@ -118,7 +118,7 @@ class MissionTags extends Component {
           handleAddition={this.handleAddition}
           handleDrag={this.handleDrag} />
 
-        <form className="add-tag-form" onSubmit={this.handleSubmit} method="POST">
+        {canEditFlag && <form className="add-tag-form" onSubmit={this.handleSubmit} method="POST">
           <input
             className="tag-text"
             placeholder="Tag text"
@@ -128,7 +128,7 @@ class MissionTags extends Component {
             onChange={this.handleTagTextChange}
             value={tagText} />
           <button className="action" type="submit">Add a Tag</button>
-        </form>
+        </form>}
       </div>
     );
   }
@@ -136,6 +136,7 @@ class MissionTags extends Component {
 
 MissionTags.defaultProps = {
   imageId: '',
+  canEditFlag: true,
 };
 
 MissionTags.propTypes = {
@@ -143,6 +144,7 @@ MissionTags.propTypes = {
   tagType: PropTypes.string.isRequired,
   scheduledMissionId: PropTypes.number.isRequired,
   imageId: PropTypes.string,
+  canEditFlag: PropTypes.bool,
 };
 
 export default MissionTags;

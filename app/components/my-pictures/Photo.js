@@ -2,22 +2,21 @@ import React, { Component, PropTypes } from 'react';
 import Markdown from 'react-remarkable';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { fetchGalleries } from '../../modules/my-pictures/actions';
 
 import { Link } from 'react-router';
 import PhotoActions from './PhotoActions';
 import s from './Photo.scss';
 
 const mapStateToProps = ({ myPictures }) => ({
-  error: myPictures.galleries.error,
-  errorBody: myPictures.galleries.errorBody,
-  fetching: myPictures.galleries.fetching,
-  galleryList: myPictures.galleries.response.galleryList,
+  // error: myPictures.galleries.error,
+  // errorBody: myPictures.galleries.errorBody,
+  // fetching: myPictures.galleries.fetching,
+  // galleryList: myPictures.galleries.response.galleryList,
 });
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
-    fetchGalleries,
+    // fetchGalleries,
   }, dispatch),
 });
 
@@ -27,10 +26,6 @@ class Photo extends Component {
     super(props);
   }
 
-  componentWillMount() {
-    this.props.actions.fetchGalleries({});
-  }
-
   render() {
     const {
       imageURL,
@@ -38,7 +33,6 @@ class Photo extends Component {
       imageTitle,
       overlayText,
       detailsUrl,
-      galleryList,
     } = this.props;
 
     const inlinePhotoStyle = {
@@ -57,7 +51,7 @@ class Photo extends Component {
             </div>
             <ul className={s.photoMenu}>
               <li>
-                <PhotoActions imageURL={imageURL} galleryList={galleryList} />
+                <PhotoActions imageURL={imageURL}/>
               </li>
             </ul>
           </div>
