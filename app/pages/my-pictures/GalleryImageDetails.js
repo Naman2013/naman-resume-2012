@@ -114,15 +114,11 @@ class ImageDetails extends Component {
 
   render() {
     const {
-      scheduledMissionId,
-      observationLog,
-      error,
-      fetching,
-      canEditFlag,
       imageTitle,
-      fileData,
     } = this.props.myPicturesImageDetails;
     const {
+      error,
+      fetching,
       imageCount,
       imageList,
     } = this.props.galleries;
@@ -152,7 +148,7 @@ class ImageDetails extends Component {
           </div>
           <div className="container">
             <div className="left">
-              <ImageViewer myPicturesImageDetails={this.props.myPicturesImageDetails} currentImage={image} />
+              <ImageViewer myPicturesImageDetails={this.props.myPicturesImageDetails} currentImage={image} fetching={fetching} error={error}  />
               <Pagination
                 totalCount={imageCount}
                 currentRange={rangeText}

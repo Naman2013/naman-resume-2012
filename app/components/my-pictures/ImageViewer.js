@@ -7,23 +7,33 @@ class ImageViewer extends Component {
 
   render() {
     const {
-      error,
-      fetching,
       imageURL,
     } = this.props.myPicturesImageDetails;
 
-    const { currentImage } = this.props; // for galleries
+    const {
+      currentImage,
+      error,
+      fetching,
+    } = this.props; // for galleries
 
     return (
       <div className="image-container">
-        <div
+        {fetching && <div className="message">Loading Image...</div>}
+        {error && <div className="message">Could not get image .</div>}
+        {(!fetching && !error) && <div
           className="image"
           style={{
             backgroundImage: `url(${currentImage || imageURL})`
           }}
-        />
+        />}
         <style jsx>
           {`
+            .message {
+              margin-top: 100px;
+              text-align: center;
+              height: 500px;
+            }
+
             .image-container {
               width: 90%;
             }

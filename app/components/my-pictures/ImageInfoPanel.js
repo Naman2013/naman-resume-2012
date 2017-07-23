@@ -27,7 +27,7 @@ class ImageInfoPanel extends Component {
   }
 
   handleEditorChange = (e) => {
-    this.setState({ editorValue: e.value });
+    this.setState({ editorValue: e.target.value });
   }
 
   setObservationLog = () => {
@@ -35,7 +35,7 @@ class ImageInfoPanel extends Component {
       scheduledMissionId: this.props.myPicturesImageDetails.scheduledMissionId,
       tagClass: 'image',
       tagType: 'observation',
-      text: '',
+      text: this.state.editorValue,
       customerImageId: this.props.customerImageId,
     })
   }
@@ -59,44 +59,52 @@ class ImageInfoPanel extends Component {
     } = this.props.myPicturesImageDetails;
 
     return (
-      <div className="panel-container">
-        <div className="section">
-          <h4 className="header">Observation Log</h4>
-          {true &&
-            <div>
-              <textarea
-                id="observationLog"
-                cols="50"
-                rows="7"
-                value={this.state.editorValue}
-                onChange={this.handleEditorChange}
-                onFocus={() => this.toggleSaveButton(true)}
-              />
-              {this.state.showSaveButton && <button onClick={this.setObservationLog} className="btn btn-primary">Save</button>}
-            </div>
-          }
-          {(!true) && (observationLog.length > 0 ? <div dangerouslySetInnerHTML={{ __html: observationLog }} /> : <div>There is no observation log for this photo.</div>)}
-        </div>
-        <div className="section">
-          <h4 className="header">Image Tags</h4>
-          <div>
-            <MissionTags
-              tagClass="image"
-              tagType="observation"
-              customerImageId={this.props.customerImageId}
-              scheduledMissionId={Number(scheduledMissionId)}
-              canEditFlag={true}
-            />
+      <div>
+        {fetching && <div className="message">Loading Image Details...</div>}
+        {error && <div className="message">Could not get image details.</div>}
+        {(!fetching && !error) && <div className="panel-container">
+          <div className="section">
+            <h4 className="header">Observation Log</h4>
+            {true &&
+              <div>
+                <textarea
+                  id="observationLog"
+                  cols="50"
+                  rows="7"
+                  value={this.state.editorValue}
+                  onChange={this.handleEditorChange}
+                  onFocus={() => this.toggleSaveButton(true)}
+                />
+                {this.state.showSaveButton && <button onClick={this.setObservationLog} className="btn btn-primary">Save</button>}
+              </div>
+            }
+            {(!true) && (observationLog.length > 0 ? <div dangerouslySetInnerHTML={{ __html: observationLog }} /> : <div>There is no observation log for this photo.</div>)}
           </div>
-        </div>
-        <div className="">
-          <h4 className="header">File Data</h4>
-          <div>{Object.keys(fileData).map((key) => {
-            return <div key={key}><span className="bold">{key}</span>: {fileData[key]}</div>;
-          })}</div>
-        </div>
+          <div className="section">
+            <h4 className="header">Image Tags</h4>
+            <div>
+              <MissionTags
+                tagClass="image"
+                tagType="observation"
+                customerImageId={this.props.customerImageId}
+                scheduledMissionId={Number(scheduledMissionId)}
+                canEditFlag={true}
+              />
+            </div>
+          </div>
+          <div className="">
+            <h4 className="header">File Data</h4>
+            <div>{Object.keys(fileData).map((key) => {
+              return <div key={key}><span className="bold">{key}</span>: {fileData[key]}</div>;
+            })}</div>
+          </div>
+        </div>}
         <style jsx>
         {`
+          .message {
+            text-align: center;
+            margin-top: 100px;
+          }
           .panel-container {
             display: flex;
             flex-direction: column;
