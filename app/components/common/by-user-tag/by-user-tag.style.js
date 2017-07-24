@@ -2,7 +2,7 @@ import { black, white, lightTurqoise, red } from '../../../styles/variables/colo
 import { backgroundImageCover, borderRadius } from '../../../styles/mixins/utilities';
 
 export default `
-  .slooh-by-user-tag {
+  .root {
     display: flex;
     align-items: center;
   }
@@ -13,8 +13,8 @@ export default `
   }
 
   .profile-photo {
-    ${backgroundImageCover}
-    ${borderRadius('50%')}
+    ${backgroundImageCover};
+    ${borderRadius('50%')};
     background-repeat: no-repeat;
     background-position: center;
     width: 45px;
