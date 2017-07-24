@@ -146,6 +146,7 @@ class HeroInspire extends Component {
           closeModal={this.closeModal}
           title={''}
           description={<VideoModal {...buttonUrl} />}
+          bg={'black'}
         />
 
         {
