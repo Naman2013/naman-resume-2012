@@ -24,7 +24,7 @@ function ByUserTag({
   };
 
   return (
-    <div className="slooh-by-user-tag">
+    <div className="root">
       <div className="profile-photo" style={profilePhotoStyle} />
 
       <div className="profile-name">
