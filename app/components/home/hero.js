@@ -93,6 +93,7 @@ class Hero extends Component {
           closeModal={this.closeModal}
           title={''}
           description={<VideoModal {...tourButtonUrl} />}
+          bg={'black'}
         />
 
         <h2 className="title">{heroHeadline}</h2>

@@ -5,11 +5,12 @@ import style from './modal-generic.scss';
 
 class ModalGeneric extends Component {
   render() {
-    const { closeModal, open, title, description, closeButtonText } = this.props;
+    const { closeModal, open, title, description, closeButtonText, bg } = this.props;
+    console.log('background setting: ', bg);
     return (
       <Modal
         show={open}
-        className="generic-modal"
+        className={`generic-modal`}
       >
 
         {
@@ -35,6 +36,11 @@ class ModalGeneric extends Component {
             {closeButtonText}
           </Button>
         </Modal.Footer>
+        <style>{`
+          div.modal-content {
+            background-color: ${bg};
+          }
+        `}</style>
       </Modal>
     );
   }
@@ -43,6 +49,7 @@ class ModalGeneric extends Component {
 ModalGeneric.defaultProps = {
   open: false,
   closeButtonText: 'Dismiss',
+  bg: 'white',
 };
 
 ModalGeneric.propTypes = {
@@ -51,6 +58,7 @@ ModalGeneric.propTypes = {
   title: PropTypes.any,
   description: PropTypes.any,
   closeButtonText: PropTypes.string,
+  bg: PropTypes.string,
 };
 
 export default ModalGeneric;
