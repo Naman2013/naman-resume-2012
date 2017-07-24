@@ -35,9 +35,7 @@ function ByUserTag({
         </h4>
       </div>
 
-      <style jsx>{`
-        ${byUserTagStyle}
-      `}</style>
+      <style jsx>{byUserTagStyle}</style>
     </div>
   );
 }
