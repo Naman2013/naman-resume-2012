@@ -111,7 +111,7 @@ class ImageInfoPanel extends Component {
     } = this.props.myPicturesImageDetails;
 
     return (
-      <div>
+      <div className="height-100">
         {fetching && <div className="message">Loading Image Details...</div>}
         {error && <div className="message">Could not get image details.</div>}
         {(!fetching && !error) && <div className="panel-container">
@@ -158,7 +158,8 @@ class ImageInfoPanel extends Component {
         </div>}
         <style jsx>
         {`
-          .obsLog {
+          .height-100 {
+            height: 100%;
           }
 
           .message {
