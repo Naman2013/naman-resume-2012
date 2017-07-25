@@ -6,19 +6,44 @@ import isExternalURL from '../../utils/is-external-url';
 import style from './hero.scss';
 import ScrollForMore from '../common/scroll-for-more';
 
+import ModalGeneric from '../common/modals/modal-generic';
+import VideoModal from './video-modal';
+
 const mapStateToProps = ({ appConfig }) => ({
   registerNewMemberURL: appConfig.registerNewMemberURL,
 });
 
 @connect(mapStateToProps)
 class Hero extends Component {
+  state = {
+    modalOpen: false,
+  };
+  // New
+  closeModal = (event) => {
+    event.preventDefault();
+
+    this.setState({
+      modalOpen: false,
+    });
+  }
+
+  // New
+  openModal(modalContent) {
+    this.setState({
+      ...modalContent,
+      modalOpen: true,
+    });
+  }
+
   renderCallToAction(buttonUrl) {
-    const { heroButtonText, registerNewMemberURL } = this.props;
+    const { heroButtonText, registerNewMemberURL, videoTourText } = this.props;
     // considered temporary HAXXX
     // const URLIsExternal = isExternalURL(buttonUrl);
     return buttonUrl === '/join.php?type=r' ?
       <a className="action" href={registerNewMemberURL}>{heroButtonText}</a> :
-      <Link className="action" to={buttonUrl}>{heroButtonText}</Link>
+      buttonUrl.videoUrl ?
+        <a className="action" onClick={() => this.openModal()}>{videoTourText}</a> :
+        <a className="action" href={buttonUrl}>{heroButtonText}</a>
   }
 
   render() {
@@ -32,6 +57,11 @@ class Hero extends Component {
       heroFactoidIconURL,
       heroButtonText,
       heroButtonURL,
+      userLoggedInFlag,
+      showHeroButton,
+      showVideoTourButton,
+      videoTourText,
+      videoTourURL,
     } = this.props;
 
     const heroContainerStyle = {
@@ -42,13 +72,29 @@ class Hero extends Component {
       // construct link for space situation room
       heroEventIsLive ? '/shows/situation-room' :
       // construct link for video event page
-      `/shows/event-details/${heroEventId}`;
+      // `/shows/event-details/${heroEventId}`;
+      heroButtonURL
+
+    const tourButtonUrl = {
+      // this should be videoUrl: videoTourURL
+      // but videoTourURL is currently a malformed youtube link
+      // awaiting update from richard
+      videoUrl: videoTourURL,
+    };
 
     return (
       <div
         style={heroContainerStyle}
         className="hero-container"
       >
+
+        <ModalGeneric
+          open={this.state.modalOpen}
+          closeModal={this.closeModal}
+          title={''}
+          description={<VideoModal {...tourButtonUrl} />}
+          bg={'black'}
+        />
 
         <h2 className="title">{heroHeadline}</h2>
         <h3 className="sub-title">{heroSubheadline}</h3>
@@ -64,20 +110,35 @@ class Hero extends Component {
 
         <div className="call-to-action">
           {
-            buttonUrl ?
+            buttonUrl && showHeroButton ?
               this.renderCallToAction(buttonUrl) :
+              <div style={{ width: '100px', height: '100px' }} />
+          }
+        </div>
+        <div className="call-to-action">
+          {
+            tourButtonUrl && showVideoTourButton ?
+              this.renderCallToAction(tourButtonUrl) :
               <div style={{ width: '100px', height: '100px' }} />
           }
         </div>
 
         <ScrollForMore />
+        <style>{`
+          div.call-to-action {
+            display: inline-block;
+            margin-left: 10px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+          }`}
+        </style>
       </div>
     );
   }
 }
 
 Hero.propTypes = {
-  heroEventId: PropTypes.number,
+  heroEventId: PropTypes.string,
   heroEventIsLive: PropTypes.bool,
   heroImageURL: PropTypes.string,
   heroHeadline: PropTypes.string,
@@ -86,6 +147,11 @@ Hero.propTypes = {
   heroFactoidIconURL: PropTypes.string,
   heroButtonText: PropTypes.string,
   heroButtonURL: PropTypes.string,
+  userLoggedInFlag: PropTypes.bool,
+  showHeroButton: PropTypes.bool,
+  showVideoTourButton: PropTypes.bool,
+  videoTourText: PropTypes.string,
+  videoTourURL: PropTypes.string,
 };
 
 export default Hero;
