@@ -10,7 +10,7 @@ import GoogleAd from '../../components/common/google-ads/GoogleAd';
 import SloohRecommends from '../../components/common/recommendations/SloohRecommends';
 import PulsePopular from '../../components/pulse/sidebar/pulse-popular';
 import s from './EventDetails.scss';
-import * as eventInfoActions from '../../modules/event-info/actions';
+import { fetchEventInfo } from '../../modules/event-info/actions';
 
 const { func, object } = PropTypes;
 class EventDetails extends Component {
@@ -114,6 +114,8 @@ const mapStateToProps = ({ eventInfo, post, user, upcomingEvents }) => ({
   moreAboutObject: post.moreAboutObject,
   nextEvent: upcomingEvents.nextEvent,
 });
-const mapDispatchToProps = dispatch => (bindActionCreators(eventInfoActions, dispatch));
+const mapDispatchToProps = dispatch => (bindActionCreators({
+  fetchEventInfo
+}, dispatch));
 
 export default connect(mapStateToProps, mapDispatchToProps)(EventDetails);

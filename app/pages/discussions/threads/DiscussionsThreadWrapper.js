@@ -5,9 +5,9 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { List } from 'immutable';
 import isEmpty from 'lodash/isEmpty';
-import * as topicsActions from '../../../modules/discussions-topics/actions';
-import * as threadActions from '../../../modules/discussions-thread/actions';
-import * as replyActions from '../../../modules/discussions-replies/actions';
+import { fetchTopicList } from '../../../modules/discussions-topics/actions';
+import { fetchThread } from '../../../modules/discussions-thread/actions';
+import { fetchReplies } from '../../../modules/discussions-replies/actions';
 import DiscussionsThread from './DiscussionsThread';
 import GenericLoadingBox from '../../../components/common/loading-screens/generic-loading-box';
 import ForumsIndex from '../../../components/discussions/forums-index';
@@ -116,9 +116,9 @@ const mapStateToProps = ({ discussionsThread, discussionsReplies, discussionsTop
   user,
 });
 const mapDispatchToProps = dispatch => (bindActionCreators({
-  ...topicsActions,
-  ...threadActions,
-  ...replyActions
+  fetchReplies,
+  fetchThread,
+  fetchTopicList,
 }, dispatch));
 
 export default connect(mapStateToProps, mapDispatchToProps)(DiscussionsThreadWrapper);

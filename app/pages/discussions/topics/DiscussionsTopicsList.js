@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { List } from 'immutable';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import * as topicActions from '../../../modules/discussions-topics/actions';
+import { fetchTopicList } from '../../../modules/discussions-topics/actions';
 import GenericLoadingBox from '../../../components/common/loading-screens/generic-loading-box';
 import DiscussionsTopicList from '../../../components/discussions/DiscussionsTopicList';
 import DiscussionsListHeader from '../../../components/discussions/DiscussionsListHeader';
@@ -54,6 +54,8 @@ const mapStateToProps = ({ discussionsTopics }) => ({
   page: discussionsTopics.page,
   fetching: discussionsTopics.fetching,
 });
-const mapDispatchToProps = dispatch => (bindActionCreators(topicActions, dispatch));
+const mapDispatchToProps = dispatch => (bindActionCreators({
+  fetchTopicList
+}, dispatch));
 
 export default connect(mapStateToProps, mapDispatchToProps)(DiscussionsTopicsList);
