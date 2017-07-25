@@ -159,7 +159,6 @@ class ImageInfoPanel extends Component {
         <style jsx>
         {`
           .obsLog {
-            height: 275px;
           }
 
           .message {
