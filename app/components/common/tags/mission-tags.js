@@ -52,7 +52,7 @@ class MissionTags extends Component {
 
   handleDelete(tag) {
 
-    const { tagClass, tagType, scheduledMissionId, imageId } = this.props;
+    const { tagClass, tagType, scheduledMissionId, imageId, customerImageId } = this.props;
 
     const { tagList } = this.props.tags;
     const deleteTag = tagList.find( originalTag => originalTag.tagIndex === tag );
@@ -63,6 +63,7 @@ class MissionTags extends Component {
       tagType,
       scheduledMissionId,
       imageId,
+      customerImageId,
     });
   }
 
@@ -114,7 +115,7 @@ class MissionTags extends Component {
       <div className="slooh-mission-tags">
         {tagClass === "mission" && <h4 className="title">MISSION TAGS:</h4>}
         <ReactTags
-          readOnly={canEditFlag}
+          readOnly={!canEditFlag}
           tags={availableTags}
           handleDelete={this.handleDelete}
           handleAddition={this.handleAddition}

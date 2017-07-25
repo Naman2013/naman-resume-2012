@@ -1,9 +1,13 @@
 import createReducer from '../utils/createReducer';
 import axios from 'axios';
+import { setTag } from '../../services/tags/set-tag';
 
 const SET_TAGS_START = 'SET_TAGS_START';
 const SET_TAGS_SUCCESS = 'SET_TAGS_SUCCESS';
 const SET_TAGS_FAIL = 'SET_TAGS_FAIL';
+const GET_TAGS_START = 'GET_TAGS_START';
+const GET_TAGS_SUCCESS = 'GET_TAGS_SUCCESS';
+const GET_TAGS_FAIL = 'GET_TAGS_FAIL';
 
 const RESET_CLIENT_TAG_DATA = 'RESET_CLIENT_TAG_DATA';
 
@@ -19,6 +23,20 @@ const setTagsFail = error => ({
 
 const startSetTag = () => ({
   type: SET_TAGS_START,
+});
+
+const getTagsSuccess = result => ({
+  type: GET_TAGS_SUCCESS,
+  payload: result,
+});
+
+const getTagsFail = error => ({
+  type: GET_TAGS_FAIL,
+  payload: error,
+});
+
+const startGetTag = () => ({
+  type: GET_TAGS_START,
 });
 
 /**
@@ -52,7 +70,11 @@ export function setTags(tagData) {
     const { token, at, cid } = getState().user;
     dispatch(startSetTag());
 
-    return axios.post('/api/tags/setTag', {
+    return setTag({
+      // at: 3, // for testing purposes
+      // cid: 185651, // for testing purposes
+      // token: 'ff278b57d3724d41a3d48194e2f29526b30e9c0f', // for testing purposes
+      // customerId: 185651,// for testing purposes
       token,
       at,
       cid,
@@ -64,15 +86,41 @@ export function setTags(tagData) {
   };
 }
 
+/**
+  get tags
+  /api/tags/getTag
+  see: https://docs.google.com/document/d/1nYo6_O87gWCqyoD3NJ98cbA5Cpxo-8ksB3Dw3PbjAa0/
+*/
+export function getTags(tagData) {
+  return function setTagsAction(dispatch, getState) {
+    const { token, at, cid } = getState().user;
+    dispatch(startGetTag());
+
+    return axios.post('/api/tags/getTags', {
+      // at: 3, // for testing purposes
+      // cid: 185651, // for testing purposes
+      // token: 'ff278b57d3724d41a3d48194e2f29526b30e9c0f', // for testing purposes
+      // customerId: 185651,// for testing purposes
+      token,
+      at,
+      cid,
+      customerId: cid,
+      ...tagData,
+    })
+    .then(result => dispatch(getTagsSuccess(result.data)))
+    .catch(error => dispatch(getTagsFail(error)));
+  };
+}
+
 export const resetClientTagData = () => ({
   type: RESET_CLIENT_TAG_DATA,
 });
 
 const generateInitialState = () => ({
-  isLoading: false,
   tags: null,
   settingTag: false,
   previousSetTagError: null,
+  fetching: false,
 });
 
 export default createReducer(generateInitialState(), {
@@ -94,6 +142,25 @@ export default createReducer(generateInitialState(), {
       ...state,
       settingTag: false,
       previousSetTagError: payload,
+    }
+  },
+  [GET_TAGS_START](state) {
+    return {
+      ...state,
+      fetching: true,
+    };
+  },
+  [GET_TAGS_SUCCESS](state, { payload }) {
+    return {
+      ...state,
+      tags: payload,
+      fetching: false,
+    };
+  },
+  [GET_TAGS_FAIL](state, { payload }) {
+    return {
+      ...state,
+      fetching: false,
     }
   },
   [RESET_CLIENT_TAG_DATA](state) {

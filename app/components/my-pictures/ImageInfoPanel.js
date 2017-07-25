@@ -2,16 +2,18 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { setTags } from '../../modules/tag-management/Tags';
+import { getTags } from '../../modules/tag-management/Tags';
 import MissionTags from '../../components/common/tags/mission-tags';
+import { setTag } from '../../services/tags/set-tag';
 
-const mapStateToProps = ({ myPicturesImageDetails }) => ({
+const mapStateToProps = ({ user, myPicturesImageDetails }) => ({
+  user,
   myPicturesImageDetails,
 });
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
-    setTags
+    getTags,
   }, dispatch),
 });
 
@@ -21,9 +23,29 @@ class ImageInfoPanel extends Component {
     super(props);
 
     this.state = {
-      editorValue: props.myPicturesImageDetails.observationLog,
+      editorValue: '',
       showSaveButton: false,
+      showSavedText: false,
+      showSavingText: false,
+      showErrorText: false,
     };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.myPicturesImageDetails.scheduledMissionId !== this.props.myPicturesImageDetails.scheduledMissionId) {
+      this.props.actions.getTags({
+        tagClass: 'image',
+        tagType: 'user',
+        customerImageId: this.props.customerImageId,
+        scheduledMissionId: nextProps.myPicturesImageDetails.scheduledMissionId
+      });
+    }
+
+    if (this.props.myPicturesImageDetails.observationLog !== nextProps.myPicturesImageDetails.observationLog) {
+      this.setState({
+        editorValue: nextProps.myPicturesImageDetails.observationLog,
+      });
+    }
   }
 
   handleEditorChange = (e) => {
@@ -31,12 +53,42 @@ class ImageInfoPanel extends Component {
   }
 
   setObservationLog = () => {
-    this.props.actions.setTags({
+    const { user } = this.props;
+    this.setState({
+      showSavingText: true,
+      showErrorText: false,
+    });
+
+    setTag({
+      // at: 3, // for testing purposes
+      // cid: 185651, // for testing purposes
+      // token: 'ff278b57d3724d41a3d48194e2f29526b30e9c0f', // for testing purposes
+      at: user.at,
+      token: user.token,
+      cid: user.cid,
       scheduledMissionId: this.props.myPicturesImageDetails.scheduledMissionId,
       tagClass: 'image',
       tagType: 'observation',
       text: this.state.editorValue,
       customerImageId: this.props.customerImageId,
+    }).then((res) => {
+      if (!res.data.apiError) {
+        this.setState({
+          showSavedText: true,
+          showSavingText: false,
+        });
+
+        setTimeout(() => {
+          this.setState({
+            showSavedText: false,
+          });
+        }, 2000)
+      } else {
+        this.setState({
+          showErrorText: true,
+        });
+      }
+
     })
   }
 
@@ -63,9 +115,9 @@ class ImageInfoPanel extends Component {
         {fetching && <div className="message">Loading Image Details...</div>}
         {error && <div className="message">Could not get image details.</div>}
         {(!fetching && !error) && <div className="panel-container">
-          <div className="section">
+          <div className="section obsLog">
             <h4 className="header">Observation Log</h4>
-            {true &&
+            {canEditFlag &&
               <div>
                 <textarea
                   id="observationLog"
@@ -75,20 +127,25 @@ class ImageInfoPanel extends Component {
                   onChange={this.handleEditorChange}
                   onFocus={() => this.toggleSaveButton(true)}
                 />
-                {this.state.showSaveButton && <button onClick={this.setObservationLog} className="btn btn-primary">Save</button>}
+                  {this.state.showSaveButton && <div className="button">
+                    {this.state.showSavedText && <div>Saved!</div>}
+                    {this.state.showSavingText && <div>Saving...</div>}
+                    {this.state.showErrorText && <div>There was an issue saving.</div>}
+                  <button onClick={this.setObservationLog} className="btn btn-primary">Save</button>
+                </div>}
               </div>
             }
-            {(!true) && (observationLog.length > 0 ? <div dangerouslySetInnerHTML={{ __html: observationLog }} /> : <div>There is no observation log for this photo.</div>)}
+            {(!canEditFlag) && (observationLog.length > 0 ? <div dangerouslySetInnerHTML={{ __html: observationLog }} /> : <div>There is no observation log for this photo.</div>)}
           </div>
           <div className="section">
             <h4 className="header">Image Tags</h4>
             <div>
               <MissionTags
                 tagClass="image"
-                tagType="observation"
+                tagType="user"
                 customerImageId={this.props.customerImageId}
                 scheduledMissionId={Number(scheduledMissionId)}
-                canEditFlag={true}
+                canEditFlag={canEditFlag}
               />
             </div>
           </div>
@@ -101,6 +158,10 @@ class ImageInfoPanel extends Component {
         </div>}
         <style jsx>
         {`
+          .obsLog {
+            height: 275px;
+          }
+
           .message {
             text-align: center;
             margin-top: 100px;
@@ -122,6 +183,15 @@ class ImageInfoPanel extends Component {
             text-align: center;
             font-weight: bold;
             margin-bottom: 10px;
+          }
+          `}
+        </style>
+
+        <style jsx global>
+        {`
+          .panel-container .ReactTags__tag {
+            display: inline-block;
+            margin: 5px;
           }
           `}
         </style>

@@ -114,6 +114,7 @@ class ImageDetails extends Component {
 
   render() {
     const {
+      scheduledMissionId,
       imageTitle,
     } = this.props.myPicturesImageDetails;
     const {
@@ -148,7 +149,7 @@ class ImageDetails extends Component {
           </div>
           <div className="container">
             <div className="left my-pic-galleries">
-              <ImageViewer myPicturesImageDetails={this.props.myPicturesImageDetails} currentImage={image} fetching={fetching} error={error}  />
+              <ImageViewer currentImage={image} fetching={fetching} error={error}  />
               <Pagination
                 totalCount={imageCount}
                 currentRange={rangeText}
@@ -159,7 +160,7 @@ class ImageDetails extends Component {
               />
             </div>
             <aside className="right">
-              <ImageInfoPanel myPicturesImageDetails={this.props.myPicturesImageDetails} customerImageId={this.props.params.customerImageId}  />
+              <ImageInfoPanel customerImageId={this.props.params.customerImageId}  />
             </aside>
           </div>
         </div>
@@ -192,6 +193,7 @@ ImageDetails.defaultProps = {
     showLikePrompt: false,
     likePrompt: '',
     canDownloadFlag: false,
+    scheduledMissionId: 0,
     canEditFlag: false,
     fileData: {},
   },

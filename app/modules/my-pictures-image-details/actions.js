@@ -28,6 +28,9 @@ export const fetchMyPicturesImageDetails = ({
   dispatch(fetchMyPicturesImageDetailsStart());
 
   return axios.post('/api/images/getImageDetails', {
+    // at: 3, // for testing purposes
+    // cid: 185651, // for testing purposes
+    // token: 'ff278b57d3724d41a3d48194e2f29526b30e9c0f', // for testing purposes
     at,
     cid,
     token,

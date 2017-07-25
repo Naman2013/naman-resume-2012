@@ -79,10 +79,10 @@ class ImageDetails extends Component {
           </div>
           <div className="container">
             <div className="left">
-              <ImageViewer myPicturesImageDetails={this.props.myPicturesImageDetails} fetching={fetching} error={error} />
+              <ImageViewer fetching={fetching} error={error} />
             </div>
             <aside className="right">
-              <ImageInfoPanel myPicturesImageDetails={this.props.myPicturesImageDetails} customerImageId={this.props.params.customerImageId} />
+              <ImageInfoPanel customerImageId={this.props.params.customerImageId} />
             </aside>
           </div>
         </div>
