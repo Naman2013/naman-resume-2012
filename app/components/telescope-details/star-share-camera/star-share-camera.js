@@ -173,7 +173,7 @@ class StarShareCamera extends Component {
             />
         }
 
-        {/* <style jsx>{shakeStyle}</style> */}
+        <style jsx>{shakeStyle}</style>
 
         <style jsx>{`
           .star-share-camera-wrapper {
