@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router';
+import purgeHashURL from '../../utils/purgeHashURL';
 
 class ListObservatoryChildren extends Component {
   render() {
@@ -8,9 +10,12 @@ class ListObservatoryChildren extends Component {
         {
           this.props.data.map((child, i) => (
             <li key={child.teleName}>
-              <a className={`item scope-${child.teleOnlineStatus}`} href={child.teleDetailsURL}>
+              <Link
+                className={`item scope-${child.teleOnlineStatus}`}
+                to={purgeHashURL(child.teleDetailsURL)}
+              >
                 {child.teleName}
-              </a>
+              </Link>
             </li>
           ))
         }
