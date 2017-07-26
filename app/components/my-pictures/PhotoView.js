@@ -197,8 +197,8 @@ PhotoView.defaultProps = {
   firstImageNumber: 1,
   paginateParams: {},
   missions: false,
-  imageList: null,
-  galleryList: null,
+  imageList: [],
+  galleryList: [],
 };
 
 // TODO: increase validation for the imageList types.

@@ -149,7 +149,7 @@ class ImageDetails extends Component {
           </div>
           <div className="container">
             <div className="left my-pic-galleries">
-              <ImageViewer currentImage={image} fetching={fetching} error={error}  />
+              <ImageViewer currentImage={image} fetching={fetching} error={error} />
               <Pagination
                 totalCount={imageCount}
                 currentRange={rangeText}

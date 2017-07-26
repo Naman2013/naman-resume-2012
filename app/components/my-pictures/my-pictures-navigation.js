@@ -86,7 +86,7 @@ class MyPicturesNavigation extends Component {
         <ul className={s.myPictureNavigationContainer}>
           <li className={s.rootNavigationItem}>
             <Link to="my-pictures/photo-roll" className={s.button} activeClassName="active">
-              Photo Roll<span>({photoRollCount})</span>
+              Photo Roll <span>({photoRollCount})</span>
             </Link>
           </li>
           <li className={s.rootNavigationItem}>

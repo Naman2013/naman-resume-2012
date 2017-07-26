@@ -7,10 +7,6 @@ class ImageViewer extends Component {
 
   render() {
     const {
-      imageURL,
-    } = this.props.myPicturesImageDetails;
-
-    const {
       currentImage,
       error,
       fetching,
@@ -23,7 +19,7 @@ class ImageViewer extends Component {
         {(!fetching && !error) && <div
           className="image"
           style={{
-            backgroundImage: `url(${currentImage || imageURL})`
+            backgroundImage: `url(${currentImage})`
           }}
         />}
         <style jsx>
@@ -65,47 +61,11 @@ class ImageViewer extends Component {
 }
 
 ImageViewer.defaultProps = {
-  currentImage: null,
-  myPicturesImageDetails: {
-    fetching: false,
-    error: false,
-    imageTitle: '',
-    imageURL: '',
-    zoom: 0,
-    originx: 0,
-    originy: 0,
-    observationLog: '',
-    shareToken: '',
-    likesCount: 0,
-    canLikeFlag: false,
-    showLikePrompt: false,
-    likePrompt: '',
-    canDownloadFlag: false,
-    canEditFlag: false,
-    fileData: {},
-  },
   actions: {},
 };
 
 ImageViewer.propTypes = {
-  myPicturesImageDetails: PropTypes.shape({
-    fetching: PropTypes.bool,
-    error: PropTypes.bool,
-    imageTitle: PropTypes.string,
-    imageURL: PropTypes.string,
-    zoom: PropTypes.number,
-    originx: PropTypes.number,
-    originy: PropTypes.number,
-    observationLog: PropTypes.string,
-    shareToken: PropTypes.string,
-    likesCount: PropTypes.number,
-    canLikeFlag: PropTypes.bool,
-    showLikePrompt: PropTypes.bool,
-    likePrompt: PropTypes.string,
-    canDownloadFlag: PropTypes.bool,
-    canEditFlag: PropTypes.bool,
-    fileData: PropTypes.shape({}),
-  }),
+  currentImage: PropTypes.string.isRequired,
 };
 
 export default ImageViewer;
