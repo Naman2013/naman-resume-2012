@@ -146,6 +146,7 @@ class ImageInfoPanel extends Component {
                 customerImageId={this.props.customerImageId}
                 scheduledMissionId={Number(scheduledMissionId)}
                 canEditFlag={canEditFlag}
+                buttonStyle="btn btn-primary"
               />
             </div>
           </div>

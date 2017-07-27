@@ -81,7 +81,14 @@ export function setTags(tagData) {
       customerId: cid,
       ...tagData,
     })
-    .then(result => dispatch(setTagsSuccess(result.data)))
+    .then((result) => {
+
+      if (result.data.apiError) {
+        dispatch(setTagsFail(result.data));
+      } else {
+        dispatch(setTagsSuccess(result.data));
+      }
+    })
     .catch(error => dispatch(setTagsFail(error)));
   };
 }
@@ -118,6 +125,7 @@ export const resetClientTagData = () => ({
 
 const generateInitialState = () => ({
   tags: null,
+  settingError: false,
   settingTag: false,
   previousSetTagError: null,
   fetching: false,
@@ -127,6 +135,7 @@ export default createReducer(generateInitialState(), {
   [SET_TAGS_START](state) {
     return {
       ...state,
+      settingError: false,
       settingTag: true,
     };
   },
@@ -141,6 +150,7 @@ export default createReducer(generateInitialState(), {
     return {
       ...state,
       settingTag: false,
+      settingError: true,
       previousSetTagError: payload,
     }
   },

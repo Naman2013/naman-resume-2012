@@ -103,7 +103,7 @@ class MissionTags extends Component {
   render() {
 
     const { tagText, tagClass } = this.state;
-    const { tags, canEditFlag } = this.props;
+    const { tags, canEditFlag, settingError, buttonStyle } = this.props;
 
     let availableTags = [];
 
@@ -130,7 +130,8 @@ class MissionTags extends Component {
             autoComplete="off"
             onChange={this.handleTagTextChange}
             value={tagText} />
-          <button className="action" type="submit">Add a Tag</button>
+          {settingError && <div>There was an error setting that tag.</div>}
+          <button className={buttonStyle || 'action'} type="submit">Add a Tag</button>
         </form>}
         {!canEditFlag && availableTags.length === 0 && <div>There are no tags.</div>}
       </div>
