@@ -180,16 +180,14 @@ class CommunityPerspectives extends Component {
                       onMouseOver={(e) => { this.changeHoverCategory(e, perspective.catagory); }}
                       onMouseOut={(e) => { this.changeHoverCategory(e, this.state.activeCatagory); }}
                     >
-                      <a
+                      <button
                         onClick={event => this.handleNavigationClick(event, perspective.catagory)}
                         className={navigationClasses}
-                        href="#/"
                         id={perspective.catagory}
                       >
                         <p className="title">{perspective.title}</p>
-                        <div className={`icon ${navigationClasses}`} style={getIconStyleInline(perspective.icon)}>
-                        </div>
-                      </a>
+                        <div className={`icon ${navigationClasses}`} style={getIconStyleInline(perspective.icon)} />
+                      </button>
                     </li>
                   );
                 })
