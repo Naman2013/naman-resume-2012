@@ -165,7 +165,7 @@ class CommunityPerspectives extends Component {
         <div className="content">
           <div className="row">
 
-            <ul className="col-xs-12 clearfix categories">
+            <ul className="categories">
               {
                 perspectiveCatagories.map((perspective, index) => {
                   const isActiveNonHoveredCategory = !this.state.hoverCategory && (this.state.activeCatagory === perspective.catagory);
@@ -176,7 +176,7 @@ class CommunityPerspectives extends Component {
                   return (
                     <li
                       key={index}
-                      className="col-xs-3 category"
+                      className="category"
                       onMouseOver={(e) => { this.changeHoverCategory(e, perspective.catagory); }}
                       onMouseOut={(e) => { this.changeHoverCategory(e, this.state.activeCatagory); }}
                     >
