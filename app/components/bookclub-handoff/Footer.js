@@ -4,10 +4,9 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import CommunityPerspectives from '../common/community-perspectives/community-perspectives';
 import { fetchContent } from '../../modules/pulse/get-post-action';
-import { pink, darkBlueGray, gray } from '../../styles/variables/colors';
-import { secondaryFont, primaryFont } from '../../styles/variables/fonts';
+import { pink } from '../../styles/variables/colors';
 
-function mapStateToProps({ post }, ownProps) {
+function mapStateToProps({ post }) {
   return {
     communityPosts: post.content.posts,
   };
@@ -48,7 +47,7 @@ class Footer extends Component {
 
   render() {
     const {
-      communityPosts
+      communityPosts,
     } = this.props;
 
     return (
