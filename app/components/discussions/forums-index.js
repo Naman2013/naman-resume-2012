@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
 import GenericLoadingBox from '../common/loading-screens/generic-loading-box';
-import * as forumsActions from '../../modules/discussions-forums/actions';
+import { fetchForumList } from '../../modules/discussions-forums/actions';
 import { SORT_ALPHABETIC } from '../../services/discussions/get-forum-list';
 import styles from './forums-index.scss';
 
@@ -13,7 +13,6 @@ const { bool, object, func, string } = PropTypes;
 
 class ForumsIndex extends Component {
   static propTypes = {
-    fetchForumList: func.isRequired,
     fetching: bool.isRequired,
     forumList: object.isRequired,
     currentForumId: string,
@@ -24,8 +23,8 @@ class ForumsIndex extends Component {
   };
 
   componentDidMount() {
-    const { fetchForumList } = this.props;
-    fetchForumList({
+    const { actions } = this.props;
+    actions.fetchForumList({
       sortBy: SORT_ALPHABETIC,
       count: -1,
       page: 1,
@@ -77,8 +76,10 @@ const mapStateToProps = ({ discussionsForums }) => ({
   fetching: discussionsForums.fetching,
   forumList: discussionsForums.forumList,
 });
-const mapDispatchToProps = dispatch => (bindActionCreators({
-  ...forumsActions,
-}, dispatch));
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators({
+    fetchForumList,
+  }, dispatch),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(ForumsIndex);

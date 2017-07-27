@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as dashboardActions from '../../modules/dashboard/actions';
+import { fetchDashboard } from '../../modules/dashboard/actions';
 import { fetchPhotoRoll } from '../../modules/my-pictures/actions';
 import Header from './common/header';
 import HeadshotAccountDetail from './common/HeadshotAccountDetail';
@@ -224,7 +224,7 @@ const mapStateToProps = ({ dashboard, myPictures }) => ({
   imageList: dashboard.profile.imageList,
 });
 const mapDispatchToProps = dispatch => (bindActionCreators({
-  ...dashboardActions,
+  fetchDashboard,
   fetchPhotoRoll,
 }, dispatch));
 

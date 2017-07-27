@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as tierLimitsActions from '../../modules/tier-limits/actions';
+import { fetchTierLimits } from '../../modules/tier-limits/actions';
 import s from './ReservationsLimit.scss';
 
-const { func, obj } = PropTypes;
+const { func, shape } = PropTypes;
 class ReservationsLimit extends Component {
 
   constructor(props) {
@@ -23,13 +23,13 @@ class ReservationsLimit extends Component {
   }
 
   updateLimits() {
-    const { fetchTierLimits, refreshIntervalSec } = this.props;
-    fetchTierLimits({});
+    const { actions, refreshIntervalSec } = this.props;
+    actions.fetchTierLimits({});
 
     const intervalInSeconds = refreshIntervalSec * 1000;
 
     this.refreshInterval = setInterval(() => {
-      fetchTierLimits({});
+      actions.fetchTierLimits({});
     }, intervalInSeconds);
   }
 
@@ -48,12 +48,18 @@ ReservationsLimit.defaultProps = {
 };
 
 ReservationsLimit.propTypes = {
-  fetchTierLimits: func.isRequired,
+  actions: shape({
+    fetchTierLimits: func.isRequired,
+  })
 };
 
 const mapStateToProps = ({ tierLimits }) => ({
   ...tierLimits,
 });
-const mapDispatchToProps = dispatch => (bindActionCreators(tierLimitsActions, dispatch));
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators({
+    fetchTierLimits,
+  }, dispatch),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(ReservationsLimit);

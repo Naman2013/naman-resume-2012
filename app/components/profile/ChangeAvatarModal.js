@@ -3,24 +3,21 @@ import PropTypes from 'prop-types';
 import { Modal } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as avatarActions from '../../modules/avatar/actions';
+import {
+  uploadAvatar,
+  setAvatar,
+  clearAvatarData,
+} from '../../modules/avatar/actions';
 import GenericLoadingBox from '../../components/common/loading-screens/generic-loading-box';
 import s from './ChangeAvatarModal.scss';
 
-const { bool, func, string } = PropTypes;
+const { bool, func, string, shape } = PropTypes;
 class ChangeAvatarModal extends Component {
 
-  constructor(props) {
-    super(props);
-
-    this.uploadAvatar = this.uploadAvatar.bind(this);
-    this.saveAvatar = this.saveAvatar.bind(this);
-  }
-
-  uploadAvatar(event) {
+  uploadAvatar = (event) => {
     event.preventDefault();
     const { cid, token, at } = this.props.user;
-    const { uploadAvatar } = this.props;
+    const { actions } = this.props;
     const data = new FormData();
     data.append('cid', cid);
     data.append('token', token);
@@ -29,12 +26,12 @@ class ChangeAvatarModal extends Component {
     data.append('name', 'attachment');
     data.append('enctype', 'multipart/form-data');
 
-    uploadAvatar(data);
+    actions.uploadAvatar(data);
   }
 
-  saveAvatar() {
-    const { imageURL, setAvatar, closeModal } = this.props;
-    setAvatar({ imageURL }).then((result) => {
+  saveAvatar = () => {
+    const { imageURL, actions, closeModal } = this.props;
+    actions.setAvatar({ imageURL }).then((result) => {
       if (result.payload && !result.payload.apiError) {
         closeModal();
       }
@@ -42,12 +39,12 @@ class ChangeAvatarModal extends Component {
   }
 
   componentWillUnmount() {
-    const { clearAvatarData } = this.props;
-    clearAvatarData();
+    const { actions } = this.props;
+    actions.clearAvatarData();
   }
 
   render() { // always show Modal, and rely on parent to show/hide modal so component unmounts on close
-    const { uploadAvatar, saveAvatar } = this;
+    const { saveAvatar, uploadAvatar } = this;
     const { closeModal, loading, imageURL, setAvatarError, uploadError } = this.props;
     const showGenericError = setAvatarError || uploadError;
     return (
@@ -88,6 +85,7 @@ class ChangeAvatarModal extends Component {
 ChangeAvatarModal.defaultProps = {
   show: false,
   setAvatarError: false,
+  actions: {}
 };
 
 ChangeAvatarModal.propTypes = {
@@ -96,16 +94,24 @@ ChangeAvatarModal.propTypes = {
   imageURL: string,
   loading: bool,
   setAvatarError: bool,
-  clearAvatarData: func.isRequired,
-  setAvatar: func.isRequired,
-  uploadAvatar: func.isRequired,
   uploadError: bool,
+  actions: shape({
+    clearAvatarData: func.isRequired,
+    setAvatar: func.isRequired,
+    uploadAvatar: func.isRequired,
+  }),
 };
 
 const mapStateToProps = ({ avatar, user }) => ({
   ...avatar,
   user
 });
-const mapDispatchToProps = dispatch => (bindActionCreators(avatarActions, dispatch));
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators({
+    uploadAvatar,
+    setAvatar,
+    clearAvatarData,
+  }, dispatch),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChangeAvatarModal);

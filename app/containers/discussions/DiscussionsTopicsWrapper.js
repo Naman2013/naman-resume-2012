@@ -5,12 +5,14 @@ import { bindActionCreators } from 'redux';
 import DiscussionsHeader from '../../components/discussions/DiscussionsHeader';
 import DiscussionsNav from '../../components/discussions/DiscussionsNav';
 import ForumsIndex from '../../components/discussions/forums-index';
-import * as topicActions from '../../modules/discussions-topics/actions';
+import { fetchTopicList } from '../../modules/discussions-topics/actions';
 
-const { func, object } = PropTypes;
+const { func, object, shape } = PropTypes;
 class DiscussionsTopicsWrapper extends Component {
   static propTypes = {
-    fetchTopicList: func.isRequired,
+    actions: shape({
+      fetchTopicList: func.isRequired
+    }),
     children: object,
   }
 
@@ -20,11 +22,11 @@ class DiscussionsTopicsWrapper extends Component {
   }
 
   componentDidMount() {
-    const { fetchTopicList, children, params: { forumId } } = this.props;
+    const { actions, children, params: { forumId } } = this.props;
     const { props: { route: { path } } } = children;
 
     if (forumId) {
-      fetchTopicList({
+      actions.fetchTopicList({
         sortBy: path,
         forumId,
         page: 1,
@@ -33,12 +35,12 @@ class DiscussionsTopicsWrapper extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { fetchTopicList, children, params: { forumId } } = this.props;
+    const { actions, children, params: { forumId } } = this.props;
     const { props: { route: { path } } } = children;
     const { children: nextChildren, params: { forumId: nextForumId } } = nextProps;
     const { props: { route: { path: nextPath } } } = nextChildren;
     if (path !== nextPath || forumId !== nextForumId) {
-      fetchTopicList({
+      actions.fetchTopicList({
         sortBy: nextPath,
         forumId: nextForumId,
       });
@@ -74,6 +76,10 @@ const mapStateToProps = ({ discussionsTopics }) => ({
   forumName: discussionsTopics.forumName,
   ...discussionsTopics,
 });
-const mapDispatchToProps = dispatch => (bindActionCreators(topicActions, dispatch));
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators({
+    fetchTopicList,
+  }, dispatch)
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(DiscussionsTopicsWrapper);
