@@ -6,7 +6,6 @@ import style from './modal-generic.scss';
 class ModalGeneric extends Component {
   render() {
     const { closeModal, open, title, description, closeButtonText, bg } = this.props;
-    console.log('background setting: ', bg);
     return (
       <Modal
         show={open}
