@@ -22,7 +22,7 @@ const initialState = {
     {
       key: uniqueId(),
       title: 'Total Solar Eclipse',
-      content: `<a href="#/road-trip?_k=8u86a2">Road Trip with Slooh to Stanley</a>, Idaho to witness the Total Solar Eclipse on August 21st, or watch our coverage live right here on Slooh.`,
+      content: `<a href="#/road-trip">Road Trip with Slooh to Stanley</a>, Idaho to witness the Total Solar Eclipse on August 21st, or watch our coverage live right here on Slooh.`,
       contentLink: '',
       imageUrl: 'assets/images/samples/perseid-meteor-shower.png',
       videoUrl: 'https://www.youtube.com/embed/ZU4Nt_-nLFY?rel=0&amp;showinfo=0',
