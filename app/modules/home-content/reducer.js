@@ -44,32 +44,32 @@ const initialState = {
     title: 'OK, there are billions of items out there to choose from, but we have to start somewhere...',
     objects: [
       {
-        key: Math.random() * 100,
+        key: uniqueId(),
         title: 'Saturn',
         imageUrl: 'assets/images/objects/planet-saturn.png',
         url: '/objects/latest-entries/3/all',
       },
       {
-        key: Math.random() * 100,
+        key: uniqueId(),
         title: 'Jupiter',
         imageUrl: 'assets/images/objects/planet-jupiter.png',
         url: '/objects/latest-entries/6/all',
       },
       {
-        key: Math.random() * 100,
+        key: uniqueId(),
         title: 'Total solar eclipse',
         imageUrl: 'assets/images/photos/eclipse.jpg',
         type: '',
         url: '/road-trip',
       },
       {
-        key: Math.random() * 100,
+        key: uniqueId(),
         title: 'Exploding Galaxy M82',
         imageUrl: 'assets/images/photos/exploding-galaxy-M82.jpg',
         url: '/objects/latest-entries/7/all',
       },
       {
-        key: Math.random() * 100,
+        key: uniqueId(),
         title: 'Comets',
         imageUrl: 'assets/images/photos/comets.jpg',
         url: '/objects/latest-entries/562/all',
@@ -78,8 +78,8 @@ const initialState = {
     latestNews: 'We\'ve curated a catalog of our members\' favorite objects and events in the night sky which we call the Slooh 500. These are the best looking objects to see through our telescopes which also have the most interesting folklore created in their name. Our community forms around them.',
     action: {
       text: 'See Object',
-      url: '#'
-    }
+      url: '#',
+    },
   },
   COMMUNITY_CONTENT_BAND: 'A Sampling of Slooh Community Content',
   SPONSORS_CONTENT_BAND: 'A World-Class Network of Partners',
@@ -87,47 +87,47 @@ const initialState = {
   SPONSOR_IMAGES: [
     {
       imageUrl: 'assets/images/sponsors/ABC_News_Logo.jpg',
-      size: '90%'
+      size: '90%',
     },
     {
       imageUrl: 'assets/images/sponsors/42_digital_logo_dark_blue_HI.png',
-      size: '80%'
+      size: '80%',
     },
     {
       imageUrl: 'assets/images/sponsors/Wanderlust-truenorth-web-1.png',
-      size: '90%'
+      size: '90%',
     },
     {
       imageUrl: 'assets/images/sponsors/logo-iac.png',
-      size: '60%'
+      size: '60%',
     },
     {
       imageUrl: 'assets/images/sponsors/pontificia.png',
-      size: '90%'
+      size: '90%',
     },
     {
       imageUrl: 'assets/images/sponsors/ASP-logo.png',
-      size: '70%'
+      size: '70%',
     },
     {
       imageUrl: 'assets/images/sponsors/OFA-logo.png',
-      size: '70%'
+      size: '70%',
     },
     {
       imageUrl: 'assets/images/sponsors/TimeandDate.png',
-      size: '90%'
+      size: '90%',
     },
     {
       imageUrl: 'assets/images/sponsors/fiat-physica.png',
-      size: '90%'
+      size: '90%',
     },
     {
       imageUrl: 'assets/images/sponsors/ctinnovations.jpg',
-      size: '90%'
+      size: '90%',
     },
     {
       imageUrl: 'https://vega.slooh.com/logos/PSLogo.png',
-      size: '90%'
+      size: '90%',
     },
   ],
 };
