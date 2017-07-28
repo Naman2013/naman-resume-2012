@@ -1,5 +1,7 @@
 import { uniqueId } from 'lodash';
+import { Link } from 'react-router';
 import createReducer from '../utils/createReducer';
+import purgeHashURL from '../../utils/purgeHashURL';
 
 import {
   GET_HOME_PAGE_START,
@@ -23,7 +25,7 @@ const initialState = {
       key: uniqueId(),
       title: 'Total Solar Eclipse',
       content: `<a href="#/road-trip">Road Trip with Slooh to Stanley</a>, Idaho to witness the Total Solar Eclipse on August 21st, or watch our coverage live right here on Slooh.`,
-      contentLink: '',
+      contentLink: 'road-trip',
       imageUrl: 'assets/images/samples/perseid-meteor-shower.png',
       videoUrl: 'https://www.youtube.com/embed/ZU4Nt_-nLFY?rel=0&amp;showinfo=0',
     },
