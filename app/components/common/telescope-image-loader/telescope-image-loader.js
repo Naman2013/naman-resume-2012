@@ -168,7 +168,6 @@ class TelescopeImageLoader extends Component {
 
   componentDidUpdate() {
     if (this.props.imageSource !== this.previouslyRenderedImageSource) {
-      console.log('rebuild sse');
       this.rebuildSSE(this.props.imageSource);
       return;
     }
