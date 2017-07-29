@@ -15,7 +15,7 @@ function createLink(URL, htmlContent) {
     return (
       <a
         className="link"
-        href={purgeHashURL(URL)}
+        href={URL}
         dangerouslySetInnerHTML={{ __html: htmlContent }}
       />
     );
