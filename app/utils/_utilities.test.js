@@ -1,6 +1,7 @@
 import SETTINGS from '../config';
 import generateInlineURL from './generateInlineURL';
 import purgeHashURL from './purgeHashURL';
+import useAbsoluteURL from './useAbsoluteURL';
 
 describe('purge hash from url', () => {
   const TEST_URL_A = '#telescope-details/123/123';
@@ -29,5 +30,18 @@ describe('generate inline URL based on the history type global', () => {
     SETTINGS.setHistoryType();
     const testURL = generateInlineURL('#/test-url');
     expect(testURL).toBe('/test-url');
+  });
+});
+
+describe('use absolute URL', () => {
+  const TEST_A = 'https://www.amazon.com/sandwiches';
+  const TEST_B = 'https://www.slooh.com';
+  const TEST_C = 'slooh.com';
+
+  it('should return true when non-slooh domain', () => {
+    expect(useAbsoluteURL(TEST_A)).toBeTruthy();
+    expect(useAbsoluteURL(TEST_B)).toBeFalsy();
+    expect(useAbsoluteURL(TEST_C)).toBeFalsy();
+    expect(useAbsoluteURL()).toBeTruthy();
   });
 });
