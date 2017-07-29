@@ -3,11 +3,19 @@ import generateInlineURL from './generateInlineURL';
 import purgeHashURL from './purgeHashURL';
 
 describe('purge hash from url', () => {
-  const TEST_URL = '#telescope-details/123/123';
-  const TEST_EXPECTED_RESULT = 'telescope-details/123/123';
+  const TEST_URL_A = '#telescope-details/123/123';
+  const TEST_EXPECTED_RESULT_A = 'telescope-details/123/123';
+
+  const TEST_URL_B = 'https://saturn.slooh.com/working-saturn/dist/#/discussions/main/most-recent';
+  const TEST_EXPECTED_RESULT_B = '/discussions/main/most-recent';
+
+  const TEST_URL_C = '/discussions/main/most-recent';
+  const TEST_EXPECTED_RESULT_C = '/discussions/main/most-recent';
 
   it('should remove the hash from the URL', () => {
-    expect(purgeHashURL(TEST_URL)).toBe(TEST_EXPECTED_RESULT);
+    expect(purgeHashURL(TEST_URL_A)).toBe(TEST_EXPECTED_RESULT_A);
+    expect(purgeHashURL(TEST_URL_B)).toBe(TEST_EXPECTED_RESULT_B);
+    expect(purgeHashURL(TEST_URL_C)).toBe(TEST_EXPECTED_RESULT_C);
   });
 });
 
