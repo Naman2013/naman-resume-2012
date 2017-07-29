@@ -132,7 +132,6 @@ const Account = () => (
                     <input className="form-control input-lg" type="text" name="firstname" />
                   </fieldset>
 
-
                   <button type="button" className="btn-primary center">Save</button>
                 </form>
               </div>
@@ -156,7 +155,6 @@ const Account = () => (
                     <label className="" htmlFor="firstname">Email Address</label>
                     <input className="form-control input-lg" type="text" name="firstname" />
                   </fieldset>
-
 
                   <button type="button" className="btn-primary center">Save</button>
                 </form>

@@ -118,7 +118,7 @@ const Plans = () => (
 
           <article className="dark backdrop text-center padding-med">
 
-            <h3 className="margin-top-med">Sloh Crew</h3>
+            <h3 className="margin-top-med">Slooh Crew</h3>
             <p className="text-large price">
               <sup>$</sup>1.00 <span className="text-reg">Per User</span>
             </p>
@@ -152,7 +152,7 @@ const Plans = () => (
 
     <footer className="page margin-top-large">
       Questions?
-      <a href="">Contact our upport team</a>.
+      <a href="">Contact our support team</a>.
     </footer>
   </div>
 );

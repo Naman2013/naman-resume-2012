@@ -24,7 +24,6 @@ class ListHotThisMonth extends Component {
 
   render() {
     const hotTitle = this.state.hotTitle;
-
     return (
       <li>
         <h3 className="menu-title">{hotTitle}</h3>
