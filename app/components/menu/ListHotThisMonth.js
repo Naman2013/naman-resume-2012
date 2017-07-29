@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import axios from 'axios';
+import purgeHashURL from '../../utils/purgeHashURL';
 
 class ListHotThisMonth extends Component {
   state = {
@@ -32,7 +33,7 @@ class ListHotThisMonth extends Component {
           {
             this.state.hotList.map(el => (
               <li key={el.title}>
-                <Link to={el.hotURL} className="item">
+                <Link to={purgeHashURL(el.hotURL)} className="item">
                   <span className="hot-title">{el.title}</span>
                 </Link>
               </li>
