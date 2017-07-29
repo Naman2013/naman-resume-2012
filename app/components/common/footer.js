@@ -5,13 +5,30 @@ import { bindActionCreators } from 'redux';
 import { Link } from 'react-router';
 import uniqueId from 'lodash/uniqueId';
 import purgeHashURL from '../../utils/purgeHashURL';
+import useAbsoluteURL from '../../utils/useAbsoluteURL';
 
 import { primaryFont } from '../../styles/variables/fonts';
 import { lightGray } from '../../styles/variables/colors';
 
-const {
-  string,
-} = PropTypes;
+function createLink(URL, htmlContent) {
+  if (useAbsoluteURL(URL)) {
+    return (
+      <a
+        className="link"
+        href={purgeHashURL(URL)}
+        dangerouslySetInnerHTML={{ __html: htmlContent }}
+      />
+    );
+  }
+
+  return (
+    <Link
+      className="link"
+      to={purgeHashURL(URL)}
+      dangerouslySetInnerHTML={{ __html: htmlContent }}
+    />
+  );
+}
 
 const Footer = props => (
   <footer
@@ -38,7 +55,7 @@ const Footer = props => (
                         <li key={uniqueId()}>
                           {
                             item.itemLink
-                              ? <Link className="link" to={purgeHashURL(item.itemLink)} dangerouslySetInnerHTML={{ __html: item.menuItemText }} />
+                              ? createLink(item.itemLink, item.menuItemText)
                               : <span dangerouslySetInnerHTML={{ __html: item.menuItemText }} />
                           }
                         </li>
@@ -99,11 +116,11 @@ const Footer = props => (
 );
 
 Footer.propTypes = {
-  copyrightNotice: string.isRequired,
-  footerBackgroundRGB: string.isRequired,
-  copyrightRGB: string.isRequired,
-  hostname: string.isRequired,
-  hostnameRGB: string.isRequired,
+  copyrightNotice: PropTypes.string.isRequired,
+  footerBackgroundRGB: PropTypes.string.isRequired,
+  copyrightRGB: PropTypes.string.isRequired,
+  hostname: PropTypes.string.isRequired,
+  hostnameRGB: PropTypes.string.isRequired,
 };
 
 Footer.defaultProps = {
