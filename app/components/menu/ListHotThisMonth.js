@@ -28,15 +28,15 @@ class ListHotThisMonth extends Component {
       <li>
         <h3 className="menu-title">{hotTitle}</h3>
         <ul>
-        {
-          this.state.hotList.map((el) => (
-            <li key={el.title}>
-              <a className="item" href={el.hotURL}>
-                <span className="hot-title">{el.title}</span>
-              </a>
-            </li>
-          ))
-        }
+          {
+            this.state.hotList.map(el => (
+              <li key={el.title}>
+                <a className="item" href={el.hotURL}>
+                  <span className="hot-title">{el.title}</span>
+                </a>
+              </li>
+            ))
+          }
         </ul>
       </li>
     );
