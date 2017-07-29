@@ -5,6 +5,8 @@ import s from './EventHosts.scss';
 const { array } = PropTypes;
 
 function EventHosts({ hosts }) {
+  if (hosts.length === 0) { return null; }
+
   return (
     <article className={s.eventHostsContainer}>
       <section className={s.eventHostsTitle}>
