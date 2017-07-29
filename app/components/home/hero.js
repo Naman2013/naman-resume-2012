@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router';
 import { connect } from 'react-redux';
-import isExternalURL from '../../utils/is-external-url';
 import style from './hero.scss';
 import ScrollForMore from '../common/scroll-for-more';
 
@@ -18,7 +16,7 @@ class Hero extends Component {
   state = {
     modalOpen: false,
   };
-  // New
+
   closeModal = (event) => {
     event.preventDefault();
 
@@ -27,7 +25,6 @@ class Hero extends Component {
     });
   }
 
-  // New
   openModal(modalContent) {
     this.setState({
       ...modalContent,
@@ -37,8 +34,6 @@ class Hero extends Component {
 
   renderCallToAction(buttonUrl) {
     const { heroButtonText, registerNewMemberURL, videoTourText } = this.props;
-    // considered temporary HAXXX
-    // const URLIsExternal = isExternalURL(buttonUrl);
     return buttonUrl === '/join.php?type=r' ?
       <a className="action" href={registerNewMemberURL}>{heroButtonText}</a> :
       buttonUrl.videoUrl ?
