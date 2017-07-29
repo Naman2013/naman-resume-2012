@@ -34,11 +34,11 @@ class Hero extends Component {
 
   renderCallToAction(buttonUrl) {
     const { heroButtonText, registerNewMemberURL, videoTourText } = this.props;
-    return buttonUrl === '/join.php?type=r' ?
-      <a className="action" href={registerNewMemberURL}>{heroButtonText}</a> :
-      buttonUrl.videoUrl ?
-        <a className="action" onClick={() => this.openModal()}>{videoTourText}</a> :
-        <a className="action" href={buttonUrl}>{heroButtonText}</a>
+    return buttonUrl === '/join.php?type=r'
+      ? <a className="action" href={registerNewMemberURL}>{heroButtonText}</a>
+      : buttonUrl.videoUrl
+        ? <a className="action" onClick={() => this.openModal()}>{videoTourText}</a>
+        : <a className="action" href={buttonUrl}>{heroButtonText}</a>
   }
 
   render() {

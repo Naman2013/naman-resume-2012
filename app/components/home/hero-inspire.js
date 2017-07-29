@@ -67,15 +67,13 @@ class HeroInspire extends Component {
     });
   }
 
-  renderCallToActionJoinOrEvent(buttonUrl) {
+  renderCallToActionJoinOrEvent() {
     const { heroButtonText, registerNewMemberURL, userLoggedInFlag } = this.props;
-    // showHeroButton, showVideoTourButton
-    if (userLoggedInFlag === false) {
-      // return join call to action
+    if (!userLoggedInFlag) {
       return <a className="action" href={registerNewMemberURL}>{heroButtonText}</a>;
-    } else {
-      return '';
     }
+
+    return '';
 
     // return buttonUrl === '/join.php?type=r' ?
     //   <a className="action" href={registerNewMemberURL}>{heroButtonText}</a> :
