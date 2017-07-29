@@ -28,8 +28,8 @@ const AccountEnhancements = ({
       </div>
       <div className={s.priceSubtext}>
         {suggestedTierPricing.priceDescription1}<br />
-      {suggestedTierPricing.priceDescription2}<br />
-    {suggestedTierPricing.priceDescription3}
+        {suggestedTierPricing.priceDescription2}<br />
+        {suggestedTierPricing.priceDescription3}
       </div>
       <div className={s.callToAction}>
         <a

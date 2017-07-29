@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router';
 import CommunityPerspectives from '../common/community-perspectives/community-perspectives';
 import { fetchContent } from '../../modules/pulse/get-post-action';
-import { pink, darkBlueGray, gray } from '../../styles/variables/colors';
-import { secondaryFont, primaryFont } from '../../styles/variables/fonts';
+import { pink } from '../../styles/variables/colors';
 
-function mapStateToProps({ post }, ownProps) {
+function mapStateToProps({ post }) {
   return {
     communityPosts: post.content.posts,
   };
@@ -48,7 +48,7 @@ class Footer extends Component {
 
   render() {
     const {
-      communityPosts
+      communityPosts,
     } = this.props;
 
     return (
@@ -57,7 +57,7 @@ class Footer extends Component {
           <img alt="Book" className="bookclub-img" src="assets/images/bookclub/Space_BookClub_Logo.png" />
         </div>
         <div className="community-title center">
-          Community Perspectives&nbsp;&nbsp;|&nbsp;&nbsp;<a href="/#/publish-post" className="community-link">Upload your own</a>
+          Community Perspectives&nbsp;&nbsp;|&nbsp;&nbsp;<Link to="/publish-post" className="community-link">Upload your own</Link>
         </div>
         <CommunityPerspectives
           communityContent={communityPosts}

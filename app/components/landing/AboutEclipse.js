@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router';
 import style from './AboutEclipse.scss';
 
 function AboutEclipse() {
@@ -21,7 +22,7 @@ function AboutEclipse() {
         </div>
         <div className={style.btnGroup}>
           { /* <button className={style.actionBtn}>Set Reminder</button> */ }
-          <a href="/#/shows/event-details/393" className={style.actionBtn}>Learn More</a>
+          <Link to="/shows/event-details/393" className={style.actionBtn}>Learn More</Link>
         </div>
       </div>
     </div>

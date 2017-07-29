@@ -67,13 +67,11 @@ import Galleries from './pages/my-pictures/Galleries';
 import Missions from './pages/my-pictures/Missions';
 import MissionImages from './pages/my-pictures/MissionImages';
 
-import Plans from './pages/registration/Plans';
 import UpgradeApprentice from './pages/registration/UpgradeApprentice';
 import UpgradeAstronomer from './pages/registration/UpgradeAstronomer';
 import SignIn from './pages/registration/SignIn';
 import Upgrade from './pages/registration/Upgrade';
 
-import Account from './pages/settings/Account';
 import Notifications from './pages/settings/Notifications';
 import PaymentInfo from './pages/settings/PaymentInfo';
 import Profile from './pages/settings/Profile';
@@ -141,7 +139,6 @@ ReactDOM.render(
       </Route>
 
       <Route path="registration" component={StaticAppContainer} onEnter={validateRegistrationPaths}>
-        <Route path="plans" component={Plans} />
         <Route path="sign-in" component={SignIn} />
         <Route path="upgrade-apprentice" component={UpgradeApprentice} />
         <Route path="upgrade-astronomer" component={UpgradeAstronomer} />
@@ -149,7 +146,6 @@ ReactDOM.render(
       </Route>
 
       <Route path="settings" component={StaticAppContainer} onEnter={validateUser}>
-        <Route path="account" component={Account} />
         <Route path="notifications" component={Notifications} />
         <Route path="billing" component={PaymentInfo} />
         <Route path="dashboard" component={Profile} />

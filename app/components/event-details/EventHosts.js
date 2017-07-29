@@ -5,6 +5,8 @@ import s from './EventHosts.scss';
 const { array } = PropTypes;
 
 function EventHosts({ hosts }) {
+  if (hosts.length === 0) { return null; }
+
   return (
     <article className={s.eventHostsContainer}>
       <section className={s.eventHostsTitle}>
@@ -26,9 +28,9 @@ function EventHosts({ hosts }) {
             <div className={`${s.eventHostsItemInfo} col-xs-8`}>
               <h4 className={s.eventHostsItemTitle}>
                 {
-                  host.hostURL ?
-                    <a href={host.hostURL} dangerouslySetInnerHTML={{ __html: host.hostName }} /> :
-                    <span dangerouslySetInnerHTML={{ __html: host.hostName }} />
+                  host.hostURL
+                    ? <a href={host.hostURL} dangerouslySetInnerHTML={{ __html: host.hostName }} target="_blank" rel="noopener noreferrer" />
+                    : <span dangerouslySetInnerHTML={{ __html: host.hostName }} />
                 }
               </h4>
               <div className={s.eventHostsItemDescription} dangerouslySetInnerHTML={{ __html: host.hostDesc }} />

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router';
 import axios from 'axios';
 
 class ListHotThisMonth extends Component {
@@ -24,20 +25,19 @@ class ListHotThisMonth extends Component {
 
   render() {
     const hotTitle = this.state.hotTitle;
-
     return (
       <li>
         <h3 className="menu-title">{hotTitle}</h3>
         <ul>
-        {
-          this.state.hotList.map((el) => (
-            <li key={el.title}>
-              <a className="item" href={el.hotURL}>
-                <span className="hot-title">{el.title}</span>
-              </a>
-            </li>
-          ))
-        }
+          {
+            this.state.hotList.map(el => (
+              <li key={el.title}>
+                <Link to={el.hotURL} className="item">
+                  <span className="hot-title">{el.title}</span>
+                </Link>
+              </li>
+            ))
+          }
         </ul>
       </li>
     );
