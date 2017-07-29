@@ -37,11 +37,13 @@ describe('use absolute URL', () => {
   const TEST_A = 'https://www.amazon.com/sandwiches';
   const TEST_B = 'https://www.slooh.com';
   const TEST_C = 'slooh.com';
+  const TEST_D = 'slooh.com/join.php';
 
   it('should return true when non-slooh domain', () => {
     expect(useAbsoluteURL(TEST_A)).toBeTruthy();
     expect(useAbsoluteURL(TEST_B)).toBeFalsy();
     expect(useAbsoluteURL(TEST_C)).toBeFalsy();
-    expect(useAbsoluteURL()).toBeTruthy();
+    expect(useAbsoluteURL()).toBeFalsy();
+    expect(useAbsoluteURL(TEST_D)).toBeTruthy();
   });
 });

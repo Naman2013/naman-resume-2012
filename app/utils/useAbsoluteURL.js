@@ -1,7 +1,16 @@
 function useAbsoluteURL(URL = '') {
-  const safeDomain = 'slooh.com';
-  const hasSloohDomain = URL.indexOf(safeDomain) > -1;
-  return !hasSloohDomain;
+  const absoluteList = ['.php', 'www.amazon.com'];
+  let result = false;
+
+  for (let i = 0; i < absoluteList.length; i += 1) {
+    const currentDomain = absoluteList[i];
+    if (URL.indexOf(currentDomain) > -1) {
+      result = true;
+      break;
+    }
+  }
+
+  return result;
 }
 
 export default useAbsoluteURL;
