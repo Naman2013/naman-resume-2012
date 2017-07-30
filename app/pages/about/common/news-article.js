@@ -8,7 +8,7 @@ const NewsArticle = () => (
         /**
           not sure if we are going to need this
           <figure className="article">
-            <img src="assets/photos/stellar-community.jpg" />
+            <img src="https://vega.slooh.com/assets/photos/stellar-community.jpg" />
             <figcaption>
               <cite>[Citation]</cite>
             </figcaption>

@@ -1,9 +1,8 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
 import { white } from '../../styles/variables/colors';
 
 
-const baseUrl = 'assets/images/store';
+const baseUrl = 'https://vega.slooh.com/assets/images/store';
 const SloohStorePromo = () =>
   <div className="promo-container">
   <div className="promo-text">

@@ -116,7 +116,7 @@ class TelescopeOverview extends Component {
         <style jsx>{`
           .root {
             ${backgroundImageCover}
-            background-image: url("assets/images/photos/hero-inspire-background.jpg");
+            background-image: url(https://vega.slooh.com/assets/images/photos/hero-inspire-background.jpg);
           }
         `}</style>
 

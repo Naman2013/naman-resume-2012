@@ -30,7 +30,7 @@
 
   .profilePic {
     @include profilePicture;
-    background: $slooh-blue-xxlight url('../../../assets/icons/astronaut-white.svg') no-repeat top center;
+    background: $slooh-blue-xxlight url(https://vega.slooh.com/assets/icons/astronaut-white.svg) no-repeat top center;
     height: 150px;
     width: 150px;
     margin-top: 25px;

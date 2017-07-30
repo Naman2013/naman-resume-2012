@@ -6,7 +6,7 @@ const NewsArticle = () => {
       <article className="margin-bottom-large">
 
         <figure className="article">
-          <img src="assets/photos/stellar-community.jpg" />
+          <img src="https://vega.slooh.com/assets/photos/stellar-community.jpg" />
           <figcaption>
             <cite>[Citation]</cite>
           </figcaption>
@@ -29,9 +29,9 @@ const NewsArticle = () => {
           </aside>
 
           <aside className="social-media">
-            <span className="flame"><i><img src="assets/icons/flame.png" /></i> <strong>[###]</strong>/[###]</span>
+            <span className="flame"><i><img src="https://vega.slooh.com/assets/icons/flame.png" /></i> <strong>[###]</strong>/[###]</span>
             <span className="like margin-left-med margin-right-med"><i><span className="number">###</span></i> Like</span>
-            <span className="share"><i><img src="assets/icons/share.svg" /></i> Share</span>
+            <span className="share"><i><img src="https://vega.slooh.com/assets/icons/share.svg" /></i> Share</span>
           </aside>
 
         </header>

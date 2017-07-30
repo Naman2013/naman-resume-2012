@@ -160,7 +160,7 @@ class HeroInspire extends Component {
           <h2 className="title" dangerouslySetInnerHTML={{ __html: heroHeadline }} />
           <h3 className="sub-title">{heroSubheadline}</h3>
 
-          <img className="divider-image" alt="" src="assets/icons/three-amigos-with-bar.svg" />
+          <img className="divider-image" alt="" src="https://vega.slooh.com/assets/icons/three-amigos-with-bar.svg" />
 
           <div className="call-to-action">
             {

@@ -5,19 +5,19 @@ const hosts = [
   {
     firstName: 'Gerry',
     lastName: 'Monteux',
-    photoUrl: 'assets/images/roadtrip-lander/host1.jpg',
+    photoUrl: 'https://vega.slooh.com/assets/images/roadtrip-lander/host1.jpg',
   }, {
     firstName: 'Paul',
     lastName: 'Cox',
-    photoUrl: 'assets/images/roadtrip-lander/host2.jpg',
+    photoUrl: 'https://vega.slooh.com/assets/images/roadtrip-lander/host2.jpg',
   }, {
     firstName: 'Eric',
     lastName: 'Edelman',
-    photoUrl: 'assets/images/roadtrip-lander/host3.jpg',
+    photoUrl: 'https://vega.slooh.com/assets/images/roadtrip-lander/host3.jpg',
   }, {
     firstName: 'Helen',
     lastName: 'Avery',
-    photoUrl: 'assets/images/roadtrip-lander/host4.jpg',
+    photoUrl: 'https://vega.slooh.com/assets/images/roadtrip-lander/host4.jpg',
   },
 ];
 

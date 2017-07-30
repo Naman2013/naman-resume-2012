@@ -17,7 +17,7 @@ const initialState = {
       title: 'Summer Solstice With Bill Nye',
       content: 'We celebrated the Summer Solstice on June 21st with guests Bill Nye of The Planetary Society, Phil Plait, Ari Sarsalari, and Matt Penn from the Citizen CATE Experiment.',
       contentLink: '',
-      imageUrl: 'assets/images/samples/perseid-meteor-shower.png',
+      imageUrl: 'https://vega.slooh.com/assets/images/samples/perseid-meteor-shower.png',
       videoUrl: 'https://www.youtube.com/embed/7XzFU-3VGeU?rel=0&amp;showinfo=0',
     },
     {
@@ -25,7 +25,7 @@ const initialState = {
       title: 'Total Solar Eclipse',
       content: `<a href="${generateInlineURL('#/road-trip')}">Road Trip with Slooh to Stanley</a>, Idaho to witness the Total Solar Eclipse on August 21st, or watch our coverage live right here on Slooh.`,
       contentLink: 'road-trip',
-      imageUrl: 'assets/images/samples/perseid-meteor-shower.png',
+      imageUrl: 'https://vega.slooh.com/assets/images/samples/perseid-meteor-shower.png',
       videoUrl: 'https://www.youtube.com/embed/ZU4Nt_-nLFY?rel=0&amp;showinfo=0',
     },
     {
@@ -33,7 +33,7 @@ const initialState = {
       title: 'Gazing at the Milky Way',
       content: 'How does light pollution affect your view of the universe? On May 25th, we explored the importance of dark skies while looking live at the Milky Way with special guests, Julie Fletcher and Athena Brensberger.',
       contentLink: '',
-      imageUrl: 'assets/images/samples/perseids.png',
+      imageUrl: 'https://vega.slooh.com/assets/images/samples/perseids.png',
       videoUrl: 'https://www.youtube.com/embed/Mr8qK-aM9JE?rel=0&amp;showinfo=0',
     },
   ],
@@ -46,32 +46,32 @@ const initialState = {
       {
         key: uniqueId(),
         title: 'Saturn',
-        imageUrl: 'assets/images/objects/planet-saturn.png',
+        imageUrl: 'https://vega.slooh.com/assets/images/objects/planet-saturn.png',
         url: '/objects/latest-entries/3/all',
       },
       {
         key: uniqueId(),
         title: 'Jupiter',
-        imageUrl: 'assets/images/objects/planet-jupiter.png',
+        imageUrl: 'https://vega.slooh.com/assets/images/objects/planet-jupiter.png',
         url: '/objects/latest-entries/6/all',
       },
       {
         key: uniqueId(),
         title: 'Total solar eclipse',
-        imageUrl: 'assets/images/photos/eclipse.jpg',
+        imageUrl: 'https://vega.slooh.com/assets/images/photos/eclipse.jpg',
         type: '',
         url: '/road-trip',
       },
       {
         key: uniqueId(),
         title: 'Exploding Galaxy M82',
-        imageUrl: 'assets/images/photos/exploding-galaxy-M82.jpg',
+        imageUrl: 'https://vega.slooh.com/assets/images/photos/exploding-galaxy-M82.jpg',
         url: '/objects/latest-entries/7/all',
       },
       {
         key: uniqueId(),
         title: 'Comets',
-        imageUrl: 'assets/images/photos/comets.jpg',
+        imageUrl: 'https://vega.slooh.com/assets/images/photos/comets.jpg',
         url: '/objects/latest-entries/562/all',
       },
     ],
@@ -86,43 +86,43 @@ const initialState = {
   SPONSORS_SUB_TITLE: 'Our partners help to bring live telescope feeds of the cosmos to the world.',
   SPONSOR_IMAGES: [
     {
-      imageUrl: 'assets/images/sponsors/ABC_News_Logo.jpg',
+      imageUrl: 'https://vega.slooh.com/assets/images/sponsors/ABC_News_Logo.jpg',
       size: '90%',
     },
     {
-      imageUrl: 'assets/images/sponsors/42_digital_logo_dark_blue_HI.png',
+      imageUrl: 'https://vega.slooh.com/assets/images/sponsors/42_digital_logo_dark_blue_HI.png',
       size: '80%',
     },
     {
-      imageUrl: 'assets/images/sponsors/Wanderlust-truenorth-web-1.png',
+      imageUrl: 'https://vega.slooh.com/assets/images/sponsors/Wanderlust-truenorth-web-1.png',
       size: '90%',
     },
     {
-      imageUrl: 'assets/images/sponsors/logo-iac.png',
+      imageUrl: 'https://vega.slooh.com/assets/images/sponsors/logo-iac.png',
       size: '60%',
     },
     {
-      imageUrl: 'assets/images/sponsors/pontificia.png',
+      imageUrl: 'https://vega.slooh.com/assets/images/sponsors/pontificia.png',
       size: '90%',
     },
     {
-      imageUrl: 'assets/images/sponsors/ASP-logo.png',
+      imageUrl: 'https://vega.slooh.com/assets/images/sponsors/ASP-logo.png',
       size: '70%',
     },
     {
-      imageUrl: 'assets/images/sponsors/OFA-logo.png',
+      imageUrl: 'https://vega.slooh.com/assets/images/sponsors/OFA-logo.png',
       size: '70%',
     },
     {
-      imageUrl: 'assets/images/sponsors/TimeandDate.png',
+      imageUrl: 'https://vega.slooh.com/assets/images/sponsors/TimeandDate.png',
       size: '90%',
     },
     {
-      imageUrl: 'assets/images/sponsors/fiat-physica.png',
+      imageUrl: 'https://vega.slooh.com/assets/images/sponsors/fiat-physica.png',
       size: '90%',
     },
     {
-      imageUrl: 'assets/images/sponsors/ctinnovations.jpg',
+      imageUrl: 'https://vega.slooh.com/assets/images/sponsors/ctinnovations.jpg',
       size: '90%',
     },
     {

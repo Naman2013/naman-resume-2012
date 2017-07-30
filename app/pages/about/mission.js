@@ -14,7 +14,7 @@ const Mission = () => (
     </header>
 
     <i className="sigil slooh">
-      <img alt="Slooh Sigil" src="assets/chrome/Siggle-Slooh.svg" width="100" height="100" className="center-center" />
+      <img alt="Slooh Sigil" src="https://vega.slooh.com/assets/chrome/Siggle-Slooh.svg" width="100" height="100" className="center-center" />
     </i>
 
     <section className="row-col margin-bottom-xxlarge move-up-xxlarge">
@@ -78,7 +78,7 @@ const Mission = () => (
 
       <aside className="col-third">
         <figure className="">
-          <img alt="Michael Paolucci" src="assets/images/about/mike.jpg" width="270" />
+          <img alt="Michael Paolucci" src="https://vega.slooh.com/assets/images/about/mike.jpg" width="270" />
           <figcaption>
             <div className="name">Michael Paolucci</div>
             <div className="title">Founder &amp; CEO</div>
@@ -86,7 +86,7 @@ const Mission = () => (
         </figure>
 
         <div className="margin-top-med center-center" style={{ width: 270 }}>
-          <img alt="Signiture of Michael Paolucci" src="assets/images/about/mike-sig.jpg" width="200" />
+          <img alt="Signiture of Michael Paolucci" src="https://vega.slooh.com/assets/images/about/mike-sig.jpg" width="200" />
         </div>
 
       </aside>
@@ -96,7 +96,7 @@ const Mission = () => (
 
       <header className="row-col margin-bottom-xlarge">
         <i className="pull-left margin-bottom-med margin-right-med">
-          <img alt="Slooh LIVE icon" src="assets/icons/icon-SLT-live.svg" width="60" />
+          <img alt="Slooh LIVE icon" src="https://vega.slooh.com/assets/icons/icon-SLT-live.svg" width="60" />
         </i>
         <div className="pull-right col-med">
           <h1 className="white">Syndicate Live Telescope Coverage</h1>
