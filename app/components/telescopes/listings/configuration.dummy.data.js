@@ -4,81 +4,81 @@ export default [
     'label': 'Select Category',
     'list': [
       {
-        'icon': 'assets/icons/Saturn.png',
+        'icon': 'https://vega.slooh.com/assets/icons/Saturn.png',
         'name': 'sample category'
       },
       {
-        'icon': 'assets/icons/Saturn.png',
+        'icon': 'https://vega.slooh.com/assets/icons/Saturn.png',
         'name': 'sample category'
       },
       {
-        'icon': 'assets/icons/Saturn.png',
+        'icon': 'https://vega.slooh.com/assets/icons/Saturn.png',
         'name': 'sample category'
       },
       {
-        'icon': 'assets/icons/Saturn.png',
+        'icon': 'https://vega.slooh.com/assets/icons/Saturn.png',
         'name': 'sample category'
       },
       {
-        'icon': 'assets/icons/Saturn.png',
+        'icon': 'https://vega.slooh.com/assets/icons/Saturn.png',
         'name': 'sample category'
       },
       {
-        'icon': 'assets/icons/Saturn.png',
+        'icon': 'https://vega.slooh.com/assets/icons/Saturn.png',
         'name': 'sample category'
       },
       {
-        'icon': 'assets/icons/Saturn.png',
+        'icon': 'https://vega.slooh.com/assets/icons/Saturn.png',
         'name': 'sample category'
       },
       {
-        'icon': 'assets/icons/Saturn.png',
+        'icon': 'https://vega.slooh.com/assets/icons/Saturn.png',
         'name': 'sample category'
       },
       {
-        'icon': 'assets/icons/Saturn.png',
+        'icon': 'https://vega.slooh.com/assets/icons/Saturn.png',
         'name': 'sample category'
       },
       {
-        'icon': 'assets/icons/Saturn.png',
+        'icon': 'https://vega.slooh.com/assets/icons/Saturn.png',
         'name': 'sample category'
       },
       {
-        'icon': 'assets/icons/Saturn.png',
+        'icon': 'https://vega.slooh.com/assets/icons/Saturn.png',
         'name': 'sample category'
       },
       {
-        'icon': 'assets/icons/Saturn.png',
+        'icon': 'https://vega.slooh.com/assets/icons/Saturn.png',
         'name': 'sample category'
       },
       {
-        'icon': 'assets/icons/Saturn.png',
+        'icon': 'https://vega.slooh.com/assets/icons/Saturn.png',
         'name': 'sample category'
       },
       {
-        'icon': 'assets/icons/Saturn.png',
+        'icon': 'https://vega.slooh.com/assets/icons/Saturn.png',
         'name': 'sample category'
       },
       {
-        'icon': 'assets/icons/Saturn.png',
+        'icon': 'https://vega.slooh.com/assets/icons/Saturn.png',
         'name': 'sample category'
       },
       {
-        'icon': 'assets/icons/Saturn.png',
+        'icon': 'https://vega.slooh.com/assets/icons/Saturn.png',
         'name': 'sample category'
       },
       {
-        'icon': 'assets/icons/Saturn.png',
+        'icon': 'https://vega.slooh.com/assets/icons/Saturn.png',
         'name': 'sample category'
       },
       {
-        'icon': 'assets/icons/Saturn.png',
+        'icon': 'https://vega.slooh.com/assets/icons/Saturn.png',
         'name': 'sample category'
       }
     ]
   },
 
-  
+
   {
     'type': 'object',
     'label': 'Choose Specific Object',
