@@ -47,7 +47,7 @@ class WeatherConditions extends Component {
           </div>
           <div className="weather-conditions-feed">
             <img
-              src="/assets/images/icons/icon-white-screen-view.png"
+              src="https://vega.slooh.com/assets/images/icons/icon-white-screen-view.png"
               className="screen-view"
             />
 

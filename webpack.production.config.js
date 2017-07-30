@@ -143,9 +143,9 @@ module.exports = {
       filename: 'index.html',
       inject: 'body',
     }),
-    new CopyWebpackPlugin([
-      { from: './assets/**/*' },
-    ]),
+    // new CopyWebpackPlugin([
+    //   { from: './assets/**/*' },
+    // ]),
     new WebpackMd5Hash(),
   ],
 };

@@ -6,7 +6,7 @@ const Payments = () => (
       <article className="page">
         <header className="page margin-bottom-huge">
           <h1 className="sloohlogo">
-            <img alt="Slooh logo" src="assets/images/logos/sloohlogos/Logo-Slooh-White-C.svg" />
+            <img alt="Slooh logo" src="https://vega.slooh.com/assets/images/logos/sloohlogos/Logo-Slooh-White-C.svg" />
           </h1>
           <h1 className="margin-bottom-tiny">Make your payment.</h1>
           <div className="margin-top-tiny center white">Fill out your payment information</div>
@@ -18,7 +18,7 @@ const Payments = () => (
 
               <aside className="plan backdrop med center padding-reg">
                 <header className="margin-top-med margin-bottom-med">
-                  <object className="icon white" type="image/svg+xml" data="assets/icons/astronaut-white.svg">
+                  <object className="icon white" type="image/svg+xml" data="https://vega.slooh.com/assets/icons/astronaut-white.svg">
                     Your browser does not support SVG
                   </object>
                 </header>
@@ -73,13 +73,13 @@ const Payments = () => (
               <fieldset className="clearfix border-bottom info-block-row margin-bottom-med">
                 <div className="info-block-2third">
                   <label htmlFor="paymonthly" className="vertical-center">
-                    <input type="radio" name="paywith" value="creditcard" checked /> Pay with Credit Card <img alt="credit cards" src="assets/images/logos/cc.png" className="margin-left-small" />
+                    <input type="radio" name="paywith" value="creditcard" checked /> Pay with Credit Card <img alt="credit cards" src="https://vega.slooh.com/assets/images/logos/cc.png" className="margin-left-small" />
                   </label>
                 </div>
 
                 <div className="border-left info-block-third">
                   <label htmlFor="payannually" className="center vertical-center">
-                    <input type="radio" name="paywith" value="paypal" className="" /> Pay with <img alt="Paypal logo" src="assets/images/logos/pp.png" />
+                    <input type="radio" name="paywith" value="paypal" className="" /> Pay with <img alt="Paypal logo" src="https://vega.slooh.com/assets/images/logos/pp.png" />
                   </label>
                 </div>
               </fieldset>
@@ -140,7 +140,7 @@ const Payments = () => (
             <article className="clearfix border-top border-bottom margin-top-large info-block-row-double">
               <section className="info-block-third border-right">
                 <div className="sloohlogo margin-top-xxlarge">
-                  <img alt="Slooh black logo" src="assets/images/logos/sloohlogos/Logo-Slooh-Black-C.svg" />Slooh
+                  <img alt="Slooh black logo" src="https://vega.slooh.com/assets/images/logos/sloohlogos/Logo-Slooh-Black-C.svg" />Slooh
                 </div>
               </section>
               <section className="info-block-2third padding-med border-left">
