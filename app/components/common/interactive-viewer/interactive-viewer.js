@@ -27,6 +27,7 @@ const mapDispatchToProps = dispatch => ({
 class InteractiveViewer extends Component {
   defaultProps = {
     isInteractive: true,
+    callSource: 'details',
   }
   constructor(props) {
     super(props);
@@ -57,11 +58,11 @@ class InteractiveViewer extends Component {
     const { currentScale } = nextState;
 
     // TODO: sort out if we need to reset the image scale to 1
-
     this.props.actions.setImageDataToSnapshot({
       zoom: nextState.currentScale,
       originX: nextState.controlledPosition.x,
       originY: nextState.controlledPosition.y,
+      callSource: nextProps.callSource,
     });
   }
 

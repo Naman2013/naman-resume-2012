@@ -16,6 +16,7 @@ function TelescopeImageViewer({
   clipped,
   missionFormat,
   isInteractive,
+  callSource,
 }) {
   const setIds = obsIdTeleIdDomeIdFromTeleId(teleId);
   const teleThumbWidth = '866px';
@@ -28,6 +29,7 @@ function TelescopeImageViewer({
 
       <InteractiveViewer
         isInteractive={isInteractive}
+        callSource={callSource}
       >
 
         <TelescopeImageLoader
@@ -52,6 +54,7 @@ TelescopeImageViewer.defaultProps = {
   clipped: false,
   missionFormat: 'full',
   isInteractive: true,
+  callSource: 'details',
 };
 
 TelescopeImageViewer.propTypes = {

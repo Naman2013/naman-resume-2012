@@ -140,6 +140,7 @@ class SituationVideoViewer extends Component {
                       cameraSourceType={feed.cameraSourceType}
                       teleSystem={feed.systemId}
                       telePort={feed.SSEport}
+                      callSource="situationRoom"
 
                     />
                   : // else feed.imageSourceType === 'SSE'
@@ -153,6 +154,7 @@ class SituationVideoViewer extends Component {
                       clipped={false}
                       missionFormat="none"
                       isInteractive={false}
+                      callSource="situationRoom"
                     />
                   }
                 </aside>
