@@ -54,7 +54,7 @@ class Footer extends Component {
     return (
       <div className="footer-wrapper">
         <div className="logo-container center">
-          <img alt="Book" className="bookclub-img" src="assets/images/bookclub/Space_BookClub_Logo.png" />
+          <img alt="Book" className="bookclub-img" src="https://vega.slooh.com/`assets/`images/bookclub/Space_BookClub_Logo.png" />
         </div>
         <div className="community-title center">
           Community Perspectives&nbsp;&nbsp;|&nbsp;&nbsp;<Link to="/publish-post" className="community-link">Upload your own</Link>
