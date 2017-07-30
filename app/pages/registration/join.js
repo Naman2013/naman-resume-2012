@@ -7,7 +7,7 @@ const Join = () => (
 
         <header className="page">
           <h1 className="sloohlogo">
-            <img src="assets/images/logos/sloohlogos/Logo-Slooh-White-C.svg" alt="Slooh" />
+            <img src="https://vega.slooh.com/assets/images/logos/sloohlogos/Logo-Slooh-White-C.svg" alt="Slooh" />
           </h1>
           <h1>Join the Slooh Community</h1>
           <h2>Sign up is easy, enter your details to get started.</h2>

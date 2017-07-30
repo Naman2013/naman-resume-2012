@@ -51,7 +51,7 @@ class BrowseShows extends Component {
         <style jsx>{`
           .header {
             ${backgroundImageCover}
-            background-image: url('assets/images/photos/enigma.png');
+            background-image: url(https://vega.slooh.com/assets/images/photos/enigma.png);
             color: ${white};
             width: 100%;
             height: 140px;
