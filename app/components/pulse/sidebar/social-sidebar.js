@@ -1,12 +1,11 @@
 import React from 'react';
 import styles from '../style/social-sidebar.scss';
 
-
 const SocialSidebar = ({ list }) =>
   <section className={styles.socialSidebar}>
     <nav className={styles.socialSidebarTabs}>
-      <div className={`${styles.socialSidebarTab} active`}><img className="soc-img"
-                                                                src="./assets/icons/facebook_logo.png" alt="Facebook"/>Facebook
+      <div className={`${styles.socialSidebarTab} active`}>
+        <img className="soc-img" src="https://vega.slooh.com/assets/icons/facebook_logo.png" alt="Facebook"/>Facebook
       </div>
       <div className={styles.socialSidebarTab}><img className="soc-img" src="./assets/icons/twitter_logo.png"
                                                     alt="Twitter"/>Twitter

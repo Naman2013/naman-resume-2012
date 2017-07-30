@@ -5,7 +5,7 @@ function EventDetails() {
   return (
     <div className={s.situationRoomEventDetailsRoot}>
       <div className={s.titleContainer}>
-        <span className={s.icon}><img src="/assets/icons/flame.png" width="30" /></span>
+        <span className={s.icon}><img src="https://vega.slooh.com/assets/icons/flame.png" width="30" /></span>
         <h3 className={s.titleText}>The Sun</h3>
       </div>
 
