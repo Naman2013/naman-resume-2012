@@ -93,7 +93,7 @@ export default class CircleTimer extends Component {
         {
           /**
             TODO: reminder features
-            <img alt="Reminder icon" className="hand" src="../assets/images/header/reminder.png" />
+            <img alt="Reminder icon" className="hand" src="https://vega.slooh.com/assets/images/header/reminder.png" />
           */
         }
       </div>
