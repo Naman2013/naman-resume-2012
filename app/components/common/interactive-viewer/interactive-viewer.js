@@ -25,6 +25,9 @@ const mapDispatchToProps = dispatch => ({
 
 @connect(null, mapDispatchToProps)
 class InteractiveViewer extends Component {
+  defaultProps = {
+    isInteractive: true,
+  }
   constructor(props) {
     super(props);
     this.animationTick = setInterval(::this.handleViewerTick, 100);
@@ -32,7 +35,7 @@ class InteractiveViewer extends Component {
 
   state = {
     fullScreenMode: false,
-    clipped: true,
+    clipped: this.props.isInteractive,
     currentScale: 1,
     bounds: 1,
     activeDrags: 0,
@@ -48,6 +51,7 @@ class InteractiveViewer extends Component {
     zoomfactor: ZOOM_FACTOR,
     zoomEnabled: true,
   };
+
 
   componentWillUpdate(nextProps, nextState) {
     const { currentScale } = nextState;
@@ -176,7 +180,7 @@ class InteractiveViewer extends Component {
   }
 
   render() {
-    const { children } = this.props;
+    const { children, isInteractive } = this.props;
     const {
       fullScreenMode,
       currentScale,
@@ -232,21 +236,23 @@ class InteractiveViewer extends Component {
           </div>
         </div>
 
-        <button
-          onClick={this.handleZoomOutClick}
-          className="action minus"
-        >
-          <span className="icon glyphicon-minus" />
-        </button>
+        {isInteractive && <div>
+          <button
+            onClick={this.handleZoomOutClick}
+            className="action minus"
+          >
+            <span className="icon glyphicon-minus" />
+          </button>
 
-        <LiveSign />
+          <LiveSign />
 
-        <button
-          onClick={this.handleZoomInClick}
-          className="action plus"
-        >
-          <span className="icon glyphicon-plus" />
-        </button>
+          <button
+            onClick={this.handleZoomInClick}
+            className="action plus"
+          >
+            <span className="icon glyphicon-plus" />
+          </button>
+        </div>}
 
         {
           /**
@@ -260,21 +266,23 @@ class InteractiveViewer extends Component {
           */
         }
 
-        {
-          clipped ?
-            <button
-              onClick={this.handleToggleClipping}
-              className="action circular-view"
-            >
-                Full-frame view <span className="icon glyphicon glyphicon-sound-stereo" />
-            </button>
-            :
-            <button
-              onClick={this.handleToggleClipping}
-              className="action circular-view"
-            >
-                Circular view <span className="icon glyphicon glyphicon-record" />
-            </button>
+        {isInteractive &&
+          <div>
+            { clipped ?
+              <button
+                onClick={this.handleToggleClipping}
+                className="action circular-view"
+              >
+                  Full-frame view <span className="icon glyphicon glyphicon-sound-stereo" />
+              </button>
+              :
+              <button
+                onClick={this.handleToggleClipping}
+                className="action circular-view"
+              >
+                  Circular view <span className="icon glyphicon glyphicon-record" />
+              </button> }
+            </div>
         }
       </div>
     );

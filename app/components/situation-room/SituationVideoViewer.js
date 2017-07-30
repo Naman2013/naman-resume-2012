@@ -27,6 +27,7 @@ class SituationVideoViewer extends Component {
   }
 
   handleSelect(index, last) {
+    window.scrollTo(0, 0);
     this.setState({
       selectedTab: index,
     });
@@ -151,6 +152,7 @@ class SituationVideoViewer extends Component {
                       teleFade={Number(feed.SSEfade)}
                       clipped={false}
                       missionFormat="none"
+                      isInteractive={false}
                     />
                   }
                 </aside>
