@@ -1,0 +1,169 @@
+/* VARIABLES: Typefaces
+ * */
+/* VARIABLES: COLOR
+ * */
+.missionCard {
+  font-family: "Brandon Grotesque", "brandon-grotesque", sans-serif;
+  position: relative; }
+  .missionCard .cardIcon path {
+    fill: red; }
+
+.missionCard.featured {
+  background: #4c4c4c;
+  /* Old browsers */
+  background: -moz-linear-gradient(-45deg, #4c4c4c 0%, #131313 100%);
+  /* FF3.6-15 */
+  background: -webkit-linear-gradient(-45deg, #4c4c4c 0%, #131313 100%);
+  /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(135deg, #4c4c4c 0%, #131313 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', endColorstr='#131313',GradientType=1 );
+  /* IE6-9 fallback on horizontal gradient */
+  padding: 0;
+  margin-bottom: 10px; }
+  .missionCard.featured .card-content-container {
+    background-image: url("../../../assets/images/graphics/Running-Man-nebula-Ngc-1977.png");
+    background-repeat: no-repeat;
+    background-position: left 50%;
+    color: #fff;
+    padding: 20px 10px 5px 150px; }
+  .missionCard.featured h2 {
+    margin-top: 0;
+    font-size: 28px; }
+    @media (min-width: 768px) {
+      .missionCard.featured h2 {
+        font-size: 32px; } }
+  .missionCard.featured .cardsubTitle {
+    overflow: hidden;
+    margin: 5px 0; }
+    .missionCard.featured .cardsubTitle img {
+      float: left;
+      width: 34px; }
+    .missionCard.featured .cardsubTitle h3 {
+      float: left;
+      color: #fff;
+      font-size: 21px;
+      font-weight: bold;
+      margin: 7px; }
+  .missionCard.featured .cardDescription {
+    font-family: "Adobe Garamond Pro", "adobe-garamond-pro", "Adobe Garamond", "Garamond", serif;
+    margin-bottom: 20px; }
+    @media (min-width: 768px) {
+      .missionCard.featured .cardDescription {
+        font-size: 17px; } }
+  .missionCard.featured .mission-status {
+    margin: 0 0 10px 0; }
+  .missionCard.featured .start-time {
+    font-size: 17px;
+    margin-bottom: 10px; }
+    .missionCard.featured .start-time .telescopePierName {
+      padding-left: 20px; }
+  .missionCard.featured .join-mission-callout {
+    margin: 0 0 10px 0;
+    font-size: 17px; }
+    .missionCard.featured .join-mission-callout h5 {
+      margin: 0 0 10px 0; }
+  .missionCard.featured .callOut {
+    text-transform: uppercase;
+    font-weight: 500;
+    font-size: 26px;
+    position: absolute;
+    left: 0;
+    top: 39%;
+    width: 100px;
+    line-height: 1;
+    text-align: center;
+    display: inline-block; }
+    .missionCard.featured .callOut .first-word {
+      font-size: 20px; }
+
+.missionCard.secondary {
+  text-align: center;
+  background: none;
+  padding: 3px; }
+  .missionCard.secondary .card-content-container {
+    background: #fff;
+    height: 375px;
+    cursor: pointer;
+    -webkit-transition: box-shadow 0.15s ease-in;
+    -moz-transition: box-shadow 0.15s ease-in;
+    -o-transition: box-shadow 0.15s ease-in;
+    transition: box-shadow 0.15s ease-in; }
+    .missionCard.secondary .card-content-container.card-content-container:hover {
+      box-shadow: 0px 10px 20px #3c4a55;
+      border: 2px solid #F310A7;
+      margin: -2px -2px 2px -2px; }
+      .missionCard.secondary .card-content-container.card-content-container:hover .piggybackCta {
+        background-color: #111;
+        color: #fff;
+        text-decoration: none; }
+    .missionCard.secondary .card-content-container .mission-status {
+      font-size: 18px;
+      font-weight: 300;
+      margin: 0; }
+  .missionCard.secondary h2 {
+    background: url("../../../assets/images/graphics/stripofstars.jpg") no-repeat;
+    color: #fff;
+    font-size: 14px;
+    margin: 0 0 10px 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 10px;
+    height: 34px;
+    background-repeat: repeat-x; }
+  .missionCard.secondary h3 {
+    font-weight: bold;
+    font-size: 22px;
+    margin: 10px 0; }
+  .missionCard.secondary .cardDescription {
+    font-family: "Adobe Garamond Pro", "adobe-garamond-pro", "Adobe Garamond", "Garamond", serif;
+    color: #3C4A55;
+    padding: 0 30px;
+    line-height: 1.5;
+    height: 75px;
+    margin-bottom: 5px;
+    overflow: hidden; }
+  .missionCard.secondary .join-mission-callout {
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%; }
+    .missionCard.secondary .join-mission-callout .mission-available {
+      margin: 0; }
+      .missionCard.secondary .join-mission-callout .mission-available .title {
+        font-size: 18px;
+        font-weight: 300;
+        margin: 0 0 5px 0; }
+      .missionCard.secondary .join-mission-callout .mission-available .start-time {
+        font-family: "Brandon Grotesque", "brandon-grotesque", sans-serif;
+        font-size: 18px;
+        margin-bottom: 10px; }
+      .missionCard.secondary .join-mission-callout .mission-available .highlight {
+        color: #F310A7; }
+
+.piggybackCta {
+  background: #F310A7;
+  color: #fff;
+  height: 40px;
+  width: 170px;
+  max-width: 90%;
+  line-height: 40px;
+  font-size: 13px;
+  display: block;
+  text-align: center;
+  -webkit-transition: all 0.1s ease-in;
+  -moz-transition: all 0.1s ease-in;
+  -o-transition: all 0.1s ease-in;
+  transition: all 0.1s ease-in;
+  display: inline-block; }
+  .piggybackCta:hover {
+    background-color: #111;
+    color: #fff;
+    text-decoration: none; }
+  .piggybackCta:focus {
+    color: #fff;
+    text-decoration: none; }
+
+/*# sourceMappingURL=mission-card.css.map */

@@ -1,0 +1,42 @@
+/* VARIABLES: Typefaces
+ * */
+/* VARIABLES: COLOR
+ * */
+.myPicturesControl {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0 auto;
+  width: 100%; }
+  .myPicturesControl .count {
+    color: #3C4A55;
+    padding: 0 100px; }
+  @media (min-width: 768px) {
+    .myPicturesControl .count {
+      color: #3C4A55;
+      padding: 0 200px; } }
+  .myPicturesControl .button {
+    display: block;
+    background: none;
+    border: none;
+    color: #9B9B9B; }
+    .myPicturesControl .button:focus {
+      outline: none; }
+    .myPicturesControl .button .icon {
+      background: #9B9B9B;
+      color: #D9D9D9;
+      border-radius: 50%;
+      width: 25px;
+      height: 25px; }
+    .myPicturesControl .button.active {
+      color: #F310A7; }
+      .myPicturesControl .button.active .icon {
+        background: #F310A7; }
+    .myPicturesControl .button.previous .icon {
+      padding: 3px 4px 0 0; }
+    .myPicturesControl .button.next .icon {
+      padding: 3px 0 0 3px; }
+
+/*# sourceMappingURL=Pagination.css.map */
