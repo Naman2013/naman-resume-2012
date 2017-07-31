@@ -9,6 +9,10 @@ export const FETCH_MISSION_PHOTOS_START = 'FETCH_MISSION_PHOTOS_START';
 export const FETCH_MISSION_PHOTOS_SUCCESS = 'FETCH_MISSION_PHOTOS_SUCCESS';
 export const FETCH_MISSION_PHOTOS_FAIL = 'FETCH_MISSION_PHOTOS_FAIL';
 
+export const FETCH_GALLERIES_START = 'FETCH_GALLERIES_START';
+export const FETCH_GALLERIES_SUCCESS = 'FETCH_GALLERIES_SUCCESS';
+export const FETCH_GALLERIES_FAIL = 'FETCH_GALLERIES_FAIL';
+
 export const FETCH_MISSIONS_START = 'FETCH_MISSIONS_START';
 export const FETCH_MISSIONS_SUCCESS = 'FETCH_MISSIONS_SUCCESS';
 export const FETCH_MISSIONS_FAIL = 'FETCH_MISSIONS_FAIL';
@@ -35,6 +39,10 @@ export const FETCH_MISSION_PHOTOS_COUNT_FAIL = 'FETCH_MISSION_PHOTOS_COUNT_FAIL'
 export const FETCH_MISSION_COUNT_START = 'FETCH_MISSION_COUNT_START';
 export const FETCH_MISSION_COUNT_SUCCESS = 'FETCH_MISSION_COUNT_SUCCESS';
 export const FETCH_MISSION_COUNT_FAIL = 'FETCH_MISSION_COUNT_FAIL';
+
+export const FETCH_GALLERIES_COUNT_START = 'FETCH_GALLERIES_COUNT_START';
+export const FETCH_GALLERIES_COUNT_SUCCESS = 'FETCH_GALLERIES_COUNT_SUCCESS';
+export const FETCH_GALLERIES_COUNT_FAIL = 'FETCH_GALLERIES_COUNT_FAIL';
 
 
 
@@ -64,6 +72,45 @@ export const loadFITImages = ({ scheduledMissionId }) => (dispatch, getState) =>
   .catch(error => () => { throw error; });
 };
 
+const fetchGalleriesStart = () => ({
+  type: FETCH_GALLERIES_START,
+});
+
+const fetchGalleriesSuccess = payload => ({
+  type: FETCH_GALLERIES_SUCCESS,
+  payload,
+});
+
+const fetchGalleriesFail = payload => ({
+  type: FETCH_GALLERIES_FAIL,
+  payload,
+});
+
+export const fetchGalleries = ({
+  maxImageCount = 9,
+  firstImageNumber = 1,
+}) => (dispatch, getState) => {
+  const { at, token, cid } = getState().user;
+  const { objectTypeFilter } = getState().myPictures;
+  dispatch(fetchGalleriesStart());
+  // dispatch(fetchGalleriesCount({})); // for pagination
+  // dispatch(fetchMissionCount()); // for deeplinking
+  // dispatch(fetchMyPicturesCount());// for deeplinking
+  return axios.post('/api/images/getGalleryList', {
+    // at: 3, // for testing purposes
+    // cid: 185651, // for testing purposes
+    // token: 'ff278b57d3724d41a3d48194e2f29526b30e9c0f', // for testing purposes
+    at,
+    cid,
+    token,
+    maxImageCount,
+    firstImageNumber,
+    filterType: objectTypeFilter.filterByField,
+  })
+  .then(result => dispatch(fetchGalleriesSuccess(result.data)))
+  .catch(error => dispatch(fetchGalleriesFail(error)));
+};
+
 const fetchMissionPhotosStart = () => ({
   type: FETCH_MISSION_PHOTOS_START,
 });
@@ -89,6 +136,7 @@ export const fetchMissionPhotos = ({
   dispatch(fetchMissionPhotosCount({ scheduledMissionId })); // for pagination
   dispatch(fetchMissionCount()); // for deeplinking
   dispatch(fetchMyPicturesCount());// for deeplinking
+  dispatch(fetchGalleriesCount());// for deeplinking
   return axios.post('/api/images/getMyPictures', {
     at,
     cid,
@@ -166,6 +214,9 @@ export const fetchPhotoRoll = ({
   dispatch(fetchPhotoRollStart());
 
   return axios.post('/api/images/getMyPictures', {
+    // at: 3, // for testing purposes
+    // cid: 185651, // for testing purposes
+    // token: 'ff278b57d3724d41a3d48194e2f29526b30e9c0f', // for testing purposes
     at,
     cid,
     token,
@@ -219,6 +270,7 @@ export const photoRollResetScheduledMissionId = () => (dispatch) => {
 export const fetchPhotoRollAndCounts = (params) => (dispatch) => {
   dispatch(fetchMissionCount());
   dispatch(fetchMyPicturesCount());
+  dispatch(fetchGalleriesCount());// for deeplinking
   dispatch(fetchPhotoRoll({
     ...params,
   }));
@@ -227,18 +279,29 @@ export const fetchPhotoRollAndCounts = (params) => (dispatch) => {
 export const fetchMissionsAndCounts = (params) => (dispatch) => {
   dispatch(fetchMissionCount());
   dispatch(fetchMyPicturesCount());
+  dispatch(fetchGalleriesCount());// for deeplinking
   dispatch(fetchMissions(params));
+};
+
+export const fetchGalleriesAndCounts = (params) => (dispatch) => {
+  dispatch(fetchMissionCount());
+  dispatch(fetchMyPicturesCount());
+  dispatch(fetchGalleriesCount());
+  dispatch(fetchGalleries(params));
 };
 
 export const updateObjectFilterBy = (payload, page) => (dispatch) => {
   dispatch(setObjectFilterBy(payload));
   dispatch(fetchMissionCount());
   dispatch(fetchMyPicturesCount());
+  dispatch(fetchGalleriesCount());// for deeplinking
 
   if (page === 'photoRoll') {
     dispatch(fetchPhotoRoll({}));
   } else if (page === 'missions') {
     dispatch(fetchMissions({}));
+  } else if (page === 'galleries') {
+    dispatch(fetchGalleries({}));
   }
 };
 
@@ -246,13 +309,15 @@ export const resetObjectFilter = page => (dispatch) => {
   dispatch(resetObjectTypeFilter());
   dispatch(fetchMissionCount());
   dispatch(fetchMyPicturesCount());
+  dispatch(fetchGalleriesCount());// for deeplinking
 
   if (page === 'photoRoll') {
     dispatch(fetchPhotoRoll({}));
   } else if (page === 'missions') {
     dispatch(fetchMissions({}));
+  } else if (page === 'galleries') {
+    dispatch(fetchGalleries({}));
   }
-
 };
 
 const fetchMyPicturesCountStart = payload => ({
@@ -284,6 +349,43 @@ export const fetchMyPicturesCount = () => (dispatch, getState) => {
   })
   .then(result => dispatch(fetchMyPicturesCountSuccess(result.data)))
   .catch(error => dispatch(fetchMyPicturesCountFail(error)));
+};
+
+const fetchGalleriesCountStart = payload => ({
+  type: FETCH_GALLERIES_COUNT_START,
+  payload,
+});
+
+const fetchGalleriesCountSuccess = payload => ({
+  type: FETCH_GALLERIES_COUNT_SUCCESS,
+  payload,
+});
+
+const fetchGalleriesCountFail = payload => ({
+  type: FETCH_GALLERIES_COUNT_FAIL,
+  payload,
+});
+
+export const fetchGalleriesCount = () => (dispatch, getState) => {
+  const { at, token, cid } = getState().user;
+  dispatch(fetchGalleriesCountStart());
+
+  return axios.post('/api/images/getGalleryCount', {
+    // at: 3, // for testing purposes
+    // cid: 185651, // for testing purposes
+    // token: 'ff278b57d3724d41a3d48194e2f29526b30e9c0f', // for testing purposes
+    at,
+    cid,
+    token,
+  })
+  .then(result => {
+    if (result.apiError) {
+      dispatch(fetchGalleriesCountFail(result));
+    } else {
+      dispatch(fetchGalleriesCountSuccess(result.data))
+    }
+  })
+  .catch(error => dispatch(fetchGalleriesCountFail(error)));
 };
 
 const fetchMissionPhotosCountStart = payload => ({

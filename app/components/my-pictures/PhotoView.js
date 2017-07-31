@@ -6,6 +6,7 @@ import GenericLoadingBox from '../common/loading-screens/generic-loading-box';
 import ModalGeneric from '../common/modals/modal-generic';
 import PhotoList from './PhotoList';
 import MissionList from './MissionList';
+import GalleryList from './GalleryList';
 import Pagination from '../common/pagination/Pagination';
 import FITModalHeader from './FIT-image-modal-partials/FITModalHeader';
 import FITModalBody from './FIT-image-modal-partials/FITModalBody';
@@ -97,6 +98,7 @@ class PhotoView extends Component {
       imageList,
       error,
       type,
+      galleryList,
       firstImageNumber,
       imageCount,
       maxImageCount,
@@ -108,9 +110,8 @@ class PhotoView extends Component {
     const firstImageNumberIndex = firstImageNumber - 1;
     const rangeText = Pagination.generateRangeText({
       startRange: firstImageNumberIndex,
-      itemsPerPage: imageList.length, // use length here because there may be less than maxImageCount
+      itemsPerPage: imageList ? imageList.length : galleryList.length, // use length here because there may be less than maxImageCount
     });
-
     const canNext = (firstImageNumberIndex + maxImageCount) < imageCount;
     const canPrevious = firstImageNumberIndex !== 0;
     const showFITSModal = FITImages.imageCount > 0;
@@ -123,7 +124,7 @@ class PhotoView extends Component {
       return <GenericLoadingBox text="We apologize, there was an issue fetching your images." />;
     }
 
-    if (imageList.length === 0) {
+    if ((type !== 'gallery' && type !== 'galleryImages') ? imageList.length === 0 : galleryList.length === 0) {
       return <GenericLoadingBox text="No images are available." />;
     }
 
@@ -166,9 +167,15 @@ class PhotoView extends Component {
           type === 'images' ?
             <PhotoList imageList={imageList} /> : null
         }
+
+        {
+          type === 'galleryImages' ?
+            <GalleryList galleryList={galleryList} isImages={true} /> : null
+        }
+
         {
           type === 'gallery' ?
-            <PhotoList imageList={imageList} galleryType /> : null
+            <GalleryList galleryList={galleryList} /> : null
         }
 
         <Pagination
@@ -190,6 +197,8 @@ PhotoView.defaultProps = {
   firstImageNumber: 1,
   paginateParams: {},
   missions: false,
+  imageList: [],
+  galleryList: [],
 };
 
 // TODO: increase validation for the imageList types.
@@ -198,7 +207,11 @@ PhotoView.propTypes = {
   imageList: PropTypes.arrayOf(PropTypes.shape({
     imageURL: PropTypes.string.isRequired,
     imageId: PropTypes.number.isRequired,
-  })).isRequired,
+  })),
+  galleryList: PropTypes.arrayOf(PropTypes.shape({
+    imageURL: PropTypes.string.isRequired,
+    galleryId: PropTypes.any.isRequired,
+  })),
   paginateParams: PropTypes.object,
   paginate: PropTypes.func.isRequired,
   imageCount: PropTypes.number,
@@ -206,7 +219,7 @@ PhotoView.propTypes = {
   firstImageNumber: PropTypes.number,
   error: PropTypes.bool.isRequired,
   missions: PropTypes.bool,
-  type: PropTypes.oneOf(['covers', 'images', 'gallery']).isRequired,
+  type: PropTypes.oneOf(['covers', 'images', 'gallery', 'galleryImages']).isRequired,
 };
 
 export default PhotoView;

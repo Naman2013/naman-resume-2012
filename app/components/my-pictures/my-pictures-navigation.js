@@ -11,6 +11,7 @@ import s from './my-pictures-navigation.scss';
 const mapStateToProps = ({ objectTypeList, myPictures }) => ({
   photoRollCount: myPictures.photoRoll.imageCount,
   missionCount: myPictures.missions.imageCount,
+  galleriesCount: myPictures.galleries.imageCount,
   objectFilterList: objectTypeList.objectListResponse.objectTypeList,
   objectTypeFilter: myPictures.objectTypeFilter,
 });
@@ -85,7 +86,12 @@ class MyPicturesNavigation extends Component {
         <ul className={s.myPictureNavigationContainer}>
           <li className={s.rootNavigationItem}>
             <Link to="my-pictures/photo-roll" className={s.button} activeClassName="active">
-              Photo Roll<span>({photoRollCount})</span>
+              Photo Roll <span>({photoRollCount})</span>
+            </Link>
+          </li>
+          <li className={s.rootNavigationItem}>
+            <Link to="my-pictures/galleries" className={s.button} activeClassName="active">
+              Galleries <span>({galleriesCount || 0})</span>
             </Link>
           </li>
           <li className={s.rootNavigationItem}>

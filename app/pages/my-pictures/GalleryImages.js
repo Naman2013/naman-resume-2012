@@ -1,32 +1,38 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import MyPicturesNavigation from '../../components/my-pictures/my-pictures-navigation';
 import PhotoView from '../../components/my-pictures/PhotoView';
-import { fetchGalleriesAndCounts } from '../../modules/my-pictures/actions';
+import { fetchGalleryPicturesAndCounts } from '../../modules/my-pictures-galleries/actions';
 import style from './my-pictures-gallery.scss';
 
-const mapStateToProps = ({ myPictures }) => ({
-  error: myPictures.galleries.error,
-  errorBody: myPictures.galleries.errorBody,
-  fetching: myPictures.galleries.fetching,
-  firstGalleryNumber: myPictures.galleries.firstGalleryNumber,
-  imageCount: myPictures.galleries.imageCount,
-  galleryList: myPictures.galleries.response.galleryList,
-  maxImageCount: myPictures.galleries.maxImageCount,
+const mapStateToProps = ({ galleries }) => ({
+  error: galleries.error,
+  errorBody: galleries.errorBody,
+  fetching: galleries.fetching,
+  firstImageNumber: galleries.firstImageNumber,
+  imageCount: galleries.imageCount,
+  imageList: galleries.imageList,
+  maxImageCount: galleries.maxImageCount,
 });
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
-    fetchGalleriesAndCounts,
+    fetchGalleryPicturesAndCounts,
   }, dispatch),
 });
 
 @connect(mapStateToProps, mapDispatchToProps)
-class Galleries extends Component {
+class GalleryImages extends Component {
   componentWillMount() {
+    const { params: { galleryId }, firstImageNumber, maxImageCount } = this.props;
     window.scrollTo(0, 0);
-    this.props.actions.fetchGalleriesAndCounts({});
+    this.props.actions.fetchGalleryPicturesAndCounts({
+      galleryId,
+      firstImageNumber,
+      maxImageCount,
+    });
   }
 
   render() {
@@ -34,12 +40,11 @@ class Galleries extends Component {
       actions,
       error,
       fetching,
-      firstGalleryNumber,
+      firstImageNumber,
       imageCount,
-      galleryList,
+      imageList,
       maxImageCount,
     } = this.props;
-
     return (
       <div>
         <MyPicturesNavigation
@@ -49,14 +54,14 @@ class Galleries extends Component {
         <div className="clearfix my-pictures-container">
           <div>
             <PhotoView
-              paginate={actions.fetchGalleriesAndCounts}
+              paginate={actions.fetchGalleryPicturesAndCounts}
               imageCount={imageCount}
               maxImageCount={maxImageCount}
-              firstImageNumber={firstGalleryNumber}
+              firstImageNumber={firstImageNumber}
               fetching={fetching}
-              galleryList={galleryList}
+              galleryList={imageList}
               error={error}
-              type="gallery"
+              type="galleryImages"
             />
           </div>
         </div>
@@ -65,25 +70,28 @@ class Galleries extends Component {
   }
 }
 
-Galleries.defaultProps = {
-  galleryList: [],
+GalleryImages.defaultProps = {
+  imageList: [],
   fetching: false,
   error: false,
   imageCount: 0,
   maxImageCount: 9,
-  firstGalleryNumber: 1,
+  firstImageNumber: 1,
 };
 
-Galleries.propTypes = {
-  galleryList: PropTypes.arrayOf(PropTypes.shape({
+GalleryImages.propTypes = {
+  actions: PropTypes.shape({
+    fetchGalleryPicturesAndCounts: PropTypes.func.isRequired,
+  }),
+  imageList: PropTypes.arrayOf(PropTypes.shape({
     imageURL: PropTypes.string.isRequired,
     imageId: PropTypes.number.isRequired,
   })),
   imageCount: PropTypes.number,
   maxImageCount: PropTypes.number,
-  firstGalleryNumber: PropTypes.number,
+  firstImageNumber: PropTypes.number,
   fetching: PropTypes.bool,
   error: PropTypes.bool,
 };
 
-export default Galleries;
+export default GalleryImages;
