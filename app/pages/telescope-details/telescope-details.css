@@ -2,7 +2,7 @@
  * */
 .telescope-details-page-wrapper {
   font-family: "Brandon Grotesque", "brandon-grotesque", sans-serif;
-  background-image: url("../../../assets/images/photos/milky-way-3.jpg");
+  background-image: url(https://vega.slooh.com/assets/images/photos/milky-way-3.jpg);
   background-repeat: no-repeat;
   -webkit-background-size: cover;
   -moz-background-size: cover;

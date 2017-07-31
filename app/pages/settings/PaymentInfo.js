@@ -68,13 +68,13 @@ const PaymentInfo = () => (
                   <fieldset className="clearfix border-bottom info-block-row margin-bottom-med hide-overflow">
                     <div className="col-2third hide-overflow">
                       <label htmlFor="paymonthly" className="padding-reg padding-left-tiny badding-bottom-none">
-                        <input type="radio" name="paywith" value="creditcard" checked /> Pay with Credit Card <img alt="Credit card" src="assets/images/logos/cc.png" className="margin-left-small" />
+                        <input type="radio" name="paywith" value="creditcard" checked /> Pay with Credit Card <img alt="Credit card" src="https://vega.slooh.com/assets/images/logos/cc.png" className="margin-left-small" />
                       </label>
                     </div>
 
                     <div className="border-left col-third hide-overflow">
                       <label htmlFor="payannually" className="padding-reg hide-overflow">
-                        <input type="radio" name="paywith" value="paypal" /> Pay with <img alt="Paypal" src="assets/images/logos/pp.png" />
+                        <input type="radio" name="paywith" value="paypal" /> Pay with <img alt="Paypal" src="https://vega.slooh.com/assets/images/logos/pp.png" />
                       </label>
                     </div>
                   </fieldset>
@@ -136,7 +136,7 @@ const PaymentInfo = () => (
                 <article className="clearfix margin-top-large row-full border-top">
                   <section className="info-block-third padding-top-large">
                     <div className="sloohlogo margin-top-huge">
-                      <img alt="Slooh" src="assets/images/logos/sloohlogos/Logo-Slooh-Black-C.svg" />Slooh
+                      <img alt="Slooh" src="https://vega.slooh.com/assets/images/logos/sloohlogos/Logo-Slooh-Black-C.svg" />Slooh
                     </div>
                   </section>
                   <section className="info-block-2third padding-med margin-top-reg border-left">

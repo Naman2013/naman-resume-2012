@@ -1,18 +1,21 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import GenericLoadingBox from '../../components/common/loading-screens/generic-loading-box';
 import DiscussionsList from '../../components/discussions/DiscussionsList';
 import DiscussionsListHeader from '../../components/discussions/DiscussionsListHeader';
-import * as threadActions from '../../modules/discussions-thread/actions';
+import {
+  fetchThreadList,
+} from '../../modules/discussions-thread/actions';
 
-const { func, arrayOf, bool, shape, object } = PropTypes;
+const { arrayOf, bool, object } = PropTypes;
 
 class DiscussionsListWrapper extends Component {
 
   fetchMoreThreads = () => {
-    const { fetchThreadList, page, route: { path }, params: { topicId } } = this.props;
-    fetchThreadList({
+    const { actions, page, route: { path }, params: { topicId } } = this.props;
+    actions.fetchThreadList({
       sortBy: path,
       topicId,
       page: page + 1,
@@ -47,6 +50,10 @@ DiscussionsListWrapper.propTypes = {
 const mapStateToProps = ({ discussionsThread }) => ({
   ...discussionsThread,
 });
-const mapDispatchToProps = dispatch => (bindActionCreators(threadActions, dispatch));
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators({
+    fetchThreadList,
+  }, dispatch),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(DiscussionsListWrapper);

@@ -1,8 +1,6 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { checkUser } from '../modules/User';
-import classnames from 'classnames';
 import Sticky from 'react-stickynode';
 import {
   getObservatoryList,
@@ -11,7 +9,6 @@ import {
 import TelescopeSelection from '../components/telescopes/selection-widget/telescope-selection';
 import CurrentSelectionHeader from '../components/telescopes/current-selection-header/header';
 import DateSelectionNavigation from '../components/telescopes/date-selection-navigation/date-selection-navigation';
-import Tips from '../components/telescopes/current-selection-header/tips';
 import GenericLoadingBox from '../components/common/loading-screens/generic-loading-box';
 import Listings from '../components/telescopes/listings/listings';
 import s from './reserve-by-telescope.scss';
@@ -20,7 +17,7 @@ function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators({
       getObservatoryList,
-    }, dispatch)
+    }, dispatch),
   };
 }
 

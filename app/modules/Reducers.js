@@ -34,12 +34,15 @@ import missions from './Missions';
 import missionSlotDates from './mission-slots-by-telescope/mission-slot-dates-reducer';
 import missionSlotsByTelescope from './mission-slots-by-telescope/mission-slots-by-telescope-reducer';
 import myPictures from './my-pictures/reducer';
+import myPicturesImageDetails from './my-pictures-image-details/reducer';
+import galleries from './my-pictures-galleries/reducer';
 import objectPostList from './object-post-list/reducer';
 import objectTypeList from './object-type-list/reducer';
 import otherFeaturedObjects from './other-featured-objects/reducer';
 import piggyback from './Piggyback';
 import post from './pulse/get-post-reducer';
 import roadtripRegistration from './roadtrip-registration/reducer';
+import starshareCamera from './starshare-camera/starshare-camera-reducer';
 import tags from './tag-management/Tags';
 import telescopeDetails from './telescope-details/reducer';
 import telescopeOverview from './Telescope-Overview';
@@ -88,12 +91,15 @@ export default combineReducers({
   missionSlotDates,
   missionSlotsByTelescope,
   myPictures,
+  myPicturesImageDetails,
+  galleries,
   objectPostList,
   objectTypeList,
   otherFeaturedObjects,
   piggyback,
   post,
   roadtripRegistration,
+  starshareCamera,
   tags,
   telescopeDetails,
   telescopeOverview,

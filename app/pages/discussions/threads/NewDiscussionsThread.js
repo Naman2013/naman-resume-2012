@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Link, hashHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -9,7 +10,11 @@ import { List } from 'immutable';
 import classnames from 'classnames';
 import UploadImage from '../../../components/publish-post/upload-image';
 import ReservationSelectList from '../../../components/common/forms/reservation-select-list';
-import * as newThreadActions from '../../../modules/discussions-new-thread/actions';
+import {
+  fetchForumTopicList,
+  createNewThread,
+  resetNewThreadState,
+} from '../../../modules/discussions-new-thread/actions';
 import setPostImages from '../../../modules/set-post-images';
 import deletePostImage from '../../../services/post-creation/delete-post-image';
 import RichTextEditor from '../../../components/rich-text-editor/RichTextEditor';
@@ -342,7 +347,9 @@ const mapStateToProps = ({
   threadSubmitted: discussionsNewThread.threadSubmitted,
 });
 const mapDispatchToProps = dispatch => (bindActionCreators({
-  ...newThreadActions,
+  fetchForumTopicList,
+  createNewThread,
+  resetNewThreadState,
 }, dispatch));
 
 export default connect(mapStateToProps, mapDispatchToProps)(NewDiscussionsThread);

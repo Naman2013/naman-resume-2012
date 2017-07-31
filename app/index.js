@@ -64,16 +64,17 @@ import RoadtripRegistration from './pages/about/RoadtripRegistration';
 
 import PhotoRoll from './pages/my-pictures/PhotoRoll';
 import Galleries from './pages/my-pictures/Galleries';
+import GalleryImages from './pages/my-pictures/GalleryImages';
 import Missions from './pages/my-pictures/Missions';
 import MissionImages from './pages/my-pictures/MissionImages';
+import ImageDetails from './pages/my-pictures/ImageDetails';
+import GalleryImageDetails from './pages/my-pictures/GalleryImageDetails';
 
-import Plans from './pages/registration/Plans';
 import UpgradeApprentice from './pages/registration/UpgradeApprentice';
 import UpgradeAstronomer from './pages/registration/UpgradeAstronomer';
 import SignIn from './pages/registration/SignIn';
 import Upgrade from './pages/registration/Upgrade';
 
-import Account from './pages/settings/Account';
 import Notifications from './pages/settings/Notifications';
 import PaymentInfo from './pages/settings/PaymentInfo';
 import Profile from './pages/settings/Profile';
@@ -141,7 +142,6 @@ ReactDOM.render(
       </Route>
 
       <Route path="registration" component={StaticAppContainer} onEnter={validateRegistrationPaths}>
-        <Route path="plans" component={Plans} />
         <Route path="sign-in" component={SignIn} />
         <Route path="upgrade-apprentice" component={UpgradeApprentice} />
         <Route path="upgrade-astronomer" component={UpgradeAstronomer} />
@@ -149,7 +149,6 @@ ReactDOM.render(
       </Route>
 
       <Route path="settings" component={StaticAppContainer} onEnter={validateUser}>
-        <Route path="account" component={Account} />
         <Route path="notifications" component={Notifications} />
         <Route path="billing" component={PaymentInfo} />
         <Route path="dashboard" component={Profile} />
@@ -238,7 +237,7 @@ ReactDOM.render(
             <Route path="constellations" />
           */ }
           </Route>
-          <Route path="highlights" component={SloohMotion}>
+          <Route path="highlighted" component={SloohMotion}>
             { /*
             <IndexRedirect to="all-categories" />
             <Route path="all-categories" />
@@ -269,9 +268,14 @@ ReactDOM.render(
         <Route path="my-pictures" component={MyPictures} onEnter={validateUser}>
           <IndexRedirect to="photo-roll" />
           <Route path="photo-roll" title="Photo roll" component={PhotoRoll} />
-          <Route path="galleries" title="Galleries" component={Galleries} />
+          <Route path="galleries" tite="Galleries" component={Galleries} />
+          <Route path="galleries/:galleryId" tite="Galleries" component={GalleryImages} />
           <Route path="missions/:scheduledMissionId" title="Mission Images" component={MissionImages} />
           <Route path="missions" title="Missions" component={Missions} />
+
+          <Route path="show-image(/:customerImageId)(/:shareToken)" component={ImageDetails} />
+          <Route path="gallery/:galleryId/show-image(/:customerImageId)(/:shareToken)" component={GalleryImageDetails} />
+          <Route path="popular/show-image(/:customerImageId)(/:shareToken)" component={ImageDetails} />
         </Route>
 
         <Route path="discussions" component={Discussions} onEnter={validateUser}>

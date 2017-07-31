@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import UniversalTime from '../../components/common/universal-time';
 import s from './Header.scss';
 
@@ -7,7 +8,7 @@ const Header = ({ videoInProgress }) =>
     {
       videoInProgress ? <span className="live">live</span> : null
     }
-    <img alt="Space Situation Room" src="assets/images/logos/space-situation-room-logo.svg" height="65" />
+    <img alt="Space Situation Room" src="https://vega.slooh.com/assets/images/logos/space-situation-room-logo.svg" height="65" />
     {
       videoInProgress ? <span className="live">live</span> : null
     }

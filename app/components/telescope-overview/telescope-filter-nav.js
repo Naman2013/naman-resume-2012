@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import UniversalTime from '../common/universal-time';
 import FilterLink from './filter-link';
 import style from './telescope-filter-nav.scss';

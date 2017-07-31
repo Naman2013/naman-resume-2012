@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router';
 import style from './AboutEclipse.scss';
 
 function AboutEclipse() {
@@ -16,12 +17,12 @@ function AboutEclipse() {
         <div className={style.sloohStream}>
           Slooh will also live stream this event:
           <div className={style.date}>
-            Monday, August 21, 2017 8:00 A.M. EDT USA
+            Monday, August 21, 2017 12:00 P.M. EDT USA
           </div>
         </div>
         <div className={style.btnGroup}>
           { /* <button className={style.actionBtn}>Set Reminder</button> */ }
-          <a href="/#/shows/event-details/393" className={style.actionBtn}>Learn More</a>
+          <Link to="/shows/event-details/393" className={style.actionBtn}>Learn More</Link>
         </div>
       </div>
     </div>

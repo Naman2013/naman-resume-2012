@@ -1,8 +1,8 @@
-import React, { Component, PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import styles from './community-post-tools.scss';
 
 const CommunityPostShare = ({ date, category }) =>
-
   <div className={styles.CommunityPostShare}>
     <img src="" width={30} height={30}/>
     <span>Share</span>

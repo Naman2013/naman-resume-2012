@@ -12,8 +12,8 @@ const NAV_ITEMS = [
     link: '/shows/video-viewer/browse/recent-shows',
   },
   {
-    title: 'Highlights',
-    link: '/shows/video-viewer/browse/highlights',
+    title: 'Highlighted',
+    link: '/shows/video-viewer/browse/highlighted',
   },
   {
     title: 'Upcoming shows',
@@ -51,7 +51,7 @@ class BrowseShows extends Component {
         <style jsx>{`
           .header {
             ${backgroundImageCover}
-            background-image: url('assets/images/photos/enigma.png');
+            background-image: url(https://vega.slooh.com/assets/images/photos/enigma.png);
             color: ${white};
             width: 100%;
             height: 140px;

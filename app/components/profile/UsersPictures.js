@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import take from 'lodash/take';
 import PhotoList from '../my-pictures/PhotoList';
 

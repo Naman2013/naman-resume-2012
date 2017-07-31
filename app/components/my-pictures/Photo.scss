@@ -40,25 +40,6 @@
     position: absolute;
     right: 20px;
     bottom: 20px;
-
-    .action {
-      @include border-radius(50%);
-      width: 35px;
-      height: 35px;
-      display: block;
-      border: none;
-      background: $turqoise;
-      color: $white;
-
-      &:hover {
-        background: $light-turqoise;
-        color: $darkBlueGray;
-      }
-
-      &:focus {
-        outline: none;
-      }
-    }
   }
 
 }

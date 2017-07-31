@@ -33,7 +33,7 @@ This project requires that we use relative paths to assets.  The Webpack build p
 will automatically copy the assets directory and include it in dist for you.  That means
 whenever you need to reference an asset, use the relative path:
 
-`assets/{your-asset-path}`
+`https://vega.slooh.com/assets/{your-asset-path}`
 
 ### API's and Proxies
 

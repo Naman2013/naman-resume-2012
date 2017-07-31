@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import styles from './style/pulse-post-image.scss';
 
 const PulsePostImage = ({ image, imageBy }) => {

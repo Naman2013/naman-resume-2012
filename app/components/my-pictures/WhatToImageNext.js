@@ -4,19 +4,19 @@ import style from './WhatToImageNext.scss';
 const objects = [
   {
     info: 'As featured in the first Outer Limits episode.',
-    imgURL: 'assets/icons/galaxy.svg',
+    imgURL: 'https://vega.slooh.com/assets/icons/galaxy.svg',
     title: 'Andromeda Galaxy (M31)',
     description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus aperiam atque debitis dolorem maxime nulla quod? Laborum magni repellendus sit.',
   },
   {
     info: 'As featured in the first Outer Limits episode.',
-    imgURL: 'assets/icons/Jupiter.svg',
+    imgURL: 'https://vega.slooh.com/assets/icons/Jupiter.svg',
     title: 'Andromeda Galaxy (M31)',
     description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus aperiam atque debitis dolorem maxime nulla quod? Laborum magni repellendus sit.',
   },
   {
     info: 'As featured in the first Outer Limits episode.',
-    imgURL: 'assets/icons/Jupiter.svg',
+    imgURL: 'https://vega.slooh.com/assets/icons/Jupiter.svg',
     title: 'Andromeda Galaxy (M31)',
     description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus aperiam atque debitis dolorem maxime nulla quod? Laborum magni repellendus sit.',
   },

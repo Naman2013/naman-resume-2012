@@ -1,6 +1,6 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import styles from './header.scss';
-import Tips from './tips';
 
 /**
   * Current telescope's header with title, reserve button and a sponsor

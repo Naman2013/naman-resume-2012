@@ -298,7 +298,7 @@ class PlansChange extends Component {
           }
 
           .bg-div-pic {
-            background: url("https://www.slooh.com/assets/images/photos/stellar.jpg") no-repeat center center fixed;
+            background: url(https://vega.slooh.com/assets/images/photos/stellar.jpg) no-repeat center center fixed;
             -webkit-background-size: cover;
             -moz-background-size: cover;
             -o-background-size: cover;

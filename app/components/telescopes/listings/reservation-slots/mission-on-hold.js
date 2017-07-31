@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import InlineCountdown from '../../../common/inline-countdown/inline-countdown';
@@ -61,7 +62,7 @@ class MissionOnHold extends Component {
         telescopeId,
       });
     };
-    
+
     return (
       <li className="telescope-listings-item on-hold">
 
@@ -75,7 +76,7 @@ class MissionOnHold extends Component {
         </div>
 
         <div className="col-md-4 slot-description">
-          <img className="slot-logo" src="assets/icons/question-mark.png" width="38" alt="This slot is marked as on hold" />
+          <img className="slot-logo" src="https://vega.slooh.com/assets/icons/question-mark.png" width="38" alt="This slot is marked as on hold" />
           {
             userHasHold ?
               <h4 className="slot-name">On Hold. Finish Reservation Within <InlineCountdown startTime={expires} exitAction={refreshAction} /></h4>

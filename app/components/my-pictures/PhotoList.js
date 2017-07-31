@@ -1,6 +1,7 @@
-import React, { Component, PropTypes } from 'react';
-import Photo from './Photo';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import classnames from 'classnames';
+import Photo from './Photo';
 import style from './PhotoList.scss';
 
 class PhotoList extends Component {
@@ -27,8 +28,9 @@ class PhotoList extends Component {
         <ul className={`${style.photoList} ${containerColClassNames}`}>
           {
             imageList.map(photo => (
-              <li key={photo.imageId} className={listColClassNames}>
+              <li key={photo.customerImageId || photo.imageId} className={listColClassNames}>
                 <Photo
+                  detailsUrl={`my-pictures/show-image/${photo.customerImageId}/${photo.shareToken}`}
                   handlePhotoClick={this.handlePhotoClick}
                   imageURL={photo.imageURL}
                   imageTitle={photo.imageTitle}

@@ -5,6 +5,10 @@ import {
   FETCH_PHOTO_ROLL_SUCCESS,
   FETCH_PHOTO_ROLL_FAIL,
 
+  FETCH_GALLERIES_START,
+  FETCH_GALLERIES_SUCCESS,
+  FETCH_GALLERIES_FAIL,
+
   FETCH_MISSION_PHOTOS_START,
   FETCH_MISSION_PHOTOS_SUCCESS,
   FETCH_MISSION_PHOTOS_FAIL,
@@ -31,12 +35,26 @@ import {
 
   FETCH_MISSION_COUNT_SUCCESS,
   FETCH_MISSION_COUNT_FAIL,
+
+  FETCH_GALLERIES_COUNT_SUCCESS,
+  FETCH_GALLERIES_COUNT_FAIL,
 } from './actions';
 
 const initialState = {
   photoRoll: {
     response: {
       imageList: [],
+    },
+    imageCount: 0,
+    maxImageCount: 9,
+    firstImageNumber: 1,
+    fetching: false,
+    error: false,
+    errorBody: {},
+  },
+  galleries: {
+    response: {
+      galleryList: [],
     },
     imageCount: 0,
     maxImageCount: 9,
@@ -283,6 +301,70 @@ export default createReducer(initialState, {
         fetching: false,
         error: true,
         errorBody: payload,
+      },
+    };
+  },
+  [FETCH_GALLERIES_START](state) {
+    return {
+      ...state,
+      galleries: {
+        response: {
+          galleryList: [],
+        },
+        imageCount: state.galleries.imageCount, // different call handles this
+        maxImageCount: state.galleries.maxImageCount,
+        firstImageNumber: state.galleries.firstImageNumber,
+        fetching: true,
+        error: false,
+        errorBody: {},
+      },
+    };
+  },
+  [FETCH_GALLERIES_SUCCESS](state, { payload }) {
+    return {
+      ...state,
+      galleries: {
+        response: payload,
+        imageCount: state.galleries.imageCount, // different call handles this
+        maxImageCount: payload.maxImageCount,
+        firstImageNumber: payload.firstImageNumber,
+        fetching: false,
+        error: false,
+        errorBody: {},
+      },
+    };
+  },
+  [FETCH_GALLERIES_FAIL](state, { payload }) {
+    return {
+      ...state,
+      galleries: {
+        response: {
+          galleryList: [],
+        },
+        imageCount: state.galleries.imageCount, // different call handles this
+        maxImageCount: state.galleries.maxImageCount,
+        firstImageNumber: state.galleries.firstImageNumber,
+        fetching: false,
+        error: true,
+        errorBody: payload,
+      },
+    };
+  },
+  [FETCH_GALLERIES_COUNT_SUCCESS](state, { payload }) {
+    return {
+      ...state,
+      galleries: {
+        ...state.galleries,
+        imageCount: Number(payload.galleryCount),
+      },
+    };
+  },
+  [FETCH_GALLERIES_COUNT_FAIL](state) {
+    return {
+      ...state,
+      galleries: {
+        ...state.galleries,
+        imageCount: 0,
       },
     };
   },

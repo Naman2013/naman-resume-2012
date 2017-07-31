@@ -1,7 +1,8 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import moment from 'moment';
 
-import style from './inline-countdown.scss';
+import inlineCountdownStyle from './inline-countdown.style';
 
 const formatDoubleDigit = num => (num > 9 ? num : '0'.concat(num));
 const getRemaining = (expires, currentTime) => {
@@ -18,7 +19,8 @@ const getRemaining = (expires, currentTime) => {
     minutes: minutesRemaining,
     seconds: secondsRemaining,
   };
-}
+};
+
 class InlineDaysCountdown extends Component {
 
   static defaultProps = {
@@ -91,6 +93,10 @@ class InlineDaysCountdown extends Component {
     return (
       <div className="inline-countdown">
         {countdown}
+
+        <style jsx>{`
+          ${inlineCountdownStyle}
+        `}</style>
       </div>
     );
   }

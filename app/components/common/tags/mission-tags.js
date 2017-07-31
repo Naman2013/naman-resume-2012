@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { WithContext as ReactTags } from 'react-tag-input';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -51,7 +52,7 @@ class MissionTags extends Component {
 
   handleDelete(tag) {
 
-    const { tagClass, tagType, scheduledMissionId, imageId } = this.props;
+    const { tagClass, tagType, scheduledMissionId, imageId, customerImageId } = this.props;
 
     const { tagList } = this.props.tags;
     const deleteTag = tagList.find( originalTag => originalTag.tagIndex === tag );
@@ -62,6 +63,7 @@ class MissionTags extends Component {
       tagType,
       scheduledMissionId,
       imageId,
+      customerImageId,
     });
   }
 
@@ -84,7 +86,7 @@ class MissionTags extends Component {
     event.preventDefault();
 
     const { tagText } = this.state;
-    const { tagClass, tagType, scheduledMissionId, imageId } = this.props;
+    const { tagClass, tagType, scheduledMissionId, imageId, customerImageId } = this.props;
 
     this.props.actions.setTags({
       text: tagText,
@@ -92,6 +94,7 @@ class MissionTags extends Component {
       tagType,
       scheduledMissionId,
       imageId,
+      customerImageId,
     });
 
     this.resetTagText();
@@ -99,25 +102,26 @@ class MissionTags extends Component {
 
   render() {
 
-    const { tagText } = this.state;
-    const { tags } = this.props;
+    const { tagText, tagClass } = this.state;
+    const { tags, canEditFlag, settingError, buttonStyle } = this.props;
 
     let availableTags = [];
 
-    if(tags) {
+    if (tags) {
       availableTags = tags.tagList.map( tag => ({ id: tag.tagIndex, text: tag.tagText }) );
     }
 
     return(
       <div className="slooh-mission-tags">
-        <h4 className="title">MISSION TAGS:</h4>
+        {tagClass === "mission" && <h4 className="title">MISSION TAGS:</h4>}
         <ReactTags
+          readOnly={!canEditFlag}
           tags={availableTags}
           handleDelete={this.handleDelete}
           handleAddition={this.handleAddition}
           handleDrag={this.handleDrag} />
 
-        <form className="add-tag-form" onSubmit={this.handleSubmit} method="POST">
+        {canEditFlag && <form className="add-tag-form" onSubmit={this.handleSubmit} method="POST">
           <input
             className="tag-text"
             placeholder="Tag text"
@@ -126,8 +130,10 @@ class MissionTags extends Component {
             autoComplete="off"
             onChange={this.handleTagTextChange}
             value={tagText} />
-          <button className="action" type="submit">Add a Tag</button>
-        </form>
+          {settingError && <div>There was an error setting that tag.</div>}
+          <button className={buttonStyle || 'action'} type="submit">Add a Tag</button>
+        </form>}
+        {!canEditFlag && availableTags.length === 0 && <div>There are no tags.</div>}
       </div>
     );
   }
@@ -135,6 +141,7 @@ class MissionTags extends Component {
 
 MissionTags.defaultProps = {
   imageId: '',
+  canEditFlag: true,
 };
 
 MissionTags.propTypes = {
@@ -142,6 +149,7 @@ MissionTags.propTypes = {
   tagType: PropTypes.string.isRequired,
   scheduledMissionId: PropTypes.number.isRequired,
   imageId: PropTypes.string,
+  canEditFlag: PropTypes.bool,
 };
 
 export default MissionTags;

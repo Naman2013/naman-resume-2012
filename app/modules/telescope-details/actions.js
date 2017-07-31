@@ -1,8 +1,9 @@
 import {
   observatoryListSuccess,
   getCurrentObservatory,
-  resetSnapshotList,
 } from '../Telescope-Overview';
+
+import { resetSnapshotList } from '../starshare-camera/starshare-camera-actions';
 
 import { resetActiveMission } from '../active-telescope-missions/active-telescope-missions-actions';
 

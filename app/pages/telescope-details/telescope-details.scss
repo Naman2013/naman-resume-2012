@@ -5,7 +5,7 @@ $CONTAINER_WIDTH: 1260px;
 
 .telescope-details-page-wrapper {
   font-family: $primary-font;
-  background-image: url("../../../assets/images/photos/milky-way-3.jpg");
+  background-image: url(https://vega.slooh.com/assets/images/photos/milky-way-3.jpg);
   @include background-image-cover;
   background-position: center;
   //min-width: $CONTAINER_WIDTH;

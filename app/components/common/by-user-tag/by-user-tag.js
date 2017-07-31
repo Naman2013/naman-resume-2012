@@ -1,5 +1,6 @@
-import React, { Component, PropTypes } from 'react';
-import style from './by-user-tag.scss';
+import React from 'react';
+import PropTypes from 'prop-types';
+import byUserTagStyle from './by-user-tag.style';
 
 /**
   THEMES
@@ -10,36 +11,33 @@ import style from './by-user-tag.scss';
   light ( good for sitting on top of dark colored things )
 */
 
-class ByUserTag extends Component {
+function ByUserTag({
+  theme,
+  photo,
+  name,
+  accountType,
+  location,
+  memberSince,
+}) {
+  const profilePhotoStyle = {
+    backgroundImage: `url(${photo})`,
+  };
 
-  render() {
-    const {
-      theme,
-      photo,
-      name,
-      accountType,
-      location,
-      memberSince
-    } = this.props;
+  return (
+    <div className="root">
+      <div className="profile-photo" style={profilePhotoStyle} />
 
-    const profilePhotoStyle = {
-      'backgroundImage': `url(${photo})`,
-    };
-
-    return(
-      <div className="slooh-by-user-tag">
-        <div className="profile-photo" style={profilePhotoStyle}></div>
-
-        <div className="profile-name">
-          <h4 className="username">
-            {name} <span className="account-level">{accountType}</span>
-            <br />
-            <span className={`user-details ${theme}`}>{location} Member since {memberSince}</span>
-          </h4>
-        </div>
+      <div className="profile-name">
+        <h4 className="username">
+          {name} <span className="account-level">{accountType}</span>
+          <br />
+          <span className={`user-details ${theme}`}>{location} Member since {memberSince}</span>
+        </h4>
       </div>
-    );
-  }
+
+      <style jsx>{byUserTagStyle}</style>
+    </div>
+  );
 }
 
 ByUserTag.defaultProps = {
@@ -48,11 +46,11 @@ ByUserTag.defaultProps = {
 
 ByUserTag.propTypes = {
   theme: PropTypes.string,
-  photo: PropTypes.string,
-  name: PropTypes.string,
-  accountType: PropTypes.string,
-  memberSince: PropTypes.string,
-  location: PropTypes.string,
+  photo: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  accountType: PropTypes.string.isRequired,
+  memberSince: PropTypes.string.isRequired,
+  location: PropTypes.string.isRequired,
 };
 
 export default ByUserTag;

@@ -17,6 +17,14 @@ export const backgroundImageCover = `
   background-size: cover;
 `;
 
+export const borderRadius = radius => (`
+  -moz-border-radius: ${radius};
+  -webkit-border-radius: ${radius};
+  -ms-border-radius: ${radius};
+  border-radius: ${radius};
+`);
+
+
 export const backgroundImageCoverMap = {
   backgroundRepeat: 'no-repeat',
   WebkitBackgroundSize: 'cover',

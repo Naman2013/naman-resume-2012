@@ -1,6 +1,6 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import InlineCountdown from '../../common/inline-countdown/inline-countdown';
-import moment from 'moment';
 
 class CountdownTimer extends Component {
   render() {

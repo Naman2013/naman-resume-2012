@@ -1,13 +1,34 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { Link } from 'react-router';
 import uniqueId from 'lodash/uniqueId';
+import purgeHashURL from '../../utils/purgeHashURL';
+import useAbsoluteURL from '../../utils/useAbsoluteURL';
+
 import { primaryFont } from '../../styles/variables/fonts';
 import { lightGray } from '../../styles/variables/colors';
 
-const {
-  string,
-} = PropTypes;
+function createLink(URL, htmlContent) {
+  if (useAbsoluteURL(URL)) {
+    return (
+      <a
+        className="link"
+        href={URL}
+        dangerouslySetInnerHTML={{ __html: htmlContent }}
+      />
+    );
+  }
+
+  return (
+    <Link
+      className="link"
+      to={purgeHashURL(URL)}
+      dangerouslySetInnerHTML={{ __html: htmlContent }}
+    />
+  );
+}
 
 const Footer = props => (
   <footer
@@ -17,26 +38,35 @@ const Footer = props => (
     }}
   >
     <div className="columns">
-    {props.menuList.map(menuList => (<div key={uniqueId()}>
-      {menuList.map(menu => <div key={uniqueId()}>
-        <span className="header"
-            dangerouslySetInnerHTML={{ __html: menu.text }}
-        />
-        <ul className="list">
-          {menu.menuItems.map(item => (<li key={uniqueId()}>
-            {item.itemLink ? <a className="link" href={item.itemLink}>
-              <span
-                  dangerouslySetInnerHTML={{ __html: item.menuItemText }}
-              />
-              </a> :
-              <span
-                  dangerouslySetInnerHTML={{ __html: item.menuItemText }}
-              />}
-              </li>
-          ))}
-        </ul>
-      </div>)}
-    </div>))}
+      {
+        props.menuList.map(menuList => (
+          <div key={uniqueId()}>
+            {
+              menuList.map(menu =>
+                <div key={uniqueId()}>
+                  <span
+                    className="header"
+                    dangerouslySetInnerHTML={{ __html: menu.text }}
+                  />
+
+                  <ul className="list">
+                    {
+                      menu.menuItems.map(item => (
+                        <li key={uniqueId()}>
+                          {
+                            item.itemLink
+                              ? createLink(item.itemLink, item.menuItemText)
+                              : <span dangerouslySetInnerHTML={{ __html: item.menuItemText }} />
+                          }
+                        </li>
+                      ))}
+                  </ul>
+
+                </div>
+              )
+            }
+          </div>
+        ))}
     </div>
     <div>
       <span
@@ -86,11 +116,11 @@ const Footer = props => (
 );
 
 Footer.propTypes = {
-  copyrightNotice: string.isRequired,
-  footerBackgroundRGB: string.isRequired,
-  copyrightRGB: string.isRequired,
-  hostname: string.isRequired,
-  hostnameRGB: string.isRequired,
+  copyrightNotice: PropTypes.string.isRequired,
+  footerBackgroundRGB: PropTypes.string.isRequired,
+  copyrightRGB: PropTypes.string.isRequired,
+  hostname: PropTypes.string.isRequired,
+  hostnameRGB: PropTypes.string.isRequired,
 };
 
 Footer.defaultProps = {

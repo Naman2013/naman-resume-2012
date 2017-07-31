@@ -1,10 +1,9 @@
-import React, { Component, PropTypes } from 'react';
+import React from 'react';
 import { Link } from 'react-router';
 import UniversalTime from '../common/universal-time';
-import classnames from 'classnames';
 import styles from './reserve-banner.scss';
 
-const ReserveBanner = (time) => {
+const ReserveBanner = () => {
   return (
     <div className={styles.reserveBanner}>
       <div className="title col-md-7">

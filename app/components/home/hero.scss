@@ -5,7 +5,8 @@
   position: relative;
   min-height: 650px;
   font-family: $primary-font;
-  color: #fff;
+  color: $white;
+  background-color: $black;
   text-align: center;
   padding: 60px 0 0 0;
 
@@ -35,7 +36,6 @@
 
   .call-to-action {
     width: 20%;
-    margin: 0 auto;
 
     .action {
       display: block;

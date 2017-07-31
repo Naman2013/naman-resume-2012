@@ -1,26 +1,27 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import SloohExtrasTile from './slooh-extras-tile';
 
 import style from './featured.scss';
 
 const RIGHT_COLUMN = [
   {
-    imageUrl: 'assets/images/sponsors/popular_science.png',
+    imageUrl: 'https://vega.slooh.com/assets/images/sponsors/popular_science.png',
     width: '120',
     height: '45'
   },
   {
-    imageUrl: 'assets/images/sponsors/wash_post_white.png',
+    imageUrl: 'https://vega.slooh.com/assets/images/sponsors/wash_post_white.png',
     width: '160',
     height: '23'
   },
   {
-    imageUrl: 'assets/images/sponsors/NASA_TV.png',
+    imageUrl: 'https://vega.slooh.com/assets/images/sponsors/NASA_TV.png',
     width: '112',
     height: '67'
   },
   {
-    imageUrl: 'assets/images/sponsors/NPR-logo.png',
+    imageUrl: 'https://vega.slooh.com/assets/images/sponsors/NPR-logo.png',
     width: '125',
     height: '37'
   }
@@ -28,22 +29,22 @@ const RIGHT_COLUMN = [
 
 const LEFT_COLUMN = [
   {
-    imageUrl: 'assets/images/sponsors/the_new_york_times_logo_white1.png',
+    imageUrl: 'https://vega.slooh.com/assets/images/sponsors/the_new_york_times_logo_white1.png',
     width: '170',
     height: '25'
   },
   {
-    imageUrl: 'assets/images/sponsors/Time_Magazine_Logo.png',
+    imageUrl: 'https://vega.slooh.com/assets/images/sponsors/Time_Magazine_Logo.png',
     width: '135',
     height: '41',
   },
   {
-    imageUrl: 'assets/images/sponsors/wired.png',
+    imageUrl: 'https://vega.slooh.com/assets/images/sponsors/wired.png',
     width: '131',
     height: '25'
   },
   {
-    imageUrl: 'assets/images/sponsors/National_Geographic_Society.png',
+    imageUrl: 'https://vega.slooh.com/assets/images/sponsors/National_Geographic_Society.png',
     width: '131',
     height: '39'
   }

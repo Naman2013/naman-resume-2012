@@ -32,7 +32,7 @@
       position: absolute;
       top: 34%;
       left: 42%;
-      background: url("/assets/images/icons/icon-play.png") no-repeat; }
+      background: url(https://vega.slooh.com/assets/images/icons/icon-play.png) no-repeat; }
   .recent-video-tile-container.col-sm-4 iframe {
     border: 0;
     margin-top: -4px;

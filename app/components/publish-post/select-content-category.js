@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import findIndex from 'lodash/findIndex';
 import classnames from 'classnames';
 import './select-content-category.scss';

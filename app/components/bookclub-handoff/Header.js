@@ -28,7 +28,7 @@ function Header() {
           <span className="primary-text">Literary Visions</span>
           <span className="secondary-text">of space</span>
         </div>
-        <img alt="Book" className="bookclub-img" src="assets/images/bookclub/Book_Graphic.png" />
+        <img alt="Book" className="bookclub-img" src="https://vega.slooh.com/assets/images/bookclub/Book_Graphic.png" />
       </header>
       <a href="https://www.amazon.com/Saturn-Above-Various/dp/0997621109/ref=sr_1_2?ie=UTF8&qid=1495454535&sr=8-2&keywords=the+saturn+above+it" rel="noopener noreferrer" target="_blank" style={btnPrimary}>GET YOUR COPY ON AMAZON</a>
       <style jsx>{`
@@ -59,7 +59,7 @@ function Header() {
         .main {
           height: 300px;
           width: 100%;
-          background: url(assets/images/bookclub/BG.png) center top/cover no-repeat;
+          background: url(https://vega.slooh.com/assets/images/bookclub/BG.png) center top/cover no-repeat;
           display: flex;
           justify-content: space-around;
           align-items: center;

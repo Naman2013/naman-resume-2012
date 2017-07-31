@@ -12,7 +12,7 @@
   .aboutRoadTripEventWrapper .eclipseIcon {
     flex: 0 0 209px;
     height: 54px;
-    background: url(/assets/images/roadtrip-lander/peanut-icon.png) center no-repeat; }
+    background: url(https://vega.slooh.com/assets/images/roadtrip-lander/peanut-icon.png) center no-repeat; }
   .aboutRoadTripEventWrapper .description {
     font-family: Arial, sans-serif;
     font-size: 19px;

@@ -1,14 +1,19 @@
-import React, { Component, PropTypes, cloneElement } from 'react';
+import React, { Component, cloneElement } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { List } from 'immutable';
 import DiscussionsHeader from '../../components/discussions/DiscussionsHeader';
-import * as topicsActions from '../../modules/discussions-topics/actions';
+import {
+  fetchTopicList
+} from '../../modules/discussions-topics/actions';
 
-const { func, instanceOf } = PropTypes;
+const { func, instanceOf, shape } = PropTypes;
 class Discussions extends Component {
   static propTypes = {
-    fetchTopicList: func.isRequired,
+    actions: shape({
+      fetchTopicList: func.isRequired,
+    }),
     topicList: instanceOf(List)
   }
 
@@ -17,9 +22,9 @@ class Discussions extends Component {
   }
 
   componentDidMount() {
-    const { fetchTopicList, params: { forumId, topicId } } = this.props;
+    const { actions, params: { forumId, topicId } } = this.props;
     if (topicId) {
-      fetchTopicList({
+      actions.fetchTopicList({
         forumId,
       });
     }
@@ -48,8 +53,10 @@ const mapStateToProps = ({ discussionsTopics}) => ({
   topicList: discussionsTopics.topicList,
   forumName: discussionsTopics.forumName,
 });
-const mapDispatchToProps = dispatch => (bindActionCreators({
-  ...topicsActions,
-}, dispatch));
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators({
+    fetchTopicList,
+  }, dispatch),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Discussions);

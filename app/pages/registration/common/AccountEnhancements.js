@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import uniqueId from 'lodash/uniqueId';
 import s from './AccountEnhancements.scss';
 
@@ -27,8 +28,8 @@ const AccountEnhancements = ({
       </div>
       <div className={s.priceSubtext}>
         {suggestedTierPricing.priceDescription1}<br />
-      {suggestedTierPricing.priceDescription2}<br />
-    {suggestedTierPricing.priceDescription3}
+        {suggestedTierPricing.priceDescription2}<br />
+        {suggestedTierPricing.priceDescription3}
       </div>
       <div className={s.callToAction}>
         <a

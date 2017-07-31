@@ -1,5 +1,6 @@
-import React, { Component, PropTypes } from 'react';
-import style from './card-back.scss';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import './card-back.scss';
 
 class CardBack extends Component {
   render() {
@@ -10,16 +11,16 @@ class CardBack extends Component {
           <button
             onClick={this.props.handleFlip}
             className="flip-card-action">
-            <img className="icon" src="assets/icons/flip-back-arrow.png" />
+            <img className="icon" src="https://vega.slooh.com/assets/icons/flip-back-arrow.png" />
           </button>
 
-          <img src="assets/icons/observatory.svg" width="50" height="50" />
+          <img src="https://vega.slooh.com/assets/icons/observatory.svg" width="50" height="50" />
           <h3 className="title">{this.props.teleName}</h3>
         </div>
 
         <div className="telescope-specs">
           <figure className="telescope-image">
-            <img src="assets/images/graphics/cluster.png" width="259" height="180" />
+            <img src="https://vega.slooh.com/assets/images/graphics/cluster.png" width="259" height="180" />
             <figcaption className="caption">Image taken by member Randy Suess on this telescope.</figcaption>
           </figure>
 

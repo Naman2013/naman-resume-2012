@@ -1,10 +1,9 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import cx from 'classnames';
 import './weather-conditions.scss';
 
-import Progress from 'react-progressbar';
-
-class WeatherConditions extends React.Component {
+class WeatherConditions extends Component {
   static propTypes = {
     tabs: PropTypes.array.isRequired,
   };
@@ -48,7 +47,7 @@ class WeatherConditions extends React.Component {
           </div>
           <div className="weather-conditions-feed">
             <img
-              src="/assets/images/icons/icon-white-screen-view.png"
+              src="https://vega.slooh.com/assets/images/icons/icon-white-screen-view.png"
               className="screen-view"
             />
 

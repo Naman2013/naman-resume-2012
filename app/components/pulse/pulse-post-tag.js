@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import uniqueId from 'lodash/uniqueId';
 import styles from './style/pulse-post-tag.scss';

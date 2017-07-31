@@ -1,11 +1,14 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import DiscussionsNav from '../../components/discussions/DiscussionsNav';
 import ForumsIndex from '../../components/discussions/forums-index';
-import * as threadActions from '../../modules/discussions-thread/actions';
+import {
+  fetchThreadList
+} from '../../modules/discussions-thread/actions';
 
-const { func, object } = PropTypes;
+const { func, object, shape } = PropTypes;
 const buildLink = ({ forumId, topicId, path }) => {
   if (forumId && topicId) {
     return `discussions/forums/${forumId}/topics/${topicId}/threads/${path}`;
@@ -15,7 +18,9 @@ const buildLink = ({ forumId, topicId, path }) => {
 
 class DiscussionsWrapper extends Component {
   static propTypes = {
-    fetchThreadList: func.isRequired,
+    actions: shape({
+      fetchThreadList: func.isRequired,
+    }),
     children: object,
   }
 
@@ -23,10 +28,10 @@ class DiscussionsWrapper extends Component {
     children: {},
   }
   componentDidMount() {
-    const { fetchThreadList, children, params: { topicId } } = this.props;
+    const { actions, children, params: { topicId } } = this.props;
     const { props: { route: { path } } } = children;
 
-    fetchThreadList({
+    actions.fetchThreadList({
       sortBy: path,
       topicId,
       page: 1,
@@ -35,12 +40,12 @@ class DiscussionsWrapper extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { fetchThreadList, children } = this.props;
+    const { actions, children } = this.props;
     const { props: { route: { path } } } = children;
     const { children: nextChildren, params: { topicId } } = nextProps;
     const { props: { route: { path: nextPath } } } = nextChildren;
     if (path !== nextPath) {
-      fetchThreadList({
+      actions.fetchThreadList({
         sortBy: nextPath,
         topicId,
         page: 1,
@@ -74,8 +79,10 @@ class DiscussionsWrapper extends Component {
 const mapStateToProps = ({ discussionsThread }) => ({
   ...discussionsThread,
 });
-const mapDispatchToProps = dispatch => (bindActionCreators({
-  ...threadActions,
-}, dispatch));
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators({
+    fetchThreadList,
+  }, dispatch)
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(DiscussionsWrapper);

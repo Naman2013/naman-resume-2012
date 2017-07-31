@@ -16,7 +16,7 @@ import {
 
 import {
   resetSnapshotList,
-} from '../../modules/Telescope-Overview';
+} from '../../modules/starshare-camera/starshare-camera-actions';
 
 import { fetchObjectContent } from '../../modules/community-content/community-object-content-actions';
 
@@ -296,7 +296,7 @@ class TelescopeDetails extends Component {
                       }
 
                       {
-                        currentTelescope.teleOnlineStatus === 'online' && instrument.instrStarShareCamera === true ?
+                        telescopeOnline && instrument.instrStarShareCamera === true ?
                           <StarShareCamera /> : null
                       }
                     </TabPanel>

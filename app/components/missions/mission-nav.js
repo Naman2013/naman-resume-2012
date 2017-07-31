@@ -1,8 +1,6 @@
-import React, { Component, PropTypes } from 'react';
-import { Link } from 'react-router'
-import classnames from 'classnames';
+import React, { Component } from 'react';
+import { Link } from 'react-router';
 import styles from './mission-nav.scss';
-import moment from 'moment-timezone';
 
 /**
   TODO: WARNING: the link to RESERVE BY TELESCOPE is hard coded

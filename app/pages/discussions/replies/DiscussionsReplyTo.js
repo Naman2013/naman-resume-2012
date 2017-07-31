@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { List } from 'immutable';
@@ -8,7 +9,7 @@ import classnames from 'classnames';
 import UploadImage from '../../../components/publish-post/upload-image';
 import { fetchThread } from '../../../modules/discussions-thread/actions';
 import { fetchTopicList } from '../../../modules/discussions-topics/actions';
-import * as replyActions from '../../../modules/discussions-replies/actions';
+import { submitReply, prepareReply, resetReplyState } from '../../../modules/discussions-replies/actions';
 import setPostImages from '../../../modules/set-post-images';
 import deletePostImage from '../../../services/post-creation/delete-post-image';
 import { createValidator, required } from '../../../modules/utils/validation';
@@ -229,7 +230,9 @@ const mapStateToProps = ({
   topicList: discussionsTopics.topicList,
 });
 const mapDispatchToProps = dispatch => (bindActionCreators({
-  ...replyActions,
+  submitReply,
+  prepareReply,
+  resetReplyState,
   fetchThread,
   fetchTopicList,
 }, dispatch));

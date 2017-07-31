@@ -100,7 +100,7 @@ input[type="number"] {
   position: relative;
   text-align: center; }
 .static-app-content-container .membership .sigil {
-  background: #3c4691 url("../../assets/icons/astronaut-white.svg") no-repeat top center;
+  background: #3c4691 url("https://vega.slooh.com/assets/icons/astronaut-white.svg") no-repeat top center;
   background-size: cover;
   border: 10px solid white;
   border-radius: 50% 50%;
@@ -132,11 +132,11 @@ input[type="number"] {
   height: 100%;
   transition: background-color .2s linear; }
 .static-app-content-container .sigil.slooh {
-  background: transparent url("../../assets/chrome/Siggle-Slooh.svg") center no-repeat; }
+  background: transparent url("https://vega.slooh.com/assets/chrome/Siggle-Slooh.svg") center no-repeat; }
 .static-app-content-container .headshot.member {
   color: transparent;
   background-color: #3c4691;
-  background-image: url("../../assets/icons/astronaut-white.svg");
+  background-image: url("https://vega.slooh.com/assets/icons/astronaut-white.svg");
   background-repeat: no-repeat;
   background-position: center center;
   background-size: contain;
@@ -146,7 +146,7 @@ input[type="number"] {
   bottom: 0;
   left: 0; }
 .static-app-content-container .byline .headshot {
-  background: #b9d7d7 url(../../assets/icons/astronaut.svg) center center no-repeat;
+  background: #b9d7d7 url(https://vega.slooh.com/assets/icons/astronaut.svg) center center no-repeat;
   background-size: cover;
   border-radius: 25px;
   float: left;
@@ -176,11 +176,11 @@ input[type="number"] {
   width: 140px;
   z-index: 95; }
 .static-app-content-container .card#leadership1 .headshot {
-  background-image: url(../../assets/images/photos/people/jct.jpg); }
+  background-image: url(https://vega.slooh.com/assets/images/photos/people/jct.jpg); }
 .static-app-content-container .card#leadership2 .headshot {
-  background-image: url(../../assets/images/photos/people/jct.jpg); }
+  background-image: url(https://vega.slooh.com/assets/images/photos/people/jct.jpg); }
 .static-app-content-container .card#leadership3 .headshot {
-  background-image: url(../../assets/images/photos/people/jct.jpg); }
+  background-image: url(https://vega.slooh.com/assets/images/photos/people/jct.jpg); }
 .static-app-content-container .sans {
   font-family: "Brandon Grotesque", "brandon-grotesque", sans-serif; }
 .static-app-content-container .plan {
@@ -344,7 +344,7 @@ input[type="number"] {
 .static-app-content-container .left {
   text-align: left; }
 .static-app-content-container .info-white {
-  background: url(../../assets/icons/info-white.svg);
+  background: url(https://vega.slooh.com/assets/icons/info-white.svg);
   cursor: help; }
 .static-app-content-container .lighter {
   font-weight: 300; }
@@ -394,9 +394,9 @@ input[type="number"] {
 .static-app-content-container i.icon:hover {
   opacity: .6; }
 .static-app-content-container .twitter i.icon {
-  background-image: url(../../assets/icons/twitter.svg); }
+  background-image: url(https://vega.slooh.com/assets/icons/twitter.svg); }
 .static-app-content-container .email i.icon {
-  background-image: url("../../assets/icons/email.svg"); }
+  background-image: url("https://vega.slooh.com/assets/icons/email.svg"); }
 .static-app-content-container .icon.control {
   color: black !important;
   display: block;
@@ -505,7 +505,7 @@ input[type="number"] {
 .static-app-content-container .divider:after {
   float: right; }
 .static-app-content-container .divider-img {
-  background: url(../../assets/chrome/line-1.png) transparent no-repeat center center; }
+  background: url(https://vega.slooh.com/assets/chrome/line-1.png) transparent no-repeat center center; }
 .static-app-content-container .popup {
   background-color: white;
   -webkit-border-radius: 8px;
@@ -596,7 +596,7 @@ input[type="number"] {
   color: rgba(10, 20, 45, 0.6) !important;
   padding-left: 20px !important; }
 .static-app-content-container .not:before {
-  background: url(../../assets/icons/not.svg) transparent top right no-repeat;
+  background: url(https://vega.slooh.com/assets/icons/not.svg) transparent top right no-repeat;
   background-size: cover;
   content: "";
   height: 10px;
@@ -665,7 +665,7 @@ input[type="number"] {
 .static-app-content-container .like {
   position: relative; }
 .static-app-content-container .like .number {
-  background: transparent url(../../assets/icons/heart.svg) no-repeat center;
+  background: transparent url(https://vega.slooh.com/assets/icons/heart.svg) no-repeat center;
   color: white;
   padding: 10px;
   text-align: center; }
@@ -1007,7 +1007,7 @@ input[type="number"] {
   width: 100%;
   z-index: 1000; }
 .static-app-content-container header.static {
-  background: linear-gradient(to right, rgba(0, 10, 25, 0.2), rgba(0, 0, 0, 0.6)), url("../../assets/images/photos/stellar.jpg") #141e41 center center;
+  background: linear-gradient(to right, rgba(0, 10, 25, 0.2), rgba(0, 0, 0, 0.6)), url("https://vega.slooh.com/assets/images/photos/stellar.jpg") #141e41 center center;
   background-size: cover;
   display: block;
   height: 220px;
@@ -1054,7 +1054,7 @@ input[type="number"] {
   vertical-align: middle;
   width: 100%; }
 .static-app-content-container footer.page {
-  background-image: linear-gradient(to right, rgba(20, 30, 65, 0.6), rgba(10, 20, 45, 0.9)), url(../../assets/images/photos/stellar.jpg);
+  background-image: linear-gradient(to right, rgba(20, 30, 65, 0.6), rgba(10, 20, 45, 0.9)), url(https://vega.slooh.com/assets/images/photos/stellar.jpg);
   background-repeat: no-repeat, no-repeat;
   background-size: cover;
   clear: both;
@@ -1214,25 +1214,25 @@ input[type="number"] {
   position: relative;
   vertical-align: middle; }
 .static-app-content-container .icon-location {
-  background-image: url(../../assets/icons/location.svg); }
+  background-image: url(https://vega.slooh.com/assets/icons/location.svg); }
 .static-app-content-container .icon-calendar {
-  background-image: url(../../assets/icons/calendar.svg); }
+  background-image: url(https://vega.slooh.com/assets/icons/calendar.svg); }
 .static-app-content-container .icon-weather {
-  background-image: url(../../assets/icons/weather.svg); }
+  background-image: url(https://vega.slooh.com/assets/icons/weather.svg); }
 .static-app-content-container .icon-telescope {
-  background-image: url(../../assets/icons/telescope.svg); }
+  background-image: url(https://vega.slooh.com/assets/icons/telescope.svg); }
 .static-app-content-container .icon-planet {
-  background-image: url(../../assets/icons/planet.svg); }
+  background-image: url(https://vega.slooh.com/assets/icons/planet.svg); }
 .static-app-content-container .icon-science {
-  background-image: url(../../assets/icons/science_log.svg); }
+  background-image: url(https://vega.slooh.com/assets/icons/science_log.svg); }
 .static-app-content-container .icon-galaxy {
-  background-image: url(../../assets/icons/galaxy.svg); }
+  background-image: url(https://vega.slooh.com/assets/icons/galaxy.svg); }
 .static-app-content-container .icon-diy {
-  background-image: url(../../assets/icons/diy.svg); }
+  background-image: url(https://vega.slooh.com/assets/icons/diy.svg); }
 .static-app-content-container .icon-spirit {
-  background-image: url(../../assets/icons/spirit.svg); }
+  background-image: url(https://vega.slooh.com/assets/icons/spirit.svg); }
 .static-app-content-container .icon-art {
-  background-image: url(../../assets/icons/art.svg); }
+  background-image: url(https://vega.slooh.com/assets/icons/art.svg); }
 .static-app-content-container .title {
   vertical-align: middle;
   line-height: 2.5; }
@@ -1330,11 +1330,11 @@ input[type="number"] {
     width: 20px;
     z-index: 99999; }
   .static-app-content-container form fieldset.required:before {
-    background: url(../../assets/icons/check.svg) transparent top right no-repeat;
+    background: url(https://vega.slooh.com/assets/icons/check.svg) transparent top right no-repeat;
     content: "";
     visibility: hidden; }
   .static-app-content-container form fieldset.required:after {
-    background: url(../../assets/icons/warning.svg) transparent top right no-repeat;
+    background: url(https://vega.slooh.com/assets/icons/warning.svg) transparent top right no-repeat;
     content: "";
     display: block;
     overflow: visible;
@@ -1504,7 +1504,7 @@ input[type="number"] {
   color: deeppink;
   font-style: normal; }
 .static-app-content-container i.caution {
-  background: url(../../assets/icons/warning.svg) transparent top right no-repeat;
+  background: url(https://vega.slooh.com/assets/icons/warning.svg) transparent top right no-repeat;
   display: inline-block;
   height: 15px;
   margin-left: 8px;
@@ -1512,7 +1512,7 @@ input[type="number"] {
   vertical-align: text-top;
   width: 15px; }
 .static-app-content-container i.close {
-  background: url(../../assets/icons/close-1.svg) transparent top right no-repeat;
+  background: url(https://vega.slooh.com/assets/icons/close-1.svg) transparent top right no-repeat;
   display: inline-block;
   height: 100%;
   opacity: 1;
@@ -1553,7 +1553,7 @@ input[type="number"] {
   text-align: center;
   margin: 0 auto; }
 .static-app-content-container .interstital {
-  background: linear-gradient(to right, rgba(20, 30, 65, 0.6), #0a142d), url("../../assets/images/photos/stellar.jpg") #141e41 center center;
+  background: linear-gradient(to right, rgba(20, 30, 65, 0.6), #0a142d), url("https://vega.slooh.com/assets/images/photos/stellar.jpg") #141e41 center center;
   background-size: cover;
   display: block;
   position: relative;
@@ -1567,7 +1567,7 @@ input[type="number"] {
   margin-bottom: 100px; }
 
 #about header.page {
-  background: linear-gradient(to right, rgba(20, 30, 65, 0.3), rgba(10, 20, 45, 0.5)), url("../../assets/images/photos/stellar.jpg") #141e41 center center;
+  background: linear-gradient(to right, rgba(20, 30, 65, 0.3), rgba(10, 20, 45, 0.5)), url("https://vega.slooh.com/assets/images/photos/stellar.jpg") #141e41 center center;
   background-size: cover;
   display: block;
   margin-bottom: 60px;
@@ -1588,7 +1588,7 @@ input[type="number"] {
   z-index: 95; }
 
 .registration {
-  background: url("../../assets/images/photos/stellar.jpg") white center no-repeat fixed;
+  background: url("https://vega.slooh.com/assets/images/photos/stellar.jpg") white center no-repeat fixed;
   background-size: cover;
   color: #648282;
   font-family: "Brandon Grotesque", "brandon-grotesque", sans-serif;
@@ -1641,7 +1641,7 @@ input[type="number"] {
     margin-left: 0;
     overflow: auto; }
   .registration .bg-half {
-    background: url("../../assets/images/photos/stellar.jpg") white center no-repeat fixed;
+    background: url("https://vega.slooh.com/assets/images/photos/stellar.jpg") white center no-repeat fixed;
     background-size: cover;
     position: absolute;
     height: 650px;

@@ -22,7 +22,7 @@
   padding: 0;
   margin-bottom: 10px; }
   .missionCard.featured .card-content-container {
-    background-image: url("../../../assets/images/graphics/Running-Man-nebula-Ngc-1977.png");
+    background-image: url(https://vega.slooh.com/assets/images/graphics/Running-Man-nebula-Ngc-1977.png);
     background-repeat: no-repeat;
     background-position: left 50%;
     color: #fff;
@@ -102,7 +102,7 @@
       font-weight: 300;
       margin: 0; }
   .missionCard.secondary h2 {
-    background: url("../../../assets/images/graphics/stripofstars.jpg") no-repeat;
+    background: url(https://vega.slooh.com/assets/images/graphics/stripofstars.jpg) no-repeat;
     color: #fff;
     font-size: 14px;
     margin: 0 0 10px 0;
