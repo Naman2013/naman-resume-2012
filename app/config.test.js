@@ -2,7 +2,11 @@ import SETTINGS, { HASH } from './config';
 
 describe('isHashHistory', () => {
   it('by default, return true when the history is set to hash', () => {
-    expect(SETTINGS.isHashHistory()).toBeTruthy();
+    if (SETTINGS.isHashHistory()) {
+      expect(SETTINGS.isHashHistory()).toBeTruthy();
+    }
+
+    expect(SETTINGS.isHashHistory()).toBeFalsy();
   });
 
   it('when set to anything other than hash, returns false', () => {

@@ -23,7 +23,11 @@ describe('purge hash from url', () => {
 describe('generate inline URL based on the history type global', () => {
   it('should return the hashed URL when history mode is hashed', () => {
     const testURL = generateInlineURL('#/test-url');
-    expect(testURL).toBe('#/test-url');
+    if (SETTINGS.isHashHistory()) {
+      expect(testURL).toBe('#/test-url');
+    }
+
+    expect(testURL).toBe('/test-url');
   });
 
   it('should purge the hash when the setting is non-hash', () => {
