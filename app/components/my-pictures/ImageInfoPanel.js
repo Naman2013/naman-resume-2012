@@ -41,11 +41,10 @@ class ImageInfoPanel extends Component {
       });
     }
 
-    if (this.props.myPicturesImageDetails.observationLog !== nextProps.myPicturesImageDetails.observationLog) {
-      this.setState({
-        editorValue: nextProps.myPicturesImageDetails.observationLog,
-      });
-    }
+    const obsLog = this.props.myPicturesImageDetails.observationLog !== nextProps.myPicturesImageDetails.observationLog ? nextProps.myPicturesImageDetails.observationLog : this.props.myPicturesImageDetails.observationLog;
+    this.setState({
+      editorValue: obsLog,
+    });
   }
 
   handleEditorChange = (e) => {
@@ -77,7 +76,6 @@ class ImageInfoPanel extends Component {
           showSavedText: true,
           showSavingText: false,
         });
-
         setTimeout(() => {
           this.setState({
             showSavedText: false,
@@ -86,7 +84,13 @@ class ImageInfoPanel extends Component {
       } else {
         this.setState({
           showErrorText: true,
+          showSavingText: false,
         });
+        setTimeout(() => {
+          this.setState({
+            showErrorText: false,
+          });
+        }, 2000)
       }
 
     })
