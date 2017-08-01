@@ -89,11 +89,11 @@ class MyPicturesNavigation extends Component {
               Photo Roll <span>({photoRollCount})</span>
             </Link>
           </li>
-          <li className={s.rootNavigationItem}>
+          {/*<li className={s.rootNavigationItem}>
             <Link to="my-pictures/galleries" className={s.button} activeClassName="active">
               Galleries <span>({galleriesCount || 0})</span>
             </Link>
-          </li>
+          </li>*/}
           <li className={s.rootNavigationItem}>
             <Link to="my-pictures/missions" className={s.button} activeClassName="active">
               Missions <span>({missionCount})</span>
