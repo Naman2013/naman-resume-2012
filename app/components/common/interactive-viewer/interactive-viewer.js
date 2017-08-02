@@ -242,23 +242,25 @@ class InteractiveViewer extends Component {
           </div>
         </div>
 
-        {isInteractive && <div>
+        {isInteractive &&
           <button
             onClick={this.handleZoomOutClick}
             className="action minus"
           >
             <span className="icon glyphicon-minus" />
           </button>
+        }
 
-          <LiveSign />
-
+        <LiveSign />
+        {isInteractive &&
           <button
             onClick={this.handleZoomInClick}
             className="action plus"
           >
             <span className="icon glyphicon-plus" />
           </button>
-        </div>}
+        }
+
 
         {
           /**
