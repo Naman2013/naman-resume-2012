@@ -31,7 +31,10 @@ class InteractiveViewer extends Component {
   }
   constructor(props) {
     super(props);
-    this.animationTick = setInterval(::this.handleViewerTick, 100);
+
+    if (props.isInteractive) {
+      this.animationTick = setInterval(::this.handleViewerTick, 100);
+    }
   }
 
   state = {
