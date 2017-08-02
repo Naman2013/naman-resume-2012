@@ -6,10 +6,11 @@
   "scripts": {
     "start": "webpack-dev-server",
     "test": "jest  --coverage",
-    "prod-simple": "rimraf dist && webpack -p --config webpack.production.config.js",
+    "prod-simple": "rimraf dist && webpack -p --config webpack.production.config.js --colors --progress",
     "prod:mars": "rimraf dist && rimraf node_modules && npm cache clean && npm install && apiUrl=https://mars.slooh.com apiPortNumber=443 NODE_ENV=production webpack -p --config webpack.production.config.js --colors --progress",
     "prod:saturn": "rimraf dist && rimraf node_modules && npm cache clean && npm install && apiUrl=https://saturn.slooh.com apiPortNumber=443 NODE_ENV=production webpack -p --config webpack.production.config.js --colors --progress",
     "prod:deneb": "rimraf dist && rimraf node_modules && npm cache clean && npm install && apiUrl=https://deneb.slooh.com apiPortNumber=443 NODE_ENV=production webpack -p --config webpack.production.config.js --colors --progress",
+    "prod:venus": "rimraf dist && rimraf node_modules && npm cache clean && npm install && apiUrl=https://venus.slooh.com apiPortNumber=443 NODE_ENV=production webpack -p --config webpack.production.config.js --colors --progress",
     "prod": "rimraf dist && rimraf node_modules && npm cache clean && npm install && apiUrl=https://slooh.com apiPortNumber=443 NODE_ENV=production webpack -p --config webpack.production.config.js --colors --progress",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"

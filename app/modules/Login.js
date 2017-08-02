@@ -4,6 +4,8 @@ import createReducer from './utils/createReducer';
 import createAction from './utils/createAction';
 import * as userActions from './User';
 
+import SETTINGS from '../config';
+
 const LOGIN_SHOW = 'LOGIN_SHOW';
 const LOGIN_HIDE = 'LOGIN_HIDE';
 
@@ -45,7 +47,16 @@ export const login = loginFormValues => (dispatch, getState) => {
       dispatch(loginReset());
       dispatch(userActions.store(result.data));
       dispatch(hide());
-      dispatch(push(errorHandlerBody.currentPageId.substr(2)));
+
+      /**
+        TODO: remove this check once we are in production with the pretty
+        URL branch...
+      */
+      if (SETTINGS.isHashHistory()) {
+        dispatch(push(errorHandlerBody.currentPageId.substr(2)));
+      } else {
+        dispatch(push(errorHandlerBody.currentPageId));
+      }
     }
   })
   .catch((error) => {

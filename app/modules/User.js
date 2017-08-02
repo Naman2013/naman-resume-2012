@@ -1,4 +1,4 @@
-import { hashHistory } from 'react-router';
+import { browserHistory } from 'react-router';
 import cookie from 'cookie';
 import moment from 'moment';
 import createReducer from './utils/createReducer';
@@ -37,7 +37,7 @@ export function destroySession() {
 
 export const logout = () => {
   destroySession();
-  hashHistory.push('/');
+  browserHistory.push('/');
   window.location.reload();
 };
 

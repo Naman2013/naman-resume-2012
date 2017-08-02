@@ -4,7 +4,7 @@
 
   ROLES would be much more efficient!
 */
-import { hashHistory } from 'react-router';
+import { browserHistory } from 'react-router';
 
 const PUBLIC_PATHS = [
   '/',
@@ -28,11 +28,11 @@ export function isPublicPath(path) {
 }
 
 function redirectToSignIn() {
-  hashHistory.push(SIGN_IN_PATH);
+  browserHistory.push(SIGN_IN_PATH);
 }
 
 function redirectToHome() {
-  hashHistory.push(HOME);
+  browserHistory.push(HOME);
 }
 
 export function validateUserPath(path, user = {}) {

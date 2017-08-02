@@ -2,7 +2,7 @@ import 'babel-polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { Router, Route, IndexRoute, IndexRedirect, hashHistory } from 'react-router';
+import { Router, Route, IndexRoute, IndexRedirect, browserHistory } from 'react-router';
 
 // polyfills
 import 'event-source-polyfill/eventsource.min';
@@ -119,7 +119,7 @@ import './styles/animations.scss';
 import './styles/static.scss';
 
 // handle to the listen callback on changes to the history
-const unlisten = hashHistory.listen((location, action) => {
+const unlisten = browserHistory.listen((location, action) => {
   firePageview({
     location: location.pathname,
   });
@@ -127,7 +127,7 @@ const unlisten = hashHistory.listen((location, action) => {
 
 ReactDOM.render(
   <Provider store={store}>
-    <Router history={hashHistory} onUpdate={globalOnRouteUpdate}>
+    <Router history={browserHistory} onUpdate={globalOnRouteUpdate}>
 
       <Route path="redirect-confirmation" component={RedirectConfirmation} />
 
