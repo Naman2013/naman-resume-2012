@@ -167,11 +167,13 @@ class InteractiveViewer extends Component {
   };
 
   fetchCurrentPanelStyle() {
-    return this.state.clipped ? {
+    return Object.assign({
+      cursor: this.props.isInteractive ? 'pointer' : 'default',
+    }, this.state.clipped ? {
       WebkitClipPath: 'circle(35% at 50% 47%)',
       MozClipPath: 'circle(35%)',
       clipPath: 'circle(35%, 50%, 47%)',
-    } : {};
+    } : {});
   }
 
   giveUserControl() {
