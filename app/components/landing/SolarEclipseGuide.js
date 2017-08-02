@@ -3,9 +3,9 @@ import style from './SolarEclipseGuide.scss';
 
 const sponsors = [
   'https://vega.slooh.com/assets/images/roadtrip-lander/sponsor-rmr.png',
-  'https://vega.slooh.com/assets/images/roadtrip-lander/sponsor-redit.png',
+  'https://vega.slooh.com/assets/images/roadtrip-lander/ABC_News.jpg',
+  'https://vega.slooh.com/assets/images/roadtrip-lander/univision.jpg',
   'https://vega.slooh.com/assets/images/roadtrip-lander/sponsor-stanley.png',
-  'https://vega.slooh.com/logos/PSLogo_sm.png',
 ];
 
 function SolarEclipseGuide() {
