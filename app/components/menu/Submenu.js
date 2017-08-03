@@ -19,12 +19,34 @@ import {
   STARGAZERS_URL,
   UPCOMING_EVENTS_URL,
   NAV_TYPE_SUBMENU_EXTERNAL,
+  NAV_TYPE_SUBMENU_EXTERNAL_NEW_TAB,
 } from './constants';
 
 const mapDispatchToProps = (dispatch) => ({
   actions: bindActionCreators({
   }, dispatch),
 });
+
+function generateExternalLink(
+  show = false,
+  anchorText = '',
+  anchorLink = '',
+  preferredTarget = NAV_TYPE_SUBMENU_EXTERNAL,
+) {
+  if (!show) {
+    return null;
+  }
+
+  const target = (preferredTarget === NAV_TYPE_SUBMENU_EXTERNAL)
+    ? '_self'
+    : '_blank';
+
+  return (
+    <li>
+      <a className="item" href={anchorLink} target={target}>{anchorText}</a>
+    </li>
+  );
+}
 
 @connect(null, mapDispatchToProps)
 class Submenu extends Component {
@@ -48,18 +70,22 @@ class Submenu extends Component {
             if (typeof menuItem.menuItemText !== 'undefined') {
               switch (menuItem.menuItemType) {
                 case NAV_TYPE_UPCOMING_SHOWS_COMPONENT: {
-                  return (<UpcomingComponent
-                    key={NAV_TYPE_UPCOMING_SHOWS_COMPONENT}
-                    source={UPCOMING_EVENTS_URL}
-                    refreshIntervalDelay={REFRESH_DELAY_SHOWS}
-                  />);
+                  return (
+                    <UpcomingComponent
+                      key={NAV_TYPE_UPCOMING_SHOWS_COMPONENT}
+                      source={UPCOMING_EVENTS_URL}
+                      refreshIntervalDelay={REFRESH_DELAY_SHOWS}
+                    />
+                  );
                 }
                 case NAV_TYPE_OBSERVATORY_MENU_COMPONENT: {
-                  return (<ListObservatories
-                    key={NAV_TYPE_OBSERVATORY_MENU_COMPONENT}
-                    source={OBSERVATORIES_URL}
-                    refreshIntervalDelay={REFRESH_DELAY_TELESCOPES}
-                  />);
+                  return (
+                    <ListObservatories
+                      key={NAV_TYPE_OBSERVATORY_MENU_COMPONENT}
+                      source={OBSERVATORIES_URL}
+                      refreshIntervalDelay={REFRESH_DELAY_TELESCOPES}
+                    />
+                  );
                 }
                 case NAV_TYPE_CALLING_ALL_STARGAZERS_COMPONENT: {
                   return (<StargazersInfo
@@ -74,21 +100,20 @@ class Submenu extends Component {
                   />);
                 }
                 case NAV_TYPE_SUBMENU_EXTERNAL: {
-                  if (menuItem.showItem) {
-                    return (
-                      <li
-                        key={`${menuItem.menuItemText}-${menuItem.menuItemIndex}`}
-                      >
-                        <a
-                          className="item"
-                          href={menuItem.itemLink}
-                        >
-                          {menuItem.menuItemText}
-                        </a>
-                      </li>
-                    );
-                  }
-                  return null;
+                  return generateExternalLink(
+                    menuItem.showItem,
+                    menuItem.menuItemText,
+                    menuItem.itemLink,
+                    NAV_TYPE_SUBMENU_EXTERNAL,
+                  );
+                }
+                case NAV_TYPE_SUBMENU_EXTERNAL_NEW_TAB: {
+                  return generateExternalLink(
+                    menuItem.showItem,
+                    menuItem.menuItemText,
+                    menuItem.itemLink,
+                    NAV_TYPE_SUBMENU_EXTERNAL_NEW_TAB,
+                  );
                 }
                 default: {
                   const menuItemClass = classnames('item', {
