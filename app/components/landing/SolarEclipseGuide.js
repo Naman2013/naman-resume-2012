@@ -6,6 +6,8 @@ const sponsors = [
   'https://vega.slooh.com/assets/images/roadtrip-lander/ABC_News.jpg',
   'https://vega.slooh.com/assets/images/roadtrip-lander/univision.jpg',
   'https://vega.slooh.com/assets/images/roadtrip-lander/sponsor-stanley.png',
+  'https://vega.slooh.com/assets/images/roadtrip-lander/Speck.jpg',
+  'https://vega.slooh.com/assets/images/roadtrip-lander/1464971322-popmech.jpg'
 ];
 
 function SolarEclipseGuide() {
