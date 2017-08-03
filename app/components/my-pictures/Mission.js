@@ -46,7 +46,7 @@ class Mission extends Component {
     return (
       <Link
         className={styles.missionContainer}
-        to={`my-pictures/missions/${scheduledMissionId}`}
+        to={`/my-pictures/missions/${scheduledMissionId}`}
         style={{ backgroundImage: `url(${imageURL})` }}
       >
         <div className="content">

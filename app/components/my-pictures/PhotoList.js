@@ -30,7 +30,7 @@ class PhotoList extends Component {
             imageList.map(photo => (
               <li key={photo.customerImageId || photo.imageId} className={listColClassNames}>
                 <Photo
-                  detailsUrl={`my-pictures/show-image/${photo.customerImageId}/${photo.shareToken}`}
+                  detailsUrl={`/my-pictures/show-image/${photo.customerImageId}/${photo.shareToken}`}
                   handlePhotoClick={this.handlePhotoClick}
                   imageURL={photo.imageURL}
                   imageTitle={photo.imageTitle}
