@@ -40,7 +40,7 @@ module.exports = {
   },
   output: {
     path: `${__dirname}/dist`,
-    publicPath: path.join(__dirname, '/assets/'),
+    publicPath: '/',
     filename: '[name].js',
     sourceMapFilename: '[name].js.map',
   },
@@ -141,7 +141,6 @@ module.exports = {
   devtool: 'cheap-module-eval-source-map',
   devServer: {
     contentBase: path.join(__dirname, '/dist'),
-    publicPath: path.join(__dirname, '/assets/'),
     compress: true,
     historyApiFallback: true,
     proxy: {
