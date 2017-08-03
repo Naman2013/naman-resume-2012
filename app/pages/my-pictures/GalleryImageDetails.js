@@ -95,7 +95,7 @@ class ImageDetails extends Component {
     const nextImage = imageList[currentImageIndex + 1];
 
     if (nextImage) {
-      browserHistory.push(`my-pictures/gallery/${galleryId}/show-image/${nextImage.customerImageId}/${nextImage.shareToken}`);
+      browserHistory.push(`/my-pictures/gallery/${galleryId}/show-image/${nextImage.customerImageId}/${nextImage.shareToken}`);
     }
   }
 
@@ -104,7 +104,7 @@ class ImageDetails extends Component {
     const { currentImageIndex, galleryId } = this.state;
     const previousImage = imageList[currentImageIndex - 1];
     if (previousImage) {
-      browserHistory.push(`my-pictures/gallery/${galleryId}/show-image/${previousImage.customerImageId}/${previousImage.shareToken}`);
+      browserHistory.push(`/my-pictures/gallery/${galleryId}/show-image/${previousImage.customerImageId}/${previousImage.shareToken}`);
     }
   }
 
