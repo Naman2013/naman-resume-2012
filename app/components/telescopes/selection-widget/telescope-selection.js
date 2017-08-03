@@ -81,13 +81,14 @@ class TelescopeSelection extends Component {
 
     return (
       <div
-        className={`obs-telescope-selection-widget ${theme} clearfix`}>
+        className={`obs-telescope-selection-widget ${theme} clearfix`}
+      >
 
         {
           showUTCTimer ?
-          <div className="universal-time">
-            <UniversalTime />
-          </div> : null
+            <div className="universal-time">
+              <UniversalTime />
+            </div> : null
         }
 
         <div className="telescope-selection-container">
@@ -101,7 +102,8 @@ class TelescopeSelection extends Component {
                       <Link
                         activeClassName="active"
                         to={`${rootRoute}/${observatory.obsUniqueId}/${this.fetchDefaultTelescopeId(observatory)}${appendToRoute}`}
-                        className={`${observatory.obsUniqueId === obsUniqueId ? 'active' : ''} cat-link`}>
+                        className={`${observatory.obsUniqueId === obsUniqueId ? 'active' : ''} cat-link`}
+                      >
                         { observatory.obsMenuName }
                       </Link>
                     </li>

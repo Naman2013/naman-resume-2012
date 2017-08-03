@@ -56,7 +56,7 @@ class ReserveMissions extends Component {
           observatoryList={observatoryList}
           params={params}
           showUTCTimer={false}
-          rootRoute="reservations/reserve-by-telescope/telescope"
+          rootRoute="/reservations/reserve-by-telescope/telescope"
         />
 
         <Sticky
