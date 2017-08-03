@@ -227,6 +227,7 @@ class TelescopeDetails extends Component {
         <AnnouncementBanner obsId={obsId} />
 
         <TelescopeSelection
+          rootRoute="/telescope-details"
           observatoryList={observatoryList}
           params={params}
         />
