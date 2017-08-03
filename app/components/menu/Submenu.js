@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import classnames from 'classnames';
+import { browserHistory } from 'react-router';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import uniqueId from 'lodash/uniqueId';
+
 import ListHotThisMonth from './ListHotThisMonth';
 import ListObservatories from './ListObservatories';
 import UpcomingComponent from './UpcomingComponent';
 import StargazersInfo from './StargazersInfo';
-import { browserHistory } from 'react-router';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+
 import {
   HOT_THIS_MONTH_URL,
   NAV_TYPE_CALLING_ALL_STARGAZERS_COMPONENT,
@@ -42,7 +45,7 @@ function generateExternalLink(
     : '_blank';
 
   return (
-    <li>
+    <li key={uniqueId()}>
       <a className="item" href={anchorLink} target={target}>{anchorText}</a>
     </li>
   );
