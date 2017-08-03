@@ -156,7 +156,7 @@ TelescopeSelection.defaultProps = {
     obsUniqueId: '',
     teleUniqueId: '',
   },
-  rootRoute: 'telescope-details',
+  rootRoute: '/',
   showUTCTimer: true,
   theme: 'dark',
   appendToRoute: '',
