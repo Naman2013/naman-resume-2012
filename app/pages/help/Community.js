@@ -10,7 +10,7 @@ const Community = () => (
   <div>
     <div className="help-page-header">
       <h1 className="help-page-title">Community</h1>
-      <Link to="about/contact" className="button btn-primary help-page-button">
+      <Link to="/about/contact" className="button btn-primary help-page-button">
         Contact Us
       </Link>
     </div>

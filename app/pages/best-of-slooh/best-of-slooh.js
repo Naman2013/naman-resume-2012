@@ -36,7 +36,7 @@ class BestOfSlooh extends Component {
           </div>
 
           <div className="col-md-3 best-header-call">
-            <Link className="action" to="publish-post">Create New Post</Link>
+            <Link className="action" to="/publish-post">Create New Post</Link>
           </div>
 
         </div>

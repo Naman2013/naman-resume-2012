@@ -113,7 +113,7 @@ class DiscussionsReply extends Component {
           />
         {images.map(img => <a href={img} key={img} rel="noopener noreferrer" target="_blank"><img className={styles.discussionsImages} key={img} alt="image" src={img} /></a>)}
         <div className={styles.discussionsReplies}>
-          {showReplyButton && <Link className={`${styles.discussionsrepliesText} inline-block`} to={`discussions/forums/${forumId}/topics/${topicId}/threads/${threadId}/${reply.replyId}/new-reply`}>
+          {showReplyButton && <Link className={`${styles.discussionsrepliesText} inline-block`} to={`/discussions/forums/${forumId}/topics/${topicId}/threads/${threadId}/${reply.replyId}/new-reply`}>
             <span>Reply </span>
           </Link>}
           <div className={showReplyButton ? styles.discussionsInlineHeart : null}>

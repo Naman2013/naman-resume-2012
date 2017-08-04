@@ -90,7 +90,7 @@ class MyPicturesNavigation extends Component {
             </Link>
           </li>
           {/*<li className={s.rootNavigationItem}>
-            <Link to="my-pictures/galleries" className={s.button} activeClassName="active">
+            <Link to="/my-pictures/galleries" className={s.button} activeClassName="active">
               Galleries <span>({galleriesCount || 0})</span>
             </Link>
           </li>*/}
