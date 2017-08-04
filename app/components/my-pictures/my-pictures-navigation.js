@@ -95,7 +95,7 @@ class MyPicturesNavigation extends Component {
             </Link>
           </li>*/}
           <li className={s.rootNavigationItem}>
-            <Link to="my-pictures/missions" className={s.button} activeClassName="active">
+            <Link to="/my-pictures/missions" className={s.button} activeClassName="active">
               Missions <span>({missionCount})</span>
             </Link>
           </li>
