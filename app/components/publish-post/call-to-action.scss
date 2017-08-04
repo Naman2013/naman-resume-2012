@@ -23,6 +23,9 @@
     position: relative;
     @media(max-width:375px){
       font-size:30px;
+      .cta-container .button{
+        margin:0px !important;
+      }
     }
   }
 

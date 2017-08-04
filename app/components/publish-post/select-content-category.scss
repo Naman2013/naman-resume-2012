@@ -10,6 +10,9 @@
     width: 100%;
     text-align: center;
     padding: 12px 90px 0;
+    @media(max-width:767px){
+      padding:0px;
+    }
   }
 
   &-description {
@@ -27,6 +30,11 @@
     line-height: 14px;
     font-weight: normal;
     color: $blueGreen;
+    @media(max-width:767px){
+      margin-left:50px;
+      padding:7px 5px;
+      width:100px;
+    }
 
     .active &,
     .category-item:hover & {
@@ -41,7 +49,8 @@
   }
 
   &-name {
-    font-size: 16px;
+    margin-top:0px;
+    font-size: 15px;
     font-weight: bold;
     text-transform: uppercase;
 
