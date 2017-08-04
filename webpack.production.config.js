@@ -1,7 +1,8 @@
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const WebpackMd5Hash = require('webpack-md5-hash');
+//const WebpackMd5Hash = require('webpack-md5-hash');
+const WebpackMd5Hash = Math.random() * 100000;
 
 const apiUrl = process.env.apiUrl || '';
 const apiPortNumber = process.env.apiPortNumber || '';
@@ -129,6 +130,7 @@ module.exports = {
     ],
   },
   plugins: [
+    // new WebpackMd5Hash(),
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify('production'),
@@ -143,9 +145,5 @@ module.exports = {
       filename: 'index.html',
       inject: 'body',
     }),
-    // new CopyWebpackPlugin([
-    //   { from: './assets/**/*' },
-    // ]),
-    new WebpackMd5Hash(),
   ],
 };
