@@ -9,7 +9,7 @@ const DiscussionsTopicItem = ({ item }) => (
     <div className="row inner">
       <div className="col-md-7 description">
         <div className="topicItem">
-          <Link className="link" to={`discussions/forums/${item.parentForumId}/topics/${item.topicId}/threads`}>
+          <Link className="link" to={`/discussions/forums/${item.parentForumId}/topics/${item.topicId}/threads`}>
             <span dangerouslySetInnerHTML={{ __html: item.title }} /> {item.closedFlag === 'yes' && <img className="closed-icon" src={item.closedIconURL} />}
           </Link>
           <div className="subtext" dangerouslySetInnerHTML={{ __html: item.topicDesc }} />
