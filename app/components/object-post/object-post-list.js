@@ -21,7 +21,7 @@ class ObjectPostList extends Component {
             </Link>
 
             <div className="row">
-              <div className="col-sm-6">
+              <div className="col-md-6 col-xs-12">
                 <ByUserTag
                   photo={v.avatarURL}
                   name={v.displayName}
@@ -32,11 +32,11 @@ class ObjectPostList extends Component {
                 />
               </div>
 
-              <div className="col-xs-3 pull-right">
+              <div className="col-sm-3 hidden-xs">
                 <img className="icon" src={v.typeIconURL} />
               </div>
 
-              <div className="col-xs-3 pull-right">
+              <div className="col-sm-3 hidden-xs">
                 <div className={styles.ObjectPostListToolsHot}>
                   <CommunityPostTools
                     type={v.type}
@@ -50,6 +50,27 @@ class ObjectPostList extends Component {
                 </div>
               </div>
             </div>
+
+
+             <div className="row visible-xs">
+               <div className="col-xs-6">
+                 <img className="icon" src={v.typeIconURL} />
+               </div>
+
+               <div className="col-xs-6">
+                 <div className={styles.ObjectPostListToolsHot}>
+                   <CommunityPostTools
+                       type={v.type}
+                       authorId={v.customerId}
+                       objectSlug={v.slug}
+                       likesCount={v.likesCount}
+                       showLikePrompt={v.showLikePrompt}
+                       likePrompt={v.likePrompt}
+                       likeId={v.postId}
+                       />
+                 </div>
+               </div>
+               </div>
 
             <figcaption className={styles.ObjectPostListInfoDesc}>
               {

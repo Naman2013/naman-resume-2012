@@ -50,7 +50,7 @@ class PulsePostContent extends Component {
           </Link>
 
           <div className="row">
-            <div className="col-md-6">
+            <div className="col-sm-6">
               <ByUserTag
                 theme={'light'}
                 photo={avatarURL}
@@ -60,7 +60,7 @@ class PulsePostContent extends Component {
                 location={location}
               />
             </div>
-            <div className="col-md-5 pull-right">
+            <div className="col-sm-5 align-right">
               {
                 postId ?
                   <CommunityPulseTools

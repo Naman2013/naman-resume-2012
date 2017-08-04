@@ -2475,6 +2475,12 @@ button.text {
       .ObjectPostList .ObjectPostListInfo .ObjectPostListInfoTitle {
         height: 48px;
         font-size: 30px; } }
+@media (max-width: 767px) and (max-width: 375px) {
+  .ObjectPostList .ObjectPostListID {
+    font-size: 40px;
+    padding: 0 0px 0px 20px; }
+  .ObjectPostList .ObjectPostListInfo {
+    padding-left: 10px; } }
 /*responsive video embedd*/
 .video-container {
   position: relative;

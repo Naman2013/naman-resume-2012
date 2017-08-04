@@ -45,8 +45,8 @@ const PulsePostItem = ({
             <div dangerouslySetInnerHTML={{ __html: excerpt }} />(<Link to={`/community/post/${postId}`}>See full entry</Link>)
           </figcaption>
 
-          <div className="row flex-center">
-            <div className="col-md-11">
+          <div className="row">
+            <div className="col-sm-8">
               <ByUserTag
                 theme="light"
                 photo={avatarURL}
@@ -57,7 +57,7 @@ const PulsePostItem = ({
               />
             </div>
 
-            <div className="col-md-1">
+            <div className="col-sm-4">
               <Heart
                 type={type}
                 authorId={customerId}

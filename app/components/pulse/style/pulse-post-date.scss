@@ -3,6 +3,9 @@
 
 
 .PulsePostDate {
+  @media(max-width:650px){
+    font-szie:20px;
+  }
   font-weight: 500;
   margin: 20px 0 0 0;
 

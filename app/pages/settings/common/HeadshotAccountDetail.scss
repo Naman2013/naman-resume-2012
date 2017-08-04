@@ -2,22 +2,28 @@
 @import '../../../styles/mixins/utilities.scss';
 
 .headshotAccountDetailRoot {
-  display: flex;
-  width: 35%;
+  //display: flex;
+  text-align:center;
+  //width: 35%;
   margin: 0 auto;
   margin-top: -70px;
 
   .accountDetail {
+    padding-right:10px;
+    display:inline-block;
     padding-top: 100px;
     font-size: 14px;
   }
 
   .profilePicture {
+
     @include profilePicture;
     background-image: $slooh-blue-xxlight url(https://vega.slooh.com/assets//icons/astronaut-white.svg);
   }
 
   .changeAvatar {
+    padding-left:10px;
+    display:inline-block;
     color: $pink;
     cursor: pointer;
   }

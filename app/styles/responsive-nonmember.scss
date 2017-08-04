@@ -729,6 +729,17 @@
         font-size: 30px;
       }}
   }
+  @media(max-width:375px){
+    .ObjectPostList{
+     .ObjectPostListID{
+       font-size:40px;
+       padding:0 0px 0px 20px;
+     }
+      .ObjectPostListInfo{
+        padding-left:10px;
+      }
+    }
+  }
 
 }
 
