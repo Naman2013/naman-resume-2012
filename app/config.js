@@ -2,7 +2,7 @@ export const HASH = 'hash';
 export const NON_HASH = 'non_hash';
 
 const VALUES = new Map();
-VALUES.set('navigationStyle', HASH);
+VALUES.set('navigationStyle', '');
 
 const SETTINGS = {
   isHashHistory() {

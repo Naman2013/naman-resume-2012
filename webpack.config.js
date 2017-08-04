@@ -40,6 +40,7 @@ module.exports = {
   },
   output: {
     path: `${__dirname}/dist`,
+    publicPath: '/',
     filename: '[name].js',
     sourceMapFilename: '[name].js.map',
   },
@@ -139,16 +140,17 @@ module.exports = {
   ],
   devtool: 'cheap-module-eval-source-map',
   devServer: {
-    contentBase: path.resolve(__dirname + '/'),
+    contentBase: path.join(__dirname, '/dist'),
+    compress: true,
     historyApiFallback: true,
     proxy: {
       '/api/**': {
-        target: 'https://saturn.slooh.com:443',
+        target: 'https://venus.slooh.com:443',
         changeOrigin: true,
         secure: true,
       },
       '/sloohapp/**': {
-        target: 'https://saturn.slooh.com:443',
+        target: 'https://venus.slooh.com:443',
         changeOrigin: true,
         secure: true,
       },

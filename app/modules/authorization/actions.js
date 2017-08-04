@@ -1,6 +1,7 @@
 import { push } from 'react-router-redux';
 import { fetchHandleErrors } from '../../services/authorization/handle-error';
 import { destroySession, removeUser } from '../User';
+import SETTINGS from '../../config';
 
 export const FETCH_ERRORS_START = 'FETCH_ERRORS_START';
 export const FETCH_ERRORS_SUCCESS = 'FETCH_ERRORS_SUCCESS';
@@ -103,8 +104,16 @@ export const validateResponseAccess = apiResponse => (dispatch, getState) => {
   const { apiError, errorCode, statusCode, loginError } = apiResponse;
   if (statusCode === UNAUTHORIZED_STATUS_CODE || statusCode === EXPIRED_ACCOUNT_STATUS_CODE) {
     // if it is not a log in error, and we are not currently handling something already
+    /**
+      TODO: once the migration is complete and we have hashless URL's in production
+      remove this check and only pass the pathname
+    */
     if (typeof loginError === 'undefined' && !handlingScenario) {
-      dispatch(setSignInReturnURL(window.location.hash));
+      if (SETTINGS.isHashHistory()) {
+        dispatch(setSignInReturnURL(window.location.hash));
+      } else {
+        dispatch(setSignInReturnURL(window.location.pathname));
+      }
       dispatch(captureErrorState({
         apiError,
         errorCode,

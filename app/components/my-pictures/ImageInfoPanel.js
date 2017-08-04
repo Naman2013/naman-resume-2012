@@ -31,6 +31,19 @@ class ImageInfoPanel extends Component {
     };
   }
 
+  componentDidMount() {
+
+    if (this.props.myPicturesImageDetails.scheduledMissionId) {
+      this.props.actions.getTags({
+        tagClass: 'image',
+        tagType: 'user',
+        customerImageId: this.props.customerImageId,
+        scheduledMissionId: this.props.myPicturesImageDetails.scheduledMissionId
+      });
+    }
+
+  }
+
   componentWillReceiveProps(nextProps) {
     if (nextProps.myPicturesImageDetails.scheduledMissionId !== this.props.myPicturesImageDetails.scheduledMissionId) {
       this.props.actions.getTags({
@@ -41,11 +54,10 @@ class ImageInfoPanel extends Component {
       });
     }
 
-    if (this.props.myPicturesImageDetails.observationLog !== nextProps.myPicturesImageDetails.observationLog) {
-      this.setState({
-        editorValue: nextProps.myPicturesImageDetails.observationLog,
-      });
-    }
+    const obsLog = this.props.myPicturesImageDetails.observationLog !== nextProps.myPicturesImageDetails.observationLog ? nextProps.myPicturesImageDetails.observationLog : this.props.myPicturesImageDetails.observationLog;
+    this.setState({
+      editorValue: obsLog,
+    });
   }
 
   handleEditorChange = (e) => {
@@ -77,7 +89,6 @@ class ImageInfoPanel extends Component {
           showSavedText: true,
           showSavingText: false,
         });
-
         setTimeout(() => {
           this.setState({
             showSavedText: false,
@@ -86,7 +97,13 @@ class ImageInfoPanel extends Component {
       } else {
         this.setState({
           showErrorText: true,
+          showSavingText: false,
         });
+        setTimeout(() => {
+          this.setState({
+            showErrorText: false,
+          });
+        }, 2000)
       }
 
     })

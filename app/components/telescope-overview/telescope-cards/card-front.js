@@ -29,7 +29,7 @@ function validMissionExpireTime(unixStartTime, unixEndTime) {
 
 class CardFront extends Component {
   renderVisitTelescopeButton(obsUniqueId, teleUniqueId) {
-    const telescopeDetailsUrl = `telescope-details/${obsUniqueId}/${teleUniqueId}`;
+    const telescopeDetailsUrl = `/telescope-details/${obsUniqueId}/${teleUniqueId}`;
     return(
       <div className="col-md-6">
         <Link to={telescopeDetailsUrl} className="action">

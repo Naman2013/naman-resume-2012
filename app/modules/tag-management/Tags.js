@@ -157,6 +157,7 @@ export default createReducer(generateInitialState(), {
   [GET_TAGS_START](state) {
     return {
       ...state,
+      settingError: false,
       fetching: true,
     };
   },
