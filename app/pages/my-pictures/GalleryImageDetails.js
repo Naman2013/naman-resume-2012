@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { hashHistory } from 'react-router';
+import { browserHistory } from 'react-router';
 import { findIndex } from 'lodash';
 import Pagination from '../../components/common/pagination/Pagination';
 import MyPicturesNavigation from '../../components/my-pictures/my-pictures-navigation';
@@ -95,7 +95,7 @@ class ImageDetails extends Component {
     const nextImage = imageList[currentImageIndex + 1];
 
     if (nextImage) {
-      hashHistory.push(`my-pictures/gallery/${galleryId}/show-image/${nextImage.customerImageId}/${nextImage.shareToken}`);
+      browserHistory.push(`/my-pictures/gallery/${galleryId}/show-image/${nextImage.customerImageId}/${nextImage.shareToken}`);
     }
   }
 
@@ -104,7 +104,7 @@ class ImageDetails extends Component {
     const { currentImageIndex, galleryId } = this.state;
     const previousImage = imageList[currentImageIndex - 1];
     if (previousImage) {
-      hashHistory.push(`my-pictures/gallery/${galleryId}/show-image/${previousImage.customerImageId}/${previousImage.shareToken}`);
+      browserHistory.push(`/my-pictures/gallery/${galleryId}/show-image/${previousImage.customerImageId}/${previousImage.shareToken}`);
     }
   }
 
