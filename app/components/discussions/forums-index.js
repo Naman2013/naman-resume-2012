@@ -56,7 +56,7 @@ class ForumsIndex extends Component {
                     <li
                       key={forum.forumId}
                     >
-                      <Link className={`forums-link ${linkStyle}`} to={`discussions/forums/${forum.forumId}/topics`}>
+                      <Link className={`forums-link ${linkStyle}`} to={`/discussions/forums/${forum.forumId}/topics`}>
                         <span className="cell topic">{forum.title} {forum.closedFlag === 'yes' && <img alt="" className="closed-icon" src={forum.closedIconURL} />}</span>
                         <span className="cell threads">{forum.topicCount}</span>
                       </Link>

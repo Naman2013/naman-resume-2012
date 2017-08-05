@@ -52,7 +52,7 @@ const UsersReservations = ({ reservationsList, refreshAction, unixTimestamp }) =
                 <div className="col-third border-left border-right padding-small padding-bottom-xxsmall mission-location">
                   <p className="icon-small icon-location text-small">
                   <Link
-                    to={`telescope-overview/${reservation.observatoryUniqueId}`}
+                    to={`/telescope-overview/${reservation.observatoryUniqueId}`}
                     className="icon-small icon-telescope text-small"
                   >
                     <span
@@ -63,7 +63,7 @@ const UsersReservations = ({ reservationsList, refreshAction, unixTimestamp }) =
                 </div>
                 <div className="col-third padding-small padding-bottom-xxsmall padding-left-none mission-telescope-name">
                   <Link
-                    to={`telescope-details/${reservation.observatoryUniqueId}/${reservation.telescopeUniqueId}`}
+                    to={`/telescope-details/${reservation.observatoryUniqueId}/${reservation.telescopeUniqueId}`}
                     className="icon-small icon-telescope text-small"
                   >
                     <span

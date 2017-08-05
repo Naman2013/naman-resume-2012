@@ -33,7 +33,7 @@ const PulsePostItem = ({
         }
 
         <figure className={styles.PulsePostListInfo}>
-          <Link to={`community/post/${postId}`}>
+          <Link to={`/community/post/${postId}`}>
             <h2 className={styles.PulsePostListInfoTitle}>
               <div dangerouslySetInnerHTML={{__html: title}} />
             </h2>

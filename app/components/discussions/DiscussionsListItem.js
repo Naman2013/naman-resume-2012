@@ -12,7 +12,7 @@ const DiscussionsListItem = ({ item }) => (
     <div className="row inner">
       <div className="col-xs-7 description">
         <div className="topic">
-          <Link to={`discussions/forums/${item.forumId}/topics/${item.topicId}/threads/${item.threadId}`}>
+          <Link to={`/discussions/forums/${item.forumId}/topics/${item.topicId}/threads/${item.threadId}`}>
             <span dangerouslySetInnerHTML={{ __html: item.title }} /> {item.closedFlag === 'yes' && <img className="closed-icon" src={item.closedIconURL} />}
           </Link>
         </div>
@@ -23,7 +23,7 @@ const DiscussionsListItem = ({ item }) => (
           name={item.displayName}
           {...item}
         />
-        <div className="within">within the <Link className="forum-name" to={`discussions/forums/${item.forumId}/topics`}>{item.forumName}</Link></div>
+        <div className="within">within the <Link className="forum-name" to={`/discussions/forums/${item.forumId}/topics`}>{item.forumName}</Link></div>
       </div>
       <div className="col-xs-5 info-container">
         <div className="info">

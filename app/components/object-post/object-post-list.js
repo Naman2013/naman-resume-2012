@@ -16,7 +16,7 @@ class ObjectPostList extends Component {
           <span className={styles.ObjectPostListID}>{k+1}.</span>
 
           <figure className={styles.ObjectPostListInfo}>
-            <Link to={`community/post/${v.postId}`}>
+            <Link to={`/community/post/${v.postId}`}>
               <h2 dangerouslySetInnerHTML={{ __html: v.title }} className={styles.ObjectPostListInfoTitle}></h2>
             </Link>
 
