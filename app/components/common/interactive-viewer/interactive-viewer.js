@@ -25,14 +25,21 @@ const mapDispatchToProps = dispatch => ({
 
 @connect(null, mapDispatchToProps)
 class InteractiveViewer extends Component {
+  defaultProps = {
+    isInteractive: true,
+    callSource: 'details',
+  }
   constructor(props) {
     super(props);
-    this.animationTick = setInterval(::this.handleViewerTick, 100);
+
+    if (props.isInteractive) {
+      this.animationTick = setInterval(::this.handleViewerTick, 100);
+    }
   }
 
   state = {
     fullScreenMode: false,
-    clipped: true,
+    clipped: this.props.isInteractive,
     currentScale: 1,
     bounds: 1,
     activeDrags: 0,
@@ -49,15 +56,16 @@ class InteractiveViewer extends Component {
     zoomEnabled: true,
   };
 
+
   componentWillUpdate(nextProps, nextState) {
     const { currentScale } = nextState;
 
     // TODO: sort out if we need to reset the image scale to 1
-
     this.props.actions.setImageDataToSnapshot({
       zoom: nextState.currentScale,
       originX: nextState.controlledPosition.x,
       originY: nextState.controlledPosition.y,
+      callSource: nextProps.callSource,
     });
   }
 
@@ -162,11 +170,13 @@ class InteractiveViewer extends Component {
   };
 
   fetchCurrentPanelStyle() {
-    return this.state.clipped ? {
+    return Object.assign({
+      cursor: this.props.isInteractive ? 'pointer' : 'default',
+    }, this.state.clipped ? {
       WebkitClipPath: 'circle(35% at 50% 47%)',
       MozClipPath: 'circle(35%)',
       clipPath: 'circle(35%, 50%, 47%)',
-    } : {};
+    } : {});
   }
 
   giveUserControl() {
@@ -176,7 +186,7 @@ class InteractiveViewer extends Component {
   }
 
   render() {
-    const { children } = this.props;
+    const { children, isInteractive } = this.props;
     const {
       fullScreenMode,
       currentScale,
@@ -232,21 +242,25 @@ class InteractiveViewer extends Component {
           </div>
         </div>
 
-        <button
-          onClick={this.handleZoomOutClick}
-          className="action minus"
-        >
-          <span className="icon glyphicon-minus" />
-        </button>
+        {isInteractive &&
+          <button
+            onClick={this.handleZoomOutClick}
+            className="action minus"
+          >
+            <span className="icon glyphicon-minus" />
+          </button>
+        }
 
         <LiveSign />
+        {isInteractive &&
+          <button
+            onClick={this.handleZoomInClick}
+            className="action plus"
+          >
+            <span className="icon glyphicon-plus" />
+          </button>
+        }
 
-        <button
-          onClick={this.handleZoomInClick}
-          className="action plus"
-        >
-          <span className="icon glyphicon-plus" />
-        </button>
 
         {
           /**
@@ -260,21 +274,23 @@ class InteractiveViewer extends Component {
           */
         }
 
-        {
-          clipped ?
-            <button
-              onClick={this.handleToggleClipping}
-              className="action circular-view"
-            >
-                Full-frame view <span className="icon glyphicon glyphicon-sound-stereo" />
-            </button>
-            :
-            <button
-              onClick={this.handleToggleClipping}
-              className="action circular-view"
-            >
-                Circular view <span className="icon glyphicon glyphicon-record" />
-            </button>
+        {isInteractive &&
+          <div>
+            { clipped ?
+              <button
+                onClick={this.handleToggleClipping}
+                className="action circular-view"
+              >
+                  Full-frame view <span className="icon glyphicon glyphicon-sound-stereo" />
+              </button>
+              :
+              <button
+                onClick={this.handleToggleClipping}
+                className="action circular-view"
+              >
+                  Circular view <span className="icon glyphicon glyphicon-record" />
+              </button> }
+            </div>
         }
       </div>
     );

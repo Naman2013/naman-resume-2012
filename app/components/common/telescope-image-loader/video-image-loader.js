@@ -35,12 +35,14 @@ class VideoImageLoader extends Component {
     }).isRequired,
     showVideoControls: PropTypes.number,
     showInfo: PropTypes.number,
+    callSource: PropTypes.string,
   };
 
   static defaultProps = {
     clipped: false,
     showVideoControls: 0,
     showInfo: 0,
+    callSource: 'details',
   };
 
   componentDidMount() {
@@ -69,6 +71,8 @@ class VideoImageLoader extends Component {
       scheduledMissionID,
     } = JSON.parse(imageData);
 
+    const { callSource } = this.props;
+
     if (messageType !== 'HEARTBEAT') {
       // assign the image URL to the image data for processing later
       this.props.actions.setImageDataToSnapshot({
@@ -76,6 +80,7 @@ class VideoImageLoader extends Component {
         imageID,
         scheduledMissionID,
         astroObjectID,
+        callSource,
       });
     }
   }
