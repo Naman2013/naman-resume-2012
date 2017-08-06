@@ -58,8 +58,8 @@ module.exports = {
         query: {
           search: '/api/',
           replace: apiUrl ? `${apiUrl}:${apiPortNumber}/api/` : '/api/',
-          flags: 'g'
-        }
+          flags: 'g',
+        },
       },
       { // string-replace to replace sse environment url's with the appropriate address
         test: /\.(js)$/,
@@ -67,9 +67,9 @@ module.exports = {
         exclude: /node_modules/,
         query: {
           search: '/dev-sse/',
-          replace: `${apiUrl}:`,
-          flags: 'g'
-        }
+          replace: `${apiUrl}/`,
+          flags: 'g',
+        },
       },
       { // string-replace replace localhost with slooh.com
         test: /\.(js)$/,

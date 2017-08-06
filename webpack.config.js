@@ -66,7 +66,7 @@ module.exports = {
         exclude: /node_modules/,
         query: {
           search: '/dev-sse/',
-          replace: `${apiUrl}:`,
+          replace: '/',
           flags: 'g',
         },
       },
@@ -154,95 +154,15 @@ module.exports = {
         changeOrigin: true,
         secure: true,
       },
-      '/:3004/**': {
-        target: 'https://slooh.com:3004',
+      '/sse/**': {
+        target: 'https://slooh.com',
         changeOrigin: true,
         secure: true,
-        pathRewrite: { '/:3004/': '' },
       },
-      '/:3020/**': {
-        target: 'https://slooh.com:3020',
+      '/sselog/**': {
+        target: 'https://slooh.com',
         changeOrigin: true,
         secure: true,
-        pathRewrite: { '/:3020/': '' },
-      },
-      '/:3003/**': {
-        target: 'https://slooh.com:3003',
-        changeOrigin: true,
-        secure: true,
-        pathRewrite: { '/:3003/': '' },
-      },
-      '/:3006/**': {
-        target: 'https://slooh.com:3006',
-        changeOrigin: true,
-        secure: true,
-        pathRewrite: { '/:3006/': '' },
-      },
-      '/:3007/**': {
-        target: 'https://slooh.com:3007',
-        changeOrigin: true,
-        secure: true,
-        pathRewrite: { '/:3007/': '' },
-      },
-      '/:3107/**': {
-        target: 'https://slooh.com:3107',
-        changeOrigin: true,
-        secure: true,
-        pathRewrite: { '/:3107/': '' },
-      },
-      '/:3002/**': {
-        target: 'https://slooh.com:3002',
-        changeOrigin: true,
-        secure: true,
-        pathRewrite: { '/:3002/': '' },
-      },
-      '/:3105/**': {
-        target: 'https://slooh.com:3105',
-        changeOrigin: true,
-        secure: true,
-        pathRewrite: { '/:3105/': '' },
-      },
-      '/:3102/**': {
-        target: 'https://slooh.com:3102',
-        changeOrigin: true,
-        secure: true,
-        pathRewrite: { '/:3102/': '' },
-      },
-      '/:3103/**': {
-        target: 'https://slooh.com:3103',
-        changeOrigin: true,
-        secure: true,
-        pathRewrite: { '/:3103/': '' },
-      },
-      '/:3104/**': {
-        target: 'https://slooh.com:3104',
-        changeOrigin: true,
-        secure: true,
-        pathRewrite: { '/:3104/': '' },
-      },
-      '/:3001/**': {
-        target: 'https://slooh.com:3001',
-        changeOrigin: true,
-        secure: true,
-        pathRewrite: { '/:3001/': '' },
-      },
-      '/:3005/**': {
-        target: 'https://slooh.com:3005',
-        changeOrigin: true,
-        secure: true,
-        pathRewrite: { '/:3005/': '' },
-      },
-      '/:3101/**': {
-        target: 'https://slooh.com:3101',
-        changeOrigin: true,
-        secure: true,
-        pathRewrite: { '/:3101/': '' },
-      },
-      '/:0/**': {
-        target: 'https://slooh.com:0',
-        changeOrigin: true,
-        secure: true,
-        pathRewrite: { '/:0/': '' },
       },
       '/util/**': {
         target: 'https://slooh.com',
