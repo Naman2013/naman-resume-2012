@@ -58,7 +58,10 @@
         }
 
         @media(max-width:375px){
-          left:-90%; top:35px;
+          left:0px; top:35px;
+          li{
+            float:none !important; display:inline-block;
+          }
 
         }
       }
@@ -98,7 +101,9 @@
       }
     }
     @media(max-width:375px){
+      width:100%; text-align:center;
       li{
+float:none;
         margin:0px 5px !important;
         a{
           font-size:12px !important;

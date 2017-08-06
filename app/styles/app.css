@@ -207,6 +207,9 @@ img {
 .auto-top {
   margin-top: auto; }
 
+.pagination {
+  margin: 0px 20px; }
+
 .rc-pagination-item-active {
   background-color: #F310A7;
   border-color: #F310A7; }

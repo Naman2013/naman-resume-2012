@@ -2473,7 +2473,8 @@ button.text {
       padding-right: 5px;
       float: left; }
       .ObjectPostList .ObjectPostListInfo .ObjectPostListInfoTitle {
-        height: 48px;
+        display: block;
+        height: auto;
         font-size: 30px; } }
 @media (max-width: 767px) and (max-width: 375px) {
   .ObjectPostList .ObjectPostListID {

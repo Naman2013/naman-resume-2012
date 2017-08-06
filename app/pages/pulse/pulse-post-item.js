@@ -46,7 +46,7 @@ const PulsePostItem = ({
           </figcaption>
 
           <div className="row">
-            <div className="col-sm-8">
+            <div className="col-sm-8 ">
               <ByUserTag
                 theme="light"
                 photo={avatarURL}

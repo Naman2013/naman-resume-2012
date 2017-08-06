@@ -725,9 +725,12 @@
 
       float: left;
       .ObjectPostListInfoTitle{
-        height: 48px;
+        //height: 48px;
+        display:block;
+        height:auto;
         font-size: 30px;
-      }}
+      }
+    }
   }
   @media(max-width:375px){
     .ObjectPostList{
