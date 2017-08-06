@@ -2,6 +2,7 @@ import axios from 'axios';
 import { cancelMissionSlot } from '../Missions';
 import { fetchDateRanges } from '../mission-slots-by-telescope/mission-slot-dates-actions';
 import { fetchReservationSuccess } from '../mission-slots-by-telescope/mission-slots-by-telescope-actions';
+import { validateResponseAccess } from '../authorization/actions';
 
 // accessing the supported form tab types so we may set them accordingly
 import SUPPORTED_RESERVATION_TAB_FORM_TYPES from '../../constants/supported-reservation-tab-form-types';
@@ -102,7 +103,14 @@ export const grabTelescopeSlot = ({ defaultFormType, scheduledMissionId, uniqueI
     grabType,
     finalizeReservation,
   })
-  .then(result => dispatch(grabTelescopeSlotSuccess(Object.assign({}, result.data, { defaultFormType }))))
+  .then((result) => {
+    const { data } = result;
+    if (data.apiError) {
+      dispatch(validateResponseAccess(data));
+    } else {
+      dispatch(grabTelescopeSlotSuccess(Object.assign({}, result.data, { defaultFormType })));
+    }
+  })
   .catch(error => dispatch(grabTelescopeSlotFail(error)));
 };
 
