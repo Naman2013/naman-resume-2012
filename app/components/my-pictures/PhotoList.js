@@ -20,9 +20,10 @@ class PhotoList extends Component {
       'col-xs-12': !galleryType,
     });
     const listColClassNames = classnames({
-      [`col-xs-${colNum}`]: !galleryType,
+      [`col-xs-${colNum} col-xs-12 col-sm-6`]: !galleryType,
       'col-xs-12': galleryType,
     });
+
     return (
       <div className={`${style.photoListRoot} clearfix`}>
         <ul className={`${style.photoList} ${containerColClassNames}`}>
