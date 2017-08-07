@@ -20,7 +20,7 @@ class PhotoList extends Component {
       'col-xs-12': !galleryType,
     });
     const listColClassNames = classnames({
-      [`col-md-${colNum} col-sm-4 col-xs-6`]: !galleryType,
+      [`col-md-${colNum}  col-xs-6`]: !galleryType,
       'col-xs-12': galleryType,
     });
 
@@ -48,7 +48,7 @@ class PhotoList extends Component {
 
 PhotoList.defaultProps = {
   galleryType: false,
-  colNum: '3',
+  colNum: '4',
 };
 
 PhotoList.propTypes = {

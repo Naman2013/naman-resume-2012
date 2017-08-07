@@ -30,9 +30,11 @@
       padding:10px;
     }
     opacity: 0;
-    div{
-      font-size:9px;
-    }
+   @media(max-width:767px){
+     div{
+       font-size:9px;
+     }
+   }
   }
 
   .photoTitle {
@@ -46,7 +48,7 @@
 
   .photoMenu {
     list-style-type: none;
-    position: absolute;
+    position: absolute !important;
     right: 20px;
     bottom: 20px;
   }
