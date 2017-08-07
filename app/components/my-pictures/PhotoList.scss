@@ -3,5 +3,13 @@
   .photoList {
     list-style-type: none;
     padding: 0;
+    li{
+      padding-left:5px; padding-right:5px;
+    }
+    @media(max-width:420px){
+      li{
+        width:100% !important; float:none !important;
+      }
+    }
   }
 }

@@ -5,6 +5,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const apiUrl = process.env.apiUrl || '';
+
 const apiPortNumber = process.env.apiPortNumber || '';
 
 module.exports = {
