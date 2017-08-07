@@ -144,7 +144,7 @@ class Home extends Component {
 
         <SloohStorePromo />
 
-        <div className="col-md-2" />
+
 
         <Dedication
           title="Dedication"

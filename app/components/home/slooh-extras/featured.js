@@ -65,11 +65,11 @@ class Featured extends Component {
   render() {
     return(
       <SloohExtrasTile title={this.props.title}>
-        <div className="clearfix featured-in-logos">
-          <div className={style.leftColumn}>
+        <div className="clearfix featured-in-logos row">
+          <div className="col-sm-6">
             {this.generateImages(LEFT_COLUMN)}
           </div>
-          <div className={style.rightColumn}>
+<div className="col-sm-6">
             {this.generateImages(RIGHT_COLUMN)}
           </div>
         </div>

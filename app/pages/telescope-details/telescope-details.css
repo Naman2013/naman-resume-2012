@@ -1,0 +1,54 @@
+/* VARIABLES: Typefaces
+ * */
+.telescope-details-page-wrapper {
+  font-family: "Brandon Grotesque", "brandon-grotesque", sans-serif;
+  background-image: url(https://vega.slooh.com/assets/images/photos/milky-way-3.jpg);
+  background-repeat: no-repeat;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-position: center; }
+  .telescope-details-page-wrapper .current-selection-header .title-container {
+    color: #fff;
+    border-bottom: none; }
+  .telescope-details-page-wrapper .telescopesSelectionContainer .description {
+    color: #fff; }
+  .telescope-details-page-wrapper .details-content-wrapper {
+    margin: 0 auto; }
+
+.telescope-details .viewer-container {
+  position: relative; }
+.telescope-details .react-tabs__tab-list {
+  font-weight: 300;
+  text-align: center;
+  margin: 0;
+  border-bottom: 0;
+  list-style: none;
+  padding: 0; }
+  .telescope-details .react-tabs__tab-list .react-tabs__tab {
+    padding: 10px 70px;
+    background: #3C4A55;
+    color: #FFFFFF;
+    margin: 0;
+    border: 0;
+    width: 50%;
+    display: inline-block; }
+    @media (min-width: 769px) {
+      .telescope-details .react-tabs__tab-list .react-tabs__tab {
+        padding: 10px 70px;
+        font-size: 18px; } }
+    .telescope-details .react-tabs__tab-list .react-tabs__tab.react-tabs__tab--selected {
+      box-shadow: 6px 0px 6px 0px rgba(0, 0, 0, 0.5);
+      background: #1F1F1F;
+      color: #FFFFFF; }
+.telescope-details .react-tabs__tab-panel {
+  background-color: #1F1F1F;
+  position: relative; }
+
+.telescope-details-sidebar {
+  margin-top: 35px; }
+
+/*# sourceMappingURL=telescope-details.css.map */

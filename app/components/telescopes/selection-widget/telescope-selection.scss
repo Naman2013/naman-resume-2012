@@ -4,7 +4,7 @@
 .obs-telescope-selection-widget {
   position: relative;
   font-family: $primary-font;
-  margin-bottom: 20px;
+padding-top:35px;
 
   .universal-time {
     position: absolute;
@@ -55,7 +55,9 @@
 
     .observatory {
       display: inline-block;
-      margin-left: 30px;
+      @media(min-width:768px){
+        margin-left: 30px;
+      }
 
       .cat-link {
         cursor: pointer;
@@ -77,7 +79,11 @@
 
     .piers {
       margin: 0 0 5px 0;
+
       padding-left: 100px;
+      @media(max-width:767px){
+        padding:0px;
+      }
 
       .icon-container {
         display: inline-block;

@@ -1,0 +1,75 @@
+/* VARIABLES: Typefaces
+ * */
+/* VARIABLES: COLOR
+ * */
+.obs-telescope-selection-widget {
+  position: relative;
+  font-family: "Brandon Grotesque", "brandon-grotesque", sans-serif;
+  padding-top: 35px; }
+  .obs-telescope-selection-widget .universal-time {
+    position: absolute;
+    right: 10px;
+    top: 10px; }
+  .obs-telescope-selection-widget .description {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 14px; }
+
+.obs-telescope-selection-widget.light .telescope-selection-container .description {
+  color: #3C4A55; }
+.obs-telescope-selection-widget.light .telescope-selection-container .cat-link {
+  color: #F310A7; }
+
+.obs-telescope-selection-widget.dark .telescope-selection-container .description {
+  color: #fff; }
+.obs-telescope-selection-widget.dark .telescope-selection-container .cat-link {
+  color: #fff; }
+
+.telescope-selection-container {
+  color: #000;
+  margin: 0 auto;
+  text-align: center;
+  padding: 10px 0; }
+  .telescope-selection-container .categories {
+    font-size: 1.2em; }
+    .telescope-selection-container .categories .category-list {
+      margin-top: 5px;
+      margin-bottom: 10px; }
+    .telescope-selection-container .categories .observatory {
+      display: inline-block; }
+      @media (min-width: 768px) {
+        .telescope-selection-container .categories .observatory {
+          margin-left: 30px; } }
+      .telescope-selection-container .categories .observatory .cat-link {
+        cursor: pointer; }
+        .telescope-selection-container .categories .observatory .cat-link.active {
+          color: #000;
+          font-weight: 600; }
+        .telescope-selection-container .categories .observatory .cat-link:focus {
+          text-decoration: none; }
+      .telescope-selection-container .categories .observatory:first-child {
+        margin-left: 0; }
+    .telescope-selection-container .categories .piers {
+      margin: 0 0 5px 0;
+      padding-left: 100px; }
+      @media (max-width: 767px) {
+        .telescope-selection-container .categories .piers {
+          padding: 0px; } }
+      .telescope-selection-container .categories .piers .icon-container {
+        display: inline-block;
+        width: 100px;
+        text-align: center; }
+        .telescope-selection-container .categories .piers .icon-container .telescope-button {
+          width: 100%;
+          display: inline-block; }
+          .telescope-selection-container .categories .piers .icon-container .telescope-button.active, .telescope-selection-container .categories .piers .icon-container .telescope-button.hovered {
+            cursor: pointer; }
+            .telescope-selection-container .categories .piers .icon-container .telescope-button.active .img-circle, .telescope-selection-container .categories .piers .icon-container .telescope-button.hovered .img-circle {
+              border-radius: 50%;
+              border: 5px solid #F310A7; }
+          .telescope-selection-container .categories .piers .icon-container .telescope-button.active.hovered-exists .img-circle {
+            border-color: transparent; }
+      .telescope-selection-container .categories .piers:first-child {
+        margin-left: 0; }
+
+/*# sourceMappingURL=telescope-selection.css.map */

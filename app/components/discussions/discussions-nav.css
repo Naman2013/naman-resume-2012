@@ -1,0 +1,70 @@
+/* VARIABLES: Typefaces
+ * */
+/* VARIABLES: COLOR
+ * */
+.missionNav, .discussionsNav {
+  font-family: "Brandon Grotesque", "brandon-grotesque", sans-serif;
+  margin-bottom: 20px; }
+  .missionNav .mission-nav-container, .discussionsNav .mission-nav-container, .discussionsNav .discussions-nav-container {
+    margin: 0 auto;
+    padding: 15px 0 0 0; }
+  .missionNav a, .discussionsNav a {
+    color: black; }
+  .missionNav a:focus, .discussionsNav a:focus {
+    text-decoration: none; }
+  .missionNav > ul.mission-nav-container, .discussionsNav > ul.mission-nav-container, .discussionsNav .missionNav > ul.discussions-nav-container, .discussionsNav > ul.discussions-nav-container {
+    padding: 10px 0px;
+    min-height: 65px; }
+    .missionNav > ul.mission-nav-container li, .discussionsNav > ul.mission-nav-container li, .discussionsNav .missionNav > ul.discussions-nav-container li, .discussionsNav > ul.discussions-nav-container li {
+      list-style: none;
+      float: left;
+      height: 50%;
+      margin-bottom: 10px; }
+      @media (max-width: 767px) {
+        .missionNav > ul.mission-nav-container li a, .discussionsNav > ul.mission-nav-container li a, .discussionsNav .missionNav > ul.discussions-nav-container li a, .discussionsNav > ul.discussions-nav-container li a {
+          font-size: 14px; } }
+      .missionNav > ul.mission-nav-container li:hover > a, .discussionsNav > ul.mission-nav-container li:hover > a, .discussionsNav .missionNav > ul.discussions-nav-container li:hover > a, .discussionsNav > ul.discussions-nav-container li:hover > a,
+      .missionNav > ul.mission-nav-container li a.active,
+      .discussionsNav > ul.mission-nav-container li a.active,
+      .discussionsNav .missionNav > ul.discussions-nav-container li a.active,
+      .discussionsNav > ul.discussions-nav-container li a.active {
+        border-bottom: 5px solid #7EC3C4;
+        color: black; }
+  .missionNav > ul > li, .discussionsNav > ul > li {
+    text-transform: uppercase;
+    margin: 0 25px;
+    position: relative;
+    font-weight: bold; }
+  .missionNav .sub-nav, .discussionsNav .sub-nav {
+    text-align: center;
+    margin: -10px 0px 0px;
+    padding: 0px; }
+    .missionNav .sub-nav li, .discussionsNav .sub-nav li {
+      list-style: none;
+      display: inline-block;
+      margin: 0 3% 0 0; }
+      .missionNav .sub-nav li a, .discussionsNav .sub-nav li a {
+        font-size: 14px;
+        font-weight: normal !important;
+        color: #F310A7; }
+      .missionNav .sub-nav li .active, .discussionsNav .sub-nav li .active {
+        border: none;
+        color: #000;
+        font-weight: bold; }
+      .missionNav .sub-nav li a:hover, .discussionsNav .sub-nav li a:hover {
+        color: #000;
+        border: none; }
+  .missionNav .link, .discussionsNav .link {
+    color: black; }
+    .missionNav .link:hover, .discussionsNav .link:hover, .missionNav .link.active, .discussionsNav .link.active {
+      color: #F310A7;
+      border-bottom: 3px solid #7EC3C4;
+      text-decoration: none; }
+
+.discussionsNav .link {
+  border-color: #F310A7; }
+  .discussionsNav .link:hover, .discussionsNav .link.active {
+    color: black;
+    border-bottom: 5px solid #F310A7; }
+
+/*# sourceMappingURL=discussions-nav.css.map */

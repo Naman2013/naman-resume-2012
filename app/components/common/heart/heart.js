@@ -141,7 +141,7 @@ export default class Heart extends Component {
           .heart-wrapper {
             height: 45px;
             width: 75px;
-            margin-top: -15px;
+            margin-top: -20px;
             white-space: nowrap;
           }
           .heart-button {

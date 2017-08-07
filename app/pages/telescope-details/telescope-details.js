@@ -235,7 +235,7 @@ class TelescopeDetails extends Component {
         <div className="details-content-wrapper">
 
           <div className="telescope-details-header clearfix">
-            <div className="col-xs-10">
+            <div className="col-sm-8 col-md-10">
               <CurrentSelectionHeader
                 telescopeIcon={currentObservatory.obsLogoURL}
                 teleName={currentObservatory.obsName}
@@ -245,7 +245,7 @@ class TelescopeDetails extends Component {
               />
             </div>
 
-            <div className="col-xs-2">
+            <div className="col-sm-4 col-md-2">
               {
                 teleCanReserveMissions ?
                   <Link
@@ -260,7 +260,7 @@ class TelescopeDetails extends Component {
 
           { /* begin left column */ }
           <div className="telescope-details clearfix">
-            <div className="col-xs-8">
+            <div className="col-sm-8">
               <Tabs
                 onSelect={this.handleSelect}
                 selectedIndex={selectedTab}
@@ -335,7 +335,7 @@ class TelescopeDetails extends Component {
             </div>
 
             { /** right side bar */ }
-            <div className="col-xs-4 telescope-details-sidebar">
+            <div className="col-sm-4 telescope-details-sidebar">
               {
                 activeTelescopeMission.missionAvailable || activeTelescopeMission.nextMissionAvailable ?
                   <div>

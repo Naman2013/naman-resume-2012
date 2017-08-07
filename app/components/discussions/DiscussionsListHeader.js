@@ -7,14 +7,14 @@ const { bool, string } = PropTypes;
 function DiscussionsListHeader({ threads, activeLink }) {
   return (
     <div className="header">
-      <div className="row">
-        <div className="col-md-7 title">
+      <div className="clearfix">
+        <div className="col-sm-7 col-xs-6 title">
           {activeLink
               .replace('-', ' ')
               .replace('alphabetic', 'alphabetical')
           }
         </div>
-        <div className="col-md-5 title info">
+        <div className="col-sm-5 col-xs-6 title info">
           <span className="info-item">{threads ? 'Threads' : 'Voices'}</span>
           <span className="info-item">Replies</span>
           <span className="info-item">Freshness</span>

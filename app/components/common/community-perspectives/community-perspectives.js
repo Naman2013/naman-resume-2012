@@ -150,6 +150,7 @@ class CommunityPerspectives extends Component {
     const hasRelevantPosts = this.hasRelevantPosts();
     const posts = this.generatePosts();
 
+
     const sliderSettings = {
       dots: true,
       infinite: false,
@@ -157,7 +158,25 @@ class CommunityPerspectives extends Component {
       slidesToShow: hasRelevantPosts ? numberOfSlidesToDisplay : 1,
       slidesToScroll: 1,
       arrows: hasRelevantPosts && posts.length > 1 ? showArrows : false,
+      responsive: [
+
+        {
+          breakpoint: 992,
+          settings: {
+            slidesToShow:  hasRelevantPosts ? 2 : 1,
+            slidesToScroll: 1
+          }
+        },
+        {
+          breakpoint: 480,
+          settings: {
+            slidesToShow: 1,
+            slidesToScroll: 1
+          }
+        }
+          ]
     };
+
 
     return (
       <div className="telescope-block community-perspectives">
@@ -165,7 +184,7 @@ class CommunityPerspectives extends Component {
         <div className="content">
           <div className="row">
 
-            <ul className="categories">
+            <ul className="col-xs-12 clearfix categories">
               {
                 perspectiveCatagories.map((perspective, index) => {
                   const isActiveNonHoveredCategory = !this.state.hoverCategory && (this.state.activeCatagory === perspective.catagory);
@@ -176,7 +195,7 @@ class CommunityPerspectives extends Component {
                   return (
                     <li
                       key={index}
-                      className="category"
+                      className=" col-xs-3 category"
                       onMouseOver={(e) => { this.changeHoverCategory(e, perspective.catagory); }}
                       onMouseOut={(e) => { this.changeHoverCategory(e, this.state.activeCatagory); }}
                     >

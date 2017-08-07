@@ -6,11 +6,11 @@ import styles from './reserve-banner.scss';
 const ReserveBanner = () => {
   return (
     <div className={styles.reserveBanner}>
-      <div className="title col-md-5 pull-left">
+      <div className="title col-md-7">
         <h1>Reserve Telescopes</h1>
       </div>
-      <section className="pull-right align-right">
-        <UniversalTime />
+      <section className="col-md-4 align-right">
+      <UniversalTime />
         <div className="button-nav">
           <Link className="button btn-primary" to="/settings/dashboard">
             View Reservations

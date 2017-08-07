@@ -26,24 +26,7 @@ class MissionNav extends Component {
             >
               Slooh Recommends
             </Link>
-            <ul className="sub-nav">
-              <li>
-                <Link
-                  to="/reservations/slooh-recommends/existing"
-                  activeClassName="active"
-                >
-                  Join Existing Missions
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/reservations/slooh-recommends/new"
-                  activeClassName="active"
-                >
-                  Set Up New Missions
-                </Link>
-              </li>
-            </ul>
+
           </li>
           <li>
             <Link
@@ -67,6 +50,24 @@ class MissionNav extends Component {
               activeClassName="active"
             >
               Explore other catalogs
+            </Link>
+          </li>
+        </ul>
+        <ul className="sub-nav">
+          <li>
+            <Link
+                to="/reservations/slooh-recommends/existing"
+                activeClassName="active"
+                >
+              Join Existing Missions
+            </Link>
+          </li>
+          <li>
+            <Link
+                to="/reservations/slooh-recommends/new"
+                activeClassName="active"
+                >
+              Set Up New Missions
             </Link>
           </li>
         </ul>

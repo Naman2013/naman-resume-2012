@@ -13,7 +13,11 @@
       color: $pink;
       text-decoration: none;
       font-weight: 100;
+      @media(max-width:375px){
+        font-size:30px !important;
+      }
     }
+
 
     .PulsePostTools{
       margin: 20px 0;
@@ -25,6 +29,9 @@
       line-height: 1.6;
       margin: 0 0 20px 0;
       white-space: pre-wrap;
+      @media(max-width:767px){
+        font-size:16px;
+      }
 
       a{
         color: $pink;
@@ -38,6 +45,11 @@
     margin: 10px auto 50px;
     background: #979797;
     height: 1px;
+  }
+  @media(max-width:767px){
+    hr{
+      margin-bottom:30px;
+    }
   }
 
 }

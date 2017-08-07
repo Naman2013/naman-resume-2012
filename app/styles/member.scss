@@ -44,6 +44,11 @@
       }
     }
   }
+  @media(max-width:670px){
+    .memberInfo{
+      display:none;
+    }
+  }
   .rightButton {
     display: flex;
     height: 100%;

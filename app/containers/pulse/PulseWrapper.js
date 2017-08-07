@@ -69,45 +69,45 @@ class PulseWrapper extends Component {
     } = this.props;
 
     return (
-      <section className="container clearfix">
-        <div className="col-md-8 nopadding">
-          {
-            fetching ? <GenericLoadingBox /> : cloneElement(children, {
-              path,
-              page,
-              postsPerPage,
-              posts,
-              postsCount,
-              fetchLatestPosts,
-            })
-          }
-        </div>
+    <section className="">
+      <div className="col-md-8">
+        {
+          fetching ? <GenericLoadingBox /> : cloneElement(children, {
+            path,
+            page,
+            postsPerPage,
+            posts,
+            postsCount,
+            fetchLatestPosts,
+          })
+        }
+      </div>
 
-        <div className="col-md-4 mission-sidebar">
-          <GoogleAd
+      <div className="col-md-4 mission-sidebar">
+        <GoogleAd
             adURL={'/5626790/Community'}
             adWidth={300}
             adHeight={250}
             targetDivID={'div-gpt-ad-1495110800300-0'}
-          />
+            />
 
-          {
-            popularPosts.itemList.length > 0 ?
+        {
+          popularPosts.itemList.length > 0 ?
               <PulsePopular
-                list={popularPosts.itemList}
-              /> : null
-          }
-          {
-            showRecommends ?
+                  list={popularPosts.itemList}
+                  /> : null
+        }
+        {
+          showRecommends ?
               <SloohRecommends
-                title="Slooh Recommends These Objects"
-                subTitle="Reserve a mission by clicking below on these visible objects..."
-                recommendations={formattedObjectIdList}
-              /> : null
-          }
-        </div>
+                  title="Slooh Recommends These Objects"
+                  subTitle="Reserve a mission by clicking below on these visible objects..."
+                  recommendations={formattedObjectIdList}
+                  /> : null
+        }
+      </div>
 
-      </section>
+    </section>
     );
   }
 }

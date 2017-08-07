@@ -4,20 +4,29 @@
   font-family: $primary-font;
   background: url(https://vega.slooh.com/assets/images/graphics/milkeyway_header.jpg) no-repeat;
   background-size: cover;
-  height: 145px;
-  padding: 20px;
+  min-height: 145px;
+padding:20px 0px;
+  @media(min-width:768px){
+    padding: 20px;
+  }
   position: relative;
   .title {
-    position: absolute;
-    bottom: 20px;
-    left: 0;
+    //position: absolute;
+    //bottom: 20px;
+    //left: 0;
+
   }
   h1 {
+    font-size:28px;
+    @media(min-width:768px){
+      margin-top:70px;
+      font-size: 36px;
+    }
     margin: 0;
     color: #fff;
     text-transform: uppercase;
     font-weight: 600;
-    font-size: 36px;
+
     float: left;
   }
 }

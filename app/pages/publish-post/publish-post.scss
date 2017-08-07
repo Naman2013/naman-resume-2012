@@ -3,7 +3,10 @@
 @import "../../styles/mixins/utilities.scss";
 
 .publish-post-list {
-  padding: 40px 185px;
+  padding:0px;
+ @media(min-width:768px){
+   padding: 40px 185px;
+ }
   background: $slooh-white;
   list-style: none;
   text-align: center;

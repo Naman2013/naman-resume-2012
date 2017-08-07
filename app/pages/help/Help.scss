@@ -9,11 +9,14 @@
   .btn-primary {
     margin: 0;
   }
+  @media(max-width:767px){
+    padding-left:10px; padding-right:10px;
+  }
 }
 
 .help-page-title {
   text-transform: uppercase;
-  color: $white;
+  //color: $white;
   margin: 0;
 
   &.help-page-paragraph {
@@ -22,6 +25,7 @@
     color: $font-black;
     font-weight: bold;
   }
+
 }
 
 .help-page-inner {
@@ -30,6 +34,14 @@
   color: $font-black;
   font-size: 18px;
   font: $primary-font;
+}
+@media(max-width:767px){
+  .help-page-inner{
+    padding:0px 20px;
+  }
+  .help-page-title{
+    font-size:1.9em;
+  }
 }
 
 .help-page-section {

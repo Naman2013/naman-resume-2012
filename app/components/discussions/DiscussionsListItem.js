@@ -10,7 +10,7 @@ const { arrayOf, number, shape, string } = PropTypes;
 const DiscussionsListItem = ({ item }) => (
   <div className="list-item">
     <div className="row inner">
-      <div className="col-md-7 description">
+      <div className="col-xs-7 description">
         <div className="topic">
           <Link to={`/discussions/forums/${item.forumId}/topics/${item.topicId}/threads/${item.threadId}`}>
             <span dangerouslySetInnerHTML={{ __html: item.title }} /> {item.closedFlag === 'yes' && <img className="closed-icon" src={item.closedIconURL} />}
@@ -25,7 +25,7 @@ const DiscussionsListItem = ({ item }) => (
         />
         <div className="within">within the <Link className="forum-name" to={`/discussions/forums/${item.forumId}/topics`}>{item.forumName}</Link></div>
       </div>
-      <div className="col-md-5 info-container">
+      <div className="col-xs-5 info-container">
         <div className="info">
           <span className="info-item">{item.voiceCount}</span>
           <span className="info-item">{item.replyCount}</span>

@@ -1,0 +1,42 @@
+/* VARIABLES: COLOR
+ * */
+.aboutEclipseWrapper {
+  background: url("https://vega.slooh.com/images/roadtrip/eclipse-background.jpg") center top no-repeat;
+  display: flex;
+  color: white; }
+  .aboutEclipseWrapper .container {
+    flex: 0 0 1040px;
+    padding: 204px 0 204px 442px;
+    display: flex;
+    flex-direction: column; }
+  .aboutEclipseWrapper .header {
+    font-size: 55px;
+    font-weight: bold;
+    line-height: 0.98;
+    text-transform: uppercase; }
+  .aboutEclipseWrapper .eclipseDescription {
+    font-family: Arial, sans-serif;
+    font-size: 19px;
+    line-height: 1.79;
+    margin: 22px 0 10px; }
+  .aboutEclipseWrapper .sloohStream {
+    font-size: 20px;
+    display: flex;
+    flex-direction: column; }
+  .aboutEclipseWrapper .date {
+    text-transform: uppercase;
+    font-weight: bold; }
+  .aboutEclipseWrapper .btnGroup {
+    display: flex;
+    margin-top: 33px; }
+  .aboutEclipseWrapper .actionBtn {
+    background: #F310A7;
+    color: white;
+    padding: 15px 42px;
+    margin-right: 10px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: bold;
+    border: none; }
+
+/*# sourceMappingURL=AboutEclipse.css.map */

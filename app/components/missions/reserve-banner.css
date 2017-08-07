@@ -1,0 +1,25 @@
+/* VARIABLES: Typefaces
+ * */
+.reserveBanner {
+  font-family: "Brandon Grotesque", "brandon-grotesque", sans-serif;
+  background: url(https://vega.slooh.com/assets/images/graphics/milkeyway_header.jpg) no-repeat;
+  background-size: cover;
+  min-height: 145px;
+  padding: 20px 0px;
+  position: relative; }
+  @media (min-width: 768px) {
+    .reserveBanner {
+      padding: 20px; } }
+  .reserveBanner h1 {
+    font-size: 28px;
+    margin: 0;
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: 600;
+    float: left; }
+    @media (min-width: 768px) {
+      .reserveBanner h1 {
+        margin-top: 70px;
+        font-size: 36px; } }
+
+/*# sourceMappingURL=reserve-banner.css.map */

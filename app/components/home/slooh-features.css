@@ -1,0 +1,39 @@
+/* VARIABLES: COLOR
+ * */
+/* VARIABLES: Typefaces
+ * */
+.slooh-features-container {
+  font-family: "Brandon Grotesque", "brandon-grotesque", sans-serif;
+  text-align: center;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 60px 40px 40px 40px;
+  margin-top: -20px;
+  height: 520px;
+  position: relative; }
+  .slooh-features-container .title {
+    font-size: 1.1em;
+    line-height: 1.75;
+    font-weight: bold;
+    margin-bottom: 10px;
+    padding: 0 40px;
+    padding-top: 10px; }
+  .slooh-features-container .content {
+    color: #B9D9D9;
+    margin-bottom: 40px;
+    padding: 0 40px;
+    line-height: 2; }
+  .slooh-features-container .action {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #F310A7;
+    color: #fff;
+    padding: 10px 20px;
+    font-size: 0.75em; }
+    .slooh-features-container .action:hover {
+      background: #000;
+      text-decoration: none; }
+
+/*# sourceMappingURL=slooh-features.css.map */

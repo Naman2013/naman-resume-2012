@@ -26,7 +26,7 @@ class RecentVideoTile extends Component {
     };
 
     return (
-      <div className="col-md-4 recent-video-tile-container">
+      <div className="col-sm-4 recent-video-tile-container">
         <div className="video-wrap">
           <iframe
             className="home-youtube-video"

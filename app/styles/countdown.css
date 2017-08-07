@@ -1,0 +1,35 @@
+/* VARIABLES: Typefaces
+ * */
+/* VARIABLES: COLOR
+ * */
+.countdown {
+  display: flex;
+  flex-direction: column;
+  float: right;
+  height: 100%;
+  color: #7EC3C4;
+  font-family: "Brandon Grotesque", "brandon-grotesque", sans-serif;
+  font-weight: 600;
+  padding: 10px 90px 5px 10px; }
+  .countdown span {
+    color: #fff;
+    font-size: 13px; }
+  .countdown a {
+    color: #7EC3C4;
+    font-size: 13px; }
+
+.countdown.live {
+  justify-content: center;
+  align-items: center;
+  padding: 0; }
+  .countdown.live .circle {
+    width: 150px;
+    height: 150px; }
+  .countdown.live .hand {
+    display: none; }
+  .countdown.live span, .countdown.live a {
+    font-size: 20px; }
+  .countdown.live .circleTimer {
+    padding-bottom: 30px; }
+
+/*# sourceMappingURL=countdown.css.map */

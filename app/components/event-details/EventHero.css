@@ -1,0 +1,38 @@
+/* VARIABLES: COLOR
+ * */
+/* VARIABLES: Typefaces
+ * */
+.eventHeroRoot {
+  background-repeat: no-repeat;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: rgba(0, 0, 0, 0.75);
+  font-family: "Brandon Grotesque", "brandon-grotesque", sans-serif;
+  width: 100%;
+  color: #fff;
+  padding: 10px 25px; }
+  .eventHeroRoot .eventDetailsContainer {
+    margin-top: 100px; }
+  .eventHeroRoot .topTitle {
+    font-size: 36px;
+    font-weight: 100; }
+  .eventHeroRoot .title {
+    font-size: 56px;
+    font-weight: 100;
+    padding-bottom: 15px; }
+  .eventHeroRoot .eventTimeData {
+    display: inline-block;
+    background-color: #000;
+    font-weight: 600;
+    padding: 15px 25px; }
+  .eventHeroRoot .sponsorBy {
+    margin: 15px 0; }
+  .eventHeroRoot .sponsorLogo {
+    height: 20px;
+    margin-left: 5px; }
+
+/*# sourceMappingURL=EventHero.css.map */

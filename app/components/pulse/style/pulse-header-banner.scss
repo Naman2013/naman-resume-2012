@@ -7,6 +7,7 @@
   background-size: cover;
   height: 145px;
   padding: 20px;
+  text-align:center;
   position: relative;
   .title {
     position: absolute;
@@ -25,5 +26,14 @@
     font-weight: 600;
     font-size: 36px;
     float: left;
+  }
+  @media(max-width:375px){
+    .title, .button{
+      position:relative; float:none; left:auto; right:auto; right:auto; bottom:auto; float:none !important;
+    }
+    h1{
+      font-size:35px;
+    }
+
   }
 }

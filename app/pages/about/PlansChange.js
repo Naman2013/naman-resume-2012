@@ -68,21 +68,20 @@ class PlansChange extends Component {
             />
 
             <div className="row first-row">
-              <div className="col-xs-6 text-left">
+              <div className="col-sm-6 text-left">
                 <h1 className="plan-welcome" id="plan-welcome-head">Pricing Plans</h1>
               </div>
 
-              <div className="col-xs-6 text-right">
+              <div className="col-sm-6 text-right">
                 <Link to="/about/contact" className="contact-button regButton"> Contact Us </Link>
               </div>
             </div>
 
             <div className="row final-row">
 
-              <div className="col-lg-3 col-md-3 col-sm-2 col-xs-2 text-center" />
 
 
-              <div className="col-lg-3 col-md-3 col-sm-4 col-xs-4 text-center">
+              <div className="col-lg-offset-3 col-md-offset-3 col-lg-3 col-md-3 col-sm-6 text-center">
 
                 <article className="plan plan-col">
 
@@ -122,7 +121,7 @@ class PlansChange extends Component {
 
               </div>
 
-              <div className="col-lg-3 col-md-3 col-sm-4 col-xs-4 text-center">
+              <div className="col-lg-3 col-md-3 col-sm-6 text-center">
 
                 <article className="plan plan-col">
 
@@ -165,7 +164,6 @@ class PlansChange extends Component {
 
             </div>
 
-            <div className="col-lg-3 col-md-3 col-sm-2 col-xs-2 text-center" />
 
           </div>
         </div>

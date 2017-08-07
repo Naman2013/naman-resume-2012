@@ -98,12 +98,13 @@ class VideoImageLoader extends Component {
       clipped,
     } = this.props;
 
-    const videoImageLoaderClassnames = classnames('video-image-loader', {
+    const videoImageLoaderClassnames = classnames('video-image-loader video-container', {
       clipped,
     });
 
     return (
       <div className={videoImageLoaderClassnames}>
+
         <iframe
           id={teleStreamCode}
           className="video-iframe"
@@ -113,6 +114,7 @@ class VideoImageLoader extends Component {
           src={this.generateIFrameUrl()}
           frameBorder="0"
         />
+
       </div>
     );
   }

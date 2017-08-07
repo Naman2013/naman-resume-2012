@@ -4,7 +4,16 @@
 .call-to-action-wrapper {
   background: linear-gradient(to bottom,  $slooh-gray-xdark 0%, $black 100%);
   color: $white;
-  padding: 80px 15px 5px;
+  padding:40px;
+  @media(min-width:1024px){
+    padding: 80px 15px 5px;
+    .cta-container {
+      position: absolute;
+      right: 7px;
+      bottom: -10px;
+    }
+
+  }
 
   .header {
     font-family: $slooh-headers;
@@ -12,13 +21,14 @@
     font-size: 36px;
     font-weight: 500;
     position: relative;
+    @media(max-width:375px){
+      font-size:30px;
+      .cta-container .button{
+        margin:0px !important;
+      }
+    }
   }
 
-  .cta-container {
-    position: absolute;
-    right: 7px;
-    bottom: -10px;
-  }
 
   .btn-primary {
     text-transform: none;

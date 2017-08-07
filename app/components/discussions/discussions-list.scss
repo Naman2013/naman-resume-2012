@@ -2,6 +2,9 @@
 
 .discussions-list {
   padding-left: 60px;
+  @media(max-width:1024px){
+    padding-left:0px;
+  }
   color: $slooh-blue-gray;
   min-height: 700px;
 
@@ -24,10 +27,14 @@
   .info {
     display: flex;
     align-items: center;
-
+    @media(max-width:767px){
+      font-size:12px;
+    }
     &-item {
       flex: 0 0 95px;
-      padding: 0 18px;
+      @media(max-width:767px){
+        padding: 0 18px;
+      }
       border-left: 1px solid $light-gray;
       text-align: center;
 
@@ -53,12 +60,7 @@
       display: flex;
     }
 
-    .description {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding-left: 70px;
-    }
+
 
     .topic {
       color: $pink;
@@ -73,8 +75,21 @@
       }
     }
 
-    .slooh-by-user-tag, .topic {
-      margin-left: -55px;
+    @media(min-width:1024px){
+      .slooh-by-user-tag, .topic {
+        margin-left: -55px;
+      }
+      .info-container {
+        display: flex;
+        flex-direction: column;
+        margin-top: 50px;
+      }
+      .description {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding-left: 70px;
+      }
     }
 
     .started-by {
@@ -85,11 +100,7 @@
       font-size: 14px;
     }
 
-    .info-container {
-      display: flex;
-      flex-direction: column;
-      margin-top: 50px;
-    }
+
 
     .latest-post-by {
       display: block;
