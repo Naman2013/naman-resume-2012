@@ -113,8 +113,9 @@ class Recommendation extends Component {
       requestType: 'single',
     })
     .then((result) => {
-      const validatedPiggyback = this.props.actions.validateResponseAccess(result.data);
-      if (validatedPiggyback) {
+      this.props.actions.validateResponseAccess(result.data);
+
+      if (!result.data.apiError) {
         this.setState({
           piggybackResult: result.data,
           cardApiError: cardResult.apiError,
@@ -137,6 +138,7 @@ class Recommendation extends Component {
   handleReservePiggybackClick = (event) => {
     event.preventDefault();
     const { piggybackResult, cardData } = this.state;
+
     this.props.actions.setCurrentCard(cardData.cardList[0]);
     this.props.actions.getNextPiggybackSingleSuccess(piggybackResult);
   }
@@ -155,7 +157,9 @@ class Recommendation extends Component {
     })
     .then((result) => {
       this.props.actions.validateResponseAccess(result.data);
-      this.handleLoadNewReservationResult(result.data);
+      if (!result.data.apiError) {
+        this.handleLoadNewReservationResult(result.data);
+      }
     });
   }
 

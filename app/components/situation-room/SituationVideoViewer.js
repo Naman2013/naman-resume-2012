@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import classnames from 'classnames';
 import uniqueId from 'lodash/uniqueId';
 import Countdown from '../../containers/Countdown';
 import VideoImageLoader from '../../components/common/telescope-image-loader/video-image-loader';
@@ -26,6 +27,7 @@ class SituationVideoViewer extends Component {
   }
 
   handleSelect(index, last) {
+    window.scrollTo(0, 0);
     this.setState({
       selectedTab: index,
     });
@@ -61,7 +63,7 @@ class SituationVideoViewer extends Component {
       initialStreamURL,
     } = this.props;
     const { selectedTab } = this.state;
-    Tabs.setUseDefaultStyles(false);
+
     return (
       <section className={s.situationVideoViewerRoot}>
 
@@ -76,20 +78,19 @@ class SituationVideoViewer extends Component {
           }
         </header>
 
-        <Tabs onSelect={this.handleSelect} selectedIndex={selectedTab} forceRenderTabPanel={true}>
+        {videoInProgress && <Tabs onSelect={this.handleSelect} selectedIndex={selectedTab}>
 
           <TabList className={s.liveTelescopeTabs}>
-            {
-              videoInProgress &&
+
               <Tab>
                 <div className={s.liveTelescopeTitle}>
                   <h6>Main Show</h6>
                 </div>
                 <div className="telescope" style={getInlineBgStyle(eventIconURL)} />
               </Tab>
-            }
+
             {
-              videoInProgress && additionalFeeds.map(feed => (
+              additionalFeeds.map(feed => (
                 <Tab key={uniqueId()}>
                   <div className={s.liveTelescopeTitle}>
                     {<h6>{feed.TelescopeName}</h6> }
@@ -100,30 +101,35 @@ class SituationVideoViewer extends Component {
             }
           </TabList>
 
+          <TabPanel
+            forceRender={true}
+            className={classnames({
+            'active-tele-tab': selectedTab === 0,
+            'inactive-tele-tab': selectedTab !== 0,
+          })}>
+            <aside className={s.liveViewContent}>
+              {
+                initialStreamCode && initialStreamURL ?
+                  <VideoImageLoader
+                    teleStreamCode={initialStreamCode}
+                    teleStreamURL={initialStreamURL}
+                    teleStreamThumbnailVideoWidth="1000"
+                    teleStreamThumbnailVideoHeight="550"
+                    showVideoControls={1}
+                    showInfo={1}
+                  /> : this.noVideoHtml
+
+              }
+            </aside>
+          </TabPanel>
+
+
+
           {
-            videoInProgress &&
-              <TabPanel>
-                <aside className={s.liveViewContent}>
-                  {
-                    initialStreamCode && initialStreamURL ?
-                      <VideoImageLoader
-                        teleStreamCode={initialStreamCode}
-                        teleStreamURL={initialStreamURL}
-                        teleStreamThumbnailVideoWidth="1000"
-                        teleStreamThumbnailVideoHeight="550"
-                        showVideoControls={1}
-                        showInfo={1}
-                      /> : this.noVideoHtml
-
-                  }
-                </aside>
-              </TabPanel>
-          }
-
-
-          {
-            videoInProgress && additionalFeeds.map(feed => (
-              <TabPanel key={uniqueId()}>
+            additionalFeeds.map((feed, i) => (
+              <TabPanel
+                key={uniqueId()}
+              >
                 <aside className={s.liveViewContent}>
                   {feed.imageSourceType === 'video' ?
                     <VideoImageLoader
@@ -131,6 +137,11 @@ class SituationVideoViewer extends Component {
                       teleStreamURL={feed.videoStreamURL}
                       teleStreamThumbnailVideoWidth="1000"
                       teleStreamThumbnailVideoHeight="550"
+                      cameraSourceType={feed.cameraSourceType}
+                      teleSystem={feed.systemId}
+                      telePort={feed.SSEport}
+                      callSource="situationRoom"
+
                     />
                   : // else feed.imageSourceType === 'SSE'
                     <TelescopeImageViewer
@@ -139,15 +150,17 @@ class SituationVideoViewer extends Component {
                       teleId={feed.TelescopeId}
                       obsId={feed.ObsId}
                       domeId={String(feed.DomeId)}
-                      teleFade={String(feed.SSEfade)}
+                      teleFade={Number(feed.SSEfade)}
                       clipped={false}
                       missionFormat="none"
+                      isInteractive={false}
+                      callSource="situationRoom"
                     />
                   }
                 </aside>
               </TabPanel>)
             )}
-        </Tabs>
+        </Tabs> }
 
         {!videoInProgress && <aside className={s.liveViewContent}>
           {this.noVideoHtml}
@@ -160,6 +173,18 @@ class SituationVideoViewer extends Component {
           }
         </footer>
 
+        <style jsx>
+        {`
+
+          :global(.active-tele-tab) {
+            display: block;
+          }
+
+          :global(.inactive-tele-tab) {
+            display: none;
+          }
+        `}
+        </style>
       </section>
     );
   }
@@ -176,6 +201,7 @@ SituationVideoViewer.defaultProps = {
   initialStreamURL: null,
   eventIconURL: '',
   additionalFeeds: [],
+  starShareAvailable: false,
 };
 
 SituationVideoViewer.propTypes = {
@@ -186,8 +212,25 @@ SituationVideoViewer.propTypes = {
   sponsorLogoURL: PropTypes.string,
   sponsorLinkURL: PropTypes.string,
   eventIconURL: PropTypes.string,
-  additionalFeeds: PropTypes.array,
-  starShareAvailable: PropTypes.bool.isRequired,
+  additionalFeeds: PropTypes.arrayOf(PropTypes.shape({
+    DomeId: PropTypes.string,
+    ObsId: PropTypes.string,
+    PierNumber: PropTypes.string,
+    SSEfade: PropTypes.number,
+    SSEport: PropTypes.number,
+    TelescopeCode: PropTypes.string,
+    TelescopeId: PropTypes.string,
+    TelescopeName: PropTypes.string,
+    cameraSourceType: PropTypes.string,
+    canStarShare: PropTypes.bool,
+    imageSourceType: PropTypes.string,
+    systemId: PropTypes.string,
+    tabDesc: PropTypes.string,
+    tabIconURL: PropTypes.string,
+    videoStreamCode: PropTypes.string,
+    videoStreamURL: PropTypes.string,
+  })),
+  starShareAvailable: PropTypes.bool,
   initialStreamCode: PropTypes.string,
   initialStreamURL: PropTypes.string,
 

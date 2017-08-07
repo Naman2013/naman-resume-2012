@@ -34,7 +34,7 @@ $CONTAINER_WIDTH: 1260px;
     position: relative;
   }
 
-  .ReactTabs__TabList {
+  .react-tabs__tab-list {
     font-weight: 300;
     text-align: center;
     margin: 0;
@@ -42,12 +42,12 @@ $CONTAINER_WIDTH: 1260px;
     list-style: none;
     padding: 0;
 
-    .ReactTabs__Tab {
-      font-size:16px;
-     @media(min-width:769px){
+    .react-tabs__tab {
+ @media(min-width:769px){
        padding: 10px 70px;
        font-size: 18px;
      }
+      padding: 10px 70px;
       background: #3C4A55;
 
       color: #FFFFFF;
@@ -55,14 +55,14 @@ $CONTAINER_WIDTH: 1260px;
       border: 0;
       width: 50%;
       display: inline-block;
-      &.ReactTabs__Tab--selected {
+      &.react-tabs__tab--selected {
         box-shadow: 6px 0px 6px 0px rgba(0,0,0,0.50);
         background: #1F1F1F;
         color: #FFFFFF;
       }
     }
   }
-  .ReactTabs__TabPanel {
+  .react-tabs__tab-panel {
     background-color: #1F1F1F;
     position: relative;
   }
