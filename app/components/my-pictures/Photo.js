@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { Link } from 'react-router';
-import PhotoActions from './PhotoActions';
+import PhotoActions from './actions/PhotoActions';
 import s from './Photo.scss';
 
 const mapStateToProps = ({ myPictures }) => ({

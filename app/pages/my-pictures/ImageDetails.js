@@ -87,7 +87,7 @@ class ImageDetails extends Component {
             </aside>
           </div>
         </div>
-        {imageDetailsStyle}
+        <style jsx>{`${imageDetailsStyle}`}</style>
       </div>
     );
   }
