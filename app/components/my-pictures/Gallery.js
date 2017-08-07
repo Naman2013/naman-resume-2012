@@ -18,7 +18,7 @@ class Gallery extends Component {
   static propTypes = {
     imageURL: PropTypes.string.isRequired,
     imageTitle: PropTypes.string.isRequired,
-    created: PropTypes.a,
+    created: PropTypes.string.isRequired,
   }
 
   static defaultProps = {
@@ -40,59 +40,63 @@ class Gallery extends Component {
     const url = isImages ? `/my-pictures/gallery/${galleryId}/show-image/${customerImageId}/${shareToken}` : `/my-pictures/galleries/${galleryId}`;
     return (
       <div>
-        <Link to={url}>
-          <a className="gallery-container" style={{ backgroundImage: `url(${imageURL})` }}>
-            <div className="innerContainer content">
-              <div>{imageTitle}</div>
-              <div>Created on {createdDate.format('dddd, MMMM Do YYYY')}</div>
-              {
-                overlayText && overlayText.map((markdownText, index) => <Markdown key={`markdown-text-${index}`} source={markdownText} />)
+        <Link to={url} className="gallery-container-image" style={{ backgroundImage: `url(${imageURL})` }}>
+          <div className="innerContainer content">
+            <div>{imageTitle}</div>
+            <div>Created on {createdDate.format('dddd, MMMM Do YYYY')}</div>
+            {
+              overlayText && overlayText.map((markdownText, index) => <Markdown key={`markdown-text-${index}`} source={markdownText} />)
+            }
+          </div>
+          <style jsx>
+            {`
+
+              .content {
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
               }
-            </div>
-            <style jsx>
-              {`
 
-                .gallery-container {
-                  ${backgroundImageCover}
-                  background-position: center;
-                  margin-bottom: 20px;
-                  display: block;
-                  border: 4px solid transparent;
-                }
+              .innerContainer {
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.5);
+                color: ${white};
+                padding: 20px;
+                opacity: 0;
+              }
+            `}
+          </style>
+          <style jsx global>
+            {`
 
-                .gallery-container:before {
-                  display: block;
-                  content: "";
-                  width: 100%;
-                  padding-top: 68.49%;
-                }
-                .content {
-                  position: absolute;
-                  top: 0;
-                  left: 0;
-                  right: 0;
-                  bottom: 0;
-                }
+              .gallery-container-image {
+                ${backgroundImageCover}
+                background-position: center;
+                margin-bottom: 20px;
+                display: block;
+                border: 4px solid transparent;
+              }
 
-                .gallery-container:hover {
-                  border: 4px solid ${pink};
-                }
+              .gallery-container-image:before {
+                display: block;
+                content: "";
+                width: 100%;
+                padding-top: 68.49%;
+              }
 
-                .gallery-container:hover .innerContainer {
-                  opacity: 1;
-                }
+              .gallery-container-image:hover {
+                border: 4px solid ${pink};
+              }
 
-                .innerContainer {
-                  width: 100%;
-                  height: 100%;
-                  background: rgba(0, 0, 0, 0.5);
-                  color: ${white};
-                  padding: 20px;
-                  opacity: 0;
-                }
-              `}
-            </style>
-          </a>
+              .gallery-container-image:hover .innerContainer {
+                opacity: 1;
+              }
+
+            `}
+          </style>
         </Link>
       </div>
     );
