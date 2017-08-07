@@ -59,7 +59,7 @@ img {
   .pulse .container {
     width: 100%;
     padding: 0 0 15px;
-    height: 100vmax; }
+    min-height: 100vmax; }
 
 .wrapper {
   position: relative; }
@@ -183,7 +183,7 @@ img {
 .discussions-container {
   background: #fff;
   padding: 40px 0 30px 0;
-  height: 100vmax;
+  min-height: 100vmax;
   overflow: auto; }
   .discussions-container.new {
     padding: 40px 185px 30px 185px;
@@ -207,8 +207,10 @@ img {
 .auto-top {
   margin-top: auto; }
 
-.pagination {
-  margin: 0px 20px; }
+.rc-pagination {
+  margin: 0px 15px 20px; }
+  .rc-pagination .rc-pagination-prev, .rc-pagination .rc-pagination-jump-prev, .rc-pagination .rc-pagination-jump-next {
+    margin-right: 5px; }
 
 .rc-pagination-item-active {
   background-color: #F310A7;
