@@ -37,10 +37,10 @@ const Footer = props => (
       backgroundColor: props.footerBackgroundRGB,
     }}
   >
-    <div className="columns">
+    <div className="columns row">
       {
         props.menuList.map(menuList => (
-          <div key={uniqueId()}>
+          <div key={uniqueId()} className="col-xs-6 col-sm-3" >
             {
               menuList.map(menu =>
                 <div key={uniqueId()}>
@@ -103,12 +103,15 @@ const Footer = props => (
         padding: 0;
       }
       .columns {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-around;
+        //display: flex;
+        //flex-direction: row;
+        //justify-content: space-around;
       }
       .link {
         color: ${lightGray};
+      }
+      @media(max-width:767px){
+        .slooh-global-footer .col-xs-6:nth-child(2n+1){clear:left}
       }
     `}
     </style>

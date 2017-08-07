@@ -21,15 +21,15 @@
 
 .telescope-details .viewer-container {
   position: relative; }
-.telescope-details .ReactTabs__TabList {
+.telescope-details .react-tabs__tab-list {
   font-weight: 300;
   text-align: center;
   margin: 0;
   border-bottom: 0;
   list-style: none;
   padding: 0; }
-  .telescope-details .ReactTabs__TabList .ReactTabs__Tab {
-    font-size: 16px;
+  .telescope-details .react-tabs__tab-list .react-tabs__tab {
+    padding: 10px 70px;
     background: #3C4A55;
     color: #FFFFFF;
     margin: 0;
@@ -37,14 +37,14 @@
     width: 50%;
     display: inline-block; }
     @media (min-width: 769px) {
-      .telescope-details .ReactTabs__TabList .ReactTabs__Tab {
+      .telescope-details .react-tabs__tab-list .react-tabs__tab {
         padding: 10px 70px;
         font-size: 18px; } }
-    .telescope-details .ReactTabs__TabList .ReactTabs__Tab.ReactTabs__Tab--selected {
+    .telescope-details .react-tabs__tab-list .react-tabs__tab.react-tabs__tab--selected {
       box-shadow: 6px 0px 6px 0px rgba(0, 0, 0, 0.5);
       background: #1F1F1F;
       color: #FFFFFF; }
-.telescope-details .ReactTabs__TabPanel {
+.telescope-details .react-tabs__tab-panel {
   background-color: #1F1F1F;
   position: relative; }
 

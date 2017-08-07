@@ -1,3 +1,14 @@
+
+@media (min-width: 1200px)
+{
+  .slooh-extras-tile {
+    margin-left: 16.66666667% !important;
+  }
+  .slooh-extras-tile + .slooh-extras-tile{
+    margin-left:0px !important;
+  }
+}
+
 .product-image-book[data-jsx="2121958242"] {
   margin-top: 0px
 }
@@ -678,6 +689,7 @@
 }
 
 @media(max-width:767px) {
+
   .description-main[data-jsx="1673396223"]{
     font-size:16px;
   }
