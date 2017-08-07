@@ -82,7 +82,9 @@ class PiggyBackConfirm extends Component {
   render() {
     const { piggyback, reservationConfirmed, closeModal, open, currentCard } = this.props;
 
-    if(!piggyback.hasOwnProperty('missionList')) { return null; }
+    if (!piggyback.missionList && !piggyback.missionList.length) {
+      return null;
+    }
 
     const currentMission = piggyback.missionList[0];
     const {
@@ -90,11 +92,13 @@ class PiggyBackConfirm extends Component {
       objectIconURL,
       title,
       obsName,
-      telescopeName } = currentMission;
+      telescopeName,
+    } = currentMission;
 
     // TODO: working on refactoring currentCard out of this component
     const { headline } = currentCard || '';
 
+    // TODO: refactor this to use the new date format component
     const formattedUTCDate = new Date(missionStart * 1000);
     const EST_start = moment.tz(formattedUTCDate, 'America/New_York').format('dddd, MMMM Do');
     const EST_start_time = moment.tz(formattedUTCDate, 'America/New_York').format('h:mma z');
