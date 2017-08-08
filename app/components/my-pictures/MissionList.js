@@ -20,7 +20,7 @@ class PhotoList extends Component {
         <ul className={`${style.photoList} col-xs-12`}>
           {
             imageList.map(photo => (
-              <li key={photo.imageId} className={`${style.item} col-xs-12 col-sm-6 col-md-3 col-lg-4`}>
+              <li key={photo.imageId} className={`col-md-4  col-xs-6`}>
                 <Mission
                   handlePhotoClick={this.handlePhotoClick}
                   imageURL={photo.imageURL}

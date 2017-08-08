@@ -26,18 +26,29 @@
     background: rgba(0, 0, 0, 0.5);
     color: $white;
     padding: 20px;
+    @media(max-width:1024px){
+      padding:10px;
+    }
     opacity: 0;
+   @media(max-width:767px){
+     div{
+       font-size:9px;
+     }
+   }
   }
 
   .photoTitle {
     color: $white;
     line-height: 1.2;
     margin-bottom: 10px;
+    @media(max-width:1024px){
+      font-size:18px;
+    }
   }
 
   .photoMenu {
     list-style-type: none;
-    position: absolute;
+    position: absolute !important;
     right: 20px;
     bottom: 20px;
   }

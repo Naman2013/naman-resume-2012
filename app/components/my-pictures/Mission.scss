@@ -26,12 +26,24 @@
       b{
         font-size: 20px;
       }
+      @media(max-width:1024px){
+        font-size:12px;
+        b{
+          font-size:16px;
+        }
+      }
     }
 
     &:nth-child(2) {
       margin: 0 auto;
       width: 80px;
       height: 80px;
+      @media(max-width:1024px){
+       img{
+         height: 50px;
+         margin-top: 30px;
+       }
+      }
     }
 
     &:last-child {
