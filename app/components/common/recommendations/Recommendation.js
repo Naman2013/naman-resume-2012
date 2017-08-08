@@ -137,8 +137,8 @@ class Recommendation extends Component {
 
   handleReservePiggybackClick = (event) => {
     event.preventDefault();
-    const { piggybackResult, cardData } = this.state;
 
+    const { piggybackResult, cardData } = this.state;
     this.props.actions.setCurrentCard(cardData.cardList[0]);
     this.props.actions.getNextPiggybackSingleSuccess(piggybackResult);
   }

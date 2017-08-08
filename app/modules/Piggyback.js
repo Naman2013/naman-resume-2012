@@ -132,7 +132,9 @@ export const grabPiggyback = mission => (dispatch, getState) => {
     })
     .then((result) => {
       dispatch(grabPiggybackSuccess(result.data));
-      dispatch(missionConfirmOpen('piggyback'));
+      if (!result.data.apiError) {
+        dispatch(missionConfirmOpen('piggyback'));
+      }
     })
     .catch(error => dispatch(missionUnavailable(error)));
   }
