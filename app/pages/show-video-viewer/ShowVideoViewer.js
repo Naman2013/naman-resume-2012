@@ -149,25 +149,30 @@ class ShowVideoViewer extends Component {
         <header className="header">
           <h1 className="header-title">Video Viewer</h1>
         </header>
-        <main className="main-container">
-        <div className="video">
-          <VideoImageLoader
-            teleStreamCode={showStreamCode}
-            teleStreamURL={showStreamURL}
-            teleStreamThumbnailVideoWidth="800"
-            teleStreamThumbnailVideoHeight="550"
-            showVideoControls={1}
-            showInfo={1}
-          />
+        <main className="main-container row">
+
+          <div className="col-md-8 col-sm-6">
+            <VideoImageLoader
+                teleStreamCode={showStreamCode}
+                teleStreamURL={showStreamURL}
+                teleStreamThumbnailVideoWidth="800"
+                teleStreamThumbnailVideoHeight="550"
+                showVideoControls={1}
+                showInfo={1}
+                />
           </div>
-          <div className="ad">
+
+          <div className="col-md-4 col-sm-6">
+
+
             <GoogleAd
               adURL={'/5626790/Replay'}
               adWidth={300}
               adHeight={600}
               targetDivID={'div-gpt-ad-1495118239378-0'}
             />
-          </div>
+
+            </div>
         </main>
         <CommunityMashup
           hasSocialFlow={hasSocialFlow}

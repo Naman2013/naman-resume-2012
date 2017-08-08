@@ -44,12 +44,12 @@ export default function determineImageLoader(instrument) {
         </div>
         <style jsx>{`
           .root {
-            height: 455px;
+           /*height: 455px;*/
             overflow: hidden;
           }
 
           .mask {
-            top: -71px;
+          /*  top: -71px;*/
             position: relative;
           }
       `}</style>

@@ -8,7 +8,7 @@
   background: #1F1F1F;
   color: white;
   position: relative;
-  margin-bottom: 80px;
+  margin-bottom: 130px;
 
   .liveViewHeader {
     display: inline-flex;
@@ -22,15 +22,16 @@
   }
 
   .liveViewContent {
+    display:block;
     background: #1F1F1F;
     width: 100%;
     margin-top: 10px;
     box-shadow: 0 5px 10px 0 #1f1f1f;
     position: relative;
-    display: flex;
+    //display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 560px;
+    //min-height: 560px;
   }
 
   .liveCameraTabs {
@@ -39,7 +40,7 @@
     width: 100%;
     padding: 10px 0;
     align-items: center;
-    height: 70px;
+    //height: 70px;
 
     .camera {
       width: 90px;
@@ -100,7 +101,7 @@
   display: inline-flex;
   position: absolute;
   right: 0;
-  bottom: -63px;
+  bottom: -110px;
 
   li {
     height: 120px;

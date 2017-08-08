@@ -109,15 +109,18 @@ class SituationVideoViewer extends Component {
           })}>
             <aside className={s.liveViewContent}>
               {
-                initialStreamCode && initialStreamURL ?
-                  <VideoImageLoader
-                    teleStreamCode={initialStreamCode}
-                    teleStreamURL={initialStreamURL}
-                    teleStreamThumbnailVideoWidth="1000"
-                    teleStreamThumbnailVideoHeight="550"
-                    showVideoControls={1}
-                    showInfo={1}
-                  /> : this.noVideoHtml
+
+                 initialStreamCode && initialStreamURL ?
+
+                 <VideoImageLoader
+                     teleStreamCode={initialStreamCode}
+                     teleStreamURL={initialStreamURL}
+                     teleStreamThumbnailVideoWidth="1000"
+                     teleStreamThumbnailVideoHeight="550"
+                     showVideoControls={1}
+                     showInfo={1}
+                     />    : this.noVideoHtml
+
 
               }
             </aside>
