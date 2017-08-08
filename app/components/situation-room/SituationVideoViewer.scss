@@ -22,12 +22,13 @@
   }
 
   .liveViewContent {
+    display:block;
     background: #1F1F1F;
     width: 100%;
     margin-top: 10px;
     box-shadow: 0 5px 10px 0 #1f1f1f;
     position: relative;
-    display: flex;
+    //display: flex;
     justify-content: center;
     align-items: center;
     min-height: 560px;

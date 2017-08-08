@@ -2492,13 +2492,13 @@ button.text {
   .ObjectPostList .ObjectPostListInfo {
     padding-left: 10px; } }
 /*responsive video embedd*/
-.video-container {
+.video-container:not(.clipped) {
   position: relative;
   padding-bottom: 56.25%;
   padding-top: 30px;
   height: 0;
   overflow: hidden; }
-  .video-container iframe, .video-container object, .video-container embed {
+  .video-container:not(.clipped) iframe, .video-container:not(.clipped) object, .video-container:not(.clipped) embed {
     position: absolute;
     top: 0;
     left: 0;
