@@ -178,6 +178,7 @@ class StarShareCamera extends Component {
         <style jsx>{`
           .star-share-camera-wrapper {
             display: flex;
+             flex-wrap:wrap;
           }
 
           .snapshot-btn {
@@ -186,6 +187,7 @@ class StarShareCamera extends Component {
             border: 0;
             font-size: 32px;
             display: flex;
+
             justify-content: center;
             align-items: center;
             padding: 0 20px;
