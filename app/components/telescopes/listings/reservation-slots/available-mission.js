@@ -301,7 +301,7 @@ class AvailableMission extends Component {
                         onClick={() => { this.handleReservationTypeClick(SUPPORTED_RESERVATION_TAB_FORM_TYPES.BY_OBJECTS); }}
                         className={this.buttonRenderedClasses(SUPPORTED_RESERVATION_TAB_FORM_TYPES.BY_OBJECTS)}
                       >
-                        Browse Slooh 500
+                        Popular Objects
                       </button>
                     </li> : null
                 }

@@ -6,7 +6,7 @@ function EventDescription() {
     <div className={style.eventDescriptionWrapper}>
       <div className={style.container}>
         <div className={style.header}>
-          <span>This Event is Free to all members of Slooh!</span>
+          <span>Registration for this event is now closed</span>
           <div className={style.btnGroup}>
             {
               /**
