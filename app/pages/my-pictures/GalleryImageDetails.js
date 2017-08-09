@@ -7,14 +7,14 @@ import { findIndex } from 'lodash';
 import Pagination from '../../components/common/pagination/Pagination';
 import MyPicturesNavigation from '../../components/my-pictures/my-pictures-navigation';
 import { fetchImageDetailsAndCounts, fetchMyPicturesImageDetails } from '../../modules/my-pictures-image-details/actions';
-import { fetchGalleryPictures } from '../../modules/my-pictures-galleries/actions';
+import { fetchGalleryPictures } from '../../modules/my-pictures-gallery-pictures/actions';
 import ImageViewer from '../../components/my-pictures/ImageViewer';
 import { imageDetailsStyle } from './ImageDetailsStyles';
 import ImageInfoPanel from '../../components/my-pictures/ImageInfoPanel';
 
-const mapStateToProps = ({ user, myPicturesImageDetails, galleries }) => ({
+const mapStateToProps = ({ user, myPicturesImageDetails, galleryPictures }) => ({
   myPicturesImageDetails,
-  galleries,
+  galleryPictures,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -70,8 +70,8 @@ class ImageDetails extends Component {
         galleryId,
       }
     } = nextProps;
-    if (nextProps.galleries.imageList.length) {
-      const currentImageIndex = findIndex(nextProps.galleries.imageList, image => (image.customerImageId === Number(customerImageId) && image.shareToken === String(shareToken)));
+    if (nextProps.galleryPictures.imageList.length) {
+      const currentImageIndex = findIndex(nextProps.galleryPictures.imageList, image => (image.customerImageId === Number(customerImageId) && image.shareToken === String(shareToken)));
       this.setState({
         currentImageIndex,
       });
@@ -90,7 +90,7 @@ class ImageDetails extends Component {
   }
 
   handleNextPageClick = () => {
-    const { galleries: { imageList } } = this.props;
+    const { galleryPictures: { imageList } } = this.props;
     const { currentImageIndex, galleryId } = this.state;
     const nextImage = imageList[currentImageIndex + 1];
 
@@ -100,7 +100,7 @@ class ImageDetails extends Component {
   }
 
   handlePreviousPageClick = () => {
-    const { galleries: { imageList } } = this.props;
+    const { galleryPictures: { imageList } } = this.props;
     const { currentImageIndex, galleryId } = this.state;
     const previousImage = imageList[currentImageIndex - 1];
     if (previousImage) {
@@ -122,9 +122,10 @@ class ImageDetails extends Component {
       fetching,
       imageCount,
       imageList,
-    } = this.props.galleries;
+    } = this.props.galleryPictures;
     const {
-      currentImageIndex
+      currentImageIndex,
+      galleryId
     } = this.state;
 
     const rangeText = Pagination.generateRangeText({
@@ -138,7 +139,8 @@ class ImageDetails extends Component {
     return (
       <div>
         <MyPicturesNavigation
-          page="galleries"
+          page="galleryImages"
+          galleryId={galleryId}
         />
         <div className="clearfix my-pictures-container">
           <div className="container">
@@ -197,7 +199,7 @@ ImageDetails.defaultProps = {
     canEditFlag: false,
     fileData: {},
   },
-  galleries: {
+  galleryPictures: {
     imageList: []
   },
   actions: {},
@@ -222,7 +224,7 @@ ImageDetails.propTypes = {
     canEditFlag: PropTypes.bool,
     fileData: PropTypes.shape({}),
   }),
-  galleries: PropTypes.shape({
+  galleryPictures: PropTypes.shape({
     imageList: PropTypes.arrayOf(PropTypes.shape({
       imageURL: PropTypes.string,
     }))

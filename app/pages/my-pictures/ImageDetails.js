@@ -69,6 +69,7 @@ class ImageDetails extends Component {
       <div>
         <MyPicturesNavigation
           page="photo-roll"
+          scheduledMissionId={scheduledMissionId}
         />
         <div className="clearfix my-pictures-container">
           <div className="container">

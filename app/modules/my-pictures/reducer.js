@@ -17,9 +17,6 @@ import {
   FETCH_MISSIONS_SUCCESS,
   FETCH_MISSIONS_FAIL,
 
-  UPDATE_BY_OBJECT_FILTER,
-  RESET_OBJECT_TYPE_FILTER,
-
   UPDATE_SCHEDULE_MISSION_ID,
   RESET_SCHEDULE_MISSION_ID,
 
@@ -84,10 +81,6 @@ const initialState = {
     fetching: false,
     error: false,
     errorBody: {},
-  },
-  objectTypeFilter: {
-    filterByField: '',
-    filterByIndex: null,
   },
   scheduledMissionId: '',
   loadedFITSImages: {
@@ -198,18 +191,6 @@ export default createReducer(initialState, {
     return {
       ...state,
       scheduledMissionId: '',
-    };
-  },
-  [UPDATE_BY_OBJECT_FILTER](state, { payload }) {
-    return {
-      ...state,
-      objectTypeFilter: payload,
-    };
-  },
-  [RESET_OBJECT_TYPE_FILTER](state) {
-    return {
-      ...state,
-      objectTypeFilter: Object.assign({}, initialState.objectTypeFilter),
     };
   },
   [FETCH_MISSIONS_START](state) {

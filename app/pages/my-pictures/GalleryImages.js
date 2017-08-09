@@ -4,17 +4,17 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import MyPicturesNavigation from '../../components/my-pictures/my-pictures-navigation';
 import PhotoView from '../../components/my-pictures/PhotoView';
-import { fetchGalleryPicturesAndCounts } from '../../modules/my-pictures-galleries/actions';
+import { fetchGalleryPicturesAndCounts } from '../../modules/my-pictures-gallery-pictures/actions';
 import style from './my-pictures-gallery.scss';
 
-const mapStateToProps = ({ galleries }) => ({
-  error: galleries.error,
-  errorBody: galleries.errorBody,
-  fetching: galleries.fetching,
-  firstImageNumber: galleries.firstImageNumber,
-  imageCount: galleries.imageCount,
-  imageList: galleries.imageList,
-  maxImageCount: galleries.maxImageCount,
+const mapStateToProps = ({ galleryPictures }) => ({
+  error: galleryPictures.error,
+  errorBody: galleryPictures.errorBody,
+  fetching: galleryPictures.fetching,
+  firstImageNumber: galleryPictures.firstImageNumber,
+  imageCount: galleryPictures.imageCount,
+  imageList: galleryPictures.imageList,
+  maxImageCount: galleryPictures.maxImageCount,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -44,11 +44,13 @@ class GalleryImages extends Component {
       imageCount,
       imageList,
       maxImageCount,
+      params: { galleryId }
     } = this.props;
     return (
       <div>
         <MyPicturesNavigation
-          page="galleries"
+          page="galleryImages"
+          galleryId={galleryId}
         />
 
         <div className="clearfix my-pictures-container">

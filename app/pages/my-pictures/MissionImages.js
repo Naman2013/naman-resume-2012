@@ -51,7 +51,8 @@ class MissionImages extends Component {
     return (
       <div className={s.missionImages}>
         <MyPicturesNavigation
-          page="missions"
+          page="missionImages"
+          scheduledMissionId={scheduledMissionId}
         />
 
       <div className={`${s.missionImageControl} clearfix`}>
