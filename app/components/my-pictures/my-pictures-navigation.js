@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import classnames from 'classnames';
 import FilterMenu from './FilterMenu';
-import { toggleFilterMenuDisplay, resetAllFilters } from '../../modules/my-pictures-filters/actions';
+import { toggleFilterMenuDisplay, setFilters } from '../../modules/my-pictures-filters/actions';
 import s from './my-pictures-navigation.scss';
 
 const mapStateToProps = ({ objectTypeList, myPictures, myPicturesFilters }) => ({
@@ -21,7 +21,7 @@ const mapStateToProps = ({ objectTypeList, myPictures, myPicturesFilters }) => (
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
     toggleFilterMenuDisplay,
-    resetAllFilters
+    setFilters
   }, dispatch),
 });
 
@@ -43,7 +43,7 @@ class MyPicturesNavigation extends Component {
       galleryId,
     } = this.props;
 
-    actions.resetAllFilters({
+    actions.setFilters({
       dateFilter: '',
       pierNumber: null,
       observatoryId: null,

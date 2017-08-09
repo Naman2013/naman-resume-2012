@@ -20,17 +20,11 @@ export const UPDATE_BY_OBJECT_FILTER = 'UPDATE_BY_OBJECT_FILTER';
 export const RESET_OBJECT_TYPE_FILTER = 'RESET_OBJECT_TYPE_FILTER';
 export const SET_SELECTED_TAGS_TAB_INDEX = 'SET_SELECTED_TAGS_TAB_INDEX';
 export const TOGGLE_FILTER_MENU = 'TOGGLE_FILTER_MENU';
-export const RESET_ALL_FILTERS = 'RESET_ALL_FILTERS';
 
 export const updateAllFilters = payload => ({
   type: UPDATE_ALL_FILTERS,
   payload,
 });
-
-export const resetAllFilters = payload => dispatch => (dispatch({
-  type: RESET_ALL_FILTERS,
-  payload,
-}));
 
 const fetchFiltersListsStart = () => ({
   type: FETCH_FILTERS_LISTS_START,

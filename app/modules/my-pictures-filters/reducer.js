@@ -47,12 +47,6 @@ const initialState = {
 };
 
 export default createReducer(initialState, {
-  [RESET_ALL_FILTERS](state, { payload }) {
-    return {
-      ...state,
-      selectedFilters: payload,
-    };
-  },
   [UPDATE_ALL_FILTERS](state, { payload }) {
     return {
       ...state,
