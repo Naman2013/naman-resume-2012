@@ -8,7 +8,7 @@ import TelescopeImageLoader from '../../common/telescope-image-loader/telescope-
 import VideoImageLoader from '../../common/telescope-image-loader/video-image-loader';
 import TelescopeOffline from './telescope-offline';
 import obsIdTeleIdDomeIdFromTeleId from '../../../utils/obsid-teleid-domeid-from-teleid';
-import style from './card-front.scss';
+import './card-front.scss';
 import generateSseImageSource from '../../../utils/generate-sse-image-source';
 
 const MISSION_READY_TELE_ACCESS_METHOD = 'missions';
@@ -28,41 +28,6 @@ function validMissionExpireTime(unixStartTime, unixEndTime) {
 }
 
 class CardFront extends Component {
-  renderVisitTelescopeButton(obsUniqueId, teleUniqueId) {
-    const telescopeDetailsUrl = `/telescope-details/${obsUniqueId}/${teleUniqueId}`;
-    return(
-      <div className="col-md-6">
-        <Link to={telescopeDetailsUrl} className="action">
-          Visit Telescope Page
-        </Link>
-      </div>
-    );
-  }
-
-  renderMakeReservationButton() {
-    const { obsUniqueId, teleUniqueId } = this.props
-    const reservationLink = `/reservations/reserve-by-telescope/telescope/${obsUniqueId}/${teleUniqueId}`;
-    return (
-      this.isMissionReadyTelescope() ?
-        <div className="col-md-6">
-          <Link to={reservationLink} className="action">Make Reservation</Link>
-        </div> : null
-    );
-  }
-
-  isMissionReadyTelescope() {
-    return this.props.teleAccessMethod === MISSION_READY_TELE_ACCESS_METHOD;
-  }
-
-  generateSseImageSource() {
-    // TODO: the port number is a dynamic value?
-    // for now referencing the /sse/*** context and using a proxy to a default port
-    // see webpack.config devServer proxies
-    // example https://mars.slooh.com:3004/sse/${teleSystem}
-    const { teleSystem, telePort } = this.props;
-    return `/dev-sse/${telePort}/sse/${teleSystem}`;
-  }
-
   determineLoaderType(teleSystem, telePort) {
     /*
       apply image source loader based
@@ -94,7 +59,7 @@ class CardFront extends Component {
       return (
         <TelescopeImageLoader
           loadThumbnails={true}
-          imageSource={generateSseImageSource(teleSystem, telePort)}
+          imageSource={generateSseImageSource(teleSystem)}
           teleId={idSet.teleId}
           obsId={idSet.obsId}
           domeId={idSet.domeId}
@@ -103,7 +68,35 @@ class CardFront extends Component {
           missionFormat="compact"
         />
       );
+    } else {
+      return null;
     }
+  }
+
+  renderMakeReservationButton() {
+    const { obsUniqueId, teleUniqueId } = this.props
+    const reservationLink = `/reservations/reserve-by-telescope/telescope/${obsUniqueId}/${teleUniqueId}`;
+    return (
+      this.isMissionReadyTelescope() ?
+        <div className="col-md-6">
+          <Link to={reservationLink} className="action">Make Reservation</Link>
+        </div> : null
+    );
+  }
+
+  isMissionReadyTelescope() {
+    return this.props.teleAccessMethod === MISSION_READY_TELE_ACCESS_METHOD;
+  }
+
+  renderVisitTelescopeButton(obsUniqueId, teleUniqueId) {
+    const telescopeDetailsUrl = `/telescope-details/${obsUniqueId}/${teleUniqueId}`;
+    return (
+      <div className="col-md-6">
+        <Link to={telescopeDetailsUrl} className="action">
+          Visit Telescope Page
+        </Link>
+      </div>
+    );
   }
 
   render() {

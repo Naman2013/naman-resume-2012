@@ -1,5 +1,5 @@
-export default function generateSseImageSource(teleSystem, telePort) {
+export default function generateSseImageSource(teleSystem) {
   // see webpack.config devServer proxies
-  // example https://mars.slooh.com:3004/sse/${teleSystem}
-  return `/dev-sse/${telePort}/sse/${teleSystem}`;
-};
+  // example https://mars.slooh.com/sse/${teleSystem}
+  return `/dev-sse/sse/${teleSystem}`;
+}
