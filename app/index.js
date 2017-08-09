@@ -60,7 +60,7 @@ import Leadership from './pages/about/leadership';
 import Mission from './pages/about/mission';
 import News from './pages/about/news';
 import PlansChange from './pages/about/PlansChange';
-import RoadtripRegistration from './pages/about/RoadtripRegistration';
+
 
 import PhotoRoll from './pages/my-pictures/PhotoRoll';
 import Galleries from './pages/my-pictures/Galleries';
@@ -107,7 +107,7 @@ import BookclubHandoff from './pages/bookclub-handoff/BookclubHandoff';
 
 // router functions
 import validateUser from './route-functions/validateUser';
-import validateRoadtripRegistration from './route-functions/validateRoadtripRegistration';
+
 import globalOnRouteUpdate from './route-functions/globalOnRouteUpdate';
 import validateRegistrationPaths from './route-functions/validateRegistrationPaths';
 
@@ -308,7 +308,7 @@ ReactDOM.render(
         <Route path="discussions/new-thread" component={NewDiscussionsThread} onEnter={validateUser} />
 
         <Route path="road-trip" component={Landing} />
-        <Route path="road-trip/registration" component={RoadtripRegistration} onEnter={validateRoadtripRegistration} />
+        
 
         <Route path="help/posting-guidelines" component={PostingGuidelines} />
         <Route path="help/new-to-slooh" component={NewToSlooh} />
