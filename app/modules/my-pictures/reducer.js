@@ -280,6 +280,15 @@ export default createReducer(initialState, {
       },
     };
   },
+  [FETCH_MY_PICTURES_COUNT_SUCCESS](state, { payload }) {
+    return {
+      ...state,
+      photoRoll: {
+        ...state.photoRoll,
+        imageCount: payload.imageCount,
+      },
+    };
+  },
   [FETCH_MY_PICTURES_COUNT_FAIL](state) {
     return {
       ...state,

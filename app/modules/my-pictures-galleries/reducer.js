@@ -10,6 +10,7 @@ import {
 
 const initialState = {
   galleryList: [],
+  resultsCount: 0,
   imageCount: 0,
   maxImageCount: 9,
   firstImageNumber: 1,
@@ -23,6 +24,7 @@ export default createReducer(initialState, {
     return {
       ...state,
       galleryList: [],
+      resultsCount: 0,
       imageCount: state.imageCount, // different call handles this
       maxImageCount: state.maxImageCount,
       firstImageNumber: state.firstImageNumber,
@@ -45,6 +47,7 @@ export default createReducer(initialState, {
     return {
       ...state,
       galleryList: [],
+      resultsCount: 0,
       imageCount: state.imageCount, // different call handles this
       maxImageCount: state.maxImageCount,
       firstImageNumber: state.firstImageNumber,
