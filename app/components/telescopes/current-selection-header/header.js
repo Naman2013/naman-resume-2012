@@ -29,7 +29,7 @@ class CurrentSelectionHeader extends Component {
             </span>
 
             {
-              !!teleSponsorLogoURL ?
+           !!teleSponsorLogoURL ?
               <span className="sponsoredby-text">
                 Sponsored by:
                 <a href={teleSponsorLinkURL} target="_blank">

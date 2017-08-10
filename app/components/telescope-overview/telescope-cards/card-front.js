@@ -179,7 +179,7 @@ class CardFront extends Component {
               />
 
           }
-          <div className="sponsor">
+         <div className="sponsor">
             {
               !!this.props.teleSponsorLinkURL ?
               <p>

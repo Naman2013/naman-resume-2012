@@ -20,6 +20,9 @@
   .eventHeroRoot .topTitle {
     font-size: 36px;
     font-weight: 100; }
+  .eventHeroRoot .sponsored {
+    background: #fff;
+    color: #589A9B; }
   .eventHeroRoot .title {
     font-size: 56px;
     font-weight: 100;
@@ -30,7 +33,8 @@
     font-weight: 600;
     padding: 15px 25px; }
   .eventHeroRoot .sponsorBy {
-    margin: 15px 0; }
+    margin: 15px 0;
+    display: none; }
   .eventHeroRoot .sponsorLogo {
     height: 20px;
     margin-left: 5px; }
