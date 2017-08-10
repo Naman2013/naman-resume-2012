@@ -1,7 +1,6 @@
-import React from 'react';
 import { white } from '../../styles/variables/colors';
 
-export const imageDetailsStyle = `
+export default (`
   .my-pictures-container {
     padding: 20px;
   }
@@ -24,4 +23,4 @@ export const imageDetailsStyle = `
     flex: 1.5;
     padding: 10px;
   }
-`;
+`);

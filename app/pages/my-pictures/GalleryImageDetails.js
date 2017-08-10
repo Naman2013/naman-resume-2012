@@ -9,7 +9,7 @@ import MyPicturesNavigation from '../../components/my-pictures/my-pictures-navig
 import { fetchImageDetailsAndCounts, fetchMyPicturesImageDetails } from '../../modules/my-pictures-image-details/actions';
 import { fetchGalleryPictures } from '../../modules/my-pictures-gallery-pictures/actions';
 import ImageViewer from '../../components/my-pictures/ImageViewer';
-import { imageDetailsStyle } from './ImageDetailsStyles';
+import imageDetailsStyle from './ImageDetailsStyles';
 import ImageInfoPanel from '../../components/my-pictures/ImageInfoPanel';
 
 const mapStateToProps = ({ user, myPicturesImageDetails, galleryPictures }) => ({
@@ -166,7 +166,7 @@ class ImageDetails extends Component {
             </aside>
           </div>
         </div>
-        <style jsx>{`${imageDetailsStyle}`}</style>
+        <style jsx>{imageDetailsStyle}</style>
         <style jsx global>
         {`
           .my-pic-galleries .count {

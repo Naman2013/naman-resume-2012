@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 import MyPicturesNavigation from '../../components/my-pictures/my-pictures-navigation';
 import { fetchImageDetailsAndCounts } from '../../modules/my-pictures-image-details/actions';
 import ImageViewer from '../../components/my-pictures/ImageViewer';
-import { imageDetailsStyle } from './ImageDetailsStyles';
+import imageDetailsStyle from './ImageDetailsStyles';
 import ImageInfoPanel from '../../components/my-pictures/ImageInfoPanel';
 
 const mapStateToProps = ({ myPicturesImageDetails }) => ({
@@ -87,7 +87,7 @@ class ImageDetails extends Component {
             </aside>
           </div>
         </div>
-        <style jsx>{`${imageDetailsStyle}`}</style>
+        <style jsx>{imageDetailsStyle}</style>
       </div>
     );
   }
