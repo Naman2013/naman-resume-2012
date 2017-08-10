@@ -12,7 +12,7 @@ const SponsoredBy = ({ sponsorLogoURL, sponsorLinkURL }) =>
 
 SponsoredBy.propTypes = {
   sponsorLogoURL: PropTypes.string.isRequired,
-  sponsorLinkURL: PropTypes.string.isRequired,
+  sponsorLinkURL: PropTypes.string.isRequired
 };
 
 export default SponsoredBy;

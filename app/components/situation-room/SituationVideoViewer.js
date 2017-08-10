@@ -69,13 +69,7 @@ class SituationVideoViewer extends Component {
 
         <header className={s.liveViewHeader}>
           <h2 dangerouslySetInnerHTML={{ __html: eventTitle }}></h2>
-          {
-            hasSponsor ?
-              <SponsoredBy
-                sponsorLogoURL={sponsorLogoURL}
-                sponsorLinkURL={sponsorLinkURL}
-              /> : null
-          }
+
         </header>
 
         {videoInProgress && <Tabs onSelect={this.handleSelect} selectedIndex={selectedTab}>
