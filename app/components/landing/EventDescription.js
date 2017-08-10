@@ -6,7 +6,7 @@ function EventDescription() {
     <div className={style.eventDescriptionWrapper}>
       <div className={style.container}>
         <div className={style.header}>
-          <span>This Event is Free to all members of Slooh!</span>
+          <span>Registration for this event is now closed</span>
           <div className={style.btnGroup}>
             {
               /**
@@ -17,11 +17,19 @@ function EventDescription() {
           </div>
         </div>
         <div className={style.content}>
+
           <div className={style.description}>
             Toward the goal of connecting humanity through communal exploration of the universe, Slooh is bringing its community together to celebrate the total solar eclipse in Stanley, Idaho. The three day cultural pot-luck will bring together diverse perspectives about space in anticipation of this momentous occasion. In keeping with its mission, Slooh will set the stage for the community to step forward and offer their own visions of the eclipse. We are open to the spiritual, the artistic, the imaginative, along with the scientific, just as members express themselves on the website every day together looking up at space through Slooh’s global network of telescopes.
           </div>
           <div className={style.data}>
             <div className={style.date}>
+              <div className="sponsored white">
+                <div>Sponsored by:</div>
+                <a href="https://frontier.com/" rel="noopener noreferrer" target="_blank">
+                  <img alt="Sponsored by logo" src="https://vega.slooh.com/logos/FTR_COMM_2C_SMALL-1_w.png" height="40"/>
+                </a>
+              </div>
+
               <div className={style.dataItemHeader}>Date & Time:</div>
               <div className={style.dataItemContent}>
                 Fri. August 18 - Tues. August 22 Starting 12:00 PM MDT

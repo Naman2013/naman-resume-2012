@@ -10,6 +10,7 @@ import { fetchEvents } from '../../modules/upcoming-events/upcoming-events-actio
 import { fetchSituationRoom, fetchEventsAndSituationRoom } from '../../modules/SituationRoom';
 import { previousShows } from '../../services/shows/previous-shows';
 import { upcomingShows } from '../../services/shows/upcoming-shows';
+import SponsoredBy from '../../components/common/sponsored-by';
 
 import s from './SituationRoom.scss';
 
@@ -65,7 +66,7 @@ class SituationRoom extends Component {
   }
 
   render() {
-    const { currentLiveShow, communityPosts, eventIsLive } = this.props;
+    const { currentLiveShow, communityPosts, eventIsLive} = this.props;
     const { upcomingShowsList, previousShowsList } = this.state;
     const { apiError } = currentLiveShow;
 
@@ -122,6 +123,13 @@ class SituationRoom extends Component {
         </div>
 
         <div className="col-md-3">
+          {
+            currentLiveShow.sponsorInformation.SponsorFlag ?
+                <SponsoredBy
+                    sponsorLogoURL={currentLiveShow.sponsorInformation.SponsorLogoURL}
+                    sponsorLinkURL={currentLiveShow.sponsorInformation.SponsorLinkURL}
+                    /> : null
+          }
           <GoogleAd
             adURL={'/5626790/SituationRoom'}
             adWidth={300}
@@ -139,6 +147,7 @@ SituationRoom.defaultProps = {
   eventIsLive: false,
   showId: null,
   upcomingEventEventId: null,
+  hasSponsor: false,
   communityPosts: [],
   currentLiveShow: {
     recommends: [],

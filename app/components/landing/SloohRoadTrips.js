@@ -13,10 +13,10 @@ function SloohRoadTrips() {
             Road Trips
           </div>
           <div className={style.description}>
-            For years we&apost;ve been on expeditions to Kenya, Nigeria, the
+            For years we've been on expeditions to Kenya, Nigeria, the
             Faroe Islands, Iceland, Indonesia, Australia, Chile and Alaska with
             our mobile observatory to witness the most compelling moments in
-            space. Now we&apost;re taking you with us. Introducing Slooh Road Trips.
+            space. Now we're taking you with us. Introducing Slooh Road Trips.
           </div>
           <div style={{ marginTop: '20px' }}>
             <Link

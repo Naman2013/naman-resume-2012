@@ -11,6 +11,7 @@ import SloohRecommends from '../../components/common/recommendations/SloohRecomm
 import PulsePopular from '../../components/pulse/sidebar/pulse-popular';
 import s from './EventDetails.scss';
 import { fetchEventInfo } from '../../modules/event-info/actions';
+import SponsoredBy from '../../components/common/sponsored-by';
 
 const { func, object } = PropTypes;
 class EventDetails extends Component {
@@ -69,6 +70,20 @@ class EventDetails extends Component {
               <EventHosts hosts={eventContent.hosts} />
             </section>
             <aside className="sideBar col-md-4">
+
+
+
+              {
+                eventContent.sponsorInformation &&  eventContent.sponsorInformation.SponsorFlag ?
+                    <SponsoredBy
+                        sponsorLogoURL={eventContent.sponsorInformation.SponsorLogoURL}
+                        sponsorLinkURL={eventContent.sponsorInformation.SponsorLinkURL}
+                        />
+
+                    : null
+              }
+
+
               <GoogleAd
                 adURL={'/5626790/EventPages'}
                 adWidth={300}

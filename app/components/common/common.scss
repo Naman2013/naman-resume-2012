@@ -14,8 +14,21 @@
   }
 }
 
+
 .sponsored {
-  text-align: right;
-  margin-right: 30px;
-  color: $turqoise;
+  max-width:300px;
+  background: rgba(31, 31, 31, 0.80);
+  color: $white;
+  &.white{
+    background: $white;
+    color: $turqoise;
+  }
+  text-align: center;
+  margin:0px auto 20px;
+  font-size:14px;
+  padding:10px;
+  img{
+    display:block; margin:10px auto 0px;
+  }
 }
+
