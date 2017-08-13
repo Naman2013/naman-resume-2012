@@ -8,7 +8,7 @@ import OtherFeaturedObjects from '../components/common/OtherFeaturedObjects/Othe
 class MyPictures extends Component {
   render() {
     const { children } = this.props;
-
+    console.log(children)
     return (
       <div className="clearfix">
         <MyPicturesHeader />

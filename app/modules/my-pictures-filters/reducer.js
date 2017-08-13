@@ -1,4 +1,5 @@
 import { cloneDeep } from 'lodash';
+import moment from 'moment';
 import createReducer from '../utils/createReducer';
 import {
   FETCH_FILTERS_LISTS_START,
@@ -6,13 +7,14 @@ import {
   UPDATE_ALL_FILTERS,
   SET_SELECTED_TAGS_TAB_INDEX,
   TOGGLE_FILTER_MENU,
-  RESET_ALL_FILTERS,
+  SET_CAL_MONTH,
 } from './actions';
 
 const initialState = {
   fetching: false,
   filterMenuIsOpen: false,
   selectedTagsTabIndex: 0,
+  currentVisibleCalMonth: moment().startOf('month'),
   dates: {
     datesList: []
   },
@@ -80,6 +82,12 @@ export default createReducer(initialState, {
     return {
       ...state,
       filterMenuIsOpen: payload.filterMenuIsOpen,
+    };
+  },
+  [SET_CAL_MONTH](state, { payload }) {
+    return {
+      ...state,
+      ...payload,
     };
   },
 });

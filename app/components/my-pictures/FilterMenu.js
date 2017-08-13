@@ -9,7 +9,7 @@ import findIndex from 'lodash/findIndex';
 import isEqual from 'lodash/isEqual';
 import { DayPickerSingleDateController } from 'react-dates';
 import { fetchObjectTypeList } from '../../modules/object-type-list/actions';
-import { fetchFiltersLists, setFilters, setSelectedTagsTabIndex } from '../../modules/my-pictures-filters/actions';
+import { fetchFiltersLists, setFilters, setSelectedTagsTabIndex, setCurrentVisibleCalMonth } from '../../modules/my-pictures-filters/actions';
 import SelectToggleList from '../common/forms/SelectToggleList';
 import { white, darkBlueGray } from '../../styles/variables/colors';
 import FilterMenuTags from './FilterMenuTags';
@@ -28,7 +28,8 @@ const mapDispatchToProps = dispatch => ({
     fetchFiltersLists,
     fetchObjectTypeList,
     setFilters,
-    setSelectedTagsTabIndex
+    setSelectedTagsTabIndex,
+    setCurrentVisibleCalMonth
   }, dispatch),
 });
 
@@ -37,12 +38,21 @@ export class FilterMenuComponent extends Component {
     super(props);
 
     this.state = {
-      date: null, // for datepicker
+      date: props.selectedFilters.dateFilter ? moment(props.selectedFilters.dateFilter).startOf('day') : null, // for datepicker
       focused: true,
-      selectedTelescopeIndex: null,
-      selectedTimeIndex: null,
-      selectedObjectTypeIndex: null,
+      selectedTelescopeIndex: props.telescopes.telescopesList.findIndex(
+        tele => tele.pierNumber === props.selectedFilters.pierNumber &&
+          tele.observatoryId === props.selectedFilters.observatoryId
+      ),
+      selectedTimeIndex: props.times.timesList.findIndex(
+        time => time.value === props.selectedFilters.timeFilter
+      ),
+      selectedObjectTypeIndex: props.objectFilterList.findIndex(
+        obj => obj.objectTypeFilter === props.selectedFilters.filterType
+      ),
     };
+
+    this.calRef = null;
   }
 
   componentWillMount() {
@@ -50,8 +60,8 @@ export class FilterMenuComponent extends Component {
     this.props.actions.fetchFiltersLists();
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (!isEqual(this.props.selectedFilters, nextProps.selectedFilters)) {
+  componentWillUpdate(nextProps) {
+    if (this.props.page !== nextProps.page || !isEqual(this.props.selectedFilters, nextProps.selectedFilters)) {
       this.setState({
         date: nextProps.selectedFilters.dateFilter ? moment(nextProps.selectedFilters.dateFilter) : null, // for datepicker
         focused: true,
@@ -156,8 +166,7 @@ export class FilterMenuComponent extends Component {
 
   setDateFilter = (date) => {
     const { actions, page, galleryId, scheduledMissionId } = this.props;
-
-    if (this.state.date === date) {
+    if ((this.state.date && this.state.date.format('YYYY-MM-DD')) === (date && date.format('YYYY-MM-DD'))) {
       this.setState((() => ({
         date: null, // for the datepicker
       })));
@@ -188,6 +197,16 @@ export class FilterMenuComponent extends Component {
     this.setState({ focused: true });
   }
 
+  setCalendarMonth = () => {
+    const { actions, currentVisibleCalMonth } = this.props;
+    const currMonth = this.calRef.state.currentMonth;
+    if (!isEqual(currMonth, currentVisibleCalMonth)) {
+      actions.setCurrentVisibleCalMonth({
+        currentVisibleCalMonth: currMonth,
+      });
+    }
+  }
+
   getIconStyle = (item, prop) => ({
     backgroundImage: `url(${item[prop]})`,
     height: '20px',
@@ -216,6 +235,7 @@ export class FilterMenuComponent extends Component {
   render() {
     const { selectedTelescopeIndex, selectedTimeIndex, selectedObjectTypeIndex } = this.state;
     const {
+      currentVisibleCalMonth,
       pictureUserTags,
       missionSystemTags,
       missionUserTags,
@@ -223,6 +243,7 @@ export class FilterMenuComponent extends Component {
       actions,
       selectedTagsTabIndex
     } = this.props;
+
     const missionSystemTagsCount = selectedFilters.missionSystemTags.length;
     const missionUserTagsCount = selectedFilters.missionUserTags.length;
     const pictureUserTagsCount = selectedFilters.pictureUserTags.length;
@@ -231,7 +252,7 @@ export class FilterMenuComponent extends Component {
       <div className="rootFilterMenu">
         <ul className="filterMenu">
           <li className="dateSection filterMenuSection">
-            <h3 className="filterTitle">Date:</h3>
+            <h3 className="filterTitle">Date (UTC):</h3>
             <DayPickerSingleDateController
               date={this.state.date} // momentPropTypes.momentObj or null
               onDateChange={this.setDateFilter} // PropTypes.func.isRequired
@@ -242,6 +263,10 @@ export class FilterMenuComponent extends Component {
               keepOpenOnDateSelect={true}
               isDayHighlighted={this.isDayHighlighted}
               orientation="horizontal"
+              ref={_calRef => this.calRef = _calRef}
+              onNextMonthClick={this.setCalendarMonth}
+              onPrevMonthClick={this.setCalendarMonth}
+              initialVisibleMonth={() => currentVisibleCalMonth}
             />
           </li>
           <li className="filterMenuSection tagSection">
@@ -417,7 +442,8 @@ FilterMenuComponent.propTypes = {
     filterType: PropTypes.string,
     timeFilter: PropTypes.number,
   }),
-  selectedTagsTabIndex: PropTypes.number
+  selectedTagsTabIndex: PropTypes.number,
+  currentVisibleCalMonth: PropTypes.instanceOf(moment)
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FilterMenuComponent);

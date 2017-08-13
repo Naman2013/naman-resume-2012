@@ -78,11 +78,11 @@ class MyPicturesNavigation extends Component {
       actions,
     } = this.props;
     const filterContainerClassnames = classnames(s.filterMenuWrapper, {
-      hide: filterMenuIsOpen,
+      hide: !filterMenuIsOpen,
     });
     const filterButtonIconClassnames = classnames('fa', {
-      'fa-angle-down': filterMenuIsOpen,
-      'fa-angle-up': !filterMenuIsOpen,
+      'fa-angle-down': !filterMenuIsOpen,
+      'fa-angle-up': filterMenuIsOpen,
     });
 
     const clearDisplayClassnames = classnames('fa fa-close filterDisplayIcon', {
@@ -90,7 +90,7 @@ class MyPicturesNavigation extends Component {
     });
 
     const rootNavigationFilterItemClassnames = classnames(`${s.rootNavigationItem} ${s.filters}`, {
-      active: !filterMenuIsOpen,
+      active: filterMenuIsOpen,
     });
 
     return (

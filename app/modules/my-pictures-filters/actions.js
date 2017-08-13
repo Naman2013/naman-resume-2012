@@ -20,6 +20,7 @@ export const UPDATE_BY_OBJECT_FILTER = 'UPDATE_BY_OBJECT_FILTER';
 export const RESET_OBJECT_TYPE_FILTER = 'RESET_OBJECT_TYPE_FILTER';
 export const SET_SELECTED_TAGS_TAB_INDEX = 'SET_SELECTED_TAGS_TAB_INDEX';
 export const TOGGLE_FILTER_MENU = 'TOGGLE_FILTER_MENU';
+export const SET_CAL_MONTH = 'SET_CAL_MONTH';
 
 export const updateAllFilters = payload => ({
   type: UPDATE_ALL_FILTERS,
@@ -83,5 +84,10 @@ export const setSelectedTagsTabIndex = payload => dispatch => (dispatch({
 
 export const toggleFilterMenuDisplay = payload => dispatch => (dispatch({
   type: TOGGLE_FILTER_MENU,
+  payload,
+}));
+
+export const setCurrentVisibleCalMonth = payload => dispatch => (dispatch({
+  type: SET_CAL_MONTH,
   payload,
 }));
