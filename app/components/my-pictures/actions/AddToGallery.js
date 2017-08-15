@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import uniqueId from 'lodash/uniqueId';
+import orderBy from 'lodash/orderBy';
 import { bindActionCreators } from 'redux';
 import { ContextMenu, MenuItem, ContextMenuTrigger } from 'react-contextmenu';
 import { white, black, lightTurqoise, darkBlueGray } from '../../../styles/variables/colors';
-import { fetchGalleries } from '../../../modules/my-pictures/actions';
-import { createGallery } from '../../../modules/my-pictures-gallery-pictures/actions';
+import { fetchGalleries, createGallery } from '../../../modules/my-pictures-galleries/actions';
 import { borderRadius } from '../../../styles/mixins/utilities';
 import { actionsStyles } from './actions.style';
 
@@ -14,6 +14,9 @@ const { arrayOf, shape, func } = PropTypes;
 const mapStateToProps = ({ galleries }) => ({
   // error: galleries.error,
   // errorBody: galleries.errorBody,
+  galleryCreated: galleries.galleryCreated,
+  galleryCreating: galleries.galleryCreating,
+  galleryCreatingError: galleries.galleryCreatingError,
   fetchGalleriesLoading: galleries.fetching,
   galleryList: galleries.galleryList,
 });
@@ -71,6 +74,10 @@ class AddToGallery extends Component {
 
     actions.createGallery({
       title: newGalleryName,
+    }).then(() => {
+      this.setState({
+        newGalleryName: ''
+      })
     });
   }
 
@@ -80,18 +87,25 @@ class AddToGallery extends Component {
     });
   }
 
-  handleClick = () => {}
+  handleClick = (e, gallery) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    console.log(gallery)
+  }
 
   render() {
     const {
       galleryList,
       fetchGalleriesLoading,
+      galleryCreated,
+      galleryCreating,
+      galleryCreatingError,
     } = this.props;
     const { newGalleryName } = this.state;
 
     const menuId = uniqueId();
-    console.log('fetchGalleriesLoading', fetchGalleriesLoading)
-    console.log('galleries', galleryList)
+    const sortedGalleries = orderBy(galleryList, ['created'], ['desc']);
     return (
       <div className="action-menu-container">
         <ContextMenuTrigger id={menuId} ref={c => this.contextTrigger = c}>
@@ -117,18 +131,21 @@ class AddToGallery extends Component {
               <button className="action" onClick={this.createGallery}>
                 <span className="fa fa-plus" />
               </button>
-              <input
+              {galleryCreating && <span>Creating your gallery...</span>}
+              {!galleryCreating && <input
                 type="text"
                 placeholder="Type Here to Create Gallery"
                 value={newGalleryName}
                 onChange={this.updateNewGalleryName}
-              />
+              />}
+              {galleryCreatingError && <span>Your gallery could not be created</span>}
             </MenuItem>
-            {galleryList.map(gallery => (<MenuItem
-              onClick={this.handleClick}
+            {sortedGalleries.map(gallery => (<MenuItem
+              onClick={e => this.handleClick(e, gallery)}
               key={gallery.galleryId}
             >
               {gallery.title}
+              {!gallery.created && <span>new!</span>}
               </MenuItem>))}
 
         </div>}

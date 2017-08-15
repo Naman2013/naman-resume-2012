@@ -6,6 +6,9 @@ import {
   FETCH_GALLERIES_FAIL,
   FETCH_GALLERIES_COUNT_SUCCESS,
   FETCH_GALLERIES_COUNT_FAIL,
+  CREATE_GALLERY_START,
+  CREATE_GALLERY_SUCCESS,
+  CREATE_GALLERY_FAIL,
 } from './actions';
 
 const initialState = {
@@ -17,6 +20,9 @@ const initialState = {
   fetching: false,
   error: false,
   errorBody: {},
+  galleryCreated: false,
+  galleryCreating: false,
+  galleryCreatingError: false,
 };
 
 export default createReducer(initialState, {
@@ -66,6 +72,32 @@ export default createReducer(initialState, {
     return {
       ...state,
       imageCount: 0,
+    };
+  },
+  [CREATE_GALLERY_START](state) {
+    return {
+      ...state,
+      galleryCreating: true,
+      galleryCreated: false,
+      galleryCreatingError: false,
+    };
+  },
+  [CREATE_GALLERY_SUCCESS](state, { payload }) {
+    const { galleryId, title } = payload;
+    state.galleryList.unshift({ title, galleryId })
+    return {
+      ...state,
+      galleryList: state.galleryList,
+      galleryCreating: false,
+      galleryCreated: true,
+    };
+  },
+  [CREATE_GALLERY_FAIL](state, { payload }) {
+    return {
+      ...state,
+      galleryCreatingError: true,
+      galleryCreated: false,
+      galleryCreating: false,
     };
   },
 });
