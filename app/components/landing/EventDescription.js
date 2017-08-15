@@ -25,7 +25,7 @@ function EventDescription() {
             <div className={style.date}>
               <div className="sponsored white">
                 <div>Sponsored by:</div>
-                <a href="https://frontier.com/" rel="noopener noreferrer" target="_blank">
+                <a href="https://frontier.com/slooh" rel="noopener noreferrer" target="_blank">
                   <img alt="Sponsored by logo" src="https://vega.slooh.com/logos/FTR_COMM_2C_SMALL-1_w.png" width="150"/>
                 </a>
               </div>
