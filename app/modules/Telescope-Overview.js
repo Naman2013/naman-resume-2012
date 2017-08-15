@@ -20,6 +20,10 @@ const SKYCHART_WIDGET_START = 'SKYCHART_WIDGET_START';
 const OBSERVATORY_WEBCAM_START = 'OBSERVATORY_WEBCAM_START';
 const OBSERVATORY_WEBCAM_SUCCESS = 'OBSERVATORY_WEBCAM_SUCCESS';
 
+const TELESCOPE_CARD_DATA_SUCCESS = 'TELESCOPE_CARD_DATA_SUCCESS';
+const TELESCOPE_CARD_DATA_FAIL = 'TELESCOPE_CARD_DATA_FAIL';
+const TELESCOPE_CARD_DATA_START = 'TELESCOPE_CARD_DATA_START';
+
 
 export const getCurrentObservatory = (observatoryList = [], observatoryId) => {
   return observatoryList.find(observatory => observatory.obsUniqueId === observatoryId);
@@ -190,6 +194,36 @@ export const fetchObservatoryWebcam = ({
   });
 };
 
+const fetchTelescopeCardDataSuccess = telescopeCardData => ({
+  type: TELESCOPE_CARD_DATA_SUCCESS,
+  telescopeCardData,
+});
+
+const fetchTelescopeCardDataFail = () => ({
+  type: TELESCOPE_CARD_DATA_FAIL,
+});
+
+const fetchTelescopeCardDataStart = () => ({
+  type: TELESCOPE_CARD_DATA_START,
+});
+
+export const fetchTelescopeCardData = () => (dispatch, getState) => {
+
+  const { telescopeOverview: { telescopeCardData } } = getState();
+
+  // if (telescopeCardData) {
+  //   return;
+  // }
+
+  dispatch(fetchTelescopeCardDataStart());
+
+  return axios.post('/api/obs/getTelescopeCardData')
+    .then((response) => {
+      dispatch(fetchTelescopeCardDataSuccess(response.data));
+    })
+    .catch(() => dispatch(fetchTelescopeCardDataFail()));
+};
+
 
 const initialState = {
   // list of available observatories
@@ -224,6 +258,9 @@ const initialState = {
     refreshIntervalSec: 0,
     facilityWebcamURL: '',
   },
+
+  telescopeCardData: undefined,
+  isTelescopeCardDataLoading: false,
 };
 
 export default createReducer(initialState, {
@@ -293,6 +330,26 @@ export default createReducer(initialState, {
       ...state,
       fetchingObservatoryLiveWebcamResult: false,
       observatoryLiveWebcamResult,
+    };
+  },
+  [TELESCOPE_CARD_DATA_START](state) {
+    return {
+      ...state,
+      isTelescopeCardDataLoading: true,
+    };
+  },
+  [TELESCOPE_CARD_DATA_SUCCESS](state, { telescopeCardData }) {
+    return {
+      ...state,
+      telescopeCardData,
+      isTelescopeCardDataLoading: false,
+    };
+  },
+  [TELESCOPE_CARD_DATA_FAIL](state) {
+    return {
+      ...state,
+      telescopeCardData: null,
+      isTelescopeCardDataLoading: false,
     };
   },
 });
