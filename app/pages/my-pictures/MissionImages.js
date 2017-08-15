@@ -15,6 +15,8 @@ const mapStateToProps = ({ myPictures, objectTypeList }, ownProps) => ({
   imageCount: myPictures.missionPhotos.imageCount,
   imageList: myPictures.missionPhotos.response.imageList,
   maxImageCount: myPictures.missionPhotos.maxImageCount,
+  missionDateCreated: myPictures.missionPhotos.missionDateCreated,
+  missionTitle: myPictures.missionPhotos.missionTitle,
   scheduledMissionId: ownProps.routeParams.scheduledMissionId,
 });
 
@@ -47,6 +49,8 @@ class MissionImages extends Component {
       imageList,
       maxImageCount,
       scheduledMissionId,
+      missionDateCreated,
+      missionTitle,
     } = this.props;
     return (
       <div className={s.missionImages}>
@@ -54,10 +58,15 @@ class MissionImages extends Component {
           page="missionImages"
           scheduledMissionId={scheduledMissionId}
         />
-
-      <div className={`${s.missionImageControl} clearfix`}>
-          <div className={s.navigation}>
-            <button onClick={this.handleFITClick} className={s.FITButton}>FITS</button>
+        <div className="flex">
+          <div className="missionInfo">
+            {missionTitle && <div>You are viewing mission: <span className="missionDesc" dangerouslySetInnerHTML={{ __html: missionTitle }} /></div>}
+            {missionDateCreated && <div>Date: <span className="missionDesc" dangerouslySetInnerHTML={{ __html: missionDateCreated }} /></div>}
+          </div>
+          <div className={`${s.missionImageControl} clearfix`}>
+            <div className={s.navigation}>
+              <button onClick={this.handleFITClick} className={s.FITButton}>FITS</button>
+            </div>
           </div>
         </div>
 
@@ -76,6 +85,19 @@ class MissionImages extends Component {
             />
           </div>
         </div>
+        <style jsx>{`
+          .flex {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            padding: 0 30px;
+            background-color: #D9D9D9;
+          }
+
+          .missionDesc {
+            font-weight: bold;
+          }
+        `}</style>
       </div>
     );
   }
