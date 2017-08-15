@@ -34,6 +34,7 @@ class Photo extends Component {
       imageTitle,
       overlayText,
       detailsUrl,
+      customerImageId,
     } = this.props;
 
     const inlinePhotoStyle = {
@@ -52,7 +53,7 @@ class Photo extends Component {
             </div>
             <ul className={s.photoMenu}>
               <li>
-                <PhotoActions imageURL={imageURL}/>
+                <PhotoActions imageURL={imageURL} customerImageId={customerImageId} />
               </li>
             </ul>
           </div>

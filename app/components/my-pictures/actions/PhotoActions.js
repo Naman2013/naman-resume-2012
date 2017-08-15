@@ -21,12 +21,15 @@ class PhotoActions extends Component {
 
   render() {
     const {
-      imageURL
+      imageURL,
+      customerImageId,
     } = this.props;
 
     return (
       <div className="">
-        <AddToGallery />
+        <AddToGallery
+          customerImageId={customerImageId}
+        />
         <button onClick={this.handleDownloadPhotoClick} className="action">
           <span className="fa fa-download"></span>
         </button>

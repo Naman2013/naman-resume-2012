@@ -7,11 +7,12 @@ import { bindActionCreators } from 'redux';
 import { ContextMenu, MenuItem, ContextMenuTrigger } from 'react-contextmenu';
 import { white, black, lightTurqoise, darkBlueGray } from '../../../styles/variables/colors';
 import { fetchGalleries, createGallery } from '../../../modules/my-pictures-galleries/actions';
+import { addImageToGallery } from '../../../modules/my-pictures-gallery-picture-actions/actions';
 import { borderRadius } from '../../../styles/mixins/utilities';
 import { actionsStyles } from './actions.style';
 
-const { arrayOf, shape, func } = PropTypes;
-const mapStateToProps = ({ galleries }) => ({
+const { arrayOf, shape, func, number } = PropTypes;
+const mapStateToProps = ({ galleries, galleryPictureActions }) => ({
   // error: galleries.error,
   // errorBody: galleries.errorBody,
   galleryCreated: galleries.galleryCreated,
@@ -19,10 +20,12 @@ const mapStateToProps = ({ galleries }) => ({
   galleryCreatingError: galleries.galleryCreatingError,
   fetchGalleriesLoading: galleries.fetching,
   galleryList: galleries.galleryList,
+  addImageToGallery: galleryPictureActions.addImageToGallery,
 });
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
+    addImageToGallery,
     fetchGalleries,
     createGallery,
   }, dispatch),
@@ -32,12 +35,13 @@ const mapDispatchToProps = dispatch => ({
 class AddToGallery extends Component {
 
   static propTypes = {
+    customerImageId: number.isRequired,
     actions: shape({
       fetchGalleries: func.isRequired,
       createGallery: func.isRequired,
+      addImageToGallery: func.isRequired,
     }),
     galleryList: arrayOf(shape({
-
     })).isRequired,
   };
   static defaultProps = {};
@@ -88,10 +92,14 @@ class AddToGallery extends Component {
   }
 
   handleClick = (e, gallery) => {
+    const { actions, customerImageId } = this.props;
     e.preventDefault();
     e.stopPropagation();
 
-    console.log(gallery)
+    actions.addImageToGallery({
+      galleryId: gallery.galleryId,
+      customerImageId,
+    })
   }
 
   render() {
@@ -145,7 +153,7 @@ class AddToGallery extends Component {
               key={gallery.galleryId}
             >
               {gallery.title}
-              {!gallery.created && <span>new!</span>}
+              {!gallery.created && <span> new!</span>}
               </MenuItem>))}
 
         </div>}

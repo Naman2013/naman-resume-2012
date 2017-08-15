@@ -38,6 +38,7 @@ import myPicturesImageDetails from './my-pictures-image-details/reducer';
 import myPicturesFilters from './my-pictures-filters/reducer';
 import galleries from './my-pictures-galleries/reducer';
 import galleryPictures from './my-pictures-gallery-pictures/reducer';
+import galleryPictureActions from './my-pictures-gallery-picture-actions/reducer';
 import objectPostList from './object-post-list/reducer';
 import objectTypeList from './object-type-list/reducer';
 import otherFeaturedObjects from './other-featured-objects/reducer';
@@ -97,6 +98,7 @@ export default combineReducers({
   myPicturesFilters,
   galleries,
   galleryPictures,
+  galleryPictureActions,
   objectPostList,
   objectTypeList,
   otherFeaturedObjects,
