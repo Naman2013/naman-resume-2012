@@ -28,14 +28,11 @@ const fetchGalleryPicturesFail = payload => ({
 export const fetchGalleryPictures = ({
   galleryId,
   pagingMode,
-  timeFilter,
-  tagFilters,
-  dateFilter,
-  filterType,
   maxImageCount,
   firstImageNumber,
 }) => (dispatch, getState) => {
   const { at, token, cid } = getState().user;
+  const { selectedFilters } = getState().myPicturesFilters
   dispatch(fetchGalleryPicturesStart());
   dispatch(fetchGalleryPicsCount({
     galleryId,
@@ -49,10 +46,7 @@ export const fetchGalleryPictures = ({
     token,
     galleryId,
     pagingMode,
-    timeFilter,
-    tagFilters,
-    dateFilter,
-    filterType,
+    ...selectedFilters,
     maxImageCount,
     firstImageNumber,
   })
@@ -82,6 +76,7 @@ export const fetchGalleryPicsCount = ({
   galleryId,
 }) => (dispatch, getState) => {
   const { at, token, cid } = getState().user;
+  const { selectedFilters } = getState().myPicturesFilters
   dispatch(fetchGalleryPicsCountStart());
   return axios.post('/api/images/getGalleryPicturesCount', {
     // at: 3, // for testing purposes
@@ -91,6 +86,7 @@ export const fetchGalleryPicsCount = ({
     cid,
     token,
     galleryId,
+    ...selectedFilters,
   })
   .then(result => dispatch(fetchGalleryPicsCountSuccess(result.data)))
   .catch(error => dispatch(fetchGalleryPicsCountFail(error)));

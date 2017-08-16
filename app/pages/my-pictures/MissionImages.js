@@ -6,6 +6,7 @@ import { fetchMissionPhotos, loadFITImages } from '../../modules/my-pictures/act
 import MyPicturesNavigation from '../../components/my-pictures/my-pictures-navigation';
 import PhotoView from '../../components/my-pictures/PhotoView';
 import s from './my-pictures-gallery.scss';
+import { darkBlueGray } from '../../styles/variables/colors';
 
 const mapStateToProps = ({ myPictures, objectTypeList }, ownProps) => ({
   error: myPictures.missionPhotos.error,
@@ -15,6 +16,9 @@ const mapStateToProps = ({ myPictures, objectTypeList }, ownProps) => ({
   imageCount: myPictures.missionPhotos.imageCount,
   imageList: myPictures.missionPhotos.response.imageList,
   maxImageCount: myPictures.missionPhotos.maxImageCount,
+  missionDateCreated: myPictures.missionPhotos.missionDateCreated,
+  missionTitle: myPictures.missionPhotos.missionTitle,
+  missionIconURL: myPictures.missionPhotos.missionIconURL,
   scheduledMissionId: ownProps.routeParams.scheduledMissionId,
 });
 
@@ -47,16 +51,25 @@ class MissionImages extends Component {
       imageList,
       maxImageCount,
       scheduledMissionId,
+      missionIconURL,
+      missionDateCreated,
+      missionTitle,
     } = this.props;
     return (
       <div className={s.missionImages}>
         <MyPicturesNavigation
-          page="missions"
+          page="missionImages"
+          scheduledMissionId={scheduledMissionId}
         />
-
-      <div className={`${s.missionImageControl} clearfix`}>
-          <div className={s.navigation}>
-            <button onClick={this.handleFITClick} className={s.FITButton}>FITS</button>
+        <div className="flex">
+          <div className="missionInfo">
+            {missionTitle && <div className="missionTitle">Mission to <span className="missionName" dangerouslySetInnerHTML={{ __html: missionTitle }} /><img className="missionIcon" src={missionIconURL} /></div>}
+          </div>
+          <div className={`${s.missionImageControl} clearfix`}>
+            {missionDateCreated && <div className="missionDesc">Created <span dangerouslySetInnerHTML={{ __html: missionDateCreated }} /> (UTC)</div>}
+            <div className={`${s.navigation} nav`}>
+              <button onClick={this.handleFITClick} className={s.FITButton}>FITS</button>
+            </div>
           </div>
         </div>
 
@@ -75,6 +88,45 @@ class MissionImages extends Component {
             />
           </div>
         </div>
+        <style jsx>{`
+          .flex {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            padding: 0 30px;
+            background-color: #D9D9D9;
+            color: ${darkBlueGray};
+          }
+          .nav {
+            margin-left: 10px;
+          }
+
+          .missionDesc {
+            font-size: 18px;
+          }
+
+
+          .missionTitle {
+            font-size: 30px;
+          }
+
+          .missionName {
+            font-weight: 600;
+          }
+
+          .missionImageControl {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: flex-end;
+          }
+
+          .missionIcon {
+            height: 50px;
+            width: 50px;
+            margin-left: 15px;
+          }
+        `}</style>
       </div>
     );
   }

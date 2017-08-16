@@ -19,9 +19,6 @@ export default createReducer(initialState, {
     return {
       ...state,
       fetching: true,
-      objectListResponse: {
-        objectTypeList: [],
-      },
       error: false,
       errorBody: {},
     };
