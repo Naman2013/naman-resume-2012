@@ -63,10 +63,10 @@ class MissionImages extends Component {
         />
         <div className="flex">
           <div className="missionInfo">
-            {missionTitle && <h2 className="missionName"><span className="missionDesc" dangerouslySetInnerHTML={{ __html: missionTitle }} /><img className="missionIcon" src={missionIconURL} /></h2>}
+            {missionTitle && <div className="missionTitle">Mission to <span className="missionName" dangerouslySetInnerHTML={{ __html: missionTitle }} /><img className="missionIcon" src={missionIconURL} /></div>}
           </div>
           <div className={`${s.missionImageControl} clearfix`}>
-            {missionDateCreated && <div>Created <span className="missionDesc" dangerouslySetInnerHTML={{ __html: missionDateCreated }} /></div>}
+            {missionDateCreated && <div>Created <span className="missionDesc" dangerouslySetInnerHTML={{ __html: missionDateCreated }} /> (UTC)</div>}
             <div className={`${s.navigation} nav`}>
               <button onClick={this.handleFITClick} className={s.FITButton}>FITS</button>
             </div>
@@ -97,18 +97,27 @@ class MissionImages extends Component {
             background-color: #D9D9D9;
             color: ${darkBlueGray};
           }
-          .nav{
-            margin-top: 5px;
+          .nav {
+            margin-left: 10px;
           }
 
           .missionDesc {
-            font-weight: bold;
+            font-size: 18px;
+          }
+
+
+          .missionTitle {
+            font-size: 30px;
+          }
+
+          .missionName {
+            font-weight: 600;
           }
 
           .missionImageControl {
             display: flex;
-            flex-direction: column;
-            align-items: flex-end;
+            flex-direction: row;
+            align-items: center;
             justify-content: flex-end;
           }
 
