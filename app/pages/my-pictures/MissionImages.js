@@ -66,7 +66,7 @@ class MissionImages extends Component {
             {missionTitle && <div className="missionTitle">Mission to <span className="missionName" dangerouslySetInnerHTML={{ __html: missionTitle }} /><img className="missionIcon" src={missionIconURL} /></div>}
           </div>
           <div className={`${s.missionImageControl} clearfix`}>
-            {missionDateCreated && <div>Created <span className="missionDesc" dangerouslySetInnerHTML={{ __html: missionDateCreated }} /> (UTC)</div>}
+            {missionDateCreated && <div className="missionDesc">Created <span dangerouslySetInnerHTML={{ __html: missionDateCreated }} /> (UTC)</div>}
             <div className={`${s.navigation} nav`}>
               <button onClick={this.handleFITClick} className={s.FITButton}>FITS</button>
             </div>
