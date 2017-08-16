@@ -64,6 +64,7 @@ const initialState = {
     response: {
       imageList: [],
     },
+    missionIconURL: '',
     missionDateCreated: '',
     missionTitle: '',
     imageCount: 0,
@@ -148,6 +149,7 @@ export default createReducer(initialState, {
         maxImageCount: state.missionPhotos.maxImageCount,
         missionTitle: state.missionTitle,
         missionDateCreated: state.missionDateCreated,
+        missionIconURL: state.missionIconURL,
         fetching: true,
         error: false,
         errorBody: {},
@@ -164,6 +166,7 @@ export default createReducer(initialState, {
         firstImageNumber: payload.firstImageNumber,
         missionTitle: payload.missionTitle,
         missionDateCreated: payload.missionDateCreated,
+        missionIconURL: payload.missionIconURL,
         fetching: false,
         error: false,
         errorBody: {},
@@ -178,6 +181,7 @@ export default createReducer(initialState, {
           imageList: [],
           imageCount: 0,
         },
+        missionIconURL: state.missionPhotos.missionIconURL,
         imageCount: state.missionPhotos.imageCount, // different call handles this
         firstImageNumber: state.missionPhotos.firstImageNumber,
         maxImageCount: state.missionPhotos.maxImageCount,
