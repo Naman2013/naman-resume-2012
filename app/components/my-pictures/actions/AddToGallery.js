@@ -7,12 +7,12 @@ import { bindActionCreators } from 'redux';
 import { ContextMenu, MenuItem, ContextMenuTrigger } from 'react-contextmenu';
 import { white, black, lightTurqoise, darkBlueGray } from '../../../styles/variables/colors';
 import { fetchGalleries, createGallery } from '../../../modules/my-pictures-galleries/actions';
-import { addImageToGallery } from '../../../modules/my-pictures-gallery-picture-actions/actions';
+import { addImageToGallery } from '../../../services/my-pictures/add-image-to-gallery';
 import { borderRadius } from '../../../styles/mixins/utilities';
 import { actionsStyles } from './actions.style';
 
 const { arrayOf, shape, func, number } = PropTypes;
-const mapStateToProps = ({ galleries, galleryPictureActions }) => ({
+const mapStateToProps = ({ galleries, user }) => ({
   // error: galleries.error,
   // errorBody: galleries.errorBody,
   galleryCreated: galleries.galleryCreated,
@@ -20,12 +20,11 @@ const mapStateToProps = ({ galleries, galleryPictureActions }) => ({
   galleryCreatingError: galleries.galleryCreatingError,
   fetchGalleriesLoading: galleries.fetching,
   galleryList: galleries.galleryList,
-  addImageToGallery: galleryPictureActions.addImageToGallery,
+  user,
 });
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
-    addImageToGallery,
     fetchGalleries,
     createGallery,
   }, dispatch),
@@ -39,7 +38,6 @@ class AddToGallery extends Component {
     actions: shape({
       fetchGalleries: func.isRequired,
       createGallery: func.isRequired,
-      addImageToGallery: func.isRequired,
     }),
     galleryList: arrayOf(shape({
     })).isRequired,
@@ -52,6 +50,14 @@ class AddToGallery extends Component {
 
   constructor() {
     super();
+
+    this.state = {
+      addResponse: null,
+      addLoading: false,
+      addedGalleryId: null,
+
+    };
+
     this.contextTrigger = null;
   }
 
@@ -92,14 +98,35 @@ class AddToGallery extends Component {
   }
 
   handleClick = (e, gallery) => {
-    const { actions, customerImageId } = this.props;
+    const { actions, customerImageId, user } = this.props;
     e.preventDefault();
     e.stopPropagation();
 
-    actions.addImageToGallery({
+    this.setState({
+      addLoading: true,
+    });
+
+    addImageToGallery({
       galleryId: gallery.galleryId,
       customerImageId,
-    })
+      at: user.at,
+      token: user.token,
+      cid: user.cid,
+    }).then( res => {
+      this.setState({
+        addLoading: false,
+        addResponse: res.data.response,
+        addedGalleryId: gallery.galleryId,
+      });
+
+      setTimeout(() => {
+        this.setState({
+          addResponse: null,
+          addedGalleryId: null,
+        });
+      }, 5000)
+
+    });
   }
 
   render() {
@@ -110,7 +137,7 @@ class AddToGallery extends Component {
       galleryCreating,
       galleryCreatingError,
     } = this.props;
-    const { newGalleryName } = this.state;
+    const { newGalleryName, addResponse, addedGalleryId } = this.state;
 
     const menuId = uniqueId();
     const sortedGalleries = orderBy(galleryList, ['created'], ['desc']);
@@ -151,9 +178,14 @@ class AddToGallery extends Component {
             {sortedGalleries.map(gallery => (<MenuItem
               onClick={e => this.handleClick(e, gallery)}
               key={gallery.galleryId}
+              preventClose={true}
             >
-              {gallery.title}
-              {!gallery.created && <span> new!</span>}
+              {(addResponse && addedGalleryId === gallery.galleryId) && <span dangerouslySetInnerHTML={{ __html: addResponse }} />}
+              {addedGalleryId !== gallery.galleryId && <span>
+                {gallery.title}
+                {!gallery.created && <span> new!</span>}
+                </span>
+              }
               </MenuItem>))}
 
         </div>}
