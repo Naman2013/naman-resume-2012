@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { fetchMyPicturesCount, fetchMissionCount } from '../my-pictures/actions';
 
 export const CREATE_GALLERY_START = 'CREATE_GALLERY_START';
 export const CREATE_GALLERY_SUCCESS = 'CREATE_GALLERY_SUCCESS';
@@ -65,7 +66,7 @@ export const fetchGalleries = ({
   firstImageNumber = 1,
 }) => (dispatch, getState) => {
   const { at, token, cid } = getState().user;
-  const { objectTypeFilter } = getState().myPictures;
+  const { selectedFilters } = getState().myPicturesFilters;
   dispatch(fetchGalleriesStart());
   // dispatch(fetchGalleriesCount({})); // for pagination
   // dispatch(fetchMissionCount()); // for deeplinking
@@ -79,7 +80,7 @@ export const fetchGalleries = ({
     token,
     maxImageCount,
     firstImageNumber,
-    filterType: objectTypeFilter.filterByField,
+    ...selectedFilters,
   })
   .then(result => dispatch(fetchGalleriesSuccess(result.data)))
   .catch(error => dispatch(fetchGalleriesFail(error)));
@@ -102,6 +103,7 @@ const fetchGalleriesCountFail = payload => ({
 
 export const fetchGalleriesCount = () => (dispatch, getState) => {
   const { at, token, cid } = getState().user;
+  const { selectedFilters } = getState().myPicturesFilters;
   dispatch(fetchGalleriesCountStart());
 
   return axios.post('/api/images/getGalleryCount', {
@@ -111,6 +113,7 @@ export const fetchGalleriesCount = () => (dispatch, getState) => {
     at,
     cid,
     token,
+    ...selectedFilters,
   })
   .then(result => {
     if (result.apiError) {
@@ -120,4 +123,11 @@ export const fetchGalleriesCount = () => (dispatch, getState) => {
     }
   })
   .catch(error => dispatch(fetchGalleriesCountFail(error)));
+};
+
+export const fetchGalleriesAndCounts = (params) => (dispatch) => {
+  dispatch(fetchMissionCount());
+  dispatch(fetchMyPicturesCount());
+  dispatch(fetchGalleriesCount());
+  dispatch(fetchGalleries(params));
 };

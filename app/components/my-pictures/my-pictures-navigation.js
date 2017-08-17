@@ -13,8 +13,6 @@ const mapStateToProps = ({ objectTypeList, myPictures, galleries, myPicturesFilt
   photoRollCount: myPictures.photoRoll.imageCount,
   missionCount: myPictures.missions.imageCount,
   galleriesCount: galleries.imageCount,
-  objectFilterList: objectTypeList.objectListResponse.objectTypeList,
-  objectTypeFilter: myPictures.objectTypeFilter,
   filterMenuIsOpen: myPicturesFilters.filterMenuIsOpen,
   selectedFilters: myPicturesFilters.selectedFilters,
 });
@@ -141,8 +139,6 @@ class MyPicturesNavigation extends Component {
 
 MyPicturesNavigation.defaultProps = {
   page: 'photoRoll',
-  objectFilterList: [],
-  objectTypeFilter: '',
   galleryId: null,
   scheduledMissionId: null,
   filterMenuIsOpen: false,
@@ -152,16 +148,6 @@ MyPicturesNavigation.propTypes = {
   page: PropTypes.string,
   scheduledMissionId: PropTypes.string,
   galleryId: PropTypes.string,
-  objectFilterList: PropTypes.arrayOf(PropTypes.shape({
-    objectTypeDisplayName: PropTypes.string,
-    objectTypeDisplayOrder: PropTypes.number,
-    objectTypeFilter: PropTypes.string,
-    objectTypeFilterLookupId: PropTypes.number,
-    objectTypeIconURL: PropTypes.string,
-    objectTypeIndex: PropTypes.number,
-    objectTypeName: PropTypes.string,
-  })),
-  objectTypeFilter: PropTypes.string,
   filterMenuIsOpen: PropTypes.bool
 };
 

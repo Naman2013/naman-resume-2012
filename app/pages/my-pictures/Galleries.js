@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import MyPicturesNavigation from '../../components/my-pictures/my-pictures-navigation';
 import PhotoView from '../../components/my-pictures/PhotoView';
-import { fetchGalleriesAndCounts } from '../../modules/my-pictures/actions';
+import { fetchGalleriesAndCounts } from '../../modules/my-pictures-galleries/actions';
 import style from './my-pictures-gallery.scss';
 
 const mapStateToProps = ({ galleries }) => ({
