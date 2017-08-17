@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux';
 import { ContextMenu, MenuItem, ContextMenuTrigger } from 'react-contextmenu';
 import { white, black, lightTurqoise, darkBlueGray } from '../../../styles/variables/colors';
 import { fetchGalleries } from '../../../modules/my-pictures/actions';
-import { createGallery } from '../../../modules/my-pictures-galleries/actions';
+import { createGallery } from '../../../modules/my-pictures-gallery-pictures/actions';
 import { borderRadius } from '../../../styles/mixins/utilities';
 import { actionsStyles } from './actions.style';
 
