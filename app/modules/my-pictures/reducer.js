@@ -17,9 +17,6 @@ import {
   FETCH_MISSIONS_SUCCESS,
   FETCH_MISSIONS_FAIL,
 
-  UPDATE_BY_OBJECT_FILTER,
-  RESET_OBJECT_TYPE_FILTER,
-
   UPDATE_SCHEDULE_MISSION_ID,
   RESET_SCHEDULE_MISSION_ID,
 
@@ -67,6 +64,9 @@ const initialState = {
     response: {
       imageList: [],
     },
+    missionIconURL: '',
+    missionDateCreated: '',
+    missionTitle: '',
     imageCount: 0,
     maxImageCount: 9,
     firstImageNumber: 1,
@@ -84,10 +84,6 @@ const initialState = {
     fetching: false,
     error: false,
     errorBody: {},
-  },
-  objectTypeFilter: {
-    filterByField: '',
-    filterByIndex: null,
   },
   scheduledMissionId: '',
   loadedFITSImages: {
@@ -151,6 +147,9 @@ export default createReducer(initialState, {
         imageCount: state.missionPhotos.imageCount, // different call handles this
         firstImageNumber: state.missionPhotos.firstImageNumber,
         maxImageCount: state.missionPhotos.maxImageCount,
+        missionTitle: state.missionTitle,
+        missionDateCreated: state.missionDateCreated,
+        missionIconURL: state.missionIconURL,
         fetching: true,
         error: false,
         errorBody: {},
@@ -165,6 +164,9 @@ export default createReducer(initialState, {
         imageCount: state.missionPhotos.imageCount, // different call handles this
         maxImageCount: payload.maxImageCount,
         firstImageNumber: payload.firstImageNumber,
+        missionTitle: payload.missionTitle,
+        missionDateCreated: payload.missionDateCreated,
+        missionIconURL: payload.missionIconURL,
         fetching: false,
         error: false,
         errorBody: {},
@@ -179,9 +181,12 @@ export default createReducer(initialState, {
           imageList: [],
           imageCount: 0,
         },
+        missionIconURL: state.missionPhotos.missionIconURL,
         imageCount: state.missionPhotos.imageCount, // different call handles this
         firstImageNumber: state.missionPhotos.firstImageNumber,
         maxImageCount: state.missionPhotos.maxImageCount,
+        missionTitle: state.missionTitle,
+        missionDateCreated: state.missionDateCreated,
         fetching: false,
         error: true,
         errorBody: payload,
@@ -198,18 +203,6 @@ export default createReducer(initialState, {
     return {
       ...state,
       scheduledMissionId: '',
-    };
-  },
-  [UPDATE_BY_OBJECT_FILTER](state, { payload }) {
-    return {
-      ...state,
-      objectTypeFilter: payload,
-    };
-  },
-  [RESET_OBJECT_TYPE_FILTER](state) {
-    return {
-      ...state,
-      objectTypeFilter: Object.assign({}, initialState.objectTypeFilter),
     };
   },
   [FETCH_MISSIONS_START](state) {

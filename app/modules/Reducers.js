@@ -35,7 +35,8 @@ import missionSlotDates from './mission-slots-by-telescope/mission-slot-dates-re
 import missionSlotsByTelescope from './mission-slots-by-telescope/mission-slots-by-telescope-reducer';
 import myPictures from './my-pictures/reducer';
 import myPicturesImageDetails from './my-pictures-image-details/reducer';
-import galleries from './my-pictures-galleries/reducer';
+import myPicturesFilters from './my-pictures-filters/reducer';
+import galleryPictures from './my-pictures-gallery-pictures/reducer';
 import objectPostList from './object-post-list/reducer';
 import objectTypeList from './object-type-list/reducer';
 import otherFeaturedObjects from './other-featured-objects/reducer';
@@ -92,7 +93,8 @@ export default combineReducers({
   missionSlotsByTelescope,
   myPictures,
   myPicturesImageDetails,
-  galleries,
+  myPicturesFilters,
+  galleryPictures,
   objectPostList,
   objectTypeList,
   otherFeaturedObjects,

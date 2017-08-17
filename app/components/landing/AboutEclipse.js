@@ -17,7 +17,7 @@ function AboutEclipse() {
         <div className={style.sloohStream}>
           Slooh will also live stream this event:
           <div className={style.date}>
-            Monday, August 21, 2017 12:00 P.M. EDT USA
+            Monday, August 21, 2017 11:30 A.M. EDT USA
           </div>
         </div>
         <div className={style.btnGroup}>
