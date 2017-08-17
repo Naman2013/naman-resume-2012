@@ -7,7 +7,7 @@ import { ContextMenu, MenuItem, ContextMenuTrigger } from 'react-contextmenu';
 import GalleryListMenuItem from './GalleryListMenuItem';
 import { white, black } from '../../../styles/variables/colors';
 import { fetchGalleries, createGallery } from '../../../modules/my-pictures-galleries/actions';
-import { addImageToGallery } from '../../../services/my-pictures/add-image-to-gallery';
+import { removeImageFromGallery } from '../../../services/my-pictures/remove-image-from-gallery';
 import { actionsStyles } from './actions.style';
 
 const {
@@ -20,11 +20,6 @@ const {
 } = PropTypes;
 
 const mapStateToProps = ({ galleries, user }) => ({
-  // error: galleries.error,
-  // errorBody: galleries.errorBody,
-  galleryCreated: galleries.galleryCreated,
-  galleryCreating: galleries.galleryCreating,
-  galleryCreatingError: galleries.galleryCreatingError,
   fetchGalleriesLoading: galleries.fetching,
   galleryList: galleries.galleryList,
   user,
@@ -38,7 +33,7 @@ const mapDispatchToProps = dispatch => ({
 });
 
 @connect(mapStateToProps, mapDispatchToProps)
-class AddToGallery extends Component {
+class RemoveFromGallery extends Component {
 
   static propTypes = {
     customerImageId: number.isRequired,
@@ -47,9 +42,6 @@ class AddToGallery extends Component {
       createGallery: func.isRequired,
     }),
     fetchGalleriesLoading: bool,
-    galleryCreated: bool,
-    galleryCreating: bool,
-    galleryCreatingError: bool,
     galleryList: arrayOf(shape({
     })).isRequired,
     user: shape({
@@ -60,9 +52,6 @@ class AddToGallery extends Component {
   };
   static defaultProps = {
     fetchGalleriesLoading: false,
-    galleryCreated: false,
-    galleryCreating: false,
-    galleryCreatingError: false,
     user: {
       at: '',
       token: '',
@@ -76,7 +65,6 @@ class AddToGallery extends Component {
   }
 
   state = {
-    newGalleryName: '',
   };
 
   fetchGalleries = () => {
@@ -96,83 +84,40 @@ class AddToGallery extends Component {
     }
   }
 
-  createGallery = () => {
-    const { actions } = this.props;
-    const { newGalleryName } = this.state;
-
-    actions.createGallery({
-      title: newGalleryName,
-    }).then(() => {
-      this.setState({
-        newGalleryName: ''
-      })
-    });
-  }
-
-  updateNewGalleryName = (e) => {
-    this.setState({
-      newGalleryName: e.target.value,
-    });
-  }
-
   render() {
     const {
       galleryList,
       fetchGalleriesLoading,
-      galleryCreated,
-      galleryCreating,
-      galleryCreatingError,
       customerImageId,
       user,
     } = this.props;
-    const {
-      newGalleryName,
-    } = this.state;
 
     const menuId = uniqueId();
     return (
       <div className="action-menu-container">
         <ContextMenuTrigger id={menuId} ref={c => this.contextTrigger = c}>
           <button className="action" onClick={this.toggleMenu}>
-            <span className="fa fa-plus" />
+            <span className="fa fa-minus" />
           </button>
         </ContextMenuTrigger>
 
         <ContextMenu
           id={menuId}
           onShow={this.fetchGalleries}
-          className="add-gallery-context-menu"
+          className="gallery-context-menu"
           hideOnLeave={true}
         >
           {fetchGalleriesLoading && <MenuItem>
               Loading your galleries
             </MenuItem>
           }
-          {!fetchGalleriesLoading && <div>
-            <MenuItem
-              onClick={() => {}}
-              preventClose={true}
-            >
-              <button className="action" onClick={this.createGallery}>
-                <span className="fa fa-plus" />
-              </button>
-              {galleryCreating && <span>Creating your gallery...</span>}
-              {!galleryCreating && <input
-                type="text"
-                placeholder="Type Here to Create Gallery"
-                value={newGalleryName}
-                onChange={this.updateNewGalleryName}
-              />}
-              {galleryCreatingError && <span>Your gallery could not be created</span>}
-            </MenuItem>
+          {!fetchGalleriesLoading &&
             <GalleryListMenuItem
               galleryList={galleryList}
               customerImageId={customerImageId}
-              galleryAction={addImageToGallery}
+              galleryAction={removeImageFromGallery}
               user={user}
-            />
-
-            </div>}
+            />}
         </ContextMenu>
         <style jsx>
           {`
@@ -181,7 +126,7 @@ class AddToGallery extends Component {
         </style>
         <style jsx global>
           {`
-            .add-gallery-context-menu {
+            .gallery-context-menu {
               z-index: 999;
               background-color: ${white};
               color: ${black};
@@ -194,4 +139,4 @@ class AddToGallery extends Component {
   }
 }
 
-export default AddToGallery;
+export default RemoveFromGallery;

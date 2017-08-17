@@ -1,16 +1,19 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import AddToGallery from './AddToGallery';
-import { white, turqoise, lightTurqoise, darkBlueGray } from '../../../styles/variables/colors';
-import { borderRadius } from '../../../styles/mixins/utilities';
+import RemoveFromGallery from './RemoveFromGallery';
+import { white } from '../../../styles/variables/colors';
 import { actionsStyles } from './actions.style';
 class PhotoActions extends Component {
   static propTypes = {
     imageURL: PropTypes.string,
+    canEditFlag: PropTypes.bool,
+    customerImageId: PropTypes.number.isRequired,
   };
 
   static defaultProps = {
     imageURL: '',
+    canEditFlag: false,
   };
 
   handleDownloadPhotoClick = (event) => {
@@ -21,15 +24,19 @@ class PhotoActions extends Component {
 
   render() {
     const {
+      canEditFlag,
       imageURL,
       customerImageId,
     } = this.props;
 
     return (
       <div className="">
-        <AddToGallery
+        {canEditFlag && <AddToGallery
           customerImageId={customerImageId}
-        />
+        />}
+        {canEditFlag && <RemoveFromGallery
+          customerImageId={customerImageId}
+        />}
         <button onClick={this.handleDownloadPhotoClick} className="action">
           <span className="fa fa-download"></span>
         </button>

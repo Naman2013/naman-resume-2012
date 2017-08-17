@@ -37,6 +37,7 @@ class PhotoList extends Component {
                   imageTitle={photo.imageTitle}
                   overlayText={photo.overlayText}
                   customerImageId={photo.customerImageId}
+                  canEditFlag={photo.canEditFlag}
                 />
               </li>
             ))
