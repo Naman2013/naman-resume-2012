@@ -6,14 +6,14 @@ import PhotoView from '../../components/my-pictures/PhotoView';
 import { fetchGalleriesAndCounts } from '../../modules/my-pictures/actions';
 import style from './my-pictures-gallery.scss';
 
-const mapStateToProps = ({ myPictures }) => ({
-  error: myPictures.galleries.error,
-  errorBody: myPictures.galleries.errorBody,
-  fetching: myPictures.galleries.fetching,
-  firstGalleryNumber: myPictures.galleries.firstGalleryNumber,
-  imageCount: myPictures.galleries.imageCount,
-  galleryList: myPictures.galleries.response.galleryList,
-  maxImageCount: myPictures.galleries.maxImageCount,
+const mapStateToProps = ({ galleries }) => ({
+  error: galleries.error,
+  errorBody: galleries.errorBody,
+  fetching: galleries.fetching,
+  firstGalleryNumber: galleries.firstGalleryNumber,
+  imageCount: galleries.imageCount,
+  galleryList: galleries.galleryList,
+  maxImageCount: galleries.maxImageCount,
 });
 
 const mapDispatchToProps = dispatch => ({

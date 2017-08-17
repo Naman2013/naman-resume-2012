@@ -11,11 +11,11 @@ import { borderRadius } from '../../../styles/mixins/utilities';
 import { actionsStyles } from './actions.style';
 
 const { arrayOf, shape, func } = PropTypes;
-const mapStateToProps = ({ myPictures }) => ({
-  // error: myPictures.galleries.error,
-  // errorBody: myPictures.galleries.errorBody,
-  fetchGalleriesLoading: myPictures.galleries.fetching,
-  galleryList: myPictures.galleries.response.galleryList,
+const mapStateToProps = ({ galleries }) => ({
+  // error: galleries.error,
+  // errorBody: galleries.errorBody,
+  fetchGalleriesLoading: galleries.fetching,
+  galleryList: galleries.galleryList,
 });
 
 const mapDispatchToProps = dispatch => ({

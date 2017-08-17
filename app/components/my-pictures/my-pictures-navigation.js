@@ -8,10 +8,11 @@ import FilterMenu from './FilterMenu';
 import { toggleFilterMenuDisplay, setFilters } from '../../modules/my-pictures-filters/actions';
 import s from './my-pictures-navigation.scss';
 
-const mapStateToProps = ({ objectTypeList, myPictures, myPicturesFilters }) => ({
+
+const mapStateToProps = ({ objectTypeList, myPictures, galleries, myPicturesFilters }) => ({
   photoRollCount: myPictures.photoRoll.imageCount,
   missionCount: myPictures.missions.imageCount,
-  galleriesCount: myPictures.galleries.imageCount,
+  galleriesCount: galleries.imageCount,
   objectFilterList: objectTypeList.objectListResponse.objectTypeList,
   objectTypeFilter: myPictures.objectTypeFilter,
   filterMenuIsOpen: myPicturesFilters.filterMenuIsOpen,

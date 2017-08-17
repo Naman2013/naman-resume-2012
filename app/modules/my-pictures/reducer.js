@@ -49,17 +49,6 @@ const initialState = {
     error: false,
     errorBody: {},
   },
-  galleries: {
-    response: {
-      galleryList: [],
-    },
-    imageCount: 0,
-    maxImageCount: 9,
-    firstImageNumber: 1,
-    fetching: false,
-    error: false,
-    errorBody: {},
-  },
   missionPhotos: {
     response: {
       imageList: [],
@@ -294,79 +283,6 @@ export default createReducer(initialState, {
         fetching: false,
         error: true,
         errorBody: payload,
-      },
-    };
-  },
-  [FETCH_GALLERIES_START](state) {
-    return {
-      ...state,
-      galleries: {
-        response: {
-          galleryList: [],
-        },
-        imageCount: state.galleries.imageCount, // different call handles this
-        maxImageCount: state.galleries.maxImageCount,
-        firstImageNumber: state.galleries.firstImageNumber,
-        fetching: true,
-        error: false,
-        errorBody: {},
-      },
-    };
-  },
-  [FETCH_GALLERIES_SUCCESS](state, { payload }) {
-    return {
-      ...state,
-      galleries: {
-        response: payload,
-        imageCount: state.galleries.imageCount, // different call handles this
-        maxImageCount: payload.maxImageCount,
-        firstImageNumber: payload.firstImageNumber,
-        fetching: false,
-        error: false,
-        errorBody: {},
-      },
-    };
-  },
-  [FETCH_GALLERIES_FAIL](state, { payload }) {
-    return {
-      ...state,
-      galleries: {
-        response: {
-          galleryList: [],
-        },
-        imageCount: state.galleries.imageCount, // different call handles this
-        maxImageCount: state.galleries.maxImageCount,
-        firstImageNumber: state.galleries.firstImageNumber,
-        fetching: false,
-        error: true,
-        errorBody: payload,
-      },
-    };
-  },
-  [FETCH_GALLERIES_COUNT_SUCCESS](state, { payload }) {
-    return {
-      ...state,
-      galleries: {
-        ...state.galleries,
-        imageCount: Number(payload.galleryCount),
-      },
-    };
-  },
-  [FETCH_GALLERIES_COUNT_FAIL](state) {
-    return {
-      ...state,
-      galleries: {
-        ...state.galleries,
-        imageCount: 0,
-      },
-    };
-  },
-  [FETCH_MY_PICTURES_COUNT_SUCCESS](state, { payload }) {
-    return {
-      ...state,
-      photoRoll: {
-        ...state.photoRoll,
-        imageCount: payload.imageCount,
       },
     };
   },

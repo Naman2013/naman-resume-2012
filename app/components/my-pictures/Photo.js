@@ -8,11 +8,11 @@ import { Link } from 'react-router';
 import PhotoActions from './actions/PhotoActions';
 import s from './Photo.scss';
 
-const mapStateToProps = ({ myPictures }) => ({
-  // error: myPictures.galleries.error,
-  // errorBody: myPictures.galleries.errorBody,
-  // fetching: myPictures.galleries.fetching,
-  // galleryList: myPictures.galleries.response.galleryList,
+const mapStateToProps = ({ galleries }) => ({
+  // error: galleries.error,
+  // errorBody: galleries.errorBody,
+  // fetching: galleries.fetching,
+  // galleryList: galleries.galleryList,
 });
 
 const mapDispatchToProps = dispatch => ({
