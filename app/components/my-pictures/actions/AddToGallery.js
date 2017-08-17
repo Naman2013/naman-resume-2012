@@ -153,6 +153,7 @@ class AddToGallery extends Component {
           id={menuId}
           onShow={this.fetchGalleries}
           className="add-gallery-context-menu"
+          hideOnLeave={true}
         >
           {fetchGalleriesLoading && <MenuItem>
               Loading your galleries
