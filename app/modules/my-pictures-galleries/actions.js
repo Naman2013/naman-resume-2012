@@ -64,6 +64,7 @@ const fetchGalleriesFail = payload => ({
 export const fetchGalleries = ({
   maxImageCount = 9,
   firstImageNumber = 1,
+  pagingMode = 'app',
 }) => (dispatch, getState) => {
   const { at, token, cid } = getState().user;
   const { selectedFilters } = getState().myPicturesFilters;
@@ -78,8 +79,9 @@ export const fetchGalleries = ({
     at,
     cid,
     token,
-    maxImageCount,
-    firstImageNumber,
+    pagingMode,
+    maxGalleryCount: maxImageCount,
+    firstGalleryNumber: firstImageNumber,
     ...selectedFilters,
   })
   .then(result => dispatch(fetchGalleriesSuccess(result.data)))

@@ -8,11 +8,12 @@ import { Link } from 'react-router';
 import PhotoActions from './actions/PhotoActions';
 import s from './Photo.scss';
 
-const mapStateToProps = ({ galleries }) => ({
+const mapStateToProps = ({ galleries, user }) => ({
   // error: galleries.error,
   // errorBody: galleries.errorBody,
   // fetching: galleries.fetching,
   // galleryList: galleries.galleryList,
+  user,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -36,6 +37,7 @@ class Photo extends Component {
       detailsUrl,
       customerImageId,
       canEditFlag,
+      user,
     } = this.props;
 
     const inlinePhotoStyle = {
@@ -54,7 +56,12 @@ class Photo extends Component {
             </div>
             <ul className={s.photoMenu}>
               <li>
-                <PhotoActions canEditFlag={canEditFlag} imageURL={imageURL} customerImageId={customerImageId} />
+                <PhotoActions
+                  canEditFlag={canEditFlag}
+                  imageURL={imageURL}
+                  customerImageId={customerImageId}
+                  user={user}
+                />
               </li>
             </ul>
           </div>

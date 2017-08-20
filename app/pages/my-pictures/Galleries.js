@@ -26,7 +26,9 @@ const mapDispatchToProps = dispatch => ({
 class Galleries extends Component {
   componentWillMount() {
     window.scrollTo(0, 0);
-    this.props.actions.fetchGalleriesAndCounts({});
+    this.props.actions.fetchGalleriesAndCounts({
+      pagingMode: 'api'
+    });
   }
 
   render() {

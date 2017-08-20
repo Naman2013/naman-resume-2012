@@ -15,7 +15,7 @@ class GalleryList extends Component {
         <ul className={`${style.photoList} col-xs-12`}>
           {
             galleryList.map(gallery => (
-              <li key={isImages ? gallery.customerImageId : gallery.galleryId} className="col-xs-12 col-sm-3">
+              <li key={isImages ? gallery.customerImageId : gallery.galleryId} className="col-xs-12 col-sm-4">
                 <div className="relative-container"><Gallery
                   {...gallery}
                   isImages={isImages}
