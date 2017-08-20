@@ -91,6 +91,7 @@ class GalleryListMenuItem extends Component {
             <span dangerouslySetInnerHTML={{ __html: response }} />}
           {currentGalleryId !== gallery.galleryId && <span>
             {gallery.title}
+            <span>(<span dangerouslySetInnerHTML={{ __html: gallery.galleryPictureCount }} />)</span>
             {!gallery.created && <span> new!</span>}
             </span>
           }

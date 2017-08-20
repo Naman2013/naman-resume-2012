@@ -81,10 +81,8 @@ class AddToGallery extends Component {
 
   fetchGalleries = () => {
     const { actions, galleryList } = this.props;
-    if (galleryList.length === 0) {
-      // only make call once
-      actions.fetchGalleries({});
-    }
+    actions.fetchGalleries({});
+
   }
 
   toggleMenu = (e) => {
