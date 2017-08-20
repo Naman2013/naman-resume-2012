@@ -2,18 +2,21 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import AddToGallery from './AddToGallery';
 import { white } from '../../../styles/variables/colors';
-import { removeImageFromGallery } from '../../../services/my-pictures/remove-image-from-gallery';
+import RemoveFromGallery from './RemoveFromGallery';
 import { actionsStyles } from './actions.style';
+
 class PhotoActions extends Component {
   static propTypes = {
     imageURL: PropTypes.string,
     canEditFlag: PropTypes.bool,
     customerImageId: PropTypes.number.isRequired,
+    galleryId: PropTypes.string,
   };
 
   static defaultProps = {
     imageURL: '',
     canEditFlag: false,
+    galleryId: null,
   };
 
   state = {
@@ -27,15 +30,18 @@ class PhotoActions extends Component {
     window.open(imageURL);
   }
 
-  removeFromGallery = () => {
-    const { user } = this.props;
+  removeFromGallery = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    const { user, customerImageId, galleryId } = this.props;
 
     this.setState({
       removeLoading: true,
     });
 
     removeImageFromGallery({
-      galleryId: gallery.galleryId,
+      galleryId,
       customerImageId,
       at: user.at,
       token: user.token,
@@ -53,6 +59,7 @@ class PhotoActions extends Component {
       canRemove,
       canEditFlag,
       imageURL,
+      galleryId,
       customerImageId,
     } = this.props;
 
@@ -61,9 +68,11 @@ class PhotoActions extends Component {
         {canEditFlag && <AddToGallery
           customerImageId={customerImageId}
         />}
-        {canEditFlag && canRemove && <button className="action" onClick={this.removeFromGallery}>
-          <span className="fa fa-minus" />
-        </button>}
+        {canEditFlag && canRemove &&
+          <RemoveFromGallery
+            customerImageId={customerImageId}
+            galleryId={galleryId}
+          />}
         <button onClick={this.handleDownloadPhotoClick} className="action">
           <span className="fa fa-download"></span>
         </button>

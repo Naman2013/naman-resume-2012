@@ -5,15 +5,21 @@ import moment from 'moment';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router';
+import PhotoActions from './actions/PhotoActions';
 import { backgroundImageCover } from '../../styles/mixins/utilities';
 import { white, pink } from '../../styles/variables/colors';
 
-// const mapDispatchToProps = dispatch => ({
-//   actions: bindActionCreators({
-//   }, dispatch),
-// });
-//
-// @connect(null, mapDispatchToProps)
+const mapStateToProps = ({ user }) => ({
+  user,
+});
+
+
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators({
+  }, dispatch),
+});
+
+@connect(mapStateToProps, mapDispatchToProps)
 class Gallery extends Component {
   static propTypes = {
     imageURL: PropTypes.string.isRequired,
@@ -22,11 +28,12 @@ class Gallery extends Component {
   }
 
   static defaultProps = {
-    created: 0
+    created: '0',
   }
 
   render() {
     const {
+      canEditFlag,
       isImages,
       galleryId,
       overlayText,
@@ -34,7 +41,8 @@ class Gallery extends Component {
       imageURL,
       imageTitle,
       customerImageId,
-      shareToken
+      shareToken,
+      user,
     } = this.props;
     const createdDate = moment(Number(created) * 1000);
     const url = isImages ? `/my-pictures/gallery/${galleryId}/show-image/${customerImageId}/${shareToken}` : `/my-pictures/galleries/${galleryId}`;
@@ -48,6 +56,18 @@ class Gallery extends Component {
               overlayText && overlayText.map((markdownText, index) => <Markdown key={`markdown-text-${index}`} source={markdownText} />)
             }
           </div>
+          <ul className="photoMenu">
+            <li>
+              <PhotoActions
+                canEditFlag={canEditFlag}
+                imageURL={imageURL}
+                customerImageId={customerImageId}
+                user={user}
+                canRemove={true}
+                galleryId={galleryId}
+              />
+            </li>
+          </ul>
           <style jsx>
             {`
 
@@ -93,6 +113,13 @@ class Gallery extends Component {
 
               .gallery-container-image:hover .innerContainer {
                 opacity: 1;
+              }
+
+              .photoMenu {
+                list-style-type: none;
+                position: absolute !important;
+                right: 20px;
+                bottom: 20px;
               }
 
             `}
