@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { MenuItem } from 'react-contextmenu';
 import orderBy from 'lodash/orderBy';
+import { lightBlack } from '../../../styles/variables/colors';
+
 
 const {
   arrayOf,
@@ -86,16 +88,26 @@ class GalleryListMenuItem extends Component {
           key={gallery.galleryId}
           preventClose={true}
         >
-          {(response &&
-            currentGalleryId === gallery.galleryId) &&
-            <span dangerouslySetInnerHTML={{ __html: response }} />}
-          {currentGalleryId !== gallery.galleryId && <span>
-            {gallery.title}
-            <span>(<span dangerouslySetInnerHTML={{ __html: gallery.galleryPictureCount }} />)</span>
-            {!gallery.created && <span> new!</span>}
-            </span>
-          }
+          <div className="menu-item">
+            {(response &&
+              currentGalleryId === gallery.galleryId) &&
+              <span dangerouslySetInnerHTML={{ __html: response }} />}
+            {currentGalleryId !== gallery.galleryId && <span>
+              {gallery.title}
+              <span>(<span dangerouslySetInnerHTML={{ __html: gallery.galleryPictureCount }} />)</span>
+              {!gallery.created && <span> new!</span>}
+              </span>
+            }
+          </div>
         </MenuItem>))}
+        <style jsx>
+         {`
+           .menu-item {
+             padding: 5px 0;
+             border-top: 1px solid ${lightBlack};
+           }
+          `}
+        </style>
       </div>
 
     );

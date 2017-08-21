@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import uniqueId from 'lodash/uniqueId';
 import { bindActionCreators } from 'redux';
-import { ContextMenu, MenuItem, ContextMenuTrigger } from 'react-contextmenu';
+// import { ContextMenu, MenuItem, ContextMenuTrigger } from 'react-contextmenu';
+import ContextMenu from '../../common/context-menu/ContextMenu';
 import GalleryListMenuItem from './GalleryListMenuItem';
 import { white, black } from '../../../styles/variables/colors';
 import { fetchGalleries, createGallery } from '../../../modules/my-pictures-galleries/actions';
@@ -130,7 +131,11 @@ class AddToGallery extends Component {
     const menuId = uniqueId();
     return (
       <div className="action-menu-container">
-        <ContextMenuTrigger id={menuId} ref={c => this.contextTrigger = c}>
+        <ContextMenu ref={c => this.contextTrigger = c} />
+        <button className="action" onClick={this.toggleMenu}>
+          <span className="fa fa-plus" />
+        </button>
+        {/* <ContextMenuTrigger id={menuId} ref={c => this.contextTrigger = c}>
           <button className="action" onClick={this.toggleMenu}>
             <span className="fa fa-plus" />
           </button>
@@ -172,6 +177,7 @@ class AddToGallery extends Component {
 
             </div>}
         </ContextMenu>
+      */}
         <style jsx>
           {`
             ${actionsStyles}
@@ -180,10 +186,19 @@ class AddToGallery extends Component {
         <style jsx global>
           {`
             .add-gallery-context-menu {
-              z-index: 999;
+              margin-top: -30px;
+              margin-left: 30px;
+              margin-right: -200px;
+              z-index: 999999;
               background-color: ${white};
               color: ${black};
+              height: 200px;
+              width: 300px;
+              padding: 15px;
+              padding-bottom: 30px;
+              overflow-y: auto;
             }
+
           `}
         </style>
       </div>
