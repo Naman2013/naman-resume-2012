@@ -84,7 +84,11 @@ export default createReducer(initialState, {
   },
   [CREATE_GALLERY_SUCCESS](state, { payload }) {
     const { galleryId, title } = payload;
-    state.galleryList.unshift({ title, galleryId })
+    state.galleryList.unshift({
+      title,
+      galleryId,
+      galleryPictureCount: '0'
+    });
     return {
       ...state,
       galleryList: state.galleryList,

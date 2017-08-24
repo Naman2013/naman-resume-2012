@@ -93,10 +93,10 @@ class AddToGallery extends Component {
     }
   }
 
-  createGallery = () => {
+  createGallery = (e) => {
     const { actions } = this.props;
     const { newGalleryName } = this.state;
-
+    e.preventDefault();
     actions.createGallery({
       title: newGalleryName,
     }).then(() => {
@@ -144,6 +144,7 @@ class AddToGallery extends Component {
             </button>
             {galleryCreating && <span>Creating your gallery...</span>}
             {!galleryCreating && <input
+              onClick={e => e.preventDefault()}
               type="text"
               placeholder="Type Here to Create Gallery"
               value={newGalleryName}
