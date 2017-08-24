@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import uniqueId from 'lodash/uniqueId';
 import { bindActionCreators } from 'redux';
 import ContextMenu from '../../common/context-menu/ContextMenu';
 import GalleryListMenuItem from './GalleryListMenuItem';
 import { white, black } from '../../../styles/variables/colors';
 import { fetchGalleries, createGallery } from '../../../modules/my-pictures-galleries/actions';
-import { addImageToGallery } from '../../../services/my-pictures/add-image-to-gallery';
+import { addImageToGallery, resetAddResponse } from '../../../modules/my-pictures-gallery-actions/actions';
 import { actionsStyles } from './actions.style';
 
 const {
@@ -19,7 +18,7 @@ const {
   string,
 } = PropTypes;
 
-const mapStateToProps = ({ galleries, user }) => ({
+const mapStateToProps = ({ galleries, galleryActions }) => ({
   // error: galleries.error,
   // errorBody: galleries.errorBody,
   galleryCreated: galleries.galleryCreated,
@@ -27,13 +26,15 @@ const mapStateToProps = ({ galleries, user }) => ({
   galleryCreatingError: galleries.galleryCreatingError,
   fetchGalleriesLoading: galleries.fetching,
   galleryList: galleries.galleryList,
-  user,
+  addToGalleryState: galleryActions.addToGallery,
 });
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
     fetchGalleries,
     createGallery,
+    addImageToGallery,
+    resetAddResponse,
   }, dispatch),
 });
 
@@ -46,19 +47,24 @@ class AddToGallery extends Component {
       fetchGalleries: func.isRequired,
       createGallery: func.isRequired,
     }),
+    addToGalleryState: shape({
+      loading: bool,
+      response: string,
+      galleryId: string,
+    }).isRequired,
     fetchGalleriesLoading: bool,
     galleryCreated: bool,
     galleryCreating: bool,
     galleryCreatingError: bool,
     galleryList: arrayOf(shape({
     })).isRequired,
-    user: shape({
-      at: string,
-      token: string,
-      cid: string,
-    }).isRequired,
   };
   static defaultProps = {
+    addToGalleryState: {
+      loading: false,
+      response: null,
+      galleryId: null,
+    },
     fetchGalleriesLoading: false,
     galleryCreated: false,
     galleryCreating: false,
@@ -112,15 +118,28 @@ class AddToGallery extends Component {
     });
   }
 
+  addToGalleryAndReset = ({ galleryId, customerImageId }) => {
+    const { actions } = this.props;
+
+    actions.addImageToGallery({
+      galleryId,
+      customerImageId,
+    });
+
+    setTimeout(() => {
+      actions.resetAddResponse();
+    }, 5000);
+  }
+
   render() {
     const {
+      addToGalleryState,
       galleryList,
       fetchGalleriesLoading,
       galleryCreated,
       galleryCreating,
       galleryCreatingError,
       customerImageId,
-      user,
     } = this.props;
     const {
       newGalleryName,
@@ -154,8 +173,10 @@ class AddToGallery extends Component {
             <GalleryListMenuItem
               galleryList={galleryList}
               customerImageId={customerImageId}
-              galleryAction={addImageToGallery}
-              user={user}
+              galleryAction={this.addToGalleryAndReset}
+              loading={addToGalleryState.loading}
+              response={addToGalleryState.response}
+              currentGalleryId={addToGalleryState.galleryId}
             />
 
             </div>}

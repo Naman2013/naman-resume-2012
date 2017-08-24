@@ -1,3 +1,4 @@
+import findIndex from 'lodash/findIndex';
 import createReducer from '../utils/createReducer';
 
 import {
@@ -10,6 +11,10 @@ import {
   CREATE_GALLERY_SUCCESS,
   CREATE_GALLERY_FAIL,
 } from './actions';
+
+import {
+  ADD_IMAGE_TO_GALLERY_SUCCESS
+} from '../my-pictures-gallery-actions/actions';
 
 const initialState = {
   galleryList: [],
@@ -102,6 +107,13 @@ export default createReducer(initialState, {
       galleryCreatingError: true,
       galleryCreated: false,
       galleryCreating: false,
+    };
+  },
+  [ADD_IMAGE_TO_GALLERY_SUCCESS](state, { payload }) {
+    const galleryIndex = findIndex(state.galleryList, gallery => gallery.galleryId === payload.galleryId);
+    console.log('galleryIndex', galleryIndex);
+    return {
+      ...state,
     };
   },
 });

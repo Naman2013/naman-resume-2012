@@ -10,6 +10,7 @@ const {
   func,
   number,
   string,
+  bool,
 } = PropTypes;
 
 class GalleryListMenuItem extends Component {
@@ -19,29 +20,21 @@ class GalleryListMenuItem extends Component {
     galleryList: arrayOf(shape({
     })).isRequired,
     galleryAction: func.isRequired,
-    user: shape({
-      at: string,
-      token: string,
-      cid: string,
-    }).isRequired,
+    response: string,
+    loading: bool,
+    currentGalleryId: string,
   };
   static defaultProps = {
-    user: {
-      at: '',
-      token: '',
-      cid: '',
-    },
-  };
-  state = {
     response: null,
     loading: false,
     currentGalleryId: null,
+  };
+  state = {
   };
 
   handleClick = (e, gallery) => {
     const {
       customerImageId,
-      user,
       galleryAction,
     } = this.props;
     e.preventDefault();
@@ -54,30 +47,16 @@ class GalleryListMenuItem extends Component {
     galleryAction({
       galleryId: gallery.galleryId,
       customerImageId,
-      at: user.at,
-      token: user.token,
-      cid: user.cid,
-    }).then((res) => {
-      this.setState({
-        loading: false,
-        response: res.data.response,
-        currentGalleryId: gallery.galleryId,
-      });
-
-      setTimeout(() => {
-        this.setState({
-          response: null,
-          currentGalleryId: null,
-        });
-      }, 5000);
     });
   }
 
   render() {
     const {
       galleryList,
+      response,
+      currentGalleryId,
+      loading,
     } = this.props;
-    const { response, currentGalleryId } = this.state;
 
     const sortedGalleries = orderBy(galleryList, ['created'], ['desc']);
     return (
