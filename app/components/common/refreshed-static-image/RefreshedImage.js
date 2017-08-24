@@ -41,7 +41,7 @@ export default class RefreshedImage extends Component {
     clearInterval(this.refreshInterval);
     if (refreshIntervalSec) {
       this.refreshInterval = setInterval(() => {
-        const newImageURL = `${imageURL}#${new Date().getTime()}`;
+        const newImageURL = `${imageURL}?version=${new Date().getTime()}`;
         this.setState({
           imageURL: newImageURL,
         });
