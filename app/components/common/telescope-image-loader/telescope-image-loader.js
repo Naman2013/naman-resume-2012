@@ -14,7 +14,6 @@ const mapDispatchToProps = dispatch => ({
   }, dispatch),
 });
 
-// ugh... this is to determine when to make calls to the various content APIs
 const mapStateToProps = ({ activeTelescopeMissions }) => ({
   activeTelescopeMissionID: activeTelescopeMissions.activeTelescopeMissionID,
 });
@@ -45,6 +44,36 @@ class TelescopeImageLoader extends Component {
     this.attachSSE(this.props.imageSource);
   }
 
+  componentDidUpdate() {
+    if (this.props.imageSource !== this.previouslyRenderedImageSource) {
+      this.rebuildSSE(this.props.imageSource);
+      return;
+    }
+
+    const {
+      currentImageUrl,
+      previousImageUrl,
+      startingOpacity,
+      adjustedFade } = this.state;
+
+    if (!currentImageUrl || !previousImageUrl) {
+      return;
+    }
+
+    // we start this work when we are certain we have images to work on
+    const topImageAddress = this.generateThumbnailUrl(currentImageUrl);
+    const topImage = document.getElementById(this.generateImageId());
+
+    if (topImage) {
+      topImage.style.transition = 'opacity';
+      topImage.style.opacity = startingOpacity;
+      topImage.src = topImageAddress;
+      window.getComputedStyle(topImage, null).opacity;
+      topImage.style.transition = `opacity ${adjustedFade}s`;
+      topImage.style.opacity = '1';
+    }
+  }
+
   componentWillUnmount() {
     this.detachSSE();
   }
@@ -64,13 +93,13 @@ class TelescopeImageLoader extends Component {
       statusCode,
     } = JSON.parse(imageData);
 
-    /*
+    /**
       NOTE: checking if the first index is the string heartbeat
       as to avoid loading malformed messages...
 
       NOTE: along with setting up the image, we are firing actions associated
       with the telescope mission
-    */
+      */
     if (messageType !== 'HEARTBEAT') {
       const {
         teleFade,
@@ -164,36 +193,6 @@ class TelescopeImageLoader extends Component {
       return `/util/thumbnail.php?url=${imageUrl}&dimension=W&size=${teleThumbWidth}`;
     }
     return imageUrl;
-  }
-
-  componentDidUpdate() {
-    if (this.props.imageSource !== this.previouslyRenderedImageSource) {
-      this.rebuildSSE(this.props.imageSource);
-      return;
-    }
-
-    const {
-      currentImageUrl,
-      previousImageUrl,
-      startingOpacity,
-      adjustedFade } = this.state;
-
-    if (!currentImageUrl || !previousImageUrl) {
-      return;
-    }
-
-    // we start this work when we are certain we have images to work on
-    const topImageAddress = this.generateThumbnailUrl(currentImageUrl);
-    const topImage = document.getElementById(this.generateImageId());
-
-    if (topImage) {
-      topImage.style.transition = 'opacity';
-      topImage.style.opacity = startingOpacity;
-      topImage.src = topImageAddress;
-      window.getComputedStyle(topImage, null).opacity;
-      topImage.style.transition = `opacity ${adjustedFade}s`;
-      topImage.style.opacity = '1';
-    }
   }
 
   attachSSE(imageSource) {
