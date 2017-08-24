@@ -81,7 +81,9 @@ const initialState = {
     onlineStatus: '',
   },
 
-  activeSSE: null,
+  activeSSE: {
+    astroObjectID: 0,
+  },
 };
 
 export default createReducer(initialState, {
@@ -246,7 +248,7 @@ export default createReducer(initialState, {
   [RESET_ACTIVE_SSE](state) {
     return {
       ...state,
-      activeSSE: null,
+      activeSSE: Object.assign({}, initialState.activeSSE),
     };
   },
 });

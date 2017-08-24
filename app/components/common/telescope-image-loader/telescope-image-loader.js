@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { updateTelescopeActiveMission, setActiveTelescopeMissionID } from '../../../modules/active-telescope-missions/active-telescope-missions-actions';
 import { setImageDataToSnapshot } from '../../../modules/starshare-camera/starshare-camera-actions';
+import { updateActiveSSE, resetActiveSSE } from '../../../modules/telescope-details/actions';
 import './telescope-image-loader.scss';
 
 const mapDispatchToProps = dispatch => ({
@@ -11,6 +12,8 @@ const mapDispatchToProps = dispatch => ({
     updateTelescopeActiveMission,
     setImageDataToSnapshot,
     setActiveTelescopeMissionID,
+    updateActiveSSE,
+    resetActiveSSE,
   }, dispatch),
 });
 
@@ -46,6 +49,7 @@ class TelescopeImageLoader extends Component {
 
   componentDidUpdate() {
     if (this.props.imageSource !== this.previouslyRenderedImageSource) {
+      this.actions.resetActiveSSE();
       this.rebuildSSE(this.props.imageSource);
       return;
     }
@@ -75,6 +79,7 @@ class TelescopeImageLoader extends Component {
   }
 
   componentWillUnmount() {
+    this.actions.resetActiveSSE();
     this.detachSSE();
   }
 
@@ -128,6 +133,9 @@ class TelescopeImageLoader extends Component {
         */
       if (missionFormat === 'full') {
         if (scheduledMissionID !== activeTelescopeMissionID) {
+          actions.updateActiveSSE({
+            astroObjectID,
+          });
           actions.setActiveTelescopeMissionID(scheduledMissionID);
           actions.updateTelescopeActiveMission({
             obsId,
