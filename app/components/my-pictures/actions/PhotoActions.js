@@ -64,7 +64,7 @@ class PhotoActions extends Component {
     } = this.props;
 
     return (
-      <div className="">
+      <div className="actions">
         {canEditFlag && <AddToGallery
           customerImageId={customerImageId}
         />}
@@ -79,6 +79,10 @@ class PhotoActions extends Component {
         <style jsx>
         {`
           ${actionsStyles}
+          .actions {
+            display: flex;
+            flex-direction: row;
+          }
           .galleryList {
             top: -15px;
             height: 250px;

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { MenuItem } from 'react-contextmenu';
 import orderBy from 'lodash/orderBy';
 import { lightBlack } from '../../../styles/variables/colors';
 
@@ -82,11 +81,10 @@ class GalleryListMenuItem extends Component {
 
     const sortedGalleries = orderBy(galleryList, ['created'], ['desc']);
     return (
-      <div className="">
-        {sortedGalleries.map(gallery => (<MenuItem
+      <ul className="menu-list">
+        {sortedGalleries.map(gallery => (<li
           onClick={e => this.handleClick(e, gallery)}
           key={gallery.galleryId}
-          preventClose={true}
         >
           <div className="menu-item">
             {(response &&
@@ -99,16 +97,21 @@ class GalleryListMenuItem extends Component {
               </span>
             }
           </div>
-        </MenuItem>))}
+        </li>))}
         <style jsx>
          {`
+
+           .menu-list {
+              list-style: none;
+              padding: 0;
+           }
            .menu-item {
              padding: 5px 0;
              border-top: 1px solid ${lightBlack};
            }
           `}
         </style>
-      </div>
+      </ul>
 
     );
   }

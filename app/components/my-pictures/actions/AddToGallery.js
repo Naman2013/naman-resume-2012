@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import uniqueId from 'lodash/uniqueId';
 import { bindActionCreators } from 'redux';
-// import { ContextMenu, MenuItem, ContextMenuTrigger } from 'react-contextmenu';
 import ContextMenu from '../../common/context-menu/ContextMenu';
 import GalleryListMenuItem from './GalleryListMenuItem';
 import { white, black } from '../../../styles/variables/colors';
@@ -83,7 +82,6 @@ class AddToGallery extends Component {
   fetchGalleries = () => {
     const { actions, galleryList } = this.props;
     actions.fetchGalleries({});
-
   }
 
   toggleMenu = (e) => {
@@ -128,46 +126,30 @@ class AddToGallery extends Component {
       newGalleryName,
     } = this.state;
 
-    const menuId = uniqueId();
     return (
       <div className="action-menu-container">
-        <ContextMenu ref={c => this.contextTrigger = c} />
-        <button className="action" onClick={this.toggleMenu}>
-          <span className="fa fa-plus" />
-        </button>
-        {/* <ContextMenuTrigger id={menuId} ref={c => this.contextTrigger = c}>
-          <button className="action" onClick={this.toggleMenu}>
-            <span className="fa fa-plus" />
-          </button>
-        </ContextMenuTrigger>
-
         <ContextMenu
-          id={menuId}
-          onShow={this.fetchGalleries}
           className="add-gallery-context-menu"
-          hideOnLeave={true}
+          ref={c => this.contextTrigger = c}
+          menuWidth={250}
+          onShow={this.fetchGalleries}
         >
-          {fetchGalleriesLoading && <MenuItem>
+          {fetchGalleriesLoading && <div>
               Loading your galleries
-            </MenuItem>
+            </div>
           }
           {!fetchGalleriesLoading && <div>
-            <MenuItem
-              onClick={() => {}}
-              preventClose={true}
-            >
-              <button className="action" onClick={this.createGallery}>
-                <span className="fa fa-plus" />
-              </button>
-              {galleryCreating && <span>Creating your gallery...</span>}
-              {!galleryCreating && <input
-                type="text"
-                placeholder="Type Here to Create Gallery"
-                value={newGalleryName}
-                onChange={this.updateNewGalleryName}
-              />}
-              {galleryCreatingError && <span>Your gallery could not be created</span>}
-            </MenuItem>
+            <button className="action" onClick={this.createGallery}>
+              <span className="fa fa-plus" />
+            </button>
+            {galleryCreating && <span>Creating your gallery...</span>}
+            {!galleryCreating && <input
+              type="text"
+              placeholder="Type Here to Create Gallery"
+              value={newGalleryName}
+              onChange={this.updateNewGalleryName}
+            />}
+            {galleryCreatingError && <span>Your gallery could not be created</span>}
             <GalleryListMenuItem
               galleryList={galleryList}
               customerImageId={customerImageId}
@@ -177,7 +159,9 @@ class AddToGallery extends Component {
 
             </div>}
         </ContextMenu>
-      */}
+        <button className="action" onClick={this.toggleMenu}>
+          <span className="fa fa-plus" />
+        </button>
         <style jsx>
           {`
             ${actionsStyles}
@@ -192,8 +176,6 @@ class AddToGallery extends Component {
               z-index: 999999;
               background-color: ${white};
               color: ${black};
-              height: 200px;
-              width: 300px;
               padding: 15px;
               padding-bottom: 30px;
               overflow-y: auto;
