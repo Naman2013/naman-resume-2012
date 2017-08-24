@@ -5,6 +5,7 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import uniqueId from 'lodash/uniqueId';
 
 export default class RefreshedImage extends Component {
   static propTypes = {
@@ -41,8 +42,9 @@ export default class RefreshedImage extends Component {
     clearInterval(this.refreshInterval);
     if (refreshIntervalSec) {
       this.refreshInterval = setInterval(() => {
+        const newImageURL = `${imageURL}#${new Date().getTime()}`;
         this.setState({
-          imageURL: `${imageURL}#${new Date().getTime()}`,
+          imageURL: newImageURL,
         });
       }, refreshIntervalSec * 1000);
     }
@@ -53,7 +55,7 @@ export default class RefreshedImage extends Component {
     const { imageURL } = this.state;
     return (
       <div>
-        <img alt={imageAltText} src={imageURL} />
+        <img key={imageURL} width="100%" alt={imageAltText} src={imageURL} />
       </div>
     );
   }
