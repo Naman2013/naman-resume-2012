@@ -22,6 +22,8 @@ import {
   SET_CURRENT_OBSERVATORY,
   SET_CURRENT_TELESCOPE,
   RESET_DETAILS_SELECTED_ELEMENTS,
+  UPDATE_ACTIVE_SSE,
+  RESET_ACTIVE_SSE,
 } from './actions';
 
 
@@ -78,6 +80,8 @@ const initialState = {
     domeCamURL: '',
     onlineStatus: '',
   },
+
+  activeSSE: null,
 };
 
 export default createReducer(initialState, {
@@ -231,6 +235,18 @@ export default createReducer(initialState, {
       ...state,
       fetchingDayNightBar: false,
       dayNightBar: payload,
+    };
+  },
+  [UPDATE_ACTIVE_SSE](state, { payload }) {
+    return {
+      ...state,
+      activeSSE: payload,
+    };
+  },
+  [RESET_ACTIVE_SSE](state) {
+    return {
+      ...state,
+      activeSSE: null,
     };
   },
 });

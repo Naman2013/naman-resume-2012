@@ -66,6 +66,14 @@ function getCurrentTelescope(observatoryTelescopes, telescopeId) {
   return observatoryTelescopes.find(telescope => telescope.teleUniqueId === telescopeId);
 }
 
+export const updateActiveSSE = payload => ({
+  type: UPDATE_ACTIVE_SSE,
+  payload,
+});
+
+export const resetActiveSSE = () => ({
+  type: RESET_ACTIVE_SSE,
+});
 
 const setTelescopeOnlineStatus = currentTelescopeOnlineStatus => ({
   type: SET_CURRENT_OBSERVATORY_STATUS,
