@@ -45,7 +45,7 @@ export default class RefreshedImage extends Component {
         this.setState({
           imageURL: newImageURL,
         });
-      }, refreshIntervalSec * 1000);
+      }, refreshIntervalSec * 1000); // TODO: change to 1000
     }
   }
 
@@ -54,7 +54,24 @@ export default class RefreshedImage extends Component {
     const { imageURL } = this.state;
     return (
       <div>
-        <img key={imageURL} width="100%" alt={imageAltText} src={imageURL} />
+        <img className="back" key={`${imageURL}-back`} alt={imageAltText} src={imageURL} />
+        <img className="front" key={`${imageURL}-front`} alt={imageAltText} src={imageURL} />
+        <style jsx>{`
+          div {
+            position: relative;
+          }
+
+          .front {
+            position: absolute;
+            top: 0;
+            left: 0;
+          }
+
+          img {
+            width: 100%;
+            height: auto;
+          }
+        `}</style>
       </div>
     );
   }
