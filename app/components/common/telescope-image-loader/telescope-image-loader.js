@@ -49,7 +49,7 @@ class TelescopeImageLoader extends Component {
 
   componentDidUpdate() {
     if (this.props.imageSource !== this.previouslyRenderedImageSource) {
-      this.actions.resetActiveSSE();
+      this.props.actions.resetActiveSSE();
       this.rebuildSSE(this.props.imageSource);
       return;
     }
@@ -79,7 +79,7 @@ class TelescopeImageLoader extends Component {
   }
 
   componentWillUnmount() {
-    this.actions.resetActiveSSE();
+    this.props.actions.resetActiveSSE();
     this.detachSSE();
   }
 
@@ -211,6 +211,7 @@ class TelescopeImageLoader extends Component {
   }
 
   detachSSE() {
+    console.log('detaching SSE');
     this.sseSource.removeEventListener('message', this.handleSourceImage, false);
     this.sseSource.close();
   }
