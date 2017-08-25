@@ -61,16 +61,6 @@ module.exports = {
           flags: 'g',
         },
       },
-      { // string-replace to replace sse environment url's with the appropriate address
-        test: /\.(js)$/,
-        loader: 'string-replace-loader',
-        exclude: /node_modules/,
-        query: {
-          search: '/dev-sse/',
-          replace: `${apiUrl}/`,
-          flags: 'g',
-        },
-      },
       { // string-replace replace localhost with slooh.com
         test: /\.(js)$/,
         loader: 'string-replace-loader',

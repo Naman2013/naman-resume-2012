@@ -42,7 +42,7 @@ API server for you from the relative path for example:
 
 `/api/{your-api-path-here/?foo=bar&etc=etc}`
 
-The build process also requires that your API calls begin with `/api/` or `/dev-sse/` to be remapped according to the production build process.
+The build process also requires that your API calls begin with `/api/` to be remapped according to the production build process.
 
 ### Building for Production
 
@@ -64,7 +64,7 @@ You may also provide any address provided as an argument to the long form of the
 ---
 
 The base url that you wish to map all api calls to.  The build process will rewrite all references
-to `/api/` or `/dev-sse/` to this base url for you.
+to `/api/` to this base url for you.
 
 ####apiPortNumber
 ---
