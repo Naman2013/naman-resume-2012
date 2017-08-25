@@ -61,16 +61,6 @@ module.exports = {
           flags: 'g',
         },
       },
-      { // string-replace to replace sse environment url's with the appropriate address
-        test: /\.(js)$/,
-        loader: 'string-replace-loader',
-        exclude: /node_modules/,
-        query: {
-          search: '/dev-sse/',
-          replace: '/',
-          flags: 'g',
-        },
-      },
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,

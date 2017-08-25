@@ -78,6 +78,8 @@ function mapStateToProps({
 
     activeTelescopeMission: activeTelescopeMissions.activeTelescopeMission,
     communityContent: communityObjectContent.communityContent.posts,
+
+    activeDetailsSSE: telescopeDetails.activeSSE,
   };
 }
 
@@ -210,6 +212,8 @@ class TelescopeDetails extends Component {
       activeTelescopeMission,
 
       communityContent,
+
+      activeDetailsSSE,
     } = this.props;
 
     if (fetchingObservatoryList) {
@@ -315,7 +319,7 @@ class TelescopeDetails extends Component {
               <Spacer height="50px" />
 
               {
-                (displayCommunityContent && telescopeOnline) ?
+                (displayCommunityContent && telescopeOnline && activeDetailsSSE.astroObjectID > 0) ?
                   <div>
                     <PromoMessageBanner
                       title="Community Perspectives"

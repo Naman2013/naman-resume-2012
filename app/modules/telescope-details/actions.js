@@ -52,6 +52,9 @@ export const SET_CURRENT_TELESCOPE = 'SET_CURRENT_TELESCOPE';
 export const RESET_DETAILS_SELECTED_ELEMENTS = 'RESET_DETAILS_SELECTED_ELEMENTS';
 export const SET_DISPLAY_COMMUNITY_CONTENT = 'SET_DISPLAY_COMMUNITY_CONTENT';
 
+export const UPDATE_ACTIVE_SSE = 'UPDATE_ACTIVE_SSE';
+export const RESET_ACTIVE_SSE = 'RESET_ACTIVE_SSE';
+
 
 /**
   * Getting the current telescope from the API response
@@ -63,6 +66,14 @@ function getCurrentTelescope(observatoryTelescopes, telescopeId) {
   return observatoryTelescopes.find(telescope => telescope.teleUniqueId === telescopeId);
 }
 
+export const updateActiveSSE = payload => ({
+  type: UPDATE_ACTIVE_SSE,
+  payload,
+});
+
+export const resetActiveSSE = () => ({
+  type: RESET_ACTIVE_SSE,
+});
 
 const setTelescopeOnlineStatus = currentTelescopeOnlineStatus => ({
   type: SET_CURRENT_OBSERVATORY_STATUS,
