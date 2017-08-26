@@ -60,7 +60,7 @@ export default class RefreshedImage extends Component {
           frontImageURL: newImageURL,
           frontImageOpacity: 1,
         });
-      }, refreshIntervalSec * 50); // TODO: change to 1000
+      }, refreshIntervalSec * 1000);
     }
   }
 
