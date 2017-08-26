@@ -211,7 +211,6 @@ class TelescopeImageLoader extends Component {
   }
 
   detachSSE() {
-    console.log('detaching SSE');
     this.sseSource.removeEventListener('message', this.handleSourceImage, false);
     this.sseSource.close();
   }

@@ -1,6 +1,10 @@
 /**
-  this component is designed to handle the displaying of some image
-  and refreshing the image based on some duration
+  This component is designed to handle the displaying of some image
+  and refreshing the image based on some duration.
+
+  Due to the nature of loading images, this component will queue
+  up two copies of the image and based on the onload event will fade in
+  and replace content.
   */
 
 import React, { Component } from 'react';
@@ -23,7 +27,9 @@ export default class RefreshedImage extends Component {
   }
 
   state = {
-    imageURL: this.props.imageURL,
+    backImageURL: this.props.imageURL,
+    frontImageURL: this.props.imageURL,
+    frontImageOpacity: 0,
   }
 
   componentWillReceiveProps(nextProps) {
@@ -36,6 +42,14 @@ export default class RefreshedImage extends Component {
     clearInterval(this.refreshInterval);
   }
 
+  handleOnLoad = () => {
+    const { frontImageURL } = this.state;
+    this.setState({
+      backImageURL: frontImageURL,
+      frontImageOpacity: 0,
+    });
+  }
+
   bootstrapTimer() {
     const { refreshIntervalSec, imageURL } = this.props;
     clearInterval(this.refreshInterval);
@@ -43,7 +57,8 @@ export default class RefreshedImage extends Component {
       this.refreshInterval = setInterval(() => {
         const newImageURL = `${imageURL}?version=${new Date().getTime()}`;
         this.setState({
-          imageURL: newImageURL,
+          frontImageURL: newImageURL,
+          frontImageOpacity: 1,
         });
       }, refreshIntervalSec * 1000);
     }
@@ -51,10 +66,28 @@ export default class RefreshedImage extends Component {
 
   render() {
     const { imageAltText } = this.props;
-    const { imageURL } = this.state;
+    const { backImageURL, frontImageURL } = this.state;
     return (
       <div>
-        <img key={imageURL} width="100%" alt={imageAltText} src={imageURL} />
+        <img className="back" key={`${backImageURL}-back`} alt={imageAltText} src={backImageURL} />
+        <img onLoad={this.handleOnLoad} className="front" key={`${frontImageURL}-front`} alt={imageAltText} src={frontImageURL} />
+
+        <style jsx>{`
+          div {
+            position: relative;
+          }
+
+          .front {
+            position: absolute;
+            top: 0;
+            left: 0;
+          }
+
+          img {
+            width: 100%;
+            height: auto;
+          }
+        `}</style>
       </div>
     );
   }
