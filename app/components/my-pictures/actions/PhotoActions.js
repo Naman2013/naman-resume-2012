@@ -4,6 +4,7 @@ import AddToGallery from './AddToGallery';
 import { white } from '../../../styles/variables/colors';
 import RemoveFromGallery from './RemoveFromGallery';
 import DeleteGallery from './DeleteGallery';
+import DeleteImage from './DeleteImage';
 import { actionsStyles } from './actions.style';
 
 class PhotoActions extends Component {
@@ -42,6 +43,7 @@ class PhotoActions extends Component {
     const canDownload = actionSource !== 'galleries';
     const canRemovePicture = actionSource === 'galleryPictures' || actionSource === 'galleryImageDetails';
     const canDeleteGallery = actionSource === 'galleries';
+    const canDeleteImage = actionSource === 'photoRoll' || actionSource === 'imageDetails';
     return (
       <div className="actions">
         {canEditFlag && <AddToGallery
@@ -54,6 +56,11 @@ class PhotoActions extends Component {
             galleryId={galleryId}
             actionSource={actionSource}
           />}
+          {canEditFlag && canDeleteImage &&
+            <DeleteImage
+              customerImageId={customerImageId}
+              actionSource={actionSource}
+            />}
         {canDeleteGallery &&
           <DeleteGallery
             galleryId={galleryId}
