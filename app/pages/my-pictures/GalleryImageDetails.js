@@ -11,10 +11,13 @@ import { fetchGalleryPictures } from '../../modules/my-pictures-gallery-pictures
 import ImageViewer from '../../components/my-pictures/ImageViewer';
 import imageDetailsStyle from './ImageDetailsStyles';
 import ImageInfoPanel from '../../components/my-pictures/ImageInfoPanel';
+import PhotoActions from '../../components/my-pictures/actions/PhotoActions';
+
 
 const mapStateToProps = ({ user, myPicturesImageDetails, galleryPictures }) => ({
   myPicturesImageDetails,
   galleryPictures,
+  user,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -116,6 +119,7 @@ class ImageDetails extends Component {
     const {
       scheduledMissionId,
       imageTitle,
+      canEditFlag,
     } = this.props.myPicturesImageDetails;
     const {
       error,
@@ -127,7 +131,7 @@ class ImageDetails extends Component {
       currentImageIndex,
       galleryId
     } = this.state;
-
+    const { user } = this.props;
     const rangeText = Pagination.generateRangeText({
       startRange: currentImageIndex,
       itemsPerPage: 1,
@@ -147,7 +151,16 @@ class ImageDetails extends Component {
             <div className="left">
               <h2 dangerouslySetInnerHTML={{ __html: imageTitle }} />
             </div>
-            <div className="right-top"></div>
+            <div className="right-top">
+            <PhotoActions
+              canEditFlag={canEditFlag}
+              imageURL={image}
+              galleryId={galleryId}
+              customerImageId={this.props.params.customerImageId}
+              user={user}
+              actionSource="galleryImageDetails"
+            />
+            </div>
           </div>
           <div className="container">
             <div className="left my-pic-galleries">

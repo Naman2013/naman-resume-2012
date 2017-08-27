@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Modal from 'react-modal';
@@ -59,6 +60,7 @@ class RemoveFromGallery extends Component {
     e.stopPropagation();
 
     const {
+      actionSource,
       user,
       customerImageId,
       galleryId,
@@ -74,12 +76,17 @@ class RemoveFromGallery extends Component {
       token: user.token,
       cid: user.cid,
     }).then((res) => {
-      actions.fetchGalleryPictures({
-        galleryId,
-        maxImageCount,
-        firstImageNumber,
-        pagingMode: 'api',
-      });
+      if (actionSource === 'galleryImageDetails') {
+        browserHistory.push(`/my-pictures/galleries/${galleryId}`);
+      } else {
+        actions.fetchGalleryPictures({
+          galleryId,
+          maxImageCount,
+          firstImageNumber,
+          pagingMode: 'api',
+        });
+      }
+
     });
   }
   render() {

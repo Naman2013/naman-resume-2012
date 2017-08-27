@@ -40,7 +40,7 @@ class PhotoActions extends Component {
     } = this.props;
 
     const canDownload = actionSource !== 'galleries';
-    const canRemovePicture = actionSource === 'galleryPictures';
+    const canRemovePicture = actionSource === 'galleryPictures' || actionSource === 'galleryImageDetails';
     const canDeleteGallery = actionSource === 'galleries';
     return (
       <div className="actions">
@@ -52,6 +52,7 @@ class PhotoActions extends Component {
           <RemoveFromGallery
             customerImageId={customerImageId}
             galleryId={galleryId}
+            actionSource={actionSource}
           />}
         {canDeleteGallery &&
           <DeleteGallery
