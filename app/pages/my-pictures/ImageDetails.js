@@ -93,7 +93,7 @@ class ImageDetails extends Component {
                 imageURL={imageURL}
                 customerImageId={customerImageId}
                 user={user}
-                actionSource="galleryDetails"
+                actionSource="imageDetails"
               />
             </div>
           </div>
