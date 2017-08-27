@@ -117,9 +117,6 @@ class ContextMenu extends Component {
             display: flex;
             flex-direction: row;
             justify-content: space-between;
-            position: absolute;
-            top: 0;
-            left: 0;
             width: 100%;
             padding: 5px;
             color: ${white};
@@ -131,7 +128,6 @@ class ContextMenu extends Component {
           }
 
           .list {
-            margin-top: 20px;
           }
 
           .arrow-right {

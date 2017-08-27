@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import orderBy from 'lodash/orderBy';
-import { lightBlack } from '../../../styles/variables/colors';
+import { lightBlack, turqoise, pink, white } from '../../../styles/variables/colors';
 
 
 const {
@@ -69,10 +69,10 @@ class GalleryListMenuItem extends Component {
             {(response &&
               currentGalleryId === gallery.galleryId) &&
               <span dangerouslySetInnerHTML={{ __html: response }} />}
-            {currentGalleryId !== gallery.galleryId && <span>
-              {gallery.title}
-              <span>(<span dangerouslySetInnerHTML={{ __html: gallery.galleryPictureCount }} />)</span>
-              {!gallery.created && <span> new!</span>}
+            {currentGalleryId !== gallery.galleryId && <span className="no-transition">
+              <span className="galleryTitle">{gallery.title}</span>
+              <span className="count no-transition">(<span dangerouslySetInnerHTML={{ __html: gallery.galleryPictureCount }} />)</span>
+              {!gallery.created && <span className="new"> new!</span>}
               </span>
             }
           </div>
@@ -85,9 +85,49 @@ class GalleryListMenuItem extends Component {
               padding: 0;
            }
            .menu-item {
-             padding: 5px 0;
+             transition: none !important;
+             display: block;
+             padding: 10px 5px;
              border-top: 1px solid ${lightBlack};
            }
+
+           .menu-item:hover {
+             transition: none !important;
+             color: ${white};
+             background-color: ${pink};
+           }
+           .menu-list:first-child {
+             border-top: none;
+           }
+
+           .count {
+             display: inline-block;
+             vertical-align: middle;
+             margin: 0 5px;
+           }
+
+           .no-transition {
+             transition: none !important;
+           }
+
+           .new {
+             display: inline-block;
+             vertical-align: middle;
+             font-weight: bold;
+             text-transform: capitalize;
+             color: ${turqoise};
+           }
+
+           .galleryTitle {
+              display: inline-block;
+              vertical-align: middle;
+              max-width: 80%;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+            }
+
+
           `}
         </style>
       </ul>

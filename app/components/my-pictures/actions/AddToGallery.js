@@ -159,18 +159,21 @@ class AddToGallery extends Component {
             </div>
           }
           {!fetchGalleriesLoading && <div>
-            <button className="action" onClick={this.createGallery}>
-              <span className="fa fa-plus" />
-            </button>
-            {galleryCreating && <span>Creating your gallery...</span>}
-            {!galleryCreating && <input
-              onClick={e => e.preventDefault()}
-              type="text"
-              placeholder="Type Here to Create Gallery"
-              value={newGalleryName}
-              onChange={this.updateNewGalleryName}
-            />}
-            {galleryCreatingError && <span>Your gallery could not be created</span>}
+            <div className="create-gallery">
+              <button className="action create" onClick={this.createGallery}>
+                <span className="fa fa-plus" />
+              </button>
+              {galleryCreating && <span>Creating your gallery...</span>}
+              {!galleryCreating && <input
+                className="name-input"
+                onClick={e => e.preventDefault()}
+                type="text"
+                placeholder="Type Here to Create Gallery"
+                value={newGalleryName}
+                onChange={this.updateNewGalleryName}
+              />}
+              {galleryCreatingError && <span>Your gallery could not be created</span>}
+            </div>
             <GalleryListMenuItem
               galleryList={galleryList}
               customerImageId={customerImageId}
@@ -187,19 +190,43 @@ class AddToGallery extends Component {
         </button>
         <style jsx>
           {`
-            ${actionsStyles}
-            .action {
-              background: ${white};
-              color: ${pink};
+
+            .create-gallery {
+              display: flex;
+              flex-direction: row;
+              align-items: center;
             }
 
-            .action:hover {
+            ${actionsStyles}
+            .action.create {
+              margin: 5px;
+              background: ${white};
+              color: ${pink};
+              border: 2px solid ${pink};
+            }
+
+            .action.create:hover {
               background: ${pink};
               color: ${white};
             }
 
-            .action:focus {
-              outline: none;
+            .name-input {
+              border: none;
+              color: ${pink};
+              width: 90%;
+            }
+
+            .name-input::-webkit-input-placeholder { /* Chrome */
+              color: ${pink};
+            }
+            .name-input:-ms-input-placeholder { /* IE 10+ */
+              color: ${pink};
+            }
+            .name-input::-moz-placeholder { /* Firefox 19+ */
+              color: ${pink};
+            }
+            .name-input:-moz-placeholder { /* Firefox 4 - 18 */
+              color: ${pink};
             }
           `}
         </style>
@@ -212,9 +239,9 @@ class AddToGallery extends Component {
               z-index: 999999;
               background-color: ${white};
               color: ${black};
-              padding: 15px;
               padding-bottom: 30px;
               overflow-y: auto;
+              font-size: 14px;
             }
 
           `}
