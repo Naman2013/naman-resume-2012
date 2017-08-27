@@ -9,7 +9,7 @@ class PhotoActions extends Component {
   static propTypes = {
     imageURL: PropTypes.string,
     canEditFlag: PropTypes.bool,
-    customerImageId: PropTypes.number.isRequired,
+    customerImageId: PropTypes.number,
     canRemovePicture: PropTypes.bool,
     galleryId: PropTypes.string,
   };
@@ -19,6 +19,7 @@ class PhotoActions extends Component {
     canEditFlag: false,
     galleryId: null,
     canRemovePicture: false,
+    customerImageId: null,
   };
 
   state = {

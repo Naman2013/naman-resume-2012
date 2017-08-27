@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { white, black } from '../../../styles/variables/colors';
+import Modal from 'react-modal';
+import { white, black, pink } from '../../../styles/variables/colors';
+import { secondaryFont, primaryFont } from '../../../styles/variables/fonts';
 import { fetchGalleryPictures } from '../../../modules/my-pictures-gallery-pictures/actions';
 import { removeImageFromGallery } from '../../../services/my-pictures/remove-image-from-gallery';
 
@@ -52,6 +54,7 @@ class RemoveFromGallery extends Component {
   };
 
   state = {
+    confirmModalIsOpen: false,
   };
 
 
@@ -93,13 +96,86 @@ class RemoveFromGallery extends Component {
     });
   }
 
+  showModal = (e, bool) => {
+    e.preventDefault();
+    this.setState({
+      confirmModalIsOpen: bool,
+    });
+  }
+
   render() {
+    const { confirmModalIsOpen } = this.state;
+
+    const customModalStyles = {
+      content: {
+        top: '50%',
+        left: '50%',
+        right: 'auto',
+        bottom: 'auto',
+        marginRight: '-50%',
+        transform: 'translate(-50%, -50%)',
+        maxWidth: '650px',
+        padding: '50px 25px',
+        fontFamily: primaryFont,
+      },
+      overlay: {
+        backgroundColor: 'rgba(255, 255, 255, 0)'
+      }
+    };
 
     return (
-      <button className="action" onClick={this.removeFromGallery}>
-        <span className="fa fa-minus" />
-      </button>
-
+      <div>
+        <button className="action" onClick={e => this.showModal(e, true)}>
+          <span className="fa fa-minus" />
+        </button>
+        <Modal
+          style={customModalStyles}
+          isOpen={confirmModalIsOpen}
+          contentLabel="Remove Confirm"
+          onRequestClose={e => this.showModal(e, false)}
+        >
+          <i className="fa fa-close" onClick={e => this.showModal(e, false)} />
+          <div>Are you sure you want to remove this image from the gallery?</div>
+          <div className="button-container">
+            <button className="button-action button-cancel" onClick={e => this.showModal(e, false)}>
+              Cancel
+            </button>
+            <button className="button-action button-confirm" onClick={this.removeFromGallery}>
+              Yes
+            </button>
+          </div>
+        </Modal>
+        <style jsx>{`
+          .button-container {
+            float: right;
+          }
+          .button-action {
+            height: 40px;
+            line-height: 40px;
+            width: 50px;
+            font-size: 13px;
+            display:  inline-block;
+            text-align: center;
+            margin: 0 10px;
+            border: none;
+            border-radius: 0;
+            text-decoration: none;
+          }
+          .button-cancel {
+            background-color: ${white};
+            color: ${black};
+          }
+          .button-confirm {
+            background-color: ${white};
+            color: ${pink};
+          }
+          .fa-close {
+            position: absolute;
+            top: 5px;
+            right: 10px;
+          }
+        `}</style>
+      </div>
     );
   }
 }

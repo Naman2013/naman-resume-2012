@@ -17,6 +17,7 @@ const initialState = {
   imageList: [],
   fetching: false,
   error: false,
+  galleryTitle: '',
   resultsCount: 0,
 
 };
