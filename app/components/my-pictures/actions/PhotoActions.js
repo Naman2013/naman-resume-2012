@@ -5,6 +5,8 @@ import { white } from '../../../styles/variables/colors';
 import RemoveFromGallery from './RemoveFromGallery';
 import DeleteGallery from './DeleteGallery';
 import DeleteImage from './DeleteImage';
+import Heart from '../../common/heart/heart';
+import { likeImage } from '../../../services/my-pictures/like-image';
 import { actionsStyles } from './actions.style';
 
 class PhotoActions extends Component {
@@ -14,6 +16,17 @@ class PhotoActions extends Component {
     customerImageId: PropTypes.number,
     galleryId: PropTypes.number,
     actionSource: PropTypes.string.isRequired,
+    heartProps: PropTypes.shape({
+      membershipType: PropTypes.string,
+      showLikePrompt: PropTypes.bool,
+      likePrompt: PropTypes.string,
+      canLikeFlag: PropTypes.bool,
+      likeAction: PropTypes.func,
+      count: PropTypes.number,
+      theme: PropTypes.string,
+      likeType: PropTypes.string,
+      likeId: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    })
   };
 
   static defaultProps = {
@@ -21,6 +34,7 @@ class PhotoActions extends Component {
     canEditFlag: false,
     galleryId: null,
     customerImageId: null,
+    heartProps: {},
   };
 
   state = {
@@ -38,29 +52,36 @@ class PhotoActions extends Component {
       canEditFlag,
       galleryId,
       customerImageId,
+      heartProps,
     } = this.props;
 
     const canDownload = actionSource !== 'galleries';
-    const canRemovePicture = actionSource === 'galleryPictures' || actionSource === 'galleryImageDetails';
+    const canRemovePhoto = actionSource === 'galleryPictures' || actionSource === 'galleryImageDetails';
     const canDeleteGallery = actionSource === 'galleries';
     const canDeleteImage = actionSource === 'photoRoll' || actionSource === 'imageDetails';
+    const canLikePhoto = actionSource === 'galleryImageDetails' || actionSource === 'imageDetails';
     return (
       <div className="actions">
+        {canLikePhoto && <Heart
+          {...heartProps}
+          likeAction={likeImage}
+          showLikeText={false}
+        />}
         {canEditFlag && <AddToGallery
           actionSource={actionSource}
           customerImageId={customerImageId}
         />}
-        {canEditFlag && canRemovePicture &&
+        {canEditFlag && canRemovePhoto &&
           <RemoveFromGallery
             customerImageId={customerImageId}
             galleryId={galleryId}
             actionSource={actionSource}
           />}
-          {canEditFlag && canDeleteImage &&
-            <DeleteImage
-              customerImageId={customerImageId}
-              actionSource={actionSource}
-            />}
+        {canEditFlag && canDeleteImage &&
+          <DeleteImage
+            customerImageId={customerImageId}
+            actionSource={actionSource}
+          />}
         {canDeleteGallery &&
           <DeleteGallery
             galleryId={galleryId}

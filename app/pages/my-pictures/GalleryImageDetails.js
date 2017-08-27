@@ -118,8 +118,11 @@ class ImageDetails extends Component {
   render() {
     const {
       scheduledMissionId,
+      canLikeFlag,
       imageTitle,
+      likesCount,
       canEditFlag,
+      likePrompt,
     } = this.props.myPicturesImageDetails;
     const {
       error,
@@ -139,7 +142,13 @@ class ImageDetails extends Component {
     const canNext = (currentImageIndex + 1) < imageCount;
     const canPrevious = currentImageIndex !== 0;
     const image = imageList[currentImageIndex] && imageList[currentImageIndex].imageURL;
-
+    const heartProps = {
+      likePrompt,
+      canLikeFlag,
+      count: likesCount,
+      theme: 'buttonOnly',
+      likeId: this.props.params.customerImageId,
+    };
     return (
       <div>
         <MyPicturesNavigation
@@ -159,6 +168,7 @@ class ImageDetails extends Component {
               customerImageId={this.props.params.customerImageId}
               user={user}
               actionSource="galleryImageDetails"
+              heartProps={heartProps}
             />
             </div>
           </div>

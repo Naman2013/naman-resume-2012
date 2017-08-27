@@ -29,6 +29,7 @@ class ImageDetails extends Component {
       editorValue: props.myPicturesImageDetails.observationLog,
     };
   }
+  
   componentWillMount() {
     window.scrollTo(0, 0);
     const {
@@ -62,9 +63,12 @@ class ImageDetails extends Component {
       error,
       fetching,
       canEditFlag,
+      likePrompt,
+      likesCount,
       imageTitle,
       imageURL,
       fileData,
+      canLikeFlag,
     } = this.props.myPicturesImageDetails;
 
     const {
@@ -76,6 +80,13 @@ class ImageDetails extends Component {
       user
     } = this.props;
 
+    const heartProps = {
+      likePrompt,
+      canLikeFlag,
+      count: likesCount,
+      theme: 'buttonOnly',
+      likeId: customerImageId,
+    };
     return (
       <div>
         <MyPicturesNavigation
@@ -94,6 +105,7 @@ class ImageDetails extends Component {
                 customerImageId={customerImageId}
                 user={user}
                 actionSource="imageDetails"
+                heartProps={heartProps}
               />
             </div>
           </div>
