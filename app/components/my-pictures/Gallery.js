@@ -63,7 +63,7 @@ class Gallery extends Component {
                 imageURL={imageURL}
                 customerImageId={customerImageId}
                 user={user}
-                canRemove={true}
+                canRemovePicture={true}
                 galleryId={galleryId}
               />
             </li>

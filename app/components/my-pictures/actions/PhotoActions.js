@@ -10,6 +10,7 @@ class PhotoActions extends Component {
     imageURL: PropTypes.string,
     canEditFlag: PropTypes.bool,
     customerImageId: PropTypes.number.isRequired,
+    canRemovePicture: PropTypes.bool,
     galleryId: PropTypes.string,
   };
 
@@ -17,11 +18,10 @@ class PhotoActions extends Component {
     imageURL: '',
     canEditFlag: false,
     galleryId: null,
+    canRemovePicture: false,
   };
 
   state = {
-    removeLoading: false,
-    removeResponse: '',
   };
 
   handleDownloadPhotoClick = (event) => {
@@ -30,33 +30,9 @@ class PhotoActions extends Component {
     window.open(imageURL);
   }
 
-  removeFromGallery = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-
-    const { user, customerImageId, galleryId } = this.props;
-
-    this.setState({
-      removeLoading: true,
-    });
-
-    removeImageFromGallery({
-      galleryId,
-      customerImageId,
-      at: user.at,
-      token: user.token,
-      cid: user.cid,
-    }).then((res) => {
-      this.setState({
-        removeLoading: false,
-        removeResponse: res.data.response,
-      });
-    });
-  }
-
   render() {
     const {
-      canRemove,
+      canRemovePicture,
       canEditFlag,
       imageURL,
       galleryId,
@@ -68,7 +44,7 @@ class PhotoActions extends Component {
         {canEditFlag && <AddToGallery
           customerImageId={customerImageId}
         />}
-        {canEditFlag && canRemove &&
+        {canEditFlag && canRemovePicture &&
           <RemoveFromGallery
             customerImageId={customerImageId}
             galleryId={galleryId}
