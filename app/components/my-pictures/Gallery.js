@@ -25,10 +25,22 @@ class Gallery extends Component {
     imageURL: PropTypes.string.isRequired,
     imageTitle: PropTypes.string.isRequired,
     created: PropTypes.string.isRequired,
+    canEditFlag: PropTypes.bool,
+    isImages: PropTypes.bool,
+    galleryId: PropTypes.number,
+    overlayText: PropTypes.arrayOf(PropTypes.string),
+    customerImageId: PropTypes.number,
+    shareToken: PropTypes.string,
   }
 
   static defaultProps = {
     created: '0',
+    galleryId: null,
+    isImages: false,
+    canEditFlag: false,
+    overlayText: [],
+    customerImageId: null,
+    shareToken: ''
   }
 
   render() {
@@ -46,6 +58,7 @@ class Gallery extends Component {
     } = this.props;
     const createdDate = moment(Number(created) * 1000);
     const url = isImages ? `/my-pictures/gallery/${galleryId}/show-image/${customerImageId}/${shareToken}` : `/my-pictures/galleries/${galleryId}`;
+
     return (
       <div>
         <Link to={url} className="gallery-container-image" style={{ backgroundImage: `url(${imageURL})` }}>
@@ -63,7 +76,7 @@ class Gallery extends Component {
                 imageURL={imageURL}
                 customerImageId={customerImageId}
                 user={user}
-                canRemovePicture={true}
+                actionSource={isImages ? 'galleryPictures' : 'galleries'}
                 galleryId={galleryId}
               />
             </li>

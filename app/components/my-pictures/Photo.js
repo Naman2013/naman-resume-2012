@@ -61,6 +61,7 @@ class Photo extends Component {
                   imageURL={imageURL}
                   customerImageId={customerImageId}
                   user={user}
+                  actionSource="photoRoll"
                 />
               </li>
             </ul>

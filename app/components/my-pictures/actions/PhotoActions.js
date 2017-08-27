@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import AddToGallery from './AddToGallery';
 import { white } from '../../../styles/variables/colors';
 import RemoveFromGallery from './RemoveFromGallery';
+import DeleteGallery from './DeleteGallery';
 import { actionsStyles } from './actions.style';
 
 class PhotoActions extends Component {
@@ -10,15 +11,14 @@ class PhotoActions extends Component {
     imageURL: PropTypes.string,
     canEditFlag: PropTypes.bool,
     customerImageId: PropTypes.number,
-    canRemovePicture: PropTypes.bool,
-    galleryId: PropTypes.string,
+    galleryId: PropTypes.number,
+    actionSource: PropTypes.string.isRequired,
   };
 
   static defaultProps = {
     imageURL: '',
     canEditFlag: false,
     galleryId: null,
-    canRemovePicture: false,
     customerImageId: null,
   };
 
@@ -33,13 +33,15 @@ class PhotoActions extends Component {
 
   render() {
     const {
-      canRemovePicture,
+      actionSource,
       canEditFlag,
-      imageURL,
       galleryId,
       customerImageId,
     } = this.props;
 
+    const canDownload = actionSource !== 'galleries';
+    const canRemovePicture = actionSource === 'galleryPictures';
+    const canDeleteGallery = actionSource === 'galleries';
     return (
       <div className="actions">
         {canEditFlag && <AddToGallery
@@ -50,9 +52,13 @@ class PhotoActions extends Component {
             customerImageId={customerImageId}
             galleryId={galleryId}
           />}
-        <button onClick={this.handleDownloadPhotoClick} className="action">
+        {canDeleteGallery &&
+          <DeleteGallery
+            galleryId={galleryId}
+          />}
+        {canDownload && <button onClick={this.handleDownloadPhotoClick} className="action">
           <span className="fa fa-download"></span>
-        </button>
+        </button>}
         <style jsx>
         {`
           ${actionsStyles}

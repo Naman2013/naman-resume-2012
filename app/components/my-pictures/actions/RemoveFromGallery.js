@@ -35,7 +35,7 @@ class RemoveFromGallery extends Component {
     maxImageCount: number.isRequired,
     firstImageNumber: number.isRequired,
     customerImageId: number.isRequired,
-    galleryId: string.isRequired,
+    galleryId: number.isRequired,
     actions: shape({
       fetchGalleryPictures: func.isRequired,
     }),
