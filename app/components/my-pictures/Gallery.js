@@ -68,19 +68,19 @@ class Gallery extends Component {
             {
               overlayText && overlayText.map((markdownText, index) => <Markdown key={`markdown-text-${index}`} source={markdownText} />)
             }
+            <ul className="photoMenu">
+              <li>
+                <PhotoActions
+                  canEditFlag={canEditFlag}
+                  imageURL={imageURL}
+                  customerImageId={customerImageId}
+                  user={user}
+                  actionSource={isImages ? 'galleryPictures' : 'galleries'}
+                  galleryId={galleryId}
+                />
+              </li>
+            </ul>
           </div>
-          <ul className="photoMenu">
-            <li>
-              <PhotoActions
-                canEditFlag={canEditFlag}
-                imageURL={imageURL}
-                customerImageId={customerImageId}
-                user={user}
-                actionSource={isImages ? 'galleryPictures' : 'galleries'}
-                galleryId={galleryId}
-              />
-            </li>
-          </ul>
           <style jsx>
             {`
 
