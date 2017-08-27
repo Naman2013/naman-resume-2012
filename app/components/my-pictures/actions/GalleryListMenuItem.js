@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import classnames from 'classnames';
 import orderBy from 'lodash/orderBy';
 import { lightBlack, turqoise, pink, white } from '../../../styles/variables/colors';
 
@@ -58,6 +59,11 @@ class GalleryListMenuItem extends Component {
       loading,
     } = this.props;
 
+    const publicIcon = classnames('fa public-icon', {
+      'fa-eye': true,
+      'fa-eye-slash': false,
+    });
+
     const sortedGalleries = orderBy(galleryList, ['created'], ['desc']);
     return (
       <ul className="menu-list">
@@ -66,6 +72,7 @@ class GalleryListMenuItem extends Component {
           key={gallery.galleryId}
         >
           <div className="menu-item">
+            <i className={publicIcon} />
             {(response &&
               currentGalleryId === gallery.galleryId) &&
               <span dangerouslySetInnerHTML={{ __html: response }} />}
@@ -110,6 +117,11 @@ class GalleryListMenuItem extends Component {
              transition: none !important;
            }
 
+           .public-icon {
+             color: ${turqoise};
+             margin-right: 5px;
+           }
+
            .new {
              display: inline-block;
              vertical-align: middle;
@@ -121,7 +133,7 @@ class GalleryListMenuItem extends Component {
            .galleryTitle {
               display: inline-block;
               vertical-align: middle;
-              max-width: 80%;
+              max-width: 70%;
               white-space: nowrap;
               overflow: hidden;
               text-overflow: ellipsis;

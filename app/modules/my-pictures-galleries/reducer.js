@@ -114,7 +114,7 @@ export default createReducer(initialState, {
       galleryList: state.galleryList.map((gallery) => {
         return gallery.galleryId !== payload.galleryId ? gallery : ({
           ...gallery,
-          galleryPictureCount: Number(gallery.galleryPictureCount) + 1,
+          galleryPictureCount: Number(gallery.galleryPictureCount) + Number(payload.galleryCountChange),
         });
       }),
     };
