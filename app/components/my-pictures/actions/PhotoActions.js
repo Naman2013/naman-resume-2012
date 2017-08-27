@@ -45,6 +45,7 @@ class PhotoActions extends Component {
     return (
       <div className="actions">
         {canEditFlag && <AddToGallery
+          actionSource={actionSource}
           customerImageId={customerImageId}
         />}
         {canEditFlag && canRemovePicture &&

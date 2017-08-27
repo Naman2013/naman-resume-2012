@@ -16,6 +16,7 @@ class ContextMenu extends Component {
     menuHeight: number,
     menuWidth: number,
     distanceFromTrigger: number,
+    leftOffset: number,
     backgroundColor: string,
     onShow: func,
     titleText: string,
@@ -32,6 +33,7 @@ class ContextMenu extends Component {
     backgroundColor: white,
     onShow: null,
     titleText: null,
+    leftOffset: 0,
   };
 
   state = {
@@ -67,17 +69,17 @@ class ContextMenu extends Component {
       menuHeight,
       menuWidth,
       backgroundColor,
+      leftOffset,
       children,
       className,
       titleText,
     } = this.props;
 
     const { left, top, showMenu } = this.state;
-
     const menuRootStyle = {
       position: 'absolute',
       top: `${top}px`,
-      left: `${left}px`,
+      left: `${left + leftOffset}px`,
       height: `${menuHeight}px`,
       width: `${menuWidth}px`,
       backgroundColor,
@@ -97,6 +99,7 @@ class ContextMenu extends Component {
       >
         <div
           className="arrow-right"
+          style={{ left: `${15 + leftOffset}px` }}
         />
         <div
           onMouseLeave={this.hideMenu}
@@ -128,11 +131,12 @@ class ContextMenu extends Component {
           }
 
           .list {
+            height: 100%;
+            overflow-y: auto;
           }
 
           .arrow-right {
             position: absolute;
-            left: 15px;
             width: 0;
             height: 0;
             border-top: 20px solid transparent;

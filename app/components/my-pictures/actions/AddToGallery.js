@@ -133,6 +133,7 @@ class AddToGallery extends Component {
 
   render() {
     const {
+      actionSource,
       addToGalleryState,
       galleryList,
       fetchGalleriesLoading,
@@ -152,13 +153,14 @@ class AddToGallery extends Component {
           ref={c => this.contextTrigger = c}
           menuWidth={250}
           onShow={this.fetchGalleries}
+          leftOffset={-35}
           titleText="Select A Gallery Below"
         >
           {fetchGalleriesLoading && <div>
               Loading your galleries
             </div>
           }
-          {!fetchGalleriesLoading && <div>
+          {!fetchGalleriesLoading && <div className="rest-of-list">
             <div className="create-gallery">
               <button className="action create" onClick={this.createGallery}>
                 <span className="fa fa-plus" />
@@ -182,8 +184,7 @@ class AddToGallery extends Component {
               response={addToGalleryState.response}
               currentGalleryId={addToGalleryState.galleryId}
             />
-
-            </div>}
+          </div>}
         </ContextMenu>
         <button className="action" onClick={this.toggleMenu}>
           <span className="fa fa-plus" />
@@ -191,6 +192,13 @@ class AddToGallery extends Component {
         <style jsx>
           {`
 
+            .rest-of-list {
+              height: 100%;
+              overflow-y: auto;
+            }
+            .action-menu-container {
+              position: relative;
+            }
             .create-gallery {
               display: flex;
               flex-direction: row;
@@ -240,7 +248,7 @@ class AddToGallery extends Component {
               background-color: ${white};
               color: ${black};
               padding-bottom: 30px;
-              overflow-y: auto;
+              overflow: hidden;
               font-size: 14px;
             }
 

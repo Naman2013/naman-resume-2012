@@ -7,9 +7,11 @@ import { fetchImageDetailsAndCounts } from '../../modules/my-pictures-image-deta
 import ImageViewer from '../../components/my-pictures/ImageViewer';
 import imageDetailsStyle from './ImageDetailsStyles';
 import ImageInfoPanel from '../../components/my-pictures/ImageInfoPanel';
+import PhotoActions from '../../components/my-pictures/actions/PhotoActions';
 
-const mapStateToProps = ({ myPicturesImageDetails }) => ({
+const mapStateToProps = ({ myPicturesImageDetails, user }) => ({
   myPicturesImageDetails,
+  user,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -65,6 +67,15 @@ class ImageDetails extends Component {
       fileData,
     } = this.props.myPicturesImageDetails;
 
+    const {
+      params: {
+        customerImageId,
+        shareToken,
+        galleryId
+      },
+      user
+    } = this.props;
+
     return (
       <div>
         <MyPicturesNavigation
@@ -76,7 +87,15 @@ class ImageDetails extends Component {
             <div className="left title">
               <h2 dangerouslySetInnerHTML={{ __html: imageTitle }} />
             </div>
-            <div className="right-top"></div>
+            <div className="right-top">
+              <PhotoActions
+                canEditFlag={canEditFlag}
+                imageURL={imageURL}
+                customerImageId={customerImageId}
+                user={user}
+                actionSource="imageDetails"
+              />
+            </div>
           </div>
           <div className="container">
             <div className="left">
