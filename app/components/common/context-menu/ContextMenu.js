@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { white } from '../../../styles/variables/colors';
+import { white, darkBlueGray } from '../../../styles/variables/colors';
 
 const {
   bool,
@@ -18,6 +18,7 @@ class ContextMenu extends Component {
     distanceFromTrigger: number,
     backgroundColor: string,
     onShow: func,
+    titleText: string,
   }
 
   static defaultProps = {
@@ -30,6 +31,7 @@ class ContextMenu extends Component {
     // background color for menu
     backgroundColor: white,
     onShow: null,
+    titleText: null,
   };
 
   state = {
@@ -53,6 +55,8 @@ class ContextMenu extends Component {
   }
 
   hideMenu = (e) => {
+    e.preventDefault();
+
     this.setState({
       showMenu: false,
     });
@@ -65,6 +69,7 @@ class ContextMenu extends Component {
       backgroundColor,
       children,
       className,
+      titleText,
     } = this.props;
 
     const { left, top, showMenu } = this.state;
@@ -98,12 +103,35 @@ class ContextMenu extends Component {
           style={menuRootStyle}
           className={rootClasses}
         >
-          {children}
+          {titleText && <div className="header">
+            <span dangerouslySetInnerHTML={{ __html: titleText }} />
+            <i className="fa fa-close" onClick={this.hideMenu} />
+          </div>}
+          <div className="list">
+            {children}
+          </div>
         </div>
         <style jsx>{`
 
+          .header {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 5px;
+            color: ${white};
+            background-color: ${darkBlueGray};
+          }
+
           .notShown {
             visibility: hidden;
+          }
+
+          .list {
+            margin-top: 20px;
           }
 
           .arrow-right {

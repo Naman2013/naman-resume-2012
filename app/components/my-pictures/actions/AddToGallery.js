@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import ContextMenu from '../../common/context-menu/ContextMenu';
 import GalleryListMenuItem from './GalleryListMenuItem';
-import { white, black } from '../../../styles/variables/colors';
+import { white, black, pink } from '../../../styles/variables/colors';
 import { fetchGalleries, createGallery } from '../../../modules/my-pictures-galleries/actions';
 import { addImageToGallery, resetAddResponse } from '../../../modules/my-pictures-gallery-actions/actions';
 import { actionsStyles } from './actions.style';
@@ -152,6 +152,7 @@ class AddToGallery extends Component {
           ref={c => this.contextTrigger = c}
           menuWidth={250}
           onShow={this.fetchGalleries}
+          titleText="Select A Gallery Below"
         >
           {fetchGalleriesLoading && <div>
               Loading your galleries
@@ -187,6 +188,19 @@ class AddToGallery extends Component {
         <style jsx>
           {`
             ${actionsStyles}
+            .action {
+              background: ${white};
+              color: ${pink};
+            }
+
+            .action:hover {
+              background: ${pink};
+              color: ${white};
+            }
+
+            .action:focus {
+              outline: none;
+            }
           `}
         </style>
         <style jsx global>
