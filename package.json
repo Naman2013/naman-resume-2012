@@ -84,6 +84,8 @@
     "redux-form": "^6.0.1",
     "redux-logger": "^2.6.1",
     "redux-thunk": "^2.1.0",
+    "remarkable": "^1.7.1",
+    "remarkable-react": "^1.0.0",
     "styled-jsx": "^1.0.8"
   },
   "devDependencies": {

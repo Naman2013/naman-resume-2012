@@ -7,6 +7,9 @@ import GenericLoadingBox from '../../common/loading-screens/generic-loading-box'
 const _ = require('lodash');
 const Markdown = require('react-remarkable');
 
+const Remarkable = require('remarkable');
+const RemarkableReactRenderer = require('remarkable-react');
+
 function generateSpecItem(spec) {
   console.log('spec: ', spec);
   // return (
@@ -34,7 +37,9 @@ class CardBack extends Component {
     if (!telescopeCardBack.teleId) {
       console.log('loading...');
       return (
-        <GenericLoadingBox />
+        <div className="telescope-card-back">
+          <GenericLoadingBox />
+        </div>
       )
     }
 
@@ -80,7 +85,7 @@ class CardBack extends Component {
               (spec) => {
                 return (
                   <div key={_.uniqueId('spec_')}>
-                    <Markdown source={spec} />
+                    <Markdown source={spec} key={_.uniqueId('spec_')} />
                   </div>
                 );
               }
@@ -92,7 +97,7 @@ class CardBack extends Component {
 
             {telescopeCardBack.locationArray.locationDataArray.map(
               (loc) => {
-                return <Markdown source={loc} />
+                return <Markdown source={loc}key={_.uniqueId('loc_')} />
               }
             )}
 
