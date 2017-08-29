@@ -36,7 +36,7 @@ export default class Neoview extends Component {
   }
 
   bootstrapSSE() {
-    const { port, teleSystem, currentMissionServerTime } = this.props;
+    const { teleSystem, currentMissionServerTime } = this.props;
 
     const neoUrl = `/sselog/${teleSystem}`;
     this.sseSource = new EventSource(neoUrl);
