@@ -224,6 +224,7 @@ class TelescopeDetails extends Component {
     const { obsId } = currentObservatory;
     const { teleInstrumentList, teleCanReserveMissions } = currentTelescope;
     const telescopeOnline = currentTelescopeOnlineStatus && currentTelescopeOnlineStatus.onlineStatus === 'online';
+    const selectedInstrument = teleInstrumentList[selectedTab];
 
     return (
       <div className="telescope-details-page-wrapper">
@@ -291,10 +292,9 @@ class TelescopeDetails extends Component {
 
                       {
                         /** load the neoview */
-                        (telescopeOnline && currentTelescope.teleHasNeoView) ?
+                        (telescopeOnline && selectedInstrument.instrHasNeoView) ?
                           <Neoview
-                            port={currentTelescope.teleNeoPort}
-                            teleSystem={currentTelescope.teleSystem}
+                            teleSystem={selectedInstrument.instrSystem}
                             showToggleOption={currentTelescope.teleOnlineStatus === 'online'}
                             percentageMissionTimeRemaining={100}
                           /> : null
