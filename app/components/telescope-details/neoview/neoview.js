@@ -22,19 +22,37 @@ export default class Neoview extends Component {
   }
 
   componentDidMount() {
+    this.bootstrapSSE();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.teleSystem !== this.props.teleSystem) {
+      this.resetSSE();
+    }
+  }
+
+  componentWillUnmount() {
+    this.tearDownSSE();
+  }
+
+  bootstrapSSE() {
     const { port, teleSystem, currentMissionServerTime } = this.props;
 
     const neoUrl = `/sselog/${teleSystem}`;
     this.sseSource = new EventSource(neoUrl);
     this.sseSource.addEventListener(
       'message',
-      event => this.handleNeoMessages(event.data), false
-    )
+      event => this.handleNeoMessages(event.data), false);
   }
 
-  componentWillUnmount() {
+  tearDownSSE() {
     this.sseSource.close();
     this.sseSource.removeEventListener('message', this.handleNeoMessages, false);
+  }
+
+  resetSSE() {
+    this.tearDownSSE();
+    this.bootstrapSSE();
   }
 
   handleNeoMessages(data) {

@@ -224,7 +224,7 @@ class TelescopeDetails extends Component {
     const { obsId } = currentObservatory;
     const { teleInstrumentList, teleCanReserveMissions } = currentTelescope;
     const telescopeOnline = currentTelescopeOnlineStatus && currentTelescopeOnlineStatus.onlineStatus === 'online';
-
+    console.log(currentTelescope);
     return (
       <div className="telescope-details-page-wrapper">
 
