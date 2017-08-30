@@ -156,7 +156,7 @@ class AddToGallery extends Component {
           leftOffset={-35}
           titleText="Select A Gallery Below"
         >
-          {fetchGalleriesLoading && <div>
+          {fetchGalleriesLoading && <div className="loading">
               Loading your galleries
             </div>
           }
@@ -188,9 +188,15 @@ class AddToGallery extends Component {
         </ContextMenu>
         <button className="action" onClick={this.toggleMenu}>
           <span className="fa fa-plus" />
+          <div className="action-description">Add to gallery</div>
         </button>
         <style jsx>
           {`
+            .loading {
+              width: 50%;
+              margin:  25px 50%;
+              transform: translateX(-50%);
+            }
 
             .rest-of-list {
               height: 100%;

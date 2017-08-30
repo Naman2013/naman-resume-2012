@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import AddToGallery from './AddToGallery';
-import { white } from '../../../styles/variables/colors';
+import { white, black } from '../../../styles/variables/colors';
 import RemoveFromGallery from './RemoveFromGallery';
 import DeleteGallery from './DeleteGallery';
 import DeleteImage from './DeleteImage';
@@ -9,11 +9,14 @@ import Heart from '../../common/heart/heart';
 import { likeImage } from '../../../services/my-pictures/like-image';
 import { actionsStyles } from './actions.style';
 
+const getTheme = actionSource => (
+  (actionSource === 'galleryImageDetails' || actionSource === 'imageDetails') ?
+  'dark' : 'light');
 class PhotoActions extends Component {
   static propTypes = {
     imageURL: PropTypes.string,
     canEditFlag: PropTypes.bool,
-    customerImageId: PropTypes.number,
+    customerImageId: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     galleryId: PropTypes.number,
     actionSource: PropTypes.string.isRequired,
     heartProps: PropTypes.shape({
@@ -61,7 +64,7 @@ class PhotoActions extends Component {
     const canDeleteImage = actionSource === 'photoRoll' || actionSource === 'imageDetails';
     const canLikePhoto = actionSource === 'galleryImageDetails' || actionSource === 'imageDetails';
     return (
-      <div className="actions">
+      <div className={`actions ${getTheme(actionSource)}`}>
         {canLikePhoto && <Heart
           {...heartProps}
           likeAction={likeImage}
@@ -88,6 +91,7 @@ class PhotoActions extends Component {
           />}
         {canDownload && <button onClick={this.handleDownloadPhotoClick} className="action">
           <span className="fa fa-download"></span>
+          <div className="action-description">Download</div>
         </button>}
         <style jsx>
         {`
@@ -95,7 +99,9 @@ class PhotoActions extends Component {
           .actions {
             display: flex;
             flex-direction: row;
+            margin-top: -5px;
           }
+
           .galleryList {
             top: -15px;
             height: 250px;

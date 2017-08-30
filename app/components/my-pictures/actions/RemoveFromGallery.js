@@ -94,6 +94,7 @@ class RemoveFromGallery extends Component {
       <div>
         <ConfirmDeleteModal
           confirmText="Are you sure you want to remove this image from the gallery?"
+          buttonHoverText="Remove from gallery"
           removeAction={this.removeFromGallery}
           buttonClass="fa-minus"
         />

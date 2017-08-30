@@ -88,6 +88,7 @@ class DeleteGallery extends Component {
       <div>
         <ConfirmDeleteModal
           confirmText="Are you sure you want to permanently delete this gallery?"
+          buttonHoverText="Delete Gallery"
           removeAction={this.removeGallery}
           buttonClass="fa-close"
         />

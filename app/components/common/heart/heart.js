@@ -5,7 +5,7 @@ import classnames from 'classnames';
 import like from '../../../services/community-content/like';
 import ModalGeneric from '../../common/modals/modal-generic';
 import style from './heart.scss';
-import { lightTurqoise, darkBlueGray, turqoise, white } from '../../../styles/variables/colors';
+import { black, lightTurqoise, darkBlueGray, turqoise, white } from '../../../styles/variables/colors';
 
 /*
 
@@ -144,6 +144,7 @@ export default class Heart extends Component {
           <i className="fa fa-heart" />
           <span className={style.count}>{count}</span>
         </button>
+        <div className="action-description">Like</div>
         {showLikeText && <span onClick={this.handleClick} className="likeText">Like</span>}
         <ModalGeneric
           open={showPrompt}
@@ -168,6 +169,7 @@ export default class Heart extends Component {
           .heart-button {
             display: inline-block;
           }
+
           .likeText {
             display: inline-block;
             font-size: 14px;
@@ -186,6 +188,16 @@ export default class Heart extends Component {
           }
           .heart.buttonOnly:hover {
             color: ${lightTurqoise};
+          }
+
+          .heart.buttonOnly + .action-description {
+            color: ${black};
+            text-align: center;
+            visibility: hidden;
+          }
+
+          .heart.buttonOnly:hover + .action-description {
+            visibility: visible;
           }
 
           .heart.buttonOnly:hover .count {

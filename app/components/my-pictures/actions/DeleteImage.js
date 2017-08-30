@@ -87,6 +87,7 @@ class DeleteImage extends Component {
       <div>
         <ConfirmDeleteModal
           confirmText="Are you sure you want to permanently delete this image?"
+          buttonHoverText="Delete Image"
           removeAction={this.removeImage}
           buttonClass="fa-close"
         />

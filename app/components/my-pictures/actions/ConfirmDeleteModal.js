@@ -14,10 +14,12 @@ class DeleteGallery extends Component {
   static propTypes = {
     buttonClass: string,
     confirmText: string,
+    buttonHoverText: string,
     removeAction: func.isRequired,
   };
   static defaultProps = {
     buttonClass: 'fa-close',
+    buttonHoverText: 'Remove',
     confirmText: 'Are you sure you want to remove this?'
   };
 
@@ -33,7 +35,7 @@ class DeleteGallery extends Component {
   }
 
   render() {
-    const { confirmText, removeAction, buttonClass } = this.props;
+    const { confirmText, removeAction, buttonClass, buttonHoverText } = this.props;
     const { confirmModalIsOpen } = this.state;
     const customModalStyles = {
       content: {
@@ -56,6 +58,7 @@ class DeleteGallery extends Component {
       <div>
         <button className="action" onClick={e => this.showModal(e, true)}>
           <span className={`fa ${buttonClass}`} />
+          <div className="action-description">{buttonHoverText}</div>
         </button>
         <Modal
           style={customModalStyles}

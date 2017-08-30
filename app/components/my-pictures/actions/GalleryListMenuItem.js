@@ -59,10 +59,10 @@ class GalleryListMenuItem extends Component {
       loading,
     } = this.props;
 
-    const publicIcon = classnames('fa public-icon', {
-      'fa-eye': true,
-      'fa-eye-slash': false,
-    });
+    // const publicIcon = classnames('fa public-icon', {
+    //   'fa-eye': true,
+    //   'fa-eye-slash': false,
+    // });
 
     const sortedGalleries = orderBy(galleryList, ['created'], ['desc']);
     return (
@@ -72,7 +72,6 @@ class GalleryListMenuItem extends Component {
           key={gallery.galleryId}
         >
           <div className="menu-item">
-            <i className={publicIcon} />
             {(response &&
               currentGalleryId === gallery.galleryId) &&
               <span dangerouslySetInnerHTML={{ __html: response }} />}
