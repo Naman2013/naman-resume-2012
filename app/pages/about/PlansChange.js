@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router';
 import ModalGeneric from '../../components/common/modals/modal-generic';
+import AsidePopup from '../../components/common/modals/aside-popup';
+
 
 const PLAN_DESCRIPTIONS = {
   RESERVATION_LIMIT_5: {
@@ -29,11 +31,13 @@ class PlansChange extends Component {
 
     this.state = {
       modalOpen: false,
+      popupOpen: 'none',
       title: '',
       description: '',
     };
 
     this.closeModal = this.closeModal.bind(this);
+    this.closePopup = this.closePopup.bind(this);
   }
 
   closeModal(event) {
@@ -51,8 +55,24 @@ class PlansChange extends Component {
     });
   }
 
+  closePopup(event) {
+    event.preventDefault();
+
+    this.setState({
+      popupOpen: 'none',
+    });
+  }
+
+  openPopup(popupContent) {
+    console.log('open popup');
+    this.setState({
+      ...popupContent,
+      popupOpen: 'inline-block',
+    });
+  }
+
   render() {
-    const { modalOpen, title, description } = this.state;
+    const { modalOpen, popupOpen, popupContent, title, description } = this.state;
     const { registerNewSloohCrewURL, registerNewApprenticeURL, registerNewAstronomerURL } = this.props;
     return (
 
@@ -60,11 +80,23 @@ class PlansChange extends Component {
         <div className="bg-div-pic clearfix">
 
           <div className="about pricing">
+            { /*
             <ModalGeneric
               open={modalOpen}
               closeModal={this.closeModal}
               title={title}
               description={description}
+            />
+            */ }
+
+            <AsidePopup
+              popupText={popupContent}
+              display={'none'}
+              contactLink={'https://www.slooh.com/about/contact'}
+              footerText={'Have Questions?'}
+              contactLinkText={'Contact our support team'}
+              popupOpen={popupOpen}
+              closePopup={this.closePopup}
             />
 
             <div className="row first-row">
@@ -73,98 +105,147 @@ class PlansChange extends Component {
               </div>
 
               <div className="col-sm-6 text-right">
-                <Link to="/about/contact" className="contact-button regButton"> Contact Us </Link>
+                <Link to="/about/contact" className="button btn-primary help-page-button">
+                  Contact Us
+                </Link>
               </div>
             </div>
 
             <div className="row final-row">
 
+                <div className="col-lg-3 col-md-3 col-sm-6 text-center" style={{ marginLeft: '13%' }}>
 
+                  <article className="plan plan-col">
 
-              <div className="col-lg-offset-3 col-md-offset-3 col-lg-3 col-md-3 col-sm-6 text-center">
+                    <header className="move-down text-center">
+                      <div className="spotlight-icon"><img alt="astronomer icon" src="https://vega.slooh.com/icons/registration/sloohcrew.svg" /></div>
+                    </header>
 
-                <article className="plan plan-col">
+                    <article className="dark backdrop text-center padding-reg">
 
-                  <header className="move-down text-center">
-                    <div className="spotlight-icon">
-                      <img alt="Apprentice icon" src="https://vega.slooh.com/icons/registration/apprentice.svg" width="70%" />
-                    </div>
-                  </header>
+                      <h3 className="margin-top-reg">Slooh Crew</h3>
+                      <p className="text-large price margin-none">Free</p>
 
-                  <article className="backdrop dark text-center padding-reg">
-                    <h3>Apprentice</h3>
+                      <p>
+                        Introducing Slooh
+                      </p>
 
-                    <p className="text-large price margin-none"><sup>$</sup>4.95</p>
+                      <div className="margin-top-med margin-bottom-large">
+                        Introducing Slooh to the Community
+                      </div>
 
-                    <p className="margin-large margin-none">Monthly | USD</p>
+                      {/*
+                        TODO: build feature component and features iterator component
+                        <Features features=[
+                          { title: 'Shows: All', tooltip: {show: true, content: 'whatever'} },
+                          {  }]
+                        />
+                          // iterates over list of props in 'features' and generates a <Feature> for each
+                          <Feature
+                            showTooltip={feature.tooltip}
+                            />
+                      */}
+                      <ul className="features">
+                        <li>Shows: All</li>
+                        <li>Telescopes</li>
+                        <li>Take Pictures</li>
+                        <li>Community</li>
+                        <li>Unlimited Reservations <i onClick={() => {this.openPopup(PLAN_DESCRIPTIONS.RESERVATION_LIMIT_UNLIMITED)}} className="icon control info-white">info</i>
+                        </li>
+                        <li>Objects: All
+                        </li>
+                        <li>Space Situation Room</li>
+                        <li>Slooh Road Trip <i onClick={() => {this.openPopup(PLAN_DESCRIPTIONS.SLOOH_ROAD_TRIP)}} className="icon control info-white">info</i></li>
+                      </ul>
+                    </article>
 
-                    <div className="margin-top-med margin-bottom-large pos-relative">30 Day free trial
-                      <br />if you act now
-                    </div>
-                    <ul className="features">
-                      <li>Shows: All</li>
-                      <li>Telescopes</li>
-                      <li>Take Pictures</li>
-                      <li>Community</li>
-                      <li>5 Reservations <small>monthly</small> <i onClick={() => {this.openModal(PLAN_DESCRIPTIONS.RESERVATION_LIMIT_5)}} className="icon control info-white">info</i></li>
-                      <li>Objects: Slooh 500 <i onClick={() => {this.openModal(PLAN_DESCRIPTIONS.OBJECTS_SLOOH_500)}} className="icon control info-white">info</i></li>
-                      <li>Space Situation Room</li>
-                      <li>Slooh Road Trip <i onClick={() => {this.openModal(PLAN_DESCRIPTIONS.SLOOH_ROAD_TRIP)}} className="icon control info-white">info</i></li>
-                    </ul>
+                    <footer>
+                      <a className="btn-primary continue" href={registerNewAstronomerURL}>Get This Plan</a>
+                    </footer>
+
+                  </article>
+                </div>
+
+                <div className="col-lg-3 col-md-3 col-sm-6 text-center">
+
+                  <article className="plan plan-col">
+
+                    <header className="move-down text-center">
+                      <div className="spotlight-icon">
+                        <img alt="Apprentice icon" src="https://vega.slooh.com/icons/registration/apprentice.svg" width="70%" />
+                      </div>
+                    </header>
+
+                    <article className="backdrop dark text-center padding-reg">
+                      <h3>Apprentice</h3>
+
+                      <p className="text-large price margin-none"><sup>$</sup>4.95</p>
+
+                      <p className="margin-large margin-none">Monthly | USD</p>
+
+                      <div className="margin-top-med margin-bottom-large pos-relative">30 Day free trial
+                        <br />if you act now
+                      </div>
+                      <ul className="features">
+                        <li>Shows: All</li>
+                        <li>Telescopes</li>
+                        <li>Take Pictures</li>
+                        <li>Community</li>
+                        <li>5 Reservations <small>monthly</small> <i onClick={() => {this.openModal(PLAN_DESCRIPTIONS.RESERVATION_LIMIT_5)}} className="icon control info-white">info</i></li>
+                        <li>Objects: Slooh 500 <i onClick={() => {this.openPopup(PLAN_DESCRIPTIONS.OBJECTS_SLOOH_500)}} className="icon control info-white">info</i></li>
+                        <li>Space Situation Room</li>
+                        <li>Slooh Road Trip <i onClick={() => {this.openPopup(PLAN_DESCRIPTIONS.SLOOH_ROAD_TRIP)}} className="icon control info-white">info</i></li>
+                      </ul>
+                    </article>
+
+                    <footer>
+                      <a className="btn-primary continue" href={registerNewApprenticeURL}>Get This Plan</a>
+                    </footer>
+
                   </article>
 
-                  <footer>
-                    <a className="btn-primary continue" href={registerNewApprenticeURL}>Get This Plan</a>
-                  </footer>
+                </div>
 
-                </article>
+                <div className="col-lg-3 col-md-3 col-sm-6 text-center">
 
-              </div>
+                  <article className="plan plan-col">
 
-              <div className="col-lg-3 col-md-3 col-sm-6 text-center">
+                    <header className="move-down text-center">
+                      <div className="spotlight-icon"><img alt="astronomer icon" src="https://vega.slooh.com/icons/registration/astronomer.svg" /></div>
+                    </header>
 
-                <article className="plan plan-col">
+                    <article className="dark backdrop text-center padding-reg">
 
-                  <header className="move-down text-center">
-                    <div className="spotlight-icon"><img alt="astronomer icon" src="https://vega.slooh.com/icons/registration/astronomer.svg" /></div>
-                  </header>
+                      <h3 className="margin-top-reg">Astronomer</h3>
+                      <p className="text-large price margin-none"><sup>$</sup>24.95</p>
 
-                  <article className="dark backdrop text-center padding-reg">
+                      <p>Monthly | USD</p>
 
-                    <h3 className="margin-top-reg">Astronomer</h3>
-                    <p className="text-large price margin-none"><sup>$</sup>24.95</p>
+                      <div className="margin-top-med margin-bottom-large">Become a leader in the
+                          <br />Slooh Community</div>
 
-                    <p>Monthly | USD</p>
+                      <ul className="features">
+                        <li>Shows: All</li>
+                        <li>Telescopes</li>
+                        <li>Take Pictures</li>
+                        <li>Community</li>
+                        <li>Unlimited Reservations <i onClick={() => {this.openPopup(PLAN_DESCRIPTIONS.RESERVATION_LIMIT_UNLIMITED)}} className="icon control info-white">info</i>
+                        </li>
+                        <li>Objects: All
+                        </li>
+                        <li>Space Situation Room</li>
+                        <li>Slooh Road Trip <i onClick={() => {this.openPopup(PLAN_DESCRIPTIONS.SLOOH_ROAD_TRIP)}} className="icon control info-white">info</i></li>
+                      </ul>
+                    </article>
 
-                    <div className="margin-top-med margin-bottom-large">Become a leader in the
-                        <br />Slooh Community</div>
+                    <footer>
+                      <a className="btn-primary continue" href={registerNewAstronomerURL}>Get This Plan</a>
+                    </footer>
 
-                    <ul className="features">
-                      <li>Shows: All</li>
-                      <li>Telescopes</li>
-                      <li>Take Pictures</li>
-                      <li>Community</li>
-                      <li>Unlimited Reservations <i onClick={() => {this.openModal(PLAN_DESCRIPTIONS.RESERVATION_LIMIT_UNLIMITED)}} className="icon control info-white">info</i>
-                      </li>
-                      <li>Objects: All
-                      </li>
-                      <li>Space Situation Room</li>
-                      <li>Slooh Road Trip <i onClick={() => {this.openModal(PLAN_DESCRIPTIONS.SLOOH_ROAD_TRIP)}} className="icon control info-white">info</i></li>
-                    </ul>
                   </article>
-
-                  <footer>
-                    <a className="btn-primary continue" href={registerNewAstronomerURL}>Get This Plan</a>
-                  </footer>
-
-                </article>
-
-
-              </div>
+                </div>
 
             </div>
-
-
           </div>
         </div>
 
@@ -261,11 +342,18 @@ class PlansChange extends Component {
             min-width: 400px;
           }
 
+          .static-app-content-container section.row-wide {
+            margin: 0 auto;
+            position: relative;
+            height: auto;
+            overflow: auto;
+          }
+
           .plans-container {
             position: relative !important;
           }
 
-          .first-row {
+          .row.first-row {
             margin: 50px 25px 50px 25px;
           }
 
