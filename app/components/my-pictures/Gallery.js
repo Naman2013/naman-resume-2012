@@ -132,7 +132,7 @@ class Gallery extends Component {
                 list-style-type: none;
                 position: absolute !important;
                 right: 20px;
-                bottom: 20px;
+                bottom: 25px;
               }
 
             `}
