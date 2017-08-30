@@ -51,6 +51,11 @@ export default class Neoview extends Component {
   }
 
   resetSSE() {
+    this.setState({
+      latestMessage: null,
+      messages: [],
+      toggleNeoview: false,
+    });
     this.tearDownSSE();
     this.bootstrapSSE();
   }
