@@ -131,7 +131,7 @@ class Gallery extends Component {
               .photoMenu {
                 list-style-type: none;
                 position: absolute !important;
-                right: 20px;
+                right: 35px;
                 bottom: 25px;
               }
 
