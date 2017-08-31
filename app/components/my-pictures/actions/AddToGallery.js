@@ -90,7 +90,9 @@ class AddToGallery extends Component {
 
   fetchGalleries = () => {
     const { actions, galleryList } = this.props;
-    actions.fetchGalleries({});
+    actions.fetchGalleries({
+      noFilters: true,
+    });
   }
 
   toggleMenu = (e) => {

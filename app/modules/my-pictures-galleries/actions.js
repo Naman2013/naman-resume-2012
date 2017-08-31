@@ -65,13 +65,16 @@ export const fetchGalleries = ({
   maxImageCount = 9,
   firstImageNumber = 1,
   pagingMode = 'app',
+  noFilters = false,
 }) => (dispatch, getState) => {
   const { at, token, cid } = getState().user;
   const { selectedFilters } = getState().myPicturesFilters;
+  const filters = noFilters ? {} : selectedFilters;
   dispatch(fetchGalleriesStart());
   // dispatch(fetchGalleriesCount({})); // for pagination
   // dispatch(fetchMissionCount()); // for deeplinking
   // dispatch(fetchMyPicturesCount());// for deeplinking
+
   return axios.post('/api/images/getGalleryList', {
     // at: 3, // for testing purposes
     // cid: 185651, // for testing purposes
@@ -82,7 +85,7 @@ export const fetchGalleries = ({
     pagingMode,
     maxGalleryCount: maxImageCount,
     firstGalleryNumber: firstImageNumber,
-    ...selectedFilters,
+    ...filters,
   })
   .then(result => dispatch(fetchGalleriesSuccess(result.data)))
   .catch(error => dispatch(fetchGalleriesFail(error)));
