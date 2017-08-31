@@ -103,6 +103,8 @@ class AddToGallery extends Component {
     const { actions } = this.props;
     const { newGalleryName } = this.state;
     e.preventDefault();
+
+    if (!newGalleryName) return;
     actions.createGallery({
       title: newGalleryName,
     }).then(() => {
