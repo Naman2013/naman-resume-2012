@@ -45,5 +45,6 @@ export const actionsStyles = (`
     margin-top: 8px;
     margin-left: -75%;
     width: 100px;
+    white-space: nowrap;
   }
   `);

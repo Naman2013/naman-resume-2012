@@ -3,9 +3,11 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import ConfirmDeleteModal from './ConfirmDeleteModal';
+import { browserHistory } from 'react-router';
 import { white, black, pink } from '../../../styles/variables/colors';
 import { secondaryFont, primaryFont } from '../../../styles/variables/fonts';
-import { fetchPhotoRoll, fetchMyPicturesCount } from '../../../modules/my-pictures/actions';
+import { fetchPhotoRoll, fetchMyPicturesCount, fetchMissionPhotos } from '../../../modules/my-pictures/actions';
+import { fetchGalleryPicsCount, fetchGalleryPictures } from '../../../modules/my-pictures-gallery-pictures/actions';
 import { deleteImage } from '../../../services/my-pictures/delete-image';
 
 const {
@@ -15,6 +17,7 @@ const {
   number,
   shape,
   string,
+  oneOfType,
 } = PropTypes;
 
 const mapStateToProps = ({ myPictures, user }) => ({
@@ -25,7 +28,10 @@ const mapStateToProps = ({ myPictures, user }) => ({
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
     fetchPhotoRoll,
+    fetchMissionPhotos,
     fetchMyPicturesCount,
+    fetchGalleryPicsCount,
+    fetchGalleryPictures,
   }, dispatch),
 });
 
@@ -33,9 +39,10 @@ const mapDispatchToProps = dispatch => ({
 class DeleteImage extends Component {
 
   static propTypes = {
+    galleryId: string,
     maxImageCount: number.isRequired,
     firstImageNumber: number.isRequired,
-    customerImageId: number.isRequired,
+    customerImageId: oneOfType([number, string]).isRequired,
     actions: shape({
       fetchPhotoRoll: func.isRequired,
       fetchMyPicturesCount: func.isRequired,
@@ -47,6 +54,7 @@ class DeleteImage extends Component {
     }).isRequired,
   };
   static defaultProps = {
+    galleryId: null,
     user: {
       at: '',
       token: '',
@@ -60,11 +68,16 @@ class DeleteImage extends Component {
 
     const {
       user,
+      galleryId,
+      actionSource,
       customerImageId,
       actions,
       maxImageCount,
       firstImageNumber,
+      scheduledMissionId,
     } = this.props;
+
+    let link;
 
     deleteImage({
       customerImageId,
@@ -72,13 +85,39 @@ class DeleteImage extends Component {
       token: user.token,
       cid: user.cid,
     }).then((res) => {
-      actions.fetchPhotoRoll({
-        customerImageId,
-        maxImageCount,
-        firstImageNumber,
-        pagingMode: 'api',
-      });
-      actions.fetchMyPicturesCount({});
+      if (actionSource === 'galleryPictures') {
+        actions.fetchGalleryPictures({
+          customerImageId,
+          maxImageCount,
+          firstImageNumber,
+          pagingMode: 'api',
+          galleryId,
+        });
+
+        link = `/my-pictures/galleries/${galleryId}`;
+      } else {
+        if (scheduledMissionId) {
+          actions.fetchMissionPhotos({
+            scheduledMissionId,
+            customerImageId,
+            maxImageCount,
+            firstImageNumber,
+            pagingMode: 'api',
+          });
+          link = `/my-pictures/missions/${scheduledMissionId}`;
+        } else {
+          actions.fetchPhotoRoll({
+            customerImageId,
+            maxImageCount,
+            firstImageNumber,
+            pagingMode: 'api',
+          });
+          actions.fetchMyPicturesCount({});
+          link = '/my-pictures/photo-roll'
+        }
+      }
+
+      browserHistory.push(link);
     });
   }
 

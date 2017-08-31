@@ -56,12 +56,13 @@ class PhotoActions extends Component {
       galleryId,
       customerImageId,
       heartProps,
+      scheduledMissionId,
     } = this.props;
 
     const canDownload = actionSource !== 'galleries';
     const canRemovePhoto = actionSource === 'galleryPictures' || actionSource === 'galleryImageDetails';
     const canDeleteGallery = actionSource === 'galleries';
-    const canDeleteImage = actionSource === 'photoRoll' || actionSource === 'imageDetails';
+    const canDeleteImage = actionSource === 'photoRoll' || actionSource === 'imageDetails' || actionSource === 'galleryPictures' || actionSource === 'galleryImageDetails';
     const canLikePhoto = actionSource === 'galleryImageDetails' || actionSource === 'imageDetails';
     return (
       <div className={`actions ${getTheme(actionSource)}`}>
@@ -82,8 +83,10 @@ class PhotoActions extends Component {
           />}
         {canEditFlag && canDeleteImage &&
           <DeleteImage
+            galleryId={galleryId}
             customerImageId={customerImageId}
             actionSource={actionSource}
+            scheduledMissionId={scheduledMissionId}
           />}
         {canDeleteGallery &&
           <DeleteGallery

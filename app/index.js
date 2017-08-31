@@ -273,7 +273,7 @@ ReactDOM.render(
           <Route path="missions/:scheduledMissionId" title="Mission Images" component={MissionImages} />
           <Route path="missions" title="Missions" component={Missions} />
 
-          <Route path="show-image(/:customerImageId)(/:shareToken)" component={ImageDetails} />
+          <Route path="show-image/:customerImageId/:shareToken(/:scheduledMissionId)" component={ImageDetails} />
           <Route path="gallery/:galleryId/show-image(/:customerImageId)(/:shareToken)" component={GalleryImageDetails} />
           <Route path="popular/show-image(/:customerImageId)(/:shareToken)" component={ImageDetails} />
         </Route>
@@ -308,7 +308,7 @@ ReactDOM.render(
         <Route path="discussions/new-thread" component={NewDiscussionsThread} onEnter={validateUser} />
 
         <Route path="road-trip" component={Landing} />
-        
+
 
         <Route path="help/posting-guidelines" component={PostingGuidelines} />
         <Route path="help/new-to-slooh" component={NewToSlooh} />

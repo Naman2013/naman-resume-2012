@@ -99,6 +99,7 @@ class PhotoView extends Component {
       error,
       type,
       galleryList,
+      scheduledMissionId,
       firstImageNumber,
       imageCount,
       maxImageCount,
@@ -166,7 +167,7 @@ class PhotoView extends Component {
         }
         {
           type === 'images' ?
-            <PhotoList imageList={imageList} /> : null
+            <PhotoList imageList={imageList} scheduledMissionId={scheduledMissionId} /> : null
         }
 
         {

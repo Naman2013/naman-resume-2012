@@ -29,7 +29,7 @@ class ImageDetails extends Component {
       editorValue: props.myPicturesImageDetails.observationLog,
     };
   }
-  
+
   componentWillMount() {
     window.scrollTo(0, 0);
     const {
@@ -52,10 +52,6 @@ class ImageDetails extends Component {
     // make call to update changes
   }
 
-  setObservationLog = (text) => {
-
-  }
-
   render() {
     const {
       scheduledMissionId,
@@ -75,11 +71,11 @@ class ImageDetails extends Component {
       params: {
         customerImageId,
         shareToken,
-        galleryId
+        galleryId,
+        scheduledMissionId: scheduledMissionIdParam // only images coming from mission pictures page will have this.
       },
       user
     } = this.props;
-
     const heartProps = {
       likePrompt,
       canLikeFlag,
@@ -87,6 +83,9 @@ class ImageDetails extends Component {
       theme: 'buttonOnly',
       likeId: customerImageId,
     };
+
+    // only send scheduledMissionId to PhotoActions if user is coming from the Mission Images page
+    const photoActionsScheduledMissionId = scheduledMissionIdParam ? scheduledMissionId : null;
     return (
       <div>
         <MyPicturesNavigation
@@ -106,6 +105,7 @@ class ImageDetails extends Component {
                 user={user}
                 actionSource="imageDetails"
                 heartProps={heartProps}
+                scheduledMissionId={photoActionsScheduledMissionId}
               />
             </div>
           </div>

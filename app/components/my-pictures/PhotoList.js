@@ -15,7 +15,7 @@ class PhotoList extends Component {
   }
 
   render() {
-    const { imageList, galleryType, colNum } = this.props;
+    const { imageList, galleryType, colNum, scheduledMissionId } = this.props;
     const containerColClassNames = classnames({
       'col-xs-12': !galleryType,
     });
@@ -31,7 +31,8 @@ class PhotoList extends Component {
             imageList.map(photo => (
               <li key={photo.customerImageId || photo.imageId} className={listColClassNames}>
                 <Photo
-                  detailsUrl={`/my-pictures/show-image/${photo.customerImageId}/${photo.shareToken}`}
+                  scheduledMissionId={scheduledMissionId}
+                  detailsUrl={scheduledMissionId ? `/my-pictures/show-image/${photo.customerImageId}/${photo.shareToken}/${scheduledMissionId}` : `/my-pictures/show-image/${photo.customerImageId}/${photo.shareToken}`}
                   handlePhotoClick={this.handlePhotoClick}
                   imageURL={photo.imageURL}
                   imageTitle={photo.imageTitle}

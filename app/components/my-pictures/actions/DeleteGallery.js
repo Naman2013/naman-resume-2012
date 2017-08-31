@@ -35,7 +35,6 @@ class DeleteGallery extends Component {
   static propTypes = {
     maxImageCount: number.isRequired,
     firstImageNumber: number.isRequired,
-    customerImageId: number.isRequired,
     galleryId: string.isRequired,
     actions: shape({
       fetchGalleries: func.isRequired,

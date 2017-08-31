@@ -12,12 +12,13 @@ const {
   number,
   string,
   bool,
+  oneOfType,
 } = PropTypes;
 
 class GalleryListMenuItem extends Component {
 
   static propTypes = {
-    customerImageId: number.isRequired,
+    customerImageId: oneOfType([number, string]).isRequired,
     galleryList: arrayOf(shape({
     })).isRequired,
     galleryAction: func.isRequired,

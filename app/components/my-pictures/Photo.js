@@ -31,6 +31,7 @@ class Photo extends Component {
   render() {
     const {
       imageURL,
+      scheduledMissionId,
       handlePhotoClick,
       imageTitle,
       overlayText,
@@ -62,6 +63,7 @@ class Photo extends Component {
                   customerImageId={customerImageId}
                   user={user}
                   actionSource="photoRoll"
+                  scheduledMissionId={scheduledMissionId}
                 />
               </li>
             </ul>

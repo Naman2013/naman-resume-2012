@@ -16,6 +16,7 @@ const {
   number,
   shape,
   string,
+  oneOfType,
 } = PropTypes;
 
 const mapStateToProps = ({ galleries, galleryActions }) => ({
@@ -43,7 +44,7 @@ const mapDispatchToProps = dispatch => ({
 class AddToGallery extends Component {
 
   static propTypes = {
-    customerImageId: number.isRequired,
+    customerImageId: oneOfType([number, string]).isRequired,
     actions: shape({
       fetchGalleries: func.isRequired,
       createGallery: func.isRequired,
@@ -93,12 +94,15 @@ class AddToGallery extends Component {
   }
 
   toggleMenu = (e) => {
+    const { actions } = this.props;
     e.preventDefault();
     e.stopPropagation();
 
     if (this.contextTrigger) {
       this.contextTrigger.handleContextClick(e);
     }
+
+    actions.resetAddResponse();
   }
 
   createGallery = (e) => {
