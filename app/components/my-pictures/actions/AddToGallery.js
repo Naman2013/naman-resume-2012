@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 import ContextMenu from '../../common/context-menu/ContextMenu';
 import GalleryListMenuItem from './GalleryListMenuItem';
 import { white, black, pink } from '../../../styles/variables/colors';
-import { fetchGalleries, createGallery } from '../../../modules/my-pictures-galleries/actions';
+import { fetchGalleries, createGallery, fetchGalleriesCount } from '../../../modules/my-pictures-galleries/actions';
 import { addImageToGallery, resetAddResponse } from '../../../modules/my-pictures-gallery-actions/actions';
 import { actionsStyles } from './actions.style';
 
@@ -32,6 +32,7 @@ const mapStateToProps = ({ galleries, galleryActions }) => ({
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
     fetchGalleries,
+    fetchGalleriesCount,
     createGallery,
     addImageToGallery,
     resetAddResponse,
@@ -46,6 +47,7 @@ class AddToGallery extends Component {
     actions: shape({
       fetchGalleries: func.isRequired,
       createGallery: func.isRequired,
+      fetchGalleriesCount: func.isRequired,
     }),
     addToGalleryState: shape({
       loading: bool,
@@ -107,7 +109,10 @@ class AddToGallery extends Component {
     if (!newGalleryName) return;
     actions.createGallery({
       title: newGalleryName,
-    }).then(() => {
+    }).then((res) => {
+      if (!res.payload.apiError) {
+        actions.fetchGalleriesCount({});
+      }
       this.setState({
         newGalleryName: ''
       })
