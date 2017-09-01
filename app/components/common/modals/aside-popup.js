@@ -33,7 +33,6 @@ class AsidePopup extends Component {
     const {  } = this.state;
 
     const {
-      open,
       closePopup,
       popupText,
       contactLink,
@@ -42,18 +41,12 @@ class AsidePopup extends Component {
       popupOpen,
     } = this.props;
 
-    console.log('popupOpen: ', popupOpen);
-
-    const popRootCSS = {
-      display: popupOpen,
-    };
-
     const popRootClassnames = classnames('popup pointerleft', {
-      hidden: popupOpen,
+      hidden: !popupOpen,
     });
 
     return (
-      <div className={popRootClassnames} style={popRootCSS}>
+      <div className={popRootClassnames}>
         <article className="poptext">
           <p>
             {popupText}
@@ -76,13 +69,7 @@ class AsidePopup extends Component {
         </button>
 
         <style jsx>{`
-          div.popup.pointerleft {
-            display:none;
-          }
-          .static-app-content-container .popup {
-            display: none;
-          }
-          #slooh.popup {
+          .popup {
             background-color: white;
             -webkit-border-radius: 8px;
             -moz-border-radius: 8px;
@@ -102,13 +89,13 @@ class AsidePopup extends Component {
             z-index: 9999;
           }
 
-          #slooh .popup p {
+          .popup p {
             font-size: 11px;
             font-size: 0.91667rem;
             line-height: 1.4em;
           }
 
-          #slooh .popup footer {
+          .popup footer {
             border-top: solid 1px #b9d7d7;
             font-size: 12px;
             font-size: 1rem;
@@ -119,7 +106,7 @@ class AsidePopup extends Component {
             text-align: center;
           }
 
-          #slooh .popup.pointerleft:before {
+          .popup.pointerleft:before {
             content: ' ';
             position: absolute;
             width: 0;
@@ -132,7 +119,7 @@ class AsidePopup extends Component {
             border-color: transparent white transparent transparent;
           }
 
-          #slooh .poptext {
+          .poptext {
             padding: 18px;
             padding-bottom: 0;
             margin: 0;
@@ -153,13 +140,13 @@ AsidePopup.defaultProps = {
   contactLink: 'https://www.slooh.com/about/contact',
   footerText: 'Have Questions?',
   contactLinkText: 'Contact our support team',
-  popupOpen: 'none',
+  popupOpen: false,
 };
 
 AsidePopup.propTypes = {
   closePopup: PropTypes.func,
   open: PropTypes.bool,
-  popupOpen: PropTypes.string,
+  popupOpen: PropTypes.bool,
   popupText: PropTypes.string,
   display: PropTypes.string,
   contactLink: PropTypes.string,

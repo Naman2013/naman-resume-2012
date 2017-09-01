@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router';
+import uniqueId from 'lodash/uniqueId';
 import ModalGeneric from '../../components/common/modals/modal-generic';
 import AsidePopup from '../../components/common/modals/aside-popup';
+import Features from '../../components/plans/features';
 
 
 const PLAN_DESCRIPTIONS = {
@@ -25,54 +27,159 @@ const PLAN_DESCRIPTIONS = {
   },
 };
 
+const FEATURE_ARRAY_SLOOH_CREW = [
+  {
+    content: 'Live Telescope Feeds',
+    tooltip: { show: false, content: '' },
+  },
+  {
+    content: 'Take Pictures: Limited',
+    tooltip: { show: false, content: '' },
+  },
+  {
+    content: 'Control Telescopes',
+    liNot: true,
+    tooltip: { show: false, content: '' },
+  },
+  {
+    content: 'Reservations',
+    liNot: true,
+    tooltip: { show: false, content: '' },
+  },
+  {
+    content: 'Target Objects',
+    liNot: true,
+    tooltip: { show: false, content: '' },
+  },
+  {
+    content: 'Live and Recorded Shows',
+    tooltip: { show: false, content: '' },
+  },
+  {
+    content: 'Community',
+    tooltip: { show: false, content: '' },
+  },
+];
+
+let FEATURE_ARRAY_APPRENTICE = [
+  {
+    id: uniqueId(),
+    content: 'Live Telescope Feeds',
+    tooltip: { show: false, content: '', toolTipOpen: false },
+  },
+  {
+    id: uniqueId(),
+    content: 'Take Pictures: Unlimited',
+    tooltip: { show: true, content: 'Take Pictures: Unlimited', toolTipOpen: false },
+  },
+  {
+    id: uniqueId(),
+    content: 'Control Telescopes',
+    tooltip: { show: false, content: '', toolTipOpen: false },
+  },
+  {
+    id: uniqueId(),
+    content: 'Monthly Reservation Limit',
+    tooltip: { show: true, content: 'Monthly Reservation Limit', toolTipOpen: false },
+  },
+  {
+    id: uniqueId(),
+    content: 'Target Objects: Slooh 500',
+    tooltip: { show: true, content: 'Target Objects: Slooh 500', toolTipOpen: false },
+  },
+  {
+    id: uniqueId(),
+    content: 'Live and Recorded Shows',
+    tooltip: { show: false, content: '', toolTipOpen: false },
+  },
+  {
+    id: uniqueId(),
+    content: 'Community',
+    tooltip: { show: false, content: '', toolTipOpen: false },
+  },
+];
+
+const FEATURE_ARRAY_ASTRONOMER = [
+  {
+    content: 'Live Telescope Feeds',
+    tooltip: { show: false, content: '' },
+  },
+  {
+    content: 'Take Pictures: Unlimited+',
+    tooltip: { show: true, content: 'Take Pictures: Unlimited+' },
+  },
+  {
+    content: 'Control Telescopes',
+    tooltip: { show: false, content: '' },
+  },
+  {
+    content: 'Unlimited Reservations',
+    tooltip: { show: true, content: '' },
+  },
+  {
+    content: 'Target Objects: All',
+    tooltip: { show: true, content: 'Target Objects: All' },
+  },
+  {
+    content: 'Live and Recorded Shows',
+    tooltip: { show: false, content: '' },
+  },
+  {
+    content: 'Community+',
+    tooltip: { show: true, content: 'Community' },
+  },
+];
+
+function resetFeatureSet() {
+  FEATURE_ARRAY_APPRENTICE = FEATURE_ARRAY_APPRENTICE.map((feature) => {
+    return Object.assign({}, feature, { toolTipOpen: false });
+  })
+}
+
+function updateFeaturesPopState(ID) {
+  console.log('ID: ', ID);
+  FEATURE_ARRAY_APPRENTICE = FEATURE_ARRAY_APPRENTICE.map((feature) => {
+
+    if (feature.id === ID) {
+      return Object.assign({}, feature, { toolTipOpen: true });
+    }
+
+    return Object.assign({}, feature, { toolTipOpen: false });
+  });
+}
+
 class PlansChange extends Component {
-  constructor(props) {
-    super(props);
 
-    this.state = {
-      modalOpen: false,
-      popupOpen: 'none',
-      title: '',
-      description: '',
-    };
+  state = {
+    apprenticeFeatures: FEATURE_ARRAY_APPRENTICE,
+  };
 
-    this.closeModal = this.closeModal.bind(this);
-    this.closePopup = this.closePopup.bind(this);
-  }
+  updateFeaturesPopState(ID) {
+    const { apprenticeFeatures } = this.state;
+    const newApprecentice = apprenticeFeatures.map((feature) => {
+      if (feature.id === ID) {
+        return Object.assign({}, feature, { toolTipOpen: true });
+      }
 
-  closeModal(event) {
-    event.preventDefault();
+      return Object.assign({}, feature, { toolTipOpen: false });
+    });
 
     this.setState({
-      modalOpen: false,
+      apprenticeFeatures: newApprecentice,
     });
   }
 
-  openModal(modalContent) {
-    this.setState({
-      ...modalContent,
-      modalOpen: true,
-    });
+  openPopup = (selectedPopID) => {
+    this.updateFeaturesPopState(selectedPopID);
+    console.log(FEATURE_ARRAY_APPRENTICE);
   }
 
-  closePopup(event) {
-    event.preventDefault();
-
-    this.setState({
-      popupOpen: 'none',
-    });
-  }
-
-  openPopup(popupContent) {
-    console.log('open popup');
-    this.setState({
-      ...popupContent,
-      popupOpen: 'inline-block',
-    });
+  resetPopup = (event) => {
+    resetFeatureSet();
   }
 
   render() {
-    const { modalOpen, popupOpen, popupContent, title, description } = this.state;
+    const { apprenticeFeatures } = this.state;
     const { registerNewSloohCrewURL, registerNewApprenticeURL, registerNewAstronomerURL } = this.props;
     return (
 
@@ -80,24 +187,6 @@ class PlansChange extends Component {
         <div className="bg-div-pic clearfix">
 
           <div className="about pricing">
-            { /*
-            <ModalGeneric
-              open={modalOpen}
-              closeModal={this.closeModal}
-              title={title}
-              description={description}
-            />
-            */ }
-
-            <AsidePopup
-              popupText={popupContent}
-              display={'none'}
-              contactLink={'https://www.slooh.com/about/contact'}
-              footerText={'Have Questions?'}
-              contactLinkText={'Contact our support team'}
-              popupOpen={popupOpen}
-              closePopup={this.closePopup}
-            />
 
             <div className="row first-row">
               <div className="col-sm-6 text-left">
@@ -134,33 +223,16 @@ class PlansChange extends Component {
                         Introducing Slooh to the Community
                       </div>
 
-                      {/*
-                        TODO: build feature component and features iterator component
-                        <Features features=[
-                          { title: 'Shows: All', tooltip: {show: true, content: 'whatever'} },
-                          {  }]
-                        />
-                          // iterates over list of props in 'features' and generates a <Feature> for each
-                          <Feature
-                            showTooltip={feature.tooltip}
-                            />
-                      */}
-                      <ul className="features">
-                        <li>Shows: All</li>
-                        <li>Telescopes</li>
-                        <li>Take Pictures</li>
-                        <li>Community</li>
-                        <li>Unlimited Reservations <i onClick={() => {this.openPopup(PLAN_DESCRIPTIONS.RESERVATION_LIMIT_UNLIMITED)}} className="icon control info-white">info</i>
-                        </li>
-                        <li>Objects: All
-                        </li>
-                        <li>Space Situation Room</li>
-                        <li>Slooh Road Trip <i onClick={() => {this.openPopup(PLAN_DESCRIPTIONS.SLOOH_ROAD_TRIP)}} className="icon control info-white">info</i></li>
-                      </ul>
+                      <Features
+                        features_array={FEATURE_ARRAY_SLOOH_CREW}
+                        openPopup={this.openPopup}
+                        closeAllPopup={this.resetPopup}
+                      />
+
                     </article>
 
                     <footer>
-                      <a className="btn-primary continue" href={registerNewAstronomerURL}>Get This Plan</a>
+                      <a className="btn-primary continue" href={registerNewAstronomerURL}>Register Free</a>
                     </footer>
 
                   </article>
@@ -186,16 +258,12 @@ class PlansChange extends Component {
                       <div className="margin-top-med margin-bottom-large pos-relative">30 Day free trial
                         <br />if you act now
                       </div>
-                      <ul className="features">
-                        <li>Shows: All</li>
-                        <li>Telescopes</li>
-                        <li>Take Pictures</li>
-                        <li>Community</li>
-                        <li>5 Reservations <small>monthly</small> <i onClick={() => {this.openModal(PLAN_DESCRIPTIONS.RESERVATION_LIMIT_5)}} className="icon control info-white">info</i></li>
-                        <li>Objects: Slooh 500 <i onClick={() => {this.openPopup(PLAN_DESCRIPTIONS.OBJECTS_SLOOH_500)}} className="icon control info-white">info</i></li>
-                        <li>Space Situation Room</li>
-                        <li>Slooh Road Trip <i onClick={() => {this.openPopup(PLAN_DESCRIPTIONS.SLOOH_ROAD_TRIP)}} className="icon control info-white">info</i></li>
-                      </ul>
+
+                      <Features
+                        features_array={apprenticeFeatures}
+                        openPopup={this.openPopup}
+                      />
+
                     </article>
 
                     <footer>
@@ -222,20 +290,14 @@ class PlansChange extends Component {
                       <p>Monthly | USD</p>
 
                       <div className="margin-top-med margin-bottom-large">Become a leader in the
-                          <br />Slooh Community</div>
+                          <br />Slooh Community
+                      </div>
 
-                      <ul className="features">
-                        <li>Shows: All</li>
-                        <li>Telescopes</li>
-                        <li>Take Pictures</li>
-                        <li>Community</li>
-                        <li>Unlimited Reservations <i onClick={() => {this.openPopup(PLAN_DESCRIPTIONS.RESERVATION_LIMIT_UNLIMITED)}} className="icon control info-white">info</i>
-                        </li>
-                        <li>Objects: All
-                        </li>
-                        <li>Space Situation Room</li>
-                        <li>Slooh Road Trip <i onClick={() => {this.openPopup(PLAN_DESCRIPTIONS.SLOOH_ROAD_TRIP)}} className="icon control info-white">info</i></li>
-                      </ul>
+                      <Features
+                        features_array={FEATURE_ARRAY_ASTRONOMER}
+                        openPopup={this.openPopup}
+                      />
+
                     </article>
 
                     <footer>
