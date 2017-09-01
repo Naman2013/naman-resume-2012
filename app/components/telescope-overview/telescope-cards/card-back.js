@@ -20,7 +20,6 @@ class CardBack extends Component {
 
   render() {
     const { teleId, activeTelescopeMissions, telescopeCardBack } = this.props;
-    // console.log('this CardBack: ', telescopeCardBack);
 
     if (!telescopeCardBack.teleId) {
       return (
@@ -30,32 +29,34 @@ class CardBack extends Component {
       )
     }
 
-    // console.log('card spec header: ' + telescopeCardBack.telescopeArray.telescopeList[0].specTitle);
-
     return (
       <div className="telescope-card-back">
         <div className="card-header">
 
           <button
             onClick={this.props.handleFlip}
-            className="flip-card-action">
-            <img className="icon" target="_blank" src="https://vega.slooh.com/assets/icons/flip-back-arrow.png" />
+            className="flip-card-action"
+          >
+            <img className="icon" alt="flip_icon" target="_blank" src="https://vega.slooh.com/assets/icons/flip-back-arrow.png" />
           </button>
 
-          <img className="obs_icon" src={telescopeCardBack.headerArray.observatoryIconURL} width="50" height="50" />
-          <h3 className="title"> <Markdown source={`${telescopeCardBack.headerArrayOverview.pierName}`} /> </h3>
+          <img className="obs_icon" alt="obs_icon" src={telescopeCardBack.headerArray.observatoryIconURL} width="50" height="50" />
+          <div className="pier-title">
+            <Markdown source={telescopeCardBack.headerArrayOverview.pierName} />
+          </div>
         </div>
 
         <div className="telescope-specs">
 
           {
             telescopeCardBack.telescopeArray.telescopeList.map((telescope) => {
-              console.log('telescope name: ', telescope.telescopeName);
               return (
                 <div>
                   <figure className="telescope-image">
 
-                    <Markdown source={telescope.telescopeName} />
+                    <div className="telescope-name">
+                      <Markdown source={telescope.telescopeName} />
+                    </div>
 
                     <a href={telescope.imageURL} rel="noopener noreferrer" target="_blank">
                       <img
@@ -141,6 +142,9 @@ class CardBack extends Component {
             margin-top: 10px;
             margin-bottom:10px;
             border-top: 1px solid #3c4655;
+          }
+          .telescope-name h2 {
+            font-size: 1.5em;
           }
           `}
         </style>

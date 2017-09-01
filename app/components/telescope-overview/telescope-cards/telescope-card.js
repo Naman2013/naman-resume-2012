@@ -26,10 +26,6 @@ class TelescopeCard extends Component {
   handleFlip(event) {
     event.preventDefault();
     const newFlipState = !this.state.flipped;
-
-    // if (newFlipState) {
-    //   this.props.fetchTelescopeCardData();
-    // }
     this.setState({
       flipped: newFlipState
     });

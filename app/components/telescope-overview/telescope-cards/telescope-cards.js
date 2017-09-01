@@ -52,7 +52,6 @@ class TelescopeCards extends Component {
       // if a status is provided by the status API, we use that - otherwise we generate one
       telescopeStatus = telescopeStatus ? telescopeStatus : generateTelescopeStatus(telescope);
 
-      console.log('teleCardData: ', telescopeCardData);
       const telescopeCardBack = telescopeCardData.cardList
         .find(card => card.teleId === telescopeStatus.telescopeId);
 
