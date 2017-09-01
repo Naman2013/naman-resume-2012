@@ -2,157 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router';
-import uniqueId from 'lodash/uniqueId';
-import ModalGeneric from '../../components/common/modals/modal-generic';
-import AsidePopup from '../../components/common/modals/aside-popup';
 import Features from '../../components/plans/features';
 
-
-const PLAN_DESCRIPTIONS = {
-  RESERVATION_LIMIT_5: {
-    title: '5 Reservation Limit',
-    description: 'Point any Slooh telescope at any of the Slooh 500.',
-  },
-  RESERVATION_LIMIT_UNLIMITED: {
-    title: 'Unlimited Reservations',
-    description: 'Point any Slooh telescope at any object in the sky, as selected from existing astro-catalogs or by entering coordinates.',
-  },
-  OBJECTS_SLOOH_500: {
-    title: 'Objects: Slooh 500',
-    description: 'The Slooh 500 are the most popular objects in the night sky as chosen by the Slooh community.',
-  },
-  SLOOH_ROAD_TRIP: {
-    title: 'Slooh Road Trip',
-    description: 'Join Slooh for outdoor events such as the Total Solar Eclipse in Stanley, Idaho on August 21st, 2017',
-  },
-};
-
-const FEATURE_ARRAY_SLOOH_CREW = [
-  {
-    content: 'Live Telescope Feeds',
-    tooltip: { show: false, content: '' },
-  },
-  {
-    content: 'Take Pictures: Limited',
-    tooltip: { show: false, content: '' },
-  },
-  {
-    content: 'Control Telescopes',
-    liNot: true,
-    tooltip: { show: false, content: '' },
-  },
-  {
-    content: 'Reservations',
-    liNot: true,
-    tooltip: { show: false, content: '' },
-  },
-  {
-    content: 'Target Objects',
-    liNot: true,
-    tooltip: { show: false, content: '' },
-  },
-  {
-    content: 'Live and Recorded Shows',
-    tooltip: { show: false, content: '' },
-  },
-  {
-    content: 'Community',
-    tooltip: { show: false, content: '' },
-  },
-];
-
-let FEATURE_ARRAY_APPRENTICE = [
-  {
-    id: uniqueId(),
-    content: 'Live Telescope Feeds',
-    tooltip: { show: false, content: '', toolTipOpen: false },
-  },
-  {
-    id: uniqueId(),
-    content: 'Take Pictures: Unlimited',
-    tooltip: { show: true, content: 'Take Pictures: Unlimited', toolTipOpen: false },
-  },
-  {
-    id: uniqueId(),
-    content: 'Control Telescopes',
-    tooltip: { show: false, content: '', toolTipOpen: false },
-  },
-  {
-    id: uniqueId(),
-    content: 'Monthly Reservation Limit',
-    tooltip: { show: true, content: 'Monthly Reservation Limit', toolTipOpen: false },
-  },
-  {
-    id: uniqueId(),
-    content: 'Target Objects: Slooh 500',
-    tooltip: { show: true, content: 'Target Objects: Slooh 500', toolTipOpen: false },
-  },
-  {
-    id: uniqueId(),
-    content: 'Live and Recorded Shows',
-    tooltip: { show: false, content: '', toolTipOpen: false },
-  },
-  {
-    id: uniqueId(),
-    content: 'Community',
-    tooltip: { show: false, content: '', toolTipOpen: false },
-  },
-];
-
-const FEATURE_ARRAY_ASTRONOMER = [
-  {
-    content: 'Live Telescope Feeds',
-    tooltip: { show: false, content: '' },
-  },
-  {
-    content: 'Take Pictures: Unlimited+',
-    tooltip: { show: true, content: 'Take Pictures: Unlimited+' },
-  },
-  {
-    content: 'Control Telescopes',
-    tooltip: { show: false, content: '' },
-  },
-  {
-    content: 'Unlimited Reservations',
-    tooltip: { show: true, content: '' },
-  },
-  {
-    content: 'Target Objects: All',
-    tooltip: { show: true, content: 'Target Objects: All' },
-  },
-  {
-    content: 'Live and Recorded Shows',
-    tooltip: { show: false, content: '' },
-  },
-  {
-    content: 'Community+',
-    tooltip: { show: true, content: 'Community' },
-  },
-];
-
-function resetFeatureSet() {
-  FEATURE_ARRAY_APPRENTICE = FEATURE_ARRAY_APPRENTICE.map((feature) => {
-    return Object.assign({}, feature, { toolTipOpen: false });
-  })
-}
-
-function updateFeaturesPopState(ID) {
-  console.log('ID: ', ID);
-  FEATURE_ARRAY_APPRENTICE = FEATURE_ARRAY_APPRENTICE.map((feature) => {
-
-    if (feature.id === ID) {
-      return Object.assign({}, feature, { toolTipOpen: true });
-    }
-
-    return Object.assign({}, feature, { toolTipOpen: false });
-  });
-}
-
 class PlansChange extends Component {
-
-  state = {
-    apprenticeFeatures: FEATURE_ARRAY_APPRENTICE,
-  };
 
   updateFeaturesPopState(ID) {
     const { apprenticeFeatures } = this.state;
@@ -171,11 +23,10 @@ class PlansChange extends Component {
 
   openPopup = (selectedPopID) => {
     this.updateFeaturesPopState(selectedPopID);
-    console.log(FEATURE_ARRAY_APPRENTICE);
   }
 
   resetPopup = (event) => {
-    resetFeatureSet();
+    console.log('handle reset');
   }
 
   render() {
