@@ -88,13 +88,14 @@ class CardBack extends Component {
                         );
                       }
                     )}
+                    <hr className="tele-spec-hr" />
                   </div>
                 </div>
               );
             }
           )
         }
-          <div className="location-section">
+          <div className="content">
             <h3 className="title">
               <Markdown source={telescopeCardBack.locationArray.locationTitle} />
             </h3>
@@ -132,6 +133,14 @@ class CardBack extends Component {
           div.location-section {
             text-align: center;
             margin-top: 20px;
+          }
+          hr.tele-spec-hr {
+            width: 50%;
+            color: grey;
+            height:5px;
+            margin-top: 10px;
+            margin-bottom:10px;
+            border-top: 1px solid #3c4655;
           }
           `}
         </style>
