@@ -1,0 +1,254 @@
+const path = require('path');
+const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+
+const apiUrl = process.env.apiUrl || '';
+const apiPortNumber = process.env.apiPortNumber || '';
+
+module.exports = {
+  entry: {
+    vendors: [
+      'bootstrap',
+      'classnames',
+      'cookie',
+      'lodash',
+      'moment',
+      'moment-timezone',
+      'axios',
+      'react',
+      'react-addons-css-transition-group',
+      'react-bootstrap',
+      'react-dom',
+      'react-draggable',
+      'react-onclickoutside',
+      'react-redux',
+      'react-remarkable',
+      'react-router',
+      'react-router-redux',
+      'react-scroll',
+      'react-slick',
+      'react-tabs',
+      'react-tag-input',
+      'redux',
+      'redux-form',
+      'redux-logger',
+      'redux-thunk',
+    ],
+    bundle: './app/index.js',
+  },
+  output: {
+    path: `${__dirname}/dist`,
+    publicPath: '/',
+    filename: '[name].js',
+    sourceMapFilename: '[name].js.map',
+  },
+  module: {
+    loaders: [
+      {
+        test: /\.json$/,
+        loaders: ['json-loader'],
+      },
+      { // string-replace loader is here to replace URL's mapped to /api in code
+        test: /\.(js)$/,
+        loader: 'string-replace-loader',
+        exclude: /node_modules/,
+        query: {
+          search: '/api/',
+          replace: apiUrl ? `${apiUrl}:${apiPortNumber}/api/` : '/api/',
+          flags: 'g',
+        },
+      },
+      { // string-replace to replace sse environment url's with the appropriate address
+        test: /\.(js)$/,
+        loader: 'string-replace-loader',
+        exclude: /node_modules/,
+        query: {
+          search: '/dev-sse/',
+          replace: `${apiUrl}:`,
+          flags: 'g',
+        },
+      },
+      {
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        loader: 'babel-loader',
+        query: {
+          cacheDirectory: true,
+          plugins: ['transform-runtime', 'transform-decorators-legacy', 'styled-jsx/babel'],
+          presets: ['es2015', 'es2016', 'es2017', 'react', 'stage-0'],
+        },
+      },
+      {
+        test: /\.css$/,
+        loaders: [
+          'style-loader',
+          'css-loader?modules&importLoaders=1&localIdentName=[local]',
+          'postcss-loader',
+        ],
+      },
+      {
+        test: /\.scss$/,
+        loaders: [
+          'style-loader',
+          'css-loader?modules&importLoaders=1&localIdentName=[local]',
+          'postcss-loader',
+          'sass-loader',
+        ],
+      },
+      {
+        test: /\.(svg|png|jpg|jpeg|gif|woff)$/,
+        loader: 'url-loader',
+        options: {
+          limit: 40,
+        },
+      },
+      { // loader for bootstrap
+        test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
+        loader: 'file-loader',
+      },
+      { // loader for bootstrap
+        test: /\.(woff|woff2)(\?v=\d+\.\d+\.\d+)?$/,
+        loader: 'url-loader?limit=10000&mimetype=application/font-woff',
+      },
+      { // loader for bootstrap
+        test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
+        loader: 'url-loader?limit=10000&mimetype=application/octet-stream',
+      },
+    ],
+  },
+  plugins: [
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendors',
+      filename: 'common.js',
+    }),
+    new HtmlWebpackPlugin({
+      template: __dirname + '/app/index.html',
+      filename: 'index.html',
+      inject: 'body',
+    }),
+    new CopyWebpackPlugin([
+      { from: './assets/**/*' },
+    ]),
+    new BundleAnalyzerPlugin({
+      analyzerMode: 'server',
+      analyzerHost: 'localhost',
+      analyzerPort: 8888,
+      openAnalyzer: false,
+    }),
+  ],
+  devtool: 'cheap-module-eval-source-map',
+  devServer: {
+    contentBase: path.join(__dirname, '/dist'),
+    compress: true,
+    historyApiFallback: true,
+    proxy: {
+      '/api/**': {
+        target: 'https://deneb.slooh.com:443',
+        changeOrigin: true,
+        secure: true,
+      },
+      '/sloohapp/**': {
+        target: 'https://deneb.slooh.com:443',
+        changeOrigin: true,
+        secure: true,
+      },
+      '/:3004/**': {
+        target: 'https://slooh.com:3004',
+        changeOrigin: true,
+        secure: true,
+        pathRewrite: { '/:3004/': '' },
+      },
+      '/:3020/**': {
+        target: 'https://slooh.com:3020',
+        changeOrigin: true,
+        secure: true,
+        pathRewrite: { '/:3020/': '' },
+      },
+      '/:3003/**': {
+        target: 'https://slooh.com:3003',
+        changeOrigin: true,
+        secure: true,
+        pathRewrite: { '/:3003/': '' },
+      },
+      '/:3006/**': {
+        target: 'https://slooh.com:3006',
+        changeOrigin: true,
+        secure: true,
+        pathRewrite: { '/:3006/': '' },
+      },
+      '/:3007/**': {
+        target: 'https://slooh.com:3007',
+        changeOrigin: true,
+        secure: true,
+        pathRewrite: { '/:3007/': '' },
+      },
+      '/:3107/**': {
+        target: 'https://slooh.com:3107',
+        changeOrigin: true,
+        secure: true,
+        pathRewrite: { '/:3107/': '' },
+      },
+      '/:3002/**': {
+        target: 'https://slooh.com:3002',
+        changeOrigin: true,
+        secure: true,
+        pathRewrite: { '/:3002/': '' },
+      },
+      '/:3105/**': {
+        target: 'https://slooh.com:3105',
+        changeOrigin: true,
+        secure: true,
+        pathRewrite: { '/:3105/': '' },
+      },
+      '/:3102/**': {
+        target: 'https://slooh.com:3102',
+        changeOrigin: true,
+        secure: true,
+        pathRewrite: { '/:3102/': '' },
+      },
+      '/:3103/**': {
+        target: 'https://slooh.com:3103',
+        changeOrigin: true,
+        secure: true,
+        pathRewrite: { '/:3103/': '' },
+      },
+      '/:3104/**': {
+        target: 'https://slooh.com:3104',
+        changeOrigin: true,
+        secure: true,
+        pathRewrite: { '/:3104/': '' },
+      },
+      '/:3001/**': {
+        target: 'https://slooh.com:3001',
+        changeOrigin: true,
+        secure: true,
+        pathRewrite: { '/:3001/': '' },
+      },
+      '/:3005/**': {
+        target: 'https://slooh.com:3005',
+        changeOrigin: true,
+        secure: true,
+        pathRewrite: { '/:3005/': '' },
+      },
+      '/:3101/**': {
+        target: 'https://slooh.com:3101',
+        changeOrigin: true,
+        secure: true,
+        pathRewrite: { '/:3101/': '' },
+      },
+      '/:0/**': {
+        target: 'https://slooh.com:0',
+        changeOrigin: true,
+        secure: true,
+        pathRewrite: { '/:0/': '' },
+      },
+      '/util/**': {
+        target: 'https://slooh.com',
+        changeOrigin: true,
+        secure: true,
+      },
+    },
+  },
+};
