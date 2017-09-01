@@ -30,7 +30,7 @@ class CardBack extends Component {
       )
     }
 
-    console.log('card spec header: ' + telescopeCardBack.telescopeArray.telescopeList[0].specTitle);
+    // console.log('card spec header: ' + telescopeCardBack.telescopeArray.telescopeList[0].specTitle);
 
     return (
       <div className="telescope-card-back">
@@ -47,39 +47,54 @@ class CardBack extends Component {
         </div>
 
         <div className="telescope-specs">
-          <figure className="telescope-image">
 
-            <a href={telescopeCardBack.telescopeArray.telescopeList[0].imageURL}>
-              <img
-                src={telescopeCardBack.telescopeArray.telescopeList[0].imageThumbnailURL}
-                alt="Telescope Preview"
-                width="259"
-                height="180"
-              />
-            </a>
-            <figcaption className="caption">
-              <Markdown source={telescopeCardBack.telescopeArray.telescopeList[0].imageCaption1} />
-            </figcaption>
-            <figcaption className="caption">
-              <Markdown source={telescopeCardBack.telescopeArray.telescopeList[0].imageCaption2} />
-            </figcaption>
-          </figure>
+          {
+            telescopeCardBack.telescopeArray.telescopeList.map((telescope) => {
+              console.log('telescope name: ', telescope.telescopeName);
+              return (
+                <div>
+                  <figure className="telescope-image">
 
-          <div className="content" key={_.uniqueId('content_')}>
-            <h3 className="title">
-              <Markdown source={telescopeCardBack.telescopeArray.telescopeList[0].specTitle} />
-            </h3>
+                    <Markdown source={telescope.telescopeName} />
 
-            {telescopeCardBack.telescopeArray.telescopeList[0].specArray.map(
-              (spec) => {
-                return (
-                  <div key={_.uniqueId('spec_')}>
-                    <Markdown source={spec} key={_.uniqueId('spec_')} />
+                    <a href={telescope.imageURL} rel="noopener noreferrer" target="_blank">
+                      <img
+                        src={telescope.imageThumbnailURL}
+                        alt="Telescope Preview"
+                        width="259"
+                        height="180"
+                      />
+                    </a>
+
+                    <figcaption className="caption">
+                      <Markdown source={telescope.imageCaption1} />
+                    </figcaption>
+                    <figcaption className="caption">
+                      <Markdown source={telescope.imageCaption2} />
+                    </figcaption>
+                  </figure>
+
+                  <div className="content" key={_.uniqueId('content_')}>
+                    <h3 className="title">
+                      <Markdown source={telescope.specTitle} />
+                    </h3>
+
+                    {telescope.specArray.map(
+                      (spec) => {
+                        return (
+                          <div key={_.uniqueId('spec_')}>
+                            <Markdown source={spec} key={_.uniqueId('spec_')} />
+                          </div>
+                        );
+                      }
+                    )}
                   </div>
-                );
-              }
-            )}
-
+                </div>
+              );
+            }
+          )
+        }
+          <div className="location-section">
             <h3 className="title">
               <Markdown source={telescopeCardBack.locationArray.locationTitle} />
             </h3>
@@ -89,9 +104,9 @@ class CardBack extends Component {
                 return <Markdown source={loc}key={_.uniqueId('loc_')} />
               }
             )}
-
           </div>
         </div>
+
         <style jsx> {`
           img.obs_icon {
             margin-bottom: 20px;
@@ -99,7 +114,7 @@ class CardBack extends Component {
           /* Custom Scrollbar */
 
           div.telescope-specs::-webkit-scrollbar {
-            width: 10px;
+            width: 7px;
           }
 
           div.telescope-specs::-webkit-scrollbar-track {
@@ -113,6 +128,10 @@ class CardBack extends Component {
 
           div.telescope-specs::-webkit-scrollbar-thumb:hover {
             /*background: rgba(255,0,0,0.8);*/
+          }
+          div.location-section {
+            text-align: center;
+            margin-top: 20px;
           }
           `}
         </style>
