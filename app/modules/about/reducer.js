@@ -1,5 +1,7 @@
 import uniqueId from 'lodash/uniqueId';
 
+import createReducer from '../utils/createReducer';
+
 // feature types
 export const CREW = 'CREW';
 export const APPRENTICE = 'APPRENTICE';

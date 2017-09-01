@@ -30,7 +30,7 @@ class PlansChange extends Component {
   }
 
   render() {
-    const { apprenticeFeatures } = this.state;
+    const apprenticeFeatures = [];
     const { registerNewSloohCrewURL, registerNewApprenticeURL, registerNewAstronomerURL } = this.props;
     return (
 
@@ -75,7 +75,7 @@ class PlansChange extends Component {
                       </div>
 
                       <Features
-                        features_array={FEATURE_ARRAY_SLOOH_CREW}
+                        features_array={[]}
                         openPopup={this.openPopup}
                         closeAllPopup={this.resetPopup}
                       />
@@ -144,8 +144,9 @@ class PlansChange extends Component {
                           <br />Slooh Community
                       </div>
 
+                      {/* astronomer */}
                       <Features
-                        features_array={FEATURE_ARRAY_ASTRONOMER}
+                        features_array={[]}
                         openPopup={this.openPopup}
                       />
 
@@ -332,8 +333,9 @@ class PlansChange extends Component {
   }
 }
 
-const mapStateToProps = ({ appConfig }) => ({
+const mapStateToProps = ({ about, appConfig }) => ({
   ...appConfig,
+  about,
 });
 const mapDispatchToProps = dispatch => (bindActionCreators({}, dispatch));
 
