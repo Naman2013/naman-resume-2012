@@ -7,22 +7,11 @@ import GenericLoadingBox from '../../common/loading-screens/generic-loading-box'
 const _ = require('lodash');
 const Markdown = require('react-remarkable');
 
-const Remarkable = require('remarkable');
-const RemarkableReactRenderer = require('remarkable-react');
-
 function generateSpecItem(spec) {
-  console.log('spec: ', spec);
-  // return (
-  //   <Markdown source={spec} />
-  // );
   return '<Markdown source={spec} />';
 }
 
 function generateSpecList(specList) {
-  // specList.map((spec) => {
-  //   console.log('spec: ', spec);
-  //   return spec;
-  // });
   return specList.map(generateSpecItem).join('');
 }
 
@@ -31,17 +20,17 @@ class CardBack extends Component {
 
   render() {
     const { teleId, activeTelescopeMissions, telescopeCardBack } = this.props;
-    console.log('this CardBack: ', telescopeCardBack);
+    // console.log('this CardBack: ', telescopeCardBack);
 
-    // this conditional is obviously not correct...
     if (!telescopeCardBack.teleId) {
-      console.log('loading...');
       return (
         <div className="telescope-card-back">
           <GenericLoadingBox />
         </div>
       )
     }
+
+    console.log('card spec header: ' + telescopeCardBack.telescopeArray.telescopeList[0].specTitle);
 
     return (
       <div className="telescope-card-back">
@@ -50,11 +39,11 @@ class CardBack extends Component {
           <button
             onClick={this.props.handleFlip}
             className="flip-card-action">
-            <img className="icon" src="https://vega.slooh.com/assets/icons/flip-back-arrow.png" />
+            <img className="icon" target="_blank" src="https://vega.slooh.com/assets/icons/flip-back-arrow.png" />
           </button>
 
-          <img src="https://vega.slooh.com/assets/icons/observatory.svg" width="50" height="50" />
-          <h3 className="title"> <Markdown source={telescopeCardBack.headerArray.pierName} /> </h3>
+          <img className="obs_icon" src={telescopeCardBack.headerArray.observatoryIconURL} width="50" height="50" />
+          <h3 className="title"> <Markdown source={`${telescopeCardBack.headerArrayOverview.pierName}`} /> </h3>
         </div>
 
         <div className="telescope-specs">
@@ -103,6 +92,30 @@ class CardBack extends Component {
 
           </div>
         </div>
+        <style jsx> {`
+          img.obs_icon {
+            margin-bottom: 20px;
+          }
+          /* Custom Scrollbar */
+
+          div.telescope-specs::-webkit-scrollbar {
+            width: 10px;
+          }
+
+          div.telescope-specs::-webkit-scrollbar-track {
+            background: white;
+
+          }
+
+          div.telescope-specs::-webkit-scrollbar-thumb {
+            background: #3c4a55;
+          }
+
+          div.telescope-specs::-webkit-scrollbar-thumb:hover {
+            /*background: rgba(255,0,0,0.8);*/
+          }
+          `}
+        </style>
       </div>
     );
   }

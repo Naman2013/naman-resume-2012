@@ -51,7 +51,9 @@ class TelescopeOverview extends Component {
     this.props.actions.getObservatoryList(
       this.props.currentObservatoryId,
     );
+    this.props.actions.fetchTelescopeCardData(); // works but not ideal
   }
+
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.params.observatoryId !== this.props.currentObservatoryId) {
@@ -63,10 +65,15 @@ class TelescopeOverview extends Component {
     }
 
     this.buildTelescopeStatusTimer();
+    // this.props.actions.fetchTelescopeCardData();  // does not work
   }
 
   componentWillUnmount() {
     clearInterval(this.telescopeStatusTimer);
+  }
+
+  componentWillReceiveNewProps() {
+    // this.props.actions.fetchTelescopeCardData();
   }
 
   buildTelescopeStatusTimer() {
