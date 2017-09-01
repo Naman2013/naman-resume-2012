@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import uniqueId from 'lodash/uniqueId';
 import './card-back.scss';
 import GenericLoadingBox from '../../common/loading-screens/generic-loading-box';
 
-
-const _ = require('lodash');
 const Markdown = require('react-remarkable');
 
 function generateSpecItem(spec) {
@@ -26,28 +25,24 @@ class CardBack extends Component {
         <div className="telescope-card-back">
           <GenericLoadingBox />
         </div>
-      )
+      );
     }
 
     return (
       <div className="telescope-card-back">
         <div className="card-header">
 
-          <button
-            onClick={this.props.handleFlip}
-            className="flip-card-action"
-          >
-            <img className="icon" alt="flip_icon" target="_blank" src="https://vega.slooh.com/assets/icons/flip-back-arrow.png" />
+          <button onClick={this.props.handleFlip} className="flip-card-action" >
+            <img className="icon" alt="flip card" target="_blank" src="https://vega.slooh.com/assets/icons/flip-back-arrow.png" />
           </button>
 
-          <img className="obs_icon" alt="obs_icon" src={telescopeCardBack.headerArray.observatoryIconURL} width="50" height="50" />
+          <img className="obs_icon" alt="observatory icon" src={telescopeCardBack.headerArray.observatoryIconURL} width="50" height="50" />
           <div className="pier-title">
             <Markdown source={telescopeCardBack.headerArrayOverview.pierName} />
           </div>
         </div>
 
         <div className="telescope-specs">
-
           {
             telescopeCardBack.telescopeArray.telescopeList.map((telescope) => {
               return (
@@ -75,7 +70,7 @@ class CardBack extends Component {
                     </figcaption>
                   </figure>
 
-                  <div className="content" key={_.uniqueId('content_')}>
+                  <div className="content" key={uniqueId('content_')}>
                     <h3 className="title">
                       <Markdown source={telescope.specTitle} />
                     </h3>
@@ -83,8 +78,8 @@ class CardBack extends Component {
                     {telescope.specArray.map(
                       (spec) => {
                         return (
-                          <div key={_.uniqueId('spec_')}>
-                            <Markdown source={spec} key={_.uniqueId('spec_')} />
+                          <div key={uniqueId('spec_')}>
+                            <Markdown source={spec} key={uniqueId('spec_')} />
                           </div>
                         );
                       }
@@ -103,7 +98,7 @@ class CardBack extends Component {
 
             {telescopeCardBack.locationArray.locationDataArray.map(
               (loc) => {
-                return <Markdown source={loc}key={_.uniqueId('loc_')} />
+                return <Markdown source={loc}key={uniqueId('loc_')} />
               }
             )}
           </div>
@@ -114,22 +109,15 @@ class CardBack extends Component {
             margin-bottom: 20px;
           }
           /* Custom Scrollbar */
-
           div.telescope-specs::-webkit-scrollbar {
             width: 7px;
           }
-
           div.telescope-specs::-webkit-scrollbar-track {
             background: white;
 
           }
-
           div.telescope-specs::-webkit-scrollbar-thumb {
             background: #3c4a55;
-          }
-
-          div.telescope-specs::-webkit-scrollbar-thumb:hover {
-            /*background: rgba(255,0,0,0.8);*/
           }
           div.location-section {
             text-align: center;

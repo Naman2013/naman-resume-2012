@@ -29,7 +29,6 @@ function mapStateToProps(state, ownProps) {
     observatoryTelecopeStatus: state.telescopeOverview.observatoryTelecopeStatus,
     telescopeCardData: state.telescopeOverview.telescopeCardData,
     isTelescopeCardDataLoading: state.telescopeOverview.telescopeCardDataLoading,
-    // telescopeCardDataPayload: state.telescopeOverview.telescopeCardData,
   };
 }
 
@@ -65,15 +64,10 @@ class TelescopeOverview extends Component {
     }
 
     this.buildTelescopeStatusTimer();
-    // this.props.actions.fetchTelescopeCardData();  // does not work
   }
 
   componentWillUnmount() {
     clearInterval(this.telescopeStatusTimer);
-  }
-
-  componentWillReceiveNewProps() {
-    // this.props.actions.fetchTelescopeCardData();
   }
 
   buildTelescopeStatusTimer() {

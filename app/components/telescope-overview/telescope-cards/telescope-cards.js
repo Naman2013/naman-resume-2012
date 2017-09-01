@@ -68,7 +68,6 @@ class TelescopeCards extends Component {
           fetchTelescopeCardData={fetchTelescopeCardData}
           telescopeCardBack={telescopeCardBack}
 
-
           {...telescope}
         />
       );
