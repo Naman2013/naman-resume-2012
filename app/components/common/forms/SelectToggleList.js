@@ -52,7 +52,7 @@ class SelectToggleList extends Component {
     options: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.object])).isRequired,
     name: PropTypes.string.isRequired,
     handleSelectedChange: PropTypes.func.isRequired,
-    selectedIndex: PropTypes.number,
+    selectedIndex: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     listHeight: PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.number,
@@ -85,7 +85,7 @@ class SelectToggleList extends Component {
         {
           options.map((option, index) => {
             const elementId = generateId(index);
-            const isChecked = parseInt(selectedIndex, 10) === index;
+            const isChecked = parseInt(selectedIndex, 10) === Number(index);
             // here is where we determine whether or not we have a titled Option
             const isTitle = has(option, 'title');
             const optionContent = option.option || option;

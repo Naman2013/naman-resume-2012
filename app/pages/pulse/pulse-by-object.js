@@ -30,17 +30,17 @@ class PulseByObject extends Component {
     selectedTopicIndex: null,
   }
 
-  handleCategorySelectChange = (event) => {
-    this.setState({
-      selectedCategoryIndex: event.target.value,
+  handleCategorySelectChange = (index) => {
+    this.setState(state => ({
+      selectedCategoryIndex: state.selectedCategoryIndex === index ? null : index,
       selectedTopicIndex: null,
-    });
+    }));
   }
 
-  handleTopicSelectChange = (event) => {
-    this.setState({
-      selectedTopicIndex: event.target.value,
-    });
+  handleTopicSelectChange = (index) => {
+    this.setState(state => ({
+      selectedTopicIndex: state.selectedTopicIndex === index ? null : index,
+    }));
   }
 
   get objectCategories() {

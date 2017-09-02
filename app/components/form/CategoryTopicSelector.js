@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import ReservationSelectList from '../../components/common/forms/reservation-select-list';
+import SelectToggleList from '../../components/common/forms/SelectToggleList';
 
 const {
   arrayOf,
@@ -76,20 +76,20 @@ class SelectCategoryAndTopic extends Component {
 
         <div className="select-object-category-and-topic-wrapper">
           <div className="select-object-category">
-            <ReservationSelectList
+            <SelectToggleList
               options={objectCategories}
               name="categories"
-              handleSelectChange={handleCategorySelectChange}
+              handleSelectedChange={handleCategorySelectChange}
               selectedIndex={selectedCategoryIndex}
               listHeight={listHeight-50}
             />
           </div>
 
           <div className="select-object-topic">
-            <ReservationSelectList
+            <SelectToggleList
               options={categoryTopics}
               name="topics"
-              handleSelectChange={handleTopicSelectChange}
+              handleSelectedChange={handleTopicSelectChange}
               selectedIndex={selectedTopicIndex}
               listHeight={listHeight-50}
             />
