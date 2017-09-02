@@ -12,12 +12,11 @@ const mapStateToProps = ({ about, appConfig }) => ({
   about,
 });
 
-const mapDispatchToProps = dispatch => (bindActionCreators({
-  actions: {
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators({
     processFeaturePopStatus,
-  },
-}, dispatch));
-
+  }, dispatch),
+});
 
 @connect(mapStateToProps, mapDispatchToProps)
 class PlansChange extends Component {
@@ -27,18 +26,15 @@ class PlansChange extends Component {
   }
 
   openPopup = (selectedPopID) => {
-    console.log(this.props);
     this.props.actions.processFeaturePopStatus(selectedPopID);
   }
 
   resetPopup = (event) => {
     // TODO: fire action that will reset all features to their initialState
-    console.log('handle reset');
   }
 
   render() {
     const { registerNewApprenticeURL, registerNewAstronomerURL } = this.props;
-
     return (
       <div className="plans-container">
         <div className="bg-div-pic clearfix">

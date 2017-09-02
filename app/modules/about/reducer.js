@@ -147,10 +147,10 @@ const initialState = {
 };
 
 export default createReducer(initialState, {
-  [COMMIT_FEATURES](state, { features }) {
+  [COMMIT_FEATURES](state, { payload }) {
     return {
       ...state,
-      sloohFeatures: features,
+      sloohFeatures: payload,
     };
   },
 });
