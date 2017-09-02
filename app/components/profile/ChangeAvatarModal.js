@@ -32,7 +32,7 @@ class ChangeAvatarModal extends Component {
   saveAvatar = () => {
     const { imageURL, actions, closeModal } = this.props;
     actions.setAvatar({ imageURL }).then((result) => {
-      if (result.payload && !result.payload.apiError) {
+      if (result && result.payload && !result.payload.apiError) {
         closeModal();
       }
     });
