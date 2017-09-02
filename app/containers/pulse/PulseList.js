@@ -11,47 +11,58 @@ import './Pulse.scss';
 
 const navigationList = [
   {
-    label: "THE LATEST POSTS",
-    route: "latest-posts",
+    label: 'THE LATEST POSTS',
+    route: 'latest-posts',
     children: [
       {
-        label: "All Categories",
-        route: "all",
+        label: 'All Categories',
+        route: 'all',
       }, {
-        label: "Science Log",
-        route: "scienceLog",
+        label: 'Science Log',
+        route: 'scienceLog',
       }, {
-        label: "Art & Culture",
-        route: "artCulture",
+        label: 'Art & Culture',
+        route: 'artCulture',
       }, {
-        label: "Human Spirit",
-        route: "humanSpirit",
+        label: 'Human Spirit',
+        route: 'humanSpirit',
       }, {
-        label: "DIY",
-        route: "diy",
+        label: 'DIY',
+        route: 'diy',
       },
     ]
   },
   {
-    label: "THE HOTTEST POSTS",
-    route: "hottest-posts",
+    label: 'THE HOTTEST POSTS',
+    route: 'hottest-posts',
     children: [
       {
-        label: "All Categories",
-        route: "all",
+        label: 'All Categories',
+        route: 'all',
       }, {
-        label: "Science Log",
-        route: "scienceLog",
+        label: 'Science Log',
+        route: 'scienceLog',
       }, {
-        label: "Art & Culture",
-        route: "artCulture",
+        label: 'Art & Culture',
+        route: 'artCulture',
       }, {
-        label: "Human Spirit",
-        route: "humanSpirit",
+        label: 'Human Spirit',
+        route: 'humanSpirit',
       }, {
-        label: "DIY",
-        route: "diy",
+        label: 'DIY',
+        route: 'diy',
       },
+    ]
+  },
+  {
+    label: 'ALL POSTS',
+    route: 'all-posts',
+    children: [
+      {}
+      // {
+      //   label: 'Find By Object',
+      //   route: 'by-object',
+      // }
     ]
   }
 ];
