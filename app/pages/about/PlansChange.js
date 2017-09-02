@@ -4,7 +4,13 @@ import { bindActionCreators } from 'redux';
 import { Link } from 'react-router';
 import Features from '../../components/plans/features';
 
+import { CREW, APPRENTICE, ASTRONOMER } from '../../modules/about/reducer';
+
 class PlansChange extends Component {
+
+  getFeatures(setType = CREW) {
+    return this.props.about.sloohFeatures.filter(feature => feature.type === setType);
+  }
 
   updateFeaturesPopState(ID) {
     const { apprenticeFeatures } = this.state;
@@ -21,6 +27,7 @@ class PlansChange extends Component {
     });
   }
 
+
   openPopup = (selectedPopID) => {
     this.updateFeaturesPopState(selectedPopID);
   }
@@ -30,10 +37,9 @@ class PlansChange extends Component {
   }
 
   render() {
-    const apprenticeFeatures = [];
     const { registerNewSloohCrewURL, registerNewApprenticeURL, registerNewAstronomerURL } = this.props;
-    return (
 
+    return (
       <div className="plans-container">
         <div className="bg-div-pic clearfix">
 
@@ -53,43 +59,43 @@ class PlansChange extends Component {
 
             <div className="row final-row">
 
-                <div className="col-lg-3 col-md-3 col-sm-6 text-center" style={{ marginLeft: '13%' }}>
+              <div className="col-lg-3 col-md-3 col-sm-6 text-center" style={{ marginLeft: '13%' }}>
 
-                  <article className="plan plan-col">
+                <article className="plan plan-col">
 
-                    <header className="move-down text-center">
-                      <div className="spotlight-icon"><img alt="astronomer icon" src="https://vega.slooh.com/icons/registration/sloohcrew.svg" /></div>
-                    </header>
+                  <header className="move-down text-center">
+                    <div className="spotlight-icon"><img alt="astronomer icon" src="https://vega.slooh.com/icons/registration/sloohcrew.svg" /></div>
+                  </header>
 
-                    <article className="dark backdrop text-center padding-reg">
+                  <article className="dark backdrop text-center padding-reg">
 
-                      <h3 className="margin-top-reg">Slooh Crew</h3>
-                      <p className="text-large price margin-none">Free</p>
+                    <h3 className="margin-top-reg">Slooh Crew</h3>
+                    <p className="text-large price margin-none">Free</p>
 
-                      <p>
-                        Introducing Slooh
-                      </p>
+                    <p>
+                      Introducing Slooh
+                    </p>
 
-                      <div className="margin-top-med margin-bottom-large">
-                        Introducing Slooh to the Community
-                      </div>
+                    <div className="margin-top-med margin-bottom-large">
+                      Introducing Slooh to the Community
+                    </div>
 
-                      <Features
-                        features_array={[]}
-                        openPopup={this.openPopup}
-                        closeAllPopup={this.resetPopup}
-                      />
-
-                    </article>
-
-                    <footer>
-                      <a className="btn-primary continue" href={registerNewAstronomerURL}>Register Free</a>
-                    </footer>
+                    <Features
+                      features_array={this.getFeatures(CREW)}
+                      openPopup={this.openPopup}
+                      closeAllPopup={this.resetPopup}
+                    />
 
                   </article>
-                </div>
 
-                <div className="col-lg-3 col-md-3 col-sm-6 text-center">
+                  <footer>
+                    <a className="btn-primary continue" href={registerNewAstronomerURL}>Register Free</a>
+                  </footer>
+
+                </article>
+              </div>
+
+              <div className="col-lg-3 col-md-3 col-sm-6 text-center">
 
                   <article className="plan plan-col">
 
@@ -111,7 +117,7 @@ class PlansChange extends Component {
                       </div>
 
                       <Features
-                        features_array={apprenticeFeatures}
+                        features_array={this.getFeatures(APPRENTICE)}
                         openPopup={this.openPopup}
                       />
 
@@ -144,9 +150,8 @@ class PlansChange extends Component {
                           <br />Slooh Community
                       </div>
 
-                      {/* astronomer */}
                       <Features
-                        features_array={[]}
+                        features_array={this.getFeatures(ASTRONOMER)}
                         openPopup={this.openPopup}
                       />
 
