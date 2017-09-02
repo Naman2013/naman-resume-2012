@@ -137,7 +137,7 @@ class AddToGallery extends Component {
     actions.addImageToGallery({
       galleryId,
       customerImageId,
-    });
+    }).then(() => actions.fetchGalleriesCount({}));
 
     setTimeout(() => {
       actions.resetAddResponse();

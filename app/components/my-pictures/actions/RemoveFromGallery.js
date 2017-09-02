@@ -8,6 +8,7 @@ import ConfirmDeleteModal from './ConfirmDeleteModal';
 import { white, black, pink } from '../../../styles/variables/colors';
 import { secondaryFont, primaryFont } from '../../../styles/variables/fonts';
 import { fetchGalleryPictures } from '../../../modules/my-pictures-gallery-pictures/actions';
+import { fetchGalleriesCount } from '../../../modules/my-pictures-galleries/actions';
 import { removeImageFromGallery } from '../../../services/my-pictures/remove-image-from-gallery';
 
 const {
@@ -27,6 +28,7 @@ const mapStateToProps = ({ galleryPictures, user }) => ({
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
     fetchGalleryPictures,
+    fetchGalleriesCount,
   }, dispatch),
 });
 
@@ -40,6 +42,7 @@ class RemoveFromGallery extends Component {
     galleryId: number.isRequired,
     actions: shape({
       fetchGalleryPictures: func.isRequired,
+      fetchGalleriesCount: func.isRequired,
     }),
     user: shape({
       at: string,
@@ -85,6 +88,8 @@ class RemoveFromGallery extends Component {
           firstImageNumber,
           pagingMode: 'api',
         });
+
+        actions.fetchGalleriesCount({});
       }
 
     });
