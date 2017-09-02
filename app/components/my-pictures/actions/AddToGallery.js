@@ -144,6 +144,12 @@ class AddToGallery extends Component {
     }, 5000);
   }
 
+  onKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      this.createGallery(e);
+    }
+  }
+
   render() {
     const {
       actionSource,
@@ -182,6 +188,7 @@ class AddToGallery extends Component {
               {!galleryCreating && <input
                 className="name-input"
                 onClick={e => e.preventDefault()}
+                onKeyPress={this.onKeyPress}
                 type="text"
                 placeholder="Type Here to Create Gallery"
                 value={newGalleryName}
