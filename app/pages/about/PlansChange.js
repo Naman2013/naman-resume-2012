@@ -29,10 +29,12 @@ class PlansChange extends Component {
 
 
   openPopup = (selectedPopID) => {
-    this.updateFeaturesPopState(selectedPopID);
+    // TODO: finish the action that will update the appropriate feature
+    console.log(selectedPopID);
   }
 
   resetPopup = (event) => {
+    // TODO: fire action that will reset all features to their initialState
     console.log('handle reset');
   }
 
