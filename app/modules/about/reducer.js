@@ -1,6 +1,9 @@
 import uniqueId from 'lodash/uniqueId';
-
 import createReducer from '../utils/createReducer';
+
+import {
+  COMMIT_FEATURES,
+} from './actions';
 
 // feature types
 export const CREW = 'CREW';
@@ -144,5 +147,10 @@ const initialState = {
 };
 
 export default createReducer(initialState, {
-
+  [COMMIT_FEATURES](state, { features }) {
+    return {
+      ...state,
+      sloohFeatures: features,
+    };
+  },
 });

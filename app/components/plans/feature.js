@@ -9,40 +9,6 @@ import AsidePopup from '../common/modals/aside-popup';
 class Feature extends Component {
 
   render() {
-    /*
-    closePopup: PropTypes.func,
-    open: PropTypes.bool,
-    popupOpen: PropTypes.string,
-    popupText: PropTypes.string,
-    display: PropTypes.string,
-    contactLink: PropTypes.string,
-    footerText: PropTypes.string,
-    contactLinkText: PropTypes.string,
-    */
-    // if (this.props.tooltip.show === true) {
-    //   const asidePopup = `<AsidePopup
-    //     popupText=${this.props.tooltip.content}
-    //   />`;
-    // } else {
-    //   const asidePopup = '';
-    // }
-
-    /*
-    <ul className="features">
-      <li>Shows: All</li>
-      <li>Telescopes</li>
-      <li>Take Pictures</li>
-      <li>Community</li>
-      <li>Unlimited Reservations <i onClick={() => {this.openPopup(PLAN_DESCRIPTIONS.RESERVATION_LIMIT_UNLIMITED)}} className="icon control info-white">info</i>
-      </li>
-      <li>Objects: All
-      </li>
-      <li>Space Situation Room</li>
-      <li>Slooh Road Trip <i onClick={() => {this.openPopup(PLAN_DESCRIPTIONS.SLOOH_ROAD_TRIP)}} className="icon control info-white">info</i></li>
-    </ul>
-    */
-
-
     const liNot = classnames('feature-li', {
       not: this.props.liNot,
     });
@@ -58,11 +24,13 @@ class Feature extends Component {
         >
           info
         </i> : ''}
+
         <AsidePopup
           popupText={this.props.tooltip.content}
           popupOpen={this.props.tooltip.toolTipOpen}
           closePopup={this.props.closePopup}
         />
+
         <style jsx>{`
           .not{
             color: rgba(90, 130, 240, 0.6) !important;

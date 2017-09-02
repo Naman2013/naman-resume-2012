@@ -5,32 +5,30 @@ import { Link } from 'react-router';
 import Features from '../../components/plans/features';
 
 import { CREW, APPRENTICE, ASTRONOMER } from '../../modules/about/reducer';
+import { processFeaturePopStatus } from '../../modules/about/actions';
 
+const mapStateToProps = ({ about, appConfig }) => ({
+  ...appConfig,
+  about,
+});
+
+const mapDispatchToProps = dispatch => (bindActionCreators({
+  actions: {
+    processFeaturePopStatus,
+  },
+}, dispatch));
+
+
+@connect(mapStateToProps, mapDispatchToProps)
 class PlansChange extends Component {
 
   getFeatures(setType = CREW) {
     return this.props.about.sloohFeatures.filter(feature => feature.type === setType);
   }
 
-  updateFeaturesPopState(ID) {
-    const { apprenticeFeatures } = this.state;
-    const newApprecentice = apprenticeFeatures.map((feature) => {
-      if (feature.id === ID) {
-        return Object.assign({}, feature, { toolTipOpen: true });
-      }
-
-      return Object.assign({}, feature, { toolTipOpen: false });
-    });
-
-    this.setState({
-      apprenticeFeatures: newApprecentice,
-    });
-  }
-
-
   openPopup = (selectedPopID) => {
-    // TODO: finish the action that will update the appropriate feature
-    console.log(selectedPopID);
+    console.log(this.props);
+    this.props.actions.processFeaturePopStatus(selectedPopID);
   }
 
   resetPopup = (event) => {
@@ -39,7 +37,7 @@ class PlansChange extends Component {
   }
 
   render() {
-    const { registerNewSloohCrewURL, registerNewApprenticeURL, registerNewAstronomerURL } = this.props;
+    const { registerNewApprenticeURL, registerNewAstronomerURL } = this.props;
 
     return (
       <div className="plans-container">
@@ -340,10 +338,4 @@ class PlansChange extends Component {
   }
 }
 
-const mapStateToProps = ({ about, appConfig }) => ({
-  ...appConfig,
-  about,
-});
-const mapDispatchToProps = dispatch => (bindActionCreators({}, dispatch));
-
-export default connect(mapStateToProps, mapDispatchToProps)(PlansChange);
+export default PlansChange;
