@@ -56,7 +56,7 @@ class ChangeAvatarModal extends Component {
               Choose a JPEG, GIF, or PNG (max 100kB)
             </div>
             {(!loading && imageURL) && <div
-              style={{ background: `url(${imageURL})`, backgroundPosition: 'center', backgroundSize: '100%', backgroundRepeat: 'no-repeat' }}
+              style={{ background: `url(${imageURL})`, backgroundPosition: 'center', backgroundSize: 'cover', backgroundRepeat: 'no-repeat' }}
               className={s.profilePic}
             />}
             {(loading && !showGenericError) && <GenericLoadingBox />}
