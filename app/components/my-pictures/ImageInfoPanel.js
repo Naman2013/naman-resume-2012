@@ -30,20 +30,7 @@ class ImageInfoPanel extends Component {
       showErrorText: false,
     };
   }
-
-  componentDidMount() {
-
-    if (this.props.myPicturesImageDetails.scheduledMissionId) {
-      this.props.actions.getTags({
-        tagClass: 'image',
-        tagType: 'user',
-        customerImageId: this.props.customerImageId,
-        scheduledMissionId: this.props.myPicturesImageDetails.scheduledMissionId
-      });
-    }
-
-  }
-
+  
   componentWillReceiveProps(nextProps) {
     if (nextProps.myPicturesImageDetails.scheduledMissionId !== this.props.myPicturesImageDetails.scheduledMissionId) {
       this.props.actions.getTags({
