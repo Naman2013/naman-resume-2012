@@ -38,7 +38,7 @@ class Feature extends Component {
 
         <style jsx>{`
           .not{
-            color: rgba(90, 130, 240, 0.6) !important;
+            color: rgba(95, 129, 222, 0.9)  !important;
             padding-left: 20px !important;
           }
           not:before {

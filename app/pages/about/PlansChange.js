@@ -70,8 +70,8 @@ class PlansChange extends Component {
             </div>
 
             <div className="row final-row">
-
-              <div className="col-lg-3 col-md-3 col-sm-6 text-center" style={{ marginLeft: '13%' }}>
+              { /* style={{ marginLeft: '13%' }} */ }
+              <div className="col-lg-3 col-lg-offset-2 col-md-3 col-md-offset-3 col-sm-6 text-center" >
 
                 <article className="plan plan-col">
 
