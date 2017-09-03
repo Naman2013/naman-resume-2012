@@ -1,4 +1,6 @@
 import React from 'react';
+
+import Frame from './Frame';
 import ViewControls from './ViewControls';
 import Timestamp from './Timestamp';
 import CoordinateInformation from './CoordinateInformation';
@@ -8,7 +10,8 @@ import MissionTitle from './MissionTitle';
 import ImageProcessingInformation from './ImageProcessingInformation';
 
 const VirtualTelescopeViewer = () => (
-  <div className="root">
+  <Frame>
+
     <ViewControls />
     <Timestamp />
     <CoordinateInformation />
@@ -18,7 +21,8 @@ const VirtualTelescopeViewer = () => (
     <ObjectMetaInformation />
     <MissionTitle />
     <ImageProcessingInformation />
-  </div>
+
+  </Frame>
 );
 
 export default VirtualTelescopeViewer;
