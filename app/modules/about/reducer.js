@@ -9,9 +9,16 @@ import {
 export const CREW = 'CREW';
 export const APPRENTICE = 'APPRENTICE';
 export const ASTRONOMER = 'ASTRONOMER';
+export const APPRENTICE_TOP = 'APPRENTICE_TOP';
 
 const initialState = {
   sloohFeatures: [
+    {
+      id: uniqueId(),
+      type: APPRENTICE_TOP,
+      content: '',
+      tooltip: { show: true, content: 'Your payment method will not be charged if you cancel your account during the trial period', toolTipOpen: false },
+    },
     {
       id: uniqueId(),
       type: APPRENTICE,
@@ -22,7 +29,7 @@ const initialState = {
       id: uniqueId(),
       type: APPRENTICE,
       content: 'Take Pictures: Unlimited',
-      tooltip: { show: true, content: 'Take Pictures: Unlimited', toolTipOpen: false },
+      tooltip: { show: true, content: 'Includes \'piggybacking\' on missions to capture images automatically', toolTipOpen: false },
     },
     {
       id: uniqueId(),
@@ -34,13 +41,13 @@ const initialState = {
       id: uniqueId(),
       type: APPRENTICE,
       content: 'Monthly Reservation Limit',
-      tooltip: { show: true, content: 'Monthly Reservation Limit', toolTipOpen: false },
+      tooltip: { show: true, content: '5 mission reservations per month to control any Slooh telescope', toolTipOpen: false },
     },
     {
       id: uniqueId(),
       type: APPRENTICE,
       content: 'Target Objects: Slooh 500',
-      tooltip: { show: true, content: 'Target Objects: Slooh 500', toolTipOpen: false },
+      tooltip: { show: true, content: 'Point telescopes at Slooh 500 objects, the most popular objects in the night sky', toolTipOpen: false },
     },
     {
       id: uniqueId(),
@@ -111,7 +118,7 @@ const initialState = {
       id: uniqueId(),
       type: ASTRONOMER,
       content: 'Take Pictures: Unlimited+',
-      tooltip: { show: true, content: 'Take Pictures: Unlimited+' },
+      tooltip: { show: true, content: 'Includes FITS files and \'piggybacking\' on missions to capture images automatically' },
     },
     {
       id: uniqueId(),
@@ -123,13 +130,13 @@ const initialState = {
       id: uniqueId(),
       type: ASTRONOMER,
       content: 'Unlimited Reservations',
-      tooltip: { show: true, content: '' },
+      tooltip: { show: true, content: 'No limit to the total number of mission reservations per month to control any Slooh telescope' },
     },
     {
       id: uniqueId(),
       type: ASTRONOMER,
       content: 'Target Objects: All',
-      tooltip: { show: true, content: 'Target Objects: All' },
+      tooltip: { show: true, content: 'Point telescopes at any object in the sky, including Slooh 500, major astro-catalogs and by entering celestial coordinates' },
     },
     {
       id: uniqueId(),
@@ -141,7 +148,7 @@ const initialState = {
       id: uniqueId(),
       type: ASTRONOMER,
       content: 'Community+',
-      tooltip: { show: true, content: 'Community' },
+      tooltip: { show: true, content: 'Participate in citizen science research and discovery' },
     },
   ],
 };

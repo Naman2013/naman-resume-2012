@@ -3,8 +3,10 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router';
 import Features from '../../components/plans/features';
+import AsidePopup from '../../components/common/modals/aside-popup';
 
-import { CREW, APPRENTICE, ASTRONOMER } from '../../modules/about/reducer';
+
+import { CREW, APPRENTICE, APPRENTICE_TOP, ASTRONOMER } from '../../modules/about/reducer';
 import { processFeaturePopStatus } from '../../modules/about/actions';
 
 const mapStateToProps = ({ about, appConfig }) => ({
@@ -31,10 +33,24 @@ class PlansChange extends Component {
 
   resetPopup = (event) => {
     // TODO: fire action that will reset all features to their initialState
+    this.props.actions.processFeaturePopStatus();
   }
 
   render() {
     const { registerNewApprenticeURL, registerNewAstronomerURL } = this.props;
+
+    const darkBackdropOverflowStyle = {
+      overflow: 'initial',
+    };
+
+    const actNowButtonSingletonCSS = {
+      top: '-30px',
+    }
+
+    const featureSingletonCSS = {
+      height: '0px',
+    }
+
     return (
       <div className="plans-container">
         <div className="bg-div-pic clearfix">
@@ -63,17 +79,17 @@ class PlansChange extends Component {
                     <div className="spotlight-icon"><img alt="astronomer icon" src="https://vega.slooh.com/icons/registration/sloohcrew.svg" /></div>
                   </header>
 
-                  <article className="dark backdrop text-center padding-reg">
+                  <article className="dark backdrop text-center padding-reg" style={darkBackdropOverflowStyle}>
 
                     <h3 className="margin-top-reg">Slooh Crew</h3>
                     <p className="text-large price margin-none">Free</p>
 
                     <p>
-                      Introducing Slooh
+                      <br />
                     </p>
 
                     <div className="margin-top-med margin-bottom-large">
-                      Introducing Slooh to the Community
+                      Introducing Slooh <br /> <br />
                     </div>
 
                     <Features
@@ -101,7 +117,7 @@ class PlansChange extends Component {
                       </div>
                     </header>
 
-                    <article className="backdrop dark text-center padding-reg">
+                    <article className="backdrop dark text-center padding-reg" style={darkBackdropOverflowStyle}>
                       <h3>Apprentice</h3>
 
                       <p className="text-large price margin-none"><sup>$</sup>4.95</p>
@@ -110,11 +126,20 @@ class PlansChange extends Component {
 
                       <div className="margin-top-med margin-bottom-large pos-relative">30 Day free trial
                         <br />if you act now
+                        { /* <i className="icon control info-white" /> */ }
+                        <Features
+                          features_array={this.getFeatures(APPRENTICE_TOP)}
+                          openPopup={this.openPopup}
+                          closeAllPopup={this.resetPopup}
+                          actNowButtonSingletonCSS={actNowButtonSingletonCSS}
+                          featureSingletonCSS={featureSingletonCSS}
+                        />
                       </div>
 
                       <Features
                         features_array={this.getFeatures(APPRENTICE)}
                         openPopup={this.openPopup}
+                        closeAllPopup={this.resetPopup}
                       />
 
                     </article>
@@ -135,7 +160,7 @@ class PlansChange extends Component {
                       <div className="spotlight-icon"><img alt="astronomer icon" src="https://vega.slooh.com/icons/registration/astronomer.svg" /></div>
                     </header>
 
-                    <article className="dark backdrop text-center padding-reg">
+                    <article className="dark backdrop text-center padding-reg" style={darkBackdropOverflowStyle}>
 
                       <h3 className="margin-top-reg">Astronomer</h3>
                       <p className="text-large price margin-none"><sup>$</sup>24.95</p>
@@ -149,6 +174,7 @@ class PlansChange extends Component {
                       <Features
                         features_array={this.getFeatures(ASTRONOMER)}
                         openPopup={this.openPopup}
+                        closeAllPopup={this.resetPopup}
                       />
 
                     </article>

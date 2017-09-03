@@ -13,14 +13,19 @@ class Feature extends Component {
       not: this.props.liNot,
     });
 
+    const featureLiStyle = {
+      fontSize: '1.1rem',
+    };
+
     return (
-      <li className={liNot} key={uniqueId('feature_')}>
+      <li className={liNot} key={uniqueId('feature_')} style={featureLiStyle}>
         {this.props.content}
         {this.props.tooltip.show ? <i
           className="icon control info-white"
           onClick={() => {
             this.props.openPopup(this.props.id);
           }}
+          style={this.props.actNowButtonSingletonCSS}
         >
           info
         </i> : ''}
@@ -49,6 +54,10 @@ class Feature extends Component {
             z-index: 99999;
             background-color: rgba(90, 130, 240, 0.6) !important;
           }
+
+          .static-app-content-container ul.features li.feature-li {
+            font-size: 1.1em;
+          }
           `}
         </style>
       </li>
@@ -62,15 +71,17 @@ Feature.defaultProps = {
   content: '',
   tooltip: { show: false, content: '' },
   liNot: false,
+  actNowButtonSingletonCSS: {},
 };
 
 Feature.propTypes = {
   content: PropTypes.string,
-  id: PropTypes.number.isRequired,
+  id: PropTypes.string.isRequired,
   tooltip: PropTypes.object,
   liNot: PropTypes.bool,
   openPopup: PropTypes.func.isRequired,
   closePopup: PropTypes.func.isRequired,
+  actNowButtonSingletonCSS: PropTypes.object,
 };
 
 export default Feature;

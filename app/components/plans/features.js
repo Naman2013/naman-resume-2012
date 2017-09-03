@@ -4,8 +4,8 @@ import uniqueId from 'lodash/uniqueId';
 
 import Feature from './feature';
 
-const Features = ({ features_array, openPopup, closeAllPopup }) => (
-  <ul className="features">
+const Features = ({ features_array, openPopup, closeAllPopup, actNowButtonSingletonCSS, featureSingletonCSS }) => (
+  <ul className="features" style={featureSingletonCSS}>
     {
       features_array.map(feature => (
         <Feature
@@ -16,6 +16,7 @@ const Features = ({ features_array, openPopup, closeAllPopup }) => (
           liNot={feature.liNot}
           openPopup={openPopup}
           closePopup={closeAllPopup}
+          actNowButtonSingletonCSS={actNowButtonSingletonCSS}
         />
       ))
     }
@@ -35,12 +36,16 @@ Features.defaultProps = {
   ],
   openPopup: () => {},
   closeAllPopup: () => {},
+  actNowButtonSingletonCSS: {},
+  featureSingletonCSS: {},
 };
 
 Features.propTypes = {
   features_array: PropTypes.array,
   openPopup: PropTypes.func,
   closeAllPopup: PropTypes.func,
+  actNowButtonSingletonCSS: PropTypes.object,
+  featureSingletonCSS: PropTypes.object,
 };
 
 export default Features;

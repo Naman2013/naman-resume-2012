@@ -41,13 +41,25 @@ class AsidePopup extends Component {
       popupOpen,
     } = this.props;
 
-    const popRootClassnames = classnames('popup pointerleft', {
+    const popRootClassnames = classnames('aside-popup aside-pointerleft', {
       hidden: !popupOpen,
     });
 
+    const closeIconStyle = {
+      height: '15px',
+      right: '5px',
+      top: '5px',
+      marginLeft: '190px',
+    };
+
     return (
       <div className={popRootClassnames}>
-        <article className="poptext">
+
+        <div className="control-close-small" style={closeIconStyle}>
+          <i className="close" onClick={closePopup} />
+        </div>
+
+        <article className="aside-poptext">
           <p>
             {popupText}
           </p>
@@ -61,15 +73,8 @@ class AsidePopup extends Component {
           </a>
         </footer>
 
-        <button
-          className="btn-primary"
-          onClick={closePopup}
-        >
-          Close
-        </button>
-
         <style jsx>{`
-          .popup {
+          .aside-popup {
             background-color: white;
             -webkit-border-radius: 8px;
             -moz-border-radius: 8px;
@@ -79,23 +84,22 @@ class AsidePopup extends Component {
             color: #557373;
             font-weight: 300;
             height: auto;
-            left: 0;
-            margin: 40px;
-            position: absolute;
+            left: 182px;
+            margin: 0px;
+            position: absolute !important;
             text-align: left;
-            top: 0;
-            visibility: show;
+            top: -14px;
             width: 210px;
             z-index: 9999;
           }
 
-          .popup p {
+          .aside-popup p {
             font-size: 11px;
             font-size: 0.91667rem;
             line-height: 1.4em;
           }
 
-          .popup footer {
+          .aside-popup footer {
             border-top: solid 1px #b9d7d7;
             font-size: 12px;
             font-size: 1rem;
@@ -106,7 +110,7 @@ class AsidePopup extends Component {
             text-align: center;
           }
 
-          .popup.pointerleft:before {
+          .aside-popup.aside-pointerleft:before {
             content: ' ';
             position: absolute;
             width: 0;
@@ -119,10 +123,17 @@ class AsidePopup extends Component {
             border-color: transparent white transparent transparent;
           }
 
-          .poptext {
+          .aside-poptext {
             padding: 18px;
             padding-bottom: 0;
             margin: 0;
+          }
+
+
+          .static-app-content-container .control-close-small {
+            height: 15px;
+            right: 5px;
+            top: 5px;
           }
 
         `}</style>
