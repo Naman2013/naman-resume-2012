@@ -18,6 +18,7 @@ import {
 import setPostImages from '../../../modules/set-post-images';
 import deletePostImage from '../../../services/post-creation/delete-post-image';
 import RichTextEditor from '../../../components/rich-text-editor/RichTextEditor';
+import GenericLoadingBox from '../../../components/common/loading-screens/generic-loading-box';
 
 import styles from './discussions-new-thread.scss';
 
@@ -51,6 +52,7 @@ class NewDiscussionsThread extends Component {
     titleValue: '',
     editorError: null,
     titleError: null,
+    uploadLoading: false,
   };
 
   componentDidMount() {
@@ -101,18 +103,21 @@ class NewDiscussionsThread extends Component {
 
     this.setState({
       uploadError: null,
+      uploadLoading: true,
     });
 
     setPostImages(data)
       .then(res => this.handleUploadImageResponse(res.data))
       .catch(err => this.setState({
         uploadError: err.message,
+        uploadLoading: false,
       }));
   }
 
   handleUploadImageResponse = (uploadFileData) => {
     this.setState({
       S3URLs: uploadFileData.S3URLs,
+      uploadLoading: false,
     });
   }
 
@@ -239,7 +244,7 @@ class NewDiscussionsThread extends Component {
   render() {
     const { forumOptions, topicOptions, submitThread, handleDeleteImage, handleUploadImage } = this;
     const { handleSubmit, routeParams: { forumId, threadId, topicId }, submitting, threadSubmitted, submitError } = this.props;
-    const { S3URLs, selectedForumIndex, selectedTopicIndex, undefinedIndexError, uploadError, editorError, titleError } = this.state;
+    const { S3URLs, selectedForumIndex, selectedTopicIndex, undefinedIndexError, uploadError, editorError, titleError, uploadLoading } = this.state;
     return (<div className={styles.DiscussionsNewThread}>
       {submitError && <strong>{submitError}</strong>}
       {submitting && <div className={styles.DiscussionsContent}>Submitting Thread...</div>}
@@ -316,6 +321,7 @@ class NewDiscussionsThread extends Component {
                   handleDeleteImage={handleDeleteImage}
                 />
                 {uploadError && <span className="errorMsg">{uploadError}</span>}
+                {(!uploadError && uploadLoading) && <GenericLoadingBox />}
               </div>
               <hr />
               <Link className={`button btn-primary btn-cancel ${styles.DiscussionsInline}`} to="/discussions">

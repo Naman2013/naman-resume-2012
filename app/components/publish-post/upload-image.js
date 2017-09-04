@@ -4,7 +4,7 @@ import uniqueId from 'lodash/uniqueId';
 import ImageFile from './image-file';
 import './upload-image.scss';
 
-function UploadImage({ handleDeleteImage, handleUploadImage, displayImages }) {
+function UploadImage({ handleDeleteImage, handleUploadImage, displayImages, inputValue }) {
   const images =
     displayImages.map(image => (
       <ImageFile
@@ -27,10 +27,12 @@ function UploadImage({ handleDeleteImage, handleUploadImage, displayImages }) {
       <label htmlFor="image-upload" className="file-input-label">
         Browse for Image
         <input
+          key={uniqueId()}
           id="image-upload"
           type="file"
           onChange={handleUploadImage}
           accept="image/*"
+          value={inputValue}
           multiple
         />
       </label>
