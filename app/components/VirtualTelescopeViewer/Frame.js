@@ -4,6 +4,12 @@ import { monoFont } from '../../styles/variables/fonts';
 import { black, brightGreen } from '../../styles/variables/colors';
 import borderImage from '../../../assets/images/borders/telescope-viewer-ticked-border.png';
 
+/**
+  - background layer - full black, full width
+  - foreground layer - has the dashed border
+  - foreground layer - fully transparent ( covers background )
+  - foreground layer - transforms to perfect circle centered and sized to the canvas
+  */
 
 class Frame extends Component {
   state = {
@@ -12,10 +18,15 @@ class Frame extends Component {
   };
 
   componentDidMount() {
-    const drawingContext = this.canvas.getContext('2d');
+    this.drawBackground();
+  }
+
+  drawBackground() {
+    console.log(this.canvasContext);
   }
 
   canvas = null;
+  canvasContext = null;
 
   handleDocumentResize = ({ width, height }) => {
     this.setState({
@@ -36,7 +47,12 @@ class Frame extends Component {
         >
           <canvas
             className="root"
-            ref={(canvas) => { this.canvas = canvas; }}
+            ref={(canvas) => {
+              if (canvas) {
+                this.canvas = canvas;
+                this.canvasContext = canvas.getContext('2d');
+              }
+            }}
           />
         </ResponsiveContainer>
 
