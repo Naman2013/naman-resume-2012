@@ -1,10 +1,15 @@
 import React, { Component } from 'react';
+import ResponsiveContainer from '../ResponsiveContainer';
 import { monoFont } from '../../styles/variables/fonts';
 import { black, brightGreen } from '../../styles/variables/colors';
 import borderImage from '../../../assets/images/borders/telescope-viewer-ticked-border.png';
 
 
 class Frame extends Component {
+  state = {
+    containerWidth: 100,
+    containerHeight: 100,
+  };
 
   componentDidMount() {
     const drawingContext = this.canvas.getContext('2d');
@@ -12,14 +17,30 @@ class Frame extends Component {
 
   canvas = null;
 
-  render() {
-    return (
-      <div className="root">
+  handleDocumentResize = ({ width, height }) => {
+    this.setState({
+      containerWidth: width,
+      containerHeight: height,
+    })
+  }
 
-        <canvas
-          className="root"
-          ref={(canvas) => { this.canvas = canvas; }}
-        />
+  render() {
+    const { containerWidth, containerHeight } = this.state;
+
+    return (
+      <div>
+        <ResponsiveContainer
+          width={containerWidth}
+          height={containerHeight}
+          onResizeHandler={this.handleDocumentResize}
+        >
+          <canvas
+            className="root"
+            ref={(canvas) => { this.canvas = canvas; }}
+            width={containerWidth}
+            height={containerHeight}
+          />
+        </ResponsiveContainer>
 
         <style jsx>{`
           .root {
