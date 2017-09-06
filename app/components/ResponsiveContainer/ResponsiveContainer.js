@@ -1,4 +1,9 @@
+/**
+  ResponsiveContainer will report its current size back to its host
+*/
+
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 /**
   - component mounts and binds an event listener
@@ -6,30 +11,39 @@ import React, { Component } from 'react';
 */
 
 class ResponsiveContainer extends Component {
-  state = {
-    width: 0,
-    height: 0,
+  static defaultProps = {
+    width: 300,
+    height: 200,
   };
 
   componentDidMount() {
-    window.addEventListener('resize', this.handleResize);
+    window.addEventListener('resize', this.props.onResizeHandler);
   }
 
   componentWillUnMount() {
-    window.removeEventListener('resize', this.handleResize);
-  }
-
-  handleWindowResize() {
-    // update the current width of the element into the internal state
+    window.removeEventListener('resize', this.props.onResizeHandler);
   }
 
   render() {
-    return (
-      <div>
+    const { width, height } = this.props;
 
+    const containerStyle = {
+      width,
+      height,
+    };
+
+    return (
+      <div style={containerStyle}>
+        { this.props.children }
       </div>
     );
   }
 }
+
+ResponsiveContainer.propTypes = {
+  onResizeHandler: PropTypes.func.isRequired,
+  width: PropTypes.number,
+  height: PropTypes.number,
+};
 
 export default ResponsiveContainer;
