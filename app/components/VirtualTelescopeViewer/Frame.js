@@ -37,8 +37,6 @@ class Frame extends Component {
           <canvas
             className="root"
             ref={(canvas) => { this.canvas = canvas; }}
-            width={containerWidth}
-            height={containerHeight}
           />
         </ResponsiveContainer>
 

@@ -54,8 +54,6 @@ class ResponsiveContainer extends Component {
 
 ResponsiveContainer.propTypes = {
   onResizeHandler: PropTypes.func.isRequired,
-  width: PropTypes.number,
-  height: PropTypes.number,
 };
 
 export default ResponsiveContainer;
