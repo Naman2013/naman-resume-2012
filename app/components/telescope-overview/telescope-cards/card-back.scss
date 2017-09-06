@@ -55,7 +55,7 @@ $cardHeight: 730px;
         overflow-y: scroll;
         background: #fff;
         padding: 10px 0;
-        height: 521px;
+        height: 491px;
 
         .telescope-image {
           text-align: center;
@@ -74,6 +74,8 @@ $cardHeight: 730px;
             color: $blueGreen;
             font-weight: 800;
             font-size: 1em;
+            margin-top: 20px;
+
           }
 
           .spec-list {
@@ -87,4 +89,23 @@ $cardHeight: 730px;
       }
     }
   }
+}
+
+.telescope-name h2 {
+  font-size: 1.5em;
+}
+
+.title h3 {
+  text-transform: none;
+  margin-bottom: 10px;
+}
+
+.pier-title h3  strong {
+  text-transform: uppercase;
+}
+
+.caption h4 {
+  font-size: 1.3em;
+  line-height: 0.5;
+  font-weight: 400;
 }

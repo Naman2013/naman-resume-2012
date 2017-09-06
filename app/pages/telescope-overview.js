@@ -3,11 +3,13 @@ import PropTypes from 'prop-types';
 
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+
 import {
   getObservatoryList,
   getCurrentObservatory,
   fetchObservatoryTelescopeStatus,
-  fetchAllWidgetsByObservatory } from '../modules/Telescope-Overview';
+  fetchAllWidgetsByObservatory,
+  fetchTelescopeCardData } from '../modules/Telescope-Overview';
 
 import AnnouncementBanner from '../components/common/announcement-banner/announcement-banner';
 import TelescopeFilterNav from '../components/telescope-overview/telescope-filter-nav';
@@ -25,6 +27,8 @@ function mapStateToProps(state, ownProps) {
     moonPhaseWidgetResult: state.telescopeOverview.moonPhaseWidgetResult,
     satelliteViewWidgetResult: state.telescopeOverview.satelliteViewWidgetResult,
     observatoryTelecopeStatus: state.telescopeOverview.observatoryTelecopeStatus,
+    telescopeCardData: state.telescopeOverview.telescopeCardData,
+    isTelescopeCardDataLoading: state.telescopeOverview.telescopeCardDataLoading,
   };
 }
 
@@ -34,6 +38,7 @@ function mapDispatchToProps(dispatch) {
       getObservatoryList,
       fetchAllWidgetsByObservatory,
       fetchObservatoryTelescopeStatus,
+      fetchTelescopeCardData,
     }, dispatch),
   };
 }
@@ -45,7 +50,9 @@ class TelescopeOverview extends Component {
     this.props.actions.getObservatoryList(
       this.props.currentObservatoryId
     );
+    this.props.actions.fetchTelescopeCardData(); // works but not ideal
   }
+
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.params.observatoryId !== this.props.currentObservatoryId) {
@@ -90,7 +97,6 @@ class TelescopeOverview extends Component {
     }
 
     const { obsId } = currentObservatory;
-
     return (
       <div className="root">
 
@@ -111,6 +117,8 @@ class TelescopeOverview extends Component {
         <TelescopeCards
           observatoryTelecopeStatus={this.props.observatoryTelecopeStatus}
           observatory={currentObservatory}
+          fetchTelescopeCardData={this.props.actions.fetchTelescopeCardData}
+          telescopeCardData={this.props.telescopeCardData}
         />
 
         <style jsx>{`
@@ -134,6 +142,7 @@ TelescopeOverview.defaultProps = {
   observatoryList: [],
   currentObservatoryId: '',
   actions: {},
+  telescopeCardData: {},
 };
 
 TelescopeOverview.propTypes = {
@@ -159,6 +168,7 @@ TelescopeOverview.propTypes = {
     fetchAllWidgetsByObservatory: func,
     fetchObservatoryTelescopeStatus: func,
   }),
+  telescopeCardData: PropTypes.object,
 };
 
 export default TelescopeOverview;

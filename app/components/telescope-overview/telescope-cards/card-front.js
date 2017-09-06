@@ -127,14 +127,15 @@ class CardFront extends Component {
           {
             /**
               TODO: deferred for future feature
-              <button
-                onClick={this.props.handleFlip}
-                className="flip-card-action"
-              >
+            */
+            <button
+              onClick={this.props.handleFlip}
+              className="flip-card-action"
+            >
               <img alt="click to flip the card" src="https://vega.slooh.com/assets/icons/flip-arrow.svg" />
-              </button>
-              */
+            </button>
           }
+
           <img alt="this is an observatory" className="icon" src="https://vega.slooh.com/assets/icons/observatory.svg" width="50" height="50" />
           <h3 className="title">{this.props.teleName}</h3>
           <p className="body">
