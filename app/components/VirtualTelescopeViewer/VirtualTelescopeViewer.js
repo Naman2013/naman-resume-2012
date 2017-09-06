@@ -10,19 +10,7 @@ import MissionTitle from './MissionTitle';
 import ImageProcessingInformation from './ImageProcessingInformation';
 
 const VirtualTelescopeViewer = () => (
-  <Frame>
-
-    <ViewControls />
-    <Timestamp />
-    <CoordinateInformation />
-
-    <ZoomControls />
-
-    <ObjectMetaInformation />
-    <MissionTitle />
-    <ImageProcessingInformation />
-
-  </Frame>
+  <Frame />
 );
 
 export default VirtualTelescopeViewer;
