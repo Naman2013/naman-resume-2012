@@ -76,6 +76,7 @@ class Frame extends Component {
             font-family: ${monoFont};
             color: ${brightGreen};
             background-color: ${black};
+            position: relative;
             min-width: 100%;
             min-height: 100%;
             margin: 0;
@@ -89,6 +90,7 @@ class Frame extends Component {
           .top-rail, .bottom-rail {
             background-image: url(${runBorderPattern});
             background-repeat: repeat-x;
+            background-position: 1px;
             height: 13px;
             width: 100%;
           }
@@ -116,6 +118,14 @@ class Frame extends Component {
           .right-rail {
             float: right;
             transform: rotate(180deg);
+          }
+
+          .content {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
           }
         `}</style>
       </div>
