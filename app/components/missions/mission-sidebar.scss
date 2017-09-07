@@ -1,5 +1,6 @@
 @import '../../styles/variables/fonts.scss';
 @import '../../styles/variables/colors.scss';
+@import '../../styles/mixins/utilities.scss';
 
 .widget-container {
   font-family: $primary-font;
@@ -44,6 +45,13 @@
     font-size: 24px;
     color: #B9D9D9;
     line-height: 50px;
+  }
+
+  .mission-profPic {
+    @include profilePicture;
+    border: 0;
+    height: 50px;
+    width: 50px;
   }
 
   img {

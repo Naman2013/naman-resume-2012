@@ -32,7 +32,7 @@ class ChangeAvatarModal extends Component {
   saveAvatar = () => {
     const { imageURL, actions, closeModal } = this.props;
     actions.setAvatar({ imageURL }).then((result) => {
-      if (result.payload && !result.payload.apiError) {
+      if (result && result.payload && !result.payload.apiError) {
         closeModal();
       }
     });
@@ -55,7 +55,10 @@ class ChangeAvatarModal extends Component {
             <div className={s.uploadLabel}>
               Choose a JPEG, GIF, or PNG (max 100kB)
             </div>
-            {(!loading && imageURL) && <div style={{ backgroundImage: `url(${imageURL})` }} className={s.profilePic} />}
+            {(!loading && imageURL) && <div
+              style={{ background: `url(${imageURL})`, backgroundPosition: 'center', backgroundSize: 'cover', backgroundRepeat: 'no-repeat' }}
+              className={s.profilePic}
+            />}
             {(loading && !showGenericError) && <GenericLoadingBox />}
             {showGenericError &&
               <div>There was an issue uploading your avatar. Please try again.</div>

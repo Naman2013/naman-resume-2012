@@ -10,7 +10,10 @@ function ImageFile({ handleDeleteImage, imageURL }) {
   return (
     <div style={inlineStyle} className="image-wrapper">
       <button
-        onClick={() => handleDeleteImage(imageURL)}
+        onClick={(e) => {
+          e.preventDefault();
+          handleDeleteImage(imageURL);
+        }}
         className={s.deleteButton}
       >
         X

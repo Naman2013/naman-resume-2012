@@ -12,7 +12,7 @@ import submitObjectContent from '../../modules/community-content/submit-object-c
 import setPostImages from '../../modules/set-post-images';
 import deletePostImage from '../../services/post-creation/delete-post-image';
 import { validateResponseAccess } from '../../modules/authorization/actions';
-
+import GenericLoadingBox from '../../components/common/loading-screens/generic-loading-box';
 import AddContent from '../../components/publish-post/add-content';
 import AddTags from '../../components/publish-post/add-tags';
 import UploadImage from '../../components/publish-post/upload-image';
@@ -52,6 +52,8 @@ class PublishPost extends Component {
       S3URLs: [],
       uploadedImages: [],
       uploadError: null,
+      uploadLoading: false,
+      imageInputValue: '',
     };
 
     this.handleCategoryListSelect = this.handleCategoryListSelect.bind(this);
@@ -200,12 +202,15 @@ class PublishPost extends Component {
 
     this.setState({
       uploadError: null,
+      uploadLoading: true,
+      imageInputValue: event.target.files,
     });
 
     setPostImages(data)
       .then(result => this.handleUploadImageResponse(result.data))
       .catch(err => this.setState({
         uploadError: err.message,
+        uploadLoading: false,
       }));
   }
 
@@ -224,6 +229,8 @@ class PublishPost extends Component {
     this.setState({
       S3URLs: uploadFileData.S3URLs,
       imageList: uploadFileData.imageList,
+      uploadLoading: false,
+      imageInputValue: '',
     });
   }
 
@@ -311,6 +318,8 @@ class PublishPost extends Component {
       humanSpiritText,
       scienceLogText,
       uploadError,
+      uploadLoading,
+      imageInputValue,
     } = this.state;
 
     return (
@@ -388,8 +397,10 @@ class PublishPost extends Component {
               handleDeleteImage={this.handleDeleteImage}
               handleUploadImage={this.handleUploadImage}
               displayImages={S3URLs}
+              inputValue={imageInputValue}
             />
-          {uploadError && <span className="errorMsg">{uploadError}</span>}
+            {uploadError && <span className="errorMsg">{uploadError}</span>}
+            {(!uploadError && uploadLoading) && <GenericLoadingBox />}
           </li>
 
           <li className="item">

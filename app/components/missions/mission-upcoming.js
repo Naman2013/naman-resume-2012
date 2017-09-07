@@ -87,7 +87,7 @@ class MissionUpcoming extends Component {
         return (
           <div>
             <div className="widget-header">
-              <img height="50" src={avatarURL} />
+              <img height="50" className="mission-profPic" src={avatarURL} />
               <h2>{displayName}&rsquo;s Upcoming Mission</h2>
             </div>
             {

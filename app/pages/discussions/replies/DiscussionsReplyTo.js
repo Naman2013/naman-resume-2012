@@ -14,6 +14,7 @@ import setPostImages from '../../../modules/set-post-images';
 import deletePostImage from '../../../services/post-creation/delete-post-image';
 import { createValidator, required } from '../../../modules/utils/validation';
 import RichTextEditor from '../../../components/rich-text-editor/RichTextEditor';
+import GenericLoadingBox from '../../../components/common/loading-screens/generic-loading-box';
 
 import styles from './discussions-reply.scss';
 
@@ -22,6 +23,7 @@ const { bool, object, func, string, instanceOf } = PropTypes;
 class DiscussionsReplyTo extends Component {
   state = {
     s3URLs: [],
+    uploadLoading: false,
     uploadError: null,
     editorValue: '',
     editorError: false,
@@ -72,22 +74,24 @@ class DiscussionsReplyTo extends Component {
 
     this.setState({
       uploadError: null,
+      uploadLoading: true,
     });
     setPostImages(data)
       .then(result => this.handleUploadImageResponse(result.data))
       .catch(err => this.setState({
         uploadError: err.message,
+        uploadLoading: false,
       }));
   }
   handleUploadImageResponse = (uploadFileData) => {
     this.setState({
       S3URLs: uploadFileData.S3URLs,
+      uploadLoading: false,
     });
   }
 
   handleDeleteImage = (imageURL) => {
     if (!imageURL) { return; }
-
     const { cid, token, at } = this.props.user;
     const { postUUID } = this.props;
     const imageClass = 'discussion';
@@ -129,7 +133,7 @@ class DiscussionsReplyTo extends Component {
   render() {
     const { currentTopic } = this;
     const { routeParams: { forumId, threadId, topicId }, forumName, submitting, replySubmitted, thread, handleSubmit } = this.props;
-    const { S3URLs, uploadError, editorError } = this.state;
+    const { S3URLs, uploadError, editorError, uploadLoading } = this.state;
     return (<div className={styles.DiscussionsReply}>
       {submitting && <div className={styles.DiscussionsContent}>Submitting Reply...</div>}
       {replySubmitted && <div className={styles.DiscussionsContent}>
@@ -177,6 +181,7 @@ class DiscussionsReplyTo extends Component {
                   handleDeleteImage={this.handleDeleteImage}
                 />
                 {uploadError && <span className="errorMsg">{uploadError}</span>}
+                {(!uploadError && uploadLoading) && <GenericLoadingBox />}
               </div>
               <hr />
               <Link className={`button btn-primary btn-cancel ${styles.DiscussionsInline}`} to={`/discussions/forums/${forumId}/topics/${topicId}/threads/${threadId}`}>

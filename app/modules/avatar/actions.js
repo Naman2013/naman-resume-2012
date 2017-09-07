@@ -1,4 +1,7 @@
 import axios from 'axios';
+import cookie from 'cookie';
+import moment from 'moment';
+import { store } from '../User';
 
 export const UPLOAD_AVATAR_START = 'UPLOAD_AVATAR_START';
 export const UPLOAD_AVATAR_SUCCESS = 'UPLOAD_AVATAR_SUCCESS';
@@ -65,7 +68,22 @@ export const setAvatar = ({
     ver,
     imageURL,
   })
-    .then(result => dispatch(setAvatarSuccess(result.data)))
+    .then((result) => {
+      // if set avatar was successful,
+      // update browser cookie and User store with correct avatar url
+      if (!result.data.apiError) {
+        const cookies = cookie.parse(window.document.cookie || '');
+        // const avatarURL = result.data.imageURL.split('\\').pop().split('/').pop();
+        dispatch(store({
+          cid: cookies.cid,
+          at: cookies.at,
+          token: cookies.token,
+          fname: cookies.fname,
+          avatarURL: result.data.imageURL,
+        }));
+      }
+      return dispatch(setAvatarSuccess(result.data));
+    })
     .catch(error => dispatch(setAvatarFailure(error)));
 };
 
