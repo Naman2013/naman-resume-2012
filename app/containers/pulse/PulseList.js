@@ -110,14 +110,15 @@ class PulseList extends Component {
       },
     } = this.props;
 
+    const headTitle = (childPath === 'by-object') ? 'All Posts' : headerTitle;
+
     const formattedObjectIdList =
       (objectIdList && objectIdList.map(objectId => Number(objectId))) || [];
-
     return (
       <div className="clearfix pulse">
         <AnnouncementBanner />
         <PulseListHeader
-          title={headerTitle}
+          title={headTitle}
           showCreateNewPostButton={showCreateNewPostButton}
         />
 
