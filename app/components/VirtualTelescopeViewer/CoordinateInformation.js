@@ -10,6 +10,7 @@ const CoordinateInformation = ({ content }) => (
 
     <style jsx>{`
         .root {
+          font-size: 0.75em;
           text-align: right;
         }
     `}</style>

@@ -13,9 +13,7 @@ const VirtualTelescopeViewer = () => (
   <Frame>
     <div className="top">
       <ViewControls />
-
       <Timestamp />
-
       <CoordinateInformation />
     </div>
 
@@ -26,6 +24,14 @@ const VirtualTelescopeViewer = () => (
     <MissionTitle />
 
     <ImageProcessingInformation />
+
+    <style jsx>{`
+        .top {
+          display: flex;
+          justify-content: space-around;
+          padding: 20px 0 0 0;
+        }
+    `}</style>
   </Frame>
 );
 
