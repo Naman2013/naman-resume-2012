@@ -27,7 +27,7 @@ const topicPropTypes = {
   topicStatus: string,
 };
 
-const listHeight = 300;
+const listHeight = 500;
 
 class SelectCategoryAndTopic extends Component {
   static propTypes = {

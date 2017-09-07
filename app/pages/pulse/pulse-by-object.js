@@ -62,12 +62,12 @@ class PulseByObject extends Component {
 
   get selectedCategory() {
     const { selectedCategoryIndex, categoryList } = this.state;
-    return selectedCategoryIndex && categoryList[selectedCategoryIndex];
+    return selectedCategoryIndex > -1 && categoryList[selectedCategoryIndex];
   }
 
   get selectedTopic() {
     const { selectedTopicIndex } = this.state;
-    return selectedTopicIndex && this.formattedCategoryTopics[selectedTopicIndex];
+    return selectedTopicIndex > -1 && this.formattedCategoryTopics[selectedTopicIndex];
   }
 
   render() {
@@ -77,7 +77,6 @@ class PulseByObject extends Component {
       selectedTopicIndex,
     } = this.state;
     let url;
-
     if (this.selectedCategory) {
       url = this.selectedCategory && this.selectedTopic ? `/objects/latest-entries/${this.selectedTopic.topicSlugLookupId}/all` : `/objects/latest-entries/${this.selectedCategory.categorySlugLookupId}/all`
     }
@@ -102,7 +101,9 @@ class PulseByObject extends Component {
         {`
           .view-posts {
             margin-top: 15px;
-            width: 100%;
+            width: 50%;
+            text-align: center;
+            display: block;
           }
         `}
         </style>
