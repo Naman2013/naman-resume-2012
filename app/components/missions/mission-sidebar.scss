@@ -34,7 +34,6 @@
 
 .widget-header {
   margin: 0;
-  display: flex;
   background: #111;
   color: #B9D9D9;
   text-align: center;
@@ -52,6 +51,7 @@
     border: 0;
     height: 50px;
     width: 50px;
+    float: left;
   }
 
   img {
