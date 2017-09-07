@@ -1,63 +1,12 @@
 import React, { Component } from 'react';
-import ResponsiveContainer from '../ResponsiveContainer';
 import { monoFont } from '../../styles/variables/fonts';
 import { black, brightGreen } from '../../styles/variables/colors';
 
 import railBorderPattern from '../../../assets/images/borders/rail-pattern.png';
 import runBorderPattern from '../../../assets/images/borders/run-pattern.png';
 
-/**
-  - background layer - full black, full width
-  - foreground layer - has the dashed border
-  - foreground layer - fully transparent ( covers background )
-  - foreground layer - transforms to perfect circle centered and sized to the canvas
-
-
-  <ResponsiveContainer
-    width={containerWidth}
-    height={containerHeight}
-    onResizeHandler={this.handleDocumentResize}
-  >
-    <canvas
-      className="root"
-      ref={(canvas) => {
-        if (canvas) {
-          this.canvas = canvas;
-          this.canvasContext = canvas.getContext('2d');
-        }
-      }}
-    />
-  </ResponsiveContainer>
-  */
-
 class Frame extends Component {
-  // state = {
-  //   containerWidth: 100,
-  //   containerHeight: 100,
-  // };
-  //
-  // componentDidMount() {
-  //   this.drawBackground();
-  // }
-  //
-  // drawBackground() {
-  //   this.canvasContext.fillStyle = brightGreen;
-  //   this.canvasContext.fillRect(10, 10, 100, 100);
-  // }
-  //
-  // canvas = null;
-  // canvasContext = null;
-  //
-  // handleDocumentResize = ({ width, height }) => {
-  //   this.setState({
-  //     containerWidth: width,
-  //     containerHeight: height,
-  //   })
-  // }
-
   render() {
-    // const { containerWidth, containerHeight } = this.state;
-
     return (
       <div className="root">
         <div className="frame">
