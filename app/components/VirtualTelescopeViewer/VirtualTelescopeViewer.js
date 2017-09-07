@@ -5,6 +5,7 @@ import ViewControls from './ViewControls';
 import Timestamp from './Timestamp';
 import CoordinateInformation from './CoordinateInformation';
 import ZoomControls from './ZoomControls';
+import Bar from './Bar';
 import ObjectMetaInformation from './ObjectMetaInformation';
 import MissionTitle from './MissionTitle';
 import ImageProcessingInformation from './ImageProcessingInformation';
@@ -13,13 +14,17 @@ const VirtualTelescopeViewer = () => (
   <Frame>
     <div className="top">
       <ViewControls />
+
       <div className="timestamp">
         <Timestamp />
       </div>
+
       <CoordinateInformation />
     </div>
 
+
     <ZoomControls />
+    <Bar />
 
     <ObjectMetaInformation />
 
