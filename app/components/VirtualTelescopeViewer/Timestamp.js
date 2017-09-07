@@ -9,12 +9,14 @@ const Timestamp = ({ timestamp }) => (
     <style jsx>{`
       .root {
         margin-top: 15px;
+        text-align: center;
       }
 
       .content {
         border: 1px solid ${brightGreen};
         padding: 0 5px;
         margin: 0;
+        display: inline;
       }
     `}</style>
   </div>

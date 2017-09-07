@@ -13,7 +13,9 @@ const VirtualTelescopeViewer = () => (
   <Frame>
     <div className="top">
       <ViewControls />
-      <Timestamp />
+      <div className="timestamp">
+        <Timestamp />
+      </div>
       <CoordinateInformation />
     </div>
 
@@ -29,7 +31,11 @@ const VirtualTelescopeViewer = () => (
         .top {
           display: flex;
           justify-content: space-around;
-          padding: 20px 0 0 0;
+          padding: 20px 20px;
+        }
+
+        .timestamp {
+          flex-grow 2;
         }
     `}</style>
   </Frame>
