@@ -19,6 +19,8 @@ export default `
     background-position: center;
     width: 45px;
     height: 45px;
+    min-width: 45px;
+    min-height: 45px;
   }
 
   .profile-name {
