@@ -37,12 +37,11 @@
   background: #111;
   color: #B9D9D9;
   text-align: center;
-  font-size: 24px;
   height: 50px;
 
   h2 {
     margin: 0;
-    font-size: 24px;
+    font-size: 18px;
     color: #B9D9D9;
     line-height: 50px;
   }
@@ -52,6 +51,7 @@
     border: 0;
     height: 50px;
     width: 50px;
+    float: left;
   }
 
   img {

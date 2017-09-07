@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './generic-loading-box.scss';
 
-const GenericLoadingBox = ({ text }) => (
-  <div className="generic-loading-box">
+const GenericLoadingBox = ({ text, height }) => (
+  <div className="generic-loading-box" style={height && { height }}>
     <h3 className="message">{text}</h3>
   </div>
 );

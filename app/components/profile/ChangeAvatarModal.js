@@ -59,7 +59,7 @@ class ChangeAvatarModal extends Component {
               style={{ background: `url(${imageURL})`, backgroundPosition: 'center', backgroundSize: 'cover', backgroundRepeat: 'no-repeat' }}
               className={s.profilePic}
             />}
-            {(loading && !showGenericError) && <GenericLoadingBox />}
+            {(loading && !showGenericError) && <GenericLoadingBox height="100px" />}
             {showGenericError &&
               <div>There was an issue uploading your avatar. Please try again.</div>
             }
