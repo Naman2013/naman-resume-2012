@@ -5,11 +5,13 @@ import { bindActionCreators } from 'redux';
 import MyPicturesNavigation from '../../components/my-pictures/my-pictures-navigation';
 import { fetchImageDetailsAndCounts } from '../../modules/my-pictures-image-details/actions';
 import ImageViewer from '../../components/my-pictures/ImageViewer';
-import { imageDetailsStyle } from './ImageDetailsStyles';
+import imageDetailsStyle from './ImageDetailsStyles';
 import ImageInfoPanel from '../../components/my-pictures/ImageInfoPanel';
+import PhotoActions from '../../components/my-pictures/actions/PhotoActions';
 
-const mapStateToProps = ({ myPicturesImageDetails }) => ({
+const mapStateToProps = ({ myPicturesImageDetails, user }) => ({
   myPicturesImageDetails,
+  user,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -27,6 +29,7 @@ class ImageDetails extends Component {
       editorValue: props.myPicturesImageDetails.observationLog,
     };
   }
+
   componentWillMount() {
     window.scrollTo(0, 0);
     const {
@@ -49,10 +52,6 @@ class ImageDetails extends Component {
     // make call to update changes
   }
 
-  setObservationLog = (text) => {
-
-  }
-
   render() {
     const {
       scheduledMissionId,
@@ -60,11 +59,33 @@ class ImageDetails extends Component {
       error,
       fetching,
       canEditFlag,
+      likePrompt,
+      likesCount,
       imageTitle,
       imageURL,
       fileData,
+      canLikeFlag,
     } = this.props.myPicturesImageDetails;
 
+    const {
+      params: {
+        customerImageId,
+        shareToken,
+        galleryId,
+        scheduledMissionId: scheduledMissionIdParam // only images coming from mission pictures page will have this.
+      },
+      user
+    } = this.props;
+    const heartProps = {
+      likePrompt,
+      canLikeFlag,
+      count: likesCount,
+      theme: 'buttonOnly',
+      likeId: customerImageId,
+    };
+
+    // only send scheduledMissionId to PhotoActions if user is coming from the Mission Images page
+    const photoActionsScheduledMissionId = scheduledMissionIdParam ? scheduledMissionId : null;
     return (
       <div>
         <MyPicturesNavigation
@@ -76,7 +97,17 @@ class ImageDetails extends Component {
             <div className="left title">
               <h2 dangerouslySetInnerHTML={{ __html: imageTitle }} />
             </div>
-            <div className="right-top"></div>
+            <div className="right-top">
+              <PhotoActions
+                canEditFlag={canEditFlag}
+                imageURL={imageURL}
+                customerImageId={customerImageId}
+                user={user}
+                actionSource="imageDetails"
+                heartProps={heartProps}
+                scheduledMissionId={photoActionsScheduledMissionId}
+              />
+            </div>
           </div>
           <div className="container">
             <div className="left">
@@ -87,7 +118,7 @@ class ImageDetails extends Component {
             </aside>
           </div>
         </div>
-        {imageDetailsStyle}
+        <style jsx>{imageDetailsStyle}</style>
       </div>
     );
   }

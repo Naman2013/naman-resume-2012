@@ -1,5 +1,6 @@
 import axios from 'axios';
-import { fetchMissionCount, fetchMyPicturesCount, fetchGalleriesCount } from '../my-pictures/actions';
+import { fetchMissionCount, fetchMyPicturesCount } from '../my-pictures/actions';
+import { fetchGalleriesCount } from '../my-pictures-galleries/actions';
 import { fetchMyPicturesImageDetails } from '../my-pictures-image-details/actions';
 
 

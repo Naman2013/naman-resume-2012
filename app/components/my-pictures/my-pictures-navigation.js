@@ -8,12 +8,11 @@ import FilterMenu from './FilterMenu';
 import { toggleFilterMenuDisplay, setFilters } from '../../modules/my-pictures-filters/actions';
 import s from './my-pictures-navigation.scss';
 
-const mapStateToProps = ({ objectTypeList, myPictures, myPicturesFilters }) => ({
+
+const mapStateToProps = ({ objectTypeList, myPictures, galleries, myPicturesFilters }) => ({
   photoRollCount: myPictures.photoRoll.imageCount,
   missionCount: myPictures.missions.imageCount,
-  galleriesCount: myPictures.galleries.imageCount,
-  objectFilterList: objectTypeList.objectListResponse.objectTypeList,
-  objectTypeFilter: myPictures.objectTypeFilter,
+  galleriesCount: galleries.imageCount,
   filterMenuIsOpen: myPicturesFilters.filterMenuIsOpen,
   selectedFilters: myPicturesFilters.selectedFilters,
 });
@@ -101,11 +100,11 @@ class MyPicturesNavigation extends Component {
               Photo Roll <span>({photoRollCount})</span>
             </Link>
           </li>
-          {/*<li className={s.rootNavigationItem}>
+          <li className={s.rootNavigationItem}>
             <Link to="/my-pictures/galleries" className={s.button} activeClassName="active">
               Galleries <span>({galleriesCount || 0})</span>
             </Link>
-          </li>*/}
+          </li>
           <li className={s.rootNavigationItem}>
             <Link to="/my-pictures/missions" className={s.button} activeClassName="active">
               Missions <span>({missionCount})</span>
@@ -140,8 +139,6 @@ class MyPicturesNavigation extends Component {
 
 MyPicturesNavigation.defaultProps = {
   page: 'photoRoll',
-  objectFilterList: [],
-  objectTypeFilter: '',
   galleryId: null,
   scheduledMissionId: null,
   filterMenuIsOpen: false,
@@ -151,16 +148,6 @@ MyPicturesNavigation.propTypes = {
   page: PropTypes.string,
   scheduledMissionId: PropTypes.string,
   galleryId: PropTypes.string,
-  objectFilterList: PropTypes.arrayOf(PropTypes.shape({
-    objectTypeDisplayName: PropTypes.string,
-    objectTypeDisplayOrder: PropTypes.number,
-    objectTypeFilter: PropTypes.string,
-    objectTypeFilterLookupId: PropTypes.number,
-    objectTypeIconURL: PropTypes.string,
-    objectTypeIndex: PropTypes.number,
-    objectTypeName: PropTypes.string,
-  })),
-  objectTypeFilter: PropTypes.string,
   filterMenuIsOpen: PropTypes.bool
 };
 

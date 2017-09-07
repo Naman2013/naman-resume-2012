@@ -9,12 +9,15 @@ import MyPicturesNavigation from '../../components/my-pictures/my-pictures-navig
 import { fetchImageDetailsAndCounts, fetchMyPicturesImageDetails } from '../../modules/my-pictures-image-details/actions';
 import { fetchGalleryPictures } from '../../modules/my-pictures-gallery-pictures/actions';
 import ImageViewer from '../../components/my-pictures/ImageViewer';
-import { imageDetailsStyle } from './ImageDetailsStyles';
+import imageDetailsStyle from './ImageDetailsStyles';
 import ImageInfoPanel from '../../components/my-pictures/ImageInfoPanel';
+import PhotoActions from '../../components/my-pictures/actions/PhotoActions';
+
 
 const mapStateToProps = ({ user, myPicturesImageDetails, galleryPictures }) => ({
   myPicturesImageDetails,
   galleryPictures,
+  user,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -115,7 +118,11 @@ class ImageDetails extends Component {
   render() {
     const {
       scheduledMissionId,
+      canLikeFlag,
       imageTitle,
+      likesCount,
+      canEditFlag,
+      likePrompt,
     } = this.props.myPicturesImageDetails;
     const {
       error,
@@ -127,7 +134,7 @@ class ImageDetails extends Component {
       currentImageIndex,
       galleryId
     } = this.state;
-
+    const { user } = this.props;
     const rangeText = Pagination.generateRangeText({
       startRange: currentImageIndex,
       itemsPerPage: 1,
@@ -135,7 +142,13 @@ class ImageDetails extends Component {
     const canNext = (currentImageIndex + 1) < imageCount;
     const canPrevious = currentImageIndex !== 0;
     const image = imageList[currentImageIndex] && imageList[currentImageIndex].imageURL;
-
+    const heartProps = {
+      likePrompt,
+      canLikeFlag,
+      count: likesCount,
+      theme: 'buttonOnly',
+      likeId: this.props.params.customerImageId,
+    };
     return (
       <div>
         <MyPicturesNavigation
@@ -147,7 +160,17 @@ class ImageDetails extends Component {
             <div className="left">
               <h2 dangerouslySetInnerHTML={{ __html: imageTitle }} />
             </div>
-            <div className="right-top"></div>
+            <div className="right-top">
+            <PhotoActions
+              canEditFlag={canEditFlag}
+              imageURL={image}
+              galleryId={galleryId}
+              customerImageId={this.props.params.customerImageId}
+              user={user}
+              actionSource="galleryImageDetails"
+              heartProps={heartProps}
+            />
+            </div>
           </div>
           <div className="container">
             <div className="left my-pic-galleries">
@@ -166,7 +189,7 @@ class ImageDetails extends Component {
             </aside>
           </div>
         </div>
-        {imageDetailsStyle}
+        <style jsx>{imageDetailsStyle}</style>
         <style jsx global>
         {`
           .my-pic-galleries .count {

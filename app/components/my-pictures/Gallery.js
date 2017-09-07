@@ -5,28 +5,47 @@ import moment from 'moment';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router';
+import PhotoActions from './actions/PhotoActions';
 import { backgroundImageCover } from '../../styles/mixins/utilities';
 import { white, pink } from '../../styles/variables/colors';
 
-// const mapDispatchToProps = dispatch => ({
-//   actions: bindActionCreators({
-//   }, dispatch),
-// });
-//
-// @connect(null, mapDispatchToProps)
+const mapStateToProps = ({ user }) => ({
+  user,
+});
+
+
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators({
+  }, dispatch),
+});
+
+@connect(mapStateToProps, mapDispatchToProps)
 class Gallery extends Component {
   static propTypes = {
     imageURL: PropTypes.string.isRequired,
     imageTitle: PropTypes.string.isRequired,
-    created: PropTypes.a,
+    created: PropTypes.string.isRequired,
+    canEditFlag: PropTypes.bool,
+    isImages: PropTypes.bool,
+    galleryId: PropTypes.number,
+    overlayText: PropTypes.arrayOf(PropTypes.string),
+    customerImageId: PropTypes.number,
+    shareToken: PropTypes.string,
   }
 
   static defaultProps = {
-    created: 0
+    created: '0',
+    galleryId: null,
+    isImages: false,
+    canEditFlag: false,
+    overlayText: [],
+    customerImageId: null,
+    shareToken: ''
   }
 
   render() {
     const {
+      canEditFlag,
       isImages,
       galleryId,
       overlayText,
@@ -34,65 +53,90 @@ class Gallery extends Component {
       imageURL,
       imageTitle,
       customerImageId,
-      shareToken
+      shareToken,
+      user,
     } = this.props;
     const createdDate = moment(Number(created) * 1000);
     const url = isImages ? `/my-pictures/gallery/${galleryId}/show-image/${customerImageId}/${shareToken}` : `/my-pictures/galleries/${galleryId}`;
+
     return (
       <div>
-        <Link to={url}>
-          <a className="gallery-container" style={{ backgroundImage: `url(${imageURL})` }}>
-            <div className="innerContainer content">
-              <div>{imageTitle}</div>
-              <div>Created on {createdDate.format('dddd, MMMM Do YYYY')}</div>
-              {
-                overlayText && overlayText.map((markdownText, index) => <Markdown key={`markdown-text-${index}`} source={markdownText} />)
+        <Link to={url} className="gallery-container-image" style={{ backgroundImage: `url(${imageURL})` }}>
+          <div className="innerContainer content">
+            <div>{imageTitle}</div>
+            <div>Created on {createdDate.format('dddd, MMMM Do YYYY')}</div>
+            {
+              overlayText && overlayText.map((markdownText, index) => <Markdown key={`markdown-text-${index}`} source={markdownText} />)
+            }
+            <ul className="photoMenu">
+              <li>
+                <PhotoActions
+                  canEditFlag={canEditFlag}
+                  imageURL={imageURL}
+                  customerImageId={customerImageId}
+                  user={user}
+                  actionSource={isImages ? 'galleryPictures' : 'galleries'}
+                  galleryId={galleryId}
+                />
+              </li>
+            </ul>
+          </div>
+          <style jsx>
+            {`
+
+              .content {
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
               }
-            </div>
-            <style jsx>
-              {`
 
-                .gallery-container {
-                  ${backgroundImageCover}
-                  background-position: center;
-                  margin-bottom: 20px;
-                  display: block;
-                  border: 4px solid transparent;
-                }
+              .innerContainer {
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.5);
+                color: ${white};
+                padding: 20px;
+                opacity: 0;
+              }
+            `}
+          </style>
+          <style jsx global>
+            {`
 
-                .gallery-container:before {
-                  display: block;
-                  content: "";
-                  width: 100%;
-                  padding-top: 68.49%;
-                }
-                .content {
-                  position: absolute;
-                  top: 0;
-                  left: 0;
-                  right: 0;
-                  bottom: 0;
-                }
+              .gallery-container-image {
+                ${backgroundImageCover}
+                background-position: center;
+                margin-bottom: 20px;
+                display: block;
+                border: 4px solid transparent;
+              }
 
-                .gallery-container:hover {
-                  border: 4px solid ${pink};
-                }
+              .gallery-container-image:before {
+                display: block;
+                content: "";
+                width: 100%;
+                padding-top: 68.49%;
+              }
 
-                .gallery-container:hover .innerContainer {
-                  opacity: 1;
-                }
+              .gallery-container-image:hover {
+                border: 4px solid ${pink};
+              }
 
-                .innerContainer {
-                  width: 100%;
-                  height: 100%;
-                  background: rgba(0, 0, 0, 0.5);
-                  color: ${white};
-                  padding: 20px;
-                  opacity: 0;
-                }
-              `}
-            </style>
-          </a>
+              .gallery-container-image:hover .innerContainer {
+                opacity: 1;
+              }
+
+              .photoMenu {
+                list-style-type: none;
+                position: absolute !important;
+                right: 35px;
+                bottom: 25px;
+              }
+
+            `}
+          </style>
         </Link>
       </div>
     );

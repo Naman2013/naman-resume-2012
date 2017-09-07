@@ -1,5 +1,8 @@
 import axios from 'axios';
 import getMissionFits from '../../services/pictures/get-mission-fits';
+import {
+  fetchGalleriesCount,
+} from '../my-pictures-galleries/actions';
 
 export const FETCH_PHOTO_ROLL_START = 'FETCH_PHOTO_ROLL_START';
 export const FETCH_PHOTO_ROLL_SUCCESS = 'FETCH_PHOTO_ROLL_SUCCESS';
@@ -8,10 +11,6 @@ export const FETCH_PHOTO_ROLL_FAIL = 'FETCH_PHOTO_ROLL_FAIL';
 export const FETCH_MISSION_PHOTOS_START = 'FETCH_MISSION_PHOTOS_START';
 export const FETCH_MISSION_PHOTOS_SUCCESS = 'FETCH_MISSION_PHOTOS_SUCCESS';
 export const FETCH_MISSION_PHOTOS_FAIL = 'FETCH_MISSION_PHOTOS_FAIL';
-
-export const FETCH_GALLERIES_START = 'FETCH_GALLERIES_START';
-export const FETCH_GALLERIES_SUCCESS = 'FETCH_GALLERIES_SUCCESS';
-export const FETCH_GALLERIES_FAIL = 'FETCH_GALLERIES_FAIL';
 
 export const FETCH_MISSIONS_START = 'FETCH_MISSIONS_START';
 export const FETCH_MISSIONS_SUCCESS = 'FETCH_MISSIONS_SUCCESS';
@@ -37,12 +36,6 @@ export const FETCH_MISSION_COUNT_START = 'FETCH_MISSION_COUNT_START';
 export const FETCH_MISSION_COUNT_SUCCESS = 'FETCH_MISSION_COUNT_SUCCESS';
 export const FETCH_MISSION_COUNT_FAIL = 'FETCH_MISSION_COUNT_FAIL';
 
-export const FETCH_GALLERIES_COUNT_START = 'FETCH_GALLERIES_COUNT_START';
-export const FETCH_GALLERIES_COUNT_SUCCESS = 'FETCH_GALLERIES_COUNT_SUCCESS';
-export const FETCH_GALLERIES_COUNT_FAIL = 'FETCH_GALLERIES_COUNT_FAIL';
-
-
-
 const fetchFITImagesStart = () => ({
   type: FETCH_FIT_IMAGES_START,
 });
@@ -67,45 +60,6 @@ export const loadFITImages = ({ scheduledMissionId }) => (dispatch, getState) =>
   })
   .then(result => dispatch(fetchFITImagesSuccess(result.data)))
   .catch(error => () => { throw error; });
-};
-
-const fetchGalleriesStart = () => ({
-  type: FETCH_GALLERIES_START,
-});
-
-const fetchGalleriesSuccess = payload => ({
-  type: FETCH_GALLERIES_SUCCESS,
-  payload,
-});
-
-const fetchGalleriesFail = payload => ({
-  type: FETCH_GALLERIES_FAIL,
-  payload,
-});
-
-export const fetchGalleries = ({
-  maxImageCount = 9,
-  firstImageNumber = 1,
-}) => (dispatch, getState) => {
-  const { at, token, cid } = getState().user;
-  const { selectedFilters } = getState().myPicturesFilters
-  dispatch(fetchGalleriesStart());
-  // dispatch(fetchGalleriesCount({})); // for pagination
-  // dispatch(fetchMissionCount()); // for deeplinking
-  // dispatch(fetchMyPicturesCount());// for deeplinking
-  return axios.post('/api/images/getGalleryList', {
-    // at: 3, // for testing purposes
-    // cid: 185651, // for testing purposes
-    // token: 'ff278b57d3724d41a3d48194e2f29526b30e9c0f', // for testing purposes
-    at,
-    cid,
-    token,
-    maxImageCount,
-    firstImageNumber,
-    ...selectedFilters,
-  })
-  .then(result => dispatch(fetchGalleriesSuccess(result.data)))
-  .catch(error => dispatch(fetchGalleriesFail(error)));
 };
 
 const fetchMissionPhotosStart = () => ({
@@ -271,12 +225,6 @@ export const fetchMissionsAndCounts = (params) => (dispatch) => {
   dispatch(fetchMissions(params));
 };
 
-export const fetchGalleriesAndCounts = (params) => (dispatch) => {
-  dispatch(fetchMissionCount());
-  dispatch(fetchMyPicturesCount());
-  dispatch(fetchGalleriesCount());
-  dispatch(fetchGalleries(params));
-};
 
 const fetchMyPicturesCountStart = payload => ({
   type: FETCH_MY_PICTURES_COUNT_START,
@@ -307,45 +255,6 @@ export const fetchMyPicturesCount = () => (dispatch, getState) => {
   })
   .then(result => dispatch(fetchMyPicturesCountSuccess(result.data)))
   .catch(error => dispatch(fetchMyPicturesCountFail(error)));
-};
-
-const fetchGalleriesCountStart = payload => ({
-  type: FETCH_GALLERIES_COUNT_START,
-  payload,
-});
-
-const fetchGalleriesCountSuccess = payload => ({
-  type: FETCH_GALLERIES_COUNT_SUCCESS,
-  payload,
-});
-
-const fetchGalleriesCountFail = payload => ({
-  type: FETCH_GALLERIES_COUNT_FAIL,
-  payload,
-});
-
-export const fetchGalleriesCount = () => (dispatch, getState) => {
-  const { at, token, cid } = getState().user;
-  dispatch(fetchGalleriesCountStart());
-  const { selectedFilters } = getState().myPicturesFilters
-
-  return axios.post('/api/images/getGalleryCount', {
-    // at: 3, // for testing purposes
-    // cid: 185651, // for testing purposes
-    // token: 'ff278b57d3724d41a3d48194e2f29526b30e9c0f', // for testing purposes
-    at,
-    cid,
-    token,
-    ...selectedFilters,
-  })
-  .then(result => {
-    if (result.apiError) {
-      dispatch(fetchGalleriesCountFail(result));
-    } else {
-      dispatch(fetchGalleriesCountSuccess(result.data))
-    }
-  })
-  .catch(error => dispatch(fetchGalleriesCountFail(error)));
 };
 
 const fetchMissionPhotosCountStart = payload => ({

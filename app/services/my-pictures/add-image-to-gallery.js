@@ -1,13 +1,13 @@
 import axios from 'axios';
 
-export const removeImageFromGallery = ({
+export const addImageToGallery = ({
   at,
   cid,
   token,
   galleryId,
   customerImageId,
 }) => (
-  axios.post('/api/images/removeImageFromGallery', {
+  axios.post('/api/images/addImageToGallery', {
     at,
     cid,
     token,
