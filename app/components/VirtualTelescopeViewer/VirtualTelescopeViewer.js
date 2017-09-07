@@ -11,12 +11,20 @@ import ImageProcessingInformation from './ImageProcessingInformation';
 
 const VirtualTelescopeViewer = () => (
   <Frame>
-    <ViewControls />
-    <Timestamp />
-    <CoordinateInformation />
+    <div className="top">
+      <ViewControls />
+
+      <Timestamp />
+
+      <CoordinateInformation />
+    </div>
+
     <ZoomControls />
+
     <ObjectMetaInformation />
+
     <MissionTitle />
+
     <ImageProcessingInformation />
   </Frame>
 );

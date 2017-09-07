@@ -23,6 +23,16 @@ module.exports = {
           },
         ],
       },
+      {
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        loader: 'babel-loader',
+        query: {
+          cacheDirectory: true,
+          plugins: ['transform-runtime', 'transform-decorators-legacy', 'styled-jsx/babel'],
+          presets: ['es2015', 'es2016', 'es2017', 'react', 'stage-0'],
+        },
+      },
     ],
   },
 };
