@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import ResponsiveContainer from '../ResponsiveContainer';
 import { monoFont } from '../../styles/variables/fonts';
 import { black, brightGreen } from '../../styles/variables/colors';
-import borderImage from '../../../assets/images/borders/rail-pattern.png';
+
+import railBorderPattern from '../../../assets/images/borders/rail-pattern.png';
+import runBorderPattern from '../../../assets/images/borders/run-pattern.png';
 
 /**
   - background layer - full black, full width
@@ -80,14 +82,40 @@ class Frame extends Component {
             padding: 0;
           }
 
+          .frame {
+            border: 1px solid ${brightGreen};
+          }
+
+          .top-rail, .bottom-rail {
+            background-image: url(${runBorderPattern});
+            background-repeat: repeat-x;
+            height: 13px;
+            width: 100%;
+          }
+
           .top-rail {
-            background-image: url(${borderImage});
+            transform: rotate(180deg);
+          }
+
+          .bottom-rail {
+            clear: left;
+          }
+
+          .left-rail, .right-rail {
+            background-image: url(${railBorderPattern});
             background-repeat: repeat-y;
-            background-size: 13px;
-            border-left: 1px solid ${brightGreen};
-            height: 100%;
             width: 13px;
-            min-height: 800px;
+            height: 100%;
+            min-height: 600px;
+          }
+
+          .left-rail {
+            float: left;
+          }
+
+          .right-rail {
+            float: right;
+            transform: rotate(180deg);
           }
         `}</style>
       </div>
