@@ -72,10 +72,11 @@ class SelectCategoryAndTopic extends Component {
 
     return (
       <div className="cat-select-container">
-        <p className="description">Select an object category and/or object topic from the list</p>
+        <p className="description">Select an object category and/or object topic from the list below, then click View Posts</p>
 
         <div className="select-object-category-and-topic-wrapper">
           <div className="select-object-category">
+            <h3 className="header">Object Category</h3>
             <SelectToggleList
               options={objectCategories}
               name="categories"
@@ -86,6 +87,7 @@ class SelectCategoryAndTopic extends Component {
           </div>
 
           <div className="select-object-topic">
+            <h3 className="header">Topic</h3>
             <SelectToggleList
               options={categoryTopics}
               name="topics"
@@ -99,11 +101,15 @@ class SelectCategoryAndTopic extends Component {
           {`
 
             .cat-select-container {
-              height: ${listHeight}px;
+              height: ${listHeight + 65}px;
             }
 
             .description {
               margin: 10px auto;
+            }
+
+            .header {
+              margin: 15px;
             }
 
             .select-object-category-and-topic-wrapper {
@@ -112,7 +118,6 @@ class SelectCategoryAndTopic extends Component {
               display: flex;
               justify-content: space-around;
               font-size: 16px;
-              padding-top: 20px;
             }
 
             .select-object-category,
