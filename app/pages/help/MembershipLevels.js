@@ -20,7 +20,7 @@ const MembershipLevels = () => (
           <strong><a href="https://slooh.com/join.php?type=c">Buy Now</a></strong>
         </div>
         <div className="help-page-paragraph">
-          Want to build your mind’s eye a bit more before looking through the telescopes? <strong><a href="https://slooh.com/join.php?type=s">Register</a></strong> as <strong>Slooh Crew</strong> to see, share and comment in the community sections of the website.
+          Want to build your mind’s eye in the sky before taking control of the telescopes? <strong><a href="https://slooh.com/join.php?type=s">Register</a></strong> as <strong>Slooh Crew</strong> to look through the telescopes, take pictures and participate in the community sections of the website.
         </div>
       </div>
     </div>
