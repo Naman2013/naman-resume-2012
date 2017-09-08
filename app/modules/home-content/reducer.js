@@ -57,10 +57,10 @@ const initialState = {
       },
       {
         key: uniqueId(),
-        title: 'Total solar eclipse',
+        title: 'Solar eclipses',
         imageUrl: 'https://vega.slooh.com/assets/images/photos/eclipse.jpg',
         type: '',
-        url: '/road-trip',
+        url: '/objects/latest-entries/524/all',
       },
       {
         key: uniqueId(),
