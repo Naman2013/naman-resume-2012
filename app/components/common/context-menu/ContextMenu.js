@@ -102,7 +102,6 @@ class ContextMenu extends Component {
           style={{ left: `${15 + leftOffset}px` }}
         />
         <div
-          onMouseLeave={this.hideMenu}
           style={menuRootStyle}
           className={rootClasses}
         >
