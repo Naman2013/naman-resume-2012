@@ -15,32 +15,54 @@ const VirtualTelescopeViewer = () => (
     <div className="top">
       <ViewControls />
 
-      <div className="timestamp">
+      <div className="grow-2">
         <Timestamp />
       </div>
 
       <CoordinateInformation />
     </div>
 
+    <div className="center">
+      <ZoomControls />
+      <Bar />
+    </div>
 
-    <ZoomControls />
-    <Bar />
+    <div className="bottom">
+      <div className="bottom-container">
+        <ObjectMetaInformation />
 
-    <ObjectMetaInformation />
+        <div className="grow-2">
+          <MissionTitle />
+        </div>
 
-    <MissionTitle />
-
-    <ImageProcessingInformation />
+        <ImageProcessingInformation />
+      </div>
+    </div>
 
     <style jsx>{`
         .top {
           display: flex;
           justify-content: space-around;
-          padding: 20px 20px;
+          padding: 20px;
         }
 
-        .timestamp {
+        .grow-2 {
           flex-grow 2;
+        }
+
+        .center {}
+
+        .bottom {
+          position: absolute;
+          bottom: 0;
+          width: 100%;
+        }
+
+        .bottom-container {
+          display: flex;
+          align-items: flex-end;
+          justify-content: space-around;
+          padding: 30px;
         }
     `}</style>
   </Frame>

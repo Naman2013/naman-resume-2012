@@ -1,8 +1,21 @@
 import React from 'react';
+import { brightGreen } from '../../styles/variables/colors';
 
 const MissionTitle = () => (
-  <div>
-    <h5>Mission title...</h5>
+  <div className="root">
+    <h5 className="content">Mission title...</h5>
+
+    <style jsx>{`
+      .root {
+        text-align: center;
+      }
+
+      .content {
+        border: 1px solid ${brightGreen};
+        display: inline;
+        padding: 0 15px;
+      }
+    `}</style>
   </div>
 );
 
