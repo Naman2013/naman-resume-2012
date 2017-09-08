@@ -50,7 +50,9 @@ const VirtualTelescopeViewer = () => (
           flex-grow 2;
         }
 
-        .center {}
+        .center {
+          position: relative;
+        }
 
         .bottom {
           position: absolute;
