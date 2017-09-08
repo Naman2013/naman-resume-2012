@@ -8,6 +8,7 @@ const MissionTitle = () => (
     <style jsx>{`
       .root {
         text-align: center;
+        padding-bottom: 20px;
       }
 
       .content {
