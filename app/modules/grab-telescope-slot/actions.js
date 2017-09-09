@@ -91,7 +91,13 @@ const grabTelescopeSlotFail = (error) => {
   @uniqueId: required
   @scheduledMissionId: required
 */
-export const grabTelescopeSlot = ({ defaultFormType, scheduledMissionId, uniqueId, grabType, finalizeReservation }) => (dispatch, getState) => {
+export const grabTelescopeSlot = ({
+  defaultFormType,
+  scheduledMissionId,
+  uniqueId,
+  grabType,
+  finalizeReservation,
+}) => (dispatch, getState) => {
   const { at, cid, token } = getState().user;
 
   return axios.post('/api/reservation/grabTelescopeSlot', {
@@ -125,6 +131,15 @@ export const refreshListings = () => (dispatch, getState) => {
     domeId,
     requestedDate: reservationDate,
   }));
+};
+
+export const finalizeTelescopeSlot = ({
+  scheduledMissionId,
+  uniqueId,
+  grabType,
+  finalizeReservation,
+}) => () => {
+
 };
 
 export const removeMissionFromConsideration = ({ uniqueId }) => (dispatch, getState) => {
