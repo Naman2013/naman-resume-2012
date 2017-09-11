@@ -23,8 +23,12 @@ const VirtualTelescopeViewer = () => (
     </div>
 
     <div className="center">
-      <ZoomControls />
-      <Bar />
+      <div className="zoom-control">
+        <ZoomControls />
+      </div>
+      <div className="cosmetic-bar-shape">
+        <Bar />
+      </div>
     </div>
 
     <div className="bottom">
@@ -50,8 +54,18 @@ const VirtualTelescopeViewer = () => (
           flex-grow 2;
         }
 
-        .center {
-          position: relative;
+        .zoom-control, .cosmetic-bar-shape {
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+        }
+
+        .zoom-control {
+          left: 20px;
+        }
+
+        .cosmetic-bar-shape {
+          right: 20px;
         }
 
         .bottom {
