@@ -7,6 +7,7 @@ import MissionTime from '../partials/mission-time';
 import ByUserTag from '../../../common/by-user-tag/by-user-tag';
 import { startCompleteReservation } from '../../../../modules/mission-slots-by-telescope/mission-slots-by-telescope-actions';
 import { fetchDateRanges } from '../../../../modules/mission-slots-by-telescope/mission-slot-dates-actions';
+import { finalizeTelescopeSlot } from '../../../../modules/grab-telescope-slot/actions';
 
 const FinishReservationButton = ({ handleFinishReservationClick }) => (
   <div className="col-xs-2">
@@ -27,6 +28,7 @@ const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
     startCompleteReservation,
     fetchDateRanges,
+    finalizeTelescopeSlot,
   }, dispatch),
 });
 
@@ -34,6 +36,11 @@ const mapDispatchToProps = dispatch => ({
 class MissionOnHold extends Component {
   handleFinishReservationClick = (event) => {
     event.preventDefault();
+    const { scheduledMissionId, uniqueId } = this.props;
+    this.props.actions. finalizeTelescopeSlot({
+      scheduledMissionId,
+      uniqueId,
+    });
     this.props.actions.startCompleteReservation(this.props.missionIndex);
   }
 

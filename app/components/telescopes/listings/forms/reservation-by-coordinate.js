@@ -35,6 +35,8 @@ import './reservation-by-coordinate.scss';
 import { fetchPresetOptions } from '../../../../modules/get-preset-options/get-preset-options-actions';
 import { checkTargetVisibility } from '../../../../modules/check-target-visibility/api';
 import { grabMissionSlot, grabUpdateMissionSlot, missionConfirmOpen } from '../../../../modules/Missions';
+import { placeOneHourHold } from '../../../../modules/grab-telescope-slot/actions';
+
 
 const MAX_SECONDS_CHARACTER_LENGTH = 4;
 const MAX_TIME = 60;
@@ -99,6 +101,7 @@ const mapDispatchToProps = dispatch => ({
     grabMissionSlot,
     grabUpdateMissionSlot,
     missionConfirmOpen,
+    placeOneHourHold,
   }, dispatch),
 });
 
@@ -423,6 +426,15 @@ class ReservationByCoordinate extends Component {
     });
   }
 
+  handlePlaceHourHold = (event) => {
+    event.preventDefault();
+    const { scheduledMissionId, uniqueId } = this.props;
+    this.props.actions.placeOneHourHold({
+      scheduledMissionId,
+      uniqueId,
+    });
+  }
+
   renderStepThree() {
     const { showPlaceOnHold, showCancelHold, userHasReservation } = this.props;
     const { visibilityStatus, presetOptions, selectedImageProcessIndex } = this.state;
@@ -454,7 +466,7 @@ class ReservationByCoordinate extends Component {
           <section className="actions-container">
             {
               showPlaceOnHold ?
-                <button className="btn-primary">Hold One Hour</button> : null
+                <button onClick={this.handlePlaceHourHold} className="btn-primary">Hold One Hour</button> : null
             }
             {
               visibilityStatus.objectIsVisible && showCancelHold ?

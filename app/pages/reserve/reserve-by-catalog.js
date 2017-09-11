@@ -347,19 +347,25 @@ class ReserveByCatalog extends Component {
               <section className="actions-container">
                 {
                   showPlaceOnHold ?
-                  <button
-                    onClick={this.handlePlaceHourHold}
-                    className="btn-primary">Hold One Hour</button> : null
+                    <button
+                      onClick={this.handlePlaceHourHold}
+                      className="btn-primary"
+                    >
+                    Hold One Hour
+                    </button> : null
                 }
                 {
                   !showPlaceOnHold && hasSelectedImageProcessing ?
-                  <button
-                    onClick={this.handleCatalogSelect}
-                    className="btn-primary">Reset Browse</button> : null
+                    <button
+                      onClick={this.handleCatalogSelect}
+                      className="btn-primary"
+                    >
+                      Reset Browse
+                    </button> : null
                 }
                 {
                   showCancelHold && hasSelectedImageProcessing ?
-                  <button className="btn-primary">Cancel Hold</button> : null
+                    <button className="btn-primary">Cancel Hold</button> : null
                 }
                 {
                   hasSelectedImageProcessing ?
