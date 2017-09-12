@@ -150,6 +150,11 @@ class AddToGallery extends Component {
     }
   }
 
+  forceFocus = (e) => { // force focus for Microsoft Edge
+    e.preventDefault();
+    this._createInput.focus();
+  }
+
   render() {
     const {
       actionSource,
@@ -164,7 +169,6 @@ class AddToGallery extends Component {
     const {
       newGalleryName,
     } = this.state;
-
     return (
       <div className="action-menu-container">
         <ContextMenu
@@ -189,10 +193,12 @@ class AddToGallery extends Component {
                 className="name-input"
                 onClick={e => e.preventDefault()}
                 onKeyPress={this.onKeyPress}
+                onMouseDown={this.forceFocus}
                 type="text"
                 placeholder="Type Here to Create Gallery"
                 value={newGalleryName}
                 onChange={this.updateNewGalleryName}
+                ref={input => this._createInput = input}
               />}
               {galleryCreatingError && <span>Your gallery could not be created</span>}
             </div>
@@ -248,6 +254,7 @@ class AddToGallery extends Component {
               border: none;
               color: ${pink};
               width: 90%;
+              height: 35px;
             }
 
             .name-input::-webkit-input-placeholder { /* Chrome */
