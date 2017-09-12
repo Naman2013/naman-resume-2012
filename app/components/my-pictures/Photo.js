@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import classnames from 'classnames';
 import Markdown from 'react-remarkable';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -28,6 +29,22 @@ class Photo extends Component {
     super(props);
   }
 
+  state = {
+    showHoverMenu: false,
+  }
+
+  showMenu = () => {
+    this.setState({
+      showHoverMenu: true,
+    });
+  }
+
+  hideMenu = () => {
+    this.setState({
+      showHoverMenu: false,
+    });
+  }
+
   render() {
     const {
       imageURL,
@@ -41,6 +58,14 @@ class Photo extends Component {
       user,
     } = this.props;
 
+    const {
+      showHoverMenu
+    } = this.state;
+
+    const hoverStyle = classnames({
+      showMenu: showHoverMenu
+    });
+
     const inlinePhotoStyle = {
       backgroundImage: `url(${imageURL})`,
     };
@@ -48,7 +73,11 @@ class Photo extends Component {
     return (
       <div className={s.photoRoot}>
         <Link to={detailsUrl} className={s.photoLink} style={inlinePhotoStyle}>
-          <div className={`${s.innerPhotoContainer} content`}>
+          <div
+            className={`innerPhotoContainer content ${hoverStyle}`}
+            onMouseOver={this.showMenu}
+            onMouseLeave={this.hideMenu}
+          >
             <h3 className={s.photoTitle}>{imageTitle}</h3>
             <div className={s.photoMarkdownContent}>
               {
