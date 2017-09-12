@@ -2,7 +2,7 @@ import 'babel-polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { Router, Route, IndexRoute, IndexRedirect, browserHistory } from 'react-router';
+import { Router, Route, IndexRoute, IndexRedirect, Redirect, browserHistory } from 'react-router';
 
 // polyfills
 import 'event-source-polyfill/eventsource.min';
@@ -324,7 +324,8 @@ ReactDOM.render(
         <Route path="bookclub" component={BookclubHandoff} />
       </Route>
 
+      <Redirect from="*" to="/" />
     </Router>
   </Provider>,
-  document.getElementById('app'),
+  window.document.getElementById('app'),
 );
