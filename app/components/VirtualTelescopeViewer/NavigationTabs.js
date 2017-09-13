@@ -1,9 +1,11 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import NavigationTab from './NavigationTab';
 
 function generateRange(range) {
   const rangeSet = [];
-  for (let i = 0; i++; i < range) {
+
+  for (let i = 0; i < range; i++) {
     rangeSet.push(<NavigationTab />);
   }
 
@@ -27,5 +29,13 @@ const NavigationTabs = ({ range }) => (
     `}</style>
   </div>
 );
+
+NavigationTabs.defaultProps = {
+  range: 6,
+};
+
+NavigationTabs.propTypes = {
+  range: PropTypes.number,
+};
 
 export default NavigationTabs;

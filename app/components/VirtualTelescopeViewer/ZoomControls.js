@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import NavigationTabs from './NavigationTabs';
 import { brightGreen } from '../../styles/variables/colors';
 
@@ -30,5 +31,13 @@ const ZoomControls = ({ zoomRange }) => (
     `}</style>
   </div>
 );
+
+ZoomControls.defaultProps = {
+  zoomRange: 6,
+};
+
+ZoomControls.propTypes = {
+  zoomRange: PropTypes.number,
+};
 
 export default ZoomControls;
