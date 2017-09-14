@@ -17,6 +17,6 @@ storiesOf('Virtual Telescope Viewer', module)
   ))
   .add('Clipped image', () => (
     <VirtualTelescopeViewer timestampInSeconds={START_TIME}>
-      <div style={{ width: '100%', height: '100%', backgroundImage: `url(${sampleImage})`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundPosition: 'center' }} />
+      <div style={{ minWidth: '100%', minHeight: '100%', backgroundImage: `url(${sampleImage})`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundPosition: 'center' }} />
     </VirtualTelescopeViewer>
   ));

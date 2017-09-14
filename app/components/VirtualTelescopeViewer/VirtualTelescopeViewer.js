@@ -14,17 +14,7 @@ import ImageProcessingInformation from './ImageProcessingInformation';
 import Position from '../../design-system/';
 
 const VirtualTelescopeViewer = ({ children }) => (
-  <Frame>
-    <Position
-      position="absolute"
-      left="0px"
-      top="0px"
-    >
-      { children }
-    </Position>
-
-    <Mask />
-
+  <Frame framedContent={children}>
     <div className="top">
       <div className="top-container">
         <ViewControls />
@@ -59,48 +49,53 @@ const VirtualTelescopeViewer = ({ children }) => (
     </div>
 
     <style jsx>{`
-        .top {
-          position: absolute;
-          top: 0;
-          width: 100%;
-        }
+      .content {
+        width: 100%;
+        height: 100%;
+      }
 
-        .top-container {
-          display: flex;
-          justify-content: space-around;
-          padding: 20px;
-        }
+      .top {
+        position: absolute;
+        top: 0;
+        width: 100%;
+      }
 
-        .grow-2 {
-          flex-grow 2;
-        }
+      .top-container {
+        display: flex;
+        justify-content: space-around;
+        padding: 20px;
+      }
 
-        .zoom-control, .cosmetic-bar-shape {
-          position: absolute;
-          top: 50%;
-          transform: translateY(-50%);
-        }
+      .grow-2 {
+        flex-grow 2;
+      }
 
-        .zoom-control {
-          left: 20px;
-        }
+      .zoom-control, .cosmetic-bar-shape {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+      }
 
-        .cosmetic-bar-shape {
-          right: 20px;
-        }
+      .zoom-control {
+        left: 20px;
+      }
 
-        .bottom {
-          position: absolute;
-          bottom: 0;
-          width: 100%;
-        }
+      .cosmetic-bar-shape {
+        right: 20px;
+      }
 
-        .bottom-container {
-          display: flex;
-          align-items: flex-end;
-          justify-content: space-around;
-          padding: 30px;
-        }
+      .bottom {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+      }
+
+      .bottom-container {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-around;
+        padding: 30px;
+      }
     `}</style>
   </Frame>
 );

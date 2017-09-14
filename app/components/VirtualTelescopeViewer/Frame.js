@@ -9,6 +9,10 @@ class Frame extends Component {
   render() {
     return (
       <div className="root">
+        <div className="frame-content">
+          { this.props.framedContent }
+        </div>
+
         <div className="frame">
           <div className="top-rail" />
           <div className="left-rail" />
@@ -32,7 +36,16 @@ class Frame extends Component {
             padding: 0;
           }
 
+          .frame-content {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+          }
+
           .frame {
+            position: relative;
             border: 1px solid ${brightGreen};
           }
 
