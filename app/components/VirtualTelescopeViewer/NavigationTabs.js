@@ -28,12 +28,13 @@ const NavigationTabs = ({ range }) => (
     <style jsx>{`
       .list {
         list-style-type: none;
-        margin: 0;
+        margin: 0 auto;
         padding: 0;
       }
 
       .item {
-        margin: 19px 0;
+        margin: 11px 0 0 50%;
+        transform: translateX(-60%);
       }
     `}</style>
   </div>

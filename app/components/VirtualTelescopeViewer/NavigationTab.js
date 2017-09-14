@@ -14,7 +14,7 @@ const NavigationTab = ({ width }) => (
 );
 
 NavigationTab.defaultProps = {
-  width: '20px',
+  width: '14px',
 };
 
 NavigationTab.propTypes = {

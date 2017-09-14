@@ -20,7 +20,7 @@ const ZoomControls = ({ zoomRange }) => (
 
       button {
         background: none;
-        border: none;
+        border: 1px solid ${brightGreen};
         cursor: pointer;
         color: ${brightGreen}
       }
