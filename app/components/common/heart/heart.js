@@ -144,7 +144,7 @@ export default class Heart extends Component {
           <i className="fa fa-heart" />
           <span className={style.count}>{count}</span>
         </button>
-        <div className="action-description">Like</div>
+        {theme === 'buttonOnly' && <div className="action-description">Like</div>}
         {showLikeText && <span onClick={this.handleClick} className="likeText">Like</span>}
         <ModalGeneric
           open={showPrompt}
