@@ -1,12 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import uniqueId from 'lodash/uniqueId';
 import NavigationTab from './NavigationTab';
 
 function generateRange(range) {
   const rangeSet = [];
 
   for (let i = 0; i < range; i++) {
-    rangeSet.push(<NavigationTab />);
+    rangeSet.push(0);
   }
 
   return rangeSet;
@@ -15,9 +16,13 @@ function generateRange(range) {
 const NavigationTabs = ({ range }) => (
   <div className="root">
     <ul className="list">
-      <li>
-        { generateRange(range) }
-      </li>
+      {
+        generateRange(range).map(() =>
+          <li key={uniqueId()} className="item">
+            <NavigationTab />
+          </li>
+        )
+      }
     </ul>
 
     <style jsx>{`
@@ -25,6 +30,10 @@ const NavigationTabs = ({ range }) => (
         list-style-type: none;
         margin: 0;
         padding: 0;
+      }
+
+      .item {
+        margin: 19px 0;
       }
     `}</style>
   </div>
