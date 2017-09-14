@@ -2,7 +2,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import VirtualTelescopeViewer from '../app/components/VirtualTelescopeViewer';
 
-import sampleImage from '../assets/images/graphics/livecam-placeholder.jpg';
+import sampleImage from '../assets/images/photos/eclipse.jpg';
 
 const START_TIME = 1499570100;
 
