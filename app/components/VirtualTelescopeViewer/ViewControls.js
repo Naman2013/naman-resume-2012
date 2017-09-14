@@ -1,15 +1,33 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { brightGreen } from '../../styles/variables/colors';
 import { monoFont } from '../../styles/variables/fonts';
 
-const ViewControls = () => (
+const CLIP = 'clip';
+const REMOVE_CLIP = 'remove_clip';
+
+function handleClick(clipped, callback, caller) {
+  if (clipped && caller === CLIP) { return; }
+  if (!clipped && caller === REMOVE_CLIP) { return; }
+  callback();
+}
+
+const propTypes = {
+  clipped: PropTypes.bool.isRequired,
+  handleToggleClip: PropTypes.func.isRequired,
+};
+
+const ViewControls = ({
+  clipped,
+  handleToggleClip,
+}) => (
   <div>
     <div className="buttons-top-row">
-      <button className="circle-view">
+      <button onClick={handleClick(clipped, handleToggleClip, CLIP)} className="circle-view">
         <div className="circle-shape" />
       </button>
-      <button className="full-view">
+      <button onClick={handleClick(clipped, handleToggleClip, REMOVE_CLIP)} className="full-view">
         <div className="square-shape" />
       </button>
     </div>
@@ -55,5 +73,7 @@ const ViewControls = () => (
     `}</style>
   </div>
 );
+
+ViewControls.propTypes = propTypes;
 
 export default ViewControls;

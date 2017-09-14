@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import noop from 'lodash/noop';
 
 import Frame from './Frame';
 import ViewControls from './ViewControls';
@@ -13,20 +14,25 @@ import ImageProcessingInformation from './ImageProcessingInformation';
 
 const propTypes = {
   clipped: PropTypes.bool,
+  handleToggleClip: PropTypes.func,
 };
 
 const defaultProps = {
   clipped: false,
+  handleToggleClip: noop,
 };
 
 const VirtualTelescopeViewer = ({
   children,
   clipped,
+  handleToggleClip,
 }) => (
   <Frame framedContent={children} clipped={clipped}>
     <div className="top">
       <div className="top-container">
-        <ViewControls />
+        <ViewControls
+          handleToggleClip={handleToggleClip}
+        />
 
         <div className="grow-2">
           <Timestamp />
