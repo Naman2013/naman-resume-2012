@@ -11,12 +11,12 @@ storiesOf('Virtual Telescope Viewer', module)
     <VirtualTelescopeViewer timestampInSeconds={START_TIME} />
   ))
   .add('With background image full', () => (
-    <VirtualTelescopeViewer timestampInSeconds={START_TIME}>
+    <VirtualTelescopeViewer timestampInSeconds={START_TIME} clipped={false}>
       <div style={{ width: '100%', height: '100%', backgroundImage: `url(${sampleImage})`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundPosition: 'center' }} />
     </VirtualTelescopeViewer>
   ))
   .add('Clipped image', () => (
-    <VirtualTelescopeViewer timestampInSeconds={START_TIME}>
+    <VirtualTelescopeViewer timestampInSeconds={START_TIME} clipped={true}>
       <div style={{ minWidth: '100%', minHeight: '100%', backgroundImage: `url(${sampleImage})`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundPosition: 'center' }} />
     </VirtualTelescopeViewer>
   ));

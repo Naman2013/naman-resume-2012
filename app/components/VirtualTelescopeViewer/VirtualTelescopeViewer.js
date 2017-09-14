@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import Frame from './Frame';
 import ViewControls from './ViewControls';
@@ -10,8 +11,19 @@ import ObjectMetaInformation from './ObjectMetaInformation';
 import MissionTitle from './MissionTitle';
 import ImageProcessingInformation from './ImageProcessingInformation';
 
-const VirtualTelescopeViewer = ({ children }) => (
-  <Frame framedContent={children}>
+const propTypes = {
+  clipped: PropTypes.bool,
+};
+
+const defaultProps = {
+  clipped: false,
+};
+
+const VirtualTelescopeViewer = ({
+  children,
+  clipped,
+}) => (
+  <Frame framedContent={children} clipped={clipped}>
     <div className="top">
       <div className="top-container">
         <ViewControls />
@@ -96,5 +108,8 @@ const VirtualTelescopeViewer = ({ children }) => (
     `}</style>
   </Frame>
 );
+
+VirtualTelescopeViewer.propTypes = propTypes;
+VirtualTelescopeViewer.defaultProps = defaultProps;
 
 export default VirtualTelescopeViewer;
