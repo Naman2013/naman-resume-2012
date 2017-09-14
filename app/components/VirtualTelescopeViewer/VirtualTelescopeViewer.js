@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Frame from './Frame';
+import Mask from './Mask';
 import ViewControls from './ViewControls';
 import Timestamp from './Timestamp';
 import CoordinateInformation from './CoordinateInformation';
@@ -10,16 +11,30 @@ import ObjectMetaInformation from './ObjectMetaInformation';
 import MissionTitle from './MissionTitle';
 import ImageProcessingInformation from './ImageProcessingInformation';
 
-const VirtualTelescopeViewer = () => (
+import Position from '../../design-system/';
+
+const VirtualTelescopeViewer = ({ children }) => (
   <Frame>
+    <Position
+      position="absolute"
+      left="0px"
+      top="0px"
+    >
+      { children }
+    </Position>
+
+    <Mask />
+
     <div className="top">
-      <ViewControls />
+      <div className="top-container">
+        <ViewControls />
 
-      <div className="grow-2">
-        <Timestamp />
+        <div className="grow-2">
+          <Timestamp />
+        </div>
+
+        <CoordinateInformation />
       </div>
-
-      <CoordinateInformation />
     </div>
 
     <div className="center">
@@ -45,6 +60,12 @@ const VirtualTelescopeViewer = () => (
 
     <style jsx>{`
         .top {
+          position: absolute;
+          top: 0;
+          width: 100%;
+        }
+
+        .top-container {
           display: flex;
           justify-content: space-around;
           padding: 20px;
