@@ -1,7 +1,6 @@
 import React from 'react';
 
 import Frame from './Frame';
-import Mask from './Mask';
 import ViewControls from './ViewControls';
 import Timestamp from './Timestamp';
 import CoordinateInformation from './CoordinateInformation';
@@ -10,8 +9,6 @@ import Bar from './Bar';
 import ObjectMetaInformation from './ObjectMetaInformation';
 import MissionTitle from './MissionTitle';
 import ImageProcessingInformation from './ImageProcessingInformation';
-
-import Position from '../../design-system/';
 
 const VirtualTelescopeViewer = ({ children }) => (
   <Frame framedContent={children}>
