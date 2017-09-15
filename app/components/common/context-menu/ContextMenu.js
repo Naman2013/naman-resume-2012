@@ -104,6 +104,7 @@ class ContextMenu extends Component {
         <div
           style={menuRootStyle}
           className={rootClasses}
+          onMouseLeave={this.hideMenu}
         >
           {titleText && <div className="header">
             <span dangerouslySetInnerHTML={{ __html: titleText }} />

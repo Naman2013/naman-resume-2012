@@ -1,5 +1,6 @@
 import Markdown from 'react-remarkable';
 import React, { Component } from 'react';
+import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import { connect } from 'react-redux';
@@ -43,6 +44,22 @@ class Gallery extends Component {
     shareToken: ''
   }
 
+  state = {
+    showHoverMenu: false,
+  }
+
+  showMenu = () => {
+    this.setState({
+      showHoverMenu: true,
+    });
+  }
+
+  hideMenu = () => {
+    this.setState({
+      showHoverMenu: false,
+    });
+  }
+
   render() {
     const {
       canEditFlag,
@@ -56,13 +73,23 @@ class Gallery extends Component {
       shareToken,
       user,
     } = this.props;
+
+    const {
+      showHoverMenu
+    } = this.state;
     const createdDate = moment(Number(created) * 1000);
     const url = isImages ? `/my-pictures/gallery/${galleryId}/show-image/${customerImageId}/${shareToken}` : `/my-pictures/galleries/${galleryId}`;
-
+    const hoverStyle = classnames({
+      showMenu: showHoverMenu
+    });
     return (
       <div>
         <Link to={url} className="gallery-container-image" style={{ backgroundImage: `url(${imageURL})` }}>
-          <div className="innerContainer content">
+          <div
+            className={`innerContainer content ${hoverStyle}`}
+            onMouseOver={this.showMenu}
+            onMouseLeave={this.hideMenu}
+          >
             <div>{imageTitle}</div>
             <div>Created on {createdDate.format('dddd, MMMM Do YYYY')}</div>
             {
@@ -124,7 +151,7 @@ class Gallery extends Component {
                 border: 4px solid ${pink};
               }
 
-              .gallery-container-image:hover .innerContainer {
+              .showMenu.innerContainer {
                 opacity: 1;
               }
 
