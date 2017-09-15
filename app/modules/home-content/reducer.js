@@ -22,11 +22,11 @@ const initialState = {
     },
     {
       key: uniqueId(),
-      title: 'Total Solar Eclipse',
-      content: `<a href="${generateInlineURL('#/road-trip')}">Road Trip with Slooh to Stanley</a>, Idaho to witness the Total Solar Eclipse on August 21st, or watch our coverage live right here on Slooh.`,
-      contentLink: 'road-trip',
+      title: 'Delta Aquariids',
+      content: 'When we watched the Delta Aquariids this year we caught a great moment with a bright fireball as it flashed through the sky! Check it out!',
+      contentLink: '',
       imageUrl: 'https://vega.slooh.com/assets/images/samples/perseid-meteor-shower.png',
-      videoUrl: 'https://www.youtube.com/embed/ZU4Nt_-nLFY?rel=0&amp;showinfo=0',
+      videoUrl: 'https://www.youtube.com/embed/DtuwMbR2BgM?rel=0&amp;showinfo=0',
     },
     {
       key: uniqueId(),
@@ -57,10 +57,10 @@ const initialState = {
       },
       {
         key: uniqueId(),
-        title: 'Total solar eclipse',
+        title: 'Solar eclipses',
         imageUrl: 'https://vega.slooh.com/assets/images/photos/eclipse.jpg',
         type: '',
-        url: '/road-trip',
+        url: '/objects/latest-entries/524/all',
       },
       {
         key: uniqueId(),

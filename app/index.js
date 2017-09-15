@@ -2,7 +2,7 @@ import 'babel-polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { Router, Route, IndexRoute, IndexRedirect, browserHistory } from 'react-router';
+import { Router, Route, IndexRoute, IndexRedirect, Redirect, browserHistory } from 'react-router';
 
 // polyfills
 import 'event-source-polyfill/eventsource.min';
@@ -273,7 +273,7 @@ ReactDOM.render(
           <Route path="missions/:scheduledMissionId" title="Mission Images" component={MissionImages} />
           <Route path="missions" title="Missions" component={Missions} />
 
-          <Route path="show-image(/:customerImageId)(/:shareToken)" component={ImageDetails} />
+          <Route path="show-image/:customerImageId/:shareToken(/:scheduledMissionId)" component={ImageDetails} />
           <Route path="gallery/:galleryId/show-image(/:customerImageId)(/:shareToken)" component={GalleryImageDetails} />
           <Route path="popular/show-image(/:customerImageId)(/:shareToken)" component={ImageDetails} />
         </Route>
@@ -308,7 +308,7 @@ ReactDOM.render(
         <Route path="discussions/new-thread" component={NewDiscussionsThread} onEnter={validateUser} />
 
         <Route path="road-trip" component={Landing} />
-        
+
 
         <Route path="help/posting-guidelines" component={PostingGuidelines} />
         <Route path="help/new-to-slooh" component={NewToSlooh} />
@@ -324,7 +324,8 @@ ReactDOM.render(
         <Route path="bookclub" component={BookclubHandoff} />
       </Route>
 
+      <Redirect from="*" to="/" />
     </Router>
   </Provider>,
-  document.getElementById('app'),
+  window.document.getElementById('app'),
 );

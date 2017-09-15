@@ -1,4 +1,5 @@
 import createReducer from '../utils/createReducer';
+import cloneDeep from 'lodash/cloneDeep';
 import {
   FETCH_DASHBOARD_START,
   FETCH_DASHBOARD_SUCCESS,
@@ -38,9 +39,9 @@ export default createReducer(initialState, {
     };
   },
   [SET_AVATAR_SUCCESS](state, { payload }) {
-    const { imageURL } = payload
-    const newState = state;
-    newState.profile.avatarURL = imageURL;
+    const { imageURL, apiError } = payload
+    const newState = cloneDeep(state);
+    newState.profile.avatarURL = !apiError ? imageURL : state.profile.avatarURL;
     return {
       ...newState,
       error: true,

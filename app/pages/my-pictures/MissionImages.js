@@ -85,6 +85,7 @@ class MissionImages extends Component {
               imageList={imageList}
               error={error}
               type="images"
+              scheduledMissionId={scheduledMissionId}
             />
           </div>
         </div>

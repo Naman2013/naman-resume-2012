@@ -1,12 +1,13 @@
 import { browserHistory } from 'react-router';
 import cookie from 'cookie';
 import moment from 'moment';
+import cloneDeep from 'lodash/cloneDeep';
 import createReducer from './utils/createReducer';
 import createAction from './utils/createAction';
 
-const EXPIRATION_DAYS = 90;
-const COOKIE_PATH = '/';
-const futureDate = moment().add(EXPIRATION_DAYS, 'day').toDate();
+export const EXPIRATION_DAYS = 90;
+export const COOKIE_PATH = '/';
+export const futureDate = moment().add(EXPIRATION_DAYS, 'day').toDate();
 
 const SET_USER = 'SET_USER';
 const REMOVE_USER = 'REMOVE_USER';
@@ -83,7 +84,7 @@ const initialState = {
 export default createReducer(initialState, {
   [SET_USER](state, { user }) {
     return {
-      ...state,
+      ...cloneDeep(state),
       ...user,
       isAuthorized: true,
     };

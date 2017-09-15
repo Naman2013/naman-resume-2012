@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import classnames from 'classnames';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router';
@@ -27,6 +28,22 @@ class Mission extends Component {
     scheduledMissionId: -1, // set to -1 since real ID's should never be negative
   }
 
+  state = {
+    showHoverMenu: false,
+  }
+
+  showMenu = () => {
+    this.setState({
+      showHoverMenu: true,
+    });
+  }
+
+  hideMenu = () => {
+    this.setState({
+      showHoverMenu: false,
+    });
+  }
+
   handleFITSCLick = (event) => {
     event.preventDefault();
     const { scheduledMissionId } = this.props;
@@ -43,9 +60,19 @@ class Mission extends Component {
       fitsIsAvailable,
     } = this.props;
 
+    const {
+      showHoverMenu
+    } = this.state;
+
+    const hoverStyle = classnames({
+      showMenu: showHoverMenu
+    });
+
     return (
       <Link
-        className={styles.missionContainer}
+      onMouseOver={this.showMenu}
+      onMouseLeave={this.hideMenu}
+        className={`${styles.missionContainer} ${hoverStyle}`}
         to={`/my-pictures/missions/${scheduledMissionId}`}
         style={{ backgroundImage: `url(${imageURL})`, backgroundSize: 'cover' }}
       >

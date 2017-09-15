@@ -29,17 +29,21 @@ function generateTelescopeStatus(telescope) {
 
 class TelescopeCards extends Component {
 
+
   renderTelescopeCards(obsTelescopes = []) {
     if (obsTelescopes.length === 0) {
       return null; // TODO: no telescope scenerio?
     }
 
+    // THIS is where we have to determine what telescopeCardData gets given
+    // to what telescope-card
+
     const { obsUniqueId } = this.props.observatory;
+    const { observatoryTelecopeStatus, fetchTelescopeCardData, telescopeCardData } = this.props;
+    const { statusTeleList } = observatoryTelecopeStatus.statusList;
+    const { obsAlertText } = observatoryTelecopeStatus.alertList.alertListObs;
 
     return obsTelescopes.map((telescope) => {
-      const { observatoryTelecopeStatus } = this.props;
-      const { statusTeleList } = observatoryTelecopeStatus.statusList;
-      const { obsAlertText } = observatoryTelecopeStatus.alertList.alertListObs;
       const { teleStatus, teleHasTelescopePage } = telescope;
 
       let telescopeStatus = statusTeleList
@@ -47,6 +51,9 @@ class TelescopeCards extends Component {
 
       // if a status is provided by the status API, we use that - otherwise we generate one
       telescopeStatus = telescopeStatus ? telescopeStatus : generateTelescopeStatus(telescope);
+
+      const telescopeCardBack = telescopeCardData.cardList
+        .find(card => card.teleId === telescopeStatus.telescopeId);
 
       if (teleStatus !== 'live' && !teleHasTelescopePage) {
         return null;
@@ -58,6 +65,8 @@ class TelescopeCards extends Component {
           alertText={obsAlertText}
           telescopeStatus={telescopeStatus}
           obsUniqueId={obsUniqueId}
+          fetchTelescopeCardData={fetchTelescopeCardData}
+          telescopeCardBack={telescopeCardBack}
 
           {...telescope}
         />
@@ -82,11 +91,16 @@ class TelescopeCards extends Component {
 
 TelescopeCards.defaultProps = {
   observatoryTelecopeStatus: {},
+  telescopeCardData: { cardList: [] },
+
 };
 
 TelescopeCards.propTypes = {
   obsTelescopes: PropTypes.array,
   observatoryTelecopeStatus: PropTypes.object,
+  fetchTelescopeCardData: PropTypes.func.isRequired,
+  telescopeCardData: PropTypes.object,
+
 };
 
 export default TelescopeCards;

@@ -2,12 +2,14 @@ import axios from 'axios';
 import {
   fetchMissionCount,
   fetchMyPicturesCount,
-  fetchGalleriesCount,
   fetchPhotoRoll,
   fetchMissions,
   fetchMissionPhotos,
-  fetchGalleries
 } from '../my-pictures/actions';
+import {
+  fetchGalleriesCount,
+  fetchGalleries
+} from '../my-pictures-galleries/actions';
 import {
   fetchGalleryPictures
 } from '../my-pictures-gallery-pictures/actions';

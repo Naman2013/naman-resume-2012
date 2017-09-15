@@ -80,7 +80,7 @@ export default createReducer(initialState, {
     return {
       ...state,
       setAvatarError: apiError,
-      imageURL,
+      imageURL: apiError ? state.imageURL : imageURL,
     };
   },
   [SET_AVATAR_FAILURE](state, { payload }) {

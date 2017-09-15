@@ -87,7 +87,7 @@ class MissionUpcoming extends Component {
         return (
           <div>
             <div className="widget-header">
-              <img height="50" src={avatarURL} />
+              <span className="mission-profPic" style={{ backgroundImage: `url(${avatarURL})` }} />
               <h2>{displayName}&rsquo;s Upcoming Mission</h2>
             </div>
             {

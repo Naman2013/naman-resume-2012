@@ -5,10 +5,13 @@ import classnames from 'classnames';
 import like from '../../../services/community-content/like';
 import ModalGeneric from '../../common/modals/modal-generic';
 import style from './heart.scss';
+import { black, lightTurqoise, darkBlueGray, turqoise, white } from '../../../styles/variables/colors';
+
 /*
 
   light theme - light page background => light heart
   dark theme - dark page background => dark heart
+  buttonOnly theme - turqoise and only the button
 
 */
 
@@ -29,6 +32,7 @@ export default class Heart extends Component {
     likeType: PropTypes.string,
     likeId: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     params: PropTypes.object,
+    showLikeText: PropTypes.bool,
   }
 
   static defaultProps = {
@@ -38,8 +42,9 @@ export default class Heart extends Component {
     likeAction: like,
     canLikeFlag: true,
     count: 0,
-    theme: 'light',
+    theme: 'light', // light, dark or 'buttonOnly'
     likeType: 'post',
+    showLikeText: true,
   }
 
   state = {
@@ -50,6 +55,14 @@ export default class Heart extends Component {
 
   // for caching purposes if we need this information later
   likeResult = {}
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.count !== this.state.count) {
+      this.setState({
+        count: nextProps.count,
+      })
+    }
+  }
 
   handleClick = (event) => {
     event.preventDefault();
@@ -89,11 +102,11 @@ export default class Heart extends Component {
   }
 
   handleLikeResult(likeResult) {
-    const { apiError, showLikePrompt, likePrompt, count } = likeResult;
+    const { apiError, showLikePrompt, likePrompt, count, likesCount } = likeResult;
     this.likeResult = likeResult;
     if (!apiError) {
       this.setState({
-        count,
+        count: count || likesCount,
       });
     }
 
@@ -112,7 +125,7 @@ export default class Heart extends Component {
   }
 
   render() {
-    const { theme, canLikeFlag } = this.props;
+    const { theme, canLikeFlag, showLikeText } = this.props;
     const { count, likePrompt, showPrompt } = this.state;
     const heartClass = classnames(
       style.heart,
@@ -123,7 +136,7 @@ export default class Heart extends Component {
     );
 
     return (
-      <div className="heart-wrapper">
+      <div className={`heart-wrapper ${theme}`}>
         <button
           onClick={this.handleClick}
           className={`${heartClass} heart-button`}
@@ -131,7 +144,8 @@ export default class Heart extends Component {
           <i className="fa fa-heart" />
           <span className={style.count}>{count}</span>
         </button>
-        <span onClick={this.handleClick} className="likeText">Like</span>
+        {theme === 'buttonOnly' && <div className="action-description">Like</div>}
+        {showLikeText && <span onClick={this.handleClick} className="likeText">Like</span>}
         <ModalGeneric
           open={showPrompt}
           closeModal={this.closeModal}
@@ -144,9 +158,18 @@ export default class Heart extends Component {
             margin-top: -20px;
             white-space: nowrap;
           }
+
+          .heart-wrapper.buttonOnly {
+            height: auto;
+            width: auto;
+            margin-top: -8px;
+            margin-right: 5px;
+          }
+
           .heart-button {
             display: inline-block;
           }
+
           .likeText {
             display: inline-block;
             font-size: 14px;
@@ -154,6 +177,31 @@ export default class Heart extends Component {
             margin-top: 50%;
             transform: translateY(-50%);
             cursor: pointer;
+          }
+
+          .heart.buttonOnly {
+            color: ${turqoise};
+          }
+
+          .heart.buttonOnly .count {
+            color: ${white};
+          }
+          .heart.buttonOnly:hover {
+            color: ${lightTurqoise};
+          }
+
+          .heart.buttonOnly + .action-description {
+            color: ${black};
+            text-align: center;
+            visibility: hidden;
+          }
+
+          .heart.buttonOnly:hover + .action-description {
+            visibility: visible;
+          }
+
+          .heart.buttonOnly:hover .count {
+            color: ${darkBlueGray};
           }
         `}</style>
       </div>

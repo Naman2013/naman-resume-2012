@@ -3,6 +3,7 @@ import { cancelMissionSlot } from '../Missions';
 import { fetchDateRanges } from '../mission-slots-by-telescope/mission-slot-dates-actions';
 import { fetchReservationSuccess } from '../mission-slots-by-telescope/mission-slots-by-telescope-actions';
 import { validateResponseAccess } from '../authorization/actions';
+import grabTelescopeSlotService from '../../services/reservations/grab-telescope-slot';
 
 // accessing the supported form tab types so we may set them accordingly
 import SUPPORTED_RESERVATION_TAB_FORM_TYPES from '../../constants/supported-reservation-tab-form-types';
@@ -91,7 +92,13 @@ const grabTelescopeSlotFail = (error) => {
   @uniqueId: required
   @scheduledMissionId: required
 */
-export const grabTelescopeSlot = ({ defaultFormType, scheduledMissionId, uniqueId, grabType, finalizeReservation }) => (dispatch, getState) => {
+export const grabTelescopeSlot = ({
+  defaultFormType,
+  scheduledMissionId,
+  uniqueId,
+  grabType,
+  finalizeReservation,
+}) => (dispatch, getState) => {
   const { at, cid, token } = getState().user;
 
   return axios.post('/api/reservation/grabTelescopeSlot', {
@@ -112,6 +119,31 @@ export const grabTelescopeSlot = ({ defaultFormType, scheduledMissionId, uniqueI
     }
   })
   .catch(error => dispatch(grabTelescopeSlotFail(error)));
+};
+
+/**
+  @finalizeTelescopeSlot
+  dealing with updating a mission with a one hour hold and converting
+  it into a mission slot needing reservation
+*/
+export const finalizeTelescopeSlot = ({
+  scheduledMissionId,
+  uniqueId,
+  grabType,
+  finalizeReservation,
+}) => (dispatch, getState) => {
+  const { at, cid, token } = getState().user;
+  return grabTelescopeSlotService({
+    at,
+    cid,
+    token,
+    scheduledMissionId,
+    uniqueId,
+    grabType: 'notarget',
+    finalizeReservation: true,
+  })
+  .then(result => console.log(result))
+  .catch(error => console.log(error));
 };
 
 export const refreshListings = () => (dispatch, getState) => {

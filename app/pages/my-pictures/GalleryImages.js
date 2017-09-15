@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux';
 import MyPicturesNavigation from '../../components/my-pictures/my-pictures-navigation';
 import PhotoView from '../../components/my-pictures/PhotoView';
 import { fetchGalleryPicturesAndCounts } from '../../modules/my-pictures-gallery-pictures/actions';
+import { darkBlueGray } from '../../styles/variables/colors';
 import style from './my-pictures-gallery.scss';
 
 const mapStateToProps = ({ galleryPictures }) => ({
@@ -15,6 +16,8 @@ const mapStateToProps = ({ galleryPictures }) => ({
   imageCount: galleryPictures.imageCount,
   imageList: galleryPictures.imageList,
   maxImageCount: galleryPictures.maxImageCount,
+  galleryTitle: galleryPictures.galleryTitle,
+  galleryDateCreated: galleryPictures.galleryDateCreated,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -32,6 +35,7 @@ class GalleryImages extends Component {
       galleryId,
       firstImageNumber,
       maxImageCount,
+      pagingMode: 'api',
     });
   }
 
@@ -44,6 +48,8 @@ class GalleryImages extends Component {
       imageCount,
       imageList,
       maxImageCount,
+      galleryTitle,
+      galleryDateCreated,
       params: { galleryId }
     } = this.props;
     return (
@@ -52,11 +58,20 @@ class GalleryImages extends Component {
           page="galleryImages"
           galleryId={galleryId}
         />
+        <div className="flex">
+          <div className="missionInfo">
+            {galleryTitle && <span className="galleryTitle" dangerouslySetInnerHTML={{ __html: galleryTitle }} />}
+          </div>
+          <div>
+            {galleryDateCreated && <div className="galleryDesc">Created <span dangerouslySetInnerHTML={{ __html: galleryDateCreated }} /> (UTC)</div>}
+          </div>
+        </div>
 
         <div className="clearfix my-pictures-container">
           <div>
             <PhotoView
               paginate={actions.fetchGalleryPicturesAndCounts}
+              paginateParams={{ pagingMode: 'api', galleryId }}
               imageCount={imageCount}
               maxImageCount={maxImageCount}
               firstImageNumber={firstImageNumber}
@@ -67,6 +82,23 @@ class GalleryImages extends Component {
             />
           </div>
         </div>
+        <style jsx>{`
+          .flex {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            padding: 0 30px;
+            background-color: #D9D9D9;
+            color: ${darkBlueGray};
+          }
+          .galleryTitle {
+            font-size: 30px;
+          }
+
+          .galleryDesc {
+
+          }
+        `}</style>
       </div>
     );
   }
@@ -79,6 +111,8 @@ GalleryImages.defaultProps = {
   imageCount: 0,
   maxImageCount: 9,
   firstImageNumber: 1,
+  galleryTitle: '',
+  galleryDateCreated: '',
 };
 
 GalleryImages.propTypes = {
@@ -94,6 +128,8 @@ GalleryImages.propTypes = {
   firstImageNumber: PropTypes.number,
   fetching: PropTypes.bool,
   error: PropTypes.bool,
+  galleryTitle: PropTypes.string,
+  galleryDateCreated: PropTypes.string,
 };
 
 export default GalleryImages;

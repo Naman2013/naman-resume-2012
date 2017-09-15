@@ -99,6 +99,7 @@ class PhotoView extends Component {
       error,
       type,
       galleryList,
+      scheduledMissionId,
       firstImageNumber,
       imageCount,
       maxImageCount,
@@ -112,6 +113,7 @@ class PhotoView extends Component {
       startRange: firstImageNumberIndex,
       itemsPerPage: imageList ? imageList.length : galleryList.length, // use length here because there may be less than maxImageCount
     });
+
     const canNext = (firstImageNumberIndex + maxImageCount) < imageCount;
     const canPrevious = firstImageNumberIndex !== 0;
     const showFITSModal = FITImages.imageCount > 0;
@@ -165,7 +167,7 @@ class PhotoView extends Component {
         }
         {
           type === 'images' ?
-            <PhotoList imageList={imageList} /> : null
+            <PhotoList imageList={imageList} scheduledMissionId={scheduledMissionId} /> : null
         }
 
         {
@@ -197,8 +199,8 @@ PhotoView.defaultProps = {
   firstImageNumber: 1,
   paginateParams: {},
   missions: false,
-  imageList: [],
-  galleryList: [],
+  imageList: null,
+  galleryList: null,
 };
 
 // TODO: increase validation for the imageList types.

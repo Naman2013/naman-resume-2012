@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { getTags } from '../../modules/tag-management/Tags';
+import { getTags, resetClientTagData } from '../../modules/tag-management/Tags';
 import MissionTags from '../../components/common/tags/mission-tags';
 import { setTag } from '../../services/tags/set-tag';
 
@@ -14,6 +14,7 @@ const mapStateToProps = ({ user, myPicturesImageDetails }) => ({
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
     getTags,
+    resetClientTagData,
   }, dispatch),
 });
 
@@ -21,7 +22,8 @@ const mapDispatchToProps = dispatch => ({
 class ImageInfoPanel extends Component {
   constructor(props) {
     super(props);
-
+    props.actions.resetClientTagData();
+    
     this.state = {
       editorValue: '',
       showSaveButton: false,
@@ -31,21 +33,9 @@ class ImageInfoPanel extends Component {
     };
   }
 
-  componentDidMount() {
-
-    if (this.props.myPicturesImageDetails.scheduledMissionId) {
-      this.props.actions.getTags({
-        tagClass: 'image',
-        tagType: 'user',
-        customerImageId: this.props.customerImageId,
-        scheduledMissionId: this.props.myPicturesImageDetails.scheduledMissionId
-      });
-    }
-
-  }
-
   componentWillReceiveProps(nextProps) {
-    if (nextProps.myPicturesImageDetails.scheduledMissionId !== this.props.myPicturesImageDetails.scheduledMissionId) {
+    // once getImageDetails call is made and we have scheduledMissionId, make getTags call
+    if (typeof nextProps.myPicturesImageDetails.scheduledMissionId !== 'undefined') {
       this.props.actions.getTags({
         tagClass: 'image',
         tagType: 'user',

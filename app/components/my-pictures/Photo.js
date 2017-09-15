@@ -1,18 +1,20 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import classnames from 'classnames';
 import Markdown from 'react-remarkable';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { Link } from 'react-router';
-import PhotoActions from './PhotoActions';
+import PhotoActions from './actions/PhotoActions';
 import s from './Photo.scss';
 
-const mapStateToProps = ({ myPictures }) => ({
-  // error: myPictures.galleries.error,
-  // errorBody: myPictures.galleries.errorBody,
-  // fetching: myPictures.galleries.fetching,
-  // galleryList: myPictures.galleries.response.galleryList,
+const mapStateToProps = ({ galleries, user }) => ({
+  // error: galleries.error,
+  // errorBody: galleries.errorBody,
+  // fetching: galleries.fetching,
+  // galleryList: galleries.galleryList,
+  user,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -27,14 +29,42 @@ class Photo extends Component {
     super(props);
   }
 
+  state = {
+    showHoverMenu: false,
+  }
+
+  showMenu = () => {
+    this.setState({
+      showHoverMenu: true,
+    });
+  }
+
+  hideMenu = () => {
+    this.setState({
+      showHoverMenu: false,
+    });
+  }
+
   render() {
     const {
       imageURL,
+      scheduledMissionId,
       handlePhotoClick,
       imageTitle,
       overlayText,
       detailsUrl,
+      customerImageId,
+      canEditFlag,
+      user,
     } = this.props;
+
+    const {
+      showHoverMenu
+    } = this.state;
+
+    const hoverStyle = classnames({
+      showMenu: showHoverMenu
+    });
 
     const inlinePhotoStyle = {
       backgroundImage: `url(${imageURL})`,
@@ -43,7 +73,11 @@ class Photo extends Component {
     return (
       <div className={s.photoRoot}>
         <Link to={detailsUrl} className={s.photoLink} style={inlinePhotoStyle}>
-          <div className={`${s.innerPhotoContainer} content`}>
+          <div
+            className={`innerPhotoContainer content ${hoverStyle}`}
+            onMouseOver={this.showMenu}
+            onMouseLeave={this.hideMenu}
+          >
             <h3 className={s.photoTitle}>{imageTitle}</h3>
             <div className={s.photoMarkdownContent}>
               {
@@ -52,7 +86,14 @@ class Photo extends Component {
             </div>
             <ul className={s.photoMenu}>
               <li>
-                <PhotoActions imageURL={imageURL}/>
+                <PhotoActions
+                  canEditFlag={canEditFlag}
+                  imageURL={imageURL}
+                  customerImageId={customerImageId}
+                  user={user}
+                  actionSource="photoRoll"
+                  scheduledMissionId={scheduledMissionId}
+                />
               </li>
             </ul>
           </div>
