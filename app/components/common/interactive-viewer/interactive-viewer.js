@@ -252,6 +252,7 @@ class InteractiveViewer extends Component {
         }
 
         <LiveSign />
+
         {isInteractive &&
           <button
             onClick={this.handleZoomInClick}
@@ -259,19 +260,6 @@ class InteractiveViewer extends Component {
           >
             <span className="icon glyphicon-plus" />
           </button>
-        }
-
-
-        {
-          /**
-          full screen mode...
-          <button
-            onClick={this.toggleFullScreenMode}
-            className="action full-screen-view"
-          >
-            Full-screen view <span className="icon glyphicon glyphicon-fullscreen" />
-          </button>
-          */
         }
 
         {isInteractive &&
