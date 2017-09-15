@@ -52,6 +52,7 @@ class Galleries extends Component {
           <div>
             <PhotoView
               paginate={actions.fetchGalleriesAndCounts}
+              paginateParams={{ pagingMode: 'api' }}
               imageCount={imageCount}
               maxImageCount={maxImageCount}
               firstImageNumber={firstGalleryNumber}
