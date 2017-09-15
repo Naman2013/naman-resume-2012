@@ -51,7 +51,9 @@ class UpcomingEvent extends Component {
     };
 
     const eventStart = moment.unix(eventStartUTCUnixTimestamp).format('dddd MMMM D');
-    const eventStartTime = `${moment.unix(eventStartUTCUnixTimestamp).format('h:mm A')} EDT`;
+// EK 9/15/17 remove hard-coded EDT from Nav Shows submenu event start time
+//    const eventStartTime = `${moment.unix(eventStartUTCUnixTimestamp).format('h:mm A')} EDT`;
+    const eventStartTime = `${moment.unix(eventStartUTCUnixTimestamp).format('h:mm A')}`;
 
     return (
       <article className={s.upcomingEvent}>
