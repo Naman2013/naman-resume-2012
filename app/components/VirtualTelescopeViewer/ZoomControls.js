@@ -13,15 +13,19 @@ const defaultProps = {
   zoomRange: 6,
 };
 
-const ZoomControls = ({ zoomRange }) => (
+const ZoomControls = ({
+  zoomRange,
+  handleZoomIn,
+  handleZoomOut,
+}) => (
   <div className="root">
-    <button className="top-button">+</button>
+    <button onClick={handleZoomIn} className="top-button">+</button>
     <div className="tab-container">
       <NavigationTabs
         range={zoomRange}
       />
     </div>
-    <button className="bottom-button">-</button>
+    <button onClick={handleZoomOut} className="bottom-button">-</button>
 
     <style jsx>{`
       .root {
