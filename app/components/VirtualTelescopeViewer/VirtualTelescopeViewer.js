@@ -15,19 +15,45 @@ import ImageProcessingInformation from './ImageProcessingInformation';
 const propTypes = {
   clipped: PropTypes.bool,
   handleToggleClip: PropTypes.func,
+  handleZoomIn: PropTypes.func,
+  handleZoomOut: PropTypes.func,
+  zoomLevel: PropTypes.number,
 };
 
 const defaultProps = {
   clipped: false,
   handleToggleClip: noop,
+  handleZoomIn: noop,
+  handleZoomOut: noop,
+  zoomLevel: 1,
 };
+
+/**
+  - zoom level
+  - handle zoom in
+  - handle zoom out
+
+  - panning location control
+  - panning
+
+  - handle clipping
+*/
 
 const VirtualTelescopeViewer = ({
   children,
+
   clipped,
   handleToggleClip,
+
+  handleZoomIn,
+  handleZoomOut,
+  zoomLevel,
 }) => (
-  <Frame framedContent={children} clipped={clipped}>
+  <Frame
+    zoomLevel={zoomLevel}
+    framedContent={children}
+    clipped={clipped}
+  >
     <div className="top">
       <div className="top-container">
         <ViewControls
@@ -44,7 +70,10 @@ const VirtualTelescopeViewer = ({
 
     <div className="center">
       <div className="zoom-control">
-        <ZoomControls />
+        <ZoomControls
+          handleZoomIn={handleZoomIn}
+          handleZoomOut={handleZoomOut}
+        />
       </div>
       <div className="cosmetic-bar-shape">
         <Bar />

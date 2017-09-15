@@ -18,10 +18,12 @@ function getFrameContentStyle(clipped = false) {
 
 const propTypes = {
   clipped: PropTypes.bool,
+  zoomLevel: PropTypes.number,
 };
 
 const defaultProps = {
   clipped: false,
+  zoomLevel: 1,
 };
 
 const Frame = ({ framedContent, clipped, children }) => (

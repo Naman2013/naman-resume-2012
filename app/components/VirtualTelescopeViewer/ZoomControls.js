@@ -3,6 +3,16 @@ import PropTypes from 'prop-types';
 import NavigationTabs from './NavigationTabs';
 import { brightGreen } from '../../styles/variables/colors';
 
+const propTypes = {
+  zoomRange: PropTypes.number,
+  handleZoomIn: PropTypes.func.isRequired,
+  handleZoomOut: PropTypes.func.isRequired,
+};
+
+const defaultProps = {
+  zoomRange: 6,
+};
+
 const ZoomControls = ({ zoomRange }) => (
   <div className="root">
     <button className="top-button">+</button>
@@ -32,12 +42,6 @@ const ZoomControls = ({ zoomRange }) => (
   </div>
 );
 
-ZoomControls.defaultProps = {
-  zoomRange: 6,
-};
-
-ZoomControls.propTypes = {
-  zoomRange: PropTypes.number,
-};
-
+ZoomControls.defaultProps = defaultProps;
+ZoomControls.propTypes = propTypes;
 export default ZoomControls;
