@@ -205,6 +205,7 @@ class ShowVideoViewer extends Component {
 
           .main-container {
             display: flex;
+            margin: 50px 25px;
             flex-direction: row;
           }
 
