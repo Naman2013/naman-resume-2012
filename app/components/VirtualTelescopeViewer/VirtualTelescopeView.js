@@ -3,15 +3,7 @@ import PropTypes from 'prop-types';
 import noop from 'lodash/noop';
 
 import Rails from './Rails';
-
-import ViewControls from './ViewControls';
-import Timestamp from './Timestamp';
-import CoordinateInformation from './CoordinateInformation';
-import ZoomControls from './ZoomControls';
-import Bar from './Bar';
-import ObjectMetaInformation from './ObjectMetaInformation';
-import MissionTitle from './MissionTitle';
-import ImageProcessingInformation from './ImageProcessingInformation';
+import ViewerControlInterface from './ViewerControlInterface';
 
 import { monoFont } from '../../styles/variables/fonts';
 import { black, brightGreen } from '../../styles/variables/colors';
@@ -32,7 +24,6 @@ const defaultProps = {
   zoomLevel: 1,
 };
 
-
 const VirtualTelescopeView = ({
   children,
 
@@ -49,48 +40,12 @@ const VirtualTelescopeView = ({
       <div className="virtual-telescope-view-content-container">
         { children }
         <Rails />
-
-        <div className="virtual-telescope-view-control-container">
-          <div className="top">
-            <div className="top-container">
-              <ViewControls
-                handleToggleClip={handleToggleClip}
-                clipped={clipped}
-              />
-
-              <div className="grow-2">
-                <Timestamp />
-              </div>
-
-              <CoordinateInformation />
-            </div>
-          </div>
-
-          <div className="center">
-            <div className="zoom-control">
-              <ZoomControls
-                handleZoomIn={handleZoomIn}
-                handleZoomOut={handleZoomOut}
-              />
-            </div>
-            <div className="cosmetic-bar-shape">
-              <Bar />
-            </div>
-          </div>
-
-          <div className="bottom">
-            <div className="bottom-container">
-              <ObjectMetaInformation />
-
-              <div className="grow-2">
-                <MissionTitle />
-              </div>
-
-              <ImageProcessingInformation />
-            </div>
-          </div>
-        </div> {/** end of contols - TODO: refactor these out of the file... */}
-
+        <ViewerControlInterface
+          clipped={clipped}
+          handleToggleClip={handleToggleClip}
+          handleZoomIn={handleZoomIn}
+          handleZoomOut={handleZoomOut}
+        />
       </div>
     </div>
 
@@ -114,54 +69,9 @@ const VirtualTelescopeView = ({
         height: 100%;
       }
 
-      .virtual-telescope-view-control-container {
+      .virtual-telescope-view-content-container {
         font-family: ${monoFont};
         color: ${brightGreen};
-      }
-
-
-
-      .top {
-        position: absolute;
-        top: 0;
-        width: 100%;
-      }
-
-      .top-container {
-        display: flex;
-        justify-content: space-around;
-        padding: 20px;
-      }
-
-      .grow-2 {
-        flex-grow 2;
-      }
-
-      .zoom-control, .cosmetic-bar-shape {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-      }
-
-      .zoom-control {
-        left: 20px;
-      }
-
-      .cosmetic-bar-shape {
-        right: 20px;
-      }
-
-      .bottom {
-        position: absolute;
-        bottom: 0;
-        width: 100%;
-      }
-
-      .bottom-container {
-        display: flex;
-        align-items: flex-end;
-        justify-content: space-around;
-        padding: 30px;
       }
     `}</style>
   </div>
