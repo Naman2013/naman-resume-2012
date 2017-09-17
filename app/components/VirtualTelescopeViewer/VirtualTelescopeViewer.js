@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import noop from 'lodash/noop';
 
+import ClipView from './ClipView';
 import Rails from './Rails';
 import ViewerControlInterface from './ViewerControlInterface';
 
@@ -38,7 +39,10 @@ const VirtualTelescopeView = ({
 
     <div className="frame">
       <div className="virtual-telescope-view-content-container">
-        { children }
+        <ClipView clipped={clipped}>
+          { children }
+        </ClipView>
+
         <Rails />
         <ViewerControlInterface
           clipped={clipped}

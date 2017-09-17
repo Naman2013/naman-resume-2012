@@ -32,4 +32,26 @@ storiesOf('Virtual Telescope Viewer', module)
         <img alt="" src={telescopeThree} />
       </div>
     </VirtualTelescopeViewer>
+  ))
+
+  .add('Clipped: Canary Four SS Normal 1119x845', () => (
+    <VirtualTelescopeViewer clipped={true}>
+      <div>
+        <img alt="" src={telescopeOne} />
+      </div>
+    </VirtualTelescopeViewer>
+  ))
+  .add('Clipped: Canary Four SS Normal 1678x1268', () => (
+    <VirtualTelescopeViewer clipped={true}>
+      <div>
+        <img alt="" src={telescopeTwo} />
+      </div>
+    </VirtualTelescopeViewer>
+  ))
+  .add('Clipped: Canary One SS Normal 1018x1018', () => (
+    <VirtualTelescopeViewer clipped={true}>
+      <div>
+        <img alt="" src={telescopeThree} />
+      </div>
+    </VirtualTelescopeViewer>
   ));
