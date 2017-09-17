@@ -5,6 +5,9 @@ import VirtualTelescopeViewer from '../app/components/VirtualTelescopeViewer';
 import VirtualTelescopeView from '../app/components/VirtualTelescopeView';
 
 import sampleImage from '../assets/images/photos/eclipse.jpg';
+import telescopeOne from './assets/sample-telescope-images/Canary_Four_SS_Normal_1119x845.png';
+import telescopeTwo from './assets/sample-telescope-images/Canary_Four_SS_Planetary_1679x1268.png';
+import telescopeThree from './assets/sample-telescope-images/Canary_One_HM_Normal_1018x1018.png';
 
 const START_TIME = 1499570100;
 
@@ -26,10 +29,34 @@ storiesOf('Virtual Telescope Viewer', module)
       </div>
     </VirtualTelescopeViewer>
   ))
-  .add('Test VirtualTelescopeView Component', () => (
+  .add('Canary Four SS Normal 1119x845', () => (
     <VirtualTelescopeView>
       <div>
-        <img alt="" src={sampleImage} />
+        <img alt="" src={telescopeOne} />
+
+        <style jsx>{`
+          div { margin: 0; padding: 0; }
+          img { width: 100%; height: 100%; }
+        `}</style>
+      </div>
+    </VirtualTelescopeView>
+  ))
+  .add('Canary Four SS Normal 1678x1268', () => (
+    <VirtualTelescopeView>
+      <div>
+        <img alt="" src={telescopeTwo} />
+
+        <style jsx>{`
+          div { margin: 0; padding: 0; }
+          img { width: 100%; height: 100%; }
+        `}</style>
+      </div>
+    </VirtualTelescopeView>
+  ))
+  .add('Canary One SS Normal 1018x1018', () => (
+    <VirtualTelescopeView>
+      <div>
+        <img alt="" src={telescopeThree} />
 
         <style jsx>{`
           div { margin: 0; padding: 0; }
