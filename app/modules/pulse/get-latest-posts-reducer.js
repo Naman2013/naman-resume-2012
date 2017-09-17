@@ -12,6 +12,7 @@ import {
 
 const defaultPageMeta = {
   headerTitle: 'Loading...',
+  headerSubtitle: '',
   objectIdList: [],
   showAdUnit: false,
   showCreateNewPostButton: false,

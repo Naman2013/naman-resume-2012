@@ -111,13 +111,12 @@ class PulseList extends Component {
       children,
       pageMeta: {
         headerTitle,
+        headerSubtitle,
         showCreateNewPostButton,
         objectIdList,
         showRecommends,
       },
     } = this.props;
-
-    const headTitle = (childPath === 'by-object') ? 'All Posts' : headerTitle;
 
     const formattedObjectIdList =
       (objectIdList && objectIdList.map(objectId => Number(objectId))) || [];
@@ -125,7 +124,7 @@ class PulseList extends Component {
       <div className="clearfix pulse">
         <AnnouncementBanner />
         <PulseListHeader
-          title={headTitle}
+          title={headerTitle}
           showCreateNewPostButton={showCreateNewPostButton}
         />
 
