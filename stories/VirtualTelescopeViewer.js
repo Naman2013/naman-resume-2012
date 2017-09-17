@@ -17,7 +17,7 @@ storiesOf('Virtual Telescope Viewer', module)
     <LiveImageViewer>
       <VirtualTelescopeViewer>
         <div>
-          <img alt="" src={telescopeOne} />
+          <img draggable="false" alt="" src={telescopeOne} />
         </div>
       </VirtualTelescopeViewer>
     </LiveImageViewer>
@@ -26,7 +26,7 @@ storiesOf('Virtual Telescope Viewer', module)
     <LiveImageViewer>
       <VirtualTelescopeViewer>
         <div>
-          <img alt="" src={telescopeTwo} />
+          <img draggable="false" alt="" src={telescopeTwo} />
         </div>
       </VirtualTelescopeViewer>
     </LiveImageViewer>
@@ -35,7 +35,7 @@ storiesOf('Virtual Telescope Viewer', module)
     <LiveImageViewer>
       <VirtualTelescopeViewer>
         <div>
-          <img alt="" src={telescopeThree} />
+          <img draggable="false" alt="" src={telescopeThree} />
         </div>
       </VirtualTelescopeViewer>
     </LiveImageViewer>

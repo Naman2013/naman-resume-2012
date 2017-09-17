@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Draggable from 'react-draggable';
 import noop from 'lodash/noop';
 
 import ClipView from './ClipView';
@@ -48,9 +49,15 @@ const VirtualTelescopeView = ({
     <div className="frame">
       <div className="virtual-telescope-view-content-container">
         <ClipView clipped={clipped}>
-          <SubjectScaleControl scale={subjectScale}>
-            { children }
-          </SubjectScaleControl>
+          <Draggable
+            handle={'.drag-handle'}
+          >
+            <div className="drag-handle">
+              <SubjectScaleControl scale={subjectScale}>
+                { children }
+              </SubjectScaleControl>
+            </div>
+          </Draggable>
         </ClipView>
 
         <Rails />
@@ -88,6 +95,7 @@ const VirtualTelescopeView = ({
       .virtual-telescope-view-content-container {
         font-family: ${monoFont};
         color: ${brightGreen};
+        cursor: move;
       }
     `}</style>
   </div>
