@@ -5,7 +5,7 @@ import PulseListHeader from '../../components/pulse/pulse-list-header';
 import CategoriesNav from '../../components/community/categories-nav';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { fetchLatestPosts, fetchHottestPosts } from '../../modules/pulse/get-latest-posts-action';
+import { fetchLatestPosts, fetchHottestPosts, fetchPageMeta } from '../../modules/pulse/get-latest-posts-action';
 import './Pulse.scss';
 
 
@@ -80,6 +80,7 @@ function mapDispatchToProps(dispatch) {
     actions: bindActionCreators({
       fetchLatestPosts,
       fetchHottestPosts,
+      fetchPageMeta,
     }, dispatch)
   };
 }
@@ -91,6 +92,12 @@ class PulseList extends Component {
     pageMeta: {
       objectIdList: [],
     },
+  }
+
+  constructor(props) {
+    super()
+
+    props.actions.fetchPageMeta();
   }
 
   render() {

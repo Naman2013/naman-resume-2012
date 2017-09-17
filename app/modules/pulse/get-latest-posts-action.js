@@ -40,7 +40,7 @@ const fetchPageMetaSuccess = payload => ({
   payload,
 });
 
-const fetchPageMeta = () => (dispatch) => {
+export const fetchPageMeta = () => (dispatch) => {
   dispatch(fetchPageMetaStart());
   return axios.post('/api/content/getPulsePostListPageLayout')
   .then(result => dispatch(fetchPageMetaSuccess(result.data)));
@@ -68,7 +68,6 @@ export const fetchLatestPosts = (path, type, page) => (dispatch, getState) => {
   const postsType = type ? { type: [type] } : '';
 
   dispatch(fetchLatestPostsStart());
-  dispatch(fetchPageMeta());
   dispatch(fetchPopularPosts());
 
   return axios.post(url, {

@@ -72,7 +72,6 @@ class PulseByObject extends Component {
 
   render() {
     const {
-      categoryList,
       selectedCategoryIndex,
       selectedTopicIndex,
     } = this.state;
