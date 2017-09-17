@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import noop from 'lodash/noop';
 
 import ClipView from './ClipView';
+import SubjectScaleControl from './SubjectScaleControl';
 import Rails from './Rails';
 import ViewerControlInterface from './ViewerControlInterface';
 
@@ -10,19 +11,23 @@ import { monoFont } from '../../styles/variables/fonts';
 import { black, brightGreen } from '../../styles/variables/colors';
 
 const propTypes = {
+  children: PropTypes.node,
   clipped: PropTypes.bool,
   handleToggleClip: PropTypes.func,
   handleZoomIn: PropTypes.func,
   handleZoomOut: PropTypes.func,
-  zoomLevel: PropTypes.number,
+  currentSubjectScale: PropTypes.number,
+  timestamp: PropTypes.number,
 };
 
 const defaultProps = {
+  children: null,
   clipped: false,
   handleToggleClip: noop,
   handleZoomIn: noop,
   handleZoomOut: noop,
-  zoomLevel: 1,
+  currentSubjectScale: 1,
+  timestamp: 0,
 };
 
 const VirtualTelescopeView = ({
@@ -33,14 +38,19 @@ const VirtualTelescopeView = ({
 
   handleZoomIn,
   handleZoomOut,
-  zoomLevel,
+
+  currentSubjectScale,
+
+  timestamp,
 }) => (
   <div className="root">
 
     <div className="frame">
       <div className="virtual-telescope-view-content-container">
         <ClipView clipped={clipped}>
-          { children }
+          <SubjectScaleControl>
+            { children }
+          </SubjectScaleControl>
         </ClipView>
 
         <Rails />
@@ -49,6 +59,7 @@ const VirtualTelescopeView = ({
           handleToggleClip={handleToggleClip}
           handleZoomIn={handleZoomIn}
           handleZoomOut={handleZoomOut}
+          timestamp={timestamp}
         />
       </div>
     </div>
@@ -58,6 +69,7 @@ const VirtualTelescopeView = ({
         background-color: ${black};
         margin: 0;
         padding: 0;
+        overflow: hidden;
       }
 
       .frame {

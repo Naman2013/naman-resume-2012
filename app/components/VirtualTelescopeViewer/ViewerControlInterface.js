@@ -15,6 +15,7 @@ const propTypes = {
   handleToggleClip: PropTypes.func.isRequired,
   handleZoomIn: PropTypes.func.isRequired,
   handleZoomOut: PropTypes.func.isRequired,
+  timestamp: PropTypes.number.isRequired,
 };
 
 const ViewerControlInterface = ({
@@ -22,6 +23,7 @@ const ViewerControlInterface = ({
   handleToggleClip,
   handleZoomIn,
   handleZoomOut,
+  timestamp,
 }) => (
   <div>
     <div className="top">
