@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { monoFont } from '../../styles/variables/fonts';
 import { black, brightGreen } from '../../styles/variables/colors';
@@ -26,91 +26,120 @@ const defaultProps = {
   zoomLevel: 1,
 };
 
-const Frame = ({ framedContent, clipped, children }) => (
-  <div className="root">
-    <div className="frame-content" style={getFrameContentStyle(clipped)}>
-      { framedContent }
-    </div>
+class Frame extends Component {
+  state = {
+    width: '100%',
+    height: '600px',
+  };
 
-    <div className="frame">
-      <div className="top-rail" />
-      <div className="left-rail" />
-      <div className="right-rail" />
-      <div className="bottom-rail" />
-    </div>
+  handleDimensionUpdate = ({ width, height }) => {
+    this.setState({
+      width,
+      height,
+    });
+  }
 
-    <div className="content">
-      { children }
-    </div>
+  render() {
+    const { width, height } = this.state;
 
-    <style jsx>{`
-      .root {
-        font-family: ${monoFont};
-        color: ${brightGreen};
-        background-color: ${black};
-        position: relative;
-        min-width: 100%;
-        min-height: 100%;
-        margin: 0;
-        padding: 0;
-      }
+    const {
+      clipped,
+      framedContent,
+      children,
+    } = this.props;
 
-      .frame-content {
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-      }
 
-      .frame {
-        position: relative;
-        border: 1px solid ${brightGreen};
-      }
+    // TODO: animate width and height adjustments
+    // TODO: pass handleUpdateDimension down to be changed by the content of the view
+    // TODO: width of the content is always 100%, the bottom of the viewer needs to move down as far as the height of the photo
 
-      .top-rail, .bottom-rail {
-        background-image: url(${runBorderPattern});
-        background-repeat: repeat-x;
-        background-position: 1px;
-        height: 13px;
-        width: 100%;
-      }
+    return (
+      <div className="root" style={{ width, height }}>
+        <div className="frame-content" style={getFrameContentStyle(clipped)}>
+          { framedContent }
+        </div>
 
-      .top-rail {
-        transform: rotate(180deg);
-      }
+        <div className="frame">
+          <div className="top-rail" />
+          <div className="left-rail" />
+          <div className="right-rail" />
+          <div className="bottom-rail" />
+        </div>
 
-      .bottom-rail {
-        clear: left;
-      }
+        <div className="content">
+          { children }
+        </div>
 
-      .left-rail, .right-rail {
-        background-image: url(${railBorderPattern});
-        background-repeat: repeat-y;
-        width: 13px;
-        height: 100%;
-        min-height: 600px;
-      }
+        <style jsx>{`
+          .root {
+            font-family: ${monoFont};
+            color: ${brightGreen};
+            background-color: ${black};
+            position: relative;
+            min-width: 100%;
+            min-height: 100%;
+            margin: 0;
+            padding: 0;
+          }
 
-      .left-rail {
-        float: left;
-      }
+          .frame-content {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+          }
 
-      .right-rail {
-        float: right;
-        transform: rotate(180deg);
-      }
+          .frame {
+            position: relative;
+            border: 1px solid ${brightGreen};
+          }
 
-      .content {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-      }
-    `}</style>
-  </div>
-);
+          .top-rail, .bottom-rail {
+            background-image: url(${runBorderPattern});
+            background-repeat: repeat-x;
+            background-position: 1px;
+            height: 13px;
+            width: 100%;
+          }
+
+          .top-rail {
+            transform: rotate(180deg);
+          }
+
+          .bottom-rail {
+            clear: left;
+          }
+
+          .left-rail, .right-rail {
+            background-image: url(${railBorderPattern});
+            background-repeat: repeat-y;
+            width: 13px;
+            height: 100%;
+            min-height: 600px;
+          }
+
+          .left-rail {
+            float: left;
+          }
+
+          .right-rail {
+            float: right;
+            transform: rotate(180deg);
+          }
+
+          .content {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+          }
+        `}</style>
+      </div>
+    );
+  }
+}
 
 Frame.propTypes = propTypes;
 Frame.defaultProps = defaultProps;
