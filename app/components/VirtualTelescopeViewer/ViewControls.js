@@ -4,30 +4,19 @@ import PropTypes from 'prop-types';
 import { brightGreen } from '../../styles/variables/colors';
 import { monoFont } from '../../styles/variables/fonts';
 
-const CLIP = 'clip';
-const REMOVE_CLIP = 'remove_clip';
-
-function handleClick(clipped, callback, caller) {
-  if (clipped && caller === CLIP) { return; }
-  if (!clipped && caller === REMOVE_CLIP) { return; }
-  callback();
-}
-
 const propTypes = {
-  clipped: PropTypes.bool.isRequired,
-  handleToggleClip: PropTypes.func.isRequired,
+  handleClip: PropTypes.func.isRequired,
 };
 
 const ViewControls = ({
-  clipped,
-  handleToggleClip,
+  handleClip,
 }) => (
   <div>
     <div className="buttons-top-row">
-      <button onClick={handleClick(clipped, handleToggleClip, CLIP)} className="circle-view">
+      <button onClick={() => handleClip({ clip: true })} className="circle-view">
         <div className="circle-shape" />
       </button>
-      <button onClick={handleClick(clipped, handleToggleClip, REMOVE_CLIP)} className="full-view">
+      <button onClick={() => handleClip({ clip: false })} className="full-view">
         <div className="square-shape" />
       </button>
     </div>

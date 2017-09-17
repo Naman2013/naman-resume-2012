@@ -12,7 +12,7 @@ import ImageProcessingInformation from './ImageProcessingInformation';
 
 const propTypes = {
   clipped: PropTypes.bool.isRequired,
-  handleToggleClip: PropTypes.func.isRequired,
+  handleClip: PropTypes.func.isRequired,
   handleZoomIn: PropTypes.func.isRequired,
   handleZoomOut: PropTypes.func.isRequired,
   timestamp: PropTypes.number.isRequired,
@@ -20,7 +20,7 @@ const propTypes = {
 
 const ViewerControlInterface = ({
   clipped,
-  handleToggleClip,
+  handleClip,
   handleZoomIn,
   handleZoomOut,
   timestamp,
@@ -29,7 +29,7 @@ const ViewerControlInterface = ({
     <div className="top">
       <div className="top-container">
         <ViewControls
-          handleToggleClip={handleToggleClip}
+          handleClip={handleClip}
           clipped={clipped}
         />
 

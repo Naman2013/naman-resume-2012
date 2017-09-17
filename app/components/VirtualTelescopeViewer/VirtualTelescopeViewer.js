@@ -13,7 +13,7 @@ import { black, brightGreen } from '../../styles/variables/colors';
 const propTypes = {
   children: PropTypes.node,
   clipped: PropTypes.bool,
-  handleToggleClip: PropTypes.func,
+  handleClip: PropTypes.func,
   handleZoomIn: PropTypes.func,
   handleZoomOut: PropTypes.func,
   subjectScale: PropTypes.number,
@@ -23,7 +23,7 @@ const propTypes = {
 const defaultProps = {
   children: null,
   clipped: false,
-  handleToggleClip: noop,
+  handleClip: noop,
   handleZoomIn: noop,
   handleZoomOut: noop,
   subjectScale: 1,
@@ -34,7 +34,7 @@ const VirtualTelescopeView = ({
   children,
 
   clipped,
-  handleToggleClip,
+  handleClip,
 
   handleZoomIn,
   handleZoomOut,
@@ -56,7 +56,7 @@ const VirtualTelescopeView = ({
         <Rails />
         <ViewerControlInterface
           clipped={clipped}
-          handleToggleClip={handleToggleClip}
+          handleClip={handleClip}
           handleZoomIn={handleZoomIn}
           handleZoomOut={handleZoomOut}
           timestamp={timestamp}

@@ -20,6 +20,7 @@ const BOUNDS_MULTIPLIER = 100;
 class LiveImageViewer extends Component {
   state = {
     scale: 1,
+    clipped: true,
   };
 
   zoomIn = (event) => {
@@ -44,15 +45,23 @@ class LiveImageViewer extends Component {
     }));
   }
 
+  handleClip = ({ clip }) => {
+    this.setState({
+      clipped: clip,
+    });
+  }
+
 
   render() {
     const { children } = this.props;
-    const { scale } = this.state;
+    const { scale, clipped } = this.state;
 
     return (
       <div className="root">
         {
           cloneElement(children, {
+            clipped,
+            handleClip: this.handleClip,
             subjectScale: scale,
             handleZoomIn: this.zoomIn,
             handleZoomOut: this.zoomOut,
