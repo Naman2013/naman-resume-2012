@@ -246,6 +246,7 @@ class TelescopeImageLoader extends Component {
             alt=""
             width={teleThumbWidth}
             src={bottomImageAddress}
+            draggable="false"
           />
 
           <div className="top-image">
@@ -253,6 +254,7 @@ class TelescopeImageLoader extends Component {
               alt=""
               width={teleThumbWidth}
               id={this.generateImageId()}
+              draggable="false"
             />
           </div>
         </div>
