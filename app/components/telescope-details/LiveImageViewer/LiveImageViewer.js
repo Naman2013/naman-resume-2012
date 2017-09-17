@@ -26,9 +26,7 @@ class LiveImageViewer extends Component {
     event.preventDefault();
     const { scale } = this.state;
     if (scale < MAX_SCALE) {
-      this.setState(prevState => ({
-        scale: prevState.scale + SCALE_MULTIPLIER,
-      }));
+      this.adjustZoom(SCALE_MULTIPLIER);
     }
   };
 
@@ -36,11 +34,15 @@ class LiveImageViewer extends Component {
     event.preventDefault();
     const { scale } = this.state;
     if (scale > MIN_SCALE) {
-      this.setState(prevState => ({
-        scale: prevState.scale - SCALE_MULTIPLIER,
-      }));
+      this.adjustZoom(-SCALE_MULTIPLIER);
     }
   };
+
+  adjustZoom(scaleAdjustment) {
+    this.setState(prevState => ({
+      scale: prevState.scale + scaleAdjustment,
+    }));
+  }
 
 
   render() {
