@@ -4,8 +4,8 @@ import {
   FETCH_POST_START,
   FETCH_POST_SUCCESS,
   FETCH_POST_FAIL,
-  FETCH_PAGE_META_START,
-  FETCH_PAGE_META_SUCCESS,
+  FETCH_POST_PAGE_META_START,
+  FETCH_POST_PAGE_META_SUCCESS,
   FETCH_POPULAR_POSTS_START,
   FETCH_POPULAR_POSTS_SUCCESS,
   FETCH_MORE_ABOUT_OBJECT_START,
@@ -13,7 +13,16 @@ import {
   FETCH_CONTENT_START,
   FETCH_CONTENT_SUCCESS,
   FETCH_CONTENT_FAIL,
+  RESET_POST_PAGE_META,
 } from './get-post-action';
+
+const defaultPageMeta = {
+  headerIconURL: '',
+  headerObjectTitle: 'Loading...',
+  showRecommends: false,
+  showCreateNewPostButton: false,
+  headerSubtitle: '',
+};
 
 const initialState = {
   post: {},
@@ -21,10 +30,7 @@ const initialState = {
   failed: false,
   fetching: true,
   pageMeta: {
-    headerIconURL: '',
-    headerObjectTitle: 'Loading...',
-    showRecommends: false,
-    showCreateNewPostButton: false,
+    ...defaultPageMeta
   },
   fetchingPageMeta: false,
   fetchingPopularPosts: false,
@@ -77,13 +83,14 @@ export default createReducer(initialState, {
       popularPosts: payload,
     };
   },
-  [FETCH_PAGE_META_START](state) {
+  [FETCH_POST_PAGE_META_START](state) {
     return {
       ...state,
       fetchingPageMeta: true,
+      pageMeta: { ...defaultPageMeta }
     };
   },
-  [FETCH_PAGE_META_SUCCESS](state, { payload }) {
+  [FETCH_POST_PAGE_META_SUCCESS](state, { payload }) {
     return {
       ...state,
       pageMeta: payload,
@@ -150,6 +157,12 @@ export default createReducer(initialState, {
       error: payload,
       fetching: false,
       failed: true,
+    };
+  },
+  [RESET_POST_PAGE_META](state) {
+    return {
+      ...state,
+      pageMeta: { ...defaultPageMeta },
     };
   },
 });

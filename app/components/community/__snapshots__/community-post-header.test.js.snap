@@ -1,0 +1,123 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`it should render a header 1`] = `
+<div
+  className="communityPostHeader"
+  data-jsx={1862651292}
+>
+  <div
+    className="left-container"
+    data-jsx={1862651292}
+  >
+    <div
+      className="title"
+      data-jsx={1862651292}
+    >
+      <h1
+        className="title-text"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "",
+          }
+        }
+        data-jsx={1862651292}
+      />
+    </div>
+    <div
+      className="subtitle"
+      dangerouslySetInnerHTML={
+        Object {
+          "__html": "",
+        }
+      }
+      data-jsx={1862651292}
+    />
+  </div>
+  <div
+    className="additional"
+    data-jsx={1862651292}
+  >
+    <div
+      className="button-nav"
+      data-jsx={1862651292}
+    >
+      <span
+        className="action-button"
+        data-jsx={1862651292}
+      >
+        <a
+          className="button btn-primary"
+          onClick={[Function]}
+          style={Object {}}
+        >
+          Reserve Telescope
+        </a>
+      </span>
+    </div>
+  </div>
+  <style
+    jsx={true}
+  >
+    
+          .communityPostHeader {
+            font-family: "Brandon Grotesque", "brandon-grotesque", sans-serif;
+            background: url(https://vega.slooh.com/assets/images/graphics/milkeyway_header.jpg) no-repeat;
+            background-size: cover;
+            height: 145px;
+            display: inline-flex;
+            align-items: center;
+            padding: 50px;
+            margin-bottom: 20px;
+            justify-content: space-between;
+            width: 100%;
+          }
+    
+          .left-container {
+            display: flex;
+            flex-direction: column;
+          }
+    
+          .title {
+            display: inline-flex;
+            align-items: center;
+          }
+    
+          .subtitle {
+            color: #fff;
+            text-transform: none;
+            font-weight: normal;
+            margin-top: 5px;
+          }
+    
+          .title-text {
+            margin: 0;
+            color: #fff;
+            text-transform: uppercase;
+            font-weight: 600;
+            font-size: 36px;
+            padding-left: 15px;
+          }
+    
+          svg {
+            margin-right: 10px;
+          }
+    
+          .sponsored {
+            text-align: right;
+            margin-right: 30px;
+            color: $turqoise;
+          }
+    
+          .action-button {
+            margin-right: 30px;
+          }
+    
+          @media(max-width:375px) {
+            .title-text {
+              font-size:28px
+            }
+          }
+        
+  </style>
+</div>
+`;
