@@ -416,7 +416,7 @@ class PublishPost extends Component {
           {`
             .publish-subtitle {
               text-align: center;
-              margin-top: 20px;
+              padding: 30px 45px 0 45px;
             }
           `}
         </style>
