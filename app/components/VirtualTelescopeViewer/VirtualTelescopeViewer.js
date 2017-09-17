@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Draggable from 'react-draggable';
 
@@ -44,76 +44,117 @@ const defaultProps = {
   timestamp: 0,
 };
 
-const VirtualTelescopeView = ({
-  children,
+class VirtualTelescopeView extends Component {
+  state = {
+    controlledPosition: {
+      x: 0,
+      y: 0,
+    },
+  };
 
-  clipped,
-  handleClip,
+  onDrag = (event, position) => {
+    const { x, y } = position;
+    this.setState({ controlledPosition: { x, y } });
+  };
 
-  handleZoomIn,
-  handleZoomOut,
+  resetDragLocation() {
+    this.setState({
+      controlledPosition: {
+        x: 0,
+        y: 0,
+      },
+    });
+  }
 
-  subjectScale,
+  handleZoomIn = (event) => {
+    this.resetDragLocation();
+    this.props.handleZoomIn(event);
+  };
 
-  timestamp,
-}) => (
-  <div className="root">
+  handleZoomOut = (event) => {
+    this.resetDragLocation();
+    this.props.handleZoomOut(event);
+  };
 
-    <div className="frame">
-      <div className="virtual-telescope-view-content-container">
-        <ClipView clipped={clipped}>
-          <Draggable
-            bounds={calculateDraggableBounds(subjectScale)}
-            handle={'.drag-handle'}
-          >
-            <div className="drag-handle">
-              <SubjectScaleControl scale={subjectScale}>
-                { children }
-              </SubjectScaleControl>
-            </div>
-          </Draggable>
-        </ClipView>
+  render() {
+    const {
+      children,
 
-        <Rails />
-        <ViewerControlInterface
-          clipped={clipped}
-          handleClip={handleClip}
-          handleZoomIn={handleZoomIn}
-          handleZoomOut={handleZoomOut}
-          timestamp={timestamp}
-        />
+      clipped,
+      handleClip,
+
+      handleZoomIn,
+      handleZoomOut,
+
+      subjectScale,
+
+      timestamp,
+    } = this.props;
+
+    const { controlledPosition } = this.state;
+
+    return (
+      <div className="root">
+
+        <div className="frame">
+          <div className="virtual-telescope-view-content-container">
+            <ClipView clipped={clipped}>
+              <Draggable
+                bounds={calculateDraggableBounds(subjectScale)}
+                handle={'.drag-handle'}
+                position={controlledPosition}
+                onDrag={this.onDrag}
+              >
+                <div className="drag-handle">
+                  <SubjectScaleControl scale={subjectScale}>
+                    { children }
+                  </SubjectScaleControl>
+                </div>
+              </Draggable>
+            </ClipView>
+
+            <Rails />
+            <ViewerControlInterface
+              clipped={clipped}
+              handleClip={handleClip}
+              handleZoomIn={this.handleZoomIn}
+              handleZoomOut={this.handleZoomOut}
+              timestamp={timestamp}
+            />
+          </div>
+        </div>
+
+        <style jsx>{`
+          .root {
+            background-color: ${black};
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+          }
+
+          .frame {
+            position: relative;
+            min-height: 500px;
+            border: 1px solid ${brightGreen};
+            padding: 0;
+          }
+
+          :global(.virtual-telescope-view-content-container img) {
+            display: block;
+            width: 100%;
+            height: 100%;
+          }
+
+          .virtual-telescope-view-content-container {
+            font-family: ${monoFont};
+            color: ${brightGreen};
+            cursor: move;
+          }
+        `}</style>
       </div>
-    </div>
-
-    <style jsx>{`
-      .root {
-        background-color: ${black};
-        margin: 0;
-        padding: 0;
-        overflow: hidden;
-      }
-
-      .frame {
-        position: relative;
-        min-height: 500px;
-        border: 1px solid ${brightGreen};
-        padding: 0;
-      }
-
-      :global(.virtual-telescope-view-content-container img) {
-        display: block;
-        width: 100%;
-        height: 100%;
-      }
-
-      .virtual-telescope-view-content-container {
-        font-family: ${monoFont};
-        color: ${brightGreen};
-        cursor: move;
-      }
-    `}</style>
-  </div>
-);
+    );
+  }
+}
 
 VirtualTelescopeView.propTypes = propTypes;
 VirtualTelescopeView.defaultProps = defaultProps;
