@@ -58,6 +58,7 @@ class DiscussionsReply extends Component {
       repliesLoading: true,
       repliesError: false,
     });
+
     getReplies({
       page,
       count,
@@ -85,7 +86,7 @@ class DiscussionsReply extends Component {
   }
 
   prepareData(reply) {
-    const { styles, forumId, topicId, threadId, allowedLevels } = this.props;
+    const { styles, forumId, topicId, threadId, allowedLevels, user } = this.props;
     const { replies, repliesLoading, repliesError, resultsCount } = this.state;
     const images = reply.S3Files || [];
     const likeParams = {
@@ -139,6 +140,7 @@ class DiscussionsReply extends Component {
             styles={styles}
             allowedLevels={allowedLevels - 1}
             key={childReply.replyId}
+            user={user}
           />))}
           {reply.replyCount > 0 && repliesLoading && <span className="padded-bottom">
             <h3>Loading replies...</h3>
