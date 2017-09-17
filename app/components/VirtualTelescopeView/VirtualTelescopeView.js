@@ -2,7 +2,7 @@ import React from 'react';
 
 import Rails from './Rails';
 
-import { brightGreen } from '../../styles/variables/colors';
+import { black, brightGreen } from '../../styles/variables/colors';
 
 const VirtualTelescopeView = ({ children }) => (
   <div className="root">
@@ -16,7 +16,15 @@ const VirtualTelescopeView = ({ children }) => (
 
     <style jsx>{`
       .root {
+        background-color: ${black};
         margin: 0;
+        padding: 0;
+      }
+
+      .frame {
+        position: relative;
+        min-height: 500px;
+        border: 1px solid ${brightGreen};
         padding: 0;
       }
 
@@ -24,12 +32,6 @@ const VirtualTelescopeView = ({ children }) => (
         display: block;
         width: 100%;
         height: 100%;
-      }
-
-      .frame {
-        position: relative;
-        border: 1px solid ${brightGreen};
-        padding: 0;
       }
     `}</style>
   </div>

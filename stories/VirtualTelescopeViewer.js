@@ -29,6 +29,11 @@ storiesOf('Virtual Telescope Viewer', module)
       </div>
     </VirtualTelescopeViewer>
   ))
+
+
+  .add('No image...', () => (
+    <VirtualTelescopeView />
+  ))
   .add('Canary Four SS Normal 1119x845', () => (
     <VirtualTelescopeView>
       <div>
