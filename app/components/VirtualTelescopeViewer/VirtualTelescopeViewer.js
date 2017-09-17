@@ -16,7 +16,7 @@ const propTypes = {
   handleToggleClip: PropTypes.func,
   handleZoomIn: PropTypes.func,
   handleZoomOut: PropTypes.func,
-  currentSubjectScale: PropTypes.number,
+  subjectScale: PropTypes.number,
   timestamp: PropTypes.number,
 };
 
@@ -26,7 +26,7 @@ const defaultProps = {
   handleToggleClip: noop,
   handleZoomIn: noop,
   handleZoomOut: noop,
-  currentSubjectScale: 1,
+  subjectScale: 1,
   timestamp: 0,
 };
 
@@ -39,7 +39,7 @@ const VirtualTelescopeView = ({
   handleZoomIn,
   handleZoomOut,
 
-  currentSubjectScale,
+  subjectScale,
 
   timestamp,
 }) => (
@@ -48,7 +48,7 @@ const VirtualTelescopeView = ({
     <div className="frame">
       <div className="virtual-telescope-view-content-container">
         <ClipView clipped={clipped}>
-          <SubjectScaleControl>
+          <SubjectScaleControl scale={subjectScale}>
             { children }
           </SubjectScaleControl>
         </ClipView>

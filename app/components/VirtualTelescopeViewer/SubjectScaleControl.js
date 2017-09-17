@@ -26,7 +26,7 @@ const SubjectScaleControl = ({
     {children}
 
     <style jsx>{`
-      transition: scale 0.5s;
+      transition: all .2s ease-in-out;
       transition-timing-function: ease;
     `}</style>
   </div>

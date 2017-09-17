@@ -19,27 +19,33 @@ const BOUNDS_MULTIPLIER = 100;
 
 class LiveImageViewer extends Component {
   state = {
-    currentScale: 1,
+    scale: 1,
   };
 
   zoomIn = (event) => {
     event.preventDefault();
-    console.log('zooming');
+    const { scale } = this.state;
+    if (scale < MAX_SCALE) {
+      this.setState(prevState => ({
+        scale: prevState.scale + SCALE_MULTIPLIER,
+      }));
+    }
   };
 
   zoomOut = (event) => {
     event.preventDefault();
-    console.log('zooming');
   };
 
 
   render() {
     const { children } = this.props;
+    const { scale } = this.state;
 
     return (
       <div className="root">
         {
           cloneElement(children, {
+            subjectScale: scale,
             handleZoomIn: this.zoomIn,
             handleZoomOut: this.zoomOut,
           })

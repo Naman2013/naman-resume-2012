@@ -117,14 +117,6 @@ class InteractiveViewer extends Component {
     this.setState({ controlledPosition: { x: x - 10, y } });
   }
 
-  toggleFullScreenMode = (event) => {
-    event.preventDefault();
-    const { fullScreenMode } = this.state;
-    this.setState({
-      fullScreenMode: !fullScreenMode,
-    });
-  };
-
   handleToggleClipping = (event) => {
     event.preventDefault();
     const { clipped } = this.state;
