@@ -15,8 +15,6 @@ const MAX_SCALE = 3;
 const SCALE_FACTOR = 3250;
 const SCALE_THRESHOLD = 1.5;
 
-const BOUNDS_MULTIPLIER = 100;
-
 class LiveImageViewer extends Component {
   state = {
     scale: 1,

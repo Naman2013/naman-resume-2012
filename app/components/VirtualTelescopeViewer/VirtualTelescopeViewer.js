@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Draggable from 'react-draggable';
+
 import noop from 'lodash/noop';
 
 import ClipView from './ClipView';
@@ -10,6 +11,18 @@ import ViewerControlInterface from './ViewerControlInterface';
 
 import { monoFont } from '../../styles/variables/fonts';
 import { black, brightGreen } from '../../styles/variables/colors';
+
+function calculateDraggableBounds(scale) {
+  // bounds multiplier is set to 0 while scale is 1 to prevent movement at full size
+  const BOUNDS_MULTIPLIER = (scale > 1) ? 100 : 0;
+  const baseScale = BOUNDS_MULTIPLIER * scale;
+  return {
+    top: -baseScale,
+    right: baseScale,
+    bottom: baseScale,
+    left: -baseScale,
+  };
+}
 
 const propTypes = {
   children: PropTypes.node,
@@ -50,6 +63,7 @@ const VirtualTelescopeView = ({
       <div className="virtual-telescope-view-content-container">
         <ClipView clipped={clipped}>
           <Draggable
+            bounds={calculateDraggableBounds(subjectScale)}
             handle={'.drag-handle'}
           >
             <div className="drag-handle">
