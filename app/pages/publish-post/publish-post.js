@@ -87,31 +87,33 @@ class PublishPost extends Component {
   }
 
   handleCategoryResponse({
-    categoryList,
-    postUUID,
+    apiError,
     artCultureText,
+    categoryList,
     diyText,
     humanSpiritText,
+    introText,
+    postUUID,
     scienceLogText,
-    apiError,
   }) {
     if (apiError) { return; }
 
     this.setState({
-      contentCategory: 'scienceLog',
+      artCultureText,
+      bodyContent: '',
       categoryList,
+      contentCategory: 'scienceLog',
+      diyText,
+      headline: '',
+      humanSpiritText,
+      introText,
+      newTagContent: '',
       postUUID,
+      S3URLs: [],
+      scienceLogText,
       selectedCategoryIndex: null,
       selectedTopicIndex: null,
-      headline: '',
-      bodyContent: '',
-      newTagContent: '',
-      S3URLs: [],
       uploadedImages: [],
-      artCultureText,
-      diyText,
-      humanSpiritText,
-      scienceLogText,
     });
 
     window.scrollTo(0, 0);
@@ -306,20 +308,21 @@ class PublishPost extends Component {
 
   render() {
     const {
-      contentCategory,
-      selectedCategoryIndex,
-      selectedTopicIndex,
-      headline,
+      artCultureText,
       bodyContent,
+      contentCategory,
+      diyText,
+      headline,
+      humanSpiritText,
+      imageInputValue,
+      introText,
       newTagContent,
       S3URLs,
-      artCultureText,
-      diyText,
-      humanSpiritText,
       scienceLogText,
+      selectedCategoryIndex,
+      selectedTopicIndex,
       uploadError,
       uploadLoading,
-      imageInputValue,
     } = this.state;
 
     return (
@@ -327,6 +330,7 @@ class PublishPost extends Component {
         <Header
           cancelPost={this.setupForm}
         />
+        <div className="publish-subtitle"  dangerouslySetInnerHTML={{ __html: introText }} />
         <ul className="publish-post-list">
           <li className="item">
             <span className="number">1</span>
@@ -408,6 +412,14 @@ class PublishPost extends Component {
             <button onClick={this.handleSubmitPost} className="btn-primary">Submit for Review</button>
           </li>
         </ul>
+        <style jsx>
+          {`
+            .publish-subtitle {
+              text-align: center;
+              margin-top: 20px;
+            }
+          `}
+        </style>
       </div>
     );
   }
