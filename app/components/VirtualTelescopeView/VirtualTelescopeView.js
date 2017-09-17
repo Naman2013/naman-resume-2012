@@ -10,7 +10,7 @@ const VirtualTelescopeView = ({ children }) => (
 
     { /** outer dashed border */ }
     <div className="frame">
-      <div className="content-container">
+      <div className="virtual-telescope-view-content-container">
         { children }
       </div>
       <div className="top-rail" />
@@ -25,9 +25,23 @@ const VirtualTelescopeView = ({ children }) => (
         padding: 0;
       }
 
+      :global(.virtual-telescope-view-content-container img) {
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
+
       .frame {
         position: relative;
         border: 1px solid ${brightGreen};
+        padding: 0;
+      }
+
+      .top-rail,
+      .bottom-rail,
+      .left-rail,
+      .right-rail {
+        position: absolute;
       }
 
       .top-rail, .bottom-rail {
@@ -38,44 +52,31 @@ const VirtualTelescopeView = ({ children }) => (
         width: 100%;
       }
 
-      .top-rail {
-        position: absolute;
-        top: 0;
-        transform: rotate(180deg);
-      }
-
-      .left-rail {
-        position: absolute;
-        left: 0;
-        top: 0;
-      }
-
-      right-rail {
-        position: absolute;
-        right: 0;
-        top: 0;
-      }
-
-      .bottom-rail {
-        position: absolute;
-        bottom: 0;
-      }
-
       .left-rail, .right-rail {
         background-image: url(${railBorderPattern});
         background-repeat: repeat-y;
         width: 13px;
         height: 100%;
-        min-height: 600px;
+      }
+
+      .top-rail {
+        top: 0;
+        transform: rotate(180deg);
       }
 
       .left-rail {
-        float: left;
+        left: 0;
+        top: 0;
       }
 
       .right-rail {
-        float: right;
+        right: 0;
+        top: 0;
         transform: rotate(180deg);
+      }
+
+      .bottom-rail {
+        bottom: 0;
       }
     `}</style>
   </div>

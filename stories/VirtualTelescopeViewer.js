@@ -33,11 +33,6 @@ storiesOf('Virtual Telescope Viewer', module)
     <VirtualTelescopeView>
       <div>
         <img alt="" src={telescopeOne} />
-
-        <style jsx>{`
-          div { margin: 0; padding: 0; }
-          img { width: 100%; height: 100%; }
-        `}</style>
       </div>
     </VirtualTelescopeView>
   ))
@@ -45,11 +40,6 @@ storiesOf('Virtual Telescope Viewer', module)
     <VirtualTelescopeView>
       <div>
         <img alt="" src={telescopeTwo} />
-
-        <style jsx>{`
-          div { margin: 0; padding: 0; }
-          img { width: 100%; height: 100%; }
-        `}</style>
       </div>
     </VirtualTelescopeView>
   ))
@@ -57,11 +47,6 @@ storiesOf('Virtual Telescope Viewer', module)
     <VirtualTelescopeView>
       <div>
         <img alt="" src={telescopeThree} />
-
-        <style jsx>{`
-          div { margin: 0; padding: 0; }
-          img { width: 100%; height: 100%; }
-        `}</style>
       </div>
     </VirtualTelescopeView>
   ));
