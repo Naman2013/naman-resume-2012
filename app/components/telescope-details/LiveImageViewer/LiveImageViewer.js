@@ -34,6 +34,12 @@ class LiveImageViewer extends Component {
 
   zoomOut = (event) => {
     event.preventDefault();
+    const { scale } = this.state;
+    if (scale > MIN_SCALE) {
+      this.setState(prevState => ({
+        scale: prevState.scale - SCALE_MULTIPLIER,
+      }));
+    }
   };
 
 
