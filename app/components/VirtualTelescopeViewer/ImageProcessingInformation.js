@@ -3,7 +3,7 @@ import uniqueId from 'lodash/uniqueId';
 
 const TEMP_CONTENT = [
   'Processing: Bright Galaxy or Comet',
-  'Scheduling Member: PaulC.040315'
+  'Scheduling Member: PaulC.040315',
 ];
 
 const Item = ({ content }) => (

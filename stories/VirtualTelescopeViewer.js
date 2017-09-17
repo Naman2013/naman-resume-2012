@@ -2,7 +2,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import VirtualTelescopeViewer from '../app/components/VirtualTelescopeViewer';
 
-import VirtualTelescopeView from '../app/components/VirtualTelescopeView';
+import VirtualTelescopeView from '../app/components//VirtualTelescopeViewer/VirtualTelescopeView';
 
 import sampleImage from '../assets/images/photos/eclipse.jpg';
 import telescopeOne from './assets/sample-telescope-images/Canary_Four_SS_Normal_1119x845.png';
