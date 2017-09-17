@@ -191,10 +191,6 @@ class TelescopeDetails extends Component {
   }
 
   render() {
-    /**
-      TODO: based on the type of community content we display the component
-      so we need to discover the content needed and tie that into the field
-      */
     const { selectedTab } = this.state;
     const {
       fetchingObservatoryList,
