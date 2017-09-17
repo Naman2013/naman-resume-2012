@@ -2,15 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import noop from 'lodash/noop';
 
-import Frame from './Frame';
-import ViewControls from './ViewControls';
-import Timestamp from './Timestamp';
-import CoordinateInformation from './CoordinateInformation';
-import ZoomControls from './ZoomControls';
-import Bar from './Bar';
-import ObjectMetaInformation from './ObjectMetaInformation';
-import MissionTitle from './MissionTitle';
-import ImageProcessingInformation from './ImageProcessingInformation';
+import Rails from './Rails';
+import ViewerControlInterface from './ViewerControlInterface';
+
+import { monoFont } from '../../styles/variables/fonts';
+import { black, brightGreen } from '../../styles/variables/colors';
 
 const propTypes = {
   clipped: PropTypes.bool,
@@ -28,18 +24,7 @@ const defaultProps = {
   zoomLevel: 1,
 };
 
-/**
-  - zoom level
-  - handle zoom in
-  - handle zoom out
-
-  - panning location control
-  - panning
-
-  - handle clipping
-*/
-
-const VirtualTelescopeViewer = ({
+const VirtualTelescopeView = ({
   children,
 
   clipped,
@@ -49,102 +34,50 @@ const VirtualTelescopeViewer = ({
   handleZoomOut,
   zoomLevel,
 }) => (
-  <Frame
-    zoomLevel={zoomLevel}
-    framedContent={children}
-    clipped={clipped}
-  >
-    <div className="top">
-      <div className="top-container">
-        <ViewControls
+  <div className="root">
+
+    <div className="frame">
+      <div className="virtual-telescope-view-content-container">
+        { children }
+        <Rails />
+        <ViewerControlInterface
+          clipped={clipped}
           handleToggleClip={handleToggleClip}
-        />
-
-        <div className="grow-2">
-          <Timestamp />
-        </div>
-
-        <CoordinateInformation />
-      </div>
-    </div>
-
-    <div className="center">
-      <div className="zoom-control">
-        <ZoomControls
           handleZoomIn={handleZoomIn}
           handleZoomOut={handleZoomOut}
         />
       </div>
-      <div className="cosmetic-bar-shape">
-        <Bar />
-      </div>
-    </div>
-
-    <div className="bottom">
-      <div className="bottom-container">
-        <ObjectMetaInformation />
-
-        <div className="grow-2">
-          <MissionTitle />
-        </div>
-
-        <ImageProcessingInformation />
-      </div>
     </div>
 
     <style jsx>{`
-      .content {
+      .root {
+        background-color: ${black};
+        margin: 0;
+        padding: 0;
+      }
+
+      .frame {
+        position: relative;
+        min-height: 500px;
+        border: 1px solid ${brightGreen};
+        padding: 0;
+      }
+
+      :global(.virtual-telescope-view-content-container img) {
+        display: block;
         width: 100%;
         height: 100%;
       }
 
-      .top {
-        position: absolute;
-        top: 0;
-        width: 100%;
-      }
-
-      .top-container {
-        display: flex;
-        justify-content: space-around;
-        padding: 20px;
-      }
-
-      .grow-2 {
-        flex-grow 2;
-      }
-
-      .zoom-control, .cosmetic-bar-shape {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-      }
-
-      .zoom-control {
-        left: 20px;
-      }
-
-      .cosmetic-bar-shape {
-        right: 20px;
-      }
-
-      .bottom {
-        position: absolute;
-        bottom: 0;
-        width: 100%;
-      }
-
-      .bottom-container {
-        display: flex;
-        align-items: flex-end;
-        justify-content: space-around;
-        padding: 30px;
+      .virtual-telescope-view-content-container {
+        font-family: ${monoFont};
+        color: ${brightGreen};
       }
     `}</style>
-  </Frame>
+  </div>
 );
 
-VirtualTelescopeViewer.propTypes = propTypes;
-VirtualTelescopeViewer.defaultProps = defaultProps;
+VirtualTelescopeView.propTypes = propTypes;
+VirtualTelescopeView.defaultProps = defaultProps;
 
-export default VirtualTelescopeViewer;
+export default VirtualTelescopeView;
