@@ -25,7 +25,7 @@ const ViewerControlInterface = ({
   handleZoomOut,
   timestamp,
 }) => (
-  <div>
+  <div className="root">
     <div className="top">
       <div className="top-container">
         <ViewControls

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Draggable from 'react-draggable';
+import classnames from 'classnames';
 
 import noop from 'lodash/noop';
 
@@ -50,6 +51,7 @@ class VirtualTelescopeView extends Component {
       x: 0,
       y: 0,
     },
+    viewerControlInterfaceOpacity: 1,
   };
 
   onDrag = (event, position) => {
@@ -76,25 +78,43 @@ class VirtualTelescopeView extends Component {
     this.props.handleZoomOut(event);
   };
 
+  handleMouseEnterRoot = () => {
+    this.setState({
+      viewerControlInterfaceOpacity: 1,
+    });
+  };
+
+  handleMouseLeaveRoot = () => {
+    const { clipped } = this.props;
+    if (!clipped) {
+      this.setState({
+        viewerControlInterfaceOpacity: 0,
+      });
+    }
+  };
+
   render() {
     const {
       children,
-
       clipped,
       handleClip,
-
-      handleZoomIn,
-      handleZoomOut,
-
       subjectScale,
-
       timestamp,
     } = this.props;
 
+    const { viewerControlInterfaceOpacity } = this.state;
+
     const { controlledPosition } = this.state;
+    const viewControllerWrapperStyles = {
+      opacity: viewerControlInterfaceOpacity,
+    };
 
     return (
-      <div className="root">
+      <div
+        onMouseEnter={this.handleMouseEnterRoot}
+        onMouseLeave={this.handleMouseLeaveRoot}
+        className="root"
+      >
 
         <div className="frame">
           <div className="virtual-telescope-view-content-container">
@@ -114,13 +134,16 @@ class VirtualTelescopeView extends Component {
             </ClipView>
 
             <Rails />
-            <ViewerControlInterface
-              clipped={clipped}
-              handleClip={handleClip}
-              handleZoomIn={this.handleZoomIn}
-              handleZoomOut={this.handleZoomOut}
-              timestamp={timestamp}
-            />
+
+            <div className="view-controller-wrapper" style={viewControllerWrapperStyles}>
+              <ViewerControlInterface
+                clipped={clipped}
+                handleClip={handleClip}
+                handleZoomIn={this.handleZoomIn}
+                handleZoomOut={this.handleZoomOut}
+                timestamp={timestamp}
+              />
+            </div>
           </div>
         </div>
 
@@ -149,6 +172,10 @@ class VirtualTelescopeView extends Component {
             font-family: ${monoFont};
             color: ${brightGreen};
             cursor: move;
+          }
+
+          .view-controller-wrapper {
+            transition: opacity .25s ease-in-out;
           }
         `}</style>
       </div>
