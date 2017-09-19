@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Draggable from 'react-draggable';
-import classnames from 'classnames';
 
 import noop from 'lodash/noop';
 
@@ -32,7 +31,13 @@ const propTypes = {
   handleZoomIn: PropTypes.func,
   handleZoomOut: PropTypes.func,
   subjectScale: PropTypes.number,
+
   timestamp: PropTypes.number,
+  coordinateArray: PropTypes.arrayOf(PropTypes.string),
+  missionData: PropTypes.arrayOf(PropTypes.string),
+  objectTitleShort: PropTypes.string,
+  processing: PropTypes.string,
+  schedulingMember: PropTypes.string,
 };
 
 const defaultProps = {
@@ -42,7 +47,13 @@ const defaultProps = {
   handleZoomIn: noop,
   handleZoomOut: noop,
   subjectScale: 1,
+
   timestamp: 0,
+  coordinateArray: [],
+  missionData: [],
+  objectTitleShort: '',
+  processing: '',
+  schedulingMember: '',
 };
 
 class VirtualTelescopeView extends Component {
