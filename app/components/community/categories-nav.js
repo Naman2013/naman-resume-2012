@@ -6,19 +6,19 @@ import styles from './style/categories-nav.scss';
 
 class CategoriesNav extends Component {
 
-  prepareNav(list, main) {
+  prepareNav(list, main, isMain) {
     return list.map((v) => {
       const route = `${main}/${v.route}`;
       const isActiveRoute = this.props.location.pathname.indexOf(v.route) >= 0;
       return (
         <li key={uniqueId()}>
-          <Link to={`/${route}`} activeClassName="active">
+          <Link to={isMain ? `/${route}/all` : `/${route}`} activeClassName="active">
             {v.label}
           </Link>
           {
             (isActiveRoute && v.children && v.children.length) &&
             <ul className={styles.categoriesSubNavContainer}>
-              {this.prepareNav(v.children, route)}
+              {this.prepareNav(v.children, route, false)}
             </ul>
           }
         </li>
@@ -31,7 +31,7 @@ class CategoriesNav extends Component {
     return (
       <div className={`${styles.categoriesNav} ${className}`}>
         <ul className={styles.categoriesNavContainer}>
-          {this.prepareNav(list, path)}
+          {this.prepareNav(list, path, true)}
         </ul>
       </div>
     );
