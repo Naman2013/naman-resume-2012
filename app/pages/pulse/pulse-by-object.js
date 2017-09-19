@@ -44,7 +44,7 @@ class PulseByObject extends Component {
   }
 
   get objectCategories() {
-    return this.state.categoryList.map(category => `${category.categoryDisplayName} (${category.categoryTopicCount})`);
+    return this.state.categoryList.map(category => `${category.categoryDisplayName} (${category.categoryPostCount})`);
   }
 
   get currentCategoryTopics() {
