@@ -15,7 +15,13 @@ const propTypes = {
   handleClip: PropTypes.func.isRequired,
   handleZoomIn: PropTypes.func.isRequired,
   handleZoomOut: PropTypes.func.isRequired,
+
   timestamp: PropTypes.number.isRequired,
+  coordinateArray: PropTypes.arrayOf(PropTypes.string).isRequired,
+  missionData: PropTypes.arrayOf(PropTypes.string).isRequired,
+  objectTitleShort: PropTypes.string.isRequired,
+  processing: PropTypes.string.isRequired,
+  schedulingMember: PropTypes.string.isRequired,
 };
 
 const ViewerControlInterface = ({
@@ -24,6 +30,11 @@ const ViewerControlInterface = ({
   handleZoomIn,
   handleZoomOut,
   timestamp,
+  coordinateArray,
+  missionData,
+  objectTitleShort,
+  processing,
+  schedulingMember,
 }) => (
   <div className="root">
     <div className="top">

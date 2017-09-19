@@ -111,6 +111,11 @@ class VirtualTelescopeView extends Component {
       handleClip,
       subjectScale,
       timestamp,
+      coordinateArray,
+      missionData,
+      objectTitleShort,
+      processing,
+      schedulingMember,
     } = this.props;
 
     const { viewerControlInterfaceOpacity } = this.state;
@@ -153,6 +158,11 @@ class VirtualTelescopeView extends Component {
                 handleZoomIn={this.handleZoomIn}
                 handleZoomOut={this.handleZoomOut}
                 timestamp={timestamp}
+                coordinateArray={coordinateArray}
+                missionData={missionData}
+                objectTitleShort={objectTitleShort}
+                processing={processing}
+                schedulingMember={schedulingMember}
               />
             </div>
           </div>
