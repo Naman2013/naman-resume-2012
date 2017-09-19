@@ -1,5 +1,5 @@
 export default {
-  unixTimestamp: Math.floor(new Date().getTime() / 1000),
+  timestamp: Math.floor(new Date().getTime() / 1000),
   coordinateArray: [
     'Celestial Coordinates:',
     'Right Ascension: 6h 39m 08s',

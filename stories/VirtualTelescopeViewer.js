@@ -7,6 +7,8 @@ import telescopeOne from './assets/sample-telescope-images/Canary_Four_SS_Normal
 import telescopeTwo from './assets/sample-telescope-images/Canary_Four_SS_Planetary_1679x1268.png';
 import telescopeThree from './assets/sample-telescope-images/Canary_One_HM_Normal_1018x1018.png';
 
+import virtualTelescopeViewerContent from './content/virtualTelescopeViewerContent';
+
 storiesOf('Virtual Telescope Viewer', module)
   .add('No image...', () => (
     <LiveImageViewer>
@@ -14,7 +16,7 @@ storiesOf('Virtual Telescope Viewer', module)
     </LiveImageViewer>
   ))
   .add('Canary Four SS Normal 1119x845', () => (
-    <LiveImageViewer>
+    <LiveImageViewer {...virtualTelescopeViewerContent}>
       <VirtualTelescopeViewer>
         <div>
           <img draggable="false" alt="" src={telescopeOne} />
@@ -23,7 +25,7 @@ storiesOf('Virtual Telescope Viewer', module)
     </LiveImageViewer>
   ))
   .add('Canary Four SS Normal 1678x1268', () => (
-    <LiveImageViewer>
+    <LiveImageViewer {...virtualTelescopeViewerContent}>
       <VirtualTelescopeViewer>
         <div>
           <img draggable="false" alt="" src={telescopeTwo} />
@@ -33,7 +35,7 @@ storiesOf('Virtual Telescope Viewer', module)
   ))
   .add('Canary One SS Normal 1018x1018', () => (
     <LiveImageViewer>
-      <VirtualTelescopeViewer>
+      <VirtualTelescopeViewer {...virtualTelescopeViewerContent}>
         <div>
           <img draggable="false" alt="" src={telescopeThree} />
         </div>
