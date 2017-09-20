@@ -45,7 +45,7 @@ const ViewerControlInterface = ({
         />
 
         <div className="grow-2">
-          <Timestamp />
+          <Timestamp unixTimestamp={timestamp} />
         </div>
 
         <CoordinateInformation />
