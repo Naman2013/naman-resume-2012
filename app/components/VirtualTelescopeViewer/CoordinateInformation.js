@@ -1,20 +1,38 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import uniqueId from 'lodash/uniqueId';
 
-const CoordinateInformation = ({ content }) => (
+const propTypes = {
+  coordinateArray: PropTypes.arrayOf(PropTypes.string),
+};
+
+const defaultProps = {
+  coordinateArray: [],
+};
+
+const CoordinateInformation = ({ coordinateArray }) => (
   <div className="root">
-    <p>
-      Celestial Coordinates:<br />
-      Right Asension: 13h 29m 52.6s<br />
-      Declination: +47&deg; 11&apos; 44&quot;
-    </p>
+    <ul>
+      {
+        coordinateArray
+          .map(infoLine => <li dangerouslySetInnerHTML={{ __html: infoLine }} />)
+      }
+    </ul>
 
     <style jsx>{`
         .root {
           font-size: 0.75em;
           text-align: right;
         }
+
+        ul {
+          list-style-type: none;
+        }
     `}</style>
   </div>
 );
+
+CoordinateInformation.propTypes = propTypes;
+CoordinateInformation.defaultProps = defaultProps;
 
 export default CoordinateInformation;

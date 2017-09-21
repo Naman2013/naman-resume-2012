@@ -48,7 +48,7 @@ const ViewerControlInterface = ({
           <Timestamp unixTimestamp={timestamp} />
         </div>
 
-        <CoordinateInformation />
+        <CoordinateInformation coordinateArray={coordinateArray} />
       </div>
     </div>
 

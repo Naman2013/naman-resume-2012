@@ -4,8 +4,6 @@ import InlineCountdown from '../common/inline-countdown';
 
 import { brightGreen } from '../../styles/variables/colors';
 
-// 2017-7-16T02:33UTC
-
 const propTypes = {
   unixTimestamp: PropTypes.number,
 };

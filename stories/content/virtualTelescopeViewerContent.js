@@ -3,7 +3,7 @@ export default {
   coordinateArray: [
     'Celestial Coordinates:',
     'Right Ascension: 6h 39m 08s',
-    'Declination: +8&deg; 44&apost; 17&quot;',
+    'Declination: +8&deg; 44&apos; 17&quot;',
   ],
   missionData: [
     'Type: reflection nebula',
