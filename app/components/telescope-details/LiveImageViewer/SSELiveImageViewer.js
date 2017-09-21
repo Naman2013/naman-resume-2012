@@ -4,6 +4,7 @@ import LiveImageViewer from './';
 import VirtualTelescopeViewer from '../../VirtualTelescopeViewer';
 import TelescopeImageLoader from '../../common/telescope-image-loader';
 import obsIdTeleIdDomeIdFromTeleId from '../../../utils/obsid-teleid-domeid-from-teleid';
+import generateSseImageLoader from '../../../utils/generate-sse-image-source';
 
 const propTypes = {
   timestamp: PropTypes.number,
@@ -12,6 +13,7 @@ const propTypes = {
   objectTitleShort: PropTypes.string,
   processing: PropTypes.string,
   schedulingMember: PropTypes.string,
+  callSource: PropTypes.string,
   // TODO: complete the validation
   // imageSource: PropTypes.
   // teleThumbWidth: PropTypes.
@@ -28,6 +30,7 @@ const defaultProps = {
   objectTitleShort: '',
   processing: '',
   schedulingMember: '',
+  callSource: 'details',
   // TODO: complete the validation
   // imageSource: PropTypes.
   // teleThumbWidth: PropTypes.
@@ -45,14 +48,17 @@ const SSELiveImageViewer = ({
   processing,
   schedulingMember,
 
-  imageSource,
-  teleThumbWidth,
+  telePort,
+  teleSystem,
+  teleId,
   teleFade,
   clipped,
   missionFormat,
-  teleId,
+  callSource,
 }) => {
   const { obsId, domeId } = obsIdTeleIdDomeIdFromTeleId(teleId);
+  const imageSource = generateSseImageLoader(teleSystem, telePort);
+  const teleThumbWidth = '866px';
 
   return (
     <LiveImageViewer>

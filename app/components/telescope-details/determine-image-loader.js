@@ -1,6 +1,7 @@
 import React from 'react';
 import TelescopeImageViewer from '../common/telescope-image-viewer/telescope-image-viewer';
 import VideoImageLoader from '../common/telescope-image-loader/video-image-loader';
+import SSELiveImageViewer from './LiveImageViewer/SSELiveImageViewer';
 
 export default function determineImageLoader(instrument) {
   const {
@@ -10,7 +11,7 @@ export default function determineImageLoader(instrument) {
 
   if (instrImageSourceType === 'SSE') {
     return (
-      <TelescopeImageViewer
+      <SSELiveImageViewer
         telePort={instrument.instrPort}
         teleSystem={instrument.instrSystem}
         teleId={instrument.instrTelescopeId}
