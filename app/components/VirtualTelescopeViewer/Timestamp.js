@@ -21,7 +21,7 @@ function Timestamp({ unixTimestamp }) {
         <InlineCountdown
           incrementTime={true}
           startTime={unixTimestamp}
-          format={'YYYY-M-DDTH:mmUTC'}
+          format={'YYYY-MM-DDTH:mmUTC'}
         />
       </h5>
 
