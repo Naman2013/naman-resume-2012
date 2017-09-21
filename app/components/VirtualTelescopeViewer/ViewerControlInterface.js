@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import noop from 'lodash/noop';
 
 import ViewControls from './ViewControls';
 import Timestamp from './Timestamp';
@@ -15,6 +16,8 @@ const propTypes = {
   handleClip: PropTypes.func.isRequired,
   handleZoomIn: PropTypes.func.isRequired,
   handleZoomOut: PropTypes.func.isRequired,
+  showInfoButton: PropTypes.bool,
+  handleInfoClick: PropTypes.func,
 
   timestamp: PropTypes.number.isRequired,
   coordinateArray: PropTypes.arrayOf(PropTypes.string).isRequired,
@@ -24,11 +27,18 @@ const propTypes = {
   schedulingMember: PropTypes.string.isRequired,
 };
 
+const defaultProps = {
+  showInfoButton: false,
+  handleInfoClick: noop,
+};
+
 const ViewerControlInterface = ({
   clipped,
   handleClip,
   handleZoomIn,
   handleZoomOut,
+  showInfoButton,
+  handleInfoClick,
   timestamp,
   coordinateArray,
   missionData,
@@ -57,6 +67,8 @@ const ViewerControlInterface = ({
         <ZoomControls
           handleZoomIn={handleZoomIn}
           handleZoomOut={handleZoomOut}
+          showInfoButton={showInfoButton}
+          handleInfoClick={handleInfoClick}
         />
       </div>
       <div className="cosmetic-bar-shape">
@@ -127,5 +139,6 @@ const ViewerControlInterface = ({
 );
 
 ViewerControlInterface.propTypes = propTypes;
+ViewerControlInterface.defaultProps = defaultProps;
 
 export default ViewerControlInterface;
