@@ -5,6 +5,38 @@ import VirtualTelescopeViewer from '../../VirtualTelescopeViewer';
 import TelescopeImageLoader from '../../common/telescope-image-loader';
 import obsIdTeleIdDomeIdFromTeleId from '../../../utils/obsid-teleid-domeid-from-teleid';
 
+const propTypes = {
+  timestamp: PropTypes.number,
+  coordinateArray: PropTypes.arrayOf(PropTypes.string),
+  missionData: PropTypes.arrayOf(PropTypes.string),
+  objectTitleShort: PropTypes.string,
+  processing: PropTypes.string,
+  schedulingMember: PropTypes.string,
+  // TODO: complete the validation
+  // imageSource: PropTypes.
+  // teleThumbWidth: PropTypes.
+  // teleFade: PropTypes.
+  // clipped: PropTypes.
+  // missionFormat: PropTypes.
+  // teleId: PropTypes.
+};
+
+const defaultProps = {
+  timestamp: 0,
+  coordinateArray: [],
+  missionData: [],
+  objectTitleShort: '',
+  processing: '',
+  schedulingMember: '',
+  // TODO: complete the validation
+  // imageSource: PropTypes.
+  // teleThumbWidth: PropTypes.
+  // teleFade: PropTypes.
+  // clipped: PropTypes.
+  // missionFormat: PropTypes.
+  // teleId: PropTypes.
+};
+
 const SSELiveImageViewer = ({
   timestamp,
   coordinateArray,
@@ -46,5 +78,8 @@ const SSELiveImageViewer = ({
     </LiveImageViewer>
   );
 };
+
+SSELiveImageViewer.propTypes = propTypes;
+SSELiveImageViewer.defaultProps = defaultProps;
 
 export default SSELiveImageViewer;
