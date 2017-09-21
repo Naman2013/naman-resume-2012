@@ -36,13 +36,11 @@ class LiveFeed extends Component {
         <div className="root">
           <GenericLoadingBox />
 
-          <style jsx>{
-              `
-                .root {
-                  padding-top: 80px;
-                }
-              `
-          }</style>
+          <style jsx>{`
+            .root {
+              padding-top: 80px;
+            }
+          `}</style>
         </div>
       );
     }
@@ -59,13 +57,6 @@ class LiveFeed extends Component {
     return (
       <div className="root">
         { determineImageLoader(instrument) }
-        <style jsx>{
-          `
-            .root {
-             /* min-height: 456px;*/
-            }
-          `
-        }</style>
       </div>
     );
   }

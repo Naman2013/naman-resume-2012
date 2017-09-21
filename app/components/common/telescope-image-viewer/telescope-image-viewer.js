@@ -40,7 +40,6 @@ function TelescopeImageViewer({
           teleFade={teleFade}
           clipped={clipped}
           missionFormat={missionFormat}
-
         />
 
       </InteractiveViewer>
