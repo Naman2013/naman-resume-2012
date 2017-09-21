@@ -1,23 +1,40 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { brightGreen } from '../../styles/variables/colors';
 
-const MissionTitle = () => (
+const propTypes = {
+  title: PropTypes.string,
+};
+
+const defaultProps = {
+  title: '',
+};
+
+const MissionTitle = ({ title }) => (
   <div className="root">
-    <h5 className="content">Whirlpool Galaxy</h5>
+    {
+      title &&
+        <h5 className="content">{title}</h5>
+    }
 
     <style jsx>{`
       .root {
         text-align: center;
-        padding-bottom: 20px;
+        border: 1px solid ${brightGreen};
+        width: 40%;
+        margin: 0 auto 20px auto;
+        padding: 5px 10px;
       }
 
       .content {
-        border: 1px solid ${brightGreen};
-        display: inline;
-        padding: 0 15px;
+        padding: 0;
+        margin: 0;
       }
     `}</style>
   </div>
 );
+
+MissionTitle.propTypes = propTypes;
+MissionTitle.defaultProps = defaultProps;
 
 export default MissionTitle;

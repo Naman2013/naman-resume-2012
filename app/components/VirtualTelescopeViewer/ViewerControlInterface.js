@@ -69,7 +69,7 @@ const ViewerControlInterface = ({
         <ObjectMetaInformation missionData={missionData} />
 
         <div className="grow-2">
-          <MissionTitle />
+          <MissionTitle title={objectTitleShort} />
         </div>
 
         <ImageProcessingInformation />
