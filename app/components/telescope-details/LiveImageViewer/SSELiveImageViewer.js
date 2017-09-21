@@ -6,6 +6,13 @@ import TelescopeImageLoader from '../../common/telescope-image-loader';
 import obsIdTeleIdDomeIdFromTeleId from '../../../utils/obsid-teleid-domeid-from-teleid';
 
 const SSELiveImageViewer = ({
+  timestamp,
+  coordinateArray,
+  missionData,
+  objectTitleShort,
+  processing,
+  schedulingMember,
+
   imageSource,
   teleThumbWidth,
   teleFade,
@@ -17,7 +24,14 @@ const SSELiveImageViewer = ({
 
   return (
     <LiveImageViewer>
-      <VirtualTelescopeViewer>
+      <VirtualTelescopeViewer
+        timestamp={timestamp}
+        coordinateArray={coordinateArray}
+        missionData={missionData}
+        objectTitleShort={objectTitleShort}
+        processing={processing}
+        schedulingMember={schedulingMember}
+      >
         <TelescopeImageLoader
           imageSource={imageSource}
           teleId={teleId}
