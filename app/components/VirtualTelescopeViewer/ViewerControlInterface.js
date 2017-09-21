@@ -66,7 +66,7 @@ const ViewerControlInterface = ({
 
     <div className="bottom">
       <div className="bottom-container">
-        <ObjectMetaInformation />
+        <ObjectMetaInformation missionData={missionData} />
 
         <div className="grow-2">
           <MissionTitle />

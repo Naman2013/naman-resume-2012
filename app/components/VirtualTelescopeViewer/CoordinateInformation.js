@@ -15,7 +15,7 @@ const CoordinateInformation = ({ coordinateArray }) => (
     <ul>
       {
         coordinateArray
-          .map(infoLine => <li dangerouslySetInnerHTML={{ __html: infoLine }} />)
+          .map(infoLine => <li key={uniqueId()} dangerouslySetInnerHTML={{ __html: infoLine }} />)
       }
     </ul>
 

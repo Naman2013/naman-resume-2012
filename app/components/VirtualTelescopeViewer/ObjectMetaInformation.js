@@ -1,24 +1,21 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import uniqueId from 'lodash/uniqueId';
 
-const TEMP_CONTENT = [
-  'Designation: M51, NGC, 5194',
-  'Type: Spiral Galaxy',
-  'Constellation: Canes Venatici',
-  'Magnitude: 8.4',
-  'Size: 600 arcseconds',
-  'Distance: 37 million light years',
-];
+const propTypes = {
+  missionData: PropTypes.arrayOf(PropTypes.string),
+};
 
-const MetaItem = ({ content }) => (
-  <li>{ content }</li>
-);
+const defaultProps = {
+  missionData: [],
+};
 
-const ObjectMetaInformation = () => (
+const ObjectMetaInformation = ({ missionData }) => (
   <div>
     <ul className="list">
       {
-        TEMP_CONTENT.map(content => <MetaItem key={uniqueId()} content={content} />)
+        missionData
+          .map(content => <li key={uniqueId()} dangerouslySetInnerHTML={{ __html: content }} />)
       }
     </ul>
 
@@ -27,9 +24,13 @@ const ObjectMetaInformation = () => (
         list-style-type: none;
         padding: 0;
         margin: 0;
+        font-size: 12px;
       }
     `}</style>
   </div>
 );
+
+ObjectMetaInformation.propTypes = propTypes;
+ObjectMetaInformation.defaultProps = defaultProps;
 
 export default ObjectMetaInformation;
