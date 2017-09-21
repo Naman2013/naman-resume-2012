@@ -1,21 +1,21 @@
 import React from 'react';
-import uniqueId from 'lodash/uniqueId';
+import PropTypes from 'prop-types';
 
-const TEMP_CONTENT = [
-  'Processing: Bright Galaxy or Comet',
-  'Scheduling Member: PaulC.040315',
-];
+const propTypes = {
+  processing: PropTypes.string,
+  schedulingMember: PropTypes.string,
+};
 
-const Item = ({ content }) => (
-  <li className="item">{ content }</li>
-);
+const defaultProps = {
+  processing: '',
+  schedulingMember: '',
+};
 
-const ImageProcessingInformation = () => (
+const ImageProcessingInformation = ({ processing, schedulingMember }) => (
   <div>
     <ul className="list">
-      {
-        TEMP_CONTENT.map(content => <Item key={ uniqueId() } content={ content } />)
-      }
+      <li dangerouslySetInnerHTML={{ __html: processing }} />
+      <li dangerouslySetInnerHTML={{ __html: schedulingMember }} />
     </ul>
 
     <style jsx>{`
@@ -24,9 +24,13 @@ const ImageProcessingInformation = () => (
         text-align: right;
         margin: 0;
         padding: 0;
+        font-size: 12px;
       }
     `}</style>
   </div>
 );
+
+ImageProcessingInformation.propTypes = propTypes;
+ImageProcessingInformation.defaultProps = defaultProps;
 
 export default ImageProcessingInformation;

@@ -72,7 +72,10 @@ const ViewerControlInterface = ({
           <MissionTitle title={objectTitleShort} />
         </div>
 
-        <ImageProcessingInformation />
+        <ImageProcessingInformation
+          processing={processing}
+          schedulingMember={schedulingMember}
+        />
       </div>
     </div>
 
