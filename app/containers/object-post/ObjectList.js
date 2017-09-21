@@ -46,18 +46,22 @@ const mapStateToProps = ({ objectPostList }, ownProps) => ({
   filterType: ownProps.params.filterType,
 });
 
-const mapDispatchToProps = dispatch => (bindActionCreators({
-  fetchObjectAllTimeBest,
-  fetchObjectLatestContent,
-  fetchPageMeta,
-  fetchObjectPosts,
-}, dispatch));
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators({
+    fetchObjectAllTimeBest,
+    fetchObjectLatestContent,
+    fetchPageMeta,
+    fetchObjectPosts,
+  }, dispatch)
+});
 
 @connect(mapStateToProps, mapDispatchToProps)
 class ObjectList extends Component {
   static propTypes = {
     children: PropTypes.element.isRequired,
-    fetchObjectPosts: PropTypes.func.isRequired,
+    actions: PropTypes.shape({
+      fetchObjectPosts: PropTypes.func.isRequired,
+    }),
     entryType: PropTypes.string.isRequired,
     filterType: PropTypes.string.isRequired,
     SlugLookupId: PropTypes.string.isRequired,
@@ -92,16 +96,16 @@ class ObjectList extends Component {
   }
 
   updateList(requestProps) {
-    const { fetchObjectPosts, fetchPageMeta } = this.props;
+    const { actions } = this.props;
     const {
       entryType,
       SlugLookupId,
       filterType,
     } = requestProps;
 
-    fetchPageMeta({ slugLookupId: SlugLookupId });
+    actions.fetchPageMeta({ slugLookupId: SlugLookupId });
 
-    fetchObjectPosts({
+    actions.fetchObjectPosts({
       type: [filterType],
       entryType,
       SlugLookupId,
@@ -127,6 +131,9 @@ class ObjectList extends Component {
         showFollowObjectButton,
         objectId,
       },
+      actions: {
+        fetchObjectLatestContent
+      }
     } = this.props;
 
     const recommendations = [Number(objectId)];
@@ -150,6 +157,7 @@ class ObjectList extends Component {
         {
           objectId ?
             cloneElement(children, {
+              fetchObjectLatestContent,
               headerObjectTitle,
               SlugLookupId,
               showRecommends,
