@@ -24,9 +24,12 @@ storiesOf('Virtual Telescope Viewer', module)
       </VirtualTelescopeViewer>
     </LiveImageViewer>
   ))
-  .add('Canary Four SS Normal 1678x1268', () => (
+  .add('With INFO: Canary Four SS Normal 1678x1268', () => (
     <LiveImageViewer>
-      <VirtualTelescopeViewer {...virtualTelescopeViewerContent}>
+      <VirtualTelescopeViewer
+        showInfoButton={true}
+        {...virtualTelescopeViewerContent}
+      >
         <div>
           <img draggable="false" alt="" src={telescopeTwo} />
         </div>

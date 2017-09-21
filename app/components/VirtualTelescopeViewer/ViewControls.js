@@ -6,10 +6,14 @@ import { monoFont } from '../../styles/variables/fonts';
 
 const propTypes = {
   handleClip: PropTypes.func.isRequired,
+  showInfoButton: PropTypes.bool.isRequired,
+  handleInfoClick: PropTypes.func.isRequired,
 };
 
 const ViewControls = ({
   handleClip,
+  showInfoButton,
+  handleInfoClick,
 }) => (
   <div>
     <div className="buttons-top-row">
@@ -21,7 +25,10 @@ const ViewControls = ({
       </button>
     </div>
 
-    <button className="show-info">Info</button>
+    {
+      showInfoButton &&
+        <button onClick={handleInfoClick} className="show-info">Info</button>
+    }
 
     <style jsx>{`
       button {

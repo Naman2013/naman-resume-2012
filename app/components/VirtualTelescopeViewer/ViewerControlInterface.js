@@ -52,6 +52,8 @@ const ViewerControlInterface = ({
         <ViewControls
           handleClip={handleClip}
           clipped={clipped}
+          showInfoButton={showInfoButton}
+          handleInfoClick={handleInfoClick}
         />
 
         <div className="grow-2">
