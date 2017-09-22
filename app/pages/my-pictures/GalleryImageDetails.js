@@ -7,6 +7,7 @@ import { findIndex } from 'lodash';
 import Pagination from '../../components/common/pagination/Pagination';
 import MyPicturesNavigation from '../../components/my-pictures/my-pictures-navigation';
 import { fetchImageDetailsAndCounts, fetchMyPicturesImageDetails } from '../../modules/my-pictures-image-details/actions';
+import { verifyMyPicsOwner } from '../../modules/my-pictures-verify-owner/actions';
 import { fetchGalleryPictures } from '../../modules/my-pictures-gallery-pictures/actions';
 import ImageViewer from '../../components/my-pictures/ImageViewer';
 import imageDetailsStyle from './ImageDetailsStyles';
@@ -25,6 +26,7 @@ const mapDispatchToProps = dispatch => ({
     fetchMyPicturesImageDetails,
     fetchGalleryPictures,
     fetchImageDetailsAndCounts,
+    verifyMyPicsOwner,
   }, dispatch),
 });
 
@@ -48,6 +50,7 @@ class ImageDetails extends Component {
   componentWillMount() {
     window.scrollTo(0, 0);
     const {
+      actions,
       params: {
         customerImageId,
         shareToken,
@@ -55,13 +58,18 @@ class ImageDetails extends Component {
       }
     } = this.props;
 
-    this.props.actions.fetchImageDetailsAndCounts({
-      customerImageId,
-      shareToken,
-    });
-    this.props.actions.fetchGalleryPictures({
-      galleryId,
-      firstImageNumber: 1,
+    actions.verifyMyPicsOwner({
+      itemId: customerImageId,
+      itemType: 'image'
+    }).then(() => {
+      actions.fetchImageDetailsAndCounts({
+        customerImageId,
+        shareToken,
+      });
+      actions.fetchGalleryPictures({
+        galleryId,
+        firstImageNumber: 1,
+      });
     });
   }
 
@@ -80,13 +88,18 @@ class ImageDetails extends Component {
       });
     }
     if (Number(this.props.params.customerImageId) !== Number(customerImageId) || String(this.props.params.shareToken) !== String(shareToken)) {
-      this.props.actions.fetchImageDetailsAndCounts({
-        customerImageId: nextProps.params.customerImageId,
-        shareToken: nextProps.params.shareToken,
-      });
-      this.props.actions.fetchGalleryPictures({
-        galleryId,
-        firstImageNumber: 1,
+      this.props.actions.verifyMyPicsOwner({
+        itemId: customerImageId,
+        itemType: 'image'
+      }).then(() => {
+        this.props.actions.fetchImageDetailsAndCounts({
+          customerImageId: nextProps.params.customerImageId,
+          shareToken: nextProps.params.shareToken,
+        });
+        this.props.actions.fetchGalleryPictures({
+          galleryId,
+          firstImageNumber: 1,
+        });
       });
     }
 
@@ -151,10 +164,10 @@ class ImageDetails extends Component {
     };
     return (
       <div>
-        <MyPicturesNavigation
+        {canEditFlag && <MyPicturesNavigation
           page="galleryImages"
           galleryId={galleryId}
-        />
+        />}
         <div className="clearfix my-pictures-container">
           <div className="container">
             <div className="left">
