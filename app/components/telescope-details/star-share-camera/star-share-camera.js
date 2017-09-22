@@ -211,7 +211,7 @@ class StarShareCamera extends Component {
             justify-content: center;
             align-items: center;
             box-shadow: 0 0 4px ${lightGray};
-            width: 100px;
+            width: 11%;
             height: 50px;
             outline: 0;
             border: none;
