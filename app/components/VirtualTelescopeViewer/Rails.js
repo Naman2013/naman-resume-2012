@@ -1,16 +1,18 @@
 import React from 'react';
 
-import railBorderPattern from '../../../assets/images/borders/rail-pattern.png';
-import runBorderPattern from '../../../assets/images/borders/run-pattern.png';
-
 const Rails = () => (
-  <div>
+  <div className="root">
     <div className="top-rail" />
     <div className="left-rail" />
     <div className="right-rail" />
     <div className="bottom-rail" />
 
     <style jsx>{`
+      .root {
+        width: 100%;
+        height: 100%;
+      }
+
       .top-rail,
       .bottom-rail,
       .left-rail,
@@ -19,7 +21,7 @@ const Rails = () => (
       }
 
       .top-rail, .bottom-rail {
-        background-image: url(${runBorderPattern});
+        background-image: url(/assets/images/borders/run-pattern.png);
         background-repeat: repeat-x;
         background-position: 1px;
         height: 13px;
@@ -27,7 +29,7 @@ const Rails = () => (
       }
 
       .left-rail, .right-rail {
-        background-image: url(${railBorderPattern});
+        background-image: url(/assets/images/borders/rail-pattern.png);
         background-repeat: repeat-y;
         width: 13px;
         height: 100%;
