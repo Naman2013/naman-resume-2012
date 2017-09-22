@@ -64,7 +64,7 @@ const ViewerControlInterface = ({
       </div>
     </div>
 
-    <div className="center">
+    <div>
       <div className="zoom-control">
         <ZoomControls
           handleZoomIn={handleZoomIn}

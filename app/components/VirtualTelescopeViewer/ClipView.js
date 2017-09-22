@@ -9,13 +9,15 @@ const defaultProps = {
   clipped: false,
 };
 
+const CLIP_PERCENTAGE = '38';
+
 function getClipStyle(clipped = false) {
   if (!clipped) return {};
 
   return {
-    WebkitClipPath: 'circle(32% at center)',
-    MozClipPath: 'circle(32% at center)',
-    clipPath: 'circle(32% at center)',
+    WebkitClipPath: `circle(${CLIP_PERCENTAGE}% at center)`,
+    MozClipPath: `circle(${CLIP_PERCENTAGE}% at center)`,
+    clipPath: `circle(${CLIP_PERCENTAGE}% at center)`,
   };
 }
 

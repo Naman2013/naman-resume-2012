@@ -197,6 +197,11 @@ class VirtualTelescopeView extends Component {
             height: 100%;
           }
 
+          :global(.virtual-telescope-view-content-container .top-image) {
+            position: absolute;
+            top: 0;
+          }
+
           .virtual-telescope-view-content-container {
             font-family: ${monoFont};
             color: ${brightGreen};
