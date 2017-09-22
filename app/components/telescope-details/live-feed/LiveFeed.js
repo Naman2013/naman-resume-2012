@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import noop from 'lodash/noop';
 import GenericLoadingBox from '../../common/loading-screens/generic-loading-box';
 import TelescopeOffline from '../telescope-offline/telescope-offline';
 import determineImageLoader from '../determine-image-loader';
@@ -22,6 +23,8 @@ class LiveFeed extends Component {
       processing: PropTypes.string,
       schedulingMember: PropTypes.string,
     }),
+    activeNeoview: PropTypes.bool,
+    handleInfoClick: PropTypes.func,
   };
 
   static defaultProps = {
@@ -36,6 +39,8 @@ class LiveFeed extends Component {
       processing: '',
       schedulingMember: '',
     },
+    activeNeoview: false,
+    handleInfoClick: noop,
   };
 
   render() {
@@ -46,7 +51,14 @@ class LiveFeed extends Component {
       instrument,
       offlineImageSource,
       activeMission,
+      activeNeoview,
+      handleInfoClick,
     } = this.props;
+
+    const neoview = {
+      activeNeoview,
+      handleInfoClick,
+    };
 
     if (fetchingOnlineStatus) {
       return (
@@ -76,6 +88,7 @@ class LiveFeed extends Component {
         {
           determineImageLoader(instrument, {
             activeMission,
+            neoview,
           })
         }
       </div>

@@ -55,6 +55,8 @@ const SSELiveImageViewer = ({
   clipped,
   missionFormat,
   callSource,
+  showInfoButton,
+  handleInfoClick,
 }) => {
   const { obsId, domeId } = obsIdTeleIdDomeIdFromTeleId(teleId);
   const imageSource = generateSseImageLoader(teleSystem, telePort);
@@ -69,6 +71,8 @@ const SSELiveImageViewer = ({
         objectTitleShort={objectTitleShort}
         processing={processing}
         schedulingMember={schedulingMember}
+        showInfoButton={showInfoButton}
+        handleInfoClick={handleInfoClick}
       >
         <TelescopeImageLoader
           imageSource={imageSource}

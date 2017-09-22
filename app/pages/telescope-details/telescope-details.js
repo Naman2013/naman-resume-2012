@@ -107,7 +107,7 @@ class TelescopeDetails extends Component {
   }
 
   state = {
-    toggleNeoview: false,
+    neoviewOpen: false,
     selectedTab: 0,
     missionPercentageRemaining: 0,
   };
@@ -167,6 +167,12 @@ class TelescopeDetails extends Component {
     });
   };
 
+  toggleNeoview = () => {
+    this.setState(prevState => ({
+      neoviewOpen: !prevState.neoviewOpen,
+    }));
+  };
+
   scaffoldObservatoryList() {
     const { obsUniqueId, teleUniqueId } = this.props.params;
     this.props.actions.bootstrapTelescopeDetails({
@@ -191,7 +197,7 @@ class TelescopeDetails extends Component {
   }
 
   render() {
-    const { selectedTab } = this.state;
+    const { selectedTab, neoviewOpen } = this.state;
     const {
       fetchingObservatoryList,
       fetchingObservatoryStatus,
@@ -285,12 +291,15 @@ class TelescopeDetails extends Component {
                         instrument={instrument}
                         offlineImageSource={instrument.instrOfflineImgURL}
                         activeMission={activeTelescopeMission}
+                        activeNeoview={selectedInstrument.instrHasNeoView}
                       />
 
                       {
                         /** load the neoview */
                         (telescopeOnline && selectedInstrument.instrHasNeoView) ?
                           <Neoview
+                            toggleNeoview={this.toggleNeoview}
+                            neoviewOpen={neoviewOpen}
                             teleSystem={selectedInstrument.instrSystem}
                             showToggleOption={currentTelescope.teleOnlineStatus === 'online'}
                             percentageMissionTimeRemaining={100}

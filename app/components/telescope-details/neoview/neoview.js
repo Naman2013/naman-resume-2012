@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Progress from 'react-progressbar';
 import classnames from 'classnames';
 import uniqueId from 'lodash/uniqueId';
+import noop from 'lodash/noop';
 import NeoViewDescription from './NeoViewDescription';
 import NewViewMessage from './NeoViewMessage';
 import s from './neoview.scss';
@@ -14,6 +16,15 @@ import s from './neoview.scss';
 // √ TODO: prepend the neoview description to the feed state
 
 export default class Neoview extends Component {
+  static propTypes = {
+    toggleNeoview: PropTypes.func,
+    neoviewOpen: PropTypes.bool,
+  };
+
+  static defaultProps = {
+    toggleNeoview: noop,
+    displayNeoview: false,
+  };
 
   state = {
     latestMessage: null,
@@ -80,17 +91,19 @@ export default class Neoview extends Component {
     * we prepend the most recent message and the neoview description
     */
   handleToggleNeoview = () => {
+    // call provided prop method to ensure parent controls the display state
+    this.props.toggleNeoview();
+    // update internal state to reflect the appropriate message structure
     this.setState(prevState => ({
       messages: [prevState.latestMessage],
-      toggleNeoview: !prevState.toggleNeoview,
     }));
   }
 
   render() {
-    const { percentageMissionTimeRemaining } = this.props;
+    const { percentageMissionTimeRemaining, neoviewOpen } = this.props;
     const neoviewContainerClassnames = classnames('neoview-wrapper', {
-      visible: this.state.toggleNeoview,
-      hidden: !this.state.toggleNeoview,
+      visible: neoviewOpen,
+      hidden: !neoviewOpen,
     });
 
     return (
