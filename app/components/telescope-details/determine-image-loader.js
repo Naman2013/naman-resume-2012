@@ -16,7 +16,7 @@ export default function determineImageLoader(instrument, { activeMission }) {
         teleSystem={instrument.instrSystem}
         teleId={instrument.instrTelescopeId}
         teleFade={instrument.instrFade}
-        timestamp={0}
+        timestamp={activeMission.timestamp}
         coordinateArray={activeMission.coordinateArray}
         missionData={activeMission.missionData}
         objectTitleShort={activeMission.objectTitleShort}

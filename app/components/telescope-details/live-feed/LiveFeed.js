@@ -15,6 +15,7 @@ class LiveFeed extends Component {
     }),
     offlineImageSource: PropTypes.string.isRequired,
     activeMission: PropTypes.shape({
+      timestamp: PropTypes.number,
       coordinateArray: PropTypes.arrayOf(PropTypes.string),
       missionData: PropTypes.arrayOf(PropTypes.string),
       objectTitleShort: PropTypes.string,
@@ -28,6 +29,7 @@ class LiveFeed extends Component {
     instrument: null,
     obsAlert: '',
     activeMission: {
+      timestamp: 0,
       coordinateArray: [],
       missionData: [],
       objectTitleShort: '',

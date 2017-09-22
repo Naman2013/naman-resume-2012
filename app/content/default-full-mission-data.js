@@ -42,6 +42,7 @@ export default function newMissionData() {
     objectShortTitle: '',
     processing: '',
     schedulingMember: '',
+    timestamp: 0,
   };
 }
 
