@@ -131,6 +131,7 @@ class ObjectList extends Component {
       children,
       pageMeta: {
         headerObjectTitle,
+        headerSubtitle,
         headerIconURL,
         showCreateNewPostButton,
         showRecommends,
@@ -153,6 +154,7 @@ class ObjectList extends Component {
         <AnnouncementBanner />
         <CommunityPostHeader
           titleText={headerObjectTitle}
+          subtitleText={headerSubtitle}
           objectIconURL={headerIconURL}
           showCreateNewPostButton={showCreateNewPostButton}
         />
