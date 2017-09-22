@@ -3,7 +3,7 @@ import TelescopeImageViewer from '../common/telescope-image-viewer/telescope-ima
 import VideoImageLoader from '../common/telescope-image-loader/video-image-loader';
 import SSELiveImageViewer from './LiveImageViewer/SSELiveImageViewer';
 
-export default function determineImageLoader(instrument) {
+export default function determineImageLoader(instrument, { activeMission }) {
   const {
     instrImageSourceType,
     instrCameraSourceType,
@@ -16,6 +16,12 @@ export default function determineImageLoader(instrument) {
         teleSystem={instrument.instrSystem}
         teleId={instrument.instrTelescopeId}
         teleFade={instrument.instrFade}
+        timestamp={0}
+        coordinateArray={activeMission.coordinateArray}
+        missionData={activeMission.missionData}
+        objectTitleShort={activeMission.objectTitleShort}
+        processing={activeMission.processing}
+        schedulingMember={activeMission.schedulingMember}
       />
     );
   } else if (instrImageSourceType === 'video') {
