@@ -1,5 +1,9 @@
 import React, { Component, cloneElement } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
+import { setImageDataToSnapshot } from '../../../modules/starshare-camera/starshare-camera-actions';
 
 const propTypes = {
   children: PropTypes.node,
@@ -15,11 +19,24 @@ const MAX_SCALE = 3;
 const SCALE_FACTOR = 3250;
 const SCALE_THRESHOLD = 1.5;
 
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators({
+    setImageDataToSnapshot,
+  }, dispatch),
+});
+
+@connect(null, mapDispatchToProps)
 class LiveImageViewer extends Component {
   state = {
     scale: 1,
     clipped: true,
   };
+
+  componentWillUpdate(nextProps, nextState) {
+    this.props.actions.setImageDataToSnapshot({
+      zoom: nextState.scale,
+    });
+  }
 
   zoomIn = (event) => {
     event.preventDefault();
