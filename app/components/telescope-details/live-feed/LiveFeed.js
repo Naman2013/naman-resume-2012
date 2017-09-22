@@ -14,12 +14,26 @@ class LiveFeed extends Component {
       instrCameraSourceType: PropTypes.string.isRequired,
     }),
     offlineImageSource: PropTypes.string.isRequired,
+    activeMission: PropTypes.shape({
+      coordinateArray: PropTypes.arrayOf(PropTypes.string),
+      missionData: PropTypes.arrayOf(PropTypes.string),
+      objectTitleShort: PropTypes.string,
+      processing: PropTypes.string,
+      schedulingMember: PropTypes.string,
+    }),
   };
 
   static defaultProps = {
     onlineStatus: 'offline',
     instrument: null,
     obsAlert: '',
+    activeMission: {
+      coordinateArray: [],
+      missionData: [],
+      objectTitleShort: '',
+      processing: '',
+      schedulingMember: '',
+    },
   };
 
   render() {
@@ -29,6 +43,7 @@ class LiveFeed extends Component {
       onlineStatus,
       instrument,
       offlineImageSource,
+      activeMission,
     } = this.props;
 
     if (fetchingOnlineStatus) {
@@ -56,7 +71,11 @@ class LiveFeed extends Component {
 
     return (
       <div className="root">
-        { determineImageLoader(instrument) }
+        {
+          determineImageLoader(instrument, {
+            activeMission,
+          })
+        }
       </div>
     );
   }

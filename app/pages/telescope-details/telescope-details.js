@@ -284,6 +284,7 @@ class TelescopeDetails extends Component {
                         }
                         instrument={instrument}
                         offlineImageSource={instrument.instrOfflineImgURL}
+                        activeMission={activeTelescopeMission}
                       />
 
                       {
