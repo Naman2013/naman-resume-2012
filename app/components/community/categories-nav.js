@@ -12,7 +12,7 @@ class CategoriesNav extends Component {
       const isActiveRoute = this.props.location.pathname.indexOf(v.route) >= 0;
       return (
         <li key={uniqueId()}>
-          <Link to={isObjects ? `/${route}/all` : `/${route}`} activeClassName="active">
+          <Link to={isObjects ? `/${v.linkRoute}` : `/${route}`} activeClassName="active">
             {v.label}
           </Link>
           {

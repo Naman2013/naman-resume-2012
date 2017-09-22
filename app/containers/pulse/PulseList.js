@@ -11,7 +11,7 @@ import './Pulse.scss';
 
 const navigationList = [
   {
-    label: 'THE LATEST POSTS',
+    label: 'LATEST',
     route: 'latest-posts',
     children: [
       {
@@ -33,7 +33,7 @@ const navigationList = [
     ]
   },
   {
-    label: 'THE HOTTEST POSTS',
+    label: 'HOTTEST',
     route: 'hottest-posts',
     children: [
       {
@@ -55,7 +55,7 @@ const navigationList = [
     ]
   },
   {
-    label: 'ALL POSTS',
+    label: 'ALL',
     route: 'all-posts',
     children: [
       {}

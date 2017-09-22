@@ -15,8 +15,9 @@ import {
 function generateList({ SlugLookupId }) {
   return [
     {
-      label: 'LATEST ENTRIES',
+      label: 'LATEST',
       route: `latest-entries/${SlugLookupId}`,
+      linkRoute: 'slooh-pulse/latest-posts',
       children: [
         {
           label: 'All Categories',
@@ -36,6 +37,16 @@ function generateList({ SlugLookupId }) {
         },
       ],
     },
+    {
+      label: 'HOTTEST',
+      linkRoute: 'slooh-pulse/hottest-posts',
+      children: [],
+    },
+    {
+      label: 'ALL',
+      linkRoute: 'slooh-pulse/all-posts',
+      children: [],
+    }
   ];
 }
 
@@ -150,7 +161,7 @@ class ObjectList extends Component {
           route={route}
           location={location}
           list={generateList({ SlugLookupId })}
-          className="grey single"
+          className="grey"
           isObjects={true}
         />
 
