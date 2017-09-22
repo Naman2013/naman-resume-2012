@@ -36,6 +36,7 @@ import missionSlotsByTelescope from './mission-slots-by-telescope/mission-slots-
 import myPictures from './my-pictures/reducer';
 import myPicturesImageDetails from './my-pictures-image-details/reducer';
 import myPicturesFilters from './my-pictures-filters/reducer';
+import myPicturesVerifyOwner from './my-pictures-verify-owner/reducer';
 import galleries from './my-pictures-galleries/reducer';
 import galleryPictures from './my-pictures-gallery-pictures/reducer';
 import galleryActions from './my-pictures-gallery-actions/reducer';
@@ -96,6 +97,7 @@ export default combineReducers({
   myPictures,
   myPicturesImageDetails,
   myPicturesFilters,
+  myPicturesVerifyOwner,
   galleries,
   galleryActions,
   galleryPictures,

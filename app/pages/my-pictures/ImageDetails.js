@@ -4,12 +4,16 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import MyPicturesNavigation from '../../components/my-pictures/my-pictures-navigation';
 import { fetchImageDetailsAndCounts } from '../../modules/my-pictures-image-details/actions';
+import { verifyMyPicsOwner } from '../../modules/my-pictures-verify-owner/actions';
 import ImageViewer from '../../components/my-pictures/ImageViewer';
 import imageDetailsStyle from './ImageDetailsStyles';
 import ImageInfoPanel from '../../components/my-pictures/ImageInfoPanel';
 import PhotoActions from '../../components/my-pictures/actions/PhotoActions';
 
-const mapStateToProps = ({ myPicturesImageDetails, user }) => ({
+const mapStateToProps = ({
+  myPicturesImageDetails,
+  user,
+}) => ({
   myPicturesImageDetails,
   user,
 });
@@ -17,6 +21,7 @@ const mapStateToProps = ({ myPicturesImageDetails, user }) => ({
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
     fetchImageDetailsAndCounts,
+    verifyMyPicsOwner,
   }, dispatch),
 });
 
@@ -33,16 +38,23 @@ class ImageDetails extends Component {
   componentWillMount() {
     window.scrollTo(0, 0);
     const {
+      actions,
       params: {
         customerImageId,
         shareToken,
         galleryId
       }
     } = this.props;
-    this.props.actions.fetchImageDetailsAndCounts({
-      customerImageId,
-      shareToken,
+    actions.verifyMyPicsOwner({
+      itemId: customerImageId,
+      itemType: 'image'
+    }).then(() => {
+      actions.fetchImageDetailsAndCounts({
+        customerImageId,
+        shareToken,
+      });
     });
+
   }
 
 
@@ -88,10 +100,10 @@ class ImageDetails extends Component {
     const photoActionsScheduledMissionId = scheduledMissionIdParam ? scheduledMissionId : null;
     return (
       <div>
-        <MyPicturesNavigation
+        {canEditFlag && <MyPicturesNavigation
           page="photo-roll"
           scheduledMissionId={scheduledMissionId}
-        />
+        />}
         <div className="clearfix my-pictures-container">
           <div className="container">
             <div className="left title">
