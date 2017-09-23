@@ -43,13 +43,14 @@ class PulseWrapper extends Component {
   constructor(props) {
     super(props);
     const { fetchLatestPosts, childPath, route: { path }, page } = this.props;
-    fetchLatestPosts(path, childPath, page);
+    if (path !== 'all-posts') {
+      fetchLatestPosts(path, childPath, page);
+    }
   }
 
   componentWillReceiveProps(nextProps) {
     const { fetchLatestPosts, childPath, route: { path }, page } = this.props;
-
-    if (nextProps.childPath !== childPath || nextProps.route.path !== path) {
+    if (nextProps.route.path !== 'all-posts' && (nextProps.childPath !== childPath || nextProps.route.path !== path)) {
       fetchLatestPosts(nextProps.route.path, nextProps.childPath, 1);
     }
   }
@@ -72,7 +73,7 @@ class PulseWrapper extends Component {
     <section className="">
       <div className="col-md-8">
         {
-          fetching ? <GenericLoadingBox /> : cloneElement(children, {
+          (path !== 'all-posts' && fetching) ? <GenericLoadingBox /> : cloneElement(children, {
             path,
             page,
             postsPerPage,

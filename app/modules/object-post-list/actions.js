@@ -1,8 +1,8 @@
 import axios from 'axios';
 
-export const FETCH_PAGE_META_START = 'FETCH_PAGE_META_START';
-export const FETCH_PAGE_META_SUCCESS = 'FETCH_PAGE_META_SUCCESS';
-export const FETCH_PAGE_META_FAIL = 'FETCH_PAGE_META_FAIL';
+export const FETCH_OBJECT_LIST_PAGE_META_START = 'FETCH_OBJECT_LIST_PAGE_META_START';
+export const FETCH_OBJECT_LIST_PAGE_META_SUCCESS = 'FETCH_OBJECT_LIST_PAGE_META_SUCCESS';
+export const FETCH_OBJECT_LIST_PAGE_META_FAIL = 'FETCH_OBJECT_LIST_PAGE_META_FAIL';
 
 export const FETCH_OBJECT_ALL_TIME_BEST_START = 'FETCH_OBJECT_ALL_TIME_BEST_START';
 export const FETCH_OBJECT_ALL_TIME_BEST_SUCCESS = 'FETCH_OBJECT_ALL_TIME_BEST_SUCCESS';
@@ -13,16 +13,16 @@ export const FETCH_OBJECT_LATEST_CONTENT_SUCCESS = 'FETCH_OBJECT_LATEST_CONTENT_
 export const FETCH_OBJECT_LATEST_CONTENT_FAIL = 'FETCH_OBJECT_LATEST_CONTENT_FAIL';
 
 const fetchPageMetaStart = () => ({
-  type: FETCH_PAGE_META_START,
+  type: FETCH_OBJECT_LIST_PAGE_META_START,
 });
 
 const fetchPageMetaSuccess = payload => ({
-  type: FETCH_PAGE_META_SUCCESS,
+  type: FETCH_OBJECT_LIST_PAGE_META_SUCCESS,
   payload,
 });
 
 const fetchPageMetaFail = payload => ({
-  type: FETCH_PAGE_META_FAIL,
+  type: FETCH_OBJECT_LIST_PAGE_META_FAIL,
   payload,
 });
 
@@ -109,7 +109,7 @@ export const fetchObjectLatestContent = ({
     type,
     ver,
   })
-  .then(result => dispatch(fetchObjectLatestContentSuccess(result.data)))
+  .then(result => dispatch(fetchObjectLatestContentSuccess(Object.assign({ count, page }, result.data))))
   .catch(error => dispatch(fetchObjectLatestContentFail(error)));
 };
 

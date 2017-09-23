@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import Pagination from 'rc-pagination';
 import { Link } from 'react-router';
 import uniqueId from 'lodash/uniqueId';
 import isEmpty from 'lodash/isEmpty';
@@ -9,11 +10,11 @@ import styles from './object-post.scss';
 
 class ObjectPostList extends Component {
 
-  prepareData(objectPosts) {
+  prepareData(objectPosts, firstPostIndex) {
     return objectPosts.map((v, k) =>
       <div key={uniqueId()}>
         <div className={styles.ObjectPostList} key={v.postId}>
-          <span className={styles.ObjectPostListID}>{k+1}.</span>
+          <span className={styles.ObjectPostListID}>{firstPostIndex + k}.</span>
 
           <figure className={styles.ObjectPostListInfo}>
             <Link to={`/community/post/${v.postId}`}>
@@ -60,14 +61,14 @@ class ObjectPostList extends Component {
                <div className="col-xs-6">
                  <div className={styles.ObjectPostListToolsHot}>
                    <CommunityPostTools
-                       type={v.type}
-                       authorId={v.customerId}
-                       objectSlug={v.slug}
-                       likesCount={v.likesCount}
-                       showLikePrompt={v.showLikePrompt}
-                       likePrompt={v.likePrompt}
-                       likeId={v.postId}
-                       />
+                     type={v.type}
+                     authorId={v.customerId}
+                     objectSlug={v.slug}
+                     likesCount={v.likesCount}
+                     showLikePrompt={v.showLikePrompt}
+                     likePrompt={v.likePrompt}
+                     likeId={v.postId}
+                    />
                  </div>
                </div>
                </div>
@@ -90,28 +91,61 @@ class ObjectPostList extends Component {
     );
   }
 
+  handlePageChange = (page) => {
+    const { fetchObjectLatestContent, SlugLookupId } = this.props;
+    fetchObjectLatestContent({
+      page,
+      SlugLookupId,
+    });
+  };
+
   render() {
-    const { objectPosts } = this.props;
+    const {
+      objectPosts,
+      page,
+      count,
+      postsCount,
+      firstPostIndex,
+    } = this.props;
     const hasPosts = !objectPosts || isEmpty(objectPosts);
     const noPosts = (
       <div>
         <h3>No posts available...</h3>
       </div>
     );
-
     return (
       <div>
         {hasPosts && noPosts}
-        {!hasPosts && this.prepareData(objectPosts)}
+        {!hasPosts && this.prepareData(objectPosts, firstPostIndex)}
+        <div className="pagination">
+          <Pagination
+            onChange={this.handlePageChange}
+            defaultPageSize={count}
+            current={page}
+            total={postsCount}
+          />
+        </div>
+        <style jsx>
+          {`
+            .pagination {
+              margin: 25px 50px;
+            }
+          `}
+        </style>
       </div>
     );
   }
 }
 
 ObjectPostList.propTypes = {
-  pages: PropTypes.number,
+  SlugLookupId: PropTypes.string.isRequired,
+  fetchObjectLatestContent: PropTypes.func.isRequired,
+  pages: PropTypes.number.isRequired,
+  page: PropTypes.number.isRequired,
+  count: PropTypes.number.isRequired,
+  postsCount: PropTypes.number.isRequired,
   objectPosts: PropTypes.array,
-  fetchObjectPosts: PropTypes.func,
+  fetchObjectPosts: PropTypes.func.isRequired,
   path: PropTypes.string,
 };
 
