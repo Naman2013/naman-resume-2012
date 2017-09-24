@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { Helmet } from 'react-helmet';
 import Menu from './Menu';
 import Header from '../components/common/header';
 import Footer from '../components/common/footer';
@@ -40,6 +41,10 @@ class App extends Component {
     const { isLanding } = this.props;
     return (
       <div className={`wrapper ${isLanding ? 'is-landing' : null}`}>
+        <Helmet>
+          <meta charSet="utf-8" />
+          <title>New page title...</title>
+        </Helmet>
         <Header />
         <Menu source="nav.json" />
         <section className="app-content-container clearfix">
