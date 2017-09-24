@@ -129,6 +129,7 @@ class ImageDetails extends Component {
       fetching,
       imageCount,
       imageList,
+      galleryTitle,
     } = this.props.galleryPictures;
     const {
       currentImageIndex,
@@ -158,7 +159,9 @@ class ImageDetails extends Component {
         <div className="clearfix my-pictures-container">
           <div className="container">
             <div className="left">
-              <h2 dangerouslySetInnerHTML={{ __html: imageTitle }} />
+              <h2>
+                <span dangerouslySetInnerHTML={{ __html: galleryTitle }} /> Photos: <span dangerouslySetInnerHTML={{ __html: imageTitle }} />
+              </h2>
             </div>
             <div className="right-top">
             <PhotoActions
