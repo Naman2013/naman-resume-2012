@@ -21,7 +21,7 @@ const Rails = () => (
       }
 
       .top-rail, .bottom-rail {
-        background-image: url(/assets/images/borders/run-pattern.png);
+        background-image: url(https://vega.slooh.com/images/tests/run-pattern.png);
         background-repeat: repeat-x;
         background-position: 1px;
         height: 13px;
@@ -29,7 +29,7 @@ const Rails = () => (
       }
 
       .left-rail, .right-rail {
-        background-image: url(/assets/images/borders/rail-pattern.png);
+        background-image: url(https://vega.slooh.com/images/tests/rail-pattern.png);
         background-repeat: repeat-y;
         width: 13px;
         height: 100%;
