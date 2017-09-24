@@ -3,15 +3,15 @@
 exports[`it should render a header 1`] = `
 <div
   className="communityPostHeader"
-  data-jsx={4117531850}
+  data-jsx={1790120999}
 >
   <div
     className="left-container"
-    data-jsx={4117531850}
+    data-jsx={1790120999}
   >
     <div
       className="title"
-      data-jsx={4117531850}
+      data-jsx={1790120999}
     >
       <h1
         className="title-text"
@@ -20,7 +20,7 @@ exports[`it should render a header 1`] = `
             "__html": "",
           }
         }
-        data-jsx={4117531850}
+        data-jsx={1790120999}
       />
     </div>
     <div
@@ -30,20 +30,20 @@ exports[`it should render a header 1`] = `
           "__html": "",
         }
       }
-      data-jsx={4117531850}
+      data-jsx={1790120999}
     />
   </div>
   <div
     className="additional"
-    data-jsx={4117531850}
+    data-jsx={1790120999}
   >
     <div
       className="button-nav"
-      data-jsx={4117531850}
+      data-jsx={1790120999}
     >
       <span
         className="action-button"
-        data-jsx={4117531850}
+        data-jsx={1790120999}
       >
         <a
           className="button btn-primary"
@@ -88,6 +88,10 @@ exports[`it should render a header 1`] = `
             text-transform: none;
             font-weight: normal;
             margin-top: 5px;
+          }
+    
+          .button-nav {
+            text-align: left;
           }
     
           .title-text {

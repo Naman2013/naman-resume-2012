@@ -69,6 +69,10 @@ const CommunityPostHeader = ({
         margin-top: 5px;
       }
 
+      .button-nav {
+        text-align: left;
+      }
+
       .title-text {
         margin: 0;
         color: #fff;
