@@ -12,33 +12,34 @@ const PulseListHeader = ({
   title,
 }) =>
   <div className="pulseListHeader">
-    <div className="title col-md-5 pull-left">
+    <div className="title">
       <h1 className="header-title" dangerouslySetInnerHTML={{ __html: title }} />
       <div className="header-subtitle" dangerouslySetInnerHTML={{ __html: subtitle }} />
     </div>
     {
-      showCreateNewPostButton ? <Link className="button btn-primary pull-right" to="/publish-post">Create new post</Link> : null
+      showCreateNewPostButton ? <Link className="btn-primary header-button" to="/publish-post">Create new post</Link> : null
     }
     <style jsx>{`
 
       .pulseListHeader {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
         font-family: ${primaryFont};
         background: url('https://vega.slooh.com/assets/images/graphics/milkeyway_header.jpg') no-repeat;
         background-size: cover;
-        height: 145px;
-        padding: 20px;
+        min-height: 145px;
+        padding: 50px;
         position: relative;
       }
 
       .title {
-        position: absolute;
-        bottom: 20px;
-        left: 0;
+
       }
-      .button {
-        position: absolute;
-        bottom: 10px;
-        right: 30px;
+
+      :global(.header-button) {
+        margin: 15px 15px;
       }
 
       .header-title {
@@ -47,7 +48,6 @@ const PulseListHeader = ({
         text-transform: uppercase;
         font-weight: 600;
         font-size: 35px;
-        float: left;
       }
 
       .header-subtitle {
@@ -57,20 +57,10 @@ const PulseListHeader = ({
         text-transform: none;
         font-weight: normal;
         color: ${white};
+        clear: both;
       }
 
       @media(max-width:375px){
-        .title,
-        .button{
-          position:relative;
-          float:none;
-          left:auto;
-          right:auto;
-          right:auto;
-          bottom:auto;
-          float:none !important;
-        }
-
         .header-title {
           font-size: 35px;
         }

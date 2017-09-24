@@ -42,8 +42,9 @@ const CommunityPostHeader = ({
         font-family: ${primaryFont};
         background: url(https://vega.slooh.com/assets/images/graphics/milkeyway_header.jpg) no-repeat;
         background-size: cover;
-        height: 145px;
+        min-height: 145px;
         display: inline-flex;
+        flex-wrap: wrap;
         align-items: center;
         padding: 50px;
         margin-bottom: 20px;

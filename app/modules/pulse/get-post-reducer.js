@@ -18,7 +18,7 @@ import {
 
 const defaultPageMeta = {
   headerIconURL: '',
-  headerObjectTitle: 'Loading...',
+  headerObjectTitle: '',
   showRecommends: false,
   showCreateNewPostButton: false,
   headerSubtitle: '',

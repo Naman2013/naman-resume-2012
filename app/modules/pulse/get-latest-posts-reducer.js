@@ -11,7 +11,7 @@ import {
 } from './get-latest-posts-action';
 
 const defaultPageMeta = {
-  headerTitle: 'Loading...',
+  headerTitle: '',
   headerSubtitle: '',
   objectIdList: [],
   showAdUnit: false,

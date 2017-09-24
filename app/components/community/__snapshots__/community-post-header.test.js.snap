@@ -3,15 +3,15 @@
 exports[`it should render a header 1`] = `
 <div
   className="communityPostHeader"
-  data-jsx={1862651292}
+  data-jsx={4117531850}
 >
   <div
     className="left-container"
-    data-jsx={1862651292}
+    data-jsx={4117531850}
   >
     <div
       className="title"
-      data-jsx={1862651292}
+      data-jsx={4117531850}
     >
       <h1
         className="title-text"
@@ -20,7 +20,7 @@ exports[`it should render a header 1`] = `
             "__html": "",
           }
         }
-        data-jsx={1862651292}
+        data-jsx={4117531850}
       />
     </div>
     <div
@@ -30,20 +30,20 @@ exports[`it should render a header 1`] = `
           "__html": "",
         }
       }
-      data-jsx={1862651292}
+      data-jsx={4117531850}
     />
   </div>
   <div
     className="additional"
-    data-jsx={1862651292}
+    data-jsx={4117531850}
   >
     <div
       className="button-nav"
-      data-jsx={1862651292}
+      data-jsx={4117531850}
     >
       <span
         className="action-button"
-        data-jsx={1862651292}
+        data-jsx={4117531850}
       >
         <a
           className="button btn-primary"
@@ -63,8 +63,9 @@ exports[`it should render a header 1`] = `
             font-family: "Brandon Grotesque", "brandon-grotesque", sans-serif;
             background: url(https://vega.slooh.com/assets/images/graphics/milkeyway_header.jpg) no-repeat;
             background-size: cover;
-            height: 145px;
+            min-height: 145px;
             display: inline-flex;
+            flex-wrap: wrap;
             align-items: center;
             padding: 50px;
             margin-bottom: 20px;
