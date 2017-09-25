@@ -125,10 +125,10 @@ class SituationRoom extends Component {
         <div className="col-md-3">
           {
             currentLiveShow.sponsorInformation.SponsorFlag ?
-                <SponsoredBy
-                    sponsorLogoURL={currentLiveShow.sponsorInformation.SponsorLogoURL}
-                    sponsorLinkURL={currentLiveShow.sponsorInformation.SponsorLinkURL}
-                    /> : null
+              <SponsoredBy
+                sponsorLogoURL={currentLiveShow.sponsorInformation.SponsorLogoURL}
+                sponsorLinkURL={currentLiveShow.sponsorInformation.SponsorLinkURL}
+              /> : null
           }
           <GoogleAd
             adURL={'/5626790/SituationRoom'}
