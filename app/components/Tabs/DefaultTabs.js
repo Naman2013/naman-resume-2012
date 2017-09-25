@@ -10,14 +10,19 @@ import { primaryFont } from '../../styles/variables/fonts';
 const propTypes = {
   handleTabSelect: PropTypes.func,
   selectedIndex: PropTypes.number,
+  tabConfiguration: PropTypes.arrayOf(PropTypes.shape({
+    tabText: PropTypes.string.isRequired,
+    tabContent: PropTypes.node.isRequired,
+  })),
 };
 
 const defaultProps = {
   handleTabSelect: noop,
   selectedIndex: 0,
+  tabConfiguration: [],
 };
 
-const DefaultTabs = ({ handleTabSelect, selectedIndex }) => (
+const DefaultTabs = ({ handleTabSelect, selectedIndex, tabConfiguration }) => (
   <div className="root">
     <Tabs onSelect={handleTabSelect} selectedTabIndex={selectedIndex}>
 
