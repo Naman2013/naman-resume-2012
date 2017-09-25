@@ -1,11 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import noop from 'lodash/noop';
-import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import uniqueId from 'lodash/uniqueId';
 import classnames from 'classnames';
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
-import { pink, white } from '../../styles/variables/colors';
+import { pink, white, darkBlueGray } from '../../styles/variables/colors';
 import { primaryFont } from '../../styles/variables/fonts';
+
+function buttonClassnames(selectedIndex, index) {
+  return classnames('action', {
+    selected: selectedIndex === index,
+  });
+}
 
 const propTypes = {
   handleTabSelect: PropTypes.func,
@@ -34,16 +41,16 @@ const DefaultTabs = ({ handleTabSelect, selectedIndex, tabConfiguration }) => {
 
         <TabList className="tab-list">
           {
-            tabsText.map(tabText =>
-              <Tab className="tab">
-                <button className="action">{tabText}</button>
+            tabsText.map((tabText, index) =>
+              <Tab key={uniqueId()} className="tab">
+                <button className={buttonClassnames(selectedIndex, index)}>{tabText}</button>
               </Tab>)
           }
         </TabList>
 
         {
           tabsContent.map(tabContent =>
-            <TabPanel className="tab-content">
+            <TabPanel key={uniqueId()} className="tab-content">
               <aside dangerouslySetInnerHTML={{ __html: tabContent }} />
             </TabPanel>)
         }
@@ -78,6 +85,14 @@ const DefaultTabs = ({ handleTabSelect, selectedIndex, tabConfiguration }) => {
           padding: 15px 0;
           font-size: 1em;
           border-radius: 10px;
+        }
+
+        .action:focus {
+          outline: none;
+        }
+
+        .action.selected {
+          background-color: ${darkBlueGray};
         }
 
         .tab-content {
