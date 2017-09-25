@@ -58,9 +58,11 @@ const DefaultTabs = ({ handleTabSelect, selectedIndex, tabConfiguration }) => {
 
       <style jsx>{`
         .root {
+          background-color: rgba(0, 0, 0, 0.25);
           min-width: 100%;
           min-height: 100%;
           font-family: ${primaryFont};
+          padding: 2% 5%;
         }
 
         .tab-list {
