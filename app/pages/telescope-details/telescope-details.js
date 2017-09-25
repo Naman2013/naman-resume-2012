@@ -31,6 +31,8 @@ import Neoview from '../../components/telescope-details/neoview/neoview';
 import CurrentSelectionHeader from '../../components/telescopes/current-selection-header/header';
 import TelescopeSelection from '../../components/telescopes/selection-widget/telescope-selection';
 
+import DefaultTabs from '../../components/Tabs';
+
 import TelescopeAllSky from '../../components/telescope-details/telescope-all-sky/TelescopeAllSky';
 import UpcomingMissions from '../../components/telescope-details/UpcomingMissions/UpcomingMissions';
 import TelescopeConditionSnapshot from '../../components/telescope-details/condition-snapshot/condition-snapshot';
@@ -226,6 +228,17 @@ class TelescopeDetails extends Component {
     const telescopeOnline = currentTelescopeOnlineStatus && currentTelescopeOnlineStatus.onlineStatus === 'online';
     const selectedInstrument = teleInstrumentList[selectedTab];
 
+    const bodyTabContent = [
+      {
+        tabText: 'Tab 1',
+        tabContent: <h1>Tab 1</h1>,
+      },
+      {
+        tabText: 'Tab 2',
+        tabContent: <h1>Tab 2</h1>,
+      },
+    ];
+
     return (
       <div className="telescope-details-page-wrapper">
 
@@ -335,6 +348,8 @@ class TelescopeDetails extends Component {
                 obsId={obsId}
                 facilityWebcamWidgetId={currentObservatory.FacilityWebcamWidgetId}
               />
+
+              <DefaultTabs tabConfiguration={bodyTabContent} />
 
             </div>
 
