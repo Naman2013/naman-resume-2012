@@ -5,6 +5,7 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import classnames from 'classnames';
 
 import { pink, white } from '../../styles/variables/colors';
+import { primaryFont } from '../../styles/variables/fonts';
 
 const propTypes = {
   handleTabSelect: PropTypes.func,
@@ -49,6 +50,7 @@ const DefaultTabs = ({ handleTabSelect, selectedIndex }) => (
         min-width: 100%;
         min-height: 100%;
         border: 1px solid #f00;
+        font-family: ${primaryFont};
       }
 
       .tab-list {
@@ -59,11 +61,30 @@ const DefaultTabs = ({ handleTabSelect, selectedIndex }) => (
         justify-content: space-evenly;
       }
 
+      .tab {
+        width: 20%;
+      }
+
       .action {
         cursor: pointer;
         background-color: ${pink};
         border: none;
         color: ${white};
+        width: 100%;
+        text-align: center;
+        padding: 15px 0;
+        font-size: 1em;
+        border-radius: 10px;
+      }
+
+      .tab-content {
+        width: 100%;
+        text-align: center;
+      }
+
+      :global(.tab-content img) {
+        min-width: 100%;
+        min-height: 100%;
       }
     `}</style>
   </div>
