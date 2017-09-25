@@ -25,39 +25,34 @@ const defaultProps = {
 const DefaultTabs = ({ handleTabSelect, selectedIndex, tabConfiguration }) => {
   if (tabConfiguration.length === 0) { return null; }
 
+  const tabsText = tabConfiguration.map(tab => tab.tabText);
+  const tabsContent = tabConfiguration.map(tab => tab.tabContent);
+
   return (
     <div className="root">
       <Tabs onSelect={handleTabSelect} selectedTabIndex={selectedIndex}>
 
         <TabList className="tab-list">
-          <Tab className="tab">
-            <button className="action">Tab 1</button>
-          </Tab>
-
-          <Tab className="tab">
-            <button className="action">Tab 2</button>
-          </Tab>
+          {
+            tabsText.map(tabText =>
+              <Tab className="tab">
+                <button className="action">{tabText}</button>
+              </Tab>)
+          }
         </TabList>
 
-        <TabPanel className="tab-content">
-          <aside>
-            <p>Content 1</p>
-          </aside>
-        </TabPanel>
-
-        <TabPanel className="tab-content">
-          <aside>
-            <p>Content 2</p>
-          </aside>
-        </TabPanel>
-
+        {
+          tabsContent.map(tabContent =>
+            <TabPanel className="tab-content">
+              <aside dangerouslySetInnerHTML={{ __html: tabContent }} />
+            </TabPanel>)
+        }
       </Tabs>
 
       <style jsx>{`
         .root {
           min-width: 100%;
           min-height: 100%;
-          border: 1px solid #f00;
           font-family: ${primaryFont};
         }
 
