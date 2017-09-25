@@ -5,7 +5,7 @@ import uniqueId from 'lodash/uniqueId';
 import classnames from 'classnames';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
-import { pink, white, darkBlueGray } from '../../styles/variables/colors';
+import { pink, white, turqoise } from '../../styles/variables/colors';
 import { primaryFont } from '../../styles/variables/fonts';
 
 function buttonClassnames(selectedIndex, index) {
@@ -77,7 +77,7 @@ const DefaultTabs = ({ handleTabSelect, selectedIndex, tabConfiguration }) => {
 
         .action {
           cursor: pointer;
-          background-color: ${pink};
+          background-color: ${turqoise};
           border: none;
           color: ${white};
           width: 100%;
@@ -92,7 +92,7 @@ const DefaultTabs = ({ handleTabSelect, selectedIndex, tabConfiguration }) => {
         }
 
         .action.selected {
-          background-color: ${darkBlueGray};
+          background-color: ${pink};
         }
 
         .tab-content {
