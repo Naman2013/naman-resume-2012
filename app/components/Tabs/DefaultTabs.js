@@ -51,7 +51,7 @@ const DefaultTabs = ({ handleTabSelect, selectedIndex, tabConfiguration }) => {
         {
           tabsContent.map(tabContent =>
             <TabPanel key={uniqueId()} className="tab-content">
-              <aside dangerouslySetInnerHTML={{ __html: tabContent }} />
+              {tabContent}
             </TabPanel>)
         }
       </Tabs>
