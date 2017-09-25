@@ -22,78 +22,82 @@ const defaultProps = {
   tabConfiguration: [],
 };
 
-const DefaultTabs = ({ handleTabSelect, selectedIndex, tabConfiguration }) => (
-  <div className="root">
-    <Tabs onSelect={handleTabSelect} selectedTabIndex={selectedIndex}>
+const DefaultTabs = ({ handleTabSelect, selectedIndex, tabConfiguration }) => {
+  if (tabConfiguration.length === 0) { return null; }
 
-      <TabList className="tab-list">
-        <Tab className="tab">
-          <button className="action">Tab 1</button>
-        </Tab>
+  return (
+    <div className="root">
+      <Tabs onSelect={handleTabSelect} selectedTabIndex={selectedIndex}>
 
-        <Tab className="tab">
-          <button className="action">Tab 2</button>
-        </Tab>
-      </TabList>
+        <TabList className="tab-list">
+          <Tab className="tab">
+            <button className="action">Tab 1</button>
+          </Tab>
 
-      <TabPanel className="tab-content">
-        <aside>
-          <p>Content 1</p>
-        </aside>
-      </TabPanel>
+          <Tab className="tab">
+            <button className="action">Tab 2</button>
+          </Tab>
+        </TabList>
 
-      <TabPanel className="tab-content">
-        <aside>
-          <p>Content 2</p>
-        </aside>
-      </TabPanel>
+        <TabPanel className="tab-content">
+          <aside>
+            <p>Content 1</p>
+          </aside>
+        </TabPanel>
 
-    </Tabs>
+        <TabPanel className="tab-content">
+          <aside>
+            <p>Content 2</p>
+          </aside>
+        </TabPanel>
 
-    <style jsx>{`
-      .root {
-        min-width: 100%;
-        min-height: 100%;
-        border: 1px solid #f00;
-        font-family: ${primaryFont};
-      }
+      </Tabs>
 
-      .tab-list {
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-        display: flex;
-        justify-content: space-evenly;
-      }
+      <style jsx>{`
+        .root {
+          min-width: 100%;
+          min-height: 100%;
+          border: 1px solid #f00;
+          font-family: ${primaryFont};
+        }
 
-      .tab {
-        width: 20%;
-      }
+        .tab-list {
+          list-style-type: none;
+          margin: 0;
+          padding: 0;
+          display: flex;
+          justify-content: space-evenly;
+        }
 
-      .action {
-        cursor: pointer;
-        background-color: ${pink};
-        border: none;
-        color: ${white};
-        width: 100%;
-        text-align: center;
-        padding: 15px 0;
-        font-size: 1em;
-        border-radius: 10px;
-      }
+        .tab {
+          width: 20%;
+        }
 
-      .tab-content {
-        width: 100%;
-        text-align: center;
-      }
+        .action {
+          cursor: pointer;
+          background-color: ${pink};
+          border: none;
+          color: ${white};
+          width: 100%;
+          text-align: center;
+          padding: 15px 0;
+          font-size: 1em;
+          border-radius: 10px;
+        }
 
-      :global(.tab-content img) {
-        min-width: 100%;
-        min-height: 100%;
-      }
-    `}</style>
-  </div>
-);
+        .tab-content {
+          width: 100%;
+          text-align: center;
+        }
+
+        :global(.tab-content img) {
+          min-width: 100%;
+          min-height: 100%;
+        }
+      `}</style>
+    </div>
+  );
+};
 
 DefaultTabs.defaultProps = defaultProps;
 DefaultTabs.propTypes = propTypes;
