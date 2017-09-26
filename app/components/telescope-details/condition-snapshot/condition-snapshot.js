@@ -71,11 +71,6 @@ class TelescopeConditionSnapshot extends Component {
     }).isRequired,
   }
 
-  state = {
-    classes: [],
-    toggle: false,
-  }
-
   componentWillMount() {
     const {
       obsId,
@@ -142,14 +137,6 @@ class TelescopeConditionSnapshot extends Component {
         <div className="content">
 
           <div className="row">
-            {
-              /**
-                coming soon...
-                <div className="col-xs-12">
-                  <CurrentConditions />
-                </div>
-                */
-            }
             <div className="col-xs-12">
               {
                 dayNightBarRefreshInterval && dayNightBarURL ?
