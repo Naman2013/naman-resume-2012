@@ -36,8 +36,11 @@ const DefaultTabs = ({ handleTabSelect, selectedIndex, tabConfiguration }) => {
   const tabsContent = tabConfiguration.map(tab => tab.tabContent);
 
   return (
-    <div className="root">
-      <Tabs onSelect={handleTabSelect} selectedTabIndex={selectedIndex}>
+    <div className="generic-tabs-component">
+      <Tabs
+        onSelect={handleTabSelect}
+        selectedIndex={selectedIndex}
+      >
 
         <TabList className="tab-list">
           {
@@ -57,7 +60,7 @@ const DefaultTabs = ({ handleTabSelect, selectedIndex, tabConfiguration }) => {
       </Tabs>
 
       <style jsx>{`
-        .root {
+        .generic-tabs-component {
           background-color: rgba(0, 0, 0, 0.25);
           min-width: 100%;
           min-height: 100%;
@@ -65,7 +68,7 @@ const DefaultTabs = ({ handleTabSelect, selectedIndex, tabConfiguration }) => {
           padding: 2% 5%;
         }
 
-        .tab-list {
+        :global(.generic-tabs-component .tab-list) {
           list-style-type: none;
           margin: 0;
           padding: 0;
@@ -73,11 +76,13 @@ const DefaultTabs = ({ handleTabSelect, selectedIndex, tabConfiguration }) => {
           justify-content: space-evenly;
         }
 
-        .tab {
+        :global(.generic-tabs-component .tab) {
           width: 20%;
+          background: none;
+          margin: 0 5px;
         }
 
-        .action {
+        :global(.generic-tabs-component .action) {
           cursor: pointer;
           background-color: ${turqoise};
           border: none;
@@ -89,20 +94,20 @@ const DefaultTabs = ({ handleTabSelect, selectedIndex, tabConfiguration }) => {
           border-radius: 10px;
         }
 
-        .action:focus {
+        :global(.generic-tabs-component .action:focus) {
           outline: none;
         }
 
-        .action.selected {
+        :global(.generic-tabs-component .action.selected) {
           background-color: ${pink};
         }
 
-        .tab-content {
+        :global(.generic-tabs-component .tab-content) {
           width: 100%;
           text-align: center;
         }
 
-        :global(.tab-content img) {
+        :global(.generic-tabs-component .tab-content img) {
           min-width: 100%;
           min-height: 100%;
         }
