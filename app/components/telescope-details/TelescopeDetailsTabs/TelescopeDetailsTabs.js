@@ -63,6 +63,7 @@ class TelescopeDetailsTabs extends Component {
     DayNightMapWidgetId: PropTypes.string.isRequired,
     AllskyWidgetId: PropTypes.string.isRequired,
     DomecamWidgetId: PropTypes.string.isRequired,
+    facilityWebcamWidgetId: PropTypes.string.isRequired,
 
     actions: PropTypes.shape({
       fetchAllWidgets: PropTypes.func.isRequired,

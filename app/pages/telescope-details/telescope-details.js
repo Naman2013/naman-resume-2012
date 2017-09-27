@@ -333,11 +333,6 @@ class TelescopeDetails extends Component {
                   </div> : null
               }
 
-              <LiveWebcam
-                obsId={obsId}
-                facilityWebcamWidgetId={currentObservatory.FacilityWebcamWidgetId}
-              />
-
               <TelescopeDetailsTabs
                 obsId={currentObservatory.obsId}
                 CurrentConditionsWidgetId={currentObservatory.CurrentConditionsWidgetId}
@@ -345,6 +340,7 @@ class TelescopeDetails extends Component {
                 DayNightMapWidgetId={currentObservatory.DayNightMapWidgetId}
                 AllskyWidgetId={currentObservatory.AllskyWidgetId}
                 DomecamWidgetId={currentObservatory.DomecamWidgetId}
+                facilityWebcamWidgetId={currentObservatory.FacilityWebcamWidgetId}
               />
 
             </div>
@@ -367,18 +363,6 @@ class TelescopeDetails extends Component {
                     <UpcomingMissions missions={activeTelescopeMission.upcomingMissionArray} />
                   </div>
                 : null
-              }
-
-              {
-                currentObservatory.obsId && currentObservatory.CurrentConditionsWidgetId ?
-                  <TelescopeConditionSnapshot
-                    obsId={currentObservatory.obsId}
-                    CurrentConditionsWidgetId={currentObservatory.CurrentConditionsWidgetId}
-                    DayNightBarWidgetId={currentObservatory.DayNightBarWidgetId}
-                    DayNightMapWidgetId={currentObservatory.DayNightMapWidgetId}
-                    AllskyWidgetId={currentObservatory.AllskyWidgetId}
-                    DomecamWidgetId={currentObservatory.DomecamWidgetId}
-                  /> : null
               }
             </div>
           </div>

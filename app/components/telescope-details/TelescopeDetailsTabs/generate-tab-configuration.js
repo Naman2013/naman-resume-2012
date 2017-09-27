@@ -3,8 +3,10 @@ import DayNightTimeline from '../condition-snapshot/DayNightTimeline';
 import DayNightMap from '../condition-snapshot/DayNightMap';
 import AllSkyCamera from '../condition-snapshot/AllSkyCamera';
 import DomeCam from '../condition-snapshot/DomeCam';
+import LiveWebcam from '../live-webcam/live-webcam';
 
 export default function generateTabConfiguration({
+  obsId,
   currentConditionsURL,
   dayNightBarRefreshInterval,
   dayNightBarURL,
@@ -18,6 +20,7 @@ export default function generateTabConfiguration({
   domeCamURL,
   domeCamOfflineURL,
   domeCamOnlineStatus,
+  facilityWebcamWidgetId,
 }) {
   return (
   [
@@ -59,7 +62,12 @@ export default function generateTabConfiguration({
     },
     {
       tabText: 'Web Cam',
-      tabContent: <h1>Web cam...</h1>,
+      tabContent: (
+        <LiveWebcam
+          obsId={obsId}
+          facilityWebcamWidgetId={facilityWebcamWidgetId}
+        />
+      ),
     },
   ]
   );

@@ -31,9 +31,6 @@ class LiveWebcam extends Component {
     obsId: PropTypes.string.isRequired,
     facilityWebcamWidgetId: PropTypes.string.isRequired,
     fetchingObservatoryLiveWebcamResult: PropTypes.bool.isRequired,
-    title: PropTypes.string.isRequired,
-    subtitle: PropTypes.string.isRequired,
-    logoURL: PropTypes.string.isRequired,
     refreshIntervalSec: PropTypes.number.isRequired,
     facilityWebcamURL: PropTypes.string.isRequired,
     actions: PropTypes.shape({
@@ -62,9 +59,6 @@ class LiveWebcam extends Component {
 
   render() {
     const {
-      title,
-      subtitle,
-      logoURL,
       fetchingObservatoryLiveWebcamResult,
       refreshIntervalSec,
       facilityWebcamURL,
@@ -72,11 +66,6 @@ class LiveWebcam extends Component {
 
     return (
       <div className="telescope-block live-webcam">
-        <div className="top">
-          <h3>{title}</h3>
-          <p>{subtitle}</p>
-          <img alt="Sponsored by logo" className="topLogo" height="40" src={logoURL} />
-        </div>
         <div className="live-webcam-feed">
           {
             !fetchingObservatoryLiveWebcamResult ?
