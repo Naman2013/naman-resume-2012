@@ -69,6 +69,10 @@ class TelescopeDetailsTabs extends Component {
     }).isRequired,
   }
 
+  state = {
+    selectedTabIndex: 0,
+  };
+
   componentWillMount() {
     const {
       obsId,
@@ -104,12 +108,23 @@ class TelescopeDetailsTabs extends Component {
     }
   }
 
+  handleTabClick = (selectedTabIndex) => {
+    this.setState({
+      selectedTabIndex,
+    });
+  };
+
   render() {
+    const { selectedTabIndex } = this.state;
     const tabConfiguration = generateTabConfiguration(this.props);
 
     return (
       <div>
-        <DefaultTabs tabConfiguration={tabConfiguration} />
+        <DefaultTabs
+          tabConfiguration={tabConfiguration}
+          handleTabSelect={this.handleTabClick}
+          selectedIndex={selectedTabIndex}
+        />
       </div>
     );
   }
