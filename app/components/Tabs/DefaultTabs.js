@@ -71,6 +71,7 @@ const DefaultTabs = ({ handleTabSelect, selectedIndex, tabConfiguration }) => {
         :global(.generic-tabs-component .tab-list) {
           list-style-type: none;
           margin: 0;
+          margin-bottom: 20px;
           padding: 0;
           display: flex;
           justify-content: space-evenly;
