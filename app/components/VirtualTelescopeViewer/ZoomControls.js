@@ -39,6 +39,14 @@ const ZoomControls = ({
         color: ${brightGreen}
       }
 
+      .top-button {
+        border-radius: 10px 10px 0 0;
+      }
+
+      .bottom-button {
+        border-radius: 0 0 10px 10px;
+      }
+
       .tab-container {
         margin: 20px 0;
       }
