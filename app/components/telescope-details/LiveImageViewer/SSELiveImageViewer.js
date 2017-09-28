@@ -1,5 +1,11 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import noop from 'lodash/noop';
+
+import { setImageDataToSnapshot } from '../../../modules/starshare-camera/starshare-camera-actions';
+
 import LiveImageViewer from './';
 import VirtualTelescopeViewer from '../../VirtualTelescopeViewer';
 import TelescopeImageLoader from '../../common/telescope-image-loader';
@@ -14,6 +20,9 @@ const propTypes = {
   processing: PropTypes.string,
   schedulingMember: PropTypes.string,
   callSource: PropTypes.string,
+  actions: PropTypes.shape({
+    setImageDataToSnapshot: PropTypes.isRequired,
+  }),
   // TODO: complete the validation
   // imageSource: PropTypes.
   // teleThumbWidth: PropTypes.
@@ -31,6 +40,9 @@ const defaultProps = {
   processing: '',
   schedulingMember: '',
   callSource: 'details',
+  actions: {
+    setImageDataToSnapshot: noop,
+  },
   // TODO: complete the validation
   // imageSource: PropTypes.
   // teleThumbWidth: PropTypes.
@@ -40,54 +52,79 @@ const defaultProps = {
   // teleId: PropTypes.
 };
 
-const SSELiveImageViewer = ({
-  timestamp,
-  coordinateArray,
-  missionData,
-  objectTitleShort,
-  processing,
-  schedulingMember,
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators({
+    setImageDataToSnapshot,
+  }, dispatch),
+});
 
-  telePort,
-  teleSystem,
-  teleId,
-  teleFade,
-  clipped,
-  missionFormat,
-  callSource,
-  showInfoButton,
-  handleInfoClick,
-}) => {
-  const { obsId, domeId } = obsIdTeleIdDomeIdFromTeleId(teleId);
-  const imageSource = generateSseImageLoader(teleSystem, telePort);
-  const teleThumbWidth = '866px';
+@connect(null, mapDispatchToProps)
+class SSELiveImageViewer extends Component {
+  handleZoomUpdate(scale) {
+    this.props.actions.setImageDataToSnapshot({
+      zoom: scale,
+    });
+  }
 
-  return (
-    <LiveImageViewer>
-      <VirtualTelescopeViewer
-        timestamp={timestamp}
-        coordinateArray={coordinateArray}
-        missionData={missionData}
-        objectTitleShort={objectTitleShort}
-        processing={processing}
-        schedulingMember={schedulingMember}
-        showInfoButton={showInfoButton}
-        handleInfoClick={handleInfoClick}
-      >
-        <TelescopeImageLoader
-          imageSource={imageSource}
-          teleId={teleId}
-          obsId={obsId}
-          domeId={domeId}
-          teleThumbWidth={teleThumbWidth}
-          teleFade={teleFade}
-          clipped={clipped}
-          missionFormat={missionFormat}
-        />
-      </VirtualTelescopeViewer>
-    </LiveImageViewer>
-  );
-};
+  handlePositionChange({ x, y }) {
+    this.props.actions.setImageDataToSnapshot({
+      originX: x,
+      originY: y,
+    });
+  }
+
+  render() {
+    const {
+      timestamp,
+      coordinateArray,
+      missionData,
+      objectTitleShort,
+      processing,
+      schedulingMember,
+
+      telePort,
+      teleSystem,
+      teleId,
+      teleFade,
+      clipped,
+      missionFormat,
+      callSource,
+      showInfoButton,
+      handleInfoClick,
+    } = this.props;
+
+    const { obsId, domeId } = obsIdTeleIdDomeIdFromTeleId(teleId);
+    const imageSource = generateSseImageLoader(teleSystem, telePort);
+    const teleThumbWidth = '866px';
+
+    return (
+      <LiveImageViewer onZoomChange={this.handleZoomUpdate}>
+        <VirtualTelescopeViewer
+          timestamp={timestamp}
+          coordinateArray={coordinateArray}
+          missionData={missionData}
+          objectTitleShort={objectTitleShort}
+          processing={processing}
+          schedulingMember={schedulingMember}
+          showInfoButton={showInfoButton}
+          handleInfoClick={handleInfoClick}
+          onPositionChange={this.handlePositionChange}
+        >
+          <TelescopeImageLoader
+            imageSource={imageSource}
+            teleId={teleId}
+            obsId={obsId}
+            domeId={domeId}
+            teleThumbWidth={teleThumbWidth}
+            teleFade={teleFade}
+            clipped={clipped}
+            missionFormat={missionFormat}
+          />
+        </VirtualTelescopeViewer>
+      </LiveImageViewer>
+    );
+  }
+}
 
 SSELiveImageViewer.propTypes = propTypes;
 SSELiveImageViewer.defaultProps = defaultProps;

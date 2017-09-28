@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Draggable from 'react-draggable';
-import noop from 'lodash/noop';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 
-import { setImageDataToSnapshot } from '../../modules/starshare-camera/starshare-camera-actions';
+import noop from 'lodash/noop';
 
 import ClipView from './ClipView';
 import SubjectScaleControl from './SubjectScaleControl';
@@ -43,6 +40,8 @@ const propTypes = {
   objectTitleShort: PropTypes.string,
   processing: PropTypes.string,
   schedulingMember: PropTypes.string,
+
+  onPositionChange: PropTypes.func,
 };
 
 const defaultProps = {
@@ -61,15 +60,10 @@ const defaultProps = {
   objectTitleShort: '',
   processing: '',
   schedulingMember: '',
+
+  onPositionChange: noop,
 };
 
-const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({
-    setImageDataToSnapshot,
-  }, dispatch),
-});
-
-@connect(null, mapDispatchToProps)
 class VirtualTelescopeView extends Component {
   state = {
     controlledPosition: {
@@ -80,9 +74,9 @@ class VirtualTelescopeView extends Component {
   };
 
   componentWillUpdate(nextProps, nextState) {
-    this.props.actions.setImageDataToSnapshot({
-      originX: nextState.x,
-      originY: nextState.y,
+    this.props.onPositionChange({
+      x: nextState.x,
+      y: nextState.y,
     });
   }
 
