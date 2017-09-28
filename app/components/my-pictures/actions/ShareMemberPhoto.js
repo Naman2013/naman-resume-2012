@@ -63,11 +63,12 @@ class ShareMemberPhoto extends Component {
     actions.shareMemberPicture({
       customerImageId,
     }).then((res) => {
-
-      this.setState({
-        showPrompt: res.payload.showSharePrompt,
-        sharePrompt: res.payload.sharePrompt,
-      });
+      if (!res.payload.apiError) {
+        this.setState({
+          showPrompt: res.payload.showSharePrompt,
+          sharePrompt: res.payload.sharePrompt,
+        });
+      }
     });
   }
 
