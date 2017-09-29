@@ -16,6 +16,7 @@ const propTypes = {
   handleClip: PropTypes.func.isRequired,
   handleZoomIn: PropTypes.func.isRequired,
   handleZoomOut: PropTypes.func.isRequired,
+  zoomRange: PropTypes.number.isRequired,
   showInfoButton: PropTypes.bool,
   handleInfoClick: PropTypes.func,
 
@@ -37,6 +38,7 @@ const ViewerControlInterface = ({
   handleClip,
   handleZoomIn,
   handleZoomOut,
+  zoomRange,
   showInfoButton,
   handleInfoClick,
   timestamp,
@@ -69,8 +71,7 @@ const ViewerControlInterface = ({
         <ZoomControls
           handleZoomIn={handleZoomIn}
           handleZoomOut={handleZoomOut}
-          showInfoButton={showInfoButton}
-          handleInfoClick={handleInfoClick}
+          zoomRange={zoomRange}
         />
       </div>
       <div className="cosmetic-bar-shape">
