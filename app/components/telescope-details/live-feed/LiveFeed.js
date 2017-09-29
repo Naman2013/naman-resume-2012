@@ -15,8 +15,8 @@ class LiveFeed extends Component {
       instrCameraSourceType: PropTypes.string.isRequired,
     }),
     offlineImageSource: PropTypes.string.isRequired,
+    timestamp: PropTypes.number,
     activeMission: PropTypes.shape({
-      timestamp: PropTypes.number,
       coordinateArray: PropTypes.arrayOf(PropTypes.string),
       missionData: PropTypes.arrayOf(PropTypes.string),
       objectTitleShort: PropTypes.string,
@@ -31,8 +31,8 @@ class LiveFeed extends Component {
     onlineStatus: 'offline',
     instrument: null,
     obsAlert: '',
+    timestamp: 0,
     activeMission: {
-      timestamp: 0,
       coordinateArray: [],
       missionData: [],
       objectTitleShort: '',
@@ -53,6 +53,7 @@ class LiveFeed extends Component {
       activeMission,
       activeNeoview,
       handleInfoClick,
+      timestamp,
     } = this.props;
 
     const neoview = {
@@ -88,6 +89,7 @@ class LiveFeed extends Component {
         {
           determineImageLoader(instrument, {
             activeMission,
+            timestamp,
             neoview,
           })
         }

@@ -291,6 +291,7 @@ class TelescopeDetails extends Component {
                         instrument={instrument}
                         offlineImageSource={instrument.instrOfflineImgURL}
                         activeMission={activeTelescopeMission.maskDataArray}
+                        timestamp={activeTelescopeMission.timestamp}
                         activeNeoview={selectedInstrument.instrHasNeoView}
                         handleInfoClick={this.toggleNeoview}
                       />

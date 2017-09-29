@@ -4,6 +4,7 @@ import SSELiveImageViewer from './LiveImageViewer/SSELiveImageViewer';
 
 export default function determineImageLoader(instrument, {
   activeMission,
+  timestamp,
   neoview,
 }) {
   const {
@@ -18,7 +19,7 @@ export default function determineImageLoader(instrument, {
         teleSystem={instrument.instrSystem}
         teleId={instrument.instrTelescopeId}
         teleFade={instrument.instrFade}
-        timestamp={activeMission.timestamp}
+        timestamp={timestamp}
         coordinateArray={activeMission.coordinateArray}
         missionData={activeMission.missionData}
         objectTitleShort={activeMission.objectTitleShort}

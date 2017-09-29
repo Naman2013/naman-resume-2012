@@ -73,7 +73,7 @@ class LiveImageViewer extends Component {
   render() {
     const { children } = this.props;
     const { scale, clipped, activeZoomLevel } = this.state;
-    console.log(activeZoomLevel);
+
     return (
       <div className="root">
         {
