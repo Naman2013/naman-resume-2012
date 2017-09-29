@@ -60,13 +60,13 @@ const mapDispatchToProps = dispatch => ({
 
 @connect(null, mapDispatchToProps)
 class SSELiveImageViewer extends Component {
-  handleZoomUpdate(scale) {
+  handleZoomUpdate = (scale) => {
     this.props.actions.setImageDataToSnapshot({
       zoom: scale,
     });
   }
 
-  handlePositionChange({ x, y }) {
+  handlePositionChange = ({ x, y }) => {
     this.props.actions.setImageDataToSnapshot({
       originX: x,
       originY: y,

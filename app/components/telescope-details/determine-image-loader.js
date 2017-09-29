@@ -27,6 +27,7 @@ export default function determineImageLoader(instrument, {
         schedulingMember={activeMission.schedulingMember}
         showInfoButton={neoview.activeNeoview}
         handleInfoClick={neoview.handleInfoClick}
+        missionFormat="full"
       />
     );
   } else if (instrImageSourceType === 'video') {
