@@ -1,5 +1,4 @@
 import React from 'react';
-import TelescopeImageViewer from '../common/telescope-image-viewer/telescope-image-viewer';
 import VideoImageLoader from '../common/telescope-image-loader/video-image-loader';
 import SSELiveImageViewer from './LiveImageViewer/SSELiveImageViewer';
 
