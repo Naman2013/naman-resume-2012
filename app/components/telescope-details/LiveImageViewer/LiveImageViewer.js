@@ -16,6 +16,10 @@ const SCALE_MULTIPLIER = 0.5;
 const MIN_SCALE = 1;
 const MAX_SCALE = 3;
 const ZOOM_RANGE = MAX_SCALE / SCALE_MULTIPLIER;
+
+const DEFAULT_ACTIVE_ZOOM_LEVEL = 0;
+const SCALE_ACTIVE_ZOOM_LEVEL = 1;
+
 const SCALE_FACTOR = 3250;
 const SCALE_THRESHOLD = 1.5;
 
@@ -23,6 +27,7 @@ class LiveImageViewer extends Component {
   state = {
     scale: 1,
     clipped: true,
+    activeZoomLevel: DEFAULT_ACTIVE_ZOOM_LEVEL,
   };
 
   componentWillUpdate(nextProps, nextState) {
@@ -34,6 +39,7 @@ class LiveImageViewer extends Component {
     const { scale } = this.state;
     if (scale < MAX_SCALE) {
       this.adjustZoom(SCALE_MULTIPLIER);
+      this.adjustActiveZoomLevel(SCALE_ACTIVE_ZOOM_LEVEL);
     }
   };
 
@@ -42,12 +48,19 @@ class LiveImageViewer extends Component {
     const { scale } = this.state;
     if (scale > MIN_SCALE) {
       this.adjustZoom(-SCALE_MULTIPLIER);
+      this.adjustActiveZoomLevel(-SCALE_ACTIVE_ZOOM_LEVEL);
     }
   };
 
   adjustZoom(scaleAdjustment) {
     this.setState(prevState => ({
-      scale: prevState.scale + scaleAdjustment,
+      scale: (prevState.scale + scaleAdjustment),
+    }));
+  }
+
+  adjustActiveZoomLevel(scale) {
+    this.setState(prevState => ({
+      activeZoomLevel: (prevState.activeZoomLevel + scale),
     }));
   }
 
@@ -57,15 +70,15 @@ class LiveImageViewer extends Component {
     });
   }
 
-
   render() {
     const { children } = this.props;
-    const { scale, clipped } = this.state;
-
+    const { scale, clipped, activeZoomLevel } = this.state;
+    console.log(activeZoomLevel);
     return (
       <div className="root">
         {
           cloneElement(children, {
+            activeZoomLevel,
             clipped,
             handleClip: this.handleClip,
             subjectScale: scale,

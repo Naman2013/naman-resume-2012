@@ -5,8 +5,9 @@ import NavigationTab from './NavigationTab';
 
 function generateRange(range) {
   const rangeSet = [];
+  const modifiedRange = range - 1;
 
-  for (let i = 0; i < range; i++) {
+  for (let i = 0; i < modifiedRange; i++) {
     rangeSet.push(0);
   }
 
