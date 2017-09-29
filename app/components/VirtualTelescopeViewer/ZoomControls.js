@@ -39,6 +39,11 @@ const ZoomControls = ({
         color: ${brightGreen}
       }
 
+      button:active,
+      button:focus {
+        outline: none;
+      }
+
       .top-button {
         border-radius: 10px 10px 0 0;
       }
@@ -56,4 +61,5 @@ const ZoomControls = ({
 
 ZoomControls.defaultProps = defaultProps;
 ZoomControls.propTypes = propTypes;
+
 export default ZoomControls;

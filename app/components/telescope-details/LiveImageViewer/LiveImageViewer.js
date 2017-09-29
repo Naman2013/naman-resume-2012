@@ -15,6 +15,7 @@ const defaultProps = {
 const SCALE_MULTIPLIER = 0.5;
 const MIN_SCALE = 1;
 const MAX_SCALE = 3;
+const ZOOM_RANGE = MAX_SCALE / SCALE_MULTIPLIER;
 const SCALE_FACTOR = 3250;
 const SCALE_THRESHOLD = 1.5;
 
@@ -70,6 +71,7 @@ class LiveImageViewer extends Component {
             subjectScale: scale,
             handleZoomIn: this.zoomIn,
             handleZoomOut: this.zoomOut,
+            zoomRange: ZOOM_RANGE,
           })
         }
       </div>

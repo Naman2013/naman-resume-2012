@@ -71,6 +71,7 @@ class VirtualTelescopeView extends Component {
       y: 0,
     },
     viewerControlInterfaceOpacity: 1,
+    zoomLevel: 0,
   };
 
   componentWillUpdate(nextProps, nextState) {
@@ -168,7 +169,10 @@ class VirtualTelescopeView extends Component {
 
             <Rails />
 
-            <div className="view-controller-wrapper" style={viewControllerWrapperStyles}>
+            <div
+              className="view-controller-wrapper"
+              style={viewControllerWrapperStyles}
+            >
               <ViewerControlInterface
                 clipped={clipped}
                 handleClip={handleClip}
