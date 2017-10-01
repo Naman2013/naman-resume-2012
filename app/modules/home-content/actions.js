@@ -25,16 +25,12 @@ export const getHomePageFail = ({ error }) => ({
 export const getHomePage = () => (dispatch, getState) => {
   const { at, cid, token } = getState().user;
   dispatch(getHomePageStart());
-  axios
+  return axios
     .post('/api/app/getHomePage', {
       at, cid, token,
     })
-    .then((result) => {
-      dispatch(getHomePageSuccess(result));
-    })
-    .catch((error) => {
-      dispatch(getHomePageFail(error));
-    });
+    .then(result => dispatch(getHomePageSuccess(result)))
+    .catch(error => dispatch(getHomePageFail(error)));
 };
 
 export const trackUserStart = () => ({

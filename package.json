@@ -41,7 +41,10 @@
     "moduleNameMapper": {
       "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/assetsTransformer.js",
       "\\.(css|scss)$": "<rootDir>/assetsTransformer.js"
-    }
+    },
+    "setupFiles": [
+      "test-setup.js"
+    ]
   },
   "dependencies": {
     "@storybook/react": "^3.1.8",
@@ -82,7 +85,7 @@
     "react-router": "^2.7.0",
     "react-router-redux": "^4.0.6",
     "react-scroll": "1.4.0",
-    "react-slick": "^0.14.4",
+    "react-slick": "^0.14.11",
     "react-spinner": "^0.2.6",
     "react-stickynode": "^1.2.1",
     "react-tabs": "^1.1.0",
@@ -94,6 +97,7 @@
     "redux-logger": "^2.6.1",
     "redux-thunk": "^2.1.0",
     "sinon": "^3.0.0",
+    "slick-carousel": "^1.7.1",
     "styled-jsx": "^1.0.8"
   },
   "devDependencies": {
