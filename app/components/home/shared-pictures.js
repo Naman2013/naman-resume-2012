@@ -92,7 +92,7 @@ class SharedPictures extends Component {
             <h4 className="timestamp-top">{longTime}</h4>
             <h3 className="timestamp-bottom">{utcTime}</h3>
           </div>
-          <img className="timeline-img" src="https://vega.slooh.com/assets/images/shared-photos/timeline.png" alt="timeline" />
+          <img className="timeline-img" src="https://vega.slooh.com/assets/images/shared-photos/timeline.png" />
         </div>}
         <style jsx>{`
 

@@ -191,6 +191,7 @@ class SharedPicturesItem extends Component {
           .telescopeAndUser {
             width: 100%;
             margin-top: auto;
+            padding-top: 20px;
           }
 
           .telescope, .observatory {
@@ -205,6 +206,12 @@ class SharedPicturesItem extends Component {
             margin: 0 auto;
             height: 347px;
             width: auto;
+          }
+
+          @media(max-width:950px){
+            .info-panel {
+              width: 500px;
+            }
           }
         `}</style>
       </div>
