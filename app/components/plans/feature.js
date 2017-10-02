@@ -42,7 +42,7 @@ class Feature extends Component {
             padding-left: 20px !important;
           }
           not:before {
-            background: url(../icons/not_b.svg) transparent top right no-repeat;
+            background: url(../assets/icons/not_b.svg) transparent top right no-repeat;
             background-size: cover;
             content: "";
             height: 10px;
@@ -52,7 +52,7 @@ class Feature extends Component {
             top: 40%;
             width: 10px;
             z-index: 99999;
-            background-color: rgba(90, 130, 240, 0.6) !important;
+	    background-color: rgba(90, 130, 240, 0.6) !important;
           }
 
           .static-app-content-container ul.features li.feature-li {

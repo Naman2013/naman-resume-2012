@@ -596,7 +596,7 @@ input[type="number"] {
   color: rgba(10, 20, 45, 0.6) !important;
   padding-left: 20px !important; }
 .static-app-content-container .not:before {
-  background: url(https://vega.slooh.com/assets/icons/not.svg) transparent top right no-repeat;
+  background: url(https://vega.slooh.com/assets/icons/not_b.svg) transparent top right no-repeat;
   background-size: cover;
   content: "";
   height: 10px;

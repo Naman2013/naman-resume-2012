@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+﻿import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router';
@@ -37,7 +37,7 @@ class PlansChange extends Component {
   }
 
   render() {
-    const { registerNewApprenticeURL, registerNewAstronomerURL } = this.props;
+    const { registerNewMemberURL, registerNewApprenticeURL, registerNewAstronomerURL } = this.props;
 
     const darkBackdropOverflowStyle = {
       overflow: 'initial',
@@ -101,7 +101,7 @@ class PlansChange extends Component {
                   </article>
 
                   <footer>
-                    <a className="btn-primary continue" href={registerNewAstronomerURL}>Register Free</a>
+                    <a className="btn-primary continue" href={registerNewMemberURL}>Continue Free</a>
                   </footer>
 
                 </article>
