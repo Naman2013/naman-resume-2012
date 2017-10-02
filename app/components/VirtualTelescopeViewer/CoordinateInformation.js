@@ -27,6 +27,7 @@ const CoordinateInformation = ({ coordinateArray }) => (
 
         ul {
           list-style-type: none;
+          padding: 0;
         }
     `}</style>
   </div>
