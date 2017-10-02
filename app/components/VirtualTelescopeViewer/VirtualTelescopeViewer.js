@@ -116,12 +116,9 @@ class VirtualTelescopeView extends Component {
   };
 
   handleMouseLeaveRoot = () => {
-    const { clipped } = this.props;
-    if (!clipped) {
-      this.setState({
-        viewerControlInterfaceOpacity: 0,
-      });
-    }
+    this.setState({
+      viewerControlInterfaceOpacity: 0,
+    });
   };
 
   render() {
