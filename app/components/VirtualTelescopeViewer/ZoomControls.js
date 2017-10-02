@@ -7,6 +7,7 @@ const propTypes = {
   zoomRange: PropTypes.number,
   handleZoomIn: PropTypes.func.isRequired,
   handleZoomOut: PropTypes.func.isRequired,
+  activeZoomLevel: PropTypes.number.isRequired,
 };
 
 const defaultProps = {
@@ -17,14 +18,18 @@ const ZoomControls = ({
   zoomRange,
   handleZoomIn,
   handleZoomOut,
+  activeZoomLevel,
 }) => (
   <div className="root">
     <button onClick={handleZoomIn} className="top-button">+</button>
+
     <div className="tab-container">
       <NavigationTabs
         range={zoomRange}
+        activeZoomLevel={activeZoomLevel}
       />
     </div>
+
     <button onClick={handleZoomOut} className="bottom-button">-</button>
 
     <style jsx>{`

@@ -14,13 +14,13 @@ function generateRange(range) {
   return rangeSet;
 }
 
-const NavigationTabs = ({ range }) => (
+const NavigationTabs = ({ range, activeZoomLevel }) => (
   <div className="root">
     <ul className="list">
       {
-        generateRange(range).map(() =>
+        generateRange(range).map((ele, index) =>
           <li key={uniqueId()} className="item">
-            <NavigationTab />
+            <NavigationTab active={(index === activeZoomLevel)} />
           </li>
         )
       }
@@ -30,12 +30,13 @@ const NavigationTabs = ({ range }) => (
       .list {
         list-style-type: none;
         margin: 0 auto;
+        margin-right: 4px;
         padding: 0;
+        transform: rotate(180deg);
       }
 
       .item {
-        margin: 11px 0 0 50%;
-        transform: translateX(-60%);
+        margin: 0 0 10px 0;
       }
     `}</style>
   </div>
@@ -47,6 +48,7 @@ NavigationTabs.defaultProps = {
 
 NavigationTabs.propTypes = {
   range: PropTypes.number,
+  activeZoomLevel: PropTypes.number.isRequired,
 };
 
 export default NavigationTabs;

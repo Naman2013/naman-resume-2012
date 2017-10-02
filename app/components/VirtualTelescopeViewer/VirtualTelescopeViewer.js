@@ -30,6 +30,7 @@ const propTypes = {
   handleClip: PropTypes.func,
   handleZoomIn: PropTypes.func,
   handleZoomOut: PropTypes.func,
+  activeZoomLevel: PropTypes.number,
   zoomRange: PropTypes.number,
   showInfoButton: PropTypes.bool,
   handleInfoClick: PropTypes.func,
@@ -51,6 +52,7 @@ const defaultProps = {
   handleClip: noop,
   handleZoomIn: noop,
   handleZoomOut: noop,
+  activeZoomLevel: 0,
   zoomRange: 0,
   showInfoButton: false,
   handleInfoClick: noop,
@@ -124,6 +126,7 @@ class VirtualTelescopeView extends Component {
 
   render() {
     const {
+      activeZoomLevel,
       children,
       clipped,
       handleClip,
@@ -139,9 +142,8 @@ class VirtualTelescopeView extends Component {
       schedulingMember,
     } = this.props;
 
-    const { viewerControlInterfaceOpacity } = this.state;
+    const { viewerControlInterfaceOpacity, controlledPosition } = this.state;
 
-    const { controlledPosition } = this.state;
     const viewControllerWrapperStyles = {
       opacity: viewerControlInterfaceOpacity,
     };
@@ -182,6 +184,7 @@ class VirtualTelescopeView extends Component {
                 handleZoomIn={this.handleZoomIn}
                 handleZoomOut={this.handleZoomOut}
                 zoomRange={zoomRange}
+                activeZoomLevel={activeZoomLevel}
                 showInfoButton={showInfoButton}
                 handleInfoClick={handleInfoClick}
                 timestamp={timestamp}
