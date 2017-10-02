@@ -36,9 +36,21 @@ storiesOf('Virtual Telescope Viewer', module)
       </VirtualTelescopeViewer>
     </LiveImageViewer>
   ))
-  .add('Canary One SS Normal 1018x1018', () => (
+  .add('showMissionData is false', () => (
     <LiveImageViewer>
       <VirtualTelescopeViewer {...virtualTelescopeViewerContent}>
+        <div>
+          <img draggable="false" alt="" src={telescopeThree} />
+        </div>
+      </VirtualTelescopeViewer>
+    </LiveImageViewer>
+  ))
+  .add('showMissionData is true', () => (
+    <LiveImageViewer>
+      <VirtualTelescopeViewer
+        {...virtualTelescopeViewerContent}
+        showMissionData={true}
+      >
         <div>
           <img draggable="false" alt="" src={telescopeThree} />
         </div>
