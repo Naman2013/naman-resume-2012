@@ -101,7 +101,7 @@ class PlansChange extends Component {
                   </article>
 
                   <footer>
-                    <a className="btn-primary continue" href={registerNewMemberURL}>Continue Free</a>
+                    <a className="btn-primary continue" href={registerNewMemberURL}>Register Free</a>
                   </footer>
 
                 </article>
