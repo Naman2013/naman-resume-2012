@@ -8,12 +8,7 @@ import NeoViewDescription from './NeoViewDescription';
 import NewViewMessage from './NeoViewMessage';
 import s from './neoview.scss';
 
-// √ TODO: handle messages flowing up and out of the viewer...
-// √ TODO: handle the appropriate positioning and display of the neoviews core container
 // TODO: display a timestamp with each message
-// √ TODO: make the neoview message color gold per the design
-// √ TODO: separate the about message into its own component
-// √ TODO: prepend the neoview description to the feed state
 
 export default class Neoview extends Component {
   static propTypes = {
