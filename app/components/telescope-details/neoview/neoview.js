@@ -95,7 +95,11 @@ export default class Neoview extends Component {
   }
 
   render() {
-    const { percentageMissionTimeRemaining, neoviewOpen } = this.props;
+    const {
+      percentageMissionTimeRemaining,
+      neoviewOpen
+    } = this.props;
+
     const neoviewContainerClassnames = classnames('neoview-wrapper', {
       visible: neoviewOpen,
       hidden: !neoviewOpen,
@@ -103,33 +107,34 @@ export default class Neoview extends Component {
 
     return (
       <div className="neoview-container">
-
-        <div className={neoviewContainerClassnames}>
-          {
-            this.state.messages.map(message => <NewViewMessage key={uniqueId()} message={message} />)
-          }
-          <NeoViewDescription />
-        </div>
-
-        <div className="top">
-          <Progress completed={percentageMissionTimeRemaining} color="#589A9A" height="35px" />
-          <div className={s.progressBarStatus}>
-            <p className="short">
-              {this.state.latestMessage}
-            </p>
-
+        <button className="neoview-dismiss-button" onClick={this.handleToggleNeoview}>
+          <div className={neoviewContainerClassnames}>
             {
-              this.props.showToggleOption &&
-                <button className="toggle-description" onClick={this.handleToggleNeoview}>
-                  {
-                    this.state.toggleNeoview ?
-                      <i className="fa fa-angle-down" /> : <i className="fa fa-angle-up" />
-                  }
-                </button>
+              this.state.messages.map(
+                message => <NewViewMessage key={uniqueId()} message={message} />)
             }
+            <NeoViewDescription />
           </div>
-        </div>
+
+          <div className="top">
+            <Progress completed={percentageMissionTimeRemaining} color="#589A9A" height="35px" />
+            <div className={s.progressBarStatus}>
+              <p className="short">
+                {this.state.latestMessage}
+              </p>
+            </div>
+          </div>
+        </button>
+
+        <style jsx>{`
+          .neoview-dismiss-button {
+            border: none;
+            background: transparent;
+            padding: 0;
+            margin: 0;
+          }
+        `}</style>
       </div>
-    )
+    );
   }
 }
