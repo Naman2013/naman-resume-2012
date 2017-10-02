@@ -5,22 +5,42 @@ import { brightGreen } from '../../styles/variables/colors';
 import { monoFont } from '../../styles/variables/fonts';
 
 const propTypes = {
+  clipped: PropTypes.bool.isRequired,
   handleClip: PropTypes.func.isRequired,
   showInfoButton: PropTypes.bool.isRequired,
   handleInfoClick: PropTypes.func.isRequired,
 };
 
+function generateInlineButtonStyle(active) {
+  if (active) {
+    return {
+      backgroundColor: 'rgb(3, 20, 255)',
+    };
+  }
+
+  return {};
+}
+
 const ViewControls = ({
+  clipped,
   handleClip,
   showInfoButton,
   handleInfoClick,
 }) => (
   <div>
     <div className="buttons-top-row">
-      <button onClick={() => handleClip({ clip: true })} className="circle-view">
+      <button
+        style={generateInlineButtonStyle(clipped)}
+        className="circle-view"
+        onClick={() => handleClip({ clip: true })}
+      >
         <div className="circle-shape" />
       </button>
-      <button onClick={() => handleClip({ clip: false })} className="full-view">
+      <button
+        style={generateInlineButtonStyle(!clipped)}
+        className="full-view"
+        onClick={() => handleClip({ clip: false })}
+      >
         <div className="square-shape" />
       </button>
     </div>
