@@ -39,6 +39,7 @@ const propTypes = {
   timestamp: PropTypes.number,
   coordinateArray: PropTypes.arrayOf(PropTypes.string),
   missionData: PropTypes.arrayOf(PropTypes.string),
+  showMissionData: PropTypes.bool,
   objectTitleShort: PropTypes.string,
   processing: PropTypes.string,
   schedulingMember: PropTypes.string,
@@ -61,6 +62,7 @@ const defaultProps = {
   timestamp: 0,
   coordinateArray: [],
   missionData: [],
+  showMissionData: false,
   objectTitleShort: '',
   processing: '',
   schedulingMember: '',
@@ -134,6 +136,7 @@ class VirtualTelescopeView extends Component {
       timestamp,
       coordinateArray,
       missionData,
+      showMissionData,
       objectTitleShort,
       processing,
       schedulingMember,
@@ -187,6 +190,7 @@ class VirtualTelescopeView extends Component {
                 timestamp={timestamp}
                 coordinateArray={coordinateArray}
                 missionData={missionData}
+                showMissionData={showMissionData}
                 objectTitleShort={objectTitleShort}
                 processing={processing}
                 schedulingMember={schedulingMember}

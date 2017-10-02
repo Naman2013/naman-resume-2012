@@ -16,6 +16,7 @@ const propTypes = {
   timestamp: PropTypes.number,
   coordinateArray: PropTypes.arrayOf(PropTypes.string),
   missionData: PropTypes.arrayOf(PropTypes.string),
+  showMissionData: PropTypes.bool.isRequired,
   objectTitleShort: PropTypes.string,
   processing: PropTypes.string,
   schedulingMember: PropTypes.string,
@@ -78,6 +79,7 @@ class SSELiveImageViewer extends Component {
       timestamp,
       coordinateArray,
       missionData,
+      showMissionData,
       objectTitleShort,
       processing,
       schedulingMember,
@@ -103,6 +105,7 @@ class SSELiveImageViewer extends Component {
           timestamp={timestamp}
           coordinateArray={coordinateArray}
           missionData={missionData}
+          showMissionData={showMissionData}
           objectTitleShort={objectTitleShort}
           processing={processing}
           schedulingMember={schedulingMember}

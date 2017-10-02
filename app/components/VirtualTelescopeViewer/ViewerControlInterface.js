@@ -24,6 +24,7 @@ const propTypes = {
   timestamp: PropTypes.number.isRequired,
   coordinateArray: PropTypes.arrayOf(PropTypes.string).isRequired,
   missionData: PropTypes.arrayOf(PropTypes.string).isRequired,
+  showMissionData: PropTypes.bool.isRequired,
   objectTitleShort: PropTypes.string.isRequired,
   processing: PropTypes.string.isRequired,
   schedulingMember: PropTypes.string.isRequired,
@@ -46,6 +47,7 @@ const ViewerControlInterface = ({
   timestamp,
   coordinateArray,
   missionData,
+  showMissionData,
   objectTitleShort,
   processing,
   schedulingMember,
@@ -84,7 +86,11 @@ const ViewerControlInterface = ({
 
     <div className="bottom">
       <div className="bottom-container">
-        <ObjectMetaInformation missionData={missionData} />
+
+        <ObjectMetaInformation
+          missionData={missionData}
+          showMissionData={showMissionData}
+        />
 
         <div className="grow-2">
           <MissionTitle title={objectTitleShort} />

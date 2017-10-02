@@ -4,22 +4,28 @@ import uniqueId from 'lodash/uniqueId';
 
 const propTypes = {
   missionData: PropTypes.arrayOf(PropTypes.string),
+  showMissionData: PropTypes.bool,
 };
 
 const defaultProps = {
   missionData: [],
+  showMissionData: false,
 };
 
-const ObjectMetaInformation = ({ missionData }) => (
-  <div>
+const ObjectMetaInformation = ({ missionData, showMissionData }) => (
+  <div className="root">
     <ul className="list">
       {
-        missionData
+        showMissionData && missionData
           .map(content => <li key={uniqueId()} dangerouslySetInnerHTML={{ __html: content }} />)
       }
     </ul>
 
     <style jsx>{`
+      .root {
+        min-width: 30%;
+      }
+
       .list {
         list-style-type: none;
         padding: 0;
