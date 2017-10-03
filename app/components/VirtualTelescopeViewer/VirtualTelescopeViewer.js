@@ -218,6 +218,8 @@ class VirtualTelescopeView extends Component {
             display: block;
             width: 100%;
             height: 100%;
+            -moz-appearance: none;
+            -webkit-appearance: none;
           }
 
           :global(.virtual-telescope-view-content-container .top-image) {

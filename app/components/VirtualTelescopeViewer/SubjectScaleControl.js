@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import noop from 'lodash/noop';
 
 function generateScaleStyle(scale) {
   return {
@@ -18,16 +19,22 @@ const defaultProps = {
   children: null,
 };
 
+function killEvents(event) { event.preventDefault(); }
+
 const SubjectScaleControl = ({
   children,
   scale,
 }) => (
-  <div style={generateScaleStyle(scale)} className="root">
-    {children}
+  <div className="root" style={generateScaleStyle(scale)}>
+    <div onMouseDown={killEvents}>
+      {children}
+    </div>
 
     <style jsx>{`
-      transition: all .2s ease-in-out;
-      transition-timing-function: ease;
+      .root {
+        transition: all .2s ease-in-out;
+        transition-timing-function: ease;
+      }
     `}</style>
   </div>
 );
