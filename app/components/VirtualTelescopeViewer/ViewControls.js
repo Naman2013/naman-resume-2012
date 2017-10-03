@@ -51,6 +51,11 @@ const ViewControls = ({
     }
 
     <style jsx>{`
+      .buttons-top-row {
+        margin-bottom: 10px;
+        display: flex;
+      }
+
       button {
         cursor: pointer;
         font-family: ${monoFont};
@@ -62,10 +67,6 @@ const ViewControls = ({
 
         width: 60px;
         height: 60px;
-      }
-
-      .buttons-top-row {
-        margin-bottom: 10px;
       }
 
       .circle-view {
