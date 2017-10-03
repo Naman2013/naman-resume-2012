@@ -16,8 +16,7 @@ const ObjectMetaInformation = ({ missionData, showMissionData }) => (
   <div className="root">
     <ul className="list">
       {
-        showMissionData && missionData
-          .map(content => <li key={uniqueId()} dangerouslySetInnerHTML={{ __html: content }} />)
+        showMissionData && missionData.map(content => <li key={uniqueId()} dangerouslySetInnerHTML={{ __html: content }} />)
       }
     </ul>
 

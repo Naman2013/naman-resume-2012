@@ -22,7 +22,7 @@ export default function determineImageLoader(instrument, {
         timestamp={timestamp}
         coordinateArray={activeMission.coordinateArray}
         missionData={activeMission.missionData}
-        showMissionData={activeMission.showMissionData}
+        showMissionData={activeMission.showMissionDataFlag}
         objectTitleShort={activeMission.objectTitleShort}
         processing={activeMission.processing}
         schedulingMember={activeMission.schedulingMember}
