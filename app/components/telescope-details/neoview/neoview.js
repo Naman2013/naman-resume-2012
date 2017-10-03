@@ -101,35 +101,36 @@ export default class Neoview extends Component {
     } = this.props;
 
     const neoviewContainerClassnames = classnames('neoview-wrapper', {
-      visible: neoviewOpen,
       hidden: !neoviewOpen,
     });
 
     return (
-      <div className="neoview-container">
-        <button className="neoview-dismiss-button" onClick={this.handleToggleNeoview}>
-          <div className={neoviewContainerClassnames}>
-            {
-              this.state.messages.map(
-                message => <NewViewMessage key={uniqueId()} message={message} />)
-            }
-            <NeoViewDescription />
-          </div>
+      <div
+        onClick={this.handleToggleNeoview}
+        className="neoview-container"
+      >
+        <div className={neoviewContainerClassnames}>
+          {
+            this.state.messages.map(
+              message => <NewViewMessage key={uniqueId()} message={message} />)
+          }
+          <NeoViewDescription />
+        </div>
 
-          <div className="top">
-            <Progress completed={percentageMissionTimeRemaining} color="#589A9A" height="35px" />
-            <div className={s.progressBarStatus}>
-              <p className="short">
-                {this.state.latestMessage}
-              </p>
-            </div>
+        <div className="top">
+          <Progress completed={percentageMissionTimeRemaining} color="#589A9A" height="35px" />
+          <div className={s.progressBarStatus}>
+            <p className="short">
+              {this.state.latestMessage}
+            </p>
           </div>
-        </button>
+        </div>
 
         <style jsx>{`
           .neoview-dismiss-button {
             border: none;
             background: transparent;
+            display: block;
             padding: 0;
             margin: 0;
             width: 100%;
