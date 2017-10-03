@@ -40,6 +40,11 @@ const ZoomControls = ({
       button {
         background: none;
         border: 1px solid ${brightGreen};
+        width: 23px;
+        height: 23px;
+        text-align: center;
+        margin: 0;
+        padding: 0;
         cursor: pointer;
         color: ${brightGreen}
       }
