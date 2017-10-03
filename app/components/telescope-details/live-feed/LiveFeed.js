@@ -19,7 +19,7 @@ class LiveFeed extends Component {
     activeMission: PropTypes.shape({
       coordinateArray: PropTypes.arrayOf(PropTypes.string),
       missionData: PropTypes.arrayOf(PropTypes.string),
-      showMissionData: PropTypes.bool,
+      showMissionDataFlag: PropTypes.bool,
       objectTitleShort: PropTypes.string,
       processing: PropTypes.string,
       schedulingMember: PropTypes.string,
