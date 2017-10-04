@@ -17,7 +17,7 @@ const initialState = {
       id: uniqueId(),
       type: APPRENTICE_TOP,
       content: '',
-      tooltip: { show: true, content: 'Your payment method will not be charged if you cancel your account during the trial period', toolTipOpen: false },
+      tooltip: { show: true, content: 'Your payment method will not be charged if you cancel your account during the trial period. Applies to monthly subscriptions only', toolTipOpen: false },
     },
     {
       id: uniqueId(),

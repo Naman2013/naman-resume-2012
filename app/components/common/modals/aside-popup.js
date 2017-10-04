@@ -84,7 +84,7 @@ class AsidePopup extends Component {
             color: #557373;
             font-weight: 300;
             height: auto;
-            left: 182px;
+            left: 202px;
             margin: 0px;
             position: absolute !important;
             text-align: left;

@@ -44,7 +44,7 @@ class PlansChange extends Component {
     };
 
     const actNowButtonSingletonCSS = {
-      top: '-30px',
+      top: '-0px',
     }
 
     const featureSingletonCSS = {
@@ -124,10 +124,9 @@ class PlansChange extends Component {
 
                       <p className="margin-large margin-none">Monthly | USD</p>
 
-                      <div className="margin-top-med margin-bottom-large pos-relative">30 Day free trial
-                        <br />if you act now
-                        { /* <i className="icon control info-white" /> */ }
-                        <Features
+                      <div className="margin-top-med margin-bottom-large">
+			30 Day free trial<br/> if you act now { /* <i className="icon control info-white" /> */ }
+			<Features
                           features_array={this.getFeatures(APPRENTICE_TOP)}
                           openPopup={this.openPopup}
                           closeAllPopup={this.resetPopup}

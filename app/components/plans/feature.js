@@ -14,7 +14,7 @@ class Feature extends Component {
     });
 
     const featureLiStyle = {
-      fontSize: '1.1rem',
+      fontSize: '1.3rem'
     };
 
     return (
