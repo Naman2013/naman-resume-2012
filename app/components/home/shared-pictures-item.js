@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { white, darkBlueGray } from '../../styles/variables/colors';
 import { secondaryFont } from '../../styles/variables/fonts';
-import { backgroundImageCover } from '../../styles/mixins/utilities';
+import { backgroundImageCover, borderRadius } from '../../styles/mixins/utilities';
 
 import { fetchMyPicturesImageDetails } from '../../modules/my-pictures-image-details/actions';
 
@@ -52,6 +52,7 @@ class SharedPicturesItem extends Component {
       likePrompt: PropTypes.string,
       canDownloadFlag: PropTypes.bool,
       canEditFlag: PropTypes.bool,
+      avatarURL: PropTypes.string,
       fileData: PropTypes.shape({
         Observatory: '',
         Telescope: ''
@@ -81,6 +82,7 @@ class SharedPicturesItem extends Component {
       canDownloadFlag: false,
       canEditFlag: false,
       fileData: {},
+      avatarURL: '',
     },
   };
 
@@ -119,7 +121,12 @@ class SharedPicturesItem extends Component {
       fetching,
       fileData,
       error,
+      avatarURL,
     } = myPicturesImageDetails;
+
+    const profilePhotoStyle = {
+      backgroundImage: `url(${avatarURL})`,
+    };
     return (
       <div className="shared-pictures-item">
         {error && <div className="loading">There was an error fetching this photo.</div>}
@@ -130,13 +137,16 @@ class SharedPicturesItem extends Component {
             <div className="title" dangerouslySetInnerHTML={{ __html: imageTitle }} />
             <div className="description" dangerouslySetInnerHTML={{ __html: observationLog }} />
             <div className="telescopeAndUser">
-              <h3
-                className="title telescope"
-                dangerouslySetInnerHTML={{ __html: fileData.Telescope }}
-              />
-              <h4 className="observatory"
-                dangerouslySetInnerHTML={{ __html: fileData.Observatory }}
-              />
+              <div>
+                <h3
+                  className="title telescope"
+                  dangerouslySetInnerHTML={{ __html: fileData.Telescope }}
+                />
+                <h4 className="observatory"
+                  dangerouslySetInnerHTML={{ __html: fileData.Observatory }}
+                />
+              </div>
+              <div className="profile-photo" style={profilePhotoStyle} />
             </div>
           </div>
         </div>}
@@ -165,6 +175,17 @@ class SharedPicturesItem extends Component {
             padding-top: 68.49%;
           }
 
+          .profile-photo {
+            ${backgroundImageCover};
+            ${borderRadius('50%')};
+            background-repeat: no-repeat;
+            background-position: center;
+            width: 45px;
+            height: 45px;
+            min-width: 45px;
+            min-height: 45px;
+          }
+
           .info-panel {
             display: flex;
             flex-direction: column;
@@ -189,6 +210,9 @@ class SharedPicturesItem extends Component {
           }
 
           .telescopeAndUser {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
             width: 100%;
             margin-top: auto;
             padding-top: 20px;

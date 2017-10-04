@@ -28,6 +28,7 @@ const initialState = {
   canEditFlag: false,
   canShareFlag: false,
   fileData: {},
+  avatarURL: '',
 };
 
 export default createReducer(initialState, {
