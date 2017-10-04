@@ -59,9 +59,11 @@ class AsidePopup extends Component {
           <i className="close" onClick={closePopup} />
         </div>
 
-        <article className="aside-poptext">
+	<article className="aside-poptext">
           <p>
-            {popupText}
+	    {popupText.split("\n").map(i => {
+            return <div>{i}<br/></div>;
+            })}
           </p>
         </article>
 
@@ -124,9 +126,10 @@ class AsidePopup extends Component {
           }
 
           .aside-poptext {
-            padding: 18px;
+            padding: 5px;
             padding-bottom: 0;
             margin: 0;
+	    margin-left: 10px;
           }
 
 

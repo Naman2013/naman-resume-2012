@@ -44,7 +44,7 @@ class PlansChange extends Component {
     };
 
     const actNowButtonSingletonCSS = {
-      top: '-0px',
+      top: '-30px',
     }
 
     const featureSingletonCSS = {
