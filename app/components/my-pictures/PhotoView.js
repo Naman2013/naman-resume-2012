@@ -113,12 +113,8 @@ class PhotoView extends Component {
     this.setState({
       showSharePicturePrompt: false,
     });
-  }
 
-  componentWillUnmount() {
-    const { actions } = this.props;
-
-    actions.resetShareMemberPhoto();
+    this.props.actions.resetShareMemberPhoto();
   }
 
   render() {

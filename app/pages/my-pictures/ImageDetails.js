@@ -67,8 +67,6 @@ class ImageDetails extends Component {
         shareToken,
       });
     });
-
-    this.props.actions.resetShareMemberPhoto();
   }
 
 
@@ -82,6 +80,7 @@ class ImageDetails extends Component {
     this.setState({
       showSharePicturePrompt: false,
     });
+    this.props.actions.resetShareMemberPhoto();
   }
 
   render() {

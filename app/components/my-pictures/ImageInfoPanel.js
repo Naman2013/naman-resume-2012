@@ -44,9 +44,9 @@ class ImageInfoPanel extends Component {
       });
     }
 
-    const obsLog = this.props.myPicturesImageDetails.observationLog !== nextProps.myPicturesImageDetails.observationLog ? nextProps.myPicturesImageDetails.observationLog : this.props.myPicturesImageDetails.observationLog;
+    const obsLog = this.props.myPicturesImageDetails.observationLog !== nextProps.myPicturesImageDetails.observationLog ? nextProps.myPicturesImageDetails.observationLog : this.state.editorValue;
     this.setState({
-      editorValue: this.state.editorValue || obsLog,
+      editorValue: obsLog,
     });
   }
 

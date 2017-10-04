@@ -79,7 +79,7 @@ class ImageDetails extends Component {
         firstImageNumber: 1,
       });
     });
-    this.props.actions.resetShareMemberPhoto();
+
   }
 
   componentWillReceiveProps(nextProps) {
@@ -119,12 +119,13 @@ class ImageDetails extends Component {
       });
     }
 
-    closeModal = () => {
-      this.setState({
-        showSharePicturePrompt: false,
-      });
-    }
+  }
 
+  closeModal = () => {
+    this.setState({
+      showSharePicturePrompt: false,
+    });
+    this.props.actions.resetShareMemberPhoto();
   }
 
   handleNextPageClick = () => {

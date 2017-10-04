@@ -149,6 +149,7 @@ class SharedPictures extends Component {
           .timeline-img {
             margin-top: auto;
             width: 100%;
+            max-height: 65px;
           }
 
         `}</style>
