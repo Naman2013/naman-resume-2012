@@ -245,7 +245,7 @@ class SharedPicturesItem extends Component {
           .description {
             font-family: ${secondaryFont};
             margin-top: 15px;
-            overflow-y: scroll;
+            overflow-y: auto;
             max-height: 150px;
             font-size: 1rem;
           }
