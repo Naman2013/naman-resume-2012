@@ -97,7 +97,6 @@ class SharedPictures extends Component {
 
           .shared-container {
             padding: 50px;
-            padding-top: 100px;
             background-color: #2d3949;
             color: ${white};
             min-height: 500px;
