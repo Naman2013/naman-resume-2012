@@ -11,8 +11,7 @@ const SectionHeader = ({ title, subtitle }) => (
         <h4 className="subtitle">{subtitle}</h4>
     }
 
-    <style jsx>{
-      `
+    <style jsx>{`
         .root {
           font-family: ${sloohHeaders};
           background-color: ${black};
@@ -25,8 +24,7 @@ const SectionHeader = ({ title, subtitle }) => (
           text-transform: none;
           font-size: 24px;
         }
-      `
-    }</style>
+    `}</style>
   </div>
 );
 

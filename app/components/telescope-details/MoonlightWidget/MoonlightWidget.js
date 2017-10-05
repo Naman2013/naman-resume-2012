@@ -10,7 +10,10 @@ const propTypes = {
 };
 
 class MoonlightWidget extends Component {
-  componentDidMount() {}
+  componentDidMount() {
+    const { widgetID } = this.props;
+
+  }
 
   render() {
     return (
