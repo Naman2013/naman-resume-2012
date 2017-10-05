@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Link } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { white, darkBlueGray } from '../../styles/variables/colors';
 import { secondaryFont } from '../../styles/variables/fonts';
@@ -127,6 +128,7 @@ class SharedPicturesItem extends Component {
       showLikePrompt,
       likePrompt,
       likesCount,
+      shareToken,
     } = myPicturesImageDetails;
 
     const profilePhotoStyle = {
@@ -146,7 +148,9 @@ class SharedPicturesItem extends Component {
         {error && <div className="loading">There was an error fetching this photo.</div>}
         {fetching && <div className="loading">Loading...</div>}
         {!fetching && <div className="container">
-          <div style={{ backgroundImage: `url(${imageURL})` }} className="shared-image" />
+          <Link to={`/my-pictures/show-image/${customerImageId}/${shareToken}`}>
+            <div style={{ backgroundImage: `url(${imageURL})` }} className="shared-image" />
+          </Link>
           <div className="info-panel">
             <Heart
               {...heartProps}
