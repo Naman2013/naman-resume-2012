@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 import SectionHeader from '../../common/headers/SectionHeader';
 import InlineCountdown from '../../common/inline-countdown';
 import { white } from '../../../styles/variables/colors';
@@ -13,12 +14,17 @@ const defaultProps = {
   label: '',
 };
 
+function convertSecondsRemainingToTimestamp(seconds) {
+  const now = moment.utc().add(seconds, 'seconds');
+  return now.unix();
+}
+
 const SunsetCountdown = ({ label, secondsRemaining }) => (
   <div className="root">
     <SectionHeader title={label} />
     <div className="countdown-container">
       <InlineCountdown
-        startTime={secondsRemaining}
+        startTime={convertSecondsRemainingToTimestamp(secondsRemaining)}
         format="hh:mm:ss"
       />
     </div>
