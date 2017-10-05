@@ -92,13 +92,12 @@ class SharedPictures extends Component {
             <h4 className="timestamp-top">{longTime}</h4>
             <h3 className="timestamp-bottom">{utcTime}</h3>
           </div>
-          <img className="timeline-img" src="https://vega.slooh.com/assets/images/shared-photos/timeline.png" />
         </div>}
         <style jsx>{`
 
           .shared-container {
             padding: 50px;
-            padding-bottom: 0;
+            padding-top: 100px;
             background-color: #2d3949;
             color: ${white};
             min-height: 500px;

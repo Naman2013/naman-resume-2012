@@ -127,16 +127,15 @@ class Home extends Component {
               userLoggedInFlag={homeContent.userLoggedInFlag}
             />
         }
-
-        <div className="clearfix">
-          {this.generateRecentVideoTiles()}
-        </div>
-        <PromoMessageBand message={homeContent.promoBandContent} />
         {homeContent.memberPicturesDisplay && <SharedPictures
           heading={homeContent.memberPicturesHeading}
           subheading={homeContent.memberPicturesSubHeading}
           imageList={sharedMemberPhotosList}
         />}
+        <div className="clearfix">
+          {this.generateRecentVideoTiles()}
+        </div>
+        <PromoMessageBand message={homeContent.promoBandContent} />
         <div className="clearfix">
           {this.generateSloohFeatures()}
         </div>

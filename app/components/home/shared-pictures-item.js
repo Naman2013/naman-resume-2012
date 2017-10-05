@@ -4,8 +4,9 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { white, darkBlueGray } from '../../styles/variables/colors';
 import { secondaryFont } from '../../styles/variables/fonts';
+import { likeImage } from '../../services/my-pictures/like-image';
 import { backgroundImageCover, borderRadius } from '../../styles/mixins/utilities';
-
+import Heart from '../common/heart/heart';
 import { fetchMyPicturesImageDetails } from '../../modules/my-pictures-image-details/actions';
 
 const {
@@ -122,10 +123,23 @@ class SharedPicturesItem extends Component {
       fileData,
       error,
       avatarURL,
+      canLikeFlag,
+      showLikePrompt,
+      likePrompt,
+      likesCount,
     } = myPicturesImageDetails;
 
     const profilePhotoStyle = {
       backgroundImage: `url(${avatarURL})`,
+    };
+
+    const heartProps = {
+      canLikeFlag,
+      showLikePrompt,
+      likePrompt,
+      count: likesCount,
+      theme: 'buttonOnly',
+      likeId: customerImageId,
     };
     return (
       <div className="shared-pictures-item">
@@ -134,10 +148,19 @@ class SharedPicturesItem extends Component {
         {!fetching && <div className="container">
           <div style={{ backgroundImage: `url(${imageURL})` }} className="shared-image" />
           <div className="info-panel">
+            <Heart
+              {...heartProps}
+              likeAction={likeImage}
+              showLikeText={false}
+            />
             <div className="title" dangerouslySetInnerHTML={{ __html: imageTitle }} />
             <div className="description" dangerouslySetInnerHTML={{ __html: observationLog }} />
             <div className="telescopeAndUser">
               <div>
+              <h4
+                className="telescope"
+                dangerouslySetInnerHTML={{ __html: `Photo By: ${fileData['Photo by']}` }}
+              />
                 <h3
                   className="title telescope"
                   dangerouslySetInnerHTML={{ __html: fileData.Telescope }}
@@ -186,6 +209,19 @@ class SharedPicturesItem extends Component {
             min-height: 45px;
           }
 
+          .shared-pictures-item :global(.buttonOnly){
+            height: 45px;
+            width: 75px;
+            white-space: nowrap;
+            top: 5px;
+            right: -6px;
+            position: absolute;
+          }
+
+          .shared-pictures-item :global(.buttonOnly:hover .action-description){
+            display: none;
+          }
+
           .info-panel {
             display: flex;
             flex-direction: column;
@@ -194,6 +230,7 @@ class SharedPicturesItem extends Component {
             color: #2d3949;
             width: 250px;
             background-color: ${white};
+            position: relative;
           }
 
           .title {
