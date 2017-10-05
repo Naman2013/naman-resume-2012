@@ -25,20 +25,20 @@ exports[`renders correctly 1`] = `
     jsx={true}
   >
     
-                .root {
-                  text-align: center;
-                  margin-bottom: 10px;
-                }
-    
-                .advertisement {
-                  margin: 0 auto;
-                }
-    
-                p {
-                  font-size: 10px;
-                  margin-top: 5px;
-                }
-              
+            .root {
+              text-align: center;
+              margin-bottom: 10px;
+            }
+
+            .advertisement {
+              margin: 0 auto;
+            }
+
+            p {
+              font-size: 10px;
+              margin-top: 5px;
+            }
+          
   </style>
 </div>
 `;

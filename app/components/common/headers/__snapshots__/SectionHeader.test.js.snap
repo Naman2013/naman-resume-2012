@@ -11,23 +11,24 @@ exports[`renders some text when provided 1`] = `
   >
     test title
   </h3>
+  
   <style
     jsx={true}
   >
     
-            .root {
-              font-family: "Brandon Grotesque", "brandon-grotesque", sans-serif;
-              background-color: #000;
-              text-align: center;
-              padding: 10px 0;
-            }
-    
-            .title {
-              color: #b1cfcf;
-              text-transform: none;
-              font-size: 24px;
-            }
-          
+        .root {
+          font-family: "Brandon Grotesque", "brandon-grotesque", sans-serif;
+          background-color: #000;
+          text-align: center;
+          padding: 10px 0;
+        }
+
+        .title {
+          color: #b1cfcf;
+          text-transform: none;
+          font-size: 24px;
+        }
+      
   </style>
 </div>
 `;
