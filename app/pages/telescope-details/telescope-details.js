@@ -35,9 +35,10 @@ import TelescopeDetailsTabs from '../../components/telescope-details/TelescopeDe
 
 import TelescopeAllSky from '../../components/telescope-details/telescope-all-sky/TelescopeAllSky';
 import UpcomingMissions from '../../components/telescope-details/UpcomingMissions/UpcomingMissions';
-import TelescopeConditionSnapshot from '../../components/telescope-details/condition-snapshot/condition-snapshot';
-import LiveWebcam from '../../components/telescope-details/live-webcam/live-webcam';
 import StarShareCamera from '../../components/telescope-details/star-share-camera/star-share-camera';
+
+import SunsetCountdown from '../../components/telescope-details/SunsetCountdown';
+import MoonlightWidget from '../../components/telescope-details/MoonlightWidget';
 
 // TODO: remove this once we finish implementing and testing
 import MISSIONS from '../../components/telescope-details/UpcomingMissions/testData';
@@ -347,6 +348,15 @@ class TelescopeDetails extends Component {
 
             { /** right side bar */ }
             <div className="col-sm-4 telescope-details-sidebar">
+              {
+                currentObservatory.showCountdown &&
+                  <SunsetCountdown
+                    label={currentObservatory.countdownLabel}
+                    secondsRemaining={currentObservatory.countdownSeconds}
+                  />
+              }
+
+              <MoonlightWidget />
               {
                 activeTelescopeMission.missionAvailable || activeTelescopeMission.nextMissionAvailable ?
                   <div>
