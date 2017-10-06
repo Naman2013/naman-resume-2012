@@ -60,10 +60,10 @@ const HeroAboutYou = ({
     </div>
     {showAdFlag && <div className="ad">
       <GoogleAd
-        adURL={'/5626790/Community'}
+        adURL={'/5626790/Recommends'}
         adWidth={300}
         adHeight={250}
-        targetDivID={'div-gpt-ad-1495110800300-0'}
+        targetDivID={'div-gpt-ad-1495111021281-0'}
       />
     </div>}
     <style jsx>{`
