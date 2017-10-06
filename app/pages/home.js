@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Hero from '../components/home/hero';
 import HeroInspire from '../components/home/hero-inspire';
+import HeroAboutYou from '../components/home/hero-about-you';
 import RecentVideoTile from '../components/home/recent-video-tile';
 import PromoMessageBand from '../components/common/headers/promo-message-band';
 import LargeBannerHeading from '../components/home/large-banner-heading';
@@ -73,43 +74,49 @@ class Home extends Component {
     Object.keys(homeContent).filter(key => /^hero/.test(key)).forEach((key) => {
       heroProps[key] = homeContent[key];
     });
-
+    console.log(homeContent.userInformation)
     return (
       <div className={`${style.homeContainer} clearfix`}>
-        {
-          heroProps.heroEventId !== 0 ?
-            <Hero
-              heroHeadline={homeContent.heroHeadline}
-              heroSubheadline={homeContent.heroSubheadline}
-              heroButtonText={homeContent.heroButtonText}
-              heroButtonURL={homeContent.heroButtonURL}
-              videoTourText={homeContent.videoTourText}
-              videoTourURL={homeContent.videoTourURL}
-              heroEventId={homeContent.heroEventId}
-              heroEventIsLive={homeContent.heroEventIsLive}
-              heroImageURL={homeContent.heroImageURL}
-              heroFactoidText={homeContent.heroFactoidText}
-              heroFactoidIconURL={homeContent.heroFactoidIconURL}
-              showHeroButton={homeContent.showHeroButton}
-              showVideoTourButton={homeContent.showVideoTourButton}
-              userLoggedInFlag={homeContent.userLoggedInFlag}
-            /> :
-            <HeroInspire
-              heroHeadline={homeContent.heroHeadline}
-              heroSubheadline={homeContent.heroSubheadline}
-              heroButtonText={homeContent.heroButtonText}
-              heroButtonURL={homeContent.heroButtonURL}
-              videoTourText={homeContent.videoTourText}
-              videoTourURL={homeContent.videoTourURL}
-              heroEventId={homeContent.heroEventId}
-              heroEventIsLive={homeContent.heroEventIsLive}
-              heroImageURL={homeContent.heroImageURL}
-              heroFactoidText={homeContent.heroFactoidText}
-              heroFactoidIconURL={homeContent.heroFactoidIconURL}
-              showHeroButton={homeContent.showHeroButton}
-              showVideoTourButton={homeContent.showVideoTourButton}
-              userLoggedInFlag={homeContent.userLoggedInFlag}
-            />
+        { homeContent.loadHeroTypes.indexOf('inspire') > -1 &&
+          <HeroInspire
+            heroHeadline={homeContent.heroHeadline}
+            heroSubheadline={homeContent.heroSubheadline}
+            heroButtonText={homeContent.heroButtonText}
+            heroButtonURL={homeContent.heroButtonURL}
+            videoTourText={homeContent.videoTourText}
+            videoTourURL={homeContent.videoTourURL}
+            heroEventId={homeContent.heroEventId}
+            heroEventIsLive={homeContent.heroEventIsLive}
+            heroImageURL={homeContent.heroImageURL}
+            heroFactoidText={homeContent.heroFactoidText}
+            heroFactoidIconURL={homeContent.heroFactoidIconURL}
+            showHeroButton={homeContent.showHeroButton}
+            showVideoTourButton={homeContent.showVideoTourButton}
+            userLoggedInFlag={homeContent.userLoggedInFlag}
+          />
+        }
+
+
+        {homeContent.loadHeroTypes.indexOf('promotedShow') > -1 &&
+          <Hero
+            heroHeadline={homeContent.heroHeadline}
+            heroSubheadline={homeContent.heroSubheadline}
+            heroButtonText={homeContent.heroButtonText}
+            heroButtonURL={homeContent.heroButtonURL}
+            videoTourText={homeContent.videoTourText}
+            videoTourURL={homeContent.videoTourURL}
+            heroEventId={homeContent.heroEventId}
+            heroEventIsLive={homeContent.heroEventIsLive}
+            heroImageURL={homeContent.heroImageURL}
+            heroFactoidText={homeContent.heroFactoidText}
+            heroFactoidIconURL={homeContent.heroFactoidIconURL}
+            showHeroButton={homeContent.showHeroButton}
+            showVideoTourButton={homeContent.showVideoTourButton}
+            userLoggedInFlag={homeContent.userLoggedInFlag}
+          />}
+
+        {homeContent.loadHeroTypes.indexOf('aboutYou') > -1 &&
+          <HeroAboutYou {...homeContent.userInformation} />
         }
 
         <div className="clearfix">
@@ -159,6 +166,9 @@ class Home extends Component {
 }
 
 Home.defaultProps = {
+  homeContent: {
+    loadHeroTypes: [],
+  },
   communityContent: {
     posts: [],
   },
