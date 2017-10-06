@@ -78,6 +78,7 @@ function mapStateToProps({
     displayCommunityContent: telescopeDetails.displayCommunityContent,
 
     observatoryList: observatoryList.observatoryList,
+    observatoryListTimestamp: observatoryList.observatoryListTimestamp,
 
     activeTelescopeMission: activeTelescopeMissions.activeTelescopeMission,
     communityContent: communityObjectContent.communityContent.posts,
@@ -210,6 +211,8 @@ class TelescopeDetails extends Component {
       displayCommunityContent,
 
       observatoryList,
+      observatoryListTimestamp,
+
       params,
 
       activeTelescopeMission,
@@ -353,6 +356,7 @@ class TelescopeDetails extends Component {
                   <SunsetCountdown
                     label={currentObservatory.countdownLabel}
                     countdownTimestamp={currentObservatory.countdownTimestamp}
+                    serverTimestamp={observatoryListTimestamp}
                   />
               }
 

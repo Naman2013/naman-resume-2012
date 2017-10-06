@@ -7,19 +7,21 @@ import { white } from '../../../styles/variables/colors';
 const propTypes = {
   label: PropTypes.string,
   countdownTimestamp: PropTypes.number.isRequired,
+  serverTimestamp: PropTypes.string.isRequired,
 };
 
 const defaultProps = {
   label: '',
 };
 
-const SunsetCountdown = ({ label, countdownTimestamp }) => (
+const SunsetCountdown = ({ label, countdownTimestamp, serverTimestamp }) => (
   <div className="root">
     <SectionHeader title={label} />
     <div className="countdown-container">
       <InlineCountdown
         startTime={countdownTimestamp}
         format="hh:mm:ss"
+        serverTimestamp={serverTimestamp}
       />
     </div>
 
