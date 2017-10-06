@@ -72,8 +72,8 @@ class SharedPictures extends Component {
       </div>
     );
     const currentTime = imageList[currentIndex] && imageList[currentIndex].imageTimestamp ? moment(imageList[currentIndex].imageTimestamp * 1000) : moment();
-    const longTime = currentTime.format('MMMM Do, YYYY');
-    const utcTime = currentTime.format('HH:mm UTC')
+    const longTime = currentTime.utc().format('MMMM Do, YYYY');
+    const utcTime = currentTime.utc().format('HH:mm UTC')
     return (
       <div className="shared-container">
         <div className="header">

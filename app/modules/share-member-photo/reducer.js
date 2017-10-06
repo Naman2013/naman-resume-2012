@@ -4,7 +4,9 @@ import {
   SHARE_MEMBER_PHOTO_SUCCESS,
   SHARE_MEMBER_PHOTO_FAIL,
   SHARE_MEMBER_PHOTO_START,
+  SHARE_MEMBER_PHOTO_RESET,
 } from './actions';
+
 
 const initialState = {
   error: false,
@@ -28,6 +30,11 @@ export default createReducer(initialState, {
     return {
       ...state,
       error: true,
+    };
+  },
+  [SHARE_MEMBER_PHOTO_RESET](state) {
+    return {
+      ...initialState,
     };
   },
 });

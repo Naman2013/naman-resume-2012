@@ -3,7 +3,7 @@ import axios from 'axios';
 export const SHARE_MEMBER_PHOTO_START = 'SHARE_MEMBER_PHOTO_START';
 export const SHARE_MEMBER_PHOTO_SUCCESS = 'SHARE_MEMBER_PHOTO_SUCCESS';
 export const SHARE_MEMBER_PHOTO_FAIL = 'SHARE_MEMBER_PHOTO_FAIL';
-
+export const SHARE_MEMBER_PHOTO_RESET = 'SHARE_MEMBER_PHOTO_RESET';
 const shareMemberPictureStart = payload => ({
   type: SHARE_MEMBER_PHOTO_START,
   payload,
@@ -19,6 +19,11 @@ const shareMemberPictureFail = payload => ({
   payload,
 });
 
+export const resetShareMemberPhoto = () => ({
+  type: SHARE_MEMBER_PHOTO_RESET,
+});
+
+
 export const shareMemberPicture = ({
   customerImageId,
 }) => (dispatch, getState) => {
@@ -30,6 +35,6 @@ export const shareMemberPicture = ({
     token,
     customerImageId,
   })
-    .then(result => dispatch(shareMemberPictureSuccess(result.data)))
+    .then(result => dispatch(shareMemberPictureSuccess(Object.assign({ customerImageId }, result.data))))
     .catch(error => dispatch(shareMemberPictureFail(error)));
 };

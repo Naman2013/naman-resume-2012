@@ -46,7 +46,7 @@ class ImageInfoPanel extends Component {
 
     const obsLog = this.props.myPicturesImageDetails.observationLog !== nextProps.myPicturesImageDetails.observationLog ? nextProps.myPicturesImageDetails.observationLog : this.props.myPicturesImageDetails.observationLog;
     this.setState({
-      editorValue: obsLog,
+      editorValue: this.state.editorValue || obsLog,
     });
   }
 
