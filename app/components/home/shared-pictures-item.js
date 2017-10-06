@@ -233,6 +233,7 @@ class SharedPicturesItem extends Component {
             padding: 25px;
             color: #2d3949;
             width: 250px;
+            max-height: 340px;
             background-color: ${white};
             position: relative;
           }
