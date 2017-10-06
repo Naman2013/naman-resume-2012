@@ -352,7 +352,7 @@ class TelescopeDetails extends Component {
                 currentObservatory.showCountdown &&
                   <SunsetCountdown
                     label={currentObservatory.countdownLabel}
-                    secondsRemaining={currentObservatory.countdownSeconds}
+                    countdownTimestamp={currentObservatory.countdownTimestamp}
                   />
               }
 
