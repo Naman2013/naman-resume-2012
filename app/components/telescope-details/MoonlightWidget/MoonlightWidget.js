@@ -85,7 +85,8 @@ class MoonlightWidget extends Component {
             color: ${lightTurqoise};
             list-style-type: none;
             background: rgba(0, 0, 0, 0.75);
-            align-items: center;
+            align-items: flex-end;
+            justify-content: space-evenly;
           }
 
           .moon-widget-item {
