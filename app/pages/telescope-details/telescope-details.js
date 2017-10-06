@@ -356,7 +356,11 @@ class TelescopeDetails extends Component {
                   />
               }
 
-              <MoonlightWidget />
+              <MoonlightWidget
+                obsId={currentObservatory.obsId}
+                widgetID={currentObservatory.MoonlightBarWidgetId}
+              />
+
               {
                 activeTelescopeMission.missionAvailable || activeTelescopeMission.nextMissionAvailable ?
                   <div>
