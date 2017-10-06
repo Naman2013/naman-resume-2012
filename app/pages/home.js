@@ -74,7 +74,7 @@ class Home extends Component {
     Object.keys(homeContent).filter(key => /^hero/.test(key)).forEach((key) => {
       heroProps[key] = homeContent[key];
     });
-    console.log(homeContent.userInformation)
+
     return (
       <div className={`${style.homeContainer} clearfix`}>
         { homeContent.loadHeroTypes.indexOf('inspire') > -1 &&
