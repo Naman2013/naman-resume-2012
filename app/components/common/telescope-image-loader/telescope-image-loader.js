@@ -231,7 +231,7 @@ class TelescopeImageLoader extends Component {
       previousImageUrl,
     } = this.state;
 
-    const { teleThumbWidth } = this.props;
+    const { teleThumbWidth, loadThumbnails } = this.props;
 
     if (!currentImageUrl || !previousImageUrl) {
       return null;
@@ -244,7 +244,7 @@ class TelescopeImageLoader extends Component {
         <div className="bottom-image">
           <img
             alt=""
-            width={teleThumbWidth}
+            width={(loadThumbnails) ? teleThumbWidth : '100%'}
             src={bottomImageAddress}
             draggable="false"
           />
@@ -252,7 +252,7 @@ class TelescopeImageLoader extends Component {
           <div className="top-image">
             <img
               alt=""
-              width={teleThumbWidth}
+              width={(loadThumbnails) ? teleThumbWidth : '100%'}
               id={this.generateImageId()}
               draggable="false"
             />
