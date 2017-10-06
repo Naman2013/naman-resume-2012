@@ -125,6 +125,7 @@ class PulseList extends Component {
         <AnnouncementBanner />
         <PulseListHeader
           title={headerTitle}
+          subtitle={headerSubtitle}
           showCreateNewPostButton={showCreateNewPostButton}
         />
 

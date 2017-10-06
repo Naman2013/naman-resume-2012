@@ -12,7 +12,8 @@ import {
 } from './actions';
 
 const defaultPageMeta = {
-  headerObjectTitle: 'Loading...',
+  headerObjectTitle: '',
+  headerSubtitle: '',
   headerIconURL: '',
   showRecommends: false,
   showAdUnit: false,

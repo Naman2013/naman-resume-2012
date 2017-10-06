@@ -1,0 +1,85 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`it should render a menu 1`] = `
+<div
+  className="pulseListHeader"
+  data-jsx={674672964}
+>
+  <div
+    className="title"
+    data-jsx={674672964}
+  >
+    <h1
+      className="header-title"
+      dangerouslySetInnerHTML={
+        Object {
+          "__html": "",
+        }
+      }
+      data-jsx={674672964}
+    />
+    <div
+      className="header-subtitle"
+      dangerouslySetInnerHTML={
+        Object {
+          "__html": "",
+        }
+      }
+      data-jsx={674672964}
+    />
+  </div>
+  <style
+    jsx={true}
+  >
+    
+    
+          .pulseListHeader {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            font-family: "Brandon Grotesque", "brandon-grotesque", sans-serif;
+            background: url('https://vega.slooh.com/assets/images/graphics/milkeyway_header.jpg') no-repeat;
+            background-size: cover;
+            min-height: 145px;
+            padding: 50px;
+            position: relative;
+          }
+    
+          .title {
+    
+          }
+    
+          :global(.header-button) {
+            margin: 15px 15px;
+          }
+    
+          .header-title {
+            margin: 0;
+            color: #fff;
+            text-transform: uppercase;
+            font-weight: 600;
+            font-size: 35px;
+          }
+    
+          .header-subtitle {
+            font-size: 1em;
+            margin: 0 0 20px;
+            padding: 0;
+            text-transform: none;
+            font-weight: normal;
+            color: #fff;
+            clear: both;
+          }
+    
+          @media(max-width:375px){
+            .header-title {
+              font-size: 35px;
+            }
+    
+          }
+    
+        
+  </style>
+</div>
+`;
