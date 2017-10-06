@@ -42,10 +42,14 @@ export const fetchMyPicturesImageDetails = ({
   .catch(error => dispatch(fetchMyPicturesImageDetailsFail(error)));
 };
 
-export const fetchImageDetailsAndCounts = params => (dispatch) => {
-  dispatch(fetchMissionCount());
-  dispatch(fetchMyPicturesCount());
-  dispatch(fetchGalleriesCount());// for deeplinking
+export const fetchImageDetailsAndCounts = params => (dispatch, getState) => {
+  const { isOwner } = getState().myPicturesVerifyOwner;
+
+  if (isOwner) {
+    dispatch(fetchMissionCount());
+    dispatch(fetchMyPicturesCount());
+    dispatch(fetchGalleriesCount());// for deeplinking
+  }
   dispatch(fetchMyPicturesImageDetails({
     ...params,
   }));
