@@ -136,6 +136,7 @@ class ImageDetails extends Component {
       likesCount,
       canEditFlag,
       likePrompt,
+      canShareFlag,
     } = this.props.myPicturesImageDetails;
     const {
       error,
@@ -178,6 +179,7 @@ class ImageDetails extends Component {
             </div>
             <div className="right-top">
             <PhotoActions
+              canShareFlag={canShareFlag}
               canEditFlag={canEditFlag}
               imageURL={image}
               galleryId={galleryId}

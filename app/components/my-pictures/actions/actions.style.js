@@ -41,6 +41,7 @@ export const actionsStyles = (`
   }
 
   .action:hover .action-description {
+    text-align: center;
     visibility: visible;
     margin-top: 8px;
     margin-left: -75%;

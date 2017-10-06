@@ -5,6 +5,7 @@ import { white, black } from '../../../styles/variables/colors';
 import RemoveFromGallery from './RemoveFromGallery';
 import DeleteGallery from './DeleteGallery';
 import DeleteImage from './DeleteImage';
+import ShareMemberPhoto from './ShareMemberPhoto';
 import Heart from '../../common/heart/heart';
 import { likeImage } from '../../../services/my-pictures/like-image';
 import { actionsStyles } from './actions.style';
@@ -53,8 +54,9 @@ class PhotoActions extends Component {
     const {
       actionSource,
       canEditFlag,
-      galleryId,
+      canShareFlag,
       customerImageId,
+      galleryId,
       heartProps,
       scheduledMissionId,
     } = this.props;
@@ -96,6 +98,9 @@ class PhotoActions extends Component {
           <span className="fa fa-download"></span>
           <div className="action-description">Download</div>
         </button>}
+        {canShareFlag && <ShareMemberPhoto
+            customerImageId={customerImageId}
+          />}
         <style jsx>
         {`
           ${actionsStyles}

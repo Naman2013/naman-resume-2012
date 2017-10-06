@@ -22,6 +22,7 @@ const initialState = {
   likePrompt: '',
   canDownloadFlag: false,
   canEditFlag: false,
+  canShareFlag: false,
   fileData: {},
 };
 

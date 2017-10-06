@@ -68,6 +68,7 @@ class ImageDetails extends Component {
     const {
       scheduledMissionId,
       observationLog,
+      canShareFlag,
       error,
       fetching,
       canEditFlag,
@@ -111,6 +112,7 @@ class ImageDetails extends Component {
             </div>
             <div className="right-top">
               <PhotoActions
+                canShareFlag={canShareFlag}
                 canEditFlag={canEditFlag}
                 imageURL={imageURL}
                 customerImageId={customerImageId}
