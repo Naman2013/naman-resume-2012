@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import uniqueId from 'lodash/uniqueId';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { fetchMoonlightWidget } from '../../../modules/Telescope-Overview';
@@ -59,7 +60,7 @@ class MoonlightWidget extends Component {
         <ul className="moon-widget-root">
           {
             subwidgets.map(widget => (
-              <li className="moon-widget-item">
+              <li key={uniqueId()} className="moon-widget-item">
                 <img
                   alt={`${widget.elementTitle} ${widget.elementValue}`}
                   src={widget.elementImageURL}

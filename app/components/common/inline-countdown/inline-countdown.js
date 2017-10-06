@@ -33,7 +33,7 @@ class InlineCountdown extends Component {
     const expires = (serverTimestamp)
       ? moment(serverTimestamp)
       : moment.utc(time * 1000);
-
+    console.log(expires);
     const duration = expires.diff(moment.utc());
 
     this.setState({
