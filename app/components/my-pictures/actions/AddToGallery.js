@@ -7,6 +7,7 @@ import GalleryListMenuItem from './GalleryListMenuItem';
 import { white, black, pink } from '../../../styles/variables/colors';
 import { fetchGalleries, createGallery, fetchGalleriesCount } from '../../../modules/my-pictures-galleries/actions';
 import { addImageToGallery, resetAddResponse } from '../../../modules/my-pictures-gallery-actions/actions';
+import { togglePublicGallery } from '../../../modules/toggle-public-gallery/actions';
 import { actionsStyles } from './actions.style';
 
 const {
@@ -37,6 +38,7 @@ const mapDispatchToProps = dispatch => ({
     createGallery,
     addImageToGallery,
     resetAddResponse,
+    togglePublicGallery,
   }, dispatch),
 });
 
@@ -155,6 +157,15 @@ class AddToGallery extends Component {
     this._createInput.focus();
   }
 
+  togglePublicGalleryIcon = (e, galleryId) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    this.props.actions.togglePublicGallery({
+      galleryId,
+    });
+  }
+
   render() {
     const {
       actionSource,
@@ -169,6 +180,7 @@ class AddToGallery extends Component {
     const {
       newGalleryName,
     } = this.state;
+
     return (
       <div className="action-menu-container">
         <ContextMenu
@@ -204,6 +216,7 @@ class AddToGallery extends Component {
             </div>
             <GalleryListMenuItem
               galleryList={galleryList}
+              togglePublicGallery={this.togglePublicGalleryIcon}
               customerImageId={customerImageId}
               galleryAction={this.addToGalleryAndReset}
               loading={addToGalleryState.loading}

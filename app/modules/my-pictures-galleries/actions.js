@@ -74,7 +74,6 @@ export const fetchGalleries = ({
   // dispatch(fetchGalleriesCount({})); // for pagination
   // dispatch(fetchMissionCount()); // for deeplinking
   // dispatch(fetchMyPicturesCount());// for deeplinking
-
   return axios.post('/api/images/getGalleryList', {
     // at: 3, // for testing purposes
     // cid: 185651, // for testing purposes
