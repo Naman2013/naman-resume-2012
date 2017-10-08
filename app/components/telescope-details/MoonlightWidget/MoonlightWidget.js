@@ -51,6 +51,15 @@ class MoonlightWidget extends Component {
     });
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.obsId !== this.props.obsId) {
+      this.props.actions.fetchMoonlightWidget({
+        obsId: nextProps.obsId,
+        widgetUniqueId: nextProps.widgetID,
+      });
+    }
+  }
+
   render() {
     const { title, subtitle, subwidgets } = this.props;
 
