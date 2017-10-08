@@ -27,8 +27,8 @@ export default class RefreshedImage extends Component {
   }
 
   state = {
-    backImageURL: this.props.imageURL,
-    frontImageURL: this.props.imageURL,
+    backImageURL: `${this.props.imageURL}?version=${new Date().getTime()}`,
+    frontImageURL: `${this.props.imageURL}?version=${new Date().getTime()}`,
     frontImageOpacity: 0,
   }
 
