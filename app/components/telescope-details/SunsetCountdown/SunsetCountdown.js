@@ -1,27 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import SectionHeader from '../../common/headers/SectionHeader';
-import InlineCountdown from '../../common/inline-countdown';
+import TimeUntil from '../../common/inline-countdown/TimeUntil';
 import { white } from '../../../styles/variables/colors';
 
 const propTypes = {
   label: PropTypes.string,
   countdownTimestamp: PropTypes.number.isRequired,
-  serverTimestamp: PropTypes.string.isRequired,
 };
 
 const defaultProps = {
   label: '',
 };
 
-const SunsetCountdown = ({ label, countdownTimestamp, serverTimestamp }) => (
+const SunsetCountdown = ({ label, countdownTimestamp }) => (
   <div className="root">
     <SectionHeader title={label} />
     <div className="countdown-container">
-      <InlineCountdown
+      <TimeUntil
         startTime={countdownTimestamp}
-        format="hh:mm:ss"
-        serverTimestamp={serverTimestamp}
       />
     </div>
 

@@ -356,7 +356,6 @@ class TelescopeDetails extends Component {
                   <SunsetCountdown
                     label={currentObservatory.countdownLabel}
                     countdownTimestamp={currentObservatory.countdownTimestamp}
-                    serverTimestamp={Number(observatoryListTimestamp)}
                   />
               }
 

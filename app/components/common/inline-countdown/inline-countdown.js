@@ -29,12 +29,8 @@ class InlineCountdown extends Component {
   }
 
   bootstrapTimer = (time) => {
-    const { serverTimestamp } = this.props;
-    const expires = (serverTimestamp)
-      ? moment(serverTimestamp)
-      : moment.utc(time * 1000);
-    console.log(expires);
-    const duration = expires.diff(moment.utc());
+    const expires = moment(time * 1000);
+    const duration = expires.diff(moment());
 
     this.setState({
       remainingTime: duration,
@@ -82,13 +78,10 @@ class InlineCountdown extends Component {
 InlineCountdown.defaultProps = {
   format: 'm:ss',
   exitAction: noop,
-  diffAgainstNow: false,
-  serverTimestamp: 0,
 };
 
 InlineCountdown.propTypes = {
   startTime: PropTypes.number.isRequired, // works with unix timestamp
-  serverTimestamp: PropTypes.number,
   exitAction: PropTypes.func, // called for you when timer expires
   format: PropTypes.string,
 };
