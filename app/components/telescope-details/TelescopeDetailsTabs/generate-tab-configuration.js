@@ -50,7 +50,7 @@ export default function generateTabConfiguration({
       ),
     },
     {
-      tabText: 'Dome Cam',
+      tabText: 'Dome',
       tabContent: (
         <DomeCam
           refreshIntervalSec={domeCamRefreshIntervalSec}
@@ -61,7 +61,7 @@ export default function generateTabConfiguration({
       ),
     },
     {
-      tabText: 'Web Cam',
+      tabText: 'Horizon',
       tabContent: (
         <LiveWebcam
           obsId={obsId}
