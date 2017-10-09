@@ -31,6 +31,8 @@ import Neoview from '../../components/telescope-details/neoview/neoview';
 import CurrentSelectionHeader from '../../components/telescopes/current-selection-header/header';
 import TelescopeSelection from '../../components/telescopes/selection-widget/telescope-selection';
 
+import GoogleAd from '../../components/common/google-ads/GoogleAd';
+
 import TelescopeDetailsTabs from '../../components/telescope-details/TelescopeDetailsTabs';
 
 import TelescopeAllSky from '../../components/telescope-details/telescope-all-sky/TelescopeAllSky';
@@ -351,6 +353,13 @@ class TelescopeDetails extends Component {
 
             { /** right side bar */ }
             <div className="col-sm-4 telescope-details-sidebar">
+              <GoogleAd
+                adURL={'/5626790/Recommends'}
+                adWidth={300}
+                adHeight={250}
+                targetDivID={'div-gpt-ad-1495111021281-0'}
+              />
+
               {
                 currentObservatory.showCountdown &&
                   <SunsetCountdown
