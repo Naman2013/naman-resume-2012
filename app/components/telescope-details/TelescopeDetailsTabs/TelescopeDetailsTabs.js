@@ -2,16 +2,13 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import DayNightTimeline from './DayNightTimeline';
-import DayNightMap from './DayNightMap';
-import AllSkyCamera from './AllSkyCamera';
-import DomeCam from './DomeCam';
+
 import { fetchAllWidgets } from '../../../modules/telescope-details/actions';
-import './condition-snapshot.scss';
+
+import generateTabConfiguration from './generate-tab-configuration';
+import DefaultTabs from '../../Tabs';
 
 const mapStateToProps = ({ telescopeDetails }) => ({
-  title: telescopeDetails.weatherConditionWidgetResult.title,
-  subtitle: telescopeDetails.weatherConditionWidgetResult.subtitle,
   currentConditionsURL: telescopeDetails.weatherConditionWidgetResult.currentConditionsURL,
 
   dayNightBarRefreshInterval: telescopeDetails.dayNightBar.refreshIntervalSec,
@@ -38,10 +35,9 @@ const mapDispatchToProps = dispatch => ({
 });
 
 @connect(mapStateToProps, mapDispatchToProps)
-class TelescopeConditionSnapshot extends Component {
+class TelescopeDetailsTabs extends Component {
   static propTypes = {
-    title: PropTypes.string.isRequired,
-    subtitle: PropTypes.string.isRequired,
+    // provided by redux state
     currentConditionsURL: PropTypes.string.isRequired,
 
     dayNightBarRefreshInterval: PropTypes.number.isRequired,
@@ -60,16 +56,23 @@ class TelescopeConditionSnapshot extends Component {
     domeCamOfflineURL: PropTypes.string.isRequired,
     domeCamOnlineStatus: PropTypes.string.isRequired,
 
+    // provided by parent
     obsId: PropTypes.string.isRequired,
     CurrentConditionsWidgetId: PropTypes.string.isRequired,
     DayNightBarWidgetId: PropTypes.string.isRequired,
     DayNightMapWidgetId: PropTypes.string.isRequired,
     AllskyWidgetId: PropTypes.string.isRequired,
     DomecamWidgetId: PropTypes.string.isRequired,
+    facilityWebcamWidgetId: PropTypes.string.isRequired,
+
     actions: PropTypes.shape({
       fetchAllWidgets: PropTypes.func.isRequired,
     }).isRequired,
   }
+
+  state = {
+    selectedTabIndex: 0,
+  };
 
   componentWillMount() {
     const {
@@ -106,86 +109,26 @@ class TelescopeConditionSnapshot extends Component {
     }
   }
 
+  handleTabClick = (selectedTabIndex) => {
+    this.setState({
+      selectedTabIndex,
+    });
+  };
+
   render() {
-    const {
-      title,
-      subtitle,
-      dayNightBarRefreshInterval,
-      dayNightBarURL,
-      dayNightMapRefreshInterval,
-      dayNightMapURL,
-      allSkyRefreshIntervalSec,
-      allSkyCamURL,
-      allSkyCamOfflineURL,
-      allSkyCamOnlineStatus,
-      domeCamRefreshIntervalSec,
-      domeCamURL,
-      domeCamOfflineURL,
-      domeCamOnlineStatus,
-    } = this.props;
+    const { selectedTabIndex } = this.state;
+    const tabConfiguration = generateTabConfiguration(this.props);
 
     return (
-      <div className="condition-snapshot telescope-details-widget">
-        <div className="top">
-          <div className="row">
-            <div className="col-xs-12">
-              <h3>{title}</h3>
-              <p>{subtitle}</p>
-            </div>
-          </div>
-        </div>
-        <div className="content">
-
-          <div className="row">
-            <div className="col-xs-12">
-              {
-                dayNightBarRefreshInterval && dayNightBarURL ?
-                  <DayNightTimeline
-                    dayNightBarURL={dayNightBarURL}
-                    refreshIntervalSec={dayNightBarRefreshInterval}
-                  /> : null
-              }
-            </div>
-
-            <div className="col-xs-12">
-              {
-                dayNightMapRefreshInterval && dayNightMapURL ?
-                  <DayNightMap
-                    refreshIntervalSec={dayNightMapRefreshInterval}
-                    dayNightMapURL={dayNightMapURL}
-                  /> : null
-              }
-            </div>
-
-            <div className="col-xs-12">
-              {
-                allSkyRefreshIntervalSec && allSkyCamURL ?
-                  <AllSkyCamera
-                    refreshIntervalSec={allSkyRefreshIntervalSec}
-                    allSkyCamURL={allSkyCamURL}
-                    offlineImageURL={allSkyCamOfflineURL}
-                    onlineStatus={allSkyCamOnlineStatus}
-                  /> : null
-              }
-            </div>
-
-            <div className="col-xs-12">
-              {
-                domeCamRefreshIntervalSec && domeCamURL ?
-                  <DomeCam
-                    refreshIntervalSec={domeCamRefreshIntervalSec}
-                    domeCamURL={domeCamURL}
-                    offlineImageURL={domeCamOfflineURL}
-                    onlineStatus={domeCamOnlineStatus}
-                  /> : null
-              }
-            </div>
-
-          </div>
-        </div>
+      <div>
+        <DefaultTabs
+          tabConfiguration={tabConfiguration}
+          handleTabSelect={this.handleTabClick}
+          selectedIndex={selectedTabIndex}
+        />
       </div>
     );
   }
 }
 
-export default TelescopeConditionSnapshot;
+export default TelescopeDetailsTabs;

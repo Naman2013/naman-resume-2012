@@ -31,11 +31,16 @@ import Neoview from '../../components/telescope-details/neoview/neoview';
 import CurrentSelectionHeader from '../../components/telescopes/current-selection-header/header';
 import TelescopeSelection from '../../components/telescopes/selection-widget/telescope-selection';
 
+import GoogleAd from '../../components/common/google-ads/GoogleAd';
+
+import TelescopeDetailsTabs from '../../components/telescope-details/TelescopeDetailsTabs';
+
 import TelescopeAllSky from '../../components/telescope-details/telescope-all-sky/TelescopeAllSky';
 import UpcomingMissions from '../../components/telescope-details/UpcomingMissions/UpcomingMissions';
-import TelescopeConditionSnapshot from '../../components/telescope-details/condition-snapshot/condition-snapshot';
-import LiveWebcam from '../../components/telescope-details/live-webcam/live-webcam';
 import StarShareCamera from '../../components/telescope-details/star-share-camera/star-share-camera';
+
+import SunsetCountdown from '../../components/telescope-details/SunsetCountdown';
+import MoonlightWidget from '../../components/telescope-details/MoonlightWidget';
 
 // TODO: remove this once we finish implementing and testing
 import MISSIONS from '../../components/telescope-details/UpcomingMissions/testData';
@@ -75,6 +80,7 @@ function mapStateToProps({
     displayCommunityContent: telescopeDetails.displayCommunityContent,
 
     observatoryList: observatoryList.observatoryList,
+    observatoryListTimestamp: observatoryList.observatoryListTimestamp,
 
     activeTelescopeMission: activeTelescopeMissions.activeTelescopeMission,
     communityContent: communityObjectContent.communityContent.posts,
@@ -209,6 +215,8 @@ class TelescopeDetails extends Component {
       displayCommunityContent,
 
       observatoryList,
+      observatoryListTimestamp,
+
       params,
 
       activeTelescopeMission,
@@ -339,8 +347,13 @@ class TelescopeDetails extends Component {
                   </div> : null
               }
 
-              <LiveWebcam
-                obsId={obsId}
+              <TelescopeDetailsTabs
+                obsId={currentObservatory.obsId}
+                CurrentConditionsWidgetId={currentObservatory.CurrentConditionsWidgetId}
+                DayNightBarWidgetId={currentObservatory.DayNightBarWidgetId}
+                DayNightMapWidgetId={currentObservatory.DayNightMapWidgetId}
+                AllskyWidgetId={currentObservatory.AllskyWidgetId}
+                DomecamWidgetId={currentObservatory.DomecamWidgetId}
                 facilityWebcamWidgetId={currentObservatory.FacilityWebcamWidgetId}
               />
 
@@ -348,6 +361,26 @@ class TelescopeDetails extends Component {
 
             { /** right side bar */ }
             <div className="col-sm-4 telescope-details-sidebar">
+              <GoogleAd
+                adURL={'/5626790/Recommends'}
+                adWidth={300}
+                adHeight={250}
+                targetDivID={'div-gpt-ad-1495111021281-0'}
+              />
+
+              {
+                currentObservatory.showCountdown &&
+                  <SunsetCountdown
+                    label={currentObservatory.countdownLabel}
+                    countdownTimestamp={currentObservatory.countdownTimestamp}
+                  />
+              }
+
+              <MoonlightWidget
+                obsId={currentObservatory.obsId}
+                widgetID={currentObservatory.MoonlightBarWidgetId}
+              />
+
               {
                 activeTelescopeMission.missionAvailable || activeTelescopeMission.nextMissionAvailable ?
                   <div>
@@ -364,18 +397,6 @@ class TelescopeDetails extends Component {
                     <UpcomingMissions missions={activeTelescopeMission.upcomingMissionArray} />
                   </div>
                 : null
-              }
-
-              {
-                currentObservatory.obsId && currentObservatory.CurrentConditionsWidgetId ?
-                  <TelescopeConditionSnapshot
-                    obsId={currentObservatory.obsId}
-                    CurrentConditionsWidgetId={currentObservatory.CurrentConditionsWidgetId}
-                    DayNightBarWidgetId={currentObservatory.DayNightBarWidgetId}
-                    DayNightMapWidgetId={currentObservatory.DayNightMapWidgetId}
-                    AllskyWidgetId={currentObservatory.AllskyWidgetId}
-                    DomecamWidgetId={currentObservatory.DomecamWidgetId}
-                  /> : null
               }
             </div>
           </div>
