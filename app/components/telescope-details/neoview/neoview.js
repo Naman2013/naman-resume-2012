@@ -1,19 +1,25 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Progress from 'react-progressbar';
 import classnames from 'classnames';
 import uniqueId from 'lodash/uniqueId';
+import noop from 'lodash/noop';
 import NeoViewDescription from './NeoViewDescription';
 import NewViewMessage from './NeoViewMessage';
 import s from './neoview.scss';
 
-// √ TODO: handle messages flowing up and out of the viewer...
-// √ TODO: handle the appropriate positioning and display of the neoviews core container
 // TODO: display a timestamp with each message
-// √ TODO: make the neoview message color gold per the design
-// √ TODO: separate the about message into its own component
-// √ TODO: prepend the neoview description to the feed state
 
 export default class Neoview extends Component {
+  static propTypes = {
+    toggleNeoview: PropTypes.func,
+    neoviewOpen: PropTypes.bool,
+  };
+
+  static defaultProps = {
+    toggleNeoview: noop,
+    displayNeoview: false,
+  };
 
   state = {
     latestMessage: null,
@@ -80,25 +86,33 @@ export default class Neoview extends Component {
     * we prepend the most recent message and the neoview description
     */
   handleToggleNeoview = () => {
+    // call provided prop method to ensure parent controls the display state
+    this.props.toggleNeoview();
+    // update internal state to reflect the appropriate message structure
     this.setState(prevState => ({
       messages: [prevState.latestMessage],
-      toggleNeoview: !prevState.toggleNeoview,
     }));
   }
 
   render() {
-    const { percentageMissionTimeRemaining } = this.props;
+    const {
+      percentageMissionTimeRemaining,
+      neoviewOpen
+    } = this.props;
+
     const neoviewContainerClassnames = classnames('neoview-wrapper', {
-      visible: this.state.toggleNeoview,
-      hidden: !this.state.toggleNeoview,
+      hidden: !neoviewOpen,
     });
 
     return (
-      <div className="neoview-container">
-
+      <div
+        onClick={this.handleToggleNeoview}
+        className="neoview-container"
+      >
         <div className={neoviewContainerClassnames}>
           {
-            this.state.messages.map(message => <NewViewMessage key={uniqueId()} message={message} />)
+            this.state.messages.map(
+              message => <NewViewMessage key={uniqueId()} message={message} />)
           }
           <NeoViewDescription />
         </div>
@@ -109,19 +123,22 @@ export default class Neoview extends Component {
             <p className="short">
               {this.state.latestMessage}
             </p>
-
-            {
-              this.props.showToggleOption &&
-                <button className="toggle-description" onClick={this.handleToggleNeoview}>
-                  {
-                    this.state.toggleNeoview ?
-                      <i className="fa fa-angle-down" /> : <i className="fa fa-angle-up" />
-                  }
-                </button>
-            }
           </div>
         </div>
+
+        <style jsx>{`
+          .neoview-dismiss-button {
+            border: none;
+            background: transparent;
+            display: block;
+            padding: 0;
+            margin: 0;
+            width: 100%;
+            height: 100%;
+            text-align: left;
+          }
+        `}</style>
       </div>
-    )
+    );
   }
 }

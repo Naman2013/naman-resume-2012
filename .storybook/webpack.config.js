@@ -8,11 +8,31 @@
 
 module.exports = {
   plugins: [
-    // custom plugins
+
   ],
   module: {
-    loaders: [
-      // add your custom loaders.
+    rules: [
+      {
+        test: /\.(png|jpg|gif)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              limit: 40,
+            },
+          },
+        ],
+      },
+      {
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        loader: 'babel-loader',
+        query: {
+          cacheDirectory: true,
+          plugins: ['transform-runtime', 'transform-decorators-legacy', 'styled-jsx/babel'],
+          presets: ['es2015', 'es2016', 'es2017', 'react', 'stage-0'],
+        },
+      },
     ],
   },
 };

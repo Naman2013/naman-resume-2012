@@ -107,7 +107,7 @@ class TelescopeDetails extends Component {
   }
 
   state = {
-    toggleNeoview: false,
+    neoviewOpen: false,
     selectedTab: 0,
     missionPercentageRemaining: 0,
   };
@@ -167,6 +167,12 @@ class TelescopeDetails extends Component {
     });
   };
 
+  toggleNeoview = () => {
+    this.setState(prevState => ({
+      neoviewOpen: !prevState.neoviewOpen,
+    }));
+  };
+
   scaffoldObservatoryList() {
     const { obsUniqueId, teleUniqueId } = this.props.params;
     this.props.actions.bootstrapTelescopeDetails({
@@ -191,11 +197,7 @@ class TelescopeDetails extends Component {
   }
 
   render() {
-    /**
-      TODO: based on the type of community content we display the component
-      so we need to discover the content needed and tie that into the field
-      */
-    const { selectedTab } = this.state;
+    const { selectedTab, neoviewOpen } = this.state;
     const {
       fetchingObservatoryList,
       fetchingObservatoryStatus,
@@ -288,12 +290,18 @@ class TelescopeDetails extends Component {
                         }
                         instrument={instrument}
                         offlineImageSource={instrument.instrOfflineImgURL}
+                        activeMission={activeTelescopeMission.maskDataArray}
+                        timestamp={activeTelescopeMission.timestamp}
+                        activeNeoview={selectedInstrument.instrHasNeoView}
+                        handleInfoClick={this.toggleNeoview}
                       />
 
                       {
                         /** load the neoview */
                         (telescopeOnline && selectedInstrument.instrHasNeoView) ?
                           <Neoview
+                            toggleNeoview={this.toggleNeoview}
+                            neoviewOpen={neoviewOpen}
                             teleSystem={selectedInstrument.instrSystem}
                             showToggleOption={currentTelescope.teleOnlineStatus === 'online'}
                             percentageMissionTimeRemaining={100}

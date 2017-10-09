@@ -1,8 +1,12 @@
 import React from 'react';
-import TelescopeImageViewer from '../common/telescope-image-viewer/telescope-image-viewer';
 import VideoImageLoader from '../common/telescope-image-loader/video-image-loader';
+import SSELiveImageViewer from './LiveImageViewer/SSELiveImageViewer';
 
-export default function determineImageLoader(instrument) {
+export default function determineImageLoader(instrument, {
+  activeMission,
+  timestamp,
+  neoview,
+}) {
   const {
     instrImageSourceType,
     instrCameraSourceType,
@@ -10,11 +14,21 @@ export default function determineImageLoader(instrument) {
 
   if (instrImageSourceType === 'SSE') {
     return (
-      <TelescopeImageViewer
+      <SSELiveImageViewer
         telePort={instrument.instrPort}
         teleSystem={instrument.instrSystem}
         teleId={instrument.instrTelescopeId}
         teleFade={instrument.instrFade}
+        timestamp={timestamp}
+        coordinateArray={activeMission.coordinateArray}
+        missionData={activeMission.missionData}
+        showMissionData={activeMission.showMissionDataFlag}
+        objectTitleShort={activeMission.objectTitleShort}
+        processing={activeMission.processing}
+        schedulingMember={activeMission.schedulingMember}
+        showInfoButton={neoview.activeNeoview}
+        handleInfoClick={neoview.handleInfoClick}
+        missionFormat="full"
       />
     );
   } else if (instrImageSourceType === 'video') {
