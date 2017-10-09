@@ -32,54 +32,54 @@ exports[`it should render a menu 1`] = `
     jsx={true}
   >
     
+
+      .pulseListHeader {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        font-family: "Brandon Grotesque", "brandon-grotesque", sans-serif;
+        background: url('https://vega.slooh.com/assets/images/graphics/milkeyway_header.jpg') no-repeat;
+        background-size: cover;
+        min-height: 145px;
+        padding: 50px;
+        position: relative;
+      }
+
+      .title {
+
+      }
+
+      :global(.header-button) {
+        margin: 15px 15px;
+      }
+
+      .header-title {
+        margin: 0;
+        color: #fff;
+        text-transform: uppercase;
+        font-weight: 600;
+        font-size: 35px;
+      }
+
+      .header-subtitle {
+        font-size: 1em;
+        margin: 0 0 20px;
+        padding: 0;
+        text-transform: none;
+        font-weight: normal;
+        color: #fff;
+        clear: both;
+      }
+
+      @media(max-width:375px){
+        .header-title {
+          font-size: 35px;
+        }
+
+      }
+
     
-          .pulseListHeader {
-            display: flex;
-            flex-direction: row;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            font-family: "Brandon Grotesque", "brandon-grotesque", sans-serif;
-            background: url('https://vega.slooh.com/assets/images/graphics/milkeyway_header.jpg') no-repeat;
-            background-size: cover;
-            min-height: 145px;
-            padding: 50px;
-            position: relative;
-          }
-    
-          .title {
-    
-          }
-    
-          :global(.header-button) {
-            margin: 15px 15px;
-          }
-    
-          .header-title {
-            margin: 0;
-            color: #fff;
-            text-transform: uppercase;
-            font-weight: 600;
-            font-size: 35px;
-          }
-    
-          .header-subtitle {
-            font-size: 1em;
-            margin: 0 0 20px;
-            padding: 0;
-            text-transform: none;
-            font-weight: normal;
-            color: #fff;
-            clear: both;
-          }
-    
-          @media(max-width:375px){
-            .header-title {
-              font-size: 35px;
-            }
-    
-          }
-    
-        
   </style>
 </div>
 `;
