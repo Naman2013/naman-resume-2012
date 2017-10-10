@@ -96,7 +96,6 @@
     "redux-logger": "^2.6.1",
     "redux-thunk": "^2.1.0",
     "sinon": "^3.0.0",
-    "slick-carousel": "^1.7.1",
     "styled-jsx": "^1.0.8"
   },
   "devDependencies": {

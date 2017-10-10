@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
-import moment from 'moment-timezone';
+import moment from 'moment';
+import 'moment-timezone';
 import classnames from 'classnames';
 import InlineDaysCountdown from '../../components/common/inline-countdown/inline-days-countdown';
 import s from './UsersReservations.scss';
