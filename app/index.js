@@ -165,7 +165,7 @@ ReactDOM.render(
           <IndexRedirect to="slooh-recommends" />
 
           <Route path="slooh-recommends" component={SloohRecommends}>
-            <IndexRedirect to="existing" />
+            <IndexRedirect to="new" />
             <Route path="existing" name="existing-missions" component={ExistingMissions} />
             <Route path="new" name="new-missions" component={NewMissions} />
           </Route>
