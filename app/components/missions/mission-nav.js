@@ -53,24 +53,29 @@ class MissionNav extends Component {
             </Link>
           </li>
         </ul>
-        <ul className="sub-nav">
-          <li>
-            <Link
-                to="/reservations/slooh-recommends/existing"
-                activeClassName="active"
-                >
-              Join Existing Missions
-            </Link>
-          </li>
-          <li>
-            <Link
-                to="/reservations/slooh-recommends/new"
-                activeClassName="active"
-                >
-              Set Up New Missions
-            </Link>
-          </li>
-        </ul>
+        {
+          /**
+            commented to return when
+            <ul className="sub-nav">
+              <li>
+                <Link
+                    to="/reservations/slooh-recommends/existing"
+                    activeClassName="active"
+                    >
+                  Join Existing Missions
+                </Link>
+              </li>
+              <li>
+                <Link
+                    to="/reservations/slooh-recommends/new"
+                    activeClassName="active"
+                    >
+                  Set Up New Missions
+                </Link>
+              </li>
+            </ul>
+          */
+        }
       </div>
     );
   }
