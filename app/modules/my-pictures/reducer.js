@@ -1,3 +1,4 @@
+import clone from 'lodash/clone';
 import createReducer from '../utils/createReducer';
 
 import {
@@ -30,6 +31,10 @@ import {
   FETCH_MISSION_COUNT_FAIL,
 
 } from './actions';
+
+import {
+  SHARE_MEMBER_PHOTO_SUCCESS,
+} from '../share-member-photo/actions';
 
 const initialState = {
   photoRoll: {
@@ -331,6 +336,41 @@ export default createReducer(initialState, {
       missionPhotos: {
         ...state.missionPhotos,
         imageCount: 0,
+      },
+    };
+  },
+  [SHARE_MEMBER_PHOTO_SUCCESS](state, { payload }) {
+    const photoRollList = clone(state.photoRoll.response.imageList);
+    const missionPhotosList = clone(state.missionPhotos.response.imageList);
+    photoRollList.map((image) => {
+      if (image.customerImageId === payload.customerImageId) {
+        image.canShareFlag = payload.canShareFlag
+      }
+      return image;
+    });
+
+    missionPhotosList.map((image) => {
+      if (image.customerImageId === payload.customerImageId) {
+        image.canShareFlag = payload.canShareFlag
+      }
+      return image;
+    });
+
+    return {
+      ...state,
+      missionPhotos: {
+        ...state.missionPhotos,
+        response: {
+          ...state.missionPhotos.response,
+          imageList: missionPhotosList,
+        }
+      },
+      photoRoll: {
+        ...state.photoRoll,
+        response: {
+          ...state.photoRoll.response,
+          imageList: photoRollList,
+        }
       },
     };
   },

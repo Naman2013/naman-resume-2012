@@ -13,22 +13,31 @@ import Sponsors from '../components/home/sponsors';
 import Dedication from '../components/home/slooh-extras/dedication';
 import SloohStorePromo from '../components/home/slooh-store';
 import Featured from '../components/home/slooh-extras/featured';
+import SharedPictures from '../components/home/shared-pictures';
 import style from './home.scss';
 
 import { fetchCommunityContent }
   from '../modules/community-content/community-object-content-actions';
 import { getHomePage, trackUser } from '../modules/home-content/actions';
+import { getSharedMemberPhotos } from '../modules/get-shared-member-photos/actions';
 
-const mapStateToProps = ({ communityContent, homeContent, appConfig }) => ({
+const mapStateToProps = ({
+  appConfig,
+  communityContent,
+  homeContent,
+  sharedMemberPhotos,
+}) => ({
   communityContent: communityContent.communityContent,
   homeContent,
   appConfig,
+  sharedMemberPhotosList: sharedMemberPhotos.imageList,
 });
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
     fetchCommunityContent,
     getHomePage,
+    getSharedMemberPhotos,
     trackUser,
   }, dispatch),
 });
@@ -38,8 +47,6 @@ class Home extends Component {
   componentWillMount() {
     this.props.actions.fetchCommunityContent();
 
-    this.props.actions.getHomePage();
-
     this.homePageRerfreshInterval = setInterval(() => {
       this.props.actions.getHomePage();
     }, this.props.homeContent.refreshIntervalSec * 1000);
@@ -47,6 +54,12 @@ class Home extends Component {
 
   componentDidMount() {
     this.props.actions.trackUser();
+
+    this.props.actions.getHomePage().then(res => {
+      if (res.data.memberPicturesDisplay) {
+        this.props.actions.getSharedMemberPhotos();
+      }
+    });
   }
 
   componentWillUnmount() {
@@ -66,14 +79,17 @@ class Home extends Component {
   }
 
   render() {
-    const { homeContent, appConfig } = this.props;
-    const { posts } = this.props.communityContent;
+    const {
+      homeContent,
+      appConfig,
+      sharedMemberPhotosList,
+    } = this.props;
 
+    const { posts } = this.props.communityContent;
     const heroProps = {};
     Object.keys(homeContent).filter(key => /^hero/.test(key)).forEach((key) => {
       heroProps[key] = homeContent[key];
     });
-
     return (
       <div className={`${style.homeContainer} clearfix`}>
         {
@@ -111,13 +127,15 @@ class Home extends Component {
               userLoggedInFlag={homeContent.userLoggedInFlag}
             />
         }
-
+        {homeContent.memberPicturesDisplay && <SharedPictures
+          heading={homeContent.memberPicturesHeading}
+          subheading={homeContent.memberPicturesSubHeading}
+          imageList={sharedMemberPhotosList}
+        />}
         <div className="clearfix">
           {this.generateRecentVideoTiles()}
         </div>
-
         <PromoMessageBand message={homeContent.promoBandContent} />
-
         <div className="clearfix">
           {this.generateSloohFeatures()}
         </div>

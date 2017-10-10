@@ -55,6 +55,7 @@ class Photo extends Component {
       detailsUrl,
       customerImageId,
       canEditFlag,
+      canShareFlag,
       user,
     } = this.props;
 
@@ -87,6 +88,7 @@ class Photo extends Component {
             <ul className={s.photoMenu}>
               <li>
                 <PhotoActions
+                  canShareFlag={canShareFlag}
                   canEditFlag={canEditFlag}
                   imageURL={imageURL}
                   customerImageId={customerImageId}

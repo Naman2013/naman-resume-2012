@@ -6,6 +6,10 @@ import {
   FETCH_MY_PICTURES_IMAGE_DETAILS_FAIL,
 } from './actions';
 
+import {
+  SHARE_MEMBER_PHOTO_SUCCESS,
+} from '../share-member-photo/actions';
+
 const initialState = {
   fetching: false,
   error: false,
@@ -22,7 +26,9 @@ const initialState = {
   likePrompt: '',
   canDownloadFlag: false,
   canEditFlag: false,
+  canShareFlag: false,
   fileData: {},
+  avatarURL: '',
 };
 
 export default createReducer(initialState, {
@@ -44,6 +50,12 @@ export default createReducer(initialState, {
       ...state,
       fetching: false,
       error: true,
+    };
+  },
+  [SHARE_MEMBER_PHOTO_SUCCESS](state, { payload }) {
+    return {
+      ...state,
+      canShareFlag: payload.canShareFlag,
     };
   },
 });

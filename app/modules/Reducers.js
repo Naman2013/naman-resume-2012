@@ -47,6 +47,8 @@ import pageLevelMetaContent from './pageLevelMetaContent/seo-reducer';
 import piggyback from './Piggyback';
 import post from './pulse/get-post-reducer';
 import starshareCamera from './starshare-camera/starshare-camera-reducer';
+import shareMemberPhoto from './share-member-photo/reducer';
+import sharedMemberPhotos from './get-shared-member-photos/reducer';
 import tags from './tag-management/Tags';
 import telescopeDetails from './telescope-details/reducer';
 import telescopeOverview from './Telescope-Overview';
@@ -107,6 +109,9 @@ export default combineReducers({
   pageLevelMetaContent,
   piggyback,
   post,
+  /* EK 8/9/17 registration is closed      roadtripRegistration, */
+  shareMemberPhoto,
+  sharedMemberPhotos,
   starshareCamera,
   tags,
   telescopeDetails,
