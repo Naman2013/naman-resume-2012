@@ -39,7 +39,6 @@ class TimeUntil extends Component {
     if (this.timer) {
       clearInterval(this.timer);
     }
-
     this.timer = setInterval(() => {
       this.setState({
         remainingTime: moment(),
@@ -53,9 +52,26 @@ class TimeUntil extends Component {
 
     const endTime = moment.unix(startTime);
     const duration = moment.duration(endTime.diff(remainingTime));
-    const hours = pad(duration.hours());
-    const minutes = pad(duration.minutes());
-    const seconds = pad(duration.seconds());
+
+    let remainingHours = duration.hours();
+    let remainingMinutes = duration.minutes();
+    let remainingSeconds = duration.seconds();
+
+    if (remainingHours <= 0) {
+      remainingHours = 0;
+    }
+
+    if (remainingMinutes <= 0) {
+      remainingMinutes = 0;
+    }
+
+    if (remainingSeconds <= 0) {
+      remainingSeconds = 0;
+    }
+
+    const hours = pad(remainingHours);
+    const minutes = pad(remainingMinutes);
+    const seconds = pad(remainingSeconds);
 
     return (
       <div className="inline-countdown">
