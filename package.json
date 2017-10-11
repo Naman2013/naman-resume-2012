@@ -87,7 +87,7 @@
     "react-slick": "^0.14.11",
     "react-spinner": "^0.2.6",
     "react-stickynode": "^1.2.1",
-    "react-tabs": "^1.1.0",
+    "react-tabs": "^2.1.0",
     "react-tag-input": "^4.3.2",
     "react-tooltip": "^3.3.0",
     "redux": "^3.5.2",
