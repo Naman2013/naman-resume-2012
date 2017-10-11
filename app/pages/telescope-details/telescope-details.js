@@ -42,8 +42,8 @@ import StarShareCamera from '../../components/telescope-details/star-share-camer
 import SunsetCountdown from '../../components/telescope-details/SunsetCountdown';
 import MoonlightWidget from '../../components/telescope-details/MoonlightWidget';
 
-// TODO: remove this once we finish implementing and testing
-import MISSIONS from '../../components/telescope-details/UpcomingMissions/testData';
+// TODO: for testing mission data
+// import MISSIONS from '../../components/telescope-details/UpcomingMissions/testData';
 // =========================================================
 
 function mapDispatchToProps(dispatch) {
