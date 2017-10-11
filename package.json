@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server",
-    "test": "jest -u  --coverage",
+    "test": "jest --coverage",
+    "update-snapshots": "jest -u",
     "prod-simple": "rimraf dist && webpack -p --config webpack.production.config.js --colors --progress",
     "prod:mars": "rimraf dist && rimraf node_modules && npm cache clean && npm install && apiUrl=https://mars.slooh.com apiPortNumber=443 NODE_ENV=production webpack -p --config webpack.production.config.js --colors --progress",
     "prod:saturn": "rimraf dist && rimraf node_modules && npm cache clean && npm install && apiUrl=https://saturn.slooh.com apiPortNumber=443 NODE_ENV=production webpack -p --config webpack.production.config.js --colors --progress",
