@@ -84,7 +84,7 @@ export default class RefreshedImage extends Component {
           key={`${frontImageURL}-front`}
           alt={imageAltText}
           src={frontImageURL}
-          width={imageWidth}
+          width={maxImageWidth}
         />
 
         <style jsx>{`
