@@ -30,7 +30,7 @@ class InlineCountdown extends Component {
 
   bootstrapTimer = (time) => {
     const { incrementTime } = this.props;
-    const expires = moment(time * 1000);
+    const expires = moment.utc(time * 1000);
     const duration = incrementTime ? expires : expires.diff(moment());
 
     this.setState({
