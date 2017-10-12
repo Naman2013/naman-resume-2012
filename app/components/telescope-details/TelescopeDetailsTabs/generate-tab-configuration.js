@@ -10,17 +10,21 @@ export default function generateTabConfiguration({
   currentConditionsURL,
   dayNightBarRefreshInterval,
   dayNightBarURL,
+  dayNightBarImageWidth,
   dayNightMapRefreshInterval,
   dayNightMapURL,
+  dayNightMapImageWidth,
   allSkyRefreshIntervalSec,
   allSkyCamURL,
   allSkyCamOfflineURL,
   allSkyCamOnlineStatus,
+  allSkyCamImageWidth,
   domeCamRefreshIntervalSec,
   domeCamURL,
   domeCamOfflineURL,
   domeCamOnlineStatus,
-  facilityWebcamWidgetId,
+  domeCamImageWidth,
+  facilityWebcamWidgetId, // TODO: require the image width here....
 }) {
   return (
   [
@@ -31,12 +35,15 @@ export default function generateTabConfiguration({
           <DayNightTimeline
             dayNightBarURL={dayNightBarURL}
             refreshIntervalSec={dayNightBarRefreshInterval}
+            imageWidth={dayNightBarImageWidth}
           />
           <DayNightMap
             refreshIntervalSec={dayNightMapRefreshInterval}
             dayNightMapURL={dayNightMapURL}
+            imageWidth={dayNightMapImageWidth}
           />
-        </div>),
+        </div>
+      ),
     },
     {
       tabText: 'All Sky Camera',
