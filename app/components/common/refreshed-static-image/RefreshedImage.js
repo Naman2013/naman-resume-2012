@@ -15,10 +15,12 @@ export default class RefreshedImage extends Component {
     imageURL: PropTypes.string.isRequired,
     refreshIntervalSec: PropTypes.number.isRequired,
     imageAltText: PropTypes.string,
+    imageWidth: PropTypes.string,
   }
 
   static defaultProps = {
     imageAltText: '',
+    imageWidth: '100%',
   }
 
   constructor(props) {
@@ -65,12 +67,25 @@ export default class RefreshedImage extends Component {
   }
 
   render() {
-    const { imageAltText } = this.props;
+    const { imageAltText, imageWidth } = this.props;
     const { backImageURL, frontImageURL } = this.state;
     return (
       <div>
-        <img className="back" key={`${backImageURL}-back`} alt={imageAltText} src={backImageURL} />
-        <img onLoad={this.handleOnLoad} className="front" key={`${frontImageURL}-front`} alt={imageAltText} src={frontImageURL} />
+        <img
+          className="back"
+          key={`${backImageURL}-back`}
+          alt={imageAltText}
+          src={backImageURL}
+          width={imageWidth}
+        />
+        <img
+          onLoad={this.handleOnLoad}
+          className="front"
+          key={`${frontImageURL}-front`}
+          alt={imageAltText}
+          src={frontImageURL}
+          width={imageWidth}
+        />
 
         <style jsx>{`
           div {
@@ -84,7 +99,6 @@ export default class RefreshedImage extends Component {
           }
 
           img {
-            width: 100%;
             height: auto;
           }
         `}</style>
