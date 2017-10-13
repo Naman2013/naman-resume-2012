@@ -50,12 +50,15 @@ export default function generateTabConfiguration({
     {
       tabText: 'All Sky Camera',
       tabContent: (
-        <AllSkyCamera
-          refreshIntervalSec={allSkyRefreshIntervalSec}
-          allSkyCamURL={allSkyCamURL}
-          offlineImageURL={allSkyCamOfflineURL}
-          onlineStatus={allSkyCamOnlineStatus}
-        />
+        <CenterContent>
+          <AllSkyCamera
+            refreshIntervalSec={allSkyRefreshIntervalSec}
+            allSkyCamURL={allSkyCamURL}
+            offlineImageURL={allSkyCamOfflineURL}
+            onlineStatus={allSkyCamOnlineStatus}
+            imageWidth={allSkyCamImageWidth}
+          />
+        </CenterContent>
       ),
     },
     {
