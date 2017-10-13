@@ -64,12 +64,15 @@ export default function generateTabConfiguration({
     {
       tabText: 'Dome',
       tabContent: (
-        <DomeCam
-          refreshIntervalSec={domeCamRefreshIntervalSec}
-          domeCamURL={domeCamURL}
-          offlineImageURL={domeCamOfflineURL}
-          onlineStatus={domeCamOnlineStatus}
-        />
+        <CenterContent>
+          <DomeCam
+            refreshIntervalSec={domeCamRefreshIntervalSec}
+            domeCamURL={domeCamURL}
+            offlineImageURL={domeCamOfflineURL}
+            onlineStatus={domeCamOnlineStatus}
+            imageWidth={domeCamImageWidth}
+          />
+        </CenterContent>
       ),
     },
     {
