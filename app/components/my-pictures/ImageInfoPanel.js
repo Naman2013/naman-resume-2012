@@ -194,6 +194,7 @@ class ImageInfoPanel extends Component {
 
           .obslog {
             white-space: pre-wrap;
+            text-align: left;
           }
           `}
         </style>
