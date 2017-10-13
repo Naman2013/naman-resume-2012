@@ -147,7 +147,7 @@ class SharedPicturesItem extends Component {
       <div className="shared-pictures-item">
         {error && <div className="loading">There was an error fetching this photo.</div>}
         {fetching && <div className="loading">Loading...</div>}
-        {!fetching && <div className="container">
+        {!error && !fetching && <div className="container">
           <Link to={`/my-pictures/show-image/${customerImageId}/${shareToken}`}>
             <div style={{ backgroundImage: `url(${imageURL})` }} className="shared-image" />
           </Link>
