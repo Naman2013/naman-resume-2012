@@ -247,7 +247,7 @@ class SharedPicturesItem extends Component {
             font-family: ${secondaryFont};
             margin-top: 15px;
             overflow-y: auto;
-            max-height: 150px;
+            max-height: 100px;
             font-size: 1rem;
             white-space: pre-wrap;
           }
