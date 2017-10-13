@@ -5,16 +5,14 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import moment from 'moment';
-import findIndex from 'lodash/findIndex';
 import isEqual from 'lodash/isEqual';
+import throttle from 'lodash/throttle';
 import { DayPickerSingleDateController } from 'react-dates';
 import { fetchObjectTypeList } from '../../modules/object-type-list/actions';
 import { fetchFiltersLists, setFilters, setSelectedTagsTabIndex, setCurrentVisibleCalMonth } from '../../modules/my-pictures-filters/actions';
 import SelectToggleList from '../common/forms/SelectToggleList';
 import { white, darkBlueGray } from '../../styles/variables/colors';
 import FilterMenuTags from './FilterMenuTags';
-
-
 
 const mapStateToProps = ({ objectTypeList, myPicturesFilters }) => ({
   fetchingObjectTypeList: objectTypeList.fetching,
@@ -251,7 +249,14 @@ export class FilterMenuComponent extends Component {
     return (
       <div className="rootFilterMenu">
         <ul className="filterMenu">
-          <li className="dateSection filterMenuSection">
+          <li
+            ref={
+              (_dateSelectionContainer) => {
+                this.dateSelectionContainer = _dateSelectionContainer;
+              }
+            }
+            className="dateSection filterMenuSection"
+          >
             <h3 className="filterTitle">Date (UTC):</h3>
             <DayPickerSingleDateController
               date={this.state.date} // momentPropTypes.momentObj or null
@@ -263,7 +268,7 @@ export class FilterMenuComponent extends Component {
               keepOpenOnDateSelect={true}
               isDayHighlighted={this.isDayHighlighted}
               orientation="horizontal"
-              ref={_calRef => this.calRef = _calRef}
+              ref={(_calRef) => { this.calRef = _calRef; }}
               onNextMonthClick={this.setCalendarMonth}
               onPrevMonthClick={this.setCalendarMonth}
               initialVisibleMonth={() => currentVisibleCalMonth}
@@ -341,6 +346,7 @@ export class FilterMenuComponent extends Component {
 
           .dateSection {
             width: 315px;
+            min-width: 220px;
           }
 
           :global(.transition-container) {
