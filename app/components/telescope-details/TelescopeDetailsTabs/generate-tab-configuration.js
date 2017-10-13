@@ -5,6 +5,8 @@ import AllSkyCamera from '../condition-snapshot/AllSkyCamera';
 import DomeCam from '../condition-snapshot/DomeCam';
 import LiveWebcam from '../live-webcam/live-webcam';
 
+import CenterContent from '../../../design-system/CenterContent';
+
 export default function generateTabConfiguration({
   obsId,
   currentConditionsURL,
@@ -31,7 +33,7 @@ export default function generateTabConfiguration({
     {
       tabText: 'Day/Night Bar',
       tabContent: (
-        <div>
+        <CenterContent>
           <DayNightTimeline
             dayNightBarURL={dayNightBarURL}
             refreshIntervalSec={dayNightBarRefreshInterval}
@@ -42,7 +44,7 @@ export default function generateTabConfiguration({
             dayNightMapURL={dayNightMapURL}
             imageWidth={dayNightMapImageWidth}
           />
-        </div>
+        </CenterContent>
       ),
     },
     {
