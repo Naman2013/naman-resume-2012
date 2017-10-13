@@ -78,10 +78,12 @@ export default function generateTabConfiguration({
     {
       tabText: 'Horizon',
       tabContent: (
-        <LiveWebcam
-          obsId={obsId}
-          facilityWebcamWidgetId={facilityWebcamWidgetId}
-        />
+        <CenterContent>
+          <LiveWebcam
+            obsId={obsId}
+            facilityWebcamWidgetId={facilityWebcamWidgetId}
+          />
+        </CenterContent>
       ),
     },
   ]

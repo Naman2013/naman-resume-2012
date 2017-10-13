@@ -14,6 +14,7 @@ const mapStateToProps = ({
   title: observatoryLiveWebcamResult.title,
   subtitle: observatoryLiveWebcamResult.subtitle,
   logoURL: observatoryLiveWebcamResult.logoURL,
+  imageWidth: observatoryLiveWebcamResult.imageWidth,
   refreshIntervalSec: observatoryLiveWebcamResult.refreshIntervalSec,
   facilityWebcamURL: observatoryLiveWebcamResult.facilityWebcamURL,
   fetchingObservatoryLiveWebcamResult: telescopeOverview.fetchingObservatoryLiveWebcamResult,
@@ -36,6 +37,7 @@ class LiveWebcam extends Component {
     actions: PropTypes.shape({
       fetchObservatoryWebcam: PropTypes.func.isRequired,
     }).isRequired,
+    imageWidth: PropTypes.string.isRequired,
   };
 
   componentDidMount() {
@@ -62,6 +64,7 @@ class LiveWebcam extends Component {
       fetchingObservatoryLiveWebcamResult,
       refreshIntervalSec,
       facilityWebcamURL,
+      imageWidth,
     } = this.props;
 
     return (
@@ -71,6 +74,7 @@ class LiveWebcam extends Component {
             !fetchingObservatoryLiveWebcamResult ?
               <RefreshedImage
                 imageURL={facilityWebcamURL}
+                maxImageWidth={imageWidth}
                 refreshIntervalSec={refreshIntervalSec}
               /> : <GenericLoadingBox />
           }
