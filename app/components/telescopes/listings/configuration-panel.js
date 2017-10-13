@@ -10,7 +10,7 @@ export default class ConfigurationPanel extends Component {
     super(props);
   }
 
-  render() {    
+  render() {
 
     return (
       <div className="row reservation-configuration">
@@ -24,7 +24,7 @@ export default class ConfigurationPanel extends Component {
         <div className="row steps">
           {
             steps.map((step, index) => (
-              <PanelColumn key={index} stepNumber={index + 1} {...step}/> 
+              <PanelColumn key={index} stepNumber={index + 1} {...step}/>
             ))
           }
         </div>
