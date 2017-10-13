@@ -6,7 +6,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import moment from 'moment';
 import isEqual from 'lodash/isEqual';
-import throttle from 'lodash/throttle';
 import { DayPickerSingleDateController } from 'react-dates';
 import { fetchObjectTypeList } from '../../modules/object-type-list/actions';
 import { fetchFiltersLists, setFilters, setSelectedTagsTabIndex, setCurrentVisibleCalMonth } from '../../modules/my-pictures-filters/actions';
@@ -249,14 +248,7 @@ export class FilterMenuComponent extends Component {
     return (
       <div className="rootFilterMenu">
         <ul className="filterMenu">
-          <li
-            ref={
-              (_dateSelectionContainer) => {
-                this.dateSelectionContainer = _dateSelectionContainer;
-              }
-            }
-            className="dateSection filterMenuSection"
-          >
+          <li className="dateSection filterMenuSection">
             <h3 className="filterTitle">Date (UTC):</h3>
             <DayPickerSingleDateController
               date={this.state.date} // momentPropTypes.momentObj or null
@@ -345,8 +337,8 @@ export class FilterMenuComponent extends Component {
           }
 
           .dateSection {
-            width: 315px;
-            min-width: 220px;
+            min-width: 315px;
+            max-width: 315px;
           }
 
           :global(.transition-container) {
