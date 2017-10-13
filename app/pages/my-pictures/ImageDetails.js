@@ -62,10 +62,13 @@ class ImageDetails extends Component {
       itemId: customerImageId,
       itemType: 'image'
     }).then(() => {
-      actions.fetchImageDetailsAndCounts({
-        customerImageId,
-        shareToken,
-      });
+
+      if (this.props.myPicturesImageDetails.customerImageId !== customerImageId) { // don't call api for info we already have
+        actions.fetchImageDetailsAndCounts({
+          customerImageId,
+          shareToken,
+        });
+      }
     });
   }
 
