@@ -318,8 +318,7 @@ export class FilterMenuComponent extends Component {
             />
           </li>
         </ul>
-        <style jsx>
-        {`
+        <style jsx>{`
           .rootFilterMenu {
             background: ${white};
             padding: 0 20px 25px 40px;
@@ -371,8 +370,7 @@ export class FilterMenuComponent extends Component {
           .tagSection {
             flex: 2;
           }
-        `}
-        </style>
+        `}</style>
       </div>
     );
   }
