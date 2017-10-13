@@ -69,22 +69,26 @@ export default class RefreshedImage extends Component {
   render() {
     const { imageAltText, maxImageWidth } = this.props;
     const { backImageURL, frontImageURL } = this.state;
+    const imageInlineStyle = {
+      maxWidth: maxImageWidth,
+      width: 'auto',
+    };
     return (
       <div>
         <img
+          style={imageInlineStyle}
           className="back"
           key={`${backImageURL}-back`}
           alt={imageAltText}
           src={backImageURL}
-          width={maxImageWidth}
         />
         <img
+          style={imageInlineStyle}
           onLoad={this.handleOnLoad}
           className="front"
           key={`${frontImageURL}-front`}
           alt={imageAltText}
           src={frontImageURL}
-          width={maxImageWidth}
         />
 
         <style jsx>{`
