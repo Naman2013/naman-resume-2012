@@ -35,9 +35,16 @@ class SharedPictures extends Component {
   };
 
   state = {
-    currentIndex: 0,
+    currentIndex: this.props.imageList.length - 1,
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (this.props.imageList.length !== nextProps.imageList.length) {
+      this.setState({
+        currentIndex: nextProps.imageList.length - 1,
+      });
+    }
+  }
 
   beforeSlideChange = (prevIndex, currentIndex) => {
     this.setState({
@@ -57,6 +64,7 @@ class SharedPictures extends Component {
       slidesToShow: 1,
       slidesToScroll: 1,
       lazyLoading: true,
+      initialSlide: currentIndex,
       adaptiveHeight: false,
       beforeChange: this.beforeSlideChange,
       nextArrow: <i className="fa fa-arrow-right" />,

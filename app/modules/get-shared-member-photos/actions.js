@@ -23,6 +23,7 @@ export const getSharedMemberPhotos = () => (dispatch, getState) => {
   dispatch(getSharedMemberPhotosStart());
   return axios.post('/api/images/getSharedMemberPictures', {
     pagingMode: 'app',
+    listOrdering: 'asc',
   })
     .then(result => dispatch(getSharedMemberPhotosSuccess(result.data)))
     .catch(error => dispatch(getSharedMemberPhotosFail(error)));
