@@ -39,6 +39,7 @@ import myPicturesImageDetails from './my-pictures-image-details/reducer';
 import myPicturesFilters from './my-pictures-filters/reducer';
 import myPicturesVerifyOwner from './my-pictures-verify-owner/reducer';
 import galleries from './my-pictures-galleries/reducer';
+import userPublicGalleries from './my-pictures-user-public-galleries/reducer';
 import galleryPictures from './my-pictures-gallery-pictures/reducer';
 import galleryActions from './my-pictures-gallery-actions/reducer';
 import objectPostList from './object-post-list/reducer';
@@ -102,6 +103,7 @@ export default combineReducers({
   myPicturesImageDetails,
   myPicturesFilters,
   myPicturesVerifyOwner,
+  userPublicGalleries,
   galleries,
   galleryActions,
   galleryPictures,
