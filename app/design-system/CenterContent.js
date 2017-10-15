@@ -6,13 +6,19 @@ const propTypes = {
 };
 
 const CenterContent = ({ children }) => (
-  <div className="center-content">
-    { children }
+  <div className="center-content-root">
+    <div className="center-content">
+      { children }
+    </div>
 
     <style jsx>{`
+      .center-content-root {
+        width: 100%;
+        text-align: center;
+      }
+
       .center-content {
-        width: fit-content;
-        margin: 0 auto;
+        display: inline-block;
       }
     `}</style>
   </div>
