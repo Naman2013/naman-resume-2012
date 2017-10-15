@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import classnames from 'classnames';
 import MyPicturesNavigation from '../../components/my-pictures/my-pictures-navigation';
 import PhotoView from '../../components/my-pictures/PhotoView';
 import { fetchGalleryPicturesAndCounts } from '../../modules/my-pictures-gallery-pictures/actions';
-import { darkBlueGray } from '../../styles/variables/colors';
+import { togglePublicGallery } from '../../modules/toggle-public-gallery/actions';
+import { darkBlueGray, turqoise } from '../../styles/variables/colors';
 import style from './my-pictures-gallery.scss';
 
 const mapStateToProps = ({ galleryPictures }) => ({
@@ -18,11 +20,13 @@ const mapStateToProps = ({ galleryPictures }) => ({
   maxImageCount: galleryPictures.maxImageCount,
   galleryTitle: galleryPictures.galleryTitle,
   galleryDateCreated: galleryPictures.galleryDateCreated,
+  publicFlag: galleryPictures.publicFlag,
 });
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
     fetchGalleryPicturesAndCounts,
+    togglePublicGallery,
   }, dispatch),
 });
 
@@ -39,6 +43,15 @@ class GalleryImages extends Component {
     });
   }
 
+  togglePublicGallery = (e, galleryId) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    this.props.actions.togglePublicGallery({
+      galleryId,
+    });
+  }
+
   render() {
     const {
       actions,
@@ -50,8 +63,14 @@ class GalleryImages extends Component {
       maxImageCount,
       galleryTitle,
       galleryDateCreated,
+      publicFlag,
       params: { galleryId }
     } = this.props;
+
+    const publicIcon = classnames('fa public-icon', {
+      'fa-eye': publicFlag,
+      'fa-eye-slash': !publicFlag,
+    });
     return (
       <div>
         <MyPicturesNavigation
@@ -62,8 +81,12 @@ class GalleryImages extends Component {
           <div className="missionInfo">
             {galleryTitle && <span className="galleryTitle" dangerouslySetInnerHTML={{ __html: galleryTitle }} />}
           </div>
-          <div>
+          <div className="galleryImage-actions">
             {galleryDateCreated && <div className="galleryDesc">Created <span dangerouslySetInnerHTML={{ __html: galleryDateCreated }} /> (UTC)</div>}
+            <span
+              className={publicIcon}
+              onClick={e => this.togglePublicGallery(e, galleryId)}
+            />
           </div>
         </div>
 
@@ -95,6 +118,22 @@ class GalleryImages extends Component {
             font-size: 30px;
           }
 
+          .galleryImage-actions {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+          }
+
+          .public-icon {
+            cursor: pointer;
+            color: ${turqoise};
+            margin-left: 15px;
+            font-size: 40px;
+            display: inline-block;
+            height: 100%;
+            min-width: 30px;
+          }
+
           .galleryDesc {
 
           }
@@ -113,6 +152,7 @@ GalleryImages.defaultProps = {
   firstImageNumber: 1,
   galleryTitle: '',
   galleryDateCreated: '',
+  publicFlag: false,
 };
 
 GalleryImages.propTypes = {
@@ -130,6 +170,7 @@ GalleryImages.propTypes = {
   error: PropTypes.bool,
   galleryTitle: PropTypes.string,
   galleryDateCreated: PropTypes.string,
+  publicFlag: PropTypes.bool,
 };
 
 export default GalleryImages;
