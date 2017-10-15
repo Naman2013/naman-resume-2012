@@ -96,7 +96,7 @@ class MoonlightWidget extends Component {
             list-style-type: none;
             background: rgba(0, 0, 0, 0.75);
             align-items: flex-end;
-            justify-content: space-evenly;
+            justify-content: space-around;
           }
 
           .moon-widget-item {

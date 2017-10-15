@@ -74,7 +74,7 @@ const DefaultTabs = ({ handleTabSelect, selectedIndex, tabConfiguration }) => {
           margin-bottom: 20px;
           padding: 0;
           display: flex;
-          justify-content: space-evenly;
+          justify-content: space-around;
         }
 
         :global(.generic-tabs-component .tab) {
