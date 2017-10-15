@@ -107,7 +107,6 @@ const startFetchTelescopeStatus = () => ({
 });
 
 export const fetchAllTelescopeStatus = ({ obsId, teleUniqueId, isRefresh }) => (dispatch) => {
-
   // if we are not refreshing inline then reset the flags
   // otherwise we expect to update in place seamlessly
   if (!isRefresh) {
