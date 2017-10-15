@@ -4,6 +4,7 @@ import { Link } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import moment from 'moment';
 import './telescope-details.scss';
 
 import {
@@ -72,6 +73,7 @@ function mapStateToProps({
   return {
     fetchingObservatoryList: telescopeDetails.fetchingObservatoryList,
     fetchingObservatoryStatus: telescopeDetails.fetchingObservatoryStatus,
+    allObservatoryTelescopeStatus: telescopeDetails.allObservatoryTelescopeStatus,
 
     currentObservatory: telescopeDetails.currentObservatory,
     currentTelescope: telescopeDetails.currentTelescope,
@@ -118,8 +120,12 @@ class TelescopeDetails extends Component {
     missionPercentageRemaining: 0,
   };
 
-  componentDidMount() {
-    this.scaffoldRefreshInterval();
+  componentWillReceiveProps(nextProps) {
+    const { allObservatoryTelescopeStatus } = nextProps;
+    // console.log(allObservatoryTelescopeStatus);
+    if (allObservatoryTelescopeStatus && allObservatoryTelescopeStatus.statusExpires) {
+      this.scaffoldRefreshInterval(allObservatoryTelescopeStatus.statusExpires);
+    }
   }
 
   componentWillUpdate(nextProps) {
@@ -164,7 +170,7 @@ class TelescopeDetails extends Component {
   }
 
   componentWillUnmount() {
-    clearInterval(this.refreshTelescopeStatusInterval);
+    clearTimeout(this.refreshTelescopeStatusTimeout);
   }
 
   handleSelect = (index) => {
@@ -187,19 +193,30 @@ class TelescopeDetails extends Component {
     });
   }
 
-  refreshTelescopeStatusInterval = null;
+  refreshTelescopeStatusTimeout = null;
+
+  workingRefreshTimestamp = 0;
 
   // once per 10 minutes, fetch the latest telescope status
-  scaffoldRefreshInterval(increment = 600000) {
-    clearInterval(this.refreshTelescopeStatusInterval);
-    this.refreshTelescopeStatusInterval = setInterval(() => {
-      const { observatoryList, params: { obsUniqueId, teleUniqueId } } = this.props;
-      this.props.actions.fetchAllTelescopeStatus({
-        obsId: observatoryList.find(observatory => observatory.obsUniqueId === obsUniqueId).obsId,
-        teleUniqueId,
-        isRefresh: true,
-      });
-    }, increment);
+  scaffoldRefreshInterval(expirationTimestamp = 0) {
+    if (this.workingRefreshTimestamp !== expirationTimestamp) {
+      this.workingRefreshTimestamp = expirationTimestamp;
+      clearTimeout(this.refreshTelescopeStatusTimeout);
+
+      // diff in milliseconds from now and the expires time...
+      const convertedExpirestamp = expirationTimestamp * 1000;
+      const nowStamp = moment.utc().valueOf();
+      const refreshInterval = convertedExpirestamp - nowStamp;
+
+      this.refreshTelescopeStatusTimeout = setTimeout(() => {
+        const { observatoryList, params: { obsUniqueId, teleUniqueId } } = this.props;
+        this.props.actions.fetchAllTelescopeStatus({
+          obsId: observatoryList.find(observatory => observatory.obsUniqueId === obsUniqueId).obsId,
+          teleUniqueId,
+          isRefresh: true,
+        });
+      }, refreshInterval);
+    }
   }
 
   render() {
