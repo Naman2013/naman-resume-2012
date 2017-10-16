@@ -14,6 +14,7 @@ GenericLoadingBox.defaultProps = {
 
 GenericLoadingBox.propTypes = {
   text: PropTypes.string,
+  height: PropTypes.string,
 };
 
 export default GenericLoadingBox;
