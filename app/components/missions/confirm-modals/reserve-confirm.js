@@ -36,21 +36,12 @@ class ReserveConfirm extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      objective: '',
-    };
-
     this.onSubmit = this.onSubmit.bind(this);
     this.handleCloseModalClick = this.handleCloseModalClick.bind(this);
-    this.handleChangeObjective = this.handleChangeObjective.bind(this);
     this.cancelMissionAndCloseModal = this.cancelMissionAndCloseModal.bind(this);
   }
 
   componentWillMount() {
-    this.setState({
-      objective: '',
-    });
-
     this.props.actions.resetClientTagData();
   }
 
@@ -58,7 +49,7 @@ class ReserveConfirm extends Component {
     event.preventDefault();
     const { callSource, reservationType } = this.props.currentMissionSlot;
     const currentMission = this.props.currentMissionSlot.missionList[0];
-    const objective = this.state.objective.trim();
+    const objective = '';
 
     // handle the reservation...
     if (reservationType === 'UPDATE') {
@@ -108,10 +99,6 @@ class ReserveConfirm extends Component {
   handleCloseModalClick(event) {
     event.preventDefault();
     this.cancelMissionAndCloseModal();
-  }
-
-  handleChangeObjective(event) {
-    this.setState({ objective: event.target.value });
   }
 
   /**
@@ -215,15 +202,6 @@ class ReserveConfirm extends Component {
           <div className="mission-schedule">
             <h4>Mission Details:</h4>
             <p>{EST_start} &middot; {EST_start_time} &middot; {PST_start_time} &middot; {UTC_start_time}</p>
-          </div>
-
-          <div className="share-objectives">
-            <h4>SHARE YOUR MISSION OBJECTIVES:</h4>
-            <textarea
-              className="mission-objectives"
-              placeholder="Please help the Slooh community watching your mission understand what they are looking at by posting a few sentences about your target and why.  This will appear in the mission interface for members to see during your mission."
-              value={this.state.objective}
-              onChange={this.handleChangeObjective}></textarea>
           </div>
 
           <div className="mission-tags">
