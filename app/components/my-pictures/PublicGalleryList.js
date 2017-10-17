@@ -1,21 +1,7 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
-import { fetchGalleryPictures } from '../../modules/my-pictures-gallery-pictures/actions';
 import Gallery from './Gallery';
 import style from './PhotoList.scss';
-
-const mapStateToProps = ({ galleryPictures }) => ({
-  ugalleryPicturesser,
-});
-
-
-const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({
-    fetchGalleryPictures
-  }, dispatch),
-});
 
 class PublicGalleryList extends Component {
   constructor(props) {
