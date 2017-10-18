@@ -104,7 +104,7 @@ class SharedPictures extends Component {
         <style jsx>{`
 
           .shared-container {
-            padding: 50px;
+            padding: 25px 50px;
             background-color: #2d3949;
             color: ${white};
             min-height: 500px;
@@ -122,13 +122,17 @@ class SharedPictures extends Component {
           .header {
             margin-bottom: 25px;
             text-align: center;
-            font-size: .8rem;
+            font-size: 0.8rem;
+          }
+
+          .heading {
+            font-size: 2.5rem;
           }
 
           .subheading {
             text-transform: uppercase;
             font-weight: bold;
-            font-size: .9rem;
+            font-size: 1.25rem;
           }
 
           .shared-container :global(.slick-slider) {
@@ -162,16 +166,19 @@ class SharedPictures extends Component {
 
         <style global>
           {`
+
             .shared-container .slick-prev:before {
               font-family: FontAwesome;
               font-style: normal;
               content: "\\f060";
+              font-size: 40px;
             }
 
             .shared-container .slick-next:before {
               font-family: FontAwesome;
               font-style: normal;
               content: "\\f061";
+              font-size: 40px;
             }
           `}
         </style>

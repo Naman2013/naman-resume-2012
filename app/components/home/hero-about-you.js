@@ -74,7 +74,7 @@ const HeroAboutYou = ({
         justify-content: space-between;
         background-color: ${black};
         color: ${white};
-        padding: 50px;
+        padding: 25px 50px;
         min-height: 300px;
       }
       .info {
