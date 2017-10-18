@@ -87,7 +87,7 @@ class SituationVideoViewer extends Component {
               additionalFeeds.map(feed => (
                 <Tab key={uniqueId()}>
                   <div className={s.liveTelescopeTitle}>
-                    {<h6>{feed.TelescopeName}</h6> }
+                    {<h6>{feed.tabDesc}</h6> }
                   </div>
                   <div className="telescope" style={getInlineBgStyle(feed.tabIconURL)} />
                 </Tab>
