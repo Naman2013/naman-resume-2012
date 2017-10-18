@@ -40,7 +40,7 @@ export const fetchMyPicturesImageDetails = ({
     customerImageId,
     useShareToken,
   })
-  .then(result => dispatch(fetchMyPicturesImageDetailsSuccess(result.data)))
+  .then(result => dispatch(fetchMyPicturesImageDetailsSuccess(Object.assign({ customerImageId }, result.data))))
   .catch(error => dispatch(fetchMyPicturesImageDetailsFail(error)));
 };
 

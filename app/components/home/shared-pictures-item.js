@@ -147,7 +147,7 @@ class SharedPicturesItem extends Component {
       <div className="shared-pictures-item">
         {error && <div className="loading">There was an error fetching this photo.</div>}
         {fetching && <div className="loading">Loading...</div>}
-        {!fetching && <div className="container">
+        {!error && !fetching && <div className="container">
           <Link to={`/my-pictures/show-image/${customerImageId}/${shareToken}`}>
             <div style={{ backgroundImage: `url(${imageURL})` }} className="shared-image" />
           </Link>
@@ -163,7 +163,7 @@ class SharedPicturesItem extends Component {
               <div>
               <h4
                 className="telescope"
-                dangerouslySetInnerHTML={{ __html: `Photo By: ${fileData['Photo by']}` }}
+                dangerouslySetInnerHTML={{ __html: `Photo By:<br/>${fileData['Photo by']}` }}
               />
                 <h3
                   className="title telescope"
@@ -247,8 +247,9 @@ class SharedPicturesItem extends Component {
             font-family: ${secondaryFont};
             margin-top: 15px;
             overflow-y: auto;
-            max-height: 150px;
+            max-height: 100px;
             font-size: 1rem;
+            white-space: pre-wrap;
           }
 
           .telescopeAndUser {
