@@ -1,20 +1,27 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import RefreshedImage from '../../common/refreshed-static-image/RefreshedImage';
 
-export default class DayNightTimeline extends Component {
-  static propTypes = {
-    dayNightBarURL: PropTypes.string.isRequired,
-    refreshIntervalSec: PropTypes.number.isRequired,
-  }
+const propTypes = {
+  dayNightBarURL: PropTypes.string.isRequired,
+  refreshIntervalSec: PropTypes.number.isRequired,
+  imageWidth: PropTypes.string,
+};
 
-  render() {
-    return (
-      <RefreshedImage
-        imageURL={this.props.dayNightBarURL}
-        refreshIntervalSec={this.props.refreshIntervalSec}
-        imageAltText="Day night status bar"
-      />
-    );
-  }
-}
+const defaultProps = {
+  imageWidth: '100%',
+};
+
+const DayNightTimeline = ({ dayNightBarURL, refreshIntervalSec, imageWidth }) => (
+  <RefreshedImage
+    imageURL={dayNightBarURL}
+    refreshIntervalSec={refreshIntervalSec}
+    imageAltText="Day night status bar"
+    maxImageWidth={imageWidth}
+  />
+);
+
+DayNightTimeline.propTypes = propTypes;
+DayNightTimeline.defaultProps = defaultProps;
+
+export default DayNightTimeline;

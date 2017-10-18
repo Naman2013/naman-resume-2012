@@ -13,19 +13,23 @@ const mapStateToProps = ({ telescopeDetails }) => ({
 
   dayNightBarRefreshInterval: telescopeDetails.dayNightBar.refreshIntervalSec,
   dayNightBarURL: telescopeDetails.dayNightBar.dayNightBarURL,
+  dayNightBarImageWidth: telescopeDetails.dayNightBar.imageWidth,
 
   dayNightMapRefreshInterval: telescopeDetails.dayNightMap.refreshIntervalSec,
   dayNightMapURL: telescopeDetails.dayNightMap.dayNightMapURL,
+  dayNightMapImageWidth: telescopeDetails.dayNightMap.imageWidth,
 
   allSkyRefreshIntervalSec: telescopeDetails.allSkyCamera.refreshIntervalSec,
   allSkyCamURL: telescopeDetails.allSkyCamera.allSkyCamURL,
   allSkyCamOfflineURL: telescopeDetails.allSkyCamera.offlineImageURL,
   allSkyCamOnlineStatus: telescopeDetails.allSkyCamera.onlineStatus,
+  allSkyCamImageWidth: telescopeDetails.allSkyCamera.imageWidth,
 
   domeCamRefreshIntervalSec: telescopeDetails.domeCam.refreshIntervalSec,
   domeCamURL: telescopeDetails.domeCam.domeCamURL,
   domeCamOfflineURL: telescopeDetails.domeCam.offlineImageURL,
   domeCamOnlineStatus: telescopeDetails.domeCam.onlineStatus,
+  domeCamImageWidth: telescopeDetails.domeCam.imageWidth,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -42,19 +46,23 @@ class TelescopeDetailsTabs extends Component {
 
     dayNightBarRefreshInterval: PropTypes.number.isRequired,
     dayNightBarURL: PropTypes.string.isRequired,
+    dayNightBarImageWidth: PropTypes.string.isRequired,
 
     dayNightMapRefreshInterval: PropTypes.number.isRequired,
     dayNightMapURL: PropTypes.string.isRequired,
+    dayNightMapImageWidth: PropTypes.string.isRequired,
 
     allSkyRefreshIntervalSec: PropTypes.number.isRequired,
     allSkyCamURL: PropTypes.string.isRequired,
     allSkyCamOfflineURL: PropTypes.string.isRequired,
     allSkyCamOnlineStatus: PropTypes.string.isRequired,
+    allSkyCamImageWidth: PropTypes.string.isRequired,
 
     domeCamRefreshIntervalSec: PropTypes.number.isRequired,
     domeCamURL: PropTypes.string.isRequired,
     domeCamOfflineURL: PropTypes.string.isRequired,
     domeCamOnlineStatus: PropTypes.string.isRequired,
+    domeCamImageWidth: PropTypes.string.isRequired,
 
     // provided by parent
     obsId: PropTypes.string.isRequired,

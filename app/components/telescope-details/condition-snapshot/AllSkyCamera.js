@@ -10,10 +10,11 @@ export default class AllSkyCamera extends Component {
     allSkyCamURL: PropTypes.string.isRequired,
     offlineImageURL: PropTypes.string.isRequired,
     onlineStatus: PropTypes.oneOf(['online', 'offline']).isRequired,
+    imageWidth: PropTypes.string.isRequired,
   }
 
   render() {
-    const { offlineImageURL, onlineStatus, refreshIntervalSec } = this.props;
+    const { offlineImageURL, onlineStatus, refreshIntervalSec, imageWidth } = this.props;
 
     if (onlineStatus === 'online') {
       return (
@@ -26,6 +27,7 @@ export default class AllSkyCamera extends Component {
             imageURL={this.props.allSkyCamURL}
             refreshIntervalSec={refreshIntervalSec}
             imageAltText="All sky camera"
+            maxImageWidth={imageWidth}
           />
         </div>
       );

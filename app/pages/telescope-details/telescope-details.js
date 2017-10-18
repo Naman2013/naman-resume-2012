@@ -21,29 +21,26 @@ import {
 import { fetchObjectContent } from '../../modules/community-content/community-object-content-actions';
 
 import AnnouncementBanner from '../../components/common/announcement-banner/announcement-banner';
-import Spacer from '../../components/common/spacer';
-import LiveStream from '../../components/telescope-details/live-stream/live-stream';
-import LiveMission from '../../components/telescope-details/live-mission/live-mission';
-import PromoMessageBanner from '../../components/common/headers/promo-message-band';
 import CommunityPerspectives from '../../components/common/community-perspectives/community-perspectives';
-import LiveFeed from '../../components/telescope-details/live-feed/LiveFeed';
-import Neoview from '../../components/telescope-details/neoview/neoview';
 import CurrentSelectionHeader from '../../components/telescopes/current-selection-header/header';
-import TelescopeSelection from '../../components/telescopes/selection-widget/telescope-selection';
-
 import GoogleAd from '../../components/common/google-ads/GoogleAd';
-
-import TelescopeDetailsTabs from '../../components/telescope-details/TelescopeDetailsTabs';
-
-import TelescopeAllSky from '../../components/telescope-details/telescope-all-sky/TelescopeAllSky';
-import UpcomingMissions from '../../components/telescope-details/UpcomingMissions/UpcomingMissions';
-import StarShareCamera from '../../components/telescope-details/star-share-camera/star-share-camera';
-
-import SunsetCountdown from '../../components/telescope-details/SunsetCountdown';
+import LiveFeed from '../../components/telescope-details/live-feed/LiveFeed';
+import LiveMission from '../../components/telescope-details/live-mission/live-mission';
+import LiveStream from '../../components/telescope-details/live-stream/live-stream';
 import MoonlightWidget from '../../components/telescope-details/MoonlightWidget';
+import Neoview from '../../components/telescope-details/neoview/neoview';
+import PromoMessageBanner from '../../components/common/headers/promo-message-band';
+import Spacer from '../../components/common/spacer';
+import StarShareCamera from '../../components/telescope-details/star-share-camera/star-share-camera';
+import SunsetCountdown from '../../components/telescope-details/SunsetCountdown';
+import TelescopeAllSky from '../../components/telescope-details/telescope-all-sky/TelescopeAllSky';
+import TelescopeDetailsTabs from '../../components/telescope-details/TelescopeDetailsTabs';
+import TelescopeSelection from '../../components/telescopes/selection-widget/telescope-selection';
+import UpcomingMissions from '../../components/telescope-details/UpcomingMissions/UpcomingMissions';
 
-// TODO: remove this once we finish implementing and testing
-import MISSIONS from '../../components/telescope-details/UpcomingMissions/testData';
+
+// TODO: for testing mission data
+// import MISSIONS from '../../components/telescope-details/UpcomingMissions/testData';
 // =========================================================
 
 function mapDispatchToProps(dispatch) {

@@ -74,7 +74,7 @@ const DefaultTabs = ({ handleTabSelect, selectedIndex, tabConfiguration }) => {
           margin-bottom: 20px;
           padding: 0;
           display: flex;
-          justify-content: space-evenly;
+          justify-content: space-around;
         }
 
         :global(.generic-tabs-component .tab) {
@@ -105,12 +105,6 @@ const DefaultTabs = ({ handleTabSelect, selectedIndex, tabConfiguration }) => {
 
         :global(.generic-tabs-component .tab-content) {
           width: 100%;
-          text-align: center;
-        }
-
-        :global(.generic-tabs-component .tab-content img) {
-          min-width: 100%;
-          min-height: 100%;
         }
       `}</style>
     </div>
