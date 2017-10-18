@@ -44,7 +44,7 @@ class ReservationSelectList extends Component {
       selectedIndex,
       handleSelectChange,
       listHeight,
-      theme
+      theme,
     } = this.props;
 
     const inlineStyle = {
