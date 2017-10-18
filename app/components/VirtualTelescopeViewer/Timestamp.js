@@ -14,12 +14,12 @@ const defaultProps = {
 
 function Timestamp({ unixTimestamp }) {
   if (!unixTimestamp) { return null; }
-
   return (
     <div className="root">
       <h5 className="content">
         <InlineCountdown
           incrementTime={true}
+          forceUTC={true}
           startTime={unixTimestamp}
           format={'YYYY-MM-DDTH:mmUTC'}
         />
