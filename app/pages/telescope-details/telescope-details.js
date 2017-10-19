@@ -106,7 +106,8 @@ class TelescopeDetails extends Component {
     }).isRequired,
     countdownList: PropTypes.arrayOf(PropTypes.shape({
       telescopeId: PropTypes.string.isRequired,
-    }))
+      // TODO: finish validating fields from the API here...
+    })),
   };
 
   constructor(props) {

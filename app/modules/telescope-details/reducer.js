@@ -41,7 +41,11 @@ const initialState = {
 
   fetchingObservatoryStatus: true,
   currentTelescopeOnlineStatus: null,
-  allObservatoryTelescopeStatus: null,
+  allObservatoryTelescopeStatus: {
+    countdownList: {
+      countdownTeleList: [],
+    },
+  },
 
   fetchingWeatherWidget: false,
   fetchingDayNightBar: false,
@@ -107,7 +111,7 @@ export default createReducer(initialState, {
       ...state,
       fetchingObservatoryStatus: true,
       currentTelescopeOnlineStatus: null,
-      allObservatoryTelescopeStatus: null,
+      allObservatoryTelescopeStatus: { ...initialState.allObservatoryTelescopeStatus },
     };
   },
   [FETCH_TELESCOPE_STATUS_SUCCESS](state, { payload }) {
