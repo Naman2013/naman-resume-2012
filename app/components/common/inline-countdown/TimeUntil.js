@@ -53,6 +53,8 @@ class TimeUntil extends Component {
     const endTime = moment.unix(startTime);
     const duration = moment.duration(endTime.diff(remainingTime));
 
+    if (!duration.isValid()) { return null; }
+
     let remainingHours = duration.hours();
     let remainingMinutes = duration.minutes();
     let remainingSeconds = duration.seconds();
@@ -68,6 +70,7 @@ class TimeUntil extends Component {
     if (remainingSeconds <= 0) {
       remainingSeconds = 0;
     }
+
 
     const hours = pad(remainingHours);
     const minutes = pad(remainingMinutes);
