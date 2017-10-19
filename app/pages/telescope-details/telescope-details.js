@@ -215,6 +215,8 @@ class TelescopeDetails extends Component {
       currentTelescope,
       currentTelescopeOnlineStatus,
 
+      countdownList,
+
       displayCommunityContent,
 
       observatoryList,
@@ -238,8 +240,8 @@ class TelescopeDetails extends Component {
     const { teleInstrumentList, teleCanReserveMissions } = currentTelescope;
     const telescopeOnline = currentTelescopeOnlineStatus && currentTelescopeOnlineStatus.onlineStatus === 'online';
     const selectedInstrument = teleInstrumentList[selectedTab];
-
-    console.log(currentTelescopeOnlineStatus);
+    const currentMissionCountdown =
+      countdownList.find(countdown => countdown.teleUniqueId === teleUniqueId);
 
     return (
       <div className="telescope-details-page-wrapper">
@@ -374,10 +376,10 @@ class TelescopeDetails extends Component {
               />
 
               {
-                currentObservatory.showCountdown &&
+                currentObservatory.showCountdown && currentMissionCountdown &&
                   <SunsetCountdown
-                    label={currentObservatory.countdownLabel}
-                    countdownTimestamp={currentObservatory.countdownTimestamp}
+                    label={currentMissionCountdown.countdownLabel}
+                    countdownTimestamp={currentMissionCountdown.countdownTimestamp}
                   />
               }
 
