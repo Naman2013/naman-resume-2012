@@ -233,6 +233,8 @@ class TelescopeDetails extends Component {
     const telescopeOnline = currentTelescopeOnlineStatus && currentTelescopeOnlineStatus.onlineStatus === 'online';
     const selectedInstrument = teleInstrumentList[selectedTab];
 
+    console.log(currentTelescopeOnlineStatus);
+
     return (
       <div className="telescope-details-page-wrapper">
 
