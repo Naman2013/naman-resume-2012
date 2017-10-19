@@ -74,6 +74,8 @@ function mapStateToProps({
     currentTelescope: telescopeDetails.currentTelescope,
     currentTelescopeOnlineStatus: telescopeDetails.currentTelescopeOnlineStatus,
 
+    countdownList: telescopeDetails.allObservatoryTelescopeStatus.countdownList.countdownTeleList,
+
     displayCommunityContent: telescopeDetails.displayCommunityContent,
 
     observatoryList: observatoryList.observatoryList,
@@ -102,6 +104,9 @@ class TelescopeDetails extends Component {
       updateTelescopeStatus: PropTypes.func.isRequired,
       fetchAllTelescopeStatus: PropTypes.func.isRequired,
     }).isRequired,
+    countdownList: PropTypes.arrayOf(PropTypes.shape({
+      telescopeId: PropTypes.string.isRequired,
+    }))
   };
 
   constructor(props) {
@@ -407,6 +412,7 @@ class TelescopeDetails extends Component {
 
 TelescopeDetails.defaultProps = {
   communityContent: [],
+  countdownList: [],
 };
 
 export default TelescopeDetails;
