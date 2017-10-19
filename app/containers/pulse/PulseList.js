@@ -5,53 +5,64 @@ import PulseListHeader from '../../components/pulse/pulse-list-header';
 import CategoriesNav from '../../components/community/categories-nav';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { fetchLatestPosts, fetchHottestPosts } from '../../modules/pulse/get-latest-posts-action';
+import { fetchLatestPosts, fetchHottestPosts, fetchPageMeta } from '../../modules/pulse/get-latest-posts-action';
 import './Pulse.scss';
 
 
 const navigationList = [
   {
-    label: "THE LATEST POSTS",
-    route: "latest-posts",
+    label: 'LATEST',
+    route: 'latest-posts',
     children: [
       {
-        label: "All Categories",
-        route: "all",
+        label: 'All Categories',
+        route: 'all',
       }, {
-        label: "Science Log",
-        route: "scienceLog",
+        label: 'Science Log',
+        route: 'scienceLog',
       }, {
-        label: "Art & Culture",
-        route: "artCulture",
+        label: 'Art & Culture',
+        route: 'artCulture',
       }, {
-        label: "Human Spirit",
-        route: "humanSpirit",
+        label: 'Human Spirit',
+        route: 'humanSpirit',
       }, {
-        label: "DIY",
-        route: "diy",
+        label: 'DIY',
+        route: 'diy',
       },
     ]
   },
   {
-    label: "THE HOTTEST POSTS",
-    route: "hottest-posts",
+    label: 'HOTTEST',
+    route: 'hottest-posts',
     children: [
       {
-        label: "All Categories",
-        route: "all",
+        label: 'All Categories',
+        route: 'all',
       }, {
-        label: "Science Log",
-        route: "scienceLog",
+        label: 'Science Log',
+        route: 'scienceLog',
       }, {
-        label: "Art & Culture",
-        route: "artCulture",
+        label: 'Art & Culture',
+        route: 'artCulture',
       }, {
-        label: "Human Spirit",
-        route: "humanSpirit",
+        label: 'Human Spirit',
+        route: 'humanSpirit',
       }, {
-        label: "DIY",
-        route: "diy",
+        label: 'DIY',
+        route: 'diy',
       },
+    ]
+  },
+  {
+    label: 'ALL',
+    route: 'all-posts',
+    children: [
+      {}
+      // {
+      //   label: 'Find By Object',
+      //   route: 'by-object',
+      // }
     ]
   }
 ];
@@ -69,6 +80,7 @@ function mapDispatchToProps(dispatch) {
     actions: bindActionCreators({
       fetchLatestPosts,
       fetchHottestPosts,
+      fetchPageMeta,
     }, dispatch)
   };
 }
@@ -82,6 +94,12 @@ class PulseList extends Component {
     },
   }
 
+  constructor(props) {
+    super()
+
+    props.actions.fetchPageMeta();
+  }
+
   render() {
     const {
       route,
@@ -93,6 +111,7 @@ class PulseList extends Component {
       children,
       pageMeta: {
         headerTitle,
+        headerSubtitle,
         showCreateNewPostButton,
         objectIdList,
         showRecommends,
@@ -101,12 +120,12 @@ class PulseList extends Component {
 
     const formattedObjectIdList =
       (objectIdList && objectIdList.map(objectId => Number(objectId))) || [];
-
     return (
       <div className="clearfix pulse">
         <AnnouncementBanner />
         <PulseListHeader
           title={headerTitle}
+          subtitle={headerSubtitle}
           showCreateNewPostButton={showCreateNewPostButton}
         />
 

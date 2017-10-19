@@ -27,7 +27,6 @@ export default createReducer(initialState, {
     };
   },
   [ADD_IMAGE_TO_GALLERY_SUCCESS](state, { payload }) {
-    console.log('payload', payload)
     return {
       ...state,
       addToGallery: {

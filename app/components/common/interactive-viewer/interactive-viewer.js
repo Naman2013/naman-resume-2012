@@ -7,8 +7,6 @@ import Draggable from 'react-draggable';
 import { setImageDataToSnapshot } from '../../../modules/starshare-camera/starshare-camera-actions';
 import './interactive-viewer.scss';
 
-import LiveSign from '../live-sign/live-sign';
-
 const ZOOM_MULTIPLIER = 0.5;
 const MIN_ZOOM_SCALE = 1;
 const MAX_ZOOM_SCALE = 3;
@@ -116,14 +114,6 @@ class InteractiveViewer extends Component {
     const { x, y } = this.state.controlledPosition;
     this.setState({ controlledPosition: { x: x - 10, y } });
   }
-
-  toggleFullScreenMode = (event) => {
-    event.preventDefault();
-    const { fullScreenMode } = this.state;
-    this.setState({
-      fullScreenMode: !fullScreenMode,
-    });
-  };
 
   handleToggleClipping = (event) => {
     event.preventDefault();
@@ -251,7 +241,6 @@ class InteractiveViewer extends Component {
           </button>
         }
 
-        <LiveSign />
         {isInteractive &&
           <button
             onClick={this.handleZoomInClick}
@@ -259,19 +248,6 @@ class InteractiveViewer extends Component {
           >
             <span className="icon glyphicon-plus" />
           </button>
-        }
-
-
-        {
-          /**
-          full screen mode...
-          <button
-            onClick={this.toggleFullScreenMode}
-            className="action full-screen-view"
-          >
-            Full-screen view <span className="icon glyphicon glyphicon-fullscreen" />
-          </button>
-          */
         }
 
         {isInteractive &&

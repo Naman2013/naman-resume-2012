@@ -1,4 +1,4 @@
-@charset "UTF-8";
+﻿@charset "UTF-8";
 /* VARIABLES: Typefaces
  * */
 /* VARIABLES: COLOR
@@ -596,7 +596,7 @@ input[type="number"] {
   color: rgba(10, 20, 45, 0.6) !important;
   padding-left: 20px !important; }
 .static-app-content-container .not:before {
-  background: url(https://vega.slooh.com/assets/icons/not.svg) transparent top right no-repeat;
+  background: url(https://vega.slooh.com/assets/icons/not_b.svg) transparent top right no-repeat;
   background-size: cover;
   content: "";
   height: 10px;
@@ -1546,6 +1546,7 @@ input[type="number"] {
 .static-app-content-container .features-tight {
   overflow: visible; }
 .static-app-content-container .poptext {
+  padding-top: 0;
   padding: 18px;
   padding-bottom: 0;
   margin: 0; }

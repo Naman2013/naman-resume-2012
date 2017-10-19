@@ -11,6 +11,7 @@ import {
 const initialState = {
   refreshIntervalSec: 600,
   membershipTierArray: [],
+  loadHeroTypes: [],
   RECENT_STUFF: [
     {
       key: uniqueId(),

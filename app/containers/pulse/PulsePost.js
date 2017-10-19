@@ -68,6 +68,7 @@ class PulsePost extends Component {
       pageMeta: {
         headerIconURL,
         headerObjectTitle,
+        headerSubtitle,
         showRecommends,
         showCreateNewPostButton,
         objectId,
@@ -82,6 +83,7 @@ class PulsePost extends Component {
 
         <CommunityPostHeader
           titleText={headerObjectTitle}
+          subtitleText={headerSubtitle}
           errorOccurred={failed}
           objectIconURL={headerIconURL}
           showCreateNewPostButton={showCreateNewPostButton}

@@ -1,5 +1,6 @@
 export const primaryFont = '"Brandon Grotesque", "brandon-grotesque", sans-serif';
 export const secondaryFont = '"Adobe Garamond Pro", "adobe-garamond-pro", "Adobe Garamond", "Garamond", serif';
+export const monoFont = 'monospace';
 
 export const sloohHeaders = '"Brandon Grotesque", "brandon-grotesque", sans-serif';
 export const sloohHeader = '"Brandon Grotesque", "brandon-grotesque", sans-serif';

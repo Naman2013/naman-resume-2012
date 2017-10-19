@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import noop from 'lodash/noop';
 import GenericLoadingBox from '../../common/loading-screens/generic-loading-box';
 import TelescopeOffline from '../telescope-offline/telescope-offline';
 import determineImageLoader from '../determine-image-loader';
@@ -14,12 +15,34 @@ class LiveFeed extends Component {
       instrCameraSourceType: PropTypes.string.isRequired,
     }),
     offlineImageSource: PropTypes.string.isRequired,
+    timestamp: PropTypes.number,
+    activeMission: PropTypes.shape({
+      coordinateArray: PropTypes.arrayOf(PropTypes.string),
+      missionData: PropTypes.arrayOf(PropTypes.string),
+      showMissionDataFlag: PropTypes.bool,
+      objectTitleShort: PropTypes.string,
+      processing: PropTypes.string,
+      schedulingMember: PropTypes.string,
+    }),
+    activeNeoview: PropTypes.bool,
+    handleInfoClick: PropTypes.func,
   };
 
   static defaultProps = {
     onlineStatus: 'offline',
     instrument: null,
     obsAlert: '',
+    timestamp: 0,
+    activeMission: {
+      coordinateArray: [],
+      missionData: [],
+      showMissionData: false,
+      objectTitleShort: '',
+      processing: '',
+      schedulingMember: '',
+    },
+    activeNeoview: false,
+    handleInfoClick: noop,
   };
 
   render() {
@@ -29,20 +52,27 @@ class LiveFeed extends Component {
       onlineStatus,
       instrument,
       offlineImageSource,
+      activeMission,
+      activeNeoview,
+      handleInfoClick,
+      timestamp,
     } = this.props;
+
+    const neoview = {
+      activeNeoview,
+      handleInfoClick,
+    };
 
     if (fetchingOnlineStatus) {
       return (
         <div className="root">
           <GenericLoadingBox />
 
-          <style jsx>{
-              `
-                .root {
-                  padding-top: 80px;
-                }
-              `
-          }</style>
+          <style jsx>{`
+            .root {
+              padding-top: 80px;
+            }
+          `}</style>
         </div>
       );
     }
@@ -58,14 +88,13 @@ class LiveFeed extends Component {
 
     return (
       <div className="root">
-        { determineImageLoader(instrument) }
-        <style jsx>{
-          `
-            .root {
-             /* min-height: 456px;*/
-            }
-          `
-        }</style>
+        {
+          determineImageLoader(instrument, {
+            activeMission,
+            timestamp,
+            neoview,
+          })
+        }
       </div>
     );
   }

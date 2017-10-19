@@ -6,13 +6,13 @@ import styles from './style/categories-nav.scss';
 
 class CategoriesNav extends Component {
 
-  prepareNav(list, main) {
+  prepareNav(list, main, isObjects) {
     return list.map((v) => {
       const route = `${main}/${v.route}`;
       const isActiveRoute = this.props.location.pathname.indexOf(v.route) >= 0;
       return (
         <li key={uniqueId()}>
-          <Link to={`/${route}`} activeClassName="active">
+          <Link to={isObjects ? `/${v.linkRoute}` : `/${route}`} activeClassName="active">
             {v.label}
           </Link>
           {
@@ -27,11 +27,11 @@ class CategoriesNav extends Component {
   }
 
   render() {
-    const { list, className, route:{ path } } = this.props;
+    const { list, className, route:{ path }, isObjects } = this.props;
     return (
       <div className={`${styles.categoriesNav} ${className}`}>
         <ul className={styles.categoriesNavContainer}>
-          {this.prepareNav(list, path)}
+          {this.prepareNav(list, path, isObjects)}
         </ul>
       </div>
     );
@@ -41,7 +41,12 @@ class CategoriesNav extends Component {
 export default CategoriesNav;
 
 CategoriesNav.propTypes = {
+  isObjects: PropTypes.bool,
   route: PropTypes.object.isRequired,
   location: PropTypes.object.isRequired,
   list: PropTypes.array.isRequired,
+};
+
+CategoriesNav.defaultProps = {
+  isObjects: false,
 };

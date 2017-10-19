@@ -1,71 +1,61 @@
-import React, { Component } from 'react';
+﻿import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router';
-import ModalGeneric from '../../components/common/modals/modal-generic';
+import Features from '../../components/plans/features';
+import AsidePopup from '../../components/common/modals/aside-popup';
 
-const PLAN_DESCRIPTIONS = {
-  RESERVATION_LIMIT_5: {
-    title: '5 Reservation Limit',
-    description: 'Point any Slooh telescope at any of the Slooh 500.',
-  },
-  RESERVATION_LIMIT_UNLIMITED: {
-    title: 'Unlimited Reservations',
-    description: 'Point any Slooh telescope at any object in the sky, as selected from existing astro-catalogs or by entering coordinates.',
-  },
-  OBJECTS_SLOOH_500: {
-    title: 'Objects: Slooh 500',
-    description: 'The Slooh 500 are the most popular objects in the night sky as chosen by the Slooh community.',
-  },
-  SLOOH_ROAD_TRIP: {
-    title: 'Slooh Road Trip',
-    description: 'Join Slooh for outdoor events such as the Total Solar Eclipse in Stanley, Idaho on August 21st, 2017',
-  },
-};
 
+import { CREW, APPRENTICE, APPRENTICE_TOP, ASTRONOMER } from '../../modules/about/reducer';
+import { processFeaturePopStatus } from '../../modules/about/actions';
+
+const mapStateToProps = ({ about, appConfig }) => ({
+  ...appConfig,
+  about,
+});
+
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators({
+    processFeaturePopStatus,
+  }, dispatch),
+});
+
+@connect(mapStateToProps, mapDispatchToProps)
 class PlansChange extends Component {
-  constructor(props) {
-    super(props);
 
-    this.state = {
-      modalOpen: false,
-      title: '',
-      description: '',
-    };
-
-    this.closeModal = this.closeModal.bind(this);
+  getFeatures(setType = CREW) {
+    return this.props.about.sloohFeatures.filter(feature => feature.type === setType);
   }
 
-  closeModal(event) {
-    event.preventDefault();
-
-    this.setState({
-      modalOpen: false,
-    });
+  openPopup = (selectedPopID) => {
+    this.props.actions.processFeaturePopStatus(selectedPopID);
   }
 
-  openModal(modalContent) {
-    this.setState({
-      ...modalContent,
-      modalOpen: true,
-    });
+  resetPopup = (event) => {
+    // TODO: fire action that will reset all features to their initialState
+    this.props.actions.processFeaturePopStatus();
   }
 
   render() {
-    const { modalOpen, title, description } = this.state;
-    const { registerNewSloohCrewURL, registerNewApprenticeURL, registerNewAstronomerURL } = this.props;
-    return (
+    const { registerNewMemberURL, registerNewApprenticeURL, registerNewAstronomerURL } = this.props;
 
+    const darkBackdropOverflowStyle = {
+      overflow: 'initial',
+    };
+
+    const actNowButtonSingletonCSS = {
+      top: '-30px',
+    }
+
+    const featureSingletonCSS = {
+      height: '0px',
+    }
+
+    return (
       <div className="plans-container">
         <div className="bg-div-pic clearfix">
 
           <div className="about pricing">
-            <ModalGeneric
-              open={modalOpen}
-              closeModal={this.closeModal}
-              title={title}
-              description={description}
-            />
 
             <div className="row first-row">
               <div className="col-sm-6 text-left">
@@ -73,98 +63,129 @@ class PlansChange extends Component {
               </div>
 
               <div className="col-sm-6 text-right">
-                <Link to="/about/contact" className="contact-button regButton"> Contact Us </Link>
+                <Link to="/about/contact" className="button btn-primary help-page-button">
+                  Contact Us
+                </Link>
               </div>
             </div>
 
             <div className="row final-row">
-
-
-
-              <div className="col-lg-offset-3 col-md-offset-3 col-lg-3 col-md-3 col-sm-6 text-center">
+              { /* style={{ marginLeft: '13%' }} */ }
+              <div className="col-lg-3 col-lg-offset-2 col-md-3 col-md-offset-3 col-sm-6 text-center" >
 
                 <article className="plan plan-col">
 
                   <header className="move-down text-center">
-                    <div className="spotlight-icon">
-                      <img alt="Apprentice icon" src="https://vega.slooh.com/icons/registration/apprentice.svg" width="70%" />
-                    </div>
+                    <div className="spotlight-icon"><img alt="astronomer icon" src="https://vega.slooh.com/icons/registration/sloohcrew.svg" /></div>
                   </header>
 
-                  <article className="backdrop dark text-center padding-reg">
-                    <h3>Apprentice</h3>
+                  <article className="dark backdrop text-center padding-reg" style={darkBackdropOverflowStyle}>
 
-                    <p className="text-large price margin-none"><sup>$</sup>4.95</p>
+                    <h3 className="margin-top-reg">Slooh Crew</h3>
+                    <p className="text-large price margin-none">Free</p>
 
-                    <p className="margin-large margin-none">Monthly | USD</p>
+                    <p>
+                      <br />
+                    </p>
 
-                    <div className="margin-top-med margin-bottom-large pos-relative">30 Day free trial
-                      <br />if you act now
+                    <div className="margin-top-med margin-bottom-large">
+                      Introducing Slooh <br /> <br />
                     </div>
-                    <ul className="features">
-                      <li>Shows: All</li>
-                      <li>Telescopes</li>
-                      <li>Take Pictures</li>
-                      <li>Community</li>
-                      <li>5 Reservations <small>monthly</small> <i onClick={() => {this.openModal(PLAN_DESCRIPTIONS.RESERVATION_LIMIT_5)}} className="icon control info-white">info</i></li>
-                      <li>Objects: Slooh 500 <i onClick={() => {this.openModal(PLAN_DESCRIPTIONS.OBJECTS_SLOOH_500)}} className="icon control info-white">info</i></li>
-                      <li>Space Situation Room</li>
-                      <li>Slooh Road Trip <i onClick={() => {this.openModal(PLAN_DESCRIPTIONS.SLOOH_ROAD_TRIP)}} className="icon control info-white">info</i></li>
-                    </ul>
+
+                    <Features
+                      features_array={this.getFeatures(CREW)}
+                      openPopup={this.openPopup}
+                      closeAllPopup={this.resetPopup}
+                    />
+
                   </article>
 
                   <footer>
-                    <a className="btn-primary continue" href={registerNewApprenticeURL}>Get This Plan</a>
+                    <a className="btn-primary continue" href={registerNewMemberURL}>Register Free</a>
                   </footer>
 
                 </article>
-
               </div>
 
               <div className="col-lg-3 col-md-3 col-sm-6 text-center">
 
-                <article className="plan plan-col">
+                  <article className="plan plan-col">
 
-                  <header className="move-down text-center">
-                    <div className="spotlight-icon"><img alt="astronomer icon" src="https://vega.slooh.com/icons/registration/astronomer.svg" /></div>
-                  </header>
+                    <header className="move-down text-center">
+                      <div className="spotlight-icon">
+                        <img alt="Apprentice icon" src="https://vega.slooh.com/icons/registration/apprentice.svg" width="70%" />
+                      </div>
+                    </header>
 
-                  <article className="dark backdrop text-center padding-reg">
+                    <article className="backdrop dark text-center padding-reg" style={darkBackdropOverflowStyle}>
+                      <h3>Apprentice</h3>
 
-                    <h3 className="margin-top-reg">Astronomer</h3>
-                    <p className="text-large price margin-none"><sup>$</sup>24.95</p>
+                      <p className="text-large price margin-none"><sup>$</sup>4.95</p>
 
-                    <p>Monthly | USD</p>
+                      <p className="margin-large margin-none">Monthly | USD</p>
 
-                    <div className="margin-top-med margin-bottom-large">Become a leader in the
-                        <br />Slooh Community</div>
+                      <div className="margin-top-med margin-bottom-large">
+			30 Day free trial<br/> if you act now { /* <i className="icon control info-white" /> */ }
+			<Features
+                          features_array={this.getFeatures(APPRENTICE_TOP)}
+                          openPopup={this.openPopup}
+                          closeAllPopup={this.resetPopup}
+                          actNowButtonSingletonCSS={actNowButtonSingletonCSS}
+                          featureSingletonCSS={featureSingletonCSS}
+                        />
+                      </div>
 
-                    <ul className="features">
-                      <li>Shows: All</li>
-                      <li>Telescopes</li>
-                      <li>Take Pictures</li>
-                      <li>Community</li>
-                      <li>Unlimited Reservations <i onClick={() => {this.openModal(PLAN_DESCRIPTIONS.RESERVATION_LIMIT_UNLIMITED)}} className="icon control info-white">info</i>
-                      </li>
-                      <li>Objects: All
-                      </li>
-                      <li>Space Situation Room</li>
-                      <li>Slooh Road Trip <i onClick={() => {this.openModal(PLAN_DESCRIPTIONS.SLOOH_ROAD_TRIP)}} className="icon control info-white">info</i></li>
-                    </ul>
+                      <Features
+                        features_array={this.getFeatures(APPRENTICE)}
+                        openPopup={this.openPopup}
+                        closeAllPopup={this.resetPopup}
+                      />
+
+                    </article>
+
+                    <footer>
+                      <a className="btn-primary continue" href={registerNewApprenticeURL}>Get This Plan</a>
+                    </footer>
+
                   </article>
 
-                  <footer>
-                    <a className="btn-primary continue" href={registerNewAstronomerURL}>Get This Plan</a>
-                  </footer>
+                </div>
 
-                </article>
+                <div className="col-lg-3 col-md-3 col-sm-6 text-center">
 
+                  <article className="plan plan-col">
 
-              </div>
+                    <header className="move-down text-center">
+                      <div className="spotlight-icon"><img alt="astronomer icon" src="https://vega.slooh.com/icons/registration/astronomer.svg" /></div>
+                    </header>
+
+                    <article className="dark backdrop text-center padding-reg" style={darkBackdropOverflowStyle}>
+
+                      <h3 className="margin-top-reg">Astronomer</h3>
+                      <p className="text-large price margin-none"><sup>$</sup>24.95</p>
+
+                      <p>Monthly | USD</p>
+
+                      <div className="margin-top-med margin-bottom-large">Become a leader in the
+                          <br />Slooh Community
+                      </div>
+
+                      <Features
+                        features_array={this.getFeatures(ASTRONOMER)}
+                        openPopup={this.openPopup}
+                        closeAllPopup={this.resetPopup}
+                      />
+
+                    </article>
+
+                    <footer>
+                      <a className="btn-primary continue" href={registerNewAstronomerURL}>Get This Plan</a>
+                    </footer>
+
+                  </article>
+                </div>
 
             </div>
-
-
           </div>
         </div>
 
@@ -261,11 +282,18 @@ class PlansChange extends Component {
             min-width: 400px;
           }
 
+          .static-app-content-container section.row-wide {
+            margin: 0 auto;
+            position: relative;
+            height: auto;
+            overflow: auto;
+          }
+
           .plans-container {
             position: relative !important;
           }
 
-          .first-row {
+          .row.first-row {
             margin: 50px 25px 50px 25px;
           }
 
@@ -331,9 +359,4 @@ class PlansChange extends Component {
   }
 }
 
-const mapStateToProps = ({ appConfig }) => ({
-  ...appConfig,
-});
-const mapDispatchToProps = dispatch => (bindActionCreators({}, dispatch));
-
-export default connect(mapStateToProps, mapDispatchToProps)(PlansChange);
+export default PlansChange;

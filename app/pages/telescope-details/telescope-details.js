@@ -21,24 +21,26 @@ import {
 import { fetchObjectContent } from '../../modules/community-content/community-object-content-actions';
 
 import AnnouncementBanner from '../../components/common/announcement-banner/announcement-banner';
-import Spacer from '../../components/common/spacer';
-import LiveStream from '../../components/telescope-details/live-stream/live-stream';
-import LiveMission from '../../components/telescope-details/live-mission/live-mission';
-import PromoMessageBanner from '../../components/common/headers/promo-message-band';
 import CommunityPerspectives from '../../components/common/community-perspectives/community-perspectives';
-import LiveFeed from '../../components/telescope-details/live-feed/LiveFeed';
-import Neoview from '../../components/telescope-details/neoview/neoview';
 import CurrentSelectionHeader from '../../components/telescopes/current-selection-header/header';
-import TelescopeSelection from '../../components/telescopes/selection-widget/telescope-selection';
-
-import TelescopeAllSky from '../../components/telescope-details/telescope-all-sky/TelescopeAllSky';
-import UpcomingMissions from '../../components/telescope-details/UpcomingMissions/UpcomingMissions';
-import TelescopeConditionSnapshot from '../../components/telescope-details/condition-snapshot/condition-snapshot';
-import LiveWebcam from '../../components/telescope-details/live-webcam/live-webcam';
+import GoogleAd from '../../components/common/google-ads/GoogleAd';
+import LiveFeed from '../../components/telescope-details/live-feed/LiveFeed';
+import LiveMission from '../../components/telescope-details/live-mission/live-mission';
+import LiveStream from '../../components/telescope-details/live-stream/live-stream';
+import MoonlightWidget from '../../components/telescope-details/MoonlightWidget';
+import Neoview from '../../components/telescope-details/neoview/neoview';
+import PromoMessageBanner from '../../components/common/headers/promo-message-band';
+import Spacer from '../../components/common/spacer';
 import StarShareCamera from '../../components/telescope-details/star-share-camera/star-share-camera';
+import SunsetCountdown from '../../components/telescope-details/SunsetCountdown';
+import TelescopeAllSky from '../../components/telescope-details/telescope-all-sky/TelescopeAllSky';
+import TelescopeDetailsTabs from '../../components/telescope-details/TelescopeDetailsTabs';
+import TelescopeSelection from '../../components/telescopes/selection-widget/telescope-selection';
+import UpcomingMissions from '../../components/telescope-details/UpcomingMissions/UpcomingMissions';
 
-// TODO: remove this once we finish implementing and testing
-import MISSIONS from '../../components/telescope-details/UpcomingMissions/testData';
+
+// TODO: for testing mission data
+// import MISSIONS from '../../components/telescope-details/UpcomingMissions/testData';
 // =========================================================
 
 function mapDispatchToProps(dispatch) {
@@ -75,6 +77,7 @@ function mapStateToProps({
     displayCommunityContent: telescopeDetails.displayCommunityContent,
 
     observatoryList: observatoryList.observatoryList,
+    observatoryListTimestamp: observatoryList.observatoryListTimestamp,
 
     activeTelescopeMission: activeTelescopeMissions.activeTelescopeMission,
     communityContent: communityObjectContent.communityContent.posts,
@@ -107,7 +110,7 @@ class TelescopeDetails extends Component {
   }
 
   state = {
-    toggleNeoview: false,
+    neoviewOpen: false,
     selectedTab: 0,
     missionPercentageRemaining: 0,
   };
@@ -167,6 +170,12 @@ class TelescopeDetails extends Component {
     });
   };
 
+  toggleNeoview = () => {
+    this.setState(prevState => ({
+      neoviewOpen: !prevState.neoviewOpen,
+    }));
+  };
+
   scaffoldObservatoryList() {
     const { obsUniqueId, teleUniqueId } = this.props.params;
     this.props.actions.bootstrapTelescopeDetails({
@@ -191,11 +200,7 @@ class TelescopeDetails extends Component {
   }
 
   render() {
-    /**
-      TODO: based on the type of community content we display the component
-      so we need to discover the content needed and tie that into the field
-      */
-    const { selectedTab } = this.state;
+    const { selectedTab, neoviewOpen } = this.state;
     const {
       fetchingObservatoryList,
       fetchingObservatoryStatus,
@@ -207,6 +212,8 @@ class TelescopeDetails extends Component {
       displayCommunityContent,
 
       observatoryList,
+      observatoryListTimestamp,
+
       params,
 
       activeTelescopeMission,
@@ -288,12 +295,18 @@ class TelescopeDetails extends Component {
                         }
                         instrument={instrument}
                         offlineImageSource={instrument.instrOfflineImgURL}
+                        activeMission={activeTelescopeMission.maskDataArray}
+                        timestamp={activeTelescopeMission.timestamp}
+                        activeNeoview={selectedInstrument.instrHasNeoView}
+                        handleInfoClick={this.toggleNeoview}
                       />
 
                       {
                         /** load the neoview */
                         (telescopeOnline && selectedInstrument.instrHasNeoView) ?
                           <Neoview
+                            toggleNeoview={this.toggleNeoview}
+                            neoviewOpen={neoviewOpen}
                             teleSystem={selectedInstrument.instrSystem}
                             showToggleOption={currentTelescope.teleOnlineStatus === 'online'}
                             percentageMissionTimeRemaining={100}
@@ -331,8 +344,13 @@ class TelescopeDetails extends Component {
                   </div> : null
               }
 
-              <LiveWebcam
-                obsId={obsId}
+              <TelescopeDetailsTabs
+                obsId={currentObservatory.obsId}
+                CurrentConditionsWidgetId={currentObservatory.CurrentConditionsWidgetId}
+                DayNightBarWidgetId={currentObservatory.DayNightBarWidgetId}
+                DayNightMapWidgetId={currentObservatory.DayNightMapWidgetId}
+                AllskyWidgetId={currentObservatory.AllskyWidgetId}
+                DomecamWidgetId={currentObservatory.DomecamWidgetId}
                 facilityWebcamWidgetId={currentObservatory.FacilityWebcamWidgetId}
               />
 
@@ -340,6 +358,26 @@ class TelescopeDetails extends Component {
 
             { /** right side bar */ }
             <div className="col-sm-4 telescope-details-sidebar">
+              <GoogleAd
+                adURL={'/5626790/Recommends'}
+                adWidth={300}
+                adHeight={250}
+                targetDivID={'div-gpt-ad-1495111021281-0'}
+              />
+
+              {
+                currentObservatory.showCountdown &&
+                  <SunsetCountdown
+                    label={currentObservatory.countdownLabel}
+                    countdownTimestamp={currentObservatory.countdownTimestamp}
+                  />
+              }
+
+              <MoonlightWidget
+                obsId={currentObservatory.obsId}
+                widgetID={currentObservatory.MoonlightBarWidgetId}
+              />
+
               {
                 activeTelescopeMission.missionAvailable || activeTelescopeMission.nextMissionAvailable ?
                   <div>
@@ -356,18 +394,6 @@ class TelescopeDetails extends Component {
                     <UpcomingMissions missions={activeTelescopeMission.upcomingMissionArray} />
                   </div>
                 : null
-              }
-
-              {
-                currentObservatory.obsId && currentObservatory.CurrentConditionsWidgetId ?
-                  <TelescopeConditionSnapshot
-                    obsId={currentObservatory.obsId}
-                    CurrentConditionsWidgetId={currentObservatory.CurrentConditionsWidgetId}
-                    DayNightBarWidgetId={currentObservatory.DayNightBarWidgetId}
-                    DayNightMapWidgetId={currentObservatory.DayNightMapWidgetId}
-                    AllskyWidgetId={currentObservatory.AllskyWidgetId}
-                    DomecamWidgetId={currentObservatory.DomecamWidgetId}
-                  /> : null
               }
             </div>
           </div>

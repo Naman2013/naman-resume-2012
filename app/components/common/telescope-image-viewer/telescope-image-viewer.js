@@ -7,7 +7,6 @@ import obsIdTeleIdDomeIdFromTeleId from '../../../utils/obsid-teleid-domeid-from
 
 import './telescope-image-viewer.scss';
 
-// TODO: test this to make sure we are still functioning
 function TelescopeImageViewer({
   telePort,
   teleSystem,
@@ -41,7 +40,6 @@ function TelescopeImageViewer({
           teleFade={teleFade}
           clipped={clipped}
           missionFormat={missionFormat}
-
         />
 
       </InteractiveViewer>

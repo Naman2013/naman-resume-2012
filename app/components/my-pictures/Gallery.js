@@ -26,6 +26,7 @@ class Gallery extends Component {
     imageURL: PropTypes.string.isRequired,
     imageTitle: PropTypes.string.isRequired,
     created: PropTypes.string.isRequired,
+    canShareFlag: PropTypes.bool,
     canEditFlag: PropTypes.bool,
     isImages: PropTypes.bool,
     galleryId: PropTypes.number,
@@ -63,6 +64,7 @@ class Gallery extends Component {
   render() {
     const {
       canEditFlag,
+      canShareFlag,
       isImages,
       galleryId,
       overlayText,
@@ -98,6 +100,7 @@ class Gallery extends Component {
             <ul className="photoMenu">
               <li>
                 <PhotoActions
+                  canShareFlag={canShareFlag}
                   canEditFlag={canEditFlag}
                   imageURL={imageURL}
                   customerImageId={customerImageId}

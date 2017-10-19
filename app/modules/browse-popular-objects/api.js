@@ -18,12 +18,14 @@ export function fetchCategoryTopicList({
   at,
   token,
   status, // optional: published, draft all
+  callSource,
 }) {
   return axios.post('/api/content/getObjectCategoryTopicList', {
     cid,
     at,
     token,
     status,
+    callSource,
   });
 }
 

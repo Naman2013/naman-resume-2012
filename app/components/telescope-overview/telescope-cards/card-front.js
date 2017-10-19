@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import has from 'lodash/has';
-import moment from 'moment-timezone';
+import moment from 'moment';
 import CountdownTimer from './countdown-timer';
 import TelescopeImageLoader from '../../common/telescope-image-loader/telescope-image-loader';
 import VideoImageLoader from '../../common/telescope-image-loader/video-image-loader';

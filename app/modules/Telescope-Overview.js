@@ -2,6 +2,7 @@ import axios from 'axios';
 import createReducer from './utils/createReducer';
 import fetchStarChart from '../services/sky-widgets/star-chart';
 import fetchFacilityWebcam from '../services/sky-widgets/facility-webcam';
+import fetchMoonlightBar from '../services/sky-widgets/moonlight-bar';
 
 const OBSERVATORY_REQUEST_START = 'OBSERVATORY_REQUEST_START';
 const OBSERVATORY_REQUEST_SUCCESS = 'OBSERVATORY_REQUEST_SUCCESS';
@@ -16,6 +17,9 @@ const SATELLITE_VIEW_WIDGET_SUCCESS = 'SATELLITE_VIEW_WIDGET_SUCCESS';
 
 const SKYCHART_WIDGET_SUCCESS = 'SKYCHART_WIDGET_SUCCESS';
 const SKYCHART_WIDGET_START = 'SKYCHART_WIDGET_START';
+
+const MOONLIGHT_WIDGET_START = 'MOONLIGHT_WIDGET_START';
+const MOONLIGHT_WIDGET_SUCCESS = 'MOONLIGHT_WIDGET_SUCCESS';
 
 const OBSERVATORY_WEBCAM_START = 'OBSERVATORY_WEBCAM_START';
 const OBSERVATORY_WEBCAM_SUCCESS = 'OBSERVATORY_WEBCAM_SUCCESS';
@@ -169,6 +173,25 @@ export const fetchSkyChartWidget = ({ obsId, AllskyWidgetId, scheduledMissionId 
   }
 };
 
+const startFetchMoonlightWidget = () => ({
+  type: MOONLIGHT_WIDGET_START,
+});
+
+const successMoonlightWidget = payload => ({
+  type: MOONLIGHT_WIDGET_SUCCESS,
+  payload,
+});
+
+export const fetchMoonlightWidget = ({ obsId, widgetUniqueId }) => (dispatch) => {
+  dispatch(startFetchMoonlightWidget());
+  if (obsId && widgetUniqueId) {
+    fetchMoonlightBar({
+      obsId,
+      widgetUniqueId,
+    }).then(result => dispatch(successMoonlightWidget(result.data)));
+  }
+};
+
 const startFetchObservatoryWebcam = () => ({
   type: OBSERVATORY_WEBCAM_START,
 });
@@ -248,6 +271,13 @@ const initialState = {
     title: '',
     subTitle: '',
     starChartURL: '',
+  },
+  moonlightWidgetResult: {
+    apiError: false,
+    title: '',
+    subtitle: '',
+    refreshInterval: 0,
+    subwidgets: [],
   },
   observatoryLiveWebcamResult: {
     apiError: false,
@@ -350,6 +380,18 @@ export default createReducer(initialState, {
       ...state,
       telescopeCardData: null,
       isTelescopeCardDataLoading: false,
+    };
+  },
+  [MOONLIGHT_WIDGET_START](state) {
+    return {
+      ...state,
+      moonlightWidgetResult: { ...initialState.moonlightWidgetResult },
+    };
+  },
+  [MOONLIGHT_WIDGET_SUCCESS](state, { payload }) {
+    return {
+      ...state,
+      moonlightWidgetResult: payload,
     };
   },
 });

@@ -1,3 +1,4 @@
+import clone from 'lodash/clone';
 import createReducer from '../utils/createReducer';
 
 import {
@@ -8,6 +9,11 @@ import {
   FETCH_GALLERY_PICS_COUNT_SUCCESS,
   FETCH_GALLERY_PICS_COUNT_FAIL,
 } from './actions';
+
+import {
+  SHARE_MEMBER_PHOTO_SUCCESS,
+} from '../share-member-photo/actions';
+
 
 const initialState = {
   canEditFlag: false,
@@ -54,6 +60,21 @@ export default createReducer(initialState, {
     return {
       ...state,
       imageCount: 0,
+    };
+  },
+  [SHARE_MEMBER_PHOTO_SUCCESS](state, { payload }) {
+    const imageList = clone(state.imageList);
+
+    imageList.map((image) => {
+      if (image.customerImageId === payload.customerImageId) {
+        image.canShareFlag = payload.canShareFlag
+      }
+      return image;
+    });
+
+    return {
+      ...state,
+      imageList,
     };
   },
 });

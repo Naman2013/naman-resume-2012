@@ -4,19 +4,26 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import MyPicturesNavigation from '../../components/my-pictures/my-pictures-navigation';
 import { fetchImageDetailsAndCounts } from '../../modules/my-pictures-image-details/actions';
+import { verifyMyPicsOwner } from '../../modules/my-pictures-verify-owner/actions';
 import ImageViewer from '../../components/my-pictures/ImageViewer';
 import imageDetailsStyle from './ImageDetailsStyles';
 import ImageInfoPanel from '../../components/my-pictures/ImageInfoPanel';
 import PhotoActions from '../../components/my-pictures/actions/PhotoActions';
+import ModalGeneric from '../../components/common/modals/modal-generic';
+import { resetShareMemberPhoto } from '../../modules/share-member-photo/actions';
 
-const mapStateToProps = ({ myPicturesImageDetails, user }) => ({
+const mapStateToProps = ({ myPicturesImageDetails, user, shareMemberPhoto }) => ({
   myPicturesImageDetails,
+  showSharePrompt: shareMemberPhoto.showSharePrompt,
+  sharePrompt: shareMemberPhoto.sharePrompt,
   user,
 });
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
     fetchImageDetailsAndCounts,
+    verifyMyPicsOwner,
+    resetShareMemberPhoto,
   }, dispatch),
 });
 
@@ -27,21 +34,41 @@ class ImageDetails extends Component {
 
     this.state = {
       editorValue: props.myPicturesImageDetails.observationLog,
+      showSharePicturePrompt: false,
+      sharePicturePrompt: false,
     };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.showSharePrompt !== this.state.showSharePicturePrompt) {
+      this.setState({
+        showSharePicturePrompt: nextProps.showSharePrompt,
+        sharePicturePrompt: nextProps.sharePrompt,
+      });
+    }
   }
 
   componentWillMount() {
     window.scrollTo(0, 0);
     const {
+      actions,
       params: {
         customerImageId,
         shareToken,
         galleryId
       }
     } = this.props;
-    this.props.actions.fetchImageDetailsAndCounts({
-      customerImageId,
-      shareToken,
+    actions.verifyMyPicsOwner({
+      itemId: customerImageId,
+      itemType: 'image'
+    }).then(() => {
+
+      if (this.props.myPicturesImageDetails.customerImageId !== customerImageId) { // don't call api for info we already have
+        actions.fetchImageDetailsAndCounts({
+          customerImageId,
+          shareToken,
+        });
+      }
     });
   }
 
@@ -52,10 +79,18 @@ class ImageDetails extends Component {
     // make call to update changes
   }
 
+  closeModal = () => {
+    this.setState({
+      showSharePicturePrompt: false,
+    });
+    this.props.actions.resetShareMemberPhoto();
+  }
+
   render() {
     const {
       scheduledMissionId,
       observationLog,
+      canShareFlag,
       error,
       fetching,
       canEditFlag,
@@ -76,6 +111,9 @@ class ImageDetails extends Component {
       },
       user
     } = this.props;
+
+    const { sharePicturePrompt, showSharePicturePrompt } = this.state;
+
     const heartProps = {
       likePrompt,
       canLikeFlag,
@@ -88,10 +126,15 @@ class ImageDetails extends Component {
     const photoActionsScheduledMissionId = scheduledMissionIdParam ? scheduledMissionId : null;
     return (
       <div>
-        <MyPicturesNavigation
+        <ModalGeneric
+          open={showSharePicturePrompt}
+          closeModal={this.closeModal}
+          description={String(sharePicturePrompt)}
+        />
+        {canEditFlag && <MyPicturesNavigation
           page="photo-roll"
           scheduledMissionId={scheduledMissionId}
-        />
+        />}
         <div className="clearfix my-pictures-container">
           <div className="container">
             <div className="left title">
@@ -99,6 +142,7 @@ class ImageDetails extends Component {
             </div>
             <div className="right-top">
               <PhotoActions
+                canShareFlag={canShareFlag}
                 canEditFlag={canEditFlag}
                 imageURL={imageURL}
                 customerImageId={customerImageId}

@@ -46,7 +46,7 @@ module.exports = {
     sourceMapFilename: '[name].js.map',
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.json$/,
         loaders: ['json-loader'],
@@ -104,6 +104,17 @@ module.exports = {
         options: {
           limit: 40,
         },
+      },
+      {
+        test: /\.(png|jpg|gif)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              limit: 40,
+            },
+          },
+        ],
       },
       { // loader for bootstrap
         test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,

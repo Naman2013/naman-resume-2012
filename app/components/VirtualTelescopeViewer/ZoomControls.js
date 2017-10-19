@@ -1,0 +1,75 @@
+import React from 'react';
+import PropTypes from 'prop-types';
+import NavigationTabs from './NavigationTabs';
+import { brightGreen } from '../../styles/variables/colors';
+
+const propTypes = {
+  zoomRange: PropTypes.number,
+  handleZoomIn: PropTypes.func.isRequired,
+  handleZoomOut: PropTypes.func.isRequired,
+  activeZoomLevel: PropTypes.number.isRequired,
+};
+
+const defaultProps = {
+  zoomRange: 6,
+};
+
+const ZoomControls = ({
+  zoomRange,
+  handleZoomIn,
+  handleZoomOut,
+  activeZoomLevel,
+}) => (
+  <div className="root">
+    <button onClick={handleZoomIn} className="top-button">+</button>
+
+    <div className="tab-container">
+      <NavigationTabs
+        range={zoomRange}
+        activeZoomLevel={activeZoomLevel}
+      />
+    </div>
+
+    <button onClick={handleZoomOut} className="bottom-button">-</button>
+
+    <style jsx>{`
+      .root {
+        color: ${brightGreen};
+      }
+
+      button {
+        background: none;
+        border: 1px solid ${brightGreen};
+        width: 23px;
+        height: 23px;
+        text-align: center;
+        margin: 0;
+        padding: 0;
+        cursor: pointer;
+        color: ${brightGreen}
+      }
+
+      button:active,
+      button:focus {
+        outline: none;
+      }
+
+      .top-button {
+        border-radius: 10px 10px 0 0;
+      }
+
+      .bottom-button {
+        border-radius: 0 0 10px 10px;
+      }
+
+      .tab-container {
+        margin: 20px 0;
+      }
+    `}</style>
+  </div>
+);
+
+ZoomControls.defaultProps = defaultProps;
+ZoomControls.propTypes = propTypes;
+
+export default ZoomControls;

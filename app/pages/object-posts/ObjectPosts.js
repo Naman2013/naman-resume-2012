@@ -11,11 +11,16 @@ const mapStateToProps = ({ objectPostList }) => ({
   fetchingPosts: objectPostList.fetching,
   objectPosts: objectPostList.objectPosts,
   pages: objectPostList.pages,
+  count: objectPostList.count,
+  page: objectPostList.page,
+  postsCount: objectPostList.postsCount,
+  firstPostIndex: objectPostList.firstPostIndex,
 });
 
 @connect(mapStateToProps)
 class ObjectPosts extends Component {
   static propTypes = {
+    fetchObjectLatestContent: PropTypes.func.isRequired,
     fetchingPosts: PropTypes.bool,
     showRecommends: PropTypes.bool.isRequired,
     showAdUnit: PropTypes.bool.isRequired,
@@ -34,6 +39,8 @@ class ObjectPosts extends Component {
   render() {
     const {
       fetchingPosts,
+      fetchObjectLatestContent,
+      firstPostIndex,
       recommendationCards,
       objectPosts,
       pages,
@@ -47,6 +54,9 @@ class ObjectPosts extends Component {
       showCreateNewPostButton,
       SlugLookupId,
       headerObjectTitle,
+      count,
+      page,
+      postsCount,
       route: { path }
     } = this.props;
 
@@ -61,7 +71,13 @@ class ObjectPosts extends Component {
               <ObjectPostList
                 objectPosts={objectPosts}
                 pages={pages}
+                page={page}
+                count={count}
                 path={path}
+                postsCount={postsCount}
+                fetchObjectLatestContent={fetchObjectLatestContent}
+                SlugLookupId={SlugLookupId}
+                firstPostIndex={firstPostIndex}
               />
           }
         </div>

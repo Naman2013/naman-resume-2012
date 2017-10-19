@@ -7,16 +7,21 @@ import { findIndex } from 'lodash';
 import Pagination from '../../components/common/pagination/Pagination';
 import MyPicturesNavigation from '../../components/my-pictures/my-pictures-navigation';
 import { fetchImageDetailsAndCounts, fetchMyPicturesImageDetails } from '../../modules/my-pictures-image-details/actions';
+import { verifyMyPicsOwner } from '../../modules/my-pictures-verify-owner/actions';
 import { fetchGalleryPictures } from '../../modules/my-pictures-gallery-pictures/actions';
 import ImageViewer from '../../components/my-pictures/ImageViewer';
 import imageDetailsStyle from './ImageDetailsStyles';
 import ImageInfoPanel from '../../components/my-pictures/ImageInfoPanel';
 import PhotoActions from '../../components/my-pictures/actions/PhotoActions';
+import ModalGeneric from '../../components/common/modals/modal-generic';
+import { resetShareMemberPhoto } from '../../modules/share-member-photo/actions';
 
 
-const mapStateToProps = ({ user, myPicturesImageDetails, galleryPictures }) => ({
+const mapStateToProps = ({ user, myPicturesImageDetails, shareMemberPhoto, galleryPictures }) => ({
   myPicturesImageDetails,
   galleryPictures,
+  showSharePrompt: shareMemberPhoto.showSharePrompt,
+  sharePrompt: shareMemberPhoto.sharePrompt,
   user,
 });
 
@@ -25,6 +30,8 @@ const mapDispatchToProps = dispatch => ({
     fetchMyPicturesImageDetails,
     fetchGalleryPictures,
     fetchImageDetailsAndCounts,
+    verifyMyPicsOwner,
+    resetShareMemberPhoto,
   }, dispatch),
 });
 
@@ -43,11 +50,15 @@ class ImageDetails extends Component {
       editorValue: props.myPicturesImageDetails.observationLog,
       galleryId,
       currentImageIndex: 0,
+      showSharePicturePrompt: false,
+      sharePicturePrompt: false,
     };
   }
+
   componentWillMount() {
     window.scrollTo(0, 0);
     const {
+      actions,
       params: {
         customerImageId,
         shareToken,
@@ -55,14 +66,23 @@ class ImageDetails extends Component {
       }
     } = this.props;
 
-    this.props.actions.fetchImageDetailsAndCounts({
-      customerImageId,
-      shareToken,
+    actions.verifyMyPicsOwner({
+      itemId: customerImageId,
+      itemType: 'image'
+    }).then(() => {
+
+      if (this.props.myPicturesImageDetails.customerImageId !== customerImageId) { // don't call api for info we already have
+        actions.fetchImageDetailsAndCounts({
+          customerImageId,
+          shareToken,
+        });
+      }
+      actions.fetchGalleryPictures({
+        galleryId,
+        firstImageNumber: 1,
+      });
     });
-    this.props.actions.fetchGalleryPictures({
-      galleryId,
-      firstImageNumber: 1,
-    });
+
   }
 
   componentWillReceiveProps(nextProps) {
@@ -80,16 +100,35 @@ class ImageDetails extends Component {
       });
     }
     if (Number(this.props.params.customerImageId) !== Number(customerImageId) || String(this.props.params.shareToken) !== String(shareToken)) {
-      this.props.actions.fetchImageDetailsAndCounts({
-        customerImageId: nextProps.params.customerImageId,
-        shareToken: nextProps.params.shareToken,
-      });
-      this.props.actions.fetchGalleryPictures({
-        galleryId,
-        firstImageNumber: 1,
+      this.props.actions.verifyMyPicsOwner({
+        itemId: customerImageId,
+        itemType: 'image'
+      }).then(() => {
+        this.props.actions.fetchImageDetailsAndCounts({
+          customerImageId: nextProps.params.customerImageId,
+          shareToken: nextProps.params.shareToken,
+        });
+        this.props.actions.fetchGalleryPictures({
+          galleryId,
+          firstImageNumber: 1,
+        });
       });
     }
 
+    if (nextProps.showSharePrompt !== this.state.showSharePicturePrompt) {
+      this.setState({
+        showSharePicturePrompt: nextProps.showSharePrompt,
+        sharePicturePrompt: nextProps.sharePrompt,
+      });
+    }
+
+  }
+
+  closeModal = () => {
+    this.setState({
+      showSharePicturePrompt: false,
+    });
+    this.props.actions.resetShareMemberPhoto();
   }
 
   handleNextPageClick = () => {
@@ -123,16 +162,20 @@ class ImageDetails extends Component {
       likesCount,
       canEditFlag,
       likePrompt,
+      canShareFlag,
     } = this.props.myPicturesImageDetails;
     const {
       error,
       fetching,
       imageCount,
       imageList,
+      galleryTitle,
     } = this.props.galleryPictures;
     const {
       currentImageIndex,
-      galleryId
+      galleryId,
+      sharePicturePrompt,
+      showSharePicturePrompt
     } = this.state;
     const { user } = this.props;
     const rangeText = Pagination.generateRangeText({
@@ -151,17 +194,25 @@ class ImageDetails extends Component {
     };
     return (
       <div>
-        <MyPicturesNavigation
+        <ModalGeneric
+          open={showSharePicturePrompt}
+          closeModal={this.closeModal}
+          description={String(sharePicturePrompt)}
+        />
+        {canEditFlag && <MyPicturesNavigation
           page="galleryImages"
           galleryId={galleryId}
-        />
+        />}
         <div className="clearfix my-pictures-container">
           <div className="container">
             <div className="left">
-              <h2 dangerouslySetInnerHTML={{ __html: imageTitle }} />
+              <h2>
+                <span dangerouslySetInnerHTML={{ __html: galleryTitle }} /> Photos: <span dangerouslySetInnerHTML={{ __html: imageTitle }} />
+              </h2>
             </div>
             <div className="right-top">
             <PhotoActions
+              canShareFlag={canShareFlag}
               canEditFlag={canEditFlag}
               imageURL={image}
               galleryId={galleryId}

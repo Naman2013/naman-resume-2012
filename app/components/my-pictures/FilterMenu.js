@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import moment from 'moment';
-import findIndex from 'lodash/findIndex';
 import isEqual from 'lodash/isEqual';
 import { DayPickerSingleDateController } from 'react-dates';
 import { fetchObjectTypeList } from '../../modules/object-type-list/actions';
@@ -13,8 +12,6 @@ import { fetchFiltersLists, setFilters, setSelectedTagsTabIndex, setCurrentVisib
 import SelectToggleList from '../common/forms/SelectToggleList';
 import { white, darkBlueGray } from '../../styles/variables/colors';
 import FilterMenuTags from './FilterMenuTags';
-
-
 
 const mapStateToProps = ({ objectTypeList, myPicturesFilters }) => ({
   fetchingObjectTypeList: objectTypeList.fetching,
@@ -263,7 +260,7 @@ export class FilterMenuComponent extends Component {
               keepOpenOnDateSelect={true}
               isDayHighlighted={this.isDayHighlighted}
               orientation="horizontal"
-              ref={_calRef => this.calRef = _calRef}
+              ref={(_calRef) => { this.calRef = _calRef; }}
               onNextMonthClick={this.setCalendarMonth}
               onPrevMonthClick={this.setCalendarMonth}
               initialVisibleMonth={() => currentVisibleCalMonth}
@@ -318,8 +315,7 @@ export class FilterMenuComponent extends Component {
             />
           </li>
         </ul>
-        <style jsx>
-        {`
+        <style jsx>{`
           .rootFilterMenu {
             background: ${white};
             padding: 0 20px 25px 40px;
@@ -341,7 +337,8 @@ export class FilterMenuComponent extends Component {
           }
 
           .dateSection {
-            width: 315px;
+            min-width: 315px;
+            max-width: 315px;
           }
 
           :global(.transition-container) {
@@ -371,8 +368,7 @@ export class FilterMenuComponent extends Component {
           .tagSection {
             flex: 2;
           }
-        `}
-        </style>
+        `}</style>
       </div>
     );
   }

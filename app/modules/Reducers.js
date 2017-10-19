@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux';
 import { reducer } from 'redux-form';
+import about from './about/reducer';
 import activeTelescopeMissions from './active-telescope-missions/active-telescope-missions-reducer';
 import adStats from './ad-management/ad-stats';
 import announcementBanner from './Announcement-Banner';
@@ -36,16 +37,19 @@ import missionSlotsByTelescope from './mission-slots-by-telescope/mission-slots-
 import myPictures from './my-pictures/reducer';
 import myPicturesImageDetails from './my-pictures-image-details/reducer';
 import myPicturesFilters from './my-pictures-filters/reducer';
+import myPicturesVerifyOwner from './my-pictures-verify-owner/reducer';
 import galleries from './my-pictures-galleries/reducer';
 import galleryPictures from './my-pictures-gallery-pictures/reducer';
 import galleryActions from './my-pictures-gallery-actions/reducer';
 import objectPostList from './object-post-list/reducer';
 import objectTypeList from './object-type-list/reducer';
 import otherFeaturedObjects from './other-featured-objects/reducer';
+import pageLevelMetaContent from './pageLevelMetaContent/seo-reducer';
 import piggyback from './Piggyback';
 import post from './pulse/get-post-reducer';
-/* EK 8/9/17 registration is closed     import roadtripRegistration from './roadtrip-registration/reducer'; */
 import starshareCamera from './starshare-camera/starshare-camera-reducer';
+import shareMemberPhoto from './share-member-photo/reducer';
+import sharedMemberPhotos from './get-shared-member-photos/reducer';
 import tags from './tag-management/Tags';
 import telescopeDetails from './telescope-details/reducer';
 import telescopeOverview from './Telescope-Overview';
@@ -61,6 +65,7 @@ import videoViewerShow from './show-video-viewer/reducer';
 export default combineReducers({
   routing: routerReducer,
   form: reducer,
+  about,
   activeTelescopeMissions,
   adStats,
   announcementBanner,
@@ -96,15 +101,19 @@ export default combineReducers({
   myPictures,
   myPicturesImageDetails,
   myPicturesFilters,
+  myPicturesVerifyOwner,
   galleries,
   galleryActions,
   galleryPictures,
   objectPostList,
   objectTypeList,
   otherFeaturedObjects,
+  pageLevelMetaContent,
   piggyback,
   post,
   /* EK 8/9/17 registration is closed      roadtripRegistration, */
+  shareMemberPhoto,
+  sharedMemberPhotos,
   starshareCamera,
   tags,
   telescopeDetails,

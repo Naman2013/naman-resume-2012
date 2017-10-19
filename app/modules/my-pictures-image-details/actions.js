@@ -24,6 +24,7 @@ const fetchMyPicturesImageDetailsFail = payload => ({
 export const fetchMyPicturesImageDetails = ({
   shareToken,
   customerImageId,
+  useShareToken = 'y',
 }) => (dispatch, getState) => {
   const { at, token, cid } = getState().user;
   dispatch(fetchMyPicturesImageDetailsStart());
@@ -37,15 +38,20 @@ export const fetchMyPicturesImageDetails = ({
     token,
     shareToken,
     customerImageId,
+    useShareToken,
   })
-  .then(result => dispatch(fetchMyPicturesImageDetailsSuccess(result.data)))
+  .then(result => dispatch(fetchMyPicturesImageDetailsSuccess(Object.assign({ customerImageId }, result.data))))
   .catch(error => dispatch(fetchMyPicturesImageDetailsFail(error)));
 };
 
-export const fetchImageDetailsAndCounts = params => (dispatch) => {
-  dispatch(fetchMissionCount());
-  dispatch(fetchMyPicturesCount());
-  dispatch(fetchGalleriesCount());// for deeplinking
+export const fetchImageDetailsAndCounts = params => (dispatch, getState) => {
+  const { isOwner } = getState().myPicturesVerifyOwner;
+
+  if (isOwner) {
+    dispatch(fetchMissionCount());
+    dispatch(fetchMyPicturesCount());
+    dispatch(fetchGalleriesCount());// for deeplinking
+  }
   dispatch(fetchMyPicturesImageDetails({
     ...params,
   }));

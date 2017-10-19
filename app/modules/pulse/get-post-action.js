@@ -5,8 +5,10 @@ export const FETCH_POST_START = 'FETCH_POST_START';
 export const FETCH_POST_SUCCESS = 'FETCH_POST_SUCCESS';
 export const FETCH_POST_FAIL = 'FETCH_POST_FAIL';
 
-export const FETCH_PAGE_META_START = 'FETCH_PAGE_META_START';
-export const FETCH_PAGE_META_SUCCESS = 'FETCH_PAGE_META_SUCCESS';
+export const RESET_POST_PAGE_META = 'RESET_POST_PAGE_META';
+
+export const FETCH_POST_PAGE_META_START = 'FETCH_POST_PAGE_META_START';
+export const FETCH_POST_PAGE_META_SUCCESS = 'FETCH_POST_PAGE_META_SUCCESS';
 
 export const FETCH_POPULAR_POSTS_START = 'FETCH_POPULAR_POSTS_START';
 export const FETCH_POPULAR_POSTS_SUCCESS = 'FETCH_POPULAR_POSTS_SUCCESS';
@@ -54,12 +56,17 @@ const fetchPopularPosts = () => (dispatch) => {
   .then(result => dispatch(fetchPopularPostsSuccess(result.data)));
 };
 
+const resetPageMeta = payload => ({
+  type: RESET_POST_PAGE_META,
+  payload,
+});
+
 const fetchMetaStart = () => ({
-  type: FETCH_PAGE_META_START,
+  type: FETCH_POST_PAGE_META_START,
 });
 
 const fetchMetaSuccess = payload => ({
-  type: FETCH_PAGE_META_SUCCESS,
+  type: FETCH_POST_PAGE_META_SUCCESS,
   payload,
 });
 
@@ -129,7 +136,7 @@ const fetchPostFail = payload => ({
 
 export const fetchPost = id => (dispatch, getState) => {
   const { cid } = getState().user;
-
+  dispatch(resetPageMeta());
   dispatch(fetchPostStart());
   dispatch(fetchPopularPosts());
 

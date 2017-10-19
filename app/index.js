@@ -83,6 +83,7 @@ import SocialNetwork from './pages/settings/SocialNetwork';
 import PublishPost from './pages/publish-post/publish-post';
 import PulsePostList from './pages/pulse/pulse-post-list';
 import PulsePostContent from './pages/pulse/pulse-post';
+import PulseByObject from './pages/pulse/pulse-by-object';
 import ObjectPosts from './pages/object-posts/ObjectPosts';
 
 import NewDiscussionsThread from './pages/discussions/threads/NewDiscussionsThread';
@@ -164,7 +165,7 @@ ReactDOM.render(
           <IndexRedirect to="slooh-recommends" />
 
           <Route path="slooh-recommends" component={SloohRecommends}>
-            <IndexRedirect to="existing" />
+            <IndexRedirect to="new" />
             <Route path="existing" name="existing-missions" component={ExistingMissions} />
             <Route path="new" name="new-missions" component={NewMissions} />
           </Route>
@@ -202,6 +203,11 @@ ReactDOM.render(
             <Route path="artCulture" name="artCulture" component={PulsePostList} />
             <Route path="humanSpirit" name="humanSpirit" component={PulsePostList} />
             <Route path="diy" name="diy" component={PulsePostList} />
+          </Route>
+
+          <Route path="all-posts" component={PulseWrapper}>
+            <IndexRedirect to="by-object" />
+            <Route path="by-object" name="by-object" component={PulseByObject} />
           </Route>
         </Route>
 

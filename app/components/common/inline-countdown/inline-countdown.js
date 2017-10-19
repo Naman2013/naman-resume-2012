@@ -29,8 +29,9 @@ class InlineCountdown extends Component {
   }
 
   bootstrapTimer = (time) => {
-    const expires = moment(time * 1000);
-    const duration = expires.diff(moment());
+    const { incrementTime, forceUTC } = this.props;
+    const expires = forceUTC ? moment.utc(time * 1000) : moment(time * 1000);
+    const duration = incrementTime ? expires : expires.diff(moment());
 
     this.setState({
       remainingTime: duration,
@@ -43,7 +44,15 @@ class InlineCountdown extends Component {
     this.timer = setInterval(() => {
       const { remainingTime } = this.state;
       const { exitAction } = this.props;
-      const updatedTime = moment(remainingTime).subtract(1, 'seconds');
+
+      // optionally increment or decrement the time
+      let updatedTime;
+      if (incrementTime) {
+        updatedTime = moment(remainingTime).add(1, 'seconds');
+      } else {
+        updatedTime = moment(remainingTime).subtract(1, 'seconds');
+      }
+
       const minutesRemaining = updatedTime.minutes();
       const secondsRemaining = updatedTime.seconds();
 
@@ -78,12 +87,16 @@ class InlineCountdown extends Component {
 InlineCountdown.defaultProps = {
   format: 'm:ss',
   exitAction: noop,
+  incrementTime: false,
+  forceUTC: false,
 };
 
 InlineCountdown.propTypes = {
   startTime: PropTypes.number.isRequired, // works with unix timestamp
   exitAction: PropTypes.func, // called for you when timer expires
   format: PropTypes.string,
+  incrementTime: PropTypes.bool, // optionally increment time...
+  forceUTC: PropTypes.bool, // force UTC time format
 };
 
 export default InlineCountdown;

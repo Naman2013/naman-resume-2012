@@ -6,13 +6,14 @@ import {
   FETCH_OBJECT_LATEST_CONTENT_START,
   FETCH_OBJECT_LATEST_CONTENT_SUCCESS,
   FETCH_OBJECT_LATEST_CONTENT_FAIL,
-  FETCH_PAGE_META_START,
-  FETCH_PAGE_META_SUCCESS,
-  FETCH_PAGE_META_FAIL,
+  FETCH_OBJECT_LIST_PAGE_META_START,
+  FETCH_OBJECT_LIST_PAGE_META_SUCCESS,
+  FETCH_OBJECT_LIST_PAGE_META_FAIL,
 } from './actions';
 
 const defaultPageMeta = {
-  headerObjectTitle: 'Loading...',
+  headerObjectTitle: '',
+  headerSubtitle: '',
   headerIconURL: '',
   showRecommends: false,
   showAdUnit: false,
@@ -28,24 +29,28 @@ const defaultPageMeta = {
 const initialState = {
   fetchingPageMeta: false,
   fetchingPageMetaError: false,
+  firstPostIndex: 0,
   fetchingPageMetaErrorBody: null,
   pageMeta: { ...defaultPageMeta },
   fetching: false,
   objectPostsPath: 'all-time-best',
   pages: 0,
+  page: 1,
+  count: 10,
+  postsCount: 0,
   objectPosts: [],
   error: false,
 };
 
 export default createReducer(initialState, {
-  [FETCH_PAGE_META_START](state) {
+  [FETCH_OBJECT_LIST_PAGE_META_START](state) {
     return {
       ...state,
       ...initialState,
       fetchingPageMeta: true,
     };
   },
-  [FETCH_PAGE_META_SUCCESS](state, { payload }) {
+  [FETCH_OBJECT_LIST_PAGE_META_SUCCESS](state, { payload }) {
     return {
       ...state,
       fetchingPageMeta: false,
@@ -54,7 +59,7 @@ export default createReducer(initialState, {
       pageMeta: payload,
     };
   },
-  [FETCH_PAGE_META_FAIL](state, { payload }) {
+  [FETCH_OBJECT_LIST_PAGE_META_FAIL](state, { payload }) {
     return {
       ...state,
       fetchingPageMeta: false,
@@ -104,6 +109,10 @@ export default createReducer(initialState, {
       objectPosts: posts,
       fetching: false,
       pages,
+      page: payload.page,
+      count: payload.count,
+      postsCount: payload.postsCount,
+      firstPostIndex: payload.firstPostIndex,
     };
   },
   [FETCH_OBJECT_LATEST_CONTENT_FAIL](state, { payload }) {

@@ -3,31 +3,32 @@
 exports[`renders some text when provided 1`] = `
 <div
   className="root"
-  data-jsx={3544325996}
+  data-jsx={2177158764}
 >
   <h3
     className="title"
-    data-jsx={3544325996}
+    data-jsx={2177158764}
   >
     test title
   </h3>
+  
   <style
     jsx={true}
   >
     
-            .root {
-              font-family: "Brandon Grotesque", "brandon-grotesque", sans-serif;
-              background-color: #000;
-              text-align: center;
-              padding: 10px 0;
-            }
+        .root {
+          font-family: "Brandon Grotesque", "brandon-grotesque", sans-serif;
+          background-color: #000;
+          text-align: center;
+          padding: 10px 0;
+        }
+
+        .title {
+          color: #b1cfcf;
+          text-transform: none;
+          font-size: 24px;
+        }
     
-            .title {
-              color: #b1cfcf;
-              text-transform: none;
-              font-size: 24px;
-            }
-          
   </style>
 </div>
 `;

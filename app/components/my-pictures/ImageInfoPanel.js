@@ -23,7 +23,7 @@ class ImageInfoPanel extends Component {
   constructor(props) {
     super(props);
     props.actions.resetClientTagData();
-    
+
     this.state = {
       editorValue: '',
       showSaveButton: false,
@@ -35,7 +35,7 @@ class ImageInfoPanel extends Component {
 
   componentWillReceiveProps(nextProps) {
     // once getImageDetails call is made and we have scheduledMissionId, make getTags call
-    if (typeof nextProps.myPicturesImageDetails.scheduledMissionId !== 'undefined') {
+    if (nextProps.myPicturesImageDetails.canEditFlag && typeof nextProps.myPicturesImageDetails.scheduledMissionId !== 'undefined') {
       this.props.actions.getTags({
         tagClass: 'image',
         tagType: 'user',
@@ -44,9 +44,8 @@ class ImageInfoPanel extends Component {
       });
     }
 
-    const obsLog = this.props.myPicturesImageDetails.observationLog !== nextProps.myPicturesImageDetails.observationLog ? nextProps.myPicturesImageDetails.observationLog : this.props.myPicturesImageDetails.observationLog;
     this.setState({
-      editorValue: obsLog,
+      editorValue: nextProps.myPicturesImageDetails.observationLog,
     });
   }
 
@@ -142,9 +141,9 @@ class ImageInfoPanel extends Component {
                 </div>}
               </div>
             }
-            {(!canEditFlag) && (observationLog.length > 0 ? <div dangerouslySetInnerHTML={{ __html: observationLog }} /> : <div>There is no observation log for this photo.</div>)}
+            {(!canEditFlag) && (observationLog.length > 0 ? <div className="obslog" dangerouslySetInnerHTML={{ __html: observationLog }} /> : <div>There is no observation log for this photo.</div>)}
           </div>
-          <div className="section">
+          {canEditFlag && <div className="section">
             <h4 className="header">Image Tags</h4>
             <div>
               <MissionTags
@@ -156,7 +155,7 @@ class ImageInfoPanel extends Component {
                 buttonStyle="btn btn-primary"
               />
             </div>
-          </div>
+          </div>}
           <div className="">
             <h4 className="header">File Data</h4>
             <div>{Object.keys(fileData).map((key) => {
@@ -191,6 +190,11 @@ class ImageInfoPanel extends Component {
             text-align: center;
             font-weight: bold;
             margin-bottom: 10px;
+          }
+
+          .obslog {
+            white-space: pre-wrap;
+            text-align: left;
           }
           `}
         </style>

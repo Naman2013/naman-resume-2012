@@ -11,17 +11,20 @@ import Pagination from '../common/pagination/Pagination';
 import FITModalHeader from './FIT-image-modal-partials/FITModalHeader';
 import FITModalBody from './FIT-image-modal-partials/FITModalBody';
 import { resetFITImages } from '../../modules/my-pictures/actions';
-
+import { resetShareMemberPhoto } from '../../modules/share-member-photo/actions';
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
     resetFITImages,
+    resetShareMemberPhoto,
   }, dispatch),
 });
 
-const mapStateToProps = ({ myPictures }) => ({
+const mapStateToProps = ({ myPictures, shareMemberPhoto }) => ({
   fetchingFIT: myPictures.loadedFITSImages.fetchingImages,
   fetchingFITError: myPictures.loadedFITSImages.error,
   FITImages: myPictures.loadedFITSImages.images,
+  showSharePrompt: shareMemberPhoto.showSharePrompt,
+  sharePrompt: shareMemberPhoto.sharePrompt,
 });
 
 @connect(mapStateToProps, mapDispatchToProps)
@@ -31,6 +34,20 @@ class PhotoView extends Component {
 
     this.handleNextPageClick = this.handleNextPageClick.bind(this);
     this.handlePreviousPageClick = this.handlePreviousPageClick.bind(this);
+  }
+
+  state = {
+    showSharePicturePrompt: false,
+    sharePicturePrompt: false,
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.showSharePrompt !== this.state.showSharePicturePrompt) {
+      this.setState({
+        showSharePicturePrompt: nextProps.showSharePrompt,
+        sharePicturePrompt: nextProps.sharePrompt,
+      });
+    }
   }
 
   handleNextPageClick() {
@@ -92,6 +109,14 @@ class PhotoView extends Component {
     this.props.actions.resetFITImages();
   }
 
+  closeModal = () => {
+    this.setState({
+      showSharePicturePrompt: false,
+    });
+
+    this.props.actions.resetShareMemberPhoto();
+  }
+
   render() {
     const {
       fetching,
@@ -106,8 +131,11 @@ class PhotoView extends Component {
       fetchingFIT,
       fetchingFITError,
       FITImages,
+      showSharePrompt,
+      sharePrompt,
     } = this.props;
 
+    const { sharePicturePrompt, showSharePicturePrompt } = this.state;
     const firstImageNumberIndex = firstImageNumber - 1;
     const rangeText = Pagination.generateRangeText({
       startRange: firstImageNumberIndex,
@@ -132,6 +160,11 @@ class PhotoView extends Component {
 
     return (
       <div>
+        <ModalGeneric
+          open={showSharePicturePrompt}
+          closeModal={this.closeModal}
+          description={String(sharePicturePrompt)}
+        />
         <ModalGeneric
           title={
             <FITModalHeader
@@ -201,10 +234,14 @@ PhotoView.defaultProps = {
   missions: false,
   imageList: null,
   galleryList: null,
+  sharePrompt: '',
+  showSharePrompt: false,
 };
 
 // TODO: increase validation for the imageList types.
 PhotoView.propTypes = {
+  sharePrompt: PropTypes.string,
+  showSharePrompt: PropTypes.bool,
   fetching: PropTypes.bool.isRequired,
   imageList: PropTypes.arrayOf(PropTypes.shape({
     imageURL: PropTypes.string.isRequired,
