@@ -104,6 +104,11 @@ class TelescopeDetails extends Component {
       updateTelescopeStatus: PropTypes.func.isRequired,
       fetchAllTelescopeStatus: PropTypes.func.isRequired,
     }).isRequired,
+    isImageViewerClipped: PropTypes.bool,
+  };
+
+  static defaultProps = {
+    isImageViewerClipped: true,
   };
 
   constructor(props) {
