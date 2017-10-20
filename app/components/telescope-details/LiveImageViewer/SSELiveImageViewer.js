@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux';
 import noop from 'lodash/noop';
 
 import { setImageDataToSnapshot } from '../../../modules/starshare-camera/starshare-camera-actions';
+import { removeImageViewerClipState, applyImageViewerClipState } from '../../../modules/telescope-details/actions';
 
 import LiveImageViewer from './';
 import VirtualTelescopeViewer from '../../VirtualTelescopeViewer';
@@ -58,6 +59,8 @@ const defaultProps = {
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
     setImageDataToSnapshot,
+    removeImageViewerClipState,
+    applyImageViewerClipState,
   }, dispatch),
 });
 
