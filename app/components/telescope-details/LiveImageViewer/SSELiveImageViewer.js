@@ -14,6 +14,8 @@ import obsIdTeleIdDomeIdFromTeleId from '../../../utils/obsid-teleid-domeid-from
 import generateSseImageLoader from '../../../utils/generate-sse-image-source';
 
 const propTypes = {
+  applyImageViewerClipState: PropTypes.func.isRequired,
+  removeImageViewerClipState: PropTypes.func.isRequired,
   isImageViewerClipped: PropTypes.bool,
   timestamp: PropTypes.number,
   coordinateArray: PropTypes.arrayOf(PropTypes.string),
@@ -77,6 +79,14 @@ class SSELiveImageViewer extends Component {
       originX: x,
       originY: y,
     });
+  }
+
+  onClipChange = (clipState) => {
+    if (clipState) {
+      this.props.actions.applyImageViewerClipState();
+    } else {
+      this.props.actions.removeImageViewerClipState();
+    }
   }
 
   render() {
