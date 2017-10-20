@@ -26,7 +26,9 @@ const propTypes = {
   schedulingMember: PropTypes.string,
   callSource: PropTypes.string,
   actions: PropTypes.shape({
-    setImageDataToSnapshot: PropTypes.isRequired,
+    setImageDataToSnapshot: PropTypes.func.isRequired,
+    applyImageViewerClipState: PropTypes.func.isRequired,
+    removeImageViewerClipState: PropTypes.func.isRequired,
   }),
   // TODO: complete the validation
   // imageSource: PropTypes.
@@ -119,6 +121,7 @@ class SSELiveImageViewer extends Component {
       <LiveImageViewer
         clipped={isImageViewerClipped}
         onZoomChange={this.handleZoomUpdate}
+        onClipChange={this.onClipChange}
       >
         <VirtualTelescopeViewer
           timestamp={timestamp}
