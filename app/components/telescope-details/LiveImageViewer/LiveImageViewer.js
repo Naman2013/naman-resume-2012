@@ -6,12 +6,14 @@ const propTypes = {
   children: PropTypes.node,
   onZoomChange: PropTypes.func,
   clipped: PropTypes.bool,
+  onClipChange: PropTypes.func,
 };
 
 const defaultProps = {
   children: null,
   onZoomChange: noop,
   clipped: true,
+  onClipChange: noop,
 };
 
 const SCALE_MULTIPLIER = 0.5;
@@ -69,6 +71,10 @@ class LiveImageViewer extends Component {
   handleClip = ({ clip }) => {
     this.setState({
       clipped: clip,
+    }, () => {
+      if (this.props.onClipChange) {
+        this.props.onClipChange(clip);
+      }
     });
   }
 

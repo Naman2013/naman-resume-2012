@@ -13,6 +13,7 @@ import obsIdTeleIdDomeIdFromTeleId from '../../../utils/obsid-teleid-domeid-from
 import generateSseImageLoader from '../../../utils/generate-sse-image-source';
 
 const propTypes = {
+  isImageViewerClipped: PropTypes.bool,
   timestamp: PropTypes.number,
   coordinateArray: PropTypes.arrayOf(PropTypes.string),
   missionData: PropTypes.arrayOf(PropTypes.string),
@@ -34,6 +35,7 @@ const propTypes = {
 };
 
 const defaultProps = {
+  isImageViewerClipped: true,
   timestamp: 0,
   coordinateArray: [],
   missionData: [],
@@ -76,6 +78,7 @@ class SSELiveImageViewer extends Component {
 
   render() {
     const {
+      isImageViewerClipped,
       timestamp,
       coordinateArray,
       missionData,
@@ -100,7 +103,10 @@ class SSELiveImageViewer extends Component {
     const teleThumbWidth = '866px';
 
     return (
-      <LiveImageViewer onZoomChange={this.handleZoomUpdate}>
+      <LiveImageViewer
+        clipped={isImageViewerClipped}
+        onZoomChange={this.handleZoomUpdate}
+      >
         <VirtualTelescopeViewer
           timestamp={timestamp}
           coordinateArray={coordinateArray}
