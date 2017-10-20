@@ -179,6 +179,7 @@ class SharedPicturesItem extends Component {
               <div>
                 <h4 className="telescope">
                   <span
+                    className="block"
                     dangerouslySetInnerHTML={{ __html: `${photoBy.label}: ` }}
                   />
                   {photoBy.hasLink ? <Link to={photoBy.linkUrl}>{photoBy.text}</Link> :
@@ -191,14 +192,14 @@ class SharedPicturesItem extends Component {
                 <h3 className="title telescope">
                   {telescope.hasLink ? <Link to={telescope.linkUrl}>{telescope.text}</Link> :
                   <span
-                    dangerouslySetInnerHTML={{ __html: `${telescope.text}: ` }}
+                    dangerouslySetInnerHTML={{ __html: `${telescope.text} ` }}
                   />
                   }
                 </h3>
                 <h4 className="observatory">
                   {observatory.hasLink ? <Link to={observatory.linkUrl}>{observatory.text}</Link> :
                   <span
-                    dangerouslySetInnerHTML={{ __html: `${observatory.text}: ` }}
+                    dangerouslySetInnerHTML={{ __html: `${observatory.text} ` }}
                   />
                   }
                 </h4>
@@ -303,6 +304,10 @@ class SharedPicturesItem extends Component {
             margin: 0 auto;
             height: 347px;
             width: auto;
+          }
+
+          .block {
+            display: block;
           }
 
           @media(max-width:950px){

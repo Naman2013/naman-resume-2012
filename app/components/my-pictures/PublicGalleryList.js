@@ -15,10 +15,12 @@ class PublicGalleryList extends Component {
         <ul className={`${style.photoList} col-xs-12`}>
           {
             galleryList.map(gallery => (
-              <li key={gallery.customerImageId} className="col-xs-12 col-sm-4">
+              <li key={gallery.firstCustomerImageId} className="col-xs-12 col-sm-4">
                 <div className="relative-container"><Gallery
                   {...gallery}
                   isPublicGallery={true}
+                  customerImageId={gallery.firstCustomerImageId}
+                  shareToken={gallery.firstImageShareToken}
                   imageTitle={gallery.title || gallery.imageTitle}
                 /></div>
               </li>
@@ -42,6 +44,8 @@ PublicGalleryList.propTypes = {
     galleryId: PropTypes.any.isRequired,
     imageURL: PropTypes.string.isRequired,
     title: PropTypes.string,
+    firstImageShareToken: PropTypes.string,
+    firstCustomerImageId: PropTypes.string
   })),
 };
 

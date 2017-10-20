@@ -6,10 +6,11 @@ import OtherFeaturedObjects from '../components/common/OtherFeaturedObjects/Othe
 
 class MyPictures extends Component {
   render() {
-    const { children } = this.props;
+    const { children, location } = this.props;
+    const isUserPublicGalleries = location.pathname.indexOf('public-galleries') > -1;
     return (
       <div className="clearfix">
-        <MyPicturesHeader />
+        <MyPicturesHeader altText={isUserPublicGalleries && 'Shared Member Pictures'} />
         <section>
           {cloneElement(children)}
         </section>
