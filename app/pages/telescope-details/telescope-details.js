@@ -76,6 +76,8 @@ function mapStateToProps({
 
     displayCommunityContent: telescopeDetails.displayCommunityContent,
 
+    isImageViewerClipped: telescopeDetails.isImageViewerClipped,
+
     observatoryList: observatoryList.observatoryList,
     observatoryListTimestamp: observatoryList.observatoryListTimestamp,
 
