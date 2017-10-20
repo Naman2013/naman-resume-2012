@@ -228,6 +228,7 @@ class TelescopeDetails extends Component {
       communityContent,
 
       activeDetailsSSE,
+      isImageViewerClipped,
     } = this.props;
 
     if (fetchingObservatoryList) {
@@ -306,6 +307,7 @@ class TelescopeDetails extends Component {
                         timestamp={activeTelescopeMission.timestamp}
                         activeNeoview={selectedInstrument.instrHasNeoView}
                         handleInfoClick={this.toggleNeoview}
+                        isImageViewerClipped={isImageViewerClipped}
                       />
 
                       {
