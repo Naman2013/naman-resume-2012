@@ -184,7 +184,7 @@ class SharedPicturesItem extends Component {
                   />
                   {photoBy.hasLink ? <Link to={photoBy.linkUrl}>{photoBy.text}</Link> :
                   <span
-                    dangerouslySetInnerHTML={{ __html: `${photoBy.text}: ` }}
+                    dangerouslySetInnerHTML={{ __html: `${photoBy.text} ` }}
                   />
                   }
                 </h4>
@@ -218,6 +218,7 @@ class SharedPicturesItem extends Component {
             width: 100%;
             height: 100%;
             flex-wrap: wrap;
+            -ms-flex-wrap: wrap;
           }
 
           .shared-image {

@@ -15,7 +15,7 @@ class PublicGalleryList extends Component {
         <ul className={`${style.photoList} col-xs-12`}>
           {
             galleryList.map(gallery => (
-              <li key={gallery.firstCustomerImageId} className="col-xs-12 col-sm-4">
+              <li key={gallery.galleryId} className="col-xs-12 col-sm-4">
                 <div className="relative-container"><Gallery
                   {...gallery}
                   isPublicGallery={true}
