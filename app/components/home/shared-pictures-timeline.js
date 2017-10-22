@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Slider from 'react-slick';
+import classnames from 'classnames';
 import '../common/community-perspectives/slick.min.css';
 import '../common/community-perspectives/slick-theme.min.css';
-import { white, darkBlueGray } from '../../styles/variables/colors';
+import { pink, white, darkBlueGray } from '../../styles/variables/colors';
 
 const {
   arrayOf,
@@ -22,6 +23,7 @@ class SharedPicturesTimeline extends Component {
       label: string.isRequired,
       imageIndex: number.isRequired,
     })),
+    changeMainSlider: func.isRequired,
   };
 
   static defaultProps = {
@@ -33,9 +35,16 @@ class SharedPicturesTimeline extends Component {
   }
 
   beforeSlideChange = (prevIndex, currentIndex) => {
+    const {
+      changeMainSlider,
+      timelineList,
+    } = this.props;
+
     this.setState({
       currentIndex,
     });
+
+    changeMainSlider(timelineList[currentIndex])
   }
 
   render() {
@@ -46,36 +55,55 @@ class SharedPicturesTimeline extends Component {
     const { currentIndex } = this.state;
 
     const timelineSlider = {
-      arrows: false,
+      arrows: true,
       dots: false,
       infinite: false,
       speed: 500,
       focusOnSelect: true,
-      slidesToShow: timelineCount,
+      slidesToShow: timelineCount < 12 ? timelineCount : 12,
       initialSlide: currentIndex,
-      adaptiveHeight: true,
-      centerMode: true,
+      swipeToSlide: true,
+      draggable: true,
+      centerMode: false,
       beforeChange: this.beforeSlideChange,
       nextArrow: <i className="fa fa-arrow-right" />,
       prevArrow: <i className="fa fa-arrow-left" />,
     };
 
+    const timelineItemClass = (arrayIdx) => {
+      return classnames('timeline-item', {
+        'timeline-active-item': arrayIdx === currentIndex,
+      })
+    };
+
     return (
       <div className="shared-timeline-container">
-        {timelineList.length && <Slider
+        {timelineList.length > 0 && <Slider
           {...timelineSlider}
           ref={c => this.timelineSlider = c}
         >
-          {timelineList.map(date => (<div
-            className="timeline-item"
+          {timelineList.map((date, i) => (<div
+            key={date.imageIndex}
+            className={timelineItemClass(i)}
             dangerouslySetInnerHTML={{
               __html: date.label
             }}
           />))}
         </Slider>}
         <style jsx>{`
+
+          .shared-timeline-container {
+            max-width: 750px;
+            margin: 0 auto;
+            margin-top: 15px;
+          }
           .timeline-item {
             cursor: pointer;
+          }
+
+          .timeline-active-item {
+            color: ${pink};
+            font-weight: bold;
           }
 
         `}</style>
@@ -83,18 +111,26 @@ class SharedPicturesTimeline extends Component {
         <style global>
           {`
 
-            .shared-container .slick-prev:before {
+            .shared-timeline-container .slick-slide {
+              text-align: center;
+            }
+
+            .shared-timeline-container .slick-prev:before {
               font-family: FontAwesome;
               font-style: normal;
               content: "\\f060";
-              font-size: 40px;
+              font-size: 16px !important;
             }
 
-            .shared-container .slick-next:before {
+            .shared-timeline-container .slick-next:before {
               font-family: FontAwesome;
               font-style: normal;
               content: "\\f061";
-              font-size: 40px;
+              font-size: 16px !important;
+            }
+
+            .shared-timeline-container .slick-disabled {
+              display: none !important;
             }
           `}
         </style>

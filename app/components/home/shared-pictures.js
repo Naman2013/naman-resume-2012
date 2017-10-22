@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Slider from 'react-slick';
 import moment from 'moment';
+import find from 'lodash/find';
 import '../common/community-perspectives/slick.min.css';
 import '../common/community-perspectives/slick-theme.min.css';
 import SharedPicturesItem from './shared-pictures-item';
@@ -61,6 +62,14 @@ class SharedPictures extends Component {
     });
   }
 
+  changeSlide = (image) => {
+    this.slider.slickGoTo(image.imageIndex);
+    this.setState({
+      currentIndex: image.imageIndex,
+    });
+
+  }
+
   render() {
     const {
       imageList,
@@ -95,7 +104,7 @@ class SharedPictures extends Component {
     );
     const currentTime = imageList[currentIndex] && imageList[currentIndex].imageTimestamp ? moment(imageList[currentIndex].imageTimestamp * 1000) : moment();
     const longTime = currentTime.utc().format('MMMM Do, YYYY');
-    const utcTime = currentTime.utc().format('HH:mm UTC')
+    const utcTime = currentTime.utc().format('HH:mm UTC');
     return (
       <div className="shared-container">
         <div className="header">
@@ -116,7 +125,11 @@ class SharedPictures extends Component {
           </div>
         </div>}
 
-        <SharedPicturesTimeline timelineList={timelineList} timelineCount={timelineCount} />
+        <SharedPicturesTimeline
+          changeMainSlider={this.changeSlide}
+          timelineList={timelineList}
+          timelineCount={timelineCount}
+        />
         <style jsx>{`
 
           .shared-container {
