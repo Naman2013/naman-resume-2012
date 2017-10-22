@@ -98,6 +98,7 @@ class SharedPicturesItem extends Component {
       actions.fetchMyPicturesImageDetails({
         customerImageId,
         useShareToken: 'n',
+        callSource: 'sharedpictures',
       });
     }
   }

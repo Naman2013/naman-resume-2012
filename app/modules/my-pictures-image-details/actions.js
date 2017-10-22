@@ -25,6 +25,7 @@ export const fetchMyPicturesImageDetails = ({
   shareToken,
   customerImageId,
   useShareToken = 'y',
+  callSource,
 }) => (dispatch, getState) => {
   const { at, token, cid } = getState().user;
   dispatch(fetchMyPicturesImageDetailsStart());
@@ -39,6 +40,7 @@ export const fetchMyPicturesImageDetails = ({
     shareToken,
     customerImageId,
     useShareToken,
+    callSource,
   })
   .then(result => dispatch(fetchMyPicturesImageDetailsSuccess(Object.assign({ customerImageId }, result.data))))
   .catch(error => dispatch(fetchMyPicturesImageDetailsFail(error)));
