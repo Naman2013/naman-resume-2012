@@ -204,6 +204,9 @@ class TelescopeDetails extends Component {
       const nowStamp = moment.utc().valueOf();
       const refreshInterval = convertedExpirestamp - nowStamp;
 
+      // validation of the refreshInterval to prevent bad timeout values
+      if (refreshInterval <= 0) { return; }
+
       this.refreshTelescopeStatusTimeout = setTimeout(() => {
         const { observatoryList, params: { obsUniqueId, teleUniqueId } } = this.props;
         this.props.actions.fetchAllTelescopeStatus({
