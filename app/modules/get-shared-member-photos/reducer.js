@@ -11,6 +11,10 @@ const initialState = {
   imageList: [],
   firstImageNumber: 0,
   fetching: false,
+  timelineData: {
+    timelineCount: 0,
+    timelineList: [],
+  }
 };
 
 export default createReducer(initialState, {

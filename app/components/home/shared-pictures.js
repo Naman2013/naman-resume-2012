@@ -5,6 +5,7 @@ import moment from 'moment';
 import '../common/community-perspectives/slick.min.css';
 import '../common/community-perspectives/slick-theme.min.css';
 import SharedPicturesItem from './shared-pictures-item';
+import SharedPicturesTimeline from './shared-pictures-timeline';
 import { white, darkBlueGray } from '../../styles/variables/colors';
 
 const {
@@ -26,12 +27,20 @@ class SharedPictures extends Component {
     })),
     heading: string,
     subheading: string,
+    timelineData: shape({
+      timelineCount: number.isRequired,
+      timelineList: arrayOf(shape({
+        label: string.isRequired,
+        imageIndex: number.isRequired,
+      })).isRequired,
+    })
   };
 
   static defaultProps = {
     imageList: [],
     heading: '',
     subheading: '',
+    timelineData: {},
   };
 
   state = {
@@ -53,10 +62,15 @@ class SharedPictures extends Component {
   }
 
   render() {
-    const { imageList, heading, subheading } = this.props;
+    const {
+      imageList,
+      heading,
+      subheading,
+      timelineData: { timelineList, timelineCount },
+    } = this.props;
     const { currentIndex } = this.state;
 
-    const sliderSettings = {
+    const mainPicturesSliderSettings = {
       arrows: true,
       dots: false,
       infinite: false,
@@ -91,7 +105,7 @@ class SharedPictures extends Component {
         {imageList.length === 0 && <div className="empty">There are no shared images.</div>}
         {imageList.length > 0 && <div className="shared-slider-container">
           <Slider
-            {...sliderSettings}
+            {...mainPicturesSliderSettings}
             ref={c => this.slider = c}
           >
             {images}
@@ -101,6 +115,8 @@ class SharedPictures extends Component {
             <h3 className="timestamp-bottom">{utcTime}</h3>
           </div>
         </div>}
+
+        <SharedPicturesTimeline timelineList={timelineList} timelineCount={timelineCount} />
         <style jsx>{`
 
           .shared-container {
