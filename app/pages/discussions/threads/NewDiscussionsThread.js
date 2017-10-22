@@ -235,6 +235,8 @@ class NewDiscussionsThread extends Component {
         if (!res.payload.apiError) {
           const { threadId } = res.payload.thread;
           browserHistory.push(`discussions/forums/${selectedForum.get('forumId')}/topics/${selectedTopic.get('topicId')}/threads/${threadId}`);
+        } else {
+          alert('There was an error while submitting your post. The submission was not successful.');
         }
       });
     }

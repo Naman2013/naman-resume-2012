@@ -254,9 +254,13 @@ class PublishPost extends Component {
         content: bodyContent,
         postTags: tags,
         S3URLs,
-      }).then(() => {
-        alert('Your post has been submitted for review.  Your post will appear on the website once it has been approved.');
-        this.setupForm();
+      }).then((result) => {
+        if ( !result.data.apiError) {
+          alert('Your post has been submitted for review.  Your post will appear on the website once it has been approved.');
+          this.setupForm();
+        } else {
+          alert('There was an error while submitting your post. The submission was not successful.');
+        }
       });
     } else {
       alert('Make sure to add a title, content and to at least select a catagory for this post.');
