@@ -12,6 +12,11 @@ const pad = (number = 0) => {
 };
 
 class TimeUntil extends Component {
+  static propTypes = {
+    startTime: PropTypes.number.isRequired, // works with unix timestamp in seconds
+    onExpired: PropTypes.func.isRequired,
+  };
+
   state = {
     remainingTime: null,
   };
@@ -26,6 +31,24 @@ class TimeUntil extends Component {
     const currentStartTime = this.props.startTime;
     if (nextStartTime !== currentStartTime) {
       this.bootstrapTimer(nextStartTime);
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { remainingTime } = prevState;
+    const { startTime } = prevProps;
+
+    const endTime = moment.unix(startTime);
+    const duration = moment.duration(endTime.diff(remainingTime));
+
+    if (duration.isValid()) {
+      const remainingHours = duration.hours();
+      const remainingMinutes = duration.minutes();
+      const remainingSeconds = duration.seconds();
+
+      if (remainingHours <= 0 && remainingMinutes <= 0 && remainingSeconds <= 0) {
+        this.props.onExpired();
+      }
     }
   }
 
@@ -87,9 +110,5 @@ class TimeUntil extends Component {
     );
   }
 }
-
-TimeUntil.propTypes = {
-  startTime: PropTypes.number.isRequired, // works with unix timestamp in seconds
-};
 
 export default TimeUntil;

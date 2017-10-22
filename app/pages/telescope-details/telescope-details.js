@@ -165,7 +165,8 @@ class TelescopeDetails extends Component {
     clearTimeout(this.refreshTelescopeStatusTimeout);
   }
 
-  fetchAllTelescopeStatus(obsUniqueId) {
+  fetchAllTelescopeStatus(obsUniqueId = 0) {
+    console.log('FIRED!');
     const { observatoryList, params } = this.props;
 
     this.props.actions.fetchAllTelescopeStatus({
@@ -397,6 +398,7 @@ class TelescopeDetails extends Component {
                   <SunsetCountdown
                     label={currentMissionCountdown.countdownLabel}
                     countdownTimestamp={currentMissionCountdown.countdownTimestamp}
+                    onExpired={::this.fetchAllTelescopeStatus}
                   />
               }
 
