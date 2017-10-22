@@ -54,9 +54,9 @@ class DiscussionsTopicsWrapper extends Component {
         <DiscussionsHeader title={`Topics for forum: ${forumName}`} newThreadUrl={newThreadUrl} />
         <div className="discussions-wrapper container-fluid">
           <DiscussionsNav
-            alphabeticLink={`discussions/forums/${forumId}/topics/alphabetic`}
-            mostRecentLink={`discussions/forums/${forumId}/topics/most-recent`}
-            mostActiveLink={`discussions/forums/${forumId}/topics/most-active`}
+            alphabeticLink={`/discussions/forums/${forumId}/topics/alphabetic`}
+            mostRecentLink={`/discussions/forums/${forumId}/topics/most-recent`}
+            mostActiveLink={`/discussions/forums/${forumId}/topics/most-active`}
           />
           <div className="row">
             <div className="col-md-8">

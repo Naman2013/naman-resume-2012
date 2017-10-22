@@ -11,7 +11,7 @@ import {
 const { func, object, shape } = PropTypes;
 const buildLink = ({ forumId, topicId, path }) => {
   if (forumId && topicId) {
-    return `discussions/forums/${forumId}/topics/${topicId}/threads/${path}`;
+    return `/discussions/forums/${forumId}/topics/${topicId}/threads/${path}`;
   }
   return `/discussions/main/${path}`;
 };
