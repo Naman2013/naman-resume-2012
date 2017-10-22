@@ -60,7 +60,7 @@ class SharedPicturesTimeline extends Component {
       infinite: false,
       speed: 500,
       focusOnSelect: true,
-      slidesToShow: timelineCount < 12 ? timelineCount : 12,
+      slidesToShow: timelineCount < 12 ? timelineCount-1 : 12,
       initialSlide: currentIndex,
       swipeToSlide: true,
       draggable: true,
