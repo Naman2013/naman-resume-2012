@@ -143,12 +143,6 @@ class TelescopeDetails extends Component {
         teleUniqueId: nextProps.params.teleUniqueId,
       });
 
-      // fetch the observatories latest status
-      this.props.actions.fetchAllTelescopeStatus({
-        obsId: observatoryList.find(observatory => observatory.obsUniqueId === nextProps.params.obsUniqueId).obsId,
-        teleUniqueId: nextProps.params.teleUniqueId,
-      });
-
       // reset the timer to refetch the telescope status since we are calling it now anyhow
       this.scaffoldRefreshInterval();
     }
@@ -163,12 +157,11 @@ class TelescopeDetails extends Component {
         teleUniqueId: nextProps.params.teleUniqueId,
       });
 
-      // if the observatory is the same, don't bother because on update
-      // of the observatory status we will set the telescope status
-      // this will prevent a potential race condition
-      if (!isNewObservatory) {
-        this.props.actions.updateTelescopeStatus({ teleUniqueId: nextProps.params.teleUniqueId });
-      }
+      // fetch the observatories latest status
+      this.props.actions.fetchAllTelescopeStatus({
+        obsId: observatoryList.find(observatory => observatory.obsUniqueId === nextProps.params.obsUniqueId).obsId,
+        teleUniqueId: nextProps.params.teleUniqueId,
+      });
     }
   }
 
