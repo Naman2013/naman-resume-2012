@@ -7,6 +7,7 @@ import ModalGeneric from '../common/modals/modal-generic';
 import PhotoList from './PhotoList';
 import MissionList from './MissionList';
 import GalleryList from './GalleryList';
+import PublicGalleryList from './PublicGalleryList';
 import Pagination from '../common/pagination/Pagination';
 import FITModalHeader from './FIT-image-modal-partials/FITModalHeader';
 import FITModalBody from './FIT-image-modal-partials/FITModalBody';
@@ -145,7 +146,7 @@ class PhotoView extends Component {
     const canNext = (firstImageNumberIndex + maxImageCount) < imageCount;
     const canPrevious = firstImageNumberIndex !== 0;
     const showFITSModal = FITImages.imageCount > 0;
-
+    const galleryTypes = ['gallery', 'galleryImages', 'publicGalleries'];
     if (fetching) {
       return <GenericLoadingBox />;
     }
@@ -154,7 +155,7 @@ class PhotoView extends Component {
       return <GenericLoadingBox text="We apologize, there was an issue fetching your images." />;
     }
 
-    if ((type !== 'gallery' && type !== 'galleryImages') ? imageList.length === 0 : galleryList.length === 0) {
+    if (galleryTypes.indexOf(type) === -1 ? imageList.length === 0 : galleryList.length === 0) {
       return <GenericLoadingBox text="No images are available." />;
     }
 
@@ -213,6 +214,11 @@ class PhotoView extends Component {
             <GalleryList galleryList={galleryList} /> : null
         }
 
+        {
+          type === 'publicGalleries' ?
+            <PublicGalleryList galleryList={galleryList} /> : null
+        }
+
         <Pagination
           totalCount={imageCount}
           currentRange={rangeText}
@@ -258,7 +264,7 @@ PhotoView.propTypes = {
   firstImageNumber: PropTypes.number,
   error: PropTypes.bool.isRequired,
   missions: PropTypes.bool,
-  type: PropTypes.oneOf(['covers', 'images', 'gallery', 'galleryImages']).isRequired,
+  type: PropTypes.oneOf(['covers', 'images', 'gallery', 'galleryImages', 'publicGalleries']).isRequired,
 };
 
 export default PhotoView;

@@ -10,7 +10,7 @@ const initialState = {
   galleryList: [],
   resultsCount: 0,
   maxGalleryCount: 9,
-  galleryPictureCount: 0,
+  galleryCount: 0,
   firstGalleryNumber: 1,
   fetching: false,
   error: false,

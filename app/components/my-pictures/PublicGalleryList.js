@@ -1,0 +1,62 @@
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import PropTypes from 'prop-types';
+import { fetchGalleryPictures } from '../../modules/my-pictures-gallery-pictures/actions';
+import Gallery from './Gallery';
+import style from './PhotoList.scss';
+
+const mapStateToProps = ({ galleryPictures }) => ({
+  ugalleryPicturesser,
+});
+
+
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators({
+    fetchGalleryPictures
+  }, dispatch),
+});
+
+class PublicGalleryList extends Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    const { galleryList } = this.props;
+    return (
+      <div className={`${style.photoListRoot} clearfix`}>
+        <ul className={`${style.photoList} col-xs-12`}>
+          {
+            galleryList.map(gallery => (
+              <li key={gallery.customerImageId} className="col-xs-12 col-sm-4">
+                <div className="relative-container"><Gallery
+                  {...gallery}
+                  isPublicGallery={true}
+                  imageTitle={gallery.title || gallery.imageTitle}
+                /></div>
+              </li>
+            ))
+          }
+        </ul>
+        <style jsx>
+          {`
+            .relative-container {
+              position: relative;
+            }
+          `}
+        </style>
+      </div>
+    );
+  }
+}
+
+PublicGalleryList.propTypes = {
+  galleryList: PropTypes.arrayOf(PropTypes.shape({
+    galleryId: PropTypes.any.isRequired,
+    imageURL: PropTypes.string.isRequired,
+    title: PropTypes.string,
+  })),
+};
+
+export default PublicGalleryList;

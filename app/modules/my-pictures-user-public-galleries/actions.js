@@ -22,7 +22,7 @@ const fetchUserPublicGalleriesFail = payload => ({
 export const fetchUserPublicGalleries = ({
   maxImageCount = 9,
   firstImageNumber = 1,
-  pagingMode = 'app',
+  pagingMode = 'api',
   cid,
 }) => (dispatch, getState) => {
   dispatch(fetchUserPublicGalleriesStart());

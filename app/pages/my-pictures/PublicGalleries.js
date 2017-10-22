@@ -5,16 +5,15 @@ import PhotoView from '../../components/my-pictures/PhotoView';
 import { fetchUserPublicGalleries } from '../../modules/my-pictures-user-public-galleries/actions';
 import { black } from '../../styles/variables/colors';
 
-const mapStateToProps = ({ userPublicGalleries, user }) => ({
+const mapStateToProps = ({ userPublicGalleries }) => ({
   error: userPublicGalleries.error,
   errorBody: userPublicGalleries.errorBody,
   fetching: userPublicGalleries.fetching,
   firstGalleryNumber: userPublicGalleries.firstGalleryNumber,
-  imageCount: userPublicGalleries.galleryPictureCount,
+  imageCount: userPublicGalleries.resultsCount,
   galleryList: userPublicGalleries.galleryList,
   maxImageCount: userPublicGalleries.maxGalleryCount,
   galleryListTitle: userPublicGalleries.galleryListTitle,
-  cid: user.cid,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -26,10 +25,12 @@ const mapDispatchToProps = dispatch => ({
 @connect(mapStateToProps, mapDispatchToProps)
 class Galleries extends Component {
   componentWillMount() {
+    const { params } = this.props;
+
     window.scrollTo(0, 0);
     this.props.actions.fetchUserPublicGalleries({
       pagingMode: 'api',
-      cid: this.props.cid,
+      cid: params.cid,
     });
   }
 
@@ -43,8 +44,8 @@ class Galleries extends Component {
       galleryList,
       maxImageCount,
       galleryListTitle,
+      params: { cid },
     } = this.props;
-
     return (
       <div>
         <div className="clearfix my-pictures-container">
@@ -54,14 +55,14 @@ class Galleries extends Component {
           <div>
             <PhotoView
               paginate={actions.fetchUserPublicGalleries}
-              paginateParams={{ pagingMode: 'api' }}
+              paginateParams={{ pagingMode: 'api', cid }}
               imageCount={imageCount}
               maxImageCount={maxImageCount}
               firstImageNumber={firstGalleryNumber}
               fetching={fetching}
               galleryList={galleryList}
               error={error}
-              type="gallery"
+              type="publicGalleries"
             />
           </div>
         </div>
@@ -87,7 +88,7 @@ Galleries.defaultProps = {
   galleryList: [],
   fetching: false,
   error: false,
-  imageCount: 0,
+  imageCount: "0",
   maxImageCount: 9,
   firstGalleryNumber: 1,
   cid: null,
@@ -98,7 +99,7 @@ Galleries.propTypes = {
     imageURL: PropTypes.string.isRequired,
     imageId: PropTypes.number.isRequired,
   })),
-  imageCount: PropTypes.number,
+  imageCount: PropTypes.string,
   maxImageCount: PropTypes.number,
   firstGalleryNumber: PropTypes.number,
   fetching: PropTypes.bool,
