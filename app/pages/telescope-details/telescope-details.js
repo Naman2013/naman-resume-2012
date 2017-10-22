@@ -125,7 +125,6 @@ class TelescopeDetails extends Component {
 
   componentWillReceiveProps(nextProps) {
     const { allObservatoryTelescopeStatus } = nextProps;
-    // console.log(allObservatoryTelescopeStatus);
     if (allObservatoryTelescopeStatus && allObservatoryTelescopeStatus.statusExpires) {
       this.scaffoldRefreshInterval(allObservatoryTelescopeStatus.statusExpires);
     }
@@ -158,15 +157,21 @@ class TelescopeDetails extends Component {
       });
 
       // fetch the observatories latest status
-      this.props.actions.fetchAllTelescopeStatus({
-        obsId: observatoryList.find(observatory => observatory.obsUniqueId === nextProps.params.obsUniqueId).obsId,
-        teleUniqueId: nextProps.params.teleUniqueId,
-      });
+      this.fetchAllTelescopeStatus(nextProps.params.obsUniqueId);
     }
   }
 
   componentWillUnmount() {
     clearTimeout(this.refreshTelescopeStatusTimeout);
+  }
+
+  fetchAllTelescopeStatus(obsUniqueId) {
+    const { observatoryList, params } = this.props;
+
+    this.props.actions.fetchAllTelescopeStatus({
+      obsId: observatoryList.find(observatory => observatory.obsUniqueId === (obsUniqueId || params.obsUniqueId)).obsId,
+      teleUniqueId: params.teleUniqueId,
+    });
   }
 
   handleSelect = (index) => {
@@ -193,7 +198,6 @@ class TelescopeDetails extends Component {
 
   workingRefreshTimestamp = 0;
 
-  // once per 10 minutes, fetch the latest telescope status
   scaffoldRefreshInterval(expirationTimestamp = 0) {
     if (this.workingRefreshTimestamp !== expirationTimestamp) {
       this.workingRefreshTimestamp = expirationTimestamp;
