@@ -18,7 +18,7 @@ export default class Neoview extends Component {
 
   static defaultProps = {
     toggleNeoview: noop,
-    displayNeoview: false,
+    neoviewOpen: false,
   };
 
   state = {
