@@ -180,6 +180,7 @@ class TelescopeDetails extends Component {
 
   handleSelect = (index) => {
     this.setState({
+      neoviewOpen: false,
       selectedTab: index,
     });
   };
