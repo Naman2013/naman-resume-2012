@@ -2,6 +2,21 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './live-stream.scss';
 
+const propTypes = {
+  objectIconURL: PropTypes.string.isRequired,
+  objectTitle: PropTypes.string.isRequired,
+  objectRA: PropTypes.string.isRequired,
+  objectDec: PropTypes.string.isRequired,
+  objectConstellation: PropTypes.string.isRequired,
+  objectMagnitude: PropTypes.string.isRequired,
+  objectSizeArcMinutes: PropTypes.string.isRequired,
+  objectDistance: PropTypes.string.isRequired,
+  objectRiseTime: PropTypes.string.isRequired,
+  objectTransitTime: PropTypes.string.isRequired,
+  objectSetTime: PropTypes.string.isRequired,
+  objectMoonProximity: PropTypes.string.isRequired,
+};
+
 const LiveStream = ({
   objectIconURL,
   objectTitle,
@@ -38,19 +53,5 @@ const LiveStream = ({
   </div>
 );
 
-LiveStream.propTypes = {
-  objectIconURL: PropTypes.string.isRequired,
-  objectTitle: PropTypes.string.isRequired,
-  objectRA: PropTypes.string.isRequired,
-  objectDec: PropTypes.string.isRequired,
-  objectConstellation: PropTypes.string.isRequired,
-  objectMagnitude: PropTypes.string.isRequired,
-  objectSizeArcMinutes: PropTypes.string.isRequired,
-  objectDistance: PropTypes.string.isRequired,
-  objectRiseTime: PropTypes.string.isRequired,
-  objectTransitTime: PropTypes.string.isRequired,
-  objectSetTime: PropTypes.string.isRequired,
-  objectMoonProximity: PropTypes.string.isRequired,
-};
-
+LiveStream.propTypes = propTypes;
 export default LiveStream;
