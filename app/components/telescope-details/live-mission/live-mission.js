@@ -63,10 +63,10 @@ class LiveMission extends Component {
                 }
 
                 {
-                  missionObjective ?
+                  objectDescription ?
                     <div className="users-quote">
                       <p>
-                        &quot;{missionObjective}&quot;
+                        &quot;{objectDescription}&quot;
                       </p>
                     </div> : null
                 }

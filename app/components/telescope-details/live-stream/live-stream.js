@@ -5,7 +5,6 @@ import './live-stream.scss';
 const LiveStream = ({
   objectIconURL,
   objectTitle,
-  objectDescription,
   objectRA,
   objectDec,
   objectConstellation,
@@ -22,7 +21,6 @@ const LiveStream = ({
       <img alt="" height="50" src={objectIconURL} />
       <div>
         <h3 className="title">{objectTitle}</h3>
-        <p className="description">{objectDescription}</p>
         <p className="small">
           RA (decimal): {objectRA}
           Decl (decimal): {objectDec}
@@ -43,7 +41,6 @@ const LiveStream = ({
 LiveStream.propTypes = {
   objectIconURL: PropTypes.string.isRequired,
   objectTitle: PropTypes.string.isRequired,
-  objectDescription: PropTypes.string.isRequired,
   objectRA: PropTypes.string.isRequired,
   objectDec: PropTypes.string.isRequired,
   objectConstellation: PropTypes.string.isRequired,
