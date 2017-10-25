@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Slider from 'react-slick';
 import classnames from 'classnames';
 import '../common/community-perspectives/slick.min.css';
 import '../common/community-perspectives/slick-theme.min.css';
@@ -34,7 +33,7 @@ class SharedPicturesTimeline extends Component {
     currentIndex: 0,
   }
 
-  beforeSlideChange = (prevIndex, currentIndex) => {
+  changeActiveItem = (currentIndex) => {
     const {
       changeMainSlider,
       timelineList,
@@ -54,21 +53,21 @@ class SharedPicturesTimeline extends Component {
     } = this.props;
     const { currentIndex } = this.state;
 
-    const timelineSlider = {
-      arrows: true,
-      dots: false,
-      infinite: false,
-      speed: 500,
-      focusOnSelect: true,
-      slidesToShow: timelineCount < 12 ? timelineCount-1 : 12,
-      initialSlide: currentIndex,
-      swipeToSlide: true,
-      draggable: true,
-      centerMode: false,
-      beforeChange: this.beforeSlideChange,
-      nextArrow: <i className="fa fa-arrow-right" />,
-      prevArrow: <i className="fa fa-arrow-left" />,
-    };
+    // const timelineSlider = {
+    //   arrows: true,
+    //   dots: false,
+    //   infinite: false,
+    //   speed: 500,
+    //   focusOnSelect: true,
+    //   slidesToShow: timelineCount < 12 ? timelineCount-1 : 12,
+    //   initialSlide: currentIndex,
+    //   swipeToSlide: true,
+    //   draggable: true,
+    //   centerMode: false,
+    //   beforeChange: this.beforeSlideChange,
+    //   nextArrow: <i className="fa fa-arrow-right" />,
+    //   prevArrow: <i className="fa fa-arrow-left" />,
+    // };
 
     const timelineItemClass = (arrayIdx) => {
       return classnames('timeline-item', {
@@ -78,18 +77,16 @@ class SharedPicturesTimeline extends Component {
 
     return (
       <div className="shared-timeline-container">
-        {timelineList.length > 0 && <Slider
-          {...timelineSlider}
-          ref={c => this.timelineSlider = c}
-        >
+        {timelineList.length > 0 && <div className="timeline-items">
           {timelineList.map((date, i) => (<div
+            onClick={() => this.changeActiveItem(i)}
             key={date.imageIndex}
             className={timelineItemClass(i)}
             dangerouslySetInnerHTML={{
               __html: date.label
             }}
           />))}
-        </Slider>}
+        </div>}
         <style jsx>{`
 
           .shared-timeline-container {
@@ -99,6 +96,14 @@ class SharedPicturesTimeline extends Component {
           }
           .timeline-item {
             cursor: pointer;
+            border: 1px solid ${white};
+            padding: 15px 25px;
+          }
+
+          .timeline-items {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
           }
 
           .timeline-active-item {
