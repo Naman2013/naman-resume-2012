@@ -13,12 +13,10 @@ class LiveMission extends Component {
     const {
       missionAvailable,
       missionObjective,
-      missionLikeCount,
       expires,
       objectTitle,
       objectIconURL,
       nextMissionAvailable,
-      nextStart,
       nextTitle,
       nextObjectIconURL,
       ownerLocation,
@@ -28,6 +26,7 @@ class LiveMission extends Component {
       ownerAvatarURL,
       showSloohUser,
       showUserDetails,
+      objectDescription,
      } = this.props;
 
     return (
@@ -105,28 +104,31 @@ class LiveMission extends Component {
   }
 }
 
-const { string, number, bool } = PropTypes;
 LiveMission.propTypes = {
-  missionAvailable: bool.isRequired,
-  missionObjective: string.isRequired,
-  missionLikeCount: number.isRequired,
-  expires: number.isRequired,
-  objectTitle: string.isRequired,
-  nextMissionAvailable: bool.isRequired,
-  objectIconURL: string.isRequired,
+  missionAvailable: PropTypes.bool.isRequired,
+  missionObjective: PropTypes.string.isRequired,
+  expires: PropTypes.number.isRequired,
+  objectTitle: PropTypes.string.isRequired,
+  nextMissionAvailable: PropTypes.bool.isRequired,
+  objectIconURL: PropTypes.string.isRequired,
 
-  nextStart: number.isRequired,
-  nextTitle: string.isRequired,
-  nextObjectIconURL: string.isRequired,
+  objectDescription: PropTypes.string,
 
-  ownerLocation: string.isRequired,
-  ownerDisplayName: string.isRequired,
-  ownerMembershipType: string.isRequired,
-  ownerMemberSince: string.isRequired,
-  ownerAvatarURL: string.isRequired,
+  nextTitle: PropTypes.string.isRequired,
+  nextObjectIconURL: PropTypes.string.isRequired,
 
-  showSloohUser: bool.isRequired,
-  showUserDetails: bool.isRequired,
+  ownerLocation: PropTypes.string.isRequired,
+  ownerDisplayName: PropTypes.string.isRequired,
+  ownerMembershipType: PropTypes.string.isRequired,
+  ownerMemberSince: PropTypes.string.isRequired,
+  ownerAvatarURL: PropTypes.string.isRequired,
+
+  showSloohUser: PropTypes.bool.isRequired,
+  showUserDetails: PropTypes.bool.isRequired,
+};
+
+LiveMission.defaultProps = {
+  objectDescription: '',
 };
 
 export default LiveMission;

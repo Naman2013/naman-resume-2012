@@ -23,7 +23,18 @@ const LiveStream = ({
       <div>
         <h3 className="title">{objectTitle}</h3>
         <p className="description">{objectDescription}</p>
-        <p className="small">RA (decimal): {objectRA} Decl (decimal): {objectDec} Constellation: {objectConstellation} Magnitude: {objectMagnitude} Size (arc minutes): {objectSizeArcMinutes}  Distance: {objectDistance} Rise Time: {objectRiseTime} Transit Time: {objectTransitTime} Set Time: {objectSetTime} Moon Proximity: {objectMoonProximity}</p>
+        <p className="small">
+          RA (decimal): {objectRA}
+          Decl (decimal): {objectDec}
+          Constellation: {objectConstellation}
+          Magnitude: {objectMagnitude}
+          Size (arc minutes): {objectSizeArcMinutes} 
+          Distance: {objectDistance}
+          Rise Time: {objectRiseTime}
+          Transit Time: {objectTransitTime}
+          Set Time: {objectSetTime}
+          Moon Proximity: {objectMoonProximity}
+        </p>
       </div>
     </div>
   </div>
