@@ -4,6 +4,7 @@ import { Link } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import moment from 'moment';
 import './telescope-details.scss';
 
 import {
@@ -69,10 +70,13 @@ function mapStateToProps({
   return {
     fetchingObservatoryList: telescopeDetails.fetchingObservatoryList,
     fetchingObservatoryStatus: telescopeDetails.fetchingObservatoryStatus,
+    allObservatoryTelescopeStatus: telescopeDetails.allObservatoryTelescopeStatus,
 
     currentObservatory: telescopeDetails.currentObservatory,
     currentTelescope: telescopeDetails.currentTelescope,
     currentTelescopeOnlineStatus: telescopeDetails.currentTelescopeOnlineStatus,
+
+    countdownList: telescopeDetails.allObservatoryTelescopeStatus.countdownList.countdownTeleList,
 
     displayCommunityContent: telescopeDetails.displayCommunityContent,
 
@@ -102,6 +106,10 @@ class TelescopeDetails extends Component {
       updateTelescopeStatus: PropTypes.func.isRequired,
       fetchAllTelescopeStatus: PropTypes.func.isRequired,
     }).isRequired,
+    countdownList: PropTypes.arrayOf(PropTypes.shape({
+      telescopeId: PropTypes.string.isRequired,
+      // TODO: finish validating fields from the API here...
+    })),
   };
 
   constructor(props) {
@@ -115,8 +123,11 @@ class TelescopeDetails extends Component {
     missionPercentageRemaining: 0,
   };
 
-  componentDidMount() {
-    this.scaffoldRefreshInterval();
+  componentWillReceiveProps(nextProps) {
+    const { allObservatoryTelescopeStatus } = nextProps;
+    if (allObservatoryTelescopeStatus && allObservatoryTelescopeStatus.statusExpires) {
+      this.scaffoldRefreshInterval(allObservatoryTelescopeStatus.statusExpires);
+    }
   }
 
   componentWillUpdate(nextProps) {
@@ -128,12 +139,6 @@ class TelescopeDetails extends Component {
       // set the selected observatory
       this.props.actions.setObservatory({
         obsUniqueId: nextProps.params.obsUniqueId,
-        teleUniqueId: nextProps.params.teleUniqueId,
-      });
-
-      // fetch the observatories latest status
-      this.props.actions.fetchAllTelescopeStatus({
-        obsId: observatoryList.find(observatory => observatory.obsUniqueId === nextProps.params.obsUniqueId).obsId,
         teleUniqueId: nextProps.params.teleUniqueId,
       });
 
@@ -151,17 +156,23 @@ class TelescopeDetails extends Component {
         teleUniqueId: nextProps.params.teleUniqueId,
       });
 
-      // if the observatory is the same, don't bother because on update
-      // of the observatory status we will set the telescope status
-      // this will prevent a potential race condition
-      if (!isNewObservatory) {
-        this.props.actions.updateTelescopeStatus({ teleUniqueId: nextProps.params.teleUniqueId });
-      }
+      // fetch the observatories latest status
+      this.fetchAllTelescopeStatus(nextProps.params.obsUniqueId);
     }
   }
 
   componentWillUnmount() {
-    clearInterval(this.refreshTelescopeStatusInterval);
+    clearTimeout(this.refreshTelescopeStatusTimeout);
+  }
+
+  fetchAllTelescopeStatus(obsUniqueId = 0) {
+    console.log('FIRED!');
+    const { observatoryList, params } = this.props;
+
+    this.props.actions.fetchAllTelescopeStatus({
+      obsId: observatoryList.find(observatory => observatory.obsUniqueId === (obsUniqueId || params.obsUniqueId)).obsId,
+      teleUniqueId: params.teleUniqueId,
+    });
   }
 
   handleSelect = (index) => {
@@ -184,19 +195,32 @@ class TelescopeDetails extends Component {
     });
   }
 
-  refreshTelescopeStatusInterval = null;
+  refreshTelescopeStatusTimeout = null;
 
-  // once per 10 minutes, fetch the latest telescope status
-  scaffoldRefreshInterval(increment = 600000) {
-    clearInterval(this.refreshTelescopeStatusInterval);
-    this.refreshTelescopeStatusInterval = setInterval(() => {
-      const { observatoryList, params: { obsUniqueId, teleUniqueId } } = this.props;
-      this.props.actions.fetchAllTelescopeStatus({
-        obsId: observatoryList.find(observatory => observatory.obsUniqueId === obsUniqueId).obsId,
-        teleUniqueId,
-        isRefresh: true,
-      });
-    }, increment);
+  workingRefreshTimestamp = 0;
+
+  scaffoldRefreshInterval(expirationTimestamp = 0) {
+    if (this.workingRefreshTimestamp !== expirationTimestamp) {
+      this.workingRefreshTimestamp = expirationTimestamp;
+      clearTimeout(this.refreshTelescopeStatusTimeout);
+
+      // diff in milliseconds from now and the expires time...
+      const convertedExpirestamp = expirationTimestamp * 1000;
+      const nowStamp = moment.utc().valueOf();
+      const refreshInterval = convertedExpirestamp - nowStamp;
+
+      // validation of the refreshInterval to prevent bad timeout values
+      if (refreshInterval <= 0) { return; }
+
+      this.refreshTelescopeStatusTimeout = setTimeout(() => {
+        const { observatoryList, params: { obsUniqueId, teleUniqueId } } = this.props;
+        this.props.actions.fetchAllTelescopeStatus({
+          obsId: observatoryList.find(observatory => observatory.obsUniqueId === obsUniqueId).obsId,
+          teleUniqueId,
+          isRefresh: true,
+        });
+      }, refreshInterval);
+    }
   }
 
   render() {
@@ -208,6 +232,8 @@ class TelescopeDetails extends Component {
       currentObservatory,
       currentTelescope,
       currentTelescopeOnlineStatus,
+
+      countdownList,
 
       displayCommunityContent,
 
@@ -232,7 +258,9 @@ class TelescopeDetails extends Component {
     const { teleInstrumentList, teleCanReserveMissions } = currentTelescope;
     const telescopeOnline = currentTelescopeOnlineStatus && currentTelescopeOnlineStatus.onlineStatus === 'online';
     const selectedInstrument = teleInstrumentList[selectedTab];
-    console.log('active SSE', activeDetailsSSE);
+    const currentMissionCountdown =
+      countdownList.find(countdown => countdown.teleUniqueId === teleUniqueId);
+
     return (
       <div className="telescope-details-page-wrapper">
 
@@ -366,10 +394,11 @@ class TelescopeDetails extends Component {
               />
 
               {
-                currentObservatory.showCountdown &&
+                currentObservatory.showCountdown && currentMissionCountdown &&
                   <SunsetCountdown
-                    label={currentObservatory.countdownLabel}
-                    countdownTimestamp={currentObservatory.countdownTimestamp}
+                    label={currentMissionCountdown.countdownLabel}
+                    countdownTimestamp={currentMissionCountdown.countdownTimestamp}
+                    onExpired={::this.fetchAllTelescopeStatus}
                   />
               }
 
@@ -405,6 +434,7 @@ class TelescopeDetails extends Component {
 
 TelescopeDetails.defaultProps = {
   communityContent: [],
+  countdownList: [],
 };
 
 export default TelescopeDetails;
