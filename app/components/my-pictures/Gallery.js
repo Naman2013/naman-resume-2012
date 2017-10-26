@@ -37,7 +37,7 @@ class Gallery extends Component {
   }
 
   static defaultProps = {
-    created: '0',
+    created: null,
     galleryId: null,
     isImages: false,
     canEditFlag: false,
@@ -97,7 +97,7 @@ class Gallery extends Component {
             onMouseLeave={this.hideMenu}
           >
             <div>{imageTitle}</div>
-            <div>Created on {createdDate.format('dddd, MMMM Do YYYY')}</div>
+            {created && <div>Created on {createdDate.format('dddd, MMMM Do YYYY')}</div>}
             {
               overlayText && overlayText.map((markdownText, index) => <Markdown key={`markdown-text-${index}`} source={markdownText} />)
             }
