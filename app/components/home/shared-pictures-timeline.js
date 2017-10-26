@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
+import Draggable from 'react-draggable';
 import '../common/community-perspectives/slick.min.css';
 import '../common/community-perspectives/slick-theme.min.css';
 import { pink, white, darkBlueGray } from '../../styles/variables/colors';
@@ -13,7 +14,6 @@ const {
   shape,
   string,
 } = PropTypes;
-
 class SharedPicturesTimeline extends Component {
 
   static propTypes = {
@@ -31,9 +31,14 @@ class SharedPicturesTimeline extends Component {
 
   state = {
     currentIndex: 0,
+    dragged: false,
   }
 
-  changeActiveItem = (currentIndex) => {
+  changeActiveItem = (e, currentIndex) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    if (this.state.dragged) return;
     const {
       changeMainSlider,
       timelineList,
@@ -46,6 +51,18 @@ class SharedPicturesTimeline extends Component {
     changeMainSlider(timelineList[currentIndex])
   }
 
+  onDrag = () => {
+    this.setState({
+      dragged: true,
+    });
+  }
+
+  onItemMouseDown = () => {
+    this.setState({
+      dragged: false,
+    });
+  }
+
   render() {
     const {
       timelineCount,
@@ -53,46 +70,50 @@ class SharedPicturesTimeline extends Component {
     } = this.props;
     const { currentIndex } = this.state;
 
-    // const timelineSlider = {
-    //   arrows: true,
-    //   dots: false,
-    //   infinite: false,
-    //   speed: 500,
-    //   focusOnSelect: true,
-    //   slidesToShow: timelineCount < 12 ? timelineCount-1 : 12,
-    //   initialSlide: currentIndex,
-    //   swipeToSlide: true,
-    //   draggable: true,
-    //   centerMode: false,
-    //   beforeChange: this.beforeSlideChange,
-    //   nextArrow: <i className="fa fa-arrow-right" />,
-    //   prevArrow: <i className="fa fa-arrow-left" />,
-    // };
-
     const timelineItemClass = (arrayIdx) => {
       return classnames('timeline-item', {
         'timeline-active-item': arrayIdx === currentIndex,
       })
     };
 
+    const containerWidth = 750;
+
+    const width = timelineCount < 12 ? (containerWidth / timelineCount) : (Math.floor(containerWidth / 12));
+
     return (
-      <div className="shared-timeline-container">
-        {timelineList.length > 0 && <div className="timeline-items">
-          {timelineList.map((date, i) => (<div
-            onClick={() => this.changeActiveItem(i)}
-            key={date.imageIndex}
-            className={timelineItemClass(i)}
-            dangerouslySetInnerHTML={{
-              __html: date.label
-            }}
-          />))}
-        </div>}
+      <div className="shared-timeline-container" style={{ maxWidth: `${containerWidth}px` }}>
+        {timelineList.length > 0 && <Draggable
+          axis="x"
+          handle=".handle"
+          defaultPosition={{
+            x: 0, y: 0
+          }}
+          onDrag={this.onDrag}
+          grid={[width, width]}
+          bounds={{
+            left: -(width * (timelineCount-1)),
+            right: width * (timelineCount-1),
+          }}
+        >
+          <div className="handle timeline-items">
+            {timelineList.map((date, i) => (<div
+              onClick={(e) => this.changeActiveItem(e, i)}
+              style={{ width: `${width}px`}}
+              key={date.imageIndex}
+              className={timelineItemClass(i)}
+              dangerouslySetInnerHTML={{
+                __html: date.label
+              }}
+              onMouseDown={this.onItemMouseDown}
+            />))}
+          </div>
+        </Draggable>}
         <style jsx>{`
 
           .shared-timeline-container {
-            max-width: 750px;
             margin: 0 auto;
             margin-top: 15px;
+            overflow: hidden;
           }
           .timeline-item {
             cursor: pointer;
@@ -107,38 +128,12 @@ class SharedPicturesTimeline extends Component {
           }
 
           .timeline-active-item {
-            color: ${pink};
+            background-color: ${pink};
+            color: ${white};
             font-weight: bold;
           }
 
         `}</style>
-
-        <style global>
-          {`
-
-            .shared-timeline-container .slick-slide {
-              text-align: center;
-            }
-
-            .shared-timeline-container .slick-prev:before {
-              font-family: FontAwesome;
-              font-style: normal;
-              content: "\\f060";
-              font-size: 16px !important;
-            }
-
-            .shared-timeline-container .slick-next:before {
-              font-family: FontAwesome;
-              font-style: normal;
-              content: "\\f061";
-              font-size: 16px !important;
-            }
-
-            .shared-timeline-container .slick-disabled {
-              display: none !important;
-            }
-          `}
-        </style>
       </div>
     );
   }
