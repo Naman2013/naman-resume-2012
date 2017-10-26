@@ -12,7 +12,11 @@ import {
 } from './actions';
 
 import {
-  ADD_IMAGE_TO_GALLERY_SUCCESS
+  TOGGLE_PUBLIC_GALLERY_SUCCESS,
+} from '../toggle-public-gallery/actions';
+
+import {
+  ADD_IMAGE_TO_GALLERY_SUCCESS,
 } from '../my-pictures-gallery-actions/actions';
 
 const initialState = {
@@ -115,6 +119,17 @@ export default createReducer(initialState, {
         return gallery.galleryId !== payload.galleryId ? gallery : ({
           ...gallery,
           galleryPictureCount: Number(gallery.galleryPictureCount) + Number(payload.galleryCountChange),
+        });
+      }),
+    };
+  },
+  [TOGGLE_PUBLIC_GALLERY_SUCCESS](state, { payload }) {
+    return {
+      ...state,
+      galleryList: state.galleryList.map((gallery) => {
+        return gallery.galleryId !== payload.galleryId ? gallery : ({
+          ...gallery,
+          publicFlag: payload.publicFlag,
         });
       }),
     };

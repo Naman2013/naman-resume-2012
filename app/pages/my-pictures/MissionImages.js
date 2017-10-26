@@ -91,7 +91,11 @@ class MissionImages extends Component {
         </div>
         <style jsx>{`
           .flex {
-            display: flex;
+            display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
+            display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
+            display: -ms-flexbox;      /* TWEENER - IE 10 */
+            display: -webkit-flex;     /* NEW - Chrome */
+            display: flex;             /* NEW, Spec - Opera 12.1, Firefox 20+ */
             justify-content: space-between;
             width: 100%;
             padding: 0 30px;
@@ -116,7 +120,11 @@ class MissionImages extends Component {
           }
 
           .missionImageControl {
-            display: flex;
+            display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
+            display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
+            display: -ms-flexbox;      /* TWEENER - IE 10 */
+            display: -webkit-flex;     /* NEW - Chrome */
+            display: flex;             /* NEW, Spec - Opera 12.1, Firefox 20+ */
             flex-direction: row;
             align-items: center;
             justify-content: flex-end;

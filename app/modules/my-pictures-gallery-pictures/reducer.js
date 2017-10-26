@@ -13,7 +13,9 @@ import {
 import {
   SHARE_MEMBER_PHOTO_SUCCESS,
 } from '../share-member-photo/actions';
-
+import {
+  TOGGLE_PUBLIC_GALLERY_SUCCESS,
+} from '../toggle-public-gallery/actions';
 
 const initialState = {
   canEditFlag: false,
@@ -25,6 +27,7 @@ const initialState = {
   error: false,
   galleryTitle: '',
   resultsCount: 0,
+  publicFlag: false,
 
 };
 
@@ -75,6 +78,12 @@ export default createReducer(initialState, {
     return {
       ...state,
       imageList,
+    };
+  },
+  [TOGGLE_PUBLIC_GALLERY_SUCCESS](state, { payload }) {
+    return {
+      ...state,
+      publicFlag: payload.publicFlag,
     };
   },
 });

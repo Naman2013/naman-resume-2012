@@ -55,6 +55,11 @@ class SharedPicturesItem extends Component {
       canDownloadFlag: PropTypes.bool,
       canEditFlag: PropTypes.bool,
       avatarURL: PropTypes.string,
+      linkableFileData: PropTypes.shape({
+        'Photo by': PropTypes.shape({}),
+        Observatory: PropTypes.shape({}),
+        Telescope: PropTypes.shape({})
+      }),
       fileData: PropTypes.shape({
         Observatory: '',
         Telescope: ''
@@ -84,6 +89,11 @@ class SharedPicturesItem extends Component {
       canDownloadFlag: false,
       canEditFlag: false,
       fileData: {},
+      linkableFileData: {
+        'Photo by': {},
+        Telescope: {},
+        Observatory: {},
+      },
       avatarURL: '',
     },
   };
@@ -129,6 +139,7 @@ class SharedPicturesItem extends Component {
       likePrompt,
       likesCount,
       shareToken,
+      linkableFileData,
     } = myPicturesImageDetails;
 
     const profilePhotoStyle = {
@@ -143,6 +154,11 @@ class SharedPicturesItem extends Component {
       theme: 'buttonOnly',
       likeId: customerImageId,
     };
+
+    const photoBy = linkableFileData['Photo by'];
+    const observatory = linkableFileData.Observatory;
+    const telescope = linkableFileData.Telescope;
+
     return (
       <div className="shared-pictures-item">
         {error && <div className="loading">There was an error fetching this photo.</div>}
@@ -161,17 +177,32 @@ class SharedPicturesItem extends Component {
             <div className="description" dangerouslySetInnerHTML={{ __html: observationLog }} />
             <div className="telescopeAndUser">
               <div>
-              <h4
-                className="telescope"
-                dangerouslySetInnerHTML={{ __html: `Photo By:<br/>${fileData['Photo by']}` }}
-              />
-                <h3
-                  className="title telescope"
-                  dangerouslySetInnerHTML={{ __html: fileData.Telescope }}
-                />
-                <h4 className="observatory"
-                  dangerouslySetInnerHTML={{ __html: fileData.Observatory }}
-                />
+                <h4 className="telescope">
+                  <span
+                    className="block"
+                    dangerouslySetInnerHTML={{ __html: `${photoBy.label}: ` }}
+                  />
+                  {photoBy.hasLink ? <Link to={photoBy.linkUrl}>{photoBy.text}</Link> :
+                  <span
+                    dangerouslySetInnerHTML={{ __html: `${photoBy.text} ` }}
+                  />
+                  }
+                </h4>
+
+                <h3 className="title telescope">
+                  {telescope.hasLink ? <Link to={telescope.linkUrl}>{telescope.text}</Link> :
+                  <span
+                    dangerouslySetInnerHTML={{ __html: `${telescope.text} ` }}
+                  />
+                  }
+                </h3>
+                <h4 className="observatory">
+                  {observatory.hasLink ? <Link to={observatory.linkUrl}>{observatory.text}</Link> :
+                  <span
+                    dangerouslySetInnerHTML={{ __html: `${observatory.text} ` }}
+                  />
+                  }
+                </h4>
               </div>
               <div className="profile-photo" style={profilePhotoStyle} />
             </div>
@@ -187,6 +218,7 @@ class SharedPicturesItem extends Component {
             width: 100%;
             height: 100%;
             flex-wrap: wrap;
+            -ms-flex-wrap: wrap;
           }
 
           .shared-image {
@@ -273,6 +305,10 @@ class SharedPicturesItem extends Component {
             margin: 0 auto;
             height: 347px;
             width: auto;
+          }
+
+          .block {
+            display: block;
           }
 
           @media(max-width:950px){

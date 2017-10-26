@@ -22,6 +22,7 @@ class GalleryListMenuItem extends Component {
     galleryList: arrayOf(shape({
     })).isRequired,
     galleryAction: func.isRequired,
+    togglePublicGallery: func.isRequired,
     response: string,
     loading: bool,
     currentGalleryId: string,
@@ -58,12 +59,13 @@ class GalleryListMenuItem extends Component {
       response,
       currentGalleryId,
       loading,
+      togglePublicGallery,
     } = this.props;
 
-    // const publicIcon = classnames('fa public-icon', {
-    //   'fa-eye': true,
-    //   'fa-eye-slash': false,
-    // });
+    const getPublicIcon = gallery => (classnames('fa public-icon', {
+      'fa-eye': gallery.publicFlag,
+      'fa-eye-slash': !gallery.publicFlag,
+    }));
 
     const sortedGalleries = orderBy(galleryList, ['created'], ['desc']);
     return (
@@ -77,6 +79,10 @@ class GalleryListMenuItem extends Component {
               currentGalleryId === gallery.galleryId) &&
               <span dangerouslySetInnerHTML={{ __html: response }} />}
             {currentGalleryId !== gallery.galleryId && <span className="no-transition">
+              <span
+                className={getPublicIcon(gallery)}
+                onClick={(e) => togglePublicGallery(e, gallery.galleryId)}
+              />
               <span className="galleryTitle">{gallery.title}</span>
               <span className="count no-transition">(<span dangerouslySetInnerHTML={{ __html: gallery.galleryPictureCount }} />)</span>
               {!gallery.created && <span className="new"> new!</span>}
@@ -120,6 +126,9 @@ class GalleryListMenuItem extends Component {
            .public-icon {
              color: ${turqoise};
              margin-right: 5px;
+             display: inline-block;
+             height: 100%;
+             min-width: 30px;
            }
 
            .new {
