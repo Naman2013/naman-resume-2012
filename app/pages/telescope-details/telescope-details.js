@@ -232,7 +232,7 @@ class TelescopeDetails extends Component {
     const { teleInstrumentList, teleCanReserveMissions } = currentTelescope;
     const telescopeOnline = currentTelescopeOnlineStatus && currentTelescopeOnlineStatus.onlineStatus === 'online';
     const selectedInstrument = teleInstrumentList[selectedTab];
-
+    console.log('active SSE', activeDetailsSSE);
     return (
       <div className="telescope-details-page-wrapper">
 

@@ -4,6 +4,7 @@ import classnames from 'classnames';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import generateSseImageLoader from '../../../utils/generate-sse-image-source';
+import { updateActiveSSE, resetActiveSSE } from '../../../modules/telescope-details/actions';
 import { setImageDataToSnapshot, resetImageToSnap } from '../../../modules/starshare-camera/starshare-camera-actions';
 import './video-image-loader.scss';
 
@@ -13,6 +14,8 @@ const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
     setImageDataToSnapshot,
     resetImageToSnap,
+    updateActiveSSE,
+    resetActiveSSE,
   }, dispatch),
 });
 
@@ -47,6 +50,7 @@ class VideoImageLoader extends Component {
 
   componentDidMount() {
     const { teleSystem, telePort, cameraSourceType } = this.props;
+    this.props.actions.resetActiveSSE();
     this.props.actions.resetImageToSnap();
     if (cameraSourceType === SSE && teleSystem && telePort) {
       const eventSourceURL = generateSseImageLoader(teleSystem, telePort);
@@ -81,6 +85,9 @@ class VideoImageLoader extends Component {
         scheduledMissionID,
         astroObjectID,
         callSource,
+      });
+      this.props.actions.updateActiveSSE({
+        astroObjectID,
       });
     }
   }
