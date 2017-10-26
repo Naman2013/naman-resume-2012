@@ -120,6 +120,10 @@ class DiscussionsReplyTo extends Component {
         content: editorValue,
         S3URLs,
         replyTo: replyId
+      }).then(res => {
+        if (res.payload.apiError) {
+          alert('There was an error while submitting your reply. The submission was not successful.');
+        }
       });
 
       window.scrollTo(0, 0);
