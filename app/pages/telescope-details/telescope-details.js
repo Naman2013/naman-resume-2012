@@ -80,6 +80,8 @@ function mapStateToProps({
 
     displayCommunityContent: telescopeDetails.displayCommunityContent,
 
+    isImageViewerClipped: telescopeDetails.isImageViewerClipped,
+
     observatoryList: observatoryList.observatoryList,
     observatoryListTimestamp: observatoryList.observatoryListTimestamp,
 
@@ -110,6 +112,11 @@ class TelescopeDetails extends Component {
       telescopeId: PropTypes.string.isRequired,
       // TODO: finish validating fields from the API here...
     })),
+    isImageViewerClipped: PropTypes.bool,
+  };
+
+  static defaultProps = {
+    isImageViewerClipped: true,
   };
 
   constructor(props) {
@@ -247,6 +254,7 @@ class TelescopeDetails extends Component {
       communityContent,
 
       activeDetailsSSE,
+      isImageViewerClipped,
     } = this.props;
 
     if (fetchingObservatoryList) {
@@ -327,6 +335,7 @@ class TelescopeDetails extends Component {
                         timestamp={activeTelescopeMission.timestamp}
                         activeNeoview={selectedInstrument.instrHasNeoView}
                         handleInfoClick={this.toggleNeoview}
+                        isImageViewerClipped={isImageViewerClipped}
                       />
 
                       {

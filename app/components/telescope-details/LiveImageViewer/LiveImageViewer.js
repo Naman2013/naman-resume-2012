@@ -5,11 +5,15 @@ import noop from 'lodash/noop';
 const propTypes = {
   children: PropTypes.node,
   onZoomChange: PropTypes.func,
+  clipped: PropTypes.bool,
+  onClipChange: PropTypes.func,
 };
 
 const defaultProps = {
   children: null,
   onZoomChange: noop,
+  clipped: true,
+  onClipChange: noop,
 };
 
 const SCALE_MULTIPLIER = 0.5;
@@ -26,7 +30,7 @@ const SCALE_THRESHOLD = 1.5;
 class LiveImageViewer extends Component {
   state = {
     scale: 1,
-    clipped: true,
+    clipped: this.props.clipped,
     activeZoomLevel: DEFAULT_ACTIVE_ZOOM_LEVEL,
   };
 
@@ -67,6 +71,10 @@ class LiveImageViewer extends Component {
   handleClip = ({ clip }) => {
     this.setState({
       clipped: clip,
+    }, () => {
+      if (this.props.onClipChange) {
+        this.props.onClipChange(clip);
+      }
     });
   }
 

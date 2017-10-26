@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux';
 import noop from 'lodash/noop';
 
 import { setImageDataToSnapshot } from '../../../modules/starshare-camera/starshare-camera-actions';
+import { removeImageViewerClipState, applyImageViewerClipState } from '../../../modules/telescope-details/actions';
 
 import LiveImageViewer from './';
 import VirtualTelescopeViewer from '../../VirtualTelescopeViewer';
@@ -13,6 +14,9 @@ import obsIdTeleIdDomeIdFromTeleId from '../../../utils/obsid-teleid-domeid-from
 import generateSseImageLoader from '../../../utils/generate-sse-image-source';
 
 const propTypes = {
+  applyImageViewerClipState: PropTypes.func.isRequired,
+  removeImageViewerClipState: PropTypes.func.isRequired,
+  isImageViewerClipped: PropTypes.bool,
   timestamp: PropTypes.number,
   coordinateArray: PropTypes.arrayOf(PropTypes.string),
   missionData: PropTypes.arrayOf(PropTypes.string),
@@ -22,7 +26,9 @@ const propTypes = {
   schedulingMember: PropTypes.string,
   callSource: PropTypes.string,
   actions: PropTypes.shape({
-    setImageDataToSnapshot: PropTypes.isRequired,
+    setImageDataToSnapshot: PropTypes.func.isRequired,
+    applyImageViewerClipState: PropTypes.func.isRequired,
+    removeImageViewerClipState: PropTypes.func.isRequired,
   }),
   // TODO: complete the validation
   // imageSource: PropTypes.
@@ -34,6 +40,7 @@ const propTypes = {
 };
 
 const defaultProps = {
+  isImageViewerClipped: true,
   timestamp: 0,
   coordinateArray: [],
   missionData: [],
@@ -56,6 +63,8 @@ const defaultProps = {
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
     setImageDataToSnapshot,
+    removeImageViewerClipState,
+    applyImageViewerClipState,
   }, dispatch),
 });
 
@@ -74,8 +83,17 @@ class SSELiveImageViewer extends Component {
     });
   }
 
+  onClipChange = (clipState) => {
+    if (clipState) {
+      this.props.actions.applyImageViewerClipState();
+    } else {
+      this.props.actions.removeImageViewerClipState();
+    }
+  }
+
   render() {
     const {
+      isImageViewerClipped,
       timestamp,
       coordinateArray,
       missionData,
@@ -100,7 +118,11 @@ class SSELiveImageViewer extends Component {
     const teleThumbWidth = '866px';
 
     return (
-      <LiveImageViewer onZoomChange={this.handleZoomUpdate}>
+      <LiveImageViewer
+        clipped={isImageViewerClipped}
+        onZoomChange={this.handleZoomUpdate}
+        onClipChange={this.onClipChange}
+      >
         <VirtualTelescopeViewer
           timestamp={timestamp}
           coordinateArray={coordinateArray}

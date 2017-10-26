@@ -7,6 +7,7 @@ import determineImageLoader from '../determine-image-loader';
 
 class LiveFeed extends Component {
   static propTypes = {
+    isImageViewerClipped: PropTypes.bool,
     fetchingOnlineStatus: PropTypes.bool.isRequired,
     obsAlert: PropTypes.string,
     onlineStatus: PropTypes.oneOf(['online', 'offline']),
@@ -29,6 +30,7 @@ class LiveFeed extends Component {
   };
 
   static defaultProps = {
+    isImageViewerClipped: true,
     onlineStatus: 'offline',
     instrument: null,
     obsAlert: '',
@@ -56,6 +58,7 @@ class LiveFeed extends Component {
       activeNeoview,
       handleInfoClick,
       timestamp,
+      isImageViewerClipped,
     } = this.props;
 
     const neoview = {
@@ -93,6 +96,7 @@ class LiveFeed extends Component {
             activeMission,
             timestamp,
             neoview,
+            isImageViewerClipped,
           })
         }
       </div>
