@@ -14,9 +14,7 @@ import {
   fetchAllTelescopeStatus,
 } from '../../modules/telescope-details/actions';
 
-import {
-  resetSnapshotList,
-} from '../../modules/starshare-camera/starshare-camera-actions';
+import { resetSnapshotList } from '../../modules/starshare-camera/starshare-camera-actions';
 
 import { fetchObjectContent } from '../../modules/community-content/community-object-content-actions';
 
@@ -38,23 +36,25 @@ import TelescopeDetailsTabs from '../../components/telescope-details/TelescopeDe
 import TelescopeSelection from '../../components/telescopes/selection-widget/telescope-selection';
 import UpcomingMissions from '../../components/telescope-details/UpcomingMissions/UpcomingMissions';
 
-
 // TODO: for testing mission data
-// import MISSIONS from '../../components/telescope-details/UpcomingMissions/testData';
+import { SAMPLE_GET_CURRENT_MISSION } from '../../components/telescope-details/UpcomingMissions/testData';
 // =========================================================
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators({
-      bootstrapTelescopeDetails,
-      setObservatory,
-      setTelescope,
-      updateTelescopeStatus,
-      fetchAllTelescopeStatus,
+    actions: bindActionCreators(
+      {
+        bootstrapTelescopeDetails,
+        setObservatory,
+        setTelescope,
+        updateTelescopeStatus,
+        fetchAllTelescopeStatus,
 
-      resetSnapshotList,
-      fetchObjectContent,
-    }, dispatch),
+        resetSnapshotList,
+        fetchObjectContent,
+      },
+      dispatch,
+    ),
   };
 }
 
@@ -88,7 +88,6 @@ function mapStateToProps({
 
 @connect(mapStateToProps, mapDispatchToProps)
 class TelescopeDetails extends Component {
-
   static propTypes = {
     params: PropTypes.shape({
       obsUniqueId: PropTypes.string.isRequired,
@@ -133,7 +132,9 @@ class TelescopeDetails extends Component {
 
       // fetch the observatories latest status
       this.props.actions.fetchAllTelescopeStatus({
-        obsId: observatoryList.find(observatory => observatory.obsUniqueId === nextProps.params.obsUniqueId).obsId,
+        obsId: observatoryList.find(
+          observatory => observatory.obsUniqueId === nextProps.params.obsUniqueId,
+        ).obsId,
         teleUniqueId: nextProps.params.teleUniqueId,
       });
 
@@ -230,12 +231,12 @@ class TelescopeDetails extends Component {
     const { obsUniqueId, teleUniqueId } = params;
     const { obsId } = currentObservatory;
     const { teleInstrumentList, teleCanReserveMissions } = currentTelescope;
-    const telescopeOnline = currentTelescopeOnlineStatus && currentTelescopeOnlineStatus.onlineStatus === 'online';
+    const telescopeOnline =
+      currentTelescopeOnlineStatus && currentTelescopeOnlineStatus.onlineStatus === 'online';
     const selectedInstrument = teleInstrumentList[selectedTab];
 
     return (
       <div className="telescope-details-page-wrapper">
-
         <AnnouncementBanner obsId={obsId} />
 
         <TelescopeSelection
@@ -245,7 +246,6 @@ class TelescopeDetails extends Component {
         />
 
         <div className="details-content-wrapper">
-
           <div className="telescope-details-header clearfix">
             <div className="col-sm-8 col-md-10">
               <CurrentSelectionHeader
@@ -258,91 +258,75 @@ class TelescopeDetails extends Component {
             </div>
 
             <div className="col-sm-4 col-md-2">
-              {
-                teleCanReserveMissions ?
-                  <Link
-                    className="pull-right btn-primary"
-                    to={`/reservations/reserve-by-telescope/telescope/${obsUniqueId}/${teleUniqueId}`}
-                  >
-                    Reserve this telescope
-                  </Link> : null
-              }
+              {teleCanReserveMissions ? (
+                <Link
+                  className="pull-right btn-primary"
+                  to={`/reservations/reserve-by-telescope/telescope/${obsUniqueId}/${teleUniqueId}`}
+                >
+                  Reserve this telescope
+                </Link>
+              ) : null}
             </div>
           </div>
 
-          { /* begin left column */ }
+          {/* begin left column */}
           <div className="telescope-details clearfix">
             <div className="col-sm-8">
-              <Tabs
-                onSelect={this.handleSelect}
-                selectedIndex={selectedTab}
-              >
+              <Tabs onSelect={this.handleSelect} selectedIndex={selectedTab}>
                 <TabList>
-                  {
-                    teleInstrumentList.map(instrument => (
-                      <Tab key={instrument.instrUniqueId}>{instrument.instrTelescopeName}</Tab>
-                    ))
-                  }
+                  {teleInstrumentList.map(instrument => (
+                    <Tab key={instrument.instrUniqueId}>{instrument.instrTelescopeName}</Tab>
+                  ))}
                 </TabList>
-                {
-                  teleInstrumentList.map(instrument => (
-                    <TabPanel key={instrument.instrPort}>
-                      <LiveFeed
-                        fetchingOnlineStatus={fetchingObservatoryStatus}
-                        obsAlert={currentObservatory.obsAlert}
-                        onlineStatus={
-                          currentTelescopeOnlineStatus && currentTelescopeOnlineStatus.onlineStatus
-                        }
-                        instrument={instrument}
-                        offlineImageSource={instrument.instrOfflineImgURL}
-                        activeMission={activeTelescopeMission.maskDataArray}
-                        timestamp={activeTelescopeMission.timestamp}
-                        activeNeoview={selectedInstrument.instrHasNeoView}
-                        handleInfoClick={this.toggleNeoview}
+                {teleInstrumentList.map(instrument => (
+                  <TabPanel key={instrument.instrPort}>
+                    <LiveFeed
+                      fetchingOnlineStatus={fetchingObservatoryStatus}
+                      obsAlert={currentObservatory.obsAlert}
+                      onlineStatus={
+                        currentTelescopeOnlineStatus && currentTelescopeOnlineStatus.onlineStatus
+                      }
+                      instrument={instrument}
+                      offlineImageSource={instrument.instrOfflineImgURL}
+                      activeMission={activeTelescopeMission.maskDataArray}
+                      timestamp={activeTelescopeMission.timestamp}
+                      activeNeoview={selectedInstrument.instrHasNeoView}
+                      handleInfoClick={this.toggleNeoview}
+                    />
+
+                    {/** load the neoview */
+                    telescopeOnline && selectedInstrument.instrHasNeoView ? (
+                      <Neoview
+                        toggleNeoview={this.toggleNeoview}
+                        neoviewOpen={neoviewOpen}
+                        teleSystem={selectedInstrument.instrSystem}
+                        showToggleOption={currentTelescope.teleOnlineStatus === 'online'}
+                        percentageMissionTimeRemaining={100}
                       />
+                    ) : null}
 
-                      {
-                        /** load the neoview */
-                        (telescopeOnline && selectedInstrument.instrHasNeoView) ?
-                          <Neoview
-                            toggleNeoview={this.toggleNeoview}
-                            neoviewOpen={neoviewOpen}
-                            teleSystem={selectedInstrument.instrSystem}
-                            showToggleOption={currentTelescope.teleOnlineStatus === 'online'}
-                            percentageMissionTimeRemaining={100}
-                          /> : null
-                      }
-
-                      {
-                        telescopeOnline && instrument.instrStarShareCamera === true ?
-                          <StarShareCamera /> : null
-                      }
-                    </TabPanel>
-                  ))
-                }
+                    {telescopeOnline && instrument.instrStarShareCamera === true ? (
+                      <StarShareCamera />
+                    ) : null}
+                  </TabPanel>
+                ))}
               </Tabs>
 
-              {
-                activeTelescopeMission.missionAvailable ?
-                  <LiveStream
-                    {...activeTelescopeMission}
-                  /> : null
-              }
+              {activeTelescopeMission.missionAvailable ? (
+                <LiveStream {...activeTelescopeMission} />
+              ) : null}
 
               <Spacer height="50px" />
 
-              {
-                (displayCommunityContent && telescopeOnline && activeDetailsSSE.astroObjectID > 0) ?
-                  <div>
-                    <PromoMessageBanner
-                      title="Community Perspectives"
-                      subtitle="Learn more about this object through the various lenses of science, culture, and spirituality."
-                    />
-                    <CommunityPerspectives
-                      communityContent={communityContent}
-                    />
-                  </div> : null
-              }
+              {displayCommunityContent && telescopeOnline && activeDetailsSSE.astroObjectID > 0 ? (
+                <div>
+                  <PromoMessageBanner
+                    title="Community Perspectives"
+                    subtitle="Learn more about this object through the various lenses of science, culture, and spirituality."
+                  />
+                  <CommunityPerspectives communityContent={communityContent} />
+                </div>
+              ) : null}
 
               <TelescopeDetailsTabs
                 obsId={currentObservatory.obsId}
@@ -353,10 +337,9 @@ class TelescopeDetails extends Component {
                 DomecamWidgetId={currentObservatory.DomecamWidgetId}
                 facilityWebcamWidgetId={currentObservatory.FacilityWebcamWidgetId}
               />
-
             </div>
 
-            { /** right side bar */ }
+            {/** right side bar */}
             <div className="col-sm-4 telescope-details-sidebar">
               <GoogleAd
                 adURL={'/5626790/Recommends'}
@@ -365,36 +348,33 @@ class TelescopeDetails extends Component {
                 targetDivID={'div-gpt-ad-1495111021281-0'}
               />
 
-              {
-                currentObservatory.showCountdown &&
-                  <SunsetCountdown
-                    label={currentObservatory.countdownLabel}
-                    countdownTimestamp={currentObservatory.countdownTimestamp}
-                  />
-              }
+              {currentObservatory.showCountdown && (
+                <SunsetCountdown
+                  label={currentObservatory.countdownLabel}
+                  countdownTimestamp={currentObservatory.countdownTimestamp}
+                />
+              )}
 
               <MoonlightWidget
                 obsId={currentObservatory.obsId}
                 widgetID={currentObservatory.MoonlightBarWidgetId}
               />
 
-              {
-                activeTelescopeMission.missionAvailable || activeTelescopeMission.nextMissionAvailable ?
-                  <div>
-                    <LiveMission
-                      {...activeTelescopeMission}
-                    />
+              {!activeTelescopeMission.missionAvailable ||
+              !activeTelescopeMission.nextMissionAvailable ? (
+                <div>
+                  {/* <LiveMission {...activeTelescopeMission} /> */}
+                  <LiveMission {...SAMPLE_GET_CURRENT_MISSION.missionList[0]} />
 
-                    <TelescopeAllSky
-                      obsId={currentObservatory.obsId}
-                      AllskyWidgetId={currentObservatory.SkyChartWidgetId}
-                      scheduledMissionId={activeTelescopeMission.scheduledMissionId}
-                    />
+                  <TelescopeAllSky
+                    obsId={currentObservatory.obsId}
+                    AllskyWidgetId={currentObservatory.SkyChartWidgetId}
+                    scheduledMissionId={activeTelescopeMission.scheduledMissionId}
+                  />
 
-                    <UpcomingMissions missions={activeTelescopeMission.upcomingMissionArray} />
-                  </div>
-                : null
-              }
+                  <UpcomingMissions missions={activeTelescopeMission.upcomingMissionArray} />
+                </div>
+              ) : null}
             </div>
           </div>
         </div>
