@@ -356,8 +356,8 @@ class TelescopeDetails extends Component {
                 widgetID={currentObservatory.MoonlightBarWidgetId}
               />
 
-              {!activeTelescopeMission.missionAvailable ||
-              !activeTelescopeMission.nextMissionAvailable ? (
+              {activeTelescopeMission.missionAvailable ||
+              activeTelescopeMission.nextMissionAvailable ? (
                 <div>
                   <LiveMission {...activeTelescopeMission} />
 
