@@ -337,24 +337,12 @@ class TelescopeDetails extends Component {
 
             {/** right side bar */}
             <div className="col-sm-4 telescope-details-sidebar">
-              <GoogleAd
-                adURL={'/5626790/Recommends'}
-                adWidth={300}
-                adHeight={250}
-                targetDivID={'div-gpt-ad-1495111021281-0'}
-              />
-
               {currentObservatory.showCountdown && (
                 <SunsetCountdown
                   label={currentObservatory.countdownLabel}
                   countdownTimestamp={currentObservatory.countdownTimestamp}
                 />
               )}
-
-              <MoonlightWidget
-                obsId={currentObservatory.obsId}
-                widgetID={currentObservatory.MoonlightBarWidgetId}
-              />
 
               {activeTelescopeMission.missionAvailable ||
               activeTelescopeMission.nextMissionAvailable ? (
@@ -370,6 +358,18 @@ class TelescopeDetails extends Component {
                   <UpcomingMissions missions={activeTelescopeMission.upcomingMissionArray} />
                 </div>
               ) : null}
+
+              <MoonlightWidget
+                obsId={currentObservatory.obsId}
+                widgetID={currentObservatory.MoonlightBarWidgetId}
+              />
+
+              <GoogleAd
+                adURL={'/5626790/Recommends'}
+                adWidth={300}
+                adHeight={250}
+                targetDivID={'div-gpt-ad-1495111021281-0'}
+              />
             </div>
           </div>
         </div>
