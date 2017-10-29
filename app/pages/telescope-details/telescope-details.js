@@ -36,10 +36,6 @@ import TelescopeDetailsTabs from '../../components/telescope-details/TelescopeDe
 import TelescopeSelection from '../../components/telescopes/selection-widget/telescope-selection';
 import UpcomingMissions from '../../components/telescope-details/UpcomingMissions/UpcomingMissions';
 
-// TODO: for testing mission data
-import { SAMPLE_GET_CURRENT_MISSION } from '../../components/telescope-details/UpcomingMissions/testData';
-// =========================================================
-
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators(
@@ -363,8 +359,7 @@ class TelescopeDetails extends Component {
               {!activeTelescopeMission.missionAvailable ||
               !activeTelescopeMission.nextMissionAvailable ? (
                 <div>
-                  {/* <LiveMission {...activeTelescopeMission} /> */}
-                  <LiveMission {...SAMPLE_GET_CURRENT_MISSION.missionList[0]} />
+                  <LiveMission {...activeTelescopeMission} />
 
                   <TelescopeAllSky
                     obsId={currentObservatory.obsId}
