@@ -28,10 +28,6 @@ export default createReducer(initialState, {
     return {
       ...state,
       ...payload,
-      // timelineData: {
-      //   timelineList: payload.timelineData.timelineList.concat(new Array(18).fill('test')),
-      //   timelineCount: 24
-      // },
       fetching: false,
     };
   },

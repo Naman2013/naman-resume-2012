@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import Draggable from 'react-draggable';
-import '../common/community-perspectives/slick.min.css';
-import '../common/community-perspectives/slick-theme.min.css';
 import { pink, white, darkBlueGray } from '../../styles/variables/colors';
 
 const {
@@ -76,29 +74,30 @@ class SharedPicturesTimeline extends Component {
       })
     };
 
-    const containerWidth = 750;
-
-    const width = timelineCount < 12 ? (containerWidth / timelineCount) : (Math.floor(containerWidth / 12));
+    const containerWidth = 780;
+    const numDatesToShow = timelineCount <= 12 ? timelineCount : 12;
+    const width = containerWidth / numDatesToShow;
+    const leftBound = timelineCount <= 12 ? 0 : -((width * (timelineCount - (numDatesToShow))) / 2);
+    const rightBound = timelineCount <= 12 ? 0 : (width * (timelineCount - (numDatesToShow))) / 2;
 
     return (
       <div className="shared-timeline-container" style={{ maxWidth: `${containerWidth}px` }}>
         {timelineList.length > 0 && <Draggable
           axis="x"
           handle=".handle"
-          defaultPosition={{
-            x: 0, y: 0
-          }}
           onDrag={this.onDrag}
-          grid={[width, width]}
+          grid={[width/2, width/2]}
+          style={{ border: `1px solid ${pink}`}}
+          defaultPosition={{ x: rightBound, y: 0 }}
           bounds={{
-            left: -(width * (timelineCount-1)),
-            right: width * (timelineCount-1),
+            left: leftBound,
+            right: rightBound,
           }}
         >
           <div className="handle timeline-items">
             {timelineList.map((date, i) => (<div
               onClick={(e) => this.changeActiveItem(e, i)}
-              style={{ width: `${width}px`}}
+              style={{ width: `${width}px`, fontSize: numDatesToShow > 6 ? '.8rem' : 'inherit' }}
               key={date.imageIndex}
               className={timelineItemClass(i)}
               dangerouslySetInnerHTML={{
