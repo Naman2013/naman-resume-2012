@@ -48,7 +48,8 @@ export const SAMPLE_GET_CURRENT_MISSION = {
       objectId: 0,
       objectTitle: '2016 LX48 Celestial Coordinates - RA: 1.77722 Dec: 27.8008',
       objectIconURL: 'https://webassets.slooh.com/images/placeholders/Jupiter.svg',
-      objectDescription: '',
+      objectDescription:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut mattis et nisl vitae tempus. Nulla nec est non massa dictum tincidunt. Fusce sed porta nisl. Quisque sit amet dui dolor. Sed a suscipit velit. Nunc accumsan, odio nec imperdiet semper, massa ipsum ornare nunc, quis gravida quam lectus nec dui. Quisque auctor luctus massa, sed consequat arcu luctus at. Curabitur rhoncus enim sit amet ipsum tempus, vitae rutrum tellus efficitur.',
       objectRA: '1.77722',
       objectDec: '27.8008',
       objectConstellation: '---',

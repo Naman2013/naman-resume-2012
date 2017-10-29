@@ -38,7 +38,7 @@ import TelescopeSelection from '../../components/telescopes/selection-widget/tel
 import UpcomingMissions from '../../components/telescope-details/UpcomingMissions/UpcomingMissions';
 
 // TODO: for testing mission data
-// import MISSIONS from '../../components/telescope-details/UpcomingMissions/testData';
+import { SAMPLE_GET_CURRENT_MISSION } from '../../components/telescope-details/UpcomingMissions/testData';
 // =========================================================
 
 function mapDispatchToProps(dispatch) {
