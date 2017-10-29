@@ -1,4 +1,4 @@
-const MISSIONS = [
+export default [
   {
     upcomingMissionIndex: 0,
     upcomingMissionAvailable: true,
@@ -16,5 +16,3 @@ const MISSIONS = [
     upcomingObjectIconURL: 'https://vega.slooh.com/icons/reservations/not_available_w.svg',
   },
 ];
-
-export default MISSIONS;
