@@ -10,9 +10,16 @@ import { brightGreen } from '../../styles/variables/colors';
 
 class MissionProgressBar extends Component {
   render() {
+    const inlineProgressBarStyle = {
+      height: '90%',
+    };
+
     return (
       <div className="root">
-        <div className="progress-bar" />
+        <div
+          className="progress-bar"
+          style={inlineProgressBarStyle}
+        />
 
         <style jsx>{`
           .root {
@@ -25,8 +32,6 @@ class MissionProgressBar extends Component {
           .progress-bar {
             width: 100%;
             background-color: ${brightGreen}
-            height: 20%;
-
           }
         `}</style>
       </div>
