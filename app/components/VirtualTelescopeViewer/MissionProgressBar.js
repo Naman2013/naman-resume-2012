@@ -1,15 +1,21 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import asPercentage from '../../utils/asPercentage';
 import { brightGreen } from '../../styles/variables/colors';
 
 /**
   X/Y * 100 = Z
-  X = elapsed time
-  Y = duration
+  X = elapsed time (current-time - start-time)
+  Y = duration (end-time - start-time)
   Z = number in percentage completed
 */
 
 class MissionProgressBar extends Component {
+  static propTypes = {
+    duration: PropTypes.number.isRequired,
+    serverTimestamp: PropTypes.number.isRequired,
+  };
+
   state = {
     progress: 80,
   };
