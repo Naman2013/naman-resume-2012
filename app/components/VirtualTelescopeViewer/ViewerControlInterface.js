@@ -6,7 +6,7 @@ import ViewControls from './ViewControls';
 import Timestamp from './Timestamp';
 import CoordinateInformation from './CoordinateInformation';
 import ZoomControls from './ZoomControls';
-import Bar from './Bar';
+import MissionProgressBar from './MissionProgressBar';
 import ObjectMetaInformation from './ObjectMetaInformation';
 import MissionTitle from './MissionTitle';
 import ImageProcessingInformation from './ImageProcessingInformation';
@@ -80,7 +80,7 @@ const ViewerControlInterface = ({
         />
       </div>
       <div className="cosmetic-bar-shape">
-        <Bar />
+        <MissionProgressBar />
       </div>
     </div>
 

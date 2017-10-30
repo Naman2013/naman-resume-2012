@@ -1,7 +1,7 @@
 import React from 'react';
 import { brightGreen } from '../../styles/variables/colors';
 
-const Bar = () => (
+const MissionProgressBar = () => (
   <div className="root">
     <style jsx>{`
       .root {
@@ -13,4 +13,4 @@ const Bar = () => (
   </div>
 );
 
-export default Bar;
+export default MissionProgressBar;
