@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import asPercentage from '../../utils/asPercentage';
 import { brightGreen } from '../../styles/variables/colors';
 
 /**
@@ -9,9 +10,15 @@ import { brightGreen } from '../../styles/variables/colors';
 */
 
 class MissionProgressBar extends Component {
+  state = {
+    progress: 80,
+  };
+
   render() {
+    const { progress } = this.state;
+
     const inlineProgressBarStyle = {
-      height: '90%',
+      height: asPercentage(progress),
     };
 
     return (
