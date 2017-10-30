@@ -31,7 +31,8 @@ class MissionProgressBar extends Component {
 
           .progress-bar {
             width: 100%;
-            background-color: ${brightGreen}
+            background-color: ${brightGreen};
+            transition: 'height 0.1s ease-out';
           }
         `}</style>
       </div>
