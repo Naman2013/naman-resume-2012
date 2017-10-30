@@ -24,9 +24,6 @@ const ZOOM_RANGE = MAX_SCALE / SCALE_MULTIPLIER;
 const DEFAULT_ACTIVE_ZOOM_LEVEL = 0;
 const SCALE_ACTIVE_ZOOM_LEVEL = 1;
 
-const SCALE_FACTOR = 3250;
-const SCALE_THRESHOLD = 1.5;
-
 class LiveImageViewer extends Component {
   state = {
     scale: 1,
