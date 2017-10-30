@@ -20,6 +20,28 @@ class MissionProgressBar extends Component {
     progress: 80,
   };
 
+  componentDidMount() {
+    this.bootstrapTimer();
+  }
+
+  componentWillReceiveProps() {}
+
+  componentWillUnmount() {
+    this.clearTimer();
+  }
+
+  clearTimer() {
+    if (this.timer) { clearInterval(this.timer); }
+  }
+
+  bootstrapTimer() {
+    this.clearTimer();
+
+    this.timer = setInterval(() => {
+      console.log('tick...');
+    }, 1000);
+  }
+
   render() {
     const { progress } = this.state;
 
