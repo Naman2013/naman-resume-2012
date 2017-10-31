@@ -40,6 +40,7 @@ storiesOf('Virtual Telescope Viewer', module)
   .add('showMissionData is false', () => (
     <LiveImageViewer>
       <VirtualTelescopeViewer
+        now={liveMissionContent.timestamp}
         missionStart={liveMissionContent.missionList[0].missionStart}
         missionEnd={liveMissionContent.missionList[0].expires}
         {...virtualTelescopeViewerContent}
@@ -53,9 +54,10 @@ storiesOf('Virtual Telescope Viewer', module)
   .add('showMissionData is true', () => (
     <LiveImageViewer>
       <VirtualTelescopeViewer
+        {...virtualTelescopeViewerContent}
+        now={liveMissionContent.timestamp}
         missionStart={liveMissionContent.missionList[0].missionStart}
         missionEnd={liveMissionContent.missionList[0].expires}
-        {...virtualTelescopeViewerContent}
         showMissionData={true}
       >
         <div>

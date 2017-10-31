@@ -16,6 +16,7 @@ import { brightGreen } from '../../styles/variables/colors';
 
 class MissionProgressBar extends Component {
   static propTypes = {
+    now: PropTypes.number.isRequired,
     missionStart: PropTypes.number.isRequired,
     missionEnd: PropTypes.number.isRequired,
   };
@@ -47,10 +48,15 @@ class MissionProgressBar extends Component {
   }
 
   render() {
-    const { progress } = this.state;
+    const { now, missionStart, missionEnd } = this.props;
+    console.log(now, missionStart, missionEnd);
+    const duration = missionEnd - missionStart;
+    const elapsedTime = missionEnd - now;
+    console.log(duration);
+    console.log(elapsedTime);
 
     const inlineProgressBarStyle = {
-      height: asPercentage(progress),
+      height: asPercentage(10),
     };
 
     return (
