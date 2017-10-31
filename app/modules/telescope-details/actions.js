@@ -55,6 +55,16 @@ export const SET_DISPLAY_COMMUNITY_CONTENT = 'SET_DISPLAY_COMMUNITY_CONTENT';
 export const UPDATE_ACTIVE_SSE = 'UPDATE_ACTIVE_SSE';
 export const RESET_ACTIVE_SSE = 'RESET_ACTIVE_SSE';
 
+export const REMOVE_IMAGE_VIEWER_CLIP_STATE = 'REMOVE_IMAGE_VIEWER_CLIP_STATE';
+export const APPLY_IMAGE_VIEWER_CLIP_STATE = 'APPLY_IMAGE_VIEWER_CLIP_STATE';
+
+export const removeImageViewerClipState = () => ({
+  type: REMOVE_IMAGE_VIEWER_CLIP_STATE,
+});
+
+export const applyImageViewerClipState = () => ({
+  type: APPLY_IMAGE_VIEWER_CLIP_STATE,
+});
 
 /**
   * Getting the current telescope from the API response
@@ -107,7 +117,6 @@ const startFetchTelescopeStatus = () => ({
 });
 
 export const fetchAllTelescopeStatus = ({ obsId, teleUniqueId, isRefresh }) => (dispatch) => {
-
   // if we are not refreshing inline then reset the flags
   // otherwise we expect to update in place seamlessly
   if (!isRefresh) {

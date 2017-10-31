@@ -71,6 +71,7 @@ const HeroAboutYou = ({
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
+        -ms-flex-wrap: wrap;
         justify-content: space-between;
         background-color: ${black};
         color: ${white};
@@ -83,6 +84,7 @@ const HeroAboutYou = ({
         flex-direction: column;
         align-items: space-between;
         flex-wrap: wrap;
+        -ms-flex-wrap: wrap;
       }
       .user {
         display: flex;
@@ -101,6 +103,7 @@ const HeroAboutYou = ({
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
+        -ms-flex-wrap: wrap;
       }
 
       .membershipType {

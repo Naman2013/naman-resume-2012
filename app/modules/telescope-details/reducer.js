@@ -24,6 +24,8 @@ import {
   RESET_DETAILS_SELECTED_ELEMENTS,
   UPDATE_ACTIVE_SSE,
   RESET_ACTIVE_SSE,
+  REMOVE_IMAGE_VIEWER_CLIP_STATE,
+  APPLY_IMAGE_VIEWER_CLIP_STATE,
 } from './actions';
 
 
@@ -31,6 +33,8 @@ const initialState = {
   fetchingObservatoryList: true,
   fetchingObservatoryListFail: false,
   fetchingObservatoryListErrorBody: null,
+
+  isImageViewerClipped: true,
 
   displayCommunityContent: false,
 
@@ -41,7 +45,11 @@ const initialState = {
 
   fetchingObservatoryStatus: true,
   currentTelescopeOnlineStatus: null,
-  allObservatoryTelescopeStatus: null,
+  allObservatoryTelescopeStatus: {
+    countdownList: {
+      countdownTeleList: [],
+    },
+  },
 
   fetchingWeatherWidget: false,
   fetchingDayNightBar: false,
@@ -107,7 +115,7 @@ export default createReducer(initialState, {
       ...state,
       fetchingObservatoryStatus: true,
       currentTelescopeOnlineStatus: null,
-      allObservatoryTelescopeStatus: null,
+      allObservatoryTelescopeStatus: { ...initialState.allObservatoryTelescopeStatus },
     };
   },
   [FETCH_TELESCOPE_STATUS_SUCCESS](state, { payload }) {
@@ -249,6 +257,18 @@ export default createReducer(initialState, {
     return {
       ...state,
       activeSSE: Object.assign({}, initialState.activeSSE),
+    };
+  },
+  [REMOVE_IMAGE_VIEWER_CLIP_STATE](state) {
+    return {
+      ...state,
+      isImageViewerClipped: false,
+    };
+  },
+  [APPLY_IMAGE_VIEWER_CLIP_STATE](state) {
+    return {
+      ...state,
+      isImageViewerClipped: true,
     };
   },
 });

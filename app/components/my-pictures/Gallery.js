@@ -33,16 +33,18 @@ class Gallery extends Component {
     overlayText: PropTypes.arrayOf(PropTypes.string),
     customerImageId: PropTypes.number,
     shareToken: PropTypes.string,
+    isPublicGallery: PropTypes.bool,
   }
 
   static defaultProps = {
-    created: '0',
+    created: null,
     galleryId: null,
     isImages: false,
     canEditFlag: false,
     overlayText: [],
     customerImageId: null,
-    shareToken: ''
+    shareToken: '',
+    isPublicGallery: false,
   }
 
   state = {
@@ -74,16 +76,18 @@ class Gallery extends Component {
       customerImageId,
       shareToken,
       user,
+      isPublicGallery
     } = this.props;
 
     const {
       showHoverMenu
     } = this.state;
     const createdDate = moment(Number(created) * 1000);
-    const url = isImages ? `/my-pictures/gallery/${galleryId}/show-image/${customerImageId}/${shareToken}` : `/my-pictures/galleries/${galleryId}`;
+    const url = isImages || isPublicGallery ? `/my-pictures/gallery/${galleryId}/show-image/${customerImageId}/${shareToken}` : `/my-pictures/galleries/${galleryId}`;
     const hoverStyle = classnames({
       showMenu: showHoverMenu
     });
+
     return (
       <div>
         <Link to={url} className="gallery-container-image" style={{ backgroundImage: `url(${imageURL})` }}>
@@ -93,11 +97,11 @@ class Gallery extends Component {
             onMouseLeave={this.hideMenu}
           >
             <div>{imageTitle}</div>
-            <div>Created on {createdDate.format('dddd, MMMM Do YYYY')}</div>
+            {created && <div>Created on {createdDate.format('dddd, MMMM Do YYYY')}</div>}
             {
               overlayText && overlayText.map((markdownText, index) => <Markdown key={`markdown-text-${index}`} source={markdownText} />)
             }
-            <ul className="photoMenu">
+            {!isPublicGallery && <ul className="photoMenu">
               <li>
                 <PhotoActions
                   canShareFlag={canShareFlag}
@@ -109,7 +113,7 @@ class Gallery extends Component {
                   galleryId={galleryId}
                 />
               </li>
-            </ul>
+            </ul>}
           </div>
           <style jsx>
             {`

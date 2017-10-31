@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { Link } from 'react-router';
 import { getTags, resetClientTagData } from '../../modules/tag-management/Tags';
 import MissionTags from '../../components/common/tags/mission-tags';
 import { setTag } from '../../services/tags/set-tag';
@@ -114,8 +115,8 @@ class ImageInfoPanel extends Component {
       imageTitle,
       imageURL,
       fileData,
+      linkableFileData,
     } = this.props.myPicturesImageDetails;
-
     return (
       <div className="height-100">
         {fetching && <div className="message">Loading Image Details...</div>}
@@ -158,9 +159,18 @@ class ImageInfoPanel extends Component {
           </div>}
           <div className="">
             <h4 className="header">File Data</h4>
-            <div>{Object.keys(fileData).map((key) => {
-              return <div key={key}><span className="bold">{key}</span>: {fileData[key]}</div>;
-            })}</div>
+            <div>{Object.keys(linkableFileData).map((key) => (<div key={key}>
+                <span
+                  className="bold"
+                  dangerouslySetInnerHTML={{ __html: `${linkableFileData[key].label}: ` }}
+                />
+                {linkableFileData[key].hasLink ? <Link to={linkableFileData[key].linkUrl}>{linkableFileData[key].text}</Link> :
+                <span
+                  dangerouslySetInnerHTML={{ __html: `${linkableFileData[key].text} ` }}
+                />
+                }
+              </div>)
+            )}</div>
           </div>
         </div>}
         <style jsx>
@@ -174,7 +184,11 @@ class ImageInfoPanel extends Component {
             margin-top: 100px;
           }
           .panel-container {
-            display: flex;
+            display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
+            display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
+            display: -ms-flexbox;      /* TWEENER - IE 10 */
+            display: -webkit-flex;     /* NEW - Chrome */
+            display: flex;             /* NEW, Spec - Opera 12.1, Firefox 20+ */
             flex-direction: column;
             justify-content: space-between;
             height: 100%;
@@ -230,6 +244,7 @@ ImageInfoPanel.defaultProps = {
     canDownloadFlag: false,
     canEditFlag: false,
     fileData: {},
+    linkableFileData: {},
   },
   actions: {},
 };
@@ -252,6 +267,7 @@ ImageInfoPanel.propTypes = {
     canDownloadFlag: PropTypes.bool,
     canEditFlag: PropTypes.bool,
     fileData: PropTypes.shape({}),
+    linkableFileData: PropTypes.shape({})
   }),
   // actions: PropTypes.shape({
   //   fetchImageDetailsAndCounts,

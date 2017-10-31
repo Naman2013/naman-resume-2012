@@ -243,8 +243,10 @@ class ImageDetails extends Component {
         <style jsx>{imageDetailsStyle}</style>
         <style jsx global>
         {`
-          .my-pic-galleries .count {
-            padding: 0 200px;
+          @media(min-width:768px) {
+            .my-pic-galleries .count {
+              padding: 0 200px;
+            }
           }
         `}
         </style>

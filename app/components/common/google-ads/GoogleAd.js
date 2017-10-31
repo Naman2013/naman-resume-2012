@@ -14,7 +14,7 @@ class GoogleAd extends Component {
 
     if (window.googletag) {
       window.googletag.cmd.push(() => {
-        window.googletag.defineSlot(
+        const slot = window.googletag.defineSlot(
           adURL,
           [adWidth, adHeight],
           targetDivID)
@@ -22,6 +22,11 @@ class GoogleAd extends Component {
         window.googletag.pubads().enableSingleRequest();
         window.googletag.enableServices();
         window.googletag.display(targetDivID);
+
+        // Set timer to refresh slot every 30 seconds
+        setInterval(() => {
+          window.googletag.pubads().refresh([slot]);
+        }, 30000);
       });
     }
   }

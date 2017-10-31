@@ -253,7 +253,7 @@ class ReserveObjects extends Component {
     const { selectedCategoryIndex, selectedObjectIndex } = this.state;
 
     if (fetchingObjectList) {
-      return <GenericLoadingBox text="Calculating the best time and telescope for this object." />;
+      return <GenericLoadingBox text="Calculating best time and telescope..." />;
     }
 
     if (!fetchingObjectList && selectedCategoryIndex) {

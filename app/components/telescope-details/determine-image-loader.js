@@ -6,6 +6,7 @@ export default function determineImageLoader(instrument, {
   activeMission,
   timestamp,
   neoview,
+  isImageViewerClipped,
 }) {
   const {
     instrImageSourceType,
@@ -15,6 +16,7 @@ export default function determineImageLoader(instrument, {
   if (instrImageSourceType === 'SSE') {
     return (
       <SSELiveImageViewer
+        isImageViewerClipped={isImageViewerClipped}
         telePort={instrument.instrPort}
         teleSystem={instrument.instrSystem}
         teleId={instrument.instrTelescopeId}

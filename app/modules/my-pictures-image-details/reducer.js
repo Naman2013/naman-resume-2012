@@ -29,6 +29,11 @@ const initialState = {
   canShareFlag: false,
   fileData: {},
   avatarURL: '',
+  linkableFileData: {
+    'Photo by': {},
+    Telescope: {},
+    Observatory: {},
+  },
 };
 
 export default createReducer(initialState, {
