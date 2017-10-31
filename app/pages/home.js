@@ -32,6 +32,7 @@ const mapStateToProps = ({
   homeContent,
   appConfig,
   sharedMemberPhotosList: sharedMemberPhotos.imageList,
+  sharedMemberTimelineData: sharedMemberPhotos.timelineData,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -84,6 +85,7 @@ class Home extends Component {
       homeContent,
       appConfig,
       sharedMemberPhotosList,
+      sharedMemberTimelineData,
     } = this.props;
 
     const { posts } = this.props.communityContent;
@@ -138,6 +140,7 @@ class Home extends Component {
           heading={homeContent.memberPicturesHeading}
           subheading={homeContent.memberPicturesSubHeading}
           imageList={sharedMemberPhotosList}
+          timelineData={sharedMemberTimelineData}
         />}
         <div className="clearfix">
           {this.generateRecentVideoTiles()}
