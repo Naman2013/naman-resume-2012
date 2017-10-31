@@ -21,42 +21,15 @@ class MissionProgressBar extends Component {
     missionEnd: PropTypes.number.isRequired,
   };
 
-  state = {
-    progress: 80,
-  };
-
-  componentDidMount() {
-    this.bootstrapTimer();
-  }
-
-  componentWillReceiveProps() {}
-
-  componentWillUnmount() {
-    this.clearTimer();
-  }
-
-  clearTimer() {
-    if (this.timer) { clearInterval(this.timer); }
-  }
-
-  bootstrapTimer() {
-    this.clearTimer();
-
-    this.timer = setInterval(() => {
-      console.log('tick...');
-    }, 1000);
-  }
-
   render() {
     const { now, missionStart, missionEnd } = this.props;
-    console.log(now, missionStart, missionEnd);
+
     const duration = missionEnd - missionStart;
     const elapsedTime = missionEnd - now;
-    console.log(duration);
-    console.log(elapsedTime);
+    const remainingPercentage = Math.floor((elapsedTime / duration) * 100);
 
     const inlineProgressBarStyle = {
-      height: asPercentage(10),
+      height: asPercentage(remainingPercentage),
     };
 
     return (
