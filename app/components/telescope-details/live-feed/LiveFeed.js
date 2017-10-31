@@ -60,7 +60,6 @@ class LiveFeed extends Component {
       timestamp,
       isImageViewerClipped,
     } = this.props;
-
     const neoview = {
       activeNeoview,
       handleInfoClick,
@@ -81,24 +80,17 @@ class LiveFeed extends Component {
     }
 
     if (onlineStatus === 'offline') {
-      return (
-        <TelescopeOffline
-          imageSource={offlineImageSource}
-          offlineStatusMessage={obsAlert}
-        />
-      );
+      return <TelescopeOffline imageSource={offlineImageSource} offlineStatusMessage={obsAlert} />;
     }
 
     return (
       <div className="root">
-        {
-          determineImageLoader(instrument, {
-            activeMission,
-            timestamp,
-            neoview,
-            isImageViewerClipped,
-          })
-        }
+        {determineImageLoader(instrument, {
+          activeMission,
+          timestamp,
+          neoview,
+          isImageViewerClipped,
+        })}
       </div>
     );
   }

@@ -133,8 +133,15 @@ class TelescopeDetails extends Component {
 
   componentWillReceiveProps(nextProps) {
     const { allObservatoryTelescopeStatus } = nextProps;
+    const { teleUniqueId } = nextProps.routeParams;
     if (allObservatoryTelescopeStatus && allObservatoryTelescopeStatus.statusExpires) {
       this.scaffoldRefreshInterval(allObservatoryTelescopeStatus.statusExpires);
+    }
+
+    if (teleUniqueId) {
+      if (teleUniqueId !== this.props.routeParams.teleUniqueId) {
+        this.props.actions.updateTelescopeStatus({ teleUniqueId });
+      }
     }
   }
 
@@ -165,7 +172,11 @@ class TelescopeDetails extends Component {
       });
 
       // fetch the observatories latest status
-      this.fetchAllTelescopeStatus(nextProps.params.obsUniqueId);
+      this.props.actions.fetchAllTelescopeStatus({
+        obsId: nextProps.params.obsUniqueId,
+        teleUniqueId: nextProps.params.teleUniqueId,
+        isRefresh: true,
+      });
     }
   }
 
@@ -274,6 +285,9 @@ class TelescopeDetails extends Component {
     const currentMissionCountdown = countdownList.find(
       countdown => countdown.teleUniqueId === teleUniqueId,
     );
+    //
+    // console.log(currentTelescopeOnlineStatus);
+    // console.log(currentTelescopeOnlineStatus.onlineStatus);
 
     return (
       <div className="telescope-details-page-wrapper">
