@@ -8,12 +8,16 @@ import { brightGreen } from '../../styles/variables/colors';
   X = elapsed time (current-time - start-time)
   Y = duration (end-time - start-time)
   Z = number in percentage completed
+
+  start time
+  end time
+  current time (should this come from SSE events?)
 */
 
 class MissionProgressBar extends Component {
   static propTypes = {
-    duration: PropTypes.number.isRequired,
-    serverTimestamp: PropTypes.number.isRequired,
+    missionStart: PropTypes.number.isRequired,
+    missionEnd: PropTypes.number.isRequired,
   };
 
   state = {
