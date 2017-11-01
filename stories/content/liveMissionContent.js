@@ -1,7 +1,9 @@
+import moment from 'moment';
+
 export default {
   "ver": "v1",
   "lang": "en",
-  "timestamp": 1479505537,
+  "timestamp": moment.utc().unix().valueOf(),
   "obsId": "teide",
   "domeId": 2,
   "telescopeId": "teide2",
@@ -21,9 +23,9 @@ export default {
       "missionAvailable": true,
       "missionObjective": "",
       "missionLikeCount": 0,
-      "missionStart": 1479505320,
+      "missionStart": moment.utc().unix().valueOf(),
       "durationSec": 300,
-      "expires": 1479505620,
+      "expires": moment.utc().add(5, 'minutes').unix().valueOf(),
       "scheduledMissionId": 1478560,
       "objectId": 0,
       "objectTitle": "2016 LX48 Celestial Coordinates - RA: 1.77722 Dec: 27.8008",

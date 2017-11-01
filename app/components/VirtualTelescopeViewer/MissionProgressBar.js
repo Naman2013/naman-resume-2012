@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 import asPercentage from '../../utils/asPercentage';
 import { brightGreen } from '../../styles/variables/colors';
 
+const TICK_DURATION_MILLIS = 1000;
+const INCREMENT_NOW_SECONDS = 1;
+
 /**
   X/Y * 100 = Z
   X = elapsed time (current-time - start-time)
@@ -21,11 +24,50 @@ class MissionProgressBar extends Component {
     missionEnd: PropTypes.number.isRequired,
   };
 
+  state = {
+    now: this.props.now,
+  };
+
+  componentDidMount() {
+    this.bootstrapTimer();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.now !== this.props.now) {
+      this.setState({
+        now: nextProps.now,
+      });
+    }
+  }
+
+  componentWillUnmount() {
+    this.doTearDown();
+  }
+
+  interval = null;
+
+  bootstrapTimer() {
+    if (this.interval) {
+      this.doTearDown();
+    }
+
+    this.interval = setInterval(() => {
+      this.setState(prevState => ({
+        now: prevState.now + INCREMENT_NOW_SECONDS,
+      }));
+    }, TICK_DURATION_MILLIS);
+  }
+
+  doTearDown() {
+    clearInterval(this.interval);
+  }
+
   render() {
-    const { now, missionStart, missionEnd } = this.props;
+    const { missionStart, missionEnd } = this.props;
+    const { now } = this.state;
 
     const duration = missionEnd - missionStart;
-    const elapsedTime = missionEnd - now;
+    const elapsedTime = now - missionStart;
     const remainingPercentage = Math.floor((elapsedTime / duration) * 100);
 
     const inlineProgressBarStyle = {
