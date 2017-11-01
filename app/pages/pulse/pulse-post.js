@@ -39,7 +39,7 @@ class PulsePostContent extends Component {
       <div className={styles.PulsePostList}>
 
         {
-          S3Files && S3Files[0] ? <PulsePostImage image={S3Files[0]} imageBy={''} /> : null
+          S3Files && S3Files.length ? S3Files.map(image => <PulsePostImage image={image} imageBy={''} />) : null
         }
 
         <figure className={styles.PulsePostListInfo}>
