@@ -87,12 +87,13 @@ class MissionProgressBar extends Component {
             height: 100px;
             width: 5px;
             transform: rotate(180deg);
+            overflow: hidden;
           }
 
           .progress-bar {
             width: 100%;
             background-color: ${brightGreen};
-            transition: 'height 0.1s ease-out';
+            transition: height 0.1s ease-out;
           }
         `}</style>
       </div>
