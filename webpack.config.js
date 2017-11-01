@@ -51,7 +51,8 @@ module.exports = {
         test: /\.json$/,
         loaders: ['json-loader'],
       },
-      { // string-replace loader is here to replace URL's mapped to /api in code
+      {
+        // string-replace loader is here to replace URL's mapped to /api in code
         test: /\.(js)$/,
         loader: 'string-replace-loader',
         exclude: /node_modules/,
@@ -106,15 +107,18 @@ module.exports = {
           },
         ],
       },
-      { // loader for bootstrap
+      {
+        // loader for bootstrap
         test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
         loader: 'file-loader',
       },
-      { // loader for bootstrap
+      {
+        // loader for bootstrap
         test: /\.(woff|woff2)(\?v=\d+\.\d+\.\d+)?$/,
         loader: 'url-loader?limit=10000&mimetype=application/font-woff',
       },
-      { // loader for bootstrap
+      {
+        // loader for bootstrap
         test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
         loader: 'url-loader?limit=10000&mimetype=application/octet-stream',
       },
@@ -126,13 +130,11 @@ module.exports = {
       filename: 'common.js',
     }),
     new HtmlWebpackPlugin({
-      template: __dirname + '/app/index.html',
+      template: `${__dirname}/app/index.html`,
       filename: 'index.html',
       inject: 'body',
     }),
-    new CopyWebpackPlugin([
-      { from: './assets/**/*' },
-    ]),
+    new CopyWebpackPlugin([{ from: './assets/**/*' }]),
     new BundleAnalyzerPlugin({
       analyzerMode: 'server',
       analyzerHost: 'localhost',
@@ -147,12 +149,12 @@ module.exports = {
     historyApiFallback: true,
     proxy: {
       '/api/**': {
-        target: 'https://saturn.slooh.com:443',
+        target: 'https://deneb.slooh.com:443',
         changeOrigin: true,
         secure: true,
       },
       '/sloohapp/**': {
-        target: 'https://saturn.slooh.com:443',
+        target: 'https://deneb.slooh.com:443',
         changeOrigin: true,
         secure: true,
       },
