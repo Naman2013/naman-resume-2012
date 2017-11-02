@@ -58,11 +58,11 @@ const Notifications = () => (
           </div>
           <div className="border-bottom">
             <div className="col-fifth padding-top-small padding-bottom-small sans-serif">
-              Community Content
+              Illuminations
             </div>
 
             <div className="col-3fifth sans-serif border-left padding-small">
-              Receive updates when people comment on content that you post to the Slooh community.
+              Receive updates when people comment on content that you post to Illuminations.
             </div>
 
             <div className="col-fifth sans-serif text-center padding-top-xsmall">

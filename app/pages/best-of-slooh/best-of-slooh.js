@@ -30,7 +30,7 @@ class BestOfSlooh extends Component {
         <div className="best-header clearfix">
 
           <div className="col-md-9">
-            <h1 className="best-header-title"><span className="highlight">Best of Community</span> {date}</h1>
+            <h1 className="best-header-title"><span className="highlight">Best of Illuminations</span> {date}</h1>
             <h2 className="best-header-subtitle">A curated list of your best expressions about objects in the night
               sky.</h2>
           </div>

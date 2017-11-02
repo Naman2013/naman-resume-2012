@@ -57,7 +57,7 @@ class Footer extends Component {
           <img alt="Book" className="bookclub-img" src="https://vega.slooh.com/assets/images/bookclub/Space_BookClub_Logo.png" />
         </div>
         <div className="community-title center">
-          Community Perspectives&nbsp;&nbsp;|&nbsp;&nbsp;<Link to="/publish-post" className="community-link">Upload your own</Link>
+          Illuminations&nbsp;&nbsp;|&nbsp;&nbsp;<Link to="/publish-post" className="community-link">Upload your own</Link>
         </div>
         <CommunityPerspectives
           communityContent={communityPosts}

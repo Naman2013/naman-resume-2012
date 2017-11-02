@@ -376,7 +376,7 @@ class TelescopeDetails extends Component {
               {displayCommunityContent && telescopeOnline && activeDetailsSSE.astroObjectID > 0 ? (
                 <div>
                   <PromoMessageBanner
-                    title="Community Perspectives"
+                    title="Illuminations"
                     subtitle="Learn more about this object through the various lenses of science, culture, and spirituality."
                   />
                   <CommunityPerspectives communityContent={communityContent} />
