@@ -1,13 +1,13 @@
-import {
-  observatoryListSuccess,
-  getCurrentObservatory,
-} from '../Telescope-Overview';
+import { observatoryListSuccess, getCurrentObservatory } from '../Telescope-Overview';
 
 import { resetSnapshotList } from '../starshare-camera/starshare-camera-actions';
 
 import { resetActiveMission } from '../active-telescope-missions/active-telescope-missions-actions';
 
-import { fetchObjectContent, fetchContentReset } from '../community-content/community-object-content-actions';
+import {
+  fetchObjectContent,
+  fetchContentReset,
+} from '../community-content/community-object-content-actions';
 
 import { validateResponseAccess } from '../authorization/actions';
 
@@ -107,9 +107,9 @@ export const updateTelescopeStatus = ({ teleUniqueId }) => (dispatch, getState) 
 
   dispatch(
     setTelescopeOnlineStatus(
-      statusTeleList
-        .find(telescopeStatus => telescopeStatus.teleUniqueId === teleUniqueId)),
-    );
+      statusTeleList.find(telescopeStatus => telescopeStatus.teleUniqueId === teleUniqueId),
+    ),
+  );
 };
 
 const startFetchTelescopeStatus = () => ({
@@ -126,8 +126,9 @@ export const fetchAllTelescopeStatus = ({ obsId, teleUniqueId, isRefresh }) => (
   return fetchTelescopeStatus(obsId)
     .then((result) => {
       const { statusList: { statusTeleList } } = result.data;
-      const currentTelescopeStatus =
-        statusTeleList.find(teleStatus => teleStatus.teleUniqueId === teleUniqueId);
+      const currentTelescopeStatus = statusTeleList.find(
+        teleStatus => teleStatus.teleUniqueId === teleUniqueId,
+      );
 
       dispatch(setTelescopeOnlineStatus(currentTelescopeStatus));
       dispatch(fetchTelescopeStatusSuccess(result.data));
@@ -176,10 +177,12 @@ const fetchCommunityContent = telescope => (dispatch) => {
 
   // TODO: based on the content type fetch the community content
   if (STATIC_OBJECT_ID) {
-    dispatch(fetchObjectContent({
-      objectId: teleContentList[0],
-      callSource: 'telescopeDetails',
-    }));
+    dispatch(
+      fetchObjectContent({
+        objectId: teleContentList[0],
+        callSource: 'telescopeDetails',
+      }),
+    );
   }
 };
 
@@ -189,10 +192,10 @@ const resetMissionAndSetTelescope = currentTelescope => (dispatch) => {
   dispatch(setCurrentTelescope(currentTelescope));
 };
 
-export const bootstrapTelescopeDetails = ({
-  obsUniqueId,
-  teleUniqueId,
-}) => (dispatch, getState) => {
+export const bootstrapTelescopeDetails = ({ obsUniqueId, teleUniqueId }) => (
+  dispatch,
+  getState,
+) => {
   const { at, cid, token } = getState().user;
 
   dispatch(bootstrapTelescopeDetailsStart());
@@ -202,30 +205,34 @@ export const bootstrapTelescopeDetails = ({
     cid,
     token,
     callSource: 'details',
-  }).then((result) => {
-    const { apiError } = result.data;
+  })
+    .then((result) => {
+      const { apiError } = result.data;
 
-    if (!apiError) {
-      const { observatoryList } = result.data;
-      const currentObservatory = getCurrentObservatory(observatoryList, obsUniqueId);
-      const currentTelescope = getCurrentTelescope(currentObservatory.obsTelescopes, teleUniqueId);
+      if (!apiError) {
+        const { observatoryList } = result.data;
+        const currentObservatory = getCurrentObservatory(observatoryList, obsUniqueId);
+        const currentTelescope = getCurrentTelescope(
+          currentObservatory.obsTelescopes,
+          teleUniqueId,
+        );
 
-      dispatch(resetActiveMission());
-      dispatch(fetchAllTelescopeStatus({ obsId: currentObservatory.obsId, teleUniqueId }));
-      dispatch(setCurrentObservatory(currentObservatory));
-      dispatch(resetMissionAndSetTelescope(currentTelescope));
-      dispatch(resetSnapshotList());
-      dispatch(observatoryListSuccess(result.data));
-      dispatch(bootStrapTelescopeDetailsSuccess());
-    } else {
-      dispatch(validateResponseAccess(result.data));
-    }
-
-  }).catch((error) => {
-    // TODO: handle error scenario when we have no information
-    throw error;
-    // dispatch(bootstrapTelescopeDetailsFail());
-  });
+        dispatch(resetActiveMission());
+        dispatch(fetchAllTelescopeStatus({ obsId: currentObservatory.obsId, teleUniqueId }));
+        dispatch(setCurrentObservatory(currentObservatory));
+        dispatch(resetMissionAndSetTelescope(currentTelescope));
+        dispatch(resetSnapshotList());
+        dispatch(observatoryListSuccess(result.data));
+        dispatch(bootStrapTelescopeDetailsSuccess());
+      } else {
+        dispatch(validateResponseAccess(result.data));
+      }
+    })
+    .catch((error) => {
+      // TODO: handle error scenario when we have no information
+      throw error;
+      // dispatch(bootstrapTelescopeDetailsFail());
+    });
 };
 
 export const setObservatory = ({ obsUniqueId, teleUniqueId }) => (dispatch, getState) => {
@@ -293,7 +300,8 @@ const fetchAllSkyAction = ({ obsId, AllskyWidgetId }) => (dispatch) => {
   dispatch(fetchAllSkyStart());
   return fetchAllSkyCamera({
     obsId,
-    AllskyWidgetId }).then(result => dispatch(fetchAllSkySuccess(result.data)));
+    AllskyWidgetId,
+  }).then(result => dispatch(fetchAllSkySuccess(result.data)));
 };
 
 const fetchDayNightMapStart = () => ({
@@ -309,7 +317,8 @@ const fetchDayNightMapAction = ({ obsId, DayNightMapWidgetId }) => (dispatch) =>
   dispatch(fetchDayNightMapStart());
   return fetchDayNightMap({
     obsId,
-    DayNightMapWidgetId }).then(result => dispatch(fetchDayNightMapSuccess(result.data)));
+    DayNightMapWidgetId,
+  }).then(result => dispatch(fetchDayNightMapSuccess(result.data)));
 };
 
 const fetchWeatherConditionsStart = () => ({
@@ -326,8 +335,7 @@ const fetchWeatherConditions = ({ obsId, CurrentConditionsWidgetId }) => (dispat
   return fetchCurrentConditions({
     obsId,
     widgetUniqueId: CurrentConditionsWidgetId,
-  })
-  .then(result => dispatch(fetchWeatherConditionsSuccess(result.data)));
+  }).then(result => dispatch(fetchWeatherConditionsSuccess(result.data)));
 };
 
 const fetchDayNightBarStart = () => ({
@@ -344,8 +352,7 @@ const fetchDayNightBarAction = ({ obsId, DayNightBarWidgetId }) => (dispatch) =>
   return fetchDayNightBar({
     obsId,
     DayNightBarWidgetId,
-  })
-  .then(result => dispatch(fetchDayNightBarSuccess(result.data)));
+  }).then(result => dispatch(fetchDayNightBarSuccess(result.data)));
 };
 
 export const fetchAllWidgets = ({
