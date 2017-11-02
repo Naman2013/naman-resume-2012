@@ -81,6 +81,11 @@ import PaymentInfo from './pages/settings/PaymentInfo';
 import Profile from './pages/settings/Profile';
 import SocialNetwork from './pages/settings/SocialNetwork';
 
+import AuthorList from './containers/pulse/AuthorList';
+import AuthorWrapper from './containers/pulse/AuthorWrapper';
+import AuthorPostList from './pages/pulse/AuthorPostList';
+
+
 import PublishPost from './pages/publish-post/publish-post';
 import PulsePostList from './pages/pulse/pulse-post-list';
 import PulsePostContent from './pages/pulse/pulse-post';
@@ -184,6 +189,28 @@ ReactDOM.render(
 
         <Route path="best-of-slooh" component={BestOfSlooh} onEnter={validateUser} />
         <Route path="publish-post" component={PublishPost} onEnter={validateUser} />
+
+        <Route path="authors/:authorId" component={AuthorList} onEnter={validateUser}>
+          <IndexRedirect to="latest" />
+
+          <Route path="latest" component={AuthorWrapper}>
+            <IndexRedirect to="all" />
+            <Route path="all" name="all" component={AuthorPostList} />
+            <Route path="scienceLog" name="scienceLog" component={AuthorPostList} />
+            <Route path="artCulture" name="artCulture" component={AuthorPostList} />
+            <Route path="humanSpirit" name="humanSpirit" component={AuthorPostList} />
+            <Route path="diy" name="diy" component={AuthorPostList} />
+          </Route>
+
+          <Route path="hottest" component={AuthorWrapper}>
+            <IndexRedirect to="all" />
+            <Route path="all" name="all" component={AuthorPostList} />
+            <Route path="scienceLog" name="scienceLog" component={AuthorPostList} />
+            <Route path="artCulture" name="artCulture" component={AuthorPostList} />
+            <Route path="humanSpirit" name="humanSpirit" component={AuthorPostList} />
+            <Route path="diy" name="diy" component={AuthorPostList} />
+          </Route>
+        </Route>
 
         <Route path="slooh-pulse" component={PulseList} onEnter={validateUser}>
           <IndexRedirect to="latest-posts" />
