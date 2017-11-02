@@ -35,11 +35,13 @@ class LiveMission extends Component {
           {
             missionAvailable ?
               <div>
-                <div className="header">
-                  <h3 className="title">CURRENT LIVE MISSION:</h3>
-                  <div className="current-mission-title">
-                    <img alt="" height="25" src={objectIconURL} />
-                    <p className="mission-title">{objectTitle}</p>
+                <div>
+                  <div className="current-mission-title-container">
+                    <img alt="" height="50" src={objectIconURL} />
+                    <div className="current-mission-title">
+                      <h3 className="title">CURRENT LIVE MISSION</h3>
+                      <p className="mission-title">{objectTitle}</p>
+                    </div>
                   </div>
                 </div>
 
