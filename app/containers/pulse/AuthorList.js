@@ -6,7 +6,7 @@ import AnnouncementBanner from '../../components/common/announcement-banner/anno
 import PulseListHeader from '../../components/pulse/pulse-list-header';
 import CategoriesNav from '../../components/community/categories-nav';
 import { fetchPageMeta } from '../../modules/author-posts-page-layout/actions';
-import { fetchContent } from '../../modules/pulse/get-post-action';
+import { fetchAuthorContent } from '../../modules/author-content/actions';
 
 const {
   number,
@@ -17,10 +17,8 @@ const {
 
 
 function mapStateToProps({ authorPostsLayout }) {
-  // const { children: { props } } = ownProps;
   return {
     pageMeta: authorPostsLayout,
-    // childPath: props.children.props.route.path
   };
 }
 
@@ -28,7 +26,7 @@ function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators({
       fetchPageMeta,
-      fetchContent,
+      fetchAuthorContent,
     }, dispatch)
   };
 }
@@ -38,7 +36,7 @@ class AuthorList extends Component {
   static propTypes = {
     actions: shape({
       fetchPageMeta: func.isRequired,
-      fetchContent: func.isRequired,
+      fetchAuthorContent: func.isRequired,
     }).isRequired,
     params: shape({
       authorId: string.isRequired,
@@ -96,7 +94,8 @@ class AuthorList extends Component {
         }));
       }
     });
-    actions.fetchContent({
+
+    actions.fetchAuthorContent({
       authorId,
     });
   }
@@ -105,15 +104,15 @@ class AuthorList extends Component {
     const {
       route,
       location,
-      // actions: { fetchLatestPosts, fetchHottestPosts },
-      latestPosts,
-      fetching,
-      childPath,
+      actions: { fetchAuthorContent },
       children,
       pageMeta: {
         headerTitle,
         headerSubtitle,
         showCreateNewPostButton,
+        showFeaturedObjects,
+        showAdUnit,
+        showPopularPosts,
       },
     } = this.props;
     const { navigationList } = this.state;
@@ -127,18 +126,22 @@ class AuthorList extends Component {
           showCreateNewPostButton={showCreateNewPostButton}
         />
 
-        <CategoriesNav route={route} location={location} list={navigationList} />
+        <CategoriesNav
+          route={route}
+          location={location}
+          list={navigationList}
+          className="grey"
+        />
 
-        {/*
+        {
           cloneElement(children, {
-            // fetchLatestPosts,
-            // fetchHottestPosts,
-            childPath,
-            latestPosts,
-            fetching,
+            fetchAuthorContent,
+            showFeaturedObjects,
+            showAdUnit,
+            showPopularPosts,
           })
-        */}
-
+        }
+        
       </div>
     );
   }
