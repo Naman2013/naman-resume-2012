@@ -202,6 +202,7 @@ ReactDOM.render(
             <Route path="diy" name="diy" component={AuthorPostList} />
           </Route>
 
+          {/*         
           <Route path="hottest" component={AuthorWrapper}>
             <IndexRedirect to="all" />
             <Route path="all" name="all" component={AuthorPostList} />
@@ -209,7 +210,7 @@ ReactDOM.render(
             <Route path="artCulture" name="artCulture" component={AuthorPostList} />
             <Route path="humanSpirit" name="humanSpirit" component={AuthorPostList} />
             <Route path="diy" name="diy" component={AuthorPostList} />
-          </Route>
+          </Route> */}
         </Route>
 
         <Route path="slooh-pulse" component={PulseList} onEnter={validateUser}>

@@ -74,7 +74,7 @@ class PulsePostContent extends Component {
 
           <PulsePostDate date={creationDate} type={type} iconURL={typeIconURL} />
           {
-            S3Files.length > 0 ? <PulsePostThumbnails images={S3Files} /> : null
+            S3Files && S3Files.length > 0 ? <PulsePostThumbnails images={S3Files} /> : null
           }
           <figcaption className={styles.PulsePostListInfoDesc}>
             <div dangerouslySetInnerHTML={{ __html: showExcerpt ? excerpt : content }} />
