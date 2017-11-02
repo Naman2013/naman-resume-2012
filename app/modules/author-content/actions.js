@@ -27,7 +27,7 @@ export const fetchAuthorContent = ({
   callSource = 'community',
 }) => (dispatch, getState) => {
   const { cid, at, token } = getState().user;
-  const { content } = getState().post;
+  const { count } = getState().authorContent;
   dispatch(fetchAuthorContentStart());
   return axios.post(' /api/content/getContent', {
     cid,
@@ -39,7 +39,7 @@ export const fetchAuthorContent = ({
     page,
     slug,
     slugLookupId,
-    count: content.count,
+    count,
   })
   .then(result => dispatch(fetchAuthorContentSuccess(Object.assign({ page }, result.data))))
   .catch(error => dispatch(fetchAuthorContentFail(error)));
