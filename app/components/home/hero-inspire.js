@@ -181,6 +181,9 @@ class HeroInspire extends Component {
         <style>{`
           img.divider-image {
             margin-right: 4px;
+            display: block;
+            margin: auto;
+            text-align: center;
           }
           div.call-to-action {
             display: inline-block;
