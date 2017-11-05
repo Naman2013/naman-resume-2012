@@ -3,11 +3,11 @@
 exports[`it should render a menu 1`] = `
 <div
   className="pulseListHeader"
-  data-jsx={674672964}
+  data-jsx={835320471}
 >
   <div
     className="title"
-    data-jsx={674672964}
+    data-jsx={835320471}
   >
     <h1
       className="header-title"
@@ -16,7 +16,7 @@ exports[`it should render a menu 1`] = `
           "__html": "",
         }
       }
-      data-jsx={674672964}
+      data-jsx={835320471}
     />
     <div
       className="header-subtitle"
@@ -25,7 +25,7 @@ exports[`it should render a menu 1`] = `
           "__html": "",
         }
       }
-      data-jsx={674672964}
+      data-jsx={835320471}
     />
   </div>
   <style
@@ -47,7 +47,7 @@ exports[`it should render a menu 1`] = `
       }
 
       .title {
-
+        max-width: 80%;
       }
 
       :global(.header-button) {

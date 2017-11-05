@@ -25,7 +25,7 @@ class AuthorPostList extends Component {
   static defaultProps = {
     childPath: 'all',
   }
-  
+
   prepareData = (posts, firstPostIndex) => {
     return posts.map((v, k) =>
       <div key={uniqueId()}>
