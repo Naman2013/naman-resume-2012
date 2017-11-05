@@ -56,6 +56,8 @@ class GoogleAd extends Component {
 
             .advertisement {
               margin: 0 auto;
+              max-width:100%;
+
             }
 
             p {

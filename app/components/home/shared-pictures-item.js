@@ -222,6 +222,10 @@ class SharedPicturesItem extends Component {
             flex-wrap: wrap;
             -ms-flex-wrap: wrap;
           }
+          @media(max-width:767px){
+
+              .container{padding:0px}
+          }
 
           .shared-image {
             ${backgroundImageCover}
@@ -235,6 +239,11 @@ class SharedPicturesItem extends Component {
             width: 100%;
             padding-top: 68.49%;
           }
+            @media(max-width:640px){
+            //.shared-image{width:300px}
+            //.info-panel{padding-left:10px}
+
+            }
 
           .profile-photo {
             ${backgroundImageCover};

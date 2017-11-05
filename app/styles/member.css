@@ -19,7 +19,9 @@
     .member .memberInfo .avatar {
       width: 30px;
       height: 30px;
-      background-size: 100%;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
       border-radius: 15px;
       margin-right: 10px; }
     .member .memberInfo .messages {

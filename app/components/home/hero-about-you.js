@@ -148,6 +148,22 @@ const HeroAboutYou = ({
       .stat:last-child {
         border: none;
       }
+
+      @media(max-width:768px){
+
+            .ad{margin-top:20px; max-width:100%}
+            .ad .root {overflow:hidden}
+            h2.name{font-size:20px;}
+            h4.membership{font-size:14px}
+      }
+      @media(max-width:767px){
+        .hero-about-you{padding:10px}
+      }
+      @media(max-width:640px){
+
+        .info, .ad{display:block; max-width:100%}
+
+      }
     `}</style>
   </div>);
 

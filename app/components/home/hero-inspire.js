@@ -182,6 +182,14 @@ class HeroInspire extends Component {
           img.divider-image {
             margin-right: 4px;
           }
+          @media(max-width:640px){
+           img.divider-image { display:block; margin:0px auto}
+          }
+          @media(max-width:675px){
+          .hero-container-inspire{padding:0px 10px}
+
+          }
+
           div.call-to-action {
             display: inline-block;
             margin-top: 20px;
@@ -190,6 +198,10 @@ class HeroInspire extends Component {
           }
           a.action {
             width: 215px;
+          }
+            @media(max-width:375px){
+            div.call-to-action {display:block; margin:20px auto}
+            div.call-to-action a.action{margin:0px auto}
           }
           `}
         </style>
