@@ -377,20 +377,12 @@ class TelescopeDetails extends Component {
                     title="Community Perspectives"
                     subtitle="Learn more about this object through the various lenses of science, culture, and spirituality."
                   />
-                  <CommunityPerspectives communityContent={communityContent} />
+                  <CommunityPerspectives
+                    communityContent={communityContent}
+                    sortType="randomized"
+                  />
                 </div>
               ) : null}
-
-              <div>
-                <PromoMessageBanner
-                  title="Community Perspectives"
-                  subtitle="Learn more about this object through the various lenses of science, culture, and spirituality."
-                />
-                <CommunityPerspectives
-                  communityContent={TEST_COMMUNITY_CONTENT.posts}
-                  sortType="randomized"
-                />
-              </div>
 
               <TelescopeDetailsTabs
                 obsId={currentObservatory.obsId}

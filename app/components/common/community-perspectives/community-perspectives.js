@@ -101,6 +101,8 @@ class CommunityPerspectives extends Component {
         activeCatagory: perspectiveCategory.catagory,
       });
     }
+
+    this.generateCommunityPostsMap();
   }
 
   getPosts(postType) {
