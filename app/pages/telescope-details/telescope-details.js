@@ -141,6 +141,20 @@ class TelescopeDetails extends Component {
     }
   }
 
+  // TODO: test closing the neoview on some navigation between observatories / telescopes
+  componentWillReceiveProps(nextProps) {
+    const { params: { obsUniqueId, teleUniqueId } } = nextProps;
+    const isTelescopeUpdate = teleUniqueId !== this.props.params.teleUniqueId;
+    const isObservatoryUpdate = obsUniqueId !== this.props.params.obsUniqueId;
+    const { neoviewOpen } = this.state;
+
+    if (isObservatoryUpdate || isTelescopeUpdate) {
+      if (neoviewOpen) {
+        this.toggleNeoview();
+      }
+    }
+  }
+
   componentWillUpdate(nextProps) {
     const isNewObservatory = this.props.params.obsUniqueId !== nextProps.params.obsUniqueId;
     const isNewTelescope = this.props.params.teleUniqueId !== nextProps.params.teleUniqueId;
@@ -193,6 +207,7 @@ class TelescopeDetails extends Component {
 
   handleSelect = (index) => {
     this.setState({
+      neoviewOpen: false,
       selectedTab: index,
     });
   };
