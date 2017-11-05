@@ -82,7 +82,6 @@ class CommunityPerspectives extends Component {
         ),
       }),
     ),
-    actions: PropTypes.object,
   };
 
   static defaultProps = {
