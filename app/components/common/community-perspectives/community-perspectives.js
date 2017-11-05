@@ -8,51 +8,23 @@ import orderBy from 'lodash/orderBy';
 import CommunityPost from './community-post';
 import CallToAction from './call-to-action';
 import Spacer from './../../common/spacer';
+import perspectiveCatagories, { SCIENCE_LOG } from './perspective-catagories';
 import './community-perspectives.scss';
 import './slick.min.css';
 import './slick-theme.min.css';
 
-const SCIENCE_LOG = 'SCIENCE_LOG';
-const ART_CULTURE = 'ART_CULTURE';
-const HUMAN_SPIRIT = 'HUMAN_SPIRIT';
-const DIY = 'DIY';
+const SORTED = 'sorted';
+const RANDOMIZED = 'randomized';
 
 const getIconStyleInline = svgUrl => ({
   maskImage: `url(${svgUrl})`,
   WebkitMaskImage: `url(${svgUrl})`,
 });
 
-const perspectiveCatagories = [
-  {
-    title: 'Science log',
-    icon: 'https://vega.slooh.com/icons/community/science_log.svg',
-    catagory: SCIENCE_LOG,
-    contentKey: 'scienceLog',
-  },
-  {
-    title: 'Art & culture',
-    icon: 'https://vega.slooh.com/icons/community/art_culture.svg',
-    catagory: ART_CULTURE,
-    contentKey: 'artCulture',
-  },
-  {
-    title: 'Human spirit',
-    icon: 'https://vega.slooh.com/icons/community/human_spirit.svg',
-    catagory: HUMAN_SPIRIT,
-    contentKey: 'humanSpirit',
-  },
-  {
-    title: 'diy',
-    icon: 'https://vega.slooh.com/icons/community/DIY.svg',
-    catagory: DIY,
-    contentKey: 'diy',
-  },
-];
-
 class CommunityPerspectives extends Component {
   static propTypes = {
     sortOrder: PropTypes.arrayOf(PropTypes.string.isRequired),
-    sortType: PropTypes.oneOf(['random', 'sorted']),
+    sortType: PropTypes.oneOf([RANDOMIZED, SORTED]),
     showCallToAction: PropTypes.bool,
     showSliderBorder: PropTypes.bool,
     showArrows: PropTypes.bool,
@@ -88,7 +60,7 @@ class CommunityPerspectives extends Component {
 
   static defaultProps = {
     sortOrder: ['likesCount', 'creationDate'],
-    sortType: 'sorted',
+    sortType: SORTED,
     showCallToAction: true,
     showSliderBorder: true,
     showArrows: true,
