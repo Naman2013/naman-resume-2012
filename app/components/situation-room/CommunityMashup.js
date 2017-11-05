@@ -52,7 +52,7 @@ class CommunityMashup extends Component {
             {
               hasPerspectives ?
                 <Tab className={s.tab}>
-                  <h5 className={s.tabTitle}>Community Perspectives</h5>
+                  <h5 className={s.tabTitle}>Illuminations</h5>
                 </Tab> : null
             }
 

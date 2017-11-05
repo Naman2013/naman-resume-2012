@@ -13,18 +13,9 @@ const PostingGuidelines = () => (
     <div className="help-page-inner">
       <div className="help-page-section">
         <div>
-          <div className="help-page-paragraph">Thank you for your participation in the Slooh community!</div>
-          <div className="help-page-paragraph">Community Perspectives posts are meant to be recorded for posterity, to add layers of depth to the experience of looking through a telescope on Slooh. Popular and interesting posts will also be featured during Slooh shows, and promoted by Slooh via social media.</div>
-          <div className="help-page-paragraph">We are looking to curate and organize any content inspired by space, including your own original creations. We seek personal narratives, interesting facts, ancient mythology, how-to content, curated snippets from arcane or renowned published works, original creations such as poems, stories, and artwork, and anything that would enhance someone else's appreciation of these objects in the sky.  The best guide in terms of what we are looking for is to follow the standard set with posts such as those you see in <Link to="/best-of-slooh" target="_new">Best of Community.</Link></div>
-          <div className="help-page-paragraph">
-            Community Perspectives posts are displayed within the Community section of the website, and in the modules below the live telescope feeds and in the Situation Room, so members of the community can benefit from what other members know about specific objects or types of objects. Each post is meant to be associated with one of the Slooh 500 objects on the website, and will appear when the telescope is pointed at that object.
-          </div>
-          <div className="help-page-paragraph">
-            Posts will appear in order based on the number of likes they receive, so the most popular content appears first. For every object in the Slooh 500, we are going to award the title of "Guardian" to the member who receives the most likes for their posts related to that object. Members are also encouraged to share their own and other favorite posts with friends and followers beyond the Slooh community as a means of sharing the experience and attracting more likes to your posts.
-          </div>
-          <div className="help-page-paragraph">
-            We read all posts before they are published to confirm it is a good fit, conforms with editorial standards, and is appropriate for a family friendly environment. Posts may be edited slightly for grammar, spelling, categorization or to conform with editorial standards. Posts may also be rejected outright, with specific reasons provided in the hope you will revise and resubmit.
-          </div>
+          <div className="help-page-paragraph">Thank you for your interest in becoming a contributing author to Illuminations, our platform to share thoughtful perspectives of outer space. Illuminations adds layers of depth to the experience of looking through a telescope on Slooh. Authors will be featured throughout the website, in shows, and via social media.</div>
+          <div className="help-page-paragraph">We are looking to curate and organize any content inspired by space, including your own original creations. We seek personal narratives, interesting facts, ancient mythology, how-to content, curated snippets from arcane or renowned published works, original creations such as poems, stories, and artwork, and anything that would enhance someone else's appreciation of these objects in the sky. The best guide in terms of what we are looking for is to follow the standard set with posts such as those you see in Best of Illuminations.</div>
+          <div className="help-page-paragraph">We read all posts before they are published to confirm it is a good fit, conforms with editorial standards, and is appropriate for a family friendly environment. Posts may be edited slightly for grammar, spelling, categorization or to conform with editorial standards.</div>
           <div className="help-page-title help-page-paragraph">
             Fair Use
           </div>
