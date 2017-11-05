@@ -181,6 +181,9 @@ class HeroInspire extends Component {
         <style>{`
           img.divider-image {
             margin-right: 4px;
+            display: block;
+            margin: auto;
+            text-align: center;
           }
           @media(max-width:640px){
            img.divider-image { display:block; margin:0px auto}

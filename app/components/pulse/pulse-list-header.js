@@ -35,7 +35,7 @@ const PulseListHeader = ({
       }
 
       .title {
-
+        max-width: 80%;
       }
 
       :global(.header-button) {

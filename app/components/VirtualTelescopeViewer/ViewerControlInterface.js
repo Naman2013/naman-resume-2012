@@ -6,7 +6,7 @@ import ViewControls from './ViewControls';
 import Timestamp from './Timestamp';
 import CoordinateInformation from './CoordinateInformation';
 import ZoomControls from './ZoomControls';
-import Bar from './Bar';
+import MissionProgressBar from './MissionProgressBar';
 import ObjectMetaInformation from './ObjectMetaInformation';
 import MissionTitle from './MissionTitle';
 import ImageProcessingInformation from './ImageProcessingInformation';
@@ -28,11 +28,18 @@ const propTypes = {
   objectTitleShort: PropTypes.string.isRequired,
   processing: PropTypes.string.isRequired,
   schedulingMember: PropTypes.string.isRequired,
+
+  now: PropTypes.number,
+  missionStart: PropTypes.number,
+  missionEnd: PropTypes.number,
 };
 
 const defaultProps = {
   showInfoButton: false,
   handleInfoClick: noop,
+  now: 0,
+  missionStart: 0,
+  missionEnd: 0,
 };
 
 const ViewerControlInterface = ({
@@ -51,6 +58,9 @@ const ViewerControlInterface = ({
   objectTitleShort,
   processing,
   schedulingMember,
+  now,
+  missionStart,
+  missionEnd,
 }) => (
   <div className="root">
     <div className="top">
@@ -80,7 +90,11 @@ const ViewerControlInterface = ({
         />
       </div>
       <div className="cosmetic-bar-shape">
-        <Bar />
+        <MissionProgressBar
+          now={now}
+          missionStart={missionStart}
+          missionEnd={missionEnd}
+        />
       </div>
     </div>
 

@@ -17,6 +17,8 @@ class LiveFeed extends Component {
     }),
     offlineImageSource: PropTypes.string.isRequired,
     timestamp: PropTypes.number,
+    missionStart: PropTypes.number,
+    missionEnd: PropTypes.number,
     activeMission: PropTypes.shape({
       coordinateArray: PropTypes.arrayOf(PropTypes.string),
       missionData: PropTypes.arrayOf(PropTypes.string),
@@ -35,6 +37,8 @@ class LiveFeed extends Component {
     instrument: null,
     obsAlert: '',
     timestamp: 0,
+    missionStart: 0,
+    missionEnd: 0,
     activeMission: {
       coordinateArray: [],
       missionData: [],
@@ -58,6 +62,8 @@ class LiveFeed extends Component {
       activeNeoview,
       handleInfoClick,
       timestamp,
+      missionStart,
+      missionEnd,
       isImageViewerClipped,
     } = this.props;
     const neoview = {
@@ -88,6 +94,8 @@ class LiveFeed extends Component {
         {determineImageLoader(instrument, {
           activeMission,
           timestamp,
+          missionStart,
+          missionEnd,
           neoview,
           isImageViewerClipped,
         })}

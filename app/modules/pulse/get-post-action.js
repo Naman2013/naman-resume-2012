@@ -159,10 +159,6 @@ export const fetchPost = id => (dispatch, getState) => {
         slugLookupId: result.data.posts[0].slugLookupId,
         ignorePostId: id,
       }));
-      dispatch(fetchContent({
-        authorId: result.data.posts[0].customerId,
-        ignorePostId: id,
-      }));
     } else {
       dispatch(fetchPostSuccess(result.data));
     }

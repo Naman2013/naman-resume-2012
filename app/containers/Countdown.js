@@ -88,11 +88,11 @@ export default class Countdown extends PureComponent {
           <span>
             {
               eventIsLive ?
-                <span>Event is LIVE: </span> : null
+                <span>Show is LIVE: </span> : null
             }
             {
               !eventIsLive ?
-                <span>Next LIVE Event: </span> : null
+                <span>Next LIVE Show: </span> : null
             }
             <span>
               <strong><Link to={eventLink}>{eventTitle}</Link></strong>

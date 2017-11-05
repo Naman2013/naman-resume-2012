@@ -3,6 +3,8 @@ import { routerReducer } from 'react-router-redux';
 import { reducer } from 'redux-form';
 import about from './about/reducer';
 import activeTelescopeMissions from './active-telescope-missions/active-telescope-missions-reducer';
+import authorPostsLayout from './author-posts-page-layout/reducer';
+import authorContent from './author-content/reducer';
 import adStats from './ad-management/ad-stats';
 import announcementBanner from './Announcement-Banner';
 import appConfig from './app-config/reducer';
@@ -72,6 +74,8 @@ export default combineReducers({
   announcementBanner,
   appConfig,
   authorization,
+  authorContent,
+  authorPostsLayout,
   avatar,
   bestPosts,
   browseByPopularObjects,

@@ -8,6 +8,7 @@ import telescopeTwo from './assets/sample-telescope-images/Canary_Four_SS_Planet
 import telescopeThree from './assets/sample-telescope-images/Canary_One_HM_Normal_1018x1018.png';
 
 import virtualTelescopeViewerContent from './content/virtualTelescopeViewerContent';
+import liveMissionContent from './content/liveMissionContent';
 
 storiesOf('Virtual Telescope Viewer', module)
   .add('No image...', () => (
@@ -38,7 +39,12 @@ storiesOf('Virtual Telescope Viewer', module)
   ))
   .add('showMissionData is false', () => (
     <LiveImageViewer>
-      <VirtualTelescopeViewer {...virtualTelescopeViewerContent}>
+      <VirtualTelescopeViewer
+        now={liveMissionContent.timestamp}
+        missionStart={liveMissionContent.missionList[0].missionStart}
+        missionEnd={liveMissionContent.missionList[0].expires}
+        {...virtualTelescopeViewerContent}
+      >
         <div>
           <img draggable="false" alt="" src={telescopeThree} />
         </div>
@@ -49,6 +55,9 @@ storiesOf('Virtual Telescope Viewer', module)
     <LiveImageViewer>
       <VirtualTelescopeViewer
         {...virtualTelescopeViewerContent}
+        now={liveMissionContent.timestamp}
+        missionStart={liveMissionContent.missionList[0].missionStart}
+        missionEnd={liveMissionContent.missionList[0].expires}
         showMissionData={true}
       >
         <div>

@@ -13,12 +13,10 @@ class LiveMission extends Component {
     const {
       missionAvailable,
       missionObjective,
-      missionLikeCount,
       expires,
       objectTitle,
       objectIconURL,
       nextMissionAvailable,
-      nextStart,
       nextTitle,
       nextObjectIconURL,
       ownerLocation,
@@ -28,6 +26,7 @@ class LiveMission extends Component {
       ownerAvatarURL,
       showSloohUser,
       showUserDetails,
+      objectDescription,
      } = this.props;
 
     return (
@@ -36,11 +35,13 @@ class LiveMission extends Component {
           {
             missionAvailable ?
               <div>
-                <div className="header">
-                  <h3 className="title">CURRENT LIVE MISSION:</h3>
-                  <div className="current-mission-title">
-                    <img alt="" height="25" src={objectIconURL} />
-                    <p className="mission-title">{objectTitle}</p>
+                <div>
+                  <div className="current-mission-title-container">
+                    <img alt="" height="50" src={objectIconURL} />
+                    <div className="current-mission-title">
+                      <h3 className="title">CURRENT LIVE MISSION</h3>
+                      <p className="mission-title">{objectTitle}</p>
+                    </div>
                   </div>
                 </div>
 
@@ -64,10 +65,10 @@ class LiveMission extends Component {
                 }
 
                 {
-                  missionObjective ?
+                  objectDescription ?
                     <div className="users-quote">
                       <p>
-                        &quot;{missionObjective}&quot;
+                        &quot;{objectDescription}&quot;
                       </p>
                     </div> : null
                 }
@@ -105,28 +106,31 @@ class LiveMission extends Component {
   }
 }
 
-const { string, number, bool } = PropTypes;
 LiveMission.propTypes = {
-  missionAvailable: bool.isRequired,
-  missionObjective: string.isRequired,
-  missionLikeCount: number.isRequired,
-  expires: number.isRequired,
-  objectTitle: string.isRequired,
-  nextMissionAvailable: bool.isRequired,
-  objectIconURL: string.isRequired,
+  missionAvailable: PropTypes.bool.isRequired,
+  missionObjective: PropTypes.string.isRequired,
+  expires: PropTypes.number.isRequired,
+  objectTitle: PropTypes.string.isRequired,
+  nextMissionAvailable: PropTypes.bool.isRequired,
+  objectIconURL: PropTypes.string.isRequired,
 
-  nextStart: number.isRequired,
-  nextTitle: string.isRequired,
-  nextObjectIconURL: string.isRequired,
+  objectDescription: PropTypes.string,
 
-  ownerLocation: string.isRequired,
-  ownerDisplayName: string.isRequired,
-  ownerMembershipType: string.isRequired,
-  ownerMemberSince: string.isRequired,
-  ownerAvatarURL: string.isRequired,
+  nextTitle: PropTypes.string.isRequired,
+  nextObjectIconURL: PropTypes.string.isRequired,
 
-  showSloohUser: bool.isRequired,
-  showUserDetails: bool.isRequired,
+  ownerLocation: PropTypes.string.isRequired,
+  ownerDisplayName: PropTypes.string.isRequired,
+  ownerMembershipType: PropTypes.string.isRequired,
+  ownerMemberSince: PropTypes.string.isRequired,
+  ownerAvatarURL: PropTypes.string.isRequired,
+
+  showSloohUser: PropTypes.bool.isRequired,
+  showUserDetails: PropTypes.bool.isRequired,
+};
+
+LiveMission.defaultProps = {
+  objectDescription: '',
 };
 
 export default LiveMission;

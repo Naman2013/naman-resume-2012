@@ -70,7 +70,7 @@ const NewsArticle = () => (
           CEO of Slooh. When a member is in control of a Slooh telescope, all of
           the other members are able to watch, learn and capture images. The new
           version of Slooh.com builds on this by letting members of the community
-          make posts in &#39;Community Perspectives&#39; about celestial objects
+          make posts in &#39;Illuminations&#39; about celestial objects
           that appear for all the other members to see whenever any of the
           telescopes are looking at that object. Slooh curates these posts, and
           true to its mission, welcomes diverse perspectives about what is

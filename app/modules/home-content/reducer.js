@@ -82,7 +82,7 @@ const initialState = {
       url: '#',
     },
   },
-  COMMUNITY_CONTENT_BAND: 'A Sampling of Slooh Community Content',
+  COMMUNITY_CONTENT_BAND: 'A Sampling of Illuminations Content',
   SPONSORS_CONTENT_BAND: 'A World-Class Network of Partners',
   SPONSORS_SUB_TITLE: 'Our partners help to bring live telescope feeds of the cosmos to the world.',
   SPONSOR_IMAGES: [

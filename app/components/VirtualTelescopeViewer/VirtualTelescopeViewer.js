@@ -44,6 +44,10 @@ const propTypes = {
   processing: PropTypes.string,
   schedulingMember: PropTypes.string,
 
+  now: PropTypes.number,
+  missionStart: PropTypes.number,
+  missionEnd: PropTypes.number,
+
   onPositionChange: PropTypes.func,
 };
 
@@ -66,6 +70,10 @@ const defaultProps = {
   objectTitleShort: '',
   processing: '',
   schedulingMember: '',
+
+  now: 0,
+  missionStart: 0,
+  missionEnd: 0,
 
   onPositionChange: noop,
 };
@@ -140,6 +148,9 @@ class VirtualTelescopeView extends Component {
       objectTitleShort,
       processing,
       schedulingMember,
+      now,
+      missionStart,
+      missionEnd,
     } = this.props;
 
     const { viewerControlInterfaceOpacity, controlledPosition } = this.state;
@@ -194,6 +205,9 @@ class VirtualTelescopeView extends Component {
                 objectTitleShort={objectTitleShort}
                 processing={processing}
                 schedulingMember={schedulingMember}
+                now={now}
+                missionStart={missionStart}
+                missionEnd={missionEnd}
               />
             </div>
           </div>

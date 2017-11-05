@@ -18,7 +18,7 @@ export default class Neoview extends Component {
 
   static defaultProps = {
     toggleNeoview: noop,
-    displayNeoview: false,
+    neoviewOpen: false,
   };
 
   state = {
@@ -88,6 +88,7 @@ export default class Neoview extends Component {
   handleToggleNeoview = () => {
     // call provided prop method to ensure parent controls the display state
     this.props.toggleNeoview();
+
     // update internal state to reflect the appropriate message structure
     this.setState(prevState => ({
       messages: [prevState.latestMessage],

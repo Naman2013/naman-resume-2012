@@ -61,7 +61,7 @@ const Mission = () => (
           the spiritual, the artistic, the imaginative, along with the
           scientific. Ultimately, we believe we offer a meditation of sorts,
           a way to reflect on the light we see, and its subsequent
-          reflection upon others. Look for these new community contributions
+          reflection upon others. Look for these new contributions
           adjacent to our live telescope feeds--and by all means feel free
           to submit your own!
         </p>
