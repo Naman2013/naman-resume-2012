@@ -5,6 +5,7 @@ import classnames from 'classnames';
 import Slider from 'react-slick';
 import find from 'lodash/find';
 import orderBy from 'lodash/orderBy';
+import shuffle from 'lodash/shuffle';
 import CommunityPost from './community-post';
 import CallToAction from './call-to-action';
 import Spacer from './../../common/spacer';
@@ -68,12 +69,10 @@ class CommunityPerspectives extends Component {
     communityContent: [],
   };
 
-  state = {
-    activeCatagory: SCIENCE_LOG,
-    hoverCategory: null,
-  };
+  constructor(props) {
+    super(props);
+    this.generateCommunityPostsMap();
 
-  componentWillMount() {
     const perspectiveCategory = find(
       perspectiveCatagories,
       c => this.filterPosts(this.props.communityContent, c.catagory).length > 0,
@@ -85,6 +84,11 @@ class CommunityPerspectives extends Component {
       });
     }
   }
+
+  state = {
+    activeCatagory: SCIENCE_LOG,
+    hoverCategory: null,
+  };
 
   componentWillReceiveProps(nextProps) {
     const perspectiveCategory = find(
@@ -99,10 +103,35 @@ class CommunityPerspectives extends Component {
     }
   }
 
-  handleNavigationClick = (event, activeCatagory) => {
-    event.preventDefault();
+  getPosts(postType) {
+    const { communityContent, sortOrder, sortType } = this.props;
+    const filteredPosts = communityContent.filter(post => post.type === postType);
+    return sortType === SORTED
+      ? orderBy(filteredPosts, sortOrder, ['desc', 'desc'])
+      : shuffle(filteredPosts);
+  }
+
+  hasRelevantPosts() {
+    const posts = this.props.communityContent;
+
+    const filteredPosts = this.filterPosts(posts);
+    return filteredPosts.length > 0;
+  }
+
+  communityPostsByType: null;
+
+  generateCommunityPostsMap() {
+    const postMap = new Map();
+    perspectiveCatagories.forEach((postType) => {
+      postMap.set(postType.catagory, this.getPosts(postType.contentKey));
+    });
+
+    this.communityPostsByType = postMap;
+  }
+
+  changeHoverCategory = (e, hoverCategory) => {
     this.setState({
-      activeCatagory,
+      hoverCategory,
     });
   };
 
@@ -114,29 +143,25 @@ class CommunityPerspectives extends Component {
     return posts.filter(post => post.type === matchContentKey);
   }
 
-  changeHoverCategory = (e, hoverCategory) => {
+  handleNavigationClick = (event, activeCatagory) => {
+    event.preventDefault();
     this.setState({
-      hoverCategory,
+      activeCatagory,
     });
   };
 
-  hasRelevantPosts() {
-    const posts = this.props.communityContent;
-
-    const filteredPosts = this.filterPosts(posts);
-    return filteredPosts.length > 0;
+  initializeContentMap() {
+    this.generatePosts();
   }
 
   generatePosts() {
-    const { sortOrder } = this.props;
-    const posts = this.props.communityContent;
-    const filteredPosts = this.filterPosts(posts);
-    const hasPosts = filteredPosts.length > 0;
-    const sortedPosts = orderBy(filteredPosts, sortOrder, ['desc', 'desc']);
+    const { activeCatagory } = this.state;
+    const posts = this.communityPostsByType.get(activeCatagory);
+    const hasPosts = posts.length > 0;
 
     // if there ARE posts, show them
     if (hasPosts) {
-      return sortedPosts.map(post => (
+      return posts.map(post => (
         <div key={post.postId}>
           <CommunityPost {...post} />
         </div>
@@ -200,7 +225,7 @@ class CommunityPerspectives extends Component {
                 return (
                   <li
                     key={index}
-                    className=" col-xs-3 category"
+                    className="col-xs-3 category"
                     onMouseOver={(e) => {
                       this.changeHoverCategory(e, perspective.catagory);
                     }}
