@@ -1,15 +1,14 @@
 import React, { Component, cloneElement } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
+import { Link } from 'react-router';
 import { connect } from 'react-redux';
-import Pagination from 'rc-pagination';
 import GenericLoadingBox from '../../components/common/loading-screens/generic-loading-box';
 import PulsePopular from '../../components/pulse/sidebar/pulse-popular';
 import SloohRecommends from '../../components/common/recommendations/SloohRecommends';
 import CommunityPostHeader from '../../components/community/community-post-header';
 import GoogleAd from '../../components/common/google-ads/GoogleAd';
 import { fetchPost, fetchContent } from '../../modules/pulse/get-post-action';
-import PulsePostContent from '../../pages/pulse/pulse-post';
 
 function mapStateToProps({ post }, ownProps) {
   return {
@@ -46,14 +45,14 @@ class PulsePost extends Component {
     }
   }
 
-  fetchMoreAuthorPosts = (page) => {
-    const { actions, content, post } = this.props;
-    actions.fetchContent({
-      page,
-      authorId: post.customerId,
-      ignorePostId: post.postId,
-    });
-  }
+  // fetchMoreAuthorPosts = (page) => {
+  //   const { actions, content, post } = this.props;
+  //   actions.fetchContent({
+  //     page,
+  //     authorId: post.customerId,
+  //     ignorePostId: post.postId,
+  //   });
+  // }
 
   render() {
     const {
@@ -74,10 +73,8 @@ class PulsePost extends Component {
         objectId,
         slugLookupId,
       },
-      content,
     } = this.props;
     const recommendations = [Number(objectId)];
-
     return (
       <div className="clearfix pulse">
 
@@ -103,19 +100,22 @@ class PulsePost extends Component {
             {
               !fetching && failed ? <GenericLoadingBox text="This post is not available." /> : null
             }
-            {content.posts &&
               <div>
-                <h3 className="center">More posts from this author</h3>
-                <hr />
-                {content.posts.map(data => <PulsePostContent showExcerpt="true" post={data} key={data.postId} />)}
+                <h3 className="center">
+                  <Link to={`/authors/${post.customerId}`}>
+                    More posts from this author
+                  </Link>
+                </h3>
+{/*                <hr />
                 <Pagination
                   onChange={this.fetchMoreAuthorPosts}
                   defaultPageSize={content.count}
                   current={content.page}
                   total={content.postsCount}
                 />
+                  */}
               </div>
-            }
+
           </div>
 
           <aside className="col-md-4 mission-sidebar">

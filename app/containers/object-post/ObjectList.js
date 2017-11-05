@@ -164,7 +164,6 @@ class ObjectList extends Component {
           location={location}
           list={generateList({ SlugLookupId })}
           className="grey"
-          isObjects={true}
         />
 
         {
