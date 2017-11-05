@@ -285,9 +285,6 @@ class TelescopeDetails extends Component {
     const currentMissionCountdown = countdownList.find(
       countdown => countdown.teleUniqueId === teleUniqueId,
     );
-    //
-    // console.log(currentTelescopeOnlineStatus);
-    // console.log(currentTelescopeOnlineStatus.onlineStatus);
 
     return (
       <div className="telescope-details-page-wrapper">
@@ -344,6 +341,8 @@ class TelescopeDetails extends Component {
                       offlineImageSource={instrument.instrOfflineImgURL}
                       activeMission={activeTelescopeMission.maskDataArray}
                       timestamp={activeTelescopeMission.timestamp}
+                      missionStart={activeTelescopeMission.missionStart}
+                      missionEnd={activeTelescopeMission.expires}
                       activeNeoview={selectedInstrument.instrHasNeoView}
                       handleInfoClick={this.toggleNeoview}
                       isImageViewerClipped={isImageViewerClipped}

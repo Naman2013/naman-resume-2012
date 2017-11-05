@@ -5,7 +5,10 @@ import { bindActionCreators } from 'redux';
 import noop from 'lodash/noop';
 
 import { setImageDataToSnapshot } from '../../../modules/starshare-camera/starshare-camera-actions';
-import { removeImageViewerClipState, applyImageViewerClipState } from '../../../modules/telescope-details/actions';
+import {
+  removeImageViewerClipState,
+  applyImageViewerClipState,
+} from '../../../modules/telescope-details/actions';
 
 import LiveImageViewer from './';
 import VirtualTelescopeViewer from '../../VirtualTelescopeViewer';
@@ -18,6 +21,8 @@ const propTypes = {
   removeImageViewerClipState: PropTypes.func.isRequired,
   isImageViewerClipped: PropTypes.bool,
   timestamp: PropTypes.number,
+  missionStart: PropTypes.number,
+  missionEnd: PropTypes.number,
   coordinateArray: PropTypes.arrayOf(PropTypes.string),
   missionData: PropTypes.arrayOf(PropTypes.string),
   showMissionData: PropTypes.bool.isRequired,
@@ -42,6 +47,8 @@ const propTypes = {
 const defaultProps = {
   isImageViewerClipped: true,
   timestamp: 0,
+  missionStart: 0,
+  missionEnd: 0,
   coordinateArray: [],
   missionData: [],
   objectTitleShort: '',
@@ -61,40 +68,45 @@ const defaultProps = {
 };
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({
-    setImageDataToSnapshot,
-    removeImageViewerClipState,
-    applyImageViewerClipState,
-  }, dispatch),
+  actions: bindActionCreators(
+    {
+      setImageDataToSnapshot,
+      removeImageViewerClipState,
+      applyImageViewerClipState,
+    },
+    dispatch,
+  ),
 });
 
 @connect(null, mapDispatchToProps)
 class SSELiveImageViewer extends Component {
-  handleZoomUpdate = (scale) => {
-    this.props.actions.setImageDataToSnapshot({
-      zoom: scale,
-    });
-  }
-
-  handlePositionChange = ({ x, y }) => {
-    this.props.actions.setImageDataToSnapshot({
-      originX: x,
-      originY: y,
-    });
-  }
-
   onClipChange = (clipState) => {
     if (clipState) {
       this.props.actions.applyImageViewerClipState();
     } else {
       this.props.actions.removeImageViewerClipState();
     }
-  }
+  };
+
+  handlePositionChange = ({ x, y }) => {
+    this.props.actions.setImageDataToSnapshot({
+      originX: x,
+      originY: y,
+    });
+  };
+
+  handleZoomUpdate = (scale) => {
+    this.props.actions.setImageDataToSnapshot({
+      zoom: scale,
+    });
+  };
 
   render() {
     const {
       isImageViewerClipped,
       timestamp,
+      missionStart,
+      missionEnd,
       coordinateArray,
       missionData,
       showMissionData,
@@ -134,6 +146,9 @@ class SSELiveImageViewer extends Component {
           showInfoButton={showInfoButton}
           handleInfoClick={handleInfoClick}
           onPositionChange={this.handlePositionChange}
+          now={timestamp}
+          missionStart={missionStart}
+          missionEnd={missionEnd}
         >
           <TelescopeImageLoader
             imageSource={imageSource}
