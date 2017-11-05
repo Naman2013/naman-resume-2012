@@ -62,6 +62,7 @@ class OtherFeaturedObjects extends Component {
         <style jsx>{`
           .itemsContainer {
             display: flex;
+            flex-direction: column;
           }
         `}</style>
       </section>

@@ -10,6 +10,7 @@ import { fetchAuthorContent } from '../../modules/author-content/actions';
 import { fetchPopularPosts } from '../../modules/pulse/get-latest-posts-action';
 
 const {
+  bool,
   func,
   shape,
   string,
@@ -45,10 +46,18 @@ class AuthorList extends Component {
     }).isRequired,
     childPath: string,
     authorId: string.isRequired,
+    pageMeta: shape({
+      showAdUnit: bool,
+      showFeaturedObjects: bool,
+      showPopularPosts: bool,
+    })
   };
 
   static defaultProps = {
     childPath: 'all',
+    showAdUnit: false,
+    showFeaturedObjects: false,
+    showPopularPosts: false,
   }
 
   state = {
@@ -118,7 +127,7 @@ class AuthorList extends Component {
     const {
       actions: {
         fetchAuthorContent,
-        fetchPopularPosts
+        fetchPopularPosts,
       },
       childPath,
       children,
@@ -128,6 +137,9 @@ class AuthorList extends Component {
         headerTitle,
         headerSubtitle,
         showCreateNewPostButton,
+        showAdUnit,
+        showFeaturedObjects,
+        showPopularPosts,
       },
     } = this.props;
     const { navigationList } = this.state;
@@ -152,6 +164,9 @@ class AuthorList extends Component {
             fetchPopularPosts,
             fetchAuthorContent,
             childPath,
+            showAdUnit,
+            showFeaturedObjects,
+            showPopularPosts,
           })
         }
 

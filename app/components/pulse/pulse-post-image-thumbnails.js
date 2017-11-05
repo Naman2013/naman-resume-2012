@@ -7,7 +7,7 @@ const PulsePostThumbnail = ({ images }) => {
     <div
       className="thumbnails-container"
     >
-      {images.map(image => <figure>
+      {images.map(image => <figure key={image}>
         <a href={image} target="_blank">
           <img
             key={uniqueId()}
@@ -28,6 +28,7 @@ const PulsePostThumbnail = ({ images }) => {
 
           .thumbnail {
             height: 150px;
+            width: auto;
           }
         `}</style>
     </div>

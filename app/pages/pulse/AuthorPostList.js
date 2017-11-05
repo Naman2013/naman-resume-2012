@@ -4,6 +4,7 @@ import Pagination from 'rc-pagination';
 import { Link } from 'react-router';
 import uniqueId from 'lodash/uniqueId';
 import isEmpty from 'lodash/isEmpty';
+import noop from 'lodash/noop';
 import ByUserTag from '../../components/common/by-user-tag/by-user-tag';
 import CommunityPostTools from '../../components/community/tools/community-post-tools';
 import { lightBlue, pink, black } from '../../styles/variables/colors';
@@ -20,17 +21,23 @@ class AuthorPostList extends Component {
   static propTypes = {
     authorId: string.isRequired,
     childPath: string,
-    count: number.isRequired,
-    fetchAuthorContent: func.isRequired,
+    count: number,
+    fetchAuthorContent: func,
     firstPostIndex: number,
-    page: number.isRequired,
-    posts: arrayOf(shape({})).isRequired,
-    postsCount: number.isRequired,
+    page: number,
+    posts: arrayOf(shape({})),
+    postsCount: number,
   }
 
   static defaultProps = {
     childPath: 'all',
     firstPostIndex: 0,
+    count: 0,
+    page: 0,
+    posts: [],
+    authorId: '',
+    postsCount: 0,
+    fetchAuthorContent: noop,
   }
 
   prepareData = (posts, firstPostIndex) => {
@@ -124,6 +131,7 @@ class AuthorPostList extends Component {
               font-size: 16px;
               color: ${black};
               padding: 35px 140px 10px 30px;
+              width: 100%;
             }
 
 
@@ -143,10 +151,13 @@ class AuthorPostList extends Component {
               align-items: flex-end;
               height: 90px;
             }
+
+            .author-post-list,
             .author-post-list-info-desc {
               margin-bottom: 0;
               white-space: pre-wrap;
               margin-top: 15px;
+              width: auto;
             }
 
             .author-post-list-info-desc h3 {
