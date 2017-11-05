@@ -186,6 +186,9 @@ class ReserveByCatalog extends Component {
     });
 
     this.props.actions.missionConfirmOpen('reserve');
+
+    /* reset the browse */
+    this.handleCatalogSelect(event);
   }
 
   // TODO: continue to build out and use normalizeMissionInfo instead of running the || guard checks in other places
