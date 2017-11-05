@@ -51,6 +51,8 @@ const perspectiveCatagories = [
 
 class CommunityPerspectives extends Component {
   static propTypes = {
+    sortOrder: PropTypes.arrayOf(PropTypes.string.isRequired),
+    sortType: PropTypes.oneOf(['random', 'sorted']),
     showCallToAction: PropTypes.bool,
     showSliderBorder: PropTypes.bool,
     showArrows: PropTypes.bool,
@@ -85,6 +87,8 @@ class CommunityPerspectives extends Component {
   };
 
   static defaultProps = {
+    sortOrder: ['likesCount', 'creationDate'],
+    sortType: 'sorted',
     showCallToAction: true,
     showSliderBorder: true,
     showArrows: true,
@@ -152,10 +156,11 @@ class CommunityPerspectives extends Component {
   }
 
   generatePosts() {
+    const { sortOrder } = this.props;
     const posts = this.props.communityContent;
     const filteredPosts = this.filterPosts(posts);
     const hasPosts = filteredPosts.length > 0;
-    const sortedPosts = orderBy(filteredPosts, ['likesCount', 'creationDate'], ['desc', 'desc']);
+    const sortedPosts = orderBy(filteredPosts, sortOrder, ['desc', 'desc']);
 
     // if there ARE posts, show them
     if (hasPosts) {
