@@ -39,6 +39,7 @@ import UpcomingMissions from '../../components/telescope-details/UpcomingMission
 
 // TODO: for testing mission data
 // import MISSIONS from '../../components/telescope-details/UpcomingMissions/testData';
+import TEST_COMMUNITY_CONTENT from '../../content/get-object-content';
 // =========================================================
 
 function mapDispatchToProps(dispatch) {
@@ -285,9 +286,6 @@ class TelescopeDetails extends Component {
     const currentMissionCountdown = countdownList.find(
       countdown => countdown.teleUniqueId === teleUniqueId,
     );
-    //
-    // console.log(currentTelescopeOnlineStatus);
-    // console.log(currentTelescopeOnlineStatus.onlineStatus);
 
     return (
       <div className="telescope-details-page-wrapper">
@@ -382,6 +380,14 @@ class TelescopeDetails extends Component {
                   <CommunityPerspectives communityContent={communityContent} />
                 </div>
               ) : null}
+
+              <div>
+                <PromoMessageBanner
+                  title="Community Perspectives"
+                  subtitle="Learn more about this object through the various lenses of science, culture, and spirituality."
+                />
+                <CommunityPerspectives communityContent={TEST_COMMUNITY_CONTENT.posts} />
+              </div>
 
               <TelescopeDetailsTabs
                 obsId={currentObservatory.obsId}

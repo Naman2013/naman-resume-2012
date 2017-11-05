@@ -16,10 +16,12 @@ const SCIENCE_LOG = 'SCIENCE_LOG';
 const ART_CULTURE = 'ART_CULTURE';
 const HUMAN_SPIRIT = 'HUMAN_SPIRIT';
 const DIY = 'DIY';
+
 const getIconStyleInline = svgUrl => ({
   maskImage: `url(${svgUrl})`,
   WebkitMaskImage: `url(${svgUrl})`,
 });
+
 const perspectiveCatagories = [
   {
     title: 'Science log',
@@ -48,14 +50,10 @@ const perspectiveCatagories = [
 ];
 
 class CommunityPerspectives extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      activeCatagory: SCIENCE_LOG,
-      hoverCategory: null,
-    };
-  }
+  state = {
+    activeCatagory: SCIENCE_LOG,
+    hoverCategory: null,
+  };
 
   componentWillMount() {
     const perspectiveCategory = find(
