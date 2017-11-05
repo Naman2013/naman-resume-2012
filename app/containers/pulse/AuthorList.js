@@ -10,10 +10,9 @@ import { fetchAuthorContent } from '../../modules/author-content/actions';
 import { fetchPopularPosts } from '../../modules/pulse/get-latest-posts-action';
 
 const {
-  number,
-  string,
   func,
   shape,
+  string,
 } = PropTypes;
 
 
@@ -24,7 +23,7 @@ const mapStateToProps = ({ authorPostsLayout }, ownProps) => {
     childPath: props.children.props.route.path,
     authorId: String(params.authorId),
   };
-}
+};
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
@@ -58,9 +57,9 @@ class AuthorList extends Component {
         label: 'LATEST',
         route: 'latest',
         linkRoute: `authors/${this.props.params.authorId}/latest`,
-        children: []
-      }
-    ]
+        children: [],
+      },
+    ],
   };
 
   componentDidMount() {
@@ -73,28 +72,28 @@ class AuthorList extends Component {
           {
             label: 'All Categories',
             route: 'all',
-            linkRoute: `authors/${this.props.params.authorId}/latest/all`
+            linkRoute: `authors/${this.props.params.authorId}/latest/all`,
           }, {
             label: 'Science Log',
             route: 'scienceLog',
-            linkRoute: `authors/${this.props.params.authorId}/latest/scienceLog`
+            linkRoute: `authors/${this.props.params.authorId}/latest/scienceLog`,
           }, {
             label: 'Art & Culture',
             route: 'artCulture',
-            linkRoute: `authors/${this.props.params.authorId}/latest/artCulture`
+            linkRoute: `authors/${this.props.params.authorId}/latest/artCulture`,
           }, {
             label: 'Human Spirit',
             route: 'humanSpirit',
-            linkRoute: `authors/${this.props.params.authorId}/latest/humanSpirit`
+            linkRoute: `authors/${this.props.params.authorId}/latest/humanSpirit`,
           }, {
             label: 'DIY',
             route: 'diy',
-            linkRoute: `authors/${this.props.params.authorId}/latest/diy`
+            linkRoute: `authors/${this.props.params.authorId}/latest/diy`,
           },
         ]);
 
         this.setState(() => ({
-          navigationList: newNavList
+          navigationList: newNavList,
         }));
       }
     });
@@ -117,11 +116,14 @@ class AuthorList extends Component {
 
   render() {
     const {
-      route,
-      location,
+      actions: {
+        fetchAuthorContent,
+        fetchPopularPosts
+      },
       childPath,
-      actions: { fetchAuthorContent, fetchPopularPosts },
       children,
+      location,
+      route,
       pageMeta: {
         headerTitle,
         headerSubtitle,

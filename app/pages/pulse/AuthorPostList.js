@@ -8,22 +8,29 @@ import ByUserTag from '../../components/common/by-user-tag/by-user-tag';
 import CommunityPostTools from '../../components/community/tools/community-post-tools';
 import { lightBlue, pink, black } from '../../styles/variables/colors';
 
+const {
+  arrayOf,
+  func,
+  number,
+  shape,
+  string,
+} = PropTypes;
 
 class AuthorPostList extends Component {
   static propTypes = {
-    authorId: PropTypes.string.isRequired,
-    fetchAuthorContent: PropTypes.func.isRequired,
-    pages: PropTypes.number.isRequired,
-    page: PropTypes.number.isRequired,
-    count: PropTypes.number.isRequired,
-    postsCount: PropTypes.number.isRequired,
-    posts: PropTypes.array,
-    path: PropTypes.string,
-    childPath: PropTypes.string,
+    authorId: string.isRequired,
+    childPath: string,
+    count: number.isRequired,
+    fetchAuthorContent: func.isRequired,
+    firstPostIndex: number,
+    page: number.isRequired,
+    posts: arrayOf(shape({})).isRequired,
+    postsCount: number.isRequired,
   }
 
   static defaultProps = {
     childPath: 'all',
+    firstPostIndex: 0,
   }
 
   prepareData = (posts, firstPostIndex) => {
@@ -34,7 +41,7 @@ class AuthorPostList extends Component {
 
           <figure className="author-post-list-info">
             <Link to={`/community/post/${v.postId}`}>
-              <h2 dangerouslySetInnerHTML={{ __html: v.title }} className="author-post-list-info-title"></h2>
+              <h2 dangerouslySetInnerHTML={{ __html: v.title }} className="author-post-list-info-title" />
             </Link>
 
             <div className="row">
@@ -50,7 +57,7 @@ class AuthorPostList extends Component {
               </div>
 
               <div className="col-sm-3 hidden-xs">
-                <img className="icon" src={v.typeIconURL} />
+                <img className="icon" src={v.typeIconURL} alt="icon" />
               </div>
 
               <div className="col-sm-3 hidden-xs">
@@ -69,28 +76,28 @@ class AuthorPostList extends Component {
             </div>
 
 
-             <div className="row visible-xs">
-               <div className="col-xs-6">
-                 <img className="icon" src={v.typeIconURL} />
-               </div>
+            <div className="row visible-xs">
+              <div className="col-xs-6">
+                <img className="icon" src={v.typeIconURL} alt="icon" />
+              </div>
 
-               <div className="col-xs-6">
-                 <div className="author-post-list-tools">
-                   <CommunityPostTools
-                     type={v.type}
-                     authorId={v.customerId}
-                     objectSlug={v.slug}
-                     likesCount={v.likesCount}
-                     showLikePrompt={v.showLikePrompt}
-                     likePrompt={v.likePrompt}
-                     likeId={v.postId}
-                    />
-                 </div>
-               </div>
-               </div>
+              <div className="col-xs-6">
+                <div className="author-post-list-tools">
+                  <CommunityPostTools
+                    type={v.type}
+                    authorId={v.customerId}
+                    objectSlug={v.slug}
+                    likesCount={v.likesCount}
+                    showLikePrompt={v.showLikePrompt}
+                    likePrompt={v.likePrompt}
+                    likeId={v.postId}
+                  />
+                </div>
+              </div>
+            </div>
 
             <figcaption className="author-post-list-info-desc">
-              <span dangerouslySetInnerHTML={{ __html: (v.rubric || v.excerpt) }}></span>
+              <span dangerouslySetInnerHTML={{ __html: (v.rubric || v.excerpt) }} />
             </figcaption>
           </figure>
         </div>
@@ -119,6 +126,13 @@ class AuthorPostList extends Component {
               padding: 35px 140px 10px 30px;
             }
 
+
+            .author-post-list-info .icon {
+              width: 35px;
+              height: 35px;
+              float:right
+            }
+
             .author-post-list-info-title {
               font-size: 35px;
               color: ${pink};
@@ -129,13 +143,13 @@ class AuthorPostList extends Component {
               align-items: flex-end;
               height: 90px;
             }
-            .author-post-list-desc {
+            .author-post-list-info-desc {
               margin-bottom: 0;
               white-space: pre-wrap;
               margin-top: 15px;
             }
 
-            .author-post-list-desc h3 {
+            .author-post-list-info-desc h3 {
               font-weight: 700;
               color: #546069;
               font-size: 15px;

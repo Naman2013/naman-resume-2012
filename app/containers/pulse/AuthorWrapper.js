@@ -22,7 +22,6 @@ const mapStateToProps = ({ authorContent, latestPosts }) => ({
 @connect(mapStateToProps)
 class AuthorWrapper extends Component {
   static propTypes = {
-    authorId: string.isRequired,
     childPath: string,
     count: number.isRequired,
     fetchAuthorContent: func.isRequired,
