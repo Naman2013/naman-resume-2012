@@ -112,6 +112,7 @@ class AuthorPostList extends Component {
         <style jsx>{`
             .author-post-list {
               display: flex;
+              flex-direction: row;
             }
 
             .author-post-list .row {
@@ -120,6 +121,7 @@ class AuthorPostList extends Component {
             }
 
             .author-post-list-id {
+              flex-grow: 0;
               font-size: 110px;
               color: ${lightBlue};
               padding: 0 20px 10px 30px;
@@ -128,6 +130,7 @@ class AuthorPostList extends Component {
             }
 
             .author-post-list-info {
+              flex-grow: 1;
               font-size: 16px;
               color: ${black};
               padding: 35px 140px 10px 30px;
