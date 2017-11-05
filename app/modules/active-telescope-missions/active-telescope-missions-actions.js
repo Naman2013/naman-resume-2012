@@ -93,40 +93,6 @@ const updateActiveMissionCompact = ({ telescopeId, payload }) => (dispatch, getS
   dispatch(commitActiveMissionChange(updatedTelescopes));
 };
 
-const updateActiveMissionFull = ({ telescopeId, payload }) => (dispatch, getState) => {
-  const { telescopes } = getState().activeTelescopeMissions;
-  let updatedTelescopes = telescopes;
-  if (telescopes.some(telescope => telescope.telescopeId === telescopeId)) {
-    updatedTelescopes = telescopes.map((telescope) => {
-      if (telescope.telescopeId === telescopeId) {
-        return Object.assign(telescope, {
-          activeMission: {
-            ...telescope.activeMission,
-            full: payload,
-            fullError: {},
-            fetchingFull: false,
-          },
-        });
-      }
-      return telescope;
-    });
-  } else {
-    updatedTelescopes.push({
-      telescopeId,
-      activeMission: {
-        full: payload,
-        fullError: {},
-        fetchingFull: false,
-        compact: {},
-        compactError: {},
-        fetchingCompact: false,
-      },
-    });
-  }
-
-  dispatch(commitActiveMissionChange(updatedTelescopes));
-};
-
 /**
   see documentation:
   https://docs.google.com/document/d/1rBvwVp2sRhtQMpVOy-xfjAs2oPCvbH-rV9cnnKwFMDM/edit#
