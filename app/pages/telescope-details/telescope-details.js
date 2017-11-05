@@ -397,7 +397,10 @@ class TelescopeDetails extends Component {
                   title="Community Perspectives"
                   subtitle="Learn more about this object through the various lenses of science, culture, and spirituality."
                 />
-                <CommunityPerspectives communityContent={TEST_COMMUNITY_CONTENT.posts} />
+                <CommunityPerspectives
+                  communityContent={TEST_COMMUNITY_CONTENT.posts}
+                  sortType="randomized"
+                />
               </div>
 
               <TelescopeDetailsTabs
