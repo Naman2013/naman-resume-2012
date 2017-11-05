@@ -75,18 +75,11 @@ class AuthorPostList extends Component {
                </div>
 
             <figcaption className="author-post-list-info-desc">
-              {
-                /**
-                  <h3>HOW IT MADE THE LIST</h3>
-                */
-              }
               <span dangerouslySetInnerHTML={{ __html: (v.rubric || v.excerpt) }}></span>
             </figcaption>
-
           </figure>
-
         </div>
-
+        <hr className="author-post-list-hr" />
         <style jsx>{`
             .author-post-list {
               display: flex;
@@ -132,6 +125,21 @@ class AuthorPostList extends Component {
               color: #546069;
               font-size: 15px;
               padding-bottom: 5px;
+            }
+
+            .author-post-list-hr {
+              display: block;
+              width: 90%;
+              margin: 15px auto -10px;
+              background: #E6E6E4;
+              height: 1px;
+              border: 0;
+            }
+
+            @media(max-width:767px){
+              .author-post-list-hr {
+                margin-bottom:10px;
+              }
             }
           `}</style>
       </div>
