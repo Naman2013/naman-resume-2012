@@ -47,7 +47,6 @@ const CommunityPostHeader = ({
         flex-wrap: wrap;
         align-items: center;
         padding: 50px;
-        margin-bottom: 20px;
         justify-content: space-between;
         width: 100%;
       }

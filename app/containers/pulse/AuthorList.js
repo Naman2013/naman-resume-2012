@@ -7,6 +7,7 @@ import PulseListHeader from '../../components/pulse/pulse-list-header';
 import CategoriesNav from '../../components/community/categories-nav';
 import { fetchPageMeta } from '../../modules/author-posts-page-layout/actions';
 import { fetchAuthorContent } from '../../modules/author-content/actions';
+import { fetchPopularPosts } from '../../modules/pulse/get-latest-posts-action';
 
 const {
   number,
@@ -16,20 +17,22 @@ const {
 } = PropTypes;
 
 
-function mapStateToProps({ authorPostsLayout }) {
+const mapStateToProps = ({ authorPostsLayout }, ownProps) => {
+  const { children: { props }, params } = ownProps;
   return {
     pageMeta: authorPostsLayout,
+    childPath: props.children.props.route.path,
+    authorId: String(params.authorId),
   };
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    actions: bindActionCreators({
-      fetchPageMeta,
-      fetchAuthorContent,
-    }, dispatch)
-  };
-}
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators({
+    fetchPageMeta,
+    fetchAuthorContent,
+    fetchPopularPosts,
+  }, dispatch)
+});
 
 @connect(mapStateToProps, mapDispatchToProps)
 class AuthorList extends Component {
@@ -41,9 +44,12 @@ class AuthorList extends Component {
     params: shape({
       authorId: string.isRequired,
     }).isRequired,
+    childPath: string,
+    authorId: string.isRequired,
   };
 
   static defaultProps = {
+    childPath: 'all',
   }
 
   state = {
@@ -58,10 +64,8 @@ class AuthorList extends Component {
   };
 
   componentDidMount() {
-    const { actions, params } = this.props;
+    const { actions, childPath, authorId } = this.props;
     const { navigationList } = this.state;
-    const authorId = params.authorId;
-
     actions.fetchPageMeta(authorId).then((res) => {
       if (res.payload.showPostTypesSubmenu) {
         const newNavList = navigationList;
@@ -97,26 +101,34 @@ class AuthorList extends Component {
 
     actions.fetchAuthorContent({
       authorId,
+      type: childPath,
     });
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { actions, authorId, childPath } = nextProps;
+    if (childPath !== this.props.childPath) {
+      actions.fetchAuthorContent({
+        authorId,
+        type: childPath,
+      });
+    }
   }
 
   render() {
     const {
       route,
       location,
-      actions: { fetchAuthorContent },
+      childPath,
+      actions: { fetchAuthorContent, fetchPopularPosts },
       children,
       pageMeta: {
         headerTitle,
         headerSubtitle,
         showCreateNewPostButton,
-        showFeaturedObjects,
-        showAdUnit,
-        showPopularPosts,
       },
     } = this.props;
     const { navigationList } = this.state;
-
     return (
       <div className="clearfix pulse">
         <AnnouncementBanner />
@@ -135,13 +147,12 @@ class AuthorList extends Component {
 
         {
           cloneElement(children, {
+            fetchPopularPosts,
             fetchAuthorContent,
-            showFeaturedObjects,
-            showAdUnit,
-            showPopularPosts,
+            childPath,
           })
         }
-        
+
       </div>
     );
   }

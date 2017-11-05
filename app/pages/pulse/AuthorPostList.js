@@ -10,7 +10,22 @@ import { lightBlue, pink, black } from '../../styles/variables/colors';
 
 
 class AuthorPostList extends Component {
+  static propTypes = {
+    authorId: PropTypes.string.isRequired,
+    fetchAuthorContent: PropTypes.func.isRequired,
+    pages: PropTypes.number.isRequired,
+    page: PropTypes.number.isRequired,
+    count: PropTypes.number.isRequired,
+    postsCount: PropTypes.number.isRequired,
+    posts: PropTypes.array,
+    path: PropTypes.string,
+    childPath: PropTypes.string,
+  }
 
+  static defaultProps = {
+    childPath: 'all',
+  }
+  
   prepareData = (posts, firstPostIndex) => {
     return posts.map((v, k) =>
       <div key={uniqueId()}>
@@ -147,10 +162,11 @@ class AuthorPostList extends Component {
   }
 
   handlePageChange = (page) => {
-    const { fetchAuthorContent, authorId } = this.props;
+    const { fetchAuthorContent, authorId, childPath } = this.props;
     fetchAuthorContent({
       page,
       authorId,
+      type: childPath,
     });
   };
 
@@ -190,17 +206,5 @@ class AuthorPostList extends Component {
     );
   }
 }
-
-AuthorPostList.propTypes = {
-  authorId: PropTypes.string.isRequired,
-  fetchAuthorContent: PropTypes.func.isRequired,
-  pages: PropTypes.number.isRequired,
-  page: PropTypes.number.isRequired,
-  count: PropTypes.number.isRequired,
-  postsCount: PropTypes.number.isRequired,
-  posts: PropTypes.array,
-  path: PropTypes.string,
-};
-
 
 export default AuthorPostList

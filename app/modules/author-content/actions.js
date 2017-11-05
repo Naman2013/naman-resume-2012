@@ -24,6 +24,7 @@ export const fetchAuthorContent = ({
   authorId,
   slug,
   slugLookupId,
+  type,
   callSource = 'community',
 }) => (dispatch, getState) => {
   const { cid, at, token } = getState().user;
@@ -40,6 +41,7 @@ export const fetchAuthorContent = ({
     slug,
     slugLookupId,
     count,
+    type: [type],
   })
   .then(result => dispatch(fetchAuthorContentSuccess(Object.assign({ page }, result.data))))
   .catch(error => dispatch(fetchAuthorContentFail(error)));

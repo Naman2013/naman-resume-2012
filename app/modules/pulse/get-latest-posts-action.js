@@ -23,7 +23,7 @@ const fetchPopularPostsSuccess = payload => ({
   payload,
 });
 
-const fetchPopularPosts = () => (dispatch) => {
+export const fetchPopularPosts = () => (dispatch) => {
   dispatch(fetchPopularPostsStart());
   return getFeaturedContent({
     featuredType: 'popularPosts',

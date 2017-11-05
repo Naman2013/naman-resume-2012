@@ -10,7 +10,6 @@
 
   &.grey{
     background: grey;
-    margin-top: -20px;
     .categoriesNavContainer{
       height: 85px;
       li {
@@ -113,7 +112,8 @@ float:none;
 
     .categoriesSubNavContainer {
       position: absolute;
-      left: 0px;
+      left: 50%;
+      transform: translateX(-50%);
       text-transform: capitalize;
       padding: 0;
       min-width: 500px;
