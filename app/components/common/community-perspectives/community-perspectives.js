@@ -50,6 +50,49 @@ const perspectiveCatagories = [
 ];
 
 class CommunityPerspectives extends Component {
+  static propTypes = {
+    showCallToAction: PropTypes.bool,
+    showSliderBorder: PropTypes.bool,
+    showArrows: PropTypes.bool,
+    numberOfSlidesToDisplay: PropTypes.number,
+    communityContent: PropTypes.arrayOf(
+      PropTypes.shape({
+        posts: PropTypes.arrayOf(
+          PropTypes.shape({
+            postId: PropTypes.number.isRequired,
+            title: PropTypes.string.isRequired,
+            content: PropTypes.string.isRequired,
+            type: PropTypes.string.isRequired,
+            slug: PropTypes.string.isRequired,
+            objectId: PropTypes.number.isRequired,
+            slugLookupId: PropTypes.number.isRequired,
+            slugDesc: PropTypes.string.isRequired,
+            customerId: PropTypes.string.isRequired,
+            firstName: PropTypes.string.isRequired,
+            location: PropTypes.string.isRequired,
+            membershipType: PropTypes.string.isRequired,
+            displayName: PropTypes.string.isRequired,
+            userId: PropTypes.string.isRequired,
+            memberSince: PropTypes.string.isRequired,
+            avatarType: PropTypes.string.isRequired,
+            avatarURL: PropTypes.string.isRequired,
+            likesCount: PropTypes.number.isRequired,
+            canLikeFlag: PropTypes.number.isRequired,
+          }),
+        ),
+      }),
+    ),
+    actions: PropTypes.object,
+  };
+
+  static defaultProps = {
+    showCallToAction: true,
+    showSliderBorder: true,
+    showArrows: true,
+    numberOfSlidesToDisplay: 2,
+    communityContent: [],
+  };
+
   state = {
     activeCatagory: SCIENCE_LOG,
     hoverCategory: null,
@@ -232,48 +275,5 @@ class CommunityPerspectives extends Component {
     );
   }
 }
-
-CommunityPerspectives.defaultProps = {
-  showCallToAction: true,
-  showSliderBorder: true,
-  showArrows: true,
-  numberOfSlidesToDisplay: 2,
-  communityContent: [],
-};
-
-CommunityPerspectives.propTypes = {
-  showCallToAction: PropTypes.bool,
-  showSliderBorder: PropTypes.bool,
-  showArrows: PropTypes.bool,
-  numberOfSlidesToDisplay: PropTypes.number,
-  communityContent: PropTypes.arrayOf(
-    PropTypes.shape({
-      posts: PropTypes.arrayOf(
-        PropTypes.shape({
-          postId: PropTypes.number.isRequired,
-          title: PropTypes.string.isRequired,
-          content: PropTypes.string.isRequired,
-          type: PropTypes.string.isRequired,
-          slug: PropTypes.string.isRequired,
-          objectId: PropTypes.number.isRequired,
-          slugLookupId: PropTypes.number.isRequired,
-          slugDesc: PropTypes.string.isRequired,
-          customerId: PropTypes.string.isRequired,
-          firstName: PropTypes.string.isRequired,
-          location: PropTypes.string.isRequired,
-          membershipType: PropTypes.string.isRequired,
-          displayName: PropTypes.string.isRequired,
-          userId: PropTypes.string.isRequired,
-          memberSince: PropTypes.string.isRequired,
-          avatarType: PropTypes.string.isRequired,
-          avatarURL: PropTypes.string.isRequired,
-          likesCount: PropTypes.number.isRequired,
-          canLikeFlag: PropTypes.number.isRequired,
-        }),
-      ),
-    }),
-  ),
-  actions: PropTypes.object,
-};
 
 export default CommunityPerspectives;
