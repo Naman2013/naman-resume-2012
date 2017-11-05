@@ -392,6 +392,14 @@ class TelescopeDetails extends Component {
                 </div>
               ) : null}
 
+              <div>
+                <PromoMessageBanner
+                  title="Community Perspectives"
+                  subtitle="Learn more about this object through the various lenses of science, culture, and spirituality."
+                />
+                <CommunityPerspectives communityContent={TEST_COMMUNITY_CONTENT.posts} />
+              </div>
+
               <TelescopeDetailsTabs
                 obsId={currentObservatory.obsId}
                 CurrentConditionsWidgetId={currentObservatory.CurrentConditionsWidgetId}
