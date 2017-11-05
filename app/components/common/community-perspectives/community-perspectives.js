@@ -18,7 +18,7 @@ const HUMAN_SPIRIT = 'HUMAN_SPIRIT';
 const DIY = 'DIY';
 const getIconStyleInline = svgUrl => ({
   maskImage: `url(${svgUrl})`,
-  WebkitMaskImage: `url(${svgUrl})`
+  WebkitMaskImage: `url(${svgUrl})`,
 });
 const perspectiveCatagories = [
   {
@@ -60,7 +60,7 @@ class CommunityPerspectives extends Component {
   componentWillMount() {
     const perspectiveCategory = find(
       perspectiveCatagories,
-      c => (this.filterPosts(this.props.communityContent, c.catagory).length > 0)
+      c => this.filterPosts(this.props.communityContent, c.catagory).length > 0,
     );
 
     if (perspectiveCategory) {
@@ -73,7 +73,7 @@ class CommunityPerspectives extends Component {
   componentWillReceiveProps(nextProps) {
     const perspectiveCategory = find(
       perspectiveCatagories,
-      c => (this.filterPosts(nextProps.communityContent, c.catagory).length > 0)
+      c => this.filterPosts(nextProps.communityContent, c.catagory).length > 0,
     );
 
     if (perspectiveCategory) {
@@ -88,13 +88,13 @@ class CommunityPerspectives extends Component {
     this.setState({
       activeCatagory,
     });
-  }
+  };
 
   filterPosts(posts = [], category) {
     const { activeCatagory } = this.state;
     const active = category || activeCatagory;
-    const matchContentKey =
-      perspectiveCatagories.find(profile => profile.catagory === active).contentKey;
+    const matchContentKey = perspectiveCatagories.find(profile => profile.catagory === active)
+      .contentKey;
     return posts.filter(post => post.type === matchContentKey);
   }
 
@@ -102,7 +102,7 @@ class CommunityPerspectives extends Component {
     this.setState({
       hoverCategory,
     });
-  }
+  };
 
   hasRelevantPosts() {
     const posts = this.props.communityContent;
@@ -121,9 +121,7 @@ class CommunityPerspectives extends Component {
     if (hasPosts) {
       return sortedPosts.map(post => (
         <div key={post.postId}>
-          <CommunityPost
-            {...post}
-          />
+          <CommunityPost {...post} />
         </div>
       ));
     }
@@ -136,12 +134,7 @@ class CommunityPerspectives extends Component {
   }
 
   render() {
-    const {
-      showCallToAction,
-      showSliderBorder,
-      showArrows,
-      numberOfSlidesToDisplay,
-    } = this.props;
+    const { showCallToAction, showSliderBorder, showArrows, numberOfSlidesToDisplay } = this.props;
 
     const sliderStyle = classnames('slide', {
       'with-border': showSliderBorder,
@@ -149,7 +142,6 @@ class CommunityPerspectives extends Component {
 
     const hasRelevantPosts = this.hasRelevantPosts();
     const posts = this.generatePosts();
-
 
     const sliderSettings = {
       dots: true,
@@ -159,58 +151,60 @@ class CommunityPerspectives extends Component {
       slidesToScroll: 1,
       arrows: hasRelevantPosts && posts.length > 1 ? showArrows : false,
       responsive: [
-
         {
           breakpoint: 992,
           settings: {
-            slidesToShow:  hasRelevantPosts ? 2 : 1,
-            slidesToScroll: 1
-          }
+            slidesToShow: hasRelevantPosts ? 2 : 1,
+            slidesToScroll: 1,
+          },
         },
         {
           breakpoint: 480,
           settings: {
             slidesToShow: 1,
-            slidesToScroll: 1
-          }
-        }
-          ]
+            slidesToScroll: 1,
+          },
+        },
+      ],
     };
-
 
     return (
       <div className="telescope-block community-perspectives">
-
         <div className="content">
           <div className="row">
-
             <ul className="col-xs-12 clearfix categories">
-              {
-                perspectiveCatagories.map((perspective, index) => {
-                  const isActiveNonHoveredCategory = !this.state.hoverCategory && (this.state.activeCatagory === perspective.catagory);
-                  const isHoverCategory = this.state.hoverCategory === perspective.catagory;
-                  const navigationClasses = classnames('action', {
-                    active: isActiveNonHoveredCategory || isHoverCategory,
-                  });
-                  return (
-                    <li
-                      key={index}
-                      className=" col-xs-3 category"
-                      onMouseOver={(e) => { this.changeHoverCategory(e, perspective.catagory); }}
-                      onMouseOut={(e) => { this.changeHoverCategory(e, this.state.activeCatagory); }}
+              {perspectiveCatagories.map((perspective, index) => {
+                const isActiveNonHoveredCategory =
+                  !this.state.hoverCategory && this.state.activeCatagory === perspective.catagory;
+                const isHoverCategory = this.state.hoverCategory === perspective.catagory;
+                const navigationClasses = classnames('action', {
+                  active: isActiveNonHoveredCategory || isHoverCategory,
+                });
+                return (
+                  <li
+                    key={index}
+                    className=" col-xs-3 category"
+                    onMouseOver={(e) => {
+                      this.changeHoverCategory(e, perspective.catagory);
+                    }}
+                    onMouseOut={(e) => {
+                      this.changeHoverCategory(e, this.state.activeCatagory);
+                    }}
+                  >
+                    <button
+                      onClick={event => this.handleNavigationClick(event, perspective.catagory)}
+                      className={navigationClasses}
+                      id={perspective.catagory}
                     >
-                      <button
-                        onClick={event => this.handleNavigationClick(event, perspective.catagory)}
-                        className={navigationClasses}
-                        id={perspective.catagory}
-                      >
-                        <p className="title">{perspective.title}</p>
-                        <div className={`icon ${navigationClasses}`} style={getIconStyleInline(perspective.icon)} />
-                      </button>
-                    </li>
-                  );
-                })
-              }
+                      <p className="title">{perspective.title}</p>
+                      <div
+                        className={`icon ${navigationClasses}`}
+                        style={getIconStyleInline(perspective.icon)}
+                      />
+                    </button>
+                  </li>
+                );
+              })}
             </ul>
 
             <div className="col-xs-12">
@@ -226,14 +220,14 @@ class CommunityPerspectives extends Component {
               </Slider>
             </div>
 
-            {
-              showCallToAction ?
-                <div className="col-xs-12">
-                  <Spacer height="20px" />
-                  <Link to="/publish-post" className="btn-primary">Contribute Content</Link>
-                </div> : null
-            }
-
+            {showCallToAction ? (
+              <div className="col-xs-12">
+                <Spacer height="20px" />
+                <Link to="/publish-post" className="btn-primary">
+                  Contribute Content
+                </Link>
+              </div>
+            ) : null}
           </div>
         </div>
       </div>
@@ -254,29 +248,33 @@ CommunityPerspectives.propTypes = {
   showSliderBorder: PropTypes.bool,
   showArrows: PropTypes.bool,
   numberOfSlidesToDisplay: PropTypes.number,
-  communityContent: PropTypes.arrayOf(PropTypes.shape({
-    posts: PropTypes.arrayOf(PropTypes.shape({
-      postId: PropTypes.number.isRequired,
-      title: PropTypes.string.isRequired,
-      content: PropTypes.string.isRequired,
-      type: PropTypes.string.isRequired,
-      slug: PropTypes.string.isRequired,
-      objectId: PropTypes.number.isRequired,
-      slugLookupId: PropTypes.number.isRequired,
-      slugDesc: PropTypes.string.isRequired,
-      customerId: PropTypes.string.isRequired,
-      firstName: PropTypes.string.isRequired,
-      location: PropTypes.string.isRequired,
-      membershipType: PropTypes.string.isRequired,
-      displayName: PropTypes.string.isRequired,
-      userId: PropTypes.string.isRequired,
-      memberSince: PropTypes.string.isRequired,
-      avatarType: PropTypes.string.isRequired,
-      avatarURL: PropTypes.string.isRequired,
-      likesCount: PropTypes.number.isRequired,
-      canLikeFlag: PropTypes.number.isRequired,
-    })),
-  })),
+  communityContent: PropTypes.arrayOf(
+    PropTypes.shape({
+      posts: PropTypes.arrayOf(
+        PropTypes.shape({
+          postId: PropTypes.number.isRequired,
+          title: PropTypes.string.isRequired,
+          content: PropTypes.string.isRequired,
+          type: PropTypes.string.isRequired,
+          slug: PropTypes.string.isRequired,
+          objectId: PropTypes.number.isRequired,
+          slugLookupId: PropTypes.number.isRequired,
+          slugDesc: PropTypes.string.isRequired,
+          customerId: PropTypes.string.isRequired,
+          firstName: PropTypes.string.isRequired,
+          location: PropTypes.string.isRequired,
+          membershipType: PropTypes.string.isRequired,
+          displayName: PropTypes.string.isRequired,
+          userId: PropTypes.string.isRequired,
+          memberSince: PropTypes.string.isRequired,
+          avatarType: PropTypes.string.isRequired,
+          avatarURL: PropTypes.string.isRequired,
+          likesCount: PropTypes.number.isRequired,
+          canLikeFlag: PropTypes.number.isRequired,
+        }),
+      ),
+    }),
+  ),
   actions: PropTypes.object,
 };
 
