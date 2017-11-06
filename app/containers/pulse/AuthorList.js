@@ -73,39 +73,8 @@ class AuthorList extends Component {
 
   componentDidMount() {
     const { actions, childPath, authorId } = this.props;
-    const { navigationList } = this.state;
-    actions.fetchPageMeta(authorId).then((res) => {
-      if (res.payload.showPostTypesSubmenu) {
-        const newNavList = navigationList;
-        newNavList[0].children = newNavList[0].children.concat([
-          {
-            label: 'All Categories',
-            route: 'all',
-            linkRoute: `authors/${this.props.params.authorId}/latest/all`,
-          }, {
-            label: 'Science Log',
-            route: 'scienceLog',
-            linkRoute: `authors/${this.props.params.authorId}/latest/scienceLog`,
-          }, {
-            label: 'Art & Culture',
-            route: 'artCulture',
-            linkRoute: `authors/${this.props.params.authorId}/latest/artCulture`,
-          }, {
-            label: 'Human Spirit',
-            route: 'humanSpirit',
-            linkRoute: `authors/${this.props.params.authorId}/latest/humanSpirit`,
-          }, {
-            label: 'DIY',
-            route: 'diy',
-            linkRoute: `authors/${this.props.params.authorId}/latest/diy`,
-          },
-        ]);
 
-        this.setState(() => ({
-          navigationList: newNavList,
-        }));
-      }
-    });
+    this.getPageMeta(authorId);
 
     actions.fetchAuthorContent({
       authorId,
@@ -115,13 +84,57 @@ class AuthorList extends Component {
 
   componentWillReceiveProps(nextProps) {
     const { actions, authorId, childPath } = nextProps;
-    if (childPath !== this.props.childPath) {
+
+    if (authorId !== this.props.authorId) {
+      this.getPageMeta(authorId);
+    }
+
+    if (childPath !== this.props.childPath || authorId !== this.props.authorId) {
       actions.fetchAuthorContent({
         authorId,
         type: childPath,
       });
     }
   }
+
+  getPageMeta = (authorId) => {
+    const { actions } = this.props;
+    const { navigationList } = this.state;
+    actions.fetchPageMeta(authorId).then((res) => {
+      if (res.payload.showPostTypesSubmenu) {
+        const newNavList = navigationList;
+        newNavList[0].children = [
+          {
+            label: 'All Categories',
+            route: 'all',
+            linkRoute: `authors/${authorId}/latest/all`,
+          }, {
+            label: 'Science Log',
+            route: 'scienceLog',
+            linkRoute: `authors/${authorId}/latest/scienceLog`,
+          }, {
+            label: 'Art & Culture',
+            route: 'artCulture',
+            linkRoute: `authors/${authorId}/latest/artCulture`,
+          }, {
+            label: 'Human Spirit',
+            route: 'humanSpirit',
+            linkRoute: `authors/${authorId}/latest/humanSpirit`,
+          }, {
+            label: 'DIY',
+            route: 'diy',
+            linkRoute: `authors/${authorId}/latest/diy`,
+          },
+        ];
+
+        this.setState(() => ({
+          navigationList: newNavList,
+        }));
+      }
+    });
+
+  }
+
 
   render() {
     const {
