@@ -115,13 +115,18 @@ class AuthorList extends Component {
 
   componentWillReceiveProps(nextProps) {
     const { actions, authorId, childPath } = nextProps;
-    if (childPath !== this.props.childPath) {
+
+    if (authorId !== this.props.authorId) {
+      actions.fetchPageMeta(authorId);
+    }
+    if (childPath !== this.props.childPath || authorId !== this.props.authorId) {
       actions.fetchAuthorContent({
         authorId,
         type: childPath,
       });
     }
   }
+
 
   render() {
     const {
