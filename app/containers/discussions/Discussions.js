@@ -30,6 +30,16 @@ class Discussions extends Component {
     }
   }
 
+  componentWillReceiveProps(nextProps) {
+    const { actions, params: { forumId, topicId } } = nextProps;
+    if (topicId && (forumId !== this.props.params.forumId)) {
+      actions.fetchTopicList({
+        forumId,
+      });
+
+    }
+  }
+
   render() {
     const { topicList, children, forumName, params: { forumId, topicId  } } = this.props;
     const currentTopic = topicList.find(topic => (topic.topicId === Number(topicId)));

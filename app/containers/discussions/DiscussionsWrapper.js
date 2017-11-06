@@ -42,9 +42,9 @@ class DiscussionsWrapper extends Component {
   componentWillReceiveProps(nextProps) {
     const { actions, children } = this.props;
     const { props: { route: { path } } } = children;
-    const { children: nextChildren, params: { topicId } } = nextProps;
+    const { children: nextChildren, params: { topicId, forumId } } = nextProps;
     const { props: { route: { path: nextPath } } } = nextChildren;
-    if (path !== nextPath) {
+    if (path !== nextPath || this.props.params.topicId !== topicId) {
       actions.fetchThreadList({
         sortBy: nextPath,
         topicId,
