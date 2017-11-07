@@ -90,8 +90,8 @@ class SharedPictures extends Component {
       initialSlide: currentIndex,
       adaptiveHeight: false,
       beforeChange: this.beforeSlideChange,
-      nextArrow: <i className="fa fa-arrow-right" />,
-      prevArrow: <i className="fa fa-arrow-left" />,
+      // nextArrow: <div>Next<i className="fa fa-arrow-right" /></div>,
+      // prevArrow: <div><i className="fa fa-arrow-left" /><div>Previous</div></div>,
     };
 
     const images = imageList.map(
@@ -142,7 +142,7 @@ class SharedPictures extends Component {
             @media(max-width:640px){
 
             .shared-container{padding:25px 30px}
-            
+
             }
           .empty {
             padding: 50px;
@@ -200,11 +200,24 @@ class SharedPictures extends Component {
         <style global>
           {`
 
+            .shared-container .slick-prev,
+            .shared-container .slick-next {
+              color: ${white};
+              font-size: 15px;
+            }
+
+            .shared-container .slick-prev.slick-disabled,
+            .shared-container .slick-next.slick-disabled {
+              opacity: .25;
+            }
+
             .shared-container .slick-prev:before {
               font-family: FontAwesome;
               font-style: normal;
               content: "\\f060";
               font-size: 40px;
+              position: absolute;
+              top: -50px;
             }
 
             .shared-container .slick-next:before {
@@ -212,6 +225,8 @@ class SharedPictures extends Component {
               font-style: normal;
               content: "\\f061";
               font-size: 40px;
+              position: absolute;
+              top: -50px;
             }
             @media(max-width:640px){
                       .shared-container .slick-prev:before,
