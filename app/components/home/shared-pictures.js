@@ -200,10 +200,18 @@ class SharedPictures extends Component {
         <style global>
           {`
 
+            .shared-container .slick-prev {
+              z-index: 99999;
+            }
+
             .shared-container .slick-prev,
             .shared-container .slick-next {
               color: ${white};
               font-size: 15px;
+              width: 100px;
+              height: 75px;
+              padding-top: 100px;
+              padding-bottom: 10px;
             }
 
             .shared-container .slick-prev.slick-disabled,
@@ -217,7 +225,7 @@ class SharedPictures extends Component {
               content: "\\f060";
               font-size: 40px;
               position: absolute;
-              top: -50px;
+              top: 40px;
             }
 
             .shared-container .slick-next:before {
@@ -226,7 +234,7 @@ class SharedPictures extends Component {
               content: "\\f061";
               font-size: 40px;
               position: absolute;
-              top: -50px;
+              top: 40px;
             }
             @media(max-width:640px){
                       .shared-container .slick-prev:before,
