@@ -18,15 +18,18 @@ export default `
     margin-bottom: 5px;
   }
 
-  .current-mission-title {
+  .current-mission-title-container {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     margin-bottom: 20px;
+  }
+
+  .current-mission-title {
+    padding-left: 10px;
   }
 
   .mission-title {
     font-weight: 600;
-    padding-left: 10px;
   }
 
   .users-quote {

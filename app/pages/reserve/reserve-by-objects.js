@@ -223,6 +223,9 @@ class ReserveObjects extends Component {
     });
 
     this.props.actions.missionConfirmOpen('reserve');
+
+    /* reset the browse */
+    this.handleClearBrowse(event);
   }
 
   get mappedObjects() {

@@ -139,7 +139,11 @@ class SharedPictures extends Component {
             min-height: 500px;
             margin-bottom: 35px;
           }
+            @media(max-width:640px){
 
+            .shared-container{padding:25px 30px}
+            
+            }
           .empty {
             padding: 50px;
             text-align: center;
@@ -208,6 +212,11 @@ class SharedPictures extends Component {
               font-style: normal;
               content: "\\f061";
               font-size: 40px;
+            }
+            @media(max-width:640px){
+                      .shared-container .slick-prev:before,
+                      .shared-container .slick-next:before {font-size:20px !important}
+
             }
           `}
         </style>

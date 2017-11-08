@@ -32,7 +32,7 @@ it('it should render a defined header', () => {
 
 it('it should render a title and subtitle if one is passed', () => {
   const testData = {
-    title: 'Community Perspectives',
+    title: 'Illuminations',
     subtitle: 'subtitle',
     showCreateNewPostButton: false,
   };

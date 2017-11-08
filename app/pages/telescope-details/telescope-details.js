@@ -37,10 +37,6 @@ import TelescopeDetailsTabs from '../../components/telescope-details/TelescopeDe
 import TelescopeSelection from '../../components/telescopes/selection-widget/telescope-selection';
 import UpcomingMissions from '../../components/telescope-details/UpcomingMissions/UpcomingMissions';
 
-// TODO: for testing mission data
-// import MISSIONS from '../../components/telescope-details/UpcomingMissions/testData';
-// =========================================================
-
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators(
@@ -145,6 +141,20 @@ class TelescopeDetails extends Component {
     }
   }
 
+  // TODO: test closing the neoview on some navigation between observatories / telescopes
+  componentWillReceiveProps(nextProps) {
+    const { params: { obsUniqueId, teleUniqueId } } = nextProps;
+    const isTelescopeUpdate = teleUniqueId !== this.props.params.teleUniqueId;
+    const isObservatoryUpdate = obsUniqueId !== this.props.params.obsUniqueId;
+    const { neoviewOpen } = this.state;
+
+    if (isObservatoryUpdate || isTelescopeUpdate) {
+      if (neoviewOpen) {
+        this.toggleNeoview();
+      }
+    }
+  }
+
   componentWillUpdate(nextProps) {
     const isNewObservatory = this.props.params.obsUniqueId !== nextProps.params.obsUniqueId;
     const isNewTelescope = this.props.params.teleUniqueId !== nextProps.params.teleUniqueId;
@@ -197,6 +207,7 @@ class TelescopeDetails extends Component {
 
   handleSelect = (index) => {
     this.setState({
+      neoviewOpen: false,
       selectedTab: index,
     });
   };
@@ -285,9 +296,6 @@ class TelescopeDetails extends Component {
     const currentMissionCountdown = countdownList.find(
       countdown => countdown.teleUniqueId === teleUniqueId,
     );
-    //
-    // console.log(currentTelescopeOnlineStatus);
-    // console.log(currentTelescopeOnlineStatus.onlineStatus);
 
     return (
       <div className="telescope-details-page-wrapper">
@@ -344,6 +352,8 @@ class TelescopeDetails extends Component {
                       offlineImageSource={instrument.instrOfflineImgURL}
                       activeMission={activeTelescopeMission.maskDataArray}
                       timestamp={activeTelescopeMission.timestamp}
+                      missionStart={activeTelescopeMission.missionStart}
+                      missionEnd={activeTelescopeMission.expires}
                       activeNeoview={selectedInstrument.instrHasNeoView}
                       handleInfoClick={this.toggleNeoview}
                       isImageViewerClipped={isImageViewerClipped}
@@ -376,7 +386,7 @@ class TelescopeDetails extends Component {
               {displayCommunityContent && telescopeOnline && activeDetailsSSE.astroObjectID > 0 ? (
                 <div>
                   <PromoMessageBanner
-                    title="Community Perspectives"
+                    title="Illuminations"
                     subtitle="Learn more about this object through the various lenses of science, culture, and spirituality."
                   />
                   <CommunityPerspectives communityContent={communityContent} />
@@ -396,13 +406,6 @@ class TelescopeDetails extends Component {
 
             {/** right side bar */}
             <div className="col-sm-4 telescope-details-sidebar">
-              <GoogleAd
-                adURL={'/5626790/Recommends'}
-                adWidth={300}
-                adHeight={250}
-                targetDivID={'div-gpt-ad-1495111021281-0'}
-              />
-
               {currentObservatory.showCountdown &&
                 currentMissionCountdown && (
                   <SunsetCountdown
@@ -412,16 +415,10 @@ class TelescopeDetails extends Component {
                   />
                 )}
 
-              <MoonlightWidget
-                obsId={currentObservatory.obsId}
-                widgetID={currentObservatory.MoonlightBarWidgetId}
-              />
-
               {activeTelescopeMission.missionAvailable ||
               activeTelescopeMission.nextMissionAvailable ? (
                 <div>
                   <LiveMission {...activeTelescopeMission} />
-
                   <TelescopeAllSky
                     obsId={currentObservatory.obsId}
                     AllskyWidgetId={currentObservatory.SkyChartWidgetId}
@@ -431,6 +428,18 @@ class TelescopeDetails extends Component {
                   <UpcomingMissions missions={activeTelescopeMission.upcomingMissionArray} />
                 </div>
               ) : null}
+
+              <MoonlightWidget
+                obsId={currentObservatory.obsId}
+                widgetID={currentObservatory.MoonlightBarWidgetId}
+              />
+
+              <GoogleAd
+                adURL={'/5626790/Recommends'}
+                adWidth={300}
+                adHeight={250}
+                targetDivID={'div-gpt-ad-1495111021281-0'}
+              />
             </div>
           </div>
         </div>
