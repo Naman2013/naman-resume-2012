@@ -239,9 +239,12 @@ class SharedPictures extends Component {
               position: absolute;
               top: 40px;
             }
-            @media(max-width:640px){
+            @media(max-width:736px){
+                      .shared-container .slick-prev,  .shared-container .slick-next{padding:0px; height:auto; text-indent:-9999999px}
+                      .shared-container .slick-prev {left:-45px}
+                      .shared-container .slick-next {right:-51px}
                       .shared-container .slick-prev:before,
-                      .shared-container .slick-next:before {font-size:20px !important}
+                      .shared-container .slick-next:before {text-indent:0px; font-size:20px !important}
 
             }
           `}

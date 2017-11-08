@@ -240,8 +240,9 @@ class SharedPicturesItem extends Component {
             padding-top: 68.49%;
           }
             @media(max-width:640px){
-            //.shared-image{width:300px}
-            //.info-panel{padding-left:10px}
+            .shared-pictures-item .container {display:block}
+            .shared-image, .info-panel{width:100%}
+
 
             }
 
