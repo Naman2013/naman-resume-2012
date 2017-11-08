@@ -212,6 +212,7 @@ class SharedPictures extends Component {
               height: 75px;
               padding-top: 100px;
               padding-bottom: 10px;
+              text-align: middle;
             }
 
             .shared-container .slick-prev.slick-disabled,
@@ -225,6 +226,7 @@ class SharedPictures extends Component {
               content: "\\f060";
               font-size: 40px;
               position: absolute;
+              left: 25px;
               top: 40px;
             }
 
@@ -233,6 +235,7 @@ class SharedPictures extends Component {
               font-style: normal;
               content: "\\f061";
               font-size: 40px;
+              right: 30px;
               position: absolute;
               top: 40px;
             }
