@@ -285,6 +285,7 @@ class SharedPicturesItem extends Component {
           .title {
             text-transform: uppercase;
             font-weight: bold;
+            width: 80%;
           }
 
           .description {
