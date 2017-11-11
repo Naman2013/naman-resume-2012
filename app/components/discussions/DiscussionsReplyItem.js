@@ -36,6 +36,12 @@ class DiscussionsReply extends Component {
     }
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (this.props.reply.replyCount !== nextProps.reply.replyCount) {
+      this.fetchReplies({});
+    }
+  }
+
   loadMoreReplies = () => {
     this.setState({
       page: this.state.page + 1,
