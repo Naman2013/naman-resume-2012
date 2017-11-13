@@ -3,6 +3,8 @@ import { convertToHTML } from 'draft-convert';
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
+import BlockStyleControls from './BlockStyleControls';
+import InlineStyleControls from './InlineStyleControls';
 import 'draft-js/dist/Draft.css';
 import styles from './RichTextEditor.scss';
 
@@ -261,88 +263,6 @@ const Link = (props) => {
     <a href={url} className={styles.link} target="_blank" rel="noopener noreferrer">
       {props.children}
     </a>
-  );
-};
-
-class StyleButton extends React.Component {
-  constructor() {
-    super();
-    this.onToggle = (e) => {
-      e.preventDefault();
-      this.props.onToggle(this.props.style);
-    };
-  }
-
-  render() {
-    let className = 'RichEditor-styleButton';
-    if (this.props.active) {
-      className += ' RichEditor-activeButton';
-    }
-
-    return (
-      <span className={className}
-        onMouseDown={this.onToggle}
-        dangerouslySetInnerHTML={{ __html: this.props.label }}
-      />
-    );
-  }
-}
-
-const BLOCK_TYPES = [
-  { label: '<i class="fa fa-header header-icon-h1" key="h1" />', style: 'header-one' },
-  { label: '<i class="fa fa-header header-icon-h2" key="h2" />', style: 'header-two' },
-  { label: '<i class="fa fa-header header-icon-h3" key="h3" />', style: 'header-three' },
-  { label: '<i class="fa fa-header header-icon-h4" key="h4" />', style: 'header-four' },
-  { label: '<i class="fa fa-header header-icon-h5" key="h5" />', style: 'header-five' },
-  { label: '<i class="fa fa-header header-icon-h6" key="h6" />', style: 'header-six' },
-  { label: '<i class="fa fa-quote-left" />', style: 'blockquote' },
-  { label: '<i class="fa fa-list-ul" />', style: 'unordered-list-item' },
-  { label: '<i class="fa fa-list-ol" />', style: 'ordered-list-item' },
-];
-
-const BlockStyleControls = (props) => {
-  const { editorState } = props;
-  const selection = editorState.getSelection();
-  const blockType = editorState
-    .getCurrentContent()
-    .getBlockForKey(selection.getStartKey())
-    .getType();
-
-  return (
-    <div className="RichEditor-controls">
-      {BLOCK_TYPES.map((type) =>
-        <StyleButton
-          key={type.label}
-          active={type.style === blockType}
-          label={type.label}
-          onToggle={props.onToggle}
-          style={type.style}
-        />
-      )}
-    </div>
-  );
-};
-
-const INLINE_STYLES = [
-  { label: '<i class="fa fa-bold" />', style: 'BOLD' },
-  { label: '<i class="fa fa-italic" />', style: 'ITALIC' },
-  { label: '<i class="fa fa-underline" />', style: 'UNDERLINE' },
-];
-
-const InlineStyleControls = (props) => {
-  const currentStyle = props.editorState.getCurrentInlineStyle();
-  return (
-    <div className="RichEditor-controls">
-      {INLINE_STYLES.map(type =>
-        <StyleButton
-          key={type.label}
-          active={currentStyle.has(type.style)}
-          label={type.label}
-          onToggle={props.onToggle}
-          style={type.style}
-        />
-      )}
-    </div>
   );
 };
 
