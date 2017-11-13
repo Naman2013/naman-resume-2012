@@ -18,11 +18,11 @@ const defaultProps = {
 
 const AudioPlayer = ({ description }) => (
   <div className="root">
-    <div>
+    <div className="controls">
       <VolumeControls />
     </div>
 
-    <div>
+    <div className="content">
       <Header />
       <Description content={description} />
     </div>
@@ -32,8 +32,13 @@ const AudioPlayer = ({ description }) => (
         display: flex;
         align-items: center;
         width: 260px;
-        height: 70px;
+        min-height: 70px;
+        padding: 10px 0;
         background-color: ${darkBlueGray};
+      }
+
+      .content {
+        width: 80%;
       }
     `}</style>
   </div>

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Draggable from 'react-draggable';
 import { blueBlack } from '../../styles/variables/colors';
 
 /*
@@ -13,8 +14,8 @@ class VolumeControls extends Component {
     volume: 0,
   };
 
-  handleTabKeyDown(event) {
-    console.log();
+  handleTabDrag = (event) => {
+    console.log(event);
   }
 
   render() {
@@ -28,10 +29,13 @@ class VolumeControls extends Component {
       <div className="root">
         <div className="controls">
           <div className="track" />
-          <button
-            style={inlineTabStyle}
-            className="tab"
-          />
+          <Draggable>
+            <button
+              onDrag={this.handleTabDrag}
+              style={inlineTabStyle}
+              className="tab"
+            />
+          </Draggable>
         </div>
 
         <style jsx>{`
@@ -45,6 +49,9 @@ class VolumeControls extends Component {
             height: 30px;
           }
 
+          .tab:focus { outline: none; }
+
+
           .track {
             width: 4px;
             height: 30px;
@@ -57,7 +64,9 @@ class VolumeControls extends Component {
             border: none;
             background: ${blueBlack};
             position: absolute;
-            left: 14px;
+            width: 14px;
+            height: 5px;
+            left: 13px;
             border-radius: 1px;
             cursor: move;
           }
