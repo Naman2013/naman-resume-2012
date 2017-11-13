@@ -13,6 +13,7 @@ export const white = '#fff';
 export const gold = '#F3D316';
 export const brightGreen = '#0afc0a';
 export const yellow = '#d7ba16';
+export const brightYellow = '#F0D048';
 export const lightBlack = '#1F1F1F';
 
 

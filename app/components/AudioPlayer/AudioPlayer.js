@@ -18,12 +18,19 @@ const defaultProps = {
 
 const AudioPlayer = ({ description }) => (
   <div className="root">
-    <Header />
-    <Description content={description} />
-    <VolumeControls />
+    <div>
+      <VolumeControls />
+    </div>
+
+    <div>
+      <Header />
+      <Description content={description} />
+    </div>
 
     <style jsx>{`
       .root {
+        display: flex;
+        padding: 10px;
         background-color: ${darkBlueGray};
       }
     `}</style>

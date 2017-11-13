@@ -1,6 +1,6 @@
 import React from 'react';
 import { primaryFont } from '../../styles/variables/fonts';
-import { yellow } from '../../styles/variables/colors';
+import { brightYellow } from '../../styles/variables/colors';
 
 const Header = () => (
   <div>
@@ -12,7 +12,7 @@ const Header = () => (
         padding: 0;
         font-family: ${primaryFont};
         font-weight: 800;
-        color: ${yellow};
+        color: ${brightYellow};
         text-transform: uppercase;
       }
     `}</style>
