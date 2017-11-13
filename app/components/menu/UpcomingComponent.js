@@ -48,7 +48,7 @@ export default class UpcomingComponent extends Component {
   render() {
     return (
       <div className={s.upcomingComponentRoot}>
-        <h3 className={s.title}>Upcoming Shows:</h3>
+        <h3 className={s.title}>Upcoming Livecasts:</h3>
         {
           this.state.EventMenu.map((event) => {
             if ((event.eventStatus === 'published' || event.eventStatus === 'live') && event.eventTitle) {

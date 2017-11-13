@@ -128,8 +128,15 @@ class TelescopeDetails extends Component {
   };
 
   componentWillReceiveProps(nextProps) {
-    const { allObservatoryTelescopeStatus } = nextProps;
-    const { teleUniqueId } = nextProps.routeParams;
+    const {
+      allObservatoryTelescopeStatus,
+      params: { obsUniqueId, teleUniqueId },
+    } = nextProps;
+
+    const isTelescopeUpdate = teleUniqueId !== this.props.params.teleUniqueId;
+    const isObservatoryUpdate = obsUniqueId !== this.props.params.obsUniqueId;
+    const { neoviewOpen } = this.state;
+
     if (allObservatoryTelescopeStatus && allObservatoryTelescopeStatus.statusExpires) {
       this.scaffoldRefreshInterval(allObservatoryTelescopeStatus.statusExpires);
     }
@@ -139,14 +146,6 @@ class TelescopeDetails extends Component {
         this.props.actions.updateTelescopeStatus({ teleUniqueId });
       }
     }
-  }
-
-  // TODO: test closing the neoview on some navigation between observatories / telescopes
-  componentWillReceiveProps(nextProps) {
-    const { params: { obsUniqueId, teleUniqueId } } = nextProps;
-    const isTelescopeUpdate = teleUniqueId !== this.props.params.teleUniqueId;
-    const isObservatoryUpdate = obsUniqueId !== this.props.params.obsUniqueId;
-    const { neoviewOpen } = this.state;
 
     if (isObservatoryUpdate || isTelescopeUpdate) {
       if (neoviewOpen) {
@@ -156,11 +155,23 @@ class TelescopeDetails extends Component {
   }
 
   componentWillUpdate(nextProps) {
-    const isNewObservatory = this.props.params.obsUniqueId !== nextProps.params.obsUniqueId;
-    const isNewTelescope = this.props.params.teleUniqueId !== nextProps.params.teleUniqueId;
-    const { observatoryList } = this.props;
+    const isNewObservatoryURL = this.props.params.obsUniqueId !== nextProps.params.obsUniqueId;
+    const isNewTelescopeURL = this.props.params.teleUniqueId !== nextProps.params.teleUniqueId;
 
-    if (isNewObservatory) {
+    if (this.props.currentObservatory) {
+      const isNewCurrentObservatory =
+        this.props.currentObservatory.obsId !== nextProps.currentObservatory.obsId;
+
+      if (isNewCurrentObservatory) {
+        this.props.actions.fetchAllTelescopeStatus({
+          obsId: nextProps.currentObservatory.obsId,
+          teleUniqueId: nextProps.params.teleUniqueId,
+          isRefresh: true,
+        });
+      }
+    }
+
+    if (isNewObservatoryURL) {
       // set the selected observatory
       this.props.actions.setObservatory({
         obsUniqueId: nextProps.params.obsUniqueId,
@@ -171,7 +182,7 @@ class TelescopeDetails extends Component {
       this.scaffoldRefreshInterval();
     }
 
-    if (isNewTelescope) {
+    if (isNewTelescopeURL) {
       // whenever we change the telescope, default the selected tab to 0
       this.handleSelect(0);
 
@@ -179,13 +190,6 @@ class TelescopeDetails extends Component {
       this.props.actions.setTelescope({
         obsUniqueId: nextProps.params.obsUniqueId,
         teleUniqueId: nextProps.params.teleUniqueId,
-      });
-
-      // fetch the observatories latest status
-      this.props.actions.fetchAllTelescopeStatus({
-        obsId: nextProps.params.obsUniqueId,
-        teleUniqueId: nextProps.params.teleUniqueId,
-        isRefresh: true,
       });
     }
   }

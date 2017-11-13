@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router'
 import PulsePostDate from '../../components/pulse/pulse-post-date'
-import PulsePostImage from '../../components/pulse/pulse-post-image'
+import PulsePostThumbnails from '../../components/pulse/pulse-post-image-thumbnails';
 import ByUserTag from '../../components/common/by-user-tag/by-user-tag'
 import Heart from '../../components/common/heart/heart'
 import styles from './pulse-post.scss';
@@ -29,7 +29,7 @@ const PulsePostItem = ({
     <div>
       <div className={styles.PulsePostList}>
         {
-          S3Files[0] ? <PulsePostImage image={S3Files[0]} imageBy={''} /> : null
+          S3Files && S3Files.length > 0 ? <PulsePostThumbnails images={S3Files} /> : null
         }
 
         <figure className={styles.PulsePostListInfo}>

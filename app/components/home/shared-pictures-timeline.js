@@ -28,8 +28,18 @@ class SharedPicturesTimeline extends Component {
   };
 
   state = {
-    currentIndex: 0,
+    currentIndex: this.props.timelineList.length > 0 ? this.props.timelineList.length - 1 : 0,
     dragged: false,
+  }
+
+  componentWillReceiveProps = (nextProps) => {
+    const { timelineList } = nextProps;
+
+    if (timelineList.length !== this.props.timelineList.length) {
+      this.setState({
+        currentIndex: timelineList.length-1,
+      });
+    }
   }
 
   changeActiveItem = (e, currentIndex) => {
@@ -88,7 +98,7 @@ class SharedPicturesTimeline extends Component {
           onDrag={this.onDrag}
           grid={[width/2, width/2]}
           style={{ border: `1px solid ${pink}`}}
-          defaultPosition={{ x: rightBound, y: 0 }}
+          defaultPosition={{ x: leftBound, y: 0 }}
           bounds={{
             left: leftBound,
             right: rightBound,
