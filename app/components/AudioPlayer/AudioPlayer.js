@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Header from './Header';
 import Description from './Description';
 import VolumeControls from './VolumeControls';
 
@@ -11,13 +12,9 @@ const defaultProps = {
   description: '',
 };
 
-// volume controls
-// LIVE header
-// title
-
 const AudioPlayer = ({ description }) => (
   <div>
-    <h2>LIVE</h2>
+    <Header />
     <Description content={description} />
     <VolumeControls />
 
