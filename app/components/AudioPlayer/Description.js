@@ -21,6 +21,7 @@ const Description = ({ content }) => (
         margin: 0;
         font-family: ${primaryFont};
         color: ${white};
+        font-size: 12px;
       }
     `}</style>
   </div>

@@ -30,7 +30,9 @@ const AudioPlayer = ({ description }) => (
     <style jsx>{`
       .root {
         display: flex;
-        padding: 10px;
+        align-items: center;
+        width: 260px;
+        height: 70px;
         background-color: ${darkBlueGray};
       }
     `}</style>
