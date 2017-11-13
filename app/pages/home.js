@@ -147,7 +147,7 @@ class Home extends Component {
         </div>
         <PromoMessageBand message={homeContent.promoBandContent} />
         <div className="clearfix">
-          {this.generateSloohFeatures()}
+          {homeContent.userLoggedInFlag == false && this.generateSloohFeatures() }
         </div>
 
         <LargeBannerHeading content={homeContent.ADDITIONAL_OFFERING_HEADER} />
