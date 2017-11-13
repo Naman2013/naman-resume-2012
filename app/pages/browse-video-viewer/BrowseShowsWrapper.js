@@ -8,7 +8,7 @@ import { white } from '../../styles/variables/colors';
 
 const NAV_ITEMS = [
   {
-    title: 'Recent shows',
+    title: 'Recent livecasts',
     link: '/shows/video-viewer/browse/recent-shows',
   },
   {
@@ -16,7 +16,7 @@ const NAV_ITEMS = [
     link: '/shows/video-viewer/browse/highlighted',
   },
   {
-    title: 'Upcoming shows',
+    title: 'Upcoming livecasts',
     link: '/shows/video-viewer/browse/upcoming-shows',
   },
 ];

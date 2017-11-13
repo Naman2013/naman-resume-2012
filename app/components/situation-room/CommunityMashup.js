@@ -59,14 +59,14 @@ class CommunityMashup extends Component {
             {
               hasUpcomingShows ?
                 <Tab className={s.tab}>
-                  <h5 className={s.tabTitle}>Upcoming Shows</h5>
+                  <h5 className={s.tabTitle}>Upcoming Livecasts</h5>
                 </Tab> : null
             }
 
             {
               hasRecentShows ?
                 <Tab className={s.tab}>
-                  <h5 className={s.tabTitle}>Recent Shows</h5>
+                  <h5 className={s.tabTitle}>Recent Livecasts</h5>
                 </Tab> : null
             }
 
