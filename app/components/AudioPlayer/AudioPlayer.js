@@ -4,22 +4,28 @@ import Header from './Header';
 import Description from './Description';
 import VolumeControls from './VolumeControls';
 
+import { darkBlueGray } from '../../styles/variables/colors';
+
+const EXAMPLE_TITLE = 'Paul discusses Hubble\'s Variable Nebula (NGC 2261).';
+
 const propTypes = {
   description: PropTypes.string,
 };
 
 const defaultProps = {
-  description: '',
+  description: EXAMPLE_TITLE,
 };
 
 const AudioPlayer = ({ description }) => (
-  <div>
+  <div className="root">
     <Header />
     <Description content={description} />
     <VolumeControls />
 
     <style jsx>{`
-
+      .root {
+        background-color: ${darkBlueGray};
+      }
     `}</style>
   </div>
 );
