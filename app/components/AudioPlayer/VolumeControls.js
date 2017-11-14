@@ -8,6 +8,12 @@ import { blueBlack } from '../../styles/variables/colors';
   -25 == 100%
 */
 
+const MAX_BOUNDARY = 25;
+const TRACK_BOUNDARY = {
+  bottom: 0,
+  top: -MAX_BOUNDARY, // draggable API uses negative values
+};
+
 class VolumeControls extends Component {
   state = {
     volume: 0,
@@ -18,30 +24,26 @@ class VolumeControls extends Component {
   };
 
   onControlledDrag = (event, position) => {
-    const { x, y } = position;
-    console.log(y);
-    this.setState({ controlledPosition: { x, y } });
+    const { y } = position;
+    const volume = ((Math.abs(y) / MAX_BOUNDARY) * 100);
+    this.setState({
+      volume,
+      controlledPosition: { y },
+    });
   };
 
   render() {
-    const { volume } = this.state;
-
-    const inlineTabStyle = {
-      bottom: `${volume}%`,
-    };
-
     return (
       <div className="root">
         <div className="controls">
           <div className="track" />
           <Draggable
             axis="y"
-            bounds={{ bottom: 0, top: -25 }}
+            bounds={TRACK_BOUNDARY}
             onDrag={this.onControlledDrag}
           >
             <button
               onDrag={this.handleTabDrag}
-              style={inlineTabStyle}
               className="tab"
             />
           </Draggable>
@@ -76,6 +78,7 @@ class VolumeControls extends Component {
             width: 14px;
             height: 5px;
             left: 13px;
+            bottom: 0;
             border-radius: 1px;
             cursor: move;
           }
