@@ -160,6 +160,7 @@ class Home extends Component {
 
         <PromoMessageBand title={homeContent.COMMUNITY_CONTENT_BAND} />
         <CommunityPerspectives
+          showCallToAction={false}
           showSliderBorder={false}
           showArrows={false}
           numberOfSlidesToDisplay={3}
