@@ -77,7 +77,12 @@ class Home extends Component {
 
   generateSloohFeatures() {
     const { homeContent } = this.props;
-    return homeContent.membershipTierArray.map(feature => <SloohFeatures {...feature} key={feature.tierIndex} />);
+    return(
+      <div className="clearfix">
+        <PromoMessageBand message={homeContent.promoBandContent} />
+        {homeContent.membershipTierArray.map(feature => <SloohFeatures {...feature} key={feature.tierIndex} />)}
+      </div>
+    )
   }
 
   render() {
@@ -145,10 +150,8 @@ class Home extends Component {
         <div className="clearfix">
           {this.generateRecentVideoTiles()}
         </div>
-        <PromoMessageBand message={homeContent.promoBandContent} />
-        <div className="clearfix">
-          {this.generateSloohFeatures()}
-        </div>
+
+        {!homeContent.userLoggedInFlag && this.generateSloohFeatures()}
 
         <LargeBannerHeading content={homeContent.ADDITIONAL_OFFERING_HEADER} />
 
