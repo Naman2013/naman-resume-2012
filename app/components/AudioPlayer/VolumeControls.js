@@ -3,20 +3,25 @@ import Draggable from 'react-draggable';
 import { blueBlack } from '../../styles/variables/colors';
 
 /*
-  - handle keydown on the button
-  - handle drag on the button
-  - set floor and ceiling limits to drag
-  - call call provided CB to communicate volume adjustment
+  volume control math stuff..
+  0 == 0% (mute)
+  -25 == 100%
 */
 
 class VolumeControls extends Component {
   state = {
     volume: 0,
+    controlledPosition: {
+      x: 0,
+      y: 0,
+    },
   };
 
-  handleTabDrag = (event) => {
-    console.log(event);
-  }
+  onControlledDrag = (event, position) => {
+    const { x, y } = position;
+    console.log(y);
+    this.setState({ controlledPosition: { x, y } });
+  };
 
   render() {
     const { volume } = this.state;
@@ -29,7 +34,11 @@ class VolumeControls extends Component {
       <div className="root">
         <div className="controls">
           <div className="track" />
-          <Draggable>
+          <Draggable
+            axis="y"
+            bounds={{ bottom: 0, top: -25 }}
+            onDrag={this.onControlledDrag}
+          >
             <button
               onDrag={this.handleTabDrag}
               style={inlineTabStyle}
