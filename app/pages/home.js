@@ -68,7 +68,9 @@ class Home extends Component {
     });
 
     this.props.actions.getNewHomePage().then(res => {
-    });
+      //do nothing
+      }
+    );
   }
 
   componentWillUnmount() {
