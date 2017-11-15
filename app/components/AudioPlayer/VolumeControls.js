@@ -58,6 +58,8 @@ class VolumeControls extends Component {
               className="tab"
             />
           </Draggable>
+
+          <div className="fa fa-volume-down" />
         </div>
 
         <style jsx>{`
