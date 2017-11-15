@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import YouTube from 'react-youtube';
 import Header from './Header';
@@ -14,9 +14,7 @@ import { darkBlueGray } from '../../styles/variables/colors';
   TODO: clean up the functions
 */
 
-const EXAMPLE_TITLE = 'Paul discusses Hubble\'s Variable Nebula (NGC 2261).';
 let PLAYER = null;
-
 const PLAYER_OPTIONS = {
   height: '0',
   width: '0',
@@ -25,29 +23,34 @@ const PLAYER_OPTIONS = {
   },
 };
 
+const INITIAL_VOLUME = 25;
+
 function updateVolume(volume) {
-  PLAYER.setVolume(volume);
+  if (PLAYER) {
+    PLAYER.setVolume(volume);
+  }
 }
 
 function onPlayerReady(event) {
-  event.target.setVolume(5);
+  event.target.setVolume(INITIAL_VOLUME);
   PLAYER = event.target;
 }
 
 const propTypes = {
   description: PropTypes.string,
+  YTVideoID: PropTypes.string.isRequired,
 };
 
 const defaultProps = {
-  description: EXAMPLE_TITLE,
+  description: '',
 };
 
-const AudioPlayer = ({ description }) => (
+const AudioPlayer = ({ description, YTVideoID }) => (
   <div className="root">
     <div className="missing-player">
       <YouTube
         onReady={onPlayerReady}
-        videoId="zOH0XN4smgM"
+        videoId={YTVideoID}
         opts={PLAYER_OPTIONS}
       />
     </div>

@@ -59,7 +59,7 @@ class VolumeControls extends Component {
             />
           </Draggable>
 
-          <div className="fa fa-volume-down" />
+          <span className="fa fa-volume-down" />
         </div>
 
         <style jsx>{`
