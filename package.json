@@ -90,6 +90,7 @@
     "react-tabs": "^2.1.0",
     "react-tag-input": "^4.3.2",
     "react-tooltip": "^3.3.0",
+    "react-youtube": "^7.5.0",
     "redux": "^3.5.2",
     "redux-devtools-extension": "0.0.1-alpha-1",
     "redux-form": "^6.0.1",

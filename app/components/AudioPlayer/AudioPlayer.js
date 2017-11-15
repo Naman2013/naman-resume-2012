@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import YouTube from 'react-youtube';
 import Header from './Header';
 import Description from './Description';
 import VolumeControls from './VolumeControls';
@@ -16,33 +17,54 @@ const defaultProps = {
   description: EXAMPLE_TITLE,
 };
 
-const AudioPlayer = ({ description }) => (
-  <div className="root">
-    <div className="controls">
-      <VolumeControls />
-    </div>
+class AudioPlayer extends Component {
+  render() {
+    const { description } = this.props;
 
-    <div className="content">
-      <Header />
-      <Description content={description} />
-    </div>
+    const playerOptions = {
+      height: '0',
+      width: '0',
+      playerVars: {
+        autoplay: 1,
+      },
+    };
 
-    <style jsx>{`
-      .root {
-        display: flex;
-        align-items: center;
-        width: 260px;
-        min-height: 70px;
-        padding: 10px 0;
-        background-color: ${darkBlueGray};
-      }
+    return (
+      <div className="root">
+        <div className="missing-player">
+          <YouTube
+            videoId="zOH0XN4smgM"
+            opts={playerOptions}
+          />
+        </div>
 
-      .content {
-        width: 80%;
-      }
-    `}</style>
-  </div>
-);
+        <div className="controls">
+          <VolumeControls />
+        </div>
+
+        <div className="content">
+          <Header />
+          <Description content={description} />
+        </div>
+
+        <style jsx>{`
+          .root {
+            display: flex;
+            align-items: center;
+            width: 260px;
+            min-height: 70px;
+            padding: 10px 0;
+            background-color: ${darkBlueGray};
+          }
+
+          .content {
+            width: 80%;
+          }
+        `}</style>
+      </div>
+    );
+  }
+}
 
 AudioPlayer.propTypes = propTypes;
 AudioPlayer.defaultProps = defaultProps;
