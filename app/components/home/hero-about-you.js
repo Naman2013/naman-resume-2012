@@ -52,7 +52,7 @@ const HeroAboutYou = ({
         </div>
       </div>
       <div className="stats">
-        {Object.keys(userStats).map(statLabel => (<div className="stat">
+        {Object.keys(userStats).map(statLabel => (<div key={statLabel} className="stat">
           <span className="stat-label" dangerouslySetInnerHTML={{ __html: statLabel }} />
           <span className="stat-value" dangerouslySetInnerHTML={{ __html: userStats[statLabel] }} />
         </div>))}

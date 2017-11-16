@@ -15,7 +15,7 @@ const initialState = {
   error: false,
   imageTitle: '',
   imageURL: '',
-  zoom: 0,
+  zoom: '0',
   originx: 0,
   originy: 0,
   observationLog: '',
