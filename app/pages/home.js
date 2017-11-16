@@ -19,17 +19,19 @@ import style from './home.scss';
 
 import { fetchCommunityContent }
   from '../modules/community-content/community-object-content-actions';
-import { getHomePage, trackUser } from '../modules/home-content/actions';
+import { getHomePage, getNewHomePage, trackUser } from '../modules/home-content/actions';
 import { getSharedMemberPhotos } from '../modules/get-shared-member-photos/actions';
 
 const mapStateToProps = ({
   appConfig,
   communityContent,
   homeContent,
+  newHomeContent,
   sharedMemberPhotos,
 }) => ({
   communityContent: communityContent.communityContent,
   homeContent,
+  newHomeContent,
   appConfig,
   sharedMemberPhotosList: sharedMemberPhotos.imageList,
   sharedMemberTimelineData: sharedMemberPhotos.timelineData,
@@ -39,6 +41,7 @@ const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
     fetchCommunityContent,
     getHomePage,
+    getNewHomePage,
     getSharedMemberPhotos,
     trackUser,
   }, dispatch),
@@ -51,6 +54,7 @@ class Home extends Component {
 
     this.homePageRerfreshInterval = setInterval(() => {
       this.props.actions.getHomePage();
+      this.props.actions.getNewHomePage();
     }, this.props.homeContent.refreshIntervalSec * 1000);
   }
 
@@ -62,6 +66,11 @@ class Home extends Component {
         this.props.actions.getSharedMemberPhotos();
       }
     });
+
+    this.props.actions.getNewHomePage().then(res => {
+      //do nothing
+      }
+    );
   }
 
   componentWillUnmount() {
@@ -88,6 +97,7 @@ class Home extends Component {
   render() {
     const {
       homeContent,
+      newHomeContent,
       appConfig,
       sharedMemberPhotosList,
       sharedMemberTimelineData,
@@ -197,6 +207,7 @@ Home.defaultProps = {
   communityContent: {
     posts: [],
   },
+  newHomeContent: { }
 };
 
 export default Home;

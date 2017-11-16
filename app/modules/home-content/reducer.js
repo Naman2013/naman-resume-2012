@@ -6,6 +6,10 @@ import {
   GET_HOME_PAGE_START,
   GET_HOME_PAGE_SUCCESS,
   GET_HOME_PAGE_FAIL,
+  GET_NEW_HOME_PAGE_START,
+  GET_NEW_HOME_PAGE_SUCCESS,
+  GET_NEW_HOME_PAGE_FAIL,
+
 } from './actions';
 
 const initialState = {
@@ -108,6 +112,7 @@ const initialState = {
 };
 
 export default createReducer(initialState, {
+  /* Version 1.0 of the Homepage API (getHomePage) */
   [GET_HOME_PAGE_START](state) {
     return state;
   },
@@ -119,6 +124,22 @@ export default createReducer(initialState, {
   },
   [GET_HOME_PAGE_FAIL](state, { error }) {
     return {
+      ...state,
+      error,
+    };
+  },
+  /* Version 2.0 of the Homepage API (getNewHomePage) */
+  [GET_NEW_HOME_PAGE_START](state) {
+    return state;
+  },
+  [GET_NEW_HOME_PAGE_SUCCESS](state, { data }) {
+    return {
+      ...state,
+      ...data,
+    };
+  },
+  [GET_NEW_HOME_PAGE_FAIL](state, { error }) {
+      return {
       ...state,
       error,
     };
