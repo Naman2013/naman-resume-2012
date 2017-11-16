@@ -169,10 +169,10 @@ class Home extends Component {
 
         {!homeContent.userLoggedInFlag && this.generateSloohFeatures()}
 
-        <LargeBannerHeading content={homeContent.ADDITIONAL_OFFERING_HEADER} />
+        <LargeBannerHeading content="&nbsp;" />
 
-        <PromoMessageBand title={homeContent.VIEWABLE_OBJECTS.ADDITIONAL_OFFERING_BAND} />
-        <ViewableObjects {...homeContent.VIEWABLE_OBJECTS} />
+        {homeContent.recommends && <PromoMessageBand title={homeContent.recommends.recommendsHeading} />}
+        <ViewableObjects {...homeContent.recommends} />
 
         <PromoMessageBand title={homeContent.COMMUNITY_CONTENT_BAND} />
         <CommunityPerspectives
