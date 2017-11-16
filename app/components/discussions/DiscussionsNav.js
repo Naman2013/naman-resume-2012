@@ -7,6 +7,7 @@ const { string } = PropTypes;
 
 function DiscussionsNav({
   alphabeticLink,
+  featuredLink,
   mostRecentLink,
   mostActiveLink
 }) {
@@ -20,6 +21,15 @@ function DiscussionsNav({
             activeClassName="active"
           >
             Alphabetical
+          </Link>
+        </li>}
+        {featuredLink &&  <li>
+          <Link
+            to={featuredLink}
+            className="link"
+            activeClassName="active"
+          >
+            Featured Threads
           </Link>
         </li>}
         {mostRecentLink &&  <li>
@@ -47,12 +57,14 @@ function DiscussionsNav({
 
 DiscussionsNav.defaultProps = {
   alphabeticLink: '',
+  featuredLink: '',
   mostRecentLink: '',
   mostActiveLink: '',
 };
 
 DiscussionsNav.propTypes = {
   alphabeticLink: string,
+  featuredLink: string,
   mostRecentLink: string,
   mostActiveLink: string,
 };
