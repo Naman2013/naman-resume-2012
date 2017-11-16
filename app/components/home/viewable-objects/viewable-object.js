@@ -14,17 +14,19 @@ const BusinessLink = ({ type, url, children }) => {
 class ViewableObject extends Component {
   render() {
     const viewableObjectInlineStyle = {
-      background: `url(${this.props.imageUrl}) no-repeat center center`,
+      /* background: `url(${this.props.iconURL}) no-repeat center center`, */
+      background: `url(${this.props.iconURL}) no-repeat center center`,
       backgroundCover: 'cover',
-      minHeight: '180px',
+      paddingBottom: '20px',
     };
+
     return (
       <div
         className="viewable-object"
         style={viewableObjectInlineStyle}
       >
-        <BusinessLink type={this.props.type} url={this.props.url}>
-          <h5 className="title">{this.props.title}</h5>
+        <BusinessLink type={this.props.type} url={this.props.linkURL}>
+          <h5 className="title">{this.props.shortTitle}</h5>
         </BusinessLink>
       </div>
     );
@@ -34,6 +36,8 @@ class ViewableObject extends Component {
 ViewableObject.propTypes = {
   url: PropTypes.string.isRequired,
   imageUrl: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+  linkUrl: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
 };
 
