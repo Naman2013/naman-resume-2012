@@ -47,6 +47,10 @@ const mapDispatchToProps = dispatch => ({
   }, dispatch),
 });
 
+const sloohFeaturesStyle = {
+  display: "inline-block",
+}
+
 @connect(mapStateToProps, mapDispatchToProps)
 class Home extends Component {
   componentWillMount() {
@@ -87,9 +91,11 @@ class Home extends Component {
   generateSloohFeatures() {
     const { homeContent } = this.props;
     return(
-      <div className="clearfix">
-        <PromoMessageBand message={homeContent.promoBandContent} />
-        {homeContent.membershipTierArray.map(feature => <SloohFeatures {...feature} key={feature.tierIndex} />)}
+      <div style={sloohFeaturesStyle}>
+        <PromoMessageBand title={homeContent.promoBandContent} />
+        <div className="clearfix">
+            {homeContent.membershipTierArray.map(feature => <SloohFeatures {...feature} key={feature.tierIndex} />)}
+        </div>
       </div>
     )
   }
