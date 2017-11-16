@@ -135,11 +135,9 @@ export default class Header extends Component {
         <style jsx>{`
           .mainHeader {
             height: 70px;
+            width: 100%;
             background-color: rgba(0, 0, 0, 0.9);
             position: fixed;
-            z-index: 999;
-            left: 65px;
-            right: 0;
           }
 
           .mainHeaderLogo {
@@ -169,8 +167,8 @@ export default class Header extends Component {
             text-transform: uppercase;
             color: ${lightTurqoise};
             position: absolute;
-            left: 150px;
-            top: 40px;
+            left: 155px;
+            top: 52px;
           }
         `}</style>
       </header>
