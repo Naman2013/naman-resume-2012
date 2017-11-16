@@ -174,7 +174,7 @@ class Home extends Component {
         {homeContent.recommends && <PromoMessageBand title={homeContent.recommends.recommendsHeading} />}
         <ViewableObjects {...homeContent.recommends} />
 
-        <PromoMessageBand title={homeContent.COMMUNITY_CONTENT_BAND} />
+        {homeContent.illuminations && <PromoMessageBand title={homeContent.illuminations.illuminationsHeading} />}
         <CommunityPerspectives
           showCallToAction={false}
           showSliderBorder={false}
