@@ -12,23 +12,23 @@ class ViewableObjects extends Component {
 
   render() {
     const inlineDescriptionStyle = {
-      marginTop: '20px',
-      marginBottom: '20px',
+      marginTop: '-70px',
+      marginBottom: '0px',
       fontWeight: 'normal',
       marginLeft: '100px',
       marginRight: '100px',
     };
-
+        
     return (
       <div className="viewable-objects-container">
         <h4 className="title">{this.props.recommendsSubhead}</h4>
 
-        <div style={inlineDescriptionStyle}>
-          <p className="content">{this.props.recommendsDescription}</p>
-        </div>
-
         <div className="objects clearfix">
           {this.props.recommendsArray && this.generateViewableObjects()}
+        </div>
+
+        <div style={inlineDescriptionStyle}>
+          <p className="content">{this.props.recommendsDescription}</p>
         </div>
 
         <p className="latest-news">{this.props.latestNews}</p>
