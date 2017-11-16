@@ -23,15 +23,18 @@ class RecentVideoTile extends Component {
       background: `url(${this.props.imageUrl}) no-repeat center center`,
       backgroundSize: 'cover',
       minHeight: '255px',
+      paddingLeft: '20px',
+      paddingRight: '20px',
+      paddingTop: '20px',
     };
 
     return (
-      <div className="col-sm-4 recent-video-tile-container">
+      <div style={inlineStyle} className="col-sm-4 recent-video-tile-container">
         <div className="video-wrap">
           <iframe
             className="home-youtube-video"
             width="100%"
-            src={this.props.videoUrl}
+            src={this.props.videoURL}
             seamless
             allowFullScreen
             autoPlay="1"

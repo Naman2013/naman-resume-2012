@@ -81,7 +81,7 @@ class Home extends Component {
 
   generateRecentVideoTiles() {
     const { homeContent } = this.props;
-    return homeContent.RECENT_STUFF.map(videoTile => <RecentVideoTile {...videoTile} />);
+    return homeContent.videoClips.videoClipsArray.map(videoTile => <RecentVideoTile {...videoTile} />);
   }
 
   generateSloohFeatures() {
@@ -157,9 +157,9 @@ class Home extends Component {
           imageList={sharedMemberPhotosList}
           timelineData={sharedMemberTimelineData}
         />}
-        <div className="clearfix">
-          {this.generateRecentVideoTiles()}
-        </div>
+
+        {homeContent.videoClips && <PromoMessageBand title={homeContent.videoClips.videoClipsHeading} />}
+        {homeContent.videoClips && homeContent.videoClips.videoClipsArray && this.generateRecentVideoTiles()}
 
         {!homeContent.userLoggedInFlag && this.generateSloohFeatures()}
 

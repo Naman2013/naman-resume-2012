@@ -137,7 +137,7 @@ class SharedPictures extends Component {
             background-color: #2d3949;
             color: ${white};
             min-height: 500px;
-            margin-bottom: 35px;
+            margin-bottom: 0px;
           }
             @media(max-width:640px){
 
