@@ -12,13 +12,15 @@ class ViewableObjects extends Component {
 
   render() {
     const inlineDescriptionStyle = {
-      marginTop: '-70px',
-      marginBottom: '0px',
+      marginTop: '-30px',
+      paddingTop: '0px',
+      paddingLeft: '20%',
+      paddingRight: '20%',
+      paddingBottom: '0px',
       fontWeight: 'normal',
-      marginLeft: '100px',
-      marginRight: '100px',
+      fontSize: '1.2em',
     };
-        
+
     return (
       <div className="viewable-objects-container">
         <h4 className="title">{this.props.recommendsSubhead}</h4>
