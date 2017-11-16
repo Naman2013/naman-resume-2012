@@ -25,6 +25,7 @@ class RecentVideoTile extends Component {
       minHeight: '255px',
       paddingLeft: '20px',
       paddingRight: '20px',
+      paddingTop: '20px',
     };
 
     return (
@@ -33,14 +34,14 @@ class RecentVideoTile extends Component {
           <iframe
             className="home-youtube-video"
             width="100%"
-            src={this.props.embedURL + "/" + this.props.embedCode}
+            src={this.props.videoURL}
             seamless
             allowFullScreen
             autoPlay="1"
             frameBorder="0"
           />
         </div>
-        <p className="content" dangerouslySetInnerHTML={{ __html: this.props.embedDescription }} />
+        <p className="content" dangerouslySetInnerHTML={{ __html: this.props.content }} />
       </div>
     );
   }
