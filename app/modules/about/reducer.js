@@ -52,7 +52,7 @@ const initialState = {
     {
       id: uniqueId(),
       type: APPRENTICE,
-      content: 'Live and Recorded Shows',
+      content: 'Livecasts',
       tooltip: { show: false, content: '', toolTipOpen: false },
     },
     {
@@ -98,7 +98,7 @@ const initialState = {
     {
       id: uniqueId(),
       type: CREW,
-      content: 'Live and Recorded Shows',
+      content: 'Livecasts',
       tooltip: { show: false, content: '' },
     },
     {
@@ -141,7 +141,7 @@ const initialState = {
     {
       id: uniqueId(),
       type: ASTRONOMER,
-      content: 'Live and Recorded Shows',
+      content: 'Livecasts',
       tooltip: { show: false, content: '' },
     },
     {
