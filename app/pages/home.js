@@ -15,6 +15,7 @@ import Dedication from '../components/home/slooh-extras/dedication';
 import SloohStorePromo from '../components/home/slooh-store';
 import Featured from '../components/home/slooh-extras/featured';
 import SharedPictures from '../components/home/shared-pictures';
+import PromoPanels from '../components/home/promo-panels/promo-panels';
 import style from './home.scss';
 
 import { fetchCommunityContent }
@@ -50,6 +51,11 @@ const mapDispatchToProps = dispatch => ({
 const sloohFeaturesStyle = {
   display: "inline-block",
 }
+
+const promoInlineStyle = {
+  paddingTop: '30px',
+  paddingBottom: '30px',
+};
 
 @connect(mapStateToProps, mapDispatchToProps)
 class Home extends Component {
@@ -157,6 +163,12 @@ class Home extends Component {
         {homeContent.loadHeroTypes.indexOf('aboutYou') > -1 &&
           <HeroAboutYou {...homeContent.userInformation} />
         }
+
+        <div style={promoInlineStyle}>
+          {this.props.homeContentTmp.promo && <PromoMessageBand title={this.props.homeContentTmp.promo.promoHeading} />}
+          {this.props.homeContentTmp.promo && <PromoPanels {...this.props.homeContentTmp.promo}/>}
+        </div>
+
         {homeContent.memberPicturesDisplay && <SharedPictures
           heading={homeContent.memberPicturesHeading}
           subheading={homeContent.memberPicturesSubHeading}
@@ -207,13 +219,27 @@ class Home extends Component {
 }
 
 Home.defaultProps = {
+  homeContentTmp: {
+    promo: {
+      promoHeading: 'Promo Panel Heading Goes Here!!',
+      promosList: [
+        {
+          uniqueId: 'abc',
+          heading: 'my heading 1',
+        },
+        {
+          uniqueId: 'def',
+          heading: 'my heading 2',
+        }
+      ]
+    }
+  },
   homeContent: {
     loadHeroTypes: [],
   },
   communityContent: {
     posts: [],
   },
-  newHomeContent: { }
 };
 
 export default Home;
