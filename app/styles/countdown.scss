@@ -1,7 +1,6 @@
 @import '../styles/variables/fonts';
 @import '../styles/variables/colors';
 
-
 .countdown {
   display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
   display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
@@ -16,12 +15,12 @@
   font-weight: 600;
   padding: 10px 90px 5px 10px;
 
-  span{
+  span {
     color: $white;
     font-size: 13px;
   }
 
-  a{
+  a {
     color: $blueGreen;
     font-size: 13px;
   }

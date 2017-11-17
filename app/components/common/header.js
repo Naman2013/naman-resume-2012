@@ -123,6 +123,13 @@ export default class Header extends Component {
   }
 
   render() {
+    const {
+      nextEvent: {
+        eventIsLive,
+        eventDescription,
+      },
+    } = this.props;
+
     return (
       <header className="mainHeader" id="mainHeader">
         <Link to="/">
@@ -132,7 +139,23 @@ export default class Header extends Component {
         <Member />
         <Countdown />
 
+        {
+          /*
+          eventIsLive &&
+            <div className="player-container">
+              <AudioPlayer
+                description={eventDescription}
+              />
+            </div>
+            */
+        }
+
         <style jsx>{`
+          .player-container {
+            float: right;
+            margin-right: 20px;
+          }
+
           .mainHeader {
             height: 70px;
             width: 100%;
@@ -142,13 +165,13 @@ export default class Header extends Component {
 
           .mainHeaderLogo {
             position: absolute;
-            left: 20px;
             background-image: url(https://vega.slooh.com/assets/icons/header/Slooh_Logo_White_5.svg);
             background-repeat: no-repeat;
             background-position: left center;
             display: inline-block;
             width: 218px;
             height: 65px;
+            margin-left: 10px;
           }
 
           .mainHeaderLogoText {
@@ -167,7 +190,7 @@ export default class Header extends Component {
             text-transform: uppercase;
             color: ${lightTurqoise};
             position: absolute;
-            left: 155px;
+            left: 165px;
             top: 52px;
           }
         `}</style>

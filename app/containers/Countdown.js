@@ -77,7 +77,6 @@ export default class Countdown extends PureComponent {
         eventTitle,
       } = nextEvent;
 
-
       return (
         <div className={`${classes.countdown} ${className}`}>
           <CircleTimer
