@@ -41,7 +41,7 @@ class BrowseShows extends Component {
     return (
       <div>
         <header className="header">
-          <h1 className="header-title">Browse Shows</h1>
+          <h1 className="header-title">Browse Livecasts</h1>
         </header>
         <BrowseShowsNavigation
           navigationItems={NAV_ITEMS}
