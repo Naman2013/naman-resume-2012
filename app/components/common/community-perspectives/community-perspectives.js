@@ -71,7 +71,7 @@ class CommunityPerspectives extends Component {
 
   constructor(props) {
     super(props);
-    this.generateCommunityPostsMap();
+    this.generateCommunityPostsMap(this.props.communityContent);
 
     const perspectiveCategory = find(
       perspectiveCatagories,
@@ -102,11 +102,11 @@ class CommunityPerspectives extends Component {
       });
     }
 
-    this.generateCommunityPostsMap();
+    this.generateCommunityPostsMap(nextProps.communityContent);
   }
 
-  getPosts(postType) {
-    const { communityContent, sortOrder, sortType } = this.props;
+  getPosts(postType, communityContent) {
+    const { sortOrder, sortType } = this.props;
     const filteredPosts = communityContent.filter(post => post.type === postType);
     return sortType === SORTED
       ? orderBy(filteredPosts, sortOrder, ['desc', 'desc'])
@@ -122,10 +122,11 @@ class CommunityPerspectives extends Component {
 
   communityPostsByType: null;
 
-  generateCommunityPostsMap() {
+  generateCommunityPostsMap(communityContent) {
     const postMap = new Map();
+
     perspectiveCatagories.forEach((postType) => {
-      postMap.set(postType.catagory, this.getPosts(postType.contentKey));
+      postMap.set(postType.catagory, this.getPosts(postType.contentKey, communityContent));
     });
 
     this.communityPostsByType = postMap;
@@ -151,10 +152,6 @@ class CommunityPerspectives extends Component {
       activeCatagory,
     });
   };
-
-  initializeContentMap() {
-    this.generatePosts();
-  }
 
   generatePosts() {
     const { activeCatagory } = this.state;
