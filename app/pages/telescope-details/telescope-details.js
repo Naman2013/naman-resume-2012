@@ -382,7 +382,7 @@ class TelescopeDetails extends Component {
 
               <Spacer height="50px" />
 
-              {displayCommunityContent && telescopeOnline && activeDetailsSSE.astroObjectID === 0 ? (
+              {displayCommunityContent && telescopeOnline && activeDetailsSSE.astroObjectID > 0 ? (
                 <div>
                   <PromoMessageBanner
                     title="Illuminations"
