@@ -97,11 +97,13 @@ class ForumsIndex extends Component {
 
           .cell:first-child {
             padding-left: 14%;
+            flex: 3;
           }
 
           .cell:last-child {
             text-align: center;
             align-self: center;
+            flex: 1;
           }
 
           .forums-index-wrapper {
@@ -155,12 +157,10 @@ class ForumsIndex extends Component {
 
           .topic {
             color: ${pink};
-            flex: 3;
+
           }
 
-          .threads {
-            flex: 1;
-          }
+          .threads {}
 
           .link-item:hover,
           .highlight {
