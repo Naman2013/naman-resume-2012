@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import classnames from 'classnames';
 import GenericLoadingBox from '../common/loading-screens/generic-loading-box';
 import { fetchForumList } from '../../modules/discussions-forums/actions';
-import { SORT_ALPHABETIC } from '../../services/discussions/get-forum-list';
+import { SORT_MENU_ORDER } from '../../services/discussions/get-forum-list';
 import styles from './forums-index.scss';
 
 const { bool, object, func, string } = PropTypes;
@@ -25,7 +25,7 @@ class ForumsIndex extends Component {
   componentDidMount() {
     const { actions } = this.props;
     actions.fetchForumList({
-      sortBy: SORT_ALPHABETIC,
+      sortBy: SORT_MENU_ORDER,
       count: -1,
       page: 1,
     });

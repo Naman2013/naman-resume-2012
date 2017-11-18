@@ -7,6 +7,7 @@ const { string } = PropTypes;
 
 function DiscussionsNav({
   alphabeticLink,
+  defaultLink,
   featuredLink,
   mostRecentLink,
   mostActiveLink
@@ -14,6 +15,24 @@ function DiscussionsNav({
   return (
     <div className={styles.discussionsNav}>
       <ul className="discussions-nav-container">
+        {featuredLink && <li>
+          <Link
+            to={featuredLink}
+            className="link"
+            activeClassName="active"
+          >
+            Featured Threads
+          </Link>
+        </li>}
+        {defaultLink && <li>
+          <Link
+            to={defaultLink}
+            className="link"
+            activeClassName="active"
+          >
+            Default
+          </Link>
+        </li>}
         {alphabeticLink && <li>
           <Link
             to={alphabeticLink}
@@ -21,15 +40,6 @@ function DiscussionsNav({
             activeClassName="active"
           >
             Alphabetical
-          </Link>
-        </li>}
-        {featuredLink &&  <li>
-          <Link
-            to={featuredLink}
-            className="link"
-            activeClassName="active"
-          >
-            Featured Threads
           </Link>
         </li>}
         {mostRecentLink &&  <li>
@@ -57,6 +67,7 @@ function DiscussionsNav({
 
 DiscussionsNav.defaultProps = {
   alphabeticLink: '',
+  defaultLink: '',
   featuredLink: '',
   mostRecentLink: '',
   mostActiveLink: '',
@@ -64,6 +75,7 @@ DiscussionsNav.defaultProps = {
 
 DiscussionsNav.propTypes = {
   alphabeticLink: string,
+  defaultLink: string,
   featuredLink: string,
   mostRecentLink: string,
   mostActiveLink: string,

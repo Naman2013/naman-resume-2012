@@ -329,7 +329,8 @@ ReactDOM.render(
           </Route>
         </Route>
         <Route path="discussions/forums(/:forumId)/topics" component={DiscussionsTopicsWrapper} onEnter={validateUser}>
-          <IndexRedirect to="alphabetic" />
+          <IndexRedirect to="default" />
+          <Route path="default" component={DiscussionsTopicsList} />
           <Route path="alphabetic" component={DiscussionsTopicsList} />
           <Route path="most-recent" component={DiscussionsTopicsList} />
           <Route path="most-active" component={DiscussionsTopicsList} />
