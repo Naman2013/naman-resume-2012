@@ -53,8 +53,8 @@ const sloohFeaturesStyle = {
 }
 
 const promoInlineStyle = {
-  paddingTop: '30px',
-  paddingBottom: '30px',
+  paddingTop: '0px',
+  paddingBottom: '0px',
 };
 
 @connect(mapStateToProps, mapDispatchToProps)
@@ -165,7 +165,6 @@ class Home extends Component {
         }
 
         <div style={promoInlineStyle}>
-          {this.props.homeContentTmp.promo && <PromoMessageBand title={this.props.homeContentTmp.promo.promoHeading} />}
           {this.props.homeContentTmp.promo && <PromoPanels {...this.props.homeContentTmp.promo}/>}
         </div>
 
