@@ -25,7 +25,6 @@ import CurrentSelectionHeader from '../../components/telescopes/current-selectio
 import GoogleAd from '../../components/common/google-ads/GoogleAd';
 import LiveFeed from '../../components/telescope-details/live-feed/LiveFeed';
 import LiveMission from '../../components/telescope-details/live-mission/live-mission';
-import LiveStream from '../../components/telescope-details/live-stream/live-stream';
 import MoonlightWidget from '../../components/telescope-details/MoonlightWidget';
 import Neoview from '../../components/telescope-details/neoview/neoview';
 import PromoMessageBanner from '../../components/common/headers/promo-message-band';
@@ -380,10 +379,6 @@ class TelescopeDetails extends Component {
                   </TabPanel>
                 ))}
               </Tabs>
-
-              {activeTelescopeMission.missionAvailable ? (
-                <LiveStream {...activeTelescopeMission} />
-              ) : null}
 
               <Spacer height="50px" />
 
