@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Link } from 'react-router';
 
 const Mission = () => (
@@ -7,9 +7,8 @@ const Mission = () => (
     <header className="static page">
       <h1 className="big-board">
         <div className="text-xlarge">Our Mission:</div>
-        <div className="text-regular margin-top-large margin-bottom-small">Everyone Should Have access to</div>
-        <div className="text-xxlarge">The Wonders of </div>
-        <div className="text-ginormous">Space</div>
+        <div className="minor-title text-regular margin-top-large margin-bottom-small">Teach the World to</div>
+        <div className="major-title">Explore Space</div>
       </h1>
     </header>
 
@@ -21,58 +20,37 @@ const Mission = () => (
 
       <article className="col-2third">
         <p>
-          Welcome.
+          Welcome to Slooh.
         </p>
 
         <p>
-          Slooh launched on a Christmas morning fourteen years ago with
-          just two telescopes in the Canary Islands. On that day we shared
-          with our few curious members the light of the Sun bouncing off the
-          planet Saturn and reflecting back to us here on Earth.
+          We believe that when people explore space it makes our world here on Earth better. People who explore space recognize that as a species we have far more in common than separates us. Factors such as light pollution and the concentration of population in modern cities have blinded us to an important aspect of our environment, one of which our ancestors had far more appreciation. The sky and the universe beyond it colored their Gods and shaped their calendars.
         </p>
 
-        <blockquote>
-          We encourage you to share your own sense of wonder as we seek to
-          curate our collective human response to space across every style
-          of thought and expression.
-        </blockquote>
+        {
+          /*
+          <blockquote>
+            We encourage you to share your own sense of wonder as we seek to
+            curate our collective human response to space across every style
+            of thought and expression.
+          </blockquote>
+          */
+        }
 
         <p>
-          Over the years we’ve expanded the footprint of our observatories
-          and your capacity to control them, but a few things have remained
-          constant throughout. For one, we’re committed to the authenticity
-          of a &quot;live&quot; experience (versus 3D simulations or
-          animations) in order to capture the real, yet ephemeral flow of a
-          universe that we often find ourselves struggling to comprehend.
-          That desire to know our place in the vast firmament around us is
-          not one we explore alone. When we look through a Slooh telescope,
-          we are doing it in unison with a global community looking up in
-          wonder with us. Therefore, we fundamentally designed this new
-          experience to be a social one, bringing about an active exchange
-          of ideas and expressions.
+          We want to help people explore space because we know space is daunting; it&#39;s complex and distant, the turf of Einstein, Newton and rocket scientists. Not for me and you. And yet we all wonder about space. It shows up in our art and in our stories, in our music and in our dreams. We are inspired by science, yes, the little we actually know about what is &#39;out there&#39;, and the new bits we are learning all the time. But also by our imagination--what might be out there? And what our ancestors have believed through the ages and how they have expressed it.
         </p>
 
         <p>
-          True to our mission, we welcome diverse perspectives about what
-          is out &#39;there&#39;, knowing that no one interpretation can
-          ever be definitive. We encourage you to share your own sense of
-          wonder as we seek to curate our collective human response to space
-          across every style of thought and expression. We&#39;re open to
-          the spiritual, the artistic, the imaginative, along with the
-          scientific. Ultimately, we believe we offer a meditation of sorts,
-          a way to reflect on the light we see, and its subsequent
-          reflection upon others. Look for these new contributions
-          adjacent to our live telescope feeds--and by all means feel free
-          to submit your own!
+          We encourage you to share your own sense of wonder as we seek to curate our collective human response to space across all modes of thought and expression. Ultimately, we believe we offer a meditation of sorts, a way to reflect on the light we see, and its subsequent reflection upon others.  And we seek to build your connection to space by relating it to the things you already love to do, by encouraging you to practice yoga with a heightened sense of the Sun, by planning a camp out during the peak of a meteor shower or a BBQ under the full moon.
         </p>
 
         <p>
-          The talented and passionate team that have contributed to the
-          development of this evolution of Slooh will be represented below,
-          as well as members of the community who have been encouraging us
-          all along. Needless to say, as when we initially launched with
-          that timeless view of Saturn 14 years ago, we&#39;re just getting
-          started.
+          We are committed to an authentic experience, one that emphasizes natural wonders over simulations and animations, in order to capture the real, yet ephemeral flow of a universe that we often find ourselves struggling to comprehend. We embrace all perspectives about space, including those fueled by hope and spirituality, knowing that no one interpretation can ever be definitive. We believe in the wisdom of the crowd--when we look through a Slooh telescope, we are doing it in unison with a global community looking up in wonder with us. We believe astronomy deserves a greater role in the education of our children, and we seek to integrate it into S.T.E.A.M. curriculum.  We believe space is a uniting force, celebrating our common condition under a shared sky.
+        </p>
+
+        <p>
+          Your membership is an affirmation of our continuing fourteen-year mission to teach the world to explore space.
         </p>
       </article>
 
@@ -121,6 +99,16 @@ const Mission = () => (
         </article>
       </footer>
     </footer>
+
+    <style jsx>{`
+      .minor-title {
+        font-size: 34px;
+        font-weight: 300;
+      }
+      .major-title {
+        font-size: 70px;
+      }
+    `}</style>
   </article>
 );
 
