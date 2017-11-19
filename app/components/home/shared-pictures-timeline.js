@@ -97,7 +97,6 @@ class SharedPicturesTimeline extends Component {
           handle=".handle"
           onDrag={this.onDrag}
           grid={[width/2, width/2]}
-          style={{ border: `1px solid ${pink}`}}
           defaultPosition={{ x: leftBound, y: 0 }}
           bounds={{
             left: leftBound,

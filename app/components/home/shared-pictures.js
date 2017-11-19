@@ -197,7 +197,7 @@ class SharedPictures extends Component {
 
         `}</style>
 
-        <style global>
+        <style jsx global>
           {`
 
             .shared-container .slick-prev {

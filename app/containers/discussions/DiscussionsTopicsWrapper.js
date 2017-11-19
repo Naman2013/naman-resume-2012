@@ -7,6 +7,7 @@ import DiscussionsNav from '../../components/discussions/DiscussionsNav';
 import ForumsIndex from '../../components/discussions/forums-index';
 import { fetchTopicList } from '../../modules/discussions-topics/actions';
 
+
 const { func, object, shape } = PropTypes;
 class DiscussionsTopicsWrapper extends Component {
   static propTypes = {
@@ -54,6 +55,7 @@ class DiscussionsTopicsWrapper extends Component {
         <DiscussionsHeader title={`Topics for forum: ${forumName}`} newThreadUrl={newThreadUrl} />
         <div className="discussions-wrapper container-fluid">
           <DiscussionsNav
+            defaultLink={`/discussions/forums/${forumId}/topics/default`}
             alphabeticLink={`/discussions/forums/${forumId}/topics/alphabetic`}
             mostRecentLink={`/discussions/forums/${forumId}/topics/most-recent`}
             mostActiveLink={`/discussions/forums/${forumId}/topics/most-active`}

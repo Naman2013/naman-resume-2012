@@ -202,7 +202,7 @@ ReactDOM.render(
             <Route path="diy" name="diy" component={AuthorPostList} />
           </Route>
 
-          {/*         
+          {/*
           <Route path="hottest" component={AuthorWrapper}>
             <IndexRedirect to="all" />
             <Route path="all" name="all" component={AuthorPostList} />
@@ -317,7 +317,8 @@ ReactDOM.render(
         <Route path="discussions" component={Discussions} onEnter={validateUser}>
           <IndexRedirect to="main" />
           <Route path="main" component={DiscussionsWrapper}>
-            <IndexRedirect to="most-recent" />
+            <IndexRedirect to="featured" />
+            <Route path="featured" component={DiscussionsListWrapper} />
             <Route path="most-recent" component={DiscussionsListWrapper} />
             <Route path="most-active" component={DiscussionsListWrapper} />
           </Route>
@@ -328,7 +329,8 @@ ReactDOM.render(
           </Route>
         </Route>
         <Route path="discussions/forums(/:forumId)/topics" component={DiscussionsTopicsWrapper} onEnter={validateUser}>
-          <IndexRedirect to="alphabetic" />
+          <IndexRedirect to="default" />
+          <Route path="default" component={DiscussionsTopicsList} />
           <Route path="alphabetic" component={DiscussionsTopicsList} />
           <Route path="most-recent" component={DiscussionsTopicsList} />
           <Route path="most-active" component={DiscussionsTopicsList} />

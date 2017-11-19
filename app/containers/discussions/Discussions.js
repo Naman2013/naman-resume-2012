@@ -50,7 +50,11 @@ class Discussions extends Component {
 
     return (
       <div className="clearfix">
-        <DiscussionsHeader imgUrl={imgUrl} newThreadUrl={newThreadUrl} title={showHeaderTitle && `Forum: ${forumName}   Topic: ${currentTopic.get('title')}`} />
+        <DiscussionsHeader
+          imgUrl={imgUrl}
+          newThreadUrl={newThreadUrl}
+          title={showHeaderTitle && `Forum: ${forumName}   Topic: ${currentTopic.get('title')}`}
+        />
         <section>
           {cloneElement(children)}
         </section>

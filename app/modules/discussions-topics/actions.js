@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { getTopicList } from '../../services/discussions/get-topic-list';
+import { getTopicList, SORT_MENU_ORDER } from '../../services/discussions/get-topic-list';
 
 export const FETCH_TOPIC_LIST_START = 'FETCH_TOPIC_LIST_START';
 export const FETCH_TOPIC_LIST_SUCCESS = 'FETCH_TOPIC_LIST_SUCCESS';

@@ -5,7 +5,8 @@ import { bindActionCreators } from 'redux';
 import DiscussionsNav from '../../components/discussions/DiscussionsNav';
 import ForumsIndex from '../../components/discussions/forums-index';
 import {
-  fetchThreadList
+  fetchThreadList,
+  fetchFeaturedThreadList,
 } from '../../modules/discussions-thread/actions';
 
 const { func, object, shape } = PropTypes;
@@ -30,12 +31,20 @@ class DiscussionsWrapper extends Component {
   componentDidMount() {
     const { actions, children, params: { topicId } } = this.props;
     const { props: { route: { path } } } = children;
+    if (path === 'featured') {
+      actions.fetchFeaturedThreadList({
+        sortBy: path,
+        topicId,
+        page: 1,
+      });
+    } else {
+      actions.fetchThreadList({
+        sortBy: path,
+        topicId,
+        page: 1,
+      });
+    }
 
-    actions.fetchThreadList({
-      sortBy: path,
-      topicId,
-      page: 1,
-    });
 
   }
 
@@ -45,11 +54,17 @@ class DiscussionsWrapper extends Component {
     const { children: nextChildren, params: { topicId, forumId } } = nextProps;
     const { props: { route: { path: nextPath } } } = nextChildren;
     if (path !== nextPath || this.props.params.topicId !== topicId) {
-      actions.fetchThreadList({
-        sortBy: nextPath,
-        topicId,
-        page: 1,
-      });
+      if (nextPath === 'featured') {
+        actions.fetchFeaturedThreadList({
+          page: 1,
+        });
+      } else {
+        actions.fetchThreadList({
+          sortBy: nextPath,
+          topicId,
+          page: 1,
+        });
+      }
     }
   }
 
@@ -60,6 +75,7 @@ class DiscussionsWrapper extends Component {
     return (
       <div className="discussions-wrapper container-fluid">
         <DiscussionsNav
+          featuredLink={forumId && topicId ? null : '/discussions/main/featured'}
           mostRecentLink={mostRecentLink}
           mostActiveLink={mostActiveLink}
         />
@@ -82,6 +98,7 @@ const mapStateToProps = ({ discussionsThread }) => ({
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
     fetchThreadList,
+    fetchFeaturedThreadList,
   }, dispatch)
 });
 
