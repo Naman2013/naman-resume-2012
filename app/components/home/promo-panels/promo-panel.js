@@ -42,6 +42,26 @@ class PromoPanel extends Component {
     minWidth: '100%',
   };
 
+  const inlineStyle_checkItOutButton_Promo = {
+      position: 'absolute',
+      top: '80%',
+      textAlign: 'center',
+      fontSize: '1.2em',
+      fontWeight: 'bold',
+      marginLeft: 'auto',
+      marginBottom: 'auto',
+  };
+
+  const inlineStyle_checkItOutButton_Info = {
+      position: 'absolute',
+      top: '80%',
+      fontSize: '1.2em',
+      fontWeight: 'bold',
+      textAlign: 'center',
+      marginLeft: 'auto',
+      marginBottom: 'auto',
+  };
+
   const inlineStyle_info = {
     position: 'absolute',
     minHeight: '400px',
@@ -54,18 +74,13 @@ class PromoPanel extends Component {
     backgroundColor: `${white}`,
   };
 
-  const inlineStyle_checkItOutButton = {
-      fontSize: '1.2em',
-      fontWeight: 'bold',
-  };
-
     return (
     	<div style={inlineStyle_PromoContainer}>
     	      {this.props.type == 'promotional' &&
     		      <div style={inlineStyle_promo}>
             		<h2 style={inlineStyle_Heading}>{this.props.heading}</h2>
     		        <h3 style={inlineStyle_SubHeading}>{this.props.subhead}</h3>
-                <a style={inlineStyle_checkItOutButton} href={this.props.buttonLink} className="button btn-primary">{this.props.buttonText}</a>
+                <a style={inlineStyle_checkItOutButton_Promo} href={this.props.buttonLink} className="button btn-primary">{this.props.buttonText}</a>
           		</div>
     	      }
 
@@ -73,7 +88,7 @@ class PromoPanel extends Component {
     		      <div style={inlineStyle_info}>
             		<h2 style={inlineStyle_Heading}>{this.props.heading}</h2>
     		        <h3 style={inlineStyle_SubHeading}>{this.props.subhead}</h3>
-                <a style={inlineStyle_checkItOutButton} href={this.props.buttonLink} className="button btn-primary">{this.props.buttonText}</a>
+                <a style={inlineStyle_checkItOutButton_Info} href={this.props.buttonLink} className="button btn-primary">{this.props.buttonText}</a>
           		</div>
     	      }
     	</div>

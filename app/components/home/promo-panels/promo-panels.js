@@ -127,7 +127,7 @@ class PromoPanels extends Component {
               z-index: 99999;
             }
 
-            .shared-container .slick-prev {
+            .shared-container .slick-next {
               z-index: 99999;
             }
 
@@ -176,7 +176,6 @@ class PromoPanels extends Component {
             }
           `}
         </style>
-
       </div>
     );
   }
