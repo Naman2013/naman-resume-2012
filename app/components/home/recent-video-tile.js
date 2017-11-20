@@ -20,7 +20,16 @@ class RecentVideoTile extends Component {
 
   render() {
     /* calulate the width of each video */
-    var videoWidth = 100 / this.props.numVideos + '%';
+    var videoWidth = '';
+
+    if (this.props.numVideos == 1) {
+      /* only set the width a maximum of 50% if there is one video */
+      videoWidth = '50%';
+    }
+    else {
+      videoWidth = 100 / this.props.numVideos + '%';
+    }
+
 
     const inlineStyle = {
       background: `url(${this.props.imageUrl}) no-repeat center center`,
