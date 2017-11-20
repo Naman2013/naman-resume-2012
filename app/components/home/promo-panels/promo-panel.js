@@ -54,7 +54,7 @@ class PromoPanel extends Component {
   		color: `${this.props.headingColorRGB}`,
       textAlign: 'center',
       marginTop: '0px',
-      paddingTop: '20px',
+      paddingTop: '120px',
       marginLeft: 'auto',
       marginRight: 'auto',
       fontSize: '2.5em',
@@ -76,8 +76,7 @@ class PromoPanel extends Component {
       marginLeft: 'auto',
       marginRight: 'auto',
       textAlign: 'center',
-      bottom: '0',
-      paddingBottom: '30px',
+      paddingTop: '90px',
     }
 
     const inlineStyle_info = {
