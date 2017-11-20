@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Slider from 'react-slick';
 import PromoPanel from './promo-panel';
-import promoPanelStyles from './promo-panels.style';
 import { white, darkBlueGray } from '../../../styles/variables/colors';
 
 /********************************************************************
@@ -11,17 +10,17 @@ import { white, darkBlueGray } from '../../../styles/variables/colors';
 ********************************************************************/
 class PromoPanels extends Component {
   static defaultProps = {
-    promosList: []
+    promoArray: []
   };
 
   state = {
-    currentIndex: this.props.promosList.length - 1,
+    currentIndex: 0,
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.promosList.length !== nextProps.promosList.length) {
+    if (this.props.promoArray.length !== nextProps.promoArray.length) {
       this.setState({
-        currentIndex: nextProps.promosList.length - 1,
+        currentIndex: nextProps.promoArray.length - 1,
       });
     }
   }
@@ -41,14 +40,14 @@ class PromoPanels extends Component {
 
   render() {
     const {
-      promosList
+      promoArray
     } = this.props;
 
     const { currentIndex } = this.state;
 
     const mainPromosSliderSettings = {
       arrows: true,
-      dots: true,
+      dots: false,
       infinite: false,
       speed: 500,
       slidesToShow: 1,
@@ -59,7 +58,7 @@ class PromoPanels extends Component {
       beforeChange: this.beforeSlideChange,
     };
 
-    const promos = promosList.map(
+    const promos = promoArray.map(
       promoInfo => <div key={promoInfo.promoId}>
         <PromoPanel
           {...promoInfo}
@@ -69,8 +68,8 @@ class PromoPanels extends Component {
     );
 
     return (
-      <div className="shared-container promo-panels-container">
-        {promosList.length > 0 && <div className="shared-slider-container">
+      <div className="shared-container">
+        {promoArray.length > 0 && <div className="shared-slider-container">
           <Slider
             {...mainPromosSliderSettings}
             ref={c => this.slider = c}
@@ -123,6 +122,10 @@ class PromoPanels extends Component {
 
         <style global>
           {`
+
+            .shared-container .slick-prev {
+              z-index: 99999;
+            }
 
             .shared-container .slick-prev {
               z-index: 99999;
@@ -181,7 +184,7 @@ class PromoPanels extends Component {
 
 PromoPanels.propTypes = {
   promoHeading: PropTypes.string,
-  promosList: PropTypes.array.isRequired,
+  promoArray: PropTypes.array.isRequired,
 };
 
 export default PromoPanels;

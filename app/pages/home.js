@@ -55,6 +55,8 @@ const sloohFeaturesStyle = {
 const promoInlineStyle = {
   paddingTop: '0px',
   paddingBottom: '0px',
+  marginTop: '0px',
+  marginBottom: '0px',
 };
 
 @connect(mapStateToProps, mapDispatchToProps)
@@ -165,7 +167,7 @@ class Home extends Component {
         }
 
         <div style={promoInlineStyle}>
-          {this.props.homeContentTmp.promo && <PromoPanels {...this.props.homeContentTmp.promo}/>}
+          {homeContent.promo && <PromoPanels {...homeContent.promo}/>}
         </div>
 
         {homeContent.memberPicturesDisplay && <SharedPictures
@@ -218,21 +220,6 @@ class Home extends Component {
 }
 
 Home.defaultProps = {
-  homeContentTmp: {
-    promo: {
-      promoHeading: 'Promo Panel Heading Goes Here!!',
-      promosList: [
-        {
-          uniqueId: 'abc',
-          heading: 'my heading 1',
-        },
-        {
-          uniqueId: 'def',
-          heading: 'my heading 2',
-        }
-      ]
-    }
-  },
   homeContent: {
     loadHeroTypes: [],
   },
