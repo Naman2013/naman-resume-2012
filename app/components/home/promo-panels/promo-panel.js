@@ -9,17 +9,29 @@ import { white, lightGray, darkBlueGray } from '../../../styles/variables/colors
 class PromoPanel extends Component {
   render() {
 	const inlineStyle_PromoContainer = {
+    position: 'relative',
 		minHeight: '500px',
+    maxHeight: '500px',
 		minWidth: '100%',
+    marginTop: '0px',
+    marginBottom: '0px',
+    paddingTop: '0px',
+    paddingBottom: '0px',
     backgroundColor: `${lightGray}`,
 	};
 
   const inlineStyle_Heading = {
 		color: `${this.props.headingColorRGB}`,
+    textAlign: 'center',
+    marginTop: '0px',
+    paddingTop: '20px',
 	};
 
 	const inlineStyle_SubHeading = {
 		color: `${this.props.subheadColorRGB}`,
+    textAlign: 'center',
+    marginTop: '0px',
+    paddingTop: '20px',
 	};
 
 
@@ -31,34 +43,40 @@ class PromoPanel extends Component {
   };
 
   const inlineStyle_info = {
+    position: 'absolute',
     minHeight: '400px',
     maxHeight: '400px',
     minWidth: '60%',
     maxWidth: '60%',
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    height: '50%',
+    marginLeft: '20%',
+    marginRight: '20%',
+    top: '10%',
     backgroundColor: `${white}`,
   };
 
+  const inlineStyle_checkItOutButton = {
+      fontSize: '1.2em',
+      fontWeight: 'bold',
+  };
+
     return (
-	<div style={inlineStyle_PromoContainer}>
-	      {this.props.type == 'promotional' &&
-		      <div style={inlineStyle_promo}>
-        		<h2 style={inlineStyle_Heading} className="center">{this.props.heading}</h2>
-		        <h3 style={inlineStyle_SubHeading} className="center">{this.props.subhead}</h3>
-      		</div>
-	      }
+    	<div style={inlineStyle_PromoContainer}>
+    	      {this.props.type == 'promotional' &&
+    		      <div style={inlineStyle_promo}>
+            		<h2 style={inlineStyle_Heading}>{this.props.heading}</h2>
+    		        <h3 style={inlineStyle_SubHeading}>{this.props.subhead}</h3>
+                <a style={inlineStyle_checkItOutButton} href={this.props.buttonLink} className="button btn-primary">{this.props.buttonText}</a>
+          		</div>
+    	      }
 
-	      {this.props.type == 'informational' &&
-		      <div style={inlineStyle_info}>
-        		<h2 style={inlineStyle_Heading} className="center">{this.props.heading}</h2>
-		        <h3 style={inlineStyle_SubHeading} className="center">{this.props.subhead}</h3>
-      		</div>
-	      }
-
-	</div>
-
+    	      {this.props.type == 'informational' &&
+    		      <div style={inlineStyle_info}>
+            		<h2 style={inlineStyle_Heading}>{this.props.heading}</h2>
+    		        <h3 style={inlineStyle_SubHeading}>{this.props.subhead}</h3>
+                <a style={inlineStyle_checkItOutButton} href={this.props.buttonLink} className="button btn-primary">{this.props.buttonText}</a>
+          		</div>
+    	      }
+    	</div>
     );
   }
 }

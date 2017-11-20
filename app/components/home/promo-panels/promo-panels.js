@@ -80,23 +80,23 @@ class PromoPanels extends Component {
 
         <style jsx>{`
           .shared-container {
-            padding: 25px 50px;
             background-color: #2d3949;
             color: ${white};
-            min-height: 500px;
             margin-bottom: 0px;
+            min-height: 500px;
           }
-            @media(max-width:640px){
+          @media(max-width:640px){
 
-            .shared-container{padding:25px 30px}
+          .shared-container{padding:25px 30px}
 
-            }
+          }
+
           .empty {
-            padding: 50px;
             text-align: center;
           }
+
           .shared-slider-container {
-            min-height: 400px;
+
           }
 
           .header {

@@ -56,7 +56,7 @@ const promoInlineStyle = {
   paddingTop: '0px',
   paddingBottom: '0px',
   marginTop: '0px',
-  marginBottom: '0px',
+  marginBottom: '-30px',
 };
 
 @connect(mapStateToProps, mapDispatchToProps)
