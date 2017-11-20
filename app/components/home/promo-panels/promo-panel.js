@@ -37,14 +37,15 @@ class PromoPanel extends Component {
       backgroundColor: `${lightGray}`,
   	};
 
-    const inlineStyle_Heading = {
+    const inlineStyle_promo_Heading = {
+      textTransform: 'uppercase',
   		color: `${this.props.headingColorRGB}`,
       textAlign: 'center',
       marginTop: '0px',
       paddingTop: '20px',
   	};
 
-  	const inlineStyle_SubHeading = {
+  	const inlineStyle_promo_SubHeading = {
   		color: `${this.props.subheadColorRGB}`,
       textAlign: 'center',
       marginTop: '0px',
@@ -93,20 +94,35 @@ class PromoPanel extends Component {
 
     const inlineStyle_info_data = {
       float: 'right',
-      textAlign: 'center',
+      textAlign: 'left',
       width: '50%',
     }
 
     const inlineStyle_info_data_link = {
-
+      paddingTop: '20%',
     };
+
+    const inlineStyle_info_Heading = {
+      textTransform: 'uppercase',
+  		color: `${this.props.headingColorRGB}`,
+      textAlign: 'left',
+      marginTop: '0px',
+      paddingTop: '20px',
+  	};
+
+  	const inlineStyle_info_SubHeading = {
+  		color: `${this.props.subheadColorRGB}`,
+      textAlign: 'left',
+      marginTop: '0px',
+      paddingTop: '20px',
+  	};
 
     return (
     	<div style={inlineStyle_PromoContainer}>
     	      {this.props.type == 'promotional' &&
     		      <div style={inlineStyle_promo}>
-            		<h2 style={inlineStyle_Heading}>{this.props.heading}</h2>
-    		        <h3 style={inlineStyle_SubHeading}>{this.props.subhead}</h3>
+            		<h2 style={inlineStyle_promo_Heading}>{this.props.heading}</h2>
+    		        <h3 style={inlineStyle_promo_SubHeading}>{this.props.subhead}</h3>
                 <div style={inlineStyle_checkItOutButton_PromoDIV}>
                   {generateLink(this.props.buttonLink, this.props.buttonText)}
                 </div>
@@ -121,8 +137,8 @@ class PromoPanel extends Component {
                   </div>
 
                   <div style={inlineStyle_info_data}>
-              		    <h2 style={inlineStyle_Heading}>{this.props.heading}</h2>
-      		            <h3 style={inlineStyle_SubHeading}>{this.props.subhead}</h3>
+              		    <h2 style={inlineStyle_info_Heading}>{this.props.heading}</h2>
+      		            <h3 style={inlineStyle_info_SubHeading}>{this.props.subhead}</h3>
                       <div style={inlineStyle_info_data_link}>
                         {generateLink(this.props.buttonLink, this.props.buttonText)}
                       </div>
