@@ -53,8 +53,10 @@ class PromoPanel extends Component {
   	};
 
     const inlineStyle_promo = {
+      /* background: `url(${this.props.imageURL}) center center no-repeat`,
+      backgroundSize: 'auto 100%', */
       background: `url(${this.props.imageURL}) center center no-repeat`,
-      backgroundSize: 'auto 100%',
+      backgroundSize: 'cover',
       minHeight: '500px',
       maxHeight: '500px',
       minWidth: '100%',
