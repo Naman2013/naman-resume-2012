@@ -123,6 +123,7 @@ class PromoPanel extends Component {
       textAlign: 'left',
       marginTop: '0px',
       paddingTop: '20px',
+      fontWeight: 'bold',
   	};
 
   	const inlineStyle_info_SubHeading = {
