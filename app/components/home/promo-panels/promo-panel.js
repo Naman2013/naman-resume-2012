@@ -115,6 +115,7 @@ class PromoPanel extends Component {
 
     const inlineStyle_info_data_link = {
       paddingTop: '20%',
+      textAlign: 'center',
     };
 
     const inlineStyle_info_Heading = {

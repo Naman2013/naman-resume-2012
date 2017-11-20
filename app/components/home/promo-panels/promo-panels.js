@@ -56,6 +56,8 @@ class PromoPanels extends Component {
       initialSlide: currentIndex,
       adaptiveHeight: false,
       beforeChange: this.beforeSlideChange,
+      /* prevArrow: "<img src='/assets/icons/question-mark.png'/>",
+      nextArrow: "<img src='/assets/icons/question-mark.png'/>", */
     };
 
     const promos = promoArray.map(
