@@ -20,11 +20,11 @@ const Mission = () => (
 
       <article className="col-2third">
         <p>
-          Welcome to Slooh.
+          Light pollution and the concentration of population in modern cities have blinded us to an important aspect of our environment, one of which our ancestors had far more appreciation. The distant sparkle of night lights shaped their sense of time and colored their Gods. We aspire to reclaim this lost realm, and with it our sense of perspective regarding the world beyond our making.
         </p>
 
         <p>
-          We believe that when people explore space it makes our world here on Earth better. People who explore space recognize that as a species we have far more in common than separates us. Factors such as light pollution and the concentration of population in modern cities have blinded us to an important aspect of our environment, one of which our ancestors had far more appreciation. The sky and the universe beyond it colored their Gods and shaped their calendars.
+          Space is daunting, the purview of Einstein and rocket scientists. And yet we all wonder about space. It appears in our art and in our stories, in our music and in our dreams. Science leads the way, the little we know about what is out there. But we are inspired equally by imagination, about what might be out there. And by what our ancestors believed was out there, and by how they expressed it.
         </p>
 
         {
@@ -38,19 +38,23 @@ const Mission = () => (
         }
 
         <p>
-          We want to help people explore space because we know space is daunting; it&#39;s complex and distant, the turf of Einstein, Newton and rocket scientists. Not for me and you. And yet we all wonder about space. It shows up in our art and in our stories, in our music and in our dreams. We are inspired by science, yes, the little we actually know about what is &#39;out there&#39;, and the new bits we are learning all the time. But also by our imagination--what might be out there? And what our ancestors have believed through the ages and how they have expressed it.
+          We encourage you to share your own sense of wonder as we seek to curate our collective human response to space. Ultimately, we believe we offer a meditation of sorts, a way to reflect on the light we see, and its subsequent reflection upon others.  And we seek to build your connection to space by relating it to the things you already do, by encouraging you to practice yoga with a heightened sense of the Sun, by planning a camp out during the peak of a meteor shower or a BBQ under the full moon.
         </p>
 
         <p>
-          We encourage you to share your own sense of wonder as we seek to curate our collective human response to space across all modes of thought and expression. Ultimately, we believe we offer a meditation of sorts, a way to reflect on the light we see, and its subsequent reflection upon others.  And we seek to build your connection to space by relating it to the things you already love to do, by encouraging you to practice yoga with a heightened sense of the Sun, by planning a camp out during the peak of a meteor shower or a BBQ under the full moon.
+          We are committed to an authentic experience, one that emphasizes natural phenomena over simulations and animations, in order to capture the real, yet ephemeral flow of a universe that we often find ourselves struggling to comprehend.
         </p>
 
         <p>
-          We are committed to an authentic experience, one that emphasizes natural wonders over simulations and animations, in order to capture the real, yet ephemeral flow of a universe that we often find ourselves struggling to comprehend. We embrace all perspectives about space, including those fueled by hope and spirituality, knowing that no one interpretation can ever be definitive. We believe in the wisdom of the crowd--when we look through a Slooh telescope, we are doing it in unison with a global community looking up in wonder with us. We believe astronomy deserves a greater role in the education of our children, and we seek to integrate it into S.T.E.A.M. curriculum.  We believe space is a uniting force, celebrating our common condition under a shared sky.
+          We embrace all perspectives about space, including those fueled by hope and spirituality, knowing that no one interpretation can ever be definitive.
         </p>
 
         <p>
-          Your membership is an affirmation of our continuing fourteen-year mission to teach the world to explore space.
+          We believe space exploration is a uniting force, an opportunity to celebrate our common condition under a shared sky. We wish astronomy played a greater role in the education of our children. We think it has the potential to improve our world here on Earth.
+        </p>
+
+        <p>
+          Your membership is an affirmation of our fourteen year mission to teach the world to explore space. Thank you for your support.
         </p>
       </article>
 
