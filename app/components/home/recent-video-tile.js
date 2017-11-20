@@ -19,18 +19,27 @@ class RecentVideoTile extends Component {
   }
 
   render() {
+    /* calulate the width of each video */
+    var videoWidth = 100 / this.props.numVideos + '%';
+
     const inlineStyle = {
       background: `url(${this.props.imageUrl}) no-repeat center center`,
       backgroundSize: 'cover',
       minHeight: '255px',
+      minWidth: `${videoWidth}`,
       paddingLeft: '20px',
       paddingRight: '20px',
       paddingTop: '20px',
     };
 
+    const inlineStyle_video = {
+      minWidth: '100%',
+      width: '100%',
+    };
+
     return (
       <div style={inlineStyle} className="col-sm-4 recent-video-tile-container">
-        <div className="video-wrap">
+        <div style={inlineStyle_video} className="video-wrap">
           <iframe
             className="home-youtube-video"
             width="100%"

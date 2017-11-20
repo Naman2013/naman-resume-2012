@@ -51,6 +51,17 @@ const sloohFeaturesStyle = {
   display: "inline-block",
 }
 
+const inlineVideosContainer = {
+  position: 'relative',
+  display: 'relative',
+  width: '100%',
+  textAlign: 'center',
+}
+
+const inlineInnerVideosContainer = {
+  maxWidth: '100%',
+}
+
 @connect(mapStateToProps, mapDispatchToProps)
 class Home extends Component {
   componentWillMount() {
@@ -85,7 +96,7 @@ class Home extends Component {
 
   generateRecentVideoTiles() {
     const { homeContent } = this.props;
-    return homeContent.videoClips.videoClipsArray.map(videoTile => <RecentVideoTile {...videoTile} />);
+    return homeContent.videoClips.videoClipsArray.map(videoTile => <RecentVideoTile numVideos={homeContent.videoClips.videoClipsCount} {...videoTile} />);
   }
 
   generateSloohFeatures() {
@@ -164,8 +175,14 @@ class Home extends Component {
           timelineData={sharedMemberTimelineData}
         />}
 
-        {homeContent.videoClips && <PromoMessageBand title={homeContent.videoClips.videoClipsHeading} />}
-        {homeContent.videoClips && homeContent.videoClips.videoClipsArray && this.generateRecentVideoTiles()}
+          {homeContent.videoClips && <PromoMessageBand title={homeContent.videoClips.videoClipsHeading} />}
+          {homeContent.videoClips &&
+            <div style={inlineVideosContainer} className="clearfix">
+                <div style={inlineInnerVideosContainer}>
+                  {homeContent.videoClips && homeContent.videoClips.videoClipsArray && this.generateRecentVideoTiles()}
+                </div>
+            </div>
+          }
 
         {!homeContent.userLoggedInFlag && this.generateSloohFeatures()}
 
