@@ -48,7 +48,7 @@ class PromoPanels extends Component {
     const mainPromosSliderSettings = {
       arrows: true,
       dots: false,
-      infinite: false,
+      infinite: true,
       speed: 500,
       slidesToShow: 1,
       slidesToScroll: 1,
@@ -83,7 +83,7 @@ class PromoPanels extends Component {
             background-color: #2d3949;
             color: ${white};
             margin-bottom: 0px;
-            min-height: 500px;
+            min-height: 630px;
           }
           @media(max-width:640px){
 
@@ -172,7 +172,6 @@ class PromoPanels extends Component {
                       .shared-container .slick-next {right:-51px}
                       .shared-container .slick-prev:before,
                       .shared-container .slick-next:before {text-indent:0px; font-size:20px !important}
-
             }
           `}
         </style>
