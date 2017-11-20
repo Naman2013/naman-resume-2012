@@ -3,13 +3,9 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import useAbsoluteURL from '../../../utils/useAbsoluteURL';
 import purgeHashURL from '../../../utils/purgeHashURL';
-
 import { white, lightGray, darkBlueGray } from '../../../styles/variables/colors';
 
-/********************************************************************
-* Class: PromoPanel
-* Description: An individual promotional or informational panel
-********************************************************************/
+/* generate a link or href depending on internal / external link */
 function generateLink(URL = '', content = '') {
   if (useAbsoluteURL(URL)) {
     return (
@@ -22,6 +18,10 @@ function generateLink(URL = '', content = '') {
   );
 }
 
+/********************************************************************
+* Class: PromoPanel
+* Description: An individual promotional or informational panel
+********************************************************************/
 class PromoPanel extends Component {
   render() {
 
@@ -89,13 +89,18 @@ class PromoPanel extends Component {
 
     const inlineStyle_info_photo = {
       float: 'left',
-      width: '50%',
+      minWidth: '50%',
+      minHeight: '400px',
+      background: `url(${this.props.imageURL}) center center no-repeat`,
+      backgroundSize: 'cover',
     }
 
     const inlineStyle_info_data = {
       float: 'right',
       textAlign: 'left',
       width: '50%',
+      paddingLeft: '30px',
+      paddingRight: '20px',
     }
 
     const inlineStyle_info_data_link = {
@@ -132,9 +137,7 @@ class PromoPanel extends Component {
     	      {this.props.type == 'informational' &&
     		      <div style={inlineStyle_info}>
                 <div style={inlineStyle_info_container}>
-                  <div style={inlineStyle_info_photo}>
-                    <img src={this.props.imageURL} width="400" height="400"/>
-                  </div>
+                  <div style={inlineStyle_info_photo}>&nbsp;</div>
 
                   <div style={inlineStyle_info_data}>
               		    <h2 style={inlineStyle_info_Heading}>{this.props.heading}</h2>
