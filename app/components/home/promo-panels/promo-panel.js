@@ -80,6 +80,27 @@ class PromoPanel extends Component {
       backgroundColor: `${white}`,
     };
 
+    const inlineStyle_info_container = {
+      position: 'relative',
+      minHeight: '100%',
+      minWidth: '100%',
+    };
+
+    const inlineStyle_info_photo = {
+      float: 'left',
+      width: '50%',
+    }
+
+    const inlineStyle_info_data = {
+      float: 'right',
+      textAlign: 'center',
+      width: '50%',
+    }
+
+    const inlineStyle_info_data_link = {
+
+    };
+
     return (
     	<div style={inlineStyle_PromoContainer}>
     	      {this.props.type == 'promotional' &&
@@ -94,9 +115,19 @@ class PromoPanel extends Component {
 
     	      {this.props.type == 'informational' &&
     		      <div style={inlineStyle_info}>
-            		<h2 style={inlineStyle_Heading}>{this.props.heading}</h2>
-    		        <h3 style={inlineStyle_SubHeading}>{this.props.subhead}</h3>
-                {generateLink(this.props.buttonLink, this.props.buttonText)}
+                <div style={inlineStyle_info_container}>
+                  <div style={inlineStyle_info_photo}>
+                    <img src={this.props.imageURL} width="400" height="400"/>
+                  </div>
+
+                  <div style={inlineStyle_info_data}>
+              		    <h2 style={inlineStyle_Heading}>{this.props.heading}</h2>
+      		            <h3 style={inlineStyle_SubHeading}>{this.props.subhead}</h3>
+                      <div style={inlineStyle_info_data_link}>
+                        {generateLink(this.props.buttonLink, this.props.buttonText)}
+                      </div>
+                  </div>
+                </div>
           		</div>
     	      }
     	</div>
