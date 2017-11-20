@@ -46,6 +46,10 @@ class RecentVideoTile extends Component {
       width: '100%',
     };
 
+    const inlineStyle_VideoDescription = {
+      textAlign: 'left',
+    }
+    
     return (
       <div style={inlineStyle} className="col-sm-4 recent-video-tile-container">
         <div style={inlineStyle_video} className="video-wrap">
@@ -59,7 +63,7 @@ class RecentVideoTile extends Component {
             frameBorder="0"
           />
         </div>
-        <p className="content" dangerouslySetInnerHTML={{ __html: this.props.content }} />
+        <p style={inlineStyle_VideoDescription} className="content" dangerouslySetInnerHTML={{ __html: this.props.content }} />
       </div>
     );
   }
