@@ -37,12 +37,29 @@ class PromoPanel extends Component {
       backgroundColor: `${lightGray}`,
   	};
 
+    const inlineStyle_promo = {
+      /* background: `url(${this.props.imageURL}) center center no-repeat`,
+      backgroundSize: 'auto 100%', */
+      background: `url(${this.props.imageURL}) center center no-repeat`,
+      backgroundSize: 'cover',
+      minHeight: '500px',
+      maxHeight: '500px',
+      minWidth: '100%',
+      textAlign: 'center',
+    };
+
     const inlineStyle_promo_Heading = {
+      position: 'relative',
       textTransform: 'uppercase',
   		color: `${this.props.headingColorRGB}`,
       textAlign: 'center',
       marginTop: '0px',
       paddingTop: '20px',
+      marginLeft: 'auto',
+      marginRight: 'auto',
+      fontSize: '2.5em',
+      fontWeight: 'bold',
+      maxWidth: '600px',
   	};
 
   	const inlineStyle_promo_SubHeading = {
@@ -52,23 +69,14 @@ class PromoPanel extends Component {
       paddingTop: '20px',
   	};
 
-    const inlineStyle_promo = {
-      /* background: `url(${this.props.imageURL}) center center no-repeat`,
-      backgroundSize: 'auto 100%', */
-      background: `url(${this.props.imageURL}) center center no-repeat`,
-      backgroundSize: 'cover',
-      minHeight: '500px',
-      maxHeight: '500px',
-      minWidth: '100%',
-    };
-
     const inlineStyle_checkItOutButton_PromoDIV = {
-      position: 'relative',
+      position: 'absolute',
       minWidth: '100%',
       marginLeft: 'auto',
       marginRight: 'auto',
       textAlign: 'center',
-      marginTop: '20%',
+      bottom: '0',
+      paddingBottom: '30px',
     }
 
     const inlineStyle_info = {
