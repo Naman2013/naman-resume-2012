@@ -27,6 +27,7 @@ class InteractiveViewer extends Component {
     isInteractive: true,
     callSource: 'details',
   }
+
   constructor(props) {
     super(props);
 
@@ -40,11 +41,6 @@ class InteractiveViewer extends Component {
     clipped: this.props.isInteractive,
     currentScale: 1,
     bounds: 1,
-    activeDrags: 0,
-    deltaPosition: {
-      x: 0,
-      y: 0,
-    },
     controlledPosition: {
       x: 0,
       y: 0,
@@ -75,11 +71,6 @@ class InteractiveViewer extends Component {
     const { x, y } = position;
     this.setState({ controlledPosition: { x, y } });
   };
-
-  onControlledDragStop(event, position) {
-    const { x, y } = position;
-    this.setState({ controlledPosition: { x, y } });
-  }
 
   handleViewerTick() {
     this.autoZoomTick();

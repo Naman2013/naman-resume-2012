@@ -7,6 +7,7 @@ import DiscussionsList from '../../components/discussions/DiscussionsList';
 import DiscussionsListHeader from '../../components/discussions/DiscussionsListHeader';
 import {
   fetchThreadList,
+  fetchFeaturedThreadList,
 } from '../../modules/discussions-thread/actions';
 
 const { arrayOf, bool, object } = PropTypes;
@@ -15,12 +16,20 @@ class DiscussionsListWrapper extends Component {
 
   fetchMoreThreads = () => {
     const { actions, page, route: { path }, params: { topicId } } = this.props;
-    actions.fetchThreadList({
-      sortBy: path,
-      topicId,
-      page: page + 1,
-      appendToList: true,
-    });
+    if (path == 'featured') {
+      actions.fetchFeaturedThreadList({
+        page: page + 1,
+        appendToList: true,
+      });
+    } else {
+      actions.fetchThreadList({
+        sortBy: path,
+        topicId,
+        page: page + 1,
+        appendToList: true,
+      });
+    }
+
   }
 
   render() {
@@ -53,6 +62,7 @@ const mapStateToProps = ({ discussionsThread }) => ({
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
     fetchThreadList,
+    fetchFeaturedThreadList,
   }, dispatch),
 });
 

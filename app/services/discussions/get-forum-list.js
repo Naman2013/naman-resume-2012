@@ -31,6 +31,7 @@ export const getForumList = ({
   })
 );
 
+export const SORT_MENU_ORDER = 'menuorder';
 export const SORT_ALPHABETIC = 'alphabetic';
 export const SORT_MOST_ACTIVE = 'mostactive';
 export const SORT_MOST_RECENT = 'mostrecent';

@@ -31,7 +31,7 @@ class BestOfSlooh extends Component {
 
           <div className="col-md-9">
             <h1 className="best-header-title"><span className="highlight">Best of Illuminations</span> {date}</h1>
-            <h2 className="best-header-subtitle">Featured authors on objects in the sky</h2>
+            <h2 className="best-header-subtitle">Featured stories about objects in the sky</h2>
           </div>
 
           <div className="col-md-3 best-header-call">

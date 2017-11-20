@@ -41,16 +41,6 @@ export default `
     margin-bottom: 30px;
   }
 
-  .footer {
-    padding: 10px;
-    margin: 0 -15px -15px -15px;
-    background: rgba(31,31,31,0.60);
-  }
-
-  .mission {
-    margin-top: 10px;
-  }
-
   .heart-container {
     position: absolute;
     top: 10px;
