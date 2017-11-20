@@ -388,7 +388,10 @@ class TelescopeDetails extends Component {
                     title="Illuminations"
                     subtitle="Learn more about this object through the various lenses of science, culture, and spirituality."
                   />
-                  <CommunityPerspectives communityContent={communityContent} />
+                  <CommunityPerspectives
+                    communityContent={communityContent}
+                    sortType="randomized"
+                  />
                 </div>
               ) : null}
 
