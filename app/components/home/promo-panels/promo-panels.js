@@ -45,9 +45,51 @@ class PromoPanels extends Component {
 
     const { currentIndex } = this.state;
 
+    function CustomNextArrow(props) {
+      const {className, style, onClick} = props
+      return (
+        <div
+          style={inlineStyle_promoSlider_nextArrow}
+          onClick={onClick}
+          >
+          <img src="../../../assets/icons/arrow_right.png"/>
+        </div>
+      );
+    }
+
+    function CustomPrevArrow(props) {
+      const {className, style, onClick} = props
+      return (
+        <div
+          style={inlineStyle_promoSlider_prevArrow}
+          onClick={onClick}
+          >
+          <img src="../../../assets/icons/arrow_left.png"/>
+        </div>
+      );
+    }
+
+    const inlineStyle_promoSlider_prevArrow = {
+      position: 'absolute',
+      top: '50%',
+      marginLeft: '15%',
+      zIndex: '9999',
+      cursor: 'pointer',
+    };
+
+    const inlineStyle_promoSlider_nextArrow = {
+      right: '0px',
+      marginRight: '15%',
+      textAlign: 'right',
+      position: 'absolute',
+      top: '50%',
+      zIndex: '9999',
+      cursor: 'pointer',
+    };
+
     const mainPromosSliderSettings = {
       arrows: true,
-      dots: false,
+      dots: true,
       infinite: true,
       speed: 500,
       slidesToShow: 1,
@@ -56,8 +98,8 @@ class PromoPanels extends Component {
       initialSlide: currentIndex,
       adaptiveHeight: false,
       beforeChange: this.beforeSlideChange,
-      /* prevArrow: "<img src='/assets/icons/question-mark.png'/>",
-      nextArrow: "<img src='/assets/icons/question-mark.png'/>", */
+      nextArrow: <CustomNextArrow />,
+      prevArrow: <CustomPrevArrow />,
     };
 
     const promos = promoArray.map(
