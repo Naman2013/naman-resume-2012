@@ -116,7 +116,7 @@ class Home extends Component {
     const { homeContent } = this.props;
     return(
       <div style={sloohFeaturesStyle}>
-        {homeContent.upsell && <PromoMessageBand title={homeContent.upsell.upsellHeading} />}
+        <PromoMessageBand title={homeContent.upsell.upsellHeading} />
         <div className="clearfix">
             {homeContent.membershipTierArray.map(feature => <SloohFeatures {...feature} key={feature.tierIndex} />)}
         </div>
@@ -182,9 +182,11 @@ class Home extends Component {
           <HeroAboutYou {...homeContent.userInformation} />
         }
 
-        <div style={promoInlineStyle}>
-          {homeContent.promo && <PromoPanels {...homeContent.promo}/>}
-        </div>
+        {homeContent.promo && homeContent.promo.promoShow &&
+          <div style={promoInlineStyle}>
+            {homeContent.promo && <PromoPanels {...homeContent.promo}/>}
+          </div>
+        }
 
         {homeContent.memberPicturesDisplay && <SharedPictures
           heading={homeContent.memberPicturesHeading}
@@ -193,18 +195,22 @@ class Home extends Component {
           timelineData={sharedMemberTimelineData}
         />}
 
-          {homeContent.videoClips && <PromoMessageBand title={homeContent.videoClips.videoClipsHeading} />}
-          {homeContent.videoClips &&
-            <div style={inlineVideosContainer} className="clearfix">
-                <div style={inlineInnerVideosContainer}>
-                  {homeContent.videoClips && homeContent.videoClips.videoClipsArray && this.generateRecentVideoTiles()}
+          {homeContent.videoClips && homeContent.videoClips.videoClipsShow && homeContent.videoClips.videoClipsArray &&
+              <div>
+                <PromoMessageBand title={homeContent.videoClips.videoClipsHeading} />
+                <div style={inlineVideosContainer} className="clearfix">
+                    <div style={inlineInnerVideosContainer}>
+                      {this.generateRecentVideoTiles()}
+                    </div>
                 </div>
-            </div>
+              </div>
           }
 
-        <div style={illuminationsInlineStyle}>
-          {homeContent.illuminations && <PromoMessageBand title={homeContent.illuminations.illuminationsHeading} />}
-        </div>
+        {homeContent.illuminations && homeContent.illuminations.illuminationsShow &&
+          <div style={illuminationsInlineStyle}>
+            <PromoMessageBand title={homeContent.illuminations.illuminationsHeading} />
+          </div>
+        }
 
         <CommunityPerspectives
           showCallToAction={false}
@@ -214,12 +220,16 @@ class Home extends Component {
           communityContent={posts}
         />
 
-        {!homeContent.userLoggedInFlag && this.generateSloohFeatures()}
+        {homeContent.upsell && homeContent.upsell.upsellShow && this.generateSloohFeatures()}
 
         <LargeBannerHeading content="&nbsp;" />
 
-        {homeContent.recommends && <PromoMessageBand title={homeContent.recommends.recommendsHeading} />}
-        <ViewableObjects {...homeContent.recommends} />
+        {homeContent.recommends && homeContent.recommends.recommendsShow &&
+          <div>
+            <PromoMessageBand title={homeContent.recommends.recommendsHeading} />
+            <ViewableObjects {...homeContent.recommends} />
+          </div>
+        }
 
         <PromoMessageBand title={homeContent.SPONSORS_CONTENT_BAND} />
 
