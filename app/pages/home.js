@@ -59,6 +59,11 @@ const promoInlineStyle = {
   marginBottom: '-30px',
 };
 
+const illuminationsInlineStyle = {
+  display: 'inline-block',
+  minWidth: '100%',
+};
+
 @connect(mapStateToProps, mapDispatchToProps)
 class Home extends Component {
   componentWillMount() {
@@ -180,14 +185,10 @@ class Home extends Component {
         {homeContent.videoClips && <PromoMessageBand title={homeContent.videoClips.videoClipsHeading} />}
         {homeContent.videoClips && homeContent.videoClips.videoClipsArray && this.generateRecentVideoTiles()}
 
-        {!homeContent.userLoggedInFlag && this.generateSloohFeatures()}
+        <div style={illuminationsInlineStyle}>
+          {homeContent.illuminations && <PromoMessageBand title={homeContent.illuminations.illuminationsHeading} />}
+        </div>
 
-        <LargeBannerHeading content="&nbsp;" />
-
-        {homeContent.recommends && <PromoMessageBand title={homeContent.recommends.recommendsHeading} />}
-        <ViewableObjects {...homeContent.recommends} />
-
-        {homeContent.illuminations && <PromoMessageBand title={homeContent.illuminations.illuminationsHeading} />}
         <CommunityPerspectives
           showCallToAction={false}
           showSliderBorder={false}
@@ -195,6 +196,13 @@ class Home extends Component {
           numberOfSlidesToDisplay={3}
           communityContent={posts}
         />
+
+        {!homeContent.userLoggedInFlag && this.generateSloohFeatures()}
+
+        <LargeBannerHeading content="&nbsp;" />
+
+        {homeContent.recommends && <PromoMessageBand title={homeContent.recommends.recommendsHeading} />}
+        <ViewableObjects {...homeContent.recommends} />
 
         <PromoMessageBand title={homeContent.SPONSORS_CONTENT_BAND} />
 
@@ -204,8 +212,6 @@ class Home extends Component {
         />
 
         <SloohStorePromo />
-
-
 
         <Dedication
           title="Dedication"
