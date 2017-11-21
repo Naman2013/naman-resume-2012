@@ -15,6 +15,7 @@ import Dedication from '../components/home/slooh-extras/dedication';
 import SloohStorePromo from '../components/home/slooh-store';
 import Featured from '../components/home/slooh-extras/featured';
 import SharedPictures from '../components/home/shared-pictures';
+import PromoPanels from '../components/home/promo-panels/promo-panels';
 import style from './home.scss';
 
 import { fetchCommunityContent }
@@ -51,6 +52,29 @@ const sloohFeaturesStyle = {
   display: "inline-block",
 }
 
+const promoInlineStyle = {
+  paddingTop: '0px',
+  paddingBottom: '0px',
+  marginTop: '0px',
+  marginBottom: '-30px',
+};
+
+const illuminationsInlineStyle = {
+  display: 'inline-block',
+  minWidth: '100%',
+};
+
+const inlineVideosContainer = {
+  position: 'relative',
+  display: 'relative',
+  width: '100%',
+  textAlign: 'center',
+};
+
+const inlineInnerVideosContainer = {
+  maxWidth: '100%',
+};
+
 @connect(mapStateToProps, mapDispatchToProps)
 class Home extends Component {
   componentWillMount() {
@@ -85,14 +109,14 @@ class Home extends Component {
 
   generateRecentVideoTiles() {
     const { homeContent } = this.props;
-    return homeContent.videoClips.videoClipsArray.map(videoTile => <RecentVideoTile {...videoTile} />);
+    return homeContent.videoClips.videoClipsArray.map(videoTile => <RecentVideoTile numVideos={homeContent.videoClips.videoClipsCount} {...videoTile} />);
   }
 
   generateSloohFeatures() {
     const { homeContent } = this.props;
     return(
       <div style={sloohFeaturesStyle}>
-        <PromoMessageBand title={homeContent.promoBandContent} />
+        {homeContent.upsell && <PromoMessageBand title={homeContent.upsell.upsellHeading} />}
         <div className="clearfix">
             {homeContent.membershipTierArray.map(feature => <SloohFeatures {...feature} key={feature.tierIndex} />)}
         </div>
@@ -157,6 +181,11 @@ class Home extends Component {
         {homeContent.loadHeroTypes.indexOf('aboutYou') > -1 &&
           <HeroAboutYou {...homeContent.userInformation} />
         }
+
+        <div style={promoInlineStyle}>
+          {homeContent.promo && <PromoPanels {...homeContent.promo}/>}
+        </div>
+
         {homeContent.memberPicturesDisplay && <SharedPictures
           heading={homeContent.memberPicturesHeading}
           subheading={homeContent.memberPicturesSubHeading}
@@ -164,17 +193,19 @@ class Home extends Component {
           timelineData={sharedMemberTimelineData}
         />}
 
-        {homeContent.videoClips && <PromoMessageBand title={homeContent.videoClips.videoClipsHeading} />}
-        {homeContent.videoClips && homeContent.videoClips.videoClipsArray && this.generateRecentVideoTiles()}
+          {homeContent.videoClips && <PromoMessageBand title={homeContent.videoClips.videoClipsHeading} />}
+          {homeContent.videoClips &&
+            <div style={inlineVideosContainer} className="clearfix">
+                <div style={inlineInnerVideosContainer}>
+                  {homeContent.videoClips && homeContent.videoClips.videoClipsArray && this.generateRecentVideoTiles()}
+                </div>
+            </div>
+          }
 
-        {!homeContent.userLoggedInFlag && this.generateSloohFeatures()}
+        <div style={illuminationsInlineStyle}>
+          {homeContent.illuminations && <PromoMessageBand title={homeContent.illuminations.illuminationsHeading} />}
+        </div>
 
-        <LargeBannerHeading content={homeContent.ADDITIONAL_OFFERING_HEADER} />
-
-        <PromoMessageBand title={homeContent.VIEWABLE_OBJECTS.ADDITIONAL_OFFERING_BAND} />
-        <ViewableObjects {...homeContent.VIEWABLE_OBJECTS} />
-
-        <PromoMessageBand title={homeContent.COMMUNITY_CONTENT_BAND} />
         <CommunityPerspectives
           showCallToAction={false}
           showSliderBorder={false}
@@ -182,6 +213,13 @@ class Home extends Component {
           numberOfSlidesToDisplay={3}
           communityContent={posts}
         />
+
+        {!homeContent.userLoggedInFlag && this.generateSloohFeatures()}
+
+        <LargeBannerHeading content="&nbsp;" />
+
+        {homeContent.recommends && <PromoMessageBand title={homeContent.recommends.recommendsHeading} />}
+        <ViewableObjects {...homeContent.recommends} />
 
         <PromoMessageBand title={homeContent.SPONSORS_CONTENT_BAND} />
 
@@ -191,8 +229,6 @@ class Home extends Component {
         />
 
         <SloohStorePromo />
-
-
 
         <Dedication
           title="Dedication"
@@ -213,7 +249,6 @@ Home.defaultProps = {
   communityContent: {
     posts: [],
   },
-  newHomeContent: { }
 };
 
 export default Home;
