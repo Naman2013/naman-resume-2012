@@ -7,16 +7,30 @@ import style from './viewable-objects.scss';
 class ViewableObjects extends Component {
 
   generateViewableObjects() {
-    return this.props.objects.map(skyObject => <ViewableObject {...skyObject} />);
+    return this.props.recommendsArray.map(skyObject => <ViewableObject {...skyObject} />);
   }
 
   render() {
+    const inlineDescriptionStyle = {
+      marginTop: '-30px',
+      paddingTop: '0px',
+      paddingLeft: '20%',
+      paddingRight: '20%',
+      paddingBottom: '0px',
+      fontWeight: 'normal',
+      fontSize: '1.2em',
+    };
+
     return (
       <div className="viewable-objects-container">
-        <h4 className="title">{this.props.title}</h4>
+        <h4 className="title">{this.props.recommendsSubhead}</h4>
 
         <div className="objects clearfix">
-          {this.generateViewableObjects()}
+          {this.props.recommendsArray && this.generateViewableObjects()}
+        </div>
+
+        <div style={inlineDescriptionStyle}>
+          <p className="content">{this.props.recommendsDescription}</p>
         </div>
 
         <p className="latest-news">{this.props.latestNews}</p>
@@ -27,7 +41,7 @@ class ViewableObjects extends Component {
 
 ViewableObjects.propTypes = {
   title: PropTypes.string,
-  objects: PropTypes.array.isRequired,
+  recommendsArray: PropTypes.array.isRequired,
   lastestNews: PropTypes.string,
   action:PropTypes.object
 };

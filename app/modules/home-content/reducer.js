@@ -6,38 +6,16 @@ import {
   GET_HOME_PAGE_START,
   GET_HOME_PAGE_SUCCESS,
   GET_HOME_PAGE_FAIL,
+  GET_NEW_HOME_PAGE_START,
+  GET_NEW_HOME_PAGE_SUCCESS,
+  GET_NEW_HOME_PAGE_FAIL,
+
 } from './actions';
 
 const initialState = {
   refreshIntervalSec: 600,
   membershipTierArray: [],
   loadHeroTypes: [],
-  RECENT_STUFF: [
-    {
-      key: uniqueId(),
-      title: 'Total Solar Eclipse: Totality',
-      content: 'Slooh watched the Total Solar Eclipse on August 21st out in Stanley, ID! Check out our totality with our exclusive shots of the beautiful eclipse!',
-      contentLink: '',
-      imageUrl: 'https://vega.slooh.com/assets/images/samples/perseid-meteor-shower.png',
-      videoUrl: 'https://www.youtube.com/embed/9zS8i9EV3L0?rel=0&amp;showinfo=0',
-    },
-    {
-      key: uniqueId(),
-      title: 'Delta Aquariids',
-      content: 'When we watched the Delta Aquariids this year we caught a great moment with a bright fireball as it flashed through the sky! Check it out!',
-      contentLink: '',
-      imageUrl: 'https://vega.slooh.com/assets/images/samples/perseid-meteor-shower.png',
-      videoUrl: 'https://www.youtube.com/embed/DtuwMbR2BgM?rel=0&amp;showinfo=0',
-    },
-    {
-      key: uniqueId(),
-      title: 'Nashville Zoo Observation highlight',
-      content: 'Did you know animals are affected by the eclipse just like people are? On August 21st, we got a look at how the animals at the Nashville Zoo reacted to their near totality!',
-      contentLink: '',
-      imageUrl: 'https://vega.slooh.com/assets/images/samples/perseids.png',
-      videoUrl: 'https://www.youtube.com/embed/My-5U-xI3cY?rel=0&amp;showinfo=0',
-    },
-  ],
   promoBandContent: 'Slooh Membership: An All-Access Pass to the Night Sky.',
   ADDITIONAL_OFFERING_HEADER: 'CHECK OUT MORE OF WHAT SLOOH HAS TO OFFER:',
   VIEWABLE_OBJECTS: {
@@ -134,6 +112,7 @@ const initialState = {
 };
 
 export default createReducer(initialState, {
+  /* Version 1.0 of the Homepage API (getHomePage) */
   [GET_HOME_PAGE_START](state) {
     return state;
   },
@@ -145,6 +124,22 @@ export default createReducer(initialState, {
   },
   [GET_HOME_PAGE_FAIL](state, { error }) {
     return {
+      ...state,
+      error,
+    };
+  },
+  /* Version 2.0 of the Homepage API (getNewHomePage) */
+  [GET_NEW_HOME_PAGE_START](state) {
+    return state;
+  },
+  [GET_NEW_HOME_PAGE_SUCCESS](state, { data }) {
+    return {
+      ...state,
+      ...data,
+    };
+  },
+  [GET_NEW_HOME_PAGE_FAIL](state, { error }) {
+      return {
       ...state,
       error,
     };
