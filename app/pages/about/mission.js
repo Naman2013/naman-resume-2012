@@ -20,11 +20,11 @@ const Mission = () => (
 
       <article className="col-2third">
         <p>
-          Light pollution and the concentration of population in modern cities have blinded us to an important aspect of our environment, one of which our ancestors had far more appreciation. The distant sparkle of night lights shaped their sense of time and colored their Gods. We aspire to reclaim this lost realm, and with it our sense of perspective regarding the world beyond our making.
+          Light pollution and the concentration of population in modern cities have blinded us to an important aspect of our environment, one in which our ancestors had far more appreciation. The distant sparkle of night lights shaped their sense of time and colored their Gods. We aspire to reclaim this lost realm, and with it our sense of perspective regarding the world beyond our making.
         </p>
 
         <p>
-          Space is daunting, the purview of Einstein and rocket scientists. And yet we all wonder about space. It appears in our art and in our stories, in our music and in our dreams. Science leads the way, the little we know about what is out there. But we are inspired equally by imagination, about what might be out there. And by what our ancestors believed was out there, and by how they expressed it.
+          Space is daunting, the purview of Einstein and rocket scientists. And yet we all wonder about space. It appears in our art and in our stories, in our music and in our dreams. Science leads the way, the little we know about what is out there. But we are inspired equally by imagination, about what <i>might</i> be out there. And by what our ancestors believed was out there, and by how they expressed it.
         </p>
 
         {
