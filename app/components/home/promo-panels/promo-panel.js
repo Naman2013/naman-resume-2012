@@ -57,7 +57,7 @@ class PromoPanel extends Component {
       paddingTop: '120px',
       marginLeft: 'auto',
       marginRight: 'auto',
-      fontSize: '2.5em',
+      fontSize: '3.75em',
       fontWeight: 'bold',
       maxWidth: '600px',
   	};
@@ -67,7 +67,7 @@ class PromoPanel extends Component {
       textAlign: 'center',
       marginTop: '0px',
       paddingTop: '20px',
-      fontSize: '1.7em',
+      fontSize: '2.5em',
   	};
 
     const inlineStyle_checkItOutButton_PromoDIV = {
@@ -142,8 +142,8 @@ class PromoPanel extends Component {
     	<div style={inlineStyle_PromoContainer}>
     	      {this.props.type == 'promotional' &&
     		      <div style={inlineStyle_promo}>
-            		<h2 style={inlineStyle_promo_Heading}>{this.props.heading}</h2>
-    		        <h3 style={inlineStyle_promo_SubHeading}>{this.props.subhead}</h3>
+            		<h1 style={inlineStyle_promo_Heading}>{this.props.heading}</h1>
+    		        <h2 style={inlineStyle_promo_SubHeading}>{this.props.subhead}</h2>
                 <div style={inlineStyle_checkItOutButton_PromoDIV}>
                   {generateLink(this.props.buttonLink, this.props.buttonText)}
                 </div>
