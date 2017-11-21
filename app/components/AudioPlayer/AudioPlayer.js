@@ -25,6 +25,18 @@ const PLAYER_OPTIONS = {
 
 const INITIAL_VOLUME = 25;
 
+function mutePlayer() {
+  if (PLAYER) {
+    PLAYER.mute();
+  }
+}
+
+function unMutePlayer() {
+  if (PLAYER) {
+    PLAYER.unMute();
+  }
+}
+
 function updateVolume(volume) {
   if (PLAYER) {
     PLAYER.setVolume(volume);
@@ -52,7 +64,11 @@ const AudioPlayer = ({ description, YTVideoID }) => (
     </div>
 
     <div className="controls">
-      <VolumeControls onVolumeChange={updateVolume} />
+      <VolumeControls
+        onVolumeChange={updateVolume}
+        handleMute={mutePlayer}
+        handleUnMute={unMutePlayer}
+      />
     </div>
 
     <div className="content">
