@@ -64,6 +64,17 @@ const illuminationsInlineStyle = {
   minWidth: '100%',
 };
 
+const inlineVideosContainer = {
+  position: 'relative',
+  display: 'relative',
+  width: '100%',
+  textAlign: 'center',
+};
+
+const inlineInnerVideosContainer = {
+  maxWidth: '100%',
+};
+
 @connect(mapStateToProps, mapDispatchToProps)
 class Home extends Component {
   componentWillMount() {
