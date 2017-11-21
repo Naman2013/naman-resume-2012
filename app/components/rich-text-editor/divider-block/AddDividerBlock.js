@@ -20,9 +20,7 @@ class AddDividerBlock extends React.Component {
     const contentStateWithEntity = contentState.createEntity(
         'HORIZONTAL_RULE',
         'IMMUTABLE',
-        {
-          data: 'data'
-        },
+        {},
     );
     const entityKey = contentStateWithEntity.getLastCreatedEntityKey();
     const newEditorState = AtomicBlockUtils.insertAtomicBlock(

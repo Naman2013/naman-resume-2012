@@ -44,21 +44,19 @@ class RichTextEditor extends React.Component {
     const content = editorState.getCurrentContent();
     const threadContent = content.getPlainText().trim() && convertToHTML({
       blockToHTML: (block) => {
+        if (block.type === 'atomic') {
+          return {
+            start: '<hr>',
+            end: '</hr>'
+          };
+        }
         if (block.text === '') {
           return <p><br/></p>;
         }
       },
       entityToHTML: (entity, originalText) => {
-        console.log('entity', entity, originalText)
         if (entity.type === 'LINK') {
           return <a href={entity.data.url} target="_blank" rel="noopener noreferrer">{originalText}</a>;
-        }
-
-        if (entity.type === 'HORIZONTAL_RULE') {
-          return {
-            start: '<hr>',
-            end: '</hr>'
-          };
         }
         return originalText;
       }
@@ -183,12 +181,10 @@ class RichTextEditor extends React.Component {
     let entity;
     let isHorizontalRule;
     let ret;
-
     switch (block.getType()) {
       case 'atomic':
         entity = contentState.getEntity(block.getEntityAt(0));
         isHorizontalRule = entity.type === 'HORIZONTAL_RULE';
-        console.log('rnedering block')
         if (isHorizontalRule) {
           ret = {
             component: DividerBlock,
@@ -285,6 +281,7 @@ class RichTextEditor extends React.Component {
 function getBlockStyle(block) {
   switch (block.getType()) {
     case 'blockquote': return 'RichEditor-blockquote';
+    case 'atomic': return 'RichEditor-horizontalRule';
     default: return null;
   }
 }
