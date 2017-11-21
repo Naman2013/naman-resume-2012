@@ -6,6 +6,7 @@ import Heart from '../common/heart/heart';
 import { getReplies } from '../../services/discussions/get-replies';
 import { likeReply } from '../../services/discussions/like';
 import { pink } from '../../styles/variables/colors';
+import PulsePostThumbnails from '../../components/pulse/pulse-post-image-thumbnails';
 
 const { object } = PropTypes;
 
@@ -105,6 +106,9 @@ class DiscussionsReply extends Component {
     return (
       <section key={generateId(reply.replyId)}>
         <article className={styles.discussionsInfo}>
+          {
+            images && images.length > 0 ? <PulsePostThumbnails images={images} /> : null
+          }
           <ByUserTag
             photo={reply.avatarURL}
             name={reply.displayName}
@@ -118,7 +122,6 @@ class DiscussionsReply extends Component {
             className={styles.discussionsContent}
             dangerouslySetInnerHTML={{ __html: reply.content }}
           />
-        {images.map(img => <a href={img} key={img} rel="noopener noreferrer" target="_blank"><img className={styles.discussionsImages} key={img} alt="image" src={img} /></a>)}
         <div className={styles.discussionsReplies}>
           {showReplyButton && <Link className={`${styles.discussionsrepliesText} inline-block`} to={`/discussions/forums/${forumId}/topics/${topicId}/threads/${threadId}/${reply.replyId}/new-reply`}>
             <span>Reply </span>
