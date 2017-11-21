@@ -67,7 +67,7 @@ class PromoPanel extends Component {
       textAlign: 'center',
       marginTop: '0px',
       paddingTop: '20px',
-      fontSize: '2.5em',
+      fontSize: '1.7em',
   	};
 
     const inlineStyle_checkItOutButton_PromoDIV = {
