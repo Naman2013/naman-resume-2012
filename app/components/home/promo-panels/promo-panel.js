@@ -101,6 +101,7 @@ class PromoPanel extends Component {
       float: 'left',
       minWidth: '60%',
       minHeight: '500px',
+      maxHeight: '500px',
       background: `url(${this.props.imageURL}) center center no-repeat`,
       backgroundSize: 'cover',
     }
@@ -111,6 +112,9 @@ class PromoPanel extends Component {
       width: '40%',
       paddingLeft: '30px',
       paddingRight: '20px',
+      overflowY: 'auto',
+      overflowX: 'hidden',
+      maxHeight: '500px',
     }
 
     const inlineStyle_info_data_link = {
