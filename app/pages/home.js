@@ -15,6 +15,7 @@ import Dedication from '../components/home/slooh-extras/dedication';
 import SloohStorePromo from '../components/home/slooh-store';
 import Featured from '../components/home/slooh-extras/featured';
 import SharedPictures from '../components/home/shared-pictures';
+import PromoPanels from '../components/home/promo-panels/promo-panels';
 import style from './home.scss';
 
 import { fetchCommunityContent }
@@ -51,16 +52,17 @@ const sloohFeaturesStyle = {
   display: "inline-block",
 }
 
-const inlineVideosContainer = {
-  position: 'relative',
-  display: 'relative',
-  width: '100%',
-  textAlign: 'center',
-}
+const promoInlineStyle = {
+  paddingTop: '0px',
+  paddingBottom: '0px',
+  marginTop: '0px',
+  marginBottom: '-30px',
+};
 
-const inlineInnerVideosContainer = {
-  maxWidth: '100%',
-}
+const illuminationsInlineStyle = {
+  display: 'inline-block',
+  minWidth: '100%',
+};
 
 @connect(mapStateToProps, mapDispatchToProps)
 class Home extends Component {
@@ -168,6 +170,11 @@ class Home extends Component {
         {homeContent.loadHeroTypes.indexOf('aboutYou') > -1 &&
           <HeroAboutYou {...homeContent.userInformation} />
         }
+
+        <div style={promoInlineStyle}>
+          {homeContent.promo && <PromoPanels {...homeContent.promo}/>}
+        </div>
+
         {homeContent.memberPicturesDisplay && <SharedPictures
           heading={homeContent.memberPicturesHeading}
           subheading={homeContent.memberPicturesSubHeading}
@@ -184,14 +191,10 @@ class Home extends Component {
             </div>
           }
 
-        {!homeContent.userLoggedInFlag && this.generateSloohFeatures()}
+        <div style={illuminationsInlineStyle}>
+          {homeContent.illuminations && <PromoMessageBand title={homeContent.illuminations.illuminationsHeading} />}
+        </div>
 
-        <LargeBannerHeading content="&nbsp;" />
-
-        {homeContent.recommends && <PromoMessageBand title={homeContent.recommends.recommendsHeading} />}
-        <ViewableObjects {...homeContent.recommends} />
-
-        {homeContent.illuminations && <PromoMessageBand title={homeContent.illuminations.illuminationsHeading} />}
         <CommunityPerspectives
           showCallToAction={false}
           showSliderBorder={false}
@@ -199,6 +202,13 @@ class Home extends Component {
           numberOfSlidesToDisplay={3}
           communityContent={posts}
         />
+
+        {!homeContent.userLoggedInFlag && this.generateSloohFeatures()}
+
+        <LargeBannerHeading content="&nbsp;" />
+
+        {homeContent.recommends && <PromoMessageBand title={homeContent.recommends.recommendsHeading} />}
+        <ViewableObjects {...homeContent.recommends} />
 
         <PromoMessageBand title={homeContent.SPONSORS_CONTENT_BAND} />
 
@@ -208,8 +218,6 @@ class Home extends Component {
         />
 
         <SloohStorePromo />
-
-
 
         <Dedication
           title="Dedication"
@@ -230,7 +238,6 @@ Home.defaultProps = {
   communityContent: {
     posts: [],
   },
-  newHomeContent: { }
 };
 
 export default Home;
