@@ -87,7 +87,8 @@ const AudioPlayer = ({ description, YTVideoID }) => (
       }
 
       .controls {
-        align-self: center;
+        align-self: flex-start;
+        padding-top: 4px;
       }
 
       .content {
