@@ -57,6 +57,34 @@ export const fetchThreadList = ({
   .catch(error => dispatch(fetchThreadListFail(error)));
 };
 
+export const fetchFeaturedThreadList = ({
+  lang,
+  ver,
+  appendToList = false,
+  page = 1,
+  count = 10,
+}) => (dispatch, getState) => {
+  const { cid, at, token } = getState().user;
+  dispatch(fetchThreadListStart({ appendToList }));
+  return axios.post('/api/forum/getFeaturedThreadList', {
+    cid,
+    at,
+    token,
+    lang,
+    ver,
+    page,
+    count,
+  })
+  .then(result => dispatch(fetchThreadListSuccess(Object.assign(
+    {
+      page,
+      appendToList,
+   },
+    result.data,
+  ))))
+  .catch(error => dispatch(fetchThreadListFail(error)));
+};
+
 const fetchThreadStart = () => ({
   type: FETCH_THREAD_START,
 });

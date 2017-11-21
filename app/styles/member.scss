@@ -18,7 +18,7 @@
     padding-right: 15px;
 
     .avatar {
-       width: 30px;
+      width: 30px;
       height: 30px;
       background-repeat: no-repeat;
       background-position: center;
@@ -30,10 +30,12 @@
       display: flex;
       margin-left: 15px;
       flex-direction: row;
+
       .messagesIcon {
         font-size: 20px;
         color: #000;
       }
+
       .count {
         display: flex;
         width: 16px;
@@ -46,11 +48,13 @@
       }
     }
   }
+
   @media(max-width:670px){
     .memberInfo{
       display:none;
     }
   }
+
   .rightButton {
     display: flex;
     height: 100%;
@@ -72,6 +76,7 @@
       outline: none;
     }
   }
+
   .regButton {
     display: flex;
     font-family: "brandon-grotesque",sans-serif;
@@ -91,6 +96,7 @@
     -webkit-user-select: none;
     -ms-user-select: none;
   }
+
   .loggedOutWrapper {
     display: flex;
     height: 100%;

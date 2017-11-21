@@ -7,6 +7,7 @@ import classnames from 'classnames';
 import Login from './Login';
 import * as userActions from './../modules/User';
 import * as loginActions from './../modules/Login';
+
 import styles from '../styles/member.scss';
 
 const { object, func } = PropTypes;

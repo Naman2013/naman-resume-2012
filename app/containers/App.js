@@ -2,22 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Helmet } from 'react-helmet';
 import PageMetaManagement from '../components/PageMetaManagement';
 import Menu from './Menu';
 import Header from '../components/common/header';
 import Footer from '../components/common/footer';
 import { fetchEvents } from '../modules/upcoming-events/upcoming-events-actions';
-
-const propTypes = {
-  isLanding: PropTypes.bool,
-  children: PropTypes.node.isRequired,
-  fetchEvents: PropTypes.func.isRequired,
-};
-
-const defaultProps = {
-  isLanding: false,
-};
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
@@ -33,6 +22,16 @@ function mapStateToProps({ isLanding }) {
 
 @connect(mapStateToProps, mapDispatchToProps)
 class App extends Component {
+  static propTypes = {
+    isLanding: PropTypes.bool,
+    children: PropTypes.node.isRequired,
+    fetchEvents: PropTypes.func.isRequired,
+  };
+
+  static defaultProps = {
+    isLanding: false,
+  };
+
   constructor(props) {
     super(props);
     props.fetchEvents();
@@ -55,8 +54,5 @@ class App extends Component {
     );
   }
 }
-
-App.propTypes = propTypes;
-App.defaultProps = defaultProps;
 
 export default App;

@@ -8,7 +8,11 @@ import { Link } from 'react-router';
 import { tickEvent } from '../../modules/upcoming-events/upcoming-events-actions';
 import Countdown from '../../containers/Countdown';
 import Member from '../../containers/Member';
-import styles from '../../styles/header.scss';
+import AudioPlayer from '../../components/AudioPlayer';
+
+// import styles from '../../styles/header.scss';
+import { primaryFont } from '../../styles/variables/fonts';
+import { lightTurqoise, white } from '../../styles/variables/colors';
 
 const { bool, number, string, shape, instanceOf } = PropTypes;
 
@@ -119,16 +123,77 @@ export default class Header extends Component {
   }
 
   render() {
+    const {
+      nextEvent: {
+        eventIsLive,
+        eventDescription,
+      },
+    } = this.props;
+
     return (
-      <header className={styles.mainHeader} id="mainHeader">
+      <header className="mainHeader" id="mainHeader">
         <Link to="/">
-          <div className={styles.mainHeaderLogo} />
-          <div className={styles.mainHeaderLogoText}>
-            Slooh <span className="beta">beta</span>
-          </div>
+          <div className="mainHeaderLogo" />
+          <p className="beta">beta</p>
         </Link>
         <Member />
         <Countdown />
+
+        {
+          /*
+          eventIsLive &&
+            <div className="player-container">
+              <AudioPlayer
+                description={eventDescription}
+              />
+            </div>
+            */
+        }
+
+        <style jsx>{`
+          .player-container {
+            float: right;
+            margin-right: 20px;
+          }
+
+          .mainHeader {
+            height: 70px;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            position: fixed;
+          }
+
+          .mainHeaderLogo {
+            position: absolute;
+            background-image: url(https://vega.slooh.com/assets/icons/header/Slooh_Logo_White_5.svg);
+            background-repeat: no-repeat;
+            background-position: left center;
+            display: inline-block;
+            width: 218px;
+            height: 65px;
+            margin-left: 10px;
+          }
+
+          .mainHeaderLogoText {
+            font-family: ${primaryFont};
+            position: absolute;
+            left: 90px;
+            top: 5px;
+            display: inline-block;
+            color: ${white};
+            font-size: 50px;
+          }
+
+          .beta {
+            font-family: ${primaryFont};
+            font-size: 10px;
+            text-transform: uppercase;
+            color: ${lightTurqoise};
+            position: absolute;
+            left: 165px;
+            top: 52px;
+          }
+        `}</style>
       </header>
     );
   }
