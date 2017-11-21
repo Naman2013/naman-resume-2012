@@ -116,7 +116,7 @@ class Home extends Component {
     const { homeContent } = this.props;
     return(
       <div style={sloohFeaturesStyle}>
-        <PromoMessageBand title={homeContent.upsellHeading} />
+        {homeContent.upsell && <PromoMessageBand title={homeContent.upsell.upsellHeading} />}
         <div className="clearfix">
             {homeContent.membershipTierArray.map(feature => <SloohFeatures {...feature} key={feature.tierIndex} />)}
         </div>
