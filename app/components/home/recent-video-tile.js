@@ -19,18 +19,40 @@ class RecentVideoTile extends Component {
   }
 
   render() {
+    /* calulate the width of each video */
+    var videoWidth = '';
+
+    if (this.props.numVideos == 1) {
+      /* only set the width a maximum of 50% if there is one video */
+      videoWidth = '50%';
+    }
+    else {
+      videoWidth = 100 / this.props.numVideos + '%';
+    }
+
+
     const inlineStyle = {
       background: `url(${this.props.imageUrl}) no-repeat center center`,
       backgroundSize: 'cover',
       minHeight: '255px',
+      minWidth: `${videoWidth}`,
       paddingLeft: '20px',
       paddingRight: '20px',
       paddingTop: '20px',
     };
 
+    const inlineStyle_video = {
+      minWidth: '100%',
+      width: '100%',
+    };
+
+    const inlineStyle_VideoDescription = {
+      textAlign: 'left',
+    }
+    
     return (
       <div style={inlineStyle} className="col-sm-4 recent-video-tile-container">
-        <div className="video-wrap">
+        <div style={inlineStyle_video} className="video-wrap">
           <iframe
             className="home-youtube-video"
             width="100%"
@@ -41,7 +63,7 @@ class RecentVideoTile extends Component {
             frameBorder="0"
           />
         </div>
-        <p className="content" dangerouslySetInnerHTML={{ __html: this.props.content }} />
+        <p style={inlineStyle_VideoDescription} className="content" dangerouslySetInnerHTML={{ __html: this.props.content }} />
       </div>
     );
   }
