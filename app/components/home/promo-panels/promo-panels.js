@@ -127,7 +127,7 @@ class PromoPanels extends Component {
             background-color: #2d3949;
             color: ${white};
             margin-bottom: 0px;
-            min-height: 630px;
+            min-height: 650px;
           }
           @media(max-width:640px){
 

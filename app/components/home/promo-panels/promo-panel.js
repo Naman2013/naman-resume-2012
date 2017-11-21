@@ -27,8 +27,8 @@ class PromoPanel extends Component {
 
   	const inlineStyle_PromoContainer = {
       position: 'relative',
-  		minHeight: '630px',
-      maxHeight: '630px',
+  		minHeight: '650px',
+      maxHeight: '650px',
   		minWidth: '100%',
       marginTop: '0px',
       marginBottom: '0px',
@@ -42,8 +42,8 @@ class PromoPanel extends Component {
       backgroundSize: 'auto 100%', */
       background: `url(${this.props.imageURL}) center center no-repeat`,
       backgroundSize: 'cover',
-      minHeight: '630px',
-      maxHeight: '630px',
+      minHeight: '650px',
+      maxHeight: '650px',
       minWidth: '100%',
       textAlign: 'center',
     };
@@ -87,7 +87,7 @@ class PromoPanel extends Component {
       maxWidth: '60%',
       marginLeft: '20%',
       marginRight: '20%',
-      top: '10%',
+      top: '75px',
       backgroundColor: `${white}`,
     };
 
