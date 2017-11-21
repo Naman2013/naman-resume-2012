@@ -3,8 +3,12 @@ import { convertToHTML } from 'draft-convert';
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
+
+import AddDividerBlock from './divider-block/AddDividerBlock';
+import { DividerBlock } from './divider-block/DividerBlock';
 import BlockStyleControls from './BlockStyleControls';
 import InlineStyleControls from './InlineStyleControls';
+
 import 'draft-js/dist/Draft.css';
 import styles from './RichTextEditor.scss';
 
@@ -45,8 +49,16 @@ class RichTextEditor extends React.Component {
         }
       },
       entityToHTML: (entity, originalText) => {
+        console.log('entity', entity, originalText)
         if (entity.type === 'LINK') {
           return <a href={entity.data.url} target="_blank" rel="noopener noreferrer">{originalText}</a>;
+        }
+
+        if (entity.type === 'HORIZONTAL_RULE') {
+          return {
+            start: '<hr>',
+            end: '</hr>'
+          };
         }
         return originalText;
       }
@@ -163,7 +175,35 @@ class RichTextEditor extends React.Component {
     this.setState({
       urlValue: e.target.value
     })
-  };
+  }
+
+  blockRenderer(block) {
+    const { editorState } = this.state;
+    const contentState = editorState.getCurrentContent();
+    let entity;
+    let isHorizontalRule;
+    let ret;
+
+    switch (block.getType()) {
+      case 'atomic':
+        entity = contentState.getEntity(block.getEntityAt(0));
+        isHorizontalRule = entity.type === 'HORIZONTAL_RULE';
+        console.log('rnedering block')
+        if (isHorizontalRule) {
+          ret = {
+            component: DividerBlock,
+            editable: false,
+            props: {},
+          };
+        }
+        break;
+      default:
+        ret = null;
+        break;
+    }
+
+    return ret;
+  }
 
   render() {
     const { editorState, showURLInput } = this.state;
@@ -217,6 +257,10 @@ class RichTextEditor extends React.Component {
               onClick={this.promptForLink}
             />
             <span className="fa fa-chain-broken RichEditor-styleButton" onClick={this.removeLink} />
+            <AddDividerBlock
+              editorState={editorState}
+              onChange={this.onChange}
+            />
           </div>
           {urlInput}
         </div>
@@ -224,6 +268,7 @@ class RichTextEditor extends React.Component {
           <Editor
             id="rich-editor"
             blockStyleFn={getBlockStyle}
+            blockRenderFn={this.blockRenderer}
             editorState={editorState}
             handleKeyCommand={this.handleKeyCommand}
             onChange={this.onChange}
