@@ -8,6 +8,7 @@ const Header = () => (
 
     <style jsx>{`
       .title {
+        font-size: 22px;
         margin: 0;
         padding: 0;
         font-family: ${primaryFont};

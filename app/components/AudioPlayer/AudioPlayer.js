@@ -48,17 +48,11 @@ const defaultProps = {
 const AudioPlayer = ({ description, YTVideoID }) => (
   <div className="root">
     <div className="missing-player">
-      <YouTube
-        onReady={onPlayerReady}
-        videoId={YTVideoID}
-        opts={PLAYER_OPTIONS}
-      />
+      <YouTube onReady={onPlayerReady} videoId={YTVideoID} opts={PLAYER_OPTIONS} />
     </div>
 
     <div className="controls">
-      <VolumeControls
-        onVolumeChange={updateVolume}
-      />
+      <VolumeControls onVolumeChange={updateVolume} />
     </div>
 
     <div className="content">
@@ -69,14 +63,19 @@ const AudioPlayer = ({ description, YTVideoID }) => (
     <style jsx>{`
       .root {
         display: flex;
-        align-items: center;
         width: 260px;
-        min-height: 70px;
+        height: 70px;
+        overflow: hidden;
         padding: 10px 0;
         background-color: ${darkBlueGray};
       }
 
+      .controls {
+        align-self: center;
+      }
+
       .content {
+        align-self: flex-start;
         width: 80%;
       }
     `}</style>

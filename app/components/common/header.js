@@ -17,9 +17,12 @@ import { lightTurqoise, white } from '../../styles/variables/colors';
 const { bool, number, string, shape, instanceOf } = PropTypes;
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({
-    tickEvent,
-  }, dispatch);
+  return bindActionCreators(
+    {
+      tickEvent,
+    },
+    dispatch,
+  );
 }
 
 function mapStateToProps({ countdown, upcomingEvents }) {
@@ -103,11 +106,11 @@ export default class Header extends Component {
       const { currentTime } = countdownEventTimer;
       const { eventIsLive, eventId } = nextEvent;
 
-      let testEventStart = eventStartMoment;
-      let testEventEnd = eventEndMoment;
+      const testEventStart = eventStartMoment;
+      const testEventEnd = eventEndMoment;
 
-    //  USE THIS FOR TESTING TIMES
-    //  this website helps: https://www.epochconverter.com/
+      //  USE THIS FOR TESTING TIMES
+      //  this website helps: https://www.epochconverter.com/
       // if (eventId == 421) {
       //   testEventStart = moment.unix(1493057127);
       //   testEventEnd = moment.unix(1493057187);
@@ -123,12 +126,7 @@ export default class Header extends Component {
   }
 
   render() {
-    const {
-      nextEvent: {
-        eventIsLive,
-        eventDescription,
-      },
-    } = this.props;
+    const { nextEvent: { eventIsLive, eventDescription } } = this.props;
 
     return (
       <header className="mainHeader" id="mainHeader">
@@ -139,16 +137,18 @@ export default class Header extends Component {
         <Member />
         <Countdown />
 
-        {
-          /*
+        {/*
           eventIsLive &&
             <div className="player-container">
               <AudioPlayer
                 description={eventDescription}
               />
             </div>
-            */
-        }
+            */}
+
+        <div className="player-container">
+          <AudioPlayer description={eventDescription} />
+        </div>
 
         <style jsx>{`
           .player-container {
