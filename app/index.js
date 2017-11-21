@@ -61,7 +61,6 @@ import Mission from './pages/about/mission';
 import News from './pages/about/news';
 import PlansChange from './pages/about/PlansChange';
 
-
 import PhotoRoll from './pages/my-pictures/PhotoRoll';
 import Galleries from './pages/my-pictures/Galleries';
 import GalleryImages from './pages/my-pictures/GalleryImages';
@@ -84,7 +83,6 @@ import SocialNetwork from './pages/settings/SocialNetwork';
 import AuthorList from './containers/pulse/AuthorList';
 import AuthorWrapper from './containers/pulse/AuthorWrapper';
 import AuthorPostList from './pages/pulse/AuthorPostList';
-
 
 import PublishPost from './pages/publish-post/publish-post';
 import PulsePostList from './pages/pulse/pulse-post-list';
@@ -114,6 +112,7 @@ import BookclubHandoff from './pages/bookclub-handoff/BookclubHandoff';
 
 // router functions
 import validateUser from './route-functions/validateUser';
+import { fetchPlayer } from './modules/get-audio-player/actions';
 
 import globalOnRouteUpdate from './route-functions/globalOnRouteUpdate';
 import validateRegistrationPaths from './route-functions/validateRegistrationPaths';
@@ -127,22 +126,29 @@ import './styles/static.scss';
 
 // handle to the listen callback on changes to the history
 const unlisten = browserHistory.listen((location, action) => {
+  const { pathname } = location;
+
   firePageview({
-    location: location.pathname,
+    location: pathname,
   });
+  store.dispatch(fetchPlayer({ pageURL: pathname }));
 });
 
 ReactDOM.render(
   <Provider store={store}>
     <Router history={browserHistory} onUpdate={globalOnRouteUpdate}>
-
       <Route path="redirect-confirmation" component={RedirectConfirmation} />
 
       <Route path="about" component={StaticAppContainer} onEnter={validateUser}>
         <IndexRedirect to="mission" />
         <Route path="mission" component={Mission} />
         <Route path="news" component={News} title="In The News" subTitle=" " />
-        <Route path="job" component={Job} title="Work With Us" subTitle="Share your passion for astronomy with the world" />
+        <Route
+          path="job"
+          component={Job}
+          title="Work With Us"
+          subTitle="Share your passion for astronomy with the world"
+        />
         <Route path="contact" component={Contact} title="Contact US" subTitle=" " />
         <Route path="leadership" component={Leadership} title="Leadership" subTitle=" " />
         <Route path="pricing" component={PlansChange} />
@@ -165,7 +171,11 @@ ReactDOM.render(
       <Route path="/" component={App}>
         <IndexRoute component={Home} onEnter={validateUser} />
 
-        <Route path="telescope-overview/:observatoryId" component={TelescopeOverview} onEnter={validateUser} />
+        <Route
+          path="telescope-overview/:observatoryId"
+          component={TelescopeOverview}
+          onEnter={validateUser}
+        />
 
         <Route path="reservations" component={Reservations} onEnter={validateUser}>
           <IndexRedirect to="slooh-recommends" />
@@ -180,12 +190,20 @@ ReactDOM.render(
           <Route path="reserve-by-catalog" component={ReserveByCatalog} />
         </Route>
 
-        <Route path="reservations/reserve-by-telescope" component={Reservations} onEnter={validateUser}>
+        <Route
+          path="reservations/reserve-by-telescope"
+          component={Reservations}
+          onEnter={validateUser}
+        >
           <IndexRedirect to="telescope/d7f673a5-7908-11e6-a635-0eb2b1774883/1ff72faa-7909-11e6-a635-0eb2b1774883" />
           <Route path="telescope/:obsUniqueId/:teleUniqueId" component={ReserveByTelescope} />
         </Route>
 
-        <Route path="telescope-details/:obsUniqueId/:teleUniqueId" component={TelescopeDetails} onEnter={validateUser} />
+        <Route
+          path="telescope-details/:obsUniqueId/:teleUniqueId"
+          component={TelescopeDetails}
+          onEnter={validateUser}
+        />
 
         <Route path="best-of-slooh" component={BestOfSlooh} onEnter={validateUser} />
         <Route path="publish-post" component={PublishPost} onEnter={validateUser} />
@@ -241,27 +259,38 @@ ReactDOM.render(
         </Route>
 
         <Route path="community" component={PulsePost}>
-          <Route path="post(/:id)" name="post" component={PulsePostContent} onEnter={validateUser} />
+          <Route
+            path="post(/:id)"
+            name="post"
+            component={PulsePostContent}
+            onEnter={validateUser}
+          />
         </Route>
 
-        {
-          /**
+        {/**
             example id: 6
             Entry types: latest-entries | all-time-best
             /objects/all-time-best/6/all
-          */
-        }
+          */}
         <Route path="objects" component={ObjectList} onEnter={validateUser}>
           <Route path=":entryType/:SlugLookupId/:filterType" component={ObjectPosts} />
         </Route>
 
-        <Route path="shows/situation-room(/:showId)" component={SituationRoom} onEnter={validateUser} />
-        <Route path="shows/event-details(/:showId)" component={EventDetails} onEnter={validateUser} />
+        <Route
+          path="shows/situation-room(/:showId)"
+          component={SituationRoom}
+          onEnter={validateUser}
+        />
+        <Route
+          path="shows/event-details(/:showId)"
+          component={EventDetails}
+          onEnter={validateUser}
+        />
 
         <Route path="shows/video-viewer/browse" component={BrowseShowsWrapper}>
           <IndexRedirect to="recent-shows" />
           <Route path="recent-shows" component={RecentShows}>
-            { /*
+            {/*
             <IndexRedirect to="all-categories" />
             <Route path="all-categories" />
             <Route path="the-moon" />
@@ -270,10 +299,10 @@ ReactDOM.render(
             <Route path="the-sun" />
             <Route path="comets" />
             <Route path="constellations" />
-          */ }
+          */}
           </Route>
           <Route path="highlighted" component={SloohMotion}>
-            { /*
+            {/*
             <IndexRedirect to="all-categories" />
             <Route path="all-categories" />
             <Route path="the-moon" />
@@ -282,10 +311,10 @@ ReactDOM.render(
             <Route path="the-sun" />
             <Route path="comets" />
             <Route path="constellations" />
-            */ }
+            */}
           </Route>
           <Route path="upcoming-shows" component={UpcomingShows}>
-          { /*
+            {/*
             <IndexRedirect to="all-categories" />
             <Route path="all-categories" />
             <Route path="the-moon" />
@@ -294,24 +323,41 @@ ReactDOM.render(
             <Route path="the-sun" />
             <Route path="comets" />
             <Route path="constellations" />
-          */ }
+          */}
           </Route>
         </Route>
 
-        <Route path="shows/video-viewer(/:showId)" component={ShowVideoViewer} onEnter={validateUser} />
+        <Route
+          path="shows/video-viewer(/:showId)"
+          component={ShowVideoViewer}
+          onEnter={validateUser}
+        />
 
         <Route path="my-pictures" component={MyPictures} onEnter={validateUser}>
           <IndexRedirect to="photo-roll" />
           <Route path="photo-roll" title="Photo roll" component={PhotoRoll} />
           <Route path="galleries" tite="Galleries" component={Galleries} />
           <Route path="galleries/:galleryId" tite="Galleries" component={GalleryImages} />
-          <Route path="missions/:scheduledMissionId" title="Mission Images" component={MissionImages} />
+          <Route
+            path="missions/:scheduledMissionId"
+            title="Mission Images"
+            component={MissionImages}
+          />
           <Route path="missions" title="Missions" component={Missions} />
 
-          <Route path="show-image/:customerImageId/:shareToken(/:scheduledMissionId)" component={ImageDetails} />
+          <Route
+            path="show-image/:customerImageId/:shareToken(/:scheduledMissionId)"
+            component={ImageDetails}
+          />
           <Route path="public-galleries/:cid" component={PublicGalleries} />
-          <Route path="gallery/:galleryId/show-image(/:customerImageId)(/:shareToken)" component={GalleryImageDetails} />
-          <Route path="popular/show-image(/:customerImageId)(/:shareToken)" component={ImageDetails} />
+          <Route
+            path="gallery/:galleryId/show-image(/:customerImageId)(/:shareToken)"
+            component={GalleryImageDetails}
+          />
+          <Route
+            path="popular/show-image(/:customerImageId)(/:shareToken)"
+            component={ImageDetails}
+          />
         </Route>
 
         <Route path="discussions" component={Discussions} onEnter={validateUser}>
@@ -328,7 +374,11 @@ ReactDOM.render(
             <Route path="most-active" component={DiscussionsListWrapper} />
           </Route>
         </Route>
-        <Route path="discussions/forums(/:forumId)/topics" component={DiscussionsTopicsWrapper} onEnter={validateUser}>
+        <Route
+          path="discussions/forums(/:forumId)/topics"
+          component={DiscussionsTopicsWrapper}
+          onEnter={validateUser}
+        >
           <IndexRedirect to="default" />
           <Route path="default" component={DiscussionsTopicsList} />
           <Route path="alphabetic" component={DiscussionsTopicsList} />
@@ -336,17 +386,44 @@ ReactDOM.render(
           <Route path="most-active" component={DiscussionsTopicsList} />
         </Route>
 
-        <Route path="discussions/forums(/:forumId)/topics/new-thread" component={NewDiscussionsThread} onEnter={validateUser} />
-        <Route path="discussions/forums(/:forumId)/topics(/:topicId)/threads/new-thread" component={NewDiscussionsThread} onEnter={validateUser} />
-        <Route path="discussions/forums(/:forumId)/topics(/:topicId)/threads(/:threadId)/new-thread" component={NewDiscussionsThread} onEnter={validateUser} />
+        <Route
+          path="discussions/forums(/:forumId)/topics/new-thread"
+          component={NewDiscussionsThread}
+          onEnter={validateUser}
+        />
+        <Route
+          path="discussions/forums(/:forumId)/topics(/:topicId)/threads/new-thread"
+          component={NewDiscussionsThread}
+          onEnter={validateUser}
+        />
+        <Route
+          path="discussions/forums(/:forumId)/topics(/:topicId)/threads(/:threadId)/new-thread"
+          component={NewDiscussionsThread}
+          onEnter={validateUser}
+        />
 
-        <Route path="discussions/forums(/:forumId)/topics(/:topicId)/threads(/:threadId)" component={DiscussionsThreadWrapper} onEnter={validateUser} />
-        <Route path="discussions/forums(/:forumId)/topics(/:topicId)/threads(/:threadId)/new-reply" component={DiscussionsReplyTo} onEnter={validateUser} />
-        <Route path="discussions/forums(/:forumId)/topics(/:topicId)/threads(/:threadId)(/:replyId)/new-reply" component={DiscussionsReplyTo} onEnter={validateUser} />
-        <Route path="discussions/new-thread" component={NewDiscussionsThread} onEnter={validateUser} />
+        <Route
+          path="discussions/forums(/:forumId)/topics(/:topicId)/threads(/:threadId)"
+          component={DiscussionsThreadWrapper}
+          onEnter={validateUser}
+        />
+        <Route
+          path="discussions/forums(/:forumId)/topics(/:topicId)/threads(/:threadId)/new-reply"
+          component={DiscussionsReplyTo}
+          onEnter={validateUser}
+        />
+        <Route
+          path="discussions/forums(/:forumId)/topics(/:topicId)/threads(/:threadId)(/:replyId)/new-reply"
+          component={DiscussionsReplyTo}
+          onEnter={validateUser}
+        />
+        <Route
+          path="discussions/new-thread"
+          component={NewDiscussionsThread}
+          onEnter={validateUser}
+        />
 
         <Route path="road-trip" component={Landing} />
-
 
         <Route path="help/posting-guidelines" component={PostingGuidelines} />
         <Route path="help/new-to-slooh" component={NewToSlooh} />
