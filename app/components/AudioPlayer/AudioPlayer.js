@@ -115,14 +115,14 @@ const AudioPlayer = ({
   showSubtitleWhenLive,
   liveSubtitleText,
   liveSubtitleColorRGB,
-  showIndicatorWhenLive, // TODO
+  showIndicatorWhenLive,
   liveIndicatorText,
   liveIndicatorColorRGB,
   showVolumeControlWhenLive,
   volumeControlColorRGB,
   showMuteButtonWhenLive,
   muteButtonColorRGB,
-  showTooltip,
+  showTooltip, // TODO: tooltip to be added in future iteration
   tooltipText,
   tooltipColorRGB,
   tooltipBackgroundRGB,
@@ -134,6 +134,12 @@ const AudioPlayer = ({
   const subTitleTextInlineStyle = {
     color: isLiveEvent ? beforeLiveSubtitleColorRGB : liveSubtitleColorRGB,
   };
+
+  const showMute = isLiveEvent && showMuteButtonWhenLive;
+
+  const showVolumeControl = isLiveEvent && showVolumeControlWhenLive;
+
+  const showLiveIndicator = isLiveEvent && showIndicatorWhenLive;
 
   const containerInlineStyle = {
     backgroundColor: backgroundColorRGB,
@@ -153,16 +159,23 @@ const AudioPlayer = ({
         <YouTube onReady={onPlayerReady} videoId={streamCode} opts={PLAYER_OPTIONS} />
       </div>
 
-      <div className="controls">
-        <VolumeControls
-          onVolumeChange={updateVolume}
-          handleMute={mutePlayer}
-          handleUnMute={unMutePlayer}
-        />
-      </div>
+      {showVolumeControl && (
+        <div className="controls">
+          <VolumeControls
+            volumeControlsColor={volumeControlColorRGB}
+            muteButtonColor={muteButtonColorRGB}
+            showMuteButton={showMute}
+            onVolumeChange={updateVolume}
+            handleMute={mutePlayer}
+            handleUnMute={unMutePlayer}
+          />
+        </div>
+      )}
 
       <div className="content">
-        <Header text={liveIndicatorText} inlineTitleStyle={headerInlineStyle} />
+        {showLiveIndicator && (
+          <Header text={liveIndicatorText} inlineTitleStyle={headerInlineStyle} />
+        )}
         <Description
           subTitleText={subTitleText}
           showSubTitle={showSubtitle}
