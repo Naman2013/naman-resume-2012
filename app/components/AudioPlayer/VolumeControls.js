@@ -19,12 +19,18 @@ const propTypes = {
   onVolumeChange: PropTypes.func,
   handleMute: PropTypes.func,
   handleUnMute: PropTypes.func,
+  volumeControlsColor: PropTypes.string,
+  muteButtonColor: PropTypes.string,
+  showMuteButton: PropTypes.bool,
 };
 
 const defaultProps = {
   onVolumeChange: noop,
   handleMute: noop,
   handleUnMute: noop,
+  volumeControlsColor: blueBlack,
+  muteButtonColor: blueBlack,
+  showMuteButton: true,
 };
 
 class VolumeControls extends Component {
@@ -59,22 +65,33 @@ class VolumeControls extends Component {
   };
 
   render() {
+    const { volumeControlsColor, muteButtonColor, showMuteButton } = this.props;
+
+    const inlineControlStyle = { background: volumeControlsColor };
+    const muteButtonInlineStyle = { color: muteButtonColor };
+
     return (
       <div className="root">
         <div className="controls">
-          <div className="track" />
+          <div style={inlineControlStyle} className="track" />
           <Draggable
             defaultPosition={{ x: 0, y: -6.25 }}
             axis="y"
             bounds={TRACK_BOUNDARY}
             onDrag={this.onControlledDrag}
           >
-            <button onDrag={this.handleTabDrag} className="tab" />
+            <button style={inlineControlStyle} onDrag={this.handleTabDrag} className="tab" />
           </Draggable>
 
-          <button onClick={this.handleMuteClick} className="mute-button">
-            <span className="fa fa-volume-down" />
-          </button>
+          {showMuteButton && (
+            <button
+              style={muteButtonInlineStyle}
+              onClick={this.handleMuteClick}
+              className="mute-button"
+            >
+              <span className="fa fa-volume-down" />
+            </button>
+          )}
         </div>
 
         <style jsx>{`
