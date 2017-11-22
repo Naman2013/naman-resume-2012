@@ -3,9 +3,6 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import AudioPlayer from './AudioPlayer';
 
-const MOCK_TITLE = "Paul discusses Hubble's Variable Nebula (NGC 2261).";
-const YT_VIDEO_ID = 'zOH0XN4smgM';
-
 const mapStateToProps = ({ audioPlayer }) => ({ ...audioPlayer });
 
 @connect(mapStateToProps)

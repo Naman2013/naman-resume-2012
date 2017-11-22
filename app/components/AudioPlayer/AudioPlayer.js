@@ -49,6 +49,7 @@ function onPlayerReady(event) {
 }
 
 const propTypes = {
+  isLiveEvent: PropTypes.bool,
   backgroundColorRGB: PropTypes.string,
   playAudioWhenLive: PropTypes.bool,
   streamCode: PropTypes.string.isRequired,
@@ -75,6 +76,7 @@ const propTypes = {
 };
 
 const defaultProps = {
+  isLiveEvent: false,
   backgroundColorRGB: '#465763',
   playAudioWhenLive: false,
   showTitle: false,
@@ -100,8 +102,9 @@ const defaultProps = {
 };
 
 const AudioPlayer = ({
+  isLiveEvent,
   backgroundColorRGB,
-  playAudioWhenLive,
+  playAudioWhenLive, // TODO
   streamCode,
   showTitle,
   titleText,
@@ -112,7 +115,7 @@ const AudioPlayer = ({
   showSubtitleWhenLive,
   liveSubtitleText,
   liveSubtitleColorRGB,
-  showIndicatorWhenLive,
+  showIndicatorWhenLive, // TODO
   liveIndicatorText,
   liveIndicatorColorRGB,
   showVolumeControlWhenLive,
@@ -123,26 +126,54 @@ const AudioPlayer = ({
   tooltipText,
   tooltipColorRGB,
   tooltipBackgroundRGB,
-}) => (
-  <div className="root">
-    <div className="missing-player">
-      <YouTube onReady={onPlayerReady} videoId={streamCode} opts={PLAYER_OPTIONS} />
-    </div>
+}) => {
+  const showSubtitle =
+    (!isLiveEvent && showSubtitleBeforeLive) || (isLiveEvent && showSubtitleWhenLive);
+  const subTitleText = isLiveEvent ? liveSubtitleText : beforeLiveSubtitleText;
 
-    <div className="controls">
-      <VolumeControls
-        onVolumeChange={updateVolume}
-        handleMute={mutePlayer}
-        handleUnMute={unMutePlayer}
-      />
-    </div>
+  const subTitleTextInlineStyle = {
+    color: isLiveEvent ? beforeLiveSubtitleColorRGB : liveSubtitleColorRGB,
+  };
 
-    <div className="content">
-      <Header />
-      <Description content={titleText} />
-    </div>
+  const containerInlineStyle = {
+    backgroundColor: backgroundColorRGB,
+  };
 
-    <style jsx>{`
+  const titleInlineStyle = {
+    color: titleColorRGB,
+  };
+
+  const headerInlineStyle = {
+    color: liveIndicatorColorRGB,
+  };
+
+  return (
+    <div style={containerInlineStyle} className="root">
+      <div className="missing-player">
+        <YouTube onReady={onPlayerReady} videoId={streamCode} opts={PLAYER_OPTIONS} />
+      </div>
+
+      <div className="controls">
+        <VolumeControls
+          onVolumeChange={updateVolume}
+          handleMute={mutePlayer}
+          handleUnMute={unMutePlayer}
+        />
+      </div>
+
+      <div className="content">
+        <Header text={liveIndicatorText} inlineTitleStyle={headerInlineStyle} />
+        <Description
+          subTitleText={subTitleText}
+          showSubTitle={showSubtitle}
+          subTitleInlineStyle={subTitleTextInlineStyle}
+          titleInlineStyle={titleInlineStyle}
+          titleText={titleText}
+          showTitle={showTitle}
+        />
+      </div>
+
+      <style jsx>{`
         .root {
           display: flex;
           width: 260px;
@@ -162,8 +193,9 @@ const AudioPlayer = ({
           width: 80%;
         }
       `}</style>
-  </div>
+    </div>
   );
+};
 
 AudioPlayer.propTypes = propTypes;
 AudioPlayer.defaultProps = defaultProps;

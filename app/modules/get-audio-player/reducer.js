@@ -31,7 +31,7 @@ const initialState = {
   liveSubtitleText: '',
   liveSubtitleColorRGB: '#F310A7',
   showIndicatorWhenLive: false,
-  liveIndicatorText: '',
+  liveIndicatorText: 'LIVE',
   liveIndicatorColorRGB: '#EFD361',
   showVolumeControlWhenLive: false,
   volumeControlColorRGB: '#0F2126',
