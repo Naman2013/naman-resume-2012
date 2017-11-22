@@ -49,8 +49,6 @@ function onPlayerReady(event) {
 }
 
 const propTypes = {
-  showAudioPlayerBeforeLive: PropTypes.bool,
-  showAudioPlayerWhenLive: PropTypes.bool,
   backgroundColorRGB: PropTypes.string,
   playAudioWhenLive: PropTypes.bool,
   streamCode: PropTypes.string.isRequired,
@@ -77,8 +75,6 @@ const propTypes = {
 };
 
 const defaultProps = {
-  showAudioPlayerBeforeLive: false,
-  showAudioPlayerWhenLive: false,
   backgroundColorRGB: '#465763',
   playAudioWhenLive: false,
   showTitle: false,
@@ -147,29 +143,29 @@ const AudioPlayer = ({
     </div>
 
     <style jsx>{`
-      .root {
-        display: flex;
-        width: 260px;
-        height: 70px;
-        overflow: hidden;
-        padding: 10px 0;
-        background-color: ${darkBlueGray};
-      }
+        .root {
+          display: flex;
+          width: 260px;
+          height: 70px;
+          overflow: hidden;
+          padding: 10px 0;
+          background-color: ${darkBlueGray};
+        }
 
-      .controls {
-        align-self: flex-start;
-        padding-top: 4px;
-      }
+        .controls {
+          align-self: flex-start;
+          padding-top: 4px;
+        }
 
-      .content {
-        align-self: flex-start;
-        width: 80%;
-      }
-    `}</style>
+        .content {
+          align-self: flex-start;
+          width: 80%;
+        }
+      `}</style>
   </div>
-);
+  );
 
 AudioPlayer.propTypes = propTypes;
 AudioPlayer.defaultProps = defaultProps;
 
-export default AudioPlayer;
+export { AudioPlayer as default };

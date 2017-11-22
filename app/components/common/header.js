@@ -8,7 +8,7 @@ import { Link } from 'react-router';
 import { tickEvent } from '../../modules/upcoming-events/upcoming-events-actions';
 import Countdown from '../../containers/Countdown';
 import Member from '../../containers/Member';
-import AudioPlayer from '../../components/AudioPlayer';
+import AudioPlayer, { AudioPlayerProvider } from '../../components/AudioPlayer';
 
 // import styles from '../../styles/header.scss';
 import { primaryFont } from '../../styles/variables/fonts';
@@ -153,14 +153,16 @@ export default class Header extends Component {
         {/*
           showAudioPlayer &&
             <div className="player-container">
-              <AudioPlayer
-                description={eventDescription}
-              />
+              <AudioPlayerProvider>
+                <AudioPlayer description={eventDescription} streamCode="" />
+              </AudioPlayerProvider>
             </div>
             */}
 
         <div className="player-container">
-          <AudioPlayer description={eventDescription} />
+          <AudioPlayerProvider>
+            <AudioPlayer description={eventDescription} streamCode="" />
+          </AudioPlayerProvider>
         </div>
 
         <style jsx>{`
