@@ -103,7 +103,33 @@ const defaultProps = {
   tooltipBackgroundRGB: '#3C4A55',
 };
 
-const AudioPlayer = ({ titleText, streamCode }) => (
+const AudioPlayer = ({
+  showAudioPlayerBeforeLive,
+  showAudioPlayerWhenLive,
+  backgroundColorRGB,
+  playAudioWhenLive,
+  streamCode,
+  showTitle,
+  titleText,
+  titleColorRGB,
+  showSubtitleBeforeLive,
+  beforeLiveSubtitleText,
+  beforeLiveSubtitleColorRGB,
+  showSubtitleWhenLive,
+  liveSubtitleText,
+  liveSubtitleColorRGB,
+  showIndicatorWhenLive,
+  liveIndicatorText,
+  liveIndicatorColorRGB,
+  showVolumeControlWhenLive,
+  volumeControlColorRGB,
+  showMuteButtonWhenLive,
+  muteButtonColorRGB,
+  showTooltip,
+  tooltipText,
+  tooltipColorRGB,
+  tooltipBackgroundRGB,
+}) => (
   <div className="root">
     <div className="missing-player">
       <YouTube onReady={onPlayerReady} videoId={streamCode} opts={PLAYER_OPTIONS} />
