@@ -49,18 +49,64 @@ function onPlayerReady(event) {
 }
 
 const propTypes = {
-  description: PropTypes.string,
-  YTVideoID: PropTypes.string.isRequired,
+  showAudioPlayerBeforeLive: PropTypes.bool,
+  showAudioPlayerWhenLive: PropTypes.bool,
+  backgroundColorRGB: PropTypes.string,
+  playAudioWhenLive: PropTypes.bool,
+  streamCode: PropTypes.string.isRequired,
+  showTitle: PropTypes.bool,
+  titleText: PropTypes.string,
+  titleColorRGB: PropTypes.string,
+  showSubtitleBeforeLive: PropTypes.bool,
+  beforeLiveSubtitleText: PropTypes.string,
+  beforeLiveSubtitleColorRGB: PropTypes.string,
+  showSubtitleWhenLive: PropTypes.bool,
+  liveSubtitleText: PropTypes.string,
+  liveSubtitleColorRGB: PropTypes.string,
+  showIndicatorWhenLive: PropTypes.bool,
+  liveIndicatorText: PropTypes.string,
+  liveIndicatorColorRGB: PropTypes.string,
+  showVolumeControlWhenLive: PropTypes.bool,
+  volumeControlColorRGB: PropTypes.string,
+  showMuteButtonWhenLive: PropTypes.bool,
+  muteButtonColorRGB: PropTypes.string,
+  showTooltip: PropTypes.bool,
+  tooltipText: PropTypes.string,
+  tooltipColorRGB: PropTypes.string,
+  tooltipBackgroundRGB: PropTypes.string,
 };
 
 const defaultProps = {
-  description: '',
+  showAudioPlayerBeforeLive: false,
+  showAudioPlayerWhenLive: false,
+  backgroundColorRGB: '#465763',
+  playAudioWhenLive: false,
+  showTitle: false,
+  titleText: '',
+  titleColorRGB: '#FFFFFF',
+  showSubtitleBeforeLive: false,
+  beforeLiveSubtitleText: '',
+  beforeLiveSubtitleColorRGB: '#80C3C3',
+  showSubtitleWhenLive: false,
+  liveSubtitleText: '',
+  liveSubtitleColorRGB: '#F310A7',
+  showIndicatorWhenLive: false,
+  liveIndicatorText: '',
+  liveIndicatorColorRGB: '#EFD361',
+  showVolumeControlWhenLive: false,
+  volumeControlColorRGB: '#0F2126',
+  showMuteButtonWhenLive: false,
+  muteButtonColorRGB: '#0F2126',
+  showTooltip: false,
+  tooltipText: '',
+  tooltipColorRGB: '#FFFFFF',
+  tooltipBackgroundRGB: '#3C4A55',
 };
 
-const AudioPlayer = ({ description, YTVideoID }) => (
+const AudioPlayer = ({ titleText, streamCode }) => (
   <div className="root">
     <div className="missing-player">
-      <YouTube onReady={onPlayerReady} videoId={YTVideoID} opts={PLAYER_OPTIONS} />
+      <YouTube onReady={onPlayerReady} videoId={streamCode} opts={PLAYER_OPTIONS} />
     </div>
 
     <div className="controls">
@@ -73,7 +119,7 @@ const AudioPlayer = ({ description, YTVideoID }) => (
 
     <div className="content">
       <Header />
-      <Description content={description} />
+      <Description content={titleText} />
     </div>
 
     <style jsx>{`
