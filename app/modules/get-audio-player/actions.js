@@ -17,9 +17,15 @@ const successFetchPlayer = payload => ({
   payload,
 });
 
+const failFetchPlayer = payload => ({
+  type: FAIL_FETCH_PLAYER,
+  payload,
+});
+
 export const fetchPlayer = ({ pageURL }) => (dispatch, getState) => {
   const { at, cid, token } = getState().user;
   dispatch(startFetchPlayer());
-  console.log(pageURL);
-  console.log(at, cid, token);
+  getAudioPlayer({ at, cid, token, pageSource: pageURL })
+    .then((result) => { dispatch(successFetchPlayer(result.data)); })
+    .catch((error) => { dispatch(failFetchPlayer((error))); });
 };

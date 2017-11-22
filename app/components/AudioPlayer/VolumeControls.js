@@ -39,7 +39,7 @@ class VolumeControls extends Component {
 
   onControlledDrag = (event, position) => {
     const { y } = position;
-    const volume = Math.abs(y) / (MAX_BOUNDARY * 100);
+    const volume = Math.abs(y) / MAX_BOUNDARY * 100;
     this.props.onVolumeChange(volume);
     this.setState({
       volume,
