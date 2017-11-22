@@ -104,8 +104,6 @@ const defaultProps = {
 };
 
 const AudioPlayer = ({
-  showAudioPlayerBeforeLive,
-  showAudioPlayerWhenLive,
   backgroundColorRGB,
   playAudioWhenLive,
   streamCode,

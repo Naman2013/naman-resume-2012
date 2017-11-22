@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import styles from './header.scss';
+import './header.scss';
 
 /**
   * Current telescope's header with title, reserve button and a sponsor
@@ -8,38 +8,31 @@ import styles from './header.scss';
   * @param {object} telescope - currently selected telescope
   */
 class CurrentSelectionHeader extends Component {
-
   render() {
     const {
       telescopeIcon,
       teleName,
       teleSponsorLinkURL,
       teleSponsorLogoURL,
-      instrTelescopeName } = this.props;
+      instrTelescopeName,
+    } = this.props;
 
-    return(
+    return (
       <div className="current-selection-header">
         <div className="title-container clearfix">
-
           <div className="telescope-title-container">
+            <img src={telescopeIcon} width="48" height="48" />
+            <span className="telescope-title big">{`${teleName}: ${instrTelescopeName}`}</span>
 
-            <img src={telescopeIcon} width="48" height="48"/>
-            <span className="telescope-title big">
-              {`${teleName}: ${instrTelescopeName}`}
-            </span>
-
-            {
-           !!teleSponsorLogoURL ?
+            {teleSponsorLogoURL ? (
               <span className="sponsoredby-text">
                 Sponsored by:
                 <a href={teleSponsorLinkURL} target="_blank">
                   <img width="145" className="sponsoredby-logo" src={teleSponsorLogoURL} />
                 </a>
-              </span> : null
-            }
-
+              </span>
+            ) : null}
           </div>
-
         </div>
       </div>
     );

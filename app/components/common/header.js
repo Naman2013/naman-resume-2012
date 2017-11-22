@@ -25,8 +25,10 @@ function mapDispatchToProps(dispatch) {
   );
 }
 
-function mapStateToProps({ countdown, upcomingEvents }) {
+function mapStateToProps({ countdown, upcomingEvents, audioPlayer }) {
   return {
+    showAudioPlayerBeforeLive: audioPlayer.showAudioPlayerBeforeLive,
+    showAudioPlayerWhenLive: audioPlayer.showAudioPlayerWhenLive,
     countdown,
     nextEvent: upcomingEvents.nextEvent,
     serverTime: upcomingEvents.upcomingEvents.timestamp,
@@ -38,7 +40,9 @@ function mapStateToProps({ countdown, upcomingEvents }) {
 @connect(mapStateToProps, mapDispatchToProps)
 export default class Header extends Component {
   static propTypes = {
-    serverTime: number,
+    showAudioPlayerBeforeLive: PropTypes.bool,
+    showAudioPlayerWhenLive: PropTypes.bool,
+    serverTime: PropTypes.number,
     nextEvent: shape({
       eventDescription: string.isRequired,
       eventEnd: number.isRequired,
@@ -65,6 +69,8 @@ export default class Header extends Component {
   };
 
   static defaultProps = {
+    showAudioPlayerBeforeLive: false,
+    showAudioPlayerWhenLive: false,
     nextEvent: {
       eventDescription: '',
       eventEnd: 0,
@@ -126,7 +132,14 @@ export default class Header extends Component {
   }
 
   render() {
-    const { nextEvent: { eventIsLive, eventDescription } } = this.props;
+    const {
+      nextEvent: { eventIsLive, eventDescription },
+      showAudioPlayerBeforeLive,
+      showAudioPlayerWhenLive,
+    } = this.props;
+
+    const showAudioPlayer =
+      (!eventIsLive && showAudioPlayerBeforeLive) || (eventIsLive && showAudioPlayerWhenLive);
 
     return (
       <header className="mainHeader" id="mainHeader">
@@ -138,7 +151,7 @@ export default class Header extends Component {
         <Countdown />
 
         {/*
-          eventIsLive &&
+          showAudioPlayer &&
             <div className="player-container">
               <AudioPlayer
                 description={eventDescription}
