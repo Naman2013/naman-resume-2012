@@ -158,9 +158,12 @@ const AudioPlayer = ({
 
   return (
     <div style={containerInlineStyle} className="root">
-      <div className="missing-player">
-        <YouTube onReady={onPlayerReady} videoId={streamCode} opts={PLAYER_OPTIONS} />
-      </div>
+      {isLiveEvent &&
+        playAudioWhenLive && (
+          <div className="missing-player">
+            <YouTube onReady={onPlayerReady} videoId={streamCode} opts={PLAYER_OPTIONS} />
+          </div>
+        )}
 
       {showVolumeControl && (
         <div className="controls">

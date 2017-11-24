@@ -54,7 +54,6 @@ export default createReducer(initialState, {
     return {
       ...state,
       loadingContent: true,
-      ...initialState,
     };
   },
   [SUCCESS_FETCH_PLAYER](state, { payload }) {
