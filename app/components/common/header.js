@@ -133,7 +133,7 @@ export default class Header extends Component {
 
   render() {
     const {
-      nextEvent: { eventIsLive, eventDescription },
+      nextEvent: { eventIsLive },
       showAudioPlayerBeforeLive,
       showAudioPlayerWhenLive,
     } = this.props;
@@ -150,20 +150,13 @@ export default class Header extends Component {
         <Member />
         <Countdown />
 
-        {/*
-          showAudioPlayer &&
-            <div className="player-container">
-              <AudioPlayerProvider>
-                <AudioPlayer description={eventDescription} streamCode="" />
-              </AudioPlayerProvider>
-            </div>
-            */}
-
-        <div className="player-container">
-          <AudioPlayerProvider>
-            <AudioPlayer description={eventDescription} streamCode="" />
-          </AudioPlayerProvider>
-        </div>
+        {showAudioPlayer && (
+          <div className="player-container">
+            <AudioPlayerProvider>
+              <AudioPlayer isLiveEvent={eventIsLive} streamCode="" />
+            </AudioPlayerProvider>
+          </div>
+        )}
 
         <style jsx>{`
           .player-container {

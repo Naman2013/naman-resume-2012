@@ -15,18 +15,12 @@ import { darkBlueGray } from '../../styles/variables/colors';
 */
 
 let PLAYER = null;
-const PLAYER_OPTIONS = {
-  height: '0',
-  width: '0',
-  playerVars: {
-    autoplay: 1,
-  },
-};
 
 const INITIAL_VOLUME = 25;
 
 function mutePlayer() {
   if (PLAYER) {
+    console.log('mute player');
     PLAYER.mute();
   }
 }
@@ -104,7 +98,7 @@ const defaultProps = {
 const AudioPlayer = ({
   isLiveEvent,
   backgroundColorRGB,
-  playAudioWhenLive, // TODO
+  playAudioWhenLive,
   streamCode,
   showTitle,
   titleText,
@@ -153,6 +147,16 @@ const AudioPlayer = ({
     color: liveIndicatorColorRGB,
   };
 
+  const playerAutoPlay = isLiveEvent && playAudioWhenLive ? 1 : 0;
+
+  const PLAYER_OPTIONS = {
+    height: '0',
+    width: '0',
+    playerVars: {
+      autoplay: playerAutoPlay,
+    },
+  };
+
   return (
     <div style={containerInlineStyle} className="root">
       <div className="missing-player">
@@ -192,13 +196,14 @@ const AudioPlayer = ({
           width: 260px;
           height: 70px;
           overflow: hidden;
-          padding: 10px 0;
+          padding: 10px 0 0 10px;
           background-color: ${darkBlueGray};
         }
 
         .controls {
           align-self: flex-start;
           padding-top: 4px;
+          margin-left: -10px;
         }
 
         .content {

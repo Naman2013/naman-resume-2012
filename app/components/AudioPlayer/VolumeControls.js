@@ -55,7 +55,7 @@ class VolumeControls extends Component {
 
   handleMuteClick = () => {
     const { isMuted } = this.state;
-    if (isMuted) {
+    if (!isMuted) {
       this.props.handleMute();
       this.setState({ isMuted: true });
     } else {

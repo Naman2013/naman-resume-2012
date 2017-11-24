@@ -26,6 +26,11 @@ export const fetchPlayer = ({ pageURL }) => (dispatch, getState) => {
   const { at, cid, token } = getState().user;
   dispatch(startFetchPlayer());
   getAudioPlayer({ at, cid, token, pageSource: pageURL })
-    .then((result) => { dispatch(successFetchPlayer(result.data)); })
-    .catch((error) => { dispatch(failFetchPlayer((error))); });
+    .then((result) => {
+      dispatch(successFetchPlayer(result.data));
+    })
+    .catch((error) => {
+      console.log(error);
+      dispatch(failFetchPlayer(error));
+    });
 };
