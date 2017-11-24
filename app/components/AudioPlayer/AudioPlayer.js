@@ -20,7 +20,6 @@ const INITIAL_VOLUME = 25;
 
 function mutePlayer() {
   if (PLAYER) {
-    console.log('mute player');
     PLAYER.mute();
   }
 }
