@@ -43,6 +43,8 @@ function onPlayerReady(event) {
 
 const propTypes = {
   isLiveEvent: PropTypes.bool,
+  eventStart: PropTypes.number,
+  eventEnd: PropTypes.number,
   backgroundColorRGB: PropTypes.string,
   playAudioWhenLive: PropTypes.bool,
   streamCode: PropTypes.string.isRequired,
@@ -102,6 +104,8 @@ const defaultProps = {
   afterEndSubtitleColorRGB: '',
   minimumVolumeLevel: 0,
   maximumVolumeLevel: 100,
+  eventStart: 0,
+  eventEnd: 0,
 };
 
 const AudioPlayer = ({
@@ -128,6 +132,8 @@ const AudioPlayer = ({
   showSubtitleAfterEnd,
   afterEndSubtitleText,
   afterEndSubtitleColorRGB,
+  eventStart,
+  eventEnd,
   minimumVolumeLevel, // TODO: this somehow needs to be implemented
   maximumVolumeLevel,
   showTooltip, // TODO: tooltip to be added in future iteration
@@ -135,19 +141,23 @@ const AudioPlayer = ({
   tooltipColorRGB,
   tooltipBackgroundRGB,
 }) => {
+  const eventTimeDifference = eventEnd - eventStart;
+  const isBeforeEvent = !isLiveEvent && eventTimeDifference >= 0;
+  const isAfterEvent = !isLiveEvent && eventTimeDifference <= 0;
+
   const showSubtitle =
-    (!isLiveEvent && showSubtitleBeforeLive) ||
-    (!isLiveEvent && showSubtitleAfterEnd) ||
+    (isBeforeEvent && showSubtitleBeforeLive) ||
+    (isAfterEvent && showSubtitleAfterEnd) ||
     (isLiveEvent && showSubtitleWhenLive);
 
   const subTitleText = isLiveEvent
     ? liveSubtitleText
-    : showSubtitleAfterEnd ? afterEndSubtitleText : beforeLiveSubtitleText;
+    : isBeforeEvent ? beforeLiveSubtitleText : afterEndSubtitleText;
 
   const subTitleTextInlineStyle = {
     color: isLiveEvent
       ? liveSubtitleColorRGB
-      : showSubtitleAfterEnd ? afterEndSubtitleColorRGB : beforeLiveSubtitleColorRGB,
+      : isBeforeEvent ? beforeLiveSubtitleColorRGB : afterEndSubtitleColorRGB,
   };
 
   const showMute = isLiveEvent && showMuteButtonWhenLive;
