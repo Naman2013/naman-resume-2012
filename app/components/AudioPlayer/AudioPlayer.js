@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment';
 import PropTypes from 'prop-types';
 import YouTube from 'react-youtube';
 import Header from './Header';
@@ -142,8 +143,13 @@ const AudioPlayer = ({
   tooltipBackgroundRGB,
 }) => {
   const eventTimeDifference = eventEnd - eventStart;
-  const isBeforeEvent = !isLiveEvent && eventTimeDifference >= 0;
-  const isAfterEvent = !isLiveEvent && eventTimeDifference <= 0;
+  const currentTime = moment.utc().unix();
+
+  const isBeforeEvent = !isLiveEvent && eventStart - currentTime >= 0;
+  const isAfterEvent = !isLiveEvent && eventEnd - currentTime <= 0;
+
+  console.log('isBeforeEvent', isBeforeEvent);
+  console.log('isAfterEvent', isAfterEvent);
 
   const showSubtitle =
     (isBeforeEvent && showSubtitleBeforeLive) ||
