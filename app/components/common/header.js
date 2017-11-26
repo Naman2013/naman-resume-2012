@@ -10,7 +10,6 @@ import Countdown from '../../containers/Countdown';
 import Member from '../../containers/Member';
 import AudioPlayer, { AudioPlayerProvider } from '../../components/AudioPlayer';
 
-// import styles from '../../styles/header.scss';
 import { primaryFont } from '../../styles/variables/fonts';
 import { lightTurqoise, white } from '../../styles/variables/colors';
 

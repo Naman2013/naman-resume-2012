@@ -24,6 +24,8 @@ const initialState = {
     eventId: 0,
     eventImageURL: '',
     eventIsLive: false,
+    isBeforeEvent: false,
+    isAfterEvent: false,
   },
   upcomingEvents: {
     apiError: false,
@@ -52,7 +54,7 @@ const initialState = {
     hoursTo: 0,
     minutesTo: 0,
     secondsTo: 0,
-  }
+  },
 };
 
 export default createReducer(initialState, {
@@ -90,7 +92,7 @@ export default createReducer(initialState, {
       ...state,
       calculatedEventValues: {
         ...payload,
-      }
+      },
     };
   },
   [SET_TIMER_VALUES](state, { payload }) {
@@ -98,7 +100,7 @@ export default createReducer(initialState, {
       ...state,
       eventTimer: {
         ...payload,
-      }
+      },
     };
   },
 });
