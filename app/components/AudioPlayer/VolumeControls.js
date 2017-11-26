@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import noop from 'lodash/noop';
 import Draggable from 'react-draggable';
+import { Mute } from '../../design-system/icons/mute';
 import { blueBlack } from '../../styles/variables/colors';
 
 /*
@@ -65,6 +66,7 @@ class VolumeControls extends Component {
   };
 
   render() {
+    const { isMuted } = this.state;
     const { volumeControlsColor, muteButtonColor, showMuteButton } = this.props;
 
     const inlineControlStyle = { background: volumeControlsColor };
@@ -89,7 +91,7 @@ class VolumeControls extends Component {
               onClick={this.handleMuteClick}
               className="mute-button"
             >
-              <span className="fa fa-volume-down" />
+              {isMuted ? <Mute /> : <span className="fa fa-volume-down" />}
             </button>
           )}
         </div>
