@@ -142,14 +142,9 @@ const AudioPlayer = ({
   tooltipColorRGB,
   tooltipBackgroundRGB,
 }) => {
-  const eventTimeDifference = eventEnd - eventStart;
   const currentTime = moment.utc().unix();
-
   const isBeforeEvent = !isLiveEvent && eventStart - currentTime >= 0;
   const isAfterEvent = !isLiveEvent && eventEnd - currentTime <= 0;
-
-  console.log('isBeforeEvent', isBeforeEvent);
-  console.log('isAfterEvent', isAfterEvent);
 
   const showSubtitle =
     (isBeforeEvent && showSubtitleBeforeLive) ||
