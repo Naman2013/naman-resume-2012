@@ -47,6 +47,12 @@ const initialState = {
   status: '',
   pageSource: '',
   playerType: 'topbar',
+  showAudioPlayerAfterEnd: false,
+  showSubtitleAfterEnd: false,
+  afterEndSubtitleText: '',
+  afterEndSubtitleColorRGB: '',
+  minimumVolumeLevel: 0,
+  maximumVolumeLevel: 100,
 };
 
 export default createReducer(initialState, {

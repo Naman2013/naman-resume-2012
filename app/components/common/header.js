@@ -29,6 +29,7 @@ function mapStateToProps({ countdown, upcomingEvents, audioPlayer }) {
   return {
     showAudioPlayerBeforeLive: audioPlayer.showAudioPlayerBeforeLive,
     showAudioPlayerWhenLive: audioPlayer.showAudioPlayerWhenLive,
+    showAudioPlayerAfterEnd: audioPlayer.showAudioPlayerAfterEnd,
     countdown,
     nextEvent: upcomingEvents.nextEvent,
     serverTime: upcomingEvents.upcomingEvents.timestamp,
@@ -42,6 +43,7 @@ export default class Header extends Component {
   static propTypes = {
     showAudioPlayerBeforeLive: PropTypes.bool,
     showAudioPlayerWhenLive: PropTypes.bool,
+    showAudioPlayerAfterEnd: PropTypes.bool,
     serverTime: PropTypes.number,
     nextEvent: shape({
       eventDescription: string.isRequired,
@@ -71,6 +73,7 @@ export default class Header extends Component {
   static defaultProps = {
     showAudioPlayerBeforeLive: false,
     showAudioPlayerWhenLive: false,
+    showAudioPlayerAfterEnd: false,
     nextEvent: {
       eventDescription: '',
       eventEnd: 0,
@@ -136,10 +139,13 @@ export default class Header extends Component {
       nextEvent: { eventIsLive },
       showAudioPlayerBeforeLive,
       showAudioPlayerWhenLive,
+      showAudioPlayerAfterEnd,
     } = this.props;
 
     const showAudioPlayer =
-      (!eventIsLive && showAudioPlayerBeforeLive) || (eventIsLive && showAudioPlayerWhenLive);
+      (!eventIsLive && showAudioPlayerBeforeLive) ||
+      (!eventIsLive && showAudioPlayerAfterEnd) ||
+      (eventIsLive && showAudioPlayerWhenLive);
 
     return (
       <header className="mainHeader" id="mainHeader">

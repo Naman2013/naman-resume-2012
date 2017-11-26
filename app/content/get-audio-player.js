@@ -42,4 +42,11 @@ export default {
   pageSource:
     '/telescope-details/d7f673a5-7908-11e6-a635-0eb2b1774883/2590c3fd-7909-11e6-a635-0eb2b1774883',
   playerType: 'topbar',
+
+  showAudioPlayerAfterEnd: false,
+  showSubtitleAfterEnd: false,
+  afterEndSubtitleText: '',
+  afterEndSubtitleColorRGB: '',
+  minimumVolumeLevel: 0,
+  maximumVolumeLevel: 100,
 };
