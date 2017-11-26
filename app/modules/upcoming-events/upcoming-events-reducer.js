@@ -24,8 +24,6 @@ const initialState = {
     eventId: 0,
     eventImageURL: '',
     eventIsLive: false,
-    isBeforeEvent: false,
-    isAfterEvent: false,
   },
   upcomingEvents: {
     apiError: false,

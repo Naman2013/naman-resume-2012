@@ -53,30 +53,6 @@ export const eventGoLive = () => (dispatch, getState) => {
   );
 };
 
-const eventJustEnded = () => (dispatch, getState) => {
-  const { nextEvent } = getState().upcomingEvents;
-  dispatch(
-    setNextEvent({
-      ...nextEvent,
-      eventIsLive: false,
-      isBeforeEvent: false,
-      isAfterEvent: true,
-    }),
-  );
-};
-
-const eventHasNotStarted = () => (dispatch, getState) => {
-  const { nextEvent } = getState().upcomingEvents;
-  dispatch(
-    setNextEvent({
-      ...nextEvent,
-      eventIsLive: false,
-      isBeforeEvent: true,
-      isAfterEvent: false,
-    }),
-  );
-};
-
 /**
   looks at the event list and rebuilds the upcoming events list by removing
   the first event from the set.
