@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { fetchTopicList } from '../../../modules/discussions-topics/actions';
 import GenericLoadingBox from '../../../components/common/loading-screens/generic-loading-box';
 import DiscussionsTopicList from '../../../components/discussions/DiscussionsTopicList';
-import DiscussionsListHeader from '../../../components/discussions/DiscussionsListHeader';
+import DiscussionsTopicListHeader from '../../../components/discussions/DiscussionsTopicListHeader';
 
 const { func, bool, instanceOf, number, object } = PropTypes;
 
@@ -27,7 +27,7 @@ class DiscussionsTopicsList extends Component {
     const { topicList, fetching, route: { path }, resultsCount } = this.props;
     return (
       <section className="discussions-list">
-        <DiscussionsListHeader threads activeLink={path} />
+        <DiscussionsTopicListHeader threads activeLink={path} />
         <DiscussionsTopicList topics={topicList} />
         {fetching && <GenericLoadingBox />}
         {(!fetching && topicList.size < resultsCount) && <div className="load-more" onClick={fetchMoreTopics}>Load more...</div>}
