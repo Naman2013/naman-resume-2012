@@ -6,6 +6,7 @@ import {
   FETCH_TOPIC_LIST_START,
   FETCH_TOPIC_LIST_SUCCESS,
   FETCH_TOPIC_LIST_FAIL,
+  TOGGLE_FOLLOW_TOPIC_SUCCESS,
 } from './actions';
 
 const InitialState = Record({
@@ -43,5 +44,12 @@ export default createReducer(new InitialState(), {
       .set('page', 0)
       .set('resultsCount', 0)
       .set('fetching', false);
+  },
+  [TOGGLE_FOLLOW_TOPIC_SUCCESS](state, { payload }) {
+    const { followingFlag, topicId } = payload;
+    return state
+      .update('topicList', list =>
+        list.update(list.findIndex(topic => topic.topicId === topicId), topic =>
+          topic.set('followingFlag', followingFlag)));
   },
 });

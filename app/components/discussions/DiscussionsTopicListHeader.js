@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styles from './discussions-list.scss';
 
 const { bool, string } = PropTypes;
 

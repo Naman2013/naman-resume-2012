@@ -4,7 +4,7 @@ import { Link } from 'react-router';
 
 const { number, shape, string } = PropTypes;
 
-const DiscussionsTopicItem = ({ item }) => (
+const DiscussionsTopicItem = ({ item, toggleFollowTopic}) => (
   <div className="list-item">
     <div className="row inner">
       <div className="col-xs-5 description">
@@ -23,7 +23,7 @@ const DiscussionsTopicItem = ({ item }) => (
         </div>
       </div>
       <div className="col-xs-2 info-container">
-        <button>Follow</button>
+        <button onClick={() => toggleFollowTopic(item.topicId)}>{item.followingFlag ? 'Following' : 'Follow'}</button>
       </div>
     </div>
   </div>
