@@ -170,10 +170,6 @@ class AudioPlayer extends Component {
     const isBeforeEvent = !isLiveEvent && eventStart - currentTime >= 0;
     const isAfterEvent = !isLiveEvent && eventEnd - currentTime <= 0;
 
-    console.log('isLiveEvent', isLiveEvent);
-    console.log('isBeforeEvent', isBeforeEvent);
-    console.log('isAfterEvent', isAfterEvent);
-
     const showSubtitle =
       (isBeforeEvent && showSubtitleBeforeLive) ||
       (isAfterEvent && showSubtitleAfterEnd) ||
