@@ -188,7 +188,6 @@ class AudioPlayer extends Component {
     const showMute = isLiveEvent && showMuteButtonWhenLive;
 
     const showVolumeControl = isLiveEvent && showVolumeControlWhenLive;
-    console.log('isLiveEvent', isLiveEvent);
     const showLiveIndicator = isLiveEvent && showIndicatorWhenLive;
 
     const containerInlineStyle = {
