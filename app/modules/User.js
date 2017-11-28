@@ -8,19 +8,22 @@ import createAction from './utils/createAction';
 export const EXPIRATION_DAYS = 90;
 export const COOKIE_PATH = '/';
 export const futureDate = moment().add(EXPIRATION_DAYS, 'day').toDate();
+const SET_COOKIE_SETTINGS = { domain: 'localhost', secure: false, expires: futureDate, path: COOKIE_PATH };
+const END_COOKIE_SETTINGS = { domain: 'localhost', secure: false, expires: new Date('Thu, 01 Jan 1970 00:00:01 GMT'), path: COOKIE_PATH };
 
 const SET_USER = 'SET_USER';
 const REMOVE_USER = 'REMOVE_USER';
+const UPDATE_RADIO_SETTINGS = 'UPDATE_RADIO_SETTINGS';
 
 export const set = createAction(SET_USER, 'user');
 export const removeUser = createAction(REMOVE_USER);
 
 export function store({ cid, token, at, fname, avatarURL }) {
-  window.document.cookie = cookie.serialize('cid', cid, { domain: 'localhost', secure: false, expires: futureDate, path: COOKIE_PATH });
-  window.document.cookie = cookie.serialize('token', token, { domain: 'localhost', secure: false, expires: futureDate, path: COOKIE_PATH });
-  window.document.cookie = cookie.serialize('at', at, { domain: 'localhost', secure: false, expires: futureDate, path: COOKIE_PATH });
-  window.document.cookie = cookie.serialize('fname', fname, { domain: 'localhost', secure: false, expires: futureDate, path: COOKIE_PATH });
-  window.document.cookie = cookie.serialize('avatarURL', avatarURL, { domain: 'localhost', secure: false, expires: futureDate, path: COOKIE_PATH });
+  window.document.cookie = cookie.serialize('cid', cid, SET_COOKIE_SETTINGS);
+  window.document.cookie = cookie.serialize('token', token, SET_COOKIE_SETTINGS);
+  window.document.cookie = cookie.serialize('at', at, SET_COOKIE_SETTINGS);
+  window.document.cookie = cookie.serialize('fname', fname, SET_COOKIE_SETTINGS);
+  window.document.cookie = cookie.serialize('avatarURL', avatarURL, SET_COOKIE_SETTINGS);
 
   return (dispatch) => {
     dispatch(set({ cid, token, at, fname, avatarURL }));
@@ -29,12 +32,26 @@ export function store({ cid, token, at, fname, avatarURL }) {
 
 export function destroySession() {
   window.localStorage.removeItem('user');
-  window.document.cookie = cookie.serialize('cid', '', { domain: 'localhost', secure: false, expires: new Date('Thu, 01 Jan 1970 00:00:01 GMT'), path: COOKIE_PATH });
-  window.document.cookie = cookie.serialize('token', '', { domain: 'localhost', secure: false, expires: new Date('Thu, 01 Jan 1970 00:00:01 GMT'), path: COOKIE_PATH });
-  window.document.cookie = cookie.serialize('at', '', { domain: 'localhost', secure: false, expires: new Date('Thu, 01 Jan 1970 00:00:01 GMT'), path: COOKIE_PATH });
-  window.document.cookie = cookie.serialize('fname', '', { domain: 'localhost', secure: false, expires: new Date('Thu, 01 Jan 1970 00:00:01 GMT'), path: COOKIE_PATH });
-  window.document.cookie = cookie.serialize('avatarURL', '', { domain: 'localhost', secure: false, expires: new Date('Thu, 01 Jan 1970 00:00:01 GMT'), path: COOKIE_PATH });
+  window.document.cookie = cookie.serialize('cid', '', END_COOKIE_SETTINGS);
+  window.document.cookie = cookie.serialize('token', '', END_COOKIE_SETTINGS);
+  window.document.cookie = cookie.serialize('at', '', END_COOKIE_SETTINGS);
+  window.document.cookie = cookie.serialize('fname', '', END_COOKIE_SETTINGS);
+  window.document.cookie = cookie.serialize('avatarURL', '', END_COOKIE_SETTINGS);
 }
+
+function updateAudioPlayerCookies({ radioDefaultVolume, radioDefaultMute }) {
+  window.document.cookie = cookie.serialize('radioDefaultVolume', radioDefaultVolume, SET_COOKIE_SETTINGS);
+  window.document.cookie = cookie.serialize('radioDefaultMute', radioDefaultMute, SET_COOKIE_SETTINGS);
+}
+
+export const updateRadioSettings = ({ radioDefaultVolume, radioDefaultMute }) => {
+  updateAudioPlayerCookies({ radioDefaultVolume, radioDefaultMute });
+  return {
+    type: UPDATE_RADIO_SETTINGS,
+    radioDefaultVolume,
+    radioDefaultMute,
+  };
+};
 
 export const logout = () => {
   destroySession();
@@ -79,6 +96,8 @@ const initialState = {
   membershipType: null,
   apiError: false,
   errorCode: 0,
+  radioDefaultVolume: 25,
+  radioDefaultMute: false,
 };
 
 export default createReducer(initialState, {
@@ -92,6 +111,13 @@ export default createReducer(initialState, {
   [REMOVE_USER]() {
     return {
       ...initialState,
+    };
+  },
+  [UPDATE_RADIO_SETTINGS](state, { radioDefaultVolume, radioDefaultMute }) {
+    return {
+      ...cloneDeep(state),
+      radioDefaultVolume,
+      radioDefaultMute,
     };
   },
 });

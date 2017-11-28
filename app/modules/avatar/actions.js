@@ -1,6 +1,5 @@
 import axios from 'axios';
 import cookie from 'cookie';
-import moment from 'moment';
 import { store } from '../User';
 
 export const UPLOAD_AVATAR_START = 'UPLOAD_AVATAR_START';
@@ -80,6 +79,8 @@ export const setAvatar = ({
           token: cookies.token,
           fname: cookies.fname,
           avatarURL: result.data.imageURL,
+          radioDefaultVolume: cookies.radioDefaultVolume,
+          radioDefaultMute: cookies.radioDefaultMute,
         }));
       }
       return dispatch(setAvatarSuccess(result.data));
