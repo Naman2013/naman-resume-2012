@@ -4,10 +4,13 @@ import { bindActionCreators } from 'redux';
 import noop from 'lodash/noop';
 import PropTypes from 'prop-types';
 import AudioPlayer from './AudioPlayer';
-import { updateRadioSettings } from '../../modules/User';
+import { mutePlayer, unmutePlayer, updatePlayerVolume } from '../../modules/User';
 
 const mapDispatchToProps = dispatch => (
   bindActionCreators({
+    mutePlayer,
+    unmutePlayer,
+    updatePlayerVolume,
   }, dispatch)
 );
 
@@ -18,12 +21,17 @@ class AudioPlayerProvider extends Component {
   static propTypes = Object.assign(
     {
       children: PropTypes.node.isRequired,
+      mutePlayer: PropTypes.func,
+      unmutePlayer: PropTypes.func,
+      updatePlayerVolume: PropTypes.func,
     },
     AudioPlayer.propTypes,
   );
 
   static defaultProps = Object.assign(AudioPlayer.defaultProps, {
-    onRadioSettingUpdate: noop,
+    mutePlayer: noop,
+    unmutePlayer: noop,
+    updatePlayerVolume: noop,
   });
 
   render() {

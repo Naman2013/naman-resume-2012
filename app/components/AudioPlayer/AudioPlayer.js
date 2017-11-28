@@ -45,6 +45,9 @@ function onPlayerReady(event) {
 class AudioPlayer extends Component {
   static propTypes = {
     isLiveEvent: PropTypes.bool,
+    mutePlayer: PropTypes.func,
+    unmutePlayer: PropTypes.func,
+    updatePlayerVolume: PropTypes.func,
     eventStart: PropTypes.number,
     eventEnd: PropTypes.number,
     backgroundColorRGB: PropTypes.string,
@@ -79,6 +82,9 @@ class AudioPlayer extends Component {
 
   static defaultProps = {
     isLiveEvent: false,
+    mutePlayer: noop,
+    unmutePlayer: noop,
+    updatePlayerVolume: noop,
     backgroundColorRGB: '#465763',
     playAudioWhenLive: false,
     showTitle: false,
@@ -111,12 +117,19 @@ class AudioPlayer extends Component {
   };
 
   handleMutePlayer = () => {
+    this.mutePlayer();
     mutePlayer();
   };
 
   handleUnMutePlayer = () => {
+    this.unmutePlayer();
     unMutePlayer();
   };
+
+  handleVolumeChange(volume) {
+    this.updatePlayerVolume(volume);
+    updateVolume(volume);
+  }
 
   render() {
     const {
@@ -215,7 +228,7 @@ class AudioPlayer extends Component {
               volumeControlsColor={volumeControlColorRGB}
               muteButtonColor={muteButtonColorRGB}
               showMuteButton={showMute}
-              onVolumeChange={updateVolume}
+              onVolumeChange={this.handleVolumeChange}
               handleMute={this.handleMutePlayer}
               handleUnMute={this.handleUnMutePlayer}
             />
