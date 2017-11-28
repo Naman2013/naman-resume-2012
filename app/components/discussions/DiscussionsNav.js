@@ -25,15 +25,6 @@ function DiscussionsNav({
             Featured Threads
           </Link>
         </li>}
-        {followedTopicsLink && <li>
-          <Link
-            to={followedTopicsLink}
-            className="link"
-            activeClassName="active"
-          >
-            Followed Topics
-          </Link>
-        </li>}
         {defaultLink && <li>
           <Link
             to={defaultLink}
@@ -68,6 +59,15 @@ function DiscussionsNav({
             activeClassName="active"
           >
             Most active
+          </Link>
+        </li>}
+        {followedTopicsLink && <li>
+          <Link
+            to={followedTopicsLink}
+            className="link"
+            activeClassName="active"
+          >
+            Topics I Follow
           </Link>
         </li>}
       </ul>

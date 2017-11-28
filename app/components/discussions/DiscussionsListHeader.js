@@ -9,7 +9,7 @@ function DiscussionsListHeader({ threads, activeLink }) {
     <div className="header">
       <div className="clearfix">
         <div className="col-sm-7 col-xs-6 title">
-          {activeLink
+          {activeLink === 'followed-topics' ? 'Topics I Follow' : activeLink
               .replace('-', ' ')
               .replace('alphabetic', 'alphabetical')
           }
