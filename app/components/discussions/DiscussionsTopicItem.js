@@ -34,11 +34,13 @@ const DiscussionsTopicItem = ({ item, toggleFollowTopic}) => (
     </div>
     <style jsx>{`
       .action-button {
-        padding: 5px 5px;
+        padding: 2px 5px;
         margin: 4px auto;
         border-radius: 50px;
         cursor: pointer;
-        min-width: 75px;
+        min-width: 100px;
+        font-weight: 600;
+        font-size: 14px;
         border: 1px solid ${brightBlue};
       }
 
