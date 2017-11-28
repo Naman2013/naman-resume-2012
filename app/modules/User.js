@@ -13,7 +13,10 @@ const END_COOKIE_SETTINGS = { domain: 'localhost', secure: false, expires: new D
 
 const SET_USER = 'SET_USER';
 const REMOVE_USER = 'REMOVE_USER';
-const UPDATE_RADIO_SETTINGS = 'UPDATE_RADIO_SETTINGS';
+
+const UPDATE_PLAYER_VOLUME = 'UPDATE_RADIO_VOLUME';
+const MUTE_PLAYER = 'MUTE_PLAYER';
+const UNMUTE_PLAYER = 'UNMUTE_PLAYER';
 
 export const set = createAction(SET_USER, 'user');
 export const removeUser = createAction(REMOVE_USER);
@@ -39,9 +42,16 @@ export function destroySession() {
   window.document.cookie = cookie.serialize('avatarURL', '', END_COOKIE_SETTINGS);
 }
 
-function updateAudioPlayerCookies({ radioDefaultVolume, radioDefaultMute }) {
-  window.document.cookie = cookie.serialize('radioDefaultVolume', radioDefaultVolume, SET_COOKIE_SETTINGS);
-  window.document.cookie = cookie.serialize('radioDefaultMute', radioDefaultMute, SET_COOKIE_SETTINGS);
+function updatePlayerVolumeCookie(volume) {
+  window.document.cookie = cookie.serialize('radioVolume', volume, SET_COOKIE_SETTINGS);
+}
+
+function mutePlayerCookie() {
+  window.document.cookie = cookie.serialize('radioMuted', true, SET_COOKIE_SETTINGS);
+}
+
+function unmutePlayerCookie() {
+  window.document.cookie = cookie.serialize('radioMuted', false, SET_COOKIE_SETTINGS);
 }
 
 export const updateRadioSettings = ({ radioDefaultVolume, radioDefaultMute }) => {
@@ -96,8 +106,8 @@ const initialState = {
   membershipType: null,
   apiError: false,
   errorCode: 0,
-  radioDefaultVolume: 25,
-  radioDefaultMute: false,
+  playerVolume: 25,
+  playerMuted: false,
 };
 
 export default createReducer(initialState, {
@@ -113,11 +123,16 @@ export default createReducer(initialState, {
       ...initialState,
     };
   },
-  [UPDATE_RADIO_SETTINGS](state, { radioDefaultVolume, radioDefaultMute }) {
+  [UPDATE_PLAYER_VOLUME](state, { volume }) {
+
+  },
+  [MUTE_PLAYER](state) {
     return {
       ...cloneDeep(state),
-      radioDefaultVolume,
-      radioDefaultMute,
+
     };
+  },
+  [UNMUTE_PLAYER](state) {
+
   },
 });
