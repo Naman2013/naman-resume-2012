@@ -117,17 +117,17 @@ class AudioPlayer extends Component {
   };
 
   handleMutePlayer = () => {
-    this.mutePlayer();
+    this.props.mutePlayer();
     mutePlayer();
   };
 
-  handleUnMutePlayer = () => {
-    this.unmutePlayer();
+  handleUnmutePlayer = () => {
+    this.props.unmutePlayer();
     unMutePlayer();
   };
 
-  handleVolumeChange(volume) {
-    this.updatePlayerVolume(volume);
+  handleVolumeChange = (volume) => {
+    this.props.updatePlayerVolume(volume);
     updateVolume(volume);
   }
 
@@ -229,7 +229,7 @@ class AudioPlayer extends Component {
               showMuteButton={showMute}
               onVolumeChange={this.handleVolumeChange}
               handleMute={this.handleMutePlayer}
-              handleUnMute={this.handleUnMutePlayer}
+              handleUnMute={this.handleUnmutePlayer}
             />
           </div>
         )}
