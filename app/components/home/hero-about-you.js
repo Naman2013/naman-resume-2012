@@ -8,6 +8,7 @@ import { Link } from 'react-router';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import GoogleAd from '../common/google-ads/GoogleAd';
+import UserStats from './user-stats';
 import { profilePhotoStyle } from '../../styles/mixins/utilities';
 import { white, black, pink, lightBlack } from '../../styles/variables/colors';
 
@@ -30,7 +31,7 @@ const HeroAboutYou = ({
   membershipType,
   showAdFlag,
   showEditLinkFlag,
-  userStats,
+  enhancedUserStats,
 }) => (<div className="hero-about-you">
     <div className="info">
       <div className="user">
@@ -51,12 +52,9 @@ const HeroAboutYou = ({
           </div>
         </div>
       </div>
-      <div className="stats">
-        {Object.keys(userStats).map(statLabel => (<div key={statLabel} className="stat">
-          <span className="stat-label" dangerouslySetInnerHTML={{ __html: statLabel }} />
-          <span className="stat-value" dangerouslySetInnerHTML={{ __html: userStats[statLabel] }} />
-        </div>))}
-      </div>
+      <UserStats
+        enhancedUserStats={enhancedUserStats}
+      />
     </div>
     {showAdFlag && <div className="ad">
       <GoogleAd
@@ -131,23 +129,7 @@ const HeroAboutYou = ({
         flex: 1;
       }
 
-      .stats {
-        display: flex;
-        flex-direction: row;
-        margin-top: auto;
-        text-align: center;
-      }
-
-      .stat {
-        display: flex;
-        flex-direction: column;
-        padding: 0 25px;
-        border-right: 1px solid ${lightBlack};
-      }
-
-      .stat:last-child {
-        border: none;
-      }
+      
 
       @media(max-width:768px){
 
@@ -178,9 +160,25 @@ HeroAboutYou.propTypes = {
   membershipType: string,
   showAdFlag: bool,
   showEditLinkFlag: bool,
-  userStats: shape({
-    Reservations: string,
-    Testing: string,
+  enhancedUserStats: shape({
+    Reservations: shape({
+      hasTooltip: bool,
+      title: string,
+      tooltipText: string,
+      value: string,
+    }),
+    Gravity: shape({
+      hasTooltip: bool,
+      title: string,
+      tooltipText: string,
+      value: string,
+    }),
+    Pictures: shape({
+      hasTooltip: bool,
+      title: string,
+      tooltipText: string,
+      value: string,
+    }),
   }),
 };
 HeroAboutYou.defaultProps = {
@@ -194,7 +192,7 @@ HeroAboutYou.defaultProps = {
   membershipType: '',
   showAdFlag: false,
   showEditLinkFlag: false,
-  userStats: {},
+  enhancedUserStats: {},
 };
 
 export default HeroAboutYou;
