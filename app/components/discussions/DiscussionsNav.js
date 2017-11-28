@@ -9,6 +9,7 @@ function DiscussionsNav({
   alphabeticLink,
   defaultLink,
   featuredLink,
+  followedTopicsLink,
   mostRecentLink,
   mostActiveLink
 }) {
@@ -22,6 +23,15 @@ function DiscussionsNav({
             activeClassName="active"
           >
             Featured Threads
+          </Link>
+        </li>}
+        {followedTopicsLink && <li>
+          <Link
+            to={followedTopicsLink}
+            className="link"
+            activeClassName="active"
+          >
+            Followed Topics
           </Link>
         </li>}
         {defaultLink && <li>
@@ -69,6 +79,7 @@ DiscussionsNav.defaultProps = {
   alphabeticLink: '',
   defaultLink: '',
   featuredLink: '',
+  followedTopicsLink: '',
   mostRecentLink: '',
   mostActiveLink: '',
 };
@@ -77,6 +88,7 @@ DiscussionsNav.propTypes = {
   alphabeticLink: string,
   defaultLink: string,
   featuredLink: string,
+  followedTopicsLink: string,
   mostRecentLink: string,
   mostActiveLink: string,
 };

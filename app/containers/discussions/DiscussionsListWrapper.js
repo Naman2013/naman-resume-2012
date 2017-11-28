@@ -8,6 +8,7 @@ import DiscussionsListHeader from '../../components/discussions/DiscussionsListH
 import {
   fetchThreadList,
   fetchFeaturedThreadList,
+  fetchFollowedTopicThreadList,
 } from '../../modules/discussions-thread/actions';
 
 const { arrayOf, bool, object } = PropTypes;
@@ -18,6 +19,11 @@ class DiscussionsListWrapper extends Component {
     const { actions, page, route: { path }, params: { topicId } } = this.props;
     if (path == 'featured') {
       actions.fetchFeaturedThreadList({
+        page: page + 1,
+        appendToList: true,
+      });
+    } else if (path === 'followed-topics') {
+      actions.fetchFollowedTopicThreadList({
         page: page + 1,
         appendToList: true,
       });
@@ -41,7 +47,7 @@ class DiscussionsListWrapper extends Component {
         <DiscussionsList discussions={threadList} />
         {fetching && <GenericLoadingBox />}
         {(!fetching && threadList.length < threadCount) && <div className="load-more" onClick={fetchMoreThreads}>Load more...</div>}
-        {!fetching && (!threadList || threadList.length === 0) && <article className="no-availability">There are no threads to display</article>}
+        {!fetching && (!threadList || threadList.length === 0) && <article className="no-availability">{path === 'followed-topics' ? 'No threads in followed topics, or no selected followed topics' : 'There are no threads to display'}</article>}
       </div>
     );
   }
@@ -63,6 +69,7 @@ const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
     fetchThreadList,
     fetchFeaturedThreadList,
+    fetchFollowedTopicThreadList,
   }, dispatch),
 });
 

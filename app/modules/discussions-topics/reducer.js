@@ -49,7 +49,7 @@ export default createReducer(new InitialState(), {
     const { followingFlag, topicId } = payload;
     return state
       .update('topicList', list =>
-        list.update(list.findIndex(topic => topic.topicId === topicId), topic =>
+        list.update(list.findIndex(topic => Number(topic.topicId) === Number(topicId)), topic =>
           topic.set('followingFlag', followingFlag)));
   },
 });
