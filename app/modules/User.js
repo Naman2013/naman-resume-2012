@@ -54,12 +54,25 @@ function unmutePlayerCookie() {
   window.document.cookie = cookie.serialize('radioMuted', false, SET_COOKIE_SETTINGS);
 }
 
-export const updateRadioSettings = ({ radioDefaultVolume, radioDefaultMute }) => {
-  updateAudioPlayerCookies({ radioDefaultVolume, radioDefaultMute });
+export const mutePlayer = () => {
+  mutePlayerCookie();
   return {
-    type: UPDATE_RADIO_SETTINGS,
-    radioDefaultVolume,
-    radioDefaultMute,
+    type: MUTE_PLAYER,
+  };
+};
+
+export const unmutePlayer = () => {
+  unmutePlayerCookie();
+  return {
+    type: UNMUTE_PLAYER,
+  };
+};
+
+export const updatePlayerVolume = (volume) => {
+  updatePlayerVolumeCookie(volume);
+  return {
+    type: UPDATE_PLAYER_VOLUME,
+    volume,
   };
 };
 
@@ -124,15 +137,21 @@ export default createReducer(initialState, {
     };
   },
   [UPDATE_PLAYER_VOLUME](state, { volume }) {
-
+    return {
+      ...cloneDeep(state),
+      playerVolume: volume,
+    };
   },
   [MUTE_PLAYER](state) {
     return {
       ...cloneDeep(state),
-
+      playerMuted: true,
     };
   },
   [UNMUTE_PLAYER](state) {
-
+    return {
+      ...cloneDeep(state),
+      playerMuted: false,
+    };
   },
 });
