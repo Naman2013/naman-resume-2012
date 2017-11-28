@@ -1,7 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
-
+import {
+  white,
+  brightBlue,
+} from '../../styles/variables/colors';
 const { number, shape, string } = PropTypes;
 
 const DiscussionsTopicItem = ({ item, toggleFollowTopic}) => (
@@ -23,9 +26,37 @@ const DiscussionsTopicItem = ({ item, toggleFollowTopic}) => (
         </div>
       </div>
       <div className="col-xs-2 info-container">
-        <button onClick={() => toggleFollowTopic(item.topicId)}>{item.followingFlag ? 'Following' : 'Follow'}</button>
+        {item.followingFlag ?
+          <button className="action-button following-button" onClick={() => toggleFollowTopic(item.topicId)}>Following</button> :
+          <button className="action-button follow-button" onClick={() => toggleFollowTopic(item.topicId)}>Follow</button>}
+
       </div>
     </div>
+    <style jsx>{`
+      .action-button {
+        padding: 5px 5px;
+        margin: 4px auto;
+        border-radius: 50px;
+        cursor: pointer;
+        min-width: 75px;
+        border: 1px solid ${brightBlue};
+      }
+
+      .action-button:active,
+      .action-button:focus {
+        outline: 0;
+      }
+
+      .follow-button {
+        color: ${brightBlue};
+        background-color: ${white};
+      }
+
+      .following-button {
+        background-color: ${brightBlue};
+        color: ${white};
+      }
+    `}</style>
   </div>
 );
 
