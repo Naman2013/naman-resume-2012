@@ -133,7 +133,6 @@ class AudioPlayer extends Component {
 
   render() {
     const {
-      isLiveEvent,
       backgroundColorRGB,
       playAudioWhenLive,
       streamCode,
@@ -167,8 +166,13 @@ class AudioPlayer extends Component {
     } = this.props;
 
     const currentTime = moment.utc().unix();
+    const isLiveEvent = (eventStart - currentTime <= 0) && (eventEnd - currentTime >= 0);
     const isBeforeEvent = !isLiveEvent && eventStart - currentTime >= 0;
-    const isAfterEvent = !isLiveEvent && eventEnd - currentTime <= 0;
+    const isAfterEvent = !isLiveEvent && eventEnd - currentTime >= 0;
+
+    console.log('isLiveEvent', isLiveEvent);
+    console.log('isBeforeEvent', isBeforeEvent);
+    console.log('isAfterEvent', isAfterEvent);
 
     const showSubtitle =
       (isBeforeEvent && showSubtitleBeforeLive) ||
@@ -188,7 +192,7 @@ class AudioPlayer extends Component {
     const showMute = isLiveEvent && showMuteButtonWhenLive;
 
     const showVolumeControl = isLiveEvent && showVolumeControlWhenLive;
-
+    console.log('isLiveEvent', isLiveEvent);
     const showLiveIndicator = isLiveEvent && showIndicatorWhenLive;
 
     const containerInlineStyle = {
