@@ -168,7 +168,7 @@ class AudioPlayer extends Component {
     const currentTime = moment.utc().unix();
     const isLiveEvent = (eventStart - currentTime <= 0) && (eventEnd - currentTime >= 0);
     const isBeforeEvent = !isLiveEvent && eventStart - currentTime >= 0;
-    const isAfterEvent = !isLiveEvent && eventEnd - currentTime >= 0;
+    const isAfterEvent = !isLiveEvent && eventEnd - currentTime <= 0;
 
     console.log('isLiveEvent', isLiveEvent);
     console.log('isBeforeEvent', isBeforeEvent);
