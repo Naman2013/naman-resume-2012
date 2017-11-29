@@ -23,6 +23,8 @@ const propTypes = {
   volumeControlsColor: PropTypes.string,
   muteButtonColor: PropTypes.string,
   showMuteButton: PropTypes.bool,
+  volume: PropTypes.number,
+  muted: PropTypes.bool,
 };
 
 const defaultProps = {
@@ -32,16 +34,18 @@ const defaultProps = {
   volumeControlsColor: blueBlack,
   muteButtonColor: blueBlack,
   showMuteButton: true,
+  volume: 25,
+  muted: false,
 };
 
 class VolumeControls extends Component {
   state = {
-    volume: 0,
+    volume: this.props.volume,
     controlledPosition: {
       x: 0,
       y: 0,
     },
-    isMuted: false,
+    isMuted: this.props.muted,
   };
 
   onControlledDrag = (event, position) => {

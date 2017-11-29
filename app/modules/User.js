@@ -21,7 +21,15 @@ const UNMUTE_PLAYER = 'UNMUTE_PLAYER';
 export const set = createAction(SET_USER, 'user');
 export const removeUser = createAction(REMOVE_USER);
 
-export function store({ cid, token, at, fname, avatarURL }) {
+export function store({
+  cid,
+  token,
+  at,
+  fname,
+  avatarURL,
+  radioMuted,
+  radioVolume,
+}) {
   window.document.cookie = cookie.serialize('cid', cid, SET_COOKIE_SETTINGS);
   window.document.cookie = cookie.serialize('token', token, SET_COOKIE_SETTINGS);
   window.document.cookie = cookie.serialize('at', at, SET_COOKIE_SETTINGS);
@@ -29,7 +37,15 @@ export function store({ cid, token, at, fname, avatarURL }) {
   window.document.cookie = cookie.serialize('avatarURL', avatarURL, SET_COOKIE_SETTINGS);
 
   return (dispatch) => {
-    dispatch(set({ cid, token, at, fname, avatarURL }));
+    dispatch(set({
+      cid,
+      token,
+      at,
+      fname,
+      avatarURL,
+      radioMuted,
+      radioVolume,
+    }));
   };
 }
 
@@ -96,7 +112,18 @@ export function destroy() {
   */
 export function checkUser(pathname, replace, callback) {
   return (dispatch) => {
-    const { cid, token, at, fname, avatarURL } = cookie.parse(window.document.cookie);
+    const {
+      cid,
+      token,
+      at,
+      fname,
+      avatarURL,
+      radioMuted,
+      radioVolume,
+    } = cookie.parse(window.document.cookie);
+
+    const castedVolume = parseInt(radioVolume, 10);
+    const castedMute = radioMuted == 'true';
 
     if (cid && token && at && fname) {
       dispatch(store({
@@ -105,6 +132,8 @@ export function checkUser(pathname, replace, callback) {
         at,
         fname,
         avatarURL,
+        radioMuted: castedMute,
+        radioVolume: castedVolume,
       }));
       callback();
     } else {

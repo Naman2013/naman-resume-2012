@@ -150,6 +150,8 @@ class AudioPlayer extends Component {
     const {
       backgroundColorRGB,
       playAudioWhenLive,
+      playerVolume,
+      playerMuted,
       streamCode,
       showTitle,
       titleText,
@@ -245,6 +247,8 @@ class AudioPlayer extends Component {
               onVolumeChange={this.handleVolumeChange}
               handleMute={this.handleMutePlayer}
               handleUnMute={this.handleUnmutePlayer}
+              volume={playerVolume}
+              muted={playerMuted}
             />
           </div>
         )}
