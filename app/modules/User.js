@@ -59,15 +59,15 @@ export function destroySession() {
 }
 
 function updatePlayerVolumeCookie(volume) {
-  window.document.cookie = cookie.serialize('radioVolume', volume, SET_COOKIE_SETTINGS);
+  window.document.cookie = cookie.serialize('playerVolume', volume, SET_COOKIE_SETTINGS);
 }
 
 function mutePlayerCookie() {
-  window.document.cookie = cookie.serialize('radioMuted', true, SET_COOKIE_SETTINGS);
+  window.document.cookie = cookie.serialize('playerMuted', true, SET_COOKIE_SETTINGS);
 }
 
 function unmutePlayerCookie() {
-  window.document.cookie = cookie.serialize('radioMuted', false, SET_COOKIE_SETTINGS);
+  window.document.cookie = cookie.serialize('playerMuted', false, SET_COOKIE_SETTINGS);
 }
 
 export const mutePlayer = () => {
@@ -118,12 +118,12 @@ export function checkUser(pathname, replace, callback) {
       at,
       fname,
       avatarURL,
-      radioMuted,
-      radioVolume,
+      playerMuted,
+      playerVolume,
     } = cookie.parse(window.document.cookie);
 
-    const castedVolume = parseInt(radioVolume, 10);
-    const castedMute = radioMuted == 'true';
+    const castedVolume = parseInt(playerVolume, 10);
+    const castedMute = playerMuted == 'true';
 
     if (cid && token && at && fname) {
       dispatch(store({
@@ -132,8 +132,8 @@ export function checkUser(pathname, replace, callback) {
         at,
         fname,
         avatarURL,
-        radioMuted: castedMute,
-        radioVolume: castedVolume,
+        playerMuted: castedMute,
+        playerVolume: castedVolume,
       }));
       callback();
     } else {
