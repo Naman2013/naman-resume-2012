@@ -47,6 +47,8 @@ class AudioPlayer extends Component {
     mutePlayer: PropTypes.func,
     unmutePlayer: PropTypes.func,
     updatePlayerVolume: PropTypes.func,
+    playerVolume: PropTypes.number,
+    playerMuted: PropTypes.bool,
     eventStart: PropTypes.number,
     eventEnd: PropTypes.number,
     backgroundColorRGB: PropTypes.string,
@@ -83,6 +85,8 @@ class AudioPlayer extends Component {
     mutePlayer: noop,
     unmutePlayer: noop,
     updatePlayerVolume: noop,
+    playerVolume: INITIAL_VOLUME,
+    playerMuted: false,
     backgroundColorRGB: '#465763',
     playAudioWhenLive: false,
     showTitle: false,
@@ -114,19 +118,32 @@ class AudioPlayer extends Component {
     eventEnd: 0,
   };
 
+  componentWillReceiveProps(nextProps) {
+    const { playerVolume, playerMuted } = nextProps;
+
+    if (playerMuted !== this.props.playerMuted) {
+      if (playerMuted) {
+        mutePlayer();
+      } else {
+        unMutePlayer();
+      }
+    }
+
+    if (playerVolume !== this.props.playerVolume) {
+      updateVolume(playerVolume);
+    }
+  }
+
   handleMutePlayer = () => {
     this.props.mutePlayer();
-    mutePlayer();
   };
 
   handleUnmutePlayer = () => {
     this.props.unmutePlayer();
-    unMutePlayer();
   };
 
   handleVolumeChange = (volume) => {
     this.props.updatePlayerVolume(volume);
-    updateVolume(volume);
   }
 
   render() {
