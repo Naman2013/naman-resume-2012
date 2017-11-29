@@ -128,7 +128,7 @@ class AudioPlayer extends Component {
       unMutePlayer();
     }
 
-    updateVolume(playerVolume);
+    // updateVolume(playerVolume);
   }
 
   handleMutePlayer = () => {

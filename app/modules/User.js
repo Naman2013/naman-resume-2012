@@ -27,8 +27,8 @@ export function store({
   at,
   fname,
   avatarURL,
-  radioMuted,
-  radioVolume,
+  playerMuted,
+  playerVolume,
 }) {
   window.document.cookie = cookie.serialize('cid', cid, SET_COOKIE_SETTINGS);
   window.document.cookie = cookie.serialize('token', token, SET_COOKIE_SETTINGS);
@@ -43,8 +43,8 @@ export function store({
       at,
       fname,
       avatarURL,
-      radioMuted,
-      radioVolume,
+      playerMuted,
+      playerVolume,
     }));
   };
 }
@@ -122,7 +122,7 @@ export function checkUser(pathname, replace, callback) {
       playerVolume,
     } = cookie.parse(window.document.cookie);
 
-    const castedVolume = parseInt(playerVolume, 10);
+    const castedVolume = parseInt(playerVolume, 10) || 25;
     const castedMute = playerMuted == 'true';
 
     if (cid && token && at && fname) {
