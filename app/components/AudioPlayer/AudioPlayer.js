@@ -44,7 +44,6 @@ function onPlayerReady(event) {
 
 class AudioPlayer extends Component {
   static propTypes = {
-    isLiveEvent: PropTypes.bool,
     mutePlayer: PropTypes.func,
     unmutePlayer: PropTypes.func,
     updatePlayerVolume: PropTypes.func,
@@ -81,7 +80,6 @@ class AudioPlayer extends Component {
   };
 
   static defaultProps = {
-    isLiveEvent: false,
     mutePlayer: noop,
     unmutePlayer: noop,
     updatePlayerVolume: noop,

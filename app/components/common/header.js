@@ -152,6 +152,7 @@ export default class Header extends Component {
           <div className="mainHeaderLogo" />
           <p className="beta">beta</p>
         </Link>
+
         <Member />
         <Countdown />
 

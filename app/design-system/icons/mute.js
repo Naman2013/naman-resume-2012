@@ -13,7 +13,7 @@ export const Mute = () => (
       .bottom {
         position: absolute;
         left: 1px;
-        top: 6px;
+        top: 5px;
         color: red;
         font-size: 9px;
       }

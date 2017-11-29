@@ -136,6 +136,11 @@ class VolumeControls extends Component {
             border: none;
             cursor: pointer;
           }
+
+          .mute-button:active,
+          .mute-button:focus {
+            outline: none;
+          }
         `}</style>
       </div>
     );

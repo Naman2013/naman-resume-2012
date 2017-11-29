@@ -14,7 +14,11 @@ const mapDispatchToProps = dispatch => (
   }, dispatch)
 );
 
-const mapStateToProps = ({ audioPlayer }) => ({ ...audioPlayer });
+const mapStateToProps = ({ audioPlayer, user }) => ({
+  ...audioPlayer,
+  playerVolume: user.playerVolume,
+  playerMuted: user.playerMuted,
+});
 
 @connect(mapStateToProps, mapDispatchToProps)
 class AudioPlayerProvider extends Component {
