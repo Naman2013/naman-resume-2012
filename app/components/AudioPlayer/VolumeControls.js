@@ -70,7 +70,7 @@ class VolumeControls extends Component {
   };
 
   render() {
-    const { isMuted } = this.state;
+    const { muted } = this.props;
     const { volumeControlsColor, muteButtonColor, showMuteButton } = this.props;
 
     const inlineControlStyle = { background: volumeControlsColor };
@@ -95,7 +95,7 @@ class VolumeControls extends Component {
               onClick={this.handleMuteClick}
               className="mute-button"
             >
-              {isMuted ? <Mute /> : <span className="fa fa-volume-down" />}
+              {muted ? <Mute /> : <span className="fa fa-volume-down" />}
             </button>
           )}
         </div>

@@ -121,12 +121,10 @@ class AudioPlayer extends Component {
   componentWillReceiveProps(nextProps) {
     const { playerVolume, playerMuted } = nextProps;
 
-    if (playerMuted !== this.props.playerMuted) {
-      if (playerMuted) {
-        mutePlayer();
-      } else {
-        unMutePlayer();
-      }
+    if (playerMuted) {
+      mutePlayer();
+    } else {
+      unMutePlayer();
     }
 
     if (playerVolume !== this.props.playerVolume) {

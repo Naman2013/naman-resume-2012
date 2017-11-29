@@ -16,8 +16,8 @@ const mapDispatchToProps = dispatch => (
 
 const mapStateToProps = ({ audioPlayer, user }) => ({
   ...audioPlayer,
-  playerVolume: user.playerVolume,
-  playerMuted: user.playerMuted,
+  playerVolume: user.radioVolume,
+  playerMuted: user.radioMuted,
 });
 
 @connect(mapStateToProps, mapDispatchToProps)
