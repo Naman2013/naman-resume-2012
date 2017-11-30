@@ -131,7 +131,7 @@ class VolumeControls extends Component {
             left: 13px;
             bottom: 0;
             border-radius: 1px;
-            cursor: move;
+            cursor: ns-resize;
           }
 
           .mute-button {
