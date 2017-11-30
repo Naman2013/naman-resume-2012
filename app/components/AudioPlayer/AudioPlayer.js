@@ -186,6 +186,10 @@ class AudioPlayer extends Component {
     const isBeforeEvent = !isLiveEvent && eventStart - currentTime >= 0;
     const isAfterEvent = !isLiveEvent && eventEnd - currentTime <= 0;
 
+    if (isAfterEvent || isBeforeEvent) {
+      PLAYER = null;
+    }
+
     const showSubtitle =
       (isBeforeEvent && showSubtitleBeforeLive) ||
       (isAfterEvent && showSubtitleAfterEnd) ||
@@ -231,8 +235,7 @@ class AudioPlayer extends Component {
     return (
       <div style={containerInlineStyle} className="root">
         {isLiveEvent &&
-          playAudioWhenLive &&
-          streamCode && (
+          playAudioWhenLive && (
             <div className="missing-player">
               <YouTube onReady={onPlayerReady} videoId={streamCode} opts={PLAYER_OPTIONS} />
             </div>
