@@ -38,12 +38,13 @@ const defaultProps = {
   muted: false,
 };
 
+// function volumeToTabPosition(targetVolume, maxRange) {}
+
 class VolumeControls extends Component {
   state = {
-    volume: this.props.volume,
     controlledPosition: {
       x: 0,
-      y: 0,
+      y: (this.props.volume / 100) * MAX_BOUNDARY,
     },
     isMuted: this.props.muted,
   };
@@ -51,6 +52,7 @@ class VolumeControls extends Component {
   onControlledDrag = (event, position) => {
     const { y } = position;
     const volume = Math.abs(y) / MAX_BOUNDARY * 100;
+
     this.props.onVolumeChange(volume);
     this.setState({
       volume,
@@ -70,11 +72,13 @@ class VolumeControls extends Component {
   };
 
   render() {
-    const { isMuted } = this.state;
+    const { isMuted, controlledPosition } = this.state;
     const { volumeControlsColor, muteButtonColor, showMuteButton } = this.props;
 
     const inlineControlStyle = { background: volumeControlsColor };
     const muteButtonInlineStyle = { color: muteButtonColor };
+
+    console.log(controlledPosition)
 
     return (
       <div className="root">
@@ -82,6 +86,7 @@ class VolumeControls extends Component {
           <div style={inlineControlStyle} className="track" />
           <Draggable
             defaultPosition={{ x: 0, y: -6.25 }}
+            position={controlledPosition}
             axis="y"
             bounds={TRACK_BOUNDARY}
             onDrag={this.onControlledDrag}
