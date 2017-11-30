@@ -178,7 +178,6 @@ export default class Header extends Component {
           }
 
           .mainHeaderLogo {
-            position: absolute;
             background-image: url(https://vega.slooh.com/assets/icons/header/Slooh_Logo_White_5.svg);
             background-repeat: no-repeat;
             background-position: left center;
@@ -186,6 +185,7 @@ export default class Header extends Component {
             width: 218px;
             height: 65px;
             margin-left: 10px;
+            float: left;
           }
 
           .mainHeaderLogoText {
