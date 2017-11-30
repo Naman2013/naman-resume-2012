@@ -207,6 +207,15 @@ export default class Header extends Component {
             left: 165px;
             top: 52px;
           }
+
+          @media (max-width: 1170px) {
+            .player-container {
+              position: absolute;
+              top: 70px;
+              right: 0;
+              margin-right: 0;
+            }
+          }
         `}</style>
       </header>
     );
