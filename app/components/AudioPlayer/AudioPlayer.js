@@ -143,7 +143,7 @@ class AudioPlayer extends Component {
 
   handleVolumeChange = (volume) => {
     this.props.updatePlayerVolume(volume);
-  }
+  };
 
   render() {
     const {
@@ -182,7 +182,7 @@ class AudioPlayer extends Component {
     } = this.props;
 
     const currentTime = moment.utc().unix();
-    const isLiveEvent = (eventStart - currentTime <= 0) && (eventEnd - currentTime >= 0);
+    const isLiveEvent = eventStart - currentTime <= 0 && eventEnd - currentTime >= 0;
     const isBeforeEvent = !isLiveEvent && eventStart - currentTime >= 0;
     const isAfterEvent = !isLiveEvent && eventEnd - currentTime <= 0;
 
@@ -231,7 +231,8 @@ class AudioPlayer extends Component {
     return (
       <div style={containerInlineStyle} className="root">
         {isLiveEvent &&
-          playAudioWhenLive && (
+          playAudioWhenLive &&
+          streamCode && (
             <div className="missing-player">
               <YouTube onReady={onPlayerReady} videoId={streamCode} opts={PLAYER_OPTIONS} />
             </div>
