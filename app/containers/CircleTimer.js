@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import moment from 'moment';
 import CircleCounter from '../components/circle-counter';
 import classes from '../styles/circle-timer.scss';
 
-const { number, bool, instanceOf, shape } = PropTypes;
+const { number, shape } = PropTypes;
 
 export default class CircleTimer extends Component {
   static propTypes = {
@@ -32,7 +31,7 @@ export default class CircleTimer extends Component {
       props: {
         size,
         lineWidth,
-        countdownEventTimer
+        countdownEventTimer,
       },
       getDaysInMonth,
       getDoubleNumber,
@@ -47,7 +46,8 @@ export default class CircleTimer extends Component {
     } = countdownEventTimer;
 
     const daysProgress = getDaysInMonth() - daysTo;
-
+    console.log('daysTo', daysTo)
+    console.log('painted days value', getDoubleNumber(daysTo))
     return (
       <div className={classes.circleTimer}>
         <CircleCounter

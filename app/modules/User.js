@@ -14,6 +14,7 @@ const END_COOKIE_SETTINGS = { domain: 'localhost', secure: false, expires: new D
 const SET_USER = 'SET_USER';
 const REMOVE_USER = 'REMOVE_USER';
 
+const SET_PLAYER = 'SET_PLAYER';
 const UPDATE_PLAYER_VOLUME = 'UPDATE_RADIO_VOLUME';
 const MUTE_PLAYER = 'MUTE_PLAYER';
 const UNMUTE_PLAYER = 'UNMUTE_PLAYER';
@@ -27,8 +28,6 @@ export function store({
   at,
   fname,
   avatarURL,
-  playerMuted,
-  playerVolume,
 }) {
   window.document.cookie = cookie.serialize('cid', cid, SET_COOKIE_SETTINGS);
   window.document.cookie = cookie.serialize('token', token, SET_COOKIE_SETTINGS);
@@ -43,11 +42,15 @@ export function store({
       at,
       fname,
       avatarURL,
-      playerMuted,
-      playerVolume,
     }));
   };
 }
+
+const setPlayerState = ({ playerMuted, playerVolume }) => ({
+  type: SET_PLAYER,
+  playerMuted,
+  playerVolume,
+});
 
 export function destroySession() {
   window.localStorage.removeItem('user');
@@ -125,6 +128,13 @@ export function checkUser(pathname, replace, callback) {
     const castedVolume = parseInt(playerVolume, 10) || 25;
     const castedMute = playerMuted == 'true';
 
+    // sets up the initial audio player volume and mute
+    dispatch(setPlayerState({
+      playerVolume: castedVolume,
+      playerMuted: castedMute,
+    }));
+
+    // if we have a user to set, set it
     if (cid && token && at && fname) {
       dispatch(store({
         cid,
@@ -132,8 +142,6 @@ export function checkUser(pathname, replace, callback) {
         at,
         fname,
         avatarURL,
-        playerMuted: castedMute,
-        playerVolume: castedVolume,
       }));
       callback();
     } else {
@@ -158,6 +166,13 @@ export default createReducer(initialState, {
       ...cloneDeep(state),
       ...user,
       isAuthorized: true,
+    };
+  },
+  [SET_PLAYER](state, { playerVolume, playerMuted }) {
+    return {
+      ...cloneDeep(state),
+      playerVolume,
+      playerMuted,
     };
   },
   [REMOVE_USER]() {

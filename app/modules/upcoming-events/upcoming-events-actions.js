@@ -1,7 +1,6 @@
 import moment from 'moment';
 import fetchUpcomingEvents from '../../services/events/fetch-upcoming-events';
 import { fetchShowContent } from '../community-content/get-show-content-actions';
-import { fetchLiveShowInfo } from '../live-shows/live-shows-actions';
 import { fetchSituationRoom } from '../SituationRoom';
 
 export const FETCH_EVENTS_START = 'FETCH_EVENTS_START';

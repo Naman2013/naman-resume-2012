@@ -22,19 +22,19 @@ const INITIAL_VOLUME = 25;
 function mutePlayer() {
   if (PLAYER) {
     PLAYER.mute();
-  }
+  } else { PLAYER = null; }
 }
 
 function unMutePlayer() {
   if (PLAYER) {
     PLAYER.unMute();
-  }
+  } else { PLAYER = null; }
 }
 
 function updateVolume(volume) {
   if (PLAYER) {
     PLAYER.setVolume(volume);
-  }
+  } else { PLAYER = null; }
 }
 
 function onPlayerReady(event) {
