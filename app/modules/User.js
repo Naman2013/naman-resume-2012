@@ -137,6 +137,10 @@ export function checkUser(pathname, replace, callback) {
       }));
       callback();
     } else {
+      dispatch(store({
+        playerMuted: castedMute,
+        playerVolume: castedVolume,
+      }));
       callback();
     }
   };
