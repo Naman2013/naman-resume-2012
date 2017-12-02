@@ -22,24 +22,19 @@ const INITIAL_VOLUME = 25;
 function mutePlayer() {
   if (PLAYER) {
     PLAYER.mute();
-  } else { PLAYER = null; }
+  }
 }
 
 function unMutePlayer() {
   if (PLAYER) {
     PLAYER.unMute();
-  } else { PLAYER = null; }
+  }
 }
 
 function updateVolume(volume) {
   if (PLAYER) {
     PLAYER.setVolume(volume);
-  } else { PLAYER = null; }
-}
-
-function onPlayerReady(event) {
-  event.target.setVolume(INITIAL_VOLUME);
-  PLAYER = event.target;
+  }
 }
 
 class AudioPlayer extends Component {
@@ -120,16 +115,29 @@ class AudioPlayer extends Component {
 
   componentWillReceiveProps(nextProps) {
     const { playerMuted, playerVolume } = nextProps;
-    if (playerMuted) {
-      mutePlayer();
-    }
 
-    if (!playerMuted) {
-      unMutePlayer();
-    }
+    if (this.YTPlayerReady) {
+      if (playerMuted) {
+        mutePlayer();
+      }
 
-    updateVolume(playerVolume);
+      if (!playerMuted) {
+        unMutePlayer();
+      }
+
+      updateVolume(playerVolume);
+    }
   }
+
+  onPlayerReady = (event) => {
+    const { playerVolume } = this.props;
+
+    this.YTPlayerReady = true;
+    event.target.setVolume(playerVolume);
+    PLAYER = event.target;
+  };
+
+  YTPlayerReady = false;
 
   handleMutePlayer = () => {
     mutePlayer();
@@ -186,10 +194,6 @@ class AudioPlayer extends Component {
     const isBeforeEvent = !isLiveEvent && eventStart - currentTime >= 0;
     const isAfterEvent = !isLiveEvent && eventEnd - currentTime <= 0;
 
-    if (isAfterEvent || isBeforeEvent) {
-      PLAYER = null;
-    }
-
     const showSubtitle =
       (isBeforeEvent && showSubtitleBeforeLive) ||
       (isAfterEvent && showSubtitleAfterEnd) ||
@@ -234,12 +238,12 @@ class AudioPlayer extends Component {
 
     return (
       <div style={containerInlineStyle} className="root">
-        {isLiveEvent &&
-          playAudioWhenLive && (
-            <div className="missing-player">
-              <YouTube onReady={onPlayerReady} videoId={streamCode} opts={PLAYER_OPTIONS} />
-            </div>
-          )}
+        <div className="missing-player">
+          {isLiveEvent &&
+            playAudioWhenLive && (
+              <YouTube onReady={this.onPlayerReady} videoId={streamCode} opts={PLAYER_OPTIONS} />
+            )}
+        </div>
 
         {showVolumeControl && (
           <div className="controls">
