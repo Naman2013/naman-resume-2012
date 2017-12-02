@@ -10,18 +10,6 @@ export const COOKIE_PATH = '/';
 export const futureDate = moment()
   .add(EXPIRATION_DAYS, 'day')
   .toDate();
-const SET_COOKIE_SETTINGS = {
-  domain: 'localhost',
-  secure: false,
-  expires: futureDate,
-  path: COOKIE_PATH,
-};
-const END_COOKIE_SETTINGS = {
-  domain: 'localhost',
-  secure: false,
-  expires: new Date('Thu, 01 Jan 1970 00:00:01 GMT'),
-  path: COOKIE_PATH,
-};
 
 const SET_USER = 'SET_USER';
 const REMOVE_USER = 'REMOVE_USER';
@@ -35,11 +23,11 @@ export const set = createAction(SET_USER, 'user');
 export const removeUser = createAction(REMOVE_USER);
 
 export function store({ cid, token, at, fname, avatarURL }) {
-  window.document.cookie = cookie.serialize('cid', cid, SET_COOKIE_SETTINGS);
-  window.document.cookie = cookie.serialize('token', token, SET_COOKIE_SETTINGS);
-  window.document.cookie = cookie.serialize('at', at, SET_COOKIE_SETTINGS);
-  window.document.cookie = cookie.serialize('fname', fname, SET_COOKIE_SETTINGS);
-  window.document.cookie = cookie.serialize('avatarURL', avatarURL, SET_COOKIE_SETTINGS);
+  window.document.cookie = cookie.serialize('cid', cid, { domain: 'localhost', secure: false, expires: futureDate, path: COOKIE_PATH });
+  window.document.cookie = cookie.serialize('token', token, { domain: 'localhost', secure: false, expires: futureDate, path: COOKIE_PATH });
+  window.document.cookie = cookie.serialize('at', at, { domain: 'localhost', secure: false, expires: futureDate, path: COOKIE_PATH });
+  window.document.cookie = cookie.serialize('fname', fname, { domain: 'localhost', secure: false, expires: futureDate, path: COOKIE_PATH });
+  window.document.cookie = cookie.serialize('avatarURL', avatarURL, { domain: 'localhost', secure: false, expires: futureDate, path: COOKIE_PATH });
 
   return (dispatch) => {
     dispatch(
@@ -62,23 +50,23 @@ const setPlayerState = ({ playerMuted, playerVolume }) => ({
 
 export function destroySession() {
   window.localStorage.removeItem('user');
-  window.document.cookie = cookie.serialize('cid', '', END_COOKIE_SETTINGS);
-  window.document.cookie = cookie.serialize('token', '', END_COOKIE_SETTINGS);
-  window.document.cookie = cookie.serialize('at', '', END_COOKIE_SETTINGS);
-  window.document.cookie = cookie.serialize('fname', '', END_COOKIE_SETTINGS);
-  window.document.cookie = cookie.serialize('avatarURL', '', END_COOKIE_SETTINGS);
+  window.document.cookie = cookie.serialize('cid', '', { domain: 'localhost', secure: false, expires: new Date('Thu, 01 Jan 1970 00:00:01 GMT'), path: COOKIE_PATH });
+  window.document.cookie = cookie.serialize('token', '', { domain: 'localhost', secure: false, expires: new Date('Thu, 01 Jan 1970 00:00:01 GMT'), path: COOKIE_PATH });
+  window.document.cookie = cookie.serialize('at', '', { domain: 'localhost', secure: false, expires: new Date('Thu, 01 Jan 1970 00:00:01 GMT'), path: COOKIE_PATH });
+  window.document.cookie = cookie.serialize('fname', '', { domain: 'localhost', secure: false, expires: new Date('Thu, 01 Jan 1970 00:00:01 GMT'), path: COOKIE_PATH });
+  window.document.cookie = cookie.serialize('avatarURL', '', { domain: 'localhost', secure: false, expires: new Date('Thu, 01 Jan 1970 00:00:01 GMT'), path: COOKIE_PATH });
 }
 
 function updatePlayerVolumeCookie(volume) {
-  window.document.cookie = cookie.serialize('playerVolume', volume, SET_COOKIE_SETTINGS);
+  window.document.cookie = cookie.serialize('playerVolume', volume, { domain: 'localhost', secure: false, expires: futureDate, path: COOKIE_PATH });
 }
 
 function mutePlayerCookie() {
-  window.document.cookie = cookie.serialize('playerMuted', true, SET_COOKIE_SETTINGS);
+  window.document.cookie = cookie.serialize('playerMuted', true, { domain: 'localhost', secure: false, expires: futureDate, path: COOKIE_PATH });
 }
 
 function unmutePlayerCookie() {
-  window.document.cookie = cookie.serialize('playerMuted', false, SET_COOKIE_SETTINGS);
+  window.document.cookie = cookie.serialize('playerMuted', false, { domain: 'localhost', secure: false, expires: futureDate, path: COOKIE_PATH });
 }
 
 export const mutePlayer = () => {
