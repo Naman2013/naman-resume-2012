@@ -20,19 +20,19 @@ let PLAYER = null;
 const INITIAL_VOLUME = 25;
 
 function mutePlayer() {
-  if (PLAYER) {
+  if (PLAYER && PLAYER.a) {
     PLAYER.mute();
   }
 }
 
 function unMutePlayer() {
-  if (PLAYER) {
+  if (PLAYER && PLAYER.a) {
     PLAYER.unMute();
   }
 }
 
 function updateVolume(volume) {
-  if (PLAYER) {
+  if (PLAYER && PLAYER.a) {
     PLAYER.setVolume(volume);
   }
 }
@@ -114,9 +114,9 @@ class AudioPlayer extends Component {
   };
 
   componentWillReceiveProps(nextProps) {
-    const { playerMuted, playerVolume } = nextProps;
+    const { playerMuted, playerVolume, playAudioWhenLive } = nextProps;
 
-    if (this.YTPlayerReady) {
+    if (this.YTPlayerReady && playAudioWhenLive) {
       if (playerMuted) {
         mutePlayer();
       }
@@ -127,6 +127,10 @@ class AudioPlayer extends Component {
 
       updateVolume(playerVolume);
     }
+  }
+
+  componentWillUnmount() {
+    PLAYER = null;
   }
 
   onPlayerReady = (event) => {
@@ -241,7 +245,12 @@ class AudioPlayer extends Component {
         <div className="missing-player">
           {isLiveEvent &&
             playAudioWhenLive && (
-              <YouTube onReady={this.onPlayerReady} videoId={streamCode} opts={PLAYER_OPTIONS} />
+              <YouTube
+                id="global-audio-player-instance"
+                onReady={this.onPlayerReady}
+                videoId={streamCode}
+                opts={PLAYER_OPTIONS}
+              />
             )}
         </div>
 

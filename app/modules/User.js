@@ -183,7 +183,7 @@ export default createReducer(initialState, {
   },
   [REMOVE_USER](state) {
     return {
-      ...state,
+      ...cloneDeep(state),
       isAuthorized: false,
       statusCode: 200,
       membershipType: null,
