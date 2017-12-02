@@ -69,14 +69,15 @@ export const endEvent = () => (dispatch, getState) => {
   };
 
   dispatch(setNextEvent(updatedEventList[0]));
-  dispatch(
-    fetchShowContent({
-      showId: updatedEventList[0].eventId,
-      listType: 'sluglookupids',
-    }),
-  );
-  dispatch(fetchSituationRoom(updatedEventList[0].eventId));
   dispatch(fetchEventsSuccess(updatedEvents));
+
+  // dispatch(
+  //   fetchShowContent({
+  //     showId: updatedEventList[0].eventId,
+  //     listType: 'sluglookupids',
+  //   }),
+  // );
+  // dispatch(fetchSituationRoom(updatedEventList[0].eventId));
 };
 
 export const fetchEvents = () => (dispatch) => {

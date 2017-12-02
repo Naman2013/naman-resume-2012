@@ -18,19 +18,17 @@ const fetchContentFailure = payload => ({
   payload,
 });
 
-export const fetchShowContent = ({
-  showId,
-  listType,
-}) => (dispatch, getState) => {
+export const fetchShowContent = ({ showId, listType }) => (dispatch, getState) => {
   const { cid } = getState().user;
   dispatch(fetchContentStart());
   if (showId) {
-    return axios.post('/api/content/getShowContent', {
-      cid,
-      showId,
-      listType,
-    })
-    .then(result => dispatch(fetchContentSuccess(result.data)))
-    .catch(error => dispatch(fetchContentFailure(error)));
+    return axios
+      .post('/api/content/getShowContent', {
+        cid,
+        showId,
+        listType,
+      })
+      .then(result => dispatch(fetchContentSuccess(result.data)))
+      .catch(error => dispatch(fetchContentFailure(error)));
   }
 };
