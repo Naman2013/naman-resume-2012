@@ -7,9 +7,21 @@ import createAction from './utils/createAction';
 
 export const EXPIRATION_DAYS = 90;
 export const COOKIE_PATH = '/';
-export const futureDate = moment().add(EXPIRATION_DAYS, 'day').toDate();
-const SET_COOKIE_SETTINGS = { domain: 'localhost', secure: false, expires: futureDate, path: COOKIE_PATH };
-const END_COOKIE_SETTINGS = { domain: 'localhost', secure: false, expires: new Date('Thu, 01 Jan 1970 00:00:01 GMT'), path: COOKIE_PATH };
+export const futureDate = moment()
+  .add(EXPIRATION_DAYS, 'day')
+  .toDate();
+const SET_COOKIE_SETTINGS = {
+  domain: 'localhost',
+  secure: false,
+  expires: futureDate,
+  path: COOKIE_PATH,
+};
+const END_COOKIE_SETTINGS = {
+  domain: 'localhost',
+  secure: false,
+  expires: new Date('Thu, 01 Jan 1970 00:00:01 GMT'),
+  path: COOKIE_PATH,
+};
 
 const SET_USER = 'SET_USER';
 const REMOVE_USER = 'REMOVE_USER';
@@ -22,13 +34,7 @@ const UNMUTE_PLAYER = 'UNMUTE_PLAYER';
 export const set = createAction(SET_USER, 'user');
 export const removeUser = createAction(REMOVE_USER);
 
-export function store({
-  cid,
-  token,
-  at,
-  fname,
-  avatarURL,
-}) {
+export function store({ cid, token, at, fname, avatarURL }) {
   window.document.cookie = cookie.serialize('cid', cid, SET_COOKIE_SETTINGS);
   window.document.cookie = cookie.serialize('token', token, SET_COOKIE_SETTINGS);
   window.document.cookie = cookie.serialize('at', at, SET_COOKIE_SETTINGS);
@@ -36,13 +42,15 @@ export function store({
   window.document.cookie = cookie.serialize('avatarURL', avatarURL, SET_COOKIE_SETTINGS);
 
   return (dispatch) => {
-    dispatch(set({
-      cid,
-      token,
-      at,
-      fname,
-      avatarURL,
-    }));
+    dispatch(
+      set({
+        cid,
+        token,
+        at,
+        fname,
+        avatarURL,
+      }),
+    );
   };
 }
 
@@ -115,34 +123,32 @@ export function destroy() {
   */
 export function checkUser(pathname, replace, callback) {
   return (dispatch) => {
-    const {
-      cid,
-      token,
-      at,
-      fname,
-      avatarURL,
-      playerMuted,
-      playerVolume,
-    } = cookie.parse(window.document.cookie);
+    const { cid, token, at, fname, avatarURL, playerMuted, playerVolume } = cookie.parse(
+      window.document.cookie,
+    );
 
     const castedVolume = parseInt(playerVolume, 10) || 25;
     const castedMute = playerMuted == 'true';
 
     // sets up the initial audio player volume and mute
-    dispatch(setPlayerState({
-      playerVolume: castedVolume,
-      playerMuted: castedMute,
-    }));
+    dispatch(
+      setPlayerState({
+        playerVolume: castedVolume,
+        playerMuted: castedMute,
+      }),
+    );
 
     // if we have a user to set, set it
     if (cid && token && at && fname) {
-      dispatch(store({
-        cid,
-        token,
-        at,
-        fname,
-        avatarURL,
-      }));
+      dispatch(
+        store({
+          cid,
+          token,
+          at,
+          fname,
+          avatarURL,
+        }),
+      );
       callback();
     } else {
       callback();
@@ -175,9 +181,14 @@ export default createReducer(initialState, {
       playerMuted,
     };
   },
-  [REMOVE_USER]() {
+  [REMOVE_USER](state) {
     return {
-      ...initialState,
+      ...state,
+      isAuthorized: false,
+      statusCode: 200,
+      membershipType: null,
+      apiError: false,
+      errorCode: 0,
     };
   },
   [UPDATE_PLAYER_VOLUME](state, { volume }) {
