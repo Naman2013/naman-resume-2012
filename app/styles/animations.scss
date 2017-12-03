@@ -4,8 +4,9 @@
     top: 70px;
     right: 0;
     background-color: rgba(0, 0, 0, 0.6);
-    color: #FFF;
-    font-family: "brandon-grotesque",sans-serif;
+    color: #fff;
+    font-family: 'brandon-grotesque', sans-serif;
+    z-index: 99;
   }
 
   .authorization-popup-enter {
