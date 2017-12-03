@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import { List } from 'immutable';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { fetchTopicList } from '../../../modules/discussions-topics/actions';
+import { fetchTopicList, toggleFollowTopic } from '../../../modules/discussions-topics/actions';
 import GenericLoadingBox from '../../../components/common/loading-screens/generic-loading-box';
 import DiscussionsTopicList from '../../../components/discussions/DiscussionsTopicList';
-import DiscussionsListHeader from '../../../components/discussions/DiscussionsListHeader';
+import DiscussionsTopicListHeader from '../../../components/discussions/DiscussionsTopicListHeader';
 
-const { func, bool, instanceOf, number, object } = PropTypes;
+const { func, bool, instanceOf } = PropTypes;
 
 class DiscussionsTopicsList extends Component {
 
@@ -22,13 +22,22 @@ class DiscussionsTopicsList extends Component {
     });
   }
 
+  toggleFollowTopicButton = (topicId) => {
+    const { toggleFollowTopic, params: { forumId } } = this.props;
+
+    toggleFollowTopic({
+      forumId,
+      topicId,
+    });
+  }
+
   render() {
-    const { fetchMoreTopics } = this;
+    const { fetchMoreTopics, toggleFollowTopicButton } = this;
     const { topicList, fetching, route: { path }, resultsCount } = this.props;
     return (
       <section className="discussions-list">
-        <DiscussionsListHeader threads activeLink={path} />
-        <DiscussionsTopicList topics={topicList} />
+        <DiscussionsTopicListHeader threads activeLink={path} />
+        <DiscussionsTopicList topics={topicList} toggleFollowTopic={toggleFollowTopicButton} />
         {fetching && <GenericLoadingBox />}
         {(!fetching && topicList.size < resultsCount) && <div className="load-more" onClick={fetchMoreTopics}>Load more...</div>}
         {!fetching && (!topicList || topicList.size === 0) && <article className="no-availability">There are no topics to display</article>}
@@ -55,7 +64,8 @@ const mapStateToProps = ({ discussionsTopics }) => ({
   fetching: discussionsTopics.fetching,
 });
 const mapDispatchToProps = dispatch => (bindActionCreators({
-  fetchTopicList
+  fetchTopicList,
+  toggleFollowTopic,
 }, dispatch));
 
 export default connect(mapStateToProps, mapDispatchToProps)(DiscussionsTopicsList);

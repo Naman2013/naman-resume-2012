@@ -365,6 +365,7 @@ ReactDOM.render(
           <Route path="main" component={DiscussionsWrapper}>
             <IndexRedirect to="featured" />
             <Route path="featured" component={DiscussionsListWrapper} />
+            <Route path="followed-topics" component={DiscussionsListWrapper} />
             <Route path="most-recent" component={DiscussionsListWrapper} />
             <Route path="most-active" component={DiscussionsListWrapper} />
           </Route>
