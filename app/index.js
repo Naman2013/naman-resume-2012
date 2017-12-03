@@ -334,7 +334,7 @@ ReactDOM.render(
         />
 
         <Route path="my-pictures" component={MyPictures} onEnter={validateUser}>
-          <IndexRedirect to="photo-roll" />
+          <IndexRedirect to="missions" />
           <Route path="photo-roll" title="Photo roll" component={PhotoRoll} />
           <Route path="galleries" tite="Galleries" component={Galleries} />
           <Route path="galleries/:galleryId" tite="Galleries" component={GalleryImages} />

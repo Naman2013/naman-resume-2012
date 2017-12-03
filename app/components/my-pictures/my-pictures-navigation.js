@@ -96,8 +96,8 @@ class MyPicturesNavigation extends Component {
       <nav className={s.myPictureNavigationRoot}>
         <ul className={s.myPictureNavigationContainer}>
           <li className={s.rootNavigationItem}>
-            <Link to="/my-pictures/photo-roll" className={s.button} activeClassName="active">
-              Photo Roll <span>({photoRollCount})</span>
+            <Link to="/my-pictures/missions" className={s.button} activeClassName="active">
+              Missions <span>({missionCount})</span>
             </Link>
           </li>
           <li className={s.rootNavigationItem}>
@@ -106,9 +106,9 @@ class MyPicturesNavigation extends Component {
             </Link>
           </li>
           <li className={s.rootNavigationItem}>
-            <Link to="/my-pictures/missions" className={s.button} activeClassName="active">
-              Missions <span>({missionCount})</span>
-            </Link>
+          <Link to="/my-pictures/photo-roll" className={s.button} activeClassName="active">
+            Photo Roll <span>({photoRollCount})</span>
+          </Link>
           </li>
 
           <li className={rootNavigationFilterItemClassnames}>
