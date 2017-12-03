@@ -1,15 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import UserStat from './user-stat';
+
 const { shape, bool, string } = PropTypes;
-const UserStats = ({
-  enhancedUserStats,
-}) => (
+const UserStats = ({ enhancedUserStats }) => (
   <div className="stats">
-    {Object.keys(enhancedUserStats).map(statLabel => (<UserStat
-      {...enhancedUserStats[statLabel]}
-      key={statLabel}
-    />))}
+    {Object.keys(enhancedUserStats).map(statLabel => (
+      <UserStat {...enhancedUserStats[statLabel]} key={statLabel} />
+    ))}
     <style jsx>{`
       .stats {
         display: flex;
