@@ -4,3 +4,4 @@ import './Headers';
 import './Timestamp';
 import './VirtualTelescopeViewer';
 import './Tabs';
+import './design-system';

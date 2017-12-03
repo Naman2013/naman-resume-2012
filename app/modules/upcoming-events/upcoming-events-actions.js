@@ -1,7 +1,6 @@
 import moment from 'moment';
 import fetchUpcomingEvents from '../../services/events/fetch-upcoming-events';
 import { fetchShowContent } from '../community-content/get-show-content-actions';
-import { fetchLiveShowInfo } from '../live-shows/live-shows-actions';
 import { fetchSituationRoom } from '../SituationRoom';
 
 export const FETCH_EVENTS_START = 'FETCH_EVENTS_START';
@@ -43,10 +42,14 @@ export const setNextEvent = event => (dispatch, getState) => {
 
 export const eventGoLive = () => (dispatch, getState) => {
   const { nextEvent } = getState().upcomingEvents;
-  dispatch(setNextEvent({
-    ...nextEvent,
-    eventIsLive: true,
-  }));
+  dispatch(
+    setNextEvent({
+      ...nextEvent,
+      eventIsLive: true,
+      isBeforeEvent: false,
+      isAfterEvent: false,
+    }),
+  );
 };
 
 /**
@@ -66,41 +69,41 @@ export const endEvent = () => (dispatch, getState) => {
   };
 
   dispatch(setNextEvent(updatedEventList[0]));
-  dispatch(fetchShowContent({
-    showId: updatedEventList[0].eventId,
-    listType: 'sluglookupids',
-  }));
-  dispatch(fetchSituationRoom(updatedEventList[0].eventId));
   dispatch(fetchEventsSuccess(updatedEvents));
+
+  // dispatch(
+  //   fetchShowContent({
+  //     showId: updatedEventList[0].eventId,
+  //     listType: 'sluglookupids',
+  //   }),
+  // );
+  // dispatch(fetchSituationRoom(updatedEventList[0].eventId));
 };
 
 export const fetchEvents = () => (dispatch) => {
   dispatch(fetchEventsStart());
 
   return fetchUpcomingEvents()
-  .then((result) => {
-    if (!result.data.apiError) {
-      dispatch(setNextEvent(result.data.eventList[0]));
-      dispatch(fetchEventsSuccess(result.data));
-    }
-  })
-  .catch(error => dispatch(fetchEventsFail(error)));
+    .then((result) => {
+      if (!result.data.apiError) {
+        dispatch(setNextEvent(result.data.eventList[0]));
+        dispatch(fetchEventsSuccess(result.data));
+      }
+    })
+    .catch(error => dispatch(fetchEventsFail(error)));
 };
 
-export const calculateEventTimes = ({
-  eventStart,
-  eventEnd,
-  eventId,
-  eventIsLive,
-  serverTime,
-}) => {
+export const calculateEventTimes = ({ eventStart, eventEnd, eventId, eventIsLive, serverTime }) => {
   const currentTimeMoment = moment.unix(serverTime);
   const eventStartMoment = moment.unix(eventStart);
   const eventEndMoment = moment.unix(eventEnd);
 
   const eventStartMomentDiff = eventStartMoment.diff(currentTimeMoment);
   const eventEndMomentDiff = eventEndMoment.diff(currentTimeMoment);
-  const eventLink = ((eventStartMomentDiff <= 0 && !eventEndMomentDiff <= 0) || eventIsLive) ? '/shows/situation-room' : `/shows/event-details/${eventId}`;
+  const eventLink =
+    (eventStartMomentDiff <= 0 && !eventEndMomentDiff <= 0) || eventIsLive
+      ? '/shows/situation-room'
+      : `/shows/event-details/${eventId}`;
 
   return {
     type: SET_CALCULATED_EVENT_VALUES,
@@ -115,12 +118,10 @@ export const calculateEventTimes = ({
   };
 };
 
-export const setEventTimerValues = (eventTimerValues) => {
-  return {
-    type: SET_TIMER_VALUES,
-    payload: eventTimerValues,
-  };
-};
+export const setEventTimerValues = eventTimerValues => ({
+  type: SET_TIMER_VALUES,
+  payload: eventTimerValues,
+});
 
 export const tickEvent = ({
   currentTime,

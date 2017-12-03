@@ -20,7 +20,7 @@ const fetchLiveShowFail = payload => ({
 
 export const fetchLiveShowInfo = showId => (dispatch, getState) => {
   const { at, token, cid } = getState().user;
-  let testShowId = showId;
+  const testShowId = showId;
   dispatch(fetchLiveShowStart());
 
   /* for testing purposes */

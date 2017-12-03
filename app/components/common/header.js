@@ -8,22 +8,27 @@ import { Link } from 'react-router';
 import { tickEvent } from '../../modules/upcoming-events/upcoming-events-actions';
 import Countdown from '../../containers/Countdown';
 import Member from '../../containers/Member';
-import AudioPlayer from '../../components/AudioPlayer';
+import AudioPlayer, { AudioPlayerProvider } from '../../components/AudioPlayer';
 
-// import styles from '../../styles/header.scss';
 import { primaryFont } from '../../styles/variables/fonts';
 import { lightTurqoise, white } from '../../styles/variables/colors';
 
 const { bool, number, string, shape, instanceOf } = PropTypes;
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({
-    tickEvent,
-  }, dispatch);
+  return bindActionCreators(
+    {
+      tickEvent,
+    },
+    dispatch,
+  );
 }
 
-function mapStateToProps({ countdown, upcomingEvents }) {
+function mapStateToProps({ countdown, upcomingEvents, audioPlayer }) {
   return {
+    showAudioPlayerBeforeLive: audioPlayer.showAudioPlayerBeforeLive,
+    showAudioPlayerWhenLive: audioPlayer.showAudioPlayerWhenLive,
+    showAudioPlayerAfterEnd: audioPlayer.showAudioPlayerAfterEnd,
     countdown,
     nextEvent: upcomingEvents.nextEvent,
     serverTime: upcomingEvents.upcomingEvents.timestamp,
@@ -35,7 +40,10 @@ function mapStateToProps({ countdown, upcomingEvents }) {
 @connect(mapStateToProps, mapDispatchToProps)
 export default class Header extends Component {
   static propTypes = {
-    serverTime: number,
+    showAudioPlayerBeforeLive: PropTypes.bool,
+    showAudioPlayerWhenLive: PropTypes.bool,
+    showAudioPlayerAfterEnd: PropTypes.bool,
+    serverTime: PropTypes.number,
     nextEvent: shape({
       eventDescription: string.isRequired,
       eventEnd: number.isRequired,
@@ -62,6 +70,9 @@ export default class Header extends Component {
   };
 
   static defaultProps = {
+    showAudioPlayerBeforeLive: false,
+    showAudioPlayerWhenLive: false,
+    showAudioPlayerAfterEnd: false,
     nextEvent: {
       eventDescription: '',
       eventEnd: 0,
@@ -103,11 +114,11 @@ export default class Header extends Component {
       const { currentTime } = countdownEventTimer;
       const { eventIsLive, eventId } = nextEvent;
 
-      let testEventStart = eventStartMoment;
-      let testEventEnd = eventEndMoment;
+      const testEventStart = eventStartMoment;
+      const testEventEnd = eventEndMoment;
 
-    //  USE THIS FOR TESTING TIMES
-    //  this website helps: https://www.epochconverter.com/
+      //  USE THIS FOR TESTING TIMES
+      //  this website helps: https://www.epochconverter.com/
       // if (eventId == 421) {
       //   testEventStart = moment.unix(1493057127);
       //   testEventEnd = moment.unix(1493057187);
@@ -124,11 +135,16 @@ export default class Header extends Component {
 
   render() {
     const {
-      nextEvent: {
-        eventIsLive,
-        eventDescription,
-      },
+      nextEvent: { eventIsLive },
+      showAudioPlayerBeforeLive,
+      showAudioPlayerWhenLive,
+      showAudioPlayerAfterEnd,
     } = this.props;
+
+    const showAudioPlayer =
+      (!eventIsLive && showAudioPlayerBeforeLive) ||
+      (!eventIsLive && showAudioPlayerAfterEnd) ||
+      (eventIsLive && showAudioPlayerWhenLive);
 
     return (
       <header className="mainHeader" id="mainHeader">
@@ -136,19 +152,17 @@ export default class Header extends Component {
           <div className="mainHeaderLogo" />
           <p className="beta">beta</p>
         </Link>
+
         <Member />
         <Countdown />
 
-        {
-          /*
-          eventIsLive &&
-            <div className="player-container">
-              <AudioPlayer
-                description={eventDescription}
-              />
-            </div>
-            */
-        }
+        {showAudioPlayer && (
+          <div className="player-container">
+            <AudioPlayerProvider>
+              <AudioPlayer isLiveEvent={eventIsLive} streamCode="" />
+            </AudioPlayerProvider>
+          </div>
+        )}
 
         <style jsx>{`
           .player-container {
@@ -164,7 +178,6 @@ export default class Header extends Component {
           }
 
           .mainHeaderLogo {
-            position: absolute;
             background-image: url(https://vega.slooh.com/assets/icons/header/Slooh_Logo_White_5.svg);
             background-repeat: no-repeat;
             background-position: left center;
@@ -172,6 +185,7 @@ export default class Header extends Component {
             width: 218px;
             height: 65px;
             margin-left: 10px;
+            float: left;
           }
 
           .mainHeaderLogoText {
@@ -192,6 +206,15 @@ export default class Header extends Component {
             position: absolute;
             left: 165px;
             top: 52px;
+          }
+
+          @media (max-width: 1170px) {
+            .player-container {
+              position: absolute;
+              top: 70px;
+              right: 0;
+              margin-right: 0;
+            }
           }
         `}</style>
       </header>
