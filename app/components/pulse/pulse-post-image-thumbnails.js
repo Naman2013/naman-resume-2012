@@ -53,7 +53,7 @@ class PulsePostThumbnail extends Component {
           onClickThumbnail={this.goToImage}
           onClickPrev={this.onClickPrev}
           onClickNext={this.onClickNext}
-          showThumbnails={true}
+          showThumbnails={images.length > 1}
         />
         {images.map((image, idx) => <figure key={image}>
           <a onClick={() => this.toggleLightbox(idx)}>
