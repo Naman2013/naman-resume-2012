@@ -170,9 +170,9 @@ class PublishPost extends Component {
     });
   }
 
-  handleBodyContentChange(event) {
+  handleBodyContentChange(editorHTML) {
     this.setState({
-      bodyContent: event.target.value,
+      bodyContent: editorHTML,
     });
   }
 
@@ -263,7 +263,7 @@ class PublishPost extends Component {
         }
       });
     } else {
-      alert('Make sure to add a title, content and to at least select a catagory for this post.');
+      alert('Make sure to add a title, content and to at least select a category for this post.');
     }
   }
 
