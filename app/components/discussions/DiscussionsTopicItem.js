@@ -1,13 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
-
+import {
+  white,
+  brightBlue,
+} from '../../styles/variables/colors';
 const { number, shape, string } = PropTypes;
 
-const DiscussionsTopicItem = ({ item }) => (
+const DiscussionsTopicItem = ({ item, toggleFollowTopic}) => (
   <div className="list-item">
     <div className="row inner">
-      <div className="col-md-7 description">
+      <div className="col-xs-5 description">
         <div className="topicItem">
           <Link className="link" to={`/discussions/forums/${item.parentForumId}/topics/${item.topicId}/threads`}>
             <span dangerouslySetInnerHTML={{ __html: item.title }} /> {item.closedFlag === 'yes' && <img className="closed-icon" src={item.closedIconURL} />}
@@ -15,14 +18,47 @@ const DiscussionsTopicItem = ({ item }) => (
           <div className="subtext" dangerouslySetInnerHTML={{ __html: item.topicDesc }} />
         </div>
       </div>
-      <div className="col-md-5">
+      <div className="col-xs-5 info-container">
         <div className="info">
           <span className="info-item">{item.threadCount}</span>
           <span className="info-item">{item.replyCount}</span>
           <span className="info-item">{item.freshness}</span>
         </div>
       </div>
+      <div className="col-xs-2 info-container">
+        {item.followingFlag ?
+          <button className="action-button following-button" onClick={() => toggleFollowTopic(item.topicId)}>Following</button> :
+          <button className="action-button follow-button" onClick={() => toggleFollowTopic(item.topicId)}>Follow</button>}
+
+      </div>
     </div>
+    <style jsx>{`
+      .action-button {
+        padding: 2px 5px;
+        margin: 4px auto;
+        border-radius: 50px;
+        cursor: pointer;
+        min-width: 100px;
+        font-weight: 600;
+        font-size: 14px;
+        border: 1px solid ${brightBlue};
+      }
+
+      .action-button:active,
+      .action-button:focus {
+        outline: 0;
+      }
+
+      .follow-button {
+        color: ${brightBlue};
+        background-color: ${white};
+      }
+
+      .following-button {
+        background-color: ${brightBlue};
+        color: ${white};
+      }
+    `}</style>
   </div>
 );
 

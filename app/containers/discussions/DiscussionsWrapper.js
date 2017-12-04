@@ -7,6 +7,7 @@ import ForumsIndex from '../../components/discussions/forums-index';
 import {
   fetchThreadList,
   fetchFeaturedThreadList,
+  fetchFollowedTopicThreadList,
 } from '../../modules/discussions-thread/actions';
 
 const { func, object, shape } = PropTypes;
@@ -33,8 +34,10 @@ class DiscussionsWrapper extends Component {
     const { props: { route: { path } } } = children;
     if (path === 'featured') {
       actions.fetchFeaturedThreadList({
-        sortBy: path,
-        topicId,
+        page: 1,
+      });
+    } else if (path === 'followed-topics') {
+      actions.fetchFollowedTopicThreadList({
         page: 1,
       });
     } else {
@@ -58,6 +61,10 @@ class DiscussionsWrapper extends Component {
         actions.fetchFeaturedThreadList({
           page: 1,
         });
+      } else if (nextPath === 'followed-topics') {
+        actions.fetchFollowedTopicThreadList({
+          page: 1,
+        });
       } else {
         actions.fetchThreadList({
           sortBy: nextPath,
@@ -76,6 +83,7 @@ class DiscussionsWrapper extends Component {
       <div className="discussions-wrapper container-fluid">
         <DiscussionsNav
           featuredLink={forumId && topicId ? null : '/discussions/main/featured'}
+          followedTopicsLink={forumId && topicId ? null : '/discussions/main/followed-topics'}
           mostRecentLink={mostRecentLink}
           mostActiveLink={mostActiveLink}
         />
@@ -99,6 +107,7 @@ const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
     fetchThreadList,
     fetchFeaturedThreadList,
+    fetchFollowedTopicThreadList,
   }, dispatch)
 });
 

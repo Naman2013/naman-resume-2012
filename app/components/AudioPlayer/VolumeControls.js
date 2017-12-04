@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import noop from 'lodash/noop';
 import Draggable from 'react-draggable';
+import { Mute } from '../../design-system/icons/mute';
 import { blueBlack } from '../../styles/variables/colors';
 
 /*
@@ -17,49 +18,85 @@ const TRACK_BOUNDARY = {
 
 const propTypes = {
   onVolumeChange: PropTypes.func,
+  handleMute: PropTypes.func,
+  handleUnMute: PropTypes.func,
+  volumeControlsColor: PropTypes.string,
+  muteButtonColor: PropTypes.string,
+  showMuteButton: PropTypes.bool,
+  volume: PropTypes.number,
+  muted: PropTypes.bool,
 };
 
 const defaultProps = {
   onVolumeChange: noop,
+  handleMute: noop,
+  handleUnMute: noop,
+  volumeControlsColor: blueBlack,
+  muteButtonColor: blueBlack,
+  showMuteButton: true,
+  volume: 25,
+  muted: false,
 };
+
+function convertVolumeToPosition(volume, maxBoundary) {
+  return -(volume / 100 * maxBoundary);
+}
 
 class VolumeControls extends Component {
   state = {
-    volume: 0,
-    controlledPosition: {
-      x: 0,
-      y: 0,
-    },
+    isMuted: this.props.muted,
   };
 
   onControlledDrag = (event, position) => {
     const { y } = position;
-    const volume = ((Math.abs(y) / MAX_BOUNDARY) * 100);
+    const volume = Math.abs(y) / MAX_BOUNDARY * 100;
+
     this.props.onVolumeChange(volume);
     this.setState({
       volume,
-      controlledPosition: { y },
     });
   };
 
+  handleMuteClick = () => {
+    const { isMuted } = this.state;
+    if (!isMuted) {
+      this.props.handleMute();
+      this.setState({ isMuted: true });
+    } else {
+      this.props.handleUnMute();
+      this.setState({ isMuted: false });
+    }
+  };
+
   render() {
+    const { isMuted } = this.state;
+    const { volumeControlsColor, muteButtonColor, showMuteButton, volume } = this.props;
+
+    const inlineControlStyle = { background: volumeControlsColor };
+    const muteButtonInlineStyle = { color: muteButtonColor };
+
     return (
       <div className="root">
         <div className="controls">
-          <div className="track" />
+          <div style={inlineControlStyle} className="track" />
           <Draggable
-            defaultPosition={{ x: 0, y: -6.25 }}
+            defaultPosition={{ x: 0, y: convertVolumeToPosition(volume, MAX_BOUNDARY) }}
             axis="y"
             bounds={TRACK_BOUNDARY}
             onDrag={this.onControlledDrag}
           >
-            <button
-              onDrag={this.handleTabDrag}
-              className="tab"
-            />
+            <button style={inlineControlStyle} onDrag={this.handleTabDrag} className="tab" />
           </Draggable>
 
-          <span className="fa fa-volume-down" />
+          {showMuteButton && (
+            <button
+              style={muteButtonInlineStyle}
+              onClick={this.handleMuteClick}
+              className="mute-button"
+            >
+              {isMuted ? <Mute /> : <span className="fa fa-volume-down" />}
+            </button>
+          )}
         </div>
 
         <style jsx>{`
@@ -73,8 +110,9 @@ class VolumeControls extends Component {
             height: 30px;
           }
 
-          .tab:focus { outline: none; }
-
+          .tab:focus {
+            outline: none;
+          }
 
           .track {
             width: 4px;
@@ -93,7 +131,18 @@ class VolumeControls extends Component {
             left: 13px;
             bottom: 0;
             border-radius: 1px;
-            cursor: move;
+            cursor: ns-resize;
+          }
+
+          .mute-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+          }
+
+          .mute-button:active,
+          .mute-button:focus {
+            outline: none;
           }
         `}</style>
       </div>

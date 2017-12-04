@@ -3,11 +3,14 @@ import PropTypes from 'prop-types';
 import { List } from 'immutable';
 import DiscussionsTopicListItem from './DiscussionsTopicItem';
 
-const { instanceOf } = PropTypes;
-const DiscussionsTopicList = ({ topics }) => (
+const { instanceOf, func } = PropTypes;
+const DiscussionsTopicList = ({ topics, toggleFollowTopic }) => (
   <div>
     { topics && topics.toArray().map(item => (
-      <DiscussionsTopicListItem key={item.topicId} item={item} />
+      <DiscussionsTopicListItem
+        toggleFollowTopic={toggleFollowTopic}
+        key={item.topicId} item={item}
+      />
     ))}
   </div>
 );
@@ -18,6 +21,7 @@ DiscussionsTopicList.defaultProps = {
 
 DiscussionsTopicList.propTypes = {
   topics: instanceOf(List),
+  toggleFollowTopic: func.isRequired,
 };
 
 export default DiscussionsTopicList;

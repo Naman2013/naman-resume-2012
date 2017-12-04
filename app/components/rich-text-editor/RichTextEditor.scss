@@ -88,4 +88,8 @@ $headerSize: 1rem;
   .RichEditor-activeButton {
     color: $pink;
   }
+
+  .RichEditor-horizontalRule {
+    border-top: 1px solid $black;
+  }
 }

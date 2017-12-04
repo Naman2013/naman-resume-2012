@@ -1,3 +1,4 @@
 import AudioPlayer from './AudioPlayer';
+import AudioPlayerProvider from './AudioPlayerProvider';
 
-export default AudioPlayer;
+export { AudioPlayer as default, AudioPlayerProvider };

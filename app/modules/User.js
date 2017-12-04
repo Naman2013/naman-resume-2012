@@ -7,10 +7,17 @@ import createAction from './utils/createAction';
 
 export const EXPIRATION_DAYS = 90;
 export const COOKIE_PATH = '/';
-export const futureDate = moment().add(EXPIRATION_DAYS, 'day').toDate();
+export const futureDate = moment()
+  .add(EXPIRATION_DAYS, 'day')
+  .toDate();
 
 const SET_USER = 'SET_USER';
 const REMOVE_USER = 'REMOVE_USER';
+
+const SET_PLAYER = 'SET_PLAYER';
+const UPDATE_PLAYER_VOLUME = 'UPDATE_RADIO_VOLUME';
+const MUTE_PLAYER = 'MUTE_PLAYER';
+const UNMUTE_PLAYER = 'UNMUTE_PLAYER';
 
 export const set = createAction(SET_USER, 'user');
 export const removeUser = createAction(REMOVE_USER);
@@ -23,9 +30,23 @@ export function store({ cid, token, at, fname, avatarURL }) {
   window.document.cookie = cookie.serialize('avatarURL', avatarURL, { domain: 'localhost', secure: false, expires: futureDate, path: COOKIE_PATH });
 
   return (dispatch) => {
-    dispatch(set({ cid, token, at, fname, avatarURL }));
+    dispatch(
+      set({
+        cid,
+        token,
+        at,
+        fname,
+        avatarURL,
+      }),
+    );
   };
 }
+
+const setPlayerState = ({ playerMuted, playerVolume }) => ({
+  type: SET_PLAYER,
+  playerMuted,
+  playerVolume,
+});
 
 export function destroySession() {
   window.localStorage.removeItem('user');
@@ -35,6 +56,40 @@ export function destroySession() {
   window.document.cookie = cookie.serialize('fname', '', { domain: 'localhost', secure: false, expires: new Date('Thu, 01 Jan 1970 00:00:01 GMT'), path: COOKIE_PATH });
   window.document.cookie = cookie.serialize('avatarURL', '', { domain: 'localhost', secure: false, expires: new Date('Thu, 01 Jan 1970 00:00:01 GMT'), path: COOKIE_PATH });
 }
+
+function updatePlayerVolumeCookie(volume) {
+  window.document.cookie = cookie.serialize('playerVolume', volume, { domain: 'localhost', secure: false, expires: futureDate, path: COOKIE_PATH });
+}
+
+function mutePlayerCookie() {
+  window.document.cookie = cookie.serialize('playerMuted', true, { domain: 'localhost', secure: false, expires: futureDate, path: COOKIE_PATH });
+}
+
+function unmutePlayerCookie() {
+  window.document.cookie = cookie.serialize('playerMuted', false, { domain: 'localhost', secure: false, expires: futureDate, path: COOKIE_PATH });
+}
+
+export const mutePlayer = () => {
+  mutePlayerCookie();
+  return {
+    type: MUTE_PLAYER,
+  };
+};
+
+export const unmutePlayer = () => {
+  unmutePlayerCookie();
+  return {
+    type: UNMUTE_PLAYER,
+  };
+};
+
+export const updatePlayerVolume = (volume) => {
+  updatePlayerVolumeCookie(volume);
+  return {
+    type: UPDATE_PLAYER_VOLUME,
+    volume,
+  };
+};
 
 export const logout = () => {
   destroySession();
@@ -56,16 +111,32 @@ export function destroy() {
   */
 export function checkUser(pathname, replace, callback) {
   return (dispatch) => {
-    const { cid, token, at, fname, avatarURL } = cookie.parse(window.document.cookie);
+    const { cid, token, at, fname, avatarURL, playerMuted, playerVolume } = cookie.parse(
+      window.document.cookie,
+    );
 
+    const castedVolume = parseInt(playerVolume, 10) || 25;
+    const castedMute = playerMuted == 'true';
+
+    // sets up the initial audio player volume and mute
+    dispatch(
+      setPlayerState({
+        playerVolume: castedVolume,
+        playerMuted: castedMute,
+      }),
+    );
+
+    // if we have a user to set, set it
     if (cid && token && at && fname) {
-      dispatch(store({
-        cid,
-        token,
-        at,
-        fname,
-        avatarURL,
-      }));
+      dispatch(
+        store({
+          cid,
+          token,
+          at,
+          fname,
+          avatarURL,
+        }),
+      );
       callback();
     } else {
       callback();
@@ -79,6 +150,8 @@ const initialState = {
   membershipType: null,
   apiError: false,
   errorCode: 0,
+  playerVolume: 25,
+  playerMuted: false,
 };
 
 export default createReducer(initialState, {
@@ -89,9 +162,39 @@ export default createReducer(initialState, {
       isAuthorized: true,
     };
   },
-  [REMOVE_USER]() {
+  [SET_PLAYER](state, { playerVolume, playerMuted }) {
     return {
-      ...initialState,
+      ...cloneDeep(state),
+      playerVolume,
+      playerMuted,
+    };
+  },
+  [REMOVE_USER](state) {
+    return {
+      ...cloneDeep(state),
+      isAuthorized: false,
+      statusCode: 200,
+      membershipType: null,
+      apiError: false,
+      errorCode: 0,
+    };
+  },
+  [UPDATE_PLAYER_VOLUME](state, { volume }) {
+    return {
+      ...cloneDeep(state),
+      playerVolume: volume,
+    };
+  },
+  [MUTE_PLAYER](state) {
+    return {
+      ...cloneDeep(state),
+      playerMuted: true,
+    };
+  },
+  [UNMUTE_PLAYER](state) {
+    return {
+      ...cloneDeep(state),
+      playerMuted: false,
     };
   },
 });

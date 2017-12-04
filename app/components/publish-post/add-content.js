@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import RichTextEditor from '../../components/rich-text-editor/RichTextEditor';
 import style from './add-content.scss';
 
 class AddContent extends Component {
@@ -17,15 +18,11 @@ class AddContent extends Component {
         />
 
         <label htmlFor="content" className="label text-uppercase">Paste or type your main content here.</label>
-        <textarea
-          onChange={this.props.handleBodyContentChange}
-          value={this.props.bodyContent}
-          name=""
+        <RichTextEditor
           id="content"
-          cols="30"
-          rows="12"
-          className="input input-textarea"
-          placeholder="Content"></textarea>
+          editorValue={this.props.bodyContent}
+          onChange={this.props.handleBodyContentChange}
+        />
       </div>
     )
   }
