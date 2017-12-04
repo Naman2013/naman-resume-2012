@@ -10,6 +10,7 @@ $infoSpacing: 15px;
 }
 
 .discussionsItem {
+  overflow: auto;
   padding-left: 50px;
   border-bottom: 1px solid $gray;
 
@@ -65,6 +66,7 @@ $infoSpacing: 15px;
   @include spacing;
   position: relative;
   text-decoration: none;
+  display: inline-block;
 
   hr {
     border-top: 1px solid $black;
