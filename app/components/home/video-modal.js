@@ -11,7 +11,7 @@ const VideoModal = ({ videoUrl }) => (
       className="home-youtube-video"
       width="100%"
       height="400"
-      src={`${videoUrl}?autoplay=1&modestbranding=1&controls=1`}
+      src={`${videoUrl}?autoplay=1&modestbranding=1&controls=1&rel=0`}
       seamless
       allowFullScreen
       autoPlay="1"
