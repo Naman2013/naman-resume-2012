@@ -36,7 +36,7 @@ class PulsePopular extends Component {
       <div className={styles.pulsePopular}>
 
         <header className={styles.pulsePopularHeader}>
-          {tag ? <h4>{title ? `${title} ` : 'More About '} <Link to={`/objects/latest-entries/${slugLookupId}/all`} className="tag">{tag}</Link></h4> : <h4>Popular Posts on Slooh Pulse</h4>}
+          {tag ? <h4>{title ? `${title} ` : 'More About '} <Link to={`/objects/latest-entries/${slugLookupId}/all`} className="tag">{tag}</Link></h4> : <h4>Popular Posts on Illuminations</h4>}
           <p>
             {subtitle || 'As submitted by the Slooh Community...'}
           </p>
