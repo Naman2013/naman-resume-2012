@@ -11,25 +11,29 @@ import DefaultTabs from '../../Tabs';
 const mapStateToProps = ({ telescopeDetails }) => ({
   currentConditionsURL: telescopeDetails.weatherConditionWidgetResult.currentConditionsURL,
 
-  dayNightBarRefreshInterval: telescopeDetails.dayNightBar.refreshIntervalSec,
-  dayNightBarURL: telescopeDetails.dayNightBar.dayNightBarURL,
-  dayNightBarImageWidth: telescopeDetails.dayNightBar.imageWidth,
+  dayNightBarPanelRefreshInterval: telescopeDetails.dayNightBarPanel.refreshIntervalSec,
+  dayNightBarPanelURL: telescopeDetails.dayNightBarPanel.dayNightBarPanelURL,
+  dayNightBarPanelImageWidth: telescopeDetails.dayNightBarPanel.imageWidth,
+  dayNightBarPanelTitle: telescopeDetails.dayNightBarPanel.title,
 
   dayNightMapRefreshInterval: telescopeDetails.dayNightMap.refreshIntervalSec,
   dayNightMapURL: telescopeDetails.dayNightMap.dayNightMapURL,
   dayNightMapImageWidth: telescopeDetails.dayNightMap.imageWidth,
+  dayNightMapTitle: telescopeDetails.dayNightMap.title,
 
   allSkyRefreshIntervalSec: telescopeDetails.allSkyCamera.refreshIntervalSec,
   allSkyCamURL: telescopeDetails.allSkyCamera.allSkyCamURL,
   allSkyCamOfflineURL: telescopeDetails.allSkyCamera.offlineImageURL,
   allSkyCamOnlineStatus: telescopeDetails.allSkyCamera.onlineStatus,
   allSkyCamImageWidth: telescopeDetails.allSkyCamera.imageWidth,
+  allSkyCamTitle: telescopeDetails.allSkyCamera.title,
 
   domeCamRefreshIntervalSec: telescopeDetails.domeCam.refreshIntervalSec,
   domeCamURL: telescopeDetails.domeCam.domeCamURL,
   domeCamOfflineURL: telescopeDetails.domeCam.offlineImageURL,
   domeCamOnlineStatus: telescopeDetails.domeCam.onlineStatus,
   domeCamImageWidth: telescopeDetails.domeCam.imageWidth,
+  domeCamTitle: telescopeDetails.domeCam.title,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -44,30 +48,34 @@ class TelescopeDetailsTabs extends Component {
     // provided by redux state
     currentConditionsURL: PropTypes.string.isRequired,
 
-    dayNightBarRefreshInterval: PropTypes.number.isRequired,
-    dayNightBarURL: PropTypes.string.isRequired,
-    dayNightBarImageWidth: PropTypes.string.isRequired,
+    dayNightBarPanelRefreshInterval: PropTypes.number.isRequired,
+    dayNightBarPanelURL: PropTypes.string.isRequired,
+    dayNightBarPanelImageWidth: PropTypes.string.isRequired,
+    dayNightBarPanelTitle: PropTypes.string.isRequired,
 
     dayNightMapRefreshInterval: PropTypes.number.isRequired,
     dayNightMapURL: PropTypes.string.isRequired,
     dayNightMapImageWidth: PropTypes.string.isRequired,
+    dayNightMapTitle: PropTypes.string.isRequired,
 
     allSkyRefreshIntervalSec: PropTypes.number.isRequired,
     allSkyCamURL: PropTypes.string.isRequired,
     allSkyCamOfflineURL: PropTypes.string.isRequired,
     allSkyCamOnlineStatus: PropTypes.string.isRequired,
     allSkyCamImageWidth: PropTypes.string.isRequired,
+    allSkyCamTitle: PropTypes.string.isRequired,
 
     domeCamRefreshIntervalSec: PropTypes.number.isRequired,
     domeCamURL: PropTypes.string.isRequired,
     domeCamOfflineURL: PropTypes.string.isRequired,
     domeCamOnlineStatus: PropTypes.string.isRequired,
     domeCamImageWidth: PropTypes.string.isRequired,
+    domeCamTitle: PropTypes.string.isRequired,
 
     // provided by parent
     obsId: PropTypes.string.isRequired,
     CurrentConditionsWidgetId: PropTypes.string.isRequired,
-    DayNightBarWidgetId: PropTypes.string.isRequired,
+    DayNightBarPanelWidgetId: PropTypes.string.isRequired,
     DayNightMapWidgetId: PropTypes.string.isRequired,
     AllskyWidgetId: PropTypes.string.isRequired,
     DomecamWidgetId: PropTypes.string.isRequired,
@@ -86,7 +94,7 @@ class TelescopeDetailsTabs extends Component {
     const {
       obsId,
       CurrentConditionsWidgetId,
-      DayNightBarWidgetId,
+      DayNightBarPanelWidgetId,
       DayNightMapWidgetId,
       AllskyWidgetId,
       DomecamWidgetId,
@@ -95,7 +103,7 @@ class TelescopeDetailsTabs extends Component {
     this.props.actions.fetchAllWidgets({
       obsId,
       CurrentConditionsWidgetId,
-      DayNightBarWidgetId,
+      DayNightBarPanelWidgetId,
       DayNightMapWidgetId,
       AllskyWidgetId,
       DomecamWidgetId,
@@ -109,7 +117,7 @@ class TelescopeDetailsTabs extends Component {
       this.props.actions.fetchAllWidgets({
         obsId: nextProps.obsId,
         CurrentConditionsWidgetId: nextProps.CurrentConditionsWidgetId,
-        DayNightBarWidgetId: nextProps.DayNightBarWidgetId,
+        DayNightBarPanelWidgetId: nextProps.DayNightBarPanelWidgetId,
         DayNightMapWidgetId: nextProps.DayNightMapWidgetId,
         AllskyWidgetId: nextProps.AllskyWidgetId,
         DomecamWidgetId: nextProps.DomecamWidgetId,

@@ -1,5 +1,5 @@
 import React from 'react';
-import DayNightTimeline from '../condition-snapshot/DayNightTimeline';
+import DayNightBarPanel from '../condition-snapshot/DayNightBarPanel';
 import DayNightMap from '../condition-snapshot/DayNightMap';
 import AllSkyCamera from '../condition-snapshot/AllSkyCamera';
 import DomeCam from '../condition-snapshot/DomeCam';
@@ -7,26 +7,34 @@ import LiveWebcam from '../live-webcam/live-webcam';
 
 import CenterContent from '../../../design-system/CenterContent';
 
+const inlineTitleStyle = {
+  color: 'white',
+}
+
 export default function generateTabConfiguration({
   obsId,
   currentConditionsURL,
-  dayNightBarRefreshInterval,
-  dayNightBarURL,
-  dayNightBarImageWidth,
+  dayNightBarPanelRefreshInterval,
+  dayNightBarPanelURL,
+  dayNightBarPanelImageWidth,
+  dayNightBarPanelTitle,
   dayNightMapRefreshInterval,
   dayNightMapURL,
   dayNightMapImageWidth,
+  dayNightMapTitle,
   allSkyRefreshIntervalSec,
   allSkyCamURL,
   allSkyCamOfflineURL,
   allSkyCamOnlineStatus,
   allSkyCamImageWidth,
+  allSkyCamTitle,
   domeCamRefreshIntervalSec,
   domeCamURL,
   domeCamOfflineURL,
   domeCamOnlineStatus,
   domeCamImageWidth,
-  facilityWebcamWidgetId, // TODO: require the image width here....
+  domeCamTitle,
+  facilityWebcamWidgetId, /* TODO: require the image width here.... */
 }) {
   return (
   [
@@ -34,11 +42,20 @@ export default function generateTabConfiguration({
       tabText: 'Day/Night Bar',
       tabContent: (
         <CenterContent>
-          <DayNightTimeline
-            dayNightBarURL={dayNightBarURL}
-            refreshIntervalSec={dayNightBarRefreshInterval}
-            imageWidth={dayNightBarImageWidth}
+        <h1 style={inlineTitleStyle}>{dayNightBarPanelTitle}</h1>
+          <DayNightBarPanel
+            refreshIntervalSec={dayNightBarPanelRefreshInterval}
+            dayNightBarPanelURL={dayNightBarPanelURL}
+            imageWidth={dayNightBarPanelImageWidth}
           />
+        </CenterContent>
+      ),
+    },
+    {
+      tabText: 'Day/Night Map',
+      tabContent: (
+        <CenterContent>
+          <h1 style={inlineTitleStyle}>{dayNightMapTitle}</h1>
           <DayNightMap
             refreshIntervalSec={dayNightMapRefreshInterval}
             dayNightMapURL={dayNightMapURL}
@@ -51,6 +68,7 @@ export default function generateTabConfiguration({
       tabText: 'All Sky Camera',
       tabContent: (
         <CenterContent>
+          <h1 style={inlineTitleStyle}>{allSkyCamTitle}</h1>
           <AllSkyCamera
             refreshIntervalSec={allSkyRefreshIntervalSec}
             allSkyCamURL={allSkyCamURL}
@@ -65,6 +83,7 @@ export default function generateTabConfiguration({
       tabText: 'Dome',
       tabContent: (
         <CenterContent>
+          <h1 style={inlineTitleStyle}>{domeCamTitle}</h1>
           <DomeCam
             refreshIntervalSec={domeCamRefreshIntervalSec}
             domeCamURL={domeCamURL}

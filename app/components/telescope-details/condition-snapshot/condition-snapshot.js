@@ -14,8 +14,8 @@ const mapStateToProps = ({ telescopeDetails }) => ({
   subtitle: telescopeDetails.weatherConditionWidgetResult.subtitle,
   currentConditionsURL: telescopeDetails.weatherConditionWidgetResult.currentConditionsURL,
 
-  dayNightBarRefreshInterval: telescopeDetails.dayNightBar.refreshIntervalSec,
-  dayNightBarURL: telescopeDetails.dayNightBar.dayNightBarURL,
+  dayNightBarPanelRefreshInterval: telescopeDetails.dayNightBarPanel.refreshIntervalSec,
+  dayNightBarPanelURL: telescopeDetails.dayNightBarPanel.dayNightBarPanelURL,
 
   dayNightMapRefreshInterval: telescopeDetails.dayNightMap.refreshIntervalSec,
   dayNightMapURL: telescopeDetails.dayNightMap.dayNightMapURL,
@@ -44,8 +44,8 @@ class TelescopeConditionSnapshot extends Component {
     subtitle: PropTypes.string.isRequired,
     currentConditionsURL: PropTypes.string.isRequired,
 
-    dayNightBarRefreshInterval: PropTypes.number.isRequired,
-    dayNightBarURL: PropTypes.string.isRequired,
+    dayNightBarPanelRefreshInterval: PropTypes.number.isRequired,
+    dayNightBarPanelURL: PropTypes.string.isRequired,
 
     dayNightMapRefreshInterval: PropTypes.number.isRequired,
     dayNightMapURL: PropTypes.string.isRequired,
@@ -62,7 +62,7 @@ class TelescopeConditionSnapshot extends Component {
 
     obsId: PropTypes.string.isRequired,
     CurrentConditionsWidgetId: PropTypes.string.isRequired,
-    DayNightBarWidgetId: PropTypes.string.isRequired,
+    DayNightBarPanelWidgetId: PropTypes.string.isRequired,
     DayNightMapWidgetId: PropTypes.string.isRequired,
     AllskyWidgetId: PropTypes.string.isRequired,
     DomecamWidgetId: PropTypes.string.isRequired,
@@ -75,7 +75,7 @@ class TelescopeConditionSnapshot extends Component {
     const {
       obsId,
       CurrentConditionsWidgetId,
-      DayNightBarWidgetId,
+      DayNightBarPanelWidgetId,
       DayNightMapWidgetId,
       AllskyWidgetId,
       DomecamWidgetId,
@@ -84,7 +84,7 @@ class TelescopeConditionSnapshot extends Component {
     this.props.actions.fetchAllWidgets({
       obsId,
       CurrentConditionsWidgetId,
-      DayNightBarWidgetId,
+      DayNightBarPanelWidgetId,
       DayNightMapWidgetId,
       AllskyWidgetId,
       DomecamWidgetId,
@@ -98,7 +98,7 @@ class TelescopeConditionSnapshot extends Component {
       this.props.actions.fetchAllWidgets({
         obsId: nextProps.obsId,
         CurrentConditionsWidgetId: nextProps.CurrentConditionsWidgetId,
-        DayNightBarWidgetId: nextProps.DayNightBarWidgetId,
+        DayNightBarPanelWidgetId: nextProps.DayNightBarPanelWidgetId,
         DayNightMapWidgetId: nextProps.DayNightMapWidgetId,
         AllskyWidgetId: nextProps.AllskyWidgetId,
         DomecamWidgetId: nextProps.DomecamWidgetId,
@@ -110,8 +110,8 @@ class TelescopeConditionSnapshot extends Component {
     const {
       title,
       subtitle,
-      dayNightBarRefreshInterval,
-      dayNightBarURL,
+      dayNightBarPanelRefreshInterval,
+      dayNightBarPanelURL,
       dayNightMapRefreshInterval,
       dayNightMapURL,
       allSkyRefreshIntervalSec,
@@ -139,10 +139,10 @@ class TelescopeConditionSnapshot extends Component {
           <div className="row">
             <div className="col-xs-12">
               {
-                dayNightBarRefreshInterval && dayNightBarURL ?
+                dayNightBarPanelRefreshInterval && dayNightBarPanelURL ?
                   <DayNightTimeline
-                    dayNightBarURL={dayNightBarURL}
-                    refreshIntervalSec={dayNightBarRefreshInterval}
+                    dayNightBarPanelURL={dayNightBarPanelURL}
+                    refreshIntervalSec={dayNightBarPanelRefreshInterval}
                   /> : null
               }
             </div>

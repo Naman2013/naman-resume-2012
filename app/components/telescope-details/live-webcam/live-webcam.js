@@ -65,18 +65,27 @@ class LiveWebcam extends Component {
       refreshIntervalSec,
       facilityWebcamURL,
       imageWidth,
+      title,
     } = this.props;
+
+    const inlineTitleStyle = {
+      color: 'white',
+      textAlign: 'center',
+    }
 
     return (
       <div className="telescope-block live-webcam">
         <div className="live-webcam-feed">
           {
             !fetchingObservatoryLiveWebcamResult ?
-              <RefreshedImage
-                imageURL={facilityWebcamURL}
-                maxImageWidth={imageWidth}
-                refreshIntervalSec={refreshIntervalSec}
-              /> : <GenericLoadingBox />
+              <div>
+                <h1 style={inlineTitleStyle}>{title}</h1>
+                <RefreshedImage
+                  imageURL={facilityWebcamURL}
+                  maxImageWidth={imageWidth}
+                  refreshIntervalSec={refreshIntervalSec}
+                />
+              </div> : <GenericLoadingBox />
           }
         </div>
       </div>

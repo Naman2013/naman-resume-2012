@@ -11,7 +11,7 @@ import { lightTurqoise } from '../../../styles/variables/colors';
 const mapStateToProps = ({ telescopeOverview }) => ({
   title: telescopeOverview.moonlightWidgetResult.title,
   subtitle: telescopeOverview.moonlightWidgetResult.subtitle,
-  refreshInteral: telescopeOverview.moonlightWidgetResult.refreshInterval,
+  refreshInterval: telescopeOverview.moonlightWidgetResult.refreshInterval,
   subwidgets: telescopeOverview.moonlightWidgetResult.subwidgets,
 });
 
@@ -25,7 +25,7 @@ const propTypes = {
   widgetID: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   subtitle: PropTypes.string.isRequired,
-  refreshInteral: PropTypes.number.isRequired,
+  refreshInterval: PropTypes.number.isRequired,
   subwidgets: PropTypes.arrayOf(PropTypes.shape({
     elementTitle: PropTypes.string.isRequired,
     elementValue: PropTypes.string.isRequired,
