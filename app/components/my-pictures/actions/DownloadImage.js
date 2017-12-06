@@ -30,6 +30,7 @@ class DownloadImage extends Component {
           isOpen={this.state.lightboxIsOpen}
           onClose={this.toggleLightbox}
           showThumbnails={false}
+          showImageCount={false}
         />
         <button onClick={this.toggleLightbox} className="action">
           <span className="fa fa-download"></span>
