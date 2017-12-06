@@ -117,7 +117,7 @@ export default class Header extends Component {
       const testEventStart = eventStartMoment;
       const testEventEnd = eventEndMoment;
 
-      //  USE THIS FOR TESTING TIMES
+      //  USE THIS TO OVERRIDE AND FOR TESTING TIMES
       //  this website helps: https://www.epochconverter.com/
       // if (eventId == 421) {
       //   testEventStart = moment.unix(1493057127);
@@ -135,16 +135,20 @@ export default class Header extends Component {
 
   render() {
     const {
-      nextEvent: { eventIsLive },
+      nextEvent: { eventIsLive, eventEnd },
       showAudioPlayerBeforeLive,
       showAudioPlayerWhenLive,
       showAudioPlayerAfterEnd,
+      countdownEventTimer,
     } = this.props;
 
+    /* has the event passed? */
+    const isAfterEvent = (countdownEventTimer.currentTime > eventEnd);
+
     const showAudioPlayer =
-      (!eventIsLive && showAudioPlayerBeforeLive) ||
-      (!eventIsLive && showAudioPlayerAfterEnd) ||
-      (eventIsLive && showAudioPlayerWhenLive);
+      (!eventIsLive && showAudioPlayerBeforeLive) ||                    /* NOT LIVE & SHOW BEFORE */
+      (!eventIsLive && showAudioPlayerAfterEnd && isAfterEvent) ||      /* NOT LIVE & SHOW AFTER & EVENT HAS PASSED */
+      (eventIsLive && showAudioPlayerWhenLive);                         /* EVENT IS LIVE AND SHOW WHEN LIVE */
 
     return (
       <header className="mainHeader" id="mainHeader">
