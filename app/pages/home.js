@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import ReactDOM from 'react-dom';
 import Hero from '../components/home/hero';
 import HeroInspire from '../components/home/hero-inspire';
 import HeroAboutYou from '../components/home/hero-about-you';
@@ -17,6 +18,7 @@ import Featured from '../components/home/slooh-extras/featured';
 import SharedPictures from '../components/home/shared-pictures';
 import PromoPanels from '../components/home/promo-panels/promo-panels';
 import style from './home.scss';
+import SocialSharingBar from '../components/common/social-sharing-bar/social-sharing-bar.js';
 
 import { fetchCommunityContent }
   from '../modules/community-content/community-object-content-actions';
@@ -181,6 +183,8 @@ class Home extends Component {
         {homeContent.loadHeroTypes.indexOf('aboutYou') > -1 &&
           <HeroAboutYou {...homeContent.userInformation} />
         }
+
+        <SocialSharingBar />
 
         {homeContent.promo && homeContent.promo.promoShow &&
           <div style={promoInlineStyle}>
