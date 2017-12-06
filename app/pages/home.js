@@ -182,18 +182,18 @@ class Home extends Component {
           <HeroAboutYou {...homeContent.userInformation} />
         }
 
-        {homeContent.promo && homeContent.promo.promoShow &&
-          <div style={promoInlineStyle}>
-            {homeContent.promo && <PromoPanels {...homeContent.promo}/>}
-          </div>
-        }
-
         {homeContent.memberPicturesDisplay && <SharedPictures
           heading={homeContent.memberPicturesHeading}
           subheading={homeContent.memberPicturesSubHeading}
           imageList={sharedMemberPhotosList}
           timelineData={sharedMemberTimelineData}
         />}
+
+        {homeContent.promo && homeContent.promo.promoShow &&
+          <div style={promoInlineStyle}>
+            {homeContent.promo && <PromoPanels {...homeContent.promo}/>}
+          </div>
+        }
 
           {homeContent.videoClips && homeContent.videoClips.videoClipsShow && homeContent.videoClips.videoClipsArray &&
               <div>
