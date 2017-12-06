@@ -135,18 +135,21 @@ export default class Header extends Component {
 
   render() {
     const {
-      nextEvent: { eventIsLive, eventEnd },
+      nextEvent: { eventIsLive, eventStart, eventEnd },
       showAudioPlayerBeforeLive,
       showAudioPlayerWhenLive,
       showAudioPlayerAfterEnd,
       countdownEventTimer,
     } = this.props;
 
+    /* re we before the event start time? */
+    const isBeforeEvent = (countdownEventTimer.currentTime < eventStart)
+
     /* has the event passed? */
     const isAfterEvent = (countdownEventTimer.currentTime > eventEnd);
 
     const showAudioPlayer =
-      (!eventIsLive && showAudioPlayerBeforeLive) ||                    /* NOT LIVE & SHOW BEFORE */
+      (!eventIsLive && showAudioPlayerBeforeLive && isBeforeEvent) ||   /* NOT LIVE & SHOW BEFORE & AND EVENT IS COMING UP, HASNT STARTED YET */
       (!eventIsLive && showAudioPlayerAfterEnd && isAfterEvent) ||      /* NOT LIVE & SHOW AFTER & EVENT HAS PASSED */
       (eventIsLive && showAudioPlayerWhenLive);                         /* EVENT IS LIVE AND SHOW WHEN LIVE */
 
