@@ -5,6 +5,7 @@ import { white, black } from '../../../styles/variables/colors';
 import RemoveFromGallery from './RemoveFromGallery';
 import DeleteGallery from './DeleteGallery';
 import DeleteImage from './DeleteImage';
+import DownloadImage from './DownloadImage';
 import ShareMemberPhoto from './ShareMemberPhoto';
 import Heart from '../../common/heart/heart';
 import { likeImage } from '../../../services/my-pictures/like-image';
@@ -44,12 +45,6 @@ class PhotoActions extends Component {
   state = {
   };
 
-  handleDownloadPhotoClick = (event) => {
-    event.preventDefault();
-    const { imageURL } = this.props;
-    window.open(imageURL);
-  }
-
   render() {
     const {
       actionSource,
@@ -58,6 +53,7 @@ class PhotoActions extends Component {
       customerImageId,
       galleryId,
       heartProps,
+      imageURL,
       scheduledMissionId,
     } = this.props;
 
@@ -94,10 +90,9 @@ class PhotoActions extends Component {
           <DeleteGallery
             galleryId={galleryId}
           />}
-        {canDownload && <button onClick={this.handleDownloadPhotoClick} className="action">
-          <span className="fa fa-download"></span>
-          <div className="action-description">Download</div>
-        </button>}
+        {canDownload && <DownloadImage
+          imageURL={imageURL}
+        />}
         {canShareFlag && <ShareMemberPhoto
             customerImageId={customerImageId}
           />}
