@@ -131,6 +131,8 @@ $infoSpacing: 15px;
   .container {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
     font-weight: 400;
     width: 100%;
     padding: 0;
@@ -158,9 +160,7 @@ $infoSpacing: 15px;
   }
 
   .button-nav {
-    position: absolute;
-    right: 50px;
-    bottom: 5px;
+    align-self: flex-end;
     text-align: right;
     padding: 0;
   }
