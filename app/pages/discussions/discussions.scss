@@ -56,10 +56,6 @@ $infoSpacing: 15px;
   @include spacing;
   text-decoration: none;
   color: $darkBlueGray;
-
-  iframe {
-    width: 100%;
-  }
 }
 
 .discussionsContent {
