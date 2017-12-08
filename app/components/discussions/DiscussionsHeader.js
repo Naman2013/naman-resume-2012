@@ -12,10 +12,10 @@ const getHeaderStyle = imgUrl => ({
 const DiscussionsHeader = ({ title, newThreadUrl, imgUrl }) =>
   <header style={imgUrl && getHeaderStyle(imgUrl)} className={styles.DiscussionsHeader}>
     {title &&
-      <h1 className="title-container">Discussions: <span dangerouslySetInnerHTML={{ __html: title }} className="title" /></h1>
+      <div className="title-container">Discussions: <span dangerouslySetInnerHTML={{ __html: title }} className="title" /></div>
     }
     {!title &&
-      <h1 className="title-container">Discussions</h1>
+      <div className="title-container">Discussions</div>
     }
     <div className="button-nav">
       <Link className="button btn-primary" to={newThreadUrl || '/discussions/new-thread'}>
