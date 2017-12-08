@@ -4,9 +4,16 @@
 
 .DiscussionsHeader {
   @include header;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  height: auto;
+  min-height: 145px;
 
   .title-container {
     font-weight: 400;
+    width: 80%;
 
     &.center {
       margin: 0 auto;
@@ -15,6 +22,8 @@
 
   .button-nav {
     min-width: 115px;
+    align-self: flex-end;
+    padding: 0;
 
     .btn-primary {
       margin: 0;
