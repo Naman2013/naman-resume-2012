@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import styles from './discussions-header.scss';
+import { white } from '../../styles/variables/colors';
 
 const { arrayOf, string } = PropTypes;
 
@@ -12,16 +13,21 @@ const getHeaderStyle = imgUrl => ({
 const DiscussionsHeader = ({ title, newThreadUrl, imgUrl }) =>
   <header style={imgUrl && getHeaderStyle(imgUrl)} className={styles.DiscussionsHeader}>
     {title &&
-      <div className="title-container">Discussions: <span dangerouslySetInnerHTML={{ __html: title }} className="title" /></div>
+      <div className="title-container"><Link to="/discussions/" className="discussions-link">Discussions:</Link> <span dangerouslySetInnerHTML={{ __html: title }} className="title" /></div>
     }
     {!title &&
-      <div className="title-container">Discussions</div>
+      <div className="title-container"><Link to="/discussions/" className="discussions-link">Discussions</Link></div>
     }
     <div className="button-nav">
       <Link className="button btn-primary" to={newThreadUrl || '/discussions/new-thread'}>
         <i className="fa fa-plus" /> New Thread
       </Link>
     </div>
+    <style jsx global>{`
+      .discussions-link {
+        color: ${white};
+      }
+    `}</style>
   </header>;
 
 DiscussionsHeader.defaultProps = {
