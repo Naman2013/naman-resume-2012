@@ -6,6 +6,7 @@ import DiscussionsReplyItem from '../../../components/discussions/DiscussionsRep
 import styles from '../discussions.scss';
 import ByUserTag from '../../../components/common/by-user-tag/by-user-tag';
 import Heart from '../../../components/common/heart/heart';
+import PulsePostThumbnails from '../../../components/pulse/pulse-post-image-thumbnails';
 
 const { array, func, object, string, number } = PropTypes;
 
@@ -30,6 +31,9 @@ class DiscussionsThread extends Component {
     return (
       <div>
         <article className={styles.discussionsItem}>
+          {
+            images && images.length > 0 ? <PulsePostThumbnails images={images} /> : null
+          }
           <ByUserTag
             photo={thread.avatarURL}
             name={thread.displayName}
@@ -43,7 +47,6 @@ class DiscussionsThread extends Component {
             className={styles.discussionsTitle}
             dangerouslySetInnerHTML={{ __html: thread.content }}
           />
-          {images.map(img => <a href={img} rel="noopener noreferrer" target="_blank"><img className={styles.discussionsImages} key={img} alt="image" src={img} /></a>)}
           {thread.closedFlag === 'no' && <div className={styles.discussionsReplies}>
             <Link className={`${styles.discussionsrepliesText} inline-block`} to={`/discussions/forums/${forumId}/topics/${topicId}/threads/${thread.threadId}/new-reply`}>
               <span>Reply</span>

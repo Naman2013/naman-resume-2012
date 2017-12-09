@@ -29,6 +29,8 @@ function mapStateToProps({ countdown, upcomingEvents, audioPlayer }) {
     showAudioPlayerBeforeLive: audioPlayer.showAudioPlayerBeforeLive,
     showAudioPlayerWhenLive: audioPlayer.showAudioPlayerWhenLive,
     showAudioPlayerAfterEnd: audioPlayer.showAudioPlayerAfterEnd,
+    audioPlayerEventEnd: audioPlayer.eventEnd,
+    audioPlayerEventStart: audioPlayer.eventStart,
     countdown,
     nextEvent: upcomingEvents.nextEvent,
     serverTime: upcomingEvents.upcomingEvents.timestamp,
@@ -117,7 +119,7 @@ export default class Header extends Component {
       const testEventStart = eventStartMoment;
       const testEventEnd = eventEndMoment;
 
-      //  USE THIS FOR TESTING TIMES
+      //  USE THIS TO OVERRIDE AND FOR TESTING TIMES
       //  this website helps: https://www.epochconverter.com/
       // if (eventId == 421) {
       //   testEventStart = moment.unix(1493057127);
@@ -139,12 +141,31 @@ export default class Header extends Component {
       showAudioPlayerBeforeLive,
       showAudioPlayerWhenLive,
       showAudioPlayerAfterEnd,
+      countdownEventTimer,
+      audioPlayerEventStart,
+      audioPlayerEventEnd,
     } = this.props;
 
+    /* re we before the event start time? */
+    const isBeforeEvent = (countdownEventTimer.currentTime < audioPlayerEventStart)
+
+    /* has the event passed? */
+    const isAfterEvent = (countdownEventTimer.currentTime > audioPlayerEventEnd);
+
     const showAudioPlayer =
-      (!eventIsLive && showAudioPlayerBeforeLive) ||
-      (!eventIsLive && showAudioPlayerAfterEnd) ||
-      (eventIsLive && showAudioPlayerWhenLive);
+      (!eventIsLive && showAudioPlayerBeforeLive && isBeforeEvent) ||   /* NOT LIVE & SHOW BEFORE & AND EVENT IS COMING UP, HASNT STARTED YET */
+      (!eventIsLive && showAudioPlayerAfterEnd && isAfterEvent) ||      /* NOT LIVE & SHOW AFTER & EVENT HAS PASSED */
+      (eventIsLive && showAudioPlayerWhenLive);                         /* EVENT IS LIVE AND SHOW WHEN LIVE */
+
+    //console.log("Event End: " + audioPlayerEventEnd);
+    //console.log("Show Audio Player: " + showAudioPlayer);
+    //console.log("---------------------");
+    //console.log("Is Before Event?: " + isBeforeEvent);
+    //console.log("Is After Event?: " + isAfterEvent);
+    //console.log("Before Show Flag: " + (!eventIsLive && showAudioPlayerBeforeLive && isBeforeEvent) );
+    //console.log("After Show Flag: " + (!eventIsLive && showAudioPlayerAfterEnd && isAfterEvent) );
+    //console.log("During Show Flag: " + (eventIsLive && showAudioPlayerWhenLive) );
+    //console.log("---------------------");
 
     return (
       <header className="mainHeader" id="mainHeader">

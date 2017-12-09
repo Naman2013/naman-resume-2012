@@ -10,6 +10,7 @@ $infoSpacing: 15px;
 }
 
 .discussionsItem {
+  overflow: auto;
   padding-left: 50px;
   border-bottom: 1px solid $gray;
 
@@ -65,6 +66,7 @@ $infoSpacing: 15px;
   @include spacing;
   position: relative;
   text-decoration: none;
+  display: inline-block;
 
   hr {
     border-top: 1px solid $black;
@@ -100,13 +102,15 @@ $infoSpacing: 15px;
 
 
 .discussionsThreadHeader {
+  display: flex;
+  flex-direction: column;
   position: relative;
   font-family: $primary-font;
   background: #4c4c4c; /* Old browsers */
   background: -moz-linear-gradient(180deg,  #4c4c4c 0%, #131313 100%); /* FF3.6-15 */
   background: -webkit-linear-gradient(180deg,  #4c4c4c 0%,#131313 100%); /* Chrome10-25,Safari5.1-6 */
   background: linear-gradient(180deg,  #4c4c4c 0%,#131313 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-  height: 145px;
+  min-height: 145px;
   display: block;
   width: 100%;
   padding: 10px 50px;
@@ -125,15 +129,18 @@ $infoSpacing: 15px;
   }
 
   .container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
     font-weight: 400;
     width: 100%;
     padding: 0;
-    height: 100px;
+    min-height: 100px;
     bottom: 0;
   }
 
   .title-container {
-    position: absolute;
     bottom: 5px;
     color: $white;
     text-transform: uppercase;
@@ -153,9 +160,7 @@ $infoSpacing: 15px;
   }
 
   .button-nav {
-    position: absolute;
-    right: 50px;
-    bottom: 5px;
+    align-self: flex-end;
     text-align: right;
     padding: 0;
   }
