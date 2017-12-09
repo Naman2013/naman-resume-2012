@@ -31,7 +31,7 @@ class PulsePostContent extends Component {
         showLikePrompt,
         likesCount,
       },
-      showExcerpt
+      showExcerpt,
     } = this.props;
 
     return (
