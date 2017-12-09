@@ -1,26 +1,28 @@
 /* VARIABLES: Typefaces
  * */
 .sponsorImagesContainer {
+  display: inline-block;
+  text-align: justify;
   font-family: "Brandon Grotesque", "brandon-grotesque", sans-serif;
   background: #fff;
   padding: 15px 10px;
-  text-align: center; }
+  text-align: center;
+  min-width: 100%;
+  width: 100% }
   .sponsorImagesContainer:after {
     content: " ";
-    display: block;
-    clear: both; }
+    display: inline-block;
+    clear: both;
+    width: 100% }
   .sponsorImagesContainer .title {
     font-weight: 300;
     margin: 0;
     margin-bottom: 30px; }
   .sponsorImagesContainer .sponsor-images {
-    list-style-type: none;
     padding: 0;
     margin: 0 auto;
-    width: 1120px; }
+    min-width: 100%; }
     .sponsorImagesContainer .sponsor-images .sponsorImage {
-      width: 130px;
-      height: 100px;
       float: left;
       margin-right: 10px; }
       .sponsorImagesContainer .sponsor-images .sponsorImage:last-child {
