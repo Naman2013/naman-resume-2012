@@ -8,11 +8,13 @@ import PulsePopular from '../../components/pulse/sidebar/pulse-popular';
 import SloohRecommends from '../../components/common/recommendations/SloohRecommends';
 import CommunityPostHeader from '../../components/community/community-post-header';
 import GoogleAd from '../../components/common/google-ads/GoogleAd';
+import SharedPictures from '../../components/home/shared-pictures';
 import { fetchPost, fetchContent } from '../../modules/pulse/get-post-action';
 
-function mapStateToProps({ post }, ownProps) {
+function mapStateToProps({ post, sharedMemberPhotos }, ownProps) {
   return {
     ...post,
+    sharedMemberPhotos,
     id: ownProps.params.id,
   };
 }
@@ -64,6 +66,10 @@ class PulsePost extends Component {
       fetching,
       failed,
       children,
+      sharedMemberPhotos: {
+        imageList,
+        timelineData
+      },
       pageMeta: {
         headerIconURL,
         headerObjectTitle,
@@ -100,12 +106,18 @@ class PulsePost extends Component {
             {
               !fetching && failed ? <GenericLoadingBox text="This post is not available." /> : null
             }
-              <div>
+              <div className="pulse-post-extras">
                 <h3 className="center">
                   <Link to={`/authors/${post.customerId}`}>
                     More posts from this author
                   </Link>
                 </h3>
+                {post.showMemberPicturesFlag && <SharedPictures
+                  heading={''}
+                  subheading={''}
+                  imageList={imageList}
+                  timelineData={timelineData}
+                />}
 {/*                <hr />
                 <Pagination
                   onChange={this.fetchMoreAuthorPosts}

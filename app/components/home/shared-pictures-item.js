@@ -165,7 +165,7 @@ class SharedPicturesItem extends Component {
       <div className="shared-pictures-item">
         {error && <div className="loading">There was an error fetching this photo.</div>}
         {fetching && <div className="loading">Loading...</div>}
-        {!error && !fetching && <div className="container">
+        {!error && !fetching && <div className="shared-pictures-item-container">
           <Link to={`/my-pictures/show-image/${customerImageId}/${shareToken}`}>
             <div style={{ backgroundImage: `url(${imageURL})` }} className="shared-image" />
           </Link>
@@ -212,7 +212,7 @@ class SharedPicturesItem extends Component {
         </div>}
         <style jsx>{`
 
-          .container {
+          .shared-pictures-item-container {
             position: relative;
             display: flex;
             flex-direction: row;
@@ -224,13 +224,18 @@ class SharedPicturesItem extends Component {
           }
           @media(max-width:767px){
 
-              .container{padding:0px}
+              .shared-pictures-item-container{padding:0px}
           }
 
           .shared-image {
             ${backgroundImageCover}
             height: auto;
-            width: 500px;
+            min-width: 200px;
+            max-width: 500px;
+          }
+
+          :global(.pulse-post-extras) .shared-image {
+            width: 365px;
           }
 
           .shared-image:before {
@@ -240,7 +245,7 @@ class SharedPicturesItem extends Component {
             padding-top: 68.49%;
           }
             @media(max-width:640px){
-            .shared-pictures-item .container {display:block}
+            .shared-pictures-item .shared-pictures-item-container {display:block}
             .shared-image, .info-panel{width:100%}
 
 
@@ -276,10 +281,15 @@ class SharedPicturesItem extends Component {
             align-items: stretch;
             padding: 25px;
             color: #2d3949;
-            width: 250px;
+            min-width:150px
+            max-width: 250px;
             max-height: 340px;
             background-color: ${white};
             position: relative;
+          }
+
+          :global(.pulse-post-extras) .info-panel {
+            height: 250px;
           }
 
           .title {
