@@ -1,10 +1,12 @@
 import createReducer from '../utils/createReducer';
 
-import { SET_PAGE_TITLE } from './seo-actions';
+import { SET_PAGE_TITLE, RESET_PAGE_META } from './seo-actions';
 
 export const initialState = {
   pageTitle: 'Learn to explore space',
-  description: 'Do you wonder what is out there? Join a community of fellow Earthlings looking through powerful telescopes into outer space.',
+  standard: {
+    description: 'Do you wonder what is out there? Join a community of fellow Earthlings looking through powerful telescopes into outer space.',
+  },
   og: {
     title: 'Slooh.com is Teaching the world to explore space.',
     audio: '',
@@ -23,6 +25,11 @@ export default createReducer(initialState, {
     return ({
       ...state,
       title,
+    });
+  },
+  [RESET_PAGE_META]() {
+    return ({
+      ...initialState,
     });
   },
 });
