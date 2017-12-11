@@ -9,7 +9,7 @@ class WelcomeToSlooh extends Component {
   render() {
     return (
       <div>
-        <h1>Welcome to Slooh!</h1>
+        Welcome To Slooh!s
       </div>
     );
   }
