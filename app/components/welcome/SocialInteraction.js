@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router';
 import { white, lightGray, darkBlueGray } from '../../styles/variables/colors';
 
 class SocialInteraction extends Component {
@@ -8,22 +9,28 @@ class SocialInteraction extends Component {
   }
 
   render() {
+    const dataElements = {
+      pageNumber: '02',
+      title: "SOCIAL<br/>INTERACTION",
+      subtitle: "You wouldn't swim alone and you shouldn't explore space alone, either. Learn from others by exchanging ideas in the community and engaging with our teachers.",
+      buttonText: 'Visit The Community',
+      buttonLink: '/about/pricing',
+    }
+
     return (
       <div className="socialinteraction-container">
         <div className="socialinteraction-innercontainer">
           <img src="../../../assets/images/welcome/DottedLine.png"/>
-          <h1 id="pageNumber">02</h1>
+          <h1 id="pageNumber">{dataElements.pageNumber}</h1>
           <hr/>
-          <h1 className="title">SOCIAL<br/>INTERACTION</h1>
-          <h2>You wouldn't swim along and you shouldn't explore
-              space alone, either. Learn from others by exchanging
-              ideas in the community and engaging with our
-              teachers.</h2>
+          <h1 className="title" dangerouslySetInnerHTML={{ __html: dataElements.title }}/>
+          <h2>{dataElements.subtitle}</h2>
+          <a className="btn-primary" target="_blank" href={dataElements.buttonLink}>{dataElements.buttonText}</a>
         </div>
         <style jsx>{`
           #pageNumber {
             font-weight: bold;
-            font-size: 1.7em;
+            font-size: 1.4em;
             color: ${white};
           }
 
@@ -47,17 +54,18 @@ class SocialInteraction extends Component {
             min-width: 100%;
             position: relative;
             text-align: center;
-            font-size: 3.75em;
+            font-size: 3em;
             color: ${white};
           }
 
           .socialinteraction-innercontainer h2 {
               font-weight: normal;
-              font-size: 1.7em;
+              font-size: 1.5em;
               color: ${white};
               max-width: 40%;
               margin-left: auto;
               margin-right: auto;
+              padding-bottom: 30px;
           }
 
           .socialinteraction-innercontainer hr {
