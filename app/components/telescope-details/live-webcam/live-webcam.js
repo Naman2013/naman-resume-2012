@@ -6,6 +6,7 @@ import RefreshedImage from '../../common/refreshed-static-image/RefreshedImage';
 import GenericLoadingBox from '../../common/loading-screens/generic-loading-box';
 import { fetchObservatoryWebcam } from '../../../modules/Telescope-Overview';
 import './live-webcam.scss';
+import { white } from '../../../styles/variables/colors';
 
 const mapStateToProps = ({
   telescopeOverview,
@@ -18,6 +19,7 @@ const mapStateToProps = ({
   refreshIntervalSec: observatoryLiveWebcamResult.refreshIntervalSec,
   facilityWebcamURL: observatoryLiveWebcamResult.facilityWebcamURL,
   fetchingObservatoryLiveWebcamResult: telescopeOverview.fetchingObservatoryLiveWebcamResult,
+  logoWidth: '150px',
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -38,6 +40,7 @@ class LiveWebcam extends Component {
       fetchObservatoryWebcam: PropTypes.func.isRequired,
     }).isRequired,
     imageWidth: PropTypes.string.isRequired,
+    logoWidth: PropTypes.string.isRequired,
   };
 
   componentDidMount() {
@@ -66,28 +69,34 @@ class LiveWebcam extends Component {
       facilityWebcamURL,
       imageWidth,
       title,
+      logoURL,
+      logoWidth,
     } = this.props;
 
     const inlineTitleStyle = {
       color: 'white',
       textAlign: 'center',
+      position: 'absolute',
+      minWidth: '100%',
     }
 
     return (
       <div className="telescope-block live-webcam">
-        <div className="live-webcam-feed">
-          {
-            !fetchingObservatoryLiveWebcamResult ?
-              <div>
-                <h1 style={inlineTitleStyle}>{title}</h1>
-                <RefreshedImage
-                  imageURL={facilityWebcamURL}
-                  maxImageWidth={imageWidth}
-                  refreshIntervalSec={refreshIntervalSec}
-                />
-              </div> : <GenericLoadingBox />
-          }
+        <div className="top">
+          <h3>{title}</h3>
+          <img alt="Sponsored by logo" className="topLogo" height="40" src={logoURL} />
         </div>
+
+        <div className="live-webcam-feed">
+           {
+             facilityWebcamURL ?
+               <img
+                 alt="Webcam feed"
+                 src={facilityWebcamURL}
+                 width="100%"
+               /> : <GenericLoadingBox />
+           }
+         </div>
       </div>
     );
   }
