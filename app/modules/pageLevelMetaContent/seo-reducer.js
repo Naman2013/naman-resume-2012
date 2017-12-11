@@ -4,7 +4,7 @@ import { SET_PAGE_TITLE } from './seo-actions';
 
 export const initialState = {
   pageTitle: 'Learn to explore space',
-  description: '',
+  description: 'Do you wonder what is out there? Join a community of fellow Earthlings looking through powerful telescopes into outer space.',
   og: {
     title: 'Slooh.com is Teaching the world to explore space.',
     audio: '',
