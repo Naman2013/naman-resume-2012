@@ -32,7 +32,7 @@ export default createReducer(initialState, {
       standard: Object.assign({}, initialState.standard, payload),
     });
   },
-  [SET_STANDARD_META](state, { payload }) {
+  [SET_OPEN_GRAPH_META](state, { payload }) {
     return ({
       ...state,
       og: Object.assign({}, initialState.og, payload),
