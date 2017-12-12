@@ -5,6 +5,7 @@ import {
   RESET_PAGE_META,
   SET_STANDARD_META,
   SET_OPEN_GRAPH_META,
+  SET_OG_CANONICAL_URL,
 } from './seo-actions';
 
 export const initialState = {
@@ -27,26 +28,35 @@ export const initialState = {
 
 export default createReducer(initialState, {
   [SET_STANDARD_META](state, { payload }) {
-    return ({
+    return {
       ...state,
       standard: Object.assign({}, initialState.standard, payload),
-    });
+    };
   },
   [SET_OPEN_GRAPH_META](state, { payload }) {
-    return ({
+    return {
       ...state,
       og: Object.assign({}, initialState.og, payload),
-    });
+    };
   },
   [SET_PAGE_TITLE](state, { title }) {
-    return ({
+    return {
       ...state,
       title,
-    });
+    };
   },
   [RESET_PAGE_META]() {
-    return ({
+    return {
       ...initialState,
-    });
+    };
   },
+  [SET_OG_CANONICAL_URL](state, { pageURL }) {
+    return {
+      ...state,
+      og: {
+        ...state.og,
+        url: pageURL,
+      }
+    };
+  }
 });
