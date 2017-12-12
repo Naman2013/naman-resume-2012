@@ -1,6 +1,11 @@
 import createReducer from '../utils/createReducer';
 
-import { SET_PAGE_TITLE, RESET_PAGE_META } from './seo-actions';
+import {
+  SET_PAGE_TITLE,
+  RESET_PAGE_META,
+  SET_STANDARD_META,
+  SET_OPEN_GRAPH_META,
+} from './seo-actions';
 
 export const initialState = {
   pageTitle: 'Learn to explore space',
@@ -21,6 +26,18 @@ export const initialState = {
 };
 
 export default createReducer(initialState, {
+  [SET_STANDARD_META](state, { payload }) {
+    return ({
+      ...state,
+      standard: Object.assign({}, initialState.standard, payload),
+    });
+  },
+  [SET_STANDARD_META](state, { payload }) {
+    return ({
+      ...state,
+      og: Object.assign({}, initialState.og, payload),
+    });
+  },
   [SET_PAGE_TITLE](state, { title }) {
     return ({
       ...state,
