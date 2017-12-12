@@ -8,7 +8,7 @@ import {
 } from './seo-actions';
 
 export const initialState = {
-  pageTitle: 'Learn to explore space',
+  title: 'Learn to explore space',
   standard: {
     description: 'Do you wonder what is out there? Join a community of fellow Earthlings looking through powerful telescopes into outer space.',
   },

@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { getFeaturedContent } from '../../services/featured-content/get-featured-content';
+import { setPageTitle, setStandardMeta, setOpenGraphMeta } from '../pageLevelMetaContent/seo-actions';
 
 export const FETCH_POST_START = 'FETCH_POST_START';
 export const FETCH_POST_SUCCESS = 'FETCH_POST_SUCCESS';
@@ -144,24 +145,23 @@ export const fetchPost = id => (dispatch, getState) => {
     cid,
     postId: id,
   })
-  .then(result => {
-    /**
-      only attempt to fetch the remaining bits of content when there
-      is no apiError detected
-
-      if there is an API error, place that content into the state to allow
-      others to know there was an APIError and they can handle it
-      */
+  .then((result) => {
     if (!result.data.apiError) {
+      // destructure and set page meta data for the post
+      const { title, typeIconURL, excerpt } = result.data.posts[0];
+      dispatch(setPageTitle(title));
+      dispatch(setStandardMeta({ description: excerpt }));
+      dispatch(setOpenGraphMeta({ title, description: excerpt, image: typeIconURL }));
+
+      // fetch additional information with what we received from getPost
       dispatch(fetchMeta(result.data.posts[0].slugLookupId));
-      dispatch(fetchPostSuccess(result.data));
       dispatch(fetchMoreAboutObject({
         slugLookupId: result.data.posts[0].slugLookupId,
         ignorePostId: id,
       }));
-    } else {
-      dispatch(fetchPostSuccess(result.data));
     }
+
+    dispatch(fetchPostSuccess(result.data));
   })
   .catch(error => dispatch(fetchPostFail(error)));
 };

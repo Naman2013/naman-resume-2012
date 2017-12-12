@@ -47,7 +47,7 @@ function generateMetaTags(tags = {}) {
 }
 
 const propTypes = {
-  pageTitle: PropTypes.string,
+  title: PropTypes.string,
   standard: PropTypes.shape({
     description: PropTypes.string,
   }),
@@ -59,7 +59,7 @@ const propTypes = {
 const defaultProps = { ...defaultApplicationMetaData };
 
 const mapStateToProps = ({ pageLevelMetaContent }) => ({
-  pageLevelMetaContent,
+  ...pageLevelMetaContent,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -75,7 +75,7 @@ class PageMetaManagement extends Component {
       <Helmet
         titleTemplate="%s | Slooh.com"
       >
-        <title>{this.props.pageTitle}</title>
+        <title>{this.props.title}</title>
         { generateMetaTags(this.props.standard) }
         { generateOpenGraphTags(this.props.og) }
       </Helmet>
