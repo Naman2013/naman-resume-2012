@@ -2,6 +2,12 @@ export const SET_PAGE_TITLE = 'SET_PAGE_TITLE';
 export const SET_STANDARD_META = 'SET_STANDARD_META';
 export const SET_OPEN_GRAPH_META = 'SET_OPEN_GRAPH_META';
 export const RESET_PAGE_META = 'RESET_PAGE_META';
+export const SET_OG_CANONICAL_URL = 'SET_OG_CANONICAL_URL';
+
+export const setOGCanonicalURL = pageURL => ({
+  type: SET_OG_CANONICAL_URL,
+  pageURL,
+});
 
 export const setOpenGraphMeta = payload => ({
   type: SET_OPEN_GRAPH_META,
