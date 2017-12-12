@@ -113,8 +113,8 @@ class PulsePost extends Component {
                   </Link>
                 </h3>
                 {post.showMemberPicturesFlag && <SharedPictures
-                  heading={''}
-                  subheading={''}
+                  heading={post.memberPicturesHeading}
+                  subheading={post.memberPicturesSubHeading}
                   imageList={imageList}
                   timelineData={timelineData}
                 />}

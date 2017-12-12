@@ -279,7 +279,16 @@ class SharedPictures extends Component {
               .pulse-post-extras .shared-slider-container{
                 height: auto;
                 max-height: none !important;
-                min-height: none !important;
+              }
+
+              .pulse-post-extras .slick-slider {
+                height: auto !important;
+              }
+            }
+
+            @media(max-width:1080px) {
+              .pulse-post-extras .slick-slider {
+                height: auto !important;
               }
             }
           `}
