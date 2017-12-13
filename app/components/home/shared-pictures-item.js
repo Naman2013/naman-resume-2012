@@ -230,8 +230,7 @@ class SharedPicturesItem extends Component {
           .shared-image {
             ${backgroundImageCover}
             height: auto;
-            min-width: 200px;
-            max-width: 500px;
+            width: 500px;
           }
 
           :global(.pulse-post-extras) .shared-image {

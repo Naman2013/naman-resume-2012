@@ -225,7 +225,15 @@ class SharedPictures extends Component {
               height: 75px;
               padding-top: 100px;
               padding-bottom: 10px;
-              text-align: middle;
+              text-align: center;
+            }
+
+            .pulse-post-extras .shared-container .slick-next {
+              text-align: left;
+            }
+
+            .pulse-post-extras .shared-container .slick-prev {
+              text-align: right;
             }
 
             .shared-container .slick-prev.slick-disabled,
@@ -263,7 +271,7 @@ class SharedPictures extends Component {
               padding-top: 75px;
               width: 50px;
               font-size: 10px;
-              top: 8%;
+              top: 30%;
             }
             @media(max-width:850px){
               .shared-container .slick-prev,  .shared-container .slick-next{padding:0px; height:auto; text-indent:-9999999px}
