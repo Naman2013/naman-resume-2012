@@ -136,14 +136,18 @@ class SharedPictures extends Component {
             padding: 25px 50px;
             background-color: #2d3949;
             color: ${white};
-            min-height: 500px;
             margin-bottom: 0px;
+          }
+
+          :not(:global(.pulse-post-extras)) .shared-container {
+            min-height: 500px;
           }
             @media(max-width:640px){
 
             .shared-container{padding:25px 30px}
 
             }
+
           .empty {
             padding: 50px;
             text-align: center;
@@ -200,6 +204,15 @@ class SharedPictures extends Component {
         <style jsx global>
           {`
 
+            .pulse-post-extras .shared-container,
+            .pulse-post-extras .shared-slider-container{
+              max-height: 600px;
+            }
+
+            .pulse-post-extras .slick-slider {
+              height: 300px !important;
+            }
+
             .shared-container .slick-prev {
               z-index: 99999;
             }
@@ -212,7 +225,15 @@ class SharedPictures extends Component {
               height: 75px;
               padding-top: 100px;
               padding-bottom: 10px;
-              text-align: middle;
+              text-align: center;
+            }
+
+            .pulse-post-extras .shared-container .slick-next {
+              text-align: left;
+            }
+
+            .pulse-post-extras .shared-container .slick-prev {
+              text-align: right;
             }
 
             .shared-container .slick-prev.slick-disabled,
@@ -239,13 +260,44 @@ class SharedPictures extends Component {
               position: absolute;
               top: 40px;
             }
-            @media(max-width:736px){
-                      .shared-container .slick-prev,  .shared-container .slick-next{padding:0px; height:auto; text-indent:-9999999px}
-                      .shared-container .slick-prev {left:-45px}
-                      .shared-container .slick-next {right:-51px}
-                      .shared-container .slick-prev:before,
-                      .shared-container .slick-next:before {text-indent:0px; font-size:20px !important}
 
+            .pulse-post-extras .slick-next:before,
+            .pulse-post-extras .slick-prev:before {
+              font-size: 20px;
+            }
+
+            .pulse-post-extras .slick-next,
+            .pulse-post-extras .slick-prev {
+              padding-top: 75px;
+              width: 50px;
+              font-size: 10px;
+              top: 30%;
+            }
+            @media(max-width:850px){
+              .shared-container .slick-prev,  .shared-container .slick-next{padding:0px; height:auto; text-indent:-9999999px}
+              .shared-container .slick-prev {left:-45px}
+              .shared-container .slick-next {right:-51px}
+              .shared-container .slick-prev:before,
+              .shared-container .slick-next:before {text-indent:0px; font-size:20px !important}
+
+            }
+
+            @media(max-width:775px) {
+              .pulse-post-extras .shared-container,
+              .pulse-post-extras .shared-slider-container{
+                height: auto;
+                max-height: none !important;
+              }
+
+              .pulse-post-extras .slick-slider {
+                height: auto !important;
+              }
+            }
+
+            @media(max-width:1080px) {
+              .pulse-post-extras .slick-slider {
+                height: auto !important;
+              }
             }
           `}
         </style>

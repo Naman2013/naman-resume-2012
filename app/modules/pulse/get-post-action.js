@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { getFeaturedContent } from '../../services/featured-content/get-featured-content';
+import { getSharedMemberPhotos } from '../get-shared-member-photos/actions';
 
 export const FETCH_POST_START = 'FETCH_POST_START';
 export const FETCH_POST_SUCCESS = 'FETCH_POST_SUCCESS';
@@ -159,6 +160,11 @@ export const fetchPost = id => (dispatch, getState) => {
         slugLookupId: result.data.posts[0].slugLookupId,
         ignorePostId: id,
       }));
+      if (result.data.posts[0].showMemberPicturesFlag){
+        dispatch(getSharedMemberPhotos({
+          objectId: result.data.posts[0].objectId
+        }))
+      }
     } else {
       dispatch(fetchPostSuccess(result.data));
     }
