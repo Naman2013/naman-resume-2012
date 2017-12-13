@@ -5,6 +5,7 @@
   background: #fff;
   padding: 15px 10px;
   text-align: center;
+  display: block;
 
   &:after {
     content: " ";
@@ -25,8 +26,8 @@
     width: 1120px;
 
     .sponsorImage {
-      width: 130px;
-      height: 100px;
+      width: 170px;
+      height: 110px;
       float: left;
       margin-right: 10px;
 

@@ -65,48 +65,28 @@ const initialState = {
   SPONSORS_SUB_TITLE: 'Our partners help to bring live telescope feeds of the cosmos to the world.',
   SPONSOR_IMAGES: [
     {
-      imageUrl: 'https://vega.slooh.com/assets/images/sponsors/ABC_News_Logo.jpg',
-      size: '90%',
-    },
-    {
-      imageUrl: 'https://vega.slooh.com/assets/images/sponsors/42_digital_logo_dark_blue_HI.png',
-      size: '80%',
-    },
-    {
-      imageUrl: 'https://vega.slooh.com/assets/images/sponsors/Wanderlust-truenorth-web-1.png',
-      size: '90%',
-    },
-    {
       imageUrl: 'https://vega.slooh.com/assets/images/sponsors/logo-iac.png',
-      size: '60%',
+      size: '55%',
     },
     {
       imageUrl: 'https://vega.slooh.com/assets/images/sponsors/pontificia.png',
-      size: '90%',
+      size: '100%',
     },
     {
       imageUrl: 'https://vega.slooh.com/assets/images/sponsors/ASP-logo.png',
-      size: '70%',
-    },
-    {
-      imageUrl: 'https://vega.slooh.com/assets/images/sponsors/OFA-logo.png',
-      size: '70%',
-    },
-    {
-      imageUrl: 'https://vega.slooh.com/assets/images/sponsors/TimeandDate.png',
-      size: '90%',
-    },
-    {
-      imageUrl: 'https://vega.slooh.com/assets/images/sponsors/fiat-physica.png',
-      size: '90%',
+      size: '55%',
     },
     {
       imageUrl: 'https://vega.slooh.com/assets/images/sponsors/ctinnovations.jpg',
-      size: '90%',
+      size: '100%',
     },
     {
-      imageUrl: 'https://vega.slooh.com/logos/PSLogo.png',
-      size: '90%',
+      imageUrl: 'https://vega.slooh.com/assets/images/sponsors/nsf1.jpg',
+      size: '60%',
+    },
+    {
+      imageUrl: 'https://vega.slooh.com/assets/images/sponsors/sbir-logo.png',
+      size: '100%',
     },
   ],
 };
