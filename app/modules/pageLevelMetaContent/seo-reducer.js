@@ -36,7 +36,7 @@ export default createReducer(initialState, {
   [SET_OPEN_GRAPH_META](state, { payload }) {
     return {
       ...state,
-      og: Object.assign({}, initialState.og, payload),
+      og: Object.assign({}, state.og, payload),
     };
   },
   [SET_PAGE_TITLE](state, { title }) {
@@ -56,7 +56,7 @@ export default createReducer(initialState, {
       og: {
         ...state.og,
         url: pageURL,
-      }
+      },
     };
-  }
+  },
 });
