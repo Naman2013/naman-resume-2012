@@ -398,7 +398,7 @@ class TelescopeDetails extends Component {
               <TelescopeDetailsTabs
                 obsId={currentObservatory.obsId}
                 CurrentConditionsWidgetId={currentObservatory.CurrentConditionsWidgetId}
-                DayNightBarWidgetId={currentObservatory.DayNightBarWidgetId}
+                DayNightBarPanelWidgetId={currentObservatory.DayNightBarPanelWidgetId}
                 DayNightMapWidgetId={currentObservatory.DayNightMapWidgetId}
                 AllskyWidgetId={currentObservatory.AllskyWidgetId}
                 DomecamWidgetId={currentObservatory.DomecamWidgetId}

@@ -12,7 +12,7 @@ import {
 import { validateResponseAccess } from '../authorization/actions';
 
 import fetchCurrentConditions from '../../services/sky-widgets/current-conditions';
-import fetchDayNightBar from '../../services/sky-widgets/day-night-bar';
+import fetchDayNightBarPanel from '../../services/sky-widgets/day-night-bar-panel';
 import fetchDayNightMap from '../../services/sky-widgets/day-night-map';
 import fetchAllSkyCamera from '../../services/sky-widgets/all-sky-camera';
 import fetchDomeCam from '../../services/sky-widgets/dome-cam';
@@ -34,8 +34,8 @@ export const UPDATE_TELESCOPE_STATUS = 'UPDATE_TELESCOPE_STATUS';
 export const FETCH_CURRENT_WEATHER_CONDITIONS_START = 'FETCH_CURRENT_WEATHER_CONDITIONS_START';
 export const FETCH_CURRENT_WEATHER_CONDITIONS_SUCCESS = 'FETCH_CURRENT_WEATHER_CONDITIONS_SUCCESS';
 
-export const FETCH_DAY_NIGHT_BAR_START = 'FETCH_DAY_NIGHT_BAR_START';
-export const FETCH_DAY_NIGHT_BAR_SUCCESS = 'FETCH_DAY_NIGHT_BAR_SUCCESS';
+export const FETCH_DAY_NIGHT_BAR_PANEL_START = 'FETCH_DAY_NIGHT_BAR_PANEL_START';
+export const FETCH_DAY_NIGHT_BAR_PANEL_SUCCESS = 'FETCH_DAY_NIGHT_BAR_PANEL_SUCCESS';
 
 export const FETCH_DAY_NIGHT_MAP_START = 'FETCH_DAY_NIGHT_MAP_START';
 export const FETCH_DAY_NIGHT_MAP_SUCCESS = 'FETCH_DAY_NIGHT_MAP_SUCCESS';
@@ -338,33 +338,33 @@ const fetchWeatherConditions = ({ obsId, CurrentConditionsWidgetId }) => (dispat
   }).then(result => dispatch(fetchWeatherConditionsSuccess(result.data)));
 };
 
-const fetchDayNightBarStart = () => ({
-  type: FETCH_DAY_NIGHT_BAR_START,
+const fetchDayNightBarPanelStart = () => ({
+  type: FETCH_DAY_NIGHT_BAR_PANEL_START,
 });
 
-const fetchDayNightBarSuccess = payload => ({
-  type: FETCH_DAY_NIGHT_BAR_SUCCESS,
+const fetchDayNightBarPanelSuccess = payload => ({
+  type: FETCH_DAY_NIGHT_BAR_PANEL_SUCCESS,
   payload,
 });
 
-const fetchDayNightBarAction = ({ obsId, DayNightBarWidgetId }) => (dispatch) => {
-  dispatch(fetchDayNightBarStart());
-  return fetchDayNightBar({
+const fetchDayNightBarPanelAction = ({ obsId, DayNightBarPanelWidgetId }) => (dispatch) => {
+  dispatch(fetchDayNightBarPanelStart());
+  return fetchDayNightBarPanel({
     obsId,
-    DayNightBarWidgetId,
-  }).then(result => dispatch(fetchDayNightBarSuccess(result.data)));
+    DayNightBarPanelWidgetId,
+  }).then(result => dispatch(fetchDayNightBarPanelSuccess(result.data)));
 };
 
 export const fetchAllWidgets = ({
   obsId,
   CurrentConditionsWidgetId,
-  DayNightBarWidgetId,
+  DayNightBarPanelWidgetId,
   DayNightMapWidgetId,
   AllskyWidgetId,
   DomecamWidgetId,
 }) => (dispatch) => {
   dispatch(fetchWeatherConditions({ obsId, CurrentConditionsWidgetId }));
-  dispatch(fetchDayNightBarAction({ obsId, DayNightBarWidgetId }));
+  dispatch(fetchDayNightBarPanelAction({ obsId, DayNightBarPanelWidgetId }));
   dispatch(fetchDayNightMapAction({ obsId, DayNightMapWidgetId }));
   dispatch(fetchAllSkyAction({ obsId, AllskyWidgetId }));
   dispatch(fetchDomeCamAction({ obsId, DomecamWidgetId }));
