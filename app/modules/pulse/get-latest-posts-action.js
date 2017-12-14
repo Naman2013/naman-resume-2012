@@ -10,9 +10,13 @@ export const FETCH_PAGE_META_SUCCESS = 'FETCH_PAGE_META_SUCCESS';
 export const FETCH_FEATURED_CONTENT_START = 'FETCH_FEATURED_CONTENT_START';
 export const FETCH_FEATURED_CONTENT_SUCCESS = 'FETCH_FEATURED_CONTENT_SUCCESS';
 
-export const FETCH_LATEST_POSTS_START = 'FETCH_LATEST_POSTS_START';
-export const FETCH_LATEST_POSTS_SUCCESS = 'FETCH_LATEST_POSTS_SUCCESS';
-export const FETCH_LATEST_POSTS_FAIL = 'FETCH_LATEST_POSTS_FAIL';
+export const FETCH_POSTS_START = 'FETCH_POSTS_START';
+export const FETCH_POSTS_SUCCESS = 'FETCH_POSTS_SUCCESS';
+export const FETCH_POSTS_FAIL = 'FETCH_POSTS_FAIL';
+
+export const SEARCH_POSTS_START = 'SEARCH_POSTS_START';
+export const SEARCH_POSTS_SUCCESS = 'SEARCH_POSTS_SUCCESS';
+export const SEARCH_POSTS_FAIL = 'SEARCH_POSTS_FAIL';
 
 export const RESET_ILLUMINATIONS_POSTS = 'RESET_ILLUMINATIONS_POSTS';
 
@@ -49,16 +53,16 @@ export const fetchPageMeta = () => (dispatch) => {
 };
 
 const fetchPostsStart = () => ({
-  type: FETCH_LATEST_POSTS_START,
+  type: FETCH_POSTS_START,
 });
 
 const fetchPostsSuccess = payload => ({
-  type: FETCH_LATEST_POSTS_SUCCESS,
+  type: FETCH_POSTS_SUCCESS,
   payload,
 });
 
 const fetchPostsFail = payload => ({
-  type: FETCH_LATEST_POSTS_FAIL,
+  type: FETCH_POSTS_FAIL,
   payload,
 });
 
@@ -85,3 +89,33 @@ export const fetchPosts = (path, type, page) => (dispatch, getState) => {
 export const resetIlluminationsPosts = () => ({
   type: RESET_ILLUMINATIONS_POSTS,
 });
+
+const searchPostsStart = () => ({
+  type: SEARCH_POSTS_START,
+});
+
+const searchPostsSuccess = payload => ({
+  type: SEARCH_POSTS_SUCCESS,
+  payload,
+});
+
+const searchPostsFail = payload => ({
+  type: SEARCH_POSTS_FAIL,
+  payload,
+});
+
+export const searchPosts = ({ searchterm, page }) => (dispatch, getState) => {
+  const { cid } = getState().user;
+  const { postsPerPage } = getState().illuminationsPosts;
+
+  dispatch(searchPostsStart());
+
+  return axios.post('/api/content/searchContent', {
+    cid,
+    count: postsPerPage,
+    page,
+    searchterm,
+  })
+  .then(result => dispatch(searchPostsSuccess(Object.assign({ page }, result.data))))
+  .catch(error => dispatch(searchPostsFail(error)));
+};

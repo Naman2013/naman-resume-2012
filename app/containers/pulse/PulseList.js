@@ -5,7 +5,12 @@ import PulseListHeader from '../../components/pulse/pulse-list-header';
 import CategoriesNav from '../../components/community/categories-nav';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { fetchPosts, fetchPageMeta } from '../../modules/pulse/get-latest-posts-action';
+import {
+  fetchPosts,
+  fetchPageMeta,
+  resetIlluminationsPosts,
+  searchPosts,
+} from '../../modules/pulse/get-latest-posts-action';
 import './Pulse.scss';
 
 
@@ -87,6 +92,8 @@ function mapDispatchToProps(dispatch) {
     actions: bindActionCreators({
       fetchPosts,
       fetchPageMeta,
+      resetIlluminationsPosts,
+      searchPosts,
     }, dispatch)
   };
 }
@@ -108,13 +115,16 @@ class PulseList extends Component {
 
   render() {
     const {
-      route,
-      location,
-      actions: { fetchPosts },
-      illuminations,
-      fetching,
+      actions: { fetchPosts, resetIlluminationsPosts, searchPosts },
       childPath,
       children,
+      fetching,
+      illuminations,
+      location,
+      route,
+      searchTriggered,
+      fetchingPopularPosts,
+      page,
       pageMeta: {
         headerTitle,
         headerSubtitle,
@@ -122,6 +132,8 @@ class PulseList extends Component {
         objectIdList,
         showRecommends,
       },
+      popularPosts,
+      postsPerPage,
     } = this.props;
 
     const formattedObjectIdList =
@@ -139,11 +151,18 @@ class PulseList extends Component {
 
         {
           cloneElement(children, {
-            fetchPosts,
             childPath,
-            illuminations,
             fetching,
+            fetchingPopularPosts,
+            fetchPosts,
             formattedObjectIdList,
+            illuminations,
+            page,
+            popularPosts,
+            postsPerPage,
+            resetIlluminationsPosts,
+            searchPosts,
+            searchTriggered,
             showRecommends,
           })
         }

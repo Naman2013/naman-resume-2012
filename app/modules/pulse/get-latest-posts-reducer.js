@@ -1,14 +1,17 @@
 import createReducer from '../utils/createReducer';
 
 import {
-  FETCH_POPULAR_POSTS_START,
-  FETCH_POPULAR_POSTS_SUCCESS,
   FETCH_PAGE_META_START,
   FETCH_PAGE_META_SUCCESS,
-  FETCH_LATEST_POSTS_START,
-  FETCH_LATEST_POSTS_SUCCESS,
-  FETCH_LATEST_POSTS_FAIL,
+  FETCH_POPULAR_POSTS_START,
+  FETCH_POPULAR_POSTS_SUCCESS,
+  FETCH_POSTS_FAIL,
+  FETCH_POSTS_START,
+  FETCH_POSTS_SUCCESS,
   RESET_ILLUMINATIONS_POSTS,
+  SEARCH_POSTS_FAIL,
+  SEARCH_POSTS_START,
+  SEARCH_POSTS_SUCCESS
 } from './get-latest-posts-action';
 
 const defaultPageMeta = {
@@ -30,7 +33,9 @@ const initialState = {
   popularPosts: {
     itemList: [],
   },
-  illuminations: {},
+  illuminations: {
+    posts: [],
+  },
   error: {},
   failed: false,
   fetching: true,
@@ -38,6 +43,7 @@ const initialState = {
   pageMeta: { ...defaultPageMeta },
   page: 1,
   postsPerPage: 10,
+  searchTriggered: false,
 };
 
 export default createReducer(initialState, {
@@ -71,15 +77,17 @@ export default createReducer(initialState, {
       pageMeta: payload,
     };
   },
-  [FETCH_LATEST_POSTS_START](state) {
+  [FETCH_POSTS_START](state) {
     return {
       ...state,
-      illuminations: {},
+      illuminations: {
+        posts: [],
+      },
       error: {},
       fetching: true,
     };
   },
-  [FETCH_LATEST_POSTS_SUCCESS](state, { payload }) {
+  [FETCH_POSTS_SUCCESS](state, { payload }) {
     return {
       ...state,
       illuminations: payload,
@@ -88,10 +96,12 @@ export default createReducer(initialState, {
       fetching: false,
     };
   },
-  [FETCH_LATEST_POSTS_FAIL](state, { payload }) {
+  [FETCH_POSTS_FAIL](state, { payload }) {
     return {
       ...state,
-      illuminations: {},
+      illuminations: {
+        posts: [],
+      },
       error: payload,
       fetching: false,
     };
@@ -99,7 +109,40 @@ export default createReducer(initialState, {
   [RESET_ILLUMINATIONS_POSTS](state) {
     return {
       ...state,
-      illuminations: {},
+      illuminations: {
+        posts: [],
+      },
+      fetching: false,
+      searchTriggered: false,
+    };
+  },
+  [SEARCH_POSTS_START](state) {
+    return {
+      ...state,
+      illuminations: {
+        posts: [],
+      },
+      error: {},
+      searchTriggered: true,
+      fetching: true,
+    };
+  },
+  [SEARCH_POSTS_SUCCESS](state, { payload }) {
+    return {
+      ...state,
+      illuminations: payload,
+      error: {},
+      page: payload.page,
+      fetching: false,
+    };
+  },
+  [SEARCH_POSTS_FAIL](state, { payload }) {
+    return {
+      ...state,
+      illuminations: {
+        posts: [],
+      },
+      error: payload,
       fetching: false,
     };
   },
