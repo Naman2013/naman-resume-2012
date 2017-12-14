@@ -88,6 +88,7 @@ import PublishPost from './pages/publish-post/publish-post';
 import PulsePostList from './pages/pulse/pulse-post-list';
 import PulsePostContent from './pages/pulse/pulse-post';
 import PulseByObject from './pages/pulse/pulse-by-object';
+import PulseSearch from './pages/pulse/pulse-search';
 import ObjectPosts from './pages/object-posts/ObjectPosts';
 
 import NewDiscussionsThread from './pages/discussions/threads/NewDiscussionsThread';
@@ -255,6 +256,11 @@ ReactDOM.render(
           <Route path="all-posts" component={PulseWrapper}>
             <IndexRedirect to="by-object" />
             <Route path="by-object" name="by-object" component={PulseByObject} />
+          </Route>
+
+          <Route path="search" component={PulseWrapper}>
+            <IndexRedirect to="all" />
+            <Route path="all" name="all" component={PulseSearch} />
           </Route>
         </Route>
 

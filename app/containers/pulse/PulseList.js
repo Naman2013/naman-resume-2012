@@ -64,6 +64,13 @@ const navigationList = [
       //   route: 'by-object',
       // }
     ]
+  },
+  {
+    label: 'SEARCH',
+    route: 'search',
+    children: [
+      {}
+    ]
   }
 ];
 

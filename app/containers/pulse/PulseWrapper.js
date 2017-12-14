@@ -23,7 +23,6 @@ class PulseWrapper extends Component {
     }),
     page: PropTypes.number,
     postsPerPage: PropTypes.number,
-    fetchHottestPosts: PropTypes.func,
     fetchLatestPosts: PropTypes.func,
     fetching: PropTypes.bool,
     children: PropTypes.element.isRequired,
