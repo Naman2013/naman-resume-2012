@@ -5,7 +5,7 @@ import PulseListHeader from '../../components/pulse/pulse-list-header';
 import CategoriesNav from '../../components/community/categories-nav';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { fetchLatestPosts, fetchHottestPosts, fetchPageMeta } from '../../modules/pulse/get-latest-posts-action';
+import { fetchPosts, fetchPageMeta } from '../../modules/pulse/get-latest-posts-action';
 import './Pulse.scss';
 
 
@@ -85,8 +85,7 @@ function mapStateToProps({ latestPosts }, ownProps) {
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators({
-      fetchLatestPosts,
-      fetchHottestPosts,
+      fetchPosts,
       fetchPageMeta,
     }, dispatch)
   };
@@ -111,7 +110,7 @@ class PulseList extends Component {
     const {
       route,
       location,
-      actions: { fetchLatestPosts, fetchHottestPosts },
+      actions: { fetchPosts },
       latestPosts,
       fetching,
       childPath,
@@ -140,8 +139,7 @@ class PulseList extends Component {
 
         {
           cloneElement(children, {
-            fetchLatestPosts,
-            fetchHottestPosts,
+            fetchPosts,
             childPath,
             latestPosts,
             fetching,

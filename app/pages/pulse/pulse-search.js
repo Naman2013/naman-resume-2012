@@ -6,8 +6,8 @@ import PulsePostItem from './pulse-post-item';
 
 class PulseSearch extends Component {
   handlePageChange = (page) => {
-    const { fetchLatestPosts, childPath, path } = this.props;
-    fetchLatestPosts(path, childPath, page);
+    const { fetchPosts, childPath, path } = this.props;
+    fetchPosts(path, childPath, page);
   };
 
   render() {

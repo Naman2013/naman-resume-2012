@@ -23,7 +23,7 @@ class PulseWrapper extends Component {
     }),
     page: PropTypes.number,
     postsPerPage: PropTypes.number,
-    fetchLatestPosts: PropTypes.func,
+    fetchPosts: PropTypes.func,
     fetching: PropTypes.bool,
     children: PropTypes.element.isRequired,
   }
@@ -41,16 +41,16 @@ class PulseWrapper extends Component {
 
   constructor(props) {
     super(props);
-    const { fetchLatestPosts, childPath, route: { path }, page } = this.props;
+    const { fetchPosts, childPath, route: { path }, page } = this.props;
     if (path !== 'all-posts') {
-      fetchLatestPosts(path, childPath, page);
+      fetchPosts(path, childPath, page);
     }
   }
 
   componentWillReceiveProps(nextProps) {
-    const { fetchLatestPosts, childPath, route: { path }, page } = this.props;
+    const { fetchPosts, childPath, route: { path }, page } = this.props;
     if (nextProps.route.path !== 'all-posts' && (nextProps.childPath !== childPath || nextProps.route.path !== path)) {
-      fetchLatestPosts(nextProps.route.path, nextProps.childPath, 1);
+      fetchPosts(nextProps.route.path, nextProps.childPath, 1);
     }
   }
 
@@ -62,7 +62,7 @@ class PulseWrapper extends Component {
       route: { path },
       page,
       postsPerPage,
-      fetchLatestPosts,
+      fetchPosts,
       formattedObjectIdList,
       showRecommends,
       popularPosts,
@@ -78,7 +78,7 @@ class PulseWrapper extends Component {
             postsPerPage,
             posts,
             postsCount,
-            fetchLatestPosts,
+            fetchPosts,
           })
         }
       </div>
