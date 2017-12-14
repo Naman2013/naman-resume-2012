@@ -34,6 +34,7 @@ export default createReducer(initialState, {
     };
   },
   [SET_OPEN_GRAPH_META](state, { payload }) {
+    console.log(payload);
     return {
       ...state,
       og: Object.assign({}, state.og, payload),
