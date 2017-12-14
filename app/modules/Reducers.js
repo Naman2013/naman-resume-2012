@@ -29,7 +29,7 @@ import discussionsTopics from './discussions-topics/reducer';
 import eventInfo from './event-info/reducer';
 import guardian from './guardian/reducer';
 import homeContent from './home-content/reducer';
-import latestPosts from './pulse/get-latest-posts-reducer';
+import illuminationsPosts from './pulse/get-latest-posts-reducer';
 import liveShows from './live-shows/live-shows-reducer';
 import login from './Login';
 import mashupSettings from './mashup-settings/get-mashup-reducer';
@@ -97,7 +97,7 @@ export default combineReducers({
   eventInfo,
   guardian,
   homeContent,
-  latestPosts,
+  illuminationsPosts,
   liveShows,
   login,
   mashupSettings,

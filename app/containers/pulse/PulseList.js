@@ -74,10 +74,10 @@ const navigationList = [
   }
 ];
 
-function mapStateToProps({ latestPosts }, ownProps) {
+function mapStateToProps({ illuminationsPosts }, ownProps) {
   const { children: { props } } = ownProps;
   return {
-    ...latestPosts,
+    ...illuminationsPosts,
     childPath: props.children.props.route.path !== 'all' ? props.children.props.route.path : false
   };
 }
@@ -111,7 +111,7 @@ class PulseList extends Component {
       route,
       location,
       actions: { fetchPosts },
-      latestPosts,
+      illuminations,
       fetching,
       childPath,
       children,
@@ -141,7 +141,7 @@ class PulseList extends Component {
           cloneElement(children, {
             fetchPosts,
             childPath,
-            latestPosts,
+            illuminations,
             fetching,
             formattedObjectIdList,
             showRecommends,

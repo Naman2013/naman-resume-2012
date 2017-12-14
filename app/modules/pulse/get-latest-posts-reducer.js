@@ -8,6 +8,7 @@ import {
   FETCH_LATEST_POSTS_START,
   FETCH_LATEST_POSTS_SUCCESS,
   FETCH_LATEST_POSTS_FAIL,
+  RESET_ILLUMINATIONS_POSTS,
 } from './get-latest-posts-action';
 
 const defaultPageMeta = {
@@ -29,7 +30,7 @@ const initialState = {
   popularPosts: {
     itemList: [],
   },
-  latestPosts: {},
+  illuminations: {},
   error: {},
   failed: false,
   fetching: true,
@@ -73,7 +74,7 @@ export default createReducer(initialState, {
   [FETCH_LATEST_POSTS_START](state) {
     return {
       ...state,
-      latestPosts: {},
+      illuminations: {},
       error: {},
       fetching: true,
     };
@@ -81,7 +82,7 @@ export default createReducer(initialState, {
   [FETCH_LATEST_POSTS_SUCCESS](state, { payload }) {
     return {
       ...state,
-      latestPosts: payload,
+      illuminations: payload,
       error: {},
       page: payload.page,
       fetching: false,
@@ -90,8 +91,15 @@ export default createReducer(initialState, {
   [FETCH_LATEST_POSTS_FAIL](state, { payload }) {
     return {
       ...state,
-      latestPosts: {},
+      illuminations: {},
       error: payload,
+      fetching: false,
+    };
+  },
+  [RESET_ILLUMINATIONS_POSTS](state) {
+    return {
+      ...state,
+      illuminations: {},
       fetching: false,
     };
   },

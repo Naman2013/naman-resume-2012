@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
+import flatten from 'lodash/flatten';
 import { fetchCategoryTopicList } from '../../modules/browse-popular-objects/api';
 import SelectCategoryAndTopic from '../../components/form/CategoryTopicSelector';
-import flatten from 'lodash/flatten';
 
 class PulseByObject extends Component {
 
@@ -97,14 +97,14 @@ class PulseByObject extends Component {
           <span className="btn btn-primary view-posts">View Posts</span>
         </Link>}
         <style jsx>
-        {`
-          .view-posts {
-            margin-top: 15px;
-            width: 50%;
-            text-align: center;
-            display: block;
-          }
-        `}
+          {`
+            .view-posts {
+              margin-top: 15px;
+              width: 50%;
+              text-align: center;
+              display: block;
+            }
+          `}
         </style>
       </div>
     );

@@ -14,6 +14,8 @@ export const FETCH_LATEST_POSTS_START = 'FETCH_LATEST_POSTS_START';
 export const FETCH_LATEST_POSTS_SUCCESS = 'FETCH_LATEST_POSTS_SUCCESS';
 export const FETCH_LATEST_POSTS_FAIL = 'FETCH_LATEST_POSTS_FAIL';
 
+export const RESET_ILLUMINATIONS_POSTS = 'RESET_ILLUMINATIONS_POSTS';
+
 const fetchPopularPostsStart = () => ({
   type: FETCH_POPULAR_POSTS_START,
 });
@@ -62,7 +64,7 @@ const fetchPostsFail = payload => ({
 
 export const fetchPosts = (path, type, page) => (dispatch, getState) => {
   const { cid } = getState().user;
-  const { postsPerPage } = getState().latestPosts;
+  const { postsPerPage } = getState().illuminationsPosts;
   const url = path === 'latest-posts' ? '/api/content/getLatestContent' : '/api/content/getHottestContent';
 
   const postsType = type ? { type: [type] } : '';
@@ -79,3 +81,7 @@ export const fetchPosts = (path, type, page) => (dispatch, getState) => {
   .then(result => dispatch(fetchPostsSuccess(Object.assign({ page }, result.data))))
   .catch(error => dispatch(fetchPostsFail(error)));
 };
+
+export const resetIlluminationsPosts = () => ({
+  type: RESET_ILLUMINATIONS_POSTS,
+});

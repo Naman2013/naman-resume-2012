@@ -6,31 +6,31 @@ import PulsePopular from '../../components/pulse/sidebar/pulse-popular';
 import GoogleAd from '../../components/common/google-ads/GoogleAd';
 import SloohRecommends from '../../components/common/recommendations/SloohRecommends';
 
-const mapStateToProps = ({ latestPosts }) => ({
-  page: latestPosts.page,
-  postsPerPage: latestPosts.postsPerPage,
-  fetchingPopularPosts: latestPosts.fetchingPopularPosts,
-  popularPosts: latestPosts.popularPosts,
+const mapStateToProps = ({ illuminationsPosts }) => ({
+  page: illuminationsPosts.page,
+  postsPerPage: illuminationsPosts.postsPerPage,
+  fetchingPopularPosts: illuminationsPosts.fetchingPopularPosts,
+  popularPosts: illuminationsPosts.popularPosts,
 });
 
 @connect(mapStateToProps)
 class PulseWrapper extends Component {
   static propTypes = {
     fetchingPopularPosts: PropTypes.bool,
-    latestPosts: PropTypes.shape({
+    illuminations: PropTypes.shape({
       posts: PropTypes.array,
       pages: PropTypes.number,
     }),
     page: PropTypes.number,
     postsPerPage: PropTypes.number,
-    fetchPosts: PropTypes.func,
+    fetchPosts: PropTypes.func.isRequired,
     fetching: PropTypes.bool,
     children: PropTypes.element.isRequired,
   }
 
   static defaultProps = {
     fetchingPopularPosts: false,
-    latestPosts: {
+    illuminations: {
       posts: [],
       pages: null,
     },
@@ -58,7 +58,7 @@ class PulseWrapper extends Component {
     const {
       children,
       fetching,
-      latestPosts: { posts, postsCount },
+      illuminations: { posts, postsCount },
       route: { path },
       page,
       postsPerPage,
@@ -67,7 +67,7 @@ class PulseWrapper extends Component {
       showRecommends,
       popularPosts,
     } = this.props;
-
+    console.log(this.props)
     return (
     <section className="">
       <div className="col-md-8">
