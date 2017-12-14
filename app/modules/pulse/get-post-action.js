@@ -150,10 +150,10 @@ export const fetchPost = id => (dispatch, getState) => {
   .then((result) => {
     if (!result.data.apiError) {
       // destructure and set page meta data for the post
-      const { title, typeIconURL, excerpt } = result.data.posts[0];
+      const { title, S3Files, excerpt } = result.data.posts[0];
       dispatch(setPageTitle(title));
       dispatch(setStandardMeta({ description: excerpt }));
-      dispatch(setOpenGraphMeta({ title, description: excerpt, image: typeIconURL }));
+      dispatch(setOpenGraphMeta({ title, description: excerpt, image: S3Files[0] }));
 
       // fetch additional information with what we received from getPost
       dispatch(fetchMeta(result.data.posts[0].slugLookupId));
