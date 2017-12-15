@@ -15,6 +15,7 @@ import {
 function Welcome() {
   return (
     <div className="welcome-container">
+      <a name="topofpage"/>
       <ExploreSpace/>
       <LiveTelescopes/>
       <SocialInteraction/>
