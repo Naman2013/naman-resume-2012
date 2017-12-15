@@ -25,7 +25,7 @@ class SocialInteraction extends Component {
           <hr/>
           <h1 className="title" dangerouslySetInnerHTML={{ __html: dataElements.title }}/>
           <h2>{dataElements.subtitle}</h2>
-          <a className="btn-primary" target="_blank" href={dataElements.buttonLink}>{dataElements.buttonText}</a>
+          <button className="btn-primary" target="_blank" href={dataElements.buttonLink}>{dataElements.buttonText}</button>
         </div>
         <style jsx>{`
           #pageNumber {
