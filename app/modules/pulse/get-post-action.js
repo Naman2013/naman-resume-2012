@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { getFeaturedContent } from '../../services/featured-content/get-featured-content';
 import { setPageTitle, setStandardMeta, setOpenGraphMeta } from '../pageLevelMetaContent/seo-actions';
+import applicationDefaults from '../../constants/defaults';
 
 export const FETCH_POST_START = 'FETCH_POST_START';
 export const FETCH_POST_SUCCESS = 'FETCH_POST_SUCCESS';
@@ -151,7 +152,7 @@ export const fetchPost = id => (dispatch, getState) => {
       const { title, S3Files, excerpt } = result.data.posts[0];
       dispatch(setPageTitle(title));
       dispatch(setStandardMeta({ description: excerpt }));
-      dispatch(setOpenGraphMeta({ title, description: excerpt, image: S3Files[0] }));
+      dispatch(setOpenGraphMeta({ title, description: excerpt, image: (S3Files[0] || applicationDefaults.META_COVER_IMAGE) }));
 
       // fetch additional information with what we received from getPost
       dispatch(fetchMeta(result.data.posts[0].slugLookupId));

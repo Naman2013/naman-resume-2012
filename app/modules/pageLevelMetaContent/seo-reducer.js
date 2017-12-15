@@ -20,7 +20,7 @@ export const initialState = {
     description: 'Do you wonder what is out there? Join a community of fellow Earthlings looking through powerful telescopes into outer space.',
     type: 'website',
     url: 'https://slooh.com',
-    image: 'https://vega.slooh.com/assets/chrome/Siggle-Slooh.svg',
+    image: 'https://vega.slooh.com/icons/sharing/slooh_logo_sky_Square.jpg',
     site_name: 'Slooh',
     site: 'slooh.com',
   },
