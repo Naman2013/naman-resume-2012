@@ -14,24 +14,28 @@ class SocialInteraction extends Component {
       title: "SOCIAL<br/>INTERACTION",
       subtitle: "You wouldn't swim alone and you shouldn't explore space alone, either. Learn from others by exchanging ideas in the community and engaging with our teachers.",
       buttonText: 'Visit The Community',
-      buttonLink: '/about/pricing',
+      buttonLink: '/discussions/main/featured',
     }
 
     return (
       <div className="socialinteraction-container">
         <div className="socialinteraction-innercontainer">
-          <img src="../../../assets/images/welcome/DottedLine.png"/>
+          <img className="socialinteraction-top-dottedline" src="../../../assets/images/welcome/DottedLine_Long.png"/>
           <h1 id="pageNumber">{dataElements.pageNumber}</h1>
           <hr/>
           <h1 className="title" dangerouslySetInnerHTML={{ __html: dataElements.title }}/>
           <h2>{dataElements.subtitle}</h2>
-          <button className="btn-primary" target="_blank" href={dataElements.buttonLink}>{dataElements.buttonText}</button>
+          <Link to={dataElements.buttonLink} className="btn-primary" >{dataElements.buttonText}</Link>
         </div>
         <style jsx>{`
           #pageNumber {
             font-weight: bold;
             font-size: 1.4em;
             color: ${white};
+          }
+
+          .socialinteraction-top-dottedline {
+              margin-top: -20%;
           }
 
           .socialinteraction-container {

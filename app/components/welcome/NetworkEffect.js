@@ -18,7 +18,7 @@ class NetworkEffect extends Component {
     return (
       <div className="networkeffect-container">
         <div className="networkeffect-innercontainer">
-          <img src="../../../assets/images/welcome/DottedLine_Long.png"/>
+          <img className="networkeffect-top-dottedline" src="../../../assets/images/welcome/DottedLine_Long.png"/>
           <h1 id="pageNumber">{dataElements.pageNumber}</h1>
           <hr/>
           <h1 className="title" dangerouslySetInnerHTML={{ __html: dataElements.title }}/>
@@ -32,12 +32,17 @@ class NetworkEffect extends Component {
             color: ${white};
           }
 
+          .networkeffect-top-dottedline {
+              margin-top: 4%;
+              padding-top: 2%;
+          }
+
           .networkeffect-container {
             width: 100%;
             height: 100%;
             background: url("../../../assets/images/welcome/Network_Effect.png") center center no-repeat;
             background-size: 100% auto;
-            min-height: 1287px;
+            min-height: 1387px;
             text-align: center;
           }
 

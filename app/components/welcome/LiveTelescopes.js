@@ -10,7 +10,7 @@ class LiveTelescopes extends Component {
 
   render() {
     const dataElements = {
-      pageNumber: '02',
+      pageNumber: '01',
       title: "LIVE<br/>TELESCOPES",
       subtitle: "Look into space through our online telescopes, under your control or by anyone in the community.  Record your journey by taking pictures as you go.",
       buttonOurTelescopes: {
@@ -71,6 +71,11 @@ class LiveTelescopes extends Component {
               <p>All members can take and share photos of everything you see</p>
             </div>
           </div>
+
+          <div className="livetelescopes-cardcontainer">
+            <div className="livetelescopes-innercontainer-buttons">
+            </div>
+          </div>
         </div>
         <style jsx>{`
           #pageNumber {
@@ -126,7 +131,7 @@ class LiveTelescopes extends Component {
           .livetelescopes-container {
             width: 100%;
             height: 100%;
-            min-height: 1087px;
+            min-height: 1287px;
             text-align: center;
             margin-left: auto;
             margin-right: auto;
@@ -164,6 +169,13 @@ class LiveTelescopes extends Component {
               max-width: 7%;
           }
 
+          .livetelescopes-innercontainer-buttons {
+              position: absolute;
+              min-height: 100%;
+              min-width: 100%;
+              margin-left: auto;
+              margin-right: auto;
+          }
         `}</style>
       </div>
     );

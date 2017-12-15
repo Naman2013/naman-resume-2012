@@ -11,10 +11,10 @@ class HumanWisdom extends Component {
   render() {
     const dataElements = {
       pageNumber: '03',
-      title: "GATHERED HUMAN<br/>WISDOM",
+      title: "GATHERED<br/>HUMAN WISDOM",
       subtitle: "Take in our curation of human response to space since the down of civilization, in Science, Art & Culture, Spirituality and more.",
       buttonText: 'Best of Slooh',
-      buttonLink: '/question',
+      buttonLink: '/best-of-slooh',
     }
 
     return (
@@ -58,8 +58,7 @@ class HumanWisdom extends Component {
             </div>
           </div>
 
-          <button className="btn-primary" target="_blank" href={dataElements.buttonLink}>{dataElements.buttonText}</button>
-
+          <Link to={dataElements.buttonLink} className="btn-primary" >{dataElements.buttonText}</Link>
         </div>
         <style jsx>{`
           #pageNumber {
