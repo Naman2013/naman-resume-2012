@@ -21,7 +21,7 @@ class SocialInteraction extends Component {
     return (
       <div className="socialinteraction-container">
         <div className="socialinteraction-innercontainer">
-          <img className="socialinteraction-top-dottedline" src="../../../assets/images/welcome/DottedLine_Long.png"/>
+          <img className="socialinteraction-top-dottedline" src="https://vega.slooh.com/assets/images/welcome/DottedLine_Long.png"/>
           <h1 id="pageNumber">{dataElements.pageNumber}</h1>
           <hr/>
           <h1 className="title" dangerouslySetInnerHTML={{ __html: dataElements.title }}/>
@@ -42,7 +42,7 @@ class SocialInteraction extends Component {
           .socialinteraction-container {
             width: 100%;
             height: 100%;
-            background: url("../../../assets/images/welcome/Social_Graphic.png") center center no-repeat;
+            background: url("https://vega.slooh.com/assets/images/welcome/Social_Graphic.png") center center no-repeat;
             background-size: 70% auto;
             min-height: 787px;
             text-align: center;

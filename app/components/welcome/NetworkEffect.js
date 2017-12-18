@@ -19,7 +19,7 @@ class NetworkEffect extends Component {
     return (
       <div className="networkeffect-container">
         <div className="networkeffect-innercontainer">
-          <img className="networkeffect-top-dottedline" src="../../../assets/images/welcome/DottedLine_Long.png"/>
+          <img className="networkeffect-top-dottedline" src="https://vega.slooh.com/assets/images/welcome/DottedLine_Long.png"/>
           <h1 id="pageNumber">{dataElements.pageNumber}</h1>
           <hr/>
           <h1 className="title" dangerouslySetInnerHTML={{ __html: dataElements.title }}/>
@@ -41,7 +41,7 @@ class NetworkEffect extends Component {
           .networkeffect-container {
             width: 100%;
             height: 100%;
-            background: url("../../../assets/images/welcome/Network_Effect.png") center center no-repeat;
+            background: url("https://vega.slooh.com/assets/images/welcome/Network_Effect.png") center center no-repeat;
             background-size: 100% auto;
             min-height: 1387px;
             text-align: center;

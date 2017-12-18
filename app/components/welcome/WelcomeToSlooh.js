@@ -20,8 +20,8 @@ class WelcomeToSlooh extends Component {
     return (
       <div className="welcometoslooh-container">
         <div className="welcometoslooh-innercontainer">
-          <img className="welcometoslooh-top-dottedline" src="../../../assets/images/welcome/DottedLine_noballanchor.png"/>
-          <img className="welcometoslooh-logo" src="../../../assets/images/welcome/slooh_logo_grey.png"/>
+          <img className="welcometoslooh-top-dottedline" src="https://vega.slooh.com/assets/images/welcome/DottedLine_noballanchor.png"/>
+          <img className="welcometoslooh-logo" src="https://vega.slooh.com/assets/images/welcome/slooh_logo_grey.png"/>
           <h2 className="subtitle" dangerouslySetInnerHTML={{ __html: dataElements.title }}/>
           <h1 className="title welcomebig">{dataElements.subtitle}</h1>
 
@@ -31,7 +31,7 @@ class WelcomeToSlooh extends Component {
           <Link className="welcometoslooh-link-topofpage" to="/welcome#topofpage">BACK TO TOP</Link>
           <br/>
           <br/>
-          <img className="welcometoslooh-rocket" src="../../../assets/images/welcome/Rocket_Graphic.png"/>
+          <img className="welcometoslooh-rocket" src="https://vega.slooh.com/assets/images/welcome/Rocket_Graphic.png"/>
         </div>
 
         <style jsx>{`
@@ -77,7 +77,7 @@ class WelcomeToSlooh extends Component {
             margin-top: -15%;
             width: 100%;
             height: 100%;
-            background: url("../../../assets/images/welcome/Stars.png") center center no-repeat;
+            background: url("https://vega.slooh.com/assets/images/welcome/Stars.png") center center no-repeat;
             background-size: 100% auto;
             min-height: 1087px;
             text-align: center;

@@ -18,9 +18,7 @@ class ExploreSpace extends Component {
             <h1 className="title big explorespace-title-3">SPACE</h1>
           </div>
           <div className="explorespace-sphereimagecontainer">
-            <img src="../../../assets/images/welcome/Spheres.png"/>
-            <br/>
-            <img src="../../../assets/images/welcome/Pointer_SemiCircle.png"/>
+            <img src="https://vega.slooh.com/assets/images/welcome/Spheres.png"/>
           </div>
         </div>
 
@@ -45,11 +43,11 @@ class ExploreSpace extends Component {
           }
 
           .explorespace-container {
-            background-image: -webkit-linear-gradient(rgba(0,0,0, 0) 0%,rgba(0,0,0, 1) 100%), url(../../../assets/images/welcome/StarryBG.png);
-            background-image:  -moz-linear-gradient(rgba(0,0,0, 0) 0%,rgba(0,0,0, 1) 100%), url(../../../assets/images/welcome/StarryBG.png);
-            background-image:  -o-linear-gradient(rgba(0,0,0, 0) 0%,rgba(0,0,0, 1) 100%), url(../../../assets/images/welcome/StarryBG.png);
-            background-image:  -ms-linear-gradient(rgba(0,0,0, 0) 0%,rgba(0,0,0, 1) 100%), url(../../../assets/images/welcome/StarryBG.png);
-            background-image:  linear-gradient(rgba(0,0,0, 0) 0%,rgba(0,0,0, 1) 100%), url(../../../assets/images/welcome/StarryBG.png);
+            background-image: -webkit-linear-gradient(rgba(0,0,0, 0) 0%,rgba(0,0,0, 1) 100%), url(https://vega.slooh.com/assets/images/welcome/StarryBG.png);
+            background-image:  -moz-linear-gradient(rgba(0,0,0, 0) 0%,rgba(0,0,0, 1) 100%), url(https://vega.slooh.com/assets/images/welcome/StarryBG.png);
+            background-image:  -o-linear-gradient(rgba(0,0,0, 0) 0%,rgba(0,0,0, 1) 100%), url(https://vega.slooh.com/assets/images/welcome/StarryBG.png);
+            background-image:  -ms-linear-gradient(rgba(0,0,0, 0) 0%,rgba(0,0,0, 1) 100%), url(https://vega.slooh.com/assets/images/welcome/StarryBG.png);
+            background-image:  linear-gradient(rgba(0,0,0, 0) 0%,rgba(0,0,0, 1) 100%), url(https://vega.slooh.com/assets/images/welcome/StarryBG.png);
             min-height: 768px;
             height: 768px;
             z-index: 0;
@@ -67,7 +65,7 @@ class ExploreSpace extends Component {
           }
 
           .explorespace-container-overlayimage {
-            background: transparent url("../../../assets/images/welcome/Overlay.png") no-repeat bottom center;
+            background: transparent url("https://vega.slooh.com/assets/images/welcome/Overlay.png") no-repeat bottom center;
             min-height: 583px;
             min-width: 100%;
             opacity: 0.2;

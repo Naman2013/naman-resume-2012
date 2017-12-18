@@ -21,7 +21,7 @@ class HumanWisdom extends Component {
     return (
       <div className="humanwisdom-container">
         <div className="humanwisdom-innercontainer">
-          <img className="humanwisdom-top-dottedline" src="../../../assets/images/welcome/DottedLine_Long.png"/>
+          <img className="humanwisdom-top-dottedline" src="https://vega.slooh.com/assets/images/welcome/DottedLine_Long.png"/>
           <h1 id="pageNumber">{dataElements.pageNumber}</h1>
           <hr/>
           <h1 className="title" dangerouslySetInnerHTML={{ __html: dataElements.title }}/>
@@ -29,7 +29,7 @@ class HumanWisdom extends Component {
 
           <div className="humanwisdom-cardcontainer">
             <div className="humanwisdom-card">
-              <img src="../../../assets/images/welcome/HumanWisdom_Science.png"/>
+              <img src="https://vega.slooh.com/assets/images/welcome/HumanWisdom_Science.png"/>
               <p className="humanwisdom-card-heading">SCIENCE</p>
               <p>Scientific knowledge is the mind&apos;s eye in the looking glass</p>
             </div>
@@ -37,7 +37,7 @@ class HumanWisdom extends Component {
             <div className="humanwisdom-cardspacer"/>
 
             <div className="humanwisdom-card">
-              <img src="../../../assets/images/welcome/HumanWisdom_Art_Culture.png"/>
+              <img src="https://vega.slooh.com/assets/images/welcome/HumanWisdom_Art_Culture.png"/>
               <p className="humanwisdom-card-heading">ART & CULTURE</p>
               <p>A curation of content and artistry inspired by space in any creative pursuit</p>
             </div>
@@ -45,7 +45,7 @@ class HumanWisdom extends Component {
             <div className="humanwisdom-cardspacer"/>
 
             <div className="humanwisdom-card">
-              <img src="../../../assets/images/welcome/HumanWisdom_Human_Spirit.png"/>
+              <img src="https://vega.slooh.com/assets/images/welcome/HumanWisdom_Human_Spirit.png"/>
               <p className="humanwisdom-card-heading">HUMAN SPIRIT</p>
               <p>A record of beliefs about space across civilization from antiquity to present</p>
             </div>
@@ -53,7 +53,7 @@ class HumanWisdom extends Component {
             <div className="humanwisdom-cardspacer"/>
 
             <div className="humanwisdom-card">
-              <img src="../../../assets/images/welcome/HumanWisdom_DIY.png"/>
+              <img src="https://vega.slooh.com/assets/images/welcome/HumanWisdom_DIY.png"/>
               <p className="humanwisdom-card-heading">DO-IT-YOURSELF</p>
               <p>Personal stories of connection to the cosmos</p>
             </div>
