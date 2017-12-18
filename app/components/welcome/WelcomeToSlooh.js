@@ -60,7 +60,7 @@ class WelcomeToSlooh extends Component {
             display: block;
             margin-left: auto;
             margin-right: auto;
-            padding-top: 30px;
+            padding-top: 20px;
           }
 
           .welcometoslooh-logo {
@@ -74,11 +74,12 @@ class WelcomeToSlooh extends Component {
           }
 
           .welcometoslooh-container {
+            margin-top: -15%;
             width: 100%;
             height: 100%;
             background: url("../../../assets/images/welcome/Stars.png") center center no-repeat;
             background-size: 100% auto;
-            min-height: 987px;
+            min-height: 1087px;
             text-align: center;
           }
 
