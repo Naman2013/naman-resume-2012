@@ -1,10 +1,9 @@
-@import "../../styles/variables/fonts.scss";
-@import "../../styles/variables/colors.scss";
+@import '../../styles/variables/fonts.scss';
+@import '../../styles/variables/colors.scss';
 
 .missionNav {
   font-family: $primary-font;
   margin-bottom: 20px;
- // display: flex;
 
   .mission-nav-container {
     margin: 0 auto;
@@ -17,17 +16,17 @@
   a:focus {
     text-decoration: none;
   }
-  >ul.mission-nav-container {
+  > ul.mission-nav-container {
     padding: 10px 0px;
     min-height: 65px;
     li {
       list-style: none;
       float: left;
       height: 50%;
-      margin-bottom:10px;
-      a{
-        @media(max-width:767px){
-          font-size:14px;
+      margin-bottom: 10px;
+      a {
+        @media (max-width: 767px) {
+          font-size: 14px;
         }
       }
       &:hover > a,
@@ -38,36 +37,23 @@
     }
   }
 
-
-
-
-  >ul>li {
+  > ul > li {
     text-transform: uppercase;
     margin: 0 25px;
     position: relative;
     font-weight: bold;
-
-
-
   }
   .sub-nav {
-    //position: absolute;
-    //text-transform: capitalize;
-    //padding: 0;
-    //min-width: 500px;
-    //left: -52px;
-    //top: 32px;
-text-align:center;
-    margin:-10px 0px 0px;
-    padding:0px;
+    text-align: center;
+    margin: -10px 0px 0px;
+    padding: 0px;
     li {
-      list-style:none;
-     display:inline-block;
+      list-style: none;
+      display: inline-block;
       margin: 0 3% 0 0;
 
-
       a {
-        font-size:14px;
+        font-size: 14px;
         font-weight: normal !important;
         color: $pink;
       }
@@ -87,7 +73,8 @@ text-align:center;
 
   .link {
     color: $slooh-black;
-    &:hover, &.active {
+    &:hover,
+    &.active {
       color: $pink;
       border-bottom: 3px solid $blueGreen;
       text-decoration: none;
