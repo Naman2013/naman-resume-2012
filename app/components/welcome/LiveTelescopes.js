@@ -73,10 +73,30 @@ class LiveTelescopes extends Component {
             </div>
           </div>
 
-          <div className="livetelescopes-cardcontainer">
-            <div className="livetelescopes-innercontainer-buttons">
+          <div className="livetelescopes-cardcontainer livetelescopes-cardcontainerfooter">
+            <div className="livetelescopes-card livetelescopes-cardfooter">
+              <Link className="welcometoslooh-link welcome-btn btn-primary" to={dataElements.buttonOurTelescopes.buttonLink}>{dataElements.buttonOurTelescopes.buttonText}</Link>
+            </div>
+
+            <div className="livetelescopes-cardspacer"/>
+
+            <div className="livetelescopes-card livetelescopes-cardfooter">
+              <Link className="welcometoslooh-link welcome-btn btn-primary" to={dataElements.buttonTips.buttonLink}>{dataElements.buttonTips.buttonText}</Link>
+            </div>
+
+            <div className="livetelescopes-cardspacer"/>
+
+            <div className="livetelescopes-card livetelescopes-cardfooter">
+              <Link className="welcometoslooh-link welcome-btn btn-primary" to={dataElements.buttonTonightsSchedule.buttonLink}>{dataElements.buttonTonightsSchedule.buttonText}</Link>
+            </div>
+
+            <div className="livetelescopes-cardspacer"/>
+
+            <div className="livetelescopes-card livetelescopes-cardfooter">
+              <Link className="welcometoslooh-link welcome-btn btn-primary" to={dataElements.buttonPersonalPhotos.buttonLink}>{dataElements.buttonPersonalPhotos.buttonText}</Link>
             </div>
           </div>
+
         </div>
         <style jsx>{`
           #pageNumber {
@@ -107,6 +127,14 @@ class LiveTelescopes extends Component {
               padding-top: 50px;
           }
 
+          .livetelescopes-cardcontainerfooter {
+            min-height: 50px !important;
+            height: 50px !important;
+            padding-top: 0px !important;
+            padding-bottom: 0px !important;
+            margin-top: -10%;
+          }
+
           .livetelescopes-cardspacer {
             padding-left: 10px;
             padding-right: 10px;
@@ -122,6 +150,11 @@ class LiveTelescopes extends Component {
             background-color: ${white};
             min-height: 100%;
             float: left;
+          }
+
+          .livetelescopes-cardfooter {
+            min-height: auto !important;
+            background-color: ${black};
           }
 
           .livetelescopes-card-heading {
