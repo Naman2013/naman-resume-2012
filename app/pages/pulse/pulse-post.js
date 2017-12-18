@@ -77,7 +77,6 @@ class PulsePostContent extends Component {
           }
           <figcaption className={styles.PulsePostListInfoDesc}>
             <div dangerouslySetInnerHTML={{ __html: showExcerpt ? excerpt : content }} />
-            <div className="clearfix" />
           </figcaption>
           {
             postTags && postTags.length > 0 ?

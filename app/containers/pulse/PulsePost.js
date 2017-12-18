@@ -107,7 +107,7 @@ class PulsePost extends Component {
               !fetching && failed ? <GenericLoadingBox text="This post is not available." /> : null
             }
               <div className="pulse-post-extras">
-                <h3 className="center">
+                <h3 className="center-authors">
                   <Link to={`/authors/${post.customerId}`}>
                     More posts from this author
                   </Link>
@@ -165,6 +165,12 @@ class PulsePost extends Component {
           </aside>
 
         </section>
+        <style jsx>{`
+          .center-authors {
+            text-align: center;
+            margin: 10px auto 50px auto;
+          }
+        `}</style>
       </div>
     );
   }
