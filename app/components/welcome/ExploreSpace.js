@@ -9,18 +9,22 @@ class ExploreSpace extends Component {
   render() {
     return (
       <div className="explorespace-container">
-        <h1>Explore</h1>
         <div className="explorespace-container-overlay">
           <div className="explorespace-container-overlayimage"/>
-          <div className="explorespace-sphereimage">
-            hello
+          <div className="explorespace-sphereimagecontainer">
             <img src="../../../assets/images/welcome/Spheres.png"/>
+            <br/>
+            <img src="../../../assets/images/welcome/Pointer_SemiCircle.png"/>
           </div>
         </div>
 
         <style jsx>{`
           .explorespace-container {
-            background: url("../../../assets/images/welcome/StarryNight_Dark.png") no-repeat center center;
+            background-image: -webkit-linear-gradient(rgba(0,0,0, 0) 0%,rgba(0,0,0, 1) 100%), url(../../../assets/images/welcome/StarryNight_Dark.png);
+            background-image:  -moz-linear-gradient(rgba(0,0,0, 0) 0%,rgba(0,0,0, 1) 100%), url(../../../assets/images/welcome/StarryNight_Dark.png);
+            background-image:  -o-linear-gradient(rgba(0,0,0, 0) 0%,rgba(0,0,0, 1) 100%), url(../../../assets/images/welcome/StarryNight_Dark.png);
+            background-image:  -ms-linear-gradient(rgba(0,0,0, 0) 0%,rgba(0,0,0, 1) 100%), url(../../../assets/images/welcome/StarryNight_Dark.png);
+            background-image:  linear-gradient(rgba(0,0,0, 0) 0%,rgba(0,0,0, 1) 100%), url(../../../assets/images/welcome/StarryNight_Dark.png);
             min-height: 768px;
             height: 768px;
             z-index: 0;
@@ -44,14 +48,20 @@ class ExploreSpace extends Component {
             opacity: 0.2;
             z-index: 2;
             display: inline-block;
+            bottom: 0;
+            position: absolute;
+            background-blend-mode: multiply;
           }
 
-          .explorespace-sphereimage {
+          .explorespace-sphereimagecontainer {
             z-index: 3;
             margin-left: auto;
             margin-right: auto;
             min-width: 100%;
-            display: inline-block;
+            display: block;
+            text-align: center;
+            bottom: 0;
+            position: absolute;
           }
         `}</style>
       </div>
