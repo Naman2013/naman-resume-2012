@@ -20,41 +20,27 @@ class MissionNav extends Component {
       <div className={styles.missionNav}>
         <ul className="mission-nav-container">
           <li>
-            <Link
-              to="/reservations/slooh-recommends"
-              activeClassName="active"
-            >
-              Slooh Recommends
-            </Link>
-
-          </li>
-          <li>
-            <Link
-              to="/reservations/reserve-by-objects"
-              activeClassName="active"
-            >
-              Browse Slooh 500
+            <Link to="/reservations/slooh-recommends" activeClassName="active">
+              Featured Objects
             </Link>
           </li>
           <li>
-            <Link
-              to="/reservations/reserve-by-telescope"
-              activeClassName="active"
-            >
+            <Link to="/reservations/reserve-by-objects" activeClassName="active">
+              Reserve Slooh 500
+            </Link>
+          </li>
+          <li>
+            <Link to="/reservations/reserve-by-telescope" activeClassName="active">
               Reserve by telescope
             </Link>
           </li>
           <li>
-            <Link
-              to="/reservations/reserve-by-catalog"
-              activeClassName="active"
-            >
-              Explore other catalogs
+            <Link to="/reservations/reserve-by-catalog" activeClassName="active">
+              Reserve by catalogs
             </Link>
           </li>
         </ul>
-        {
-          /**
+        {/**
             commented to return when
             <ul className="sub-nav">
               <li>
@@ -74,8 +60,7 @@ class MissionNav extends Component {
                 </Link>
               </li>
             </ul>
-          */
-        }
+          */}
       </div>
     );
   }
