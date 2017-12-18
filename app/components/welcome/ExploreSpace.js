@@ -18,7 +18,7 @@ class ExploreSpace extends Component {
             <h1 className="title big explorespace-title-3">SPACE</h1>
           </div>
           <div className="explorespace-sphereimagecontainer">
-            <img src="https://vega.slooh.com/assets/images/welcome/Spheres.png"/>
+            <img src="https://vega.slooh.com/assets/images/welcome/Spheres_with_Icons.png"/>
           </div>
         </div>
 
