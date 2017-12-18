@@ -166,6 +166,9 @@ class PulsePost extends Component {
 
         </section>
         <style jsx>{`
+          .pulse-post-extras {
+            padding-left: 20px;
+          }
           .center-authors {
             text-align: center;
             margin: 10px auto 50px auto;
