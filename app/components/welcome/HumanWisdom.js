@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import { black, white, lightGray, darkBlueGray } from '../../styles/variables/colors';
+import './welcome.scss';
 
 class HumanWisdom extends Component {
   constructor(props) {
@@ -58,7 +59,7 @@ class HumanWisdom extends Component {
             </div>
           </div>
 
-          <Link to={dataElements.buttonLink} className="btn-primary" >{dataElements.buttonText}</Link>
+          <Link to={dataElements.buttonLink} className="welcome-btn btn-primary" >{dataElements.buttonText}</Link>
         </div>
         <style jsx>{`
           #pageNumber {

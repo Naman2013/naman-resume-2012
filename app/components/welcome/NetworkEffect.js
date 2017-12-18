@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import { white, lightGray, darkBlueGray } from '../../styles/variables/colors';
+import './welcome.scss';
 
 class NetworkEffect extends Component {
   constructor(props) {

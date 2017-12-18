@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import { black, white, lightGray, darkBlueGray } from '../../styles/variables/colors';
+import './welcome.scss';
 
 class LiveTelescopes extends Component {
   constructor(props) {
