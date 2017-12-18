@@ -130,7 +130,7 @@ class PulsePost extends Component {
 
           </div>
 
-          <aside className="col-md-4 mission-sidebar">
+          <aside className="col-md-4 mission-sidebar pulse-sidebar">
             <GoogleAd
               adURL={'/5626790/Community'}
               adWidth={300}
@@ -166,6 +166,10 @@ class PulsePost extends Component {
 
         </section>
         <style jsx>{`
+
+          .pulse-sidebar {
+            padding-top: 20px;
+          }
           .pulse-post-extras {
             padding-left: 20px;
           }
