@@ -97,7 +97,7 @@ class LiveTelescopes extends Component {
           }
 
           .livetelescopes-top-dottedline {
-              margin-top: 0px;
+              margin-top: -8%;
           }
 
           .livetelescopes-cardcontainer {

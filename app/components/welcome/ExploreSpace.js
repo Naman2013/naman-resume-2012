@@ -10,18 +10,11 @@ class ExploreSpace extends Component {
   render() {
     return (
       <div className="explorespace-container">
-        <div className="explorespace-container-overlay">
-          <div className="explorespace-container-overlayimage"/>
           <div className="explorepace-titlecontainer">
             <h3 className="subtitle explorespace-title-1 title big">LEARN TO</h3>
             <h2 className="subtitle explorespace-title-2 title big">EXPLORE</h2>
             <h1 className="title big explorespace-title-3 title big">SPACE</h1>
           </div>
-          <div className="explorespace-sphereimagecontainer">
-            <img className="explorespace-sphereimage" src="./assets/images/welcome/iconcircles.png"/>
-          </div>
-        </div>
-
         <style jsx>{`
 
           .explorespace-title-1 {
@@ -42,17 +35,8 @@ class ExploreSpace extends Component {
             font-weight: bold;
           }
 
-          .explorespace-sphereimage {
-              width: 60%;
-              height: 60%;
-          }
-
           .explorespace-container {
-            background-image: -webkit-linear-gradient(rgba(0,0,0, 0) 0%,rgba(0,0,0, 1) 100%), url(https://vega.slooh.com/assets/images/welcome/StarryBG.png);
-            background-image:  -moz-linear-gradient(rgba(0,0,0, 0) 0%,rgba(0,0,0, 1) 100%), url(https://vega.slooh.com/assets/images/welcome/StarryBG.png);
-            background-image:  -o-linear-gradient(rgba(0,0,0, 0) 0%,rgba(0,0,0, 1) 100%), url(https://vega.slooh.com/assets/images/welcome/StarryBG.png);
-            background-image:  -ms-linear-gradient(rgba(0,0,0, 0) 0%,rgba(0,0,0, 1) 100%), url(https://vega.slooh.com/assets/images/welcome/StarryBG.png);
-            background-image:  linear-gradient(rgba(0,0,0, 0) 0%,rgba(0,0,0, 1) 100%), url(https://vega.slooh.com/assets/images/welcome/StarryBG.png);
+            background: url(https://vega.slooh.com/assets/images/welcome/Hero_Section.jpg) no-repeat center bottom;
             min-height: 768px;
             height: 768px;
             z-index: 0;
@@ -60,41 +44,10 @@ class ExploreSpace extends Component {
             display: block;
           }
 
-          .explorespace-container-overlay {
-            position: absolute;
-            left: 0;
-            bottom: 0;
-            min-height: 583px;
-            min-width: 100%;
-            display: inline-block;
-          }
-
-          .explorespace-container-overlayimage {
-            background: transparent url("https://vega.slooh.com/assets/images/welcome/Overlay.png") no-repeat bottom center;
-            min-height: 583px;
-            min-width: 100%;
-            opacity: 0.2;
-            z-index: 2;
-            display: inline-block;
-            bottom: 0;
-            position: absolute;
-          }
-
           .explorepace-titlecontainer {
-            margin-top: -10%;
+            padding-top: 5%;
             min-width: 100%;
             text-align: center;
-          }
-
-          .explorespace-sphereimagecontainer {
-            z-index: 4;
-            margin-left: auto;
-            margin-right: auto;
-            min-width: 100%;
-            display: block;
-            text-align: center;
-            bottom: 0;
-            position: absolute;
           }
         `}</style>
       </div>
