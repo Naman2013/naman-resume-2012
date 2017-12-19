@@ -78,7 +78,6 @@ class LiveTelescopes extends Component {
                   <Link className="welcome-btn btn-primary" to={dataElements.buttonPersonalPhotos.buttonLink}>{dataElements.buttonPersonalPhotos.buttonText}</Link>
                 </div>
               </li>
-
             </ul>
           </div>
         </div>
@@ -105,8 +104,8 @@ class LiveTelescopes extends Component {
 
           .livetelescopes-innercontainer {
               position: absolute;
-              min-height: 100%;
-              min-width: 100%;
+              min-height: 90%;
+              min-width: 90%;
               vertical-align: middle;
           }
 
