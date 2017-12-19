@@ -8,7 +8,8 @@
   width: 95%;
   min-width: 95%;
   max-width: 95%;
-  margin: 0 auto;
+  margin-left: auto;
+  margin-right: auto;
   position: relative;
 
   .welcome-cards {
@@ -21,8 +22,8 @@
       width: 280px;
       float: left;
       padding: 0;
-      margin-left: 0.5em;
-      margin-right: 0.5em;
+      margin-left: 0.25em;
+      margin-right: 0.25em;
       margin-bottom: 25px;
       padding-top: 50px;
       padding-bottom: 0px;
@@ -37,6 +38,11 @@
           padding-top: 10%;
           padding-bottom: 10%;
           font-weight: bold;
+      }
+
+      .livetelescopes-card-text {
+        padding-top: 5%;
+        padding-bottom: 5%;
       }
     }
   }
