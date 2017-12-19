@@ -45,36 +45,36 @@ class LiveTelescopes extends Component {
             <ul className="welcome-cards clearfix">
               <li className="card-container">
                 <div className="card-content">
-                  <img className="livetelescopes-card-image" src="https://vega.slooh.com/assets/images/welcome/Live_Telescopes_Our_Telescopes.png"/>
-                  <p className="livetelescopes-card-heading">OUR TELESCOPES</p>
-                  <p className="livetelescopes-card-text">Situated in the Canary Islands and Chile, including daytime viewing of the Sun</p>
+                  <img src="https://vega.slooh.com/assets/images/welcome/Live_Telescopes_Our_Telescopes.png"/>
+                  <p className="card-heading">OUR TELESCOPES</p>
+                  <p className="card-text">Situated in the Canary Islands and Chile, including daytime viewing of the Sun</p>
                   <Link className="livetelescopes-card-button welcome-btn btn-primary" to={dataElements.buttonOurTelescopes.buttonLink}>{dataElements.buttonOurTelescopes.buttonText}</Link>
                 </div>
               </li>
 
               <li className="card-container">
                 <div className="card-content">
-                  <img className="livetelescopes-card-image" src="https://vega.slooh.com/assets/images/welcome/Live_Telescopes_Tips.png"/>
-                  <p className="livetelescopes-card-heading">TIPS FROM THE PROS</p>
-                  <p className="livetelescopes-card-text">Featured objects chosen from the most popular in view at any time</p>
+                  <img src="https://vega.slooh.com/assets/images/welcome/Live_Telescopes_Tips.png"/>
+                  <p className="card-heading">TIPS FROM THE PROS</p>
+                  <p className="card-text">Featured objects chosen from the most popular in view at any time</p>
                   <Link className="welcometoslooh-link welcome-btn btn-primary" to={dataElements.buttonTips.buttonLink}>{dataElements.buttonTips.buttonText}</Link>
                 </div>
               </li>
 
               <li className="card-container">
                 <div className="card-content">
-                  <img className="livetelescopes-card-image" src="https://vega.slooh.com/assets/images/welcome/Live_Telescopes_Tonights_Schedule.png"/>
-                  <p className="livetelescopes-card-heading">TONIGHT&apos;S SCHEDULE</p>
-                  <p className="livetelescopes-card-text">As reserved by Apprentice and Astronomer members, for everyone to see</p>
+                  <img src="https://vega.slooh.com/assets/images/welcome/Live_Telescopes_Tonights_Schedule.png"/>
+                  <p className="card-heading">TONIGHT&apos;S SCHEDULE</p>
+                  <p className="card-text">As reserved by Apprentice and Astronomer members, for everyone to see</p>
                   <Link className="welcome-btn btn-primary" to={dataElements.buttonTonightsSchedule.buttonLink}>{dataElements.buttonTonightsSchedule.buttonText}</Link>
                 </div>
               </li>
 
               <li className="card-container">
                 <div className="card-content">
-                  <img className="livetelescopes-card-image" src="https://vega.slooh.com/assets/images/welcome/Live_Telescopes_Personal_Photos.png"/>
-                  <p className="livetelescopes-card-heading">PERSONAL PHOTOS</p>
-                  <p className="livetelescopes-card-text">All members can take and share photos of everything you see</p>
+                  <img src="https://vega.slooh.com/assets/images/welcome/Live_Telescopes_Personal_Photos.png"/>
+                  <p className="card-heading">PERSONAL PHOTOS</p>
+                  <p className="card-text">All members can take and share photos of everything you see</p>
                   <Link className="welcome-btn btn-primary" to={dataElements.buttonPersonalPhotos.buttonLink}>{dataElements.buttonPersonalPhotos.buttonText}</Link>
                 </div>
               </li>
@@ -104,8 +104,8 @@ class LiveTelescopes extends Component {
 
           .livetelescopes-innercontainer {
               position: absolute;
-              min-height: 90%;
-              min-width: 90%;
+              min-height: 100%;
+              min-width: 100%;
               vertical-align: middle;
           }
 

@@ -27,36 +27,40 @@ class HumanWisdom extends Component {
           <h1 className="title" dangerouslySetInnerHTML={{ __html: dataElements.title }}/>
           <h2>{dataElements.subtitle}</h2>
 
-          <div className="humanwisdom-cardcontainer">
-            <div className="humanwisdom-card">
-              <img src="https://vega.slooh.com/assets/images/welcome/HumanWisdom_Science.png"/>
-              <p className="humanwisdom-card-heading">SCIENCE</p>
-              <p>Scientific knowledge is the mind&apos;s eye in the looking glass</p>
-            </div>
+          <div className="welcome-cards-container clearfix">
+            <ul className="welcome-cards clearfix">
+              <li className="card-container">
+                <div className="card-content">
+                  <img src="https://vega.slooh.com/assets/images/welcome/HumanWisdom_Science.png"/>
+                  <p className="card-heading">SCIENCE</p>
+                  <p className="card-text">Scientific knowledge is the mind&apos;s eye in the looking glass</p>
+                </div>
+              </li>
 
-            <div className="humanwisdom-cardspacer"/>
+              <li className="card-container">
+                <div className="card-content">
+                  <img src="https://vega.slooh.com/assets/images/welcome/HumanWisdom_Art_Culture.png"/>
+                  <p className="card-heading">ART & CULTURE</p>
+                  <p className="card-text">A curation of content and artistry inspired by space in any creative pursuit</p>
+                </div>
+              </li>
 
-            <div className="humanwisdom-card">
-              <img src="https://vega.slooh.com/assets/images/welcome/HumanWisdom_Art_Culture.png"/>
-              <p className="humanwisdom-card-heading">ART & CULTURE</p>
-              <p>A curation of content and artistry inspired by space in any creative pursuit</p>
-            </div>
+              <li className="card-container">
+                <div className="card-content">
+                  <img src="https://vega.slooh.com/assets/images/welcome/HumanWisdom_Human_Spirit.png"/>
+                  <p className="card-heading">HUMAN SPIRIT</p>
+                  <p className="card-text">A record of beliefs about space across civilization from antiquity to present</p>
+                </div>
+              </li>
 
-            <div className="humanwisdom-cardspacer"/>
-
-            <div className="humanwisdom-card">
-              <img src="https://vega.slooh.com/assets/images/welcome/HumanWisdom_Human_Spirit.png"/>
-              <p className="humanwisdom-card-heading">HUMAN SPIRIT</p>
-              <p>A record of beliefs about space across civilization from antiquity to present</p>
-            </div>
-
-            <div className="humanwisdom-cardspacer"/>
-
-            <div className="humanwisdom-card">
-              <img src="https://vega.slooh.com/assets/images/welcome/HumanWisdom_DIY.png"/>
-              <p className="humanwisdom-card-heading">DO-IT-YOURSELF</p>
-              <p>Personal stories of connection to the cosmos</p>
-            </div>
+              <li className="card-container">
+                <div className="card-content">
+                  <img src="https://vega.slooh.com/assets/images/welcome/HumanWisdom_DIY.png"/>
+                  <p className="card-heading">DO-IT-YOURSELF</p>
+                  <p className="card-text">Personal stories of connection to the cosmos</p>
+                </div>
+              </li>
+            </ul>
           </div>
 
           <Link to={dataElements.buttonLink} className="welcome-btn btn-primary" >{dataElements.buttonText}</Link>
@@ -68,43 +72,13 @@ class HumanWisdom extends Component {
             color: ${white};
           }
 
+          .card-container {
+            padding-top: 0px !important;
+            padding-bottom: 0px !important;
+          }
 
           .humanwisdom-top-dottedline {
               margin-top: -10%;
-          }
-
-          .humanwisdom-cardcontainer {
-              display: block;
-              min-height: 400px;
-              height: 400px;
-              min-width: 80%;
-              width: 80%;
-              margin-left: auto;
-              margin-right: auto;
-              padding-bottom: 50px;
-              padding-top: 50px;
-          }
-
-          .humanwisdom-cardspacer {
-            padding-left: 10px;
-            padding-right: 10px;
-            background-color: ${black};
-            min-height: 100%;
-            float: left;
-          }
-
-          .humanwisdom-card {
-            width: 23%;
-            padding-left: 10px;
-            padding-right: 10px;
-            background-color: ${white};
-            min-height: 100%;
-            float: left;
-          }
-
-          .humanwisdom-card-heading {
-              font-weight: bold;
-              padding-bottom: 5%;
           }
 
           .humanwisdom-container {
