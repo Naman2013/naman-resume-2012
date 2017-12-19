@@ -13,12 +13,12 @@ class ExploreSpace extends Component {
         <div className="explorespace-container-overlay">
           <div className="explorespace-container-overlayimage"/>
           <div className="explorepace-titlecontainer">
-            <h3 className="subtitle explorespace-title-1">LEARN TO</h3>
-            <h2 className="subtitle explorespace-title-2">EXPLORE</h2>
-            <h1 className="title big explorespace-title-3">SPACE</h1>
+            <h3 className="subtitle explorespace-title-1 title big">LEARN TO</h3>
+            <h2 className="subtitle explorespace-title-2 title big">EXPLORE</h2>
+            <h1 className="title big explorespace-title-3 title big">SPACE</h1>
           </div>
           <div className="explorespace-sphereimagecontainer">
-            <img src="https://vega.slooh.com/assets/images/welcome/Spheres_with_Icons.png"/>
+            <img className="explorespace-sphereimage" src="./assets/images/welcome/iconcircles.png"/>
           </div>
         </div>
 
@@ -26,20 +26,25 @@ class ExploreSpace extends Component {
 
           .explorespace-title-1 {
             color: ${white};
-            font-size: 1em;
+            font-size: 2em;
             font-weight: bold;
           }
 
           .explorespace-title-2 {
             color: ${white};
-            font-size: 2em;
+            font-size: 4em;
             font-weight: bold;
           }
 
           .explorespace-title-3 {
             color: ${white};
-            font-size: 5em;
+            font-size: 10em;
             font-weight: bold;
+          }
+
+          .explorespace-sphereimage {
+              width: 60%;
+              height: 60%;
           }
 
           .explorespace-container {
@@ -76,6 +81,7 @@ class ExploreSpace extends Component {
           }
 
           .explorepace-titlecontainer {
+            margin-top: -10%;
             min-width: 100%;
             text-align: center;
           }
