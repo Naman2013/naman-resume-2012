@@ -15,11 +15,11 @@ class LiveTelescopes extends Component {
       title: "LIVE<br/>TELESCOPES",
       subtitle: "Look into space through our online telescopes, under your control or by anyone in the community.  Record your journey by taking pictures as you go.",
       buttonOurTelescopes: {
-        buttonLink: '',
+        buttonLink: '/telescope-overview/d7f673a5-7908-11e6-a635-0eb2b1774883',
         buttonText: 'Learn More',
       },
       buttonTips: {
-        buttonLink: '',
+        buttonLink: '/reservations/slooh-recommends/new',
         buttonText: 'Slooh Recommends',
       },
       buttonTonightsSchedule: {
@@ -27,7 +27,7 @@ class LiveTelescopes extends Component {
         buttonText: 'View Schedule',
       },
       buttonPersonalPhotos: {
-        buttonLink: '',
+        buttonLink: '/my-pictures',
         buttonText: 'Photo Galleries',
       }
     }

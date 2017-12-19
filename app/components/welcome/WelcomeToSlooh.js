@@ -14,7 +14,7 @@ class WelcomeToSlooh extends Component {
       title: "WELCOME TO OUR COMMUNITY OF OVER",
       subtitle: "150,000",
       buttonText: 'Start Exploring',
-      buttonLink: '',
+      buttonLink: '/telescope-overview/d7f673a5-7908-11e6-a635-0eb2b1774883',
     }
 
     return (

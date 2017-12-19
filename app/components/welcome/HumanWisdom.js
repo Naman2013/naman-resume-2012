@@ -14,7 +14,7 @@ class HumanWisdom extends Component {
       pageNumber: '03',
       title: "GATHERED<br/>HUMAN WISDOM",
       subtitle: "Take in our curation of human response to space since the down of civilization, in Science, Art & Culture, Spirituality and more.",
-      buttonText: 'Best of Slooh',
+      buttonText: 'Best of Illuminations',
       buttonLink: '/best-of-slooh',
     }
 
