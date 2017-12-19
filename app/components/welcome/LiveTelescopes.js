@@ -42,39 +42,46 @@ class LiveTelescopes extends Component {
           <h2>{dataElements.subtitle}</h2>
 
           <div className="livetelescopes-cardcontainer">
-            <div className="livetelescopes-card">
-              <img className="livetelescopes-card-image" src="https://vega.slooh.com/assets/images/welcome/Live_Telescopes_Our_Telescopes.png"/>
-              <p className="livetelescopes-card-heading">OUR TELESCOPES</p>
-              <p className="livetelescopes-card-text">Situated in the Canary Islands and Chile, including daytime viewing of the Sun</p>
-              <Link className="livetelescopes-card-button welcome-btn btn-primary" to={dataElements.buttonOurTelescopes.buttonLink}>{dataElements.buttonOurTelescopes.buttonText}</Link>
+            <div className="livetelescopes-card-bordercontainer">
+              <div className="livetelescopes-card">
+                <img className="livetelescopes-card-image" src="https://vega.slooh.com/assets/images/welcome/Live_Telescopes_Our_Telescopes.png"/>
+                <p className="livetelescopes-card-heading">OUR TELESCOPES</p>
+                <p className="livetelescopes-card-text">Situated in the Canary Islands and Chile, including daytime viewing of the Sun</p>
+                <Link className="livetelescopes-card-button welcome-btn btn-primary" to={dataElements.buttonOurTelescopes.buttonLink}>{dataElements.buttonOurTelescopes.buttonText}</Link>
+              </div>
             </div>
 
             <div className="livetelescopes-cardspacer"/>
 
-            <div className="livetelescopes-card">
-              <img className="livetelescopes-card-image" src="https://vega.slooh.com/assets/images/welcome/Live_Telescopes_Tips.png"/>
-              <p className="livetelescopes-card-heading">TIPS FROM THE PROS</p>
-              <p className="livetelescopes-card-text">Featured objects chosen from the most popular in view at any time</p>
-              <Link className="welcometoslooh-link welcome-btn btn-primary" to={dataElements.buttonTips.buttonLink}>{dataElements.buttonTips.buttonText}</Link>
+            <div className="livetelescopes-card-bordercontainer">
+              <div className="livetelescopes-card">
+                <img className="livetelescopes-card-image" src="https://vega.slooh.com/assets/images/welcome/Live_Telescopes_Tips.png"/>
+                <p className="livetelescopes-card-heading">TIPS FROM THE PROS</p>
+                <p className="livetelescopes-card-text">Featured objects chosen from the most popular in view at any time</p>
+                <Link className="welcometoslooh-link welcome-btn btn-primary" to={dataElements.buttonTips.buttonLink}>{dataElements.buttonTips.buttonText}</Link>
+              </div>
             </div>
 
             <div className="livetelescopes-cardspacer"/>
 
-            <div className="livetelescopes-card">
-              <img className="livetelescopes-card-image" src="https://vega.slooh.com/assets/images/welcome/Live_Telescopes_Tonights_Schedule.png"/>
-              <p className="livetelescopes-card-heading">TONIGHT&apos;S SCHEDULE</p>
-              <p className="livetelescopes-card-text">As reserved by Apprentice and Astronomer members, for everyone to see</p>
-              <Link className="welcome-btn btn-primary" to={dataElements.buttonTonightsSchedule.buttonLink}>{dataElements.buttonTonightsSchedule.buttonText}</Link>
+            <div className="livetelescopes-card-bordercontainer">
+              <div className="livetelescopes-card">
+                <img className="livetelescopes-card-image" src="https://vega.slooh.com/assets/images/welcome/Live_Telescopes_Tonights_Schedule.png"/>
+                <p className="livetelescopes-card-heading">TONIGHT&apos;S SCHEDULE</p>
+                <p className="livetelescopes-card-text">As reserved by Apprentice and Astronomer members, for everyone to see</p>
+                <Link className="welcome-btn btn-primary" to={dataElements.buttonTonightsSchedule.buttonLink}>{dataElements.buttonTonightsSchedule.buttonText}</Link>
+              </div>
             </div>
 
             <div className="livetelescopes-cardspacer"/>
 
-            <div className="livetelescopes-card">
-              <img className="livetelescopes-card-image" src="https://vega.slooh.com/assets/images/welcome/Live_Telescopes_Personal_Photos.png"/>
-              <p className="livetelescopes-card-heading">PERSONAL PHOTOS</p>
-              <p className="livetelescopes-card-text">All members can take and share photos of everything you see</p>
-              <Link className="welcome-btn btn-primary" to={dataElements.buttonPersonalPhotos.buttonLink}>{dataElements.buttonPersonalPhotos.buttonText}</Link>
-
+            <div className="livetelescopes-card-bordercontainer">
+              <div className="livetelescopes-card">
+                <img className="livetelescopes-card-image" src="https://vega.slooh.com/assets/images/welcome/Live_Telescopes_Personal_Photos.png"/>
+                <p className="livetelescopes-card-heading">PERSONAL PHOTOS</p>
+                <p className="livetelescopes-card-text">All members can take and share photos of everything you see</p>
+                <Link className="welcome-btn btn-primary" to={dataElements.buttonPersonalPhotos.buttonLink}>{dataElements.buttonPersonalPhotos.buttonText}</Link>
+              </div>
             </div>
           </div>
         </div>
@@ -85,40 +92,46 @@ class LiveTelescopes extends Component {
             color: ${white};
           }
 
-          .livetelescopes-card-text {
-            min-height: 20%;
-            height: 20%;
-            max-height: 20%;
-          }
-
-          .livetelescopes-card-image {
-              padding-top: 20%;
-              padding-bottom: 10%;
-          }
-
           .livetelescopes-top-dottedline {
               margin-top: -8%;
           }
 
           .livetelescopes-cardcontainer {
               display: block;
-              min-height: 425px;
-              height: 425px;
-              max-height: 425px;
+              min-height: 70%;
+              height: 70%;
+              max-height: 70%;
               min-width: 80%;
               width: 80%;
               margin-left: auto;
               margin-right: auto;
               padding-bottom: 50px;
               padding-top: 50px;
+              background-color: ${black};
           }
 
-          .livetelescopes-cardcontainerfooter {
-            min-height: 50px !important;
-            height: 50px !important;
-            padding-top: 0px !important;
-            padding-bottom: 0px !important;
-            margin-top: -10%;
+          .livetelescopes-card-bordercontainer {
+              background-color: ${black};
+              min-height: 100%;
+              height: 100%;
+              max-height: 100%;
+              width: 23%;
+              padding-left: 10px;
+              padding-right: 10px;
+              min-height: 100%;
+              float: left;
+              padding-top: 5%;
+              padding-bottom: 5%;
+          }
+
+          .livetelescopes-card {
+            min-height: 100%;
+            height: 100%;
+            max-height: 100%;
+            width: 100%;
+            min-width: 100%;
+            background-color: ${white};
+            float: left;
           }
 
           .livetelescopes-cardspacer {
@@ -129,29 +142,24 @@ class LiveTelescopes extends Component {
             float: left;
           }
 
-          .livetelescopes-card {
-            min-height: 100%;
-            height: 100%;
-            max-height: 100%;
-            width: 23%;
-            padding-left: 10px;
-            padding-right: 10px;
-            background-color: ${white};
-            min-height: 100%;
-            float: left;
-          }
-
-          .livetelescopes-cardfooter {
-            min-height: auto !important;
-            background-color: ${black};
-          }
-
           .livetelescopes-card-heading {
               font-weight: bold;
               padding-bottom: 5%;
           }
 
+          .livetelescopes-card-image {
+              padding-top: 20%;
+              padding-bottom: 10%;
+          }
+
+          .livetelescopes-card-text {
+            min-height: 20%;
+            height: 20%;
+            max-height: 20%;
+          }
+
           .livetelescopes-container {
+            min-width: 100%;
             width: 100%;
             height: 100%;
             min-height: 1287px;
@@ -190,14 +198,6 @@ class LiveTelescopes extends Component {
               font-weight: bold;
               min-width: 7%;
               max-width: 7%;
-          }
-
-          .livetelescopes-innercontainer-buttons {
-              position: absolute;
-              min-height: 100%;
-              min-width: 100%;
-              margin-left: auto;
-              margin-right: auto;
           }
         `}</style>
       </div>
