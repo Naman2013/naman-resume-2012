@@ -41,8 +41,8 @@ class LiveTelescopes extends Component {
           <h1 className="title" dangerouslySetInnerHTML={{ __html: dataElements.title }}/>
           <h2>{dataElements.subtitle}</h2>
 
-          <div className="welcome-cards-container clearfix">
-            <ul className="welcome-cards clearfix">
+          <div className="welcome-cards-container">
+            <ul className="welcome-cards">
               <li className="card-container">
                 <div className="card-content">
                   <img src="https://vega.slooh.com/assets/images/welcome/Live_Telescopes_Our_Telescopes.png"/>
