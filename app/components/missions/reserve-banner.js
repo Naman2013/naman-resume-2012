@@ -12,7 +12,7 @@ const ReserveBanner = () => (
         You can start by selecting an object in Featured Objects, Reserve Slooh 500 or Reserve by
         Catalog, and we’ll pick the time and best telescope for you. Or you can start by selecting a
         time slot in Reserve by Telescope, and we’ll show you which objects can be seen at that time
-        and with what telescope. It&#39;s easy, so go for it!
+        and with that telescope. It&#39;s easy, so go for it!
       </h2>
     </div>
     <section className="col-md-4 align-right">
