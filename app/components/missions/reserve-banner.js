@@ -36,7 +36,7 @@ const ReserveBanner = () => (
         background: url(https://vega.slooh.com/assets/images/photos/enigma.png);
         background-repeat: no-repeat;
         background-size: cover;
-        min-height: 145px;
+        min-height: 165px;
         padding: 20px 0px;
         position: relative;
       }
@@ -57,6 +57,7 @@ const ReserveBanner = () => (
         color: ${white};
         line-height: 18px;
         margin: 0;
+        max-width: 65%;
       }
     `}</style>
   </div>

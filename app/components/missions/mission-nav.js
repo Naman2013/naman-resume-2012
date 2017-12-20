@@ -63,7 +63,7 @@ class MissionNav extends Component {
 
         <style jsx>{`
           .description-box {
-            text-align: center;
+            padding-left: 26px;
           }
 
           .section-title {
