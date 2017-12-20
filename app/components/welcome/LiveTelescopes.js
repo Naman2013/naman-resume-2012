@@ -103,7 +103,6 @@ class LiveTelescopes extends Component {
           }
 
           .livetelescopes-innercontainer {
-              position: absolute;
               min-height: 100%;
               min-width: 100%;
               vertical-align: middle;

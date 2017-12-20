@@ -5,10 +5,6 @@ import { black, white, lightGray, darkBlueGray } from '../../styles/variables/co
 import './welcome.scss';
 
 class HumanWisdom extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     const dataElements = {
       pageNumber: '03',
@@ -27,8 +23,8 @@ class HumanWisdom extends Component {
           <h1 className="title" dangerouslySetInnerHTML={{ __html: dataElements.title }}/>
           <h2>{dataElements.subtitle}</h2>
 
-          <div className="welcome-cards-container clearfix">
-            <ul className="welcome-cards clearfix">
+          <div className="welcome-cards-container">
+            <ul className="welcome-cards">
               <li className="card-container">
                 <div className="card-content">
                   <img src="https://vega.slooh.com/assets/images/welcome/HumanWisdom_Science.png"/>
@@ -91,7 +87,6 @@ class HumanWisdom extends Component {
           }
 
           .humanwisdom-innercontainer {
-              position: absolute;
               min-height: 100%;
               min-width: 100%;
               vertical-align: middle;
