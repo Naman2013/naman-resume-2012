@@ -43,7 +43,7 @@ class SocialInteraction extends Component {
             width: 100%;
             height: 100%;
             background: url("https://vega.slooh.com/assets/images/welcome/Social_Graphic.png") center center no-repeat;
-            background-size: 70% auto;
+            background-size: contain;
             min-height: 787px;
             text-align: center;
           }
