@@ -17,11 +17,6 @@ const ReserveBanner = () => (
     </div>
     <section className="col-md-4 align-right">
       <UniversalTime />
-      <div className="button-nav">
-        <Link className="button btn-primary" to="/settings/dashboard">
-          View Reservations
-        </Link>
-      </div>
     </section>
 
     <style jsx>{`
