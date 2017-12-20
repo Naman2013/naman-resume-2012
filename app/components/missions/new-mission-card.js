@@ -126,7 +126,7 @@ class NewMissionCard extends Component {
     }
 
     if (reservation.missionAvailable) {
-      return <h5 className="mission-status">Next Available Time Slot</h5>;
+      return <h5 className="mission-status">Next Available Time Slot:</h5>;
     }
 
     if (!reservation.missionAvailable) {
