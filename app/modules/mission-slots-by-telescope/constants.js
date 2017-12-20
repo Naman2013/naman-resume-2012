@@ -20,7 +20,7 @@ export const AVAILABLE_SLOT_MISSION_USER_HAS_HOLD_DEFAULT_PROPS = {
   "showNoReservations": false,
   "noReservationsIconURL": "",
   "noReservationsExplanation": "",
-  "slotTitle": "This slot could be yours",
+  "slotTitle": "Reserve this slot by selecting Slooh 500, Catalog or Coordinates",
   "slotIconURL": "https://vega.slooh.com/icons/reservations/available.svg",
   "userHasReservation": false,
   "userReservationType": "none",
