@@ -303,7 +303,7 @@ class ReserveObjects extends Component {
               <span className="number">1</span> Select Category
             </h2>
             <h3 className="sub-title">
-              Start by choosing either the type of object you want to see, and we will show you a list of objects that are visible this time of
+              Start by choosing the type of object you want to see, and we will show you a list of objects that are visible this time of
               year.
             </h3>
             <ReservationSelectList
