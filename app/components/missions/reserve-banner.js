@@ -38,7 +38,7 @@ const ReserveBanner = () => (
 
       .reserve-banner {
         font-family: ${primaryFont};
-        background: url(https://vega.slooh.com/assets/images/graphics/milkeyway_header.jpg);
+        background: url(https://vega.slooh.com/assets/images/photos/enigma.png);
         background-repeat: no-repeat;
         background-size: cover;
         min-height: 145px;
@@ -57,6 +57,7 @@ const ReserveBanner = () => (
 
       .sub-title {
         font-size: 12px;
+        font-weight: normal;
         text-transform: none;
         color: ${white};
         line-height: 18px;
