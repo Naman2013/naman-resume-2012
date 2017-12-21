@@ -43,7 +43,7 @@ class LiveTelescopes extends Component {
 
           <div className="welcome-cards-container">
             <ul className="welcome-cards">
-              <li className="card-container col-md-3 col-sm-6 col-xs-12">
+              <li className="card-container col-lg-3 col-md-6 col-sm-6 col-xs-12">
                 <div className="card-content">
                   <img src="https://vega.slooh.com/assets/images/welcome/Live_Telescopes_Our_Telescopes.png"/>
                   <p className="card-heading">OUR TELESCOPES</p>
@@ -52,7 +52,7 @@ class LiveTelescopes extends Component {
                 </div>
               </li>
 
-              <li className="card-container col-md-3 col-sm-6 col-xs-12">
+              <li className="card-container col-lg-3 col-md-6 col-sm-6 col-xs-12">
                 <div className="card-content">
                   <img src="https://vega.slooh.com/assets/images/welcome/Live_Telescopes_Tips.png"/>
                   <p className="card-heading">TIPS FROM THE PROS</p>
@@ -61,7 +61,7 @@ class LiveTelescopes extends Component {
                 </div>
               </li>
 
-              <li className="card-container col-md-3 col-sm-6 col-xs-12">
+              <li className="card-container col-lg-3 col-md-6 col-sm-6 col-xs-12">
                 <div className="card-content">
                   <img src="https://vega.slooh.com/assets/images/welcome/Live_Telescopes_Tonights_Schedule.png"/>
                   <p className="card-heading">TONIGHT&apos;S SCHEDULE</p>
@@ -70,7 +70,7 @@ class LiveTelescopes extends Component {
                 </div>
               </li>
 
-              <li className="card-container col-md-3 col-sm-6 col-xs-12">
+              <li className="card-container col-lg-3 col-md-6 col-sm-6 col-xs-12">
                 <div className="card-content">
                   <img src="https://vega.slooh.com/assets/images/welcome/Live_Telescopes_Personal_Photos.png"/>
                   <p className="card-heading">PERSONAL PHOTOS</p>
