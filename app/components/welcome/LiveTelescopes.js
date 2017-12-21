@@ -45,7 +45,7 @@ class LiveTelescopes extends Component {
             <ul className="welcome-cards clearfix">
               <li className="card-container col-lg-3 col-md-6 col-sm-6 col-xs-12">
                 <div className="card-content">
-                  <img src="https://vega.slooh.com/assets/images/welcome/Live_Telescopes_Our_Telescopes.png"/>
+                  <img className="card-image" src="https://vega.slooh.com/assets/images/welcome/Live_Telescopes_Our_Telescopes.png"/>
                   <p className="card-heading">OUR TELESCOPES</p>
                   <p className="card-text">Situated in the Canary Islands and Chile, including daytime viewing of the Sun</p>
                   <Link className="livetelescopes-card-button welcome-btn btn-primary" to={dataElements.buttonOurTelescopes.buttonLink}>{dataElements.buttonOurTelescopes.buttonText}</Link>
@@ -54,7 +54,7 @@ class LiveTelescopes extends Component {
 
               <li className="card-container col-lg-3 col-md-6 col-sm-6 col-xs-12">
                 <div className="card-content">
-                  <img src="https://vega.slooh.com/assets/images/welcome/Live_Telescopes_Tips.png"/>
+                  <img className="card-image" src="https://vega.slooh.com/assets/images/welcome/Live_Telescopes_Tips.png"/>
                   <p className="card-heading">TIPS FROM THE PROS</p>
                   <p className="card-text">Featured objects chosen from the most popular in view at any time</p>
                   <Link className="welcometoslooh-link welcome-btn btn-primary" to={dataElements.buttonTips.buttonLink}>{dataElements.buttonTips.buttonText}</Link>
@@ -63,7 +63,7 @@ class LiveTelescopes extends Component {
 
               <li className="card-container col-lg-3 col-md-6 col-sm-6 col-xs-12">
                 <div className="card-content">
-                  <img src="https://vega.slooh.com/assets/images/welcome/Live_Telescopes_Tonights_Schedule.png"/>
+                  <img className="card-image" src="https://vega.slooh.com/assets/images/welcome/Live_Telescopes_Tonights_Schedule.png"/>
                   <p className="card-heading">TONIGHT&apos;S SCHEDULE</p>
                   <p className="card-text">As reserved by Apprentice and Astronomer members, for everyone to see</p>
                   <Link className="welcome-btn btn-primary" to={dataElements.buttonTonightsSchedule.buttonLink}>{dataElements.buttonTonightsSchedule.buttonText}</Link>
@@ -72,7 +72,7 @@ class LiveTelescopes extends Component {
 
               <li className="card-container col-lg-3 col-md-6 col-sm-6 col-xs-12">
                 <div className="card-content">
-                  <img src="https://vega.slooh.com/assets/images/welcome/Live_Telescopes_Personal_Photos.png"/>
+                  <img className="card-image" src="https://vega.slooh.com/assets/images/welcome/Live_Telescopes_Personal_Photos.png"/>
                   <p className="card-heading">PERSONAL PHOTOS</p>
                   <p className="card-text">All members can take and share photos of everything you see</p>
                   <Link className="welcome-btn btn-primary" to={dataElements.buttonPersonalPhotos.buttonLink}>{dataElements.buttonPersonalPhotos.buttonText}</Link>
@@ -88,6 +88,10 @@ class LiveTelescopes extends Component {
             color: ${white};
           }
 
+          .card-image {
+              margin-top: 15%;
+              margin-bottom: 5%;
+          }
           .card-container {
             padding-top: 0px !important;
             padding-bottom: 0px !important;
