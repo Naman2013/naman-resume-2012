@@ -98,6 +98,8 @@ import DiscussionsTopicsList from './pages/discussions/topics/DiscussionsTopicsL
 
 import Landing from './pages/landing/Landing';
 
+import Welcome from './pages/welcome/Welcome';
+
 import PostingGuidelines from './pages/help/PostingGuidelines';
 import NewToSlooh from './pages/help/NewToSlooh';
 import TelescopesAndReservations from './pages/help/TelescopesAndReservations';
@@ -431,6 +433,8 @@ ReactDOM.render(
         />
 
         <Route path="road-trip" component={Landing} />
+
+        <Route path="welcome" component={Welcome} onEnter={validateUser} />
 
         <Route path="help/posting-guidelines" component={PostingGuidelines} />
         <Route path="help/new-to-slooh" component={NewToSlooh} />
