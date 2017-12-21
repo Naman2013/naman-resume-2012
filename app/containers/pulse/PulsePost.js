@@ -107,7 +107,7 @@ class PulsePost extends Component {
               !fetching && failed ? <GenericLoadingBox text="This post is not available." /> : null
             }
               <div className="pulse-post-extras">
-                <h3 className="center">
+                <h3 className="center-authors">
                   <Link to={`/authors/${post.customerId}`}>
                     More posts from this author
                   </Link>
@@ -130,7 +130,7 @@ class PulsePost extends Component {
 
           </div>
 
-          <aside className="col-md-4 mission-sidebar">
+          <aside className="col-md-4 mission-sidebar pulse-sidebar">
             <GoogleAd
               adURL={'/5626790/Community'}
               adWidth={300}
@@ -165,6 +165,19 @@ class PulsePost extends Component {
           </aside>
 
         </section>
+        <style jsx>{`
+
+          .pulse-sidebar {
+            padding-top: 20px;
+          }
+          .pulse-post-extras {
+            padding-left: 20px;
+          }
+          .center-authors {
+            text-align: center;
+            margin: 10px auto 50px auto;
+          }
+        `}</style>
       </div>
     );
   }
