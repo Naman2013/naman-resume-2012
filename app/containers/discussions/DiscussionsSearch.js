@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import GenericLoadingBox from '../../components/common/loading-screens/generic-loading-box';
-import DiscussionsListItem from '../../components/discussions/DiscussionsListItem';
+import DiscussionsSearchItem from '../../components/discussions/DiscussionsSearchItem';
 import { searchForums } from '../../modules/discussions-search/actions';
 import Search from '../../components/common/search/Search';
 import 'rc-pagination/assets/index.css';
@@ -122,13 +122,18 @@ class DiscussionsSearch extends Component {
     return (
       <div>
         {form}
-        {
-          posts.map(item => (<DiscussionsListItem
+        <div className="posts">{
+          posts.map(item => (<DiscussionsSearchItem
             key={item.postId}
             item={item}
           />))
-        }
+        }</div>
         {posts.length > 0 && <Pagination onChange={this.handlePageChange} defaultPageSize={postsPerPage} current={page} total={postsCount} />}
+        <style jsx>{`
+          .posts {
+            margin-bottom: 25px;
+          }
+        `}</style>
       </div>
     );
   }
