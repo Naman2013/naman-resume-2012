@@ -36,9 +36,9 @@ class ExploreSpace extends Component {
           }
 
           .explorespace-container {
-            background: url(https://vega.slooh.com/assets/images/welcome/Hero_Section.jpg) no-repeat center bottom;
-            min-height: 768px;
-            height: 768px;
+            background: url(https://vega.slooh.com/assets/images/welcome/Hero_Section.jpg) no-repeat center top;
+            min-height: 668px;
+            height: 668px;
             z-index: 0;
             position: relative;
             display: block;

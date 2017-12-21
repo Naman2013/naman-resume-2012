@@ -42,7 +42,7 @@ class LiveTelescopes extends Component {
           <h2>{dataElements.subtitle}</h2>
 
           <div className="welcome-cards-container">
-            <ul className="welcome-cards">
+            <ul className="welcome-cards clearfix">
               <li className="card-container col-lg-3 col-md-6 col-sm-6 col-xs-12">
                 <div className="card-content">
                   <img src="https://vega.slooh.com/assets/images/welcome/Live_Telescopes_Our_Telescopes.png"/>
@@ -88,12 +88,16 @@ class LiveTelescopes extends Component {
             color: ${white};
           }
 
+          .card-container {
+            padding-top: 0px !important;
+            padding-bottom: 0px !important;
+          }
+
           .livetelescopes-top-dottedline {
-              margin-top: -8%;
+              /* margin-top: -10% !important; */
           }
 
           .livetelescopes-container {
-            min-width: 100%;
             width: 100%;
             height: 100%;
             min-height: 1287px;
@@ -110,6 +114,7 @@ class LiveTelescopes extends Component {
 
           .livetelescopes-innercontainer h1 {
             min-width: 100%;
+            position: relative;
             text-align: center;
             font-size: 3em;
             color: ${white};
