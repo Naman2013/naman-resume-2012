@@ -24,8 +24,8 @@ class HumanWisdom extends Component {
           <h2>{dataElements.subtitle}</h2>
 
           <div className="welcome-cards-container">
-            <ul className="welcome-cards">
-              <li className="card-container">
+            <ul className="welcome-cards clearfix">
+              <li className="card-container col-md-3 col-sm-6 col-xs-12">
                 <div className="card-content">
                   <img src="https://vega.slooh.com/assets/images/welcome/HumanWisdom_Science.png"/>
                   <p className="card-heading">SCIENCE</p>
@@ -33,7 +33,7 @@ class HumanWisdom extends Component {
                 </div>
               </li>
 
-              <li className="card-container">
+              <li className="card-container col-md-3 col-sm-6 col-xs-12">
                 <div className="card-content">
                   <img src="https://vega.slooh.com/assets/images/welcome/HumanWisdom_Art_Culture.png"/>
                   <p className="card-heading">ART & CULTURE</p>
@@ -41,7 +41,7 @@ class HumanWisdom extends Component {
                 </div>
               </li>
 
-              <li className="card-container">
+              <li className="card-container col-md-3 col-sm-6 col-xs-12">
                 <div className="card-content">
                   <img src="https://vega.slooh.com/assets/images/welcome/HumanWisdom_Human_Spirit.png"/>
                   <p className="card-heading">HUMAN SPIRIT</p>
@@ -49,7 +49,7 @@ class HumanWisdom extends Component {
                 </div>
               </li>
 
-              <li className="card-container">
+              <li className="card-container col-md-3 col-sm-6 col-xs-12">
                 <div className="card-content">
                   <img src="https://vega.slooh.com/assets/images/welcome/HumanWisdom_DIY.png"/>
                   <p className="card-heading">DO-IT-YOURSELF</p>
