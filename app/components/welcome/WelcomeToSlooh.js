@@ -84,7 +84,6 @@ class WelcomeToSlooh extends Component {
           }
 
           .welcometoslooh-innercontainer {
-              position: absolute;
               min-height: 100%;
               min-width: 100%;
               vertical-align: middle;
@@ -92,7 +91,6 @@ class WelcomeToSlooh extends Component {
 
           .welcometoslooh-innercontainer h1 {
             min-width: 100%;
-            position: relative;
             text-align: center;
             font-size: 3em;
             color: ${white};

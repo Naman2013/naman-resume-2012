@@ -110,7 +110,6 @@ class LiveTelescopes extends Component {
 
           .livetelescopes-innercontainer h1 {
             min-width: 100%;
-            position: relative;
             text-align: center;
             font-size: 3em;
             color: ${white};

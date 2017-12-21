@@ -48,7 +48,6 @@ class NetworkEffect extends Component {
           }
 
           .networkeffect-innercontainer {
-              position: absolute;
               min-height: 100%;
               min-width: 100%;
               vertical-align: middle;
@@ -56,7 +55,6 @@ class NetworkEffect extends Component {
 
           .networkeffect-innercontainer h1 {
             min-width: 100%;
-            position: relative;
             text-align: center;
             font-size: 3em;
             color: ${white};
