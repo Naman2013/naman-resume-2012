@@ -44,7 +44,7 @@ class SloohRecommends extends Component {
     user: PropTypes.shape({
       cid: PropTypes.string,
       token: PropTypes.string,
-      at: PropTypes.number,
+      at: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     }),
   }
 

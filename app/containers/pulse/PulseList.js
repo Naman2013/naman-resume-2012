@@ -5,7 +5,12 @@ import PulseListHeader from '../../components/pulse/pulse-list-header';
 import CategoriesNav from '../../components/community/categories-nav';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { fetchLatestPosts, fetchHottestPosts, fetchPageMeta } from '../../modules/pulse/get-latest-posts-action';
+import {
+  fetchPosts,
+  fetchPageMeta,
+  resetIlluminationsPosts,
+  searchPosts,
+} from '../../modules/pulse/get-latest-posts-action';
 import './Pulse.scss';
 
 
@@ -64,13 +69,20 @@ const navigationList = [
       //   route: 'by-object',
       // }
     ]
+  },
+  {
+    label: 'SEARCH',
+    route: 'search',
+    children: [
+      {}
+    ]
   }
 ];
 
-function mapStateToProps({ latestPosts }, ownProps) {
+function mapStateToProps({ illuminationsPosts }, ownProps) {
   const { children: { props } } = ownProps;
   return {
-    ...latestPosts,
+    ...illuminationsPosts,
     childPath: props.children.props.route.path !== 'all' ? props.children.props.route.path : false
   };
 }
@@ -78,9 +90,10 @@ function mapStateToProps({ latestPosts }, ownProps) {
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators({
-      fetchLatestPosts,
-      fetchHottestPosts,
+      fetchPosts,
       fetchPageMeta,
+      resetIlluminationsPosts,
+      searchPosts,
     }, dispatch)
   };
 }
@@ -102,13 +115,16 @@ class PulseList extends Component {
 
   render() {
     const {
-      route,
-      location,
-      actions: { fetchLatestPosts, fetchHottestPosts },
-      latestPosts,
-      fetching,
+      actions: { fetchPosts, resetIlluminationsPosts, searchPosts },
       childPath,
       children,
+      fetching,
+      illuminations,
+      location,
+      route,
+      searchTriggered,
+      fetchingPopularPosts,
+      page,
       pageMeta: {
         headerTitle,
         headerSubtitle,
@@ -116,6 +132,8 @@ class PulseList extends Component {
         objectIdList,
         showRecommends,
       },
+      popularPosts,
+      postsPerPage,
     } = this.props;
 
     const formattedObjectIdList =
@@ -133,12 +151,18 @@ class PulseList extends Component {
 
         {
           cloneElement(children, {
-            fetchLatestPosts,
-            fetchHottestPosts,
             childPath,
-            latestPosts,
             fetching,
+            fetchingPopularPosts,
+            fetchPosts,
             formattedObjectIdList,
+            illuminations,
+            page,
+            popularPosts,
+            postsPerPage,
+            resetIlluminationsPosts,
+            searchPosts,
+            searchTriggered,
             showRecommends,
           })
         }

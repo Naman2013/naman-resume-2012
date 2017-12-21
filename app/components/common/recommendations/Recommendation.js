@@ -58,7 +58,7 @@ class Recommendation extends Component {
   }
 
   static propTypes = {
-    at: PropTypes.number,
+    at: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     token: PropTypes.string,
     cid: PropTypes.string,
     objectId: PropTypes.number.isRequired,

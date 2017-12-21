@@ -46,6 +46,11 @@ function generateList({ SlugLookupId }) {
       label: 'ALL',
       linkRoute: 'slooh-pulse/all-posts',
       children: [],
+    },
+    {
+      label: 'SEARCH',
+      linkRoute: 'slooh-pulse/search',
+      children: []
     }
   ];
 }
