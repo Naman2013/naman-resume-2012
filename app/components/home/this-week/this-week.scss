@@ -18,18 +18,28 @@
     .card-container {
       position: relative;
       padding: 0;
-      margin-bottom: 25px;
+      margin-bottom: 0px;
       padding-bottom: 0px;
 
       .card-content {
         width: 295px;
-        min-height: 450px;
-        max-height: 450px;
+        min-height: 400px;
+        max-height: 400px;
         background-color: white;
         margin: 0 auto;
       }
 
+      .card-content-button {
+        position: relative;
+        width: 295px;
+        text-align: left;
+        background-color: white;
+        margin: 0 auto;
+        top: -30px
+      }
+
       .card-text {
+        background-color: white;
         margin-left: 0.5em;
         margin-right: 0.5em;
         padding-top: 2%;
@@ -38,10 +48,7 @@
       }
 
       .card-button {
-        bottom: 0;
-        position: absolute;
-        text-align: left;
-        left: 10%;
+        margin-left: 25px;
       }
     }
   }

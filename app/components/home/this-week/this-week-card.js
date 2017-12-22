@@ -34,7 +34,7 @@ class ThisWeekCard extends Component {
       subheadColorRGB,
       imageURL,
     } = this.props;
-    
+
   	const cardBackgroundContentInlineStyle = {
       background: `url(${imageURL}) no-repeat top center`,
       backgroundSize: '100% auto',
@@ -70,6 +70,8 @@ class ThisWeekCard extends Component {
           <div style={cardBackgroundContentInlineStyle}/>
           <h1 style={inlineStyle_heading}>{heading}</h1>
           <h2 style={inlineStyle_subHeading}>{subhead}</h2>
+        </div>
+        <div className="card-content-button">
           <Link className="card-button btn-primary" to={buttonLink}>{buttonText}</Link>
         </div>
       </li>
