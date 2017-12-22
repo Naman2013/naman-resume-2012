@@ -28,9 +28,15 @@ class ThisWeekCard extends Component {
     const {
       buttonText,
       buttonLink,
+      heading,
+      subhead,
+      headingColorRGB,
+      subheadColorRGB,
+      imageURL,
     } = this.props;
 
   	const inlineStyle_PromoContainer = {
+      background: `url(${imageURL}) no-repeat center top`,
       position: 'relative',
   		minHeight: '650px',
       maxHeight: '650px',
@@ -146,8 +152,8 @@ class ThisWeekCard extends Component {
     return (
       <li className="card-container col-lg-3 col-md-6 col-sm-6 col-xs-12">
         <div className="card-content">
-          <img className="card-image" src="https://vega.slooh.com/assets/images/welcome/Live_Telescopes_Our_Telescopes.png"/>
-          <p className="card-heading">OUR TELESCOPES</p>
+          <p className="card-heading">{heading}</p>
+          <p className="card-subhead">{subhead}</p>
           <p className="card-text">Situated in the Canary Islands and Chile, including daytime viewing of the Sun</p>
           <Link className="livetelescopes-card-button welcome-btn btn-primary" to={buttonLink}>{buttonText}</Link>
         </div>
