@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Slider from 'react-slick';
 import ThisWeekCard from './this-week-card';
-import { black, white, lightGray } from '../../../styles/variables/colors';
+import { black, white, lightGray, sloohDarkGray } from '../../../styles/variables/colors';
 import './this-week.scss';
 
 /********************************************************************
@@ -11,7 +11,8 @@ import './this-week.scss';
 ********************************************************************/
 class ThisWeekPanel extends Component {
   static defaultProps = {
-    promoArray: []
+    promoArray: [],
+    heading: "This Week on Slooh",
   };
 
   generateThisWeekCards() {
@@ -30,8 +31,7 @@ class ThisWeekPanel extends Component {
         {promoArray.length > 0 &&
           <div className="this-week-container">
             <div className="this-week-innercontainer">
-              <h1>{this.props.heading}my heading</h1>
-              <h2>{this.props.subhead} my subhead</h2>
+              <h1>{this.props.heading}</h1>
               <div className="this-week-cards-container">
                 <ul className="this-week-cards clearfix">
                   {this.generateThisWeekCards()}
@@ -70,13 +70,8 @@ class ThisWeekPanel extends Component {
 
           .this-week-container h1 {
             font-weight: bold;
-            color: ${black};
-          }
-
-          .this-week-container h2 {
-            font-weight: bold;
-            color: ${black};
-            margin-bottom: 5%;
+            color: ${sloohDarkGray};
+            text-transform: uppercase;
           }
         `}</style>
       </div>

@@ -34,128 +34,43 @@ class ThisWeekCard extends Component {
       subheadColorRGB,
       imageURL,
     } = this.props;
-
-  	const inlineStyle_PromoContainer = {
-      background: `url(${imageURL}) no-repeat center top`,
-      position: 'relative',
-  		minHeight: '650px',
-      maxHeight: '650px',
-  		minWidth: '100%',
-      marginTop: '0px',
-      marginBottom: '0px',
-      paddingTop: '0px',
-      paddingBottom: '0px',
-      backgroundColor: `${lightGray}`,
+    
+  	const cardBackgroundContentInlineStyle = {
+      background: `url(${imageURL}) no-repeat top center`,
+      backgroundSize: '100% auto',
+      minWidth: '100%',
+      maxHeight: '30%',
+      minHeight: '150px',
   	};
 
-    const inlineStyle_promo = {
-      /* background: `url(${this.props.imageURL}) center center no-repeat`,
-      backgroundSize: 'auto 100%', */
-      background: `url(${this.props.imageURL}) center center no-repeat`,
-      backgroundSize: 'cover',
-      minHeight: '650px',
-      maxHeight: '650px',
-      minWidth: '100%',
-      textAlign: 'center',
-    };
-
-    const inlineStyle_promo_Heading = {
-      position: 'relative',
-      textTransform: 'uppercase',
-  		color: `${this.props.headingColorRGB}`,
-      textAlign: 'center',
+    const inlineStyle_heading = {
+  		color: `${headingColorRGB}`,
+      textAlign: 'left',
       marginTop: '0px',
-      paddingTop: '120px',
-      marginLeft: 'auto',
-      marginRight: 'auto',
-      fontSize: '3em',
+      marginLeft: '5%',
+      marginRight: '5%',
+      paddingTop: '5%',
       fontWeight: 'bold',
-      maxWidth: '600px',
-  	};
-
-  	const inlineStyle_promo_SubHeading = {
-  		color: `${this.props.subheadColorRGB}`,
-      textAlign: 'center',
-      marginTop: '0px',
-      paddingTop: '20px',
-      fontSize: '18px',
-  	};
-
-    const inlineStyle_checkItOutButton_PromoDIV = {
-      position: 'absolute',
-      minWidth: '100%',
-      marginLeft: 'auto',
-      marginRight: 'auto',
-      textAlign: 'center',
-      paddingTop: '90px',
-    }
-
-    const inlineStyle_info = {
-      position: 'absolute',
-      minHeight: '500px',
-      maxHeight: '500px',
-      minWidth: '60%',
-      maxWidth: '60%',
-      marginLeft: '20%',
-      marginRight: '20%',
-      top: '75px',
-      backgroundColor: `${white}`,
-    };
-
-    const inlineStyle_info_container = {
-      position: 'relative',
-      minHeight: '100%',
-      minWidth: '100%',
-    };
-
-    const inlineStyle_info_photo = {
-      float: 'left',
-      minWidth: '60%',
-      minHeight: '500px',
-      maxHeight: '500px',
-      background: `url(${this.props.imageURL}) center center no-repeat`,
-      backgroundSize: 'cover',
-    }
-
-    const inlineStyle_info_data = {
-      float: 'right',
-      textAlign: 'left',
-      width: '40%',
-      paddingLeft: '30px',
-      paddingRight: '20px',
-      overflowY: 'auto',
-      overflowX: 'hidden',
-      maxHeight: '500px',
-    }
-
-    const inlineStyle_info_data_link = {
-      paddingTop: '20%',
-      textAlign: 'center',
-    };
-
-    const inlineStyle_info_Heading = {
+      fontSize: '1em',
       textTransform: 'uppercase',
-  		color: `${this.props.headingColorRGB}`,
-      textAlign: 'left',
-      marginTop: '0px',
-      paddingTop: '20px',
-      fontWeight: 'bold',
   	};
 
-  	const inlineStyle_info_SubHeading = {
-  		color: `${this.props.subheadColorRGB}`,
+  	const inlineStyle_subHeading = {
+  		color: `${subheadColorRGB}`,
       textAlign: 'left',
-      marginTop: '0px',
-      paddingTop: '20px',
+      marginLeft: '5%',
+      marginRight: '5%',
+      paddingTop: '5%',
+      fontSize: '0.95em',
   	};
 
     return (
       <li className="card-container col-lg-3 col-md-6 col-sm-6 col-xs-12">
         <div className="card-content">
-          <p className="card-heading">{heading}</p>
-          <p className="card-subhead">{subhead}</p>
-          <p className="card-text">Situated in the Canary Islands and Chile, including daytime viewing of the Sun</p>
-          <Link className="livetelescopes-card-button welcome-btn btn-primary" to={buttonLink}>{buttonText}</Link>
+          <div style={cardBackgroundContentInlineStyle}/>
+          <h1 style={inlineStyle_heading}>{heading}</h1>
+          <h2 style={inlineStyle_subHeading}>{subhead}</h2>
+          <Link className="card-button btn-primary" to={buttonLink}>{buttonText}</Link>
         </div>
       </li>
     );
