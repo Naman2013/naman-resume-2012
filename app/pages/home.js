@@ -15,7 +15,8 @@ import Dedication from '../components/home/slooh-extras/dedication';
 import SloohStorePromo from '../components/home/slooh-store';
 import Featured from '../components/home/slooh-extras/featured';
 import SharedPictures from '../components/home/shared-pictures';
-import PromoPanels from '../components/home/promo-panels/promo-panels';
+import PromoPanel from '../components/home/promo-panel';
+/* import InfoPanels from '../components/home/info-panels/info-panels' */
 import style from './home.scss';
 
 import { fetchCommunityContent }
@@ -56,7 +57,7 @@ const promoInlineStyle = {
   paddingTop: '0px',
   paddingBottom: '0px',
   marginTop: '0px',
-  marginBottom: '-30px',
+  marginBottom: '0px',
 };
 
 const illuminationsInlineStyle = {
@@ -121,6 +122,11 @@ class Home extends Component {
         </div>
       </div>
     )
+  }
+
+  generatePromoPanelObjects() {
+    const { homeContent } = this.props;
+    return homeContent.promoPanel.promoArray.map(promoObject => <PromoPanel {...promoObject} />);
   }
 
   render() {
@@ -188,9 +194,9 @@ class Home extends Component {
           timelineData={sharedMemberTimelineData}
         />}
 
-        {homeContent.promo && homeContent.promo.promoShow &&
+        {homeContent.promoPanel && homeContent.promo.promoShow &&
           <div style={promoInlineStyle}>
-            {homeContent.promo && <PromoPanels {...homeContent.promo}/>}
+            {this.generatePromoPanelObjects()}
           </div>
         }
 
