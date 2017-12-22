@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import GenericLoadingBox from '../../components/common/loading-screens/generic-loading-box';
 import DiscussionsSearchItem from '../../components/discussions/DiscussionsSearchItem';
-import { searchForums } from '../../modules/discussions-search/actions';
+import { searchForums, resetDiscussionsSearch } from '../../modules/discussions-search/actions';
 import Search from '../../components/common/search/Search';
 import 'rc-pagination/assets/index.css';
 
@@ -27,6 +27,7 @@ const mapStateToProps = ({ discussionsSearch }) => ({
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
     searchForums,
+    resetDiscussionsSearch,
   }, dispatch)
 });
 
@@ -34,7 +35,7 @@ const mapDispatchToProps = dispatch => ({
 class DiscussionsSearch extends Component {
   static propTypes = {
     actions: shape({
-      searchForums,
+      searchForums: func.isRequired,
     }).isRequired,
     error: bool,
     firstPostIndex: number,
@@ -84,6 +85,11 @@ class DiscussionsSearch extends Component {
     this.setState(() => ({
       searchTerm,
     }));
+  }
+
+  componentWillUnmount() {
+    const { actions } = this.props;
+    actions.resetDiscussionsSearch();
   }
 
   render() {

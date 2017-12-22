@@ -4,6 +4,8 @@ export const SEARCH_FORUMS_START = 'SEARCH_FORUMS_START';
 export const SEARCH_FORUMS_SUCCESS = 'SEARCH_FORUMS_SUCCESS';
 export const SEARCH_FORUMS_FAIL = 'SEARCH_FORUMS_FAIL';
 
+export const RESET_SEARCH_FORUMS = 'RESET_SEARCH_FORUMS';
+
 const searchForumsStart = payload => ({
   type: SEARCH_FORUMS_START,
   payload,
@@ -48,3 +50,7 @@ export const searchForums = ({
   ))))
   .catch(error => dispatch(searchForumsFail(error)));
 };
+
+export const resetDiscussionsSearch = () => ({
+  type: RESET_SEARCH_FORUMS,
+});

@@ -3,6 +3,7 @@ import {
   SEARCH_FORUMS_START,
   SEARCH_FORUMS_SUCCESS,
   SEARCH_FORUMS_FAIL,
+  RESET_SEARCH_FORUMS,
 } from './actions';
 
 const initialState = {
@@ -38,14 +39,19 @@ export default createReducer(initialState, {
       posts: newPosts,
     };
   },
-  [SEARCH_FORUMS_FAIL](state, { payload }) {
+  [SEARCH_FORUMS_FAIL](state) {
     return {
       ...state,
       fetching: false,
       error: true,
       posts: [],
       postsCount: 0,
-      page: 0,
+      page: 1,
+    };
+  },
+  [RESET_SEARCH_FORUMS]() {
+    return {
+      ...initialState
     };
   },
 });

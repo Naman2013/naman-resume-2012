@@ -5,7 +5,12 @@ import isEmpty from 'lodash/isEmpty';
 import ByUserTag from '../common/by-user-tag/by-user-tag';
 import { gray } from '../../styles/variables/colors';
 
-const { arrayOf, number, shape, string } = PropTypes;
+const {
+  number,
+  oneOfType,
+  shape,
+  string,
+} = PropTypes;
 
 const DiscussionsSearchItem = ({ item }) => (
   <div className="list-item">
@@ -43,7 +48,7 @@ DiscussionsSearchItem.propTypes = {
     forumId: number.isRequired,
     forumName: string.isRequired,
     postId: number.isRequired,
-    threadId: number.isRequired,
+    threadId: oneOfType([string, number]).isRequired,
     threadName: string.isRequired,
     title: string.isRequired,
     topicId: number.isRequired,
