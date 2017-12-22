@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { Link } from 'react-router';
-import ByUserTag from '../../components/common/by-user-tag/by-user-tag'
-import PulsePostDate from '../../components/pulse/pulse-post-date'
+import ByUserTag from '../../components/common/by-user-tag/by-user-tag';
+import PulsePostDate from '../../components/pulse/pulse-post-date';
 import PulsePostThumbnails from '../../components/pulse/pulse-post-image-thumbnails';
-import PulsePostTag from '../../components/pulse/pulse-post-tag'
-import CommunityPulseTools from '../../components/community/tools/community-post-tools'
+import PulsePostTag from '../../components/pulse/pulse-post-tag';
+import CommunityPulseTools from '../../components/community/tools/community-post-tools';
 import styles from './pulse-post.scss';
 
 class PulsePostContent extends Component {
@@ -32,7 +31,7 @@ class PulsePostContent extends Component {
         showLikePrompt,
         likesCount,
       },
-      showExcerpt
+      showExcerpt,
     } = this.props;
 
     return (
@@ -78,7 +77,6 @@ class PulsePostContent extends Component {
           }
           <figcaption className={styles.PulsePostListInfoDesc}>
             <div dangerouslySetInnerHTML={{ __html: showExcerpt ? excerpt : content }} />
-            <div className="clearfix" />
           </figcaption>
           {
             postTags && postTags.length > 0 ?

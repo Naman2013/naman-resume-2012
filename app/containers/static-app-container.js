@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import NotificationSystem from 'react-notification-system';
+import PageMetaManagement from '../components/PageMetaManagement';
 import notificationStyles from '../components/common/notification-center/inline-styles';
 import Menu from './Menu';
 import Header from '../components/common/header';
@@ -54,6 +55,7 @@ class StaticAppContainer extends Component {
 
     return (
       <div className="wrapper">
+        <PageMetaManagement />
         <NotificationSystem ref="notificationSystem" style={notificationStyles} />
         <Header />
         <Menu />

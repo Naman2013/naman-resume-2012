@@ -8,7 +8,8 @@ class Sponsors extends Component {
       .map((sponsorImage, index) => {
         const imageStyle = {
           background: `url(${sponsorImage.imageUrl}) no-repeat center center`,
-          backgroundSize: sponsorImage.size
+          backgroundSize: `${sponsorImage.size}`,
+          minWidth: 'auto',
         };
         return(
           <li

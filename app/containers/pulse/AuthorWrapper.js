@@ -14,9 +14,9 @@ const {
   shape,
   string,
 } = PropTypes;
-const mapStateToProps = ({ authorContent, latestPosts }) => ({
+const mapStateToProps = ({ authorContent, illuminationsPosts }) => ({
   ...authorContent,
-  popularPosts: latestPosts.popularPosts,
+  popularPosts: illuminationsPosts.popularPosts,
 });
 
 @connect(mapStateToProps)

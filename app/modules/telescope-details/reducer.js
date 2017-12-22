@@ -11,8 +11,8 @@ import {
   SET_CURRENT_OBSERVATORY_STATUS,
   FETCH_CURRENT_WEATHER_CONDITIONS_START,
   FETCH_CURRENT_WEATHER_CONDITIONS_SUCCESS,
-  FETCH_DAY_NIGHT_BAR_START,
-  FETCH_DAY_NIGHT_BAR_SUCCESS,
+  FETCH_DAY_NIGHT_BAR_PANEL_START,
+  FETCH_DAY_NIGHT_BAR_PANEL_SUCCESS,
   FETCH_DAY_NIGHT_MAP_START,
   FETCH_DAY_NIGHT_MAP_SUCCESS,
   FETCH_ALL_SKY_START,
@@ -52,7 +52,7 @@ const initialState = {
   },
 
   fetchingWeatherWidget: false,
-  fetchingDayNightBar: false,
+  fetchingDayNightBarPanel: false,
   fetchingDayNightMap: false,
   fetchingAllSkyCamera: false,
   fetchingDomeCam: false,
@@ -64,10 +64,10 @@ const initialState = {
     refreshIntervalSec: 0,
     currentConditionsURL: '',
   },
-  dayNightBar: {
+  dayNightBarPanel: {
     apiError: false,
     refreshIntervalSec: 0,
-    dayNightBarURL: '',
+    dayNightBarPanelURL: '',
   },
   dayNightMap: {
     apiError: false,
@@ -233,18 +233,20 @@ export default createReducer(initialState, {
       weatherConditionWidgetResult: payload,
     };
   },
-  [FETCH_DAY_NIGHT_BAR_START](state) {
+  [FETCH_DAY_NIGHT_BAR_PANEL_START](state) {
     return {
       ...state,
-      fetchingDayNightBar: true,
-      dayNightBar: { ...initialState.dayNightBar },
+      fetchingDayNightBarPanel: true,
+      dayNightBarPanel: { ...initialState.dayNightBarPanel },
     };
+
   },
-  [FETCH_DAY_NIGHT_BAR_SUCCESS](state, { payload }) {
+  [FETCH_DAY_NIGHT_BAR_PANEL_SUCCESS](state, { payload }) {
+
     return {
       ...state,
-      fetchingDayNightBar: false,
-      dayNightBar: payload,
+      fetchingDayNightBarPanel: false,
+      dayNightBarPanel: payload,
     };
   },
   [UPDATE_ACTIVE_SSE](state, { payload }) {

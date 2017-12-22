@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import RefreshedImage from '../../common/refreshed-static-image/RefreshedImage';
 
 const propTypes = {
-  dayNightBarURL: PropTypes.string.isRequired,
+  dayNightBarPanelURL: PropTypes.string.isRequired,
   refreshIntervalSec: PropTypes.number.isRequired,
   imageWidth: PropTypes.string,
 };
@@ -12,9 +12,9 @@ const defaultProps = {
   imageWidth: '100%',
 };
 
-const DayNightTimeline = ({ dayNightBarURL, refreshIntervalSec, imageWidth }) => (
+const DayNightTimeline = ({ dayNightBarPanelURL, refreshIntervalSec, imageWidth }) => (
   <RefreshedImage
-    imageURL={dayNightBarURL}
+    imageURL={dayNightBarPanelURL}
     refreshIntervalSec={refreshIntervalSec}
     imageAltText="Day night status bar"
     maxImageWidth={imageWidth}

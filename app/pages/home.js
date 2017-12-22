@@ -88,10 +88,9 @@ class Home extends Component {
 
   componentDidMount() {
     this.props.actions.trackUser();
-
     this.props.actions.getHomePage().then(res => {
       if (res.data.memberPicturesDisplay) {
-        this.props.actions.getSharedMemberPhotos();
+        this.props.actions.getSharedMemberPhotos({});
       }
     });
 

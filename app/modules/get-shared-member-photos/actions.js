@@ -19,11 +19,12 @@ const getSharedMemberPhotosFail = payload => ({
   payload,
 });
 
-export const getSharedMemberPhotos = () => (dispatch, getState) => {
+export const getSharedMemberPhotos = ({ objectId }) => (dispatch, getState) => {
   dispatch(getSharedMemberPhotosStart());
   return axios.post('/api/images/getSharedMemberPictures', {
     pagingMode: 'app',
     listOrdering: 'asc',
+    objectId,
   })
     .then(result => dispatch(getSharedMemberPhotosSuccess(result.data)))
     .catch(error => dispatch(getSharedMemberPhotosFail(error)));

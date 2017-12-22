@@ -88,6 +88,7 @@ import PublishPost from './pages/publish-post/publish-post';
 import PulsePostList from './pages/pulse/pulse-post-list';
 import PulsePostContent from './pages/pulse/pulse-post';
 import PulseByObject from './pages/pulse/pulse-by-object';
+import PulseSearch from './pages/pulse/pulse-search';
 import ObjectPosts from './pages/object-posts/ObjectPosts';
 
 import NewDiscussionsThread from './pages/discussions/threads/NewDiscussionsThread';
@@ -96,6 +97,8 @@ import DiscussionsThreadWrapper from './pages/discussions/threads/DiscussionsThr
 import DiscussionsTopicsList from './pages/discussions/topics/DiscussionsTopicsList';
 
 import Landing from './pages/landing/Landing';
+
+import Welcome from './pages/welcome/Welcome';
 
 import PostingGuidelines from './pages/help/PostingGuidelines';
 import NewToSlooh from './pages/help/NewToSlooh';
@@ -255,6 +258,11 @@ ReactDOM.render(
           <Route path="all-posts" component={PulseWrapper}>
             <IndexRedirect to="by-object" />
             <Route path="by-object" name="by-object" component={PulseByObject} />
+          </Route>
+
+          <Route path="search" component={PulseWrapper}>
+            <IndexRedirect to="all" />
+            <Route path="all" name="all" component={PulseSearch} />
           </Route>
         </Route>
 
@@ -425,6 +433,8 @@ ReactDOM.render(
         />
 
         <Route path="road-trip" component={Landing} />
+
+        <Route path="welcome" component={Welcome} onEnter={validateUser} />
 
         <Route path="help/posting-guidelines" component={PostingGuidelines} />
         <Route path="help/new-to-slooh" component={NewToSlooh} />
