@@ -16,7 +16,7 @@ import SloohStorePromo from '../components/home/slooh-store';
 import Featured from '../components/home/slooh-extras/featured';
 import SharedPictures from '../components/home/shared-pictures';
 import PromoPanel from '../components/home/promo-panel';
-/* import InfoPanels from '../components/home/info-panels/info-panels' */
+import ThisWeekPanel from '../components/home/this-week/this-week-panel';
 import style from './home.scss';
 
 import { fetchCommunityContent }
@@ -194,10 +194,14 @@ class Home extends Component {
           timelineData={sharedMemberTimelineData}
         />}
 
-        {homeContent.promoPanel && homeContent.promo.promoShow &&
+        {homeContent.promoPanel && homeContent.promoPanel.promoPanelShow &&
           <div style={promoInlineStyle}>
             {this.generatePromoPanelObjects()}
           </div>
+        }
+
+        {homeContent.thisWeek && homeContent.thisWeek.thisWeekShow &&
+          <ThisWeekPanel {...homeContent.thisWeek} />
         }
 
           {homeContent.videoClips && homeContent.videoClips.videoClipsShow && homeContent.videoClips.videoClipsArray &&
