@@ -9,7 +9,8 @@ import UserDetails from '../partials/user-details';
 import APP_DEFAULTS from '../../../../constants/defaults';
 import {
   grabPiggybackByTelescope,
-  resetMissionAvailability } from '../../../../modules/Piggyback';
+  resetMissionAvailability,
+} from '../../../../modules/Piggyback';
 
 import { editCoordinateMission } from '../../../../modules/mission-slots-by-telescope/mission-slots-by-telescope-actions';
 
