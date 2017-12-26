@@ -8,15 +8,9 @@ import './this-week.scss';
 
 /* generate a link or href depending on internal / external link */
 function generateLink(URL = '', content = '') {
-  if (useAbsoluteURL(URL)) {
     return (
-      <a className="button btn-primary" href={URL}>{content}</a>
+      <a className="button btn-primary card-button" href={URL}>{content}</a>
     );
-  }
-
-  return (
-    <Link className="button btn-primary" to={purgeHashURL(URL)}>{content}</Link>
-  );
 }
 
 /********************************************************************
@@ -72,7 +66,7 @@ class ThisWeekCard extends Component {
           <h2 style={inlineStyle_subHeading}>{subhead}</h2>
         </div>
         <div className="card-content-button">
-          <Link className="card-button btn-primary" to={buttonLink}>{buttonText}</Link>
+          {generateLink(buttonLink, buttonText)}
         </div>
       </li>
     );
