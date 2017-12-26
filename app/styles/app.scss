@@ -59,6 +59,10 @@ img {
   background: $white;
   min-height: 100vmax;
 
+  .tooltip {
+    width: 400px;
+  }
+
   .reserve-missions {
     .container {
       background: #d8d8d8;
