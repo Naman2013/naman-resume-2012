@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
+import APP_DEFAULTS from '../../../constants/defaults';
 import MissionStart from './MissionStart';
 import s from './Recommendation.scss';
 
@@ -112,9 +113,14 @@ class PiggybackStatus extends Component {
 
     if (piggybackAvailable) {
       return (
-        <button onClick={handleReservePiggybackClick} className="btn-primary">
-          Piggyback on Mission
-        </button>
+        <div>
+          <button
+            data-tip={APP_DEFAULTS.PIGGYBACK_SHORT_DESCRIPTION}
+            onClick={handleReservePiggybackClick} className="btn-primary"
+          >
+            Piggyback on Mission
+          </button>
+        </div>
       );
     }
 
