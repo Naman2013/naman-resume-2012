@@ -178,6 +178,7 @@ class ReserveConfirm extends Component {
         <div className="title-bar">
           <div className="icon">
             <img
+              alt=""
               width="25"
               height="25"
               src="https://vega.slooh.com/icons/reservations/stopwatch.svg"
@@ -194,7 +195,7 @@ class ReserveConfirm extends Component {
 
         <div className="modal-header">
           <h1 className="title-secondary">
-            You’re reserving the {missionData.telescopeName} telescope to see:
+            You’re auto-scheduling the {missionData.telescopeName} telescope to see:
           </h1>
           <img height="50" className={styles.cardIcon} src={missionData.objectIconURL} />
           <h2 className="mission-title">{missionData.title}</h2>

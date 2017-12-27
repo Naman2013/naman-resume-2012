@@ -170,7 +170,7 @@ class ExistingMissionCard extends Component {
             className={styles.piggybackCta}
             to="/reservations/slooh-recommends/new"
           >
-            Auto Schedule
+            Make Reservation
           </Link>
         </div>
       );

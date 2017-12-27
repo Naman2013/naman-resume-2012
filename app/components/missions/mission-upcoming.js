@@ -48,7 +48,7 @@ const UpcomingContent = ({
         {telescopePierName} ({userReservationType})
       </p>
       <Link to="/settings/dashboard" className="btn btn-primary">
-        View Reservations
+        View My Schedule
       </Link>
     </div>
   );

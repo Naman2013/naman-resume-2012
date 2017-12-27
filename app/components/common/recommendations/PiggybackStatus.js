@@ -106,7 +106,7 @@ class PiggybackStatus extends Component {
     if (userHasReservation) {
       return (
         <Link to="/settings/dashboard" className="btn-primary">
-          View Reservations
+          View My Schedule
         </Link>
       );
     }
