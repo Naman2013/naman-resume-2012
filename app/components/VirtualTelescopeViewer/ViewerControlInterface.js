@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import noop from 'lodash/noop';
 
 import ViewControls from './ViewControls';
-import Timestamp from './Timestamp';
 import CoordinateInformation from './CoordinateInformation';
 import ZoomControls from './ZoomControls';
 import MissionProgressBar from './MissionProgressBar';
@@ -21,7 +20,6 @@ const propTypes = {
   showInfoButton: PropTypes.bool,
   handleInfoClick: PropTypes.func,
 
-  timestamp: PropTypes.number.isRequired,
   coordinateArray: PropTypes.arrayOf(PropTypes.string).isRequired,
   missionData: PropTypes.arrayOf(PropTypes.string).isRequired,
   showMissionData: PropTypes.bool.isRequired,
@@ -51,7 +49,6 @@ const ViewerControlInterface = ({
   zoomRange,
   showInfoButton,
   handleInfoClick,
-  timestamp,
   coordinateArray,
   missionData,
   showMissionData,
@@ -71,10 +68,6 @@ const ViewerControlInterface = ({
           showInfoButton={showInfoButton}
           handleInfoClick={handleInfoClick}
         />
-
-        <div className="grow-2">
-          <Timestamp unixTimestamp={timestamp} />
-        </div>
 
         <CoordinateInformation coordinateArray={coordinateArray} />
       </div>
@@ -126,7 +119,7 @@ const ViewerControlInterface = ({
 
       .top-container {
         display: flex;
-        justify-content: space-around;
+        justify-content: space-between;
         padding: 20px;
       }
 
