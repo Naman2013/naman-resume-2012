@@ -6,7 +6,7 @@ import { white } from '../../styles/variables/colors';
 const ReserveBanner = () => (
   <div className="reserve-banner">
     <div className="title col-md-7">
-      <h1>Auto Schedule</h1>
+      <h1>Auto Schedule Telescopes</h1>
       <h2 className="sub-title">
         You can start by selecting an object in Featured Objects, Reserve Slooh 500 or Reserve by
         Catalog, and we’ll pick the time and best telescope for you. Or you can start by selecting a

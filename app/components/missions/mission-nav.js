@@ -37,7 +37,7 @@ class MissionNav extends Component {
         <ul className="mission-nav-container">
           <li>
             <Link to="/reservations/reserve-by-objects" activeClassName="active">
-              Auto Schedule Slooh 500
+              Slooh 500
             </Link>
           </li>
           <li>
@@ -47,12 +47,12 @@ class MissionNav extends Component {
           </li>
           <li>
             <Link to="/reservations/reserve-by-telescope" activeClassName="active">
-              Auto Schedule by telescope
+              By telescope
             </Link>
           </li>
           <li>
             <Link to="/reservations/reserve-by-catalog" activeClassName="active">
-              Auto Schedule by catalogs
+              By catalogs
             </Link>
           </li>
         </ul>
