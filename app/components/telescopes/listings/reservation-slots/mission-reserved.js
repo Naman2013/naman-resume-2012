@@ -57,7 +57,7 @@ class MissionReserved extends Component {
             onClick={this.handlePiggybackClick}
             className="btn-primary"
           >
-            Piggyback on Mission
+            Auto Save to My Pictures
           </button>
         </div>
       );

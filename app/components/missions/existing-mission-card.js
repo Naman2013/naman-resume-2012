@@ -188,7 +188,7 @@ class ExistingMissionCard extends Component {
           href=""
           onClick={this.handlePiggybackClick}
         >
-          Piggyback on Mission
+          Auto Save to My Pictures
         </a>
       </div>
     );

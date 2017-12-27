@@ -18,9 +18,9 @@ const DEFAULT_INSTRUMENT_ID = '1ff72faa-7909-11e6-a635-0eb2b1774883';
 const SUBTITLE_MAP = {
   '/reservations/slooh-recommends/new':
     'Must-see seasonal wonders in focus during current livecasts',
-  '/reservations/reserve-by-objects': 'Reserve to see our favorite jewels in the night sky',
+  '/reservations/reserve-by-objects': 'See our favorite jewels in the night sky',
   '/reservations/reserve-by-catalog':
-    'Reserve missions by choosing from millions of cataloged objects (Astronomers only)',
+    'Auto schedule missions by choosing from millions of cataloged objects (Astronomers only)',
   'reserve-by-telescope': 'See the nightly schedule and reserve any open time slot',
 };
 
@@ -37,7 +37,7 @@ class MissionNav extends Component {
         <ul className="mission-nav-container">
           <li>
             <Link to="/reservations/reserve-by-objects" activeClassName="active">
-              Reserve Slooh 500
+              Auto Schedule Slooh 500
             </Link>
           </li>
           <li>
@@ -47,12 +47,12 @@ class MissionNav extends Component {
           </li>
           <li>
             <Link to="/reservations/reserve-by-telescope" activeClassName="active">
-              Reserve by telescope
+              Auto Schedule by telescope
             </Link>
           </li>
           <li>
             <Link to="/reservations/reserve-by-catalog" activeClassName="active">
-              Reserve by catalogs
+              Auto Schedule by catalogs
             </Link>
           </li>
         </ul>

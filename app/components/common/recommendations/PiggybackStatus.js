@@ -118,7 +118,7 @@ class PiggybackStatus extends Component {
             data-tip={APP_DEFAULTS.PIGGYBACK_SHORT_DESCRIPTION}
             onClick={handleReservePiggybackClick} className="btn-primary"
           >
-            Piggyback on Mission
+            Auto Save to My Pictures
           </button>
         </div>
       );
