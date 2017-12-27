@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import ReactTooltip from 'react-tooltip';
 
 import MissionReserved from './reservation-slots/mission-reserved';
 import AvailableMission from './reservation-slots/available-mission';
@@ -77,6 +78,11 @@ class Listings extends Component {
 
     return (
       <div className="telescope-listings">
+        <ReactTooltip
+          className="tooltip"
+          place="left"
+          effect="solid"
+        />
         <ul className="list">
           {
             reservations.map(reservation => this.renderReservationSlot(reservation))
