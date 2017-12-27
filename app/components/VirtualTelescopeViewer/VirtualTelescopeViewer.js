@@ -33,7 +33,6 @@ const propTypes = {
   activeZoomLevel: PropTypes.number,
   zoomRange: PropTypes.number,
   showInfoButton: PropTypes.bool,
-  handleInfoClick: PropTypes.func,
   subjectScale: PropTypes.number,
 
   timestamp: PropTypes.number,
@@ -59,8 +58,6 @@ const defaultProps = {
   handleZoomOut: noop,
   activeZoomLevel: 0,
   zoomRange: 0,
-  showInfoButton: false,
-  handleInfoClick: noop,
   subjectScale: 1,
 
   timestamp: 0,
@@ -137,8 +134,6 @@ class VirtualTelescopeView extends Component {
       children,
       clipped,
       handleClip,
-      showInfoButton,
-      handleInfoClick,
       zoomRange,
       subjectScale,
       timestamp,
@@ -196,8 +191,6 @@ class VirtualTelescopeView extends Component {
                 handleZoomOut={this.handleZoomOut}
                 zoomRange={zoomRange}
                 activeZoomLevel={activeZoomLevel}
-                showInfoButton={showInfoButton}
-                handleInfoClick={handleInfoClick}
                 timestamp={timestamp}
                 coordinateArray={coordinateArray}
                 missionData={missionData}

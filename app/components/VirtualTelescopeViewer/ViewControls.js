@@ -7,7 +7,6 @@ import { monoFont } from '../../styles/variables/fonts';
 const propTypes = {
   clipped: PropTypes.bool.isRequired,
   handleClip: PropTypes.func.isRequired,
-  handleInfoClick: PropTypes.func.isRequired,
 };
 
 function generateInlineButtonStyle(active) {
@@ -23,7 +22,6 @@ function generateInlineButtonStyle(active) {
 const ViewControls = ({
   clipped,
   handleClip,
-  handleInfoClick,
 }) => (
   <div>
     <div className="buttons-top-row">

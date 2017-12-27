@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import noop from 'lodash/noop';
 
 import ViewControls from './ViewControls';
 import CoordinateInformation from './CoordinateInformation';
@@ -18,7 +17,6 @@ const propTypes = {
   activeZoomLevel: PropTypes.number.isRequired,
   zoomRange: PropTypes.number.isRequired,
   showInfoButton: PropTypes.bool,
-  handleInfoClick: PropTypes.func,
 
   coordinateArray: PropTypes.arrayOf(PropTypes.string).isRequired,
   missionData: PropTypes.arrayOf(PropTypes.string).isRequired,
@@ -34,7 +32,6 @@ const propTypes = {
 
 const defaultProps = {
   showInfoButton: false,
-  handleInfoClick: noop,
   now: 0,
   missionStart: 0,
   missionEnd: 0,
@@ -48,7 +45,6 @@ const ViewerControlInterface = ({
   activeZoomLevel,
   zoomRange,
   showInfoButton,
-  handleInfoClick,
   coordinateArray,
   missionData,
   showMissionData,
@@ -66,7 +62,6 @@ const ViewerControlInterface = ({
           handleClip={handleClip}
           clipped={clipped}
           showInfoButton={showInfoButton}
-          handleInfoClick={handleInfoClick}
         />
 
         <CoordinateInformation coordinateArray={coordinateArray} />
