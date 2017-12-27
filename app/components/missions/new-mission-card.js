@@ -102,7 +102,7 @@ class NewMissionCard extends Component {
         <div>
           {this.renderMissionTime()}
           <Link className={styles.piggybackCta} to="#" onClick={this.handleMakeReservationClick}>
-            Make Reservation
+            Auto Schedule
           </Link>
         </div>
       );

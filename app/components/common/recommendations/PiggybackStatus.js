@@ -126,7 +126,7 @@ class PiggybackStatus extends Component {
 
     if (!piggybackAvailable && !newMissionMode) {
       return (
-        <button onClick={handleLoadReservationClick} className="btn-primary">Check Reservation</button>
+        <button onClick={handleLoadReservationClick} className="btn-primary">Check Schedule</button>
       );
     }
 
