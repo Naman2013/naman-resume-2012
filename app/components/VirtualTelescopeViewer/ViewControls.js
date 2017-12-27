@@ -7,7 +7,6 @@ import { monoFont } from '../../styles/variables/fonts';
 const propTypes = {
   clipped: PropTypes.bool.isRequired,
   handleClip: PropTypes.func.isRequired,
-  showInfoButton: PropTypes.bool.isRequired,
   handleInfoClick: PropTypes.func.isRequired,
 };
 
@@ -24,7 +23,6 @@ function generateInlineButtonStyle(active) {
 const ViewControls = ({
   clipped,
   handleClip,
-  showInfoButton,
   handleInfoClick,
 }) => (
   <div>
@@ -44,11 +42,6 @@ const ViewControls = ({
         <div className="square-shape" />
       </button>
     </div>
-
-    {
-      showInfoButton &&
-        <button onClick={handleInfoClick} className="show-info">Info</button>
-    }
 
     <style jsx>{`
       .buttons-top-row {
