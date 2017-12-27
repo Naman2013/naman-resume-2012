@@ -36,13 +36,13 @@ class MissionNav extends Component {
       <div className={styles.missionNav}>
         <ul className="mission-nav-container">
           <li>
-            <Link to="/reservations/slooh-recommends" activeClassName="active">
-              Featured Objects
+            <Link to="/reservations/reserve-by-objects" activeClassName="active">
+              Reserve Slooh 500
             </Link>
           </li>
           <li>
-            <Link to="/reservations/reserve-by-objects" activeClassName="active">
-              Reserve Slooh 500
+            <Link to="/reservations/slooh-recommends" activeClassName="active">
+              Featured Objects
             </Link>
           </li>
           <li>

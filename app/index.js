@@ -178,7 +178,7 @@ ReactDOM.render(
         />
 
         <Route path="reservations" component={Reservations} onEnter={validateUser}>
-          <IndexRedirect to="slooh-recommends" />
+          <IndexRedirect to="reserve-by-objects" />
 
           <Route path="slooh-recommends" component={SloohRecommends}>
             <IndexRedirect to="new" />
