@@ -6,10 +6,17 @@ import purgeHashURL from '../../../utils/purgeHashURL';
 import { white, lightGray, darkBlueGray } from '../../../styles/variables/colors';
 
 /* generate a link or href depending on internal / external link */
-function generateLink(URL = '', content = '') {
-    return (
-      <a className="button btn-primary" href={URL}>{content}</a>
-    );
+function generateLink(URL, openInNewTab, content = '') {
+    if (openInNewTab == true) {
+      return (
+        <a target="_blank" className="button btn-primary" href={URL}>{content}</a>
+      );
+    }
+    else {
+      return (
+        <a className="button btn-primary" href={URL}>{content}</a>
+      );
+    }
 }
 
 /********************************************************************
@@ -18,7 +25,6 @@ function generateLink(URL = '', content = '') {
 ********************************************************************/
 class PromoPanel extends Component {
   render() {
-
   	const inlineStyle_PromoContainer = {
       position: 'relative',
   		minHeight: '650px',
@@ -73,92 +79,15 @@ class PromoPanel extends Component {
       paddingTop: '90px',
     }
 
-    const inlineStyle_info = {
-      position: 'absolute',
-      minHeight: '500px',
-      maxHeight: '500px',
-      minWidth: '60%',
-      maxWidth: '60%',
-      marginLeft: '20%',
-      marginRight: '20%',
-      top: '75px',
-      backgroundColor: `${white}`,
-    };
-
-    const inlineStyle_info_container = {
-      position: 'relative',
-      minHeight: '100%',
-      minWidth: '100%',
-    };
-
-    const inlineStyle_info_photo = {
-      float: 'left',
-      minWidth: '60%',
-      minHeight: '500px',
-      maxHeight: '500px',
-      background: `url(${this.props.imageURL}) center center no-repeat`,
-      backgroundSize: 'cover',
-    }
-
-    const inlineStyle_info_data = {
-      float: 'right',
-      textAlign: 'left',
-      width: '40%',
-      paddingLeft: '30px',
-      paddingRight: '20px',
-      overflowY: 'auto',
-      overflowX: 'hidden',
-      maxHeight: '500px',
-    }
-
-    const inlineStyle_info_data_link = {
-      paddingTop: '20%',
-      textAlign: 'center',
-    };
-
-    const inlineStyle_info_Heading = {
-      textTransform: 'uppercase',
-  		color: `${this.props.headingColorRGB}`,
-      textAlign: 'left',
-      marginTop: '0px',
-      paddingTop: '20px',
-      fontWeight: 'bold',
-  	};
-
-  	const inlineStyle_info_SubHeading = {
-  		color: `${this.props.subheadColorRGB}`,
-      textAlign: 'left',
-      marginTop: '0px',
-      paddingTop: '20px',
-  	};
-
     return (
     	<div style={inlineStyle_PromoContainer}>
-    	      {this.props.type == 'promotional' &&
-    		      <div style={inlineStyle_promo}>
-            		<h2 class="title" style={inlineStyle_promo_Heading}>{this.props.heading}</h2>
-    		        <h3 class="subtitle" style={inlineStyle_promo_SubHeading}>{this.props.subhead}</h3>
-                <div style={inlineStyle_checkItOutButton_PromoDIV}>
-                  {generateLink(this.props.buttonLink, this.props.buttonText)}
-                </div>
-          		</div>
-    	      }
-
-    	      {this.props.type == 'informational' &&
-    		      <div style={inlineStyle_info}>
-                <div style={inlineStyle_info_container}>
-                  <div style={inlineStyle_info_photo}>&nbsp;</div>
-
-                  <div style={inlineStyle_info_data}>
-              		    <h2 style={inlineStyle_info_Heading}>{this.props.heading}</h2>
-      		            <h3 style={inlineStyle_info_SubHeading}>{this.props.subhead}</h3>
-                      <div style={inlineStyle_info_data_link}>
-                        {generateLink(this.props.buttonLink, this.props.buttonText)}
-                      </div>
-                  </div>
-                </div>
-          		</div>
-    	      }
+		      <div style={inlineStyle_promo}>
+        		<h2 class="title" style={inlineStyle_promo_Heading}>{this.props.heading}</h2>
+		        <h3 class="subtitle" style={inlineStyle_promo_SubHeading}>{this.props.subhead}</h3>
+            <div style={inlineStyle_checkItOutButton_PromoDIV}>
+              {generateLink(this.props.buttonLink, this.props.openInNewTab, this.props.buttonText)}
+            </div>
+      		</div>
     	</div>
     );
   }

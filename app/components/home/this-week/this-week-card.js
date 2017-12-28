@@ -7,10 +7,17 @@ import { white, lightGray, darkBlueGray } from '../../../styles/variables/colors
 import './this-week.scss';
 
 /* generate a link or href depending on internal / external link */
-function generateLink(URL = '', content = '') {
-    return (
-      <a className="button btn-primary card-button" href={URL}>{content}</a>
-    );
+function generateLink(URL, openInNewTab, content = '') {    
+    if (openInNewTab == true) {
+      return (
+        <a target="_blank" className="button btn-primary card-button" href={URL}>{content}</a>
+      );
+    }
+    else {
+      return (
+        <a className="button btn-primary card-button" href={URL}>{content}</a>
+      );
+    }
 }
 
 /********************************************************************
@@ -27,6 +34,7 @@ class ThisWeekCard extends Component {
       headingColorRGB,
       subheadColorRGB,
       imageURL,
+      openInNewTab,
     } = this.props;
 
   	const cardBackgroundContentInlineStyle = {
@@ -66,7 +74,7 @@ class ThisWeekCard extends Component {
           <h2 style={inlineStyle_subHeading}>{subhead}</h2>
         </div>
         <div className="card-content-button">
-          {generateLink(buttonLink, buttonText)}
+          {generateLink(buttonLink, openInNewTab, buttonText)}
         </div>
       </li>
     );
