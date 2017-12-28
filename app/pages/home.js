@@ -15,6 +15,7 @@ import Dedication from '../components/home/slooh-extras/dedication';
 import SloohStorePromo from '../components/home/slooh-store';
 import Featured from '../components/home/slooh-extras/featured';
 import SharedPictures from '../components/home/shared-pictures';
+import PromoPanels from '../components/home/promo-panels/promo-panels';
 import PromoPanel from '../components/home/promo-panel';
 import ThisWeekPanel from '../components/home/this-week/this-week-panel';
 import style from './home.scss';
@@ -52,6 +53,13 @@ const mapDispatchToProps = dispatch => ({
 const sloohFeaturesStyle = {
   display: "inline-block",
 }
+
+const oldPromoInlineStyle = {
+  paddingTop: '0px',
+  paddingBottom: '0px',
+  marginTop: '0px',
+  marginBottom: '-30px',
+};
 
 const promoInlineStyle = {
   paddingTop: '0px',
@@ -193,6 +201,12 @@ class Home extends Component {
           imageList={sharedMemberPhotosList}
           timelineData={sharedMemberTimelineData}
         />}
+
+        {homeContent.promo && homeContent.promo.promoShow &&
+          <div style={oldPromoInlineStyle}>
+            {homeContent.promo && <PromoPanels {...homeContent.promo}/>}
+          </div>
+        }
 
         {homeContent.promoPanel && homeContent.promoPanel.promoPanelShow &&
           <div style={promoInlineStyle}>
