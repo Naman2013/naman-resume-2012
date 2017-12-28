@@ -49,7 +49,7 @@ class RecentVideoTile extends Component {
     const inlineStyle_VideoDescription = {
       textAlign: 'left',
     }
-    
+
     return (
       <div style={inlineStyle} className="col-sm-4 recent-video-tile-container">
         <div style={inlineStyle_video} className="video-wrap">

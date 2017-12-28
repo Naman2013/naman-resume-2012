@@ -5,24 +5,25 @@ import useAbsoluteURL from '../../utils/useAbsoluteURL';
 import purgeHashURL from '../../utils/purgeHashURL';
 import { white, lightGray, darkBlueGray } from '../../styles/variables/colors';
 
-/* generate a link or href depending on internal / external link */
-function generateLink(URL = '', content = '') {
-  if (useAbsoluteURL(URL)) {
-    return (
-      <a className="button btn-primary" href={URL}>{content}</a>
-    );
-  }
-
-  return (
-    <Link className="button btn-primary" to={purgeHashURL(URL)}>{content}</Link>
-  );
-}
-
 /********************************************************************
 * Class: PromoPanel
 * Description: An individual promotional panel
 ********************************************************************/
 class PromoPanel extends Component {
+  /* generate a link or href depending on internal / external link */
+  generateLink(URL, openInNewTab, content = '') {
+      if (openInNewTab == true) {
+        return (
+          <a target="_blank" className="button btn-primary card-button" href={URL}>{content}</a>
+        );
+      }
+      else {
+        return (
+          <a className="button btn-primary card-button" href={URL}>{content}</a>
+        );
+      }
+  }
+
   render() {
 
   	const inlineStyle_PromoContainer = {
@@ -83,7 +84,7 @@ class PromoPanel extends Component {
           		<h2 style={inlineStyle_promo_Heading}>{this.props.heading}</h2>
   		        <h3 style={inlineStyle_promo_SubHeading}>{this.props.subhead}</h3>
               <div style={inlineStyle_checkItOutButton_PromoDIV}>
-                {generateLink(this.props.buttonLink, this.props.buttonText)}
+                {this.generateLink(this.props.buttonLink, this.props.openInNewTab, this.props.buttonText)}
               </div>
         		</div>
     	</div>

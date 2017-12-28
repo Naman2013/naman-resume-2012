@@ -6,25 +6,26 @@ import purgeHashURL from '../../../utils/purgeHashURL';
 import { white, lightGray, darkBlueGray } from '../../../styles/variables/colors';
 import './this-week.scss';
 
-/* generate a link or href depending on internal / external link */
-function generateLink(URL, openInNewTab, content = '') {    
-    if (openInNewTab == true) {
-      return (
-        <a target="_blank" className="button btn-primary card-button" href={URL}>{content}</a>
-      );
-    }
-    else {
-      return (
-        <a className="button btn-primary card-button" href={URL}>{content}</a>
-      );
-    }
-}
-
 /********************************************************************
 * Class: This Week Card
 * Description: An individual informational card
 ********************************************************************/
 class ThisWeekCard extends Component {
+
+  /* generate a link or href depending on internal / external link */
+  generateLink(URL, openInNewTab, content = '') {
+      if (openInNewTab == true) {
+        return (
+          <a target="_blank" className="button btn-primary card-button" href={URL}>{content}</a>
+        );
+      }
+      else {
+        return (
+          <a className="button btn-primary card-button" href={URL}>{content}</a>
+        );
+      }
+  }
+
   render() {
     const {
       buttonText,
@@ -74,7 +75,7 @@ class ThisWeekCard extends Component {
           <h2 style={inlineStyle_subHeading}>{subhead}</h2>
         </div>
         <div className="card-content-button">
-          {generateLink(buttonLink, openInNewTab, buttonText)}
+          {this.generateLink(buttonLink, openInNewTab, buttonText)}
         </div>
       </li>
     );
