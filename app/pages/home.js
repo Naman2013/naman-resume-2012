@@ -16,6 +16,8 @@ import SloohStorePromo from '../components/home/slooh-store';
 import Featured from '../components/home/slooh-extras/featured';
 import SharedPictures from '../components/home/shared-pictures';
 import PromoPanels from '../components/home/promo-panels/promo-panels';
+import PromoPanel from '../components/home/promo-panel';
+import ThisWeekPanel from '../components/home/this-week/this-week-panel';
 import style from './home.scss';
 
 import { fetchCommunityContent }
@@ -52,11 +54,18 @@ const sloohFeaturesStyle = {
   display: "inline-block",
 }
 
-const promoInlineStyle = {
+const oldPromoInlineStyle = {
   paddingTop: '0px',
   paddingBottom: '0px',
   marginTop: '0px',
   marginBottom: '-30px',
+};
+
+const promoInlineStyle = {
+  paddingTop: '0px',
+  paddingBottom: '0px',
+  marginTop: '0px',
+  marginBottom: '0px',
 };
 
 const illuminationsInlineStyle = {
@@ -121,6 +130,11 @@ class Home extends Component {
         </div>
       </div>
     )
+  }
+
+  generatePromoPanelObjects() {
+    const { homeContent } = this.props;
+    return homeContent.promoPanel.promoArray.map(promoObject => <PromoPanel {...promoObject} />);
   }
 
   render() {
@@ -189,9 +203,19 @@ class Home extends Component {
         />}
 
         {homeContent.promo && homeContent.promo.promoShow &&
-          <div style={promoInlineStyle}>
+          <div style={oldPromoInlineStyle}>
             {homeContent.promo && <PromoPanels {...homeContent.promo}/>}
           </div>
+        }
+
+        {homeContent.promoPanel && homeContent.promoPanel.promoPanelShow &&
+          <div style={promoInlineStyle}>
+            {this.generatePromoPanelObjects()}
+          </div>
+        }
+
+        {homeContent.thisWeek && homeContent.thisWeek.thisWeekShow &&
+          <ThisWeekPanel {...homeContent.thisWeek} />
         }
 
           {homeContent.videoClips && homeContent.videoClips.videoClipsShow && homeContent.videoClips.videoClipsArray &&
