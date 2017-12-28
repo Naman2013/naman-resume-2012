@@ -40,13 +40,15 @@ class PulsePostThumbnail extends Component {
 
   render () {
     const { images } = this.props;
+    const { currentImageIdx } = this.state;
     const formattedImgs = images.map(image => ({ src: image }));
+    const firstImage = images.length > 0 && images[0];
     return (
       <div
         className="thumbnails-container"
       >
         <Lightbox
-        currentImage={this.state.currentImageIdx}
+        currentImage={currentImageIdx}
           images={formattedImgs}
           isOpen={this.state.lightboxIsOpen}
           onClose={this.toggleLightbox}
@@ -55,15 +57,16 @@ class PulsePostThumbnail extends Component {
           onClickNext={this.onClickNext}
           showThumbnails={images.length > 1}
         />
-        {images.map((image, idx) => <figure key={image}>
-          <a onClick={() => this.toggleLightbox(idx)}>
+        {firstImage && <figure key={firstImage}>
+          <a onClick={() => this.toggleLightbox(0)}>
+            {images.length > 1 && <div className="image-counter">1 of {images.length}</div>}
             <img
               key={uniqueId()}
-              src={image}
+              src={firstImage}
               className="thumbnail"
             />
           </a>
-        </figure>)}
+        </figure>}
         <style jsx>{`
             .thumbnails-container {
               display: flex;
@@ -77,6 +80,11 @@ class PulsePostThumbnail extends Component {
             .thumbnail {
               height: 150px;
               width: auto;
+            }
+
+            .image-counter {
+              font-size: 10px;
+              text-align: right;
             }
           `}</style>
           <style jsx global>{`
