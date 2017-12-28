@@ -79,13 +79,15 @@ class DiscussionsWrapper extends Component {
     const { children, params: { forumId, topicId } } = this.props;
     const mostRecentLink = buildLink({ forumId, topicId, path: 'most-recent' });
     const mostActiveLink = buildLink({ forumId, topicId, path: 'most-active' });
+    const isTopics = forumId && topicId;
     return (
       <div className="discussions-wrapper container-fluid">
         <DiscussionsNav
-          featuredLink={forumId && topicId ? null : '/discussions/main/featured'}
-          followedTopicsLink={forumId && topicId ? null : '/discussions/main/followed-topics'}
+          featuredLink={isTopics ? null : '/discussions/main/featured'}
+          followedTopicsLink={isTopics ? null : '/discussions/main/followed-topics'}
           mostRecentLink={mostRecentLink}
           mostActiveLink={mostActiveLink}
+          searchLink={isTopics ? null : '/discussions/main/search'}
         />
         <div className="row">
           <div className="col-md-8">

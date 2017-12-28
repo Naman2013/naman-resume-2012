@@ -31,6 +31,8 @@ import Discussions from './containers/discussions/Discussions';
 import DiscussionsWrapper from './containers/discussions/DiscussionsWrapper';
 import DiscussionsListWrapper from './containers/discussions/DiscussionsListWrapper';
 import DiscussionsTopicsWrapper from './containers/discussions/DiscussionsTopicsWrapper';
+import DiscussionsSearch from './containers/discussions/DiscussionsSearch';
+
 
 // pages
 import Home from './pages/home';
@@ -376,6 +378,7 @@ ReactDOM.render(
             <Route path="followed-topics" component={DiscussionsListWrapper} />
             <Route path="most-recent" component={DiscussionsListWrapper} />
             <Route path="most-active" component={DiscussionsListWrapper} />
+            <Route path="search" component={DiscussionsSearch} />
           </Route>
           <Route path="forums(/:forumId)/topics(/:topicId)/threads" component={DiscussionsWrapper}>
             <IndexRedirect to="most-recent" />

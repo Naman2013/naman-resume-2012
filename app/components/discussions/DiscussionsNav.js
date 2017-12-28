@@ -11,7 +11,8 @@ function DiscussionsNav({
   featuredLink,
   followedTopicsLink,
   mostRecentLink,
-  mostActiveLink
+  mostActiveLink,
+  searchLink,
 }) {
   return (
     <div className={styles.discussionsNav}>
@@ -70,6 +71,15 @@ function DiscussionsNav({
             Topics I Follow
           </Link>
         </li>}
+        {searchLink && <li>
+          <Link
+            to={searchLink}
+            className="link"
+            activeClassName="active"
+          >
+            Search
+          </Link>
+        </li>}
       </ul>
     </div>
   );
@@ -82,6 +92,7 @@ DiscussionsNav.defaultProps = {
   followedTopicsLink: '',
   mostRecentLink: '',
   mostActiveLink: '',
+  searchLink: '',
 };
 
 DiscussionsNav.propTypes = {
@@ -91,6 +102,7 @@ DiscussionsNav.propTypes = {
   followedTopicsLink: string,
   mostRecentLink: string,
   mostActiveLink: string,
+  searchLink: string,
 };
 
 export default DiscussionsNav;

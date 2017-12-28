@@ -24,6 +24,7 @@ import dashboard from './dashboard/reducer';
 import discussionsForums from './discussions-forums/reducer';
 import discussionsNewThread from './discussions-new-thread/reducer';
 import discussionsReplies from './discussions-replies/reducer';
+import discussionsSearch from './discussions-search/reducer';
 import discussionsThread from './discussions-thread/reducer';
 import discussionsTopics from './discussions-topics/reducer';
 import eventInfo from './event-info/reducer';
@@ -92,6 +93,7 @@ export default combineReducers({
   discussionsForums,
   discussionsNewThread,
   discussionsReplies,
+  discussionsSearch,
   discussionsThread,
   discussionsTopics,
   eventInfo,
