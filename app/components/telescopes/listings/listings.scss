@@ -3,7 +3,7 @@
 @import '../../../styles/mixins/utilities.scss';
 @import '../../../styles/custom-ui.scss';
 
-$listing_blue: #589A9A;
+$listing_blue: #589a9a;
 $listing_black: #424242;
 
 $item_height: 85px;
@@ -18,10 +18,8 @@ $item_height: 85px;
 }
 
 .hover-state {
-  -webkit-box-shadow: 0px 0px 0px 5px $slooh-white inset,
-  0px 0px 10px 0px $slooh-black;
-  box-shadow: 0px 0px 0px 5px $slooh-white inset,
-  0px 0px 10px 0px $slooh-black;
+  -webkit-box-shadow: 0px 0px 0px 5px $slooh-white inset, 0px 0px 10px 0px $slooh-black;
+  box-shadow: 0px 0px 0px 5px $slooh-white inset, 0px 0px 10px 0px $slooh-black;
 
   &.on-hold {
     border: none;
@@ -81,7 +79,7 @@ $item_height: 85px;
         display: flex;
 
         .action {
-          background:none;
+          background: none;
           background-color: $pink;
           color: #fff;
           font-weight: normal;
@@ -148,7 +146,7 @@ $item_height: 85px;
       &.on-hold {
         background: $white;
         -webkit-box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.38) inset;
-                box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.38) inset;
+        box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.38) inset;
         border: none;
 
         .hold-timer-content {
@@ -262,9 +260,10 @@ $item_height: 85px;
               outline: 0;
             }
 
-            &:hover, &.active {
+            &:hover,
+            &.active {
               color: $white;
-              background: $black
+              background: $black;
             }
           }
         }
@@ -282,7 +281,6 @@ $item_height: 85px;
   }
 
   .reservation-form-container {
-
     .timer-container {
       width: 100%;
       text-align: center;
@@ -307,9 +305,21 @@ $item_height: 85px;
           /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#4c4c4c+0,131313+100 */
           background: #4c4c4c; /* Old browsers */
           background: -moz-linear-gradient(top, #4c4c4c 0%, #131313 100%); /* FF3.6-15 */
-          background: -webkit-linear-gradient(top, #4c4c4c 0%,#131313 100%); /* Chrome10-25,Safari5.1-6 */
-          background: linear-gradient(to bottom, #4c4c4c 0%,#131313 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-          filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', endColorstr='#131313',GradientType=0 ); /* IE6-9 */
+          background: -webkit-linear-gradient(
+            top,
+            #4c4c4c 0%,
+            #131313 100%
+          ); /* Chrome10-25,Safari5.1-6 */
+          background: linear-gradient(
+            to bottom,
+            #4c4c4c 0%,
+            #131313 100%
+          ); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+          filter: progid:DXImageTransform.Microsoft.gradient(
+              startColorstr='#4c4c4c',
+              endColorstr='#131313',
+              GradientType=0
+            ); /* IE6-9 */
         }
       }
 
@@ -325,7 +335,6 @@ $item_height: 85px;
       }
 
       .objectCategories {
-
         ul {
           padding: 0;
         }

@@ -1,25 +1,22 @@
-import React, { Component } from 'react';
-
+import React from 'react';
 import MissionConfirmModal from '../components/missions/mission-confirm-modal';
 import AnnouncementBanner from '../components/common/announcement-banner/announcement-banner';
 import ReserveBanner from '../components/missions/reserve-banner';
 import MissionNav from '../components/missions/mission-nav';
 
-class Reservations extends Component {
 
-  render() {
-    return (
-      <div>
-        <div className="clearfix reservations">
-          <MissionConfirmModal />
-          <AnnouncementBanner level="general" />
-          <ReserveBanner />
-          <MissionNav route={this.props.route} location={this.props.location} />
-          {this.props.children}
-        </div>
+function Reservations({ route, location, children }) {
+  return (
+    <div>
+      <div className="reservations clearfix">
+        <MissionConfirmModal />
+        <AnnouncementBanner level="general" />
+        <ReserveBanner />
+        <MissionNav route={route} location={location} />
+        {children}
       </div>
-    );
-  }
+    </div>
+  );
 }
 
 export default Reservations;

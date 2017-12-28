@@ -5,7 +5,7 @@ import Logo from '../../../common/logo/logo';
 
 const UserDetailsContainer = ({ children }) => (
   <div className="col-xs-4 reserved-by-user-content">
-    <h3 className="title">Reserved by:</h3>
+    <h3 className="title">Scheduled by:</h3>
     {children}
   </div>
 );
@@ -37,9 +37,7 @@ class UserDetails extends Component {
             theme="light"
             photo={ownerAvatarURL}
             name={ownerDisplayName}
-            accountType={ownerMembershipType}
             location={ownerLocation}
-            memberSince={ownerMemberSince}
           />
         </UserDetailsContainer>
       );
@@ -49,7 +47,7 @@ class UserDetails extends Component {
   }
 }
 
-const { string, number, bool } = PropTypes;
+const { string, bool } = PropTypes;
 UserDetails.propTypes = {
   showUserDetails: bool.isRequired,
   showSloohUser: bool.isRequired,

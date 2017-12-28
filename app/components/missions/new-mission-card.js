@@ -8,23 +8,22 @@ import truncate from 'lodash/truncate';
 import classnames from 'classnames';
 import styles from './mission-card.scss';
 
-import {
-  updateSingleReservations,
-  grabMissionSlot,
-} from '../../modules/Missions';
+import { updateSingleReservations, grabMissionSlot } from '../../modules/Missions';
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators({
-      updateSingleReservations,
-      grabMissionSlot,
-    }, dispatch)
+    actions: bindActionCreators(
+      {
+        updateSingleReservations,
+        grabMissionSlot,
+      },
+      dispatch,
+    ),
   };
 }
 
 @connect(null, mapDispatchToProps)
 class NewMissionCard extends Component {
-
   constructor(props) {
     super(props);
 
@@ -82,8 +81,14 @@ class NewMissionCard extends Component {
     return (
       <div className="mission-available">
         <p className="start-time">
-          <strong>{ EST_start }{ featured ? ':' : '' }</strong>
-          { !featured ? <br /> : null} { EST_start_time } <span className="highlight">&middot;</span> { PST_start_time } <span className="highlight">&middot;</span> {UTC_start_time} { !featured ? <br /> : null} <span className={styles.telescopePierName}>{telescopePierName}</span>
+          <strong>
+            {EST_start}
+            {featured ? ':' : ''}
+          </strong>
+          {!featured ? <br /> : null} {EST_start_time} <span className="highlight">&middot;</span>{' '}
+          {PST_start_time} <span className="highlight">&middot;</span> {UTC_start_time}{' '}
+          {!featured ? <br /> : null}{' '}
+          <span className={styles.telescopePierName}>{telescopePierName}</span>
         </p>
       </div>
     );
@@ -96,11 +101,8 @@ class NewMissionCard extends Component {
       return (
         <div>
           {this.renderMissionTime()}
-          <Link
-            className={styles.piggybackCta}
-            to="#"
-            onClick={this.handleMakeReservationClick}>
-            Make Reservation
+          <Link className={styles.piggybackCta} to="#" onClick={this.handleMakeReservationClick}>
+            Auto Schedule
           </Link>
         </div>
       );
@@ -115,24 +117,20 @@ class NewMissionCard extends Component {
     if (reservation.userHasReservation) {
       return (
         <div>
-          <h5 className="mission-status">You have an upcoming { reservation.userReservationType } reservation scheduled for</h5>
-          <div className="join-mission-callout">
-            {this.renderMissionTime()}
-          </div>
+          <h5 className="mission-status">
+            You have an upcoming {reservation.userReservationType} reservation scheduled for
+          </h5>
+          <div className="join-mission-callout">{this.renderMissionTime()}</div>
         </div>
       );
     }
 
     if (reservation.missionAvailable) {
-      return (
-        <h5 className="mission-status">Set up a new mission</h5>
-      );
+      return <h5 className="mission-status">Next Available Time Slot:</h5>;
     }
 
     if (!reservation.missionAvailable) {
-      return (
-        <h5 className="mission-status">No missions are available</h5>
-      );
+      return <h5 className="mission-status">No missions are available</h5>;
     }
 
     return null;
@@ -156,40 +154,41 @@ class NewMissionCard extends Component {
 
     return (
       <div className={newMissionCardContainerClasses}>
-
         <div className="card-content-container">
-          {
-            featured ?
-            <span className="callOut"><span className="first-word">Don&apos;t</span> Miss</span> : null
-          }
+          {featured ? (
+            <span className="callOut">
+              <span className="first-word">Don&apos;t</span> Miss
+            </span>
+          ) : null}
 
-          <h2>{ headline }</h2>
+          <h2>{headline}</h2>
 
           <div className={styles.cardsubTitle}>
-            {
-              featured ?
-                <img alt="Mission icon" className={styles.cardIcon} src={card.objectIconURL} /> :
-                <img alt="Mission icon" height="50" className={styles.cardIcon} src={card.objectIconURL} />
-            }
+            {featured ? (
+              <img alt="Mission icon" className={styles.cardIcon} src={card.objectIconURL} />
+            ) : (
+              <img
+                alt="Mission icon"
+                height="50"
+                className={styles.cardIcon}
+                src={card.objectIconURL}
+              />
+            )}
             <h3>{title}</h3>
           </div>
 
-          {
-            featured ?
-              <p className={styles.cardDescription}>{description}</p>
-              :
-              <p className={styles.cardDescription}>{truncate(description, {'length': 130, 'separator': ' '})}</p>
-          }
+          {featured ? (
+            <p className={styles.cardDescription}>{description}</p>
+          ) : (
+            <p className={styles.cardDescription}>
+              {truncate(description, { length: 130, separator: ' ' })}
+            </p>
+          )}
 
-          {
-            this.determineMissionStatusMessage()
-          }
+          {this.determineMissionStatusMessage()}
 
-          <div className="join-mission-callout">
-            {this.renderCallToAction()}
-          </div>
+          <div className="join-mission-callout">{this.renderCallToAction()}</div>
         </div>
-
       </div>
     );
   }
@@ -198,7 +197,7 @@ class NewMissionCard extends Component {
 NewMissionCard.propTypes = {
   openModal: PropTypes.func,
   card: PropTypes.object,
-  featured:  PropTypes.bool,
+  featured: PropTypes.bool,
   reservation: PropTypes.shape({
     missionAvailable: PropTypes.bool,
     missionStart: PropTypes.number,

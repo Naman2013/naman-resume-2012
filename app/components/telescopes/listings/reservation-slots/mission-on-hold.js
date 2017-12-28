@@ -99,9 +99,7 @@ class MissionOnHold extends Component {
             theme="light"
             photo={ownerAvatarURL}
             name={ownerDisplayName}
-            accountType={ownerMembershipType}
             location={ownerLocation}
-            memberSince={ownerMemberSince}
           />
         </div>
 
