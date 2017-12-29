@@ -18,7 +18,7 @@ import Featured from '../components/home/slooh-extras/featured';
 import SharedPictures from '../components/home/shared-pictures';
 import PromoPanels from '../components/home/promo-panels/promo-panels';
 import style from './home.scss';
-import SocialSharingBar from '../components/common/social-sharing-bar/social-sharing-bar.js';
+import SocialSharingBar from '../components/common/social-sharing-bar';
 
 import { fetchCommunityContent }
   from '../modules/community-content/community-object-content-actions';
