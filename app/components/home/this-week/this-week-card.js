@@ -35,6 +35,7 @@ class ThisWeekCard extends Component {
       headingColorRGB,
       subheadColorRGB,
       imageURL,
+      iconURL,
       openInNewTab,
     } = this.props;
 
@@ -76,6 +77,7 @@ class ThisWeekCard extends Component {
         </div>
         <div className="card-content-button">
           {this.generateLink(buttonLink, openInNewTab, buttonText)}
+          {this.props.iconURL && <img className="card-content-icon" src={iconURL}/>}
         </div>
       </li>
     );

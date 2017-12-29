@@ -35,7 +35,15 @@
         text-align: left;
         background-color: white;
         margin: 0 auto;
-        top: -30px
+        top: -30px;
+      }
+
+      .card-content-icon {
+        max-height: 48px;
+        max-width: 48px;
+        float: right;
+        margin-right: 15px;
+        margin-top: 10px;
       }
 
       .card-text {
