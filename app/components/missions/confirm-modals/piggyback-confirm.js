@@ -119,7 +119,7 @@ class PiggyBackConfirm extends Component {
             <div>
               <div className="modal-header">
                 <h1 className="title">Strap yourself in</h1>
-                <h2 className="title-secondary">Your are joining a pre-scheduled mission to:</h2>
+                <h2 className="title-secondary">You are joining a pre-scheduled mission to:</h2>
               </div>
 
               <div className="modal-body">
