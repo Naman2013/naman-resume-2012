@@ -8,11 +8,8 @@ const ReserveBanner = () => (
     <div className="title col-md-7">
       <h1>Auto Schedule Telescopes</h1>
       <h2 className="sub-title">
-        You can start by selecting an object in Featured Objects, Reserve Slooh 500 or Reserve by
-        Catalog, and we’ll pick the time and best telescope for you. Or you can start by selecting a
-        time slot in Reserve by Telescope, and we’ll show you which objects can be seen at that time
-        and with that telescope. It&#39;s easy, so go for it!
-      </h2>
+You can start by selecting an object under Slooh 500, Featured Objects, or By Catalogs, and we&#39;ll pick the best time and telescope for you. Or start by selecting a time slot under By Telescope, and we&#39;ll show you which objects can be seen at that time and with that telescope. Photos of your mission will automatically appear in your My Pictures.
+	  </h2>
     </div>
     <section className="col-md-4 align-right">
       <UniversalTime />
