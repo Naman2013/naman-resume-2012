@@ -121,8 +121,6 @@ class SSELiveImageViewer extends Component {
       clipped,
       missionFormat,
       callSource,
-      showInfoButton,
-      handleInfoClick,
     } = this.props;
 
     const { obsId, domeId } = obsIdTeleIdDomeIdFromTeleId(teleId);
@@ -143,8 +141,6 @@ class SSELiveImageViewer extends Component {
           objectTitleShort={objectTitleShort}
           processing={processing}
           schedulingMember={schedulingMember}
-          showInfoButton={showInfoButton}
-          handleInfoClick={handleInfoClick}
           onPositionChange={this.handlePositionChange}
           now={timestamp}
           missionStart={missionStart}
