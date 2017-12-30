@@ -5,6 +5,7 @@ import Draggable from 'react-draggable';
 import noop from 'lodash/noop';
 
 import ClipView from './ClipView';
+import SVGClipView from './SVGClipView';
 import SubjectScaleControl from './SubjectScaleControl';
 import Rails from './Rails';
 import ViewerControlInterface from './ViewerControlInterface';
@@ -14,7 +15,7 @@ import { black, brightGreen } from '../../styles/variables/colors';
 
 function calculateDraggableBounds(scale) {
   // bounds multiplier is set to 0 while scale is 1 to prevent movement at full size
-  const BOUNDS_MULTIPLIER = (scale > 1) ? 100 : 0;
+  const BOUNDS_MULTIPLIER = scale > 1 ? 100 : 0;
   const baseScale = BOUNDS_MULTIPLIER * scale;
   return {
     top: -baseScale,
@@ -160,30 +161,24 @@ class VirtualTelescopeView extends Component {
         onMouseLeave={this.handleMouseLeaveRoot}
         className="root"
       >
-
         <div className="frame">
           <div className="virtual-telescope-view-content-container">
-            <ClipView clipped={clipped}>
-              <Draggable
-                bounds={calculateDraggableBounds(subjectScale)}
-                handle={'.drag-handle'}
-                position={controlledPosition}
-                onDrag={this.onDrag}
-              >
-                <div className="drag-handle">
-                  <SubjectScaleControl scale={subjectScale}>
-                    { children }
-                  </SubjectScaleControl>
-                </div>
-              </Draggable>
-            </ClipView>
+            <Draggable
+              bounds={calculateDraggableBounds(subjectScale)}
+              handle={'.drag-handle'}
+              position={controlledPosition}
+              onDrag={this.onDrag}
+            >
+              <div className="drag-handle">
+                <SubjectScaleControl scale={subjectScale}>{children}</SubjectScaleControl>
+              </div>
+            </Draggable>
+
+            {clipped && <SVGClipView />}
 
             <Rails />
 
-            <div
-              className="view-controller-wrapper"
-              style={viewControllerWrapperStyles}
-            >
+            <div className="view-controller-wrapper" style={viewControllerWrapperStyles}>
               <ViewerControlInterface
                 clipped={clipped}
                 handleClip={handleClip}
@@ -242,7 +237,7 @@ class VirtualTelescopeView extends Component {
           }
 
           .view-controller-wrapper {
-            transition: opacity .25s ease-in-out;
+            transition: opacity 0.25s ease-in-out;
           }
         `}</style>
       </div>
