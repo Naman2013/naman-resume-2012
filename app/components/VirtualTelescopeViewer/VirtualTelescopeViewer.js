@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Draggable from 'react-draggable';
+import Measure from 'react-measure';
 
 import noop from 'lodash/noop';
 
@@ -83,6 +84,10 @@ class VirtualTelescopeView extends Component {
     },
     viewerControlInterfaceOpacity: 1,
     zoomLevel: 0,
+    dimensions: {
+      width: -1,
+      height: -1,
+    },
   };
 
   componentWillUpdate(nextProps, nextState) {
@@ -128,6 +133,10 @@ class VirtualTelescopeView extends Component {
     });
   };
 
+  handleRootContainerResize = (contentRect) => {
+    this.setState({ dimensions: contentRect.bounds })
+  }
+
   render() {
     const {
       activeZoomLevel,
@@ -148,7 +157,7 @@ class VirtualTelescopeView extends Component {
       missionEnd,
     } = this.props;
 
-    const { viewerControlInterfaceOpacity, controlledPosition } = this.state;
+    const { viewerControlInterfaceOpacity, controlledPosition, dimensions } = this.state;
 
     const viewControllerWrapperStyles = {
       opacity: viewerControlInterfaceOpacity,
@@ -160,44 +169,56 @@ class VirtualTelescopeView extends Component {
         onMouseLeave={this.handleMouseLeaveRoot}
         className="root"
       >
+
         <div className="frame">
-          <div className="virtual-telescope-view-content-container">
-            <Draggable
-              bounds={calculateDraggableBounds(subjectScale)}
-              handle={'.drag-handle'}
-              position={controlledPosition}
-              onDrag={this.onDrag}
-            >
-              <div className="drag-handle">
-                <SubjectScaleControl scale={subjectScale}>{children}</SubjectScaleControl>
-              </div>
-            </Draggable>
+          <Measure
+            bounds
+            onResize={this.handleRootContainerResize}
+          >
+            {
+              ({ measureRef }) =>
+                <div
+                  ref={measureRef}
+                  className="virtual-telescope-view-content-container"
+                >
+                  <Draggable
+                    bounds={calculateDraggableBounds(subjectScale)}
+                    handle={'.drag-handle'}
+                    position={controlledPosition}
+                    onDrag={this.onDrag}
+                  >
+                    <div className="drag-handle">
+                      <SubjectScaleControl scale={subjectScale}>{children}</SubjectScaleControl>
+                    </div>
+                  </Draggable>
 
-            {clipped && <SVGClipView />}
+                  {clipped && <SVGClipView width={dimensions.width} height={dimensions.height} />}
 
-            <Rails />
+                  <Rails />
 
-            <div className="view-controller-wrapper" style={viewControllerWrapperStyles}>
-              <ViewerControlInterface
-                clipped={clipped}
-                handleClip={handleClip}
-                handleZoomIn={this.handleZoomIn}
-                handleZoomOut={this.handleZoomOut}
-                zoomRange={zoomRange}
-                activeZoomLevel={activeZoomLevel}
-                timestamp={timestamp}
-                coordinateArray={coordinateArray}
-                missionData={missionData}
-                showMissionData={showMissionData}
-                objectTitleShort={objectTitleShort}
-                processing={processing}
-                schedulingMember={schedulingMember}
-                now={now}
-                missionStart={missionStart}
-                missionEnd={missionEnd}
-              />
-            </div>
-          </div>
+                  <div className="view-controller-wrapper" style={viewControllerWrapperStyles}>
+                    <ViewerControlInterface
+                      clipped={clipped}
+                      handleClip={handleClip}
+                      handleZoomIn={this.handleZoomIn}
+                      handleZoomOut={this.handleZoomOut}
+                      zoomRange={zoomRange}
+                      activeZoomLevel={activeZoomLevel}
+                      timestamp={timestamp}
+                      coordinateArray={coordinateArray}
+                      missionData={missionData}
+                      showMissionData={showMissionData}
+                      objectTitleShort={objectTitleShort}
+                      processing={processing}
+                      schedulingMember={schedulingMember}
+                      now={now}
+                      missionStart={missionStart}
+                      missionEnd={missionEnd}
+                    />
+                  </div>
+                </div>
+            }
+          </Measure>
         </div>
 
         <style jsx>{`
