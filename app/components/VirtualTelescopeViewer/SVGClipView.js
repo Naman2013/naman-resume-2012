@@ -1,17 +1,28 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-function SVGClipView() {
+const propTypes = {
+  width: PropTypes.string,
+  height: PropTypes.string,
+};
+
+const defaultProps = {
+  width: '100%',
+  height: '100%',
+};
+
+function SVGClipView({ width, height }) {
   return (
     <div className="root">
-      <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+      <svg width={width} height={height} xmlns="http://www.w3.org/2000/svg">
         <defs>
           <mask id="hole">
-            <rect width="100%" height="100%" fill="white" />
+            <rect width={width} height={height} fill="white" />
             <circle r="38%" cx="50%" cy="50%" fill="black" />
           </mask>
         </defs>
 
-        <rect id="portal" x="0" y="0" width="100%" height="100%" mask="url(#hole)" />
+        <rect id="portal" x="0" y="0" width={width} height={height} mask="url(#hole)" />
       </svg>
 
       <style jsx>{`
@@ -27,5 +38,8 @@ function SVGClipView() {
     </div>
   );
 }
+
+SVGClipView.propTypes = propTypes;
+SVGClipView.defaultProps = defaultProps;
 
 export default SVGClipView;
