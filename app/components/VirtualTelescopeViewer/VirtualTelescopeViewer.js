@@ -4,7 +4,6 @@ import Draggable from 'react-draggable';
 
 import noop from 'lodash/noop';
 
-import ClipView from './ClipView';
 import SVGClipView from './SVGClipView';
 import SubjectScaleControl from './SubjectScaleControl';
 import Rails from './Rails';
