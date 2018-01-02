@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+
 import {
   ShareButtons,
   ShareCounts,
@@ -52,11 +54,6 @@ const LivejournalIcon = generateShareIcon('livejournal');
 
 class SocialSharingBar extends Component {
   render() {
-    const socialSharingInlineStyle = {
-      display: 'block',
-      minWidth: '300px',
-    }
-
     const shareUrl = 'http://www.slooh.com/abc';
     const title = 'Slooh: The December 2017 Supermoon!';
 
@@ -65,199 +62,235 @@ class SocialSharingBar extends Component {
     const TW_hashtags = ['supermoonchallenge'];
 
     return (
-      <div className="Demo__some-network">
+      <div className="social-share-outercontainer">
+          <ul className={'social-share-innercontainer-' + this.props.contentLayout}>
+
+              {this.props.showFaceBook && <li className={'social-share-button-' + this.props.contentLayout}>
+                  <FacebookShareButton
+                    url={shareUrl}
+                    quote={title}
+                    hashtag={FB_hashtag}>
+                    <FacebookIcon
+                      size={32}
+                      round />
+                  </FacebookShareButton>
+                </li>
+              }
+
+              {this.props.showTwitter && <li className={'social-share-button-' + this.props.contentLayout}>
+                  <TwitterShareButton
+                    url={shareUrl}
+                    title={title}
+                    hashtags={TW_hashtags}>
+                  <TwitterIcon
+                      size={32}
+                      round />
+                  </TwitterShareButton>
+                </li>
+              }
+
+              {this.props.showTelegram && <li className={'social-share-button-' + this.props.contentLayout}>
+                  <TelegramShareButton
+                    url={shareUrl}
+                    title={title}
+                    className="social-share-button">
+                    <TelegramIcon size={32} round />
+                  </TelegramShareButton>
+                </li>
+              }
+
+              {this.props.showWhatsApp && <WhatsappShareButton className={'social-share-button-' + this.props.contentLayout}
+                  url={shareUrl}
+                  title={title}
+                  separator=":: ">
+                  <WhatsappIcon size={32} round />
+                </WhatsappShareButton>
+              }
+
+              {this.props.showGooglePlus && <li className={'social-share-button-' + this.props.contentLayout}>
+                  <GooglePlusShareButton
+                    url={shareUrl}>
+                    <GooglePlusIcon
+                      size={32}
+                      round />
+                  </GooglePlusShareButton>
+                </li>
+              }
+
+              {this.props.showLinkedIn && <LinkedinShareButton className={'social-share-button-' + this.props.contentLayout}
+                  url={shareUrl}
+                  title={title}
+                  windowWidth={750}
+                  windowHeight={600}>
+                  <LinkedinIcon
+                    size={32}
+                    round />
+                </LinkedinShareButton>
+              }
+
+              {this.props.showPinterest && <PinterestShareButton className={'social-share-button-' + this.props.contentLayout}
+                  url={String(window.location)}
+                  media={`${String(window.location)}/${exampleImage}`}
+                  windowWidth={1000}
+                  windowHeight={730}>
+                  <PinterestIcon size={32} round />
+                </PinterestShareButton>
+              }
+
+              {this.props.showVK && <VKShareButton className={'social-share-button-' + this.props.contentLayout}
+                  url={shareUrl}
+                  image={`${String(window.location)}/${exampleImage}`}
+                  windowWidth={660}
+                  windowHeight={460}>
+                  <VKIcon
+                    size={32}
+                    round />
+                </VKShareButton>
+              }
+
+              {this.props.showOK && <OKShareButton className={'social-share-button-' + this.props.contentLayout}
+                  url={shareUrl}
+                  image={`${String(window.location)}/${exampleImage}`}
+                  windowWidth={660}
+                  windowHeight={460}>
+                  <OKIcon
+                    size={32}
+                    round />
+                </OKShareButton>
+              }
+
+              {this.props.showReddit && <RedditShareButton className={'social-share-button-' + this.props.contentLayout}
+                  url={shareUrl}
+                  title={title}
+                  windowWidth={660}
+                  windowHeight={460}>
+                  <RedditIcon
+                    size={32}
+                    round />
+                </RedditShareButton>
+              }
+
+              {this.props.showTumblr && <TumblrShareButton className={'social-share-button-' + this.props.contentLayout}
+                  url={shareUrl}
+                  title={title}
+                  windowWidth={660}
+                  windowHeight={460}>
+                  <TumblrIcon
+                    size={32}
+                    round />
+                </TumblrShareButton>
+              }
+
+              {this.props.showLiveJournal && <LivejournalShareButton className={'social-share-button-' + this.props.contentLayout}
+                  url={shareUrl}
+                  title={title}
+                  description={shareUrl}>
+                  <LivejournalIcon size={32} round />
+                </LivejournalShareButton>
+              }
+
+              {this.props.showMailru && <MailruShareButton className={'social-share-button-' + this.props.contentLayout}
+                  url={shareUrl}
+                  title={title}>
+                  <MailruIcon
+                    size={32}
+                    round />
+                </MailruShareButton>
+              }
+
+              {this.props.showEmail && <EmailShareButton className={'social-share-button-' + this.props.contentLayout}
+                  url={shareUrl}
+                  subject={title}
+                  body="body">
+                  <EmailIcon
+                    size={32}
+                    round />
+                </EmailShareButton>
+              }
+        </ul>
+
+        {this.props.showPostCounts &&
           <div className="Demo__some-network">
-              <FacebookShareButton
-                url={shareUrl}
-                quote={title}
-                hashtag={FB_hashtag}
-                className="Demo__some-network__share-button">
-                <FacebookIcon
-                  size={32}
-                  round />
-              </FacebookShareButton>
+            <FacebookShareCount
+              url={shareUrl}
+              className="social-share-count">
+              {count => count}
+            </FacebookShareCount>
 
-              <TwitterShareButton
-                url={shareUrl}
-                title={title}
-                hashtags={TW_hashtags}
-                className="Demo__some-network__share-button">
-                <TwitterIcon
-                  size={32}
-                  round />
-              </TwitterShareButton>
+            <GooglePlusShareCount
+              url={shareUrl}
+              className="social-share-count">
+              {count => count}
+            </GooglePlusShareCount>
 
-              <TelegramShareButton
-                url={shareUrl}
-                title={title}
-                className="Demo__some-network__share-button">
-                <TelegramIcon size={32} round />
-              </TelegramShareButton>
+            <LinkedinShareCount
+              url={shareUrl}
+              className="social-share-count">
+              {count => count}
+            </LinkedinShareCount>
 
-              <WhatsappShareButton
-                url={shareUrl}
-                title={title}
-                separator=":: "
-                className="Demo__some-network__share-button">
-                <WhatsappIcon size={32} round />
-              </WhatsappShareButton>
+            <PinterestShareCount
+              url={shareUrl}
+              className="social-share-count" />
 
-              <GooglePlusShareButton
-                url={shareUrl}
-                className="Demo__some-network__share-button">
-                <GooglePlusIcon
-                  size={32}
-                  round />
-              </GooglePlusShareButton>
+            <VKShareCount
+              url={shareUrl}
+              className="social-share-count" />
 
-              <LinkedinShareButton
-                url={shareUrl}
-                title={title}
-                windowWidth={750}
-                windowHeight={600}
-                className="Demo__some-network__share-button">
-                <LinkedinIcon
-                  size={32}
-                  round />
-              </LinkedinShareButton>
+            <OKShareCount
+              url={shareUrl}
+              className="social-share-count" />
 
-              <PinterestShareButton
-                url={String(window.location)}
-                media={`${String(window.location)}/${exampleImage}`}
-                windowWidth={1000}
-                windowHeight={730}
-                className="Demo__some-network__share-button">
-                <PinterestIcon size={32} round />
-              </PinterestShareButton>
+            <RedditShareCount
+              url={shareUrl}
+              className="social-share-count" />
 
-              <VKShareButton
-                url={shareUrl}
-                image={`${String(window.location)}/${exampleImage}`}
-                windowWidth={660}
-                windowHeight={460}
-                className="Demo__some-network__share-button">
-                <VKIcon
-                  size={32}
-                  round />
-              </VKShareButton>
-
-              <OKShareButton
-                url={shareUrl}
-                image={`${String(window.location)}/${exampleImage}`}
-                windowWidth={660}
-                windowHeight={460}
-                className="Demo__some-network__share-button">
-                <OKIcon
-                  size={32}
-                  round />
-              </OKShareButton>
-
-              <RedditShareButton
-                url={shareUrl}
-                title={title}
-                windowWidth={660}
-                windowHeight={460}
-                className="Demo__some-network__share-button">
-                <RedditIcon
-                  size={32}
-                  round />
-              </RedditShareButton>
-
-              <TumblrShareButton
-                url={shareUrl}
-                title={title}
-                windowWidth={660}
-                windowHeight={460}
-                className="Demo__some-network__share-button">
-                <TumblrIcon
-                  size={32}
-                  round />
-              </TumblrShareButton>
-
-              <LivejournalShareButton
-                url={shareUrl}
-                title={title}
-                description={shareUrl}
-                className="Demo__some-network__share-button"
-              >
-                <LivejournalIcon size={32} round />
-              </LivejournalShareButton>
-
-              <MailruShareButton
-                url={shareUrl}
-                title={title}
-                className="Demo__some-network__share-button">
-                <MailruIcon
-                  size={32}
-                  round />
-              </MailruShareButton>
-
-              <EmailShareButton
-                url={shareUrl}
-                subject={title}
-                body="body"
-                className="Demo__some-network__share-button">
-                <EmailIcon
-                  size={32}
-                  round />
-              </EmailShareButton>
-        </div>
-
-        <div className="Demo__some-network">
-          <FacebookShareCount
-            url={shareUrl}
-            className="Demo__some-network__share-count">
-            {count => count}
-          </FacebookShareCount>
-
-          <GooglePlusShareCount
-            url={shareUrl}
-            className="Demo__some-network__share-count">
-            {count => count}
-          </GooglePlusShareCount>
-
-          <LinkedinShareCount
-            url={shareUrl}
-            className="Demo__some-network__share-count">
-            {count => count}
-          </LinkedinShareCount>
-
-          <PinterestShareCount url={shareUrl}
-            className="Demo__some-network__share-count" />
-
-          <VKShareCount url={shareUrl}
-            className="Demo__some-network__share-count" />
-
-          <OKShareCount url={shareUrl}
-            className="Demo__some-network__share-count" />
-
-          <RedditShareCount url={shareUrl}
-            className="Demo__some-network__share-count" />
-
-          <TumblrShareCount url={shareUrl}
-            className="Demo__some-network__share-count" />
-        </div>
+            <TumblrShareCount
+              url={shareUrl}
+              className="social-share-count" />
+          </div>
+        }
 
         <style jsx>{`
-            .Demo__some-network {
-              position: relative;
-              vertical-align: top;
-              display: inline-block;
-              margin-right: 30px;
-              text-align: center;
+            .social-share-outercontainer {
+              margin: 0;
+              padding: 0;
             }
 
-            .Demo__some-network__share-count {
+            .social-share-innercontainer-horizontal {
+              list-style-type: none;
+              min-width: 100px;
+              display: inline-block;
+              margin: 0;
+              padding: 0;
+            }
+
+            .social-share-innercontainer-vertical {
+              list-style-type: none;
+              display: block;
+              margin: 0;
+              padding: 0;
+            }
+
+            .social-share-button-horizontal {
+              display: inline-block;
+              cursor: pointer;
+              margin-right: 5px;
+            }
+
+            .social-share-button-vertical {
+              display: block;
+              cursor: pointer;
+              margin-bottom: 5px;
+            }
+
+            .social-share-button:hover:not(:active) {
+              opacity: 0.75;
+            }
+
+            .social-share-count {
               margin-top: 3px;
               font-size: 12px;
-            }
-
-            .Demo__some-network__share-button {
-              cursor: pointer;
-            }
-
-            .Demo__some-network__share-button:hover:not(:active) {
-              opacity: 0.75;
             }
         `}</style>
       </div>
@@ -266,3 +299,51 @@ class SocialSharingBar extends Component {
 }
 
 export default SocialSharingBar;
+
+SocialSharingBar.defaultProps = {
+  contentLayout: 'horizontal',
+  showPostCounts: false,
+  shareTitle: '',
+  shareURL: '',
+  shareHashTags: [],
+  shareImageURL: '',
+  shareDescription: '',
+  showFaceBook: true,
+  showTwitter: true,
+  showTelegram: false,
+  showWhatsApp: false,
+  showGooglePlus: false,
+  showLinkedIn: false,
+  showPinterest: false,
+  showVK: false,
+  showOK: false,
+  showReddit: false,
+  showTumblr: false,
+  showLiveJournal: false,
+  showMailru: false,
+  showEmail: false,
+};
+
+SocialSharingBar.propTypes = {
+  contentLayout: PropTypes.string,
+  showPostCounts: PropTypes.bool,
+  shareTitle: PropTypes.string,
+  shareURL: PropTypes.string,
+  shareHashTags: PropTypes.array,
+  shareImageURL: PropTypes.string,
+  shareDescription: PropTypes.string,
+  showFaceBook: PropTypes.bool,
+  showTwitter: PropTypes.bool,
+  showTelegram: PropTypes.bool,
+  showWhatsApp: PropTypes.bool,
+  showGooglePlus: PropTypes.bool,
+  showLinkedIn: PropTypes.bool,
+  showPinterest: PropTypes.bool,
+  showVK: PropTypes.bool,
+  showOK: PropTypes.bool,
+  showReddit: PropTypes.bool,
+  showTumblr: PropTypes.bool,
+  showLiveJournal: PropTypes.bool,
+  showMailru: PropTypes.bool,
+  showEmail: PropTypes.bool,
+};

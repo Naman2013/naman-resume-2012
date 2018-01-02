@@ -18,7 +18,6 @@ import Featured from '../components/home/slooh-extras/featured';
 import SharedPictures from '../components/home/shared-pictures';
 import PromoPanels from '../components/home/promo-panels/promo-panels';
 import style from './home.scss';
-import SocialSharingBar from '../components/common/social-sharing-bar';
 
 import { fetchCommunityContent }
   from '../modules/community-content/community-object-content-actions';
@@ -183,8 +182,6 @@ class Home extends Component {
         {homeContent.loadHeroTypes.indexOf('aboutYou') > -1 &&
           <HeroAboutYou {...homeContent.userInformation} />
         }
-
-        <SocialSharingBar />
 
         {homeContent.promo && homeContent.promo.promoShow &&
           <div style={promoInlineStyle}>

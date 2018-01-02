@@ -9,6 +9,7 @@ import { likeImage } from '../../services/my-pictures/like-image';
 import { backgroundImageCover, borderRadius } from '../../styles/mixins/utilities';
 import Heart from '../common/heart/heart';
 import { fetchMyPicturesImageDetails } from '../../modules/my-pictures-image-details/actions';
+import SocialSharingBar from '../common/social-sharing-bar';
 
 const {
   arrayOf,
@@ -205,6 +206,9 @@ class SharedPicturesItem extends Component {
                   />
                   }
                 </h4>
+                <div className="socialsharingbar">
+                  <SocialSharingBar contentLayout="horizontal"/>
+                </div>
               </div>
               <div className="profile-photo" style={profilePhotoStyle} />
             </div>
@@ -328,6 +332,11 @@ class SharedPicturesItem extends Component {
             .info-panel {
               width: 500px;
             }
+          }
+
+          .socialsharingbar {
+            padding-top: 20px;
+            margin-bottom: -25px;
           }
         `}</style>
       </div>
