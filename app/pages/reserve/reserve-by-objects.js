@@ -9,7 +9,9 @@ import ReservationSelectList from '../../components/common/forms/reservation-sel
 import GenericLoadingBox from '../../components/common/loading-screens/generic-loading-box';
 import styles from '../../components/reserve/reserve-by-object.scss';
 
-import fetchCatagoryList, { fetchPopularObjectList } from '../../modules/browse-popular-objects/api';
+import fetchCatagoryList, {
+  fetchPopularObjectList,
+} from '../../modules/browse-popular-objects/api';
 import { grabMissionSlot, missionConfirmOpen } from '../../modules/Missions';
 
 import { resetBrowseByPopularObjects } from '../../modules/browse-popular-objects/actions';
@@ -23,13 +25,16 @@ const mapStateToProps = ({ user, popularObjects }) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({
-    grabMissionSlot,
-    missionConfirmOpen,
-    resetBrowseByPopularObjects,
-    validateResponseAccess,
-    placeOneHourHold,
-  }, dispatch),
+  actions: bindActionCreators(
+    {
+      grabMissionSlot,
+      missionConfirmOpen,
+      resetBrowseByPopularObjects,
+      validateResponseAccess,
+      placeOneHourHold,
+    },
+    dispatch,
+  ),
 });
 
 const Catagory = ({ text, imageURL }) => (
@@ -72,7 +77,7 @@ class ReserveObjects extends Component {
     fetchingObjectList: false,
     selectedCategoryIndex: null,
     selectedObjectIndex: null,
-  }
+  };
 
   componentWillMount() {
     const { callSource } = this.props;
@@ -113,7 +118,8 @@ class ReserveObjects extends Component {
 
   // TODO: continue to build out and use normalizeMissionInfo instead of running the || guard checks in other places
   normalizedMissionInfo() {
-    const scheduledMissionId = this.props.scheduledMissionId || this.state.visibilityStatus.scheduledMissionId;
+    const scheduledMissionId =
+      this.props.scheduledMissionId || this.state.visibilityStatus.scheduledMissionId;
     const uniqueId = this.props.uniqueId || this.state.visibilityStatus.uniqueId;
     return {
       scheduledMissionId,
@@ -189,7 +195,7 @@ class ReserveObjects extends Component {
       scheduledMissionId,
       uniqueId,
     });
-  }
+  };
 
   handleScheduleMission(event) {
     event.preventDefault();
@@ -206,7 +212,7 @@ class ReserveObjects extends Component {
       objectTitle,
     } = this.currentObjectSelection;
 
-    const missionType = (callSource === 'byTelescope') ? 'member' : undefined;
+    const missionType = callSource === 'byTelescope' ? 'member' : undefined;
 
     this.props.actions.grabMissionSlot({
       scheduledMissionId,
@@ -230,20 +236,26 @@ class ReserveObjects extends Component {
 
   get mappedObjects() {
     const { objects } = this.state;
-    return flatten(objects.categoryList.map((category) => {
-      return category.categoryTopicList.map((object) => {
-        if (object.topicIsSubcategory) {
-          return {
-            title: object.objectTitle,
-          };
-        }
+    return flatten(
+      objects.categoryList.map(category =>
+        category.categoryTopicList.map((object) => {
+          if (object.topicIsSubcategory) {
+            return {
+              title: object.objectTitle,
+            };
+          }
 
-        return Object.assign({}, {
-          option: <Catagory text={object.topicName} />,
-          enabled: object.topicIsEnabled,
-        }, object);
-      });
-    }));
+          return Object.assign(
+            {},
+            {
+              option: <Catagory text={object.topicName} />,
+              enabled: object.topicIsEnabled,
+            },
+            object,
+          );
+        }),
+      ),
+    );
   }
 
   get currentObjectSelection() {
@@ -277,19 +289,23 @@ class ReserveObjects extends Component {
     const { showMakeReservation, showPlaceOnHold, showCancelHold, resetForm } = this.props;
     const { catagoryList, selectedCategoryIndex } = this.state;
 
-    const catagories = catagoryList.categoryList.map(catagory =>
-      <Catagory text={catagory.categoryDisplayName} imageURL={catagory.categoryIconURL} />,
-    );
+    const catagories = catagoryList.categoryList.map(catagory => (
+      <Catagory text={catagory.categoryDisplayName} imageURL={catagory.categoryIconURL} />
+    ));
 
     const currentObjectSelection = this.currentObjectSelection;
 
     return (
       <div className={styles.reserveObjectPage}>
         <div className="row">
-
           <div className="col-md-4">
-            <h2><span className="number">1</span> Select Category</h2>
-
+            <h2>
+              <span className="number">1</span> Select Category
+            </h2>
+            <h3 className="sub-title">
+              Start by choosing the type of object you want to see, and we will show you a list of objects that are visible this time of
+              year.
+            </h3>
             <ReservationSelectList
               selectedIndex={selectedCategoryIndex}
               handleSelectChange={this.handleCatagorySelectChange}
@@ -299,40 +315,62 @@ class ReserveObjects extends Component {
           </div>
 
           <div className="col-md-4">
-            <h2><span className="number">2</span> Choose Specific Object</h2>
-            {
-              this.renderStepTwo()
-            }
+            <h2>
+              <span className="number">2</span> Choose Specific Object
+            </h2>
+            <h3 className="sub-title">
+              Select the object you want to see, and we’ll pick the time and best telescope for you
+              to schedule the mission.
+            </h3>
+            {this.renderStepTwo()}
           </div>
 
           <div className="col-md-4">
-            <h2><span className="number">3</span> Object Summary</h2>
+            <h2>
+              <span className="number">3</span> Object Summary
+            </h2>
             <div className={styles.objectSummary}>
-              {
-                currentObjectSelection ?
-                  <div>
-                    <span className="title">{currentObjectSelection.topicDisplayName}</span>
-                    <p>{currentObjectSelection.topicDescription}</p>
-                  </div> : null
-              }
+              {currentObjectSelection ? (
+                <div>
+                  <span className="title">{currentObjectSelection.topicDisplayName}</span>
+                  <p>{currentObjectSelection.topicDescription}</p>
+                </div>
+              ) : null}
 
               <section className="actions-container">
-                {
-                  currentObjectSelection && showCancelHold ? <button className="btn-primary" onClick={handleCancelHold}>Cancel Hold</button> : null
-                }
-                {
-                  showPlaceOnHold ? <button className="btn-primary" onClick={this.handlePlaceHourHold}>Hold One Hour</button> : null
-                }
-                {
-                  currentObjectSelection && resetForm ? <button className="btn-primary" onClick={this.handleClearBrowse}>Reset Browse</button> : null
-                }
-                {
-                  currentObjectSelection && showMakeReservation ? <button className="btn-primary" onClick={this.handleScheduleMission}>Schedule Mission</button> : null
-                }
+                {currentObjectSelection && showCancelHold ? (
+                  <button className="btn-primary" onClick={handleCancelHold}>
+                    Cancel Hold
+                  </button>
+                ) : null}
+                {showPlaceOnHold ? (
+                  <button className="btn-primary" onClick={this.handlePlaceHourHold}>
+                    Hold One Hour
+                  </button>
+                ) : null}
+                {currentObjectSelection && resetForm ? (
+                  <button className="btn-primary" onClick={this.handleClearBrowse}>
+                    Reset Browse
+                  </button>
+                ) : null}
+                {currentObjectSelection && showMakeReservation ? (
+                  <button className="btn-primary" onClick={this.handleScheduleMission}>
+                    Schedule Mission
+                  </button>
+                ) : null}
               </section>
             </div>
           </div>
         </div>
+
+        <style jsx>{`
+          .sub-title {
+            font-size: 12px;
+            line-height: 20px;
+            padding-left: 24px;
+            margin-bottom: 10px;
+          }
+        `}</style>
       </div>
     );
   }

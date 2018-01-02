@@ -218,6 +218,11 @@ class Recommendation extends Component {
 
     return (
       <div className={s.recommendationRoot}>
+        <ReactTooltip
+          className={s.tooltip}
+          place="left"
+          effect="solid"
+        />
 
         <h4 className={s.title}>{headline}</h4>
 
@@ -227,11 +232,6 @@ class Recommendation extends Component {
           </span>
           <h3 className={s.objectName}>{title}</h3>
           <p data-tip={description} className={s.description}>{truncatedDescription}</p>
-          <ReactTooltip
-            className={s.descriptionTooltip}
-            place="left"
-            effect="solid"
-          />
         </div>
 
         {/** bottom half is dynamic based on result calls */}

@@ -11,6 +11,7 @@ import CurrentSelectionHeader from '../components/telescopes/current-selection-h
 import DateSelectionNavigation from '../components/telescopes/date-selection-navigation/date-selection-navigation';
 import GenericLoadingBox from '../components/common/loading-screens/generic-loading-box';
 import Listings from '../components/telescopes/listings/listings';
+import { white } from '../styles/variables/colors';
 import s from './reserve-by-telescope.scss';
 
 function mapDispatchToProps(dispatch) {
@@ -50,36 +51,46 @@ class ReserveMissions extends Component {
 
     return (
       <div className="reserve-by-telescope" id="reserve-by-telescope">
-
-        <TelescopeSelection
-          theme="light"
-          observatoryList={observatoryList}
-          params={params}
-          showUTCTimer={false}
-          rootRoute="/reservations/reserve-by-telescope/telescope"
-        />
-
         <Sticky
+          enabled
           activeClass="sticky"
           bottomBoundary="#reserve-by-telescope"
-          enabled={true}
           innerZ="10"
           top="#mainHeader"
         >
-          <div className={s.stickyNavigationContainer}>
-            <CurrentSelectionHeader
-              telescopeIcon={currentObservatory.obsLogoURL}
-              teleName={currentObservatory.obsName}
-              teleSponsorLinkURL={currentTelescope.teleSponsorLinkURL}
-              teleSponsorLogoURL={currentTelescope.teleSponsorLogoURL}
-              instrTelescopeName={currentTelescope.teleName}
-            />
-            <DateSelectionNavigation
-              routeRoot={rootRoute}
-              obsId={currentObservatory.obsId}
-              domeId={currentInstrument.instrDomeId}
-              telescopeId={currentTelescope.teleId}
-            />
+          <div className="sticky-container">
+
+            <div className="navigation-container">
+              <TelescopeSelection
+                theme="light"
+                observatoryList={observatoryList}
+                params={params}
+                showUTCTimer={false}
+                rootRoute="/reservations/reserve-by-telescope/telescope"
+              />
+            </div>
+
+            <div className={`${s.stickyNavigationContainer} clearfix`}>
+              <div className="current-selection-header-container col-md-4">
+                <CurrentSelectionHeader
+                  telescopeIcon={currentObservatory.obsLogoURL}
+                  teleName={currentObservatory.obsName}
+                  teleSponsorLinkURL={currentTelescope.teleSponsorLinkURL}
+                  teleSponsorLogoURL={currentTelescope.teleSponsorLogoURL}
+                  instrTelescopeName={currentTelescope.teleName}
+                />
+              </div>
+              <div className="col-md-8">
+                <div className="date-selection-container">
+                  <DateSelectionNavigation
+                    routeRoot={rootRoute}
+                    obsId={currentObservatory.obsId}
+                    domeId={currentInstrument.instrDomeId}
+                    telescopeId={currentTelescope.teleId}
+                  />
+                </div>
+              </div>
+            </div>
           </div>
         </Sticky>
 
@@ -95,6 +106,27 @@ class ReserveMissions extends Component {
               allowReservations={reservationList.allowReservations}
             />
         }
+
+        <style jsx>{`
+          .sticky-container {
+            background: ${white};
+            width: 101%;
+            margin-left: -8px;
+          }
+
+          .navigation-container {
+            border-bottom: 1px solid #979797;
+          }
+
+          .current-selection-header-container {
+            padding-top: 25px;
+          }
+
+          .date-selection-container {
+            float: right;
+            padding-top: 8px;
+          }
+        `}</style>
       </div>
     );
   }

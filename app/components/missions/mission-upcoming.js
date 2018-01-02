@@ -23,7 +23,7 @@ const UpcomingContent = ({
   objectTitle,
   telescopePierName,
   userReservationType,
-  }) => {
+}) => {
   const formattedUTCDate = new Date(missionStart * 1000);
 
   const EST_start = moment.tz(formattedUTCDate, 'America/New_York').format('dddd, MMMM Do');
@@ -39,12 +39,17 @@ const UpcomingContent = ({
       </div>
 
       <div className="upcoming-mission-date">
-        <strong>{EST_start}</strong><br />
+        <strong>{EST_start}</strong>
+        <br />
         {EST_start_time} · {PST_start_time} · {UTC_start_time}
       </div>
 
-      <p className={styles.telescopeType}>{telescopePierName} ({userReservationType})</p>
-      <Link to="/settings/dashboard" className="btn btn-primary">View Reservations</Link>
+      <p className={styles.telescopeType}>
+        {telescopePierName} ({userReservationType})
+      </p>
+      <Link to="/settings/dashboard" className="btn btn-primary">
+        View My Schedule
+      </Link>
     </div>
   );
 };
@@ -53,15 +58,17 @@ const mapStateToProps = (state, ownProps) => ({
   usersUpcomingMission: state.usersUpcomingMission,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  actions: bindActionCreators({
-    fetchUsersUpcomingMissions,
-  }, dispatch),
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators(
+    {
+      fetchUsersUpcomingMissions,
+    },
+    dispatch,
+  ),
 });
 
 @connect(mapStateToProps, mapDispatchToProps)
 class MissionUpcoming extends Component {
-
   componentWillMount() {
     this.props.actions.fetchUsersUpcomingMissions();
   }
@@ -71,7 +78,9 @@ class MissionUpcoming extends Component {
       const { missionList } = this.props.usersUpcomingMission.upcomingMission;
 
       const currentMission = missionList[0];
-      if (!currentMission) { return null; }
+      if (!currentMission) {
+        return null;
+      }
 
       const {
         displayName,
@@ -84,27 +93,26 @@ class MissionUpcoming extends Component {
         userReservationType,
       } = currentMission;
 
-        return (
-          <div>
-            <div className="widget-header">
-              <span className="mission-profPic" style={{ backgroundImage: `url(${avatarURL})` }} />
-              <h2>{displayName}&rsquo;s Upcoming Mission</h2>
-            </div>
-            {
-              userHasReservation ?
-                <UpcomingContent
-                  missionTitle={objectTitle}
-                  missionStart={missionStart}
-                  objectIconURL={objectIconURL}
-                  objectTitle={objectTitle}
-                  telescopePierName={telescopePierName}
-                  userReservationType={userReservationType}
-                />
-                :
-                <NoContentAvailable />
-            }
+      return (
+        <div>
+          <div className="widget-header">
+            <span className="mission-profPic" style={{ backgroundImage: `url(${avatarURL})` }} />
+            <h2>{displayName}&rsquo;s Upcoming Missions</h2>
           </div>
-        );
+          {userHasReservation ? (
+            <UpcomingContent
+              missionTitle={objectTitle}
+              missionStart={missionStart}
+              objectIconURL={objectIconURL}
+              objectTitle={objectTitle}
+              telescopePierName={telescopePierName}
+              userReservationType={userReservationType}
+            />
+          ) : (
+            <NoContentAvailable />
+          )}
+        </div>
+      );
     }
 
     return <NoContentAvailable />;
@@ -115,12 +123,7 @@ class MissionUpcoming extends Component {
 
     return (
       <div className="widget-container mission-upcoming">
-        {
-          fetchingMissions ?
-            <FetchingMissions />
-            :
-            this.renderUpcomingMission()
-        }
+        {fetchingMissions ? <FetchingMissions /> : this.renderUpcomingMission()}
       </div>
     );
   }

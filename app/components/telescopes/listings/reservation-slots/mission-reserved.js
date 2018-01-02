@@ -6,9 +6,11 @@ import { bindActionCreators } from 'redux';
 import MissionTime from '../partials/mission-time';
 import ShareMission from '../partials/share-mission';
 import UserDetails from '../partials/user-details';
+import APP_DEFAULTS from '../../../../constants/defaults';
 import {
   grabPiggybackByTelescope,
-  resetMissionAvailability } from '../../../../modules/Piggyback';
+  resetMissionAvailability,
+} from '../../../../modules/Piggyback';
 
 import { editCoordinateMission } from '../../../../modules/mission-slots-by-telescope/mission-slots-by-telescope-actions';
 
@@ -51,10 +53,11 @@ class MissionReserved extends Component {
       return (
         <div className="col-xs-2 piggyback-on-mission-action">
           <button
+            data-tip={APP_DEFAULTS.PIGGYBACK_SHORT_DESCRIPTION}
             onClick={this.handlePiggybackClick}
             className="btn-primary"
           >
-            Piggyback on Mission
+            Auto Save to My Pictures
           </button>
         </div>
       );

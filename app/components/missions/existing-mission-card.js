@@ -6,14 +6,17 @@ import { Link } from 'react-router';
 import classnames from 'classnames';
 import moment from 'moment-timezone';
 import truncate from 'lodash/truncate';
-
+import APP_DEFAULTS from '../../constants/defaults';
 import ModalGeneric from '../common/modals/modal-generic';
 
 import styles from './mission-card.scss';
+
 import {
   getNextPiggybackSingle,
   missionGetCards,
-  updatePiggyback } from '../../modules/Missions';
+  updatePiggyback,
+} from '../../modules/Missions';
+
 import { resetMissionAvailability } from '../../modules/Piggyback';
 
 function mapDispatchToProps(dispatch) {
@@ -159,18 +162,20 @@ class ExistingMissionCard extends Component {
   }
 
   missionNotAvailable() {
-    const { card, piggyback } = this.props;
+    const { piggyback } = this.props;
     if (!piggyback.userHasReservation) {
       return (
         <div className="mission-unavailable">
           <Link
             className={styles.piggybackCta}
-            to="/reservations/slooh-recommends/new">
+            to="/reservations/slooh-recommends/new"
+          >
             Make Reservation
           </Link>
         </div>
-      )
+      );
     }
+    return null;
   }
 
   missionAvailable() {
@@ -178,14 +183,15 @@ class ExistingMissionCard extends Component {
       <div className="mission-available">
         { this.startMissionTime() }
         <a
+          data-tip={APP_DEFAULTS.PIGGYBACK_SHORT_DESCRIPTION}
           className={styles.piggybackCta}
-          href="#"
+          href=""
           onClick={this.handlePiggybackClick}
         >
-          Piggyback on Mission
+          Auto Save to My Pictures
         </a>
       </div>
-    )
+    );
   }
 
   userHasReservation() {

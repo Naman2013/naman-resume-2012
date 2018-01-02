@@ -1,9 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import noop from 'lodash/noop';
 
 import ViewControls from './ViewControls';
-import Timestamp from './Timestamp';
 import CoordinateInformation from './CoordinateInformation';
 import ZoomControls from './ZoomControls';
 import MissionProgressBar from './MissionProgressBar';
@@ -19,9 +17,7 @@ const propTypes = {
   activeZoomLevel: PropTypes.number.isRequired,
   zoomRange: PropTypes.number.isRequired,
   showInfoButton: PropTypes.bool,
-  handleInfoClick: PropTypes.func,
 
-  timestamp: PropTypes.number.isRequired,
   coordinateArray: PropTypes.arrayOf(PropTypes.string).isRequired,
   missionData: PropTypes.arrayOf(PropTypes.string).isRequired,
   showMissionData: PropTypes.bool.isRequired,
@@ -36,7 +32,6 @@ const propTypes = {
 
 const defaultProps = {
   showInfoButton: false,
-  handleInfoClick: noop,
   now: 0,
   missionStart: 0,
   missionEnd: 0,
@@ -50,8 +45,6 @@ const ViewerControlInterface = ({
   activeZoomLevel,
   zoomRange,
   showInfoButton,
-  handleInfoClick,
-  timestamp,
   coordinateArray,
   missionData,
   showMissionData,
@@ -69,12 +62,7 @@ const ViewerControlInterface = ({
           handleClip={handleClip}
           clipped={clipped}
           showInfoButton={showInfoButton}
-          handleInfoClick={handleInfoClick}
         />
-
-        <div className="grow-2">
-          <Timestamp unixTimestamp={timestamp} />
-        </div>
 
         <CoordinateInformation coordinateArray={coordinateArray} />
       </div>
@@ -126,7 +114,7 @@ const ViewerControlInterface = ({
 
       .top-container {
         display: flex;
-        justify-content: space-around;
+        justify-content: space-between;
         padding: 20px;
       }
 

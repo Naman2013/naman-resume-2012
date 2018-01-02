@@ -18,6 +18,26 @@ class RecentVideoTile extends Component {
     });
   }
 
+  generateVideoDescription() {
+    if (this.props.contentLink != '') {
+      if (this.props.openInNewTab == false) {
+        return (
+          <a style={this.inlineStyle_VideoDescription} className="content contentlink" href={this.props.contentLink} dangerouslySetInnerHTML={{ __html: this.props.content }} />
+        )
+      }
+      else {
+        return (
+          <a target="_blank" style={this.inlineStyle_VideoDescription} className="content contentlink" href={this.props.contentLink} dangerouslySetInnerHTML={{ __html: this.props.content }} />
+        )
+      }
+    }
+    else {
+      return (
+        <p style={this.inlineStyle_VideoDescription} className="content" dangerouslySetInnerHTML={{ __html: this.props.content }} />
+      )
+    }
+  }
+
   render() {
     /* calulate the width of each video */
     var videoWidth = '';
@@ -49,7 +69,7 @@ class RecentVideoTile extends Component {
     const inlineStyle_VideoDescription = {
       textAlign: 'left',
     }
-    
+
     return (
       <div style={inlineStyle} className="col-sm-4 recent-video-tile-container">
         <div style={inlineStyle_video} className="video-wrap">
@@ -63,7 +83,26 @@ class RecentVideoTile extends Component {
             frameBorder="0"
           />
         </div>
-        <p style={inlineStyle_VideoDescription} className="content" dangerouslySetInnerHTML={{ __html: this.props.content }} />
+        {this.generateVideoDescription()}
+
+        <style>{`
+            .contentlink:hover {
+              text-decoration: none;
+            }
+
+            .contentlink:visited {
+              text-decoration: none;
+            }
+
+            .contentlink:active {
+              text-decoration: none;
+            }
+
+            .contentlink:focus {
+              text-decoration: none;
+            }
+        `}
+        </style>
       </div>
     );
   }

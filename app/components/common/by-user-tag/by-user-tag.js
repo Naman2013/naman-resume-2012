@@ -29,9 +29,11 @@ function ByUserTag({
 
       <div className="profile-name">
         <h4 className="username">
-          {name} <span className="account-level">{accountType}</span>
+          {name} { accountType && <span className="account-level">{accountType}</span> }
           <br />
-          <span className={`user-details ${theme}`}>{location} Member since {memberSince}</span>
+          {
+            memberSince && <span className={`user-details ${theme}`}>{location} Member since {memberSince}</span>
+          }
         </h4>
       </div>
 

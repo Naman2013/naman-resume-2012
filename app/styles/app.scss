@@ -3,10 +3,12 @@
 @import './variables/layout.scss';
 @import './mixins/utilities.scss';
 
-a, a:hover {
+a,
+a:hover {
   text-decoration: none;
 }
-p , h3 {
+p,
+h3 {
   margin: 0;
 }
 img {
@@ -40,7 +42,8 @@ img {
   min-width: 540px;
 }
 
-.app-content-container, .static-app-content-container {
+.app-content-container,
+.static-app-content-container {
   font-family: $primary-font;
   background: #fff;
   padding: $slooh-header-height 0 0 $slooh-menu-width;
@@ -56,12 +59,16 @@ img {
   background: $white;
   min-height: 100vmax;
 
+  .tooltip {
+    width: 400px;
+  }
+
   .reserve-missions {
     .container {
-      background: #D8D8D8;
+      background: #d8d8d8;
       width: 100%;
       padding: 0px 15px;
-      @media(min-width:768px){
+      @media (min-width: 768px) {
         padding: 15px;
       }
     }
@@ -85,7 +92,7 @@ img {
 
 // overwrite bootstrap button to use pink
 .btn-primary {
-  background: #F310A7;
+  background: #f310a7;
   color: $white;
   height: 40px;
   line-height: 40px;
@@ -126,7 +133,6 @@ img {
   background: $slooh-black;
 }
 
-
 .reserve-by-telescope {
   width: 98%;
   margin: 0 auto;
@@ -146,10 +152,6 @@ img {
   display: flex;
   align-items: center;
   justify-content: center;
-
-  .btn-primary {
-    min-width: 160px;
-  }
 }
 
 .symbol-character {
@@ -179,21 +181,33 @@ img {
 }
 
 @keyframes react-spinner_spin {
-  0% { opacity: 1; }
-  100% { opacity: 0.15; }
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.15;
+  }
 }
 
 @-moz-keyframes react-spinner_spin {
-  0% { opacity: 1; }
-  100% { opacity: 0.15; }
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.15;
+  }
 }
 
 @-webkit-keyframes react-spinner_spin {
-  0% { opacity: 1; }
-  100% { opacity: 0.15; }
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.15;
+  }
 }
 
-.flex-center{
+.flex-center {
   display: inline-flex;
   width: 100%;
   align-items: center;
@@ -258,10 +272,12 @@ img {
   margin-top: auto;
 }
 
-.rc-pagination{
-  margin:0px 15px 20px;
-  .rc-pagination-prev, .rc-pagination-jump-prev, .rc-pagination-jump-next{
-    margin-right:5px;
+.rc-pagination {
+  margin: 0px 15px 20px;
+  .rc-pagination-prev,
+  .rc-pagination-jump-prev,
+  .rc-pagination-jump-next {
+    margin-right: 5px;
   }
 }
 .rc-pagination-item-active {

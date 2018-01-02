@@ -11,6 +11,10 @@
   height: 400px;
   margin-bottom: 20px;
 
+  .tooltip {
+    width: 400px;
+  }
+
   .title {
     font-size: 16px;
     text-transform: none;
@@ -31,17 +35,9 @@
     margin-bottom: 15px;
   }
 
-  .descriptionTooltip {
-    width: 400px;
-  }
-
   .missionStatusTitle {
     font-size: 16px;
     font-weight: normal;
-  }
-
-  .missionDateInfo {
-
   }
 
   .callToAction {
