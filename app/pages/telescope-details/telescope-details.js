@@ -409,7 +409,7 @@ class TelescopeDetails extends Component {
             {/** right side bar */}
             <div className="col-sm-4 telescope-details-sidebar">
               {currentObservatory.showCountdown &&
-                currentMissionCountdown && (
+                currentMissionCountdown && currentMissionCountdown.showCountdown && (
                   <SunsetCountdown
                     label={currentMissionCountdown.countdownLabel}
                     countdownTimestamp={currentMissionCountdown.countdownTimestamp}
