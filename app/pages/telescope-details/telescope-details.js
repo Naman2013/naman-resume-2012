@@ -300,6 +300,12 @@ class TelescopeDetails extends Component {
       countdown => countdown.teleUniqueId === teleUniqueId,
     );
 
+    console.log('current mission countdown');
+    if (currentMissionCountdown) {
+      console.log(currentMissionCountdown.showCountdown);
+
+    }
+
     return (
       <div className="telescope-details-page-wrapper">
         <AnnouncementBanner obsId={obsId} />
@@ -409,7 +415,7 @@ class TelescopeDetails extends Component {
             {/** right side bar */}
             <div className="col-sm-4 telescope-details-sidebar">
               {currentObservatory.showCountdown &&
-                currentMissionCountdown && (
+                currentMissionCountdown && currentMissionCountdown.showCountdown && (
                   <SunsetCountdown
                     label={currentMissionCountdown.countdownLabel}
                     countdownTimestamp={currentMissionCountdown.countdownTimestamp}
