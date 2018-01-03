@@ -14,7 +14,7 @@ const defaultProps = {
 function SVGClipView({ width, height }) {
   return (
     <div className="root">
-      <svg width={width} height={height} xmlns="http://www.w3.org/2000/svg">
+      <svg className="svg-root" width={width} height={height} xmlns="http://www.w3.org/2000/svg">
         <defs>
           <mask id="hole">
             <rect width={width} height={height} fill="white" />
@@ -33,6 +33,10 @@ function SVGClipView({ width, height }) {
           top: 0;
           left: 0;
           pointer-events: none;
+        }
+
+        .svg-root {
+          transition: none;
         }
       `}</style>
     </div>
