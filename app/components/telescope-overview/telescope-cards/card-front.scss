@@ -1,11 +1,10 @@
-@import "../../../styles/variables/fonts.scss";
+@import '../../../styles/variables/fonts.scss';
 $cardHeight: 730px;
 
 .telescope-cards-container {
   font-family: $primary-font;
 
   .telescope-cards {
-
     .telescope-card-front {
       text-align: center;
       width: 100%;
@@ -16,7 +15,7 @@ $cardHeight: 730px;
       backface-visibility: hidden;
 
       .card-header {
-        background: #9B9B9B;
+        background: #9b9b9b;
         padding: 20px 20px;
         position: relative;
         height: 239px;
@@ -28,7 +27,7 @@ $cardHeight: 730px;
 
           .flip-card-action {
             color: #fff;
-            background: #F310A7;
+            background: #f310a7;
             border: none;
             padding: 5px;
             width: 50px;
@@ -70,13 +69,12 @@ $cardHeight: 730px;
 
           .action {
             color: #fff;
-            background: #F310A7;
+            background: #f310a7;
             text-align: center;
             display: block;
             padding: 10px 15px;
             font-size: 0.75em;
             font-weight: bold;
-
           }
 
           .action:first-child {
@@ -85,7 +83,7 @@ $cardHeight: 730px;
 
           .action:hover {
             text-decoration: none;
-            background: #3B3B3B;
+            background: #3b3b3b;
           }
         }
       }
@@ -102,7 +100,7 @@ $cardHeight: 730px;
           left: 2.5%;
           top: 2.5%;
           background: #000;
-          color: #7EC3C4;
+          color: #7ec3c4;
           padding: 10px;
           padding-top: 14px;
           width: 60px;
@@ -117,7 +115,6 @@ $cardHeight: 730px;
         }
 
         .image-viewer {
-
           .title {
             margin: 0;
             height: 21px;
@@ -134,7 +131,6 @@ $cardHeight: 730px;
               -moz-clip-path: circle(38%);
               clip-path: circle(38%, 38%, 38%);
             }
-
           }
 
           .telescope-image-title {
@@ -145,7 +141,7 @@ $cardHeight: 730px;
           }
 
           .telescope-status {
-            color: #ED1F06;
+            color: #ed1f06;
             padding: 0 5%;
             margin: -20px 0 24px 0;
           }
@@ -156,7 +152,7 @@ $cardHeight: 730px;
           bottom: 16px;
           left: 18%;
           font-size: 0.85em;
-          color: #3C4A55;
+          color: #3c4a55;
         }
       }
     }

@@ -43,7 +43,8 @@ class CardFront extends Component {
         teleStreamURL,
         teleStreamThumbnailVideoWidth,
         teleStreamThumbnailVideoHeight,
-        teleStreamThumbnailQuality } = this.props;
+        teleStreamThumbnailQuality,
+      } = this.props;
 
       return (
         <VideoImageLoader
@@ -78,14 +79,15 @@ class CardFront extends Component {
   }
 
   renderMakeReservationButton() {
-    const { obsUniqueId, teleUniqueId } = this.props
+    const { obsUniqueId, teleUniqueId } = this.props;
     const reservationLink = `/reservations/reserve-by-telescope/telescope/${obsUniqueId}/${teleUniqueId}`;
-    return (
-      this.isMissionReadyTelescope() ?
-        <div className="col-md-6">
-          <Link to={reservationLink} className="action">Make Reservation</Link>
-        </div> : null
-    );
+    return this.isMissionReadyTelescope() ? (
+      <div className="col-md-6">
+        <Link to={reservationLink} className="action">
+          Make Reservation
+        </Link>
+      </div>
+    ) : null;
   }
 
   renderVisitTelescopeButton(obsUniqueId, teleUniqueId) {
@@ -106,7 +108,8 @@ class CardFront extends Component {
       teleSystem,
       telePort,
       teleInstrumentList,
-      activeMission } = this.props;
+      activeMission,
+    } = this.props;
 
     const cardContent = {
       objectTitle: '',
@@ -124,69 +127,70 @@ class CardFront extends Component {
     return (
       <div className="telescope-card-front">
         <div className="card-header">
-
           <div className="button-container">
             <button
+              data-tip="Scope Stats"
               onClick={this.props.handleFlip}
               className="flip-card-action"
             >
-              <img alt="click to flip the card" src="https://vega.slooh.com/assets/icons/flip-arrow.svg" />
+              <img
+                alt="click to flip the card"
+                src="https://vega.slooh.com/assets/icons/flip-arrow.svg"
+              />
             </button>
-
-            <p className="button-text">Scope Specs</p>
           </div>
 
-          <img alt="this is an observatory" className="icon" src="https://vega.slooh.com/assets/icons/observatory.svg" width="50" height="50" />
+          <img
+            alt="this is an observatory"
+            className="icon"
+            src="https://vega.slooh.com/assets/icons/observatory.svg"
+            width="50"
+            height="50"
+          />
           <h3 className="title">{this.props.teleName}</h3>
-          <p className="body">
-            {this.props.teleTelescopeUsage}
-          </p>
+          <p className="body">{this.props.teleTelescopeUsage}</p>
 
           <div className="call-to-action clearfix">
-            { this.renderVisitTelescopeButton(obsUniqueId, teleUniqueId)}
-            { this.renderMakeReservationButton() }
+            {this.renderVisitTelescopeButton(obsUniqueId, teleUniqueId)}
+            {this.renderMakeReservationButton()}
           </div>
-
         </div>
 
         <div className="card-body">
+          {/* telescope content */
+          this.props.telescopeOnline ? (
+            <div>
+              {this.isMissionReadyTelescope() &&
+              validMissionExpireTime(cardContent.expires, cardContent.startTime) ? (
+                <CountdownTimer missionStartTime={cardContent.expires} />
+              ) : null}
+              <div className="image-viewer">
+                <h4 className="title" style={missionStatusStyle}>
+                  LIVE Mission
+                </h4>
 
-          { /* telescope content */
-            this.props.telescopeOnline ?
-              <div>
-                {
-                  this.isMissionReadyTelescope() &&
-                    validMissionExpireTime(cardContent.expires, cardContent.startTime) ?
-                      <CountdownTimer
-                        missionStartTime={cardContent.expires}
-                      /> : null
-                }
-                <div className="image-viewer">
-                  <h4 className="title" style={missionStatusStyle}>LIVE Mission</h4>
-
-                  <div className="telescope-image">
-                    { this.determineLoaderType(teleSystem, telePort) }
-                  </div>
-
-                  <h5 className="telescope-image-title">
-                    {cardContent.objectTitle}
-                  </h5>
+                <div className="telescope-image">
+                  {this.determineLoaderType(teleSystem, telePort)}
                 </div>
-              </div>
-              :
-              <TelescopeOffline
-                offlineImage={this.props.teleOfflineImgURL}
-                offlineStatusMessage={this.props.alertText}
-              />
 
-          }
+                <h5 className="telescope-image-title">{cardContent.objectTitle}</h5>
+              </div>
+            </div>
+          ) : (
+            <TelescopeOffline
+              offlineImage={this.props.teleOfflineImgURL}
+              offlineStatusMessage={this.props.alertText}
+            />
+          )}
           <div className="sponsor">
-            {
-              this.props.teleSponsorLinkURL ?
-                <p>
-                  Sponsored by: <a rel="noopener noreferrer" target="_blank" href={this.props.teleSponsorLinkURL}><img alt="Sponsored by logo" src={this.props.teleSponsorLogoURL} width="150" /></a>
-                </p> : null
-            }
+            {this.props.teleSponsorLinkURL ? (
+              <p>
+                Sponsored by:{' '}
+                <a rel="noopener noreferrer" target="_blank" href={this.props.teleSponsorLinkURL}>
+                  <img alt="Sponsored by logo" src={this.props.teleSponsorLogoURL} width="150" />
+                </a>
+              </p>
+            ) : null}
           </div>
         </div>
       </div>
