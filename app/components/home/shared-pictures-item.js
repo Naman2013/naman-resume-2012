@@ -145,6 +145,8 @@ class SharedPicturesItem extends Component {
       linkableFileData,
     } = myPicturesImageDetails;
 
+    const completeShareURL = 'https://www.slooh.com/my-pictures/show-image/' + customerImageId + '/' + shareToken;
+
     const profilePhotoStyle = {
       backgroundImage: `url(${avatarURL})`,
     };
@@ -207,7 +209,13 @@ class SharedPicturesItem extends Component {
                   }
                 </h4>
                 <div className="socialsharingbar">
-                  <SocialSharingBar contentLayout="horizontal"/>
+                  <SocialSharingBar
+                    contentLayout="horizontal"
+                    shareTitle={imageTitle}
+                    shareDescription={observationLog}
+                    shareImageURL={imageURL}
+                    shareURL={completeShareURL}
+                  />
                 </div>
               </div>
               <div className="profile-photo" style={profilePhotoStyle} />
