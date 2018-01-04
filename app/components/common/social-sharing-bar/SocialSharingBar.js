@@ -63,8 +63,8 @@ class SocialSharingBar extends Component {
     } = this.props;
 
     /* FB wants the hashsymbol for each hashtag, twitter does not */
-    const FB_hashtag = "#supermoonchallenge";
-    const TW_hashtags = ['supermoonchallenge'];
+    const FB_hashtag = "";
+    const TW_hashtags = [];
 
     return (
       <div className="social-share-outercontainer">

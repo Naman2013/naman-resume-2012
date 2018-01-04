@@ -59,7 +59,10 @@ class SharedPicturesItem extends Component {
       linkableFileData: PropTypes.shape({
         'Photo by': PropTypes.shape({}),
         Observatory: PropTypes.shape({}),
-        Telescope: PropTypes.shape({})
+        Telescope: PropTypes.shape({}),
+        'Observation time': PropTypes.shape(
+          {'text': PropTypes.string}
+        ),
       }),
       fileData: PropTypes.shape({
         Observatory: '',
@@ -94,6 +97,9 @@ class SharedPicturesItem extends Component {
         'Photo by': {},
         Telescope: {},
         Observatory: {},
+        'Observation time': {
+          'text': '',
+        }
       },
       avatarURL: '',
     },
@@ -163,6 +169,22 @@ class SharedPicturesItem extends Component {
     const photoBy = linkableFileData['Photo by'];
     const observatory = linkableFileData.Observatory;
     const telescope = linkableFileData.Telescope;
+    const observatoryTime = linkableFileData['Observation time'];
+
+    var shareTitle = '';
+    if (imageTitle != '') {
+      shareTitle = imageTitle + ', taken at';
+    }
+    else {
+      shareTitle = 'Taken at';
+    }
+
+    var shareWhoSays = '';
+    if (observationLog != '') {
+      shareWhoSays = ', who says: "' + observationLog;
+    }
+
+    const shareDescription = shareTitle + observatoryTime.text + ' with @slooh\'s ' + telescope.text + ' by ' + photoBy.text + shareWhoSays + '" https://www.slooh.com' + photoBy.linkUrl;
 
     return (
       <div className="shared-pictures-item">
@@ -211,8 +233,8 @@ class SharedPicturesItem extends Component {
                 <div className="socialsharingbar">
                   <SocialSharingBar
                     contentLayout="horizontal"
-                    shareTitle={imageTitle}
-                    shareDescription={observationLog}
+                    shareTitle={shareDescription}
+                    shareDescription={shareDescription}
                     shareImageURL={imageURL}
                     shareURL={completeShareURL}
                   />
