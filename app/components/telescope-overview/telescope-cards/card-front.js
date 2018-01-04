@@ -124,12 +124,17 @@ class CardFront extends Component {
     return (
       <div className="telescope-card-front">
         <div className="card-header">
-          <button
-            onClick={this.props.handleFlip}
-            className="flip-card-action"
-          >
-            <img alt="click to flip the card" src="https://vega.slooh.com/assets/icons/flip-arrow.svg" />
-          </button>
+
+          <div className="button-container">
+            <button
+              onClick={this.props.handleFlip}
+              className="flip-card-action"
+            >
+              <img alt="click to flip the card" src="https://vega.slooh.com/assets/icons/flip-arrow.svg" />
+            </button>
+
+            <p className="button-text">Scope Specs</p>
+          </div>
 
           <img alt="this is an observatory" className="icon" src="https://vega.slooh.com/assets/icons/observatory.svg" width="50" height="50" />
           <h3 className="title">{this.props.teleName}</h3>
@@ -151,10 +156,10 @@ class CardFront extends Component {
               <div>
                 {
                   this.isMissionReadyTelescope() &&
-                  validMissionExpireTime(cardContent.expires, cardContent.startTime) ?
-                    <CountdownTimer
-                      missionStartTime={cardContent.expires}
-                    /> : null
+                    validMissionExpireTime(cardContent.expires, cardContent.startTime) ?
+                      <CountdownTimer
+                        missionStartTime={cardContent.expires}
+                      /> : null
                 }
                 <div className="image-viewer">
                   <h4 className="title" style={missionStatusStyle}>LIVE Mission</h4>

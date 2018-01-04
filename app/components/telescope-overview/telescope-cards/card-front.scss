@@ -21,20 +21,30 @@ $cardHeight: 730px;
         position: relative;
         height: 239px;
 
-        .flip-card-action {
-          color: #fff;
-          background: #F310A7;
+        .button-container {
           position: absolute;
           top: 2%;
           right: 2%;
-          border: none;
-          padding: 5px;
-          width: 50px;
-          height: 50px;
-          border-radius: 50px;
-          -moz-border-radius: 50px;
-          -webkit-border-radius: 50px;
-          font-size: 1.75em;
+
+          .flip-card-action {
+            color: #fff;
+            background: #F310A7;
+            border: none;
+            padding: 5px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50px;
+            -moz-border-radius: 50px;
+            -webkit-border-radius: 50px;
+            font-size: 1.75em;
+          }
+
+          .button-text {
+            font-size: 10px;
+            text-align: center;
+            color: #fff;
+            width: 50px;
+          }
         }
 
         .icon {
@@ -94,6 +104,7 @@ $cardHeight: 730px;
           background: #000;
           color: #7EC3C4;
           padding: 10px;
+          padding-top: 14px;
           width: 60px;
           height: 60px;
           border-radius: 60px;
