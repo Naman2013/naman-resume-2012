@@ -1,24 +1,27 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { Link } from 'react-router';
-import has from 'lodash/has';
-import moment from 'moment';
-import CountdownTimer from './countdown-timer';
-import TelescopeImageLoader from '../../common/telescope-image-loader/telescope-image-loader';
-import VideoImageLoader from '../../common/telescope-image-loader/video-image-loader';
-import TelescopeOffline from './telescope-offline';
-import obsIdTeleIdDomeIdFromTeleId from '../../../utils/obsid-teleid-domeid-from-teleid';
-import './card-front.scss';
-import generateSseImageSource from '../../../utils/generate-sse-image-source';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { Link } from "react-router";
+import has from "lodash/has";
+import moment from "moment";
+import CountdownTimer from "./countdown-timer";
+import TelescopeImageLoader from "../../common/telescope-image-loader/telescope-image-loader";
+import VideoImageLoader from "../../common/telescope-image-loader/video-image-loader";
+import TelescopeOffline from "./telescope-offline";
+import obsIdTeleIdDomeIdFromTeleId from "../../../utils/obsid-teleid-domeid-from-teleid";
+import "./card-front.scss";
+import generateSseImageSource from "../../../utils/generate-sse-image-source";
 
-const MISSION_READY_TELE_ACCESS_METHOD = 'missions';
+const MISSION_READY_TELE_ACCESS_METHOD = "missions";
 
 function validMissionExpireTime(unixStartTime, unixEndTime) {
   const MAX_MINUTES_ALLOWABLE = 10;
   const convertedTimestamp = unixStartTime * 1000;
   const convertedServerTimestamp = unixEndTime * 1000;
 
-  const difference = moment(convertedTimestamp).diff(convertedServerTimestamp, 'minutes');
+  const difference = moment(convertedTimestamp).diff(
+    convertedServerTimestamp,
+    "minutes"
+  );
 
   if (difference <= 0 || difference >= MAX_MINUTES_ALLOWABLE) {
     return false;
@@ -37,13 +40,13 @@ class CardFront extends Component {
     const { teleImageSourceType, teleId } = this.props;
     const idSet = obsIdTeleIdDomeIdFromTeleId(teleId);
 
-    if (teleImageSourceType === 'video') {
+    if (teleImageSourceType === "video") {
       const {
         teleStreamCode,
         teleStreamURL,
         teleStreamThumbnailVideoWidth,
         teleStreamThumbnailVideoHeight,
-        teleStreamThumbnailQuality,
+        teleStreamThumbnailQuality
       } = this.props;
 
       return (
@@ -56,7 +59,7 @@ class CardFront extends Component {
           teleStreamThumbnailQuality={teleStreamThumbnailQuality}
         />
       );
-    } else if (teleImageSourceType === 'SSE') {
+    } else if (teleImageSourceType === "SSE") {
       return (
         <TelescopeImageLoader
           loadThumbnails
@@ -108,20 +111,23 @@ class CardFront extends Component {
       teleSystem,
       telePort,
       teleInstrumentList,
-      activeMission,
+      activeMission
     } = this.props;
 
     const cardContent = {
-      objectTitle: '',
-      expires: null,
+      objectTitle: "",
+      expires: null
     };
 
-    if (has(activeMission, 'activeMission.compact.missionList')) {
-      Object.assign(cardContent, activeMission.activeMission.compact.missionList[0]);
+    if (has(activeMission, "activeMission.compact.missionList")) {
+      Object.assign(
+        cardContent,
+        activeMission.activeMission.compact.missionList[0]
+      );
     }
 
     const missionStatusStyle = {
-      opacity: this.isMissionReadyTelescope() ? 1 : 0,
+      opacity: this.isMissionReadyTelescope() ? 1 : 0
     };
 
     return (
@@ -129,7 +135,7 @@ class CardFront extends Component {
         <div className="card-header">
           <div className="button-container">
             <button
-              data-tip="Scope Stats"
+              data-tip="Telescope specifications"
               onClick={this.props.handleFlip}
               className="flip-card-action"
             >
@@ -161,7 +167,10 @@ class CardFront extends Component {
           this.props.telescopeOnline ? (
             <div>
               {this.isMissionReadyTelescope() &&
-              validMissionExpireTime(cardContent.expires, cardContent.startTime) ? (
+              validMissionExpireTime(
+                cardContent.expires,
+                cardContent.startTime
+              ) ? (
                 <CountdownTimer missionStartTime={cardContent.expires} />
               ) : null}
               <div className="image-viewer">
@@ -173,7 +182,9 @@ class CardFront extends Component {
                   {this.determineLoaderType(teleSystem, telePort)}
                 </div>
 
-                <h5 className="telescope-image-title">{cardContent.objectTitle}</h5>
+                <h5 className="telescope-image-title">
+                  {cardContent.objectTitle}
+                </h5>
               </div>
             </div>
           ) : (
@@ -185,9 +196,17 @@ class CardFront extends Component {
           <div className="sponsor">
             {this.props.teleSponsorLinkURL ? (
               <p>
-                Sponsored by:{' '}
-                <a rel="noopener noreferrer" target="_blank" href={this.props.teleSponsorLinkURL}>
-                  <img alt="Sponsored by logo" src={this.props.teleSponsorLogoURL} width="150" />
+                Sponsored by:{" "}
+                <a
+                  rel="noopener noreferrer"
+                  target="_blank"
+                  href={this.props.teleSponsorLinkURL}
+                >
+                  <img
+                    alt="Sponsored by logo"
+                    src={this.props.teleSponsorLogoURL}
+                    width="150"
+                  />
                 </a>
               </p>
             ) : null}
@@ -199,7 +218,7 @@ class CardFront extends Component {
 }
 
 CardFront.defaultProps = {
-  missionStartTime: moment.now(),
+  missionStartTime: moment.now()
 };
 
 CardFront.propTypes = {
@@ -228,7 +247,7 @@ CardFront.propTypes = {
   teleUniqueId: PropTypes.string,
   teleInstrumentList: PropTypes.array,
   obsUniqueId: PropTypes.string,
-  alertText: PropTypes.string,
+  alertText: PropTypes.string
 };
 
 export default CardFront;
