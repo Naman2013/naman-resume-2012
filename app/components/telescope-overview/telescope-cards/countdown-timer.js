@@ -5,19 +5,9 @@ import InlineCountdown from '../../common/inline-countdown/inline-countdown';
 function CountdownTimer({ missionStartTime }) {
   return (
     <div className="count-down">
-      <h4 className="counter-text clearfix">
-        <span className="countdown-pre-text">~</span> <InlineCountdown startTime={missionStartTime} />
+      <h4 className="counter-text">
+        <InlineCountdown startTime={missionStartTime} />
       </h4>
-
-      <style jsx>{`
-        .counter-text {
-          font-size: 10px;
-        }
-
-        .countdown-pre-text {
-          float: left;
-        }
-      `}</style>
     </div>
   );
 }
@@ -25,6 +15,5 @@ function CountdownTimer({ missionStartTime }) {
 CountdownTimer.propTypes = {
   missionStartTime: PropTypes.number.isRequired,
 };
-
 
 export default CountdownTimer;
