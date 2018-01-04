@@ -85,8 +85,8 @@ class VirtualTelescopeView extends Component {
     viewerControlInterfaceOpacity: 1,
     zoomLevel: 0,
     dimensions: {
-      width: -1,
-      height: -1,
+      width: 0,
+      height: 0,
     },
   };
 
