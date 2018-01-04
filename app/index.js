@@ -129,6 +129,9 @@ import './styles/interface.css';
 import './styles/animations.scss';
 import './styles/static.scss';
 
+// load monitoring and global error handling
+import './monitoring';
+
 // handle to the listen callback on changes to the history
 const unlisten = browserHistory.listen((location, action) => {
   const { pathname } = location;
