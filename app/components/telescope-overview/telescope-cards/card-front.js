@@ -47,18 +47,18 @@ class CardFront extends Component {
 
       return (
         <VideoImageLoader
+          clipped
           teleStreamCode={teleStreamCode}
           teleStreamURL={teleStreamURL}
           teleStreamThumbnailVideoWidth={teleStreamThumbnailVideoWidth}
           teleStreamThumbnailVideoHeight={teleStreamThumbnailVideoHeight}
           teleStreamThumbnailQuality={teleStreamThumbnailQuality}
-          clipped={true}
         />
       );
     } else if (teleImageSourceType === 'SSE') {
       return (
         <TelescopeImageLoader
-          loadThumbnails={true}
+          loadThumbnails
           imageSource={generateSseImageSource(teleSystem)}
           teleId={idSet.teleId}
           obsId={idSet.obsId}
@@ -68,9 +68,13 @@ class CardFront extends Component {
           missionFormat="compact"
         />
       );
-    } else {
-      return null;
     }
+
+    return null;
+  }
+
+  isMissionReadyTelescope() {
+    return this.props.teleAccessMethod === MISSION_READY_TELE_ACCESS_METHOD;
   }
 
   renderMakeReservationButton() {
@@ -82,10 +86,6 @@ class CardFront extends Component {
           <Link to={reservationLink} className="action">Make Reservation</Link>
         </div> : null
     );
-  }
-
-  isMissionReadyTelescope() {
-    return this.props.teleAccessMethod === MISSION_READY_TELE_ACCESS_METHOD;
   }
 
   renderVisitTelescopeButton(obsUniqueId, teleUniqueId) {
@@ -124,17 +124,12 @@ class CardFront extends Component {
     return (
       <div className="telescope-card-front">
         <div className="card-header">
-          {
-            /**
-              TODO: deferred for future feature
-            */
-            <button
-              onClick={this.props.handleFlip}
-              className="flip-card-action"
-            >
-              <img alt="click to flip the card" src="https://vega.slooh.com/assets/icons/flip-arrow.svg" />
-            </button>
-          }
+          <button
+            onClick={this.props.handleFlip}
+            className="flip-card-action"
+          >
+            <img alt="click to flip the card" src="https://vega.slooh.com/assets/icons/flip-arrow.svg" />
+          </button>
 
           <img alt="this is an observatory" className="icon" src="https://vega.slooh.com/assets/icons/observatory.svg" width="50" height="50" />
           <h3 className="title">{this.props.teleName}</h3>
@@ -180,12 +175,12 @@ class CardFront extends Component {
               />
 
           }
-         <div className="sponsor">
+          <div className="sponsor">
             {
-              !!this.props.teleSponsorLinkURL ?
-              <p>
-                Sponsored by: <a target="_blank" href={this.props.teleSponsorLinkURL}><img src={this.props.teleSponsorLogoURL} width="150" /></a>
-              </p> : null
+              this.props.teleSponsorLinkURL ?
+                <p>
+                  Sponsored by: <a rel="noopener noreferrer" target="_blank" href={this.props.teleSponsorLinkURL}><img alt="Sponsored by logo" src={this.props.teleSponsorLogoURL} width="150" /></a>
+                </p> : null
             }
           </div>
         </div>
@@ -195,7 +190,7 @@ class CardFront extends Component {
 }
 
 CardFront.defaultProps = {
-  missionStartTime: moment.now()
+  missionStartTime: moment.now(),
 };
 
 CardFront.propTypes = {
