@@ -421,13 +421,12 @@ class TelescopeDetails extends Component {
               activeTelescopeMission.nextMissionAvailable ? (
                 <div>
                   <LiveMission {...activeTelescopeMission} />
+                  <UpcomingMissions missions={activeTelescopeMission.upcomingMissionArray} />
                   <TelescopeAllSky
                     obsId={currentObservatory.obsId}
                     AllskyWidgetId={currentObservatory.SkyChartWidgetId}
                     scheduledMissionId={activeTelescopeMission.scheduledMissionId}
                   />
-
-                  <UpcomingMissions missions={activeTelescopeMission.upcomingMissionArray} />
                 </div>
               ) : null}
 
