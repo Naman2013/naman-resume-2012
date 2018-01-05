@@ -92,6 +92,7 @@ class SharedPicturesItem extends Component {
       likePrompt: '',
       canDownloadFlag: false,
       canEditFlag: false,
+      socialShareDescription: '',
       fileData: {},
       linkableFileData: {
         'Photo by': {},
@@ -149,6 +150,7 @@ class SharedPicturesItem extends Component {
       likesCount,
       shareToken,
       linkableFileData,
+      socialShareDescription,
     } = myPicturesImageDetails;
 
     const completeShareURL = 'https://www.slooh.com/my-pictures/show-image/' + customerImageId + '/' + shareToken;
@@ -171,21 +173,8 @@ class SharedPicturesItem extends Component {
     const telescope = linkableFileData.Telescope;
     const observatoryTime = linkableFileData['Observation time'];
 
-    var shareTitle = '';
-    if (imageTitle != '') {
-      shareTitle = imageTitle + ', taken at';
-    }
-    else {
-      shareTitle = 'Taken at';
-    }
-
-    var shareWhoSays = '';
-    if (observationLog != '') {
-      shareWhoSays = ', who says: "' + observationLog;
-    }
-
-    const shareDescription = shareTitle + observatoryTime.text + ' with @slooh\'s ' + telescope.text + ' by ' + photoBy.text + shareWhoSays + '" https://www.slooh.com' + photoBy.linkUrl;
-
+    const shareDescription = socialShareDescription;
+    
     return (
       <div className="shared-pictures-item">
         {error && <div className="loading">There was an error fetching this photo.</div>}
@@ -234,6 +223,7 @@ class SharedPicturesItem extends Component {
                   <SocialSharingBar
                     contentLayout="horizontal"
                     shareTitle={shareDescription}
+                    shareDescription={shareDescription}
                     shareImageURL={imageURL}
                     shareURL={completeShareURL}
                   />
