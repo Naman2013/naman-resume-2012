@@ -59,7 +59,6 @@ class SocialSharingBar extends Component {
       shareTitle,
       shareHashTags,
       shareImageURL,
-      shareDescription,
     } = this.props;
 
     /* FB wants the hashsymbol for each hashtag, twitter does not */
@@ -115,6 +114,7 @@ class SocialSharingBar extends Component {
               {this.props.showGooglePlus && <li className={'social-share-button-' + this.props.contentLayout}>
                   <GooglePlusShareButton
                     url={shareURL}>
+                    title={shareTitle}
                     <GooglePlusIcon
                       size={32}
                       round />
@@ -124,7 +124,7 @@ class SocialSharingBar extends Component {
 
               {this.props.showLinkedIn && <LinkedinShareButton className={'social-share-button-' + this.props.contentLayout}
                   url={shareURL}
-                  title={title}
+                  title={shareTitle}
                   windowWidth={750}
                   windowHeight={600}>
                   <LinkedinIcon
@@ -296,6 +296,17 @@ class SocialSharingBar extends Component {
 
             .social-share-button:hover:not(:active) {
               opacity: 0.75;
+            }
+
+            .social-share-count-outercontainer-horizontal {
+              display: inline-block;
+              min-width: 100px;
+              list-style-type: none;
+            }
+
+            .social-share-count-outercontainer-vertical {
+              display: block;
+              list-style-type: none;
             }
 
             .social-share-count {
