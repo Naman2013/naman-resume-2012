@@ -153,8 +153,6 @@ class SharedPicturesItem extends Component {
       socialShareDescription,
     } = myPicturesImageDetails;
 
-    const completeShareURL = 'https://www.slooh.com/my-pictures/show-image/' + customerImageId + '/' + shareToken;
-
     const profilePhotoStyle = {
       backgroundImage: `url(${avatarURL})`,
     };
@@ -174,7 +172,7 @@ class SharedPicturesItem extends Component {
     const observatoryTime = linkableFileData['Observation time'];
 
     const shareDescription = socialShareDescription;
-    
+
     return (
       <div className="shared-pictures-item">
         {error && <div className="loading">There was an error fetching this photo.</div>}
@@ -225,7 +223,7 @@ class SharedPicturesItem extends Component {
                     shareTitle={shareDescription}
                     shareDescription={shareDescription}
                     shareImageURL={imageURL}
-                    shareURL={completeShareURL}
+                    shareURL={imageURL}
                   />
                 </div>
               </div>
