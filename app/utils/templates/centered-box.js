@@ -21,7 +21,7 @@ export default function centeredBox(content = '') {
       <div
         style="
           background-color: rgba(0, 0, 0, 0.5);
-          width:33%;
+          width: 448px;
           padding: 100px;
           margin: 0 auto;
           text-align: center;
