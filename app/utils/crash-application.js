@@ -6,8 +6,9 @@
   correctly.
 */
 
-import renderVanilla from './render-vanilla';
+import renderVanilla from './rendering/render-vanilla';
+import crashApplication from './templates/crash-application';
 
-export function requestRestart() {
-  console.log('Paint application restart');
+export default function requestRestart() {
+  renderVanilla(crashApplication());
 }

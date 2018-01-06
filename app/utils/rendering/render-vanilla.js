@@ -1,3 +1,3 @@
-export default function renderVanilla(template) {
+export default function renderVanilla(template = '') {
   window.document.getElementById('app').innerHTML = template;
 }
