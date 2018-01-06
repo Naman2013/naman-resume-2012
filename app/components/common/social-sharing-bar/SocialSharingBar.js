@@ -11,31 +11,14 @@ import exampleImage from '../../../../assets/icons/question-mark.png';
 
 const {
   FacebookShareButton,
-  GooglePlusShareButton,
-  LinkedinShareButton,
   TwitterShareButton,
   PinterestShareButton,
-  VKShareButton,
-  OKShareButton,
-  TelegramShareButton,
-  WhatsappShareButton,
   RedditShareButton,
   EmailShareButton,
   TumblrShareButton,
   LivejournalShareButton,
   MailruShareButton,
 } = ShareButtons;
-
-const {
-  FacebookShareCount,
-  GooglePlusShareCount,
-  LinkedinShareCount,
-  PinterestShareCount,
-  VKShareCount,
-  OKShareCount,
-  RedditShareCount,
-  TumblrShareCount,
-} = ShareCounts;
 
 const FacebookIcon = generateShareIcon('facebook');
 const TwitterIcon = generateShareIcon('twitter');
@@ -218,49 +201,7 @@ class SocialSharingBar extends Component {
                     round />
                 </EmailShareButton>
               }
-        </ul>
-
-        {this.props.showPostCounts &&
-          <div className="Demo__some-network">
-            <FacebookShareCount
-              url={shareURL}
-              className="social-share-count">
-              {count => count}
-            </FacebookShareCount>
-
-            <GooglePlusShareCount
-              url={shareURL}
-              className="social-share-count">
-              {count => count}
-            </GooglePlusShareCount>
-
-            <LinkedinShareCount
-              url={shareURL}
-              className="social-share-count">
-              {count => count}
-            </LinkedinShareCount>
-
-            <PinterestShareCount
-              url={shareURL}
-              className="social-share-count" />
-
-            <VKShareCount
-              url={shareURL}
-              className="social-share-count" />
-
-            <OKShareCount
-              url={shareURL}
-              className="social-share-count" />
-
-            <RedditShareCount
-              url={shareURL}
-              className="social-share-count" />
-
-            <TumblrShareCount
-              url={shareURL}
-              className="social-share-count" />
-          </div>
-        }
+          </ul>
 
         <style jsx>{`
             .social-share-outercontainer {
@@ -297,22 +238,6 @@ class SocialSharingBar extends Component {
 
             .social-share-button:hover:not(:active) {
               opacity: 0.75;
-            }
-
-            .social-share-count-outercontainer-horizontal {
-              display: inline-block;
-              min-width: 100px;
-              list-style-type: none;
-            }
-
-            .social-share-count-outercontainer-vertical {
-              display: block;
-              list-style-type: none;
-            }
-
-            .social-share-count {
-              margin-top: 3px;
-              font-size: 12px;
             }
         `}</style>
       </div>
