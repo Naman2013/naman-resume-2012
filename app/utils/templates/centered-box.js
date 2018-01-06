@@ -9,20 +9,23 @@ export default function centeredBox(content = '') {
       <div
         style="
           background: url(https://vega.slooh.com/assets/icons/header/Slooh_Logo_White_5.svg) no-repeat center center;
+          background-size: 155px;
+          background-position: 65px 25px;
           width: 218px;
           height: 65px;
           margin: 0 auto;
-          background-size: 155px;
-          background-position: 65px 25px;
+          margin-bottom: 80px;
         "
       ></div>
 
       <div
         style="
+          background-color: rgba(0, 0, 0, 0.5);
           width:33%;
           padding: 50px;
           margin: 0 auto;
           text-align: center;
+          border-radius: 5px;
         "
       >
         ${content}
