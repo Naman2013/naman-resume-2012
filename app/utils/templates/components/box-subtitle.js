@@ -8,6 +8,7 @@ export default function boxSubtitle(content) {
         font-family: ${secondaryFont};
         color: ${white};
         font-size: 22px;
+        margin-bottom: 40px;
       "
     >${content}</h2>
   `);
