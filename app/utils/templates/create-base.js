@@ -3,8 +3,10 @@ export default function createPage(content = '') {
     <div
       style="
         background: url(https://vega.slooh.com/assets/images/photos/stellar.jpg) no-repeat center center fixed;
-        width: 100%;
-        height: 100%;
+        background-size: cover;
+        width: 100vw;
+        height: 100vh;
+        margin-top: -20px;
       "
     >
       ${content}
