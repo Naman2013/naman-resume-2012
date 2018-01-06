@@ -22,7 +22,7 @@ export default function centeredBox(content = '') {
         style="
           background-color: rgba(0, 0, 0, 0.5);
           width:33%;
-          padding: 50px;
+          padding: 100px;
           margin: 0 auto;
           text-align: center;
           border-radius: 5px;
