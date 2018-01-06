@@ -1,8 +1,7 @@
 import createBase from './create-base';
+import centeredBox from './centered-box';
 
 export default function crashApplication() {
-  const content = `
-    <h1>CRASHED!</h1>
-  `;
+  const content = centeredBox();
   return createBase(content);
 }
