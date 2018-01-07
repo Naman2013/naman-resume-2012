@@ -6,6 +6,7 @@ export default function createPage(content = '') {
         background-size: cover;
         width: 100vw;
         height: 100vh;
+        transition: none;
       "
     >
       ${content}

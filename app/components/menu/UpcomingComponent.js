@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import moment from 'moment';
+import axios from 'axios';
 import uniqueId from 'lodash/uniqueId';
 import UpcomingEvent from './UpcomingEvent';
 import s from './UpcomingComponent.scss';
@@ -34,18 +34,13 @@ export default class UpcomingComponent extends Component {
   }
 
   loadUpcomingEvent = () => {
-    $.get(this.props.source, (result) => {
-      const upcoming = result.eventList;
-      const eventStart = upcoming[0].eventStart;
-      const currentTime = Math.round(Date.now() / 1000);
-      const diffTime = eventStart - currentTime;
-      const duration = moment.duration(diffTime * 1000, 'milliseconds');
-
-      this.setState({ EventMenu: upcoming });
-    });
+    axios.get(this.props.source).then(result => this.setState({ EventMenu: result.eventList }));
   };
 
   render() {
+    const { EventMenu } = this.state;
+    if (EventMenu.length <= 0) { return null; }
+
     return (
       <div className={s.upcomingComponentRoot}>
         <h3 className={s.title}>Upcoming Livecasts:</h3>
