@@ -221,7 +221,6 @@ class SharedPicturesItem extends Component {
                 <div className="socialsharingbar">
                   <SocialSharingBar
                     contentLayout="horizontal"
-                    shareTitle={shareDescription}
                     shareDescription={shareDescription}
                     shareURL={photoViewFullURL}
                   />
