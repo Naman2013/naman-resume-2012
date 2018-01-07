@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import ReactTooltip from 'react-tooltip';
 import TelescopeCard from './telescope-card';
 
 import './telescope-cards.scss';
@@ -28,8 +29,6 @@ function generateTelescopeStatus(telescope) {
 }
 
 class TelescopeCards extends Component {
-
-
   renderTelescopeCards(obsTelescopes = []) {
     if (obsTelescopes.length === 0) {
       return null; // TODO: no telescope scenerio?
@@ -46,14 +45,16 @@ class TelescopeCards extends Component {
     return obsTelescopes.map((telescope) => {
       const { teleStatus, teleHasTelescopePage } = telescope;
 
-      let telescopeStatus = statusTeleList
-        .find(status => telescope.teleUniqueId === status.teleUniqueId);
+      let telescopeStatus = statusTeleList.find(
+        status => telescope.teleUniqueId === status.teleUniqueId,
+      );
 
       // if a status is provided by the status API, we use that - otherwise we generate one
-      telescopeStatus = telescopeStatus ? telescopeStatus : generateTelescopeStatus(telescope);
+      telescopeStatus = telescopeStatus || generateTelescopeStatus(telescope);
 
-      const telescopeCardBack = telescopeCardData.cardList
-        .find(card => card.teleId === telescopeStatus.telescopeId);
+      const telescopeCardBack = telescopeCardData.cardList.find(
+        card => card.teleId === telescopeStatus.telescopeId,
+      );
 
       if (teleStatus !== 'live' && !teleHasTelescopePage) {
         return null;
@@ -67,7 +68,6 @@ class TelescopeCards extends Component {
           obsUniqueId={obsUniqueId}
           fetchTelescopeCardData={fetchTelescopeCardData}
           telescopeCardBack={telescopeCardBack}
-
           {...telescope}
         />
       );
@@ -81,6 +81,7 @@ class TelescopeCards extends Component {
 
     return (
       <div className="telescope-cards-container clearfix">
+        <ReactTooltip className="tooltip" place="left" effect="solid" />
         <ul className="telescope-cards clearfix">
           {this.renderTelescopeCards(this.props.observatory.obsTelescopes)}
         </ul>
@@ -92,7 +93,6 @@ class TelescopeCards extends Component {
 TelescopeCards.defaultProps = {
   observatoryTelecopeStatus: {},
   telescopeCardData: { cardList: [] },
-
 };
 
 TelescopeCards.propTypes = {
@@ -100,7 +100,6 @@ TelescopeCards.propTypes = {
   observatoryTelecopeStatus: PropTypes.object,
   fetchTelescopeCardData: PropTypes.func.isRequired,
   telescopeCardData: PropTypes.object,
-
 };
 
 export default TelescopeCards;

@@ -27,14 +27,15 @@ class TelescopeCard extends Component {
     event.preventDefault();
     const newFlipState = !this.state.flipped;
     this.setState({
-      flipped: newFlipState
+      flipped: newFlipState,
     });
   }
 
   render() {
     const { teleId, activeTelescopeMissions, telescopeCardData, telescopeCardBack } = this.props;
-    const activeMission = activeTelescopeMissions.telescopes
-      .find(telescopeMissionData => telescopeMissionData.telescopeId === teleId);
+    const activeMission = activeTelescopeMissions.telescopes.find(
+      telescopeMissionData => telescopeMissionData.telescopeId === teleId,
+    );
 
     // this toggles classname as either "card-content" or "card-content flipped"
     // responds to change in state from handleFlip(event)
@@ -49,7 +50,6 @@ class TelescopeCard extends Component {
     return (
       <li className={cardClasses}>
         <div className="card-content">
-
           <CardFront
             {...this.props}
             activeMission={activeMission}
@@ -65,7 +65,6 @@ class TelescopeCard extends Component {
             teleId={teleId}
             telescopeCardBack={telescopeCardBack}
           />
-
         </div>
       </li>
     );
@@ -96,7 +95,6 @@ TelescopeCard.propTypes = {
   fetchTelescopeCardData: PropTypes.func,
   telescopeCardData: PropTypes.object,
   telescopeCardBack: PropTypes.object,
-
 };
 
 export default TelescopeCard;
