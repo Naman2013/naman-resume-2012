@@ -174,6 +174,10 @@ class SharedPicturesItem extends Component {
 
     const shareDescription = socialShareDescription;
 
+    var encodeurl = require('encodeurl');
+    var base64 = require('base-64');
+    const shareURL = "https://deneb.slooh.com/sharepage.php?title=" + encodeurl(base64.encode(imageTitle)) + "&pagetype=image&description=" + encodeurl(base64.encode(socialShareDescription)) + "&shareURL=" + encodeurl(base64.encode(photoViewFullURL)) + "&imageURL=" + encodeurl(base64.encode(imageURL));
+
     return (
       <div className="shared-pictures-item">
         {error && <div className="loading">There was an error fetching this photo.</div>}
@@ -222,7 +226,7 @@ class SharedPicturesItem extends Component {
                   <SocialSharingBar
                     contentLayout="horizontal"
                     shareDescription={shareDescription}
-                    shareURL={photoViewFullURL}
+                    shareURL={shareURL}
                   />
                 </div>
               </div>
