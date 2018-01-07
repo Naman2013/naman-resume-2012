@@ -176,7 +176,16 @@ class SharedPicturesItem extends Component {
 
     var encodeurl = require('encodeurl');
     var base64 = require('base-64');
-    const shareURL = "https://deneb.slooh.com/sharepage.php?title=" + encodeurl(base64.encode(imageTitle)) + "&pagetype=image&description=" + encodeurl(base64.encode(socialShareDescription)) + "&shareURL=" + encodeurl(base64.encode(photoViewFullURL)) + "&imageURL=" + encodeurl(base64.encode(imageURL));
+    var myImageTitle = imageTitle;
+
+    if (myImageTitle == '') {
+      myImageTitle = encodeurl(base64.encode(' '));
+    }
+    else {
+      myImageTitle = encodeurl(base64.encode(myImageTitle));
+    }
+
+    const shareURL = "https://deneb.slooh.com/sharepage.php?title=" + myImageTitle + "&pagetype=image&description=" + encodeurl(base64.encode(socialShareDescription)) + "&shareURL=" + encodeurl(base64.encode(photoViewFullURL)) + "&imageURL=" + encodeurl(base64.encode(imageURL));
 
     return (
       <div className="shared-pictures-item">
@@ -225,8 +234,10 @@ class SharedPicturesItem extends Component {
                 <div className="socialsharingbar">
                   <SocialSharingBar
                     contentLayout="horizontal"
-                    shareDescription={shareDescription}
+                    shareTitle={myImageTitle}
+                    shareDescription={socialShareDescription}
                     shareURL={shareURL}
+                    shareImageURL={imageURL}
                   />
                 </div>
               </div>

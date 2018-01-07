@@ -38,7 +38,9 @@ const LivejournalIcon = generateShareIcon('livejournal');
 class SocialSharingBar extends Component {
   render() {
     const {
+      shareTitle,
       shareURL,
+      shareImageURL,
       shareDescription,
       shareHashTags,
     } = this.props;
@@ -47,14 +49,31 @@ class SocialSharingBar extends Component {
     const FB_hashtag = "";
     const TW_hashtags = [];
 
+    /************************************************************************
+    * Facebook:
+    *    Requires the complete share url and an empty description as we don't want the description to duplicate.
+    *       The resulting page must have Open Graph (OG) tagging
+    *       Leverage sharepage.php to provide all of this information.
+    *
+    * Twitter:
+    *   No photo
+    *   Use the shareURL
+    *
+    * Pinterest:
+    *   shareURL is used.
+    *   shareImageURL is used.
+    *   shareDescription is used.
+    *
+    * Reddit:
+    ************************************************************************/
+
     return (
       <div className="social-share-outercontainer">
           <ul className={'social-share-innercontainer-' + this.props.contentLayout}>
-
               {this.props.showFaceBook && <li className={'social-share-button-' + this.props.contentLayout}>
                   <FacebookShareButton
                     url={shareURL}
-                    quote={shareDescription}
+                    quote=""
                     hashtag={FB_hashtag}>
                     <FacebookIcon
                       size={32}
@@ -66,7 +85,7 @@ class SocialSharingBar extends Component {
               {this.props.showTwitter && <li className={'social-share-button-' + this.props.contentLayout}>
                   <TwitterShareButton
                     url={shareURL}
-                    title={shareDescription}
+                    title=""
                     hashtags={TW_hashtags}>
                   <TwitterIcon
                       size={32}
@@ -75,78 +94,16 @@ class SocialSharingBar extends Component {
                 </li>
               }
 
-              {this.props.showTelegram && <li className={'social-share-button-' + this.props.contentLayout}>
-                  <TelegramShareButton
-                    url={shareURL}
-                    title={shareDescription}
-                    className="social-share-button">
-                    <TelegramIcon size={32} round />
-                  </TelegramShareButton>
-                </li>
-              }
-
-              {this.props.showWhatsApp && <WhatsappShareButton className={'social-share-button-' + this.props.contentLayout}
-                  url={shareURL}
-                  title={shareDescription}
-                  separator=":: ">
-                  <WhatsappIcon size={32} round />
-                </WhatsappShareButton>
-              }
-
-              {this.props.showGooglePlus && <li className={'social-share-button-' + this.props.contentLayout}>
-                  <GooglePlusShareButton
-                    url={shareURL}>
-                    title={shareDescription}
-                    <GooglePlusIcon
-                      size={32}
-                      round />
-                  </GooglePlusShareButton>
-                </li>
-              }
-
-              {this.props.showLinkedIn && <LinkedinShareButton className={'social-share-button-' + this.props.contentLayout}
-                  url={shareURL}
-                  title={shareDescription}
-                  windowWidth={750}
-                  windowHeight={600}>
-                  <LinkedinIcon
-                    size={32}
-                    round />
-                </LinkedinShareButton>
-              }
-
               {this.props.showPinterest && <li className={'social-share-button-' + this.props.contentLayout}>
                   <PinterestShareButton
                     url={shareURL}
-                    media={shareURL}
+                    media={shareImageURL}
                     description={shareDescription}
                     windowWidth={1000}
                     windowHeight={730}>
                     <PinterestIcon size={32} round />
                   </PinterestShareButton>
                 </li>
-              }
-
-              {this.props.showVK && <VKShareButton className={'social-share-button-' + this.props.contentLayout}
-                  url={shareURL}
-                  media={shareURL}
-                  windowWidth={660}
-                  windowHeight={460}>
-                  <VKIcon
-                    size={32}
-                    round />
-                </VKShareButton>
-              }
-
-              {this.props.showOK && <OKShareButton className={'social-share-button-' + this.props.contentLayout}
-                  url={shareURL}
-                  image={shareURL}
-                  windowWidth={660}
-                  windowHeight={460}>
-                  <OKIcon
-                    size={32}
-                    round />
-                </OKShareButton>
               }
 
               {this.props.showReddit && <li className={'social-share-button-' + this.props.contentLayout}>
@@ -162,43 +119,6 @@ class SocialSharingBar extends Component {
                 </li>
               }
 
-              {this.props.showTumblr && <TumblrShareButton className={'social-share-button-' + this.props.contentLayout}
-                  url={shareURL}
-                  title={shareDescription}
-                  windowWidth={660}
-                  windowHeight={460}>
-                  <TumblrIcon
-                    size={32}
-                    round />
-                </TumblrShareButton>
-              }
-
-              {this.props.showLiveJournal && <LivejournalShareButton className={'social-share-button-' + this.props.contentLayout}
-                  url={shareURL}
-                  title={shareDescription}
-                  description={shareDescription}>
-                  <LivejournalIcon size={32} round />
-                </LivejournalShareButton>
-              }
-
-              {this.props.showMailru && <MailruShareButton className={'social-share-button-' + this.props.contentLayout}
-                  url={shareURL}
-                  title={shareDescription}>
-                  <MailruIcon
-                    size={32}
-                    round />
-                </MailruShareButton>
-              }
-
-              {this.props.showEmail && <EmailShareButton className={'social-share-button-' + this.props.contentLayout}
-                  url={shareURL}
-                  subject={shareDescription}
-                  body="body">
-                  <EmailIcon
-                    size={32}
-                    round />
-                </EmailShareButton>
-              }
           </ul>
 
         <style jsx>{`
