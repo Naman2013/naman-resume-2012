@@ -1,15 +1,11 @@
 import requestRestart from './utils/crash-application';
 
-window.onerror = function sloohWindowError(event, source, lineno, colno, error) {
-  console.log(event);
-  console.log('=========');
-  console.log(source);
-  console.log('=========');
-  console.log(lineno);
-  console.log('=========');
-  console.log(colno);
-  console.log('=========');
-  console.log(error);
-  console.log('=========');
-  requestRestart();
+window.onerror = function sloohWindowError(msg, url, lineNo, columnNo, error) {
+  const BLACK_LIST = ['bootstrap'];
+  for (let i = 0; i < BLACK_LIST.length; i += 1) {
+    if (msg.indexOf(BLACK_LIST[i].length) >= 0) {
+      requestRestart();
+      break;
+    }
+  }
 };
