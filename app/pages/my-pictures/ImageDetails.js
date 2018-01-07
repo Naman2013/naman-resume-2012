@@ -50,6 +50,12 @@ class ImageDetails extends Component {
         sharePicturePrompt: nextProps.sharePrompt,
       });
     }
+
+    /* set the Page Meta Tags and Open Graph tagging */
+    this.props.actions.setPageTitle(nextProps.myPicturesImageDetails.imageTitle);
+    this.props.actions.setStandardMeta({ description: nextProps.myPicturesImageDetailssocialShareDescription });
+    this.props.actions.setOpenGraphMeta({ type: "image", title: nextProps.myPicturesImageDetails.imageTitle, description: nextProps.myPicturesImageDetails.socialShareDescription, image: nextProps.myPicturesImageDetails.imageURL });
+
   }
 
   componentWillMount() {
@@ -130,11 +136,6 @@ class ImageDetails extends Component {
 
     // only send scheduledMissionId to PhotoActions if user is coming from the Mission Images page
     const photoActionsScheduledMissionId = scheduledMissionIdParam ? scheduledMissionId : null;
-
-    /* set the Page Meta Tags and Open Graph tagging */
-    setPageTitle(imageTitle);
-    setStandardMeta({ description: socialShareDescription });
-    setOpenGraphMeta({ type: "image", title: imageTitle, description: socialShareDescription, image: imageURL });
 
     return (
       <div>
