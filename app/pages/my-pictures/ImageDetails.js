@@ -11,6 +11,7 @@ import ImageInfoPanel from '../../components/my-pictures/ImageInfoPanel';
 import PhotoActions from '../../components/my-pictures/actions/PhotoActions';
 import ModalGeneric from '../../components/common/modals/modal-generic';
 import { resetShareMemberPhoto } from '../../modules/share-member-photo/actions';
+import { setPageTitle, setStandardMeta, setOpenGraphMeta } from '../../modules/pageLevelMetaContent/seo-actions';
 
 const mapStateToProps = ({ myPicturesImageDetails, user, shareMemberPhoto }) => ({
   myPicturesImageDetails,
@@ -24,6 +25,9 @@ const mapDispatchToProps = dispatch => ({
     fetchImageDetailsAndCounts,
     verifyMyPicsOwner,
     resetShareMemberPhoto,
+    setPageTitle,
+    setStandardMeta,
+    setOpenGraphMeta,
   }, dispatch),
 });
 
@@ -100,6 +104,8 @@ class ImageDetails extends Component {
       imageURL,
       fileData,
       canLikeFlag,
+      photoViewFullURL,
+      socialShareDescription,
     } = this.props.myPicturesImageDetails;
 
     const {
@@ -124,6 +130,12 @@ class ImageDetails extends Component {
 
     // only send scheduledMissionId to PhotoActions if user is coming from the Mission Images page
     const photoActionsScheduledMissionId = scheduledMissionIdParam ? scheduledMissionId : null;
+
+    /* set the Page Meta Tags and Open Graph tagging */
+    setPageTitle(imageTitle);
+    setStandardMeta({ description: socialShareDescription });
+    setOpenGraphMeta({ type: "image", title: imageTitle, description: socialShareDescription, image: imageURL });
+
     return (
       <div>
         <ModalGeneric
