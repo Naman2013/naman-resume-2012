@@ -9,6 +9,7 @@ import { likeImage } from '../../services/my-pictures/like-image';
 import { backgroundImageCover, borderRadius } from '../../styles/mixins/utilities';
 import Heart from '../common/heart/heart';
 import { fetchMyPicturesImageDetails } from '../../modules/my-pictures-image-details/actions';
+import SocialSharingBar from '../common/social-sharing-bar';
 
 const {
   arrayOf,
@@ -58,7 +59,10 @@ class SharedPicturesItem extends Component {
       linkableFileData: PropTypes.shape({
         'Photo by': PropTypes.shape({}),
         Observatory: PropTypes.shape({}),
-        Telescope: PropTypes.shape({})
+        Telescope: PropTypes.shape({}),
+        'Observation time': PropTypes.shape(
+          {'text': PropTypes.string}
+        ),
       }),
       fileData: PropTypes.shape({
         Observatory: '',
@@ -88,11 +92,15 @@ class SharedPicturesItem extends Component {
       likePrompt: '',
       canDownloadFlag: false,
       canEditFlag: false,
+      socialShareDescription: '',
       fileData: {},
       linkableFileData: {
         'Photo by': {},
         Telescope: {},
         Observatory: {},
+        'Observation time': {
+          'text': '',
+        }
       },
       avatarURL: '',
     },
@@ -142,6 +150,8 @@ class SharedPicturesItem extends Component {
       likesCount,
       shareToken,
       linkableFileData,
+      socialShareDescription,
+      photoViewFullURL,
     } = myPicturesImageDetails;
 
     const profilePhotoStyle = {
@@ -160,6 +170,9 @@ class SharedPicturesItem extends Component {
     const photoBy = linkableFileData['Photo by'];
     const observatory = linkableFileData.Observatory;
     const telescope = linkableFileData.Telescope;
+    const observatoryTime = linkableFileData['Observation time'];
+
+    const shareDescription = socialShareDescription;
 
     return (
       <div className="shared-pictures-item">
@@ -205,6 +218,13 @@ class SharedPicturesItem extends Component {
                   />
                   }
                 </h4>
+                <div className="socialsharingbar">
+                  <SocialSharingBar
+                    contentLayout="horizontal"
+                    shareDescription={shareDescription}
+                    shareURL={photoViewFullURL}
+                  />
+                </div>
               </div>
               <div className="profile-photo" style={profilePhotoStyle} />
             </div>
@@ -337,6 +357,11 @@ class SharedPicturesItem extends Component {
             .info-panel {
               width: 500px;
             }
+          }
+
+          .socialsharingbar {
+            padding-top: 20px;
+            margin-bottom: -25px;
           }
         `}</style>
       </div>

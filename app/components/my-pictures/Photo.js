@@ -73,6 +73,7 @@ class Photo extends Component {
 
     return (
       <div className={s.photoRoot}>
+
         <Link to={detailsUrl} className={s.photoLink} style={inlinePhotoStyle}>
           <div
             className={`innerPhotoContainer content ${hoverStyle}`}
@@ -85,6 +86,7 @@ class Photo extends Component {
                 overlayText.map((markdownText, index) => <Markdown key={`markdown-text-${index}`} source={markdownText} />)
               }
             </div>
+
             <ul className={s.photoMenu}>
               <li>
                 <PhotoActions

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import ReactDOM from 'react-dom';
 import Hero from '../components/home/hero';
 import HeroInspire from '../components/home/hero-inspire';
 import HeroAboutYou from '../components/home/hero-about-you';
