@@ -151,6 +151,7 @@ class SharedPicturesItem extends Component {
       shareToken,
       linkableFileData,
       socialShareDescription,
+      photoViewFullURL,
     } = myPicturesImageDetails;
 
     const profilePhotoStyle = {
@@ -222,8 +223,7 @@ class SharedPicturesItem extends Component {
                     contentLayout="horizontal"
                     shareTitle={shareDescription}
                     shareDescription={shareDescription}
-                    shareImageURL={imageURL}
-                    shareURL={imageURL}
+                    shareURL={photoViewFullURL}
                   />
                 </div>
               </div>

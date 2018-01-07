@@ -39,9 +39,8 @@ class SocialSharingBar extends Component {
   render() {
     const {
       shareURL,
-      shareTitle,
+      shareDescription,
       shareHashTags,
-      shareImageURL,
     } = this.props;
 
     /* FB wants the hashsymbol for each hashtag, twitter does not */
@@ -54,8 +53,8 @@ class SocialSharingBar extends Component {
 
               {this.props.showFaceBook && <li className={'social-share-button-' + this.props.contentLayout}>
                   <FacebookShareButton
-                    url={shareImageURL}
-                    quote={shareTitle}
+                    url={shareURL}
+                    quote={shareDescription}
                     hashtag={FB_hashtag}>
                     <FacebookIcon
                       size={32}
@@ -67,8 +66,7 @@ class SocialSharingBar extends Component {
               {this.props.showTwitter && <li className={'social-share-button-' + this.props.contentLayout}>
                   <TwitterShareButton
                     url={shareURL}
-                    title={shareTitle}
-                    media={shareImageURL}
+                    title={shareDescription}
                     hashtags={TW_hashtags}>
                   <TwitterIcon
                       size={32}
@@ -80,7 +78,7 @@ class SocialSharingBar extends Component {
               {this.props.showTelegram && <li className={'social-share-button-' + this.props.contentLayout}>
                   <TelegramShareButton
                     url={shareURL}
-                    title={shareTitle}
+                    title={shareDescription}
                     className="social-share-button">
                     <TelegramIcon size={32} round />
                   </TelegramShareButton>
@@ -89,7 +87,7 @@ class SocialSharingBar extends Component {
 
               {this.props.showWhatsApp && <WhatsappShareButton className={'social-share-button-' + this.props.contentLayout}
                   url={shareURL}
-                  title={shareTitle}
+                  title={shareDescription}
                   separator=":: ">
                   <WhatsappIcon size={32} round />
                 </WhatsappShareButton>
@@ -98,7 +96,7 @@ class SocialSharingBar extends Component {
               {this.props.showGooglePlus && <li className={'social-share-button-' + this.props.contentLayout}>
                   <GooglePlusShareButton
                     url={shareURL}>
-                    title={shareTitle}
+                    title={shareDescription}
                     <GooglePlusIcon
                       size={32}
                       round />
@@ -108,7 +106,7 @@ class SocialSharingBar extends Component {
 
               {this.props.showLinkedIn && <LinkedinShareButton className={'social-share-button-' + this.props.contentLayout}
                   url={shareURL}
-                  title={shareTitle}
+                  title={shareDescription}
                   windowWidth={750}
                   windowHeight={600}>
                   <LinkedinIcon
@@ -120,8 +118,8 @@ class SocialSharingBar extends Component {
               {this.props.showPinterest && <li className={'social-share-button-' + this.props.contentLayout}>
                   <PinterestShareButton
                     url={shareURL}
-                    media={shareImageURL}
-                    description={shareTitle}
+                    media={shareURL}
+                    description={shareDescription}
                     windowWidth={1000}
                     windowHeight={730}>
                     <PinterestIcon size={32} round />
@@ -131,7 +129,7 @@ class SocialSharingBar extends Component {
 
               {this.props.showVK && <VKShareButton className={'social-share-button-' + this.props.contentLayout}
                   url={shareURL}
-                  media={shareImageURL}
+                  media={shareURL}
                   windowWidth={660}
                   windowHeight={460}>
                   <VKIcon
@@ -142,7 +140,7 @@ class SocialSharingBar extends Component {
 
               {this.props.showOK && <OKShareButton className={'social-share-button-' + this.props.contentLayout}
                   url={shareURL}
-                  image={shareImageURL}
+                  image={shareURL}
                   windowWidth={660}
                   windowHeight={460}>
                   <OKIcon
@@ -154,7 +152,7 @@ class SocialSharingBar extends Component {
               {this.props.showReddit && <li className={'social-share-button-' + this.props.contentLayout}>
                   <RedditShareButton
                     url={shareURL}
-                    title={shareTitle}
+                    title={shareDescription}
                     windowWidth={660}
                     windowHeight={460}>
                     <RedditIcon
@@ -166,7 +164,7 @@ class SocialSharingBar extends Component {
 
               {this.props.showTumblr && <TumblrShareButton className={'social-share-button-' + this.props.contentLayout}
                   url={shareURL}
-                  title={shareTitle}
+                  title={shareDescription}
                   windowWidth={660}
                   windowHeight={460}>
                   <TumblrIcon
@@ -177,7 +175,7 @@ class SocialSharingBar extends Component {
 
               {this.props.showLiveJournal && <LivejournalShareButton className={'social-share-button-' + this.props.contentLayout}
                   url={shareURL}
-                  title={shareTitle}
+                  title={shareDescription}
                   description={shareDescription}>
                   <LivejournalIcon size={32} round />
                 </LivejournalShareButton>
@@ -185,7 +183,7 @@ class SocialSharingBar extends Component {
 
               {this.props.showMailru && <MailruShareButton className={'social-share-button-' + this.props.contentLayout}
                   url={shareURL}
-                  title={shareTitle}>
+                  title={shareDescription}>
                   <MailruIcon
                     size={32}
                     round />
@@ -194,7 +192,7 @@ class SocialSharingBar extends Component {
 
               {this.props.showEmail && <EmailShareButton className={'social-share-button-' + this.props.contentLayout}
                   url={shareURL}
-                  subject={shareTitle}
+                  subject={shareDescription}
                   body="body">
                   <EmailIcon
                     size={32}
