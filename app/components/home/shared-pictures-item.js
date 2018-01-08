@@ -351,7 +351,7 @@ class SharedPicturesItem extends Component {
             justify-content: space-between;
             width: 100%;
             margin-top: auto;
-            padding-top: 20px;
+            padding-top: 10px;
           }
 
           .telescope, .observatory {
@@ -381,7 +381,7 @@ class SharedPicturesItem extends Component {
 
           .socialsharingbar {
             padding-top: 0px;
-            margin-bottom: -5px;
+            margin-bottom: 10px;
           }
         `}</style>
       </div>
