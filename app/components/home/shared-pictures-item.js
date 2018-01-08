@@ -247,6 +247,10 @@ class SharedPicturesItem extends Component {
         </div>}
         <style jsx>{`
 
+          .title {
+            margin-top: -2px;
+          }
+
           .shared-pictures-item-container {
             position: relative;
             display: flex;
@@ -352,6 +356,7 @@ class SharedPicturesItem extends Component {
 
           .telescope, .observatory {
             font-size: 1.1rem;
+            margin-top: 5px;
           }
 
           .loading {
@@ -375,8 +380,8 @@ class SharedPicturesItem extends Component {
           }
 
           .socialsharingbar {
-            padding-top: 20px;
-            margin-bottom: -25px;
+            padding-top: 0px;
+            margin-bottom: -5px;
           }
         `}</style>
       </div>
