@@ -199,8 +199,6 @@ class SharedPicturesItem extends Component {
         "&shareURL=" + encodeurl(base64.encode(photoViewFullURL)) +
         "&imageURL=" + encodeurl(base64.encode(imageURL));
 
-    console.log(shareURL);
-
     return (
       <div className="shared-pictures-item">
         {error && <div className="loading">There was an error fetching this photo.</div>}
