@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
@@ -9,7 +8,8 @@ import {
   getCurrentObservatory,
   fetchObservatoryTelescopeStatus,
   fetchAllWidgetsByObservatory,
-  fetchTelescopeCardData } from '../modules/Telescope-Overview';
+  fetchTelescopeCardData,
+} from '../modules/Telescope-Overview';
 
 import AnnouncementBanner from '../components/common/announcement-banner/announcement-banner';
 import TelescopeFilterNav from '../components/telescope-overview/telescope-filter-nav';
@@ -34,30 +34,31 @@ function mapStateToProps(state, ownProps) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators({
-      getObservatoryList,
-      fetchAllWidgetsByObservatory,
-      fetchObservatoryTelescopeStatus,
-      fetchTelescopeCardData,
-    }, dispatch),
+    actions: bindActionCreators(
+      {
+        getObservatoryList,
+        fetchAllWidgetsByObservatory,
+        fetchObservatoryTelescopeStatus,
+        fetchTelescopeCardData,
+      },
+      dispatch,
+    ),
   };
 }
 
 @connect(mapStateToProps, mapDispatchToProps)
 class TelescopeOverview extends Component {
-
   componentDidMount() {
-    this.props.actions.getObservatoryList(
-      this.props.currentObservatoryId
-    );
+    this.props.actions.getObservatoryList(this.props.currentObservatoryId);
     this.props.actions.fetchTelescopeCardData(); // works but not ideal
   }
 
-
   componentWillReceiveProps(nextProps) {
     if (nextProps.params.observatoryId !== this.props.currentObservatoryId) {
-      const currentObservatory =
-        getCurrentObservatory(nextProps.observatoryList, nextProps.params.observatoryId);
+      const currentObservatory = getCurrentObservatory(
+        nextProps.observatoryList,
+        nextProps.params.observatoryId,
+      );
 
       this.props.actions.fetchAllWidgetsByObservatory(currentObservatory);
       this.props.actions.fetchObservatoryTelescopeStatus(currentObservatory.obsId);
@@ -76,7 +77,7 @@ class TelescopeOverview extends Component {
     if (observatoryTelecopeStatus) {
       clearInterval(this.telescopeStatusTimer);
       const { statusExpires, requestedObsId } = observatoryTelecopeStatus;
-      const remainingTime = (statusExpires * 1000) - new Date().getTime();
+      const remainingTime = statusExpires * 1000 - new Date().getTime();
 
       if (remainingTime > MINIMUM_TELESCOPE_REFRESH_RATE) {
         this.telescopeStatusTimer = setInterval(() => {
@@ -89,8 +90,7 @@ class TelescopeOverview extends Component {
   render() {
     const { observatoryList, currentObservatoryId } = this.props;
 
-    const currentObservatory =
-      getCurrentObservatory(observatoryList, currentObservatoryId);
+    const currentObservatory = getCurrentObservatory(observatoryList, currentObservatoryId);
 
     if (!currentObservatory) {
       return null;
@@ -99,14 +99,9 @@ class TelescopeOverview extends Component {
     const { obsId } = currentObservatory;
     return (
       <div className="root">
+        <AnnouncementBanner obsId={obsId} />
 
-        <AnnouncementBanner
-          obsId={obsId}
-        />
-
-        <TelescopeFilterNav
-          observatoryList={this.props.observatoryList}
-        />
+        <TelescopeFilterNav observatoryList={this.props.observatoryList} />
 
         <ObservatoryHero
           moonPhaseWidgetResult={this.props.moonPhaseWidgetResult}
@@ -123,11 +118,9 @@ class TelescopeOverview extends Component {
 
         <style jsx>{`
           .root {
-            ${backgroundImageCover}
-            background-image: url(https://vega.slooh.com/assets/images/photos/hero-inspire-background.jpg);
+            ${backgroundImageCover} background-image: url(https://vega.slooh.com/assets/images/photos/hero-inspire-background.jpg);
           }
         `}</style>
-
       </div>
     );
   }
@@ -158,10 +151,12 @@ TelescopeOverview.propTypes = {
   moonPhaseWidgetResult: shape({
     phaseImageURL: string,
   }),
-  observatoryList: arrayOf(shape({
-    obsDescription: string,
-    obsHeroURL: string,
-  })),
+  observatoryList: arrayOf(
+    shape({
+      obsDescription: string,
+      obsHeroURL: string,
+    }),
+  ),
   currentObservatoryId: string,
   actions: shape({
     getObservatoryList: func,

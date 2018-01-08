@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Draggable from 'react-draggable';
+import Measure from 'react-measure';
 
 import noop from 'lodash/noop';
 
-import ClipView from './ClipView';
+import SVGClipView from './SVGClipView';
 import SubjectScaleControl from './SubjectScaleControl';
 import Rails from './Rails';
 import ViewerControlInterface from './ViewerControlInterface';
@@ -14,7 +15,7 @@ import { black, brightGreen } from '../../styles/variables/colors';
 
 function calculateDraggableBounds(scale) {
   // bounds multiplier is set to 0 while scale is 1 to prevent movement at full size
-  const BOUNDS_MULTIPLIER = (scale > 1) ? 100 : 0;
+  const BOUNDS_MULTIPLIER = scale > 1 ? 100 : 0;
   const baseScale = BOUNDS_MULTIPLIER * scale;
   return {
     top: -baseScale,
@@ -83,6 +84,10 @@ class VirtualTelescopeView extends Component {
     },
     viewerControlInterfaceOpacity: 1,
     zoomLevel: 0,
+    dimensions: {
+      width: 0,
+      height: 0,
+    },
   };
 
   componentWillUpdate(nextProps, nextState) {
@@ -128,6 +133,10 @@ class VirtualTelescopeView extends Component {
     });
   };
 
+  handleRootContainerResize = (contentRect) => {
+    this.setState({ dimensions: contentRect.bounds })
+  }
+
   render() {
     const {
       activeZoomLevel,
@@ -148,7 +157,7 @@ class VirtualTelescopeView extends Component {
       missionEnd,
     } = this.props;
 
-    const { viewerControlInterfaceOpacity, controlledPosition } = this.state;
+    const { viewerControlInterfaceOpacity, controlledPosition, dimensions } = this.state;
 
     const viewControllerWrapperStyles = {
       opacity: viewerControlInterfaceOpacity,
@@ -162,48 +171,54 @@ class VirtualTelescopeView extends Component {
       >
 
         <div className="frame">
-          <div className="virtual-telescope-view-content-container">
-            <ClipView clipped={clipped}>
-              <Draggable
-                bounds={calculateDraggableBounds(subjectScale)}
-                handle={'.drag-handle'}
-                position={controlledPosition}
-                onDrag={this.onDrag}
-              >
-                <div className="drag-handle">
-                  <SubjectScaleControl scale={subjectScale}>
-                    { children }
-                  </SubjectScaleControl>
+          <Measure
+            bounds
+            onResize={this.handleRootContainerResize}
+          >
+            {
+              ({ measureRef }) =>
+                <div
+                  ref={measureRef}
+                  className="virtual-telescope-view-content-container"
+                >
+                  <Draggable
+                    bounds={calculateDraggableBounds(subjectScale)}
+                    handle={'.drag-handle'}
+                    position={controlledPosition}
+                    onDrag={this.onDrag}
+                  >
+                    <div className="drag-handle">
+                      <SubjectScaleControl scale={subjectScale}>{children}</SubjectScaleControl>
+                    </div>
+                  </Draggable>
+
+                  {clipped && <SVGClipView width={dimensions.width} height={dimensions.height} />}
+
+                  <Rails />
+
+                  <div className="view-controller-wrapper" style={viewControllerWrapperStyles}>
+                    <ViewerControlInterface
+                      clipped={clipped}
+                      handleClip={handleClip}
+                      handleZoomIn={this.handleZoomIn}
+                      handleZoomOut={this.handleZoomOut}
+                      zoomRange={zoomRange}
+                      activeZoomLevel={activeZoomLevel}
+                      timestamp={timestamp}
+                      coordinateArray={coordinateArray}
+                      missionData={missionData}
+                      showMissionData={showMissionData}
+                      objectTitleShort={objectTitleShort}
+                      processing={processing}
+                      schedulingMember={schedulingMember}
+                      now={now}
+                      missionStart={missionStart}
+                      missionEnd={missionEnd}
+                    />
+                  </div>
                 </div>
-              </Draggable>
-            </ClipView>
-
-            <Rails />
-
-            <div
-              className="view-controller-wrapper"
-              style={viewControllerWrapperStyles}
-            >
-              <ViewerControlInterface
-                clipped={clipped}
-                handleClip={handleClip}
-                handleZoomIn={this.handleZoomIn}
-                handleZoomOut={this.handleZoomOut}
-                zoomRange={zoomRange}
-                activeZoomLevel={activeZoomLevel}
-                timestamp={timestamp}
-                coordinateArray={coordinateArray}
-                missionData={missionData}
-                showMissionData={showMissionData}
-                objectTitleShort={objectTitleShort}
-                processing={processing}
-                schedulingMember={schedulingMember}
-                now={now}
-                missionStart={missionStart}
-                missionEnd={missionEnd}
-              />
-            </div>
-          </div>
+            }
+          </Measure>
         </div>
 
         <style jsx>{`
@@ -242,7 +257,7 @@ class VirtualTelescopeView extends Component {
           }
 
           .view-controller-wrapper {
-            transition: opacity .25s ease-in-out;
+            transition: opacity 0.25s ease-in-out;
           }
         `}</style>
       </div>

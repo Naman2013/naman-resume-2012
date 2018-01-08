@@ -1,4 +1,5 @@
 export default `
   .inline-countdown {
-  display: inline-block;
-}`;
+    display: inline-block;
+  }
+`;

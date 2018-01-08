@@ -409,7 +409,7 @@ class TelescopeDetails extends Component {
             {/** right side bar */}
             <div className="col-sm-4 telescope-details-sidebar">
               {currentObservatory.showCountdown &&
-                currentMissionCountdown && (
+                currentMissionCountdown && currentMissionCountdown.showCountdown && (
                   <SunsetCountdown
                     label={currentMissionCountdown.countdownLabel}
                     countdownTimestamp={currentMissionCountdown.countdownTimestamp}
@@ -421,13 +421,12 @@ class TelescopeDetails extends Component {
               activeTelescopeMission.nextMissionAvailable ? (
                 <div>
                   <LiveMission {...activeTelescopeMission} />
+                  <UpcomingMissions missions={activeTelescopeMission.upcomingMissionArray} />
                   <TelescopeAllSky
                     obsId={currentObservatory.obsId}
                     AllskyWidgetId={currentObservatory.SkyChartWidgetId}
                     scheduledMissionId={activeTelescopeMission.scheduledMissionId}
                   />
-
-                  <UpcomingMissions missions={activeTelescopeMission.upcomingMissionArray} />
                 </div>
               ) : null}
 
