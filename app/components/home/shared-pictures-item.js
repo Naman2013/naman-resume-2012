@@ -9,6 +9,7 @@ import { likeImage } from '../../services/my-pictures/like-image';
 import { backgroundImageCover, borderRadius } from '../../styles/mixins/utilities';
 import Heart from '../common/heart/heart';
 import { fetchMyPicturesImageDetails } from '../../modules/my-pictures-image-details/actions';
+import SocialSharingBar from '../common/social-sharing-bar';
 
 const {
   arrayOf,
@@ -20,9 +21,9 @@ const {
 } = PropTypes;
 
 const mapStateToProps = ({
-  myPicturesImageDetails,
+  myPicturesImageDetails, appConfig
 }) => ({
-  myPicturesImageDetails,
+  myPicturesImageDetails, appConfig
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -58,7 +59,10 @@ class SharedPicturesItem extends Component {
       linkableFileData: PropTypes.shape({
         'Photo by': PropTypes.shape({}),
         Observatory: PropTypes.shape({}),
-        Telescope: PropTypes.shape({})
+        Telescope: PropTypes.shape({}),
+        'Observation time': PropTypes.shape(
+          {'text': PropTypes.string}
+        ),
       }),
       fileData: PropTypes.shape({
         Observatory: '',
@@ -88,11 +92,15 @@ class SharedPicturesItem extends Component {
       likePrompt: '',
       canDownloadFlag: false,
       canEditFlag: false,
+      socialShareDescription: '',
       fileData: {},
       linkableFileData: {
         'Photo by': {},
         Telescope: {},
         Observatory: {},
+        'Observation time': {
+          'text': '',
+        }
       },
       avatarURL: '',
     },
@@ -127,7 +135,12 @@ class SharedPicturesItem extends Component {
 
 
   render() {
-    const { customerImageId, myPicturesImageDetails } = this.props;
+    const { appConfig, customerImageId, myPicturesImageDetails } = this.props;
+
+    const {
+      socialSharePageURL,
+    } = appConfig;
+
     const {
       imageURL,
       observationLog,
@@ -142,6 +155,8 @@ class SharedPicturesItem extends Component {
       likesCount,
       shareToken,
       linkableFileData,
+      socialShareDescription,
+      photoViewFullURL,
     } = myPicturesImageDetails;
 
     const profilePhotoStyle = {
@@ -160,6 +175,29 @@ class SharedPicturesItem extends Component {
     const photoBy = linkableFileData['Photo by'];
     const observatory = linkableFileData.Observatory;
     const telescope = linkableFileData.Telescope;
+    const observatoryTime = linkableFileData['Observation time'];
+
+    const shareDescription = socialShareDescription;
+
+    var encodeurl = require('encodeurl');
+    var base64 = require('base-64');
+    var myImageTitle = imageTitle;
+
+    if (myImageTitle == '') {
+      /* the social sharing modules require a title, so even a space is sufficient */
+      myImageTitle = encodeurl(base64.encode('Shared Photo from Slooh.com'));
+    }
+    else {
+      myImageTitle = encodeurl(base64.encode(myImageTitle));
+    }
+
+    /* construct the social sharing URL */
+    const shareURL = socialSharePageURL +
+        "?title=" + myImageTitle +
+        "&pagetype=image" +
+        "&description=" + encodeurl(base64.encode(socialShareDescription)) +
+        "&shareURL=" + encodeurl(base64.encode(photoViewFullURL)) +
+        "&imageURL=" + encodeurl(base64.encode(imageURL));
 
     return (
       <div className="shared-pictures-item">
@@ -205,12 +243,25 @@ class SharedPicturesItem extends Component {
                   />
                   }
                 </h4>
+                <div className="socialsharingbar">
+                  <SocialSharingBar
+                    contentLayout="horizontal"
+                    shareTitle={myImageTitle}
+                    shareDescription={socialShareDescription}
+                    shareURL={shareURL}
+                    shareImageURL={imageURL}
+                  />
+                </div>
               </div>
               <div className="profile-photo" style={profilePhotoStyle} />
             </div>
           </div>
         </div>}
         <style jsx>{`
+
+          .title {
+            margin-top: -2px;
+          }
 
           .shared-pictures-item-container {
             position: relative;
@@ -312,11 +363,12 @@ class SharedPicturesItem extends Component {
             justify-content: space-between;
             width: 100%;
             margin-top: auto;
-            padding-top: 20px;
+            padding-top: 10px;
           }
 
           .telescope, .observatory {
             font-size: 1.1rem;
+            margin-top: 5px;
           }
 
           .loading {
@@ -337,6 +389,11 @@ class SharedPicturesItem extends Component {
             .info-panel {
               width: 500px;
             }
+          }
+
+          .socialsharingbar {
+            padding-top: 0px;
+            margin-bottom: 10px;
           }
         `}</style>
       </div>
