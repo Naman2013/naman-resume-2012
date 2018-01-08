@@ -238,6 +238,8 @@ const grabMissionSlotStart = () => ({
   https://docs.google.com/document/d/1nYo6_O87gWCqyoD3NJ98cbA5Cpxo-8ksB3Dw3PbjAa0/edit#heading=h.tkagqs5w5vit
 */
 export const grabMissionSlot = ({
+    onSuccessCallback,
+
     scheduledMissionId,
     callSource,
     missionType,
@@ -289,6 +291,10 @@ export const grabMissionSlot = ({
         patching the callsource to ensure that it is always included for
         future requests
       */
+      if (!response.data.apiError && onSuccessCallback) {
+        onSuccessCallback();
+      }
+
       dispatch(grabMissionSlotSuccess(Object.assign(response.data, {
         callSource,
         reservationType: RESERVATION_TYPES.NEW_RESERVATION,

@@ -56,16 +56,19 @@ class NewMissionCard extends Component {
     const { openModal, card, reservation } = this.props;
     const { grabMissionSlot } = this.props.actions;
 
+    function onSuccessCallback() {
+      openModal('reserve', card);
+    }
+
     const mission = {
       ...reservation,
+      onSuccessCallback,
       callSource: 'recommends',
       objectTitle: card.title,
       objectType: card.objectType,
     };
 
     grabMissionSlot(mission);
-
-    openModal('reserve', card);
   }
 
   renderMissionTime() {
