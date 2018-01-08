@@ -21,9 +21,9 @@ const {
 } = PropTypes;
 
 const mapStateToProps = ({
-  myPicturesImageDetails,
+  myPicturesImageDetails, appConfig
 }) => ({
-  myPicturesImageDetails,
+  myPicturesImageDetails, appConfig
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -135,7 +135,12 @@ class SharedPicturesItem extends Component {
 
 
   render() {
-    const { customerImageId, myPicturesImageDetails } = this.props;
+    const { appConfig, customerImageId, myPicturesImageDetails } = this.props;
+
+    const {
+      socialSharePageURL,
+    } = appConfig;
+
     const {
       imageURL,
       observationLog,
@@ -179,13 +184,20 @@ class SharedPicturesItem extends Component {
     var myImageTitle = imageTitle;
 
     if (myImageTitle == '') {
+      /* the social sharing modules require a title, so even a space is sufficient */
       myImageTitle = encodeurl(base64.encode(' '));
     }
     else {
       myImageTitle = encodeurl(base64.encode(myImageTitle));
     }
 
-    const shareURL = "https://deneb.slooh.com/sharepage.php?title=" + myImageTitle + "&pagetype=image&description=" + encodeurl(base64.encode(socialShareDescription)) + "&shareURL=" + encodeurl(base64.encode(photoViewFullURL)) + "&imageURL=" + encodeurl(base64.encode(imageURL));
+    /* construct the social sharing URL */
+    const shareURL = socialSharePageURL +
+        "?title=" + myImageTitle +
+        "&pagetype=image" +
+        "&description=" + encodeurl(base64.encode(socialShareDescription)) +
+        "&shareURL=" + encodeurl(base64.encode(photoViewFullURL)) +
+        "&imageURL=" + encodeurl(base64.encode(imageURL));
 
     return (
       <div className="shared-pictures-item">
