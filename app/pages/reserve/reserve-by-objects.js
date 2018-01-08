@@ -212,9 +212,15 @@ class ReserveObjects extends Component {
       objectTitle,
     } = this.currentObjectSelection;
 
+    function onSuccessCallback() {
+      this.props.actions.missionConfirmOpen('reserve');
+      this.handleClearBrowse(event.persist());
+    }
+
     const missionType = callSource === 'byTelescope' ? 'member' : undefined;
 
     this.props.actions.grabMissionSlot({
+      onSuccessCallback: onSuccessCallback.bind(this),
       scheduledMissionId,
       callSource,
       missionType,
@@ -227,11 +233,6 @@ class ReserveObjects extends Component {
       objectTitle,
       uniqueId,
     });
-
-    this.props.actions.missionConfirmOpen('reserve');
-
-    /* reset the browse */
-    this.handleClearBrowse(event);
   }
 
   get mappedObjects() {

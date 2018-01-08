@@ -238,7 +238,7 @@ const grabMissionSlotStart = () => ({
   https://docs.google.com/document/d/1nYo6_O87gWCqyoD3NJ98cbA5Cpxo-8ksB3Dw3PbjAa0/edit#heading=h.tkagqs5w5vit
 */
 export const grabMissionSlot = ({
-    onSuccessCallback,
+    onSuccessCallback, // called only when API when !apiError
 
     scheduledMissionId,
     callSource,
