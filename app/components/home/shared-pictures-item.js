@@ -185,7 +185,7 @@ class SharedPicturesItem extends Component {
 
     if (myImageTitle == '') {
       /* the social sharing modules require a title, so even a space is sufficient */
-      myImageTitle = encodeurl(base64.encode(' '));
+      myImageTitle = encodeurl(base64.encode('Shared Photo from Slooh.com'));
     }
     else {
       myImageTitle = encodeurl(base64.encode(myImageTitle));
@@ -198,6 +198,8 @@ class SharedPicturesItem extends Component {
         "&description=" + encodeurl(base64.encode(socialShareDescription)) +
         "&shareURL=" + encodeurl(base64.encode(photoViewFullURL)) +
         "&imageURL=" + encodeurl(base64.encode(imageURL));
+
+    console.log(shareURL);
 
     return (
       <div className="shared-pictures-item">
