@@ -179,7 +179,7 @@ SocialSharingBar.defaultProps = {
   showWhatsApp: false,
   showGooglePlus: false,
   showLinkedIn: false,
-  showPinterest: false,
+  showPinterest: true,
   showVK: false,
   showOK: false,
   showReddit: false,
