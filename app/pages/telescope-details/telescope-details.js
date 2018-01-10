@@ -121,6 +121,8 @@ class TelescopeDetails extends Component {
         upcomingObjectIconURL: PropTypes.string.isRequired,
       })),
     }).isRequired,
+    startGetUpcomingMissions: PropTypes.bool.isRequired,
+    failedGetUpcomingMissions: PropTypes.bool.isRequired,
   };
 
   static defaultProps = {
