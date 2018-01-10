@@ -1,7 +1,5 @@
 import { observatoryListSuccess, getCurrentObservatory } from '../Telescope-Overview';
-
 import { resetSnapshotList } from '../starshare-camera/starshare-camera-actions';
-
 import { resetActiveMission } from '../active-telescope-missions/active-telescope-missions-actions';
 
 import {
@@ -11,6 +9,7 @@ import {
 
 import { validateResponseAccess } from '../authorization/actions';
 
+// services
 import fetchCurrentConditions from '../../services/sky-widgets/current-conditions';
 import fetchDayNightBarPanel from '../../services/sky-widgets/day-night-bar-panel';
 import fetchDayNightMap from '../../services/sky-widgets/day-night-map';
@@ -18,6 +17,7 @@ import fetchAllSkyCamera from '../../services/sky-widgets/all-sky-camera';
 import fetchDomeCam from '../../services/sky-widgets/dome-cam';
 import fetchObservatoryList from '../../services/telescopes/observatory-list';
 import fetchTelescopeStatus from '../../services/telescopes/telescope-status';
+import fetchUpcomingMissions from '../../services/upcoming-missions/upcoming-missions';
 
 export const BOOTSTRAP_TELESCOPE_DETAILS_START = 'BOOTSTRAP_TELESCOPE_DETAILS_START';
 export const BOOTSTRAP_TELESCOPE_DETAILS = 'BOOTSTRAP_TELESCOPE_DETAILS';
@@ -57,6 +57,33 @@ export const RESET_ACTIVE_SSE = 'RESET_ACTIVE_SSE';
 
 export const REMOVE_IMAGE_VIEWER_CLIP_STATE = 'REMOVE_IMAGE_VIEWER_CLIP_STATE';
 export const APPLY_IMAGE_VIEWER_CLIP_STATE = 'APPLY_IMAGE_VIEWER_CLIP_STATE';
+
+export const START_FETCH_UPCOMING_MISSIONS = 'START_FETCH_UPCOMING_MISSIONS';
+export const SUCCESS_FETCH_UPCOMING_MISSIONS = 'SUCCESS_FETCH_UPCOMING_MISSIONS';
+export const FAIL_FETCH_UPCOMING_MISSIONS = 'FAIL_FETCH_UPCOMING_MISSIONS';
+
+const startFetchUpcomingMissions = () => ({
+  type: START_FETCH_UPCOMING_MISSIONS,
+});
+
+const failedFetchUpcomingMissions = () => ({
+  type: FAIL_FETCH_UPCOMING_MISSIONS,
+});
+
+const successFetchUpcomingMissions = payload => ({
+  type: SUCCESS_FETCH_UPCOMING_MISSIONS,
+  payload,
+});
+
+export const getUpcomingMissions = ({ obsId, domeId }) => (dispatch) => {
+  dispatch(startFetchUpcomingMissions());
+  fetchUpcomingMissions({
+    obsId,
+    domeId,
+  })
+  .then(result => dispatch(successFetchUpcomingMissions(result.data)))
+  .catch(error => dispatch(failedFetchUpcomingMissions(error)));
+}
 
 export const removeImageViewerClipState = () => ({
   type: REMOVE_IMAGE_VIEWER_CLIP_STATE,
