@@ -26,6 +26,9 @@ import {
   RESET_ACTIVE_SSE,
   REMOVE_IMAGE_VIEWER_CLIP_STATE,
   APPLY_IMAGE_VIEWER_CLIP_STATE,
+  START_FETCH_UPCOMING_MISSIONS,
+  SUCCESS_FETCH_UPCOMING_MISSIONS,
+  FAIL_FETCH_UPCOMING_MISSIONS,
 } from './actions';
 
 
@@ -91,6 +94,13 @@ const initialState = {
 
   activeSSE: {
     astroObjectID: 0,
+  },
+
+  upcomingMissions: {
+    timestamp: 0,
+    expired: 0,
+    upcomingMissionCount: 0,
+    upcomingMissionArray: [],
   },
 };
 

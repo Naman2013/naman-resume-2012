@@ -13,10 +13,10 @@ import {
   setTelescope,
   updateTelescopeStatus,
   fetchAllTelescopeStatus,
+  getUpcomingMissions,
 } from '../../modules/telescope-details/actions';
 
 import { resetSnapshotList } from '../../modules/starshare-camera/starshare-camera-actions';
-
 import { fetchObjectContent } from '../../modules/community-content/community-object-content-actions';
 
 import AnnouncementBanner from '../../components/common/announcement-banner/announcement-banner';
@@ -45,9 +45,9 @@ function mapDispatchToProps(dispatch) {
         setTelescope,
         updateTelescopeStatus,
         fetchAllTelescopeStatus,
-
         resetSnapshotList,
         fetchObjectContent,
+        getUpcomingMissions,
       },
       dispatch,
     ),
