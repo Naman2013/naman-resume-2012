@@ -38,7 +38,6 @@ const mapStateToProps = ({
   newHomeContent,
   appConfig,
   sharedMemberPhotosList: sharedMemberPhotos.imageList,
-  sharedMemberTimelineData: sharedMemberPhotos.timelineData,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -200,7 +199,6 @@ class Home extends Component {
           heading={homeContent.memberPicturesHeading}
           subheading={homeContent.memberPicturesSubHeading}
           imageList={sharedMemberPhotosList}
-          timelineData={sharedMemberTimelineData}
         />}
 
         {homeContent.promo && homeContent.promo.promoShow &&
