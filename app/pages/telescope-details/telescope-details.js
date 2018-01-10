@@ -109,6 +109,18 @@ class TelescopeDetails extends Component {
       }),
     ),
     isImageViewerClipped: PropTypes.bool,
+    upcomingMissions: PropTypes.shape({
+      timestamp: PropTypes.number.isRequired,
+      expires: PropTypes.number.isRequired,
+      upcomingMissionArray: PropTypes.arrayOf(PropTypes.shape({
+        upcomingMissionIndex: PropTypes.number.isRequired,
+        upcomingMissionAvailable: PropTypes.bool.isRequired,
+        upcomingScheduledMissionId: PropTypes.number.isRequired,
+        upcomingStart: PropTypes.number.isRequired,
+        upcomingTitle: PropTypes.string.isRequired,
+        upcomingObjectIconURL: PropTypes.string.isRequired,
+      })),
+    }).isRequired,
   };
 
   static defaultProps = {
