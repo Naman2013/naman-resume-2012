@@ -33,6 +33,9 @@ const initialState = {
     'Photo by': {},
     Telescope: {},
     Observatory: {},
+    'Observation time': {
+      'text': '',
+    }
   },
 };
 
