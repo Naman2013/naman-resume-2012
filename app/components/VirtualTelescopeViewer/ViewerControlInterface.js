@@ -94,7 +94,7 @@ const ViewerControlInterface = ({
           showMissionData={showMissionData}
         />
 
-        <div className="grow-2">
+        <div className="mission-title">
           <MissionTitle title={objectTitleShort} />
         </div>
 
@@ -145,8 +145,15 @@ const ViewerControlInterface = ({
       .bottom-container {
         display: flex;
         align-items: flex-end;
-        justify-content: space-around;
+        justify-content: space-between;
         padding: 30px;
+      }
+
+      .mission-title {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        max-width: 160px;
       }
     `}</style>
   </div>
