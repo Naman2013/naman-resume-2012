@@ -6,10 +6,13 @@ const propTypes = {
   ...upcomingMissionListProps,
 };
 
-const UpcomingMissions = ({ missions }) => (
+const UpcomingMissions = ({ missions, fetchingMissions }) => (
   <div className="root">
     <SectionHeader title="Upcoming Missions" />
-    <UpcomingMissionList missions={missions} />
+    <UpcomingMissionList
+      missions={missions}
+      fetchingMissions={fetchingMissions}
+    />
 
     <style jsx>{`
       .root {

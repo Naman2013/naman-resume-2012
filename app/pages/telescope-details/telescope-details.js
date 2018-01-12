@@ -314,9 +314,8 @@ class TelescopeDetails extends Component {
       isImageViewerClipped,
 
       upcomingMissions,
+      startGetUpcomingMissions,
     } = this.props;
-
-    console.log(this.props);
 
     if (fetchingObservatoryList) {
       return null;
@@ -458,7 +457,10 @@ class TelescopeDetails extends Component {
                   ) : null
               }
 
-              <UpcomingMissions missions={upcomingMissions.upcomingMissionArray} />
+              <UpcomingMissions
+                missions={upcomingMissions.upcomingMissionArray}
+                fetchingMissions={startGetUpcomingMissions}
+              />
 
               {
                 activeTelescopeMission.missionAvailable ||
