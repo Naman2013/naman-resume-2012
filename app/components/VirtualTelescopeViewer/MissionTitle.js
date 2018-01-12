@@ -21,7 +21,6 @@ const MissionTitle = ({ title }) => {
         .root {
           text-align: center;
           border: 1px solid ${brightGreen};
-          width: 40%;
           margin: 0 auto 20px auto;
           padding: 5px 10px;
         }
