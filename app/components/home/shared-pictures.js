@@ -6,7 +6,6 @@ import find from 'lodash/find';
 import '../common/community-perspectives/slick.min.css';
 import '../common/community-perspectives/slick-theme.min.css';
 import SharedPicturesItem from './shared-pictures-item';
-import SharedPicturesTimeline from './shared-pictures-timeline';
 import { white, darkBlueGray } from '../../styles/variables/colors';
 
 const {
@@ -28,20 +27,12 @@ class SharedPictures extends Component {
     })),
     heading: string,
     subheading: string,
-    timelineData: shape({
-      timelineCount: number.isRequired,
-      timelineList: arrayOf(shape({
-        label: string.isRequired,
-        imageIndex: number.isRequired,
-      })).isRequired,
-    })
   };
 
   static defaultProps = {
     imageList: [],
     heading: '',
     subheading: '',
-    timelineData: {},
   };
 
   state = {
@@ -75,7 +66,6 @@ class SharedPictures extends Component {
       imageList,
       heading,
       subheading,
-      timelineData: { timelineList, timelineCount },
     } = this.props;
     const { currentIndex } = this.state;
 
@@ -125,11 +115,6 @@ class SharedPictures extends Component {
           </div>
         </div>}
 
-        <SharedPicturesTimeline
-          changeMainSlider={this.changeSlide}
-          timelineList={timelineList}
-          timelineCount={timelineCount}
-        />
         <style jsx>{`
 
           .shared-container {
@@ -154,6 +139,7 @@ class SharedPictures extends Component {
           }
           .shared-slider-container {
             min-height: 400px;
+            padding-bottom: 20px;
           }
 
           .header {
@@ -191,12 +177,6 @@ class SharedPictures extends Component {
 
           .timestamp-bottom {
             font-size: 2rem;
-          }
-
-          .timeline-img {
-            margin-top: auto;
-            width: 100%;
-            max-height: 65px;
           }
 
         `}</style>
