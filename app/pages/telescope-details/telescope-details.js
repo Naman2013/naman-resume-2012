@@ -455,10 +455,10 @@ class TelescopeDetails extends Component {
                     <div>
                       <LiveMission {...activeTelescopeMission} />
                     </div>
-              ) : null
-            }
+                  ) : null
+              }
 
-            <UpcomingMissions missions={upcomingMissions.upcomingMissionArray} />
+              <UpcomingMissions missions={upcomingMissions.upcomingMissionArray} />
 
               {
                 activeTelescopeMission.missionAvailable ||
@@ -470,7 +470,7 @@ class TelescopeDetails extends Component {
                         scheduledMissionId={activeTelescopeMission.scheduledMissionId}
                       />
                     </div>
-              ) : null
+                  ) : null
               }
 
               <MoonlightWidget
