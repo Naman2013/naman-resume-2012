@@ -11,7 +11,6 @@ const apiPortNumber = process.env.apiPortNumber || '';
 module.exports = {
   entry: {
     vendors: [
-      'bootstrap',
       'classnames',
       'cookie',
       'lodash',
