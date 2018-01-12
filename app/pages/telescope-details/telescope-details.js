@@ -36,6 +36,8 @@ import TelescopeDetailsTabs from '../../components/telescope-details/TelescopeDe
 import TelescopeSelection from '../../components/telescopes/selection-widget/telescope-selection';
 import UpcomingMissions from '../../components/telescope-details/UpcomingMissions/UpcomingMissions';
 
+import obsIdTeleIdDomeIdFromTeleId from '../../utils/obsid-teleid-domeid-from-teleid';
+
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators(
@@ -76,6 +78,10 @@ function mapStateToProps({
     displayCommunityContent: telescopeDetails.displayCommunityContent,
 
     isImageViewerClipped: telescopeDetails.isImageViewerClipped,
+
+    upcomingMissions: telescopeDetails.upcomingMissions,
+    startGetUpcomingMissions: telescopeDetails.startGetUpcomingMissions,
+    failedGetUpcomingMissions: telescopeDetails.failedGetUpcomingMissions,
 
     observatoryList: observatoryList.observatoryList,
     observatoryListTimestamp: observatoryList.observatoryListTimestamp,
@@ -143,8 +149,11 @@ class TelescopeDetails extends Component {
   componentWillReceiveProps(nextProps) {
     const {
       allObservatoryTelescopeStatus,
+      currentTelescope,
       params: { obsUniqueId, teleUniqueId },
     } = nextProps;
+
+    console.log(currentTelescope);
 
     const isTelescopeUpdate = teleUniqueId !== this.props.params.teleUniqueId;
     const isObservatoryUpdate = obsUniqueId !== this.props.params.obsUniqueId;
@@ -155,7 +164,7 @@ class TelescopeDetails extends Component {
     }
 
     if (teleUniqueId) {
-      if (teleUniqueId !== this.props.routeParams.teleUniqueId) {
+      if (teleUniqueId !== this.props.params.teleUniqueId) {
         this.props.actions.updateTelescopeStatus({ teleUniqueId });
       }
     }
@@ -163,6 +172,13 @@ class TelescopeDetails extends Component {
     if (isObservatoryUpdate || isTelescopeUpdate) {
       if (neoviewOpen) {
         this.toggleNeoview();
+      }
+    }
+
+    if (currentTelescope && currentTelescope.teleId) {
+      if (currentTelescope.teleId !== this.props.currentTelescope.teleId) {
+        const { obsId, domeId } = obsIdTeleIdDomeIdFromTeleId(currentTelescope.teleId);
+        this.props.actions.getUpcomingMissions({ obsId, domeId });
       }
     }
   }

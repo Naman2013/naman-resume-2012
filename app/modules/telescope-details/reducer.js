@@ -98,7 +98,7 @@ const initialState = {
 
   upcomingMissions: {
     timestamp: 0,
-    expired: 0,
+    expires: 0,
     upcomingMissionCount: 0,
     upcomingMissionArray: [],
   },

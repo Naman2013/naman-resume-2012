@@ -11,11 +11,15 @@ import '../styles/menu.scss';
 
 class Menu extends Component {
   static propTypes = {
-    activeMenuIndex: PropTypes.number.isRequired,
+    activeMenuIndex: PropTypes.number,
     fetchMenuList: PropTypes.func.isRequired,
     activateMenu: PropTypes.func.isRequired,
     deactivateMenu: PropTypes.func.isRequired,
     menuList: PropTypes.array.isRequired,
+  };
+
+  static defaultProps = {
+    activeMenuIndex: 0,
   };
 
   constructor(props) {
