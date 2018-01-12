@@ -153,8 +153,6 @@ class TelescopeDetails extends Component {
       params: { obsUniqueId, teleUniqueId },
     } = nextProps;
 
-    console.log(currentTelescope);
-
     const isTelescopeUpdate = teleUniqueId !== this.props.params.teleUniqueId;
     const isObservatoryUpdate = obsUniqueId !== this.props.params.obsUniqueId;
     const { neoviewOpen } = this.state;
@@ -314,7 +312,11 @@ class TelescopeDetails extends Component {
 
       activeDetailsSSE,
       isImageViewerClipped,
+
+      upcomingMissions,
     } = this.props;
+
+    console.log(this.props);
 
     if (fetchingObservatoryList) {
       return null;
@@ -447,18 +449,29 @@ class TelescopeDetails extends Component {
                   />
                 )}
 
-              {activeTelescopeMission.missionAvailable ||
-              activeTelescopeMission.nextMissionAvailable ? (
-                <div>
-                  <LiveMission {...activeTelescopeMission} />
-                  <UpcomingMissions missions={activeTelescopeMission.upcomingMissionArray} />
-                  <TelescopeAllSky
-                    obsId={currentObservatory.obsId}
-                    AllskyWidgetId={currentObservatory.SkyChartWidgetId}
-                    scheduledMissionId={activeTelescopeMission.scheduledMissionId}
-                  />
-                </div>
-              ) : null}
+              {
+                activeTelescopeMission.missionAvailable ||
+                  activeTelescopeMission.nextMissionAvailable ? (
+                    <div>
+                      <LiveMission {...activeTelescopeMission} />
+                    </div>
+              ) : null
+            }
+
+            <UpcomingMissions missions={upcomingMissions.upcomingMissionArray} />
+
+              {
+                activeTelescopeMission.missionAvailable ||
+                  activeTelescopeMission.nextMissionAvailable ? (
+                    <div>
+                      <TelescopeAllSky
+                        obsId={currentObservatory.obsId}
+                        AllskyWidgetId={currentObservatory.SkyChartWidgetId}
+                        scheduledMissionId={activeTelescopeMission.scheduledMissionId}
+                      />
+                    </div>
+              ) : null
+              }
 
               <MoonlightWidget
                 obsId={currentObservatory.obsId}
