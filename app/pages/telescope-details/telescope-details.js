@@ -93,6 +93,12 @@ function mapStateToProps({
   };
 }
 
+let refreshUpcomingMissionsInterval;
+function createUpcomingMissionRefreshTimer() {
+  clearInterval(refreshUpcomingMissionsInterval);
+
+}
+
 @connect(mapStateToProps, mapDispatchToProps)
 class TelescopeDetails extends Component {
   static propTypes = {
@@ -150,6 +156,7 @@ class TelescopeDetails extends Component {
     const {
       allObservatoryTelescopeStatus,
       currentTelescope,
+      upcomingMissions,
       params: { obsUniqueId, teleUniqueId },
     } = nextProps;
 
@@ -179,6 +186,10 @@ class TelescopeDetails extends Component {
         this.props.actions.getUpcomingMissions({ obsId, domeId });
       }
     }
+  }
+
+  createUpcomingMissionRefreshTimer() {
+    this.props.actions.getUpcomingMissions({ obsId, domeId });
   }
 
   componentWillUpdate(nextProps) {
@@ -457,10 +468,13 @@ class TelescopeDetails extends Component {
                   ) : null
               }
 
-              <UpcomingMissions
-                missions={upcomingMissions.upcomingMissionArray}
-                fetchingMissions={startGetUpcomingMissions}
-              />
+              {
+                activeTelescopeMission.missionAvailable &&
+                  <UpcomingMissions
+                    missions={upcomingMissions.upcomingMissionArray}
+                    fetchingMissions={startGetUpcomingMissions}
+                  />
+              }
 
               {
                 activeTelescopeMission.missionAvailable ||
