@@ -19,7 +19,6 @@ module.exports = {
       'axios',
       'react',
       'react-addons-css-transition-group',
-      'react-bootstrap',
       'react-dom',
       'react-draggable',
       'react-onclickoutside',
