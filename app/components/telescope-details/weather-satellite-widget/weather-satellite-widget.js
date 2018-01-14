@@ -62,6 +62,7 @@ class WeatherSatelliteWidget extends Component {
       title,
       refreshIntervalSec,
       satelliteImageURL ,
+      imageWidth,
     } = this.props;
 
     const inlineTitleStyle = {
@@ -71,16 +72,21 @@ class WeatherSatelliteWidget extends Component {
       minWidth: '100%',
     }
 
+    const defaultProps = {
+      imageWidth: '100%',
+    };
+
     return (
       <div className="telescope-block weather-satellite-widget">
         <div className="live-weather-satellite">
            {
              satelliteImageURL ?
-               <img
-                 alt="Webcam feed"
-                 src={satelliteImageURL}
-                 width="100%"
-               /> : <GenericLoadingBox />
+               <RefreshedImage
+                 imageURL={satelliteImageURL}
+                 refreshIntervalSec={refreshIntervalSec}
+                 imageAltText=""
+                 maxImageWidth={imageWidth}
+                 /> : <GenericLoadingBox />
            }
          </div>
       </div>

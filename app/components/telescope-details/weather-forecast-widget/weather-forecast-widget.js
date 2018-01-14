@@ -76,11 +76,12 @@ class WeatherForecastWidget extends Component {
         <div className="live-weather-satellite">
            {
              miniWeatherPanelURL ?
-               <img
-                 alt="Webcam feed"
-                 src={miniWeatherPanelURL}
-                 width="100%"
-               /> : <GenericLoadingBox />
+               <RefreshedImage
+                 imageURL={miniWeatherPanelURL}
+                 refreshIntervalSec={refreshIntervalSec}
+                 imageAltText=""
+                 /> : <GenericLoadingBox />
+
            }
          </div>
       </div>

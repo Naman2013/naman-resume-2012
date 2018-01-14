@@ -74,14 +74,15 @@ class WeatherConditionsWidget extends Component {
     return (
       <div className="telescope-block live-weather-conditions">
         <div className="live-weather-conditions">
-           {
-             weatherConditionsURL ?
-               <img
-                 alt="Webcam feed"
-                 src={weatherConditionsURL}
-                 width="100%"
-               /> : <GenericLoadingBox />
-           }
+          {
+            weatherConditionsURL ?
+              <RefreshedImage
+                imageURL={weatherConditionsURL}
+                refreshIntervalSec={refreshIntervalSec}
+                imageAltText=""
+                /> : <GenericLoadingBox />
+
+          }
          </div>
       </div>
     );
