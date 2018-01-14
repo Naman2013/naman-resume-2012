@@ -95,42 +95,9 @@ const initialState = {
   activeSSE: {
     astroObjectID: 0,
   },
-
-  upcomingMissions: {
-    timestamp: 0,
-    expires: 0,
-    upcomingMissionCount: 0,
-    upcomingMissionArray: [],
-  },
-  startGetUpcomingMissions: false,
-  failedGetUpcomingMissions: false,
 };
 
 export default createReducer(initialState, {
-  [START_FETCH_UPCOMING_MISSIONS](state) {
-    return {
-      ...state,
-      startGetUpcomingMissions: true,
-      failedGetUpcomingMissions: false,
-      upcomingMissions: Object.assign({}, initialState.upcomingMissions),
-    };
-  },
-  [SUCCESS_FETCH_UPCOMING_MISSIONS](state, { payload }) {
-    return {
-      ...state,
-      startGetUpcomingMissions: false,
-      failedGetUpcomingMissions: false,
-      upcomingMissions: Object.assign({}, payload),
-    };
-  },
-  [FAIL_FETCH_UPCOMING_MISSIONS](state) {
-    return {
-      ...state,
-      startGetUpcomingMissions: false,
-      failedGetUpcomingMissions: true,
-      upcomingMissions: Object.assign({}, initialState.upcomingMissions),
-    };
-  },
   [SET_DISPLAY_COMMUNITY_CONTENT](state, { payload }) {
     return {
       ...state,

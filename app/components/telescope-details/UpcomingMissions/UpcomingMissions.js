@@ -1,27 +1,27 @@
-import React from 'react';
+import React, { Component } from 'react';
 import SectionHeader from '../../common/headers/SectionHeader';
 import UpcomingMissionList, { propTypes as upcomingMissionListProps } from './UpcomingMissionList';
 
-const propTypes = {
-  ...upcomingMissionListProps,
-};
+class UpcomingMissions extends Component {
+  static propTypes = Object.assign({}, upcomingMissionListProps);
 
-const UpcomingMissions = ({ missions, fetchingMissions }) => (
-  <div className="root">
-    <SectionHeader title="Upcoming Missions" />
-    <UpcomingMissionList
-      missions={missions}
-      fetchingMissions={fetchingMissions}
-    />
+  render() {
+    return (
+      <div className="root">
+        <SectionHeader title="Upcoming Missions" />
+        <UpcomingMissionList
+          missions={missions}
+          fetchingMissions={fetchingMissions}
+        />
 
-    <style jsx>{`
-      .root {
-        margin-top: 10px;
-      }
-    `}</style>
-  </div>
-);
-
-UpcomingMissions.propTypes = propTypes;
+        <style jsx>{`
+          .root {
+            margin-top: 10px;
+          }
+        `}</style>
+      </div>
+    );
+  }
+}
 
 export default UpcomingMissions;

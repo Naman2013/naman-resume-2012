@@ -13,7 +13,6 @@ import {
   setTelescope,
   updateTelescopeStatus,
   fetchAllTelescopeStatus,
-  getUpcomingMissions,
 } from '../../modules/telescope-details/actions';
 
 import { resetSnapshotList } from '../../modules/starshare-camera/starshare-camera-actions';
@@ -49,7 +48,6 @@ function mapDispatchToProps(dispatch) {
         fetchAllTelescopeStatus,
         resetSnapshotList,
         fetchObjectContent,
-        getUpcomingMissions,
       },
       dispatch,
     ),
@@ -78,10 +76,6 @@ function mapStateToProps({
     displayCommunityContent: telescopeDetails.displayCommunityContent,
 
     isImageViewerClipped: telescopeDetails.isImageViewerClipped,
-
-    upcomingMissions: telescopeDetails.upcomingMissions,
-    startGetUpcomingMissions: telescopeDetails.startGetUpcomingMissions,
-    failedGetUpcomingMissions: telescopeDetails.failedGetUpcomingMissions,
 
     observatoryList: observatoryList.observatoryList,
     observatoryListTimestamp: observatoryList.observatoryListTimestamp,
@@ -121,20 +115,6 @@ class TelescopeDetails extends Component {
       }),
     ),
     isImageViewerClipped: PropTypes.bool,
-    upcomingMissions: PropTypes.shape({
-      timestamp: PropTypes.number.isRequired,
-      expires: PropTypes.number.isRequired,
-      upcomingMissionArray: PropTypes.arrayOf(PropTypes.shape({
-        upcomingMissionIndex: PropTypes.number.isRequired,
-        upcomingMissionAvailable: PropTypes.bool.isRequired,
-        upcomingScheduledMissionId: PropTypes.number.isRequired,
-        upcomingStart: PropTypes.number.isRequired,
-        upcomingTitle: PropTypes.string.isRequired,
-        upcomingObjectIconURL: PropTypes.string.isRequired,
-      })),
-    }).isRequired,
-    startGetUpcomingMissions: PropTypes.bool.isRequired,
-    failedGetUpcomingMissions: PropTypes.bool.isRequired,
   };
 
   static defaultProps = {
@@ -179,17 +159,6 @@ class TelescopeDetails extends Component {
         this.toggleNeoview();
       }
     }
-
-    if (currentTelescope && currentTelescope.teleId) {
-      if (currentTelescope.teleId !== this.props.currentTelescope.teleId) {
-        const { obsId, domeId } = obsIdTeleIdDomeIdFromTeleId(currentTelescope.teleId);
-        this.props.actions.getUpcomingMissions({ obsId, domeId });
-      }
-    }
-  }
-
-  createUpcomingMissionRefreshTimer() {
-    this.props.actions.getUpcomingMissions({ obsId, domeId });
   }
 
   componentWillUpdate(nextProps) {
@@ -323,9 +292,6 @@ class TelescopeDetails extends Component {
 
       activeDetailsSSE,
       isImageViewerClipped,
-
-      upcomingMissions,
-      startGetUpcomingMissions,
     } = this.props;
 
     if (fetchingObservatoryList) {
@@ -470,10 +436,7 @@ class TelescopeDetails extends Component {
 
               {
                 teleHasMissions &&
-                  <UpcomingMissions
-                    missions={upcomingMissions.upcomingMissionArray}
-                    fetchingMissions={startGetUpcomingMissions}
-                  />
+                  <UpcomingMissions />
               }
 
               {
