@@ -16,19 +16,24 @@ class UpcomingMissions extends Component {
       <ExpireService
         serviceURL={GET_UPCOMING_MISSIONS_URL}
         requestBody={{ obsId: this.props.obsId, domeId: this.props.domeId }}
-        render={({ serviceResponse: { upcomingMissionArray }, fetchingContent }) => (
-          <div className="root">
-            <SectionHeader title="Upcoming Missions" />
-            <UpcomingMissionList
-              missions={upcomingMissionArray}
-              fetchingMissions={fetchingContent}
-            />
-            <style jsx>{`
-              .root {
-                margin-top: 10px;
-              }
-            `}</style>
-          </div>
+        render={({
+          serviceResponse: {
+            upcomingMissionArray,
+            showStatusMessage,
+            showStatusMessageText,
+          }, fetchingContent }) => (
+            <div className="root">
+              <SectionHeader title="Upcoming Missions" />
+              <UpcomingMissionList
+                missions={upcomingMissionArray}
+                fetchingMissions={fetchingContent}
+              />
+              <style jsx>{`
+                .root {
+                  margin-top: 10px;
+                }
+              `}</style>
+            </div>
         )}
       />
     );
