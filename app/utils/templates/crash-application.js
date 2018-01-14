@@ -8,7 +8,7 @@ export default function crashApplication() {
   const message = `
     ${boxTitle('Oops')}
     ${boxSubtitle('We&#39;ve run into a problem, <br /> please reset the application.')}
-    ${primaryButton('Reset', '/')}
+    ${primaryButton('Reset', '/home')}
   `;
   const content = centeredBox(message);
   return createBase(content);
