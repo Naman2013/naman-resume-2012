@@ -334,7 +334,7 @@ class TelescopeDetails extends Component {
 
     const { obsUniqueId, teleUniqueId } = params;
     const { obsId } = currentObservatory;
-    const { teleInstrumentList, teleCanReserveMissions } = currentTelescope;
+    const { teleInstrumentList, teleCanReserveMissions, teleHasMissions } = currentTelescope;
     const telescopeOnline =
       currentTelescopeOnlineStatus && currentTelescopeOnlineStatus.onlineStatus === 'online';
     const selectedInstrument = teleInstrumentList[selectedTab];
@@ -469,7 +469,7 @@ class TelescopeDetails extends Component {
               }
 
               {
-                activeTelescopeMission.missionAvailable &&
+                teleHasMissions &&
                   <UpcomingMissions
                     missions={upcomingMissions.upcomingMissionArray}
                     fetchingMissions={startGetUpcomingMissions}
