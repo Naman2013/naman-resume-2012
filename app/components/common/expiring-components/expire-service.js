@@ -3,11 +3,6 @@
   calls an API when mounted
   expects the API to return an expiration time and server timestamp
   when expiration occurs will refetch from the API
-
-  TODO: use axios to make service call
-  TODO: set timeout based on timestamp and expires
-  TODO: refetch API data on expires
-  TODO: tear down the timeout when the component unmounts
 */
 
 import React, { Component } from 'react';
@@ -43,7 +38,7 @@ class Expires extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (!isMatch(this.props.requestBody, nextProps.requestBody)) {
-      this.fetchServiceContent();
+      this.fetchServiceContent(nextProps.requestBody);
     }
   }
 
@@ -82,22 +77,24 @@ class Expires extends Component {
     }
   }
 
-  fetchServiceContent() {
+  fetchServiceContent(nextRequestBody) {
     const { serviceURL, protocol, requestBody } = this.props;
     this.tearDown();
     this.setState({ fetchingContent: true, serviceResponse: {} });
     this.source = CancelToken.source();
 
+    const validatedRequestBody = nextRequestBody || requestBody;
+
     if (protocol === POST) {
       axios.post(serviceURL, Object.assign({
         cancelToken: this.source.token,
-      }, requestBody))
+      }, validatedRequestBody))
         .then(result => this.handleServiceResponse(result.data));
     }
 
     if (protocol === GET) {
       axios.get(serviceURL, {
-        params: Object.assign({}, requestBody),
+        params: Object.assign({}, validatedRequestBody),
       })
       .then(result => this.handleServiceResponse(result.data));
     }

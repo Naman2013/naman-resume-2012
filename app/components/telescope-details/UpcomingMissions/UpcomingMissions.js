@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 import { GET_UPCOMING_MISSIONS_URL } from '../../../services/upcoming-missions/upcoming-missions';
 import ExpireService from '../../common/expiring-components/expire-service';
 import SectionHeader from '../../common/headers/SectionHeader';
-import UpcomingMissionList, { propTypes as upcomingMissionListProps } from './UpcomingMissionList';
+import UpcomingMissionList from './UpcomingMissionList';
 
 class UpcomingMissions extends Component {
   static propTypes = Object.assign({
     obsId: PropTypes.string.isRequired,
     domeId: PropTypes.string.isRequired,
-  }, upcomingMissionListProps);
+  });
 
   render() {
     return (
