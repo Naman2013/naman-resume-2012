@@ -72,12 +72,8 @@ class WeatherSatelliteWidget extends Component {
     }
 
     return (
-      <div className="telescope-block live-webcam">
-        <div className="top">
-          <h3>{title}</h3>
-        </div>
-
-        <div className="live-webcam-feed">
+      <div className="telescope-block weather-satellite-widget">
+        <div className="live-weather-satellite">
            {
              satelliteImageURL ?
                <img

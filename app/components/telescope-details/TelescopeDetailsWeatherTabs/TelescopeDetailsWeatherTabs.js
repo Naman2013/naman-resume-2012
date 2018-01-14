@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import generateWeatherTabConfiguration from './generate-tab-configuration';
 import DefaultTabs from '../../Tabs';
+import './weather-tabs.scss';
 
 const mapStateToProps = ({ telescopeDetails }) => ({
 });
@@ -44,18 +45,6 @@ class TelescopeDetailsWeatherTabs extends Component {
           handleTabSelect={this.handleTabClick}
           selectedIndex={selectedTabIndex}
         />
-
-      <style jsx>{`
-        .weatherTabsStyle {
-              width: 100%;
-              font-size: 0.8em;
-              margin-left: 0;
-        }
-        .tab {
-          height: '0.5em';
-        }
-
-      `}</style>
       </div>
     );
   }
