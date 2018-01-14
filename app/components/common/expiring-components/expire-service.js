@@ -12,7 +12,10 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import isMatch from 'lodash/isMatch';
 import axios from 'axios';
+
+const CancelToken = axios.CancelToken;
 
 const POST = 'POST';
 const GET = 'GET';
@@ -38,13 +41,24 @@ class Expires extends Component {
     this.fetchServiceContent();
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (!isMatch(this.props.requestBody, nextProps.requestBody)) {
+      this.fetchServiceContent();
+    }
+  }
+
   componentWillUnmount() {
     this.tearDown();
   }
 
-  timerPointer: undefined; // maintains a pointer to the running timer
+  timerPointer = undefined; // maintains a pointer to the running timer
+  source = undefined;
 
   handleServiceResponse(result) {
+    if (result.expires) {
+      this.configureTimer({ expires: result.expires, timestamp: result.timestamp });
+    }
+
     this.setState(() => ({
       fetchingContent: false,
       serviceResponse: result,
@@ -53,18 +67,31 @@ class Expires extends Component {
 
   tearDown() {
     clearTimeout(this.timerPointer);
+    if (this.source && this.source.cancel) {
+      this.source.cancel('cancel request');
+    }
   }
 
-  resetServiceResponse() {
-    this.setState({ serviceResponse: {} });
-    this.tearDown();
+  configureTimer({ expires, timestamp }) {
+    clearTimeout(this.timerPointer);
+    const milliExpires = expires * 1000;
+    const milliTimestamp = timestamp * 1000;
+    const remainingTime = milliExpires - milliTimestamp;
+    if (remainingTime > 1000) {
+      this.timerPointer = setTimeout(::this.fetchServiceContent, remainingTime);
+    }
   }
 
   fetchServiceContent() {
     const { serviceURL, protocol, requestBody } = this.props;
-    this.setState({ fetchingContent: true });
+    this.tearDown();
+    this.setState({ fetchingContent: true, serviceResponse: {} });
+    this.source = CancelToken.source();
+
     if (protocol === POST) {
-      axios.post(serviceURL, requestBody)
+      axios.post(serviceURL, Object.assign({
+        cancelToken: this.source.token,
+      }, requestBody))
         .then(result => this.handleServiceResponse(result.data));
     }
 
