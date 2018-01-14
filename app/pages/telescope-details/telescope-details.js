@@ -300,6 +300,8 @@ class TelescopeDetails extends Component {
       countdown => countdown.teleUniqueId === teleUniqueId,
     );
 
+    console.log(currentObservatory);
+
     return (
       <div className="telescope-details-page-wrapper">
         <AnnouncementBanner obsId={obsId} />
@@ -402,7 +404,10 @@ class TelescopeDetails extends Component {
                 DayNightMapWidgetId={currentObservatory.DayNightMapWidgetId}
                 AllskyWidgetId={currentObservatory.AllskyWidgetId}
                 DomecamWidgetId={currentObservatory.DomecamWidgetId}
-                facilityWebcamWidgetId={currentObservatory.FacilityWebcamWidgetId}
+                FacilityWebcamWidgetId={currentObservatory.FacilityWebcamWidgetId}
+                MiniWeatherPanelWidgetId={currentObservatory.MiniWeatherPanelWidgetId}
+                SatelliteWidgetId={currentObservatory.SatelliteWidgetId}
+                WeatherConditionsWidgetId={currentObservatory.WeatherConditionsWidgetId}
               />
             </div>
 

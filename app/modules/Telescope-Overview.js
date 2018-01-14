@@ -4,6 +4,12 @@ import fetchStarChart from '../services/sky-widgets/star-chart';
 import fetchFacilityWebcam from '../services/sky-widgets/facility-webcam';
 import fetchMoonlightBar from '../services/sky-widgets/moonlight-bar';
 
+/* weather conditions */
+import fetchWeatherConditionsWidget from '../services/sky-widgets/weather-conditions';
+import fetchWeatherForecastWidget from '../services/sky-widgets/weather-forecast';
+import fetchWeatherSatelliteWidget from '../services/sky-widgets/weather-satellite';
+
+
 const OBSERVATORY_REQUEST_START = 'OBSERVATORY_REQUEST_START';
 const OBSERVATORY_REQUEST_SUCCESS = 'OBSERVATORY_REQUEST_SUCCESS';
 const OBSERVATORY_REQUEST_FAIL = 'OBSERVATORY_REQUEST_FAIL';
@@ -23,6 +29,15 @@ const MOONLIGHT_WIDGET_SUCCESS = 'MOONLIGHT_WIDGET_SUCCESS';
 
 const OBSERVATORY_WEBCAM_START = 'OBSERVATORY_WEBCAM_START';
 const OBSERVATORY_WEBCAM_SUCCESS = 'OBSERVATORY_WEBCAM_SUCCESS';
+
+const WEATHER_FORECAST_WIDGET_START = 'WEATHER_FORECAST_WIDGET_START';
+const WEATHER_FORECAST_WIDGET_SUCCESS = 'WEATHER_FORECAST_WIDGET_SUCCESS';
+
+const WEATHER_CONDITIONS_WIDGET_START = 'WEATHER_CONDITIONS_WIDGET_START';
+const WEATHER_CONDITIONS_WIDGET_SUCCESS = 'WEATHER_CONDITIONS_WIDGET_SUCCESS';
+
+const WEATHER_SATELLITE_WIDGET_START = 'WEATHER_SATELLITE_WIDGET_START';
+const WEATHER_SATELLITE_WIDGET_SUCCESS = 'WEATHER_SATELLITE_WIDGET_SUCCESS';
 
 const TELESCOPE_CARD_DATA_SUCCESS = 'TELESCOPE_CARD_DATA_SUCCESS';
 const TELESCOPE_CARD_DATA_FAIL = 'TELESCOPE_CARD_DATA_FAIL';
@@ -217,6 +232,83 @@ export const fetchObservatoryWebcam = ({
   });
 };
 
+/* weather conditions */
+const startWeatherConditions = () => ({
+  type: WEATHER_CONDITIONS_WIDGET_START,
+});
+
+const fetchWeatherConditionsSuccess = weatherConditionsWidgetResult => ({
+  type: WEATHER_CONDITIONS_WIDGET_SUCCESS,
+  weatherConditionsWidgetResult,
+});
+
+export const fetchWeatherConditions = ({
+  obsId,
+  weatherConditionsWidgetId,
+}) => (dispatch) => {
+  dispatch(startWeatherConditions());
+  return fetchWeatherConditionsWidget({
+    obsId,
+    widgetUniqueId: weatherConditionsWidgetId,
+  }).then((result) => {
+    if (!result.data.apiError) {
+      dispatch(fetchWeatherConditionsSuccess(result.data));
+    }
+  });
+};
+
+/* weather forecast */
+const startWeatherForecast = () => ({
+  type: WEATHER_FORECAST_WIDGET_START,
+});
+
+const fetchWeatherForecastSuccess = weatherForecastWidgetResult => ({
+  type: WEATHER_FORECAST_WIDGET_SUCCESS,
+  weatherForecastWidgetResult,
+});
+
+export const fetchWeatherForecast = ({
+  obsId,
+  miniWeatherPanelWidgetId,
+}) => (dispatch) => {
+  dispatch(startWeatherForecast());
+
+  return fetchWeatherForecastWidget({
+    obsId,
+    widgetUniqueId: miniWeatherPanelWidgetId,
+  }).then((result) => {
+    if (!result.data.apiError) {
+      dispatch(fetchWeatherForecastSuccess(result.data));
+    }
+  });
+};
+
+
+/* weather satellite */
+const startWeatherSatellite = () => ({
+  type: WEATHER_SATELLITE_WIDGET_START,
+});
+
+const fetchWeatherSatelliteSuccess = weatherSatelliteWidgetResult => ({
+  type: WEATHER_SATELLITE_WIDGET_SUCCESS,
+  weatherSatelliteWidgetResult,
+});
+
+export const fetchWeatherSatellite = ({
+  obsId,
+  satelliteWidgetId,
+}) => (dispatch) => {
+  dispatch(startWeatherSatellite());
+  return fetchWeatherSatelliteWidget({
+    obsId,
+    widgetUniqueId: satelliteWidgetId,
+  }).then((result) => {
+    if (!result.data.apiError) {
+      dispatch(fetchWeatherSatelliteSuccess(result.data));
+    }
+  });
+};
+
 const fetchTelescopeCardDataSuccess = telescopeCardData => ({
   type: TELESCOPE_CARD_DATA_SUCCESS,
   telescopeCardData,
@@ -261,6 +353,9 @@ const initialState = {
   observatoryListErrorBody: null,
 
   fetchingObservatoryLiveWebcamResult: true,
+  fetchingWeatherForecastWidgetResult: true,
+  fetchingWeatherConditionsWidgetResult: true,
+  fetchingWeatherSatelliteWidgetResult: true,
 
   // status of various telescopes depends on having a list of observatories..
   observatoryTelecopeStatus: null,
@@ -287,6 +382,24 @@ const initialState = {
     logoURL: '',
     refreshIntervalSec: 0,
     facilityWebcamURL: '',
+  },
+  weatherForecastWidgetResult: {
+    title: 'Loading',
+    apiError: false,
+    refreshIntervalSec: 0,
+    miniWeatherPanelURL: '',
+  },
+  weatherConditionsWidgetResult: {
+    title: 'Loading',
+    apiError: false,
+    refreshIntervalSec: 0,
+    weatherConditionsURL: '',
+  },
+  weatherSatelliteWidgetResult: {
+    title: 'Loading',
+    apiError: false,
+    refreshIntervalSec: 0,
+    satelliteImageURL: '',
   },
 
   telescopeCardData: undefined,
@@ -360,6 +473,48 @@ export default createReducer(initialState, {
       ...state,
       fetchingObservatoryLiveWebcamResult: false,
       observatoryLiveWebcamResult,
+    };
+  },
+  [WEATHER_FORECAST_WIDGET_START](state) {
+    return {
+      ...state,
+      fetchingWeatherForecastWidgetResult: true,
+      weatherForecastWidgetResult: { ...initialState.weatherForecastWidgetResult },
+    };
+  },
+  [WEATHER_FORECAST_WIDGET_SUCCESS](state, { weatherForecastWidgetResult }) {
+    return {
+      ...state,
+      fetchingWeatherForecastWidgetResult: false,
+      weatherForecastWidgetResult,
+    };
+  },
+  [WEATHER_SATELLITE_WIDGET_START](state) {
+    return {
+      ...state,
+      fetchingWeatherSatelliteWidgetResult: true,
+      weatherSatelliteWidgetResult: { ...initialState.weatherSatelliteWidgetResult },
+    };
+  },
+  [WEATHER_SATELLITE_WIDGET_SUCCESS](state, { weatherSatelliteWidgetResult }) {
+    return {
+      ...state,
+      fetchingWeatherSatelliteWidgetResult: false,
+      weatherSatelliteWidgetResult,
+    };
+  },
+  [WEATHER_CONDITIONS_WIDGET_START](state) {
+    return {
+      ...state,
+      fetchingWeatherConditionsWidgetResult: true,
+      weatherConditionsWidgetResult: { ...initialState.weatherConditionsWidgetResult },
+    };
+  },
+  [WEATHER_CONDITIONS_WIDGET_SUCCESS](state, { weatherConditionsWidgetResult }) {
+    return {
+      ...state,
+      fetchingWeatherConditionsWidgetResult: false,
+      weatherConditionsWidgetResult,
     };
   },
   [TELESCOPE_CARD_DATA_START](state) {
