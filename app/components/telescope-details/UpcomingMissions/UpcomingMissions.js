@@ -1,25 +1,36 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { GET_UPCOMING_MISSIONS_URL } from '../../../services/upcoming-missions/upcoming-missions';
+import ExpireService from '../../common/expiring-components/expire-service';
 import SectionHeader from '../../common/headers/SectionHeader';
 import UpcomingMissionList, { propTypes as upcomingMissionListProps } from './UpcomingMissionList';
 
 class UpcomingMissions extends Component {
-  static propTypes = Object.assign({}, upcomingMissionListProps);
+  static propTypes = Object.assign({
+    obsId: PropTypes.string.isRequired,
+    domeId: PropTypes.string.isRequired,
+  }, upcomingMissionListProps);
 
   render() {
     return (
-      <div className="root">
-        <SectionHeader title="Upcoming Missions" />
-        <UpcomingMissionList
-          missions={missions}
-          fetchingMissions={fetchingMissions}
-        />
-
-        <style jsx>{`
-          .root {
-            margin-top: 10px;
-          }
-        `}</style>
-      </div>
+      <ExpireService
+        serviceURL={GET_UPCOMING_MISSIONS_URL}
+        requestBody={{ obsId: this.props.obsId, domeId: this.props.domeId }}
+        render={({ serviceResponse: { upcomingMissionArray }, fetchingContent }) => (
+          <div className="root">
+            <SectionHeader title="Upcoming Missions" />
+            <UpcomingMissionList
+              missions={upcomingMissionArray}
+              fetchingMissions={fetchingContent}
+            />
+            <style jsx>{`
+              .root {
+                margin-top: 10px;
+              }
+            `}</style>
+          </div>
+        )}
+      />
     );
   }
 }

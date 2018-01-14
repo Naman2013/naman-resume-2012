@@ -300,13 +300,20 @@ class TelescopeDetails extends Component {
 
     const { obsUniqueId, teleUniqueId } = params;
     const { obsId } = currentObservatory;
-    const { teleInstrumentList, teleCanReserveMissions, teleHasMissions } = currentTelescope;
+    const {
+      teleInstrumentList,
+      teleCanReserveMissions,
+      teleHasMissions,
+      teleId,
+    } = currentTelescope;
     const telescopeOnline =
       currentTelescopeOnlineStatus && currentTelescopeOnlineStatus.onlineStatus === 'online';
     const selectedInstrument = teleInstrumentList[selectedTab];
     const currentMissionCountdown = countdownList.find(
       countdown => countdown.teleUniqueId === teleUniqueId,
     );
+
+    const { domeId } = obsIdTeleIdDomeIdFromTeleId(teleId);
 
     return (
       <div className="telescope-details-page-wrapper">
@@ -436,7 +443,7 @@ class TelescopeDetails extends Component {
 
               {
                 teleHasMissions &&
-                  <UpcomingMissions />
+                  <UpcomingMissions obsId={obsId} domeId={domeId} />
               }
 
               {

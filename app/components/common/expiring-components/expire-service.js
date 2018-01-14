@@ -10,7 +10,7 @@
   TODO: tear down the timeout when the component unmounts
 */
 
-import React, { Component, cloneElement } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 
@@ -20,7 +20,7 @@ const GET = 'GET';
 class Expires extends Component {
   static propTypes = {
     serviceURL: PropTypes.string.isRequired,
-    children: PropTypes.node.isRequired,
+    render: PropTypes.func.isRequired,
     protocol: PropTypes.string,
     requestBody: PropTypes.any, // any set due to disambiguity of the request
   };
@@ -31,6 +31,7 @@ class Expires extends Component {
 
   state = {
     serviceResponse: {},
+    fetchingContent: false,
   };
 
   componentDidMount() {
@@ -45,6 +46,7 @@ class Expires extends Component {
 
   handleServiceResponse(result) {
     this.setState(() => ({
+      fetchingContent: false,
       serviceResponse: result,
     }));
   }
@@ -60,25 +62,25 @@ class Expires extends Component {
 
   fetchServiceContent() {
     const { serviceURL, protocol, requestBody } = this.props;
+    this.setState({ fetchingContent: true });
     if (protocol === POST) {
-      axios.post(serviceURL, ...requestBody)
+      axios.post(serviceURL, requestBody)
         .then(result => this.handleServiceResponse(result.data));
     }
 
     if (protocol === GET) {
       axios.get(serviceURL, {
         params: Object.assign({}, requestBody),
-      });
+      })
+      .then(result => this.handleServiceResponse(result.data));
     }
   }
 
   render() {
-    const { serviceResponse } = this.state;
     return (
       <div>
         {
-          serviceResponse &&
-            cloneElement(this.props.children, ...serviceResponse)
+          this.props.render(this.state)
         }
       </div>
     );
