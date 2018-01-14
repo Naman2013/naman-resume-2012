@@ -300,7 +300,7 @@ class TelescopeDetails extends Component {
       countdown => countdown.teleUniqueId === teleUniqueId,
     );
 
-    console.log(currentObservatory);
+    //console.log(currentObservatory);
 
     return (
       <div className="telescope-details-page-wrapper">
