@@ -20,13 +20,15 @@ class UpcomingMissions extends Component {
           serviceResponse: {
             upcomingMissionArray,
             showStatusMessage,
-            showStatusMessageText,
+            statusMessage,
           }, fetchingContent }) => (
             <div className="root">
               <SectionHeader title="Upcoming Missions" />
               <UpcomingMissionList
                 missions={upcomingMissionArray}
                 fetchingMissions={fetchingContent}
+                showStatusMessage={showStatusMessage}
+                statusMessage={statusMessage}
               />
               <style jsx>{`
                 .root {
