@@ -291,7 +291,8 @@ export const grabMissionSlot = ({
         patching the callsource to ensure that it is always included for
         future requests
       */
-      if (!response.data.apiError && onSuccessCallback) {
+      const { missionList } = response.data;
+      if (onSuccessCallback && missionList[0]) {
         onSuccessCallback();
       }
 
@@ -300,7 +301,9 @@ export const grabMissionSlot = ({
         reservationType: RESERVATION_TYPES.NEW_RESERVATION,
       })));
     })
-    .catch(error => dispatch(grabMissionSlotFail(error)));
+    .catch((error) => {
+      dispatch(grabMissionSlotFail(error));
+    });
   };
 
 export const grabUpdateMissionSlot = ({
