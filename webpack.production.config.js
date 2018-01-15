@@ -1,7 +1,7 @@
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-//const WebpackMd5Hash = require('webpack-md5-hash');
+// const WebpackMd5Hash = require('webpack-md5-hash');
 const WebpackMd5Hash = Math.random() * 100000;
 
 const apiUrl = process.env.apiUrl || '';
