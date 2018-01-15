@@ -4,14 +4,15 @@ import DayNightMap from '../condition-snapshot/DayNightMap';
 import AllSkyCamera from '../condition-snapshot/AllSkyCamera';
 import DomeCam from '../condition-snapshot/DomeCam';
 import LiveWebcam from '../live-webcam/live-webcam';
-
 import CenterContent from '../../../design-system/CenterContent';
+
+import TelescopeDetailsWeatherTabs from '../TelescopeDetailsWeatherTabs';
 
 const inlineTitleStyle = {
   color: 'white',
 }
 
-export default function generateTabConfiguration({
+export default function generateTelescopeDetailsTabConfiguration({
   obsId,
   currentConditionsURL,
   dayNightBarPanelRefreshInterval,
@@ -34,7 +35,10 @@ export default function generateTabConfiguration({
   domeCamOnlineStatus,
   domeCamImageWidth,
   domeCamTitle,
-  facilityWebcamWidgetId, /* TODO: require the image width here.... */
+  FacilityWebcamWidgetId,
+  MiniWeatherPanelWidgetId,
+  SatelliteWidgetId,
+  WeatherConditionsWidgetId,
 }) {
   return (
   [
@@ -62,6 +66,17 @@ export default function generateTabConfiguration({
             imageWidth={dayNightMapImageWidth}
           />
         </CenterContent>
+      ),
+    },
+    {
+      tabText: 'Weather',
+      tabContent: (
+          <TelescopeDetailsWeatherTabs
+            obsId={obsId}
+            miniWeatherPanelWidgetId={MiniWeatherPanelWidgetId}
+            satelliteWidgetId={SatelliteWidgetId}
+            weatherConditionsWidgetId={WeatherConditionsWidgetId}
+          />
       ),
     },
     {
@@ -100,7 +115,7 @@ export default function generateTabConfiguration({
         <CenterContent>
           <LiveWebcam
             obsId={obsId}
-            facilityWebcamWidgetId={facilityWebcamWidgetId}
+            facilityWebcamWidgetId={FacilityWebcamWidgetId}
           />
         </CenterContent>
       ),

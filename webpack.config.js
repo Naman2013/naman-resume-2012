@@ -1,4 +1,4 @@
-const path = require('path');
+ path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
@@ -11,7 +11,6 @@ const apiPortNumber = process.env.apiPortNumber || '';
 module.exports = {
   entry: {
     vendors: [
-      'bootstrap',
       'classnames',
       'cookie',
       'lodash',
@@ -20,7 +19,6 @@ module.exports = {
       'axios',
       'react',
       'react-addons-css-transition-group',
-      'react-bootstrap',
       'react-dom',
       'react-draggable',
       'react-onclickoutside',
@@ -149,12 +147,12 @@ module.exports = {
     historyApiFallback: true,
     proxy: {
       '/api/**': {
-        target: 'https://venus.slooh.com:443',
+        target: 'https://saturn.slooh.com',
         changeOrigin: true,
         secure: true,
       },
       '/sloohapp/**': {
-        target: 'https://venus.slooh.com:443',
+        target: 'https://saturn.slooh.com',
         changeOrigin: true,
         secure: true,
       },

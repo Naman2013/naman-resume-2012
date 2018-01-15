@@ -11,7 +11,6 @@ module.exports = {
   devtool: 'source-map',
   entry: {
     vendors: [
-      'bootstrap',
       'classnames',
       'cookie',
       'lodash',
@@ -20,7 +19,6 @@ module.exports = {
       'axios',
       'react',
       'react-addons-css-transition-group',
-      'react-bootstrap',
       'react-dom',
       'react-draggable',
       'react-onclickoutside',
