@@ -504,6 +504,9 @@ class ReservationByCoordinate extends Component {
     return calculatedRA;
   }
 
+  onMissionGrabSuccess = () => {
+    this.props.actions.missionConfirmOpen('reserve');
+  }
 
   handleFormSubmit(event) {
     event.preventDefault();
@@ -528,6 +531,7 @@ class ReservationByCoordinate extends Component {
     if (selectedImageProcessIndex) {
       const selectedImageProcess = presetOptions.telescopeList[0].telePresetList[selectedImageProcessIndex];
       const missionPayload = {
+        onSuccessCallback: this.onMissionGrabSuccess,
         callSource: 'byTelescope',
         missionType: 'coord',
         scheduledMissionId,
@@ -547,8 +551,6 @@ class ReservationByCoordinate extends Component {
       } else {
         this.props.actions.grabMissionSlot(missionPayload);
       }
-
-      this.props.actions.missionConfirmOpen('reserve');
     }
   }
 

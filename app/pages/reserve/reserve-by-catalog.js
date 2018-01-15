@@ -88,7 +88,7 @@ class ReserveByCatalog extends Component {
     this.fetchImageProcessing();
   }
 
-  handleCatalogSelect(event) {
+  handleCatalogSelect(event = { target: { value: undefined } }) {
     this.setState({
       selectedCatalogIndex: event.target.value,
       selectedImageProcessingIndex: null,
@@ -151,6 +151,11 @@ class ReserveByCatalog extends Component {
     return catalog.catalogList[selectedCatalogIndex];
   }
 
+  onMissionGrabSuccess = () => {
+    this.props.actions.missionConfirmOpen('reserve');
+    this.handleCatalogSelect();
+  }
+
   handleFormSubmit(event) {
     event.preventDefault();
 
@@ -169,6 +174,7 @@ class ReserveByCatalog extends Component {
     const selectedImageFormat = this.selectedImageProcessing;
 
     this.props.actions.grabMissionSlot({
+      onSuccessCallback: this.onMissionGrabSuccess,
       domeId,
       objectDec,
       objectRA,
@@ -184,11 +190,6 @@ class ReserveByCatalog extends Component {
       callSource,
       missionType: 'catalog',
     });
-
-    this.props.actions.missionConfirmOpen('reserve');
-
-    /* reset the browse */
-    this.handleCatalogSelect(event);
   }
 
   // TODO: continue to build out and use normalizeMissionInfo instead of running the || guard checks in other places

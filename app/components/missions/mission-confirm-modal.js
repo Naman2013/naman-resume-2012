@@ -43,27 +43,29 @@ class MissionConfirmModal extends Component {
       confirmType,
       currentCard } = this.props.missions;
 
-    if(confirmType === RESERVE) {
-      return(
+    if (confirmType === RESERVE) {
+      return (
         <ReserveConfirm
           currentCard={currentCard}
           open={isConfirmationOpen}
-          closeModal={this.closeModal} />
+          closeModal={this.closeModal}
+        />
       );
     }
 
-    if(confirmType === PIGGYBACK) {
-      return(
+    if (confirmType === PIGGYBACK) {
+      return (
         <PiggyBackConfirm
           mission={mission}
           currentCard={currentCard}
           open={isConfirmationOpen}
-          closeModal={this.closeModal} />
+          closeModal={this.closeModal}
+        />
       );
     }
 
     return null;
   }
-};
+}
 
 export default MissionConfirmModal;
