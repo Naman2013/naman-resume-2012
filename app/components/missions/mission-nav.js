@@ -20,7 +20,7 @@ const SUBTITLE_MAP = {
     'Must-see seasonal wonders in focus during current livecasts',
   '/reservations/reserve-by-objects': 'See our favorite jewels in the night sky',
   '/reservations/reserve-by-catalog':
-    'Auto schedule missions by choosing from millions of cataloged objects (Astronomers only)',
+    'Schedule missions by choosing from millions of cataloged objects (Astronomers only)',
   'reserve-by-telescope': 'See the nightly schedule and reserve any open time slot',
 };
 
