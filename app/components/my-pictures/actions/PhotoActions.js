@@ -19,6 +19,7 @@ class PhotoActions extends Component {
   static propTypes = {
     imageURL: PropTypes.string,
     canEditFlag: PropTypes.bool,
+    canSocialShareFlag: PropTypes.bool,
     customerImageId: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     galleryId: PropTypes.number,
     actionSource: PropTypes.string.isRequired,
@@ -41,6 +42,10 @@ class PhotoActions extends Component {
     galleryId: null,
     customerImageId: null,
     heartProps: {},
+    canSocialShareFlag: false,
+    photoViewFullURL: '',
+    socialSharePageURL: '',
+    socialShareDescription: '',
   };
 
   state = {
@@ -51,6 +56,7 @@ class PhotoActions extends Component {
       actionSource,
       canEditFlag,
       canShareFlag,
+      canSocialShareFlag,
       customerImageId,
       galleryId,
       heartProps,
@@ -88,8 +94,6 @@ class PhotoActions extends Component {
         "&shareURL=" + encodeurl(base64.encode(photoViewFullURL)) +
         "&imageURL=" + encodeurl(base64.encode(imageURL));
 
-    console.log(shareURL);
-    
     return (
       <div className={`actions ${getTheme(actionSource)}`}>
         {canLikePhoto && <Heart
@@ -124,7 +128,7 @@ class PhotoActions extends Component {
         {canShareFlag && <ShareMemberPhoto
             customerImageId={customerImageId}
           />}
-        {canShareFlag && <SocialSharingBar
+        {canSocialShareFlag && <SocialSharingBar
             contentLayout="horizontal"
             shareTitle={socialShareImageTitle}
             shareDescription={socialShareDescription}

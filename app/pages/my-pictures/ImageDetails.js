@@ -157,6 +157,7 @@ class ImageDetails extends Component {
             </div>
             <div className="right-top">
               <PhotoActions
+                canSocialShareFlag="true"
                 socialSharePageURL={socialSharePageURL}
                 socialShareDescription={socialShareDescription}
                 photoViewFullURL={photoViewFullURL}
