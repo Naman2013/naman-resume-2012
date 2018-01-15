@@ -5,10 +5,10 @@ import { bindActionCreators } from 'redux';
 import { fetchMissionsAndCounts } from '../../modules/my-pictures/actions';
 import MyPicturesNavigation from '../../components/my-pictures/my-pictures-navigation';
 import PhotoView from '../../components/my-pictures/PhotoView';
-
+import GoogleOutOfPageAd from '../../components/common/google-ads/GoogleOutOfPageAd';
 import style from './my-pictures-gallery.scss';
 
-const mapStateToProps = ({ myPictures }) => ({
+const mapStateToProps = ({ user, myPictures }) => ({
   imageList: myPictures.missions.response.imageList,
   fetching: myPictures.missions.fetching,
   error: myPictures.missions.error,
@@ -16,6 +16,7 @@ const mapStateToProps = ({ myPictures }) => ({
   firstMissionNumber: myPictures.missions.firstMissionNumber,
   maxMissionCount: myPictures.missions.maxMissionCount,
   imageCount: myPictures.missions.imageCount,
+  user,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -43,9 +44,16 @@ class Missions extends Component {
       fetching,
       imageList,
       error,
+      user,
     } = this.props;
     return (
       <div>
+        {user && user.at == 9 && <GoogleOutOfPageAd
+         adURL={'/5626790/HP_Pop-up'}
+         targetDivID={'div-gpt-ad-1516029782692-0'}
+         />
+       }
+
         <MyPicturesNavigation
           page="missions"
         />
