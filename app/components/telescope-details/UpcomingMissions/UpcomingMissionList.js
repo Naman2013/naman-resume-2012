@@ -4,6 +4,9 @@ import Mission from './Mission';
 import NoUpcomingMission from './NoUpcomingMission';
 
 export const propTypes = {
+  fetchingMissions: PropTypes.bool,
+  showStatusMessage: PropTypes.bool.isRequired,
+  statusMessage: PropTypes.string.isRequired,
   missions: PropTypes.arrayOf(PropTypes.shape({
     upcomingMissionIndex: PropTypes.number,
     upcomingMissionAvailable: PropTypes.bool,
@@ -15,13 +18,16 @@ export const propTypes = {
 };
 
 const defaultProps = {
+  fetchingMissions: false,
   missions: [],
 };
 
-const UpcomingMissionList = ({ missions }) => (
+const UpcomingMissionList = ({ missions, fetchingMissions, showStatusMessage, statusMessage }) => (
   <div className="upcomingMissions">
     <ul className="missionList">
-      { missions.length === 0 && <li className="mission"><NoUpcomingMission /></li> }
+      { fetchingMissions && !showStatusMessage && <li className="mission"><NoUpcomingMission message="Fetching missions" /></li> }
+      { showStatusMessage && <li className="mission"><NoUpcomingMission message={statusMessage} /></li> }
+      { missions.length === 0 && !fetchingMissions && !showStatusMessage && <li className="mission"><NoUpcomingMission message="No missions available" /></li> }
       {
         missions.length > 0 && missions.map(mission => (
           <li className="mission" key={`${mission.upcomingStart}-${mission.upcomingMissionIndex}`}>
