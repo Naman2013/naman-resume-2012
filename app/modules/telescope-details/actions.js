@@ -1,7 +1,5 @@
 import { observatoryListSuccess, getCurrentObservatory } from '../Telescope-Overview';
-
 import { resetSnapshotList } from '../starshare-camera/starshare-camera-actions';
-
 import { resetActiveMission } from '../active-telescope-missions/active-telescope-missions-actions';
 
 import {
@@ -11,6 +9,7 @@ import {
 
 import { validateResponseAccess } from '../authorization/actions';
 
+// services
 import fetchCurrentConditions from '../../services/sky-widgets/current-conditions';
 import fetchDayNightBarPanel from '../../services/sky-widgets/day-night-bar-panel';
 import fetchDayNightMap from '../../services/sky-widgets/day-night-map';

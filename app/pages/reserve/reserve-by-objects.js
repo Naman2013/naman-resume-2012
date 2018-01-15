@@ -180,7 +180,7 @@ class ReserveObjects extends Component {
   }
 
   handleClearBrowse(event) {
-    event.preventDefault();
+    if (event) { event.preventDefault(); }
     this.setState({
       objects: defaultObjectsList,
       selectedCategoryIndex: null,
@@ -196,6 +196,11 @@ class ReserveObjects extends Component {
       uniqueId,
     });
   };
+
+  onSuccessfulGrabMissionCallback = () => {
+    this.props.actions.missionConfirmOpen('reserve');
+    this.handleClearBrowse();
+  }
 
   handleScheduleMission(event) {
     event.preventDefault();
@@ -215,6 +220,7 @@ class ReserveObjects extends Component {
     const missionType = callSource === 'byTelescope' ? 'member' : undefined;
 
     this.props.actions.grabMissionSlot({
+      onSuccessCallback: this.onSuccessfulGrabMissionCallback,
       scheduledMissionId,
       callSource,
       missionType,
@@ -227,11 +233,6 @@ class ReserveObjects extends Component {
       objectTitle,
       uniqueId,
     });
-
-    this.props.actions.missionConfirmOpen('reserve');
-
-    /* reset the browse */
-    this.handleClearBrowse(event);
   }
 
   get mappedObjects() {
