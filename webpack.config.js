@@ -128,7 +128,7 @@ module.exports = {
       filename: 'common.js',
     }),
     new HtmlWebpackPlugin({
-      template: `${__dirname}/app/index.html`,
+      template: `${__dirname}/app/index-dev.html`,
       filename: 'index.html',
       inject: 'body',
     }),
