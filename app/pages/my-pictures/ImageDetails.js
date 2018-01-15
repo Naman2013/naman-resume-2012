@@ -13,11 +13,12 @@ import ModalGeneric from '../../components/common/modals/modal-generic';
 import { resetShareMemberPhoto } from '../../modules/share-member-photo/actions';
 import { setPageTitle, setStandardMeta, setOpenGraphMeta } from '../../modules/pageLevelMetaContent/seo-actions';
 
-const mapStateToProps = ({ myPicturesImageDetails, user, shareMemberPhoto }) => ({
+const mapStateToProps = ({ appConfig, myPicturesImageDetails, user, shareMemberPhoto }) => ({
   myPicturesImageDetails,
   showSharePrompt: shareMemberPhoto.showSharePrompt,
   sharePrompt: shareMemberPhoto.sharePrompt,
   user,
+  socialSharePageURL: appConfig.socialSharePageURL,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -53,7 +54,7 @@ class ImageDetails extends Component {
 
     /* set the Page Meta Tags and Open Graph tagging */
     this.props.actions.setPageTitle(nextProps.myPicturesImageDetails.imageTitle);
-    this.props.actions.setStandardMeta({ description: nextProps.myPicturesImageDetailssocialShareDescription });
+    this.props.actions.setStandardMeta({ description: nextProps.myPicturesImageDetailsSocialShareDescription });
     this.props.actions.setOpenGraphMeta({ type: "image", title: nextProps.myPicturesImageDetails.imageTitle, description: nextProps.myPicturesImageDetails.socialShareDescription, image: nextProps.myPicturesImageDetails.imageURL });
 
   }
@@ -121,7 +122,8 @@ class ImageDetails extends Component {
         galleryId,
         scheduledMissionId: scheduledMissionIdParam // only images coming from mission pictures page will have this.
       },
-      user
+      user,
+      socialSharePageURL,
     } = this.props;
 
     const { sharePicturePrompt, showSharePicturePrompt } = this.state;
@@ -155,6 +157,10 @@ class ImageDetails extends Component {
             </div>
             <div className="right-top">
               <PhotoActions
+                socialSharePageURL={socialSharePageURL}
+                socialShareDescription={socialShareDescription}
+                photoViewFullURL={photoViewFullURL}
+                imageTitle={imageTitle}
                 canShareFlag={canShareFlag}
                 canEditFlag={canEditFlag}
                 imageURL={imageURL}
