@@ -1,0 +1,13 @@
+.weatherTabsStyle {
+  line-height: 0.1em;
+  margin: 0;
+  font-size: 0.8em;
+
+  .generic-tabs-component {
+    .react-tabs {
+      .tab-list {
+        justify-content: left;
+      }
+    }
+  }
+}

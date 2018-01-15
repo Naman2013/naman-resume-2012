@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 
 import { fetchAllWidgets } from '../../../modules/telescope-details/actions';
 
-import generateTabConfiguration from './generate-tab-configuration';
+import generateTelescopeDetailsTabConfiguration from './generate-tab-configuration';
 import DefaultTabs from '../../Tabs';
 
 const mapStateToProps = ({ telescopeDetails }) => ({
@@ -79,7 +79,10 @@ class TelescopeDetailsTabs extends Component {
     DayNightMapWidgetId: PropTypes.string.isRequired,
     AllskyWidgetId: PropTypes.string.isRequired,
     DomecamWidgetId: PropTypes.string.isRequired,
-    facilityWebcamWidgetId: PropTypes.string.isRequired,
+    FacilityWebcamWidgetId: PropTypes.string.isRequired,
+    MiniWeatherPanelWidgetId: PropTypes.string.isRequired,
+    SatelliteWidgetId: PropTypes.string.isRequired,
+    WeatherConditionsWidgetId: PropTypes.string.isrequired,
 
     actions: PropTypes.shape({
       fetchAllWidgets: PropTypes.func.isRequired,
@@ -133,7 +136,7 @@ class TelescopeDetailsTabs extends Component {
 
   render() {
     const { selectedTabIndex } = this.state;
-    const tabConfiguration = generateTabConfiguration(this.props);
+    const tabConfiguration = generateTelescopeDetailsTabConfiguration(this.props);
 
     return (
       <div>
