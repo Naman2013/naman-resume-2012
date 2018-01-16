@@ -7,6 +7,7 @@ import DeleteGallery from './DeleteGallery';
 import DeleteImage from './DeleteImage';
 import DownloadImage from './DownloadImage';
 import ShareMemberPhoto from './ShareMemberPhoto';
+import SocialSharingBar from '../../common/social-sharing-bar/SocialSharingBar';
 import Heart from '../../common/heart/heart';
 import { likeImage } from '../../../services/my-pictures/like-image';
 import { actionsStyles } from './actions.style';
@@ -18,6 +19,7 @@ class PhotoActions extends Component {
   static propTypes = {
     imageURL: PropTypes.string,
     canEditFlag: PropTypes.bool,
+    canSocialShareFlag: PropTypes.bool,
     customerImageId: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     galleryId: PropTypes.number,
     actionSource: PropTypes.string.isRequired,
@@ -40,6 +42,10 @@ class PhotoActions extends Component {
     galleryId: null,
     customerImageId: null,
     heartProps: {},
+    canSocialShareFlag: false,
+    photoViewFullURL: '',
+    socialSharePageURL: '',
+    socialShareDescription: '',
   };
 
   state = {
@@ -50,11 +56,16 @@ class PhotoActions extends Component {
       actionSource,
       canEditFlag,
       canShareFlag,
+      canSocialShareFlag,
       customerImageId,
       galleryId,
       heartProps,
       imageURL,
       scheduledMissionId,
+      socialSharePageURL,
+      socialShareDescription,
+      imageTitle,
+      photoViewFullURL,
     } = this.props;
 
     const canDownload = actionSource !== 'galleries';
@@ -62,6 +73,27 @@ class PhotoActions extends Component {
     const canDeleteGallery = actionSource === 'galleries';
     const canDeleteImage = actionSource === 'photoRoll' || actionSource === 'imageDetails' || actionSource === 'galleryPictures' || actionSource === 'galleryImageDetails';
     const canLikePhoto = actionSource === 'galleryImageDetails' || actionSource === 'imageDetails';
+
+    var encodeurl = require('encodeurl');
+    var base64 = require('base-64');
+    var socialShareImageTitle = imageTitle;
+
+    if (socialShareImageTitle == '') {
+      /* the social sharing modules require a title, so even a space is sufficient */
+      socialShareImageTitle = encodeurl(base64.encode('Shared Photo from Slooh.com'));
+    }
+    else {
+      socialShareImageTitle = encodeurl(base64.encode(imageTitle));
+    }
+
+    /* construct the social sharing URL */
+    const shareURL = socialSharePageURL +
+        "?title=" + socialShareImageTitle +
+        "&pagetype=image" +
+        "&description=" + encodeurl(base64.encode(socialShareDescription)) +
+        "&shareURL=" + encodeurl(base64.encode(photoViewFullURL)) +
+        "&imageURL=" + encodeurl(base64.encode(imageURL));
+
     return (
       <div className={`actions ${getTheme(actionSource)}`}>
         {canLikePhoto && <Heart
@@ -95,6 +127,13 @@ class PhotoActions extends Component {
         />}
         {canShareFlag && <ShareMemberPhoto
             customerImageId={customerImageId}
+          />}
+        {canSocialShareFlag && <SocialSharingBar
+            contentLayout="horizontal"
+            shareTitle={socialShareImageTitle}
+            shareDescription={socialShareDescription}
+            shareURL={shareURL}
+            shareImageURL={imageURL}
           />}
         <style jsx>
         {`
