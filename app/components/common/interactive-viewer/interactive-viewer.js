@@ -52,9 +52,6 @@ class InteractiveViewer extends Component {
 
 
   componentWillUpdate(nextProps, nextState) {
-    const { currentScale } = nextState;
-    console.log('next state... preparing the values...');
-    console.log(nextState);
     // TODO: sort out if we need to reset the image scale to 1
     this.props.actions.setImageDataToSnapshot({
       zoom: nextState.currentScale,
