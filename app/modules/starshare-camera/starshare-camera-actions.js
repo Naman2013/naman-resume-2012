@@ -55,6 +55,8 @@ export const snapImage = () => (dispatch, getState) => {
   } = getState();
 
   const { callSource, imageURL, imageID } = imageDataToSnapshot;
+  console.log('seeking the image coordinates');
+  console.log(imageDataToSnapshot);
 
   dispatch(snapImageStart());
 
