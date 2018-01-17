@@ -110,6 +110,7 @@ class AsidePopup extends Component {
             margin-top: 0;
             padding: 18px;
             text-align: center;
+			display: none;
           }
 
           .aside-popup.aside-pointerleft:before {

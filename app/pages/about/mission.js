@@ -98,7 +98,7 @@ const Mission = () => (
 
       <footer className="row-col">
         <article className="white padding-tb-reg border-dark-top border-dark-bottom">
-          To join our media list, please send a request to press@slooh.com or call 877-427-5664 x3.
+          
         </article>
       </footer>
     </footer>
