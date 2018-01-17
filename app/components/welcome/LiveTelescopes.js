@@ -65,7 +65,7 @@ class LiveTelescopes extends Component {
                 <div className="card-content">
                   <img className="card-image" src="https://vega.slooh.com/assets/images/welcome/Live_Telescopes_Tonights_Schedule.png"/>
                   <p className="card-heading">TONIGHT&apos;S SCHEDULE</p>
-                  <p className="card-text">As reserved by Apprentice and Astronomer members, for everyone to see</p>
+                  <p className="card-text">As scheduled by Apprentice and Astronomer members, for everyone to see</p>
                   <Link className="welcome-btn btn-primary" to={dataElements.buttonTonightsSchedule.buttonLink}>{dataElements.buttonTonightsSchedule.buttonText}</Link>
                 </div>
               </li>

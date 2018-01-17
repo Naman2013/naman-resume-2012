@@ -93,7 +93,7 @@ class EventDetails extends Component {
               {
                 recommends.length > 0 ?
                   <SloohRecommends
-                    title="Reserve A Mission Now"
+                    title="Schedule A Mission Now"
                     subTitle={`See ${title} through Slooh's Telescopes`}
                     user={user}
                     recommendations={recommends}

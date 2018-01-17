@@ -87,7 +87,7 @@ class CardFront extends Component {
     return this.isMissionReadyTelescope() ? (
       <div className="col-md-6">
         <Link to={reservationLink} className="action">
-          Make Reservation
+          Schedule Telescope
         </Link>
       </div>
     ) : null;
