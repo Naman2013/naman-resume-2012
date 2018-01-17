@@ -128,7 +128,7 @@ const NewsArticle = () => (
           PH: 877-427-5664, ext. 3<br />
           176 West Morris Road<br />
           Washington Depot CT 06794<br />
-          (819 words)
+          (525 words)
         </address>
       </article>
     </article>

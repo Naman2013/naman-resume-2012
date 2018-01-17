@@ -94,14 +94,9 @@ const Mission = () => (
           Slooh has a variety of options for media partners that want to embed live telescope feeds into their websites during featured shows, as well as daily coverage of the moon, sun and other celestial phenomena.
         </p>
         <p>To join our media list, please submit a request via email to <a href="mailto:press@slooh.com">press@slooh.com</a> or call 877-427-5664, x3. To partner with Slooh, please provide your contact information so we can follow up via phone to discuss partnership options. We look forward to hearing from you.</p>
-      </article>
+        <p></p>
+	  </article>
 
-      <footer className="row-col">
-        <article className="white padding-tb-reg border-dark-top border-dark-bottom">
-          To join our media list, please send a request to press@slooh.com or call 877-427-5664 x3.
-        </article>
-      </footer>
-    </footer>
 
     <style jsx>{`
       .minor-title {
