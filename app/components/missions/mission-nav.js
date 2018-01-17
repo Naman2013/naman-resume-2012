@@ -21,7 +21,7 @@ const SUBTITLE_MAP = {
   '/reservations/reserve-by-objects': 'See our favorite jewels in the night sky',
   '/reservations/reserve-by-catalog':
     'Schedule missions by choosing from millions of cataloged objects (Astronomers only)',
-  'reserve-by-telescope': 'See the nightly schedule and reserve any open time slot',
+  'reserve-by-telescope': 'See the nightly schedule and select any open time slot',
 };
 
 class MissionNav extends Component {

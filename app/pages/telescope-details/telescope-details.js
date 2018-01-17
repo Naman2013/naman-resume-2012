@@ -343,7 +343,7 @@ class TelescopeDetails extends Component {
                   className="pull-right btn-primary"
                   to={`/reservations/reserve-by-telescope/telescope/${obsUniqueId}/${teleUniqueId}`}
                 >
-                  Reserve this telescope
+                  Schedule this Telescope
                 </Link>
               ) : null}
             </div>

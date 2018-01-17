@@ -141,7 +141,7 @@ class PulsePost extends Component {
             {
               showRecommends ?
                 <SloohRecommends
-                  title="Reserve A Mission Now"
+                  title="Schedule A Mission Now"
                   subTitle={`See ${headerObjectTitle} through Slooh's Telescopes`}
                   recommendations={recommendations}
                 /> : null

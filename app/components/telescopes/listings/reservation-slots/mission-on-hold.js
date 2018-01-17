@@ -94,7 +94,7 @@ class MissionOnHold extends Component {
         </div>
 
         <div className="col-xs-4 reserved-by-user-content">
-          <h3 className="title">Reserved by:</h3>
+          <h3 className="title">Scheduled by:</h3>
           <ByUserTag
             theme="light"
             photo={ownerAvatarURL}
