@@ -6,9 +6,6 @@ const Privacy = () => (
   <div>
     <div className="help-page-header">
       <h1 className="help-page-title">Privacy</h1>
-      <Link to="/about/contact" className="button btn-primary help-page-button">
-        Contact Us
-      </Link>
     </div>
     <div className="help-page-inner">
       <div className="help-page-section">
@@ -45,7 +42,9 @@ const Privacy = () => (
           We do not sell or rent customer information to third parties.
         </div>
         <div className="help-page-paragraph">
-          {`As you browse our website, advertising cookies will be placed on your computer so that we can understand what you are interested in. Our display advertising partner, AdRoll, then enables us to present you with retargeting advertising on other sites based on your previous interaction with Slooh. The techniques our partners employ do not collect personal information such as your name, email address, postal address, or telephone number. You can visit <a href="http://www.networkadvertising.org/choices/" target="_new">this page</a> to opt out of AdRoll’s and their partners’ targeted advertising.`}
+        <div className="help-page-paragraph">
+          {'As you browse our website, advertising cookies will be placed on your computer so that we can understand what you are interested in. Our display advertising partner, AdRoll, then enables us to present you with retargeting advertising on other sites based on your previous interaction with Slooh. The techniques our partners employ do not collect personal information such as your name, email address, postal address, or telephone number. You can visit http://www.networkadvertising.org/choices to opt out of AdRoll\'s and their partners\' targeted advertising.'}
+        </div>
         </div>
       </div>
     </div>

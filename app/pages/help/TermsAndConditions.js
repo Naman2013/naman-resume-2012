@@ -6,9 +6,6 @@ const TermsAndConditions = () => (
   <div>
     <div className="help-page-header">
       <h1 className="help-page-title">Terms and Conditions</h1>
-      <Link to="/about/contact" className="button btn-primary help-page-button">
-        Contact Us
-      </Link>
     </div>
     <div className="help-page-inner">
       <div className="help-page-section">
@@ -28,7 +25,7 @@ const TermsAndConditions = () => (
           Slooh Apprentice membership includes use of the telescopes to make five reservations per month from the “Slooh 500” object list, access to all Slooh event shows and the Space Situation Room feeds, access to Illuminations and other community content, and attend Slooh Road Trips. In addition, Slooh Apprentice members are entitled to participate in as many Editor Missions as are scheduled during the term of their membership, subject to the following rules:
           <ul>
             <li>Editor Missions are defined as looking through a telescope with all other logged-in members at objects according to a pre-planned schedule.</li>
-            <li>Under normal hours of operation, missions will be available from roughly 30-minutes after sunset to 30-minutes before sunrise at the observatory location.</li>
+            <li>Under normal hours of operation, missions will be available from roughly one hour after sunset to one hour before sunrise at the observatory location.</li>
             <li>Due to poor weather or mechanical failure, the telescopes may be not always be in operation.</li>
             <li>In order to preserve the quality of the experience, Slooh may suspend missions when imaging conditions are marginal.</li>
           </ul>
@@ -187,7 +184,7 @@ const TermsAndConditions = () => (
           Copyright and Trademark Notices
         </div>
         <div className="help-page-paragraph">
-          All contents of this Web Site, including all images produced by the Slooh system, are: Copyright ©2003- 2017 Slooh LLC, Washington Depot, CT and/or its suppliers, partners and contributors. All rights reserved.  The term “Slooh”, the Slooh logo, and other distinctive marks are trademarks of Slooh LLC.  Other product and company names mentioned herein may be the trademarks of their respective owners.
+          All contents of this Web Site, including all images produced by the Slooh system, are: Copyright ©2003-2018 Slooh LLC, Washington Depot, CT and/or its suppliers, partners and contributors. All rights reserved.  The term “Slooh”, the Slooh logo, and other distinctive marks are trademarks of Slooh LLC.  Other product and company names mentioned herein may be the trademarks of their respective owners.
         </div>
 
       </div>

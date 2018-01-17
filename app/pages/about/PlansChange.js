@@ -58,15 +58,10 @@ class PlansChange extends Component {
           <div className="about pricing">
 
             <div className="row first-row">
-              <div className="col-sm-6 text-left">
+              <div className="col-sm-12 text-left">
                 <h1 className="plan-welcome" id="plan-welcome-head">Pricing Plans</h1>
               </div>
 
-              <div className="col-sm-6 text-right">
-                <Link to="/about/contact" className="button btn-primary help-page-button">
-                  Contact Us
-                </Link>
-              </div>
             </div>
 
             <div className="row final-row">

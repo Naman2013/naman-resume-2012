@@ -69,7 +69,6 @@ class StaticAppContainer extends Component {
                       <h1>{children.props.route.title || ''}</h1>
                       <h2 className="text-regular">{children.props.route.subTitle || ''}</h2>
                     </div>
-                    {showContactButton && <Link to="/about/contact" className="btn-primary pull-right">Contact Us</Link>}
                   </header> : null
               }
               {

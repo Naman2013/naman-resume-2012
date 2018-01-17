@@ -6,9 +6,6 @@ const TelescopesAndReservations = () => (
   <div>
     <div className="help-page-header">
       <h1 className="help-page-title">Telescopes and Reservations</h1>
-      <Link to="/about/contact" className="button btn-primary help-page-button">
-        Contact Us
-      </Link>
     </div>
     <div className="help-page-inner">
       <div className="help-page-section">
