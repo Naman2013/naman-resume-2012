@@ -88,15 +88,20 @@ const Mission = () => (
 
       <article className="row-col">
         <p>
-          Slooh&apos;s automated observatories develop celestial image streams in real-time for broadcast to the Internet, and Slooh’s technology is protected by Patent No.: US 7,194,146 B2 which was awarded in 2006.  Slooh's flagship observatory is situated at the Institute of Astrophysics of the Canary Islands (IAC), one of the finest observatory sites in the world and home to the largest telescope in the world. Slooh has traveled with a mobile observatory to Kenya, the Faroe Islands, Indonesia, Iceland, Australia, and Alaska, and partnered with observatories in Arizona, Japan, Hawaii, Cypress, Dubai, South Africa, Australia, New Zealand, Norway and many more to broadcast live celestial events of potentially hazardous asteroids (PHAs), comets, transits, eclipses, solar activity, etc., which are syndicated to media outlets worldwide, including TIME, National Geographic, NPR, Wired, ABC News, the New York Times, Washington Post and many more.
+          Slooh&apos;s automated observatories develop celestial image streams in real-time for broadcast to the Internet, and Sloohâ€™s technology is protected by Patent No.: US 7,194,146 B2 which was awarded in 2006.  Slooh's flagship observatory is situated at the Institute of Astrophysics of the Canary Islands (IAC), one of the finest observatory sites in the world and home to the largest telescope in the world. Slooh has traveled with a mobile observatory to Kenya, the Faroe Islands, Indonesia, Iceland, Australia, and Alaska, and partnered with observatories in Arizona, Japan, Hawaii, Cypress, Dubai, South Africa, Australia, New Zealand, Norway and many more to broadcast live celestial events of potentially hazardous asteroids (PHAs), comets, transits, eclipses, solar activity, etc., which are syndicated to media outlets worldwide, including TIME, National Geographic, NPR, Wired, ABC News, the New York Times, Washington Post and many more.
         </p>
         <p>
           Slooh has a variety of options for media partners that want to embed live telescope feeds into their websites during featured shows, as well as daily coverage of the moon, sun and other celestial phenomena.
         </p>
         <p>To join our media list, please submit a request via email to <a href="mailto:press@slooh.com">press@slooh.com</a> or call 877-427-5664, x3. To partner with Slooh, please provide your contact information so we can follow up via phone to discuss partnership options. We look forward to hearing from you.</p>
-        <p></p>
-	  </article>
+      </article>
 
+      <footer className="row-col">
+        <article className="white padding-tb-reg border-dark-top border-dark-bottom">
+          To join our media list, please send a request to press@slooh.com or call 877-427-5664 x3.
+        </article>
+      </footer>
+    </footer>
 
     <style jsx>{`
       .minor-title {
