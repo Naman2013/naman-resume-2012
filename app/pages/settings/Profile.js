@@ -48,7 +48,7 @@ class Profile extends Component {
                 className="btn-primary center-block"
                 to="/reservations"
               >
-                Make a New Reservation
+                Schedule Telescope
               </Link>
             </div>
           </section>
