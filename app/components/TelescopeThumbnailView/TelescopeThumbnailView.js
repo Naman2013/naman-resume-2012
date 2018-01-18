@@ -19,7 +19,6 @@ class TelescopeThumbnailView extends Component {
   render() {
     return (
       <div>
-        <h1>Telescope thumbnails...</h1>
         <div className="root">
           <div
             style={createCSS(this.props.bottomImageURL)}
