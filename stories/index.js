@@ -1,7 +1,7 @@
 import './AudioPlayer';
 import './UpcomingMissionList';
 import './Headers';
-import './TelescopeOverviewThumbnails';
+import './TelescopeThumbnailView';
 import './Timestamp';
 import './VirtualTelescopeViewer';
 import './Tabs';

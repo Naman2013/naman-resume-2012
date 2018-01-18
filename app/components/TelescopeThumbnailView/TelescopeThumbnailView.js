@@ -1,8 +1,20 @@
-import React from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
-/**
-  TODO: paint top container and bottom container
-  TODO: takes top image and bottom image and applies them as background images
-  TODO: creates an SSE connection to source
-  TODO: disconnect from EventSource on dismount of component
-*/
+class TelescopeThumbnailView extends Component {
+  static propTypes = {
+    topImageURL: PropTypes.string.isRequired,
+    bottomImageURL: PropTypes.string.isRequired,
+  };
+
+  render() {
+    return (
+      <div className="root">
+        <div className="bottom-image" />
+        <div className="top-image" />
+      </div>
+    );
+  }
+}
+
+export default TelescopeThumbnailView;
