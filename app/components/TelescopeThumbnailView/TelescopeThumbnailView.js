@@ -34,15 +34,19 @@ class TelescopeThumbnailView extends Component {
           .root {
             width: 100%;
             height: 100%;
+            position: relative;
           }
 
           .bottom-image {
             width: 250px;
             height: 250px
           }
+
           .top-image {
             width: 250px;
             height: 250px;
+            position: absolute;
+            top: 0;
           }
         `}</style>
       </div>
