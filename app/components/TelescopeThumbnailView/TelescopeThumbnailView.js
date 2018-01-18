@@ -1,5 +1,9 @@
+// TODO: fade in the top image
+// TODO: introduce SVG clipping mask
+
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import SVGClipView from '../VirtualTelescopeViewer/SVGClipView';
 
 function createCSS(imageURL) {
   return {
@@ -32,9 +36,10 @@ class TelescopeThumbnailView extends Component {
 
         <style jsx>{`
           .root {
-            width: 100%;
-            height: 100%;
+            display: inline-block;
             position: relative;
+            border-radius: 50%;
+            overflow: hidden;
           }
 
           .bottom-image {
