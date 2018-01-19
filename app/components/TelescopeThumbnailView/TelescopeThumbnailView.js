@@ -1,5 +1,4 @@
 // TODO: fade in the top image
-// TODO: introduce SVG clipping mask
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
@@ -18,6 +17,8 @@ class TelescopeThumbnailView extends Component {
   static propTypes = {
     topImageURL: PropTypes.string.isRequired,
     bottomImageURL: PropTypes.string.isRequired,
+    startingOpacity: PropTypes.string.isRequired,
+    fadeDuration: PropTypes.string.isRequired,
   };
 
   render() {
@@ -52,6 +53,7 @@ class TelescopeThumbnailView extends Component {
             height: 250px;
             position: absolute;
             top: 0;
+            transition: opacity ease-in-out;
           }
         `}</style>
       </div>
