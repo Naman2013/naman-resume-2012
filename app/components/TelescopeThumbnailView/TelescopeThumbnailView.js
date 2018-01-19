@@ -21,6 +21,25 @@ class TelescopeThumbnailView extends Component {
     fadeDuration: PropTypes.string.isRequired,
   };
 
+  componentDidUpdate() {
+    // we start this work when we are certain we have images to work on
+    // const topImageAddress = this.generateThumbnailUrl(currentImageUrl);
+    // const topDOMNode = document.getElementById(this.generateImageId());
+    //
+    // if (topImage) {
+    //   topDOMNode.style.transition = 'opacity';
+    //   topDOMNode.style.opacity = startingOpacity;
+    //   topDOMNode.src = topImageAddress;
+    //   window.getComputedStyle(topDOMNode, null).opacity;
+    //   topDOMNode.style.transition = `opacity ${adjustedFade}s`;
+    //   topDOMNode.style.opacity = '1';
+    // }
+  }
+
+  generateImageId() {
+    return `tele-id-${this.props.teleId}`;
+  }
+
   render() {
     return (
       <div>
@@ -32,6 +51,7 @@ class TelescopeThumbnailView extends Component {
           <div
             style={createCSS(this.props.topImageURL)}
             className="top-image"
+            id={this.generateImageId()}
           />
         </div>
 

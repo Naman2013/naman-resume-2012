@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import TelescopeThumbnailView from '../../TelescopeThumbnailView';
 import { updateTelescopeActiveMission, setActiveTelescopeMissionID } from '../../../modules/active-telescope-missions/active-telescope-missions-actions';
 import { setImageDataToSnapshot } from '../../../modules/starshare-camera/starshare-camera-actions';
 import { updateActiveSSE, resetActiveSSE } from '../../../modules/telescope-details/actions';
@@ -229,6 +230,8 @@ class TelescopeImageLoader extends Component {
     const {
       currentImageUrl,
       previousImageUrl,
+      startingOpacity,
+      adjustedFade,
     } = this.state;
 
     const { teleThumbWidth, loadThumbnails } = this.props;
@@ -238,6 +241,17 @@ class TelescopeImageLoader extends Component {
     }
 
     const bottomImageAddress = this.generateThumbnailUrl(previousImageUrl);
+
+    if (loadThumbnails) {
+      return (
+        <TelescopeThumbnailView
+          topImageURL={currentImageUrl}
+          bottomImageURL={previousImageUrl}
+          startingOpacity={startingOpacity}
+          fadeDuration={adjustedFade}
+        />
+      );
+    }
 
     return (
       <div className="sse-thumbnails">
