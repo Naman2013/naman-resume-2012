@@ -3,6 +3,7 @@ import CenterContent from '../../../design-system/CenterContent';
 import WeatherForecastWidget from '../weather-forecast-widget';
 import SatelliteWidget from '../weather-satellite-widget';
 import WeatherConditionsWidget from '../weather-conditions-widget';
+import MissionControlStatusWidget from '../weather-mission-control-status-widget';
 
 const inlineTitleStyle = {
   color: 'white',
@@ -13,6 +14,7 @@ export default function generateWeatherTabConfiguration({
   miniWeatherPanelWidgetId,
   satelliteWidgetId,
   weatherConditionsWidgetId,
+  missionControlStatusWidgetId,
 }) {
   return (
   [
@@ -25,6 +27,14 @@ export default function generateWeatherTabConfiguration({
       ),
     },
     {
+      tabText: 'Current Conditions',
+      tabContent: (
+        <CenterContent>
+          <WeatherConditionsWidget obsId={obsId} weatherConditionsWidgetId={weatherConditionsWidgetId}/>
+        </CenterContent>
+      ),
+    },
+    {
       tabText: 'Satellite',
       tabContent: (
         <CenterContent>
@@ -33,10 +43,10 @@ export default function generateWeatherTabConfiguration({
       ),
     },
     {
-      tabText: 'Current Conditions',
+      tabText: 'Mission Control Status',
       tabContent: (
         <CenterContent>
-          <WeatherConditionsWidget obsId={obsId} weatherConditionsWidgetId={weatherConditionsWidgetId}/>
+          <MissionControlStatusWidget obsId={obsId} missionControlStatusWidgetId={missionControlStatusWidgetId }/>
         </CenterContent>
       ),
     },

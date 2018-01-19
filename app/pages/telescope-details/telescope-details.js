@@ -421,6 +421,7 @@ class TelescopeDetails extends Component {
                 MiniWeatherPanelWidgetId={currentObservatory.MiniWeatherPanelWidgetId}
                 SatelliteWidgetId={currentObservatory.SatelliteWidgetId}
                 WeatherConditionsWidgetId={currentObservatory.WeatherConditionsWidgetId}
+                MissionControlStatusWidgetId={currentObservatory.MissionControlStatusWidgetId}
               />
             </div>
 

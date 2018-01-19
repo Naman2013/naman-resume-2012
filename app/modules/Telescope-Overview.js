@@ -8,7 +8,7 @@ import fetchMoonlightBar from '../services/sky-widgets/moonlight-bar';
 import fetchWeatherConditionsWidget from '../services/sky-widgets/weather-conditions';
 import fetchWeatherForecastWidget from '../services/sky-widgets/weather-forecast';
 import fetchWeatherSatelliteWidget from '../services/sky-widgets/weather-satellite';
-
+import fetchWeatherMissionControlStatusWidget from '../services/sky-widgets/weather-mission-control-status';
 
 const OBSERVATORY_REQUEST_START = 'OBSERVATORY_REQUEST_START';
 const OBSERVATORY_REQUEST_SUCCESS = 'OBSERVATORY_REQUEST_SUCCESS';
@@ -38,6 +38,9 @@ const WEATHER_CONDITIONS_WIDGET_SUCCESS = 'WEATHER_CONDITIONS_WIDGET_SUCCESS';
 
 const WEATHER_SATELLITE_WIDGET_START = 'WEATHER_SATELLITE_WIDGET_START';
 const WEATHER_SATELLITE_WIDGET_SUCCESS = 'WEATHER_SATELLITE_WIDGET_SUCCESS';
+
+const WEATHER_MISSION_CONTROL_STATUS_WIDGET_START = 'WEATHER_MISSION_CONTROL_STATUS_WIDGET_START';
+const WEATHER_MISSION_CONTROL_STATUS_WIDGET_SUCCESS = 'WEATHER_MISSION_CONTROL_STATUS_WIDGET_SUCCESS';
 
 const TELESCOPE_CARD_DATA_SUCCESS = 'TELESCOPE_CARD_DATA_SUCCESS';
 const TELESCOPE_CARD_DATA_FAIL = 'TELESCOPE_CARD_DATA_FAIL';
@@ -309,6 +312,32 @@ export const fetchWeatherSatellite = ({
   });
 };
 
+/* weather mission control status */
+const startWeatherMissionControlStatus = () => ({
+  type: WEATHER_MISSION_CONTROL_STATUS_WIDGET_START,
+});
+
+const fetchWeatherMissionControlStatusSuccess = weatherMissionControlStatusWidgetResult => ({
+  type: WEATHER_MISSION_CONTROL_STATUS_WIDGET_SUCCESS,
+  weatherMissionControlStatusWidgetResult,
+});
+
+export const fetchWeatherMissionControlStatus = ({
+  obsId,
+  missionControlStatusWidgetId,
+}) => (dispatch) => {
+  dispatch(startWeatherMissionControlStatus());
+  return fetchWeatherMissionControlStatusWidget({
+    obsId,
+    widgetUniqueId: missionControlStatusWidgetId,
+  }).then((result) => {
+    if (!result.data.apiError) {
+      dispatch(fetchWeatherMissionControlStatusSuccess(result.data));
+    }
+  });
+};
+
+
 const fetchTelescopeCardDataSuccess = telescopeCardData => ({
   type: TELESCOPE_CARD_DATA_SUCCESS,
   telescopeCardData,
@@ -356,6 +385,7 @@ const initialState = {
   fetchingWeatherForecastWidgetResult: true,
   fetchingWeatherConditionsWidgetResult: true,
   fetchingWeatherSatelliteWidgetResult: true,
+  fetchingWeatherMissionControlStatusWidgetResult: true,
 
   // status of various telescopes depends on having a list of observatories..
   observatoryTelecopeStatus: null,
@@ -401,7 +431,12 @@ const initialState = {
     refreshIntervalSec: 0,
     satelliteImageURL: '',
   },
-
+  weatherMissionControlStatusWidgetResult: {
+    title: 'Loading',
+    apiError: false,
+    refreshIntervalSec: 0,
+    missionControlStatusURL: '',
+  },
   telescopeCardData: undefined,
   isTelescopeCardDataLoading: false,
 };
@@ -515,6 +550,20 @@ export default createReducer(initialState, {
       ...state,
       fetchingWeatherConditionsWidgetResult: false,
       weatherConditionsWidgetResult,
+    };
+  },
+  [WEATHER_MISSION_CONTROL_STATUS_WIDGET_START](state) {
+    return {
+      ...state,
+      fetchingWeatherMissionControlStatusWidgetResult: true,
+      weatherMissionControlStatusWidgetResult: { ...initialState.weatherMissionControlStatusWidgetResult },
+    };
+  },
+  [WEATHER_MISSION_CONTROL_STATUS_WIDGET_SUCCESS](state, { weatherMissionControlStatusWidgetResult }) {
+    return {
+      ...state,
+      fetchingWeatherMissionControlStatusWidgetResult: false,
+      weatherMissionControlStatusWidgetResult,
     };
   },
   [TELESCOPE_CARD_DATA_START](state) {
