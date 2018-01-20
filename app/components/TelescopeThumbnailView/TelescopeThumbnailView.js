@@ -2,7 +2,9 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import SVGClipView from '../VirtualTelescopeViewer/SVGClipView';
+
+const DEFAULT_THUMB_WIDTH = '245';
+const DOM_ID_PREFIX = 'telescope-thumb';
 
 function createCSS(imageURL) {
   return {
@@ -13,27 +15,39 @@ function createCSS(imageURL) {
   };
 }
 
+function createThumbnailURL(sourceURL) {
+  return `/util/thumbnail.php?url=${sourceURL}&dimension=W&size=${DEFAULT_THUMB_WIDTH}`;
+}
+
+function generateDOMID(prefix, seed) {
+  return `${prefix}-${seed}`;
+}
+
 class TelescopeThumbnailView extends Component {
   static propTypes = {
     topImageURL: PropTypes.string.isRequired,
     bottomImageURL: PropTypes.string.isRequired,
     startingOpacity: PropTypes.string.isRequired,
     fadeDuration: PropTypes.string.isRequired,
+    teleId: PropTypes.string.isRequired,
   };
 
   componentDidUpdate() {
-    // we start this work when we are certain we have images to work on
-    // const topImageAddress = this.generateThumbnailUrl(currentImageUrl);
-    // const topDOMNode = document.getElementById(this.generateImageId());
-    //
-    // if (topImage) {
-    //   topDOMNode.style.transition = 'opacity';
-    //   topDOMNode.style.opacity = startingOpacity;
-    //   topDOMNode.src = topImageAddress;
-    //   window.getComputedStyle(topDOMNode, null).opacity;
-    //   topDOMNode.style.transition = `opacity ${adjustedFade}s`;
-    //   topDOMNode.style.opacity = '1';
-    // }
+    const { topImageURL, startingOpacity, fadeDuration } = this.props;
+    const topImageAddress = createThumbnailURL(topImageURL);
+    const topDOMNode =
+      window
+        .document
+        .getElementById(generateDOMID(DOM_ID_PREFIX, this.props.teleId));
+
+    if (topDOMNode) {
+      topDOMNode.style.transition = 'opacity';
+      topDOMNode.style.opacity = startingOpacity;
+      topDOMNode.src = topImageAddress;
+      window.getComputedStyle(topDOMNode, null).opacity;
+      topDOMNode.style.transition = `opacity ${fadeDuration}s`;
+      topDOMNode.style.opacity = '1';
+    }
   }
 
   generateImageId() {
@@ -51,7 +65,7 @@ class TelescopeThumbnailView extends Component {
           <div
             style={createCSS(this.props.topImageURL)}
             className="top-image"
-            id={this.generateImageId()}
+            id={generateDOMID(DOM_ID_PREFIX, this.props.teleId)}
           />
         </div>
 
