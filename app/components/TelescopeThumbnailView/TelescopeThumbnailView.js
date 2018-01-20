@@ -61,11 +61,11 @@ class TelescopeThumbnailView extends Component {
       <div>
         <div className="root">
           <div
-            style={createCSS(bottomImageURL)}
+            style={createCSS(bottomThumbServiceURL)}
             className="bottom-image"
           />
           <div
-            style={createCSS(topImageURL)}
+            style={createCSS(topThumbServiceURL)}
             className="top-image"
             ref={(topImageNode) => { this.topImageNode = topImageNode; }}
           />
@@ -75,13 +75,12 @@ class TelescopeThumbnailView extends Component {
           .root {
             display: inline-block;
             position: relative;
-            border-radius: 50%;
-            overflow: hidden;
           }
 
           .bottom-image {
-            width: 250px;
-            height: 250px
+            width: 245px;
+            height: 245px
+            border-radius: 50%;
           }
 
           .top-image {
@@ -90,6 +89,7 @@ class TelescopeThumbnailView extends Component {
             position: absolute;
             top: 0;
             transition: opacity ease-in-out;
+            border-radius: 50%;
           }
         `}</style>
       </div>
