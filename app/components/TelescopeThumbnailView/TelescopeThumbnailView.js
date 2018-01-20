@@ -2,9 +2,10 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { borderRadius } from '../../styles/mixins/utilities';
 
 const DEFAULT_THUMB_WIDTH = '245';
-const DOM_ID_PREFIX = 'telescope-thumb';
+const CIRCLE_DIMENSION = '245px';
 
 function createCSS(imageURL) {
   return {
@@ -52,10 +53,8 @@ class TelescopeThumbnailView extends Component {
       bottomImageURL,
     } = this.props;
 
-    const topThumbServiceURL = createThumbnailURL(topImageURL);
     const bottomThumbServiceURL = createThumbnailURL(bottomImageURL);
-
-    this.transitionTopImage();
+    const topThumbServiceURL = createThumbnailURL(topImageURL);
 
     return (
       <div>
@@ -78,18 +77,18 @@ class TelescopeThumbnailView extends Component {
           }
 
           .bottom-image {
-            width: 245px;
-            height: 245px
-            border-radius: 50%;
+            width: ${CIRCLE_DIMENSION};
+            height: ${CIRCLE_DIMENSION};
+            ${borderRadius('50%')}
           }
 
           .top-image {
-            width: 250px;
-            height: 250px;
+            width: ${CIRCLE_DIMENSION};
+            height: ${CIRCLE_DIMENSION};
             position: absolute;
             top: 0;
             transition: opacity ease-in-out;
-            border-radius: 50%;
+            ${borderRadius('50%')}
           }
         `}</style>
       </div>
