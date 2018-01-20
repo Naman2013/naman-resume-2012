@@ -10,5 +10,8 @@ storiesOf('Telescope thumbnail view', module)
     <TelescopeThumbnailView
       topImageURL={telescopeOne}
       bottomImageURL={telescopeTwo}
+      startingOpacity="0.25"
+      fadeDuration="10"
+      teleId="telescope-ID"
     />
   ));

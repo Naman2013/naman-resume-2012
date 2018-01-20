@@ -232,7 +232,7 @@ class TelescopeImageLoader extends Component {
       adjustedFade,
     } = this.state;
 
-    const { teleThumbWidth, loadThumbnails, teleId } = this.props;
+    const { teleThumbWidth, loadThumbnails } = this.props;
 
     if (!currentImageUrl || !previousImageUrl) {
       return null;
@@ -245,7 +245,6 @@ class TelescopeImageLoader extends Component {
           bottomImageURL={previousImageUrl}
           startingOpacity={startingOpacity}
           fadeDuration={adjustedFade}
-          teleId={teleId}
         />
       );
     }

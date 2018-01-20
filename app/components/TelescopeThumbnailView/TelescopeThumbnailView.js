@@ -16,11 +16,7 @@ function createCSS(imageURL) {
 }
 
 function createThumbnailURL(sourceURL) {
-  return `/util/thumbnail.php?url=${sourceURL}&dimension=W&size=${DEFAULT_THUMB_WIDTH}`;
-}
-
-function generateDOMID(prefix, seed) {
-  return `${prefix}-${seed}`;
+  return `https://slooh.com/util/thumbnail.php?url=${sourceURL}&dimension=W&size=${DEFAULT_THUMB_WIDTH}`;
 }
 
 class TelescopeThumbnailView extends Component {
@@ -29,43 +25,49 @@ class TelescopeThumbnailView extends Component {
     bottomImageURL: PropTypes.string.isRequired,
     startingOpacity: PropTypes.string.isRequired,
     fadeDuration: PropTypes.string.isRequired,
-    teleId: PropTypes.string.isRequired,
   };
 
-  componentDidUpdate() {
-    const { topImageURL, startingOpacity, fadeDuration } = this.props;
-    const topImageAddress = createThumbnailURL(topImageURL);
-    const topDOMNode =
-      window
-        .document
-        .getElementById(generateDOMID(DOM_ID_PREFIX, this.props.teleId));
+  componentDidMount() {
+    this.transitionTopImage(this.topImageNode);
+  }
 
-    if (topDOMNode) {
-      topDOMNode.style.transition = 'opacity';
-      topDOMNode.style.opacity = startingOpacity;
-      topDOMNode.src = topImageAddress;
-      window.getComputedStyle(topDOMNode, null).opacity;
-      topDOMNode.style.transition = `opacity ${fadeDuration}s`;
-      topDOMNode.style.opacity = '1';
+  componentDidUpdate() {
+    this.transitionTopImage(this.topImageNode);
+  }
+
+  transitionTopImage(targetNode) {
+    const { startingOpacity, fadeDuration } = this.props;
+    if (targetNode) {
+      targetNode.style.transition = 'opacity';
+      targetNode.style.opacity = startingOpacity;
+      window.getComputedStyle(targetNode, null).opacity;
+      targetNode.style.transition = `opacity ${fadeDuration}s`;
+      targetNode.style.opacity = '1';
     }
   }
 
-  generateImageId() {
-    return `tele-id-${this.props.teleId}`;
-  }
-
   render() {
+    const {
+      topImageURL,
+      bottomImageURL,
+    } = this.props;
+
+    const topThumbServiceURL = createThumbnailURL(topImageURL);
+    const bottomThumbServiceURL = createThumbnailURL(bottomImageURL);
+
+    this.transitionTopImage();
+
     return (
       <div>
         <div className="root">
           <div
-            style={createCSS(this.props.bottomImageURL)}
+            style={createCSS(bottomImageURL)}
             className="bottom-image"
           />
           <div
-            style={createCSS(this.props.topImageURL)}
+            style={createCSS(topImageURL)}
             className="top-image"
-            id={generateDOMID(DOM_ID_PREFIX, this.props.teleId)}
+            ref={(topImageNode) => { this.topImageNode = topImageNode; }}
           />
         </div>
 
