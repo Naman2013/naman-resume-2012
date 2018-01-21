@@ -80,7 +80,7 @@ export default class Member extends Component {
               rel="noopener noreferrer"
               className={classnames('ignore-react-onclickoutside', styles.regButton)}
             >
-              Free Registration
+              Join Now
             </a>
 
             <a
