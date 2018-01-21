@@ -92,8 +92,8 @@ class VirtualTelescopeView extends Component {
 
   componentWillUpdate(nextProps, nextState) {
     this.props.onPositionChange({
-      x: nextState.x,
-      y: nextState.y,
+      x: nextState.controlledPosition.x,
+      y: nextState.controlledPosition.y,
     });
   }
 
