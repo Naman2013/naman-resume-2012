@@ -83,6 +83,7 @@ class TelescopeDetailsTabs extends Component {
     MiniWeatherPanelWidgetId: PropTypes.string.isRequired,
     SatelliteWidgetId: PropTypes.string.isRequired,
     WeatherConditionsWidgetId: PropTypes.string.isrequired,
+    MissionControlStatusWidgetId: PropTypes.string.isrequired,
 
     actions: PropTypes.shape({
       fetchAllWidgets: PropTypes.func.isRequired,

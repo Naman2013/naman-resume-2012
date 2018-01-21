@@ -25,6 +25,7 @@ class TelescopeDetailsWeatherTabs extends Component {
       miniWeatherPanelWidgetId,
       satelliteWidgetId,
       weatherConditionsWidgetId,
+      missionControlStatusWidgetId
     } = this.props;
   }
 

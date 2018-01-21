@@ -1,5 +1,6 @@
 import React, { Component, Props } from 'react';
 import MissionUpdatePost from './mission-update-post';
+import SectionHeader from '../common/headers/SectionHeader';
 import styles from './mission-sidebar.scss';
 import moment from 'moment';
 
@@ -40,7 +41,7 @@ class MissionUpdates extends Component {
 
     return (
       <div className="widget-container mission-updates-widget">
-        <h2 className="title">Mission Control Updates</h2>
+        <SectionHeader title="Learn More About Telescopes"/>
         {
           this.renderResponse()
         }
