@@ -43,7 +43,7 @@ export default function generateWeatherTabConfiguration({
       ),
     },
     {
-      tabText: 'Mission Control Status',
+      tabText: 'Mission Status',
       tabContent: (
         <CenterContent>
           <MissionControlStatusWidget obsId={obsId} missionControlStatusWidgetId={missionControlStatusWidgetId }/>

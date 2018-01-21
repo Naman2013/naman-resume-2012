@@ -13,7 +13,7 @@ export default [
     tabContent: <h1/>,
   },
   {
-    tabText: 'Mission Control Status',
+    tabText: 'Mission Status',
     tabContent: <h1/>,
   },
 ];
