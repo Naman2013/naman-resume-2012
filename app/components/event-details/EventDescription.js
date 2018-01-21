@@ -13,7 +13,7 @@ function EventDescription({ eventContent, showId }) {
         {
           (eventContent.mode === 'members' || eventContent.mode === 'paidmembers') &&
           <span className={s.eventDescriptionPanelItemMain}>
-            <i className="fa fa-lock icon" />Membership Required. <Link to={purgeHashURL(eventContent.registerURL)} className={s.link}>Learn More.</Link>
+            <i className="fa fa-lock icon" />Membership Required. <Link to={purgeHashURL(eventContent.registerURL)} className={s.link}>Learn More</Link>
           </span>
         }
         <div className={s.sharingOptionsMenu}>
