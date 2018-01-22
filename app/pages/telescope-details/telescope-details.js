@@ -463,11 +463,17 @@ class TelescopeDetails extends Component {
                   ) : null
               }
 
-
-              <SeeingConditionsWidget
-                obsId={currentObservatory.obsId}
-                widgetID={currentObservatory.SeeingConditionsWidgetId}
-              />
+              {
+                activeTelescopeMission.missionAvailable ||
+                  activeTelescopeMission.nextMissionAvailable ? (
+                    <div>
+                      <SeeingConditionsWidget
+                        obsId={currentObservatory.obsId}
+                        widgetID={currentObservatory.SeeingConditionsWidgetId}
+                      />
+                    </div>
+                  ) : null
+              }
 
               <MoonlightWidget
                 obsId={currentObservatory.obsId}
