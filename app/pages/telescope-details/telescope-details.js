@@ -25,6 +25,7 @@ import GoogleAd from '../../components/common/google-ads/GoogleAd';
 import LiveFeed from '../../components/telescope-details/live-feed/LiveFeed';
 import LiveMission from '../../components/telescope-details/live-mission/live-mission';
 import MoonlightWidget from '../../components/telescope-details/MoonlightWidget';
+import SeeingConditionsWidget from '../../components/telescope-details/SeeingConditionsWidget';
 import Neoview from '../../components/telescope-details/neoview/neoview';
 import PromoMessageBanner from '../../components/common/headers/promo-message-band';
 import Spacer from '../../components/common/spacer';
@@ -461,6 +462,12 @@ class TelescopeDetails extends Component {
                     </div>
                   ) : null
               }
+
+
+              <SeeingConditionsWidget
+                obsId={currentObservatory.obsId}
+                widgetID={currentObservatory.SeeingConditionsWidgetId}
+              />
 
               <MoonlightWidget
                 obsId={currentObservatory.obsId}

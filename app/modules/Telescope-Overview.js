@@ -3,6 +3,7 @@ import createReducer from './utils/createReducer';
 import fetchStarChart from '../services/sky-widgets/star-chart';
 import fetchFacilityWebcam from '../services/sky-widgets/facility-webcam';
 import fetchMoonlightBar from '../services/sky-widgets/moonlight-bar';
+import fetchSeeingConditionsBar from '../services/sky-widgets/seeing-conditions-bar';
 
 /* weather conditions */
 import fetchWeatherConditionsWidget from '../services/sky-widgets/weather-conditions';
@@ -26,6 +27,9 @@ const SKYCHART_WIDGET_START = 'SKYCHART_WIDGET_START';
 
 const MOONLIGHT_WIDGET_START = 'MOONLIGHT_WIDGET_START';
 const MOONLIGHT_WIDGET_SUCCESS = 'MOONLIGHT_WIDGET_SUCCESS';
+
+const SEEING_CONDITIONS_WIDGET_START = 'SEEING_CONDITIONS_WIDGET_START';
+const SEEING_CONDITIONS_WIDGET_SUCCESS = 'SEEING_CONDITIONS_WIDGET_SUCCESS';
 
 const OBSERVATORY_WEBCAM_START = 'OBSERVATORY_WEBCAM_START';
 const OBSERVATORY_WEBCAM_SUCCESS = 'OBSERVATORY_WEBCAM_SUCCESS';
@@ -207,6 +211,25 @@ export const fetchMoonlightWidget = ({ obsId, widgetUniqueId }) => (dispatch) =>
   }
 };
 
+const startFetchSeeingConditionsWidget = () => ({
+  type: SEEING_CONDITIONS_WIDGET_START,
+});
+
+const successSeeingConditionsWidget = payload => ({
+  type: SEEING_CONDITIONS_WIDGET_SUCCESS,
+  payload,
+});
+
+export const fetchSeeingConditionsWidget = ({ obsId, widgetUniqueId }) => (dispatch) => {
+  dispatch(startFetchSeeingConditionsWidget());
+  if (obsId && widgetUniqueId) {
+    fetchSeeingConditionsBar({
+      obsId,
+      widgetUniqueId,
+    }).then(result => dispatch(successSeeingConditionsWidget(result.data)));
+  }
+};
+
 const startFetchObservatoryWebcam = () => ({
   type: OBSERVATORY_WEBCAM_START,
 });
@@ -352,6 +375,7 @@ const initialState = {
 
   observatoryListErrorBody: null,
 
+  fetchingSeeingConditionsResult: true,
   fetchingObservatoryLiveWebcamResult: true,
   fetchingWeatherForecastWidgetResult: true,
   fetchingWeatherConditionsWidgetResult: true,
@@ -361,6 +385,7 @@ const initialState = {
   observatoryTelecopeStatus: null,
   moonPhaseWidgetResult: null,
   satelliteViewWidgetResult: null,
+  seeingConditionsWidgetResult: null,
   skyChartWidgetResult: {
     apiError: false,
     title: '',
@@ -373,6 +398,14 @@ const initialState = {
     subtitle: '',
     refreshInterval: 0,
     subwidgets: [],
+  },
+  seeingConditionsWidgetResult: {
+    title: '',
+    subtitle: '',
+    refreshIntervalSec: 0,
+    seeingConditionsIndex: 0,
+    seeingConditionsDescription: '',
+    seeingConditionsColor: '#FFFFFF',
   },
   observatoryLiveWebcamResult: {
     apiError: false,
@@ -547,6 +580,18 @@ export default createReducer(initialState, {
     return {
       ...state,
       moonlightWidgetResult: payload,
+    };
+  },
+  [SEEING_CONDITIONS_WIDGET_START](state) {
+    return {
+      ...state,
+      seeingConditionsWidgetResult: { ...initialState.seeingConditionsWidgetResult },
+    };
+  },
+  [SEEING_CONDITIONS_WIDGET_SUCCESS](state, { payload }) {
+    return {
+      ...state,
+      seeingConditionsWidgetResult: payload,
     };
   },
 });
