@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { borderRadius } from '../../styles/mixins/utilities';
 
 const DEFAULT_THUMB_WIDTH = '245';
-const CIRCLE_DIMENSION = '245px';
+const CIRCLE_DIMENSION = '225px';
 
 function createCSS(imageURL) {
   return {
