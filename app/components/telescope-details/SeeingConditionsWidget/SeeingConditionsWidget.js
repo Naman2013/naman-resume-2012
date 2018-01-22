@@ -11,7 +11,7 @@ import { lightTurqoise } from '../../../styles/variables/colors';
 const mapStateToProps = ({ telescopeOverview }) => ({
   title: telescopeOverview.seeingConditionsWidgetResult.title,
   subtitle: telescopeOverview.seeingConditionsWidgetResult.subtitle,
-  refreshInterval: telescopeOverview.seeingConditionsWidgetResult.refreshInterval,
+  refreshIntervalSec: telescopeOverview.seeingConditionsWidgetResult.refreshIntervalSec,
   seeingConditionsIndex: telescopeOverview.seeingConditionsWidgetResult.seeingConditionsIndex,
   seeingConditionsDescription: telescopeOverview.seeingConditionsWidgetResult.seeingConditionsDescription,
   seeingConditionsColor: telescopeOverview.seeingConditionsWidgetResult.seeingConditionsColor,
@@ -27,7 +27,7 @@ const propTypes = {
   widgetID: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   subtitle: PropTypes.string.isRequired,
-  refreshInterval: PropTypes.number.isRequired,
+  refreshIntervalSec: PropTypes.number.isRequired,
   seeingConditionsIndex: PropTypes.string.isRequired,
   seeingConditionsDescription: PropTypes.string.isRequired,
   seeingConditionsColor: PropTypes.string.isRequired,
@@ -55,19 +55,18 @@ class SeeingConditionsWidget extends Component {
         obsId: nextProps.obsId,
         widgetUniqueId: nextProps.widgetID,
       });
+    }
 
-      const { refreshIntervalSec } = this.props;
-      const intervalInSeconds = refreshIntervalSec * 1000;
-      clearInterval(this.refreshInterval);
-      if (intervalInSeconds) {
-        this.refreshInterval = setInterval(() => {
-          this.props.actions.fetchSeeingConditionsWidget({
-            obsId: nextProps.obsId,
-            widgetUniqueId: nextProps.widgetID,
-          });
-        }, intervalInSeconds);
-      }
-
+    const { refreshIntervalSec } = nextProps;
+    const intervalInSeconds = refreshIntervalSec * 1000;
+    clearInterval(nextProps.refreshIntervalSec);
+    if (intervalInSeconds) {
+      this.refreshInterval = setInterval(() => {
+        this.props.actions.fetchSeeingConditionsWidget({
+          obsId: nextProps.obsId,
+          widgetUniqueId: nextProps.widgetID,
+        });
+      }, intervalInSeconds);
     }
   }
 
@@ -75,7 +74,7 @@ class SeeingConditionsWidget extends Component {
     const {
       title,
       subtitle,
-      refreshInterval,
+      refreshIntervalSec,
       seeingConditionsIndex,
       seeingConditionsDescription,
       seeingConditionsColor
