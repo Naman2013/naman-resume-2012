@@ -159,7 +159,7 @@ class SignIn extends Component {
                   }
 
                   <div className="clearfix margin-top-large">
-                    <Link to={plansLinkURL}>{plansLinkTitle}</Link>
+                    <a href={plansLinkURL}>{plansLinkTitle}</a>
                   </div>
 
                 </section>
