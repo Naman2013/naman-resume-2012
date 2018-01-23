@@ -159,7 +159,6 @@ ReactDOM.render(
         />
         <Route path="contact" component={Contact} title="Contact US" subTitle=" " />
         <Route path="leadership" component={Leadership} title="Leadership" subTitle=" " />
-        <Route path="pricing" component={PlansChange} />
       </Route>
 
       <Route path="registration" component={StaticAppContainer} onEnter={validateRegistrationPaths}>
