@@ -93,15 +93,17 @@ class SeeingConditionsWidget extends Component {
 
         <style jsx>{`
           .root {
+            margin-top: 20px;
             margin-bottom: 20px;
           }
 
           .seeing-conditions-root {
             margin: 0;
             padding: 20px 0;
-            display: flex;
+            display: block;
             background: rgba(0, 0, 0, 0.75);
             text-align: center;
+            min-width: 100%;
           }
         `}</style>
       </div>
