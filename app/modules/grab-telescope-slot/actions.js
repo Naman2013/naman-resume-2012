@@ -109,6 +109,7 @@ export const grabTelescopeSlot = ({
     uniqueId,
     grabType,
     finalizeReservation,
+    buttonType: defaultFormType,
   })
   .then((result) => {
     const { data } = result;
