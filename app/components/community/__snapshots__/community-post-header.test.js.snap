@@ -50,7 +50,7 @@ exports[`it should render a header 1`] = `
           onClick={[Function]}
           style={Object {}}
         >
-          Reserve Telescope
+          Schedule Telescope
         </a>
       </span>
     </div>
