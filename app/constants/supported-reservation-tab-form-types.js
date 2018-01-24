@@ -1,7 +1,7 @@
 export default {
-  BY_OBJECTS: 'BY_OBJECTS',
-  BY_CATELOG: 'BY_CATELOG',
-  BY_COORDINATE: 'BY_COORDINATE',
+  BY_OBJECTS: 'browse',
+  BY_CATALOG: 'catalog',
+  BY_COORDINATE: 'coordinate',
   NONE: 'NONE',
-  DEFAULT_FORM: 'BY_OBJECTS',
+  DEFAULT_FORM: 'browse',
 };
