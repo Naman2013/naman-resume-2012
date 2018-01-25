@@ -140,12 +140,6 @@ class ReservationByCoordinate extends Component {
     this.handleDECChange({ target: { value: this.state.dec } });
   }
 
-  updateRA = (ra) => {
-    this.setState({
-      ra,
-    });
-  }
-
   recalculateRA(newRAValue) {
     let ra = cleanCalcInput(newRAValue);
     let ra_h = Math.trunc(ra);
@@ -322,6 +316,9 @@ class ReservationByCoordinate extends Component {
     // if dec_d is negative, make all numbers negative
     const minutesToHoursDivisor = (dec_d >= 0) ? 60 : -60;
     const secondsToHoursDivisor = (dec_d >= 0) ? 3600 : -3600;
+
+    // perform value casting
+    dec_d = parseInt(dec_d, 10);
 
     // set the appropriate ranges for minutes, seconds and hours
     dec_m = cleanTimeInput(dec_m);
@@ -508,6 +505,12 @@ class ReservationByCoordinate extends Component {
     this.props.actions.missionConfirmOpen('reserve');
   }
 
+  updateRA = (ra) => {
+    this.setState({
+      ra,
+    });
+  }
+
   handleFormSubmit(event) {
     event.preventDefault();
     const {
@@ -584,15 +587,52 @@ class ReservationByCoordinate extends Component {
                 </h2>
 
                 <div className="form-row-container">
-                  <div className="form-row">RA: <input type="text" value={ra_h} onChange={(event) => { this.handleFieldChange({ field: 'ra_h', value: event.target.value }); }} onBlur={(event) => { this.handleFieldBlur({ field: 'ra_h', value: event.target.value }); }} className="generic-text-input" /> <span className="symbol-character">h</span></div>
-                  <div className="form-row"><input type="text" value={ra_m} onChange={(event) => { this.handleFieldChange({ field: 'ra_m', value: event.target.value, allowNegativeValues: false }); }} onBlur={(event) => { this.handleFieldBlur({ field: 'ra_m', value: event.target.value }); }} className="generic-text-input" /> <span className="symbol-character">m</span></div>
                   <div className="form-row">
-                    <input type="text" maxLength={MAX_SECONDS_CHARACTER_LENGTH} value={ra_s} onChange={(event) => { this.handleSecondsChange({ field: 'ra_s', valueRAW: event.target.value }); }} onBlur={(event) => {this.handleSecondsBlur({ field: 'ra_s', valueRAW: event.target.value }); }} className="generic-text-input" /> <span className="symbol-character">s</span>
+                    RA:
+                    <input
+                      type="text"
+                      value={ra_h}
+                      onChange={(event) => { this.handleFieldChange({ field: 'ra_h', value: event.target.value }); }}
+                      onBlur={(event) => { this.handleFieldBlur({ field: 'ra_h', value: event.target.value }); }}
+                      className="generic-text-input"
+                    />
+                    <span className="symbol-character">h</span>
+                  </div>
+                  <div className="form-row">
+                    <input
+                      type="text"
+                      value={ra_m}
+                      onChange={(event) => { this.handleFieldChange({ field: 'ra_m', value: event.target.value, allowNegativeValues: false }); }}
+                      onBlur={(event) => { this.handleFieldBlur({ field: 'ra_m', value: event.target.value }); }}
+                      className="generic-text-input"
+                    />
+                    <span className="symbol-character">m</span>
+                  </div>
+                  <div className="form-row">
+                    <input
+                      type="text"
+                      maxLength={MAX_SECONDS_CHARACTER_LENGTH}
+                      value={ra_s}
+                      onChange={(event) => { this.handleSecondsChange({ field: 'ra_s', valueRAW: event.target.value }); }}
+                      onBlur={(event) => {this.handleSecondsBlur({ field: 'ra_s', valueRAW: event.target.value }); }}
+                      className="generic-text-input"
+                    />
+                    <span className="symbol-character">s</span>
                   </div>
                 </div>
 
                 <div className="form-row-container">
-                  <div className="form-row">Dec: <input type="text" value={dec_d} onChange={(event) => { this.handleFieldChange({ field: 'dec_d', value: event.target.value, allowNegativeValues: true }); }} onBlur={(event) => { this.handleFieldBlur({ field: 'dec_d', value: event.target.value }); }} className="generic-text-input" /> <span className="symbol-character">d</span></div>
+                  <div className="form-row">
+                    Dec:
+                    <input
+                      type="text"
+                      value={dec_d}
+                      onChange={(event) => { this.handleFieldChange({ field: 'dec_d', value: event.target.value, allowNegativeValues: true }); }}
+                      onBlur={(event) => { this.handleFieldBlur({ field: 'dec_d', value: event.target.value }); }}
+                      className="generic-text-input"
+                    />
+                    <span className="symbol-character">d</span>
+                  </div>
                   <div className="form-row"><input type="text" value={dec_m} onChange={(event) => { this.handleFieldChange({ field: 'dec_m', value: event.target.value }); }} onBlur={(event) => { this.handleFieldBlur({ field: 'dec_m', value: event.target.value }); }} className="generic-text-input" /> <span className="symbol-character">m</span></div>
                   <div className="form-row">
                     <input type="text" maxLength={MAX_SECONDS_CHARACTER_LENGTH} value={dec_s} onChange={(event) => { this.handleSecondsChange({ field: 'dec_s', valueRAW: event.target.value }); }} onBlur={(event) => { this.handleSecondsBlur({ field: 'dec_s', valueRAW: event.target.value }); }} className="generic-text-input" /> <span className="symbol-character">s</span>
