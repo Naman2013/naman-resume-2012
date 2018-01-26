@@ -6,6 +6,7 @@ import Header from '../../components/situation-room/Header';
 import SituationVideoViewer from '../../components/situation-room/SituationVideoViewer';
 import CommunityMashup from '../../components/situation-room/CommunityMashup';
 import GoogleAd from '../../components/common/google-ads/GoogleAd';
+import GoogleOutOfPageAd from '../../components/common/google-ads/GoogleOutOfPageAd';
 import { fetchEvents } from '../../modules/upcoming-events/upcoming-events-actions';
 import { fetchSituationRoom, fetchEventsAndSituationRoom } from '../../modules/SituationRoom';
 import { previousShows } from '../../services/shows/previous-shows';
@@ -22,7 +23,7 @@ const mapDispatchToProps = dispatch => ({
   }, dispatch),
 });
 
-const mapStateToProps = ({ upcomingEvents, liveShows, communityShowContent }, ownProps) => ({
+const mapStateToProps = ({ user, upcomingEvents, liveShows, communityShowContent }, ownProps) => ({
   showId: ownProps.routeParams.showId,
   upcomingEventEventId: upcomingEvents.nextEvent.eventId,
   upcomingEventStartTime: upcomingEvents.nextEvent.eventStart,
@@ -30,6 +31,7 @@ const mapStateToProps = ({ upcomingEvents, liveShows, communityShowContent }, ow
   eventIsLive: upcomingEvents.nextEvent.eventIsLive,
   currentLiveShow: liveShows.liveShowsResponse,
   communityPosts: communityShowContent.resultBody.posts,
+  user,
 });
 
 @connect(mapStateToProps, mapDispatchToProps)
@@ -66,7 +68,7 @@ class SituationRoom extends Component {
   }
 
   render() {
-    const { currentLiveShow, communityPosts, eventIsLive} = this.props;
+    const { user, currentLiveShow, communityPosts, eventIsLive} = this.props;
     const { upcomingShowsList, previousShowsList } = this.state;
     const { apiError } = currentLiveShow;
 
@@ -76,7 +78,11 @@ class SituationRoom extends Component {
 
     return (
       <section className={`${s.situationRoom} clearfix`}>
-
+        {user && user.at == 9 && <GoogleOutOfPageAd
+         adURL={'/5626790/HP_Pop-up'}
+         targetDivID={'div-gpt-ad-1516029782692-0'}
+         />
+        }
         <div className="col-md-12">
           <Header
             videoInProgress={currentLiveShow.inProgressFlag}
