@@ -175,6 +175,10 @@ class Recommendation extends Component {
     console.log(error);
   }
 
+  onSuccessReserveNewMission = () => {
+    this.props.actions.missionConfirmOpen('reserve', card);
+  };
+
   handleReserveNewMissionClick = (event) => {
     event.preventDefault();
     const {
@@ -186,10 +190,10 @@ class Recommendation extends Component {
       callSource: 'recommends',
       objectTitle: card.title,
       objectType: card.objectType,
+      onSuccessCallback: this.onSuccessReserveNewMission,
     };
 
     this.props.actions.grabMissionSlot(mission);
-    this.props.actions.missionConfirmOpen('reserve', card);
   }
 
   render() {
