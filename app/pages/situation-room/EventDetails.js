@@ -14,6 +14,7 @@ import { fetchEventInfo } from '../../modules/event-info/actions';
 import SponsoredBy from '../../components/common/sponsored-by';
 
 const { func, object } = PropTypes;
+
 class EventDetails extends Component {
   constructor(props) {
     super(props);
@@ -53,6 +54,10 @@ class EventDetails extends Component {
       user,
      } = this.props;
 
+     const {
+       socialSharePageURL,
+     } = this.props.appConfig;
+
     const { recommends, title } = eventContent;
 
     return (
@@ -66,6 +71,7 @@ class EventDetails extends Component {
               <EventDescription
                 eventContent={eventContent}
                 showId={showId}
+                socialSharePageURL={socialSharePageURL}
               />
               <EventHosts hosts={eventContent.hosts} />
             </section>
@@ -123,11 +129,12 @@ EventDetails.propTypes = {
   fetchEventInfo: func.isRequired,
 };
 
-const mapStateToProps = ({ eventInfo, post, user, upcomingEvents }) => ({
+const mapStateToProps = ({ appConfig, eventInfo, post, user, upcomingEvents }) => ({
   ...eventInfo,
   user,
   moreAboutObject: post.moreAboutObject,
   nextEvent: upcomingEvents.nextEvent,
+  appConfig,
 });
 const mapDispatchToProps = dispatch => (bindActionCreators({
   fetchEventInfo
