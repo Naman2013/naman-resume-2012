@@ -99,6 +99,7 @@ class PulsePostContent extends Component {
                     description={socialShareDescription}
                     shareURL={completeShareURL}
                     imageList={S3Files}
+                    share="true"
                   /> : null
               }
             </div>

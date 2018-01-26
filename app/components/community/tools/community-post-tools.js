@@ -35,26 +35,29 @@ const CommunityPostTools = ({ hot, type, authorId, objectSlug, likesCount, likeI
     {hot ? <CommunityPostHot hot={hot} /> : null}
     {share ? <CommunityPostShare /> : null}
 
-    {imageList.length > 0 ?
-      <div style={inlineSSCWithPhotoStyle}>
-        <SocialSharingBar
-            contentLayout="horizontal"
-            shareTitle={title}
-            shareDescription={description}
-            shareURL={shareURL}
-            shareImageURL={imageList[0]}
-          />
+    {share == "true" && <div>
+      {imageList.length > 0 ?
+        <div style={inlineSSCWithPhotoStyle}>
+          <SocialSharingBar
+              contentLayout="horizontal"
+              shareTitle={title}
+              shareDescription={description}
+              shareURL={shareURL}
+              shareImageURL={imageList[0]}
+            />
+        </div>
+        :
+        <div style={inlineSSCWithoutPhotoStyle}>
+          <SocialSharingBar
+              contentLayout="horizontal"
+              shareTitle={title}
+              shareDescription={description}
+              shareURL={shareURL}
+            />
+        </div>
+        }
       </div>
-      :
-      <div style={inlineSSCWithoutPhotoStyle}>
-        <SocialSharingBar
-            contentLayout="horizontal"
-            shareTitle={title}
-            shareDescription={description}
-            shareURL={shareURL}
-          />
-      </div>
-      }
+    }
   </div>;
 
 export default CommunityPostTools;
