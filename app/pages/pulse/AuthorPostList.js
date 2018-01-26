@@ -77,6 +77,7 @@ class AuthorPostList extends Component {
                     showLikePrompt={v.showLikePrompt}
                     likePrompt={v.likePrompt}
                     likeId={v.postId}
+                    share="false"
                   />
                 </div>
               </div>

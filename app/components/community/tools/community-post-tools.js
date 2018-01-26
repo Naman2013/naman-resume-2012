@@ -4,8 +4,22 @@ import styles from './community-post-tools.scss';
 import CommunityPostHot from './community-post-hot';
 import CommunityPostShare from './community-post-share';
 import Heart from '../../common/heart/heart';
+import SocialSharingBar from '../../common/social-sharing-bar/SocialSharingBar';
 
-const CommunityPostTools = ({ hot, type, authorId, objectSlug, likesCount, likeId, share, showLikePrompt, likePrompt }) =>
+const inlineSSCWithPhotoStyle = {
+    display: 'block',
+    marginTop: '2em',
+    marginLeft: '0.5em',
+};
+
+const inlineSSCWithoutPhotoStyle = {
+    display: 'block',
+    marginTop: '2em',
+    marginLeft: '-1em',
+};
+
+
+const CommunityPostTools = ({ hot, type, authorId, objectSlug, likesCount, likeId, share, showLikePrompt, likePrompt, title, description, shareURL, imageList }) =>
   <div className={styles.CommunityPostTools}>
 
     <Heart
@@ -21,8 +35,30 @@ const CommunityPostTools = ({ hot, type, authorId, objectSlug, likesCount, likeI
     {hot ? <CommunityPostHot hot={hot} /> : null}
     {share ? <CommunityPostShare /> : null}
 
+    {share == "true" && <div>
+      {imageList.length > 0 ?
+        <div style={inlineSSCWithPhotoStyle}>
+          <SocialSharingBar
+              contentLayout="horizontal"
+              shareTitle={title}
+              shareDescription={description}
+              shareURL={shareURL}
+              shareImageURL={imageList[0]}
+            />
+        </div>
+        :
+        <div style={inlineSSCWithoutPhotoStyle}>
+          <SocialSharingBar
+              contentLayout="horizontal"
+              shareTitle={title}
+              shareDescription={description}
+              shareURL={shareURL}
+            />
+        </div>
+        }
+      </div>
+    }
   </div>;
-
 
 export default CommunityPostTools;
 

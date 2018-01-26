@@ -2,8 +2,9 @@
 @import "../../../styles/variables/colors";
 
 .CommunityPostTools {
-  display: inline-flex;
+  display: table;
   margin: 0;
+  margin-left: -2em;
 }
 
 .CommunityPostHot {
