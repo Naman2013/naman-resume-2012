@@ -94,7 +94,7 @@ class SocialSharingBar extends Component {
                 </li>
               }
 
-              {this.props.showPinterest && <li className={'social-share-button-' + this.props.contentLayout}>
+              {this.props.showPinterest && shareImageURL && <li className={'social-share-button-' + this.props.contentLayout}>
                   <PinterestShareButton
                     url={shareURL}
                     media={shareImageURL}

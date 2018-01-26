@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
+import { connect } from 'react-redux';
 import ByUserTag from '../../components/common/by-user-tag/by-user-tag';
 import PulsePostDate from '../../components/pulse/pulse-post-date';
 import PulsePostThumbnails from '../../components/pulse/pulse-post-image-thumbnails';
@@ -7,6 +8,13 @@ import PulsePostTag from '../../components/pulse/pulse-post-tag';
 import CommunityPulseTools from '../../components/community/tools/community-post-tools';
 import styles from './pulse-post.scss';
 
+const mapStateToProps = ({
+  appConfig,
+}) => ({
+  appConfig,
+});
+
+@connect(mapStateToProps, null)
 class PulsePostContent extends Component {
   render() {
     const {
@@ -30,9 +38,30 @@ class PulsePostContent extends Component {
         likePrompt,
         showLikePrompt,
         likesCount,
+        socialShareDescription,
+        postFullURL,
       },
       showExcerpt,
     } = this.props;
+
+    const {
+      socialSharePageURL,
+    } = this.props.appConfig;
+
+    var encodeurl = require('encodeurl');
+    var base64 = require('base-64');
+
+    const socialShareTitle = encodeurl(base64.encode(title));
+
+    var completeShareURL = socialSharePageURL +
+      "?title=" + socialShareTitle +
+      "&pagetype=article" +
+      "&description=" + encodeurl(base64.encode(socialShareDescription)) +
+      "&shareURL=" + encodeurl(base64.encode(postFullURL));
+
+    if (S3Files.length > 0) {
+      completeShareURL = completeShareURL + "&imageURL=" + encodeurl(base64.encode(S3Files[0]));
+    }
 
     return (
       <div className={styles.PulsePostList}>
@@ -66,6 +95,10 @@ class PulsePostContent extends Component {
                     type={type}
                     authorId={customerId}
                     objectSlug={slug}
+                    title={socialShareTitle}
+                    description={socialShareDescription}
+                    shareURL={completeShareURL}
+                    imageList={S3Files}
                   /> : null
               }
             </div>
