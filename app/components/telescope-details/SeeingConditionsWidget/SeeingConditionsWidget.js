@@ -56,18 +56,6 @@ class SeeingConditionsWidget extends Component {
         widgetUniqueId: nextProps.widgetID,
       });
     }
-
-    const { refreshIntervalSec } = nextProps;
-    const intervalInSeconds = refreshIntervalSec * 1000;
-    clearInterval(nextProps.refreshIntervalSec);
-    if (intervalInSeconds) {
-      this.refreshInterval = setInterval(() => {
-        this.props.actions.fetchSeeingConditionsWidget({
-          obsId: nextProps.obsId,
-          widgetUniqueId: nextProps.widgetID,
-        });
-      }, intervalInSeconds);
-    }
   }
 
   render() {
