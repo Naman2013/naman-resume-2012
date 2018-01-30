@@ -49,6 +49,7 @@ const propTypes = {
   missionEnd: PropTypes.number,
 
   onPositionChange: PropTypes.func,
+  resizeEventCallback: PropTypes.func,
 };
 
 const defaultProps = {
@@ -74,6 +75,7 @@ const defaultProps = {
   missionEnd: 0,
 
   onPositionChange: noop,
+  resizeEventCallback: noop,
 };
 
 class VirtualTelescopeView extends Component {
@@ -134,6 +136,8 @@ class VirtualTelescopeView extends Component {
   };
 
   handleRootContainerResize = (contentRect) => {
+    console.log(contentRect);
+    this.props.resizeEventCallback(contentRect.bounds);
     this.setState({ dimensions: contentRect.bounds })
   }
 

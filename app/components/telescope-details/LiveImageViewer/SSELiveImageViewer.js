@@ -101,6 +101,12 @@ class SSELiveImageViewer extends Component {
     });
   };
 
+  contentResizeCallback(rect) {
+    // TODO: refactor to use render props instead of a callback in this fashion
+    console.log('resize event...');
+    console.log(rect);
+  }
+
   render() {
     const {
       isImageViewerClipped,
@@ -145,6 +151,7 @@ class SSELiveImageViewer extends Component {
           now={timestamp}
           missionStart={missionStart}
           missionEnd={missionEnd}
+          resizeEventCallback={this.contentResizeCallback}
         >
           <TelescopeImageLoader
             imageSource={imageSource}
