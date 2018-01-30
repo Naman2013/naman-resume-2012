@@ -7,14 +7,12 @@ import { black } from '../../../styles/variables/colors';
 // TODO: vertically/horizontally align the video element...
 
 const propTypes = {
-  width: PropTypes.string.isRequired,
   height: PropTypes.string.isRequired,
 };
 
-const Transition = ({ width, height }) => {
+const Transition = ({ height }) => {
   const transitionClassnames = classnames('transition-video', {});
   const dimensionStyle = {
-    width: `${width}px`,
     height: `${height}px`,
   };
 
@@ -27,11 +25,16 @@ const Transition = ({ width, height }) => {
 
       <style jsx>{`
         .root {
+          width: 100%;
           background: ${black};
+          position: relative;
         }
 
-        .video-transition: {
-
+        .transition-video {
+          width: 100%;
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
         }
       `}</style>
     </div>

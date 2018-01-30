@@ -15,6 +15,7 @@ import VirtualTelescopeViewer from '../../VirtualTelescopeViewer';
 import TelescopeImageLoader from '../../common/telescope-image-loader';
 import obsIdTeleIdDomeIdFromTeleId from '../../../utils/obsid-teleid-domeid-from-teleid';
 import generateSseImageLoader from '../../../utils/generate-sse-image-source';
+import Transition from './Transition';
 
 const propTypes = {
   applyImageViewerClipState: PropTypes.func.isRequired,
@@ -81,7 +82,7 @@ const mapDispatchToProps = dispatch => ({
 @connect(null, mapDispatchToProps)
 class SSELiveImageViewer extends Component {
   state = {
-    viewerDimensions: { width: 0, height: 0 },
+    viewerDimensions: { height: 500 },
   };
 
   onClipChange = (clipState) => {
@@ -107,8 +108,6 @@ class SSELiveImageViewer extends Component {
 
   contentResizeCallback(viewerDimensions) {
     // TODO: refactor to use render props instead of a callback in this fashion
-    console.log('resize event...');
-    console.log(rect);
     this.setState({
       viewerDimensions,
     });
@@ -136,42 +135,49 @@ class SSELiveImageViewer extends Component {
       callSource,
     } = this.props;
 
+    const { viewerDimensions: { width, height } } = this.state;
+
     const { obsId, domeId } = obsIdTeleIdDomeIdFromTeleId(teleId);
     const imageSource = generateSseImageLoader(teleSystem, telePort);
     const teleThumbWidth = '866px';
 
     return (
-      <LiveImageViewer
-        clipped={isImageViewerClipped}
-        onZoomChange={this.handleZoomUpdate}
-        onClipChange={this.onClipChange}
-      >
-        <VirtualTelescopeViewer
-          timestamp={timestamp}
-          coordinateArray={coordinateArray}
-          missionData={missionData}
-          showMissionData={showMissionData}
-          objectTitleShort={objectTitleShort}
-          processing={processing}
-          schedulingMember={schedulingMember}
-          onPositionChange={this.handlePositionChange}
-          now={timestamp}
-          missionStart={missionStart}
-          missionEnd={missionEnd}
-          resizeEventCallback={this.contentResizeCallback}
+      <div>
+        <Transition
+          height={height}
+        />
+        <LiveImageViewer
+          clipped={isImageViewerClipped}
+          onZoomChange={this.handleZoomUpdate}
+          onClipChange={this.onClipChange}
         >
-          <TelescopeImageLoader
-            imageSource={imageSource}
-            teleId={teleId}
-            obsId={obsId}
-            domeId={domeId}
-            teleThumbWidth={teleThumbWidth}
-            teleFade={teleFade}
-            clipped={clipped}
-            missionFormat={missionFormat}
-          />
-        </VirtualTelescopeViewer>
-      </LiveImageViewer>
+          <VirtualTelescopeViewer
+            timestamp={timestamp}
+            coordinateArray={coordinateArray}
+            missionData={missionData}
+            showMissionData={showMissionData}
+            objectTitleShort={objectTitleShort}
+            processing={processing}
+            schedulingMember={schedulingMember}
+            onPositionChange={this.handlePositionChange}
+            now={timestamp}
+            missionStart={missionStart}
+            missionEnd={missionEnd}
+            resizeEventCallback={this.contentResizeCallback}
+          >
+            <TelescopeImageLoader
+              imageSource={imageSource}
+              teleId={teleId}
+              obsId={obsId}
+              domeId={domeId}
+              teleThumbWidth={teleThumbWidth}
+              teleFade={teleFade}
+              clipped={clipped}
+              missionFormat={missionFormat}
+            />
+          </VirtualTelescopeViewer>
+        </LiveImageViewer>
+      </div>
     );
   }
 }
