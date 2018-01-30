@@ -136,7 +136,6 @@ class VirtualTelescopeView extends Component {
   };
 
   handleRootContainerResize = (contentRect) => {
-    console.log(contentRect);
     this.props.resizeEventCallback(contentRect.bounds);
     this.setState({ dimensions: contentRect.bounds })
   }
