@@ -3,9 +3,6 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { black } from '../../../styles/variables/colors';
 
-// TODO: render letterboxed video
-// TODO: vertically/horizontally align the video element...
-
 const propTypes = {
   height: PropTypes.string.isRequired,
 };
@@ -27,7 +24,7 @@ const Transition = ({ height }) => {
         .root {
           width: 100%;
           background: ${black};
-          position: relative;
+          position: absolute;
         }
 
         .transition-video {
