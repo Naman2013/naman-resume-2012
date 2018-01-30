@@ -80,6 +80,10 @@ const mapDispatchToProps = dispatch => ({
 
 @connect(null, mapDispatchToProps)
 class SSELiveImageViewer extends Component {
+  state = {
+    viewerDimensions: { width: 0, height: 0 },
+  };
+
   onClipChange = (clipState) => {
     if (clipState) {
       this.props.actions.applyImageViewerClipState();
@@ -101,10 +105,13 @@ class SSELiveImageViewer extends Component {
     });
   };
 
-  contentResizeCallback(rect) {
+  contentResizeCallback(viewerDimensions) {
     // TODO: refactor to use render props instead of a callback in this fashion
     console.log('resize event...');
     console.log(rect);
+    this.setState({
+      viewerDimensions,
+    });
   }
 
   render() {
