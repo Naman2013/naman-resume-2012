@@ -83,6 +83,7 @@ const mapDispatchToProps = dispatch => ({
 class SSELiveImageViewer extends Component {
   state = {
     viewerDimensions: { height: 500 },
+    transitionVideoOpacity: 1,
   };
 
   onClipChange = (clipState) => {
@@ -105,6 +106,12 @@ class SSELiveImageViewer extends Component {
       zoom: scale,
     });
   };
+
+  handleVideoTransitionEnd() {
+    this.setState({
+      transitionVideoOpacity: 0,
+    });
+  }
 
   contentResizeCallback(viewerDimensions) {
     // TODO: refactor to use render props instead of a callback in this fashion
@@ -135,17 +142,25 @@ class SSELiveImageViewer extends Component {
       callSource,
     } = this.props;
 
+    const { transitionVideoOpacity } = this.state;
+
     const { viewerDimensions: { width, height } } = this.state;
 
     const { obsId, domeId } = obsIdTeleIdDomeIdFromTeleId(teleId);
     const imageSource = generateSseImageLoader(teleSystem, telePort);
     const teleThumbWidth = '866px';
+    const inlineTransitionCSS = {
+      opacity: transitionVideoOpacity
+    };
 
     return (
       <div>
-        <Transition
-          height={height}
-        />
+        <div className="mission-transition-container" style={inlineTransitionCSS}>
+          <Transition
+            height={height}
+            handleOnEnded={this.handleVideoTransitionEnd}
+          />
+        </div>
         <LiveImageViewer
           clipped={isImageViewerClipped}
           onZoomChange={this.handleZoomUpdate}
@@ -177,6 +192,15 @@ class SSELiveImageViewer extends Component {
             />
           </VirtualTelescopeViewer>
         </LiveImageViewer>
+
+        <style jsx>{`
+          .mission-transition-container {
+            -webkit-transition: 'opacity 0.1s ease-in';
+            -moz-transition: 'opacity 0.1s ease-in';
+            -o-transition: 'opactiy 0.1s ease-in';
+            transition: 'opacity 0.1s ease-in';
+          }
+        `}</style>
       </div>
     );
   }
