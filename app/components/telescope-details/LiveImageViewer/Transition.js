@@ -5,9 +5,10 @@ import { black } from '../../../styles/variables/colors';
 
 const propTypes = {
   height: PropTypes.string.isRequired,
+  handleOnEnded: PropTypes.func.isRequired,
 };
 
-const Transition = ({ height }) => {
+const Transition = ({ height, handleOnEnded }) => {
   const transitionClassnames = classnames('transition-video', {});
   const dimensionStyle = {
     height: `${height}px`,
@@ -15,7 +16,14 @@ const Transition = ({ height }) => {
 
   return (
     <div className="root" style={dimensionStyle}>
-      <video className={transitionClassnames} playsInline autoPlay muted loop>
+      <video
+        onEnded={handleOnEnded}
+        className={transitionClassnames}
+        playsInline
+        autoPlay
+        muted
+        loop
+      >
         <source src="https://vega.slooh.com/video/home/stars-high-720.webm" type="video/webm" />
         <source src="https://vega.slooh.com/video/home/stars-high-720.mp4" type="video/mp4" />
       </video>
