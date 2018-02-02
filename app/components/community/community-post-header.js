@@ -25,7 +25,7 @@ const CommunityPostHeader = ({
       <div className="button-nav">
         <span className="action-button">
           <Link className="button btn-primary" to="/reservations/slooh-recommends/">
-            Reserve Telescope
+            Schedule Telescope
           </Link>
         </span>
         {

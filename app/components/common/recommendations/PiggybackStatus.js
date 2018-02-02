@@ -132,7 +132,7 @@ class PiggybackStatus extends Component {
 
     if (newMissionAvailable && newMissionMode) {
       return (
-        <button onClick={handleReserveNewMissionClick} className="btn-primary">Make Reservation</button>
+        <button onClick={handleReserveNewMissionClick} className="btn-primary">Schedule Telescope</button>
       );
     }
 

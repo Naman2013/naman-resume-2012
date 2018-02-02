@@ -195,7 +195,7 @@ class ReserveConfirm extends Component {
 
         <div className="modal-header">
           <h1 className="title-secondary">
-            You’re auto-scheduling the {missionData.telescopeName} telescope to see:
+            You’re scheduling the {missionData.telescopeName} telescope to see:
           </h1>
           <img height="50" className={styles.cardIcon} src={missionData.objectIconURL} />
           <h2 className="mission-title">{missionData.title}</h2>

@@ -3,12 +3,13 @@ import createReducer from './utils/createReducer';
 import fetchStarChart from '../services/sky-widgets/star-chart';
 import fetchFacilityWebcam from '../services/sky-widgets/facility-webcam';
 import fetchMoonlightBar from '../services/sky-widgets/moonlight-bar';
+import fetchSeeingConditionsBar from '../services/sky-widgets/seeing-conditions-bar';
 
 /* weather conditions */
 import fetchWeatherConditionsWidget from '../services/sky-widgets/weather-conditions';
 import fetchWeatherForecastWidget from '../services/sky-widgets/weather-forecast';
 import fetchWeatherSatelliteWidget from '../services/sky-widgets/weather-satellite';
-
+import fetchWeatherMissionControlStatusWidget from '../services/sky-widgets/weather-mission-control-status';
 
 const OBSERVATORY_REQUEST_START = 'OBSERVATORY_REQUEST_START';
 const OBSERVATORY_REQUEST_SUCCESS = 'OBSERVATORY_REQUEST_SUCCESS';
@@ -27,6 +28,9 @@ const SKYCHART_WIDGET_START = 'SKYCHART_WIDGET_START';
 const MOONLIGHT_WIDGET_START = 'MOONLIGHT_WIDGET_START';
 const MOONLIGHT_WIDGET_SUCCESS = 'MOONLIGHT_WIDGET_SUCCESS';
 
+const SEEING_CONDITIONS_WIDGET_START = 'SEEING_CONDITIONS_WIDGET_START';
+const SEEING_CONDITIONS_WIDGET_SUCCESS = 'SEEING_CONDITIONS_WIDGET_SUCCESS';
+
 const OBSERVATORY_WEBCAM_START = 'OBSERVATORY_WEBCAM_START';
 const OBSERVATORY_WEBCAM_SUCCESS = 'OBSERVATORY_WEBCAM_SUCCESS';
 
@@ -38,6 +42,9 @@ const WEATHER_CONDITIONS_WIDGET_SUCCESS = 'WEATHER_CONDITIONS_WIDGET_SUCCESS';
 
 const WEATHER_SATELLITE_WIDGET_START = 'WEATHER_SATELLITE_WIDGET_START';
 const WEATHER_SATELLITE_WIDGET_SUCCESS = 'WEATHER_SATELLITE_WIDGET_SUCCESS';
+
+const WEATHER_MISSION_CONTROL_STATUS_WIDGET_START = 'WEATHER_MISSION_CONTROL_STATUS_WIDGET_START';
+const WEATHER_MISSION_CONTROL_STATUS_WIDGET_SUCCESS = 'WEATHER_MISSION_CONTROL_STATUS_WIDGET_SUCCESS';
 
 const TELESCOPE_CARD_DATA_SUCCESS = 'TELESCOPE_CARD_DATA_SUCCESS';
 const TELESCOPE_CARD_DATA_FAIL = 'TELESCOPE_CARD_DATA_FAIL';
@@ -207,6 +214,25 @@ export const fetchMoonlightWidget = ({ obsId, widgetUniqueId }) => (dispatch) =>
   }
 };
 
+const startFetchSeeingConditionsWidget = () => ({
+  type: SEEING_CONDITIONS_WIDGET_START,
+});
+
+const successSeeingConditionsWidget = payload => ({
+  type: SEEING_CONDITIONS_WIDGET_SUCCESS,
+  payload,
+});
+
+export const fetchSeeingConditionsWidget = ({ obsId, widgetUniqueId }) => (dispatch) => {
+  dispatch(startFetchSeeingConditionsWidget());
+  if (obsId && widgetUniqueId) {
+    fetchSeeingConditionsBar({
+      obsId,
+      widgetUniqueId,
+    }).then(result => dispatch(successSeeingConditionsWidget(result.data)));
+  }
+};
+
 const startFetchObservatoryWebcam = () => ({
   type: OBSERVATORY_WEBCAM_START,
 });
@@ -309,6 +335,32 @@ export const fetchWeatherSatellite = ({
   });
 };
 
+/* weather mission control status */
+const startWeatherMissionControlStatus = () => ({
+  type: WEATHER_MISSION_CONTROL_STATUS_WIDGET_START,
+});
+
+const fetchWeatherMissionControlStatusSuccess = weatherMissionControlStatusWidgetResult => ({
+  type: WEATHER_MISSION_CONTROL_STATUS_WIDGET_SUCCESS,
+  weatherMissionControlStatusWidgetResult,
+});
+
+export const fetchWeatherMissionControlStatus = ({
+  obsId,
+  missionControlStatusWidgetId,
+}) => (dispatch) => {
+  dispatch(startWeatherMissionControlStatus());
+  return fetchWeatherMissionControlStatusWidget({
+    obsId,
+    widgetUniqueId: missionControlStatusWidgetId,
+  }).then((result) => {
+    if (!result.data.apiError) {
+      dispatch(fetchWeatherMissionControlStatusSuccess(result.data));
+    }
+  });
+};
+
+
 const fetchTelescopeCardDataSuccess = telescopeCardData => ({
   type: TELESCOPE_CARD_DATA_SUCCESS,
   telescopeCardData,
@@ -352,15 +404,18 @@ const initialState = {
 
   observatoryListErrorBody: null,
 
+  fetchingSeeingConditionsResult: true,
   fetchingObservatoryLiveWebcamResult: true,
   fetchingWeatherForecastWidgetResult: true,
   fetchingWeatherConditionsWidgetResult: true,
   fetchingWeatherSatelliteWidgetResult: true,
+  fetchingWeatherMissionControlStatusWidgetResult: true,
 
   // status of various telescopes depends on having a list of observatories..
   observatoryTelecopeStatus: null,
   moonPhaseWidgetResult: null,
   satelliteViewWidgetResult: null,
+  seeingConditionsWidgetResult: null,
   skyChartWidgetResult: {
     apiError: false,
     title: '',
@@ -373,6 +428,14 @@ const initialState = {
     subtitle: '',
     refreshInterval: 0,
     subwidgets: [],
+  },
+  seeingConditionsWidgetResult: {
+    title: '',
+    subtitle: '',
+    refreshIntervalSec: 0,
+    seeingConditionsIndex: 0,
+    seeingConditionsDescription: '',
+    seeingConditionsColor: '#FFFFFF',
   },
   observatoryLiveWebcamResult: {
     apiError: false,
@@ -401,7 +464,12 @@ const initialState = {
     refreshIntervalSec: 0,
     satelliteImageURL: '',
   },
-
+  weatherMissionControlStatusWidgetResult: {
+    title: 'Loading',
+    apiError: false,
+    refreshIntervalSec: 0,
+    missionControlStatusURL: '',
+  },
   telescopeCardData: undefined,
   isTelescopeCardDataLoading: false,
 };
@@ -517,6 +585,20 @@ export default createReducer(initialState, {
       weatherConditionsWidgetResult,
     };
   },
+  [WEATHER_MISSION_CONTROL_STATUS_WIDGET_START](state) {
+    return {
+      ...state,
+      fetchingWeatherMissionControlStatusWidgetResult: true,
+      weatherMissionControlStatusWidgetResult: { ...initialState.weatherMissionControlStatusWidgetResult },
+    };
+  },
+  [WEATHER_MISSION_CONTROL_STATUS_WIDGET_SUCCESS](state, { weatherMissionControlStatusWidgetResult }) {
+    return {
+      ...state,
+      fetchingWeatherMissionControlStatusWidgetResult: false,
+      weatherMissionControlStatusWidgetResult,
+    };
+  },
   [TELESCOPE_CARD_DATA_START](state) {
     return {
       ...state,
@@ -547,6 +629,18 @@ export default createReducer(initialState, {
     return {
       ...state,
       moonlightWidgetResult: payload,
+    };
+  },
+  [SEEING_CONDITIONS_WIDGET_START](state) {
+    return {
+      ...state,
+      seeingConditionsWidgetResult: { ...initialState.seeingConditionsWidgetResult },
+    };
+  },
+  [SEEING_CONDITIONS_WIDGET_SUCCESS](state, { payload }) {
+    return {
+      ...state,
+      seeingConditionsWidgetResult: payload,
     };
   },
 });

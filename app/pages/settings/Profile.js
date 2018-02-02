@@ -42,13 +42,17 @@ class Profile extends Component {
         <article>
           <section className="missions">
             <h2 className="center margin-top-reg margin-bottom-large">Recent &amp; Upcoming Missions</h2>
-            <UsersReservations unixTimestamp={profile.timestamp * 1000} reservationsList={profile.missionList} refreshAction={fetchDashboard} refreshIntervalSec={refreshIntervalSec} />
+            <UsersReservations
+              unixTimestamp={profile.timestamp * 1000}
+              reservationsList={profile.missionList}
+              refreshAction={fetchDashboard}
+              refreshIntervalSec={refreshIntervalSec} />
             <div className="row-xxwide center-center margin-top-large">
               <Link
                 className="btn-primary center-block"
                 to="/reservations"
               >
-                Make a New Reservation
+                Schedule Telescope
               </Link>
             </div>
           </section>

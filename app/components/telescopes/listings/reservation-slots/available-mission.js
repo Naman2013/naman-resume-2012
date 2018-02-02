@@ -86,7 +86,7 @@ class AvailableMission extends Component {
       );
     }
 
-    if (adjustedFormType === SUPPORTED_RESERVATION_TAB_FORM_TYPES.BY_CATELOG) {
+    if (adjustedFormType === SUPPORTED_RESERVATION_TAB_FORM_TYPES.BY_CATALOG) {
       return (
         <ReservationByCatalog
           telescopeId={telescopeId}
@@ -310,8 +310,8 @@ class AvailableMission extends Component {
                   showCatalogButton ?
                     <li className="option">
                       <button
-                        onClick={(event) => {this.handleReservationTypeClick(SUPPORTED_RESERVATION_TAB_FORM_TYPES.BY_CATELOG)}}
-                        className={this.buttonRenderedClasses(SUPPORTED_RESERVATION_TAB_FORM_TYPES.BY_CATELOG)}
+                        onClick={(event) => {this.handleReservationTypeClick(SUPPORTED_RESERVATION_TAB_FORM_TYPES.BY_CATALOG)}}
+                        className={this.buttonRenderedClasses(SUPPORTED_RESERVATION_TAB_FORM_TYPES.BY_CATALOG)}
                       >
                           Select by Catalog #
                       </button>

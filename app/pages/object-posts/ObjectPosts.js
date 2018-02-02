@@ -87,7 +87,7 @@ class ObjectPosts extends Component {
           {
             showRecommends ?
               <SloohRecommends
-                title="Reserve A Mission Now"
+                title="Schedule A Mission Now"
                 subTitle={`See ${headerObjectTitle} through Slooh's Telscopes`}
                 recommendations={recommendationCards}
               /> : null

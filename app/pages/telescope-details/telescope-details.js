@@ -25,6 +25,7 @@ import GoogleAd from '../../components/common/google-ads/GoogleAd';
 import LiveFeed from '../../components/telescope-details/live-feed/LiveFeed';
 import LiveMission from '../../components/telescope-details/live-mission/live-mission';
 import MoonlightWidget from '../../components/telescope-details/MoonlightWidget';
+import SeeingConditionsWidget from '../../components/telescope-details/SeeingConditionsWidget';
 import Neoview from '../../components/telescope-details/neoview/neoview';
 import PromoMessageBanner from '../../components/common/headers/promo-message-band';
 import Spacer from '../../components/common/spacer';
@@ -343,7 +344,7 @@ class TelescopeDetails extends Component {
                   className="pull-right btn-primary"
                   to={`/reservations/reserve-by-telescope/telescope/${obsUniqueId}/${teleUniqueId}`}
                 >
-                  Reserve this telescope
+                  Schedule this Telescope
                 </Link>
               ) : null}
             </div>
@@ -421,6 +422,7 @@ class TelescopeDetails extends Component {
                 MiniWeatherPanelWidgetId={currentObservatory.MiniWeatherPanelWidgetId}
                 SatelliteWidgetId={currentObservatory.SatelliteWidgetId}
                 WeatherConditionsWidgetId={currentObservatory.WeatherConditionsWidgetId}
+                MissionControlStatusWidgetId={currentObservatory.MissionControlStatusWidgetId}
               />
             </div>
 
@@ -457,6 +459,18 @@ class TelescopeDetails extends Component {
                         obsId={currentObservatory.obsId}
                         AllskyWidgetId={currentObservatory.SkyChartWidgetId}
                         scheduledMissionId={activeTelescopeMission.scheduledMissionId}
+                      />
+                    </div>
+                  ) : null
+              }
+
+              {
+                activeTelescopeMission.missionAvailable ||
+                  activeTelescopeMission.nextMissionAvailable ? (
+                    <div>
+                      <SeeingConditionsWidget
+                        obsId={currentObservatory.obsId}
+                        widgetID={currentObservatory.SeeingConditionsWidgetId}
                       />
                     </div>
                   ) : null

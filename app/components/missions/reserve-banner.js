@@ -6,7 +6,7 @@ import { white } from '../../styles/variables/colors';
 const ReserveBanner = () => (
   <div className="reserve-banner">
     <div className="title col-md-7">
-      <h1>Auto Schedule Telescopes</h1>
+      <h1>Schedule Telescopes</h1>
       <h2 className="sub-title">
 You can start by selecting an object under Slooh 500, Featured Objects, or By Catalogs, and we&#39;ll pick the best time and telescope for you. Or start by selecting a time slot under By Telescope, and we&#39;ll show you which objects can be seen at that time and with that telescope. Photos of your mission will automatically appear in your My Pictures.
 	  </h2>

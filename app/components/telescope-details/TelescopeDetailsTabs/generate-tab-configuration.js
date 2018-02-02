@@ -39,6 +39,7 @@ export default function generateTelescopeDetailsTabConfiguration({
   MiniWeatherPanelWidgetId,
   SatelliteWidgetId,
   WeatherConditionsWidgetId,
+  MissionControlStatusWidgetId,
 }) {
   return (
   [
@@ -76,6 +77,7 @@ export default function generateTelescopeDetailsTabConfiguration({
             miniWeatherPanelWidgetId={MiniWeatherPanelWidgetId}
             satelliteWidgetId={SatelliteWidgetId}
             weatherConditionsWidgetId={WeatherConditionsWidgetId}
+            missionControlStatusWidgetId={MissionControlStatusWidgetId}
           />
       ),
     },

@@ -307,6 +307,8 @@ export const grabMissionSlot = ({
   };
 
 export const grabUpdateMissionSlot = ({
+    onSuccessCallback,
+
     scheduledMissionId,
     callSource,
     missionType,
@@ -362,6 +364,10 @@ export const grabUpdateMissionSlot = ({
         of reservation this is.  In particular, whether or not this is
         simply updating an existing reservation
       */
+      if (onSuccessCallback) {
+        onSuccessCallback();
+      }
+
       dispatch(grabMissionSlotSuccess(Object.assign(response.data, {
         callSource,
         reservationType: RESERVATION_TYPES.UPDATE,

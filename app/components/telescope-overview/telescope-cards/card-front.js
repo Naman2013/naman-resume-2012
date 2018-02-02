@@ -1,17 +1,17 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import { Link } from "react-router";
-import has from "lodash/has";
-import moment from "moment";
-import CountdownTimer from "./countdown-timer";
-import TelescopeImageLoader from "../../common/telescope-image-loader/telescope-image-loader";
-import VideoImageLoader from "../../common/telescope-image-loader/video-image-loader";
-import TelescopeOffline from "./telescope-offline";
-import obsIdTeleIdDomeIdFromTeleId from "../../../utils/obsid-teleid-domeid-from-teleid";
-import "./card-front.scss";
-import generateSseImageSource from "../../../utils/generate-sse-image-source";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router';
+import has from 'lodash/has';
+import moment from 'moment';
+import CountdownTimer from './countdown-timer';
+import TelescopeImageLoader from '../../common/telescope-image-loader/telescope-image-loader';
+import VideoImageLoader from '../../common/telescope-image-loader/video-image-loader';
+import TelescopeOffline from './telescope-offline';
+import obsIdTeleIdDomeIdFromTeleId from '../../../utils/obsid-teleid-domeid-from-teleid';
+import './card-front.scss';
+import generateSseImageSource from '../../../utils/generate-sse-image-source';
 
-const MISSION_READY_TELE_ACCESS_METHOD = "missions";
+const MISSION_READY_TELE_ACCESS_METHOD = 'missions';
 
 function validMissionExpireTime(unixStartTime, unixEndTime) {
   const MAX_MINUTES_ALLOWABLE = 10;
@@ -20,7 +20,7 @@ function validMissionExpireTime(unixStartTime, unixEndTime) {
 
   const difference = moment(convertedTimestamp).diff(
     convertedServerTimestamp,
-    "minutes"
+    'minutes',
   );
 
   if (difference <= 0 || difference >= MAX_MINUTES_ALLOWABLE) {
@@ -31,7 +31,7 @@ function validMissionExpireTime(unixStartTime, unixEndTime) {
 }
 
 class CardFront extends Component {
-  determineLoaderType(teleSystem, telePort) {
+  determineLoaderType(teleSystem) {
     /*
       apply image source loader based
       on this.props.teleImageSourceType
@@ -40,13 +40,13 @@ class CardFront extends Component {
     const { teleImageSourceType, teleId } = this.props;
     const idSet = obsIdTeleIdDomeIdFromTeleId(teleId);
 
-    if (teleImageSourceType === "video") {
+    if (teleImageSourceType === 'video') {
       const {
         teleStreamCode,
         teleStreamURL,
         teleStreamThumbnailVideoWidth,
         teleStreamThumbnailVideoHeight,
-        teleStreamThumbnailQuality
+        teleStreamThumbnailQuality,
       } = this.props;
 
       return (
@@ -59,7 +59,7 @@ class CardFront extends Component {
           teleStreamThumbnailQuality={teleStreamThumbnailQuality}
         />
       );
-    } else if (teleImageSourceType === "SSE") {
+    } else if (teleImageSourceType === 'SSE') {
       return (
         <TelescopeImageLoader
           loadThumbnails
@@ -87,7 +87,7 @@ class CardFront extends Component {
     return this.isMissionReadyTelescope() ? (
       <div className="col-md-6">
         <Link to={reservationLink} className="action">
-          Make Reservation
+          Schedule Telescope
         </Link>
       </div>
     ) : null;
@@ -110,24 +110,23 @@ class CardFront extends Component {
       teleUniqueId,
       teleSystem,
       telePort,
-      teleInstrumentList,
-      activeMission
+      activeMission,
     } = this.props;
 
     const cardContent = {
-      objectTitle: "",
-      expires: null
+      objectTitle: '',
+      expires: null,
     };
 
-    if (has(activeMission, "activeMission.compact.missionList")) {
+    if (has(activeMission, 'activeMission.compact.missionList')) {
       Object.assign(
         cardContent,
-        activeMission.activeMission.compact.missionList[0]
+        activeMission.activeMission.compact.missionList[0],
       );
     }
 
     const missionStatusStyle = {
-      opacity: this.isMissionReadyTelescope() ? 1 : 0
+      opacity: this.isMissionReadyTelescope() ? 1 : 0,
     };
 
     return (
@@ -169,7 +168,7 @@ class CardFront extends Component {
               {this.isMissionReadyTelescope() &&
               validMissionExpireTime(
                 cardContent.expires,
-                cardContent.startTime
+                cardContent.startTime,
               ) ? (
                 <CountdownTimer missionStartTime={cardContent.expires} />
               ) : null}
@@ -196,7 +195,7 @@ class CardFront extends Component {
           <div className="sponsor">
             {this.props.teleSponsorLinkURL ? (
               <p>
-                Sponsored by:{" "}
+                Sponsored by:{' '}
                 <a
                   rel="noopener noreferrer"
                   target="_blank"
@@ -218,7 +217,7 @@ class CardFront extends Component {
 }
 
 CardFront.defaultProps = {
-  missionStartTime: moment.now()
+  missionStartTime: moment.now(),
 };
 
 CardFront.propTypes = {

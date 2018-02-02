@@ -46,8 +46,8 @@ class SocialSharingBar extends Component {
     } = this.props;
 
     /* FB wants the hashsymbol for each hashtag, twitter does not */
-    const FB_hashtag = "";
-    const TW_hashtags = [];
+    const FB_hashtag = "#slooh";
+    const TW_hashtags = ["slooh"];
 
     /************************************************************************
     * Facebook:
@@ -94,7 +94,7 @@ class SocialSharingBar extends Component {
                 </li>
               }
 
-              {this.props.showPinterest && <li className={'social-share-button-' + this.props.contentLayout}>
+              {this.props.showPinterest && shareImageURL && <li className={'social-share-button-' + this.props.contentLayout}>
                   <PinterestShareButton
                     url={shareURL}
                     media={shareImageURL}

@@ -109,7 +109,7 @@ class PulseWrapper extends Component {
             showRecommends ?
               <SloohRecommends
                 title="Slooh Recommends These Objects"
-                subTitle="Reserve a mission by clicking below on these visible objects..."
+                subTitle="Schedule a mission by clicking below on these visible objects..."
                 recommendations={formattedObjectIdList}
               /> : null
           }

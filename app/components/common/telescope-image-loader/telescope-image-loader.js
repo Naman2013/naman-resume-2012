@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import TelescopeThumbnailView from '../../TelescopeThumbnailView';
 import { updateTelescopeActiveMission, setActiveTelescopeMissionID } from '../../../modules/active-telescope-missions/active-telescope-missions-actions';
 import { setImageDataToSnapshot } from '../../../modules/starshare-camera/starshare-camera-actions';
 import { updateActiveSSE, resetActiveSSE } from '../../../modules/telescope-details/actions';
@@ -54,24 +55,30 @@ class TelescopeImageLoader extends Component {
       return;
     }
 
+    const { loadThumbnails } = this.props;
+
     const {
       currentImageUrl,
       previousImageUrl,
       startingOpacity,
-      adjustedFade } = this.state;
+      adjustedFade,
+    } = this.state;
 
-    if (!currentImageUrl || !previousImageUrl) {
-      return;
-    }
+    if (!currentImageUrl || !previousImageUrl) { return; }
 
+    // TODO: continue to refactor this piece of work out of the loader and into
+    // specialized image viewer like the thumbnail image viewer
+    // for now, returning early when using thumbnails to prevent this work from happening
+    // since this has been represented for the thumbnail image viewer already
     // we start this work when we are certain we have images to work on
-    const topImageAddress = this.generateThumbnailUrl(currentImageUrl);
-    const topImage = document.getElementById(this.generateImageId());
+    if (loadThumbnails) { return; }
+
+    const topImage = window.document.getElementById(this.generateImageId());
 
     if (topImage) {
       topImage.style.transition = 'opacity';
       topImage.style.opacity = startingOpacity;
-      topImage.src = topImageAddress;
+      topImage.src = currentImageUrl;
       window.getComputedStyle(topImage, null).opacity;
       topImage.style.transition = `opacity ${adjustedFade}s`;
       topImage.style.opacity = '1';
@@ -195,14 +202,6 @@ class TelescopeImageLoader extends Component {
     }
   }
 
-  generateThumbnailUrl(imageUrl) {
-    const { teleThumbWidth, loadThumbnails } = this.props;
-    if (loadThumbnails) {
-      return `/util/thumbnail.php?url=${imageUrl}&dimension=W&size=${teleThumbWidth}`;
-    }
-    return imageUrl;
-  }
-
   attachSSE(imageSource) {
     this.sseSource = new EventSource(imageSource);
     this.sseSource.addEventListener(
@@ -229,6 +228,8 @@ class TelescopeImageLoader extends Component {
     const {
       currentImageUrl,
       previousImageUrl,
+      startingOpacity,
+      adjustedFade,
     } = this.state;
 
     const { teleThumbWidth, loadThumbnails } = this.props;
@@ -237,7 +238,16 @@ class TelescopeImageLoader extends Component {
       return null;
     }
 
-    const bottomImageAddress = this.generateThumbnailUrl(previousImageUrl);
+    if (loadThumbnails) {
+      return (
+        <TelescopeThumbnailView
+          topImageURL={currentImageUrl}
+          bottomImageURL={previousImageUrl}
+          startingOpacity={startingOpacity}
+          fadeDuration={adjustedFade}
+        />
+      );
+    }
 
     return (
       <div className="sse-thumbnails">
@@ -245,7 +255,7 @@ class TelescopeImageLoader extends Component {
           <img
             alt=""
             width={(loadThumbnails) ? teleThumbWidth : '100%'}
-            src={bottomImageAddress}
+            src={previousImageUrl}
             draggable="false"
           />
 
