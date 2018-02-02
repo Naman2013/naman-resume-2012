@@ -17,6 +17,8 @@ import obsIdTeleIdDomeIdFromTeleId from '../../../utils/obsid-teleid-domeid-from
 import generateSseImageLoader from '../../../utils/generate-sse-image-source';
 import Transition from './Transition';
 
+const MIN_VIEWER_HEIGHT = '500';
+
 const propTypes = {
   applyImageViewerClipState: PropTypes.func.isRequired,
   removeImageViewerClipState: PropTypes.func.isRequired,
@@ -82,7 +84,7 @@ const mapDispatchToProps = dispatch => ({
 @connect(null, mapDispatchToProps)
 class SSELiveImageViewer extends Component {
   state = {
-    viewerDimensions: { height: 500 },
+    viewerDimensions: { height: MIN_VIEWER_HEIGHT },
     transitionVideoOpacity: 1,
   };
 
@@ -107,13 +109,13 @@ class SSELiveImageViewer extends Component {
     });
   };
 
-  handleVideoTransitionEnd() {
+  handleVideoTransitionEnd = () => {
     this.setState({
       transitionVideoOpacity: 0,
     });
   }
 
-  contentResizeCallback(viewerDimensions) {
+  contentResizeCallback = (viewerDimensions) => {
     // TODO: refactor to use render props instead of a callback in this fashion
     this.setState({
       viewerDimensions,
@@ -165,9 +167,11 @@ class SSELiveImageViewer extends Component {
         >
           <Transition
             height={height}
+            minHeight={MIN_VIEWER_HEIGHT}
             handleOnEnded={this.handleVideoTransitionEnd}
           />
         </div>
+
         <LiveImageViewer
           clipped={isImageViewerClipped}
           onZoomChange={this.handleZoomUpdate}
@@ -202,6 +206,9 @@ class SSELiveImageViewer extends Component {
 
         <style jsx>{`
           .mission-transition-container {
+            z-index: 99999;
+            position: relative;
+            pointer-events: none;
             -webkit-transition: 'opacity 0.25s ease-in';
             -moz-transition: 'opacity 0.25s ease-in';
             -o-transition: 'opactiy 0.25s ease-in';

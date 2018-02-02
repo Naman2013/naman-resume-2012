@@ -1,28 +1,30 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classnames from 'classnames';
 import { black } from '../../../styles/variables/colors';
 
 const propTypes = {
   height: PropTypes.string.isRequired,
+  minHeight: PropTypes.number,
   handleOnEnded: PropTypes.func.isRequired,
 };
 
-const Transition = ({ height, handleOnEnded }) => {
-  const transitionClassnames = classnames('transition-video', {});
+const defaultProps = {
+  minHeight: 500,
+};
+
+const Transition = ({ height, minHeight, handleOnEnded }) => {
   const dimensionStyle = {
-    height: `${height}px`,
+    height: (height) ? `${height}px` : `${minHeight}px`,
   };
 
   return (
     <div className="root" style={dimensionStyle}>
       <video
         onEnded={handleOnEnded}
-        className={transitionClassnames}
+        className="transition-video"
         playsInline
         autoPlay
         muted
-        loop
       >
         <source src="https://vega.slooh.com/video/home/stars-high-720.webm" type="video/webm" />
         <source src="https://vega.slooh.com/video/home/stars-high-720.mp4" type="video/mp4" />
@@ -48,5 +50,6 @@ const Transition = ({ height, handleOnEnded }) => {
 };
 
 Transition.propTypes = propTypes;
+Transition.defaultProps = defaultProps;
 
 export default Transition;
