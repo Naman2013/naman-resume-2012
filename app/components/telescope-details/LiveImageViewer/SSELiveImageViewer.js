@@ -163,10 +163,6 @@ class SSELiveImageViewer extends Component {
       opacity: transitionVideoOpacity,
     };
 
-    console.log('seeking unique value associated with the mission..');
-    console.log(this.props);
-    console.log('===============================');
-
     return (
       <div>
         <div
