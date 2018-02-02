@@ -38,8 +38,7 @@ class Transition extends Component {
           playsInline
           muted
         >
-          <source src="https://vega.slooh.com/video/home/stars-high-720.webm" type="video/webm" />
-          <source src="https://vega.slooh.com/video/home/stars-high-720.mp4" type="video/mp4" />
+          <source src="https://vega.slooh.com/video/telescopes/logo-transition-opt.m4v" type="video/mp4" />
         </video>
 
         <style jsx>{`
