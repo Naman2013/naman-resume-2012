@@ -144,18 +144,25 @@ class SSELiveImageViewer extends Component {
 
     const { transitionVideoOpacity } = this.state;
 
-    const { viewerDimensions: { width, height } } = this.state;
+    const { viewerDimensions: { height } } = this.state;
 
     const { obsId, domeId } = obsIdTeleIdDomeIdFromTeleId(teleId);
     const imageSource = generateSseImageLoader(teleSystem, telePort);
     const teleThumbWidth = '866px';
     const inlineTransitionCSS = {
-      opacity: transitionVideoOpacity
+      opacity: transitionVideoOpacity,
     };
+
+    console.log('seeking unique value associated with the mission..');
+    console.log(missionEnd);
+    console.log('===============================');
 
     return (
       <div>
-        <div className="mission-transition-container" style={inlineTransitionCSS}>
+        <div
+          className="mission-transition-container"
+          style={inlineTransitionCSS}
+        >
           <Transition
             height={height}
             handleOnEnded={this.handleVideoTransitionEnd}
@@ -195,10 +202,10 @@ class SSELiveImageViewer extends Component {
 
         <style jsx>{`
           .mission-transition-container {
-            -webkit-transition: 'opacity 0.1s ease-in';
-            -moz-transition: 'opacity 0.1s ease-in';
-            -o-transition: 'opactiy 0.1s ease-in';
-            transition: 'opacity 0.1s ease-in';
+            -webkit-transition: 'opacity 0.25s ease-in';
+            -moz-transition: 'opacity 0.25s ease-in';
+            -o-transition: 'opactiy 0.25s ease-in';
+            transition: 'opacity 0.25s ease-in';
           }
         `}</style>
       </div>
