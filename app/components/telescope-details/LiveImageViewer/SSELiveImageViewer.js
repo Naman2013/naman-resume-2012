@@ -88,6 +88,14 @@ class SSELiveImageViewer extends Component {
     transitionVideoOpacity: 1,
   };
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.missionEnd !== this.props.missionEnd) {
+      this.setState({
+        transitionVideoOpacity: 1,
+      });
+    }
+  }
+
   onClipChange = (clipState) => {
     if (clipState) {
       this.props.actions.applyImageViewerClipState();
@@ -156,7 +164,7 @@ class SSELiveImageViewer extends Component {
     };
 
     console.log('seeking unique value associated with the mission..');
-    console.log(missionEnd);
+    console.log(this.props);
     console.log('===============================');
 
     return (
