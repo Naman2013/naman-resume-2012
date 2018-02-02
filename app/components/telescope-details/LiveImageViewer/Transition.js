@@ -25,6 +25,7 @@ const Transition = ({ height }) => {
           width: 100%;
           background: ${black};
           position: absolute;
+          overflow: hidden;
         }
 
         .transition-video {
