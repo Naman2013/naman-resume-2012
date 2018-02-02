@@ -33,6 +33,7 @@ const Transition = ({ height, handleOnEnded }) => {
           width: 100%;
           background: ${black};
           position: absolute;
+          overflow: hidden;
         }
 
         .transition-video {
