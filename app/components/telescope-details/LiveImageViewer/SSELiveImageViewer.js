@@ -85,7 +85,7 @@ const mapDispatchToProps = dispatch => ({
 class SSELiveImageViewer extends Component {
   state = {
     viewerDimensions: { height: MIN_VIEWER_HEIGHT },
-    transitionVideoOpacity: 1,
+    transitionVideoOpacity: 0,
   };
 
   componentWillReceiveProps(nextProps) {
