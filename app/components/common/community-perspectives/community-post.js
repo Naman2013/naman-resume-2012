@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Heart from '../heart/heart';
 import { Link } from 'react-router';
+import Heart from '../heart/heart';
 import ByUserTag from '../by-user-tag/by-user-tag';
 
 const CommunityPost = ({
@@ -62,7 +62,7 @@ const CommunityPost = ({
 </div>;
 
 const { string, bool } = PropTypes;
-CommunityPost.PropTypes = {
+CommunityPost.propTypes = {
   content: string.isRequired,
   title: string.isRequired,
   displayName: string.isRequired,
