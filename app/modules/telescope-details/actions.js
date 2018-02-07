@@ -14,7 +14,6 @@ import fetchCurrentConditions from '../../services/sky-widgets/current-condition
 import fetchDayNightBarPanel from '../../services/sky-widgets/day-night-bar-panel';
 import fetchDayNightMap from '../../services/sky-widgets/day-night-map';
 import fetchAllSkyCamera from '../../services/sky-widgets/all-sky-camera';
-import fetchDomeCam from '../../services/sky-widgets/dome-cam';
 import fetchObservatoryList from '../../services/telescopes/observatory-list';
 import fetchTelescopeStatus from '../../services/telescopes/telescope-status';
 
@@ -360,11 +359,9 @@ export const fetchAllWidgets = ({
   DayNightBarPanelWidgetId,
   DayNightMapWidgetId,
   AllskyWidgetId,
-  DomecamWidgetId,
 }) => (dispatch) => {
   dispatch(fetchWeatherConditions({ obsId, CurrentConditionsWidgetId }));
   dispatch(fetchDayNightBarPanelAction({ obsId, DayNightBarPanelWidgetId }));
   dispatch(fetchDayNightMapAction({ obsId, DayNightMapWidgetId }));
   dispatch(fetchAllSkyAction({ obsId, AllskyWidgetId }));
-  dispatch(fetchDomeCamAction({ obsId, DomecamWidgetId }));
 };

@@ -1,0 +1,18 @@
+.domeCamTabsStyle {
+  line-height: 0.1em;
+  margin: 0;
+  font-size: 0.8em;
+  white-space: nowrap;
+
+  .generic-tabs-component {
+    .react-tabs {
+      .tab {
+        max-width: 100%;
+        width: 100%;
+      }
+      .tab-list {
+        justify-content: left;
+      }
+    }
+  }
+}

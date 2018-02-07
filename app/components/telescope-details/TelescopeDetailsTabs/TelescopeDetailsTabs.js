@@ -27,13 +27,6 @@ const mapStateToProps = ({ telescopeDetails }) => ({
   allSkyCamOnlineStatus: telescopeDetails.allSkyCamera.onlineStatus,
   allSkyCamImageWidth: telescopeDetails.allSkyCamera.imageWidth,
   allSkyCamTitle: telescopeDetails.allSkyCamera.title,
-
-  domeCamRefreshIntervalSec: telescopeDetails.domeCam.refreshIntervalSec,
-  domeCamURL: telescopeDetails.domeCam.domeCamURL,
-  domeCamOfflineURL: telescopeDetails.domeCam.offlineImageURL,
-  domeCamOnlineStatus: telescopeDetails.domeCam.onlineStatus,
-  domeCamImageWidth: telescopeDetails.domeCam.imageWidth,
-  domeCamTitle: telescopeDetails.domeCam.title,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -64,13 +57,6 @@ class TelescopeDetailsTabs extends Component {
     allSkyCamOnlineStatus: PropTypes.string.isRequired,
     allSkyCamImageWidth: PropTypes.string.isRequired,
     allSkyCamTitle: PropTypes.string.isRequired,
-
-    domeCamRefreshIntervalSec: PropTypes.number.isRequired,
-    domeCamURL: PropTypes.string.isRequired,
-    domeCamOfflineURL: PropTypes.string.isRequired,
-    domeCamOnlineStatus: PropTypes.string.isRequired,
-    domeCamImageWidth: PropTypes.string.isRequired,
-    domeCamTitle: PropTypes.string.isRequired,
 
     // provided by parent
     obsId: PropTypes.string.isRequired,
@@ -110,7 +96,6 @@ class TelescopeDetailsTabs extends Component {
       DayNightBarPanelWidgetId,
       DayNightMapWidgetId,
       AllskyWidgetId,
-      DomecamWidgetId,
     });
   }
 

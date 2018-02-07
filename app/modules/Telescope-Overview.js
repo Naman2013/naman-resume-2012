@@ -5,6 +5,9 @@ import fetchFacilityWebcam from '../services/sky-widgets/facility-webcam';
 import fetchMoonlightBar from '../services/sky-widgets/moonlight-bar';
 import fetchSeeingConditionsBar from '../services/sky-widgets/seeing-conditions-bar';
 
+/* dome tabs */
+import fetchDomeCam from '../services/sky-widgets/dome-cam';
+
 /* weather conditions */
 import fetchWeatherConditionsWidget from '../services/sky-widgets/weather-conditions';
 import fetchWeatherForecastWidget from '../services/sky-widgets/weather-forecast';
