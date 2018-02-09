@@ -57,6 +57,7 @@ class DomeCamWidget extends Component {
       domeCamURL,
       onlineStatus,
       offlineImageURL,
+      imageWidth,
     } = this.props;
 
     const inlineTitleStyle = {
@@ -71,7 +72,7 @@ class DomeCamWidget extends Component {
         <h1 style={inlineTitleStyle}>{domeCamTitle}</h1>
         <div className="live-domecam">
           {onlineStatus == 'offline' && <Offline offlineImageURL={offlineImageURL}/>}
-          {onlineStatus == 'online' && domeCamURL ? <RefreshedImage imageURL={domeCamURL} refreshIntervalSec={refreshIntervalSec} imageAltText=""/> : <GenericLoadingBox />
+          {onlineStatus == 'online' && domeCamURL ? <RefreshedImage imageURL={domeCamURL} refreshIntervalSec={refreshIntervalSec} imageAltText="" maxImageWidth={imageWidth}/> : <GenericLoadingBox />
           }
         </div>
       </div>
