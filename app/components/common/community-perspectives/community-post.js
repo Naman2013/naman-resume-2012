@@ -20,46 +20,39 @@ const CommunityPost = ({
   showLikePrompt,
   likePrompt,
   postId,
-}) => <div className="item">
-  <div className="item-header">
-    <ByUserTag
-      photo={avatarURL}
-      name={displayName}
-      accountType={membershipType}
-      memberSince={memberSince}
-      location={location}
-    />
-  <Heart
-    type={type}
-    authorId={customerId}
-    objectSlug={slug}
-    count={likesCount}
-    likeId={postId}
-    canLikeFlag={canLikeFlag}
-    likePrompt={likePrompt}
-    showLikePrompt={showLikePrompt}
-  />
-  </div>
-  <div className="description">
-    <Link className="descriptionLink" to={`/community/post/${postId}`}>
-      <h3 className="title">
-        <span dangerouslySetInnerHTML={{ __html: title }} />
-      </h3>
-    </Link>
-    <div className="desc">
-      <p dangerouslySetInnerHTML={{ __html: content }} />
+}) => (
+  <div className="item">
+    <div className="item-header">
+      <ByUserTag
+        photo={avatarURL}
+        name={displayName}
+        accountType={membershipType}
+        memberSince={memberSince}
+        location={location}
+      />
+      <Heart
+        type={type}
+        authorId={customerId}
+        objectSlug={slug}
+        count={likesCount}
+        likeId={postId}
+        canLikeFlag={canLikeFlag}
+        likePrompt={likePrompt}
+        showLikePrompt={showLikePrompt}
+      />
+    </div>
+    <div className="description">
+      <Link className="descriptionLink" to={`/community/post/${postId}`}>
+        <h3 className="title">
+          <span dangerouslySetInnerHTML={{ __html: title }} />
+        </h3>
+      </Link>
+      <div className="desc">
+        <p dangerouslySetInnerHTML={{ __html: content }} />
+      </div>
     </div>
   </div>
-
-  {
-    /**
-     coming soon...
-     <div className="share-options-container">
-     <Heart />
-     </div>
-     */
-  }
-</div>;
+);
 
 const { string, bool } = PropTypes;
 CommunityPost.propTypes = {
