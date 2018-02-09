@@ -17,6 +17,7 @@ const mapStateToProps = ({
   domeCamURL: domeCamWidgetResult.domeCamURL,
   offlineImageURL: domeCamWidgetResult.offlineImageURL,
   onlineStatus: domeCamWidgetResult.onlineStatus,
+  imageWidth: domeCamWidgetResult.imageWidth,
   fetchingDomeCamWidgetResult: telescopeOverview.fetchingDomeCamWidgetResult,
 });
 
@@ -59,7 +60,7 @@ class DomeCamWidget extends Component {
       offlineImageURL,
       imageWidth,
     } = this.props;
-
+    
     const inlineTitleStyle = {
       color: 'white',
       textAlign: 'center',
