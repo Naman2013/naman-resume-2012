@@ -74,7 +74,7 @@ class DomeCamTimelapseWidget extends Component {
         <div className="live-domecamtimelapse">
           {onlineStatus == 'offline' && <Offline offlineImageURL={offlineImageURL}/>}
           {onlineStatus == 'online' && domeCamTimelapseURL ?
-            <video playsInline autoPlay muted loop nodownload controls controlsList="nodownload">
+            <video width={widgetWidth} playsInline autoPlay muted loop nodownload controls controlsList="nodownload">
               <source src={domeCamTimelapseURL} type="video/mp4" />
             </video>
             : <GenericLoadingBox />
