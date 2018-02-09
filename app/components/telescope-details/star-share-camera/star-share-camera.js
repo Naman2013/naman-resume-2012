@@ -16,7 +16,6 @@ import {
 } from '../../../modules/starshare-camera/starshare-camera-actions';
 
 import { black, lightGray, white, turqoise, pink } from '../../../styles/variables/colors';
-import shakeStyle from './shake-animation';
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
@@ -173,9 +172,29 @@ class StarShareCamera extends Component {
             />
         }
 
-        <style jsx>{shakeStyle}</style>
-
         <style jsx>{`
+          @keyframes shake-keyframes {
+            15%,40%,75%,100% {
+              transform-origin:center center
+            }
+            15% {
+              transform:scale(1.4, 1.2);
+            }
+            40% {
+              transform:scale(0.9, 0.9);
+            }
+            75% {
+              transform:scale(1.08, 1);
+            }
+            100% {
+              transform:scale(1, 1);
+            }
+          }
+
+          .shake {
+            animation: shake-keyframes 0.5s ease-out;
+          }
+
           .star-share-camera-wrapper {
             display: flex;
             flex-wrap:wrap;
