@@ -65,6 +65,7 @@ class TelescopeDetailsTabs extends Component {
     DayNightMapWidgetId: PropTypes.string.isRequired,
     AllskyWidgetId: PropTypes.string.isRequired,
     DomecamWidgetId: PropTypes.string.isRequired,
+    DomecamTimelapseWidgetId: PropTypes.string.isRequired,
     FacilityWebcamWidgetId: PropTypes.string.isRequired,
     MiniWeatherPanelWidgetId: PropTypes.string.isRequired,
     SatelliteWidgetId: PropTypes.string.isRequired,
@@ -88,6 +89,7 @@ class TelescopeDetailsTabs extends Component {
       DayNightMapWidgetId,
       AllskyWidgetId,
       DomecamWidgetId,
+      DomecamTimelapseWidgetId,
     } = this.props;
 
     this.props.actions.fetchAllWidgets({
@@ -110,6 +112,7 @@ class TelescopeDetailsTabs extends Component {
         DayNightMapWidgetId: nextProps.DayNightMapWidgetId,
         AllskyWidgetId: nextProps.AllskyWidgetId,
         DomecamWidgetId: nextProps.DomecamWidgetId,
+        DomecamTimelapseWidgetId: nextProps.DomecamTimelapseWidgetId,
       });
     }
   }

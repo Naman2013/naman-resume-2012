@@ -29,7 +29,7 @@ export default function generateTelescopeDetailsTabConfiguration({
   allSkyCamImageWidth,
   allSkyCamTitle,
   DomecamWidgetId,
-  DomecamTimeLapseWidgetId,
+  DomecamTimelapseWidgetId,
   FacilityWebcamWidgetId,
   MiniWeatherPanelWidgetId,
   SatelliteWidgetId,
@@ -97,7 +97,7 @@ export default function generateTelescopeDetailsTabConfiguration({
         <DomeCamTabs
           obsId={obsId}
           DomecamWidgetId={DomecamWidgetId}
-          DomecamTimeLapseWidgetId={DomecamTimeLapseWidgetId}
+          DomecamTimelapseWidgetId={DomecamTimelapseWidgetId}
         />
       ),
     },

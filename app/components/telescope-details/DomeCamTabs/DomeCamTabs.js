@@ -23,7 +23,7 @@ class DomeCamTabs extends Component {
     const {
       obsId,
       DomecamWidgetId,
-      DomecamTimeLapseWidgetId,
+      DomecamTimelapseWidgetId,
     } = this.props;
   }
 

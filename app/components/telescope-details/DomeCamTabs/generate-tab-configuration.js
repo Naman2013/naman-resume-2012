@@ -1,7 +1,7 @@
 import React from 'react';
 import CenterContent from '../../../design-system/CenterContent';
 import DomeCamWidget from '../domecam-widget';
-/* import DomeCamTimelapseWidget from '../condition-snapshot/DomeCamTimelapseWidget'; */
+import DomeCamTimelapseWidget from '../domecam-timelapse-widget';
 
 const inlineTitleStyle = {
   color: 'white',
@@ -10,7 +10,7 @@ const inlineTitleStyle = {
 export default function generateDomecamTabConfiguration({
   obsId,
   DomecamWidgetId,
-  DomecamTimeLapseWidgetWidgetId,
+  DomecamTimelapseWidgetId,
 }) {
   return (
   [
@@ -26,7 +26,7 @@ export default function generateDomecamTabConfiguration({
       tabText: 'Time Lapse',
       tabContent: (
         <CenterContent>
-          video
+          <DomeCamTimelapseWidget obsId={obsId} DomecamTimelapseWidgetId={DomecamTimelapseWidgetId}/>
         </CenterContent>
       ),
     },
