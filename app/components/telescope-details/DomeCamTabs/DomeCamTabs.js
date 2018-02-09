@@ -22,8 +22,8 @@ class DomeCamTabs extends Component {
   componentWillMount() {
     const {
       obsId,
-      domeCamWidgetId,
-      domeCamTimeLapseWidgetId,
+      DomecamWidgetId,
+      DomecamTimeLapseWidgetId,
     } = this.props;
   }
 

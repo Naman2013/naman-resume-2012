@@ -41,9 +41,6 @@ export const FETCH_DAY_NIGHT_MAP_SUCCESS = 'FETCH_DAY_NIGHT_MAP_SUCCESS';
 export const FETCH_ALL_SKY_START = 'FETCH_ALL_SKY_START';
 export const FETCH_ALL_SKY_SUCCESS = 'FETCH_ALL_SKY_SUCCESS';
 
-export const FETCH_DOME_CAM_START = 'FETCH_DOME_CAM_START';
-export const FETCH_DOME_CAM_SUCCESS = 'FETCH_DOME_CAM_SUCCESS';
-
 export const SET_CURRENT_OBSERVATORY = 'SET_CURRENT_OBSERVATORY';
 export const SET_CURRENT_TELESCOPE = 'SET_CURRENT_TELESCOPE';
 
@@ -266,23 +263,6 @@ export const setTelescope = ({ obsUniqueId, teleUniqueId }) => (dispatch, getSta
 export const updateObservatoryAndTelescope = ({ obsUniqueId, teleUniqueId }) => (dispatch) => {
   dispatch(setObservatory({ obsUniqueId, teleUniqueId }));
   dispatch(setTelescope({ obsUniqueId, teleUniqueId }));
-};
-
-const fetchDomeCamStart = () => ({
-  type: FETCH_DOME_CAM_START,
-});
-
-const fetchDomeCamSuccess = payload => ({
-  type: FETCH_DOME_CAM_SUCCESS,
-  payload,
-});
-
-const fetchDomeCamAction = ({ obsId, DomecamWidgetId }) => (dispatch) => {
-  dispatch(fetchDomeCamStart());
-  return fetchDomeCam({
-    obsId,
-    DomecamWidgetId,
-  }).then(result => dispatch(fetchDomeCamSuccess(result.data)));
 };
 
 const fetchAllSkyStart = () => ({

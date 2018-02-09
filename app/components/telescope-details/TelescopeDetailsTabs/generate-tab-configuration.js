@@ -28,8 +28,8 @@ export default function generateTelescopeDetailsTabConfiguration({
   allSkyCamOnlineStatus,
   allSkyCamImageWidth,
   allSkyCamTitle,
-  DomeCamWidgetId,
-  DomeCamTimeLapseWidgetId,
+  DomecamWidgetId,
+  DomecamTimeLapseWidgetId,
   FacilityWebcamWidgetId,
   MiniWeatherPanelWidgetId,
   SatelliteWidgetId,
@@ -94,13 +94,11 @@ export default function generateTelescopeDetailsTabConfiguration({
     {
       tabText: 'Dome',
       tabContent: (
-        <CenterContent>
-          <DomeCamTabs
-            obsId={obsId}
-            domeCamWidgetId={domecamWidgetId}
-            domeCamTimeLapseWidgetId={domecamTimeLapseWidgetId}
-          />
-        </CenterContent>
+        <DomeCamTabs
+          obsId={obsId}
+          DomecamWidgetId={DomecamWidgetId}
+          DomecamTimeLapseWidgetId={DomecamTimeLapseWidgetId}
+        />
       ),
     },
     {

@@ -5,14 +5,13 @@ import fetchFacilityWebcam from '../services/sky-widgets/facility-webcam';
 import fetchMoonlightBar from '../services/sky-widgets/moonlight-bar';
 import fetchSeeingConditionsBar from '../services/sky-widgets/seeing-conditions-bar';
 
-/* dome tabs */
-import fetchDomeCam from '../services/sky-widgets/dome-cam';
-
 /* weather conditions */
 import fetchWeatherConditionsWidget from '../services/sky-widgets/weather-conditions';
 import fetchWeatherForecastWidget from '../services/sky-widgets/weather-forecast';
 import fetchWeatherSatelliteWidget from '../services/sky-widgets/weather-satellite';
 import fetchWeatherMissionControlStatusWidget from '../services/sky-widgets/weather-mission-control-status';
+
+import fetchDomeCam from '../services/sky-widgets/dome-cam';
 
 const OBSERVATORY_REQUEST_START = 'OBSERVATORY_REQUEST_START';
 const OBSERVATORY_REQUEST_SUCCESS = 'OBSERVATORY_REQUEST_SUCCESS';
@@ -53,6 +52,8 @@ const TELESCOPE_CARD_DATA_SUCCESS = 'TELESCOPE_CARD_DATA_SUCCESS';
 const TELESCOPE_CARD_DATA_FAIL = 'TELESCOPE_CARD_DATA_FAIL';
 const TELESCOPE_CARD_DATA_START = 'TELESCOPE_CARD_DATA_START';
 
+const FETCH_DOME_CAM_START = 'FETCH_DOME_CAM_START';
+const FETCH_DOME_CAM_SUCCESS = 'FETCH_DOME_CAM_SUCCESS';
 
 export const getCurrentObservatory = (observatoryList = [], observatoryId) => {
   return observatoryList.find(observatory => observatory.obsUniqueId === observatoryId);
@@ -363,6 +364,23 @@ export const fetchWeatherMissionControlStatus = ({
   });
 };
 
+const fetchDomeCamStart = () => ({
+  type: FETCH_DOME_CAM_START,
+});
+
+const fetchDomeCamSuccess = payload => ({
+  type: FETCH_DOME_CAM_SUCCESS,
+  payload,
+});
+
+export const fetchDomeCamAction = ({ obsId, DomecamWidgetId }) => (dispatch) => {
+  dispatch(fetchDomeCamStart());
+  return fetchDomeCam({
+    obsId,
+    DomecamWidgetId,
+  }).then(result => dispatch(fetchDomeCamSuccess(result.data)));
+};
+
 
 const fetchTelescopeCardDataSuccess = telescopeCardData => ({
   type: TELESCOPE_CARD_DATA_SUCCESS,
@@ -407,6 +425,7 @@ const initialState = {
 
   observatoryListErrorBody: null,
 
+  fetchingDomeCamWidgetResult: true,
   fetchingSeeingConditionsResult: true,
   fetchingObservatoryLiveWebcamResult: true,
   fetchingWeatherForecastWidgetResult: true,
@@ -472,6 +491,13 @@ const initialState = {
     apiError: false,
     refreshIntervalSec: 0,
     missionControlStatusURL: '',
+  },
+  domeCamWidgetResult: {
+    domeCamTitle: 'Loading',
+    refreshIntervalSec: 0,
+    domeCamURL: '',
+    offlineImageURL: '',
+    offlineStatus: '',
   },
   telescopeCardData: undefined,
   isTelescopeCardDataLoading: false,
@@ -646,4 +672,19 @@ export default createReducer(initialState, {
       seeingConditionsWidgetResult: payload,
     };
   },
+  [FETCH_DOME_CAM_START](state) {
+    return {
+      ...state,
+      fetchingDomeCamWidgetResult: true,
+      domeCamWidgetResult: { ...initialState.domeCamWidgetResult },
+    };
+  },
+  [FETCH_DOME_CAM_SUCCESS](state, { payload }) {
+    return {
+      ...state,
+      fetchingDomeCamWidgetResult: false,
+      domeCamWidgetResult: payload,
+    };
+  },
+
 });

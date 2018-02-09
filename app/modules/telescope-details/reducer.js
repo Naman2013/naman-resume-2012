@@ -58,7 +58,6 @@ const initialState = {
   fetchingDayNightBarPanel: false,
   fetchingDayNightMap: false,
   fetchingAllSkyCamera: false,
-  fetchingDomeCam: false,
   weatherConditionWidgetResult: {
     apiError: false,
     title: 'Fetching weather',
@@ -82,13 +81,6 @@ const initialState = {
     refreshIntervalSec: 0,
     offlineImageURL: '',
     allSkyCamURL: '',
-    onlineStatus: '',
-  },
-  domeCam: {
-    apiError: false,
-    refreshIntervalSec: 0,
-    offlineImageURL: '',
-    domeCamURL: '',
     onlineStatus: '',
   },
 
@@ -178,20 +170,6 @@ export default createReducer(initialState, {
     return {
       ...state,
       currentTelescope,
-    };
-  },
-  [FETCH_DOME_CAM_START](state) {
-    return {
-      ...state,
-      fetchingDomeCam: true,
-      domeCam: { ...initialState.domeCam },
-    };
-  },
-  [FETCH_DOME_CAM_SUCCESS](state, { payload }) {
-    return {
-      ...state,
-      fetchingDomeCam: false,
-      domeCam: payload,
     };
   },
   [FETCH_ALL_SKY_START](state) {

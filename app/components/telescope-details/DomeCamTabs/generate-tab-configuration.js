@@ -9,8 +9,8 @@ const inlineTitleStyle = {
 
 export default function generateDomecamTabConfiguration({
   obsId,
-  domeCamWidgetId,
-  domeCamTimeLapseWidgetWidgetId,
+  DomecamWidgetId,
+  DomecamTimeLapseWidgetWidgetId,
 }) {
   return (
   [
@@ -18,8 +18,7 @@ export default function generateDomecamTabConfiguration({
       tabText: 'Dome Cam',
       tabContent: (
         <CenterContent>
-        <h1 style={inlineTitleStyle}>{domeCamTitle}</h1>
-          <DomeCamWidget obsId={obsId} domeCamWidgetId={domeCamWidgetId}/>
+          <DomeCamWidget obsId={obsId} DomecamWidgetId={DomecamWidgetId}/>
         </CenterContent>
       ),
     },
