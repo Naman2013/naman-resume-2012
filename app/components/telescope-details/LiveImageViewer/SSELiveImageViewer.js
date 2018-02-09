@@ -89,10 +89,19 @@ class SSELiveImageViewer extends Component {
   };
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.missionEnd !== this.props.missionEnd) {
-      this.setState({
-        transitionVideoOpacity: 1,
-      });
+    const { timestamp, missionStart } = this.props;
+
+    // if we have had truthy values in the past
+    if (timestamp && missionStart) {
+      // if we are working with NEW values
+      if (timestamp !== nextProps.timestamp && missionStart !== nextProps.missionStart) {
+        // if the mission has not already begun...
+        if (nextProps.timestamp <= nextProps.missionStart) {
+          this.setState({
+            transitionVideoOpacity: 1,
+          });
+        }
+      }
     }
   }
 
