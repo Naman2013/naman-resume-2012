@@ -96,7 +96,7 @@ class SSELiveImageViewer extends Component {
       // if we are working with NEW values
       if (timestamp !== nextProps.timestamp && missionStart !== nextProps.missionStart) {
         // if the mission has not already begun...
-        if ((nextProps.timestamp + 50) <= nextProps.missionStart) {
+        if ((nextProps.timestamp - 50) <= nextProps.missionStart) {
           this.setState({
             transitionVideoOpacity: 1,
           });
