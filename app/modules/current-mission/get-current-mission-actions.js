@@ -34,4 +34,4 @@ export const fetchCurrentMission = ({ obsId, domeId, telescopeId, format }) => (
   })
   .then(result => dispatch(fetchCurrentMissionSuccess(result.data)))
   .catch(error => dispatch(fetchCurrentMissionFail(error)));
-}
+};
