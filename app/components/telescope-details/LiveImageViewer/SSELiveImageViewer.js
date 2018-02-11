@@ -41,6 +41,9 @@ const propTypes = {
   currentMission: PropTypes.shape({
     scheduledMissionId: PropTypes.number,
   }),
+  routerState: PropTypes.shape({
+    pathname: PropTypes.string,
+  }),
   // TODO: complete the validation
   // imageSource: PropTypes.
   // teleThumbWidth: PropTypes.
@@ -67,6 +70,9 @@ const defaultProps = {
   currentMission: {
     scheduledMissionId: 0,
   },
+  routerState: {
+    pathname: '',
+  },
   // TODO: complete the validation
   // imageSource: PropTypes.
   // teleThumbWidth: PropTypes.
@@ -76,7 +82,8 @@ const defaultProps = {
   // teleId: PropTypes.
 };
 
-const mapStateToProps = ({ currentMission }) => ({
+const mapStateToProps = ({ currentMission, routing: { locationBeforeTransitions } }) => ({
+  routerState: locationBeforeTransitions,
   currentMission,
 });
 
@@ -91,7 +98,7 @@ const mapDispatchToProps = dispatch => ({
   ),
 });
 
-@connect(null, mapDispatchToProps)
+@connect(mapStateToProps, mapDispatchToProps)
 class SSELiveImageViewer extends Component {
   state = {
     viewerDimensions: { height: MIN_VIEWER_HEIGHT },
