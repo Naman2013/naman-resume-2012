@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import noop from 'lodash/noop';
+import last from 'lodash/last';
 
 import { setImageDataToSnapshot } from '../../../modules/starshare-camera/starshare-camera-actions';
 import {
@@ -103,23 +104,20 @@ class SSELiveImageViewer extends Component {
   state = {
     viewerDimensions: { height: MIN_VIEWER_HEIGHT },
     transitionVideoOpacity: 0,
+    renderedMissionID: 0,
   };
 
   componentWillReceiveProps(nextProps) {
-    const { timestamp, missionStart } = this.props;
+    console.log(nextProps);
+    const {
+      currentMission: { scheduledMissionId },
+      routerState: { pathname },
+    } = nextProps;
 
-    // if we have had truthy values in the past
-    if (timestamp && missionStart) {
-      // if we are working with NEW values
-      if (timestamp !== nextProps.timestamp && missionStart !== nextProps.missionStart) {
-        // if the mission has not already begun...
-        if ((nextProps.timestamp - 50) <= nextProps.missionStart) {
-          this.setState({
-            transitionVideoOpacity: 1,
-          });
-        }
-      }
-    }
+    const [, pageName, obsUniqueId, teleUniqueId] = pathname.split('/');
+    // this.setState({
+    //   transitionVideoOpacity: 1,
+    // });
   }
 
   onClipChange = (clipState) => {
