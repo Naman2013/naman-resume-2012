@@ -147,12 +147,12 @@ module.exports = {
     historyApiFallback: true,
     proxy: {
       '/api/**': {
-        target: 'https://deneb.slooh.com',
+        target: 'https://saturn.slooh.com',
         changeOrigin: true,
         secure: true,
       },
       '/sloohapp/**': {
-        target: 'https://deneb.slooh.com',
+        target: 'https://saturn.slooh.com',
         changeOrigin: true,
         secure: true,
       },
