@@ -85,7 +85,7 @@ const defaultProps = {
 
 const mapStateToProps = ({ currentMission, routing: { locationBeforeTransitions } }) => ({
   routerState: locationBeforeTransitions,
-  currentMission,
+  currentMission: currentMission.currentMission,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -104,20 +104,32 @@ class SSELiveImageViewer extends Component {
   state = {
     viewerDimensions: { height: MIN_VIEWER_HEIGHT },
     transitionVideoOpacity: 0,
-    renderedMissionID: 0,
+
+    activeTelescopeID: last(this.props.routerState.pathname.split('/')),
+    renderedMissionID: this.props.currentMission.scheduledMissionId,
   };
 
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps);
     const {
       currentMission: { scheduledMissionId },
       routerState: { pathname },
     } = nextProps;
 
-    const [, pageName, obsUniqueId, teleUniqueId] = pathname.split('/');
-    // this.setState({
-    //   transitionVideoOpacity: 1,
-    // });
+    const [, , , teleUniqueId] = pathname.split('/');
+    const { renderedMissionID, activeTelescopeID } = this.state;
+
+    if (activeTelescopeID === teleUniqueId) {
+      if (renderedMissionID) {
+        if (renderedMissionID !== scheduledMissionId) {
+          this.setState({
+            transitionVideoOpacity: 1,
+          });
+        }
+        this.setState(() => ({ renderedMissionID: scheduledMissionId }));
+      }
+    } else {
+      this.setState(() => ({ activeTelescopeID: teleUniqueId }));
+    }
   }
 
   onClipChange = (clipState) => {
