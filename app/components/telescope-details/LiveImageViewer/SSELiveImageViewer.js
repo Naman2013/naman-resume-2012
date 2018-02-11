@@ -38,6 +38,9 @@ const propTypes = {
     applyImageViewerClipState: PropTypes.func.isRequired,
     removeImageViewerClipState: PropTypes.func.isRequired,
   }),
+  currentMission: PropTypes.shape({
+    scheduledMissionId: PropTypes.number,
+  }),
   // TODO: complete the validation
   // imageSource: PropTypes.
   // teleThumbWidth: PropTypes.
@@ -61,6 +64,9 @@ const defaultProps = {
   actions: {
     setImageDataToSnapshot: noop,
   },
+  currentMission: {
+    scheduledMissionId: 0,
+  },
   // TODO: complete the validation
   // imageSource: PropTypes.
   // teleThumbWidth: PropTypes.
@@ -69,6 +75,10 @@ const defaultProps = {
   // missionFormat: PropTypes.
   // teleId: PropTypes.
 };
+
+const mapStateToProps = ({ currentMission }) => ({
+  currentMission,
+});
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(

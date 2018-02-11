@@ -403,7 +403,7 @@ FilterMenuComponent.defaultProps = {
 
 FilterMenuComponent.propTypes = {
   page: PropTypes.string.isRequired, // used to sort out some hard wiring of API calls
-  scheduledMissionId: PropTypes.string,
+  scheduledMissionId: PropTypes.number,
   galleryId: PropTypes.string,
   objectFilterList: PropTypes.arrayOf(PropTypes.shape({
     objectTypeDisplayName: PropTypes.string.isRequired,
