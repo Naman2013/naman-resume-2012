@@ -119,12 +119,12 @@ class SSELiveImageViewer extends Component {
     } = nextProps;
 
     const [, , , teleUniqueId] = pathname.split('/');
-    const { renderedMissionID, activeTelescopeID } = this.state;
+    const { renderedMissionID, activeTelescopeID, transitionVideoOpacity } = this.state;
 
     if (activeTelescopeID === teleUniqueId) {
       if (scheduledMissionId) {
         if (renderedMissionID) {
-          if (renderedMissionID !== scheduledMissionId) {
+          if ((renderedMissionID !== scheduledMissionId) && transitionVideoOpacity !== 1) {
             this.setState({
               transitionVideoOpacity: 1,
               renderedMissionID: scheduledMissionId,
