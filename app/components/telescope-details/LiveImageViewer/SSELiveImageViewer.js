@@ -83,9 +83,12 @@ const defaultProps = {
   // teleId: PropTypes.
 };
 
-const mapStateToProps = ({ currentMission, routing: { locationBeforeTransitions } }) => ({
+const mapStateToProps = ({
+  activeTelescopeMissions: { activeTelescopeMission },
+  routing: { locationBeforeTransitions },
+}) => ({
   routerState: locationBeforeTransitions,
-  currentMission: currentMission.currentMission,
+  currentMission: activeTelescopeMission,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -119,7 +122,7 @@ class SSELiveImageViewer extends Component {
     const { renderedMissionID, activeTelescopeID } = this.state;
 
     if (activeTelescopeID === teleUniqueId) {
-      if (renderedMissionID) {
+      if (scheduledMissionId) {
         if (renderedMissionID !== scheduledMissionId) {
           this.setState({
             transitionVideoOpacity: 1,
@@ -128,7 +131,10 @@ class SSELiveImageViewer extends Component {
         this.setState(() => ({ renderedMissionID: scheduledMissionId }));
       }
     } else {
-      this.setState(() => ({ activeTelescopeID: teleUniqueId }));
+      this.setState(() => ({
+        activeTelescopeID: teleUniqueId,
+        renderedMissionID: scheduledMissionId,
+      }));
     }
   }
 
