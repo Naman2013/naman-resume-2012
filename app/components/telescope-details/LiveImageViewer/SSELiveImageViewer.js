@@ -123,12 +123,18 @@ class SSELiveImageViewer extends Component {
 
     if (activeTelescopeID === teleUniqueId) {
       if (scheduledMissionId) {
-        if (renderedMissionID !== scheduledMissionId) {
+        if (renderedMissionID) {
+          if (renderedMissionID !== scheduledMissionId) {
+            this.setState({
+              transitionVideoOpacity: 1,
+              renderedMissionID: scheduledMissionId,
+            });
+          }
+        } else {
           this.setState({
-            transitionVideoOpacity: 1,
+            renderedMissionID: scheduledMissionId,
           });
         }
-        this.setState(() => ({ renderedMissionID: scheduledMissionId }));
       }
     } else {
       this.setState(() => ({
