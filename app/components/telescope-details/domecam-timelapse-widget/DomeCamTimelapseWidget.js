@@ -7,6 +7,7 @@ import Offline from '../condition-snapshot/Offline';
 import GenericLoadingBox from '../../common/loading-screens/generic-loading-box';
 import { fetchDomeCamTimelapseAction } from '../../../modules/Telescope-Overview';
 import { white } from '../../../styles/variables/colors';
+import './domecam-timelapse-widget.scss';
 
 const mapStateToProps = ({
   telescopeOverview,
@@ -74,7 +75,7 @@ class DomeCamTimelapseWidget extends Component {
         <div className="live-domecamtimelapse">
           {onlineStatus == 'offline' && <Offline offlineImageURL={offlineImageURL}/>}
           {onlineStatus == 'online' && domeCamTimelapseURL ?
-            <video width={widgetWidth} playsInline autoPlay muted loop nodownload controls controlsList="nodownload">
+            <video className="domecamtimelapse-video" playsInline autoPlay muted loop nodownload controls controlsList="nodownload">
               <source src={domeCamTimelapseURL} type="video/mp4" />
             </video>
             : <GenericLoadingBox />
