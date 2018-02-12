@@ -7,6 +7,11 @@ const inlineTitleStyle = {
   color: 'white',
 }
 
+const inlineTimelapseStyle = {
+  minWidth: '100%',
+  width: '100%',
+}
+
 export default function generateDomecamTabConfiguration({
   obsId,
   DomecamWidgetId,
@@ -25,9 +30,7 @@ export default function generateDomecamTabConfiguration({
     {
       tabText: 'Time Lapse',
       tabContent: (
-        <CenterContent>
           <DomeCamTimelapseWidget obsId={obsId} DomecamTimelapseWidgetId={DomecamTimelapseWidgetId}/>
-        </CenterContent>
       ),
     },
   ]
