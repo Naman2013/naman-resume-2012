@@ -152,7 +152,7 @@ module.exports = {
         secure: true,
       },
       '/sloohapp/**': {
-        target: 'https://saturn.slooh.com',
+        target: 'https://eris.slooh.com',
         changeOrigin: true,
         secure: true,
       },
