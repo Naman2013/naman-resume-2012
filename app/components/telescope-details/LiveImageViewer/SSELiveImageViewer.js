@@ -3,12 +3,14 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import noop from 'lodash/noop';
-import last from 'lodash/last';
 
 import { setImageDataToSnapshot } from '../../../modules/starshare-camera/starshare-camera-actions';
 import {
   removeImageViewerClipState,
   applyImageViewerClipState,
+  resetViewedMissionState,
+  incrementMissionCounter,
+  updateRecentlyViewedMissionID,
 } from '../../../modules/telescope-details/actions';
 
 import LiveImageViewer from './';
@@ -38,6 +40,9 @@ const propTypes = {
     setImageDataToSnapshot: PropTypes.func.isRequired,
     applyImageViewerClipState: PropTypes.func.isRequired,
     removeImageViewerClipState: PropTypes.func.isRequired,
+    resetViewedMissionState: PropTypes.func.isRequired,
+    incrementMissionCounter: PropTypes.func.isRequired,
+    updateRecentlyViewedMissionID: PropTypes.func.isRequired,
   }),
   currentMission: PropTypes.shape({
     scheduledMissionId: PropTypes.number,
@@ -45,6 +50,8 @@ const propTypes = {
   routerState: PropTypes.shape({
     pathname: PropTypes.string,
   }),
+  viewedMissionsCounter: PropTypes.number,
+  recentlyViewedMissionID: PropTypes.number,
   // TODO: complete the validation
   // imageSource: PropTypes.
   // teleThumbWidth: PropTypes.
@@ -74,6 +81,8 @@ const defaultProps = {
   routerState: {
     pathname: '',
   },
+  viewedMissionsCounter: 0,
+  recentlyViewedMissionID: 0,
   // TODO: complete the validation
   // imageSource: PropTypes.
   // teleThumbWidth: PropTypes.
@@ -86,9 +95,12 @@ const defaultProps = {
 const mapStateToProps = ({
   activeTelescopeMissions: { activeTelescopeMission },
   routing: { locationBeforeTransitions },
+  telescopeDetails: { viewedMissionsCounter, recentlyViewedMissionID },
 }) => ({
   routerState: locationBeforeTransitions,
   currentMission: activeTelescopeMission,
+  viewedMissionsCounter,
+  recentlyViewedMissionID,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -97,6 +109,9 @@ const mapDispatchToProps = dispatch => ({
       setImageDataToSnapshot,
       removeImageViewerClipState,
       applyImageViewerClipState,
+      resetViewedMissionState,
+      incrementMissionCounter,
+      updateRecentlyViewedMissionID,
     },
     dispatch,
   ),
@@ -104,75 +119,32 @@ const mapDispatchToProps = dispatch => ({
 
 @connect(mapStateToProps, mapDispatchToProps)
 class SSELiveImageViewer extends Component {
-  constructor(props) {
-    super(props);
-    console.log('RUNNING CONSTRUCTOR...');
-  }
   state = {
     viewerDimensions: { height: MIN_VIEWER_HEIGHT },
     transitionVideoOpacity: 0,
-
-    missionCounter: 0,
-    currentlyRenderingMissionID: this.props.currentMission.scheduledMissionId,
   };
 
   componentWillReceiveProps(nextProps) {
     const {
       currentMission: { scheduledMissionId },
       routerState: { pathname },
+      viewedMissionsCounter,
+      recentlyViewedMissionID,
     } = nextProps;
 
-    const { currentlyRenderingMissionID, missionCounter } = this.state;
-
     if (pathname !== this.props.routerState.pathname) {
-      console.log('pathname change detected');
-      this.setState({
-        missionCounter: 0,
-        currentlyRenderingMissionID: 0,
-      });
+      this.props.actions.resetViewedMissionState();
     }
 
     if (pathname === this.props.routerState.pathname) {
-      console.log(scheduledMissionId, currentlyRenderingMissionID);
-      if (scheduledMissionId && (scheduledMissionId !== currentlyRenderingMissionID)) {
-        const count = missionCounter + 1;
-        console.log(count);
+      if (scheduledMissionId && (scheduledMissionId !== recentlyViewedMissionID)) {
+        this.props.actions.incrementMissionCounter();
+        this.props.actions.updateRecentlyViewedMissionID(scheduledMissionId);
         this.setState(() => ({
-          missionCounter: count,
-          currentlyRenderingMissionID: scheduledMissionId,
-          transitionVideoOpacity: (missionCounter > 1) ? 1 : 0,
+          transitionVideoOpacity: (viewedMissionsCounter > 1) ? 1 : 0,
         }));
       }
     }
-
-    // const [, , , teleUniqueId] = pathname.split('/');
-    // const { previouslyRenderedMissionID, activeTelescopeID } = this.state;
-    // console.log('ACTIVE: teleUniqueId', teleUniqueId);
-    // console.log('PREV: activeTelescopeID', activeTelescopeID);
-    // console.log('NEW: scheduledMissionId', scheduledMissionId);
-    // console.log('PREV: previouslyRenderedMissionID', previouslyRenderedMissionID);
-    // console.log('==================================================');
-    // if (activeTelescopeID === teleUniqueId) {
-    //   if (scheduledMissionId) {
-    //     if (previouslyRenderedMissionID) {
-    //       if ((previouslyRenderedMissionID !== scheduledMissionId)) {
-    //         this.setState({
-    //           transitionVideoOpacity: 1,
-    //           previouslyRenderedMissionID: scheduledMissionId,
-    //         });
-    //       }
-    //     } else {
-    //       this.setState({
-    //         previouslyRenderedMissionID: scheduledMissionId,
-    //       });
-    //     }
-    //   }
-    // } else {
-    //   this.setState(() => ({
-    //     activeTelescopeID: teleUniqueId,
-    //     previouslyRenderedMissionID: scheduledMissionId,
-    //   }));
-    // }
   }
 
   onClipChange = (clipState) => {
