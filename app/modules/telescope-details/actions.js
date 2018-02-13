@@ -57,6 +57,28 @@ export const RESET_ACTIVE_SSE = 'RESET_ACTIVE_SSE';
 export const REMOVE_IMAGE_VIEWER_CLIP_STATE = 'REMOVE_IMAGE_VIEWER_CLIP_STATE';
 export const APPLY_IMAGE_VIEWER_CLIP_STATE = 'APPLY_IMAGE_VIEWER_CLIP_STATE';
 
+export const INCREMENT_MISSION_COUNTER = 'INCREMENT_MISSION_COUNTER';
+export const RESET_MISSION_COUNTER = 'RESET_MISSION_COUNTER';
+export const UPDATE_RECENTLY_VIEWED_MISSION_ID = 'UPDATE_RECENTLY_VIEWED_MISSION_ID';
+export const RESET_VIEWED_MISSION_STATE = 'RESET_VIEWED_MISSION_STATE';
+
+export const incrementMissionCounter = () => ({
+  type: INCREMENT_MISSION_COUNTER,
+});
+
+export const resetMissionCounter = () => ({
+  type: RESET_MISSION_COUNTER,
+});
+
+export const updateRecentlyViewedMissionID = missionID => ({
+  type: UPDATE_RECENTLY_VIEWED_MISSION_ID,
+  missionID,
+});
+
+export const resetViewedMissionState = () => ({
+  type: RESET_VIEWED_MISSION_STATE,
+});
+
 export const removeImageViewerClipState = () => ({
   type: REMOVE_IMAGE_VIEWER_CLIP_STATE,
 });

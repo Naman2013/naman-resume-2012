@@ -104,12 +104,16 @@ const mapDispatchToProps = dispatch => ({
 
 @connect(mapStateToProps, mapDispatchToProps)
 class SSELiveImageViewer extends Component {
+  constructor(props) {
+    super(props);
+    console.log('RUNNING CONSTRUCTOR...');
+  }
   state = {
     viewerDimensions: { height: MIN_VIEWER_HEIGHT },
     transitionVideoOpacity: 0,
 
-    activeTelescopeID: last(this.props.routerState.pathname.split('/')),
-    renderedMissionID: this.props.currentMission.scheduledMissionId,
+    missionCounter: 0,
+    currentlyRenderingMissionID: this.props.currentMission.scheduledMissionId,
   };
 
   componentWillReceiveProps(nextProps) {
@@ -118,30 +122,57 @@ class SSELiveImageViewer extends Component {
       routerState: { pathname },
     } = nextProps;
 
-    const [, , , teleUniqueId] = pathname.split('/');
-    const { renderedMissionID, activeTelescopeID, transitionVideoOpacity } = this.state;
+    const { currentlyRenderingMissionID, missionCounter } = this.state;
 
-    if (activeTelescopeID === teleUniqueId) {
-      if (scheduledMissionId) {
-        if (renderedMissionID) {
-          if ((renderedMissionID !== scheduledMissionId) && transitionVideoOpacity !== 1) {
-            this.setState({
-              transitionVideoOpacity: 1,
-              renderedMissionID: scheduledMissionId,
-            });
-          }
-        } else {
-          this.setState({
-            renderedMissionID: scheduledMissionId,
-          });
-        }
-      }
-    } else {
-      this.setState(() => ({
-        activeTelescopeID: teleUniqueId,
-        renderedMissionID: scheduledMissionId,
-      }));
+    if (pathname !== this.props.routerState.pathname) {
+      console.log('pathname change detected');
+      this.setState({
+        missionCounter: 0,
+        currentlyRenderingMissionID: 0,
+      });
     }
+
+    if (pathname === this.props.routerState.pathname) {
+      console.log(scheduledMissionId, currentlyRenderingMissionID);
+      if (scheduledMissionId && (scheduledMissionId !== currentlyRenderingMissionID)) {
+        const count = missionCounter + 1;
+        console.log(count);
+        this.setState(() => ({
+          missionCounter: count,
+          currentlyRenderingMissionID: scheduledMissionId,
+          transitionVideoOpacity: (missionCounter > 1) ? 1 : 0,
+        }));
+      }
+    }
+
+    // const [, , , teleUniqueId] = pathname.split('/');
+    // const { previouslyRenderedMissionID, activeTelescopeID } = this.state;
+    // console.log('ACTIVE: teleUniqueId', teleUniqueId);
+    // console.log('PREV: activeTelescopeID', activeTelescopeID);
+    // console.log('NEW: scheduledMissionId', scheduledMissionId);
+    // console.log('PREV: previouslyRenderedMissionID', previouslyRenderedMissionID);
+    // console.log('==================================================');
+    // if (activeTelescopeID === teleUniqueId) {
+    //   if (scheduledMissionId) {
+    //     if (previouslyRenderedMissionID) {
+    //       if ((previouslyRenderedMissionID !== scheduledMissionId)) {
+    //         this.setState({
+    //           transitionVideoOpacity: 1,
+    //           previouslyRenderedMissionID: scheduledMissionId,
+    //         });
+    //       }
+    //     } else {
+    //       this.setState({
+    //         previouslyRenderedMissionID: scheduledMissionId,
+    //       });
+    //     }
+    //   }
+    // } else {
+    //   this.setState(() => ({
+    //     activeTelescopeID: teleUniqueId,
+    //     previouslyRenderedMissionID: scheduledMissionId,
+    //   }));
+    // }
   }
 
   onClipChange = (clipState) => {
