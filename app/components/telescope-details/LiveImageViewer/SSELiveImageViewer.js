@@ -141,7 +141,7 @@ class SSELiveImageViewer extends Component {
         this.props.actions.incrementMissionCounter();
         this.props.actions.updateRecentlyViewedMissionID(scheduledMissionId);
         this.setState(() => ({
-          transitionVideoOpacity: (viewedMissionsCounter > 1) ? 1 : 0,
+          transitionVideoOpacity: (viewedMissionsCounter > 0) ? 1 : 0,
         }));
       }
     }
