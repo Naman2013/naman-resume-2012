@@ -418,6 +418,7 @@ class TelescopeDetails extends Component {
                 DayNightMapWidgetId={currentObservatory.DayNightMapWidgetId}
                 AllskyWidgetId={currentObservatory.AllskyWidgetId}
                 DomecamWidgetId={currentObservatory.DomecamWidgetId}
+                DomecamTimelapseWidgetId={currentObservatory.DomecamTimelapseWidgetId}
                 FacilityWebcamWidgetId={currentObservatory.FacilityWebcamWidgetId}
                 MiniWeatherPanelWidgetId={currentObservatory.MiniWeatherPanelWidgetId}
                 SatelliteWidgetId={currentObservatory.SatelliteWidgetId}

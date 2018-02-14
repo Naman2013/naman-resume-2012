@@ -2,10 +2,9 @@ import React from 'react';
 import DayNightBarPanel from '../condition-snapshot/DayNightBarPanel';
 import DayNightMap from '../condition-snapshot/DayNightMap';
 import AllSkyCamera from '../condition-snapshot/AllSkyCamera';
-import DomeCam from '../condition-snapshot/DomeCam';
 import LiveWebcam from '../live-webcam/live-webcam';
 import CenterContent from '../../../design-system/CenterContent';
-
+import DomeCamTabs from '../DomeCamTabs';
 import TelescopeDetailsWeatherTabs from '../TelescopeDetailsWeatherTabs';
 
 const inlineTitleStyle = {
@@ -29,12 +28,8 @@ export default function generateTelescopeDetailsTabConfiguration({
   allSkyCamOnlineStatus,
   allSkyCamImageWidth,
   allSkyCamTitle,
-  domeCamRefreshIntervalSec,
-  domeCamURL,
-  domeCamOfflineURL,
-  domeCamOnlineStatus,
-  domeCamImageWidth,
-  domeCamTitle,
+  DomecamWidgetId,
+  DomecamTimelapseWidgetId,
   FacilityWebcamWidgetId,
   MiniWeatherPanelWidgetId,
   SatelliteWidgetId,
@@ -99,16 +94,11 @@ export default function generateTelescopeDetailsTabConfiguration({
     {
       tabText: 'Dome',
       tabContent: (
-        <CenterContent>
-          <h1 style={inlineTitleStyle}>{domeCamTitle}</h1>
-          <DomeCam
-            refreshIntervalSec={domeCamRefreshIntervalSec}
-            domeCamURL={domeCamURL}
-            offlineImageURL={domeCamOfflineURL}
-            onlineStatus={domeCamOnlineStatus}
-            imageWidth={domeCamImageWidth}
-          />
-        </CenterContent>
+        <DomeCamTabs
+          obsId={obsId}
+          DomecamWidgetId={DomecamWidgetId}
+          DomecamTimelapseWidgetId={DomecamTimelapseWidgetId}
+        />
       ),
     },
     {

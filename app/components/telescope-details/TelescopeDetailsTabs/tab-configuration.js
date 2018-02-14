@@ -14,8 +14,8 @@ export default [
     tabContent: <h1>All sky camera</h1>,
   },
   {
-    tabText: 'Dome Cam',
-    tabContent: <h1>Dome cam...</h1>,
+    tabText: 'Dome',
+    tabContent: <h1></h1>,
   },
   {
     tabText: 'Web Cam',

@@ -27,13 +27,6 @@ const mapStateToProps = ({ telescopeDetails }) => ({
   allSkyCamOnlineStatus: telescopeDetails.allSkyCamera.onlineStatus,
   allSkyCamImageWidth: telescopeDetails.allSkyCamera.imageWidth,
   allSkyCamTitle: telescopeDetails.allSkyCamera.title,
-
-  domeCamRefreshIntervalSec: telescopeDetails.domeCam.refreshIntervalSec,
-  domeCamURL: telescopeDetails.domeCam.domeCamURL,
-  domeCamOfflineURL: telescopeDetails.domeCam.offlineImageURL,
-  domeCamOnlineStatus: telescopeDetails.domeCam.onlineStatus,
-  domeCamImageWidth: telescopeDetails.domeCam.imageWidth,
-  domeCamTitle: telescopeDetails.domeCam.title,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -65,13 +58,6 @@ class TelescopeDetailsTabs extends Component {
     allSkyCamImageWidth: PropTypes.string.isRequired,
     allSkyCamTitle: PropTypes.string.isRequired,
 
-    domeCamRefreshIntervalSec: PropTypes.number.isRequired,
-    domeCamURL: PropTypes.string.isRequired,
-    domeCamOfflineURL: PropTypes.string.isRequired,
-    domeCamOnlineStatus: PropTypes.string.isRequired,
-    domeCamImageWidth: PropTypes.string.isRequired,
-    domeCamTitle: PropTypes.string.isRequired,
-
     // provided by parent
     obsId: PropTypes.string.isRequired,
     CurrentConditionsWidgetId: PropTypes.string.isRequired,
@@ -79,6 +65,7 @@ class TelescopeDetailsTabs extends Component {
     DayNightMapWidgetId: PropTypes.string.isRequired,
     AllskyWidgetId: PropTypes.string.isRequired,
     DomecamWidgetId: PropTypes.string.isRequired,
+    DomecamTimelapseWidgetId: PropTypes.string.isRequired,
     FacilityWebcamWidgetId: PropTypes.string.isRequired,
     MiniWeatherPanelWidgetId: PropTypes.string.isRequired,
     SatelliteWidgetId: PropTypes.string.isRequired,
@@ -102,6 +89,7 @@ class TelescopeDetailsTabs extends Component {
       DayNightMapWidgetId,
       AllskyWidgetId,
       DomecamWidgetId,
+      DomecamTimelapseWidgetId,
     } = this.props;
 
     this.props.actions.fetchAllWidgets({
@@ -110,7 +98,6 @@ class TelescopeDetailsTabs extends Component {
       DayNightBarPanelWidgetId,
       DayNightMapWidgetId,
       AllskyWidgetId,
-      DomecamWidgetId,
     });
   }
 
@@ -125,6 +112,7 @@ class TelescopeDetailsTabs extends Component {
         DayNightMapWidgetId: nextProps.DayNightMapWidgetId,
         AllskyWidgetId: nextProps.AllskyWidgetId,
         DomecamWidgetId: nextProps.DomecamWidgetId,
+        DomecamTimelapseWidgetId: nextProps.DomecamTimelapseWidgetId,
       });
     }
   }
