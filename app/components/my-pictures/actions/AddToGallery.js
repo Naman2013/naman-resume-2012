@@ -51,7 +51,7 @@ class AddToGallery extends Component {
       fetchGalleries: func.isRequired,
       createGallery: func.isRequired,
       fetchGalleriesCount: func.isRequired,
-    }),
+    }).isRequired,
     addToGalleryState: shape({
       loading: bool,
       response: string,
@@ -77,12 +77,12 @@ class AddToGallery extends Component {
     user: {
       at: '',
       token: '',
-      cid: ''
-    }
+      cid: '',
+    },
   };
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.contextTrigger = null;
   }
 
@@ -109,10 +109,10 @@ class AddToGallery extends Component {
     actions.resetAddResponse();
   }
 
-  createGallery = (e) => {
+  createGallery = (event) => {
+    event.preventDefault();
     const { actions } = this.props;
     const { newGalleryName } = this.state;
-    e.preventDefault();
 
     if (!newGalleryName) return;
     actions.createGallery({
@@ -122,8 +122,8 @@ class AddToGallery extends Component {
         actions.fetchGalleriesCount({});
       }
       this.setState({
-        newGalleryName: ''
-      })
+        newGalleryName: '',
+      });
     });
   }
 
@@ -152,7 +152,7 @@ class AddToGallery extends Component {
     }
   }
 
-  forceFocus = (e) => { // force focus for Microsoft Edge
+  forceFocus = (e) => {
     e.preventDefault();
     this._createInput.focus();
   }
@@ -185,7 +185,7 @@ class AddToGallery extends Component {
       <div className="action-menu-container">
         <ContextMenu
           className="add-gallery-context-menu"
-          ref={c => this.contextTrigger = c}
+          ref={(c) => { this.contextTrigger = c; }}
           menuWidth={250}
           onShow={this.fetchGalleries}
           leftOffset={-35}

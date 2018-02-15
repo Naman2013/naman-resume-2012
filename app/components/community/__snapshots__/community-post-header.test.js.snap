@@ -2,48 +2,40 @@
 
 exports[`it should render a header 1`] = `
 <div
-  className="communityPostHeader"
-  data-jsx={190455770}
+  className="jsx-15604483 communityPostHeader"
 >
   <div
-    className="left-container"
-    data-jsx={190455770}
+    className="jsx-15604483 left-container"
   >
     <div
-      className="title"
-      data-jsx={190455770}
+      className="jsx-15604483 title"
     >
       <h1
-        className="title-text"
+        className="jsx-15604483 title-text"
         dangerouslySetInnerHTML={
           Object {
             "__html": "",
           }
         }
-        data-jsx={190455770}
       />
     </div>
     <div
-      className="subtitle"
+      className="jsx-15604483 subtitle"
       dangerouslySetInnerHTML={
         Object {
           "__html": "",
         }
       }
-      data-jsx={190455770}
     />
   </div>
   <div
-    className="additional"
-    data-jsx={190455770}
+    className="jsx-15604483 additional"
   >
     <div
-      className="button-nav"
-      data-jsx={190455770}
+      className="jsx-15604483 button-nav"
     >
       <span
-        className="action-button"
-        data-jsx={190455770}
+        className="jsx-15604483 action-button"
       >
         <a
           className="button btn-primary"
