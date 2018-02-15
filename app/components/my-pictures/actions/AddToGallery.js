@@ -168,15 +168,14 @@ class AddToGallery extends Component {
 
   render() {
     const {
-      actionSource,
       addToGalleryState,
       galleryList,
       fetchGalleriesLoading,
-      galleryCreated,
       galleryCreating,
       galleryCreatingError,
       customerImageId,
     } = this.props;
+
     const {
       newGalleryName,
     } = this.state;
@@ -210,7 +209,7 @@ class AddToGallery extends Component {
                 placeholder="Type Here to Create Gallery"
                 value={newGalleryName}
                 onChange={this.updateNewGalleryName}
-                ref={input => this._createInput = input}
+                ref={(input) => { this._createInput = input; }}
               />}
               {galleryCreatingError && <span>Your gallery could not be created</span>}
             </div>
@@ -245,11 +244,7 @@ class AddToGallery extends Component {
               position: relative;
             }
             .create-gallery {
-              display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
-              display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
-              display: -ms-flexbox;      /* TWEENER - IE 10 */
-              display: -webkit-flex;     /* NEW - Chrome */
-              display: flex;             /* NEW, Spec - Opera 12.1, Firefox 20+ */
+              display: flex;
               flex-direction: row;
               align-items: center;
             }
