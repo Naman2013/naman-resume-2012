@@ -1,9 +1,8 @@
-import React from 'react';
+import css from 'styled-jsx/css';
 import { borderRadius } from '../../../styles/mixins/utilities';
 import { white, black, turqoise, lightTurqoise, darkBlueGray } from '../../../styles/variables/colors';
 
-export const actionsStyles = (`
-
+export default css`
   .light .action-description {
     color: ${white};
   }
@@ -15,7 +14,7 @@ export const actionsStyles = (`
   .action {
     transition: none !important;
     position: relative;
-    ${borderRadius('50%')}
+    border-radius: 50%;
     width: 35px;
     height: 35px;
     display: inline-block;
@@ -48,4 +47,4 @@ export const actionsStyles = (`
     width: 100px;
     white-space: nowrap;
   }
-  `);
+  `;

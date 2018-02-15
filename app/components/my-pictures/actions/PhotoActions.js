@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import AddToGallery from './AddToGallery';
-import { white, black } from '../../../styles/variables/colors';
+import { white, black, turqoise, lightTurqoise, darkBlueGray } from '../../../styles/variables/colors';
 import RemoveFromGallery from './RemoveFromGallery';
 import DeleteGallery from './DeleteGallery';
 import DeleteImage from './DeleteImage';
@@ -10,11 +10,11 @@ import ShareMemberPhoto from './ShareMemberPhoto';
 import SocialSharingBar from '../../common/social-sharing-bar/SocialSharingBar';
 import Heart from '../../common/heart/heart';
 import { likeImage } from '../../../services/my-pictures/like-image';
-import { actionsStyles } from './actions.style';
 
 const getTheme = actionSource => (
   (actionSource === 'galleryImageDetails' || actionSource === 'imageDetails') ?
   'dark' : 'light');
+
 class PhotoActions extends Component {
   static propTypes = {
     imageURL: PropTypes.string,
@@ -33,7 +33,7 @@ class PhotoActions extends Component {
       theme: PropTypes.string,
       likeType: PropTypes.string,
       likeId: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-    })
+    }),
   };
 
   static defaultProps = {
@@ -46,9 +46,6 @@ class PhotoActions extends Component {
     photoViewFullURL: '',
     socialSharePageURL: '',
     socialShareDescription: '',
-  };
-
-  state = {
   };
 
   render() {
@@ -74,15 +71,14 @@ class PhotoActions extends Component {
     const canDeleteImage = actionSource === 'photoRoll' || actionSource === 'imageDetails' || actionSource === 'galleryPictures' || actionSource === 'galleryImageDetails';
     const canLikePhoto = actionSource === 'galleryImageDetails' || actionSource === 'imageDetails';
 
-    var encodeurl = require('encodeurl');
-    var base64 = require('base-64');
-    var socialShareImageTitle = imageTitle;
+    const encodeurl = require('encodeurl');
+    const base64 = require('base-64');
+    let socialShareImageTitle = imageTitle;
 
     if (socialShareImageTitle == '') {
       /* the social sharing modules require a title, so even a space is sufficient */
       socialShareImageTitle = encodeurl(base64.encode('Shared Photo from Slooh.com'));
-    }
-    else {
+    } else {
       socialShareImageTitle = encodeurl(base64.encode(imageTitle));
     }
 
@@ -126,24 +122,66 @@ class PhotoActions extends Component {
           imageURL={imageURL}
         />}
         {canShareFlag && <ShareMemberPhoto
-            customerImageId={customerImageId}
-          />}
-        {canSocialShareFlag && <SocialSharingBar
+          customerImageId={customerImageId}
+        />}
+        {
+          canSocialShareFlag && <SocialSharingBar
             contentLayout="horizontal"
             shareTitle={socialShareImageTitle}
             shareDescription={socialShareDescription}
             shareURL={shareURL}
             shareImageURL={imageURL}
-          />}
-        <style jsx>
-        {`
-          ${actionsStyles}
+          />
+        }
+
+        <style jsx>{`
+          .light .action-description {
+            color: ${white};
+          }
+
+          .dark .action-description {
+            color: ${black};
+          }
+
+          .action {
+            transition: none !important;
+            position: relative;
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            display: inline-block;
+            border: none;
+            background: ${turqoise};
+            color: ${white};
+            margin-right: 5px;
+          }
+
+          .action:hover {
+            background: ${lightTurqoise};
+            color: ${darkBlueGray};
+          }
+
+          .action:focus {
+            outline: none;
+          }
+
+          .action .action-description {
+            position: absolute;
+            text-align: center;
+            visibility: hidden;
+          }
+
+          .action:hover .action-description {
+            text-align: center;
+            visibility: visible;
+            margin-top: 8px;
+            margin-left: -75%;
+            width: 100px;
+            white-space: nowrap;
+          }
+
           .actions {
-            display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
-            display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
-            display: -ms-flexbox;      /* TWEENER - IE 10 */
-            display: -webkit-flex;     /* NEW - Chrome */
-            display: flex;             /* NEW, Spec - Opera 12.1, Firefox 20+ */
+            display: flex;
             flex-direction: row;
             margin-top: -5px;
           }
@@ -156,8 +194,7 @@ class PhotoActions extends Component {
             z-index: 99999;
             background-color: ${white};
           }
-        `}
-        </style>
+        `}</style>
       </div>
     );
   }

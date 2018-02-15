@@ -2,34 +2,28 @@
 
 exports[`<Mission /> should render a missions title and image 1`] = `
 <div
-  className="root"
-  data-jsx={334598377}
+  className="jsx-1351525567 root"
 >
   <div
-    className="imageIcon"
-    data-jsx={334598377}
+    className="jsx-1351525567 imageIcon"
   >
     <img
       alt="Mission target icon"
-      className="icon"
-      data-jsx={334598377}
+      className="jsx-1351525567 icon"
       src="https://vega.slooh.com/icons/reservations/not_available_w.svg"
       width="50"
     />
   </div>
   <div
-    className="missionDetails"
-    data-jsx={334598377}
+    className="jsx-1351525567 missionDetails"
   >
     <h4
-      className="title"
-      data-jsx={334598377}
+      className="jsx-1351525567 title"
     >
       Andromeda Galaxy
     </h4>
     <h5
-      className="upcomingStart"
-      data-jsx={334598377}
+      className="jsx-1351525567 upcomingStart"
     >
       <span>
         11:20pm EDT
