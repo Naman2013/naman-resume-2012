@@ -8,7 +8,7 @@ import { white, black, pink } from '../../../styles/variables/colors';
 import { fetchGalleries, createGallery, fetchGalleriesCount } from '../../../modules/my-pictures-galleries/actions';
 import { addImageToGallery, resetAddResponse } from '../../../modules/my-pictures-gallery-actions/actions';
 import { togglePublicGallery } from '../../../modules/toggle-public-gallery/actions';
-import { actionsStyles } from './actions.style';
+import actionsStyles from './actions.style';
 
 const {
   arrayOf,
@@ -250,6 +250,7 @@ class AddToGallery extends Component {
             }
 
             ${actionsStyles}
+
             .action.create {
               margin: 5px;
               background: ${white};

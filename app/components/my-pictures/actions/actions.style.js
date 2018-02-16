@@ -1,8 +1,6 @@
-import css from 'styled-jsx/css';
-import { borderRadius } from '../../../styles/mixins/utilities';
 import { white, black, turqoise, lightTurqoise, darkBlueGray } from '../../../styles/variables/colors';
 
-export default css`
+export default `
   .light .action-description {
     color: ${white};
   }
