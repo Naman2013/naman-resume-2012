@@ -44,6 +44,30 @@ class ImageDetails extends Component {
     };
   }
 
+  componentWillMount() {
+    window.scrollTo(0, 0);
+    const {
+      actions,
+      params: {
+        customerImageId,
+        shareToken,
+        galleryId
+      }
+    } = this.props;
+
+    actions.verifyMyPicsOwner({
+      itemId: customerImageId,
+      itemType: 'image'
+    }).then(() => {
+      if (this.props.myPicturesImageDetails.customerImageId !== customerImageId) { // don't call api for info we already have
+        actions.fetchImageDetailsAndCounts({
+          customerImageId,
+          shareToken,
+        });
+      }
+    });
+  }
+
   componentWillReceiveProps(nextProps) {
     if (nextProps.showSharePrompt !== this.state.showSharePicturePrompt) {
       this.setState({
@@ -56,31 +80,6 @@ class ImageDetails extends Component {
     this.props.actions.setPageTitle(nextProps.myPicturesImageDetails.imageTitle);
     this.props.actions.setStandardMeta({ description: nextProps.myPicturesImageDetailsSocialShareDescription });
     this.props.actions.setOpenGraphMeta({ type: "image", title: nextProps.myPicturesImageDetails.imageTitle, description: nextProps.myPicturesImageDetails.socialShareDescription, image: nextProps.myPicturesImageDetails.imageURL });
-
-  }
-
-  componentWillMount() {
-    window.scrollTo(0, 0);
-    const {
-      actions,
-      params: {
-        customerImageId,
-        shareToken,
-        galleryId
-      }
-    } = this.props;
-    actions.verifyMyPicsOwner({
-      itemId: customerImageId,
-      itemType: 'image'
-    }).then(() => {
-
-      if (this.props.myPicturesImageDetails.customerImageId !== customerImageId) { // don't call api for info we already have
-        actions.fetchImageDetailsAndCounts({
-          customerImageId,
-          shareToken,
-        });
-      }
-    });
   }
 
 
@@ -100,7 +99,6 @@ class ImageDetails extends Component {
   render() {
     const {
       scheduledMissionId,
-      observationLog,
       canShareFlag,
       error,
       fetching,
@@ -109,7 +107,6 @@ class ImageDetails extends Component {
       likesCount,
       imageTitle,
       imageURL,
-      fileData,
       canLikeFlag,
       photoViewFullURL,
       socialShareDescription,
