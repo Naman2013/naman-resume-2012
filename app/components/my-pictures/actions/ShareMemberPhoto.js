@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import ModalGeneric from '../../common/modals/modal-generic';
 import { shareMemberPicture } from '../../../modules/share-member-photo/actions';
-import { actionsStyles } from './actions.style';
+import actionsStyles from './actions.style';
 
 const {
   arrayOf,
