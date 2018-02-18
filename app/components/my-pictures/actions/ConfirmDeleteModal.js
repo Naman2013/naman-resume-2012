@@ -13,12 +13,15 @@ const {
 class DeleteGallery extends Component {
 
   static propTypes = {
+    theme: PropTypes.oneOf(['light', 'dark']),
     buttonClass: string,
     confirmText: string,
     buttonHoverText: string,
     removeAction: func.isRequired,
   };
+
   static defaultProps = {
+    theme: 'light',
     buttonClass: 'fa-close',
     buttonHoverText: 'Remove',
     confirmText: 'Are you sure you want to remove this?'
@@ -36,7 +39,7 @@ class DeleteGallery extends Component {
   }
 
   render() {
-    const { confirmText, removeAction, buttonClass, buttonHoverText } = this.props;
+    const { confirmText, removeAction, buttonClass, buttonHoverText, theme } = this.props;
     const { confirmModalIsOpen } = this.state;
     const customModalStyles = {
       content: {
@@ -58,6 +61,7 @@ class DeleteGallery extends Component {
     return (
       <div>
         <ActionButton
+          theme={theme}
           handleClick={e => this.showModal(e, true)}
           fontAwesomeIcon={buttonClass}
           description={buttonHoverText}
