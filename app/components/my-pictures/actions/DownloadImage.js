@@ -5,8 +5,13 @@ import ActionButton from './ActionButton';
 
 class DownloadImage extends Component {
   static propTypes = {
-    imageURL: PropTypes.string.isRequired
+    imageURL: PropTypes.string.isRequired,
+    theme: PropTypes.oneOf(['light', 'dark']),
   }
+
+  static defaultProps = {
+    theme: 'light',
+  };
 
   state = {
     lightboxIsOpen: false,
@@ -20,7 +25,7 @@ class DownloadImage extends Component {
   }
 
   render() {
-    const { imageURL } = this.props;
+    const { imageURL, theme } = this.props;
     const formattedImgs = [{ src: imageURL }];
     return (
       <div>
@@ -33,6 +38,7 @@ class DownloadImage extends Component {
         />
 
         <ActionButton
+          theme={theme}
           handleClick={this.toggleLightbox}
           fontAwesomeIcon="fa-download"
           description="Download"

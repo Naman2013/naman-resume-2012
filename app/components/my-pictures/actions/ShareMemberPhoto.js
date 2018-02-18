@@ -25,10 +25,15 @@ const mapDispatchToProps = dispatch => ({
 class ShareMemberPhoto extends Component {
 
   static propTypes = {
+    theme: PropTypes.oneOf(['light', 'dark']),
     customerImageId: string.isRequired,
     actions: shape({
       sharememberPicture: func.isRequired,
     }),
+  };
+
+  static defaultProps = {
+    theme: 'light',
   };
 
   sharePhoto = (e) => {
@@ -48,6 +53,7 @@ class ShareMemberPhoto extends Component {
     return (
       <div>
         <ActionButton
+          theme={this.props.theme}
           handleClick={this.sharePhoto}
           fontAwesomeIcon="fa-cogs"
           description="Share"
