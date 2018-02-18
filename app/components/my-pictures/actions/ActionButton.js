@@ -8,21 +8,31 @@ const propTypes = {
   handleClick: PropTypes.func.isRequired,
   fontAwesomeIcon: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
+  theme: PropTypes.oneOf(['light', 'dark']),
 };
 
-const ActionButton = ({ handleClick, fontAwesomeIcon, description }) => (
+const defaultProps = {
+  theme: 'light',
+};
+
+const ActionButton = ({
+  handleClick,
+  fontAwesomeIcon,
+  description,
+  theme,
+}) => (
   <div>
     <button className="action" onClick={handleClick}>
       <span className={`fa ${fontAwesomeIcon}`} />
-      <div className="light action-description">{description}</div>
+      <div className={`action-description ${theme}`}>{description}</div>
     </button>
 
     <style jsx>{`
-      .light .action-description {
+      .action-description.light {
         color: ${white};
       }
 
-      .dark .action-description {
+      .action-description.dark {
         color: ${black};
       }
 
@@ -51,10 +61,9 @@ const ActionButton = ({ handleClick, fontAwesomeIcon, description }) => (
       .action-description {
         position: absolute;
         left: -33px;
-        top: 25px;
+        top: 35px;
         text-align: center;
         visibility: hidden;
-        margin-top: 8px;
         width: 100px;
         display: block;
       }
@@ -67,5 +76,6 @@ const ActionButton = ({ handleClick, fontAwesomeIcon, description }) => (
 );
 
 ActionButton.propTypes = propTypes;
+ActionButton.defaultProps = defaultProps;
 
 export default ActionButton;
