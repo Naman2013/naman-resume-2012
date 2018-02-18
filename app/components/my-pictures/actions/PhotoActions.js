@@ -121,12 +121,15 @@ class PhotoActions extends Component {
           />}
         {canDeleteGallery &&
           <DeleteGallery
+            theme={theme}
             galleryId={galleryId}
           />}
         {canDownload && <DownloadImage
+          theme={theme}
           imageURL={imageURL}
         />}
         {canShareFlag && <ShareMemberPhoto
+          theme={theme}
           customerImageId={customerImageId}
         />}
         {canSocialShareFlag && <SocialSharingBar
