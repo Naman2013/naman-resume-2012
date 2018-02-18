@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Lightbox from 'react-images';
+import ActionButton from './ActionButton';
 
 class DownloadImage extends Component {
   static propTypes = {
@@ -22,9 +23,7 @@ class DownloadImage extends Component {
     const { imageURL } = this.props;
     const formattedImgs = [{ src: imageURL }];
     return (
-      <div
-        className=""
-      >
+      <div>
         <Lightbox
           images={formattedImgs}
           isOpen={this.state.lightboxIsOpen}
@@ -32,14 +31,17 @@ class DownloadImage extends Component {
           showThumbnails={false}
           showImageCount={false}
         />
-        <button onClick={this.toggleLightbox} className="action">
-          <span className="fa fa-download"></span>
-          <div className="action-description">Download</div>
-        </button>
-          <style jsx global>{`
-            #lightboxBackdrop {
-              z-index: 9999999;
-          `}</style>
+
+        <ActionButton
+          handleClick={this.toggleLightbox}
+          fontAwesomeIcon="fa-download"
+          description="Download"
+        />
+
+        <style jsx global>{`
+          #lightboxBackdrop {
+          z-index: 9999999;
+        `}</style>
       </div>
     );
   }
