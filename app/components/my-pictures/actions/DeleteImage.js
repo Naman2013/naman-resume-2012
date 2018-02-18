@@ -2,17 +2,13 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import ConfirmDeleteModal from './ConfirmDeleteModal';
 import { browserHistory } from 'react-router';
-import { white, black, pink } from '../../../styles/variables/colors';
-import { secondaryFont, primaryFont } from '../../../styles/variables/fonts';
+import ConfirmDeleteModal from './ConfirmDeleteModal';
 import { fetchPhotoRoll, fetchMyPicturesCount, fetchMissionPhotos } from '../../../modules/my-pictures/actions';
 import { fetchGalleryPicsCount, fetchGalleryPictures } from '../../../modules/my-pictures-gallery-pictures/actions';
 import { deleteImage } from '../../../services/my-pictures/delete-image';
 
 const {
-  arrayOf,
-  bool,
   func,
   number,
   shape,
@@ -113,7 +109,7 @@ class DeleteImage extends Component {
             pagingMode: 'api',
           });
           actions.fetchMyPicturesCount({});
-          link = '/my-pictures/photo-roll'
+          link = '/my-pictures/photo-roll';
         }
       }
 
