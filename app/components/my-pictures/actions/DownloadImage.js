@@ -19,7 +19,7 @@ class DownloadImage extends Component {
     }));
   }
 
-  render () {
+  render() {
     const { imageURL } = this.props;
     const formattedImgs = [{ src: imageURL }];
     return (

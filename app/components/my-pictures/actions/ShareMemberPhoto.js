@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { shareMemberPicture } from '../../../modules/share-member-photo/actions';
-import actionsStyles from './actions.style';
+import ActionButton from './ActionButton';
 
 const {
   func,
@@ -47,18 +47,11 @@ class ShareMemberPhoto extends Component {
   render() {
     return (
       <div>
-        <button className="action" onClick={this.sharePhoto}>
-          <span className="fa fa-cogs" />
-          <div className="action-description share-description">Share</div>
-        </button>
-        <style jsx>{`
-          ${actionsStyles}
-
-          .action:hover .share-description {
-            text-align: center;
-            width: 80px;
-          }
-        `}</style>
+        <ActionButton
+          handleClick={this.sharePhoto}
+          fontAwesomeIcon="fa-cogs"
+          description="Share"
+        />
       </div>
     );
   }

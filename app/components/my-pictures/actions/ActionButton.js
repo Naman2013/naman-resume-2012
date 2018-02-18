@@ -14,7 +14,7 @@ const ActionButton = ({ handleClick, fontAwesomeIcon, description }) => (
   <div>
     <button className="action" onClick={handleClick}>
       <span className={`fa ${fontAwesomeIcon}`} />
-      <div className="action-description">{description}</div>
+      <div className="light action-description">{description}</div>
     </button>
 
     <style jsx>{`
@@ -48,19 +48,19 @@ const ActionButton = ({ handleClick, fontAwesomeIcon, description }) => (
         outline: none;
       }
 
-      .action .action-description {
+      .action-description {
         position: absolute;
+        left: -33px;
+        top: 25px;
         text-align: center;
         visibility: hidden;
+        margin-top: 8px;
+        width: 100px;
+        display: block;
       }
 
       .action:hover .action-description {
-        text-align: center;
         visibility: visible;
-        margin-top: 8px;
-        margin-left: -75%;
-        width: 100px;
-        white-space: nowrap;
       }
     `}</style>
   </div>
