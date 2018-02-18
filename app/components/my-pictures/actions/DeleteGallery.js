@@ -3,14 +3,10 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import ConfirmDeleteModal from './ConfirmDeleteModal';
-import { white, black, pink } from '../../../styles/variables/colors';
-import { secondaryFont, primaryFont } from '../../../styles/variables/fonts';
 import { fetchGalleries, fetchGalleriesCount } from '../../../modules/my-pictures-galleries/actions';
 import { deleteGallery } from '../../../services/my-pictures/delete-gallery';
 
 const {
-  arrayOf,
-  bool,
   func,
   number,
   shape,
