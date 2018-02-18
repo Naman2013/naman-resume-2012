@@ -8,7 +8,7 @@ import { white, black, pink } from '../../../styles/variables/colors';
 import { fetchGalleries, createGallery, fetchGalleriesCount } from '../../../modules/my-pictures-galleries/actions';
 import { addImageToGallery, resetAddResponse } from '../../../modules/my-pictures-gallery-actions/actions';
 import { togglePublicGallery } from '../../../modules/toggle-public-gallery/actions';
-import actionsStyles from './actions.style';
+import ActionButton from './ActionButton';
 
 const {
   arrayOf,
@@ -90,13 +90,6 @@ class AddToGallery extends Component {
     newGalleryName: '',
   };
 
-  fetchGalleries = () => {
-    const { actions, galleryList } = this.props;
-    actions.fetchGalleries({
-      noFilters: true,
-    });
-  }
-
   toggleMenu = (e) => {
     const { actions } = this.props;
     e.preventDefault();
@@ -152,6 +145,13 @@ class AddToGallery extends Component {
     }
   }
 
+  fetchGalleries = () => {
+    const { actions } = this.props;
+    actions.fetchGalleries({
+      noFilters: true,
+    });
+  }
+
   forceFocus = (e) => {
     e.preventDefault();
     this._createInput.focus();
@@ -196,7 +196,7 @@ class AddToGallery extends Component {
           }
           {!fetchGalleriesLoading && <div className="rest-of-list">
             <div className="create-gallery">
-              <button className="action create" onClick={this.createGallery}>
+              <button className="action-create" onClick={this.createGallery}>
                 <span className="fa fa-plus" />
               </button>
               {galleryCreating && <span>Creating your gallery...</span>}
@@ -224,10 +224,13 @@ class AddToGallery extends Component {
             />
           </div>}
         </ContextMenu>
-        <button className="action" onClick={this.toggleMenu}>
-          <span className="fa fa-plus" />
-          <div className="action-description">Add to gallery</div>
-        </button>
+
+        <ActionButton
+          handleClick={this.toggleMenu}
+          fontAwesomeIcon="fa-plus"
+          description="Add to gallery"
+        />
+
         <style jsx>
           {`
             .loading {
@@ -240,25 +243,27 @@ class AddToGallery extends Component {
               height: 100%;
               overflow-y: auto;
             }
+
             .action-menu-container {
               position: relative;
             }
+
             .create-gallery {
               display: flex;
               flex-direction: row;
               align-items: center;
             }
 
-            ${actionsStyles}
-
-            .action.create {
+            .action-create {
               margin: 5px;
+              padding-top: 2px;
+              border-radius: 50%;
               background: ${white};
               color: ${pink};
               border: 2px solid ${pink};
             }
 
-            .action.create:hover {
+            .action-create:hover {
               background: ${pink};
               color: ${white};
             }
@@ -267,19 +272,13 @@ class AddToGallery extends Component {
               border: none;
               color: ${pink};
               width: 90%;
-              height: 35px;
+              padding: 10px 5px;
             }
 
-            .name-input::-webkit-input-placeholder { /* Chrome */
-              color: ${pink};
-            }
-            .name-input:-ms-input-placeholder { /* IE 10+ */
-              color: ${pink};
-            }
-            .name-input::-moz-placeholder { /* Firefox 19+ */
-              color: ${pink};
-            }
-            .name-input:-moz-placeholder { /* Firefox 4 - 18 */
+            .name-input::-webkit-input-placeholder,
+            .name-input:-ms-input-placeholder,
+            .name-input::-moz-placeholder,
+            .name-input:-moz-placeholder {
               color: ${pink};
             }
           `}

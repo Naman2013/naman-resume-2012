@@ -3,17 +3,12 @@ import PropTypes from 'prop-types';
 import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import Modal from 'react-modal';
 import ConfirmDeleteModal from './ConfirmDeleteModal';
-import { white, black, pink } from '../../../styles/variables/colors';
-import { secondaryFont, primaryFont } from '../../../styles/variables/fonts';
 import { fetchGalleryPictures } from '../../../modules/my-pictures-gallery-pictures/actions';
 import { fetchGalleriesCount } from '../../../modules/my-pictures-galleries/actions';
 import { removeImageFromGallery } from '../../../services/my-pictures/remove-image-from-gallery';
 
 const {
-  arrayOf,
-  bool,
   func,
   number,
   shape,
@@ -54,8 +49,8 @@ class RemoveFromGallery extends Component {
     user: {
       at: '',
       token: '',
-      cid: ''
-    }
+      cid: '',
+    },
   };
 
   removeFromGallery = (e) => {
@@ -91,7 +86,6 @@ class RemoveFromGallery extends Component {
 
         actions.fetchGalleriesCount({});
       }
-
     });
   }
   render() {
