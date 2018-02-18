@@ -31,6 +31,7 @@ const mapDispatchToProps = dispatch => ({
 class RemoveFromGallery extends Component {
 
   static propTypes = {
+    theme: PropTypes.oneOf(['light', 'dark']),
     maxImageCount: number.isRequired,
     firstImageNumber: number.isRequired,
     customerImageId: number.isRequired,
@@ -45,7 +46,9 @@ class RemoveFromGallery extends Component {
       cid: string,
     }).isRequired,
   };
+
   static defaultProps = {
+    theme: 'light',
     user: {
       at: '',
       token: '',
@@ -92,6 +95,7 @@ class RemoveFromGallery extends Component {
     return (
       <div>
         <ConfirmDeleteModal
+          theme={this.props.theme}
           confirmText="Are you sure you want to remove this image from the gallery?"
           buttonHoverText="Remove from gallery"
           removeAction={this.removeFromGallery}

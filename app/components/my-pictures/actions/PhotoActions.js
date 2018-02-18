@@ -16,6 +16,7 @@ const getTheme = actionSource => (
 
 class PhotoActions extends Component {
   static propTypes = {
+    theme: PropTypes.oneOf(['light', 'dark']),
     imageURL: PropTypes.string,
     canEditFlag: PropTypes.bool,
     canSocialShareFlag: PropTypes.bool,
@@ -36,6 +37,7 @@ class PhotoActions extends Component {
   };
 
   static defaultProps = {
+    theme: 'light',
     imageURL: '',
     canEditFlag: false,
     galleryId: null,
@@ -49,6 +51,7 @@ class PhotoActions extends Component {
 
   render() {
     const {
+      theme,
       actionSource,
       canEditFlag,
       canShareFlag,
@@ -97,17 +100,20 @@ class PhotoActions extends Component {
           showLikeText={false}
         />}
         {canEditFlag && <AddToGallery
+          theme={theme}
           actionSource={actionSource}
           customerImageId={customerImageId}
         />}
         {canEditFlag && canRemovePhoto &&
           <RemoveFromGallery
+            theme={theme}
             customerImageId={customerImageId}
             galleryId={galleryId}
             actionSource={actionSource}
           />}
         {canEditFlag && canDeleteImage &&
           <DeleteImage
+            theme={theme}
             galleryId={galleryId}
             customerImageId={customerImageId}
             actionSource={actionSource}

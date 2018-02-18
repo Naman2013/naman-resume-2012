@@ -46,6 +46,7 @@ const mapDispatchToProps = dispatch => ({
 class AddToGallery extends Component {
 
   static propTypes = {
+    theme: PropTypes.oneOf(['light', 'dark']),
     customerImageId: oneOfType([number, string]).isRequired,
     actions: shape({
       fetchGalleries: func.isRequired,
@@ -64,7 +65,9 @@ class AddToGallery extends Component {
     galleryList: arrayOf(shape({
     })).isRequired,
   };
+
   static defaultProps = {
+    theme: 'light',
     addToGalleryState: {
       loading: false,
       response: null,
@@ -168,6 +171,7 @@ class AddToGallery extends Component {
 
   render() {
     const {
+      theme,
       addToGalleryState,
       galleryList,
       fetchGalleriesLoading,
@@ -226,6 +230,7 @@ class AddToGallery extends Component {
         </ContextMenu>
 
         <ActionButton
+          theme={theme}
           handleClick={this.toggleMenu}
           fontAwesomeIcon="fa-plus"
           description="Add to gallery"
