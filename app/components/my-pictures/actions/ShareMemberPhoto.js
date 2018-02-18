@@ -2,15 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import ModalGeneric from '../../common/modals/modal-generic';
 import { shareMemberPicture } from '../../../modules/share-member-photo/actions';
 import actionsStyles from './actions.style';
 
 const {
-  arrayOf,
-  bool,
   func,
-  number,
   shape,
   string,
 } = PropTypes;
@@ -21,7 +17,7 @@ const mapStateToProps = ({ shareMemberPhoto }) => ({
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
-    shareMemberPicture
+    shareMemberPicture,
   }, dispatch),
 });
 
@@ -34,10 +30,6 @@ class ShareMemberPhoto extends Component {
       sharememberPicture: func.isRequired,
     }),
   };
-
-  static defaultProps = {
-  };
-
 
   sharePhoto = (e) => {
     e.preventDefault();

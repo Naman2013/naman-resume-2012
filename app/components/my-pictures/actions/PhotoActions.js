@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import AddToGallery from './AddToGallery';
-import { white } from '../../../styles/variables/colors';
 import RemoveFromGallery from './RemoveFromGallery';
 import DeleteGallery from './DeleteGallery';
 import DeleteImage from './DeleteImage';
@@ -14,6 +13,7 @@ import { likeImage } from '../../../services/my-pictures/like-image';
 const getTheme = actionSource => (
   (actionSource === 'galleryImageDetails' || actionSource === 'imageDetails') ?
   'dark' : 'light');
+
 class PhotoActions extends Component {
   static propTypes = {
     imageURL: PropTypes.string,
@@ -32,7 +32,7 @@ class PhotoActions extends Component {
       theme: PropTypes.string,
       likeType: PropTypes.string,
       likeId: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-    })
+    }),
   };
 
   static defaultProps = {
@@ -45,9 +45,6 @@ class PhotoActions extends Component {
     photoViewFullURL: '',
     socialSharePageURL: '',
     socialShareDescription: '',
-  };
-
-  state = {
   };
 
   render() {
@@ -139,15 +136,6 @@ class PhotoActions extends Component {
             display: flex;
             flex-direction: row;
             margin-top: -5px;
-          }
-
-          .galleryList {
-            top: -15px;
-            height: 250px;
-            width: 200px;
-            position: absolute;
-            z-index: 99999;
-            background-color: ${white};
           }
         `}
         </style>

@@ -45,4 +45,4 @@ export default `
     width: 100px;
     white-space: nowrap;
   }
-  `;
+`;
