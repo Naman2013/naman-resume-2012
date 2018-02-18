@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'react-modal';
+import ActionButton from './ActionButton';
 import { white, black, pink } from '../../../styles/variables/colors';
 import { primaryFont } from '../../../styles/variables/fonts';
 
@@ -56,10 +57,12 @@ class DeleteGallery extends Component {
 
     return (
       <div>
-        <button className="action" onClick={e => this.showModal(e, true)}>
-          <span className={`fa ${buttonClass}`} />
-          <div className="action-description">{buttonHoverText}</div>
-        </button>
+        <ActionButton
+          handleClick={e => this.showModal(e, true)}
+          fontAwesomeIcon={buttonClass}
+          description={buttonHoverText}
+        />
+
         <Modal
           style={customModalStyles}
           isOpen={confirmModalIsOpen}

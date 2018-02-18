@@ -7,6 +7,7 @@ import ConfirmDeleteModal from './ConfirmDeleteModal';
 import { fetchGalleryPictures } from '../../../modules/my-pictures-gallery-pictures/actions';
 import { fetchGalleriesCount } from '../../../modules/my-pictures-galleries/actions';
 import { removeImageFromGallery } from '../../../services/my-pictures/remove-image-from-gallery';
+import ActionButton from './ActionButton';
 
 const {
   func,
