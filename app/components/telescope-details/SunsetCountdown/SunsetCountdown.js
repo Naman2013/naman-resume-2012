@@ -21,20 +21,22 @@ const SunsetCountdown = ({ label, countdownTimestamp, onExpired }) => (
       <TimeUntil
         onExpired={onExpired}
         startTime={countdownTimestamp}
+        style={{
+          textAlign: 'center',
+          color: white,
+          fontSize: '22px',
+        }}
       />
     </div>
 
     <style jsx>{`
       .root {
-        text-align: center;
         margin-bottom: 20px;
       }
 
       .countdown-container {
         background: rgba(0, 0, 0, 0.75);
-        color: ${white}
         padding: 20px;
-        font-size: 22px;
       }
     `}</style>
   </div>
