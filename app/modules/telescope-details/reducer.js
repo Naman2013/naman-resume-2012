@@ -26,9 +26,10 @@ import {
   RESET_ACTIVE_SSE,
   REMOVE_IMAGE_VIEWER_CLIP_STATE,
   APPLY_IMAGE_VIEWER_CLIP_STATE,
-  START_FETCH_UPCOMING_MISSIONS,
-  SUCCESS_FETCH_UPCOMING_MISSIONS,
-  FAIL_FETCH_UPCOMING_MISSIONS,
+  INCREMENT_MISSION_COUNTER,
+  RESET_MISSION_COUNTER,
+  UPDATE_RECENTLY_VIEWED_MISSION_ID,
+  RESET_VIEWED_MISSION_STATE,
 } from './actions';
 
 
@@ -58,7 +59,6 @@ const initialState = {
   fetchingDayNightBarPanel: false,
   fetchingDayNightMap: false,
   fetchingAllSkyCamera: false,
-  fetchingDomeCam: false,
   weatherConditionWidgetResult: {
     apiError: false,
     title: 'Fetching weather',
@@ -84,20 +84,41 @@ const initialState = {
     allSkyCamURL: '',
     onlineStatus: '',
   },
-  domeCam: {
-    apiError: false,
-    refreshIntervalSec: 0,
-    offlineImageURL: '',
-    domeCamURL: '',
-    onlineStatus: '',
-  },
 
   activeSSE: {
     astroObjectID: 0,
   },
+
+  viewedMissionsCounter: 0,
+  recentlyViewedMissionID: 0,
 };
 
 export default createReducer(initialState, {
+  [INCREMENT_MISSION_COUNTER](state) {
+    return {
+      ...state,
+      viewedMissionsCounter: state.viewedMissionsCounter + 1,
+    };
+  },
+  [RESET_MISSION_COUNTER](state) {
+    return {
+      ...state,
+      viewedMissionsCounter: 0,
+    };
+  },
+  [UPDATE_RECENTLY_VIEWED_MISSION_ID](state, { missionID }) {
+    return {
+      ...state,
+      recentlyViewedMissionID: missionID,
+    };
+  },
+  [RESET_VIEWED_MISSION_STATE](state) {
+    return {
+      ...state,
+      viewedMissionsCounter: 0,
+      recentlyViewedMissionID: 0,
+    };
+  },
   [SET_DISPLAY_COMMUNITY_CONTENT](state, { payload }) {
     return {
       ...state,
@@ -178,20 +199,6 @@ export default createReducer(initialState, {
     return {
       ...state,
       currentTelescope,
-    };
-  },
-  [FETCH_DOME_CAM_START](state) {
-    return {
-      ...state,
-      fetchingDomeCam: true,
-      domeCam: { ...initialState.domeCam },
-    };
-  },
-  [FETCH_DOME_CAM_SUCCESS](state, { payload }) {
-    return {
-      ...state,
-      fetchingDomeCam: false,
-      domeCam: payload,
     };
   },
   [FETCH_ALL_SKY_START](state) {

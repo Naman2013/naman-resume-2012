@@ -3,6 +3,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { Router, Route, IndexRoute, IndexRedirect, Redirect, browserHistory } from 'react-router';
+import { syncHistoryWithStore } from 'react-router-redux';
 
 // polyfills
 import 'event-source-polyfill/eventsource.min';
@@ -61,7 +62,6 @@ import Contact from './pages/about/contact';
 import Leadership from './pages/about/leadership';
 import Mission from './pages/about/mission';
 import News from './pages/about/news';
-import PlansChange from './pages/about/PlansChange';
 
 import PhotoRoll from './pages/my-pictures/PhotoRoll';
 import Galleries from './pages/my-pictures/Galleries';
@@ -132,8 +132,11 @@ import './styles/static.scss';
 // load monitoring and global error handling
 import './monitoring';
 
+// Create an enhanced history that syncs navigation events with the store
+const history = syncHistoryWithStore(browserHistory, store);
+
 // handle to the listen callback on changes to the history
-const unlisten = browserHistory.listen((location, action) => {
+history.listen((location) => {
   const { pathname } = location;
 
   firePageview({

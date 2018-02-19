@@ -8,6 +8,9 @@ import { setImageDataToSnapshot } from '../../../modules/starshare-camera/starsh
 import {
   removeImageViewerClipState,
   applyImageViewerClipState,
+  resetViewedMissionState,
+  incrementMissionCounter,
+  updateRecentlyViewedMissionID,
 } from '../../../modules/telescope-details/actions';
 
 import LiveImageViewer from './';
@@ -15,6 +18,9 @@ import VirtualTelescopeViewer from '../../VirtualTelescopeViewer';
 import TelescopeImageLoader from '../../common/telescope-image-loader';
 import obsIdTeleIdDomeIdFromTeleId from '../../../utils/obsid-teleid-domeid-from-teleid';
 import generateSseImageLoader from '../../../utils/generate-sse-image-source';
+import Transition from './Transition';
+
+const MIN_VIEWER_HEIGHT = '500';
 
 const propTypes = {
   applyImageViewerClipState: PropTypes.func.isRequired,
@@ -34,7 +40,18 @@ const propTypes = {
     setImageDataToSnapshot: PropTypes.func.isRequired,
     applyImageViewerClipState: PropTypes.func.isRequired,
     removeImageViewerClipState: PropTypes.func.isRequired,
+    resetViewedMissionState: PropTypes.func.isRequired,
+    incrementMissionCounter: PropTypes.func.isRequired,
+    updateRecentlyViewedMissionID: PropTypes.func.isRequired,
   }),
+  currentMission: PropTypes.shape({
+    scheduledMissionId: PropTypes.number,
+  }),
+  routerState: PropTypes.shape({
+    pathname: PropTypes.string,
+  }),
+  viewedMissionsCounter: PropTypes.number,
+  recentlyViewedMissionID: PropTypes.number,
   // TODO: complete the validation
   // imageSource: PropTypes.
   // teleThumbWidth: PropTypes.
@@ -58,6 +75,14 @@ const defaultProps = {
   actions: {
     setImageDataToSnapshot: noop,
   },
+  currentMission: {
+    scheduledMissionId: 0,
+  },
+  routerState: {
+    pathname: '',
+  },
+  viewedMissionsCounter: 0,
+  recentlyViewedMissionID: 0,
   // TODO: complete the validation
   // imageSource: PropTypes.
   // teleThumbWidth: PropTypes.
@@ -67,19 +92,61 @@ const defaultProps = {
   // teleId: PropTypes.
 };
 
+const mapStateToProps = ({
+  activeTelescopeMissions: { activeTelescopeMission },
+  routing: { locationBeforeTransitions },
+  telescopeDetails: { viewedMissionsCounter, recentlyViewedMissionID },
+}) => ({
+  routerState: locationBeforeTransitions,
+  currentMission: activeTelescopeMission,
+  viewedMissionsCounter,
+  recentlyViewedMissionID,
+});
+
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(
     {
       setImageDataToSnapshot,
       removeImageViewerClipState,
       applyImageViewerClipState,
+      resetViewedMissionState,
+      incrementMissionCounter,
+      updateRecentlyViewedMissionID,
     },
     dispatch,
   ),
 });
 
-@connect(null, mapDispatchToProps)
+@connect(mapStateToProps, mapDispatchToProps)
 class SSELiveImageViewer extends Component {
+  state = {
+    viewerDimensions: { height: MIN_VIEWER_HEIGHT },
+    transitionVideoOpacity: 0,
+  };
+
+  componentWillReceiveProps(nextProps) {
+    const {
+      currentMission: { scheduledMissionId },
+      routerState: { pathname },
+      viewedMissionsCounter,
+      recentlyViewedMissionID,
+    } = nextProps;
+
+    if (pathname !== this.props.routerState.pathname) {
+      this.props.actions.resetViewedMissionState();
+    }
+
+    if (pathname === this.props.routerState.pathname) {
+      if (scheduledMissionId && (scheduledMissionId !== recentlyViewedMissionID)) {
+        this.props.actions.incrementMissionCounter();
+        this.props.actions.updateRecentlyViewedMissionID(scheduledMissionId);
+        this.setState(() => ({
+          transitionVideoOpacity: (viewedMissionsCounter > 0) ? 1 : 0,
+        }));
+      }
+    }
+  }
+
   onClipChange = (clipState) => {
     if (clipState) {
       this.props.actions.applyImageViewerClipState();
@@ -100,6 +167,19 @@ class SSELiveImageViewer extends Component {
       zoom: scale,
     });
   };
+
+  handleVideoTransitionEnd = () => {
+    this.setState({
+      transitionVideoOpacity: 0,
+    });
+  }
+
+  contentResizeCallback = (viewerDimensions) => {
+    // TODO: refactor to use render props instead of a callback in this fashion
+    this.setState({
+      viewerDimensions,
+    });
+  }
 
   render() {
     const {
@@ -123,41 +203,74 @@ class SSELiveImageViewer extends Component {
       callSource,
     } = this.props;
 
+    const { transitionVideoOpacity } = this.state;
+
+    const { viewerDimensions: { height } } = this.state;
+
     const { obsId, domeId } = obsIdTeleIdDomeIdFromTeleId(teleId);
     const imageSource = generateSseImageLoader(teleSystem, telePort);
     const teleThumbWidth = '866px';
+    const inlineTransitionCSS = {
+      opacity: transitionVideoOpacity,
+    };
 
     return (
-      <LiveImageViewer
-        clipped={isImageViewerClipped}
-        onZoomChange={this.handleZoomUpdate}
-        onClipChange={this.onClipChange}
-      >
-        <VirtualTelescopeViewer
-          timestamp={timestamp}
-          coordinateArray={coordinateArray}
-          missionData={missionData}
-          showMissionData={showMissionData}
-          objectTitleShort={objectTitleShort}
-          processing={processing}
-          schedulingMember={schedulingMember}
-          onPositionChange={this.handlePositionChange}
-          now={timestamp}
-          missionStart={missionStart}
-          missionEnd={missionEnd}
+      <div>
+        <div
+          className="mission-transition-container"
+          style={inlineTransitionCSS}
         >
-          <TelescopeImageLoader
-            imageSource={imageSource}
-            teleId={teleId}
-            obsId={obsId}
-            domeId={domeId}
-            teleThumbWidth={teleThumbWidth}
-            teleFade={teleFade}
-            clipped={clipped}
-            missionFormat={missionFormat}
+          <Transition
+            height={height}
+            minHeight={MIN_VIEWER_HEIGHT}
+            handleOnEnded={this.handleVideoTransitionEnd}
           />
-        </VirtualTelescopeViewer>
-      </LiveImageViewer>
+        </div>
+
+        <LiveImageViewer
+          clipped={isImageViewerClipped}
+          onZoomChange={this.handleZoomUpdate}
+          onClipChange={this.onClipChange}
+        >
+          <VirtualTelescopeViewer
+            timestamp={timestamp}
+            coordinateArray={coordinateArray}
+            missionData={missionData}
+            showMissionData={showMissionData}
+            objectTitleShort={objectTitleShort}
+            processing={processing}
+            schedulingMember={schedulingMember}
+            onPositionChange={this.handlePositionChange}
+            now={timestamp}
+            missionStart={missionStart}
+            missionEnd={missionEnd}
+            resizeEventCallback={this.contentResizeCallback}
+          >
+            <TelescopeImageLoader
+              imageSource={imageSource}
+              teleId={teleId}
+              obsId={obsId}
+              domeId={domeId}
+              teleThumbWidth={teleThumbWidth}
+              teleFade={teleFade}
+              clipped={clipped}
+              missionFormat={missionFormat}
+            />
+          </VirtualTelescopeViewer>
+        </LiveImageViewer>
+
+        <style jsx>{`
+          .mission-transition-container {
+            z-index: 99999;
+            position: relative;
+            pointer-events: none;
+            -webkit-transition: 'opacity 0.25s ease-in';
+            -moz-transition: 'opacity 0.25s ease-in';
+            -o-transition: 'opactiy 0.25s ease-in';
+            transition: 'opacity 0.25s ease-in';
+          }
+        `}</style>
+      </div>
     );
   }
 }

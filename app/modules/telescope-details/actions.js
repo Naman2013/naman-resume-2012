@@ -14,7 +14,6 @@ import fetchCurrentConditions from '../../services/sky-widgets/current-condition
 import fetchDayNightBarPanel from '../../services/sky-widgets/day-night-bar-panel';
 import fetchDayNightMap from '../../services/sky-widgets/day-night-map';
 import fetchAllSkyCamera from '../../services/sky-widgets/all-sky-camera';
-import fetchDomeCam from '../../services/sky-widgets/dome-cam';
 import fetchObservatoryList from '../../services/telescopes/observatory-list';
 import fetchTelescopeStatus from '../../services/telescopes/telescope-status';
 
@@ -42,9 +41,6 @@ export const FETCH_DAY_NIGHT_MAP_SUCCESS = 'FETCH_DAY_NIGHT_MAP_SUCCESS';
 export const FETCH_ALL_SKY_START = 'FETCH_ALL_SKY_START';
 export const FETCH_ALL_SKY_SUCCESS = 'FETCH_ALL_SKY_SUCCESS';
 
-export const FETCH_DOME_CAM_START = 'FETCH_DOME_CAM_START';
-export const FETCH_DOME_CAM_SUCCESS = 'FETCH_DOME_CAM_SUCCESS';
-
 export const SET_CURRENT_OBSERVATORY = 'SET_CURRENT_OBSERVATORY';
 export const SET_CURRENT_TELESCOPE = 'SET_CURRENT_TELESCOPE';
 
@@ -56,6 +52,28 @@ export const RESET_ACTIVE_SSE = 'RESET_ACTIVE_SSE';
 
 export const REMOVE_IMAGE_VIEWER_CLIP_STATE = 'REMOVE_IMAGE_VIEWER_CLIP_STATE';
 export const APPLY_IMAGE_VIEWER_CLIP_STATE = 'APPLY_IMAGE_VIEWER_CLIP_STATE';
+
+export const INCREMENT_MISSION_COUNTER = 'INCREMENT_MISSION_COUNTER';
+export const RESET_MISSION_COUNTER = 'RESET_MISSION_COUNTER';
+export const UPDATE_RECENTLY_VIEWED_MISSION_ID = 'UPDATE_RECENTLY_VIEWED_MISSION_ID';
+export const RESET_VIEWED_MISSION_STATE = 'RESET_VIEWED_MISSION_STATE';
+
+export const incrementMissionCounter = () => ({
+  type: INCREMENT_MISSION_COUNTER,
+});
+
+export const resetMissionCounter = () => ({
+  type: RESET_MISSION_COUNTER,
+});
+
+export const updateRecentlyViewedMissionID = missionID => ({
+  type: UPDATE_RECENTLY_VIEWED_MISSION_ID,
+  missionID,
+});
+
+export const resetViewedMissionState = () => ({
+  type: RESET_VIEWED_MISSION_STATE,
+});
 
 export const removeImageViewerClipState = () => ({
   type: REMOVE_IMAGE_VIEWER_CLIP_STATE,
@@ -269,23 +287,6 @@ export const updateObservatoryAndTelescope = ({ obsUniqueId, teleUniqueId }) => 
   dispatch(setTelescope({ obsUniqueId, teleUniqueId }));
 };
 
-const fetchDomeCamStart = () => ({
-  type: FETCH_DOME_CAM_START,
-});
-
-const fetchDomeCamSuccess = payload => ({
-  type: FETCH_DOME_CAM_SUCCESS,
-  payload,
-});
-
-const fetchDomeCamAction = ({ obsId, DomecamWidgetId }) => (dispatch) => {
-  dispatch(fetchDomeCamStart());
-  return fetchDomeCam({
-    obsId,
-    DomecamWidgetId,
-  }).then(result => dispatch(fetchDomeCamSuccess(result.data)));
-};
-
 const fetchAllSkyStart = () => ({
   type: FETCH_ALL_SKY_START,
 });
@@ -360,11 +361,9 @@ export const fetchAllWidgets = ({
   DayNightBarPanelWidgetId,
   DayNightMapWidgetId,
   AllskyWidgetId,
-  DomecamWidgetId,
 }) => (dispatch) => {
   dispatch(fetchWeatherConditions({ obsId, CurrentConditionsWidgetId }));
   dispatch(fetchDayNightBarPanelAction({ obsId, DayNightBarPanelWidgetId }));
   dispatch(fetchDayNightMapAction({ obsId, DayNightMapWidgetId }));
   dispatch(fetchAllSkyAction({ obsId, AllskyWidgetId }));
-  dispatch(fetchDomeCamAction({ obsId, DomecamWidgetId }));
 };

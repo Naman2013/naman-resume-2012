@@ -11,6 +11,9 @@ import fetchWeatherForecastWidget from '../services/sky-widgets/weather-forecast
 import fetchWeatherSatelliteWidget from '../services/sky-widgets/weather-satellite';
 import fetchWeatherMissionControlStatusWidget from '../services/sky-widgets/weather-mission-control-status';
 
+import fetchDomeCam from '../services/sky-widgets/dome-cam';
+import fetchDomeCamTimelapse from '../services/sky-widgets/dome-cam-timelapse';
+
 const OBSERVATORY_REQUEST_START = 'OBSERVATORY_REQUEST_START';
 const OBSERVATORY_REQUEST_SUCCESS = 'OBSERVATORY_REQUEST_SUCCESS';
 const OBSERVATORY_REQUEST_FAIL = 'OBSERVATORY_REQUEST_FAIL';
@@ -50,6 +53,11 @@ const TELESCOPE_CARD_DATA_SUCCESS = 'TELESCOPE_CARD_DATA_SUCCESS';
 const TELESCOPE_CARD_DATA_FAIL = 'TELESCOPE_CARD_DATA_FAIL';
 const TELESCOPE_CARD_DATA_START = 'TELESCOPE_CARD_DATA_START';
 
+const FETCH_DOME_CAM_START = 'FETCH_DOME_CAM_START';
+const FETCH_DOME_CAM_SUCCESS = 'FETCH_DOME_CAM_SUCCESS';
+
+const FETCH_DOME_CAM_TIMELAPSE_START = 'FETCH_DOME_CAM_TIMELAPSE_START';
+const FETCH_DOME_CAM_TIMELAPSE_SUCCESS = 'FETCH_DOME_CAM_TIMELAPSE_SUCCESS';
 
 export const getCurrentObservatory = (observatoryList = [], observatoryId) => {
   return observatoryList.find(observatory => observatory.obsUniqueId === observatoryId);
@@ -360,6 +368,40 @@ export const fetchWeatherMissionControlStatus = ({
   });
 };
 
+const fetchDomeCamStart = () => ({
+  type: FETCH_DOME_CAM_START,
+});
+
+const fetchDomeCamSuccess = payload => ({
+  type: FETCH_DOME_CAM_SUCCESS,
+  payload,
+});
+
+export const fetchDomeCamAction = ({ obsId, DomecamWidgetId }) => (dispatch) => {
+  dispatch(fetchDomeCamStart());
+  return fetchDomeCam({
+    obsId,
+    DomecamWidgetId,
+  }).then(result => dispatch(fetchDomeCamSuccess(result.data)));
+};
+
+const fetchDomeCamTimelapseStart = () => ({
+  type: FETCH_DOME_CAM_TIMELAPSE_START,
+});
+
+const fetchDomeCamTimelapseSuccess = payload => ({
+  type: FETCH_DOME_CAM_TIMELAPSE_SUCCESS,
+  payload,
+});
+
+export const fetchDomeCamTimelapseAction = ({ obsId, DomecamTimelapseWidgetId }) => (dispatch) => {
+  dispatch(fetchDomeCamTimelapseStart());
+  return fetchDomeCamTimelapse({
+    obsId,
+    DomecamTimelapseWidgetId,
+  }).then(result => dispatch(fetchDomeCamTimelapseSuccess(result.data)));
+};
+
 
 const fetchTelescopeCardDataSuccess = telescopeCardData => ({
   type: TELESCOPE_CARD_DATA_SUCCESS,
@@ -404,6 +446,8 @@ const initialState = {
 
   observatoryListErrorBody: null,
 
+  fetchingDomeCamWidgetResult: true,
+  fetchingDomeCamTimelapseWidgetResult: true,
   fetchingSeeingConditionsResult: true,
   fetchingObservatoryLiveWebcamResult: true,
   fetchingWeatherForecastWidgetResult: true,
@@ -470,6 +514,21 @@ const initialState = {
     refreshIntervalSec: 0,
     missionControlStatusURL: '',
   },
+  domeCamWidgetResult: {
+    domeCamTitle: 'Loading',
+    refreshIntervalSec: 0,
+    domeCamURL: '',
+    offlineImageURL: '',
+    offlineStatus: '',
+  },
+  domeCamTimelapseWidgetResult: {
+    domeCamTimelapseTitle: 'Loading',
+    refreshIntervalSec: 0,
+    domeCamTimelapseURL: '',
+    offlineImageURL: '',
+    offlineStatus: '',
+  },
+
   telescopeCardData: undefined,
   isTelescopeCardDataLoading: false,
 };
@@ -643,4 +702,33 @@ export default createReducer(initialState, {
       seeingConditionsWidgetResult: payload,
     };
   },
+  [FETCH_DOME_CAM_START](state) {
+    return {
+      ...state,
+      fetchingDomeCamWidgetResult: true,
+      domeCamWidgetResult: { ...initialState.domeCamWidgetResult },
+    };
+  },
+  [FETCH_DOME_CAM_SUCCESS](state, { payload }) {
+    return {
+      ...state,
+      fetchingDomeCamWidgetResult: false,
+      domeCamWidgetResult: payload,
+    };
+  },
+  [FETCH_DOME_CAM_START](state) {
+    return {
+      ...state,
+      fetchingDomeCamTimelapseWidgetResult: true,
+      domeCamTimelapseWidgetResult: { ...initialState.domeCamTimelapseWidgetResult },
+    };
+  },
+  [FETCH_DOME_CAM_TIMELAPSE_SUCCESS](state, { payload }) {
+    return {
+      ...state,
+      fetchingDomeCamTimelapseWidgetResult: false,
+      domeCamTimelapseWidgetResult: payload,
+    };
+  },
+
 });
