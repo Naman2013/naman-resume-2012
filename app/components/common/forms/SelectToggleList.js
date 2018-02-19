@@ -121,7 +121,7 @@ class SelectToggleList extends Component {
             );
           })
         }
-      <style jsx>{`
+        <style jsx>{`
         /**
           theme-dark: for placing over a light background
         */

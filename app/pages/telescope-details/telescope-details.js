@@ -91,7 +91,6 @@ function mapStateToProps({
 let refreshUpcomingMissionsInterval;
 function createUpcomingMissionRefreshTimer() {
   clearInterval(refreshUpcomingMissionsInterval);
-
 }
 
 @connect(mapStateToProps, mapDispatchToProps)

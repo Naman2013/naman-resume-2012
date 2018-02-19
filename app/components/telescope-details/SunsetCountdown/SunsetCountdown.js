@@ -26,13 +26,13 @@ const SunsetCountdown = ({ label, countdownTimestamp, onExpired }) => (
 
     <style jsx>{`
       .root {
+        text-align: center;
         margin-bottom: 20px;
       }
 
       .countdown-container {
         background: rgba(0, 0, 0, 0.75);
         color: ${white}
-        text-align: center;
         padding: 20px;
         font-size: 22px;
       }
