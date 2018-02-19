@@ -84,7 +84,7 @@ class StarShareCamera extends Component {
 
   closeLightbox = () => {
     if (canUseDOM) {
-      removeStyle(document.getElementsByTagName('body'));
+      removeStyle(window.document.getElementsByTagName('body'));
     }
 
     this.setState({
@@ -174,8 +174,8 @@ class StarShareCamera extends Component {
 
         <style jsx>{`
           @keyframes shake-keyframes {
-            15%,40%,75%,100% {
-              transform-origin:center center
+            15%, 40%, 75%, 100% {
+              transform-origin: center center
             }
             15% {
               transform:scale(1.4, 1.2);
