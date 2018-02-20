@@ -4,5 +4,5 @@ import MissionAudio from '../app/components/telescope-details/MissionAudio';
 
 storiesOf('Mission Audio Module', module)
   .add('Plays audio', () => (
-    <MissionAudio />
+    <MissionAudio missionAudioURL="/audio/random-clip.mp3" />
   ));
