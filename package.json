@@ -104,7 +104,9 @@
     "redux-thunk": "^2.1.0",
     "sinon": "^3.0.0",
     "styled-jsx": "^1.0.8",
-    "ajv": "^6.1.1"
+    "fast-deep-equal": "^1.0.0",
+    "json-schema-traverse": "^0.3.1",
+    "fast-json-stable-stringify": "^2.0.0"
   },
   "devDependencies": {
     "babel-core": "^6.10.4",
