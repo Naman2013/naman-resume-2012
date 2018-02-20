@@ -1,8 +1,11 @@
 import React from 'react';
+import SectionHeader from '../../common/headers/SectionHeader';
+
+const SECTION_TITLE = 'Mission Audio';
 
 const MissionAudio = () => (
   <div>
-    <h4>Mission Audio Component</h4>
+    <SectionHeader title={SECTION_TITLE} />
   </div>
 );
 
