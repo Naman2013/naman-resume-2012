@@ -35,6 +35,7 @@ import TelescopeAllSky from '../../components/telescope-details/telescope-all-sk
 import TelescopeDetailsTabs from '../../components/telescope-details/TelescopeDetailsTabs';
 import TelescopeSelection from '../../components/telescopes/selection-widget/telescope-selection';
 import UpcomingMissions from '../../components/telescope-details/UpcomingMissions/UpcomingMissions';
+import MissionAudio from '../../components/telescope-details/MissionAudio';
 
 import obsIdTeleIdDomeIdFromTeleId from '../../utils/obsid-teleid-domeid-from-teleid';
 
@@ -424,8 +425,11 @@ class TelescopeDetails extends Component {
               />
             </div>
 
-            {/** right side bar */}
+            {/** begin right column */}
             <div className="col-sm-4 telescope-details-sidebar">
+
+              <MissionAudio />
+
               {currentObservatory.showCountdown &&
                 currentMissionCountdown && currentMissionCountdown.showCountdown && (
                   <SunsetCountdown
