@@ -67,12 +67,28 @@ class ObjectDetails extends Component {
     } = this.props;
 
     return (
-      <div>
+      <div style={{'marginLeft': '20px', 'marginRight': '20px', 'marginBottom': '20px'}}>
         <h1>Object ID: {objectId}</h1>
         <h1>{objectDetails.objectTitle}</h1>
+        <br/>
+        <h2>{objectDetails.objectDescription}</h2>
+        <br/>
+        <h3>{objectDetails.objectTagline}</h3>
+        <br/>
+
+        {objectDetails.objectAudioURL != '' &&
+          <div>
+            Audio Clip:<br/>
+            <audio controls controlsList="nodownload">
+              <source src={objectDetails.objectAudioURL} type="audio/mpeg"/>
+            </audio>
+          </div>
+        }
+
         <hr/>
+
         {objectDetails && <div>
-          <table style={{'border': '1', 'margin-left': '100px'}}>
+          <table style={{'border': '1', 'marginLeft': '100px'}}>
             <thead>
               <th style={{'width': '20%'}}>Attribute</th>
               <th>Value</th>
@@ -80,8 +96,8 @@ class ObjectDetails extends Component {
             <tbody>
               {Object.keys(objectDetails).map(function (key) {
                   return( <tr>
-                    <td style={{'padding-top': '5px', 'padding-bottom': '5px'}}>{key}</td>
-                    <td style={{'padding-top': '5px', 'padding-bottom': '5px'}}>{objectDetails[key]}</td></tr> );
+                    <td style={{'paddingTop': '5px', 'paddingBottom': '5px'}}>{key}</td>
+                    <td style={{'paddingTop': '5px', 'paddingBottom': '5px'}}>{objectDetails[key]}</td></tr> );
                 })
               }
             </tbody>
