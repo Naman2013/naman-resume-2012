@@ -115,6 +115,9 @@ import Privacy from './pages/help/Privacy';
 
 import BookclubHandoff from './pages/bookclub-handoff/BookclubHandoff';
 
+//V4 pages
+import ObjectDetails from './pages/object-details/ObjectDetails';
+
 // router functions
 import validateUser from './route-functions/validateUser';
 import { fetchPlayer } from './modules/get-audio-player/actions';
@@ -456,6 +459,9 @@ ReactDOM.render(
         <Route path="help/privacy" component={Privacy} />
 
         <Route path="bookclub" component={BookclubHandoff} />
+
+        <Route path="object-details/:objectId" component={ObjectDetails} onEnter={validateUser} />
+
       </Route>
 
       <Redirect from="*" to="/" />
