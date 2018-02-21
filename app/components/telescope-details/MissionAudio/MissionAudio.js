@@ -18,8 +18,15 @@ class MissionAudio extends Component {
     displayPlayer: false,
   };
 
+  handleEnableViewerChange = () => {
+    this.setState(state => ({
+      displayPlayer: !state.displayPlayer,
+    }));
+  };
+
   render() {
     const { missionAudioURL, audioEnabled } = this.props;
+    const { displayPlayer } = this.state;
 
     return (
       <div className="root">
@@ -27,12 +34,17 @@ class MissionAudio extends Component {
 
         <div className="player-container">
           <form className="player" method="POST">
-            <input id="enable-player" type="checkbox" />
+            <input
+              id="enable-player"
+              checked={displayPlayer}
+              onChange={this.handleEnableViewerChange}
+              type="checkbox"
+            />
             <label htmlFor="enable-player">Play Mission Audio</label>
           </form>
 
           {
-            audioEnabled &&
+            audioEnabled && displayPlayer &&
               <audio src={missionAudioURL} controls />
           }
 
