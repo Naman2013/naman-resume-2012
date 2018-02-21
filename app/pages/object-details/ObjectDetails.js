@@ -79,9 +79,7 @@ class ObjectDetails extends Component {
         {objectDetails.objectAudioURL != '' &&
           <div>
             Audio Clip:<br/>
-            <audio controls controlsList="nodownload">
-              <source src={objectDetails.objectAudioURL} type="audio/mpeg"/>
-            </audio>
+            <audio src={objectDetails.objectAudioURL} controls playsInline controlsList="nodownload"/>
           </div>
         }
 
