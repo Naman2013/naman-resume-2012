@@ -137,7 +137,7 @@ class ObjectDetails extends Component {
               <tr key={'row_missionsList'}>
                 <td colSpan="2">
                   <br/>
-                  <h2>Missions List:</h2>
+                  <h2>Upcoming Missions:</h2>
                   <table style={{'width': '100%', 'border': '1'}}>
                     <thead>
                       <th>Title</th>
