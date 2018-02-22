@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import SectionHeader from '../../common/headers/SectionHeader';
+import { primaryFont } from '../../../styles/variables/fonts';
 
 const SECTION_TITLE = 'Mission Audio';
 
@@ -45,7 +46,11 @@ class MissionAudio extends Component {
 
           {
             audioEnabled && displayPlayer &&
-              <audio src={missionAudioURL} controls />
+              <audio
+                src={missionAudioURL}
+                controls
+                controlsList="nodownload"
+              />
           }
 
           {
@@ -55,6 +60,15 @@ class MissionAudio extends Component {
         </div>
 
         <style jsx>{`
+          .player-container {
+            font-family: ${primaryFont};
+            background-color: rgba(137, 137, 137, .5);
+            margin-bottom: 20px;
+            text-align: center;
+            padding: 20px 0;
+            margin-bottom: 10px;
+          }
+
           .player {
             margin-bottom: 10px;
           }
@@ -62,14 +76,6 @@ class MissionAudio extends Component {
           .disabled-text {
             margin: 0;
             padding: 0;
-          }
-
-          .player-container {
-            background-color: rgba(137, 137, 137, .5);
-            margin-bottom: 20px;
-            text-align: center;
-            padding: 20px 0;
-            margin-bottom: 10px;
           }
         `}</style>
       </div>
