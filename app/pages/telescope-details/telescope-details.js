@@ -427,9 +427,6 @@ class TelescopeDetails extends Component {
 
             {/** begin right column */}
             <div className="col-sm-4 telescope-details-sidebar">
-
-              <MissionAudio />
-
               {currentObservatory.showCountdown &&
                 currentMissionCountdown && currentMissionCountdown.showCountdown && (
                   <SunsetCountdown
