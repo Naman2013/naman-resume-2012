@@ -1,5 +1,8 @@
 /***********************************
 * V4 Object Details Page
+*   Markdown support on elements????
+*   UTF-8 support....
+*   Multi-National Languages.....
 ***********************************/
 
 import React, { Component } from 'react';
@@ -102,9 +105,19 @@ class ObjectDetails extends Component {
               {Object.keys(objectDetails).map(function (key) {
                   /* exclude things like missionsList, etc. */
                   if ( typeof objectDetails[key] != 'object') {
+                    var val = new String(objectDetails[key]);
+                    var idxImg = val.indexOf('.svg');
+
                     return( <tr key={'row_' + key}>
                         <td style={{'width': '30%'}} key={'k_' + key}style={{'paddingTop': '5px', 'paddingBottom': '5px'}}>{key}</td>
-                        <td key={'v_' + key}style={{'paddingTop': '5px', 'paddingBottom': '5px'}}>{objectDetails[key]}</td>
+                        <td key={'v_' + key}style={{'paddingTop': '5px', 'paddingBottom': '5px'}}>
+                          {idxImg > 0 &&
+                            <div>
+                              <img style={{'backgroundColor': 'black'}} src={objectDetails[key]}/><br/>
+                            </div>
+                          }
+                          {objectDetails[key]}
+                        </td>
                       </tr>
                     );
                   }
@@ -129,9 +142,20 @@ class ObjectDetails extends Component {
               {Object.keys(objectQuests).map(function (key) {
                   /* exclude things like questsList, etc. */
                   if ( typeof objectQuests[key] != 'object') {
+
+                    var val = new String(objectDetails[key]);
+                    var idxImg = val.indexOf('.svg');
+
                     return( <tr key={'row_' + key}>
                         <td style={{'width': '20%', 'paddingTop': '5px', 'paddingBottom': '5px'}}>{key}</td>
-                        <td key={'v_' + key}style={{'paddingTop': '5px', 'paddingBottom': '5px'}}>{objectQuests[key]}</td>
+                        <td key={'v_' + key}style={{'paddingTop': '5px', 'paddingBottom': '5px'}}>
+                          {idxImg > 0 &&
+                            <div>
+                              <img style={{'backgroundColor': 'black'}} src={objectDetails[key]}/><br/>
+                            </div>
+                          }
+                          {objectDetails[key]}
+                        </td>
                       </tr>
                     );
                   }
@@ -158,7 +182,11 @@ class ObjectDetails extends Component {
                               <td>{objectQuests.questsList[key].title}</td>
                               <td>{objectQuests.questsList[key].label}</td>
                               <td>{objectQuests.questsList[key].linkLabel}</td>
-                              <td>{objectQuests.questsList[key].iconUrl}</td>
+                              <td><div>
+                                    <img style={{'backgroundColor': 'black'}} src={objectQuests.questsList[key].iconUrl}/><br/>
+                                    {objectQuests.questsList[key].iconUrl}
+                                  </div>
+                              </td>
                               <td>{objectQuests.questsList[key].questId}</td>
                             </tr>
                           )
@@ -190,8 +218,8 @@ class ObjectDetails extends Component {
                   /* exclude things like missionsList, etc. */
                   if ( typeof objectMissions[key] != 'object') {
                     return( <tr key={'row_' + key}>
-                        <td style={{'width': '20%', 'paddingTop': '5px', 'paddingBottom': '5px'}}>{key}</td>
-                        <td key={'v_' + key}style={{'paddingTop': '5px', 'paddingBottom': '5px'}}>{objectMissions[key]}</td>
+                        <td key={'k_' + key} style={{'width': '20%', 'paddingTop': '5px', 'paddingBottom': '5px'}}>{key}</td>
+                        <td key={'v_' + key} style={{'paddingTop': '5px', 'paddingBottom': '5px'}}>{objectMissions[key]}</td>
                       </tr>
                     );
                   }
@@ -218,7 +246,11 @@ class ObjectDetails extends Component {
                             <tr>
                               <td>{objectMissions.missionsList[key].title}</td>
                               <td>{objectMissions.missionsList[key].canJoinFlag} - {objectMissions.missionsList[key].joinPrompt}</td>
-                              <td>{objectMissions.missionsList[key].iconURL}</td>
+                              <td><div>
+                                    <img style={{'backgroundColor': 'black'}} src={objectMissions.missionsList[key].iconURL}/><br/>
+                                    {objectMissions.missionsList[key].iconURL}
+                                  </div>
+                              </td>
                               <td>
                                 {objectMissions.missionsList[key].missionDetails.date.itemText} - {objectMissions.missionsList[key].missionDetails.time.itemText}<br/>
                                 {objectMissions.missionsList[key].missionDetails.date.itemIconURL} - {objectMissions.missionsList[key].missionDetails.time.itemIconURL}<br/>
