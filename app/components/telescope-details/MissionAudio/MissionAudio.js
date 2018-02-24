@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import SectionHeader from '../../common/headers/SectionHeader';
 import { primaryFont } from '../../../styles/variables/fonts';
+import { lightBlack } from '../../../styles/variables/colors';
 
 const SECTION_TITLE = 'Mission Audio';
 
@@ -54,12 +55,16 @@ class MissionAudio extends Component {
           }
 
           {
-            !audioEnabled &&
+            !audioEnabled && displayPlayer &&
               <h4 className="disabled-text">Audio is not enabled for this mission.</h4>
           }
         </div>
 
         <style jsx>{`
+          .root {
+            color: ${lightBlack};
+          }
+
           .player-container {
             font-family: ${primaryFont};
             background-color: rgba(137, 137, 137, .5);
