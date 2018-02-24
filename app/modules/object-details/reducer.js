@@ -41,10 +41,6 @@ export default createReducer(initialState, {
       errorBody: payload,
     };
   },
-
-
-
-
   [FETCH_OBJECT_MISSIONS_SUCCESS](state, { payload }) {
     return {
       ...state,
