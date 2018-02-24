@@ -298,6 +298,7 @@ class TelescopeDetails extends Component {
 
       activeDetailsSSE,
       isImageViewerClipped,
+      objectDetails,
     } = this.props;
 
     if (fetchingObservatoryList) {
@@ -449,7 +450,7 @@ class TelescopeDetails extends Component {
                   activeTelescopeMission.nextMissionAvailable ? (
                     <div>
                       <LiveMission {...activeTelescopeMission} />
-                      <MissionAudio />
+                      <MissionAudio missionAudioURL={objectDetails.objectAudioURL} />
                     </div>
                   ) : null
               }
