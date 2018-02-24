@@ -61,6 +61,7 @@ function mapStateToProps({
   communityObjectContent,
   telescopeDetails,
   activeTelescopeMissions,
+  objectDetails,
 }) {
   const { observatoryList } = telescopeOverview;
 
@@ -86,6 +87,7 @@ function mapStateToProps({
     communityContent: communityObjectContent.communityContent.posts,
 
     activeDetailsSSE: telescopeDetails.activeSSE,
+    objectDetails,
   };
 }
 
@@ -115,11 +117,17 @@ class TelescopeDetails extends Component {
         // TODO: finish validating fields from the API here...
       }),
     ),
+    objectDetails: PropTypes.shape({
+      objectAudioURL: PropTypes.string,
+    }),
     isImageViewerClipped: PropTypes.bool,
   };
 
   static defaultProps = {
     isImageViewerClipped: true,
+    objectDetails: {
+      objectAudioURL: '',
+    },
   };
 
   constructor(props) {
