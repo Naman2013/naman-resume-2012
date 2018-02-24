@@ -307,7 +307,7 @@ class TelescopeDetails extends Component {
     );
 
     const { domeId } = obsIdTeleIdDomeIdFromTeleId(teleId);
-    console.log(activeTelescopeMission);
+
     return (
       <div className="telescope-details-page-wrapper">
         <AnnouncementBanner obsId={obsId} />
