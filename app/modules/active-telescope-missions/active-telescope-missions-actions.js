@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 import { fetchObjectContent, fetchContentReset } from '../community-content/community-object-content-actions';
+import { fetchObjectDataAction } from '../object-details/actions';
 
 export const UPDATE_TELESCOPE_MISSION_FULL_START = 'UPDATE_TELESCOPE_MISSION_FULL_START';
 export const UPDATE_TELESCOPE_MISSION_COMPACT_START = 'UPDATE_TELESCOPE_MISSION_COMPACT_START';
@@ -142,10 +143,14 @@ export const updateTelescopeActiveMission = ({
           const { objectId } = currentMission;
           const callSource = 'telescopeDetails';
 
+          // get the community posts associated with this object
           dispatch(fetchObjectContent({
             objectId,
             callSource,
           }));
+
+          // get the meta data associated with this object
+          dispatch(fetchObjectDataAction(objectId));
         }
       } else {
         dispatch(resetActiveMission());

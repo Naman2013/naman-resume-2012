@@ -1,5 +1,3 @@
-import createReducer from '../utils/createReducer';
-
 // services
 import fetchObjectDataService from '../../services/objects/object-data';
 import fetchObjectMissionsService from '../../services/objects/object-missions';
