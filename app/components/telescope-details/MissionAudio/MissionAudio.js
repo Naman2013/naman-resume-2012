@@ -29,7 +29,6 @@ class MissionAudio extends Component {
   render() {
     const { missionAudioURL, audioEnabled } = this.props;
     const { displayPlayer } = this.state;
-
     return (
       <div className="root">
         <SectionHeader title={SECTION_TITLE} />
