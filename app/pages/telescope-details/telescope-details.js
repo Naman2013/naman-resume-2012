@@ -321,6 +321,7 @@ class TelescopeDetails extends Component {
     );
 
     const { domeId } = obsIdTeleIdDomeIdFromTeleId(teleId);
+    const { objectAudioURL } = objectDetails;
 
     return (
       <div className="telescope-details-page-wrapper">
@@ -450,7 +451,10 @@ class TelescopeDetails extends Component {
                   activeTelescopeMission.nextMissionAvailable ? (
                     <div>
                       <LiveMission {...activeTelescopeMission} />
-                      <MissionAudio missionAudioURL={objectDetails.objectAudioURL} />
+                      <MissionAudio
+                        missionAudioURL={objectAudioURL}
+                        audioEnabled={!!objectAudioURL}
+                      />
                     </div>
                   ) : null
               }
