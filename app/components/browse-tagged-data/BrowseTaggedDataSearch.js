@@ -9,11 +9,19 @@ import { white, sloohBlue } from '../../styles/variables/colors';
 const propTypes = {
   topNavSearchEnabled: PropTypes.bool,
   topNavSearchTerm: PropTypes.String,
+  topNavSearchResults: PropTypes.shape({
+
+  }),
+  browseTaggedData: PropTypes.shape({
+
+  }),
 };
 
 const defaultProps = {
   topNavSearchEnabled: false,
   topNavSearchTerm: '',
+  topNavSearchResults: { },
+  browseTaggedData: { },
 };
 
 const mapStateToProps = ({ browseTaggedData }) => ({
@@ -42,6 +50,20 @@ class BrowseTaggedDataSearch extends Component {
       topNavSearchTerm: '',
       topNavSearchEnabled: false,
     });
+  }
+
+  componentWillReceiveProps(nextProps) {
+    /* do a deep comparision on the next data coming in to see if it's different. */
+    var equal = require('deep-equal');
+
+    if (equal( this.props.browseTaggedData, nextProps.browseTaggedData ) == false) {
+      console.log('Browse Tagged Data has changed...');
+      console.log(this.props.browseTaggedData);
+      console.log(nextProps.browseTaggedData);
+
+      /* build an internal object structure based on the search term entered so the rendering can be done against that object instead of the complete data stream (ex: filter on Jupiter) */
+      
+    }
   }
 
   handleFieldChange(searchData) {
@@ -82,8 +104,6 @@ class BrowseTaggedDataSearch extends Component {
   render() {
     const { topNavSearchTerm, topNavSearchEnabled } = this.state;
     const { browseTaggedData } = this.props;
-
-    console.log(browseTaggedData);
 
     return (
       <div className="search-site-bytags">
