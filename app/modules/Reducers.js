@@ -84,6 +84,7 @@ export default combineReducers({
   avatar,
   bestPosts,
   browseByPopularObjects,
+  browseTaggedData,
   catalog,
   communityContent,
   communityObjectContent,
@@ -117,6 +118,7 @@ export default combineReducers({
   galleries,
   galleryActions,
   galleryPictures,
+  objectDetails,
   objectPostList,
   objectTypeList,
   otherFeaturedObjects,
@@ -138,5 +140,4 @@ export default combineReducers({
   isLanding,
   videoViewerBrowser,
   videoViewerShow,
-  objectDetails,
 });

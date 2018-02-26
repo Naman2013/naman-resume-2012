@@ -15,6 +15,7 @@ const initialState = {
 
 export default createReducer(initialState, {
   [FETCH_BROWSE_TAGGED_DATA_SUCCESS](state, { payload }) {
+    console.log(payload);
     return {
       ...state,
       ...payload,

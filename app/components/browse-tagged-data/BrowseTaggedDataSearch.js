@@ -16,9 +16,7 @@ const defaultProps = {
   topNavSearchTerm: '',
 };
 
-const mapStateToProps = ({
-  browseTaggedData,
-}) => ({
+const mapStateToProps = ({ browseTaggedData }) => ({
   browseTaggedData,
 });
 
@@ -83,6 +81,9 @@ class BrowseTaggedDataSearch extends Component {
 
   render() {
     const { topNavSearchTerm, topNavSearchEnabled } = this.state;
+    const { browseTaggedData } = this.props;
+
+    console.log(browseTaggedData);
 
     return (
       <div className="search-site-bytags">
