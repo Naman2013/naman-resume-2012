@@ -50,8 +50,9 @@ class BrowseTaggedDataSearch extends Component {
 
   endSearch() {
     console.log('User selected to end the search');
-    this.topNavSearchTerm = '';
     this.topNavSearchEnabled = false;
+    this.topNavSearchTerm = '';
+    document.getElementById('BrowseTaggedDataSearchInputField').value = '';
   }
 
   render() {
@@ -59,7 +60,7 @@ class BrowseTaggedDataSearch extends Component {
       <div className="search-site-bytags">
         <p className="search-text">Search:</p>
         <input
-          value={this.topNavSearchTerm}
+          id="BrowseTaggedDataSearchInputField"
           onClick={(event) => { this.handleClick({ value: event.target.value}); }}
           onChange={(event) => { this.handleFieldChange({ value: event.target.value }); }}
           type="text"
