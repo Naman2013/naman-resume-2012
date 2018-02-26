@@ -59,6 +59,8 @@ class BrowseTaggedDataSearch extends Component {
 
       const { topNavSearchEnabled } = this.state;
 
+      /* only fetch the browse tagged data if the search has not already been iniated,
+        this will prevent multiple data calls when a user clicks in the text box when the results are already active. */
       if (topNavSearchEnabled != true) {
         this.setState({
           topNavSearchTerm: searchData.value,
@@ -108,7 +110,7 @@ class BrowseTaggedDataSearch extends Component {
             position: relative;
             max-width: 400px;
             min-width: 400px;
-            display: inline;
+            display: inline-block;
           }
 
           .search-results-container {
@@ -121,9 +123,9 @@ class BrowseTaggedDataSearch extends Component {
             z-index: 1;
             max-width: 500px;
             min-width: 500px;
-            margin-left: -100%;
+            margin-left: -160px;
             position: absolute;
-            margin-top: 25px;
+            margin-top: 30px;
           }
 
           .search-results-set {
@@ -140,6 +142,7 @@ class BrowseTaggedDataSearch extends Component {
           }
 
           .search-text {
+              margin-top: 20px;
               color: ${white};
           }
 
