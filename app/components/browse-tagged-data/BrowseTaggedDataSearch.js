@@ -6,7 +6,16 @@ import { Button } from 'react-bootstrap';
 import { fetchBrowseTaggedDataAction } from '../../modules/browse-tagged-data/actions';
 import { white, sloohBlue } from '../../styles/variables/colors';
 
-/*
+const propTypes = {
+  topNavSearchEnabled: PropTypes.bool,
+  topNavSearchTerm: PropTypes.String,
+};
+
+const defaultProps = {
+  topNavSearchEnabled: false,
+  topNavSearchTerm: '',
+};
+
 const mapStateToProps = ({
   browseTaggedData,
 }) => ({
@@ -19,43 +28,60 @@ const mapDispatchToProps = dispatch => ({
   }, dispatch),
 });
 
-@connect(mapStateToProps, mapDispatchToProps) */
+@connect(mapStateToProps, mapDispatchToProps)
 class BrowseTaggedDataSearch extends Component {
+  state = {
+    topNavSearchEnabled: this.props.topNavSearchEnabled,
+    topNavSearchTerm: this.props.topNavSearchTerm,
+  };
+
   constructor(props) {
     super(props);
-
-    this.topNavSearchEnabled = false;
-    this.topNavSearchTerm = '';
   }
 
   componentDidMount() {
-    this.topNavSearchTerm = '';
-    this.topNavSearchEnabled = false;
+    this.setState({
+      topNavSearchTerm: '',
+      topNavSearchEnabled: false,
+    });
   }
 
   handleFieldChange(searchData) {
     console.log("Search Text Changed: " + searchData.value);
-    this.topNavSearchTerm = searchData.value;
-    this.topNavSearchEnabled = true;
+    this.setState({
+      topNavSearchTerm: searchData.value,
+      topNavSearchEnabled: true,
+    });
   }
 
   handleClick(searchData) {
       console.log("Click: " + searchData.value)
-      this.topNavSearchTerm = searchData.value;
-      this.topNavSearchEnabled = true;
 
-      /* fetch the browse tagged data */
-      //this.props.actions.fetchBrowseTaggedDataAction();
+      const { topNavSearchEnabled } = this.state;
+
+      if (topNavSearchEnabled != true) {
+        this.setState({
+          topNavSearchTerm: searchData.value,
+          topNavSearchEnabled: true,
+        });
+
+        /* fetch the browse tagged data */
+        this.props.actions.fetchBrowseTaggedDataAction();
+      }
   }
 
   endSearch() {
     console.log('User selected to end the search');
-    this.topNavSearchEnabled = false;
-    this.topNavSearchTerm = '';
+    this.setState({
+      topNavSearchTerm: '',
+      topNavSearchEnabled: false,
+    });
     document.getElementById('BrowseTaggedDataSearchInputField').value = '';
   }
 
   render() {
+    const { topNavSearchTerm, topNavSearchEnabled } = this.state;
+
     return (
       <div className="search-site-bytags">
         <p className="search-text">Search:</p>
@@ -66,7 +92,7 @@ class BrowseTaggedDataSearch extends Component {
           type="text"
           className="search-input-field" />
 
-        {this.topNavSearchEnabled == true && <div className="search-results-container">
+        {topNavSearchEnabled == true && <div className="search-results-container">
             <Button style={{'marginLeft': '20px', 'marginBottom': '0px'}} className="btn-primary"
               onClick={(event) => { this.endSearch(); }}>
               Close/Cancel Search
