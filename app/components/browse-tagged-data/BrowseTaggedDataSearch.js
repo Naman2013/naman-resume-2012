@@ -170,23 +170,17 @@ class BrowseTaggedDataSearch extends Component {
                   min-height: 300px;
               }
 
-              .search-results-headertext {
-                  text-decoration: underline;
-                  margin-left: 20px;
-                  font-size: 1.5em;
-              }
-
               .search-results-grandparent {
-                font-size: 1.5em;
+                font-size: 1.25em;
               }
 
               .search-results-parent {
-                font-size: 1.25em;
+                font-size: 1.0em;
                 margin-left: 75px;
               }
 
               .search-results-item {
-                font-size: 1.25em;
+                font-size: 1.0em;
                 margin-left: 150px;
               }
               `}</style>
@@ -212,11 +206,12 @@ class BrowseTaggedDataSearch extends Component {
           className="search-input-field" />
 
         {topNavSearchEnabled == true && <div className="search-results-container">
-            <Button style={{'marginLeft': '20px', 'marginBottom': '0px'}} className="btn-primary"
+            <Button style={{'float': 'right', 'marginLeft': '20px', 'marginBottom': '0px'}} className="btn-primary"
               onClick={(event) => { this.endSearch(); }}>
               Close/Cancel Search
             </Button>
             <h1 className="search-results-headertext">Browse / Search Results:</h1>
+            <hr/>
             {this.renderTaggedDataDisplay()}
           </div>
         }
@@ -241,6 +236,11 @@ class BrowseTaggedDataSearch extends Component {
             margin-left: -160px;
             position: absolute;
             margin-top: 30px;
+          }
+
+          .search-results-headertext {
+              margin-left: 20px;
+              font-size: 1.5em;
           }
 
           .search-text {
