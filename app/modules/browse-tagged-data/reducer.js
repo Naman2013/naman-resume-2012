@@ -10,7 +10,7 @@ import {
   } from './actions';
 
 const initialState = {
-
+  taggedData: { }
 };
 
 export default createReducer(initialState, {

@@ -34,6 +34,8 @@ class BrowseTaggedDataSearch extends Component {
     renderTaggedData: {
       taggedData: { },
     },
+    grandParentNodeID: null,
+    parentNodeID: null,
   };
 
   componentDidMount() {
@@ -43,13 +45,12 @@ class BrowseTaggedDataSearch extends Component {
   componentWillReceiveProps(nextProps) {
     /* do a deep comparision on the next data coming in to see if it's different. */
     var equal = require('deep-equal');
-
     if (equal( this.props.browseTaggedData, nextProps.browseTaggedData ) == false) {
       //console.log('Browse Tagged Data has changed...');
       //console.log(this.props.browseTaggedData);
       //console.log(nextProps.browseTaggedData);
 
-      //set the default rendered state (search results data feed)
+      //set the default rendered state (search results data feed to the render data feed)
       this.setState({
         renderTaggedData: nextProps.browseTaggedData,
       });
@@ -69,10 +70,18 @@ class BrowseTaggedDataSearch extends Component {
       /* render the entire browse tagged data set as their is no search term limiting the results */
       this.setState({
         renderTaggedData: this.props.browseTaggedData,
+        grandParentNodeID: null,
+        parentNodeID: null,
       });
     }
     else {
-      /* build the rendered data set based on the search term so the search results list gets refined based on the new data feed results */
+      //reset the grandparent and parent node selections a user has previous made as a new search was executed.
+      this.setState({
+        grandParentNodeID: null,
+        parentNodeID: null,
+      });
+
+      /* build the render data set based on the search term so the search results list gets refined based on the new data feed results */
       var tmpRenderedDataObj = {
         'taggedData': {
 
@@ -96,6 +105,8 @@ class BrowseTaggedDataSearch extends Component {
         this.setState({
           topNavSearchTerm: searchData.value,
           topNavSearchEnabled: true,
+          grandParentNodeID: null,
+          parentNodeID: null,
         });
 
         /* fetch the browse tagged data */
@@ -108,8 +119,79 @@ class BrowseTaggedDataSearch extends Component {
     this.setState({
       topNavSearchTerm: '',
       topNavSearchEnabled: false,
+      grandParentNodeID: null,
+      parentNodeID: null,
     });
     //document.getElementById('BrowseTaggedDataSearchInputField').value = '';
+  }
+
+  renderTaggedDataDisplay() {
+      const { topNavSearchTerm, topNavSearchEnabled, renderTaggedData } = this.state;
+      const { browseTaggedData } = this.props;
+
+      return(
+        <div className="search-results-set">
+          {renderTaggedData.taggedData &&
+            <div>
+              {Object.keys(renderTaggedData.taggedData).map(function (grandParentKey) {
+                  return (
+                    <div>
+                      <h1 className="search-results-grandparent">{renderTaggedData.taggedData[grandParentKey].title}</h1>
+                      {Object.keys(renderTaggedData.taggedData[grandParentKey].subnodes).map(function (parentKey) {
+                          return (
+                            <div>
+                              <h2 className="search-results-parent">{renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].title}</h2>
+                              {Object.keys(renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].subnodes).map(function (itemKey) {
+                                  return (
+                                    <div className="search-results-item">
+                                      <Link onClick={(event) => { this.endSearch(); }} to={`/${renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].subnodes[itemKey].dataType}-details/${renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].subnodes[itemKey].dataId}`}>{renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].subnodes[itemKey].title}</Link>
+                                    </div>
+                                  )
+                                })
+                              }
+                            </div>
+                          )
+                        })
+                      }
+                    </div>
+                    )
+                  })
+                }
+              </div>
+            }
+            {Object.keys(browseTaggedData.taggedData).length > 0 && Object.keys(renderTaggedData.taggedData).length === 0 && <p>No results found.</p>}
+            {Object.keys(browseTaggedData.taggedData).length === 0 && Object.keys(renderTaggedData.taggedData).length === 0 && <p>Loading....</p>}
+
+            <style jsx>{`
+              .search-results-set {
+                  margin-left: 20px;
+                  margin-top: 25px;
+                  overflow-y: scroll;
+                  min-height: 300px;
+              }
+
+              .search-results-headertext {
+                  text-decoration: underline;
+                  margin-left: 20px;
+                  font-size: 1.5em;
+              }
+
+              .search-results-grandparent {
+                font-size: 1.5em;
+              }
+
+              .search-results-parent {
+                font-size: 1.25em;
+                margin-left: 75px;
+              }
+
+              .search-results-item {
+                font-size: 1.25em;
+                margin-left: 150px;
+              }
+              `}</style>
+        </div>
+      )
   }
 
   render() {
@@ -135,38 +217,7 @@ class BrowseTaggedDataSearch extends Component {
               Close/Cancel Search
             </Button>
             <h1 className="search-results-headertext">Browse / Search Results:</h1>
-            <div className="search-results-set">
-              {renderTaggedData.taggedData &&
-                <div>
-                  {Object.keys(renderTaggedData.taggedData).map(function (grandParentKey) {
-                      return (
-                        <div>
-                          <h1 className="search-results-grandparent">{renderTaggedData.taggedData[grandParentKey].title}</h1>
-                          {Object.keys(renderTaggedData.taggedData[grandParentKey].subnodes).map(function (parentKey) {
-                              return (
-                                <div>
-                                  <h2 className="search-results-parent">{renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].title}</h2>
-                                  {Object.keys(renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].subnodes).map(function (itemKey) {
-                                      return (
-                                        <div className="search-results-item">
-                                          <Link onClick={(event) => { this.endSearch(); }} to={`/${renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].subnodes[itemKey].dataType}-details/${renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].subnodes[itemKey].dataId}`}>{renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].subnodes[itemKey].title}</Link>
-                                        </div>
-                                      )
-                                    })
-                                  }
-                                </div>
-                              )
-                            })
-                          }
-                        </div>
-                      )
-                    })
-                  }
-                </div>
-              }
-              {Object.keys(browseTaggedData.taggedData).length > 0 && Object.keys(renderTaggedData.taggedData).length === 0 && <p>No results found.</p>}
-              {Object.keys(browseTaggedData.taggedData).length === 0 && Object.keys(renderTaggedData.taggedData).length === 0 && <p>Loading....</p>}
-            </div>
+            {this.renderTaggedDataDisplay()}
           </div>
         }
         <style jsx>{`
@@ -190,33 +241,6 @@ class BrowseTaggedDataSearch extends Component {
             margin-left: -160px;
             position: absolute;
             margin-top: 30px;
-          }
-
-          .search-results-set {
-              margin-left: 20px;
-              margin-top: 25px;
-              overflow-y: scroll;
-              min-height: 300px;
-          }
-
-          .search-results-headertext {
-              text-decoration: underline;
-              margin-left: 20px;
-              font-size: 1.5em;
-          }
-
-          .search-results-grandparent {
-            font-size: 1.75em;
-          }
-
-          .search-results-parent {
-            font-size: 1.5em;
-            margin-left: 75px;
-          }
-
-          .search-results-item {
-            font-size: 1.25em;
-            margin-left: 150px;
           }
 
           .search-text {
