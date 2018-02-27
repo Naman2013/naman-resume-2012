@@ -475,7 +475,7 @@ class TelescopeDetails extends Component {
               }
 
               {
-                telescopeOnline && activeDetailsSSE.astroObjectID > 0 &&
+                activeDetailsSSE.astroObjectID > 0 &&
                   <MissionAudio
                     missionAudioURL={objectAudioURL}
                     audioEnabled={!!objectAudioURL}
