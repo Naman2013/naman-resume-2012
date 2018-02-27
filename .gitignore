@@ -7,3 +7,4 @@ dist
 coverage
 *.map
 /apps/components/**/*.css
+.vscode/

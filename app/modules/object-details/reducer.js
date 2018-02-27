@@ -6,6 +6,7 @@ import {
   FETCH_OBJECT_DATA_START,
   FETCH_OBJECT_DATA_SUCCESS,
   FETCH_OBJECT_DATA_FAIL,
+  RESET_OBJECT_DATA,
 
   FETCH_OBJECT_MISSIONS,
   FETCH_OBJECT_MISSIONS_START,
@@ -20,27 +21,38 @@ import {
   } from './actions';
 
 const initialState = {
-
+  objectData: {},
+  objectMissions: {},
+  objectQuests: {},
 };
 
 export default createReducer(initialState, {
   [FETCH_OBJECT_DATA_SUCCESS](state, { payload }) {
     return {
       ...state,
-      ...payload,
+      objectData: payload,
+    };
+  },
+  [RESET_OBJECT_DATA](state) {
+    return {
+      ...state,
+      objectData: Object.assign({}, initialState.objectData),
     };
   },
   [FETCH_OBJECT_DATA_START](state) {
     return {
       ...state,
+      objectData: Object.assign({}, initialState.objectData),
     };
   },
   [FETCH_OBJECT_DATA_FAIL](state, { payload }) {
     return {
       ...state,
+      objectData: Object.assign({}, initialState.objectData),
       errorBody: payload,
     };
   },
+
   [FETCH_OBJECT_MISSIONS_SUCCESS](state, { payload }) {
     return {
       ...state,
@@ -50,11 +62,13 @@ export default createReducer(initialState, {
   [FETCH_OBJECT_MISSIONS_START](state) {
     return {
       ...state,
+      objectMissions: {},
     };
   },
   [FETCH_OBJECT_MISSIONS_FAIL](state, { payload }) {
     return {
       ...state,
+      objectMissions: {},
       errorBody: payload,
     };
   },
@@ -69,11 +83,13 @@ export default createReducer(initialState, {
   [FETCH_OBJECT_QUESTS_START](state) {
     return {
       ...state,
+      objectQuests: {},
     };
   },
   [FETCH_OBJECT_QUESTS_FAIL](state, { payload }) {
     return {
       ...state,
+      objectQuests: {},
       errorBody: payload,
     };
   },
