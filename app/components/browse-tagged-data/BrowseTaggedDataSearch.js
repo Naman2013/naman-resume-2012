@@ -149,7 +149,7 @@ class BrowseTaggedDataSearch extends Component {
                                   {Object.keys(renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].subnodes).map(function (itemKey) {
                                       return (
                                         <div className="search-results-item">
-                                          <Link onClick={(event) => { this.endSearch(); }} to={`/object-details/${renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].subnodes[itemKey].dataId}`}>{renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].subnodes[itemKey].title}</Link>
+                                          <Link onClick={(event) => { this.endSearch(); }} to={`/${renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].subnodes[itemKey].dataType}-details/${renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].subnodes[itemKey].dataId}`}>{renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].subnodes[itemKey].title}</Link>
                                         </div>
                                       )
                                     })
