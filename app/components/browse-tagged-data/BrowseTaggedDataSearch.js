@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 import { Button } from 'react-bootstrap';
 import { Link } from 'react-router';
 import { fetchBrowseTaggedDataAction } from '../../modules/browse-tagged-data/actions';
-import { white, sloohBlue } from '../../styles/variables/colors';
+import { black, white, sloohBlue } from '../../styles/variables/colors';
 
 
 const mapStateToProps = ({
@@ -175,13 +175,13 @@ class BrowseTaggedDataSearch extends Component {
             max-width: 400px;
             min-width: 400px;
             display: inline-block;
+            margin-top: -10px;
           }
 
           .search-results-container {
             display: inline-block;
             min-height: 300px;
-            border: 3px;
-            border-color: ${white}
+            border: 2px solid ${black};
             background-color: ${sloohBlue};
             color: ${white};
             z-index: 1;
