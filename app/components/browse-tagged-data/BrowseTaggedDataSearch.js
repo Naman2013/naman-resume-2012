@@ -3,29 +3,17 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Button } from 'react-bootstrap';
+import { Link } from 'react-router';
 import { fetchBrowseTaggedDataAction } from '../../modules/browse-tagged-data/actions';
 import { white, sloohBlue } from '../../styles/variables/colors';
 
-const propTypes = {
-  topNavSearchEnabled: PropTypes.bool,
-  topNavSearchTerm: PropTypes.String,
-  topNavSearchResults: PropTypes.shape({
 
-  }),
-  browseTaggedData: PropTypes.shape({
-
-  }),
-};
-
-const defaultProps = {
-  topNavSearchEnabled: false,
-  topNavSearchTerm: '',
-  topNavSearchResults: { },
-  browseTaggedData: { },
-};
-
-const mapStateToProps = ({ browseTaggedData }) => ({
+const mapStateToProps = ({
   browseTaggedData,
+  renderTaggedData,
+}) => ({
+  browseTaggedData,
+  renderTaggedData,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -36,20 +24,20 @@ const mapDispatchToProps = dispatch => ({
 
 @connect(mapStateToProps, mapDispatchToProps)
 class BrowseTaggedDataSearch extends Component {
-  state = {
-    topNavSearchEnabled: this.props.topNavSearchEnabled,
-    topNavSearchTerm: this.props.topNavSearchTerm,
-  };
-
   constructor(props) {
     super(props);
   }
 
+  state = {
+    topNavSearchTerm: '',
+    topNavSearchEnabled: false,
+    renderTaggedData: {
+      taggedData: { },
+    },
+  };
+
   componentDidMount() {
-    this.setState({
-      topNavSearchTerm: '',
-      topNavSearchEnabled: false,
-    });
+
   }
 
   componentWillReceiveProps(nextProps) {
@@ -57,25 +45,48 @@ class BrowseTaggedDataSearch extends Component {
     var equal = require('deep-equal');
 
     if (equal( this.props.browseTaggedData, nextProps.browseTaggedData ) == false) {
-      console.log('Browse Tagged Data has changed...');
-      console.log(this.props.browseTaggedData);
-      console.log(nextProps.browseTaggedData);
+      //console.log('Browse Tagged Data has changed...');
+      //console.log(this.props.browseTaggedData);
+      //console.log(nextProps.browseTaggedData);
 
-      /* build an internal object structure based on the search term entered so the rendering can be done against that object instead of the complete data stream (ex: filter on Jupiter) */
-      
+      //set the default rendered state (search results data feed)
+      this.setState({
+        renderTaggedData: nextProps.browseTaggedData,
+      });
     }
   }
 
   handleFieldChange(searchData) {
     console.log("Search Text Changed: " + searchData.value);
+
     this.setState({
       topNavSearchTerm: searchData.value,
       topNavSearchEnabled: true,
     });
+
+    /* build an internal object structure based on the search term entered so the rendering can be done against that object instead of the complete data stream (ex: filter on Jupiter) */
+    if (searchData.value.length === 0) {
+      /* render the entire browse tagged data set as their is no search term limiting the results */
+      this.setState({
+        renderTaggedData: this.props.browseTaggedData,
+      });
+    }
+    else {
+      /* build the rendered data set based on the search term so the search results list gets refined based on the new data feed results */
+      var tmpRenderedDataObj = {
+        'taggedData': {
+
+        }
+      };
+
+      this.setState({
+        renderTaggedData: tmpRenderedDataObj,
+      });
+    }
   }
 
   handleClick(searchData) {
-      console.log("Click: " + searchData.value)
+      //console.log("Click: " + searchData.value)
 
       const { topNavSearchEnabled } = this.state;
 
@@ -93,17 +104,20 @@ class BrowseTaggedDataSearch extends Component {
   }
 
   endSearch() {
-    console.log('User selected to end the search');
+    //console.log('User selected to end the search');
     this.setState({
       topNavSearchTerm: '',
       topNavSearchEnabled: false,
     });
-    document.getElementById('BrowseTaggedDataSearchInputField').value = '';
+    //document.getElementById('BrowseTaggedDataSearchInputField').value = '';
   }
 
   render() {
-    const { topNavSearchTerm, topNavSearchEnabled } = this.state;
     const { browseTaggedData } = this.props;
+    const { topNavSearchTerm, topNavSearchEnabled, renderTaggedData } = this.state;
+
+    //console.log('Rendering...');
+    //console.log(renderTaggedData.taggedData);
 
     return (
       <div className="search-site-bytags">
@@ -122,7 +136,36 @@ class BrowseTaggedDataSearch extends Component {
             </Button>
             <h1 className="search-results-headertext">Browse / Search Results:</h1>
             <div className="search-results-set">
-              my results....
+              {renderTaggedData.taggedData &&
+                <div>
+                  {Object.keys(renderTaggedData.taggedData).map(function (grandParentKey) {
+                      return (
+                        <div>
+                          <h1 className="search-results-grandparent">{renderTaggedData.taggedData[grandParentKey].title}</h1>
+                          {Object.keys(renderTaggedData.taggedData[grandParentKey].subnodes).map(function (parentKey) {
+                              return (
+                                <div>
+                                  <h2 className="search-results-parent">{renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].title}</h2>
+                                  {Object.keys(renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].subnodes).map(function (itemKey) {
+                                      return (
+                                        <div className="search-results-item">
+                                          <Link onClick={(event) => { this.endSearch(); }} to={`/object-details/${renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].subnodes[itemKey].dataId}`}>{renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].subnodes[itemKey].title}</Link>
+                                        </div>
+                                      )
+                                    })
+                                  }
+                                </div>
+                              )
+                            })
+                          }
+                        </div>
+                      )
+                    })
+                  }
+                </div>
+              }
+              {Object.keys(browseTaggedData.taggedData).length > 0 && Object.keys(renderTaggedData.taggedData).length === 0 && <p>No results found.</p>}
+              {Object.keys(browseTaggedData.taggedData).length === 0 && Object.keys(renderTaggedData.taggedData).length === 0 && <p>Loading....</p>}
             </div>
           </div>
         }
@@ -160,6 +203,20 @@ class BrowseTaggedDataSearch extends Component {
               text-decoration: underline;
               margin-left: 20px;
               font-size: 1.5em;
+          }
+
+          .search-results-grandparent {
+            font-size: 1.75em;
+          }
+
+          .search-results-parent {
+            font-size: 1.5em;
+            margin-left: 75px;
+          }
+
+          .search-results-item {
+            font-size: 1.25em;
+            margin-left: 150px;
           }
 
           .search-text {

@@ -40,10 +40,24 @@ class ObjectDetails extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    const {
+      params: {
+        objectId,
+      }
+    } = nextProps;
+
     if (this.props.objectDetails.objectId != nextProps.objectDetails.objectId) {
-      console.log('Object has been loaded.....gather more data....');
+      //console.log('Object has been loaded.....gather more data....');
       this.props.actions.fetchObjectMissionsAction(nextProps.objectDetails.objectId);
       this.props.actions.fetchObjectQuestsAction(nextProps.objectDetails.objectId);
+    }
+
+    //console.log(this.props.params.objectId);
+    //console.log(nextProps.objectDetails.objectId);
+
+    //fetch the object data, the object page has been changed.
+    if (this.props.params.objectId != nextProps.params.objectId) {
+      this.props.actions.fetchObjectDataAction(objectId);
     }
   }
 
