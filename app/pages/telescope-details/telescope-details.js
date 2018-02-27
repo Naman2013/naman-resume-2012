@@ -15,6 +15,8 @@ import {
   fetchAllTelescopeStatus,
 } from '../../modules/telescope-details/actions';
 
+import { fetchObjectDataAction, resetObjectData } from '../../modules/object-details/actions';
+
 import { resetSnapshotList } from '../../modules/starshare-camera/starshare-camera-actions';
 import { fetchObjectContent } from '../../modules/community-content/community-object-content-actions';
 
@@ -50,6 +52,8 @@ function mapDispatchToProps(dispatch) {
         fetchAllTelescopeStatus,
         resetSnapshotList,
         fetchObjectContent,
+        fetchObjectDataAction,
+        resetObjectData,
       },
       dispatch,
     ),
@@ -87,7 +91,7 @@ function mapStateToProps({
     communityContent: communityObjectContent.communityContent.posts,
 
     activeDetailsSSE: telescopeDetails.activeSSE,
-    objectDetails,
+    objectDetails: objectDetails.objectData,
   };
 }
 
@@ -110,6 +114,8 @@ class TelescopeDetails extends Component {
       setTelescope: PropTypes.func.isRequired,
       updateTelescopeStatus: PropTypes.func.isRequired,
       fetchAllTelescopeStatus: PropTypes.func.isRequired,
+      fetchObjectDataAction: PropTypes.func.isRequired,
+      resetObjectData: PropTypes.func.isRequired,
     }).isRequired,
     countdownList: PropTypes.arrayOf(
       PropTypes.shape({
@@ -145,6 +151,7 @@ class TelescopeDetails extends Component {
     const {
       allObservatoryTelescopeStatus,
       params: { obsUniqueId, teleUniqueId },
+      activeDetailsSSE: { astroObjectID },
     } = nextProps;
 
     const isTelescopeUpdate = teleUniqueId !== this.props.params.teleUniqueId;
@@ -165,6 +172,14 @@ class TelescopeDetails extends Component {
       if (neoviewOpen) {
         this.toggleNeoview();
       }
+    }
+
+    if (astroObjectID && this.props.activeDetailsSSE.astroObjectID !== astroObjectID) {
+      this.props.actions.fetchObjectDataAction(astroObjectID);
+    }
+
+    if (this.props.activeDetailsSSE.astroObjectID > 0 && astroObjectID === 0) {
+      this.props.actions.resetObjectData();
     }
   }
 
@@ -237,11 +252,21 @@ class TelescopeDetails extends Component {
   };
 
   scaffoldObservatoryList() {
-    const { obsUniqueId, teleUniqueId } = this.props.params;
+    const {
+      params: { obsUniqueId, teleUniqueId },
+      activeDetailsSSE: { astroObjectID },
+    } = this.props;
+
     this.props.actions.bootstrapTelescopeDetails({
       obsUniqueId,
       teleUniqueId,
     });
+
+    if (astroObjectID) {
+      this.props.actions.fetchObjectDataAction(astroObjectID);
+    } else {
+      this.props.actions.resetObjectData();
+    }
   }
 
   refreshTelescopeStatusTimeout = null;
@@ -322,7 +347,6 @@ class TelescopeDetails extends Component {
 
     const { domeId } = obsIdTeleIdDomeIdFromTeleId(teleId);
     const { objectAudioURL } = objectDetails;
-    console.log(activeDetailsSSE.astroObjectID);
 
     return (
       <div className="telescope-details-page-wrapper">
