@@ -158,8 +158,13 @@ class BrowseTaggedDataSearch extends Component {
   }
 
   endSearch() {
+    const { browseTaggedData } = this.props;
+
+    //console.log(browseTaggedData);
+
     //console.log('User selected to end the search');
     this.setState({
+      renderTaggedData: _.cloneDeep(browseTaggedData),
       topNavSearchTerm: '',
       topNavSearchEnabled: false,
       grandParentNodeID: null,
