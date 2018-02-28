@@ -13,6 +13,7 @@ import authorization from './authorization/reducer';
 import avatar from './avatar/reducer';
 import bestPosts from './best-of-slooh/get-best-reducer';
 import browseByPopularObjects from './browse-popular-objects/reducer';
+import browseTaggedData from './browse-tagged-data/reducer';
 import catalog from './catalog/get-catalog-reducer';
 import communityContent from './community-content/get-community-content-reducer';
 import communityObjectContent from './community-content/community-object-content-reducer';
@@ -46,6 +47,7 @@ import galleries from './my-pictures-galleries/reducer';
 import userPublicGalleries from './my-pictures-user-public-galleries/reducer';
 import galleryPictures from './my-pictures-gallery-pictures/reducer';
 import galleryActions from './my-pictures-gallery-actions/reducer';
+import objectDetails from './object-details/reducer';
 import objectPostList from './object-post-list/reducer';
 import objectTypeList from './object-type-list/reducer';
 import otherFeaturedObjects from './other-featured-objects/reducer';
@@ -66,7 +68,6 @@ import usersUpcomingMission from './Users-Upcoming-Missions';
 import isLanding from './landing/reducer';
 import videoViewerBrowser from './browse-video-viewer/reducer';
 import videoViewerShow from './show-video-viewer/reducer';
-import objectDetails from './object-details/reducer';
 
 export default combineReducers({
   routing: routerReducer,
@@ -83,6 +84,7 @@ export default combineReducers({
   avatar,
   bestPosts,
   browseByPopularObjects,
+  browseTaggedData,
   catalog,
   communityContent,
   communityObjectContent,
@@ -116,6 +118,7 @@ export default combineReducers({
   galleries,
   galleryActions,
   galleryPictures,
+  objectDetails,
   objectPostList,
   objectTypeList,
   otherFeaturedObjects,
@@ -137,5 +140,4 @@ export default combineReducers({
   isLanding,
   videoViewerBrowser,
   videoViewerShow,
-  objectDetails,
 });
