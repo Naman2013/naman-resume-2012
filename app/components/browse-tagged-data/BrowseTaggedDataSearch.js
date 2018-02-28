@@ -392,7 +392,8 @@ class BrowseTaggedDataSearch extends Component {
             onClick={(event) => { this.handleClick({ value: event.target.value}); }}
             onChange={(event) => { this.handleFieldChange({ value: event.target.value }); }}
             type="text"
-            className="search-input-field" />
+            className="search-input-field"
+            value={topNavSearchTerm} />
 
           {topNavSearchEnabled == true && <div className="search-results-container">
               <Button style={{'float': 'right', 'marginLeft': '20px', 'marginRight': '20px', 'marginBottom': '0px'}} className="btn-primary"
