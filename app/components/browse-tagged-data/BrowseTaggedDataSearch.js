@@ -142,7 +142,7 @@ class BrowseTaggedDataSearch extends Component {
     changeParentNodeID(parentKey) {
       const { parentNodeID } = this.state;
 
-      if (parentNodeID === null) {
+      if ( (parentNodeID === null) || (parentNodeID != parentKey) ) {
         /* select the parent node */
         this.setState({ parentNodeID: parentKey });
       }
