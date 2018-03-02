@@ -28,10 +28,8 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import css from 'styled-jsx/css';
 import has from 'lodash/has';
 import classnames from 'classnames';
-import { customScrollBar } from '../../../styles/custom-ui';
 import { white, lightTurqoise, lightGray, darkBlueGray } from '../../../styles/variables/colors';
 
 function generateId(seed) {

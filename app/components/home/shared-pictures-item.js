@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { bindActionCreators } from 'redux';
-import { white, darkBlueGray } from '../../styles/variables/colors';
+import { white } from '../../styles/variables/colors';
 import { secondaryFont } from '../../styles/variables/fonts';
 import { likeImage } from '../../services/my-pictures/like-image';
 import { backgroundImageCover, borderRadius } from '../../styles/mixins/utilities';
@@ -12,18 +12,16 @@ import { fetchMyPicturesImageDetails } from '../../modules/my-pictures-image-det
 import SocialSharingBar from '../common/social-sharing-bar';
 
 const {
-  arrayOf,
   bool,
   func,
   number,
   shape,
-  string,
 } = PropTypes;
 
 const mapStateToProps = ({
-  myPicturesImageDetails, appConfig
+  myPicturesImageDetails, appConfig,
 }) => ({
-  myPicturesImageDetails, appConfig
+  myPicturesImageDetails, appConfig,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -60,13 +58,14 @@ class SharedPicturesItem extends Component {
         'Photo by': PropTypes.shape({}),
         Observatory: PropTypes.shape({}),
         Telescope: PropTypes.shape({}),
-        'Observation time': PropTypes.shape(
-          {'text': PropTypes.string}
-        ),
+        'Observation time': PropTypes.shape({
+          text: PropTypes.string,
+        },
+      ),
       }),
       fileData: PropTypes.shape({
         Observatory: '',
-        Telescope: ''
+        Telescope: '',
       }),
     }),
     customerImageId: number.isRequired,
@@ -99,8 +98,8 @@ class SharedPicturesItem extends Component {
         Telescope: {},
         Observatory: {},
         'Observation time': {
-          'text': '',
-        }
+          text: '',
+        },
       },
       avatarURL: '',
     },
@@ -110,7 +109,7 @@ class SharedPicturesItem extends Component {
   }
 
   componentDidMount() {
-    const { isActive, actions, customerImageId, imageIndex } = this.props;
+    const { isActive, actions, customerImageId } = this.props;
 
     if (isActive) {
       actions.fetchMyPicturesImageDetails({
