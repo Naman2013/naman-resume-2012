@@ -272,9 +272,9 @@ class SharedPicturesItem extends Component {
             flex-wrap: wrap;
             -ms-flex-wrap: wrap;
           }
+          
           @media(max-width:767px){
-
-              .shared-pictures-item-container{padding:0px}
+            .shared-pictures-item-container{padding:0px}
           }
 
           .shared-image {
@@ -330,7 +330,7 @@ class SharedPicturesItem extends Component {
             align-items: stretch;
             padding: 25px;
             color: #2d3949;
-            min-width:150px
+            min-width:150px;
             max-width: 250px;
             max-height: 340px;
             background-color: ${white};
