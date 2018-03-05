@@ -1,6 +1,5 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import jest from 'jest';
 import { shallow } from 'enzyme';
 import sinon from 'sinon';
 import TagToggle from './TagToggle';

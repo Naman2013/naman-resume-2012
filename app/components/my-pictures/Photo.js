@@ -9,11 +9,7 @@ import { Link } from 'react-router';
 import PhotoActions from './actions/PhotoActions';
 import s from './Photo.scss';
 
-const mapStateToProps = ({ galleries, user }) => ({
-  // error: galleries.error,
-  // errorBody: galleries.errorBody,
-  // fetching: galleries.fetching,
-  // galleryList: galleries.galleryList,
+const mapStateToProps = ({ user }) => ({
   user,
 });
 
@@ -25,8 +21,11 @@ const mapDispatchToProps = dispatch => ({
 
 @connect(mapStateToProps, mapDispatchToProps)
 class Photo extends Component {
-  constructor(props) {
-    super(props);
+  static propTypes = {
+    imageURL: PropTypes.string.isRequired,
+    imageTitle: PropTypes.string.isRequired,
+    overlayText: PropTypes.arrayOf(PropTypes.string).isRequired,
+    handlePhotoClick: PropTypes.func.isRequired,
   }
 
   state = {
@@ -106,12 +105,5 @@ class Photo extends Component {
     );
   }
 }
-
-Photo.propTypes = {
-  imageURL: PropTypes.string.isRequired,
-  imageTitle: PropTypes.string.isRequired,
-  overlayText: PropTypes.arrayOf(PropTypes.string).isRequired,
-  handlePhotoClick: PropTypes.func.isRequired,
-};
 
 export default Photo;

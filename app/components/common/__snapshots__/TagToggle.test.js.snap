@@ -2,11 +2,10 @@
 
 exports[`it should render a menu 1`] = `
 <div
-  className="react-tags-container"
-  data-jsx={2695568064}
+  className="jsx-3432551512 react-tags-container"
 >
   <div
-    data-jsx={2695568064}
+    className="jsx-3432551512"
   >
     There are no tags.
   </div>

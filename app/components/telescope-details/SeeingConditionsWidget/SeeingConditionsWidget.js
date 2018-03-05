@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import uniqueId from 'lodash/uniqueId';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { fetchSeeingConditionsWidget } from '../../../modules/Telescope-Overview';
 import SectionHeader from '../../common/headers/SectionHeader';
-
-import { lightTurqoise } from '../../../styles/variables/colors';
 
 const mapStateToProps = ({ telescopeOverview }) => ({
   title: telescopeOverview.seeingConditionsWidgetResult.title,

@@ -82,7 +82,7 @@ class SelectCategoryAndTopic extends Component {
               name="categories"
               handleSelectedChange={handleCategorySelectChange}
               selectedIndex={selectedCategoryIndex}
-              listHeight={listHeight-50}
+              listHeight={listHeight - 50}
             />
           </div>
 
@@ -93,7 +93,7 @@ class SelectCategoryAndTopic extends Component {
               name="topics"
               handleSelectedChange={handleTopicSelectChange}
               selectedIndex={selectedTopicIndex}
-              listHeight={listHeight-50}
+              listHeight={listHeight - 50}
             />
           </div>
         </div>

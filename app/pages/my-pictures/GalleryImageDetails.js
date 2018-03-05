@@ -192,6 +192,7 @@ class ImageDetails extends Component {
       theme: 'buttonOnly',
       likeId: this.props.params.customerImageId,
     };
+
     return (
       <div>
         <ModalGeneric

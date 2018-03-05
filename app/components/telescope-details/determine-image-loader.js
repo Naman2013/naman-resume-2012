@@ -57,12 +57,10 @@ export default function determineImageLoader(
         </div>
         <style jsx>{`
           .root {
-            /*height: 455px;*/
             overflow: hidden;
           }
 
           .mask {
-            /*  top: -71px;*/
             position: relative;
           }
         `}</style>
