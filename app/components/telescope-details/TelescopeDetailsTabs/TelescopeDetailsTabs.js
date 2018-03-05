@@ -91,7 +91,7 @@ class TelescopeDetailsTabs extends Component {
   componentWillReceiveProps(nextProps) {
     const { obsId } = this.props;
     const nextObsId = nextProps.obsId;
-    if (obsId !== nextObsId) {
+    if (obsId !== nextObsId) {      
       this.props.actions.fetchAllWidgets({
         obsId: nextProps.obsId,
         CurrentConditionsWidgetId: nextProps.CurrentConditionsWidgetId,

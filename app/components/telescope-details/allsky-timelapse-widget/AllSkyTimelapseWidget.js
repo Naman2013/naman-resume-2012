@@ -11,11 +11,11 @@ import './allsky-timelapse-widget.scss';
 
 const mapStateToProps = ({
   telescopeOverview,
-  telescopeOverview: { domeCamTimelapseWidgetResult },
+  telescopeOverview: { allSkyTimelapseWidgetResult },
 }) => ({
-  allSkyTimelapseTitle: allSkyTimelapseWidgetResult.title,
+  allskyTimelapseTitle: allSkyTimelapseWidgetResult.title,
   refreshIntervalSec: allSkyTimelapseWidgetResult.refreshIntervalSec,
-  domeCamTimelapseURL: allSkyTimelapseWidgetResult.domecamTimelapseURL,
+  allskyTimelapseURL: allSkyTimelapseWidgetResult.allskyTimelapseURL,
   offlineImageURL: allSkyTimelapseWidgetResult.offlineImageURL,
   onlineStatus: allSkyTimelapseWidgetResult.onlineStatus,
   widgetWidth: allSkyTimelapseWidgetResult.widgetWidth,
@@ -35,7 +35,7 @@ class AllSkyTimelapseWidget extends Component {
     AllskyTimelapseWidgetId: PropTypes.string.isRequired,
     fetchingAllSkyTimelapseWidgetResult: PropTypes.bool.isRequired,
     refreshIntervalSec: PropTypes.number.isRequired,
-    allSkyTimelapseURL: PropTypes.string.isRequired,
+    allskyTimelapseURL: PropTypes.string.isRequired,
     onlineStatus: PropTypes.string.isRequired,
     offlineImageURL: PropTypes.string.isRequired,
   };
@@ -46,6 +46,7 @@ class AllSkyTimelapseWidget extends Component {
   }
 
   componentWillUpdate(nextProps) {
+    console.log(nextProps);
     if (this.props.AllskyTimelapseWidgetId !== nextProps.AllskyTimelapseWidgetId && this.props.obsId !== nextProps.obsId) {
       this.props.actions.fetchAllSkyTimelapseAction({ obsId: nextProps.obsId, AllskyTimelapseWidgetId: nextProps.AllskyTimelapseWidgetId });
     }
@@ -54,9 +55,9 @@ class AllSkyTimelapseWidget extends Component {
   render() {
     const {
       fetchingAllSkyTimelapseWidgetResult,
-      allSkyTimelapseTitle,
+      allskyTimelapseTitle,
       refreshIntervalSec,
-      allSkyTimelapseURL,
+      allskyTimelapseURL,
       onlineStatus,
       offlineImageURL,
       widgetWidth,
@@ -71,12 +72,12 @@ class AllSkyTimelapseWidget extends Component {
 
     return (
       <div className="telescope-block live-allsky">
-        <h1 style={inlineTitleStyle}>{allSkyTimelapseTitle}</h1>
+        <h1 style={inlineTitleStyle}>{allskyTimelapseTitle}</h1>
         <div className="live-allskytimelapse">
           {onlineStatus == 'offline' && <Offline offlineImageURL={offlineImageURL}/>}
-          {onlineStatus == 'online' && allSkyTimelapseURL ?
+          {onlineStatus == 'online' && allskyTimelapseURL ?
             <video style={{width: widgetWidth + 'px'}} className="allskytimelapse-video" playsInline autoPlay muted loop nodownload controls controlsList="nodownload">
-              <source src={allSkyTimelapseURL} type="video/mp4" />
+              <source src={allskyTimelapseURL} type="video/mp4" />
             </video>
             : <GenericLoadingBox />
           }

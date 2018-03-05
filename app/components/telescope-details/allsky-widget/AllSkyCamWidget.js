@@ -12,7 +12,7 @@ const mapStateToProps = ({
   telescopeOverview,
   telescopeOverview: { allSkyWidgetResult },
 }) => ({
-  allSkyTitle:allSkyWidgetResult.title,
+  allSkyTitle: allSkyWidgetResult.title,
   refreshIntervalSec: allSkyWidgetResult.refreshIntervalSec,
   allSkyCamURL: allSkyWidgetResult.allSkyCamURL,
   offlineImageURL: allSkyWidgetResult.offlineImageURL,
@@ -70,7 +70,7 @@ class AllSkyCamWidget extends Component {
 
     return (
       <div className="telescope-block live-allskycam">
-        <h1 style={inlineTitleStyle}>{allSkyCamTitle}</h1>
+        <h1 style={inlineTitleStyle}>{allSkyTitle}</h1>
         <div className="live-allskycam">
           {onlineStatus == 'offline' && <Offline offlineImageURL={offlineImageURL}/>}
           {onlineStatus == 'online' && allSkyCamURL ? <RefreshedImage imageURL={allSkyCamURL} refreshIntervalSec={refreshIntervalSec} imageAltText="" maxImageWidth={imageWidth}/> : <GenericLoadingBox />

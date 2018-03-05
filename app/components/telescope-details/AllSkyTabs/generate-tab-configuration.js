@@ -30,7 +30,7 @@ export default function generateAllSkyTabConfiguration({
       ),
     },
     {
-      tabText: 'All Sky Lapse',
+      tabText: 'Time Lapse',
       tabContent: (
           <AllSkyTimelapseWidget obsId={obsId} AllskyTimelapseWidgetId={AllskyTimelapseWidgetId}/>
       ),
