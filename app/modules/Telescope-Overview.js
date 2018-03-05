@@ -438,7 +438,6 @@ const fetchAllSkyTimelapseSuccess = payload => ({
 });
 
 export const fetchAllSkyTimelapseAction = ({ obsId, AllskyTimelapseWidgetId }) => (dispatch) => {
-  console.log('here');
   dispatch(fetchAllSkyTimelapseStart());
   return fetchAllSkyTimelapse({
     obsId,

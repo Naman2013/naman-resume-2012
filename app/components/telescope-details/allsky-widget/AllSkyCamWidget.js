@@ -45,7 +45,7 @@ class AllSkyCamWidget extends Component {
   }
 
   componentWillUpdate(nextProps) {
-    if (this.props.AllskyWidgetId !== nextProps.AllskyWidgetId && this.props.obsId !== nextProps.obsId) {
+    if (this.props.obsId !== nextProps.obsId) {
       this.props.actions.fetchAllSkyAction({ obsId: nextProps.obsId, AllskyWidgetId: nextProps.AllskyWidgetId });
     }
   }
