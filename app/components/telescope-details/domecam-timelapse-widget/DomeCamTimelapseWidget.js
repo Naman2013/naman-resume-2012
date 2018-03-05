@@ -46,7 +46,7 @@ class DomeCamTimelapseWidget extends Component {
   }
 
   componentWillUpdate(nextProps) {
-    if (this.props.DomecamTimelapseWidgetId !== nextProps.DomecamTimelapseWidgetId && this.props.obsId !== nextProps.obsId) {
+    if (this.props.obsId !== nextProps.obsId) {
       this.props.actions.fetchDomeCamTimelapseAction({ obsId: nextProps.obsId, DomecamTimelapseWidgetId: nextProps.DomecamTimelapseWidgetId });
     }
   }

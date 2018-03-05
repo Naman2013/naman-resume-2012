@@ -1,9 +1,9 @@
 import React from 'react';
 import DayNightBarPanel from '../condition-snapshot/DayNightBarPanel';
 import DayNightMap from '../condition-snapshot/DayNightMap';
-import AllSkyCamera from '../condition-snapshot/AllSkyCamera';
 import LiveWebcam from '../live-webcam/live-webcam';
 import CenterContent from '../../../design-system/CenterContent';
+import AllSkyTabs from '../AllSkyTabs';
 import DomeCamTabs from '../DomeCamTabs';
 import TelescopeDetailsWeatherTabs from '../TelescopeDetailsWeatherTabs';
 
@@ -22,12 +22,8 @@ export default function generateTelescopeDetailsTabConfiguration({
   dayNightMapURL,
   dayNightMapImageWidth,
   dayNightMapTitle,
-  allSkyRefreshIntervalSec,
-  allSkyCamURL,
-  allSkyCamOfflineURL,
-  allSkyCamOnlineStatus,
-  allSkyCamImageWidth,
-  allSkyCamTitle,
+  AllskyWidgetId,
+  AllskyTimelapseWidgetId,
   DomecamWidgetId,
   DomecamTimelapseWidgetId,
   FacilityWebcamWidgetId,
@@ -77,18 +73,13 @@ export default function generateTelescopeDetailsTabConfiguration({
       ),
     },
     {
-      tabText: 'All Sky Camera',
+      tabText: 'All Sky',
       tabContent: (
-        <CenterContent>
-          <h1 style={inlineTitleStyle}>{allSkyCamTitle}</h1>
-          <AllSkyCamera
-            refreshIntervalSec={allSkyRefreshIntervalSec}
-            allSkyCamURL={allSkyCamURL}
-            offlineImageURL={allSkyCamOfflineURL}
-            onlineStatus={allSkyCamOnlineStatus}
-            imageWidth={allSkyCamImageWidth}
-          />
-        </CenterContent>
+        <AllSkyTabs
+          obsId={obsId}
+          AllskyWidgetId={AllskyWidgetId}
+          AllskyTimelapseWidgetId={AllskyTimelapseWidgetId}
+        />
       ),
     },
     {

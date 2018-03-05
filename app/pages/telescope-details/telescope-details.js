@@ -88,6 +88,11 @@ function mapStateToProps({
   };
 }
 
+let refreshUpcomingMissionsInterval;
+function createUpcomingMissionRefreshTimer() {
+  clearInterval(refreshUpcomingMissionsInterval);
+}
+
 @connect(mapStateToProps, mapDispatchToProps)
 class TelescopeDetails extends Component {
   static propTypes = {
@@ -408,6 +413,7 @@ class TelescopeDetails extends Component {
                 DayNightBarPanelWidgetId={currentObservatory.DayNightBarPanelWidgetId}
                 DayNightMapWidgetId={currentObservatory.DayNightMapWidgetId}
                 AllskyWidgetId={currentObservatory.AllskyWidgetId}
+                AllskyTimelapseWidgetId={currentObservatory.AllskyTimelapseWidgetId}
                 DomecamWidgetId={currentObservatory.DomecamWidgetId}
                 DomecamTimelapseWidgetId={currentObservatory.DomecamTimelapseWidgetId}
                 FacilityWebcamWidgetId={currentObservatory.FacilityWebcamWidgetId}

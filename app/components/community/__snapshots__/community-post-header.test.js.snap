@@ -2,48 +2,40 @@
 
 exports[`it should render a header 1`] = `
 <div
-  className="communityPostHeader"
-  data-jsx={190455770}
+  className="jsx-15604483 communityPostHeader"
 >
   <div
-    className="left-container"
-    data-jsx={190455770}
+    className="jsx-15604483 left-container"
   >
     <div
-      className="title"
-      data-jsx={190455770}
+      className="jsx-15604483 title"
     >
       <h1
-        className="title-text"
+        className="jsx-15604483 title-text"
         dangerouslySetInnerHTML={
           Object {
             "__html": "",
           }
         }
-        data-jsx={190455770}
       />
     </div>
     <div
-      className="subtitle"
+      className="jsx-15604483 subtitle"
       dangerouslySetInnerHTML={
         Object {
           "__html": "",
         }
       }
-      data-jsx={190455770}
     />
   </div>
   <div
-    className="additional"
-    data-jsx={190455770}
+    className="jsx-15604483 additional"
   >
     <div
-      className="button-nav"
-      data-jsx={190455770}
+      className="jsx-15604483 button-nav"
     >
       <span
-        className="action-button"
-        data-jsx={190455770}
+        className="jsx-15604483 action-button"
       >
         <a
           className="button btn-primary"
@@ -55,73 +47,5 @@ exports[`it should render a header 1`] = `
       </span>
     </div>
   </div>
-  <style
-    jsx={true}
-  >
-    
-      .communityPostHeader {
-        font-family: brandon-grotesque, sans-serif;
-        background: url(https://vega.slooh.com/assets/images/graphics/milkeyway_header.jpg) no-repeat;
-        background-size: cover;
-        min-height: 145px;
-        display: inline-flex;
-        flex-wrap: wrap;
-        align-items: center;
-        padding: 50px;
-        justify-content: space-between;
-        width: 100%;
-      }
-
-      .left-container {
-        display: flex;
-        flex-direction: column;
-      }
-
-      .title {
-        display: inline-flex;
-        align-items: center;
-      }
-
-      .subtitle {
-        color: #fff;
-        text-transform: none;
-        font-weight: normal;
-        margin-top: 5px;
-      }
-
-      .button-nav {
-        text-align: left;
-      }
-
-      .title-text {
-        margin: 0;
-        color: #fff;
-        text-transform: uppercase;
-        font-weight: 600;
-        font-size: 36px;
-        padding-left: 15px;
-      }
-
-      svg {
-        margin-right: 10px;
-      }
-
-      .sponsored {
-        text-align: right;
-        margin-right: 30px;
-        color: $turqoise;
-      }
-
-      .action-button {
-        margin-right: 30px;
-      }
-
-      @media(max-width:375px) {
-        .title-text {
-          font-size:28px
-        }
-      }
-    
-  </style>
 </div>
 `;

@@ -15,10 +15,6 @@ import {
   FETCH_DAY_NIGHT_BAR_PANEL_SUCCESS,
   FETCH_DAY_NIGHT_MAP_START,
   FETCH_DAY_NIGHT_MAP_SUCCESS,
-  FETCH_ALL_SKY_START,
-  FETCH_ALL_SKY_SUCCESS,
-  FETCH_DOME_CAM_START,
-  FETCH_DOME_CAM_SUCCESS,
   SET_CURRENT_OBSERVATORY,
   SET_CURRENT_TELESCOPE,
   RESET_DETAILS_SELECTED_ELEMENTS,
@@ -58,7 +54,6 @@ const initialState = {
   fetchingWeatherWidget: false,
   fetchingDayNightBarPanel: false,
   fetchingDayNightMap: false,
-  fetchingAllSkyCamera: false,
   weatherConditionWidgetResult: {
     apiError: false,
     title: 'Fetching weather',
@@ -76,13 +71,6 @@ const initialState = {
     apiError: false,
     refreshIntervalSec: 0,
     dayNightMapURL: '',
-  },
-  allSkyCamera: {
-    apiError: false,
-    refreshIntervalSec: 0,
-    offlineImageURL: '',
-    allSkyCamURL: '',
-    onlineStatus: '',
   },
 
   activeSSE: {
@@ -199,20 +187,6 @@ export default createReducer(initialState, {
     return {
       ...state,
       currentTelescope,
-    };
-  },
-  [FETCH_ALL_SKY_START](state) {
-    return {
-      ...state,
-      fetchingAllSkyCamera: true,
-      allSkyCamera: { ...initialState.allSkyCamera },
-    };
-  },
-  [FETCH_ALL_SKY_SUCCESS](state, { payload }) {
-    return {
-      ...state,
-      fetchingAllSkyCamera: false,
-      allSkyCamera: payload,
     };
   },
   [FETCH_DAY_NIGHT_MAP_START](state) {

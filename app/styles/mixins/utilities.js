@@ -7,7 +7,6 @@ export const profilePhotoStyle = photoUrl => ({
   backgroundPosition: 'center',
 });
 
-
 export const backgroundImageCover = `
   background-repeat: no-repeat;
   background-position: center;
