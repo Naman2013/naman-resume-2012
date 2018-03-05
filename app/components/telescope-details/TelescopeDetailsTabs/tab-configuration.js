@@ -10,7 +10,7 @@ export default [
     tabContent: <h1>Day night map...</h1>,
   },
   {
-    tabText: 'All Sky Camera',
+    tabText: 'All Sky',
     tabContent: <h1>All sky camera</h1>,
   },
   {
