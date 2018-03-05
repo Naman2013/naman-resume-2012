@@ -30,26 +30,5 @@ exports[`should render with an image and message 1`] = `
       Missions are offline due to weather conditions.
     </h5>
   </div>
-  <style
-    jsx={true}
-  >
-    
-      .telescope-details-offline {
-        background: #fff;
-        text-align: center;
-        padding: 10px 0 40px;
-      }
-
-      .offlineMessage {
-        color: #FC1048;
-        text-align: center;
-        padding-top: 20px;
-      }
-
-      .offlineMessage h5 {
-        font-size: 18px;
-      }
-    
-  </style>
 </div>
 `;

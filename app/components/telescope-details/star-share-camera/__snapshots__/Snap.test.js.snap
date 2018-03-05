@@ -11,26 +11,7 @@ exports[`should render a container when an image url is provided 1`] = `
       "width": "50px",
     }
   }
->
-  <style
-    jsx={true}
-  >
-    
-        .root {
-          
-  background-repeat: no-repeat;
-  background-position: center;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-
-          width: 100%;
-          height: 100%;
-        }
-      
-  </style>
-</div>
+/>
 `;
 
 exports[`should render nothing when no imageURL is provided 1`] = `null`;
