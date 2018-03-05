@@ -77,12 +77,13 @@ const initialState = {
     refreshIntervalSec: 0,
     dayNightMapURL: '',
   },
-  allSkyCamera: {
+  allSkyWidgetResult: {
     apiError: false,
     refreshIntervalSec: 0,
     offlineImageURL: '',
     allSkyCamURL: '',
     onlineStatus: '',
+    title: '',
   },
 
   activeSSE: {
@@ -205,14 +206,14 @@ export default createReducer(initialState, {
     return {
       ...state,
       fetchingAllSkyCamera: true,
-      allSkyCamera: { ...initialState.allSkyCamera },
+      allSkyWidgetResult: { ...initialState.allSkyWidgetResult },
     };
   },
   [FETCH_ALL_SKY_SUCCESS](state, { payload }) {
     return {
       ...state,
       fetchingAllSkyCamera: false,
-      allSkyCamera: payload,
+      allSkyWidgetResult: payload,
     };
   },
   [FETCH_DAY_NIGHT_MAP_START](state) {

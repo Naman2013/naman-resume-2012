@@ -13,7 +13,6 @@ import { validateResponseAccess } from '../authorization/actions';
 import fetchCurrentConditions from '../../services/sky-widgets/current-conditions';
 import fetchDayNightBarPanel from '../../services/sky-widgets/day-night-bar-panel';
 import fetchDayNightMap from '../../services/sky-widgets/day-night-map';
-import fetchAllSkyCamera from '../../services/sky-widgets/all-sky-camera';
 import fetchObservatoryList from '../../services/telescopes/observatory-list';
 import fetchTelescopeStatus from '../../services/telescopes/telescope-status';
 
@@ -287,23 +286,6 @@ export const updateObservatoryAndTelescope = ({ obsUniqueId, teleUniqueId }) => 
   dispatch(setTelescope({ obsUniqueId, teleUniqueId }));
 };
 
-const fetchAllSkyStart = () => ({
-  type: FETCH_ALL_SKY_START,
-});
-
-const fetchAllSkySuccess = payload => ({
-  type: FETCH_ALL_SKY_SUCCESS,
-  payload,
-});
-
-const fetchAllSkyAction = ({ obsId, AllskyWidgetId }) => (dispatch) => {
-  dispatch(fetchAllSkyStart());
-  return fetchAllSkyCamera({
-    obsId,
-    AllskyWidgetId,
-  }).then(result => dispatch(fetchAllSkySuccess(result.data)));
-};
-
 const fetchDayNightMapStart = () => ({
   type: FETCH_DAY_NIGHT_MAP_START,
 });
@@ -360,10 +342,8 @@ export const fetchAllWidgets = ({
   CurrentConditionsWidgetId,
   DayNightBarPanelWidgetId,
   DayNightMapWidgetId,
-  AllskyWidgetId,
 }) => (dispatch) => {
   dispatch(fetchWeatherConditions({ obsId, CurrentConditionsWidgetId }));
   dispatch(fetchDayNightBarPanelAction({ obsId, DayNightBarPanelWidgetId }));
   dispatch(fetchDayNightMapAction({ obsId, DayNightMapWidgetId }));
-  dispatch(fetchAllSkyAction({ obsId, AllskyWidgetId }));
 };
