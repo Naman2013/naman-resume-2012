@@ -45,7 +45,7 @@ class DomeCamWidget extends Component {
   }
 
   componentWillUpdate(nextProps) {
-    if (this.props.DomecamWidgetId !== nextProps.DomecamWidgetId && this.props.obsId !== nextProps.obsId) {
+    if (this.props.obsId !== nextProps.obsId) {
       this.props.actions.fetchDomeCamAction({ obsId: nextProps.obsId, DomecamWidgetId: nextProps.DomecamWidgetId });
     }
   }
@@ -60,7 +60,7 @@ class DomeCamWidget extends Component {
       offlineImageURL,
       imageWidth,
     } = this.props;
-    
+
     const inlineTitleStyle = {
       color: 'white',
       textAlign: 'center',
