@@ -40,46 +40,5 @@ exports[`<Mission /> should render a missions title and image 1`] = `
       </span>
     </h5>
   </div>
-  <style
-    jsx={true}
-  >
-    
-      .root {
-        display: flex;
-        padding: 0;
-        position: relative;
-        border-bottom: 1px solid #9B9B9B;
-      }
-
-      .imageIcon {
-        position: relative;
-        padding: 10px 0 0 10px;
-        margin-right: 10px;
-        background: #3C4A55;
-        min-width: 70px;
-      }
-
-      .icon {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-      }
-
-      .missionDetails {
-        padding: 10px 5px 10px 0;
-      }
-
-      .title {
-        color: #F310A7;
-        text-transform: none;
-      }
-
-      .upcomingStart {
-        color: #fff;
-        font-size: 12px;
-        font-weight: normal;
-      }
-    
-  </style>
 </div>
 `;
