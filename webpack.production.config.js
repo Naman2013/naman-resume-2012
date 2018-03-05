@@ -75,8 +75,14 @@ module.exports = {
         loader: 'babel-loader',
         query: {
           cacheDirectory: true,
-          plugins: ['transform-runtime', 'transform-decorators-legacy', 'styled-jsx/babel'],
-          presets: ['es2015', 'es2016', 'es2017', 'react', 'stage-0'],
+          plugins: [
+            'styled-jsx/babel',
+            'transform-object-rest-spread',
+            'transform-decorators-legacy',
+            'transform-class-properties',
+            'transform-function-bind',
+          ],
+          presets: ['env', 'react'],
         },
       },
       {
