@@ -11,6 +11,12 @@ import fetchWeatherForecastWidget from '../services/sky-widgets/weather-forecast
 import fetchWeatherSatelliteWidget from '../services/sky-widgets/weather-satellite';
 import fetchWeatherMissionControlStatusWidget from '../services/sky-widgets/weather-mission-control-status';
 
+import fetchDomeCam from '../services/sky-widgets/dome-cam';
+import fetchDomeCamTimelapse from '../services/sky-widgets/dome-cam-timelapse';
+
+import fetchAllSkyCamera from '../services/sky-widgets/all-sky-camera';
+import fetchAllSkyTimelapse from '../services/sky-widgets/all-sky-timelapse';
+
 const OBSERVATORY_REQUEST_START = 'OBSERVATORY_REQUEST_START';
 const OBSERVATORY_REQUEST_SUCCESS = 'OBSERVATORY_REQUEST_SUCCESS';
 const OBSERVATORY_REQUEST_FAIL = 'OBSERVATORY_REQUEST_FAIL';
@@ -50,6 +56,17 @@ const TELESCOPE_CARD_DATA_SUCCESS = 'TELESCOPE_CARD_DATA_SUCCESS';
 const TELESCOPE_CARD_DATA_FAIL = 'TELESCOPE_CARD_DATA_FAIL';
 const TELESCOPE_CARD_DATA_START = 'TELESCOPE_CARD_DATA_START';
 
+const FETCH_ALL_SKY_START = 'FETCH_ALL_SKY_START';
+const FETCH_ALL_SKY_SUCCESS = 'FETCH_ALL_SKY_SUCCESS';
+
+const FETCH_DOME_CAM_START = 'FETCH_DOME_CAM_START';
+const FETCH_DOME_CAM_SUCCESS = 'FETCH_DOME_CAM_SUCCESS';
+
+const FETCH_DOME_CAM_TIMELAPSE_START = 'FETCH_DOME_CAM_TIMELAPSE_START';
+const FETCH_DOME_CAM_TIMELAPSE_SUCCESS = 'FETCH_DOME_CAM_TIMELAPSE_SUCCESS';
+
+const FETCH_ALL_SKY_TIMELAPSE_START = 'FETCH_ALL_SKY_TIMELAPSE_START';
+const FETCH_ALL_SKY_TIMELAPSE_SUCCESS = 'FETCH_ALL_SKY_TIMELAPSE_SUCCESS';
 
 export const getCurrentObservatory = (observatoryList = [], observatoryId) => {
   return observatoryList.find(observatory => observatory.obsUniqueId === observatoryId);
@@ -180,13 +197,13 @@ const startFetchSkyChartWidget = () => ({
   type: SKYCHART_WIDGET_START,
 });
 
-export const fetchSkyChartWidget = ({ obsId, AllskyWidgetId, scheduledMissionId }) => (dispatch) => {
+export const fetchSkyChartWidget = ({ obsId, skyChartWidgetId, scheduledMissionId }) => (dispatch) => {
   dispatch(startFetchSkyChartWidget);
-  if (obsId && AllskyWidgetId && scheduledMissionId) {
+  if (obsId && skyChartWidgetId && scheduledMissionId) {
     fetchStarChart({
       scheduledMissionId,
       obsId,
-      widgetUniqueId: AllskyWidgetId,
+      widgetUniqueId: skyChartWidgetId,
     }).then((result) => {
       if (!result.data.apiError) {
         dispatch(setSkyChartWidget(result.data));
@@ -360,6 +377,73 @@ export const fetchWeatherMissionControlStatus = ({
   });
 };
 
+const fetchAllSkyStart = () => ({
+  type: FETCH_ALL_SKY_START,
+});
+
+const fetchAllSkySuccess = payload => ({
+  type: FETCH_ALL_SKY_SUCCESS,
+  payload,
+});
+
+export const fetchAllSkyAction = ({ obsId, AllskyWidgetId }) => (dispatch) => {
+  dispatch(fetchAllSkyStart());
+  return fetchAllSkyCamera({
+    obsId,
+    AllskyWidgetId,
+  }).then(result => dispatch(fetchAllSkySuccess(result.data)));
+};
+
+const fetchDomeCamStart = () => ({
+  type: FETCH_DOME_CAM_START,
+});
+
+const fetchDomeCamSuccess = payload => ({
+  type: FETCH_DOME_CAM_SUCCESS,
+  payload,
+});
+
+export const fetchDomeCamAction = ({ obsId, DomecamWidgetId }) => (dispatch) => {
+  dispatch(fetchDomeCamStart());
+  return fetchDomeCam({
+    obsId,
+    DomecamWidgetId,
+  }).then(result => dispatch(fetchDomeCamSuccess(result.data)));
+};
+
+const fetchDomeCamTimelapseStart = () => ({
+  type: FETCH_DOME_CAM_TIMELAPSE_START,
+});
+
+const fetchDomeCamTimelapseSuccess = payload => ({
+  type: FETCH_DOME_CAM_TIMELAPSE_SUCCESS,
+  payload,
+});
+
+export const fetchDomeCamTimelapseAction = ({ obsId, DomecamTimelapseWidgetId }) => (dispatch) => {
+  dispatch(fetchDomeCamTimelapseStart());
+  return fetchDomeCamTimelapse({
+    obsId,
+    DomecamTimelapseWidgetId,
+  }).then(result => dispatch(fetchDomeCamTimelapseSuccess(result.data)));
+};
+
+const fetchAllSkyTimelapseStart = () => ({
+  type: FETCH_ALL_SKY_TIMELAPSE_START,
+});
+
+const fetchAllSkyTimelapseSuccess = payload => ({
+  type: FETCH_ALL_SKY_TIMELAPSE_SUCCESS,
+  payload,
+});
+
+export const fetchAllSkyTimelapseAction = ({ obsId, AllskyTimelapseWidgetId }) => (dispatch) => {
+  dispatch(fetchAllSkyTimelapseStart());
+  return fetchAllSkyTimelapse({
+    obsId,
+    AllskyTimelapseWidgetId,
+  }).then(result => dispatch(fetchAllSkyTimelapseSuccess(result.data)));
+};
 
 const fetchTelescopeCardDataSuccess = telescopeCardData => ({
   type: TELESCOPE_CARD_DATA_SUCCESS,
@@ -404,6 +488,10 @@ const initialState = {
 
   observatoryListErrorBody: null,
 
+  fetchingAllSkyCamera: true,
+  fetchingAllSkyTimelapseWidgetResult: true,
+  fetchingDomeCamWidgetResult: true,
+  fetchingDomeCamTimelapseWidgetResult: true,
   fetchingSeeingConditionsResult: true,
   fetchingObservatoryLiveWebcamResult: true,
   fetchingWeatherForecastWidgetResult: true,
@@ -470,6 +558,36 @@ const initialState = {
     refreshIntervalSec: 0,
     missionControlStatusURL: '',
   },
+  domeCamWidgetResult: {
+    domeCamTitle: 'Loading',
+    refreshIntervalSec: 0,
+    domeCamURL: '',
+    offlineImageURL: '',
+    offlineStatus: '',
+  },
+  domeCamTimelapseWidgetResult: {
+    domeCamTimelapseTitle: 'Loading',
+    refreshIntervalSec: 0,
+    domeCamTimelapseURL: '',
+    offlineImageURL: '',
+    offlineStatus: '',
+  },
+  allSkyWidgetResult: {
+    apiError: false,
+    refreshIntervalSec: 0,
+    offlineImageURL: '',
+    allSkyCamURL: '',
+    onlineStatus: '',
+    title: '',
+  },
+  allSkyTimelapseWidgetResult: {
+    title: 'Loading',
+    refreshIntervalSec: 0,
+    allSkyTimelapseURL: '',
+    offlineImageURL: '',
+    offlineStatus: '',
+  },
+
   telescopeCardData: undefined,
   isTelescopeCardDataLoading: false,
 };
@@ -643,4 +761,68 @@ export default createReducer(initialState, {
       seeingConditionsWidgetResult: payload,
     };
   },
+  [FETCH_ALL_SKY_START](state) {
+    return {
+      ...state,
+      fetchingAllSkyCamera: true,
+      allSkyWidgetResult: { ...initialState.allSkyWidgetResult },
+    };
+  },
+  [FETCH_ALL_SKY_SUCCESS](state, { payload }) {
+    return {
+      ...state,
+      fetchingAllSkyCamera: false,
+      allSkyWidgetResult: payload,
+    };
+  },
+  [FETCH_DOME_CAM_START](state) {
+    return {
+      ...state,
+      fetchingDomeCamWidgetResult: true,
+      domeCamWidgetResult: { ...initialState.domeCamWidgetResult },
+    };
+  },
+  [FETCH_DOME_CAM_SUCCESS](state, { payload }) {
+    return {
+      ...state,
+      fetchingDomeCamWidgetResult: false,
+      domeCamWidgetResult: payload,
+    };
+  },
+  [FETCH_DOME_CAM_START](state) {
+    return {
+      ...state,
+      fetchingDomeCamTimelapseWidgetResult: true,
+      domeCamTimelapseWidgetResult: { ...initialState.domeCamTimelapseWidgetResult },
+    };
+  },
+  [FETCH_DOME_CAM_TIMELAPSE_START](state) {
+    return {
+      ...state,
+      fetchingDomeCamTimelapseWidgetResult: true,
+      domeCamTimelapseWidgetResult: { ...initialState.domeCamTimelapseWidgetResult },
+    };
+  },
+  [FETCH_DOME_CAM_TIMELAPSE_SUCCESS](state, { payload }) {
+    return {
+      ...state,
+      fetchingDomeCamTimelapseWidgetResult: false,
+      domeCamTimelapseWidgetResult: payload,
+    };
+  },
+  [FETCH_ALL_SKY_TIMELAPSE_START](state) {
+    return {
+      ...state,
+      fetchingAllSkyTimelapseWidgetResult: true,
+      allSkyTimelapseWidgetResult: { ...initialState.allSkyTimelapseWidgetResult },
+    };
+  },
+  [FETCH_ALL_SKY_TIMELAPSE_SUCCESS](state, { payload }) {
+    return {
+      ...state,
+      fetchingAllSkyTimelapseWidgetResult: false,
+      allSkyTimelapseWidgetResult: payload,
+    };
+  },
+
 });

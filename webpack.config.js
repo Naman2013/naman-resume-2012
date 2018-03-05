@@ -143,16 +143,16 @@ module.exports = {
   devtool: 'cheap-module-eval-source-map',
   devServer: {
     contentBase: path.join(__dirname, '/dist'),
-    compress: true,
+    compress: false,
     historyApiFallback: true,
     proxy: {
       '/api/**': {
-        target: 'https://saturn.slooh.com',
+        target: 'https://deneb.slooh.com',
         changeOrigin: true,
         secure: true,
       },
       '/sloohapp/**': {
-        target: 'https://saturn.slooh.com',
+        target: 'https://deneb.slooh.com',
         changeOrigin: true,
         secure: true,
       },
