@@ -29,6 +29,11 @@ const mapDispatchToProps = dispatch => ({
 
 @connect(mapStateToProps, mapDispatchToProps)
 class DomeCamWidget extends Component {
+  state = {
+    currentObsId: null,
+    currentWidgetId: null,
+  };
+
   static propTypes = {
     obsId: PropTypes.string.isRequired,
     DomecamWidgetId: PropTypes.string.isRequired,
@@ -39,15 +44,21 @@ class DomeCamWidget extends Component {
     offlineImageURL: PropTypes.string.isRequired,
   };
 
-  componentDidMount() {
-    const { obsId, DomecamWidgetId } = this.props;
-    this.props.actions.fetchDomeCamAction({ obsId, DomecamWidgetId });
+  constructor(props) {
+    super(props);
   }
 
-  componentWillUpdate(nextProps) {
-    if (this.props.obsId !== nextProps.obsId) {
-      this.props.actions.fetchDomeCamAction({ obsId: nextProps.obsId, DomecamWidgetId: nextProps.DomecamWidgetId });
+  componentDidMount() {
+    const { currentObsId, currentWidgetId } = this.state;
+
+    if ( (currentObsId != this.props.obsId) && (currentWidgetId != this.props.DomecamWidgetId) ) {
+      this.setState({
+        currentObsId: this.props.obsId,
+        currentWidgetId: this.props.DomecamWidgetId,
+      });
     }
+    //const { obsId, DomecamWidgetId } = this.props;
+    //this.props.actions.fetchDomeCamAction({ obsId, DomecamWidgetId });
   }
 
   render() {
