@@ -37,6 +37,10 @@ export default class RefreshedImage extends Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.imageURL !== this.props.imageURL) {
       this.bootstrapTimer();
+      this.setState({
+        backImageURL: `${nextProps.imageURL}?version=${new Date().getTime()}`,
+        frontImageURL: `${nextProps.imageURL}?version=${new Date().getTime()}`,
+      })
     }
   }
 

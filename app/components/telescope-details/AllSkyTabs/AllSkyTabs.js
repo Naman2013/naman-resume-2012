@@ -7,7 +7,7 @@ import generateAllSkyTabConfiguration from './generate-tab-configuration';
 import DefaultTabs from '../../Tabs';
 import './allsky-tabs.scss';
 
-const mapStateToProps = ({ selectedTabIndex, telescopeDetails }) => ({
+const mapStateToProps = ({ telescopeDetails }) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -44,7 +44,7 @@ class AllSkyTabs extends Component {
   };
 
   render() {
-    const { selectedTabIndex } = this.props;
+    const { selectedTabIndex } = this.state;
     const tabConfiguration = generateAllSkyTabConfiguration(this.props);
 
     return (
