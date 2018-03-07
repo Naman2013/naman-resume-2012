@@ -347,7 +347,10 @@ class TelescopeDetails extends Component {
 
     const { domeId } = obsIdTeleIdDomeIdFromTeleId(teleId);
     const { objectAudioURL } = objectDetails;
-
+    const isSubjectMatterAnObject = activeDetailsSSE.astroObjectID > 0;
+    const audioEnabled = !!objectAudioURL;
+    const isTelescopeOnline = currentTelescopeOnlineStatus && (currentTelescopeOnlineStatus.onlineStatus === 'online');
+    
     return (
       <div className="telescope-details-page-wrapper">
         <AnnouncementBanner obsId={obsId} />
@@ -481,10 +484,10 @@ class TelescopeDetails extends Component {
               }
 
               {
-                activeDetailsSSE.astroObjectID > 0 &&
+                isTelescopeOnline &&
                   <MissionAudio
                     missionAudioURL={objectAudioURL}
-                    audioEnabled={!!objectAudioURL}
+                    audioEnabled={isSubjectMatterAnObject && audioEnabled}
                   />
               }
 
