@@ -74,10 +74,9 @@ class TelescopeDetailsTabs extends Component {
       CurrentConditionsWidgetId,
       DayNightBarPanelWidgetId,
       DayNightMapWidgetId,
+      MiniWeatherPanelWidgetId,
       AllskyWidgetId,
-      AllskyTimelapseWidgetId,
       DomecamWidgetId,
-      DomecamTimelapseWidgetId,
     } = this.props;
 
     this.props.actions.fetchAllWidgets({
@@ -85,22 +84,24 @@ class TelescopeDetailsTabs extends Component {
       CurrentConditionsWidgetId,
       DayNightBarPanelWidgetId,
       DayNightMapWidgetId,
+      MiniWeatherPanelWidgetId,
+      AllskyWidgetId,
+      DomecamWidgetId,
     });
   }
 
   componentWillReceiveProps(nextProps) {
     const { obsId } = this.props;
     const nextObsId = nextProps.obsId;
-    if (obsId !== nextObsId) {      
+    if (obsId !== nextObsId) {
       this.props.actions.fetchAllWidgets({
         obsId: nextProps.obsId,
         CurrentConditionsWidgetId: nextProps.CurrentConditionsWidgetId,
         DayNightBarPanelWidgetId: nextProps.DayNightBarPanelWidgetId,
         DayNightMapWidgetId: nextProps.DayNightMapWidgetId,
+        MiniWeatherPanelWidgetId: nextProps.MiniWeatherPanelWidgetId,
         AllskyWidgetId: nextProps.AllskyWidgetId,
-        AllskyTimelapseWidgetId: nextProps.AllskyTimelapseWidgetId,
         DomecamWidgetId: nextProps.DomecamWidgetId,
-        DomecamTimelapseWidgetId: nextProps.DomecamTimelapseWidgetId,
       });
     }
   }

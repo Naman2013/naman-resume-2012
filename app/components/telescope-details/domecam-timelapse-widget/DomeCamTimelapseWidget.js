@@ -40,15 +40,13 @@ class DomeCamTimelapseWidget extends Component {
     offlineImageURL: PropTypes.string.isRequired,
   };
 
+  constructor(props) {
+    super(props);
+  }
+
   componentDidMount() {
     const { obsId, DomecamTimelapseWidgetId } = this.props;
     this.props.actions.fetchDomeCamTimelapseAction({ obsId, DomecamTimelapseWidgetId });
-  }
-
-  componentWillUpdate(nextProps) {
-    if (this.props.obsId !== nextProps.obsId) {
-      this.props.actions.fetchDomeCamTimelapseAction({ obsId: nextProps.obsId, DomecamTimelapseWidgetId: nextProps.DomecamTimelapseWidgetId });
-    }
   }
 
   render() {

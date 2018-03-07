@@ -39,15 +39,8 @@ class AllSkyCamWidget extends Component {
     offlineImageURL: PropTypes.string.isRequired,
   };
 
-  componentDidMount() {
-    const { obsId, AllskyWidgetId } = this.props;
-    this.props.actions.fetchAllSkyAction({ obsId, AllskyWidgetId });
-  }
-
-  componentWillUpdate(nextProps) {
-    if (this.props.obsId !== nextProps.obsId) {
-      this.props.actions.fetchAllSkyAction({ obsId: nextProps.obsId, AllskyWidgetId: nextProps.AllskyWidgetId });
-    }
+  constructor(props) {
+    super(props);
   }
 
   render() {
