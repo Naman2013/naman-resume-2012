@@ -90,7 +90,6 @@ module.exports = {
         loaders: [
           'style-loader',
           'css-loader?modules&importLoaders=1&localIdentName=[local]',
-          'postcss-loader',
         ],
       },
       {
@@ -98,7 +97,6 @@ module.exports = {
         loaders: [
           'style-loader',
           'css-loader?modules&importLoaders=1&localIdentName=[local]',
-          'postcss-loader',
           'sass-loader',
         ],
       },
