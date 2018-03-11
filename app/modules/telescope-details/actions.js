@@ -181,10 +181,7 @@ const fetchCommunityContent = telescope => (dispatch) => {
   const { teleContentType, teleContentList } = telescope;
 
   const NONE = 'none';
-  const MISSION_OBJECT_ID = 'missionObjectId';
   const STATIC_OBJECT_ID = 'staticObjectId';
-  const STATIC_SLUG_LOOKUP_ID = 'staticSlugLookupId';
-  const STATIC_SLUG = 'staticSlug';
 
   const displayCommunityContent = teleContentType !== NONE;
 

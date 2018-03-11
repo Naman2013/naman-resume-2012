@@ -66,6 +66,7 @@ import usersUpcomingMission from './Users-Upcoming-Missions';
 import isLanding from './landing/reducer';
 import videoViewerBrowser from './browse-video-viewer/reducer';
 import videoViewerShow from './show-video-viewer/reducer';
+import objectDetails from './object-details/reducer';
 
 export default combineReducers({
   routing: routerReducer,
@@ -136,4 +137,5 @@ export default combineReducers({
   isLanding,
   videoViewerBrowser,
   videoViewerShow,
+  objectDetails,
 });
