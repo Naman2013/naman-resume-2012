@@ -447,7 +447,7 @@ class BrowseTaggedDataSearch extends Component {
 
             .search-input-field {
               background-color: gray;
-              color: ${white}
+              color: ${white};
               font-weight: bold;
             }
             `}</style>
