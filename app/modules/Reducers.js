@@ -29,10 +29,14 @@ import discussionsSearch from './discussions-search/reducer';
 import discussionsThread from './discussions-thread/reducer';
 import discussionsTopics from './discussions-topics/reducer';
 import eventInfo from './event-info/reducer';
+import galleries from './my-pictures-galleries/reducer';
+import galleryPictures from './my-pictures-gallery-pictures/reducer';
+import galleryActions from './my-pictures-gallery-actions/reducer';
 import guardian from './guardian/reducer';
 import guideDetails from './guide-details/reducer';
 import homeContent from './home-content/reducer';
 import illuminationsPosts from './pulse/get-latest-posts-reducer';
+import isLanding from './landing/reducer';
 import liveShows from './live-shows/live-shows-reducer';
 import login from './Login';
 import mashupSettings from './mashup-settings/get-mashup-reducer';
@@ -44,10 +48,6 @@ import myPictures from './my-pictures/reducer';
 import myPicturesImageDetails from './my-pictures-image-details/reducer';
 import myPicturesFilters from './my-pictures-filters/reducer';
 import myPicturesVerifyOwner from './my-pictures-verify-owner/reducer';
-import galleries from './my-pictures-galleries/reducer';
-import userPublicGalleries from './my-pictures-user-public-galleries/reducer';
-import galleryPictures from './my-pictures-gallery-pictures/reducer';
-import galleryActions from './my-pictures-gallery-actions/reducer';
 import objectDetails from './object-details/reducer';
 import objectPostList from './object-post-list/reducer';
 import objectTypeList from './object-type-list/reducer';
@@ -55,6 +55,7 @@ import otherFeaturedObjects from './other-featured-objects/reducer';
 import pageLevelMetaContent from './pageLevelMetaContent/seo-reducer';
 import piggyback from './Piggyback';
 import post from './pulse/get-post-reducer';
+import questDetails from './quest-details/reducer';
 import starshareCamera from './starshare-camera/starshare-camera-reducer';
 import shareMemberPhoto from './share-member-photo/reducer';
 import sharedMemberPhotos from './get-shared-member-photos/reducer';
@@ -65,8 +66,8 @@ import telescopeSlots from './grab-telescope-slot/reducer';
 import tierLimits from './tier-limits/reducer';
 import upcomingEvents from './upcoming-events/upcoming-events-reducer';
 import user from './User';
+import userPublicGalleries from './my-pictures-user-public-galleries/reducer';
 import usersUpcomingMission from './Users-Upcoming-Missions';
-import isLanding from './landing/reducer';
 import videoViewerBrowser from './browse-video-viewer/reducer';
 import videoViewerShow from './show-video-viewer/reducer';
 
@@ -101,9 +102,13 @@ export default combineReducers({
   discussionsThread,
   discussionsTopics,
   eventInfo,
+  galleries,
+  galleryActions,
+  galleryPictures,
   guardian,
   guideDetails,
   homeContent,
+  isLanding,
   illuminationsPosts,
   liveShows,
   login,
@@ -116,10 +121,7 @@ export default combineReducers({
   myPicturesImageDetails,
   myPicturesFilters,
   myPicturesVerifyOwner,
-  userPublicGalleries,
-  galleries,
-  galleryActions,
-  galleryPictures,
+  questDetails,
   objectDetails,
   objectPostList,
   objectTypeList,
@@ -136,10 +138,10 @@ export default combineReducers({
   telescopeOverview,
   telescopeSlots,
   tierLimits,
+  userPublicGalleries,
   upcomingEvents,
   user,
   usersUpcomingMission,
-  isLanding,
   videoViewerBrowser,
   videoViewerShow,
 });

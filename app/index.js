@@ -118,6 +118,7 @@ import BookclubHandoff from './pages/bookclub-handoff/BookclubHandoff';
 //V4 pages
 import GuideDetails from './pages/guide-details/GuideDetails';
 import ObjectDetails from './pages/object-details/ObjectDetails';
+import QuestDetails from './pages/quest-details/QuestDetails';
 
 // router functions
 import validateUser from './route-functions/validateUser';
@@ -463,6 +464,7 @@ ReactDOM.render(
 
         <Route path="guide-details/:guideId" component={GuideDetails} onEnter={validateUser} />
         <Route path="object-details/:objectId" component={ObjectDetails} onEnter={validateUser} />
+        <Route path="quest-details/:questId" component={QuestDetails} onEnter={validateUser} />
 
       </Route>
 
