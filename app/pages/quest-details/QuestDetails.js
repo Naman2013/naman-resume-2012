@@ -1,5 +1,5 @@
 /***********************************
-* V4 Guide Details Page
+* V4 Quest Details Page
 *   Markdown support on elements????
 *   UTF-8 support....
 *   Multi-National Languages.....
@@ -12,23 +12,23 @@ import { bindActionCreators } from 'redux';
 import classnames from 'classnames';
 import has from 'lodash/has';
 import {
-  fetchGuideDataAction,
-} from '../../modules/guide-details/actions';
+  fetchQuestDataAction,
+} from '../../modules/quest-details/actions';
 
-const mapStateToProps = ({ guideDetails, appConfig, user }) => ({
-  guideData: guideDetails.guideData,
+const mapStateToProps = ({ questDetails, appConfig, user }) => ({
+  questData: questDetails.questData,
   appConfig,
   user,
 });
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
-    fetchGuideDataAction,
+    fetchQuestDataAction,
   }, dispatch),
 });
 
 @connect(mapStateToProps, mapDispatchToProps)
-class GuideDetails extends Component {
+class QuestDetails extends Component {
   constructor(props) {
     super(props);
   }
@@ -36,20 +36,20 @@ class GuideDetails extends Component {
   componentWillReceiveProps(nextProps) {
     const {
       params: {
-        guideId,
+        questId,
       }
     } = nextProps;
 
-    if (this.props.guideData.guideId != nextProps.guideData.guideId) {
-      //console.log('Guide has been loaded.....gather more data....');
+    if (this.props.questData.questId != nextProps.questData.questId) {
+      //console.log('Quest has been loaded.....gather more data....');
     }
 
-    //console.log(this.props.params.guideId);
-    //console.log(nextProps.objectData.guideId);
+    //console.log(this.props.params.questId);
+    //console.log(nextProps.objectData.questId);
 
     //fetch the object data, the object page has been changed.
-    if (this.props.params.guideId != nextProps.params.guideId) {
-      this.props.actions.fetchGuideDataAction(guideId);
+    if (this.props.params.questId != nextProps.params.questId) {
+      this.props.actions.fetchQuestDataAction(questId);
     }
   }
 
@@ -60,47 +60,47 @@ class GuideDetails extends Component {
   componentWillMount() {
     const {
       params: {
-        guideId,
+        questId,
       }
     } = this.props;
 
-    if (this.props.guideData.guideId != guideId) {
-        //fetch the guide-level meta data only if the guideId changes.
-        this.props.actions.fetchGuideDataAction(guideId);
+    if (this.props.questData.questId != questId) {
+        //fetch the quest-level meta data only if the guideId changes.
+        this.props.actions.fetchQuestDataAction(questId);
     }
   }
 
   render() {
     const {
       params: {
-        guideId,
+        questId,
       },
-      guideData,
+      questData,
     } = this.props;
 
     return (
 
       <div style={{'marginLeft': '20px', 'marginRight': '20px', 'marginBottom': '20px'}}>
-        <h1>Guide ID: {guideId}</h1>
-        <h1>{guideData.guideTitle}</h1>
+        <h1>Quest ID: {questId}</h1>
+        <h1>{questData.questTitle}</h1>
         <br/>
-        <h2>{guideData.guideSubtitle}</h2>
+        <h2>{questData.guideSubtitle}</h2>
         <br/>
 
         <hr/>
 
-        <h2>Guide Metadata</h2>
-        {guideData && <div>
+        <h2>Quest Metadata</h2>
+        {questData && <div>
           <table style={{'border': '1', 'marginLeft': '100px'}}>
             <thead>
               <th style={{'width': '30%'}}>Attribute</th>
               <th>Value</th>
             </thead>
             <tbody>
-              {Object.keys(guideData).map(function (key) {
+              {Object.keys(questData).map(function (key) {
                   /* exclude things like missionsList, etc. */
-                  if ( typeof guideData[key] != 'object') {
-                    var val = new String(guideData[key]);
+                  if ( typeof questData[key] != 'object') {
+                    var val = new String(questData[key]);
                     var idxImg = val.indexOf('.svg');
 
                     return( <tr key={'row_' + key}>
@@ -108,10 +108,10 @@ class GuideDetails extends Component {
                         <td key={'v_' + key}style={{'paddingTop': '5px', 'paddingBottom': '5px'}}>
                           {idxImg > 0 &&
                             <div>
-                              <img style={{'backgroundColor': 'black'}} src={guideData[key]}/><br/>
+                              <img style={{'backgroundColor': 'black'}} src={questData[key]}/><br/>
                             </div>
                           }
-                          {guideData[key]}
+                          {questData[key]}
                         </td>
                       </tr>
                     );
@@ -126,15 +126,15 @@ class GuideDetails extends Component {
     )
   }
 }
-export default GuideDetails;
-GuideDetails.propTypes = {
+export default QuestDetails;
+QuestDetails.propTypes = {
   params: PropTypes.shape({
-    guideId: PropTypes.string,
+    questId: PropTypes.string,
   }).isRequired,
   actions: PropTypes.shape({ }).isRequired,
 };
 
-GuideDetails.defaultProps = {
+QuestDetails.defaultProps = {
   actions: { },
-  guideId: '',
+  questId: '',
 };
