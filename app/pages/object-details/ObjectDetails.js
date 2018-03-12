@@ -17,10 +17,10 @@ import {
   fetchObjectQuestsAction,
 } from '../../modules/object-details/actions';
 
-const mapStateToProps = ({ objectQuests, objectMissions, objectDetails, appConfig, user }) => ({
+const mapStateToProps = ({ objectDetails, appConfig, user }) => ({
   objectMissions: objectDetails.objectMissions,
   objectQuests: objectDetails.objectQuests,
-  objectDetails,
+  objectData: objectDetails.objectData,
   appConfig,
   user,
 });
@@ -46,14 +46,14 @@ class ObjectDetails extends Component {
       }
     } = nextProps;
 
-    if (this.props.objectDetails.objectId != nextProps.objectDetails.objectId) {
+    if (this.props.objectData.objectId != nextProps.objectData.objectId) {
       //console.log('Object has been loaded.....gather more data....');
-      this.props.actions.fetchObjectMissionsAction(nextProps.objectDetails.objectId);
-      this.props.actions.fetchObjectQuestsAction(nextProps.objectDetails.objectId);
+      this.props.actions.fetchObjectMissionsAction(nextProps.objectData.objectId);
+      this.props.actions.fetchObjectQuestsAction(nextProps.objectData.objectId);
     }
 
     //console.log(this.props.params.objectId);
-    //console.log(nextProps.objectDetails.objectId);
+    //console.log(nextProps.objectData.objectId);
 
     //fetch the object data, the object page has been changed.
     if (this.props.params.objectId != nextProps.params.objectId) {
@@ -72,7 +72,9 @@ class ObjectDetails extends Component {
       }
     } = this.props;
 
-    if (this.props.objectDetails.objectId != objectId) {
+    console.log(this.props);
+
+    if (this.props.objectData.objectId != objectId) {
         //fetch the object-level meta data only if the objectId changes.
         this.props.actions.fetchObjectDataAction(objectId);
     }
@@ -83,43 +85,43 @@ class ObjectDetails extends Component {
       params: {
         objectId,
       },
-      objectDetails,
+      objectData,
       objectMissions,
-      objectQuests,
+      objectQuests
     } = this.props;
 
     return (
 
       <div style={{'marginLeft': '20px', 'marginRight': '20px', 'marginBottom': '20px'}}>
         <h1>Object ID: {objectId}</h1>
-        <h1>{objectDetails.objectTitle}</h1>
+        <h1>{objectData.objectTitle}</h1>
         <br/>
-        <h2>{objectDetails.objectDescription}</h2>
+        <h2>{objectData.objectDescription}</h2>
         <br/>
-        <h3>{objectDetails.objectTagline}</h3>
+        <h3>{objectData.objectTagline}</h3>
         <br/>
 
-        {objectDetails.objectAudioURL != '' &&
+        {objectData.objectAudioURL != '' &&
           <div>
             Audio Clip:<br/>
-            <audio src={objectDetails.objectAudioURL} controls playsInline controlsList="nodownload"/>
+            <audio src={objectData.objectAudioURL} controls playsInline controlsList="nodownload"/>
           </div>
         }
 
         <hr/>
 
         <h2>Object Metadata</h2>
-        {objectDetails && <div>
+        {objectData && <div>
           <table style={{'border': '1', 'marginLeft': '100px'}}>
             <thead>
               <th style={{'width': '30%'}}>Attribute</th>
               <th>Value</th>
             </thead>
             <tbody>
-              {Object.keys(objectDetails).map(function (key) {
+              {Object.keys(objectData).map(function (key) {
                   /* exclude things like missionsList, etc. */
-                  if ( typeof objectDetails[key] != 'object') {
-                    var val = new String(objectDetails[key]);
+                  if ( typeof objectData[key] != 'object') {
+                    var val = new String(objectData[key]);
                     var idxImg = val.indexOf('.svg');
 
                     return( <tr key={'row_' + key}>
@@ -127,10 +129,10 @@ class ObjectDetails extends Component {
                         <td key={'v_' + key}style={{'paddingTop': '5px', 'paddingBottom': '5px'}}>
                           {idxImg > 0 &&
                             <div>
-                              <img style={{'backgroundColor': 'black'}} src={objectDetails[key]}/><br/>
+                              <img style={{'backgroundColor': 'black'}} src={objectData[key]}/><br/>
                             </div>
                           }
-                          {objectDetails[key]}
+                          {objectData[key]}
                         </td>
                       </tr>
                     );
@@ -157,7 +159,7 @@ class ObjectDetails extends Component {
                   /* exclude things like questsList, etc. */
                   if ( typeof objectQuests[key] != 'object') {
 
-                    var val = new String(objectDetails[key]);
+                    var val = new String(objectData[key]);
                     var idxImg = val.indexOf('.svg');
 
                     return( <tr key={'row_' + key}>
@@ -165,10 +167,10 @@ class ObjectDetails extends Component {
                         <td key={'v_' + key}style={{'paddingTop': '5px', 'paddingBottom': '5px'}}>
                           {idxImg > 0 &&
                             <div>
-                              <img style={{'backgroundColor': 'black'}} src={objectDetails[key]}/><br/>
+                              <img style={{'backgroundColor': 'black'}} src={objectData[key]}/><br/>
                             </div>
                           }
-                          {objectDetails[key]}
+                          {objectData[key]}
                         </td>
                       </tr>
                     );

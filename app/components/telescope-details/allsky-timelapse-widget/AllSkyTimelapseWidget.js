@@ -40,15 +40,13 @@ class AllSkyTimelapseWidget extends Component {
     offlineImageURL: PropTypes.string.isRequired,
   };
 
+  constructor(props) {
+    super(props);
+  }
+
   componentDidMount() {
     const { obsId, AllskyTimelapseWidgetId } = this.props;
     this.props.actions.fetchAllSkyTimelapseAction({ obsId, AllskyTimelapseWidgetId });
-  }
-
-  componentWillUpdate(nextProps) {
-    if (this.props.obsId !== nextProps.obsId) {
-      this.props.actions.fetchAllSkyTimelapseAction({ obsId: nextProps.obsId, AllskyTimelapseWidgetId: nextProps.AllskyTimelapseWidgetId });
-    }
   }
 
   render() {

@@ -142,6 +142,7 @@ export const updateTelescopeActiveMission = ({
           const { objectId } = currentMission;
           const callSource = 'telescopeDetails';
 
+          // get the community posts associated with this object
           dispatch(fetchObjectContent({
             objectId,
             callSource,

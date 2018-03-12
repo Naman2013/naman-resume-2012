@@ -10,6 +10,7 @@ export const FETCH_OBJECT_DATA = 'FETCH_OBJECT_DATA';
 export const FETCH_OBJECT_DATA_START = 'FETCH_OBJECT_DATA_START';
 export const FETCH_OBJECT_DATA_FAIL = 'FETCH_OBJECT_DATA_FAIL';
 export const FETCH_OBJECT_DATA_SUCCESS = 'FETCH_OBJECT_DATA_SUCCESS';
+export const RESET_OBJECT_DATA = 'RESET_OBJECT_DATA';
 
 /* getObjectMissions */
 export const FETCH_OBJECT_MISSIONS = 'FETCH_OBJECT_MISSIONS';
@@ -39,6 +40,10 @@ export const fetchObjectDataAction = (objectId) => (dispatch, getState) => {
     }
   );
 };
+
+export const resetObjectData = () => ({
+  type: RESET_OBJECT_DATA,
+});
 
 export const fetchObjectMissionsAction = (objectId) => (dispatch, getState) => {
   dispatch(fetchObjectMissionsActionStart());

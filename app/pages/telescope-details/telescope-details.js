@@ -15,6 +15,8 @@ import {
   fetchAllTelescopeStatus,
 } from '../../modules/telescope-details/actions';
 
+import { fetchObjectDataAction, resetObjectData } from '../../modules/object-details/actions';
+
 import { resetSnapshotList } from '../../modules/starshare-camera/starshare-camera-actions';
 import { fetchObjectContent } from '../../modules/community-content/community-object-content-actions';
 
@@ -35,6 +37,7 @@ import TelescopeAllSky from '../../components/telescope-details/telescope-all-sk
 import TelescopeDetailsTabs from '../../components/telescope-details/TelescopeDetailsTabs';
 import TelescopeSelection from '../../components/telescopes/selection-widget/telescope-selection';
 import UpcomingMissions from '../../components/telescope-details/UpcomingMissions/UpcomingMissions';
+import MissionAudio from '../../components/telescope-details/MissionAudio';
 
 import obsIdTeleIdDomeIdFromTeleId from '../../utils/obsid-teleid-domeid-from-teleid';
 
@@ -49,6 +52,8 @@ function mapDispatchToProps(dispatch) {
         fetchAllTelescopeStatus,
         resetSnapshotList,
         fetchObjectContent,
+        fetchObjectDataAction,
+        resetObjectData,
       },
       dispatch,
     ),
@@ -60,6 +65,7 @@ function mapStateToProps({
   communityObjectContent,
   telescopeDetails,
   activeTelescopeMissions,
+  objectDetails,
 }) {
   const { observatoryList } = telescopeOverview;
 
@@ -85,6 +91,7 @@ function mapStateToProps({
     communityContent: communityObjectContent.communityContent.posts,
 
     activeDetailsSSE: telescopeDetails.activeSSE,
+    objectDetails: objectDetails.objectData,
   };
 }
 
@@ -107,6 +114,8 @@ class TelescopeDetails extends Component {
       setTelescope: PropTypes.func.isRequired,
       updateTelescopeStatus: PropTypes.func.isRequired,
       fetchAllTelescopeStatus: PropTypes.func.isRequired,
+      fetchObjectDataAction: PropTypes.func.isRequired,
+      resetObjectData: PropTypes.func.isRequired,
     }).isRequired,
     countdownList: PropTypes.arrayOf(
       PropTypes.shape({
@@ -114,11 +123,17 @@ class TelescopeDetails extends Component {
         // TODO: finish validating fields from the API here...
       }),
     ),
+    objectDetails: PropTypes.shape({
+      objectAudioURL: PropTypes.string,
+    }),
     isImageViewerClipped: PropTypes.bool,
   };
 
   static defaultProps = {
     isImageViewerClipped: true,
+    objectDetails: {
+      objectAudioURL: '',
+    },
   };
 
   constructor(props) {
@@ -136,6 +151,7 @@ class TelescopeDetails extends Component {
     const {
       allObservatoryTelescopeStatus,
       params: { obsUniqueId, teleUniqueId },
+      activeDetailsSSE: { astroObjectID },
     } = nextProps;
 
     const isTelescopeUpdate = teleUniqueId !== this.props.params.teleUniqueId;
@@ -156,6 +172,14 @@ class TelescopeDetails extends Component {
       if (neoviewOpen) {
         this.toggleNeoview();
       }
+    }
+
+    if (astroObjectID && this.props.activeDetailsSSE.astroObjectID !== astroObjectID) {
+      this.props.actions.fetchObjectDataAction(astroObjectID);
+    }
+
+    if (this.props.activeDetailsSSE.astroObjectID > 0 && astroObjectID === 0) {
+      this.props.actions.resetObjectData();
     }
   }
 
@@ -228,11 +252,21 @@ class TelescopeDetails extends Component {
   };
 
   scaffoldObservatoryList() {
-    const { obsUniqueId, teleUniqueId } = this.props.params;
+    const {
+      params: { obsUniqueId, teleUniqueId },
+      activeDetailsSSE: { astroObjectID },
+    } = this.props;
+
     this.props.actions.bootstrapTelescopeDetails({
       obsUniqueId,
       teleUniqueId,
     });
+
+    if (astroObjectID) {
+      this.props.actions.fetchObjectDataAction(astroObjectID);
+    } else {
+      this.props.actions.resetObjectData();
+    }
   }
 
   refreshTelescopeStatusTimeout = null;
@@ -289,6 +323,7 @@ class TelescopeDetails extends Component {
 
       activeDetailsSSE,
       isImageViewerClipped,
+      objectDetails,
     } = this.props;
 
     if (fetchingObservatoryList) {
@@ -311,7 +346,11 @@ class TelescopeDetails extends Component {
     );
 
     const { domeId } = obsIdTeleIdDomeIdFromTeleId(teleId);
-
+    const { objectAudioURL } = objectDetails;
+    const isSubjectMatterAnObject = activeDetailsSSE.astroObjectID > 0;
+    const audioEnabled = !!objectAudioURL;
+    const isTelescopeOnline = currentTelescopeOnlineStatus && (currentTelescopeOnlineStatus.onlineStatus === 'online');
+    
     return (
       <div className="telescope-details-page-wrapper">
         <AnnouncementBanner obsId={obsId} />
@@ -424,7 +463,7 @@ class TelescopeDetails extends Component {
               />
             </div>
 
-            {/** right side bar */}
+            {/** begin right column */}
             <div className="col-sm-4 telescope-details-sidebar">
               {currentObservatory.showCountdown &&
                 currentMissionCountdown && currentMissionCountdown.showCountdown && (
@@ -442,6 +481,14 @@ class TelescopeDetails extends Component {
                       <LiveMission {...activeTelescopeMission} />
                     </div>
                   ) : null
+              }
+
+              {
+                isTelescopeOnline &&
+                  <MissionAudio
+                    missionAudioURL={objectAudioURL}
+                    audioEnabled={isSubjectMatterAnObject && audioEnabled}
+                  />
               }
 
               {

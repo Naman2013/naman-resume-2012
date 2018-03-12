@@ -2,8 +2,6 @@ import React from 'react';
 import CenterContent from '../../../design-system/CenterContent';
 import AllSkyCamWidget from '../allsky-widget';
 import AllSkyTimelapseWidget from '../allsky-timelapse-widget';
-import DomeCamWidget from '../domecam-widget';
-import DomeCamTimelapseWidget from '../domecam-timelapse-widget';
 
 const inlineTitleStyle = {
   color: 'white',

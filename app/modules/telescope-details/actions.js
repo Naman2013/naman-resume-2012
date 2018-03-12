@@ -16,6 +16,11 @@ import fetchDayNightMap from '../../services/sky-widgets/day-night-map';
 import fetchObservatoryList from '../../services/telescopes/observatory-list';
 import fetchTelescopeStatus from '../../services/telescopes/telescope-status';
 
+/* fetch all the first tabs in weather, all sky and dome cam */
+import { fetchWeatherForecast } from '../../modules/Telescope-Overview';
+import { fetchAllSkyAction } from '../../modules/Telescope-Overview';
+import { fetchDomeCamAction } from '../../modules/Telescope-Overview';
+
 export const BOOTSTRAP_TELESCOPE_DETAILS_START = 'BOOTSTRAP_TELESCOPE_DETAILS_START';
 export const BOOTSTRAP_TELESCOPE_DETAILS = 'BOOTSTRAP_TELESCOPE_DETAILS';
 export const BOOTSTRAP_TELESCOPE_DETAILS_FAIL = 'BOOTSTRAP_TELESCOPE_DETAILS_FAIL';
@@ -176,10 +181,7 @@ const fetchCommunityContent = telescope => (dispatch) => {
   const { teleContentType, teleContentList } = telescope;
 
   const NONE = 'none';
-  const MISSION_OBJECT_ID = 'missionObjectId';
   const STATIC_OBJECT_ID = 'staticObjectId';
-  const STATIC_SLUG_LOOKUP_ID = 'staticSlugLookupId';
-  const STATIC_SLUG = 'staticSlug';
 
   const displayCommunityContent = teleContentType !== NONE;
 
@@ -339,8 +341,14 @@ export const fetchAllWidgets = ({
   CurrentConditionsWidgetId,
   DayNightBarPanelWidgetId,
   DayNightMapWidgetId,
+  MiniWeatherPanelWidgetId,
+  AllskyWidgetId,
+  DomecamWidgetId,
 }) => (dispatch) => {
   dispatch(fetchWeatherConditions({ obsId, CurrentConditionsWidgetId }));
   dispatch(fetchDayNightBarPanelAction({ obsId, DayNightBarPanelWidgetId }));
   dispatch(fetchDayNightMapAction({ obsId, DayNightMapWidgetId }));
+  dispatch(fetchWeatherForecast({ obsId, MiniWeatherPanelWidgetId }));
+  dispatch(fetchAllSkyAction({ obsId, AllskyWidgetId }));
+  dispatch(fetchDomeCamAction({ obsId, DomecamWidgetId }));
 };
