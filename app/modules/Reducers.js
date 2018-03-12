@@ -30,6 +30,7 @@ import discussionsThread from './discussions-thread/reducer';
 import discussionsTopics from './discussions-topics/reducer';
 import eventInfo from './event-info/reducer';
 import guardian from './guardian/reducer';
+import guideDetails from './guide-details/reducer';
 import homeContent from './home-content/reducer';
 import illuminationsPosts from './pulse/get-latest-posts-reducer';
 import liveShows from './live-shows/live-shows-reducer';
@@ -101,6 +102,7 @@ export default combineReducers({
   discussionsTopics,
   eventInfo,
   guardian,
+  guideDetails,
   homeContent,
   illuminationsPosts,
   liveShows,

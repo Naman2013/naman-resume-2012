@@ -116,6 +116,7 @@ import Privacy from './pages/help/Privacy';
 import BookclubHandoff from './pages/bookclub-handoff/BookclubHandoff';
 
 //V4 pages
+import GuideDetails from './pages/guide-details/GuideDetails';
 import ObjectDetails from './pages/object-details/ObjectDetails';
 
 // router functions
@@ -460,6 +461,7 @@ ReactDOM.render(
 
         <Route path="bookclub" component={BookclubHandoff} />
 
+        <Route path="guide-details/:guideId" component={GuideDetails} onEnter={validateUser} />
         <Route path="object-details/:objectId" component={ObjectDetails} onEnter={validateUser} />
 
       </Route>
