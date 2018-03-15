@@ -19,6 +19,7 @@ import RedirectConfirmation from './pages/redirect-confirmation/RedirectConfirma
 
 // containers
 import App from './containers/App';
+
 import StaticAppContainer from './containers/static-app-container';
 import Reservations from './containers/Reservations';
 import SloohRecommends from './containers/SloohRecommends';
@@ -34,6 +35,9 @@ import DiscussionsListWrapper from './containers/discussions/DiscussionsListWrap
 import DiscussionsTopicsWrapper from './containers/discussions/DiscussionsTopicsWrapper';
 import DiscussionsSearch from './containers/discussions/DiscussionsSearch';
 
+//V 4 containers
+import AskAstronomer from './containers/ask-astronomer/AskAstronomer';
+import ObjectDetailsOverview from './containers/object-details-overview/ObjectDetailsOverview';
 
 // pages
 import Home from './pages/home';
@@ -119,6 +123,7 @@ import BookclubHandoff from './pages/bookclub-handoff/BookclubHandoff';
 import GuideDetails from './pages/guide-details/GuideDetails';
 import ObjectDetails from './pages/object-details/ObjectDetails';
 import QuestDetails from './pages/quest-details/QuestDetails';
+
 
 // router functions
 import validateUser from './route-functions/validateUser';
@@ -463,7 +468,11 @@ ReactDOM.render(
         <Route path="bookclub" component={BookclubHandoff} />
 
         <Route path="guide-details/:guideId" component={GuideDetails} onEnter={validateUser} />
-        <Route path="object-details/:objectId" component={ObjectDetails} onEnter={validateUser} />
+        <Route path="object-details/:objectId" component={ObjectDetails} onEnter={validateUser}>
+          <IndexRedirect to="overview" />
+          <Route path="overview" component={ObjectDetailsOverview} onEnter={validateUser} />
+          <Route path="ask" component={AskAstronomer} onEnter={validateUser} />
+        </Route>
         <Route path="quest-details/:questId" component={QuestDetails} onEnter={validateUser} />
 
       </Route>
