@@ -24,10 +24,9 @@ const Menu = ({ isOpen, position }) => {
 
   const isLeft = (position === LEFT);
 
-
   const inlineStyle = {
-    'left': isLeft ? '-400px' : 'auto',
-    'right': isLeft ? 'auto' : 0,
+    'left': isLeft ? (isOpen) ? 0 : `${-MENU_WIDTH}px` : 'auto',
+    'right': isLeft ? 'auto' : (isOpen) ? 0 : `${-MENU_WIDTH}px`,
   };
 
   return(
@@ -38,6 +37,10 @@ const Menu = ({ isOpen, position }) => {
         width: 400px;
         height: 100vh;
         background: ${grayer};
+
+        transition-property: left right;
+        transition-duration: 0.25s;
+        transition-timing-function: ease-in-out;
       `}</style>
     </div>
   );
