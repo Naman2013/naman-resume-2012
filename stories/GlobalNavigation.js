@@ -4,5 +4,7 @@ import GlobalNavigation from '../app/components/GlobalNavigation';
 
 storiesOf('Global Navigation', module)
   .add('Renders navigation', () => (
-    <GlobalNavigation />
+    <div style={{ overflow: 'hidden' }}>
+      <GlobalNavigation />
+    </div>
   ));
