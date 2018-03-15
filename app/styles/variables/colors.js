@@ -17,6 +17,7 @@ export const brightBlue = '#0084b4';
 export const yellow = '#d7ba16';
 export const brightYellow = '#F0D048';
 export const lightBlack = '#1F1F1F';
+export const darkGray = '#1E1E1E';
 
 /* VARIABLES = COLOR
  * */
