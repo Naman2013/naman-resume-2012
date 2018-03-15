@@ -5,6 +5,7 @@ import { grayer } from '../../styles/variables/colors';
 
 const LEFT = 'left';
 const RIGHT = 'right';
+const MENU_WIDTH = 400;
 
 const propTypes = {
   isOpen: PropTypes.bool,
@@ -23,8 +24,9 @@ const Menu = ({ isOpen, position }) => {
 
   const isLeft = (position === LEFT);
 
+
   const inlineStyle = {
-    'left': isLeft ? 0 : 'auto',
+    'left': isLeft ? '-400px' : 'auto',
     'right': isLeft ? 'auto' : 0,
   };
 
