@@ -5,7 +5,7 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import SubPageNavigation from '../sub-page-navigation/SubPageNavigation';
+import SubPageNavigation from '../common/sub-page-navigation';
 
 
 const generateNavItems = (objectId) => ([
