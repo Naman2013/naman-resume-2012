@@ -23,6 +23,11 @@ const TopBar = () => (
             <span className="fa fa-bars">X</span>
           </Button>
         </li>
+        <li>
+          <Button>
+            <span className="fa fa-bars">X</span>
+          </Button>
+        </li>
       </ul>
     </div>
 
