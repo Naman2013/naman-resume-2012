@@ -11,31 +11,46 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import classnames from 'classnames';
 import {
-  fetchObjectDataAction,
-  fetchObjectMissionsAction,
-  fetchObjectQuestsAction,
-} from '../../modules/object-details/actions';
+  fetchAstronomerQuestions,
+} from '../../modules/ask-astronomer-questions/actions';
+import QuestionList from '../../components/ask-astronomer/question-list';
 
-const mapStateToProps = ({ objectDetails, appConfig, user }) => ({
-  objectMissions: objectDetails.objectMissions,
-  objectQuests: objectDetails.objectQuests,
-  objectData: objectDetails.objectData,
+const {
+  func,
+  shape,
+  string,
+} = PropTypes;
+
+const mapStateToProps = ({
   appConfig,
+  astronomerAnswers,
+  astronomerQuestions,
+  objectDetails,
+  user,
+}) => ({
+  answers: astronomerAnswers.allReplies,
+  appConfig,
+  objectData: objectDetails.objectData,
+  questions: astronomerQuestions.threadList,
   user,
 });
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({}, dispatch),
+  actions: bindActionCreators({
+    fetchAstronomerQuestions,
+  }, dispatch),
 });
 
 @connect(mapStateToProps, mapDispatchToProps)
 class AskAstronomer extends Component {
 
   static propTypes = {
-    params: PropTypes.shape({
-      objectId: PropTypes.string,
+    params: shape({
+      objectId: string,
     }).isRequired,
-    actions: PropTypes.shape({ }).isRequired,
+    actions: shape({
+      fetchAstronomerQuestions: func.isRequired,
+    }).isRequired,
   }
 
   static defaultProps = {
@@ -47,6 +62,16 @@ class AskAstronomer extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    const {
+      objectData: {
+        faqTopicId,
+      }
+    } = nextProps;
+
+    //fetch the question data, the object page has been changed.
+    if (this.props.params.objectId != nextProps.params.objectId) {
+      this.props.actions.fetchAstronomerQuestions({ topicId: faqTopicId });
+    }
   }
 
   componentWillUpdate(nextProps) {
@@ -54,22 +79,36 @@ class AskAstronomer extends Component {
   }
 
   componentWillMount() {
-    console.log(this.props)
-  }
-
-  render() {
     const {
       params: {
         objectId,
       },
-      objectData,
-      objectMissions,
-      objectQuests
+      objectData: {
+        faqTopicId,
+      }
+    } = this.props;
+
+    if (this.props.objectData.objectId != objectId) {
+        //fetch questions only if the objectId changes.
+        this.props.actions.fetchAstronomerQuestions({ topicId: faqTopicId });
+    }
+  }
+
+  render() {
+    const {
+      answers,
+      params: {
+        objectId,
+      },
+      questions,
     } = this.props;
 
     return (
       <div>
-        
+        <QuestionList
+          answers={answers}
+          questions={questions}
+        />
       </div>
     )
   }
