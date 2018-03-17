@@ -10,6 +10,7 @@ const MENU_WIDTH = 400;
 const propTypes = {
   isOpen: PropTypes.bool,
   position: PropTypes.oneOf([LEFT, RIGHT]),
+  render: PropTypes.func.isRequired,
 };
 
 const defaultProps = {
@@ -17,7 +18,7 @@ const defaultProps = {
   position: LEFT,
 };
 
-const Menu = ({ isOpen, position }) => {
+const Menu = ({ isOpen, position, render }) => {
   const rootClasses = classnames('root', {
     'open': isOpen,
   });
@@ -31,6 +32,8 @@ const Menu = ({ isOpen, position }) => {
 
   return(
     <div className={rootClasses} style={inlineStyle}>
+
+      { render() }
 
       <style jsx>{`
         position: absolute;
