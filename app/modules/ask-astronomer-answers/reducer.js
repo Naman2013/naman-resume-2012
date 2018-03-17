@@ -11,7 +11,7 @@ const initialState = {
   page: 0,
   error: false,
   resultsCount: 0,
-  allReplies: {}
+  allAnswers: {},
 };
 
 export default createReducer(initialState, {
@@ -23,13 +23,16 @@ export default createReducer(initialState, {
   },
   [FETCH_ASTRONOMER_ANSWERS_SUCCESS](state, { payload }) {
     const { replies, threadId, page, resultsCount } = payload;
-    const newState = cloneDeep(state.allReplies);
-    newState[threadId] = replies;
+    const newState = cloneDeep(state.allAnswers);
+    newState[threadId] = {
+      replies,
+      topReply: replies.length > 0 ? replies[0].replyId : null,
+    };
 
     return {
       ...state,
       fetching: false,
-      allReplies: newState,
+      allAnswers: newState,
       resultsCount,
     };
   },
@@ -38,7 +41,7 @@ export default createReducer(initialState, {
       ...state,
       fetching: false,
       error: true,
-      allReplies: {},
+      allAnswers: {},
       resultsCount: 0,
       page: 0,
     };

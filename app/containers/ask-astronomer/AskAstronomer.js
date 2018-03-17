@@ -28,7 +28,7 @@ const mapStateToProps = ({
   objectDetails,
   user,
 }) => ({
-  answers: astronomerAnswers.allReplies,
+  answers: astronomerAnswers.allAnswers,
   appConfig,
   objectData: objectDetails.objectData,
   questions: astronomerQuestions.threadList,
