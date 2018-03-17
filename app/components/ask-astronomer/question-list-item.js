@@ -43,7 +43,7 @@ const QuestionListItem = ({ item, answers }) => (
 QuestionListItem.defaultProps = {
   answers: {
     replies: [],
-    topReply: null,
+    topAnswer: null,
   },
 };
 QuestionListItem.propTypes = {

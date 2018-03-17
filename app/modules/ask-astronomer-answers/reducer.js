@@ -26,7 +26,7 @@ export default createReducer(initialState, {
     const newState = cloneDeep(state.allAnswers);
     newState[threadId] = {
       replies,
-      topReply: replies.length > 0 ? replies[0].replyId : null,
+      topAnswer: replies.length > 0 ? replies[0].replyId : null,
     };
 
     return {

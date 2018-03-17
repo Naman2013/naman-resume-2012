@@ -14,7 +14,7 @@ const AnswerList = ({ answers }) => (
     {answers.replies.map(answer => <AnswerListItem
       answer={answer}
       key={answer.replyId}
-      isTopReply={answers.topReply && answer.replyId === answers.topReply}
+      isTopAnswer={answers.topAnswer && answer.replyId === answers.topAnswer}
     />)}
     <style jsx>{`
     `}</style>
@@ -24,7 +24,7 @@ const AnswerList = ({ answers }) => (
 AnswerList.defaultProps = {
   answers: {
     replies: [],
-    topReply: null,
+    topAnswer: null,
   },
 };
 AnswerList.propTypes = {

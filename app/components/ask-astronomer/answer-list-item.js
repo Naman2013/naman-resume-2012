@@ -10,9 +10,9 @@ const {
   string,
 } = PropTypes;
 
-const AnswerListItem = ({ answer, isTopReply }) => (
+const AnswerListItem = ({ answer, isTopAnswer }) => (
   <div className="answer">
-    {isTopReply && <div>Top Answer</div>}
+    {isTopAnswer && <div>Top Answer</div>}
     <div>{answer.displayName}</div>
     <div>{answer.content}</div>
     <div>
@@ -31,11 +31,11 @@ const AnswerListItem = ({ answer, isTopReply }) => (
 
 AnswerListItem.defaultProps = {
   answer: {},
-  isTopReply: false,
+  isTopAnswer: false,
 };
 AnswerListItem.propTypes = {
   answer: shape({}),
-  isTopReply: bool,
+  isTopAnswer: bool,
 };
 
 export default AnswerListItem;
