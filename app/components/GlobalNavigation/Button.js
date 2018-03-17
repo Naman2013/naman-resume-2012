@@ -21,6 +21,19 @@ const Button = ({ children }) => (
         background: none;
         width: 60px;
         height: 60px;
+
+        transition-property: color background;
+        transition-duration: 0.15s;
+        transition-timing-function: ease-in-out;
+      }
+
+      .action:hover {
+        color: ${darkGray};
+        background: ${white};
+      }
+
+      .action:focus {
+        outline: none;
       }
     `}</style>
   </div>

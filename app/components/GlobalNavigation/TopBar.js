@@ -10,22 +10,22 @@ const TopBar = () => (
       <ul className="button-list">
         <li>
           <Button>
-            <span className="fa fa-bars">X</span>
+            <span className="fa fa-circle"></span>
           </Button>
         </li>
         <li>
           <Button>
-            <span className="fa fa-bars">X</span>
+            <span className="fa fa-bars"></span>
           </Button>
         </li>
         <li>
           <Button>
-            <span className="fa fa-bars">X</span>
+            <span className="fa fa-circle"></span>
           </Button>
         </li>
         <li>
           <Button>
-            <span className="fa fa-bars">X</span>
+            <span className="fa fa-search"></span>
           </Button>
         </li>
       </ul>
@@ -42,17 +42,17 @@ const TopBar = () => (
       <ul className="button-list">
         <li>
           <Button>
-            <span className="fa fa-bars">X</span>
+            <span className="fa fa-question-circle"></span>
           </Button>
         </li>
         <li>
           <Button>
-            <span className="fa fa-bars">X</span>
+            <span className="fa fa-bell"></span>
           </Button>
         </li>
         <li>
           <Button>
-            <span className="fa fa-bars">X</span>
+            <span className="fa fa-user"></span>
           </Button>
         </li>
       </ul>
