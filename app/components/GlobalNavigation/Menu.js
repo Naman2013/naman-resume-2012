@@ -39,7 +39,7 @@ const Menu = ({ isOpen, position }) => {
         background: ${grayer};
 
         transition-property: left right;
-        transition-duration: 0.25s;
+        transition-duration: 0.15s;
         transition-timing-function: ease-in-out;
       `}</style>
     </div>
