@@ -18,7 +18,7 @@ const TopBar = ({ handleMenuClick, activeMenu }) => (
             isActive={isActive(activeMenu, MENU_INTERFACE.DEFAULT)}
             handleClick={() => { handleMenuClick(MENU_INTERFACE.DEFAULT) }}
           >
-            <span className="fa fa-circle"></span>
+            <span className="fa fa-home"></span>
           </Button>
         </li>
         <li>

@@ -2,33 +2,45 @@ import React, { Component } from 'react';
 import TopBar from './TopBar';
 import Menu from './Menu';
 import noop from 'lodash/noop';
-import MENU_INTERFACE from './Menus/MenuInterface';
+import MENU_INTERFACE, {
+  menuComponents,
+  isLeft,
+  isRight,
+} from './Menus/MenuInterface';
 
 class GlobalNavigation extends Component {
   state = {
     isLeftOpen: false,
-    isRightOpen: true,
+    isRightOpen: false,
     activeMenu: MENU_INTERFACE.DEFAULT,
-    activeLeft: null,
-    activeRight: null,
+    activeLeft: MENU_INTERFACE.DEFAULT,
+    activeRight: MENU_INTERFACE.DEFAULT,
   };
 
   handleMenuClick = menuName => {
-    this.setState({
-      activeMenu: menuName,
-    });
-  }
+    const { activeMenu } = this.state;
+    const sameMenu = menuName === activeMenu;
+    const nextMenu = (sameMenu) ? MENU_INTERFACE.DEFAULT : menuName;
+    const isLeftUpdate = isLeft(menuName) && !sameMenu;
+    const isRightUpdate = isRight(menuName) && !sameMenu;
 
-  handleToggleClick = event => {
-    event.preventDefault();
     this.setState((prevState) => ({
-      isRightOpen: !prevState.isRightOpen,
-      isLeftOpen: !prevState.isLeftOpen,
+      activeMenu: nextMenu,
+      isLeftOpen: isLeftUpdate,
+      isRightOpen: isRightUpdate,
+      activeLeft: (isLeftUpdate) ? menuName : prevState.activeLeft,
+      activeRight: (isRightUpdate) ? menuName : prevState.activeRight,
     }));
   }
 
   render() {
-    const { isLeftOpen, isRightOpen, activeMenu } = this.state;
+    const {
+      isLeftOpen,
+      isRightOpen,
+      activeMenu,
+      activeLeft,
+      activeRight,
+    } = this.state;
 
     return(
       <div className="root">
@@ -40,21 +52,14 @@ class GlobalNavigation extends Component {
         <Menu
           position="left"
           isOpen={isLeftOpen}
-          render={noop}
+          render={() => (menuComponents[activeLeft])}
         />
 
         <Menu
           position="right"
           isOpen={isRightOpen}
-          render={noop}
+          render={() => (menuComponents[activeRight])}
         />
-
-        <button
-          style={{ marginLeft: '400px' }}
-          onClick={this.handleToggleClick}
-        >
-          Toggle Menu
-        </button>
         <style jsx>{`
           .root {
             position: relative;
