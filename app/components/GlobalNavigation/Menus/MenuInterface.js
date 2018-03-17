@@ -7,16 +7,44 @@ import Alerts from './Alerts';
 import Profile from './Profile';
 
 export const LEFT_MENU = {
-  DEFAULT: 'DEFAULT',
-  MAIN: 'MAIN',
-  TELESCOPES: 'TELESCOPES',
-  SEARCH: 'SEARCH',
+  DEFAULT: {
+    name: 'DEFAULT',
+    title: null,
+    component: null,
+  },
+  MAIN: {
+    name: 'MAIN',
+    title: 'Menu',
+    component: <Main />,
+  },
+  TELESCOPES: {
+    name: 'TELESCOPES',
+    title: 'Telescopes',
+    component: <Telescopes />,
+  },
+  SEARCH: {
+    name: 'SEARCH',
+    title: 'Search',
+    component: <Search />
+  },
 };
 
-export const RIGHT_MENU = {
-  HELP: 'HELP',
-  ALERTS: 'ALERTS',
-  PROFILE: 'PROFILE',
+const RIGHT_MENU = {
+  HELP: {
+    name: 'HELP',
+    title: 'Help',
+    component: <Help />,
+  },
+  ALERTS: {
+    name: 'ALERTS',
+    title: 'Alerts',
+    component: <Alerts />,
+  },
+  PROFILE: {
+    name: 'PROFILE',
+    title: 'Profile',
+    component: <Profile />,
+  },
 };
 
 export function isRight(menuName) {
@@ -26,15 +54,5 @@ export function isRight(menuName) {
 export function isLeft(menuName) {
   return LEFT_MENU.hasOwnProperty(menuName);
 }
-
-export const menuComponents = {
-  DEFAULT: null,
-  MAIN: <Main />,
-  TELESCOPES: <Telescopes />,
-  SEARCH: <Search />,
-  HELP: <Help />,
-  ALERTS: <Alerts />,
-  PROFILE: <Profile />,
-};
 
 export default Object.assign({}, LEFT_MENU, RIGHT_MENU);

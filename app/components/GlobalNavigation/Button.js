@@ -1,6 +1,17 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { white, darkGray } from '../../styles/variables/colors';
+
+const propTypes = {
+  children: PropTypes.node.isRequired,
+  handleClick: PropTypes.func.isRequired,
+  isActive: PropTypes.bool,
+};
+
+const defaultProps = {
+  isActive: false,
+};
 
 const Button = ({ children, handleClick, isActive }) => (
   <div className="root">
@@ -43,5 +54,8 @@ const Button = ({ children, handleClick, isActive }) => (
     `}</style>
   </div>
 );
+
+Button.defaultProps = defaultProps;
+Button.propTypes = propTypes;
 
 export default Button;
