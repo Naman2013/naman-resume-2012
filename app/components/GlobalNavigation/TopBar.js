@@ -15,8 +15,7 @@ const TopBar = ({ handleMenuClick, activeMenu }) => (
       <ul className="button-list">
         <li>
           <Button
-            isActive={isActive(activeMenu, MENU_INTERFACE.DEFAULT)}
-            handleClick={() => { handleMenuClick(MENU_INTERFACE.DEFAULT) }}
+            handleClick={() => { handleMenuClick(MENU_INTERFACE.DEFAULT.name) }}
           >
             <span className="fa fa-home"></span>
           </Button>
@@ -24,23 +23,23 @@ const TopBar = ({ handleMenuClick, activeMenu }) => (
         <li>
           <Button
             isActive={isActive(activeMenu, MENU_INTERFACE.MAIN)}
-            handleClick={() => { handleMenuClick(MENU_INTERFACE.MAIN) }}
+            handleClick={() => { handleMenuClick(MENU_INTERFACE.MAIN.name) }}
           >
             <span className="fa fa-bars"></span>
           </Button>
         </li>
         <li>
           <Button
-            isActive={isActive(activeMenu, MENU_INTERFACE.TELESCOPES)}
-            handleClick={() => { handleMenuClick(MENU_INTERFACE.TELESCOPES) }}
+            isActive={isActive(activeMenu, MENU_INTERFACE.TELESCOPES.name)}
+            handleClick={() => { handleMenuClick(MENU_INTERFACE.TELESCOPES.name) }}
           >
             <span className="fa fa-circle"></span>
           </Button>
         </li>
         <li>
           <Button
-            isActive={isActive(activeMenu, MENU_INTERFACE.SEARCH)}
-            handleClick={() => { handleMenuClick(MENU_INTERFACE.SEARCH) }}
+            isActive={isActive(activeMenu, MENU_INTERFACE.SEARCH.name)}
+            handleClick={() => { handleMenuClick(MENU_INTERFACE.SEARCH.name) }}
           >
             <span className="fa fa-search"></span>
           </Button>
@@ -60,24 +59,24 @@ const TopBar = ({ handleMenuClick, activeMenu }) => (
       <ul className="button-list">
         <li>
           <Button
-            isActive={isActive(activeMenu, MENU_INTERFACE.HELP)}
-            handleClick={() => { handleMenuClick(MENU_INTERFACE.HELP) }}
+            isActive={isActive(activeMenu, MENU_INTERFACE.HELP.name)}
+            handleClick={() => { handleMenuClick(MENU_INTERFACE.HELP.name) }}
           >
             <span className="fa fa-question-circle"></span>
           </Button>
         </li>
         <li>
           <Button
-            isActive={isActive(activeMenu, MENU_INTERFACE.ALERTS)}
-            handleClick={() => { handleMenuClick(MENU_INTERFACE.ALERTS) }}
+            isActive={isActive(activeMenu, MENU_INTERFACE.ALERTS.name)}
+            handleClick={() => { handleMenuClick(MENU_INTERFACE.ALERTS.name) }}
           >
             <span className="fa fa-bell"></span>
           </Button>
         </li>
         <li>
           <Button
-            isActive={isActive(activeMenu, MENU_INTERFACE.PROFILE)}
-            handleClick={() => { handleMenuClick(MENU_INTERFACE.PROFILE) }}
+            isActive={isActive(activeMenu, MENU_INTERFACE.PROFILE.name)}
+            handleClick={() => { handleMenuClick(MENU_INTERFACE.PROFILE.name) }}
           >
             <span className="fa fa-user"></span>
           </Button>

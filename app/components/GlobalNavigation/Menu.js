@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
+import MenuTitleBar from './Menus/partials/MenuTitleBar';
 import { grayer } from '../../styles/variables/colors';
 
 const LEFT = 'left';
@@ -10,6 +11,8 @@ const MENU_WIDTH = 400;
 const propTypes = {
   isOpen: PropTypes.bool,
   position: PropTypes.oneOf([LEFT, RIGHT]),
+  handleClose: PropTypes.func.isRequired,
+  title: PropTypes.string.isRequired,
   render: PropTypes.func.isRequired,
 };
 
@@ -18,7 +21,7 @@ const defaultProps = {
   position: LEFT,
 };
 
-const Menu = ({ isOpen, position, render }) => {
+const Menu = ({ isOpen, position, handleClose, title, render }) => {
   const rootClasses = classnames('root', {
     'open': isOpen,
   });
@@ -32,6 +35,11 @@ const Menu = ({ isOpen, position, render }) => {
 
   return(
     <div className={rootClasses} style={inlineStyle}>
+
+      <MenuTitleBar
+        title={title}
+        handleCloseClick={handleClose}
+      />
 
       { render() }
 

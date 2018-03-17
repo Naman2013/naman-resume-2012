@@ -3,7 +3,6 @@ import TopBar from './TopBar';
 import Menu from './Menu';
 import noop from 'lodash/noop';
 import MENU_INTERFACE, {
-  menuComponents,
   isLeft,
   isRight,
 } from './Menus/MenuInterface';
@@ -12,17 +11,26 @@ class GlobalNavigation extends Component {
   state = {
     isLeftOpen: false,
     isRightOpen: false,
-    activeMenu: MENU_INTERFACE.DEFAULT,
-    activeLeft: MENU_INTERFACE.DEFAULT,
-    activeRight: MENU_INTERFACE.DEFAULT,
+    activeMenu: MENU_INTERFACE.DEFAULT.name,
+    activeLeft: MENU_INTERFACE.DEFAULT.name,
+    activeRight: MENU_INTERFACE.DEFAULT.name,
   };
+
+  closeAll = () => {
+    this.setState({
+      activeMenu: MENU_INTERFACE.DEFAULT.name,
+      isLeftOpen: false,
+      isRightOpen: false,
+    });
+  }
 
   handleMenuClick = menuName => {
     const { activeMenu } = this.state;
     const sameMenu = menuName === activeMenu;
-    const nextMenu = (sameMenu) ? MENU_INTERFACE.DEFAULT : menuName;
-    const isLeftUpdate = isLeft(menuName) && !sameMenu;
-    const isRightUpdate = isRight(menuName) && !sameMenu;
+    const nextMenu = (sameMenu) ? MENU_INTERFACE.DEFAULT.name : menuName;
+    const isDefault = menuName === MENU_INTERFACE.DEFAULT.name;
+    const isLeftUpdate = !sameMenu && !isDefault && isLeft(menuName);
+    const isRightUpdate = !sameMenu && !isDefault && isRight(menuName);
 
     this.setState((prevState) => ({
       activeMenu: nextMenu,
@@ -50,15 +58,19 @@ class GlobalNavigation extends Component {
         />
 
         <Menu
+          title={MENU_INTERFACE[activeLeft].title}
+          handleClose={this.closeAll}
           position="left"
           isOpen={isLeftOpen}
-          render={() => (menuComponents[activeLeft])}
+          render={() => (MENU_INTERFACE[activeLeft].component)}
         />
 
         <Menu
+          title={MENU_INTERFACE[activeRight].title}
+          handleClose={this.closeAll}
           position="right"
           isOpen={isRightOpen}
-          render={() => (menuComponents[activeRight])}
+          render={() => (MENU_INTERFACE[activeRight].component)}
         />
         <style jsx>{`
           .root {
