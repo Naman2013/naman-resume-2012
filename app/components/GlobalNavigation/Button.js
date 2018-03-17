@@ -1,9 +1,13 @@
 import React from 'react';
+import classnames from 'classnames';
 import { white, darkGray } from '../../styles/variables/colors';
 
-const Button = ({ children }) => (
+const Button = ({ children, handleClick, isActive }) => (
   <div className="root">
-    <button className="action">
+    <button
+      onClick={handleClick}
+      className={classnames('action', { active: isActive })}
+    >
       { children }
     </button>
 
@@ -27,7 +31,8 @@ const Button = ({ children }) => (
         transition-timing-function: ease-in-out;
       }
 
-      .action:hover {
+      .action:hover,
+      .action.active {
         color: ${darkGray};
         background: ${white};
       }

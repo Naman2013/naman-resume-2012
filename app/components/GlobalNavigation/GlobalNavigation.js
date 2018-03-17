@@ -1,28 +1,56 @@
 import React, { Component } from 'react';
 import TopBar from './TopBar';
 import Menu from './Menu';
+import noop from 'lodash/noop';
+import MENU_INTERFACE from './Menus/MenuInterface';
 
 class GlobalNavigation extends Component {
   state = {
-    isOpen: false,
+    isLeftOpen: false,
+    isRightOpen: true,
+    activeMenu: MENU_INTERFACE.DEFAULT,
+    activeLeft: null,
+    activeRight: null,
   };
+
+  handleMenuClick = menuName => {
+    this.setState({
+      activeMenu: menuName,
+    });
+  }
 
   handleToggleClick = event => {
     event.preventDefault();
-    this.setState((prevState) => ({ isOpen: !prevState.isOpen }));
+    this.setState((prevState) => ({
+      isRightOpen: !prevState.isRightOpen,
+      isLeftOpen: !prevState.isLeftOpen,
+    }));
   }
 
   render() {
-    const { isOpen } = this.state;
+    const { isLeftOpen, isRightOpen, activeMenu } = this.state;
 
     return(
       <div className="root">
-        <TopBar />
+        <TopBar
+          activeMenu={activeMenu}
+          handleMenuClick={this.handleMenuClick}
+        />
 
-        <Menu position="left" isOpen={isOpen} />
+        <Menu
+          position="left"
+          isOpen={isLeftOpen}
+          render={noop}
+        />
+
+        <Menu
+          position="right"
+          isOpen={isRightOpen}
+          render={noop}
+        />
 
         <button
-          style={{ marginLeft: '600px' }}
+          style={{ marginLeft: '400px' }}
           onClick={this.handleToggleClick}
         >
           Toggle Menu
