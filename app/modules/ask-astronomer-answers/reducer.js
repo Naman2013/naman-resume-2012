@@ -4,6 +4,8 @@ import {
   FETCH_ASTRONOMER_ANSWERS_START,
   FETCH_ASTRONOMER_ANSWERS_SUCCESS,
   FETCH_ASTRONOMER_ANSWERS_FAIL,
+  TOGGLE_ALL_ASK_ASTRONOMER_ANSWERS,
+  UPDATE_TOGGLE_ASK_ASTRONOMER_ANSWER_DISPLAY_LIST,
 } from './actions';
 
 const initialState = {
@@ -12,6 +14,8 @@ const initialState = {
   error: false,
   resultsCount: 0,
   allAnswers: {},
+  allDisplayedAnswers: {},
+  showAllAnswers: false,
 };
 
 export default createReducer(initialState, {
@@ -22,17 +26,21 @@ export default createReducer(initialState, {
     };
   },
   [FETCH_ASTRONOMER_ANSWERS_SUCCESS](state, { payload }) {
-    const { replies, threadId, page, resultsCount } = payload;
-    const newState = cloneDeep(state.allAnswers);
-    newState[threadId] = {
+    const { replies, threadId, resultsCount } = payload;
+    const newAllAnswers = cloneDeep(state.allAnswers);
+    const newAllDisplayedAnswers = cloneDeep(state.allDisplayedAnswers);
+    newAllAnswers[threadId] = {
       replies,
+      page: 1,
       topAnswer: replies.length > 0 ? replies[0].replyId : null,
     };
+    newAllDisplayedAnswers[threadId] = replies.length > 0 ? [replies[0]] : [];
 
     return {
       ...state,
       fetching: false,
-      allAnswers: newState,
+      allAnswers: newAllAnswers,
+      allDisplayedAnswers: newAllDisplayedAnswers,
       resultsCount,
     };
   },
@@ -42,8 +50,29 @@ export default createReducer(initialState, {
       fetching: false,
       error: true,
       allAnswers: {},
+      allDisplayedAnswers: {},
       resultsCount: 0,
       page: 0,
+    };
+  },
+  [TOGGLE_ALL_ASK_ASTRONOMER_ANSWERS](state, { payload }) {
+    return {
+      showAllAnswers: !state.showAllAnswers,
+    };
+  },
+  [UPDATE_TOGGLE_ASK_ASTRONOMER_ANSWER_DISPLAY_LIST](state, { payload }) {
+    const {
+      page,
+      threadId,
+      displayedAnswers,
+    } = payload;
+
+    const newState = cloneDeep(state.allDisplayedAnswers);
+    newState[threadId] = displayedAnswers;
+
+    return {
+      page,
+      allDisplayedAnswers: newState,
     };
   },
 });

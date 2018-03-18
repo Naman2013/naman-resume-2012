@@ -28,7 +28,8 @@ const mapStateToProps = ({
   objectDetails,
   user,
 }) => ({
-  answers: astronomerAnswers.allAnswers,
+  allAnswers: astronomerAnswers.allAnswers,
+  allDisplayedAnswers: astronomerAnswers.allDisplayedAnswers,
   appConfig,
   objectData: objectDetails.objectData,
   questions: astronomerQuestions.threadList,
@@ -96,17 +97,19 @@ class AskAstronomer extends Component {
 
   render() {
     const {
-      answers,
+      allAnswers,
+      allDisplayedAnswers,
       params: {
         objectId,
       },
       questions,
     } = this.props;
-
+    console.log('allDisplayedAnswers', allDisplayedAnswers)
     return (
       <div>
         <QuestionList
-          answers={answers}
+          allAnswers={allAnswers}
+          allDisplayedAnswers={allDisplayedAnswers}
           questions={questions}
         />
       </div>

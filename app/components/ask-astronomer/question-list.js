@@ -1,17 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import QuestionsListItem from './question-list-item';
+import QuestionListItem from './question-list-item';
 
 const {
   arrayOf,
   number,
   shape,
 } = PropTypes;
-const QuestionsList = ({ answers, questions }) => (
+const QuestionList = ({ allAnswers, allDisplayedAnswers, questions }) => (
   <div>
     {
-      questions.map(item => (<QuestionsListItem
-        answers={answers[item.threadId]}
+      questions.map(item => (<QuestionListItem
+        answers={allAnswers[item.threadId]}
+        displayedAnswers={allDisplayedAnswers[item.threadId]}
         key={item.threadId}
         item={item}
       />),
@@ -20,15 +21,17 @@ const QuestionsList = ({ answers, questions }) => (
   </div>
 );
 
-QuestionsList.defaultProps = {
+QuestionList.defaultProps = {
   questions: [],
-  answers: {},
+  allAnswers: {},
+  allDisplayedAnswers: {},
 };
-QuestionsList.propTypes = {
-  answers: shape({}),
+QuestionList.propTypes = {
+  allAnswers: shape({}),
+  allDisplayedAnswers: shape({}),
   questions: arrayOf(shape({
     threadId: number.isRequired,
   })),
 };
 
-export default QuestionsList;
+export default QuestionList;

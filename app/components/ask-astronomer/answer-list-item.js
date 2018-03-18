@@ -10,7 +10,11 @@ const {
   string,
 } = PropTypes;
 
-const AnswerListItem = ({ answer, isTopAnswer }) => (
+const AnswerListItem = ({
+  answer,
+  isTopAnswer,
+  showAllAnswers,
+}) => (
   <div className="answer">
     {isTopAnswer && <div>Top Answer</div>}
     <div>{answer.displayName}</div>
@@ -18,7 +22,8 @@ const AnswerListItem = ({ answer, isTopAnswer }) => (
     <div>
       <span>Like ({answer.likesCount})</span>
       <span>Discuss ({answer.replyCount})</span>
-      <span>View All Answers to This Question</span>
+      {!showAllAnswers && <span>View All Answers to This Question</span>}
+      {showAllAnswers && <span>View All Discussions</span>}
     </div>
 
     <style jsx>{`

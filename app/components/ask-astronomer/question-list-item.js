@@ -4,12 +4,13 @@ import moment from 'moment';
 import AnswerList from './answer-list';
 const {
   arrayOf,
+  any,
   number,
   shape,
   string,
 } = PropTypes;
 
-const QuestionListItem = ({ item, answers }) => (
+const QuestionListItem = ({ item, answers, displayedAnswers }) => (
   <div>
     {item.topicName}
     <div className="question-details">
@@ -21,7 +22,12 @@ const QuestionListItem = ({ item, answers }) => (
     <div className="reply-count">
       {item.replyCount > 0 && `${item.replyCount} answers`}
     </div>
-    <AnswerList answers={answers} />
+    Close (x)
+    <AnswerList
+      answers={answers}
+      displayedAnswers={displayedAnswers}
+      threadId={item.threadId}
+    />
     <style jsx>{`
       .question-details {
         display: flex;
@@ -45,6 +51,7 @@ QuestionListItem.defaultProps = {
     replies: [],
     topAnswer: null,
   },
+  displayedAnswers: [],
 };
 QuestionListItem.propTypes = {
   item: shape({
@@ -56,6 +63,7 @@ QuestionListItem.propTypes = {
     replyCount: number.isRequired,
   }).isRequired,
   answers: shape({}),
+  displayedAnswers: arrayOf(any) // array of ids
 };
 
 export default QuestionListItem;
