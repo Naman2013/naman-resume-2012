@@ -50,6 +50,9 @@ class GlobalNavigation extends Component {
       activeRight,
     } = this.state;
 
+    const leftMenuContent = MENU_INTERFACE[activeLeft];
+    const rightMenuContent = MENU_INTERFACE[activeRight];
+
     return(
       <div className="root">
         <TopBar

@@ -12,13 +12,14 @@ const propTypes = {
   isOpen: PropTypes.bool,
   position: PropTypes.oneOf([LEFT, RIGHT]),
   handleClose: PropTypes.func.isRequired,
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string,
   render: PropTypes.func.isRequired,
 };
 
 const defaultProps = {
   isOpen: true,
   position: LEFT,
+  title: '',
 };
 
 const Menu = ({ isOpen, position, handleClose, title, render }) => {
@@ -36,10 +37,13 @@ const Menu = ({ isOpen, position, handleClose, title, render }) => {
   return(
     <div className={rootClasses} style={inlineStyle}>
 
-      <MenuTitleBar
-        title={title}
-        handleCloseClick={handleClose}
-      />
+      {
+        title &&
+          <MenuTitleBar
+            title={title}
+            handleCloseClick={handleClose}
+          />
+      }
 
       { render() }
 
