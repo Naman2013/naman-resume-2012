@@ -1,8 +1,52 @@
 import React from 'react';
+import uniqueId from 'lodash/uniqueId';
+import MenuList from './partials/MenuList';
+import PrimaryButton from './partials/buttons/PrimaryButton';
+
+const NAV_ITEMS = {
+  component: <PrimaryButton />,
+  content: [
+    {
+      _ID: uniqueId(),
+      text: 'Home',
+      anchor: '#',
+    },
+    {
+      _ID: uniqueId(),
+      text: 'Telescopes',
+      anchor: '#',
+    },
+    {
+      _ID: uniqueId(),
+      text: 'My Observations',
+      anchor: '#',
+    },
+    {
+      _ID: uniqueId(),
+      text: 'Guides',
+      anchor: '#',
+    },
+    {
+      _ID: uniqueId(),
+      text: 'Telescopes',
+      anchor: '#',
+    },
+    {
+      _ID: uniqueId(),
+      text: 'Quests',
+      anchor: '#',
+    },
+    {
+      _ID: uniqueId(),
+      text: 'Shows',
+      anchor: '#',
+    },
+  ],
+};
 
 const Main = () => (
   <div>
-    <h1>MAIN MENU</h1>
+    <MenuList items={NAV_ITEMS} />
   </div>
 );
 

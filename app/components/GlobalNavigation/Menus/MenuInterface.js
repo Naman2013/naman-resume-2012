@@ -3,7 +3,7 @@ import Main from './Main';
 import Telescopes from './Telescopes';
 import Search from './Search';
 import Help from './Help';
-import Alerts from './Alerts';
+import Notifications from './Notifications';
 import Profile from './Profile';
 
 export const LEFT_MENU = {
@@ -37,8 +37,8 @@ const RIGHT_MENU = {
   },
   ALERTS: {
     name: 'ALERTS',
-    title: 'Alerts',
-    component: <Alerts />,
+    title: 'Notifications',
+    component: <Notifications />,
   },
   PROFILE: {
     name: 'PROFILE',
