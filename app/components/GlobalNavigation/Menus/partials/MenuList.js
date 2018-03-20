@@ -11,16 +11,22 @@ const propTypes = {
 };
 
 const MenuList = ({ items }) => (
-  <div>
-    <ul>
+  <div className="root">
+    <ul className="menu-list">
       {
         items.content.map(item => (
           <li key={item.ID}>
-            cloneElement(items.component, { ...item })
+            { cloneElement(items.component, { ...item }) }
           </li>
         ))
       }
     </ul>
+
+    <style jsx>{`
+      .menu-list {
+        list-style-type: none;
+      }
+    `}</style>
   </div>
 );
 

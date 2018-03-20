@@ -2,20 +2,15 @@ import React from 'react';
 import { white, pink } from '../../../../../styles/variables/colors';
 import { primaryFont } from '../../../../../styles/variables/fonts';
 
-const PrimaryButton = ({ text, anchor }) => (
-  <div className="primary-button">
-    <span className="fa fa-circle" />
+const SecondaryButton = ({ anchor, text }) => (
+  <div className="secondary-button">
     <a className="action" href={anchor}>{text}</a>
     <style jsx>{`
-      .primary-button {
+      .secondary-button {
+        font-size: 10px;
         font-family: ${primaryFont};
         color: ${white};
         text-transform: uppercase;
-        font-size: 13px;
-      }
-
-      .fa {
-        font-size: 10px;
       }
 
       .action {
@@ -32,4 +27,4 @@ const PrimaryButton = ({ text, anchor }) => (
   </div>
 );
 
-export default PrimaryButton;
+export default SecondaryButton;

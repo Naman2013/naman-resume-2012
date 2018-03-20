@@ -28,7 +28,7 @@ class GlobalNavigation extends Component {
     const { activeMenu } = this.state;
     const sameMenu = menuName === activeMenu;
     const nextMenu = (sameMenu) ? MENU_INTERFACE.DEFAULT.name : menuName;
-    const isDefault = menuName === MENU_INTERFACE.DEFAULT.name;
+    const isDefault = (menuName) === MENU_INTERFACE.DEFAULT.name;
     const isLeftUpdate = !sameMenu && !isDefault && isLeft(menuName);
     const isRightUpdate = !sameMenu && !isDefault && isRight(menuName);
 
