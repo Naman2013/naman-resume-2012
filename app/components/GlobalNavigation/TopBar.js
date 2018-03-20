@@ -22,7 +22,7 @@ const TopBar = ({ handleMenuClick, activeMenu }) => (
         </li>
         <li>
           <Button
-            isActive={isActive(activeMenu, MENU_INTERFACE.MAIN)}
+            isActive={isActive(activeMenu, MENU_INTERFACE.MAIN.name)}
             handleClick={() => { handleMenuClick(MENU_INTERFACE.MAIN.name) }}
           >
             <span className="fa fa-bars"></span>
