@@ -10,7 +10,7 @@ import {
 } from '../../modules/ask-astronomer-answers/actions';
 import {
   toggleAndDisplayReplies,
-  toggleAllAnswerReplies,
+  toggleAllAnswerRepliesAndDisplay,
 } from '../../modules/ask-astronomer-answer-discuss/actions';
 import PaginateSet from '../common/paginate-full-set/PaginateSet';
 
@@ -35,7 +35,7 @@ const mapStateToProps = ({
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
-    toggleAllAnswerReplies,
+    toggleAllAnswerRepliesAndDisplay,
     toggleAllAnswersAndDisplay,
     toggleAndDisplayReplies,
     updateAnswersDisplayList,
@@ -100,7 +100,7 @@ class AnswerList extends Component {
         key={answer.replyId}
         showAllAnswers={showAllAnswers}
         toggleAnswers={() => actions.toggleAllAnswersAndDisplay({ threadId, showAllAnswers: true })}
-        toggleAllAnswerReplies={() => actions.toggleAllAnswerReplies({ threadId: answer.replyId, showAllReplies: true })}
+        toggleAllAnswerReplies={() => actions.toggleAllAnswerRepliesAndDisplay({ threadId: answer.replyId, showAllReplies: true })}
         toggleAnswerReplies={() => actions.toggleAndDisplayReplies({ threadId: answer.replyId, showReplies: !showReplies })}
         isTopAnswer={answers.topAnswer && answer.replyId === answers.topAnswer}
       />)}

@@ -30,6 +30,7 @@ export const fetchAstronomerAnswerReplies = ({
   token,
   threadId,
   ver,
+  showOnlyTopReply,
 }) => (dispatch, getState) => {
   const { cid, at, token } = getState().user;
   dispatch(fetchAstronomerAnswerRepliesStart());
@@ -44,14 +45,9 @@ export const fetchAstronomerAnswerReplies = ({
     replyTo: threadId,
     ver,
   })
-  .then(result => dispatch(fetchAstronomerAnswerRepliesSuccess(Object.assign({ threadId }, result.data))))
+  .then(result => dispatch(fetchAstronomerAnswerRepliesSuccess(Object.assign({ threadId, showOnlyTopReply }, result.data))))
   .catch(error => dispatch(fetchAstronomerAnswerRepliesFail(error)));
 };
-
-export const toggleAllAnswerReplies = payload => dispatch => (dispatch({
-  type: TOGGLE_ALL_ASK_ASTRONOMER_ANSWER_REPLIES,
-  payload,
-}));
 
 const toggleAnswerReplies = payload => dispatch => (dispatch({
   type: TOGGLE_ASK_ASTRONOMER_ANSWER_REPLIES,
@@ -62,7 +58,7 @@ export const toggleAndDisplayReplies = payload => (dispatch, getState) => {
   const { showReplies } = payload;
 
   if (showReplies) {
-    dispatch(fetchAstronomerAnswerReplies(payload));
+    dispatch(fetchAstronomerAnswerReplies(Object.assign({ showOnlyTopReply: true }, payload)));
   }
 
   dispatch(toggleAnswerReplies(payload));
@@ -73,7 +69,22 @@ export const replyToAnswer = payload => dispatch => (dispatch({
   payload,
 }));
 
+const toggleAllAnswerReplies = payload => dispatch => (dispatch({
+  type: TOGGLE_ALL_ASK_ASTRONOMER_ANSWER_REPLIES,
+  payload,
+}));
+
 export const updateAnswerRepliesDisplayList = payload => dispatch => (dispatch({
   type: UPDATE_TOGGLE_ASK_ASTRONOMER_ANSWER_DISPLAY_LIST,
   payload,
 }));
+
+export const toggleAllAnswerRepliesAndDisplay = payload => (dispatch, getState) => {
+  const { showAllReplies } = payload;
+
+  if (showAllReplies) {
+    dispatch(fetchAstronomerAnswerReplies(Object.assign({ showOnlyTopReply: false }, payload)));
+  }
+
+  dispatch(toggleAllAnswerReplies(payload));
+};

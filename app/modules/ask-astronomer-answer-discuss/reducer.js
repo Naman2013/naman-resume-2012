@@ -29,7 +29,7 @@ export default createReducer(initialState, {
     };
   },
   [FETCH_ASTRONOMER_ANSWER_REPLIES_SUCCESS](state, { payload }) {
-    const { replies, threadId, resultsCount } = payload;
+    const { replies, threadId, resultsCount, showOnlyTopReply } = payload;
     const newAllAnswers = cloneDeep(state.allReplies);
     const newAllDisplayedAnswers = cloneDeep(state.allDisplayedReplies);
     newAllAnswers[threadId] = {
@@ -37,7 +37,7 @@ export default createReducer(initialState, {
       page: 1,
       topAnswer: replies.length > 0 ? replies[0].replyId : null,
     };
-    newAllDisplayedAnswers[threadId] = replies.length > 0 ? [replies[0]] : [];
+    newAllDisplayedAnswers[threadId] = replies.length > 0 ? (showOnlyTopReply ? [replies[0]] : replies) : [];
 
     return {
       ...state,
@@ -74,11 +74,11 @@ export default createReducer(initialState, {
     const {
       page,
       threadId,
-      displayedAnswers,
+      displayedReplies,
     } = payload;
 
     const newState = cloneDeep(state.allDisplayedReplies);
-    newState[threadId] = displayedAnswers;
+    newState[threadId] = displayedReplies;
 
     return {
       ...state,

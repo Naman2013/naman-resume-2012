@@ -65,8 +65,6 @@ export const toggleAllAnswersAndDisplay = payload => (dispatch, getState) => {
   dispatch(toggleAllAnswers(payload));
 };
 
-
-
 export const updateAnswersDisplayList = payload => dispatch => (dispatch({
   type: UPDATE_TOGGLE_ASK_ASTRONOMER_ANSWER_DISPLAY_LIST,
   payload,
