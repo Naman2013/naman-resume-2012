@@ -57,7 +57,8 @@ export default createReducer(initialState, {
   },
   [TOGGLE_ALL_ASK_ASTRONOMER_ANSWERS](state, { payload }) {
     return {
-      showAllAnswers: !state.showAllAnswers,
+      ...state,
+      showAllAnswers: payload.showAllAnswers,
     };
   },
   [UPDATE_TOGGLE_ASK_ASTRONOMER_ANSWER_DISPLAY_LIST](state, { payload }) {
@@ -71,6 +72,7 @@ export default createReducer(initialState, {
     newState[threadId] = displayedAnswers;
 
     return {
+      ...state,
       page,
       allDisplayedAnswers: newState,
     };

@@ -5,6 +5,7 @@ import moment from 'moment';
 const {
   arrayOf,
   bool,
+  func,
   number,
   shape,
   string,
@@ -14,6 +15,7 @@ const AnswerListItem = ({
   answer,
   isTopAnswer,
   showAllAnswers,
+  toggleAnswers,
 }) => (
   <div className="answer">
     {isTopAnswer && <div>Top Answer</div>}
@@ -22,8 +24,8 @@ const AnswerListItem = ({
     <div>
       <span>Like ({answer.likesCount})</span>
       <span>Discuss ({answer.replyCount})</span>
-      {!showAllAnswers && <span>View All Answers to This Question</span>}
-      {showAllAnswers && <span>View All Discussions</span>}
+      {!showAllAnswers && <span><a onClick={toggleAnswers}>View All Answers to This Question</a></span>}
+      {showAllAnswers && <span><a>View All Discussions</a></span>}
     </div>
 
     <style jsx>{`
@@ -41,6 +43,7 @@ AnswerListItem.defaultProps = {
 AnswerListItem.propTypes = {
   answer: shape({}),
   isTopAnswer: bool,
+  toggleAnswers: func.isRequired,
 };
 
 export default AnswerListItem;

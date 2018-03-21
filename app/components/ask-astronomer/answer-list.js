@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import AnswerListItem from './answer-list-item';
 import {
-  toggleAllAnswers,
+  toggleAllAnswersAndDisplay,
   updateAnswersDisplayList,
 } from '../../modules/ask-astronomer-answers/actions';
 import PaginateSet from '../common/paginate-full-set/PaginateSet';
@@ -28,7 +28,7 @@ const mapStateToProps = ({
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
-    toggleAllAnswers,
+    toggleAllAnswersAndDisplay,
     updateAnswersDisplayList,
   }, dispatch),
 });
@@ -77,9 +77,11 @@ class AnswerList extends Component {
 
   render () {
     const {
+      actions,
       answers,
       showAllAnswers,
       displayedAnswers,
+      threadId,
     } = this.props;
     const count = showAllAnswers ? 1 : 2;
     return <div>
@@ -87,6 +89,7 @@ class AnswerList extends Component {
         answer={answer}
         key={answer.replyId}
         showAllAnswers={showAllAnswers}
+        toggleAnswers={() => actions.toggleAllAnswersAndDisplay({ threadId, showAllAnswers: true })}
         isTopAnswer={answers.topAnswer && answer.replyId === answers.topAnswer}
       />)}
       {showAllAnswers && displayedAnswers.length > 0 && <PaginateSet

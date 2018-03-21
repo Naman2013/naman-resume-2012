@@ -46,10 +46,26 @@ export const fetchAstronomerAnswers = ({
   .catch(error => dispatch(fetchAstronomerAnswersFail(error)));
 };
 
-export const toggleAllAnswers = payload => dispatch => (dispatch({
-  type: TOGGLE_ALL_ASK_ASTRONOMER_ANSWERS,
-  payload,
-}));
+const toggleAllAnswers = payload => ({
+    type: TOGGLE_ALL_ASK_ASTRONOMER_ANSWERS,
+    payload,
+});
+
+export const toggleAllAnswersAndDisplay = payload => (dispatch, getState) => {
+  const { threadId, showAllAnswers } = payload;
+  const allAnswers = getState().astronomerAnswers.allAnswers;
+  const threadsAnswers = allAnswers[threadId].replies;
+  const displayedAnswers = showAllAnswers ? threadsAnswers : (threadsAnswers.length > 0 ? [threadsAnswers[0]] : []);
+
+  dispatch(updateAnswersDisplayList({
+    threadId: payload.threadId,
+    displayedAnswers,
+  }));
+
+  dispatch(toggleAllAnswers(payload));
+};
+
+
 
 export const updateAnswersDisplayList = payload => dispatch => (dispatch({
   type: UPDATE_TOGGLE_ASK_ASTRONOMER_ANSWER_DISPLAY_LIST,

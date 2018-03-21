@@ -4,10 +4,16 @@ import QuestionListItem from './question-list-item';
 
 const {
   arrayOf,
+  func,
   number,
   shape,
 } = PropTypes;
-const QuestionList = ({ allAnswers, allDisplayedAnswers, questions }) => (
+const QuestionList = ({
+  allAnswers,
+  allDisplayedAnswers,
+  questions,
+  toggleAllAnswersAndDisplay,
+}) => (
   <div>
     {
       questions.map(item => (<QuestionListItem
@@ -15,6 +21,7 @@ const QuestionList = ({ allAnswers, allDisplayedAnswers, questions }) => (
         displayedAnswers={allDisplayedAnswers[item.threadId]}
         key={item.threadId}
         item={item}
+        toggleAllAnswersAndDisplay={toggleAllAnswersAndDisplay}
       />),
       )
     }
@@ -32,6 +39,7 @@ QuestionList.propTypes = {
   questions: arrayOf(shape({
     threadId: number.isRequired,
   })),
+  toggleAllAnswersAndDisplay: func.isRequired,
 };
 
 export default QuestionList;

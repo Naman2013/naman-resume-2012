@@ -13,6 +13,9 @@ import classnames from 'classnames';
 import {
   fetchAstronomerQuestions,
 } from '../../modules/ask-astronomer-questions/actions';
+import {
+  toggleAllAnswersAndDisplay,
+} from '../../modules/ask-astronomer-answers/actions';
 import QuestionList from '../../components/ask-astronomer/question-list';
 
 const {
@@ -39,6 +42,7 @@ const mapStateToProps = ({
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
     fetchAstronomerQuestions,
+    toggleAllAnswersAndDisplay,
   }, dispatch),
 });
 
@@ -97,6 +101,7 @@ class AskAstronomer extends Component {
 
   render() {
     const {
+      actions,
       allAnswers,
       allDisplayedAnswers,
       params: {
@@ -111,6 +116,7 @@ class AskAstronomer extends Component {
           allAnswers={allAnswers}
           allDisplayedAnswers={allDisplayedAnswers}
           questions={questions}
+          toggleAllAnswersAndDisplay={actions.toggleAllAnswersAndDisplay}
         />
       </div>
     )
