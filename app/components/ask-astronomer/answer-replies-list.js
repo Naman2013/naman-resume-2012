@@ -4,15 +4,6 @@ import moment from 'moment';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import AnswerListItem from './answer-list-item';
-import {
-  toggleAllAnswersAndDisplay,
-  updateAnswersDisplayList,
-} from '../../modules/ask-astronomer-answers/actions';
-import {
-  toggleAndDisplayReplies,
-  toggleAllAnswerReplies,
-} from '../../modules/ask-astronomer-answer-discuss/actions';
-import PaginateSet from '../common/paginate-full-set/PaginateSet';
 
 const {
   arrayOf,
@@ -35,10 +26,7 @@ const mapStateToProps = ({
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
-    toggleAllAnswerReplies,
-    toggleAllAnswersAndDisplay,
-    toggleAndDisplayReplies,
-    updateAnswersDisplayList,
+
   }, dispatch),
 });
 
@@ -89,28 +77,12 @@ class AnswerList extends Component {
       actions,
       answers,
       showAllAnswers,
-      showReplies,
       displayedAnswers,
       threadId,
     } = this.props;
     const count = showAllAnswers ? 1 : 2;
     return <div>
-      {displayedAnswers.map(answer => <AnswerListItem
-        answer={answer}
-        key={answer.replyId}
-        showAllAnswers={showAllAnswers}
-        toggleAnswers={() => actions.toggleAllAnswersAndDisplay({ threadId, showAllAnswers: true })}
-        toggleAllAnswerReplies={() => actions.toggleAllAnswerReplies({ threadId: answer.replyId, showAllReplies: true })}
-        toggleAnswerReplies={() => actions.toggleAndDisplayReplies({ threadId: answer.replyId, showReplies: !showReplies })}
-        isTopAnswer={answers.topAnswer && answer.replyId === answers.topAnswer}
-      />)}
-      {showAllAnswers && displayedAnswers.length > 0 && <PaginateSet
-        handlePageChange={this.handlePageChange}
-        fullDataSet={answers.replies}
-        count={count}
-        totalCount={answers.replies.length}
-        page={answers.page}
-      />}
+
     </div>
   }
 }

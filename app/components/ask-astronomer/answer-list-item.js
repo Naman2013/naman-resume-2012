@@ -16,6 +16,8 @@ const AnswerListItem = ({
   isTopAnswer,
   showAllAnswers,
   toggleAnswers,
+  toggleAllAnswerReplies,
+  toggleAnswerReplies,
 }) => (
   <div className="answer">
     {isTopAnswer && <div>Top Answer</div>}
@@ -23,9 +25,9 @@ const AnswerListItem = ({
     <div>{answer.content}</div>
     <div>
       <span>Like ({answer.likesCount})</span>
-      <span>Discuss ({answer.replyCount})</span>
+      <span><a onClick={toggleAnswerReplies}>Discuss ({answer.replyCount})</a></span>
       {!showAllAnswers && <span><a onClick={toggleAnswers}>View All Answers to This Question</a></span>}
-      {showAllAnswers && <span><a>View All Discussions</a></span>}
+      {showAllAnswers && <span><a onClick={toggleAllAnswerReplies}>View All Discussions</a></span>}
     </div>
 
     <style jsx>{`
@@ -44,6 +46,8 @@ AnswerListItem.propTypes = {
   answer: shape({}),
   isTopAnswer: bool,
   toggleAnswers: func.isRequired,
+  toggleAllAnswerReplies: func.isRequired,
+  toggleAnswerReplies: func.isRequired,
 };
 
 export default AnswerListItem;
