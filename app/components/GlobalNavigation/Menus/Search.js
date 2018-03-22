@@ -1,8 +1,10 @@
 import React from 'react';
 
+import BrowseTaggedDataSearch from '../../../components/browse-tagged-data/BrowseTaggedDataSearch';
+
 const Search = () => (
   <div>
-    <h1>SEARCH YO...</h1>
+    <BrowseTaggedDataSearch />
   </div>
 );
 

@@ -4,7 +4,9 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PageMetaManagement from '../components/PageMetaManagement';
 import Menu from './Menu';
-import Header from '../components/common/header';
+
+import GlobalNavigation from '../components/GlobalNavigation';
+
 import Footer from '../components/common/footer';
 import { fetchEvents } from '../modules/upcoming-events/upcoming-events-actions';
 
@@ -42,14 +44,23 @@ class App extends Component {
     return (
       <div className={`wrapper ${isLanding ? 'is-landing' : null}`}>
         <PageMetaManagement />
-        <Header />
-        <Menu source="nav.json" />
+
+        <nav className="navigation">
+          <GlobalNavigation />
+        </nav>
+
         <section className="app-content-container clearfix">
           <div className="clearfix">
             { this.props.children }
           </div>
         </section>
         <Footer />
+
+        <style jsx>{`
+          .navigation {
+
+          }
+        `}</style>
       </div>
     );
   }
