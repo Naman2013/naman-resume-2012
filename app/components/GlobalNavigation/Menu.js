@@ -50,6 +50,7 @@ const Menu = ({ isOpen, position, handleClose, title, render }) => {
       <style jsx>{`
         .root {
           position: absolute;
+          z-index: 9999;
           width: 400px;
           min-height: 100vh;
           height: 100%;

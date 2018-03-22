@@ -80,14 +80,11 @@ class GlobalNavigation extends Component {
 
         <style jsx>{`
           .root {
-            position: relative;
             margin: 0;
             padding: 0;
             width: 100%;
             z-index: 9999;
           }
-
-          .top-bar {}
 
           .menus {
             z-index: 9999;

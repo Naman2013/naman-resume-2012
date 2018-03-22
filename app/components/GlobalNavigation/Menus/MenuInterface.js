@@ -32,7 +32,7 @@ export const LEFT_MENU = {
 const RIGHT_MENU = {
   HELP: {
     name: 'HELP',
-    title: 'Help',
+    title: 'Account info',
     component: <Help />,
   },
   ALERTS: {

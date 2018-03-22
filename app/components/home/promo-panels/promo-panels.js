@@ -129,18 +129,13 @@ class PromoPanels extends Component {
             margin-bottom: 0px;
             min-height: 650px;
           }
-          @media(max-width:640px){
 
-          .shared-container{padding:25px 30px}
-
+          @media(max-width:640px) {
+            .shared-container{padding:25px 30px}
           }
 
           .empty {
             text-align: center;
-          }
-
-          .shared-slider-container {
-
           }
 
           .header {
@@ -166,7 +161,6 @@ class PromoPanels extends Component {
 
         <style global>
           {`
-
             .shared-container .slick-prev {
               z-index: 99999;
             }
