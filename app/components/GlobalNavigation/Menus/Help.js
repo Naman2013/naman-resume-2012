@@ -1,8 +1,10 @@
 import React from 'react';
+import MenuList from './partials/MenuList';
+import HELP_CONFIGURATION from './helpConfiguration';
 
 const Help = () => (
   <div>
-    <h1>HELP MENU</h1>
+    <MenuList items={HELP_CONFIGURATION} />
   </div>
 );
 

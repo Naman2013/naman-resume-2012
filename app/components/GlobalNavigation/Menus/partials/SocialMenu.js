@@ -23,6 +23,7 @@ const SocialMenu = () => (
 
     <style jsx>{`
       .root {
+        padding: 20px 0 20px 20px;
         border-top: 1px solid ${black};
         border-bottom: 1px solid ${black};
       }
@@ -30,6 +31,7 @@ const SocialMenu = () => (
       .buttons {
         display: flex;
         list-style-type: none;
+        margin: 0;
       }
 
       .action {
