@@ -23,7 +23,7 @@ const defaultProps = {
 };
 
 const Menu = ({ isOpen, position, handleClose, title, render }) => {
-  const rootClasses = classnames('root', {
+  const rootClasses = classnames({
     'open': isOpen,
   });
 
@@ -35,7 +35,7 @@ const Menu = ({ isOpen, position, handleClose, title, render }) => {
   };
 
   return(
-    <div className={rootClasses} style={inlineStyle}>
+    <div className={`root ${rootClasses}`} style={inlineStyle}>
 
       {
         title &&
@@ -48,14 +48,16 @@ const Menu = ({ isOpen, position, handleClose, title, render }) => {
       { render() }
 
       <style jsx>{`
-        position: absolute;
-        width: 400px;
-        height: 100vh;
-        background: ${grayer};
-
-        transition-property: left right;
-        transition-duration: 0.15s;
-        transition-timing-function: ease-in-out;
+        .root {
+          position: absolute;
+          width: 400px;
+          min-height: 100vh;
+          height: 100%;
+          background: ${grayer};
+          transition-property: left, right;
+          transition-duration: 0.15s;
+          transition-timing-function: ease-in-out;
+        }
       `}</style>
     </div>
   );

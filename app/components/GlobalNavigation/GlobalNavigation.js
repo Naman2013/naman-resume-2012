@@ -55,10 +55,12 @@ class GlobalNavigation extends Component {
 
     return(
       <div className="root">
-        <TopBar
-          activeMenu={activeMenu}
-          handleMenuClick={this.handleMenuClick}
-        />
+        <div className="top-bar">
+          <TopBar
+            activeMenu={activeMenu}
+            handleMenuClick={this.handleMenuClick}
+          />
+        </div>
 
         <Menu
           title={MENU_INTERFACE[activeLeft].title}
@@ -75,12 +77,22 @@ class GlobalNavigation extends Component {
           isOpen={isRightOpen}
           render={() => (MENU_INTERFACE[activeRight].component)}
         />
+
         <style jsx>{`
           .root {
             position: relative;
-            height: 100vh;
             margin: 0;
-            padding:0;
+            padding: 0;
+            width: 100%;
+            z-index: 9999;
+          }
+
+          .top-bar {}
+
+          .menus {
+            z-index: 9999;
+            min-height: 100vh;
+            height: 100%;
           }
         `}</style>
       </div>

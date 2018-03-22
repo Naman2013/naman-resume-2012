@@ -34,6 +34,7 @@ const SocialMenu = () => (
 
       .action {
         color: ${white};
+        width: auto;
         font-size: 22px;
         display: inline-block;
         margin-right: 20px;
