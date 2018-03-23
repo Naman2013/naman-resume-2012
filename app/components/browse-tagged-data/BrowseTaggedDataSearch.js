@@ -6,7 +6,7 @@ import { Button } from 'react-bootstrap';
 import { Link } from 'react-router';
 import clone from 'lodash/clone';
 import { fetchBrowseTaggedDataAction } from '../../modules/browse-tagged-data/actions';
-import { black, white, sloohBlue } from '../../styles/variables/colors';
+import { black, white, grayer } from '../../styles/variables/colors';
 
 
 const mapStateToProps = ({
@@ -238,20 +238,20 @@ class BrowseTaggedDataSearch extends Component {
 
             <style jsx>{`
               .search-results-set {
-                  margin-left: 20px;
-                  margin-top: 25px;
-                  overflow-y: scroll;
-                  min-height: 300px;
-                  height: 300px;
-                  max-height: 300px;
+                  margin-left: 0px;
+                  margin-top: 20px;
+                  overflow-y: none;
+                  min-height: 320px;
+                  height: 320px;
+                  max-height: 320px;
               }
 
               .search-results-noresultsfoundtext {
-                  font-size: 1.75em;
+                  font-size: 1.5em;
               }
 
               .search-results-grandparent {
-                font-size: 1.75em;
+                font-size: 1.5em;
               }
 
               .search-results-parent {
@@ -260,8 +260,9 @@ class BrowseTaggedDataSearch extends Component {
               }
 
               .search-results-item {
-                font-size: 1.5em;
+                font-size: 1.25em;
                 margin-left: 150px;
+                color: ${white};
               }
               `}</style>
           </div>
@@ -401,10 +402,6 @@ class BrowseTaggedDataSearch extends Component {
             value={topNavSearchTerm} />
 
           {topNavSearchEnabled == true && <div className="search-results-container">
-              <Button style={{'float': 'right', 'marginLeft': '20px', 'marginRight': '20px', 'marginBottom': '0px'}} className="btn-primary"
-                onClick={(event) => { this.endSearch(); }}>
-                Close/Cancel Search
-              </Button>
               <h1 className="search-results-headertext">Browse / Search Results:</h1>
               <hr/>
               {this.renderTaggedDataDisplay()}
@@ -413,31 +410,30 @@ class BrowseTaggedDataSearch extends Component {
           <style jsx>{`
             .search-site-bytags {
               position: relative;
-              max-width: 400px;
-              min-width: 400px;
+              max-width: 375px;
+              min-width: 375px;
               display: inline-block;
               margin-top: -10px;
+              margin-left: 25px;
             }
 
             .search-results-container {
               display: inline-block;
-              min-height: 400px;
-              max-height: 400px;
               height: 400px;
-              border: 2px solid ${black};
-              background-color: ${sloohBlue};
+              border: 0px solid ${black};
+              background-color: ${grayer};
               color: ${white};
               z-index: 1;
-              max-width: 500px;
-              min-width: 500px;
+              max-width: 375px;
+              min-width: 375px;
               margin-left: -160px;
               position: absolute;
               margin-top: 30px;
             }
 
             .search-results-headertext {
-                margin-left: 20px;
-                font-size: 1.5em;
+                margin-left: 0px;
+                font-size: 1.25em;
             }
 
             .search-text {
