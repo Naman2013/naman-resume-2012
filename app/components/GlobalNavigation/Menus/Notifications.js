@@ -1,8 +1,10 @@
 import React from 'react';
+import MenuList from './partials/MenuList';
+import NOTIFICATION_CONFIGURATION from './notificationsConfiguration';
 
 const Notifications = () => (
   <div>
-    <h1>NOTIFICATIONS</h1>
+    <MenuList items={NOTIFICATION_CONFIGURATION} />
   </div>
 );
 

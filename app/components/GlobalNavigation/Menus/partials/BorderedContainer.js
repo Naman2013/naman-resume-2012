@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { black } from '../../../../styles/variables/colors';
+import { black } from 'styles/variables/colors';
 
 const propTypes = {
   top: PropTypes.bool,

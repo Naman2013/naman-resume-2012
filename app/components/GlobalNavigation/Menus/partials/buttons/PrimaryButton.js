@@ -1,6 +1,6 @@
 import React from 'react';
-import { white, pink } from '../../../../../styles/variables/colors';
-import { primaryFont } from '../../../../../styles/variables/fonts';
+import { white, pink } from 'styles/variables/colors';
+import { primaryFont } from 'styles/variables/fonts';
 
 const PrimaryButton = ({ text, anchor }) => (
   <div className="primary-button">

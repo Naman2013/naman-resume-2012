@@ -1,5 +1,7 @@
 import React from 'react';
 import BorderContainer from './partials/BorderedContainer';
+import MenuList from './partials/MenuList';
+import TELESCOPE_CONFIGURATION from './telescopeConfiguration'
 import { primaryFont } from '../../../styles/variables/fonts';
 import { white, blueBlack, black, pink } from '../../../styles/variables/colors';
 
@@ -10,6 +12,8 @@ const Telescopes = () => (
     </BorderContainer>
 
     <h4 className="title">Visit our telescope channels</h4>
+
+    <MenuList items={TELESCOPE_CONFIGURATION} />
 
     <style jsx>{`
       .root {
