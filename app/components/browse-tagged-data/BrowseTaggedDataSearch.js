@@ -63,7 +63,7 @@ class BrowseTaggedDataSearch extends Component {
   }
 
   doTearDown() {
-    console.log('TEAR DOWN!!!');
+    this.endSearch();
   }
 
   handleFieldChange(searchData) {
