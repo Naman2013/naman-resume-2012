@@ -2,10 +2,10 @@
 
 exports[`renders some text when provided 1`] = `
 <div
-  className="jsx-96659203 root"
+  className="jsx-3859526441 root"
 >
   <h3
-    className="jsx-96659203 title"
+    className="jsx-3859526441 title"
   >
     test title
   </h3>

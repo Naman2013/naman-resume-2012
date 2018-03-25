@@ -1,7 +1,7 @@
 import React from 'react';
 import uniqueId from 'lodash/uniqueId';
 import flatten from 'lodash/flatten';
-import PrimaryButton from './partials/buttons/PrimaryButton';
+import Telescope from './partials/buttons/Telescope';
 
 export const modelTelescopesFromObsList = {
   name: 'TELESCOPES_ONLY',
@@ -13,7 +13,8 @@ export const modelTelescopesFromObsList = {
 };
 
 export default (telescopes = []) => ({
-  component: <PrimaryButton />,
+  render: props => (<Telescope {...props} />),
+  component: <Telescope />,
   content: telescopes.map(_telescope => ({
     _ID: uniqueId(),
     text: _telescope.teleName,

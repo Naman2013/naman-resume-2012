@@ -3,6 +3,7 @@ import uniqueId from 'lodash/uniqueId';
 import MissionTile from './partials/MissionTile';
 
 export default {
+  render: () => (<MissionTile />),
   component: <MissionTile />,
   content: [
     {

@@ -5,6 +5,7 @@ import SecondaryButton from './partials/buttons/SecondaryButton';
 
 export default {
   primary: {
+    render: () => (<PrimaryButton />),
     component: <PrimaryButton />,
     content: [
       {

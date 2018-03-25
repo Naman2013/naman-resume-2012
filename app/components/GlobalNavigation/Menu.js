@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { cloneElement } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import MenuTitleBar from './Menus/partials/MenuTitleBar';
@@ -24,7 +24,7 @@ const defaultProps = {
 
 const Menu = ({ isOpen, position, handleClose, title, render }) => {
   const rootClasses = classnames({
-    'open': isOpen,
+    open: isOpen,
   });
 
   const isLeft = (position === LEFT);
@@ -34,7 +34,7 @@ const Menu = ({ isOpen, position, handleClose, title, render }) => {
     'right': isLeft ? 'auto' : (isOpen) ? 0 : `${-MENU_WIDTH}px`,
   };
 
-  return(
+  return (
     <div className={`root ${rootClasses}`} style={inlineStyle}>
 
       {
@@ -45,7 +45,7 @@ const Menu = ({ isOpen, position, handleClose, title, render }) => {
           />
       }
 
-      { render() }
+      { render({ isOpen }) }
 
       <style jsx>{`
         .root {
@@ -59,7 +59,8 @@ const Menu = ({ isOpen, position, handleClose, title, render }) => {
           transition-duration: 0.15s;
           transition-timing-function: ease-in-out;
         }
-      `}</style>
+      `}
+      </style>
     </div>
   );
 };

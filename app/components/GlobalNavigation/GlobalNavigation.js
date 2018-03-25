@@ -66,7 +66,9 @@ class GlobalNavigation extends Component {
           handleClose={this.closeAll}
           position="left"
           isOpen={isLeftOpen}
-          render={() => (leftMenuContent.component)}
+          render={props => (
+            leftMenuContent.render(props)
+          )}
         />
 
         <Menu

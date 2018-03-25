@@ -15,7 +15,7 @@ const MenuList = ({ items }) => (
     <ul className="menu-list">
       {
         items.content.map(item => (
-          <li key={item.ID}>
+          <li key={item._ID}>
             { cloneElement(items.component, { ...item }) }
           </li>
         ))
@@ -28,7 +28,8 @@ const MenuList = ({ items }) => (
         padding: 0;
         margin: 0;
       }
-    `}</style>
+    `}
+    </style>
   </div>
 );
 

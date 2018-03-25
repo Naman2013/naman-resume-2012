@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { Link } from 'react-router';
-import { darkGray, brightGreen } from 'styles/variables/colors';
+import { darkGray, brightGreen, white, pink } from 'styles/variables/colors';
+import { primaryFont } from 'styles/variables/fonts';
 
 const propTypes = {
   text: PropTypes.string.isRequired,
@@ -14,7 +15,7 @@ const propTypes = {
 const Telescope = ({
   text, anchor, isOnline, logoURL,
 }) => (
-  <div>
+  <div className="root">
     <div className={classnames('online-status', {
       'is-online': isOnline,
     })}
@@ -24,18 +25,28 @@ const Telescope = ({
 
     <div
       style={{
-        backgroundImage: `url(${logoURL}) no-repeat`,
+        background: `url(${logoURL}) no-repeat`,
         backgroundSize: 'cover',
       }}
       className="telescope-image"
     />
 
     <div className="telescope-link">
-      <Link to={anchor}>{text}</Link>
+      <Link className="action" to={anchor}>{text}</Link>
     </div>
 
     <style jsx>{`
+      .root {
+        font-family: ${primaryFont};
+        text-transform: uppercase;
+        display: flex;
+        align-items: center;
+        padding: 15px 0;
+        padding-left: 20px;
+      }
+
       .online-status {
+        font-size: 10px;
         color: ${darkGray};
       }
 
@@ -44,9 +55,21 @@ const Telescope = ({
       }
 
       .telescope-image {
-        width: 25px;
-        height: 25px;
+        width: 45px;
+        height: 45px;
         border-radius: 50%;
+        inline-block;
+        margin: 0 10px;
+      }
+
+      .telescope-link :global(.action) {
+        color: ${white};
+        text-decoration: none;
+        font-size: 14px;
+      }
+
+      .telescope-link :global(.action:hover) {
+        color: ${pink};
       }
     `}
     </style>

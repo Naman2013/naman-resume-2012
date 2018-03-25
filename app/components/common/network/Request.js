@@ -8,7 +8,7 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import noop from 'lodash/noop';
+import compact from 'lodash/compact';
 import PropTypes from 'prop-types';
 import isMatch from 'lodash/isMatch';
 import axios from 'axios';
@@ -90,7 +90,7 @@ class Request extends Component {
       models,
     } = this.props;
 
-    const consolidatedModels = [model, ...models];
+    const consolidatedModels = compact([model, ...models]);
     let modeledResponses = {};
 
     if (result[serviceExpiresFieldName]) {
