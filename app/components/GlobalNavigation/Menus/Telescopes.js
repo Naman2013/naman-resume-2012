@@ -14,6 +14,7 @@ const Telescopes = () => (
     model={modelTelescopesFromObsList}
     render={({
       fetchingContent,
+      modeledResponses: { TELESCOPES_ONLY },
       serviceResponse: { observatoryList },
     }) => (
       <div className="root">
@@ -25,7 +26,7 @@ const Telescopes = () => (
 
         {
           !fetchingContent &&
-            <MenuList items={TELESCOPE_CONFIGURATION(observatoryList)} />
+            <MenuList items={TELESCOPE_CONFIGURATION(TELESCOPES_ONLY)} />
         }
 
         <style jsx>{`

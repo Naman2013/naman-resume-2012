@@ -32,11 +32,11 @@ class Request extends Component {
     method: PropTypes.string,
     model: PropTypes.shape({
       name: PropTypes.string.isRequired,
-      callback: PropTypes.func.isRequired,
+      model: PropTypes.func.isRequired,
     }),
     models: PropTypes.arrayOf(PropTypes.shape({
       name: PropTypes.string.isRequired,
-      callback: PropTypes.func.isRequired,
+      model: PropTypes.func.isRequired,
     })),
     requestBody: PropTypes.any, // any set due to disambiguity of the request
 
@@ -103,8 +103,7 @@ class Request extends Component {
     // build the models defined by the client
     consolidatedModels.forEach((_model) => {
       modeledResponses = Object.assign({}, modeledResponses, {
-        name: _model.name,
-        result: _model.callback(result),
+        [_model.name]: _model.model(result),
       });
     });
 

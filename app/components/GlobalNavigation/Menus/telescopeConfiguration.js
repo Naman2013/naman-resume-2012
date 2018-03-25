@@ -1,24 +1,19 @@
 import React from 'react';
 import uniqueId from 'lodash/uniqueId';
+import flatten from 'lodash/flatten';
 import PrimaryButton from './partials/buttons/PrimaryButton';
 
 export const modelTelescopesFromObsList = {
   name: 'TELESCOPES_ONLY',
   model: function modelTelescopes(API_RAW) {
-    console.log(API_RAW);
+    const { observatoryList } = API_RAW;
+    const telescopesByObservatory = observatoryList.map(_observatory => _observatory.obsTelescopes);
+    return flatten(telescopesByObservatory);
   },
 };
 
-function telescopeStatusContent() {}
-
-export default function buildTelescopeConfiguration(observatories = []) {
-  console.log(observatories);
-
-  // return ({
-  //   component: <PrimaryButton />,
-  //   content: observatories.map(),
-  // });
-
+export default function buildTelescopeConfiguration(telescopes = []) {
+  console.log(telescopes);
 
   return (
     {
