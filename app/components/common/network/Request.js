@@ -10,12 +10,12 @@ import PropTypes from 'prop-types';
 import isMatch from 'lodash/isMatch';
 import axios from 'axios';
 
-const CancelToken = axios.CancelToken;
+const { CancelToken } = axios;
 
 const POST = 'POST';
 const GET = 'GET';
 
-class Expires extends Component {
+class Request extends Component {
   static propTypes = {
     serviceURL: PropTypes.string.isRequired,
     render: PropTypes.func.isRequired,
@@ -95,8 +95,7 @@ class Expires extends Component {
     if (protocol === GET) {
       axios.get(serviceURL, {
         params: Object.assign({}, validatedRequestBody),
-      })
-      .then(result => this.handleServiceResponse(result.data));
+      }).then(result => this.handleServiceResponse(result.data));
     }
   }
 
@@ -111,4 +110,4 @@ class Expires extends Component {
   }
 }
 
-export default Expires;
+export default Request;

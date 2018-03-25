@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { GET_UPCOMING_MISSIONS_URL } from '../../../services/upcoming-missions/upcoming-missions';
-import ExpireService from '../../common/expiring-components/expire-service';
+import Request from '../../common/network/Request';
 import SectionHeader from '../../common/headers/SectionHeader';
 import UpcomingMissionList from './UpcomingMissionList';
 
@@ -13,7 +13,7 @@ class UpcomingMissions extends Component {
 
   render() {
     return (
-      <ExpireService
+      <Request
         serviceURL={GET_UPCOMING_MISSIONS_URL}
         requestBody={{ obsId: this.props.obsId, domeId: this.props.domeId }}
         render={({
@@ -36,7 +36,8 @@ class UpcomingMissions extends Component {
               .root {
                 margin-top: 10px;
               }
-            `}</style>
+            `}
+            </style>
           </div>
         )}
       />

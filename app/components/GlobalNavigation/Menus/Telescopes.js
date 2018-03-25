@@ -1,9 +1,9 @@
 import React from 'react';
+import { primaryFont } from 'styles/variables/fonts';
+import { white, blueBlack, pink } from 'styles/variables/colors';
 import BorderContainer from './partials/BorderedContainer';
 import MenuList from './partials/MenuList';
-import TELESCOPE_CONFIGURATION from './telescopeConfiguration'
-import { primaryFont } from '../../../styles/variables/fonts';
-import { white, blueBlack, black, pink } from '../../../styles/variables/colors';
+import TELESCOPE_CONFIGURATION from './telescopeConfiguration';
 
 const Telescopes = () => (
   <div className="root">
@@ -38,7 +38,8 @@ const Telescopes = () => (
       .action:hover {
         background: ${pink};
       }
-    `}</style>
+    `}
+    </style>
   </div>
 );
 
