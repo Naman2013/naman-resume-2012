@@ -8,6 +8,7 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import noop from 'lodash/noop';
 import PropTypes from 'prop-types';
 import isMatch from 'lodash/isMatch';
 import axios from 'axios';
@@ -24,15 +25,26 @@ const mapStateToProps = ({ user }) => ({
 @connect(mapStateToProps, null)
 class Request extends Component {
   static propTypes = {
+    // provided by client
+    serviceURL: PropTypes.string.isRequired,
+    render: PropTypes.func.isRequired,
+    protocol: PropTypes.string,
+    model: PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      callback: PropTypes.func.isRequired,
+    }),
+    models: PropTypes.arrayOf(PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      callback: PropTypes.func.isRequired,
+    })),
+    requestBody: PropTypes.any, // any set due to disambiguity of the request
+
+    // provided by global state
     user: PropTypes.shape({
       cid: PropTypes.string,
       token: PropTypes.string,
       at: PropTypes.string,
     }),
-    serviceURL: PropTypes.string.isRequired,
-    render: PropTypes.func.isRequired,
-    protocol: PropTypes.string,
-    requestBody: PropTypes.any, // any set due to disambiguity of the request
   };
 
   static defaultProps = {
@@ -41,11 +53,14 @@ class Request extends Component {
       token: '',
       at: '',
     },
+    model: null,
+    models: [],
     protocol: POST,
   };
 
   state = {
     serviceResponse: {},
+    modeledResponses: [],
     fetchingContent: false,
   };
 
@@ -95,7 +110,12 @@ class Request extends Component {
   }
 
   fetchServiceContent(nextRequestBody) {
-    const { serviceURL, protocol, requestBody, user } = this.props;
+    const {
+      serviceURL,
+      protocol,
+      requestBody,
+      user,
+    } = this.props;
     this.tearDown();
     this.setState({ fetchingContent: true, serviceResponse: {} });
     this.source = CancelToken.source();

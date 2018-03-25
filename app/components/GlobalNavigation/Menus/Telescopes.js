@@ -2,13 +2,15 @@ import React from 'react';
 import { primaryFont } from 'styles/variables/fonts';
 import { white, blueBlack, pink } from 'styles/variables/colors';
 import Request from 'components/common/network/Request';
+import { OBSERVATORIES_COMPACT } from 'services/observatories';
 import BorderContainer from './partials/BorderedContainer';
 import MenuList from './partials/MenuList';
 import TELESCOPE_CONFIGURATION from './telescopeConfiguration';
 
 const Telescopes = () => (
   <Request
-    serviceURL={''}
+    serviceURL={OBSERVATORIES_COMPACT}
+    model={}
     render={({ fetchingContent }) => (
       <div className="root">
         <BorderContainer top={false}>
