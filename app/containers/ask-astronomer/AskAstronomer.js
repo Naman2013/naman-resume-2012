@@ -20,6 +20,7 @@ import QuestionList from '../../components/ask-astronomer/question-list';
 
 const {
   func,
+  number,
   shape,
   string,
 } = PropTypes;
@@ -36,6 +37,9 @@ const mapStateToProps = ({
   appConfig,
   objectData: objectDetails.objectData,
   questions: astronomerQuestions.threadList,
+  page: astronomerQuestions.page,
+  totalCount: astronomerQuestions.threadCount,
+  count: astronomerQuestions.count,
   user,
 });
 
@@ -50,6 +54,9 @@ const mapDispatchToProps = dispatch => ({
 class AskAstronomer extends Component {
 
   static propTypes = {
+    page: number,
+    totalCount: number,
+    count: number,
     params: shape({
       objectId: string,
     }).isRequired,
@@ -59,6 +66,9 @@ class AskAstronomer extends Component {
   }
 
   static defaultProps = {
+    page: 1,
+    totalCount: 0,
+    count: 0,
     actions: { },
     objectId: '',
   }
@@ -96,6 +106,21 @@ class AskAstronomer extends Component {
     }
   }
 
+  handlePageChange = (page) => {
+    debugger;
+    const {
+      actions,
+      objectData: {
+        faqTopicId,
+      },
+    } = this.props;
+    actions.fetchAstronomerQuestions({
+      appendToList: false,
+      page,
+      topicId: faqTopicId,
+    });
+  };
+
   render() {
     const {
       actions,
@@ -105,16 +130,23 @@ class AskAstronomer extends Component {
         objectId,
       },
       questions,
+      totalCount,
+      count,
+      page,
     } = this.props;
-    console.log('render/.', allDisplayedAnswers)
+
     return (
       <div>
         <QuestionList
           allAnswers={allAnswers}
           allDisplayedAnswers={allDisplayedAnswers}
+          count={count}
+          handlePageChange={this.handlePageChange}
+          objectId={objectId}
+          page={page}
           questions={questions}
           toggleAllAnswersAndDisplay={actions.toggleAllAnswersAndDisplay}
-          objectId={objectId}
+          totalCount={totalCount}
         />
       </div>
     )

@@ -33,7 +33,7 @@ export const fetchAstronomerQuestions = ({
   ver,
 }) => (dispatch, getState) => {
   const { cid, at, token } = getState().user;
-  const { count } = getState().authorContent;
+  const { count } = getState().astronomerQuestions;
   dispatch(fetchAstronomerQuestionsStart({ appendToList }));
   return getThreadList({
     appendToList,

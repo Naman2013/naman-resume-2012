@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import uniqueId from 'lodash/uniqueId'
 import AnswerReplyListItem from './answer-reply-list-item';
 import { updateAnswerRepliesDisplayList, replyToAnswer } from '../../modules/ask-astronomer-answer-discuss/actions';
 import ReplyForm from './reply-form';
@@ -96,9 +97,10 @@ class AnswerReplyList extends Component {
       user,
     } = this.props;
     const count = showAllReplies ? paginationCount: 1;
-    return <div key={replyId}>
-      {displayedReplies.map(reply => <AnswerReplyListItem reply={reply} reply={reply.replyId} />)}
+    return <div key={uniqueId()}>
+      {displayedReplies.map(reply => <AnswerReplyListItem reply={reply} key={uniqueId()} />)}
       <ReplyForm
+        key={uniqueId()}
         objectId={objectId}
         replyId={replyId}
         threadId={threadId}

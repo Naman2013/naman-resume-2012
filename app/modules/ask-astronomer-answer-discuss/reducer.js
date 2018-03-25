@@ -93,13 +93,11 @@ export default createReducer(initialState, {
     };
   },
   [REPLY_TO_ASTRONOMER_ANSWER_SUCCESS](state, { payload }) {
-    console.log('here')
     const { replyTo, reply } = payload;
     const newAllReplies = cloneDeep(state.allReplies);
     const newAllDisplayedAnswers = cloneDeep(state.allDisplayedReplies);
-    debugger;
     if (payload.apiError === false && newAllReplies[replyTo] && newAllReplies[replyTo].replies) {
-       newAllReplies[replyTo].replies = [].concat(newAllReplies[replyTo], reply);
+       newAllReplies[replyTo].replies = [].concat(newAllReplies[replyTo].replies, Object.assign({ likesCount: 0}, reply));
     }
 
     if (state.showAllReplies && newAllDisplayedAnswers[replyTo]) {

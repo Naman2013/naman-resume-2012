@@ -49,7 +49,7 @@ class PaginateFullSet extends Component {
     const updatedDataSet = fullDataSet
       .slice(startIndex, endIndex)
       .map(item => item.replyId);
-      console.log('updatedDataSet', updatedDataSet);
+
     return handlePageChange(updatedDataSet, page);
   };
 

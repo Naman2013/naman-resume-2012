@@ -67,7 +67,7 @@ export default createReducer(initialState, {
     const newAllAnswers = cloneDeep(state.allAnswers);
 
     if (newAllAnswers[threadId]) {
-      newAllAnswers[threadId].showAllReplies = payload.showAllReplies;
+      newAllAnswers[threadId].showAllAnswers = payload.showAllAnswers;
     }
     return {
       ...state,
@@ -100,10 +100,10 @@ export default createReducer(initialState, {
       replyTo,
     } = payload;
 
-    let newAllState = cloneDeep(state.allAnswers);
+    const newAllState = cloneDeep(state.allAnswers);
 
-    if (newState[threadId]) {
-      newState[threadId] = newState[threadId].map(answer => {
+    if (newAllState[threadId] && newAllState[threadId].replies) {
+      newAllState[threadId].replies = newAllState[threadId].replies.map(answer => {
         if (answer.replyId === replyTo) {
           answer.replyCount++;
         }
@@ -113,7 +113,6 @@ export default createReducer(initialState, {
 
     return {
       ...state,
-      page,
       allAnswers: newAllState,
     };
   },

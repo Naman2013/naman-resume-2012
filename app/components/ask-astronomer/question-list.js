@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Pagination from 'rc-pagination';
 import QuestionListItem from './question-list-item';
 
 const {
@@ -13,6 +14,10 @@ const {
 const QuestionList = ({
   allAnswers,
   allDisplayedAnswers,
+  count,
+  page,
+  totalCount,
+  handlePageChange,
   objectId,
   questions,
   toggleAllAnswersAndDisplay,
@@ -35,6 +40,12 @@ const QuestionList = ({
     },
       )
     }
+    {<Pagination
+      onChange={handlePageChange}
+      defaultPageSize={count}
+      current={page}
+      total={totalCount}
+    />}
   </div>
 );
 
