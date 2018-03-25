@@ -42,6 +42,8 @@ const MissionTile = ({
 
     <style jsx>{`
       .root {
+        width: 90%;
+        margin: 0 auto;
         background: ${white};
         padding: 15px;
         color: ${darkGray};

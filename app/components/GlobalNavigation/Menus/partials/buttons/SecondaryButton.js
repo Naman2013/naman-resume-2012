@@ -1,10 +1,11 @@
 import React from 'react';
+import { Link } from 'react-router';
 import { white, pink } from '../../../../../styles/variables/colors';
 import { primaryFont } from '../../../../../styles/variables/fonts';
 
 const SecondaryButton = ({ anchor, text }) => (
   <div className="secondary-button">
-    <a className="action" href={anchor}>{text}</a>
+    <Link to={anchor} className="action">{text}</Link>
     <style jsx>{`
       .secondary-button {
         font-size: 10px;
@@ -13,14 +14,14 @@ const SecondaryButton = ({ anchor, text }) => (
         text-transform: uppercase;
       }
 
-      .action {
+      .secondary-button :global(.action) {
         color: ${white};
         text-decoration: none;
         display: inline-block;
         padding: 20px 0 20px 20px;
       }
 
-      .action:hover {
+      .secondary-button :global(.action:hover) {
         color: ${pink};
       }
     `}</style>

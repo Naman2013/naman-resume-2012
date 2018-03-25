@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import TopBar from './TopBar';
 import Menu from './Menu';
-import noop from 'lodash/noop';
 import MENU_INTERFACE, {
   isLeft,
   isRight,
@@ -24,7 +23,7 @@ class GlobalNavigation extends Component {
     });
   }
 
-  handleMenuClick = menuName => {
+  handleMenuClick = (menuName) => {
     const { activeMenu } = this.state;
     const sameMenu = menuName === activeMenu;
     const nextMenu = (sameMenu) ? MENU_INTERFACE.DEFAULT.name : menuName;
@@ -32,7 +31,7 @@ class GlobalNavigation extends Component {
     const isLeftUpdate = !sameMenu && !isDefault && isLeft(menuName);
     const isRightUpdate = !sameMenu && !isDefault && isRight(menuName);
 
-    this.setState((prevState) => ({
+    this.setState(prevState => ({
       activeMenu: nextMenu,
       isLeftOpen: isLeftUpdate,
       isRightOpen: isRightUpdate,
@@ -53,7 +52,7 @@ class GlobalNavigation extends Component {
     const leftMenuContent = MENU_INTERFACE[activeLeft];
     const rightMenuContent = MENU_INTERFACE[activeRight];
 
-    return(
+    return (
       <div className="root">
         <div className="top-bar">
           <TopBar
@@ -63,19 +62,19 @@ class GlobalNavigation extends Component {
         </div>
 
         <Menu
-          title={MENU_INTERFACE[activeLeft].title}
+          title={leftMenuContent.title}
           handleClose={this.closeAll}
           position="left"
           isOpen={isLeftOpen}
-          render={() => (MENU_INTERFACE[activeLeft].component)}
+          render={() => (leftMenuContent.component)}
         />
 
         <Menu
-          title={MENU_INTERFACE[activeRight].title}
+          title={rightMenuContent.title}
           handleClose={this.closeAll}
           position="right"
           isOpen={isRightOpen}
-          render={() => (MENU_INTERFACE[activeRight].component)}
+          render={() => (rightMenuContent.component)}
         />
 
         <style jsx>{`
@@ -91,7 +90,8 @@ class GlobalNavigation extends Component {
             min-height: 100vh;
             height: 100%;
           }
-        `}</style>
+        `}
+        </style>
       </div>
     );
   }

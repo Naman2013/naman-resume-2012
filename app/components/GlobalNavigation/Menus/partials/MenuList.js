@@ -25,6 +25,8 @@ const MenuList = ({ items }) => (
     <style jsx>{`
       .menu-list {
         list-style-type: none;
+        padding: 0;
+        margin: 0;
       }
     `}</style>
   </div>

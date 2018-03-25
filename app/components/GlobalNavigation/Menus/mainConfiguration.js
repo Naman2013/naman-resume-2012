@@ -10,17 +10,17 @@ export default {
       {
         _ID: uniqueId(),
         text: 'Home',
-        anchor: '#',
+        anchor: '/',
       },
       {
         _ID: uniqueId(),
         text: 'Telescopes',
-        anchor: '#',
+        anchor: '/telescope-overview/3f332115-7908-11e6-a635-0eb2b1774883',
       },
       {
         _ID: uniqueId(),
         text: 'My Observations',
-        anchor: '#',
+        anchor: '/my-pictures/missions',
       },
       {
         _ID: uniqueId(),
@@ -29,18 +29,8 @@ export default {
       },
       {
         _ID: uniqueId(),
-        text: 'Telescopes',
-        anchor: '#',
-      },
-      {
-        _ID: uniqueId(),
-        text: 'Quests',
-        anchor: '#',
-      },
-      {
-        _ID: uniqueId(),
         text: 'Shows',
-        anchor: '#',
+        anchor: '/shows/situation-room',
       },
     ],
   },
@@ -49,13 +39,23 @@ export default {
     content: [
       {
         _ID: uniqueId(),
-        text: 'Home',
-        anchor: '#',
+        text: 'About Slooh',
+        anchor: '/welcome',
       },
       {
         _ID: uniqueId(),
-        text: 'Telescopes',
-        anchor: '#',
+        text: 'Memberships',
+        anchor: '/joinApprentice.php?action=joinmenu',
+      },
+      {
+        _ID: uniqueId(),
+        text: 'Partner with Slooh',
+        anchor: '/about/mission',
+      },
+      {
+        _ID: uniqueId(),
+        text: 'Slooh careers',
+        anchor: '/about/job',
       },
     ],
   },
