@@ -21,10 +21,7 @@ const initialState = {
   resultsCount: 0,
   paginationCount: 2,
   allAnswers: {},
-  answersWithOpenReplies: [],
-  answersWithOpenAllReplies:[],
   allDisplayedAnswers: {},
-  showAllAnswers: false,
 };
 
 export default createReducer(initialState, {
@@ -41,6 +38,7 @@ export default createReducer(initialState, {
     newAllAnswers[threadId] = {
       replies,
       page: 1,
+      showAllAnswers: false,
       topAnswer: replies.length > 0 ? replies[0].replyId : null,
     };
     newAllDisplayedAnswers[threadId] = replies.length > 0 ? [replies[0].replyId] : [];
@@ -65,9 +63,15 @@ export default createReducer(initialState, {
     };
   },
   [TOGGLE_ALL_ASK_ASTRONOMER_ANSWERS](state, { payload }) {
+    const { threadId, showAllReplies } = payload;
+    const newAllAnswers = cloneDeep(state.allAnswers);
+
+    if (newAllAnswers[threadId]) {
+      newAllAnswers[threadId].showAllReplies = payload.showAllReplies;
+    }
     return {
       ...state,
-      showAllAnswers: payload.showAllAnswers,
+      allAnswers: newAllAnswers,
     };
   },
   [UPDATE_TOGGLE_ASK_ASTRONOMER_ANSWER_DISPLAY_LIST](state, { payload }) {

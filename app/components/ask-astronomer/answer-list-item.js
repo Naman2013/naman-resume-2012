@@ -45,6 +45,7 @@ const AnswerListItem = ({
           displayedReplies={displayedReplies}
           objectId={objectId}
           replyId={answer.replyId}
+          showAllReplies={showAllReplies}
           showReplies={showReplies}
           threadId={threadId}
           topicId={topicId}

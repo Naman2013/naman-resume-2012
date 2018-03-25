@@ -96,10 +96,8 @@ class AnswerReplyList extends Component {
       user,
     } = this.props;
     const count = showAllReplies ? paginationCount: 1;
-
     return <div key={replyId}>
-      {displayedReplies.map(reply => <AnswerReplyListItem reply={reply} />)}
-
+      {displayedReplies.map(reply => <AnswerReplyListItem reply={reply} reply={reply.replyId} />)}
       <ReplyForm
         objectId={objectId}
         replyId={replyId}

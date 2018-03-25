@@ -41,12 +41,11 @@ export default createReducer(initialState, {
       replies,
       page: 1,
     };
-    console.log('take', take(replies, state.paginationCount).map(reply => replyId));
     newAllDisplayedAnswers[replyTo] = (replies && replies.length > 0) ?
       (showOnlyTopReply ?
         [replies[0].replyId] :
         take(replies, state.paginationCount)
-          .map(reply => replyId)) :
+          .map(reply => reply.replyId)) :
         [];
     return {
       ...state,

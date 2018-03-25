@@ -53,7 +53,6 @@ class AnswerList extends Component {
       topAnswer: null,
     },
     displayedAnswers: [],
-    showAllAnswers: false,
     threadId: null,
   }
 
@@ -71,7 +70,6 @@ class AnswerList extends Component {
       topAnswer: number,
     }), // answers only pertaining to a single question
     threadId: number,
-    showAllAnswers: bool,
     displayedAnswers: arrayOf(any),
     objectId: string.isRequired,
   }
@@ -102,20 +100,17 @@ class AnswerList extends Component {
       displayedAnswers,
       displayedReplies,
       objectId,
-      showAllAnswers,
       threadId,
       topicId,
     } = this.props;
+    const showAllAnswers = answers.showAllAnswers;
     const count = showAllAnswers ? paginationCount: 1;
-    console.log('displayedAnswers', displayedAnswers)
-    return <div>
+    return <div key={threadId}>
       {displayedAnswers.map(answer => {
         const answerReplies = allReplies[answer.replyId] || { replies: [] };
         const allDisplayedRepliesObj = answerReplies
           .replies
           .filter(item => displayedReplies[answer.replyId] && displayedReplies[answer.replyId].indexOf(item.replyId) > -1);
-          console.log('allDisplayedRepliesObj', allDisplayedRepliesObj)
-          console.log(displayedReplies[answer.replyId])
         return (<AnswerListItem
           answer={answer}
           answerReplies={allReplies[answer.replyId]}

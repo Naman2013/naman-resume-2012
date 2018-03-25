@@ -55,7 +55,12 @@ export const toggleAllAnswersAndDisplay = payload => (dispatch, getState) => {
   const { threadId, showAllAnswers } = payload;
   const allAnswers = getState().astronomerAnswers.allAnswers;
   const threadsAnswers = allAnswers[threadId].replies;
-  const displayedAnswers = showAllAnswers ? threadsAnswers : (threadsAnswers.length > 0 ? [threadsAnswers[0]] : []);
+  const displayedAnswers = showAllAnswers ?
+    threadsAnswers
+      .map(answer => answer.replyId) :
+        (threadsAnswers.length > 0 ?
+          [threadsAnswers[0].replyId] :
+        []);
 
   dispatch(updateAnswersDisplayList({
     threadId: payload.threadId,

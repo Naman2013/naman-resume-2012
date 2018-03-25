@@ -24,7 +24,6 @@ const QuestionList = ({
         const allDisplayedAnswersObjs = threadAnswers
           .replies
           .filter(answer => allDisplayedAnswers[item.threadId] && allDisplayedAnswers[item.threadId].indexOf(answer.replyId) > -1);
-          console.log('allDisplayedAnswersObjs', allDisplayedAnswersObjs)
         return (<QuestionListItem
           answers={allAnswers[item.threadId]}
           displayedAnswers={allDisplayedAnswersObjs}
