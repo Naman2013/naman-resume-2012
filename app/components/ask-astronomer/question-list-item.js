@@ -11,9 +11,10 @@ const {
 } = PropTypes;
 
 const QuestionListItem = ({
-  item,
   answers,
   displayedAnswers,
+  item,
+  objectId,
   toggleAllAnswersAndDisplay,
 }) => {
   const closeAllAnswers = () => toggleAllAnswersAndDisplay({
@@ -36,7 +37,9 @@ const QuestionListItem = ({
       <AnswerList
         answers={answers}
         displayedAnswers={displayedAnswers}
+        objectId={objectId}
         threadId={item.threadId}
+        topicId={item.topicId}
       />
       <style jsx>{`
         .question-details {
@@ -72,9 +75,21 @@ QuestionListItem.propTypes = {
     topicName: string.isRequired,
     displayName: string.isRequired,
     replyCount: number.isRequired,
+    topicId: number.isRequired,
   }).isRequired,
-  answers: shape({}),
-  displayedAnswers: arrayOf(any) // array of ids
+  answers: shape({
+    replies: arrayOf(shape({
+      avatarURL: string.isRequired,
+      displayName: string.isRequired,
+      content: string.isRequired,
+      likesCount: number.isRequired,
+      replyCount: number.isRequired,
+      replyId: number.isRequired,
+    })),
+    topAnswer: number
+  }),
+  displayedAnswers: arrayOf(any), // array of ids
+  objectId: string.isRequired,
 };
 
 export default QuestionListItem;

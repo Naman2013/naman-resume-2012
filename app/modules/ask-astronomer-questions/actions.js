@@ -48,7 +48,6 @@ export const fetchAstronomerQuestions = ({
     ver,
   })
   .then(result => {
-    console.log('result.data.threads', result.data.threads)
     if (result.data.threads.length > 0) {
       result.data.threads.forEach(thread => dispatch(fetchAstronomerAnswers({ threadId: thread.threadId })))
     }

@@ -7,22 +7,33 @@ const {
   func,
   number,
   shape,
+  string,
 } = PropTypes;
+
 const QuestionList = ({
   allAnswers,
   allDisplayedAnswers,
+  objectId,
   questions,
   toggleAllAnswersAndDisplay,
 }) => (
   <div>
     {
-      questions.map(item => (<QuestionListItem
-        answers={allAnswers[item.threadId]}
-        displayedAnswers={allDisplayedAnswers[item.threadId]}
-        key={item.threadId}
-        item={item}
-        toggleAllAnswersAndDisplay={toggleAllAnswersAndDisplay}
-      />),
+      questions.map(item => {
+        const threadAnswers = allAnswers[item.threadId] || { replies: [] };
+        const allDisplayedAnswersObjs = threadAnswers
+          .replies
+          .filter(answer => allDisplayedAnswers[item.threadId] && allDisplayedAnswers[item.threadId].indexOf(answer.replyId) > -1);
+          console.log('allDisplayedAnswersObjs', allDisplayedAnswersObjs)
+        return (<QuestionListItem
+          answers={allAnswers[item.threadId]}
+          displayedAnswers={allDisplayedAnswersObjs}
+          key={item.threadId}
+          item={item}
+          toggleAllAnswersAndDisplay={toggleAllAnswersAndDisplay}
+          objectId={objectId}
+        />)
+    },
       )
     }
   </div>
@@ -40,6 +51,7 @@ QuestionList.propTypes = {
     threadId: number.isRequired,
   })),
   toggleAllAnswersAndDisplay: func.isRequired,
+  objectId: string.isRequired,
 };
 
 export default QuestionList;

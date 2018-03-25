@@ -79,9 +79,6 @@ class AskAstronomer extends Component {
     }
   }
 
-  componentWillUpdate(nextProps) {
-
-  }
 
   componentWillMount() {
     const {
@@ -109,7 +106,7 @@ class AskAstronomer extends Component {
       },
       questions,
     } = this.props;
-    console.log('allDisplayedAnswers', allDisplayedAnswers)
+    console.log('render/.', allDisplayedAnswers)
     return (
       <div>
         <QuestionList
@@ -117,6 +114,7 @@ class AskAstronomer extends Component {
           allDisplayedAnswers={allDisplayedAnswers}
           questions={questions}
           toggleAllAnswersAndDisplay={actions.toggleAllAnswersAndDisplay}
+          objectId={objectId}
         />
       </div>
     )

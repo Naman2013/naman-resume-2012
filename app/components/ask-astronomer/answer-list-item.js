@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+import AnswerReplyList from './answer-reply-list';
+
+import { avatarImgStyle } from './styles';
 
 const {
   arrayOf,
@@ -13,41 +16,110 @@ const {
 
 const AnswerListItem = ({
   answer,
+  answerReplies,
+  displayedReplies,
   isTopAnswer,
+  objectId,
   showAllAnswers,
-  toggleAnswers,
+  showAllReplies,
+  showReplies,
+  threadId,
   toggleAllAnswerReplies,
   toggleAnswerReplies,
-}) => (
-  <div className="answer">
-    {isTopAnswer && <div>Top Answer</div>}
-    <div>{answer.displayName}</div>
-    <div>{answer.content}</div>
-    <div>
-      <span>Like ({answer.likesCount})</span>
-      <span><a onClick={toggleAnswerReplies}>Discuss ({answer.replyCount})</a></span>
-      {!showAllAnswers && <span><a onClick={toggleAnswers}>View All Answers to This Question</a></span>}
-      {showAllAnswers && <span><a onClick={toggleAllAnswerReplies}>View All Discussions</a></span>}
-    </div>
+  toggleAnswers,
+  topicId,
+}) => {
+  const avatarStyle = Object.assign(avatarImgStyle(answer.avatarURL), { height: '50px', width: '50px'});
+  return (
+    <div className="answer">
+      {isTopAnswer && <div>Top Answer</div>}
+      <div><div style={avatarStyle}></div>{answer.displayName}</div>
+      <div>{answer.content}</div>
+      <div>
+        <span className="action-item">Like ({answer.likesCount})</span>
+        <span className="action-item"><a onClick={toggleAnswerReplies}>Discuss ({answer.replyCount})</a></span>
+        {!showAllReplies && showReplies && <span className="action-item"><a onClick={toggleAllAnswerReplies}>View All Discussions</a></span>}
+        {!showAllAnswers && <span className="action-item"><a onClick={toggleAnswers}>View All Answers to This Question</a></span>}
+        {showReplies && answerReplies && <AnswerReplyList
+          answerReplies={answerReplies}
+          displayedReplies={displayedReplies}
+          objectId={objectId}
+          replyId={answer.replyId}
+          showReplies={showReplies}
+          threadId={threadId}
+          topicId={topicId}
+        />}
+      </div>
 
-    <style jsx>{`
-      .answer {
-        border: 1px solid black;
-      }
-    `}</style>
-  </div>
-);
+      <style jsx>{`
+        .answer {
+          margin-left: 15px;
+          border: 1px solid black;
+        }
+
+        .action-item {
+          margin: 0 5px;
+        }
+
+        .action-item:first-child {
+          margin-left: 0px;
+        }
+
+      `}</style>
+    </div>
+  )
+};
 
 AnswerListItem.defaultProps = {
-  answer: {},
+  answer: {
+    avatarURL: '',
+    displayName: '',
+    content: '',
+    likesCount: 0,
+    replyCount: 0,
+    replyId: 0,
+  },
+  answerReplies: {
+    avatarURL: '',
+    displayName: '',
+    content: '',
+    likesCount: 0,
+    replyCount: 0,
+    replyId: 0,
+  },
+  showReplies: false,
+  showAllReplies: false,
   isTopAnswer: false,
 };
 AnswerListItem.propTypes = {
-  answer: shape({}),
+  answer: shape({
+    avatarURL: string.isRequired,
+    displayName: string.isRequired,
+    content: string.isRequired,
+    likesCount: number.isRequired,
+    replyCount: number.isRequired,
+    replyId: number.isRequired,
+  }),
+  answerReplies: shape({
+    page: number,
+    replies: arrayOf(shape({
+      avatarURL: string.isRequired,
+      displayName: string.isRequired,
+      content: string.isRequired,
+      likesCount: number.isRequired,
+      replyCount: number.isRequired,
+      replyId: number.isRequired,
+    })),
+  }),
   isTopAnswer: bool,
-  toggleAnswers: func.isRequired,
+  objectId: string.isRequired,
+  showAllReplies: bool,
+  showReplies: bool,
+  threadId: number.isRequired,
   toggleAllAnswerReplies: func.isRequired,
   toggleAnswerReplies: func.isRequired,
+  toggleAnswers: func.isRequired,
+  topicId: number.isRequired,
 };
 
 export default AnswerListItem;

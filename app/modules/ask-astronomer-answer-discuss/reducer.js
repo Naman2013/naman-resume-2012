@@ -1,24 +1,29 @@
 import cloneDeep from 'lodash/cloneDeep';
+import take from 'lodash/take';
 import createReducer from '../utils/createReducer';
+
 import {
+  FETCH_ASTRONOMER_ANSWER_REPLIES_FAIL,
   FETCH_ASTRONOMER_ANSWER_REPLIES_START,
   FETCH_ASTRONOMER_ANSWER_REPLIES_SUCCESS,
-  FETCH_ASTRONOMER_ANSWER_REPLIES_FAIL,
+  REPLY_TO_ASTRONOMER_ANSWER_FAIL,
+  REPLY_TO_ASTRONOMER_ANSWER_START,
+  REPLY_TO_ASTRONOMER_ANSWER_SUCCESS,
   REPLY_TO_ASTRONOMER_ANSWER,
   TOGGLE_ALL_ASK_ASTRONOMER_ANSWER_REPLIES,
   TOGGLE_ASK_ASTRONOMER_ANSWER_REPLIES,
-  UPDATE_TOGGLE_ASK_ASTRONOMER_ANSWER_REPLIES_LIST,
+  UPDATE_TOGGLE_ASK_ASTRONOMER_ANSWER_REPLIES_DISPLAY_LIST,
 } from './actions';
 
 const initialState = {
   fetching: false,
-  page: 0,
   error: false,
+  paginationCount: 2,
   resultsCount: 0,
   allReplies: {},
   allDisplayedReplies: {},
-  showAllReplies: false,
-  showReplies: false,
+  submitting: false,
+  submitError: false,
 };
 
 export default createReducer(initialState, {
@@ -29,20 +34,24 @@ export default createReducer(initialState, {
     };
   },
   [FETCH_ASTRONOMER_ANSWER_REPLIES_SUCCESS](state, { payload }) {
-    const { replies, threadId, resultsCount, showOnlyTopReply } = payload;
-    const newAllAnswers = cloneDeep(state.allReplies);
+    const { replies, replyTo, resultsCount, showOnlyTopReply } = payload;
+    const newAllReplies = cloneDeep(state.allReplies);
     const newAllDisplayedAnswers = cloneDeep(state.allDisplayedReplies);
-    newAllAnswers[threadId] = {
+    newAllReplies[replyTo] = {
       replies,
       page: 1,
-      topAnswer: replies.length > 0 ? replies[0].replyId : null,
     };
-    newAllDisplayedAnswers[threadId] = replies.length > 0 ? (showOnlyTopReply ? [replies[0]] : replies) : [];
-
+    console.log('take', take(replies, state.paginationCount).map(reply => replyId));
+    newAllDisplayedAnswers[replyTo] = (replies && replies.length > 0) ?
+      (showOnlyTopReply ?
+        [replies[0].replyId] :
+        take(replies, state.paginationCount)
+          .map(reply => replyId)) :
+        [];
     return {
       ...state,
       fetching: false,
-      allReplies: newAllAnswers,
+      allReplies: newAllReplies,
       allDisplayedReplies: newAllDisplayedAnswers,
       resultsCount,
     };
@@ -55,35 +64,62 @@ export default createReducer(initialState, {
       allReplies: {},
       allDisplayedReplies: {},
       resultsCount: 0,
-      page: 0,
     };
   },
-  [TOGGLE_ALL_ASK_ASTRONOMER_ANSWER_REPLIES](state, { payload }) {
-    return {
-      ...state,
-      showAllReplies: payload.showAllReplies,
-    };
-  },
-  [TOGGLE_ASK_ASTRONOMER_ANSWER_REPLIES](state, { payload }) {
-    return {
-      ...state,
-      showReplies: payload.showReplies,
-    };
-  },
-  [UPDATE_TOGGLE_ASK_ASTRONOMER_ANSWER_REPLIES_LIST](state, { payload }) {
+  [UPDATE_TOGGLE_ASK_ASTRONOMER_ANSWER_REPLIES_DISPLAY_LIST](state, { payload }) {
     const {
       page,
-      threadId,
+      replyId,
       displayedReplies,
     } = payload;
-
-    const newState = cloneDeep(state.allDisplayedReplies);
-    newState[threadId] = displayedReplies;
+    const newDisplayedState = cloneDeep(state.allDisplayedReplies);
+    const newAllState = cloneDeep(state.allReplies);
+    newDisplayedState[replyId] = displayedReplies;
+    if (newAllState[replyId]) {
+      newAllState[replyId].page = page;
+    }
 
     return {
       ...state,
-      page,
-      allDisplayedReplies: newState,
+      allReplies: newAllState,
+      allDisplayedReplies: newDisplayedState,
+    };
+  },
+  [REPLY_TO_ASTRONOMER_ANSWER_START](state, { payload }) {
+
+    return {
+      ...state,
+      submitting: true,
+      submitError: false,
+    };
+  },
+  [REPLY_TO_ASTRONOMER_ANSWER_SUCCESS](state, { payload }) {
+    console.log('here')
+    const { replyTo, reply } = payload;
+    const newAllReplies = cloneDeep(state.allReplies);
+    const newAllDisplayedAnswers = cloneDeep(state.allDisplayedReplies);
+    debugger;
+    if (payload.apiError === false && newAllReplies[replyTo] && newAllReplies[replyTo].replies) {
+       newAllReplies[replyTo].replies = [].concat(newAllReplies[replyTo], reply);
+    }
+
+    if (state.showAllReplies && newAllDisplayedAnswers[replyTo]) {
+       newAllDisplayedAnswers[replyTo] = [].concat(newAllDisplayedAnswers[replyTo], reply.replyId)
+    }
+
+    return {
+      ...state,
+      submitting: false,
+      allReplies: newAllReplies,
+      allDisplayedAnswers: newAllDisplayedAnswers,
+    };
+  },
+  [REPLY_TO_ASTRONOMER_ANSWER_FAIL](state, { payload }) {
+
+    return {
+      ...state,
+      submitting: false,
+      submitError: true,
     };
   },
 });

@@ -44,9 +44,12 @@ class PaginateFullSet extends Component {
       count,
       totalCount,
     } = this.props;
-    const endIndex = (count*page)-1; // subtract 1 because JS indexes start at 0
-    const startIndex = (endIndex-count)+1
-    const updatedDataSet = fullDataSet.slice(startIndex, endIndex);
+    const endIndex = (count*page);
+    const startIndex = (endIndex-count);
+    const updatedDataSet = fullDataSet
+      .slice(startIndex, endIndex)
+      .map(item => item.replyId);
+      console.log('updatedDataSet', updatedDataSet);
     return handlePageChange(updatedDataSet, page);
   };
 
@@ -56,9 +59,6 @@ class PaginateFullSet extends Component {
       page,
       totalCount,
     } = this.props;
-
-    console.log('set', totalCount, count)
-
     return (
       <Pagination
         onChange={this.onChange}

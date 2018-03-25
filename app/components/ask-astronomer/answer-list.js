@@ -29,8 +29,9 @@ const mapStateToProps = ({
   user,
 }) => ({
   showAllAnswers: astronomerAnswers.showAllAnswers,
-  showAllReplies: astronomerDiscuss.showAllReplies,
-  showReplies: astronomerDiscuss.showReplies,
+  allReplies: astronomerDiscuss.allReplies,
+  displayedReplies: astronomerDiscuss.allDisplayedReplies,
+  paginationCount: astronomerAnswers.paginationCount,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -59,19 +60,27 @@ class AnswerList extends Component {
   static propTypes = {
     answers: shape({
       page: number,
-      replies: arrayOf(shape({})),
+      replies: arrayOf(shape({
+        avatarURL: string.isRequired,
+        displayName: string.isRequired,
+        content: string.isRequired,
+        likesCount: number.isRequired,
+        replyCount: number.isRequired,
+        replyId: number.isRequired,
+      })),
       topAnswer: number,
     }), // answers only pertaining to a single question
     threadId: number,
     showAllAnswers: bool,
     displayedAnswers: arrayOf(any),
+    objectId: string.isRequired,
   }
 
   constructor(props) {
     super(props)
   }
 
-  handlePageChange (paginatedSet, page) {
+  handlePageChange = (paginatedSet, page) => {
     const {
       actions,
       threadId,
@@ -87,23 +96,42 @@ class AnswerList extends Component {
   render () {
     const {
       actions,
+      allReplies,
       answers,
-      showAllAnswers,
-      showReplies,
+      paginationCount,
       displayedAnswers,
+      displayedReplies,
+      objectId,
+      showAllAnswers,
       threadId,
+      topicId,
     } = this.props;
-    const count = showAllAnswers ? 1 : 2;
+    const count = showAllAnswers ? paginationCount: 1;
+    console.log('displayedAnswers', displayedAnswers)
     return <div>
-      {displayedAnswers.map(answer => <AnswerListItem
-        answer={answer}
-        key={answer.replyId}
-        showAllAnswers={showAllAnswers}
-        toggleAnswers={() => actions.toggleAllAnswersAndDisplay({ threadId, showAllAnswers: true })}
-        toggleAllAnswerReplies={() => actions.toggleAllAnswerRepliesAndDisplay({ threadId: answer.replyId, showAllReplies: true })}
-        toggleAnswerReplies={() => actions.toggleAndDisplayReplies({ threadId: answer.replyId, showReplies: !showReplies })}
-        isTopAnswer={answers.topAnswer && answer.replyId === answers.topAnswer}
-      />)}
+      {displayedAnswers.map(answer => {
+        const answerReplies = allReplies[answer.replyId] || { replies: [] };
+        const allDisplayedRepliesObj = answerReplies
+          .replies
+          .filter(item => displayedReplies[answer.replyId] && displayedReplies[answer.replyId].indexOf(item.replyId) > -1);
+          console.log('allDisplayedRepliesObj', allDisplayedRepliesObj)
+          console.log(displayedReplies[answer.replyId])
+        return (<AnswerListItem
+          answer={answer}
+          answerReplies={allReplies[answer.replyId]}
+          displayedReplies={allDisplayedRepliesObj}
+          isTopAnswer={answers.topAnswer && answer.replyId === answers.topAnswer}
+          key={answer.replyId}
+          objectId={objectId}
+          showReplies={answer.showReplies}
+          showAllReplies={answer.showAllReplies}
+          showAllAnswers={showAllAnswers}
+          threadId={threadId}
+          toggleAllAnswerReplies={() => actions.toggleAllAnswerRepliesAndDisplay({ threadId: threadId, replyTo: answer.replyId, showAllReplies: true })}
+          toggleAnswerReplies={() => actions.toggleAndDisplayReplies({ threadId: threadId, replyTo: answer.replyId, showReplies: !answer.showReplies })}
+          toggleAnswers={() => actions.toggleAllAnswersAndDisplay({ threadId, showAllAnswers: true })}
+          topicId={topicId}
+        />)})}
       {showAllAnswers && displayedAnswers.length > 0 && <PaginateSet
         handlePageChange={this.handlePageChange}
         fullDataSet={answers.replies}
