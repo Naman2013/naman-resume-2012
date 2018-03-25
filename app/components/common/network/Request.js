@@ -2,10 +2,12 @@
   uses render props
   calls an API when mounted
   expects the API to return an expiration time and server timestamp
+  this also auto-reads the user information the API's need
   when expiration occurs will refetch from the API
 */
 
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import isMatch from 'lodash/isMatch';
 import axios from 'axios';
@@ -15,8 +17,18 @@ const { CancelToken } = axios;
 const POST = 'POST';
 const GET = 'GET';
 
+const mapStateToProps = ({ user }) => ({
+  user,
+});
+
+@connect(mapStateToProps, null)
 class Request extends Component {
   static propTypes = {
+    user: PropTypes.shape({
+      cid: PropTypes.string,
+      token: PropTypes.string,
+      at: PropTypes.string,
+    }),
     serviceURL: PropTypes.string.isRequired,
     render: PropTypes.func.isRequired,
     protocol: PropTypes.string,
@@ -24,6 +36,11 @@ class Request extends Component {
   };
 
   static defaultProps = {
+    user: {
+      cid: '',
+      token: '',
+      at: '',
+    },
     protocol: POST,
   };
 
@@ -78,7 +95,7 @@ class Request extends Component {
   }
 
   fetchServiceContent(nextRequestBody) {
-    const { serviceURL, protocol, requestBody } = this.props;
+    const { serviceURL, protocol, requestBody, user } = this.props;
     this.tearDown();
     this.setState({ fetchingContent: true, serviceResponse: {} });
     this.source = CancelToken.source();
@@ -88,7 +105,7 @@ class Request extends Component {
     if (protocol === POST) {
       axios.post(serviceURL, Object.assign({
         cancelToken: this.source.token,
-      }, validatedRequestBody))
+      }, validatedRequestBody, { ...user }))
         .then(result => this.handleServiceResponse(result.data));
     }
 
