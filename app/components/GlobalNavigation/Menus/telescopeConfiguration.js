@@ -19,7 +19,6 @@ export default (telescopes = []) => ({
     text: _telescope.teleName,
     anchor: _telescope.teleDetailsURL,
     isOnline: _telescope.teleOnlineStatus === 'online',
-    logo: _telescope.teleLogoURL,
-    telescopeID: _telescope.teleId,
+    logoURL: _telescope.teleLogoURL,
   })),
 });
