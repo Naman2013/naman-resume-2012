@@ -28,7 +28,8 @@ class Request extends Component {
     // provided by client
     serviceURL: PropTypes.string.isRequired,
     render: PropTypes.func.isRequired,
-    protocol: PropTypes.string,
+    serviceExpiresFieldName: PropTypes.string,
+    method: PropTypes.string,
     model: PropTypes.shape({
       name: PropTypes.string.isRequired,
       callback: PropTypes.func.isRequired,
@@ -55,13 +56,14 @@ class Request extends Component {
     },
     model: null,
     models: [],
-    protocol: POST,
+    method: POST,
+    serviceExpiresFieldName: 'expires',
   };
 
   state = {
     serviceResponse: {},
-    modeledResponses: [],
-    fetchingContent: false,
+    modeledResponses: {},
+    fetchingContent: true,
   };
 
   componentDidMount() {
@@ -82,13 +84,34 @@ class Request extends Component {
   source = undefined;
 
   handleServiceResponse(result) {
-    if (result.expires) {
-      this.configureTimer({ expires: result.expires, timestamp: result.timestamp });
+    const {
+      serviceExpiresFieldName,
+      model,
+      models,
+    } = this.props;
+
+    const consolidatedModels = [model, ...models];
+    let modeledResponses = {};
+
+    if (result[serviceExpiresFieldName]) {
+      this.configureTimer({
+        expires: result[serviceExpiresFieldName],
+        timestamp: result.timestamp
+      });
     }
+
+    // build the models defined by the client
+    consolidatedModels.forEach((_model) => {
+      modeledResponses = Object.assign({}, modeledResponses, {
+        name: _model.name,
+        result: _model.callback(result),
+      });
+    });
 
     this.setState(() => ({
       fetchingContent: false,
       serviceResponse: result,
+      modeledResponses,
     }));
   }
 
@@ -112,7 +135,7 @@ class Request extends Component {
   fetchServiceContent(nextRequestBody) {
     const {
       serviceURL,
-      protocol,
+      method,
       requestBody,
       user,
     } = this.props;
@@ -122,14 +145,14 @@ class Request extends Component {
 
     const validatedRequestBody = nextRequestBody || requestBody;
 
-    if (protocol === POST) {
+    if (method === POST) {
       axios.post(serviceURL, Object.assign({
         cancelToken: this.source.token,
       }, validatedRequestBody, { ...user }))
         .then(result => this.handleServiceResponse(result.data));
     }
 
-    if (protocol === GET) {
+    if (method === GET) {
       axios.get(serviceURL, {
         params: Object.assign({}, validatedRequestBody),
       }).then(result => this.handleServiceResponse(result.data));

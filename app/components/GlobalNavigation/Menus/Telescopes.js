@@ -5,13 +5,17 @@ import Request from 'components/common/network/Request';
 import { OBSERVATORIES_COMPACT } from 'services/observatories';
 import BorderContainer from './partials/BorderedContainer';
 import MenuList from './partials/MenuList';
-import TELESCOPE_CONFIGURATION from './telescopeConfiguration';
+import TELESCOPE_CONFIGURATION, { modelTelescopesFromObsList } from './telescopeConfiguration';
 
 const Telescopes = () => (
   <Request
     serviceURL={OBSERVATORIES_COMPACT}
-    model={}
-    render={({ fetchingContent }) => (
+    method="GET"
+    model={modelTelescopesFromObsList}
+    render={({
+      fetchingContent,
+      serviceResponse: { observatoryList },
+    }) => (
       <div className="root">
         <BorderContainer top={false}>
           <button className="action">Setup a mission</button>
@@ -19,7 +23,10 @@ const Telescopes = () => (
 
         <h4 className="title">Visit our telescope channels</h4>
 
-        <MenuList items={TELESCOPE_CONFIGURATION} />
+        {
+          !fetchingContent &&
+            <MenuList items={TELESCOPE_CONFIGURATION(observatoryList)} />
+        }
 
         <style jsx>{`
           .root {
