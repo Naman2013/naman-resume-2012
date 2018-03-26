@@ -2,9 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import AnswerList from './answer-list';
+
 const {
   arrayOf,
   any,
+  bool,
   number,
   shape,
   string,
@@ -13,6 +15,7 @@ const {
 const QuestionListItem = ({
   answers,
   displayedAnswers,
+  fetching,
   item,
   objectId,
   toggleAllAnswersAndDisplay,
@@ -34,13 +37,14 @@ const QuestionListItem = ({
         {item.replyCount > 0 && `${item.replyCount} answers`}
       </div>
       {displayedAnswers.length > 1 && <div><a onClick={closeAllAnswers}>Close (x)</a></div>}
-      <AnswerList
+      {!fetching && <AnswerList
         answers={answers}
         displayedAnswers={displayedAnswers}
         objectId={objectId}
         threadId={item.threadId}
         topicId={item.topicId}
-      />
+      />}
+      {fetching && <div className="fa fa-spinner" />}
       <style jsx>{`
         .question-details {
           display: flex;
@@ -66,6 +70,7 @@ QuestionListItem.defaultProps = {
     topAnswer: null,
   },
   displayedAnswers: [],
+  fetching: false,
 };
 QuestionListItem.propTypes = {
   item: shape({
@@ -90,6 +95,7 @@ QuestionListItem.propTypes = {
   }),
   displayedAnswers: arrayOf(any), // array of ids
   objectId: string.isRequired,
+  fetching: bool,
 };
 
 export default QuestionListItem;

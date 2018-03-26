@@ -15,7 +15,7 @@ import {
 } from '../ask-astronomer-answer-discuss/actions';
 
 const initialState = {
-  fetching: false,
+  fetchingObj: {},
   page: 0,
   error: false,
   resultsCount: 0,
@@ -25,16 +25,21 @@ const initialState = {
 };
 
 export default createReducer(initialState, {
-  [FETCH_ASTRONOMER_ANSWERS_START](state) {
+  [FETCH_ASTRONOMER_ANSWERS_START](state, { payload }) {
+    const { threadId } = payload;
+    const newFetching = cloneDeep(state.fetchingObj);
+
+    newFetching[threadId] = true;
     return {
       ...state,
-      fetching: true,
+      fetchingObj: newFetching,
     };
   },
   [FETCH_ASTRONOMER_ANSWERS_SUCCESS](state, { payload }) {
     const { replies, threadId, resultsCount } = payload;
     const newAllAnswers = cloneDeep(state.allAnswers);
     const newAllDisplayedAnswers = cloneDeep(state.allDisplayedAnswers);
+    const newFetching = cloneDeep(state.fetchingObj);
     newAllAnswers[threadId] = {
       replies,
       page: 1,
@@ -42,19 +47,22 @@ export default createReducer(initialState, {
       topAnswer: replies.length > 0 ? replies[0].replyId : null,
     };
     newAllDisplayedAnswers[threadId] = replies.length > 0 ? [replies[0].replyId] : [];
-
+    newFetching[threadId] = false;
     return {
       ...state,
-      fetching: false,
+      fetchingObj: newFetching,
       allAnswers: newAllAnswers,
       allDisplayedAnswers: newAllDisplayedAnswers,
       resultsCount,
     };
   },
   [FETCH_ASTRONOMER_ANSWERS_FAIL](state, { payload }) {
+    const { threadId } = payload;
+    const newFetching = cloneDeep(state.fetchingObj);
+    newFetching[threadId] = false;
     return {
       ...state,
-      fetching: false,
+      fetchingObj: false,
       error: true,
       allAnswers: {},
       allDisplayedAnswers: {},

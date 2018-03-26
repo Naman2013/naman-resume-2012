@@ -37,7 +37,7 @@ export const fetchAstronomerAnswerReplies = ({
   showOnlyTopReply,
 }) => (dispatch, getState) => {
   const { cid, at, token } = getState().user;
-  dispatch(fetchAstronomerAnswerRepliesStart());
+  dispatch(fetchAstronomerAnswerRepliesStart({ replyTo }));
   return getReplies({
     at,
     callSource: 'qanda',
@@ -50,7 +50,7 @@ export const fetchAstronomerAnswerReplies = ({
     ver,
   })
   .then(result => dispatch(fetchAstronomerAnswerRepliesSuccess(Object.assign({ replyTo, showOnlyTopReply }, result.data))))
-  .catch(error => dispatch(fetchAstronomerAnswerRepliesFail(error)));
+  .catch(error => dispatch(fetchAstronomerAnswerRepliesFail(Object.assign({ replyTo }, error))));
 };
 
 export const toggleAnswerReplies = payload => ({

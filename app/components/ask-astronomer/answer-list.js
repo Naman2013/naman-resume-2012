@@ -31,6 +31,7 @@ const mapStateToProps = ({
   showAllAnswers: astronomerAnswers.showAllAnswers,
   allReplies: astronomerDiscuss.allReplies,
   displayedReplies: astronomerDiscuss.allDisplayedReplies,
+  fetchingReplies: astronomerDiscuss.fetchingObj,
   paginationCount: astronomerAnswers.paginationCount,
 });
 
@@ -52,6 +53,7 @@ class AnswerList extends Component {
       replies: [],
       topAnswer: null,
     },
+    fetchingReplies: false,
     displayedAnswers: [],
     threadId: null,
   }
@@ -69,6 +71,7 @@ class AnswerList extends Component {
       })),
       topAnswer: number,
     }), // answers only pertaining to a single question
+    fetchingReplies: bool,
     threadId: number,
     displayedAnswers: arrayOf(any),
     objectId: string.isRequired,
@@ -96,6 +99,7 @@ class AnswerList extends Component {
       actions,
       allReplies,
       answers,
+      fetchingReplies,
       paginationCount,
       displayedAnswers,
       displayedReplies,
@@ -115,6 +119,7 @@ class AnswerList extends Component {
           answer={answer}
           answerReplies={allReplies[answer.replyId]}
           displayedReplies={allDisplayedRepliesObj}
+          fetchingReplies={fetchingReplies[answer.replyId]}
           isTopAnswer={answers.topAnswer && answer.replyId === answers.topAnswer}
           key={answer.replyId}
           objectId={objectId}

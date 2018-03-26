@@ -15,6 +15,7 @@ const QuestionList = ({
   allAnswers,
   allDisplayedAnswers,
   count,
+  fetchingAnswers,
   page,
   totalCount,
   handlePageChange,
@@ -32,6 +33,7 @@ const QuestionList = ({
         return (<QuestionListItem
           answers={allAnswers[item.threadId]}
           displayedAnswers={allDisplayedAnswersObjs}
+          fetching={fetchingAnswers[item.threadId]}
           key={item.threadId}
           item={item}
           toggleAllAnswersAndDisplay={toggleAllAnswersAndDisplay}
@@ -53,6 +55,7 @@ QuestionList.defaultProps = {
   questions: [],
   allAnswers: {},
   allDisplayedAnswers: {},
+  fetchingAnswers: {}
 };
 QuestionList.propTypes = {
   allAnswers: shape({}),

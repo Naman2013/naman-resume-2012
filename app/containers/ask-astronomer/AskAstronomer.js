@@ -19,6 +19,7 @@ import {
 import QuestionList from '../../components/ask-astronomer/question-list';
 
 const {
+  bool,
   func,
   number,
   shape,
@@ -40,6 +41,8 @@ const mapStateToProps = ({
   page: astronomerQuestions.page,
   totalCount: astronomerQuestions.threadCount,
   count: astronomerQuestions.count,
+  fetchingQuestions: astronomerQuestions.fetching,
+  fetchingAnswers: astronomerAnswers.fetchingObj,
   user,
 });
 
@@ -54,6 +57,8 @@ const mapDispatchToProps = dispatch => ({
 class AskAstronomer extends Component {
 
   static propTypes = {
+    fetchingQuestions: bool,
+    fetchingAnswers: shape({}),
     page: number,
     totalCount: number,
     count: number,
@@ -66,6 +71,8 @@ class AskAstronomer extends Component {
   }
 
   static defaultProps = {
+    fetchingQuestions: false,
+    fetchingAnswers: {},
     page: 1,
     totalCount: 0,
     count: 0,
@@ -126,6 +133,8 @@ class AskAstronomer extends Component {
       actions,
       allAnswers,
       allDisplayedAnswers,
+      fetchingAnswers,
+      fetchingQuestions,
       params: {
         objectId,
       },
@@ -134,20 +143,24 @@ class AskAstronomer extends Component {
       count,
       page,
     } = this.props;
-
+    console.log('allAnswers', allAnswers, questions)
+    console.log('fetchingQuestions', fetchingQuestions)
+    console.log('fetchingAnswers', fetchingAnswers)
     return (
       <div>
-        <QuestionList
+        {fetchingQuestions && <div className="fa fa-spinner" />}
+        {!fetchingQuestions && <QuestionList
           allAnswers={allAnswers}
           allDisplayedAnswers={allDisplayedAnswers}
           count={count}
+          fetchingAnswers={fetchingAnswers}
           handlePageChange={this.handlePageChange}
           objectId={objectId}
           page={page}
           questions={questions}
           toggleAllAnswersAndDisplay={actions.toggleAllAnswersAndDisplay}
           totalCount={totalCount}
-        />
+        />}
       </div>
     )
   }

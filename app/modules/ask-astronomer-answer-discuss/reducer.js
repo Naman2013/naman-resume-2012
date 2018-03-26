@@ -16,7 +16,7 @@ import {
 } from './actions';
 
 const initialState = {
-  fetching: false,
+  fetchingObj: {},
   error: false,
   paginationCount: 2,
   resultsCount: 0,
@@ -27,16 +27,20 @@ const initialState = {
 };
 
 export default createReducer(initialState, {
-  [FETCH_ASTRONOMER_ANSWER_REPLIES_START](state) {
+  [FETCH_ASTRONOMER_ANSWER_REPLIES_START](state, { payload }) {
+    const { replyTo } = payload;
+    const newFetching = cloneDeep(state.fetchingObj);
+    newFetching[replyTo] = true;
     return {
       ...state,
-      fetching: true,
+      fetchingObj: newFetching,
     };
   },
   [FETCH_ASTRONOMER_ANSWER_REPLIES_SUCCESS](state, { payload }) {
     const { replies, replyTo, resultsCount, showOnlyTopReply } = payload;
     const newAllReplies = cloneDeep(state.allReplies);
     const newAllDisplayedAnswers = cloneDeep(state.allDisplayedReplies);
+    const newFetching = cloneDeep(state.fetchingObj);
     newAllReplies[replyTo] = {
       replies,
       page: 1,
@@ -47,18 +51,23 @@ export default createReducer(initialState, {
         take(replies, state.paginationCount)
           .map(reply => reply.replyId)) :
         [];
+
+    newFetching[replyTo] = false;
     return {
       ...state,
-      fetching: false,
+      fetchingObj: newFetching,
       allReplies: newAllReplies,
       allDisplayedReplies: newAllDisplayedAnswers,
       resultsCount,
     };
   },
   [FETCH_ASTRONOMER_ANSWER_REPLIES_FAIL](state, { payload }) {
+    const { replyTo } = payload;
+    const newFetching = cloneDeep(state.fetchingObj);
+    newFetching[replyTo] = false;
     return {
       ...state,
-      fetching: false,
+      fetchingObj: newFetching,
       error: true,
       allReplies: {},
       allDisplayedReplies: {},

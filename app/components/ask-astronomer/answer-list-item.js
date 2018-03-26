@@ -18,6 +18,7 @@ const AnswerListItem = ({
   answer,
   answerReplies,
   displayedReplies,
+  fetchingReplies,
   isTopAnswer,
   objectId,
   showAllAnswers,
@@ -40,7 +41,12 @@ const AnswerListItem = ({
         <span className="action-item"><a onClick={toggleAnswerReplies}>Discuss ({answer.replyCount})</a></span>
         {!showAllReplies && showReplies && <span className="action-item"><a onClick={toggleAllAnswerReplies}>View All Discussions</a></span>}
         {!showAllAnswers && <span className="action-item"><a onClick={toggleAnswers}>View All Answers to This Question</a></span>}
-        {showReplies && answerReplies && <AnswerReplyList
+      </div>
+
+      {!fetchingReplies &&
+        showReplies &&
+        answerReplies &&
+          <AnswerReplyList
           answerReplies={answerReplies}
           displayedReplies={displayedReplies}
           objectId={objectId}
@@ -50,7 +56,7 @@ const AnswerListItem = ({
           threadId={threadId}
           topicId={topicId}
         />}
-      </div>
+        {fetchingReplies && <div className="fa fa-spinner" />}
 
       <style jsx>{`
         .answer {
@@ -88,6 +94,7 @@ AnswerListItem.defaultProps = {
     replyCount: 0,
     replyId: 0,
   },
+  fetchingReplies: false,
   showReplies: false,
   showAllReplies: false,
   isTopAnswer: false,
@@ -112,6 +119,7 @@ AnswerListItem.propTypes = {
       replyId: number.isRequired,
     })),
   }),
+  fetchingReplies: bool,
   isTopAnswer: bool,
   objectId: string.isRequired,
   showAllReplies: bool,
