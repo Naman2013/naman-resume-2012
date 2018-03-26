@@ -32,7 +32,7 @@ const Telescope = ({
     />
 
     <div className="telescope-link">
-      <Link to={anchor}>{text}</Link>
+      <Link className="action" to={anchor}>{text}</Link>
     </div>
 
     <style jsx>{`

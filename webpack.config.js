@@ -67,7 +67,7 @@ module.exports = {
         query: {
           cacheDirectory: true,
           plugins: [
-            'styled-jsx/babel',
+            ['styled-jsx/babel', { 'optimizeForSpeed': true }],
             'transform-object-rest-spread',
             'transform-decorators-legacy',
             'transform-class-properties',
