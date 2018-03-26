@@ -115,10 +115,10 @@ class AnswerReplyList extends Component {
     return <div key={uniqueId()}>
       {displayedReplies.map(reply => {
         const likeParams = {
+          callSource: 'qanda',
+          objectId,
           replyId: reply.replyId,
           topicId,
-          objectId,
-          callSource: 'qanda'
         };
         return <AnswerReplyListItem
           key={uniqueId()}

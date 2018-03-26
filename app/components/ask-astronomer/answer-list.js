@@ -28,7 +28,6 @@ const mapStateToProps = ({
   astronomerDiscuss,
   user,
 }) => ({
-  showAllAnswers: astronomerAnswers.showAllAnswers,
   allReplies: astronomerDiscuss.allReplies,
   displayedReplies: astronomerDiscuss.allDisplayedReplies,
   fetchingReplies: astronomerDiscuss.fetchingObj,
@@ -112,10 +111,10 @@ class AnswerList extends Component {
     return <div key={threadId}>
       {displayedAnswers.map(answer => {
         const likeParams = {
+          callSource: 'qanda',
+          objectId,
           replyId: answer.replyId,
           topicId,
-          objectId,
-          callSource: 'qanda'
         }
         const answerReplies = allReplies[answer.replyId] || { replies: [] };
         const allDisplayedRepliesObj = answerReplies

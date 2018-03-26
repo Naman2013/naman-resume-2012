@@ -4,7 +4,8 @@ import moment from 'moment';
 import { likeReply } from '../../services/discussions/like';
 import Heart from '../common/heart/heart';
 import { avatarImgStyle } from './styles';
-
+import { black, darkBlueGray, white, turqoise } from '../../styles/variables/colors';
+import { secondaryFont } from '../../styles/variables/fonts';
 const {
   arrayOf,
   bool,
@@ -21,9 +22,10 @@ const ReplyListItem = ({
   likeParams,
 }) => (
   <div className="reply" key={reply.replyId}>
-    <div><div style={avatarImgStyle(reply.avatarURL)}></div>{reply.displayName}</div>
-    <div>{reply.content}</div>
-    <div>
+    <div><div style={avatarImgStyle(reply.avatarURL)} />
+    <span className="display-name">{reply.displayName}</span></div>
+    <div className="content" dangerouslySetInnerHTML={{ __html: reply.content }} />
+    <div className="action-item">
       <Heart
         likeAction={likeReply}
         theme="dark"
@@ -37,8 +39,34 @@ const ReplyListItem = ({
 
     <style jsx>{`
       .reply {
-        margin-left: 15px;
-        border: 1px solid black;
+        padding: 15px;
+        margin-left: 25px;
+      }
+
+      .content {
+        margin: 15px 0;
+        font-family: ${secondaryFont};
+        margin-left: 25px;
+      }
+
+      .display-name {
+        margin: 0 5px;
+        font-weight: bold;
+        text-transform: uppercase;
+        font-size: 10px;
+      }
+
+      .action-item {
+        margin-left: 25px;
+      }
+
+      .action-item :global(.heart-wrapper) {
+        display: inline-block;
+      }
+
+      .action-item :global(.likeText) {
+        font-size: 16px;
+        display: inline;
       }
     `}</style>
   </div>

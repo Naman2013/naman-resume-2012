@@ -6,6 +6,10 @@ import Heart from '../common/heart/heart';
 import AnswerReplyList from './answer-reply-list';
 
 import { avatarImgStyle } from './styles';
+import { black, darkBlueGray, white, turqoise } from '../../styles/variables/colors';
+import { secondaryFont } from '../../styles/variables/fonts';
+
+
 
 const {
   arrayOf,
@@ -36,9 +40,14 @@ const AnswerListItem = ({
   const avatarStyle = Object.assign(avatarImgStyle(answer.avatarURL), { height: '50px', width: '50px'});
   return (
     <div className="answer">
-      {isTopAnswer && <div>Top Answer</div>}
-      <div><div style={avatarStyle}></div>{answer.displayName}</div>
-      <div>{answer.content}</div>
+      {isTopAnswer && <div className="top-answer">Top Answer</div>}
+      <div>
+        <div style={avatarStyle} />
+        <span className="display-name">{answer.displayName}</span>
+      </div>
+      <div className="content">
+        <span dangerouslySetInnerHTML={{ __html: answer.content }} />
+      </div>
       <div>
         <span className="action-item">
           <Heart
@@ -69,20 +78,69 @@ const AnswerListItem = ({
           threadId={threadId}
           topicId={topicId}
         />}
-        {fetchingReplies && <div className="fa fa-spinner" />}
+        {fetchingReplies && <div className="fa fa-spinner loader" />}
 
       <style jsx>{`
         .answer {
-          margin-left: 15px;
-          border: 1px solid black;
+          padding: 15px;
+          margin-left: 25px;
+
         }
 
-        .action-item {
+        .answer:not(:last-child) {
+          border-bottom: 1px solid ${black};
+        }
+
+        .top-answer {
+          background-color: ${darkBlueGray};
+          padding: 5px 10px;
+          text-transform: uppercase;
+          font-weight: bold;
+          font-size: 10px;
+          color: ${white};
+          float: right;
+          margin-top: -15px;
+        }
+
+        .action-item,
+        .action-item a {
+          color: ${turqoise};
+          cursor: pointer;
+        }
+
+        .action-item :global(.heart-wrapper) {
+          display: inline-block;
+        }
+
+        .action-item :global(.likeText) {
+          font-size: 16px;
+          display: inline;
+        }
+        .action-item,
+        .display-name {
           margin: 0 5px;
         }
 
+        .display-name {
+          font-weight: bold;
+          text-transform: uppercase;
+          font-size: 10px;
+        }
+
         .action-item:first-child {
-          margin-left: 0px;
+          margin-left: 25px;
+        }
+
+        .content {
+          margin: 15px 0;
+          margin-left: 25px;
+          font-family: ${secondaryFont};
+        }
+
+        .loader {
+          display: block;
+          text-align: center;
+          font-size: 12px;
         }
 
       `}</style>

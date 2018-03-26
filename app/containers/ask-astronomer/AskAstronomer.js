@@ -145,7 +145,7 @@ class AskAstronomer extends Component {
     } = this.props;
     return (
       <div>
-        {fetchingQuestions && <div className="fa fa-spinner" />}
+        {fetchingQuestions && <div className="fa fa-spinner loader" />}
         {!fetchingQuestions && <QuestionList
           allAnswers={allAnswers}
           allDisplayedAnswers={allDisplayedAnswers}
@@ -158,6 +158,14 @@ class AskAstronomer extends Component {
           toggleAllAnswersAndDisplay={actions.toggleAllAnswersAndDisplay}
           totalCount={totalCount}
         />}
+        <style jsx>{`
+          .loader {
+            display: block;
+            text-align: center;
+            margin: 25px;
+            padding: 25px;
+          }
+        `}</style>
       </div>
     )
   }

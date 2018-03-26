@@ -19,7 +19,7 @@ const initialState = {
   page: 0,
   error: false,
   resultsCount: 0,
-  paginationCount: 2,
+  paginationCount: 5,
   allAnswers: {},
   allDisplayedAnswers: {},
 };

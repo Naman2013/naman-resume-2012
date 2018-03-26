@@ -11,7 +11,7 @@ const initialState = {
   fetching: false,
   page: 0,
   threadCount: 0,
-  count: 2,
+  count: 5,
   threadList: [],
 };
 

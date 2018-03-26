@@ -19,7 +19,7 @@ import {
 const initialState = {
   fetchingObj: {},
   error: false,
-  paginationCount: 2,
+  paginationCount: 5,
   resultsCount: 0,
   allReplies: {},
   allDisplayedReplies: {},
