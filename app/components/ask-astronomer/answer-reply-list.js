@@ -111,8 +111,21 @@ class AnswerReplyList extends Component {
     const showSubmitLoader = submitId === replyId;
     const showSubmitError = submitErrorId === replyId;
     const disableReplyButton = !!(submitId && submitId !== replyId);
+
     return <div key={uniqueId()}>
-      {displayedReplies.map(reply => <AnswerReplyListItem reply={reply} key={uniqueId()} />)}
+      {displayedReplies.map(reply => {
+        const likeParams = {
+          replyId: reply.replyId,
+          topicId,
+          objectId,
+          callSource: 'qanda'
+        }
+        return <AnswerReplyListItem
+          key={uniqueId()}
+          likeParams={likeParams}
+          reply={reply}
+        />
+      })}
       <ReplyForm
         avatarURL={user.avatarURL}
         disableButton={disableReplyButton}
