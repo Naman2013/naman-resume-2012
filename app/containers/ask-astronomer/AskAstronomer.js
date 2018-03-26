@@ -143,9 +143,6 @@ class AskAstronomer extends Component {
       count,
       page,
     } = this.props;
-    console.log('allAnswers', allAnswers, questions)
-    console.log('fetchingQuestions', fetchingQuestions)
-    console.log('fetchingAnswers', fetchingAnswers)
     return (
       <div>
         {fetchingQuestions && <div className="fa fa-spinner" />}

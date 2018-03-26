@@ -17,7 +17,6 @@ const initialState = {
 
 export default createReducer(initialState, {
   [FETCH_ASTRONOMER_QUESTIONS_START](state, { payload }) {
-    console.log('starting')
     const { appendToList } = payload;
     return {
       ...state,
@@ -26,7 +25,6 @@ export default createReducer(initialState, {
     };
   },
   [FETCH_ASTRONOMER_QUESTIONS_SUCCESS](state, { payload }) {
-    console.log('succeess!')
     const { threads, threadCount, page, appendToList } = payload;
     const threadList = appendToList ? [].concat(state.threadList, threads) : threads;
 

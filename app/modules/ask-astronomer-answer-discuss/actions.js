@@ -1,15 +1,16 @@
 import { getReplies } from '../../services/discussions/get-replies';
 import { submitReply } from '../../services/discussions/submit-reply';
 
+export const ASTRONOMER_REPLY_UPDATE_SUBMITTED = 'ASTRONOMER_REPLY_UPDATE_SUBMITTED';
+export const FETCH_ASTRONOMER_ANSWER_REPLIES_FAIL = 'FETCH_ASTRONOMER_ANSWER_REPLIES_FAIL';
 export const FETCH_ASTRONOMER_ANSWER_REPLIES_START = 'FETCH_ASTRONOMER_ANSWER_REPLIES_START';
 export const FETCH_ASTRONOMER_ANSWER_REPLIES_SUCCESS = 'FETCH_ASTRONOMER_ANSWER_REPLIES_SUCCESS';
-export const FETCH_ASTRONOMER_ANSWER_REPLIES_FAIL = 'FETCH_ASTRONOMER_ANSWER_REPLIES_FAIL';
-export const UPDATE_TOGGLE_ASK_ASTRONOMER_ANSWER_REPLIES_DISPLAY_LIST = 'UPDATE_TOGGLE_ASK_ASTRONOMER_ANSWER_REPLIES_DISPLAY_LIST';
-export const TOGGLE_ALL_ASK_ASTRONOMER_ANSWER_REPLIES = 'TOGGLE_ALL_ASK_ASTRONOMER_ANSWER_REPLIES';
-export const TOGGLE_ASK_ASTRONOMER_ANSWER_REPLIES = 'TOGGLE_ASK_ASTRONOMER_ANSWER_REPLIES';
+export const REPLY_TO_ASTRONOMER_ANSWER_FAIL = 'REPLY_TO_ASTRONOMER_ANSWER_FAIL';
 export const REPLY_TO_ASTRONOMER_ANSWER_START = 'REPLY_TO_ASTRONOMER_ANSWER_START';
 export const REPLY_TO_ASTRONOMER_ANSWER_SUCCESS = 'REPLY_TO_ASTRONOMER_ANSWER_SUCCESS';
-export const REPLY_TO_ASTRONOMER_ANSWER_FAIL = 'REPLY_TO_ASTRONOMER_ANSWER_FAIL';
+export const TOGGLE_ALL_ASK_ASTRONOMER_ANSWER_REPLIES = 'TOGGLE_ALL_ASK_ASTRONOMER_ANSWER_REPLIES';
+export const TOGGLE_ASK_ASTRONOMER_ANSWER_REPLIES = 'TOGGLE_ASK_ASTRONOMER_ANSWER_REPLIES';
+export const UPDATE_TOGGLE_ASK_ASTRONOMER_ANSWER_REPLIES_DISPLAY_LIST = 'UPDATE_TOGGLE_ASK_ASTRONOMER_ANSWER_REPLIES_DISPLAY_LIST';
 
 const fetchAstronomerAnswerRepliesStart = payload => ({
   type: FETCH_ASTRONOMER_ANSWER_REPLIES_START,
@@ -68,6 +69,10 @@ export const toggleAndDisplayReplies = payload => (dispatch, getState) => {
   dispatch(toggleAnswerReplies(payload));
 };
 
+const updatedSubmittedReply = payload => ({
+  type: ASTRONOMER_REPLY_UPDATE_SUBMITTED,
+  payload
+});
 const replyToAnswerStart = payload => ({
   type: REPLY_TO_ASTRONOMER_ANSWER_START,
   payload,
@@ -93,7 +98,7 @@ export const replyToAnswer = ({
   objectId,
 }) => (dispatch, getState) => {
   const { cid, at, token } = getState().user;
-
+  dispatch(replyToAnswerStart({ replyTo }))
   return submitReply({
     at,
     callSource: 'qanda',
@@ -107,8 +112,12 @@ export const replyToAnswer = ({
     topicId,
     ver,
   })
-  .then(result => dispatch(replyToAnswerSuccess(Object.assign({ replyTo, threadId }, result.data))))
-  .catch(error => dispatch(replyToAnswerFail(error)));
+  .then(result => {
+    dispatch(updatedSubmittedReply({ replyTo, submitted: true }));
+    setTimeout(() => dispatch(updatedSubmittedReply({ replyTo, submitted: false })), 3000)
+    return dispatch(replyToAnswerSuccess(Object.assign({ replyTo, threadId }, result.data)));
+  })
+  .catch(error => dispatch(replyToAnswerFail(Object.assign({ replyTo }, error))));
 };
 
 export const toggleAllAnswerReplies = payload => ({

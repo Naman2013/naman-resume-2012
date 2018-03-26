@@ -53,7 +53,7 @@ class AnswerList extends Component {
       replies: [],
       topAnswer: null,
     },
-    fetchingReplies: false,
+    fetchingReplies: {},
     displayedAnswers: [],
     threadId: null,
   }
@@ -71,7 +71,7 @@ class AnswerList extends Component {
       })),
       topAnswer: number,
     }), // answers only pertaining to a single question
-    fetchingReplies: bool,
+    fetchingReplies: shape({}),
     threadId: number,
     displayedAnswers: arrayOf(any),
     objectId: string.isRequired,

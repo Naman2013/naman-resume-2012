@@ -5,6 +5,7 @@ import { avatarImgStyle } from './styles';
 const {
   arrayOf,
   any,
+  bool,
   func,
   number,
   shape,
@@ -14,17 +15,21 @@ const {
 
 class ReplyForm extends Component {
   static defaultProps = {
-    user: {
-      avatarURL: ''
-    },
+    avatarURL: '',
+    disableButton: false,
+    submitted: false,
   }
   static propTypes = {
-    submitReply: func.isRequired,
+    avatarURL: string,
+    disableButton: bool,
     objectId: string.isRequired,
     replyId: number.isRequired,
+    showSubmitError: bool,
+    showSubmitLoader: bool,
+    submitReply: func.isRequired,
+    submitted: bool,
     threadId: number.isRequired,
     topicId: number.isRequired,
-    user: shape({}),
   }
 
   constructor(props) {
@@ -50,7 +55,6 @@ class ReplyForm extends Component {
       replyId,
       threadId,
       topicId,
-      user,
       submitReply,
     } = this.props;
     const { replyText } = this.state;
@@ -62,23 +66,38 @@ class ReplyForm extends Component {
       threadId,
       topicId,
     });
+
   }
 
   render() {
-    const { user } = this.props;
-    const { replyText } = this.state;
-
+    const {
+      avatarURL,
+      disableButton,
+      showSubmitError,
+      showSubmitLoader,
+      submitted,
+    } = this.props;
+    const {
+      replyText,
+    } = this.state;
     return (
       <div className="reply-form-container">
-        <div style={avatarImgStyle(user.avatarURL)}></div>
-        <form className="reply-form">
+        <div style={avatarImgStyle(avatarURL)}></div>
+        {showSubmitLoader && <div className="fa fa-spinner" />}
+        {submitted && <span className="fa fa-check" /> }
+        {!showSubmitLoader && !submitted && <form className="reply-form">
           <textarea
             onChange={this.handleOnTextChange}
             placeholder="Write a reply"
             value={replyText}
           ></textarea>
-          <button onClick={this.submitForm}>Reply</button>
-        </form>
+          {!disableButton && <button
+            onClick={this.submitForm}
+            disable={disableButton.toString()}
+          >
+            Reply
+          </button>}
+        </form>}
         <style jsx>{`
           .reply-form-container {
             margin-left: 15px;

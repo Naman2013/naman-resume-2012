@@ -24,7 +24,9 @@ const mapStateToProps = ({
   user,
 }) => ({
   paginationCount: astronomerDiscuss.paginationCount,
-  submittingReplies: astronomerDiscuss.submitting,
+  submitId: astronomerDiscuss.submitId,
+  submitErrorId: astronomerDiscuss.submitErrorId,
+  repliesSubmitted: astronomerDiscuss.submitted,
   user,
 });
 
@@ -43,6 +45,9 @@ class AnswerReplyList extends Component {
     displayedReplies: [],
     showAllReplies: false,
     threadId: null,
+    submitId: 0,
+    submitErrorId: 0,
+    repliesSubmitted: {},
   }
 
   static propTypes = {
@@ -60,10 +65,13 @@ class AnswerReplyList extends Component {
     threadId: number,
     showAllReplies: bool,
     displayedReplies: arrayOf(any),
+    submitId: number,
+    submitErrorId: number,
     objectId: string.isRequired,
     replyId: number.isRequired,
     threadId: number.isRequired,
     topicId: number.isRequired,
+    repliesSubmitted: shape({})
   }
 
   constructor(props) {
@@ -91,22 +99,32 @@ class AnswerReplyList extends Component {
       objectId,
       paginationCount,
       replyId,
+      repliesSubmitted,
       showAllReplies,
+      submitId,
+      submitErrorId,
       threadId,
       topicId,
       user,
     } = this.props;
     const count = showAllReplies ? paginationCount: 1;
+    const showSubmitLoader = submitId === replyId;
+    const showSubmitError = submitErrorId === replyId;
+    const disableReplyButton = !!(submitId && submitId !== replyId);
     return <div key={uniqueId()}>
       {displayedReplies.map(reply => <AnswerReplyListItem reply={reply} key={uniqueId()} />)}
       <ReplyForm
+        avatarURL={user.avatarURL}
+        disableButton={disableReplyButton}
         key={uniqueId()}
         objectId={objectId}
         replyId={replyId}
+        showSubmitError={showSubmitError}
+        showSubmitLoader={showSubmitLoader}
+        submitReply={actions.replyToAnswer}
+        submitted={repliesSubmitted[replyId]}
         threadId={threadId}
         topicId={topicId}
-        user={user}
-        submitReply={actions.replyToAnswer}
       />
       {showAllReplies && displayedReplies.length > 0 && <PaginateSet
         handlePageChange={this.handlePageChange}

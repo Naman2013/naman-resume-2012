@@ -3,6 +3,7 @@ import take from 'lodash/take';
 import createReducer from '../utils/createReducer';
 
 import {
+  ASTRONOMER_REPLY_UPDATE_SUBMITTED,
   FETCH_ASTRONOMER_ANSWER_REPLIES_FAIL,
   FETCH_ASTRONOMER_ANSWER_REPLIES_START,
   FETCH_ASTRONOMER_ANSWER_REPLIES_SUCCESS,
@@ -22,8 +23,9 @@ const initialState = {
   resultsCount: 0,
   allReplies: {},
   allDisplayedReplies: {},
-  submitting: false,
-  submitError: false,
+  submitId: 0,
+  submitErrorId: 0,
+  submitted: {},
 };
 
 export default createReducer(initialState, {
@@ -94,11 +96,11 @@ export default createReducer(initialState, {
     };
   },
   [REPLY_TO_ASTRONOMER_ANSWER_START](state, { payload }) {
-
+    const { replyTo } = payload;
     return {
       ...state,
-      submitting: true,
-      submitError: false,
+      submitId: replyTo,
+      submitErrorId: 0,
     };
   },
   [REPLY_TO_ASTRONOMER_ANSWER_SUCCESS](state, { payload }) {
@@ -115,17 +117,26 @@ export default createReducer(initialState, {
 
     return {
       ...state,
-      submitting: false,
+      submitId: 0,
       allReplies: newAllReplies,
       allDisplayedAnswers: newAllDisplayedAnswers,
     };
   },
   [REPLY_TO_ASTRONOMER_ANSWER_FAIL](state, { payload }) {
-
+    const { replyTo } = payload;
     return {
       ...state,
-      submitting: false,
-      submitError: true,
+      submitId: 0,
+      submitErrorId: replyTo,
+    };
+  },
+  [ASTRONOMER_REPLY_UPDATE_SUBMITTED](state, { payload }) {
+    const { submitted, replyTo } = payload;
+    const newSubmitted = cloneDeep(submitted);
+    newSubmitted[replyTo] = submitted;
+    return {
+      ...state,
+      submitted: newSubmitted,
     };
   },
 });
