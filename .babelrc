@@ -1,13 +1,13 @@
 {
   "plugins": [
-    "styled-jsx/babel",
+    ["styled-jsx/babel", { "optimizeForSpeed": true }],
     "transform-decorators-legacy",
     "transform-object-rest-spread",
     "transform-class-properties",
     "transform-function-bind",
     ["module-resolver", {
-      "root": ["./app"],
-    }],
+      "root": ["./app"]
+    }]
   ],
   "presets": ["env", "react"]
 }

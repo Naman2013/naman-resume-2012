@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PageMetaManagement from '../components/PageMetaManagement';
-import Menu from './Menu';
 
 import GlobalNavigation from '../components/GlobalNavigation';
 
