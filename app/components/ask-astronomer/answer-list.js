@@ -111,6 +111,12 @@ class AnswerList extends Component {
     const count = showAllAnswers ? paginationCount: 1;
     return <div key={threadId}>
       {displayedAnswers.map(answer => {
+        const likeParams = {
+          replyId: answer.replyId,
+          topicId,
+          objectId,
+          callSource: 'qanda'
+        }
         const answerReplies = allReplies[answer.replyId] || { replies: [] };
         const allDisplayedRepliesObj = answerReplies
           .replies
@@ -122,6 +128,7 @@ class AnswerList extends Component {
           fetchingReplies={fetchingReplies[answer.replyId]}
           isTopAnswer={answers.topAnswer && answer.replyId === answers.topAnswer}
           key={answer.replyId}
+          likeParams={likeParams}
           objectId={objectId}
           showReplies={answer.showReplies}
           showAllReplies={answer.showAllReplies}

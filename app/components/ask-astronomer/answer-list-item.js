@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+import { likeReply } from '../../services/discussions/like';
+import Heart from '../common/heart/heart';
 import AnswerReplyList from './answer-reply-list';
 
 import { avatarImgStyle } from './styles';
@@ -20,6 +22,7 @@ const AnswerListItem = ({
   displayedReplies,
   fetchingReplies,
   isTopAnswer,
+  likeParams,
   objectId,
   showAllAnswers,
   showAllReplies,
@@ -37,7 +40,17 @@ const AnswerListItem = ({
       <div><div style={avatarStyle}></div>{answer.displayName}</div>
       <div>{answer.content}</div>
       <div>
-        <span className="action-item">Like ({answer.likesCount})</span>
+        <span className="action-item">
+          <Heart
+            likeAction={likeReply}
+            theme="dark"
+            count={answer.likesCount}
+            authorId={answer.customerId}
+            showLikePrompt={answer.showLikePrompt}
+            likePrompt={answer.likePrompt}
+            params={likeParams}
+            />
+        </span>
         <span className="action-item"><a onClick={toggleAnswerReplies}>Discuss ({answer.replyCount})</a></span>
         {!showAllReplies && showReplies && <span className="action-item"><a onClick={toggleAllAnswerReplies}>View All Discussions</a></span>}
         {!showAllAnswers && <span className="action-item"><a onClick={toggleAnswers}>View All Answers to This Question</a></span>}

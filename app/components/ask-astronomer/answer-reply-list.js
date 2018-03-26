@@ -119,7 +119,7 @@ class AnswerReplyList extends Component {
           topicId,
           objectId,
           callSource: 'qanda'
-        }
+        };
         return <AnswerReplyListItem
           key={uniqueId()}
           likeParams={likeParams}
