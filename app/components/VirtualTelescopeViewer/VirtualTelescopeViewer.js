@@ -250,7 +250,6 @@ class VirtualTelescopeView extends Component {
           :global(.virtual-telescope-view-content-container .top-image) {
             position: absolute;
             top: 0;
-            width: 100%;
           }
 
           .virtual-telescope-view-content-container {
