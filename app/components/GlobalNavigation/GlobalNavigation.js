@@ -61,25 +61,7 @@ class GlobalNavigation extends Component {
           />
         </div>
 
-        <Menu
-          title={leftMenuContent.title}
-          handleClose={this.closeAll}
-          position="left"
-          isOpen={isLeftOpen}
-          render={props => (
-            leftMenuContent.render(props)
-          )}
-        />
 
-        <Menu
-          title={rightMenuContent.title}
-          handleClose={this.closeAll}
-          position="right"
-          isOpen={isRightOpen}
-          render={props => (
-            rightMenuContent.render(props)
-          )}
-        />
 
         <style jsx>{`
           .root {

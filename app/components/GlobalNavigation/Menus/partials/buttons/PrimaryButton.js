@@ -29,7 +29,8 @@ const PrimaryButton = ({ text, anchor }) => (
       .primary-button :global(.action:hover) {
         color: ${pink};
       }
-    `}</style>
+    `}
+    </style>
   </div>
 );
 

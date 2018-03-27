@@ -24,7 +24,8 @@ const SecondaryButton = ({ anchor, text }) => (
       .secondary-button :global(.action:hover) {
         color: ${pink};
       }
-    `}</style>
+    `}
+    </style>
   </div>
 );
 
