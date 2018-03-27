@@ -17,7 +17,7 @@ import {
   toggleAllAnswersAndDisplay,
 } from '../../modules/ask-astronomer-answers/actions';
 import QuestionList from '../../components/ask-astronomer/question-list';
-
+import AskAstronomerQuestionForm from '../../components/ask-astronomer/question-form';
 const {
   bool,
   func,
@@ -114,7 +114,6 @@ class AskAstronomer extends Component {
   }
 
   handlePageChange = (page) => {
-    debugger;
     const {
       actions,
       objectData: {
@@ -138,13 +137,18 @@ class AskAstronomer extends Component {
       params: {
         objectId,
       },
+      objectData: {
+        faqTopicId,
+        objectTitle,
+      },
       questions,
       totalCount,
       count,
       page,
+      user,
     } = this.props;
     return (
-      <div>
+      <div className="ask-astronomer">
         {fetchingQuestions && <div className="fa fa-spinner loader" />}
         {!fetchingQuestions && <QuestionList
           allAnswers={allAnswers}
@@ -158,7 +162,17 @@ class AskAstronomer extends Component {
           toggleAllAnswersAndDisplay={actions.toggleAllAnswersAndDisplay}
           totalCount={totalCount}
         />}
+        <AskAstronomerQuestionForm
+          objectId={objectId}
+          topicId={faqTopicId}
+          objectTitle={objectTitle}
+          user={user}
+        />
         <style jsx>{`
+          .ask-astronomer {
+            display: flex;
+            flex-direction: row;
+          }
           .loader {
             display: block;
             text-align: center;

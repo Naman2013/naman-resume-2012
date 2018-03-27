@@ -55,7 +55,6 @@ const QuestionListItem = ({
           border: 1px solid ${black};
           margin: 10px;
           padding: 15px;
-          width: 65%;
         }
         .question-details {
           display: flex;

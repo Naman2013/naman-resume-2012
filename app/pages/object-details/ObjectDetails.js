@@ -99,13 +99,23 @@ class ObjectDetails extends Component {
       params: {
         objectId,
       },
+      objectData: {
+        objectTitle,
+      },
       children
     } = this.props;
 
     return (
       <div>
+        <header className="header">{objectTitle}</header>
         <Navigation objectId={objectId} />
         {cloneElement(children)}
+        <style jsx>{`
+          .header {
+            height: 200px;
+            width: 100%;
+          }
+        `}</style>
       </div>
     )
   }
