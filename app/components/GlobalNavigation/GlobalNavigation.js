@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import TopBar from './TopBar';
 import Menu from './Menu';
 import MENU_INTERFACE, {
@@ -6,7 +8,16 @@ import MENU_INTERFACE, {
   isRight,
 } from './Menus/MenuInterface';
 
+const mapStateToProps = ({ routing: { locationBeforeTransitions: { key } } }) => ({
+  routeKey: key,
+});
+
+@connect(mapStateToProps, null)
 class GlobalNavigation extends Component {
+  static propTypes = {
+    routeKey: PropTypes.string.isRequired,
+  };
+
   state = {
     isLeftOpen: false,
     isRightOpen: false,
@@ -14,6 +25,12 @@ class GlobalNavigation extends Component {
     activeLeft: MENU_INTERFACE.DEFAULT.name,
     activeRight: MENU_INTERFACE.DEFAULT.name,
   };
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.routeKey !== this.props.routeKey) {
+      this.closeAll();
+    }
+  }
 
   closeAll = () => {
     this.setState({
