@@ -34,7 +34,7 @@ module.exports = {
             'transform-object-rest-spread',
             'transform-decorators-legacy',
             'transform-class-properties',
-            'transform-function-bind'
+            'transform-function-bind',
           ],
           presets: ['env', 'react'],
         },
