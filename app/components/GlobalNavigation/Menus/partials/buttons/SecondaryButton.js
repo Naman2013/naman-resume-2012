@@ -5,7 +5,7 @@ import { primaryFont } from '../../../../../styles/variables/fonts';
 
 const SecondaryButton = ({ anchor, text }) => (
   <div className="secondary-button">
-    <Link to={anchor}>{text}</Link>
+    <Link className="action" to={anchor}>{text}</Link>
     <style jsx>{`
       .secondary-button {
         font-size: 10px;

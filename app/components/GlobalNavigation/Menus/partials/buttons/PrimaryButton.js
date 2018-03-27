@@ -6,7 +6,7 @@ import { primaryFont } from 'styles/variables/fonts';
 const PrimaryButton = ({ text, anchor }) => (
   <div className="primary-button">
     <span className="fa fa-circle" />
-    <Link to={anchor}>{text}</Link>
+    <Link className="action" to={anchor}>{text}</Link>
     <style jsx>{`
       .primary-button {
         font-family: ${primaryFont};
