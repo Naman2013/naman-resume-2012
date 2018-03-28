@@ -132,7 +132,7 @@ export default createReducer(initialState, {
   },
   [ASTRONOMER_REPLY_UPDATE_SUBMITTED](state, { payload }) {
     const { submitted, replyTo } = payload;
-    const newSubmitted = cloneDeep(submitted);
+    const newSubmitted = cloneDeep(state.submitted);
     newSubmitted[replyTo] = submitted;
     return {
       ...state,

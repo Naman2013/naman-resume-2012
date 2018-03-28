@@ -84,7 +84,7 @@ class ReplyForm extends Component {
     return (
       <div className="reply-form-container">
         {showSubmitLoader && <div className="fa fa-spinner loader" />}
-        {submitted && <span className="fa fa-check" /> }
+        {submitted && <span className="fa fa-check loader" /> }
         {!showSubmitLoader && !submitted && <form className="reply-form">
           <div>
             <div style={avatarImgStyle(avatarURL)}></div>

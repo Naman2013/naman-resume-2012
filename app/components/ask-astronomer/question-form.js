@@ -84,6 +84,7 @@ class AskAstronomerQuestionForm extends Component {
         this.setState({
           showPopup: true,
           modalDescription: successMessage,
+          questionText: '',
         });
       } else {
         this.setState({
@@ -119,13 +120,14 @@ class AskAstronomerQuestionForm extends Component {
           <div className="avatars"></div>
           <div>{`We've got a community of experts on Slooh to help you learn about space. Have a question about ${objectTitle}? Ask an Astronomer today!`}</div>
           <textarea
+            className="question-input"
             onChange={this.onTextChange}
             maxLength={100}
             value={questionText}
           ></textarea>
-          <div>{questionText.length}/100</div>
+          <div className="flex-right">{questionText.length}/100</div>
           <ImageUploadForm />
-          <div className="button-container">
+          <div className="flex-right">
             <button type="button" className="question-button" onClick={this.submitForm}>Submit Your Question</button>
           </div>
         </form>
@@ -138,13 +140,21 @@ class AskAstronomerQuestionForm extends Component {
           .header {
             font-weight: bold;
           }
-          .button-container {
+          .flex-right {
             display: flex;
             justify-content: flex-end;
           }
           .form {
             padding: 15px;
             border: 1px solid ${black};
+          }
+          .question-input {
+            border-width: 1px;
+            height: 75px;
+            width: 325px;
+            padding: 15px;
+            vertical-align: top;
+            margin: 10px;
           }
           .question-button {
             display: block;
