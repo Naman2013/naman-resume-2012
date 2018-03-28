@@ -10,11 +10,18 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
-const Group = ({  }) => (
+const propTypes = {
+  children: PropTypes.node.isRequired,
+};
+
+const Group = ({ children }) => (
   <g>
-
+    {children}
   </g>
 );
+
+Group.propTypes = propTypes;
 
 export default Group;
