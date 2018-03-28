@@ -4,6 +4,8 @@ const DEFAULT_LANG = 'en';
 const DEFAULT_STATUS = 'live';
 const DEFAULT_LIST_TYPE = 'full';
 
+export const OBSERVATORY_LIST_ENDPOINT = '/api/obs/list';
+
 export default function fetchObservatoryList({
   at,
   cid,

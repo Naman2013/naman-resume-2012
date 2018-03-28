@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { lightTurqoise, black } from '../../../styles/variables/colors';
-import { sloohHeaders } from '../../../styles/variables/fonts';
+import { lightTurqoise, black } from 'styles/variables/colors';
+import { primaryFont } from 'styles/variables/fonts';
 
 const SectionHeader = ({ title, subtitle }) => (
   <div className="root">
@@ -13,7 +13,7 @@ const SectionHeader = ({ title, subtitle }) => (
 
     <style jsx>{`
         .root {
-          font-family: ${sloohHeaders};
+          font-family: ${primaryFont};
           background-color: ${black};
           text-align: center;
           padding: 10px 0;
@@ -24,7 +24,8 @@ const SectionHeader = ({ title, subtitle }) => (
           text-transform: none;
           font-size: 24px;
         }
-    `}</style>
+    `}
+    </style>
   </div>
 );
 

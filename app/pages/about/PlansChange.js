@@ -308,18 +308,6 @@ class PlansChange extends Component {
             cursor: pointer;
           }
 
-          #plan-welcome-subtitle {
-
-          }
-
-          #plan-welcome-head{
-
-          }
-
-          #plan-welcome-blurb {
-
-          }
-
           .bg-div-pic {
             background: url(https://vega.slooh.com/assets/images/photos/stellar.jpg) no-repeat center center fixed;
             -webkit-background-size: cover;

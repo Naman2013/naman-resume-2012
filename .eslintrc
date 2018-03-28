@@ -2,21 +2,15 @@
   "extends": "airbnb",
   "parser": "babel-eslint",
   "rules": {
-    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
   },
   "globals": {
     "test": true,
     "it": true,
     "expect": true,
     "window": true,
-    "EventSource": "true",
-    "describe": "true",
-    "body": "true"
-  },
-  "eslintConfig": {
-    "env": {
-      "browser": true,
-      "node": true
-    }
+    "EventSource": true,
+    "describe": true,
+    "body": true
   }
 }

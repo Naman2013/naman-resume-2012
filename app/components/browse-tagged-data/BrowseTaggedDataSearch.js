@@ -25,10 +25,6 @@ const mapDispatchToProps = dispatch => ({
 
 @connect(mapStateToProps, mapDispatchToProps)
 class BrowseTaggedDataSearch extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   state = {
     topNavSearchTerm: '',
     topNavSearchEnabled: false,
@@ -39,12 +35,14 @@ class BrowseTaggedDataSearch extends Component {
     parentNodeID: null,
   };
 
-  componentDidMount() {
-
-  }
+  componentDidMount() {}
 
   componentWillReceiveProps(nextProps) {
-    //console.log(nextProps.browseTaggedData);
+    const { isOpen } = nextProps;
+
+    if (!isOpen) {
+      this.doTearDown();
+    }
 
     /* do a deep comparision on the next data coming in to see if it's different. */
     var equal = require('deep-equal');
@@ -58,6 +56,14 @@ class BrowseTaggedDataSearch extends Component {
         renderTaggedData: nextProps.browseTaggedData,
       });
     }
+  }
+
+  componentWillUnmount() {
+    this.doTearDown();
+  }
+
+  doTearDown() {
+    this.endSearch();
   }
 
   handleFieldChange(searchData) {
@@ -220,7 +226,7 @@ class BrowseTaggedDataSearch extends Component {
 
         **************************************************************************************/
 
-        return(
+        return (
           <div className="search-results-set">
             {Object.keys(browseTaggedData.taggedData).length === 0 && Object.keys(renderTaggedData.taggedData).length === 0 && <p>Loading....</p>}
             {Object.keys(browseTaggedData.taggedData).length > 0 && Object.keys(renderTaggedData.taggedData).length === 0 && <h1 className="search-results-noresultsfoundtext">No results found for: {topNavSearchTerm}.</h1>}
@@ -377,14 +383,12 @@ class BrowseTaggedDataSearch extends Component {
             }
             </div>
           }
-
-
         </div>
       )
     }
 
     render() {
-      const { browseTaggedData } = this.props;
+      const { browseTaggedData, isOpen } = this.props;
       const { topNavSearchTerm, topNavSearchEnabled, renderTaggedData } = this.state;
 
       //console.log('Rendering...');
@@ -399,7 +403,8 @@ class BrowseTaggedDataSearch extends Component {
             onChange={(event) => { this.handleFieldChange({ value: event.target.value }); }}
             type="text"
             className="search-input-field"
-            value={topNavSearchTerm} />
+            value={topNavSearchTerm}
+          />
 
           {topNavSearchEnabled == true && <div className="search-results-container">
               <h1 className="search-results-headertext">Browse / Search Results:</h1>

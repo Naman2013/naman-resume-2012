@@ -116,7 +116,6 @@ class SharedPictures extends Component {
         </div>}
 
         <style jsx>{`
-
           .shared-container {
             padding: 25px 50px;
             background-color: #2d3949;
@@ -137,7 +136,10 @@ class SharedPictures extends Component {
             padding: 50px;
             text-align: center;
           }
+
           .shared-slider-container {
+            position: relative;
+            z-index: 999;
             min-height: 400px;
             padding-bottom: 20px;
           }

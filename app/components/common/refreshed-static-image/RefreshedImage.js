@@ -106,7 +106,8 @@ export default class RefreshedImage extends Component {
           img {
             height: auto;
           }
-        `}</style>
+        `}
+        </style>
       </div>
     );
   }

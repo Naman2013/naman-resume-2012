@@ -2,34 +2,68 @@
   uses render props
   calls an API when mounted
   expects the API to return an expiration time and server timestamp
+  this also auto-reads the user information the API's need
   when expiration occurs will refetch from the API
 */
 
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import compact from 'lodash/compact';
 import PropTypes from 'prop-types';
 import isMatch from 'lodash/isMatch';
 import axios from 'axios';
 
-const CancelToken = axios.CancelToken;
+const { CancelToken } = axios;
 
 const POST = 'POST';
 const GET = 'GET';
 
-class Expires extends Component {
+const mapStateToProps = ({ user }) => ({
+  user,
+});
+
+@connect(mapStateToProps, null)
+class Request extends Component {
   static propTypes = {
+    // provided by client
     serviceURL: PropTypes.string.isRequired,
     render: PropTypes.func.isRequired,
-    protocol: PropTypes.string,
+    serviceExpiresFieldName: PropTypes.string,
+    method: PropTypes.string,
+    model: PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      model: PropTypes.func.isRequired,
+    }),
+    models: PropTypes.arrayOf(PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      model: PropTypes.func.isRequired,
+    })),
     requestBody: PropTypes.any, // any set due to disambiguity of the request
+
+    // provided by global state
+    user: PropTypes.shape({
+      cid: PropTypes.string,
+      token: PropTypes.string,
+      at: PropTypes.string,
+    }),
   };
 
   static defaultProps = {
-    protocol: POST,
+    user: {
+      cid: '',
+      token: '',
+      at: '',
+    },
+    model: null,
+    models: [],
+    method: POST,
+    serviceExpiresFieldName: 'expires',
   };
 
   state = {
     serviceResponse: {},
-    fetchingContent: false,
+    modeledResponses: {},
+    fetchingContent: true,
   };
 
   componentDidMount() {
@@ -50,13 +84,33 @@ class Expires extends Component {
   source = undefined;
 
   handleServiceResponse(result) {
-    if (result.expires) {
-      this.configureTimer({ expires: result.expires, timestamp: result.timestamp });
+    const {
+      serviceExpiresFieldName,
+      model,
+      models,
+    } = this.props;
+
+    const consolidatedModels = compact([model, ...models]);
+    let modeledResponses = {};
+
+    if (result[serviceExpiresFieldName]) {
+      this.configureTimer({
+        expires: result[serviceExpiresFieldName],
+        timestamp: result.timestamp
+      });
     }
+
+    // build the models defined by the client
+    consolidatedModels.forEach((_model) => {
+      modeledResponses = Object.assign({}, modeledResponses, {
+        [_model.name]: _model.model(result),
+      });
+    });
 
     this.setState(() => ({
       fetchingContent: false,
       serviceResponse: result,
+      modeledResponses,
     }));
   }
 
@@ -78,25 +132,29 @@ class Expires extends Component {
   }
 
   fetchServiceContent(nextRequestBody) {
-    const { serviceURL, protocol, requestBody } = this.props;
+    const {
+      serviceURL,
+      method,
+      requestBody,
+      user,
+    } = this.props;
     this.tearDown();
     this.setState({ fetchingContent: true, serviceResponse: {} });
     this.source = CancelToken.source();
 
     const validatedRequestBody = nextRequestBody || requestBody;
 
-    if (protocol === POST) {
+    if (method === POST) {
       axios.post(serviceURL, Object.assign({
         cancelToken: this.source.token,
-      }, validatedRequestBody))
+      }, validatedRequestBody, { ...user }))
         .then(result => this.handleServiceResponse(result.data));
     }
 
-    if (protocol === GET) {
+    if (method === GET) {
       axios.get(serviceURL, {
         params: Object.assign({}, validatedRequestBody),
-      })
-      .then(result => this.handleServiceResponse(result.data));
+      }).then(result => this.handleServiceResponse(result.data));
     }
   }
 
@@ -111,4 +169,4 @@ class Expires extends Component {
   }
 }
 
-export default Expires;
+export default Request;
