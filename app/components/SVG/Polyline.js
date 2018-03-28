@@ -26,8 +26,18 @@ const defaultProps = {
   strokeWidth: '1',
 };
 
-const Polyline = ({ fill, stroke, strokeWidth, points }) => (
-  <polyline fill={fill} strokeWidth={strokeWidth} stroke={stroke} points={points} />
+const Polyline = ({
+  fill,
+  stroke,
+  strokeWidth,
+  points,
+}) => (
+  <polyline
+    fill={fill}
+    strokeWidth={strokeWidth}
+    stroke={stroke}
+    points={points}
+  />
 );
 
 Polyline.propTypes = propTypes;
