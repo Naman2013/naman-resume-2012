@@ -149,35 +149,48 @@ class AskAstronomer extends Component {
     } = this.props;
     return (
       <div className="ask-astronomer">
-        {fetchingQuestions && <div className="fa fa-spinner loader" />}
-        {!fetchingQuestions && <QuestionList
-          allAnswers={allAnswers}
-          allDisplayedAnswers={allDisplayedAnswers}
-          count={count}
-          fetchingAnswers={fetchingAnswers}
-          handlePageChange={this.handlePageChange}
-          objectId={objectId}
-          page={page}
-          questions={questions}
-          toggleAllAnswersAndDisplay={actions.toggleAllAnswersAndDisplay}
-          totalCount={totalCount}
-        />}
-        <AskAstronomerQuestionForm
-          objectId={objectId}
-          topicId={faqTopicId}
-          objectTitle={objectTitle}
-          user={user}
-        />
+        <div className="left">
+          {fetchingQuestions && <div className="fa fa-spinner loader" />}
+          {!fetchingQuestions && <QuestionList
+            allAnswers={allAnswers}
+            allDisplayedAnswers={allDisplayedAnswers}
+            count={count}
+            fetchingAnswers={fetchingAnswers}
+            handlePageChange={this.handlePageChange}
+            objectId={objectId}
+            page={page}
+            questions={questions}
+            toggleAllAnswersAndDisplay={actions.toggleAllAnswersAndDisplay}
+            totalCount={totalCount}
+          />}
+        </div>
+        <div className="right">
+          <AskAstronomerQuestionForm
+            objectId={objectId}
+            topicId={faqTopicId}
+            objectTitle={objectTitle}
+            user={user}
+          />
+        </div>
         <style jsx>{`
           .ask-astronomer {
             display: flex;
             flex-direction: row;
+            padding: 10px 25px;
           }
           .loader {
             display: block;
             text-align: center;
             margin: 25px;
             padding: 25px;
+          }
+
+          .left {
+            flex: 3;
+          }
+
+          .right {
+            flex: 1;
           }
         `}</style>
       </div>

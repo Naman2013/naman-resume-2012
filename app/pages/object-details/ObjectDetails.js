@@ -17,6 +17,10 @@ import {
   fetchObjectQuestsAction,
 } from '../../modules/object-details/actions';
 import Navigation from '../../components/object-details/Navigation';
+import {
+  darkBlueGray,
+  white,
+} from '../../styles/variables/colors';
 
 const mapStateToProps = ({ objectDetails, appConfig, user }) => ({
   objectMissions: objectDetails.objectMissions,
@@ -114,6 +118,11 @@ class ObjectDetails extends Component {
           .header {
             height: 200px;
             width: 100%;
+            background-color: ${darkBlueGray};
+            color: ${white};
+            text-align: center;
+            padding: 5%;
+            font-size: 45px;
           }
         `}</style>
       </div>

@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import { Link } from 'react-router';
-
+import ImageUploadForm from './image-upload-form';
 import ModalGeneric from '../common/modals/modal-generic';
 import { createThread } from '../../services/discussions/create-thread';
 import { avatarImgStyle } from './styles';
@@ -18,11 +17,23 @@ const {
   string,
 } = PropTypes;
 
-const successMessage = (<div>
+const successMessage = (<div className="container">
   <div className="title">Success!</div>
   <div className="subtitle">Your question has been submitted for review.</div>
   <p>We’ll send you an alert when your Question has been answered by one or more of our Astronomers.</p>
   <p>You can also find all of your recently answered questions in your “You’ve Got Answers” section on your Profile page.</p>
+  <style jsx>{`
+    .container {
+      text-align: left;
+      width: 100%;
+    }
+    .title {
+      font-weight: bold;
+    }
+    .subtitle {
+      font-weight: bold;
+    }
+  `}</style>
 </div>);
 
 class AskAstronomerQuestionForm extends Component {
@@ -69,7 +80,6 @@ class AskAstronomerQuestionForm extends Component {
       forumId,
     }).then((res) => {
 
-      console.log('res', res);
       if (!res.data.apiError) {
         this.setState({
           showPopup: true,
@@ -101,11 +111,11 @@ class AskAstronomerQuestionForm extends Component {
     // const avatarStyle = Object.assign(avatarImgStyle(), { height: '50px', width: '50px'});
     return (
       <div>
-        <div>
-          <span>{`Don't see an answer?`}</span>
-          <span>Ask an Astronomer</span>
+        <div className="header">
+          <h4>{`Don't see an answer?`}</h4>
+          <h3>Ask an Astronomer</h3>
         </div>
-        <form>
+        <form className="form">
           <div className="avatars"></div>
           <div>{`We've got a community of experts on Slooh to help you learn about space. Have a question about ${objectTitle}? Ask an Astronomer today!`}</div>
           <textarea
@@ -114,11 +124,10 @@ class AskAstronomerQuestionForm extends Component {
             value={questionText}
           ></textarea>
           <div>{questionText.length}/100</div>
-          <div className="image-upload">
-            <input type="file" />
-            <span><Link to="/help/posting-guidelines">Guidelines</Link></span>
+          <ImageUploadForm />
+          <div className="button-container">
+            <button type="button" className="question-button" onClick={this.submitForm}>Submit Your Question</button>
           </div>
-          <button type="button" onClick={this.submitForm}>Submit Your Question</button>
         </form>
         <ModalGeneric
           open={showPopup}
@@ -126,9 +135,28 @@ class AskAstronomerQuestionForm extends Component {
           description={modalDescription}
         />
         <style jsx>{`
-          .image-upload {
-            border-top: 1px solid ${black};
-            border-bottom: 1px solid ${black};
+          .header {
+            font-weight: bold;
+          }
+          .button-container {
+            display: flex;
+            justify-content: flex-end;
+          }
+          .form {
+            padding: 15px;
+            border: 1px solid ${black};
+          }
+          .question-button {
+            display: block;
+            width: 100px;
+            background-color: ${darkBlueGray};
+            padding: 5px 10px;
+            text-transform: uppercase;
+            font-weight: bold;
+            font-size: 10px;
+            color: ${white};
+            margin-top: 10px;
+          }
         `}</style>
       </div>
     )
