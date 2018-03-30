@@ -9,6 +9,9 @@ import authorContent from './author-content/reducer';
 import adStats from './ad-management/ad-stats';
 import announcementBanner from './Announcement-Banner';
 import appConfig from './app-config/reducer';
+import astronomerQuestions from './ask-astronomer-questions/reducer';
+import astronomerAnswers from './ask-astronomer-answers/reducer';
+import astronomerDiscuss from './ask-astronomer-answer-discuss/reducer';
 import authorization from './authorization/reducer';
 import avatar from './avatar/reducer';
 import bestPosts from './best-of-slooh/get-best-reducer';
@@ -79,6 +82,9 @@ export default combineReducers({
   adStats,
   announcementBanner,
   appConfig,
+  astronomerQuestions,
+  astronomerAnswers,
+  astronomerDiscuss,
   audioPlayer,
   authorization,
   authorContent,

@@ -35,6 +35,9 @@ export function likeReply({
   forumId,
   topicId,
   membershipType,
+  objectId,
+  replyType,
+  callSource,
 }) {
   return axios.post('/api/forum/likeReply', {
     at,
@@ -45,6 +48,9 @@ export function likeReply({
     forumId,
     topicId,
     membershipType,
+    objectId,
+    replyType,
+    callSource,
   });
 }
 
