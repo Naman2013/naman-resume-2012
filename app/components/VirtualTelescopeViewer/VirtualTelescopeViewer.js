@@ -60,6 +60,7 @@ const defaultProps = {
   handleZoomOut: noop,
   activeZoomLevel: 0,
   zoomRange: 0,
+  showInfoButton: false,
   subjectScale: 1,
 
   timestamp: 0,
@@ -85,7 +86,6 @@ class VirtualTelescopeView extends Component {
       y: 0,
     },
     viewerControlInterfaceOpacity: 1,
-    zoomLevel: 0,
     dimensions: {
       width: 0,
       height: 0,
@@ -186,7 +186,7 @@ class VirtualTelescopeView extends Component {
                 >
                   <Draggable
                     bounds={calculateDraggableBounds(subjectScale)}
-                    handle={'.drag-handle'}
+                    handle=".drag-handle"
                     position={controlledPosition}
                     onDrag={this.onDrag}
                   >
