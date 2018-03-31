@@ -27,6 +27,12 @@ export function generateRow(dimension = 0, count = 0, rowConfiguration = ROW_CON
     case ROW_CONFIG.BOTTOM:
       Y_MODIFIER = dimension;
       break;
+    case ROW_CONFIG.LEFT:
+      console.log('LEFT');
+      break;
+    case ROW_CONFIG.RIGHT:
+      console.log('RIGHT');
+      break;
     default:
       console.log('UNSUPPORTED...');
       break;
