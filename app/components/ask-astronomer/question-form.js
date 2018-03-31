@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import ModalGeneric from '../common/modals/modal-generic';
 import { createThread } from '../../services/discussions/create-thread';
 import { prepareThread } from '../../services/discussions/prepare-thread';
+import fetchSpecialists from '../../services/objects/specialists';
 import deletePostImage from '../../services/post-creation/delete-post-image';
 import setPostImages from '../../modules/set-post-images';
 
@@ -36,9 +37,11 @@ const successMessage = (<div className="container">
 class AskAstronomerQuestionForm extends Component {
   static propTypes = {
     objectTitle: string,
+    objectId: string,
   }
   static defaultProps = {
-    objectTitle: ''
+    objectTitle: '',
+    objectId: '',
   }
 
   state = {
@@ -49,10 +52,14 @@ class AskAstronomerQuestionForm extends Component {
     uploadError: null,
     uploadLoading: false,
     S3URLs: [],
+    specialists: [],
   }
 
   componentDidMount() {
-    const { user } = this.props;
+    const {
+      user,
+      objectId,
+    } = this.props;
 
     prepareThread({
       at: user.at,
@@ -64,7 +71,20 @@ class AskAstronomerQuestionForm extends Component {
           uuid: res.data.postUUID,
         })
       }
-    })
+    });
+
+    fetchSpecialists({
+      at: user.at,
+      token: user.token,
+      cid: user.cid,
+      objectId,
+    }).then((res) => {
+      if (!res.data.apiError) {
+        this.setState({
+          specialists: res.data.specialistsList,
+        });
+      }
+    });
   }
   onTextChange = (e) => {
     this.setState({
@@ -172,8 +192,8 @@ class AskAstronomerQuestionForm extends Component {
       modalDescription,
       uploadError,
       uploadLoading,
+      specialists,
     } = this.state;
-    // const avatarStyle = Object.assign(avatarImgStyle(), { height: '50px', width: '50px'});
     return (
       <div>
         <div className="header">
@@ -181,14 +201,37 @@ class AskAstronomerQuestionForm extends Component {
           <h3>Ask an Astronomer</h3>
         </div>
         <form className="form">
-          <div className="avatars"></div>
+          <div className="avatars">
+            {specialists.map((specialist) => {
+              const avatarStyle = Object.assign(avatarImgStyle(specialist.iconURL), { height: '50px', width: '50px'});
+              return (
+                <div
+                  key={specialist.customerId}
+                  className="avatar"
+                >
+                  {specialist.hasLinkFlag &&
+                    <Link to={specialist.linkURL}>
+                      <div
+                        style={avatarStyle}
+                      />
+                    </Link>
+                  }
+                  {!specialist.hasLinkFlag &&
+                    <div
+                      style={avatarStyle}
+                    />
+                  }
+                </div>
+              );
+          })}
+          </div>
           <div>{`We've got a community of experts on Slooh to help you learn about space. Have a question about ${objectTitle}? Ask an Astronomer today!`}</div>
           <textarea
             className="question-input"
             onChange={this.onTextChange}
             maxLength={100}
             value={questionText}
-          ></textarea>
+          />
           <div className="flex-right">{questionText.length}/100</div>
           <div className="image-upload">
             <input
@@ -199,7 +242,9 @@ class AskAstronomerQuestionForm extends Component {
             />
             {uploadError && <span className="errorMsg">{uploadError}</span>}
             {(!uploadError && uploadLoading) && <div className="fa fa-spinner" />}
-            <span><Link to="/help/posting-guidelines">Guidelines</Link></span>
+            <span>
+              <Link to="/help/posting-guidelines">Guidelines</Link>
+            </span>
           </div>
           <div className="flex-right">
             <button type="button" className="question-button" onClick={this.submitForm}>Submit Your Question</button>
@@ -221,6 +266,13 @@ class AskAstronomerQuestionForm extends Component {
           .form {
             padding: 15px;
             border: 1px solid ${black};
+          }
+          .avatars {
+            display: flex;
+            justify-content: space-between;
+          }
+          .avatar {
+            display: inline-block;
           }
           .question-input {
             border-width: 1px;
