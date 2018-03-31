@@ -7,7 +7,7 @@ import telescopeTwo from './assets/sample-telescope-images/Canary_Four_SS_Planet
 
 storiesOf('Telescope', module)
   .add('View', () => (
-    <div style={{ width: '50%' }}>
+    <div style={{ width: '50%', margin: '0 auto' }}>
       <Telescope />
     </div>
   ));
