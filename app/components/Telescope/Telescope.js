@@ -47,6 +47,14 @@ class Telescope extends Component {
                   <g>
                     {generateRow(width, 100, ROW_CONFIGURATION_ENUM.BOTTOM)}
                   </g>
+
+                  <g>
+                    {generateRow(width, 100, ROW_CONFIGURATION_ENUM.LEFT)}
+                  </g>
+
+                  <g>
+                    {generateRow(width, 100, ROW_CONFIGURATION_ENUM.RIGHT)}
+                  </g>
                 </g>
 
               </svg>
