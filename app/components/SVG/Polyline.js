@@ -17,7 +17,7 @@ const propTypes = {
   fill: PropTypes.string,
   points: PropTypes.string.isRequired,
   stroke: PropTypes.string,
-  strokeWidth: PropTypes.number,
+  strokeWidth: PropTypes.string,
 };
 
 const defaultProps = {
