@@ -103,6 +103,7 @@ class AskAstronomerQuestionForm extends Component {
           showPopup: true,
           modalDescription: successMessage,
           questionText: '',
+          S3URLs: [],
         });
       } else {
         this.setState({
