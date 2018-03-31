@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import Measure from 'react-measure';
-import generateRow from './generateRow';
-import Group from '../SVG/Group';
-
+import { generateRow } from './generateRow';
+import ROW_CONFIGURATION_ENUM from './rowConfigurationEnum';
 
 class Telescope extends Component {
   state = {
@@ -42,11 +41,15 @@ class Telescope extends Component {
               >
                 <g className="tick-marks">
                   <g>
-                    {generateRow(width, 100, 'top')}
+                    {generateRow(width, 100, ROW_CONFIGURATION_ENUM.TOP)}
                   </g>
 
                   <g>
-                    {generateRow(width, 100, 'left')}
+                    {generateRow(width, 100, ROW_CONFIGURATION_ENUM.BOTTOM)}
+                  </g>
+
+                  <g>
+                    {generateRow(width, 100, 'grilled cheese and chicken sandwich!')}
                   </g>
                 </g>
 

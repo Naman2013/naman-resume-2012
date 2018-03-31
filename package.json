@@ -60,6 +60,7 @@
     "draft-js": "^0.10.0",
     "draft-js-export-html": "^0.5.2",
     "encodeurl": "^1.0.1",
+    "enumify": "^1.0.4",
     "event-source-polyfill": "0.0.9",
     "exenv": "^1.2.2",
     "fast-deep-equal": "^1.0.0",
