@@ -24,7 +24,6 @@ class Telescope extends Component {
 
   render() {
     const { portalDimensions: { width, height } } = this.state;
-    console.log(width, height);
 
     return (
       <Measure
@@ -45,7 +44,11 @@ class Telescope extends Component {
               >
                 <Group style={{ border: '1px solid red' }}>
                   <Group>
-                    {generateRow()}
+                    {generateRow(width, 100)}
+                  </Group>
+
+                  <Group >
+                    {generateRow(width, 100)}
                   </Group>
                 </Group>
 

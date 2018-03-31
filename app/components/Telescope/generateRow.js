@@ -1,11 +1,13 @@
+import React from 'react';
 import Polyline from '../SVG/Polyline';
 
-export default function generateRow(targetWidth = 0) {
-  if (!targetWidth) { return []; }
+export default function generateRow(dimension = 0, count = 0) {
+  if (!dimension) { return []; }
 
   const row = [];
-  const COUNT = 0;
-  const SPACING = 5;
+  const COUNT = count;
+  const SPACING = (dimension / count);
+  console.log(SPACING);
   const LARGE_TICK_LENGTH = 12;
   const LARGE_TICK_THICKNESS = 2;
   const SHORT_TICK_LENGTH = (LARGE_TICK_LENGTH / 2);
