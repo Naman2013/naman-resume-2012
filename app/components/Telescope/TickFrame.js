@@ -5,33 +5,35 @@ import { generateRow } from './generateRow';
 
 const propTypes = {
   length: PropTypes.number.isRequired,
+  count: PropTypes.number,
   style: PropTypes.shape({
     stroke: PropTypes.string,
   }),
 };
 
 const defaultProps = {
+  count: 100,
   style: {
     stroke: 'aqua',
   },
 };
 
-const TickFrame = ({ length, style }) => (
+const TickFrame = ({ count, length, style }) => (
   <g className="root">
     <g>
-      {generateRow(length, 100, ROW_CONFIGURATION_ENUM.TOP, style)}
+      {generateRow(length, count, ROW_CONFIGURATION_ENUM.TOP, style)}
     </g>
 
     <g>
-      {generateRow(length, 100, ROW_CONFIGURATION_ENUM.BOTTOM, style)}
+      {generateRow(length, count, ROW_CONFIGURATION_ENUM.BOTTOM, style)}
     </g>
 
     <g>
-      {generateRow(length, 100, ROW_CONFIGURATION_ENUM.LEFT, style)}
+      {generateRow(length, count, ROW_CONFIGURATION_ENUM.LEFT, style)}
     </g>
 
     <g>
-      {generateRow(length, 100, ROW_CONFIGURATION_ENUM.RIGHT, style)}
+      {generateRow(length, count, ROW_CONFIGURATION_ENUM.RIGHT, style)}
     </g>
   </g>
 );

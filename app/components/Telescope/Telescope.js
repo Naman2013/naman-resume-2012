@@ -55,7 +55,7 @@ class Telescope extends Component {
                   <rect id="portal" x="0" y="0" width="100%" height="100%" mask="url(#hole)" />
                 </g>
 
-                <TickFrame length={width} />
+                <TickFrame count={50} length={width} />
 
               </svg>
 
