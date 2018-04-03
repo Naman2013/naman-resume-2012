@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Measure from 'react-measure';
-import { generateRow } from './generateRow';
-import ROW_CONFIGURATION_ENUM from './rowConfigurationEnum';
+import TickFrame from './TickFrame';
+// import testImage from '../assets/';
 
 class Telescope extends Component {
   state = {
@@ -22,7 +22,7 @@ class Telescope extends Component {
   }
 
   render() {
-    const { portalDimensions: { width, height } } = this.state;
+    const { portalDimensions: { width } } = this.state;
 
     return (
       <Measure
@@ -39,23 +39,23 @@ class Telescope extends Component {
                 version="1.1"
                 xmlns="http://www.w3.org/2000/svg"
               >
-                <g className="tick-marks">
-                  <g>
-                    {generateRow(width, 100, ROW_CONFIGURATION_ENUM.TOP)}
-                  </g>
 
-                  <g>
-                    {generateRow(width, 100, ROW_CONFIGURATION_ENUM.BOTTOM)}
-                  </g>
+                <g>
 
-                  <g>
-                    {generateRow(width, 100, ROW_CONFIGURATION_ENUM.LEFT)}
-                  </g>
-
-                  <g>
-                    {generateRow(width, 100, ROW_CONFIGURATION_ENUM.RIGHT)}
-                  </g>
                 </g>
+
+                <g>
+                  <defs>
+                    <mask id="hole">
+                      <rect width="100%" height="100%" fill="white" />
+                      <circle r="38%" cx="50%" cy="50%" fill="black" />
+                    </mask>
+                  </defs>
+
+                  <rect id="portal" x="0" y="0" width="100%" height="100%" mask="url(#hole)" />
+                </g>
+
+                <TickFrame length={width} />
 
               </svg>
 

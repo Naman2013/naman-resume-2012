@@ -6,7 +6,12 @@ function warnClient() {
   console.warn('Invalid row configuration provided');
 }
 
-export function generateRow(dimension = 0, count = 0, rowConfiguration = ROW_CONFIG.TOP) {
+export function generateRow(
+  dimension = 0,
+  count = 0,
+  rowConfiguration = ROW_CONFIG.TOP,
+  style = {},
+) {
   if (!(rowConfiguration instanceof ROW_CONFIG)) {
     warnClient();
     return [];
@@ -68,7 +73,7 @@ export function generateRow(dimension = 0, count = 0, rowConfiguration = ROW_CON
       strokeWidth: (isLongTick) ? LARGE_TICK_THICKNESS : SHORT_TICK_THICKNESS,
     };
 
-    row.push(<Polyline {...polylineAttributes} />);
+    row.push(<Polyline {...polylineAttributes} {...style} />);
   }
 
   return row;
