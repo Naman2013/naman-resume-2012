@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import Measure from 'react-measure';
 import TickFrame from './TickFrame';
-// import testImage from '../assets/';
+import Image from './Image';
+import testImage from '../../../stories/assets/sample-telescope-images/Canary_Four_SS_Normal_1119x845.png';
 
 class Telescope extends Component {
   state = {
@@ -17,12 +18,16 @@ class Telescope extends Component {
     },
   };
 
+  handleImageResize = (event) => {
+    console.log(event);
+  }
+
   handlePortalResize = (contentBox) => {
     this.setState({ portalDimensions: { ...contentBox.bounds } });
   }
 
   render() {
-    const { portalDimensions: { width } } = this.state;
+    const { portalDimensions: { width, height } } = this.state;
 
     return (
       <Measure
@@ -39,9 +44,8 @@ class Telescope extends Component {
                 version="1.1"
                 xmlns="http://www.w3.org/2000/svg"
               >
-
                 <g>
-
+                  <Image source={testImage} height={height} onResize={this.handleImageResize} />
                 </g>
 
                 <g>
