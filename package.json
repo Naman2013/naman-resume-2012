@@ -49,6 +49,7 @@
     }
   },
   "dependencies": {
+    "@storybook/addon-knobs": "^3.4.0",
     "@storybook/react": "^3.1.8",
     "axios": "^0.15.3",
     "babel-polyfill": "^6.23.0",
@@ -104,6 +105,7 @@
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.1.0",
     "sinon": "^4.4.2",
+    "storybook-addon-smart-knobs": "^3.3.1",
     "styled-jsx": "^2.2.4"
   },
   "devDependencies": {

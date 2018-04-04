@@ -8,21 +8,31 @@ class Image extends Component {
     source: PropTypes.string.isRequired,
     height: PropTypes.number.isRequired,
     onResize: PropTypes.func,
-  }
+    x: PropTypes.number.isRequired,
+  };
 
   static defaultProps = {
     onResize: noop,
   };
 
-  state = {};
-
-  handleResize = () => {}
+  handleResize = (contentBox) => {
+    this.props.onResize(contentBox.bounds);
+  };
 
   render() {
-    const { source, height } = this.props;
+    const { source, height, x } = this.props;
 
     return (
-      <image href={source} height={height} />
+      <Measure
+        bounds
+        onResize={this.handleResize}
+      >
+        {
+          ({ measureRef }) => (
+            <image x={x} ref={measureRef} href={source} height={height} />
+          )
+        }
+      </Measure>
     );
   }
 }

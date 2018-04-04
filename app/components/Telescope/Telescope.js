@@ -16,10 +16,20 @@ class Telescope extends Component {
       x: 0,
       y: 0,
     },
+    imageDimensions: {
+      bottom: 0,
+      height: 0,
+      left: 0,
+      right: 0,
+      top: 0,
+      width: 0,
+      x: 0,
+      y: 0,
+    },
   };
 
-  handleImageResize = (event) => {
-    console.log(event);
+  handleImageResize = (imageBounds) => {
+    this.setState({ imageDimensions: { ...imageBounds } })
   }
 
   handlePortalResize = (contentBox) => {
@@ -27,7 +37,12 @@ class Telescope extends Component {
   }
 
   render() {
-    const { portalDimensions: { width, height } } = this.state;
+    const {
+      portalDimensions: { width, height },
+      imageDimensions,
+    } = this.state;
+
+    const imageX = (imageDimensions.width - width) / 2;
 
     return (
       <Measure
@@ -45,7 +60,12 @@ class Telescope extends Component {
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <g>
-                  <Image source={testImage} height={height} onResize={this.handleImageResize} />
+                  <Image
+                    x={-imageX}
+                    source={testImage}
+                    height={height}
+                    onResize={this.handleImageResize}
+                  />
                 </g>
 
                 <g>
