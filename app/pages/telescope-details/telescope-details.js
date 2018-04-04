@@ -20,24 +20,26 @@ import { fetchObjectDataAction, resetObjectData } from '../../modules/object-det
 import { resetSnapshotList } from '../../modules/starshare-camera/starshare-camera-actions';
 import { fetchObjectContent } from '../../modules/community-content/community-object-content-actions';
 
-import AnnouncementBanner from '../../components/common/announcement-banner/announcement-banner';
-import CommunityPerspectives from '../../components/common/community-perspectives/community-perspectives';
-import CurrentSelectionHeader from '../../components/telescopes/current-selection-header/header';
-import GoogleAd from '../../components/common/google-ads/GoogleAd';
-import LiveFeed from '../../components/telescope-details/live-feed/LiveFeed';
-import LiveMission from '../../components/telescope-details/live-mission/live-mission';
-import MoonlightWidget from '../../components/telescope-details/MoonlightWidget';
-import SeeingConditionsWidget from '../../components/telescope-details/SeeingConditionsWidget';
-import Neoview from '../../components/telescope-details/neoview/neoview';
-import PromoMessageBanner from '../../components/common/headers/promo-message-band';
-import Spacer from '../../components/common/spacer';
-import StarShareCamera from '../../components/telescope-details/star-share-camera/star-share-camera';
-import SunsetCountdown from '../../components/telescope-details/SunsetCountdown';
-import TelescopeAllSky from '../../components/telescope-details/telescope-all-sky/TelescopeAllSky';
-import TelescopeDetailsTabs from '../../components/telescope-details/TelescopeDetailsTabs';
-import TelescopeSelection from '../../components/telescopes/selection-widget/telescope-selection';
-import UpcomingMissions from '../../components/telescope-details/UpcomingMissions/UpcomingMissions';
-import MissionAudio from '../../components/telescope-details/MissionAudio';
+import AnnouncementBanner from 'components/common/announcement-banner/announcement-banner';
+import CommunityPerspectives from 'components/common/community-perspectives/community-perspectives';
+import CurrentSelectionHeader from 'components/telescopes/current-selection-header/header';
+import GoogleAd from 'components/common/google-ads/GoogleAd';
+import LiveFeed from 'components/telescope-details/live-feed/LiveFeed';
+import LiveMission from 'components/telescope-details/live-mission/live-mission';
+import MoonlightWidget from 'components/telescope-details/MoonlightWidget';
+import SeeingConditionsWidget from 'components/telescope-details/SeeingConditionsWidget';
+import Neoview from 'components/telescope-details/neoview/neoview';
+import PromoMessageBanner from 'components/common/headers/promo-message-band';
+import Spacer from 'components/common/spacer';
+import StarShareCamera from 'components/telescope-details/star-share-camera/star-share-camera';
+import SunsetCountdown from 'components/telescope-details/SunsetCountdown';
+import TelescopeAllSky from 'components/telescope-details/telescope-all-sky/TelescopeAllSky';
+import TelescopeDetailsTabs from 'components/telescope-details/TelescopeDetailsTabs';
+import TelescopeSelection from 'components/telescopes/selection-widget/telescope-selection';
+import UpcomingMissions from 'components/telescope-details/UpcomingMissions/UpcomingMissions';
+import MissionAudio from 'components/telescope-details/MissionAudio';
+
+import Telescope from 'components/Telescope';
 
 import obsIdTeleIdDomeIdFromTeleId from '../../utils/obsid-teleid-domeid-from-teleid';
 
@@ -350,7 +352,7 @@ class TelescopeDetails extends Component {
     const isSubjectMatterAnObject = activeDetailsSSE.astroObjectID > 0;
     const audioEnabled = !!objectAudioURL;
     const isTelescopeOnline = currentTelescopeOnlineStatus && (currentTelescopeOnlineStatus.onlineStatus === 'online');
-    
+
     return (
       <div className="telescope-details-page-wrapper">
         <AnnouncementBanner obsId={obsId} />
@@ -388,6 +390,9 @@ class TelescopeDetails extends Component {
           {/* begin left column */}
           <div className="telescope-details clearfix">
             <div className="col-sm-8">
+
+              <Telescope />
+
               <Tabs onSelect={this.handleSelect} selectedIndex={selectedTab}>
                 <TabList>
                   {teleInstrumentList.map(instrument => (

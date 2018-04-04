@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import Measure from 'react-measure';
 import TickFrame from './TickFrame';
 import Image from './Image';
-import testImage from '../../../stories/assets/sample-telescope-images/Canary_Four_SS_Normal_1119x845.png';
+
+const testImage = 'https://polaris.slooh.com/chile/1/highmag/2018/04/04/2340_m43/m43_20180404_234018_0_kx3vo6_l.png';
 
 class Telescope extends Component {
   state = {
@@ -29,7 +30,7 @@ class Telescope extends Component {
   };
 
   handleImageResize = (imageBounds) => {
-    this.setState({ imageDimensions: { ...imageBounds } })
+    this.setState({ imageDimensions: { ...imageBounds } });
   }
 
   handlePortalResize = (contentBox) => {
