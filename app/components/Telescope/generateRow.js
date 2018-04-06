@@ -73,12 +73,6 @@ export function generateRow(
         }
         break;
       case ROW_CONFIG.BOTTOM:
-        x1 = ACCUMULATOR;
-        y1 = dimension;
-        x2 = ACCUMULATOR;
-        y2 = (isLongTick) ? (dimension - LARGE_TICK_LENGTH) : (dimension - SHORT_TICK_LENGTH);
-        tickThickness = (isLongTick) ? LARGE_TICK_THICKNESS : SHORT_TICK_THICKNESS;
-
         if (i === 0) {
           x1 = MID_POINT;
           y1 = dimension;
@@ -104,11 +98,29 @@ export function generateRow(
         }
         break;
       case ROW_CONFIG.LEFT:
-        x1 = 0;
-        y1 = ACCUMULATOR;
-        x2 = (isLongTick) ? LARGE_TICK_LENGTH : SHORT_TICK_LENGTH;
-        y2 = ACCUMULATOR;
-        tickThickness = (isLongTick) ? LARGE_TICK_THICKNESS : SHORT_TICK_THICKNESS;
+        if (i === 0) {
+          x1 = 0;
+          y1 = MID_POINT;
+          x2 = CENTER_TICK_LENGTH;
+          y2 = MID_POINT;
+          tickThickness = CENTER_TICK_THICKNESS;
+        } else if (i <= TICKS_PER_SIDE) {
+          x1 = 0;
+          y1 = LEFT_ACCUMULATOR;
+          x2 = (isLongTick) ? LARGE_TICK_LENGTH : SHORT_TICK_LENGTH;
+          y2 = LEFT_ACCUMULATOR;
+          tickThickness = (isLongTick) ? LARGE_TICK_THICKNESS : SHORT_TICK_THICKNESS;
+
+          LEFT_ACCUMULATOR -= SPACING;
+        } else {
+          x1 = 0;
+          y1 = RIGHT_ACCUMULATOR;
+          x2 = (isLongTick) ? LARGE_TICK_LENGTH : SHORT_TICK_LENGTH;
+          y2 = RIGHT_ACCUMULATOR;
+          tickThickness = (isLongTick) ? LARGE_TICK_THICKNESS : SHORT_TICK_THICKNESS;
+
+          RIGHT_ACCUMULATOR += SPACING;
+        }
         break;
       case ROW_CONFIG.RIGHT:
         x1 = dimension;
@@ -116,6 +128,30 @@ export function generateRow(
         x2 = (isLongTick) ? (dimension - LARGE_TICK_LENGTH) : (dimension - SHORT_TICK_LENGTH);
         y2 = ACCUMULATOR;
         tickThickness = (isLongTick) ? LARGE_TICK_THICKNESS : SHORT_TICK_THICKNESS;
+
+        if (i === 0) {
+          x1 = dimension;
+          y1 = MID_POINT;
+          x2 = (dimension - CENTER_TICK_LENGTH);
+          y2 = MID_POINT;
+          tickThickness = CENTER_TICK_THICKNESS;
+        } else if (i <= TICKS_PER_SIDE) {
+          x1 = dimension;
+          y1 = LEFT_ACCUMULATOR;
+          x2 = (isLongTick) ? (dimension - LARGE_TICK_LENGTH) : (dimension - SHORT_TICK_LENGTH);
+          y2 = LEFT_ACCUMULATOR;
+          tickThickness = (isLongTick) ? LARGE_TICK_THICKNESS : SHORT_TICK_THICKNESS;
+
+          LEFT_ACCUMULATOR -= SPACING;
+        } else {
+          x1 = dimension;
+          y1 = RIGHT_ACCUMULATOR;
+          x2 = (isLongTick) ? (dimension - LARGE_TICK_LENGTH) : (dimension - SHORT_TICK_LENGTH);
+          y2 = RIGHT_ACCUMULATOR;
+          tickThickness = (isLongTick) ? LARGE_TICK_THICKNESS : SHORT_TICK_THICKNESS;
+
+          RIGHT_ACCUMULATOR += SPACING;
+        }
         break;
       default:
         warnClient();
