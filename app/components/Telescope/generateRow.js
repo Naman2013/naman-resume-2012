@@ -30,8 +30,6 @@ export function generateRow(
   const SHORT_TICK_LENGTH = (LARGE_TICK_LENGTH / 2);
   const SHORT_TICK_THICKNESS = (LARGE_TICK_THICKNESS / 2);
 
-  let ACCUMULATOR = 0;
-
   let LEFT_ACCUMULATOR = MID_POINT;
   let RIGHT_ACCUMULATOR = MID_POINT;
 
@@ -43,8 +41,6 @@ export function generateRow(
     let x2;
     let y2;
     let tickThickness;
-
-    ACCUMULATOR += SPACING;
 
     switch (rowConfiguration) {
       case ROW_CONFIG.TOP:
@@ -123,12 +119,6 @@ export function generateRow(
         }
         break;
       case ROW_CONFIG.RIGHT:
-        x1 = dimension;
-        y1 = ACCUMULATOR;
-        x2 = (isLongTick) ? (dimension - LARGE_TICK_LENGTH) : (dimension - SHORT_TICK_LENGTH);
-        y2 = ACCUMULATOR;
-        tickThickness = (isLongTick) ? LARGE_TICK_THICKNESS : SHORT_TICK_THICKNESS;
-
         if (i === 0) {
           x1 = dimension;
           y1 = MID_POINT;
