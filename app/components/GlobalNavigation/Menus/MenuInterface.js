@@ -4,7 +4,7 @@ import Telescopes from './Telescopes';
 import Search from './Search';
 import Help from './Help';
 import Notifications from './Notifications';
-import Profile from './Profile';
+import ProfileRedux from './Profile.redux';
 
 export const LEFT_MENU = {
   DEFAULT: {
@@ -43,7 +43,7 @@ const RIGHT_MENU = {
   PROFILE: {
     name: 'PROFILE',
     title: 'Profile',
-    render: props => (<Profile {...props} />),
+    render: props => (<ProfileRedux {...props} />),
   },
 };
 
