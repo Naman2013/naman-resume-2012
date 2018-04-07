@@ -7,17 +7,19 @@ const propTypes = {
   children: PropTypes.node.isRequired,
   handleClick: PropTypes.func.isRequired,
   isActive: PropTypes.bool,
+  theme: PropTypes.object,
 };
 
 const defaultProps = {
   isActive: false,
 };
 
-const Button = ({ children, handleClick, isActive }) => (
+const Button = ({ children, handleClick, isActive, theme }) => (
   <div className="root">
     <button
       onClick={handleClick}
       className={classnames('action', { active: isActive })}
+      style={theme}
     >
       { children }
     </button>

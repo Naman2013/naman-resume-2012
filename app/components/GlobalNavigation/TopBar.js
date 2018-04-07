@@ -60,9 +60,9 @@ const TopBar = ({ handleMenuClick, activeMenu }) => (
         <li>
           <Button
             isActive={isActive(activeMenu, MENU_INTERFACE.HELP.name)}
-            handleClick={() => { handleMenuClick(MENU_INTERFACE.HELP.name) }}
+            handleClick={() => { handleMenuClick(MENU_INTERFACE.HELP.name); }}
           >
-            <span className="fa fa-question-circle"></span>
+            <span className="fa fa-question-circle" />
           </Button>
         </li>
         <li>
@@ -70,15 +70,15 @@ const TopBar = ({ handleMenuClick, activeMenu }) => (
             isActive={isActive(activeMenu, MENU_INTERFACE.ALERTS.name)}
             handleClick={() => { handleMenuClick(MENU_INTERFACE.ALERTS.name) }}
           >
-            <span className="fa fa-bell"></span>
+            <span className="fa fa-bell" />
           </Button>
         </li>
-        <li>
+        <li className="">
           <Button
             isActive={isActive(activeMenu, MENU_INTERFACE.PROFILE.name)}
-            handleClick={() => { handleMenuClick(MENU_INTERFACE.PROFILE.name) }}
+            handleClick={() => { handleMenuClick(MENU_INTERFACE.PROFILE.name); }}
           >
-            <span className="fa fa-user"></span>
+            <p>Sign in</p>
           </Button>
         </li>
       </ul>
@@ -104,7 +104,8 @@ const TopBar = ({ handleMenuClick, activeMenu }) => (
         padding: 0;
       }
 
-    `}</style>
+    `}
+    </style>
   </div>
 );
 
