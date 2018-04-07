@@ -8,8 +8,9 @@ import MENU_INTERFACE, {
   isRight,
 } from './Menus/MenuInterface';
 
-const mapStateToProps = ({ routing: { locationBeforeTransitions: { key } } }) => ({
+const mapStateToProps = ({ routing: { locationBeforeTransitions: { key } }, user }) => ({
   routeKey: key,
+  user,
 });
 
 @connect(mapStateToProps, null)
