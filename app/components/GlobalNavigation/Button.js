@@ -51,7 +51,8 @@ const Button = ({ children, handleClick, isActive }) => (
       .action:focus {
         outline: none;
       }
-    `}</style>
+    `}
+    </style>
   </div>
 );
 

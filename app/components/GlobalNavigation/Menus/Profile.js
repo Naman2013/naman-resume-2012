@@ -1,8 +1,9 @@
 import React from 'react';
+import Login from 'containers/Login';
 
 const Profile = () => (
   <div>
-    <h1>PROFILE</h1>
+    <Login />
   </div>
 );
 
