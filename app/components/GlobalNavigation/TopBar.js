@@ -77,6 +77,7 @@ const TopBar = ({ handleMenuClick, activeMenu }) => (
           <Button
             isActive={isActive(activeMenu, MENU_INTERFACE.PROFILE.name)}
             handleClick={() => { handleMenuClick(MENU_INTERFACE.PROFILE.name); }}
+            theme={{ width: 'auto', padding: '0 20px' }}
           >
             <p>Sign in</p>
           </Button>

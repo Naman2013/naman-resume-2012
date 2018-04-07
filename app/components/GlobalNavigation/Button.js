@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { white, darkGray } from '../../styles/variables/colors';
+import { white, darkGray } from 'styles/variables/colors';
+import { primaryFont } from 'styles/variables/fonts';
 
 const propTypes = {
   children: PropTypes.node.isRequired,
@@ -14,7 +15,9 @@ const defaultProps = {
   isActive: false,
 };
 
-const Button = ({ children, handleClick, isActive, theme }) => (
+const Button = ({
+  children, handleClick, isActive, theme,
+}) => (
   <div className="root">
     <button
       onClick={handleClick}
@@ -27,6 +30,7 @@ const Button = ({ children, handleClick, isActive, theme }) => (
     <style jsx>{`
       .root {
         display: inline-block;
+        font-family: ${primaryFont};
       }
 
       .action {
