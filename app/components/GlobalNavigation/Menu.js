@@ -22,7 +22,9 @@ const defaultProps = {
   title: '',
 };
 
-const Menu = ({ isOpen, position, handleClose, title, render }) => {
+const Menu = ({
+  isOpen, position, handleClose, title, render,
+}) => {
   const rootClasses = classnames({
     open: isOpen,
   });
@@ -30,8 +32,8 @@ const Menu = ({ isOpen, position, handleClose, title, render }) => {
   const isLeft = (position === LEFT);
 
   const inlineStyle = {
-    'left': isLeft ? (isOpen) ? 0 : `${-MENU_WIDTH}px` : 'auto',
-    'right': isLeft ? 'auto' : (isOpen) ? 0 : `${-MENU_WIDTH}px`,
+    left: isLeft ? (isOpen) ? 0 : `${-MENU_WIDTH}px` : 'auto',
+    right: isLeft ? 'auto' : (isOpen) ? 0 : `${-MENU_WIDTH}px`,
   };
 
   return (
