@@ -10,25 +10,21 @@ export const LEFT_MENU = {
   DEFAULT: {
     name: 'DEFAULT',
     title: null,
-    component: null,
     render: () => (null),
   },
   MAIN: {
     name: 'MAIN',
     title: 'Menu',
-    component: <Main />,
     render: props => (<Main {...props} />),
   },
   TELESCOPES: {
     name: 'TELESCOPES',
     title: 'Telescopes',
-    component: <Telescopes />,
     render: props => (<Telescopes {...props} />),
   },
   SEARCH: {
     name: 'SEARCH',
     title: 'Search',
-    component: <Search />,
     render: props => (<Search {...props} />),
   },
 };
@@ -37,19 +33,16 @@ const RIGHT_MENU = {
   HELP: {
     name: 'HELP',
     title: 'Account info',
-    component: <Help />,
     render: props => (<Help {...props} />),
   },
   ALERTS: {
     name: 'ALERTS',
     title: 'Notifications',
-    component: <Notifications />,
     render: props => (<Notifications {...props} />),
   },
   PROFILE: {
     name: 'PROFILE',
     title: 'Profile',
-    component: <Profile />,
     render: props => (<Profile {...props} />),
   },
 };

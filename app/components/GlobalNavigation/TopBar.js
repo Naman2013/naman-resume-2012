@@ -73,7 +73,7 @@ const TopBar = ({ handleMenuClick, activeMenu }) => (
             <span className="fa fa-bell" />
           </Button>
         </li>
-        <li className="">
+        <li>
           <Button
             isActive={isActive(activeMenu, MENU_INTERFACE.PROFILE.name)}
             handleClick={() => { handleMenuClick(MENU_INTERFACE.PROFILE.name); }}
