@@ -2,6 +2,7 @@ import React from 'react';
 import Button from './Button';
 import CenterBar from './CenterBar';
 import MENU_INTERFACE from './Menus/MenuInterface';
+import ConnectUser from 'redux/components/ConnectUser';
 import { darkGray } from '../../styles/variables/colors';
 
 function isActive(menuName, activeMenu) {
@@ -68,19 +69,24 @@ const TopBar = ({ handleMenuClick, activeMenu }) => (
         <li>
           <Button
             isActive={isActive(activeMenu, MENU_INTERFACE.ALERTS.name)}
-            handleClick={() => { handleMenuClick(MENU_INTERFACE.ALERTS.name) }}
+            handleClick={() => { handleMenuClick(MENU_INTERFACE.ALERTS.name); }}
           >
             <span className="fa fa-bell" />
           </Button>
         </li>
         <li>
-          <Button
-            isActive={isActive(activeMenu, MENU_INTERFACE.PROFILE.name)}
-            handleClick={() => { handleMenuClick(MENU_INTERFACE.PROFILE.name); }}
-            theme={{ width: 'auto', padding: '0 20px' }}
-          >
-            <p>Sign in</p>
-          </Button>
+          <ConnectUser
+            render={user => (
+              <Button
+                isActive={isActive(activeMenu, MENU_INTERFACE.PROFILE.name)}
+                handleClick={() => { handleMenuClick(MENU_INTERFACE.PROFILE.name); }}
+                theme={(user.isAuthorized) ? {} : { width: 'auto', padding: '0 20px' }}
+              >
+                { user.isAuthorized && <span className="fa fa-user" /> }
+                { !user.isAuthorized && <p>Sign in</p> }
+              </Button>
+            )}
+          />
         </li>
       </ul>
     </div>
