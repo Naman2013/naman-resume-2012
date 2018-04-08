@@ -3,26 +3,12 @@ import PropTypes from 'prop-types';
 import Login from 'containers/Login';
 import LoggedIn from './partials/LoggedIn';
 
-const propTypes = {
-  user: PropTypes.shape({
-    isAuthorized: PropTypes.bool.isRequired,
-    apiError: PropTypes.bool,
-  }),
-};
-
-const defaultProps = {
-  user: {
-    isAuthorized: false,
-    apiError: false,
-  },
-};
-
 const Profile = ({ user }) => {
   return (
     <div>
       {
         user.isAuthorized &&
-          <LoggedIn />
+          <LoggedIn userName={user.fname} />
       }
 
       {
@@ -33,7 +19,20 @@ const Profile = ({ user }) => {
   );
 };
 
-Profile.propTypes = propTypes;
-Profile.defaultProps = defaultProps;
+Profile.propTypes = {
+  user: PropTypes.shape({
+    isAuthorized: PropTypes.bool.isRequired,
+    apiError: PropTypes.bool,
+    fname: PropTypes.string,
+  }),
+};
+
+Profile.defaultProps = {
+  user: {
+    isAuthorized: false,
+    apiError: false,
+    fname: 'Guest',
+  },
+};
 
 export default Profile;
