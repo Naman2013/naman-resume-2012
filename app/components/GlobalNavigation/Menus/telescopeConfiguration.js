@@ -14,7 +14,6 @@ export const modelTelescopesFromObsList = {
 
 export default (telescopes = []) => ({
   render: props => (<Telescope {...props} />),
-  component: <Telescope />,
   content: telescopes.map(_telescope => ({
     _ID: uniqueId(),
     text: _telescope.teleName,
