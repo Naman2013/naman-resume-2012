@@ -9,6 +9,7 @@ export const fetchDashboard = ({
   ver,
   lookbackDays,
 }) => (dispatch, getState) => {
+  console.log('fetching')
   const { at, token, cid } = getState().user;
   dispatch(fetchDashboardStart());
   return axios.post('/api/settings/getDashboard', {
