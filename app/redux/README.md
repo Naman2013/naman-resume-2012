@@ -42,3 +42,9 @@ DOM element root type - such as <button> or <a>.
 
 Some SLA should be designed around how to work and style these components.
 
+### Thoughts
+
+- Can these conflicts and twisting points really be managed?
+
+- What would "well managed" look like?
+
