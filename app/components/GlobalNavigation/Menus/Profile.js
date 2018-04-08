@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Login from 'containers/Login';
+import LoggedIn from './partials/LoggedIn';
 
 const propTypes = {
   user: PropTypes.shape({
@@ -18,16 +19,15 @@ const defaultProps = {
 
 const Profile = ({ user }) => {
   return (
-    <div>`
-      <Login />
+    <div>
       {
         user.isAuthorized &&
-          <Login />
+          <LoggedIn />
       }
 
       {
         !user.isAuthorized &&
-          <Logout />
+          <Login />
       }
     </div>
   );
