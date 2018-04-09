@@ -13,9 +13,9 @@ import classnames from 'classnames';
 import has from 'lodash/has';
 import {
   fetchObjectDetailsAction,
-  fetchObjectDataAction,
+  /*fetchObjectDataAction,
   fetchObjectMissionsAction,
-  fetchObjectQuestsAction,
+  fetchObjectQuestsAction,*/
 } from '../../modules/object-details/actions';
 import Navigation from '../../components/object-details/Navigation';
 import {
@@ -24,9 +24,9 @@ import {
 } from '../../styles/variables/colors';
 
 const mapStateToProps = ({ objectDetails, appConfig, user }) => ({
-  objectMissions: objectDetails.objectMissions,
+  /*objectMissions: objectDetails.objectMissions,
   objectQuests: objectDetails.objectQuests,
-  objectData: objectDetails.objectData,
+  objectData: objectDetails.objectData,*/
   objectDetails: objectDetails.objectDetails,
   appConfig,
   user,
@@ -35,9 +35,9 @@ const mapStateToProps = ({ objectDetails, appConfig, user }) => ({
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
     fetchObjectDetailsAction,
-    fetchObjectDataAction,
+    /*fetchObjectDataAction,
     fetchObjectMissionsAction,
-    fetchObjectQuestsAction,
+    fetchObjectQuestsAction,*/
   }, dispatch),
 });
 
@@ -68,9 +68,9 @@ class ObjectDetails extends Component {
     } = nextProps;
 
     if (this.props.objectDetails.objectId != nextProps.objectDetails.objectId) {
-      console.log('Object has been loaded.....gather more data....');
-      this.props.actions.fetchObjectMissionsAction(nextProps.objectDetails.objectId);
-      this.props.actions.fetchObjectQuestsAction(nextProps.objectDetails.objectId);
+      //console.log('Object has been loaded.....gather more data....');
+      /*this.props.actions.fetchObjectMissionsAction(nextProps.objectDetails.objectId);
+      this.props.actions.fetchObjectQuestsAction(nextProps.objectDetails.objectId);*/
     }
 
     // console.log(this.props.params.objectId);
@@ -106,26 +106,60 @@ class ObjectDetails extends Component {
       params: {
         objectId,
       },
-      objectData: {
+      objectDetails: {
         objectTitle,
+        objectSubtitle,
+        objectIconURL,
+        showFollowPromptFlag,
+        followPrompt,
       },
       children
     } = this.props;
 
+    //console.log (showFollowPromptFlag, followPrompt);
+
     return (
       <div>
-        <header className="header">{objectTitle}</header>
+        <header className="header">
+          <div className="icon"></div>
+          {objectTitle}
+          <div className="subtitle">{objectSubtitle}</div>
+          {!showFollowPromptFlag && 
+            <div className="follow">Follow Object</div> 
+          }      
+        </header>
         <Navigation objectId={objectId} />
         {cloneElement(children)}
         <style jsx>{`
           .header {
-            height: 200px;
+            position: relative;
+            height: 300px;
             width: 100%;
             background-color: ${darkBlueGray};
             color: ${white};
-            text-align: center;
+            text-transform: uppercase;
             padding: 5%;
             font-size: 45px;
+          }
+          .subtitle {
+            font-size: 14px;
+          }
+          .follow {
+            position: absolute;
+            padding: 10px 5px;
+            border: 1px solid ${white};
+            font-size: 14px;
+            width: 160px;
+            text-align: center;
+            left: 5%;
+            bottom: 10%;
+          }
+          .icon {
+            width: 150px;
+            height: 150px;
+            background-image: url(${objectIconURL});
+            background-size: cover;
+            float: right;
           }
         `}</style>
       </div>
