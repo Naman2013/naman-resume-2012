@@ -57,7 +57,6 @@ class MyObservations extends Component {
       sharedMemberPhotos,
     } = this.props;
 
-    console.log('sharedMemberPhotos', sharedMemberPhotos)
     return (
       <div className="my-observations">
         <div>

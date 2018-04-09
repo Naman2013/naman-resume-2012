@@ -10,6 +10,7 @@ import adStats from './ad-management/ad-stats';
 import announcementBanner from './Announcement-Banner';
 import appConfig from './app-config/reducer';
 import astronomerQuestions from './ask-astronomer-questions/reducer';
+import astronomerQuestionList from './ask-astronomer-question-list/reducer';
 import astronomerAnswers from './ask-astronomer-answers/reducer';
 import astronomerDiscuss from './ask-astronomer-answer-discuss/reducer';
 import authorization from './authorization/reducer';
@@ -83,6 +84,7 @@ export default combineReducers({
   announcementBanner,
   appConfig,
   astronomerQuestions,
+  astronomerQuestionList,
   astronomerAnswers,
   astronomerDiscuss,
   audioPlayer,

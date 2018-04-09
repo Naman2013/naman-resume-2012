@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import { backgroundImageCover } from '../../styles/mixins/utilities';
 import { likeImage } from '../../services/my-pictures/like-image';
-import Heart from '../common/heart/heart';
 
 import { black, darkBlueGray, white, turqoise } from '../../styles/variables/colors';
 import { secondaryFont } from '../../styles/variables/fonts';
@@ -18,54 +17,50 @@ const {
 } = PropTypes;
 
 const MyObservationItem = ({
-  avatarURL,
-  canDownloadFlag,
-  canEditFlag,
+  // avatarURL,
+  // canDownloadFlag,
+  // canEditFlag,
   canLikeFlag,
-  canShareFlag,
+  // canShareFlag,
   customerImageId,
-  fileData,
+  // fileData,
   imageTitle,
   imageURL,
   likePrompt,
   likesCount,
-  linkableFileData,
+  // linkableFileData,
   observationLog,
-  originX,
-  originY,
-  photoViewFullURL,
-  scheduledMissionId,
+  // originX,
+  // originY,
+  // photoViewFullURL,
+  // scheduledMissionId,
   shareToken,
   showLikePrompt,
-  socialShareDescription,
-  zoom,
+  // socialShareDescription,
+  // zoom,
 }) => {
-  const heartProps = {
-    canLikeFlag,
-    showLikePrompt,
-    likePrompt,
-    count: likesCount,
-    theme: 'buttonOnly',
-    likeId: customerImageId,
-  };
   return (
     <div className="observation-item" key={customerImageId}>
-      <h2>{imageTitle}</h2>
-      <Link to={`/my-pictures/show-image/${customerImageId}/${shareToken}`}>
-        <div style={{ backgroundImage: `url(${imageURL})` }} className="shared-image" />
-      </Link>
       <div className="title" dangerouslySetInnerHTML={{ __html: imageTitle }} />
-      <div className="description" dangerouslySetInnerHTML={{ __html: observationLog }} />
-      <Heart
-        {...heartProps}
-        likeAction={likeImage}
-        showLikeText={false}
-      />
+      <div className="body">
+        <Link to={`/my-pictures/show-image/${customerImageId}/${shareToken}`}>
+          <div style={{ backgroundImage: `url(${imageURL})` }} className="shared-image" />
+        </Link>
+        <div>
+          <div className="description" dangerouslySetInnerHTML={{ __html: observationLog }} />
+          <div>Likes ({likesCount})</div>
+        </div>
+      </div>
       <style jsx>{`
+        .body {
+          display: flex;
+          flex-direction: row;
+        }
         .shared-image {
+          display: inline-block;
           ${backgroundImageCover}
-          height: auto;
-          width: 500px;
+          height: 100px;
+          width: 100px;
         }
       `}</style>
     </div>

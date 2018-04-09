@@ -5,8 +5,8 @@ import { bindActionCreators } from 'redux';
 
 import MyObservations from '../../components/profiles/my-observations';
 
-const roles = {
-  astronomer: ['myobservations'],
+const componentsByRole = {
+  astronomer: ['myobservations', 'askastronomer'],
   apprentice: ['myobservations'],
   luminary: ['myobservations'],
   host: ['myobservations'],
@@ -40,12 +40,11 @@ class PrivateProfile extends Component {
       dashboard,
       user,
     } = this.props;
-    console.log('user.membershipType', user.membershipType)
     const membershipType = 'astronomer';
     return (
       <div>Private Profile
 
-        {roles[membershipType].indexOf('myobservations') > -1 ? <MyObservations cid={user.cid} /> : null}
+        {componentsByRole[membershipType].indexOf('myobservations') > -1 ? <MyObservations cid={user.cid} /> : null}
       </div>
     );
   }
