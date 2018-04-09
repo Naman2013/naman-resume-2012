@@ -39,15 +39,8 @@ class DomeCamWidget extends Component {
     offlineImageURL: PropTypes.string.isRequired,
   };
 
-  componentDidMount() {
-    const { obsId, DomecamWidgetId } = this.props;
-    this.props.actions.fetchDomeCamAction({ obsId, DomecamWidgetId });
-  }
-
-  componentWillUpdate(nextProps) {
-    if (this.props.obsId !== nextProps.obsId) {
-      this.props.actions.fetchDomeCamAction({ obsId: nextProps.obsId, DomecamWidgetId: nextProps.DomecamWidgetId });
-    }
+  constructor(props) {
+    super(props);
   }
 
   render() {

@@ -117,7 +117,6 @@ class Gallery extends Component {
           </div>
           <style jsx>
             {`
-
               .content {
                 position: absolute;
                 top: 0;
@@ -138,7 +137,6 @@ class Gallery extends Component {
           </style>
           <style jsx global>
             {`
-
               .gallery-container-image {
                 ${backgroundImageCover}
                 background-position: center;
@@ -168,7 +166,6 @@ class Gallery extends Component {
                 right: 35px;
                 bottom: 25px;
               }
-
             `}
           </style>
         </Link>

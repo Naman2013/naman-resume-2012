@@ -8,7 +8,7 @@ import { white, black, pink } from '../../../styles/variables/colors';
 import { fetchGalleries, createGallery, fetchGalleriesCount } from '../../../modules/my-pictures-galleries/actions';
 import { addImageToGallery, resetAddResponse } from '../../../modules/my-pictures-gallery-actions/actions';
 import { togglePublicGallery } from '../../../modules/toggle-public-gallery/actions';
-import { actionsStyles } from './actions.style';
+import ActionButton from './ActionButton';
 
 const {
   arrayOf,
@@ -46,12 +46,13 @@ const mapDispatchToProps = dispatch => ({
 class AddToGallery extends Component {
 
   static propTypes = {
+    theme: PropTypes.oneOf(['light', 'dark']),
     customerImageId: oneOfType([number, string]).isRequired,
     actions: shape({
       fetchGalleries: func.isRequired,
       createGallery: func.isRequired,
       fetchGalleriesCount: func.isRequired,
-    }),
+    }).isRequired,
     addToGalleryState: shape({
       loading: bool,
       response: string,
@@ -64,7 +65,9 @@ class AddToGallery extends Component {
     galleryList: arrayOf(shape({
     })).isRequired,
   };
+
   static defaultProps = {
+    theme: 'light',
     addToGalleryState: {
       loading: false,
       response: null,
@@ -77,25 +80,18 @@ class AddToGallery extends Component {
     user: {
       at: '',
       token: '',
-      cid: ''
-    }
+      cid: '',
+    },
   };
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.contextTrigger = null;
   }
 
   state = {
     newGalleryName: '',
   };
-
-  fetchGalleries = () => {
-    const { actions, galleryList } = this.props;
-    actions.fetchGalleries({
-      noFilters: true,
-    });
-  }
 
   toggleMenu = (e) => {
     const { actions } = this.props;
@@ -109,10 +105,10 @@ class AddToGallery extends Component {
     actions.resetAddResponse();
   }
 
-  createGallery = (e) => {
+  createGallery = (event) => {
+    event.preventDefault();
     const { actions } = this.props;
     const { newGalleryName } = this.state;
-    e.preventDefault();
 
     if (!newGalleryName) return;
     actions.createGallery({
@@ -122,8 +118,8 @@ class AddToGallery extends Component {
         actions.fetchGalleriesCount({});
       }
       this.setState({
-        newGalleryName: ''
-      })
+        newGalleryName: '',
+      });
     });
   }
 
@@ -152,7 +148,14 @@ class AddToGallery extends Component {
     }
   }
 
-  forceFocus = (e) => { // force focus for Microsoft Edge
+  fetchGalleries = () => {
+    const { actions } = this.props;
+    actions.fetchGalleries({
+      noFilters: true,
+    });
+  }
+
+  forceFocus = (e) => {
     e.preventDefault();
     this._createInput.focus();
   }
@@ -168,15 +171,15 @@ class AddToGallery extends Component {
 
   render() {
     const {
-      actionSource,
+      theme,
       addToGalleryState,
       galleryList,
       fetchGalleriesLoading,
-      galleryCreated,
       galleryCreating,
       galleryCreatingError,
       customerImageId,
     } = this.props;
+
     const {
       newGalleryName,
     } = this.state;
@@ -185,7 +188,7 @@ class AddToGallery extends Component {
       <div className="action-menu-container">
         <ContextMenu
           className="add-gallery-context-menu"
-          ref={c => this.contextTrigger = c}
+          ref={(c) => { this.contextTrigger = c; }}
           menuWidth={250}
           onShow={this.fetchGalleries}
           leftOffset={-35}
@@ -197,7 +200,7 @@ class AddToGallery extends Component {
           }
           {!fetchGalleriesLoading && <div className="rest-of-list">
             <div className="create-gallery">
-              <button className="action create" onClick={this.createGallery}>
+              <button className="action-create" onClick={this.createGallery}>
                 <span className="fa fa-plus" />
               </button>
               {galleryCreating && <span>Creating your gallery...</span>}
@@ -210,7 +213,7 @@ class AddToGallery extends Component {
                 placeholder="Type Here to Create Gallery"
                 value={newGalleryName}
                 onChange={this.updateNewGalleryName}
-                ref={input => this._createInput = input}
+                ref={(input) => { this._createInput = input; }}
               />}
               {galleryCreatingError && <span>Your gallery could not be created</span>}
             </div>
@@ -225,10 +228,14 @@ class AddToGallery extends Component {
             />
           </div>}
         </ContextMenu>
-        <button className="action" onClick={this.toggleMenu}>
-          <span className="fa fa-plus" />
-          <div className="action-description">Add to gallery</div>
-        </button>
+
+        <ActionButton
+          theme={theme}
+          handleClick={this.toggleMenu}
+          fontAwesomeIcon="fa-plus"
+          description="Add to gallery"
+        />
+
         <style jsx>
           {`
             .loading {
@@ -241,28 +248,27 @@ class AddToGallery extends Component {
               height: 100%;
               overflow-y: auto;
             }
+
             .action-menu-container {
               position: relative;
             }
+
             .create-gallery {
-              display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
-              display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
-              display: -ms-flexbox;      /* TWEENER - IE 10 */
-              display: -webkit-flex;     /* NEW - Chrome */
-              display: flex;             /* NEW, Spec - Opera 12.1, Firefox 20+ */
+              display: flex;
               flex-direction: row;
               align-items: center;
             }
 
-            ${actionsStyles}
-            .action.create {
+            .action-create {
               margin: 5px;
+              padding-top: 2px;
+              border-radius: 50%;
               background: ${white};
               color: ${pink};
               border: 2px solid ${pink};
             }
 
-            .action.create:hover {
+            .action-create:hover {
               background: ${pink};
               color: ${white};
             }
@@ -271,19 +277,13 @@ class AddToGallery extends Component {
               border: none;
               color: ${pink};
               width: 90%;
-              height: 35px;
+              padding: 10px 5px;
             }
 
-            .name-input::-webkit-input-placeholder { /* Chrome */
-              color: ${pink};
-            }
-            .name-input:-ms-input-placeholder { /* IE 10+ */
-              color: ${pink};
-            }
-            .name-input::-moz-placeholder { /* Firefox 19+ */
-              color: ${pink};
-            }
-            .name-input:-moz-placeholder { /* Firefox 4 - 18 */
+            .name-input::-webkit-input-placeholder,
+            .name-input:-ms-input-placeholder,
+            .name-input::-moz-placeholder,
+            .name-input:-moz-placeholder {
               color: ${pink};
             }
           `}

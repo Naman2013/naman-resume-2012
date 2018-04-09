@@ -312,13 +312,13 @@ const fetchWeatherForecastSuccess = weatherForecastWidgetResult => ({
 
 export const fetchWeatherForecast = ({
   obsId,
-  miniWeatherPanelWidgetId,
+  MiniWeatherPanelWidgetId,
 }) => (dispatch) => {
   dispatch(startWeatherForecast());
 
   return fetchWeatherForecastWidget({
     obsId,
-    widgetUniqueId: miniWeatherPanelWidgetId,
+    widgetUniqueId: MiniWeatherPanelWidgetId,
   }).then((result) => {
     if (!result.data.apiError) {
       dispatch(fetchWeatherForecastSuccess(result.data));

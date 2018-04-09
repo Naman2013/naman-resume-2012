@@ -2,15 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import ModalGeneric from '../../common/modals/modal-generic';
 import { shareMemberPicture } from '../../../modules/share-member-photo/actions';
-import { actionsStyles } from './actions.style';
+import ActionButton from './ActionButton';
 
 const {
-  arrayOf,
-  bool,
   func,
-  number,
   shape,
   string,
 } = PropTypes;
@@ -21,7 +17,7 @@ const mapStateToProps = ({ shareMemberPhoto }) => ({
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
-    shareMemberPicture
+    shareMemberPicture,
   }, dispatch),
 });
 
@@ -29,6 +25,7 @@ const mapDispatchToProps = dispatch => ({
 class ShareMemberPhoto extends Component {
 
   static propTypes = {
+    theme: PropTypes.oneOf(['light', 'dark']),
     customerImageId: string.isRequired,
     actions: shape({
       sharememberPicture: func.isRequired,
@@ -36,8 +33,8 @@ class ShareMemberPhoto extends Component {
   };
 
   static defaultProps = {
+    theme: 'light',
   };
-
 
   sharePhoto = (e) => {
     e.preventDefault();
@@ -55,18 +52,12 @@ class ShareMemberPhoto extends Component {
   render() {
     return (
       <div>
-        <button className="action" onClick={this.sharePhoto}>
-          <span className="fa fa-cogs" />
-          <div className="action-description share-description">Share</div>
-        </button>
-        <style jsx>{`
-          ${actionsStyles}
-
-          .action:hover .share-description {
-            text-align: center;
-            width: 80px;
-          }
-        `}</style>
+        <ActionButton
+          theme={this.props.theme}
+          handleClick={this.sharePhoto}
+          fontAwesomeIcon="fa-cogs"
+          description="Share"
+        />
       </div>
     );
   }

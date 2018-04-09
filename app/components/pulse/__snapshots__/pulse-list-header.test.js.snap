@@ -2,30 +2,26 @@
 
 exports[`it should render a menu 1`] = `
 <div
-  className="pulseListHeader"
-  data-jsx={835320471}
+  className="jsx-1550548916 pulseListHeader"
 >
   <div
-    className="title"
-    data-jsx={835320471}
+    className="jsx-1550548916 title"
   >
     <h1
-      className="header-title"
+      className="jsx-1550548916 header-title"
       dangerouslySetInnerHTML={
         Object {
           "__html": "",
         }
       }
-      data-jsx={835320471}
     />
     <div
-      className="header-subtitle"
+      className="jsx-1550548916 header-subtitle"
       dangerouslySetInnerHTML={
         Object {
           "__html": "",
         }
       }
-      data-jsx={835320471}
     />
   </div>
 </div>

@@ -18,8 +18,8 @@ function Timestamp({ unixTimestamp }) {
     <div className="root">
       <h5 className="content">
         <InlineCountdown
-          incrementTime={true}
-          forceUTC={true}
+          incrementTime
+          forceUTC
           startTime={unixTimestamp}
           format={'YYYY-MM-DDTH:mmUTC'}
         />

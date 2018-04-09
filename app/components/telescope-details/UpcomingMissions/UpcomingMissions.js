@@ -21,21 +21,23 @@ class UpcomingMissions extends Component {
             upcomingMissionArray,
             showStatusMessage,
             statusMessage,
-          }, fetchingContent }) => (
-            <div className="root">
-              <SectionHeader title="Upcoming Missions" />
-              <UpcomingMissionList
-                missions={upcomingMissionArray}
-                fetchingMissions={fetchingContent}
-                showStatusMessage={showStatusMessage}
-                statusMessage={statusMessage}
-              />
-              <style jsx>{`
-                .root {
-                  margin-top: 10px;
-                }
-              `}</style>
-            </div>
+          },
+          fetchingContent,
+        }) => (
+          <div className="root">
+            <SectionHeader title="Upcoming Missions" />
+            <UpcomingMissionList
+              missions={upcomingMissionArray}
+              fetchingMissions={fetchingContent}
+              showStatusMessage={showStatusMessage}
+              statusMessage={statusMessage}
+            />
+            <style jsx>{`
+              .root {
+                margin-top: 10px;
+              }
+            `}</style>
+          </div>
         )}
       />
     );

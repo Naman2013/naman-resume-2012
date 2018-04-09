@@ -1,4 +1,4 @@
-export const customScrollBar = parent => (`
+export default parent => (`
   .${parent}::-webkit-scrollbar {
     width: 4px;
   }

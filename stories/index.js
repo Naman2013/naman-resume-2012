@@ -7,3 +7,4 @@ import './VirtualTelescopeViewer';
 import './Tabs';
 import './design-system';
 import './svg-mask';
+import './MissionAudio';

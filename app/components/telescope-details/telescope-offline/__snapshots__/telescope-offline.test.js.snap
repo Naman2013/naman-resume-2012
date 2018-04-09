@@ -2,30 +2,28 @@
 
 exports[`should render with an image and message 1`] = `
 <div
-  className="telescope-details-offline"
-  data-jsx={759894628}
+  className="jsx-2181730630 telescope-details-offline"
 >
   <h2
-    data-jsx={759894628}
+    className="jsx-2181730630"
   >
     OFFLINE
   </h2>
   <div
-    data-jsx={759894628}
+    className="jsx-2181730630"
   >
     <img
       alt="Telescope is currently offline"
-      data-jsx={759894628}
+      className="jsx-2181730630"
       height="350"
       src="https://vega.slooh.com/images/placeholders/telescope-offline.png"
     />
   </div>
   <div
-    className="offlineMessage"
-    data-jsx={759894628}
+    className="jsx-2181730630 offlineMessage"
   >
     <h5
-      data-jsx={759894628}
+      className="jsx-2181730630"
     >
       Missions are offline due to weather conditions.
     </h5>
