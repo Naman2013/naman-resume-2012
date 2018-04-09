@@ -12,6 +12,7 @@ import { bindActionCreators } from 'redux';
 import classnames from 'classnames';
 import has from 'lodash/has';
 import {
+  fetchObjectDetailsAction,
   fetchObjectDataAction,
   fetchObjectMissionsAction,
   fetchObjectQuestsAction,
@@ -21,6 +22,7 @@ const mapStateToProps = ({ objectDetails, appConfig, user }) => ({
   objectMissions: objectDetails.objectMissions,
   objectQuests: objectDetails.objectQuests,
   objectData: objectDetails.objectData,
+  objectDetails: objectDetails.objectDetails,
   appConfig,
   user,
 });
@@ -43,7 +45,7 @@ class Overview extends Component {
   }
 
   componentWillMount() {
-    console.log(this.props)
+    //console.log(this.props)
   }
 
   render() {
@@ -51,6 +53,7 @@ class Overview extends Component {
       params: {
         objectId,
       },
+      objectDetails,
       objectData,
       objectMissions,
       objectQuests

@@ -2,6 +2,12 @@ import clone from 'lodash/clone';
 import createReducer from '../utils/createReducer';
 
 import {
+  FETCH_OBJECT_DETAILS,
+  FETCH_OBJECT_DETAILS_START,
+  FETCH_OBJECT_DETAILS_SUCCESS,
+  FETCH_OBJECT_DETAILS_FAIL,
+  RESET_OBJECT_DETAILS,
+
   FETCH_OBJECT_DATA,
   FETCH_OBJECT_DATA_START,
   FETCH_OBJECT_DATA_SUCCESS,
@@ -21,12 +27,41 @@ import {
   } from './actions';
 
 const initialState = {
+  objectDetails: {},
   objectData: {},
   objectMissions: {},
   objectQuests: {},
 };
 
 export default createReducer(initialState, {
+  
+  [FETCH_OBJECT_DETAILS_SUCCESS](state, { payload }) {
+      return {
+        ...state,
+        objectDetails: payload,
+      };
+    },
+  [RESET_OBJECT_DETAILS](state) {
+    return {
+      ...state,
+      objectDetails: Object.assign({}, initialState.objectDetails),
+    };
+  },
+  [FETCH_OBJECT_DETAILS_START](state) {
+    return {
+      ...state,
+      objectDetails: Object.assign({}, initialState.objectDetails),
+    };
+  },
+  [FETCH_OBJECT_DETAILS_FAIL](state, { payload }) {
+    return {
+      ...state,
+      objectDetails: Object.assign({}, initialState.objectDetails),
+      errorBody: payload,
+    };
+  },
+
+
   [FETCH_OBJECT_DATA_SUCCESS](state, { payload }) {
     return {
       ...state,
