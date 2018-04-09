@@ -13,8 +13,8 @@ import classnames from 'classnames';
 import has from 'lodash/has';
 import {
   fetchObjectDetailsAction,
-  /*fetchObjectDataAction,
-  fetchObjectMissionsAction,
+  fetchObjectDataAction,
+  /*fetchObjectMissionsAction,
   fetchObjectQuestsAction,*/
 } from '../../modules/object-details/actions';
 import Navigation from '../../components/object-details/Navigation';
@@ -25,8 +25,8 @@ import {
 
 const mapStateToProps = ({ objectDetails, appConfig, user }) => ({
   /*objectMissions: objectDetails.objectMissions,
-  objectQuests: objectDetails.objectQuests,
-  objectData: objectDetails.objectData,*/
+  objectQuests: objectDetails.objectQuests,*/
+  objectData: objectDetails.objectData,
   objectDetails: objectDetails.objectDetails,
   appConfig,
   user,
@@ -35,8 +35,8 @@ const mapStateToProps = ({ objectDetails, appConfig, user }) => ({
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
     fetchObjectDetailsAction,
-    /*fetchObjectDataAction,
-    fetchObjectMissionsAction,
+    fetchObjectDataAction,
+    /*fetchObjectMissionsAction,
     fetchObjectQuestsAction,*/
   }, dispatch),
 });
@@ -79,6 +79,7 @@ class ObjectDetails extends Component {
     // fetch the object details, the object page has been changed.
     if (this.props.params.objectId != nextProps.params.objectId) {
       this.props.actions.fetchObjectDetailsAction(objectId);
+      this.props.actions.fetchObjectDataAction(objectId);
     }
   }
 
@@ -98,6 +99,7 @@ class ObjectDetails extends Component {
     if (this.props.objectDetails.objectId != objectId) {
         //fetch the object-level meta data only if the objectId changes.
         this.props.actions.fetchObjectDetailsAction(objectId);
+        this.props.actions.fetchObjectDataAction(objectId);
     }
   }
 
