@@ -84,9 +84,4 @@ class MyObservations extends Component {
   }
 }
 
-MyObservations.defaultProps = {
-};
-MyObservations.propTypes = {
-};
-
 export default MyObservations;

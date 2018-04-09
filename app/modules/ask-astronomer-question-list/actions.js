@@ -20,23 +20,19 @@ const fetchAstronomerQuestionListFail = payload => ({
 });
 
 export const fetchAstronomerQuestionList = ({
+  answerState,
   appendToList = false,
-  at,
-  cid,
-  count,
   lang,
   page,
-  token,
   ver,
-  answerState,
 }) => (dispatch, getState) => {
   const { cid, at, token } = getState().user;
   const { count } = getState().astronomerQuestionList;
   dispatch(fetchAstronomerQuestionListStart({ appendToList }));
   return axios.post('/api/forum/getQuestionsList', {
+    answerState,
     appendToList,
     at,
-    answerState,
     callSource: 'qanda',
     cid,
     count,

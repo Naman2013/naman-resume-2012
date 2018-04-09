@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import MyObservations from '../../components/profiles/my-observations';
+import AskAstronomerQuestionList from '../../components/profiles/ask-astronomer-question-list';
 
 const componentsByRole = {
   astronomer: ['myobservations', 'askastronomer'],
@@ -45,6 +46,7 @@ class PrivateProfile extends Component {
       <div>Private Profile
 
         {componentsByRole[membershipType].indexOf('myobservations') > -1 ? <MyObservations cid={user.cid} /> : null}
+        {componentsByRole[membershipType].indexOf('askastronomer') > -1 ? <AskAstronomerQuestionList /> : null}
       </div>
     );
   }
