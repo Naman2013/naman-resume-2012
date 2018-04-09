@@ -50,7 +50,8 @@ const MissionTile = ({
         font-family: ${primaryFont};
         margin-bottom: 10px;
       }
-    `}</style>
+    `}
+    </style>
   </div>
 );
 

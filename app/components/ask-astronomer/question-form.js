@@ -1,19 +1,17 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router';
 import PropTypes from 'prop-types';
-import moment from 'moment';
-import ImageUploadForm from './image-upload-form';
 import ModalGeneric from '../common/modals/modal-generic';
 import { createThread } from '../../services/discussions/create-thread';
+import { prepareThread } from '../../services/discussions/prepare-thread';
+import fetchSpecialists from '../../services/objects/specialists';
+import deletePostImage from '../../services/post-creation/delete-post-image';
+import setPostImages from '../../modules/set-post-images';
+
 import { avatarImgStyle } from './styles';
-import { black, darkBlueGray, white, turqoise } from '../../styles/variables/colors';
-import { secondaryFont } from '../../styles/variables/fonts';
+import { black, darkBlueGray, white } from '../../styles/variables/colors';
 
 const {
-  arrayOf,
-  bool,
-  func,
-  number,
-  shape,
   string,
 } = PropTypes;
 
@@ -39,17 +37,55 @@ const successMessage = (<div className="container">
 class AskAstronomerQuestionForm extends Component {
   static propTypes = {
     objectTitle: string,
+    objectId: string,
   }
   static defaultProps = {
-    objectTitle: ''
+    objectTitle: '',
+    objectId: '',
   }
 
   state = {
     questionText: '',
     showPopup: false,
     modalDescription: null,
+    uuid: null,
+    uploadError: null,
+    uploadLoading: false,
+    S3URLs: [],
+    specialists: [],
   }
 
+  componentDidMount() {
+    const {
+      user,
+      objectId,
+    } = this.props;
+
+    prepareThread({
+      at: user.at,
+      token: user.token,
+      cid: user.cid,
+    }).then((res) => {
+      if (!res.data.apiError) {
+        this.setState({
+          uuid: res.data.postUUID,
+        })
+      }
+    });
+
+    fetchSpecialists({
+      at: user.at,
+      token: user.token,
+      cid: user.cid,
+      objectId,
+    }).then((res) => {
+      if (!res.data.apiError) {
+        this.setState({
+          specialists: res.data.specialistsList,
+        });
+      }
+    });
+  }
   onTextChange = (e) => {
     this.setState({
       questionText: e.target.value,
@@ -67,6 +103,7 @@ class AskAstronomerQuestionForm extends Component {
 
     const {
       questionText,
+      S3URLs,
     } = this.state;
 
     createThread({
@@ -74,6 +111,7 @@ class AskAstronomerQuestionForm extends Component {
       token: user.token,
       cid: user.cid,
       objectId,
+      S3URLs,
       callSource: 'qanda',
       content: questionText,
       topicId,
@@ -85,6 +123,7 @@ class AskAstronomerQuestionForm extends Component {
           showPopup: true,
           modalDescription: successMessage,
           questionText: '',
+          S3URLs: [],
         });
       } else {
         this.setState({
@@ -92,7 +131,6 @@ class AskAstronomerQuestionForm extends Component {
           modalDescription: 'There was an error submitting your question.',
         });
       }
-
     });
   }
 
@@ -102,14 +140,60 @@ class AskAstronomerQuestionForm extends Component {
     });
   }
 
+  handleUploadImage = (event) => {
+    event.preventDefault();
+
+    const { cid, token, at } = this.props.user;
+    const { uuid } = this.state;
+    const data = new FormData();
+    data.append('cid', cid);
+    data.append('token', token);
+    data.append('at', at);
+    data.append('uniqueId', uuid);
+    data.append('imageClass', 'discussion');
+    data.append('attachment', event.target.files[0]);
+
+    this.setState({
+      uploadError: null,
+      uploadLoading: true,
+    });
+
+    setPostImages(data)
+      .then(res => this.handleUploadImageResponse(res.data))
+      .catch(err => this.setState({
+        uploadError: err.message,
+        uploadLoading: false,
+      }));
+  }
+
+  handleDeleteImage = (imageURL) => {
+    if (!imageURL) { return; }
+
+    const { cid, token, at } = this.props.user;
+    const { uuid } = this.props;
+    const imageClass = 'discussion';
+    deletePostImage({
+      cid, token, at, uniqueId: uuid, imageClass, imageURL
+    }).then(result => this.handleUploadImageResponse(result.data));
+  }
+
+  handleUploadImageResponse = (uploadFileData) => {
+    this.setState({
+      S3URLs: uploadFileData.S3URLs,
+      uploadLoading: false,
+    });
+  }
+
   render () {
     const { objectTitle } = this.props;
     const {
       questionText,
       showPopup,
       modalDescription,
+      uploadError,
+      uploadLoading,
+      specialists,
     } = this.state;
-    // const avatarStyle = Object.assign(avatarImgStyle(), { height: '50px', width: '50px'});
     return (
       <div>
         <div className="header">
@@ -117,16 +201,51 @@ class AskAstronomerQuestionForm extends Component {
           <h3>Ask an Astronomer</h3>
         </div>
         <form className="form">
-          <div className="avatars"></div>
+          <div className="avatars">
+            {specialists.map((specialist) => {
+              const avatarStyle = Object.assign(avatarImgStyle(specialist.iconURL), { height: '50px', width: '50px'});
+              return (
+                <div
+                  key={specialist.customerId}
+                  className="avatar"
+                >
+                  {specialist.hasLinkFlag &&
+                    <Link to={specialist.linkURL}>
+                      <div
+                        style={avatarStyle}
+                      />
+                    </Link>
+                  }
+                  {!specialist.hasLinkFlag &&
+                    <div
+                      style={avatarStyle}
+                    />
+                  }
+                </div>
+              );
+          })}
+          </div>
           <div>{`We've got a community of experts on Slooh to help you learn about space. Have a question about ${objectTitle}? Ask an Astronomer today!`}</div>
           <textarea
             className="question-input"
             onChange={this.onTextChange}
             maxLength={100}
             value={questionText}
-          ></textarea>
+          />
           <div className="flex-right">{questionText.length}/100</div>
-          <ImageUploadForm />
+          <div className="image-upload">
+            <input
+              type="file"
+              className="upload-button"
+              onChange={this.handleUploadImage}
+              accept="image/*"
+            />
+            {uploadError && <span className="errorMsg">{uploadError}</span>}
+            {(!uploadError && uploadLoading) && <div className="fa fa-spinner" />}
+            <span>
+              <Link to="/help/posting-guidelines">Guidelines</Link>
+            </span>
+          </div>
           <div className="flex-right">
             <button type="button" className="question-button" onClick={this.submitForm}>Submit Your Question</button>
           </div>
@@ -147,6 +266,13 @@ class AskAstronomerQuestionForm extends Component {
           .form {
             padding: 15px;
             border: 1px solid ${black};
+          }
+          .avatars {
+            display: flex;
+            justify-content: space-between;
+          }
+          .avatar {
+            display: inline-block;
           }
           .question-input {
             border-width: 1px;
