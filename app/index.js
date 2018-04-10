@@ -37,7 +37,8 @@ import DiscussionsSearch from './containers/discussions/DiscussionsSearch';
 
 //V 4 containers
 import AskAstronomer from './containers/ask-astronomer/AskAstronomer';
-import ObjectDetailsOverview from './containers/object-details-overview/ObjectDetailsOverview';
+import ObjectDetailsOverview from './containers/object-details/ObjectDetailsOverview';
+import ObjectDetailsMissions from './containers/object-details/ObjectDetailsMissions';
 
 // pages
 import Home from './pages/home';
@@ -471,6 +472,7 @@ ReactDOM.render(
         <Route path="object-details/:objectId" component={ObjectDetails} onEnter={validateUser}>
           <IndexRedirect to="overview" />
           <Route path="overview" component={ObjectDetailsOverview} onEnter={validateUser} />
+          <Route path="missions" component={ObjectDetailsMissions} onEnter={validateUser} />
           <Route path="ask" component={AskAstronomer} onEnter={validateUser} />
         </Route>
         <Route path="quest-details/:questId" component={QuestDetails} onEnter={validateUser} />

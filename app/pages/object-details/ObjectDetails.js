@@ -14,8 +14,8 @@ import has from 'lodash/has';
 import {
   fetchObjectDetailsAction,
   fetchObjectDataAction,
-  /*fetchObjectMissionsAction,
-  fetchObjectQuestsAction,*/
+  fetchObjectMissionsAction,
+  /*fetchObjectQuestsAction,*/
 } from '../../modules/object-details/actions';
 import Navigation from '../../components/object-details/Navigation';
 import {
@@ -24,8 +24,8 @@ import {
 } from '../../styles/variables/colors';
 
 const mapStateToProps = ({ objectDetails, appConfig, user }) => ({
-  /*objectMissions: objectDetails.objectMissions,
-  objectQuests: objectDetails.objectQuests,*/
+  objectMissions: objectDetails.objectMissions,
+  /*objectQuests: objectDetails.objectQuests,*/
   objectData: objectDetails.objectData,
   objectDetails: objectDetails.objectDetails,
   appConfig,
@@ -36,8 +36,8 @@ const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
     fetchObjectDetailsAction,
     fetchObjectDataAction,
-    /*fetchObjectMissionsAction,
-    fetchObjectQuestsAction,*/
+    fetchObjectMissionsAction,
+    /*fetchObjectQuestsAction,*/
   }, dispatch),
 });
 
@@ -69,8 +69,8 @@ class ObjectDetails extends Component {
 
     if (this.props.objectDetails.objectId != nextProps.objectDetails.objectId) {
       //console.log('Object has been loaded.....gather more data....');
-      /*this.props.actions.fetchObjectMissionsAction(nextProps.objectDetails.objectId);
-      this.props.actions.fetchObjectQuestsAction(nextProps.objectDetails.objectId);*/
+      this.props.actions.fetchObjectMissionsAction(nextProps.objectDetails.objectId);
+      /*this.props.actions.fetchObjectQuestsAction(nextProps.objectDetails.objectId);*/
     }
 
     // console.log(this.props.params.objectId);

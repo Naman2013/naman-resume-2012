@@ -45,8 +45,7 @@ class Overview extends Component {
   }
 
   componentWillMount() {
-    console.log(this.props)
-    //console.log(objectData);
+    //console.log(this.props)
   }
 
   render() {
@@ -70,12 +69,12 @@ class Overview extends Component {
             <li>Object Constellation: {objectData.objectConstellation}</li>
             <li>Best Telescope: ?</li>
           </ul>
-          <h2>{objectData.objectSubtitle}</h2>
+          <h4>{objectData.objectSubtitle}</h4>
           <p>{objectData.objectDescription}</p>
-          <a href="#">Read More</a> <a href="#">Follow {objectData.objectTitle}</a>
+          <a href="#">Read More + </a> <a href="#">Follow {objectData.objectTitle}</a>
         </div>
 
-        <div className="contain">{objectData.objectTagline}</div>
+        <div className="contain">Fun fact: {objectData.objectTagline}</div>
         
         {objectData.objectAudioURL != '' &&
           <div className="contain">
@@ -85,7 +84,7 @@ class Overview extends Component {
         }
 
         <div className="contain">
-          Most Active Astromomers on {objectData.objectTitle}
+          <h4>Most Active Astronomers on {objectData.objectTitle}</h4>
         </div>
 
         <style jsx>{`
@@ -97,6 +96,10 @@ class Overview extends Component {
           .contain ul {
             float: right;
             list-style: none;
+          }
+          h4 {
+            text-transform: uppercase;
+            font-weight: 600;
           }
         `}</style>
 
