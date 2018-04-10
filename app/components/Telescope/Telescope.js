@@ -76,7 +76,7 @@ class Telescope extends Component {
 
                 <TelescopeFrame count={50} length={width} />
 
-                <Grid dimension={width} />
+                <Grid count={50} dimension={width} />
 
               </svg>
 
