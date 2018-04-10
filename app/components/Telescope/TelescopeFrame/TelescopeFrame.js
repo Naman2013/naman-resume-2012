@@ -18,7 +18,7 @@ const defaultProps = {
   },
 };
 
-const TickFrame = ({ count, length, style }) => (
+const TelescopeFrame = ({ count, length, style }) => (
   <g className="root">
     <g>
       {generateRow(length, count, ROW_CONFIGURATION_ENUM.TOP, style)}
@@ -38,7 +38,7 @@ const TickFrame = ({ count, length, style }) => (
   </g>
 );
 
-TickFrame.propTypes = propTypes;
-TickFrame.defaultProps = defaultProps;
+TelescopeFrame.propTypes = propTypes;
+TelescopeFrame.defaultProps = defaultProps;
 
-export default TickFrame;
+export default TelescopeFrame;

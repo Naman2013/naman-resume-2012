@@ -1,6 +1,6 @@
 import React from 'react';
 import ROW_CONFIG from './rowConfigurationEnum';
-import Polyline from '../SVG/Polyline';
+import Polyline from '../../SVG/Polyline';
 
 function warnClient() {
   console.warn('Invalid row configuration provided');

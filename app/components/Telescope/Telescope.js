@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Measure from 'react-measure';
-import TickFrame from './TickFrame';
+import TelescopeFrame from './TelescopeFrame';
+import Mask from './Mask';
 import Image from './Image';
 
 const testImage = 'https://polaris.slooh.com/chile/1/highmag/2018/04/04/2340_m43/m43_20180404_234018_0_kx3vo6_l.png';
@@ -60,6 +61,7 @@ class Telescope extends Component {
                 version="1.1"
                 xmlns="http://www.w3.org/2000/svg"
               >
+
                 <g>
                   <Image
                     x={-imageX}
@@ -69,18 +71,9 @@ class Telescope extends Component {
                   />
                 </g>
 
-                <g>
-                  <defs>
-                    <mask id="hole">
-                      <rect width="100%" height="100%" fill="white" />
-                      <circle r="38%" cx="50%" cy="50%" fill="black" />
-                    </mask>
-                  </defs>
+                <Mask />
 
-                  <rect id="portal" x="0" y="0" width="100%" height="100%" mask="url(#hole)" />
-                </g>
-
-                <TickFrame count={50} length={width} />
+                <TelescopeFrame count={50} length={width} />
 
               </svg>
 
