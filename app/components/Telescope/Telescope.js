@@ -3,6 +3,7 @@ import Measure from 'react-measure';
 import TelescopeFrame from './TelescopeFrame';
 import Mask from './Mask';
 import Image from './Image';
+import Grid from './Grid';
 
 const testImage = 'https://polaris.slooh.com/chile/1/highmag/2018/04/04/2340_m43/m43_20180404_234018_0_kx3vo6_l.png';
 
@@ -74,6 +75,8 @@ class Telescope extends Component {
                 <Mask />
 
                 <TelescopeFrame count={50} length={width} />
+
+                <Grid dimension={width} />
 
               </svg>
 
