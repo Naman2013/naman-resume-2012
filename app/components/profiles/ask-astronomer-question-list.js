@@ -62,7 +62,7 @@ class AstronomerQuestionList extends Component {
         </div>
         <div># new questions! Earn gravity by mentoring in the Slooh community</div>
         <div>
-          {astronomerQuestionList.threads.map(question => <AstronomerQuestionListItem {...question} />)}
+          {astronomerQuestionList.threads.map(question => <AstronomerQuestionListItem {...question} key={question.threadId} />)}
         </div>
         <style jsx>{`
 

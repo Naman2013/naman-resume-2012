@@ -38,11 +38,19 @@ class ReplyToAstronomerQuestion extends Component {
     e.preventDefault();
     this.setState({
       replyText: e.target.value,
+      submitted: false,
+      error: false,
     })
   }
 
   submitAnswer = (e) => {
     e.preventDefault();
+
+    this.setState({
+      submitted: false,
+      error: false,
+    });
+
     const {
       objectId,
       threadId,
@@ -60,25 +68,49 @@ class ReplyToAstronomerQuestion extends Component {
       replyTo: threadId,
       threadId,
       topicId,
+    }).then((res) => {
+      if (!res.data.apiError) {
+        this.setState({
+          submitted: true,
+          replyText: '',
+        });
+      } else {
+        this.setState({
+          submitted: true,
+          error: true,
+        });
+      }
     });
   }
 
   render() {
     const {
-    } = this.props;
+      submitted,
+      error,
+    } = this.state;
 
     return (
-      <form className="reply-to-question">
-        <input
-          type="text"
-          onChange={this.changeReplyText}
-        />
-        <button onClick={this.submitAnswer}>Answer Now</button>
+      <div className="reply-to-question">
+        { submitted && error &&
+          <div>There was an error submitting your answer.</div>
+        }
+        { submitted && !error &&
+          <div>Answer has been submitted</div>
+        }
+        {(!submitted || (submitted && error)) &&
+          <form>
+            <input
+              type="text"
+              onChange={this.changeReplyText}
+            />
+            <button onClick={this.submitAnswer}>Answer Now</button>
+          </form>
+        }
         <style jsx>{`
 
 
         `}</style>
-      </form>
+      </div>
     )
   }
 }
