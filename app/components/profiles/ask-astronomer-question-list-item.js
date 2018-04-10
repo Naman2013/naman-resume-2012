@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import { Link } from 'react-router';
+import ReplyToAstronomerQuestion from './ask-astronomer-reply-to-question';
 import { backgroundImageCover } from '../../styles/mixins/utilities';
 
 // import { black, darkBlueGray, white, turqoise } from '../../styles/variables/colors';
@@ -36,6 +37,7 @@ const AskAstronomerQuestionListItem = ({
   title,
   topicId,
   topicName,
+  objectId,
   voiceCount,
 }) => {
   return (
@@ -48,7 +50,12 @@ const AskAstronomerQuestionListItem = ({
           <span className="date">{moment(creationDate).fromNow()}</span>
           <span className="">Asked By <span dangerouslySetInnerHTML={{ __html: displayName }} /></span>
         </div>
-        <button>Answer Now</button>
+        <ReplyToAstronomerQuestion
+          threadId={threadId}
+          topicId={topicId}
+          objectId={objectId}
+        />
+
       </div>
       <style jsx>{`
 
@@ -77,6 +84,7 @@ AskAstronomerQuestionListItem.defaultProps = {
   title: '',
   topicId: 0,
   topicName: '',
+  objectId: 0,
   voiceCount: 0,
 };
 AskAstronomerQuestionListItem.propTypes = {
@@ -110,6 +118,7 @@ AskAstronomerQuestionListItem.propTypes = {
   title: string,
   topicId: number,
   topicName: string,
+  objectId: number,
   voiceCount: number,
 };
 

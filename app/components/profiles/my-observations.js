@@ -71,7 +71,7 @@ class MyObservations extends Component {
           {sharedMemberPhotos.imageList.map((image) => {
             const imageDetails = sharedMemberPhotos.allImages[image.customerImageId] || {};
             return (
-              <MyObservationItem {...imageDetails} />
+              <MyObservationItem {...imageDetails} key={image.customerImageId} />
             )
           })}
         </div>
