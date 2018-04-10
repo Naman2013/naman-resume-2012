@@ -1,8 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+const Circle = ({ x, y }) => (
+  <circle fill="#319fff" cx={x} cy={y} r="2" />
+);
+
 function generateGrid(count, dimension) {
-  const grid = [<circle fill="#319fff" cx="50" cy="50" r="2" />];
+  const grid = [];
+  const SPLIT = (count / 2);
+
+  let leftCounter = 0;
+  let rightCounter = 0;
+
+  for (let i = 0; i < count; i += 1) {
+    grid.push(<Circle x={i} y={i} />);
+  }
+
   return grid;
 }
 
