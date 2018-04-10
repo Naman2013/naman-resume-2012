@@ -7,10 +7,9 @@ const Circle = ({ x, y }) => (
 
 function generateGrid(count, dimension) {
   const grid = [];
+  const GRID_COUNT = (count * 2);
   const SPLIT = (count / 2);
-
-  let leftCounter = 0;
-  let rightCounter = 0;
+  const SPACING = (dimension / count);
 
   for (let i = 0; i < count; i += 1) {
     grid.push(<Circle x={i} y={i} />);
