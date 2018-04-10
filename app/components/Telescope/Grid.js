@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 const Grid = ({ dimension }) => (
   <g>
-    <circle fill="#319fff" cx="50" cy="50" r="2git" />
+    <circle fill="#319fff" cx="50" cy="50" r="2" />
   </g>
 );
 
