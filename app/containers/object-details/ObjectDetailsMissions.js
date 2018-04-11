@@ -70,9 +70,11 @@ class Missions extends Component {
                   <h4>{objectMissions.missionsList[key].title}</h4>
                   {objectDetails.objectSubtitle}
                   <ul>
-                    <li><img src={objectMissions.missionsList[key].missionDetails.date.itemiconURL}/>{objectMissions.missionsList[key].missionDetails.date.itemText}</li>
-                    <li><img src={objectMissions.missionsList[key].missionDetails.time.itemiconURL}/>{objectMissions.missionsList[key].missionDetails.time.itemText}</li>
-                    <li><img src={objectMissions.missionsList[key].missionDetails.telescope.itemiconURL}/>{objectMissions.missionsList[key].missionDetails.telescope.itemText}</li>
+                    {Object.keys(objectMissions.missionsList[key].missionDetails).map(function(indx) {
+                      return( 
+                        <li key={indx}><img src={objectMissions.missionsList[key].missionDetails[indx].itemiconURL}/>{objectMissions.missionsList[key].missionDetails[indx].itemText}</li>
+                      )
+                    })}
                   </ul>
                   {objectMissions.missionsList[key].canJoinFlag &&                 
                     <div className="mission-btn">{objectMissions.missionsList[key].joinPrompt}</div>
