@@ -61,27 +61,31 @@ class Missions extends Component {
       <div className="contain">
 
         <h4>{objectMissions.missionListTitle}</h4>
-        {objectMissions && objectMissions.missionsCount > 0 &&
-          <div className="mission-card-container">
-          {Object.keys(objectMissions.missionsList).map(function(key) {
-            return(
-              <div className="mission-card" key={'card_' + key}>                
-                <div className="mission-icon"><img src={objectMissions.missionsList[key].iconURL}/></div>
-                <h4>{objectMissions.missionsList[key].title}</h4>
-                {objectDetails.objectSubtitle}
-                <ul>
-                  <li><img src={objectMissions.missionsList[key].missionDetails.date.itemiconURL}/>{objectMissions.missionsList[key].missionDetails.date.itemText}</li>
-                  <li><img src={objectMissions.missionsList[key].missionDetails.time.itemiconURL}/>{objectMissions.missionsList[key].missionDetails.time.itemText}</li>
-                  <li><img src={objectMissions.missionsList[key].missionDetails.telescope.itemiconURL}/>{objectMissions.missionsList[key].missionDetails.telescope.itemText}</li>
-                </ul>
-                {objectMissions.missionsList[key].canJoinFlag &&                 
-                  <div className="attend-btn">{objectMissions.missionsList[key].joinPrompt}</div>
-                }
-              </div>
-            )
-           })
-          }</div>
-        }
+        {objectMissions && objectMissions.missionsCount > 0 ? (
+          <div className="card-container__missions">
+            {Object.keys(objectMissions.missionsList).map(function(key) {
+              return(
+                <div className="mission-card" key={'card_' + key}>                
+                  <div className="mission-icon"><img src={objectMissions.missionsList[key].iconURL}/></div>
+                  <h4>{objectMissions.missionsList[key].title}</h4>
+                  {objectDetails.objectSubtitle}
+                  <ul>
+                    <li><img src={objectMissions.missionsList[key].missionDetails.date.itemiconURL}/>{objectMissions.missionsList[key].missionDetails.date.itemText}</li>
+                    <li><img src={objectMissions.missionsList[key].missionDetails.time.itemiconURL}/>{objectMissions.missionsList[key].missionDetails.time.itemText}</li>
+                    <li><img src={objectMissions.missionsList[key].missionDetails.telescope.itemiconURL}/>{objectMissions.missionsList[key].missionDetails.telescope.itemText}</li>
+                  </ul>
+                  {objectMissions.missionsList[key].canJoinFlag &&                 
+                    <div className="mission-btn">{objectMissions.missionsList[key].joinPrompt}</div>
+                  }
+                </div>
+              )
+            })}
+          </div>
+        ) : (
+          <div className="card-container__missions">
+            Sorry, there are no mission available for {objectDetails.objectTitle} at this time.
+          </div>
+        )}
 
         <style jsx>{`
           h4 {
@@ -93,7 +97,7 @@ class Missions extends Component {
             background-color: #f2f2f2;
             text-transform: uppercase;
           }
-          .mission-card-container {
+          .card-container__missions {
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
@@ -126,7 +130,7 @@ class Missions extends Component {
             width: 1em;
             margin: -0.2em 1em 0 0;
           }
-          .attend-btn {
+          .mission-btn {
             padding: 7px 10px;
             background-color: #3C4A55;
             width: 50%;

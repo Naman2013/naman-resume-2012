@@ -17,10 +17,10 @@ const generateNavItems = (objectId) => ([
     title: 'Upcoming Missions',
     link:`/object-details/${objectId}/missions`
   },
-  /*{
+  {
     title: 'Quests',
     link:`/object-details/${objectId}/quests`
-  },*/
+  },
   {
     title: 'Ask an Astronomer',
     link:`/object-details/${objectId}/ask`
