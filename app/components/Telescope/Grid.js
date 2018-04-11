@@ -1,22 +1,37 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import debounce from 'lodash/debounce';
 
 const Circle = ({ x, y }) => (
-  <circle fill="#319fff" cx={x} cy={y} r="2" />
+  <circle fill="#319fff" cx={x} cy={y} r="1" />
 );
 
-function generateGrid(count, dimension) {
-  const grid = [];
-  const GRID_COUNT = (count * 2);
-  const SPLIT = (count / 2);
-  const SPACING = (dimension / count);
+Circle.propTypes = {
+  x: PropTypes.number.isRequired,
+  y: PropTypes.number.isRequired,
+};
 
-  for (let i = 0; i < count; i += 1) {
-    grid.push(<Circle x={i} y={i} />);
+function generateGrid(count, dimension) {
+  const POINTS = [];
+  const SPACING = (dimension / count);
+  const TOTAL_POINTS = (count * count);
+
+  let Y_BASE = 0;
+  let X_BASE = 0;
+
+  for (let i = 0; i < TOTAL_POINTS; i += 1) {
+    if (i % count === 0) {
+      X_BASE = SPACING;
+      Y_BASE += SPACING;
+    }
+    POINTS.push(<Circle x={X_BASE} y={Y_BASE} />);
+    X_BASE += SPACING;
   }
 
-  return grid;
+  return POINTS;
 }
+
+const debouncedGenerateGrid = debounce(generateGrid, 500, { trailing: true });
 
 const Grid = ({ count, dimension }) => (
   <g>
