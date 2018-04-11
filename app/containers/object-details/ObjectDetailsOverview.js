@@ -13,13 +13,9 @@ import classnames from 'classnames';
 import has from 'lodash/has';
 import {
   fetchObjectDataAction,
-  /*fetchObjectMissionsAction,
-  fetchObjectQuestsAction,*/
 } from '../../modules/object-details/actions';
 
 const mapStateToProps = ({ objectDetails, appConfig, user }) => ({
-  /*objectMissions: objectDetails.objectMissions,
-  objectQuests: objectDetails.objectQuests,*/
   objectData: objectDetails.objectData,
   appConfig,
   user,
@@ -55,8 +51,6 @@ class Overview extends Component {
       },
       objectData,
       objectDetails,
-      /*objectMissions,
-      objectQuests*/
     } = this.props;
 
     return (

@@ -127,7 +127,7 @@ class ObjectDetails extends Component {
           {objectTitle}
           <div className="subtitle">{objectSubtitle}</div>
           {!showFollowPromptFlag && 
-            <div className="follow">Follow Object</div> 
+            <div className="follow-btn">Follow Object</div> 
           }      
         </header>
         <Navigation objectId={objectId} />
@@ -146,7 +146,7 @@ class ObjectDetails extends Component {
           .subtitle {
             font-size: 14px;
           }
-          .follow {
+          .follow-btn {
             position: absolute;
             padding: 10px 5px;
             border: 1px solid ${white};
@@ -155,6 +155,7 @@ class ObjectDetails extends Component {
             text-align: center;
             left: 5%;
             bottom: 10%;
+            cursor: pointer;
           }
           .icon {
             width: 150px;

@@ -12,22 +12,21 @@ import { bindActionCreators } from 'redux';
 import classnames from 'classnames';
 import has from 'lodash/has';
 import {
-  fetchObjectDataAction,
+  fetchObjectDetailsAction,
   fetchObjectMissionsAction,
-  /*fetchObjectQuestsAction,*/
 } from '../../modules/object-details/actions';
 
 const mapStateToProps = ({ objectDetails, appConfig, user }) => ({
   objectMissions: objectDetails.objectMissions,
-  /*objectQuests: objectDetails.objectQuests,*/
-  objectData: objectDetails.objectData,
+  objectDetails: objectDetails.objectDetails,
   appConfig,
   user,
 });
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
-    fetchObjectDataAction,
+    fetchObjectDetailsAction,
+    fetchObjectMissionsAction,
   }, dispatch),
 });
 
@@ -53,76 +52,88 @@ class Missions extends Component {
       params: {
         objectId,
       },
-      objectData,
       objectDetails,
       objectMissions,
-      /*objectQuests*/
     } = this.props;
+
 
     return (
       <div className="contain">
 
         <h4>{objectMissions.missionListTitle}</h4>
-        {objectMissions && objectMissions.missionsList && <div>
-          <table style={{'width': '100%', 'border': '1'}}>
-            <tbody>  
-              {objectMissions && objectMissions.missionsCount > 0 &&
-                <tr key={'row_missionsList'}>
-                  <td colSpan="2">
-                    <br/>
-                    <h2>{objectMissions.missionListTitle}</h2>
-                    <table style={{'width': '100%', 'border': '1'}}>
-                      <thead>
-                        <th>Title</th>
-                        <th>Can Join?</th>
-                        <th>Icon</th>
-                        <th>Date / Time</th>
-                        <th>Telescope Details</th>
-                        <th>Scheduled Mission ID</th>
-                      </thead>
-                      <tbody>
-                        {Object.keys(objectMissions.missionsList).map(function(key) {
-                          return(
-                            <tr>
-                              <td>{objectMissions.missionsList[key].title}</td>
-                              <td>{objectMissions.missionsList[key].canJoinFlag} - {objectMissions.missionsList[key].joinPrompt}</td>
-                              <td><div>
-                                    <img style={{'backgroundColor': 'black'}} src={objectMissions.missionsList[key].iconURL}/><br/>
-                                    {objectMissions.missionsList[key].iconURL}
-                                  </div>
-                              </td>
-                              <td>
-                                {objectMissions.missionsList[key].missionDetails.date.itemText} - {objectMissions.missionsList[key].missionDetails.time.itemText}<br/>
-                                {objectMissions.missionsList[key].missionDetails.date.itemIconURL} - {objectMissions.missionsList[key].missionDetails.time.itemIconURL}<br/>
-                              </td>
-                              <td>
-                                {objectMissions.missionsList[key].missionDetails.telescope.itemText}<br/>
-                                {objectMissions.missionsList[key].missionDetails.telescope.itemIconURL}<br/>
-                              </td>
-                              <td>{objectMissions.missionsList[key].scheduledMissionId}</td>
-                            </tr>
-                          )
-                         })
-                        }
-                      </tbody>
-                    </table>
-                  </td>
-                </tr>
-              }
-            </tbody>
-          </table>
-        </div>
+        {objectMissions && objectMissions.missionsCount > 0 &&
+          <div className="mission-card-container">
+          {Object.keys(objectMissions.missionsList).map(function(key) {
+            return(
+              <div className="mission-card" key={'card_' + key}>                
+                <div className="mission-icon"><img src={objectMissions.missionsList[key].iconURL}/></div>
+                <h4>{objectMissions.missionsList[key].title}</h4>
+                {objectDetails.objectSubtitle}
+                <ul>
+                  <li><img src={objectMissions.missionsList[key].missionDetails.date.itemiconURL}/>{objectMissions.missionsList[key].missionDetails.date.itemText}</li>
+                  <li><img src={objectMissions.missionsList[key].missionDetails.time.itemiconURL}/>{objectMissions.missionsList[key].missionDetails.time.itemText}</li>
+                  <li><img src={objectMissions.missionsList[key].missionDetails.telescope.itemiconURL}/>{objectMissions.missionsList[key].missionDetails.telescope.itemText}</li>
+                </ul>
+                {objectMissions.missionsList[key].canJoinFlag &&                 
+                  <div className="attend-btn">{objectMissions.missionsList[key].joinPrompt}</div>
+                }
+              </div>
+            )
+           })
+          }</div>
         }
 
         <style jsx>{`
+          h4 {
+            font-weight: 600;
+          }
           .contain {
             margin: 5%;
             padding: 25px;
             background-color: #f2f2f2;
-          }
-          h4 {
             text-transform: uppercase;
-            font-weight: 600;
+          }
+          .mission-card-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+          }
+          .mission-card {
+            font-size: 1em;
+            background-color: white;
+            padding: 25px;
+            margin: 25px 0;
+            min-width: 28%;
+          }
+          .mission-icon {
+            background-color: #3C4A55;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            padding: 10px;
+          }
+          .mission-card ul {
+            list-style: none;
+            padding: 0;
+            margin: 15px 0;
+          }
+          .mission-card li {
+            border-top: 1px solid;
+            padding: 10px 0;
+          }
+          .mission-card li img {
+            height: 1em;
+            width: 1em;
+            margin: -0.2em 1em 0 0;
+          }
+          .attend-btn {
+            padding: 7px 10px;
+            background-color: #3C4A55;
+            width: 50%;
+            border-radius: 19px;
+            color: white;
+            text-align: center;
+            cursor: pointer;
           }
         `}</style>
 
