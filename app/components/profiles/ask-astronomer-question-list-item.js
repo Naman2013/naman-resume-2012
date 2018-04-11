@@ -30,6 +30,7 @@ const AskAstronomerQuestionListItem = ({
   likesCount,
   modified,
   mostRecentAuthor,
+  objectId,
   replyCount,
   S3Files,
   showLikePrompt,
@@ -37,7 +38,7 @@ const AskAstronomerQuestionListItem = ({
   title,
   topicId,
   topicName,
-  objectId,
+  user,
   voiceCount,
 }) => {
   return (
@@ -54,6 +55,7 @@ const AskAstronomerQuestionListItem = ({
           threadId={threadId}
           topicId={topicId}
           objectId={objectId}
+          user={user}
         />
 
       </div>
@@ -78,13 +80,14 @@ AskAstronomerQuestionListItem.defaultProps = {
   likesCount: 0,
   modified: '',
   mostRecentAuthor: [],
+  objectId: 0,
   replyCount: 0,
   S3Files: [],
   showLikePrompt: false,
   title: '',
   topicId: 0,
   topicName: '',
-  objectId: 0,
+  user: {},
   voiceCount: 0,
 };
 AskAstronomerQuestionListItem.propTypes = {
@@ -119,6 +122,11 @@ AskAstronomerQuestionListItem.propTypes = {
   topicId: number,
   topicName: string,
   objectId: number,
+  user: shape({
+    at: string.isRequired,
+    token: string.isRequired,
+    cid: string.isRequired,
+  }),
   voiceCount: number,
 };
 

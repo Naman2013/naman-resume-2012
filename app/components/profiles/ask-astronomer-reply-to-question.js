@@ -17,16 +17,25 @@ const {
 
 class ReplyToAstronomerQuestion extends Component {
   static defaultProps = {
+    user: {},
   }
 
   static propTypes = {
     objectId: number.isRequired,
     threadId: number.isRequired,
     topicId: number.isRequired,
+    user: shape({
+      at: string.isRequired,
+      token: string.isRequired,
+      cid: string.isRequired,
+    }),
   }
 
   state = {
+    error: false,
+    loading: false,
     replyText: '',
+    submitted: false,
   }
 
   constructor(props) {
@@ -38,8 +47,6 @@ class ReplyToAstronomerQuestion extends Component {
     e.preventDefault();
     this.setState({
       replyText: e.target.value,
-      submitted: false,
-      error: false,
     })
   }
 
@@ -49,12 +56,14 @@ class ReplyToAstronomerQuestion extends Component {
     this.setState({
       submitted: false,
       error: false,
+      loading: true,
     });
 
     const {
       objectId,
       threadId,
       topicId,
+      user,
     } = this.props;
 
     const {
@@ -62,22 +71,27 @@ class ReplyToAstronomerQuestion extends Component {
     } = this.state;
 
     submitReply({
+      at: user.at,
       callSource: 'qanda',
+      cid: user.cid,
       content: replyText,
       objectId,
       replyTo: threadId,
       threadId,
+      token: user.token,
       topicId,
     }).then((res) => {
       if (!res.data.apiError) {
         this.setState({
-          submitted: true,
+          loading: false,
           replyText: '',
+          submitted: true,
         });
       } else {
         this.setState({
-          submitted: true,
           error: true,
+          loading: false,
+          submitted: true,
         });
       }
     });
@@ -85,12 +99,14 @@ class ReplyToAstronomerQuestion extends Component {
 
   render() {
     const {
-      submitted,
       error,
+      loading,
+      submitted,
     } = this.state;
 
     return (
       <div className="reply-to-question">
+
         { submitted && error &&
           <div>There was an error submitting your answer.</div>
         }
@@ -103,7 +119,8 @@ class ReplyToAstronomerQuestion extends Component {
               type="text"
               onChange={this.changeReplyText}
             />
-            <button onClick={this.submitAnswer}>Answer Now</button>
+            {loading && <span className="fa fa-spinner" />}
+            {!loading && <button onClick={this.submitAnswer}>Answer Now</button>}
           </form>
         }
         <style jsx>{`

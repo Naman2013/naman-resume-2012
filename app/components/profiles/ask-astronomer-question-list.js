@@ -18,8 +18,10 @@ const {
 
 const mapStateToProps = ({
   astronomerQuestionList,
+  user,
 }) => ({
   astronomerQuestionList,
+  user,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -52,6 +54,7 @@ class AstronomerQuestionList extends Component {
   render() {
     const {
       astronomerQuestionList,
+      user,
     } = this.props;
 
     return (
@@ -62,7 +65,7 @@ class AstronomerQuestionList extends Component {
         </div>
         <div># new questions! Earn gravity by mentoring in the Slooh community</div>
         <div>
-          {astronomerQuestionList.threads.map(question => <AstronomerQuestionListItem {...question} key={question.threadId} />)}
+          {astronomerQuestionList.threads.map(question => <AstronomerQuestionListItem {...question} key={question.threadId} user={user} />)}
         </div>
         <style jsx>{`
 
