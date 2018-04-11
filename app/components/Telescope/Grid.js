@@ -31,7 +31,7 @@ function generateGrid(count, dimension) {
   return POINTS;
 }
 
-const debouncedGenerateGrid = debounce(generateGrid, 500, { trailing: true });
+const debouncedGenerateGrid = debounce(generateGrid, 150, { trailing: true });
 
 const Grid = ({ count, dimension }) => (
   <g>
