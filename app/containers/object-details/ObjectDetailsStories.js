@@ -1,5 +1,5 @@
 /***********************************
-* V4 Object Details : Quests
+* V4 Object Details : Stories
 *   Markdown support on elements????
 *   UTF-8 support....
 *   Multi-National Languages.....
@@ -13,11 +13,9 @@ import classnames from 'classnames';
 import has from 'lodash/has';
 import {
   fetchObjectDetailsAction,
-  fetchObjectQuestsAction,
 } from '../../modules/object-details/actions';
 
 const mapStateToProps = ({ objectDetails, appConfig, user }) => ({
-  objectQuests: objectDetails.objectQuests,
   objectDetails: objectDetails.objectDetails,
   appConfig,
   user,
@@ -26,12 +24,11 @@ const mapStateToProps = ({ objectDetails, appConfig, user }) => ({
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
     fetchObjectDetailsAction,
-    fetchObjectQuestsAction,
   }, dispatch),
 });
 
 @connect(mapStateToProps, mapDispatchToProps)
-class Quests extends Component {
+class Stories extends Component {
   constructor(props) {
     super(props);
   }
@@ -56,29 +53,12 @@ class Quests extends Component {
       objectQuests,
     } = this.props;
 
-    console.log (objectQuests);
 
     return (
-      <div className="contain">        
-        <h4>Related Quests: {objectDetails.objectTitle}</h4>
-        {objectQuests && objectQuests.questsCount > 0 ? (
-          <div className="card-container__quests">
-            {Object.keys(objectQuests.questsList).map(function(key) {
-              return(
-                <div className="quest-card" key={'card_' + key}>
-                  {objectQuests.questsList[key].label}
-                  <h4>{objectQuests.questsList[key].title}</h4>
-                  <div className="quest-icon"><img src={objectQuests.questsList[key].iconURL}/></div>               
-                  <div className="quest-btn">{objectQuests.questsList[key].linkLabel}</div>
-                </div>
-              )
-            })}
-          </div>
-        ) : (
-          <div className="card-container__quests">
-            <p>Sorry, there are no quests available for {objectDetails.objectTitle} at this time.</p>
-          </div>
-        )}
+      <div className="contain">
+
+        <h4>Stories about {objectDetails.objectTitle}</h4>
+        
 
         <style jsx>{`
           h4 {
@@ -90,31 +70,35 @@ class Quests extends Component {
             background-color: #f2f2f2;
             text-transform: uppercase;
           }
-          .card-container__quests {
+          .card-container__stories {
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
           }
-          .quest-card {
+          .story-card {
             font-size: 1em;
             background-color: #3E4B5C;
             padding: 25px;
             margin: 25px 0;
             min-width: 28%;
             text-align: center;
-            color: white;
           }
-          .quest-icon {
+          .story-icon {
             background-color: #1E2631;
-            width: 90px;
-            height: 90px;
+            width: 70px;
+            height: 70px;
             border-radius: 50%;
             padding: 10px;
-            margin: 50px auto 60px;
+            margin: 0 auto;
           }
-          .quest-btn {
+          .story-btn {
+            padding: 7px 10px;
+            background-color: #3C4A55;
+            width: 50%;
+            border-radius: 19px;
+            color: white;
+            text-align: center;
             cursor: pointer;
-            margin: 10px auto;
           }
         `}</style>
 
@@ -122,5 +106,5 @@ class Quests extends Component {
     )
   }
 }
-export default Quests;
+export default Stories;
 
