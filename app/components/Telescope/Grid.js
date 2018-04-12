@@ -21,7 +21,7 @@ function generateGrid(count, dimension) {
 
   for (let i = 0; i < TOTAL_POINTS; i += 1) {
     if (i % count === 0) {
-      X_BASE = SPACING;
+      X_BASE = 0;
       Y_BASE += SPACING;
     }
     POINTS.push(<Circle x={X_BASE} y={Y_BASE} />);

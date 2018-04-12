@@ -12,6 +12,6 @@ storiesOf('Telescope', module)
   .addDecorator(withKnobs)
   .add('View', () => (
     <div style={{ width: '50%', margin: '0 auto' }}>
-      <Telescope />
+      <Telescope tickRowCount={20} />
     </div>
   ));

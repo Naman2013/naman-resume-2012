@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Measure from 'react-measure';
 import TelescopeFrame from './TelescopeFrame';
 import Mask from './Mask';
@@ -8,6 +9,14 @@ import Grid from './Grid';
 const testImage = 'https://polaris.slooh.com/chile/1/highmag/2018/04/04/2340_m43/m43_20180404_234018_0_kx3vo6_l.png';
 
 class Telescope extends Component {
+  static propTypes = {
+    tickRowCount: PropTypes.number,
+  };
+
+  static defaultProps = {
+    tickRowCount: 10,
+  };
+
   state = {
     portalDimensions: {
       bottom: 0,
@@ -45,6 +54,7 @@ class Telescope extends Component {
       imageDimensions,
     } = this.state;
 
+    const { tickRowCount } = this.props;
     const imageX = (imageDimensions.width - width) / 2;
 
     return (
@@ -74,9 +84,9 @@ class Telescope extends Component {
 
                 <Mask />
 
-                <TelescopeFrame count={50} length={width} />
+                <TelescopeFrame count={tickRowCount} length={width} />
 
-                <Grid count={50} dimension={width} />
+                <Grid count={tickRowCount} dimension={width} />
 
               </svg>
 
