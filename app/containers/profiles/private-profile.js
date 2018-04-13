@@ -7,11 +7,11 @@ import MyObservations from '../../components/profiles/my-observations';
 import AskAstronomerQuestionList from '../../components/profiles/ask-astronomer-question-list';
 
 const componentsByRole = {
-  astronomer: ['myobservations', 'askastronomer'],
-  apprentice: ['myobservations'],
-  luminary: ['myobservations'],
-  host: ['myobservations'],
-  astrolab: ['myobservations'],
+  ASTRONOMER: ['myobservations', 'askastronomer'],
+  APPRENTICE: ['myobservations'],
+  LUMINARY: ['myobservations'],
+  HOST: ['myobservations'],
+  ASTROLAB: ['myobservations'],
 };
 const mapStateToProps = ({
   user,
@@ -41,7 +41,9 @@ class PrivateProfile extends Component {
       dashboard,
       user,
     } = this.props;
-    const membershipType = 'astronomer';
+
+    // To Do: Delete
+    const membershipType = 'ASTRONOMER';
     return (
       <div>Private Profile
 

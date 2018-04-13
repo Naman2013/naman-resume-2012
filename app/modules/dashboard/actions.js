@@ -8,16 +8,19 @@ export const fetchDashboard = ({
   lang,
   ver,
   lookbackDays,
+  at,
+  token,
+  cid,
 }) => (dispatch, getState) => {
-  const { at, token, cid } = getState().user;
+  const user = getState().user;
   dispatch(fetchDashboardStart());
   return axios.post('/api/settings/getDashboard', {
     lang,
     lookbackDays,
     ver,
-    at,
-    token,
-    cid,
+    at: at || user.at,
+    token: token || user.token,
+    cid: cid || user.cid,
   })
     .then(result => dispatch(fetchDashboardSuccess(result.data)))
     .catch(error => dispatch(fetchDashboardFailure(error)));
