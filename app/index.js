@@ -123,6 +123,8 @@ import GuideDetails from './pages/guide-details/GuideDetails';
 import ObjectDetails from './pages/object-details/ObjectDetails';
 import QuestDetails from './pages/quest-details/QuestDetails';
 import UserProfile from './pages/profiles/Profile';
+import UserPrivateProfile from './pages/profiles/private-profile';
+import UserPublicProfile from './pages/profiles/public-profile';
 
 // router functions
 import validateUser from './route-functions/validateUser';
@@ -474,7 +476,10 @@ ReactDOM.render(
         </Route>
         <Route path="quest-details/:questId" component={QuestDetails} onEnter={validateUser} />
 
-        <Route path="profile/:cid" component={UserProfile} onEnter={validateUser} />
+        <Route path="profile" component={UserProfile} onEnter={validateUser}>
+          <Route path="private/:cid" component={UserPrivateProfile} onEnter={validateUser} />
+          <Route path="public/:cid" component={UserPublicProfile} />
+        </Route>
 
       </Route>
 
