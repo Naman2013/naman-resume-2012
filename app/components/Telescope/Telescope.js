@@ -10,11 +10,11 @@ const testImage = 'https://polaris.slooh.com/chile/1/highmag/2018/04/04/2340_m43
 
 class Telescope extends Component {
   static propTypes = {
-    tickRowCount: PropTypes.number,
+    resolution: PropTypes.number,
   };
 
   static defaultProps = {
-    tickRowCount: 10,
+    resolution: 10,
   };
 
   state = {
@@ -54,7 +54,7 @@ class Telescope extends Component {
       imageDimensions,
     } = this.state;
 
-    const { tickRowCount } = this.props;
+    const { resolution } = this.props;
     const imageX = (imageDimensions.width - width) / 2;
 
     return (
@@ -84,9 +84,9 @@ class Telescope extends Component {
 
                 <Mask />
 
-                <TelescopeFrame count={tickRowCount} length={width} />
+                <TelescopeFrame count={resolution} length={width} />
 
-                <Grid count={tickRowCount} dimension={width} />
+                <Grid count={resolution} dimension={width} />
 
               </svg>
 
