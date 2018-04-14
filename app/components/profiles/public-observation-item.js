@@ -39,6 +39,10 @@ class PublicObservationItem extends Component {
     canEditFlag: bool,
     canLikeFlag: bool,
     canShareFlag: bool,
+    commentsCount: number,
+    commentsForumId: number,
+    commentsThreadId:  number,
+    commentsTopicId: number,
     customerImageId: number,
     fileData: shape({
       'Photo by': string,
@@ -60,11 +64,13 @@ class PublicObservationItem extends Component {
       }),
     }),
     observationLog: string,
+    observationTimeDisplay: arrayOf(string),
     originX: string,
     originY: string,
     photoViewFullURL: string,
     scheduledMissionId: string,
     shareToken: string,
+    showCommentsLink: bool,
     showLikePrompt: bool,
     socialShareDescription: string,
     zoom: string,
@@ -76,6 +82,10 @@ static defaultProps = {
   canEditFlag: false,
   canLikeFlag: false,
   canShareFlag: false,
+  commentsCount: 0,
+  commentsForumId: 0,
+  commentsThreadId: 0,
+  commentsTopicId: 0,
   customerImageId: 0,
   fileData: {
     'Photo by': '',
@@ -97,11 +107,13 @@ static defaultProps = {
     },
   },
   observationLog: '',
+  observationTimeDisplay: [],
   originX: '',
   originY: '',
   photoViewFullURL: '',
   scheduledMissionId: '',
   shareToken: '',
+  showCommentsLink: false,
   showLikePrompt: false,
   socialShareDescription: '',
   zoom: '',
@@ -135,6 +147,10 @@ componentWillReceiveProps(nextProps) {
     const {
       avatarURL,
       canLikeFlag,
+      commentsCount,
+      commentsForumId,
+      commentsThreadId,
+      commentsTopicId,
       customerImageId,
       error,
       fetching,
@@ -145,8 +161,10 @@ componentWillReceiveProps(nextProps) {
       likesCount,
       linkableFileData,
       observationLog,
+      observationTimeDisplay,
       photoViewFullURL,
       shareToken,
+      showCommentsLink,
       showLikePrompt,
       socialShareDescription,
     } = this.props;
@@ -167,7 +185,7 @@ componentWillReceiveProps(nextProps) {
     const photoBy = linkableFileData['Photo by'];
     const observatory = linkableFileData.Observatory;
     const telescope = linkableFileData.Telescope;
-    const observatoryTime = linkableFileData['Observation time'];
+    const observatoryTime = observationTimeDisplay.join('  |  ')
     console.log(this.props)
     return (
       <div className="observation-item">
@@ -176,12 +194,19 @@ componentWillReceiveProps(nextProps) {
         {!error && !fetching && <div className="observation-item-container">
           <div className="info-panel">
             <div className="title" dangerouslySetInnerHTML={{ __html: imageTitle }} />
+            <div className="time" dangerouslySetInnerHTML={{ __html: observatoryTime }} />
             <div className="description" dangerouslySetInnerHTML={{ __html: observationLog }} />
-            <Heart
-              {...heartProps}
-              likeAction={likeImage}
-              showLikeText={false}
-            />
+            <div className="actions">
+              <Heart
+                {...heartProps}
+                likeAction={likeImage}
+                showLikeText={false}
+              />
+              {showCommentsLink && <Link
+                to={`discussions/forums/${commentsForumId}/topics/${commentsTopicId}/threads/${commentsThreadId}`}>
+                  <span>{`Comments (${commentsCount})`}</span>
+                </Link>}
+            </div>
             <div className="telescopeAndUser">
               <div>
                 <h4 className="telescope">
