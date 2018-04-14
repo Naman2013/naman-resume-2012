@@ -11,9 +11,13 @@ storiesOf('Telescope', module)
   .addDecorator(withKnobs)
   .add('View', () => {
     const resolutionKnob = number('Resolution', 10);
+    const incrementKnob = number('Increment', 5);
     return (
       <div style={{ width: '50%', margin: '0 auto' }}>
-        <Telescope resolution={resolutionKnob} />
+        <Telescope
+          resolution={resolutionKnob}
+          increment={incrementKnob}
+        />
       </div>
     );
   });
