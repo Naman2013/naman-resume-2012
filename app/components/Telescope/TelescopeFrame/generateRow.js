@@ -6,6 +6,10 @@ function warnClient() {
   console.warn('Invalid row configuration provided');
 }
 
+function isLargeTick(position) {
+  return (position % 5 === 0);
+}
+
 export function generateRow(
   dimension = 0,
   count = 0,
@@ -31,11 +35,11 @@ export function generateRow(
   const SHORT_TICK_THICKNESS = (LARGE_TICK_THICKNESS / 2);
 
   let LEFT_ACCUMULATOR = MID_POINT;
+  let LEFT_COUNTER = 0;
   let RIGHT_ACCUMULATOR = MID_POINT;
+  let RIGHT_COUNTER = 0;
 
   for (let i = 0; i <= COUNT; i += 1) {
-    const isLongTick = (i % 5) === 0;
-
     let x1;
     let y1;
     let x2;
@@ -54,18 +58,22 @@ export function generateRow(
           x1 = LEFT_ACCUMULATOR;
           y1 = 0;
           x2 = LEFT_ACCUMULATOR;
-          y2 = (isLongTick) ? LARGE_TICK_LENGTH : SHORT_TICK_LENGTH;
-          tickThickness = (isLongTick) ? LARGE_TICK_THICKNESS : SHORT_TICK_THICKNESS;
+          y2 = (isLargeTick(LEFT_COUNTER)) ? LARGE_TICK_LENGTH : SHORT_TICK_LENGTH;
+          tickThickness = (isLargeTick(LEFT_COUNTER)) ? LARGE_TICK_THICKNESS : SHORT_TICK_THICKNESS;
 
           LEFT_ACCUMULATOR -= SPACING;
+          LEFT_COUNTER += 1;
         } else {
           x1 = RIGHT_ACCUMULATOR;
           y1 = 0;
           x2 = RIGHT_ACCUMULATOR;
-          y2 = (isLongTick) ? LARGE_TICK_LENGTH : SHORT_TICK_LENGTH;
-          tickThickness = (isLongTick) ? LARGE_TICK_THICKNESS : SHORT_TICK_THICKNESS;
+          y2 = (isLargeTick(RIGHT_COUNTER)) ? LARGE_TICK_LENGTH : SHORT_TICK_LENGTH;
+          tickThickness = (isLargeTick(RIGHT_COUNTER))
+            ? LARGE_TICK_THICKNESS
+            : SHORT_TICK_THICKNESS;
 
           RIGHT_ACCUMULATOR += SPACING;
+          RIGHT_COUNTER += 1;
         }
         break;
       case ROW_CONFIG.BOTTOM:
@@ -79,18 +87,28 @@ export function generateRow(
           x1 = LEFT_ACCUMULATOR;
           y1 = dimension;
           x2 = LEFT_ACCUMULATOR;
-          y2 = (isLongTick) ? (dimension - LARGE_TICK_LENGTH) : (dimension - SHORT_TICK_LENGTH);
-          tickThickness = (isLongTick) ? LARGE_TICK_THICKNESS : SHORT_TICK_THICKNESS;
+          y2 = (isLargeTick(LEFT_COUNTER))
+            ? (dimension - LARGE_TICK_LENGTH)
+            : (dimension - SHORT_TICK_LENGTH);
+          tickThickness = (isLargeTick(LEFT_COUNTER))
+            ? LARGE_TICK_THICKNESS
+            : SHORT_TICK_THICKNESS;
 
           LEFT_ACCUMULATOR -= SPACING;
+          LEFT_COUNTER += 1;
         } else {
           x1 = RIGHT_ACCUMULATOR;
           y1 = dimension;
           x2 = RIGHT_ACCUMULATOR;
-          y2 = (isLongTick) ? (dimension - LARGE_TICK_LENGTH) : (dimension - SHORT_TICK_LENGTH);
-          tickThickness = (isLongTick) ? LARGE_TICK_THICKNESS : SHORT_TICK_THICKNESS;
+          y2 = (isLargeTick(RIGHT_COUNTER))
+            ? (dimension - LARGE_TICK_LENGTH)
+            : (dimension - SHORT_TICK_LENGTH);
+          tickThickness = (isLargeTick(RIGHT_COUNTER))
+            ? LARGE_TICK_THICKNESS
+            : SHORT_TICK_THICKNESS;
 
           RIGHT_ACCUMULATOR += SPACING;
+          RIGHT_COUNTER += 1;
         }
         break;
       case ROW_CONFIG.LEFT:
@@ -103,19 +121,25 @@ export function generateRow(
         } else if (i <= TICKS_PER_SIDE) {
           x1 = 0;
           y1 = LEFT_ACCUMULATOR;
-          x2 = (isLongTick) ? LARGE_TICK_LENGTH : SHORT_TICK_LENGTH;
+          x2 = (isLargeTick(LEFT_COUNTER)) ? LARGE_TICK_LENGTH : SHORT_TICK_LENGTH;
           y2 = LEFT_ACCUMULATOR;
-          tickThickness = (isLongTick) ? LARGE_TICK_THICKNESS : SHORT_TICK_THICKNESS;
+          tickThickness = (isLargeTick(LEFT_COUNTER)) ? LARGE_TICK_THICKNESS : SHORT_TICK_THICKNESS;
 
           LEFT_ACCUMULATOR -= SPACING;
+          LEFT_COUNTER += 1;
         } else {
           x1 = 0;
           y1 = RIGHT_ACCUMULATOR;
-          x2 = (isLongTick) ? LARGE_TICK_LENGTH : SHORT_TICK_LENGTH;
+          x2 = (isLargeTick(RIGHT_COUNTER))
+            ? LARGE_TICK_LENGTH
+            : SHORT_TICK_LENGTH;
           y2 = RIGHT_ACCUMULATOR;
-          tickThickness = (isLongTick) ? LARGE_TICK_THICKNESS : SHORT_TICK_THICKNESS;
+          tickThickness = (isLargeTick(RIGHT_COUNTER))
+            ? LARGE_TICK_THICKNESS
+            : SHORT_TICK_THICKNESS;
 
           RIGHT_ACCUMULATOR += SPACING;
+          RIGHT_COUNTER += 1;
         }
         break;
       case ROW_CONFIG.RIGHT:
@@ -128,19 +152,29 @@ export function generateRow(
         } else if (i <= TICKS_PER_SIDE) {
           x1 = dimension;
           y1 = LEFT_ACCUMULATOR;
-          x2 = (isLongTick) ? (dimension - LARGE_TICK_LENGTH) : (dimension - SHORT_TICK_LENGTH);
+          x2 = (isLargeTick(LEFT_COUNTER))
+            ? (dimension - LARGE_TICK_LENGTH)
+            : (dimension - SHORT_TICK_LENGTH);
           y2 = LEFT_ACCUMULATOR;
-          tickThickness = (isLongTick) ? LARGE_TICK_THICKNESS : SHORT_TICK_THICKNESS;
+          tickThickness = (isLargeTick(LEFT_COUNTER))
+            ? LARGE_TICK_THICKNESS
+            : SHORT_TICK_THICKNESS;
 
           LEFT_ACCUMULATOR -= SPACING;
+          LEFT_COUNTER += 1;
         } else {
           x1 = dimension;
           y1 = RIGHT_ACCUMULATOR;
-          x2 = (isLongTick) ? (dimension - LARGE_TICK_LENGTH) : (dimension - SHORT_TICK_LENGTH);
+          x2 = (isLargeTick(RIGHT_COUNTER))
+            ? (dimension - LARGE_TICK_LENGTH)
+            : (dimension - SHORT_TICK_LENGTH);
           y2 = RIGHT_ACCUMULATOR;
-          tickThickness = (isLongTick) ? LARGE_TICK_THICKNESS : SHORT_TICK_THICKNESS;
+          tickThickness = (isLargeTick(RIGHT_COUNTER))
+            ? LARGE_TICK_THICKNESS
+            : SHORT_TICK_THICKNESS;
 
           RIGHT_ACCUMULATOR += SPACING;
+          RIGHT_COUNTER += 1;
         }
         break;
       default:
