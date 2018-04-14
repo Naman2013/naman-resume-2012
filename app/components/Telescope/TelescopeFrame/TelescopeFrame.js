@@ -5,35 +5,39 @@ import { generateRow } from './generateRow';
 
 const propTypes = {
   length: PropTypes.number.isRequired,
-  count: PropTypes.number,
+  resolution: PropTypes.number,
+  increment: PropTypes.number,
   style: PropTypes.shape({
     stroke: PropTypes.string,
   }),
 };
 
 const defaultProps = {
-  count: 100,
+  resolution: 100,
+  increment: 5,
   style: {
     stroke: 'aqua',
   },
 };
 
-const TelescopeFrame = ({ count, length, style }) => (
+const TelescopeFrame = ({
+  resolution, increment, length, style,
+}) => (
   <g className="root">
     <g>
-      {generateRow(length, count, ROW_CONFIGURATION_ENUM.TOP, style)}
+      {generateRow(length, resolution, increment, ROW_CONFIGURATION_ENUM.TOP, style)}
     </g>
 
     <g>
-      {generateRow(length, count, ROW_CONFIGURATION_ENUM.BOTTOM, style)}
+      {generateRow(length, resolution, increment, ROW_CONFIGURATION_ENUM.BOTTOM, style)}
     </g>
 
     <g>
-      {generateRow(length, count, ROW_CONFIGURATION_ENUM.LEFT, style)}
+      {generateRow(length, resolution, increment, ROW_CONFIGURATION_ENUM.LEFT, style)}
     </g>
 
     <g>
-      {generateRow(length, count, ROW_CONFIGURATION_ENUM.RIGHT, style)}
+      {generateRow(length, resolution, increment, ROW_CONFIGURATION_ENUM.RIGHT, style)}
     </g>
   </g>
 );

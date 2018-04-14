@@ -31,21 +31,19 @@ function generateGrid(count, dimension) {
   return POINTS;
 }
 
-const debouncedGenerateGrid = debounce(generateGrid, 150, { trailing: true });
-
-const Grid = ({ count, dimension }) => (
+const Grid = ({ resolution, dimension }) => (
   <g>
-    {generateGrid(count, dimension)}
+    {generateGrid(resolution, dimension)}
   </g>
 );
 
 Grid.propTypes = {
-  count: PropTypes.number,
+  resolution: PropTypes.number,
   dimension: PropTypes.number,
 };
 
 Grid.defaultProps = {
-  count: 50,
+  resolution: 50,
   dimension: 50,
 };
 
