@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import debounce from 'lodash/debounce';
 
 const Circle = ({ x, y }) => (
   <circle fill="#319fff" cx={x} cy={y} r="1" />
@@ -11,16 +10,23 @@ Circle.propTypes = {
   y: PropTypes.number.isRequired,
 };
 
-function generateGrid(count, dimension) {
+
+/**
+ * A grid is drawn from left to right, top to bottom
+ * @param parameters
+ * @returns {Array}
+ */
+function generateGrid(parameters) {
+  const { resolution, increment, dimension } = parameters;
   const POINTS = [];
-  const SPACING = (dimension / count);
-  const TOTAL_POINTS = (count * count);
+  const SPACING = (dimension / resolution);
+  const TOTAL_POINTS = (resolution * resolution);
 
   let Y_BASE = 0;
   let X_BASE = 0;
 
   for (let i = 0; i < TOTAL_POINTS; i += 1) {
-    if (i % count === 0) {
+    if (i % resolution === 0) {
       X_BASE = 0;
       Y_BASE += SPACING;
     }
@@ -31,19 +37,21 @@ function generateGrid(count, dimension) {
   return POINTS;
 }
 
-const Grid = ({ resolution, dimension }) => (
+const Grid = ({ resolution, increment, dimension }) => (
   <g>
-    {generateGrid(resolution, dimension)}
+    {generateGrid({ resolution, increment, dimension })}
   </g>
 );
 
 Grid.propTypes = {
   resolution: PropTypes.number,
+  increment: PropTypes.number,
   dimension: PropTypes.number,
 };
 
 Grid.defaultProps = {
   resolution: 50,
+  increment: 5,
   dimension: 50,
 };
 
