@@ -222,7 +222,7 @@ componentWillReceiveProps(nextProps) {
         {fetching && <div className="loading">Loading...</div>}
         {!error && !fetching && <div className="observation-item-container">
           <div className="info-panel">
-            <div className="title" dangerouslySetInnerHTML={{ __html: imageTitle }} />
+            <div className="main-title" dangerouslySetInnerHTML={{ __html: imageTitle }} />
             <div className="time" dangerouslySetInnerHTML={{ __html: observatoryTime }} />
             <div className="description" dangerouslySetInnerHTML={{ __html: observationLog }} />
             <div className="actions">
@@ -345,6 +345,12 @@ componentWillReceiveProps(nextProps) {
 
           :global(.pulse-post-extras) .info-panel {
             height: 250px;
+          }
+
+          .main-title {
+            text-transform: uppercase;
+            font-weight: bold;
+            width: 80%;
           }
 
           .title {
