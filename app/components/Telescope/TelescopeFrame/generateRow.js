@@ -63,6 +63,8 @@ export function generateRow(
             resolution={resolution}
             spacing={SPACING}
             currentX={MID_POINT}
+            increment={increment}
+            style={style}
           />);
         } else if (i <= TICKS_PER_SIDE) {
           x1 = LEFT_ACCUMULATOR;
