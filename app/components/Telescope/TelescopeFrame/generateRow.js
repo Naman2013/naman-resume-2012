@@ -58,7 +58,12 @@ export function generateRow(
             style={style}
           />);
 
-          ROW.push(<GridLine dimension={dimension} resolution={resolution} spacing={SPACING} />);
+          ROW.push(<GridLine
+            dimension={dimension}
+            resolution={resolution}
+            spacing={SPACING}
+            currentX={MID_POINT}
+          />);
         } else if (i <= TICKS_PER_SIDE) {
           x1 = LEFT_ACCUMULATOR;
           y1 = 0;
