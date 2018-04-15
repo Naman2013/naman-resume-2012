@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const Circle = ({ x, y }) => (
-  <circle fill="#319fff" cx={x} cy={y} r="1" />
+  <circle fill="#319fff" cx={x} cy={y} r="2" />
 );
 
 Circle.propTypes = {
@@ -30,7 +30,9 @@ function generateGrid(parameters) {
       X_BASE = 0;
       Y_BASE += SPACING;
     }
+
     POINTS.push(<Circle x={X_BASE} y={Y_BASE} />);
+
     X_BASE += SPACING;
   }
 

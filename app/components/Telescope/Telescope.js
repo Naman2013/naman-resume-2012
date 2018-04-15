@@ -92,12 +92,16 @@ class Telescope extends Component {
                   length={width}
                 />
 
+                {
+                  /*
+
                 <Grid
                   resolution={resolution}
                   increment={increment}
                   dimension={width}
                 />
-
+                   */
+                }
               </svg>
 
 

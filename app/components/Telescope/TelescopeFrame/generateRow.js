@@ -1,5 +1,8 @@
 import React from 'react';
+import uniqueId from 'lodash/uniqueId'
 import ROW_CONFIG from './rowConfigurationEnum';
+import CenterLine from './CenterLine';
+import GridLine from './GridLine';
 import Polyline from '../../SVG/Polyline';
 
 function warnClient() {
@@ -12,7 +15,7 @@ function isLargeTick(increment, position) {
 
 export function generateRow(
   dimension = 0,
-  count = 0,
+  resolution = 0,
   increment = 5,
   rowConfiguration = ROW_CONFIG.TOP,
   style = {},
@@ -23,10 +26,10 @@ export function generateRow(
   }
   if (!dimension) { return []; }
 
-  const row = [];
-  const COUNT = count;
-  const TICKS_PER_SIDE = (count / 2);
-  const SPACING = (dimension / count);
+  const ROW = [];
+  const COUNT = resolution;
+  const TICKS_PER_SIDE = (resolution / 2);
+  const SPACING = (dimension / resolution);
   const MID_POINT = (dimension / 2);
   const CENTER_TICK_LENGTH = 16;
   const CENTER_TICK_THICKNESS = 3;
@@ -50,17 +53,22 @@ export function generateRow(
     switch (rowConfiguration) {
       case ROW_CONFIG.TOP:
         if (i === 0) {
-          x1 = MID_POINT;
-          y1 = 0;
-          x2 = MID_POINT;
-          y2 = CENTER_TICK_LENGTH;
-          tickThickness = CENTER_TICK_THICKNESS;
+          ROW.push(<CenterLine
+            points={`${MID_POINT}, 0 ${MID_POINT}, ${CENTER_TICK_LENGTH}`}
+            style={style}
+          />);
+
+          ROW.push(<GridLine dimension={dimension} resolution={resolution} spacing={SPACING} />);
         } else if (i <= TICKS_PER_SIDE) {
           x1 = LEFT_ACCUMULATOR;
           y1 = 0;
           x2 = LEFT_ACCUMULATOR;
-          y2 = (isLargeTick(increment, LEFT_COUNTER)) ? LARGE_TICK_LENGTH : SHORT_TICK_LENGTH;
-          tickThickness = (isLargeTick(increment, LEFT_COUNTER)) ? LARGE_TICK_THICKNESS : SHORT_TICK_THICKNESS;
+          y2 = (isLargeTick(increment, LEFT_COUNTER))
+            ? LARGE_TICK_LENGTH
+            : SHORT_TICK_LENGTH;
+          tickThickness = (isLargeTick(increment, LEFT_COUNTER))
+            ? LARGE_TICK_THICKNESS
+            : SHORT_TICK_THICKNESS;
 
           LEFT_ACCUMULATOR -= SPACING;
           LEFT_COUNTER += 1;
@@ -187,13 +195,15 @@ export function generateRow(
         break;
     }
 
-    const polylineAttributes = {
-      points: `${x1},${y1} ${x2},${y2}`,
-      strokeWidth: tickThickness,
-    };
+    if (x1 !== undefined && y1 !== undefined && x2 !== undefined && y2 !== undefined) {
+      const polylineAttributes = {
+        points: `${x1},${y1} ${x2},${y2}`,
+        strokeWidth: tickThickness,
+      };
 
-    row.push(<Polyline {...polylineAttributes} {...style} />);
+      ROW.push(<Polyline key={uniqueId()} {...polylineAttributes} {...style} />);
+    }
   }
 
-  return row;
+  return ROW;
 }
