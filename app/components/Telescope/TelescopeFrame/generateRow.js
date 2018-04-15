@@ -77,6 +77,17 @@ export function generateRow(
             ? LARGE_TICK_THICKNESS
             : SHORT_TICK_THICKNESS;
 
+          if (isLargeTick(increment, LEFT_COUNTER)) {
+            ROW.push(<GridLine
+              dimension={dimension}
+              resolution={resolution}
+              spacing={SPACING}
+              currentX={LEFT_ACCUMULATOR}
+              increment={increment}
+              style={style}
+            />);
+          }
+
           LEFT_ACCUMULATOR -= SPACING;
           LEFT_COUNTER += 1;
         } else {
@@ -87,6 +98,17 @@ export function generateRow(
           tickThickness = (isLargeTick(increment, RIGHT_COUNTER))
             ? LARGE_TICK_THICKNESS
             : SHORT_TICK_THICKNESS;
+
+          if (isLargeTick(increment, RIGHT_COUNTER)) {
+            ROW.push(<GridLine
+              dimension={dimension}
+              resolution={resolution}
+              spacing={SPACING}
+              currentX={RIGHT_ACCUMULATOR}
+              increment={increment}
+              style={style}
+            />);
+          }
 
           RIGHT_ACCUMULATOR += SPACING;
           RIGHT_COUNTER += 1;
