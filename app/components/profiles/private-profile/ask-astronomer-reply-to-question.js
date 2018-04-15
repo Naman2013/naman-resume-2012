@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { submitReply } from '../../services/discussions/submit-reply';
-import { black, darkBlueGray, white, turqoise } from '../../styles/variables/colors';
-import { secondaryFont } from '../../styles/variables/fonts';
+import { submitReply } from '../../../services/discussions/submit-reply';
+import { black, darkBlueGray, white, turqoise } from '../../../styles/variables/colors';
+import { secondaryFont } from '../../../styles/variables/fonts';
 
 const {
   arrayOf,

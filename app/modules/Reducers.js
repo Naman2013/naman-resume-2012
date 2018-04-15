@@ -59,6 +59,7 @@ import otherFeaturedObjects from './other-featured-objects/reducer';
 import pageLevelMetaContent from './pageLevelMetaContent/seo-reducer';
 import piggyback from './Piggyback';
 import post from './pulse/get-post-reducer';
+import publicProfile from './public-profile/reducer';
 import questDetails from './quest-details/reducer';
 import starshareCamera from './starshare-camera/starshare-camera-reducer';
 import shareMemberPhoto from './share-member-photo/reducer';
@@ -138,6 +139,7 @@ export default combineReducers({
   piggyback,
   post,
   /* EK 8/9/17 registration is closed      roadtripRegistration, */
+  publicProfile,
   shareMemberPhoto,
   sharedMemberPhotos,
   starshareCamera,

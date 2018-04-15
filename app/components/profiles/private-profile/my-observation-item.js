@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
-import { backgroundImageCover } from '../../styles/mixins/utilities';
-import { likeImage } from '../../services/my-pictures/like-image';
+import { backgroundImageCover } from '../../../styles/mixins/utilities';
+import { likeImage } from '../../../services/my-pictures/like-image';
 
-import { black, darkBlueGray, white, turqoise } from '../../styles/variables/colors';
-import { secondaryFont } from '../../styles/variables/fonts';
+import { black, darkBlueGray, white, turqoise } from '../../../styles/variables/colors';
+import { secondaryFont } from '../../../styles/variables/fonts';
 
 const {
   arrayOf,

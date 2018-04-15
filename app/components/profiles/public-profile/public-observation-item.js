@@ -3,17 +3,19 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { bindActionCreators } from 'redux';
-import { likeImage } from '../../services/my-pictures/like-image';
-import Heart from '../common/heart/heart';
-import { fetchMyPicturesImageDetails } from '../../modules/my-pictures-image-details/actions';
-import { backgroundImageCover, borderRadius } from '../../styles/mixins/utilities';
-import { black, darkBlueGray, white, turqoise } from '../../styles/variables/colors';
-import { secondaryFont } from '../../styles/variables/fonts';
+import { likeImage } from '../../../services/my-pictures/like-image';
+import Heart from '../../common/heart/heart';
+import { fetchMyPicturesImageDetails } from '../../../modules/my-pictures-image-details/actions';
+import {
+  backgroundImageCover,
+  profilePhotoStyle,
+} from '../../../styles/mixins/utilities';
+import { white, black } from '../../../styles/variables/colors';
+import { secondaryFont } from '../../../styles/variables/fonts';
 
 const {
   arrayOf,
   bool,
-  func,
   number,
   shape,
   string,
@@ -41,28 +43,43 @@ class PublicObservationItem extends Component {
     canShareFlag: bool,
     commentsCount: number,
     commentsForumId: number,
-    commentsThreadId:  number,
+    commentsThreadId: number,
     commentsTopicId: number,
     customerImageId: number,
-    fileData: shape({
-      'Photo by': string,
-      'Scheduled by': string,
-      'Observation date': string,
-      'Observation time': string,
-      Observatory: string,
-    }),
+    iconFileData: {
+      Category: {
+        hasLink: bool,
+        iconUrl: string,
+        label: string,
+        linkUrl: string,
+        text: string,
+      },
+      Domain: {
+        hasLink: bool,
+        iconUrl: string,
+        label: string,
+        linkUrl: string,
+        text: string,
+      },
+      Member: {
+        hasLink: bool,
+        iconUrl: string,
+        label: string,
+        linkUrl: string,
+        text: string,
+      },
+      Telescope: {
+        hasLink: bool,
+        iconUrl: string,
+        label: string,
+        linkUrl: string,
+        text: string,
+      }
+    },
     imageTitle: string,
     imageURL: string,
     likePrompt: string,
     likesCount: number,
-    linkableFileData: shape({
-      'Photo by': PropTypes.shape({}),
-      Observatory: PropTypes.shape({}),
-      Telescope: PropTypes.shape({}),
-      'Observation time': PropTypes.shape({
-        text: PropTypes.string,
-      }),
-    }),
     observationLog: string,
     observationTimeDisplay: arrayOf(string),
     originX: string,
@@ -72,7 +89,6 @@ class PublicObservationItem extends Component {
     shareToken: string,
     showCommentsLink: bool,
     showLikePrompt: bool,
-    socialShareDescription: string,
     zoom: string,
   };
 
@@ -87,25 +103,40 @@ static defaultProps = {
   commentsThreadId: 0,
   commentsTopicId: 0,
   customerImageId: 0,
-  fileData: {
-    'Photo by': '',
-    'Scheduled by': '',
-    'Observation date': '',
-    'Observation time': '',
-    Observatory: '',
+  iconFileData: {
+    Category: {
+      hasLink: false,
+      iconUrl: '',
+      label: '',
+      linkUrl: '',
+      text: '',
+    },
+    Domain: {
+      hasLink: false,
+      iconUrl: '',
+      label: '',
+      linkUrl: '',
+      text: '',
+    },
+    Member: {
+      hasLink: false,
+      iconUrl: '',
+      label: '',
+      linkUrl: '',
+      text: '',
+    },
+    Telescope: {
+      hasLink: false,
+      iconUrl: '',
+      label: '',
+      linkUrl: '',
+      text: '',
+    }
   },
   imageTitle: '',
   imageURL: '',
   likePrompt: '',
   likesCount: 0,
-  linkableFileData: {
-    'Photo by': {},
-    Telescope: {},
-    Observatory: {},
-    'Observation time': {
-      text: '',
-    },
-  },
   observationLog: '',
   observationTimeDisplay: [],
   originX: '',
@@ -115,7 +146,6 @@ static defaultProps = {
   shareToken: '',
   showCommentsLink: false,
   showLikePrompt: false,
-  socialShareDescription: '',
   zoom: '',
 };
 
@@ -144,34 +174,27 @@ componentWillReceiveProps(nextProps) {
 }
 
   render() {
-    const {
-      avatarURL,
-      canLikeFlag,
-      commentsCount,
-      commentsForumId,
-      commentsThreadId,
-      commentsTopicId,
-      customerImageId,
-      error,
-      fetching,
-      fileData,
-      imageTitle,
-      imageURL,
-      likePrompt,
-      likesCount,
-      linkableFileData,
-      observationLog,
-      observationTimeDisplay,
-      photoViewFullURL,
-      shareToken,
-      showCommentsLink,
-      showLikePrompt,
-      socialShareDescription,
-    } = this.props;
-
-    const profilePhotoStyle = {
-      backgroundImage: `url(${avatarURL})`,
-    };
+  const {
+    avatarURL,
+    canLikeFlag,
+    commentsCount,
+    commentsForumId,
+    commentsThreadId,
+    commentsTopicId,
+    customerImageId,
+    error,
+    fetching,
+    iconFileData,
+    imageTitle,
+    imageURL,
+    likePrompt,
+    likesCount,
+    observationLog,
+    observationTimeDisplay,
+    shareToken,
+    showCommentsLink,
+    showLikePrompt,
+  } = this.props;
 
     const heartProps = {
       canLikeFlag,
@@ -182,11 +205,17 @@ componentWillReceiveProps(nextProps) {
       likeId: customerImageId,
     };
 
-    const photoBy = linkableFileData['Photo by'];
-    const observatory = linkableFileData.Observatory;
-    const telescope = linkableFileData.Telescope;
+    const infoIcon = url => Object.assign(profilePhotoStyle(url), {
+      height: '50px',
+      width: '50px',
+      margin: '0 auto',
+    });
+
+    const member = iconFileData.Member;
+    const domain = iconFileData.Domain;
+    const category = iconFileData.Category;
+    const telescope = iconFileData.Telescope;
     const observatoryTime = observationTimeDisplay.join('  |  ')
-    console.log(this.props)
     return (
       <div className="observation-item">
         {error && <div className="loading">There was an error fetching this photo.</div>}
@@ -203,40 +232,47 @@ componentWillReceiveProps(nextProps) {
                 showLikeText={false}
               />
               {showCommentsLink && <Link
-                to={`discussions/forums/${commentsForumId}/topics/${commentsTopicId}/threads/${commentsThreadId}`}>
+                to={`/discussions/forums/${commentsForumId}/topics/${commentsTopicId}/threads/${commentsThreadId}`}>
                   <span>{`Comments (${commentsCount})`}</span>
                 </Link>}
             </div>
-            <div className="telescopeAndUser">
-              <div>
-                <h4 className="telescope">
-                  <span
-                    className="block"
-                    dangerouslySetInnerHTML={{ __html: `${photoBy.label}: ` }}
-                  />
-                  {photoBy.hasLink ? <Link to={photoBy.linkUrl}>{photoBy.text}</Link> :
-                  <span
-                    dangerouslySetInnerHTML={{ __html: `${photoBy.text} ` }}
-                  />
-                  }
-                </h4>
-
-                <h3 className="title telescope">
-                  {telescope.hasLink ? <Link to={telescope.linkUrl}>{telescope.text}</Link> :
-                  <span
-                    dangerouslySetInnerHTML={{ __html: `${telescope.text} ` }}
-                  />
-                  }
-                </h3>
-                <h4 className="observatory">
-                  {observatory.hasLink ? <Link to={observatory.linkUrl}>{observatory.text}</Link> :
-                  <span
-                    dangerouslySetInnerHTML={{ __html: `${observatory.text} ` }}
-                  />
-                  }
-                </h4>
+            <div className="iconFileData">
+              <div className="title">
+                <span
+                  className="block"
+                  dangerouslySetInnerHTML={{ __html: `${member.label} ` }}
+                />
+                {member.hasLink ? <Link to={member.linkUrl}><div style={infoIcon(member.iconUrl)} /></Link> :
+                <div style={infoIcon(member.iconUrl)} />
+                }
               </div>
-              <div className="profile-photo" style={profilePhotoStyle} />
+              <div className="title">
+              <span
+                className="block"
+                dangerouslySetInnerHTML={{ __html: `${category.label} ` }}
+              />
+                {category.hasLink ? <Link to={category.linkUrl}><div style={infoIcon(category.iconUrl)} /></Link> :
+                <div style={infoIcon(category.iconUrl)} />
+                }
+              </div>
+
+              <div className="title">
+              <span
+                className="block"
+                dangerouslySetInnerHTML={{ __html: `${telescope.label} ` }}
+              />
+                {telescope.hasLink ? <Link to={telescope.linkUrl}><div style={infoIcon(telescope.iconUrl)} /></Link> :
+                <div style={infoIcon(telescope.iconUrl)} />
+                }
+              </div>
+              <div className="title">
+              <span
+                className="block"
+                dangerouslySetInnerHTML={{ __html: `${domain.label} ` }}
+              />
+                {domain.hasLink ? <Link to={domain.linkUrl}><div style={infoIcon(domain.iconUrl)} /></Link> :
+                <div style={infoIcon(domain.iconUrl)} /> }
+              </div>
             </div>
           </div>
           <Link to={`/my-pictures/show-image/${customerImageId}/${shareToken}`}>
@@ -268,6 +304,7 @@ componentWillReceiveProps(nextProps) {
             ${backgroundImageCover}
             height: auto;
             width: 500px;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
           }
 
           :global(.pulse-post-extras) .shared-image {
@@ -287,17 +324,6 @@ componentWillReceiveProps(nextProps) {
 
             }
 
-          .profile-photo {
-            ${backgroundImageCover};
-            ${borderRadius('50%')};
-            background-repeat: no-repeat;
-            background-position: center;
-            width: 45px;
-            height: 45px;
-            min-width: 45px;
-            min-height: 45px;
-          }
-
 
           .observation-item :global(.buttonOnly:hover .action-description){
             display: none;
@@ -314,6 +340,7 @@ componentWillReceiveProps(nextProps) {
             max-height: 340px;
             background-color: ${white};
             position: relative;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
           }
 
           :global(.pulse-post-extras) .info-panel {
@@ -321,9 +348,15 @@ componentWillReceiveProps(nextProps) {
           }
 
           .title {
+            text-align: center;
             text-transform: uppercase;
             font-weight: bold;
             width: 80%;
+          }
+
+          .actions {
+            height: 75px;
+            padding: 15px 0;
           }
 
           .description {
@@ -335,7 +368,7 @@ componentWillReceiveProps(nextProps) {
             white-space: pre-wrap;
           }
 
-          .telescopeAndUser {
+          .iconFileData {
             display: flex;
             flex-direction: row;
             justify-content: space-between;
@@ -344,13 +377,9 @@ componentWillReceiveProps(nextProps) {
             padding-top: 10px;
           }
 
-          .telescope, .observatory {
-            font-size: 1.1rem;
-            margin-top: 5px;
-          }
 
           .loading {
-            color: ${white};
+            color: ${black};
             text-align: center;
             padding: 100px;
             font-size: 2rem;

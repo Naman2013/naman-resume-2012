@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 import { Link } from 'react-router';
 import ReplyToAstronomerQuestion from './ask-astronomer-reply-to-question';
-import { backgroundImageCover } from '../../styles/mixins/utilities';
+import { backgroundImageCover } from '../../../styles/mixins/utilities';
 
 // import { black, darkBlueGray, white, turqoise } from '../../styles/variables/colors';
 // import { secondaryFont } from '../../styles/variables/fonts';

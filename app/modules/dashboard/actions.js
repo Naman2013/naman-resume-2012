@@ -8,9 +8,6 @@ export const fetchDashboard = ({
   lang,
   ver,
   lookbackDays,
-  at,
-  token,
-  cid,
 }) => (dispatch, getState) => {
   const user = getState().user;
   dispatch(fetchDashboardStart());
@@ -18,9 +15,9 @@ export const fetchDashboard = ({
     lang,
     lookbackDays,
     ver,
-    at: at || user.at,
-    token: token || user.token,
-    cid: cid || user.cid,
+    at: user.at,
+    token: user.token,
+    cid: user.cid,
   })
     .then(result => dispatch(fetchDashboardSuccess(result.data)))
     .catch(error => dispatch(fetchDashboardFailure(error)));

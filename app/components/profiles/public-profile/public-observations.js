@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Slider from 'react-slick';
 import { bindActionCreators } from 'redux';
-import { getSharedMemberPhotos } from '../../modules/get-shared-member-photos/actions';
+import { getSharedMemberPhotos } from '../../../modules/get-shared-member-photos/actions';
 import PublicObservationItem from './public-observation-item';
-import '../common/community-perspectives/slick.min.css';
-import '../common/community-perspectives/slick-theme.min.css';
-import { black } from '../../styles/variables/colors';
+import '../../common/community-perspectives/slick.min.css';
+import '../../common/community-perspectives/slick-theme.min.css';
+import { black } from '../../../styles/variables/colors';
 // import { secondaryFont } from '../../styles/variables/fonts';
 
 const {
@@ -116,6 +116,7 @@ class PublicObservations extends Component {
 
     return (
       <div className="observation-container">
+        <h4 className="title">Recent Observations</h4>
         {imageList.length === 0 && <div className="empty">There are no shared images.</div>}
         {imageList.length > 0 && <div className="observation-slider-container">
           <Slider
@@ -131,6 +132,7 @@ class PublicObservations extends Component {
             padding: 25px 50px;
             color: ${black};
             margin-bottom: 0px;
+            background: #e2e1e0;
           }
 
           :not(:global(.pulse-post-extras)) .observation-container {
@@ -172,6 +174,10 @@ class PublicObservations extends Component {
 
           .observation-container :global(.slick-slider) {
             height: 50%;
+          }
+
+          .title {
+            padding-bottom: 15px;
           }
 
         `}

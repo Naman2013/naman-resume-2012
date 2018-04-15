@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import MyObservations from '../../components/profiles/my-observations';
-import AskAstronomerQuestionList from '../../components/profiles/ask-astronomer-question-list';
+import { fetchDashboard } from '../../modules/dashboard/actions';
+import MyObservations from '../../components/profiles/private-profile/my-observations';
+import AskAstronomerQuestionList from '../../components/profiles/private-profile/ask-astronomer-question-list';
 
 const componentsByRole = {
   ASTRONOMER: ['myobservations', 'askastronomer'],
@@ -14,13 +15,16 @@ const componentsByRole = {
   ASTROLAB: ['myobservations'],
 };
 const mapStateToProps = ({
+  dashboard,
   user,
 }) => ({
+  dashboard,
   user,
 });
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
+    fetchDashboard,
   }, dispatch),
 });
 
@@ -34,6 +38,7 @@ class PrivateProfile extends Component {
 
   constructor(props) {
     super();
+    props.actions.fetchDashboard({});
   }
 
   render() {

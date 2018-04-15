@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { getSharedMemberPhotos } from '../../modules/get-shared-member-photos/actions';
+import { getSharedMemberPhotos } from '../../../modules/get-shared-member-photos/actions';
 import MyObservationItem from './my-observation-item';
-import { black, darkBlueGray, white, turqoise } from '../../styles/variables/colors';
-import { secondaryFont } from '../../styles/variables/fonts';
+import { black, darkBlueGray, white, turqoise } from '../../../styles/variables/colors';
+import { secondaryFont } from '../../../styles/variables/fonts';
 
 const {
   arrayOf,

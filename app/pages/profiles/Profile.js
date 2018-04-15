@@ -2,19 +2,15 @@ import React, { Component, cloneElement } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { fetchDashboard } from '../../modules/dashboard/actions';
 
 const mapStateToProps = ({
-  dashboard,
   user,
 
 }) => ({
-  dashboard,
   user,
 });
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
-    fetchDashboard,
   }, dispatch),
 });
 
@@ -28,14 +24,10 @@ class Profile extends Component {
 
   constructor(props) {
     super();
-    props.actions.fetchDashboard({
-
-    });
   }
 
   render() {
     const {
-      dashboard,
       params,
       user,
       children,
