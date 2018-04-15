@@ -12,17 +12,17 @@ function generateLine(dimension, resolution, spacing, currentX, increment, style
   let TOP_STARTING_POINT = MID_POINT;
   let BOTTOM_STARTING_POINT = MID_POINT;
 
+  console.log('--------');
   for (let i = 0; i <= resolution; i += 1) {
     if (i % increment === 0) {
-      if (i <= (resolution / 2)) {
+      if (TOP_STARTING_POINT > 0) {
         ROW.push(<Circle style={style} key={uniqueId()} x={currentX} y={TOP_STARTING_POINT} />);
-        TOP_STARTING_POINT -= spacing;
+        TOP_STARTING_POINT -= (spacing * increment);
       } else {
         ROW.push(<Circle style={style} key={uniqueId()} x={currentX} y={BOTTOM_STARTING_POINT} />);
-        BOTTOM_STARTING_POINT += spacing;
+        BOTTOM_STARTING_POINT += (spacing * increment);
       }
     }
-
   }
 
   return ROW;
