@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux';
 import { fetchPublicProfile } from '../../modules/public-profile/actions';
 import PublicObservations from '../../components/profiles/public-profile/public-observations';
 import ProfileMissions from '../../components/profiles/mission-list';
+
 const {
   arrayOf,
   shape,

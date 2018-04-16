@@ -6,13 +6,14 @@ import { bindActionCreators } from 'redux';
 import { fetchDashboard } from '../../modules/dashboard/actions';
 import MyObservations from '../../components/profiles/private-profile/my-observations';
 import AskAstronomerQuestionList from '../../components/profiles/private-profile/ask-astronomer-question-list';
+import ProfileMissions from '../../components/profiles/mission-list';
 
 const componentsByRole = {
-  ASTRONOMER: ['myobservations', 'askastronomer'],
-  APPRENTICE: ['myobservations'],
-  LUMINARY: ['myobservations'],
+  ASTRONOMER: ['missions', 'myobservations', 'askastronomer'],
+  APPRENTICE: ['missions', 'myobservations'],
+  LUMINARY: ['missions', 'myobservations'],
   HOST: ['myobservations'],
-  ASTROLAB: ['myobservations'],
+  ASTROLAB: ['missions', 'myobservations'],
 };
 const mapStateToProps = ({
   dashboard,
@@ -51,7 +52,7 @@ class PrivateProfile extends Component {
     const membershipType = 'ASTRONOMER';
     return (
       <div>Private Profile
-
+        {componentsByRole[membershipType].indexOf('missions') > -1 ? <ProfileMissions missionList={dashboard.missionList} /> : null}
         {componentsByRole[membershipType].indexOf('myobservations') > -1 ? <MyObservations cid={user.cid} /> : null}
         {componentsByRole[membershipType].indexOf('askastronomer') > -1 ? <AskAstronomerQuestionList /> : null}
       </div>
