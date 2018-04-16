@@ -56,7 +56,7 @@ class Quests extends Component {
       objectQuests,
     } = this.props;
 
-    console.log (objectQuests);
+    //console.log (objectQuests);
 
     return (
       <div className="contain">        

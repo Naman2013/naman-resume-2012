@@ -9,14 +9,39 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import ObjectStoryList from '../../components/object-post/object-story-list';
+import GenericLoadingBox from '../../components/common/loading-screens/generic-loading-box';
 import classnames from 'classnames';
 import has from 'lodash/has';
 import {
   fetchObjectDetailsAction,
+  fetchObjectDataAction,
 } from '../../modules/object-details/actions';
+import {
+  fetchObjectLatestContent,
+  fetchObjectPosts,
+} from '../../modules/object-post-list/actions';
 
-const mapStateToProps = ({ objectDetails, appConfig, user }) => ({
+
+/* Declare these locally since previous versions relied on url routing */
+const objectProps = {
+  entryType: 'latest-entries',
+  filterType: 'all',
+}
+
+const mapStateToProps = ({ objectDetails, objectPostList, appConfig, user }) => ({
   objectDetails: objectDetails.objectDetails,
+  objectData: objectDetails.objectData,
+  entryType: objectProps.entryType,
+  filterType: objectProps.filterType,
+  SlugLookupId: objectDetails.objectData.slugLookupId,
+  fetchingPosts: objectPostList.fetching,
+  objectPosts: objectPostList.objectPosts,
+  pages: objectPostList.pages,
+  count: objectPostList.count,
+  page: objectPostList.page,
+  postsCount: objectPostList.postsCount,
+  firstPostIndex: objectPostList.firstPostIndex,
   appConfig,
   user,
 });
@@ -24,6 +49,9 @@ const mapStateToProps = ({ objectDetails, appConfig, user }) => ({
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
     fetchObjectDetailsAction,
+    fetchObjectDataAction,
+    fetchObjectLatestContent,
+    fetchObjectPosts,
   }, dispatch),
 });
 
@@ -31,6 +59,7 @@ const mapDispatchToProps = dispatch => ({
 class Stories extends Component {
   constructor(props) {
     super(props);
+    this.updateList(props);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -44,21 +73,70 @@ class Stories extends Component {
     //console.log(this.props)
   }
 
+  updateList(requestProps) {
+    const { actions } = this.props;
+    const {
+      entryType,
+      SlugLookupId,
+      filterType,
+    } = requestProps;
+
+    actions.fetchObjectPosts({
+      type: [filterType],
+      entryType,
+      SlugLookupId,
+    });
+  }
+
+
+  static defaultProps = {
+    fetchingPosts: true,
+  }
+
   render() {
     const {
       params: {
         objectId,
       },
       objectDetails,
-      objectQuests,
+      SlugLookupId,
+      fetchingPosts,
+      fetchObjectLatestContent,
+      firstPostIndex,
+      objectPosts,
+      pages,
+      count,
+      page,
+      postsCount,
     } = this.props;
 
+    const sId = SlugLookupId;
+    const slugId = toString(sId);
+
+    console.log (this.props);
 
     return (
       <div className="contain">
 
         <h4>Stories about {objectDetails.objectTitle}</h4>
         
+        {
+          fetchingPosts ?
+            <GenericLoadingBox />
+          :
+            <ObjectStoryList
+              objectPosts={objectPosts}
+              pages={pages}
+              page={page}
+              count={count}
+              /*path={path}*/
+              postsCount={postsCount}
+              fetchObjectLatestContent={fetchObjectLatestContent}
+              SlugLookupId={slugId}
+              firstPostIndex={firstPostIndex}
+              className={'card-container__stories'}
+            />
+        }
 
         <style jsx>{`
           h4 {
@@ -69,36 +147,6 @@ class Stories extends Component {
             padding: 25px;
             background-color: #f2f2f2;
             text-transform: uppercase;
-          }
-          .card-container__stories {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-          }
-          .story-card {
-            font-size: 1em;
-            background-color: #3E4B5C;
-            padding: 25px;
-            margin: 25px 0;
-            min-width: 28%;
-            text-align: center;
-          }
-          .story-icon {
-            background-color: #1E2631;
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
-            padding: 10px;
-            margin: 0 auto;
-          }
-          .story-btn {
-            padding: 7px 10px;
-            background-color: #3C4A55;
-            width: 50%;
-            border-radius: 19px;
-            color: white;
-            text-align: center;
-            cursor: pointer;
           }
         `}</style>
 
