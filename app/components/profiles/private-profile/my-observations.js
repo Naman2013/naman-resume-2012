@@ -59,13 +59,13 @@ class MyObservations extends Component {
 
     return (
       <div className="my-observations">
-        <div>
-          <h3>My Observations</h3>
-          <h4>Recent Activity on Slooh</h4>
+        <div className="header">
+          <h4 className="emphasis">My Observations</h4>
+          <h5>Recent Activity on Slooh</h5>
         </div>
-        <nav>
-          <div>My Recent Observations</div>
-          <div>{`Observations I've Liked`}</div>
+        <nav className="nav">
+          <div className="nav-item">My Recent Observations</div>
+          <div className="nav-item">{`Observations I've Liked`}</div>
         </nav>
         <div>
           {sharedMemberPhotos.imageList.map((image) => {
@@ -76,7 +76,23 @@ class MyObservations extends Component {
           })}
         </div>
         <style jsx>{`
+          .emphasis {
+            font-weight: bold;
+          }
+          .header {
+            padding: 10px 5px;
+            border-top: 1px solid ${black};
+            border-bottom: 1px solid ${black};
+          }
 
+          .nav {
+            display: flex;
+            flex-direction: row;
+          }
+
+          .nav-item {
+            padding: 5px;
+          }
 
         `}</style>
       </div>

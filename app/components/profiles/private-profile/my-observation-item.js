@@ -17,41 +17,63 @@ const {
 } = PropTypes;
 
 const MyObservationItem = ({
-  // avatarURL,
-  // canDownloadFlag,
-  // canEditFlag,
+  canEditFlag,
   canLikeFlag,
-  // canShareFlag,
+  commentsCount,
+  commentsForumId,
+  commentsThreadId,
+  commentsTopicId,
   customerImageId,
-  // fileData,
   imageTitle,
   imageURL,
   likePrompt,
   likesCount,
-  // linkableFileData,
   observationLog,
-  // originX,
-  // originY,
-  // photoViewFullURL,
-  // scheduledMissionId,
+  observationTimeDisplay,
   shareToken,
+  showCommentsLink,
   showLikePrompt,
-  // socialShareDescription,
-  // zoom,
 }) => {
+
+  const observationTime = observationTimeDisplay.join('  |  ');
   return (
     <div className="observation-item" key={customerImageId}>
       <div className="title" dangerouslySetInnerHTML={{ __html: imageTitle }} />
+      <div className="time" dangerouslySetInnerHTML={{ __html: observationTime }} />
       <div className="body">
         <Link to={`/my-pictures/show-image/${customerImageId}/${shareToken}`}>
           <div style={{ backgroundImage: `url(${imageURL})` }} className="shared-image" />
         </Link>
-        <div>
+        <div className="info-panel">
           <div className="description" dangerouslySetInnerHTML={{ __html: observationLog }} />
-          <div>Likes ({likesCount})</div>
+          <div className="actions">
+            <div>Likes ({likesCount})</div>
+            {showCommentsLink && <Link
+              to={`/discussions/forums/${commentsForumId}/topics/${commentsTopicId}/threads/${commentsThreadId}`}>
+                <span>{`Comments (${commentsCount})`}</span>
+              </Link>}
+            {canEditFlag && <Link to={`/my-pictures/show-image/${customerImageId}/${shareToken}`}>
+              <div className=""><span className="fa fa-pencil"/> Edit</div>
+            </Link>}
+          </div>
         </div>
       </div>
       <style jsx>{`
+
+        .observation-item {
+          margin: 10px;
+          padding: 15px;
+          box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+        }
+
+        .actions {
+          position: absolute;
+          bottom: 0;
+        }
+        .info-panel {
+          position: relative;
+          padding-left: 10px;
+        }
         .body {
           display: flex;
           flex-direction: row;
@@ -72,72 +94,39 @@ MyObservationItem.defaultProps = {
   canDownloadFlag: false,
   canEditFlag: false,
   canLikeFlag: false,
-  canShareFlag: false,
+  commentsCount: 0,
+  commentsForumId: 0,
+  commentsThreadId: 0,
+  commentsTopicId: 0,
   customerImageId: 0,
-  fileData: {
-    'Photo by': '',
-    'Scheduled by': '',
-    'Observation date': '',
-    'Observation time': '',
-    Observatory: '',
-  },
   imageTitle: '',
   imageURL: '',
   likePrompt: '',
   likesCount: 0,
-  linkableFileData: {
-    'Photo by': {},
-    Telescope: {},
-    Observatory: {},
-    'Observation time': {
-      text: '',
-    },
-  },
   observationLog: '',
-  originX: '',
-  originY: '',
-  photoViewFullURL: '',
-  scheduledMissionId: '',
+  observationTimeDisplay: [],
   shareToken: '',
+  showCommentsLink: false,
   showLikePrompt: false,
-  socialShareDescription: '',
-  zoom: '',
 };
 MyObservationItem.propTypes = {
-  avatarURL: string,
   canDownloadFlag: bool,
   canEditFlag: bool,
   canLikeFlag: bool,
-  canShareFlag: bool,
+  commentsCount: number,
+  commentsForumId: number,
+  commentsThreadId: number,
+  commentsTopicId: number,
   customerImageId: number,
-  fileData: shape({
-    'Photo by': string,
-    'Scheduled by': string,
-    'Observation date': string,
-    'Observation time': string,
-    Observatory: string,
-  }),
   imageTitle: string,
   imageURL: string,
   likePrompt: string,
   likesCount: number,
-  linkableFileData: shape({
-    'Photo by': PropTypes.shape({}),
-    Observatory: PropTypes.shape({}),
-    Telescope: PropTypes.shape({}),
-    'Observation time': PropTypes.shape({
-      text: PropTypes.string,
-    }),
-  }),
   observationLog: string,
-  originX: string,
-  originY: string,
-  photoViewFullURL: string,
-  scheduledMissionId: string,
+  observationTimeDisplay: arrayOf(string),
   shareToken: string,
+  showCommentsLink: bool,
   showLikePrompt: bool,
-  socialShareDescription: string,
-  zoom: string,
 };
 
 export default MyObservationItem;

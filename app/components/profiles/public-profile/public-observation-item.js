@@ -215,7 +215,7 @@ componentWillReceiveProps(nextProps) {
     const domain = iconFileData.Domain;
     const category = iconFileData.Category;
     const telescope = iconFileData.Telescope;
-    const observatoryTime = observationTimeDisplay.join('  |  ')
+    const observationTime = observationTimeDisplay.join('  |  ');
     return (
       <div className="observation-item">
         {error && <div className="loading">There was an error fetching this photo.</div>}
@@ -223,7 +223,7 @@ componentWillReceiveProps(nextProps) {
         {!error && !fetching && <div className="observation-item-container">
           <div className="info-panel">
             <div className="main-title" dangerouslySetInnerHTML={{ __html: imageTitle }} />
-            <div className="time" dangerouslySetInnerHTML={{ __html: observatoryTime }} />
+            <div className="time" dangerouslySetInnerHTML={{ __html: observationTime }} />
             <div className="description" dangerouslySetInnerHTML={{ __html: observationLog }} />
             <div className="actions">
               <Heart
