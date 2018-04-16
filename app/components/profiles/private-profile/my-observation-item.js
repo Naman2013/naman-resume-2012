@@ -61,6 +61,7 @@ const MyObservationItem = ({
       <style jsx>{`
 
         .observation-item {
+          background-color: ${white};
           margin: 10px;
           padding: 15px;
           box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
@@ -72,11 +73,12 @@ const MyObservationItem = ({
         }
         .info-panel {
           position: relative;
-          padding-left: 10px;
+          padding-left: 25px;
         }
         .body {
           display: flex;
           flex-direction: row;
+          padding: 15px 0;
         }
         .shared-image {
           display: inline-block;

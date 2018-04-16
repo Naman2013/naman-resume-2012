@@ -79,14 +79,12 @@ class PublicProfile extends Component {
       publicProfile,
       params: { cid },
     } = this.props;
-
-    // To Do: Delete
-    const membershipType = 'ASTRONOMER';
+    const membershipType = publicProfile.membershipType;
 
     return (
       <div>Public Profile
-        {componentsByRole[membershipType].indexOf('missions') > -1 ? <ProfileMissions missionList={publicProfile.missionList} /> : null}
-        {componentsByRole[membershipType].indexOf('observations') > -1 ? <PublicObservations cid={cid} /> : null}
+        {componentsByRole[membershipType] && componentsByRole[membershipType].indexOf('missions') > -1 ? <ProfileMissions missionList={publicProfile.missionList} /> : null}
+        {componentsByRole[membershipType] && componentsByRole[membershipType].indexOf('observations') > -1 ? <PublicObservations cid={cid} /> : null}
       </div>
     );
   }

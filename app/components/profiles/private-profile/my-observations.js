@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import classnames from 'classnames';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getSharedMemberPhotos } from '../../../modules/get-shared-member-photos/actions';
@@ -42,12 +43,29 @@ class MyObservations extends Component {
     cid: string.isRequired,
   }
 
+  state = {
+    recentObs: true,
+  }
+
   constructor(props) {
     super(props)
 
     props.actions.getSharedMemberPhotos({
       customerId: props.cid,
-      orderByLikes: true,
+      orderByLikes: false,
+      makeDetailsCall: true,
+    });
+  }
+
+  setOrder = (type) => {
+    const isRecentObs = type === 'recent';
+    this.setState({
+      recentObs: isRecentObs,
+    });
+
+    this.props.actions.getSharedMemberPhotos({
+      customerId: this.props.cid,
+      orderByLikes: !isRecentObs,
       makeDetailsCall: true,
     });
   }
@@ -57,18 +75,26 @@ class MyObservations extends Component {
       sharedMemberPhotos,
     } = this.props;
 
+    const {
+      recentObs
+    } = this.state;
+
+
     return (
       <div className="my-observations">
-        <div className="header">
-          <h4 className="emphasis">My Observations</h4>
-          <h5>Recent Activity on Slooh</h5>
-        </div>
         <nav className="nav">
-          <div className="nav-item">My Recent Observations</div>
-          <div className="nav-item">{`Observations I've Liked`}</div>
+          <div
+            className={classnames('nav-item', { emphasis: recentObs })}
+            onClick={() => this.setOrder('recent')}
+          >My Recent Observations</div>
+          <div
+            className={classnames('nav-item', { emphasis: !recentObs })}
+            onClick={() => this.setOrder('likes')}>{`Observations I've Liked`}
+          </div>
         </nav>
         <div>
-          {sharedMemberPhotos.imageList.map((image) => {
+          {sharedMemberPhotos.fetching && <div className="fa fa-spinner" />}
+          {!sharedMemberPhotos.fetching && sharedMemberPhotos.imageList.map((image) => {
             const imageDetails = sharedMemberPhotos.allImages[image.customerImageId] || {};
             return (
               <MyObservationItem {...imageDetails} key={image.customerImageId} />
@@ -79,11 +105,6 @@ class MyObservations extends Component {
           .emphasis {
             font-weight: bold;
           }
-          .header {
-            padding: 10px 5px;
-            border-top: 1px solid ${black};
-            border-bottom: 1px solid ${black};
-          }
 
           .nav {
             display: flex;
@@ -92,6 +113,7 @@ class MyObservations extends Component {
 
           .nav-item {
             padding: 5px;
+            cursor: pointer;
           }
 
         `}</style>

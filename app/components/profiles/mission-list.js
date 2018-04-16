@@ -16,9 +16,7 @@ const ProfileMissionList = ({
 }) =>
   (<div className="mission-list">
     <div>
-      <h3>Missions</h3>
-    </div>
-    <div>
+      {missionList.length === 0 && <div>There are no upcoming missions.</div>}
       {missionList.map(missionDetail =>
         (<ProfileMissionListItem
           {...missionDetail}
@@ -29,7 +27,7 @@ const ProfileMissionList = ({
       {`
       `}
     </style>
-  </div>)
+    </div>)
 
 ProfileMissionList.defaultProps = {
   missionList: [],

@@ -7,6 +7,13 @@ import { fetchDashboard } from '../../modules/dashboard/actions';
 import MyObservations from '../../components/profiles/private-profile/my-observations';
 import AskAstronomerQuestionList from '../../components/profiles/private-profile/ask-astronomer-question-list';
 import ProfileMissions from '../../components/profiles/mission-list';
+import {
+  lightGray,
+  gray,
+  darkBlueGray,
+  white,
+} from '../../styles/variables/colors';
+import { profilePhotoStyle } from '../../styles/mixins/utilities';
 
 const componentsByRole = {
   ASTRONOMER: ['missions', 'myobservations', 'askastronomer'],
@@ -47,14 +54,80 @@ class PrivateProfile extends Component {
       dashboard,
       user,
     } = this.props;
-
-    // To Do: Delete
-    const membershipType = 'ASTRONOMER';
+    const avatarStyle = Object.assign(profilePhotoStyle(dashboard.profile.avatarURL), { backgroundSize: 'cover' });
+    const membershipType = dashboard.profile.membershipType;
     return (
-      <div>Private Profile
-        {componentsByRole[membershipType].indexOf('missions') > -1 ? <ProfileMissions missionList={dashboard.missionList} /> : null}
-        {componentsByRole[membershipType].indexOf('myobservations') > -1 ? <MyObservations cid={user.cid} /> : null}
-        {componentsByRole[membershipType].indexOf('askastronomer') > -1 ? <AskAstronomerQuestionList /> : null}
+      <div className="private-profile">
+        <header className="main-header">
+          <div style={avatarStyle} />
+          <div className="main-header-info">
+            <div
+              className=""
+              dangerouslySetInnerHTML={{ __html: dashboard.profile.displayName }}
+            />
+            <div
+              className=""
+              dangerouslySetInnerHTML={{ __html: membershipType }}
+            />
+          </div>
+        </header>
+        {componentsByRole[membershipType] && componentsByRole[membershipType].indexOf('missions') > -1 ?
+          <div className="section">
+            <div className="">
+              <h4 className="emphasis">My Upcoming Missions</h4>
+            </div>
+            <ProfileMissions missionList={dashboard.missionList} />
+          </div>
+          : null}
+
+        {componentsByRole[membershipType] && componentsByRole[membershipType].indexOf('askastronomer') > -1 ?
+          <div className="section">
+            <div className="header">
+            <h4 className="emphasis">Activity Feed: This Just In, Just For You</h4>
+            <h5>Questions from the community</h5>
+            </div>
+            <AskAstronomerQuestionList />
+          </div>
+          : null}
+
+        {componentsByRole[membershipType] && componentsByRole[membershipType].indexOf('myobservations') > -1 ?
+          <div className="section">
+            <div className="header">
+              <h4 className="emphasis">My Observations</h4>
+              <h5>Recent Activity on Slooh</h5>
+            </div>
+            <MyObservations cid={user.cid} />
+          </div>
+          : null}
+        <style jsx>{`
+          .private-profile {
+            background-color: ${gray};
+            color: ${darkBlueGray};
+          }
+          .main-header {
+            background-color: ${white};
+            padding: 25px;
+            display: flex;
+            flex-direction: row;
+          }
+          .main-header-info {
+            margin: 0 25px;
+          }
+          .emphasis {
+            font-weight: bold;
+          }
+          .header {
+            padding: 10px 5px;
+            border-top: 1px solid ${lightGray};
+            border-bottom: 1px solid ${lightGray};
+            margin-bottom: 10px;
+          }
+
+          .section {
+            padding: 25px;
+            margin: 10px 0;
+          }
+        `}</style>
       </div>
     );
   }

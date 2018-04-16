@@ -59,11 +59,7 @@ class AstronomerQuestionList extends Component {
 
     return (
       <div className="ask-astronomer-question-list">
-        <div>
-          <h3>Activity Feed: This Just In, Just For You</h3>
-          <h4>Questions from the community</h4>
-        </div>
-        <div># new questions! Earn gravity by mentoring in the Slooh community</div>
+        <div>{astronomerQuestionList.threadCount} new questions! Earn gravity by mentoring in the Slooh community</div>
         <div>
           {astronomerQuestionList.threads.map(question => <AstronomerQuestionListItem {...question} key={question.threadId} user={user} />)}
         </div>

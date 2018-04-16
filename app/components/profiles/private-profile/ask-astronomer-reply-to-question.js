@@ -102,6 +102,7 @@ class ReplyToAstronomerQuestion extends Component {
       error,
       loading,
       submitted,
+      replyText,
     } = this.state;
 
     return (
@@ -115,16 +116,18 @@ class ReplyToAstronomerQuestion extends Component {
         }
         {(!submitted || (submitted && error)) &&
           <form>
-            <input
+            <textarea
               type="text"
               onChange={this.changeReplyText}
+              value={replyText}
+              placeholder="Type your answer here"
             />
             {loading && <span className="fa fa-spinner" />}
-            {!loading && <button onClick={this.submitAnswer}>Answer Now</button>}
+            {!loading && <button className="block" onClick={this.submitAnswer}>Answer Now</button>}
           </form>
         }
         <style jsx>{`
-
+          display: block;
 
         `}</style>
       </div>

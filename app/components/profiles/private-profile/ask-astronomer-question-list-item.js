@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 import { Link } from 'react-router';
 import ReplyToAstronomerQuestion from './ask-astronomer-reply-to-question';
+import { white } from '../../../styles/variables/colors';
 import { backgroundImageCover } from '../../../styles/mixins/utilities';
 
 // import { black, darkBlueGray, white, turqoise } from '../../styles/variables/colors';
@@ -42,13 +43,12 @@ const AskAstronomerQuestionListItem = ({
   voiceCount,
 }) => {
   return (
-    <div className="observation-item" key={threadId}>
+    <div className="question-item" key={threadId}>
       <div className="title" dangerouslySetInnerHTML={{ __html: topicName }} />
-      <button>Not my specialty x</button>
       <div className="body">
         <div>
           <div className="description" dangerouslySetInnerHTML={{ __html: content }} />
-          <span className="date">{moment(creationDate).fromNow()}</span>
+          <span className="date">{`${moment(creationDate).fromNow()}  |  `}</span>
           <span className="">Asked By <span dangerouslySetInnerHTML={{ __html: displayName }} /></span>
         </div>
         <ReplyToAstronomerQuestion
@@ -60,7 +60,22 @@ const AskAstronomerQuestionListItem = ({
 
       </div>
       <style jsx>{`
+        .question-item {
+          background-color: ${white};
+          margin: 10px;
+          padding: 15px;
+          box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+        }
+        .body {
+          display: flex;
+          flex-direction: column;
+          padding: 15px 0;
+        }
 
+        .description {
+          font-weight: bold;
+          padding: 15px 0;
+        }
       `}</style>
     </div>
   )
