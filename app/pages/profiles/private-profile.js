@@ -73,7 +73,7 @@ class PrivateProfile extends Component {
         </header>
         {componentsByRole[membershipType] && componentsByRole[membershipType].indexOf('missions') > -1 ?
           <div className="section">
-            <div className="">
+            <div className="uppercase">
               <h4 className="emphasis">My Upcoming Missions</h4>
             </div>
             <ProfileMissions missionList={dashboard.missionList} />
@@ -83,8 +83,8 @@ class PrivateProfile extends Component {
         {componentsByRole[membershipType] && componentsByRole[membershipType].indexOf('askastronomer') > -1 ?
           <div className="section">
             <div className="header">
-            <h4 className="emphasis">Activity Feed: This Just In, Just For You</h4>
-            <h5>Questions from the community</h5>
+              <h4 className="emphasis uppercase">Activity Feed: This Just In, Just For You</h4>
+              <h5>Questions from the community</h5>
             </div>
             <AskAstronomerQuestionList />
           </div>
@@ -93,7 +93,7 @@ class PrivateProfile extends Component {
         {componentsByRole[membershipType] && componentsByRole[membershipType].indexOf('myobservations') > -1 ?
           <div className="section">
             <div className="header">
-              <h4 className="emphasis">My Observations</h4>
+              <h4 className="emphasis uppercase">My Observations</h4>
               <h5>Recent Activity on Slooh</h5>
             </div>
             <MyObservations cid={user.cid} />
@@ -121,6 +121,9 @@ class PrivateProfile extends Component {
             border-top: 1px solid ${lightGray};
             border-bottom: 1px solid ${lightGray};
             margin-bottom: 10px;
+          }
+          .uppercase {
+            text-transform: uppercase;
           }
 
           .section {

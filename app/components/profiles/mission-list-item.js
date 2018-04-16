@@ -5,7 +5,7 @@ import moment from 'moment';
 import { backgroundImageCover, profilePhotoStyle } from '../../styles/mixins/utilities';
 import { likeImage } from '../../services/my-pictures/like-image';
 
-import { black, darkBlueGray, white, turqoise } from '../../styles/variables/colors';
+import { black, darkBlueGray, white, turqoise, gray } from '../../styles/variables/colors';
 import { secondaryFont } from '../../styles/variables/fonts';
 
 const {
@@ -16,30 +16,46 @@ const {
 
 const ProfileMissionListItem = ({
   categoryDescription,
-  expires,
   missionIconURL,
-  missionIndex,
   missionStart,
   missionTitle,
-  observatoryUniqueId,
-  scheduledMissionId,
   telescopePierName,
-  telescopeUniqueId,
-  userReservationType,
 }) => {
   const formattedUTCDate = new Date(missionStart * 1000);
   const UTCStartTime = moment.utc(formattedUTCDate).format('dddd, MMMM Do');
   const UTCStartDate = moment.utc(formattedUTCDate).format('HH:mm z');
-
+  const avatarStyle = Object.assign(profilePhotoStyle(missionIconURL), { height: '50px', width: '50px' , backgroundSize: 'cover' });
   return (
-    <div className="observation-item">
-      <div style={profilePhotoStyle(missionIconURL)} />
-      <div className="category" dangerouslySetInnerHTML={{ __html: categoryDescription }} />
-      <div><span className="fa fa-calendar" />{UTCStartDate}</div>
-      <div><span className="fa fa-clock" />{UTCStartTime}</div>
-      <div className="category" dangerouslySetInnerHTML={{ __html: telescopePierName }} />
+    <div className="mission-item">
+      <div style={avatarStyle} />
+      <div className="object-name" dangerouslySetInnerHTML={{ __html: missionTitle }} />
+      <div className="" dangerouslySetInnerHTML={{ __html: categoryDescription }} />
+      <div className="section">{UTCStartDate}</div>
+      <div className="section">{UTCStartTime}</div>
+      <div className="section" dangerouslySetInnerHTML={{ __html: telescopePierName }} />
       <style jsx>{`
-
+        .mission-item {
+          background-color: ${white};
+          margin: 10px;
+          padding: 25px;
+          box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+          max-width: 300px;
+        }
+        .category {
+          margin-bottom: 15px;
+        }
+        .section {
+          padding: 10px 0;
+          border-top: 1px solid ${gray};
+        }
+        .object-name {
+          margin: 10px 0 0 0;
+          text-transform: uppercase;
+          font-weight: bold;
+        }
+        .icon {
+          margin-right: 15px;
+        }
       `}</style>
     </div>
   )

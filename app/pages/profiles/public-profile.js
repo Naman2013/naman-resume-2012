@@ -5,6 +5,13 @@ import { bindActionCreators } from 'redux';
 import { fetchPublicProfile } from '../../modules/public-profile/actions';
 import PublicObservations from '../../components/profiles/public-profile/public-observations';
 import ProfileMissions from '../../components/profiles/mission-list';
+import {
+  lightGray,
+  gray,
+  darkBlueGray,
+  white,
+} from '../../styles/variables/colors';
+import { profilePhotoStyle } from '../../styles/mixins/utilities';
 
 const {
   arrayOf,
@@ -79,12 +86,59 @@ class PublicProfile extends Component {
       publicProfile,
       params: { cid },
     } = this.props;
+    const avatarStyle = Object.assign(profilePhotoStyle(publicProfile.avatarURL), { backgroundSize: 'cover' });
     const membershipType = publicProfile.membershipType;
 
     return (
-      <div>Public Profile
-        {componentsByRole[membershipType] && componentsByRole[membershipType].indexOf('missions') > -1 ? <ProfileMissions missionList={publicProfile.missionList} /> : null}
+      <div className="public-profile">
+        <header className="main-header">
+          <div style={avatarStyle} />
+          <div className="main-header-info">
+            <div
+              className=""
+              dangerouslySetInnerHTML={{ __html: publicProfile.displayName }}
+            />
+            <div
+              className=""
+              dangerouslySetInnerHTML={{ __html: membershipType }}
+            />
+          </div>
+        </header>
+
+        {componentsByRole[membershipType] && componentsByRole[membershipType].indexOf('missions') > -1 ?
+        <div className="section">
+          <div className="uppercase">
+            <h4 className="emphasis">My Upcoming Missions</h4>
+          </div>
+          <ProfileMissions missionList={publicProfile.missionList} />
+        </div>
+        : null}
         {componentsByRole[membershipType] && componentsByRole[membershipType].indexOf('observations') > -1 ? <PublicObservations cid={cid} /> : null}
+      <style jsx>{`
+        .public-profile {
+          background-color: ${gray};
+          color: ${darkBlueGray};
+        }
+        .main-header {
+          background-color: ${white};
+          padding: 25px;
+          display: flex;
+          flex-direction: row;
+        }
+        .main-header-info {
+          margin: 0 25px;
+        }
+        .section {
+          padding: 25px;
+          margin: 10px 0;
+        }
+        .uppercase {
+          text-transform: uppercase;
+        }
+        .emphasis {
+          font-weight: bold;
+        }
+      `}</style>
       </div>
     );
   }

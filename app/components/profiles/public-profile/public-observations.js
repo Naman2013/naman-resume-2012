@@ -7,7 +7,7 @@ import { getSharedMemberPhotos } from '../../../modules/get-shared-member-photos
 import PublicObservationItem from './public-observation-item';
 import '../../common/community-perspectives/slick.min.css';
 import '../../common/community-perspectives/slick-theme.min.css';
-import { black } from '../../../styles/variables/colors';
+import { black, gray } from '../../../styles/variables/colors';
 // import { secondaryFont } from '../../styles/variables/fonts';
 
 const {
@@ -132,7 +132,7 @@ class PublicObservations extends Component {
             padding: 25px 50px;
             color: ${black};
             margin-bottom: 0px;
-            background: #e2e1e0;
+            background: ${gray};
           }
 
           :not(:global(.pulse-post-extras)) .observation-container {

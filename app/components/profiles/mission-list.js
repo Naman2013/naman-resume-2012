@@ -15,8 +15,8 @@ const ProfileMissionList = ({
   missionList,
 }) =>
   (<div className="mission-list">
-    <div>
-      {missionList.length === 0 && <div>There are no upcoming missions.</div>}
+    {missionList.length === 0 && <div>There are no upcoming missions.</div>}
+    <div className="mission-list-items">
       {missionList.map(missionDetail =>
         (<ProfileMissionListItem
           {...missionDetail}
@@ -25,6 +25,10 @@ const ProfileMissionList = ({
     </div>
     <style jsx>
       {`
+        .mission-list-items {
+          display: flex;
+          flex-direction: row;
+        }
       `}
     </style>
     </div>)

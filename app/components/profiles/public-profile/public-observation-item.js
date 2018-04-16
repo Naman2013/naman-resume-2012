@@ -46,36 +46,36 @@ class PublicObservationItem extends Component {
     commentsThreadId: number,
     commentsTopicId: number,
     customerImageId: number,
-    iconFileData: {
-      Category: {
+    iconFileData: shape({
+      Category: shape({
         hasLink: bool,
         iconUrl: string,
         label: string,
         linkUrl: string,
         text: string,
-      },
-      Domain: {
+      }),
+      Domain: shape({
         hasLink: bool,
         iconUrl: string,
         label: string,
         linkUrl: string,
         text: string,
-      },
-      Member: {
+      }),
+      Member: shape({
         hasLink: bool,
         iconUrl: string,
         label: string,
         linkUrl: string,
         text: string,
-      },
-      Telescope: {
+      }),
+      Telescope: shape({
         hasLink: bool,
         iconUrl: string,
         label: string,
         linkUrl: string,
         text: string,
-      }
-    },
+      }),
+    }),
     imageTitle: string,
     imageURL: string,
     likePrompt: string,
