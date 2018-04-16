@@ -117,7 +117,7 @@ class BrowseTaggedDataSearch extends Component {
                 delete tmpRenderedDataObj.taggedData[grandParentKey].subnodes[parentKey].subnodes[itemKey];
               }
               else {
-                /* a matching item has been found that begings with the search term */
+                /* a matching item has been found that begins with the search term */
                 itemsFound = true;
               }
             }, this);
@@ -147,11 +147,14 @@ class BrowseTaggedDataSearch extends Component {
       //console.log("Click: " + searchData.value)
 
       const { topNavSearchEnabled } = this.state;
-
       /* only fetch the browse tagged data if the search has not already been iniated,
         this will prevent multiple data calls when a user clicks in the text box when the results are already active. */
+      //console.log(topNavSearchEnabled);
+      //console.log(this.props.browseTaggedData);
+
       if (topNavSearchEnabled != true) {
         this.setState({
+          renderTaggedData: this.props.browseTaggedData,
           topNavSearchTerm: searchData.value,
           topNavSearchEnabled: true,
           grandParentNodeID: null,
@@ -168,7 +171,6 @@ class BrowseTaggedDataSearch extends Component {
 
     //console.log(browseTaggedData);
 
-    //console.log('User selected to end the search');
     this.setState({
       renderTaggedData: _.cloneDeep(browseTaggedData),
       topNavSearchTerm: '',
