@@ -116,14 +116,15 @@ import CustomerService from './pages/help/CustomerService';
 import SiteFeedback from './pages/help/SiteFeedback';
 import TermsAndConditions from './pages/help/TermsAndConditions';
 import Privacy from './pages/help/Privacy';
-
 import BookclubHandoff from './pages/bookclub-handoff/BookclubHandoff';
 
 //V4 pages
 import GuideDetails from './pages/guide-details/GuideDetails';
 import ObjectDetails from './pages/object-details/ObjectDetails';
 import QuestDetails from './pages/quest-details/QuestDetails';
-
+import UserProfile from './pages/profiles/Profile';
+import UserPrivateProfile from './pages/profiles/private-profile';
+import UserPublicProfile from './pages/profiles/public-profile';
 
 // router functions
 import validateUser from './route-functions/validateUser';
@@ -474,6 +475,9 @@ ReactDOM.render(
           <Route path="ask" component={AskAstronomer} onEnter={validateUser} />
         </Route>
         <Route path="quest-details/:questId" component={QuestDetails} onEnter={validateUser} />
+
+        <Route path="profile/private" component={UserPrivateProfile} onEnter={validateUser} />
+        <Route path="profile/public/:cid" component={UserPublicProfile} onEnter={validateUser} />
 
       </Route>
 

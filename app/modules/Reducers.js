@@ -10,6 +10,7 @@ import adStats from './ad-management/ad-stats';
 import announcementBanner from './Announcement-Banner';
 import appConfig from './app-config/reducer';
 import astronomerQuestions from './ask-astronomer-questions/reducer';
+import astronomerQuestionList from './ask-astronomer-question-list/reducer';
 import astronomerAnswers from './ask-astronomer-answers/reducer';
 import astronomerDiscuss from './ask-astronomer-answer-discuss/reducer';
 import authorization from './authorization/reducer';
@@ -58,6 +59,7 @@ import otherFeaturedObjects from './other-featured-objects/reducer';
 import pageLevelMetaContent from './pageLevelMetaContent/seo-reducer';
 import piggyback from './Piggyback';
 import post from './pulse/get-post-reducer';
+import publicProfile from './public-profile/reducer';
 import questDetails from './quest-details/reducer';
 import starshareCamera from './starshare-camera/starshare-camera-reducer';
 import shareMemberPhoto from './share-member-photo/reducer';
@@ -83,6 +85,7 @@ export default combineReducers({
   announcementBanner,
   appConfig,
   astronomerQuestions,
+  astronomerQuestionList,
   astronomerAnswers,
   astronomerDiscuss,
   audioPlayer,
@@ -136,6 +139,7 @@ export default combineReducers({
   piggyback,
   post,
   /* EK 8/9/17 registration is closed      roadtripRegistration, */
+  publicProfile,
   shareMemberPhoto,
   sharedMemberPhotos,
   starshareCamera,
