@@ -477,7 +477,7 @@ ReactDOM.render(
         <Route path="quest-details/:questId" component={QuestDetails} onEnter={validateUser} />
 
         <Route path="profile/private" component={UserPrivateProfile} onEnter={validateUser} />
-        <Route path="profile/public/:cid" component={UserPublicProfile} />
+        <Route path="profile/public/:cid" component={UserPublicProfile} onEnter={validateUser} />
 
       </Route>
 
