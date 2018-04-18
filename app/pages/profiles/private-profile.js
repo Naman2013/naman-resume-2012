@@ -76,7 +76,7 @@ class PrivateProfile extends Component {
             <div className="uppercase">
               <h4 className="emphasis">My Upcoming Missions</h4>
             </div>
-            <ProfileMissions missionList={dashboard.missionList} />
+            <ProfileMissions missionList={dashboard.profile.missionList} />
           </div>
           : null}
 
