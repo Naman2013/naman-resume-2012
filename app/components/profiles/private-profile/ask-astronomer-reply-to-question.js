@@ -1,3 +1,9 @@
+/***********************************
+* V4 Private Profile Ask Astronomer Reply To Question
+*
+*
+*
+***********************************/
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';

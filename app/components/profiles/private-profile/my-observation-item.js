@@ -1,3 +1,10 @@
+/***********************************
+* V4 Private Profile Observation Item
+*
+*
+*
+***********************************/
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
