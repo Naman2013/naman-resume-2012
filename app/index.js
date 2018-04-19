@@ -125,6 +125,8 @@ import QuestDetails from './pages/quest-details/QuestDetails';
 import UserProfile from './pages/profiles/Profile';
 import UserPrivateProfile from './pages/profiles/private-profile';
 import UserPublicProfile from './pages/profiles/public-profile';
+import CommunityGroups from './pages/community-groups/Groups';
+import CommunityGroupsList from './pages/community-groups/GroupsList';
 
 // router functions
 import validateUser from './route-functions/validateUser';
@@ -479,8 +481,23 @@ ReactDOM.render(
         <Route path="profile/private" component={UserPrivateProfile} onEnter={validateUser} />
         <Route path="profile/public/:cid" component={UserPublicProfile} onEnter={validateUser} />
 
-      </Route>
+        <Route path="community-groups/private" component={CommunityGroups} onEnter={validateUser}>
+          <IndexRedirect to="alphabetic" />
+          <Route path="alphabetic" component={CommunityGroupsList} onEnter={validateUser} />
+          <Route path="popular" component={CommunityGroupsList} onEnter={validateUser} />
+        </Route>
+        <Route path="community-groups/public" component={CommunityGroups} onEnter={validateUser}>
+          <IndexRedirect to="alphabetic" />
+          <Route path="alphabetic" component={CommunityGroupsList} onEnter={validateUser} />
+          <Route path="popular" component={CommunityGroupsList} onEnter={validateUser} />
+        </Route>
+        <Route path="community-groups/my-groups" component={CommunityGroups} onEnter={validateUser}>
+          <IndexRedirect to="alphabetic" />
+          <Route path="alphabetic" component={CommunityGroupsList} onEnter={validateUser} />
+          <Route path="popular" component={CommunityGroupsList} onEnter={validateUser} />
+        </Route>
 
+      </Route>
       <Redirect from="*" to="/" />
     </Router>
   </Provider>,

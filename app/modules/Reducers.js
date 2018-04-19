@@ -20,6 +20,7 @@ import browseByPopularObjects from './browse-popular-objects/reducer';
 import browseTaggedData from './browse-tagged-data/reducer';
 import catalog from './catalog/get-catalog-reducer';
 import communityContent from './community-content/get-community-content-reducer';
+import communityGroups from './community-groups/reducer';
 import communityObjectContent from './community-content/community-object-content-reducer';
 import communityShowContent from './community-content/get-show-content-reducer';
 import contactForm from './Contact';
@@ -98,6 +99,7 @@ export default combineReducers({
   browseTaggedData,
   catalog,
   communityContent,
+  communityGroups,
   communityObjectContent,
   communityShowContent,
   contactForm,
