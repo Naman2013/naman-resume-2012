@@ -9,6 +9,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import GroupsList from '../../components/community-groups/groups-list';
 import {
   fetchGroupsList,
 } from '../../modules/community-groups/actions';
@@ -73,6 +74,7 @@ class CommunityGroupList extends Component {
     console.log('communityGroups', communityGroups);
     return (
       <div>
+        <GroupsList groups={communityGroups.groups} />
         <style jsx>{`
         `}</style>
       </div>
