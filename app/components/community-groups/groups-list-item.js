@@ -93,9 +93,31 @@ class CommunityGroupListItem extends Component {
       viewMessage,
     } = this.props;
     return (
-      <div key={discussionGroupId}>
-      item
+      <div key={discussionGroupId} className="group-item">
+        <h3 dangerouslySetInnerHTML={{ __html: accessDescription }} />
+        <h2 dangerouslySetInnerHTML={{ __html: title }} />
+
+        <h4 className="count" dangerouslySetInnerHTML={{ __html: memberCountDisplay }} />
+
         <style jsx>{`
+          .group-item {
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            color: ${white};
+            background-color: ${darkBlueGray};
+            margin: 30px;
+            padding: 25px;
+            width: 300px;
+            height: 400px;
+            text-align: center;
+            align-items: center;
+            justify-items: flex-start;
+          }
+
+          .count {
+            margin-top: auto;
+          }
         `}</style>
       </div>
     )

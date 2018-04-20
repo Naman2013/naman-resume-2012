@@ -25,6 +25,8 @@ const ListOfGroups = ({
     {groups.map(group => (<GroupListItem {...group} key={group.discussionGroupId} />))}
     <style jsx>{`
       .groups-list {
+        display: flex;
+        flex-direction: row;
       }
     `}</style>
   </div>
