@@ -7,7 +7,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 import PropTypes from 'prop-types';
-import GroupListItem from './groups-list-item';
+import GroupListItem from './groups-list-item/';
 import { black, darkBlueGray, white, turqoise } from '../../styles/variables/colors';
 import { secondaryFont } from '../../styles/variables/fonts';
 
