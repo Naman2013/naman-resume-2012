@@ -225,7 +225,7 @@ class CommunityGroupList extends Component {
 
     return (
       <div>
-        {true ?
+        {communityGroups.groupsCount > 20 ?
           <SortNav
             requestGroup={this.requestGroup}
             currentParentRoute={currentParentRoute}
