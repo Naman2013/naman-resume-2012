@@ -10,10 +10,13 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Pagination from 'rc-pagination';
-import ModalGeneric from '../../components/common/modals/modal-generic';
+import Modal from 'react-modal';
+import RequestGroupForm from '../../components/community-groups/request-group-form';
 import GroupsList from '../../components/community-groups/groups-list';
 import SortNav from '../../components/community-groups/sort-nav';
 import { askToJoin } from '../../services/community-groups/ask-to-join';
+import { requestGroup } from '../../services/community-groups/request-group';
+
 import {
   fetchGroupsList,
   joinOrLeaveGroup,
@@ -22,6 +25,7 @@ import {
   darkBlueGray,
   white,
 } from '../../styles/variables/colors';
+import { primaryFont } from '../../styles/variables/fonts';
 
 const {
   func,
@@ -115,6 +119,11 @@ class CommunityGroupList extends Component {
             showPrompt: res.data.showResponse,
             promptText: res.data.response,
           });
+        } else {
+          this.setState({
+            showPrompt: true,
+            promptText: 'There was an error.',
+          });
         }
       });
   }
@@ -148,8 +157,44 @@ class CommunityGroupList extends Component {
     });
   }
 
-  requestGroup = () => {
 
+
+  submitRequestForm = ({
+    requestFormText,
+    requestFormPrivacy,
+  }) => {
+    const { at, token, cid } = this.props.user;
+    this.closeModal();
+
+    requestGroup({
+      at,
+      token,
+      cid,
+      access: requestFormPrivacy,
+      definition: requestFormText,
+    }).then((res) => {
+      if (!res.data.apiError) {
+        this.setState({
+          showPrompt: res.data.showResponse,
+          promptText: res.data.response,
+        });
+      } else {
+        this.setState({
+          showPrompt: true,
+          promptText: 'There was an error submitting your form.',
+        });
+      }
+    });
+  }
+
+  requestGroup = () => {
+    this.setState({
+      showPrompt: true,
+      promptText: <RequestGroupForm
+        submitForm={this.submitRequestForm}
+        closeForm={this.closeModal}
+      />
+    });
   }
 
 
@@ -164,31 +209,58 @@ class CommunityGroupList extends Component {
       promptText,
     } = this.state;
 
+    const customModalStyles = {
+      content: {
+        top: '50%',
+        left: '50%',
+        right: 'auto',
+        bottom: 'auto',
+        marginRight: '-50%',
+        transform: 'translate(-50%, -50%)',
+        maxWidth: '650px',
+        padding: '50px 25px',
+        fontFamily: primaryFont,
+      },
+    };
+
     return (
       <div>
-        {communityGroups.groupsCount > 20 ?
+        {true ?
           <SortNav
             requestGroup={this.requestGroup}
             currentParentRoute={currentParentRoute}
           /> :
           null}
-          <GroupsList
-            groups={communityGroups.groups}
-            askToJoin={this.makeAskToJoinCall}
-            toggleJoinGroup={this.makeToggleJoinGroupCall}
-          />
-          {communityGroups.pages > 1 ? <Pagination
-            onChange={this.handlePageChange}
-            defaultPageSize={communityGroups.count}
-            current={communityGroups.page}
-            total={communityGroups.groupsCount}
-          /> : null}
-          <ModalGeneric
-            open={showPrompt}
-            closeModal={this.closeModal}
-            description={promptText}
-          />
-        </div>
+        <GroupsList
+          groups={communityGroups.groups}
+          askToJoin={this.makeAskToJoinCall}
+          toggleJoinGroup={this.makeToggleJoinGroupCall}
+        />
+        {communityGroups.pages > 1 ? <Pagination
+          onChange={this.handlePageChange}
+          defaultPageSize={communityGroups.count}
+          current={communityGroups.page}
+          total={communityGroups.groupsCount}
+        /> : null}
+        <Modal
+          ariaHideApp={false}
+          isOpen={showPrompt}
+          style={customModalStyles}
+          contentLabel="Groups"
+          onRequestClose={this.closeModal}
+        >
+          <i className="fa fa-close" onClick={this.closeModal} />
+          {promptText}
+        </Modal>
+        <style jsx>{`
+          .fa-close {
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            cursor: pointer;
+          }
+        `}</style>
+      </div>
     )
   }
 }
