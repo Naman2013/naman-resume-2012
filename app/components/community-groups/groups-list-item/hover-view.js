@@ -13,6 +13,7 @@ import {
 import {
   darkBlueGray,
   white,
+  pink,
 } from '../../../styles/variables/colors';
 
 const {
@@ -92,10 +93,15 @@ const HoverView = ({
       }
 
       :global(a) .go-to-group,
-      :global(a:hover) .go-to-group,
       :global(a:visited) .go-to-group,
       :global(a:active) .go-to-group {
         color: ${white};
+      }
+
+      .ask-to-join:hover,
+      .join-or-leave:hover,
+      :global(a:hover) .go-to-group {
+        color: ${pink};
       }
 
     `}</style>
