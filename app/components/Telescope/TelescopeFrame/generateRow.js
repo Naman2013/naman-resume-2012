@@ -45,6 +45,7 @@ export function generateRow(
   let RIGHT_COUNTER = 0;
 
   for (let i = 0; i <= COUNT; i += 1) {
+    const ELEMENT_KEY = `${rowConfiguration}-${i}`;
     let x1;
     let y1;
     let x2;
@@ -55,11 +56,13 @@ export function generateRow(
       case ROW_CONFIG.TOP:
         if (i === 0) {
           ROW.push(<CenterLine
+            key={`polyline-${ELEMENT_KEY}`}
             points={`${MID_POINT}, 0 ${MID_POINT}, ${CENTER_TICK_LENGTH}`}
             style={style}
           />);
 
           ROW.push(<GridLine
+            key={`grid-${ELEMENT_KEY}`}
             dimension={dimension}
             resolution={resolution}
             spacing={SPACING}
@@ -80,6 +83,7 @@ export function generateRow(
 
           if (isLargeTick(increment, LEFT_COUNTER)) {
             ROW.push(<GridLine
+              key={`grid-${ELEMENT_KEY}`}
               dimension={dimension}
               resolution={resolution}
               spacing={SPACING}
@@ -102,6 +106,7 @@ export function generateRow(
 
           if (isLargeTick(increment, RIGHT_COUNTER)) {
             ROW.push(<GridLine
+              key={`grid-${ELEMENT_KEY}`}
               dimension={dimension}
               resolution={resolution}
               spacing={SPACING}
@@ -231,7 +236,7 @@ export function generateRow(
         strokeWidth: tickThickness,
       };
 
-      ROW.push(<Polyline {...polylineAttributes} {...style} />);
+      ROW.push(<Polyline key={`polyline-${ELEMENT_KEY}`} {...polylineAttributes} {...style} />);
     }
   }
 

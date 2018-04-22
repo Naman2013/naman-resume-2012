@@ -13,10 +13,10 @@ function generateLine(dimension, resolution, spacing, currentX, increment, style
   for (let i = 0; i <= resolution; i += 1) {
     if (i % increment === 0) {
       if (TOP_STARTING_POINT > 0) {
-        ROW.push(<Circle style={style} key={uniqueId()} x={currentX} y={TOP_STARTING_POINT} />);
+        ROW.push(<Circle style={style} x={currentX} y={TOP_STARTING_POINT} />);
         TOP_STARTING_POINT -= (spacing * increment);
       } else {
-        ROW.push(<Circle style={style} key={uniqueId()} x={currentX} y={BOTTOM_STARTING_POINT} />);
+        ROW.push(<Circle style={style} x={currentX} y={BOTTOM_STARTING_POINT} />);
         BOTTOM_STARTING_POINT += (spacing * increment);
       }
     }
