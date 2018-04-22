@@ -1,6 +1,6 @@
-import enum from 'enumify';
+import { Enum } from 'enumify';
 
-class TelescopesEnum extends enum {}
-TelescopesEnum.initEnum(['TELESCOPE_ONE', 'TELESCOPE_TWO', 'TELESCOPE_THREE']);
+class TELESCOPES_ENUM extends Enum {}
+TELESCOPES_ENUM.initEnum(['TELESCOPE_ONE', 'TELESCOPE_TWO', 'TELESCOPE_THREE']);
 
-export default TelescopesEnum;
+export default TELESCOPES_ENUM;

@@ -5,6 +5,8 @@ import TelescopeFrame from './TelescopeFrame';
 import Mask from './Mask';
 import Image from './Image';
 
+import TELESCOPES_ENUM from './TelescopesEnum';
+
 const testImage = 'https://polaris.slooh.com/chile/1/highmag/2018/04/04/2340_m43/m43_20180404_234018_0_kx3vo6_l.png';
 
 class Telescope extends Component {
@@ -49,6 +51,11 @@ class Telescope extends Component {
     this.setState({ portalDimensions: { ...contentBox.bounds } });
   }
 
+  handleTelescopeChange(targetTelescope) {
+    console.log('CHANGE TELESCOPE ----');
+    console.log(targetTelescope);
+  }
+
   render() {
     const {
       portalDimensions: { width, height },
@@ -65,63 +72,77 @@ class Telescope extends Component {
       >
         {
           ({ measureRef }) => (
-            <div
-              ref={measureRef}
-              className="portal"
-            >
-              <button>Telescope One</button>
-              <button>Telescope Two</button>
-              <button>Telescope Three</button>
+            <div>
+              <div className="faux-navigation">
+                <button onClick={() => {
+                  this.handleTelescopeChange(TELESCOPES_ENUM.TELESCOPE_ONE);
+                }}
+                >
+                  Telescope One
+                </button>
 
-              <svg
-                version="1.1"
-                xmlns="http://www.w3.org/2000/svg"
+                <button onClick={() => {
+                  this.handleTelescopeChange(TELESCOPES_ENUM.TELESCOPE_TWO);
+                }}
+                >
+                  Telescope Two
+                </button>
+              </div>
+
+              <div
+                ref={measureRef}
+                className="portal"
               >
+                <svg
+                  version="1.1"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
 
-                <g>
-                  <Image
-                    x={-imageX}
-                    source={testImage}
-                    height={height}
-                    onResize={this.handleImageResize}
+                  <g>
+                    <Image
+                      x={-imageX}
+                      source={testImage}
+                      height={height}
+                      onResize={this.handleImageResize}
+                    />
+                  </g>
+
+                  <Mask />
+
+                  <TelescopeFrame
+                    resolution={resolution}
+                    increment={increment}
+                    length={width}
                   />
-                </g>
-
-                <Mask />
-
-                <TelescopeFrame
-                  resolution={resolution}
-                  increment={increment}
-                  length={width}
-                />
-              </svg>
+                </svg>
 
 
-              <style jsx>{`
-                .portal {
-                  width: 100%;
-                  overflow: hidden;
-                  background: yellow;
-                  position: relative;
-                }
+                <style jsx>{`
+                  .portal {
+                    width: 100%;
+                    overflow: hidden;
+                    background: yellow;
+                    position: relative;
+                  }
 
-                .portal:before {
-                  content: '';
-                  padding-top: 100%;
-                  float: left;
-                }
+                  .portal:before {
+                    content: '';
+                    padding-top: 100%;
+                    float: left;
+                  }
 
-                svg {
-                  position: absolute;
-                  left: 0;
-                  right: 0;
-                  bottom: 0;
-                  top: 0;
-                  width: 100%;
-                  height: 100%;
-                }
-              `}
-              </style>
+                  svg {
+                    position: absolute;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    top: 0;
+                    width: 100%;
+                    height: 100%;
+                  }
+                `}
+                </style>
+              </div>
             </div>
           )
         }
