@@ -21,6 +21,8 @@ class Telescope extends Component {
   };
 
   state = {
+    resolution: this.props.resolution,
+    increment: this.props.increment,
     portalDimensions: {
       bottom: 0,
       height: 0,
@@ -52,17 +54,20 @@ class Telescope extends Component {
   }
 
   handleTelescopeChange(targetTelescope) {
-    console.log('CHANGE TELESCOPE ----');
     console.log(targetTelescope);
+    this.setState(prevState => ({
+      resolution: (prevState.resolution * 2),
+    }));
   }
 
   render() {
     const {
       portalDimensions: { width, height },
       imageDimensions,
+      resolution,
+      increment,
     } = this.state;
 
-    const { resolution, increment } = this.props;
     const imageX = (imageDimensions.width - width) / 2;
 
     return (
