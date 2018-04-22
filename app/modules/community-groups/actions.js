@@ -44,7 +44,7 @@ export const fetchGroupsList = ({
     token,
     ver,
   })
-  .then(result => dispatch(fetchGroupsListSuccess(result.data)))
+  .then(result => dispatch(fetchGroupsListSuccess(Object.assign({ page }, result.data))))
   .catch(error => dispatch(fetchGroupsListFail(error)));
 };
 

@@ -9,6 +9,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import Pagination from 'rc-pagination';
 import ModalGeneric from '../../components/common/modals/modal-generic';
 import GroupsList from '../../components/community-groups/groups-list';
 import { askToJoin } from '../../services/community-groups/ask-to-join';
@@ -108,7 +109,6 @@ class CommunityGroupList extends Component {
       discussionGroupId,
     })
       .then((res) => {
-        console.log('res', res)
         if (!res.data.apiError) {
           this.setState({
             showPrompt: res.data.showResponse,
@@ -134,6 +134,19 @@ class CommunityGroupList extends Component {
     });
   }
 
+  handlePageChange = (paginatedSet, page) => {
+    const {
+      actions,
+      currentParentRoute,
+      route: { path },
+    } = this.props;
+    actions.fetchGroupsList({
+      page,
+      groupSet: currentParentRoute === 'my-groups' ? 'mine' : currentParentRoute,
+      sortBy: path,
+    });
+  }
+
 
   render() {
     const {
@@ -152,6 +165,12 @@ class CommunityGroupList extends Component {
           askToJoin={this.makeAskToJoinCall}
           toggleJoinGroup={this.makeToggleJoinGroupCall}
         />
+        {communityGroups.pages > 1 ? <Pagination
+          onChange={this.handlePageChange}
+          defaultPageSize={communityGroups.count}
+          current={communityGroups.page}
+          total={communityGroups.groupsCount}
+        /> : null}
         <ModalGeneric
           open={showPrompt}
           closeModal={this.closeModal}

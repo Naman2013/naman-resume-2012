@@ -10,6 +10,7 @@ import {
 const initialState = {
   fetching: false,
   page: 0,
+  pages: 0,
   error: false,
   count: 12,
   groupsCount: 0,
