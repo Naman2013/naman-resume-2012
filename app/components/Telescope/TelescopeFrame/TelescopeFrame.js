@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ROW_CONFIGURATION_ENUM from './rowConfigurationEnum';
-import { generateRow } from './generateRow';
+import { generateRow, memoizedGenerateRow } from './generateRow';
 
 const propTypes = {
   length: PropTypes.number.isRequired,
@@ -13,7 +13,7 @@ const propTypes = {
 };
 
 const defaultProps = {
-  resolution: 100,
+  resolution: 75,
   increment: 5,
   style: {
     stroke: 'aqua',

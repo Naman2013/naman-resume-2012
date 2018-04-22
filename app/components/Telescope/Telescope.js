@@ -4,7 +4,6 @@ import Measure from 'react-measure';
 import TelescopeFrame from './TelescopeFrame';
 import Mask from './Mask';
 import Image from './Image';
-import Grid from './Grid';
 
 const testImage = 'https://polaris.slooh.com/chile/1/highmag/2018/04/04/2340_m43/m43_20180404_234018_0_kx3vo6_l.png';
 
@@ -15,7 +14,7 @@ class Telescope extends Component {
   };
 
   static defaultProps = {
-    resolution: 10,
+    resolution: 75,
     increment: 5,
   };
 
@@ -70,6 +69,10 @@ class Telescope extends Component {
               ref={measureRef}
               className="portal"
             >
+              <button>Telescope One</button>
+              <button>Telescope Two</button>
+              <button>Telescope Three</button>
+
               <svg
                 version="1.1"
                 xmlns="http://www.w3.org/2000/svg"

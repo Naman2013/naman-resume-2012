@@ -1,5 +1,6 @@
 import React from 'react';
-import uniqueId from 'lodash/uniqueId'
+import uniqueId from 'lodash/uniqueId';
+
 import ROW_CONFIG from './rowConfigurationEnum';
 import CenterLine from './CenterLine';
 import GridLine from './GridLine';
@@ -230,7 +231,7 @@ export function generateRow(
         strokeWidth: tickThickness,
       };
 
-      ROW.push(<Polyline key={uniqueId()} {...polylineAttributes} {...style} />);
+      ROW.push(<Polyline {...polylineAttributes} {...style} />);
     }
   }
 

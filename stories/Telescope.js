@@ -10,7 +10,7 @@ import telescopeTwo from './assets/sample-telescope-images/Canary_Four_SS_Planet
 storiesOf('Telescope', module)
   .addDecorator(withKnobs)
   .add('View', () => {
-    const resolutionKnob = number('Resolution', 10);
+    const resolutionKnob = number('Resolution', 75);
     const incrementKnob = number('Increment', 5);
     return (
       <div style={{ width: '50%', margin: '0 auto' }}>
