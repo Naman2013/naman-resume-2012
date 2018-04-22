@@ -12,6 +12,7 @@ import { bindActionCreators } from 'redux';
 import Pagination from 'rc-pagination';
 import ModalGeneric from '../../components/common/modals/modal-generic';
 import GroupsList from '../../components/community-groups/groups-list';
+import SortNav from '../../components/community-groups/sort-nav';
 import { askToJoin } from '../../services/community-groups/ask-to-join';
 import {
   fetchGroupsList,
@@ -80,10 +81,10 @@ class CommunityGroupList extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.currentParentRoute != nextProps.currentParentRoute) {
+    if (this.props.currentParentRoute != nextProps.currentParentRoute || this.props.route.path != nextProps.route.path) {
       this.props.actions.fetchGroupsList({
         groupSet: nextProps.currentParentRoute === 'my-groups' ? 'mine' : nextProps.currentParentRoute,
-        sortBy: nextProps.path,
+        sortBy: nextProps.route.path,
       });
     }
   }
@@ -147,10 +148,15 @@ class CommunityGroupList extends Component {
     });
   }
 
+  requestGroup = () => {
+
+  }
+
 
   render() {
     const {
       communityGroups,
+      currentParentRoute,
     } = this.props;
 
     const {
@@ -160,23 +166,29 @@ class CommunityGroupList extends Component {
 
     return (
       <div>
-        <GroupsList
-          groups={communityGroups.groups}
-          askToJoin={this.makeAskToJoinCall}
-          toggleJoinGroup={this.makeToggleJoinGroupCall}
-        />
-        {communityGroups.pages > 1 ? <Pagination
-          onChange={this.handlePageChange}
-          defaultPageSize={communityGroups.count}
-          current={communityGroups.page}
-          total={communityGroups.groupsCount}
-        /> : null}
-        <ModalGeneric
-          open={showPrompt}
-          closeModal={this.closeModal}
-          description={promptText}
-        />
-      </div>
+        {communityGroups.groupsCount > 20 ?
+          <SortNav
+            requestGroup={this.requestGroup}
+            currentParentRoute={currentParentRoute}
+          /> :
+          null}
+          <GroupsList
+            groups={communityGroups.groups}
+            askToJoin={this.makeAskToJoinCall}
+            toggleJoinGroup={this.makeToggleJoinGroupCall}
+          />
+          {communityGroups.pages > 1 ? <Pagination
+            onChange={this.handlePageChange}
+            defaultPageSize={communityGroups.count}
+            current={communityGroups.page}
+            total={communityGroups.groupsCount}
+          /> : null}
+          <ModalGeneric
+            open={showPrompt}
+            closeModal={this.closeModal}
+            description={promptText}
+          />
+        </div>
     )
   }
 }
