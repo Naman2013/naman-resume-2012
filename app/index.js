@@ -126,7 +126,7 @@ import UserProfile from './pages/profiles/Profile';
 import UserPrivateProfile from './pages/profiles/private-profile';
 import UserPublicProfile from './pages/profiles/public-profile';
 import CommunityGroups from './pages/community-groups/Groups';
-import CommunityGroupsList from './pages/community-groups/GroupsList';
+import CommunityGroupsList from './pages/community-groups/GroupsListPage';
 
 // router functions
 import validateUser from './route-functions/validateUser';
