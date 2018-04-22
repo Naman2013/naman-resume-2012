@@ -497,6 +497,8 @@ ReactDOM.render(
           <Route path="popular" component={CommunityGroupsList} onEnter={validateUser} />
         </Route>
 
+        <Route path="community-groups/:groupid" component={CommunityGroups} onEnter={validateUser} />
+
       </Route>
       <Redirect from="*" to="/" />
     </Router>

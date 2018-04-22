@@ -15,11 +15,6 @@ import {
 } from '../../../styles/variables/colors';
 
 const {
-  arrayOf,
-  bool,
-  func,
-  number,
-  shape,
   string,
 } = PropTypes;
 
@@ -55,5 +50,17 @@ const GroupDefaultView = ({
       }
     `}</style>
   </div>
-)
+);
+
+GroupDefaultView.propTypes = {
+  accessDescription: string,
+  title: string,
+  memberCountDisplay: string,
+};
+
+GroupDefaultView.defaultProps = {
+  accessDescription: '',
+  title: '',
+  memberCountDisplay: '',
+};
 export default GroupDefaultView;

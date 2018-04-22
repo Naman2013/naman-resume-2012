@@ -10,6 +10,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import DefaultView from './default-view';
+import HoverView from './hover-view';
 import {
 } from '../../../modules/community-groups/actions';
 import {
@@ -41,6 +42,7 @@ class CommunityGroupListItem extends Component {
     access: string,
     accessDescription: string,
     askPrompt: string,
+    askToJoin: func.isRequired,
     canView: bool,
     discussionGroupId: string,
     joinPrompt: string,
@@ -51,6 +53,7 @@ class CommunityGroupListItem extends Component {
     showJoinPrompt: bool,
     showMessage: bool,
     title: string,
+    toggleJoinGroup: func.isRequired,
     viewMessage: string,
   }
 
@@ -71,8 +74,21 @@ class CommunityGroupListItem extends Component {
     viewMessage: '',
   }
 
+  state = {
+    isHovering: false,
+  }
+
   constructor(props) {
     super(props);
+  }
+
+  setHovering = (e, value) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    this.setState({
+      isHovering: value,
+    });
   }
 
   render() {
@@ -80,6 +96,7 @@ class CommunityGroupListItem extends Component {
       access,
       accessDescription,
       askPrompt,
+      askToJoin,
       canView,
       discussionGroupId,
       joinPrompt,
@@ -90,11 +107,42 @@ class CommunityGroupListItem extends Component {
       showJoinPrompt,
       showMessage,
       title,
+      toggleJoinGroup,
       viewMessage,
     } = this.props;
+
+    const { isHovering } = this.state;
     return (
-      <div className="group-item">
+      <div className="group-item"
+        onMouseEnter={(e) => this.setHovering(e, true)}
+        onMouseLeave={(e) => this.setHovering(e, false)}
+      >
         <DefaultView accessDescription={accessDescription} title={title} memberCountDisplay={memberCountDisplay} />
+        {isHovering && <div className="hover-div">
+          <HoverView
+            askPrompt={askPrompt}
+            askToJoin={askToJoin}
+            canView={canView}
+            discussionGroupId={discussionGroupId}
+            joinPrompt={joinPrompt}
+            showAskPrompt={showAskPrompt}
+            showJoinPrompt={showJoinPrompt}
+            toggleJoinGroup={toggleJoinGroup}
+            viewMessage={viewMessage}
+          />
+        </div>}
+        <style jsx>{`
+          .group-item {
+            position: relative;
+          }
+
+          .hover-div {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+          }
+        `}</style>
       </div>
     )
   }

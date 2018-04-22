@@ -9,9 +9,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import ModalGeneric from '../../components/common/modals/modal-generic';
 import GroupsList from '../../components/community-groups/groups-list';
+import { askToJoin } from '../../services/community-groups/ask-to-join';
 import {
   fetchGroupsList,
+  joinOrLeaveGroup,
 } from '../../modules/community-groups/actions';
 import {
   darkBlueGray,
@@ -24,13 +27,18 @@ const {
   string,
 } = PropTypes;
 
-const mapStateToProps = ({ communityGroups }) => ({
+const mapStateToProps = ({
   communityGroups,
+  user,
+}) => ({
+  communityGroups,
+  user,
 });
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
     fetchGroupsList,
+    joinOrLeaveGroup,
   }, dispatch),
 });
 
@@ -39,6 +47,7 @@ class CommunityGroupList extends Component {
   static propTypes = {
     actions: shape({
       fetchGroupsList: func,
+      joinOrLeaveGroup: func,
     }).isRequired,
     currentParentRoute: string,
   }
@@ -46,13 +55,16 @@ class CommunityGroupList extends Component {
   static defaultProps = {
     actions: {
       fetchGroupsList: () => {},
+      joinOrLeaveGroup: () => {},
     },
     currentParentRoute: 'all',
   }
 
-  constructor(props) {
-    super(props);
+  state = {
+    showPrompt: false,
+    promptText: '',
   }
+
 
   componentWillMount() {
     const {
@@ -66,17 +78,85 @@ class CommunityGroupList extends Component {
     });
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (this.props.currentParentRoute != nextProps.currentParentRoute) {
+      this.props.actions.fetchGroupsList({
+        groupSet: nextProps.currentParentRoute === 'my-groups' ? 'mine' : nextProps.currentParentRoute,
+        sortBy: nextProps.path,
+      });
+    }
+  }
+
+  closeModal = () => {
+    this.setState({
+      showPrompt: false,
+      promptText: '',
+    });
+  }
+
+  makeAskToJoinCall = ({ discussionGroupId }) => {
+    const {
+      user: { at, token, cid },
+    } = this.props;
+
+    this.closeModal();
+
+    askToJoin({
+      at,
+      token,
+      cid,
+      discussionGroupId,
+    })
+      .then((res) => {
+        console.log('res', res)
+        if (!res.data.apiError) {
+          this.setState({
+            showPrompt: res.data.showResponse,
+            promptText: res.data.response,
+          });
+        }
+      });
+  }
+
+  makeToggleJoinGroupCall = ({ discussionGroupId }) => {
+    const {
+      actions,
+      user: { at, token, cid },
+    } = this.props;
+
+    this.closeModal();
+
+    actions.joinOrLeaveGroup({
+      at,
+      token,
+      cid,
+      discussionGroupId,
+    });
+  }
+
 
   render() {
     const {
       communityGroups,
     } = this.props;
-    console.log('communityGroups', communityGroups);
+
+    const {
+      showPrompt,
+      promptText,
+    } = this.state;
+
     return (
       <div>
-        <GroupsList groups={communityGroups.groups} />
-        <style jsx>{`
-        `}</style>
+        <GroupsList
+          groups={communityGroups.groups}
+          askToJoin={this.makeAskToJoinCall}
+          toggleJoinGroup={this.makeToggleJoinGroupCall}
+        />
+        <ModalGeneric
+          open={showPrompt}
+          closeModal={this.closeModal}
+          description={promptText}
+        />
       </div>
     )
   }

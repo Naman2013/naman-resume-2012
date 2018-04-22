@@ -13,16 +13,25 @@ import { secondaryFont } from '../../styles/variables/fonts';
 
 const {
   arrayOf,
+  func,
   bool,
   shape,
   string,
 } = PropTypes;
 
 const ListOfGroups = ({
+  askToJoin,
   groups,
+  toggleJoinGroup,
 }) => (
   <div className="groups-list">
-    {groups.map(group => (<GroupListItem {...group} key={group.discussionGroupId} />))}
+    {groups.map(group => (
+      <GroupListItem
+        {...group}
+        askToJoin={askToJoin}
+        toggleJoinGroup={toggleJoinGroup}
+        key={group.discussionGroupId}
+      />))}
     <style jsx>{`
       .groups-list {
         display: flex;
@@ -34,6 +43,8 @@ const ListOfGroups = ({
 
 ListOfGroups.propTypes = {
   groups: arrayOf(shape({})),
+  askToJoin: func.isRequired,
+  toggleJoinGroup: func.isRequired,
 };
 
 ListOfGroups.defaultProps = {
