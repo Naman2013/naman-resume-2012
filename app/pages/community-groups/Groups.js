@@ -15,7 +15,23 @@ import {
   darkBlueGray,
   white,
 } from '../../styles/variables/colors';
+import {
+  fetchGroupsPageMeta,
+} from '../../modules/community-groups/actions';
 
+const mapStateToProps = ({
+  communityGroups,
+}) => ({
+  pageMeta: communityGroups.pageMeta,
+});
+
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators({
+    fetchGroupsPageMeta,
+  }, dispatch),
+});
+
+@connect(mapStateToProps, mapDispatchToProps)
 class CommunityGroups extends Component {
   static propTypes = {
   }
@@ -32,17 +48,19 @@ class CommunityGroups extends Component {
       actions,
     } = this.props;
 
+    actions.fetchGroupsPageMeta({});
   }
 
   render() {
     const {
+      pageMeta,
       children,
-      route: { path }
+      route: { path },
     } = this.props;
     const currentParentRoute = path.split('/')[1];
     return (
       <div>
-        <GroupsHeader />
+        <GroupsHeader {...pageMeta} />
         {cloneElement(children, {
           currentParentRoute,
         })}

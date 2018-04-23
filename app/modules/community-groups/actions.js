@@ -15,6 +15,41 @@ export const ASK_TO_JOIN_START = 'ASK_TO_JOIN_START';
 export const REQUEST_GROUP_SUCCESS = 'REQUEST_GROUP_SUCCESS';
 export const REQUEST_GROUP_FAIL = 'REQUEST_GROUP_FAIL';
 export const REQUEST_GROUP_START = 'REQUEST_GROUP_START';
+export const FETCH_GROUPS_PAGE_META_START = 'FETCH_GROUPS_PAGE_META_START';
+export const FETCH_GROUPS_PAGE_META_SUCCESS = 'FETCH_GROUPS_PAGE_META_SUCCESS';
+export const FETCH_GROUPS_PAGE_META_FAIL = 'FETCH_GROUPS_PAGE_META_FAIL';
+
+const fetchGroupsPageMetaStart = payload => ({
+  type: FETCH_GROUPS_PAGE_META_START,
+  payload,
+});
+
+const fetchGroupsPageMetaSuccess = payload => ({
+  type: FETCH_GROUPS_PAGE_META_SUCCESS,
+  payload,
+});
+
+const fetchGroupsPageMetaFail = payload => ({
+  type: FETCH_GROUPS_PAGE_META_FAIL,
+  payload,
+});
+
+export const fetchGroupsPageMeta = ({
+  lang,
+  ver,
+}) => (dispatch, getState) => {
+  const { cid, at, token } = getState().user;
+  dispatch(fetchGroupsPageMetaStart());
+  return axios.post('/api/page/discussionGroups', {
+    at,
+    cid,
+    lang,
+    token,
+    ver,
+  })
+  .then(result => dispatch(fetchGroupsPageMetaSuccess(result.data)))
+  .catch(error => dispatch(fetchGroupsPageMetaFail(error)));
+};
 
 const fetchGroupsListStart = payload => ({
   type: FETCH_GROUPS_LIST_START,
@@ -27,7 +62,7 @@ const fetchGroupsListSuccess = payload => ({
 });
 
 const fetchGroupsListFail = payload => ({
-  type: FETCH_GROUPS_LIST_SUCCESS,
+  type: FETCH_GROUPS_LIST_FAIL,
   payload,
 });
 
@@ -95,7 +130,7 @@ const askToJoinGroupSuccess = payload => ({
 });
 
 const askToJoinGroupFail = payload => ({
-  type: ASK_TO_JOIN_SUCCESS,
+  type: ASK_TO_JOIN_FAIL,
   payload,
 });
 
@@ -129,7 +164,7 @@ const requestNewGroupSuccess = payload => ({
 });
 
 const requestNewGroupFail = payload => ({
-  type: REQUEST_GROUP_SUCCESS,
+  type: REQUEST_GROUP_FAIL,
   payload,
 });
 

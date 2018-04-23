@@ -5,6 +5,9 @@ import {
   FETCH_GROUPS_LIST_SUCCESS,
   FETCH_GROUPS_LIST_FAIL,
   TOGGLE_JOIN_GROUP_SUCCESS,
+  FETCH_GROUPS_PAGE_META_FAIL,
+  FETCH_GROUPS_PAGE_META_START,
+  FETCH_GROUPS_PAGE_META_SUCCESS,
 } from './actions';
 
 const initialState = {
@@ -15,6 +18,7 @@ const initialState = {
   count: 12,
   groupsCount: 0,
   groups: [],
+  pageMeta: {},
   paginationCount: 5,
 };
 
@@ -65,6 +69,24 @@ export default createReducer(initialState, {
     return {
       ...state,
       groups: newGroups,
+    };
+  },
+
+  [FETCH_GROUPS_PAGE_META_START](state) {
+    return {
+      ...state,
+    };
+  },
+  [FETCH_GROUPS_PAGE_META_SUCCESS](state, { payload }) {
+    return {
+      ...state,
+      pageMeta: payload,
+    };
+  },
+  [FETCH_GROUPS_PAGE_META_FAIL](state) {
+    return {
+      ...state,
+      error: true,
     };
   },
 

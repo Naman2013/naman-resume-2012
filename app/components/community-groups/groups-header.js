@@ -14,20 +14,26 @@ const {
   string,
 } = PropTypes;
 
-const GroupsHeader = () => (
+const GroupsHeader = ({
+  pageHeading,
+  pageTitle,
+  showPublicTab,
+  showPrivateTab,
+  showMyGroupsTab,
+}) => (
   <div className="groups-header">
-    <h4>Slooh Community</h4>
-    <h3>Discussion Groups</h3>
+    <h4 dangerouslySetInnerHTML={{ __html: pageHeading }} />
+    <h3 dangerouslySetInnerHTML={{ __html: pageTitle }} />
     <nav className="nav-container">
-      <Link to={'/community-groups/public'} activeClassName="active-group-header-item">
+      {showPublicTab && <Link to={'/community-groups/public'} activeClassName="active-group-header-item">
         <span className="group-header-item-title">Public Groups</span>
-      </Link>
-      <Link to={'/community-groups/private'} activeClassName="active-group-header-item">
+      </Link>}
+      {showPrivateTab && <Link to={'/community-groups/private'} activeClassName="active-group-header-item">
         <span className="group-header-item-title">Private Groups</span>
-      </Link>
-      <Link to={'/community-groups/my-groups'} activeClassName="active-group-header-item">
+      </Link>}
+      {showMyGroupsTab && <Link to={'/community-groups/my-groups'} activeClassName="active-group-header-item">
         <span className="group-header-item-title">My Groups</span>
-      </Link>
+      </Link>}
     </nav>
     <style jsx>{`
       .groups-header {
