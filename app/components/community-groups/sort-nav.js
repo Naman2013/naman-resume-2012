@@ -15,7 +15,6 @@ const {
 } = PropTypes;
 
 const GroupsSortNav = ({
-  requestGroup,
   currentParentRoute,
 }) => (
   <div className="groups-sort">
@@ -25,9 +24,6 @@ const GroupsSortNav = ({
   <Link to={`/community-groups/${currentParentRoute}/popular`} activeClassName="active-groups-sort-item">
     <span className="groups-sort-item-title">Most Popular</span>
   </Link>
-  <div onClick={requestGroup}>
-    <span className="groups-sort-item-title">Request Group</span>
-  </div>
     <style jsx>{`
       .groups-sort {
         color: ${darkBlueGray};

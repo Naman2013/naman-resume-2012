@@ -225,12 +225,16 @@ class CommunityGroupList extends Component {
 
     return (
       <div>
-        {communityGroups.groupsCount > 20 ?
-          <SortNav
-            requestGroup={this.requestGroup}
-            currentParentRoute={currentParentRoute}
-          /> :
-          null}
+        <div className="group-actions">
+          {communityGroups.groupsCount > 20 ?
+            <SortNav
+              currentParentRoute={currentParentRoute}
+            /> :
+            null}
+          <div onClick={this.requestGroup}>
+            <span className="request">Request Group</span>
+          </div>
+        </div>
         <GroupsList
           groups={communityGroups.groups}
           askToJoin={this.makeAskToJoinCall}
@@ -257,6 +261,16 @@ class CommunityGroupList extends Component {
             position: absolute;
             top: 5px;
             right: 10px;
+            cursor: pointer;
+          }
+
+          .group-actions {
+            display: flex;
+            flex-direction: row;
+            padding: 0 15px;
+          }
+
+          .request {
             cursor: pointer;
           }
         `}</style>
