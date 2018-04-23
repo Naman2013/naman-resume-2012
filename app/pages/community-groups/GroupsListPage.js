@@ -14,17 +14,12 @@ import Modal from 'react-modal';
 import RequestGroupForm from '../../components/community-groups/request-group-form';
 import GroupsList from '../../components/community-groups/groups-list';
 import SortNav from '../../components/community-groups/sort-nav';
-import { askToJoin } from '../../services/community-groups/ask-to-join';
-import { requestGroup } from '../../services/community-groups/request-group';
-
 import {
+  askToJoinGroup,
   fetchGroupsList,
   joinOrLeaveGroup,
+  requestNewGroup,
 } from '../../modules/community-groups/actions';
-import {
-  darkBlueGray,
-  white,
-} from '../../styles/variables/colors';
 import { primaryFont } from '../../styles/variables/fonts';
 
 const {
@@ -35,16 +30,16 @@ const {
 
 const mapStateToProps = ({
   communityGroups,
-  user,
 }) => ({
   communityGroups,
-  user,
 });
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
     fetchGroupsList,
     joinOrLeaveGroup,
+    askToJoinGroup,
+    requestNewGroup,
   }, dispatch),
 });
 
@@ -52,8 +47,10 @@ const mapDispatchToProps = dispatch => ({
 class CommunityGroupList extends Component {
   static propTypes = {
     actions: shape({
+      askToJoinGroup: func,
       fetchGroupsList: func,
       joinOrLeaveGroup: func,
+      requestNewGroup: func,
     }).isRequired,
     currentParentRoute: string,
   }
@@ -102,22 +99,19 @@ class CommunityGroupList extends Component {
 
   makeAskToJoinCall = ({ discussionGroupId }) => {
     const {
-      user: { at, token, cid },
+      actions,
     } = this.props;
 
     this.closeModal();
 
-    askToJoin({
-      at,
-      token,
-      cid,
+    actions.askToJoinGroup({
       discussionGroupId,
     })
       .then((res) => {
-        if (!res.data.apiError) {
+        if (!res.payload.apiError) {
           this.setState({
-            showPrompt: res.data.showResponse,
-            promptText: res.data.response,
+            showPrompt: res.payload.showResponse,
+            promptText: res.payload.response,
           });
         } else {
           this.setState({
@@ -131,15 +125,11 @@ class CommunityGroupList extends Component {
   makeToggleJoinGroupCall = ({ discussionGroupId }) => {
     const {
       actions,
-      user: { at, token, cid },
     } = this.props;
 
     this.closeModal();
 
     actions.joinOrLeaveGroup({
-      at,
-      token,
-      cid,
       discussionGroupId,
     });
   }
@@ -163,20 +153,17 @@ class CommunityGroupList extends Component {
     requestFormText,
     requestFormPrivacy,
   }) => {
-    const { at, token, cid } = this.props.user;
+    const { actions } = this.props;
     this.closeModal();
 
-    requestGroup({
-      at,
-      token,
-      cid,
+    actions.requestNewGroup({
       access: requestFormPrivacy,
       definition: requestFormText,
     }).then((res) => {
-      if (!res.data.apiError) {
+      if (!res.payload.apiError) {
         this.setState({
-          showPrompt: res.data.showResponse,
-          promptText: res.data.response,
+          showPrompt: res.payload.showResponse,
+          promptText: res.payload.response,
         });
       } else {
         this.setState({
