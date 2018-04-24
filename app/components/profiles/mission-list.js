@@ -1,3 +1,9 @@
+/***********************************
+* V4 Profiles Mission List
+*
+*
+*
+***********************************/
 import React from 'react';
 import PropTypes from 'prop-types';
 import ProfileMissionListItem from './mission-list-item';

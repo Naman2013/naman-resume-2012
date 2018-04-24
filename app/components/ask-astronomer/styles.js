@@ -1,3 +1,9 @@
+/***********************************
+* V4 Ask Astronomer Styles
+*
+*
+*
+***********************************/
 export const avatarImgStyle = photoUrl => ({
   backgroundImage: `url(${photoUrl})`,
   backgroundPosition: 'center',
