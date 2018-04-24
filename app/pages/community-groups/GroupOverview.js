@@ -10,7 +10,12 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import GroupsHeader from '../../components/community-groups/groups-header';
+import Header from '../../components/community-groups/overview/header';
+import ShortInformationOverview from '../../components/community-groups/overview/short-information-container';
+import FullInformationOverview from '../../components/community-groups/overview/full-information-container';
+import {
+  joinOrLeaveGroup,
+} from '../../modules/community-groups/actions';
 import {
   darkBlueGray,
   white,
@@ -30,6 +35,7 @@ const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
     fetchGroupOverviewPageMeta,
     fetchGroupOverview,
+    joinOrLeaveGroup,
   }, dispatch),
 });
 
@@ -64,13 +70,32 @@ class CommunityGroupOverview extends Component {
     }
   }
 
+  joinLeaveGroup = () => {
+    const {
+      routeParams: { groupId },
+      actions,
+    } = this.props;
+
+    actions.joinOrLeaveGroup({
+      discussionGroupId: groupId,
+    })
+  }
+
   render() {
     const {
       pageMeta,
+      routeParams: { groupId },
+      actions,
     } = this.props;
     return (
       <div>
-        <GroupsHeader {...pageMeta} />
+        <Header
+          joinOrLeaveGroup={this.joinLeaveGroup}
+          discussionGroupId={groupId}
+          {...pageMeta}
+        />
+        {pageMeta.showGroupOverview && <ShortInformationOverview joinOrLeaveGroup={this.joinLeaveGroup} />}
+        {pageMeta.showGroupInformation && <FullInformationOverview />}
         <style jsx>{`
         `}</style>
       </div>

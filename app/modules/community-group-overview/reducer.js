@@ -9,6 +9,10 @@ import {
   FETCH_GROUP_OVERVIEW_PAGE_META_SUCCESS,
 } from './actions';
 
+import {
+  TOGGLE_JOIN_GROUP_SUCCESS,
+} from '../community-groups/actions';
+
 const initialState = {
   fetching: false,
   error: false,
@@ -55,6 +59,22 @@ export default createReducer(initialState, {
     return {
       ...state,
       error: true,
+    };
+  },
+  [TOGGLE_JOIN_GROUP_SUCCESS](state, { payload }) {
+    const {
+      askPrompt,
+      joinPrompt,
+      showAskPrompt,
+      showJoinPrompt,
+    } = payload;
+    return {
+      ...state,
+      // askPrompt,
+      joinPrompt,
+      // showAskPrompt,
+      showJoinPrompt,
+      pageMeta: Object.assign({}, state.pageMeta, { joinPrompt, showJoinPrompt })
     };
   },
 
