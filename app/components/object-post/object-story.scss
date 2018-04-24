@@ -1,0 +1,53 @@
+@import "../../styles/variables/fonts";
+@import "../../styles/variables/colors";
+
+.card-container__stories {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.storyCard {
+  position: relative;
+  font-size: 0.9em;
+  background-color: white;
+  padding: 25px;
+  margin: 25px 0;
+  min-width: 28%;
+  width: 28%;
+
+  .ObjectStoryListInfo{
+    font-size: 14px;
+    padding: 25px 0;
+
+    .icon{
+      width: 35px;
+      height: 35px;
+      float:right
+    }
+
+    .ObjectStoryListInfoTitle{
+      font-size: 1em;
+      color: $slooh-blue-gray;
+      text-decoration: none;
+      font-weight: 600;
+      margin: 0;
+      display: flex;
+      align-items: flex-end;
+    }
+
+    .ObjectStoryListInfoDesc {
+      margin: 15px 0 30px;
+      white-space: pre-wrap;
+      font-family: $slooh-body;
+      font-size: 15px;
+      text-transform: initial;
+      /* Force breaks for longer run-on texts */
+      overflow-wrap: break-word;
+      word-wrap: break-word;
+      word-break: break-all;
+      word-break: break-word;
+      hyphens: auto;
+    }
+  }
+}
