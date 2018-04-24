@@ -21,6 +21,7 @@ import browseTaggedData from './browse-tagged-data/reducer';
 import catalog from './catalog/get-catalog-reducer';
 import communityContent from './community-content/get-community-content-reducer';
 import communityGroups from './community-groups/reducer';
+import communityGroupOverview from './community-group-overview/reducer';
 import communityObjectContent from './community-content/community-object-content-reducer';
 import communityShowContent from './community-content/get-show-content-reducer';
 import contactForm from './Contact';
@@ -100,6 +101,7 @@ export default combineReducers({
   catalog,
   communityContent,
   communityGroups,
+  communityGroupOverview,
   communityObjectContent,
   communityShowContent,
   contactForm,
