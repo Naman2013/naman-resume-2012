@@ -28,12 +28,12 @@ const generateNavItems = (objectId) => ([
   /*{
     title: 'Observation Log',
     link:`/object-details/${objectId}/log`
-  },*/
+  },
   {
     title: 'Stories',
     link:`/object-details/${objectId}/stories`
   },
-  /*{
+  {
     title: 'Shows',
     link:`/object-details/${objectId}/shows`
   }*/

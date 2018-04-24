@@ -77,7 +77,7 @@ class Stories extends Component {
     const { actions } = this.props;
     const {
       entryType,
-      SlugLookupId,
+      slugLookupId,
       filterType,
     } = requestProps;
 

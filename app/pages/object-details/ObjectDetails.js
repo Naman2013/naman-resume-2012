@@ -11,23 +11,28 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import classnames from 'classnames';
 import has from 'lodash/has';
+
 import {
   fetchObjectDetailsAction,
   fetchObjectDataAction,
   fetchObjectMissionsAction,
   fetchObjectQuestsAction,
+  fetchObjectFollowAction,
+  fetchObjectSpecialistsAction
 } from '../../modules/object-details/actions';
+
 import Navigation from '../../components/object-details/Navigation';
-import {
-  darkBlueGray,
-  white,
-} from '../../styles/variables/colors';
+import { darkBlueGray, white } from '../../styles/variables/colors';
+
+
+
 
 const mapStateToProps = ({ objectDetails, appConfig, user }) => ({
   objectMissions: objectDetails.objectMissions,
   objectQuests: objectDetails.objectQuests,
   objectData: objectDetails.objectData,
   objectDetails: objectDetails.objectDetails,
+  objectSpecialists: objectDetails.objectSpecialists,
   appConfig,
   user,
 });
@@ -38,10 +43,15 @@ const mapDispatchToProps = dispatch => ({
     fetchObjectDataAction,
     fetchObjectMissionsAction,
     fetchObjectQuestsAction,
+    fetchObjectSpecialistsAction,
   }, dispatch),
 });
 
 @connect(mapStateToProps, mapDispatchToProps)
+
+
+
+
 class ObjectDetails extends Component {
 
   static propTypes = {
@@ -71,6 +81,7 @@ class ObjectDetails extends Component {
       //console.log('Object has been loaded.....gather more data....');
       this.props.actions.fetchObjectMissionsAction(nextProps.objectDetails.objectId);
       this.props.actions.fetchObjectQuestsAction(nextProps.objectDetails.objectId);
+      this.props.actions.fetchObjectSpecialistsAction(nextProps.objectDetails.objectId);
     }
 
     // console.log(this.props.params.objectId);
@@ -94,8 +105,6 @@ class ObjectDetails extends Component {
       }
     } = this.props;
 
-    //console.log(this.props);
-
     if (this.props.objectDetails.objectId != objectId) {
         //fetch the object-level meta data only if the objectId changes.
         this.props.actions.fetchObjectDetailsAction(objectId);
@@ -117,8 +126,6 @@ class ObjectDetails extends Component {
       },
       children
     } = this.props;
-
-    //console.log (showFollowPromptFlag, followPrompt);
 
     return (
       <div>

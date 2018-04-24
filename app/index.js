@@ -41,6 +41,7 @@ import ObjectDetailsOverview from './containers/object-details/ObjectDetailsOver
 import ObjectDetailsMissions from './containers/object-details/ObjectDetailsMissions';
 import ObjectDetailsQuests from './containers/object-details/ObjectDetailsQuests';
 import ObjectDetailsStories from './containers/object-details/ObjectDetailsStories';
+import ObjectDetailsShows from './containers/object-details/ObjectDetailsShows';
 
 // pages
 import Home from './pages/home';
@@ -478,6 +479,7 @@ ReactDOM.render(
           <Route path="missions" component={ObjectDetailsMissions} onEnter={validateUser} />
           <Route path="quests" component={ObjectDetailsQuests} onEnter={validateUser} />
           <Route path="stories" component={ObjectDetailsStories} onEnter={validateUser} />
+          <Route path="shows" component={ObjectDetailsShows} onEnter={validateUser} />
           <Route path="ask" component={AskAstronomer} onEnter={validateUser} />
         </Route>
 
