@@ -14,7 +14,7 @@ import deletePostImage from '../../../services/post-creation/delete-post-image';
 import setPostImages from '../../../modules/set-post-images';
 
 import { black, darkBlueGray, white } from '../../../styles/variables/colors';
-
+import { dropShadowedContainer } from '../styles';
 const {
   number,
 } = PropTypes;
@@ -202,6 +202,7 @@ class ActivityForm extends Component {
         <style jsx>{`
           .form-container {
             background-color: ${white};
+            ${dropShadowedContainer}
           }
           .flex-right {
             display: flex;
@@ -209,7 +210,7 @@ class ActivityForm extends Component {
           }
           .form {
             padding: 15px;
-            border: 1px solid ${black};
+
           }
           .activity-input {
             border-width: 1px;

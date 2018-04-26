@@ -11,6 +11,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import ShortInformation from './short-information';
 import MembersList from './members-list';
+import ActivityForm from './activity-form';
 import {
   darkBlueGray,
   white,
@@ -26,8 +27,10 @@ const {
 } = PropTypes;
 const mapStateToProps = ({
   communityGroupOverview,
+  user,
 }) => ({
   ...communityGroupOverview,
+  user,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -42,6 +45,9 @@ class ShortInformationOverview extends Component {
     detailsHeading: string,
     detailsList: shape({}),
     heading: string,
+    pageMeta: shape({
+      headingList: arrayOf(string)
+    }),
     joinOrLeaveGroup: func.isRequired,
     joinPrompt: string,
     membersCount: number,
@@ -55,6 +61,9 @@ class ShortInformationOverview extends Component {
     detailsHeading: '',
     detailsList: {},
     heading: '',
+    pageMeta: {
+      headingList: [],
+    },
     joinPrompt: '',
     membersCount: 0,
     membersList: [],
@@ -72,16 +81,25 @@ class ShortInformationOverview extends Component {
       detailsHeading,
       detailsList,
       heading,
+      pageMeta,
       joinOrLeaveGroup,
       joinPrompt,
       membersCount,
       membersList,
       showJoinPrompt,
+      user,
     } = this.props;
 
     return (
       <div className="short-info">
-        <div className="left-container"></div>
+        <div className="left-container">
+        {pageMeta.headingList.length > 0 && pageMeta.headingList.join(' ')}
+        <ActivityForm
+          user={user}
+          topicId={pageMeta.topicId}
+          forumId={pageMeta.forumId}
+        />
+        </div>
         <aside className="right-container">
           <ShortInformation
             description={description}
