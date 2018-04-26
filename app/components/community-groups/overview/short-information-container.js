@@ -48,10 +48,9 @@ class ShortInformationOverview extends Component {
       showJoinPrompt,
       joinOrLeaveGroup,
     } = this.props;
-    console.log('joinPrompt', joinPrompt)
+
     return (
-      <div>
-      short
+      <div className="short-info">
         <div className="left-container"></div>
         <aside className="right-container">
           <ShortInformation
@@ -66,6 +65,18 @@ class ShortInformationOverview extends Component {
           />
         </aside>
         <style jsx>{`
+          .short-info {
+            display: flex;
+            flex-direction: row;
+            padding: 25px;
+          }
+          .left-container {
+            flex: 3;
+          }
+
+          .right-container {
+            flex: 1;
+          }
         `}</style>
       </div>
     )

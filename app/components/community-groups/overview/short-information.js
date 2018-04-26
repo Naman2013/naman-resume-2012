@@ -27,10 +27,10 @@ const ShortInformation = ({
   showJoinPrompt,
   joinOrLeaveGroup,
 }) => (
-  <div className="">
-    <h2 dangerouslySetInnerHTML={{ __html: heading }} />
+  <div className="overview">
+    <h3 dangerouslySetInnerHTML={{ __html: heading }} />
     <div>
-      <div className="details">
+      <div className="details emphasis">
         <div dangerouslySetInnerHTML={{ __html: detailsHeading }} />
         <div>
           {Object.keys(detailsList).map(key => (<div>
@@ -39,15 +39,42 @@ const ShortInformation = ({
         </div>
       </div>
       <div>
-        <h4 dangerouslySetInnerHTML={{ __html: descriptionHeading }} />
-        <div dangerouslySetInnerHTML={{ __html: description }} />
+        <h4 className="emphasis" dangerouslySetInnerHTML={{ __html: descriptionHeading }} />
+        <div className="description" dangerouslySetInnerHTML={{ __html: description }} />
       </div>
       <div>
-        {showJoinPrompt && <button dangerouslySetInnerHTML={{ __html: joinPrompt }} onClick={joinOrLeaveGroup} />}
+        {showJoinPrompt && <button className="leave-btn" dangerouslySetInnerHTML={{ __html: joinPrompt }} onClick={joinOrLeaveGroup} />}
       </div>
     </div>
 
     <style jsx>{`
+      .overview {
+        padding: 15px;
+      }
+      .details {
+        margin: 10px 0 10px 0;
+        padding: 15px 0 15px 0;
+        border-top: 1px solid ${darkBlueGray};
+      }
+      .emphasis {
+        font-weight: bold;
+
+      }
+
+      .description {
+        padding: 15px 0 15px 0;
+        border-top: 1px solid ${darkBlueGray};
+        font-family: ${secondaryFont};
+      }
+
+      .leave-btn {
+        width: 100%;
+        background-color: ${darkBlueGray};
+        color: ${white};
+        font-weight: bold;
+        text-align: center;
+        padding: 15px 0;
+      }
     `}</style>
   </div>
 );
