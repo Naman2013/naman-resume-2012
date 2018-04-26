@@ -17,7 +17,7 @@ import {
   joinOrLeaveGroup,
 } from '../../modules/community-groups/actions';
 import {
-  darkBlueGray,
+  gray,
   white,
 } from '../../styles/variables/colors';
 import {
@@ -88,7 +88,7 @@ class CommunityGroupOverview extends Component {
       actions,
     } = this.props;
     return (
-      <div>
+      <div className="group-overview">
         <Header
           joinOrLeaveGroup={this.joinLeaveGroup}
           discussionGroupId={groupId}
@@ -97,6 +97,9 @@ class CommunityGroupOverview extends Component {
         {pageMeta.showGroupOverview && <ShortInformationOverview joinOrLeaveGroup={this.joinLeaveGroup} />}
         {pageMeta.showGroupInformation && <FullInformationOverview />}
         <style jsx>{`
+          .group-overview {
+            background-color: ${gray};
+          }
         `}</style>
       </div>
     )

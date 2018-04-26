@@ -6,8 +6,9 @@
 ***********************************/
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { black, darkBlueGray, white, turqoise } from '../../../styles/variables/colors';
+import { darkBlueGray } from '../../../styles/variables/colors';
 import { secondaryFont } from '../../../styles/variables/fonts';
+import { fullWidthBtn, dropShadowedContainer } from '../styles';
 
 const {
   arrayOf,
@@ -28,22 +29,25 @@ const ShortInformation = ({
   joinOrLeaveGroup,
 }) => (
   <div className="overview">
-    <h3 dangerouslySetInnerHTML={{ __html: heading }} />
-    <div>
-      <div className="details emphasis">
-        <div dangerouslySetInnerHTML={{ __html: detailsHeading }} />
-        <div>
-          {Object.keys(detailsList).map(key => (<div>
-              {detailsList[key].showIcon && <img src={detailsList[key].iconURL} />} <span dangerouslySetInnerHTML={{ __html: detailsList[key].label }} />
-            </div>))}
+    Group Information
+    <div className="overview-container">
+      <h3 dangerouslySetInnerHTML={{ __html: heading }} />
+      <div>
+        <div className="details emphasis">
+          <div dangerouslySetInnerHTML={{ __html: detailsHeading }} />
+          <div>
+            {Object.keys(detailsList).map(key => (<div>
+                {detailsList[key].showIcon && <img src={detailsList[key].iconURL} />} <span dangerouslySetInnerHTML={{ __html: detailsList[key].label }} />
+              </div>))}
+          </div>
         </div>
-      </div>
-      <div>
-        <h4 className="emphasis" dangerouslySetInnerHTML={{ __html: descriptionHeading }} />
-        <div className="description" dangerouslySetInnerHTML={{ __html: description }} />
-      </div>
-      <div>
-        {showJoinPrompt && <button className="leave-btn" dangerouslySetInnerHTML={{ __html: joinPrompt }} onClick={joinOrLeaveGroup} />}
+        <div>
+          <h4 className="emphasis" dangerouslySetInnerHTML={{ __html: descriptionHeading }} />
+          <div className="description" dangerouslySetInnerHTML={{ __html: description }} />
+        </div>
+        <div>
+          {showJoinPrompt && <button className="leave-btn" dangerouslySetInnerHTML={{ __html: joinPrompt }} onClick={joinOrLeaveGroup} />}
+        </div>
       </div>
     </div>
 
@@ -51,6 +55,11 @@ const ShortInformation = ({
       .overview {
         padding: 15px;
       }
+
+      .overview-container {
+        ${dropShadowedContainer}
+      }
+
       .details {
         margin: 10px 0 10px 0;
         padding: 15px 0 15px 0;
@@ -68,12 +77,7 @@ const ShortInformation = ({
       }
 
       .leave-btn {
-        width: 100%;
-        background-color: ${darkBlueGray};
-        color: ${white};
-        font-weight: bold;
-        text-align: center;
-        padding: 15px 0;
+        ${fullWidthBtn}
       }
     `}</style>
   </div>

@@ -5,16 +5,25 @@
 *
 ***********************************/
 
-import React, { Component, cloneElement } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import ShortInformation from './short-information';
+import MembersList from './members-list';
 import {
   darkBlueGray,
   white,
 } from '../../../styles/variables/colors';
 
+const {
+  arrayOf,
+  bool,
+  func,
+  number,
+  shape,
+  string,
+} = PropTypes;
 const mapStateToProps = ({
   communityGroupOverview,
 }) => ({
@@ -28,9 +37,28 @@ const mapDispatchToProps = dispatch => ({
 @connect(mapStateToProps, mapDispatchToProps)
 class ShortInformationOverview extends Component {
   static propTypes = {
+    description: string,
+    descriptionHeading: string,
+    detailsHeading: string,
+    detailsList: shape({}),
+    heading: string,
+    joinOrLeaveGroup: func.isRequired,
+    joinPrompt: string,
+    membersCount: number,
+    membersList: arrayOf(shape({})),
+    showJoinPrompt: bool,
   }
 
   static defaultProps = {
+    description: '',
+    descriptionHeading: '',
+    detailsHeading: '',
+    detailsList: {},
+    heading: '',
+    joinPrompt: '',
+    membersCount: 0,
+    membersList: [],
+    showJoinPrompt: false,
   }
 
   constructor(props) {
@@ -44,9 +72,11 @@ class ShortInformationOverview extends Component {
       detailsHeading,
       detailsList,
       heading,
-      joinPrompt,
-      showJoinPrompt,
       joinOrLeaveGroup,
+      joinPrompt,
+      membersCount,
+      membersList,
+      showJoinPrompt,
     } = this.props;
 
     return (
@@ -62,6 +92,10 @@ class ShortInformationOverview extends Component {
             joinPrompt={joinPrompt}
             showJoinPrompt={showJoinPrompt}
             joinOrLeaveGroup={joinOrLeaveGroup}
+          />
+          <MembersList
+            membersList={membersList}
+            membersCount={membersCount}
           />
         </aside>
         <style jsx>{`

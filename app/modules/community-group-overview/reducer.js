@@ -1,4 +1,3 @@
-import cloneDeep from 'lodash/cloneDeep';
 import createReducer from '../utils/createReducer';
 import {
   FETCH_GROUP_OVERVIEW_START,
@@ -7,17 +6,22 @@ import {
   FETCH_GROUP_OVERVIEW_PAGE_META_FAIL,
   FETCH_GROUP_OVERVIEW_PAGE_META_START,
   FETCH_GROUP_OVERVIEW_PAGE_META_SUCCESS,
+  FETCH_GROUP_MEMBERS_START,
+  FETCH_GROUP_MEMBERS_SUCCESS,
+  FETCH_GROUP_MEMBERS_FAIL,
 } from './actions';
 
-import {
-  TOGGLE_JOIN_GROUP_SUCCESS,
-} from '../community-groups/actions';
+import { TOGGLE_JOIN_GROUP_SUCCESS } from '../community-groups/actions';
 
 const initialState = {
   fetching: false,
   error: false,
   count: 12,
   pageMeta: {},
+  membersList: [],
+  membersCount: 0,
+  membersCallError: false,
+  membersCallFetching: false,
 };
 
 export default createReducer(initialState, {
@@ -75,6 +79,32 @@ export default createReducer(initialState, {
       // showAskPrompt,
       showJoinPrompt,
       pageMeta: Object.assign({}, state.pageMeta, { joinPrompt, showJoinPrompt })
+    };
+  },
+
+  [FETCH_GROUP_MEMBERS_START](state) {
+    return {
+      ...state,
+      membersCallError: false,
+      membersCallFetching: true,
+    };
+  },
+  [FETCH_GROUP_MEMBERS_SUCCESS](state, { payload }) {
+    const { membersList, membersCount } = payload;
+    return {
+      ...state,
+      membersList,
+      membersCount,
+      membersCallError: false,
+      membersCallFetching: false,
+    };
+  },
+  [FETCH_GROUP_MEMBERS_FAIL](state) {
+    return {
+      ...state,
+      error: true,
+      membersCallError: true,
+      membersCallFetching: false,
     };
   },
 
