@@ -95,7 +95,7 @@ class CommunityGroupOverview extends Component {
           {...pageMeta}
         />
         {pageMeta.showGroupOverview && <ShortInformationOverview joinOrLeaveGroup={this.joinLeaveGroup} />}
-        {pageMeta.showGroupInformation && <FullInformationOverview />}
+        {pageMeta.showGroupInformation && <FullInformationOverview joinOrLeaveGroup={this.joinLeaveGroup} />}
         <style jsx>{`
           .group-overview {
             background-color: ${gray};

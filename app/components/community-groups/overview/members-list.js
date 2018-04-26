@@ -85,7 +85,7 @@ class GroupMemberList extends Component {
         </div>
         <style jsx>{`
           .members-list {
-            max-width: 300px;
+            min-width: 350px;
             padding: 15px;
           }
           .members-container {
