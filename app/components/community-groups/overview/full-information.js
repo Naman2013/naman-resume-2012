@@ -44,7 +44,7 @@ const FullInformation = ({
       </div>
       <style jsx>{`
         .overview {
-          padding: 15px;
+          
         }
 
         .overview-container {

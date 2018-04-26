@@ -5,7 +5,7 @@
 *
 ***********************************/
 
-import React, { Component, cloneElement } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -15,7 +15,7 @@ import {
 } from '../../../styles/variables/colors';
 import MembersList from './members-list';
 import FullInformation from './full-information';
-
+import ActivityForm from './activity-form';
 const {
   arrayOf,
   bool,
@@ -26,8 +26,10 @@ const {
 } = PropTypes;
 const mapStateToProps = ({
   communityGroupOverview,
+  user,
 }) => ({
   ...communityGroupOverview,
+  user,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -69,11 +71,13 @@ class FullInformationOverview extends Component {
       detailsHeading,
       detailsList,
       heading,
+      pageMeta,
       joinOrLeaveGroup,
       joinPrompt,
       membersCount,
       membersList,
       showJoinPrompt,
+      user,
     } = this.props;
 
     return (
@@ -92,7 +96,11 @@ class FullInformationOverview extends Component {
             />
           </div>
           <div className="flex-child left-container">
-            Activity will go here
+            <ActivityForm
+              user={user}
+              topicId={pageMeta.topicId}
+              forumId={pageMeta.forumId}
+            />
           </div>
           <aside className="flex-child right-container">
             <MembersList
@@ -114,6 +122,7 @@ class FullInformationOverview extends Component {
 
           .left-container {
             flex: 3;
+            padding: 15px;
           }
 
           .right-container {
