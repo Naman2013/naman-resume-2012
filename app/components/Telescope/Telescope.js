@@ -4,6 +4,7 @@ import Measure from 'react-measure';
 import TelescopeFrame from './TelescopeFrame';
 import Mask from './Mask';
 import Image from './Image';
+// import
 
 import TELESCOPES_ENUM from './TelescopesEnum';
 
@@ -22,6 +23,8 @@ class Telescope extends Component {
 
   state = {
     resolution: this.props.resolution,
+    horizontalResolution: this.props.resolution,
+    verticalResolution: this.props.resolution,
     increment: this.props.increment,
     portalDimensions: {
       bottom: 0,
@@ -64,9 +67,10 @@ class Telescope extends Component {
     const {
       portalDimensions: { width, height },
       imageDimensions,
-      resolution,
       increment,
     } = this.state;
+
+    const { resolution } = this.props;
 
     const imageX = (imageDimensions.width - width) / 2;
 
