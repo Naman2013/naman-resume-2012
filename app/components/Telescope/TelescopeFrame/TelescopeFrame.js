@@ -5,7 +5,8 @@ import { generateRow } from './generateRow';
 
 const propTypes = {
   length: PropTypes.number.isRequired,
-  resolution: PropTypes.number,
+  horizontalResolution: PropTypes.number,
+  verticalResolution: PropTypes.number,
   increment: PropTypes.number,
   style: PropTypes.shape({
     stroke: PropTypes.string,
@@ -13,7 +14,8 @@ const propTypes = {
 };
 
 const defaultProps = {
-  resolution: 75,
+  horizontalResolution: 75,
+  verticalResolution: 75,
   increment: 5,
   style: {
     stroke: 'aqua',
@@ -21,23 +23,23 @@ const defaultProps = {
 };
 
 const TelescopeFrame = ({
-  resolution, increment, length, style,
+  horizontalResolution, verticalResolution, increment, length, style,
 }) => (
   <g className="root">
     <g>
-      {generateRow(length, resolution, increment, ROW_CONFIGURATION_ENUM.TOP, style)}
+      {generateRow(length, horizontalResolution, increment, ROW_CONFIGURATION_ENUM.TOP, style)}
     </g>
 
     <g>
-      {generateRow(length, resolution, increment, ROW_CONFIGURATION_ENUM.BOTTOM, style)}
+      {generateRow(length, horizontalResolution, increment, ROW_CONFIGURATION_ENUM.BOTTOM, style)}
     </g>
 
     <g>
-      {generateRow(length, resolution, increment, ROW_CONFIGURATION_ENUM.LEFT, style)}
+      {generateRow(length, verticalResolution, increment, ROW_CONFIGURATION_ENUM.LEFT, style)}
     </g>
 
     <g>
-      {generateRow(length, resolution, increment, ROW_CONFIGURATION_ENUM.RIGHT, style)}
+      {generateRow(length, verticalResolution, increment, ROW_CONFIGURATION_ENUM.RIGHT, style)}
     </g>
   </g>
 );

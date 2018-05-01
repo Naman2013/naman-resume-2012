@@ -12,12 +12,14 @@ const testImage = 'https://polaris.slooh.com/chile/1/highmag/2018/04/04/2340_m43
 
 class Telescope extends Component {
   static propTypes = {
-    resolution: PropTypes.number,
+    verticalResolution: PropTypes.number,
+    horizontalResolution: PropTypes.number,
     increment: PropTypes.number,
   };
 
   static defaultProps = {
-    resolution: 75,
+    verticalResolution: 75,
+    horizontalResolution: 75,
     increment: 5,
   };
 
@@ -48,8 +50,8 @@ class Telescope extends Component {
     },
   };
 
-  componentWillReceiveProps({ resolution }) {
-    this.setState(() => ({ resolution }));
+  componentWillReceiveProps({ horizontalResolution, verticalResolution }) {
+    this.setState(() => ({ horizontalResolution, verticalResolution }));
   }
 
   handleImageResize = (imageBounds) => {
@@ -61,7 +63,6 @@ class Telescope extends Component {
   }
 
   handleTelescopeChange(targetTelescope) {
-    console.log(targetTelescope);
     this.setState(prevState => ({
       resolution: (prevState.resolution * 2),
     }));
@@ -72,7 +73,8 @@ class Telescope extends Component {
       portalDimensions: { width, height },
       imageDimensions,
       increment,
-      resolution,
+      horizontalResolution,
+      verticalResolution,
     } = this.state;
 
     const imageX = (imageDimensions.width - width) / 2;
@@ -122,7 +124,8 @@ class Telescope extends Component {
                   <Mask />
 
                   <TelescopeFrame
-                    resolution={resolution}
+                    horizontalResolution={horizontalResolution}
+                    verticalResolution={verticalResolution}
                     increment={increment}
                     length={width}
                   />
