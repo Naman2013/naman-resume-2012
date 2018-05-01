@@ -24,9 +24,8 @@ class Telescope extends Component {
   };
 
   state = {
-    resolution: this.props.resolution,
-    horizontalResolution: this.props.resolution,
-    verticalResolution: this.props.resolution,
+    horizontalResolution: this.props.horizontalResolution,
+    verticalResolution: this.props.verticalResolution,
     increment: this.props.increment,
     portalDimensions: {
       bottom: 0,
