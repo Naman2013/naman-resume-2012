@@ -48,6 +48,10 @@ class Telescope extends Component {
     },
   };
 
+  componentWillReceiveProps({ resolution }) {
+    this.setState(() => ({ resolution }));
+  }
+
   handleImageResize = (imageBounds) => {
     this.setState({ imageDimensions: { ...imageBounds } });
   }
@@ -68,9 +72,8 @@ class Telescope extends Component {
       portalDimensions: { width, height },
       imageDimensions,
       increment,
+      resolution,
     } = this.state;
-
-    const { resolution } = this.props;
 
     const imageX = (imageDimensions.width - width) / 2;
 
