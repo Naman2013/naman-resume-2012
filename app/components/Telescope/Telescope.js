@@ -56,13 +56,25 @@ class Telescope extends Component {
     this.setState(() => ({ horizontalResolution, verticalResolution }));
   }
 
+  transitionTelescopeInterval = null;
+
   transitionTelescope() {
-    setInterval(() => {
-      this.setState(prevState => ({
-        horizontalResolution: (prevState.horizontalResolution += 1),
-        verticalResolution: (prevState.verticalResolution += 1),
-      }));
-    }, 1000);
+    this.doTearDown();
+
+    this.transitionTelescopeInterval = setInterval(() => {
+      this.setState((prevState) => {
+        return ({
+          horizontalResolution: (prevState.horizontalResolution += 1),
+          verticalResolution: (prevState.verticalResolution += 1),
+        });
+      });
+    }, 500);
+  }
+
+  doTearDown() {
+    if (this.transitionTelescopeInterval) {
+      clearInterval(this.transitionTelescopeInterval)
+    }
   }
 
   handleImageResize = (imageBounds) => {
