@@ -24,6 +24,7 @@ class Telescope extends Component {
   };
 
   state = {
+    isTransitioningTelescope: false,
     horizontalResolution: this.props.horizontalResolution,
     verticalResolution: this.props.verticalResolution,
     increment: this.props.increment,
@@ -50,7 +51,18 @@ class Telescope extends Component {
   };
 
   componentWillReceiveProps({ horizontalResolution, verticalResolution }) {
+    // TODO: are we switching telescopes?
+    this.transitionTelescope();
     this.setState(() => ({ horizontalResolution, verticalResolution }));
+  }
+
+  transitionTelescope() {
+    setInterval(() => {
+      this.setState(prevState => ({
+        horizontalResolution: (prevState.horizontalResolution += 1),
+        verticalResolution: (prevState.verticalResolution += 1),
+      }));
+    }, 1000);
   }
 
   handleImageResize = (imageBounds) => {
