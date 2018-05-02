@@ -66,6 +66,7 @@ class Telescope extends Component {
   transitionTelescopeInterval = null;
 
   transitionZoomOut() {
+    this.setState(() => ({ isTransitioningTelescope: true }));
     this.transitionTo(
       this.transitionZoomIn,
       {
@@ -77,12 +78,16 @@ class Telescope extends Component {
 
   transitionZoomIn() {
     this.transitionTo(
-      noop,
+      this.telescopeTransitionComplete,
       {
         horizontal: MIN_RESOLUTION,
         vertical: MIN_RESOLUTION,
       },
     );
+  }
+
+  telescopeTransitionComplete() {
+    this.setState(() => ({ isTransitioningTelescope: false, }));
   }
 
   transitionTo(
@@ -130,6 +135,7 @@ class Telescope extends Component {
       increment,
       horizontalResolution,
       verticalResolution,
+      isTransitioningTelescope,
     } = this.state;
 
     const imageX = (imageDimensions.width - width) / 2;
@@ -176,7 +182,7 @@ class Telescope extends Component {
                     />
                   </g>
 
-                  <Mask />
+                  <Mask isVisible={!isTransitioningTelescope} />
 
                   <TelescopeFrame
                     horizontalResolution={horizontalResolution}
@@ -191,7 +197,7 @@ class Telescope extends Component {
                   .portal {
                     width: 100%;
                     overflow: hidden;
-                    background: yellow;
+                    background: green;
                     position: relative;
                   }
 
