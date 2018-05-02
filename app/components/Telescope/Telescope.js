@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Measure from 'react-measure';
+
+import easingFunctions, { animateValues } from 'utils/easingFunctions';
+
 import TelescopeFrame from './TelescopeFrame';
 import Mask from './Mask';
 import Image from './Image';
@@ -63,20 +66,33 @@ class Telescope extends Component {
   transitionTelescopeInterval = null;
 
   transitionZoomOut() {
-    this.setState((prevState) => {
-      let { horizontalResolution, verticalResolution } = prevState;
-      const HORIZONTAL_MAX_MET = (horizontalResolution >= MAX_RESOLUTION);
-      const VERTICAL_MAX_MET = (verticalResolution >= MAX_RESOLUTION);
+    animateValues(
+      { hr: this.state.horizontalResolution, vr: this.state.verticalResolution },
+      ZOOM_OUT_DURATION,
+      {
+        hr: MAX_RESOLUTION,
+        vr: MAX_RESOLUTION,
+        onUpdate: (values) => {
+          this.setState(() => ({ horizontalResolution: values.hr, verticalResolution: values.vr }));
+        },
+        ease: easingFunctions.easeInOutQuad,
+      },
+    );
 
-      if (HORIZONTAL_MAX_MET && VERTICAL_MAX_MET) {
-        return ({ horizontalResolution, verticalResolution });
-      }
-
-      return ({
-        horizontalResolution: (horizontalResolution += 1),
-        verticalResolution: (verticalResolution += 1),
-      });
-    });
+    // this.setState((prevState) => {
+    //   let { horizontalResolution, verticalResolution } = prevState;
+    //   const HORIZONTAL_MAX_MET = (horizontalResolution >= MAX_RESOLUTION);
+    //   const VERTICAL_MAX_MET = (verticalResolution >= MAX_RESOLUTION);
+    //
+    //   if (HORIZONTAL_MAX_MET && VERTICAL_MAX_MET) {
+    //     return ({ horizontalResolution, verticalResolution });
+    //   }
+    //
+    //   return ({
+    //     horizontalResolution: (horizontalResolution += 1),
+    //     verticalResolution: (verticalResolution += 1),
+    //   });
+    // });
   }
 
   handleImageResize = (imageBounds) => {

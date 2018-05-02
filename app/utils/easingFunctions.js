@@ -5,7 +5,7 @@
     a: 500,
     onUpdate: v => a.style.transform = 'scaleX('+ v.a +')',
     onComplete: v => alert('Done!'),
-    ease: t => t<.5 ? 2*t*t : -1+(4-2*t)*t, // From: https://gist.github.com/gre/1650294
+    ease: t => t<.5 ? 2*t*t : -1+(4-2*t)*t,
   })
  */
 export function animateValues(values, duration, options) {
