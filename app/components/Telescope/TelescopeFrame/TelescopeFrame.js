@@ -3,7 +3,71 @@ import PropTypes from 'prop-types';
 import ROW_CONFIGURATION_ENUM from './rowConfigurationEnum';
 import { generateRow } from './generateRow';
 
-const propTypes = {
+const TelescopeFrame = ({
+  isGridVisible,
+  horizontalResolution,
+  verticalResolution,
+  increment,
+  length,
+  style,
+}) => (
+  <g className="root">
+    <g>
+      {
+        generateRow(
+          length,
+          horizontalResolution,
+          increment,
+          ROW_CONFIGURATION_ENUM.TOP,
+          style,
+          isGridVisible,
+        )
+      }
+    </g>
+
+    <g>
+      {
+        generateRow(
+          length,
+          horizontalResolution,
+          increment,
+          ROW_CONFIGURATION_ENUM.BOTTOM,
+          style,
+          isGridVisible,
+        )
+      }
+    </g>
+
+    <g>
+      {
+        generateRow(
+          length,
+          horizontalResolution,
+          increment,
+          ROW_CONFIGURATION_ENUM.LEFT,
+          style,
+          isGridVisible,
+        )
+      }
+    </g>
+
+    <g>
+      {
+        generateRow(
+          length,
+          horizontalResolution,
+          increment,
+          ROW_CONFIGURATION_ENUM.RIGHT,
+          style,
+          isGridVisible,
+        )
+      }
+    </g>
+  </g>
+);
+
+TelescopeFrame.propTypes = {
+  isGridVisible: PropTypes.bool,
   length: PropTypes.number.isRequired,
   horizontalResolution: PropTypes.number,
   verticalResolution: PropTypes.number,
@@ -13,7 +77,8 @@ const propTypes = {
   }),
 };
 
-const defaultProps = {
+TelescopeFrame.defaultProps = {
+  isGridVisible: false,
   horizontalResolution: 75,
   verticalResolution: 75,
   increment: 5,
@@ -21,30 +86,5 @@ const defaultProps = {
     stroke: 'aqua',
   },
 };
-
-const TelescopeFrame = ({
-  horizontalResolution, verticalResolution, increment, length, style,
-}) => (
-  <g className="root">
-    <g>
-      {generateRow(length, horizontalResolution, increment, ROW_CONFIGURATION_ENUM.TOP, style)}
-    </g>
-
-    <g>
-      {generateRow(length, horizontalResolution, increment, ROW_CONFIGURATION_ENUM.BOTTOM, style)}
-    </g>
-
-    <g>
-      {generateRow(length, verticalResolution, increment, ROW_CONFIGURATION_ENUM.LEFT, style)}
-    </g>
-
-    <g>
-      {generateRow(length, verticalResolution, increment, ROW_CONFIGURATION_ENUM.RIGHT, style)}
-    </g>
-  </g>
-);
-
-TelescopeFrame.propTypes = propTypes;
-TelescopeFrame.defaultProps = defaultProps;
 
 export default TelescopeFrame;

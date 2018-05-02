@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Measure from 'react-measure';
-import noop from 'lodash/noop';
 import easingFunctions, { animateValues } from 'utils/easingFunctions';
 import TelescopeFrame from './TelescopeFrame';
 import Mask from './Mask';
@@ -14,7 +13,7 @@ const testImage = 'https://polaris.slooh.com/chile/1/highmag/2018/04/04/2340_m43
 const MIN_RESOLUTION = 75;
 const MAX_RESOLUTION = 160;
 
-const MAX_DURATION = 10000;
+const MAX_DURATION = 8000;
 const ZOOM_OUT_DURATION = MAX_DURATION / 2;
 
 class Telescope extends Component {
@@ -182,9 +181,12 @@ class Telescope extends Component {
                     />
                   </g>
 
-                  <Mask isVisible={!isTransitioningTelescope} />
+                  <Mask
+                    isVisible={!isTransitioningTelescope}
+                  />
 
                   <TelescopeFrame
+                    isGridVisible={isTransitioningTelescope}
                     horizontalResolution={horizontalResolution}
                     verticalResolution={verticalResolution}
                     increment={increment}
