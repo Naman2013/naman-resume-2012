@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Measure from 'react-measure';
-
+import noop from 'lodash/noop';
 import easingFunctions, { animateValues } from 'utils/easingFunctions';
-
 import TelescopeFrame from './TelescopeFrame';
 import Mask from './Mask';
 import Image from './Image';
@@ -12,7 +11,8 @@ import TELESCOPES_ENUM from './TelescopesEnum';
 
 const testImage = 'https://polaris.slooh.com/chile/1/highmag/2018/04/04/2340_m43/m43_20180404_234018_0_kx3vo6_l.png';
 
-const MAX_RESOLUTION = 140;
+const MIN_RESOLUTION = 75;
+const MAX_RESOLUTION = 160;
 
 const MAX_DURATION = 10000;
 const ZOOM_OUT_DURATION = MAX_DURATION / 2;
@@ -66,10 +66,30 @@ class Telescope extends Component {
   transitionTelescopeInterval = null;
 
   transitionZoomOut() {
-    this.transitionTo({ horizontal: MAX_RESOLUTION, vertical: MAX_RESOLUTION });
+    this.transitionTo(
+      this.transitionZoomIn,
+      {
+        horizontal: MAX_RESOLUTION,
+        vertical: MAX_RESOLUTION,
+      },
+    );
   }
 
-  transitionTo({ horizontal, vertical }, duration = ZOOM_OUT_DURATION) {
+  transitionZoomIn() {
+    this.transitionTo(
+      noop,
+      {
+        horizontal: MIN_RESOLUTION,
+        vertical: MIN_RESOLUTION,
+      },
+    );
+  }
+
+  transitionTo(
+    onCompleteCallback,
+    { horizontal, vertical },
+    duration = ZOOM_OUT_DURATION,
+  ) {
     const { horizontalResolution, verticalResolution } = this.state;
     animateValues(
       { hr: horizontalResolution, vr: verticalResolution },
@@ -83,7 +103,7 @@ class Telescope extends Component {
             verticalResolution: values.vr,
           }));
         },
-        onComplete: () => { console.log('Transition complete...'); },
+        onComplete: onCompleteCallback.bind(this),
         ease: easingFunctions.easeInOutQuad,
       },
     );
