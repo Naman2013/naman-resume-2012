@@ -4,13 +4,15 @@ import Measure from 'react-measure';
 import TelescopeFrame from './TelescopeFrame';
 import Mask from './Mask';
 import Image from './Image';
-// import
 
 import TELESCOPES_ENUM from './TelescopesEnum';
 
 const testImage = 'https://polaris.slooh.com/chile/1/highmag/2018/04/04/2340_m43/m43_20180404_234018_0_kx3vo6_l.png';
 
 const MAX_RESOLUTION = 140;
+
+const MAX_DURATION = 10000;
+const ZOOM_OUT_DURATION = MAX_DURATION / 2;
 
 class Telescope extends Component {
   static propTypes = {
@@ -61,31 +63,20 @@ class Telescope extends Component {
   transitionTelescopeInterval = null;
 
   transitionZoomOut() {
-    this.doTearDown();
+    this.setState((prevState) => {
+      let { horizontalResolution, verticalResolution } = prevState;
+      const HORIZONTAL_MAX_MET = (horizontalResolution >= MAX_RESOLUTION);
+      const VERTICAL_MAX_MET = (verticalResolution >= MAX_RESOLUTION);
 
-    this.transitionTelescopeInterval = setInterval(() => {
-      this.setState((prevState) => {
-        let { horizontalResolution, verticalResolution } = prevState;
-        const HORIZONTAL_MAX_MET = (horizontalResolution >= MAX_RESOLUTION);
-        const VERTICAL_MAX_MET = (verticalResolution >= MAX_RESOLUTION);
+      if (HORIZONTAL_MAX_MET && VERTICAL_MAX_MET) {
+        return ({ horizontalResolution, verticalResolution });
+      }
 
-        if (HORIZONTAL_MAX_MET && VERTICAL_MAX_MET) {
-          this.doTearDown();
-          return ({ horizontalResolution, verticalResolution });
-        }
-
-        return ({
-          horizontalResolution: (horizontalResolution += 1),
-          verticalResolution: (verticalResolution += 1),
-        });
+      return ({
+        horizontalResolution: (horizontalResolution += 1),
+        verticalResolution: (verticalResolution += 1),
       });
-    }, 20);
-  }
-
-  doTearDown() {
-    if (this.transitionTelescopeInterval) {
-      clearInterval(this.transitionTelescopeInterval);
-    }
+    });
   }
 
   handleImageResize = (imageBounds) => {

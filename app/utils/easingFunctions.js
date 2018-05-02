@@ -1,3 +1,69 @@
+/**
+ @example
+ const a = document.getElementById('a')
+ animateValues({ a: 0 }, 800, {
+    a: 500,
+    onUpdate: v => a.style.transform = 'scaleX('+ v.a +')',
+    onComplete: v => alert('Done!'),
+    ease: t => t<.5 ? 2*t*t : -1+(4-2*t)*t, // From: https://gist.github.com/gre/1650294
+  })
+ */
+export function animateValues(values, duration, options) {
+  // Linear interpolation
+  const lerp = (source, target, amount) => source + amount * (target - source);
+
+  // Validation methods
+  const checkNum = n => (typeof n === 'number' ? n : null);
+  const checkFunc = f => (typeof f === 'function' ? f : _ => _);
+
+  // Ensure methods.
+  const onComplete = checkFunc(options.onComplete);
+  const onUpdate = checkFunc(options.onUpdate);
+  const ease = checkFunc(options.ease);
+
+  // Animation start time
+  const start = Date.now();
+
+  // Create a map <key: [from, to]>
+  const animationMap = Object.keys(values).reduce((map, key) => {
+    const _from = checkNum(values[key]);
+    const _to = checkNum(options[key]);
+    if (_from !== null && _to !== null) map[key] = [_from, _to];
+    return map;
+  }, {});
+
+  // List of animating values
+  const keys = Object.keys(animationMap);
+
+  // Create & run animation function
+  const animation = () => {
+    const now = Date.now();
+    const t = duration > 0 ? (now - start) / duration : 1;
+
+    // Update all values using 't'
+    keys.forEach((key) => {
+      // If both 'from' and 'to' are numbers: animate!
+      const [_from, _to] = animationMap[key];
+      const progress = ease(t, _from, _to, duration);
+      // Update value
+      values[key] = lerp(_from, _to, progress);
+    });
+
+    // If complete..
+    if (t >= 1) {
+      // Final update for all keys
+      keys.forEach(key => (values[key] = options[key]));
+      onUpdate(values);
+      onComplete(values);
+    } else {
+      // Run update callback and loop until finished
+      onUpdate(values);
+      requestAnimationFrame(animation);
+    }
+  };
+  animation();
+}
+
 // https://gist.github.com/gre/1650294
 /*
  * Easing Functions - inspired from http://gizma.com/easing/
