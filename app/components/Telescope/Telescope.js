@@ -54,13 +54,13 @@ class Telescope extends Component {
 
   componentWillReceiveProps({ horizontalResolution, verticalResolution }) {
     // TODO: are we switching telescopes?
-    this.transitionTelescope();
+    this.transitionZoomOut();
     this.setState(() => ({ horizontalResolution, verticalResolution }));
   }
 
   transitionTelescopeInterval = null;
 
-  transitionTelescope() {
+  transitionZoomOut() {
     this.doTearDown();
 
     this.transitionTelescopeInterval = setInterval(() => {
