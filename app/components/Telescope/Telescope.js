@@ -10,6 +10,8 @@ import TELESCOPES_ENUM from './TelescopesEnum';
 
 const testImage = 'https://polaris.slooh.com/chile/1/highmag/2018/04/04/2340_m43/m43_20180404_234018_0_kx3vo6_l.png';
 
+const MAX_RESOLUTION = 140;
+
 class Telescope extends Component {
   static propTypes = {
     verticalResolution: PropTypes.number,
@@ -63,12 +65,21 @@ class Telescope extends Component {
 
     this.transitionTelescopeInterval = setInterval(() => {
       this.setState((prevState) => {
+        let { horizontalResolution, verticalResolution } = prevState;
+        const HORIZONTAL_MAX_MET = (horizontalResolution >= MAX_RESOLUTION);
+        const VERTICAL_MAX_MET = (verticalResolution >= MAX_RESOLUTION);
+
+        if (HORIZONTAL_MAX_MET && VERTICAL_MAX_MET) {
+          this.doTearDown();
+          return ({ horizontalResolution, verticalResolution });
+        }
+
         return ({
-          horizontalResolution: (prevState.horizontalResolution += 1),
-          verticalResolution: (prevState.verticalResolution += 1),
+          horizontalResolution: (horizontalResolution += 1),
+          verticalResolution: (verticalResolution += 1),
         });
       });
-    }, 500);
+    }, 20);
   }
 
   doTearDown() {
