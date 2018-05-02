@@ -5,6 +5,7 @@ import ROW_CONFIG from './rowConfigurationEnum';
 import CenterLine from './CenterLine';
 import GridLine from './GridLine';
 import Polyline from '../../SVG/Polyline';
+import CenterBar from "../../GlobalNavigation/CenterBar";
 
 function warnClient() {
   console.warn('Invalid row configuration provided');
@@ -55,12 +56,35 @@ export function generateRow(
     switch (rowConfiguration) {
       case ROW_CONFIG.TOP:
         if (i === 0) {
+          // draw top center mark
           ROW.push(<CenterLine
-            key={`polyline-${ELEMENT_KEY}`}
+            key={`polyline-center-top-${ELEMENT_KEY}`}
             points={`${MID_POINT}, 0 ${MID_POINT}, ${CENTER_TICK_LENGTH}`}
             style={style}
           />);
 
+          // draw bottom center mark
+          ROW.push(<CenterLine
+            key={`polyline-center-bottom-${ELEMENT_KEY}`}
+            points={`${MID_POINT}, ${dimension} ${MID_POINT}, ${(dimension - CENTER_TICK_LENGTH)}`}
+            style={style}
+          />);
+
+          // draw left center tick
+          ROW.push(<CenterLine
+            key={`polyline-center-left-${ELEMENT_KEY}`}
+            points={`${0}, ${MID_POINT}, ${CENTER_TICK_LENGTH}, ${MID_POINT}`}
+            style={style}
+          />);
+
+          // draw right center tick
+          ROW.push(<CenterLine
+            key={`polyline-center-right-${ELEMENT_KEY}`}
+            points={`${dimension}, ${MID_POINT} ${(dimension - CENTER_TICK_LENGTH)}, ${MID_POINT}`}
+            style={style}
+          />);
+
+          // draw gridline
           ROW.push(<GridLine
             key={`grid-${ELEMENT_KEY}`}
             dimension={dimension}
@@ -93,6 +117,13 @@ export function generateRow(
             />);
           }
 
+          ROW.push(<Polyline
+            key={`polyline-${ELEMENT_KEY}`}
+            points={`${x1},${y1} ${x2},${y2}`}
+            strokeWidth={tickThickness}
+            {...style}
+          />);
+
           LEFT_ACCUMULATOR -= SPACING;
           LEFT_COUNTER += 1;
         } else {
@@ -121,13 +152,7 @@ export function generateRow(
         }
         break;
       case ROW_CONFIG.BOTTOM:
-        if (i === 0) {
-          x1 = MID_POINT;
-          y1 = dimension;
-          x2 = MID_POINT;
-          y2 = (dimension - CENTER_TICK_LENGTH);
-          tickThickness = CENTER_TICK_THICKNESS;
-        } else if (i <= TICKS_PER_SIDE) {
+        if (i <= TICKS_PER_SIDE) {
           x1 = LEFT_ACCUMULATOR;
           y1 = dimension;
           x2 = LEFT_ACCUMULATOR;
@@ -156,13 +181,7 @@ export function generateRow(
         }
         break;
       case ROW_CONFIG.LEFT:
-        if (i === 0) {
-          x1 = 0;
-          y1 = MID_POINT;
-          x2 = CENTER_TICK_LENGTH;
-          y2 = MID_POINT;
-          tickThickness = CENTER_TICK_THICKNESS;
-        } else if (i <= TICKS_PER_SIDE) {
+        if (i <= TICKS_PER_SIDE) {
           x1 = 0;
           y1 = LEFT_ACCUMULATOR;
           x2 = (isLargeTick(increment, LEFT_COUNTER))
@@ -191,13 +210,7 @@ export function generateRow(
         }
         break;
       case ROW_CONFIG.RIGHT:
-        if (i === 0) {
-          x1 = dimension;
-          y1 = MID_POINT;
-          x2 = (dimension - CENTER_TICK_LENGTH);
-          y2 = MID_POINT;
-          tickThickness = CENTER_TICK_THICKNESS;
-        } else if (i <= TICKS_PER_SIDE) {
+        if (i <= TICKS_PER_SIDE) {
           x1 = dimension;
           y1 = LEFT_ACCUMULATOR;
           x2 = (isLargeTick(increment, LEFT_COUNTER))
@@ -231,12 +244,12 @@ export function generateRow(
     }
 
     if (x1 !== undefined && y1 !== undefined && x2 !== undefined && y2 !== undefined) {
-      const polylineAttributes = {
-        points: `${x1},${y1} ${x2},${y2}`,
-        strokeWidth: tickThickness,
-      };
-
-      ROW.push(<Polyline key={`polyline-${ELEMENT_KEY}`} {...polylineAttributes} {...style} />);
+      ROW.push(<Polyline
+        key={`polyline-${ELEMENT_KEY}`}
+        points={`${x1},${y1} ${x2},${y2}`}
+        strokeWidth={tickThickness}
+        {...style}
+      />);
     }
   }
 

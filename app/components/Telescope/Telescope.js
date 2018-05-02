@@ -73,7 +73,7 @@ class Telescope extends Component {
 
   doTearDown() {
     if (this.transitionTelescopeInterval) {
-      clearInterval(this.transitionTelescopeInterval)
+      clearInterval(this.transitionTelescopeInterval);
     }
   }
 
