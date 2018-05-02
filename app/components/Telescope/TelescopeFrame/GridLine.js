@@ -27,13 +27,17 @@ function generateLine(dimension, resolution, spacing, currentX, increment, style
 
 const GridLine = ({
   dimension,
+  isVisible,
   resolution,
   spacing,
   currentX,
   increment,
   style,
 }) => (
-  <g className="grid-line">
+  <g
+    className="grid-line"
+    style={{ opacity: (isVisible) ? 1 : 0 }}
+  >
     {generateLine(dimension, resolution, spacing, currentX, increment, style)}
 
     <style jsx>
@@ -51,6 +55,7 @@ const GridLine = ({
 GridLine.propTypes = {
   dimension: PropTypes.number.isRequired,
   resolution: PropTypes.number.isRequired,
+  isVisible: PropTypes.bool,
   spacing: PropTypes.number.isRequired,
   currentX: PropTypes.number.isRequired,
   increment: PropTypes.number.isRequired,
@@ -58,6 +63,7 @@ GridLine.propTypes = {
 };
 
 GridLine.defaultProps = {
+  isVisible: false,
   style: {},
 };
 

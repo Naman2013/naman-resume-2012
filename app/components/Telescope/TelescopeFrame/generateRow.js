@@ -87,6 +87,7 @@ export function generateRow(
           // draw grid line
           ROW.push(<GridLine
             key={`grid-${ELEMENT_KEY}`}
+            isVisible={isGridVisible}
             dimension={dimension}
             resolution={resolution}
             spacing={SPACING}
@@ -108,6 +109,7 @@ export function generateRow(
           if (isLargeTick(increment, LEFT_COUNTER)) {
             ROW.push(<GridLine
               key={`grid-${ELEMENT_KEY}`}
+              isVisible={isGridVisible}
               dimension={dimension}
               resolution={resolution}
               spacing={SPACING}
@@ -131,6 +133,7 @@ export function generateRow(
           if (isLargeTick(increment, RIGHT_COUNTER)) {
             ROW.push(<GridLine
               key={`grid-${ELEMENT_KEY}`}
+              isVisible={isGridVisible}
               dimension={dimension}
               resolution={resolution}
               spacing={SPACING}
