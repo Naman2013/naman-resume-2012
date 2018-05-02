@@ -34,7 +34,6 @@ export function generateRow(
   const SPACING = (dimension / resolution);
   const MID_POINT = (dimension / 2);
   const CENTER_TICK_LENGTH = 16;
-  const CENTER_TICK_THICKNESS = 3;
   const LARGE_TICK_LENGTH = 12;
   const LARGE_TICK_THICKNESS = 2;
   const SHORT_TICK_LENGTH = (LARGE_TICK_LENGTH / 2);
@@ -84,7 +83,7 @@ export function generateRow(
             style={style}
           />);
 
-          // draw gridline
+          // draw grid line
           ROW.push(<GridLine
             key={`grid-${ELEMENT_KEY}`}
             dimension={dimension}
@@ -116,13 +115,6 @@ export function generateRow(
               style={style}
             />);
           }
-
-          ROW.push(<Polyline
-            key={`polyline-${ELEMENT_KEY}`}
-            points={`${x1},${y1} ${x2},${y2}`}
-            strokeWidth={tickThickness}
-            {...style}
-          />);
 
           LEFT_ACCUMULATOR -= SPACING;
           LEFT_COUNTER += 1;
