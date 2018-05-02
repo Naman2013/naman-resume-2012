@@ -78,21 +78,6 @@ class Telescope extends Component {
         ease: easingFunctions.easeInOutQuad,
       },
     );
-
-    // this.setState((prevState) => {
-    //   let { horizontalResolution, verticalResolution } = prevState;
-    //   const HORIZONTAL_MAX_MET = (horizontalResolution >= MAX_RESOLUTION);
-    //   const VERTICAL_MAX_MET = (verticalResolution >= MAX_RESOLUTION);
-    //
-    //   if (HORIZONTAL_MAX_MET && VERTICAL_MAX_MET) {
-    //     return ({ horizontalResolution, verticalResolution });
-    //   }
-    //
-    //   return ({
-    //     horizontalResolution: (horizontalResolution += 1),
-    //     verticalResolution: (verticalResolution += 1),
-    //   });
-    // });
   }
 
   handleImageResize = (imageBounds) => {
