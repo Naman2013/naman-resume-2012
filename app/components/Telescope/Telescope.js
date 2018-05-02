@@ -66,12 +66,16 @@ class Telescope extends Component {
   transitionTelescopeInterval = null;
 
   transitionZoomOut() {
+    this.transitionTo({ horizontal: MAX_RESOLUTION, vertical: MAX_RESOLUTION });
+  }
+
+  transitionTo({ horizontal, vertical }, duration = ZOOM_OUT_DURATION) {
     animateValues(
       { hr: this.state.horizontalResolution, vr: this.state.verticalResolution },
-      ZOOM_OUT_DURATION,
+      duration,
       {
-        hr: MAX_RESOLUTION,
-        vr: MAX_RESOLUTION,
+        hr: horizontal,
+        vr: vertical,
         onUpdate: (values) => {
           this.setState(() => ({ horizontalResolution: values.hr, verticalResolution: values.vr }));
         },
