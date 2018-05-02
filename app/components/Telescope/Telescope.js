@@ -6,14 +6,14 @@ import TelescopeFrame from './TelescopeFrame';
 import Mask from './Mask';
 import Image from './Image';
 
-import TELESCOPES_ENUM from './TelescopesEnum';
+import TELESCOPES_CONFIG from './TelescopeConfig';
 
 const testImage = 'https://polaris.slooh.com/chile/1/highmag/2018/04/04/2340_m43/m43_20180404_234018_0_kx3vo6_l.png';
 
 const MIN_RESOLUTION = 75;
 const MAX_RESOLUTION = 160;
 
-const MAX_DURATION = 8000;
+const MAX_DURATION = 4000;
 const ZOOM_OUT_DURATION = MAX_DURATION / 2;
 
 class Telescope extends Component {
@@ -149,14 +149,14 @@ class Telescope extends Component {
             <div>
               <div className="faux-navigation">
                 <button onClick={() => {
-                  this.handleTelescopeChange(TELESCOPES_ENUM.TELESCOPE_ONE);
+                  this.handleTelescopeChange(null);
                 }}
                 >
                   Telescope One
                 </button>
 
                 <button onClick={() => {
-                  this.handleTelescopeChange(TELESCOPES_ENUM.TELESCOPE_TWO);
+                  this.handleTelescopeChange(null);
                 }}
                 >
                   Telescope Two
