@@ -21,6 +21,7 @@ export function generateRow(
   increment = 5,
   rowConfiguration = ROW_CONFIG.TOP,
   style = {},
+  isGridVisible = false,
 ) {
   if (!(rowConfiguration instanceof ROW_CONFIG)) {
     warnClient();

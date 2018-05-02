@@ -26,10 +26,25 @@ function generateLine(dimension, resolution, spacing, currentX, increment, style
 }
 
 const GridLine = ({
-  dimension, resolution, spacing, currentX, increment, style,
+  dimension,
+  resolution,
+  spacing,
+  currentX,
+  increment,
+  style,
 }) => (
-  <g>
+  <g className="grid-line">
     {generateLine(dimension, resolution, spacing, currentX, increment, style)}
+
+    <style jsx>
+      {
+        `
+          .grid-line {
+            transition: 0.25s opacity ease-in-out;
+          }
+        `
+      }
+    </style>
   </g>
 );
 
