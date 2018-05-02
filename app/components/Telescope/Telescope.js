@@ -70,15 +70,20 @@ class Telescope extends Component {
   }
 
   transitionTo({ horizontal, vertical }, duration = ZOOM_OUT_DURATION) {
+    const { horizontalResolution, verticalResolution } = this.state;
     animateValues(
-      { hr: this.state.horizontalResolution, vr: this.state.verticalResolution },
+      { hr: horizontalResolution, vr: verticalResolution },
       duration,
       {
         hr: horizontal,
         vr: vertical,
         onUpdate: (values) => {
-          this.setState(() => ({ horizontalResolution: values.hr, verticalResolution: values.vr }));
+          this.setState(() => ({
+            horizontalResolution: values.hr,
+            verticalResolution: values.vr,
+          }));
         },
+        onComplete: () => { console.log('Transition complete...'); },
         ease: easingFunctions.easeInOutQuad,
       },
     );
