@@ -1,4 +1,6 @@
-export default {
+import first from 'lodash/first';
+
+const telescopeConfig = {
   CANARY_ONE_HALF_METER: {
     key: 'CANARY_ONE_HALF_METER',
     name: 'Canary One Half Meter',
@@ -104,3 +106,12 @@ export default {
     },
   },
 };
+
+export default telescopeConfig;
+
+export function getTelescope(instrumentID) {
+  const telescopeNames = Object.keys(telescopeConfig);
+  const selectedTelescope = first(telescopeNames.filter(telescope => telescopeConfig[telescope].instrumentID === instrumentID));
+  console.log('selected telescope ->', selectedTelescope);
+  return telescopeConfig[selectedTelescope];
+}

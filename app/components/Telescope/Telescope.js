@@ -6,7 +6,7 @@ import TelescopeFrame from './TelescopeFrame';
 import Mask from './Mask';
 import Image from './Image';
 
-import TELESCOPES_CONFIG from './telescopeConfig';
+import TELESCOPES_CONFIG, { getTelescope } from './telescopeConfig';
 
 const testImage = 'https://polaris.slooh.com/chile/1/highmag/2018/04/04/2340_m43/m43_20180404_234018_0_kx3vo6_l.png';
 
@@ -59,8 +59,9 @@ class Telescope extends Component {
 
   componentWillReceiveProps({ activeTelescopeID, horizontalResolution, verticalResolution }) {
     // TODO: are we switching telescopes?
-    this.transitionZoomOut();
-    this.setState(() => ({ horizontalResolution, verticalResolution }));
+    if (activeTelescopeID !== this.props.activeTelescopeID) {
+      this.transitionZoomOut();
+    }
   }
 
   transitionTelescopeInterval = null;
@@ -77,11 +78,14 @@ class Telescope extends Component {
   }
 
   transitionZoomIn() {
+    const targetTelescope = getTelescope(this.props.activeTelescopeID);
+    console.log(targetTelescope);
+    //console.log(targetTelescope);
     this.transitionTo(
       this.telescopeTransitionComplete,
       {
-        horizontal: MIN_RESOLUTION,
-        vertical: MIN_RESOLUTION,
+        horizontal: targetTelescope.PORTAL.horizontal,
+        vertical: targetTelescope.PORTAL.vertical,
       },
     );
   }
