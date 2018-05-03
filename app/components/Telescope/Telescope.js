@@ -6,7 +6,7 @@ import TelescopeFrame from './TelescopeFrame';
 import Mask from './Mask';
 import Image from './Image';
 
-import TELESCOPES_CONFIG from './TelescopeConfig';
+import TELESCOPES_CONFIG from './telescopeConfig';
 
 const testImage = 'https://polaris.slooh.com/chile/1/highmag/2018/04/04/2340_m43/m43_20180404_234018_0_kx3vo6_l.png';
 

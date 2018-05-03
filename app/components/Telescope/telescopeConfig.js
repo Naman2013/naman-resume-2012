@@ -1,5 +1,6 @@
 export default {
   CANARY_ONE_HALF_METER: {
+    instrumentID: '76de934d-7909-11e6-a635-0eb2b1774883',
     FOV: {
       horizontal: 37,
       vertical: 37,
@@ -10,6 +11,7 @@ export default {
     },
   },
   CANARY_TWO_WIDE_FIELD: {
+    instrumentID: '8032dfaf-7909-11e6-a635-0eb2b1774883',
     FOV: {
       horizontal: 43,
       vertical: 43,
@@ -20,6 +22,7 @@ export default {
     },
   },
   CANARY_TWO_ULTRA_WIDE_FIELD: {
+    instrumentID: '88814408-7909-11e6-a635-0eb2b1774883',
     FOV: {
       horizontal: 107,
       vertical: 72,
@@ -30,6 +33,7 @@ export default {
     },
   },
   CANARY_THREE_DEEP_SKY: {
+    instrumentID: '905f9d8d-7909-11e6-a635-0eb2b1774883',
     FOV: {
       horizontal: 99,
       vertical: 75,
@@ -40,6 +44,7 @@ export default {
     },
   },
   CANARY_FOUR_SOLAR_SYSTEM: {
+    instrumentID: '97f58d52-7909-11e6-a635-0eb2b1774883',
     FOV: {
       horizontal: 16,
       vertical: 12,
@@ -50,6 +55,7 @@ export default {
     },
   },
   CANARY_FIVE_SOLAR: {
+    instrumentID: 'b0b33e71-7909-11e6-a635-0eb2b1774883',
     FOV: {
       horizontal: 37,
       vertical: 21,
@@ -60,6 +66,7 @@ export default {
     },
   },
   CHILE_ONE_WIDE_FIELD: {
+    instrumentID: 'cd31c5c9-7909-11e6-a635-0eb2b1774883',
     FOV: {
       horizontal: 31,
       vertical: 21,
@@ -70,6 +77,7 @@ export default {
     },
   },
   CHILE_ONE_ULTRA_WIDE_FIELD: {
+    instrumentID: 'd3ca2e16-7909-11e6-a635-0eb2b1774883',
     FOV: {
       horizontal: 82,
       vertical: 60,
