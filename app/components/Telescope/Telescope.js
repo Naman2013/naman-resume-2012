@@ -79,8 +79,6 @@ class Telescope extends Component {
 
   transitionZoomIn() {
     const targetTelescope = getTelescope(this.props.activeTelescopeID);
-    console.log(targetTelescope);
-    //console.log(targetTelescope);
     this.transitionTo(
       this.telescopeTransitionComplete,
       {
