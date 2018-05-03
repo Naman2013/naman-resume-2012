@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { storiesOf } from '@storybook/react';
 import { withKnobs, number } from '@storybook/addon-knobs';
+import first from 'lodash/first';
 
 import Telescope from '../app/components/Telescope';
 import telescopeConfig from '../app/components/Telescope/telescopeConfig';
@@ -11,6 +12,12 @@ import telescopeTwo from './assets/sample-telescope-images/Canary_Four_SS_Planet
 class FauxTelescopeDetailsPage extends Component {
   state = {
     currentTelescope: telescopeConfig.CANARY_ONE_HALF_METER,
+  };
+
+  handleTelescopeSelection = (event) => {
+    const instrumentID = event.target.getAttribute('data-instrument-id');
+    const nextInstrument = first(Object.keys(telescopeConfig).filter(telescope => telescopeConfig[telescope].instrumentID === instrumentID));
+    this.setState(() => ({ currentTelescope: telescopeConfig[nextInstrument] }));
   };
 
   render() {
@@ -25,7 +32,13 @@ class FauxTelescopeDetailsPage extends Component {
       <div style={{ width: '50%', margin: '0 auto' }}>
         <div className="telescope-navigation">
           {
-            TELESCOPES.map(telescope => <button>{telescopeConfig[telescope].name}</button>)
+            TELESCOPES.map(telescope => (
+              <button
+                data-instrument-id={telescopeConfig[telescope].instrumentID}
+                onClick={this.handleTelescopeSelection}
+              >
+                {telescopeConfig[telescope].name}
+              </button>))
           }
         </div>
 
