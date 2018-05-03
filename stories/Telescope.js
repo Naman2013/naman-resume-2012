@@ -9,12 +9,15 @@ import telescopeOne from './assets/sample-telescope-images/Canary_Four_SS_Normal
 import telescopeTwo from './assets/sample-telescope-images/Canary_Four_SS_Planetary_1679x1268.png';
 
 class FauxTelescopeDetailsPage extends Component {
-  state = {};
+  state = {
+    currentTelescope: telescopeConfig.CANARY_ONE_HALF_METER,
+  };
 
   render() {
-    const INITIAL_RESOLUTION = 75;
-    const horizontalResolutionKnob = number('Horizontal Resolution', INITIAL_RESOLUTION);
-    const verticalResolutionKnob = number('Vertical Resolution', INITIAL_RESOLUTION);
+    const { currentTelescope } = this.state;
+
+    const horizontalResolutionKnob = number('Horizontal Resolution', currentTelescope.PORTAL.horizontal);
+    const verticalResolutionKnob = number('Vertical Resolution', currentTelescope.PORTAL.vertical);
     const incrementKnob = number('Increment', 5);
     const TELESCOPES = Object.keys(telescopeConfig);
 
@@ -27,6 +30,7 @@ class FauxTelescopeDetailsPage extends Component {
         </div>
 
         <Telescope
+          activeTelescopeID={currentTelescope.instrumentID}
           horizontalResolution={horizontalResolutionKnob}
           verticalResolution={verticalResolutionKnob}
           increment={incrementKnob}
