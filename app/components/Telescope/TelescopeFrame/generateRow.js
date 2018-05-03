@@ -1,11 +1,9 @@
 import React from 'react';
-import uniqueId from 'lodash/uniqueId';
 
 import ROW_CONFIG from './rowConfigurationEnum';
-import CenterLine from './CenterLine';
+import Tick from './Tick';
 import GridLine from './GridLine';
 import Polyline from '../../SVG/Polyline';
-import CenterBar from "../../GlobalNavigation/CenterBar";
 
 function warnClient() {
   console.warn('Invalid row configuration provided');
@@ -57,28 +55,28 @@ export function generateRow(
       case ROW_CONFIG.TOP:
         if (i === 0) {
           // draw top center mark
-          ROW.push(<CenterLine
+          ROW.push(<Tick
             key={`polyline-center-top-${ELEMENT_KEY}`}
             points={`${MID_POINT}, 0 ${MID_POINT}, ${CENTER_TICK_LENGTH}`}
             style={style}
           />);
 
           // draw bottom center mark
-          ROW.push(<CenterLine
+          ROW.push(<Tick
             key={`polyline-center-bottom-${ELEMENT_KEY}`}
             points={`${MID_POINT}, ${dimension} ${MID_POINT}, ${(dimension - CENTER_TICK_LENGTH)}`}
             style={style}
           />);
 
           // draw left center tick
-          ROW.push(<CenterLine
+          ROW.push(<Tick
             key={`polyline-center-left-${ELEMENT_KEY}`}
             points={`${0}, ${MID_POINT}, ${CENTER_TICK_LENGTH}, ${MID_POINT}`}
             style={style}
           />);
 
           // draw right center tick
-          ROW.push(<CenterLine
+          ROW.push(<Tick
             key={`polyline-center-right-${ELEMENT_KEY}`}
             points={`${dimension}, ${MID_POINT} ${(dimension - CENTER_TICK_LENGTH)}, ${MID_POINT}`}
             style={style}
