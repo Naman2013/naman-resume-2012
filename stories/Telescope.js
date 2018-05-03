@@ -15,9 +15,8 @@ class FauxTelescopeDetailsPage extends Component {
   };
 
   handleTelescopeSelection = (event) => {
-    const instrumentID = event.target.getAttribute('data-instrument-id');
-    const nextInstrument = first(Object.keys(telescopeConfig).filter(telescope => telescopeConfig[telescope].instrumentID === instrumentID));
-    this.setState(() => ({ currentTelescope: telescopeConfig[nextInstrument] }));
+    const instrumentKey = event.target.getAttribute('data-instrument-key');
+    this.setState(() => ({ currentTelescope: telescopeConfig[instrumentKey] }));
   };
 
   render() {
@@ -34,7 +33,7 @@ class FauxTelescopeDetailsPage extends Component {
           {
             TELESCOPES.map(telescope => (
               <button
-                data-instrument-id={telescopeConfig[telescope].instrumentID}
+                data-instrument-key={telescopeConfig[telescope].key}
                 onClick={this.handleTelescopeSelection}
               >
                 {telescopeConfig[telescope].name}

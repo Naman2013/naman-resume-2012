@@ -1,5 +1,6 @@
 export default {
   CANARY_ONE_HALF_METER: {
+    key: 'CANARY_ONE_HALF_METER',
     name: 'Canary One Half Meter',
     instrumentID: '76de934d-7909-11e6-a635-0eb2b1774883',
     FOV: {
@@ -12,6 +13,7 @@ export default {
     },
   },
   CANARY_TWO_WIDE_FIELD: {
+    key: 'CANARY_TWO_WIDE_FIELD',
     name: 'Canary Two Wide Field',
     instrumentID: '8032dfaf-7909-11e6-a635-0eb2b1774883',
     FOV: {
@@ -24,6 +26,7 @@ export default {
     },
   },
   CANARY_TWO_ULTRA_WIDE_FIELD: {
+    key: 'CANARY_TWO_ULTRA_WIDE_FIELD',
     name: 'Canary Two Ultra Wide Field',
     instrumentID: '88814408-7909-11e6-a635-0eb2b1774883',
     FOV: {
@@ -36,6 +39,7 @@ export default {
     },
   },
   CANARY_THREE_DEEP_SKY: {
+    key: 'CANARY_THREE_DEEP_SKY',
     name: 'Canary Three Deep Sky',
     instrumentID: '905f9d8d-7909-11e6-a635-0eb2b1774883',
     FOV: {
@@ -48,6 +52,7 @@ export default {
     },
   },
   CANARY_FOUR_SOLAR_SYSTEM: {
+    key: 'CANARY_FOUR_SOLAR_SYSTEM',
     name: 'Canary Four Solar System',
     instrumentID: '97f58d52-7909-11e6-a635-0eb2b1774883',
     FOV: {
@@ -60,6 +65,7 @@ export default {
     },
   },
   CANARY_FIVE_SOLAR: {
+    key: 'CANARY_FIVE_SOLAR',
     name: 'Canary Five Solar',
     instrumentID: 'b0b33e71-7909-11e6-a635-0eb2b1774883',
     FOV: {
@@ -72,6 +78,7 @@ export default {
     },
   },
   CHILE_ONE_WIDE_FIELD: {
+    key: 'CHILE_ONE_WIDE_FIELD',
     name: 'Chile One Wide Field',
     instrumentID: 'cd31c5c9-7909-11e6-a635-0eb2b1774883',
     FOV: {
@@ -84,6 +91,7 @@ export default {
     },
   },
   CHILE_ONE_ULTRA_WIDE_FIELD: {
+    key: 'CHILE_ONE_ULTRA_WIDE_FIELD',
     name: 'Chile One Ultra Wide Field',
     instrumentID: 'd3ca2e16-7909-11e6-a635-0eb2b1774883',
     FOV: {
