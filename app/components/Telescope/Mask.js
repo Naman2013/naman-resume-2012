@@ -15,7 +15,7 @@ const Mask = ({ isVisible }) => (
     <style jsx>
       {`
         .mask {
-          transition: opacity 0.5s ease-in-out;
+          transition: opacity 0.25s ease-in-out;
         }
       `}
     </style>
