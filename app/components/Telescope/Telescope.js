@@ -18,6 +18,7 @@ const ZOOM_OUT_DURATION = MAX_DURATION / 2;
 
 class Telescope extends Component {
   static propTypes = {
+    activeTelescopeID: PropTypes.string.isRequired,
     verticalResolution: PropTypes.number,
     horizontalResolution: PropTypes.number,
     increment: PropTypes.number,
@@ -56,7 +57,7 @@ class Telescope extends Component {
     },
   };
 
-  componentWillReceiveProps({ horizontalResolution, verticalResolution }) {
+  componentWillReceiveProps({ activeTelescopeID, horizontalResolution, verticalResolution }) {
     // TODO: are we switching telescopes?
     this.transitionZoomOut();
     this.setState(() => ({ horizontalResolution, verticalResolution }));
@@ -86,7 +87,7 @@ class Telescope extends Component {
   }
 
   telescopeTransitionComplete() {
-    this.setState(() => ({ isTransitioningTelescope: false, }));
+    this.setState(() => ({ isTransitioningTelescope: false }));
   }
 
   transitionTo(
@@ -121,12 +122,6 @@ class Telescope extends Component {
     this.setState({ portalDimensions: { ...contentBox.bounds } });
   }
 
-  handleTelescopeChange(targetTelescope) {
-    this.setState(prevState => ({
-      resolution: (prevState.resolution * 2),
-    }));
-  }
-
   render() {
     const {
       portalDimensions: { width, height },
@@ -147,22 +142,6 @@ class Telescope extends Component {
         {
           ({ measureRef }) => (
             <div>
-              <div className="faux-navigation">
-                <button onClick={() => {
-                  this.handleTelescopeChange(null);
-                }}
-                >
-                  Telescope One
-                </button>
-
-                <button onClick={() => {
-                  this.handleTelescopeChange(null);
-                }}
-                >
-                  Telescope Two
-                </button>
-              </div>
-
               <div
                 ref={measureRef}
                 className="portal"
