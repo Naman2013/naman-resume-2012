@@ -26,7 +26,7 @@ export function animateValues(values, duration, options) {
   const start = Date.now();
 
   // properties for controlling animation flow
-  let isCanceled = false;
+  let isComplete = false;
 
   // Create a map <key: [from, to]>
   const animationMap = Object.keys(values).reduce((map, key) => {
@@ -54,7 +54,7 @@ export function animateValues(values, duration, options) {
     });
 
     // If complete..
-    if (t >= 1 || isCanceled) {
+    if (t >= 1 || isComplete) {
       // Final update for all keys
       keys.forEach(key => (values[key] = options[key]));
       onUpdate(values);
@@ -69,10 +69,10 @@ export function animateValues(values, duration, options) {
   animation();
 
   // API provided to control the animation
+  // TODO: send back the time remaining when the animation was cancled, to allow for chaining
   return {
     cancel() {
-      console.log('canceling...');
-      isCanceled = true;
+      isComplete = true;
     },
   };
 }
