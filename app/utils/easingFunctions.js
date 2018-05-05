@@ -1,3 +1,11 @@
+function linearInterpolation(source, target, amount) {
+  return source + amount * (target - source);
+}
+
+// Validation methods
+const checkNum = n => (typeof n === 'number' ? n : null);
+const checkFunc = f => (typeof f === 'function' ? f : _ => _);
+
 /**
  @example
  const a = document.getElementById('a')
@@ -9,14 +17,7 @@
   })
  */
 export function animateValues(values, duration, options) {
-  // Linear interpolation
-  const lerp = (source, target, amount) => source + amount * (target - source);
-
-  // Validation methods
-  const checkNum = n => (typeof n === 'number' ? n : null);
-  const checkFunc = f => (typeof f === 'function' ? f : _ => _);
-
-  // Ensure methods.
+  // validate options
   const onComplete = checkFunc(options.onComplete);
   const onUpdate = checkFunc(options.onUpdate);
   const ease = checkFunc(options.ease);
@@ -24,11 +25,14 @@ export function animateValues(values, duration, options) {
   // Animation start time
   const start = Date.now();
 
+  // properties for controlling animation flow
+  let isCanceled = false;
+
   // Create a map <key: [from, to]>
   const animationMap = Object.keys(values).reduce((map, key) => {
-    const _from = checkNum(values[key]);
-    const _to = checkNum(options[key]);
-    if (_from !== null && _to !== null) map[key] = [_from, _to];
+    const from = checkNum(values[key]);
+    const to = checkNum(options[key]);
+    if (from !== null && to !== null) { map[key] = [from, to]; }
     return map;
   }, {});
 
@@ -43,25 +47,34 @@ export function animateValues(values, duration, options) {
     // Update all values using 't'
     keys.forEach((key) => {
       // If both 'from' and 'to' are numbers: animate!
-      const [_from, _to] = animationMap[key];
-      const progress = ease(t, _from, _to, duration);
+      const [from, to] = animationMap[key];
+      const progress = ease(t, from, to, duration);
       // Update value
-      values[key] = lerp(_from, _to, progress);
+      values[key] = linearInterpolation(from, to, progress);
     });
 
     // If complete..
-    if (t >= 1) {
+    if (t >= 1 || isCanceled) {
       // Final update for all keys
       keys.forEach(key => (values[key] = options[key]));
       onUpdate(values);
       onComplete(values);
     } else {
-      // Run update callback and loop until finished
+      // using recursion to render the next frame of the animation until exit
       onUpdate(values);
-      requestAnimationFrame(animation);
+      window.requestAnimationFrame(animation);
     }
   };
+
   animation();
+
+  // API provided to control the animation
+  return {
+    cancel() {
+      console.log('canceling...');
+      isCanceled = true;
+    },
+  };
 }
 
 // https://gist.github.com/gre/1650294

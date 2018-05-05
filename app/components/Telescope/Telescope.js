@@ -11,9 +11,9 @@ import TELESCOPES_CONFIG, { getTelescope } from './telescopeConfig';
 const testImage = 'https://polaris.slooh.com/chile/1/highmag/2018/04/04/2340_m43/m43_20180404_234018_0_kx3vo6_l.png';
 
 const MIN_RESOLUTION = 75;
-const MAX_RESOLUTION = 160;
+const MAX_RESOLUTION = 100;
 
-const MAX_DURATION = 4000;
+const MAX_DURATION = 10000;
 const ZOOM_OUT_DURATION = MAX_DURATION / 2;
 
 class Telescope extends Component {
@@ -58,17 +58,23 @@ class Telescope extends Component {
   };
 
   componentWillReceiveProps({ activeTelescopeID, horizontalResolution, verticalResolution }) {
-    // TODO: are we switching telescopes?
     if (activeTelescopeID !== this.props.activeTelescopeID) {
       this.transitionZoomOut();
     }
   }
 
-  transitionTelescopeInterval = null;
+  currentZoomInTransition = null;
+  currentZoomOutTransition = null;
 
   transitionZoomOut() {
     this.setState(() => ({ isTransitioningTelescope: true }));
-    this.transitionTo(
+    console.log(this.currentZoomOutTransition);
+    if (this.currentZoomOutTransition) this.currentZoomOutTransition.cancel();
+    if (this.currentZoomInTransition) this.currentZoomInTransition.cancel();
+
+    // TODO: zoom out duration is remaining from the previous zoom
+    // TODO: if zooming in duration is default time to zoom out minus the remaining time on zoom in
+    this.currentZoomOutTransition = this.transitionTo(
       this.transitionZoomIn,
       {
         horizontal: MAX_RESOLUTION,
@@ -79,7 +85,7 @@ class Telescope extends Component {
 
   transitionZoomIn() {
     const targetTelescope = getTelescope(this.props.activeTelescopeID);
-    this.transitionTo(
+    this.currentZoomInTransition = this.transitionTo(
       this.telescopeTransitionComplete,
       {
         horizontal: targetTelescope.PORTAL.horizontal,
@@ -98,7 +104,9 @@ class Telescope extends Component {
     duration = ZOOM_OUT_DURATION,
   ) {
     const { horizontalResolution, verticalResolution } = this.state;
-    animateValues(
+
+    // returns a control interface that will allow us to control an animation that is already running
+    return animateValues(
       { hr: horizontalResolution, vr: verticalResolution },
       duration,
       {
