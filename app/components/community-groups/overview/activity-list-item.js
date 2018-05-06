@@ -79,12 +79,12 @@ const ActivityListItem = ({
           threadId,
           showAllComments: false,
         })}>Close Comments</div>
-        {displayedComments.length > 0 ? <CommentList
+        <CommentList
+          comments={comments}
           displayedComments={displayedComments}
           threadId={threadId}
           topicId={topicId}
-        /> :
-        <div>No Comments to display</div>}
+        />
       </div> : null}
     </div>
     <style jsx>{`

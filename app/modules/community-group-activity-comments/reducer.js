@@ -76,14 +76,14 @@ export default createReducer(initialState, {
   [UPDATE_TOGGLE_GROUP_ACTIVITY_COMMENT_DISPLAY_LIST](state, { payload }) {
     const {
       page,
-      replyId,
+      threadId,
       displayedComments,
     } = payload;
     const newDisplayedState = cloneDeep(state.allDisplayedComments);
     const newAllState = cloneDeep(state.allComments);
-    newDisplayedState[replyId] = displayedComments;
-    if (newAllState[replyId]) {
-      newAllState[replyId].page = page;
+    newDisplayedState[threadId] = displayedComments;
+    if (newAllState[threadId]) {
+      newAllState[threadId].page = page;
     }
 
     return {
@@ -104,11 +104,11 @@ export default createReducer(initialState, {
     const { threadId, reply } = payload;
     const newAllComments = cloneDeep(state.allComments);
     const newAllDisplayedComments = cloneDeep(state.allDisplayedComments);
+    const lastPage = Math.ceil((newAllComments[threadId] && newAllComments[threadId].replies.length) / state.paginationCount)
     if (payload.apiError === false && newAllComments[threadId] && newAllComments[threadId].replies) {
        newAllComments[threadId].replies = [].concat(newAllComments[threadId].replies, Object.assign({ likesCount: 0}, reply));
     }
-
-    if (newAllComments[threadId] && newAllComments[threadId].showAllComments && newAllDisplayedComments[threadId]) {
+    if (newAllComments[threadId] && (newAllComments[threadId].page === lastPage) && newAllDisplayedComments[threadId]) {
        newAllDisplayedComments[threadId] = [].concat(newAllDisplayedComments[threadId], reply.replyId)
     }
 

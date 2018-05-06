@@ -29,7 +29,6 @@ class ReplyForm extends Component {
   static propTypes = {
     avatarURL: string,
     disableButton: bool,
-    replyId: number.isRequired,
     showSubmitError: bool,
     showSubmitLoader: bool,
     submitReply: func.isRequired,
@@ -53,7 +52,6 @@ class ReplyForm extends Component {
     const {
       handleSubmit,
       reply,
-      replyId,
       threadId,
       topicId,
       submitReply,
@@ -62,7 +60,6 @@ class ReplyForm extends Component {
 
     submitReply({
       content: replyText,
-      replyTo: replyId,
       threadId,
       topicId,
     });

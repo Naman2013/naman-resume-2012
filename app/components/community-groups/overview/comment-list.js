@@ -64,12 +64,12 @@ class CommentList extends Component {
   handlePageChange = (paginatedSet, page) => {
     const {
       actions,
-      replyId,
+      threadId,
     } = this.props;
     // make call to update page and displayed replies here
     actions.updateCommentsDisplayList({
       page,
-      replyId,
+      threadId,
       displayedComments: paginatedSet,
     });
   }
@@ -77,36 +77,42 @@ class CommentList extends Component {
   render() {
     const {
       actions,
+      comments,
       displayedComments,
       paginationCount,
-      replyId,
+      threadId,
       submitErrorId,
       submitId,
       submitted,
-      threadId,
       topicId,
       user,
     } = this.props;
-    const showSubmitLoader = submitId === replyId;
-    const showSubmitError = submitErrorId === replyId;
-    const disableReplyButton = !!(submitId && submitId !== replyId);
+    const showSubmitLoader = submitId === threadId;
+    const showSubmitError = submitErrorId === threadId;
+    const disableReplyButton = !!(submitId && submitId !== threadId);
     return (
       <div className="comment" key={threadId}>
         <CommentForm
           avatarURL={user.avatarURL}
           disableButton={disableReplyButton}
           key={uniqueId()}
-          replyId={replyId}
+          threadId={threadId}
           showSubmitError={showSubmitError}
           showSubmitLoader={showSubmitLoader}
           submitReply={actions.replyToActivity}
-          submitted={submitted[replyId]}
-          threadId={threadId}
+          submitted={submitted[threadId]}
           topicId={topicId}
         />
         {displayedComments.map(displayedComment => (
           <CommentListItem {...displayedComment} />
         ))}
+        {displayedComments.length > 0 && <PaginateSet
+          handlePageChange={this.handlePageChange}
+          fullDataSet={comments.replies}
+          count={paginationCount}
+          totalCount={comments.replies.length}
+          page={comments.page}
+        />}
         <style jsx>{`
         `}</style>
       </div>
