@@ -1,0 +1,151 @@
+import cloneDeep from 'lodash/cloneDeep';
+import take from 'lodash/take';
+import createReducer from '../utils/createReducer';
+
+import {
+  // ASTRONOMER_REPLY_UPDATE_SUBMITTED,
+  FETCH_GROUP_ACTIVITY_COMMENTS_FAIL,
+  FETCH_GROUP_ACTIVITY_COMMENTS_START,
+  FETCH_GROUP_ACTIVITY_COMMENTS_SUCCESS,
+  // REPLY_TO_ASTRONOMER_ANSWER_FAIL,
+  // REPLY_TO_ASTRONOMER_ANSWER_START,
+  // REPLY_TO_ASTRONOMER_ANSWER_SUCCESS,
+  // REPLY_TO_ASTRONOMER_ANSWER,
+  TOGGLE_ALL_GROUP_ACTIVITY_COMMENTS,
+  UPDATE_TOGGLE_GROUP_ACTIVITY_COMMENT_DISPLAY_LIST,
+} from './actions';
+
+const initialState = {
+  fetchingObj: {},
+  error: false,
+  paginationCount: 5,
+  resultsCount: 0,
+  allComments: {},
+  allDisplayedComments: {},
+  submitId: 0,
+  submitErrorId: 0,
+  submitted: {},
+};
+
+export default createReducer(initialState, {
+  [FETCH_GROUP_ACTIVITY_COMMENTS_START](state, { payload }) {
+    const { threadId } = payload;
+    const newFetching = cloneDeep(state.fetchingObj);
+    newFetching[threadId] = true;
+    return {
+      ...state,
+      fetchingObj: newFetching,
+    };
+  },
+  [FETCH_GROUP_ACTIVITY_COMMENTS_SUCCESS](state, { payload }) {
+    const { replies, threadId, resultsCount } = payload;
+    const newAllComments = cloneDeep(state.allComments);
+    const newAllDisplayedComments = cloneDeep(state.allDisplayedComments);
+    const newFetching = cloneDeep(state.fetchingObj);
+    newAllComments[threadId] = {
+      replies,
+      showAllComments: true, // always display on fetch
+      page: 1,
+    };
+    newAllDisplayedComments[threadId] = (replies && replies.length > 0) ?
+      take(replies, state.paginationCount)
+        .map(reply => reply.replyId) :
+      [];
+
+    newFetching[threadId] = false;
+    return {
+      ...state,
+      fetchingObj: newFetching,
+      allComments: newAllComments,
+      allDisplayedComments: newAllDisplayedComments,
+      resultsCount,
+    };
+  },
+  [FETCH_GROUP_ACTIVITY_COMMENTS_FAIL](state, { payload }) {
+    const { threadId } = payload;
+    const newFetching = cloneDeep(state.fetchingObj);
+    newFetching[threadId] = false;
+    return {
+      ...state,
+      fetchingObj: newFetching,
+      error: true,
+      allComments: {},
+      allDisplayedComments: {},
+      resultsCount: 0,
+    };
+  },
+  // [UPDATE_TOGGLE_GROUP_ACTIVITY_COMMENT_DISPLAY_LIST](state, { payload }) {
+  //   const {
+  //     page,
+  //     replyId,
+  //     displayedReplies,
+  //   } = payload;
+  //   const newDisplayedState = cloneDeep(state.allDisplayedComments);
+  //   const newAllState = cloneDeep(state.allComments);
+  //   newDisplayedState[replyId] = displayedReplies;
+  //   if (newAllState[replyId]) {
+  //     newAllState[replyId].page = page;
+  //   }
+  //
+  //   return {
+  //     ...state,
+  //     allComments: newAllState,
+  //     allDisplayedComments: newDisplayedState,
+  //   };
+  // },
+  // [REPLY_TO_ASTRONOMER_ANSWER_START](state, { payload }) {
+  //   const { replyTo } = payload;
+  //   return {
+  //     ...state,
+  //     submitId: replyTo,
+  //     submitErrorId: 0,
+  //   };
+  // },
+  // [REPLY_TO_ASTRONOMER_ANSWER_SUCCESS](state, { payload }) {
+  //   const { replyTo, reply } = payload;
+  //   const newAllComments = cloneDeep(state.allComments);
+  //   const newAllDisplayedComments = cloneDeep(state.allDisplayedComments);
+  //   if (payload.apiError === false && newAllComments[replyTo] && newAllComments[replyTo].replies) {
+  //      newAllComments[replyTo].replies = [].concat(newAllComments[replyTo].replies, Object.assign({ likesCount: 0}, reply));
+  //   }
+  //
+  //   if (state.showAllComments && newAllDisplayedComments[replyTo]) {
+  //      newAllDisplayedComments[replyTo] = [].concat(newAllDisplayedComments[replyTo], reply.replyId)
+  //   }
+  //
+  //   return {
+  //     ...state,
+  //     submitId: 0,
+  //     allComments: newAllComments,
+  //     allDisplayedComments: newAllDisplayedComments,
+  //   };
+  // },
+  // [REPLY_TO_ASTRONOMER_ANSWER_FAIL](state, { payload }) {
+  //   const { replyTo } = payload;
+  //   return {
+  //     ...state,
+  //     submitId: 0,
+  //     submitErrorId: replyTo,
+  //   };
+  // },
+  // [ASTRONOMER_REPLY_UPDATE_SUBMITTED](state, { payload }) {
+  //   const { submitted, replyTo } = payload;
+  //   const newSubmitted = cloneDeep(state.submitted);
+  //   newSubmitted[replyTo] = submitted;
+  //   return {
+  //     ...state,
+  //     submitted: newSubmitted,
+  //   };
+  // },
+  [TOGGLE_ALL_GROUP_ACTIVITY_COMMENTS](state, { payload }) {
+    const { threadId, showAllComments } = payload;
+    const newAllComments = cloneDeep(state.allComments);
+    if (newAllComments[threadId]) {
+      newAllComments[threadId].showAllComments = showAllComments;
+    }
+    return {
+      ...state,
+      allComments: newAllComments,
+    };
+  },
+});

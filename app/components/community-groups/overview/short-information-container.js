@@ -12,6 +12,7 @@ import { bindActionCreators } from 'redux';
 import ShortInformation from './short-information';
 import MembersList from './members-list';
 import ActivityForm from './activity-form';
+import ActivityList from './activity-list';
 import {
   darkBlueGray,
   white,
@@ -46,7 +47,8 @@ class ShortInformationOverview extends Component {
     detailsList: shape({}),
     heading: string,
     pageMeta: shape({
-      headingList: arrayOf(string)
+      headingList: arrayOf(string),
+      canPost: bool,
     }),
     joinOrLeaveGroup: func.isRequired,
     joinPrompt: string,
@@ -63,6 +65,7 @@ class ShortInformationOverview extends Component {
     heading: '',
     pageMeta: {
       headingList: [],
+      canPost: false,
     },
     joinPrompt: '',
     membersCount: 0,
@@ -93,12 +96,16 @@ class ShortInformationOverview extends Component {
     return (
       <div className="short-info">
         <div className="left-container">
-        {pageMeta.headingList.length > 0 && pageMeta.headingList.join(' ')}
-        <ActivityForm
-          user={user}
-          topicId={pageMeta.topicId}
-          forumId={pageMeta.forumId}
-        />
+          {pageMeta.headingList.length > 0 && pageMeta.headingList.join(' ')}
+          <ActivityForm
+            user={user}
+            canPost={pageMeta.canPost}
+            topicId={pageMeta.topicId}
+            forumId={pageMeta.forumId}
+            showJoinPrompt={showJoinPrompt}
+            joinOrLeaveGroup={joinOrLeaveGroup}
+          />
+          <ActivityList topicId={pageMeta.topicId} />
         </div>
         <aside className="right-container">
           <ShortInformation

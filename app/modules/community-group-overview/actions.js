@@ -1,5 +1,5 @@
 import axios from 'axios';
-
+import { fetchGroupActivity } from '../community-group-activity-list/actions';
 export const FETCH_GROUP_OVERVIEW_START = 'FETCH_GROUP_OVERVIEW_START';
 export const FETCH_GROUP_OVERVIEW_SUCCESS = 'FETCH_GROUP_OVERVIEW_SUCCESS';
 export const FETCH_GROUP_OVERVIEW_FAIL = 'FETCH_GROUP_OVERVIEW_FAIL';
@@ -122,6 +122,11 @@ export const fetchGroupOverviewPageMeta = ({
         discussionGroupId,
       }));
       if (!result.data.apiError) {
+        dispatch(fetchGroupActivity({
+          forumId: result.data.forumId,
+          topicId: result.data.topicId,
+          appendToList: false,
+        }));
         const display = (result.data.showGroupInformation &&  informationMap.showGroupInformation) ||
           (result.data.showGroupOverview && informationMap.showGroupOverview);
 

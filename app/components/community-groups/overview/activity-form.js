@@ -12,21 +12,27 @@ import { createThread } from '../../../services/discussions/create-thread';
 import { prepareThread } from '../../../services/discussions/prepare-thread';
 import deletePostImage from '../../../services/post-creation/delete-post-image';
 import setPostImages from '../../../modules/set-post-images';
-
 import { black, darkBlueGray, white } from '../../../styles/variables/colors';
 import { dropShadowedContainer } from '../styles';
+
 const {
+  bool,
   number,
+  string,
 } = PropTypes;
 
 class ActivityForm extends Component {
   static propTypes = {
     topicId: number,
     forumId: number,
+    canPost: bool,
+    placeholder: string,
   }
   static defaultProps = {
     topicId: 0,
     forumId: 0,
+    canPost: false,
+    placeholder: 'Tell us something...'
   }
 
   state = {
@@ -81,12 +87,11 @@ class ActivityForm extends Component {
       token: user.token,
       cid: user.cid,
       S3URLs,
-      callSource: 'qanda',
+      callSource: 'groups',
       content: activityText,
       topicId,
       forumId,
     }).then((res) => {
-
       if (!res.data.apiError) {
         this.setState({
           showPopup: true,
@@ -160,12 +165,20 @@ class ActivityForm extends Component {
 
   render () {
     const {
+      placeholder,
+      showJoinPrompt,
+      joinOrLeaveGroup,
+      canPost,
+    } = this.props;
+
+    const {
       activityText,
       showPopup,
       modalDescription,
       uploadError,
       uploadLoading,
     } = this.state;
+
     return (
       <div className="form-container">
         <form className="form">
@@ -174,7 +187,7 @@ class ActivityForm extends Component {
             onChange={this.onTextChange}
             maxLength={100}
             value={activityText}
-            placeholder="Tell us something..."
+            placeholder={placeholder}
           />
           <div className="flex-right">{activityText.length}/100</div>
           <div className="image-upload">
@@ -191,7 +204,10 @@ class ActivityForm extends Component {
             </span>
           </div>
           <div className="flex-right">
-            <button type="button" className="activity-button" onClick={this.submitForm}>Post</button>
+            {canPost ?
+              <button type="button" className="activity-button" onClick={this.submitForm}>Post</button> :
+              <button type="button" className="activity-button" onClick={joinOrLeaveGroup}>Join to make a post</button>
+            }
           </div>
         </form>
         <ModalGeneric

@@ -16,6 +16,7 @@ import {
 import MembersList from './members-list';
 import FullInformation from './full-information';
 import ActivityForm from './activity-form';
+import ActivityList from './activity-list';
 
 const {
   arrayOf,
@@ -48,6 +49,7 @@ class FullInformationOverview extends Component {
     heading: string,
     pageMeta: shape({
       headingList: arrayOf(string),
+      canPost: bool,
     }),
     joinOrLeaveGroup: func.isRequired,
     joinPrompt: string,
@@ -64,6 +66,7 @@ class FullInformationOverview extends Component {
     heading: '',
     pageMeta: {
       headingList: [],
+      canPost: false,
     },
     joinPrompt: '',
     showJoinPrompt: false,
@@ -105,10 +108,14 @@ class FullInformationOverview extends Component {
           <div className="flex-child left-container">
             {pageMeta.headingList.length > 0 && pageMeta.headingList.join(' ')}
             <ActivityForm
-              user={user}
-              topicId={pageMeta.topicId}
+              canPost={pageMeta.canPost}
               forumId={pageMeta.forumId}
+              joinOrLeaveGroup={joinOrLeaveGroup}
+              showJoinPrompt={showJoinPrompt}
+              topicId={pageMeta.topicId}
+              user={user}
             />
+            <ActivityList topicId={pageMeta.topicId} />
           </div>
           <aside className="flex-child right-container">
             <MembersList

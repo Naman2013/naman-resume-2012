@@ -16,7 +16,6 @@ import { TOGGLE_JOIN_GROUP_SUCCESS } from '../community-groups/actions';
 const initialState = {
   fetching: false,
   error: false,
-  count: 12,
   pageMeta: {},
   membersList: [],
   membersCount: 0,
@@ -67,18 +66,21 @@ export default createReducer(initialState, {
   },
   [TOGGLE_JOIN_GROUP_SUCCESS](state, { payload }) {
     const {
+      canPost,
       askPrompt,
       joinPrompt,
       showAskPrompt,
       showJoinPrompt,
     } = payload;
+    console.log('state', state)
+    console.log('new canpost', canPost)
     return {
       ...state,
       // askPrompt,
       joinPrompt,
       // showAskPrompt,
       showJoinPrompt,
-      pageMeta: Object.assign({}, state.pageMeta, { joinPrompt, showJoinPrompt })
+      pageMeta: Object.assign({}, state.pageMeta, { joinPrompt, showJoinPrompt, canPost })
     };
   },
 
@@ -107,5 +109,4 @@ export default createReducer(initialState, {
       membersCallFetching: false,
     };
   },
-
 });
