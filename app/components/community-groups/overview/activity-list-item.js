@@ -41,6 +41,7 @@ const ActivityListItem = ({
   replyCount,
   showLikePrompt,
   threadId,
+  topicId,
   toggleAllCommentsAndDisplay,
   displayedComments,
 }) => (
@@ -68,17 +69,21 @@ const ActivityListItem = ({
         <span>Comments ({replyCount})</span>
       </div>
       <div className="action-right">
-        {(!comments.showAllComments && replyCount > 0) ? <div className="comment-action" onClick={() => toggleAllCommentsAndDisplay({
+        {!comments.showAllComments ? <div className="comment-action" onClick={() => toggleAllCommentsAndDisplay({
           threadId,
           showAllComments: true,
-        })}>View Comments</div> : null}
+        })}>{replyCount > 0 ? `View Comments` : `Add Comment`}</div> : null}
       </div>
       {comments.showAllComments ? <div>
         <div className="comment-action" onClick={() => toggleAllCommentsAndDisplay({
           threadId,
           showAllComments: false,
         })}>Close Comments</div>
-        {displayedComments.length > 0 ? <CommentList displayedComments={displayedComments} threadId={threadId} /> :
+        {displayedComments.length > 0 ? <CommentList
+          displayedComments={displayedComments}
+          threadId={threadId}
+          topicId={topicId}
+        /> :
         <div>No Comments to display</div>}
       </div> : null}
     </div>

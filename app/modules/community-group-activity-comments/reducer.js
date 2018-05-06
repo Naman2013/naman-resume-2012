@@ -3,14 +3,13 @@ import take from 'lodash/take';
 import createReducer from '../utils/createReducer';
 
 import {
-  // ASTRONOMER_REPLY_UPDATE_SUBMITTED,
+  ACTIVITY_REPLY_UPDATE_SUBMITTED,
   FETCH_GROUP_ACTIVITY_COMMENTS_FAIL,
   FETCH_GROUP_ACTIVITY_COMMENTS_START,
   FETCH_GROUP_ACTIVITY_COMMENTS_SUCCESS,
-  // REPLY_TO_ASTRONOMER_ANSWER_FAIL,
-  // REPLY_TO_ASTRONOMER_ANSWER_START,
-  // REPLY_TO_ASTRONOMER_ANSWER_SUCCESS,
-  // REPLY_TO_ASTRONOMER_ANSWER,
+  REPLY_TO_ACTIVITY_FAIL,
+  REPLY_TO_ACTIVITY_START,
+  REPLY_TO_ACTIVITY_SUCCESS,
   TOGGLE_ALL_GROUP_ACTIVITY_COMMENTS,
   UPDATE_TOGGLE_GROUP_ACTIVITY_COMMENT_DISPLAY_LIST,
 } from './actions';
@@ -74,69 +73,69 @@ export default createReducer(initialState, {
       resultsCount: 0,
     };
   },
-  // [UPDATE_TOGGLE_GROUP_ACTIVITY_COMMENT_DISPLAY_LIST](state, { payload }) {
-  //   const {
-  //     page,
-  //     replyId,
-  //     displayedReplies,
-  //   } = payload;
-  //   const newDisplayedState = cloneDeep(state.allDisplayedComments);
-  //   const newAllState = cloneDeep(state.allComments);
-  //   newDisplayedState[replyId] = displayedReplies;
-  //   if (newAllState[replyId]) {
-  //     newAllState[replyId].page = page;
-  //   }
-  //
-  //   return {
-  //     ...state,
-  //     allComments: newAllState,
-  //     allDisplayedComments: newDisplayedState,
-  //   };
-  // },
-  // [REPLY_TO_ASTRONOMER_ANSWER_START](state, { payload }) {
-  //   const { replyTo } = payload;
-  //   return {
-  //     ...state,
-  //     submitId: replyTo,
-  //     submitErrorId: 0,
-  //   };
-  // },
-  // [REPLY_TO_ASTRONOMER_ANSWER_SUCCESS](state, { payload }) {
-  //   const { replyTo, reply } = payload;
-  //   const newAllComments = cloneDeep(state.allComments);
-  //   const newAllDisplayedComments = cloneDeep(state.allDisplayedComments);
-  //   if (payload.apiError === false && newAllComments[replyTo] && newAllComments[replyTo].replies) {
-  //      newAllComments[replyTo].replies = [].concat(newAllComments[replyTo].replies, Object.assign({ likesCount: 0}, reply));
-  //   }
-  //
-  //   if (state.showAllComments && newAllDisplayedComments[replyTo]) {
-  //      newAllDisplayedComments[replyTo] = [].concat(newAllDisplayedComments[replyTo], reply.replyId)
-  //   }
-  //
-  //   return {
-  //     ...state,
-  //     submitId: 0,
-  //     allComments: newAllComments,
-  //     allDisplayedComments: newAllDisplayedComments,
-  //   };
-  // },
-  // [REPLY_TO_ASTRONOMER_ANSWER_FAIL](state, { payload }) {
-  //   const { replyTo } = payload;
-  //   return {
-  //     ...state,
-  //     submitId: 0,
-  //     submitErrorId: replyTo,
-  //   };
-  // },
-  // [ASTRONOMER_REPLY_UPDATE_SUBMITTED](state, { payload }) {
-  //   const { submitted, replyTo } = payload;
-  //   const newSubmitted = cloneDeep(state.submitted);
-  //   newSubmitted[replyTo] = submitted;
-  //   return {
-  //     ...state,
-  //     submitted: newSubmitted,
-  //   };
-  // },
+  [UPDATE_TOGGLE_GROUP_ACTIVITY_COMMENT_DISPLAY_LIST](state, { payload }) {
+    const {
+      page,
+      replyId,
+      displayedComments,
+    } = payload;
+    const newDisplayedState = cloneDeep(state.allDisplayedComments);
+    const newAllState = cloneDeep(state.allComments);
+    newDisplayedState[replyId] = displayedComments;
+    if (newAllState[replyId]) {
+      newAllState[replyId].page = page;
+    }
+
+    return {
+      ...state,
+      allComments: newAllState,
+      allDisplayedComments: newDisplayedState,
+    };
+  },
+  [REPLY_TO_ACTIVITY_START](state, { payload }) {
+    const { replyTo } = payload;
+    return {
+      ...state,
+      submitId: replyTo,
+      submitErrorId: 0,
+    };
+  },
+  [REPLY_TO_ACTIVITY_SUCCESS](state, { payload }) {
+    const { threadId, reply } = payload;
+    const newAllComments = cloneDeep(state.allComments);
+    const newAllDisplayedComments = cloneDeep(state.allDisplayedComments);
+    if (payload.apiError === false && newAllComments[threadId] && newAllComments[threadId].replies) {
+       newAllComments[threadId].replies = [].concat(newAllComments[threadId].replies, Object.assign({ likesCount: 0}, reply));
+    }
+
+    if (newAllComments[threadId] && newAllComments[threadId].showAllComments && newAllDisplayedComments[threadId]) {
+       newAllDisplayedComments[threadId] = [].concat(newAllDisplayedComments[threadId], reply.replyId)
+    }
+
+    return {
+      ...state,
+      submitId: 0,
+      allComments: newAllComments,
+      allDisplayedComments: newAllDisplayedComments,
+    };
+  },
+  [REPLY_TO_ACTIVITY_FAIL](state, { payload }) {
+    const { replyTo } = payload;
+    return {
+      ...state,
+      submitId: 0,
+      submitErrorId: replyTo,
+    };
+  },
+  [ACTIVITY_REPLY_UPDATE_SUBMITTED](state, { payload }) {
+    const { submitted, replyTo } = payload;
+    const newSubmitted = cloneDeep(state.submitted);
+    newSubmitted[replyTo] = submitted;
+    return {
+      ...state,
+      submitted: newSubmitted,
+    };
+  },
   [TOGGLE_ALL_GROUP_ACTIVITY_COMMENTS](state, { payload }) {
     const { threadId, showAllComments } = payload;
     const newAllComments = cloneDeep(state.allComments);

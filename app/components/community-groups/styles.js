@@ -19,4 +19,5 @@ export const dropShadowedContainer = (`
 export const profPic = photoUrl => Object.assign(profilePhotoStyle(photoUrl), {
   height: '50px',
   width: '50px',
+  backgroundSize: 'cover',
 });

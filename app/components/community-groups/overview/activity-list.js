@@ -87,6 +87,7 @@ class ActivityList extends Component {
               comments={allComments[thread.threadId]}
               likeParams={likeParams}
               key={thread.threadId}
+              topicId={topicId}
               toggleAllCommentsAndDisplay={actions.toggleAllCommentsAndDisplay}
               displayedComments={allDisplayedCommentsObj}
             />)
