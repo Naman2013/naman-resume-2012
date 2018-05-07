@@ -68,7 +68,6 @@ class Telescope extends Component {
 
   transitionZoomOut() {
     this.setState(() => ({ isTransitioningTelescope: true }));
-    console.log(this.currentZoomOutTransition);
     if (this.currentZoomOutTransition) this.currentZoomOutTransition.cancel();
     if (this.currentZoomInTransition) this.currentZoomInTransition.cancel();
 

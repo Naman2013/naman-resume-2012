@@ -26,7 +26,9 @@ export function animateValues(values, duration, options) {
   const start = Date.now();
 
   // properties for controlling animation flow
-  let isComplete = false;
+  let remainingTime = duration;
+  let isCanceled = false;
+  let isForcedComplete = false;
 
   // Create a map <key: [from, to]>
   const animationMap = Object.keys(values).reduce((map, key) => {
@@ -44,6 +46,8 @@ export function animateValues(values, duration, options) {
     const now = Date.now();
     const t = duration > 0 ? (now - start) / duration : 1;
 
+    remainingTime = duration - (now - start);
+
     // Update all values using 't'
     keys.forEach((key) => {
       // If both 'from' and 'to' are numbers: animate!
@@ -54,11 +58,14 @@ export function animateValues(values, duration, options) {
     });
 
     // If complete..
-    if (t >= 1 || isComplete) {
+    if (t >= 1 || isCanceled || isForcedComplete) {
       // Final update for all keys
-      keys.forEach(key => (values[key] = options[key]));
+      keys.forEach((key) => { (values[key] = options[key]); });
       onUpdate(values);
-      onComplete(values);
+      console.log( duration - (now - start) );
+      if (!isCanceled) {
+        onComplete(values);
+      }
     } else {
       // using recursion to render the next frame of the animation until exit
       onUpdate(values);
@@ -69,10 +76,19 @@ export function animateValues(values, duration, options) {
   animation();
 
   // API provided to control the animation
-  // TODO: send back the time remaining when the animation was cancled, to allow for chaining
+  // TODO: send back the time remaining when the animation was canceled, to allow for chaining
   return {
+    // canceled animations will not call complete
     cancel() {
-      isComplete = true;
+      isCanceled = true;
+      return this;
+    },
+    stop() {
+      isForcedComplete = true;
+      return this;
+    },
+    getRemainingTime() {
+      return remainingTime;
     },
   };
 }
