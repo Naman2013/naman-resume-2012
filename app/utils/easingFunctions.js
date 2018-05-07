@@ -62,7 +62,6 @@ export function animateValues(values, duration, options) {
       // Final update for all keys
       keys.forEach((key) => { (values[key] = options[key]); });
       onUpdate(values);
-      console.log( duration - (now - start) );
       if (!isCanceled) {
         onComplete(values);
       }
