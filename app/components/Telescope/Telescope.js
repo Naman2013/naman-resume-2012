@@ -70,13 +70,18 @@ class Telescope extends Component {
     let remainingDuration = 0;
 
     this.setState(() => ({ isTransitioningTelescope: true }));
+
     if (this.currentZoomOutTransition) {
       remainingDuration = this.currentZoomOutTransition.cancel().getRemainingTime();
     }
-    if (this.currentZoomInTransition) this.currentZoomInTransition.cancel();
 
-    // TODO: zoom out duration is remaining from the previous zoom
-    // TODO: if zooming in duration is default time to zoom out minus the remaining time on zoom in
+    if (this.currentZoomInTransition) {
+      remainingDuration = ZOOM_OUT_DURATION - this.currentZoomInTransition.cancel().getRemainingTime();
+    }
+
+    this.currentZoomInTransition = null;
+    this.currentZoomOutTransition = null;
+
     this.currentZoomOutTransition = this.transitionTo(
       this.transitionZoomIn,
       {
