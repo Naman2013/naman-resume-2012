@@ -11,6 +11,7 @@ import moment from 'moment';
 import { likeReply } from '../../../services/discussions/like';
 import Heart from '../../common/heart/heart';
 import CommentList from './comment-list';
+import PulsePostThumbnails from '../../../components/pulse/pulse-post-image-thumbnails';
 import { dropShadowedContainer, profPic } from '../styles';
 import {
   darkBlueGray,
@@ -33,28 +34,34 @@ const ActivityListItem = ({
   content,
   creationDate,
   customerId,
+  displayedComments,
   displayName,
   likeParams,
   likePrompt,
   likesCount,
   membershipDisplay,
   replyCount,
+  S3Files,
   showLikePrompt,
   threadId,
-  topicId,
   toggleAllCommentsAndDisplay,
-  displayedComments,
+  topicId,
 }) => (
   <div className="activity-item" key={threadId}>
-  <div className="user-info">
-    <div style={profPic(avatarURL)} />
-    <div className="user-info-text">
-      <h5 dangerouslySetInnerHTML={{ __html: displayName }} />
-      <div dangerouslySetInnerHTML={{ __html: membershipDisplay }} />
+    <div className="user-info">
+      <div style={profPic(avatarURL)} />
+      <div className="user-info-text">
+        <h5 dangerouslySetInnerHTML={{ __html: displayName }} />
+        <div dangerouslySetInnerHTML={{ __html: membershipDisplay }} />
+      </div>
     </div>
-  </div>
-    <span className="date">Posted {`${moment(creationDate).fromNow()}`}</span>
-    <div dangerouslySetInnerHTML={{ __html: content }} />
+      <div className="activity-info">
+        <span className="date">Posted {`${moment(creationDate).fromNow()}`}</span>
+        {
+          S3Files && S3Files.length > 0 ? <PulsePostThumbnails images={S3Files} /> : null
+        }
+        <div className="activity-content" dangerouslySetInnerHTML={{ __html: content }} />
+    </div>
     <div className="activity-actions">
       <div className="action-left">
         <Heart
@@ -92,6 +99,14 @@ const ActivityListItem = ({
         ${dropShadowedContainer}
       }
 
+      .activity-info {
+        min-height: 150px;
+      }
+
+      .activity-content {
+        padding: 25px 0;
+      }
+
       .action-left {
         display: flex;
         flex-direction: row;
@@ -117,6 +132,7 @@ const ActivityListItem = ({
 ActivityListItem.defaultProps = {
   displayedComments:[],
   comments: {},
+  S3Files: [],
   threadReplies: {
     avatarURL: '',
     displayName: '',
@@ -139,6 +155,7 @@ ActivityListItem.propTypes = {
   replyCount: number.isRequired,
   comments: shape({}),
   showLikePrompt: bool.isRequired,
+  S3Files: arrayOf(string),
   threadId: number.isRequired,
   threadReplies: shape({
     page: number,
