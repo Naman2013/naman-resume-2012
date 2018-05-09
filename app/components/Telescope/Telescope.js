@@ -5,15 +5,15 @@ import easingFunctions, { animateValues } from 'utils/easingFunctions';
 import TelescopeFrame from './TelescopeFrame';
 import Mask from './Mask';
 import Image from './Image';
+import FOVCenterMarker from './FOVCenterMarker';
 
-import TELESCOPES_CONFIG, { getTelescope } from './telescopeConfig';
+import { getTelescope } from './telescopeConfig';
 
 const testImage = 'https://polaris.slooh.com/chile/1/highmag/2018/04/04/2340_m43/m43_20180404_234018_0_kx3vo6_l.png';
 
-const MIN_RESOLUTION = 75;
 const MAX_RESOLUTION = 100;
 
-const MAX_DURATION = 10000;
+const MAX_DURATION = 5000;
 const ZOOM_OUT_DURATION = MAX_DURATION / 2;
 
 class Telescope extends Component {
@@ -76,7 +76,8 @@ class Telescope extends Component {
     }
 
     if (this.currentZoomInTransition) {
-      remainingDuration = ZOOM_OUT_DURATION - this.currentZoomInTransition.cancel().getRemainingTime();
+      remainingDuration =
+        ZOOM_OUT_DURATION - this.currentZoomInTransition.cancel().getRemainingTime();
     }
 
     this.currentZoomInTransition = null;
@@ -152,6 +153,8 @@ class Telescope extends Component {
     } = this.state;
 
     const imageX = (imageDimensions.width - width) / 2;
+    const gridDimension = (width / horizontalResolution);
+    const CENTER_MARKER_GRID_WIDTH = 12;
 
     return (
       <Measure
@@ -181,6 +184,12 @@ class Telescope extends Component {
 
                   <Mask
                     isVisible={!isTransitioningTelescope}
+                  />
+
+                  <FOVCenterMarker
+                    gridDimension={gridDimension}
+                    gridWidth={CENTER_MARKER_GRID_WIDTH}
+                    canvasWidth={width}
                   />
 
                   <TelescopeFrame
