@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Mask = ({ isVisible }) => (
-  <g className="mask" style={{ opacity: (isVisible) ? 1 : 0 }}>
+const Mask = () => (
+  <g>
     <defs>
       <mask id="hole">
         <rect width="100%" height="100%" fill="white" />
@@ -11,23 +11,7 @@ const Mask = ({ isVisible }) => (
     </defs>
 
     <rect id="portal" x="0" y="0" width="100%" height="100%" mask="url(#hole)" />
-
-    <style jsx>
-      {`
-        .mask {
-          transition: opacity 0.25s ease-in-out;
-        }
-      `}
-    </style>
   </g>
 );
-
-Mask.propTypes = {
-  isVisible: PropTypes.bool,
-};
-
-Mask.defaultProps = {
-  isVisible: true,
-};
 
 export default Mask;

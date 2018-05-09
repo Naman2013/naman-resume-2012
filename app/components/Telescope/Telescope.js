@@ -6,6 +6,7 @@ import TelescopeFrame from './TelescopeFrame';
 import Mask from './Mask';
 import Image from './Image';
 import FOVCenterMarker from './FOVCenterMarker';
+import Fade from 'components/common/Fade';
 
 import { getTelescope } from './telescopeConfig';
 
@@ -182,15 +183,17 @@ class Telescope extends Component {
                     />
                   </g>
 
-                  <Mask
-                    isVisible={!isTransitioningTelescope}
-                  />
+                  <Fade isHidden={isTransitioningTelescope}>
+                    <Mask />
+                  </Fade>
 
-                  <FOVCenterMarker
-                    gridDimension={gridDimension}
-                    gridWidth={CENTER_MARKER_GRID_WIDTH}
-                    canvasWidth={width}
-                  />
+                  <Fade isHidden={!isTransitioningTelescope}>
+                    <FOVCenterMarker
+                      gridDimension={gridDimension}
+                      gridWidth={CENTER_MARKER_GRID_WIDTH}
+                      canvasWidth={width}
+                    />
+                  </Fade>
 
                   <TelescopeFrame
                     isGridVisible={isTransitioningTelescope}
