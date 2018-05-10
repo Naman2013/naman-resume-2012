@@ -5,10 +5,11 @@ import easingFunctions, { animateValues } from 'utils/easingFunctions';
 import TelescopeFrame from './TelescopeFrame';
 import Mask from './Mask';
 import Image from './Image';
-import FOVCenterMarker from './FOVCenterMarker';
+import FOVCenterMarker from './FieldOfView/FOVCenterMarker';
 import Fade from 'components/common/Fade';
 
 import { getTelescope } from './telescopeConfig';
+import FieldOfView from "./FieldOfView/FieldOfView";
 
 const testImage = 'https://polaris.slooh.com/chile/1/highmag/2018/04/04/2340_m43/m43_20180404_234018_0_kx3vo6_l.png';
 
@@ -154,8 +155,7 @@ class Telescope extends Component {
     } = this.state;
 
     const imageX = (imageDimensions.width - width) / 2;
-    const gridDimension = (width / horizontalResolution);
-    const CENTER_MARKER_GRID_WIDTH = 12;
+    const tickSpacing = (width / horizontalResolution);
 
     return (
       <Measure
@@ -188,9 +188,8 @@ class Telescope extends Component {
                   </Fade>
 
                   <Fade isHidden={!isTransitioningTelescope}>
-                    <FOVCenterMarker
-                      gridDimension={gridDimension}
-                      gridWidth={CENTER_MARKER_GRID_WIDTH}
+                    <FieldOfView
+                      tickSpacing={tickSpacing}
                       canvasWidth={width}
                     />
                   </Fade>

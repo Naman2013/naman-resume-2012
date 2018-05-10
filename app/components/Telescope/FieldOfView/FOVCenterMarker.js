@@ -1,15 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import isFinite from 'lodash/isFinite';
 
-const COVER_PERCENTAGE = 0.2;
 const DASHED_RECT_PERCENTAGE = 0.25;
 const DASHED_PERCENTAGE = 0.1;
+const CENTER_MARKER_GRID_WIDTH = 12;
 
-const FOVCenterMarker = ({ gridDimension, gridWidth, canvasWidth }) => {
-  if (!isFinite(COVER_PERCENTAGE)) return null;
-
-  const smallRectDimension = (gridWidth * gridDimension);
+const FOVCenterMarker = ({ tickSpacing, canvasWidth }) => {
+  const smallRectDimension = (CENTER_MARKER_GRID_WIDTH * tickSpacing);
   const largeRectWidth = ((smallRectDimension * DASHED_RECT_PERCENTAGE) + smallRectDimension);
   const smallRectX = ((canvasWidth / 2) - (smallRectDimension / 2));
   const largeRectX = ((canvasWidth / 2) - (largeRectWidth / 2));
@@ -39,8 +36,7 @@ const FOVCenterMarker = ({ gridDimension, gridWidth, canvasWidth }) => {
 };
 
 FOVCenterMarker.propTypes = {
-  gridDimension: PropTypes.number.isRequired,
-  gridWidth: PropTypes.number.isRequired,
+  tickSpacing: PropTypes.number.isRequired,
   canvasWidth: PropTypes.number.isRequired,
 };
 
