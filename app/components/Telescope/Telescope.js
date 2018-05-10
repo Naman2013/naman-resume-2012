@@ -5,22 +5,21 @@ import easingFunctions, { animateValues } from 'utils/easingFunctions';
 import TelescopeFrame from './TelescopeFrame';
 import Mask from './Mask';
 import Image from './Image';
-import FOVCenterMarker from './FieldOfView/FOVCenterMarker';
 import Fade from 'components/common/Fade';
 
 import { getTelescope } from './telescopeConfig';
-import FieldOfView from "./FieldOfView/FieldOfView";
+import FieldOfView from './FieldOfView/FieldOfView';
 
 const testImage = 'https://polaris.slooh.com/chile/1/highmag/2018/04/04/2340_m43/m43_20180404_234018_0_kx3vo6_l.png';
 
-const MAX_RESOLUTION = 100;
-
+const MAX_RESOLUTION = 120;
 const MAX_DURATION = 5000;
 const ZOOM_OUT_DURATION = MAX_DURATION / 2;
 
 class Telescope extends Component {
   static propTypes = {
-    activeTelescopeID: PropTypes.string.isRequired,
+    activeInstrumentID: PropTypes.string.isRequired,
+    previousInstrumentID: PropTypes.string.isRequired,
     verticalResolution: PropTypes.number,
     horizontalResolution: PropTypes.number,
     increment: PropTypes.number,
@@ -59,8 +58,8 @@ class Telescope extends Component {
     },
   };
 
-  componentWillReceiveProps({ activeTelescopeID, horizontalResolution, verticalResolution }) {
-    if (activeTelescopeID !== this.props.activeTelescopeID) {
+  componentWillReceiveProps({ activeInstrumentID, horizontalResolution, verticalResolution }) {
+    if (activeInstrumentID !== this.props.activeInstrumentID) {
       this.transitionZoomOut();
     }
   }
@@ -96,7 +95,7 @@ class Telescope extends Component {
   }
 
   transitionZoomIn() {
-    const targetTelescope = getTelescope(this.props.activeTelescopeID);
+    const targetTelescope = getTelescope(this.props.activeInstrumentID);
     this.currentZoomInTransition = this.transitionTo(
       this.telescopeTransitionComplete,
       {
@@ -174,21 +173,23 @@ class Telescope extends Component {
                   xmlns="http://www.w3.org/2000/svg"
                 >
 
-                  <g>
-                    <Image
-                      x={-imageX}
-                      source={testImage}
-                      height={height}
-                      onResize={this.handleImageResize}
-                    />
-                  </g>
-
                   <Fade isHidden={isTransitioningTelescope}>
+                    <g>
+                      <Image
+                        x={-imageX}
+                        source={testImage}
+                        height={height}
+                        onResize={this.handleImageResize}
+                      />
+                    </g>
+
                     <Mask />
                   </Fade>
 
                   <Fade isHidden={!isTransitioningTelescope}>
                     <FieldOfView
+                      activeInstrumentID={this.props.activeInstrumentID}
+                      previousInstrumentID={this.props.previousInstrumentID}
                       tickSpacing={tickSpacing}
                       canvasWidth={width}
                     />
@@ -208,7 +209,7 @@ class Telescope extends Component {
                   .portal {
                     width: 100%;
                     overflow: hidden;
-                    background: green;
+                    background: black;
                     position: relative;
                   }
 

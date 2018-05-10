@@ -14,7 +14,10 @@ class FauxTelescopeDetailsPage extends Component {
     currentTelescope: telescopeConfig.CANARY_ONE_HALF_METER,
   };
 
+  previousInstrumentID = null;
+
   handleTelescopeSelection = (event) => {
+    this.previousInstrumentID = this.state.currentTelescope.instrumentID;
     const instrumentKey = event.target.getAttribute('data-instrument-key');
     this.setState(() => ({ currentTelescope: telescopeConfig[instrumentKey] }));
   };
@@ -42,7 +45,8 @@ class FauxTelescopeDetailsPage extends Component {
         </div>
 
         <Telescope
-          activeTelescopeID={currentTelescope.instrumentID}
+          activeInstrumentID={currentTelescope.instrumentID}
+          previousInstrumentID={this.previousInstrumentID}
           horizontalResolution={horizontalResolutionKnob}
           verticalResolution={verticalResolutionKnob}
           increment={incrementKnob}
