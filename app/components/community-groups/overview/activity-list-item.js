@@ -32,7 +32,7 @@ const ActivityListItem = ({
   avatarURL,
   comments,
   content,
-  creationDate,
+  freshness,
   customerId,
   displayedComments,
   displayName,
@@ -56,7 +56,7 @@ const ActivityListItem = ({
       </div>
     </div>
       <div className="activity-info">
-        <span className="date">Posted {`${moment(creationDate).fromNow()}`}</span>
+        <span className="date" dangerouslySetInnerHTML={{ __html: freshness }} />
         {
           S3Files && S3Files.length > 0 ? <PulsePostThumbnails images={S3Files} /> : null
         }
@@ -145,7 +145,7 @@ ActivityListItem.defaultProps = {
 ActivityListItem.propTypes = {
   avatarURL: string.isRequired,
   content: string.isRequired,
-  creationDate: string.isRequired,
+  freshness: string.isRequired,
   customerId: string.isRequired,
   displayName: string.isRequired,
   likeParams: shape({}),

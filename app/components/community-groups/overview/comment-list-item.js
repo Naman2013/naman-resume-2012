@@ -24,6 +24,7 @@ const CommentList = ({
   content,
   creationDate,
   displayName,
+  freshness,
   membershipDisplay,
   replyId,
 }) => (
@@ -35,7 +36,7 @@ const CommentList = ({
         <div dangerouslySetInnerHTML={{ __html: membershipDisplay }} />
       </div>
     </div>
-    <span className="date">Posted {`${moment(creationDate).fromNow()}`}</span>
+    <span className="date"  dangerouslySetInnerHTML={{ __html: freshness}} />
     <div dangerouslySetInnerHTML={{ __html: content }} />
     <style jsx>{`
       .comment-item {
@@ -62,7 +63,7 @@ CommentList.propTypes = {
   avatarURL: string.isRequired,
   displayName: string.isRequired,
   content: string.isRequired,
-  creationDate: string.isRequired,
+  freshness: string.isRequired,
   likesCount: number.isRequired,
   replyCount: number.isRequired,
   replyId: number.isRequired,
