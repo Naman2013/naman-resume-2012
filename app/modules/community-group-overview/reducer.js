@@ -72,8 +72,6 @@ export default createReducer(initialState, {
       showAskPrompt,
       showJoinPrompt,
     } = payload;
-    console.log('state', state)
-    console.log('new canpost', canPost)
     return {
       ...state,
       // askPrompt,

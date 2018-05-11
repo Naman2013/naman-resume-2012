@@ -53,6 +53,8 @@ export default createReducer(initialState, {
       joinPrompt,
       showAskPrompt,
       showJoinPrompt,
+      memberCountDisplay,
+      memberCount,
     } = payload;
     let newGroups = [].concat(state.groups);
     newGroups = newGroups.map((group) => {
@@ -62,6 +64,8 @@ export default createReducer(initialState, {
           joinPrompt,
           showAskPrompt,
           showJoinPrompt,
+          memberCountDisplay,
+          memberCount,
         })
       }
       return group;
