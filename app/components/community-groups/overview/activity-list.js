@@ -58,6 +58,7 @@ class ActivityList extends Component {
   render() {
     const {
       actions,
+      forumId,
       threadList,
       threadCount,
       topicId,
@@ -73,8 +74,9 @@ class ActivityList extends Component {
         {(!fetching && !error && threadCount > 0) && <div>
           {threadList.map((thread) => {
             const likeParams = {
+              forumId,
               callSource: 'groups',
-              replyId: thread.replyId,
+              threadId: thread.threadId,
               topicId,
             };
             const threadComments = allComments[thread.threadId] || { replies: [] };
@@ -88,6 +90,7 @@ class ActivityList extends Component {
               likeParams={likeParams}
               key={thread.threadId}
               topicId={topicId}
+              forumId={forumId}
               toggleAllCommentsAndDisplay={actions.toggleAllCommentsAndDisplay}
               displayedComments={allDisplayedCommentsObj}
             />)

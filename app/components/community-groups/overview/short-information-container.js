@@ -105,7 +105,7 @@ class ShortInformationOverview extends Component {
             showJoinPrompt={showJoinPrompt}
             joinOrLeaveGroup={joinOrLeaveGroup}
           />
-          <ActivityList topicId={pageMeta.topicId} />
+          <ActivityList topicId={pageMeta.topicId} forumId={pageMeta.forumId} />
         </div>
         <aside className="right-container">
           <ShortInformation

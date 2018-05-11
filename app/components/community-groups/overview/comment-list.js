@@ -77,6 +77,7 @@ class CommentList extends Component {
   render() {
     const {
       actions,
+      forumId,
       comments,
       displayedComments,
       paginationCount,
@@ -103,9 +104,15 @@ class CommentList extends Component {
           submitted={submitted[threadId]}
           topicId={topicId}
         />
-        {displayedComments.map(displayedComment => (
-          <CommentListItem {...displayedComment} />
-        ))}
+        {displayedComments.map((displayedComment) => {
+          const likeParams = {
+            callSource: 'groups',
+            replyId: displayedComment.replyId,
+            topicId,
+            forumId,
+          };
+          return <CommentListItem {...displayedComment} likeParams={likeParams} />
+        })}
         {displayedComments.length > 0 && <PaginateSet
           handlePageChange={this.handlePageChange}
           fullDataSet={comments.replies}

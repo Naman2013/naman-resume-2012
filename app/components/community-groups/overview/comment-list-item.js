@@ -8,12 +8,15 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+import { likeReply } from '../../../services/discussions/like';
+import Heart from '../../common/heart/heart';
 import {
   black,
 } from '../../../styles/variables/colors';
 import { profPic } from '../styles';
 
 const {
+  bool,
   number,
   string,
 } = PropTypes;
@@ -22,11 +25,16 @@ const {
 const CommentList = ({
   avatarURL,
   content,
-  creationDate,
+  customerId,
   displayName,
   freshness,
+  likeParams,
+  likePrompt,
+  likesCount,
   membershipDisplay,
+  replyCount,
   replyId,
+  showLikePrompt,
 }) => (
   <div className="comment-item" key={replyId}>
     <div className="user-info">
@@ -38,6 +46,22 @@ const CommentList = ({
     </div>
     <span className="date"  dangerouslySetInnerHTML={{ __html: freshness}} />
     <div dangerouslySetInnerHTML={{ __html: content }} />
+    <div className="activity-actions">
+      <div className="action-left">
+        <Heart
+          likeAction={likeReply}
+          theme="dark"
+          count={likesCount}
+          authorId={customerId}
+          showLikePrompt={showLikePrompt}
+          likePrompt={likePrompt}
+          params={likeParams}
+        />
+        <span>Comments ({replyCount})</span>
+      </div>
+      <div className="action-right">
+      </div>
+    </div>
     <style jsx>{`
       .comment-item {
         margin: 25px;
@@ -63,8 +87,11 @@ CommentList.propTypes = {
   avatarURL: string.isRequired,
   displayName: string.isRequired,
   content: string.isRequired,
+  customerId: string.isRequired,
   freshness: string.isRequired,
   likesCount: number.isRequired,
+  likePrompt: string.isRequired,
+  showLikePrompt: bool.isRequired,
   replyCount: number.isRequired,
   replyId: number.isRequired,
   membershipDisplay: string.isRequired,

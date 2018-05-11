@@ -8,7 +8,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import { likeReply } from '../../../services/discussions/like';
+import { likeThread } from '../../../services/discussions/like';
 import Heart from '../../common/heart/heart';
 import CommentList from './comment-list';
 import PulsePostThumbnails from '../../../components/pulse/pulse-post-image-thumbnails';
@@ -33,6 +33,7 @@ const ActivityListItem = ({
   comments,
   content,
   freshness,
+  forumId,
   customerId,
   displayedComments,
   displayName,
@@ -65,7 +66,7 @@ const ActivityListItem = ({
     <div className="activity-actions">
       <div className="action-left">
         <Heart
-          likeAction={likeReply}
+          likeAction={likeThread}
           theme="dark"
           count={likesCount}
           authorId={customerId}
@@ -91,6 +92,7 @@ const ActivityListItem = ({
           displayedComments={displayedComments}
           threadId={threadId}
           topicId={topicId}
+          forumId={forumId}
         />
       </div> : null}
     </div>

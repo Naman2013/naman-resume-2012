@@ -115,7 +115,7 @@ class FullInformationOverview extends Component {
               topicId={pageMeta.topicId}
               user={user}
             />
-            <ActivityList topicId={pageMeta.topicId} />
+            <ActivityList topicId={pageMeta.topicId} forumId={pageMeta.forumId} />
           </div>
           <aside className="flex-child right-container">
             <MembersList
