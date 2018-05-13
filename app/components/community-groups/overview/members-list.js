@@ -10,11 +10,9 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import take from 'lodash/take';
 import {
-  profilePhotoStyle,
-} from '../../../styles/mixins/utilities';
-import {
   fullWidthBtn,
   dropShadowedContainer,
+  profPic,
 } from '../styles';
 
 const {
@@ -67,7 +65,7 @@ class GroupMemberList extends Component {
           <h5>Group Members: {membersCount}</h5>
           <div className="img-container">
             {take(membersList, displayedNumber).map((member) => {
-              const avatarStyle = Object.assign(profilePhotoStyle(member.iconUrl), {
+              const avatarStyle = Object.assign(profPic(member.iconUrl), {
                 height: '50px',
                 width: '50px',
                 display: 'inline-block',

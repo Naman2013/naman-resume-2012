@@ -13,6 +13,7 @@ import {
   darkBlueGray,
   white,
 } from '../../../styles/variables/colors';
+import { createActivity } from '../../../modules/community-group-activity-list/actions';
 import MembersList from './members-list';
 import FullInformation from './full-information';
 import ActivityForm from './activity-form';
@@ -35,7 +36,9 @@ const mapStateToProps = ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({}, dispatch),
+  actions: bindActionCreators({
+    createActivity,
+  }, dispatch),
 });
 
 @connect(mapStateToProps, mapDispatchToProps)
@@ -76,6 +79,7 @@ class FullInformationOverview extends Component {
 
   render() {
     const {
+      actions,
       description,
       descriptionHeading,
       detailsHeading,
@@ -114,6 +118,7 @@ class FullInformationOverview extends Component {
               showJoinPrompt={showJoinPrompt}
               topicId={pageMeta.topicId}
               user={user}
+              createActivity={actions.createActivity}
             />
             <ActivityList topicId={pageMeta.topicId} forumId={pageMeta.forumId} />
           </div>

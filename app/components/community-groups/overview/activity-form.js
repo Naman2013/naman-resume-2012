@@ -1,5 +1,5 @@
 /***********************************
-* V4 Ask Astronomer Question Form
+* V4 Community Group Activity Form
 *
 *
 *
@@ -8,7 +8,6 @@ import React, { Component } from 'react';
 import { Link } from 'react-router';
 import PropTypes from 'prop-types';
 import ModalGeneric from '../../common/modals/modal-generic';
-import { createThread } from '../../../services/discussions/create-thread';
 import { prepareThread } from '../../../services/discussions/prepare-thread';
 import deletePostImage from '../../../services/post-creation/delete-post-image';
 import setPostImages from '../../../modules/set-post-images';
@@ -82,17 +81,13 @@ class ActivityForm extends Component {
       S3URLs,
     } = this.state;
 
-    createThread({
-      at: user.at,
-      token: user.token,
-      cid: user.cid,
+    this.props.createActivity({
       S3URLs,
-      callSource: 'groups',
       content: activityText,
       topicId,
       forumId,
     }).then((res) => {
-      if (!res.data.apiError) {
+      if (!res.payload.apiError) {
         this.setState({
           showPopup: true,
           modalDescription: 'You post has been submitted',

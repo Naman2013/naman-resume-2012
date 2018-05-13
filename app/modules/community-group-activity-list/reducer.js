@@ -3,6 +3,7 @@ import {
   FETCH_GROUP_ACTIVITY_START,
   FETCH_GROUP_ACTIVITY_SUCCESS,
   FETCH_GROUP_ACTIVITY_FAIL,
+  CREATE_ACTIVITY_ITEM_SUCCESS,
 } from './actions';
 
 const initialState = {
@@ -49,5 +50,15 @@ export default createReducer(initialState, {
       page: 0,
     };
   },
+  [CREATE_ACTIVITY_ITEM_SUCCESS](state, { payload }) {
+    const { thread } = payload;
+    const threadList = [].concat(state.threadList, thread);
 
+    return {
+      ...state,
+      fetching: false,
+      threadCount: state.threadCount + 1,
+      threadList,
+    };
+  },
 });

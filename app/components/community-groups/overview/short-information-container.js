@@ -9,6 +9,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { createActivity } from '../../../modules/community-group-activity-list/actions';
 import ShortInformation from './short-information';
 import MembersList from './members-list';
 import ActivityForm from './activity-form';
@@ -35,7 +36,9 @@ const mapStateToProps = ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({}, dispatch),
+  actions: bindActionCreators({
+    createActivity,
+  }, dispatch),
 });
 
 @connect(mapStateToProps, mapDispatchToProps)
@@ -79,6 +82,7 @@ class ShortInformationOverview extends Component {
 
   render() {
     const {
+      actions,
       description,
       descriptionHeading,
       detailsHeading,
@@ -104,6 +108,7 @@ class ShortInformationOverview extends Component {
             forumId={pageMeta.forumId}
             showJoinPrompt={showJoinPrompt}
             joinOrLeaveGroup={joinOrLeaveGroup}
+            createActivity={actions.createActivity}
           />
           <ActivityList topicId={pageMeta.topicId} forumId={pageMeta.forumId} />
         </div>
