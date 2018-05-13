@@ -39,8 +39,8 @@ import TelescopeSelection from 'components/telescopes/selection-widget/telescope
 import UpcomingMissions from 'components/telescope-details/UpcomingMissions/UpcomingMissions';
 import MissionAudio from 'components/telescope-details/MissionAudio';
 
+import InstrumentNavigation from 'components/telescope-details/InstrumentNavigation';
 import TelescopeImageViewerController from 'components/telescope-details/TelescopeImageViewerController';
-import Telescope from 'components/Telescope';
 
 import obsIdTeleIdDomeIdFromTeleId from '../../utils/obsid-teleid-domeid-from-teleid';
 
@@ -344,6 +344,8 @@ class TelescopeDetails extends Component {
     const audioEnabled = !!objectAudioURL;
     const isTelescopeOnline = currentTelescopeOnlineStatus && (currentTelescopeOnlineStatus.onlineStatus === 'online');
 
+    console.log(teleInstrumentList);
+
     return (
       <div className="telescope-details-page-wrapper">
         <AnnouncementBanner obsId={obsId} />
@@ -378,13 +380,19 @@ class TelescopeDetails extends Component {
             </div>
           </div>
 
+
+
+
           {/* begin left column */}
           <div className="telescope-details clearfix">
             <div className="col-sm-8">
 
+              <InstrumentNavigation instruments={teleInstrumentList} />
               <TelescopeImageViewerController
                 activeInstrumentID={selectedInstrument.instrUniqueId}
               />
+
+
 
               <Tabs onSelect={this.handleSelect} selectedIndex={selectedTab}>
                 <TabList>
@@ -428,6 +436,10 @@ class TelescopeDetails extends Component {
                   </TabPanel>
                 ))}
               </Tabs>
+
+
+
+
 
               <Spacer height="50px" />
 
