@@ -39,6 +39,7 @@ import TelescopeSelection from 'components/telescopes/selection-widget/telescope
 import UpcomingMissions from 'components/telescope-details/UpcomingMissions/UpcomingMissions';
 import MissionAudio from 'components/telescope-details/MissionAudio';
 
+import TelescopeImageViewerController from 'components/telescope-details/TelescopeImageViewerController';
 import Telescope from 'components/Telescope';
 
 import obsIdTeleIdDomeIdFromTeleId from '../../utils/obsid-teleid-domeid-from-teleid';
@@ -139,7 +140,8 @@ class TelescopeDetails extends Component {
   state = {
     neoviewOpen: false,
     selectedTab: 0,
-    missionPercentageRemaining: 0,
+    previouslyActiveInstrumentID: null,
+    activeInstrumentID: null,
   };
 
   componentWillReceiveProps(nextProps) {
@@ -380,9 +382,8 @@ class TelescopeDetails extends Component {
           <div className="telescope-details clearfix">
             <div className="col-sm-8">
 
-              <Telescope
-                activeInstrumentID={null}
-                previousInstrumentID={null}
+              <TelescopeImageViewerController
+                activeInstrumentID={selectedInstrument.instrUniqueId}
               />
 
               <Tabs onSelect={this.handleSelect} selectedIndex={selectedTab}>
@@ -488,10 +489,10 @@ class TelescopeDetails extends Component {
                   />
               }
 
-              {
+              {/*
                 teleHasMissions &&
                   <UpcomingMissions obsId={obsId} domeId={domeId} />
-              }
+              */}
 
               {
                 activeTelescopeMission.missionAvailable ||
