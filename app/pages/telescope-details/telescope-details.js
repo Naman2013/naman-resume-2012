@@ -294,8 +294,13 @@ class TelescopeDetails extends Component {
     }
   }
 
+  handleInstrumentNavigationClick = (instrumentID) => {
+    this.setState(() => ({ activeInstrumentID: instrumentID }));
+  }
+
   render() {
-    const { selectedTab, neoviewOpen } = this.state;
+    const { selectedTab, neoviewOpen, activeInstrumentID } = this.state;
+    console.log(activeInstrumentID);
     const {
       fetchingObservatoryList,
       fetchingObservatoryStatus,
@@ -389,7 +394,8 @@ class TelescopeDetails extends Component {
 
               <InstrumentNavigation
                 instruments={teleInstrumentList}
-                activeInstrumentID={selectedInstrument.instrUniqueId}
+                activeInstrumentID={activeInstrumentID}
+                handleInstrumentClick={this.handleInstrumentNavigationClick}
               />
               <TelescopeImageViewerController
                 activeInstrumentID={selectedInstrument.instrUniqueId}

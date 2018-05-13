@@ -63,6 +63,10 @@ class InstrumentNavigation extends Component {
           width: 100%;
           height: 100%;
         }
+
+        button:focus, button:active {
+          outline: none;
+        }
       `}
         </style>
       </ul>
