@@ -296,11 +296,11 @@ class TelescopeDetails extends Component {
 
   handleInstrumentNavigationClick = (instrumentID) => {
     this.setState(() => ({ activeInstrumentID: instrumentID }));
-  }
+  };
 
   render() {
     const { selectedTab, neoviewOpen, activeInstrumentID } = this.state;
-    console.log(activeInstrumentID);
+
     const {
       fetchingObservatoryList,
       fetchingObservatoryStatus,
@@ -348,8 +348,6 @@ class TelescopeDetails extends Component {
     const isSubjectMatterAnObject = activeDetailsSSE.astroObjectID > 0;
     const audioEnabled = !!objectAudioURL;
     const isTelescopeOnline = currentTelescopeOnlineStatus && (currentTelescopeOnlineStatus.onlineStatus === 'online');
-
-    console.log(teleInstrumentList);
 
     return (
       <div className="telescope-details-page-wrapper">
