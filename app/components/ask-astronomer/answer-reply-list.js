@@ -125,6 +125,7 @@ class AnswerReplyList extends Component {
           objectId,
           replyId: reply.replyId,
           topicId,
+          replyType: 'reply',
         };
         return <AnswerReplyListItem
           key={uniqueId()}

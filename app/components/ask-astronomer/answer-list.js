@@ -121,6 +121,7 @@ class AnswerList extends Component {
           objectId,
           replyId: answer.replyId,
           topicId,
+          replyType: 'answer',
         }
         const answerReplies = allReplies[answer.replyId] || { replies: [] };
         const allDisplayedRepliesObj = answerReplies
