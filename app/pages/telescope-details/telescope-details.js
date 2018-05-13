@@ -387,7 +387,10 @@ class TelescopeDetails extends Component {
           <div className="telescope-details clearfix">
             <div className="col-sm-8">
 
-              <InstrumentNavigation instruments={teleInstrumentList} />
+              <InstrumentNavigation
+                instruments={teleInstrumentList}
+                activeInstrumentID={selectedInstrument.instrUniqueId}
+              />
               <TelescopeImageViewerController
                 activeInstrumentID={selectedInstrument.instrUniqueId}
               />
