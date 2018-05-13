@@ -97,11 +97,6 @@ function mapStateToProps({
   };
 }
 
-let refreshUpcomingMissionsInterval;
-function createUpcomingMissionRefreshTimer() {
-  clearInterval(refreshUpcomingMissionsInterval);
-}
-
 @connect(mapStateToProps, mapDispatchToProps)
 class TelescopeDetails extends Component {
   static propTypes = {
@@ -118,13 +113,11 @@ class TelescopeDetails extends Component {
       fetchAllTelescopeStatus: PropTypes.func.isRequired,
       fetchObjectDataAction: PropTypes.func.isRequired,
       resetObjectData: PropTypes.func.isRequired,
-    }).isRequired,
-    countdownList: PropTypes.arrayOf(
-      PropTypes.shape({
-        telescopeId: PropTypes.string.isRequired,
-        // TODO: finish validating fields from the API here...
-      }),
-    ),
+    }),
+    countdownList: PropTypes.arrayOf(PropTypes.shape({
+      telescopeId: PropTypes.string.isRequired,
+      // TODO: finish validating fields from the API here...
+    })),
     objectDetails: PropTypes.shape({
       objectAudioURL: PropTypes.string,
     }),
@@ -233,9 +226,7 @@ class TelescopeDetails extends Component {
     const { observatoryList, params } = this.props;
 
     this.props.actions.fetchAllTelescopeStatus({
-      obsId: observatoryList.find(
-        observatory => observatory.obsUniqueId === (obsUniqueId || params.obsUniqueId),
-      ).obsId,
+      obsId: observatoryList.find(observatory => observatory.obsUniqueId === (obsUniqueId || params.obsUniqueId)).obsId,
       teleUniqueId: params.teleUniqueId,
     });
   }
@@ -343,9 +334,7 @@ class TelescopeDetails extends Component {
     const telescopeOnline =
       currentTelescopeOnlineStatus && currentTelescopeOnlineStatus.onlineStatus === 'online';
     const selectedInstrument = teleInstrumentList[selectedTab];
-    const currentMissionCountdown = countdownList.find(
-      countdown => countdown.teleUniqueId === teleUniqueId,
-    );
+    const currentMissionCountdown = countdownList.find(countdown => countdown.teleUniqueId === teleUniqueId);
 
     const { domeId } = obsIdTeleIdDomeIdFromTeleId(teleId);
     const { objectAudioURL } = objectDetails;
@@ -391,7 +380,10 @@ class TelescopeDetails extends Component {
           <div className="telescope-details clearfix">
             <div className="col-sm-8">
 
-              <Telescope />
+              <Telescope
+                activeInstrumentID={null}
+                previousInstrumentID={null}
+              />
 
               <Tabs onSelect={this.handleSelect} selectedIndex={selectedTab}>
                 <TabList>
@@ -532,10 +524,10 @@ class TelescopeDetails extends Component {
               />
 
               <GoogleAd
-                adURL={'/5626790/Recommends'}
+                adURL="/5626790/Recommends"
                 adWidth={300}
                 adHeight={250}
-                targetDivID={'div-gpt-ad-1495111021281-0'}
+                targetDivID="div-gpt-ad-1495111021281-0"
               />
             </div>
           </div>
