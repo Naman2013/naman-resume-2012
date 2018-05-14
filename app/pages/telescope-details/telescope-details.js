@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import moment from 'moment';
+import first from 'lodash/first';
 import './telescope-details.scss';
 
 import {
@@ -140,7 +141,6 @@ class TelescopeDetails extends Component {
   state = {
     neoviewOpen: false,
     selectedTab: 0,
-    previouslyActiveInstrumentID: null,
     activeInstrumentID: null,
   };
 
@@ -160,12 +160,17 @@ class TelescopeDetails extends Component {
     }
 
     if (teleUniqueId) {
-      if (teleUniqueId !== this.props.params.teleUniqueId) {
+      if (isTelescopeUpdate) {
         this.props.actions.updateTelescopeStatus({ teleUniqueId });
       }
     }
 
     if (isObservatoryUpdate || isTelescopeUpdate) {
+      const nextInstrument = first(nextProps.currentTelescope.teleInstrumentList);
+      this.setState({
+        activeInstrumentID: nextInstrument.instrUniqueId,
+      });
+
       if (neoviewOpen) {
         this.toggleNeoview();
       }
@@ -178,11 +183,6 @@ class TelescopeDetails extends Component {
     if (this.props.activeDetailsSSE.astroObjectID > 0 && astroObjectID === 0) {
       this.props.actions.resetObjectData();
     }
-  }
-
-  componentWillUpdate(nextProps) {
-    const isNewObservatoryURL = this.props.params.obsUniqueId !== nextProps.params.obsUniqueId;
-    const isNewTelescopeURL = this.props.params.teleUniqueId !== nextProps.params.teleUniqueId;
 
     if (this.props.currentObservatory) {
       const isNewCurrentObservatory =
@@ -197,7 +197,7 @@ class TelescopeDetails extends Component {
       }
     }
 
-    if (isNewObservatoryURL) {
+    if (isObservatoryUpdate) {
       // set the selected observatory
       this.props.actions.setObservatory({
         obsUniqueId: nextProps.params.obsUniqueId,
@@ -208,7 +208,7 @@ class TelescopeDetails extends Component {
       this.scaffoldRefreshInterval();
     }
 
-    if (isNewTelescopeURL) {
+    if (isTelescopeUpdate) {
       // whenever we change the telescope, default the selected tab to 0
       this.handleSelect(0);
 
@@ -250,6 +250,7 @@ class TelescopeDetails extends Component {
     const {
       params: { obsUniqueId, teleUniqueId },
       activeDetailsSSE: { astroObjectID },
+      currentTelescope,
     } = this.props;
 
     this.props.actions.bootstrapTelescopeDetails({
@@ -396,7 +397,7 @@ class TelescopeDetails extends Component {
                 handleInstrumentClick={this.handleInstrumentNavigationClick}
               />
               <TelescopeImageViewerController
-                activeInstrumentID={selectedInstrument.instrUniqueId}
+                activeInstrumentID={activeInstrumentID}
               />
 
 
