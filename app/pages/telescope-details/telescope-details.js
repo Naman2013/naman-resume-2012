@@ -151,9 +151,10 @@ class TelescopeDetails extends Component {
       activeDetailsSSE: { astroObjectID },
     } = nextProps;
 
+    const { neoviewOpen, activeInstrumentID } = this.state;
+    const nextInstrument = first(nextProps.currentTelescope.teleInstrumentList);
     const isTelescopeUpdate = teleUniqueId !== this.props.params.teleUniqueId;
     const isObservatoryUpdate = obsUniqueId !== this.props.params.obsUniqueId;
-    const { neoviewOpen } = this.state;
 
     if (allObservatoryTelescopeStatus && allObservatoryTelescopeStatus.statusExpires) {
       this.scaffoldRefreshInterval(allObservatoryTelescopeStatus.statusExpires);
@@ -165,12 +166,13 @@ class TelescopeDetails extends Component {
       }
     }
 
-    if (isObservatoryUpdate || isTelescopeUpdate) {
-      const nextInstrument = first(nextProps.currentTelescope.teleInstrumentList);
+    if (nextInstrument && nextInstrument.instrUniqueId !== activeInstrumentID) {
       this.setState({
         activeInstrumentID: nextInstrument.instrUniqueId,
       });
+    }
 
+    if (isObservatoryUpdate || isTelescopeUpdate) {
       if (neoviewOpen) {
         this.toggleNeoview();
       }
