@@ -1,5 +1,5 @@
 /***********************************
-* V4 Community Group Comment List Item
+* V4 Community Group Comment Reply List Item
 *
 *
 *
@@ -7,7 +7,6 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import CommentReplyList from './comment-reply-list';
 import { likeReply } from '../../../services/discussions/like';
 import Heart from '../../common/heart/heart';
 import {
@@ -22,11 +21,9 @@ const {
 } = PropTypes;
 
 
-const CommentListItem = ({
+const CommentReplyListItem = ({
   avatarURL,
   content,
-  commentReplies,
-  displayedReplies,
   customerId,
   displayName,
   freshness,
@@ -37,10 +34,6 @@ const CommentListItem = ({
   replyCount,
   replyId,
   showLikePrompt,
-  threadId,
-  topicId,
-  forumId,
-  toggleAllCommentRepliesAndDisplay,
 }) => (
   <div className="comment-item" key={replyId}>
     <div className="user-info">
@@ -63,29 +56,9 @@ const CommentListItem = ({
           likePrompt={likePrompt}
           params={likeParams}
         />
-        <span>Comments ({replyCount})</span>
       </div>
       <div className="action-right">
-      {!commentReplies.showAllReplies ? <div className="comment-action" onClick={() => toggleAllCommentRepliesAndDisplay({
-          threadId,
-          replyTo: replyId,
-        showAllReplies: true,
-        })}>{replyCount > 0 ? `View Comments` : `Add Comment`}</div> : null}
       </div>
-      {commentReplies.showAllReplies ? <div>
-        <div className="comment-action" onClick={() => toggleAllCommentRepliesAndDisplay({
-          threadId,
-          replyTo: replyId,
-          showAllReplies: false,
-        })}>Close Comments</div>
-        <CommentReplyList
-          commentReplies={commentReplies}
-          displayedReplies={displayedReplies}
-          replyId={replyId}
-          topicId={topicId}
-          forumId={forumId}
-        />
-      </div> : null}
     </div>
     <style jsx>{`
       .comment-item {
@@ -106,14 +79,9 @@ const CommentListItem = ({
   </div>
 );
 
-CommentListItem.defaultProps = {
-  commentReplies: {
-    showAllReplies: false,
-    replies: [],
-  },
-  displayedReplies: [],
+CommentReplyListItem.defaultProps = {
 };
-CommentListItem.propTypes = {
+CommentReplyListItem.propTypes = {
   avatarURL: string.isRequired,
   displayName: string.isRequired,
   content: string.isRequired,
@@ -127,4 +95,4 @@ CommentListItem.propTypes = {
   membershipDisplay: string.isRequired,
 };
 
-export default CommentListItem;
+export default CommentReplyListItem;

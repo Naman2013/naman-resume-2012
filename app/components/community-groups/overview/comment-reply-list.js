@@ -1,5 +1,5 @@
 /***********************************
-* V4 Community Group Comment List
+* V4 Community Group Comment Reply List
 *
 *
 *
@@ -10,10 +10,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import uniqueId from 'lodash/uniqueId'
-import CommentListItem from './comment-list-item';
+import CommentRepliesListItem from './comment-list-item';
 import CommentForm from './comment-form';
-import { updateCommentsDisplayList, replyToActivity } from '../../../modules/community-group-activity-comments/actions';
-import { toggleAllCommentRepliesAndDisplay } from '../../../modules/community-group-activity-comment-replies/actions';
+import { updateCommentRepliesDisplayList, replyToComment } from '../../../modules/community-group-activity-comments/actions';
 import PaginateSet from '../../common/paginate-full-set/PaginateSet';
 
 import {
@@ -31,27 +30,22 @@ const {
 } = PropTypes;
 
 const mapStateToProps = ({
-  communityGroupActivityComments,
-  communityGroupActivityCommentReplies,
   user,
 }) => ({
-  ...communityGroupActivityComments,
-  communityGroupActivityCommentReplies,
   user,
 });
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
-    updateCommentsDisplayList,
-    replyToActivity,
-    toggleAllCommentRepliesAndDisplay,
+    updateCommentRepliesDisplayList,
+    replyToComment,
   }, dispatch),
 });
 @connect(mapStateToProps, mapDispatchToProps)
-class CommentList extends Component {
+class CommentRepliesList extends Component {
   static propTypes = {
-    displayedComments: arrayOf(shape({})),
-    threadId: number.isRequired,
+    displayedReplies: arrayOf(shape({})),
+    replyId: number.isRequired,
     submitId: number,
     submitErrorId: number,
     replyId: number.isRequired,
@@ -59,7 +53,7 @@ class CommentList extends Component {
     submitted: shape({}),
   };
   static defaultProps = {
-    displayedComments: [],
+    displayedReplies: [],
     submitId: 0,
     submitErrorId: 0,
     submitted: {},
@@ -68,13 +62,13 @@ class CommentList extends Component {
   handlePageChange = (paginatedSet, page) => {
     const {
       actions,
-      threadId,
+      replyId,
     } = this.props;
     // make call to update page and displayed replies here
-    actions.updateCommentsDisplayList({
+    actions.updateCommentRepliesDisplayList({
       page,
-      threadId,
-      displayedComments: paginatedSet,
+      replyId,
+      displayedReplies: paginatedSet,
     });
   }
 
@@ -82,57 +76,51 @@ class CommentList extends Component {
     const {
       actions,
       forumId,
-      comments,
-      displayedComments,
+      commentReplies,
+      displayedReplies,
       paginationCount,
-      threadId,
       submitErrorId,
       submitId,
       submitted,
       topicId,
+      replyId,
       user,
-      communityGroupActivityCommentReplies: { allReplies, allDisplayedReplies }
     } = this.props;
-    const showSubmitLoader = submitId === threadId;
-    const showSubmitError = submitErrorId === threadId;
-    const disableReplyButton = !!(submitId && submitId !== threadId);
+
+    const showSubmitLoader = submitId === replyId;
+    const showSubmitError = submitErrorId === replyId;
+    const disableReplyButton = !!(submitId && submitId !== replyId);
     return (
-      <div className="comment" key={threadId}>
+      <div className="comment" key={replyId}>
         <CommentForm
           avatarURL={user.avatarURL}
           disableButton={disableReplyButton}
           key={uniqueId()}
-          threadId={threadId}
+          replyId={replyId}
           showSubmitError={showSubmitError}
           showSubmitLoader={showSubmitLoader}
-          submitReply={actions.replyToActivity}
-          submitted={submitted[threadId]}
+          submitReply={actions.replyToComment}
+          submitted={submitted[replyId]}
           topicId={topicId}
         />
-        {displayedComments.map((displayedComment) => {
+        {displayedReplies.map((displayedComment) => {
           const likeParams = {
             callSource: 'groups',
             replyId: displayedComment.replyId,
             topicId,
             forumId,
           };
-          return (<CommentListItem
+          return (<CommentRepliesListItem
             {...displayedComment}
             likeParams={likeParams}
-            comments={comments}
-            displayedComments={displayedComments}
-            toggleAllCommentRepliesAndDisplay={actions.toggleAllCommentRepliesAndDisplay}
-            commentReplies={allReplies[displayedComment.replyId]}
-            displayedReplies={allDisplayedReplies[displayedComment.replyId]}
-            threadId={threadId}
-            />)
-       })}
-        {displayedComments.length > 0 && <PaginateSet
+          />)
+        })}
+        {displayedReplies.length > 0 && <PaginateSet
           handlePageChange={this.handlePageChange}
-          fullDataSet={comments.replies}
+          fullDataSet={commentReplies.replies}
           count={paginationCount}
-          totalCount={comments.replies.length}
-          page={comments.page}
+          totalCount={commentReplies.replies.length}
+          page={commentReplies.page}
         />}
         <style jsx>{`
         `}</style>
@@ -142,4 +130,4 @@ class CommentList extends Component {
 }
 
 
-export default CommentList;
+export default CommentRepliesList;

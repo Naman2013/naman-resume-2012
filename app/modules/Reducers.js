@@ -23,6 +23,7 @@ import communityContent from './community-content/get-community-content-reducer'
 import communityGroups from './community-groups/reducer';
 import communityGroupActivity from './community-group-activity-list/reducer';
 import communityGroupActivityComments from './community-group-activity-comments/reducer';
+import communityGroupActivityCommentReplies from './community-group-activity-comment-replies/reducer';
 import communityGroupOverview from './community-group-overview/reducer';
 import communityObjectContent from './community-content/community-object-content-reducer';
 import communityShowContent from './community-content/get-show-content-reducer';
@@ -105,6 +106,7 @@ export default combineReducers({
   communityGroups,
   communityGroupActivity,
   communityGroupActivityComments,
+  communityGroupActivityCommentReplies,
   communityGroupOverview,
   communityObjectContent,
   communityShowContent,
