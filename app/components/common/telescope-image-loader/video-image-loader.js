@@ -94,7 +94,7 @@ class VideoImageLoader extends Component {
 
   generateIFrameUrl() {
     const { teleStreamCode, showVideoControls, showInfo } = this.props;
-    return `https://www.youtube.com/embed/${teleStreamCode}?autoplay=1&modestbranding=1&controls=${showVideoControls}&showinfo=${showInfo}&vq=hd720&origin=http://live.slooh.com/`;
+    return `https://www.youtube.com/embed/${teleStreamCode}?rel=0&autoplay=1&modestbranding=1&controls=${showVideoControls}&showinfo=${showInfo}&vq=hd720&origin=http://live.slooh.com/`;
   }
 
   render() {
