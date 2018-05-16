@@ -14,6 +14,10 @@ import {
   UPDATE_TOGGLE_GROUP_ACTIVITY_COMMENT_DISPLAY_LIST,
 } from './actions';
 
+import {
+  REPLY_TO_GROUP_COMMENT_SUCCESS,
+} from '../community-group-activity-comment-replies/actions';
+
 const initialState = {
   fetchingObj: {},
   error: false,
@@ -104,12 +108,16 @@ export default createReducer(initialState, {
     const { threadId, reply } = payload;
     const newAllComments = cloneDeep(state.allComments);
     const newAllDisplayedComments = cloneDeep(state.allDisplayedComments);
-    const lastPage = Math.ceil((newAllComments[threadId] && newAllComments[threadId].replies.length) / state.paginationCount)
+
     if (payload.apiError === false && newAllComments[threadId] && newAllComments[threadId].replies) {
-       newAllComments[threadId].replies = [].concat(newAllComments[threadId].replies, Object.assign({ likesCount: 0}, reply));
+       newAllComments[threadId].replies = [].concat(newAllComments[threadId].replies, Object.assign({ likesCount: 0 }, reply));
     }
+
+    const lastPage = (Math.ceil((newAllComments[threadId] && newAllComments[threadId].replies.length) / state.paginationCount)) || 1;
     if (newAllComments[threadId] && (newAllComments[threadId].page === lastPage) && newAllDisplayedComments[threadId]) {
        newAllDisplayedComments[threadId] = [].concat(newAllDisplayedComments[threadId], reply.replyId)
+    } else if (newAllComments[threadId] && (newAllComments[threadId].page === lastPage) && !newAllDisplayedComments[threadId]) {
+      newAllDisplayedComments[threadId] = [].concat(reply.replyId);
     }
 
     return {
@@ -142,6 +150,24 @@ export default createReducer(initialState, {
     if (newAllComments[threadId]) {
       newAllComments[threadId].showAllComments = showAllComments;
     }
+    return {
+      ...state,
+      allComments: newAllComments,
+    };
+  },
+
+  [REPLY_TO_GROUP_COMMENT_SUCCESS](state, { payload }) {
+    const { threadId, replyTo } = payload;
+    const newAllComments = cloneDeep(state.allComments);
+    if (newAllComments[threadId] && newAllComments[threadId].replies) {
+     newAllComments[threadId].replies.map((reply) => {
+       if (reply.replyId === replyTo) {
+         reply.replyCount++;
+       }
+       return reply;
+     })
+    }
+
     return {
       ...state,
       allComments: newAllComments,

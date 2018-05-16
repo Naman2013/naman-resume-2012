@@ -25,6 +25,7 @@ class ReplyForm extends Component {
     avatarURL: '',
     disableButton: false,
     submitted: false,
+    replyTo: null,
   }
   static propTypes = {
     avatarURL: string,
@@ -35,6 +36,7 @@ class ReplyForm extends Component {
     submitted: bool,
     threadId: number.isRequired,
     topicId: number.isRequired,
+    replyTo: number,
   }
 
   state = {
@@ -54,6 +56,7 @@ class ReplyForm extends Component {
       reply,
       threadId,
       topicId,
+      replyTo,
       submitReply,
     } = this.props;
     const { replyText } = this.state;
@@ -62,6 +65,7 @@ class ReplyForm extends Component {
       content: replyText,
       threadId,
       topicId,
+      replyTo,
     });
 
   }

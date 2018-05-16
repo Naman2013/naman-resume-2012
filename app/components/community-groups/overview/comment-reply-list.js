@@ -10,9 +10,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import uniqueId from 'lodash/uniqueId'
-import CommentRepliesListItem from './comment-list-item';
+import CommentRepliesListItem from './comment-reply-list-item';
 import CommentForm from './comment-form';
-import { updateCommentRepliesDisplayList, replyToComment } from '../../../modules/community-group-activity-comments/actions';
+import { updateCommentRepliesDisplayList, replyToComment } from '../../../modules/community-group-activity-comment-replies/actions';
 import PaginateSet from '../../common/paginate-full-set/PaginateSet';
 
 import {
@@ -30,8 +30,10 @@ const {
 } = PropTypes;
 
 const mapStateToProps = ({
+  communityGroupActivityCommentReplies,
   user,
 }) => ({
+  ...communityGroupActivityCommentReplies,
   user,
 });
 
@@ -83,13 +85,14 @@ class CommentRepliesList extends Component {
       submitId,
       submitted,
       topicId,
+      threadId,
       replyId,
       user,
     } = this.props;
-
     const showSubmitLoader = submitId === replyId;
     const showSubmitError = submitErrorId === replyId;
     const disableReplyButton = !!(submitId && submitId !== replyId);
+
     return (
       <div className="comment" key={replyId}>
         <CommentForm
@@ -102,6 +105,8 @@ class CommentRepliesList extends Component {
           submitReply={actions.replyToComment}
           submitted={submitted[replyId]}
           topicId={topicId}
+          threadId={threadId}
+          replyTo={replyId}
         />
         {displayedReplies.map((displayedComment) => {
           const likeParams = {
@@ -111,6 +116,7 @@ class CommentRepliesList extends Component {
             forumId,
           };
           return (<CommentRepliesListItem
+            key={displayedComment.replyId}
             {...displayedComment}
             likeParams={likeParams}
           />)

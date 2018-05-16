@@ -502,13 +502,13 @@ ReactDOM.render(
           <Route path="alphabetic" component={CommunityGroupsList} onEnter={validateUser} />
           <Route path="popular" component={CommunityGroupsList} onEnter={validateUser} />
         </Route>
-        <Route path="community-groups/my-groups" component={CommunityGroups} onEnter={validateUser}>
+        <Route path="community-groups/my-groups" component={CommunityGroups}>
           <IndexRedirect to="alphabetic" />
-          <Route path="alphabetic" component={CommunityGroupsList} onEnter={validateUser} />
-          <Route path="popular" component={CommunityGroupsList} onEnter={validateUser} />
+          <Route path="alphabetic" component={CommunityGroupsList} />
+          <Route path="popular" component={CommunityGroupsList} />
         </Route>
 
-        <Route path="community-groups/:groupId" component={CommunityGroupOverview} onEnter={validateUser} />
+        <Route path="community-groups/:groupId" component={CommunityGroupOverview} />
 
       </Route>
       <Redirect from="*" to="/" />

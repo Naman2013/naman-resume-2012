@@ -7,10 +7,10 @@ import {
   FETCH_GROUP_ACTIVITY_COMMENT_REPLIES_FAIL,
   FETCH_GROUP_ACTIVITY_COMMENT_REPLIES_START,
   FETCH_GROUP_ACTIVITY_COMMENT_REPLIES_SUCCESS,
-  REPLY_TO_ACTIVITY_COMMENT_FAIL,
-  REPLY_TO_ACTIVITY_COMMENT_START,
-  REPLY_TO_ACTIVITY_COMMENT_SUCCESS,
-  TOGGLE_ALL_GROUP_ACTIVITY_COMMENT_REPLIES,
+  REPLY_TO_GROUP_COMMENT_FAIL,
+  REPLY_TO_GROUP_COMMENT_START,
+  REPLY_TO_GROUP_COMMENT_SUCCESS,
+  TOGGLE_ALL_GROUP_COMMENT_REPLIES,
   UPDATE_TOGGLE_GROUP_ACTIVITY_COMMENT_REPLIES_DISPLAY_LIST,
 } from './actions';
 
@@ -28,30 +28,30 @@ const initialState = {
 
 export default createReducer(initialState, {
   [FETCH_GROUP_ACTIVITY_COMMENT_REPLIES_START](state, { payload }) {
-    const { replyId } = payload;
+    const { replyTo } = payload;
     const newFetching = cloneDeep(state.fetchingObj);
-    newFetching[replyId] = true;
+    newFetching[replyTo] = true;
     return {
       ...state,
       fetchingObj: newFetching,
     };
   },
   [FETCH_GROUP_ACTIVITY_COMMENT_REPLIES_SUCCESS](state, { payload }) {
-    const { replies, replyId, resultsCount } = payload;
+    const { replies, replyTo, resultsCount } = payload;
     const newAllReplies = cloneDeep(state.allReplies);
     const newAllDisplayedReplies = cloneDeep(state.allDisplayedReplies);
     const newFetching = cloneDeep(state.fetchingObj);
-    newAllReplies[replyId] = {
+    newAllReplies[replyTo] = {
       replies,
-      showAllComments: true, // always display on fetch
+      showAllReplies: true, // always display on fetch
       page: 1,
     };
-    newAllDisplayedReplies[replyId] = (replies && replies.length > 0) ?
+    newAllDisplayedReplies[replyTo] = (replies && replies.length > 0) ?
       take(replies, state.paginationCount)
         .map(reply => reply.replyId) :
       [];
 
-    newFetching[replyId] = false;
+    newFetching[replyTo] = false;
     return {
       ...state,
       fetchingObj: newFetching,
@@ -61,9 +61,9 @@ export default createReducer(initialState, {
     };
   },
   [FETCH_GROUP_ACTIVITY_COMMENT_REPLIES_FAIL](state, { payload }) {
-    const { replyId } = payload;
+    const { replyTo } = payload;
     const newFetching = cloneDeep(state.fetchingObj);
-    newFetching[replyId] = false;
+    newFetching[replyTo] = false;
     return {
       ...state,
       fetchingObj: newFetching,
@@ -77,11 +77,11 @@ export default createReducer(initialState, {
     const {
       page,
       replyId,
-      displayedComments,
+      displayedReplies,
     } = payload;
     const newDisplayedState = cloneDeep(state.allDisplayedReplies);
     const newAllState = cloneDeep(state.allReplies);
-    newDisplayedState[replyId] = displayedComments;
+    newDisplayedState[replyId] = displayedReplies;
     if (newAllState[replyId]) {
       newAllState[replyId].page = page;
     }
@@ -92,7 +92,7 @@ export default createReducer(initialState, {
       allDisplayedReplies: newDisplayedState,
     };
   },
-  [REPLY_TO_ACTIVITY_COMMENT_START](state, { payload }) {
+  [REPLY_TO_GROUP_COMMENT_START](state, { payload }) {
     const { replyTo } = payload;
     return {
       ...state,
@@ -100,16 +100,20 @@ export default createReducer(initialState, {
       submitErrorId: 0,
     };
   },
-  [REPLY_TO_ACTIVITY_COMMENT_SUCCESS](state, { payload }) {
-    const { replyId, reply } = payload;
+  [REPLY_TO_GROUP_COMMENT_SUCCESS](state, { payload }) {
+    const { replyTo, reply } = payload;
     const newAllReplies = cloneDeep(state.allReplies);
     const newAllDisplayedReplies = cloneDeep(state.allDisplayedReplies);
-    const lastPage = Math.ceil((newAllReplies[replyId] && newAllReplies[replyId].replies.length) / state.paginationCount)
-    if (payload.apiError === false && newAllReplies[replyId] && newAllReplies[replyId].replies) {
-       newAllReplies[replyId].replies = [].concat(newAllReplies[replyId].replies, Object.assign({ likesCount: 0}, reply));
+
+    if (payload.apiError === false && newAllReplies[replyTo] && newAllReplies[replyTo].replies) {
+       newAllReplies[replyTo].replies = [].concat(newAllReplies[replyTo].replies, Object.assign({ likesCount: 0 }, reply));
     }
-    if (newAllReplies[replyId] && (newAllReplies[replyId].page === lastPage) && newAllDisplayedReplies[replyId]) {
-       newAllDisplayedReplies[replyId] = [].concat(newAllDisplayedReplies[replyId], reply.replyId)
+
+    const lastPage = (Math.ceil((newAllReplies[replyTo] && newAllReplies[replyTo].replies.length) / state.paginationCount)) || 1;
+    if (newAllReplies[replyTo] && (newAllReplies[replyTo].page === lastPage) && newAllDisplayedReplies[replyTo]) {
+       newAllDisplayedReplies[replyTo] = [].concat(newAllDisplayedReplies[replyTo], reply.replyId)
+    } else if (newAllReplies[replyTo] && (newAllReplies[replyTo].page === lastPage) && !newAllDisplayedReplies[replyTo]) {
+      newAllDisplayedReplies[replyTo] = [].concat(reply.replyId)
     }
 
     return {
@@ -119,7 +123,7 @@ export default createReducer(initialState, {
       allDisplayedReplies: newAllDisplayedReplies,
     };
   },
-  [REPLY_TO_ACTIVITY_COMMENT_FAIL](state, { payload }) {
+  [REPLY_TO_GROUP_COMMENT_FAIL](state, { payload }) {
     const { replyTo } = payload;
     return {
       ...state,
@@ -136,11 +140,12 @@ export default createReducer(initialState, {
       submitted: newSubmitted,
     };
   },
-  [TOGGLE_ALL_GROUP_ACTIVITY_COMMENT_REPLIES](state, { payload }) {
-    const { replyId, showAllComments } = payload;
+  [TOGGLE_ALL_GROUP_COMMENT_REPLIES](state, { payload }) {
+    const { replyTo, showAllReplies } = payload;
     const newAllReplies = cloneDeep(state.allReplies);
-    if (newAllReplies[replyId]) {
-      newAllReplies[replyId].showAllComments = showAllComments;
+
+    if (newAllReplies[replyTo]) {
+      newAllReplies[replyTo].showAllReplies = showAllReplies;
     }
     return {
       ...state,

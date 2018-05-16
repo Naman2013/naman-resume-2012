@@ -84,6 +84,7 @@ const CommentListItem = ({
           replyId={replyId}
           topicId={topicId}
           forumId={forumId}
+          threadId={threadId}
         />
       </div> : null}
     </div>

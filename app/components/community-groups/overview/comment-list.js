@@ -51,11 +51,11 @@ const mapDispatchToProps = dispatch => ({
 class CommentList extends Component {
   static propTypes = {
     displayedComments: arrayOf(shape({})),
-    threadId: number.isRequired,
+    threadId: number,
     submitId: number,
     submitErrorId: number,
-    replyId: number.isRequired,
-    topicId: number.isRequired,
+    replyId: number,
+    topicId: number,
     submitted: shape({}),
   };
   static defaultProps = {
@@ -63,6 +63,9 @@ class CommentList extends Component {
     submitId: 0,
     submitErrorId: 0,
     submitted: {},
+    replyId: null,
+    topicId: null,
+    threadId: null,
   }
 
   handlePageChange = (paginatedSet, page) => {
@@ -116,16 +119,24 @@ class CommentList extends Component {
             topicId,
             forumId,
           };
+
+          const commentReplies = allReplies[displayedComment.replyId] || { replies: [] };
+          const displayedReplies = allDisplayedReplies[displayedComment.replyId] || [];
+          const allDisplayedRepliesObj = commentReplies
+            .replies
+            .filter(item => displayedReplies.indexOf(item.replyId) > -1);
           return (<CommentListItem
+            key={displayedComment.replyId}
             {...displayedComment}
             likeParams={likeParams}
             comments={comments}
             displayedComments={displayedComments}
             toggleAllCommentRepliesAndDisplay={actions.toggleAllCommentRepliesAndDisplay}
-            commentReplies={allReplies[displayedComment.replyId]}
-            displayedReplies={allDisplayedReplies[displayedComment.replyId]}
+            commentReplies={commentReplies}
+            displayedReplies={allDisplayedRepliesObj}
             threadId={threadId}
-            />)
+            topicId={topicId}
+          />)
        })}
         {displayedComments.length > 0 && <PaginateSet
           handlePageChange={this.handlePageChange}

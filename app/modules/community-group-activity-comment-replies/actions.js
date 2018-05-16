@@ -1,29 +1,29 @@
 import { getReplies } from '../../services/discussions/get-replies';
 import { submitReply } from '../../services/discussions/submit-reply';
 
-export const FETCH_GROUP_ACTIVITY_COMMENTS_FAIL = 'FETCH_GROUP_ACTIVITY_COMMENTS_FAIL';
-export const FETCH_GROUP_ACTIVITY_COMMENTS_START = 'FETCH_GROUP_ACTIVITY_COMMENTS_START';
-export const FETCH_GROUP_ACTIVITY_COMMENTS_SUCCESS = 'FETCH_GROUP_ACTIVITY_COMMENTS_SUCCESS';
+export const FETCH_GROUP_ACTIVITY_COMMENT_REPLIES_FAIL = 'FETCH_GROUP_ACTIVITY_COMMENT_REPLIES_FAIL';
+export const FETCH_GROUP_ACTIVITY_COMMENT_REPLIES_START = 'FETCH_GROUP_ACTIVITY_COMMENT_REPLIES_START';
+export const FETCH_GROUP_ACTIVITY_COMMENT_REPLIES_SUCCESS = 'FETCH_GROUP_ACTIVITY_COMMENT_REPLIES_SUCCESS';
 export const REPLY_TO_GROUP_COMMENT_FAIL = 'REPLY_TO_GROUP_COMMENT_FAIL';
 export const REPLY_TO_GROUP_COMMENT_START = 'REPLY_TO_GROUP_COMMENT_START';
 export const REPLY_TO_GROUP_COMMENT_SUCCESS = 'REPLY_TO_GROUP_COMMENT_SUCCESS';
 export const TOGGLE_ALL_GROUP_COMMENT_REPLIES = 'TOGGLE_ALL_GROUP_COMMENT_REPLIES';
 export const TOGGLE_GROUP_COMMENT_REPLIES = 'TOGGLE_GROUP_COMMENT_REPLIES';
-export const UPDATE_TOGGLE_GROUP_COMMENT_REPLIES_DISPLAY_LIST = 'UPDATE_TOGGLE_GROUP_COMMENT_REPLIES_DISPLAY_LIST';
+export const UPDATE_TOGGLE_GROUP_ACTIVITY_COMMENT_REPLIES_DISPLAY_LIST = 'UPDATE_TOGGLE_GROUP_ACTIVITY_COMMENT_REPLIES_DISPLAY_LIST';
 export const COMMENT_REPLY_UPDATE_SUBMITTED = 'COMMENT_REPLY_UPDATE_SUBMITTED';
 
 const fetchGroupCommentRepliesStart = payload => ({
-  type: FETCH_GROUP_ACTIVITY_COMMENTS_START,
+  type: FETCH_GROUP_ACTIVITY_COMMENT_REPLIES_START,
   payload,
 });
 
 const fetchGroupCommentRepliesSuccess = payload => ({
-  type: FETCH_GROUP_ACTIVITY_COMMENTS_SUCCESS,
+  type: FETCH_GROUP_ACTIVITY_COMMENT_REPLIES_SUCCESS,
   payload,
 });
 
 const fetchGroupCommentRepliesFail = payload => ({
-  type: FETCH_GROUP_ACTIVITY_COMMENTS_SUCCESS,
+  type: FETCH_GROUP_ACTIVITY_COMMENT_REPLIES_SUCCESS,
   payload,
 });
 
@@ -59,13 +59,13 @@ export const toggleCommentReplies = payload => ({
 });
 
 export const toggleAndDisplayReplies = payload => (dispatch, getState) => {
-  const { showReplies } = payload;
+  const { showAllReplies } = payload;
 
-  if (showReplies) {
+  if (showAllReplies) {
     dispatch(fetchGroupCommentReplies(payload));
+  } else {
+    dispatch(toggleAllCommentReplies(payload));
   }
-
-  dispatch(toggleCommentReplies(payload));
 };
 
 const replyToCommentStart = payload => ({
@@ -81,6 +81,11 @@ const replyToCommentSuccess = payload => ({
 const replyToCommentFail = payload => ({
   type: REPLY_TO_GROUP_COMMENT_FAIL,
   payload,
+});
+
+const updatedSubmittedReply = payload => ({
+  type: COMMENT_REPLY_UPDATE_SUBMITTED,
+  payload
 });
 
 export const replyToComment = ({
@@ -107,7 +112,7 @@ export const replyToComment = ({
     topicId,
     ver,
   })
-  .then(result => {
+  .then((result) => {
     dispatch(updatedSubmittedReply({ replyTo, submitted: true }));
     setTimeout(() => dispatch(updatedSubmittedReply({ replyTo, submitted: false })), 3000)
     return dispatch(replyToCommentSuccess(Object.assign({ replyTo, threadId }, result.data)));
@@ -121,7 +126,7 @@ export const toggleAllCommentReplies = payload => ({
 });
 
 export const updateCommentRepliesDisplayList = payload => ({
-  type: UPDATE_TOGGLE_GROUP_COMMENT_REPLIES_DISPLAY_LIST,
+  type: UPDATE_TOGGLE_GROUP_ACTIVITY_COMMENT_REPLIES_DISPLAY_LIST,
   payload,
 });
 
