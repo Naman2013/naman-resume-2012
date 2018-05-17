@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import moment from 'moment';
 import first from 'lodash/first';
 import './telescope-details.scss';
