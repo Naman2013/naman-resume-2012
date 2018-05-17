@@ -140,7 +140,6 @@ class TelescopeDetails extends Component {
 
   state = {
     neoviewOpen: false,
-    selectedTab: 0,
     activeInstrumentID: null,
   };
 
@@ -211,9 +210,6 @@ class TelescopeDetails extends Component {
     }
 
     if (isTelescopeUpdate) {
-      // whenever we change the telescope, default the selected tab to 0
-      this.handleSelect(0);
-
       // set the selected telescope
       this.props.actions.setTelescope({
         obsUniqueId: nextProps.params.obsUniqueId,
@@ -234,13 +230,6 @@ class TelescopeDetails extends Component {
       teleUniqueId: params.teleUniqueId,
     });
   }
-
-  handleSelect = (index) => {
-    this.setState({
-      neoviewOpen: false,
-      selectedTab: index,
-    });
-  };
 
   toggleNeoview = () => {
     this.setState(prevState => ({
@@ -302,7 +291,7 @@ class TelescopeDetails extends Component {
   };
 
   render() {
-    const { selectedTab, neoviewOpen, activeInstrumentID } = this.state;
+    const { neoviewOpen, activeInstrumentID } = this.state;
 
     const {
       fetchingObservatoryList,
@@ -338,19 +327,19 @@ class TelescopeDetails extends Component {
     const {
       teleInstrumentList,
       teleCanReserveMissions,
-      teleHasMissions,
       teleId,
     } = currentTelescope;
+
     const telescopeOnline =
       currentTelescopeOnlineStatus && currentTelescopeOnlineStatus.onlineStatus === 'online';
-    const selectedInstrument = teleInstrumentList[selectedTab];
     const currentMissionCountdown = countdownList.find(countdown => countdown.teleUniqueId === teleUniqueId);
 
-    const { domeId } = obsIdTeleIdDomeIdFromTeleId(teleId);
     const { objectAudioURL } = objectDetails;
     const isSubjectMatterAnObject = activeDetailsSSE.astroObjectID > 0;
     const audioEnabled = !!objectAudioURL;
     const isTelescopeOnline = currentTelescopeOnlineStatus && (currentTelescopeOnlineStatus.onlineStatus === 'online');
+
+    const activeInstrument = first(teleInstrumentList.filter(instrument => instrument.instrUniqueId === activeInstrumentID));
 
     return (
       <div className="telescope-details-page-wrapper">
@@ -387,8 +376,6 @@ class TelescopeDetails extends Component {
           </div>
 
 
-
-
           {/* begin left column */}
           <div className="telescope-details clearfix">
             <div className="col-sm-8">
@@ -404,49 +391,37 @@ class TelescopeDetails extends Component {
 
 
 
-              <Tabs onSelect={this.handleSelect} selectedIndex={selectedTab}>
-                <TabList>
-                  {teleInstrumentList.map(instrument => (
-                    <Tab key={instrument.instrUniqueId}>{instrument.instrTelescopeName}</Tab>
-                  ))}
-                </TabList>
-                {teleInstrumentList.map(instrument => (
-                  <TabPanel key={instrument.instrPort}>
-                    <LiveFeed
-                      fetchingOnlineStatus={fetchingObservatoryStatus}
-                      obsAlert={currentObservatory.obsAlert}
-                      onlineStatus={
-                        currentTelescopeOnlineStatus && currentTelescopeOnlineStatus.onlineStatus
-                      }
-                      instrument={instrument}
-                      offlineImageSource={instrument.instrOfflineImgURL}
-                      activeMission={activeTelescopeMission.maskDataArray}
-                      timestamp={activeTelescopeMission.timestamp}
-                      missionStart={activeTelescopeMission.missionStart}
-                      missionEnd={activeTelescopeMission.expires}
-                      activeNeoview={selectedInstrument.instrHasNeoView}
-                      handleInfoClick={this.toggleNeoview}
-                      isImageViewerClipped={isImageViewerClipped}
-                    />
+              <LiveFeed
+                fetchingOnlineStatus={fetchingObservatoryStatus}
+                obsAlert={currentObservatory.obsAlert}
+                onlineStatus={
+                  currentTelescopeOnlineStatus && currentTelescopeOnlineStatus.onlineStatus
+                }
+                instrument={activeInstrument}
+                offlineImageSource={activeInstrument.instrOfflineImgURL}
+                activeMission={activeTelescopeMission.maskDataArray}
+                timestamp={activeTelescopeMission.timestamp}
+                missionStart={activeTelescopeMission.missionStart}
+                missionEnd={activeTelescopeMission.expires}
+                activeNeoview={activeInstrument.instrHasNeoView}
+                handleInfoClick={this.toggleNeoview}
+                isImageViewerClipped={isImageViewerClipped}
+              />
 
-                    {/** load the neoview */
-                    telescopeOnline && selectedInstrument.instrHasNeoView ? (
-                      <Neoview
-                        toggleNeoview={this.toggleNeoview}
-                        neoviewOpen={neoviewOpen}
-                        teleSystem={selectedInstrument.instrSystem}
-                        showToggleOption={currentTelescope.teleOnlineStatus === 'online'}
-                        percentageMissionTimeRemaining={100}
-                      />
-                    ) : null}
+              {/** load the neoview */
+                telescopeOnline && activeInstrument.instrHasNeoView ? (
+                  <Neoview
+                    toggleNeoview={this.toggleNeoview}
+                    neoviewOpen={neoviewOpen}
+                    teleSystem={activeInstrument.instrSystem}
+                    showToggleOption={currentTelescope.teleOnlineStatus === 'online'}
+                    percentageMissionTimeRemaining={100}
+                  />
+                ) : null}
 
-                    {telescopeOnline && instrument.instrStarShareCamera === true ? (
-                      <StarShareCamera />
-                    ) : null}
-                  </TabPanel>
-                ))}
-              </Tabs>
-
+              {telescopeOnline && activeInstrument.instrStarShareCamera === true ? (
+                <StarShareCamera />
+              ) : null}
 
 
 

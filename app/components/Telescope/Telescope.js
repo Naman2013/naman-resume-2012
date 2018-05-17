@@ -155,7 +155,6 @@ class Telescope extends Component {
 
     const imageX = (imageDimensions.width - width) / 2;
     const tickSpacing = (width / horizontalResolution);
-
     return (
       <Measure
         bounds
@@ -179,6 +178,7 @@ class Telescope extends Component {
                         x={-imageX}
                         source={testImage}
                         height={height}
+                        width={imageDimensions.width}
                         onResize={this.handleImageResize}
                       />
                     </g>

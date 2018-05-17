@@ -7,6 +7,7 @@ class Image extends Component {
   static propTypes = {
     source: PropTypes.string.isRequired,
     height: PropTypes.number.isRequired,
+    width: PropTypes.number.isRequired,
     onResize: PropTypes.func,
     x: PropTypes.number.isRequired,
   };
@@ -20,7 +21,9 @@ class Image extends Component {
   };
 
   render() {
-    const { source, height, x } = this.props;
+    const {
+      source, height, width, x,
+    } = this.props;
 
     return (
       <Measure
@@ -29,7 +32,7 @@ class Image extends Component {
       >
         {
           ({ measureRef }) => (
-            <image x={x} ref={measureRef} href={source} height={height} />
+            <image style={{ width: 'auto' }} x={x} ref={measureRef} xlinkHref={source} height={height} width="120%" />
           )
         }
       </Measure>
