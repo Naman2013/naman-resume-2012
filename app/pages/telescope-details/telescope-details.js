@@ -295,23 +295,15 @@ class TelescopeDetails extends Component {
     const {
       fetchingObservatoryList,
       fetchingObservatoryStatus,
-
       currentObservatory,
       currentTelescope,
       currentTelescopeOnlineStatus,
-
       countdownList,
-
       displayCommunityContent,
-
       observatoryList,
-
       params,
-
       activeTelescopeMission,
-
       communityContent,
-
       activeDetailsSSE,
       isImageViewerClipped,
       objectDetails,
@@ -326,7 +318,6 @@ class TelescopeDetails extends Component {
     const {
       teleInstrumentList,
       teleCanReserveMissions,
-      teleId,
     } = currentTelescope;
 
     const telescopeOnline =
