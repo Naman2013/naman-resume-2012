@@ -24,7 +24,7 @@ class InstrumentNavigation extends Component {
 
   render() {
     const { instruments, activeInstrumentID } = this.props;
-
+    console.log(activeInstrumentID);
     return (
       <ul>
         {instruments.map(instrument => (

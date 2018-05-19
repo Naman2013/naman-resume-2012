@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import first from 'lodash/first';
+import some from 'lodash/some';
 
 import {
   bootstrapTelescopeDetails,
@@ -148,7 +149,7 @@ class TelescopeDetails extends Component {
     } = nextProps;
 
     const { neoviewOpen, activeInstrumentID } = this.state;
-    const nextInstrument = first(nextProps.currentTelescope.teleInstrumentList);
+    const firstAvailableInstrument = first(nextProps.currentTelescope.teleInstrumentList);
     const isTelescopeUpdate = teleUniqueId !== this.props.params.teleUniqueId;
     const isObservatoryUpdate = obsUniqueId !== this.props.params.obsUniqueId;
 
@@ -162,9 +163,10 @@ class TelescopeDetails extends Component {
       }
     }
 
-    if (nextInstrument && nextInstrument.instrUniqueId !== activeInstrumentID) {
+    if (firstAvailableInstrument
+        && !some(nextProps.currentTelescope.teleInstrumentList, ['instrUniqueId', activeInstrumentID])) {
       this.setState({
-        activeInstrumentID: nextInstrument.instrUniqueId,
+        activeInstrumentID: firstAvailableInstrument.instrUniqueId,
       });
     }
 
@@ -211,6 +213,12 @@ class TelescopeDetails extends Component {
       this.props.actions.setTelescope({
         obsUniqueId: nextProps.params.obsUniqueId,
         teleUniqueId: nextProps.params.teleUniqueId,
+      });
+    }
+
+    if (isObservatoryUpdate || isTelescopeUpdate) {
+      this.setState({
+        activeInstrumentID: firstAvailableInstrument.instrUniqueId,
       });
     }
   }
@@ -320,14 +328,17 @@ class TelescopeDetails extends Component {
 
     const telescopeOnline =
       currentTelescopeOnlineStatus && currentTelescopeOnlineStatus.onlineStatus === 'online';
-    const currentMissionCountdown = countdownList.find(countdown => countdown.teleUniqueId === teleUniqueId);
+
+    const currentMissionCountdown = countdownList
+      .find(countdown => countdown.teleUniqueId === teleUniqueId);
 
     const { objectAudioURL } = objectDetails;
     const isSubjectMatterAnObject = activeDetailsSSE.astroObjectID > 0;
     const audioEnabled = !!objectAudioURL;
     const isTelescopeOnline = currentTelescopeOnlineStatus && (currentTelescopeOnlineStatus.onlineStatus === 'online');
 
-    const activeInstrument = first(teleInstrumentList.filter(instrument => instrument.instrUniqueId === activeInstrumentID));
+    const activeInstrument = first(teleInstrumentList
+      .filter(instrument => instrument.instrUniqueId === activeInstrumentID));
 
     return (
       <div className="telescope-details-page-wrapper">
