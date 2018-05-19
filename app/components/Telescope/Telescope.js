@@ -3,16 +3,14 @@ import PropTypes from 'prop-types';
 import Measure from 'react-measure';
 import noop from 'lodash/noop';
 import Fade from 'components/common/Fade';
+import FadeSVG from 'components/common/Fade/FadeSVG';
 import easingFunctions, { animateValues } from 'utils/easingFunctions';
 
 import TelescopeFrame from './TelescopeFrame';
 import Mask from './Mask';
-import Image from './Image';
 
 import { getTelescope } from './telescopeConfig';
 import FieldOfView from './FieldOfView/FieldOfView';
-
-const testImage = 'https://polaris.slooh.com/chile/1/highmag/2018/04/04/2340_m43/m43_20180404_234018_0_kx3vo6_l.png';
 
 const MAX_RESOLUTION = 120;
 const MAX_DURATION = 5000;
@@ -182,18 +180,18 @@ class Telescope extends Component {
                   xmlns="http://www.w3.org/2000/svg"
                 >
 
-                  <Fade isHidden={isTransitioningTelescope}>
+                  <FadeSVG isHidden={isTransitioningTelescope}>
                     <Mask />
-                  </Fade>
+                  </FadeSVG>
 
-                  <Fade isHidden={!isTransitioningTelescope}>
+                  <FadeSVG isHidden={!isTransitioningTelescope}>
                     <FieldOfView
                       activeInstrumentID={this.props.activeInstrumentID}
                       previousInstrumentID={this.props.previousInstrumentID}
                       tickSpacing={tickSpacing}
                       canvasWidth={width}
                     />
-                  </Fade>
+                  </FadeSVG>
 
                   <TelescopeFrame
                     isGridVisible={isTransitioningTelescope}

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const Fade = ({ children, isHidden }) => (
-  <div className="root" style={{ opacity: (isHidden) ? 0 : 1 }}>
+  <g className="root" style={{ opacity: (isHidden) ? 0 : 1 }}>
     {children}
 
     <style jsx>{`
@@ -11,7 +11,7 @@ const Fade = ({ children, isHidden }) => (
       }
     `}
     </style>
-  </div>
+  </g>
 );
 
 Fade.propTypes = {
