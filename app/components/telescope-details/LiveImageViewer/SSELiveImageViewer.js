@@ -55,6 +55,8 @@ class SSELiveImageViewer extends Component {
     }),
     viewedMissionsCounter: PropTypes.number,
     recentlyViewedMissionID: PropTypes.number,
+    viewportHeight: PropTypes.number.isRequired,
+    callSource: PropTypes.string,
     // TODO: complete the validation
     // imageSource: PropTypes.
     // teleThumbWidth: PropTypes.
@@ -116,6 +118,7 @@ class SSELiveImageViewer extends Component {
       teleId,
       teleFade,
       missionFormat,
+      viewportHeight,
     } = this.props;
 
     const { obsId, domeId } = obsIdTeleIdDomeIdFromTeleId(teleId);
@@ -124,6 +127,7 @@ class SSELiveImageViewer extends Component {
 
     return (
       <TelescopeImageLoader
+        viewportHeight={viewportHeight}
         imageSource={imageSource}
         teleId={teleId}
         obsId={obsId}

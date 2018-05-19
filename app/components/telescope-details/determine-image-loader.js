@@ -2,33 +2,17 @@ import React from 'react';
 import VideoImageLoader from '../common/telescope-image-loader/video-image-loader';
 import SSELiveImageViewer from './LiveImageViewer/SSELiveImageViewer';
 
-export default function determineImageLoader(
-  instrument,
-  {
-    activeMission, timestamp, missionStart, missionEnd, neoview, isImageViewerClipped,
-  },
-) {
+export default function determineImageLoader(instrument, { viewportHeight }) {
   const { instrImageSourceType, instrCameraSourceType } = instrument;
 
   if (instrImageSourceType === 'SSE') {
     return (
       <SSELiveImageViewer
-        isImageViewerClipped={isImageViewerClipped}
+        viewportHeight={viewportHeight}
         telePort={instrument.instrPort}
         teleSystem={instrument.instrSystem}
         teleId={instrument.instrTelescopeId}
         teleFade={instrument.instrFade}
-        timestamp={timestamp}
-        missionStart={missionStart}
-        missionEnd={missionEnd}
-        coordinateArray={activeMission.coordinateArray}
-        missionData={activeMission.missionData}
-        showMissionData={activeMission.showMissionDataFlag}
-        objectTitleShort={activeMission.objectTitleShort}
-        processing={activeMission.processing}
-        schedulingMember={activeMission.schedulingMember}
-        showInfoButton={neoview.activeNeoview}
-        handleInfoClick={neoview.handleInfoClick}
         missionFormat="full"
       />
     );
@@ -36,8 +20,6 @@ export default function determineImageLoader(
     const {
       instrStreamCode,
       instrStreamURL,
-      instrStreamThumbnailVideoWidth,
-      instrStreamThumbnailVideoHeight,
       instrStreamThumbnailQuality,
       instrSystem,
       instrPort,

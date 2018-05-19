@@ -31,6 +31,7 @@ class TelescopeImageLoader extends Component {
     teleFade: PropTypes.number.isRequired,
     loadThumbnails: PropTypes.bool,
     missionFormat: PropTypes.string,
+    viewportHeight: PropTypes.number,
     actions: PropTypes.shape({
       resetActiveSSE: PropTypes.func.isRequired,
     }).isRequired,
@@ -39,6 +40,7 @@ class TelescopeImageLoader extends Component {
   static defaultProps = {
     loadThumbnails: false,
     missionFormat: null,
+    viewportHeight: 0,
   };
 
   constructor(props) {
@@ -242,7 +244,7 @@ class TelescopeImageLoader extends Component {
       adjustedFade,
     } = this.state;
 
-    const { loadThumbnails } = this.props;
+    const { loadThumbnails, viewportHeight } = this.props;
 
     if (!currentImageUrl || !previousImageUrl) {
       return null;
@@ -264,7 +266,7 @@ class TelescopeImageLoader extends Component {
         <div className="bottom-image">
           <img
             alt=""
-            height="100%"
+            height={viewportHeight}
             src={previousImageUrl}
             draggable="false"
           />
@@ -272,7 +274,7 @@ class TelescopeImageLoader extends Component {
           <div className="top-image">
             <img
               alt=""
-              height="100%"
+              height={viewportHeight}
               id={this.generateImageId()}
               draggable="false"
             />

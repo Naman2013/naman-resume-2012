@@ -118,7 +118,6 @@ class Telescope extends Component {
   ) {
     const { horizontalResolution, verticalResolution } = this.state;
 
-    // returns a control interface that will allow us to control an animation that is already running
     return animateValues(
       { hr: horizontalResolution, vr: verticalResolution },
       duration,
@@ -157,6 +156,7 @@ class Telescope extends Component {
 
     const imageX = (imageDimensions.width - width) / 2;
     const tickSpacing = (width / horizontalResolution);
+
     return (
       <Measure
         bounds
@@ -171,7 +171,7 @@ class Telescope extends Component {
               >
                 <Fade isHidden={isTransitioningTelescope}>
                   <div>
-                    {this.props.render()}
+                    {this.props.render({ viewportHeight: width })}
                   </div>
                 </Fade>
 

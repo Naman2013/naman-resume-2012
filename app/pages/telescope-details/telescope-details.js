@@ -5,7 +5,6 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import first from 'lodash/first';
-import './telescope-details.scss';
 
 import {
   bootstrapTelescopeDetails,
@@ -13,12 +12,12 @@ import {
   setTelescope,
   updateTelescopeStatus,
   fetchAllTelescopeStatus,
-} from '../../modules/telescope-details/actions';
+} from 'modules/telescope-details/actions';
 
-import { fetchObjectDataAction, resetObjectData } from '../../modules/object-details/actions';
+import { fetchObjectDataAction, resetObjectData } from 'modules/object-details/actions';
 
-import { resetSnapshotList } from '../../modules/starshare-camera/starshare-camera-actions';
-import { fetchObjectContent } from '../../modules/community-content/community-object-content-actions';
+import { resetSnapshotList } from 'modules/starshare-camera/starshare-camera-actions';
+import { fetchObjectContent } from 'modules/community-content/community-object-content-actions';
 
 import AnnouncementBanner from 'components/common/announcement-banner/announcement-banner';
 import CommunityPerspectives from 'components/common/community-perspectives/community-perspectives';
@@ -40,6 +39,8 @@ import MissionAudio from 'components/telescope-details/MissionAudio';
 
 import InstrumentNavigation from 'components/telescope-details/InstrumentNavigation';
 import TelescopeImageViewerController from 'components/telescope-details/TelescopeImageViewerController';
+
+import './telescope-details.scss';
 
 function mapDispatchToProps(dispatch) {
   return {
@@ -375,8 +376,9 @@ class TelescopeDetails extends Component {
 
               <TelescopeImageViewerController
                 activeInstrumentID={activeInstrumentID}
-                render={() => (
+                render={({ viewportHeight }) => (
                   <LiveFeed
+                    viewportHeight={viewportHeight}
                     fetchingOnlineStatus={fetchingObservatoryStatus}
                     obsAlert={currentObservatory.obsAlert}
                     onlineStatus={
