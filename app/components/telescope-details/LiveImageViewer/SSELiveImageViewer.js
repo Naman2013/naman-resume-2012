@@ -41,8 +41,6 @@ const mapDispatchToProps = dispatch => ({
 @connect(mapStateToProps, mapDispatchToProps)
 class SSELiveImageViewer extends Component {
   static propTypes = {
-    applyImageViewerClipState: PropTypes.func.isRequired,
-    removeImageViewerClipState: PropTypes.func.isRequired,
     callSource: PropTypes.string,
     actions: PropTypes.shape({
       setImageDataToSnapshot: PropTypes.func.isRequired,
@@ -113,14 +111,6 @@ class SSELiveImageViewer extends Component {
       }
     }
   }
-
-  onClipChange = (clipState) => {
-    if (clipState) {
-      this.props.actions.applyImageViewerClipState();
-    } else {
-      this.props.actions.removeImageViewerClipState();
-    }
-  };
 
   render() {
     const {
