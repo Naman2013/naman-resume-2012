@@ -264,7 +264,7 @@ class TelescopeImageLoader extends Component {
         <div className="bottom-image">
           <img
             alt=""
-            width="100%"
+            height="100%"
             src={previousImageUrl}
             draggable="false"
           />
@@ -272,7 +272,7 @@ class TelescopeImageLoader extends Component {
           <div className="top-image">
             <img
               alt=""
-              width="100%"
+              height="100%"
               id={this.generateImageId()}
               draggable="false"
             />
@@ -280,18 +280,18 @@ class TelescopeImageLoader extends Component {
         </div>
 
         <style jsx>{`
+          .sse-thumbnails {
+            position: relative;
+          }
+
           .bottom-image {
             position: relative;
           }
 
           .top-image {
-            position: relative;
-            width: 100%;
-            top: -250px;
-
+            position: absolute;
+            top: 0;
             transition: opacity ease-in-out;
-            -moz-transition: opacity ease-in-out;
-            -webkit-transition: opacity ease-in-out;
           }
         `}
         </style>

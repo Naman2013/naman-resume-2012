@@ -28,7 +28,7 @@ class InstrumentNavigation extends Component {
     return (
       <ul>
         {instruments.map(instrument => (
-          <li>
+          <li key={`instrument-tab-navigation-${instrument.instrUniqueId}`}>
             <button
               style={{
                 backgroundColor:

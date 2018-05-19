@@ -6,7 +6,6 @@ import { generateRow } from './generateRow';
 const TelescopeFrame = ({
   isGridVisible,
   horizontalResolution,
-  verticalResolution,
   increment,
   length,
   style,
@@ -70,7 +69,6 @@ TelescopeFrame.propTypes = {
   isGridVisible: PropTypes.bool,
   length: PropTypes.number.isRequired,
   horizontalResolution: PropTypes.number,
-  verticalResolution: PropTypes.number,
   increment: PropTypes.number,
   style: PropTypes.shape({
     stroke: PropTypes.string,
@@ -80,7 +78,6 @@ TelescopeFrame.propTypes = {
 TelescopeFrame.defaultProps = {
   isGridVisible: false,
   horizontalResolution: 75,
-  verticalResolution: 75,
   increment: 5,
   style: {
     stroke: 'aqua',
