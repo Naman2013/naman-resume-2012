@@ -4,7 +4,9 @@ import SSELiveImageViewer from './LiveImageViewer/SSELiveImageViewer';
 
 export default function determineImageLoader(
   instrument,
-  { activeMission, timestamp, missionStart, missionEnd, neoview, isImageViewerClipped },
+  {
+    activeMission, timestamp, missionStart, missionEnd, neoview, isImageViewerClipped,
+  },
 ) {
   const { instrImageSourceType, instrCameraSourceType } = instrument;
 
@@ -63,7 +65,8 @@ export default function determineImageLoader(
           .mask {
             position: relative;
           }
-        `}</style>
+        `}
+        </style>
       </div>
     );
   }

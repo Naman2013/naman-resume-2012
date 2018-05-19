@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Measure from 'react-measure';
+import noop from 'lodash/noop';
+import Fade from 'components/common/Fade';
 import easingFunctions, { animateValues } from 'utils/easingFunctions';
+
 import TelescopeFrame from './TelescopeFrame';
 import Mask from './Mask';
 import Image from './Image';
-import Fade from 'components/common/Fade';
 
 import { getTelescope } from './telescopeConfig';
 import FieldOfView from './FieldOfView/FieldOfView';
@@ -20,6 +22,7 @@ class Telescope extends Component {
   static propTypes = {
     activeInstrumentID: PropTypes.string.isRequired,
     previousInstrumentID: PropTypes.string.isRequired,
+    render: PropTypes.func,
     verticalResolution: PropTypes.number,
     horizontalResolution: PropTypes.number,
     increment: PropTypes.number,
@@ -29,6 +32,7 @@ class Telescope extends Component {
     verticalResolution: 75,
     horizontalResolution: 75,
     increment: 5,
+    render: noop,
   };
 
   state = {
@@ -162,7 +166,7 @@ class Telescope extends Component {
       >
         {
           ({ measureRef }) => (
-            <div>
+            <div className="telescope">
               <div
                 ref={measureRef}
                 className="portal"
@@ -174,13 +178,19 @@ class Telescope extends Component {
 
                   <Fade isHidden={isTransitioningTelescope}>
                     <g>
-                      <Image
+                      {
+                        /*
+                                              <Image
                         x={-imageX}
                         source={testImage}
                         height={height}
                         width={imageDimensions.width}
                         onResize={this.handleImageResize}
                       />
+
+                         */
+                      }
+
                     </g>
 
                     <Mask />
@@ -204,12 +214,15 @@ class Telescope extends Component {
                   />
                 </svg>
 
+                <div>
+                  {this.props.render()}
+                </div>
 
                 <style jsx>{`
                   .portal {
                     width: 100%;
                     overflow: hidden;
-                    background: black;
+                    background: none;
                     position: relative;
                   }
 

@@ -80,7 +80,8 @@ class LiveFeed extends Component {
             .root {
               padding-top: 80px;
             }
-          `}</style>
+          `}
+          </style>
         </div>
       );
     }

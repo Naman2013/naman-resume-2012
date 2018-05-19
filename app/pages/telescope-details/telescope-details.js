@@ -36,13 +36,10 @@ import SunsetCountdown from 'components/telescope-details/SunsetCountdown';
 import TelescopeAllSky from 'components/telescope-details/telescope-all-sky/TelescopeAllSky';
 import TelescopeDetailsTabs from 'components/telescope-details/TelescopeDetailsTabs';
 import TelescopeSelection from 'components/telescopes/selection-widget/telescope-selection';
-import UpcomingMissions from 'components/telescope-details/UpcomingMissions/UpcomingMissions';
 import MissionAudio from 'components/telescope-details/MissionAudio';
 
 import InstrumentNavigation from 'components/telescope-details/InstrumentNavigation';
 import TelescopeImageViewerController from 'components/telescope-details/TelescopeImageViewerController';
-
-import obsIdTeleIdDomeIdFromTeleId from '../../utils/obsid-teleid-domeid-from-teleid';
 
 function mapDispatchToProps(dispatch) {
   return {
@@ -375,28 +372,29 @@ class TelescopeDetails extends Component {
                 activeInstrumentID={activeInstrumentID}
                 handleInstrumentClick={this.handleInstrumentNavigationClick}
               />
+
               <TelescopeImageViewerController
                 activeInstrumentID={activeInstrumentID}
+                render={() => (
+                  <LiveFeed
+                    fetchingOnlineStatus={fetchingObservatoryStatus}
+                    obsAlert={currentObservatory.obsAlert}
+                    onlineStatus={
+                      currentTelescopeOnlineStatus && currentTelescopeOnlineStatus.onlineStatus
+                    }
+                    instrument={activeInstrument}
+                    offlineImageSource={activeInstrument.instrOfflineImgURL}
+                    activeMission={activeTelescopeMission.maskDataArray}
+                    timestamp={activeTelescopeMission.timestamp}
+                    missionStart={activeTelescopeMission.missionStart}
+                    missionEnd={activeTelescopeMission.expires}
+                    activeNeoview={activeInstrument.instrHasNeoView}
+                    handleInfoClick={this.toggleNeoview}
+                    isImageViewerClipped={isImageViewerClipped}
+                  />
+                )}
               />
 
-
-
-              <LiveFeed
-                fetchingOnlineStatus={fetchingObservatoryStatus}
-                obsAlert={currentObservatory.obsAlert}
-                onlineStatus={
-                  currentTelescopeOnlineStatus && currentTelescopeOnlineStatus.onlineStatus
-                }
-                instrument={activeInstrument}
-                offlineImageSource={activeInstrument.instrOfflineImgURL}
-                activeMission={activeTelescopeMission.maskDataArray}
-                timestamp={activeTelescopeMission.timestamp}
-                missionStart={activeTelescopeMission.missionStart}
-                missionEnd={activeTelescopeMission.expires}
-                activeNeoview={activeInstrument.instrHasNeoView}
-                handleInfoClick={this.toggleNeoview}
-                isImageViewerClipped={isImageViewerClipped}
-              />
 
               {/** load the neoview */
                 telescopeOnline && activeInstrument.instrHasNeoView ? (
@@ -412,8 +410,6 @@ class TelescopeDetails extends Component {
               {telescopeOnline && activeInstrument.instrStarShareCamera === true ? (
                 <StarShareCamera />
               ) : null}
-
-
 
 
               <Spacer height="50px" />

@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import uniqueId from 'lodash/uniqueId';
 import Circle from './Circle';
 
 function generateLine(dimension, resolution, spacing, currentX, increment, style) {
@@ -13,10 +12,10 @@ function generateLine(dimension, resolution, spacing, currentX, increment, style
   for (let i = 0; i <= resolution; i += 1) {
     if (i % increment === 0) {
       if (TOP_STARTING_POINT > 0) {
-        ROW.push(<Circle style={style} x={currentX} y={TOP_STARTING_POINT} />);
+        ROW.push(<Circle key={`grid-circle-top-${i}`} style={style} x={currentX} y={TOP_STARTING_POINT} />);
         TOP_STARTING_POINT -= (spacing * increment);
       } else {
-        ROW.push(<Circle style={style} x={currentX} y={BOTTOM_STARTING_POINT} />);
+        ROW.push(<Circle key={`grid-circle-bottom-${i}`} style={style} x={currentX} y={BOTTOM_STARTING_POINT} />);
         BOTTOM_STARTING_POINT += (spacing * increment);
       }
     }
