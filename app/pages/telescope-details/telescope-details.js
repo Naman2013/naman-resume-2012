@@ -24,7 +24,7 @@ import AnnouncementBanner from 'components/common/announcement-banner/announceme
 import CommunityPerspectives from 'components/common/community-perspectives/community-perspectives';
 import CurrentSelectionHeader from 'components/telescopes/current-selection-header/header';
 import GoogleAd from 'components/common/google-ads/GoogleAd';
-import LiveFeed from 'components/telescope-details/live-feed/LiveFeed';
+import LiveFeed from 'components/telescope-details/live-feed-v3';
 import LiveMission from 'components/telescope-details/live-mission/live-mission';
 import MoonlightWidget from 'components/telescope-details/MoonlightWidget';
 import SeeingConditionsWidget from 'components/telescope-details/SeeingConditionsWidget';
