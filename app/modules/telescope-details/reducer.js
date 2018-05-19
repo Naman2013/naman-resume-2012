@@ -20,8 +20,6 @@ import {
   RESET_DETAILS_SELECTED_ELEMENTS,
   UPDATE_ACTIVE_SSE,
   RESET_ACTIVE_SSE,
-  REMOVE_IMAGE_VIEWER_CLIP_STATE,
-  APPLY_IMAGE_VIEWER_CLIP_STATE,
   INCREMENT_MISSION_COUNTER,
   RESET_MISSION_COUNTER,
   UPDATE_RECENTLY_VIEWED_MISSION_ID,
@@ -33,8 +31,6 @@ const initialState = {
   fetchingObservatoryList: true,
   fetchingObservatoryListFail: false,
   fetchingObservatoryListErrorBody: null,
-
-  isImageViewerClipped: true,
 
   displayCommunityContent: false,
 
@@ -223,10 +219,8 @@ export default createReducer(initialState, {
       fetchingDayNightBarPanel: true,
       dayNightBarPanel: { ...initialState.dayNightBarPanel },
     };
-
   },
   [FETCH_DAY_NIGHT_BAR_PANEL_SUCCESS](state, { payload }) {
-
     return {
       ...state,
       fetchingDayNightBarPanel: false,
@@ -243,18 +237,6 @@ export default createReducer(initialState, {
     return {
       ...state,
       activeSSE: Object.assign({}, initialState.activeSSE),
-    };
-  },
-  [REMOVE_IMAGE_VIEWER_CLIP_STATE](state) {
-    return {
-      ...state,
-      isImageViewerClipped: false,
-    };
-  },
-  [APPLY_IMAGE_VIEWER_CLIP_STATE](state) {
-    return {
-      ...state,
-      isImageViewerClipped: true,
     };
   },
 });

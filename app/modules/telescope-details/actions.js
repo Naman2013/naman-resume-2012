@@ -51,9 +51,6 @@ export const SET_DISPLAY_COMMUNITY_CONTENT = 'SET_DISPLAY_COMMUNITY_CONTENT';
 export const UPDATE_ACTIVE_SSE = 'UPDATE_ACTIVE_SSE';
 export const RESET_ACTIVE_SSE = 'RESET_ACTIVE_SSE';
 
-export const REMOVE_IMAGE_VIEWER_CLIP_STATE = 'REMOVE_IMAGE_VIEWER_CLIP_STATE';
-export const APPLY_IMAGE_VIEWER_CLIP_STATE = 'APPLY_IMAGE_VIEWER_CLIP_STATE';
-
 export const INCREMENT_MISSION_COUNTER = 'INCREMENT_MISSION_COUNTER';
 export const RESET_MISSION_COUNTER = 'RESET_MISSION_COUNTER';
 export const UPDATE_RECENTLY_VIEWED_MISSION_ID = 'UPDATE_RECENTLY_VIEWED_MISSION_ID';
@@ -74,14 +71,6 @@ export const updateRecentlyViewedMissionID = missionID => ({
 
 export const resetViewedMissionState = () => ({
   type: RESET_VIEWED_MISSION_STATE,
-});
-
-export const removeImageViewerClipState = () => ({
-  type: REMOVE_IMAGE_VIEWER_CLIP_STATE,
-});
-
-export const applyImageViewerClipState = () => ({
-  type: APPLY_IMAGE_VIEWER_CLIP_STATE,
 });
 
 /**

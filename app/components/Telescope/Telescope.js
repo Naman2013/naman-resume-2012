@@ -171,28 +171,18 @@ class Telescope extends Component {
                 ref={measureRef}
                 className="portal"
               >
+                <Fade isHidden={isTransitioningTelescope}>
+                  <div>
+                    {this.props.render()}
+                  </div>
+                </Fade>
+
                 <svg
                   version="1.1"
                   xmlns="http://www.w3.org/2000/svg"
                 >
 
                   <Fade isHidden={isTransitioningTelescope}>
-                    <g>
-                      {
-                        /*
-                                              <Image
-                        x={-imageX}
-                        source={testImage}
-                        height={height}
-                        width={imageDimensions.width}
-                        onResize={this.handleImageResize}
-                      />
-
-                         */
-                      }
-
-                    </g>
-
                     <Mask />
                   </Fade>
 
@@ -213,10 +203,6 @@ class Telescope extends Component {
                     length={width}
                   />
                 </svg>
-
-                <div>
-                  {this.props.render()}
-                </div>
 
                 <style jsx>{`
                   .portal {
