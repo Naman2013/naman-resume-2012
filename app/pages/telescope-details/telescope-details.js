@@ -113,7 +113,7 @@ class TelescopeDetails extends Component {
       fetchAllTelescopeStatus: PropTypes.func.isRequired,
       fetchObjectDataAction: PropTypes.func.isRequired,
       resetObjectData: PropTypes.func.isRequired,
-    }),
+    }).isRequired,
     countdownList: PropTypes.arrayOf(PropTypes.shape({
       telescopeId: PropTypes.string.isRequired,
       // TODO: finish validating fields from the API here...

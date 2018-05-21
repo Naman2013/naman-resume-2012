@@ -5,6 +5,7 @@ import noop from 'lodash/noop';
 import Fade from 'components/common/Fade';
 import FadeSVG from 'components/common/Fade/FadeSVG';
 import easingFunctions, { animateValues } from 'utils/easingFunctions';
+import { black } from 'styles/variables/colors';
 
 import TelescopeFrame from './TelescopeFrame';
 import Mask from './Mask';
@@ -208,6 +209,7 @@ class Telescope extends Component {
                     overflow: hidden;
                     background: none;
                     position: relative;
+                    background-color: ${black};
                   }
 
                   .portal:before {
