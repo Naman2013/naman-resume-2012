@@ -133,9 +133,9 @@ class ObjectDetails extends Component {
           <div className="icon"></div>
           {objectTitle}
           <div className="subtitle">{objectSubtitle}</div>
-          {!showFollowPromptFlag && 
-            <div className="follow-btn">Follow Object</div> 
-          }      
+          {!showFollowPromptFlag &&
+            <div className="follow-btn">Follow Object</div>
+          }
         </header>
         <Navigation objectId={objectId} />
         {cloneElement(children)}

@@ -44,6 +44,7 @@ const mapStateToProps = ({
   fetchingQuestions: astronomerQuestions.fetching,
   fetchingAnswers: astronomerAnswers.fetchingObj,
   user,
+  objectDetails,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -81,6 +82,7 @@ class AskAstronomer extends Component {
   }
   constructor(props) {
     super(props);
+
   }
 
   componentWillReceiveProps(nextProps) {
@@ -89,9 +91,8 @@ class AskAstronomer extends Component {
         faqTopicId,
       }
     } = nextProps;
-
     //fetch the question data, the object page has been changed.
-    if (this.props.params.objectId != nextProps.params.objectId) {
+    if (this.props.params.objectId != nextProps.params.objectId || this.props.objectData.faqTopicId != nextProps.objectData.faqTopicId) {
       this.props.actions.fetchAstronomerQuestions({ topicId: faqTopicId });
     }
   }
@@ -106,8 +107,7 @@ class AskAstronomer extends Component {
         faqTopicId,
       }
     } = this.props;
-
-    if (this.props.objectData.objectId != objectId) {
+    if (faqTopicId && (this.props.objectData.objectId != objectId)) {
         //fetch questions only if the objectId changes.
         this.props.actions.fetchAstronomerQuestions({ topicId: faqTopicId });
     }
