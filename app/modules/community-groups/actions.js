@@ -105,6 +105,7 @@ export const joinOrLeaveGroup = ({
   discussionGroupId,
   lang,
   ver,
+  groupSet,
 }) => (dispatch, getState) => {
   const { cid, at, token } = getState().user;
   return toggleJoinGroup({
@@ -115,7 +116,7 @@ export const joinOrLeaveGroup = ({
     token,
     ver,
   })
-  .then(result => dispatch(toggleJoinGroupSuccess(Object.assign({ discussionGroupId }, result.data))))
+  .then(result => dispatch(toggleJoinGroupSuccess(Object.assign({ discussionGroupId, groupSet }, result.data))))
   .catch(error => dispatch(toggleJoinGroupFail(error)));
 };
 
