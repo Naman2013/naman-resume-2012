@@ -9,6 +9,7 @@ import { black } from 'styles/variables/colors';
 
 import TelescopeFrame from './TelescopeFrame';
 import Mask from './Mask';
+import Scale from './Scale';
 
 import { getTelescope } from './telescopeConfig';
 import FieldOfView from './FieldOfView/FieldOfView';
@@ -200,6 +201,11 @@ class Telescope extends Component {
                     verticalResolution={verticalResolution}
                     increment={increment}
                     length={width}
+                  />
+
+                  <Scale
+                    dimension={width}
+                    style={{ stroke: 'aqua' }}
                   />
                 </svg>
 
