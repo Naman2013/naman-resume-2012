@@ -55,12 +55,15 @@ export default function generateRow(
     switch (rowConfiguration) {
       case ROW_CONFIG.TOP:
         if (i === 0) {
+          const centerUnit = COUNT / 2;
+
           ROW.push(
             <Tick
               key={`polyline-center-top-${ELEMENT_KEY}`}
               points={`${MID_POINT}, 0 ${MID_POINT}, ${CENTER_TICK_LENGTH}`}
               style={style}
             />,
+            <UnitText unit={centerUnit} x={(MID_POINT - 9)} y={(CENTER_TICK_LENGTH + 20)} />,
             <Tick
               key={`polyline-center-bottom-${ELEMENT_KEY}`}
               points={`${MID_POINT}, ${dimension} ${MID_POINT}, ${(dimension - CENTER_TICK_LENGTH)}`}
@@ -76,8 +79,9 @@ export default function generateRow(
               points={`${dimension}, ${MID_POINT} ${(dimension - CENTER_TICK_LENGTH)}, ${MID_POINT}`}
               style={style}
             />,
+            <UnitText unit={centerUnit} x={(dimension - 40)} y={MID_POINT + 5} />,
             <GridLine
-              key={`grid-${ELEMENT_KEY}`}
+              key={`grid-${ELEMENT_KEY}-0`}
               isVisible={isGridVisible}
               dimension={dimension}
               resolution={resolution}
@@ -102,7 +106,7 @@ export default function generateRow(
 
           if (isLargeTick(increment, LEFT_COUNTER)) {
             ROW.push(<GridLine
-              key={`grid-${ELEMENT_KEY}`}
+              key={`grid-${ELEMENT_KEY}-1`}
               isVisible={isGridVisible}
               dimension={dimension}
               resolution={resolution}

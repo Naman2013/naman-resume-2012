@@ -9,7 +9,7 @@ const UnitText = ({ unit, x, y }) => (
       y={y}
       className="text"
     >
-      {unit}
+      {Math.floor(unit)}
     </text>
 
     <style jsx>
@@ -24,7 +24,7 @@ const UnitText = ({ unit, x, y }) => (
 );
 
 UnitText.propTypes = {
-  unit: PropTypes.oneOf([PropTypes.number, PropTypes.string]).isRequired,
+  unit: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
   x: PropTypes.number,
   y: PropTypes.number,
 };
