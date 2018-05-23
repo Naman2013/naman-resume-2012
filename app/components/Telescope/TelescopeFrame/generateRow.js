@@ -38,6 +38,7 @@ export default function generateRow(
   const LARGE_TICK_THICKNESS = 2;
   const SHORT_TICK_LENGTH = (LARGE_TICK_LENGTH / 2);
   const SHORT_TICK_THICKNESS = (LARGE_TICK_THICKNESS / 2);
+  const CENTER_UNIT = 0;
 
   let LEFT_ACCUMULATOR = MID_POINT;
   let LEFT_COUNTER = 0;
@@ -55,15 +56,13 @@ export default function generateRow(
     switch (rowConfiguration) {
       case ROW_CONFIG.TOP:
         if (i === 0) {
-          const centerUnit = COUNT / 2;
-
           ROW.push(
             <Tick
               key={`polyline-center-top-${ELEMENT_KEY}`}
               points={`${MID_POINT}, 0 ${MID_POINT}, ${CENTER_TICK_LENGTH}`}
               style={style}
             />,
-            <UnitText unit={centerUnit} x={(MID_POINT - 9)} y={(CENTER_TICK_LENGTH + 20)} />,
+            <UnitText unit={CENTER_UNIT} x={(MID_POINT - 5)} y={(CENTER_TICK_LENGTH + 20)} />,
             <Tick
               key={`polyline-center-bottom-${ELEMENT_KEY}`}
               points={`${MID_POINT}, ${dimension} ${MID_POINT}, ${(dimension - CENTER_TICK_LENGTH)}`}
@@ -79,7 +78,7 @@ export default function generateRow(
               points={`${dimension}, ${MID_POINT} ${(dimension - CENTER_TICK_LENGTH)}, ${MID_POINT}`}
               style={style}
             />,
-            <UnitText unit={centerUnit} x={(dimension - 40)} y={MID_POINT + 5} />,
+            <UnitText unit={CENTER_UNIT} x={(dimension - 40)} y={MID_POINT + 5} />,
             <GridLine
               key={`grid-${ELEMENT_KEY}-0`}
               isVisible={isGridVisible}
