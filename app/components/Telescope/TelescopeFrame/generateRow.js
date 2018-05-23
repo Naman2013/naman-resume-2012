@@ -4,6 +4,7 @@ import ROW_CONFIG from './rowConfigurationEnum';
 import Tick from './Tick';
 import GridLine from './GridLine';
 import Polyline from '../../SVG/Polyline';
+import UnitText from './UnitText';
 
 function warnClient() {
   console.warn('Invalid row configuration provided');
