@@ -148,7 +148,7 @@ class Telescope extends Component {
 
   render() {
     const {
-      portalDimensions: { width, height },
+      portalDimensions: { width },
       imageDimensions,
       increment,
       horizontalResolution,
@@ -206,6 +206,7 @@ class Telescope extends Component {
                   <FadeSVG isHidden={isTransitioningTelescope}>
                     <Scale
                       dimension={width}
+                      scale={(tickSpacing * increment)}
                       style={{ stroke: 'aqua' }}
                     />
                   </FadeSVG>
