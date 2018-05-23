@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ROW_CONFIGURATION_ENUM from './rowConfigurationEnum';
-import { generateRow } from './generateRow';
+import generateRow from './generateRow';
 
 const TelescopeFrame = ({
   isGridVisible,

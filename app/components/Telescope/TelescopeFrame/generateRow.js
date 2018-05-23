@@ -13,7 +13,7 @@ function isLargeTick(increment, position) {
   return (position % increment === 0);
 }
 
-export function generateRow(
+export default function generateRow(
   dimension = 0,
   resolution = 0,
   increment = 5,
@@ -54,46 +54,41 @@ export function generateRow(
     switch (rowConfiguration) {
       case ROW_CONFIG.TOP:
         if (i === 0) {
-          // draw top center mark
-          ROW.push(<Tick
-            key={`polyline-center-top-${ELEMENT_KEY}`}
-            points={`${MID_POINT}, 0 ${MID_POINT}, ${CENTER_TICK_LENGTH}`}
-            style={style}
-          />);
+          ROW.push(
+            <Tick
+              key={`polyline-center-top-${ELEMENT_KEY}`}
+              points={`${MID_POINT}, 0 ${MID_POINT}, ${CENTER_TICK_LENGTH}`}
+              style={style}
+            />,
+            <Tick
+              key={`polyline-center-bottom-${ELEMENT_KEY}`}
+              points={`${MID_POINT}, ${dimension} ${MID_POINT}, ${(dimension - CENTER_TICK_LENGTH)}`}
+              style={style}
+            />,
+            <Tick
+              key={`polyline-center-left-${ELEMENT_KEY}`}
+              points={`${0}, ${MID_POINT}, ${CENTER_TICK_LENGTH}, ${MID_POINT}`}
+              style={style}
+            />,
+            <Tick
+              key={`polyline-center-right-${ELEMENT_KEY}`}
+              points={`${dimension}, ${MID_POINT} ${(dimension - CENTER_TICK_LENGTH)}, ${MID_POINT}`}
+              style={style}
+            />,
+            <GridLine
+              key={`grid-${ELEMENT_KEY}`}
+              isVisible={isGridVisible}
+              dimension={dimension}
+              resolution={resolution}
+              spacing={SPACING}
+              currentX={MID_POINT}
+              increment={increment}
+              style={style}
+            />,
+          );
+        }
 
-          // draw bottom center mark
-          ROW.push(<Tick
-            key={`polyline-center-bottom-${ELEMENT_KEY}`}
-            points={`${MID_POINT}, ${dimension} ${MID_POINT}, ${(dimension - CENTER_TICK_LENGTH)}`}
-            style={style}
-          />);
-
-          // draw left center tick
-          ROW.push(<Tick
-            key={`polyline-center-left-${ELEMENT_KEY}`}
-            points={`${0}, ${MID_POINT}, ${CENTER_TICK_LENGTH}, ${MID_POINT}`}
-            style={style}
-          />);
-
-          // draw right center tick
-          ROW.push(<Tick
-            key={`polyline-center-right-${ELEMENT_KEY}`}
-            points={`${dimension}, ${MID_POINT} ${(dimension - CENTER_TICK_LENGTH)}, ${MID_POINT}`}
-            style={style}
-          />);
-
-          // draw grid line
-          ROW.push(<GridLine
-            key={`grid-${ELEMENT_KEY}`}
-            isVisible={isGridVisible}
-            dimension={dimension}
-            resolution={resolution}
-            spacing={SPACING}
-            currentX={MID_POINT}
-            increment={increment}
-            style={style}
-          />);
-        } else if (i <= TICKS_PER_SIDE) {
+        if (i <= TICKS_PER_SIDE) {
           x1 = LEFT_ACCUMULATOR;
           y1 = 0;
           x2 = LEFT_ACCUMULATOR;

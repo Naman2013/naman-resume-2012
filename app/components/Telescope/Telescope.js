@@ -203,10 +203,12 @@ class Telescope extends Component {
                     length={width}
                   />
 
-                  <Scale
-                    dimension={width}
-                    style={{ stroke: 'aqua' }}
-                  />
+                  <FadeSVG isHidden={isTransitioningTelescope}>
+                    <Scale
+                      dimension={width}
+                      style={{ stroke: 'aqua' }}
+                    />
+                  </FadeSVG>
                 </svg>
 
                 <style jsx>{`
