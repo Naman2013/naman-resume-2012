@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { monoFont } from 'styles/variables/fonts';
 
 const Scale = ({ dimension, scale, style }) => {
-  const lineLength = (dimension * 0.1);
+  const lineLength = (dimension * 0.06);
   const x1 = (dimension - lineLength);
   const y1 = lineLength;
   const x2 = x1;
@@ -27,6 +27,24 @@ const Scale = ({ dimension, scale, style }) => {
         y={textY}
       >
           5-arcmins
+      </text>
+
+      <text
+        style={{ fontSize }}
+        className="text"
+        x={(x3 - (fontSize))}
+        y={(y3 + (fontSize * 0.35))}
+      >
+          E
+      </text>
+
+      <text
+        style={{ fontSize }}
+        className="text"
+        x={x1 - (fontSize * 0.23)}
+        y={(y1 - (fontSize * 0.35))}
+      >
+          N
       </text>
 
       <Polyline
