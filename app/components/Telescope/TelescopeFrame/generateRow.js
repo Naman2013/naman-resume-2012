@@ -38,12 +38,14 @@ export default function generateRow(
   const LARGE_TICK_THICKNESS = 2;
   const SHORT_TICK_LENGTH = (LARGE_TICK_LENGTH / 2);
   const SHORT_TICK_THICKNESS = (LARGE_TICK_THICKNESS / 2);
-  const CENTER_UNIT = 0;
+  const CENTER_MARKER_TEXT = 0;
+  const MARKER_TEXT_INCREMENT = 5;
 
   let LEFT_ACCUMULATOR = MID_POINT;
   let LEFT_COUNTER = 0;
   let RIGHT_ACCUMULATOR = MID_POINT;
   let RIGHT_COUNTER = 0;
+  let incrementedMarkerText = CENTER_MARKER_TEXT;
 
   for (let i = 0; i <= COUNT; i += 1) {
     const ELEMENT_KEY = `${rowConfiguration}-${i}`;
@@ -62,7 +64,7 @@ export default function generateRow(
               points={`${MID_POINT}, 0 ${MID_POINT}, ${CENTER_TICK_LENGTH}`}
               style={style}
             />,
-            <UnitText unit={CENTER_UNIT} x={MID_POINT} y={(CENTER_TICK_LENGTH + 20)} />,
+            <UnitText unit={CENTER_MARKER_TEXT} x={MID_POINT} y={(CENTER_TICK_LENGTH + 20)} />,
             <Tick
               key={`polyline-center-bottom-${ELEMENT_KEY}`}
               points={`${MID_POINT}, ${dimension} ${MID_POINT}, ${(dimension - CENTER_TICK_LENGTH)}`}
@@ -78,7 +80,7 @@ export default function generateRow(
               points={`${dimension}, ${MID_POINT} ${(dimension - CENTER_TICK_LENGTH)}, ${MID_POINT}`}
               style={style}
             />,
-            <UnitText unit={CENTER_UNIT} x={(dimension - 40)} y={MID_POINT + 5} />,
+            <UnitText unit={CENTER_MARKER_TEXT} x={(dimension - 40)} y={MID_POINT + 5} />,
             <GridLine
               key={`grid-${ELEMENT_KEY}-0`}
               isVisible={isGridVisible}
@@ -104,16 +106,25 @@ export default function generateRow(
             : SHORT_TICK_THICKNESS;
 
           if (isLargeTick(increment, LEFT_COUNTER)) {
-            ROW.push(<GridLine
-              key={`grid-${ELEMENT_KEY}-1`}
-              isVisible={isGridVisible}
-              dimension={dimension}
-              resolution={resolution}
-              spacing={SPACING}
-              currentX={LEFT_ACCUMULATOR}
-              increment={increment}
-              style={style}
-            />);
+            ROW.push(
+              <GridLine
+                key={`grid-${ELEMENT_KEY}-1`}
+                isVisible={isGridVisible}
+                dimension={dimension}
+                resolution={resolution}
+                spacing={SPACING}
+                currentX={LEFT_ACCUMULATOR}
+                increment={increment}
+                style={style}
+              />,
+              <UnitText
+                unit={`-${incrementedMarkerText}`}
+                x={LEFT_ACCUMULATOR}
+                y={(y2 + 25)}
+              />,
+            );
+
+            incrementedMarkerText += MARKER_TEXT_INCREMENT;
           }
 
           LEFT_ACCUMULATOR -= SPACING;
@@ -128,16 +139,25 @@ export default function generateRow(
             : SHORT_TICK_THICKNESS;
 
           if (isLargeTick(increment, RIGHT_COUNTER)) {
-            ROW.push(<GridLine
-              key={`grid-${ELEMENT_KEY}`}
-              isVisible={isGridVisible}
-              dimension={dimension}
-              resolution={resolution}
-              spacing={SPACING}
-              currentX={RIGHT_ACCUMULATOR}
-              increment={increment}
-              style={style}
-            />);
+            ROW.push(
+              <GridLine
+                key={`grid-${ELEMENT_KEY}`}
+                isVisible={isGridVisible}
+                dimension={dimension}
+                resolution={resolution}
+                spacing={SPACING}
+                currentX={RIGHT_ACCUMULATOR}
+                increment={increment}
+                style={style}
+              />,
+              <UnitText
+                unit={incrementedMarkerText}
+                x={RIGHT_ACCUMULATOR}
+                y={(y2 + 25)}
+              />,
+            );
+
+            incrementedMarkerText += MARKER_TEXT_INCREMENT;
           }
 
           RIGHT_ACCUMULATOR += SPACING;
