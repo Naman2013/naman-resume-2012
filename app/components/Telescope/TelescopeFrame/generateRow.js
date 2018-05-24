@@ -65,7 +65,11 @@ export default function generateRow(
               points={`${MID_POINT}, 0 ${MID_POINT}, ${CENTER_TICK_LENGTH}`}
               style={style}
             />,
-            <UnitText unit={CENTER_MARKER_TEXT} x={MID_POINT} y={(CENTER_TICK_LENGTH + 20)} />,
+            <UnitText
+              unit={CENTER_MARKER_TEXT}
+              x={MID_POINT}
+              y={(CENTER_TICK_LENGTH + 20)}
+            />,
             <Tick
               key={`polyline-center-bottom-${ELEMENT_KEY}`}
               points={`${MID_POINT}, ${dimension} ${MID_POINT}, ${(dimension - CENTER_TICK_LENGTH)}`}
@@ -81,7 +85,11 @@ export default function generateRow(
               points={`${dimension}, ${MID_POINT} ${(dimension - CENTER_TICK_LENGTH)}, ${MID_POINT}`}
               style={style}
             />,
-            <UnitText unit={CENTER_MARKER_TEXT} x={(dimension - 40)} y={MID_POINT + 5} />,
+            <UnitText
+              unit={CENTER_MARKER_TEXT}
+              x={(dimension - 40)}
+              y={MID_POINT + 5}
+            />,
             <GridLine
               key={`grid-${ELEMENT_KEY}-0`}
               isVisible={isGridVisible}
@@ -118,11 +126,13 @@ export default function generateRow(
                 increment={increment}
                 style={style}
               />,
-              <UnitText
-                unit={`-${incrementedMarkerTextTopLeft}`}
-                x={LEFT_ACCUMULATOR}
-                y={(y2 + 25)}
-              />,
+              (incrementedMarkerTextTopLeft > 0
+                ? <UnitText
+                  unit={`-${incrementedMarkerTextTopLeft}`}
+                  x={LEFT_ACCUMULATOR}
+                  y={(y2 + 24)}
+                />
+                : null),
             );
 
             incrementedMarkerTextTopLeft += MARKER_TEXT_INCREMENT;
@@ -151,11 +161,13 @@ export default function generateRow(
                 increment={increment}
                 style={style}
               />,
-              <UnitText
-                unit={incrementedMarkerTextTopRight}
-                x={RIGHT_ACCUMULATOR}
-                y={(y2 + 25)}
-              />,
+              (incrementedMarkerTextTopRight > 0
+                ? <UnitText
+                  unit={incrementedMarkerTextTopRight}
+                  x={RIGHT_ACCUMULATOR}
+                  y={(y2 + 24)}
+                />
+                : null),
             );
 
             incrementedMarkerTextTopRight += MARKER_TEXT_INCREMENT;
