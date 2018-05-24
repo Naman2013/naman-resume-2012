@@ -68,7 +68,7 @@ export default function generateRow(
             <UnitText
               unit={CENTER_MARKER_TEXT}
               x={MID_POINT}
-              y={(CENTER_TICK_LENGTH + 20)}
+              y={(CENTER_TICK_LENGTH + 15)}
             />,
             <Tick
               key={`polyline-center-bottom-${ELEMENT_KEY}`}
@@ -130,7 +130,7 @@ export default function generateRow(
                 ? <UnitText
                   unit={`-${incrementedMarkerTextTopLeft}`}
                   x={LEFT_ACCUMULATOR}
-                  y={(y2 + 24)}
+                  y={(y2 + 15)}
                 />
                 : null),
             );
@@ -165,7 +165,7 @@ export default function generateRow(
                 ? <UnitText
                   unit={incrementedMarkerTextTopRight}
                   x={RIGHT_ACCUMULATOR}
-                  y={(y2 + 24)}
+                  y={(y2 + 15)}
                 />
                 : null),
             );

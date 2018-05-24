@@ -17,6 +17,7 @@ const UnitText = ({ unit, x, y }) => (
       {`
         .text {
           fill: aqua;
+          font-size: 10px;
           font-family: ${monoFont};
         }
       `}
