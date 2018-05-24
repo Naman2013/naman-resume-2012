@@ -13,8 +13,10 @@ export const modelNotificationsFromApiRes = {
 
 export default (alerts = []) => ({
   render: props => (<AlertTile {...props} />),
-  content: alerts.map(_alert => ({
-    _ID: uniqueId(),
-    ..._alert,
-  })),
+  content: alerts
+    .filter(_alert => _alert.active)
+    .map(_alert => ({
+      _ID: uniqueId(),
+      ..._alert,
+    })),
 });
