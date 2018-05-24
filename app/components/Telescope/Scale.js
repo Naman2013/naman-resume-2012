@@ -32,8 +32,10 @@ const Scale = ({ dimension, scale, style }) => {
       <text
         style={{ fontSize }}
         className="text"
-        x={(x3 - (fontSize))}
-        y={(y3 + (fontSize * 0.35))}
+        x={(x3 - (scale * 0.1))}
+        y={y3}
+        textAnchor="middle"
+        alignmentBaseline="middle"
       >
           E
       </text>
@@ -41,8 +43,9 @@ const Scale = ({ dimension, scale, style }) => {
       <text
         style={{ fontSize }}
         className="text"
-        x={x1 - (fontSize * 0.23)}
-        y={(y1 - (fontSize * 0.35))}
+        x={x1}
+        y={(y1 - (scale * 0.1))}
+        textAnchor="middle"
       >
           N
       </text>
