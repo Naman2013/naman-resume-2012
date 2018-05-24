@@ -49,19 +49,6 @@ const TelescopeFrame = ({
         )
       }
     </g>
-
-    <g>
-      {
-        generateRow(
-          length,
-          horizontalResolution,
-          increment,
-          ROW_CONFIGURATION_ENUM.RIGHT,
-          style,
-          isGridVisible,
-        )
-      }
-    </g>
   </g>
 );
 

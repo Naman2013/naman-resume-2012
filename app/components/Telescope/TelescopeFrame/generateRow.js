@@ -114,6 +114,19 @@ export default function generateRow(
             ? LARGE_TICK_THICKNESS
             : SHORT_TICK_THICKNESS;
 
+          // draw the right side partial
+          ROW.push(<Polyline
+            key={`polyline-right-ticks-${ELEMENT_KEY}`}
+            points={`
+              ${dimension},${LEFT_ACCUMULATOR}
+              ${(isLargeTick(increment, LEFT_COUNTER)) ? (dimension - LARGE_TICK_LENGTH) : (dimension - SHORT_TICK_LENGTH)},${LEFT_ACCUMULATOR}
+            `}
+            strokeWidth={
+              (isLargeTick(increment, LEFT_COUNTER)) ? LARGE_TICK_THICKNESS : SHORT_TICK_THICKNESS
+            }
+            {...style}
+          />);
+
           if (isLargeTick(increment, LEFT_COUNTER)) {
             ROW.push(
               <GridLine
@@ -148,6 +161,19 @@ export default function generateRow(
           tickThickness = (isLargeTick(increment, RIGHT_COUNTER))
             ? LARGE_TICK_THICKNESS
             : SHORT_TICK_THICKNESS;
+
+          // draw the right side partial
+          ROW.push(<Polyline
+            key={`polyline-right-ticks-${ELEMENT_KEY}`}
+            points={`
+              ${dimension},${RIGHT_ACCUMULATOR}
+              ${(isLargeTick(increment, RIGHT_COUNTER)) ? (dimension - LARGE_TICK_LENGTH) : (dimension - SHORT_TICK_LENGTH)},${RIGHT_ACCUMULATOR}
+            `}
+            strokeWidth={
+              (isLargeTick(increment, RIGHT_COUNTER)) ? LARGE_TICK_THICKNESS : SHORT_TICK_THICKNESS
+            }
+            {...style}
+          />);
 
           if (isLargeTick(increment, RIGHT_COUNTER)) {
             ROW.push(
@@ -226,35 +252,6 @@ export default function generateRow(
           x2 = (isLargeTick(increment, RIGHT_COUNTER))
             ? LARGE_TICK_LENGTH
             : SHORT_TICK_LENGTH;
-          y2 = RIGHT_ACCUMULATOR;
-          tickThickness = (isLargeTick(increment, RIGHT_COUNTER))
-            ? LARGE_TICK_THICKNESS
-            : SHORT_TICK_THICKNESS;
-
-          RIGHT_ACCUMULATOR += SPACING;
-          RIGHT_COUNTER += 1;
-        }
-        break;
-      case ROW_CONFIG.RIGHT:
-        if (i <= TICKS_PER_SIDE) {
-          x1 = dimension;
-          y1 = LEFT_ACCUMULATOR;
-          x2 = (isLargeTick(increment, LEFT_COUNTER))
-            ? (dimension - LARGE_TICK_LENGTH)
-            : (dimension - SHORT_TICK_LENGTH);
-          y2 = LEFT_ACCUMULATOR;
-          tickThickness = (isLargeTick(increment, LEFT_COUNTER))
-            ? LARGE_TICK_THICKNESS
-            : SHORT_TICK_THICKNESS;
-
-          LEFT_ACCUMULATOR -= SPACING;
-          LEFT_COUNTER += 1;
-        } else {
-          x1 = dimension;
-          y1 = RIGHT_ACCUMULATOR;
-          x2 = (isLargeTick(increment, RIGHT_COUNTER))
-            ? (dimension - LARGE_TICK_LENGTH)
-            : (dimension - SHORT_TICK_LENGTH);
           y2 = RIGHT_ACCUMULATOR;
           tickThickness = (isLargeTick(increment, RIGHT_COUNTER))
             ? LARGE_TICK_THICKNESS
