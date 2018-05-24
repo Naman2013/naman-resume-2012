@@ -62,7 +62,7 @@ export default function generateRow(
               points={`${MID_POINT}, 0 ${MID_POINT}, ${CENTER_TICK_LENGTH}`}
               style={style}
             />,
-            <UnitText unit={CENTER_UNIT} x={(MID_POINT - 5)} y={(CENTER_TICK_LENGTH + 20)} />,
+            <UnitText unit={CENTER_UNIT} x={MID_POINT} y={(CENTER_TICK_LENGTH + 20)} />,
             <Tick
               key={`polyline-center-bottom-${ELEMENT_KEY}`}
               points={`${MID_POINT}, ${dimension} ${MID_POINT}, ${(dimension - CENTER_TICK_LENGTH)}`}
