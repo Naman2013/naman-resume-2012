@@ -45,7 +45,8 @@ export default function generateRow(
   let LEFT_COUNTER = 0;
   let RIGHT_ACCUMULATOR = MID_POINT;
   let RIGHT_COUNTER = 0;
-  let incrementedMarkerText = CENTER_MARKER_TEXT;
+  let incrementedMarkerTextTopLeft = CENTER_MARKER_TEXT;
+  let incrementedMarkerTextTopRight = CENTER_MARKER_TEXT;
 
   for (let i = 0; i <= COUNT; i += 1) {
     const ELEMENT_KEY = `${rowConfiguration}-${i}`;
@@ -118,13 +119,13 @@ export default function generateRow(
                 style={style}
               />,
               <UnitText
-                unit={`-${incrementedMarkerText}`}
+                unit={`-${incrementedMarkerTextTopLeft}`}
                 x={LEFT_ACCUMULATOR}
                 y={(y2 + 25)}
               />,
             );
 
-            incrementedMarkerText += MARKER_TEXT_INCREMENT;
+            incrementedMarkerTextTopLeft += MARKER_TEXT_INCREMENT;
           }
 
           LEFT_ACCUMULATOR -= SPACING;
@@ -151,13 +152,13 @@ export default function generateRow(
                 style={style}
               />,
               <UnitText
-                unit={incrementedMarkerText}
+                unit={incrementedMarkerTextTopRight}
                 x={RIGHT_ACCUMULATOR}
                 y={(y2 + 25)}
               />,
             );
 
-            incrementedMarkerText += MARKER_TEXT_INCREMENT;
+            incrementedMarkerTextTopRight += MARKER_TEXT_INCREMENT;
           }
 
           RIGHT_ACCUMULATOR += SPACING;
