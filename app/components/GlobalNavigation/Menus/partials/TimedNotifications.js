@@ -9,7 +9,7 @@ const {
   shape,
 } = PropTypes;
 
-class UpdatedNotifications extends Component {
+class TimedNotifications extends Component {
   static propTypes = {
     alertsOnly: arrayOf(shape({
       active: bool.isRequired,
@@ -51,7 +51,7 @@ class UpdatedNotifications extends Component {
           this.setState({
             alerts: newAlerts,
           });
-        }, _alert.eventCountdown * 100);
+        }, _alert.eventCountdown * 1000);
       }
       return _alert;
     });
@@ -68,4 +68,4 @@ class UpdatedNotifications extends Component {
   }
 }
 
-export default UpdatedNotifications;
+export default TimedNotifications;
