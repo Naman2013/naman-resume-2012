@@ -6,7 +6,7 @@ export const modelNotificationsFromApiRes = {
   name: 'ALERTS_ONLY',
   model: function modelAlerts(API_RAW) {
     const { alertList } = API_RAW;
-    // Maniuplate Data Here if needed.
+    // Maniuplate data here if needed.
     return alertList;
   },
 };

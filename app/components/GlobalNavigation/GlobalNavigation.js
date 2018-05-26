@@ -22,6 +22,7 @@ class GlobalNavigation extends Component {
   state = {
     isLeftOpen: false,
     isRightOpen: false,
+    isNotificationMenuOpen: false,
     activeMenu: MENU_INTERFACE.DEFAULT.name,
     activeLeft: MENU_INTERFACE.DEFAULT.name,
     activeRight: MENU_INTERFACE.DEFAULT.name,
@@ -58,17 +59,35 @@ class GlobalNavigation extends Component {
     }));
   }
 
+  handleNotificationClick = (menuName) => {
+    const { activeMenu } = this.state;
+    const sameMenu = menuName === activeMenu;
+    const nextMenu = (sameMenu) ? MENU_INTERFACE.DEFAULT.name : menuName;
+    const isDefault = (menuName) === MENU_INTERFACE.DEFAULT.name;
+    const isLeftUpdate = !sameMenu && !isDefault && isLeft(menuName);
+    const isRightUpdate = !sameMenu && !isDefault && isRight(menuName);
+
+    this.setState(prevState => ({
+      activeMenu: nextMenu,
+      isNotificationMenuOpen: isRightUpdate,
+      activeLeft: (isLeftUpdate) ? menuName : prevState.activeLeft,
+      activeRight: (isRightUpdate) ? menuName : prevState.activeRight,
+    }));
+  }
+
   render() {
     const {
-      isLeftOpen,
-      isRightOpen,
-      activeMenu,
       activeLeft,
+      activeMenu,
       activeRight,
+      isLeftOpen,
+      isNotificationMenuOpen,
+      isRightOpen,
     } = this.state;
 
     const leftMenuContent = MENU_INTERFACE[activeLeft];
     const rightMenuContent = MENU_INTERFACE[activeRight];
+    const notificationMenuContent = MENU_INTERFACE[MENU_INTERFACE.ALERTS.name]
 
     return (
       <div className="root">
@@ -76,6 +95,7 @@ class GlobalNavigation extends Component {
           <TopBar
             activeMenu={activeMenu}
             handleMenuClick={this.handleMenuClick}
+            handleNotificationClick={this.handleNotificationClick}
           />
         </div>
 
@@ -96,6 +116,16 @@ class GlobalNavigation extends Component {
           isOpen={isRightOpen}
           render={props => (
             rightMenuContent.render(props)
+          )}
+        />
+        {/* Prerender Notification Menu */}
+        <Menu
+          title={rightMenuContent.title}
+          handleClose={this.closeAll}
+          position="right"
+          isOpen={isNotificationMenuOpen}
+          render={props => (
+            notificationMenuContent.render(props)
           )}
         />
 

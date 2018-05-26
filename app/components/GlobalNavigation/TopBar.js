@@ -2,14 +2,16 @@ import React from 'react';
 import Button from './Button';
 import CenterBar from './CenterBar';
 import MENU_INTERFACE from './Menus/MenuInterface';
+import Notifications from './Menus/Notifications';
 import ConnectUser from 'redux/components/ConnectUser';
+import AlertsIcon from 'redux/components/AlertsIcon';
 import { darkGray } from '../../styles/variables/colors';
 
 function isActive(menuName, activeMenu) {
   return menuName === activeMenu;
 }
 
-const TopBar = ({ handleMenuClick, activeMenu }) => (
+const TopBar = ({ handleMenuClick, activeMenu, handleNotificationClick }) => (
   <div className="root">
 
     <div className="left-menu">
@@ -69,9 +71,9 @@ const TopBar = ({ handleMenuClick, activeMenu }) => (
         <li>
           <Button
             isActive={isActive(activeMenu, MENU_INTERFACE.ALERTS.name)}
-            handleClick={() => { handleMenuClick(MENU_INTERFACE.ALERTS.name); }}
+            handleClick={() => { handleNotificationClick(MENU_INTERFACE.ALERTS.name); }}
           >
-            <span className="fa fa-bell" />
+            <AlertsIcon />
           </Button>
         </li>
         <li>

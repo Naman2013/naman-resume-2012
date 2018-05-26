@@ -38,6 +38,7 @@ class Request extends Component {
       name: PropTypes.string.isRequired,
       model: PropTypes.func.isRequired,
     })),
+    serviceResponseHandler: PropTypes.func,
     requestBody: PropTypes.any, // any set due to disambiguity of the request
 
     // provided by global state
@@ -58,6 +59,7 @@ class Request extends Component {
     models: [],
     method: POST,
     serviceExpiresFieldName: 'expires',
+    serviceResponseHandler: null,
   };
 
   state = {
@@ -86,6 +88,7 @@ class Request extends Component {
   handleServiceResponse(result) {
     const {
       serviceExpiresFieldName,
+      serviceResponseHandler,
       model,
       models,
     } = this.props;
@@ -112,6 +115,8 @@ class Request extends Component {
       serviceResponse: result,
       modeledResponses,
     }));
+
+    serviceResponseHandler(result)
   }
 
   tearDown() {

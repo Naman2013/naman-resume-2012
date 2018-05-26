@@ -3,7 +3,7 @@ import Main from './Main';
 import Telescopes from './Telescopes';
 import Search from './Search';
 import Help from './Help';
-import Notifications from './Notifications';
+import NotificationsRedux from './Notifications.redux';
 import ProfileRedux from './Profile.redux';
 
 export const LEFT_MENU = {
@@ -38,7 +38,7 @@ const RIGHT_MENU = {
   ALERTS: {
     name: 'ALERTS',
     title: 'Notifications',
-    render: props => (<Notifications {...props} />),
+    render: props => (<NotificationsRedux {...props} />),
   },
   PROFILE: {
     name: 'PROFILE',
