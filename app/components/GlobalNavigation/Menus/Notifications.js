@@ -21,18 +21,16 @@ const Notifications = ({
       fetchingContent,
       modeledResponses: { ALERTS_ONLY },
       serviceResponse,
-    }) => {
-      return (
-        <div>
-          {serviceResponse.showAlertInformation ? <TimedNotifications
-            alertsOnly={ALERTS_ONLY}
-            notificationConfig={NOTIFICATION_CONFIGURATION}
-            updateNotificationsCount={updateNotificationsCount}
-            notificationsCount={notificationsCount}
-          /> : null}
-        </div>
-      )
-    }}
+    }) => (
+      <div>
+        {<TimedNotifications
+          alertsOnly={ALERTS_ONLY}
+          notificationConfig={NOTIFICATION_CONFIGURATION}
+          updateNotificationsCount={updateNotificationsCount}
+          notificationsCount={notificationsCount}
+        />}
+      </div>
+    )}
   />
 );
 
