@@ -5,8 +5,8 @@ import { ALERTS_INFORMATION, TEST_MODE_TRUE } from 'services/notifications';
 import NOTIFICATION_CONFIGURATION, { modelNotificationsFromApiRes } from './notificationsConfiguration';
 
 const Notifications = ({
-  updateAlertCount,
-  alertCount,
+  updateNotificationsCount,
+  notificationsCount,
 }) => (
   <Request
     serviceURL={ALERTS_INFORMATION}
@@ -15,8 +15,7 @@ const Notifications = ({
     serviceExpiresFieldName="expires"
     model={modelNotificationsFromApiRes}
     serviceResponseHandler={(result) => {
-      console.log('onload', result.alertCount)
-      updateAlertCount({ count: result.alertCount })
+      updateNotificationsCount({ count: result.notificationsCount })
     }}
     render={({
       fetchingContent,
@@ -25,12 +24,12 @@ const Notifications = ({
     }) => {
       return (
         <div>
-          <TimedNotifications
+          {serviceResponse.showAlertInformation ? <TimedNotifications
             alertsOnly={ALERTS_ONLY}
             notificationConfig={NOTIFICATION_CONFIGURATION}
-            updateAlertCount={updateAlertCount}
-            alertCount={alertCount}
-          />
+            updateNotificationsCount={updateNotificationsCount}
+            notificationsCount={notificationsCount}
+          /> : null}
         </div>
       )
     }}

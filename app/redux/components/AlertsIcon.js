@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { connect } from 'react-redux';
 import { red, white, black } from 'styles/variables/colors';
-const AlertsIcon = ({ notificationCount }) => (
+const AlertsIcon = ({ notificationsCount }) => (
   <span className="root">
     <span className="fa fa-bell" />
     <span className={classnames('count', {
-      zero: notificationCount === 0,
-    })}>{notificationCount}</span>
+      zero: notificationsCount === 0,
+    })}>{notificationsCount}</span>
     <style jsx>{`
       .root {
         display: block;
@@ -34,17 +34,17 @@ const AlertsIcon = ({ notificationCount }) => (
 );
 
 AlertsIcon.propTypes = {
-  notificationCount: PropTypes.number,
+  notificationsCount: PropTypes.number,
 };
 
 AlertsIcon.defaultProps = {
-  notificationCount: 0,
+  notificationsCount: 0,
 };
 
 const mapStateToProps = ({
   alerts,
 }) => ({
-  notificationCount: alerts.notificationCount,
+  notificationsCount: alerts.notificationsCount,
 });
 
 

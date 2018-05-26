@@ -27,7 +27,7 @@ class TimedNotifications extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { alertsOnly, alertCount, updateAlertCount } = this.props;
+    const { alertsOnly, notificationsCount, updateNotificationsCount } = this.props;
     if (alertsOnly.length !== nextProps.alertsOnly.length) {
       this.setState(() => ({
         alerts: nextProps.alertsOnly,
@@ -35,25 +35,24 @@ class TimedNotifications extends Component {
 
       this.createTimers(nextProps.alertsOnly);
     }
-    console.log('alertCount', alertCount, nextProps.alertCount)
-    if (alertCount !== nextProps.alertCount) {
-      updateAlertCount({
-        count: nextProps.alertCount,
+    if (notificationsCount !== nextProps.notificationsCount) {
+      updateNotificationsCount({
+        count: nextProps.notificationsCount,
       });
     }
   }
 
   createTimers = (alerts) => {
-    const { updateAlertCount } = this.props;
+    const { updateNotificationsCount } = this.props;
     alerts.map((_alert) => {
       if (!_alert.active) {
         setTimeout(() => {
           const newAlerts = alerts.map((_storedAlert) => {
-            const { alertCount } = this.props;
+            const { notificationsCount } = this.props;
             if (_storedAlert.eventId === _alert.eventId) {
               _storedAlert.active = true;
-              updateAlertCount({
-                count: alertCount + 1,
+              updateNotificationsCount({
+                count: notificationsCount + 1,
               });
             }
             return _storedAlert;

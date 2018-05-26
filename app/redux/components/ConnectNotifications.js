@@ -1,34 +1,34 @@
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { updateNotificationCount } from 'modules/alerts/actions';
+import { updateNotificationsCount } from 'modules/alerts/actions';
 
 const propTypes = {
-  notificationCount: PropTypes.number,
+  notificationsCount: PropTypes.number,
 };
 
 const defaultProps = {
-  notificationCount: 0,
+  notificationsCount: 0,
 };
 
 
 const mapStateToProps = ({
   alerts,
 }) => ({
-  alertCount: alerts.notificationCount,
+  notificationsCount: alerts.notificationsCount,
 });
 
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
-    updateNotificationCount,
+    updateNotificationsCount,
   }, dispatch),
 });
 
-const ConnectNotifications = ({ render, actions, alertCount }) =>
+const ConnectNotifications = ({ render, actions, notificationsCount }) =>
   (render({
-    updateAlertCount: actions.updateNotificationCount,
-    alertCount,
+    updateNotificationsCount: actions.updateNotificationsCount,
+    notificationsCount,
   }));
 ConnectNotifications.propTypes = propTypes;
 ConnectNotifications.defaultProps = defaultProps;

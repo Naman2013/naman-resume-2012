@@ -1,10 +1,10 @@
-export const UPDATE_NOTIFICATION_COUNT = 'UPDATE_NOTIFICATION_COUNT';
+export const UPDATE_NOTIFICATIONS_COUNT = 'UPDATE_NOTIFICATIONS_COUNT';
 
-const updateNotificationCountAction = payload => ({
-  type: UPDATE_NOTIFICATION_COUNT,
+const updateNotificationsCountAction = payload => ({
+  type: UPDATE_NOTIFICATIONS_COUNT,
   payload,
 });
 
-export const updateNotificationCount = payload => (dispatch) => {
-  dispatch(updateNotificationCountAction(payload));
+export const updateNotificationsCount = payload => (dispatch) => {
+  dispatch(updateNotificationsCountAction(payload));
 };
