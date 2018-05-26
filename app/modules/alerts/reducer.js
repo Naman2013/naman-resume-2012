@@ -1,6 +1,6 @@
 import createReducer from '../utils/createReducer';
 import {
-  UPDATE_NOTIFICATIONS_COUNT
+  UPDATE_NOTIFICATIONS_COUNT,
 } from './actions';
 
 const initialState = {

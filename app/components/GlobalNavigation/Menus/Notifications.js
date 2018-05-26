@@ -5,8 +5,9 @@ import { ALERTS_INFORMATION, TEST_MODE_TRUE } from 'services/notifications';
 import NOTIFICATION_CONFIGURATION, { modelNotificationsFromApiRes } from './notificationsConfiguration';
 
 const Notifications = ({
-  updateNotificationsCount,
+  dismissNotification,
   notificationsCount,
+  updateNotificationsCount,
 }) => (
   <Request
     serviceURL={ALERTS_INFORMATION}
@@ -25,9 +26,10 @@ const Notifications = ({
       <div>
         {<TimedNotifications
           alertsOnly={ALERTS_ONLY}
+          dismissNotification={dismissNotification}
           notificationConfig={NOTIFICATION_CONFIGURATION}
-          updateNotificationsCount={updateNotificationsCount}
           notificationsCount={notificationsCount}
+          updateNotificationsCount={updateNotificationsCount}
         />}
       </div>
     )}

@@ -5,8 +5,9 @@ import ConnectNotifications from 'redux/components/ConnectNotifications';
 const NotificationRedux = props => (
   <ConnectNotifications
     render={notificationProps => (<Notifications
-      updateNotificationsCount={notificationProps.updateNotificationsCount}
+      dismissNotification={notificationProps.dismissNotification}
       notificationsCount={notificationProps.notificationsCount}
+      updateNotificationsCount={notificationProps.updateNotificationsCount}
       {...props}
     />)}
   />

@@ -68,11 +68,11 @@ class TimedNotifications extends Component {
   }
 
   render() {
-    const { notificationConfig } = this.props;
+    const { notificationConfig, dismissNotification } = this.props;
     const { alerts } = this.state;
     return (
       <div>
-        <MenuList items={notificationConfig(alerts)} />
+        <MenuList items={notificationConfig({ alerts, dismissNotification })} />
       </div>
     );
   }
