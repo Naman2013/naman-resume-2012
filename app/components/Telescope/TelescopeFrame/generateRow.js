@@ -175,6 +175,7 @@ export default function generateRow(
             {...style}
           />);
 
+          // TODO: add another UnitText for the right bar...
           if (isLargeTick(increment, RIGHT_COUNTER)) {
             ROW.push(
               <GridLine
