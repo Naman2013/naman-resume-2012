@@ -9,6 +9,7 @@ const UnitText = ({ unit, x, y }) => (
       y={y}
       className="text"
       textAnchor="middle"
+      alignmentBaseline="middle"
     >
       {Math.floor(unit)}
     </text>

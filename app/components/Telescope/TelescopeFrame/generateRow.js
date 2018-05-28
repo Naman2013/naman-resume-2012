@@ -90,7 +90,7 @@ export default function generateRow(
             <UnitText
               unit={CENTER_MARKER_TEXT}
               x={(dimension - 40)}
-              y={MID_POINT + 5}
+              y={MID_POINT}
             />,
             <FadeSVG isHidden={!isGridVisible}>
               <GridLine
@@ -197,11 +197,20 @@ export default function generateRow(
               </FadeSVG>
               ,
               (incrementedMarkerTextTopRight > 0
-                ? <UnitText
-                  unit={incrementedMarkerTextTopRight}
-                  x={RIGHT_ACCUMULATOR}
-                  y={(y2 + 15)}
-                />
+                ? (
+                  <React.Fragment>
+                    <UnitText
+                      unit={incrementedMarkerTextTopRight}
+                      x={RIGHT_ACCUMULATOR}
+                      y={(y2 + 15)}
+                    />
+                    <UnitText
+                      unit={`-${incrementedMarkerTextTopRight}`}
+                      x={dimension - (LARGE_TICK_LENGTH + 15)}
+                      y={RIGHT_ACCUMULATOR}
+                    />
+                  </React.Fragment>
+                )
                 : null),
             );
 
