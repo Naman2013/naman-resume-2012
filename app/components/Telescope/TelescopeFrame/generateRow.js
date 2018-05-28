@@ -71,7 +71,7 @@ export default function generateRow(
               <UnitText
                 unit={CENTER_MARKER_TEXT}
                 x={MID_POINT}
-                y={(CENTER_TICK_LENGTH + 15)}
+                y={(CENTER_TICK_LENGTH + 10)}
               />
             </FadeSVG>
             ,
@@ -93,7 +93,7 @@ export default function generateRow(
             <FadeSVG isHidden={!isScaleVisible}>
               <UnitText
                 unit={CENTER_MARKER_TEXT}
-                x={(dimension - 40)}
+                x={(dimension - 25)}
                 y={MID_POINT}
               />
             </FadeSVG>
@@ -158,11 +158,11 @@ export default function generateRow(
                       <UnitText
                         unit={`-${incrementedMarkerTextTopLeft}`}
                         x={LEFT_ACCUMULATOR}
-                        y={(y2 + 15)}
+                        y={(y2 + 10)}
                       />
                       <UnitText
                         unit={`${incrementedMarkerTextTopLeft}`}
-                        x={dimension - (LARGE_TICK_LENGTH + 15)}
+                        x={dimension - (LARGE_TICK_LENGTH + 10)}
                         y={LEFT_ACCUMULATOR}
                       />
                     </FadeSVG>
@@ -219,11 +219,11 @@ export default function generateRow(
                       <UnitText
                         unit={incrementedMarkerTextTopRight}
                         x={RIGHT_ACCUMULATOR}
-                        y={(y2 + 15)}
+                        y={(y2 + 10)}
                       />
                       <UnitText
                         unit={`-${incrementedMarkerTextTopRight}`}
-                        x={dimension - (LARGE_TICK_LENGTH + 15)}
+                        x={dimension - (LARGE_TICK_LENGTH + 10)}
                         y={RIGHT_ACCUMULATOR}
                       />
                     </FadeSVG>

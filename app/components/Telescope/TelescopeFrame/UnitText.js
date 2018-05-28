@@ -2,16 +2,23 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { monoFont } from 'styles/variables/fonts';
 
-const UnitText = ({ unit, x, y }) => (
+const UnitText = ({
+  unit,
+  text,
+  x,
+  y,
+  style,
+}) => (
   <g>
     <text
+      {...style}
       x={x}
       y={y}
       className="text"
       textAnchor="middle"
       alignmentBaseline="middle"
     >
-      {Math.floor(unit)}
+      {text || Math.floor(unit)}
     </text>
 
     <style jsx>
@@ -27,7 +34,8 @@ const UnitText = ({ unit, x, y }) => (
 );
 
 UnitText.propTypes = {
-  unit: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+  unit: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  text: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   x: PropTypes.number,
   y: PropTypes.number,
 };
@@ -35,6 +43,8 @@ UnitText.propTypes = {
 UnitText.defaultProps = {
   x: 0,
   y: 0,
+  unit: null,
+  text: null,
 };
 
 export default UnitText;

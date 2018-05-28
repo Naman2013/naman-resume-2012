@@ -10,6 +10,7 @@ import { black } from 'styles/variables/colors';
 import TelescopeFrame from './TelescopeFrame';
 import Mask from './Mask';
 import Scale from './Scale';
+import UnitText from './TelescopeFrame/UnitText';
 
 import { getTelescope } from './telescopeConfig';
 import FieldOfView from './FieldOfView/FieldOfView';
@@ -158,6 +159,8 @@ class Telescope extends Component {
 
     const imageX = (imageDimensions.width - width) / 2;
     const tickSpacing = (width / horizontalResolution);
+    const midPoint = (width / 2);
+    const arcMinuteLabelLetterSpacing = (width * 0.055);
 
     return (
       <Measure
@@ -209,6 +212,23 @@ class Telescope extends Component {
                       dimension={width}
                       scale={(tickSpacing * increment)}
                       style={{ stroke: 'aqua' }}
+                    />
+
+                    <UnitText
+                      text="arcminutes"
+                      x={midPoint}
+                      y={40}
+                      style={{ letterSpacing: arcMinuteLabelLetterSpacing }}
+                    />
+
+                    <UnitText
+                      text="arcminutes"
+                      x={-midPoint}
+                      y={(width - 40)}
+                      style={{
+                        letterSpacing: arcMinuteLabelLetterSpacing,
+                        transform: 'rotate(-90)',
+                      }}
                     />
                   </FadeSVG>
                 </svg>
