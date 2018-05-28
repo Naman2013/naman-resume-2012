@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { monoFont } from 'styles/variables/fonts';
 
 const Scale = ({ dimension, scale, style }) => {
-  const lineLength = (dimension * 0.06);
+  const lineLength = (dimension * 0.10);
   const x1 = (dimension - lineLength);
   const y1 = lineLength;
   const x2 = x1;
@@ -12,7 +12,7 @@ const Scale = ({ dimension, scale, style }) => {
   const x3 = (x1 - scale);
   const y3 = y2;
 
-  const fontSize = (scale * 0.17);
+  const fontSize = 10;
   const textX = x3;
   const textY = (y2 - 5);
 
