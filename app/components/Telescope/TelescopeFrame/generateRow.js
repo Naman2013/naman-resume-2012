@@ -146,11 +146,20 @@ export default function generateRow(
               </FadeSVG>
               ,
               (incrementedMarkerTextTopLeft > 0
-                ? <UnitText
-                  unit={`-${incrementedMarkerTextTopLeft}`}
-                  x={LEFT_ACCUMULATOR}
-                  y={(y2 + 15)}
-                />
+                ? (
+                  <React.Fragment>
+                    <UnitText
+                      unit={`-${incrementedMarkerTextTopLeft}`}
+                      x={LEFT_ACCUMULATOR}
+                      y={(y2 + 15)}
+                    />
+                    <UnitText
+                      unit={`${incrementedMarkerTextTopLeft}`}
+                      x={dimension - (LARGE_TICK_LENGTH + 15)}
+                      y={LEFT_ACCUMULATOR}
+                    />
+                  </React.Fragment>
+                )
                 : null),
             );
 
