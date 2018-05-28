@@ -3,7 +3,7 @@ import Polyline from 'components/SVG/Polyline';
 import PropTypes from 'prop-types';
 import { monoFont } from 'styles/variables/fonts';
 
-const Scale = ({ dimension, scale, style }) => {
+const Scale = ({ dimension, scale, scaleText, style }) => {
   const lineLength = (dimension * 0.10);
   const x1 = (dimension - lineLength);
   const y1 = lineLength;
@@ -12,7 +12,7 @@ const Scale = ({ dimension, scale, style }) => {
   const x3 = (x1 - scale);
   const y3 = y2;
 
-  const fontSize = 10;
+  const fontSize = 8;
   const textX = x3;
   const textY = (y2 - 5);
 
@@ -26,7 +26,7 @@ const Scale = ({ dimension, scale, style }) => {
         x={textX}
         y={textY}
       >
-          5-arcmins
+        {scaleText}-arcmins
       </text>
 
       <text
@@ -72,6 +72,7 @@ const Scale = ({ dimension, scale, style }) => {
 Scale.propTypes = {
   dimension: PropTypes.number.isRequired,
   scale: PropTypes.number.isRequired,
+  scaleText: PropTypes.number.isRequired,
 };
 
 export default Scale;

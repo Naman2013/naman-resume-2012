@@ -157,6 +157,7 @@ class Telescope extends Component {
       isTransitioningTelescope,
     } = this.state;
 
+    const activeInstrument = getTelescope(this.props.activeInstrumentID);
     const imageX = (imageDimensions.width - width) / 2;
     const tickSpacing = (width / horizontalResolution);
     const midPoint = (width / 2);
@@ -210,7 +211,8 @@ class Telescope extends Component {
                   <FadeSVG isHidden={isTransitioningTelescope}>
                     <Scale
                       dimension={width}
-                      scale={(tickSpacing * increment)}
+                      scale={(tickSpacing * activeInstrument.directionMarkerLengthArcMinutes)}
+                      scaleText={activeInstrument.directionMarkerLengthArcMinutes}
                       style={{ stroke: 'aqua' }}
                     />
 
