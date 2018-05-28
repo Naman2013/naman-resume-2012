@@ -67,11 +67,14 @@ export default function generateRow(
               points={`${MID_POINT}, 0 ${MID_POINT}, ${CENTER_TICK_LENGTH}`}
               style={style}
             />,
-            <UnitText
-              unit={CENTER_MARKER_TEXT}
-              x={MID_POINT}
-              y={(CENTER_TICK_LENGTH + 15)}
-            />,
+            <FadeSVG isHidden={!isScaleVisible}>
+              <UnitText
+                unit={CENTER_MARKER_TEXT}
+                x={MID_POINT}
+                y={(CENTER_TICK_LENGTH + 15)}
+              />
+            </FadeSVG>
+            ,
             <Tick
               key={`polyline-center-bottom-${ELEMENT_KEY}`}
               points={`${MID_POINT}, ${dimension} ${MID_POINT}, ${(dimension - CENTER_TICK_LENGTH)}`}
@@ -87,11 +90,14 @@ export default function generateRow(
               points={`${dimension}, ${MID_POINT} ${(dimension - CENTER_TICK_LENGTH)}, ${MID_POINT}`}
               style={style}
             />,
-            <UnitText
-              unit={CENTER_MARKER_TEXT}
-              x={(dimension - 40)}
-              y={MID_POINT}
-            />,
+            <FadeSVG isHidden={!isScaleVisible}>
+              <UnitText
+                unit={CENTER_MARKER_TEXT}
+                x={(dimension - 40)}
+                y={MID_POINT}
+              />
+            </FadeSVG>
+            ,
             <FadeSVG isHidden={!isGridVisible}>
               <GridLine
                 key={`grid-${ELEMENT_KEY}-0`}
@@ -148,16 +154,18 @@ export default function generateRow(
               (incrementedMarkerTextTopLeft > 0
                 ? (
                   <React.Fragment>
-                    <UnitText
-                      unit={`-${incrementedMarkerTextTopLeft}`}
-                      x={LEFT_ACCUMULATOR}
-                      y={(y2 + 15)}
-                    />
-                    <UnitText
-                      unit={`${incrementedMarkerTextTopLeft}`}
-                      x={dimension - (LARGE_TICK_LENGTH + 15)}
-                      y={LEFT_ACCUMULATOR}
-                    />
+                    <FadeSVG isHidden={!isScaleVisible}>
+                      <UnitText
+                        unit={`-${incrementedMarkerTextTopLeft}`}
+                        x={LEFT_ACCUMULATOR}
+                        y={(y2 + 15)}
+                      />
+                      <UnitText
+                        unit={`${incrementedMarkerTextTopLeft}`}
+                        x={dimension - (LARGE_TICK_LENGTH + 15)}
+                        y={LEFT_ACCUMULATOR}
+                      />
+                    </FadeSVG>
                   </React.Fragment>
                 )
                 : null),
@@ -190,7 +198,6 @@ export default function generateRow(
             {...style}
           />);
 
-          // TODO: add another UnitText for the right bar...
           if (isLargeTick(increment, RIGHT_COUNTER)) {
             ROW.push(
               <FadeSVG isHidden={!isGridVisible}>
@@ -208,16 +215,18 @@ export default function generateRow(
               (incrementedMarkerTextTopRight > 0
                 ? (
                   <React.Fragment>
-                    <UnitText
-                      unit={incrementedMarkerTextTopRight}
-                      x={RIGHT_ACCUMULATOR}
-                      y={(y2 + 15)}
-                    />
-                    <UnitText
-                      unit={`-${incrementedMarkerTextTopRight}`}
-                      x={dimension - (LARGE_TICK_LENGTH + 15)}
-                      y={RIGHT_ACCUMULATOR}
-                    />
+                    <FadeSVG isHidden={!isScaleVisible}>
+                      <UnitText
+                        unit={incrementedMarkerTextTopRight}
+                        x={RIGHT_ACCUMULATOR}
+                        y={(y2 + 15)}
+                      />
+                      <UnitText
+                        unit={`-${incrementedMarkerTextTopRight}`}
+                        x={dimension - (LARGE_TICK_LENGTH + 15)}
+                        y={RIGHT_ACCUMULATOR}
+                      />
+                    </FadeSVG>
                   </React.Fragment>
                 )
                 : null),
