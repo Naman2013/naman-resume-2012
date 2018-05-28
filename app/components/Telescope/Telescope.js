@@ -160,7 +160,7 @@ class Telescope extends Component {
     const imageX = (imageDimensions.width - width) / 2;
     const tickSpacing = (width / horizontalResolution);
     const midPoint = (width / 2);
-    const arcMinuteLabelLetterSpacing = (width * 0.055);
+    const arcMinuteLabelLetterSpacing = (width * 0.03);
 
     return (
       <Measure
