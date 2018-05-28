@@ -4,6 +4,7 @@ import ROW_CONFIG from './rowConfigurationEnum';
 import Tick from './Tick';
 import GridLine from './GridLine';
 import Polyline from '../../SVG/Polyline';
+import FadeSVG from 'components/common/Fade/FadeSVG';
 import UnitText from './UnitText';
 
 function warnClient() {
@@ -21,6 +22,7 @@ export default function generateRow(
   rowConfiguration = ROW_CONFIG.TOP,
   style = {},
   isGridVisible = false,
+  isScaleVisible = false,
 ) {
   if (!(rowConfiguration instanceof ROW_CONFIG)) {
     warnClient();
@@ -90,16 +92,18 @@ export default function generateRow(
               x={(dimension - 40)}
               y={MID_POINT + 5}
             />,
-            <GridLine
-              key={`grid-${ELEMENT_KEY}-0`}
-              isVisible={isGridVisible}
-              dimension={dimension}
-              resolution={resolution}
-              spacing={SPACING}
-              currentX={MID_POINT}
-              increment={increment}
-              style={style}
-            />,
+            <FadeSVG isHidden={!isGridVisible}>
+              <GridLine
+                key={`grid-${ELEMENT_KEY}-0`}
+                dimension={dimension}
+                resolution={resolution}
+                spacing={SPACING}
+                currentX={MID_POINT}
+                increment={increment}
+                style={style}
+              />
+            </FadeSVG>
+            ,
           );
         }
 
@@ -129,16 +133,18 @@ export default function generateRow(
 
           if (isLargeTick(increment, LEFT_COUNTER)) {
             ROW.push(
-              <GridLine
-                key={`grid-${ELEMENT_KEY}-1`}
-                isVisible={isGridVisible}
-                dimension={dimension}
-                resolution={resolution}
-                spacing={SPACING}
-                currentX={LEFT_ACCUMULATOR}
-                increment={increment}
-                style={style}
-              />,
+              <FadeSVG isHidden={!isGridVisible}>
+                <GridLine
+                  key={`grid-${ELEMENT_KEY}-1`}
+                  dimension={dimension}
+                  resolution={resolution}
+                  spacing={SPACING}
+                  currentX={LEFT_ACCUMULATOR}
+                  increment={increment}
+                  style={style}
+                />
+              </FadeSVG>
+              ,
               (incrementedMarkerTextTopLeft > 0
                 ? <UnitText
                   unit={`-${incrementedMarkerTextTopLeft}`}
@@ -178,16 +184,18 @@ export default function generateRow(
           // TODO: add another UnitText for the right bar...
           if (isLargeTick(increment, RIGHT_COUNTER)) {
             ROW.push(
-              <GridLine
-                key={`grid-${ELEMENT_KEY}`}
-                isVisible={isGridVisible}
-                dimension={dimension}
-                resolution={resolution}
-                spacing={SPACING}
-                currentX={RIGHT_ACCUMULATOR}
-                increment={increment}
-                style={style}
-              />,
+              <FadeSVG isHidden={!isGridVisible}>
+                <GridLine
+                  key={`grid-${ELEMENT_KEY}`}
+                  dimension={dimension}
+                  resolution={resolution}
+                  spacing={SPACING}
+                  currentX={RIGHT_ACCUMULATOR}
+                  increment={increment}
+                  style={style}
+                />
+              </FadeSVG>
+              ,
               (incrementedMarkerTextTopRight > 0
                 ? <UnitText
                   unit={incrementedMarkerTextTopRight}
