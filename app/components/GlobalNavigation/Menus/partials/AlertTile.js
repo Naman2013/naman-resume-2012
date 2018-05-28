@@ -13,7 +13,7 @@ const {
 } = PropTypes;
 const propTypes = {
   canDismiss: bool.isRequired,
-  dismissNotification: func.isRequired,
+  dismissAlert: func.isRequired,
   eventId: number.isRequired,
   eventLabel: string.isRequired,
   eventSubtitle: string.isRequired,
@@ -29,32 +29,13 @@ const defaultProps = {
 class AlertTile extends Component {
   state = {
     loading: false,
-    showTile: true,
     showResponse: false,
     responseText: '',
   }
 
   dismiss = () => {
-    const { dismissNotification, eventId } = this.props;
-    this.setState({
-      loading: true,
-    });
-    dismissNotification({
-      eventId,
-    }).then((res) => {
-      let showTile = false;
-      if (res.payload.successFlag) {
-        showTile = false;
-      } else {
-        showTile = true;
-      }
-      this.setState({
-        showTile,
-        loading: false,
-        showResponse: res.payload.showResponse,
-        responseText: res.payload.response,
-      });
-    })
+    const { dismissAlert, eventId } = this.props;
+    dismissAlert(eventId);
   }
 
   render() {
@@ -68,19 +49,15 @@ class AlertTile extends Component {
       linkLabel,
       linkUrl,
     } = this.props;
-    console.log('render', eventId)
+
     const {
-      showTile,
       loading,
       showResponse,
       responseText,
     } = this.state;
 
     return (
-      <div className={classnames({
-        root: showTile,
-        'hide-tile': !showTile,
-      })} key={eventId}>
+      <div className="root" key={eventId}>
         <div className="tile-container">
           {canDismiss && <div className="dismiss" onClick={this.dismiss }><span className="fa fa-check" /></div>}
           {loading && <div className="dismiss"><span className="fa fa-spinner" /></div>}
@@ -121,10 +98,6 @@ class AlertTile extends Component {
             background-color: ${lightGray};
             color: ${white};
             text-align: center;
-          }
-
-          .hide-tile {
-            display: none;
           }
         `}
         </style>

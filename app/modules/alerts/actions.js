@@ -1,21 +1,13 @@
 import axios from 'axios';
 
 export const UPDATE_NOTIFICATIONS_COUNT = 'UPDATE_NOTIFICATIONS_COUNT';
-export const DISMISS_NOTIFICATION_SUCCESS = 'DISMISS_NOTIFICATION_SUCCESS';
 
 const updateNotificationsCountAction = payload => ({
   type: UPDATE_NOTIFICATIONS_COUNT,
   payload,
 });
 
-export const updateNotificationsCount = payload => (dispatch) => {
-  dispatch(updateNotificationsCountAction(payload));
-};
-
-const dismissNotificationSuccess = payload => ({
-  type: DISMISS_NOTIFICATION_SUCCESS,
-  payload,
-});
+export const updateNotificationsCount = payload => dispatch => dispatch(updateNotificationsCountAction(payload));
 
 export const dismissNotification = ({
   eventId,
@@ -36,6 +28,6 @@ export const dismissNotification = ({
       dispatch(updateNotificationsCount({
         count: notificationsCount - 1,
       }));
-      return dispatch(dismissNotificationSuccess(Object.assign({ eventId }, result.data)));
+      return Object.assign({ eventId }, result.data);
     });
 };

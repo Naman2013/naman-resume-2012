@@ -11,8 +11,8 @@ export const modelNotificationsFromApiRes = {
   },
 };
 
-export default ({ alerts = [], dismissNotification }) => ({
-  render: props => (<AlertTile dismissNotification={dismissNotification} {...props} />),
+export default ({ alerts = [], dismissAlert }) => ({
+  render: props => (<AlertTile dismissAlert={dismissAlert} {...props} />),
   content: alerts
     .filter(_alert => _alert.active)
     .map(_alert => ({

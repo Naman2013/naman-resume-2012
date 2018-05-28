@@ -39,6 +39,7 @@ class GlobalNavigation extends Component {
       activeMenu: MENU_INTERFACE.DEFAULT.name,
       isLeftOpen: false,
       isRightOpen: false,
+      isNotificationMenuOpen: false,
     });
   }
 
@@ -56,6 +57,7 @@ class GlobalNavigation extends Component {
       isRightOpen: isRightUpdate,
       activeLeft: (isLeftUpdate) ? menuName : prevState.activeLeft,
       activeRight: (isRightUpdate) ? menuName : prevState.activeRight,
+      isNotificationMenuOpen: false,
     }));
   }
 
@@ -64,14 +66,11 @@ class GlobalNavigation extends Component {
     const sameMenu = menuName === activeMenu;
     const nextMenu = (sameMenu) ? MENU_INTERFACE.DEFAULT.name : menuName;
     const isDefault = (menuName) === MENU_INTERFACE.DEFAULT.name;
-    const isLeftUpdate = !sameMenu && !isDefault && isLeft(menuName);
     const isRightUpdate = !sameMenu && !isDefault && isRight(menuName);
 
     this.setState(prevState => ({
       activeMenu: nextMenu,
       isNotificationMenuOpen: isRightUpdate,
-      activeLeft: (isLeftUpdate) ? menuName : prevState.activeLeft,
-      activeRight: (isRightUpdate) ? menuName : prevState.activeRight,
     }));
   }
 
@@ -120,7 +119,7 @@ class GlobalNavigation extends Component {
         />
         {/* Prerender Notification Menu */}
         <Menu
-          title={rightMenuContent.title}
+          title={notificationMenuContent.title}
           handleClose={this.closeAll}
           position="right"
           isOpen={isNotificationMenuOpen}
