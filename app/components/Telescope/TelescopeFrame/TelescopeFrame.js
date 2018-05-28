@@ -5,6 +5,7 @@ import generateRow from './generateRow';
 
 const TelescopeFrame = ({
   isGridVisible,
+  isScaleVisible,
   horizontalResolution,
   increment,
   length,
@@ -20,6 +21,7 @@ const TelescopeFrame = ({
           ROW_CONFIGURATION_ENUM.TOP,
           style,
           isGridVisible,
+          isScaleVisible,
         )
       }
     </g>
@@ -33,6 +35,7 @@ const TelescopeFrame = ({
           ROW_CONFIGURATION_ENUM.BOTTOM,
           style,
           isGridVisible,
+          isScaleVisible,
         )
       }
     </g>
@@ -46,6 +49,7 @@ const TelescopeFrame = ({
           ROW_CONFIGURATION_ENUM.LEFT,
           style,
           isGridVisible,
+          isScaleVisible,
         )
       }
     </g>
@@ -54,6 +58,7 @@ const TelescopeFrame = ({
 
 TelescopeFrame.propTypes = {
   isGridVisible: PropTypes.bool,
+  isScaleVisible: PropTypes.bool,
   length: PropTypes.number.isRequired,
   horizontalResolution: PropTypes.number,
   increment: PropTypes.number,
@@ -64,6 +69,7 @@ TelescopeFrame.propTypes = {
 
 TelescopeFrame.defaultProps = {
   isGridVisible: false,
+  isScaleVisible: false,
   horizontalResolution: 75,
   increment: 5,
   style: {

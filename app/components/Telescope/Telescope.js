@@ -197,6 +197,7 @@ class Telescope extends Component {
 
                   <TelescopeFrame
                     isGridVisible={isTransitioningTelescope}
+                    isScaleVisible={!isTransitioningTelescope}
                     horizontalResolution={horizontalResolution}
                     verticalResolution={verticalResolution}
                     increment={increment}
