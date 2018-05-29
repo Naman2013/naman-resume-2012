@@ -66,6 +66,14 @@ class HeroInspire extends Component {
     });
   }
 
+  renderCallToActionLearnMore() {
+    const { userLoggedInFlag } = this.props;
+
+    if (!userLoggedInFlag) {
+      return <a className="action" href="https://www.slooh.com/welcome">Learn More</a>;
+    }
+  }
+
   renderCallToActionJoinOrEvent() {
     const { heroButtonText, registerNewMemberURL, userLoggedInFlag } = this.props;
     if (!userLoggedInFlag) {
@@ -169,11 +177,7 @@ class HeroInspire extends Component {
             }
           </div>
           <div className="call-to-action">
-            {
-              buttonUrl && showVideoTourButton ?
-                this.renderCallToActionWatchTour(buttonUrl) :
-                <div />
-            }
+            { this.renderCallToActionLearnMore() }
           </div>
         </div>
 
