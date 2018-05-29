@@ -9,6 +9,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import style from './hero-inspire.scss';
+import { Link } from 'react-router';
 
 import ScrollForMore from '../common/scroll-for-more';
 import isMobileScreenSize from '../../utils/content-loading-conditions';
@@ -70,7 +71,7 @@ class HeroInspire extends Component {
     const { userLoggedInFlag } = this.props;
 
     if (!userLoggedInFlag) {
-      return <a className="action" href="https://www.slooh.com/welcome">Learn More</a>;
+      return <Link className="action" to="/welcome">Learn More</Link>
     }
   }
 
