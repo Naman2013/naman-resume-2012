@@ -15,8 +15,8 @@ import UnitText from './TelescopeFrame/UnitText';
 import { getTelescope } from './telescopeConfig';
 import FieldOfView from './FieldOfView/FieldOfView';
 
-const MAX_RESOLUTION = 120;
-const MAX_DURATION = 5000;
+const MAX_RESOLUTION = 250;
+const MAX_DURATION = 10000;
 const ZOOM_OUT_DURATION = MAX_DURATION / 2;
 
 class Telescope extends Component {
