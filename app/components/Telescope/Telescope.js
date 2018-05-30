@@ -18,6 +18,7 @@ import FieldOfView from './FieldOfView/FieldOfView';
 const MAX_RESOLUTION = 250;
 const MAX_DURATION = 10000;
 const ZOOM_OUT_DURATION = MAX_DURATION / 2;
+const MAX_FOV_FLIPS = 6;
 
 class Telescope extends Component {
   static propTypes = {
@@ -37,6 +38,9 @@ class Telescope extends Component {
   };
 
   state = {
+    activeInstrumentID: this.props.activeInstrumentID,
+    previousInstrumentID: this.props.previousInstrumentID,
+    timesFlippedInstrumentBorder: 0,
     isTransitioningTelescope: false,
     horizontalResolution: this.props.horizontalResolution,
     verticalResolution: this.props.verticalResolution,
@@ -63,14 +67,21 @@ class Telescope extends Component {
     },
   };
 
-  componentWillReceiveProps({ activeInstrumentID, horizontalResolution, verticalResolution }) {
+  componentWillReceiveProps({
+    activeInstrumentID,
+    previousInstrumentID,
+    horizontalResolution,
+    verticalResolution,
+  }) {
     if (activeInstrumentID !== this.props.activeInstrumentID) {
+      this.setState(() => ({ activeInstrumentID, previousInstrumentID }));
       this.transitionZoomOut();
     }
   }
 
   currentZoomInTransition = null;
   currentZoomOutTransition = null;
+  doFOVTransitionInterval = null;
 
   transitionZoomOut() {
     let remainingDuration = 0;
@@ -90,7 +101,7 @@ class Telescope extends Component {
     this.currentZoomOutTransition = null;
 
     this.currentZoomOutTransition = this.transitionTo(
-      this.transitionZoomIn,
+      this.transitionPOV,
       {
         horizontal: MAX_RESOLUTION,
         vertical: MAX_RESOLUTION,
@@ -99,8 +110,47 @@ class Telescope extends Component {
     );
   }
 
+  transitionPOV() {
+    this.doFOVTransitionInterval = setInterval(() => {
+      this.setState((prevState) => {
+        const {
+          activeInstrumentID,
+          previousInstrumentID,
+          timesFlippedInstrumentBorder,
+        } = prevState;
+
+        if (timesFlippedInstrumentBorder >= MAX_FOV_FLIPS) {
+          this.tearDownTransitionPOV();
+          this.transitionZoomIn();
+          return {};
+        }
+
+        const updatedFOVFlipState = {
+          timesFlippedInstrumentBorder: (timesFlippedInstrumentBorder + 1),
+          activeInstrumentID:
+            (activeInstrumentID === this.state.activeInstrumentID)
+              ? previousInstrumentID
+              : activeInstrumentID,
+          previousInstrumentID:
+            (previousInstrumentID === this.state.previousInstrumentID)
+              ? activeInstrumentID
+              : previousInstrumentID,
+        };
+
+        return updatedFOVFlipState;
+      });
+    }, 500);
+  }
+
+  tearDownTransitionPOV() {
+    if (this.doFOVTransitionInterval) {
+      clearInterval(this.doFOVTransitionInterval);
+      this.setState(() => ({ timesFlippedInstrumentBorder: 0 }));
+    }
+  }
+
   transitionZoomIn() {
-    const targetTelescope = getTelescope(this.props.activeInstrumentID);
+    const targetTelescope = getTelescope(this.state.activeInstrumentID);
     this.currentZoomInTransition = this.transitionTo(
       this.telescopeTransitionComplete,
       {
@@ -155,9 +205,10 @@ class Telescope extends Component {
       horizontalResolution,
       verticalResolution,
       isTransitioningTelescope,
+      activeInstrumentID,
     } = this.state;
 
-    const activeInstrument = getTelescope(this.props.activeInstrumentID);
+    const activeInstrument = getTelescope(activeInstrumentID);
     const imageX = (imageDimensions.width - width) / 2;
     const tickSpacing = (width / horizontalResolution);
     const midPoint = (width / 2);
@@ -192,8 +243,8 @@ class Telescope extends Component {
 
                   <FadeSVG isHidden={!isTransitioningTelescope}>
                     <FieldOfView
-                      activeInstrumentID={this.props.activeInstrumentID}
-                      previousInstrumentID={this.props.previousInstrumentID}
+                      activeInstrumentID={this.state.activeInstrumentID}
+                      previousInstrumentID={this.state.previousInstrumentID}
                       tickSpacing={tickSpacing}
                       canvasWidth={width}
                     />
