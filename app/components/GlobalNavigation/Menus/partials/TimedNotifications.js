@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'react-modal';
 import MenuList from './MenuList';
+import AlertTile from './AlertTile';
 import { primaryFont } from 'styles/variables/fonts';
 const {
   arrayOf,
@@ -59,13 +60,22 @@ class TimedNotifications extends Component {
     alerts.map((_alert) => {
       if (!_alert.active) {
         timers.push(setTimeout(() => {
-          const newAlerts = alerts.map((_storedAlert) => {
+          const latestAlerts = this.state.alerts;
+          const newAlerts = latestAlerts.map((_storedAlert) => {
             const { notificationsCount } = this.props;
             if (_storedAlert.eventId === _alert.eventId) {
               _storedAlert.active = true;
               updateNotificationsCount({
                 count: notificationsCount + 1,
               });
+              this.setState(() => ({
+                showPrompt: true,
+                promptText: (
+                  <div>
+                    <AlertTile {..._storedAlert} dismissAlert={this.dismissAlert} />
+                  </div>
+                ),
+              }));
             }
             return _storedAlert;
           });
@@ -86,17 +96,17 @@ class TimedNotifications extends Component {
     this.props.dismissNotification({
       eventId,
     }).then((res) => {
-      if (res.payload.successFlag) {
+      if (res.successFlag) {
         const newAlerts = this.state.alerts.filter(_storedAlert => _storedAlert.eventId !== eventId);
         this.setState(() => ({
           alerts: newAlerts,
         }));
       }
 
-      if (!res.payload.error) {
+      if (!res.error) {
         this.setState({
-          showPrompt: res.payload.showResponse,
-          promptText: res.payload.response,
+          showPrompt: res.showResponse,
+          promptText: res.response,
         });
       } else {
         this.setState({
