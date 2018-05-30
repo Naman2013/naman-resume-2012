@@ -10,6 +10,7 @@ const Notifications = ({
   updateNotificationsCount,
 }) => (
   <Request
+    authorizationRedirect={true}
     serviceURL={ALERTS_INFORMATION}
     method="POST"
     requestBody={TEST_MODE_TRUE}

@@ -7,11 +7,13 @@
 */
 
 import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import compact from 'lodash/compact';
 import PropTypes from 'prop-types';
 import isMatch from 'lodash/isMatch';
 import axios from 'axios';
+import { validateResponseAccess } from 'modules/authorization/actions';
 
 const { CancelToken } = axios;
 
@@ -21,11 +23,17 @@ const GET = 'GET';
 const mapStateToProps = ({ user }) => ({
   user,
 });
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators({
+    validateResponseAccess,
+  }, dispatch),
+});
 
-@connect(mapStateToProps, null)
+@connect(mapStateToProps, mapDispatchToProps)
 class Request extends Component {
   static propTypes = {
     // provided by client
+    authorizationRedirect: PropTypes.bool,
     serviceURL: PropTypes.string.isRequired,
     render: PropTypes.func.isRequired,
     serviceExpiresFieldName: PropTypes.string,
@@ -50,6 +58,7 @@ class Request extends Component {
   };
 
   static defaultProps = {
+    authorizationRedirect: false,
     user: {
       cid: '',
       token: '',
@@ -87,6 +96,8 @@ class Request extends Component {
 
   handleServiceResponse(result) {
     const {
+      actions,
+      authorizationRedirect,
       serviceExpiresFieldName,
       serviceResponseHandler,
       model,
@@ -101,6 +112,10 @@ class Request extends Component {
         expires: result[serviceExpiresFieldName],
         timestamp: result.timestamp
       });
+    }
+
+    if (authorizationRedirect) {
+      actions.validateResponseAccess(result);
     }
 
     // build the models defined by the client

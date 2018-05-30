@@ -83,6 +83,7 @@ class GlobalNavigation extends Component {
       isNotificationMenuOpen,
       isRightOpen,
     } = this.state;
+    const { user } = this.props;
 
     const leftMenuContent = MENU_INTERFACE[activeLeft];
     const rightMenuContent = MENU_INTERFACE[activeRight];
@@ -118,7 +119,7 @@ class GlobalNavigation extends Component {
           )}
         />
         {/* Prerender Notification Menu */}
-        <Menu
+        {user.isAuthorized ? <Menu
           title={notificationMenuContent.title}
           handleClose={this.closeAll}
           position="right"
@@ -126,7 +127,7 @@ class GlobalNavigation extends Component {
           render={props => (
             notificationMenuContent.render(props)
           )}
-        />
+        /> : null}
 
         <style jsx>{`
           .root {
