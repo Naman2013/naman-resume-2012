@@ -98,18 +98,18 @@ export default function generateRow(
               />
             </FadeSVG>
             ,
-            <FadeSVG isHidden={!isGridVisible}>
-              <GridLine
-                key={`grid-${ELEMENT_KEY}-0`}
-                dimension={dimension}
-                resolution={resolution}
-                spacing={SPACING}
-                currentX={MID_POINT}
-                increment={increment}
-                style={style}
-              />
-            </FadeSVG>
-            ,
+            // <FadeSVG isHidden={!isGridVisible}>
+            //   <GridLine
+            //     key={`grid-${ELEMENT_KEY}-0`}
+            //     dimension={dimension}
+            //     resolution={resolution}
+            //     spacing={SPACING}
+            //     currentX={MID_POINT}
+            //     increment={increment}
+            //     style={style}
+            //   />
+            // </FadeSVG>
+            // ,
           );
         }
 
@@ -139,18 +139,18 @@ export default function generateRow(
 
           if (isLargeTick(increment, LEFT_COUNTER)) {
             ROW.push(
-              <FadeSVG isHidden={!isGridVisible}>
-                <GridLine
-                  key={`grid-${ELEMENT_KEY}-1`}
-                  dimension={dimension}
-                  resolution={resolution}
-                  spacing={SPACING}
-                  currentX={LEFT_ACCUMULATOR}
-                  increment={increment}
-                  style={style}
-                />
-              </FadeSVG>
-              ,
+              // <FadeSVG isHidden={!isGridVisible}>
+              //   <GridLine
+              //     key={`grid-${ELEMENT_KEY}-1`}
+              //     dimension={dimension}
+              //     resolution={resolution}
+              //     spacing={SPACING}
+              //     currentX={LEFT_ACCUMULATOR}
+              //     increment={increment}
+              //     style={style}
+              //   />
+              // </FadeSVG>
+              // ,
               (incrementedMarkerTextTopLeft > 0
                 ? (
                   <React.Fragment>
@@ -200,18 +200,18 @@ export default function generateRow(
 
           if (isLargeTick(increment, RIGHT_COUNTER)) {
             ROW.push(
-              <FadeSVG isHidden={!isGridVisible}>
-                <GridLine
-                  key={`grid-${ELEMENT_KEY}`}
-                  dimension={dimension}
-                  resolution={resolution}
-                  spacing={SPACING}
-                  currentX={RIGHT_ACCUMULATOR}
-                  increment={increment}
-                  style={style}
-                />
-              </FadeSVG>
-              ,
+              // <FadeSVG isHidden={!isGridVisible}>
+              //   <GridLine
+              //     key={`grid-${ELEMENT_KEY}`}
+              //     dimension={dimension}
+              //     resolution={resolution}
+              //     spacing={SPACING}
+              //     currentX={RIGHT_ACCUMULATOR}
+              //     increment={increment}
+              //     style={style}
+              //   />
+              // </FadeSVG>
+              // ,
               (incrementedMarkerTextTopRight > 0
                 ? (
                   <React.Fragment>
