@@ -18,7 +18,7 @@ import FieldOfView from './FieldOfView/FieldOfView';
 const MAX_RESOLUTION = 250;
 const MAX_DURATION = 10000;
 const ZOOM_OUT_DURATION = MAX_DURATION / 2;
-const MAX_FOV_FLIPS = 6;
+const MAX_FOV_FLIPS = 5;
 
 class Telescope extends Component {
   static propTypes = {
