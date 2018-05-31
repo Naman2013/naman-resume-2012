@@ -1,3 +1,5 @@
+import { primaryFont } from 'styles/variables/fonts';
+
 export const profilePhotoStyle = photoUrl => ({
   backgroundImage: `url(${photoUrl})`,
   height: '100px',
@@ -30,3 +32,20 @@ export const borderRadius = radius => (`
   -ms-border-radius: ${radius};
   border-radius: ${radius};
 `);
+
+export const customModalStyles = {
+  content: {
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)',
+    maxWidth: '650px',
+    padding: '50px 25px',
+    fontFamily: primaryFont,
+  },
+  overlay: {
+    backgroundColor: 'rgba(255, 255, 255, 0)',
+  },
+};

@@ -5,6 +5,7 @@ import HydratedDashboard  from './HydratedDashboard';
 
 const Dashboard = () => (
   <Request
+    authenticationRedirect={true}
     serviceURL={DASHBOARD_META_DATA}
     method="POST"
     render={({

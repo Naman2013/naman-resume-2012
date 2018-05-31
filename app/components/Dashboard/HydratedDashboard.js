@@ -4,10 +4,9 @@ import TourPopup from './tour-popup/TourPopup'
 // import { connect } from 'react-redux';
 
 const {
+  bool,
   shape,
   string,
-  bool,
-  number,
 } = PropTypes;
 class HydratedDashboard extends Component {
 
