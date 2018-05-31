@@ -13,7 +13,7 @@ const Scale = ({ dimension, scale, scaleText, style }) => {
   const y3 = y2;
 
   const fontSize = 8;
-  const textX = x3;
+  const textX = x1 - ((lineLength - 4) / 2);
   const textY = (y2 - 5);
 
   const points = `${x1},${y1} ${x2},${y2} ${x3},${y3}`;
@@ -25,8 +25,9 @@ const Scale = ({ dimension, scale, scaleText, style }) => {
         className="text"
         x={textX}
         y={textY}
+        textAnchor="middle"
       >
-        {scaleText}-arcmins
+        {scaleText}-arcmin{(scaleText > 1) ? 's' : ''}
       </text>
 
       <text
