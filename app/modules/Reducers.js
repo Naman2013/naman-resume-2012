@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux';
 import { reducer } from 'redux-form';
+import alerts from './alerts/reducer';
 import about from './about/reducer';
 import activeTelescopeMissions from './active-telescope-missions/active-telescope-missions-reducer';
 import audioPlayer from './get-audio-player/reducer';
@@ -87,6 +88,7 @@ export default combineReducers({
   about,
   activeTelescopeMissions,
   adStats,
+  alerts,
   announcementBanner,
   appConfig,
   astronomerQuestions,

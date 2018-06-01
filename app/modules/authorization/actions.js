@@ -96,7 +96,6 @@ export const fetchErrors = () => (dispatch, getState) => {
 
 export const validateResponseAccess = apiResponse => (dispatch, getState) => {
   const { handlingScenario } = getState().authorization;
-
   const REDIRECT_CONFIRMATION_PATH = '/redirect-confirmation';
   const UNAUTHORIZED_STATUS_CODE = 401;
   const EXPIRED_ACCOUNT_STATUS_CODE = 418;

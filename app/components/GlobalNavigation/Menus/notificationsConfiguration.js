@@ -1,50 +1,22 @@
 import React from 'react';
 import uniqueId from 'lodash/uniqueId';
-import MissionTile from './partials/MissionTile';
+import AlertTile from './partials/AlertTile';
 
-export default {
-  render: props => (<MissionTile {...props} />),
-  content: [
-    {
-      _ID: uniqueId(),
-      mainTitle: 'Your mission is about to begin',
-      objectTitle: 'Chile one',
-      objectSubTitle: 'Belongs to solar system',
-      anchorText: 'Go to Telescope channel',
-      anchor: '#',
-      occurred: '3 hours ago',
-    },
-    {
-      _ID: uniqueId(),
-      mainTitle: 'Your mission is about to begin',
-      objectTitle: 'Chile one',
-      anchorText: 'Go to Telescope channel',
-      anchor: '#',
-      occurred: '3 hours ago',
-    },
-    {
-      _ID: uniqueId(),
-      mainTitle: 'Your mission is about to begin',
-      objectTitle: 'Chile one',
-      anchorText: 'Go to Telescope channel',
-      anchor: '#',
-      occurred: '3 hours ago',
-    },
-    {
-      _ID: uniqueId(),
-      mainTitle: 'Your mission is about to begin',
-      objectTitle: 'Chile one',
-      anchorText: 'Go to Telescope channel',
-      anchor: '#',
-      occurred: '3 hours ago',
-    },
-    {
-      _ID: uniqueId(),
-      mainTitle: 'Your mission is about to begin',
-      objectTitle: 'Chile one',
-      anchorText: 'Go to Telescope channel',
-      anchor: '#',
-      occurred: '3 hours ago',
-    },
-  ],
+export const modelNotificationsFromApiRes = {
+  name: 'ALERTS_ONLY',
+  model: function modelAlerts(API_RAW) {
+    const { alertList } = API_RAW;
+    // Maniuplate data here if needed.
+    return alertList;
+  },
 };
+
+export default ({ alerts = [], dismissAlert }) => ({
+  render: props => (<AlertTile dismissAlert={dismissAlert} {...props} />),
+  content: alerts
+    .filter(_alert => _alert.active)
+    .map(_alert => ({
+      _ID: uniqueId(),
+      ..._alert,
+    })),
+});

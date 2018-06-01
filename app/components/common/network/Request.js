@@ -7,11 +7,13 @@
 */
 
 import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import compact from 'lodash/compact';
 import PropTypes from 'prop-types';
 import isMatch from 'lodash/isMatch';
 import axios from 'axios';
+import { validateResponseAccess } from 'modules/authorization/actions';
 
 const { CancelToken } = axios;
 
@@ -21,11 +23,17 @@ const GET = 'GET';
 const mapStateToProps = ({ user }) => ({
   user,
 });
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators({
+    validateResponseAccess,
+  }, dispatch),
+});
 
-@connect(mapStateToProps, null)
+@connect(mapStateToProps, mapDispatchToProps)
 class Request extends Component {
   static propTypes = {
     // provided by client
+    authorizationRedirect: PropTypes.bool,
     serviceURL: PropTypes.string.isRequired,
     render: PropTypes.func.isRequired,
     serviceExpiresFieldName: PropTypes.string,
@@ -38,6 +46,7 @@ class Request extends Component {
       name: PropTypes.string.isRequired,
       model: PropTypes.func.isRequired,
     })),
+    serviceResponseHandler: PropTypes.func,
     requestBody: PropTypes.any, // any set due to disambiguity of the request
 
     // provided by global state
@@ -49,6 +58,7 @@ class Request extends Component {
   };
 
   static defaultProps = {
+    authorizationRedirect: false,
     user: {
       cid: '',
       token: '',
@@ -58,6 +68,7 @@ class Request extends Component {
     models: [],
     method: POST,
     serviceExpiresFieldName: 'expires',
+    serviceResponseHandler: null,
   };
 
   state = {
@@ -85,7 +96,10 @@ class Request extends Component {
 
   handleServiceResponse(result) {
     const {
+      actions,
+      authorizationRedirect,
       serviceExpiresFieldName,
+      serviceResponseHandler,
       model,
       models,
     } = this.props;
@@ -100,6 +114,10 @@ class Request extends Component {
       });
     }
 
+    if (authorizationRedirect) {
+      actions.validateResponseAccess(result);
+    }
+
     // build the models defined by the client
     consolidatedModels.forEach((_model) => {
       modeledResponses = Object.assign({}, modeledResponses, {
@@ -112,6 +130,8 @@ class Request extends Component {
       serviceResponse: result,
       modeledResponses,
     }));
+
+    serviceResponseHandler(result)
   }
 
   tearDown() {
