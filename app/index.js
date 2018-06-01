@@ -197,7 +197,7 @@ ReactDOM.render(
       </Route>
 
       <Route path="/" component={App}>
-        <IndexRoute component={Home} onEnter={validateUser} />
+        <IndexRoute component={DashboardPage} onEnter={validateUser} />
 
         <Route
           path="telescope-overview/:observatoryId"
