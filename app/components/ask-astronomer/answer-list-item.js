@@ -75,15 +75,16 @@ const AnswerListItem = ({
         showReplies &&
         answerReplies &&
           <AnswerReplyList
-          answerReplies={answerReplies}
-          displayedReplies={displayedReplies}
-          objectId={objectId}
-          replyId={answer.replyId}
-          showAllReplies={showAllReplies}
-          showReplies={showReplies}
-          threadId={threadId}
-          topicId={topicId}
-        />}
+            answerReplies={answerReplies}
+            displayedReplies={displayedReplies}
+            objectId={objectId}
+            replyId={answer.replyId}
+            showAllReplies={showAllReplies}
+            showReplies={showReplies}
+            threadId={threadId}
+            topicId={topicId}
+          />
+        }
         {fetchingReplies && <div className="fa fa-spinner loader" />}
 
       <style jsx>{`

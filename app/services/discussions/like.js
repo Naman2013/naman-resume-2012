@@ -63,6 +63,7 @@ export function likeThread({
   forumId,
   topicId,
   membershipType,
+  callSource,
 }) {
   return axios.post('/api/forum/likeThread', {
     at,
@@ -73,5 +74,6 @@ export function likeThread({
     forumId,
     topicId,
     membershipType,
+    callSource,
   });
 }

@@ -53,8 +53,14 @@ export default createReducer(initialState, {
       joinPrompt,
       showAskPrompt,
       showJoinPrompt,
+      memberCountDisplay,
+      memberCount,
+      groupSet
     } = payload;
     let newGroups = [].concat(state.groups);
+    if (groupSet === 'my-groups') {
+      newGroups = newGroups.filter(group => group.discussionGroupId !== discussionGroupId);
+    }
     newGroups = newGroups.map((group) => {
       if (group.discussionGroupId === discussionGroupId) {
         Object.assign(group, {
@@ -62,6 +68,8 @@ export default createReducer(initialState, {
           joinPrompt,
           showAskPrompt,
           showJoinPrompt,
+          memberCountDisplay,
+          memberCount,
         })
       }
       return group;

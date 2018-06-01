@@ -125,12 +125,14 @@ class CommunityGroupList extends Component {
   makeToggleJoinGroupCall = ({ discussionGroupId }) => {
     const {
       actions,
+      currentParentRoute,
     } = this.props;
 
     this.closeModal();
 
     actions.joinOrLeaveGroup({
       discussionGroupId,
+      groupSet: currentParentRoute,
     });
   }
 
@@ -209,7 +211,6 @@ class CommunityGroupList extends Component {
         fontFamily: primaryFont,
       },
     };
-
     return (
       <div>
         <div className="group-actions">

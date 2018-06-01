@@ -131,6 +131,7 @@ import UserPrivateProfile from './pages/profiles/private-profile';
 import UserPublicProfile from './pages/profiles/public-profile';
 import CommunityGroups from './pages/community-groups/Groups';
 import CommunityGroupsList from './pages/community-groups/GroupsListPage';
+import CommunityGroupOverview from './pages/community-groups/GroupOverview';
 
 // router functions
 import validateUser from './route-functions/validateUser';
@@ -501,13 +502,13 @@ ReactDOM.render(
           <Route path="alphabetic" component={CommunityGroupsList} onEnter={validateUser} />
           <Route path="popular" component={CommunityGroupsList} onEnter={validateUser} />
         </Route>
-        <Route path="community-groups/my-groups" component={CommunityGroups} onEnter={validateUser}>
+        <Route path="community-groups/my-groups" component={CommunityGroups}>
           <IndexRedirect to="alphabetic" />
-          <Route path="alphabetic" component={CommunityGroupsList} onEnter={validateUser} />
-          <Route path="popular" component={CommunityGroupsList} onEnter={validateUser} />
+          <Route path="alphabetic" component={CommunityGroupsList} />
+          <Route path="popular" component={CommunityGroupsList} />
         </Route>
 
-        <Route path="community-groups/:groupid" component={CommunityGroups} onEnter={validateUser} />
+        <Route path="community-groups/:groupId" component={CommunityGroupOverview} />
 
       </Route>
       <Redirect from="*" to="/" />

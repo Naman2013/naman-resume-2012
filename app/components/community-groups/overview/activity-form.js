@@ -1,5 +1,5 @@
 /***********************************
-* V4 Ask Astronomer Question Form
+* V4 Community Group Activity Form
 *
 *
 *
@@ -7,64 +7,46 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 import PropTypes from 'prop-types';
-import ModalGeneric from '../common/modals/modal-generic';
-import { createThread } from '../../services/discussions/create-thread';
-import { prepareThread } from '../../services/discussions/prepare-thread';
-import fetchSpecialists from '../../services/objects/specialists';
-import deletePostImage from '../../services/post-creation/delete-post-image';
-import setPostImages from '../../modules/set-post-images';
-
-import { avatarImgStyle } from './styles';
-import { black, darkBlueGray, white } from '../../styles/variables/colors';
+import ModalGeneric from '../../common/modals/modal-generic';
+import { prepareThread } from '../../../services/discussions/prepare-thread';
+import deletePostImage from '../../../services/post-creation/delete-post-image';
+import setPostImages from '../../../modules/set-post-images';
+import { black, darkBlueGray, white } from '../../../styles/variables/colors';
+import { dropShadowedContainer } from '../styles';
 
 const {
+  bool,
+  number,
   string,
 } = PropTypes;
 
-const successMessage = (<div className="container">
-  <div className="title">Success!</div>
-  <div className="subtitle">Your question has been submitted for review.</div>
-  <p>We’ll send you an alert when your Question has been answered by one or more of our Astronomers.</p>
-  <p>You can also find all of your recently answered questions in your “You’ve Got Answers” section on your Profile page.</p>
-  <style jsx>{`
-    .container {
-      text-align: left;
-      width: 100%;
-    }
-    .title {
-      font-weight: bold;
-    }
-    .subtitle {
-      font-weight: bold;
-    }
-  `}</style>
-</div>);
-
-class AskAstronomerQuestionForm extends Component {
+class ActivityForm extends Component {
   static propTypes = {
-    objectTitle: string,
-    objectId: string,
+    topicId: number,
+    forumId: number,
+    canPost: bool,
+    placeholder: string,
   }
   static defaultProps = {
-    objectTitle: '',
-    objectId: '',
+    topicId: 0,
+    forumId: 0,
+    canPost: false,
+    placeholder: 'Tell us something...'
   }
 
   state = {
-    questionText: '',
+    activityText: '',
     showPopup: false,
     modalDescription: null,
     uuid: null,
     uploadError: null,
     uploadLoading: false,
     S3URLs: [],
-    specialists: [],
   }
 
   componentDidMount() {
     const {
       user,
-      objectId,
     } = this.props;
 
     prepareThread({
@@ -78,57 +60,38 @@ class AskAstronomerQuestionForm extends Component {
         })
       }
     });
-
-    fetchSpecialists({
-      at: user.at,
-      token: user.token,
-      cid: user.cid,
-      objectId,
-    }).then((res) => {
-      if (!res.data.apiError) {
-        this.setState({
-          specialists: res.data.specialistsList,
-        });
-      }
-    });
   }
+
   onTextChange = (e) => {
     this.setState({
-      questionText: e.target.value,
+      activityText: e.target.value,
     })
   }
 
   submitForm = (e) => {
     e.preventDefault();
     const {
-      objectId,
       topicId,
       forumId,
       user,
     } = this.props;
 
     const {
-      questionText,
+      activityText,
       S3URLs,
     } = this.state;
 
-    createThread({
-      at: user.at,
-      token: user.token,
-      cid: user.cid,
-      objectId,
+    this.props.createActivity({
       S3URLs,
-      callSource: 'qanda',
-      content: questionText,
+      content: activityText,
       topicId,
       forumId,
     }).then((res) => {
-
-      if (!res.data.apiError) {
+      if (!res.payload.apiError) {
         this.setState({
           showPopup: true,
-          modalDescription: successMessage,
-          questionText: '',
+          modalDescription: 'You post has been submitted',
+          activityText: '',
           S3URLs: [],
         });
       } else {
@@ -179,7 +142,12 @@ class AskAstronomerQuestionForm extends Component {
     const { uuid } = this.props;
     const imageClass = 'discussion';
     deletePostImage({
-      cid, token, at, uniqueId: uuid, imageClass, imageURL
+      cid,
+      token,
+      at,
+      uniqueId: uuid,
+      imageClass,
+      imageURL,
     }).then(result => this.handleUploadImageResponse(result.data));
   }
 
@@ -191,54 +159,32 @@ class AskAstronomerQuestionForm extends Component {
   }
 
   render () {
-    const { objectTitle } = this.props;
     const {
-      questionText,
+      placeholder,
+      showJoinPrompt,
+      joinOrLeaveGroup,
+      canPost,
+    } = this.props;
+
+    const {
+      activityText,
       showPopup,
       modalDescription,
       uploadError,
       uploadLoading,
-      specialists,
     } = this.state;
+
     return (
-      <div>
-        <div className="header">
-          <h4>{`Don't see an answer?`}</h4>
-          <h3>Ask an Astronomer</h3>
-        </div>
+      <div className="form-container">
         <form className="form">
-          <div className="avatars">
-            {specialists.map((specialist) => {
-              const avatarStyle = Object.assign(avatarImgStyle(specialist.iconURL), { height: '50px', width: '50px' });
-              return (
-                <div
-                  key={specialist.customerId}
-                  className="avatar"
-                >
-                  {specialist.hasLinkFlag &&
-                    <Link to={specialist.linkURL}>
-                      <div
-                        style={avatarStyle}
-                      />
-                    </Link>
-                  }
-                  {!specialist.hasLinkFlag &&
-                    <div
-                      style={avatarStyle}
-                    />
-                  }
-                </div>
-              );
-          })}
-          </div>
-          <div>{`We've got a community of experts on Slooh to help you learn about space. Have a question about ${objectTitle}? Ask an Astronomer today!`}</div>
           <textarea
-            className="question-input"
+            className="activity-input"
             onChange={this.onTextChange}
             maxLength={100}
-            value={questionText}
+            value={activityText}
+            placeholder={placeholder}
           />
-          <div className="flex-right">{questionText.length}/100</div>
+          <div className="flex-right">{activityText.length}/100</div>
           <div className="image-upload">
             <input
               type="file"
@@ -253,7 +199,10 @@ class AskAstronomerQuestionForm extends Component {
             </span>
           </div>
           <div className="flex-right">
-            <button type="button" className="question-button" onClick={this.submitForm}>Submit Your Question</button>
+            {canPost ?
+              <button type="button" className="activity-button" onClick={this.submitForm}>Post</button> :
+              <button type="button" className="activity-button" onClick={joinOrLeaveGroup}>Join to make a post</button>
+            }
           </div>
         </form>
         <ModalGeneric
@@ -262,8 +211,9 @@ class AskAstronomerQuestionForm extends Component {
           description={modalDescription}
         />
         <style jsx>{`
-          .header {
-            font-weight: bold;
+          .form-container {
+            background-color: ${white};
+            ${dropShadowedContainer}
           }
           .flex-right {
             display: flex;
@@ -271,16 +221,9 @@ class AskAstronomerQuestionForm extends Component {
           }
           .form {
             padding: 15px;
-            border: 1px solid ${black};
+
           }
-          .avatars {
-            display: flex;
-            justify-content: space-between;
-          }
-          .avatar {
-            display: inline-block;
-          }
-          .question-input {
+          .activity-input {
             border-width: 1px;
             height: 75px;
             width: 325px;
@@ -288,7 +231,7 @@ class AskAstronomerQuestionForm extends Component {
             vertical-align: top;
             margin: 10px;
           }
-          .question-button {
+          .activity-button {
             display: block;
             width: 100px;
             background-color: ${darkBlueGray};
@@ -305,4 +248,4 @@ class AskAstronomerQuestionForm extends Component {
   }
 }
 
-export default AskAstronomerQuestionForm;
+export default ActivityForm;
