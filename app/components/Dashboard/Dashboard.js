@@ -1,26 +1,30 @@
-import React from 'react';
-import Request from 'components/common/network/Request';
-import { DASHBOARD_META_DATA } from 'services/dashboard';
-import HydratedDashboard  from './HydratedDashboard';
+/***********************************
+* V4 Dashboard the new home page
+*
+*
+*
+***********************************/
 
-const Dashboard = () => (
-  <Request
-    authenticationRedirect={true}
-    serviceURL={DASHBOARD_META_DATA}
-    method="POST"
-    render={({
-      fetchingContent,
-      serviceResponse,
-    }) => (
-      <div className="root">
-        <HydratedDashboard {...serviceResponse} />
-        <style jsx>{`
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import Home from 'pages/home';
+import SignedInDashboard from './SignedInDashboard';
 
-        `}
-        </style>
-      </div>
-    )}
-  />
-);
+const mapStateToProps = ({
+  user,
+}) => ({
+  user,
+});
+@connect(mapStateToProps, null)
+
+class Dashboard extends Component {
+
+  render () {
+    const { user } = this.props;
+    return (<div>
+      {user.isAuthorized ? <SignedInDashboard /> : <Home />}
+    </div>)
+  }
+}
 
 export default Dashboard;

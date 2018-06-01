@@ -1,3 +1,9 @@
+/***********************************
+* V4 Dashboard for a signed in user with request information
+*
+*
+*
+***********************************/
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import TourPopup from './tour-popup/TourPopup'
