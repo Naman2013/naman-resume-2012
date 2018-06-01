@@ -6,14 +6,42 @@
 ***********************************/
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import TourPopup from './tour-popup/TourPopup'
+import TourPopup from './tour-popup/TourPopup';
+import PromoPanel from 'components/home/promo-panel';
+
 // import { connect } from 'react-redux';
 
 const {
+  arrayOf,
   bool,
+  number,
   shape,
   string,
 } = PropTypes;
+
+const sectionOrder = [
+  'recommendedObjects',
+  'featuredObservations',
+  'recommendedGuides',
+  'recommendedQuests',
+  'recommendedShows',
+  'recommendedStories',
+  'popularGroups',
+];
+
+const getSectionComponent = (section, props) => {
+  const sectionComponents = {
+    recommendedObjects: <div {...props} />,
+    featuredObservations: <div {...props} />,
+    recommendedGuides: <div {...props} />,
+    recommendedQuests: <div {...props} />,
+    recommendedShows: <div {...props} />,
+    recommendedStories: <div {...props} />,
+    popularGroups: <div {...props} />,
+  };
+  return sectionComponents[section];
+};
+
 class HydratedDashboard extends Component {
 
   static propTypes = {
@@ -30,6 +58,11 @@ class HydratedDashboard extends Component {
     popularGroups: shape({
       popularGroupsShow: bool,
       popularGroupsHeading: string,
+    }),
+    promoPanel: shape({
+      promoArray: arrayOf(shape({})),
+      promoPanelShow: bool,
+      promoPanelCount: number,
     }),
     recommendedGuides: shape({
       recommendedGuidesShow: bool,
@@ -70,6 +103,11 @@ class HydratedDashboard extends Component {
       popularGroupsShow: false,
       popularGroupsHeading: '',
     },
+    promoPanel: {
+      promoArray: [],
+      promoPanelShow: false,
+      promoPanelCount: 0,
+    },
     recommendedGuides: {
       recommendedGuidesShow: false,
       recommendedGuidesHeading: '',
@@ -100,12 +138,21 @@ class HydratedDashboard extends Component {
 
   render() {
     const {
+      promoPanel: { promoArray, promoPanelShow },
+    } = this.props;
+    const {
     } = this.state;
     return (
       <div className="root">
-      <TourPopup />
-      {/* Hero */}
-      {/* Navigation */}
+        <TourPopup />
+        {/* Hero */}
+        {promoPanelShow ?
+          promoArray.map(promoObject => <PromoPanel {...promoObject} />) : null
+        }
+        {/* Navigation */}
+        {sectionOrder.map(section => (
+          this.props[section] && getSectionComponent(section, this.props[section])
+        ))}
 
         <style jsx>{`
           .root {
