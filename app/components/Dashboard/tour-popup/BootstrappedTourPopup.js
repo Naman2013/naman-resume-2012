@@ -93,6 +93,7 @@ class HydratedTourPopup extends Component {
         style={customModalStyles}
         contentLabel="Tour"
         onRequestClose={this.closeModal}
+        ariaHideApp={false}
       >
         <i className="fa fa-close" onClick={this.closeModal} />
         <h2 dangerouslySetInnerHTML={{ __html: title }} />

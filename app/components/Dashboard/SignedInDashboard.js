@@ -8,7 +8,7 @@
 import React from 'react';
 import Request from 'components/common/network/Request';
 import { DASHBOARD_META_DATA } from 'services/dashboard';
-import HydratedSignedInDashboard  from './HydratedSignedInDashboard';
+import BootstrappedSignedInDashboard  from './BootstrappedSignedInDashboard';
 
 const Dashboard = () => (
   <Request
@@ -20,7 +20,7 @@ const Dashboard = () => (
       serviceResponse,
     }) => (
       <div className="root">
-        <HydratedSignedInDashboard {...serviceResponse} />
+        <BootstrappedSignedInDashboard {...serviceResponse} />
         <style jsx>{`
 
         `}

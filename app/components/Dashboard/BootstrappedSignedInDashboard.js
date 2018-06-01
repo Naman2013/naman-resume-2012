@@ -7,7 +7,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import TourPopup from './tour-popup/TourPopup';
+import DashboardPanelItem from './DashboardPanelItem';
 import PromoPanel from 'components/home/promo-panel';
+import {
+  getSectionComponent,
+} from './dashboardPanelItemsConfiguration';
 
 // import { connect } from 'react-redux';
 
@@ -29,25 +33,13 @@ const sectionOrder = [
   'popularGroups',
 ];
 
-const getSectionComponent = (section, props) => {
-  const sectionComponents = {
-    recommendedObjects: <div {...props} />,
-    featuredObservations: <div {...props} />,
-    recommendedGuides: <div {...props} />,
-    recommendedQuests: <div {...props} />,
-    recommendedShows: <div {...props} />,
-    recommendedStories: <div {...props} />,
-    popularGroups: <div {...props} />,
-  };
-  return sectionComponents[section];
-};
-
 class HydratedDashboard extends Component {
 
   static propTypes = {
     featuredObservations: shape({
       featuredObservationsShow: bool,
       featuredObservationsHeading: string,
+      featuredObservationsSubHeading: string,
     }),
     heading: string,
     hero: shape({
@@ -58,6 +50,7 @@ class HydratedDashboard extends Component {
     popularGroups: shape({
       popularGroupsShow: bool,
       popularGroupsHeading: string,
+      popularGroupsSubHeading: string,
     }),
     promoPanel: shape({
       promoArray: arrayOf(shape({})),
@@ -67,22 +60,27 @@ class HydratedDashboard extends Component {
     recommendedGuides: shape({
       recommendedGuidesShow: bool,
       recommendedGuidesHeading: string,
+      recommendedGuidesSubHeading: string,
     }),
     recommendedObjects: shape({
       recommendedObjectsShow: bool,
       recommendedObjectsHeading: string,
+      recommendedObjectsSubHeading: string,
     }),
     recommendedShows: shape({
       recommendedShowsShow: bool,
       recommendedShowsHeading: string,
+      recommendedShowsSubHeading: string,
     }),
     recommendedStories: shape({
       recommendedStoriesShow: bool,
       recommendedStoriesHeading: string,
+      recommendedStoriesSubHeading: string,
     }),
     setupMission: shape({
       setupMissionShow: bool,
       setupMissionHeading: string,
+      setupMissionSubHeading: string,
     }),
     subheading: string,
     userIsLoggedIn: bool,
@@ -92,6 +90,7 @@ class HydratedDashboard extends Component {
     featuredObservations: {
       featuredObservationsShow: false,
       featuredObservationsHeading: '',
+      featuredObservationsSubHeading: '',
     },
     heading: '',
     hero: {
@@ -102,6 +101,7 @@ class HydratedDashboard extends Component {
     popularGroups: {
       popularGroupsShow: false,
       popularGroupsHeading: '',
+      popularGroupsSubHeading: '',
     },
     promoPanel: {
       promoArray: [],
@@ -111,22 +111,27 @@ class HydratedDashboard extends Component {
     recommendedGuides: {
       recommendedGuidesShow: false,
       recommendedGuidesHeading: '',
+      recommendedGuidesSubHeading: '',
     },
     recommendedObjects: {
       recommendedObjectsShow: false,
       recommendedObjectsHeading: '',
+      recommendedObjectsSubHeading: '',
     },
     recommendedShows: {
       recommendedShowsShow: false,
       recommendedShowsHeading: '',
+      recommendedShowsSubHeading: '',
     },
     recommendedStories: {
       recommendedStoriesShow: false,
       recommendedStoriesHeading: '',
+      recommendedStoriesSubHeading: '',
     },
     setupMission: {
       setupMissionShow: false,
       setupMissionHeading: '',
+      setupMissionSubHeading: '',
     },
     subheading: '',
     userIsLoggedIn: false,
@@ -150,8 +155,8 @@ class HydratedDashboard extends Component {
           promoArray.map(promoObject => <PromoPanel {...promoObject} />) : null
         }
         {/* Navigation */}
-        {sectionOrder.map(section => (
-          this.props[section] && getSectionComponent(section, this.props[section])
+        {sectionOrder.map((section, i) => (
+          this.props[section] && getSectionComponent(section, Object.assign({ orderNumber: i + 1 }, this.props[section]))
         ))}
 
         <style jsx>{`
