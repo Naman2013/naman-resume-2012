@@ -2,7 +2,7 @@ import React from 'react';
 import Request from 'components/common/network/Request';
 import { DASHBOARD_TOUR_POPUP } from 'services/dashboard';
 import ConnectUserAndResponseAccess from 'redux/components/ConnectUserAndResponseAccess';
-import HydratedTourpopup  from './HydratedTourpopup';
+import BootstrappedTourpopup  from './BootstrappedTourpopup';
 
 const Tourpopup = () => (
   <Request
@@ -14,7 +14,7 @@ const Tourpopup = () => (
     }) => (
       <div className="root">
         {serviceResponse.hasPopupDataFlag ? <ConnectUserAndResponseAccess
-          render={props => (<HydratedTourpopup
+          render={props => (<BootstrappedTourpopup
             user={props.user}
             validateResponseAccess={props.validateResponseAccess}
             {...serviceResponse.popupData}
