@@ -6,7 +6,6 @@ import TelescopeThumbnailView from '../../TelescopeThumbnailView';
 import { updateTelescopeActiveMission, setActiveTelescopeMissionID } from '../../../modules/active-telescope-missions/active-telescope-missions-actions';
 import { setImageDataToSnapshot } from '../../../modules/starshare-camera/starshare-camera-actions';
 import { updateActiveSSE, resetActiveSSE } from '../../../modules/telescope-details/actions';
-import './telescope-image-loader.scss';
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
@@ -24,25 +23,38 @@ const mapStateToProps = ({ activeTelescopeMissions }) => ({
 
 @connect(mapStateToProps, mapDispatchToProps)
 class TelescopeImageLoader extends Component {
+  static propTypes = {
+    imageSource: PropTypes.string.isRequired,
+    teleId: PropTypes.string.isRequired,
+    obsId: PropTypes.string.isRequired,
+    domeId: PropTypes.string.isRequired,
+    teleFade: PropTypes.number.isRequired,
+    loadThumbnails: PropTypes.bool,
+    missionFormat: PropTypes.string,
+    viewportHeight: PropTypes.number,
+    actions: PropTypes.shape({
+      resetActiveSSE: PropTypes.func.isRequired,
+    }).isRequired,
+  };
+
+  static defaultProps = {
+    loadThumbnails: false,
+    missionFormat: null,
+    viewportHeight: 0,
+  };
+
   constructor(props) {
     super(props);
-
-    this.state = {
-      currentImageUrl: null,
-      previousImageUrl: null,
-      schedMissionId: null,
-      msnStartTime: null,
-      lastImgTime: null,
-      serverTime: null,
-      firstLoad: true,
-      adjustedFade: 0, // duration of fade in of new image
-      startingOpacity: null, // starting opacity of the new image
-    };
-
-    // storing a reference to the source rendered to determine if it changes later
-    // this will flush the current sse for the instance, and rebind to a new source
     this.previouslyRenderedImageSource = this.props.imageSource;
   }
+
+  state = {
+    currentImageUrl: null,
+    previousImageUrl: null,
+    firstLoad: true,
+    adjustedFade: 0, // duration of fade in of new image
+    startingOpacity: null, // starting opacity of the new image
+  };
 
   componentWillMount() {
     this.attachSSE(this.props.imageSource);
@@ -232,7 +244,7 @@ class TelescopeImageLoader extends Component {
       adjustedFade,
     } = this.state;
 
-    const { teleThumbWidth, loadThumbnails } = this.props;
+    const { loadThumbnails, viewportHeight } = this.props;
 
     if (!currentImageUrl || !previousImageUrl) {
       return null;
@@ -254,7 +266,7 @@ class TelescopeImageLoader extends Component {
         <div className="bottom-image">
           <img
             alt=""
-            width={(loadThumbnails) ? teleThumbWidth : '100%'}
+            height={viewportHeight}
             src={previousImageUrl}
             draggable="false"
           />
@@ -262,31 +274,32 @@ class TelescopeImageLoader extends Component {
           <div className="top-image">
             <img
               alt=""
-              width={(loadThumbnails) ? teleThumbWidth : '100%'}
+              height={viewportHeight}
               id={this.generateImageId()}
               draggable="false"
             />
           </div>
         </div>
+
+        <style jsx>{`
+          .sse-thumbnails {
+            position: relative;
+          }
+
+          .bottom-image {
+            position: relative;
+          }
+
+          .top-image {
+            position: absolute;
+            top: 0;
+            transition: opacity ease-in-out;
+          }
+        `}
+        </style>
       </div>
     );
   }
 }
-
-TelescopeImageLoader.defaultProps = {
-  loadThumbnails: false,
-  missionFormat: null,
-};
-
-TelescopeImageLoader.propTypes = {
-  imageSource: PropTypes.string,
-  teleId: PropTypes.string,
-  obsId: PropTypes.string,
-  domeId: PropTypes.string,
-  teleThumbWidth: PropTypes.string,
-  teleFade: PropTypes.number,
-  loadThumbnails: PropTypes.bool,
-  missionFormat: PropTypes.string,
-};
 
 export default TelescopeImageLoader;

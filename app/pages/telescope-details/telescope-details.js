@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import moment from 'moment';
-import './telescope-details.scss';
+import first from 'lodash/first';
+import some from 'lodash/some';
 
 import {
   bootstrapTelescopeDetails,
@@ -13,33 +13,35 @@ import {
   setTelescope,
   updateTelescopeStatus,
   fetchAllTelescopeStatus,
-} from '../../modules/telescope-details/actions';
+} from 'modules/telescope-details/actions';
 
-import { fetchObjectDataAction, resetObjectData } from '../../modules/object-details/actions';
+import { fetchObjectDataAction, resetObjectData } from 'modules/object-details/actions';
 
-import { resetSnapshotList } from '../../modules/starshare-camera/starshare-camera-actions';
-import { fetchObjectContent } from '../../modules/community-content/community-object-content-actions';
+import { resetSnapshotList } from 'modules/starshare-camera/starshare-camera-actions';
+import { fetchObjectContent } from 'modules/community-content/community-object-content-actions';
 
-import AnnouncementBanner from '../../components/common/announcement-banner/announcement-banner';
-import CommunityPerspectives from '../../components/common/community-perspectives/community-perspectives';
-import CurrentSelectionHeader from '../../components/telescopes/current-selection-header/header';
-import GoogleAd from '../../components/common/google-ads/GoogleAd';
-import LiveFeed from '../../components/telescope-details/live-feed/LiveFeed';
-import LiveMission from '../../components/telescope-details/live-mission/live-mission';
-import MoonlightWidget from '../../components/telescope-details/MoonlightWidget';
-import SeeingConditionsWidget from '../../components/telescope-details/SeeingConditionsWidget';
-import Neoview from '../../components/telescope-details/neoview/neoview';
-import PromoMessageBanner from '../../components/common/headers/promo-message-band';
-import Spacer from '../../components/common/spacer';
-import StarShareCamera from '../../components/telescope-details/star-share-camera/star-share-camera';
-import SunsetCountdown from '../../components/telescope-details/SunsetCountdown';
-import TelescopeAllSky from '../../components/telescope-details/telescope-all-sky/TelescopeAllSky';
-import TelescopeDetailsTabs from '../../components/telescope-details/TelescopeDetailsTabs';
-import TelescopeSelection from '../../components/telescopes/selection-widget/telescope-selection';
-import UpcomingMissions from '../../components/telescope-details/UpcomingMissions/UpcomingMissions';
-import MissionAudio from '../../components/telescope-details/MissionAudio';
+import AnnouncementBanner from 'components/common/announcement-banner/announcement-banner';
+import CommunityPerspectives from 'components/common/community-perspectives/community-perspectives';
+import CurrentSelectionHeader from 'components/telescopes/current-selection-header/header';
+import GoogleAd from 'components/common/google-ads/GoogleAd';
+import LiveFeed from 'components/telescope-details/live-feed-v3';
+import LiveMission from 'components/telescope-details/live-mission/live-mission';
+import MoonlightWidget from 'components/telescope-details/MoonlightWidget';
+import SeeingConditionsWidget from 'components/telescope-details/SeeingConditionsWidget';
+import Neoview from 'components/telescope-details/neoview/neoview';
+import PromoMessageBanner from 'components/common/headers/promo-message-band';
+import Spacer from 'components/common/spacer';
+import StarShareCamera from 'components/telescope-details/star-share-camera/star-share-camera';
+import SunsetCountdown from 'components/telescope-details/SunsetCountdown';
+import TelescopeAllSky from 'components/telescope-details/telescope-all-sky/TelescopeAllSky';
+import TelescopeDetailsTabs from 'components/telescope-details/TelescopeDetailsTabs';
+import TelescopeSelection from 'components/telescopes/selection-widget/telescope-selection';
+import MissionAudio from 'components/telescope-details/MissionAudio';
 
-import obsIdTeleIdDomeIdFromTeleId from '../../utils/obsid-teleid-domeid-from-teleid';
+import InstrumentNavigation from 'components/telescope-details/InstrumentNavigation';
+import TelescopeImageViewerController from 'components/telescope-details/TelescopeImageViewerController';
+
+import './telescope-details.scss';
 
 function mapDispatchToProps(dispatch) {
   return {
@@ -95,11 +97,6 @@ function mapStateToProps({
   };
 }
 
-let refreshUpcomingMissionsInterval;
-function createUpcomingMissionRefreshTimer() {
-  clearInterval(refreshUpcomingMissionsInterval);
-}
-
 @connect(mapStateToProps, mapDispatchToProps)
 class TelescopeDetails extends Component {
   static propTypes = {
@@ -117,12 +114,10 @@ class TelescopeDetails extends Component {
       fetchObjectDataAction: PropTypes.func.isRequired,
       resetObjectData: PropTypes.func.isRequired,
     }).isRequired,
-    countdownList: PropTypes.arrayOf(
-      PropTypes.shape({
-        telescopeId: PropTypes.string.isRequired,
-        // TODO: finish validating fields from the API here...
-      }),
-    ),
+    countdownList: PropTypes.arrayOf(PropTypes.shape({
+      telescopeId: PropTypes.string.isRequired,
+      // TODO: finish validating fields from the API here...
+    })),
     objectDetails: PropTypes.shape({
       objectAudioURL: PropTypes.string,
     }),
@@ -143,8 +138,7 @@ class TelescopeDetails extends Component {
 
   state = {
     neoviewOpen: false,
-    selectedTab: 0,
-    missionPercentageRemaining: 0,
+    activeInstrumentID: null,
   };
 
   componentWillReceiveProps(nextProps) {
@@ -154,18 +148,26 @@ class TelescopeDetails extends Component {
       activeDetailsSSE: { astroObjectID },
     } = nextProps;
 
+    const { neoviewOpen, activeInstrumentID } = this.state;
+    const firstAvailableInstrument = first(nextProps.currentTelescope.teleInstrumentList);
     const isTelescopeUpdate = teleUniqueId !== this.props.params.teleUniqueId;
     const isObservatoryUpdate = obsUniqueId !== this.props.params.obsUniqueId;
-    const { neoviewOpen } = this.state;
 
     if (allObservatoryTelescopeStatus && allObservatoryTelescopeStatus.statusExpires) {
       this.scaffoldRefreshInterval(allObservatoryTelescopeStatus.statusExpires);
     }
 
     if (teleUniqueId) {
-      if (teleUniqueId !== this.props.params.teleUniqueId) {
+      if (isTelescopeUpdate) {
         this.props.actions.updateTelescopeStatus({ teleUniqueId });
       }
+    }
+
+    if (firstAvailableInstrument
+        && !some(nextProps.currentTelescope.teleInstrumentList, ['instrUniqueId', activeInstrumentID])) {
+      this.setState({
+        activeInstrumentID: firstAvailableInstrument.instrUniqueId,
+      });
     }
 
     if (isObservatoryUpdate || isTelescopeUpdate) {
@@ -181,11 +183,6 @@ class TelescopeDetails extends Component {
     if (this.props.activeDetailsSSE.astroObjectID > 0 && astroObjectID === 0) {
       this.props.actions.resetObjectData();
     }
-  }
-
-  componentWillUpdate(nextProps) {
-    const isNewObservatoryURL = this.props.params.obsUniqueId !== nextProps.params.obsUniqueId;
-    const isNewTelescopeURL = this.props.params.teleUniqueId !== nextProps.params.teleUniqueId;
 
     if (this.props.currentObservatory) {
       const isNewCurrentObservatory =
@@ -200,7 +197,7 @@ class TelescopeDetails extends Component {
       }
     }
 
-    if (isNewObservatoryURL) {
+    if (isObservatoryUpdate) {
       // set the selected observatory
       this.props.actions.setObservatory({
         obsUniqueId: nextProps.params.obsUniqueId,
@@ -211,14 +208,17 @@ class TelescopeDetails extends Component {
       this.scaffoldRefreshInterval();
     }
 
-    if (isNewTelescopeURL) {
-      // whenever we change the telescope, default the selected tab to 0
-      this.handleSelect(0);
-
+    if (isTelescopeUpdate) {
       // set the selected telescope
       this.props.actions.setTelescope({
         obsUniqueId: nextProps.params.obsUniqueId,
         teleUniqueId: nextProps.params.teleUniqueId,
+      });
+    }
+
+    if (isObservatoryUpdate || isTelescopeUpdate) {
+      this.setState({
+        activeInstrumentID: firstAvailableInstrument.instrUniqueId,
       });
     }
   }
@@ -231,19 +231,10 @@ class TelescopeDetails extends Component {
     const { observatoryList, params } = this.props;
 
     this.props.actions.fetchAllTelescopeStatus({
-      obsId: observatoryList.find(
-        observatory => observatory.obsUniqueId === (obsUniqueId || params.obsUniqueId),
-      ).obsId,
+      obsId: observatoryList.find(observatory => observatory.obsUniqueId === (obsUniqueId || params.obsUniqueId)).obsId,
       teleUniqueId: params.teleUniqueId,
     });
   }
-
-  handleSelect = (index) => {
-    this.setState({
-      neoviewOpen: false,
-      selectedTab: index,
-    });
-  };
 
   toggleNeoview = () => {
     this.setState(prevState => ({
@@ -255,6 +246,7 @@ class TelescopeDetails extends Component {
     const {
       params: { obsUniqueId, teleUniqueId },
       activeDetailsSSE: { astroObjectID },
+      currentTelescope,
     } = this.props;
 
     this.props.actions.bootstrapTelescopeDetails({
@@ -299,28 +291,25 @@ class TelescopeDetails extends Component {
     }
   }
 
+  handleInstrumentNavigationClick = (instrumentID) => {
+    this.setState(() => ({ activeInstrumentID: instrumentID }));
+  };
+
   render() {
-    const { selectedTab, neoviewOpen } = this.state;
+    const { neoviewOpen, activeInstrumentID } = this.state;
+
     const {
       fetchingObservatoryList,
       fetchingObservatoryStatus,
-
       currentObservatory,
       currentTelescope,
       currentTelescopeOnlineStatus,
-
       countdownList,
-
       displayCommunityContent,
-
       observatoryList,
-
       params,
-
       activeTelescopeMission,
-
       communityContent,
-
       activeDetailsSSE,
       isImageViewerClipped,
       objectDetails,
@@ -335,22 +324,22 @@ class TelescopeDetails extends Component {
     const {
       teleInstrumentList,
       teleCanReserveMissions,
-      teleHasMissions,
-      teleId,
     } = currentTelescope;
+
     const telescopeOnline =
       currentTelescopeOnlineStatus && currentTelescopeOnlineStatus.onlineStatus === 'online';
-    const selectedInstrument = teleInstrumentList[selectedTab];
-    const currentMissionCountdown = countdownList.find(
-      countdown => countdown.teleUniqueId === teleUniqueId,
-    );
 
-    const { domeId } = obsIdTeleIdDomeIdFromTeleId(teleId);
+    const currentMissionCountdown = countdownList
+      .find(countdown => countdown.teleUniqueId === teleUniqueId);
+
     const { objectAudioURL } = objectDetails;
     const isSubjectMatterAnObject = activeDetailsSSE.astroObjectID > 0;
     const audioEnabled = !!objectAudioURL;
     const isTelescopeOnline = currentTelescopeOnlineStatus && (currentTelescopeOnlineStatus.onlineStatus === 'online');
-    
+
+    const activeInstrument = first(teleInstrumentList
+      .filter(instrument => instrument.instrUniqueId === activeInstrumentID));
+
     return (
       <div className="telescope-details-page-wrapper">
         <AnnouncementBanner obsId={obsId} />
@@ -385,51 +374,56 @@ class TelescopeDetails extends Component {
             </div>
           </div>
 
+
           {/* begin left column */}
           <div className="telescope-details clearfix">
             <div className="col-sm-8">
-              <Tabs onSelect={this.handleSelect} selectedIndex={selectedTab}>
-                <TabList>
-                  {teleInstrumentList.map(instrument => (
-                    <Tab key={instrument.instrUniqueId}>{instrument.instrTelescopeName}</Tab>
-                  ))}
-                </TabList>
-                {teleInstrumentList.map(instrument => (
-                  <TabPanel key={instrument.instrPort}>
-                    <LiveFeed
-                      fetchingOnlineStatus={fetchingObservatoryStatus}
-                      obsAlert={currentObservatory.obsAlert}
-                      onlineStatus={
-                        currentTelescopeOnlineStatus && currentTelescopeOnlineStatus.onlineStatus
-                      }
-                      instrument={instrument}
-                      offlineImageSource={instrument.instrOfflineImgURL}
-                      activeMission={activeTelescopeMission.maskDataArray}
-                      timestamp={activeTelescopeMission.timestamp}
-                      missionStart={activeTelescopeMission.missionStart}
-                      missionEnd={activeTelescopeMission.expires}
-                      activeNeoview={selectedInstrument.instrHasNeoView}
-                      handleInfoClick={this.toggleNeoview}
-                      isImageViewerClipped={isImageViewerClipped}
-                    />
 
-                    {/** load the neoview */
-                    telescopeOnline && selectedInstrument.instrHasNeoView ? (
-                      <Neoview
-                        toggleNeoview={this.toggleNeoview}
-                        neoviewOpen={neoviewOpen}
-                        teleSystem={selectedInstrument.instrSystem}
-                        showToggleOption={currentTelescope.teleOnlineStatus === 'online'}
-                        percentageMissionTimeRemaining={100}
-                      />
-                    ) : null}
+              <InstrumentNavigation
+                instruments={teleInstrumentList}
+                activeInstrumentID={activeInstrumentID}
+                handleInstrumentClick={this.handleInstrumentNavigationClick}
+              />
 
-                    {telescopeOnline && instrument.instrStarShareCamera === true ? (
-                      <StarShareCamera />
-                    ) : null}
-                  </TabPanel>
-                ))}
-              </Tabs>
+              <TelescopeImageViewerController
+                activeInstrumentID={activeInstrumentID}
+                render={({ viewportHeight }) => (
+                  <LiveFeed
+                    viewportHeight={viewportHeight}
+                    fetchingOnlineStatus={fetchingObservatoryStatus}
+                    obsAlert={currentObservatory.obsAlert}
+                    onlineStatus={
+                      currentTelescopeOnlineStatus && currentTelescopeOnlineStatus.onlineStatus
+                    }
+                    instrument={activeInstrument}
+                    offlineImageSource={activeInstrument.instrOfflineImgURL}
+                    activeMission={activeTelescopeMission.maskDataArray}
+                    timestamp={activeTelescopeMission.timestamp}
+                    missionStart={activeTelescopeMission.missionStart}
+                    missionEnd={activeTelescopeMission.expires}
+                    activeNeoview={activeInstrument.instrHasNeoView}
+                    handleInfoClick={this.toggleNeoview}
+                    isImageViewerClipped={isImageViewerClipped}
+                  />
+                )}
+              />
+
+
+              {/** load the neoview */
+                telescopeOnline && activeInstrument.instrHasNeoView ? (
+                  <Neoview
+                    toggleNeoview={this.toggleNeoview}
+                    neoviewOpen={neoviewOpen}
+                    teleSystem={activeInstrument.instrSystem}
+                    showToggleOption={currentTelescope.teleOnlineStatus === 'online'}
+                    percentageMissionTimeRemaining={100}
+                  />
+                ) : null}
+
+              {telescopeOnline && activeInstrument.instrStarShareCamera === true ? (
+                <StarShareCamera />
+              ) : null}
+
 
               <Spacer height="50px" />
 
@@ -491,10 +485,10 @@ class TelescopeDetails extends Component {
                   />
               }
 
-              {
+              {/*
                 teleHasMissions &&
                   <UpcomingMissions obsId={obsId} domeId={domeId} />
-              }
+              */}
 
               {
                 activeTelescopeMission.missionAvailable ||
@@ -527,10 +521,10 @@ class TelescopeDetails extends Component {
               />
 
               <GoogleAd
-                adURL={'/5626790/Recommends'}
+                adURL="/5626790/Recommends"
                 adWidth={300}
                 adHeight={250}
-                targetDivID={'div-gpt-ad-1495111021281-0'}
+                targetDivID="div-gpt-ad-1495111021281-0"
               />
             </div>
           </div>

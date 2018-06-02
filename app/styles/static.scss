@@ -4,20 +4,6 @@
 @import './variables/layout.scss';
 @import './mixins/utilities.scss';
 
-/** SLOOH CSS **/
-
-
-/* CSS Universal Transition by Jason CranfordTeague | www.cranforteague.com */
-
-:link,
-:visited,
-:hover,
-:active,
-:focus,
-* {
-    @include transition( color .2s linear, background-color .2s linear, border-color .2s linear, opacity .4s linear, box-shadow .2s linear, height .4s linear, max-height .4s linear);
-}
-
 html {
     font-size: 12px;
 }
