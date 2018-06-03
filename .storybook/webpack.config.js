@@ -39,6 +39,14 @@ module.exports = {
           presets: ['env', 'react'],
         },
       },
+      {
+        test: /\.scss$/,
+        loaders: [
+          'style-loader',
+          'css-loader?modules&importLoaders=1&localIdentName=[local]',
+          'sass-loader',
+        ],
+      },
     ],
   },
 };
