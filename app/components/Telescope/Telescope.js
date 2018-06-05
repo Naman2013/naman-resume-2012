@@ -11,6 +11,7 @@ import TelescopeFrame from './TelescopeFrame';
 import Mask from './Mask';
 import Scale from './Scale';
 import UnitText from './TelescopeFrame/UnitText';
+import HowBig from './HowBig';
 
 import { getTelescope } from './telescopeConfig';
 import FieldOfView from './FieldOfView/FieldOfView';
@@ -209,7 +210,6 @@ class Telescope extends Component {
     } = this.state;
 
     const activeInstrument = getTelescope(activeInstrumentID);
-    const imageX = (imageDimensions.width - width) / 2;
     const tickSpacing = (width / horizontalResolution);
     const midPoint = (width / 2);
     const arcMinuteLabelLetterSpacing = (width * 0.03);
@@ -284,6 +284,8 @@ class Telescope extends Component {
                       }}
                     />
                   </FadeSVG>
+
+                  <HowBig />
                 </svg>
 
                 <style jsx>{`

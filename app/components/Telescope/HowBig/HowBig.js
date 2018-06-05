@@ -1,5 +1,16 @@
-import React from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
-const HowBig = () => ();
+class HowBig extends Component {
+  static propTypes = {
+
+  };
+
+  render() {
+    return (
+      <g></g>
+    );
+  }
+}
 
 export default HowBig;
