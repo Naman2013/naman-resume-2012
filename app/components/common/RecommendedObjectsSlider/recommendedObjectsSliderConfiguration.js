@@ -7,10 +7,10 @@ const sliderConfiguration = {
   emptyMessage: 'There are no recommended objects.',
 };
 
-const getRecommendedObjectsItems = recommendedObjectsList =>
+const getRecommendedObjectsItems = (recommendedObjectsList = []) =>
 recommendedObjectsList.map(object => <div>{object.title}</div>)
 
-export const getSliderConfiguration = slideList => (
+export const getSliderConfiguration = (slideList = []) => (
   Object.assign({
     slideList: getRecommendedObjectsItems(slideList),
   }, sliderConfiguration)

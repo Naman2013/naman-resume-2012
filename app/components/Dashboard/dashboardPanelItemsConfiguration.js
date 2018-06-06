@@ -1,6 +1,8 @@
 import React from 'react';
 import DashboardPanelItem from './DashboardPanelItem';
-import RecommendedObjects from 'components/common/RecommendedObjects';
+import RecommendedObjects from 'components/common/RecommendedObjectsSlider';
+import RecommendedGuides from 'components/common/RecommendedGuidesSlider';
+import RecommendedObservations from 'components/common/RecommendedObservationsSlider';
 
 const RecommendedObjectsPanel = props => (
   props.recommendedObjectsShow ?
@@ -18,7 +20,7 @@ const FeaturedObservationsPanel = props => (
       orderNumber={props.orderNumber}
       title={props.featuredObservationsHeading}
       subtitle={props.featuredObservationsSubHeading}
-      render={() => <div {...props} />}
+      render={() => <RecommendedObservations {...props} />}
     /> : null
 );
 
@@ -28,7 +30,7 @@ const RecommendedGuidesPanel = props => (
       orderNumber={props.orderNumber}
       title={props.recommendedGuidesHeading}
       subtitle={props.recommendedGuidesSubHeading}
-      render={() => <div {...props} />}
+      render={() => <RecommendedGuides {...props} />}
     /> : null
 );
 
