@@ -214,8 +214,6 @@ class Telescope extends Component {
     const midPoint = (width / 2);
     const arcMinuteLabelLetterSpacing = (width * 0.03);
 
-    console.log(activeInstrumentID);
-
     return (
       <Measure
         bounds
