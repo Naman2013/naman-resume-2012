@@ -42,8 +42,8 @@ class Telescope extends Component {
     previousInstrumentID: this.props.previousInstrumentID,
     timesFlippedInstrumentBorder: 0,
     isTransitioningTelescope: false,
-    horizontalResolution: this.props.horizontalResolution,
-    verticalResolution: this.props.verticalResolution,
+    horizontalResolution: getTelescope(this.props.activeInstrumentID).FOV.horizontal,
+    verticalResolution: getTelescope(this.props.activeInstrumentID).FOV.horizontal,
     increment: this.props.increment,
     portalDimensions: {
       bottom: 0,
@@ -213,6 +213,8 @@ class Telescope extends Component {
     const tickSpacing = (width / horizontalResolution);
     const midPoint = (width / 2);
     const arcMinuteLabelLetterSpacing = (width * 0.03);
+
+    console.log(activeInstrumentID);
 
     return (
       <Measure
