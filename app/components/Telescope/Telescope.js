@@ -18,7 +18,7 @@ import FieldOfView from './FieldOfView/FieldOfView';
 const MAX_RESOLUTION = 250;
 const MAX_DURATION = 10000;
 const ZOOM_OUT_DURATION = MAX_DURATION / 2;
-const MAX_FOV_FLIPS = 5;
+const MAX_FOV_FLIPS = 6;
 
 class Telescope extends Component {
   static propTypes = {
@@ -42,8 +42,8 @@ class Telescope extends Component {
     previousInstrumentID: this.props.previousInstrumentID,
     timesFlippedInstrumentBorder: 0,
     isTransitioningTelescope: false,
-    horizontalResolution: this.props.horizontalResolution,
-    verticalResolution: this.props.verticalResolution,
+    horizontalResolution: getTelescope(this.props.activeInstrumentID).FOV.horizontal,
+    verticalResolution: getTelescope(this.props.activeInstrumentID).FOV.horizontal,
     increment: this.props.increment,
     portalDimensions: {
       bottom: 0,
@@ -125,7 +125,7 @@ class Telescope extends Component {
           return {};
         }
 
-        const updatedFOVFlipState = {
+      const updatedFOVFlipState = {
           timesFlippedInstrumentBorder: (timesFlippedInstrumentBorder + 1),
           activeInstrumentID:
             (activeInstrumentID === this.state.activeInstrumentID)
