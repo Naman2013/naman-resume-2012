@@ -8,7 +8,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import SloohSlider from 'components/common/Slider';
 // import { secondaryFont } from 'styles/variables/fonts';
-import { getSliderConfiguration } from './recommendedObjectsConfiguration';
+import { getSliderConfiguration } from './recommendedObjectsSliderConfiguration';
 const {
   arrayOf,
   bool,
@@ -19,7 +19,7 @@ const {
 } = PropTypes;
 
 const RecommendedObjects = ({
-  recommendedObjectsList,
+  recommendedObjectsList = [],
 }) => {
   const sliderConfig = getSliderConfiguration(recommendedObjectsList);
   return (
@@ -41,4 +41,13 @@ const RecommendedObjects = ({
       </style>
     </div>)
 };
+
+RecommendedObjects.propTypes = {
+
+};
+
+RecommendedObjects.defaultProps = {
+
+};
+
 export default RecommendedObjects;

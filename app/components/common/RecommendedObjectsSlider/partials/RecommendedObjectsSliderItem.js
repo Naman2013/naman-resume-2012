@@ -32,7 +32,6 @@ const RecommendedObjectsItem = ({
   subTitle,
   title,
 }) => (<div className="root">
-iconURL,
       {hasIcon ? <div style={getIconStyle()} />: null}
       <div className="object-name" dangerouslySetInnerHTML={{ __html: title }} />
       <div className="" dangerouslySetInnerHTML={{ __html: description }} />
