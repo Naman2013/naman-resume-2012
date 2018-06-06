@@ -132,7 +132,7 @@ import UserPublicProfile from './pages/profiles/public-profile';
 import CommunityGroups from './pages/community-groups/Groups';
 import CommunityGroupsList from './pages/community-groups/GroupsListPage';
 import CommunityGroupOverview from './pages/community-groups/GroupOverview';
-
+import DashboardPage from 'components/Dashboard';
 // router functions
 import validateUser from './route-functions/validateUser';
 import { fetchPlayer } from './modules/get-audio-player/actions';
