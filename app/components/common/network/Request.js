@@ -130,8 +130,9 @@ class Request extends Component {
       serviceResponse: result,
       modeledResponses,
     }));
-
-    serviceResponseHandler(result)
+    if (serviceResponseHandler) {
+      serviceResponseHandler(result);
+    }
   }
 
   tearDown() {

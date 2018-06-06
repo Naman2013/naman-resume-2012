@@ -1,17 +1,18 @@
 import React from 'react';
 import DashboardPanelItem from './DashboardPanelItem';
+import RecommendedObjects from 'components/common/RecommendedObjects';
 
-const RecommendedObjects = props => (
+const RecommendedObjectsPanel = props => (
   props.recommendedObjectsShow ?
     <DashboardPanelItem
       orderNumber={props.orderNumber}
       title={props.recommendedObjectsHeading}
       subtitle={props.recommendedObjectsSubHeading}
-      render={() => <div {...props} />}
+      render={() => <RecommendedObjects {...props} />}
     /> : null
 );
 
-const FeaturedObservations = props => (
+const FeaturedObservationsPanel = props => (
   props.featuredObservationsShow ?
     <DashboardPanelItem
       orderNumber={props.orderNumber}
@@ -21,7 +22,7 @@ const FeaturedObservations = props => (
     /> : null
 );
 
-const RecommendedGuides = props => (
+const RecommendedGuidesPanel = props => (
   props.recommendedGuidesShow ?
     <DashboardPanelItem
       orderNumber={props.orderNumber}
@@ -31,7 +32,7 @@ const RecommendedGuides = props => (
     /> : null
 );
 
-const RecommendedQuests = props => (
+const RecommendedQuestsPanel = props => (
   props.recommendedQuestsShow ?
     <DashboardPanelItem
       orderNumber={props.orderNumber}
@@ -41,7 +42,7 @@ const RecommendedQuests = props => (
     /> : null
 );
 
-const RecommendedShows = props => (
+const RecommendedShowsPanel = props => (
   props.recommendedShowsShow ?
     <DashboardPanelItem
       orderNumber={props.orderNumber}
@@ -51,7 +52,7 @@ const RecommendedShows = props => (
     /> : null
 );
 
-const RecommendedStories = props => (
+const RecommendedStoriesPanel = props => (
   props.recommendedStoriesShow ?
     <DashboardPanelItem
       orderNumber={props.orderNumber}
@@ -61,7 +62,7 @@ const RecommendedStories = props => (
     /> : null
 );
 
-const PopularGroups = props => (
+const PopularGroupsPanel = props => (
   props.popularGroupsShow ?
     <DashboardPanelItem
       orderNumber={props.orderNumber}
@@ -73,13 +74,13 @@ const PopularGroups = props => (
 
 export const getSectionComponent = (section, props) => {
   const sectionComponents = {
-    recommendedObjects: <RecommendedObjects {...props} />,
-    featuredObservations: <FeaturedObservations {...props} />,
-    recommendedGuides: <RecommendedGuides {...props} />,
-    recommendedQuests: <RecommendedQuests {...props} />,
-    recommendedShows: <RecommendedShows {...props} />,
-    recommendedStories: <RecommendedStories {...props} />,
-    popularGroups: <PopularGroups {...props} />,
+    recommendedObjects: <RecommendedObjectsPanel {...props} />,
+    featuredObservations: <FeaturedObservationsPanel {...props} />,
+    recommendedGuides: <RecommendedGuidesPanel {...props} />,
+    recommendedQuests: <RecommendedQuestsPanel {...props} />,
+    recommendedShows: <RecommendedShowsPanel {...props} />,
+    recommendedStories: <RecommendedStoriesPanel {...props} />,
+    popularGroups: <PopularGroupsPanel {...props} />,
   };
   return sectionComponents[section];
 };

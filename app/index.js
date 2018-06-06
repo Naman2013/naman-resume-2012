@@ -133,6 +133,7 @@ import CommunityGroupsList from './pages/community-groups/GroupsListPage';
 import CommunityGroupOverview from './pages/community-groups/GroupOverview';
 import ImageDetails from './pages/image-details';
 
+import DashboardPage from 'components/Dashboard';
 // router functions
 import validateUser from './route-functions/validateUser';
 import { fetchPlayer } from './modules/get-audio-player/actions';
