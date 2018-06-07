@@ -6,6 +6,7 @@
 ***********************************/
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import uniqueId from 'lodash/uniqueId';
 import SloohSlider from 'components/common/Slider';
 // import { secondaryFont } from 'styles/variables/fonts';
 import { getSliderConfiguration } from './recommendedObjectsSliderConfiguration';
@@ -23,7 +24,7 @@ const RecommendedObjects = ({
 }) => {
   const sliderConfig = getSliderConfiguration(recommendedObjectsList);
   return (
-    <div className="root">
+    <div className="root" key={uniqueId()}>
       <SloohSlider
         {...sliderConfig}
       />

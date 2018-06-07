@@ -6,8 +6,8 @@
 ***********************************/
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import uniqueId from 'lodash/uniqueId';
 import TourPopup from './tour-popup/TourPopup';
-import DashboardPanelItem from './DashboardPanelItem';
 import PromoPanel from 'components/home/promo-panel';
 import {
   getSectionComponent,
@@ -33,7 +33,7 @@ const sectionOrder = [
   'popularGroups',
 ];
 
-class HydratedDashboard extends Component {
+class BootstrappedDashboard extends Component {
 
   static propTypes = {
     featuredObservations: shape({
@@ -152,7 +152,7 @@ class HydratedDashboard extends Component {
         <TourPopup />
         {/* Hero */}
         {promoPanelShow ?
-          promoArray.map(promoObject => <PromoPanel {...promoObject} />) : null
+          promoArray.map(promoObject => <PromoPanel {...promoObject} key={uniqueId()} />) : null
         }
         {/* Navigation */}
         {sectionOrder.map((section, i) => (
@@ -172,4 +172,4 @@ class HydratedDashboard extends Component {
   }
 }
 
-export default HydratedDashboard;
+export default BootstrappedDashboard;

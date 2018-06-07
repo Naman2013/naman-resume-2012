@@ -5,14 +5,14 @@ const sliderConfiguration = {
   slidesToShow: 3,
   slidesToScroll: 1,
   initialSlide: 1,
-  emptyMessage: 'There are no recommended stories.',
+  emptyMessage: 'There are no recommended groups.',
 };
 
-const getRecommendedStoriesItems = (storiesList = []) =>
-storiesList.map(object => <div key={uniqueId()}>{object.title}</div>)
+const getRecommendedGroupsItems = (groupList = []) =>
+groupList.map(object => <div key={uniqueId()}>{object.title}</div>)
 
 export const getSliderConfiguration = (slideList = []) => (
   Object.assign({
-    slideList: getRecommendedStoriesItems(slideList),
+    slideList: getRecommendedGroupsItems(slideList),
   }, sliderConfiguration)
 );

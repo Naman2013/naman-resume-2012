@@ -7,6 +7,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Slider from 'react-slick';
+import uniqueId from 'lodash/uniqueId';
 import 'components/common/community-perspectives/slick.min.css';
 import 'components/common/community-perspectives/slick-theme.min.css';
 import { black, gray } from 'styles/variables/colors';
@@ -25,7 +26,6 @@ const {
 class SloohSlider extends Component {
   static propTypes = {
     slideList: arrayOf(any).isRequired,
-    render: func.isRequired,
     slidesToShow: number,
     slidesToScroll: number,
     initialSlide: number,
@@ -83,7 +83,7 @@ class SloohSlider extends Component {
     };
 
     return (
-      <div className="root">
+      <div className="root" key={uniqueId()}>
         {slideList.length === 0 && <div className="empty" dangerouslySetInnerHTML={{ __html: emptyMessage }} />}
         {slideList.length > 0 && <div className="observation-slider-container">
           <Slider

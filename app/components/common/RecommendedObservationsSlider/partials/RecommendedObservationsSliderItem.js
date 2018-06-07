@@ -29,7 +29,7 @@ const RecommendedObservationsItem = ({
 />);
 
 RecommendedObservationsItem.propTypes = {
-  customerImageId: string,
+  customerImageId: number,
 };
 RecommendedObservationsItem.defaultProps = {
   customerImageId: '',
