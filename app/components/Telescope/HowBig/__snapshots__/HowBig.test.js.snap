@@ -16,9 +16,65 @@ ShallowWrapper {
     "instance": null,
     "key": undefined,
     "nodeType": "host",
-    "props": Object {},
+    "props": Object {
+      "children": Array [
+        <text
+          className="jsx-4098130392 text"
+          x={0}
+          y={0}
+        >
+          How Big?
+        </text>,
+        <JSXStyle
+          css={
+            Array [
+              ".text.__jsx-style-dynamic-selector{font-family:brandon-grotesque, sans-serif;color:aqua;font-size:200px;}",
+            ]
+          }
+          dynamic={
+            Array [
+              "brandon-grotesque, sans-serif",
+            ]
+          }
+          styleId="195666022"
+        />,
+      ],
+      "className": "jsx-4098130392",
+    },
     "ref": null,
-    "rendered": null,
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": "How Big?",
+          "className": "jsx-4098130392 text",
+          "x": 0,
+          "y": 0,
+        },
+        "ref": null,
+        "rendered": "How Big?",
+        "type": "text",
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
+          "css": Array [
+            ".text.__jsx-style-dynamic-selector{font-family:brandon-grotesque, sans-serif;color:aqua;font-size:200px;}",
+          ],
+          "dynamic": Array [
+            "brandon-grotesque, sans-serif",
+          ],
+          "styleId": "195666022",
+        },
+        "ref": null,
+        "rendered": null,
+        "type": [Function],
+      },
+    ],
     "type": "g",
   },
   Symbol(enzyme.__nodes__): Array [
@@ -26,9 +82,65 @@ ShallowWrapper {
       "instance": null,
       "key": undefined,
       "nodeType": "host",
-      "props": Object {},
+      "props": Object {
+        "children": Array [
+          <text
+            className="jsx-4098130392 text"
+            x={0}
+            y={0}
+          >
+            How Big?
+          </text>,
+          <JSXStyle
+            css={
+              Array [
+                ".text.__jsx-style-dynamic-selector{font-family:brandon-grotesque, sans-serif;color:aqua;font-size:200px;}",
+              ]
+            }
+            dynamic={
+              Array [
+                "brandon-grotesque, sans-serif",
+              ]
+            }
+            styleId="195666022"
+          />,
+        ],
+        "className": "jsx-4098130392",
+      },
       "ref": null,
-      "rendered": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": "How Big?",
+            "className": "jsx-4098130392 text",
+            "x": 0,
+            "y": 0,
+          },
+          "ref": null,
+          "rendered": "How Big?",
+          "type": "text",
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "css": Array [
+              ".text.__jsx-style-dynamic-selector{font-family:brandon-grotesque, sans-serif;color:aqua;font-size:200px;}",
+            ],
+            "dynamic": Array [
+              "brandon-grotesque, sans-serif",
+            ],
+            "styleId": "195666022",
+          },
+          "ref": null,
+          "rendered": null,
+          "type": [Function],
+        },
+      ],
       "type": "g",
     },
   ],
