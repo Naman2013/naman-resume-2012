@@ -4,6 +4,8 @@ import RecommendedObjects from 'components/common/RecommendedObjectsSlider';
 import RecommendedGuides from 'components/common/RecommendedGuidesSlider';
 import RecommendedObservations from 'components/common/RecommendedObservationsSlider';
 import RecommendedShows from 'components/common/RecommendedShowsSlider';
+import RecommendedStories from 'components/common/RecommendedStoriesSlider';
+
 
 const RecommendedObjectsPanel = props => (
   props.recommendedObjectsShow ?
@@ -62,7 +64,7 @@ const RecommendedStoriesPanel = props => (
       orderNumber={props.orderNumber}
       title={props.recommendedStoriesHeading}
       subtitle={props.recommendedStoriesSubHeading}
-      render={() => <div {...props} />}
+      render={() => <RecommendedStories {...props} />}
     /> : null
 );
 
