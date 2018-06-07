@@ -1,10 +1,10 @@
 import React from 'react';
 import { Enum } from 'enumify';
 
-import Earth from './referenceObjects/Earth';
-import MilkyWay from './referenceObjects/MilkyWay';
-import SolarSystem from './referenceObjects/SolarSystem';
-import Sun from './referenceObjects/Sun';
+import Earth from './ReferenceObjects/Earth';
+import MilkyWay from './ReferenceObjects/MilkyWay';
+import SolarSystem from './ReferenceObjects/SolarSystem';
+import Sun from './ReferenceObjects/Sun';
 
 class Domains extends Enum {}
 Domains.initEnum({

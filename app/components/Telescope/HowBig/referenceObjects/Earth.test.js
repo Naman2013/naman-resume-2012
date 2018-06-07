@@ -7,10 +7,4 @@ describe('Earth', () => {
   it('should render correctly', () => {
     expect(earth).toMatchSnapshot();
   });
-
-  it('sets `x` `y` `r` props', () => {
-    expect(earth.props().x).toBe(20);
-    expect(earth.props().y).toBe(20);
-    expect(earth.props().r).toBe(100);
-  });
 });
