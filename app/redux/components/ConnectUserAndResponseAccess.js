@@ -7,7 +7,7 @@ const propTypes = {
   user: PropTypes.shape({
     at: PropTypes.string.isRequired,
     token: PropTypes.string.isRequired,
-    cid: PropTypes.number.isRequired,
+    cid: PropTypes.string.isRequired,
   }),
   actions: PropTypes.shape({
     validateResponseAccess: PropTypes.func.isRequired,

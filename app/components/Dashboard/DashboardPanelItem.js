@@ -7,6 +7,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import uniqueId from 'lodash/uniqueId';
 
 const {
   func,
@@ -20,7 +21,7 @@ const PanelItem = ({
   title,
   subtitle,
 }) => (
-  <div className="root">
+  <div className="root" key={uniqueId()}>
     <h5>{('0' + orderNumber).slice(-2)}</h5>
     <h1 dangerouslySetInnerHTML={{ __html: title }} />
     <h3 dangerouslySetInnerHTML={{ __html: subtitle }} />
@@ -35,7 +36,7 @@ const PanelItem = ({
 );
 
 PanelItem.propTypes = {
-  number: number.isRequired,
+  orderNumber: number.isRequired,
   render: func.isRequired,
   title: string.isRequired,
   subtitle: string.isRequired,

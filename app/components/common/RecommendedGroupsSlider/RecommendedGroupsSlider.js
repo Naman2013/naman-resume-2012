@@ -1,5 +1,5 @@
 /***********************************
-* V4 Recommended Stories Slider
+* V4 Recommended Groups Slider
 *
 *
 *
@@ -8,9 +8,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import SloohSlider from 'components/common/Slider';
 import Request from 'components/common/network/Request';
-import { HOMEPAGE_CONTENT } from 'services/dashboard';
+import { GET_GROUPS, SORT_BY_POPULAR } from 'services/community-groups';
 // import { secondaryFont } from 'styles/variables/fonts';
-import { getSliderConfiguration } from './recommendedStoriesSliderConfiguration';
+import { getSliderConfiguration } from './recommendedGroupsSliderConfiguration';
 const {
   arrayOf,
   bool,
@@ -20,15 +20,16 @@ const {
   string,
 } = PropTypes;
 
-const Stories = ({
+const Groups = ({
 }) => (<Request
-  serviceURL={HOMEPAGE_CONTENT}
+  serviceURL={GET_GROUPS}
   method="POST"
+  requestBody={SORT_BY_POPULAR}
   render={({
     fetchingContent,
     serviceResponse,
   }) => {
-    const sliderConfig = getSliderConfiguration(serviceResponse.posts);
+    const sliderConfig = getSliderConfiguration(serviceResponse.groups);
     return (
       <div className="root">
         <SloohSlider
@@ -50,4 +51,4 @@ const Stories = ({
   }}
 />);
 
-export default Stories;
+export default Groups;

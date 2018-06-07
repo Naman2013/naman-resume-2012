@@ -15,7 +15,7 @@ const {
   number,
 } = PropTypes;
 
-class HydratedTourPopup extends Component {
+class BootstrappeTourPopup extends Component {
 
   static propTypes = {
     canDismiss: bool,
@@ -29,7 +29,7 @@ class HydratedTourPopup extends Component {
     user: shape({
       at: string,
       token: string,
-      cid: number,
+      cid: string,
     }).isRequired,
   };
 
@@ -101,7 +101,7 @@ class HydratedTourPopup extends Component {
         <div dangerouslySetInnerHTML={{ __html: text }} />
         {hasLink ? <button>
           <Link to={linkURL}>
-            <a dangerouslySetInnerHTML={{ __html: linkLabel }} />
+            <span dangerouslySetInnerHTML={{ __html: linkLabel }} />
           </Link>
         </button> : null}
         {canDismiss ? <span onClick={this.dismissTour} dangerouslySetInnerHTML={{ __html: dismissText }} /> : null}
@@ -119,4 +119,4 @@ class HydratedTourPopup extends Component {
   }
 }
 
-export default HydratedTourPopup;
+export default BootstrappeTourPopup;
