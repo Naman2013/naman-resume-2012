@@ -3,6 +3,7 @@ import DashboardPanelItem from './DashboardPanelItem';
 import RecommendedObjects from 'components/common/RecommendedObjectsSlider';
 import RecommendedGuides from 'components/common/RecommendedGuidesSlider';
 import RecommendedObservations from 'components/common/RecommendedObservationsSlider';
+import RecommendedShows from 'components/common/RecommendedShowsSlider';
 
 const RecommendedObjectsPanel = props => (
   props.recommendedObjectsShow ?
@@ -44,13 +45,14 @@ const RecommendedQuestsPanel = props => (
     /> : null
 );
 
+
 const RecommendedShowsPanel = props => (
   props.recommendedShowsShow ?
     <DashboardPanelItem
       orderNumber={props.orderNumber}
       title={props.recommendedShowsHeading}
       subtitle={props.recommendedShowsSubHeading}
-      render={() => <div {...props} />}
+      render={() => <RecommendedShows {...props} />}
     /> : null
 );
 
@@ -79,7 +81,7 @@ export const getSectionComponent = (section, props) => {
     recommendedObjects: <RecommendedObjectsPanel {...props} />,
     featuredObservations: <FeaturedObservationsPanel {...props} />,
     recommendedGuides: <RecommendedGuidesPanel {...props} />,
-    recommendedQuests: <RecommendedQuestsPanel {...props} />,
+    // recommendedQuests: <RecommendedQuestsPanel {...props} />,
     recommendedShows: <RecommendedShowsPanel {...props} />,
     recommendedStories: <RecommendedStoriesPanel {...props} />,
     popularGroups: <PopularGroupsPanel {...props} />,
