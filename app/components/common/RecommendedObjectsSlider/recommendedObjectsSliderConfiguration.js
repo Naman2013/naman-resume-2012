@@ -1,4 +1,6 @@
 import React from 'react';
+import uniqueId from 'lodash/uniqueId';
+
 
 const sliderConfiguration = {
   slidesToShow: 3,
@@ -8,7 +10,7 @@ const sliderConfiguration = {
 };
 
 const getRecommendedObjectsItems = (recommendedObjectsList = []) =>
-recommendedObjectsList.map(object => <div>{object.title}</div>)
+recommendedObjectsList.map(object => <div key={uniqueId()}>{object.title}</div>)
 
 export const getSliderConfiguration = (slideList = []) => (
   Object.assign({

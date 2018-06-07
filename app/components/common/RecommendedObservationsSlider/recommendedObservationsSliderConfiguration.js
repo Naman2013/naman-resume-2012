@@ -1,4 +1,5 @@
 import React from 'react';
+import uniqueId from 'lodash/uniqueId';
 import RecommendedObservationSliderItem from './partials/RecommendedObservationsSliderItem';
 
 const sliderConfiguration = {
@@ -9,7 +10,7 @@ const sliderConfiguration = {
 };
 
 const getRecommendedObservationsItems = (imageList = []) =>
-imageList.map(object => <RecommendedObservationSliderItem {...object} />)
+imageList.map(object => <RecommendedObservationSliderItem key={uniqueId()} {...object} />)
 
 export const getSliderConfiguration = (slideList = []) => (
   Object.assign({

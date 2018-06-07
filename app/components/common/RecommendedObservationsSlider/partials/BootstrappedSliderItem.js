@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import uniqueId from 'lodash/uniqueId';
+
 
 const {
   string,
@@ -27,7 +29,7 @@ const getIconStyle = (iconURL) => ({
 
 const BootstrappedObservationSliderItem = ({
 
-}) => (<div className="root">
+}) => (<div className="root" key={uniqueId()}>
     item
       <style jsx>{`
       `}</style>

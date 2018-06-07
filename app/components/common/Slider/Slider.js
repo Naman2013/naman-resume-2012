@@ -23,7 +23,7 @@ const {
 } = PropTypes;
 
 class SloohSlider extends Component {
-  static defaultProps = {
+  static propTypes = {
     slideList: arrayOf(any).isRequired,
     render: func.isRequired,
     slidesToShow: number,
@@ -32,7 +32,7 @@ class SloohSlider extends Component {
     emptyMessage: string,
   }
 
-  static propTypes = {
+  static defaultProps = {
     slidesToShow: 1,
     slidesToScroll: 1,
     initialSlide: null,
@@ -84,7 +84,7 @@ class SloohSlider extends Component {
 
     return (
       <div className="root">
-        {slideList.length === 0 && <div className="empty" dangerouslySetInnerHtml={{ __: emptyMessage }} />}
+        {slideList.length === 0 && <div className="empty" dangerouslySetInnerHTML={{ __html: emptyMessage }} />}
         {slideList.length > 0 && <div className="observation-slider-container">
           <Slider
             {...sliderSettings}
