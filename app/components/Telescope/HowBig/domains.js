@@ -6,6 +6,12 @@ import MilkyWay from './ReferenceObjects/MilkyWay';
 import SolarSystem from './ReferenceObjects/SolarSystem';
 import Sun from './ReferenceObjects/Sun';
 
+/**
+  target inputs
+  domain
+  size of the reference
+*/
+
 class Domains extends Enum {}
 Domains.initEnum({
   SOLAR_SYSTEM: {
