@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import PresentingTitle from './PresentingTitle';
+import SVGText from '../common/SVGText';
 import domains from './domains';
 
 class HowBig extends Component {
@@ -15,7 +15,14 @@ class HowBig extends Component {
 
     return (
       <g>
-        <PresentingTitle dimension={dimension} />
+        <SVGText
+          text="HOW BIG?"
+          x={(dimension / 2)}
+          y={(dimension - 100)}
+          displayProperties={{
+            fontSize: '20px',
+          }}
+        />
       </g>
     );
   }

@@ -19,8 +19,15 @@ ShallowWrapper {
     "key": undefined,
     "nodeType": "host",
     "props": Object {
-      "children": <PresentingTitle
-        dimension={100}
+      "children": <SVGText
+        displayProperties={
+          Object {
+            "fontSize": "20px",
+          }
+        }
+        text="HOW BIG?"
+        x={50}
+        y={0}
       />,
     },
     "ref": null,
@@ -29,7 +36,12 @@ ShallowWrapper {
       "key": undefined,
       "nodeType": "function",
       "props": Object {
-        "dimension": 100,
+        "displayProperties": Object {
+          "fontSize": "20px",
+        },
+        "text": "HOW BIG?",
+        "x": 50,
+        "y": 0,
       },
       "ref": null,
       "rendered": null,
@@ -43,8 +55,15 @@ ShallowWrapper {
       "key": undefined,
       "nodeType": "host",
       "props": Object {
-        "children": <PresentingTitle
-          dimension={100}
+        "children": <SVGText
+          displayProperties={
+            Object {
+              "fontSize": "20px",
+            }
+          }
+          text="HOW BIG?"
+          x={50}
+          y={0}
         />,
       },
       "ref": null,
@@ -53,7 +72,12 @@ ShallowWrapper {
         "key": undefined,
         "nodeType": "function",
         "props": Object {
-          "dimension": 100,
+          "displayProperties": Object {
+            "fontSize": "20px",
+          },
+          "text": "HOW BIG?",
+          "x": 50,
+          "y": 0,
         },
         "ref": null,
         "rendered": null,
