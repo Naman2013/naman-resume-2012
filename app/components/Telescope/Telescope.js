@@ -207,6 +207,7 @@ class Telescope extends Component {
       verticalResolution,
       isTransitioningTelescope,
       activeInstrumentID,
+      previousInstrumentID,
     } = this.state;
 
     const activeInstrument = getTelescope(activeInstrumentID);
@@ -241,14 +242,19 @@ class Telescope extends Component {
                     <Mask />
                   </FadeSVG>
 
-                  <FadeSVG isHidden={!isTransitioningTelescope}>
-                    <FieldOfView
-                      activeInstrumentID={this.state.activeInstrumentID}
-                      previousInstrumentID={this.state.previousInstrumentID}
-                      tickSpacing={tickSpacing}
-                      canvasWidth={width}
-                    />
-                  </FadeSVG>
+                  {
+                    activeInstrumentID
+                    && previousInstrumentID
+                    &&
+                    <FadeSVG isHidden={!isTransitioningTelescope}>
+                      <FieldOfView
+                        activeInstrumentID={activeInstrumentID}
+                        previousInstrumentID={previousInstrumentID}
+                        tickSpacing={tickSpacing}
+                        canvasWidth={width}
+                      />
+                    </FadeSVG>
+                  }
 
                   <TelescopeFrame
                     isGridVisible={isTransitioningTelescope}
