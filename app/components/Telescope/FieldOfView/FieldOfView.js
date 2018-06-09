@@ -31,12 +31,6 @@ const FieldOfView = ({
         largeRectGridWidth={previousTelescope.FOV.horizontal}
         stroke="aqua"
       />
-
-      <FOV
-        tickSpacing={tickSpacing}
-        canvasWidth={canvasWidth}
-        gridWidth={12}
-      />
     </g>
   );
 };
