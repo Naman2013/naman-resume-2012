@@ -112,6 +112,7 @@ class Telescope extends Component {
   }
 
   transitionPOV() {
+    this.setState({ timesFlippedInstrumentBorder: 0 });
     this.doFOVTransitionInterval = setInterval(() => {
       this.setState((prevState) => {
         const {
@@ -146,7 +147,6 @@ class Telescope extends Component {
   tearDownTransitionPOV() {
     if (this.doFOVTransitionInterval) {
       clearInterval(this.doFOVTransitionInterval);
-      this.setState(() => ({ timesFlippedInstrumentBorder: 0 }));
     }
   }
 
