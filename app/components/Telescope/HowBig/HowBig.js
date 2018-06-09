@@ -9,16 +9,24 @@ class HowBig extends Component {
     previousDomain: PropTypes.string,
   };
 
+  state = {};
+
   render() {
     return (
       <g>
-        <text x={0} y={0} className="text">How Big?</text>
+        <text
+          x={0}
+          y={0}
+          className="text"
+        >
+          How Big?
+        </text>
 
         <style jsx>
           {`
             .text {
               font-family: ${primaryFont};
-              color: aqua;
+              fill: aqua;
               font-size: 200px;
             }
           `}

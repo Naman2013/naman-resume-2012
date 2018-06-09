@@ -19,7 +19,7 @@ ShallowWrapper {
     "props": Object {
       "children": Array [
         <text
-          className="jsx-4098130392 text"
+          className="jsx-1923020768 text"
           x={0}
           y={0}
         >
@@ -28,7 +28,7 @@ ShallowWrapper {
         <JSXStyle
           css={
             Array [
-              ".text.__jsx-style-dynamic-selector{font-family:brandon-grotesque, sans-serif;color:aqua;font-size:200px;}",
+              ".text.__jsx-style-dynamic-selector{font-family:brandon-grotesque, sans-serif;fill:aqua;font-size:200px;}",
             ]
           }
           dynamic={
@@ -36,10 +36,10 @@ ShallowWrapper {
               "brandon-grotesque, sans-serif",
             ]
           }
-          styleId="195666022"
+          styleId="4272576271"
         />,
       ],
-      "className": "jsx-4098130392",
+      "className": "jsx-1923020768",
     },
     "ref": null,
     "rendered": Array [
@@ -49,7 +49,7 @@ ShallowWrapper {
         "nodeType": "host",
         "props": Object {
           "children": "How Big?",
-          "className": "jsx-4098130392 text",
+          "className": "jsx-1923020768 text",
           "x": 0,
           "y": 0,
         },
@@ -63,12 +63,12 @@ ShallowWrapper {
         "nodeType": "class",
         "props": Object {
           "css": Array [
-            ".text.__jsx-style-dynamic-selector{font-family:brandon-grotesque, sans-serif;color:aqua;font-size:200px;}",
+            ".text.__jsx-style-dynamic-selector{font-family:brandon-grotesque, sans-serif;fill:aqua;font-size:200px;}",
           ],
           "dynamic": Array [
             "brandon-grotesque, sans-serif",
           ],
-          "styleId": "195666022",
+          "styleId": "4272576271",
         },
         "ref": null,
         "rendered": null,
@@ -85,7 +85,7 @@ ShallowWrapper {
       "props": Object {
         "children": Array [
           <text
-            className="jsx-4098130392 text"
+            className="jsx-1923020768 text"
             x={0}
             y={0}
           >
@@ -94,7 +94,7 @@ ShallowWrapper {
           <JSXStyle
             css={
               Array [
-                ".text.__jsx-style-dynamic-selector{font-family:brandon-grotesque, sans-serif;color:aqua;font-size:200px;}",
+                ".text.__jsx-style-dynamic-selector{font-family:brandon-grotesque, sans-serif;fill:aqua;font-size:200px;}",
               ]
             }
             dynamic={
@@ -102,10 +102,10 @@ ShallowWrapper {
                 "brandon-grotesque, sans-serif",
               ]
             }
-            styleId="195666022"
+            styleId="4272576271"
           />,
         ],
-        "className": "jsx-4098130392",
+        "className": "jsx-1923020768",
       },
       "ref": null,
       "rendered": Array [
@@ -115,7 +115,7 @@ ShallowWrapper {
           "nodeType": "host",
           "props": Object {
             "children": "How Big?",
-            "className": "jsx-4098130392 text",
+            "className": "jsx-1923020768 text",
             "x": 0,
             "y": 0,
           },
@@ -129,12 +129,12 @@ ShallowWrapper {
           "nodeType": "class",
           "props": Object {
             "css": Array [
-              ".text.__jsx-style-dynamic-selector{font-family:brandon-grotesque, sans-serif;color:aqua;font-size:200px;}",
+              ".text.__jsx-style-dynamic-selector{font-family:brandon-grotesque, sans-serif;fill:aqua;font-size:200px;}",
             ],
             "dynamic": Array [
               "brandon-grotesque, sans-serif",
             ],
-            "styleId": "195666022",
+            "styleId": "4272576271",
           },
           "ref": null,
           "rendered": null,

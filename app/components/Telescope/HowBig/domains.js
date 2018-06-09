@@ -10,6 +10,10 @@ import Sun from './ReferenceObjects/Sun';
   target inputs
   domain
   size of the reference
+
+  scale - 0 to 1
+  next domain is always 1
+  domain comparison is some percentage of 1
 */
 
 class Domains extends Enum {}
