@@ -4,7 +4,9 @@ exports[`HowBig should render correctly 1`] = `
 ShallowWrapper {
   "length": 1,
   Symbol(enzyme.__root__): [Circular],
-  Symbol(enzyme.__unrendered__): <HowBig />,
+  Symbol(enzyme.__unrendered__): <HowBig
+    dimension={100}
+  />,
   Symbol(enzyme.__renderer__): Object {
     "batchedUpdates": [Function],
     "getNode": [Function],
@@ -17,64 +19,22 @@ ShallowWrapper {
     "key": undefined,
     "nodeType": "host",
     "props": Object {
-      "children": Array [
-        <text
-          className="jsx-1923020768 text"
-          x={0}
-          y={0}
-        >
-          How Big?
-        </text>,
-        <JSXStyle
-          css={
-            Array [
-              ".text.__jsx-style-dynamic-selector{font-family:brandon-grotesque, sans-serif;fill:aqua;font-size:200px;}",
-            ]
-          }
-          dynamic={
-            Array [
-              "brandon-grotesque, sans-serif",
-            ]
-          }
-          styleId="4272576271"
-        />,
-      ],
-      "className": "jsx-1923020768",
+      "children": <PresentingTitle
+        dimension={100}
+      />,
     },
     "ref": null,
-    "rendered": Array [
-      Object {
-        "instance": null,
-        "key": undefined,
-        "nodeType": "host",
-        "props": Object {
-          "children": "How Big?",
-          "className": "jsx-1923020768 text",
-          "x": 0,
-          "y": 0,
-        },
-        "ref": null,
-        "rendered": "How Big?",
-        "type": "text",
+    "rendered": Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "function",
+      "props": Object {
+        "dimension": 100,
       },
-      Object {
-        "instance": null,
-        "key": undefined,
-        "nodeType": "class",
-        "props": Object {
-          "css": Array [
-            ".text.__jsx-style-dynamic-selector{font-family:brandon-grotesque, sans-serif;fill:aqua;font-size:200px;}",
-          ],
-          "dynamic": Array [
-            "brandon-grotesque, sans-serif",
-          ],
-          "styleId": "4272576271",
-        },
-        "ref": null,
-        "rendered": null,
-        "type": [Function],
-      },
-    ],
+      "ref": null,
+      "rendered": null,
+      "type": [Function],
+    },
     "type": "g",
   },
   Symbol(enzyme.__nodes__): Array [
@@ -83,64 +43,22 @@ ShallowWrapper {
       "key": undefined,
       "nodeType": "host",
       "props": Object {
-        "children": Array [
-          <text
-            className="jsx-1923020768 text"
-            x={0}
-            y={0}
-          >
-            How Big?
-          </text>,
-          <JSXStyle
-            css={
-              Array [
-                ".text.__jsx-style-dynamic-selector{font-family:brandon-grotesque, sans-serif;fill:aqua;font-size:200px;}",
-              ]
-            }
-            dynamic={
-              Array [
-                "brandon-grotesque, sans-serif",
-              ]
-            }
-            styleId="4272576271"
-          />,
-        ],
-        "className": "jsx-1923020768",
+        "children": <PresentingTitle
+          dimension={100}
+        />,
       },
       "ref": null,
-      "rendered": Array [
-        Object {
-          "instance": null,
-          "key": undefined,
-          "nodeType": "host",
-          "props": Object {
-            "children": "How Big?",
-            "className": "jsx-1923020768 text",
-            "x": 0,
-            "y": 0,
-          },
-          "ref": null,
-          "rendered": "How Big?",
-          "type": "text",
+      "rendered": Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "function",
+        "props": Object {
+          "dimension": 100,
         },
-        Object {
-          "instance": null,
-          "key": undefined,
-          "nodeType": "class",
-          "props": Object {
-            "css": Array [
-              ".text.__jsx-style-dynamic-selector{font-family:brandon-grotesque, sans-serif;fill:aqua;font-size:200px;}",
-            ],
-            "dynamic": Array [
-              "brandon-grotesque, sans-serif",
-            ],
-            "styleId": "4272576271",
-          },
-          "ref": null,
-          "rendered": null,
-          "type": [Function],
-        },
-      ],
+        "ref": null,
+        "rendered": null,
+        "type": [Function],
+      },
       "type": "g",
     },
   ],

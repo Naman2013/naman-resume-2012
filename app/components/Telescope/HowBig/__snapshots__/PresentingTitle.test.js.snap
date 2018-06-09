@@ -1,0 +1,165 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PresentingTitle should render correctly 1`] = `
+ShallowWrapper {
+  "length": 1,
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <PresentingTitle
+    dimension={100}
+  />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "host",
+    "props": Object {
+      "children": Array [
+        <text
+          alignmentBaseline="middle"
+          className="jsx-4055263342 text"
+          textAnchor="middle"
+          x={50}
+          y={0}
+        >
+          HOW BIG?
+        </text>,
+        <JSXStyle
+          css={
+            Array [
+              ".text.__jsx-style-dynamic-selector{font-family:monospace;fill:aqua;font-size:20px;}",
+            ]
+          }
+          dynamic={
+            Array [
+              "monospace",
+            ]
+          }
+          styleId="2457887406"
+        />,
+      ],
+      "className": "jsx-4055263342",
+    },
+    "ref": null,
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "alignmentBaseline": "middle",
+          "children": "HOW BIG?",
+          "className": "jsx-4055263342 text",
+          "textAnchor": "middle",
+          "x": 50,
+          "y": 0,
+        },
+        "ref": null,
+        "rendered": "HOW BIG?",
+        "type": "text",
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
+          "css": Array [
+            ".text.__jsx-style-dynamic-selector{font-family:monospace;fill:aqua;font-size:20px;}",
+          ],
+          "dynamic": Array [
+            "monospace",
+          ],
+          "styleId": "2457887406",
+        },
+        "ref": null,
+        "rendered": null,
+        "type": [Function],
+      },
+    ],
+    "type": "g",
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": Array [
+          <text
+            alignmentBaseline="middle"
+            className="jsx-4055263342 text"
+            textAnchor="middle"
+            x={50}
+            y={0}
+          >
+            HOW BIG?
+          </text>,
+          <JSXStyle
+            css={
+              Array [
+                ".text.__jsx-style-dynamic-selector{font-family:monospace;fill:aqua;font-size:20px;}",
+              ]
+            }
+            dynamic={
+              Array [
+                "monospace",
+              ]
+            }
+            styleId="2457887406"
+          />,
+        ],
+        "className": "jsx-4055263342",
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "alignmentBaseline": "middle",
+            "children": "HOW BIG?",
+            "className": "jsx-4055263342 text",
+            "textAnchor": "middle",
+            "x": 50,
+            "y": 0,
+          },
+          "ref": null,
+          "rendered": "HOW BIG?",
+          "type": "text",
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "css": Array [
+              ".text.__jsx-style-dynamic-selector{font-family:monospace;fill:aqua;font-size:20px;}",
+            ],
+            "dynamic": Array [
+              "monospace",
+            ],
+            "styleId": "2457887406",
+          },
+          "ref": null,
+          "rendered": null,
+          "type": [Function],
+        },
+      ],
+      "type": "g",
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+      },
+    },
+  },
+}
+`;

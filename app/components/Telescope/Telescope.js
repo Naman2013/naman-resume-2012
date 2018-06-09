@@ -291,7 +291,9 @@ class Telescope extends Component {
                     />
                   </FadeSVG>
 
-                  <HowBig />
+                  <HowBig
+                    dimension={width}
+                  />
                 </svg>
 
                 <style jsx>{`
