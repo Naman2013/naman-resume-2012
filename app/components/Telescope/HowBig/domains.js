@@ -1,6 +1,7 @@
 import React from 'react';
 import { Enum } from 'enumify';
 import ObjectFrame from './ReferenceObjects/ObjectFrame';
+import nebula from './ReferenceObjects/svg/eskino-nebula.svg';
 
 /**
   target inputs
@@ -15,16 +16,36 @@ import ObjectFrame from './ReferenceObjects/ObjectFrame';
 class Domains extends Enum {}
 Domains.initEnum({
   SOLAR_SYSTEM: {
-    render: props => (<ObjectFrame {...props} />),
+    render: props => (
+      <ObjectFrame
+        svgURL={nebula}
+        {...props}
+      />
+    ),
   },
   STAR: {
-    render: props => (<ObjectFrame {...props} />),
+    render: props => (
+      <ObjectFrame
+        svgURL={nebula}
+        {...props}
+      />
+    ),
   },
   MILKY_WAY: {
-    render: props => (<ObjectFrame {...props} />),
+    render: props => (
+      <ObjectFrame
+        svgURL={nebula}
+        {...props}
+      />
+    ),
   },
   DEEP_SPACE: {
-    render: props => (<ObjectFrame {...props} />),
+    render: props => (
+      <ObjectFrame
+        svgURL={nebula}
+        {...props}
+      />
+    ),
   },
 });
 

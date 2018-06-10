@@ -198,6 +198,10 @@ class Telescope extends Component {
     this.setState({ portalDimensions: { ...contentBox.bounds } });
   }
 
+  handleCompleteHowBigAnimation = () => {
+    console.log('HOW BIG COMPLETED');
+  }
+
   render() {
     const {
       portalDimensions: { width },
@@ -293,6 +297,11 @@ class Telescope extends Component {
 
                   <HowBig
                     dimension={width}
+                    referenceObjectScale={1}
+                    referenceObject="SOLAR_SYSTEM"
+                    targetObjectScale={0.34}
+                    targetObjectURL="https://vega.slooh.com/icons/community/human_spirit.svg"
+                    onComplete={this.handleCompleteHowBigAnimation}
                   />
                 </svg>
 

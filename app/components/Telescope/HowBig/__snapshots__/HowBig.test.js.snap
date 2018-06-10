@@ -6,8 +6,11 @@ ShallowWrapper {
   Symbol(enzyme.__root__): [Circular],
   Symbol(enzyme.__unrendered__): <HowBig
     dimension={100}
-    referenceScale={1}
-    targetScale={1}
+    onComplete={[MockFunction]}
+    referenceObject="SOLAR_SYSTEM"
+    referenceObjectScale={1}
+    targetObjectScale={1}
+    targetObjectURL="https://vega.slooh.com/icons/community/human_spirit.svg"
   />,
   Symbol(enzyme.__renderer__): Object {
     "batchedUpdates": [Function],
@@ -32,7 +35,13 @@ ShallowWrapper {
           x={50}
           y={0}
         />,
-        <ScaleDown />,
+        <ScaleDown
+          dimension={100}
+          onComplete={[MockFunction]}
+          referenceObject="SOLAR_SYSTEM"
+          targetObjectScale={1}
+          targetObjectURL="https://vega.slooh.com/icons/community/human_spirit.svg"
+        />,
       ],
     },
     "ref": null,
@@ -56,8 +65,14 @@ ShallowWrapper {
       Object {
         "instance": null,
         "key": undefined,
-        "nodeType": "function",
-        "props": Object {},
+        "nodeType": "class",
+        "props": Object {
+          "dimension": 100,
+          "onComplete": [MockFunction],
+          "referenceObject": "SOLAR_SYSTEM",
+          "targetObjectScale": 1,
+          "targetObjectURL": "https://vega.slooh.com/icons/community/human_spirit.svg",
+        },
         "ref": null,
         "rendered": null,
         "type": [Function],
@@ -82,7 +97,13 @@ ShallowWrapper {
             x={50}
             y={0}
           />,
-          <ScaleDown />,
+          <ScaleDown
+            dimension={100}
+            onComplete={[MockFunction]}
+            referenceObject="SOLAR_SYSTEM"
+            targetObjectScale={1}
+            targetObjectURL="https://vega.slooh.com/icons/community/human_spirit.svg"
+          />,
         ],
       },
       "ref": null,
@@ -106,8 +127,14 @@ ShallowWrapper {
         Object {
           "instance": null,
           "key": undefined,
-          "nodeType": "function",
-          "props": Object {},
+          "nodeType": "class",
+          "props": Object {
+            "dimension": 100,
+            "onComplete": [MockFunction],
+            "referenceObject": "SOLAR_SYSTEM",
+            "targetObjectScale": 1,
+            "targetObjectURL": "https://vega.slooh.com/icons/community/human_spirit.svg",
+          },
           "ref": null,
           "rendered": null,
           "type": [Function],
