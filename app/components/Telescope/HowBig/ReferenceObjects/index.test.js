@@ -1,34 +1,11 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import Earth from './Earth';
-import MilkyWay from './MilkyWay';
-import SolarSystem from './SolarSystem';
-import Sun from './Sun';
+import ObjectFrame from './ObjectFrame';
 
-describe('Earth', () => {
-  const earth = shallow(<Earth x={20} y={20} />);
+describe('ObjectFrame', () => {
+  const defaultProps = { svgURL: 'https://vega.slooh.com/icons/community/science_log.svg' };
+  const objectFrame = shallow(<ObjectFrame {...defaultProps} />);
   it('should render correctly', () => {
-    expect(earth).toMatchSnapshot();
-  });
-});
-
-describe('MilkyWay', () => {
-  const milkyWay = shallow(<MilkyWay />);
-  it('should render correctly', () => {
-    expect(milkyWay).toMatchSnapshot();
-  });
-});
-
-describe('SolarSystem', () => {
-  const solarSystem = shallow(<SolarSystem />);
-  it('should render correctly', () => {
-    expect(solarSystem).toMatchSnapshot();
-  });
-});
-
-describe('Sun', () => {
-  const sun = shallow(<Sun />);
-  it('should render correctly', () => {
-    expect(sun).toMatchSnapshot();
+    expect(objectFrame).toMatchSnapshot();
   });
 });

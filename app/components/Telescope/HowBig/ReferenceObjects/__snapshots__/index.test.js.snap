@@ -1,13 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Earth should render correctly 1`] = `
+exports[`ObjectFrame should render correctly 1`] = `
 ShallowWrapper {
   "length": 1,
   Symbol(enzyme.__root__): [Circular],
-  Symbol(enzyme.__unrendered__): <Earth
-    r={50}
-    x={20}
-    y={20}
+  Symbol(enzyme.__unrendered__): <ObjectFrame
+    scale={1}
+    svgURL="https://vega.slooh.com/icons/community/science_log.svg"
+    x={0}
+    y={0}
   />,
   Symbol(enzyme.__renderer__): Object {
     "batchedUpdates": [Function],
@@ -23,12 +24,15 @@ ShallowWrapper {
     "props": Object {
       "children": <image
         height="100%"
-        width="100%"
-        xlinkHref={
+        style={
           Object {
-            "process": [Function],
+            "transform": "scale(1)",
           }
         }
+        width="100%"
+        x={0}
+        xlinkHref="https://vega.slooh.com/icons/community/science_log.svg"
+        y={0}
       />,
     },
     "ref": null,
@@ -38,10 +42,13 @@ ShallowWrapper {
       "nodeType": "host",
       "props": Object {
         "height": "100%",
-        "width": "100%",
-        "xlinkHref": Object {
-          "process": [Function],
+        "style": Object {
+          "transform": "scale(1)",
         },
+        "width": "100%",
+        "x": 0,
+        "xlinkHref": "https://vega.slooh.com/icons/community/science_log.svg",
+        "y": 0,
       },
       "ref": null,
       "rendered": null,
@@ -57,12 +64,15 @@ ShallowWrapper {
       "props": Object {
         "children": <image
           height="100%"
-          width="100%"
-          xlinkHref={
+          style={
             Object {
-              "process": [Function],
+              "transform": "scale(1)",
             }
           }
+          width="100%"
+          x={0}
+          xlinkHref="https://vega.slooh.com/icons/community/science_log.svg"
+          y={0}
         />,
       },
       "ref": null,
@@ -72,141 +82,18 @@ ShallowWrapper {
         "nodeType": "host",
         "props": Object {
           "height": "100%",
-          "width": "100%",
-          "xlinkHref": Object {
-            "process": [Function],
+          "style": Object {
+            "transform": "scale(1)",
           },
+          "width": "100%",
+          "x": 0,
+          "xlinkHref": "https://vega.slooh.com/icons/community/science_log.svg",
+          "y": 0,
         },
         "ref": null,
         "rendered": null,
         "type": "image",
       },
-      "type": "g",
-    },
-  ],
-  Symbol(enzyme.__options__): Object {
-    "adapter": ReactSixteenAdapter {
-      "options": Object {
-        "enableComponentDidUpdateOnSetState": true,
-      },
-    },
-  },
-}
-`;
-
-exports[`MilkyWay should render correctly 1`] = `
-ShallowWrapper {
-  "length": 1,
-  Symbol(enzyme.__root__): [Circular],
-  Symbol(enzyme.__unrendered__): <MilkyWay />,
-  Symbol(enzyme.__renderer__): Object {
-    "batchedUpdates": [Function],
-    "getNode": [Function],
-    "render": [Function],
-    "simulateEvent": [Function],
-    "unmount": [Function],
-  },
-  Symbol(enzyme.__node__): Object {
-    "instance": null,
-    "key": undefined,
-    "nodeType": "host",
-    "props": Object {},
-    "ref": null,
-    "rendered": null,
-    "type": "g",
-  },
-  Symbol(enzyme.__nodes__): Array [
-    Object {
-      "instance": null,
-      "key": undefined,
-      "nodeType": "host",
-      "props": Object {},
-      "ref": null,
-      "rendered": null,
-      "type": "g",
-    },
-  ],
-  Symbol(enzyme.__options__): Object {
-    "adapter": ReactSixteenAdapter {
-      "options": Object {
-        "enableComponentDidUpdateOnSetState": true,
-      },
-    },
-  },
-}
-`;
-
-exports[`SolarSystem should render correctly 1`] = `
-ShallowWrapper {
-  "length": 1,
-  Symbol(enzyme.__root__): [Circular],
-  Symbol(enzyme.__unrendered__): <SolarSystem />,
-  Symbol(enzyme.__renderer__): Object {
-    "batchedUpdates": [Function],
-    "getNode": [Function],
-    "render": [Function],
-    "simulateEvent": [Function],
-    "unmount": [Function],
-  },
-  Symbol(enzyme.__node__): Object {
-    "instance": null,
-    "key": undefined,
-    "nodeType": "host",
-    "props": Object {},
-    "ref": null,
-    "rendered": null,
-    "type": "g",
-  },
-  Symbol(enzyme.__nodes__): Array [
-    Object {
-      "instance": null,
-      "key": undefined,
-      "nodeType": "host",
-      "props": Object {},
-      "ref": null,
-      "rendered": null,
-      "type": "g",
-    },
-  ],
-  Symbol(enzyme.__options__): Object {
-    "adapter": ReactSixteenAdapter {
-      "options": Object {
-        "enableComponentDidUpdateOnSetState": true,
-      },
-    },
-  },
-}
-`;
-
-exports[`Sun should render correctly 1`] = `
-ShallowWrapper {
-  "length": 1,
-  Symbol(enzyme.__root__): [Circular],
-  Symbol(enzyme.__unrendered__): <Sun />,
-  Symbol(enzyme.__renderer__): Object {
-    "batchedUpdates": [Function],
-    "getNode": [Function],
-    "render": [Function],
-    "simulateEvent": [Function],
-    "unmount": [Function],
-  },
-  Symbol(enzyme.__node__): Object {
-    "instance": null,
-    "key": undefined,
-    "nodeType": "host",
-    "props": Object {},
-    "ref": null,
-    "rendered": null,
-    "type": "g",
-  },
-  Symbol(enzyme.__nodes__): Array [
-    Object {
-      "instance": null,
-      "key": undefined,
-      "nodeType": "host",
-      "props": Object {},
-      "ref": null,
-      "rendered": null,
       "type": "g",
     },
   ],

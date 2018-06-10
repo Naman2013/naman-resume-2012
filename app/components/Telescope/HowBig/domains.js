@@ -1,10 +1,6 @@
 import React from 'react';
 import { Enum } from 'enumify';
-
-import Earth from './ReferenceObjects/Earth';
-import MilkyWay from './ReferenceObjects/MilkyWay';
-import SolarSystem from './ReferenceObjects/SolarSystem';
-import Sun from './ReferenceObjects/Sun';
+import ObjectFrame from './ReferenceObjects/ObjectFrame';
 
 /**
   target inputs
@@ -19,16 +15,16 @@ import Sun from './ReferenceObjects/Sun';
 class Domains extends Enum {}
 Domains.initEnum({
   SOLAR_SYSTEM: {
-    render: props => (<Earth {...props} />),
+    render: props => (<ObjectFrame {...props} />),
   },
   STAR: {
-    render: props => (<Sun {...props} />),
+    render: props => (<ObjectFrame {...props} />),
   },
   MILKY_WAY: {
-    render: props => (<SolarSystem {...props} />),
+    render: props => (<ObjectFrame {...props} />),
   },
   DEEP_SPACE: {
-    render: props => (<MilkyWay {...props} />),
+    render: props => (<ObjectFrame {...props} />),
   },
 });
 
