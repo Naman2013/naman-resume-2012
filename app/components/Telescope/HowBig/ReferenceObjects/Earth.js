@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import earthImage from './svg/earth.svg';
 
-const Earth = ({ x, y, r }) => (
+const Earth = ({ x, y }) => (
   <g>
-    <circle cx={x} cy={y} r={r} />
+    <image xlinkHref={earthImage} width="100%" height="100%" />
   </g>
 );
 

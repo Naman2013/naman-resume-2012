@@ -6,7 +6,7 @@ import SolarSystem from './SolarSystem';
 import Sun from './Sun';
 
 describe('Earth', () => {
-  const earth = shallow(<Earth x={20} y={20} r={100} />);
+  const earth = shallow(<Earth x={20} y={20} />);
   it('should render correctly', () => {
     expect(earth).toMatchSnapshot();
   });
