@@ -18,6 +18,10 @@ describe('ScaleDown', () => {
       expect(scaleDown).toMatchSnapshot();
     });
 
+    it('should use `FadeSVG`', () => {
+      expect(scaleDown.find('FadeSVG').length).toEqual(1);
+    });
+
     it('should initialize state with `targetInitialSize`', () => {
       expect(scaleDown.state().targetCurrentScale).toEqual(1);
     });

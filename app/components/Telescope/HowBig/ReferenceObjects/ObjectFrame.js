@@ -18,7 +18,7 @@ const ObjectFrame = ({
 );
 
 ObjectFrame.propTypes = {
-  svgURL: PropTypes.string.isRequired,
+  svgURL: PropTypes.oneOf([PropTypes.string, PropTypes.shape({})]).isRequired,
   onLoadCallback: PropTypes.func,
 };
 

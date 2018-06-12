@@ -41,31 +41,35 @@ class ScaleDown extends Component {
     const {
       targetCurrentScale,
       referenceOpacity,
+      targetObjectLoaded,
+      referenceObjectLoaded,
     } = this.state;
 
     return (
       <g style={{ transformOrigin: 'center', transform: 'scale(0.85)' }}>
-        <g style={{
-          transform: 'translate(0, 0) scale(1)',
-          opacity: referenceOpacity,
-        }}
-        >
-          {
-            domains
-              .enumValueOf(referenceObject)
-              .render({ onLoad: this.handleReferenceObjectLoaded })
-          }
-        </g>
-
-        <g style={{
-            transform: `translate(0, 0) scale(${targetCurrentScale})`,
+        <FadeSVG isHidden={(!targetObjectLoaded || !referenceObjectLoaded)}>
+          <g style={{
+            transform: 'translate(0, 0) scale(1)',
+            opacity: referenceOpacity,
           }}
-        >
-          <ObjectFrame
-            onLoad={this.handleTargetObjectLoaded}
-            svgURL={targetObjectURL}
-          />
-        </g>
+          >
+            {
+              domains
+                .enumValueOf(referenceObject)
+                .render({ onLoadCallback: this.handleReferenceObjectLoaded })
+            }
+          </g>
+
+          <g style={{
+              transform: `translate(0, 0) scale(${targetCurrentScale})`,
+            }}
+          >
+            <ObjectFrame
+              onLoadCallback={this.handleTargetObjectLoaded}
+              svgURL={targetObjectURL}
+            />
+          </g>
+        </FadeSVG>
       </g>
     );
   }
