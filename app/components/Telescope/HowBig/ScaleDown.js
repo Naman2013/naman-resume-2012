@@ -24,11 +24,18 @@ class ScaleDown extends Component {
     referenceOpacity: 1,
   };
 
+  handleTargetObjectLoaded = () => {
+    this.setState({ targetObjectLoaded: true });
+  }
+
+  handleReferenceObjectLoaded = () => {
+    this.setState({ referenceObjectLoaded: true });
+  }
+
   render() {
     const {
       referenceObject,
       targetObjectURL,
-      dimension,
     } = this.props;
 
     const {
@@ -43,14 +50,21 @@ class ScaleDown extends Component {
           opacity: referenceOpacity,
         }}
         >
-          {domains.enumValueOf(referenceObject).render()}
+          {
+            domains
+              .enumValueOf(referenceObject)
+              .render({ onLoad: this.handleReferenceObjectLoaded })
+          }
         </g>
 
         <g style={{
             transform: `translate(0, 0) scale(${targetCurrentScale})`,
           }}
         >
-          <ObjectFrame />
+          <ObjectFrame
+            onLoad={this.handleTargetObjectLoaded}
+            svgURL={targetObjectURL}
+          />
         </g>
       </g>
     );

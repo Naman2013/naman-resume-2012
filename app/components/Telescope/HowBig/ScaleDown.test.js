@@ -38,6 +38,22 @@ describe('ScaleDown', () => {
     });
   });
 
+  describe('when loading reference and target svg elements', () => {
+    beforeEach(() => {
+      scaleDown.setState({ targetObjectLoaded: false, referenceObjectLoaded: false });
+    });
+
+    it('should set `targetObjectLoaded` to true', () => {
+      scaleDown.instance().handleTargetObjectLoaded();
+      expect(scaleDown.state().targetObjectLoaded).toEqual(true);
+    });
+
+    it('should set `referenceObjectLoaded` to true', () => {
+      scaleDown.instance().handleReferenceObjectLoaded();
+      expect(scaleDown.state().referenceObjectLoaded).toEqual(true);
+    });
+  });
+
   describe('when it completes animating', () => {
     xit('should call the onComplete function', () => {
       expect(initialProps.onComplete).toBeCalled();
