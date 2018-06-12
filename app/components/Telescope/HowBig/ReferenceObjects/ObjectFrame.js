@@ -8,6 +8,7 @@ const ObjectFrame = ({
 }) => (
   <g>
     <image
+      className="object-frame-image"
       xlinkHref={svgURL}
       width="100%"
       height="100%"
