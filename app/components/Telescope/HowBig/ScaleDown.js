@@ -19,6 +19,9 @@ class ScaleDown extends Component {
 
   state = {
     targetCurrentScale: 1,
+    targetObjectLoaded: false,
+    referenceObjectLoaded: false,
+    referenceOpacity: 1,
   };
 
   render() {
@@ -28,12 +31,27 @@ class ScaleDown extends Component {
       dimension,
     } = this.props;
 
-    const { targetCurrentScale } = this.state;
+    const {
+      targetCurrentScale,
+      referenceOpacity,
+    } = this.state;
 
     return (
-      <g>
-        {domains.enumValueOf(referenceObject).render()}
-        <ObjectFrame />
+      <g style={{ transformOrigin: 'center', transform: 'scale(0.85)' }}>
+        <g style={{
+          transform: 'translate(0, 0) scale(1)',
+          opacity: referenceOpacity,
+        }}
+        >
+          {domains.enumValueOf(referenceObject).render()}
+        </g>
+
+        <g style={{
+            transform: `translate(0, 0) scale(${targetCurrentScale})`,
+          }}
+        >
+          <ObjectFrame />
+        </g>
       </g>
     );
   }

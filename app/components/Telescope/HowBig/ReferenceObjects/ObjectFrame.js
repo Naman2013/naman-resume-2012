@@ -1,35 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import noop from 'lodash/noop';
 
 const ObjectFrame = ({
-  x,
-  y,
-  scale,
   svgURL,
+  onLoadCallback,
 }) => (
   <g>
     <image
-      x={x}
-      y={y}
       xlinkHref={svgURL}
       width="100%"
       height="100%"
-      style={{ transform: `scale(${scale})` }}
+      onLoad={() => { onLoadCallback(); }}
     />
   </g>
 );
 
 ObjectFrame.propTypes = {
-  x: PropTypes.number,
-  y: PropTypes.number,
-  scale: PropTypes.number,
   svgURL: PropTypes.string.isRequired,
+  onLoadCallback: PropTypes.func,
 };
 
 ObjectFrame.defaultProps = {
-  x: 0,
-  y: 0,
-  scale: 1,
+  onLoadCallback: noop,
 };
 
 export default ObjectFrame;

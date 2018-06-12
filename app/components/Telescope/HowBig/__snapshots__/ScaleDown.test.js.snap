@@ -24,53 +24,102 @@ ShallowWrapper {
     "nodeType": "host",
     "props": Object {
       "children": Array [
-        <ObjectFrame
-          scale={1}
-          svgURL={
+        <g
+          style={
             Object {
-              "process": [Function],
+              "opacity": 1,
+              "transform": "translate(0, 0) scale(1)",
             }
           }
-          x={0}
-          y={0}
-        />,
-        <ObjectFrame
-          scale={1}
-          x={0}
-          y={0}
-        />,
+        >
+          <ObjectFrame
+            onLoadCallback={[Function]}
+            svgURL={
+              Object {
+                "process": [Function],
+              }
+            }
+          />
+        </g>,
+        <g
+          style={
+            Object {
+              "transform": "translate(0, 0) scale(1)",
+            }
+          }
+        >
+          <ObjectFrame
+            onLoadCallback={[Function]}
+          />
+        </g>,
       ],
+      "style": Object {
+        "transform": "scale(0.85)",
+        "transformOrigin": "center",
+      },
     },
     "ref": null,
     "rendered": Array [
       Object {
         "instance": null,
         "key": undefined,
-        "nodeType": "function",
+        "nodeType": "host",
         "props": Object {
-          "scale": 1,
-          "svgURL": Object {
-            "process": [Function],
+          "children": <ObjectFrame
+            onLoadCallback={[Function]}
+            svgURL={
+              Object {
+                "process": [Function],
+              }
+            }
+          />,
+          "style": Object {
+            "opacity": 1,
+            "transform": "translate(0, 0) scale(1)",
           },
-          "x": 0,
-          "y": 0,
         },
         "ref": null,
-        "rendered": null,
-        "type": [Function],
+        "rendered": Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "function",
+          "props": Object {
+            "onLoadCallback": [Function],
+            "svgURL": Object {
+              "process": [Function],
+            },
+          },
+          "ref": null,
+          "rendered": null,
+          "type": [Function],
+        },
+        "type": "g",
       },
       Object {
         "instance": null,
         "key": undefined,
-        "nodeType": "function",
+        "nodeType": "host",
         "props": Object {
-          "scale": 1,
-          "x": 0,
-          "y": 0,
+          "children": <ObjectFrame
+            onLoadCallback={[Function]}
+          />,
+          "style": Object {
+            "transform": "translate(0, 0) scale(1)",
+          },
         },
         "ref": null,
-        "rendered": null,
-        "type": [Function],
+        "rendered": Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "function",
+          "props": Object {
+            "onLoadCallback": [Function],
+          },
+          "ref": null,
+          "rendered": null,
+          "type": [Function],
+        },
+        "type": "g",
       },
     ],
     "type": "g",
@@ -82,53 +131,102 @@ ShallowWrapper {
       "nodeType": "host",
       "props": Object {
         "children": Array [
-          <ObjectFrame
-            scale={1}
-            svgURL={
+          <g
+            style={
               Object {
-                "process": [Function],
+                "opacity": 1,
+                "transform": "translate(0, 0) scale(1)",
               }
             }
-            x={0}
-            y={0}
-          />,
-          <ObjectFrame
-            scale={1}
-            x={0}
-            y={0}
-          />,
+          >
+            <ObjectFrame
+              onLoadCallback={[Function]}
+              svgURL={
+                Object {
+                  "process": [Function],
+                }
+              }
+            />
+          </g>,
+          <g
+            style={
+              Object {
+                "transform": "translate(0, 0) scale(1)",
+              }
+            }
+          >
+            <ObjectFrame
+              onLoadCallback={[Function]}
+            />
+          </g>,
         ],
+        "style": Object {
+          "transform": "scale(0.85)",
+          "transformOrigin": "center",
+        },
       },
       "ref": null,
       "rendered": Array [
         Object {
           "instance": null,
           "key": undefined,
-          "nodeType": "function",
+          "nodeType": "host",
           "props": Object {
-            "scale": 1,
-            "svgURL": Object {
-              "process": [Function],
+            "children": <ObjectFrame
+              onLoadCallback={[Function]}
+              svgURL={
+                Object {
+                  "process": [Function],
+                }
+              }
+            />,
+            "style": Object {
+              "opacity": 1,
+              "transform": "translate(0, 0) scale(1)",
             },
-            "x": 0,
-            "y": 0,
           },
           "ref": null,
-          "rendered": null,
-          "type": [Function],
+          "rendered": Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "function",
+            "props": Object {
+              "onLoadCallback": [Function],
+              "svgURL": Object {
+                "process": [Function],
+              },
+            },
+            "ref": null,
+            "rendered": null,
+            "type": [Function],
+          },
+          "type": "g",
         },
         Object {
           "instance": null,
           "key": undefined,
-          "nodeType": "function",
+          "nodeType": "host",
           "props": Object {
-            "scale": 1,
-            "x": 0,
-            "y": 0,
+            "children": <ObjectFrame
+              onLoadCallback={[Function]}
+            />,
+            "style": Object {
+              "transform": "translate(0, 0) scale(1)",
+            },
           },
           "ref": null,
-          "rendered": null,
-          "type": [Function],
+          "rendered": Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "function",
+            "props": Object {
+              "onLoadCallback": [Function],
+            },
+            "ref": null,
+            "rendered": null,
+            "type": [Function],
+          },
+          "type": "g",
         },
       ],
       "type": "g",

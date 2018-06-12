@@ -21,6 +21,15 @@ describe('ScaleDown', () => {
     it('should initialize state with `targetInitialSize`', () => {
       expect(scaleDown.state().targetCurrentScale).toEqual(1);
     });
+
+    it('should initialize state with `referenceOpacity` to 1', () => {
+      expect(scaleDown.state().referenceOpacity).toEqual(1);
+    });
+
+    it('should initialize state with `referenceObjectLoaded` and `targetObjectLoaded`', () => {
+      expect(scaleDown.state().referenceObjectLoaded).toEqual(false);
+      expect(scaleDown.state().targetObjectLoaded).toEqual(false);
+    });
   });
 
   describe('when provided a target domain/reference', () => {

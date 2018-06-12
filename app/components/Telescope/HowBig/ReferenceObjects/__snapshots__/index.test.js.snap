@@ -5,10 +5,8 @@ ShallowWrapper {
   "length": 1,
   Symbol(enzyme.__root__): [Circular],
   Symbol(enzyme.__unrendered__): <ObjectFrame
-    scale={1}
+    onLoadCallback={[MockFunction]}
     svgURL="https://vega.slooh.com/icons/community/science_log.svg"
-    x={0}
-    y={0}
   />,
   Symbol(enzyme.__renderer__): Object {
     "batchedUpdates": [Function],
@@ -24,15 +22,9 @@ ShallowWrapper {
     "props": Object {
       "children": <image
         height="100%"
-        style={
-          Object {
-            "transform": "scale(1)",
-          }
-        }
+        onLoad={[Function]}
         width="100%"
-        x={0}
         xlinkHref="https://vega.slooh.com/icons/community/science_log.svg"
-        y={0}
       />,
     },
     "ref": null,
@@ -42,13 +34,9 @@ ShallowWrapper {
       "nodeType": "host",
       "props": Object {
         "height": "100%",
-        "style": Object {
-          "transform": "scale(1)",
-        },
+        "onLoad": [Function],
         "width": "100%",
-        "x": 0,
         "xlinkHref": "https://vega.slooh.com/icons/community/science_log.svg",
-        "y": 0,
       },
       "ref": null,
       "rendered": null,
@@ -64,15 +52,9 @@ ShallowWrapper {
       "props": Object {
         "children": <image
           height="100%"
-          style={
-            Object {
-              "transform": "scale(1)",
-            }
-          }
+          onLoad={[Function]}
           width="100%"
-          x={0}
           xlinkHref="https://vega.slooh.com/icons/community/science_log.svg"
-          y={0}
         />,
       },
       "ref": null,
@@ -82,13 +64,9 @@ ShallowWrapper {
         "nodeType": "host",
         "props": Object {
           "height": "100%",
-          "style": Object {
-            "transform": "scale(1)",
-          },
+          "onLoad": [Function],
           "width": "100%",
-          "x": 0,
           "xlinkHref": "https://vega.slooh.com/icons/community/science_log.svg",
-          "y": 0,
         },
         "ref": null,
         "rendered": null,
