@@ -25,6 +25,12 @@ ShallowWrapper {
     "nodeType": "host",
     "props": Object {
       "children": Array [
+        <ScaleDown
+          onComplete={[MockFunction]}
+          referenceObject="SOLAR_SYSTEM"
+          targetObjectScale={1}
+          targetObjectURL="https://vega.slooh.com/icons/community/human_spirit.svg"
+        />,
         <SVGText
           displayProperties={
             Object {
@@ -35,16 +41,24 @@ ShallowWrapper {
           x={50}
           y={0}
         />,
-        <ScaleDown
-          onComplete={[MockFunction]}
-          referenceObject="SOLAR_SYSTEM"
-          targetObjectScale={1}
-          targetObjectURL="https://vega.slooh.com/icons/community/human_spirit.svg"
-        />,
       ],
     },
     "ref": null,
     "rendered": Array [
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
+          "onComplete": [MockFunction],
+          "referenceObject": "SOLAR_SYSTEM",
+          "targetObjectScale": 1,
+          "targetObjectURL": "https://vega.slooh.com/icons/community/human_spirit.svg",
+        },
+        "ref": null,
+        "rendered": null,
+        "type": [Function],
+      },
       Object {
         "instance": null,
         "key": undefined,
@@ -61,20 +75,6 @@ ShallowWrapper {
         "rendered": null,
         "type": [Function],
       },
-      Object {
-        "instance": null,
-        "key": undefined,
-        "nodeType": "class",
-        "props": Object {
-          "onComplete": [MockFunction],
-          "referenceObject": "SOLAR_SYSTEM",
-          "targetObjectScale": 1,
-          "targetObjectURL": "https://vega.slooh.com/icons/community/human_spirit.svg",
-        },
-        "ref": null,
-        "rendered": null,
-        "type": [Function],
-      },
     ],
     "type": "g",
   },
@@ -85,6 +85,12 @@ ShallowWrapper {
       "nodeType": "host",
       "props": Object {
         "children": Array [
+          <ScaleDown
+            onComplete={[MockFunction]}
+            referenceObject="SOLAR_SYSTEM"
+            targetObjectScale={1}
+            targetObjectURL="https://vega.slooh.com/icons/community/human_spirit.svg"
+          />,
           <SVGText
             displayProperties={
               Object {
@@ -95,16 +101,24 @@ ShallowWrapper {
             x={50}
             y={0}
           />,
-          <ScaleDown
-            onComplete={[MockFunction]}
-            referenceObject="SOLAR_SYSTEM"
-            targetObjectScale={1}
-            targetObjectURL="https://vega.slooh.com/icons/community/human_spirit.svg"
-          />,
         ],
       },
       "ref": null,
       "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "onComplete": [MockFunction],
+            "referenceObject": "SOLAR_SYSTEM",
+            "targetObjectScale": 1,
+            "targetObjectURL": "https://vega.slooh.com/icons/community/human_spirit.svg",
+          },
+          "ref": null,
+          "rendered": null,
+          "type": [Function],
+        },
         Object {
           "instance": null,
           "key": undefined,
@@ -116,20 +130,6 @@ ShallowWrapper {
             "text": "HOW BIG?",
             "x": 50,
             "y": 0,
-          },
-          "ref": null,
-          "rendered": null,
-          "type": [Function],
-        },
-        Object {
-          "instance": null,
-          "key": undefined,
-          "nodeType": "class",
-          "props": Object {
-            "onComplete": [MockFunction],
-            "referenceObject": "SOLAR_SYSTEM",
-            "targetObjectScale": 1,
-            "targetObjectURL": "https://vega.slooh.com/icons/community/human_spirit.svg",
           },
           "ref": null,
           "rendered": null,

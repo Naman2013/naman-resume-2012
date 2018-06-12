@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import noop from 'lodash/noop';
+import SVGText from '../../common/SVGText';
 
 const ObjectFrame = ({
   svgURL,
@@ -18,7 +19,7 @@ const ObjectFrame = ({
 );
 
 ObjectFrame.propTypes = {
-  svgURL: PropTypes.oneOf([PropTypes.string, PropTypes.shape({})]).isRequired,
+  svgURL: PropTypes.oneOfType([PropTypes.string, PropTypes.shape({})]).isRequired,
   onLoadCallback: PropTypes.func,
 };
 

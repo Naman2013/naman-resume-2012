@@ -22,6 +22,7 @@ Domains.initEnum({
         {...props}
       />
     ),
+    titleText: 'Solar System',
   },
   STAR: {
     render: props => (
@@ -30,6 +31,7 @@ Domains.initEnum({
         {...props}
       />
     ),
+    titleText: 'Star',
   },
   MILKY_WAY: {
     render: props => (
@@ -38,6 +40,7 @@ Domains.initEnum({
         {...props}
       />
     ),
+    titleText: 'Milky Way'
   },
   DEEP_SPACE: {
     render: props => (
@@ -46,6 +49,7 @@ Domains.initEnum({
         {...props}
       />
     ),
+    titleText: 'Deep Space',
   },
 });
 

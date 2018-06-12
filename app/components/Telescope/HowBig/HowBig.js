@@ -38,15 +38,6 @@ class HowBig extends Component {
 
     return (
       <g>
-        <SVGText
-          text="HOW BIG?"
-          x={(dimension / 2)}
-          y={(dimension - 100)}
-          displayProperties={{
-            fontSize: '20px',
-          }}
-        />
-
         {
           (isScaledUp)
             ? <ScaleUp />
@@ -57,6 +48,15 @@ class HowBig extends Component {
               onComplete={onComplete}
             />
         }
+
+        <SVGText
+          text="HOW BIG?"
+          x={(dimension / 2)}
+          y={(dimension - 100)}
+          displayProperties={{
+            fontSize: '20px',
+          }}
+        />
       </g>
     );
   }

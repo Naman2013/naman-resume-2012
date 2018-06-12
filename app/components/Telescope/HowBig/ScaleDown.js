@@ -3,8 +3,12 @@ import PropTypes from 'prop-types';
 import ObjectFrame from './ReferenceObjects/ObjectFrame';
 import FadeSVG from 'components/common/Fade/FadeSVG';
 import domains from './domains';
+import { animateValues } from 'utils/easingFunctions';
 
 class ScaleDown extends Component {
+  static FADE_OUT_DURATION = 500;
+  static SCALE_DOWN_DURACTION = 1000;
+
   static propTypes = {
     referenceObject: PropTypes.oneOf([
       'SOLAR_SYSTEM',
