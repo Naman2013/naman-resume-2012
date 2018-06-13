@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import noop from 'lodash/noop';
-import SVGText from '../../common/SVGText';
 
 const ObjectFrame = ({
   svgURL,

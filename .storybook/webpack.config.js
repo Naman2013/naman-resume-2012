@@ -17,9 +17,7 @@ module.exports = {
         use: [
           {
             loader: 'file-loader',
-            options: {
-              limit: 40,
-            },
+            options: {  },
           },
         ],
       },
