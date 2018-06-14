@@ -52,7 +52,7 @@ class HowBig extends Component {
         <SVGText
           text="HOW BIG?"
           x={(dimension / 2)}
-          y={(dimension - 100)}
+          y={(50)}
           displayProperties={{
             fontSize: '20px',
           }}
