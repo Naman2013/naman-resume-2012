@@ -6,7 +6,9 @@ const AutoFadeSVG = ({ children, duration }) => (
     {children}
     <style jsx>{`
       .auto-fade-svg {
-        animation: FADE-IN ${duration}s infinite;
+        animation: FADE-IN ${duration}s;
+        animation-fill-mode: forwards;
+        animation-timing-function: ease-out;
       }
 
       @keyframes FADE-IN {

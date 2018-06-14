@@ -32,7 +32,7 @@ ShallowWrapper {
           targetObjectURL="https://vega.slooh.com/icons/community/human_spirit.svg"
         />,
         <AutoFadeSVG
-          duration={5}
+          duration={0.5}
         >
           <SVGText
             displayProperties={
@@ -78,7 +78,7 @@ ShallowWrapper {
             x={50}
             y={50}
           />,
-          "duration": 5,
+          "duration": 0.5,
         },
         "ref": null,
         "rendered": Object {
@@ -116,7 +116,7 @@ ShallowWrapper {
             targetObjectURL="https://vega.slooh.com/icons/community/human_spirit.svg"
           />,
           <AutoFadeSVG
-            duration={5}
+            duration={0.5}
           >
             <SVGText
               displayProperties={
@@ -162,7 +162,7 @@ ShallowWrapper {
               x={50}
               y={50}
             />,
-            "duration": 5,
+            "duration": 0.5,
           },
           "ref": null,
           "rendered": Object {

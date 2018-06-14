@@ -51,7 +51,7 @@ class HowBig extends Component {
             />
         }
 
-        <AutoFadeSVG>
+        <AutoFadeSVG duration={0.5}>
           <SVGText
             text="HOW BIG?"
             x={(dimension / 2)}
