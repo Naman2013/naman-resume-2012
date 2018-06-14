@@ -18,6 +18,7 @@ import MembersList from './members-list';
 import FullInformation from './full-information';
 import ActivityForm from './activity-form';
 import ActivityList from './activity-list';
+import DiscussionsBoard from 'components/common/DiscussionsBoard';
 
 const {
   arrayOf,
@@ -120,6 +121,11 @@ class FullInformationOverview extends Component {
               user={user}
               createActivity={actions.createActivity}
             />
+            {/* <DiscussionsBoard
+              errorMessage="There was an error fetching list"
+              topicId={pageMeta.topicId}
+              forumId={pageMeta.forumId}
+            /> */}
             <ActivityList topicId={pageMeta.topicId} forumId={pageMeta.forumId} />
           </div>
           <aside className="flex-child right-container">

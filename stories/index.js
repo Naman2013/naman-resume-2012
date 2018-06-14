@@ -10,3 +10,4 @@ import './design-system';
 import './svg-mask';
 import './MissionAudio';
 import './GlobalNavigation';
+import './DiscussionsBoard';
