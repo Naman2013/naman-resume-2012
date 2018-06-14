@@ -2,14 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const AutoFadeSVG = ({ children, duration }) => (
-  <g
-    className="auto-fade-svg"
-    style={{
-      animation: `FADE-IN ${duration}s infinite`,
-    }}
-  >
+  <g className="auto-fade-svg">
     {children}
     <style jsx>{`
+      .auto-fade-svg {
+        animation: FADE-IN ${duration}s infinite;
+      }
+
       @keyframes FADE-IN {
         0%   { opacity: 0; }
         100% { opacity: 1; }

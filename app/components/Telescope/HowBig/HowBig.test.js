@@ -15,8 +15,14 @@ describe('HowBig', () => {
   };
   const howBig = shallow(<HowBig {...props} />);
 
-  it('should render correctly', () => {
-    expect(howBig).toMatchSnapshot();
+  describe('when `HowBig` initializes', () => {
+    it('should render correctly', () => {
+      expect(howBig).toMatchSnapshot();
+    });
+
+    it('should use `AutoFadeSVG`', () => {
+      expect(howBig.find('AutoFadeSVG').length).toEqual(1);
+    });
   });
 
   describe('when given reference and target scale', () => {

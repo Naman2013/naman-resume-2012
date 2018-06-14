@@ -30,17 +30,20 @@ ShallowWrapper {
         <JSXStyle
           css={
             Array [
-              "@-webkit-keyframes FADE-IN-jsx-2862676604{0%{opacity:0;}100%{opacity:1;}}",
-              "@keyframes FADE-IN-jsx-2862676604{0%{opacity:0;}100%{opacity:1;}}",
+              ".auto-fade-svg.__jsx-style-dynamic-selector{-webkit-animation:FADE-IN-__jsx-style-dynamic-selector 5s infinite;animation:FADE-IN-__jsx-style-dynamic-selector 5s infinite;}",
+              "@-webkit-keyframes FADE-IN-__jsx-style-dynamic-selector{0%{opacity:0;}100%{opacity:1;}}",
+              "@keyframes FADE-IN-__jsx-style-dynamic-selector{0%{opacity:0;}100%{opacity:1;}}",
             ]
           }
-          styleId="2862676604"
+          dynamic={
+            Array [
+              5,
+            ]
+          }
+          styleId="3503261448"
         />,
       ],
-      "className": "jsx-2862676604 auto-fade-svg",
-      "style": Object {
-        "animation": "FADE-IN 5s infinite",
-      },
+      "className": "jsx-290142005 auto-fade-svg",
     },
     "ref": null,
     "rendered": Array [
@@ -61,10 +64,14 @@ ShallowWrapper {
         "nodeType": "class",
         "props": Object {
           "css": Array [
-            "@-webkit-keyframes FADE-IN-jsx-2862676604{0%{opacity:0;}100%{opacity:1;}}",
-            "@keyframes FADE-IN-jsx-2862676604{0%{opacity:0;}100%{opacity:1;}}",
+            ".auto-fade-svg.__jsx-style-dynamic-selector{-webkit-animation:FADE-IN-__jsx-style-dynamic-selector 5s infinite;animation:FADE-IN-__jsx-style-dynamic-selector 5s infinite;}",
+            "@-webkit-keyframes FADE-IN-__jsx-style-dynamic-selector{0%{opacity:0;}100%{opacity:1;}}",
+            "@keyframes FADE-IN-__jsx-style-dynamic-selector{0%{opacity:0;}100%{opacity:1;}}",
           ],
-          "styleId": "2862676604",
+          "dynamic": Array [
+            5,
+          ],
+          "styleId": "3503261448",
         },
         "ref": null,
         "rendered": null,
@@ -86,17 +93,20 @@ ShallowWrapper {
           <JSXStyle
             css={
               Array [
-                "@-webkit-keyframes FADE-IN-jsx-2862676604{0%{opacity:0;}100%{opacity:1;}}",
-                "@keyframes FADE-IN-jsx-2862676604{0%{opacity:0;}100%{opacity:1;}}",
+                ".auto-fade-svg.__jsx-style-dynamic-selector{-webkit-animation:FADE-IN-__jsx-style-dynamic-selector 5s infinite;animation:FADE-IN-__jsx-style-dynamic-selector 5s infinite;}",
+                "@-webkit-keyframes FADE-IN-__jsx-style-dynamic-selector{0%{opacity:0;}100%{opacity:1;}}",
+                "@keyframes FADE-IN-__jsx-style-dynamic-selector{0%{opacity:0;}100%{opacity:1;}}",
               ]
             }
-            styleId="2862676604"
+            dynamic={
+              Array [
+                5,
+              ]
+            }
+            styleId="3503261448"
           />,
         ],
-        "className": "jsx-2862676604 auto-fade-svg",
-        "style": Object {
-          "animation": "FADE-IN 5s infinite",
-        },
+        "className": "jsx-290142005 auto-fade-svg",
       },
       "ref": null,
       "rendered": Array [
@@ -117,10 +127,14 @@ ShallowWrapper {
           "nodeType": "class",
           "props": Object {
             "css": Array [
-              "@-webkit-keyframes FADE-IN-jsx-2862676604{0%{opacity:0;}100%{opacity:1;}}",
-              "@keyframes FADE-IN-jsx-2862676604{0%{opacity:0;}100%{opacity:1;}}",
+              ".auto-fade-svg.__jsx-style-dynamic-selector{-webkit-animation:FADE-IN-__jsx-style-dynamic-selector 5s infinite;animation:FADE-IN-__jsx-style-dynamic-selector 5s infinite;}",
+              "@-webkit-keyframes FADE-IN-__jsx-style-dynamic-selector{0%{opacity:0;}100%{opacity:1;}}",
+              "@keyframes FADE-IN-__jsx-style-dynamic-selector{0%{opacity:0;}100%{opacity:1;}}",
             ],
-            "styleId": "2862676604",
+            "dynamic": Array [
+              5,
+            ],
+            "styleId": "3503261448",
           },
           "ref": null,
           "rendered": null,

@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import SVGText from '../common/SVGText';
+import AutoFadeSVG from 'components/common/Fade/AutoFadeSVG';
 import ScaleUp from './ScaleUp';
 import ScaleDown from './ScaleDown';
+
 
 class HowBig extends Component {
   static propTypes = {
@@ -49,14 +51,16 @@ class HowBig extends Component {
             />
         }
 
-        <SVGText
-          text="HOW BIG?"
-          x={(dimension / 2)}
-          y={(50)}
-          displayProperties={{
-            fontSize: '20px',
-          }}
-        />
+        <AutoFadeSVG>
+          <SVGText
+            text="HOW BIG?"
+            x={(dimension / 2)}
+            y={(50)}
+            displayProperties={{
+              fontSize: '20px',
+            }}
+          />
+        </AutoFadeSVG>
       </g>
     );
   }
