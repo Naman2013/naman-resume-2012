@@ -6,18 +6,24 @@
 ***********************************/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import Request from 'components/common/network/Request';
 import ConnectUser from 'redux/components/ConnectUser';
-import BootstrappedDiscussionsBoard from './BootstrappedDiscussionsBoard';
 import { THREAD_LIST } from 'services/discussions';
+import BootstrappedDiscussionsBoard from './BootstrappedDiscussionsBoard';
+
+const {
+  string,
+  number,
+} = PropTypes;
 
 const DiscussionsBoard = ({
+  callSource,
+  count,
   errorMessage,
   forumId,
-  topicId,
-  count,
   page,
-  callSource,
+  topicId,
 }) => (
   <Request
     authorizationRedirect={true}
@@ -57,5 +63,22 @@ const DiscussionsBoard = ({
     )}
   />
 );
+
+DiscussionsBoard.propTypes = {
+  callSource: string,
+  count: number,
+  errorMessage: string,
+  forumId: number,
+  page: number,
+  topicId: number,
+};
+DiscussionsBoard.defaultProps = {
+  callSource: null,
+  count: 10,
+  errorMessage: 'There was an error.',
+  forumId: null,
+  page: 1,
+  topicId: null,
+};
 
 export default DiscussionsBoard;

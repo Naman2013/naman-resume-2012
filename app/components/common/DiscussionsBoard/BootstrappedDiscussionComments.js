@@ -8,24 +8,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import uniqueId from 'lodash/uniqueId';
+import take from 'lodash/take';
+import { submitReply } from 'services/discussions/submit-reply';
 import CommentListItem from './CommentListItem';
 import Form from './Form';
-import { submitReply } from 'services/discussions/submit-reply';
-
-import Heart from '../heart/heart';
-import PulsePostThumbnails from 'components/pulse/pulse-post-image-thumbnails';
-import take from 'lodash/take';
-import { dropShadowedContainer, profPic } from './styles';
-import {
-  darkBlueGray,
-  white,
-} from 'styles/variables/colors';
 import PaginateSet from '../../common/paginate-full-set/PaginateSet';
 
 const {
   arrayOf,
-  bool,
-  func,
   number,
   shape,
   string,
@@ -35,16 +25,22 @@ class CommentList extends Component {
   static propTypes = {
     callSource: string,
     count: number,
+    forumId: number,
     replies: arrayOf(shape({})),
     replyId: number,
     resultsCount: number,
     threadId: number,
     topicId: number,
-
+    user: shape({
+      at: number,
+      token: string,
+      cid: number,
+    }).isRequired,
   };
   static defaultProps = {
     callSource: null,
     count: 10,
+    forumId: null,
     replies: [],
     replyId: null,
     resultsCount: null,
@@ -98,7 +94,7 @@ class CommentList extends Component {
         let newDisplayedComments;
         const newAllComments = [].concat(comments, Object.assign({ likesCount: 0 }, reply));
         if (page === lastPage) {
-          newDisplayedComments = [].concat(comments, reply.replyId)
+          newDisplayedComments = [].concat(comments, reply.replyId);
         }
         this.setState({
           submitting: false,

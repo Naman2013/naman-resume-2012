@@ -12,7 +12,6 @@ import DiscussionsItem from './DiscussionsItem';
 const {
   arrayOf,
   bool,
-  func,
   number,
   shape,
   string,
@@ -62,18 +61,30 @@ const BootstrappedDiscussionsBoard = ({
 </div>)
 
 BootstrappedDiscussionsBoard.propTypes = {
-  threads: arrayOf(shape({})),
-  threadCount: number,
-  fetching: bool.isRequired,
+  callSource: string,
+  count: number,
   error: bool.isRequired,
   errorMessage: string,
-  callSource: string,
+  fetching: bool.isRequired,
+  forumId: number,
+  threadCount: number,
+  threads: arrayOf(shape({})),
+  topicId: number,
+  user: shape({
+    at: number,
+    token: string,
+    cid: number,
+  }).isRequired,
 }
 
 BootstrappedDiscussionsBoard.defaultProps = {
-  threads: [],
-  threadCount: 0,
+  callSource: null,
+  count: 10,
   errorMessage: 'There was an error fetching list',
+  forumId: null,
+  threadCount: 0,
+  threads: [],
+  topicId: null,
 };
 
 export default BootstrappedDiscussionsBoard;

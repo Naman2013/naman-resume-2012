@@ -8,10 +8,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { likeReply } from 'services/discussions/like';
-import Heart from '../heart/heart';
 import {
   black,
 } from 'styles/variables/colors';
+import Heart from '../heart/heart';
 import { profPic } from './styles';
 
 const {
@@ -33,7 +33,6 @@ const CommentRepliesListItem = ({
   likePrompt,
   likesCount,
   membershipDisplay,
-  replyCount,
   replyId,
   showLikePrompt,
 }) => (
@@ -84,19 +83,19 @@ const CommentRepliesListItem = ({
 CommentRepliesListItem.defaultProps = {
   likeParams: {},
 };
+
 CommentRepliesListItem.propTypes = {
   avatarURL: string.isRequired,
-  displayName: string.isRequired,
   content: string.isRequired,
   customerId: string.isRequired,
+  displayName: string.isRequired,
   freshness: string.isRequired,
-  likesCount: number.isRequired,
-  likePrompt: string.isRequired,
-  showLikePrompt: bool.isRequired,
-  replyCount: number.isRequired,
-  replyId: number.isRequired,
-  membershipDisplay: string.isRequired,
   likeParams: shape({}),
+  likePrompt: string.isRequired,
+  likesCount: number.isRequired,
+  membershipDisplay: string.isRequired,
+  replyId: number.isRequired,
+  showLikePrompt: bool.isRequired,
 };
 
 export default CommentRepliesListItem;

@@ -9,39 +9,52 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import CommentRepliesList from './CommentRepliesList';
 import { likeReply } from 'services/discussions/like';
-import Heart from '../heart/heart';
 import {
   black,
 } from 'styles/variables/colors';
+import Heart from '../heart/heart';
 import { profPic } from './styles';
 
 const {
   bool,
   number,
+  shape,
   string,
 } = PropTypes;
 
 class CommentListItem extends Component {
   static defaultProps = {
-    commentReplies: {
-      showAllReplies: false,
-      replies: [],
-    },
-    displayedReplies: [],
+    callSource: null,
+    count: 10,
+    forumId: null,
+    likeParams: {},
+    threadId: null,
+    topicId: null,
   };
 
   static propTypes = {
     avatarURL: string.isRequired,
-    displayName: string.isRequired,
+    callSource: string,
     content: string.isRequired,
+    count: number,
     customerId: string.isRequired,
+    displayName: string.isRequired,
+    forumId: number,
     freshness: string.isRequired,
-    likesCount: number.isRequired,
+    likeParams: shape({}),
     likePrompt: string.isRequired,
-    showLikePrompt: bool.isRequired,
+    likesCount: number.isRequired,
+    membershipDisplay: string.isRequired,
     replyCount: number.isRequired,
     replyId: number.isRequired,
-    membershipDisplay: string.isRequired,
+    showLikePrompt: bool.isRequired,
+    threadId: number,
+    topicId: number,
+    user: shape({
+      at: number,
+      token: string,
+      cid: number,
+    }).isRequired,
   };
 
   state = {

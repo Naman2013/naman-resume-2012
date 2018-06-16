@@ -6,15 +6,21 @@
 ***********************************/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import Request from 'components/common/network/Request';
 import BootstrappedCommentRepliesList from './BootstrappedCommentRepliesList';
 import { THREAD_REPLIES } from 'services/discussions';
+
+const {
+  number,
+  shape,
+  string,
+} = PropTypes;
 
 const CommentRepliesList = ({
   callSource,
   count,
   forumId,
-  page,
   replyId,
   threadId,
   topicId,
@@ -52,5 +58,27 @@ const CommentRepliesList = ({
     )}
   />
 );
+
+CommentRepliesList.propTypes = {
+  callSource: string,
+  count: number,
+  forumId: number,
+  replyId: number,
+  threadId: number,
+  topicId: number,
+  user: shape({
+    at: number,
+    token: string,
+    cid: number,
+  }).isRequired,
+};
+CommentRepliesList.defaultProps = {
+  callSource: null,
+  count: 10,
+  forumId: null,
+  replyId: null,
+  threadId: null,
+  topicId: null,
+};
 
 export default CommentRepliesList;

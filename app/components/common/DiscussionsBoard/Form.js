@@ -7,8 +7,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { profPic } from './styles';
-import { black, darkBlueGray, white, turqoise } from 'styles/variables/colors';
-import { secondaryFont } from 'styles/variables/fonts';
+import { darkBlueGray, white } from 'styles/variables/colors';
+
 const {
   arrayOf,
   any,
@@ -31,7 +31,9 @@ class ReplyForm extends Component {
       at: null,
       cid: null,
       token: null,
-    }
+    },
+    showSubmitError: false,
+    showSubmitLoader: false,
   }
   static propTypes = {
     avatarURL: string,
@@ -101,6 +103,7 @@ class ReplyForm extends Component {
       <div className="reply-form-container">
         {showSubmitLoader && <div className="fa fa-spinner loader" />}
         {submitted && <span className="fa fa-check loader" /> }
+        {(submitted && showSubmitError) && <div>There was an error submitting this form.</div>}
         {!showSubmitLoader && !submitted && <form className="reply-form">
           <div className="input-container">
             <div style={profPic(avatarURL)}></div>

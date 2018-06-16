@@ -8,21 +8,15 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import DiscussionComments from './DiscussionComments';
-import { THREAD_REPLIES } from 'services/discussions';
 import { likeThread } from 'services/discussions/like';
-import Heart from '../heart/heart';
-// import CommentList from './comment-list';
 import PulsePostThumbnails from 'components/pulse/pulse-post-image-thumbnails';
+import Heart from '../heart/heart';
 import { dropShadowedContainer, profPic } from './styles';
-import {
-  darkBlueGray,
-  white,
-} from 'styles/variables/colors';
 
 const {
+  any,
   arrayOf,
   bool,
-  func,
   number,
   shape,
   string,
@@ -32,22 +26,33 @@ class DiscussionsItem extends Component {
 
   static propTypes = {
     avatarURL: string.isRequired,
-    content: string.isRequired,
-    freshness: string.isRequired,
+    callSource: string,
+    count: number,
     customerId: string.isRequired,
     displayName: string.isRequired,
-    likeParams: shape({}),
+    forumId: number.isRequired,
+    freshness: string.isRequired,
+    likeParams: shape(any),
+    user: shape({
+      at: number,
+      token: string,
+      cid: number,
+    }).isRequired,
     likePrompt: string.isRequired,
     likesCount: number.isRequired,
     membershipDisplay: string.isRequired,
     replyCount: number.isRequired,
-    showLikePrompt: bool.isRequired,
     S3Files: arrayOf(string),
+    showLikePrompt: bool.isRequired,
     threadId: number.isRequired,
+    title: string.isRequired,
     topicId: number.isRequired,
   };
 
   static defaultProps = {
+    callSource: null,
+    count: 10,
+    likeParams: {},
     S3Files: [],
   };
 
@@ -76,7 +81,6 @@ class DiscussionsItem extends Component {
       likePrompt,
       likesCount,
       membershipDisplay,
-      page,
       title,
       replyCount,
       S3Files,

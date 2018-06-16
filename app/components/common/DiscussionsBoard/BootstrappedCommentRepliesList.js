@@ -8,24 +8,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import uniqueId from 'lodash/uniqueId';
+import take from 'lodash/take';
+import { submitReply } from 'services/discussions/submit-reply';
 import Form from './Form';
 import CommentRepliesListItem from './CommentRepliesListItem';
-import { likeReply } from 'services/discussions/like';
-import Heart from '../heart/heart';
-import { submitReply } from 'services/discussions/submit-reply';
-import PulsePostThumbnails from 'components/pulse/pulse-post-image-thumbnails';
-import take from 'lodash/take';
-import { dropShadowedContainer, profPic } from './styles';
-import {
-  darkBlueGray,
-  white,
-} from 'styles/variables/colors';
 import PaginateSet from '../paginate-full-set/PaginateSet';
 
 const {
   arrayOf,
-  bool,
-  func,
   number,
   shape,
   string,
@@ -33,23 +23,30 @@ const {
 
 class CommentRepliesList extends Component {
   static propTypes = {
-    threadId: number,
-    replyId: number,
-    topicId: number,
     callSource: string,
-    replies: arrayOf(shape({})),
-    resultsCount: number,
     count: number,
+    forumId: number,
+    replies: arrayOf(shape({})),
+    replyId: number,
+    resultsCount: number,
+    threadId: number,
+    topicId: number,
+    user: shape({
+      at: number,
+      token: string,
+      cid: number,
+    }).isRequired,
 
   };
   static defaultProps = {
-    replyId: null,
-    topicId: null,
-    threadId: null,
     callSource: null,
-    replies: [],
-    resultsCount: null,
     count: 10,
+    forumId: null,
+    replies: [],
+    replyId: null,
+    resultsCount: null,
+    threadId: null,
+    topicId: null,
   }
 
   state = {

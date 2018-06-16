@@ -6,18 +6,23 @@
 ***********************************/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import Request from 'components/common/network/Request';
 import BootstrappedDiscussionComments from './BootstrappedDiscussionComments';
 import { THREAD_REPLIES } from 'services/discussions';
 
+const {
+  number,
+  shape,
+  string,
+} = PropTypes;
+
 const DiscussionsBoardComments = ({
-  errorMessage,
-  forumId,
-  topicId,
-  threadId,
-  count,
-  page,
   callSource,
+  count,
+  forumId,
+  threadId,
+  topicId,
   user,
 }) => (
   <Request
@@ -51,5 +56,25 @@ const DiscussionsBoardComments = ({
     )}
   />
 );
+
+DiscussionsBoardComments.propTypes = {
+  callSource: string,
+  count: number,
+  forumId: number,
+  threadId: number,
+  topicId: number,
+  user: shape({
+    at: number,
+    token: string,
+    cid: number,
+  }).isRequired,
+};
+DiscussionsBoardComments.defaultProps = {
+  callSource: null,
+  count: 10,
+  forumId: null,
+  threadId: null,
+  topicId: null,
+};
 
 export default DiscussionsBoardComments;
