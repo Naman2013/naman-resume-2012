@@ -56,8 +56,8 @@ class Telescope extends Component {
     horizontalResolution: getTelescope(this.props.activeInstrumentID).FOV.horizontal,
     verticalResolution: getTelescope(this.props.activeInstrumentID).FOV.horizontal,
     increment: this.props.increment,
-    missionsViewed: 0,
     awaitingMission: (this.props.missionMetaData.missionTargetID === 0),
+    transitionScale: false,
     portalDimensions: {
       bottom: 0,
       height: 0,
@@ -84,11 +84,19 @@ class Telescope extends Component {
     }
 
     if (missionMetaData.missionTargetID === 0) {
-      this.setState(() => ({ awaitingMission: true }));
+      this.setState(() => ({
+        awaitingMission: true,
+        transitionScale: false,
+      }));
     }
 
     if (missionMetaData.missionTargetID !== 0) {
-      this.setState(() => ({ awaitingMission: false }));
+      this.setState(() => ({
+        awaitingMission: false,
+        transitionScale: (
+          missionMetaData.missionTargetID !== this.props.missionMetaData.missionTargetID
+        ),
+      }));
     }
   }
 
@@ -207,7 +215,7 @@ class Telescope extends Component {
   }
 
   handleCompleteHowBigAnimation = () => {
-    console.log('HOW BIG COMPLETED');
+    this.setState(() => ({ transitionScale: false }));
   }
 
   render() {
@@ -219,6 +227,8 @@ class Telescope extends Component {
       isTransitioningTelescope,
       activeInstrumentID,
       previousInstrumentID,
+      transitionScale,
+      awaitingMission,
     } = this.state;
 
     const activeInstrument = getTelescope(activeInstrumentID);

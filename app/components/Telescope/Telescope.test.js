@@ -32,12 +32,12 @@ describe('Telescope interface', () => {
     });
 
     describe('`state`', () => {
-      it('should start with `missionsViewed` at 0', () => {
-        expect(shallowTelescope.state().missionsViewed).toEqual(0);
-      });
-
       it('sets `awaitingMission` when `props.missionMetaData.missionTargetID` is `0`', () => {
         expect(mountedTelescope.state().awaitingMission).toEqual(true);
+      });
+
+      it('initializes `transitionScale` to `false`', () => {
+        expect(mountedTelescope.state().transitionScale).toEqual(false);
       });
     });
   });
@@ -45,19 +45,62 @@ describe('Telescope interface', () => {
   describe('when updating with new mission information', () => {
     const nonMission = { missionTargetID: 0 };
     const realMission = { missionTargetID: 1 };
+    const realMission2 = { missionTarget: 2 };
+
     beforeEach(() => {
       mountedTelescope.setProps({ missionMetaData: nonMission });
     });
 
-    it('sets `state.awaitingMission` to `false` when a real mission arrives', () => {
-      mountedTelescope.setProps({ missionMetaData: realMission });
-      expect(mountedTelescope.state().awaitingMission).toEqual(false);
+    describe('when the incoming ID is `0`', () => {
+      beforeEach(() => {
+        mountedTelescope.setProps({ missionMetaData: nonMission });
+      });
+
+      it('sets `awaitingMission` to `true`', () => {
+        expect(mountedTelescope.state().awaitingMission).toEqual(true);
+      });
+
+      it('sets `transitionScale` to `false`', () => {
+        expect(mountedTelescope.state().transitionScale).toEqual(false);
+      });
     });
 
-    it('sets `state.awaitingMission` to `true` when the incoming ID is `0`', () => {
-      mountedTelescope.setProps({ missionMetaData: realMission });
-      mountedTelescope.setProps({ missionMetaData: nonMission });
-      expect(mountedTelescope.state().awaitingMission).toEqual(true);
+    describe('when the incoming ID is non-`0`', () => {
+      beforeEach(() => {
+        mountedTelescope.setProps({ missionMetaData: realMission });
+      });
+
+      it('sets `awaitingMission` to `false` when a real mission arrives', () => {
+        expect(mountedTelescope.state().awaitingMission).toEqual(false);
+      });
+
+      describe('when a new `missionTargetID` arrives', () => {
+        it('sets `transitionScale` to `true` when first non-`0` appears', () => {
+          expect(mountedTelescope.state().transitionScale).toEqual(true);
+        });
+
+        it('sets `transitionScale` to `true` when new `missionTargetID` arrives', () => {
+          mountedTelescope.setProps({ missionMetaData: realMission2 });
+          expect(mountedTelescope.state().transitionScale).toEqual(true);
+        });
+
+        it('`transitionScale` remains `false` when seeing the same mission appear twice', () => {
+          mountedTelescope.setProps({ missionMetaData: realMission2 });
+          mountedTelescope.instance().handleCompleteHowBigAnimation();
+          mountedTelescope.setProps({ missionMetaData: realMission2 });
+          expect(mountedTelescope.state().transitionScale).toEqual(false);
+        });
+      });
+    });
+
+    describe('when `HowBig` animation is completed', () => {
+      beforeEach(() => {
+        mountedTelescope.instance().handleCompleteHowBigAnimation();
+      });
+
+      it('sets `transitionScale` to `false`', () => {
+        expect(mountedTelescope.state().transitionScale).toEqual(false);
+      });
     });
   });
 });
