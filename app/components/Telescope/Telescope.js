@@ -258,68 +258,75 @@ class Telescope extends Component {
                   version="1.1"
                   xmlns="http://www.w3.org/2000/svg"
                 >
+                  {/**
+                    TODO:
+                    move non-scale transition elements into a component to keep this more readable
+                  */}
+                  <FadeSVG isHidden={transitionScale}>
+                    <FadeSVG isHidden={isTransitioningTelescope}>
+                      <Mask />
+                    </FadeSVG>
 
-                  <FadeSVG isHidden={isTransitioningTelescope}>
-                    <Mask />
-                  </FadeSVG>
+                    {
+                      activeInstrumentID
+                      && previousInstrumentID
+                      &&
+                      <FadeSVG isHidden={!isTransitioningTelescope}>
+                        <FieldOfView
+                          activeInstrumentID={activeInstrumentID}
+                          previousInstrumentID={previousInstrumentID}
+                          tickSpacing={tickSpacing}
+                          canvasWidth={width}
+                        />
+                      </FadeSVG>
+                    }
 
-                  {
-                    activeInstrumentID
-                    && previousInstrumentID
-                    &&
-                    <FadeSVG isHidden={!isTransitioningTelescope}>
-                      <FieldOfView
-                        activeInstrumentID={activeInstrumentID}
-                        previousInstrumentID={previousInstrumentID}
-                        tickSpacing={tickSpacing}
-                        canvasWidth={width}
+                    <TelescopeFrame
+                      isGridVisible={isTransitioningTelescope}
+                      isScaleVisible={!isTransitioningTelescope}
+                      horizontalResolution={horizontalResolution}
+                      verticalResolution={verticalResolution}
+                      increment={increment}
+                      length={width}
+                    />
+
+                    <FadeSVG isHidden={isTransitioningTelescope}>
+                      <Scale
+                        dimension={width}
+                        scale={(tickSpacing * activeInstrument.directionMarkerLengthArcMinutes)}
+                        scaleText={activeInstrument.directionMarkerLengthArcMinutes}
+                        style={{ stroke: 'aqua' }}
+                      />
+
+                      <UnitText
+                        text="arcminutes"
+                        x={midPoint}
+                        y={40}
+                        style={{ letterSpacing: arcMinuteLabelLetterSpacing }}
+                      />
+
+                      <UnitText
+                        text="arcminutes"
+                        x={-midPoint}
+                        y={(width - 40)}
+                        style={{
+                          letterSpacing: arcMinuteLabelLetterSpacing,
+                          transform: 'rotate(-90)',
+                        }}
                       />
                     </FadeSVG>
-                  }
-
-                  <TelescopeFrame
-                    isGridVisible={isTransitioningTelescope}
-                    isScaleVisible={!isTransitioningTelescope}
-                    horizontalResolution={horizontalResolution}
-                    verticalResolution={verticalResolution}
-                    increment={increment}
-                    length={width}
-                  />
-
-                  <FadeSVG isHidden={isTransitioningTelescope}>
-                    <Scale
-                      dimension={width}
-                      scale={(tickSpacing * activeInstrument.directionMarkerLengthArcMinutes)}
-                      scaleText={activeInstrument.directionMarkerLengthArcMinutes}
-                      style={{ stroke: 'aqua' }}
-                    />
-
-                    <UnitText
-                      text="arcminutes"
-                      x={midPoint}
-                      y={40}
-                      style={{ letterSpacing: arcMinuteLabelLetterSpacing }}
-                    />
-
-                    <UnitText
-                      text="arcminutes"
-                      x={-midPoint}
-                      y={(width - 40)}
-                      style={{
-                        letterSpacing: arcMinuteLabelLetterSpacing,
-                        transform: 'rotate(-90)',
-                      }}
-                    />
                   </FadeSVG>
 
-                  <HowBig
-                    dimension={width}
-                    referenceObjectScale={1}
-                    referenceObject="SOLAR_SYSTEM"
-                    targetObjectScale={0.34}
-                    targetObjectURL="https://vega.slooh.com/icons/community/human_spirit.svg"
-                    onComplete={this.handleCompleteHowBigAnimation}
-                  />
+                  <FadeSVG isHidden={!(transitionScale)}>
+                    <HowBig
+                      dimension={width}
+                      referenceObjectScale={1}
+                      referenceObject="SOLAR_SYSTEM"
+                      targetObjectScale={0.34}
+                      targetObjectURL="https://vega.slooh.com/icons/community/human_spirit.svg"
+                      onComplete={this.handleCompleteHowBigAnimation}
+                    />
+                  </FadeSVG>
                 </svg>
 
                 <style jsx>{`
