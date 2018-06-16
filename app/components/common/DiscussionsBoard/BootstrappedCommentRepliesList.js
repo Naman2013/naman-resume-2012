@@ -113,6 +113,13 @@ class CommentRepliesList extends Component {
           submitted: true,
         });
       }
+
+      setTimeout(() => {
+        this.setState({
+          submitError: false,
+          submitted: false,
+        });
+      }, 3000);
     });
   }
 
