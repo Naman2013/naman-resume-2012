@@ -63,7 +63,8 @@ describe('ScaleDown', () => {
   });
 
   describe('when it completes animating', () => {
-    xit('should call the onComplete function', () => {
+    it('should call the onComplete function', () => {
+      scaleDown.instance().completeScaleDown();
       expect(initialProps.onComplete).toBeCalled();
     });
   });

@@ -7,7 +7,7 @@ import { animateValues } from 'utils/easingFunctions';
 
 class ScaleDown extends Component {
   static FADE_OUT_DURATION = 500;
-  static SCALE_DOWN_DURACTION = 1000;
+  static SCALE_DOWN_DURATION = 1000;
 
   static propTypes = {
     referenceObject: PropTypes.oneOf([
@@ -34,6 +34,10 @@ class ScaleDown extends Component {
 
   handleReferenceObjectLoaded = () => {
     this.setState({ referenceObjectLoaded: true });
+  }
+
+  completeScaleDown() {
+    this.props.onComplete();
   }
 
   render() {
