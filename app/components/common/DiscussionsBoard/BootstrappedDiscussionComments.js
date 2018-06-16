@@ -49,9 +49,9 @@ class CommentList extends Component {
   }
 
   state = {
+    comments: [],
     displayedComments: [],
     page: 1,
-    comments: [],
     submitError: false,
     submitted: false,
     submitting: false,
@@ -69,9 +69,9 @@ class CommentList extends Component {
     }
   }
 
-  get displayedCommentsObjs () {
-    const { displayedComments, replies } = this.state;
-    return [].concat(replies).filter(reply => displayedComments.indexOf(reply.replyId) > -1);
+  get displayedCommentsObjs() {
+    const { displayedComments, comments } = this.state;
+    return [].concat(comments).filter(reply => displayedComments.indexOf(reply.replyId) > -1);
   }
 
   handlePageChange = (paginatedSet, page) => {
@@ -84,17 +84,19 @@ class CommentList extends Component {
   handleReply = (params) => {
     this.setState({
       submitting: true,
+      submitError: false,
+      submitted: false,
     });
     submitReply(params).then((res) => {
-      const { error, reply } = res.data;
-      if (!error) {
+      const { apiError, reply } = res.data;
+      if (!apiError) {
         const { count } = this.props;
-        const { comments, page } = this.state;
-        const lastPage = (Math.ceil(comments.length) / count) || 1;
-        let newDisplayedComments;
+        const { comments, page, displayedComments } = this.state;
+        const lastPage = (Math.ceil(comments.length / count)) || 1;
+        let newDisplayedComments = [].concat(displayedComments);
         const newAllComments = [].concat(comments, Object.assign({ likesCount: 0 }, reply));
         if (page === lastPage) {
-          newDisplayedComments = [].concat(comments, reply.replyId);
+          newDisplayedComments = newDisplayedComments.concat(comments, reply.replyId);
         }
         this.setState({
           submitting: false,
@@ -105,10 +107,17 @@ class CommentList extends Component {
       } else {
         this.setState({
           submitting: false,
-          submitError: false,
+          submitError: true,
           submitted: true,
         });
       }
+
+      setTimeout(() => {
+        this.setState({
+          submitError: false,
+          submitted: false,
+        });
+      }, 3000);
     });
   }
 
@@ -123,7 +132,7 @@ class CommentList extends Component {
     } = this.props;
     const {
       page,
-      replies,
+      comments,
       submitting,
       submitError,
       submitted,
@@ -166,9 +175,9 @@ class CommentList extends Component {
        })}
         {displayedCommentsObjs.length > 0 && <PaginateSet
           handlePageChange={this.handlePageChange}
-          fullDataSet={replies}
+          fullDataSet={comments}
           count={count}
-          totalCount={replies.length}
+          totalCount={comments.length}
           page={page}
         />}
         <style jsx>{`

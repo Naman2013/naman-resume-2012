@@ -13,7 +13,7 @@ import { createActivity } from '../../../modules/community-group-activity-list/a
 import ShortInformation from './short-information';
 import MembersList from './members-list';
 import ActivityForm from './activity-form';
-import ActivityList from './activity-list';
+import DiscussionsBoard from 'components/common/DiscussionsBoard';
 import {
   darkBlueGray,
   white,
@@ -110,7 +110,12 @@ class ShortInformationOverview extends Component {
             joinOrLeaveGroup={joinOrLeaveGroup}
             createActivity={actions.createActivity}
           />
-          <ActivityList topicId={pageMeta.topicId} forumId={pageMeta.forumId} />
+          <DiscussionsBoard
+            errorMessage="There was an error fetching list"
+            topicId={pageMeta.topicId}
+            forumId={pageMeta.forumId}
+            callSource="groups"
+          />
         </div>
         <aside className="right-container">
           <ShortInformation

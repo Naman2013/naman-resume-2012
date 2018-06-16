@@ -85,18 +85,20 @@ class CommentRepliesList extends Component {
 
   handleReply = (params) => {
     this.setState({
+      submitted: false,
+      submitError: false,
       submitting: true,
     });
     submitReply(params).then((res) => {
-      const { error, reply } = res.data;
-      if (!error) {
+      const { apiError, reply } = res.data;
+      if (!apiError) {
         const { count } = this.props;
-        const { replies, page } = this.state;
-        const lastPage = (Math.ceil(replies.length) / count) || 1;
-        let newDisplayedReplies;
+        const { replies, page, displayedReplies } = this.state;
+        const lastPage = (Math.ceil(replies.length / count)) || 1;
+        let newDisplayedReplies = [].concat(displayedReplies);
         const newAllReplies = [].concat(replies, Object.assign({ likesCount: 0 }, reply));
         if (page === lastPage) {
-          newDisplayedReplies = [].concat(replies, reply.replyId)
+          newDisplayedReplies = newDisplayedReplies.concat(replies, reply.replyId);
         }
         this.setState({
           submitting: false,
@@ -107,7 +109,7 @@ class CommentRepliesList extends Component {
       } else {
         this.setState({
           submitting: false,
-          submitError: false,
+          submitError: true,
           submitted: true,
         });
       }
