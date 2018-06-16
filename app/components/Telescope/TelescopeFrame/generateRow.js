@@ -4,7 +4,7 @@ import ROW_CONFIG from './rowConfigurationEnum';
 import Tick from './Tick';
 import GridLine from './GridLine';
 import Polyline from '../../SVG/Polyline';
-import FadeSVG from 'components/common/Fade/FadeSVG';
+import FadeSVG from '../../../components/common/Fade/FadeSVG';
 import UnitText from './UnitText';
 
 function warnClient() {

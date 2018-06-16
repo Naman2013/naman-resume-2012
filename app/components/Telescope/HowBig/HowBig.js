@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import SVGText from '../common/SVGText';
-import AutoFadeSVG from 'components/common/Fade/AutoFadeSVG';
+import AutoFadeSVG from '../../../components/common/Fade/AutoFadeSVG';
 import ScaleUp from './ScaleUp';
 import ScaleDown from './ScaleDown';
 

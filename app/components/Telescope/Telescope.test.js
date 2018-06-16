@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import Telescope from './Telescope';
 import telescopeConfig from './telescopeConfig';
-import FAUX_MISSIONS from 'content/fauxMissions';
+import FAUX_MISSIONS from '../../content/fauxMissions';
 
 describe('Telescope interface', () => {
   const activeTelescope = telescopeConfig.CANARY_ONE_HALF_METER;

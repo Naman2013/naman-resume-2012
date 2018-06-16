@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { monoFont } from 'styles/variables/fonts';
+import { monoFont } from '../../../styles/variables/fonts';
 
 const SVGText = ({
   text,

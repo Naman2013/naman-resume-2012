@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Measure from 'react-measure';
 import noop from 'lodash/noop';
-import Fade from 'components/common/Fade';
-import FadeSVG from 'components/common/Fade/FadeSVG';
-import easingFunctions, { animateValues } from 'utils/easingFunctions';
-import { black } from 'styles/variables/colors';
+import Fade from '../../components/common/Fade';
+import FadeSVG from '../../components/common/Fade/FadeSVG';
+import easingFunctions, { animateValues } from '../../utils/easingFunctions';
+import { black } from '../../styles/variables/colors';
 
 import TelescopeFrame from './TelescopeFrame';
 import Mask from './Mask';

@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ObjectFrame from './ReferenceObjects/ObjectFrame';
-import FadeSVG from 'components/common/Fade/FadeSVG';
+import FadeSVG from '../../../components/common/Fade/FadeSVG';
 import domains from './domains';
-import { animateValues } from 'utils/easingFunctions';
+import { animateValues } from '../../../utils/easingFunctions';
 
 class ScaleDown extends Component {
+  static BEFORE_START = 2000;
   static FADE_OUT_DURATION = 500;
   static SCALE_DOWN_DURATION = 1000;
 
@@ -26,7 +27,25 @@ class ScaleDown extends Component {
     targetObjectLoaded: false,
     referenceObjectLoaded: false,
     referenceOpacity: 1,
+
+    beginReference: false,
   };
+
+  componentDidMount() {
+    this.beginDelayToShowReference();
+  }
+
+  componentWillUnmount() {
+    clearTimeout(this.timerBeforeShowReference);
+  }
+
+  beginDelayToShowReference() {
+    this.timerBeforeShowReference = setTimeout(() => {
+      this.setState(() => ({ beginReference: true }));
+    }, ScaleDown.BEFORE_START);
+  }
+
+  timerBeforeShowReference = undefined;
 
   handleTargetObjectLoaded = () => {
     this.setState({ targetObjectLoaded: true });
@@ -55,7 +74,7 @@ class ScaleDown extends Component {
 
     return (
       <g style={{ transformOrigin: 'center', transform: 'scale(0.80)' }}>
-        <FadeSVG isHidden={(!targetObjectLoaded || !referenceObjectLoaded)}>
+        <FadeSVG isHidden={false}>
           <g style={{
             transform: 'translate(0, 0) scale(1)',
             opacity: referenceOpacity,
@@ -67,7 +86,9 @@ class ScaleDown extends Component {
                 .render({ onLoadCallback: this.handleReferenceObjectLoaded })
             }
           </g>
+        </FadeSVG>
 
+        <FadeSVG isHidden>
           <g style={{
               transform: `translate(0, 0) scale(${targetCurrentScale})`,
             }}
