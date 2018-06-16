@@ -25,17 +25,27 @@ class Telescope extends Component {
   static propTypes = {
     activeInstrumentID: PropTypes.string.isRequired,
     previousInstrumentID: PropTypes.string.isRequired,
+    missionMetaData: PropTypes.shape({
+      // `missionTargetID` be object or mission ID, but needs to be unique
+      missionTargetID: PropTypes.number,
+      referenceObjectScale: PropTypes.number,
+      referenceObject: PropTypes.oneOf([
+        'SOLAR_SYSTEM',
+        'STAR',
+        'MILKY_WAY',
+        'DEEP_SPACE',
+      ]),
+      targetObjectScale: PropTypes.number,
+      targetObjectURL: PropTypes.string,
+    }),
     render: PropTypes.func,
-    verticalResolution: PropTypes.number,
-    horizontalResolution: PropTypes.number,
     increment: PropTypes.number,
   };
 
   static defaultProps = {
-    verticalResolution: 75,
-    horizontalResolution: 75,
     increment: 5,
     render: noop,
+    missionMetaData: { missionTargetID: 0 },
   };
 
   state = {
@@ -46,17 +56,9 @@ class Telescope extends Component {
     horizontalResolution: getTelescope(this.props.activeInstrumentID).FOV.horizontal,
     verticalResolution: getTelescope(this.props.activeInstrumentID).FOV.horizontal,
     increment: this.props.increment,
+    missionsViewed: 0,
+    awaitingMission: (this.props.missionMetaData.missionTargetID === 0),
     portalDimensions: {
-      bottom: 0,
-      height: 0,
-      left: 0,
-      right: 0,
-      top: 0,
-      width: 0,
-      x: 0,
-      y: 0,
-    },
-    imageDimensions: {
       bottom: 0,
       height: 0,
       left: 0,
@@ -71,12 +73,22 @@ class Telescope extends Component {
   componentWillReceiveProps({
     activeInstrumentID,
     previousInstrumentID,
-    horizontalResolution,
-    verticalResolution,
+    missionMetaData,
   }) {
     if (activeInstrumentID !== this.props.activeInstrumentID) {
-      this.setState(() => ({ activeInstrumentID: previousInstrumentID, previousInstrumentID: activeInstrumentID }));
+      this.setState(() => ({
+        activeInstrumentID: previousInstrumentID,
+        previousInstrumentID: activeInstrumentID,
+      }));
       this.transitionZoomOut();
+    }
+
+    if (missionMetaData.missionTargetID === 0) {
+      this.setState(() => ({ awaitingMission: true }));
+    }
+
+    if (missionMetaData.missionTargetID !== 0) {
+      this.setState(() => ({ awaitingMission: false }));
     }
   }
 
@@ -190,10 +202,6 @@ class Telescope extends Component {
     );
   }
 
-  handleImageResize = (imageBounds) => {
-    this.setState({ imageDimensions: { ...imageBounds } });
-  }
-
   handlePortalResize = (contentBox) => {
     this.setState({ portalDimensions: { ...contentBox.bounds } });
   }
@@ -205,7 +213,6 @@ class Telescope extends Component {
   render() {
     const {
       portalDimensions: { width },
-      imageDimensions,
       increment,
       horizontalResolution,
       verticalResolution,

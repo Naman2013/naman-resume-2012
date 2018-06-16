@@ -50,7 +50,7 @@ class ScaleDown extends Component {
     } = this.state;
 
     return (
-      <g style={{ transformOrigin: 'center', transform: 'scale(0.85)' }}>
+      <g style={{ transformOrigin: 'center', transform: 'scale(0.80)' }}>
         <FadeSVG isHidden={(!targetObjectLoaded || !referenceObjectLoaded)}>
           <g style={{
             transform: 'translate(0, 0) scale(1)',

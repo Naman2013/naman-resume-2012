@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import ScaleDown from './ScaleDown';
 import ObjectFrame from './ReferenceObjects/ObjectFrame';
 
@@ -11,7 +11,7 @@ describe('ScaleDown', () => {
     dimension: 500,
     onComplete: jest.fn(),
   };
-  const scaleDown = shallow(<ScaleDown {...initialProps} />);
+  const scaleDown = mount(<ScaleDown {...initialProps} />);
 
   describe('initialization', () => {
     it('should render correctly', () => {
@@ -56,6 +56,10 @@ describe('ScaleDown', () => {
       scaleDown.instance().handleReferenceObjectLoaded();
       expect(scaleDown.state().referenceObjectLoaded).toEqual(true);
     });
+  });
+
+  describe('when animating', () => {
+    xit('stub', () => {});
   });
 
   describe('when it completes animating', () => {
