@@ -4,10 +4,12 @@ import { withKnobs, number } from '@storybook/addon-knobs';
 
 import Telescope from '../app/components/Telescope';
 import telescopeConfig from '../app/components/Telescope/telescopeConfig';
+import FAUX_MISSIONS, { nonMission } from 'content/fauxMissions';
 
 class FauxTelescopeDetailsPage extends Component {
   state = {
     currentTelescope: telescopeConfig.CANARY_ONE_HALF_METER,
+    currentMission: nonMission,
   };
 
   previousInstrumentID = null;
@@ -18,8 +20,13 @@ class FauxTelescopeDetailsPage extends Component {
     this.setState(() => ({ currentTelescope: telescopeConfig[instrumentKey] }));
   };
 
+  handleNewMission = (event) => {
+    const selectedMission = event.target.getAttribute('data-mission');
+    this.setState(() => ({ currentMission: FAUX_MISSIONS[selectedMission] }));
+  }
+
   render() {
-    const { currentTelescope } = this.state;
+    const { currentTelescope, currentMission } = this.state;
     const incrementKnob = number('Increment', 5);
     const TELESCOPES = Object.keys(telescopeConfig);
 
@@ -40,11 +47,22 @@ class FauxTelescopeDetailsPage extends Component {
 
         <div style={{ margin: '10px 0' }} className="change-missions">
           <h5>How Big?</h5>
-          <button>Scale up</button>
-          <button>Scale down</button>
+          <button
+            onClick={this.handleNewMission}
+            data-mission={FAUX_MISSIONS.scaleUp.key}
+          >
+            Scale up
+          </button>
+          <button
+            onClick={this.handleNewMission}
+            data-mission={FAUX_MISSIONS.scaleDown.key}
+          >
+            Scale down
+          </button>
         </div>
 
         <Telescope
+          missionMetaData={currentMission}
           activeInstrumentID={currentTelescope.instrumentID}
           previousInstrumentID={this.previousInstrumentID}
           increment={incrementKnob}

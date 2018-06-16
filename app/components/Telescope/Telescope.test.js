@@ -2,6 +2,7 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import Telescope from './Telescope';
 import telescopeConfig from './telescopeConfig';
+import FAUX_MISSIONS from 'content/fauxMissions';
 
 describe('Telescope interface', () => {
   const activeTelescope = telescopeConfig.CANARY_ONE_HALF_METER;
@@ -43,9 +44,7 @@ describe('Telescope interface', () => {
   });
 
   describe('when updating with new mission information', () => {
-    const nonMission = { missionTargetID: 0 };
-    const realMission = { missionTargetID: 1 };
-    const realMission2 = { missionTarget: 2 };
+    const { nonMission, scaleUp, scaleDown } = FAUX_MISSIONS;
 
     beforeEach(() => {
       mountedTelescope.setProps({ missionMetaData: nonMission });
@@ -67,7 +66,7 @@ describe('Telescope interface', () => {
 
     describe('when the incoming ID is non-`0`', () => {
       beforeEach(() => {
-        mountedTelescope.setProps({ missionMetaData: realMission });
+        mountedTelescope.setProps({ missionMetaData: scaleUp });
       });
 
       it('sets `awaitingMission` to `false` when a real mission arrives', () => {
@@ -80,14 +79,14 @@ describe('Telescope interface', () => {
         });
 
         it('sets `transitionScale` to `true` when new `missionTargetID` arrives', () => {
-          mountedTelescope.setProps({ missionMetaData: realMission2 });
+          mountedTelescope.setProps({ missionMetaData: scaleDown });
           expect(mountedTelescope.state().transitionScale).toEqual(true);
         });
 
         it('`transitionScale` remains `false` when seeing the same mission appear twice', () => {
-          mountedTelescope.setProps({ missionMetaData: realMission2 });
+          mountedTelescope.setProps({ missionMetaData: scaleDown });
           mountedTelescope.instance().handleCompleteHowBigAnimation();
-          mountedTelescope.setProps({ missionMetaData: realMission2 });
+          mountedTelescope.setProps({ missionMetaData: scaleDown });
           expect(mountedTelescope.state().transitionScale).toEqual(false);
         });
       });

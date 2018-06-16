@@ -26,7 +26,6 @@ class Telescope extends Component {
     activeInstrumentID: PropTypes.string.isRequired,
     previousInstrumentID: PropTypes.string.isRequired,
     missionMetaData: PropTypes.shape({
-      // `missionTargetID` be object or mission ID, but needs to be unique
       missionTargetID: PropTypes.number,
       referenceObjectScale: PropTypes.number,
       referenceObject: PropTypes.oneOf([
@@ -231,6 +230,8 @@ class Telescope extends Component {
       awaitingMission,
     } = this.state;
 
+    const { missionMetaData } = this.props;
+
     const activeInstrument = getTelescope(activeInstrumentID);
     const tickSpacing = (width / horizontalResolution);
     const midPoint = (width / 2);
@@ -317,16 +318,17 @@ class Telescope extends Component {
                     </FadeSVG>
                   </FadeSVG>
 
-                  <FadeSVG isHidden={!(transitionScale)}>
-                    <HowBig
-                      dimension={width}
-                      referenceObjectScale={1}
-                      referenceObject="SOLAR_SYSTEM"
-                      targetObjectScale={0.34}
-                      targetObjectURL="https://vega.slooh.com/icons/community/human_spirit.svg"
-                      onComplete={this.handleCompleteHowBigAnimation}
-                    />
-                  </FadeSVG>
+                  {
+                    transitionScale &&
+                      <HowBig
+                        dimension={width}
+                        referenceObjectScale={missionMetaData.referenceObjectScale}
+                        referenceObject={missionMetaData.referenceObject}
+                        targetObjectScale={missionMetaData.targetObjectScale}
+                        targetObjectURL={missionMetaData.targetObjectURL}
+                        onComplete={this.handleCompleteHowBigAnimation}
+                      />
+                  }
                 </svg>
 
                 <style jsx>{`
