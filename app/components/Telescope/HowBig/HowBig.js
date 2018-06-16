@@ -23,10 +23,6 @@ class HowBig extends Component {
 
   state = {};
 
-  componentWillUnmount() {
-    this.props.onComplete();
-  }
-
   render() {
     const {
       dimension,
@@ -36,6 +32,7 @@ class HowBig extends Component {
       targetObjectURL,
       onComplete,
     } = this.props;
+
     const isScaledUp = (targetObjectScale > referenceObjectScale);
 
     return (

@@ -26,6 +26,7 @@ class FauxTelescopeDetailsPage extends Component {
     return (
       <div style={{ width: '50%', margin: '0 auto' }}>
         <div className="telescope-navigation">
+          <h5>Change telescope</h5>
           {
             TELESCOPES.map(telescope => (
               <button
@@ -35,6 +36,12 @@ class FauxTelescopeDetailsPage extends Component {
                 {telescopeConfig[telescope].name}
               </button>))
           }
+        </div>
+
+        <div style={{ margin: '10px 0' }} className="change-missions">
+          <h5>How Big?</h5>
+          <button>Scale up</button>
+          <button>Scale down</button>
         </div>
 
         <Telescope
