@@ -15,6 +15,16 @@ describe('ScaleDown', () => {
   const spyBeginDelayToShowReference = jest.spyOn(ScaleDown.prototype, 'beginDelayToShowReference');
   const scaleDown = mount(<ScaleDown {...initialProps} />);
 
+  describe('during lifecycle methods', () => {
+    describe('componentDidMount', () => {
+      it('should have called `beginDelayToShowReference`', () => {
+        expect(spyBeginDelayToShowReference).toHaveBeenCalledTimes(1);
+        spyBeginDelayToShowReference.mockReset();
+        spyBeginDelayToShowReference.mockRestore();
+      });
+    });
+  });
+
   describe('initialization', () => {
     it('should use 2 `FadeSVG` elements', () => {
       expect(scaleDown.find('FadeSVG').length).toEqual(2);
@@ -35,12 +45,6 @@ describe('ScaleDown', () => {
 
     it('should initialze state with `beginReference` to `false`', () => {
       expect(scaleDown.state().beginReference).toEqual(false);
-    });
-
-    describe('after mounting', () => {
-      it('should have called `beginDelayToShowReference`', () => {
-        expect(spyBeginDelayToShowReference).toHaveBeenCalledTimes(1);
-      });
     });
   });
 
@@ -65,6 +69,8 @@ describe('ScaleDown', () => {
       expect(scaleDown.state().referenceObjectLoaded).toEqual(true);
     });
   });
+
+  describe('how it transitions from starting into showing the reference object', () => {});
 
   describe('when it completes animating', () => {
     it('should call the onComplete function', () => {
