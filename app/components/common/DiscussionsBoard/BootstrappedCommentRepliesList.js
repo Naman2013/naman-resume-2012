@@ -18,6 +18,7 @@ const {
   arrayOf,
   bool,
   number,
+  oneOfType,
   shape,
   string,
 } = PropTypes;
@@ -27,16 +28,16 @@ class CommentRepliesList extends Component {
     callSource: string,
     count: number,
     fetching: bool,
-    forumId: number,
+    forumId: oneOfType([number, string]),
     replies: arrayOf(shape({})),
-    replyId: number,
+    replyId: oneOfType([number, string]),
     resultsCount: number,
-    threadId: number,
-    topicId: number,
+    threadId: oneOfType([number, string]),
+    topicId: oneOfType([number, string]),
     user: shape({
-      at: number,
-      token: string,
-      cid: number,
+      at: oneOfType([number, string]),
+      token: oneOfType([number, string]),
+      cid: oneOfType([number, string]),
     }).isRequired,
 
   };

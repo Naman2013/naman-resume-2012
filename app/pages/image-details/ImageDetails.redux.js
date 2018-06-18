@@ -58,6 +58,7 @@ class ImageDetails extends Component {
             <div>
               {<BoostrappedImageDetails
                 callSource={CALLSOURCE_PHOTOVIEW}
+                customerImageId={customerImageId}
                 user={user}
                 {...serviceResponse}
               />}

@@ -15,6 +15,7 @@ const {
   bool,
   func,
   number,
+  oneOfType,
   shape,
   string,
 } = PropTypes;
@@ -44,14 +45,14 @@ class ReplyForm extends Component {
     submitReply: func.isRequired,
     submitted: bool,
     callSource: string,
-    threadId: number.isRequired,
-    topicId: number.isRequired,
-    forumId: number,
-    replyTo: number,
+    threadId: oneOfType([number, string]).isRequired,
+    topicId: oneOfType([number, string]).isRequired,
+    forumId: oneOfType([number, string]),
+    replyTo: oneOfType([number, string]),
     user: shape({
-      at: number.isRequired,
-      cid: number.isRequired,
-      token: string.isRequired,
+      at: oneOfType([number, string]),
+      token: oneOfType([number, string]),
+      cid: oneOfType([number, string]),
     }),
   }
 

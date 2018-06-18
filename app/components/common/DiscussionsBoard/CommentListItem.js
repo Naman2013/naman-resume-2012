@@ -18,6 +18,7 @@ import { profPic } from './styles';
 const {
   bool,
   number,
+  oneOfType,
   shape,
   string,
 } = PropTypes;
@@ -37,25 +38,28 @@ class CommentListItem extends Component {
     callSource: string,
     content: string.isRequired,
     count: number,
-    customerId: string.isRequired,
+    customerId: number.isRequired,
     displayName: string.isRequired,
-    forumId: number,
-    freshness: string.isRequired,
+    forumId: oneOfType([number, string]),
     likeParams: shape({}),
     likePrompt: string.isRequired,
     likesCount: number.isRequired,
-    membershipDisplay: string.isRequired,
+    membershipDisplay: string,
     replyCount: number.isRequired,
     replyId: number.isRequired,
     showLikePrompt: bool.isRequired,
-    threadId: number,
-    topicId: number,
+    threadId: oneOfType([number, string]),
+    topicId: oneOfType([number, string]),
     user: shape({
-      at: number,
-      token: string,
-      cid: number,
+      at: oneOfType([number, string]),
+      token: oneOfType([number, string]),
+      cid: oneOfType([number, string]),
     }).isRequired,
   };
+
+  static defaultProps = {
+    membershipDisplay: null,
+  }
 
   state = {
     showAllReplies: false,
@@ -75,10 +79,10 @@ class CommentListItem extends Component {
       callSource,
       content,
       count,
+      creationDate,
       customerId,
       displayName,
       forumId,
-      freshness,
       likeParams,
       likePrompt,
       likesCount,
@@ -101,7 +105,7 @@ class CommentListItem extends Component {
             <div dangerouslySetInnerHTML={{ __html: membershipDisplay }} />
           </div>
         </div>
-        <span className="date"  dangerouslySetInnerHTML={{ __html: freshness}} />
+        <span className="date"  dangerouslySetInnerHTML={{ __html: creationDate}} />
         <div dangerouslySetInnerHTML={{ __html: content }} />
         <div className="activity-actions">
           <div className="action-left">

@@ -16,6 +16,7 @@ const {
   bool,
   func,
   number,
+  oneOfType,
   shape,
   string,
 } = PropTypes;
@@ -29,14 +30,14 @@ class BootstrappedDiscussionsBoard extends Component {
     error: bool.isRequired,
     errorMessage: string,
     fetching: bool.isRequired,
-    forumId: number,
+    forumId: oneOfType([number, string]),
     threadCount: number,
     threads: arrayOf(shape({})),
-    topicId: number,
+    topicId: oneOfType([number, string]),
     user: shape({
-      at: number,
-      token: string,
-      cid: number,
+      at: oneOfType([number, string]),
+      token: oneOfType([number, string]),
+      cid: oneOfType([number, string]),
     }).isRequired,
   }
 

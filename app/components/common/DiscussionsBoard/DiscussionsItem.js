@@ -18,6 +18,7 @@ const {
   arrayOf,
   bool,
   number,
+  oneOfType,
   shape,
   string,
 } = PropTypes;
@@ -34,9 +35,9 @@ class DiscussionsItem extends Component {
     freshness: string.isRequired,
     likeParams: shape(any),
     user: shape({
-      at: number,
-      token: string,
-      cid: number,
+      at: oneOfType([number, string]),
+      token: oneOfType([number, string]),
+      cid: oneOfType([number, string]),
     }).isRequired,
     likePrompt: string.isRequired,
     likesCount: number.isRequired,

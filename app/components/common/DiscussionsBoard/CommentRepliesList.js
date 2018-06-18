@@ -13,6 +13,7 @@ import { THREAD_REPLIES } from 'services/discussions';
 
 const {
   number,
+  oneOfType,
   shape,
   string,
 } = PropTypes;
@@ -62,14 +63,14 @@ const CommentRepliesList = ({
 CommentRepliesList.propTypes = {
   callSource: string,
   count: number,
-  forumId: number,
-  replyId: number,
-  threadId: number,
-  topicId: number,
+  forumId: oneOfType([number, string]),
+  replyId: oneOfType([number, string]),
+  threadId: oneOfType([number, string]),
+  topicId: oneOfType([number, string]),
   user: shape({
-    at: number,
-    token: string,
-    cid: number,
+    at: oneOfType([number, string]),
+    token: oneOfType([number, string]),
+    cid: oneOfType([number, string]),
   }).isRequired,
 };
 CommentRepliesList.defaultProps = {
