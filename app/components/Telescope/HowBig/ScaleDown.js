@@ -12,6 +12,9 @@ class ScaleDown extends Component {
   static SCALE_DOWN_DURATION = 1000;
   static TIME_BEFORE_FADING_REFERENCE = 2000;
   static TIME_TO_FADE_REFERENCE = 1000;
+  static TIME_TO_FADE_IN_TARGET = 1000;
+  static TIME_BEFORE_SCALING_TARGET = 2000;
+  static TIME_TO_SCALE_TARGET = 3000;
 
   static propTypes = {
     referenceObject: PropTypes.oneOf([
@@ -32,10 +35,13 @@ class ScaleDown extends Component {
   };
 
   state = {
-    targetCurrentScale: 1,
     targetObjectLoaded: false,
     referenceObjectLoaded: false,
     referenceOpacity: 1,
+    referenceNameOpacity: 1,
+
+    targetObjectOpacity: 0,
+    targetScale: 1,
 
     beginReference: false,
   };
@@ -46,7 +52,8 @@ class ScaleDown extends Component {
 
   componentWillUnmount() {
     clearTimeout(this.timerBeforeShowReference);
-    clearTimeout(this.fadeReferenceTimer);
+    clearTimeout(this.timerToFadeReference);
+    clearTimeout(this.timerBeforeBeginScaling);
   }
 
   beginDelayToShowReference() {
@@ -57,8 +64,8 @@ class ScaleDown extends Component {
   }
 
   beginFadeReferenceTimer() {
-    clearTimeout(this.fadeReferenceTimer);
-    this.fadeReferenceTimer = setTimeout(() => {
+    clearTimeout(this.timerToFadeReference);
+    this.timerToFadeReference = setTimeout(() => {
       this.fadeReferenceAnimationHandle = this.fadeReference();
     }, ScaleDown.TIME_BEFORE_FADING_REFERENCE);
   }
@@ -66,19 +73,61 @@ class ScaleDown extends Component {
   fadeReference() {
     return animateValues({
       referenceOpacity: this.state.referenceOpacity,
+      referenceNameOpacity: this.state.referenceNameOpacity,
     }, ScaleDown.TIME_TO_FADE_REFERENCE, {
       referenceOpacity: 0.25,
-      onUpdate: ({ referenceOpacity }) => {
-        this.setState(() => ({ referenceOpacity }));
+      referenceNameOpacity: 0,
+      onUpdate: ({ referenceOpacity, referenceNameOpacity }) => {
+        this.setState(() => ({ referenceOpacity, referenceNameOpacity }));
       },
-      onComplete: this.presentTargetObject,
+      onComplete: this.presentTargetObject.bind(this),
       ease: easingFunctions.easeInOutQuad,
     });
   }
 
+  presentTargetObject() {
+    this.presentTargetObjectAnimationHandle = animateValues({
+      targetObjectOpacity: this.state.targetObjectOpacity,
+    }, ScaleDown.TIME_TO_FADE_IN_TARGET, {
+      targetObjectOpacity: 1,
+      onUpdate: ({ targetObjectOpacity }) => {
+        this.setState(() => ({ targetObjectOpacity }));
+      },
+      onComplete: this.setTimerToBeginScalingTarget.bind(this),
+      ease: easingFunctions.easeInOutQuad,
+    });
+  }
+
+  setTimerToBeginScalingTarget() {
+    this.timerBeforeBeginScaling = setTimeout(() => {
+      this.scaleTarget();
+    }, ScaleDown.TIME_BEFORE_SCALING_TARGET);
+  }
+
+  scaleTarget() {
+    this.scaleTargetAnimationHandle = animateValues({
+      targetScale: this.state.targetScale,
+    }, ScaleDown.TIME_TO_SCALE_TARGET, {
+      targetScale: this.props.targetObjectScale,
+      onUpdate: ({ targetScale }) => {
+        this.setState(() => ({ targetScale }));
+      },
+      onComplete: this.prepareTearDown.bind(this),
+      ease: easingFunctions.easeInOutQuad,
+    });
+  }
+
+  prepareTearDown() {
+    // after a few seconds, call the callback and do teardown
+    console.log('DO TEAR DOWN');
+  }
+
   timerBeforeShowReference = undefined;
-  fadeReferenceTimer = undefined;
+  timerToFadeReference = undefined;
+  timerBeforeBeginScaling = undefined;
   fadeReferenceAnimationHandle = undefined;
+  presentTargetObjectAnimationHandle = undefined;
+  scaleTargetAnimationHandle = undefined;
 
   handleTargetObjectLoaded = () => {
     this.setState({ targetObjectLoaded: true });
@@ -100,11 +149,13 @@ class ScaleDown extends Component {
     } = this.props;
 
     const {
-      targetCurrentScale,
+      targetScale,
       referenceOpacity,
+      referenceNameOpacity,
       targetObjectLoaded,
       referenceObjectLoaded,
       beginReference,
+      targetObjectOpacity,
     } = this.state;
 
     const beginAnimation = !(referenceObjectLoaded && beginReference);
@@ -132,7 +183,7 @@ class ScaleDown extends Component {
             }
           </g>
 
-          <g>
+          <g style={{ opacity: referenceNameOpacity }}>
             <SVGText
               x={midPoint}
               y={(dimension - (dimension * 0.05))}
@@ -141,22 +192,27 @@ class ScaleDown extends Component {
           </g>
         </FadeSVG>
 
-        <FadeSVG isHidden>
-          <g style={{
-              transform: `translate(0, 0) scale(${targetCurrentScale})`,
-            }}
-          >
-            <ObjectFrame
-              onLoadCallback={this.handleTargetObjectLoaded}
-              svgURL={targetObjectURL}
-              width={subjectDimensionSquare}
-              height={subjectDimensionSquare}
-            />
-          </g>
-          <g>
-            <SVGText text={domains.enumValueOf(referenceObject).titleText} />
-          </g>
-        </FadeSVG>
+        <g style={{
+            transform: `scale(${targetScale})`,
+            transformOrigin: 'center',
+            opacity: targetObjectOpacity,
+          }}
+        >
+          <ObjectFrame
+            svgURL={targetObjectURL}
+            width={subjectDimensionSquare}
+            height={subjectDimensionSquare}
+            x={(midPoint - (subjectDimensionSquare / 2))}
+            y={(midPoint - (subjectDimensionSquare / 2))}
+            onLoadCallback={this.handleTargetObjectLoaded}
+          />
+
+          <SVGText
+            x={midPoint}
+            y={(dimension - (dimension * 0.05))}
+            text={domains.enumValueOf(referenceObject).titleText}
+          />
+        </g>
       </g>
     );
   }

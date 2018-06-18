@@ -19,8 +19,8 @@ describe('ScaleDown', () => {
   const scaleDown = mount(<ScaleDown {...initialProps} />);
 
   describe('initialization', () => {
-    it('should use 2 `FadeSVG` elements', () => {
-      expect(scaleDown.find('FadeSVG').length).toEqual(2);
+    it('should use 1 `FadeSVG` elements', () => {
+      expect(scaleDown.find('FadeSVG').length).toEqual(1);
     });
 
     it('should use 2 `SVGText` components for rendering labels', () => {
@@ -28,7 +28,7 @@ describe('ScaleDown', () => {
     });
 
     xit('should initialize state with `targetInitialSize`', () => {
-      expect(scaleDown.state().targetCurrentScale).toEqual(1);
+      expect(scaleDown.state().targetScale).toEqual(1);
     });
 
     xit('should initialize state with `referenceOpacity` to 1', () => {
