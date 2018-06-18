@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 import uniqueId from 'lodash/uniqueId';
 import take from 'lodash/take';
 import { submitReply } from 'services/discussions/submit-reply';
-import Form from './Form';
+import Form from './ReplyForm';
 import CommentRepliesListItem from './CommentRepliesListItem';
 import PaginateSet from '../paginate-full-set/PaginateSet';
 

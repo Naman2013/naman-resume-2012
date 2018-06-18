@@ -13,8 +13,11 @@ import { THREAD_LIST } from 'services/discussions';
 import BootstrappedDiscussionsBoard from './BootstrappedDiscussionsBoard';
 
 const {
-  string,
+  any,
+  func,
   number,
+  shape,
+  string,
 } = PropTypes;
 
 const DiscussionsBoard = ({
@@ -24,6 +27,8 @@ const DiscussionsBoard = ({
   forumId,
   page,
   topicId,
+  createThread,
+  createThreadFormParams,
 }) => (
   <Request
     authorizationRedirect={true}
@@ -56,6 +61,8 @@ const DiscussionsBoard = ({
             topicId={topicId}
             forumId={forumId}
             user={user}
+            createThread={createThread}
+            createThreadFormParams={createThreadFormParams}
             {...serviceResponse}
           />)}
         />
@@ -71,6 +78,8 @@ DiscussionsBoard.propTypes = {
   forumId: number,
   page: number,
   topicId: number,
+  createThread: func.isRequired,
+  createThreadFormParams: shape(any).isRequired,
 };
 DiscussionsBoard.defaultProps = {
   callSource: null,

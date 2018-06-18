@@ -5,86 +5,128 @@
 *
 ***********************************/
 
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import DiscussionsItem from './DiscussionsItem';
+import CREATE_THREAD_FORM from './DiscussionsThreadFormInterface';
 
 const {
+  any,
   arrayOf,
   bool,
+  func,
   number,
   shape,
   string,
 } = PropTypes;
 
-const BootstrappedDiscussionsBoard = ({
-  count,
-  page,
-  forumId,
-  callSource,
-  threads,
-  threadCount,
-  topicId,
-  fetching,
-  user,
-  error,
-  errorMessage,
-}) => (<div className="root">
-  {fetching && <div>Loading</div>}
-  {(!fetching && error) && <div dangerouslySetInnerHTML={{ __html: errorMessage }} />}
-  {(!fetching && !error && threadCount === 0) && <div>There is nothing to show here</div>}
-  {(!fetching && !error && threadCount > 0) && <div>
-    {threads.map((thread) => {
-      const likeParams = {
-        forumId,
-        callSource,
-        threadId: thread.threadId,
-        topicId,
-      };
+class BootstrappedDiscussionsBoard extends Component {
+  static propTypes = {
+    callSource: string,
+    count: number,
+    createThread: func.isRequired,
+    createThreadFormParams: shape(any).isRequired,
+    error: bool.isRequired,
+    errorMessage: string,
+    fetching: bool.isRequired,
+    forumId: number,
+    threadCount: number,
+    threads: arrayOf(shape({})),
+    topicId: number,
+    user: shape({
+      at: number,
+      token: string,
+      cid: number,
+    }).isRequired,
+  }
 
-      return (<DiscussionsItem
-        {...thread}
-        callSource={callSource}
-        forumId={forumId}
-        key={thread.threadId}
-        likeParams={likeParams}
-        topicId={topicId}
-        count={count}
-        page={page}
-        user={user}
-      />)
-    })}
-  </div>}
-  <style jsx>{`
+  static defaultProps = {
+    callSource: null,
+    count: 10,
+    errorMessage: 'There was an error fetching list',
+    forumId: null,
+    threadCount: 0,
+    threads: [],
+    topicId: null,
+  };
 
-  `}</style>
-</div>)
+  state = {
+    threadsList: [],
+  };
 
-BootstrappedDiscussionsBoard.propTypes = {
-  callSource: string,
-  count: number,
-  error: bool.isRequired,
-  errorMessage: string,
-  fetching: bool.isRequired,
-  forumId: number,
-  threadCount: number,
-  threads: arrayOf(shape({})),
-  topicId: number,
-  user: shape({
-    at: number,
-    token: string,
-    cid: number,
-  }).isRequired,
+  componentWillReceiveProps(nextProps) {
+    if (this.props.threads.length !== nextProps.threads.length) {
+      this.setState({
+        threadsList: nextProps.threads,
+      });
+    }
+  }
+
+  createThread = (params) => {
+    const { createThread } = this.props;
+    return createThread(params).then((res) => {
+      if (!res.payload.apiError) {
+        this.setState(state => ({
+          threadsList: [res.payload.thread].concat(state.threadsList),
+        }));
+      }
+
+      return res.payload;
+    });
+  }
+
+  render() {
+    const {
+      callSource,
+      count,
+      error,
+      errorMessage,
+      fetching,
+      createThreadFormParams,
+      forumId,
+      page,
+      threadCount,
+      topicId,
+      user,
+    } = this.props;
+
+    const { threadsList } = this.state;
+
+    return (<div className="root">
+      {CREATE_THREAD_FORM[callSource].render({
+        ...createThreadFormParams,
+        createThread: this.createThread,
+      })}
+      {fetching && <div>Loading</div>}
+      {(!fetching && error) && <div dangerouslySetInnerHTML={{ __html: errorMessage }} />}
+      {(!fetching && !error && threadCount === 0) && <div>There is nothing to show here</div>}
+      {(!fetching && !error && threadCount > 0) && <div>
+        {threadsList.map((thread) => {
+          const likeParams = {
+            forumId,
+            callSource,
+            threadId: thread.threadId,
+            topicId,
+          };
+
+          return (<DiscussionsItem
+            {...thread}
+            callSource={callSource}
+            forumId={forumId}
+            key={thread.threadId}
+            likeParams={likeParams}
+            topicId={topicId}
+            count={count}
+            page={page}
+            user={user}
+          />)
+        })}
+      </div>}
+      <style jsx>{`
+
+      `}</style>
+    </div>);
+  }
 }
-
-BootstrappedDiscussionsBoard.defaultProps = {
-  callSource: null,
-  count: 10,
-  errorMessage: 'There was an error fetching list',
-  forumId: null,
-  threadCount: 0,
-  threads: [],
-  topicId: null,
-};
 
 export default BootstrappedDiscussionsBoard;

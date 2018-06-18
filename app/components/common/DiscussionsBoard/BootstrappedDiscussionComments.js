@@ -11,7 +11,7 @@ import uniqueId from 'lodash/uniqueId';
 import take from 'lodash/take';
 import { submitReply } from 'services/discussions/submit-reply';
 import CommentListItem from './CommentListItem';
-import Form from './Form';
+import Form from './ReplyForm';
 import PaginateSet from '../../common/paginate-full-set/PaginateSet';
 
 const {
