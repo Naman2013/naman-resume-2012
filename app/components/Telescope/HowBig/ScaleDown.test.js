@@ -3,6 +3,8 @@ import { shallow, mount } from 'enzyme';
 import ScaleDown from './ScaleDown';
 import ObjectFrame from './ReferenceObjects/ObjectFrame';
 
+jest.useFakeTimers();
+
 const initialProps = {
   referenceObject: 'SOLAR_SYSTEM',
   targetObjectURL: 'https://vega.slooh.com/icons/community/human_spirit.svg',
@@ -70,12 +72,20 @@ describe('ScaleDown', () => {
     });
   });
 
-  describe('how it transitions from starting into showing the reference object', () => {});
+  describe('the animation workflow', () => {
+    describe('the pause before the reference object appears', () => {
+      it('`beginDelayToShowReference` will create a timer that will set the `beginReference` flag to `true` when completed', () => {
+        scaleDown.instance().beginDelayToShowReference();
+        jest.runAllTimers();
+        expect(scaleDown.state().beginReference).toEqual(true);
+      });
+    });
 
-  describe('when it completes animating', () => {
-    it('should call the onComplete function', () => {
-      scaleDown.instance().completeScaleDown();
-      expect(initialProps.onComplete).toBeCalled();
+    describe('when it completes animating', () => {
+      it('should call the onComplete function', () => {
+        scaleDown.instance().completeScaleDown();
+        expect(initialProps.onComplete).toBeCalled();
+      });
     });
   });
 });

@@ -70,11 +70,12 @@ class ScaleDown extends Component {
       referenceOpacity,
       targetObjectLoaded,
       referenceObjectLoaded,
+      beginReference,
     } = this.state;
 
     return (
       <g style={{ transformOrigin: 'center', transform: 'scale(0.80)' }}>
-        <FadeSVG isHidden={false}>
+        <FadeSVG isHidden={!(referenceObjectLoaded && beginReference)}>
           <g style={{
             transform: 'translate(0, 0) scale(1)',
             opacity: referenceOpacity,
