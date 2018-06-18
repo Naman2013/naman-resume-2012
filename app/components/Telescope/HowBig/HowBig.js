@@ -43,6 +43,7 @@ class HowBig extends Component {
           (isScaledUp)
             ? <ScaleUp />
             : <ScaleDown
+              dimension={dimension}
               targetObjectURL={targetObjectURL}
               targetObjectScale={targetObjectScale}
               targetObjectName={targetObjectName}

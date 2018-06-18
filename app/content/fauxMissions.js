@@ -1,7 +1,7 @@
 export default {
   nonMission: { missionTargetID: 0 },
-  scaleUp: {
-    key: 'scaleUp',
+  scaleDown: {
+    key: 'scaleDown',
     missionTargetID: 1,
     referenceObjectScale: 1,
     referenceObject: 'SOLAR_SYSTEM',
@@ -9,8 +9,8 @@ export default {
     targetObjectURL: 'https://vega.slooh.com/icons/community/human_spirit.svg',
     targetObjectName: 'Test object',
   },
-  scaleDown: {
-    key: 'scaleDown',
+  scaleUp: {
+    key: 'scaleUp',
     missionTargetID: 2,
     referenceObjectScale: 0.34,
     referenceObject: 'SOLAR_SYSTEM',

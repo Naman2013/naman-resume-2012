@@ -27,6 +27,7 @@ ShallowWrapper {
     "props": Object {
       "children": Array [
         <ScaleDown
+          dimension={100}
           onComplete={[MockFunction]}
           referenceObject="SOLAR_SYSTEM"
           targetObjectName="Test object"
@@ -56,6 +57,7 @@ ShallowWrapper {
         "key": undefined,
         "nodeType": "class",
         "props": Object {
+          "dimension": 100,
           "onComplete": [MockFunction],
           "referenceObject": "SOLAR_SYSTEM",
           "targetObjectName": "Test object",
@@ -113,6 +115,7 @@ ShallowWrapper {
       "props": Object {
         "children": Array [
           <ScaleDown
+            dimension={100}
             onComplete={[MockFunction]}
             referenceObject="SOLAR_SYSTEM"
             targetObjectName="Test object"
@@ -142,6 +145,7 @@ ShallowWrapper {
           "key": undefined,
           "nodeType": "class",
           "props": Object {
+            "dimension": 100,
             "onComplete": [MockFunction],
             "referenceObject": "SOLAR_SYSTEM",
             "targetObjectName": "Test object",

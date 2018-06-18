@@ -21,7 +21,12 @@ class ScaleDown extends Component {
     targetObjectURL: PropTypes.string.isRequired,
     targetObjectScale: PropTypes.number.isRequired,
     targetObjectName: PropTypes.string.isRequired,
+    dimension: PropTypes.number,
     onComplete: PropTypes.func.isRequired,
+  };
+
+  static defaultProps = {
+    dimension: 500,
   };
 
   state = {
@@ -65,6 +70,7 @@ class ScaleDown extends Component {
     const {
       referenceObject,
       targetObjectURL,
+      dimension,
     } = this.props;
 
     const {
@@ -76,23 +82,36 @@ class ScaleDown extends Component {
     } = this.state;
 
     const beginAnimation = !(referenceObjectLoaded && beginReference);
+    const midPoint = (dimension / 2);
+    const subjectDimensionSquare = (dimension * 0.8);
 
     return (
-      <g style={{ transformOrigin: 'center', transform: 'scale(0.80)' }}>
+      <g>
         <FadeSVG isHidden={beginAnimation}>
           <g style={{
-            transform: 'translate(0, 0) scale(1)',
+            transform: 'scale(1)',
             opacity: referenceOpacity,
           }}
           >
             {
               domains
                 .enumValueOf(referenceObject)
-                .render({ onLoadCallback: this.handleReferenceObjectLoaded })
+                .render({
+                  width: subjectDimensionSquare,
+                  height: subjectDimensionSquare,
+                  x: (midPoint - (subjectDimensionSquare / 2)),
+                  y: (midPoint - (subjectDimensionSquare / 2)),
+                  onLoadCallback: this.handleReferenceObjectLoaded,
+                })
             }
           </g>
+
           <g>
-            <SVGText text={domains.enumValueOf(referenceObject).titleText} />
+            <SVGText
+              x={midPoint}
+              y={(dimension - (dimension * 0.05))}
+              text={`Reference object = ${domains.enumValueOf(referenceObject).titleText}`}
+            />
           </g>
         </FadeSVG>
 
@@ -104,6 +123,8 @@ class ScaleDown extends Component {
             <ObjectFrame
               onLoadCallback={this.handleTargetObjectLoaded}
               svgURL={targetObjectURL}
+              width={subjectDimensionSquare}
+              height={subjectDimensionSquare}
             />
           </g>
           <g>
