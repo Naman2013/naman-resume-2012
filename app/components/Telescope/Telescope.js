@@ -36,6 +36,7 @@ class Telescope extends Component {
       ]),
       targetObjectScale: PropTypes.number,
       targetObjectURL: PropTypes.string,
+      targetObjectName: PropTypes.string,
     }),
     render: PropTypes.func,
     increment: PropTypes.number,
@@ -326,6 +327,7 @@ class Telescope extends Component {
                         referenceObject={missionMetaData.referenceObject}
                         targetObjectScale={missionMetaData.targetObjectScale}
                         targetObjectURL={missionMetaData.targetObjectURL}
+                        targetObjectName={missionMetaData.targetObjectName}
                         onComplete={this.handleCompleteHowBigAnimation}
                       />
                   }

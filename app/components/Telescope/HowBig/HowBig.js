@@ -18,6 +18,7 @@ class HowBig extends Component {
     ]).isRequired,
     targetObjectScale: PropTypes.number.isRequired,
     targetObjectURL: PropTypes.string.isRequired,
+    targetObjectName: PropTypes.string.isRequired,
     onComplete: PropTypes.func.isRequired,
   };
 

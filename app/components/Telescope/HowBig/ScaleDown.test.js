@@ -32,6 +32,10 @@ describe('ScaleDown', () => {
       expect(scaleDown.find('FadeSVG').length).toEqual(2);
     });
 
+    it('should use 2 `SVGText` components for rendering labels', () => {
+      expect(scaleDown.find('SVGText').length).toEqual(2);
+    });
+
     it('should initialize state with `targetInitialSize`', () => {
       expect(scaleDown.state().targetCurrentScale).toEqual(1);
     });

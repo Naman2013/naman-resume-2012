@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ObjectFrame from './ReferenceObjects/ObjectFrame';
 import FadeSVG from '../../../components/common/Fade/FadeSVG';
+import SVGText from '../common/SVGText';
 import domains from './domains';
 import { animateValues } from '../../../utils/easingFunctions';
 
@@ -19,6 +20,7 @@ class ScaleDown extends Component {
     ]).isRequired,
     targetObjectURL: PropTypes.string.isRequired,
     targetObjectScale: PropTypes.number.isRequired,
+    targetObjectName: PropTypes.string.isRequired,
     onComplete: PropTypes.func.isRequired,
   };
 
@@ -73,9 +75,11 @@ class ScaleDown extends Component {
       beginReference,
     } = this.state;
 
+    const beginAnimation = !(referenceObjectLoaded && beginReference);
+
     return (
       <g style={{ transformOrigin: 'center', transform: 'scale(0.80)' }}>
-        <FadeSVG isHidden={!(referenceObjectLoaded && beginReference)}>
+        <FadeSVG isHidden={beginAnimation}>
           <g style={{
             transform: 'translate(0, 0) scale(1)',
             opacity: referenceOpacity,
@@ -86,6 +90,9 @@ class ScaleDown extends Component {
                 .enumValueOf(referenceObject)
                 .render({ onLoadCallback: this.handleReferenceObjectLoaded })
             }
+          </g>
+          <g>
+            <SVGText text={domains.enumValueOf(referenceObject).titleText} />
           </g>
         </FadeSVG>
 
@@ -98,6 +105,9 @@ class ScaleDown extends Component {
               onLoadCallback={this.handleTargetObjectLoaded}
               svgURL={targetObjectURL}
             />
+          </g>
+          <g>
+            <SVGText text={domains.enumValueOf(referenceObject).titleText} />
           </g>
         </FadeSVG>
       </g>

@@ -7,6 +7,7 @@ export default {
     referenceObject: 'SOLAR_SYSTEM',
     targetObjectScale: 0.34,
     targetObjectURL: 'https://vega.slooh.com/icons/community/human_spirit.svg',
+    targetObjectName: 'Test object',
   },
   scaleDown: {
     key: 'scaleDown',
@@ -15,5 +16,6 @@ export default {
     referenceObject: 'SOLAR_SYSTEM',
     targetObjectScale: 1,
     targetObjectURL: 'https://vega.slooh.com/icons/community/human_spirit.svg',
+    targetObjectName: 'Test object',
   },
 };
