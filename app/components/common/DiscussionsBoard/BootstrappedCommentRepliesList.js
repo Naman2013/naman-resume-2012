@@ -16,6 +16,7 @@ import PaginateSet from '../paginate-full-set/PaginateSet';
 
 const {
   arrayOf,
+  bool,
   number,
   shape,
   string,
@@ -25,6 +26,7 @@ class CommentRepliesList extends Component {
   static propTypes = {
     callSource: string,
     count: number,
+    fetching: bool,
     forumId: number,
     replies: arrayOf(shape({})),
     replyId: number,
@@ -41,6 +43,7 @@ class CommentRepliesList extends Component {
   static defaultProps = {
     callSource: null,
     count: 10,
+    fetching: false,
     forumId: null,
     replies: [],
     replyId: null,
@@ -127,6 +130,7 @@ class CommentRepliesList extends Component {
     const {
       callSource,
       count,
+      fetching,
       forumId,
       threadId,
       replyId,
@@ -158,6 +162,7 @@ class CommentRepliesList extends Component {
           topicId={topicId}
           user={user}
         />
+        {fetching && <div>Loading</div>}
         {displayedRepliesObjs.map((displayedComment) => {
           const likeParams = {
             callSource,
