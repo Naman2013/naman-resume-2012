@@ -10,7 +10,7 @@ const SVGText = ({
 }) => (
   <g>
     <text
-      style={Object.assign({}, displayProperties, SVGText.defaultProps.displayProperties)}
+      style={Object.assign({}, SVGText.defaultProps.displayProperties, displayProperties)}
       x={x}
       y={y}
       alignmentBaseline="middle"

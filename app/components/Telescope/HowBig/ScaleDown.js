@@ -165,6 +165,8 @@ class ScaleDown extends Component {
     const beginAnimation = !(referenceObjectLoaded && beginReference);
     const midPoint = (dimension / 2);
     const subjectDimensionSquare = (dimension * 0.8);
+    const objectFrameLocation = (midPoint - (subjectDimensionSquare / 2));
+    const textLabelFontSize = (dimension * 0.03);
 
     return (
       <g>
@@ -180,8 +182,8 @@ class ScaleDown extends Component {
                 .render({
                   width: subjectDimensionSquare,
                   height: subjectDimensionSquare,
-                  x: (midPoint - (subjectDimensionSquare / 2)),
-                  y: (midPoint - (subjectDimensionSquare / 2)),
+                  x: objectFrameLocation,
+                  y: objectFrameLocation,
                   onLoadCallback: this.handleReferenceObjectLoaded,
                 })
             }
@@ -191,6 +193,7 @@ class ScaleDown extends Component {
             <SVGText
               x={midPoint}
               y={(dimension - (dimension * 0.05))}
+              displayProperties={{ fontSize: `${textLabelFontSize}px` }}
               text={`Reference object = ${domains.enumValueOf(referenceObject).titleText}`}
             />
           </g>
@@ -209,8 +212,8 @@ class ScaleDown extends Component {
               svgURL={targetObjectURL}
               width={subjectDimensionSquare}
               height={subjectDimensionSquare}
-              x={(midPoint - (subjectDimensionSquare / 2))}
-              y={(midPoint - (subjectDimensionSquare / 2))}
+              x={objectFrameLocation}
+              y={objectFrameLocation}
               onLoadCallback={this.handleTargetObjectLoaded}
             />
           </g>
@@ -218,6 +221,7 @@ class ScaleDown extends Component {
           <SVGText
             x={midPoint}
             y={(dimension - (dimension * 0.05))}
+            displayProperties={{ fontSize: `${textLabelFontSize}px` }}
             text={`Target object = ${this.props.targetObjectName}`}
           />
         </g>

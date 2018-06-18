@@ -33,7 +33,7 @@ ShallowWrapper {
         style={
           Object {
             "fill": "aqua",
-            "fontFamily": "monospace",
+            "fontFamily": "helvetica",
             "fontSize": "20px",
           }
         }
@@ -54,7 +54,7 @@ ShallowWrapper {
         "children": "This is a test...",
         "style": Object {
           "fill": "aqua",
-          "fontFamily": "monospace",
+          "fontFamily": "helvetica",
           "fontSize": "20px",
         },
         "textAnchor": "middle",
@@ -78,7 +78,7 @@ ShallowWrapper {
           style={
             Object {
               "fill": "aqua",
-              "fontFamily": "monospace",
+              "fontFamily": "helvetica",
               "fontSize": "20px",
             }
           }
@@ -99,7 +99,7 @@ ShallowWrapper {
           "children": "This is a test...",
           "style": Object {
             "fill": "aqua",
-            "fontFamily": "monospace",
+            "fontFamily": "helvetica",
             "fontSize": "20px",
           },
           "textAnchor": "middle",
