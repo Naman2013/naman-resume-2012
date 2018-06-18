@@ -15,6 +15,7 @@ class ScaleDown extends Component {
   static TIME_TO_FADE_IN_TARGET = 1000;
   static TIME_BEFORE_SCALING_TARGET = 2000;
   static TIME_TO_SCALE_TARGET = 3000;
+  static TIME_BEFORE_COMPLETE = 3000;
 
   static propTypes = {
     referenceObject: PropTypes.oneOf([
@@ -54,6 +55,13 @@ class ScaleDown extends Component {
     clearTimeout(this.timerBeforeShowReference);
     clearTimeout(this.timerToFadeReference);
     clearTimeout(this.timerBeforeBeginScaling);
+    clearTimeout(this.timerBeforeComplete);
+  }
+
+  setTimerToBeginScalingTarget() {
+    this.timerBeforeBeginScaling = setTimeout(() => {
+      this.scaleTarget();
+    }, ScaleDown.TIME_BEFORE_SCALING_TARGET);
   }
 
   beginDelayToShowReference() {
@@ -98,12 +106,6 @@ class ScaleDown extends Component {
     });
   }
 
-  setTimerToBeginScalingTarget() {
-    this.timerBeforeBeginScaling = setTimeout(() => {
-      this.scaleTarget();
-    }, ScaleDown.TIME_BEFORE_SCALING_TARGET);
-  }
-
   scaleTarget() {
     this.scaleTargetAnimationHandle = animateValues({
       targetScale: this.state.targetScale,
@@ -118,13 +120,15 @@ class ScaleDown extends Component {
   }
 
   prepareTearDown() {
-    // after a few seconds, call the callback and do teardown
-    console.log('DO TEAR DOWN');
+    this.timerBeforeComplete = setTimeout(() => {
+      this.props.onComplete();
+    }, ScaleDown.TIME_BEFORE_COMPLETE);
   }
 
   timerBeforeShowReference = undefined;
   timerToFadeReference = undefined;
   timerBeforeBeginScaling = undefined;
+  timerBeforeComplete = undefined;
   fadeReferenceAnimationHandle = undefined;
   presentTargetObjectAnimationHandle = undefined;
   scaleTargetAnimationHandle = undefined;
@@ -210,7 +214,7 @@ class ScaleDown extends Component {
           <SVGText
             x={midPoint}
             y={(dimension - (dimension * 0.05))}
-            text={domains.enumValueOf(referenceObject).titleText}
+            text={`Target object = ${this.props.targetObjectName}`}
           />
         </g>
       </g>
