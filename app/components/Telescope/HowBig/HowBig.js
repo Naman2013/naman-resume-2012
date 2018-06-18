@@ -5,7 +5,6 @@ import AutoFadeSVG from '../../../components/common/Fade/AutoFadeSVG';
 import ScaleUp from './ScaleUp';
 import ScaleDown from './ScaleDown';
 
-
 class HowBig extends Component {
   static propTypes = {
     dimension: PropTypes.number.isRequired,
@@ -36,12 +35,15 @@ class HowBig extends Component {
     } = this.props;
 
     const isScaledUp = (targetObjectScale > referenceObjectScale);
+    const titleFontSize = (dimension * 0.05);
 
     return (
       <g>
         {
           (isScaledUp)
-            ? <ScaleUp />
+            ? <ScaleUp
+              onComplete={onComplete}
+            />
             : <ScaleDown
               dimension={dimension}
               targetObjectURL={targetObjectURL}
@@ -56,9 +58,9 @@ class HowBig extends Component {
           <SVGText
             text="HOW BIG?"
             x={(dimension / 2)}
-            y={(50)}
+            y={(dimension * 0.07)}
             displayProperties={{
-              fontSize: '20px',
+              fontSize: `${titleFontSize}px`,
             }}
           />
         </AutoFadeSVG>

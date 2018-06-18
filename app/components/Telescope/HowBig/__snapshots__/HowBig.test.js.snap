@@ -40,12 +40,12 @@ ShallowWrapper {
           <SVGText
             displayProperties={
               Object {
-                "fontSize": "20px",
+                "fontSize": "5px",
               }
             }
             text="HOW BIG?"
             x={50}
-            y={50}
+            y={7.000000000000001}
           />
         </AutoFadeSVG>,
       ],
@@ -76,12 +76,12 @@ ShallowWrapper {
           "children": <SVGText
             displayProperties={
               Object {
-                "fontSize": "20px",
+                "fontSize": "5px",
               }
             }
             text="HOW BIG?"
             x={50}
-            y={50}
+            y={7.000000000000001}
           />,
           "duration": 0.5,
         },
@@ -92,11 +92,11 @@ ShallowWrapper {
           "nodeType": "function",
           "props": Object {
             "displayProperties": Object {
-              "fontSize": "20px",
+              "fontSize": "5px",
             },
             "text": "HOW BIG?",
             "x": 50,
-            "y": 50,
+            "y": 7.000000000000001,
           },
           "ref": null,
           "rendered": null,
@@ -128,12 +128,12 @@ ShallowWrapper {
             <SVGText
               displayProperties={
                 Object {
-                  "fontSize": "20px",
+                  "fontSize": "5px",
                 }
               }
               text="HOW BIG?"
               x={50}
-              y={50}
+              y={7.000000000000001}
             />
           </AutoFadeSVG>,
         ],
@@ -164,12 +164,12 @@ ShallowWrapper {
             "children": <SVGText
               displayProperties={
                 Object {
-                  "fontSize": "20px",
+                  "fontSize": "5px",
                 }
               }
               text="HOW BIG?"
               x={50}
-              y={50}
+              y={7.000000000000001}
             />,
             "duration": 0.5,
           },
@@ -180,11 +180,11 @@ ShallowWrapper {
             "nodeType": "function",
             "props": Object {
               "displayProperties": Object {
-                "fontSize": "20px",
+                "fontSize": "5px",
               },
               "text": "HOW BIG?",
               "x": 50,
-              "y": 50,
+              "y": 7.000000000000001,
             },
             "ref": null,
             "rendered": null,
