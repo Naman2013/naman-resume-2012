@@ -30,6 +30,7 @@ class HowBig extends Component {
       referenceObjectScale,
       referenceObject,
       targetObjectScale,
+      targetObjectName,
       targetObjectURL,
       onComplete,
     } = this.props;
@@ -44,6 +45,7 @@ class HowBig extends Component {
             : <ScaleDown
               targetObjectURL={targetObjectURL}
               targetObjectScale={targetObjectScale}
+              targetObjectName={targetObjectName}
               referenceObject={referenceObject}
               onComplete={onComplete}
             />
