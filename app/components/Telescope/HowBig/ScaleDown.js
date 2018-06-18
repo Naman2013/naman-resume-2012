@@ -7,7 +7,7 @@ import domains from './domains';
 import { animateValues } from '../../../utils/easingFunctions';
 
 class ScaleDown extends Component {
-  static BEFORE_START = 2000;
+  static BEFORE_START = 1000;
   static FADE_OUT_DURATION = 500;
   static SCALE_DOWN_DURATION = 1000;
 

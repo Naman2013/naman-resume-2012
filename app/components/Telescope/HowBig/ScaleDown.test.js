@@ -8,6 +8,7 @@ jest.useFakeTimers();
 const initialProps = {
   referenceObject: 'SOLAR_SYSTEM',
   targetObjectURL: 'https://vega.slooh.com/icons/community/human_spirit.svg',
+  targetObjectName: 'Test object',
   targetObjectScale: 0.34,
   dimension: 500,
   onComplete: jest.fn(),

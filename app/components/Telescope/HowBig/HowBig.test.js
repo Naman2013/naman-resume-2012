@@ -11,6 +11,7 @@ describe('HowBig', () => {
     referenceObject: 'SOLAR_SYSTEM',
     targetObjectScale: 1,
     targetObjectURL: 'https://vega.slooh.com/icons/community/human_spirit.svg',
+    targetObjectName: 'Test object',
     onComplete: jest.fn(),
   };
   const howBig = shallow(<HowBig {...props} />);
