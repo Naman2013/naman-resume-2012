@@ -197,19 +197,23 @@ class ScaleDown extends Component {
         </FadeSVG>
 
         <g style={{
-            transform: `scale(${targetScale})`,
-            transformOrigin: 'center',
             opacity: targetObjectOpacity,
           }}
         >
-          <ObjectFrame
-            svgURL={targetObjectURL}
-            width={subjectDimensionSquare}
-            height={subjectDimensionSquare}
-            x={(midPoint - (subjectDimensionSquare / 2))}
-            y={(midPoint - (subjectDimensionSquare / 2))}
-            onLoadCallback={this.handleTargetObjectLoaded}
-          />
+          <g style={{
+            transform: `scale(${targetScale})`,
+            transformOrigin: 'center',
+            }}
+          >
+            <ObjectFrame
+              svgURL={targetObjectURL}
+              width={subjectDimensionSquare}
+              height={subjectDimensionSquare}
+              x={(midPoint - (subjectDimensionSquare / 2))}
+              y={(midPoint - (subjectDimensionSquare / 2))}
+              onLoadCallback={this.handleTargetObjectLoaded}
+            />
+          </g>
 
           <SVGText
             x={midPoint}
