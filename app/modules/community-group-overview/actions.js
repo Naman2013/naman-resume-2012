@@ -122,11 +122,6 @@ export const fetchGroupOverviewPageMeta = ({
         discussionGroupId,
       }));
       if (!result.data.apiError) {
-        dispatch(fetchGroupActivity({
-          forumId: result.data.forumId,
-          topicId: result.data.topicId,
-          appendToList: false,
-        }));
         const display = (result.data.showGroupInformation &&  informationMap.showGroupInformation) ||
           (result.data.showGroupOverview && informationMap.showGroupOverview);
 
