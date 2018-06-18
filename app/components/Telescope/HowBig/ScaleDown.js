@@ -4,12 +4,14 @@ import ObjectFrame from './ReferenceObjects/ObjectFrame';
 import FadeSVG from '../../../components/common/Fade/FadeSVG';
 import SVGText from '../common/SVGText';
 import domains from './domains';
-import { animateValues } from '../../../utils/easingFunctions';
+import easingFunctions, { animateValues } from '../../../utils/easingFunctions';
 
 class ScaleDown extends Component {
   static BEFORE_START = 1000;
   static FADE_OUT_DURATION = 500;
   static SCALE_DOWN_DURATION = 1000;
+  static TIME_BEFORE_FADING_REFERENCE = 2000;
+  static TIME_TO_FADE_REFERENCE = 1000;
 
   static propTypes = {
     referenceObject: PropTypes.oneOf([
@@ -44,15 +46,39 @@ class ScaleDown extends Component {
 
   componentWillUnmount() {
     clearTimeout(this.timerBeforeShowReference);
+    clearTimeout(this.fadeReferenceTimer);
   }
 
   beginDelayToShowReference() {
     this.timerBeforeShowReference = setTimeout(() => {
       this.setState(() => ({ beginReference: true }));
+      this.beginFadeReferenceTimer();
     }, ScaleDown.BEFORE_START);
   }
 
+  beginFadeReferenceTimer() {
+    clearTimeout(this.fadeReferenceTimer);
+    this.fadeReferenceTimer = setTimeout(() => {
+      this.fadeReferenceAnimationHandle = this.fadeReference();
+    }, ScaleDown.TIME_BEFORE_FADING_REFERENCE);
+  }
+
+  fadeReference() {
+    return animateValues({
+      referenceOpacity: this.state.referenceOpacity,
+    }, ScaleDown.TIME_TO_FADE_REFERENCE, {
+      referenceOpacity: 0.25,
+      onUpdate: ({ referenceOpacity }) => {
+        this.setState(() => ({ referenceOpacity }));
+      },
+      onComplete: this.presentTargetObject,
+      ease: easingFunctions.easeInOutQuad,
+    });
+  }
+
   timerBeforeShowReference = undefined;
+  fadeReferenceTimer = undefined;
+  fadeReferenceAnimationHandle = undefined;
 
   handleTargetObjectLoaded = () => {
     this.setState({ targetObjectLoaded: true });
