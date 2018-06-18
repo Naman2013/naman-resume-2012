@@ -148,6 +148,7 @@ class CommentList extends Component {
           avatarURL={user.avatarURL}
           callSource={callSource}
           disableButton={submitting}
+          forumId={forumId}
           key={uniqueId()}
           replyTo={threadId}
           showSubmitError={submitError}

@@ -32,6 +32,7 @@ class ReplyForm extends Component {
       cid: null,
       token: null,
     },
+    forumId: null,
     showSubmitError: false,
     showSubmitLoader: false,
   }
@@ -45,6 +46,7 @@ class ReplyForm extends Component {
     callSource: string,
     threadId: number.isRequired,
     topicId: number.isRequired,
+    forumId: number,
     replyTo: number,
     user: shape({
       at: number.isRequired,
@@ -70,6 +72,7 @@ class ReplyForm extends Component {
       replyTo,
       submitReply,
       threadId,
+      forumId,
       topicId,
       user,
     } = this.props;
@@ -79,6 +82,7 @@ class ReplyForm extends Component {
       content: replyText,
       threadId,
       topicId,
+      forumId,
       replyTo,
       at: user.at,
       token: user.token,

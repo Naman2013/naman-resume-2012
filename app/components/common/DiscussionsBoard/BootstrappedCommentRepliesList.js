@@ -151,6 +151,7 @@ class CommentRepliesList extends Component {
           avatarURL={user.avatarURL}
           callSource={callSource}
           disableButton={submitting}
+          forumId={forumId}
           key={uniqueId()}
           replyId={replyId}
           replyTo={replyId}
