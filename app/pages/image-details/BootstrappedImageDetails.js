@@ -11,6 +11,7 @@ import { backgroundImageCover } from 'styles/mixins/utilities';
 import DiscussionComments from 'components/common/DiscussionsBoard/DiscussionComments';
 import MissionDetailList from 'components/common/MissionDetailList';
 import MissionImageDetailList from 'components/common/MissionImageDetailList';
+import ObservationsForm from 'components/ObservationsForm';
 const {
   any,
   arrayOf,
@@ -36,6 +37,7 @@ class BootstrappedImageDetails extends Component {
     imageTitle: string,
     imageURL: string,
     scheduledMissionId: string,
+    saveLabel: string,
     showCommentsLink: bool,
     observationLog: string,
     observationTimeDisplay: arrayOf(string),
@@ -62,6 +64,7 @@ class BootstrappedImageDetails extends Component {
     observationLog: '',
     observationTimeDisplay: [],
     observationTitle: '',
+    saveLabel: '',
     scheduledMissionId: null,
     showCommentsLink: false,
   };
@@ -84,14 +87,16 @@ class BootstrappedImageDetails extends Component {
       observationLog,
       observationTimeDisplay,
       observationTitle,
+      saveLabel,
       scheduledMissionId,
       showCommentsLink,
       user,
     } = this.props;
-    console.log('rpops', this.props);
+
     const obsStyle = {
       background: `url(${imageURL}) no-repeat top center`,
     };
+
     return (<div className="root">
       <div className="obs-img-container">
         AN OBSERVATION OF
@@ -117,7 +122,14 @@ class BootstrappedImageDetails extends Component {
             <div dangerouslySetInnerHTML={{ __html: observationTimeDisplay.join('')}} />
             <div dangerouslySetInnerHTML={{ __html: observationLog}} />
           </div>}
-          {/* edit form goes here */ canEditFlag && <div />}
+          {canEditFlag && <ObservationsForm
+            customerImageId={customerImageId}
+            observationLog={observationLog}
+            observationTitle={observationTitle}
+            saveLabel={saveLabel}
+            scheduledMissionId={scheduledMissionId}
+            user={user}
+          />}
           {showCommentsLink ? <DiscussionComments
             callSource={callSource}
             count={10}
