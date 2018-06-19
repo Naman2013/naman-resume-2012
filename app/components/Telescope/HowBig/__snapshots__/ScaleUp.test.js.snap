@@ -6,7 +6,13 @@ ShallowWrapper {
   Symbol(enzyme.__root__): [Circular],
   Symbol(enzyme.__unrendered__): <ScaleUp
     dimension={500}
+    missionTargetID={2}
     onComplete={[Function]}
+    referenceObject="SOLAR_SYSTEM"
+    referenceObjectScale={0.34}
+    targetObjectName="Test object"
+    targetObjectScale={1}
+    targetObjectURL="https://vega.slooh.com/icons/nav/menu-help.svg"
   />,
   Symbol(enzyme.__renderer__): Object {
     "batchedUpdates": [Function],
