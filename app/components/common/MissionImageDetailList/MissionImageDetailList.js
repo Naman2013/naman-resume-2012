@@ -8,8 +8,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Request from 'components/common/network/Request';
-import BootstrappedMissionDetailList from './BootstrappedMissionDetailList';
-import { MISSION_DETAIL_LIST } from 'services/missions';
+import BootstrappedMissionImageDetailList from './BootstrappedMissionImageDetailList';
+import { IMAGE_DETAIL_LIST } from 'services/missions';
 
 const {
   number,
@@ -18,12 +18,11 @@ const {
 } = PropTypes;
 
 const MissionDetailList = ({
-  customerImageId,
   scheduledMissionId,
 }) => (
   <Request
     authorizationRedirect={true}
-    serviceURL={MISSION_DETAIL_LIST}
+    serviceURL={IMAGE_DETAIL_LIST}
     method="POST"
     serviceExpiresFieldName="expires"
     requestBody={{
@@ -34,9 +33,8 @@ const MissionDetailList = ({
       serviceResponse,
     }) => (
       <div>
-        {<BootstrappedMissionDetailList
+        {<BootstrappedMissionImageDetailList
           fetching={fetchingContent}
-          customerImageId={customerImageId}
           scheduledMissionId={scheduledMissionId}
           {...serviceResponse}
         />}

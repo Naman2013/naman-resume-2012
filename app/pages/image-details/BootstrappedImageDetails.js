@@ -10,6 +10,7 @@ import PropTypes from 'prop-types';
 import { backgroundImageCover } from 'styles/mixins/utilities';
 import DiscussionComments from 'components/common/DiscussionsBoard/DiscussionComments';
 import MissionDetailList from 'components/common/MissionDetailList';
+import MissionImageDetailList from 'components/common/MissionImageDetailList';
 const {
   any,
   arrayOf,
@@ -108,29 +109,34 @@ class BootstrappedImageDetails extends Component {
           <h3>Constellation</h3>
         </div>
       </div>
-      <div className="left-container">
-        {!canEditFlag && <div className="obs-container">
-          <div dangerouslySetInnerHTML={{ __html: observationTitle}} />
-          <div dangerouslySetInnerHTML={{ __html: fileData['Photo By']}} />
-          <div dangerouslySetInnerHTML={{ __html: observationTimeDisplay.join('')}} />
-          <div dangerouslySetInnerHTML={{ __html: observationLog}} />
-        </div>}
-        {/* edit form goes here */ canEditFlag && <div />}
-        {showCommentsLink ? <DiscussionComments
-          callSource={callSource}
-          count={10}
-          commentsThreadId={commentsThreadId}
-          forumId={commentsForumId}
-          topicId={commentsTopicId}
-          threadId={commentsThreadId}
-          user={user}
-        /> : null}
-      </div>
-      <div className="right-container">
-        {Number(scheduledMissionId) > 0 ? <MissionDetailList
-          scheduledMissionId={scheduledMissionId}
-          customerImageId={customerImageId}
-        />: null}
+      <div className="main-container">
+        <div className="left-container">
+          {!canEditFlag && <div className="obs-container">
+            <div dangerouslySetInnerHTML={{ __html: observationTitle}} />
+            <div dangerouslySetInnerHTML={{ __html: fileData['Photo By']}} />
+            <div dangerouslySetInnerHTML={{ __html: observationTimeDisplay.join('')}} />
+            <div dangerouslySetInnerHTML={{ __html: observationLog}} />
+          </div>}
+          {/* edit form goes here */ canEditFlag && <div />}
+          {showCommentsLink ? <DiscussionComments
+            callSource={callSource}
+            count={10}
+            commentsThreadId={commentsThreadId}
+            forumId={commentsForumId}
+            topicId={commentsTopicId}
+            threadId={commentsThreadId}
+            user={user}
+          /> : null}
+        </div>
+        <div className="right-container">
+          {Number(scheduledMissionId) > 0 ? <MissionDetailList
+            scheduledMissionId={scheduledMissionId}
+            customerImageId={customerImageId}
+          /> : null}
+          {Number(scheduledMissionId) > 0 ? <MissionImageDetailList
+            scheduledMissionId={scheduledMissionId}
+          /> : null}
+        </div>
       </div>
       <style jsx>{`
         .obs-img-container {
@@ -143,6 +149,10 @@ class BootstrappedImageDetails extends Component {
           width: 100%;
           min-height: 500px;
           ${backgroundImageCover}
+        }
+
+        .main-container {
+          display: flex;
         }
 
         .wide-info-block {

@@ -22,7 +22,7 @@ const {
 class BootstrappedMissionDetailList extends Component {
   static propTypes = {
     listTitle: string,
-    missionDetailList: arrayOf(shape({
+    imagingDetailList: arrayOf(shape({
       hasIconFlag: bool,
       hasLinkFlag: bool,
       iconUrl: string,
@@ -37,7 +37,7 @@ class BootstrappedMissionDetailList extends Component {
 
   static defaultProps = {
     listTitle: '',
-    missionDetailList: [],
+    imagingDetailList: [],
   };
 
   state = {
@@ -47,7 +47,7 @@ class BootstrappedMissionDetailList extends Component {
   render() {
     const {
       listTitle,
-      missionDetailList,
+      imagingDetailList,
     } = this.props;
 
     const profPic = photoUrl => Object.assign(profilePhotoStyle(photoUrl), {
@@ -58,7 +58,7 @@ class BootstrappedMissionDetailList extends Component {
 
     return (<div className="root">
       <h3 dangerouslySetInnerHTML={{ __html: listTitle}} />
-      {missionDetailList.map(detail => (<div key={uniqueId()}>
+      {imagingDetailList.map(detail => (<div key={uniqueId()}>
         {detail.hasIconFlag ? <div style={profPic(detail.iconUrl)}/> : null}
         <div dangerouslySetInnerHTML={{ __html: detail.label}} />
         <div dangerouslySetInnerHTML={{ __html: detail.text}} />
