@@ -10,7 +10,8 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 import Modal from 'react-modal';
 import { customModalStyles } from 'styles/mixins/utilities';
-
+import { darkGray, gray } from 'styles/variables/colors';
+import { primaryFont, secondaryFont } from 'styles/variables/fonts';
 
 const {
   arrayOf,
@@ -140,20 +141,30 @@ class ObservationsForm extends Component {
 
     return (<div className="root">
       <form>
-        <span>*required</span>
+        <div>
+          <span className="inspire">Inspire the Slooh Community:</span>
+          <span className="write">Write Your Observation</span>
+        </div>
+        <span className="obs-form-required">*required</span>
         <input
           type="text"
           value={title}
           onChange={this.onTitleChange}
           placeholder={'Title Your Entry'}
+          className="obs-form-input"
         />
-        <span>*required</span>
+        <span className="obs-form-required">*required</span>
         <textarea
           placeholder={'Tell us something interesting and earn Gravity!'}
           value={observation}
           onChange={this.onObservationChange}
+          className="obs-form-textarea"
         />
-        <button onClick={this.onSubmitForm} dangerouslySetInnerHTML={{ __html: saveLabel}} />
+        <button
+          onClick={this.onSubmitForm}
+          dangerouslySetInnerHTML={{ __html: saveLabel}}
+          className="obs-form-button"
+        />
       </form>
       <Modal
         ariaHideApp={false}
@@ -166,6 +177,53 @@ class ObservationsForm extends Component {
         {promptText}
       </Modal>
       <style jsx>{`
+
+        .root {
+          font-family: ${primaryFont};
+          color: ${darkGray};
+          margin: 25px;
+          padding: 50px;
+          -moz-box-shadow: 0 2px 4px 0 ${gray};
+           -webkit-box-shadow: 0 2px 4px 0 ${gray};
+           box-shadow: 0 2px 4px 0 ${gray};
+           width: 100%;
+        }
+
+        .inspire {
+          display: block;
+          font-size: 11px;
+          text-transform: uppercase;
+        }
+        .write {
+          display: block;
+          font-weight: bold;
+          font-size: 20px;
+          text-transform: uppercase;
+        }
+        .obs-form-required {
+          display: block;
+          padding-top: 15px;
+        }
+        .obs-form-input {
+          display: block;
+          width: 100%;
+          padding-bottom: 15px;
+        }
+        .obs-form-textarea {
+          display: block;
+          width: 100%;
+        }
+        .obs-form-button {
+          display: block;
+          border: 1px dotted ${darkGray};
+          border-radius: 100px;
+          width: 110px;
+          margin: 15px 0;
+          font-size: 11px;
+          font-weight: bold;
+          padding: 5px 0;
+          text-transform: uppercase;
+        }
         .fa-close {
           position: absolute;
           top: 5px;

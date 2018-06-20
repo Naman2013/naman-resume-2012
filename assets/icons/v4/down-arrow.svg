@@ -1,0 +1,13 @@
+
+<svg width="12px" height="8px" viewBox="0 0 12 8" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Side_Panel_DropDown" transform="translate(-248.000000, -40.000000)" fill="#41566F" fill-rule="nonzero">
+            <g id="Arrow_Down" transform="translate(247.000000, 40.000000)">
+                <path d="M10.7121709,4.59406171 L4.67769864,9.75371088 C4.29383331,10.0820964 3.67146149,10.0820964 3.28778252,9.75371088 C2.90407249,9.42561752 2.90407249,8.89348164 3.28778252,8.56541484 L8.62735883,3.99991369 L3.28793782,-0.565428121 C2.90422779,-0.893654268 2.90422779,-1.42573703 3.28793782,-1.75383039 C3.67164785,-2.08205654 4.29398861,-2.08205654 4.67785394,-1.75383039 L10.7123262,3.40589846 C10.9041812,3.57002481 11,3.78490285 11,3.99988713 C11,4.21497764 10.9039948,4.43001503 10.7121709,4.59406171 Z" id="Shape" transform="translate(7.000000, 4.000000) rotate(-270.000000) translate(-7.000000, -4.000000) "></path>
+            </g>
+        </g>
+    </g>
+</svg>

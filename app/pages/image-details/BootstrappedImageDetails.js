@@ -12,6 +12,9 @@ import DiscussionComments from 'components/common/DiscussionsBoard/DiscussionCom
 import MissionDetailList from 'components/common/MissionDetailList';
 import MissionImageDetailList from 'components/common/MissionImageDetailList';
 import ObservationsForm from 'components/ObservationsForm';
+import { darkGray, gray } from 'styles/variables/colors';
+import { primaryFont, secondaryFont } from 'styles/variables/fonts';
+
 const {
   any,
   arrayOf,
@@ -99,19 +102,24 @@ class BootstrappedImageDetails extends Component {
 
     return (<div className="root">
       <div className="obs-img-container">
-        AN OBSERVATION OF
-        <div dangerouslySetInnerHTML={{ __html: imageTitle }}/>
+        <div className="obs-header">
+          <div className="obs-img-header">AN OBSERVATION OF</div>
+          <div className="obs-img-subheader" dangerouslySetInnerHTML={{ __html: imageTitle }}/>
+        </div>
         <div className="obs-image" style={obsStyle} />
-      </div>
-      <div className="wide-info-block">
-        <div>
-          <h3>Object Type</h3>
-        </div>
-        <div>
-          <h3>Domain</h3>
-        </div>
-        <div>
-          <h3>Constellation</h3>
+        <div className="wide-info-block">
+          <div className="wide-info-item">
+            <div className="wide-info-block-header">Object Type:</div>
+            <div className="wide-info-block-name">Placeholder Text</div>
+          </div>
+          <div className="wide-info-item">
+            <div className="wide-info-block-header">Domain:</div>
+            <div className="wide-info-block-name">Placeholder Text</div>
+          </div>
+          <div className="wide-info-item">
+            <div className="wide-info-block-header">Constellation:</div>
+            <div className="wide-info-block-name">Placeholder Text</div>
+          </div>
         </div>
       </div>
       <div className="main-container">
@@ -151,9 +159,36 @@ class BootstrappedImageDetails extends Component {
         </div>
       </div>
       <style jsx>{`
+
+        .root {
+          font-family: ${primaryFont};
+          color: ${darkGray};
+        }
+
         .obs-img-container {
-          padding: 50px;
+          margin: 25px;
           text-align: center;
+          -moz-box-shadow: 0 2px 4px 0 ${gray};
+           -webkit-box-shadow: 0 2px 4px 0 ${gray};
+           box-shadow: 0 2px 4px 0 ${gray};
+        }
+
+        .obs-header {
+          padding: 50px;
+        }
+
+        .obs-img-header {
+          padding: 25px;
+          font-size: 10px;
+          font-weight: bold;
+          text-transform: uppercase;
+
+        }
+
+        .obs-img-subheader {
+          font-family: ${secondaryFont};
+          font-size: 40px;
+
         }
 
         .obs-image {
@@ -170,6 +205,31 @@ class BootstrappedImageDetails extends Component {
         .wide-info-block {
           display: flex;
           flex-direction: row;
+          justify-content: space-evenly;
+          align-items: center;
+          -moz-box-shadow: 0 2px 4px 0 ${gray};
+           -webkit-box-shadow: 0 2px 4px 0 ${gray};
+           box-shadow: 0 2px 4px 0 ${gray};
+        }
+
+        .wide-info-item {
+          flex: 1 1 0;
+          border: 1px solid ${gray};
+          padding: 25px;
+          text-align: left;
+        }
+
+        .wide-info-block-header {
+          font-weight: bold;
+          font-size: 11px;
+          padding: 10px;
+        }
+
+        .wide-info-block-name {
+          font-size: 20px;
+          padding: 10px;
+          font-family: ${secondaryFont};
+
         }
 
         .left-container {
