@@ -8,9 +8,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Slider from 'react-slick';
 import uniqueId from 'lodash/uniqueId';
+// import 'components/common/community-perspectives/slick.min.css';
 import '../community-perspectives/slick.min.css';
 import '../community-perspectives/slick-theme.min.css';
 import { black, gray } from 'styles/variables/colors';
+// import { secondaryFont } from 'styles/variables/fonts';
 
 const {
   any,
@@ -77,14 +79,14 @@ class SloohSlider extends Component {
       initialSlide: currentIndex,
       adaptiveHeight: false,
       beforeChange: this.beforeSlideChange,
-      nextArrow: <div>Next<i className="fa fa-arrow-right" /></div>,
-      prevArrow: <div><i className="fa fa-arrow-left" /><div>Previous</div></div>,
+      // nextArrow: <div>Next<i className="fa fa-arrow-right" /></div>,
+      // prevArrow: <div><i className="fa fa-arrow-left" /><div>Previous</div></div>,
     };
 
     return (
       <div className="root" key={uniqueId()}>
         {slideList.length === 0 && <div className="empty" dangerouslySetInnerHTML={{ __html: emptyMessage }} />}
-        {slideList.length > 0 && <div className="slider-container">
+        {slideList.length > 0 && <div className="observation-slider-container">
           <Slider
             {...sliderSettings}
             ref={c => this.slider = c}
@@ -94,23 +96,13 @@ class SloohSlider extends Component {
         </div>}
 
         <style jsx>{`
-          
+
         `}
         </style>
 
         <style jsx global>
           {`
-            .slick-prev, .slick-next {
-              width: 50px;
-              height: 50px;
-              margin: 0 15px;
-              transform: translate(0, -50%);
-              cursor: pointer;
-              color: #41566F;
-              border: solid 2px #41566F;
-              border-radius: 50%;
-              background: white;
-          }
+
 
           `}
         </style>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="30px" height="30px" viewBox="0 0 30 30" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
+    <title>Gold</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Shows" transform="translate(-6.000000, 0.000000)">
+            <g id="Gold" transform="translate(6.000000, 0.000000)">
+                <path d="M15.1336657,8.49999997 L14.8676107,8.49999333 C9.48373639,8.52779747 4.32495863,10.8475515 0.51305705,14.9592503 C0.49580454,14.9776945 0.495623884,15.0218286 0.511344567,15.0389 C0.512340666,15.039973 0.512340666,15.039973 0.513336765,15.0410459 C0.513834814,15.0415823 0.513834814,15.0415823 0.514571951,15.0423765 C4.32495863,19.1524485 9.48373639,21.4722025 14.8650286,21.5 L15.1323893,21.5000067 C20.5163002,21.4722026 25.6750258,19.1524652 29.4869429,15.0407497 C29.5041955,15.0223055 29.5043761,14.9781714 29.4886554,14.9611 C29.4871613,14.9594906 29.4871613,14.9594906 29.4854077,14.9576016 C25.6756244,10.8476876 20.5174958,8.52816623 15.1336657,8.49999997 Z" id="Path" stroke="#E2B979"></path>
+                <circle id="Oval" stroke="#FAD59A" cx="15" cy="15" r="6.5"></circle>
+                <circle id="Oval" stroke="#C2A068" cx="15" cy="15" r="14.5"></circle>
+                <circle id="Oval" stroke="#C2A068" cx="15" cy="15" r="2.5"></circle>
+            </g>
+        </g>
+    </g>
+</svg>
