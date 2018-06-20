@@ -23,13 +23,15 @@ const Guides = ({
 }) => {
   const sliderConfig = getSliderConfiguration(recommendedGuidesList);
   return (
-    <div className="root">
+    <div className="root-dash">
       <SloohSlider
         {...sliderConfig}
       />
 
       <style jsx>{`
-
+        .root-dash {
+          background-color: white;
+        }
       `}
       </style>
 

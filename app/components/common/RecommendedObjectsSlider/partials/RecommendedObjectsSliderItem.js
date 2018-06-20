@@ -32,11 +32,12 @@ const RecommendedObjectsItem = ({
   iconURL,
   subTitle,
   title,
-}) => (<div className="root" key={uniqueId()}>
+}) => (<div  key={uniqueId()}>
       {hasIcon ? <div style={getIconStyle()} />: null}
       <div className="object-name" dangerouslySetInnerHTML={{ __html: title }} />
       <div className="" dangerouslySetInnerHTML={{ __html: description }} />
       <style jsx>{`
+        
       `}</style>
     </div>);
 

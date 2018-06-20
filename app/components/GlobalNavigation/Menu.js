@@ -51,9 +51,11 @@ const Menu = ({
 
       <style jsx>{`
         .root {
-          position: absolute;
+          position: fixed;
           z-index: 9999;
           width: 400px;
+          top: 0;
+          overflow-y: auto;
           min-height: 100vh;
           height: 100%;
           background: ${grayer};
