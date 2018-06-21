@@ -1,5 +1,5 @@
 /***********************************
-* V4 Discussions Board Thread List
+* V4 Observations Page
 *
 *
 *
@@ -12,6 +12,7 @@ import DiscussionComments from 'components/common/DiscussionsBoard/DiscussionCom
 import MissionDetailList from 'components/common/MissionDetailList';
 import MissionImageDetailList from 'components/common/MissionImageDetailList';
 import ObservationsForm from 'components/ObservationsForm';
+import ObservationInformation from './partials/ObservationInformation';
 import { darkGray, gray } from 'styles/variables/colors';
 import { primaryFont, secondaryFont } from 'styles/variables/fonts';
 
@@ -30,6 +31,7 @@ class BootstrappedImageDetails extends Component {
   static propTypes = {
     callSource: string,
     canEditFlag: bool,
+    canLikeFlag: bool,
     commentsForumId: oneOfType([number, string]),
     commentsThreadId: oneOfType([number, string]),
     commentsTopicId: oneOfType([number, string]),
@@ -39,6 +41,7 @@ class BootstrappedImageDetails extends Component {
     }),
     imageTitle: string,
     imageURL: string,
+    likesCount: number,
     scheduledMissionId: string,
     saveLabel: string,
     showCommentsLink: bool,
@@ -55,6 +58,7 @@ class BootstrappedImageDetails extends Component {
   static defaultProps = {
     callSource: null,
     canEditFlag: false,
+    canLikeFlag: true,
     commentsForumId: 0,
     commentsThreadId: 0,
     commentsTopicId: 0,
@@ -64,6 +68,7 @@ class BootstrappedImageDetails extends Component {
     },
     imageTitle: '',
     imageURL: '',
+    likesCount: 0,
     observationLog: '',
     observationTimeDisplay: [],
     observationTitle: '',
@@ -80,6 +85,7 @@ class BootstrappedImageDetails extends Component {
     const {
       callSource,
       canEditFlag,
+      canLikeFlag,
       commentsForumId,
       commentsThreadId,
       commentsTopicId,
@@ -87,6 +93,7 @@ class BootstrappedImageDetails extends Component {
       fileData,
       imageTitle,
       imageURL,
+      likesCount,
       observationLog,
       observationTimeDisplay,
       observationTitle,
@@ -100,8 +107,12 @@ class BootstrappedImageDetails extends Component {
       background: `url(${imageURL}) no-repeat top center`,
     };
 
+    const showMissionRelatedInfo = Number(scheduledMissionId) > 0;
+    const rightPanelDisplayFlags = [showMissionRelatedInfo];
+    const showRightContainer = rightPanelDisplayFlags.filter(flag => !!flag).length > 1;
+
     return (<div className="root">
-      <div className="obs-img-container">
+      <div className="obs-img-container component-container">
         <div className="obs-header">
           <div className="obs-img-header">AN OBSERVATION OF</div>
           <div className="obs-img-subheader" dangerouslySetInnerHTML={{ __html: imageTitle }}/>
@@ -124,12 +135,16 @@ class BootstrappedImageDetails extends Component {
       </div>
       <div className="main-container">
         <div className="left-container">
-          {!canEditFlag && <div className="obs-container">
-            <div dangerouslySetInnerHTML={{ __html: observationTitle}} />
-            <div dangerouslySetInnerHTML={{ __html: fileData['Photo By']}} />
-            <div dangerouslySetInnerHTML={{ __html: observationTimeDisplay.join('')}} />
-            <div dangerouslySetInnerHTML={{ __html: observationLog}} />
-          </div>}
+          {!canEditFlag && <ObservationInformation
+            canLikeFlag={canLikeFlag}
+            customerImageId={customerImageId}
+            fileData={fileData}
+            likesCount={likesCount}
+            observationLog={observationLog}
+            observationTime={observationTimeDisplay}
+            observationTitle={observationTitle}
+            user={user}
+          />}
           {canEditFlag && <ObservationsForm
             customerImageId={customerImageId}
             observationLog={observationLog}
@@ -148,15 +163,19 @@ class BootstrappedImageDetails extends Component {
             user={user}
           /> : null}
         </div>
-        <div className="right-container">
-          {Number(scheduledMissionId) > 0 ? <MissionDetailList
-            scheduledMissionId={scheduledMissionId}
-            customerImageId={customerImageId}
-          /> : null}
-          {Number(scheduledMissionId) > 0 ? <MissionImageDetailList
-            scheduledMissionId={scheduledMissionId}
-          /> : null}
-        </div>
+        {showRightContainer ? <div className="right-container">
+          {showMissionRelatedInfo ? <div className="component-container">
+            <MissionDetailList
+              scheduledMissionId={scheduledMissionId}
+              customerImageId={customerImageId}
+            />
+          </div> : null}
+          {showMissionRelatedInfo ? <div className="component-container">
+            <MissionImageDetailList
+              scheduledMissionId={scheduledMissionId}
+            />
+          </div> : null}
+        </div> : null}
       </div>
       <style jsx>{`
 
@@ -165,12 +184,18 @@ class BootstrappedImageDetails extends Component {
           color: ${darkGray};
         }
 
-        .obs-img-container {
+
+        .component-container {
           margin: 25px;
+          -moz-box-shadow: 0 2px 4px 3px ${gray};
+          -webkit-box-shadow: 0 2px 4px 3px ${gray};
+          box-shadow: 0 2px 4px 3px ${gray};
+          padding: 25px;
+        }
+
+        .obs-img-container {
           text-align: center;
-          -moz-box-shadow: 0 2px 4px 0 ${gray};
-           -webkit-box-shadow: 0 2px 4px 0 ${gray};
-           box-shadow: 0 2px 4px 0 ${gray};
+          padding: 0;
         }
 
         .obs-header {
@@ -207,9 +232,7 @@ class BootstrappedImageDetails extends Component {
           flex-direction: row;
           justify-content: space-evenly;
           align-items: center;
-          -moz-box-shadow: 0 2px 4px 0 ${gray};
-           -webkit-box-shadow: 0 2px 4px 0 ${gray};
-           box-shadow: 0 2px 4px 0 ${gray};
+           margin-top: 25px;
         }
 
         .wide-info-item {
@@ -239,6 +262,13 @@ class BootstrappedImageDetails extends Component {
         .right-container {
           flex: 1;
         }
+
+
+        @media all and (min-width: 641px) and (max-width: 768px) {
+        }
+        @media all and (max-width: 640px){
+        }
+
       `}</style>
     </div>);
   }

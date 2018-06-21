@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 import Modal from 'react-modal';
 import { customModalStyles } from 'styles/mixins/utilities';
-import { darkGray, gray } from 'styles/variables/colors';
+import { darkGray, gray, lightGray } from 'styles/variables/colors';
 import { primaryFont, secondaryFont } from 'styles/variables/fonts';
 
 const {
@@ -140,12 +140,11 @@ class ObservationsForm extends Component {
 
 
     return (<div className="root">
-      <form>
-        <div>
+      <form className="root-form">
+        <div className="header">
           <span className="inspire">Inspire the Slooh Community:</span>
           <span className="write">Write Your Observation</span>
         </div>
-        <span className="obs-form-required">*required</span>
         <input
           type="text"
           value={title}
@@ -160,6 +159,7 @@ class ObservationsForm extends Component {
           onChange={this.onObservationChange}
           className="obs-form-textarea"
         />
+        <span className="obs-form-required">*required</span>
         <button
           onClick={this.onSubmitForm}
           dangerouslySetInnerHTML={{ __html: saveLabel}}
@@ -183,10 +183,15 @@ class ObservationsForm extends Component {
           color: ${darkGray};
           margin: 25px;
           padding: 50px;
-          -moz-box-shadow: 0 2px 4px 0 ${gray};
-           -webkit-box-shadow: 0 2px 4px 0 ${gray};
-           box-shadow: 0 2px 4px 0 ${gray};
-           width: 100%;
+          -moz-box-shadow: 0 2px 4px 1px ${gray};
+          -webkit-box-shadow: 0 2px 4px 1px ${gray};
+          box-shadow: 0 2px 4px 1px ${gray};
+        }
+
+        .header {
+          border-bottom: 1px solid ${gray};
+          padding-bottom: 25px;
+          margin-bottom: 25px;
         }
 
         .inspire {
@@ -200,18 +205,38 @@ class ObservationsForm extends Component {
           font-size: 20px;
           text-transform: uppercase;
         }
+        .root-form {
+          display: flex;
+          flex-direction: column;
+        }
         .obs-form-required {
           display: block;
-          padding-top: 15px;
+          padding-bottom: 15px;
+          text-align: right;
+          padding-top: 5px;
         }
         .obs-form-input {
           display: block;
           width: 100%;
-          padding-bottom: 15px;
+          padding: 15px;
+          background-color: ${gray};
+          -moz-box-shadow: 0 2px 4px 1px ${gray};
+          -webkit-box-shadow: 0 2px 4px 1px ${gray};
+          box-shadow: 0 2px 4px 1px ${gray};
+          border: 1px solid ${gray};
+          outline: none;
         }
         .obs-form-textarea {
+          resize: none;
           display: block;
           width: 100%;
+          padding: 15px;
+          background-color: ${gray};
+          -moz-box-shadow: 0 2px 4px 1px ${gray};
+          -webkit-box-shadow: 0 2px 4px 1px ${gray};
+          box-shadow: 0 2px 4px 1px ${gray};
+          border: 1px solid ${gray};
+          outline: none;
         }
         .obs-form-button {
           display: block;
@@ -223,6 +248,7 @@ class ObservationsForm extends Component {
           font-weight: bold;
           padding: 5px 0;
           text-transform: uppercase;
+          margin-left: auto;
         }
         .fa-close {
           position: absolute;
@@ -230,6 +256,7 @@ class ObservationsForm extends Component {
           right: 10px;
           cursor: pointer;
         }
+
       `}</style>
     </div>);
   }
