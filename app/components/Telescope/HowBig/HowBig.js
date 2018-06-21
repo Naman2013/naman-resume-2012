@@ -44,9 +44,9 @@ class HowBig extends Component {
             ? <ScaleUp
               dimension={dimension}
               targetObjectURL={targetObjectURL}
-              targetObjectScale={targetObjectScale}
               targetObjectName={targetObjectName}
               referenceObject={referenceObject}
+              referenceObjectScale={referenceObjectScale}
               onComplete={onComplete}
             />
             : <ScaleDown

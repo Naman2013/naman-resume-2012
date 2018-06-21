@@ -34,6 +34,7 @@ describe('ScaleUp', () => {
   describe('when the component mounts', () => {
     const spyBeginDelayToShowReference = jest.spyOn(ScaleUp.prototype, 'beginDelayToShowReference');
     const spyPresentReference = jest.spyOn(ScaleUp.prototype, 'presentReference');
+    const spyScaleReference = jest.spyOn(ScaleUp.prototype, 'scaleReference');
     let mountedWrapper;
 
     beforeEach(() => {
@@ -50,12 +51,20 @@ describe('ScaleUp', () => {
       expect(mountedWrapper.state().showReference).toEqual(true);
     });
 
+    it('`presentReference()` calls `scaleReference()`', () => {
+      mountedWrapper.instance().presentReference();
+      jest.runAllTimers();
+      expect(spyScaleReference).toHaveBeenCalled();
+    });
+
     describe('when reference asset is loaded', () => {
       it('sets `referenceObjectLoaded` to `true`', () => {
         mountedWrapper.instance().handleReferenceObjectLoaded();
         expect(mountedWrapper.state().referenceObjectLoaded).toEqual(true);
       });
     });
+
+    xit('scales the reference down to the target scale provided through props, after the duration ', () => {});
 
     jest.clearAllMocks();
   });

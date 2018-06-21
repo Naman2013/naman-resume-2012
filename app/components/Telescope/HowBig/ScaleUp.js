@@ -7,13 +7,14 @@ import { animateValues } from '../../../utils/easingFunctions';
 
 class ScaleUp extends Component {
   static BEFORE_START = 1000;
+  static PAUSE_BEFORE_SCALING_REFERENCE = 2000;
 
   static propTypes = {
     dimension: PropTypes.number,
     targetObjectURL: PropTypes.string.isRequired,
-    targetObjectScale: PropTypes.number.isRequired,
     targetObjectName: PropTypes.string.isRequired,
     referenceObject: PropTypes.string.isRequired,
+    referenceObjectScale: PropTypes.number.isRequired,
     onComplete: PropTypes.func,
   };
 
@@ -52,6 +53,13 @@ class ScaleUp extends Component {
 
   presentReference() {
     this.setState({ showReference: true });
+    setTimeout(() => {
+      this.scaleReference();
+    }, ScaleUp.PAUSE_BEFORE_SCALING_REFERENCE);
+  }
+
+  scaleReference() {
+    console.log('scale reference...');
   }
 
   timerDelayPresentReference = undefined;
