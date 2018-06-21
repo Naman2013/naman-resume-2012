@@ -10,7 +10,9 @@ class ScaleUp extends Component {
   static PAUSE_BEFORE_SCALING_REFERENCE = 2000;
   static DURATION_OF_SCALE_DOWN_REFERENCE = 500;
   static PAUSE_BEFORE_MOVING_REFERENCE = 1000;
-  static DURACTION_TO_MOVE_REFERENCE = 1000;
+  static DURATION_TO_MOVE_REFERENCE = 500;
+
+  static ARTWORK_VS_CANVAS_SIZE_PERCENTAGE = 0.8;
 
   static propTypes = {
     dimension: PropTypes.number,
@@ -31,8 +33,8 @@ class ScaleUp extends Component {
     showReference: false,
     referenceScale: 1,
     referencePosition: {
-      x: 0,
-      y: 0,
+      x: ((this.props.dimension / 2) - ((this.props.dimension * ScaleUp.ARTWORK_VS_CANVAS_SIZE_PERCENTAGE) / 2)),
+      y: ((this.props.dimension / 2) - ((this.props.dimension * ScaleUp.ARTWORK_VS_CANVAS_SIZE_PERCENTAGE) / 2)),
     },
   };
 
@@ -43,6 +45,7 @@ class ScaleUp extends Component {
   componentWillUnmount() {
     clearTimeout(this.timerDelayPresentReference);
     clearTimeout(this.timerDelayScaleReference);
+    clearTimeout(this.timerDelayToAnimateReference);
   }
 
   handleReferenceObjectLoaded = () => {
@@ -84,15 +87,33 @@ class ScaleUp extends Component {
   }
 
   animateMoveReference() {
-    // TODO: animate the location of the reference to the top left most area...
+    this.animateReferenceMoveHandle = animateValues({
+      x: this.state.referencePosition.x,
+      y: this.state.referencePosition.y,
+    }, ScaleUp.DURATION_TO_MOVE_REFERENCE, {
+      x: -140,
+      y: -140,
+      onUpdate: ({ x, y }) => {
+        this.setState(() => ({ referencePosition: { x, y } }));
+      },
+      ease: easingFunctions.easeInOutQuad,
+    });
   }
 
   timerDelayPresentReference = undefined;
   timerDelayScaleReference = undefined;
+  timerDelayToAnimateReference = undefined;
+
+  animateReferenceMoveHandle = undefined;
 
   render() {
     const { referenceObject, dimension } = this.props;
-    const { showReference, referenceObjectLoaded, referenceScale } = this.state;
+    const {
+      showReference,
+      referenceObjectLoaded,
+      referenceScale,
+      referencePosition,
+    } = this.state;
 
     const displayReferenceObject = (showReference && referenceObjectLoaded);
     const artworkDimension = (dimension * 0.8);
@@ -101,8 +122,8 @@ class ScaleUp extends Component {
 
     return (
       <g style={{
-          transform: `scale(${referenceScale})`,
-          transformOrigin: 'center',
+          transform: `translate(${referencePosition.x}px, ${referencePosition.y}px) scale(${referenceScale})`,
+          transformOrigin: 'center center',
         }}
       >
         <FadeSVG isHidden={!(displayReferenceObject)}>
@@ -112,8 +133,6 @@ class ScaleUp extends Component {
               .render({
                 width: artworkDimension,
                 height: artworkDimension,
-                x: artworkPosition,
-                y: artworkPosition,
                 onLoadCallback: this.handleReferenceObjectLoaded,
               })
           }

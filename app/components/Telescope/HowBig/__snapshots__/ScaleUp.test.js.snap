@@ -38,13 +38,13 @@ ShallowWrapper {
             }
           }
           width={400}
-          x={50}
-          y={50}
+          x={0}
+          y={0}
         />
       </FadeSVG>,
       "style": Object {
-        "transform": "scale(1)",
-        "transformOrigin": "center",
+        "transform": "translate(50px, 50px) scale(1)",
+        "transformOrigin": "center center",
       },
     },
     "ref": null,
@@ -62,8 +62,8 @@ ShallowWrapper {
             }
           }
           width={400}
-          x={50}
-          y={50}
+          x={0}
+          y={0}
         />,
         "isHidden": true,
       },
@@ -79,8 +79,8 @@ ShallowWrapper {
             "process": [Function],
           },
           "width": 400,
-          "x": 50,
-          "y": 50,
+          "x": 0,
+          "y": 0,
         },
         "ref": null,
         "rendered": null,
@@ -108,13 +108,13 @@ ShallowWrapper {
               }
             }
             width={400}
-            x={50}
-            y={50}
+            x={0}
+            y={0}
           />
         </FadeSVG>,
         "style": Object {
-          "transform": "scale(1)",
-          "transformOrigin": "center",
+          "transform": "translate(50px, 50px) scale(1)",
+          "transformOrigin": "center center",
         },
       },
       "ref": null,
@@ -132,8 +132,8 @@ ShallowWrapper {
               }
             }
             width={400}
-            x={50}
-            y={50}
+            x={0}
+            y={0}
           />,
           "isHidden": true,
         },
@@ -149,8 +149,8 @@ ShallowWrapper {
               "process": [Function],
             },
             "width": 400,
-            "x": 50,
-            "y": 50,
+            "x": 0,
+            "y": 0,
           },
           "ref": null,
           "rendered": null,
