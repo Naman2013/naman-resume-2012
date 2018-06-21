@@ -42,6 +42,10 @@ ShallowWrapper {
           y={50}
         />
       </FadeSVG>,
+      "style": Object {
+        "transform": "scale(1)",
+        "transformOrigin": "center",
+      },
     },
     "ref": null,
     "rendered": Object {
@@ -108,6 +112,10 @@ ShallowWrapper {
             y={50}
           />
         </FadeSVG>,
+        "style": Object {
+          "transform": "scale(1)",
+          "transformOrigin": "center",
+        },
       },
       "ref": null,
       "rendered": Object {

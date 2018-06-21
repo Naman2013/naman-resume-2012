@@ -35,6 +35,8 @@ describe('ScaleUp', () => {
     const spyBeginDelayToShowReference = jest.spyOn(ScaleUp.prototype, 'beginDelayToShowReference');
     const spyPresentReference = jest.spyOn(ScaleUp.prototype, 'presentReference');
     const spyScaleReference = jest.spyOn(ScaleUp.prototype, 'scaleReference');
+    const spyPrepareToAnimateReferenceLocation = jest.spyOn(ScaleUp.prototype, 'prepareToAnimateReferenceLocation');
+    const spyAnimateMoveReference = jest.spyOn(ScaleUp.prototype, 'animateMoveReference');
     let mountedWrapper;
 
     beforeEach(() => {
@@ -57,14 +59,29 @@ describe('ScaleUp', () => {
       expect(spyScaleReference).toHaveBeenCalled();
     });
 
+    // TODO: need to figure out how to test the time after the animation methods are completed
+    xit('after `SCALE_DURATION` has completed, the state of the scale should match the `referenceObjectScale` provided via props - then, `prepareToAnimateReferenceLocation()` should be called', () => {
+      mountedWrapper.instance().scaleReference();
+
+      expect(mountedWrapper.state('referenceScale'))
+        .toEqual(mountedWrapper.props().referenceObjectScale);
+      expect(spyPrepareToAnimateReferenceLocation).toHaveBeenCalled();
+    });
+
+    describe('when `prepareToAnimateReferenceLocation()` has been called', () => {
+      it('when the timer completes, should call `animateMoveReference()`', () => {
+        mountedWrapper.instance().prepareToAnimateReferenceLocation();
+        jest.runAllTimers();
+        expect(spyAnimateMoveReference).toHaveBeenCalled();
+      });
+    });
+
     describe('when reference asset is loaded', () => {
       it('sets `referenceObjectLoaded` to `true`', () => {
         mountedWrapper.instance().handleReferenceObjectLoaded();
         expect(mountedWrapper.state().referenceObjectLoaded).toEqual(true);
       });
     });
-
-    xit('scales the reference down to the target scale provided through props, after the duration ', () => {});
 
     jest.clearAllMocks();
   });
