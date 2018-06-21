@@ -30,6 +30,8 @@ class BootstrappedImageDetails extends Component {
     customerImageId: oneOfType([number, string]),
     fileData: shape({}),
     likesCount: number,
+    likePrompt: string,
+    showLikePrompt: bool,
     observationLog: string,
     observationTimeDisplay: arrayOf(string),
     observationTitle: string,
@@ -44,6 +46,8 @@ class BootstrappedImageDetails extends Component {
     canLikeFlag: true,
     customerImageId: '',
     likesCount: 0,
+    likePrompt: '',
+    showLikePrompt: true,
     observationLog: '',
     observationTimeDisplay: [],
     observationTitle: '',
@@ -51,8 +55,8 @@ class BootstrappedImageDetails extends Component {
 
   state = {
     isOpen: false,
-    likePrompt: '',
-    showPrompt: false,
+    likePrompt: this.props.likePrompt,
+    count: this.props.likesCount || 0,
   };
 
   closeModal = (e) => {
@@ -64,28 +68,59 @@ class BootstrappedImageDetails extends Component {
 
   likeObservation = (e) => {
     e.preventDefault();
+
+    const {
+      customerImageId,
+      user,
+      showLikePrompt,
+    } = this.props;
+
+    if (showLikePrompt) {
+      this.setState({
+        isOpen: true,
+      });
+    } else {
+      likeImage({
+        likeId: customerImageId,
+        token: user.token,
+        at: user.at,
+        cid: user.cid,
+      }).then(this.handleLikeResult);
+    }
+  }
+
+  handleLikeResult = (res) => {
+    const {
+      apiError,
+      showLikePrompt,
+      likesCount,
+      likePrompt,
+    } = res.data;
+    if (!apiError) {
+      this.setState({
+        count: likesCount,
+      });
+    }
+
+    if (showLikePrompt) {
+      this.setState({
+        likePrompt,
+        isOpen: true,
+      });
+    }
   }
 
 
   render() {
     const {
       canLikeFlag,
-      customerImageId,
       fileData,
-      likesCount,
       observationLog,
       observationTimeDisplay,
       observationTitle,
-      user,
     } = this.props;
 
-    const { isOpen, likePrompt } = this.state;
-
-    const heartProps = {
-      canLikeFlag,
-      likeId: customerImageId,
-    };
-
+    const { isOpen, likePrompt, count } = this.state;
     return (<div className="root">
       <div className="obs-container component-container">
         <div className="obs-title" dangerouslySetInnerHTML={{ __html: observationTitle}} />
@@ -94,18 +129,18 @@ class BootstrappedImageDetails extends Component {
           <div className="obs-time" dangerouslySetInnerHTML={{ __html: observationTimeDisplay.join('')}} />
         </div>
         <div className="obs-content" dangerouslySetInnerHTML={{ __html: observationLog}} />
-        {canLikeFlag &&
+        {canLikeFlag ?
           <button
             className="heart-button"
             onClick={this.likeObservation}
           >
             <i
               style={{
-                backgroundImage: 'url(\'assets/icons/v4/heart.svg\')',
+                backgroundImage: 'url(\'\')',
               }}
             />
-            <span>{likesCount}</span>
-          </button>
+            <span dangerouslySetInnerHTML={{ __html: count }}></span>
+          </button> : null
         }
         <Modal
           isOpen={isOpen}

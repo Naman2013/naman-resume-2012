@@ -41,13 +41,15 @@ class BootstrappedImageDetails extends Component {
     }),
     imageTitle: string,
     imageURL: string,
+    likePrompt: string,
     likesCount: number,
-    scheduledMissionId: string,
-    saveLabel: string,
-    showCommentsLink: bool,
     observationLog: string,
     observationTimeDisplay: arrayOf(string),
     observationTitle: string,
+    saveLabel: string,
+    scheduledMissionId: string,
+    showCommentsLink: bool,
+    showLikePrompt: bool,
     user: shape({
       at: oneOfType([number, string]),
       token: oneOfType([number, string]),
@@ -69,6 +71,8 @@ class BootstrappedImageDetails extends Component {
     imageTitle: '',
     imageURL: '',
     likesCount: 0,
+    likePrompt: '',
+    showLikePrompt: true,
     observationLog: '',
     observationTimeDisplay: [],
     observationTitle: '',
@@ -93,6 +97,7 @@ class BootstrappedImageDetails extends Component {
       fileData,
       imageTitle,
       imageURL,
+      likePrompt,
       likesCount,
       observationLog,
       observationTimeDisplay,
@@ -100,6 +105,7 @@ class BootstrappedImageDetails extends Component {
       saveLabel,
       scheduledMissionId,
       showCommentsLink,
+      showLikePrompt,
       user,
     } = this.props;
 
@@ -109,8 +115,7 @@ class BootstrappedImageDetails extends Component {
 
     const showMissionRelatedInfo = Number(scheduledMissionId) > 0;
     const rightPanelDisplayFlags = [showMissionRelatedInfo];
-    const showRightContainer = rightPanelDisplayFlags.filter(flag => !!flag).length > 1;
-
+    const showRightContainer = rightPanelDisplayFlags.filter(flag => !!flag).length > 0;
     return (<div className="root">
       <div className="obs-img-container component-container">
         <div className="obs-header">
