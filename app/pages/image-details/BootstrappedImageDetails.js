@@ -145,6 +145,7 @@ class BootstrappedImageDetails extends Component {
             customerImageId={customerImageId}
             fileData={fileData}
             likesCount={likesCount}
+            likePrompt={likePrompt}
             observationLog={observationLog}
             observationTime={observationTimeDisplay}
             observationTitle={observationTitle}

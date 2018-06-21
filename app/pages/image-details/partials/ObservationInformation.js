@@ -55,9 +55,23 @@ class BootstrappedImageDetails extends Component {
 
   state = {
     isOpen: false,
-    likePrompt: this.props.likePrompt,
-    count: this.props.likesCount || 0,
+    likePrompt: '',
+    count: 0,
   };
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.likePrompt !== nextProps.likePrompt) {
+      this.setState({
+        likePrompt: nextProps.likePrompt,
+      });
+    }
+
+    if (this.props.likesCount !== nextProps.likesCount) {
+      this.setState({
+        count: nextProps.likesCount,
+      });
+    }
+  }
 
   closeModal = (e) => {
     e.preventDefault();
@@ -121,6 +135,7 @@ class BootstrappedImageDetails extends Component {
     } = this.props;
 
     const { isOpen, likePrompt, count } = this.state;
+    console.log(likePrompt)
     return (<div className="root">
       <div className="obs-container component-container">
         <div className="obs-title" dangerouslySetInnerHTML={{ __html: observationTitle}} />
@@ -129,19 +144,17 @@ class BootstrappedImageDetails extends Component {
           <div className="obs-time" dangerouslySetInnerHTML={{ __html: observationTimeDisplay.join('')}} />
         </div>
         <div className="obs-content" dangerouslySetInnerHTML={{ __html: observationLog}} />
-        {canLikeFlag ?
-          <button
-            className="heart-button"
-            onClick={this.likeObservation}
-          >
-            <i
-              style={{
-                backgroundImage: 'url(\'\')',
-              }}
-            />
-            <span dangerouslySetInnerHTML={{ __html: count }}></span>
-          </button> : null
-        }
+        <button
+          className="heart-button"
+          onClick={this.likeObservation}
+        >
+          <i
+            style={{
+              backgroundImage: 'url(\'\')',
+            }}
+          />
+          <span dangerouslySetInnerHTML={{ __html: count }}></span>
+        </button>
         <Modal
           isOpen={isOpen}
           style={customModalStyles}
@@ -149,7 +162,7 @@ class BootstrappedImageDetails extends Component {
           onRequestClose={this.closeModal}
         >
           <i className="fa fa-close" onClick={this.closeModal} />
-          <p className="modal-bio" dangerouslySetInnerHTML={{ __html: likePrompt }} />
+          <p className="" dangerouslySetInnerHTML={{ __html: likePrompt }} />
         </Modal>
       </div>
       <style jsx>{`
