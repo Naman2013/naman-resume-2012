@@ -30,16 +30,16 @@ ShallowWrapper {
         isHidden={true}
       >
         <ObjectFrame
-          height={200}
+          height={400}
           onLoadCallback={[Function]}
           svgURL={
             Object {
               "process": [Function],
             }
           }
-          width={200}
-          x={0}
-          y={0}
+          width={400}
+          x={50}
+          y={50}
         />
       </FadeSVG>,
     },
@@ -50,16 +50,16 @@ ShallowWrapper {
       "nodeType": "function",
       "props": Object {
         "children": <ObjectFrame
-          height={200}
+          height={400}
           onLoadCallback={[Function]}
           svgURL={
             Object {
               "process": [Function],
             }
           }
-          width={200}
-          x={0}
-          y={0}
+          width={400}
+          x={50}
+          y={50}
         />,
         "isHidden": true,
       },
@@ -69,14 +69,14 @@ ShallowWrapper {
         "key": undefined,
         "nodeType": "function",
         "props": Object {
-          "height": 200,
+          "height": 400,
           "onLoadCallback": [Function],
           "svgURL": Object {
             "process": [Function],
           },
-          "width": 200,
-          "x": 0,
-          "y": 0,
+          "width": 400,
+          "x": 50,
+          "y": 50,
         },
         "ref": null,
         "rendered": null,
@@ -96,16 +96,16 @@ ShallowWrapper {
           isHidden={true}
         >
           <ObjectFrame
-            height={200}
+            height={400}
             onLoadCallback={[Function]}
             svgURL={
               Object {
                 "process": [Function],
               }
             }
-            width={200}
-            x={0}
-            y={0}
+            width={400}
+            x={50}
+            y={50}
           />
         </FadeSVG>,
       },
@@ -116,16 +116,16 @@ ShallowWrapper {
         "nodeType": "function",
         "props": Object {
           "children": <ObjectFrame
-            height={200}
+            height={400}
             onLoadCallback={[Function]}
             svgURL={
               Object {
                 "process": [Function],
               }
             }
-            width={200}
-            x={0}
-            y={0}
+            width={400}
+            x={50}
+            y={50}
           />,
           "isHidden": true,
         },
@@ -135,14 +135,14 @@ ShallowWrapper {
           "key": undefined,
           "nodeType": "function",
           "props": Object {
-            "height": 200,
+            "height": 400,
             "onLoadCallback": [Function],
             "svgURL": Object {
               "process": [Function],
             },
-            "width": 200,
-            "x": 0,
-            "y": 0,
+            "width": 400,
+            "x": 50,
+            "y": 50,
           },
           "ref": null,
           "rendered": null,

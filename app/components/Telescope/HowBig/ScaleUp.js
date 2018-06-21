@@ -57,10 +57,13 @@ class ScaleUp extends Component {
   timerDelayPresentReference = undefined;
 
   render() {
-    const { referenceObject } = this.props;
+    const { referenceObject, dimension } = this.props;
     const { showReference, referenceObjectLoaded } = this.state;
 
     const displayReferenceObject = (showReference && referenceObjectLoaded);
+    const artworkDimension = (dimension * 0.8);
+    const middlePoint = (dimension / 2);
+    const artworkPosition = (middlePoint - (artworkDimension / 2));
 
     return (
       <g>
@@ -69,10 +72,10 @@ class ScaleUp extends Component {
             domains
               .enumValueOf(referenceObject)
               .render({
-                width: 200,
-                height: 200,
-                x: 0,
-                y: 0,
+                width: artworkDimension,
+                height: artworkDimension,
+                x: artworkPosition,
+                y: artworkPosition,
                 onLoadCallback: this.handleReferenceObjectLoaded,
               })
           }
