@@ -15,6 +15,7 @@ class ScaleUp extends Component {
   static DURATION_TO_MOVE_REFERENCE = 500;
   static PAUSE_BEFORE_INTRODUCING_TARGET_OBJECT = 1500;
   static ANIMATE_TARGET_DURATION = 500;
+  static PAUSE_BEFORE_COMPLETE = 2000;
 
   static ARTWORK_VS_CANVAS_SIZE_PERCENTAGE = 0.8;
 
@@ -54,6 +55,7 @@ class ScaleUp extends Component {
     clearTimeout(this.timerDelayScaleReference);
     clearTimeout(this.timerDelayToAnimateReference);
     clearTimeout(this.timerDelayToPresentTarget);
+    clearTimeout(this.timerPauseBeforeComplete);
   }
 
   handleReferenceObjectLoaded = () => {
@@ -135,14 +137,22 @@ class ScaleUp extends Component {
       onUpdate: ({ targetObjectOpacity }) => {
         this.setState(() => ({ targetObjectOpacity }));
       },
+      onComplete: () => { this.complete(); },
       ease: easingFunctions.easeInOutQuad,
     });
+  }
+
+  complete() {
+    this.timerPauseBeforeComplete = setTimeout(() => {
+      this.props.onComplete();
+    }, ScaleUp.PAUSE_BEFORE_COMPLETE);
   }
 
   timerDelayPresentReference = undefined;
   timerDelayScaleReference = undefined;
   timerDelayToAnimateReference = undefined;
   timerDelayToPresentTarget = undefined;
+  timerPauseBeforeComplete = undefined;
 
   animateScaleOfReference = undefined;
   animateReferenceMoveHandle = undefined;

@@ -15,7 +15,7 @@ export default {
     referenceObjectScale: 0.34,
     referenceObject: 'SOLAR_SYSTEM',
     targetObjectScale: 1,
-    targetObjectURL: 'https://vega.slooh.com/icons/nav/menu-help.svg',
+    targetObjectURL: 'https://vega.slooh.com/icons/nav/Galaxy_nav_w.svg',
     targetObjectName: 'Test object',
   },
 };

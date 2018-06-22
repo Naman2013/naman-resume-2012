@@ -83,7 +83,7 @@ class ScaleDown extends Component {
       referenceOpacity: this.state.referenceOpacity,
       referenceNameOpacity: this.state.referenceNameOpacity,
     }, ScaleDown.TIME_TO_FADE_REFERENCE, {
-      referenceOpacity: 0.25,
+      referenceOpacity: 0.5,
       referenceNameOpacity: 0,
       onUpdate: ({ referenceOpacity, referenceNameOpacity }) => {
         this.setState(() => ({ referenceOpacity, referenceNameOpacity }));
@@ -204,7 +204,7 @@ class ScaleDown extends Component {
           }}
         >
           <g style={{
-            transform: 'scale(1)',
+            transform: `scale(${targetScale})`,
             transformOrigin: 'center',
             }}
           >

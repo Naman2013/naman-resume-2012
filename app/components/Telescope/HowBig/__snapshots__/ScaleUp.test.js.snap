@@ -12,7 +12,7 @@ ShallowWrapper {
     referenceObjectScale={0.34}
     targetObjectName="Test object"
     targetObjectScale={1}
-    targetObjectURL="https://vega.slooh.com/icons/nav/menu-help.svg"
+    targetObjectURL="https://vega.slooh.com/icons/nav/Galaxy_nav_w.svg"
   />,
   Symbol(enzyme.__renderer__): Object {
     "batchedUpdates": [Function],
@@ -73,7 +73,7 @@ ShallowWrapper {
             <ObjectFrame
               height={400}
               onLoadCallback={[Function]}
-              svgURL="https://vega.slooh.com/icons/nav/menu-help.svg"
+              svgURL="https://vega.slooh.com/icons/nav/Galaxy_nav_w.svg"
               width={400}
               x={50}
               y={50}
@@ -231,7 +231,7 @@ ShallowWrapper {
             <ObjectFrame
               height={400}
               onLoadCallback={[Function]}
-              svgURL="https://vega.slooh.com/icons/nav/menu-help.svg"
+              svgURL="https://vega.slooh.com/icons/nav/Galaxy_nav_w.svg"
               width={400}
               x={50}
               y={50}
@@ -259,7 +259,7 @@ ShallowWrapper {
               <ObjectFrame
                 height={400}
                 onLoadCallback={[Function]}
-                svgURL="https://vega.slooh.com/icons/nav/menu-help.svg"
+                svgURL="https://vega.slooh.com/icons/nav/Galaxy_nav_w.svg"
                 width={400}
                 x={50}
                 y={50}
@@ -285,7 +285,7 @@ ShallowWrapper {
               "props": Object {
                 "height": 400,
                 "onLoadCallback": [Function],
-                "svgURL": "https://vega.slooh.com/icons/nav/menu-help.svg",
+                "svgURL": "https://vega.slooh.com/icons/nav/Galaxy_nav_w.svg",
                 "width": 400,
                 "x": 50,
                 "y": 50,
@@ -371,7 +371,7 @@ ShallowWrapper {
               <ObjectFrame
                 height={400}
                 onLoadCallback={[Function]}
-                svgURL="https://vega.slooh.com/icons/nav/menu-help.svg"
+                svgURL="https://vega.slooh.com/icons/nav/Galaxy_nav_w.svg"
                 width={400}
                 x={50}
                 y={50}
@@ -529,7 +529,7 @@ ShallowWrapper {
               <ObjectFrame
                 height={400}
                 onLoadCallback={[Function]}
-                svgURL="https://vega.slooh.com/icons/nav/menu-help.svg"
+                svgURL="https://vega.slooh.com/icons/nav/Galaxy_nav_w.svg"
                 width={400}
                 x={50}
                 y={50}
@@ -557,7 +557,7 @@ ShallowWrapper {
                 <ObjectFrame
                   height={400}
                   onLoadCallback={[Function]}
-                  svgURL="https://vega.slooh.com/icons/nav/menu-help.svg"
+                  svgURL="https://vega.slooh.com/icons/nav/Galaxy_nav_w.svg"
                   width={400}
                   x={50}
                   y={50}
@@ -583,7 +583,7 @@ ShallowWrapper {
                 "props": Object {
                   "height": 400,
                   "onLoadCallback": [Function],
-                  "svgURL": "https://vega.slooh.com/icons/nav/menu-help.svg",
+                  "svgURL": "https://vega.slooh.com/icons/nav/Galaxy_nav_w.svg",
                   "width": 400,
                   "x": 50,
                   "y": 50,
