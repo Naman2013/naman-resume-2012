@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import noop from 'lodash/noop';
 import domains from './domains';
 import FadeSVG from '../../../components/common/Fade/FadeSVG';
+import SVGText from '../common/SVGText';
 import easingFunctions, { animateValues } from '../../../utils/easingFunctions';
 
 class ScaleUp extends Component {
@@ -143,7 +144,17 @@ class ScaleUp extends Component {
                 onLoadCallback: this.handleReferenceObjectLoaded,
               })
           }
+
+          <SVGText
+            text="Foo"
+          />
         </FadeSVG>
+
+        <g>
+          <SVGText
+            text="Foo"
+          />
+        </g>
       </g>
     );
   }

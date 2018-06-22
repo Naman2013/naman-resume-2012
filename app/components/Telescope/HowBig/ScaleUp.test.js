@@ -14,6 +14,7 @@ const setup = (customProps) => {
     shallowWrapper,
     mountedWrapper,
     FadeSVG: shallowWrapper.find('FadeSVG'),
+    SVGText: shallowWrapper.find('SVGText'),
   };
 };
 
@@ -21,13 +22,17 @@ describe('ScaleUp', () => {
   jest.useFakeTimers();
 
   describe('rendering', () => {
-    const { shallowWrapper, FadeSVG } = setup();
+    const { shallowWrapper, FadeSVG, SVGText } = setup();
     it('should render correctly', () => {
       expect(shallowWrapper).toMatchSnapshot();
     });
 
     it('should have a `FadeSVG` element', () => {
       expect(FadeSVG.length).toEqual(1);
+    });
+
+    it('should have an `SVGText` element for the reference and the target objects', () => {
+      expect(SVGText.length).toEqual(2);
     });
   });
 
