@@ -179,6 +179,7 @@ class ScaleUp extends Component {
     const midPoint = (dimension / 2);
     const staticArtworkPosition = (midPoint - (artworkDimension / 2));
     const textLabelFontSize = (dimension * 0.03);
+    const showTargetObject = showReferenceText;
 
     return (
       <g>
@@ -210,7 +211,7 @@ class ScaleUp extends Component {
           </FadeSVG>
         </FadeSVG>
 
-        <FadeSVG isHidden={!(targetObjectLoaded) && showReferenceText}>
+        <FadeSVG isHidden={showTargetObject}>
           <g>
             <ObjectFrame
               svgURL={targetObjectURL}
