@@ -33,8 +33,8 @@ describe('ScaleUp', () => {
       expect(shallowWrapper).toMatchSnapshot();
     });
 
-    it('should have a `FadeSVG` element', () => {
-      expect(FadeSVG.length).toEqual(1);
+    it('should have a `FadeSVG` element for for the reference and target objects', () => {
+      expect(FadeSVG.length).toEqual(2);
     });
 
     it('should have an `SVGText` element for the reference and the target objects', () => {

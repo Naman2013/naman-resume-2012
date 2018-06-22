@@ -32,6 +32,7 @@ class ScaleUp extends Component {
 
   state = {
     referenceObjectLoaded: false,
+    targetObjectLoaded: false,
     showReference: false,
     referenceScale: 1,
     referencePosition: {
@@ -72,7 +73,7 @@ class ScaleUp extends Component {
   }
 
   scaleReference() {
-    animateValues({
+    this.animateScaleOfReference = animateValues({
       referenceScale: this.state.referenceScale,
       x: this.state.referencePosition.x,
       y: this.state.referencePosition.y,
@@ -117,6 +118,7 @@ class ScaleUp extends Component {
   timerDelayScaleReference = undefined;
   timerDelayToAnimateReference = undefined;
 
+  animateScaleOfReference = undefined;
   animateReferenceMoveHandle = undefined;
 
   render() {
@@ -127,8 +129,9 @@ class ScaleUp extends Component {
     } = this.props;
 
     const {
-      showReference,
       referenceObjectLoaded,
+      targetObjectLoaded,
+      showReference,
       referenceScale,
       referencePosition,
     } = this.state;
@@ -166,23 +169,25 @@ class ScaleUp extends Component {
           />
         </FadeSVG>
 
-        <g style={{ opacity: '0' }}>
-          <ObjectFrame
-            svgURL={targetObjectURL}
-            width={artworkDimension}
-            height={artworkDimension}
-            x={staticArtworkPosition}
-            y={staticArtworkPosition}
-            onLoadCallback={this.handleTargetObjectLoaded}
-          />
+        <FadeSVG isHidden={!(targetObjectLoaded)}>
+          <g style={{ opacity: '0' }}>
+            <ObjectFrame
+              svgURL={targetObjectURL}
+              width={artworkDimension}
+              height={artworkDimension}
+              x={staticArtworkPosition}
+              y={staticArtworkPosition}
+              onLoadCallback={this.handleTargetObjectLoaded}
+            />
 
-          <SVGText
-            text="Foo"
-            x={midPoint}
-            y={(dimension - (dimension * 0.05))}
-            displayProperties={{ fontSize: `${textLabelFontSize}px` }}
-          />
-        </g>
+            <SVGText
+              text="Foo"
+              x={midPoint}
+              y={(dimension - (dimension * 0.05))}
+              displayProperties={{ fontSize: `${textLabelFontSize}px` }}
+            />
+          </g>
+        </FadeSVG>
       </g>
     );
   }
