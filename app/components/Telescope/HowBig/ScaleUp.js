@@ -13,6 +13,8 @@ class ScaleUp extends Component {
   static DURATION_OF_SCALE_DOWN_REFERENCE = 500;
   static PAUSE_BEFORE_MOVING_REFERENCE = 1000;
   static DURATION_TO_MOVE_REFERENCE = 500;
+  static PAUSE_BEFORE_INTRODUCING_TARGET_OBJECT = 1500;
+  static ANIMATE_TARGET_DURATION = 500;
 
   static ARTWORK_VS_CANVAS_SIZE_PERCENTAGE = 0.8;
 
@@ -35,10 +37,12 @@ class ScaleUp extends Component {
     targetObjectLoaded: false,
     showReference: false,
     referenceScale: 1,
+    showReferenceText: true,
     referencePosition: {
       x: ((this.props.dimension / 2) - ((this.props.dimension * ScaleUp.ARTWORK_VS_CANVAS_SIZE_PERCENTAGE) / 2)),
       y: ((this.props.dimension / 2) - ((this.props.dimension * ScaleUp.ARTWORK_VS_CANVAS_SIZE_PERCENTAGE) / 2)),
     },
+    targetObjectOpacity: 0,
   };
 
   componentDidMount() {
@@ -49,6 +53,7 @@ class ScaleUp extends Component {
     clearTimeout(this.timerDelayPresentReference);
     clearTimeout(this.timerDelayScaleReference);
     clearTimeout(this.timerDelayToAnimateReference);
+    clearTimeout(this.timerDelayToPresentTarget);
   }
 
   handleReferenceObjectLoaded = () => {
@@ -110,6 +115,26 @@ class ScaleUp extends Component {
       onUpdate: ({ x, y }) => {
         this.setState(() => ({ referencePosition: { x, y } }));
       },
+      onComplete: () => { this.prepareToIntroduceTargetObject() },
+      ease: easingFunctions.easeInOutQuad,
+    });
+  }
+
+  prepareToIntroduceTargetObject() {
+    this.timerDelayPresentReference = setTimeout(() => {
+      this.setState(() => ({ showReferenceText: false }));
+      this.animateIntroduceTargetObject();
+    }, ScaleUp.PAUSE_BEFORE_INTRODUCING_TARGET_OBJECT);
+  }
+
+  animateIntroduceTargetObject() {
+    this.animateTargetObjectOpacity = animateValues({
+      targetObjectOpacity: this.state.targetObjectOpacity,
+    }, ScaleUp.ANIMATE_TARGET_DURATION, {
+      targetObjectOpacity: 1,
+      onUpdate: ({ targetObjectOpacity }) => {
+        this.setState(() => ({ targetObjectOpacity }));
+      },
       ease: easingFunctions.easeInOutQuad,
     });
   }
@@ -117,6 +142,7 @@ class ScaleUp extends Component {
   timerDelayPresentReference = undefined;
   timerDelayScaleReference = undefined;
   timerDelayToAnimateReference = undefined;
+  timerDelayToPresentTarget = undefined;
 
   animateScaleOfReference = undefined;
   animateReferenceMoveHandle = undefined;
@@ -125,6 +151,7 @@ class ScaleUp extends Component {
     const {
       referenceObject,
       targetObjectURL,
+      targetObjectName,
       dimension,
     } = this.props;
 
@@ -134,6 +161,7 @@ class ScaleUp extends Component {
       showReference,
       referenceScale,
       referencePosition,
+      showReferenceText,
     } = this.state;
 
     const displayReferenceObject = (showReference && referenceObjectLoaded);
@@ -160,13 +188,16 @@ class ScaleUp extends Component {
                 })
             }
           </g>
-
-          <SVGText
-            text={`Reference object = ${domains.enumValueOf(referenceObject).titleText}`}
-            x={midPoint}
-            y={(dimension - (dimension * 0.05))}
-            displayProperties={{ fontSize: `${textLabelFontSize}px` }}
-          />
+          <FadeSVG isHidden={!(showReferenceText)}>
+            <SVGText
+              text={`Reference object = ${domains.enumValueOf(referenceObject).titleText}`}
+              x={midPoint}
+              y={(dimension - (dimension * 0.05))}
+              displayProperties={{
+                fontSize: `${textLabelFontSize}px`,
+              }}
+            />
+          </FadeSVG>
         </FadeSVG>
 
         <FadeSVG isHidden={!(targetObjectLoaded)}>
@@ -181,7 +212,7 @@ class ScaleUp extends Component {
             />
 
             <SVGText
-              text="Foo"
+              text={`Target object = ${targetObjectName}`}
               x={midPoint}
               y={(dimension - (dimension * 0.05))}
               displayProperties={{ fontSize: `${textLabelFontSize}px` }}

@@ -33,8 +33,8 @@ describe('ScaleUp', () => {
       expect(shallowWrapper).toMatchSnapshot();
     });
 
-    it('should have a `FadeSVG` element for for the reference and target objects', () => {
-      expect(FadeSVG.length).toEqual(2);
+    it('there are three `FadeSVG` elements included in the design of this component', () => {
+      expect(FadeSVG.length).toEqual(3);
     });
 
     it('should have an `SVGText` element for the reference and the target objects', () => {
@@ -52,6 +52,7 @@ describe('ScaleUp', () => {
     const spyScaleReference = jest.spyOn(ScaleUp.prototype, 'scaleReference');
     const spyPrepareToAnimateReferenceLocation = jest.spyOn(ScaleUp.prototype, 'prepareToAnimateReferenceLocation');
     const spyAnimateMoveReference = jest.spyOn(ScaleUp.prototype, 'animateMoveReference');
+    const spyAnimateIntroduceTargetObject = jest.spyOn(ScaleUp.prototype, 'animateIntroduceTargetObject');
     let mountedWrapper;
 
     beforeEach(() => {
@@ -89,6 +90,19 @@ describe('ScaleUp', () => {
         jest.runAllTimers();
         expect(spyAnimateMoveReference).toHaveBeenCalled();
       });
+    });
+
+    describe('when `prepareToIntroduceTargetObject()` timer completes', () => {
+      it('it should call `animateIntroduceTargetObject()` and set `showReferenceText` should be `false`', () => {
+        mountedWrapper.instance().prepareToIntroduceTargetObject();
+        jest.runAllTimers();
+        expect(spyAnimateIntroduceTargetObject).toHaveBeenCalled();
+        expect(mountedWrapper.state().showReferenceText).toEqual(false);
+      });
+    });
+
+    describe('when `animateIntroduceTargetObject` is called', () => {
+      xit('should animate the opacity state for the target object to 1', () => {});
     });
 
     describe('when reference or target asset is loaded', () => {
