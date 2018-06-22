@@ -167,19 +167,19 @@ class BootstrappedDashboard extends Component {
             <div>guides</div>
           </div>
           <div className="dash-nav-item">
-            <img alt="missions" src="https://vega.slooh.com/assets/v4/dashboard/icon_quests.svg" />
+            <img alt="quests" src="https://vega.slooh.com/assets/v4/dashboard/icon_quests.svg" />
             <div>quests</div>
           </div>
           <div className="dash-nav-item">
-            <img alt="missions" src="https://vega.slooh.com/assets/v4/dashboard/icon_shows.svg" />
+            <img alt="shows" src="https://vega.slooh.com/assets/v4/dashboard/icon_shows.svg" />
             <div>shows</div>
             </div>
           <div className="dash-nav-item">
-            <img alt="missions" src="https://vega.slooh.com/assets/v4/dashboard/icon_stories.svg" />
+            <img alt="stories" src="https://vega.slooh.com/assets/v4/dashboard/icon_stories.svg" />
             <div>stories</div>
           </div>
           <div className="dash-nav-item">
-            <img alt="missions" src="https://vega.slooh.com/assets/v4/dashboard/icon_groups.svg" />
+            <img alt="groups" src="https://vega.slooh.com/assets/v4/dashboard/icon_groups.svg" />
             <div>groups</div>
           </div>
         </div>
