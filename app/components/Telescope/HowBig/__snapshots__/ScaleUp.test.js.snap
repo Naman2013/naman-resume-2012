@@ -30,178 +30,13 @@ ShallowWrapper {
         <FadeSVG
           isHidden={true}
         >
-          <ObjectFrame
-            height={400}
-            onLoadCallback={[Function]}
-            svgURL={
+          <g
+            style={
               Object {
-                "process": [Function],
+                "transform": "translate(50px, 50px) scale(1)",
+                "transformOrigin": "center",
               }
             }
-            width={400}
-            x={0}
-            y={0}
-          />
-          <SVGText
-            displayProperties={
-              Object {
-                "fill": "aqua",
-                "fontFamily": "monospace",
-                "fontSize": "20px",
-              }
-            }
-            text="Foo"
-            x={0}
-            y={0}
-          />
-        </FadeSVG>,
-        <g>
-          <SVGText
-            displayProperties={
-              Object {
-                "fill": "aqua",
-                "fontFamily": "monospace",
-                "fontSize": "20px",
-              }
-            }
-            text="Foo"
-            x={0}
-            y={0}
-          />
-        </g>,
-      ],
-      "style": Object {
-        "transform": "translate(50px, 50px) scale(1)",
-        "transformOrigin": "center",
-      },
-    },
-    "ref": null,
-    "rendered": Array [
-      Object {
-        "instance": null,
-        "key": undefined,
-        "nodeType": "function",
-        "props": Object {
-          "children": Array [
-            <ObjectFrame
-              height={400}
-              onLoadCallback={[Function]}
-              svgURL={
-                Object {
-                  "process": [Function],
-                }
-              }
-              width={400}
-              x={0}
-              y={0}
-            />,
-            <SVGText
-              displayProperties={
-                Object {
-                  "fill": "aqua",
-                  "fontFamily": "monospace",
-                  "fontSize": "20px",
-                }
-              }
-              text="Foo"
-              x={0}
-              y={0}
-            />,
-          ],
-          "isHidden": true,
-        },
-        "ref": null,
-        "rendered": Array [
-          Object {
-            "instance": null,
-            "key": undefined,
-            "nodeType": "function",
-            "props": Object {
-              "height": 400,
-              "onLoadCallback": [Function],
-              "svgURL": Object {
-                "process": [Function],
-              },
-              "width": 400,
-              "x": 0,
-              "y": 0,
-            },
-            "ref": null,
-            "rendered": null,
-            "type": [Function],
-          },
-          Object {
-            "instance": null,
-            "key": undefined,
-            "nodeType": "function",
-            "props": Object {
-              "displayProperties": Object {
-                "fill": "aqua",
-                "fontFamily": "monospace",
-                "fontSize": "20px",
-              },
-              "text": "Foo",
-              "x": 0,
-              "y": 0,
-            },
-            "ref": null,
-            "rendered": null,
-            "type": [Function],
-          },
-        ],
-        "type": [Function],
-      },
-      Object {
-        "instance": null,
-        "key": undefined,
-        "nodeType": "host",
-        "props": Object {
-          "children": <SVGText
-            displayProperties={
-              Object {
-                "fill": "aqua",
-                "fontFamily": "monospace",
-                "fontSize": "20px",
-              }
-            }
-            text="Foo"
-            x={0}
-            y={0}
-          />,
-        },
-        "ref": null,
-        "rendered": Object {
-          "instance": null,
-          "key": undefined,
-          "nodeType": "function",
-          "props": Object {
-            "displayProperties": Object {
-              "fill": "aqua",
-              "fontFamily": "monospace",
-              "fontSize": "20px",
-            },
-            "text": "Foo",
-            "x": 0,
-            "y": 0,
-          },
-          "ref": null,
-          "rendered": null,
-          "type": [Function],
-        },
-        "type": "g",
-      },
-    ],
-    "type": "g",
-  },
-  Symbol(enzyme.__nodes__): Array [
-    Object {
-      "instance": null,
-      "key": undefined,
-      "nodeType": "host",
-      "props": Object {
-        "children": Array [
-          <FadeSVG
-            isHidden={true}
           >
             <ObjectFrame
               height={400}
@@ -215,47 +50,62 @@ ShallowWrapper {
               x={0}
               y={0}
             />
-            <SVGText
-              displayProperties={
+          </g>
+          <SVGText
+            displayProperties={
+              Object {
+                "fontSize": "15px",
+              }
+            }
+            text="Reference object = Solar System"
+            x={250}
+            y={475}
+          />
+        </FadeSVG>,
+        <g
+          style={
+            Object {
+              "opacity": "0",
+            }
+          }
+        >
+          <ObjectFrame
+            height={400}
+            onLoadCallback={[Function]}
+            svgURL="https://vega.slooh.com/icons/nav/menu-help.svg"
+            width={400}
+            x={50}
+            y={50}
+          />
+          <SVGText
+            displayProperties={
+              Object {
+                "fontSize": "15px",
+              }
+            }
+            text="Foo"
+            x={250}
+            y={475}
+          />
+        </g>,
+      ],
+    },
+    "ref": null,
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "function",
+        "props": Object {
+          "children": Array [
+            <g
+              style={
                 Object {
-                  "fill": "aqua",
-                  "fontFamily": "monospace",
-                  "fontSize": "20px",
+                  "transform": "translate(50px, 50px) scale(1)",
+                  "transformOrigin": "center",
                 }
               }
-              text="Foo"
-              x={0}
-              y={0}
-            />
-          </FadeSVG>,
-          <g>
-            <SVGText
-              displayProperties={
-                Object {
-                  "fill": "aqua",
-                  "fontFamily": "monospace",
-                  "fontSize": "20px",
-                }
-              }
-              text="Foo"
-              x={0}
-              y={0}
-            />
-          </g>,
-        ],
-        "style": Object {
-          "transform": "translate(50px, 50px) scale(1)",
-          "transformOrigin": "center",
-        },
-      },
-      "ref": null,
-      "rendered": Array [
-        Object {
-          "instance": null,
-          "key": undefined,
-          "nodeType": "function",
-          "props": Object {
-            "children": Array [
+            >
               <ObjectFrame
                 height={400}
                 onLoadCallback={[Function]}
@@ -267,25 +117,47 @@ ShallowWrapper {
                 width={400}
                 x={0}
                 y={0}
-              />,
-              <SVGText
-                displayProperties={
+              />
+            </g>,
+            <SVGText
+              displayProperties={
+                Object {
+                  "fontSize": "15px",
+                }
+              }
+              text="Reference object = Solar System"
+              x={250}
+              y={475}
+            />,
+          ],
+          "isHidden": true,
+        },
+        "ref": null,
+        "rendered": Array [
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": <ObjectFrame
+                height={400}
+                onLoadCallback={[Function]}
+                svgURL={
                   Object {
-                    "fill": "aqua",
-                    "fontFamily": "monospace",
-                    "fontSize": "20px",
+                    "process": [Function],
                   }
                 }
-                text="Foo"
+                width={400}
                 x={0}
                 y={0}
               />,
-            ],
-            "isHidden": true,
-          },
-          "ref": null,
-          "rendered": Array [
-            Object {
+              "style": Object {
+                "transform": "translate(50px, 50px) scale(1)",
+                "transformOrigin": "center",
+              },
+            },
+            "ref": null,
+            "rendered": Object {
               "instance": null,
               "key": undefined,
               "nodeType": "function",
@@ -303,19 +175,264 @@ ShallowWrapper {
               "rendered": null,
               "type": [Function],
             },
+            "type": "g",
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "function",
+            "props": Object {
+              "displayProperties": Object {
+                "fontSize": "15px",
+              },
+              "text": "Reference object = Solar System",
+              "x": 250,
+              "y": 475,
+            },
+            "ref": null,
+            "rendered": null,
+            "type": [Function],
+          },
+        ],
+        "type": [Function],
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": Array [
+            <ObjectFrame
+              height={400}
+              onLoadCallback={[Function]}
+              svgURL="https://vega.slooh.com/icons/nav/menu-help.svg"
+              width={400}
+              x={50}
+              y={50}
+            />,
+            <SVGText
+              displayProperties={
+                Object {
+                  "fontSize": "15px",
+                }
+              }
+              text="Foo"
+              x={250}
+              y={475}
+            />,
+          ],
+          "style": Object {
+            "opacity": "0",
+          },
+        },
+        "ref": null,
+        "rendered": Array [
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "function",
+            "props": Object {
+              "height": 400,
+              "onLoadCallback": [Function],
+              "svgURL": "https://vega.slooh.com/icons/nav/menu-help.svg",
+              "width": 400,
+              "x": 50,
+              "y": 50,
+            },
+            "ref": null,
+            "rendered": null,
+            "type": [Function],
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "function",
+            "props": Object {
+              "displayProperties": Object {
+                "fontSize": "15px",
+              },
+              "text": "Foo",
+              "x": 250,
+              "y": 475,
+            },
+            "ref": null,
+            "rendered": null,
+            "type": [Function],
+          },
+        ],
+        "type": "g",
+      },
+    ],
+    "type": "g",
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": Array [
+          <FadeSVG
+            isHidden={true}
+          >
+            <g
+              style={
+                Object {
+                  "transform": "translate(50px, 50px) scale(1)",
+                  "transformOrigin": "center",
+                }
+              }
+            >
+              <ObjectFrame
+                height={400}
+                onLoadCallback={[Function]}
+                svgURL={
+                  Object {
+                    "process": [Function],
+                  }
+                }
+                width={400}
+                x={0}
+                y={0}
+              />
+            </g>
+            <SVGText
+              displayProperties={
+                Object {
+                  "fontSize": "15px",
+                }
+              }
+              text="Reference object = Solar System"
+              x={250}
+              y={475}
+            />
+          </FadeSVG>,
+          <g
+            style={
+              Object {
+                "opacity": "0",
+              }
+            }
+          >
+            <ObjectFrame
+              height={400}
+              onLoadCallback={[Function]}
+              svgURL="https://vega.slooh.com/icons/nav/menu-help.svg"
+              width={400}
+              x={50}
+              y={50}
+            />
+            <SVGText
+              displayProperties={
+                Object {
+                  "fontSize": "15px",
+                }
+              }
+              text="Foo"
+              x={250}
+              y={475}
+            />
+          </g>,
+        ],
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "function",
+          "props": Object {
+            "children": Array [
+              <g
+                style={
+                  Object {
+                    "transform": "translate(50px, 50px) scale(1)",
+                    "transformOrigin": "center",
+                  }
+                }
+              >
+                <ObjectFrame
+                  height={400}
+                  onLoadCallback={[Function]}
+                  svgURL={
+                    Object {
+                      "process": [Function],
+                    }
+                  }
+                  width={400}
+                  x={0}
+                  y={0}
+                />
+              </g>,
+              <SVGText
+                displayProperties={
+                  Object {
+                    "fontSize": "15px",
+                  }
+                }
+                text="Reference object = Solar System"
+                x={250}
+                y={475}
+              />,
+            ],
+            "isHidden": true,
+          },
+          "ref": null,
+          "rendered": Array [
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": <ObjectFrame
+                  height={400}
+                  onLoadCallback={[Function]}
+                  svgURL={
+                    Object {
+                      "process": [Function],
+                    }
+                  }
+                  width={400}
+                  x={0}
+                  y={0}
+                />,
+                "style": Object {
+                  "transform": "translate(50px, 50px) scale(1)",
+                  "transformOrigin": "center",
+                },
+              },
+              "ref": null,
+              "rendered": Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "function",
+                "props": Object {
+                  "height": 400,
+                  "onLoadCallback": [Function],
+                  "svgURL": Object {
+                    "process": [Function],
+                  },
+                  "width": 400,
+                  "x": 0,
+                  "y": 0,
+                },
+                "ref": null,
+                "rendered": null,
+                "type": [Function],
+              },
+              "type": "g",
+            },
             Object {
               "instance": null,
               "key": undefined,
               "nodeType": "function",
               "props": Object {
                 "displayProperties": Object {
-                  "fill": "aqua",
-                  "fontFamily": "monospace",
-                  "fontSize": "20px",
+                  "fontSize": "15px",
                 },
-                "text": "Foo",
-                "x": 0,
-                "y": 0,
+                "text": "Reference object = Solar System",
+                "x": 250,
+                "y": 475,
               },
               "ref": null,
               "rendered": null,
@@ -329,38 +446,65 @@ ShallowWrapper {
           "key": undefined,
           "nodeType": "host",
           "props": Object {
-            "children": <SVGText
-              displayProperties={
-                Object {
-                  "fill": "aqua",
-                  "fontFamily": "monospace",
-                  "fontSize": "20px",
+            "children": Array [
+              <ObjectFrame
+                height={400}
+                onLoadCallback={[Function]}
+                svgURL="https://vega.slooh.com/icons/nav/menu-help.svg"
+                width={400}
+                x={50}
+                y={50}
+              />,
+              <SVGText
+                displayProperties={
+                  Object {
+                    "fontSize": "15px",
+                  }
                 }
-              }
-              text="Foo"
-              x={0}
-              y={0}
-            />,
+                text="Foo"
+                x={250}
+                y={475}
+              />,
+            ],
+            "style": Object {
+              "opacity": "0",
+            },
           },
           "ref": null,
-          "rendered": Object {
-            "instance": null,
-            "key": undefined,
-            "nodeType": "function",
-            "props": Object {
-              "displayProperties": Object {
-                "fill": "aqua",
-                "fontFamily": "monospace",
-                "fontSize": "20px",
+          "rendered": Array [
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "function",
+              "props": Object {
+                "height": 400,
+                "onLoadCallback": [Function],
+                "svgURL": "https://vega.slooh.com/icons/nav/menu-help.svg",
+                "width": 400,
+                "x": 50,
+                "y": 50,
               },
-              "text": "Foo",
-              "x": 0,
-              "y": 0,
+              "ref": null,
+              "rendered": null,
+              "type": [Function],
             },
-            "ref": null,
-            "rendered": null,
-            "type": [Function],
-          },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "function",
+              "props": Object {
+                "displayProperties": Object {
+                  "fontSize": "15px",
+                },
+                "text": "Foo",
+                "x": 250,
+                "y": 475,
+              },
+              "ref": null,
+              "rendered": null,
+              "type": [Function],
+            },
+          ],
           "type": "g",
         },
       ],

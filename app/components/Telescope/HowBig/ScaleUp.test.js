@@ -15,6 +15,7 @@ const setup = (customProps) => {
     mountedWrapper,
     FadeSVG: shallowWrapper.find('FadeSVG'),
     SVGText: shallowWrapper.find('SVGText'),
+    ObjectFrame: shallowWrapper.find('ObjectFrame'),
   };
 };
 
@@ -22,7 +23,12 @@ describe('ScaleUp', () => {
   jest.useFakeTimers();
 
   describe('rendering', () => {
-    const { shallowWrapper, FadeSVG, SVGText } = setup();
+    const {
+      shallowWrapper,
+      FadeSVG,
+      SVGText,
+      ObjectFrame,
+    } = setup();
     it('should render correctly', () => {
       expect(shallowWrapper).toMatchSnapshot();
     });
@@ -33,6 +39,10 @@ describe('ScaleUp', () => {
 
     it('should have an `SVGText` element for the reference and the target objects', () => {
       expect(SVGText.length).toEqual(2);
+    });
+
+    it('should have an `ObjectFrame` for both the refernce and the target elements', () => {
+      expect(ObjectFrame.length).toEqual(2);
     });
   });
 
@@ -81,10 +91,15 @@ describe('ScaleUp', () => {
       });
     });
 
-    describe('when reference asset is loaded', () => {
+    describe('when reference or target asset is loaded', () => {
       it('sets `referenceObjectLoaded` to `true`', () => {
         mountedWrapper.instance().handleReferenceObjectLoaded();
         expect(mountedWrapper.state().referenceObjectLoaded).toEqual(true);
+      });
+
+      it('sets state `targetObjectLoaded` to `true`', () => {
+        mountedWrapper.instance().handleTargetObjectLoaded();
+        expect(mountedWrapper.state().targetObjectLoaded).toEqual(true);
       });
     });
 

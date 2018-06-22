@@ -4,6 +4,7 @@ import noop from 'lodash/noop';
 import domains from './domains';
 import FadeSVG from '../../../components/common/Fade/FadeSVG';
 import SVGText from '../common/SVGText';
+import ObjectFrame from './ReferenceObjects/ObjectFrame';
 import easingFunctions, { animateValues } from '../../../utils/easingFunctions';
 
 class ScaleUp extends Component {
@@ -51,6 +52,10 @@ class ScaleUp extends Component {
 
   handleReferenceObjectLoaded = () => {
     this.setState({ referenceObjectLoaded: true });
+  }
+
+  handleTargetObjectLoaded = () => {
+    this.setState({ targetObjectLoaded: true });
   }
 
   beginDelayToShowReference() {
@@ -115,7 +120,12 @@ class ScaleUp extends Component {
   animateReferenceMoveHandle = undefined;
 
   render() {
-    const { referenceObject, dimension } = this.props;
+    const {
+      referenceObject,
+      targetObjectURL,
+      dimension,
+    } = this.props;
+
     const {
       showReference,
       referenceObjectLoaded,
@@ -125,34 +135,52 @@ class ScaleUp extends Component {
 
     const displayReferenceObject = (showReference && referenceObjectLoaded);
     const artworkDimension = (dimension * 0.8);
-    const middlePoint = (dimension / 2);
-    const artworkPosition = (middlePoint - (artworkDimension / 2));
+    const midPoint = (dimension / 2);
+    const staticArtworkPosition = (midPoint - (artworkDimension / 2));
+    const textLabelFontSize = (dimension * 0.03);
 
     return (
-      <g style={{
-          transform: `translate(${(referencePosition.x)}px, ${referencePosition.y}px) scale(${referenceScale})`,
-          transformOrigin: 'center',
-        }}
-      >
+      <g>
         <FadeSVG isHidden={!(displayReferenceObject)}>
-          {
-            domains
-              .enumValueOf(referenceObject)
-              .render({
-                width: artworkDimension,
-                height: artworkDimension,
-                onLoadCallback: this.handleReferenceObjectLoaded,
-              })
-          }
+          <g style={{
+              transform: `translate(${(referencePosition.x)}px, ${referencePosition.y}px) scale(${referenceScale})`,
+              transformOrigin: 'center',
+            }}
+          >
+            {
+              domains
+                .enumValueOf(referenceObject)
+                .render({
+                  width: artworkDimension,
+                  height: artworkDimension,
+                  onLoadCallback: this.handleReferenceObjectLoaded,
+                })
+            }
+          </g>
 
           <SVGText
-            text="Foo"
+            text={`Reference object = ${domains.enumValueOf(referenceObject).titleText}`}
+            x={midPoint}
+            y={(dimension - (dimension * 0.05))}
+            displayProperties={{ fontSize: `${textLabelFontSize}px` }}
           />
         </FadeSVG>
 
-        <g>
+        <g style={{ opacity: '0' }}>
+          <ObjectFrame
+            svgURL={targetObjectURL}
+            width={artworkDimension}
+            height={artworkDimension}
+            x={staticArtworkPosition}
+            y={staticArtworkPosition}
+            onLoadCallback={this.handleTargetObjectLoaded}
+          />
+
           <SVGText
             text="Foo"
+            x={midPoint}
+            y={(dimension - (dimension * 0.05))}
+            displayProperties={{ fontSize: `${textLabelFontSize}px` }}
           />
         </g>
       </g>
