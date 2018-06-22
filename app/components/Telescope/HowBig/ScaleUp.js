@@ -68,10 +68,17 @@ class ScaleUp extends Component {
   scaleReference() {
     animateValues({
       referenceScale: this.state.referenceScale,
+      x: this.state.referencePosition.x,
+      y: this.state.referencePosition.y,
     }, ScaleUp.DURATION_OF_SCALE_DOWN_REFERENCE, {
       referenceScale: this.props.referenceObjectScale,
-      onUpdate: ({ referenceScale }) => {
-        this.setState(() => ({ referenceScale }));
+      x: (this.state.referencePosition.x / 2),
+      y: (this.state.referencePosition.y / 2),
+      onUpdate: ({ referenceScale, x, y }) => {
+        this.setState(() => ({
+          referenceScale,
+          referencePosition: { x, y },
+        }));
       },
       onComplete: () => {
         this.prepareToAnimateReferenceLocation();
@@ -122,8 +129,8 @@ class ScaleUp extends Component {
 
     return (
       <g style={{
-          transform: `translate(${referencePosition.x}px, ${referencePosition.y}px) scale(${referenceScale})`,
-          transformOrigin: 'center center',
+          transform: `translate(${(referencePosition.x)}px, ${referencePosition.y}px) scale(${referenceScale})`,
+          transformOrigin: 'center',
         }}
       >
         <FadeSVG isHidden={!(displayReferenceObject)}>
