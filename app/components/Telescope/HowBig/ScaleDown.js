@@ -14,7 +14,7 @@ class ScaleDown extends Component {
   static TIME_TO_FADE_REFERENCE = 1000;
   static TIME_TO_FADE_IN_TARGET = 1000;
   static TIME_BEFORE_SCALING_TARGET = 2000;
-  static TIME_TO_SCALE_TARGET = 3000;
+  static TIME_TO_SCALE_TARGET = 1000;
   static TIME_BEFORE_COMPLETE = 3000;
 
   static propTypes = {
