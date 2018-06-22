@@ -188,7 +188,7 @@ class ScaleUp extends Component {
                 })
             }
           </g>
-          <FadeSVG isHidden={!(showReferenceText)}>
+          <FadeSVG isHidden={!showReferenceText}>
             <SVGText
               text={`Reference object = ${domains.enumValueOf(referenceObject).titleText}`}
               x={midPoint}
@@ -200,8 +200,8 @@ class ScaleUp extends Component {
           </FadeSVG>
         </FadeSVG>
 
-        <FadeSVG isHidden={!(targetObjectLoaded)}>
-          <g style={{ opacity: '0' }}>
+        <FadeSVG isHidden={!(targetObjectLoaded) && showReferenceText}>
+          <g>
             <ObjectFrame
               svgURL={targetObjectURL}
               width={artworkDimension}

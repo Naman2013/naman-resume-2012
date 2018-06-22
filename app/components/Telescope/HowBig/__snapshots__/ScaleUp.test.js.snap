@@ -69,13 +69,7 @@ ShallowWrapper {
         <FadeSVG
           isHidden={true}
         >
-          <g
-            style={
-              Object {
-                "opacity": "0",
-              }
-            }
-          >
+          <g>
             <ObjectFrame
               height={400}
               onLoadCallback={[Function]}
@@ -233,13 +227,7 @@ ShallowWrapper {
         "key": undefined,
         "nodeType": "function",
         "props": Object {
-          "children": <g
-            style={
-              Object {
-                "opacity": "0",
-              }
-            }
-          >
+          "children": <g>
             <ObjectFrame
               height={400}
               onLoadCallback={[Function]}
@@ -287,9 +275,6 @@ ShallowWrapper {
                 y={475}
               />,
             ],
-            "style": Object {
-              "opacity": "0",
-            },
           },
           "ref": null,
           "rendered": Array [
@@ -382,13 +367,7 @@ ShallowWrapper {
           <FadeSVG
             isHidden={true}
           >
-            <g
-              style={
-                Object {
-                  "opacity": "0",
-                }
-              }
-            >
+            <g>
               <ObjectFrame
                 height={400}
                 onLoadCallback={[Function]}
@@ -546,13 +525,7 @@ ShallowWrapper {
           "key": undefined,
           "nodeType": "function",
           "props": Object {
-            "children": <g
-              style={
-                Object {
-                  "opacity": "0",
-                }
-              }
-            >
+            "children": <g>
               <ObjectFrame
                 height={400}
                 onLoadCallback={[Function]}
@@ -600,9 +573,6 @@ ShallowWrapper {
                   y={475}
                 />,
               ],
-              "style": Object {
-                "opacity": "0",
-              },
             },
             "ref": null,
             "rendered": Array [

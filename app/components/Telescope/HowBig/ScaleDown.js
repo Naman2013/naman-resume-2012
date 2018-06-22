@@ -204,7 +204,7 @@ class ScaleDown extends Component {
           }}
         >
           <g style={{
-            transform: `scale(${targetScale})`,
+            transform: 'scale(1)',
             transformOrigin: 'center',
             }}
           >
