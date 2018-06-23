@@ -80,7 +80,7 @@ class BootstrappedMissionDetailList extends Component {
         <div className="detail-note" dangerouslySetInnerHTML={{ __html: detail.textNote}} />
         {detail.hasLinkFlag ?
           <Link to={detail.linkUrl}>
-            <span dangerouslySetInnerHTML={{ __html: detail.linkLabel}}/>
+            <span className="link" dangerouslySetInnerHTML={{ __html: detail.linkLabel}}/>
           </Link> : null}
       </div>)) : null}
       <style jsx>{`
@@ -125,10 +125,12 @@ class BootstrappedMissionDetailList extends Component {
           font-size: 12px;
 
         }
-        .detail-note {
+        .detail-note,
+        .link {
           font-family: ${secondaryFont};
           font-size: 12px;
           color: ${lightGray};
+          font-style: italic;
 
         }
       `}</style>
