@@ -174,6 +174,7 @@ class CommentRepliesList extends Component {
           };
           return (<CommentRepliesListItem
             key={displayedComment.replyId}
+            user={user}
             {...displayedComment}
             likeParams={likeParams}
           />)

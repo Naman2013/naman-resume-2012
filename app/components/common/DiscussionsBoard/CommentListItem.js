@@ -9,8 +9,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import Modal from 'react-modal';
-
-import CommentRepliesList from './CommentRepliesList';
 import { likeReply } from 'services/discussions/like';
 import {
   black,
@@ -19,8 +17,13 @@ import {
 } from 'styles/variables/colors';
 import { primaryFont, secondaryFont } from 'styles/variables/fonts';
 import LikeButton from 'components/common/style/LikeButton';
+import Button from 'components/common/style/Button';
+import CommentButton from 'components/common/style/CommentButton';
 import { customModalStyles } from 'styles/mixins/utilities';
 import { profPic, dropShadowedContainer } from './styles';
+import CommentRepliesList from './CommentRepliesList';
+import Form from './ReplyForm';
+
 
 const {
   bool,
@@ -107,6 +110,7 @@ class CommentListItem extends Component {
   }
 
   likeReply = (e) => {
+    // TODO: refactor this into a reusable component
     e.preventDefault();
     const {
       customerId,
@@ -176,7 +180,6 @@ class CommentListItem extends Component {
       likesCount,
       showAllReplies,
     } = this.state;
-    console.log(this.state)
     return (
       <div className="comment-item" key={replyId}>
         <div className="user-info-container">
@@ -191,13 +194,10 @@ class CommentListItem extends Component {
         <div className="activity-actions">
           <div className="action-left">
             <LikeButton onClickEvent={this.likeReply} count={likesCount} />
-            <span>Comments ({replyCount})</span>
+            <CommentButton onClickEvent={this.toggleAllReplies} count={replyCount} />
           </div>
-          <div className="action-right">
-          {!showAllReplies ? <div className="comment-action" onClick={this.toggleAllReplies}>{replyCount > 0 ? `View Comments` : `Add Comment`}</div> : null}
-          </div>
+          <div className="action-right"></div>
           {showAllReplies ? <div>
-            <div className="comment-action" onClick={this.toggleAllReplies}>Close Comments</div>
             <CommentRepliesList
               count={count}
               replyId={replyId}
@@ -256,6 +256,11 @@ class CommentListItem extends Component {
 
           .date {
             text-align: right;
+          }
+
+          .action-left {
+            display: flex;
+            flex-direction: row;
           }
 
           .fa-close {
