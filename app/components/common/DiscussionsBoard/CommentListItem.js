@@ -7,13 +7,20 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import moment from 'moment';
+import Modal from 'react-modal';
+
 import CommentRepliesList from './CommentRepliesList';
 import { likeReply } from 'services/discussions/like';
 import {
   black,
+  darkGray,
+  lightGray,
 } from 'styles/variables/colors';
-import Heart from '../heart/heart';
-import { profPic } from './styles';
+import { primaryFont, secondaryFont } from 'styles/variables/fonts';
+import LikeButton from 'components/common/style/LikeButton';
+import { customModalStyles } from 'styles/mixins/utilities';
+import { profPic, dropShadowedContainer } from './styles';
 
 const {
   bool,
@@ -62,7 +69,24 @@ class CommentListItem extends Component {
   }
 
   state = {
+    likesCount: this.props.likesCount,
+    isOpen: false,
+    likePrompt: this.props.likePrompt,
     showAllReplies: false,
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.likePrompt !== nextProps.likePrompt) {
+      this.setState({
+        likePrompt: nextProps.likePrompt,
+      });
+    }
+
+    if (this.props.likesCount !== nextProps.likesCount) {
+      this.setState({
+        likesCount: nextProps.likesCount,
+      });
+    }
   }
 
   toggleAllReplies = () => {
@@ -71,6 +95,60 @@ class CommentListItem extends Component {
     this.setState({
       showAllReplies: !showAllReplies,
     });
+  }
+
+  closeModal = (e) => {
+
+    // TODO: refactor Modal into higher component
+    e.preventDefault();
+    this.setState({
+      isOpen: false,
+    })
+  }
+
+  likeReply = (e) => {
+    e.preventDefault();
+    const {
+      customerId,
+      likeParams,
+      showLikePrompt,
+      user,
+    } = this.props;
+
+    if (showLikePrompt) {
+      this.setState({
+        isOpen: true,
+      });
+    } else {
+      likeReply({
+        ...likeParams,
+        authorId: customerId,
+        token: user.token,
+        at: user.at,
+        cid: user.cid,
+      }).then(this.handleLikeResult);
+    }
+  }
+
+  handleLikeResult = (res) => {
+    const {
+      apiError,
+      showLikePrompt,
+      count,
+      likePrompt,
+    } = res.data;
+    if (!apiError) {
+      this.setState({
+        likesCount: count,
+      });
+    }
+
+    if (showLikePrompt) {
+      this.setState({
+        likePrompt,
+        isOpen: true,
+      });
+    }
   }
 
   render() {
@@ -84,40 +162,35 @@ class CommentListItem extends Component {
       displayName,
       forumId,
       likeParams,
-      likePrompt,
-      likesCount,
       membershipDisplay,
       replyCount,
       replyId,
-      showLikePrompt,
       threadId,
       topicId,
       user,
     } = this.props;
 
-    const { showAllReplies } = this.state;
+    const {
+      isOpen,
+      likePrompt,
+      likesCount,
+      showAllReplies,
+    } = this.state;
+    console.log(this.state)
     return (
       <div className="comment-item" key={replyId}>
-        <div className="user-info">
-          <div style={profPic(avatarURL)} />
-          <div className="user-info-text">
-            <h5 dangerouslySetInnerHTML={{ __html: displayName }} />
-            <div dangerouslySetInnerHTML={{ __html: membershipDisplay }} />
+        <div className="user-info-container">
+          <div className="user-info">
+            <div style={profPic(avatarURL)} />
+            <div className="display-name" dangerouslySetInnerHTML={{ __html: displayName }} />
           </div>
+          <span className="date">{moment(creationDate).fromNow()}</span>
         </div>
-        <span className="date"  dangerouslySetInnerHTML={{ __html: creationDate}} />
-        <div dangerouslySetInnerHTML={{ __html: content }} />
+
+        <div className="content" dangerouslySetInnerHTML={{ __html: content }} />
         <div className="activity-actions">
           <div className="action-left">
-            <Heart
-              likeAction={likeReply}
-              theme="dark"
-              count={likesCount}
-              authorId={customerId}
-              showLikePrompt={showLikePrompt}
-              likePrompt={likePrompt}
-              params={likeParams}
-            />
+            <LikeButton onClickEvent={this.likeReply} count={likesCount} />
             <span>Comments ({replyCount})</span>
           </div>
           <div className="action-right">
@@ -136,20 +209,59 @@ class CommentListItem extends Component {
             />
           </div> : null}
         </div>
+        <Modal
+          ariaHideApp={false}
+          isOpen={isOpen}
+          style={customModalStyles}
+          contentLabel="Comment Item"
+          onRequestClose={this.closeModal}
+        >
+          <i className="fa fa-close" onClick={this.closeModal} />
+          <p className="" dangerouslySetInnerHTML={{ __html: likePrompt }} />
+        </Modal>
         <style jsx>{`
           .comment-item {
+            ${dropShadowedContainer};
             margin: 25px;
             padding: 25px;
-            margin-left: 50px;
-            border: 1px solid ${black};
+            font-family: ${primaryFont};
+            color: ${darkGray};
           }
 
-          .user-info {
+          .user-info, .user-info-container {
             display: flex;
             flex-direction: row;
+            font-size: 10px;
+            align-items: center;
+            text-transform: uppercase;
+            font-weight: bold;
           }
-          .user-info-text {
+
+          .user-info-container {
+            width: 100%;
+            justify-content: space-between;
+            padding-bottom: 15px;
+            border-bottom: 1px solid ${lightGray};
+          }
+          .display-name {
             margin-left: 10px;
+          }
+
+          .content {
+            font-family: ${secondaryFont};
+            font-size: 19px;
+            color: ${darkGray};
+            padding: 25px 0;
+          }
+
+          .date {
+            text-align: right;
+          }
+
+          .fa-close {
+            position: absolute;
+            top: 5px;
+            right: 10px;
           }
         `}</style>
       </div>

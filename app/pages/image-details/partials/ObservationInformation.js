@@ -146,6 +146,7 @@ class BootstrappedImageDetails extends Component {
         <div className="obs-content" dangerouslySetInnerHTML={{ __html: observationLog}} />
         <LikeButton onClickEvent={this.likeObservation} count={count} />
         <Modal
+          ariaHideApp={false}
           isOpen={isOpen}
           style={customModalStyles}
           contentLabel="Observations"

@@ -1,4 +1,4 @@
-import { darkBlueGray, white } from 'styles/variables/colors';
+import { darkBlueGray, white, gray } from 'styles/variables/colors';
 import { profilePhotoStyle } from 'styles/mixins/utilities';
 
 export const fullWidthBtn = (`
@@ -11,10 +11,9 @@ export const fullWidthBtn = (`
 `);
 
 export const dropShadowedContainer = (`
-  background-color: ${white};
-  margin: 10px;
-  padding: 25px;
-  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  -moz-box-shadow: 0 2px 4px 3px ${gray};
+  -webkit-box-shadow: 0 2px 4px 3px ${gray};
+  box-shadow: 0 2px 4px 3px ${gray};
 `);
 
 export const profPic = photoUrl => Object.assign(profilePhotoStyle(photoUrl), {
