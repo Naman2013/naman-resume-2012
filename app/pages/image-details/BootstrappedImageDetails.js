@@ -32,6 +32,7 @@ class BootstrappedImageDetails extends Component {
     callSource: string,
     canEditFlag: bool,
     canLikeFlag: bool,
+    commentsCount: number,
     commentsForumId: oneOfType([number, string]),
     commentsThreadId: oneOfType([number, string]),
     commentsTopicId: oneOfType([number, string]),
@@ -61,6 +62,7 @@ class BootstrappedImageDetails extends Component {
     callSource: null,
     canEditFlag: false,
     canLikeFlag: true,
+    commentsCount: 0,
     commentsForumId: 0,
     commentsThreadId: 0,
     commentsTopicId: 0,
@@ -90,6 +92,7 @@ class BootstrappedImageDetails extends Component {
       callSource,
       canEditFlag,
       canLikeFlag,
+      commentsCount,
       commentsForumId,
       commentsThreadId,
       commentsTopicId,
@@ -162,6 +165,7 @@ class BootstrappedImageDetails extends Component {
           {showCommentsLink ? <DiscussionComments
             callSource={callSource}
             count={10}
+            commentsCount={commentsCount}
             commentsThreadId={commentsThreadId}
             forumId={commentsForumId}
             topicId={commentsTopicId}
@@ -193,9 +197,9 @@ class BootstrappedImageDetails extends Component {
 
         .component-container {
           margin: 25px;
-          -moz-box-shadow: 0 2px 4px 3px ${gray};
-          -webkit-box-shadow: 0 2px 4px 3px ${gray};
-          box-shadow: 0 2px 4px 3px ${gray};
+          -moz-box-shadow: 0 2px 4px 1px ${gray};
+          -webkit-box-shadow: 0 2px 4px 1px ${gray};
+          box-shadow: 0 2px 4px 1px ${gray};
           padding: 25px;
         }
 

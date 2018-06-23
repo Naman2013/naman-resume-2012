@@ -13,6 +13,9 @@ import { submitReply } from 'services/discussions/submit-reply';
 import CommentListItem from './CommentListItem';
 import Form from './ReplyForm';
 import PaginateSet from '../../common/paginate-full-set/PaginateSet';
+import { darkBlueGray, white, darkGray, gray } from 'styles/variables/colors';
+import { primaryFont } from 'styles/variables/fonts';
+
 
 const {
   arrayOf,
@@ -27,6 +30,7 @@ class CommentList extends Component {
   static propTypes = {
     callSource: string,
     count: number,
+    commentsCount: number,
     fetching: bool,
     forumId: oneOfType([number, string]),
     replies: arrayOf(shape({})),
@@ -43,6 +47,7 @@ class CommentList extends Component {
   static defaultProps = {
     callSource: null,
     count: 10,
+    commentsCount: 0,
     fetching: false,
     forumId: null,
     replies: [],
@@ -127,6 +132,7 @@ class CommentList extends Component {
 
   render() {
     const {
+      commentsCount,
       fetching,
       forumId,
       count,
@@ -160,7 +166,9 @@ class CommentList extends Component {
           topicId={topicId}
           user={user}
         />
-        {fetching && <div>Loading</div>}
+        {!fetching ? <div className="comments-bar">
+          Comments ({commentsCount})
+        </div> : null}
         {displayedCommentsObjs.map((displayedComment) => {
           const likeParams = {
             callSource,
@@ -188,6 +196,21 @@ class CommentList extends Component {
           page={page}
         />}
         <style jsx>{`
+          .root {
+            font-family: ${primaryFont};
+            color: ${darkGray};
+          }
+          .comments-bar {
+            font-size: 12px;
+            text-transform: uppercase;
+            color: ${darkBlueGray};
+            font-weight: bold;
+            margin: 25px;
+            padding: 25px;
+            -moz-box-shadow: 0 2px 4px 1px ${gray};
+            -webkit-box-shadow: 0 2px 4px 1px ${gray};
+            box-shadow: 0 2px 4px 1px ${gray};
+          }
         `}</style>
 
       </div>

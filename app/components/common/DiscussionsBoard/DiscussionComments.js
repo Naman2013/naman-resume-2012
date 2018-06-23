@@ -20,6 +20,7 @@ const {
 
 const DiscussionsBoardComments = ({
   callSource,
+  commentsCount,
   count,
   forumId,
   threadId,
@@ -51,6 +52,7 @@ const DiscussionsBoardComments = ({
           forumId={forumId}
           threadId={threadId}
           user={user}
+          commentsCount={commentsCount}
           {...serviceResponse}
         />}
       </div>
@@ -61,6 +63,7 @@ const DiscussionsBoardComments = ({
 DiscussionsBoardComments.propTypes = {
   callSource: string,
   count: number,
+  commentsCount: number,
   forumId: oneOfType([number, string]),
   threadId: oneOfType([number, string]),
   topicId: oneOfType([number, string]),
@@ -72,6 +75,7 @@ DiscussionsBoardComments.propTypes = {
 };
 DiscussionsBoardComments.defaultProps = {
   callSource: null,
+  commentsCount: null,
   count: 10,
   forumId: null,
   threadId: null,

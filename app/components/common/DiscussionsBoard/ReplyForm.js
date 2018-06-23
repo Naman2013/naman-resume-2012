@@ -7,7 +7,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { profPic } from './styles';
-import { darkBlueGray, white } from 'styles/variables/colors';
+import { darkBlueGray, white, darkGray, gray } from 'styles/variables/colors';
 
 const {
   arrayOf,
@@ -111,13 +111,20 @@ class ReplyForm extends Component {
         {(submitted && showSubmitError) && <div>There was an error submitting this form.</div>}
         {!showSubmitLoader && !submitted && <form className="reply-form">
           <div className="input-container">
-            <div style={profPic(avatarURL)}></div>
-            <textarea
-              className="reply-input"
-              onChange={this.handleOnTextChange}
-              placeholder="Write a reply"
-              value={replyText}
-            ></textarea>
+            <div className="comment-title-container">
+              <div className="comment-title-avatar-container">
+                <div className="comment-title-avatar" style={Object.assign({ margin: '0 auto' }, profPic(avatarURL))} />
+              </div>
+              <div className="comment-title-text">Write a Public Comment</div>
+            </div>
+            <div className="reply-input-container">
+              <textarea
+                className="reply-input"
+                onChange={this.handleOnTextChange}
+                placeholder="Write a reply"
+                value={replyText}
+              ></textarea>
+            </div>
           </div>
           {!disableButton && <button
             className="reply-button"
@@ -129,44 +136,86 @@ class ReplyForm extends Component {
         </form>}
         <style jsx>{`
           .reply-form-container {
-            padding: 15px;
-            margin-left: 25px;
+            margin: 25px;
+            -moz-box-shadow: 0 2px 4px 1px ${gray};
+            -webkit-box-shadow: 0 2px 4px 1px ${gray};
+            box-shadow: 0 2px 4px 1px ${gray};
           }
 
           .reply-form {
+            width: 100%;
             display: inline-block;
           }
 
-          .input-container {
-            display: flex;
+          .reply-form, .loader {
+            padding: 25px;
           }
 
-          .reply-input {
-            border-width: 1px;
-            height: 75px;
-            width: 500px;
-            padding: 15px;
-            vertical-align: top;
-            margin: 0 10px;
-          }
-
-          .reply-button {
-            float: right;
-            display: block;
-            width: 100px;
-            background-color: ${darkBlueGray};
-            padding: 5px 10px;
-            text-transform: uppercase;
-            font-weight: bold;
-            font-size: 10px;
-            color: ${white};
-            margin-top: 10px;
-          }
 
           .loader {
             display: block;
             text-align: center;
             font-size: 12px;
+          }
+
+          .comment-title-container {
+            display: flex;
+            flex-direction: row;
+          }
+          .comment-title-avatar-container {
+            flex: 1;
+            padding: 25px;
+            border-top: 1px solid ${gray};
+            border-bottom: 1px solid ${gray};
+            border-left: 1px solid ${gray};
+          }
+          .comment-title-text {
+            display: flex;
+            align-items: center;
+            flex: 3;
+            font-weight: bold;
+            font-size: 12px;
+            text-transform: uppercase;
+            padding: 25px;
+            border-top: 1px solid ${gray};
+            border-bottom: 1px solid ${gray};
+            border-left: 1px solid ${gray};
+            border-top: 1px solid ${gray};
+            border-right: 1px solid ${gray};
+          }
+
+          .reply-input-container {
+            width: 100%;
+            margin: 25px 0;
+          }
+          .reply-input {
+            resize: none;
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: ${gray};
+            -moz-box-shadow: 0 2px 4px 1px ${gray};
+            -webkit-box-shadow: 0 2px 4px 1px ${gray};
+            box-shadow: 0 2px 4px 1px ${gray};
+            border: 1px solid ${gray};
+            outline: none;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+          }
+          .reply-button {
+            display: block;
+            border: 1px dotted ${darkGray};
+            border-radius: 100px;
+            background-color: ${white};
+            color: ${darkGray};
+            width: 110px;
+            margin: 15px 0;
+            font-size: 11px;
+            font-weight: bold;
+            padding: 5px 0;
+            text-transform: uppercase;
+            margin-left: auto;
           }
         `}</style>
       </div>

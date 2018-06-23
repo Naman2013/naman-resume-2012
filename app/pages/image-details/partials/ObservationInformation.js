@@ -12,7 +12,8 @@ import { likeImage } from 'services/my-pictures/like-image';
 import Modal from 'react-modal';
 import { primaryFont, secondaryFont } from 'styles/variables/fonts';
 import { customModalStyles } from 'styles/mixins/utilities';
-import { button } from '../styles';
+import LikeButton from 'components/common/style/LikeButton';
+
 const {
   any,
   arrayOf,
@@ -135,7 +136,6 @@ class BootstrappedImageDetails extends Component {
     } = this.props;
 
     const { isOpen, likePrompt, count } = this.state;
-    console.log(likePrompt)
     return (<div className="root">
       <div className="obs-container component-container">
         <div className="obs-title" dangerouslySetInnerHTML={{ __html: observationTitle}} />
@@ -144,17 +144,7 @@ class BootstrappedImageDetails extends Component {
           <div className="obs-time" dangerouslySetInnerHTML={{ __html: observationTimeDisplay.join('')}} />
         </div>
         <div className="obs-content" dangerouslySetInnerHTML={{ __html: observationLog}} />
-        <button
-          className="heart-button"
-          onClick={this.likeObservation}
-        >
-          <i
-            style={{
-              backgroundImage: 'url(\'\')',
-            }}
-          />
-          <span dangerouslySetInnerHTML={{ __html: count }}></span>
-        </button>
+        <LikeButton onClickEvent={this.likeObservation} count={count} />
         <Modal
           isOpen={isOpen}
           style={customModalStyles}
@@ -207,11 +197,6 @@ class BootstrappedImageDetails extends Component {
           font-family: ${secondaryFont};
           font-size: 19px;
           margin: 25px 0;
-        }
-
-        .heart-button {
-          ${button};
-          width: 50px;
         }
 
         .fa-close {
