@@ -200,7 +200,6 @@ class BootstrappedImageDetails extends Component {
           -moz-box-shadow: 0 2px 4px 1px ${gray};
           -webkit-box-shadow: 0 2px 4px 1px ${gray};
           box-shadow: 0 2px 4px 1px ${gray};
-          padding: 25px;
         }
 
         .obs-img-container {

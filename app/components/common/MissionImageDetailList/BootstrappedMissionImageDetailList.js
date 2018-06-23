@@ -10,7 +10,8 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import uniqueId from 'lodash/uniqueId';
 import { profilePhotoStyle } from 'styles/mixins/utilities';
-
+import { darkGray, lightGray } from 'styles/variables/colors';
+import { secondaryFont } from 'styles/variables/fonts';
 
 const {
   arrayOf,
@@ -41,7 +42,16 @@ class BootstrappedMissionDetailList extends Component {
   };
 
   state = {
+    showInfo: false,
   };
+
+  toggleInfo = (e) => {
+    e.preventDefault();
+
+    this.setState(state => ({
+      showInfo: !state.showInfo,
+    }));
+  }
 
 
   render() {
@@ -49,7 +59,7 @@ class BootstrappedMissionDetailList extends Component {
       listTitle,
       imagingDetailList,
     } = this.props;
-
+    const { showInfo } = this.state;
     const profPic = photoUrl => Object.assign(profilePhotoStyle(photoUrl), {
       height: '50px',
       width: '50px',
@@ -57,19 +67,70 @@ class BootstrappedMissionDetailList extends Component {
     });
 
     return (<div className="root">
-      <h3 dangerouslySetInnerHTML={{ __html: listTitle}} />
-      {imagingDetailList.map(detail => (<div key={uniqueId()}>
-        {detail.hasIconFlag ? <div style={profPic(detail.iconUrl)}/> : null}
-        <div dangerouslySetInnerHTML={{ __html: detail.label}} />
-        <div dangerouslySetInnerHTML={{ __html: detail.text}} />
-        <div dangerouslySetInnerHTML={{ __html: detail.textDetail}} />
-        <div dangerouslySetInnerHTML={{ __html: detail.textNote}} />
+      <div className="title-container">
+        <span className="title" dangerouslySetInnerHTML={{ __html: listTitle}} />
+        {showInfo ? <div className="action fa fa-minus" onClick={this.toggleInfo} /> :
+        <div className="action fa fa-plus" onClick={this.toggleInfo} />}
+      </div>
+      {showInfo ? imagingDetailList.map(detail => (<div className="info" key={uniqueId()}>
+        {detail.hasIconFlag ? <div style={profPic(detail.iconUrl)} /> : null}
+        <div className="detail-label" dangerouslySetInnerHTML={{ __html: detail.label}} />
+        <div className="detail-text" dangerouslySetInnerHTML={{ __html: detail.text}} />
+        <div className="detail-text-detail" dangerouslySetInnerHTML={{ __html: detail.textDetail}} />
+        <div className="detail-note" dangerouslySetInnerHTML={{ __html: detail.textNote}} />
         {detail.hasLinkFlag ?
           <Link to={detail.linkUrl}>
             <span dangerouslySetInnerHTML={{ __html: detail.linkLabel}}/>
           </Link> : null}
-      </div>))}
+      </div>)) : null}
       <style jsx>{`
+
+        .title-container {
+          text-transform: uppercase;
+          color: ${darkGray};
+          font-weight: bold;
+          font-size: 12px;
+          border-bottom: 4px solid ${darkGray};
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+        }
+
+        .title {
+          padding: 25px;
+          text-align: center;
+        }
+
+        .info {
+          padding: 25px;
+        }
+
+        .detail-label {
+          text-transform: uppercase;
+          color: ${darkGray};
+          font-weight: bold;
+          font-size: 10px;
+        }
+
+        .detail-text {
+          text-transform: uppercase;
+          color: ${darkGray};
+          font-weight: bold;
+          font-size: 12px;
+        }
+        .detail-text-detail {
+          text-transform: uppercase;
+          color: ${darkGray};
+          font-weight: bold;
+          font-size: 12px;
+
+        }
+        .detail-note {
+          font-family: ${secondaryFont};
+          font-size: 12px;
+          color: ${lightGray};
+
+        }
       `}</style>
     </div>);
   }
