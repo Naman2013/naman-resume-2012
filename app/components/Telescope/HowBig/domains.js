@@ -2,23 +2,15 @@ import React from 'react';
 import { Enum } from 'enumify';
 import ObjectFrame from './ReferenceObjects/ObjectFrame';
 import nebula from './ReferenceObjects/svg/eskino-nebula.svg';
-
-/**
-  target inputs
-  domain
-  size of the reference
-
-  scale - 0 to 1
-  next domain is always 1
-  domain comparison is some percentage of 1
-*/
+import earthSVG from './ReferenceObjects/svg/howbig-earth.svg';
+import milkyWay from './ReferenceObjects/svg/howbig-milky-way.svg';
 
 class Domains extends Enum {}
 Domains.initEnum({
   SOLAR_SYSTEM: {
     render: props => (
       <ObjectFrame
-        svgURL={nebula}
+        svgURL={milkyWay}
         {...props}
       />
     ),
@@ -36,11 +28,11 @@ Domains.initEnum({
   MILKY_WAY: {
     render: props => (
       <ObjectFrame
-        svgURL={nebula}
+        svgURL={milkyWay}
         {...props}
       />
     ),
-    titleText: 'Milky Way'
+    titleText: 'Milky Way',
   },
   DEEP_SPACE: {
     render: props => (

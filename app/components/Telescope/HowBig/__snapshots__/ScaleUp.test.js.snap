@@ -8,11 +8,20 @@ ShallowWrapper {
     dimension={500}
     missionTargetID={2}
     onComplete={[Function]}
-    referenceObject="SOLAR_SYSTEM"
+    referenceObjectName="Earth"
     referenceObjectScale={0.34}
-    targetObjectName="Test object"
+    referenceObjectURL={
+      Object {
+        "process": [Function],
+      }
+    }
+    targetObjectName="Jupiter"
     targetObjectScale={1}
-    targetObjectURL="https://vega.slooh.com/icons/nav/Galaxy_nav_w.svg"
+    targetObjectURL={
+      Object {
+        "process": [Function],
+      }
+    }
   />,
   Symbol(enzyme.__renderer__): Object {
     "batchedUpdates": [Function],
@@ -47,8 +56,8 @@ ShallowWrapper {
                 }
               }
               width={400}
-              x={0}
-              y={0}
+              x={50}
+              y={50}
             />
           </g>
           <FadeSVG
@@ -60,7 +69,7 @@ ShallowWrapper {
                   "fontSize": "15px",
                 }
               }
-              text="Reference object = Solar System"
+              text="Reference object = Earth"
               x={250}
               y={475}
             />
@@ -73,7 +82,11 @@ ShallowWrapper {
             <ObjectFrame
               height={400}
               onLoadCallback={[Function]}
-              svgURL="https://vega.slooh.com/icons/nav/Galaxy_nav_w.svg"
+              svgURL={
+                Object {
+                  "process": [Function],
+                }
+              }
               width={400}
               x={50}
               y={50}
@@ -84,7 +97,7 @@ ShallowWrapper {
                   "fontSize": "15px",
                 }
               }
-              text="Target object = Test object"
+              text="Target object = Jupiter"
               x={250}
               y={475}
             />
@@ -117,8 +130,8 @@ ShallowWrapper {
                   }
                 }
                 width={400}
-                x={0}
-                y={0}
+                x={50}
+                y={50}
               />
             </g>,
             <FadeSVG
@@ -130,7 +143,7 @@ ShallowWrapper {
                     "fontSize": "15px",
                   }
                 }
-                text="Reference object = Solar System"
+                text="Reference object = Earth"
                 x={250}
                 y={475}
               />
@@ -154,8 +167,8 @@ ShallowWrapper {
                   }
                 }
                 width={400}
-                x={0}
-                y={0}
+                x={50}
+                y={50}
               />,
               "style": Object {
                 "transform": "translate(50px, 50px) scale(1)",
@@ -174,8 +187,8 @@ ShallowWrapper {
                   "process": [Function],
                 },
                 "width": 400,
-                "x": 0,
-                "y": 0,
+                "x": 50,
+                "y": 50,
               },
               "ref": null,
               "rendered": null,
@@ -194,7 +207,7 @@ ShallowWrapper {
                     "fontSize": "15px",
                   }
                 }
-                text="Reference object = Solar System"
+                text="Reference object = Earth"
                 x={250}
                 y={475}
               />,
@@ -209,7 +222,7 @@ ShallowWrapper {
                 "displayProperties": Object {
                   "fontSize": "15px",
                 },
-                "text": "Reference object = Solar System",
+                "text": "Reference object = Earth",
                 "x": 250,
                 "y": 475,
               },
@@ -231,7 +244,11 @@ ShallowWrapper {
             <ObjectFrame
               height={400}
               onLoadCallback={[Function]}
-              svgURL="https://vega.slooh.com/icons/nav/Galaxy_nav_w.svg"
+              svgURL={
+                Object {
+                  "process": [Function],
+                }
+              }
               width={400}
               x={50}
               y={50}
@@ -242,7 +259,7 @@ ShallowWrapper {
                   "fontSize": "15px",
                 }
               }
-              text="Target object = Test object"
+              text="Target object = Jupiter"
               x={250}
               y={475}
             />
@@ -259,7 +276,11 @@ ShallowWrapper {
               <ObjectFrame
                 height={400}
                 onLoadCallback={[Function]}
-                svgURL="https://vega.slooh.com/icons/nav/Galaxy_nav_w.svg"
+                svgURL={
+                  Object {
+                    "process": [Function],
+                  }
+                }
                 width={400}
                 x={50}
                 y={50}
@@ -270,7 +291,7 @@ ShallowWrapper {
                     "fontSize": "15px",
                   }
                 }
-                text="Target object = Test object"
+                text="Target object = Jupiter"
                 x={250}
                 y={475}
               />,
@@ -285,7 +306,9 @@ ShallowWrapper {
               "props": Object {
                 "height": 400,
                 "onLoadCallback": [Function],
-                "svgURL": "https://vega.slooh.com/icons/nav/Galaxy_nav_w.svg",
+                "svgURL": Object {
+                  "process": [Function],
+                },
                 "width": 400,
                 "x": 50,
                 "y": 50,
@@ -302,7 +325,7 @@ ShallowWrapper {
                 "displayProperties": Object {
                   "fontSize": "15px",
                 },
-                "text": "Target object = Test object",
+                "text": "Target object = Jupiter",
                 "x": 250,
                 "y": 475,
               },
@@ -345,8 +368,8 @@ ShallowWrapper {
                   }
                 }
                 width={400}
-                x={0}
-                y={0}
+                x={50}
+                y={50}
               />
             </g>
             <FadeSVG
@@ -358,7 +381,7 @@ ShallowWrapper {
                     "fontSize": "15px",
                   }
                 }
-                text="Reference object = Solar System"
+                text="Reference object = Earth"
                 x={250}
                 y={475}
               />
@@ -371,7 +394,11 @@ ShallowWrapper {
               <ObjectFrame
                 height={400}
                 onLoadCallback={[Function]}
-                svgURL="https://vega.slooh.com/icons/nav/Galaxy_nav_w.svg"
+                svgURL={
+                  Object {
+                    "process": [Function],
+                  }
+                }
                 width={400}
                 x={50}
                 y={50}
@@ -382,7 +409,7 @@ ShallowWrapper {
                     "fontSize": "15px",
                   }
                 }
-                text="Target object = Test object"
+                text="Target object = Jupiter"
                 x={250}
                 y={475}
               />
@@ -415,8 +442,8 @@ ShallowWrapper {
                     }
                   }
                   width={400}
-                  x={0}
-                  y={0}
+                  x={50}
+                  y={50}
                 />
               </g>,
               <FadeSVG
@@ -428,7 +455,7 @@ ShallowWrapper {
                       "fontSize": "15px",
                     }
                   }
-                  text="Reference object = Solar System"
+                  text="Reference object = Earth"
                   x={250}
                   y={475}
                 />
@@ -452,8 +479,8 @@ ShallowWrapper {
                     }
                   }
                   width={400}
-                  x={0}
-                  y={0}
+                  x={50}
+                  y={50}
                 />,
                 "style": Object {
                   "transform": "translate(50px, 50px) scale(1)",
@@ -472,8 +499,8 @@ ShallowWrapper {
                     "process": [Function],
                   },
                   "width": 400,
-                  "x": 0,
-                  "y": 0,
+                  "x": 50,
+                  "y": 50,
                 },
                 "ref": null,
                 "rendered": null,
@@ -492,7 +519,7 @@ ShallowWrapper {
                       "fontSize": "15px",
                     }
                   }
-                  text="Reference object = Solar System"
+                  text="Reference object = Earth"
                   x={250}
                   y={475}
                 />,
@@ -507,7 +534,7 @@ ShallowWrapper {
                   "displayProperties": Object {
                     "fontSize": "15px",
                   },
-                  "text": "Reference object = Solar System",
+                  "text": "Reference object = Earth",
                   "x": 250,
                   "y": 475,
                 },
@@ -529,7 +556,11 @@ ShallowWrapper {
               <ObjectFrame
                 height={400}
                 onLoadCallback={[Function]}
-                svgURL="https://vega.slooh.com/icons/nav/Galaxy_nav_w.svg"
+                svgURL={
+                  Object {
+                    "process": [Function],
+                  }
+                }
                 width={400}
                 x={50}
                 y={50}
@@ -540,7 +571,7 @@ ShallowWrapper {
                     "fontSize": "15px",
                   }
                 }
-                text="Target object = Test object"
+                text="Target object = Jupiter"
                 x={250}
                 y={475}
               />
@@ -557,7 +588,11 @@ ShallowWrapper {
                 <ObjectFrame
                   height={400}
                   onLoadCallback={[Function]}
-                  svgURL="https://vega.slooh.com/icons/nav/Galaxy_nav_w.svg"
+                  svgURL={
+                    Object {
+                      "process": [Function],
+                    }
+                  }
                   width={400}
                   x={50}
                   y={50}
@@ -568,7 +603,7 @@ ShallowWrapper {
                       "fontSize": "15px",
                     }
                   }
-                  text="Target object = Test object"
+                  text="Target object = Jupiter"
                   x={250}
                   y={475}
                 />,
@@ -583,7 +618,9 @@ ShallowWrapper {
                 "props": Object {
                   "height": 400,
                   "onLoadCallback": [Function],
-                  "svgURL": "https://vega.slooh.com/icons/nav/Galaxy_nav_w.svg",
+                  "svgURL": Object {
+                    "process": [Function],
+                  },
                   "width": 400,
                   "x": 50,
                   "y": 50,
@@ -600,7 +637,7 @@ ShallowWrapper {
                   "displayProperties": Object {
                     "fontSize": "15px",
                   },
-                  "text": "Target object = Test object",
+                  "text": "Target object = Jupiter",
                   "x": 250,
                   "y": 475,
                 },

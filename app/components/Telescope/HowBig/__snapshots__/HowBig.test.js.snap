@@ -29,7 +29,8 @@ ShallowWrapper {
         <ScaleDown
           dimension={100}
           onComplete={[MockFunction]}
-          referenceObject="SOLAR_SYSTEM"
+          referenceObjectName={undefined}
+          referenceObjectURL={undefined}
           targetObjectName="Test object"
           targetObjectScale={1}
           targetObjectURL="https://vega.slooh.com/icons/community/human_spirit.svg"
@@ -59,7 +60,8 @@ ShallowWrapper {
         "props": Object {
           "dimension": 100,
           "onComplete": [MockFunction],
-          "referenceObject": "SOLAR_SYSTEM",
+          "referenceObjectName": undefined,
+          "referenceObjectURL": undefined,
           "targetObjectName": "Test object",
           "targetObjectScale": 1,
           "targetObjectURL": "https://vega.slooh.com/icons/community/human_spirit.svg",
@@ -117,7 +119,8 @@ ShallowWrapper {
           <ScaleDown
             dimension={100}
             onComplete={[MockFunction]}
-            referenceObject="SOLAR_SYSTEM"
+            referenceObjectName={undefined}
+            referenceObjectURL={undefined}
             targetObjectName="Test object"
             targetObjectScale={1}
             targetObjectURL="https://vega.slooh.com/icons/community/human_spirit.svg"
@@ -147,7 +150,8 @@ ShallowWrapper {
           "props": Object {
             "dimension": 100,
             "onComplete": [MockFunction],
-            "referenceObject": "SOLAR_SYSTEM",
+            "referenceObjectName": undefined,
+            "referenceObjectURL": undefined,
             "targetObjectName": "Test object",
             "targetObjectScale": 1,
             "targetObjectURL": "https://vega.slooh.com/icons/community/human_spirit.svg",

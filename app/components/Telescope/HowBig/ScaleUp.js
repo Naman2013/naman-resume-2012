@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import noop from 'lodash/noop';
-import domains from './domains';
 import FadeSVG from '../../../components/common/Fade/FadeSVG';
 import SVGText from '../common/SVGText';
 import ObjectFrame from './ReferenceObjects/ObjectFrame';
@@ -23,7 +22,8 @@ class ScaleUp extends Component {
     dimension: PropTypes.number,
     targetObjectURL: PropTypes.string.isRequired,
     targetObjectName: PropTypes.string.isRequired,
-    referenceObject: PropTypes.string.isRequired,
+    referenceObjectURL: PropTypes.string.isRequired,
+    referenceObjectName: PropTypes.string.isRequired,
     referenceObjectScale: PropTypes.number.isRequired,
     onComplete: PropTypes.func,
   };
@@ -159,7 +159,8 @@ class ScaleUp extends Component {
 
   render() {
     const {
-      referenceObject,
+      referenceObjectURL,
+      referenceObjectName,
       targetObjectURL,
       targetObjectName,
       dimension,
@@ -167,7 +168,6 @@ class ScaleUp extends Component {
 
     const {
       referenceObjectLoaded,
-      targetObjectLoaded,
       showReference,
       referenceScale,
       referencePosition,
@@ -189,19 +189,18 @@ class ScaleUp extends Component {
               transformOrigin: 'center',
             }}
           >
-            {
-              domains
-                .enumValueOf(referenceObject)
-                .render({
-                  width: artworkDimension,
-                  height: artworkDimension,
-                  onLoadCallback: this.handleReferenceObjectLoaded,
-                })
-            }
+            <ObjectFrame
+              svgURL={referenceObjectURL}
+              width={artworkDimension}
+              height={artworkDimension}
+              x={staticArtworkPosition}
+              y={staticArtworkPosition}
+              onLoadCallback={this.handleReferenceObjectLoaded}
+            />
           </g>
           <FadeSVG isHidden={!showReferenceText}>
             <SVGText
-              text={`Reference object = ${domains.enumValueOf(referenceObject).titleText}`}
+              text={`Reference object = ${referenceObjectName}`}
               x={midPoint}
               y={(dimension - (dimension * 0.05))}
               displayProperties={{

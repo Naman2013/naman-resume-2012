@@ -9,12 +9,8 @@ class HowBig extends Component {
   static propTypes = {
     dimension: PropTypes.number.isRequired,
     referenceObjectScale: PropTypes.number.isRequired,
-    referenceObject: PropTypes.oneOf([
-      'SOLAR_SYSTEM',
-      'STAR',
-      'MILKY_WAY',
-      'DEEP_SPACE',
-    ]).isRequired,
+    referenceObjectName: PropTypes.string.isRequired,
+    referenceObjectURL: PropTypes.string.isRequired,
     targetObjectScale: PropTypes.number.isRequired,
     targetObjectURL: PropTypes.string.isRequired,
     targetObjectName: PropTypes.string.isRequired,
@@ -27,7 +23,8 @@ class HowBig extends Component {
     const {
       dimension,
       referenceObjectScale,
-      referenceObject,
+      referenceObjectName,
+      referenceObjectURL,
       targetObjectScale,
       targetObjectName,
       targetObjectURL,
@@ -45,8 +42,9 @@ class HowBig extends Component {
               dimension={dimension}
               targetObjectURL={targetObjectURL}
               targetObjectName={targetObjectName}
-              referenceObject={referenceObject}
               referenceObjectScale={referenceObjectScale}
+              referenceObjectName={referenceObjectName}
+              referenceObjectURL={referenceObjectURL}
               onComplete={onComplete}
             />
             : <ScaleDown
@@ -54,7 +52,8 @@ class HowBig extends Component {
               targetObjectURL={targetObjectURL}
               targetObjectScale={targetObjectScale}
               targetObjectName={targetObjectName}
-              referenceObject={referenceObject}
+              referenceObjectName={referenceObjectName}
+              referenceObjectURL={referenceObjectURL}
               onComplete={onComplete}
             />
         }
