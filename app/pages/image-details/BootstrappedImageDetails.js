@@ -27,6 +27,8 @@ const {
   string,
 } = PropTypes;
 
+const deviceMap = new Map([['desktop', 769], ['tablet', 641], ['mobile', 0]]);
+
 class BootstrappedImageDetails extends Component {
   static propTypes = {
     callSource: string,
@@ -84,8 +86,64 @@ class BootstrappedImageDetails extends Component {
   };
 
   state = {
+    showObservation: true,
+    showDetails: window.innerWidth >= deviceMap.get('desktop'),
+    windowWidth: window.innerWidth,
   };
 
+
+  componentDidMount() {
+    window.addEventListener('resize', this.handleResize);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.handleResize);
+  }
+
+  get device() {
+    const currentSize = this.state.windowWidth;
+    if (currentSize >= deviceMap.get('desktop')) return 'desktop';
+    if (currentSize >= deviceMap.get('tablet')) return 'tablet';
+    if (currentSize >= deviceMap.get('mobile')) return 'mobile';
+  }
+
+  showObservation = () => {
+    if (this.device !== 'desktop') {
+      this.setState({
+        showObservation: true,
+        showDetails: false,
+      });
+    }
+  }
+
+  showDetails = () => {
+    if (this.device !== 'desktop') {
+      this.setState({
+        showObservation: false,
+        showDetails: true,
+      });
+    }
+  }
+
+  handleResize = () => {
+    this.setState({
+      windowWidth: window.innerWidth,
+    });
+
+    if (this.device === 'desktop') {
+      this.setState({
+        showObservation: true,
+        showDetails: true,
+        windowWidth: window.innerWidth,
+      });
+    } else {
+      this.setState(state => ({
+        showObservation: state.showObservation,
+        showDetails: (state.showObservation && state.showDetails) ? false : state.showDetails,
+        windowWidth: window.innerWidth,
+      }));
+    }
+  }
 
   render() {
     const {
@@ -111,14 +169,14 @@ class BootstrappedImageDetails extends Component {
       showLikePrompt,
       user,
     } = this.props;
-
+    const { showObservation, showDetails } = this.state;
     const obsStyle = {
       background: `url(${imageURL}) no-repeat top center`,
     };
 
     const showMissionRelatedInfo = Number(scheduledMissionId) > 0;
     const rightPanelDisplayFlags = [showMissionRelatedInfo];
-    const showRightContainer = rightPanelDisplayFlags.filter(flag => !!flag).length > 0;
+    const showRightContainer = showDetails && rightPanelDisplayFlags.filter(flag => !!flag).length > 0;
     return (<div className="root">
       <div className="obs-img-container component-container">
         <div className="obs-header">
@@ -126,7 +184,11 @@ class BootstrappedImageDetails extends Component {
           <div className="obs-img-subheader" dangerouslySetInnerHTML={{ __html: imageTitle }}/>
         </div>
         <div className="obs-image" style={obsStyle} />
-        <div className="wide-info-block">
+        <div className="split-nav">
+          <div onClick={this.showObservation}>Observation</div>
+          <div onClick={this.showDetails}>Details</div>
+        </div>
+        <div className="wide-info-block object-details">
           <div className="wide-info-item">
             <div className="wide-info-block-header">Object Type:</div>
             <div className="wide-info-block-name">Placeholder Text</div>
@@ -142,7 +204,7 @@ class BootstrappedImageDetails extends Component {
         </div>
       </div>
       <div className="main-container">
-        <div className="left-container">
+        {showObservation ? <div className="left-container">
           {!canEditFlag && <ObservationInformation
             canLikeFlag={canLikeFlag}
             customerImageId={customerImageId}
@@ -172,8 +234,22 @@ class BootstrappedImageDetails extends Component {
             threadId={commentsThreadId}
             user={user}
           /> : null}
-        </div>
+        </div> : null}
         {showRightContainer ? <div className="right-container">
+          {this.device !== 'desktop' ? <div className="wide-info-block component-container">
+            <div className="wide-info-item">
+              <div className="wide-info-block-header">Object Type:</div>
+              <div className="wide-info-block-name">Placeholder Text</div>
+            </div>
+            <div className="wide-info-item">
+              <div className="wide-info-block-header">Domain:</div>
+              <div className="wide-info-block-name">Placeholder Text</div>
+            </div>
+            <div className="wide-info-item">
+              <div className="wide-info-block-header">Constellation:</div>
+              <div className="wide-info-block-name">Placeholder Text</div>
+            </div>
+          </div> : null}
           {showMissionRelatedInfo ? <div className="component-container">
             <MissionDetailList
               scheduledMissionId={scheduledMissionId}
@@ -236,12 +312,16 @@ class BootstrappedImageDetails extends Component {
           display: flex;
         }
 
-        .wide-info-block {
+        .wide-info-block, .split-nav {
           display: flex;
           flex-direction: row;
           justify-content: space-evenly;
           align-items: center;
-           margin-top: 25px;
+          margin-top: 25px;
+        }
+
+        .split-nav {
+          display: none;
         }
 
         .wide-info-item {
@@ -272,10 +352,30 @@ class BootstrappedImageDetails extends Component {
           flex: 1;
         }
 
+        .split-nav {
+          font-weight: bold;
+          font-size: 11px;
+          padding: 10px;
+          text-transform: uppercase;
+        }
+
 
         @media all and (min-width: 641px) and (max-width: 768px) {
+
+          .split-nav {
+            display: flex;
+          }
+          .object-details {
+            display: none;
+          }
         }
         @media all and (max-width: 640px){
+          .split-nav {
+            display: flex;
+          }
+          .object-details {
+            display: none;
+          }
         }
 
       `}</style>
