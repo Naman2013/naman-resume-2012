@@ -40,8 +40,8 @@ class ScaleUp extends Component {
     referenceScale: 1,
     showReferenceText: true,
     referencePosition: {
-      x: ((this.props.dimension / 2) - ((this.props.dimension * ScaleUp.ARTWORK_VS_CANVAS_SIZE_PERCENTAGE) / 2)),
-      y: ((this.props.dimension / 2) - ((this.props.dimension * ScaleUp.ARTWORK_VS_CANVAS_SIZE_PERCENTAGE) / 2)),
+      x: 0,
+      y: 0,
     },
     targetObjectOpacity: 0,
   };
@@ -112,8 +112,8 @@ class ScaleUp extends Component {
       x: this.state.referencePosition.x,
       y: this.state.referencePosition.y,
     }, ScaleUp.DURATION_TO_MOVE_REFERENCE, {
-      x: -140,
-      y: -140,
+      x: -200,
+      y: -200,
       onUpdate: ({ x, y }) => {
         this.setState(() => ({ referencePosition: { x, y } }));
       },

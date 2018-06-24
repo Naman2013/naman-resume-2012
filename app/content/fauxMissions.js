@@ -18,7 +18,7 @@ export default {
   scaleUp: {
     key: 'scaleUp',
     missionTargetID: 2,
-    referenceObjectScale: 0.34,
+    referenceObjectScale: 0.09,
     referenceObjectURL: earth,
     referenceObjectName: 'Earth',
     targetObjectScale: 1,

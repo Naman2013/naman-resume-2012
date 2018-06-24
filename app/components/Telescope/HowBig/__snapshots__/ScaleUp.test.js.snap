@@ -9,7 +9,7 @@ ShallowWrapper {
     missionTargetID={2}
     onComplete={[Function]}
     referenceObjectName="Earth"
-    referenceObjectScale={0.34}
+    referenceObjectScale={0.09}
     referenceObjectURL={
       Object {
         "process": [Function],
@@ -42,7 +42,7 @@ ShallowWrapper {
           <g
             style={
               Object {
-                "transform": "translate(50px, 50px) scale(1)",
+                "transform": "translate(0px, 0px) scale(1)",
                 "transformOrigin": "center",
               }
             }
@@ -116,7 +116,7 @@ ShallowWrapper {
             <g
               style={
                 Object {
-                  "transform": "translate(50px, 50px) scale(1)",
+                  "transform": "translate(0px, 0px) scale(1)",
                   "transformOrigin": "center",
                 }
               }
@@ -171,7 +171,7 @@ ShallowWrapper {
                 y={50}
               />,
               "style": Object {
-                "transform": "translate(50px, 50px) scale(1)",
+                "transform": "translate(0px, 0px) scale(1)",
                 "transformOrigin": "center",
               },
             },
@@ -354,7 +354,7 @@ ShallowWrapper {
             <g
               style={
                 Object {
-                  "transform": "translate(50px, 50px) scale(1)",
+                  "transform": "translate(0px, 0px) scale(1)",
                   "transformOrigin": "center",
                 }
               }
@@ -428,7 +428,7 @@ ShallowWrapper {
               <g
                 style={
                   Object {
-                    "transform": "translate(50px, 50px) scale(1)",
+                    "transform": "translate(0px, 0px) scale(1)",
                     "transformOrigin": "center",
                   }
                 }
@@ -483,7 +483,7 @@ ShallowWrapper {
                   y={50}
                 />,
                 "style": Object {
-                  "transform": "translate(50px, 50px) scale(1)",
+                  "transform": "translate(0px, 0px) scale(1)",
                   "transformOrigin": "center",
                 },
               },
