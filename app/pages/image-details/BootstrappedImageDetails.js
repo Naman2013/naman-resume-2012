@@ -7,6 +7,7 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import classnames from 'classnames';
 import { backgroundImageCover } from 'styles/mixins/utilities';
 import DiscussionComments from 'components/common/DiscussionsBoard/DiscussionComments';
 import MissionDetailList from 'components/common/MissionDetailList';
@@ -197,13 +198,17 @@ class BootstrappedImageDetails extends Component {
         </div>
         <div className="obs-image" style={obsStyle} />
         <div className="split-nav">
-          <div onClick={this.showObservation}>
+          <div className="split-nav-item-container" onClick={this.showObservation}>
             <div className="split-nav-item">Observation</div>
-            {showObservation ? <img src="https://vega.slooh.com/assets/v4/common/status_triangle_up.svg" /> : null}
+            <img src="https://vega.slooh.com/assets/v4/common/status_triangle_up.svg" className={'pointer-arrow', classnames({
+              'is-hidden': showObservation
+            })} />
           </div>
-          <div onClick={this.showDetails}>
+          <div className="split-nav-item-container" onClick={this.showDetails}>
             <div className="split-nav-item" >Details</div>
-            {showDetails ? <img src="https://vega.slooh.com/assets/v4/common/status_triangle_up.svg" /> : null}
+            <img src="https://vega.slooh.com/assets/v4/common/status_triangle_up.svg" className={'pointer-arrow', classnames({
+              'is-hidden': showDetails
+            })} />
           </div>
         </div>
         <div className="object-details">
@@ -290,6 +295,10 @@ class BootstrappedImageDetails extends Component {
           box-shadow: 0 2px 4px 1px ${gray};
         }
 
+        .is-hidden {
+          visibility: hidden;
+        }
+
         .obs-img-container {
           text-align: center;
           padding: 0;
@@ -325,19 +334,23 @@ class BootstrappedImageDetails extends Component {
         }
 
         .split-nav {
-          display: flex;
-          flex-direction: row;
-          justify-content: space-evenly;
-          align-items: center;
-          margin-top: 25px;
-        }
-
-        .split-nav {
           display: none;
+          align-items: center;
+          flex-direction: row;
+          font-size: 11px;
+          font-weight: bold;
+          justify-content: space-evenly;
+          margin-top: 25px;
+          text-transform: uppercase;
         }
 
         .split-nav-item {
-          margin: 10px;
+          margin: 5px;
+        }
+
+        .split-nav-item-container {
+          border: 1px solid ${gray};
+          flex: 0 50%;
         }
 
         .left-container {
@@ -348,11 +361,8 @@ class BootstrappedImageDetails extends Component {
           flex: 1;
         }
 
-        .split-nav {
-          font-weight: bold;
-          font-size: 11px;
-          padding: 10px;
-          text-transform: uppercase;
+        .pointer-arrow {
+          margin-bottom: -5px;
         }
 
 

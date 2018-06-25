@@ -104,7 +104,7 @@ const ObserverInfo = ({
       top: 0;
       width: 50%;
       height: 100%;
-      border-right: 1px solid ${darkGray};
+      border-right: 1px solid ${gray};
     }
 
     .flex-item {
@@ -115,8 +115,8 @@ const ObserverInfo = ({
       display: block;
       text-align: center;
       padding: 5px 0;
-      border-top: 1px solid ${darkGray};
-      border-bottom: 1px solid ${darkGray};
+      border-top: 1px solid ${gray};
+      border-bottom: 1px solid ${gray};
       font-size: 10px;
       font-family: ${primaryFont};
       text-transform: uppercase;
@@ -152,7 +152,7 @@ const ObserverInfo = ({
       .observer-avatar {
         margin: 0 auto;
       }
-      
+
       .title {
         flex: 0 0 100%;
         font-size: 11px;
