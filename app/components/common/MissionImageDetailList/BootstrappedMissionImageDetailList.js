@@ -117,41 +117,41 @@ class BootstrappedMissionDetailList extends Component {
         <div className={classnames('detail-items', {
           'component-container': device !== 'desktop',
         })}>
-          {imagingDetailList.seeingcondition ? (
+          {imagingDetailList.seeingconditions ? (
           <div className="info" key={uniqueId()}>
-            {imagingDetailList.seeingcondition.hasIconFlag ? (
-              <div style={profPic(imagingDetailList.seeingcondition.iconUrl)} />
+            {imagingDetailList.seeingconditions.hasIconFlag ? (
+              <div style={profPic(imagingDetailList.seeingconditions.iconUrl)} />
             ) : null}
             <div
               className="detail-label"
               dangerouslySetInnerHTML={{
-                __html: imagingDetailList.seeingcondition.label
+                __html: imagingDetailList.seeingconditions.label
               }}
             />
             <div
               className="detail-text"
               dangerouslySetInnerHTML={{
-                __html: imagingDetailList.seeingcondition.text
+                __html: imagingDetailList.seeingconditions.text
               }}
             />
             <div
               className="detail-text-detail"
               dangerouslySetInnerHTML={{
-                __html: imagingDetailList.seeingcondition.textDetail
+                __html: imagingDetailList.seeingconditions.textDetail
               }}
             />
             <div
               className="detail-note"
               dangerouslySetInnerHTML={{
-                __html: imagingDetailList.seeingcondition.textNote
+                __html: imagingDetailList.seeingconditions.textNote
               }}
             />
-            {imagingDetailList.seeingcondition.hasLinkFlag ? (
-              <Link to={imagingDetailList.seeingcondition.linkUrl}>
+            {imagingDetailList.seeingconditions.hasLinkFlag ? (
+              <Link to={imagingDetailList.seeingconditions.linkUrl}>
                 <span
                   className="link"
                   dangerouslySetInnerHTML={{
-                    __html: imagingDetailList.seeingcondition.linkLabel
+                    __html: imagingDetailList.seeingconditions.linkLabel
                   }}
                 />
               </Link>
