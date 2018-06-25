@@ -13,6 +13,7 @@ import MissionDetailList from 'components/common/MissionDetailList';
 import ObjectDetailList from 'components/common/ObjectDetailList';
 import MissionImageDetailList from 'components/common/MissionImageDetailList';
 import ObservationsForm from 'components/ObservationsForm';
+import ObserverInfo from 'components/ObserverInfo';
 import ObservationInformation from './partials/ObservationInformation';
 import { darkGray, gray } from 'styles/variables/colors';
 import { primaryFont, secondaryFont } from 'styles/variables/fonts';
@@ -40,6 +41,8 @@ class BootstrappedImageDetails extends Component {
     commentsThreadId: oneOfType([number, string]),
     commentsTopicId: oneOfType([number, string]),
     customerImageId: string,
+    displayName: string,
+    gravityRankLabel: string,
     fileData: shape({
       'Photo By': string,
     }),
@@ -74,6 +77,8 @@ class BootstrappedImageDetails extends Component {
     fileData: {
       'Photo By': '',
     },
+    displayName: '',
+    gravityRankLabel: '',
     imageTitle: '',
     imageURL: '',
     likesCount: 0,
@@ -150,6 +155,7 @@ class BootstrappedImageDetails extends Component {
 
   render() {
     const {
+      avatarURL,
       callSource,
       canEditFlag,
       canLikeFlag,
@@ -158,7 +164,9 @@ class BootstrappedImageDetails extends Component {
       commentsThreadId,
       commentsTopicId,
       customerImageId,
+      displayName,
       fileData,
+      gravityRankLabel,
       imageTitle,
       imageURL,
       likePrompt,
@@ -189,15 +197,21 @@ class BootstrappedImageDetails extends Component {
         </div>
         <div className="obs-image" style={obsStyle} />
         <div className="split-nav">
-          <div onClick={this.showObservation}>Observation</div>
-          <div onClick={this.showDetails}>Details</div>
+          <div onClick={this.showObservation}>
+            <div className="split-nav-item">Observation</div>
+            {showObservation ? <img src="https://vega.slooh.com/assets/v4/common/status_triangle_up.svg" /> : null}
+          </div>
+          <div onClick={this.showDetails}>
+            <div className="split-nav-item" >Details</div>
+            {showDetails ? <img src="https://vega.slooh.com/assets/v4/common/status_triangle_up.svg" /> : null}
+          </div>
         </div>
         <div className="object-details">
-          <ObjectDetailList
+          {objectId !== '0' ? <ObjectDetailList
             device={this.device}
             objectId={objectId}
             scheduledMissionId={scheduledMissionId}
-          />
+          /> : null}
         </div>
       </div>
       <div className="main-container">
@@ -233,7 +247,15 @@ class BootstrappedImageDetails extends Component {
           /> : null}
         </div> : null}
         {showRightContainer ? <div className="right-container">
-          {this.device !== 'desktop' ? <div>
+        <div>
+          <ObserverInfo
+            avatarURL={avatarURL}
+            device={this.device}
+            displayName={displayName}
+            gravityRankLabel={gravityRankLabel}
+          />
+        </div>
+          {this.device !== 'desktop' && objectId !== '0' ? <div>
             <ObjectDetailList
               device={this.device}
               objectId={objectId}
@@ -312,6 +334,10 @@ class BootstrappedImageDetails extends Component {
 
         .split-nav {
           display: none;
+        }
+
+        .split-nav-item {
+          margin: 10px;
         }
 
         .left-container {

@@ -8,6 +8,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
+import classnames from 'classnames';
 import uniqueId from 'lodash/uniqueId';
 import { profilePhotoStyle } from 'styles/mixins/utilities';
 import { darkGray, lightGray } from 'styles/variables/colors';
@@ -71,7 +72,9 @@ class BootstrappedMissionDetailList extends Component {
     return (<div className="root">
       <div className="title-container">
         <span className="title" dangerouslySetInnerHTML={{ __html: listTitle}} />
-        {showInfo ? <div className="action fa fa-minus" onClick={this.toggleInfo} /> :
+        {showInfo ? <img className={classnames('action', {
+          up: showInfo,
+        })} onClick={this.toggleInfo} src="https://vega.slooh.com/assets/v4/common/arrow_down.svg" /> :
         <div className="action fa fa-plus" onClick={this.toggleInfo} />}
       </div>
       {showInfo ? missionDetailList.map(detail => (<div className="info" key={uniqueId()}>
@@ -105,6 +108,14 @@ class BootstrappedMissionDetailList extends Component {
 
         .info {
           padding: 25px;
+        }
+
+        .up {
+          -webkit-transform: rotate(90deg);
+          -moz-transform: rotate(90deg);
+          -o-transform: rotate(90deg);
+          -ms-transform: rotate(90deg);
+          transform: rotate(90deg);
         }
 
         .detail-label {
