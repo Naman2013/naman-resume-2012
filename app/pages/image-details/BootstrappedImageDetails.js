@@ -10,6 +10,7 @@ import PropTypes from 'prop-types';
 import { backgroundImageCover } from 'styles/mixins/utilities';
 import DiscussionComments from 'components/common/DiscussionsBoard/DiscussionComments';
 import MissionDetailList from 'components/common/MissionDetailList';
+import ObjectDetailList from 'components/common/ObjectDetailList';
 import MissionImageDetailList from 'components/common/MissionImageDetailList';
 import ObservationsForm from 'components/ObservationsForm';
 import ObservationInformation from './partials/ObservationInformation';
@@ -46,6 +47,7 @@ class BootstrappedImageDetails extends Component {
     imageURL: string,
     likePrompt: string,
     likesCount: number,
+    objectId: string,
     observationLog: string,
     observationTimeDisplay: arrayOf(string),
     observationTitle: string,
@@ -77,6 +79,7 @@ class BootstrappedImageDetails extends Component {
     likesCount: 0,
     likePrompt: '',
     showLikePrompt: true,
+    objectId: null,
     observationLog: '',
     observationTimeDisplay: [],
     observationTitle: '',
@@ -160,6 +163,7 @@ class BootstrappedImageDetails extends Component {
       imageURL,
       likePrompt,
       likesCount,
+      objectId,
       observationLog,
       observationTimeDisplay,
       observationTitle,
@@ -188,19 +192,12 @@ class BootstrappedImageDetails extends Component {
           <div onClick={this.showObservation}>Observation</div>
           <div onClick={this.showDetails}>Details</div>
         </div>
-        <div className="wide-info-block object-details">
-          <div className="wide-info-item">
-            <div className="wide-info-block-header">Object Type:</div>
-            <div className="wide-info-block-name">Placeholder Text</div>
-          </div>
-          <div className="wide-info-item">
-            <div className="wide-info-block-header">Domain:</div>
-            <div className="wide-info-block-name">Placeholder Text</div>
-          </div>
-          <div className="wide-info-item">
-            <div className="wide-info-block-header">Constellation:</div>
-            <div className="wide-info-block-name">Placeholder Text</div>
-          </div>
+        <div className="object-details">
+          <ObjectDetailList
+            device={this.device}
+            objectId={objectId}
+            scheduledMissionId={scheduledMissionId}
+          />
         </div>
       </div>
       <div className="main-container">
@@ -236,19 +233,12 @@ class BootstrappedImageDetails extends Component {
           /> : null}
         </div> : null}
         {showRightContainer ? <div className="right-container">
-          {this.device !== 'desktop' ? <div className="wide-info-block component-container">
-            <div className="wide-info-item">
-              <div className="wide-info-block-header">Object Type:</div>
-              <div className="wide-info-block-name">Placeholder Text</div>
-            </div>
-            <div className="wide-info-item">
-              <div className="wide-info-block-header">Domain:</div>
-              <div className="wide-info-block-name">Placeholder Text</div>
-            </div>
-            <div className="wide-info-item">
-              <div className="wide-info-block-header">Constellation:</div>
-              <div className="wide-info-block-name">Placeholder Text</div>
-            </div>
+          {this.device !== 'desktop' ? <div>
+            <ObjectDetailList
+              device={this.device}
+              objectId={objectId}
+              scheduledMissionId={scheduledMissionId}
+            />
           </div> : null}
           {showMissionRelatedInfo ? <div className="component-container">
             <MissionDetailList
@@ -312,7 +302,7 @@ class BootstrappedImageDetails extends Component {
           display: flex;
         }
 
-        .wide-info-block, .split-nav {
+        .split-nav {
           display: flex;
           flex-direction: row;
           justify-content: space-evenly;
@@ -322,26 +312,6 @@ class BootstrappedImageDetails extends Component {
 
         .split-nav {
           display: none;
-        }
-
-        .wide-info-item {
-          flex: 1 1 0;
-          border: 1px solid ${gray};
-          padding: 25px;
-          text-align: left;
-        }
-
-        .wide-info-block-header {
-          font-weight: bold;
-          font-size: 11px;
-          padding: 10px;
-        }
-
-        .wide-info-block-name {
-          font-size: 20px;
-          padding: 10px;
-          font-family: ${secondaryFont};
-
         }
 
         .left-container {
