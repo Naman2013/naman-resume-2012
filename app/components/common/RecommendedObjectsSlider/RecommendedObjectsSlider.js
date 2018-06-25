@@ -36,7 +36,9 @@ const RecommendedObjects = ({
 
       <style jsx global>
         {`
-
+          .dash-item-first .slick-track {
+            transfrom: none !important;
+          }
 
         `}
       </style>

@@ -9,7 +9,13 @@ const sliderConfiguration = {
 };
 
 const getGuidesItems = (recommendedGuidesList = []) =>
-  recommendedGuidesList.map(object => <div key={uniqueId()}>{object.title}</div>);
+  recommendedGuidesList.map(object => (
+    <div key={uniqueId()} className="card-guides">
+      <div className="card-guides-head">A GUIDE TO</div>
+      <div className="card-guides-title">{object.title}</div>
+    </div>
+    )  
+  );
 
 export const getSliderConfiguration = (slideList = []) => (
   Object.assign({

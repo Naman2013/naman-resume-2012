@@ -3,7 +3,7 @@ import uniqueId from 'lodash/uniqueId';
 import RecommendedObservationSliderItem from './partials/RecommendedObservationsSliderItem';
 
 const sliderConfiguration = {
-  slidesToShow: 3,
+  slidesToShow: 1,
   slidesToScroll: 1,
   initialSlide: 1,
   emptyMessage: 'There are no recommended observations.',
