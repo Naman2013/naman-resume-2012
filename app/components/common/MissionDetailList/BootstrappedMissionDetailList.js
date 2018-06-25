@@ -112,7 +112,9 @@ class BootstrappedMissionDetailList extends Component {
       backgroundSize: 'cover',
     });
 
-    return (<div className="root">
+    return (<div className={classnames({
+      'component-container': device === 'desktop',
+    })}>
       {device === 'desktop' ? <div className="title-container">
         <span className="title" dangerouslySetInnerHTML={{ __html: listTitle}} />
         <img
@@ -126,7 +128,9 @@ class BootstrappedMissionDetailList extends Component {
 
       {showInfo ? <div className="container-detail-items">
         {device !== 'desktop' ? <div className="title" dangerouslySetInnerHTML={{ __html: listTitle}} /> : null}
-        <div className="detail-items">
+        <div className={classnames('detail-items', {
+          'component-container': device !== 'desktop',
+        })}>
           {missionDetailList.missiondate ? (
           <div className="info half-info" key={uniqueId()}>
             {missionDetailList.missiondate.hasIconFlag ? (
@@ -332,10 +336,6 @@ class BootstrappedMissionDetailList extends Component {
           display: flex;
           flex-direction: row;
           flex-wrap: wrap;
-          margin: 25px;
-          -moz-box-shadow: 0 2px 4px 1px ${gray};
-          -webkit-box-shadow: 0 2px 4px 1px ${gray};
-          box-shadow: 0 2px 4px 1px ${gray};
         }
 
         .detail-label {
