@@ -55,6 +55,23 @@ const Shows = ({
             width: 460px !important;
             color: white;
           }
+          .show-card-head {
+            color: #FAD59A;
+            font-weight: 400;
+            margin: 60px 0 20px 0;
+          }
+          .show-card-title {
+            color: white;
+            font-family: "Adobe Garamond Pro","adobe-garamond-pro","Adobe Garamond","Garamond",serif;
+            font-size: 22px;
+            line-height: 22px;
+            font-weight: 400;
+            max-width: 80%;
+            margin: 0 auto 55px auto;
+          }
+          .show-card-author {
+            font-weight: 400;
+          }
 
           `}
         </style>
