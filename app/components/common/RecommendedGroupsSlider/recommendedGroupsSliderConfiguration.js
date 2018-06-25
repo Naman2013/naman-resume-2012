@@ -9,7 +9,12 @@ const sliderConfiguration = {
 };
 
 const getRecommendedGroupsItems = (groupList = []) =>
-groupList.map(object => <div key={uniqueId()}>{object.title}</div>)
+groupList.map(object => 
+  <div key={uniqueId()} className="card-groups">
+    <div className="card-groups-img"></div>
+    <div className="card-title">{object.title}</div>
+    PUBLIC GROUP
+  </div>)
 
 export const getSliderConfiguration = (slideList = []) => (
   Object.assign({

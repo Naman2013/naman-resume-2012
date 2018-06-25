@@ -42,7 +42,26 @@ const Stories = ({
 
         <style jsx global>
           {`
-
+          .card-stories {
+            background-image: url("https://vega.slooh.com/assets/v4/dashboard/story-card-bg.svg");
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: 50%;
+            font-weight: 600;
+            letter-spacing: 1px;
+            padding: 0 40px;
+            font-size: 10px;
+            width: 300px !important;
+            min-height: 370px;
+          }
+          .card-stories-img {
+            height: 222px;
+          }
+          .card-stories-author {
+            font-weight: 600;
+            letter-spacing: 1px;
+            font-size: 10px;
+          }
 
           `}
         </style>

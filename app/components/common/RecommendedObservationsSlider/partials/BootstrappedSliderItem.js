@@ -30,7 +30,8 @@ const getIconStyle = (iconURL) => ({
 const BootstrappedObservationSliderItem = ({
 
 }) => (<div className="root" key={uniqueId()}>
-    item
+    <div>description</div>
+    <div>title</div>
       <style jsx>{`
       `}</style>
     </div>);

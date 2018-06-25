@@ -77,8 +77,8 @@ class SloohSlider extends Component {
       initialSlide: currentIndex,
       adaptiveHeight: false,
       beforeChange: this.beforeSlideChange,
-      nextArrow: <div>Next<i className="fa fa-arrow-right" /></div>,
-      prevArrow: <div><i className="fa fa-arrow-left" /><div>Previous</div></div>,
+      // nextArrow: <div>Next<i className="fa fa-arrow-right" /></div>,
+      // prevArrow: <div><i className="fa fa-arrow-left" /><div>Previous</div></div>,
     };
 
     return (
@@ -145,11 +145,9 @@ class SloohSlider extends Component {
             }
 
             .slick-slide {
-              width: 300px !important;
-              min-height: 370px;
               background-color: white;
               box-shadow: 0px 0px 3px 1px rgba(0,0,0,0.2);
-              margin: 3px;
+              margin: 3px 10px;
             }
 
           `}
