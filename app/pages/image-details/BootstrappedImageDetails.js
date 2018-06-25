@@ -186,10 +186,11 @@ class BootstrappedImageDetails extends Component {
     const obsStyle = {
       background: `url(${imageURL}) no-repeat top center`,
     };
+    const device = this.device;
 
     const showMissionRelatedInfo = Number(scheduledMissionId) > 0;
     const rightPanelDisplayFlags = [showMissionRelatedInfo];
-    const showRightContainer = showDetails && rightPanelDisplayFlags.filter(flag => !!flag).length > 0;
+    const showRightContainer = rightPanelDisplayFlags.filter(flag => !!flag).length > 0;
     return (<div className="root">
       <div className="obs-img-container component-container">
         <div className="obs-header">
@@ -197,23 +198,24 @@ class BootstrappedImageDetails extends Component {
           <div className="obs-img-subheader" dangerouslySetInnerHTML={{ __html: imageTitle }}/>
         </div>
         <div className="obs-image" style={obsStyle} />
-        <div className="split-nav">
+        {showRightContainer ? <div className="split-nav">
           <div className="split-nav-item-container" onClick={this.showObservation}>
             <div className="split-nav-item">Observation</div>
-            <img src="https://vega.slooh.com/assets/v4/common/status_triangle_up.svg" className={'pointer-arrow', classnames({
-              'is-hidden': showObservation
+            <img src="https://vega.slooh.com/assets/v4/common/status_triangle_up.svg"
+              className={classnames('arrow', {
+              'is-hidden': !showObservation,
             })} />
           </div>
           <div className="split-nav-item-container" onClick={this.showDetails}>
             <div className="split-nav-item" >Details</div>
-            <img src="https://vega.slooh.com/assets/v4/common/status_triangle_up.svg" className={'pointer-arrow', classnames({
-              'is-hidden': showDetails
+            <img src="https://vega.slooh.com/assets/v4/common/status_triangle_up.svg" className={classnames('arrow',{
+              'is-hidden': !showDetails,
             })} />
           </div>
-        </div>
+        </div> : null}
         <div className="object-details">
           {objectId !== '0' ? <ObjectDetailList
-            device={this.device}
+            device={device}
             objectId={objectId}
             scheduledMissionId={scheduledMissionId}
           /> : null}
@@ -251,30 +253,32 @@ class BootstrappedImageDetails extends Component {
             user={user}
           /> : null}
         </div> : null}
-        {showRightContainer ? <div className="right-container">
+        {showDetails && showRightContainer ? <div className="right-container">
         <div>
           <ObserverInfo
             avatarURL={avatarURL}
-            device={this.device}
+            device={device}
             displayName={displayName}
             gravityRankLabel={gravityRankLabel}
           />
         </div>
-          {this.device !== 'desktop' && objectId !== '0' ? <div>
+          {device !== 'desktop' && objectId !== '0' ? <div>
             <ObjectDetailList
-              device={this.device}
+              device={device}
               objectId={objectId}
               scheduledMissionId={scheduledMissionId}
             />
           </div> : null}
-          {showMissionRelatedInfo ? <div className="component-container">
+          {showMissionRelatedInfo ? <div>
             <MissionDetailList
+              device={device}
               scheduledMissionId={scheduledMissionId}
               customerImageId={customerImageId}
             />
           </div> : null}
-          {showMissionRelatedInfo ? <div className="component-container">
+          {showMissionRelatedInfo ? <div>
             <MissionImageDetailList
+              device={device}
               scheduledMissionId={scheduledMissionId}
             />
           </div> : null}
@@ -345,7 +349,8 @@ class BootstrappedImageDetails extends Component {
         }
 
         .split-nav-item {
-          margin: 5px;
+          margin: 0 5px;
+          margin-top: 15px;
         }
 
         .split-nav-item-container {
@@ -361,7 +366,7 @@ class BootstrappedImageDetails extends Component {
           flex: 1;
         }
 
-        .pointer-arrow {
+        .arrow {
           margin-bottom: -5px;
         }
 

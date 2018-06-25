@@ -18,6 +18,7 @@ const {
 } = PropTypes;
 
 const MissionDetailList = ({
+  device,
   scheduledMissionId,
 }) => (
   <Request
@@ -34,6 +35,7 @@ const MissionDetailList = ({
     }) => (
       <div>
         {<BootstrappedMissionImageDetailList
+          device={device}
           fetching={fetchingContent}
           scheduledMissionId={scheduledMissionId}
           {...serviceResponse}
@@ -44,10 +46,12 @@ const MissionDetailList = ({
 );
 
 MissionDetailList.propTypes = {
+  device: string,
   customerImageId: oneOfType([number, string]),
   scheduledMissionId: oneOfType([number, string]),
 };
 MissionDetailList.defaultProps = {
+  device: '',
   customerImageId: null,
   scheduledMissionId: null,
 };

@@ -11,7 +11,7 @@ import { Link } from 'react-router';
 import classnames from 'classnames';
 import uniqueId from 'lodash/uniqueId';
 import { profilePhotoStyle } from 'styles/mixins/utilities';
-import { darkGray, lightGray } from 'styles/variables/colors';
+import { darkGray, lightGray, gray } from 'styles/variables/colors';
 import { secondaryFont } from 'styles/variables/fonts';
 
 
@@ -24,27 +24,69 @@ const {
 
 class BootstrappedMissionDetailList extends Component {
   static propTypes = {
+    device: string,
     listTitle: string,
-    missionDetailList: arrayOf(shape({
-      hasIconFlag: bool,
-      hasLinkFlag: bool,
-      iconUrl: string,
-      label: string,
-      linkLabel: string,
-      linkUrl: string,
-      text: string,
-      textDetail: string,
-      textNote: string,
-    })),
+    missionDetailList: shape({
+      missiondate: shape({
+        hasIconFlag: bool,
+        hasLinkFlag: bool,
+        iconUrl: string,
+        label: string,
+        linkLabel: string,
+        linkUrl: string,
+        text: string,
+        textDetail: string,
+        textNote: string,
+      }),
+      observatory: shape({
+        hasIconFlag: bool,
+        hasLinkFlag: bool,
+        iconUrl: string,
+        label: string,
+        linkLabel: string,
+        linkUrl: string,
+        text: string,
+        textDetail: string,
+        textNote: string,
+      }),
+      scheduledby: shape({
+        hasIconFlag: bool,
+        hasLinkFlag: bool,
+        iconUrl: string,
+        label: string,
+        linkLabel: string,
+        linkUrl: string,
+        text: string,
+        textDetail: string,
+        textNote: string,
+      }),
+      telescope: shape({
+        hasIconFlag: bool,
+        hasLinkFlag: bool,
+        iconUrl: string,
+        label: string,
+        linkLabel: string,
+        linkUrl: string,
+        text: string,
+        textDetail: string,
+        textNote: string,
+      }),
+    }),
   }
 
   static defaultProps = {
+    device: '',
     listTitle: '',
-    missionDetailList: [],
+    missionDetailList: {
+      scheduledby: {},
+      observatory: {},
+      missiondate: {},
+      telescope: {},
+    },
   };
 
   state = {
-    showInfo: false,
+    showInfo: this.props.device !== 'desktop',
   };
 
   toggleInfo = (e) => {
@@ -59,6 +101,7 @@ class BootstrappedMissionDetailList extends Component {
 
   render() {
     const {
+      device,
       listTitle,
       missionDetailList,
     } = this.props;
@@ -70,25 +113,192 @@ class BootstrappedMissionDetailList extends Component {
     });
 
     return (<div className="root">
-      <div className="title-container">
+      {device === 'desktop' ? <div className="title-container">
         <span className="title" dangerouslySetInnerHTML={{ __html: listTitle}} />
-        {showInfo ? <img className={classnames('action', {
-          up: showInfo,
-        })} onClick={this.toggleInfo} src="https://vega.slooh.com/assets/v4/common/arrow_down.svg" /> :
-        <div className="action fa fa-plus" onClick={this.toggleInfo} />}
-      </div>
-      {showInfo ? missionDetailList.map(detail => (<div className="info" key={uniqueId()}>
-        {detail.hasIconFlag ? <div style={profPic(detail.iconUrl)} /> : null}
-        <div className="detail-label" dangerouslySetInnerHTML={{ __html: detail.label}} />
-        <div className="detail-text" dangerouslySetInnerHTML={{ __html: detail.text}} />
-        <div className="detail-text-detail" dangerouslySetInnerHTML={{ __html: detail.textDetail}} />
-        <div className="detail-note" dangerouslySetInnerHTML={{ __html: detail.textNote}} />
-        {detail.hasLinkFlag ?
-          <Link to={detail.linkUrl}>
-            <span className="link" dangerouslySetInnerHTML={{ __html: detail.linkLabel}}/>
-          </Link> : null}
-      </div>)) : null}
+        <img
+          className={classnames('action', {
+            up: showInfo,
+          })}
+          onClick={this.toggleInfo}
+          src="https://vega.slooh.com/assets/v4/common/arrow_down.svg"
+        />
+      </div> : null}
+
+      {showInfo ? <div className="container-detail-items">
+        {device !== 'desktop' ? <div className="title" dangerouslySetInnerHTML={{ __html: listTitle}} /> : null}
+        <div className="detail-items">
+          {missionDetailList.missiondate ? (
+          <div className="info half-info" key={uniqueId()}>
+            {missionDetailList.missiondate.hasIconFlag ? (
+              <div style={profPic(missionDetailList.missiondate.iconUrl)} />
+            ) : null}
+            <div
+              className="detail-label"
+              dangerouslySetInnerHTML={{
+                __html: missionDetailList.missiondate.label
+              }}
+            />
+            <div
+              className="detail-text"
+              dangerouslySetInnerHTML={{
+                __html: missionDetailList.missiondate.text
+              }}
+            />
+            <div
+              className="detail-text-detail"
+              dangerouslySetInnerHTML={{
+                __html: missionDetailList.missiondate.textDetail
+              }}
+            />
+            <div
+              className="detail-note"
+              dangerouslySetInnerHTML={{
+                __html: missionDetailList.missiondate.textNote
+              }}
+            />
+            {missionDetailList.missiondate.hasLinkFlag ? (
+              <Link to={missionDetailList.missiondate.linkUrl}>
+                <span
+                  className="link"
+                  dangerouslySetInnerHTML={{
+                    __html: missionDetailList.missiondate.linkLabel
+                  }}
+                />
+              </Link>
+            ) : null}
+          </div>
+        ) : null}
+        {missionDetailList.scheduledby ? (
+          <div className="info scheduledby" key={uniqueId()}>
+            {missionDetailList.scheduledby.hasIconFlag ? (
+              <div style={profPic(missionDetailList.scheduledby.iconUrl)} />
+            ) : null}
+            <div
+              className="detail-label"
+              dangerouslySetInnerHTML={{
+                __html: missionDetailList.scheduledby.label
+              }}
+            />
+            <div
+              className="detail-text"
+              dangerouslySetInnerHTML={{ __html: missionDetailList.scheduledby.text }}
+            />
+            <div
+              className="detail-text-detail"
+              dangerouslySetInnerHTML={{
+                __html: missionDetailList.scheduledby.textDetail
+              }}
+            />
+            <div
+              className="detail-note"
+              dangerouslySetInnerHTML={{
+                __html: missionDetailList.scheduledby.textNote
+              }}
+            />
+            {missionDetailList.scheduledby.hasLinkFlag ? (
+              <Link to={missionDetailList.scheduledby.linkUrl}>
+                <span
+                  className="link"
+                  dangerouslySetInnerHTML={{
+                    __html: missionDetailList.scheduledby.linkLabel
+                  }}
+                />
+              </Link>
+            ) : null}
+          </div>
+        ) : null}
+        {missionDetailList.observatory ? (
+          <div className="info" key={uniqueId()}>
+            {missionDetailList.observatory.hasIconFlag ? (
+              <div style={profPic(missionDetailList.observatory.iconUrl)} />
+            ) : null}
+            <div
+              className="detail-label"
+              dangerouslySetInnerHTML={{
+                __html: missionDetailList.observatory.label
+              }}
+            />
+            <div
+              className="detail-text"
+              dangerouslySetInnerHTML={{
+                __html: missionDetailList.observatory.text
+              }}
+            />
+            <div
+              className="detail-text-detail"
+              dangerouslySetInnerHTML={{
+                __html: missionDetailList.observatory.textDetail
+              }}
+            />
+            <div
+              className="detail-note"
+              dangerouslySetInnerHTML={{
+                __html: missionDetailList.observatory.textNote
+              }}
+            />
+            {missionDetailList.observatory.hasLinkFlag ? (
+              <Link to={missionDetailList.observatory.linkUrl}>
+                <span
+                  className="link"
+                  dangerouslySetInnerHTML={{
+                    __html: missionDetailList.observatory.linkLabel
+                  }}
+                />
+              </Link>
+            ) : null}
+          </div>
+        ) : null}
+        {missionDetailList.telescope ? (
+          <div className="info" key={uniqueId()}>
+            {missionDetailList.telescope.hasIconFlag ? (
+              <div style={profPic(missionDetailList.telescope.iconUrl)} />
+            ) : null}
+            <div
+              className="detail-label"
+              dangerouslySetInnerHTML={{
+                __html: missionDetailList.telescope.label
+              }}
+            />
+            <div
+              className="detail-text"
+              dangerouslySetInnerHTML={{
+                __html: missionDetailList.telescope.text
+              }}
+            />
+            <div
+              className="detail-text-detail"
+              dangerouslySetInnerHTML={{
+                __html: missionDetailList.telescope.textDetail
+              }}
+            />
+            <div
+              className="detail-note"
+              dangerouslySetInnerHTML={{
+                __html: missionDetailList.telescope.textNote
+              }}
+            />
+            {missionDetailList.telescope.hasLinkFlag ? (
+              <Link to={missionDetailList.telescope.linkUrl}>
+                <span
+                  className="link"
+                  dangerouslySetInnerHTML={{
+                    __html: missionDetailList.telescope.linkLabel
+                  }}
+                />
+              </Link>
+            ) : null}
+          </div>
+        ) : null}
+        </div>
+      </div> : null}
       <style jsx>{`
+
+        .component-container {
+          margin: 25px;
+          -moz-box-shadow: 0 2px 4px 1px ${gray};
+          -webkit-box-shadow: 0 2px 4px 1px ${gray};
+          box-shadow: 0 2px 4px 1px ${gray};
+        }
 
         .title-container {
           text-transform: uppercase;
@@ -111,11 +321,21 @@ class BootstrappedMissionDetailList extends Component {
         }
 
         .up {
-          -webkit-transform: rotate(90deg);
-          -moz-transform: rotate(90deg);
-          -o-transform: rotate(90deg);
-          -ms-transform: rotate(90deg);
-          transform: rotate(90deg);
+          -webkit-transform: rotate(180deg);
+          -moz-transform: rotate(180deg);
+          -o-transform: rotate(180deg);
+          -ms-transform: rotate(180deg);
+          transform: rotate(180deg);
+        }
+
+        .detail-items {
+          display: flex;
+          flex-direction: row;
+          flex-wrap: wrap;
+          margin: 25px;
+          -moz-box-shadow: 0 2px 4px 1px ${gray};
+          -webkit-box-shadow: 0 2px 4px 1px ${gray};
+          box-shadow: 0 2px 4px 1px ${gray};
         }
 
         .detail-label {
@@ -138,12 +358,74 @@ class BootstrappedMissionDetailList extends Component {
           font-size: 12px;
 
         }
+        .info {
+          flex: 0 100%;
+          padding: 25px;
+          border: 1px solid ${gray};
+        }
+
         .detail-note,
         .link {
           font-family: ${secondaryFont};
           font-size: 12px;
           color: ${lightGray};
           font-style: italic;
+        }
+
+        .container-detail-items {
+          display: flex;
+          flex-direction: column;
+          flex-wrap: wrap;
+        }
+
+        @media all and (min-width: 641px) and (max-width: 768px) {
+          .container-detail-items {
+            flex-direction: row;
+          }
+
+          .scheduledby {
+            flex: 0 0 100%;
+          }
+
+
+          .title {
+            flex: 0 0 100%;
+            font-size: 12px;
+            padding: 10px 0;
+            text-align: center;
+            width: 100%;
+          }
+
+          .half-info {
+            width: 50%;
+          }
+
+        }
+        @media all and (max-width: 640px){
+          .container-detail-items {
+            flex-direction: row;
+          }
+
+          .scheduledby {
+            flex: 0 0 100%;
+          }
+
+          .observer-avatar {
+            margin: 0 auto;
+          }
+
+          .title {
+            flex: 0 0 100%;
+            font-size: 12px;
+            padding: 10px 0;
+            text-align: center;
+            width: 100%;
+          }
+
+          .half-info {
+            width: 50%;
+          }
+
         }
       `}</style>
     </div>);

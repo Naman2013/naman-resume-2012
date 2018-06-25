@@ -90,161 +90,285 @@ class ObjectDetailList extends Component {
       backgroundSize: 'cover',
     });
 
-    return (<div className="root">
-    {device === 'desktop' ? <div className="wide-info-block">
-        <div className="wide-info-item">
-          <div className="wide-info-block-header" dangerouslySetInnerHTML={{ __html: objectDetailList.name.label }} />
-          <div className="wide-info-block-name" dangerouslySetInnerHTML={{ __html: objectDetailList.name.text }} />
-        </div>
-        <div className="wide-info-item">
-          <div className="wide-info-block-header" dangerouslySetInnerHTML={{ __html: objectDetailList.domain.label }} />
-          <div className="wide-info-block-name" dangerouslySetInnerHTML={{ __html: objectDetailList.domain.text }} />
-        </div>
-        <div className="wide-info-item">
-          <div className="wide-info-block-header" dangerouslySetInnerHTML={{ __html: objectDetailList.constellation.label }} />
-          <div className="wide-info-block-name" dangerouslySetInnerHTML={{ __html: objectDetailList.constellation.text }} />
-        </div>
-      </div> : null}
-      {device !== 'desktop' ? <div>
-      <div className="title-container">
-        <span className="title" dangerouslySetInnerHTML={{ __html: listTitle}} />
+    return (
+  <div className="root">
+    {device === 'desktop' ? (
+      <div className="wide-info-block">
+        {objectDetailList.name ? (
+          <div className="wide-info-item">
+            <div
+              className="wide-info-block-header"
+              dangerouslySetInnerHTML={{ __html: objectDetailList.name.label }}
+            />
+            <div
+              className="wide-info-block-name"
+              dangerouslySetInnerHTML={{ __html: objectDetailList.name.text }}
+            />
+          </div>
+        ) : null}
+        {objectDetailList.domain ? (
+          <div className="wide-info-item">
+            <div
+              className="wide-info-block-header"
+              dangerouslySetInnerHTML={{
+                __html: objectDetailList.domain.label
+              }}
+            />
+            <div
+              className="wide-info-block-name"
+              dangerouslySetInnerHTML={{ __html: objectDetailList.domain.text }}
+            />
+          </div>
+        ) : null}
+        {objectDetailList.constellation ? (
+          <div className="wide-info-item">
+            <div
+              className="wide-info-block-header"
+              dangerouslySetInnerHTML={{
+                __html: objectDetailList.constellation.label
+              }}
+            />
+            <div
+              className="wide-info-block-name"
+              dangerouslySetInnerHTML={{
+                __html: objectDetailList.constellation.text
+              }}
+            />
+          </div>
+        ) : null}
       </div>
-        <div className="detail-items">
-          <div className="info object-name" key={uniqueId()}>
-            {objectDetailList.name.hasIconFlag ? <div style={profPic(objectDetailList.name.iconUrl)} /> : null}
-            <div className="detail-label" dangerouslySetInnerHTML={{ __html: objectDetailList.name.label}} />
-            <div className="detail-text" dangerouslySetInnerHTML={{ __html: objectDetailList.name.text}} />
-            <div className="detail-text-detail" dangerouslySetInnerHTML={{ __html: objectDetailList.name.textDetail}} />
-            <div className="detail-note" dangerouslySetInnerHTML={{ __html: objectDetailList.name.textNote}} />
-            {objectDetailList.name.hasLinkFlag ?
-              <Link to={objectDetailList.name.linkUrl}>
-                <span className="link" dangerouslySetInnerHTML={{ __html: objectDetailList.name.linkLabel}}/>
-              </Link> : null}
-          </div>
-          <div className="info half-info" key={uniqueId()}>
-            {objectDetailList.name.hasIconFlag ? <div style={profPic(objectDetailList.domain.iconUrl)} /> : null}
-            <div className="detail-label" dangerouslySetInnerHTML={{ __html: objectDetailList.domain.label}} />
-            <div className="detail-text" dangerouslySetInnerHTML={{ __html: objectDetailList.domain.text}} />
-            <div className="detail-text-detail" dangerouslySetInnerHTML={{ __html: objectDetailList.domain.textDetail}} />
-            <div className="detail-note" dangerouslySetInnerHTML={{ __html: objectDetailList.domain.textNote}} />
-            {objectDetailList.domain.hasLinkFlag ?
-              <Link to={objectDetailList.domain.linkUrl}>
-                <span className="link" dangerouslySetInnerHTML={{ __html: objectDetailList.domain.linkLabel}}/>
-              </Link> : null}
-          </div>
-          <div className="info half-info" key={uniqueId()}>
-            {objectDetailList.constellation.hasIconFlag ? <div style={profPic(objectDetailList.constellation.iconUrl)} /> : null}
-            <div className="detail-label" dangerouslySetInnerHTML={{ __html: objectDetailList.constellation.label}} />
-            <div className="detail-text" dangerouslySetInnerHTML={{ __html: objectDetailList.constellation.text}} />
-            <div className="detail-text-detail" dangerouslySetInnerHTML={{ __html: objectDetailList.constellation.textDetail}} />
-            <div className="detail-note" dangerouslySetInnerHTML={{ __html: objectDetailList.constellation.textNote}} />
-            {objectDetailList.constellation.hasLinkFlag ?
-              <Link to={objectDetailList.constellation.linkUrl}>
-                <span className="link" dangerouslySetInnerHTML={{ __html: objectDetailList.constellation.linkLabel}}/>
-              </Link> : null}
-          </div>
+    ) : null}
+    {device !== 'desktop' ? (
+      <div>
+        <div className="title-container">
+          <span
+            className="title"
+            dangerouslySetInnerHTML={{ __html: listTitle }}
+          />
         </div>
-      </div> : null}
+        <div className="detail-items">
+          {objectDetailList.name ? (
+            <div className="info object-name" key={uniqueId()}>
+              {objectDetailList.name.hasIconFlag ? (
+                <div style={profPic(objectDetailList.name.iconUrl)} />
+              ) : null}
+              <div
+                className="detail-label"
+                dangerouslySetInnerHTML={{
+                  __html: objectDetailList.name.label
+                }}
+              />
+              <div
+                className="detail-text"
+                dangerouslySetInnerHTML={{ __html: objectDetailList.name.text }}
+              />
+              <div
+                className="detail-text-detail"
+                dangerouslySetInnerHTML={{
+                  __html: objectDetailList.name.textDetail
+                }}
+              />
+              <div
+                className="detail-note"
+                dangerouslySetInnerHTML={{
+                  __html: objectDetailList.name.textNote
+                }}
+              />
+              {objectDetailList.name.hasLinkFlag ? (
+                <Link to={objectDetailList.name.linkUrl}>
+                  <span
+                    className="link"
+                    dangerouslySetInnerHTML={{
+                      __html: objectDetailList.name.linkLabel
+                    }}
+                  />
+                </Link>
+              ) : null}
+            </div>
+          ) : null}
+          {objectDetailList.domain ? (
+            <div className="info half-info" key={uniqueId()}>
+              {objectDetailList.name.hasIconFlag ? (
+                <div style={profPic(objectDetailList.domain.iconUrl)} />
+              ) : null}
+              <div
+                className="detail-label"
+                dangerouslySetInnerHTML={{
+                  __html: objectDetailList.domain.label
+                }}
+              />
+              <div
+                className="detail-text"
+                dangerouslySetInnerHTML={{
+                  __html: objectDetailList.domain.text
+                }}
+              />
+              <div
+                className="detail-text-detail"
+                dangerouslySetInnerHTML={{
+                  __html: objectDetailList.domain.textDetail
+                }}
+              />
+              <div
+                className="detail-note"
+                dangerouslySetInnerHTML={{
+                  __html: objectDetailList.domain.textNote
+                }}
+              />
+              {objectDetailList.domain.hasLinkFlag ? (
+                <Link to={objectDetailList.domain.linkUrl}>
+                  <span
+                    className="link"
+                    dangerouslySetInnerHTML={{
+                      __html: objectDetailList.domain.linkLabel
+                    }}
+                  />
+                </Link>
+              ) : null}
+            </div>
+          ) : null}
+          {objectDetailList.constellation ? (
+            <div className="info half-info" key={uniqueId()}>
+              {objectDetailList.constellation.hasIconFlag ? (
+                <div style={profPic(objectDetailList.constellation.iconUrl)} />
+              ) : null}
+              <div
+                className="detail-label"
+                dangerouslySetInnerHTML={{
+                  __html: objectDetailList.constellation.label
+                }}
+              />
+              <div
+                className="detail-text"
+                dangerouslySetInnerHTML={{
+                  __html: objectDetailList.constellation.text
+                }}
+              />
+              <div
+                className="detail-text-detail"
+                dangerouslySetInnerHTML={{
+                  __html: objectDetailList.constellation.textDetail
+                }}
+              />
+              <div
+                className="detail-note"
+                dangerouslySetInnerHTML={{
+                  __html: objectDetailList.constellation.textNote
+                }}
+              />
+              {objectDetailList.constellation.hasLinkFlag ? (
+                <Link to={objectDetailList.constellation.linkUrl}>
+                  <span
+                    className="link"
+                    dangerouslySetInnerHTML={{
+                      __html: objectDetailList.constellation.linkLabel
+                    }}
+                  />
+                </Link>
+              ) : null}
+            </div>
+          ) : null}
+        </div>
+      </div>
+    ) : null}
 
+    <style jsx>{`
+      .title-container {
+        text-transform: uppercase;
+        color: ${darkGray};
+        font-weight: bold;
+        font-size: 12px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+      }
 
-      <style jsx>{`
+      .wide-info-block {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        align-items: center;
+        margin-top: 25px;
+      }
 
-        .title-container {
-          text-transform: uppercase;
-          color: ${darkGray};
-          font-weight: bold;
-          font-size: 12px;
-          display: flex;
-          flex-direction: row;
-          align-items: center;
-        }
+      .wide-info-item {
+        flex: 1 1 0;
+        border: 1px solid ${gray};
+        padding: 25px;
+        text-align: left;
+      }
 
-        .wide-info-block {
-          display: flex;
-          flex-direction: row;
-          justify-content: space-evenly;
-          align-items: center;
-          margin-top: 25px;
-        }
+      .title {
+        padding: 10px;
+        text-align: center;
+        width: 100%;
+      }
 
-        .wide-info-item {
-          flex: 1 1 0;
-          border: 1px solid ${gray};
-          padding: 25px;
-          text-align: left;
-        }
+      .info {
+        padding: 25px;
+        border: 1px solid ${gray};
+      }
 
-        .title {
-          padding: 10px;
-          text-align: center;
-          width: 100%;
-        }
+      .wide-info-block-header {
+        font-weight: bold;
+        font-size: 11px;
+        padding: 10px;
+      }
 
-        .info {
-          padding: 25px;
-          border: 1px solid ${gray};
-        }
+      .wide-info-block-name {
+        font-size: 20px;
+        padding: 10px;
+        font-family: ${secondaryFont};
+      }
 
-        .wide-info-block-header {
-          font-weight: bold;
-          font-size: 11px;
-          padding: 10px;
-        }
+      .detail-label {
+        text-transform: uppercase;
+        color: ${darkGray};
+        font-weight: bold;
+        font-size: 10px;
+      }
 
-        .wide-info-block-name {
-          font-size: 20px;
-          padding: 10px;
-          font-family: ${secondaryFont};
+      .detail-text {
+        text-transform: uppercase;
+        color: ${darkGray};
+        font-weight: bold;
+        font-size: 12px;
+      }
+      .detail-text-detail {
+        text-transform: uppercase;
+        color: ${darkGray};
+        font-weight: bold;
+        font-size: 12px;
+      }
 
-        }
+      .detail-items {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        margin: 25px;
+        -moz-box-shadow: 0 2px 4px 1px ${gray};
+        -webkit-box-shadow: 0 2px 4px 1px ${gray};
+        box-shadow: 0 2px 4px 1px ${gray};
+      }
+      .detail-note,
+      .link {
+        font-family: ${secondaryFont};
+        font-size: 12px;
+        color: ${lightGray};
+        font-style: italic;
+      }
 
-        .detail-label {
-          text-transform: uppercase;
-          color: ${darkGray};
-          font-weight: bold;
-          font-size: 10px;
-        }
+      .object-name {
+        flex: 0 0 100%;
+      }
 
-        .detail-text {
-          text-transform: uppercase;
-          color: ${darkGray};
-          font-weight: bold;
-          font-size: 12px;
-        }
-        .detail-text-detail {
-          text-transform: uppercase;
-          color: ${darkGray};
-          font-weight: bold;
-          font-size: 12px;
+      .half-info {
+        width: 50%;
+      }
+    `}</style>
+  </div>
+);
 
-        }
-
-        .detail-items {
-          display: flex;
-          flex-direction: row;
-          flex-wrap: wrap;
-          margin: 25px;
-          -moz-box-shadow: 0 2px 4px 1px ${gray};
-          -webkit-box-shadow: 0 2px 4px 1px ${gray};
-          box-shadow: 0 2px 4px 1px ${gray};
-        }
-        .detail-note,
-        .link {
-          font-family: ${secondaryFont};
-          font-size: 12px;
-          color: ${lightGray};
-          font-style: italic;
-        }
-
-        .object-name {
-          flex: 0 0 100%;
-        }
-
-        .half-info {
-          width: 50%;
-        }
-      `}</style>
-    </div>);
   }
 }
 
