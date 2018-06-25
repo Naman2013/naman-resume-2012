@@ -1,14 +1,19 @@
 import React from 'react';
 
 const sliderConfiguration = {
-  slidesToShow: 3,
-  slidesToScroll: 1,
+  slidesToShow: 2,
+  slidesToScroll: 2,
   initialSlide: 1,
   emptyMessage: 'There are no recommended shows.',
 };
 
 const getRecommendedEventsItems = (imageList = []) =>
-imageList.map(object => <div key={object.eventId}>{object.title}</div>)
+imageList.map(object => 
+  <div key={object.eventId} className="card-shows">
+    SLOOH SHOW
+    {object.title}
+    <div className="show-card-author">TIME | AUTHOR</div>
+  </div>);
 
 export const getSliderConfiguration = (slideList = []) => (
   Object.assign({

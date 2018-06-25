@@ -35,6 +35,7 @@ const PanelItem = ({
             text-align: center;
             padding: 0 25px;
             min-height: 400px;
+            margin-top: 120px;
           }
           .outer-well {
             max-width: 1180px;
@@ -43,7 +44,7 @@ const PanelItem = ({
           }
           .inner-well {
             max-width: 940px;
-            margin: 0 auto;
+            margin: 0 auto 40px auto;
             text-align: center;
           }
           h5 {
@@ -103,6 +104,9 @@ const PanelItem = ({
           }
 
           @media all and (min-width: 641px) and (max-width: 768px) {
+            .dash-item {
+              margin-top: 80px;
+            }
             .dash-item-first {
               padding-top: 240px;
             }
@@ -115,6 +119,9 @@ const PanelItem = ({
           }
 
           @media all and (max-width: 600px){
+            .dash-item {
+              margin-top: 40px;
+            }
             .dash-item-first {
               padding-top: 40px;
             }
