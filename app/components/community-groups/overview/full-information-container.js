@@ -16,8 +16,7 @@ import {
 import { createActivity } from '../../../modules/community-group-activity-list/actions';
 import MembersList from './members-list';
 import FullInformation from './full-information';
-import ActivityForm from './activity-form';
-import ActivityList from './activity-list';
+import DiscussionsBoard from 'components/common/DiscussionsBoard';
 
 const {
   arrayOf,
@@ -94,6 +93,15 @@ class FullInformationOverview extends Component {
       user,
     } = this.props;
 
+    const createThreadFormParams = {
+      canPost: pageMeta.canPost,
+      forumId: pageMeta.forumId,
+      joinOrLeaveGroup,
+      showJoinPrompt,
+      topicId: pageMeta.topicId,
+      user,
+    };
+
     return (
       <div>
         <div className="full-info">
@@ -111,16 +119,14 @@ class FullInformationOverview extends Component {
           </div>
           <div className="flex-child left-container">
             {pageMeta.headingList.length > 0 && pageMeta.headingList.join(' ')}
-            <ActivityForm
-              canPost={pageMeta.canPost}
-              forumId={pageMeta.forumId}
-              joinOrLeaveGroup={joinOrLeaveGroup}
-              showJoinPrompt={showJoinPrompt}
+            <DiscussionsBoard
+              errorMessage="There was an error fetching list"
               topicId={pageMeta.topicId}
-              user={user}
-              createActivity={actions.createActivity}
+              forumId={pageMeta.forumId}
+              callSource="groups"
+              createThread={actions.createActivity}
+              createThreadFormParams={createThreadFormParams}
             />
-            <ActivityList topicId={pageMeta.topicId} forumId={pageMeta.forumId} />
           </div>
           <aside className="flex-child right-container">
             <MembersList

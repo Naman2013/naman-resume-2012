@@ -12,8 +12,7 @@ import { bindActionCreators } from 'redux';
 import { createActivity } from '../../../modules/community-group-activity-list/actions';
 import ShortInformation from './short-information';
 import MembersList from './members-list';
-import ActivityForm from './activity-form';
-import ActivityList from './activity-list';
+import DiscussionsBoard from 'components/common/DiscussionsBoard';
 import {
   darkBlueGray,
   white,
@@ -97,20 +96,27 @@ class ShortInformationOverview extends Component {
       user,
     } = this.props;
 
+    const createThreadFormParams = {
+      canPost: pageMeta.canPost,
+      forumId: pageMeta.forumId,
+      joinOrLeaveGroup,
+      showJoinPrompt,
+      topicId: pageMeta.topicId,
+      user,
+    };
+
     return (
       <div className="short-info">
         <div className="left-container">
           {pageMeta.headingList.length > 0 && pageMeta.headingList.join(' ')}
-          <ActivityForm
-            user={user}
-            canPost={pageMeta.canPost}
+          <DiscussionsBoard
+            errorMessage="There was an error fetching list"
             topicId={pageMeta.topicId}
             forumId={pageMeta.forumId}
-            showJoinPrompt={showJoinPrompt}
-            joinOrLeaveGroup={joinOrLeaveGroup}
-            createActivity={actions.createActivity}
+            callSource="groups"
+            createThread={actions.createActivity}
+            createThreadFormParams={createThreadFormParams}
           />
-          <ActivityList topicId={pageMeta.topicId} forumId={pageMeta.forumId} />
         </div>
         <aside className="right-container">
           <ShortInformation

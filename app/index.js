@@ -76,7 +76,6 @@ import Galleries from './pages/my-pictures/Galleries';
 import GalleryImages from './pages/my-pictures/GalleryImages';
 import Missions from './pages/my-pictures/Missions';
 import MissionImages from './pages/my-pictures/MissionImages';
-import ImageDetails from './pages/my-pictures/ImageDetails';
 import PublicGalleries from './pages/my-pictures/PublicGalleries';
 import GalleryImageDetails from './pages/my-pictures/GalleryImageDetails';
 
@@ -132,6 +131,7 @@ import UserPublicProfile from './pages/profiles/public-profile';
 import CommunityGroups from './pages/community-groups/Groups';
 import CommunityGroupsList from './pages/community-groups/GroupsListPage';
 import CommunityGroupOverview from './pages/community-groups/GroupOverview';
+import ImageDetails from './pages/image-details';
 
 // router functions
 import validateUser from './route-functions/validateUser';
@@ -365,7 +365,16 @@ ReactDOM.render(
           component={ShowVideoViewer}
           onEnter={validateUser}
         />
-
+        <Route
+          path="my-pictures/show-image/:customerImageId/:shareToken(/:scheduledMissionId)"
+          component={ImageDetails}
+          onEnter={validateUser}
+        />
+        <Route
+          path="my-pictures/popular/show-image(/:customerImageId)(/:shareToken)"
+          component={ImageDetails}
+          onEnter={validateUser}
+        />
         <Route path="my-pictures" component={MyPictures} onEnter={validateUser}>
           <IndexRedirect to="missions" />
           <Route path="photo-roll" title="Photo roll" component={PhotoRoll} />
@@ -378,18 +387,10 @@ ReactDOM.render(
           />
           <Route path="missions" title="Missions" component={Missions} />
 
-          <Route
-            path="show-image/:customerImageId/:shareToken(/:scheduledMissionId)"
-            component={ImageDetails}
-          />
           <Route path="public-galleries/:cid" component={PublicGalleries} />
           <Route
             path="gallery/:galleryId/show-image(/:customerImageId)(/:shareToken)"
             component={GalleryImageDetails}
-          />
-          <Route
-            path="popular/show-image(/:customerImageId)(/:shareToken)"
-            component={ImageDetails}
           />
         </Route>
 

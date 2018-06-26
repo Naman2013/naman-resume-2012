@@ -81,13 +81,13 @@ class ActivityForm extends Component {
       S3URLs,
     } = this.state;
 
-    this.props.createActivity({
+    this.props.createThread({
       S3URLs,
       content: activityText,
       topicId,
       forumId,
-    }).then((res) => {
-      if (!res.payload.apiError) {
+    }).then((data) => {
+      if (!data.apiError) {
         this.setState({
           showPopup: true,
           modalDescription: 'You post has been submitted',
