@@ -296,6 +296,7 @@ class ObjectDetailList extends Component {
         border: 1px solid ${gray};
         padding: 25px;
         text-align: left;
+        max-height: 135px;
       }
 
       .title {
