@@ -37,12 +37,9 @@ class ScaleUp extends Component {
     referenceObjectLoaded: false,
     targetObjectLoaded: false,
     showReference: false,
-    referenceScale: 1,
+    referenceScale: 80,
     showReferenceText: true,
-    referencePosition: {
-      x: 0,
-      y: 0,
-    },
+    referencePositionModifier: 100,
     targetObjectOpacity: 0,
   };
 
@@ -82,16 +79,11 @@ class ScaleUp extends Component {
   scaleReference() {
     this.animateScaleOfReference = animateValues({
       referenceScale: this.state.referenceScale,
-      x: this.state.referencePosition.x,
-      y: this.state.referencePosition.y,
     }, ScaleUp.DURATION_OF_SCALE_DOWN_REFERENCE, {
-      referenceScale: this.props.referenceObjectScale,
-      x: (this.state.referencePosition.x / 2),
-      y: (this.state.referencePosition.y / 2),
-      onUpdate: ({ referenceScale, x, y }) => {
+      referenceScale: (this.props.referenceObjectScale * 100),
+      onUpdate: ({ referenceScale }) => {
         this.setState(() => ({
           referenceScale,
-          referencePosition: { x, y },
         }));
       },
       onComplete: () => {
@@ -109,15 +101,13 @@ class ScaleUp extends Component {
 
   animateMoveReference() {
     this.animateReferenceMoveHandle = animateValues({
-      x: this.state.referencePosition.x,
-      y: this.state.referencePosition.y,
+      referencePositionModifier: this.state.referencePositionModifier,
     }, ScaleUp.DURATION_TO_MOVE_REFERENCE, {
-      x: -200,
-      y: -200,
-      onUpdate: ({ x, y }) => {
-        this.setState(() => ({ referencePosition: { x, y } }));
+      referencePositionModifier: 17,
+      onUpdate: ({ referencePositionModifier }) => {
+        this.setState(() => ({ referencePositionModifier }));
       },
-      onComplete: () => { this.prepareToIntroduceTargetObject() },
+      onComplete: () => { this.prepareToIntroduceTargetObject(); },
       ease: easingFunctions.easeInOutQuad,
     });
   }
@@ -170,7 +160,7 @@ class ScaleUp extends Component {
       referenceObjectLoaded,
       showReference,
       referenceScale,
-      referencePosition,
+      referencePositionModifier,
       showReferenceText,
     } = this.state;
 
@@ -181,20 +171,26 @@ class ScaleUp extends Component {
     const textLabelFontSize = (dimension * 0.03);
     const showTargetObject = showReferenceText;
 
+    const referenceScalePercentage = (referenceScale / 100);
+    const referenceSize = (dimension * referenceScalePercentage);
+    const referencePosition = (midPoint - (referenceSize / 2)) * (referencePositionModifier / 100);
+    // dimension 550 (200) modifier = 0
+    // console.log(referencePosition);
+
     return (
       <g>
         <FadeSVG isHidden={!(displayReferenceObject)}>
           <g style={{
-              transform: `translate(${(referencePosition.x)}px, ${referencePosition.y}px) scale(${referenceScale})`,
+              // transform: `translate(${(referencePosition.x)}px, ${referencePosition.y}px) scale(${referenceScale})`,
               transformOrigin: 'center',
             }}
           >
             <ObjectFrame
               svgURL={referenceObjectURL}
-              width={artworkDimension}
-              height={artworkDimension}
-              x={staticArtworkPosition}
-              y={staticArtworkPosition}
+              width={referenceSize}
+              height={referenceSize}
+              x={referencePosition}
+              y={referencePosition}
               onLoadCallback={this.handleReferenceObjectLoaded}
             />
           </g>
