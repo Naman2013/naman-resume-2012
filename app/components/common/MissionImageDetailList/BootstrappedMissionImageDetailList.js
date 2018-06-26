@@ -265,6 +265,7 @@ class BootstrappedMissionDetailList extends Component {
         .title {
           padding: 25px;
           text-align: center;
+          width: 85%;
         }
 
         .info {

@@ -12,6 +12,7 @@ import uniqueId from 'lodash/uniqueId';
 import { profilePhotoStyle } from 'styles/mixins/utilities';
 import { darkGray, lightGray, gray } from 'styles/variables/colors';
 import { primaryFont, secondaryFont } from 'styles/variables/fonts';
+import { aspectRatio, backgroundImageCover } from '../../styles/mixins/utilities';
 
 
 const {
@@ -169,7 +170,7 @@ const ObserverInfo = ({
 
 ObserverInfo.propTypes = {
   device: string,
-  avatarUrl: string,
+  avatarURL: string,
   displayName: string,
   gravityRankLabel: string,
 
@@ -177,7 +178,7 @@ ObserverInfo.propTypes = {
 
 ObserverInfo.defaultProps = {
   device: 'desktop',
-  avatarUrl: '',
+  avatarURL: '',
   displayName: '',
   gravityRankLabel: '',
 };

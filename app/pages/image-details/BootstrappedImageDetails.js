@@ -184,7 +184,7 @@ class BootstrappedImageDetails extends Component {
     } = this.props;
     const { showObservation, showDetails } = this.state;
     const obsStyle = {
-      background: `url(${imageURL}) no-repeat top center`,
+      background: `url(${imageURL})`,
     };
     const device = this.device;
 
@@ -197,7 +197,9 @@ class BootstrappedImageDetails extends Component {
           <div className="obs-img-header">AN OBSERVATION OF</div>
           <div className="obs-img-subheader" dangerouslySetInnerHTML={{ __html: imageTitle }}/>
         </div>
-        <div className="obs-image" style={obsStyle} />
+        <div className="obs-image-container">
+          <img className="obs-image" src={imageURL} />
+        </div>
         {showRightContainer ? <div className="split-nav">
           <div className="split-nav-item-container" onClick={this.showObservation}>
             <div className="split-nav-item">Observation</div>
@@ -289,6 +291,8 @@ class BootstrappedImageDetails extends Component {
         .root {
           font-family: ${primaryFont};
           color: ${darkGray};
+          max-width: 940px;
+          margin: 0 auto;
         }
 
 
@@ -326,11 +330,32 @@ class BootstrappedImageDetails extends Component {
 
         }
 
-        .obs-image {
-          position: relative;
+        .obs-image-container {
           width: 100%;
-          min-height: 500px;
+        }
+
+        .obs-image {
           ${backgroundImageCover}
+          background-position: center;
+          margin: 0 auto;
+          margin-bottom: 20px;
+          display: block;
+          width: 100%;
+          max-width: 800px;
+        }
+
+        .obs-image:before {
+          display: block;
+          content: "";
+          width: 100%;
+          padding-top: 68.49%;
+        }
+        .content {
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
         }
 
         .main-container {
@@ -359,11 +384,11 @@ class BootstrappedImageDetails extends Component {
         }
 
         .left-container {
-          flex: 3;
+          width: 620px;
         }
 
         .right-container {
-          flex: 1;
+          width: 300px;
         }
 
         .arrow {
@@ -379,6 +404,10 @@ class BootstrappedImageDetails extends Component {
           .object-details {
             display: none;
           }
+
+          .right-container {
+            width: 620px;
+          }
         }
         @media all and (max-width: 640px){
           .split-nav {
@@ -386,6 +415,9 @@ class BootstrappedImageDetails extends Component {
           }
           .object-details {
             display: none;
+          }
+          .right-container {
+            width: 620px;
           }
         }
 
