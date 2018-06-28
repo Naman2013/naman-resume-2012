@@ -6,7 +6,7 @@ import ObjectFrame from './ReferenceObjects/ObjectFrame';
 jest.useFakeTimers();
 
 const initialProps = {
-  referenceObject: 'SOLAR_SYSTEM',
+  domain: 'SOLAR_SYSTEM',
   targetObjectURL: 'https://vega.slooh.com/icons/community/human_spirit.svg',
   targetObjectName: 'Test object',
   targetObjectScale: 0.34,

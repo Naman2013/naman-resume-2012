@@ -6,15 +6,10 @@ ShallowWrapper {
   Symbol(enzyme.__root__): [Circular],
   Symbol(enzyme.__unrendered__): <ScaleUp
     dimension={500}
+    domain="SOLAR_SYSTEM"
     missionTargetID={2}
     onComplete={[Function]}
-    referenceObjectName="Earth"
     referenceObjectScale={0.09}
-    referenceObjectURL={
-      Object {
-        "process": [Function],
-      }
-    }
     targetObjectName="Jupiter"
     targetObjectScale={1}
     targetObjectURL={

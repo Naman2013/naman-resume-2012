@@ -6,8 +6,8 @@ ShallowWrapper {
   Symbol(enzyme.__root__): [Circular],
   Symbol(enzyme.__unrendered__): <HowBig
     dimension={100}
+    domain="SOLAR_SYSTEM"
     onComplete={[MockFunction]}
-    referenceObject="SOLAR_SYSTEM"
     referenceObjectScale={1}
     targetObjectName="Test object"
     targetObjectScale={1}
@@ -28,9 +28,8 @@ ShallowWrapper {
       "children": Array [
         <ScaleDown
           dimension={100}
+          domain="SOLAR_SYSTEM"
           onComplete={[MockFunction]}
-          referenceObjectName={undefined}
-          referenceObjectURL={undefined}
           targetObjectName="Test object"
           targetObjectScale={1}
           targetObjectURL="https://vega.slooh.com/icons/community/human_spirit.svg"
@@ -59,9 +58,8 @@ ShallowWrapper {
         "nodeType": "class",
         "props": Object {
           "dimension": 100,
+          "domain": "SOLAR_SYSTEM",
           "onComplete": [MockFunction],
-          "referenceObjectName": undefined,
-          "referenceObjectURL": undefined,
           "targetObjectName": "Test object",
           "targetObjectScale": 1,
           "targetObjectURL": "https://vega.slooh.com/icons/community/human_spirit.svg",
@@ -118,9 +116,8 @@ ShallowWrapper {
         "children": Array [
           <ScaleDown
             dimension={100}
+            domain="SOLAR_SYSTEM"
             onComplete={[MockFunction]}
-            referenceObjectName={undefined}
-            referenceObjectURL={undefined}
             targetObjectName="Test object"
             targetObjectScale={1}
             targetObjectURL="https://vega.slooh.com/icons/community/human_spirit.svg"
@@ -149,9 +146,8 @@ ShallowWrapper {
           "nodeType": "class",
           "props": Object {
             "dimension": 100,
+            "domain": "SOLAR_SYSTEM",
             "onComplete": [MockFunction],
-            "referenceObjectName": undefined,
-            "referenceObjectURL": undefined,
             "targetObjectName": "Test object",
             "targetObjectScale": 1,
             "targetObjectURL": "https://vega.slooh.com/icons/community/human_spirit.svg",

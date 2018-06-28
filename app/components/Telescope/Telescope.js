@@ -28,8 +28,7 @@ class Telescope extends Component {
     missionMetaData: PropTypes.shape({
       missionTargetID: PropTypes.number,
       referenceObjectScale: PropTypes.number,
-      referenceObjectName: PropTypes.string,
-      referenceObjectURL: PropTypes.string,
+      domain: PropTypes.string,
       targetObjectScale: PropTypes.number,
       targetObjectURL: PropTypes.string,
       targetObjectName: PropTypes.string,
@@ -320,8 +319,7 @@ class Telescope extends Component {
                       <HowBig
                         dimension={width}
                         referenceObjectScale={missionMetaData.referenceObjectScale}
-                        referenceObjectName={missionMetaData.referenceObjectName}
-                        referenceObjectURL={missionMetaData.referenceObjectURL}
+                        domain={missionMetaData.domain}
                         targetObjectScale={missionMetaData.targetObjectScale}
                         targetObjectURL={missionMetaData.targetObjectURL}
                         targetObjectName={missionMetaData.targetObjectName}

@@ -9,8 +9,7 @@ class HowBig extends Component {
   static propTypes = {
     dimension: PropTypes.number.isRequired,
     referenceObjectScale: PropTypes.number.isRequired,
-    referenceObjectName: PropTypes.string.isRequired,
-    referenceObjectURL: PropTypes.string.isRequired,
+    domain: PropTypes.string.isRequired,
     targetObjectScale: PropTypes.number.isRequired,
     targetObjectURL: PropTypes.string.isRequired,
     targetObjectName: PropTypes.string.isRequired,
@@ -23,8 +22,7 @@ class HowBig extends Component {
     const {
       dimension,
       referenceObjectScale,
-      referenceObjectName,
-      referenceObjectURL,
+      domain,
       targetObjectScale,
       targetObjectName,
       targetObjectURL,
@@ -43,8 +41,7 @@ class HowBig extends Component {
               targetObjectURL={targetObjectURL}
               targetObjectName={targetObjectName}
               referenceObjectScale={referenceObjectScale}
-              referenceObjectName={referenceObjectName}
-              referenceObjectURL={referenceObjectURL}
+              domain={domain}
               onComplete={onComplete}
             />
             : <ScaleDown
@@ -52,8 +49,7 @@ class HowBig extends Component {
               targetObjectURL={targetObjectURL}
               targetObjectScale={targetObjectScale}
               targetObjectName={targetObjectName}
-              referenceObjectName={referenceObjectName}
-              referenceObjectURL={referenceObjectURL}
+              domain={domain}
               onComplete={onComplete}
             />
         }

@@ -1,31 +1,42 @@
 import React from 'react';
 import { Enum } from 'enumify';
 import ObjectFrame from './ReferenceObjects/ObjectFrame';
-import nebula from './ReferenceObjects/svg/eskino-nebula.svg';
-import earthSVG from './ReferenceObjects/svg/howbig-earth.svg';
-import milkyWay from './ReferenceObjects/svg/howbig-milky-way.svg';
+
+import earth from './ReferenceObjects/svg/howbig-earth.svg';
+import milkyWay from './ReferenceObjects/svg/howbig-milky-way-galaxy.svg';
+import sun from './ReferenceObjects/svg/howbig-sun.svg';
+import solarSystem from './ReferenceObjects/svg/howbig-solar-system.svg';
 
 class Domains extends Enum {}
 Domains.initEnum({
   SOLAR_SYSTEM: {
     render: props => (
       <ObjectFrame
-        svgURL={milkyWay}
+        svgURL={earth}
+        {...props}
+      />
+    ),
+    titleText: 'Earth',
+  },
+  STAR: {
+    render: props => (
+      <ObjectFrame
+        svgURL={sun}
+        {...props}
+      />
+    ),
+    titleText: 'Sun',
+  },
+  MILKY_WAY: {
+    render: props => (
+      <ObjectFrame
+        svgURL={solarSystem}
         {...props}
       />
     ),
     titleText: 'Solar System',
   },
-  STAR: {
-    render: props => (
-      <ObjectFrame
-        svgURL={nebula}
-        {...props}
-      />
-    ),
-    titleText: 'Star',
-  },
-  MILKY_WAY: {
+  DEEP_SPACE: {
     render: props => (
       <ObjectFrame
         svgURL={milkyWay}
@@ -33,15 +44,6 @@ Domains.initEnum({
       />
     ),
     titleText: 'Milky Way',
-  },
-  DEEP_SPACE: {
-    render: props => (
-      <ObjectFrame
-        svgURL={nebula}
-        {...props}
-      />
-    ),
-    titleText: 'Deep Space',
   },
 });
 

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import ObjectFrame from './ReferenceObjects/ObjectFrame';
 import FadeSVG from '../../../components/common/Fade/FadeSVG';
 import SVGText from '../common/SVGText';
+import domains from './domains';
 import easingFunctions, { animateValues } from '../../../utils/easingFunctions';
 
 class ScaleDown extends Component {
@@ -20,8 +21,7 @@ class ScaleDown extends Component {
     targetObjectURL: PropTypes.string.isRequired,
     targetObjectScale: PropTypes.number.isRequired,
     targetObjectName: PropTypes.string.isRequired,
-    referenceObjectURL: PropTypes.string.isRequired,
-    referenceObjectName: PropTypes.string.isRequired,
+    domain: PropTypes.string.isRequired,
     dimension: PropTypes.number,
     onComplete: PropTypes.func.isRequired,
   };
@@ -142,8 +142,7 @@ class ScaleDown extends Component {
 
   render() {
     const {
-      referenceObjectName,
-      referenceObjectURL,
+      domain,
       targetObjectURL,
       dimension,
     } = this.props;
@@ -163,6 +162,8 @@ class ScaleDown extends Component {
     const objectFrameLocation = (midPoint - (subjectDimensionSquare / 2));
     const textLabelFontSize = (dimension * 0.03);
 
+    const domainValues = domains.enumValueOf(domain);
+
     return (
       <g>
         <FadeSVG isHidden={beginAnimation}>
@@ -171,14 +172,15 @@ class ScaleDown extends Component {
             opacity: referenceOpacity,
           }}
           >
-            <ObjectFrame
-              svgURL={referenceObjectURL}
-              width={subjectDimensionSquare}
-              height={subjectDimensionSquare}
-              x={objectFrameLocation}
-              y={objectFrameLocation}
-              onLoadCallback={this.handleReferenceObjectLoaded}
-            />
+            {
+              domainValues.render({
+                width: subjectDimensionSquare,
+                height: subjectDimensionSquare,
+                x: objectFrameLocation,
+                y: objectFrameLocation,
+                onLoadCallback: this.handleReferenceObjectLoaded,
+              })
+            }
           </g>
 
           <g style={{ opacity: referenceNameOpacity }}>
@@ -186,7 +188,7 @@ class ScaleDown extends Component {
               x={midPoint}
               y={(dimension - (dimension * 0.05))}
               displayProperties={{ fontSize: `${textLabelFontSize}px` }}
-              text={`Reference object = ${referenceObjectName}`}
+              text={`Reference object = ${domainValues.titleText}`}
             />
           </g>
         </FadeSVG>

@@ -4,6 +4,7 @@ import noop from 'lodash/noop';
 import FadeSVG from '../../../components/common/Fade/FadeSVG';
 import SVGText from '../common/SVGText';
 import ObjectFrame from './ReferenceObjects/ObjectFrame';
+import domains from './domains';
 import easingFunctions, { animateValues } from '../../../utils/easingFunctions';
 
 class ScaleUp extends Component {
@@ -22,8 +23,7 @@ class ScaleUp extends Component {
     dimension: PropTypes.number,
     targetObjectURL: PropTypes.string.isRequired,
     targetObjectName: PropTypes.string.isRequired,
-    referenceObjectURL: PropTypes.string.isRequired,
-    referenceObjectName: PropTypes.string.isRequired,
+    domain: PropTypes.string.isRequired,
     referenceObjectScale: PropTypes.number.isRequired,
     onComplete: PropTypes.func,
   };
@@ -149,8 +149,7 @@ class ScaleUp extends Component {
 
   render() {
     const {
-      referenceObjectURL,
-      referenceObjectName,
+      domain,
       targetObjectURL,
       targetObjectName,
       dimension,
@@ -174,29 +173,29 @@ class ScaleUp extends Component {
     const referenceScalePercentage = (referenceScale / 100);
     const referenceSize = (dimension * referenceScalePercentage);
     const referencePosition = (midPoint - (referenceSize / 2)) * (referencePositionModifier / 100);
-    // dimension 550 (200) modifier = 0
-    // console.log(referencePosition);
+
+    const domainValues = domains.enumValueOf(domain);
 
     return (
       <g>
         <FadeSVG isHidden={!(displayReferenceObject)}>
           <g style={{
-              // transform: `translate(${(referencePosition.x)}px, ${referencePosition.y}px) scale(${referenceScale})`,
               transformOrigin: 'center',
             }}
           >
-            <ObjectFrame
-              svgURL={referenceObjectURL}
-              width={referenceSize}
-              height={referenceSize}
-              x={referencePosition}
-              y={referencePosition}
-              onLoadCallback={this.handleReferenceObjectLoaded}
-            />
+            {
+              domainValues.render({
+                width: referenceSize,
+                height: referenceSize,
+                x: referencePosition,
+                y: referencePosition,
+                onLoadCallback: this.handleReferenceObjectLoaded,
+              })
+            }
           </g>
           <FadeSVG isHidden={!showReferenceText}>
             <SVGText
-              text={`Reference object = ${referenceObjectName}`}
+              text={`Reference object = ${domainValues.titleText}`}
               x={midPoint}
               y={(dimension - (dimension * 0.05))}
               displayProperties={{
