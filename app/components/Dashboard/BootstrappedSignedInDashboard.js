@@ -9,9 +9,7 @@ import PropTypes from 'prop-types';
 import uniqueId from 'lodash/uniqueId';
 import TourPopup from './tour-popup/TourPopup';
 import PromoPanel from 'components/home/promo-panel';
-import {
-  getSectionComponent,
-} from './dashboardPanelItemsConfiguration';
+import { getSectionComponent } from './dashboardPanelItemsConfiguration';
 
 // import { connect } from 'react-redux';
 
@@ -34,7 +32,6 @@ const sectionOrder = [
 ];
 
 class BootstrappedDashboard extends Component {
-
   static propTypes = {
     featuredObservations: shape({
       featuredObservationsShow: bool,
@@ -145,13 +142,12 @@ class BootstrappedDashboard extends Component {
     const {
       promoPanel: { promoArray, promoPanelShow },
     } = this.props;
-    const {
-    } = this.state;
+
     return (
       <div className="root">
         <TourPopup />
         <div className="dash-hero">
-          <span className="vertical-helper"></span>
+          <span className="vertical-helper" />
           <img alt="Welcome" className="hero-img" src="https://vega.slooh.com/assets/v4/dashboard/landing_fpo.png" />
         </div>
         {promoPanelShow ?
@@ -183,6 +179,7 @@ class BootstrappedDashboard extends Component {
             <div>groups</div>
           </div>
         </div>
+
         {sectionOrder.map((section, i) => (
           this.props[section] && getSectionComponent(section, Object.assign({ orderNumber: i + 1 }, this.props[section]))
         ))}
@@ -196,7 +193,7 @@ class BootstrappedDashboard extends Component {
           .vertical-helper {
             display: inline-block;
             height: 100%;
-            vertical-align: middle;        
+            vertical-align: middle;
           }
           .dash-hero {
             height: 625px;
@@ -229,7 +226,7 @@ class BootstrappedDashboard extends Component {
           }
           .dash-nav-item + .dash-nav-item {
             border-left: solid 2px #171F29;
-          }          
+          }
           .dash-nav-item img {
             height: 30px;
             margin: 50px 0 30px 0;

@@ -8,8 +8,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import uniqueId from 'lodash/uniqueId';
 import SloohSlider from 'components/common/Slider';
-// import { secondaryFont } from 'styles/variables/fonts';
 import { getSliderConfiguration } from './recommendedObjectsSliderConfiguration';
+
+// import { secondaryFont } from 'styles/variables/fonts';
 const {
   arrayOf,
   bool,
@@ -42,7 +43,7 @@ const RecommendedObjects = ({
 
         `}
       </style>
-    </div>)
+    </div>);
 };
 
 RecommendedObjects.propTypes = {

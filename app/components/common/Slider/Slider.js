@@ -53,7 +53,6 @@ class SloohSlider extends Component {
     this.setState({
       currentIndex: image.imageIndex,
     });
-
   }
 
   render() {
@@ -84,17 +83,20 @@ class SloohSlider extends Component {
     return (
       <div className="root" key={uniqueId()}>
         {slideList.length === 0 && <div className="empty" dangerouslySetInnerHTML={{ __html: emptyMessage }} />}
-        {slideList.length > 0 && <div className="slider-container">
-          <Slider
-            {...sliderSettings}
-            ref={c => this.slider = c}
-          >
-            {slideList}
-          </Slider>
-        </div>}
+        {
+          slideList.length > 0 &&
+          <div className="slider-container">
+            <Slider
+              {...sliderSettings}
+              ref={(c) => { this.slider = c; }}
+            >
+              {slideList.map(slideElement => <div>{slideElement}</div>)}
+            </Slider>
+          </div>
+        }
 
         <style jsx>{`
-          
+
         `}
         </style>
 
@@ -111,7 +113,7 @@ class SloohSlider extends Component {
               border-radius: 50%;
               background-color: transparent;
             }
-            
+
             .slick-prev:before {
               content: "";
               position: absolute;
