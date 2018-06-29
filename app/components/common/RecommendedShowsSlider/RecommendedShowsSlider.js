@@ -58,7 +58,7 @@ const Shows = ({
           .show-card-head {
             color: #FAD59A;
             font-weight: 400;
-            margin: 60px 0 20px 0;
+            padding: 60px 0 20px 0;
           }
           .show-card-title {
             color: white;

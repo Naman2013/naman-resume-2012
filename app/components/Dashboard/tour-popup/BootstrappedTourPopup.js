@@ -99,7 +99,7 @@ class BootstrappeTourPopup extends Component {
         <h2 dangerouslySetInnerHTML={{ __html: title }} />
         <h3 dangerouslySetInnerHTML={{ __html: subTitle }} />
         <div dangerouslySetInnerHTML={{ __html: text }} />
-        {hasLink ? <button>
+        {hasLink ? <button className="user-btn">
           <Link to={linkURL}>
             <span dangerouslySetInnerHTML={{ __html: linkLabel }} />
           </Link>

@@ -2,8 +2,8 @@ import React from 'react';
 import uniqueId from 'lodash/uniqueId';
 
 const sliderConfiguration = {
-  slidesToShow: 2,
-  slidesToScroll: 1,
+  slidesToShow: 3,
+  slidesToScroll: 3,
   initialSlide: 1,
   emptyMessage: 'There are no guides.',
 };

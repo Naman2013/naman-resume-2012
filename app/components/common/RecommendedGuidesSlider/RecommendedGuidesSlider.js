@@ -54,7 +54,7 @@ const Guides = ({
           .card-guides-head {
             color: #FAD59A;
             font-weight: 400;
-            margin: 200px 0 20px 0;
+            padding: 200px 0 20px 0;
             letter-spacing: 2px;
           }
           .card-guides-title {

@@ -4,7 +4,7 @@ import RecommendedObjectsItem from './partials/RecommendedObjectsSliderItem';
 
 
 const sliderConfiguration = {
-  slidesToShow: 1,
+  slidesToShow: 3,
   slidesToScroll: 1,
   initialSlide: 1,
   emptyMessage: 'There are no recommended objects.',
