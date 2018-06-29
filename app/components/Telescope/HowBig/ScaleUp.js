@@ -6,6 +6,7 @@ import SVGText from '../common/SVGText';
 import ObjectFrame from './ReferenceObjects/ObjectFrame';
 import domains from './domains';
 import easingFunctions, { animateValues } from '../../../utils/easingFunctions';
+import convertToDecimal from 'utils/convertToDecimal';
 
 class ScaleUp extends Component {
   static BEFORE_START = 1000;
@@ -170,7 +171,7 @@ class ScaleUp extends Component {
     const textLabelFontSize = (dimension * 0.03);
     const showTargetObject = showReferenceText;
 
-    const referenceScalePercentage = (referenceScale / 100);
+    const referenceScalePercentage = convertToDecimal(referenceScale);
     const referenceSize = (dimension * referenceScalePercentage);
     const referencePosition = (midPoint - (referenceSize / 2)) * (referencePositionModifier / 100);
 
