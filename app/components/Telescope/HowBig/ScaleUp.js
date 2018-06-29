@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import noop from 'lodash/noop';
+import convertToDecimal from 'utils/convertToDecimal';
+import calculatePercentage from 'utils/calculatePercentage';
 import FadeSVG from '../../../components/common/Fade/FadeSVG';
 import SVGText from '../common/SVGText';
 import ObjectFrame from './ReferenceObjects/ObjectFrame';
 import domains from './domains';
 import easingFunctions, { animateValues } from '../../../utils/easingFunctions';
-import convertToDecimal from 'utils/convertToDecimal';
 
 class ScaleUp extends Component {
   static BEFORE_START = 1000;
@@ -171,8 +172,8 @@ class ScaleUp extends Component {
     const textLabelFontSize = (dimension * 0.03);
     const showTargetObject = showReferenceText;
 
-    const referenceScalePercentage = convertToDecimal(referenceScale);
-    const referenceSize = (dimension * referenceScalePercentage);
+    const referenceSize = calculatePercentage(dimension, referenceScale);
+
     const referencePosition = (midPoint - (referenceSize / 2)) * (referencePositionModifier / 100);
 
     const domainValues = domains.enumValueOf(domain);

@@ -1,3 +1,3 @@
-import convertToPercentage from './convertToPercentage';
+import calculatePercentage from './calculatePercentage';
 
-export default convertToPercentage;
+export default calculatePercentage;
