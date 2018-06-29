@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import calculatePercentage from 'utils/calculatePercentage';
 import ObjectFrame from './ReferenceObjects/ObjectFrame';
 import FadeSVG from '../../../components/common/Fade/FadeSVG';
 import SVGText from '../common/SVGText';
@@ -35,9 +36,8 @@ class ScaleDown extends Component {
     referenceObjectLoaded: false,
     referenceOpacity: 1,
     referenceNameOpacity: 1,
-
     targetObjectOpacity: 0,
-    targetScale: 1,
+    targetScale: 80,
 
     beginReference: false,
   };
@@ -105,7 +105,7 @@ class ScaleDown extends Component {
     this.scaleTargetAnimationHandle = animateValues({
       targetScale: this.state.targetScale,
     }, ScaleDown.TIME_TO_SCALE_TARGET, {
-      targetScale: this.props.targetObjectScale,
+      targetScale: (this.props.targetObjectScale * 100),
       onUpdate: ({ targetScale }) => {
         this.setState(() => ({ targetScale }));
       },
@@ -161,6 +161,8 @@ class ScaleDown extends Component {
     const subjectDimensionSquare = (dimension * 0.8);
     const objectFrameLocation = (midPoint - (subjectDimensionSquare / 2));
     const textLabelFontSize = (dimension * 0.03);
+    const targetSize = calculatePercentage(dimension, targetScale);
+    const targetPosition = (midPoint - (targetSize / 2));
 
     const domainValues = domains.enumValueOf(domain);
 
@@ -197,17 +199,13 @@ class ScaleDown extends Component {
             opacity: targetObjectOpacity,
           }}
         >
-          <g style={{
-            transform: `scale(${targetScale})`,
-            transformOrigin: 'center',
-            }}
-          >
+          <g>
             <ObjectFrame
               svgURL={targetObjectURL}
-              width={subjectDimensionSquare}
-              height={subjectDimensionSquare}
-              x={objectFrameLocation}
-              y={objectFrameLocation}
+              width={targetSize}
+              height={targetSize}
+              x={targetPosition}
+              y={targetPosition}
               onLoadCallback={this.handleTargetObjectLoaded}
             />
           </g>
