@@ -72,12 +72,30 @@ class SloohSlider extends Component {
       speed: 500,
       slidesToShow,
       slidesToScroll,
+      centerMode: true,
+      //centerPadding: '50px',
       lazyLoading: true,
       initialSlide: currentIndex,
       adaptiveHeight: false,
       beforeChange: this.beforeSlideChange,
       // nextArrow: <div>Next<i className="fa fa-arrow-right" /></div>,
       // prevArrow: <div><i className="fa fa-arrow-left" /><div>Previous</div></div>,
+      responsive: [
+        {
+          breakpoint: 1200,
+          settings: {
+            slidesToShow: 2,
+            slidesToScroll: 2,
+          }
+        },
+        {
+          breakpoint: 600,
+          settings: {
+            slidesToShow: 1,
+            slidesToScroll: 1,
+          }
+        }
+      ],
     };
 
     return (
@@ -147,9 +165,8 @@ class SloohSlider extends Component {
             }
 
             .slick-slide {
-              background-color: white;
-              box-shadow: 0px 0px 3px 1px rgba(0,0,0,0.2);
-              margin: 3px 10px;
+              /* box-shadow: 0px 0px 3px 1px rgba(0,0,0,0.2);
+             margin: 3px 10px; */
             }
 
           `}
