@@ -15,7 +15,7 @@ const {
   number,
 } = PropTypes;
 
-class BootstrappeTourPopup extends Component {
+class BootstrappedTourPopup extends Component {
 
   static propTypes = {
     canDismiss: bool,
@@ -119,4 +119,4 @@ class BootstrappeTourPopup extends Component {
   }
 }
 
-export default BootstrappeTourPopup;
+export default BootstrappedTourPopup;
