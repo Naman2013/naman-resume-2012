@@ -3,7 +3,7 @@ import uniqueId from 'lodash/uniqueId';
 
 const sliderConfiguration = {
   slidesToShow: 3,
-  slidesToScroll: 3,
+  slidesToScroll: 1,
   initialSlide: 1,
   emptyMessage: 'There are no guides.',
 };

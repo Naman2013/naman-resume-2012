@@ -2,7 +2,7 @@ import React from 'react';
 
 const sliderConfiguration = {
   slidesToShow: 2,
-  slidesToScroll: 2,
+  slidesToScroll: 1,
   initialSlide: 1,
   emptyMessage: 'There are no recommended shows.',
 };

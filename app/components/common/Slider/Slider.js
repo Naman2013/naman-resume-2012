@@ -85,7 +85,7 @@ class SloohSlider extends Component {
           breakpoint: 1200,
           settings: {
             slidesToShow: 2,
-            slidesToScroll: 2,
+            slidesToScroll: 1,
           }
         },
         {
