@@ -19,8 +19,10 @@
 */
 
 import React, { Component } from 'react';
+import debounce from 'lodash/debounce';
 import { isDesktop, isTablet, isMobile } from './deviceConfiguration';
 
+const PAGE_RESIZE_DEBOUNCE = 500;
 export const DeviceContext = React.createContext();
 
 class DeviceProvider extends Component {
@@ -39,14 +41,14 @@ class DeviceProvider extends Component {
     window.removeEventListener('resize', this.handleResize);
   }
 
-  handleResize = () => {
+  handleResize = debounce(() => {
     this.setState({
       isDesktop: isDesktop(window.innerWidth),
       isMobile: isMobile(window.innerWidth),
       isTablet: isTablet(window.innerWidth),
       windowWidth: window.innerWidth,
     });
-  }
+  }, PAGE_RESIZE_DEBOUNCE)
 
   render() {
     const { children } = this.props;
