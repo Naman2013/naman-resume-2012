@@ -187,7 +187,6 @@ class BootstrappedImageDetails extends Component {
       background: `url(${imageURL})`,
     };
     const device = this.device;
-
     const showMissionRelatedInfo = Number(scheduledMissionId) > 0;
     const rightPanelDisplayFlags = [showMissionRelatedInfo];
     const showRightContainer = rightPanelDisplayFlags.filter(flag => !!flag).length > 0;

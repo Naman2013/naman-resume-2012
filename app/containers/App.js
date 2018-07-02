@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import DeviceProvider from 'providers/DeviceProvider';
 import PageMetaManagement from '../components/PageMetaManagement';
 
 import GlobalNavigation from '../components/GlobalNavigation';
@@ -42,18 +43,20 @@ class App extends Component {
     const { isLanding } = this.props;
     return (
       <div className={`wrapper ${isLanding ? 'is-landing' : null}`}>
-        <PageMetaManagement />
+        <DeviceProvider>
+          <PageMetaManagement />
 
-        <nav className="navigation">
-          <GlobalNavigation />
-        </nav>
+          <nav className="navigation">
+            <GlobalNavigation />
+          </nav>
 
-        <section className="app-content-container clearfix">
-          <div className="clearfix">
-            { this.props.children }
-          </div>
-        </section>
-        <Footer />
+          <section className="app-content-container clearfix">
+            <div className="clearfix">
+              { this.props.children }
+            </div>
+          </section>
+          <Footer />
+        </DeviceProvider>
 
         <style jsx>{`
           .navigation {

@@ -9,6 +9,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { DeviceContext } from 'providers/DeviceProvider';
 import Request from 'components/common/network/Request';
 import { IMAGE_DETAILS } from 'services/images';
 import BoostrappedImageDetails from './BootstrappedImageDetails';
@@ -56,12 +57,15 @@ class ImageDetails extends Component {
             serviceResponse,
           }) => (
             <div>
-              {<BoostrappedImageDetails
-                callSource={CALLSOURCE_PHOTOVIEW}
-                customerImageId={customerImageId}
-                user={user}
-                {...serviceResponse}
-              />}
+              <DeviceContext.Consumer>
+                {context => (<BoostrappedImageDetails
+                  callSource={CALLSOURCE_PHOTOVIEW}
+                  customerImageId={customerImageId}
+                  user={user}
+                  {...context}
+                  {...serviceResponse}
+                />)}
+              </DeviceContext.Consumer>
             </div>
           )}
         />
