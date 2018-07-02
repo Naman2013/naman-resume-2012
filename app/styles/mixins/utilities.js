@@ -1,3 +1,5 @@
+import { primaryFont } from 'styles/variables/fonts';
+
 export const profilePhotoStyle = photoUrl => ({
   backgroundImage: `url(${photoUrl})`,
   height: '100px',
@@ -41,5 +43,9 @@ export const customModalStyles = {
     transform: 'translate(-50%, -50%)',
     maxWidth: '650px',
     padding: '50px 25px',
+    fontFamily: primaryFont,
+  },
+  overlay: {
+    backgroundColor: 'rgba(255, 255, 255, 0)',
   },
 };

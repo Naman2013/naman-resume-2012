@@ -135,6 +135,8 @@ class GlobalNavigation extends Component {
             padding: 0;
             width: 100%;
             z-index: 9999;
+            position: relative;
+            overflow-x: hidden;
           }
 
           .menus {
