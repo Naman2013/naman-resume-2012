@@ -3,6 +3,6 @@ import { storiesOf } from '@storybook/react';
 import TiaraTitleSection from '../app/components/common/TiaraTitleSection';
 
 storiesOf('TiaraTitleSection', module)
-  .add('Mobile', () => (
+  .add('Default', () => (
     <TiaraTitleSection />
   ));
