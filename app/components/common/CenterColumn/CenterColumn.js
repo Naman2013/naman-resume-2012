@@ -13,15 +13,26 @@ const CenterColumn = ({ children, theme }) => (
 
     <style jsx>
       {`
-        .root { width: 100%; }
-        @media ${screenMedium} {
-          .root { width: ${screenMediumWidth} }
+        .root {
+          width: 100%;
+          margin: 0 auto;
         }
+
+        @media ${screenMedium} {
+          .root {
+            width: ${screenMediumWidth}
+          }
+        }
+
         @media ${screenLarge} {
-          width: ${screenLargeWidth}
+          .root {
+            width: ${screenLargeWidth}
+          }
         }
         @media ${screenXLarge} {
-          width: ${screenXLargeWidth}
+          .root {
+            width: ${screenXLargeWidth}
+          }
         }
       `}
     </style>

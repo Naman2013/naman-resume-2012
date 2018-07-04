@@ -26,23 +26,31 @@ ShallowWrapper {
     "nodeType": "host",
     "props": Object {
       "children": Array [
-        <Medallion
-          iconURL={
+        <CenterColumn
+          theme={
             Object {
-              "process": [Function],
+              "backgroundColor": "red",
             }
           }
-        />,
-        <h2
-          className="jsx-397832423 title"
         >
-          <span
-            className="jsx-397832423 pre-title"
+          <Medallion
+            iconURL={
+              Object {
+                "process": [Function],
+              }
+            }
+          />
+          <h2
+            className="jsx-397832423 title"
           >
-            A guide to
-          </span>
-          The solar system
-        </h2>,
+            <span
+              className="jsx-397832423 pre-title"
+            >
+              A guide to
+            </span>
+            The solar system
+          </h2>
+        </CenterColumn>,
         <JSXStyle
           css={
             Array [
@@ -69,46 +77,79 @@ ShallowWrapper {
         "key": undefined,
         "nodeType": "function",
         "props": Object {
-          "iconURL": Object {
-            "process": [Function],
-          },
-        },
-        "ref": null,
-        "rendered": null,
-        "type": [Function],
-      },
-      Object {
-        "instance": null,
-        "key": undefined,
-        "nodeType": "host",
-        "props": Object {
           "children": Array [
-            <span
-              className="jsx-397832423 pre-title"
+            <Medallion
+              iconURL={
+                Object {
+                  "process": [Function],
+                }
+              }
+            />,
+            <h2
+              className="jsx-397832423 title"
             >
-              A guide to
-            </span>,
-            "The solar system",
+              <span
+                className="jsx-397832423 pre-title"
+              >
+                A guide to
+              </span>
+              The solar system
+            </h2>,
           ],
-          "className": "jsx-397832423 title",
+          "theme": Object {
+            "backgroundColor": "red",
+          },
         },
         "ref": null,
         "rendered": Array [
           Object {
             "instance": null,
             "key": undefined,
-            "nodeType": "host",
+            "nodeType": "function",
             "props": Object {
-              "children": "A guide to",
-              "className": "jsx-397832423 pre-title",
+              "iconURL": Object {
+                "process": [Function],
+              },
             },
             "ref": null,
-            "rendered": "A guide to",
-            "type": "span",
+            "rendered": null,
+            "type": [Function],
           },
-          "The solar system",
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": Array [
+                <span
+                  className="jsx-397832423 pre-title"
+                >
+                  A guide to
+                </span>,
+                "The solar system",
+              ],
+              "className": "jsx-397832423 title",
+            },
+            "ref": null,
+            "rendered": Array [
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": "A guide to",
+                  "className": "jsx-397832423 pre-title",
+                },
+                "ref": null,
+                "rendered": "A guide to",
+                "type": "span",
+              },
+              "The solar system",
+            ],
+            "type": "h2",
+          },
         ],
-        "type": "h2",
+        "type": [Function],
       },
       Object {
         "instance": null,
@@ -140,23 +181,31 @@ ShallowWrapper {
       "nodeType": "host",
       "props": Object {
         "children": Array [
-          <Medallion
-            iconURL={
+          <CenterColumn
+            theme={
               Object {
-                "process": [Function],
+                "backgroundColor": "red",
               }
             }
-          />,
-          <h2
-            className="jsx-397832423 title"
           >
-            <span
-              className="jsx-397832423 pre-title"
+            <Medallion
+              iconURL={
+                Object {
+                  "process": [Function],
+                }
+              }
+            />
+            <h2
+              className="jsx-397832423 title"
             >
-              A guide to
-            </span>
-            The solar system
-          </h2>,
+              <span
+                className="jsx-397832423 pre-title"
+              >
+                A guide to
+              </span>
+              The solar system
+            </h2>
+          </CenterColumn>,
           <JSXStyle
             css={
               Array [
@@ -183,46 +232,79 @@ ShallowWrapper {
           "key": undefined,
           "nodeType": "function",
           "props": Object {
-            "iconURL": Object {
-              "process": [Function],
-            },
-          },
-          "ref": null,
-          "rendered": null,
-          "type": [Function],
-        },
-        Object {
-          "instance": null,
-          "key": undefined,
-          "nodeType": "host",
-          "props": Object {
             "children": Array [
-              <span
-                className="jsx-397832423 pre-title"
+              <Medallion
+                iconURL={
+                  Object {
+                    "process": [Function],
+                  }
+                }
+              />,
+              <h2
+                className="jsx-397832423 title"
               >
-                A guide to
-              </span>,
-              "The solar system",
+                <span
+                  className="jsx-397832423 pre-title"
+                >
+                  A guide to
+                </span>
+                The solar system
+              </h2>,
             ],
-            "className": "jsx-397832423 title",
+            "theme": Object {
+              "backgroundColor": "red",
+            },
           },
           "ref": null,
           "rendered": Array [
             Object {
               "instance": null,
               "key": undefined,
-              "nodeType": "host",
+              "nodeType": "function",
               "props": Object {
-                "children": "A guide to",
-                "className": "jsx-397832423 pre-title",
+                "iconURL": Object {
+                  "process": [Function],
+                },
               },
               "ref": null,
-              "rendered": "A guide to",
-              "type": "span",
+              "rendered": null,
+              "type": [Function],
             },
-            "The solar system",
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": Array [
+                  <span
+                    className="jsx-397832423 pre-title"
+                  >
+                    A guide to
+                  </span>,
+                  "The solar system",
+                ],
+                "className": "jsx-397832423 title",
+              },
+              "ref": null,
+              "rendered": Array [
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": "A guide to",
+                    "className": "jsx-397832423 pre-title",
+                  },
+                  "ref": null,
+                  "rendered": "A guide to",
+                  "type": "span",
+                },
+                "The solar system",
+              ],
+              "type": "h2",
+            },
           ],
-          "type": "h2",
+          "type": [Function],
         },
         Object {
           "instance": null,

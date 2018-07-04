@@ -1,17 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import CenterColumn from '../CenterColumn';
 import Medallion from './Medallion';
 import { primaryFont } from '../../../styles/variables/fonts';
 import { astronaut } from '../../../styles/variables/colors_tiles_v4';
 
 const TiaraTitleSection = ({ preTitle, title, iconURL }) => (
   <div className="root">
-    <Medallion iconURL={iconURL} />
-    <h2 className="title">
-      <span className="pre-title">{preTitle}</span>
-      {title}
-    </h2>
-
+    <CenterColumn theme={{ backgroundColor: 'red' }}>
+      <Medallion iconURL={iconURL} />
+      <h2 className="title">
+        <span className="pre-title">{preTitle}</span>
+        {title}
+      </h2>
+    </CenterColumn>
     <style jsx>
       {`
         .root {

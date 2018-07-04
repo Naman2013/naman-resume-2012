@@ -24,10 +24,10 @@ ShallowWrapper {
         <JSXStyle
           css={
             Array [
-              ".root.__jsx-style-dynamic-selector{width:100%;}",
+              ".root.__jsx-style-dynamic-selector{width:100%;margin:0 auto;}",
               "@media screen and (min-width: 768px){.root.__jsx-style-dynamic-selector{width:620px;}}",
-              "@media screen and (min-width: 1024px){.__jsx-style-dynamic-selector{width:780px;}}",
-              "@media screen and (min-width: 1366px){.__jsx-style-dynamic-selector{width:940px;}}",
+              "@media screen and (min-width: 1024px){.root.__jsx-style-dynamic-selector{width:780px;}}",
+              "@media screen and (min-width: 1366px){.root.__jsx-style-dynamic-selector{width:940px;}}",
             ]
           }
           dynamic={
@@ -40,10 +40,10 @@ ShallowWrapper {
               "940px",
             ]
           }
-          styleId="2725615434"
+          styleId="3842129689"
         />,
       ],
-      "className": "jsx-3154113520 root",
+      "className": "jsx-682919411 root",
       "style": Object {},
     },
     "ref": null,
@@ -55,10 +55,10 @@ ShallowWrapper {
         "nodeType": "class",
         "props": Object {
           "css": Array [
-            ".root.__jsx-style-dynamic-selector{width:100%;}",
+            ".root.__jsx-style-dynamic-selector{width:100%;margin:0 auto;}",
             "@media screen and (min-width: 768px){.root.__jsx-style-dynamic-selector{width:620px;}}",
-            "@media screen and (min-width: 1024px){.__jsx-style-dynamic-selector{width:780px;}}",
-            "@media screen and (min-width: 1366px){.__jsx-style-dynamic-selector{width:940px;}}",
+            "@media screen and (min-width: 1024px){.root.__jsx-style-dynamic-selector{width:780px;}}",
+            "@media screen and (min-width: 1366px){.root.__jsx-style-dynamic-selector{width:940px;}}",
           ],
           "dynamic": Array [
             "screen and (min-width: 768px)",
@@ -68,7 +68,7 @@ ShallowWrapper {
             "screen and (min-width: 1366px)",
             "940px",
           ],
-          "styleId": "2725615434",
+          "styleId": "3842129689",
         },
         "ref": null,
         "rendered": null,
@@ -88,10 +88,10 @@ ShallowWrapper {
           <JSXStyle
             css={
               Array [
-                ".root.__jsx-style-dynamic-selector{width:100%;}",
+                ".root.__jsx-style-dynamic-selector{width:100%;margin:0 auto;}",
                 "@media screen and (min-width: 768px){.root.__jsx-style-dynamic-selector{width:620px;}}",
-                "@media screen and (min-width: 1024px){.__jsx-style-dynamic-selector{width:780px;}}",
-                "@media screen and (min-width: 1366px){.__jsx-style-dynamic-selector{width:940px;}}",
+                "@media screen and (min-width: 1024px){.root.__jsx-style-dynamic-selector{width:780px;}}",
+                "@media screen and (min-width: 1366px){.root.__jsx-style-dynamic-selector{width:940px;}}",
               ]
             }
             dynamic={
@@ -104,10 +104,10 @@ ShallowWrapper {
                 "940px",
               ]
             }
-            styleId="2725615434"
+            styleId="3842129689"
           />,
         ],
-        "className": "jsx-3154113520 root",
+        "className": "jsx-682919411 root",
         "style": Object {},
       },
       "ref": null,
@@ -119,10 +119,10 @@ ShallowWrapper {
           "nodeType": "class",
           "props": Object {
             "css": Array [
-              ".root.__jsx-style-dynamic-selector{width:100%;}",
+              ".root.__jsx-style-dynamic-selector{width:100%;margin:0 auto;}",
               "@media screen and (min-width: 768px){.root.__jsx-style-dynamic-selector{width:620px;}}",
-              "@media screen and (min-width: 1024px){.__jsx-style-dynamic-selector{width:780px;}}",
-              "@media screen and (min-width: 1366px){.__jsx-style-dynamic-selector{width:940px;}}",
+              "@media screen and (min-width: 1024px){.root.__jsx-style-dynamic-selector{width:780px;}}",
+              "@media screen and (min-width: 1366px){.root.__jsx-style-dynamic-selector{width:940px;}}",
             ],
             "dynamic": Array [
               "screen and (min-width: 768px)",
@@ -132,7 +132,7 @@ ShallowWrapper {
               "screen and (min-width: 1366px)",
               "940px",
             ],
-            "styleId": "2725615434",
+            "styleId": "3842129689",
           },
           "ref": null,
           "rendered": null,
