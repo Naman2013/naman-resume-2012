@@ -4,7 +4,15 @@ exports[`TiaraTitleSection should render correctly 1`] = `
 ShallowWrapper {
   "length": 1,
   Symbol(enzyme.__root__): [Circular],
-  Symbol(enzyme.__unrendered__): <TiaraTitleSection />,
+  Symbol(enzyme.__unrendered__): <TiaraTitleSection
+    iconURL={
+      Object {
+        "process": [Function],
+      }
+    }
+    preTitle="A guide to"
+    title="The solar system"
+  />,
   Symbol(enzyme.__renderer__): Object {
     "batchedUpdates": [Function],
     "getNode": [Function],
