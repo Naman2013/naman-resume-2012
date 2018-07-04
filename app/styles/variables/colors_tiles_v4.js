@@ -1,10 +1,10 @@
 
 ///////////////
-/*  
+/*
     SLOOH V4 COLOR PALETTE VARIABLES
 
     For examples see:
-    common-components/Slooh_v4_color_palette.html 
+    common-components/Slooh_v4_color_palette.html
 */
 ///////////////
 
