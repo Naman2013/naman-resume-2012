@@ -17,10 +17,9 @@ export const isDesktop = currentWidth =>
   currentWidth > DeviceConfiguration.DESKTOP.min;
 
 export const isTablet = currentWidth =>
-  currentWidth > DeviceConfiguration.TABLET.min &&
-  currentWidth < DeviceConfiguration.DESKTOP.min;
+  !isDesktop(currentWidth) && currentWidth > DeviceConfiguration.TABLET.min;
 
 export const isMobile = currentWidth =>
-  !isDesktop(currentWidth) && !isTablet(currentWidth)
+  !isDesktop(currentWidth) && !isTablet(currentWidth);
 
 export default DeviceConfiguration;
