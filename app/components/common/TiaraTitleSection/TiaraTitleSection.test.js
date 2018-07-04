@@ -4,7 +4,8 @@ import TiaraTitleSection from './TiaraTitleSection';
 import alienHeadIcon from '../../../../assets/icons/alien-head.png';
 
 const setup = (customProps = {}) => {
-  const props = Object.assign({}, customProps);
+  const defaultProps = { preTitle: 'Test', title: 'Test', iconURL: alienHeadIcon };
+  const props = Object.assign({}, defaultProps, customProps);
   const shallowWrapper = shallow(<TiaraTitleSection {...props} />);
 
   return {

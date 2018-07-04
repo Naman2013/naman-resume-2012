@@ -4,5 +4,9 @@ import TiaraTitleSection from '../app/components/common/TiaraTitleSection';
 
 storiesOf('TiaraTitleSection', module)
   .add('Default', () => (
-    <TiaraTitleSection />
+    <TiaraTitleSection
+      preTitle="A guide to"
+      title="The solar system"
+      iconURL="https://vega.slooh.com/icons/home/observatory.png"
+    />
   ));
