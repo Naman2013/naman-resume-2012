@@ -51,7 +51,7 @@ class ResponsiveTwoColumnContainer extends Component {
       secondTabIsActive,
       secondTabOnClick,
     } = this.props;
-    return (<div className="root">
+    return (<div className="root component-container">
       <div className="split-nav-item-container" onClick={firstTabOnClick}>
         <div className="split-nav-item" dangerouslySetInnerHTML={{ __html: firstTitle }} />
         <img src="https://vega.slooh.com/assets/v4/common/status_triangle_up.svg"
@@ -87,6 +87,11 @@ class ResponsiveTwoColumnContainer extends Component {
         .split-nav-item {
           margin: 0 5px;
           margin-top: 15px;
+        }
+
+        .component-container {
+          margin: 0 25px;
+          ${dropShadowContainer}
         }
 
         .split-nav-item-container {

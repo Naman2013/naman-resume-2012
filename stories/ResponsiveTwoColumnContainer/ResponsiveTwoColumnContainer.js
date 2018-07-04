@@ -18,6 +18,6 @@ storiesOf('ResponsiveTwoColumnContainer', module)
         height: '500px',
         'background-color': 'blue',
       }} >Adjust window width</div>}
-
+      renderNavigationComponent={() => <div>Navigation</div>}
     />
   ));

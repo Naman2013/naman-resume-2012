@@ -11,14 +11,10 @@ import classnames from 'classnames';
 import { backgroundImageCover, dropShadowContainer } from 'styles/mixins/utilities';
 import TwoTabbedNav from 'components/TwoTabbedNav';
 import ResponsiveTwoColumnContainer from 'components/ResponsiveTwoColumnContainer';
-import DiscussionComments from 'components/common/DiscussionsBoard/DiscussionComments';
-import MissionDetailList from 'components/common/MissionDetailList';
 import ObjectDetailList from 'components/common/ObjectDetailList';
-import MissionImageDetailList from 'components/common/MissionImageDetailList';
-import ObservationsForm from 'components/ObservationsForm';
-import ObserverInfo from 'components/ObserverInfo';
-import ObservationInformation from './partials/ObservationInformation';
-import { astronaut, shadows } from 'styles/variables/colors_tiles_v4';
+import MainContainer from './partials/MainContainer';
+import AsideContainer from './partials/AsideContainer'
+import { astronaut } from 'styles/variables/colors_tiles_v4';
 import { primaryFont, secondaryFont } from 'styles/variables/fonts';
 
 const {
@@ -32,34 +28,14 @@ const {
   string,
 } = PropTypes;
 
-const BootstrappedImageDetails = ({
-  avatarURL,
-  callSource,
-  canEditFlag,
-  canLikeFlag,
-  commentsCount,
-  commentsForumId,
-  commentsThreadId,
-  commentsTopicId,
-  customerImageId,
-  displayName,
-  fileData,
-  gravityRankLabel,
-  imageTitle,
-  imageURL,
-  isDesktop,
-  likePrompt,
-  likesCount,
-  objectId,
-  observationLog,
-  observationTimeDisplay,
-  observationTitle,
-  saveLabel,
-  scheduledMissionId,
-  showCommentsLink,
-  showLikePrompt,
-  user,
-}) => {
+const BootstrappedImageDetails = (props) => {
+  const {
+    imageTitle,
+    imageURL,
+    isDesktop,
+    objectId,
+    scheduledMissionId,
+  } = props;
   const showMissionRelatedInfo = Number(scheduledMissionId) > 0;
   const rightPanelDisplayFlags = [showMissionRelatedInfo];
   const showRightContainer = rightPanelDisplayFlags.filter(flag => !!flag).length > 0;
@@ -93,69 +69,12 @@ const BootstrappedImageDetails = ({
           />)
         }
         renderAsideContent={() => (<div>
-          {showRightContainer ? <div>
-            <div>
-              <ObserverInfo
-                avatarURL={avatarURL}
-                isDesktop={isDesktop}
-                displayName={displayName}
-                gravityRankLabel={gravityRankLabel}
-              />
-            </div>
-            {!isDesktop && objectId !== '0' ? <div>
-              <ObjectDetailList
-                isDesktop={isDesktop}
-                objectId={objectId}
-                scheduledMissionId={scheduledMissionId}
-              />
-            </div> : null}
-            {showMissionRelatedInfo ? <div>
-              <MissionDetailList
-                isDesktop={isDesktop}
-                scheduledMissionId={scheduledMissionId}
-                customerImageId={customerImageId}
-              />
-            </div> : null}
-            {showMissionRelatedInfo ? <div>
-              <MissionImageDetailList
-                isDesktop={isDesktop}
-                scheduledMissionId={scheduledMissionId}
-              />
-            </div> : null}
-          </div> : null}
+          {showRightContainer ?
+            <AsideContainer {...props} showMissionRelatedInfo={showMissionRelatedInfo} /> :
+            null}
         </div>)}
         isDesktop={isDesktop}
-        renderMainContent={() => (<div>
-          {!canEditFlag && <ObservationInformation
-            canLikeFlag={canLikeFlag}
-            customerImageId={customerImageId}
-            fileData={fileData}
-            likesCount={likesCount}
-            likePrompt={likePrompt}
-            observationLog={observationLog}
-            observationTime={observationTimeDisplay}
-            observationTitle={observationTitle}
-            user={user}
-          />}
-          {canEditFlag && <ObservationsForm
-            customerImageId={customerImageId}
-            observationLog={observationLog}
-            observationTitle={observationTitle}
-            saveLabel={saveLabel}
-            scheduledMissionId={scheduledMissionId}
-            user={user}
-          />}
-          {showCommentsLink ? <DiscussionComments
-            callSource={callSource}
-            count={10}
-            commentsCount={commentsCount}
-            commentsThreadId={commentsThreadId}
-            forumId={commentsForumId}
-            topicId={commentsTopicId}
-            threadId={commentsThreadId}
-            user={user}
-              /> : null}
-          </div>)}
+        renderMainContent={() => <MainContainer {...props} />}
       />
     </div>
     <style jsx>{`
@@ -169,7 +88,7 @@ const BootstrappedImageDetails = ({
 
 
       .component-container {
-        margin: 25px;
+        margin: 25px 25px 0 25px;
         ${dropShadowContainer}
       }
 
@@ -279,7 +198,7 @@ BootstrappedImageDetails.propTypes = {
     token: oneOfType([number, string]),
     cid: oneOfType([number, string]),
   }).isRequired,
-}
+};
 
 BootstrappedImageDetails.defaultProps = {
   callSource: null,

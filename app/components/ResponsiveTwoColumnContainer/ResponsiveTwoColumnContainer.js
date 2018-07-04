@@ -88,7 +88,7 @@ class ResponsiveTwoColumnContainer extends Component {
     } = props;
     const { showMainContainer, showAsideContainer } = state;
     return (<div className="root">
-      <div className="split-nav component-container">
+      <div className="split-nav">
         {renderNavigationComponent({
           showMainContainer,
           onShowMainContainer,
@@ -115,13 +115,6 @@ class ResponsiveTwoColumnContainer extends Component {
         }
 
 
-        .component-container {
-          margin: 25px;
-          -moz-box-shadow: 0 2px 4px 1px ${gray};
-          -webkit-box-shadow: 0 2px 4px 1px ${gray};
-          box-shadow: 0 2px 4px 1px ${gray};
-        }
-
         .is-hidden {
           visibility: hidden;
         }
@@ -131,7 +124,6 @@ class ResponsiveTwoColumnContainer extends Component {
         }
 
         .split-nav {
-          margin-top: 25px;
           display: none;
           width: 100%;
         }
