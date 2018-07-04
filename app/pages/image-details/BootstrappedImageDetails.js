@@ -9,6 +9,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { backgroundImageCover, dropShadowContainer } from 'styles/mixins/utilities';
+import TwoTabbedNav from 'components/TwoTabbedNav';
 import ResponsiveTwoColumnContainer from 'components/ResponsiveTwoColumnContainer';
 import DiscussionComments from 'components/common/DiscussionsBoard/DiscussionComments';
 import MissionDetailList from 'components/common/MissionDetailList';
@@ -81,7 +82,16 @@ const BootstrappedImageDetails = ({
     </div>
     <div className="main-container">
       <ResponsiveTwoColumnContainer
-        asideContainerTitle="Details"
+        renderNavigationComponent={navProps =>
+          (<TwoTabbedNav
+            firstTitle="Observations"
+            secondTitle="Details"
+            firstTabIsActive={navProps.showMainContainer}
+            firstTabOnClick={navProps.onShowMainContainer}
+            secondTabIsActive={navProps.onShowAsideContainer}
+            secondTabOnClick={navProps.showAsideContainer}
+          />)
+        }
         renderAsideContent={() => (<div>
           {showRightContainer ? <div>
             <div>
@@ -115,7 +125,6 @@ const BootstrappedImageDetails = ({
           </div> : null}
         </div>)}
         isDesktop={isDesktop}
-        mainContainerTitle="Observations"
         renderMainContent={() => (<div>
           {!canEditFlag && <ObservationInformation
             canLikeFlag={canLikeFlag}

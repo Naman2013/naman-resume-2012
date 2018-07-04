@@ -7,6 +7,7 @@ import './Headers';
 import './MissionAudio';
 import './ResponsiveTwoColumnContainer';
 import './svg-mask';
+import './TwoTabbedNav';
 import './Tabs';
 import './Telescope';
 import './TelescopeThumbnailView';
