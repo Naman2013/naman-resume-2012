@@ -10,6 +10,7 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { darkGray, gray } from 'styles/variables/colors';
 import { primaryFont, secondaryFont } from 'styles/variables/fonts';
+import { screenMedium } from 'styles/variables/breakpoints';
 
 const {
   any,
@@ -128,37 +129,34 @@ class ResponsiveTwoColumnContainer extends Component {
           width: 100%;
         }
 
-        .left-container {
-          width: 620px;
-        }
-
+        .left-container,
         .right-container {
-          width: 300px;
+          width: 620px;
         }
 
         .arrow {
           margin-bottom: -5px;
         }
 
-
-        @media all and (min-width: 641px) and (max-width: 768px) {
-
-          .split-nav {
-            display: flex;
-          }
-
-          .right-container {
-            width: 620px;
-          }
+        .split-nav {
+          display: flex;
         }
-        @media all and (max-width: 640px){
+
+
+        @media ${screenMedium} {
+          .root {
+            max-width: 940px;
+          }
+          
           .split-nav {
-            display: flex;
+            display: none;
+            width: 100%;
           }
 
           .right-container {
-            width: 620px;
+            width: 300px;
           }
+
         }
 
       `}</style>

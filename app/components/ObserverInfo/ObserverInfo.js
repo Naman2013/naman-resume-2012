@@ -10,9 +10,10 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import uniqueId from 'lodash/uniqueId';
 import { profilePhotoStyle } from 'styles/mixins/utilities';
-import { darkGray, lightGray, gray } from 'styles/variables/colors';
+import { astronaut, shadows } from 'styles/variables/colors_tiles_v4';
 import { primaryFont, secondaryFont } from 'styles/variables/fonts';
-import { aspectRatio, backgroundImageCover } from '../../styles/mixins/utilities';
+import { aspectRatio, backgroundImageCover, dropShadowContainer } from '../../styles/mixins/utilities';
+import { screenMedium } from 'styles/variables/breakpoints';
 
 
 const {
@@ -52,31 +53,23 @@ const ObserverInfo = ({
   <style jsx>{`
     .component-container {
       margin: 25px;
-      -moz-box-shadow: 0 2px 4px 1px ${gray};
-      -webkit-box-shadow: 0 2px 4px 1px ${gray};
-      box-shadow: 0 2px 4px 1px ${gray};
+      ${dropShadowContainer}
     }
 
     .title-container {
       text-transform: uppercase;
-      color: ${darkGray};
+      color: ${astronaut};
       font-weight: bold;
       font-size: 12px;
-      border-bottom: 4px solid ${darkGray};
+      border-bottom: 4px solid ${astronaut};
       display: flex;
       flex-direction: row;
       align-items: center;
     }
 
-    .title {
-      padding: 25px;
-      text-align: center;
-      width: 100%;
-    }
-
     .observer-info-container {
       display: flex;
-      flex-direction: column;
+      flex-direction: row;
       padding: 25px;
       flex-wrap: wrap;
     }
@@ -84,7 +77,7 @@ const ObserverInfo = ({
     .name {
       display: block;
       font-size: 20px;
-      color: ${darkGray};
+      color: ${astronaut};
       font-family: ${secondaryFont};
       padding: 5px 0;
     }
@@ -93,20 +86,6 @@ const ObserverInfo = ({
       position: relative;
     }
 
-    .observer-avatar {
-      margin: 25px auto;
-      position: relative;
-      z-index: 1;
-    }
-
-    .avatar-line {
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 50%;
-      height: 100%;
-      border-right: 1px solid ${gray};
-    }
 
     .flex-item {
       flex: 0 50%;
@@ -116,54 +95,58 @@ const ObserverInfo = ({
       display: block;
       text-align: center;
       padding: 5px 0;
-      border-top: 1px solid ${gray};
-      border-bottom: 1px solid ${gray};
+      border-top: 1px solid ${shadows};
+      border-bottom: 1px solid ${shadows};
       font-size: 10px;
       font-family: ${primaryFont};
       text-transform: uppercase;
       font-weight: bold;
     }
 
-    @media all and (min-width: 641px) and (max-width: 768px) {
+    .observer-avatar {
+      margin: 0 auto;
+    }
 
-      .observer-info-container {
-        flex-direction: row;
-      }
+    .title {
+      flex: 0 0 100%;
+      font-size: 11px;
+      text-align: left;
+      padding: 10px 0;
+    }
 
-      .observer-avatar {
-        margin: 0 auto;
+    .avatar-line {
+      display: none;
+    }
+
+    @media ${screenMedium} {
+      .avatar-line {
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 50%;
+        height: 100%;
+        border-right: 1px solid ${shadows};
       }
 
       .title {
-        flex: 0 0 100%;
-        font-size: 11px;
-        text-align: left;
-        padding: 10px 0;
-      }
-
-      .avatar-line {
-        display: none;
-      }
-    }
-    @media all and (max-width: 640px){
-      .observer-info-container {
-        flex-direction: row;
+        padding: 25px;
+        text-align: center;
+        width: 100%;
       }
 
       .observer-avatar {
-        margin: 0 auto;
+        margin: 25px auto;
+        position: relative;
+        z-index: 1;
       }
 
-      .title {
-        flex: 0 0 100%;
-        font-size: 11px;
-        text-align: left;
-        padding: 10px 0;
+      .observer-info-container {
+        flex-direction: column;
       }
-      .avatar-line {
-        display: none;
-      }
+
     }
+
 
   `}</style>
 </div>);

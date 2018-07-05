@@ -16,6 +16,7 @@ import MainContainer from './partials/MainContainer';
 import AsideContainer from './partials/AsideContainer'
 import { astronaut } from 'styles/variables/colors_tiles_v4';
 import { primaryFont, secondaryFont } from 'styles/variables/fonts';
+import { screenMedium } from 'styles/variables/breakpoints';
 
 const {
   any,
@@ -64,8 +65,8 @@ const BootstrappedImageDetails = (props) => {
             secondTitle="Details"
             firstTabIsActive={navProps.showMainContainer}
             firstTabOnClick={navProps.onShowMainContainer}
-            secondTabIsActive={navProps.onShowAsideContainer}
-            secondTabOnClick={navProps.showAsideContainer}
+            secondTabIsActive={navProps.showAsideContainer}
+            secondTabOnClick={navProps.onShowAsideContainer}
           />)
         }
         renderAsideContent={() => (<div>
@@ -82,7 +83,6 @@ const BootstrappedImageDetails = (props) => {
       .root {
         font-family: ${primaryFont};
         color: ${astronaut};
-        max-width: 940px;
         margin: 0 auto;
       }
 
@@ -119,10 +119,6 @@ const BootstrappedImageDetails = (props) => {
 
       }
 
-      .object-details {
-        display: block;
-      }
-
       .obs-image-container {
         width: 100%;
       }
@@ -151,17 +147,21 @@ const BootstrappedImageDetails = (props) => {
         bottom: 0;
       }
 
-      @media all and (min-width: 641px) and (max-width: 768px) {
+      .object-details {
+        display: none;
+      }
 
-        .object-details {
-          display: none;
+      @media ${screenMedium} {
+        .root {
+          max-width: 940px;
         }
-      }
-      @media all and (max-width: 640px){
         .object-details {
-          display: none;
+          display: block;
         }
+
+
       }
+
     `}</style>
   </div>);
 };
