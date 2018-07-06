@@ -1,5 +1,5 @@
 import css from 'styled-jsx/css';
-import { primaryFont } from '../../../styles/variables/fonts';
+import { primaryFont, secondaryFont } from '../../../styles/variables/fonts';
 import {
   astronaut,
   blue_tile_feat,
@@ -24,18 +24,6 @@ export default css`
     padding-top: 70px;
   }
 
-  @media ${screenMedium} {
-    .root {
-      padding-top: 120px;
-    }
-  }
-
-  @media ${screenXLarge} {
-    .root {
-      padding-top: 160px;
-    }
-  }
-
   .center-line {
     position: absolute;
     top: 0;
@@ -47,10 +35,12 @@ export default css`
   }
 
   .title {
-    padding-top: 95px;
+    padding-top: 80px;
     padding-bottom: 60px;
     font-weight: 300;
     text-transform: capitalize;
+    font-size: 22px;
+    font-family: ${secondaryFont};
   }
 
   .pre-title {
@@ -60,5 +50,37 @@ export default css`
     letter-spacing: 2px;
     font-size: 10px;
     margin-bottom: 20px;
+    font-family: ${primaryFont};
+  }
+
+  @media ${screenMedium} {
+    .root {
+      padding-top: 120px;
+    }
+
+    .title {
+      font-size: 36px;
+    }
+  }
+
+  @media ${screenLarge} {
+    .title {
+      font-size: 44px;
+      padding-bottom: 120px;
+    }
+
+    .pre-title {
+      margin-bottom: 50px;
+    }
+  }
+
+  @media ${screenXLarge} {
+    .root {
+      padding-top: 160px;
+    }
+
+    .title {
+      font-size: 42px;
+    }
   }
 `;

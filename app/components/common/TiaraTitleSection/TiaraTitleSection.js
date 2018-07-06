@@ -13,22 +13,23 @@ const TiaraTitleSection = ({ preTitle, title, iconURL }) => (
         background: `url(${white_tile_paper})`,
         position: 'relative',
         zIndex: '10',
+        boxShadow: 'rgb(191, 191, 191) 0px 11px 20px -10px',
       }}
     >
       <Medallion
         iconURL={iconURL}
-        dimension={65}
+        dimension={70}
         theme={{
           position: 'absolute',
           left: '50%',
-          top: '-20px',
+          top: '-30px',
           zIndex: '20',
           transform: 'translateX(-50%)',
         }}
       />
 
-      <HorizontalRule theme={{ borderTop: `2px solid ${golden}`, top: '10px' }} />
-      <HorizontalRule theme={{ borderTop: `1px solid ${golda}`, top: '15px' }} />
+      <HorizontalRule theme={{ borderTop: `2px solid ${golden}`, top: '6px' }} />
+      <HorizontalRule theme={{ borderTop: `1px solid ${golda}`, top: '9px' }} />
 
       <h2 className="title">
         <span className="pre-title">{preTitle}</span>

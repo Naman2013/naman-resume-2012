@@ -23,7 +23,7 @@ ShallowWrapper {
       "children": Array [
         <img
           alt=""
-          className="jsx-1822869569"
+          className="jsx-1285550702"
           height={25}
           src={undefined}
           width={25}
@@ -31,7 +31,7 @@ ShallowWrapper {
         <JSXStyle
           css={
             Array [
-              "div.__jsx-style-dynamic-selector{position:relative;width:50px;height:50px;border-radius:50%;border:5px solid #e2b979;background:url(https://vega.slooh.com/assets/v4/common/Dark_Pattern_Featured_LargeCanvas.png);margin:0;padding:0;}",
+              "div.__jsx-style-dynamic-selector{position:relative;width:50px;height:50px;border-radius:50%;border:6px solid #e2b979;background:url(https://vega.slooh.com/assets/v4/common/Dark_Pattern_Featured_LargeCanvas.png);margin:0;padding:0;}",
               "img.__jsx-style-dynamic-selector{position:absolute;top:50%;left:50%;-webkit-transform:translate(-50%,-50%);-ms-transform:translate(-50%,-50%);transform:translate(-50%,-50%);}",
             ]
           }
@@ -43,10 +43,10 @@ ShallowWrapper {
               "https://vega.slooh.com/assets/v4/common/Dark_Pattern_Featured_LargeCanvas.png",
             ]
           }
-          styleId="2658691712"
+          styleId="4212983649"
         />,
       ],
-      "className": "jsx-1822869569",
+      "className": "jsx-1285550702",
       "style": Object {},
     },
     "ref": null,
@@ -57,7 +57,7 @@ ShallowWrapper {
         "nodeType": "host",
         "props": Object {
           "alt": "",
-          "className": "jsx-1822869569",
+          "className": "jsx-1285550702",
           "height": 25,
           "src": undefined,
           "width": 25,
@@ -72,7 +72,7 @@ ShallowWrapper {
         "nodeType": "class",
         "props": Object {
           "css": Array [
-            "div.__jsx-style-dynamic-selector{position:relative;width:50px;height:50px;border-radius:50%;border:5px solid #e2b979;background:url(https://vega.slooh.com/assets/v4/common/Dark_Pattern_Featured_LargeCanvas.png);margin:0;padding:0;}",
+            "div.__jsx-style-dynamic-selector{position:relative;width:50px;height:50px;border-radius:50%;border:6px solid #e2b979;background:url(https://vega.slooh.com/assets/v4/common/Dark_Pattern_Featured_LargeCanvas.png);margin:0;padding:0;}",
             "img.__jsx-style-dynamic-selector{position:absolute;top:50%;left:50%;-webkit-transform:translate(-50%,-50%);-ms-transform:translate(-50%,-50%);transform:translate(-50%,-50%);}",
           ],
           "dynamic": Array [
@@ -81,7 +81,7 @@ ShallowWrapper {
             "#e2b979",
             "https://vega.slooh.com/assets/v4/common/Dark_Pattern_Featured_LargeCanvas.png",
           ],
-          "styleId": "2658691712",
+          "styleId": "4212983649",
         },
         "ref": null,
         "rendered": null,
@@ -99,7 +99,7 @@ ShallowWrapper {
         "children": Array [
           <img
             alt=""
-            className="jsx-1822869569"
+            className="jsx-1285550702"
             height={25}
             src={undefined}
             width={25}
@@ -107,7 +107,7 @@ ShallowWrapper {
           <JSXStyle
             css={
               Array [
-                "div.__jsx-style-dynamic-selector{position:relative;width:50px;height:50px;border-radius:50%;border:5px solid #e2b979;background:url(https://vega.slooh.com/assets/v4/common/Dark_Pattern_Featured_LargeCanvas.png);margin:0;padding:0;}",
+                "div.__jsx-style-dynamic-selector{position:relative;width:50px;height:50px;border-radius:50%;border:6px solid #e2b979;background:url(https://vega.slooh.com/assets/v4/common/Dark_Pattern_Featured_LargeCanvas.png);margin:0;padding:0;}",
                 "img.__jsx-style-dynamic-selector{position:absolute;top:50%;left:50%;-webkit-transform:translate(-50%,-50%);-ms-transform:translate(-50%,-50%);transform:translate(-50%,-50%);}",
               ]
             }
@@ -119,10 +119,10 @@ ShallowWrapper {
                 "https://vega.slooh.com/assets/v4/common/Dark_Pattern_Featured_LargeCanvas.png",
               ]
             }
-            styleId="2658691712"
+            styleId="4212983649"
           />,
         ],
-        "className": "jsx-1822869569",
+        "className": "jsx-1285550702",
         "style": Object {},
       },
       "ref": null,
@@ -133,7 +133,7 @@ ShallowWrapper {
           "nodeType": "host",
           "props": Object {
             "alt": "",
-            "className": "jsx-1822869569",
+            "className": "jsx-1285550702",
             "height": 25,
             "src": undefined,
             "width": 25,
@@ -148,7 +148,7 @@ ShallowWrapper {
           "nodeType": "class",
           "props": Object {
             "css": Array [
-              "div.__jsx-style-dynamic-selector{position:relative;width:50px;height:50px;border-radius:50%;border:5px solid #e2b979;background:url(https://vega.slooh.com/assets/v4/common/Dark_Pattern_Featured_LargeCanvas.png);margin:0;padding:0;}",
+              "div.__jsx-style-dynamic-selector{position:relative;width:50px;height:50px;border-radius:50%;border:6px solid #e2b979;background:url(https://vega.slooh.com/assets/v4/common/Dark_Pattern_Featured_LargeCanvas.png);margin:0;padding:0;}",
               "img.__jsx-style-dynamic-selector{position:absolute;top:50%;left:50%;-webkit-transform:translate(-50%,-50%);-ms-transform:translate(-50%,-50%);transform:translate(-50%,-50%);}",
             ],
             "dynamic": Array [
@@ -157,7 +157,7 @@ ShallowWrapper {
               "#e2b979",
               "https://vega.slooh.com/assets/v4/common/Dark_Pattern_Featured_LargeCanvas.png",
             ],
-            "styleId": "2658691712",
+            "styleId": "4212983649",
           },
           "ref": null,
           "rendered": null,

@@ -24,7 +24,7 @@ const Medallion = ({ iconURL, dimension, theme }) => (
           width: ${dimension}px;
           height: ${dimension}px;
           border-radius: 50%;
-          border: 5px solid ${golda};
+          border: 6px solid ${golda};
           background: url(${blue_tile_feat});
           margin: 0;
           padding: 0;
