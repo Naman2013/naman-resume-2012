@@ -10,7 +10,7 @@ const {
 } = PropTypes;
 
 const ButtonWithIcon = ({
-  count,
+  text,
   icon,
   onClickEvent,
 }) => (
@@ -21,10 +21,10 @@ const ButtonWithIcon = ({
     <img
       src={icon}
     />
-    <span className="count" dangerouslySetInnerHTML={{ __html: count }} />
+    <span className="text" dangerouslySetInnerHTML={{ __html: text }} />
     <style jsx>
       {`
-        .count {
+        .text {
           vertical-align: middle;
           font-size: 13px;
           margin: 0 5px;
@@ -49,7 +49,7 @@ const ButtonWithIcon = ({
 );
 
 ButtonWithIcon.propTypes = {
-  count: oneOfType([string, number]).isRequired,
+  text: oneOfType([string, number]).isRequired,
   icon: string.isRequired,
   onClickEvent: func.isRequired,
 };

@@ -10,12 +10,11 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import {
-  darkBlueGray,
-  white,
-} from '../../../styles/variables/colors';
+  astronaut,
+} from '../../../styles/variables/colors_tiles_v4';
+import { screenLarge } from 'styles/variables/breakpoints';
 import { createActivity } from '../../../modules/community-group-activity-list/actions';
 import MembersList from './members-list';
-import FullInformation from './full-information';
 import DiscussionsBoard from 'components/common/DiscussionsBoard';
 
 const {
@@ -48,9 +47,13 @@ class FullInformationOverview extends Component {
     descriptionHeading: string,
     detailsHeading: string,
     detailsList: shape({}),
+    context: shape({
+      isDesktop: bool,
+      isTablet: bool,
+      isMobile: bool,
+    }),
     heading: string,
     pageMeta: shape({
-      headingList: arrayOf(string),
       canPost: bool,
     }),
     joinOrLeaveGroup: func.isRequired,
@@ -65,9 +68,9 @@ class FullInformationOverview extends Component {
     description: '',
     descriptionHeading: '',
     detailsHeading: '',
+    context: {},
     heading: '',
     pageMeta: {
-      headingList: [],
       canPost: false,
     },
     joinPrompt: '',
@@ -83,6 +86,7 @@ class FullInformationOverview extends Component {
       descriptionHeading,
       detailsHeading,
       detailsList,
+      context,
       heading,
       pageMeta,
       joinOrLeaveGroup,
@@ -103,22 +107,8 @@ class FullInformationOverview extends Component {
     };
 
     return (
-      <div>
-        <div className="full-info">
-          <div className="flex-child">
-            <FullInformation
-              description={description}
-              descriptionHeading={descriptionHeading}
-              detailsHeading={detailsHeading}
-              detailsList={detailsList}
-              heading={heading}
-              joinPrompt={joinPrompt}
-              showJoinPrompt={showJoinPrompt}
-              joinOrLeaveGroup={joinOrLeaveGroup}
-            />
-          </div>
+      <div className="root">
           <div className="flex-child left-container">
-            {pageMeta.headingList && pageMeta.headingList.length > 0 && pageMeta.headingList.join(' ')}
             <DiscussionsBoard
               errorMessage="There was an error fetching list"
               topicId={pageMeta.topicId}
@@ -134,26 +124,36 @@ class FullInformationOverview extends Component {
               membersCount={membersCount}
             />
           </aside>
-        </div>
-        <style jsx>{`
-          .full-info {
-            display: flex;
-            flex-direction: row;
-            flex-wrap: wrap;
-          }
-          .flex-child:first-child {
-            width: 100%;
-          }
+      <style jsx>{`
+        .root {
+          display: flex;
+          flex-direction: row;
+          flex-wrap: wrap;
+        }
 
+        .left-container {
+          width: 100%;
+        }
+
+        .right-container {
+          display: none;
+        }
+
+        @media ${screenLarge} {
           .left-container {
-            flex: 3;
+            width: 620px;
           }
 
           .right-container {
-            flex: 1;
+            display: block;
+            width: 300px;
           }
-        `}</style>
-      </div>
+
+        }
+
+
+      `}</style>
+    </div>
     )
   }
 }

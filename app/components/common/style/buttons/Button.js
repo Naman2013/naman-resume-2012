@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classnames from 'classnames';
 import { astronaut, romance } from 'styles/variables/colors_tiles_v4';
 
 const {
@@ -15,7 +16,10 @@ const ButtonWithIcon = ({
   onClickEvent,
 }) => (
   <button
-    className="button-container"
+    className={classnames('button-container', {
+      circular: icon && !text,
+    })}
+
     onClick={onClickEvent}
   >
     {text ? <span className="text" dangerouslySetInnerHTML={{ __html: text }} /> : null}
@@ -38,6 +42,11 @@ const ButtonWithIcon = ({
           font-weight: bold;
           padding: 5px 0;
           text-transform: uppercase;
+          height: 40px;
+          width: 140px;
+        }
+
+        .circular {
           width: 40px;
           height: 40px;
         }

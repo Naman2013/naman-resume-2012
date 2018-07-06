@@ -9,6 +9,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Request from 'components/common/network/Request';
 import ConnectUser from 'redux/components/ConnectUser';
+import { DeviceContext } from 'providers/DeviceProvider';
 import { THREAD_LIST } from 'services/discussions';
 import BootstrappedDiscussionsBoard from './BootstrappedDiscussionsBoard';
 
@@ -52,19 +53,26 @@ const DiscussionsBoard = ({
     }) => (
       <div>
         <ConnectUser
-          render={user => (<BootstrappedDiscussionsBoard
-            errorMessage={errorMessage}
-            fetching={fetchingContent}
-            callSource={callSource}
-            count={count}
-            page={page}
-            topicId={topicId}
-            forumId={forumId}
-            user={user}
-            createThread={createThread}
-            createThreadFormParams={createThreadFormParams}
-            {...serviceResponse}
-          />)}
+          render={user => (
+              <DeviceContext.Consumer>
+                {context => (
+                  <BootstrappedDiscussionsBoard
+                    errorMessage={errorMessage}
+                    fetching={fetchingContent}
+                    callSource={callSource}
+                    count={count}
+                    page={page}
+                    topicId={topicId}
+                    forumId={forumId}
+                    user={user}
+                    createThread={createThread}
+                    createThreadFormParams={createThreadFormParams}
+                    {...context}
+                    {...serviceResponse}
+                  />
+                )}
+              </DeviceContext.Consumer>
+            )}
         />
       </div>
     )}

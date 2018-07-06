@@ -31,6 +31,7 @@ class BootstrappedDiscussionsBoard extends Component {
     errorMessage: string,
     fetching: bool.isRequired,
     forumId: oneOfType([number, string]),
+    isDesktop: bool,
     threadCount: number,
     threads: arrayOf(shape({})),
     topicId: oneOfType([number, string]),
@@ -46,6 +47,7 @@ class BootstrappedDiscussionsBoard extends Component {
     count: 10,
     errorMessage: 'There was an error fetching list',
     forumId: null,
+    isDesktop: true,
     threadCount: 0,
     threads: [],
     topicId: null,
@@ -80,11 +82,12 @@ class BootstrappedDiscussionsBoard extends Component {
     const {
       callSource,
       count,
+      createThreadFormParams,
       error,
       errorMessage,
       fetching,
-      createThreadFormParams,
       forumId,
+      isDesktop,
       page,
       threadCount,
       topicId,
@@ -97,6 +100,7 @@ class BootstrappedDiscussionsBoard extends Component {
       {CREATE_THREAD_FORM[callSource].render({
         ...createThreadFormParams,
         createThread: this.createThread,
+        isDesktop,
       })}
       {fetching && <div>Loading</div>}
       {(!fetching && error) && <div dangerouslySetInnerHTML={{ __html: errorMessage }} />}

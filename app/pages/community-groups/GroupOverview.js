@@ -118,7 +118,7 @@ class CommunityGroupOverview extends Component {
           {context => (
             <FullInformationOverview
               joinOrLeaveGroup={this.joinLeaveGroup}
-              {...context}
+              context={context}
             />
           )}
         </DeviceContext.Consumer>
@@ -136,6 +136,7 @@ class CommunityGroupOverview extends Component {
           }
           @media ${screenLarge} {
             .root {
+              margin-top: 25px;
               width: ${screenLargePx};
             }
           }
