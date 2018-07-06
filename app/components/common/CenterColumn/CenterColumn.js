@@ -16,6 +16,7 @@ const CenterColumn = ({ children, theme }) => (
         .root {
           width: 100%;
           margin: 0 auto;
+          transition: width 0.25s;
         }
 
         @media ${screenMedium} {

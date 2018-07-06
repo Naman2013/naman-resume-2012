@@ -6,7 +6,9 @@ ShallowWrapper {
   Symbol(enzyme.__root__): [Circular],
   Symbol(enzyme.__unrendered__): <CenterColumn
     theme={Object {}}
-  />,
+  >
+    <div />
+  </CenterColumn>,
   Symbol(enzyme.__renderer__): Object {
     "batchedUpdates": [Function],
     "getNode": [Function],
@@ -20,11 +22,11 @@ ShallowWrapper {
     "nodeType": "host",
     "props": Object {
       "children": Array [
-        undefined,
+        <div />,
         <JSXStyle
           css={
             Array [
-              ".root.__jsx-style-dynamic-selector{width:100%;margin:0 auto;}",
+              ".root.__jsx-style-dynamic-selector{width:100%;margin:0 auto;-webkit-transition:width 0.25s;transition:width 0.25s;}",
               "@media screen and (min-width: 768px){.root.__jsx-style-dynamic-selector{width:620px;}}",
               "@media screen and (min-width: 1024px){.root.__jsx-style-dynamic-selector{width:780px;}}",
               "@media screen and (min-width: 1366px){.root.__jsx-style-dynamic-selector{width:940px;}}",
@@ -40,22 +42,30 @@ ShallowWrapper {
               "940px",
             ]
           }
-          styleId="3842129689"
+          styleId="340520554"
         />,
       ],
-      "className": "jsx-682919411 root",
+      "className": "jsx-3832197127 root",
       "style": Object {},
     },
     "ref": null,
     "rendered": Array [
-      undefined,
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {},
+        "ref": null,
+        "rendered": null,
+        "type": "div",
+      },
       Object {
         "instance": null,
         "key": undefined,
         "nodeType": "class",
         "props": Object {
           "css": Array [
-            ".root.__jsx-style-dynamic-selector{width:100%;margin:0 auto;}",
+            ".root.__jsx-style-dynamic-selector{width:100%;margin:0 auto;-webkit-transition:width 0.25s;transition:width 0.25s;}",
             "@media screen and (min-width: 768px){.root.__jsx-style-dynamic-selector{width:620px;}}",
             "@media screen and (min-width: 1024px){.root.__jsx-style-dynamic-selector{width:780px;}}",
             "@media screen and (min-width: 1366px){.root.__jsx-style-dynamic-selector{width:940px;}}",
@@ -68,7 +78,7 @@ ShallowWrapper {
             "screen and (min-width: 1366px)",
             "940px",
           ],
-          "styleId": "3842129689",
+          "styleId": "340520554",
         },
         "ref": null,
         "rendered": null,
@@ -84,11 +94,11 @@ ShallowWrapper {
       "nodeType": "host",
       "props": Object {
         "children": Array [
-          undefined,
+          <div />,
           <JSXStyle
             css={
               Array [
-                ".root.__jsx-style-dynamic-selector{width:100%;margin:0 auto;}",
+                ".root.__jsx-style-dynamic-selector{width:100%;margin:0 auto;-webkit-transition:width 0.25s;transition:width 0.25s;}",
                 "@media screen and (min-width: 768px){.root.__jsx-style-dynamic-selector{width:620px;}}",
                 "@media screen and (min-width: 1024px){.root.__jsx-style-dynamic-selector{width:780px;}}",
                 "@media screen and (min-width: 1366px){.root.__jsx-style-dynamic-selector{width:940px;}}",
@@ -104,22 +114,30 @@ ShallowWrapper {
                 "940px",
               ]
             }
-            styleId="3842129689"
+            styleId="340520554"
           />,
         ],
-        "className": "jsx-682919411 root",
+        "className": "jsx-3832197127 root",
         "style": Object {},
       },
       "ref": null,
       "rendered": Array [
-        undefined,
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {},
+          "ref": null,
+          "rendered": null,
+          "type": "div",
+        },
         Object {
           "instance": null,
           "key": undefined,
           "nodeType": "class",
           "props": Object {
             "css": Array [
-              ".root.__jsx-style-dynamic-selector{width:100%;margin:0 auto;}",
+              ".root.__jsx-style-dynamic-selector{width:100%;margin:0 auto;-webkit-transition:width 0.25s;transition:width 0.25s;}",
               "@media screen and (min-width: 768px){.root.__jsx-style-dynamic-selector{width:620px;}}",
               "@media screen and (min-width: 1024px){.root.__jsx-style-dynamic-selector{width:780px;}}",
               "@media screen and (min-width: 1366px){.root.__jsx-style-dynamic-selector{width:940px;}}",
@@ -132,7 +150,7 @@ ShallowWrapper {
               "screen and (min-width: 1366px)",
               "940px",
             ],
-            "styleId": "3842129689",
+            "styleId": "340520554",
           },
           "ref": null,
           "rendered": null,
