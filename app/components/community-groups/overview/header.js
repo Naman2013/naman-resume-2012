@@ -12,6 +12,7 @@ import LargeButtonWithRightIcon from 'components/common/style/buttons/LargeButto
 import Button from 'components/common/style/buttons/Button';
 import { astronaut, romance } from 'styles/variables/colors_tiles_v4';
 import { secondaryFont } from 'styles/variables/fonts';
+import { screenMedium, screenMediumPx } from 'styles/variables/breakpoints';
 
 const {
   string,
@@ -44,9 +45,11 @@ const GroupsHeader = ({
     </div>
     <style jsx>{`
       .root {
+        display: block;
         color: ${astronaut};
         background-color: ${romance};
         padding: 15px 0;
+        width: 100%;
       }
 
       .main-container {
@@ -80,6 +83,28 @@ const GroupsHeader = ({
       .right {
         text-align: right;
         flex: 1;
+      }
+
+      @media ${screenMedium} {
+        .root {
+          align-items: center;
+          display: flex;
+          flex-direction: row;
+          height: 400px;
+          justify-content: center;
+          margin: 0 auto;
+          width: ${screenMediumPx};
+        }
+
+        .groups-header-image {
+          margin: 0 15px;
+          height: 278px;
+          width: 278px;
+        }
+
+        .main-container {
+          width: 342px;
+        }
       }
 
     `}</style>
