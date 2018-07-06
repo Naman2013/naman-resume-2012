@@ -10,39 +10,54 @@ import PropTypes from 'prop-types';
 import LabeledTitleTiles from 'components/common/style/LabeledTitleTiles';
 import LargeButtonWithRightIcon from 'components/common/style/buttons/LargeButtonWithRightIcon';
 import Button from 'components/common/style/buttons/Button';
-import { astronaut, romance } from 'styles/variables/colors_tiles_v4';
+import { astronaut, romance, white_tile_paper } from 'styles/variables/colors_tiles_v4';
 import { secondaryFont } from 'styles/variables/fonts';
-import { screenMedium, screenMediumPx } from 'styles/variables/breakpoints';
+import {
+  screenMedium,
+  screenLarge,
+} from 'styles/variables/breakpoints';
+import { dropShadowContainer } from 'styles/mixins/utilities';
 
 const {
   string,
 } = PropTypes;
 
 const GroupsHeader = ({
-  isDesktop,
-  isTablet,
   title,
   subtitleList=[],
   showJoinPrompt,
   joinPrompt,
   joinOrLeaveGroup,
   showInformation,
+  description,
 }) => (
   <div className="root">
-    <div className="groups-header-image"></div>
-    <div className="main-container">
-      <div className="groups-header-title" dangerouslySetInnerHTML={{ __html: title }} />
-      <LabeledTitleTiles list={[{ text: 'Private', label: 'Type:' }, { text: '33', label: 'Number:' }]} />
-      <div className="action-container">
-        {showJoinPrompt &&
-          <LargeButtonWithRightIcon
-            icon="https://vega.slooh.com/assets/v4/common/comment.svg"
-            text={joinPrompt}
-            onClickEvent={joinOrLeaveGroup}
-          />}
-          <Button icon="https://vega.slooh.com/assets/v4/common/comment.svg" onClickEvent={showInformation} />
+    <div className="image-and-main-container">
+      <div className="groups-header-image"></div>
+      <div className="main-container">
+        <div className="groups-header-title desktop-hide" dangerouslySetInnerHTML={{ __html: title }} />
+        <LabeledTitleTiles list={[{ text: 'Private', label: 'Type:' }, { text: '33', label: 'Number:' }]} />
+        <div className="action-container">
+          {showJoinPrompt &&
+            <LargeButtonWithRightIcon
+              icon="https://vega.slooh.com/assets/v4/common/comment.svg"
+              text={joinPrompt}
+              onClickEvent={joinOrLeaveGroup}
+            />}
+            <Button icon="https://vega.slooh.com/assets/v4/common/comment.svg" onClickEvent={showInformation} />
+        </div>
       </div>
     </div>
+
+    <div className="info-container">
+      <div className="info-inner-container">
+        <div className="groups-header-subtitle">Community Group</div>
+        <div className="groups-header-title" dangerouslySetInnerHTML={{ __html: title }} />
+        <div className="groups-header-information" dangerouslySetInnerHTML={{ __html:   description }} />
+      </div>
+
+    </div>
+
     <style jsx>{`
       .root {
         display: block;
@@ -50,6 +65,12 @@ const GroupsHeader = ({
         background-color: ${romance};
         padding: 15px 0;
         width: 100%;
+      }
+      .image-and-main-container {
+      }
+
+      .info-container {
+        display: none;
       }
 
       .main-container {
@@ -87,13 +108,18 @@ const GroupsHeader = ({
 
       @media ${screenMedium} {
         .root {
+          margin: 0 auto;
+          height: 400px;
+          ${dropShadowContainer}
+        }
+
+        .image-and-main-container {
           align-items: center;
           display: flex;
           flex-direction: row;
-          height: 400px;
           justify-content: center;
-          margin: 0 auto;
-          width: ${screenMediumPx};
+          width: 100%;
+          height: 100%;
         }
 
         .groups-header-image {
@@ -104,6 +130,69 @@ const GroupsHeader = ({
 
         .main-container {
           width: 342px;
+        }
+      }
+
+      @media ${screenLarge} {
+        .root {
+          align-items: center;
+          display: flex;
+          flex-direction: row;
+          height: 450px;
+          justify-content: center;
+          padding: 0;
+          ${dropShadowContainer}
+        }
+        .image-and-main-container {
+          align-items: center;
+          background-image: url(${white_tile_paper});
+          display: flex;
+          flex-direction: column;
+          height: 100%;
+          justify-content: flex-start;
+          margin: 0 auto;
+          width: 300px;
+        }
+
+        .info-container {
+          display: flex;
+          flex: 1 1 0;
+          display: block;
+          align-items: center;
+        }
+
+        .info-inner-container {
+          width: 480px;
+          margin: 0 auto;
+        }
+
+        .desktop-hide {
+          display: none;
+        }
+
+        .groups-header-image {
+          margin: 0 15px;
+          height: 200px;
+          width: 100%;
+        }
+
+        .main-container {
+          width: 100%;
+        }
+
+        .groups-header-subtitle {
+          font-size: 10px;
+          font-weight: bold;
+          text-transform: uppercase;
+        }
+
+        .groups-header-title {
+          font-size: 40px;
+        }
+
+        .groups-header-information {
+          font-family: ${secondaryFont};
+          font-size: 19px;
         }
       }
 

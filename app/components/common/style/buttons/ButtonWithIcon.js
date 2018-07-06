@@ -32,7 +32,7 @@ const ButtonWithIcon = ({
         .button-container {
           display: block;
           border: 1px dashed ${astronaut};
-          background-color: ${romance};
+          background-color: transparent;
           border-radius: 100px;
           width: 110px;
           margin: 15px 0;

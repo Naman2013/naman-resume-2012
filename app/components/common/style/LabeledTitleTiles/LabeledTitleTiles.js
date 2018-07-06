@@ -11,6 +11,7 @@ import uniqueId from 'lodash/uniqueId';
 import { profilePhotoStyle } from 'styles/mixins/utilities';
 import { astronaut, geyser, shadows } from 'styles/variables/colors_tiles_v4';
 import { secondaryFont } from 'styles/variables/fonts';
+import { screenLarge } from 'styles/variables/breakpoints';
 
 const {
   arrayOf,
@@ -73,6 +74,12 @@ const LabeledTitleTiles = ({
         font-weight: bold;
         font-size: 11px;
         padding: 10px;
+      }
+
+      @media ${screenLarge} {
+        .wide-info-item {
+          height: 100%;
+        }
       }
     `}</style>
   </div>

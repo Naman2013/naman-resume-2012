@@ -39,7 +39,7 @@ const LargeButtonWithRightIcon = ({ text, onClickEvent, icon }) => (
           padding: 10px 0;
           text-align: left;
           text-transform: uppercase;
-          background-color: ${romance};
+          background-color: transparent;
         }
 
         .icon {

@@ -35,6 +35,7 @@ import {
 const mapStateToProps = ({
   communityGroupOverview,
 }) => ({
+  communityGroupOverview,
   pageMeta: communityGroupOverview.pageMeta,
 });
 
@@ -99,23 +100,20 @@ class CommunityGroupOverview extends Component {
 
   render() {
     const {
+      communityGroupOverview,
       pageMeta,
       routeParams: { groupId },
       actions,
     } = this.props;
     return (
       <div className="root">
-        <DeviceContext.Consumer>
-          {context => (
-            <Header
-              showInformation={this.showInformation}
-              joinOrLeaveGroup={this.joinLeaveGroup}
-              discussionGroupId={groupId}
-              {...context}
-              {...pageMeta}
-            />
-          )}
-        </DeviceContext.Consumer>
+        <Header
+          showInformation={this.showInformation}
+          joinOrLeaveGroup={this.joinLeaveGroup}
+          discussionGroupId={groupId}
+          {...communityGroupOverview}
+          {...pageMeta}
+        />
         <DeviceContext.Consumer>
           {context => (
             <FullInformationOverview
