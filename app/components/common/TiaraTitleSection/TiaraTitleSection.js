@@ -12,6 +12,11 @@ import {
   golda,
   golden,
 } from '../../../styles/variables/colors_tiles_v4';
+import {
+  screenMedium,
+  screenLarge,
+  screenXLarge,
+} from '../../../styles/variables/breakpoints';
 
 const TiaraTitleSection = ({ preTitle, title, iconURL }) => (
   <div className="root">
@@ -54,6 +59,18 @@ const TiaraTitleSection = ({ preTitle, title, iconURL }) => (
           color: ${astronaut};
           background: url(${blue_tile_feat});
           padding-top: 70px;
+        }
+
+        @media ${screenMedium} {
+          .root {
+            padding-top: 120px;
+          }
+        }
+
+        @media ${screenXLarge} {
+          .root {
+            padding-top: 160px;
+          }
         }
 
         .center-line {

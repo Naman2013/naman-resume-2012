@@ -27,7 +27,7 @@ ShallowWrapper {
     "props": Object {
       "children": Array [
         <div
-          className="jsx-3684912014 center-line"
+          className="jsx-3099890425 center-line"
         />,
         <CenterColumn
           theme={
@@ -72,10 +72,10 @@ ShallowWrapper {
             }
           />
           <h2
-            className="jsx-3684912014 title"
+            className="jsx-3099890425 title"
           >
             <span
-              className="jsx-3684912014 pre-title"
+              className="jsx-3099890425 pre-title"
             >
               A guide to
             </span>
@@ -86,6 +86,8 @@ ShallowWrapper {
           css={
             Array [
               ".root.__jsx-style-dynamic-selector{position:relative;text-align:center;font-family:brandon-grotesque, sans-serif;color:#415671;background:url(https://vega.slooh.com/assets/v4/common/Dark_Pattern_Featured_LargeCanvas.png);padding-top:70px;}",
+              "@media screen and (min-width: 768px){.root.__jsx-style-dynamic-selector{padding-top:120px;}}",
+              "@media screen and (min-width: 1366px){.root.__jsx-style-dynamic-selector{padding-top:160px;}}",
               ".center-line.__jsx-style-dynamic-selector{position:absolute;top:0;z-index:5;width:100%;height:100%;width:50%;border-right:2px solid #415671;}",
               ".title.__jsx-style-dynamic-selector{padding-top:95px;padding-bottom:60px;font-weight:300;text-transform:capitalize;}",
               ".pre-title.__jsx-style-dynamic-selector{display:block;text-transform:uppercase;font-weight:bold;-webkit-letter-spacing:2px;-moz-letter-spacing:2px;-ms-letter-spacing:2px;letter-spacing:2px;font-size:10px;margin-bottom:20px;}",
@@ -96,13 +98,15 @@ ShallowWrapper {
               "brandon-grotesque, sans-serif",
               "#415671",
               "https://vega.slooh.com/assets/v4/common/Dark_Pattern_Featured_LargeCanvas.png",
+              "screen and (min-width: 768px)",
+              "screen and (min-width: 1366px)",
               "#415671",
             ]
           }
-          styleId="2477903028"
+          styleId="3939458614"
         />,
       ],
-      "className": "jsx-3684912014 root",
+      "className": "jsx-3099890425 root",
     },
     "ref": null,
     "rendered": Array [
@@ -111,7 +115,7 @@ ShallowWrapper {
         "key": undefined,
         "nodeType": "host",
         "props": Object {
-          "className": "jsx-3684912014 center-line",
+          "className": "jsx-3099890425 center-line",
         },
         "ref": null,
         "rendered": null,
@@ -157,10 +161,10 @@ ShallowWrapper {
               }
             />,
             <h2
-              className="jsx-3684912014 title"
+              className="jsx-3099890425 title"
             >
               <span
-                className="jsx-3684912014 pre-title"
+                className="jsx-3099890425 pre-title"
               >
                 A guide to
               </span>
@@ -231,13 +235,13 @@ ShallowWrapper {
             "props": Object {
               "children": Array [
                 <span
-                  className="jsx-3684912014 pre-title"
+                  className="jsx-3099890425 pre-title"
                 >
                   A guide to
                 </span>,
                 "The solar system",
               ],
-              "className": "jsx-3684912014 title",
+              "className": "jsx-3099890425 title",
             },
             "ref": null,
             "rendered": Array [
@@ -247,7 +251,7 @@ ShallowWrapper {
                 "nodeType": "host",
                 "props": Object {
                   "children": "A guide to",
-                  "className": "jsx-3684912014 pre-title",
+                  "className": "jsx-3099890425 pre-title",
                 },
                 "ref": null,
                 "rendered": "A guide to",
@@ -267,6 +271,8 @@ ShallowWrapper {
         "props": Object {
           "css": Array [
             ".root.__jsx-style-dynamic-selector{position:relative;text-align:center;font-family:brandon-grotesque, sans-serif;color:#415671;background:url(https://vega.slooh.com/assets/v4/common/Dark_Pattern_Featured_LargeCanvas.png);padding-top:70px;}",
+            "@media screen and (min-width: 768px){.root.__jsx-style-dynamic-selector{padding-top:120px;}}",
+            "@media screen and (min-width: 1366px){.root.__jsx-style-dynamic-selector{padding-top:160px;}}",
             ".center-line.__jsx-style-dynamic-selector{position:absolute;top:0;z-index:5;width:100%;height:100%;width:50%;border-right:2px solid #415671;}",
             ".title.__jsx-style-dynamic-selector{padding-top:95px;padding-bottom:60px;font-weight:300;text-transform:capitalize;}",
             ".pre-title.__jsx-style-dynamic-selector{display:block;text-transform:uppercase;font-weight:bold;-webkit-letter-spacing:2px;-moz-letter-spacing:2px;-ms-letter-spacing:2px;letter-spacing:2px;font-size:10px;margin-bottom:20px;}",
@@ -275,9 +281,11 @@ ShallowWrapper {
             "brandon-grotesque, sans-serif",
             "#415671",
             "https://vega.slooh.com/assets/v4/common/Dark_Pattern_Featured_LargeCanvas.png",
+            "screen and (min-width: 768px)",
+            "screen and (min-width: 1366px)",
             "#415671",
           ],
-          "styleId": "2477903028",
+          "styleId": "3939458614",
         },
         "ref": null,
         "rendered": null,
@@ -294,7 +302,7 @@ ShallowWrapper {
       "props": Object {
         "children": Array [
           <div
-            className="jsx-3684912014 center-line"
+            className="jsx-3099890425 center-line"
           />,
           <CenterColumn
             theme={
@@ -339,10 +347,10 @@ ShallowWrapper {
               }
             />
             <h2
-              className="jsx-3684912014 title"
+              className="jsx-3099890425 title"
             >
               <span
-                className="jsx-3684912014 pre-title"
+                className="jsx-3099890425 pre-title"
               >
                 A guide to
               </span>
@@ -353,6 +361,8 @@ ShallowWrapper {
             css={
               Array [
                 ".root.__jsx-style-dynamic-selector{position:relative;text-align:center;font-family:brandon-grotesque, sans-serif;color:#415671;background:url(https://vega.slooh.com/assets/v4/common/Dark_Pattern_Featured_LargeCanvas.png);padding-top:70px;}",
+                "@media screen and (min-width: 768px){.root.__jsx-style-dynamic-selector{padding-top:120px;}}",
+                "@media screen and (min-width: 1366px){.root.__jsx-style-dynamic-selector{padding-top:160px;}}",
                 ".center-line.__jsx-style-dynamic-selector{position:absolute;top:0;z-index:5;width:100%;height:100%;width:50%;border-right:2px solid #415671;}",
                 ".title.__jsx-style-dynamic-selector{padding-top:95px;padding-bottom:60px;font-weight:300;text-transform:capitalize;}",
                 ".pre-title.__jsx-style-dynamic-selector{display:block;text-transform:uppercase;font-weight:bold;-webkit-letter-spacing:2px;-moz-letter-spacing:2px;-ms-letter-spacing:2px;letter-spacing:2px;font-size:10px;margin-bottom:20px;}",
@@ -363,13 +373,15 @@ ShallowWrapper {
                 "brandon-grotesque, sans-serif",
                 "#415671",
                 "https://vega.slooh.com/assets/v4/common/Dark_Pattern_Featured_LargeCanvas.png",
+                "screen and (min-width: 768px)",
+                "screen and (min-width: 1366px)",
                 "#415671",
               ]
             }
-            styleId="2477903028"
+            styleId="3939458614"
           />,
         ],
-        "className": "jsx-3684912014 root",
+        "className": "jsx-3099890425 root",
       },
       "ref": null,
       "rendered": Array [
@@ -378,7 +390,7 @@ ShallowWrapper {
           "key": undefined,
           "nodeType": "host",
           "props": Object {
-            "className": "jsx-3684912014 center-line",
+            "className": "jsx-3099890425 center-line",
           },
           "ref": null,
           "rendered": null,
@@ -424,10 +436,10 @@ ShallowWrapper {
                 }
               />,
               <h2
-                className="jsx-3684912014 title"
+                className="jsx-3099890425 title"
               >
                 <span
-                  className="jsx-3684912014 pre-title"
+                  className="jsx-3099890425 pre-title"
                 >
                   A guide to
                 </span>
@@ -498,13 +510,13 @@ ShallowWrapper {
               "props": Object {
                 "children": Array [
                   <span
-                    className="jsx-3684912014 pre-title"
+                    className="jsx-3099890425 pre-title"
                   >
                     A guide to
                   </span>,
                   "The solar system",
                 ],
-                "className": "jsx-3684912014 title",
+                "className": "jsx-3099890425 title",
               },
               "ref": null,
               "rendered": Array [
@@ -514,7 +526,7 @@ ShallowWrapper {
                   "nodeType": "host",
                   "props": Object {
                     "children": "A guide to",
-                    "className": "jsx-3684912014 pre-title",
+                    "className": "jsx-3099890425 pre-title",
                   },
                   "ref": null,
                   "rendered": "A guide to",
@@ -534,6 +546,8 @@ ShallowWrapper {
           "props": Object {
             "css": Array [
               ".root.__jsx-style-dynamic-selector{position:relative;text-align:center;font-family:brandon-grotesque, sans-serif;color:#415671;background:url(https://vega.slooh.com/assets/v4/common/Dark_Pattern_Featured_LargeCanvas.png);padding-top:70px;}",
+              "@media screen and (min-width: 768px){.root.__jsx-style-dynamic-selector{padding-top:120px;}}",
+              "@media screen and (min-width: 1366px){.root.__jsx-style-dynamic-selector{padding-top:160px;}}",
               ".center-line.__jsx-style-dynamic-selector{position:absolute;top:0;z-index:5;width:100%;height:100%;width:50%;border-right:2px solid #415671;}",
               ".title.__jsx-style-dynamic-selector{padding-top:95px;padding-bottom:60px;font-weight:300;text-transform:capitalize;}",
               ".pre-title.__jsx-style-dynamic-selector{display:block;text-transform:uppercase;font-weight:bold;-webkit-letter-spacing:2px;-moz-letter-spacing:2px;-ms-letter-spacing:2px;letter-spacing:2px;font-size:10px;margin-bottom:20px;}",
@@ -542,9 +556,11 @@ ShallowWrapper {
               "brandon-grotesque, sans-serif",
               "#415671",
               "https://vega.slooh.com/assets/v4/common/Dark_Pattern_Featured_LargeCanvas.png",
+              "screen and (min-width: 768px)",
+              "screen and (min-width: 1366px)",
               "#415671",
             ],
-            "styleId": "2477903028",
+            "styleId": "3939458614",
           },
           "ref": null,
           "rendered": null,
