@@ -22,7 +22,17 @@ const TiaraTitleSection = ({ preTitle, title, iconURL }) => (
         zIndex: '10',
       }}
     >
-      <Medallion iconURL={iconURL} />
+      <Medallion
+        iconURL={iconURL}
+        dimension={65}
+        theme={{
+          position: 'absolute',
+          left: '50%',
+          top: '-20px',
+          zIndex: '20',
+          transform: 'translateX(-50%)',
+        }}
+      />
 
       <HorizontalRule theme={{ borderTop: `2px solid ${golden}`, top: '10px' }} />
       <HorizontalRule theme={{ borderTop: `1px solid ${golda}`, top: '15px' }} />
