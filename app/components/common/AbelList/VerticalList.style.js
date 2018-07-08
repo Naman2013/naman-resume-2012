@@ -1,5 +1,5 @@
 import css from 'styled-jsx/css';
-import { astronaut } from '../../../styles/variables/colors_tiles_v4';
+import { astronaut, glitter } from '../../../styles/variables/colors_tiles_v4';
 import { primaryFont } from '../../../styles/variables/fonts';
 
 export default css`
@@ -15,7 +15,7 @@ export default css`
     font-weight: bold;
     letter-spacing: 0.4px;
     padding: 20px 0;
-    border-bottom: 1px solid ${astronaut};
+    border-bottom: 1px solid ${glitter};
     font-family: ${primaryFont};
     color: ${astronaut};
   }
