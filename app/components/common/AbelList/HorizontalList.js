@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 const HorizontalList = ({ list }) => (
   <Fragment>
     <ul>
-      <li>Test</li>
+      {list.map(entry => <li key={`horizontal-list-${entry}`}>{entry}</li>)}
     </ul>
   </Fragment>
 );

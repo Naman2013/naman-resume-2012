@@ -25,36 +25,120 @@ ShallowWrapper {
     "key": undefined,
     "nodeType": "function",
     "props": Object {
-      "children": <ul>
-        <li>
-          Test
-        </li>
-      </ul>,
+      "children": Array [
+        <ul
+          className="jsx-3169545401"
+        >
+          <li
+            className="jsx-3169545401"
+          >
+            foo
+          </li>
+          <li
+            className="jsx-3169545401"
+          >
+            bar
+          </li>
+          <li
+            className="jsx-3169545401"
+          >
+            baz
+          </li>
+        </ul>,
+        <JSXStyle
+          css={
+            Array [
+              "ul.jsx-3169545401{margin:0;padding:0;list-style-type:none;}",
+              "li.jsx-3169545401{text-transform:uppercase;font-size:10px;font-weight:bold;-webkit-letter-spacing:0.4px;-moz-letter-spacing:0.4px;-ms-letter-spacing:0.4px;letter-spacing:0.4px;padding:20px 0;border-bottom:1px solid #415671;font-family:brandon-grotesque, sans-serif;color:#415671;}",
+            ]
+          }
+          styleId="3169545401"
+        />,
+      ],
     },
     "ref": null,
-    "rendered": Object {
-      "instance": null,
-      "key": undefined,
-      "nodeType": "host",
-      "props": Object {
-        "children": <li>
-          Test
-        </li>,
-      },
-      "ref": null,
-      "rendered": Object {
+    "rendered": Array [
+      Object {
         "instance": null,
         "key": undefined,
         "nodeType": "host",
         "props": Object {
-          "children": "Test",
+          "children": Array [
+            <li
+              className="jsx-3169545401"
+            >
+              foo
+            </li>,
+            <li
+              className="jsx-3169545401"
+            >
+              bar
+            </li>,
+            <li
+              className="jsx-3169545401"
+            >
+              baz
+            </li>,
+          ],
+          "className": "jsx-3169545401",
         },
         "ref": null,
-        "rendered": "Test",
-        "type": "li",
+        "rendered": Array [
+          Object {
+            "instance": null,
+            "key": "vertical-list-foo",
+            "nodeType": "host",
+            "props": Object {
+              "children": "foo",
+              "className": "jsx-3169545401",
+            },
+            "ref": null,
+            "rendered": "foo",
+            "type": "li",
+          },
+          Object {
+            "instance": null,
+            "key": "vertical-list-bar",
+            "nodeType": "host",
+            "props": Object {
+              "children": "bar",
+              "className": "jsx-3169545401",
+            },
+            "ref": null,
+            "rendered": "bar",
+            "type": "li",
+          },
+          Object {
+            "instance": null,
+            "key": "vertical-list-baz",
+            "nodeType": "host",
+            "props": Object {
+              "children": "baz",
+              "className": "jsx-3169545401",
+            },
+            "ref": null,
+            "rendered": "baz",
+            "type": "li",
+          },
+        ],
+        "type": "ul",
       },
-      "type": "ul",
-    },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
+          "css": Array [
+            "ul.jsx-3169545401{margin:0;padding:0;list-style-type:none;}",
+            "li.jsx-3169545401{text-transform:uppercase;font-size:10px;font-weight:bold;-webkit-letter-spacing:0.4px;-moz-letter-spacing:0.4px;-ms-letter-spacing:0.4px;letter-spacing:0.4px;padding:20px 0;border-bottom:1px solid #415671;font-family:brandon-grotesque, sans-serif;color:#415671;}",
+          ],
+          "styleId": "3169545401",
+        },
+        "ref": null,
+        "rendered": null,
+        "type": [Function],
+      },
+    ],
     "type": Symbol(react.fragment),
   },
   Symbol(enzyme.__nodes__): Array [
@@ -63,36 +147,120 @@ ShallowWrapper {
       "key": undefined,
       "nodeType": "function",
       "props": Object {
-        "children": <ul>
-          <li>
-            Test
-          </li>
-        </ul>,
+        "children": Array [
+          <ul
+            className="jsx-3169545401"
+          >
+            <li
+              className="jsx-3169545401"
+            >
+              foo
+            </li>
+            <li
+              className="jsx-3169545401"
+            >
+              bar
+            </li>
+            <li
+              className="jsx-3169545401"
+            >
+              baz
+            </li>
+          </ul>,
+          <JSXStyle
+            css={
+              Array [
+                "ul.jsx-3169545401{margin:0;padding:0;list-style-type:none;}",
+                "li.jsx-3169545401{text-transform:uppercase;font-size:10px;font-weight:bold;-webkit-letter-spacing:0.4px;-moz-letter-spacing:0.4px;-ms-letter-spacing:0.4px;letter-spacing:0.4px;padding:20px 0;border-bottom:1px solid #415671;font-family:brandon-grotesque, sans-serif;color:#415671;}",
+              ]
+            }
+            styleId="3169545401"
+          />,
+        ],
       },
       "ref": null,
-      "rendered": Object {
-        "instance": null,
-        "key": undefined,
-        "nodeType": "host",
-        "props": Object {
-          "children": <li>
-            Test
-          </li>,
-        },
-        "ref": null,
-        "rendered": Object {
+      "rendered": Array [
+        Object {
           "instance": null,
           "key": undefined,
           "nodeType": "host",
           "props": Object {
-            "children": "Test",
+            "children": Array [
+              <li
+                className="jsx-3169545401"
+              >
+                foo
+              </li>,
+              <li
+                className="jsx-3169545401"
+              >
+                bar
+              </li>,
+              <li
+                className="jsx-3169545401"
+              >
+                baz
+              </li>,
+            ],
+            "className": "jsx-3169545401",
           },
           "ref": null,
-          "rendered": "Test",
-          "type": "li",
+          "rendered": Array [
+            Object {
+              "instance": null,
+              "key": "vertical-list-foo",
+              "nodeType": "host",
+              "props": Object {
+                "children": "foo",
+                "className": "jsx-3169545401",
+              },
+              "ref": null,
+              "rendered": "foo",
+              "type": "li",
+            },
+            Object {
+              "instance": null,
+              "key": "vertical-list-bar",
+              "nodeType": "host",
+              "props": Object {
+                "children": "bar",
+                "className": "jsx-3169545401",
+              },
+              "ref": null,
+              "rendered": "bar",
+              "type": "li",
+            },
+            Object {
+              "instance": null,
+              "key": "vertical-list-baz",
+              "nodeType": "host",
+              "props": Object {
+                "children": "baz",
+                "className": "jsx-3169545401",
+              },
+              "ref": null,
+              "rendered": "baz",
+              "type": "li",
+            },
+          ],
+          "type": "ul",
         },
-        "type": "ul",
-      },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "css": Array [
+              "ul.jsx-3169545401{margin:0;padding:0;list-style-type:none;}",
+              "li.jsx-3169545401{text-transform:uppercase;font-size:10px;font-weight:bold;-webkit-letter-spacing:0.4px;-moz-letter-spacing:0.4px;-ms-letter-spacing:0.4px;letter-spacing:0.4px;padding:20px 0;border-bottom:1px solid #415671;font-family:brandon-grotesque, sans-serif;color:#415671;}",
+            ],
+            "styleId": "3169545401",
+          },
+          "ref": null,
+          "rendered": null,
+          "type": [Function],
+        },
+      ],
       "type": Symbol(react.fragment),
     },
   ],

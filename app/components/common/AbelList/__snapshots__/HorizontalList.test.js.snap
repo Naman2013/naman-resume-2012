@@ -26,7 +26,10 @@ ShallowWrapper {
     "props": Object {
       "children": <ul>
         <li>
-          Test
+          foo
+        </li>
+        <li>
+          bar
         </li>
       </ul>,
     },
@@ -36,22 +39,40 @@ ShallowWrapper {
       "key": undefined,
       "nodeType": "host",
       "props": Object {
-        "children": <li>
-          Test
-        </li>,
+        "children": Array [
+          <li>
+            foo
+          </li>,
+          <li>
+            bar
+          </li>,
+        ],
       },
       "ref": null,
-      "rendered": Object {
-        "instance": null,
-        "key": undefined,
-        "nodeType": "host",
-        "props": Object {
-          "children": "Test",
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": "horizontal-list-foo",
+          "nodeType": "host",
+          "props": Object {
+            "children": "foo",
+          },
+          "ref": null,
+          "rendered": "foo",
+          "type": "li",
         },
-        "ref": null,
-        "rendered": "Test",
-        "type": "li",
-      },
+        Object {
+          "instance": null,
+          "key": "horizontal-list-bar",
+          "nodeType": "host",
+          "props": Object {
+            "children": "bar",
+          },
+          "ref": null,
+          "rendered": "bar",
+          "type": "li",
+        },
+      ],
       "type": "ul",
     },
     "type": Symbol(react.fragment),
@@ -64,7 +85,10 @@ ShallowWrapper {
       "props": Object {
         "children": <ul>
           <li>
-            Test
+            foo
+          </li>
+          <li>
+            bar
           </li>
         </ul>,
       },
@@ -74,22 +98,40 @@ ShallowWrapper {
         "key": undefined,
         "nodeType": "host",
         "props": Object {
-          "children": <li>
-            Test
-          </li>,
+          "children": Array [
+            <li>
+              foo
+            </li>,
+            <li>
+              bar
+            </li>,
+          ],
         },
         "ref": null,
-        "rendered": Object {
-          "instance": null,
-          "key": undefined,
-          "nodeType": "host",
-          "props": Object {
-            "children": "Test",
+        "rendered": Array [
+          Object {
+            "instance": null,
+            "key": "horizontal-list-foo",
+            "nodeType": "host",
+            "props": Object {
+              "children": "foo",
+            },
+            "ref": null,
+            "rendered": "foo",
+            "type": "li",
           },
-          "ref": null,
-          "rendered": "Test",
-          "type": "li",
-        },
+          Object {
+            "instance": null,
+            "key": "horizontal-list-bar",
+            "nodeType": "host",
+            "props": Object {
+              "children": "bar",
+            },
+            "ref": null,
+            "rendered": "bar",
+            "type": "li",
+          },
+        ],
         "type": "ul",
       },
       "type": Symbol(react.fragment),
