@@ -1,6 +1,8 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { DeviceContext } from '../../../providers/DeviceProvider';
+import HorizontalList from './HorizontalList';
+import VerticalList from './VerticalList';
 import style from './AbelList.style';
 
 const AbelList = ({ list }) => (
@@ -8,12 +10,11 @@ const AbelList = ({ list }) => (
     <DeviceContext.Consumer>
       {
         (context) => {
-          console.log(context);
-          return (
-            <ul>
-              { list.map(item => <li>{item}</li>) }
-            </ul>
-          );
+          if (context.isScreenMedium && !context.isScreenLarge) {
+            return (<HorizontalList list={list} />);
+          }
+
+          return (<VerticalList list={list} />);
         }
       }
 
