@@ -12,7 +12,7 @@ const {
 const CommentButton = ({ count, onClickEvent }) => (
   <div>
     <ButtonWithIcon
-      count={count}
+      text={count}
       onClickEvent={onClickEvent}
       icon="https://vega.slooh.com/assets/v4/common/comment.svg"
     />

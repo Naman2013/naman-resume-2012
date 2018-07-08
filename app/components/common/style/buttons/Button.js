@@ -10,7 +10,7 @@ const {
   string,
 } = PropTypes;
 
-const ButtonWithIcon = ({
+const Button = ({
   text,
   icon,
   onClickEvent,
@@ -55,11 +55,11 @@ const ButtonWithIcon = ({
   </button>
 );
 
-ButtonWithIcon.propTypes = {
+Button.propTypes = {
   text: oneOfType([string, number]),
   icon: string,
   onClickEvent: func.isRequired,
 };
-ButtonWithIcon.defaultProps = {};
+Button.defaultProps = {};
 
-export default ButtonWithIcon;
+export default Button;

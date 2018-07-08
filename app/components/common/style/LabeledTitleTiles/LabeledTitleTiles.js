@@ -21,18 +21,18 @@ const {
 } = PropTypes;
 
 const LabeledTitleTiles = ({
-  list,
+  tiles,
 }) => (
   <div className="wide-info-block">
-    {list.map(listItem => (
+    {Object.keys(tiles).map(tilesItem => (
       <div className="wide-info-item" key={uniqueId()}>
         <div
           className="wide-info-block-header"
-          dangerouslySetInnerHTML={{ __html: listItem.label }}
+          dangerouslySetInnerHTML={{ __html: tiles[tilesItem].label }}
         />
         <div
           className="wide-info-block-name"
-          dangerouslySetInnerHTML={{ __html: listItem.text }}
+          dangerouslySetInnerHTML={{ __html: tiles[tilesItem].text }}
         />
       </div>
     ))}
@@ -64,7 +64,7 @@ const LabeledTitleTiles = ({
       }
 
       .wide-info-block-name {
-        font-size: 20px;
+        font-size: 15px;
         padding: 10px;
         font-family: ${secondaryFont};
       }
@@ -86,14 +86,11 @@ const LabeledTitleTiles = ({
 );
 
 LabeledTitleTiles.propTypes = {
-  list: arrayOf(shape({
-    title: string,
-    label: string,
-  })),
+  tiles: shape({}),
 };
 
 LabeledTitleTiles.defaultProps = {
-  list: [],
+  tiles: [],
 }
 
 export default LabeledTitleTiles;
