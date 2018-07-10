@@ -13,3 +13,6 @@ import './GlobalNavigation';
 import './DiscussionsBoard';
 import './TiaraTitleSection';
 import './AbelList';
+
+// guides
+import './guides/GuideSection';
