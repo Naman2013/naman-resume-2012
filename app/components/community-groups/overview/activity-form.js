@@ -7,11 +7,17 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 import PropTypes from 'prop-types';
-import DesktopActivityForm from './activity-form-desktop';
+import FullActivityForm from './full-activity-form';
+import SmallActivityForm from './small-activity-form';
 import { prepareThread } from 'services/discussions/prepare-thread';
-import { astronaut, romance } from 'styles/variables/colors_tiles_v4';
+import {
+  romance,
+  seashell,
+  shadows,
+} from 'styles/variables/colors_tiles_v4';
+import { secondaryFont } from 'styles/variables/fonts';
 import { dropShadowContainer } from 'styles/mixins/utilities';
-import { screenLarge } from 'styles/variables/breakpoints';
+import { screenLarge, screenMedium } from 'styles/variables/breakpoints';
 
 
 const {
@@ -31,11 +37,12 @@ class ActivityForm extends Component {
     topicId: 0,
     forumId: 0,
     canPost: false,
-    placeholder: 'Tell us something...',
+    placeholder: 'Write something...',
   }
 
   state = {
     uuid: null,
+    showSmallActivityForm: false,
   }
 
   componentDidMount() {
@@ -59,7 +66,10 @@ class ActivityForm extends Component {
   render () {
     const { props, state } = this
     const {
+      placeholder,
       isDesktop,
+      topicId,
+      forumId,
     } = props;
 
     const {
@@ -68,13 +78,24 @@ class ActivityForm extends Component {
 
     return (
       <div className="root">
-        {isDesktop ? <DesktopActivityForm {...props} uuid={uuid} /> : null}
+        {isDesktop ? <FullActivityForm {...props} uuid={uuid} /> :
+        <SmallActivityForm
+          {...props}
+          uuid={uuid}
+        />}
         <style jsx>{`
           .root {
             width: 100%;
             margin: 10px 0;
             background-color: ${romance};
             ${dropShadowContainer}
+          }
+
+          @media ${screenMedium} {
+            .root {
+              margin: 0 auto;
+              width: 620px;
+            }
           }
 
           @media ${screenLarge} {

@@ -53,6 +53,7 @@ const LabeledTitleTiles = ({
         border-right: 1px solid ${shadows};
         border-bottom: 1px solid ${shadows};
         text-align: left;
+        overflow: hidden;
       }
 
       .wide-info-item:first-child {

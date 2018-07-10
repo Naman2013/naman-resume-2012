@@ -7,6 +7,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 import PropTypes from 'prop-types';
+import pick from 'lodash/pick';
 import LabeledTitleTiles from 'components/common/style/LabeledTitleTiles';
 import LargeButtonWithRightIcon from 'components/common/style/buttons/LargeButtonWithRightIcon';
 import Button from 'components/common/style/buttons/Button';
@@ -36,7 +37,7 @@ const GroupsHeader = ({
       <div className="groups-header-image"></div>
       <div className="main-container">
         <div className="groups-header-title desktop-hide" dangerouslySetInnerHTML={{ __html: title }} />
-        <LabeledTitleTiles tiles={subtitleList} />
+        <LabeledTitleTiles tiles={pick(subtitleList)} />
         <div className="action-container">
           {showJoinPrompt &&
             <LargeButtonWithRightIcon

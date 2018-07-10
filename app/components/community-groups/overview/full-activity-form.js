@@ -10,7 +10,6 @@ import PropTypes from 'prop-types';
 import FormHeader from 'components/common/FormHeader';
 import PhotoUploadButton from 'components/common/style/buttons/PhotoUploadButton';
 import ModalGeneric from 'components/common/modals/modal-generic';
-import { prepareThread } from 'services/discussions/prepare-thread';
 import deletePostImage from 'services/post-creation/delete-post-image';
 import setPostImages from 'modules/set-post-images';
 import Button from 'components/common/style/buttons/Button';
@@ -30,7 +29,7 @@ const {
   string,
 } = PropTypes;
 
-class DesktopActivityForm extends Component {
+class FullActivityForm extends Component {
   static propTypes = {
     topicId: number,
     forumId: number,
@@ -240,4 +239,4 @@ class DesktopActivityForm extends Component {
   }
 }
 
-export default DesktopActivityForm;
+export default FullActivityForm;

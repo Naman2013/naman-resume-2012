@@ -68,6 +68,23 @@ export const customModalStylesV4 = {
   },
 };
 
+export const modalStyleFullPage = {
+  content: {
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    width: '100%',
+    height: '100%',
+    padding: 0,
+    fontFamily: primaryFont,
+    borderRadius: 0,
+  },
+  overlay: {
+    backgroundColor: 'rgba(255, 255, 255, 0)',
+  },
+};
+
 export const dropShadowContainer = `
   -moz-box-shadow: 0 2px 4px 1px ${shadows};
   -webkit-box-shadow: 0 2px 4px 1px ${shadows};
