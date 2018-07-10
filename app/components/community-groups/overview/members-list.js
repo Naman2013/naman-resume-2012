@@ -9,6 +9,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import take from 'lodash/take';
+import uniqueId from 'lodash/uniqueId';
 import {
   fullWidthBtn,
   profPic,
@@ -73,7 +74,7 @@ class GroupMemberList extends Component {
                 padding: '5px',
                 cursor: 'pointer',
               });
-              return (<div key={199637} className="avatar-img">
+              return (<div key={uniqueId()} className="avatar-img">
                 {member.hasLink ? <Link to={member.linkUrl}>
                   <div style={avatarStyle} />
                 </Link> : <img src={member.iconUrl} />}

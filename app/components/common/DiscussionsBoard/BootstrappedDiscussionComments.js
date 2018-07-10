@@ -7,6 +7,7 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import Modal from 'react-modal';
 import uniqueId from 'lodash/uniqueId';
 import take from 'lodash/take';
 import { submitReply } from 'services/discussions/submit-reply';
@@ -15,7 +16,7 @@ import Form from './ReplyForm';
 import PaginateSet from '../../common/paginate-full-set/PaginateSet';
 import { astronaut, romance, shadows } from 'styles/variables/colors_tiles_v4';
 import { primaryFont } from 'styles/variables/fonts';
-import { dropShadowContainer } from 'styles/mixins/utilities';
+import { dropShadowContainer, customModalStyles } from 'styles/mixins/utilities';
 
 
 
@@ -62,6 +63,8 @@ class CommentList extends Component {
   state = {
     comments: [],
     displayedComments: [],
+    isOpen: false,
+    prompt: '',
     page: 1,
     submitError: false,
     submitted: false,
@@ -132,6 +135,20 @@ class CommentList extends Component {
     });
   }
 
+  openModal = (prompt) => {
+    this.setState({
+      isOpen: true,
+      prompt,
+    });
+  }
+
+  closeModal = (e) => {
+    e.preventDefault();
+    this.setState({
+      isOpen: false,
+    });
+  }
+
   render() {
     const {
       commentsCount,
@@ -144,11 +161,13 @@ class CommentList extends Component {
       callSource,
     } = this.props;
     const {
-      page,
       comments,
-      submitting,
+      isOpen,
+      prompt,
+      page,
       submitError,
       submitted,
+      submitting,
     } = this.state;
     const { displayedCommentsObjs } = this;
     return (
@@ -188,6 +207,7 @@ class CommentList extends Component {
             count={count}
             callSource={callSource}
             user={user}
+            openModal={this.openModal}
           />)
        })}
         {displayedCommentsObjs.length > 0 && <PaginateSet
@@ -197,6 +217,16 @@ class CommentList extends Component {
           totalCount={comments.length}
           page={page}
         />}
+        <Modal
+          ariaHideApp={false}
+          isOpen={isOpen}
+          style={customModalStyles}
+          contentLabel="Comment Item"
+          onRequestClose={this.closeModal}
+        >
+          <i className="fa fa-close" onClick={this.closeModal} />
+          <p className="" dangerouslySetInnerHTML={{ __html: prompt }} />
+        </Modal>
         <style jsx>{`
           .root {
             font-family: ${primaryFont};

@@ -71,7 +71,6 @@ class CommentListItem extends Component {
 
   state = {
     likesCount: this.props.likesCount,
-    isOpen: false,
     likePrompt: this.props.likePrompt,
     showAllReplies: false,
   }
@@ -98,15 +97,6 @@ class CommentListItem extends Component {
     });
   }
 
-  closeModal = (e) => {
-
-    // TODO: refactor Modal into higher component
-    e.preventDefault();
-    this.setState({
-      isOpen: false,
-    })
-  }
-
   likeReply = (e) => {
     // TODO: refactor this into a reusable component
     e.preventDefault();
@@ -118,9 +108,7 @@ class CommentListItem extends Component {
     } = this.props;
 
     if (showLikePrompt) {
-      this.setState({
-        isOpen: true,
-      });
+      this.setModal();
     } else {
       likeReply({
         ...likeParams,
@@ -148,9 +136,13 @@ class CommentListItem extends Component {
     if (showLikePrompt) {
       this.setState({
         likePrompt,
-        isOpen: true,
       });
+      this.setModal();
     }
+  }
+
+  setModal = () => {
+    this.props.openModal(this.state.likePrompt);
   }
 
   render() {
@@ -173,8 +165,6 @@ class CommentListItem extends Component {
     } = this.props;
 
     const {
-      isOpen,
-      likePrompt,
       likesCount,
       showAllReplies,
     } = this.state;
@@ -182,7 +172,7 @@ class CommentListItem extends Component {
       <div className="comment-item" key={replyId}>
         <div className="user-info-container">
           <div className="user-info">
-            <div style={profPic(avatarURL)} />
+            <div style={Object.assign(profPic(avatarURL), { height: '14px', width: '14px' })} />
             <div className="display-name" dangerouslySetInnerHTML={{ __html: displayName }} />
           </div>
           <span className="date">{moment(creationDate).fromNow()}</span>
@@ -207,16 +197,6 @@ class CommentListItem extends Component {
             />
           </div> : null}
         </div>
-        <Modal
-          ariaHideApp={false}
-          isOpen={isOpen}
-          style={customModalStyles}
-          contentLabel="Comment Item"
-          onRequestClose={this.closeModal}
-        >
-          <i className="fa fa-close" onClick={this.closeModal} />
-          <p className="" dangerouslySetInnerHTML={{ __html: likePrompt }} />
-        </Modal>
         <style jsx>{`
           .comment-item {
             ${dropShadowContainer};
