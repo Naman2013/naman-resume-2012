@@ -14,5 +14,8 @@ import './DiscussionsBoard';
 import './TiaraTitleSection';
 import './AbelList';
 
+// cards
+import './cards/CardObservations';
+
 // guides
 import './guides/GuideSection';

@@ -17,11 +17,11 @@ import {
   fetchObjectDataAction,
   fetchObjectMissionsAction,
   fetchObjectQuestsAction,
-  fetchObjectFollowAction,
   fetchObjectSpecialistsAction
 } from '../../modules/object-details/actions';
 
 import Navigation from '../../components/object-details/Navigation';
+import FollowObject from '../../components/object-details/FollowObject';
 import { darkBlueGray, white } from '../../styles/variables/colors';
 
 
@@ -124,6 +124,7 @@ class ObjectDetails extends Component {
         showFollowPromptFlag,
         followPrompt,
       },
+      user,
       children
     } = this.props;
 
@@ -133,9 +134,13 @@ class ObjectDetails extends Component {
           <div className="icon"></div>
           {objectTitle}
           <div className="subtitle">{objectSubtitle}</div>
-          {!showFollowPromptFlag &&
-            <div className="follow-btn">Follow Object</div>
-          }
+          {showFollowPromptFlag && 
+            <FollowObject 
+              objectId={objectId}
+              user={user}
+              prompt={followPrompt}
+            />            
+          }      
         </header>
         <Navigation objectId={objectId} />
         {cloneElement(children)}
