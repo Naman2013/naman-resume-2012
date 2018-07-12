@@ -1,0 +1,153 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LailaTile should render correctly 1`] = `
+ShallowWrapper {
+  "length": 1,
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <LailaTile />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "host",
+    "props": Object {
+      "children": Array [
+        <h5
+          className="jsx-3313364838 title"
+        />,
+        <a
+          className="jsx-3313364838 button"
+          href="#"
+        >
+          Explore now
+        </a>,
+        <JSXStyle
+          css={Array []}
+          styleId="3313364838"
+        />,
+      ],
+      "className": "jsx-3313364838 root",
+    },
+    "ref": null,
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": undefined,
+          "className": "jsx-3313364838 title",
+        },
+        "ref": null,
+        "rendered": null,
+        "type": "h5",
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": "Explore now",
+          "className": "jsx-3313364838 button",
+          "href": "#",
+        },
+        "ref": null,
+        "rendered": "Explore now",
+        "type": "a",
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
+          "css": Array [],
+          "styleId": "3313364838",
+        },
+        "ref": null,
+        "rendered": null,
+        "type": [Function],
+      },
+    ],
+    "type": "li",
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": Array [
+          <h5
+            className="jsx-3313364838 title"
+          />,
+          <a
+            className="jsx-3313364838 button"
+            href="#"
+          >
+            Explore now
+          </a>,
+          <JSXStyle
+            css={Array []}
+            styleId="3313364838"
+          />,
+        ],
+        "className": "jsx-3313364838 root",
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": undefined,
+            "className": "jsx-3313364838 title",
+          },
+          "ref": null,
+          "rendered": null,
+          "type": "h5",
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": "Explore now",
+            "className": "jsx-3313364838 button",
+            "href": "#",
+          },
+          "ref": null,
+          "rendered": "Explore now",
+          "type": "a",
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "css": Array [],
+            "styleId": "3313364838",
+          },
+          "ref": null,
+          "rendered": null,
+          "type": [Function],
+        },
+      ],
+      "type": "li",
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+      },
+    },
+  },
+}
+`;
