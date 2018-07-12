@@ -16,3 +16,6 @@ import './AbelList';
 
 // guides
 import './guides/GuideSection';
+
+// Tiles
+import './Tiles';

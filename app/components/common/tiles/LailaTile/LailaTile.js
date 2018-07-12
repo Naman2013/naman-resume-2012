@@ -13,6 +13,6 @@ const LailaTile = ({ iconURL, title }) => (
 LailaTile.propTypes = {
   iconURL: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
-}
+};
 
 export default LailaTile;
