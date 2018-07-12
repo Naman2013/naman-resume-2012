@@ -125,8 +125,6 @@ export default css`
       height: 300px;
     }
   }
-
-  
   
   .card-obs-author {
     font-family: ${primaryFont};

@@ -13,6 +13,7 @@ import './GlobalNavigation';
 import './DiscussionsBoard';
 import './TiaraTitleSection';
 import './AbelList';
+import './ObjectDetailsSectionTitle';
 
 // cards
 import './cards/CardObservations';
