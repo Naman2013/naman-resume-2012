@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import { DeviceContext } from '../../../providers/DeviceProvider';
 import CardObsLarge from './CardObsLarge';
+import CardObsSmall from './CardObsSmall';
 
 const CardObs = () => (
   <Fragment>
@@ -10,8 +11,7 @@ const CardObs = () => (
           if (!context.isMobile) {
             return ( <CardObsLarge /> );
           }
-
-          return ( <div>poop</div>);
+          return ( <CardObsSmall />);
         }
       }
 

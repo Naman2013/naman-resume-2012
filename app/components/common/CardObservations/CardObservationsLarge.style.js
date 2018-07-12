@@ -4,6 +4,7 @@ import { astronaut, lynch, geyser, iron, white_tile } from '../../../styles/vari
 import { screenLarge, screenXLarge } from '../../../styles/variables/breakpoints';
 
 export default css`
+
   .card-obs {
     position: relative;
     letter-spacing: 1px;
@@ -21,6 +22,8 @@ export default css`
 
   .obs-left {
     text-align: left;
+    width: 236px;
+    padding-left: 50px;
   }
 
   .card-obs-title {
@@ -29,11 +32,16 @@ export default css`
     color: ${astronaut};
     letter-spacing: 1px;
     font-weight: 400;
+    padding-top: 50px;
   }
 
   .media-card-img-right {
     position: absolute;
     border: solid 1px ${iron};
+    right: 50px;
+    top: 50px;
+    width: 246px;
+    height: 246px;
   }
 
   .media-card-img-right img {
@@ -96,26 +104,6 @@ export default css`
 
   li:nth-last-child(2) {
     border-right: none;
-  }
-
-  @media ${screenLarge} {
-    .card-obs {
-      width: 620px;
-      height: 396px;
-    }
-    .obs-left {
-      width: 236px;
-      padding-left: 50px;
-    }
-    .card-obs-title {
-      padding-top: 50px;
-    }
-    .media-card-img-right {
-      right: 50px;
-      top: 50px;
-      width: 246px;
-      height: 246px;
-    }
   }
 
   @media ${screenXLarge} {
