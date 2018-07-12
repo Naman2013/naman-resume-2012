@@ -4,12 +4,15 @@ import noop from 'lodash/noop';
 import { screenMedium, screenLarge, screenXLarge } from '../../../styles/variables/breakpoints';
 import style from './GuideSection.style';
 
-// responsible for positioning content at various breakpoints
 const LEFT = 'left';
 const RIGHT = 'right';
 
-function getFlexDirection(alignment = LEFT) {
-  return (alignment === LEFT) ? 'row' : 'row-reverse';
+function getFloat(contentAlignment = LEFT) {
+  return (contentAlignment === LEFT) ? LEFT : RIGHT;
+}
+
+function getMargin(contentAlignment = LEFT) {
+  return (contentAlignment === LEFT) ? 'margin-right: 100px;' : 'margin-left: 100px;';
 }
 
 const GuideSection = ({ content, column, alignContent }) => (
@@ -21,8 +24,11 @@ const GuideSection = ({ content, column, alignContent }) => (
     <style jsx>
       {`
         @media ${screenLarge} {
-          .root {
-            flex-direction: ${getFlexDirection(alignContent)};
+          .column-container {
+            float: ${getFloat(alignContent)};
+            ${getMargin(alignContent)}
+            margin-bottom: 40px;
+            width: 30%;
           }
         }
       `}

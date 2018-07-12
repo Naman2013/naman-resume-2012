@@ -30,7 +30,7 @@ import {
   isScreenXLarge,
 } from './deviceConfiguration';
 
-const PAGE_RESIZE_DEBOUNCE = 500;
+const PAGE_RESIZE_DEBOUNCE = 250;
 export const DeviceContext = React.createContext();
 
 class DeviceProvider extends Component {
