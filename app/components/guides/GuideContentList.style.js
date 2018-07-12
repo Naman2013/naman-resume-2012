@@ -4,12 +4,20 @@ import { screenMedium, screenLarge, screenXLarge } from '../../styles/variables/
 export default css`
   .root {
     margin: 0;
-    padding: 0;
+    padding: 0 35px;
+  }
+
+  @media ${screenMedium} {
+    .root {
+      padding: 0;
+    }
   }
 
   @media ${screenLarge} {
     .root {
+      width: 78%;
       margin-top: 95px;
     }
   }
+
 `;

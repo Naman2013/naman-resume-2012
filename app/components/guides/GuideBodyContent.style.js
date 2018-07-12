@@ -7,6 +7,7 @@ export default css`
   .root {
     color: ${astronaut};
     font-family: ${primaryFont};
+    padding: 0 35px;
   }
 
   .title {
@@ -28,9 +29,23 @@ export default css`
   }
 
   @media ${screenMedium} {
+    .root {
+      padding: 0 55px;
+    }
+
     .title {
       padding-top: 60px;
       padding-bottom: 30px;
+    }
+  }
+
+  @media ${screenLarge} {
+    padding: 0 75px;
+  }
+
+  @media ${screenXLarge} {
+    .root {
+      padding: 0 95px;
     }
   }
 `;
