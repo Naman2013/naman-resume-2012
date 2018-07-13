@@ -87,10 +87,17 @@ export default css`
   @media ${screenMedium} {
     .root {
       height: 332px;
+      text-align: center;
     }
 
     .icon-container {
       display: block;
+    }
+
+    .title {
+      border-bottom: none;
+      padding-top: 50px;
+      padding-bottom: 0;
     }
   }
 `;
