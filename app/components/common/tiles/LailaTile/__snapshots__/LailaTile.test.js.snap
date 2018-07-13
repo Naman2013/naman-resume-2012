@@ -19,20 +19,26 @@ ShallowWrapper {
     "props": Object {
       "children": Array [
         <h5
-          className="jsx-3313364838 title"
+          className="jsx-2105533025 title"
         />,
         <a
-          className="jsx-3313364838 button"
+          className="jsx-2105533025 button"
           href="#"
         >
           Explore now
         </a>,
         <JSXStyle
-          css={Array []}
-          styleId="3313364838"
+          css={
+            Array [
+              ".root.jsx-2105533025{width:300px;box-shadow:0px 0px 15px 1px rgba(65,86,113,.2);color:#415671;list-style-type:none;background:url(https://vega.slooh.com/assets/v4/common/LightBlueDiamondPattern_NO_TEXTURE.png);background-size:30px;}",
+              ".title.jsx-2105533025{font-family:adobe-garamond-pro, serif;}",
+              ".button.jsx-2105533025{color:#415671;-webkit-text-decoration:none;text-decoration:none;font-family:brandon-grotesque, sans-serif;}",
+            ]
+          }
+          styleId="2105533025"
         />,
       ],
-      "className": "jsx-3313364838 root",
+      "className": "jsx-2105533025 root",
     },
     "ref": null,
     "rendered": Array [
@@ -42,7 +48,7 @@ ShallowWrapper {
         "nodeType": "host",
         "props": Object {
           "children": undefined,
-          "className": "jsx-3313364838 title",
+          "className": "jsx-2105533025 title",
         },
         "ref": null,
         "rendered": null,
@@ -54,7 +60,7 @@ ShallowWrapper {
         "nodeType": "host",
         "props": Object {
           "children": "Explore now",
-          "className": "jsx-3313364838 button",
+          "className": "jsx-2105533025 button",
           "href": "#",
         },
         "ref": null,
@@ -66,8 +72,12 @@ ShallowWrapper {
         "key": undefined,
         "nodeType": "class",
         "props": Object {
-          "css": Array [],
-          "styleId": "3313364838",
+          "css": Array [
+            ".root.jsx-2105533025{width:300px;box-shadow:0px 0px 15px 1px rgba(65,86,113,.2);color:#415671;list-style-type:none;background:url(https://vega.slooh.com/assets/v4/common/LightBlueDiamondPattern_NO_TEXTURE.png);background-size:30px;}",
+            ".title.jsx-2105533025{font-family:adobe-garamond-pro, serif;}",
+            ".button.jsx-2105533025{color:#415671;-webkit-text-decoration:none;text-decoration:none;font-family:brandon-grotesque, sans-serif;}",
+          ],
+          "styleId": "2105533025",
         },
         "ref": null,
         "rendered": null,
@@ -84,20 +94,26 @@ ShallowWrapper {
       "props": Object {
         "children": Array [
           <h5
-            className="jsx-3313364838 title"
+            className="jsx-2105533025 title"
           />,
           <a
-            className="jsx-3313364838 button"
+            className="jsx-2105533025 button"
             href="#"
           >
             Explore now
           </a>,
           <JSXStyle
-            css={Array []}
-            styleId="3313364838"
+            css={
+              Array [
+                ".root.jsx-2105533025{width:300px;box-shadow:0px 0px 15px 1px rgba(65,86,113,.2);color:#415671;list-style-type:none;background:url(https://vega.slooh.com/assets/v4/common/LightBlueDiamondPattern_NO_TEXTURE.png);background-size:30px;}",
+                ".title.jsx-2105533025{font-family:adobe-garamond-pro, serif;}",
+                ".button.jsx-2105533025{color:#415671;-webkit-text-decoration:none;text-decoration:none;font-family:brandon-grotesque, sans-serif;}",
+              ]
+            }
+            styleId="2105533025"
           />,
         ],
-        "className": "jsx-3313364838 root",
+        "className": "jsx-2105533025 root",
       },
       "ref": null,
       "rendered": Array [
@@ -107,7 +123,7 @@ ShallowWrapper {
           "nodeType": "host",
           "props": Object {
             "children": undefined,
-            "className": "jsx-3313364838 title",
+            "className": "jsx-2105533025 title",
           },
           "ref": null,
           "rendered": null,
@@ -119,7 +135,7 @@ ShallowWrapper {
           "nodeType": "host",
           "props": Object {
             "children": "Explore now",
-            "className": "jsx-3313364838 button",
+            "className": "jsx-2105533025 button",
             "href": "#",
           },
           "ref": null,
@@ -131,8 +147,12 @@ ShallowWrapper {
           "key": undefined,
           "nodeType": "class",
           "props": Object {
-            "css": Array [],
-            "styleId": "3313364838",
+            "css": Array [
+              ".root.jsx-2105533025{width:300px;box-shadow:0px 0px 15px 1px rgba(65,86,113,.2);color:#415671;list-style-type:none;background:url(https://vega.slooh.com/assets/v4/common/LightBlueDiamondPattern_NO_TEXTURE.png);background-size:30px;}",
+              ".title.jsx-2105533025{font-family:adobe-garamond-pro, serif;}",
+              ".button.jsx-2105533025{color:#415671;-webkit-text-decoration:none;text-decoration:none;font-family:brandon-grotesque, sans-serif;}",
+            ],
+            "styleId": "2105533025",
           },
           "ref": null,
           "rendered": null,
