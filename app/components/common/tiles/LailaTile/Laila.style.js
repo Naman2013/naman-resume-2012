@@ -12,11 +12,24 @@ export default css`
     background-size: 30px;
   }
 
+  .container {
+    width: 80%;
+    margin: 0 auto;
+  }
+
   .title {
+    padding: 0;
+    margin: 0;
+    font-size: 14px;
     font-family: ${secondaryFont};
+    font-weight: 300;
+    font-size: 18px;
+    border-bottom: 1px solid #D9DEE4;
   }
 
   .button {
+    padding: 0;
+    padding: 0;
     color: ${astronaut};
     text-decoration: none;
     font-family: ${primaryFont};
