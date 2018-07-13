@@ -1,5 +1,4 @@
 import { Enum } from 'enumify';
-import { screenMedium, screenLarge, screenXLarge } from '../styles/variables/breakpoints';
 
 const DESKTOP_MINIMUM_PIXELS = 769;
 const TABLET_MAXIMUM_PIXELS = 768;

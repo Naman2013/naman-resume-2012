@@ -10,6 +10,7 @@ export default css`
   @media ${screenMedium} {
     .root {
       padding: 0;
+      margin-top: -10px;
     }
   }
 
