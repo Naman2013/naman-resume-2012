@@ -1,15 +1,15 @@
 import css from 'styled-jsx/css';
 import { primaryFont, secondaryFont } from 'styles/variables/fonts';
 import { white_tile, astronaut, blue_tile_canvas } from 'styles/variables/colors_tiles_v4';
-import { screenMedium, screenLarge, screenXLarge } from 'styles/variables/breakpoints';
+import { screenMedium } from 'styles/variables/breakpoints';
 
 export default css`
   .root {
-    width: 300px;
+    width: 100%;
     height: 142px;
     box-size: border-box;
     padding: 0;
-    box-shadow: 0px 0px 15px 1px rgba(65,86,113,.2);
+    box-shadow: 0px 0px 8px 1px rgba(65,86,113,.2);
     color: ${astronaut};
     list-style-type: none;
     background: url(${white_tile});
@@ -86,6 +86,7 @@ export default css`
 
   @media ${screenMedium} {
     .root {
+      width: 300px;
       height: 332px;
       text-align: center;
     }

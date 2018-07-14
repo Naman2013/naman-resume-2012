@@ -32,10 +32,10 @@ ShallowWrapper {
     "props": Object {
       "children": Array [
         <ul
-          className="jsx-415932762"
+          className="jsx-166479955"
         >
           <li
-            className="jsx-415932762 topic"
+            className="jsx-166479955 topic"
           >
             <LailaTile
               iconURL="https://vega.slooh.com/icons/home/observatory.png"
@@ -43,7 +43,7 @@ ShallowWrapper {
             />
           </li>
           <li
-            className="jsx-415932762 topic"
+            className="jsx-166479955 topic"
           >
             <LailaTile
               iconURL="https://vega.slooh.com/icons/home/jupiter-icon.png"
@@ -54,10 +54,11 @@ ShallowWrapper {
         <JSXStyle
           css={
             Array [
-              "ul.jsx-415932762{margin:0;padding:0;list-style-type:none;}",
+              "ul.jsx-166479955{margin:0 auto;padding:0;list-style-type:none;width:96%;}",
+              ".topic.jsx-166479955{margin-bottom:10px;}",
             ]
           }
-          styleId="415932762"
+          styleId="166479955"
         />,
       ],
       "theme": Object {},
@@ -71,7 +72,7 @@ ShallowWrapper {
         "props": Object {
           "children": Array [
             <li
-              className="jsx-415932762 topic"
+              className="jsx-166479955 topic"
             >
               <LailaTile
                 iconURL="https://vega.slooh.com/icons/home/observatory.png"
@@ -79,7 +80,7 @@ ShallowWrapper {
               />
             </li>,
             <li
-              className="jsx-415932762 topic"
+              className="jsx-166479955 topic"
             >
               <LailaTile
                 iconURL="https://vega.slooh.com/icons/home/jupiter-icon.png"
@@ -87,7 +88,7 @@ ShallowWrapper {
               />
             </li>,
           ],
-          "className": "jsx-415932762",
+          "className": "jsx-166479955",
         },
         "ref": null,
         "rendered": Array [
@@ -100,7 +101,7 @@ ShallowWrapper {
                 iconURL="https://vega.slooh.com/icons/home/observatory.png"
                 title="Saturn"
               />,
-              "className": "jsx-415932762 topic",
+              "className": "jsx-166479955 topic",
             },
             "ref": null,
             "rendered": Object {
@@ -126,7 +127,7 @@ ShallowWrapper {
                 iconURL="https://vega.slooh.com/icons/home/jupiter-icon.png"
                 title="Mars"
               />,
-              "className": "jsx-415932762 topic",
+              "className": "jsx-166479955 topic",
             },
             "ref": null,
             "rendered": Object {
@@ -152,9 +153,10 @@ ShallowWrapper {
         "nodeType": "class",
         "props": Object {
           "css": Array [
-            "ul.jsx-415932762{margin:0;padding:0;list-style-type:none;}",
+            "ul.jsx-166479955{margin:0 auto;padding:0;list-style-type:none;width:96%;}",
+            ".topic.jsx-166479955{margin-bottom:10px;}",
           ],
-          "styleId": "415932762",
+          "styleId": "166479955",
         },
         "ref": null,
         "rendered": null,
@@ -171,10 +173,10 @@ ShallowWrapper {
       "props": Object {
         "children": Array [
           <ul
-            className="jsx-415932762"
+            className="jsx-166479955"
           >
             <li
-              className="jsx-415932762 topic"
+              className="jsx-166479955 topic"
             >
               <LailaTile
                 iconURL="https://vega.slooh.com/icons/home/observatory.png"
@@ -182,7 +184,7 @@ ShallowWrapper {
               />
             </li>
             <li
-              className="jsx-415932762 topic"
+              className="jsx-166479955 topic"
             >
               <LailaTile
                 iconURL="https://vega.slooh.com/icons/home/jupiter-icon.png"
@@ -193,10 +195,11 @@ ShallowWrapper {
           <JSXStyle
             css={
               Array [
-                "ul.jsx-415932762{margin:0;padding:0;list-style-type:none;}",
+                "ul.jsx-166479955{margin:0 auto;padding:0;list-style-type:none;width:96%;}",
+                ".topic.jsx-166479955{margin-bottom:10px;}",
               ]
             }
-            styleId="415932762"
+            styleId="166479955"
           />,
         ],
         "theme": Object {},
@@ -210,7 +213,7 @@ ShallowWrapper {
           "props": Object {
             "children": Array [
               <li
-                className="jsx-415932762 topic"
+                className="jsx-166479955 topic"
               >
                 <LailaTile
                   iconURL="https://vega.slooh.com/icons/home/observatory.png"
@@ -218,7 +221,7 @@ ShallowWrapper {
                 />
               </li>,
               <li
-                className="jsx-415932762 topic"
+                className="jsx-166479955 topic"
               >
                 <LailaTile
                   iconURL="https://vega.slooh.com/icons/home/jupiter-icon.png"
@@ -226,7 +229,7 @@ ShallowWrapper {
                 />
               </li>,
             ],
-            "className": "jsx-415932762",
+            "className": "jsx-166479955",
           },
           "ref": null,
           "rendered": Array [
@@ -239,7 +242,7 @@ ShallowWrapper {
                   iconURL="https://vega.slooh.com/icons/home/observatory.png"
                   title="Saturn"
                 />,
-                "className": "jsx-415932762 topic",
+                "className": "jsx-166479955 topic",
               },
               "ref": null,
               "rendered": Object {
@@ -265,7 +268,7 @@ ShallowWrapper {
                   iconURL="https://vega.slooh.com/icons/home/jupiter-icon.png"
                   title="Mars"
                 />,
-                "className": "jsx-415932762 topic",
+                "className": "jsx-166479955 topic",
               },
               "ref": null,
               "rendered": Object {
@@ -291,9 +294,10 @@ ShallowWrapper {
           "nodeType": "class",
           "props": Object {
             "css": Array [
-              "ul.jsx-415932762{margin:0;padding:0;list-style-type:none;}",
+              "ul.jsx-166479955{margin:0 auto;padding:0;list-style-type:none;width:96%;}",
+              ".topic.jsx-166479955{margin-bottom:10px;}",
             ],
-            "styleId": "415932762",
+            "styleId": "166479955",
           },
           "ref": null,
           "rendered": null,
