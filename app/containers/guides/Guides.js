@@ -24,7 +24,7 @@ const Guides = () => (
       title="The solar system"
       iconURL="https://vega.slooh.com/icons/home/observatory.png"
     />
-    <CenterColumn theme={{ boxShadow: 'rgba(65, 86, 113, 0.2) 0px 8px 8px 1px' }}>
+    <CenterColumn theme={{ boxShadow: 'rgba(65, 86, 113, 0.2) 0px 3px 8px 1px' }}>
       <GuideSection {...stubGuideSectionContent} />
     </CenterColumn>
 
