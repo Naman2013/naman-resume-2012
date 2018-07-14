@@ -5,6 +5,7 @@ import GuideSection from 'components/guides/GuideSection';
 import GuideBodyContent from 'components/guides/GuideBodyContent';
 import GuideContentList from 'components/guides/GuideContentList';
 import SterlingTitle from 'components/common/titles/SterlingTitle';
+import GuideTopics from 'components/guides/GuideTopics';
 
 const bodyContent = `Mauris non tempor quam, et lacinia sapien. Mauris accumsan eros eget libero lorem posuere vulputate. Etiam elit elit, elementum sed varius at, adipiscing evitae est. Sed nec felis loren posuere posuere, rutrum eu ipsum. Aliquam eget odio sed ligula dolae iaculis consequat at eget orci. Mauris moleistie sit amet metus loi mass imattis varius Donec sit amet ligula eget nisi sodales lorem a molestie bibendum. Etiam nisi anteni consectetur eget placerat a, tempus a neque. Donec ut elit urna. Etiam venenatis leni eleifend urna eget scelerisqueliquam in nunc.
 
@@ -16,6 +17,15 @@ const stubGuideSectionContent = {
   column: () => (<GuideContentList list={['contains 10 objects', 'object type guide', 'beginners and up']} />),
   alignContent: 'right',
 };
+
+const stubTileList = [
+  { title: 'Venus', iconURL: 'https://vega.slooh.com/icons/home/jupiter-icon.png' },
+  { title: 'Mars', iconURL: 'https://vega.slooh.com/icons/home/jupiter-icon.png' },
+  { title: 'Saturn', iconURL: 'https://vega.slooh.com/icons/home/jupiter-icon.png' },
+  { title: 'Jupiter', iconURL: 'https://vega.slooh.com/icons/home/jupiter-icon.png' },
+  { title: 'Uranus', iconURL: 'https://vega.slooh.com/icons/home/jupiter-icon.png' },
+  { title: 'Neptune', iconURL: 'https://vega.slooh.com/icons/home/jupiter-icon.png' },
+];
 
 const Guides = () => (
   <div>
@@ -29,6 +39,8 @@ const Guides = () => (
     </CenterColumn>
 
     <SterlingTitle title="Objects within this guide" subTitle="Select an Object for more information" />
+
+    <GuideTopics list={stubTileList} />
   </div>
 );
 

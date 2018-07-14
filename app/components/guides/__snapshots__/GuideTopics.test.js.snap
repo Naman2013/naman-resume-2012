@@ -1,0 +1,226 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GuideTopics should render correctly 1`] = `
+ShallowWrapper {
+  "length": 1,
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <GuideTopics
+    list={
+      Array [
+        Object {
+          "iconURL": "https://vega.slooh.com/icons/home/observatory.png",
+          "title": "Saturn",
+        },
+        Object {
+          "iconURL": "https://vega.slooh.com/icons/home/jupiter-icon.png",
+          "title": "Mars",
+        },
+      ]
+    }
+  />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "function",
+    "props": Object {
+      "children": Array [
+        <ul
+          className="jsx-4014916192"
+        >
+          <LailaTile
+            iconURL="https://vega.slooh.com/icons/home/observatory.png"
+            title="Saturn"
+          />
+          <LailaTile
+            iconURL="https://vega.slooh.com/icons/home/jupiter-icon.png"
+            title="Mars"
+          />
+        </ul>,
+        <JSXStyle
+          css={
+            Array [
+              "ul.jsx-4014916192{margin:0;padding:0;}",
+            ]
+          }
+          styleId="4014916192"
+        />,
+      ],
+      "theme": Object {},
+    },
+    "ref": null,
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": Array [
+            <LailaTile
+              iconURL="https://vega.slooh.com/icons/home/observatory.png"
+              title="Saturn"
+            />,
+            <LailaTile
+              iconURL="https://vega.slooh.com/icons/home/jupiter-icon.png"
+              title="Mars"
+            />,
+          ],
+          "className": "jsx-4014916192",
+        },
+        "ref": null,
+        "rendered": Array [
+          Object {
+            "instance": null,
+            "key": "https://vega.slooh.com/icons/home/observatory.png-Saturn",
+            "nodeType": "function",
+            "props": Object {
+              "iconURL": "https://vega.slooh.com/icons/home/observatory.png",
+              "title": "Saturn",
+            },
+            "ref": null,
+            "rendered": null,
+            "type": [Function],
+          },
+          Object {
+            "instance": null,
+            "key": "https://vega.slooh.com/icons/home/jupiter-icon.png-Mars",
+            "nodeType": "function",
+            "props": Object {
+              "iconURL": "https://vega.slooh.com/icons/home/jupiter-icon.png",
+              "title": "Mars",
+            },
+            "ref": null,
+            "rendered": null,
+            "type": [Function],
+          },
+        ],
+        "type": "ul",
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
+          "css": Array [
+            "ul.jsx-4014916192{margin:0;padding:0;}",
+          ],
+          "styleId": "4014916192",
+        },
+        "ref": null,
+        "rendered": null,
+        "type": [Function],
+      },
+    ],
+    "type": [Function],
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "function",
+      "props": Object {
+        "children": Array [
+          <ul
+            className="jsx-4014916192"
+          >
+            <LailaTile
+              iconURL="https://vega.slooh.com/icons/home/observatory.png"
+              title="Saturn"
+            />
+            <LailaTile
+              iconURL="https://vega.slooh.com/icons/home/jupiter-icon.png"
+              title="Mars"
+            />
+          </ul>,
+          <JSXStyle
+            css={
+              Array [
+                "ul.jsx-4014916192{margin:0;padding:0;}",
+              ]
+            }
+            styleId="4014916192"
+          />,
+        ],
+        "theme": Object {},
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": Array [
+              <LailaTile
+                iconURL="https://vega.slooh.com/icons/home/observatory.png"
+                title="Saturn"
+              />,
+              <LailaTile
+                iconURL="https://vega.slooh.com/icons/home/jupiter-icon.png"
+                title="Mars"
+              />,
+            ],
+            "className": "jsx-4014916192",
+          },
+          "ref": null,
+          "rendered": Array [
+            Object {
+              "instance": null,
+              "key": "https://vega.slooh.com/icons/home/observatory.png-Saturn",
+              "nodeType": "function",
+              "props": Object {
+                "iconURL": "https://vega.slooh.com/icons/home/observatory.png",
+                "title": "Saturn",
+              },
+              "ref": null,
+              "rendered": null,
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": "https://vega.slooh.com/icons/home/jupiter-icon.png-Mars",
+              "nodeType": "function",
+              "props": Object {
+                "iconURL": "https://vega.slooh.com/icons/home/jupiter-icon.png",
+                "title": "Mars",
+              },
+              "ref": null,
+              "rendered": null,
+              "type": [Function],
+            },
+          ],
+          "type": "ul",
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "css": Array [
+              "ul.jsx-4014916192{margin:0;padding:0;}",
+            ],
+            "styleId": "4014916192",
+          },
+          "ref": null,
+          "rendered": null,
+          "type": [Function],
+        },
+      ],
+      "type": [Function],
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+      },
+    },
+  },
+}
+`;
