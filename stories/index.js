@@ -19,3 +19,6 @@ import './guides/GuideSection';
 
 // Tiles
 import './Tiles';
+
+// Titles
+import './Titles';
