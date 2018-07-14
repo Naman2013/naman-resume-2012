@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import style from './SterlingTitle.style';
 
 const SterlingTitle = ({ title, subTitle, theme }) => (
   <div className="root">
@@ -8,6 +9,7 @@ const SterlingTitle = ({ title, subTitle, theme }) => (
       subTitle &&
         <p style={theme.subTitle} className="sub-title">{subTitle}</p>
     }
+    <style jsx>{style}</style>
   </div>
 );
 
