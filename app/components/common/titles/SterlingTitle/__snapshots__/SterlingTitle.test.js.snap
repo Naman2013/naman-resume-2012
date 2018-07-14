@@ -28,13 +28,13 @@ ShallowWrapper {
     "props": Object {
       "children": Array [
         <h4
-          className="jsx-301026199 title"
+          className="jsx-680802847 title"
           style={Object {}}
         >
           Foo
         </h4>,
         <p
-          className="jsx-301026199 sub-title"
+          className="jsx-680802847 sub-title"
           style={Object {}}
         >
           Bar
@@ -42,16 +42,16 @@ ShallowWrapper {
         <JSXStyle
           css={
             Array [
-              ".root.jsx-301026199{text-align:center;color:#41566F;padding-top:40px;padding-bottom:20px;}",
-              ".title.jsx-301026199{margin:0;padding:0;font-size:16px;font-family:brandon-grotesque, sans-serif;-webkit-letter-spacing:1.5px;-moz-letter-spacing:1.5px;-ms-letter-spacing:1.5px;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px;font-weight:800;}",
-              ".sub-title.jsx-301026199{margin:0;padding:0;opacity:0;font-size:16px;font-family:adobe-garamond-pro, serif;-webkit-transition:opacity 0.25s ease-in;transition:opacity 0.25s ease-in;}",
-              "@media screen and (min-width: 768px){.root.jsx-301026199{padding-top:60px;paddding-bottom:40px;}.sub-title.jsx-301026199{opacity:1;}}",
+              ".root.jsx-680802847{text-align:center;color:#41566F;padding:40px 40px 20px 40px;}",
+              ".title.jsx-680802847{margin:0;padding:0;font-size:16px;font-family:brandon-grotesque, sans-serif;-webkit-letter-spacing:1.5px;-moz-letter-spacing:1.5px;-ms-letter-spacing:1.5px;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px;font-weight:800;}",
+              ".sub-title.jsx-680802847{margin:0;padding:0;opacity:0;font-size:16px;font-family:adobe-garamond-pro, serif;-webkit-transition:opacity 0.25s ease-in;transition:opacity 0.25s ease-in;}",
+              "@media screen and (min-width: 768px){.root.jsx-680802847{padding-top:60px;padding-bottom:40px;}.sub-title.jsx-680802847{opacity:1;}}",
             ]
           }
-          styleId="301026199"
+          styleId="680802847"
         />,
       ],
-      "className": "jsx-301026199 root",
+      "className": "jsx-680802847 root",
     },
     "ref": null,
     "rendered": Array [
@@ -61,7 +61,7 @@ ShallowWrapper {
         "nodeType": "host",
         "props": Object {
           "children": "Foo",
-          "className": "jsx-301026199 title",
+          "className": "jsx-680802847 title",
           "style": Object {},
         },
         "ref": null,
@@ -74,7 +74,7 @@ ShallowWrapper {
         "nodeType": "host",
         "props": Object {
           "children": "Bar",
-          "className": "jsx-301026199 sub-title",
+          "className": "jsx-680802847 sub-title",
           "style": Object {},
         },
         "ref": null,
@@ -87,12 +87,12 @@ ShallowWrapper {
         "nodeType": "class",
         "props": Object {
           "css": Array [
-            ".root.jsx-301026199{text-align:center;color:#41566F;padding-top:40px;padding-bottom:20px;}",
-            ".title.jsx-301026199{margin:0;padding:0;font-size:16px;font-family:brandon-grotesque, sans-serif;-webkit-letter-spacing:1.5px;-moz-letter-spacing:1.5px;-ms-letter-spacing:1.5px;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px;font-weight:800;}",
-            ".sub-title.jsx-301026199{margin:0;padding:0;opacity:0;font-size:16px;font-family:adobe-garamond-pro, serif;-webkit-transition:opacity 0.25s ease-in;transition:opacity 0.25s ease-in;}",
-            "@media screen and (min-width: 768px){.root.jsx-301026199{padding-top:60px;paddding-bottom:40px;}.sub-title.jsx-301026199{opacity:1;}}",
+            ".root.jsx-680802847{text-align:center;color:#41566F;padding:40px 40px 20px 40px;}",
+            ".title.jsx-680802847{margin:0;padding:0;font-size:16px;font-family:brandon-grotesque, sans-serif;-webkit-letter-spacing:1.5px;-moz-letter-spacing:1.5px;-ms-letter-spacing:1.5px;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px;font-weight:800;}",
+            ".sub-title.jsx-680802847{margin:0;padding:0;opacity:0;font-size:16px;font-family:adobe-garamond-pro, serif;-webkit-transition:opacity 0.25s ease-in;transition:opacity 0.25s ease-in;}",
+            "@media screen and (min-width: 768px){.root.jsx-680802847{padding-top:60px;padding-bottom:40px;}.sub-title.jsx-680802847{opacity:1;}}",
           ],
-          "styleId": "301026199",
+          "styleId": "680802847",
         },
         "ref": null,
         "rendered": null,
@@ -109,13 +109,13 @@ ShallowWrapper {
       "props": Object {
         "children": Array [
           <h4
-            className="jsx-301026199 title"
+            className="jsx-680802847 title"
             style={Object {}}
           >
             Foo
           </h4>,
           <p
-            className="jsx-301026199 sub-title"
+            className="jsx-680802847 sub-title"
             style={Object {}}
           >
             Bar
@@ -123,16 +123,16 @@ ShallowWrapper {
           <JSXStyle
             css={
               Array [
-                ".root.jsx-301026199{text-align:center;color:#41566F;padding-top:40px;padding-bottom:20px;}",
-                ".title.jsx-301026199{margin:0;padding:0;font-size:16px;font-family:brandon-grotesque, sans-serif;-webkit-letter-spacing:1.5px;-moz-letter-spacing:1.5px;-ms-letter-spacing:1.5px;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px;font-weight:800;}",
-                ".sub-title.jsx-301026199{margin:0;padding:0;opacity:0;font-size:16px;font-family:adobe-garamond-pro, serif;-webkit-transition:opacity 0.25s ease-in;transition:opacity 0.25s ease-in;}",
-                "@media screen and (min-width: 768px){.root.jsx-301026199{padding-top:60px;paddding-bottom:40px;}.sub-title.jsx-301026199{opacity:1;}}",
+                ".root.jsx-680802847{text-align:center;color:#41566F;padding:40px 40px 20px 40px;}",
+                ".title.jsx-680802847{margin:0;padding:0;font-size:16px;font-family:brandon-grotesque, sans-serif;-webkit-letter-spacing:1.5px;-moz-letter-spacing:1.5px;-ms-letter-spacing:1.5px;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px;font-weight:800;}",
+                ".sub-title.jsx-680802847{margin:0;padding:0;opacity:0;font-size:16px;font-family:adobe-garamond-pro, serif;-webkit-transition:opacity 0.25s ease-in;transition:opacity 0.25s ease-in;}",
+                "@media screen and (min-width: 768px){.root.jsx-680802847{padding-top:60px;padding-bottom:40px;}.sub-title.jsx-680802847{opacity:1;}}",
               ]
             }
-            styleId="301026199"
+            styleId="680802847"
           />,
         ],
-        "className": "jsx-301026199 root",
+        "className": "jsx-680802847 root",
       },
       "ref": null,
       "rendered": Array [
@@ -142,7 +142,7 @@ ShallowWrapper {
           "nodeType": "host",
           "props": Object {
             "children": "Foo",
-            "className": "jsx-301026199 title",
+            "className": "jsx-680802847 title",
             "style": Object {},
           },
           "ref": null,
@@ -155,7 +155,7 @@ ShallowWrapper {
           "nodeType": "host",
           "props": Object {
             "children": "Bar",
-            "className": "jsx-301026199 sub-title",
+            "className": "jsx-680802847 sub-title",
             "style": Object {},
           },
           "ref": null,
@@ -168,12 +168,12 @@ ShallowWrapper {
           "nodeType": "class",
           "props": Object {
             "css": Array [
-              ".root.jsx-301026199{text-align:center;color:#41566F;padding-top:40px;padding-bottom:20px;}",
-              ".title.jsx-301026199{margin:0;padding:0;font-size:16px;font-family:brandon-grotesque, sans-serif;-webkit-letter-spacing:1.5px;-moz-letter-spacing:1.5px;-ms-letter-spacing:1.5px;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px;font-weight:800;}",
-              ".sub-title.jsx-301026199{margin:0;padding:0;opacity:0;font-size:16px;font-family:adobe-garamond-pro, serif;-webkit-transition:opacity 0.25s ease-in;transition:opacity 0.25s ease-in;}",
-              "@media screen and (min-width: 768px){.root.jsx-301026199{padding-top:60px;paddding-bottom:40px;}.sub-title.jsx-301026199{opacity:1;}}",
+              ".root.jsx-680802847{text-align:center;color:#41566F;padding:40px 40px 20px 40px;}",
+              ".title.jsx-680802847{margin:0;padding:0;font-size:16px;font-family:brandon-grotesque, sans-serif;-webkit-letter-spacing:1.5px;-moz-letter-spacing:1.5px;-ms-letter-spacing:1.5px;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px;font-weight:800;}",
+              ".sub-title.jsx-680802847{margin:0;padding:0;opacity:0;font-size:16px;font-family:adobe-garamond-pro, serif;-webkit-transition:opacity 0.25s ease-in;transition:opacity 0.25s ease-in;}",
+              "@media screen and (min-width: 768px){.root.jsx-680802847{padding-top:60px;padding-bottom:40px;}.sub-title.jsx-680802847{opacity:1;}}",
             ],
-            "styleId": "301026199",
+            "styleId": "680802847",
           },
           "ref": null,
           "rendered": null,

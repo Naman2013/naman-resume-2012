@@ -6,8 +6,7 @@ export default css`
   .root {
     text-align: center;
     color: #41566F;
-    padding-top: 40px;
-    padding-bottom: 20px;
+    padding: 40px 40px 20px 40px;
   }
 
   .title {
@@ -33,7 +32,7 @@ export default css`
   @media ${screenMedium} {
     .root {
       padding-top: 60px;
-      paddding-bottom: 40px;
+      padding-bottom: 40px;
     }
 
     .sub-title {
