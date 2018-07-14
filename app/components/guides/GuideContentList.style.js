@@ -20,5 +20,4 @@ export default css`
       margin-top: 95px;
     }
   }
-
 `;
