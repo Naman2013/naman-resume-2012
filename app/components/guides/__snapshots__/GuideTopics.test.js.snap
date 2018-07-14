@@ -32,24 +32,32 @@ ShallowWrapper {
     "props": Object {
       "children": Array [
         <ul
-          className="jsx-4014916192"
+          className="jsx-415932762"
         >
-          <LailaTile
-            iconURL="https://vega.slooh.com/icons/home/observatory.png"
-            title="Saturn"
-          />
-          <LailaTile
-            iconURL="https://vega.slooh.com/icons/home/jupiter-icon.png"
-            title="Mars"
-          />
+          <li
+            className="jsx-415932762 topic"
+          >
+            <LailaTile
+              iconURL="https://vega.slooh.com/icons/home/observatory.png"
+              title="Saturn"
+            />
+          </li>
+          <li
+            className="jsx-415932762 topic"
+          >
+            <LailaTile
+              iconURL="https://vega.slooh.com/icons/home/jupiter-icon.png"
+              title="Mars"
+            />
+          </li>
         </ul>,
         <JSXStyle
           css={
             Array [
-              "ul.jsx-4014916192{margin:0;padding:0;}",
+              "ul.jsx-415932762{margin:0;padding:0;list-style-type:none;}",
             ]
           }
-          styleId="4014916192"
+          styleId="415932762"
         />,
       ],
       "theme": Object {},
@@ -62,42 +70,78 @@ ShallowWrapper {
         "nodeType": "host",
         "props": Object {
           "children": Array [
-            <LailaTile
-              iconURL="https://vega.slooh.com/icons/home/observatory.png"
-              title="Saturn"
-            />,
-            <LailaTile
-              iconURL="https://vega.slooh.com/icons/home/jupiter-icon.png"
-              title="Mars"
-            />,
+            <li
+              className="jsx-415932762 topic"
+            >
+              <LailaTile
+                iconURL="https://vega.slooh.com/icons/home/observatory.png"
+                title="Saturn"
+              />
+            </li>,
+            <li
+              className="jsx-415932762 topic"
+            >
+              <LailaTile
+                iconURL="https://vega.slooh.com/icons/home/jupiter-icon.png"
+                title="Mars"
+              />
+            </li>,
           ],
-          "className": "jsx-4014916192",
+          "className": "jsx-415932762",
         },
         "ref": null,
         "rendered": Array [
           Object {
             "instance": null,
             "key": "https://vega.slooh.com/icons/home/observatory.png-Saturn",
-            "nodeType": "function",
+            "nodeType": "host",
             "props": Object {
-              "iconURL": "https://vega.slooh.com/icons/home/observatory.png",
-              "title": "Saturn",
+              "children": <LailaTile
+                iconURL="https://vega.slooh.com/icons/home/observatory.png"
+                title="Saturn"
+              />,
+              "className": "jsx-415932762 topic",
             },
             "ref": null,
-            "rendered": null,
-            "type": [Function],
+            "rendered": Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "function",
+              "props": Object {
+                "iconURL": "https://vega.slooh.com/icons/home/observatory.png",
+                "title": "Saturn",
+              },
+              "ref": null,
+              "rendered": null,
+              "type": [Function],
+            },
+            "type": "li",
           },
           Object {
             "instance": null,
             "key": "https://vega.slooh.com/icons/home/jupiter-icon.png-Mars",
-            "nodeType": "function",
+            "nodeType": "host",
             "props": Object {
-              "iconURL": "https://vega.slooh.com/icons/home/jupiter-icon.png",
-              "title": "Mars",
+              "children": <LailaTile
+                iconURL="https://vega.slooh.com/icons/home/jupiter-icon.png"
+                title="Mars"
+              />,
+              "className": "jsx-415932762 topic",
             },
             "ref": null,
-            "rendered": null,
-            "type": [Function],
+            "rendered": Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "function",
+              "props": Object {
+                "iconURL": "https://vega.slooh.com/icons/home/jupiter-icon.png",
+                "title": "Mars",
+              },
+              "ref": null,
+              "rendered": null,
+              "type": [Function],
+            },
+            "type": "li",
           },
         ],
         "type": "ul",
@@ -108,9 +152,9 @@ ShallowWrapper {
         "nodeType": "class",
         "props": Object {
           "css": Array [
-            "ul.jsx-4014916192{margin:0;padding:0;}",
+            "ul.jsx-415932762{margin:0;padding:0;list-style-type:none;}",
           ],
-          "styleId": "4014916192",
+          "styleId": "415932762",
         },
         "ref": null,
         "rendered": null,
@@ -127,24 +171,32 @@ ShallowWrapper {
       "props": Object {
         "children": Array [
           <ul
-            className="jsx-4014916192"
+            className="jsx-415932762"
           >
-            <LailaTile
-              iconURL="https://vega.slooh.com/icons/home/observatory.png"
-              title="Saturn"
-            />
-            <LailaTile
-              iconURL="https://vega.slooh.com/icons/home/jupiter-icon.png"
-              title="Mars"
-            />
+            <li
+              className="jsx-415932762 topic"
+            >
+              <LailaTile
+                iconURL="https://vega.slooh.com/icons/home/observatory.png"
+                title="Saturn"
+              />
+            </li>
+            <li
+              className="jsx-415932762 topic"
+            >
+              <LailaTile
+                iconURL="https://vega.slooh.com/icons/home/jupiter-icon.png"
+                title="Mars"
+              />
+            </li>
           </ul>,
           <JSXStyle
             css={
               Array [
-                "ul.jsx-4014916192{margin:0;padding:0;}",
+                "ul.jsx-415932762{margin:0;padding:0;list-style-type:none;}",
               ]
             }
-            styleId="4014916192"
+            styleId="415932762"
           />,
         ],
         "theme": Object {},
@@ -157,42 +209,78 @@ ShallowWrapper {
           "nodeType": "host",
           "props": Object {
             "children": Array [
-              <LailaTile
-                iconURL="https://vega.slooh.com/icons/home/observatory.png"
-                title="Saturn"
-              />,
-              <LailaTile
-                iconURL="https://vega.slooh.com/icons/home/jupiter-icon.png"
-                title="Mars"
-              />,
+              <li
+                className="jsx-415932762 topic"
+              >
+                <LailaTile
+                  iconURL="https://vega.slooh.com/icons/home/observatory.png"
+                  title="Saturn"
+                />
+              </li>,
+              <li
+                className="jsx-415932762 topic"
+              >
+                <LailaTile
+                  iconURL="https://vega.slooh.com/icons/home/jupiter-icon.png"
+                  title="Mars"
+                />
+              </li>,
             ],
-            "className": "jsx-4014916192",
+            "className": "jsx-415932762",
           },
           "ref": null,
           "rendered": Array [
             Object {
               "instance": null,
               "key": "https://vega.slooh.com/icons/home/observatory.png-Saturn",
-              "nodeType": "function",
+              "nodeType": "host",
               "props": Object {
-                "iconURL": "https://vega.slooh.com/icons/home/observatory.png",
-                "title": "Saturn",
+                "children": <LailaTile
+                  iconURL="https://vega.slooh.com/icons/home/observatory.png"
+                  title="Saturn"
+                />,
+                "className": "jsx-415932762 topic",
               },
               "ref": null,
-              "rendered": null,
-              "type": [Function],
+              "rendered": Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "function",
+                "props": Object {
+                  "iconURL": "https://vega.slooh.com/icons/home/observatory.png",
+                  "title": "Saturn",
+                },
+                "ref": null,
+                "rendered": null,
+                "type": [Function],
+              },
+              "type": "li",
             },
             Object {
               "instance": null,
               "key": "https://vega.slooh.com/icons/home/jupiter-icon.png-Mars",
-              "nodeType": "function",
+              "nodeType": "host",
               "props": Object {
-                "iconURL": "https://vega.slooh.com/icons/home/jupiter-icon.png",
-                "title": "Mars",
+                "children": <LailaTile
+                  iconURL="https://vega.slooh.com/icons/home/jupiter-icon.png"
+                  title="Mars"
+                />,
+                "className": "jsx-415932762 topic",
               },
               "ref": null,
-              "rendered": null,
-              "type": [Function],
+              "rendered": Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "function",
+                "props": Object {
+                  "iconURL": "https://vega.slooh.com/icons/home/jupiter-icon.png",
+                  "title": "Mars",
+                },
+                "ref": null,
+                "rendered": null,
+                "type": [Function],
+              },
+              "type": "li",
             },
           ],
           "type": "ul",
@@ -203,9 +291,9 @@ ShallowWrapper {
           "nodeType": "class",
           "props": Object {
             "css": Array [
-              "ul.jsx-4014916192{margin:0;padding:0;}",
+              "ul.jsx-415932762{margin:0;padding:0;list-style-type:none;}",
             ],
-            "styleId": "4014916192",
+            "styleId": "415932762",
           },
           "ref": null,
           "rendered": null,

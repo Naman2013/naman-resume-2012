@@ -8,7 +8,16 @@ const GuideTopics = ({ list }) => (
   <CenterColumn>
     <ul>
       {
-        list.map(topic => <LailaTile key={`${topic.iconURL}-${topic.title}`} iconURL={topic.iconURL} title={topic.title} />)
+        list.map(topic => (
+          <li
+            key={`${topic.iconURL}-${topic.title}`}
+            className="topic"
+          >
+            <LailaTile
+              iconURL={topic.iconURL}
+              title={topic.title}
+            />
+          </li>))
       }
     </ul>
     <style jsx>{style}</style>

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import style from './Laila.style';
 
 const LailaTile = ({ iconURL, title }) => (
-  <li className="root">
+  <div className="root">
     <div className="container">
 
       <div className="icon-container">
@@ -19,7 +19,7 @@ const LailaTile = ({ iconURL, title }) => (
       <a className="button" href="#">Explore now</a>
     </div>
     <style jsx>{style}</style>
-  </li>
+  </div>
 );
 
 LailaTile.propTypes = {
