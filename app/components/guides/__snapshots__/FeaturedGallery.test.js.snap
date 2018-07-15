@@ -20,30 +20,19 @@ ShallowWrapper {
     "nodeType": "host",
     "props": Object {
       "children": Array [
-        <SterlingTitle
-          subTitle="Community observation"
-          theme={
-            Object {
-              "subTitle": Object {
-                "color": "white",
-              },
-              "title": Object {
-                "color": "white",
-              },
-            }
-          }
-          title="Featured observation"
-        />,
+        <UNDEFINED>
+          [Function]
+        </UNDEFINED>,
         <JSXStyle
           css={
             Array [
-              ".root.jsx-3854175346{background:url(https://vega.slooh.com/assets/v4/common/Dark_Pattern_Featured_LargeCanvas.png);}",
+              "@media screen and (min-width: 768px){.root.jsx-3345557127{background:url(https://vega.slooh.com/assets/v4/common/Dark_Pattern_Featured_LargeCanvas.png);}}",
             ]
           }
-          styleId="3854175346"
+          styleId="3345557127"
         />,
       ],
-      "className": "jsx-3854175346 root",
+      "className": "jsx-3345557127 root",
     },
     "ref": null,
     "rendered": Array [
@@ -52,20 +41,26 @@ ShallowWrapper {
         "key": undefined,
         "nodeType": "function",
         "props": Object {
-          "subTitle": "Community observation",
-          "theme": Object {
-            "subTitle": Object {
-              "color": "white",
-            },
-            "title": Object {
-              "color": "white",
-            },
-          },
-          "title": "Featured observation",
+          "children": [Function],
         },
         "ref": null,
-        "rendered": null,
-        "type": [Function],
+        "rendered": [Function],
+        "type": Object {
+          "$$typeof": Symbol(react.context),
+          "Consumer": [Circular],
+          "Provider": Object {
+            "$$typeof": Symbol(react.provider),
+            "_context": [Circular],
+          },
+          "_calculateChangedBits": null,
+          "_changedBits": 0,
+          "_changedBits2": 0,
+          "_currentRenderer": null,
+          "_currentRenderer2": null,
+          "_currentValue": undefined,
+          "_currentValue2": undefined,
+          "_defaultValue": undefined,
+        },
       },
       Object {
         "instance": null,
@@ -73,9 +68,9 @@ ShallowWrapper {
         "nodeType": "class",
         "props": Object {
           "css": Array [
-            ".root.jsx-3854175346{background:url(https://vega.slooh.com/assets/v4/common/Dark_Pattern_Featured_LargeCanvas.png);}",
+            "@media screen and (min-width: 768px){.root.jsx-3345557127{background:url(https://vega.slooh.com/assets/v4/common/Dark_Pattern_Featured_LargeCanvas.png);}}",
           ],
-          "styleId": "3854175346",
+          "styleId": "3345557127",
         },
         "ref": null,
         "rendered": null,
@@ -91,30 +86,19 @@ ShallowWrapper {
       "nodeType": "host",
       "props": Object {
         "children": Array [
-          <SterlingTitle
-            subTitle="Community observation"
-            theme={
-              Object {
-                "subTitle": Object {
-                  "color": "white",
-                },
-                "title": Object {
-                  "color": "white",
-                },
-              }
-            }
-            title="Featured observation"
-          />,
+          <UNDEFINED>
+            [Function]
+          </UNDEFINED>,
           <JSXStyle
             css={
               Array [
-                ".root.jsx-3854175346{background:url(https://vega.slooh.com/assets/v4/common/Dark_Pattern_Featured_LargeCanvas.png);}",
+                "@media screen and (min-width: 768px){.root.jsx-3345557127{background:url(https://vega.slooh.com/assets/v4/common/Dark_Pattern_Featured_LargeCanvas.png);}}",
               ]
             }
-            styleId="3854175346"
+            styleId="3345557127"
           />,
         ],
-        "className": "jsx-3854175346 root",
+        "className": "jsx-3345557127 root",
       },
       "ref": null,
       "rendered": Array [
@@ -123,20 +107,26 @@ ShallowWrapper {
           "key": undefined,
           "nodeType": "function",
           "props": Object {
-            "subTitle": "Community observation",
-            "theme": Object {
-              "subTitle": Object {
-                "color": "white",
-              },
-              "title": Object {
-                "color": "white",
-              },
-            },
-            "title": "Featured observation",
+            "children": [Function],
           },
           "ref": null,
-          "rendered": null,
-          "type": [Function],
+          "rendered": [Function],
+          "type": Object {
+            "$$typeof": Symbol(react.context),
+            "Consumer": [Circular],
+            "Provider": Object {
+              "$$typeof": Symbol(react.provider),
+              "_context": [Circular],
+            },
+            "_calculateChangedBits": null,
+            "_changedBits": 0,
+            "_changedBits2": 0,
+            "_currentRenderer": null,
+            "_currentRenderer2": null,
+            "_currentValue": undefined,
+            "_currentValue2": undefined,
+            "_defaultValue": undefined,
+          },
         },
         Object {
           "instance": null,
@@ -144,9 +134,9 @@ ShallowWrapper {
           "nodeType": "class",
           "props": Object {
             "css": Array [
-              ".root.jsx-3854175346{background:url(https://vega.slooh.com/assets/v4/common/Dark_Pattern_Featured_LargeCanvas.png);}",
+              "@media screen and (min-width: 768px){.root.jsx-3345557127{background:url(https://vega.slooh.com/assets/v4/common/Dark_Pattern_Featured_LargeCanvas.png);}}",
             ],
-            "styleId": "3854175346",
+            "styleId": "3345557127",
           },
           "ref": null,
           "rendered": null,

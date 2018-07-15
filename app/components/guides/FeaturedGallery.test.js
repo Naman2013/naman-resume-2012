@@ -10,8 +10,4 @@ describe('FeaturedGallery', () => {
   it('should render correctly', () => {
     expect(shallowWrapper).toMatchSnapshot();
   });
-
-  it('should render a `SterlingTitle`', () => {
-    expect(shallowWrapper.find('SterlingTitle').length).toEqual(1);
-  });
 });

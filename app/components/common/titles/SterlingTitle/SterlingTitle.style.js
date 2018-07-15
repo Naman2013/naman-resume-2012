@@ -27,6 +27,7 @@ export default css`
     font-size: 16px;
     font-family: ${secondaryFont};
     transition: opacity 0.25s ease-in;
+    text-transform: capitalize;
   }
 
   @media ${screenMedium} {
