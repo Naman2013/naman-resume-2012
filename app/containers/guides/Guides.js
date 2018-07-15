@@ -4,6 +4,7 @@ import TiaraTitleSection from 'components/common/TiaraTitleSection';
 import GuideSection from 'components/guides/GuideSection';
 import GuideBodyContent from 'components/guides/GuideBodyContent';
 import GuideContentList from 'components/guides/GuideContentList';
+import FeaturedGallery from 'components/guides/FeaturedGallery';
 import SterlingTitle from 'components/common/titles/SterlingTitle';
 import GuideTopics from 'components/guides/GuideTopics';
 
@@ -34,9 +35,12 @@ const Guides = () => (
       title="The solar system"
       iconURL="https://vega.slooh.com/icons/home/observatory.png"
     />
-    <CenterColumn theme={{ boxShadow: 'rgba(65, 86, 113, 0.2) 0px 3px 8px 1px' }}>
+
+    <CenterColumn theme={{ boxShadow: 'rgba(65, 86, 113, 0.2) 0px 3px 8px 1px', marginBottom: '60px' }}>
       <GuideSection {...stubGuideSectionContent} />
     </CenterColumn>
+
+    <FeaturedGallery />
 
     <SterlingTitle title="Objects within this guide" subTitle="Select an Object for more information" />
 

@@ -1,0 +1,167 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FeaturedGallery should render correctly 1`] = `
+ShallowWrapper {
+  "length": 1,
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <FeaturedGallery
+    items={Array []}
+  />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "host",
+    "props": Object {
+      "children": Array [
+        <SterlingTitle
+          subTitle="Community observation"
+          theme={
+            Object {
+              "subTitle": Object {
+                "color": "white",
+              },
+              "title": Object {
+                "color": "white",
+              },
+            }
+          }
+          title="Featured observation"
+        />,
+        <JSXStyle
+          css={
+            Array [
+              ".root.jsx-3854175346{background:url(https://vega.slooh.com/assets/v4/common/Dark_Pattern_Featured_LargeCanvas.png);}",
+            ]
+          }
+          styleId="3854175346"
+        />,
+      ],
+      "className": "jsx-3854175346 root",
+    },
+    "ref": null,
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "function",
+        "props": Object {
+          "subTitle": "Community observation",
+          "theme": Object {
+            "subTitle": Object {
+              "color": "white",
+            },
+            "title": Object {
+              "color": "white",
+            },
+          },
+          "title": "Featured observation",
+        },
+        "ref": null,
+        "rendered": null,
+        "type": [Function],
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
+          "css": Array [
+            ".root.jsx-3854175346{background:url(https://vega.slooh.com/assets/v4/common/Dark_Pattern_Featured_LargeCanvas.png);}",
+          ],
+          "styleId": "3854175346",
+        },
+        "ref": null,
+        "rendered": null,
+        "type": [Function],
+      },
+    ],
+    "type": "div",
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": Array [
+          <SterlingTitle
+            subTitle="Community observation"
+            theme={
+              Object {
+                "subTitle": Object {
+                  "color": "white",
+                },
+                "title": Object {
+                  "color": "white",
+                },
+              }
+            }
+            title="Featured observation"
+          />,
+          <JSXStyle
+            css={
+              Array [
+                ".root.jsx-3854175346{background:url(https://vega.slooh.com/assets/v4/common/Dark_Pattern_Featured_LargeCanvas.png);}",
+              ]
+            }
+            styleId="3854175346"
+          />,
+        ],
+        "className": "jsx-3854175346 root",
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "function",
+          "props": Object {
+            "subTitle": "Community observation",
+            "theme": Object {
+              "subTitle": Object {
+                "color": "white",
+              },
+              "title": Object {
+                "color": "white",
+              },
+            },
+            "title": "Featured observation",
+          },
+          "ref": null,
+          "rendered": null,
+          "type": [Function],
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "css": Array [
+              ".root.jsx-3854175346{background:url(https://vega.slooh.com/assets/v4/common/Dark_Pattern_Featured_LargeCanvas.png);}",
+            ],
+            "styleId": "3854175346",
+          },
+          "ref": null,
+          "rendered": null,
+          "type": [Function],
+        },
+      ],
+      "type": "div",
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+      },
+    },
+  },
+}
+`;
