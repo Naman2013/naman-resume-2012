@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import style from './Laila.style';
+import { horizontalArrow } from 'styles/variables/iconURLs';
 
 const LailaTile = ({ iconURL, title }) => (
   <div className="root">
@@ -16,7 +17,10 @@ const LailaTile = ({ iconURL, title }) => (
       </div>
 
       <h5 className="title">{title}</h5>
-      <a className="button" href="#">Explore now</a>
+      <div className="button-container">
+        <a className="button" href="#">Explore now</a>
+        <img alt="" src={horizontalArrow} />
+      </div>
     </div>
     <style jsx>{style}</style>
   </div>

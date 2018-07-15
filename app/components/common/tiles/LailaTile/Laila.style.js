@@ -71,10 +71,16 @@ export default css`
     border-bottom: 1px solid #D9DEE4;
   }
 
+  .button-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 20px;
+  }
+
   .button {
     display: block;
     padding: 0;
-    padding-top: 20px;
     color: ${astronaut};
     text-decoration: none;
     text-transform: uppercase;
@@ -99,6 +105,14 @@ export default css`
       border-bottom: none;
       padding-top: 50px;
       padding-bottom: 0;
+    }
+
+    .button-container {
+      justify-content: center;
+    }
+
+    .button {
+      padding-right: 10px;
     }
   }
 `;
