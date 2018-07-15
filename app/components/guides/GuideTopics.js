@@ -3,10 +3,9 @@ import PropTypes from 'prop-types';
 import CenterColumn from 'components/common/CenterColumn';
 import LailaTile from 'components/common/tiles/LailaTile';
 import style from './GuideTopics.style';
-import { tileScale } from 'styles/variables/breakpoints';
-console.log(tileScale);
+
 const GuideTopics = ({ list }) => (
-  <CenterColumn breakpoints={tileScale}>
+  <CenterColumn widths={['620px', '940px', '940px']}>
     <ul>
       {
         list.map(topic => (

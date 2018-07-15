@@ -31,9 +31,9 @@ ShallowWrapper {
     "nodeType": "function",
     "props": Object {
       "breakpoints": Array [
-        "screen and (min-width: 620px)",
-        "screen and (min-width: 940px)",
-        "screen and (min-width: 940px)",
+        "screen and (min-width: 768px)",
+        "screen and (min-width: 1024px)",
+        "screen and (min-width: 1366px)",
       ],
       "children": Array [
         <ul
@@ -68,6 +68,11 @@ ShallowWrapper {
         />,
       ],
       "theme": Object {},
+      "widths": Array [
+        "620px",
+        "940px",
+        "940px",
+      ],
     },
     "ref": null,
     "rendered": Array [
@@ -179,9 +184,9 @@ ShallowWrapper {
       "nodeType": "function",
       "props": Object {
         "breakpoints": Array [
-          "screen and (min-width: 620px)",
-          "screen and (min-width: 940px)",
-          "screen and (min-width: 940px)",
+          "screen and (min-width: 768px)",
+          "screen and (min-width: 1024px)",
+          "screen and (min-width: 1366px)",
         ],
         "children": Array [
           <ul
@@ -216,6 +221,11 @@ ShallowWrapper {
           />,
         ],
         "theme": Object {},
+        "widths": Array [
+          "620px",
+          "940px",
+          "940px",
+        ],
       },
       "ref": null,
       "rendered": Array [

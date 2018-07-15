@@ -41,6 +41,13 @@ ShallowWrapper {
               "zIndex": "10",
             }
           }
+          widths={
+            Array [
+              "620px",
+              "780px",
+              "940px",
+            ]
+          }
         >
           <Medallion
             dimension={70}
@@ -169,6 +176,11 @@ ShallowWrapper {
             "position": "relative",
             "zIndex": "10",
           },
+          "widths": Array [
+            "620px",
+            "780px",
+            "940px",
+          ],
         },
         "ref": null,
         "rendered": Array [
@@ -304,6 +316,13 @@ ShallowWrapper {
                 "zIndex": "10",
               }
             }
+            widths={
+              Array [
+                "620px",
+                "780px",
+                "940px",
+              ]
+            }
           >
             <Medallion
               dimension={70}
@@ -432,6 +451,11 @@ ShallowWrapper {
               "position": "relative",
               "zIndex": "10",
             },
+            "widths": Array [
+              "620px",
+              "780px",
+              "940px",
+            ],
           },
           "ref": null,
           "rendered": Array [
