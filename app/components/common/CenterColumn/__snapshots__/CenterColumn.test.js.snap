@@ -1,0 +1,225 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CenterColumn should render correctly 1`] = `
+ShallowWrapper {
+  "length": 1,
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <CenterColumn
+    breakpoints={
+      Array [
+        "screen and (min-width: 768px)",
+        "screen and (min-width: 1024px)",
+        "screen and (min-width: 1366px)",
+      ]
+    }
+    theme={Object {}}
+    widths={
+      Array [
+        "620px",
+        "780px",
+        "940px",
+      ]
+    }
+  >
+    <div />
+  </CenterColumn>,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "host",
+    "props": Object {
+      "children": Array [
+        <div />,
+        <JSXStyle
+          css={
+            Array [
+              ".root.jsx-711544156{width:100%;margin:0 auto;-webkit-transition:width 0.25s;transition:width 0.25s;}",
+            ]
+          }
+          styleId="711544156"
+        />,
+        <JSXStyle
+          css={
+            Array [
+              "@media screen and (min-width: 768px){.root.__jsx-style-dynamic-selector{width:620px;}}",
+              "@media screen and (min-width: 1024px){.root.__jsx-style-dynamic-selector{width:780px;}}",
+              "@media screen and (min-width: 1366px){.root.__jsx-style-dynamic-selector{width:940px;}}",
+            ]
+          }
+          dynamic={
+            Array [
+              "screen and (min-width: 768px)",
+              "620px",
+              "screen and (min-width: 1024px)",
+              "780px",
+              "screen and (min-width: 1366px)",
+              "940px",
+            ]
+          }
+          styleId="212936544"
+        />,
+      ],
+      "className": "jsx-711544156 jsx-3856841995 root",
+      "style": Object {},
+    },
+    "ref": null,
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {},
+        "ref": null,
+        "rendered": null,
+        "type": "div",
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
+          "css": Array [
+            ".root.jsx-711544156{width:100%;margin:0 auto;-webkit-transition:width 0.25s;transition:width 0.25s;}",
+          ],
+          "styleId": "711544156",
+        },
+        "ref": null,
+        "rendered": null,
+        "type": [Function],
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
+          "css": Array [
+            "@media screen and (min-width: 768px){.root.__jsx-style-dynamic-selector{width:620px;}}",
+            "@media screen and (min-width: 1024px){.root.__jsx-style-dynamic-selector{width:780px;}}",
+            "@media screen and (min-width: 1366px){.root.__jsx-style-dynamic-selector{width:940px;}}",
+          ],
+          "dynamic": Array [
+            "screen and (min-width: 768px)",
+            "620px",
+            "screen and (min-width: 1024px)",
+            "780px",
+            "screen and (min-width: 1366px)",
+            "940px",
+          ],
+          "styleId": "212936544",
+        },
+        "ref": null,
+        "rendered": null,
+        "type": [Function],
+      },
+    ],
+    "type": "div",
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": Array [
+          <div />,
+          <JSXStyle
+            css={
+              Array [
+                ".root.jsx-711544156{width:100%;margin:0 auto;-webkit-transition:width 0.25s;transition:width 0.25s;}",
+              ]
+            }
+            styleId="711544156"
+          />,
+          <JSXStyle
+            css={
+              Array [
+                "@media screen and (min-width: 768px){.root.__jsx-style-dynamic-selector{width:620px;}}",
+                "@media screen and (min-width: 1024px){.root.__jsx-style-dynamic-selector{width:780px;}}",
+                "@media screen and (min-width: 1366px){.root.__jsx-style-dynamic-selector{width:940px;}}",
+              ]
+            }
+            dynamic={
+              Array [
+                "screen and (min-width: 768px)",
+                "620px",
+                "screen and (min-width: 1024px)",
+                "780px",
+                "screen and (min-width: 1366px)",
+                "940px",
+              ]
+            }
+            styleId="212936544"
+          />,
+        ],
+        "className": "jsx-711544156 jsx-3856841995 root",
+        "style": Object {},
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {},
+          "ref": null,
+          "rendered": null,
+          "type": "div",
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "css": Array [
+              ".root.jsx-711544156{width:100%;margin:0 auto;-webkit-transition:width 0.25s;transition:width 0.25s;}",
+            ],
+            "styleId": "711544156",
+          },
+          "ref": null,
+          "rendered": null,
+          "type": [Function],
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "css": Array [
+              "@media screen and (min-width: 768px){.root.__jsx-style-dynamic-selector{width:620px;}}",
+              "@media screen and (min-width: 1024px){.root.__jsx-style-dynamic-selector{width:780px;}}",
+              "@media screen and (min-width: 1366px){.root.__jsx-style-dynamic-selector{width:940px;}}",
+            ],
+            "dynamic": Array [
+              "screen and (min-width: 768px)",
+              "620px",
+              "screen and (min-width: 1024px)",
+              "780px",
+              "screen and (min-width: 1366px)",
+              "940px",
+            ],
+            "styleId": "212936544",
+          },
+          "ref": null,
+          "rendered": null,
+          "type": [Function],
+        },
+      ],
+      "type": "div",
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+      },
+    },
+  },
+}
+`;

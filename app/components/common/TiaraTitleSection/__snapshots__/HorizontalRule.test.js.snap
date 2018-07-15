@@ -1,0 +1,145 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HorizontalRule should render correctly 1`] = `
+ShallowWrapper {
+  "length": 1,
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <HR
+    theme={
+      Object {
+        "borderTop": "1px",
+      }
+    }
+  />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "function",
+    "props": Object {
+      "children": Array [
+        <hr
+          className="jsx-160445868"
+          style={
+            Object {
+              "borderTop": "1px",
+            }
+          }
+        />,
+        <JSXStyle
+          css={
+            Array [
+              "hr.jsx-160445868{height:0;border:0;margin:0;padding:0;position:relative;}",
+            ]
+          }
+          styleId="160445868"
+        />,
+      ],
+    },
+    "ref": null,
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "className": "jsx-160445868",
+          "style": Object {
+            "borderTop": "1px",
+          },
+        },
+        "ref": null,
+        "rendered": null,
+        "type": "hr",
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
+          "css": Array [
+            "hr.jsx-160445868{height:0;border:0;margin:0;padding:0;position:relative;}",
+          ],
+          "styleId": "160445868",
+        },
+        "ref": null,
+        "rendered": null,
+        "type": [Function],
+      },
+    ],
+    "type": Symbol(react.fragment),
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "function",
+      "props": Object {
+        "children": Array [
+          <hr
+            className="jsx-160445868"
+            style={
+              Object {
+                "borderTop": "1px",
+              }
+            }
+          />,
+          <JSXStyle
+            css={
+              Array [
+                "hr.jsx-160445868{height:0;border:0;margin:0;padding:0;position:relative;}",
+              ]
+            }
+            styleId="160445868"
+          />,
+        ],
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "className": "jsx-160445868",
+            "style": Object {
+              "borderTop": "1px",
+            },
+          },
+          "ref": null,
+          "rendered": null,
+          "type": "hr",
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "css": Array [
+              "hr.jsx-160445868{height:0;border:0;margin:0;padding:0;position:relative;}",
+            ],
+            "styleId": "160445868",
+          },
+          "ref": null,
+          "rendered": null,
+          "type": [Function],
+        },
+      ],
+      "type": Symbol(react.fragment),
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+      },
+    },
+  },
+}
+`;

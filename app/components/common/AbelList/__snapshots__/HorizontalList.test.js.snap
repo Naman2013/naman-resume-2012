@@ -1,0 +1,234 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HorizontalList should render correctly 1`] = `
+ShallowWrapper {
+  "length": 1,
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <HorizontalList
+    list={
+      Array [
+        "foo",
+        "bar",
+      ]
+    }
+  />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "function",
+    "props": Object {
+      "children": Array [
+        <ul
+          className="jsx-3148834294"
+        >
+          <li
+            className="jsx-3148834294"
+          >
+            foo
+          </li>
+          <li
+            className="jsx-3148834294"
+          >
+            bar
+          </li>
+        </ul>,
+        <JSXStyle
+          css={
+            Array [
+              "ul.jsx-3148834294{margin:0;padding:0;list-style-type:none;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;font-family:brandon-grotesque, sans-serif;color:#415671;text-transform:uppercase;border-top:1px solid #eaf0f9;border-bottom:1px solid #eaf0f9;box-shadow:inset 0px 5px 20px -5px #e0e0e0;}",
+              "li.jsx-3148834294{-webkit-box-flex:1;-webkit-flex-grow:1;-ms-flex-positive:1;flex-grow:1;font-weight:bold;padding:29.5px 0;padding-left:30px;font-size:11px;border-right:1px solid #eaf0f9;-webkit-letter-spacing:0.4px;-moz-letter-spacing:0.4px;-ms-letter-spacing:0.4px;letter-spacing:0.4px;}",
+              "li.jsx-3148834294:last-child{border-right:none;}",
+            ]
+          }
+          styleId="3148834294"
+        />,
+      ],
+    },
+    "ref": null,
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": Array [
+            <li
+              className="jsx-3148834294"
+            >
+              foo
+            </li>,
+            <li
+              className="jsx-3148834294"
+            >
+              bar
+            </li>,
+          ],
+          "className": "jsx-3148834294",
+        },
+        "ref": null,
+        "rendered": Array [
+          Object {
+            "instance": null,
+            "key": "horizontal-list-foo",
+            "nodeType": "host",
+            "props": Object {
+              "children": "foo",
+              "className": "jsx-3148834294",
+            },
+            "ref": null,
+            "rendered": "foo",
+            "type": "li",
+          },
+          Object {
+            "instance": null,
+            "key": "horizontal-list-bar",
+            "nodeType": "host",
+            "props": Object {
+              "children": "bar",
+              "className": "jsx-3148834294",
+            },
+            "ref": null,
+            "rendered": "bar",
+            "type": "li",
+          },
+        ],
+        "type": "ul",
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
+          "css": Array [
+            "ul.jsx-3148834294{margin:0;padding:0;list-style-type:none;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;font-family:brandon-grotesque, sans-serif;color:#415671;text-transform:uppercase;border-top:1px solid #eaf0f9;border-bottom:1px solid #eaf0f9;box-shadow:inset 0px 5px 20px -5px #e0e0e0;}",
+            "li.jsx-3148834294{-webkit-box-flex:1;-webkit-flex-grow:1;-ms-flex-positive:1;flex-grow:1;font-weight:bold;padding:29.5px 0;padding-left:30px;font-size:11px;border-right:1px solid #eaf0f9;-webkit-letter-spacing:0.4px;-moz-letter-spacing:0.4px;-ms-letter-spacing:0.4px;letter-spacing:0.4px;}",
+            "li.jsx-3148834294:last-child{border-right:none;}",
+          ],
+          "styleId": "3148834294",
+        },
+        "ref": null,
+        "rendered": null,
+        "type": [Function],
+      },
+    ],
+    "type": Symbol(react.fragment),
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "function",
+      "props": Object {
+        "children": Array [
+          <ul
+            className="jsx-3148834294"
+          >
+            <li
+              className="jsx-3148834294"
+            >
+              foo
+            </li>
+            <li
+              className="jsx-3148834294"
+            >
+              bar
+            </li>
+          </ul>,
+          <JSXStyle
+            css={
+              Array [
+                "ul.jsx-3148834294{margin:0;padding:0;list-style-type:none;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;font-family:brandon-grotesque, sans-serif;color:#415671;text-transform:uppercase;border-top:1px solid #eaf0f9;border-bottom:1px solid #eaf0f9;box-shadow:inset 0px 5px 20px -5px #e0e0e0;}",
+                "li.jsx-3148834294{-webkit-box-flex:1;-webkit-flex-grow:1;-ms-flex-positive:1;flex-grow:1;font-weight:bold;padding:29.5px 0;padding-left:30px;font-size:11px;border-right:1px solid #eaf0f9;-webkit-letter-spacing:0.4px;-moz-letter-spacing:0.4px;-ms-letter-spacing:0.4px;letter-spacing:0.4px;}",
+                "li.jsx-3148834294:last-child{border-right:none;}",
+              ]
+            }
+            styleId="3148834294"
+          />,
+        ],
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": Array [
+              <li
+                className="jsx-3148834294"
+              >
+                foo
+              </li>,
+              <li
+                className="jsx-3148834294"
+              >
+                bar
+              </li>,
+            ],
+            "className": "jsx-3148834294",
+          },
+          "ref": null,
+          "rendered": Array [
+            Object {
+              "instance": null,
+              "key": "horizontal-list-foo",
+              "nodeType": "host",
+              "props": Object {
+                "children": "foo",
+                "className": "jsx-3148834294",
+              },
+              "ref": null,
+              "rendered": "foo",
+              "type": "li",
+            },
+            Object {
+              "instance": null,
+              "key": "horizontal-list-bar",
+              "nodeType": "host",
+              "props": Object {
+                "children": "bar",
+                "className": "jsx-3148834294",
+              },
+              "ref": null,
+              "rendered": "bar",
+              "type": "li",
+            },
+          ],
+          "type": "ul",
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "css": Array [
+              "ul.jsx-3148834294{margin:0;padding:0;list-style-type:none;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;font-family:brandon-grotesque, sans-serif;color:#415671;text-transform:uppercase;border-top:1px solid #eaf0f9;border-bottom:1px solid #eaf0f9;box-shadow:inset 0px 5px 20px -5px #e0e0e0;}",
+              "li.jsx-3148834294{-webkit-box-flex:1;-webkit-flex-grow:1;-ms-flex-positive:1;flex-grow:1;font-weight:bold;padding:29.5px 0;padding-left:30px;font-size:11px;border-right:1px solid #eaf0f9;-webkit-letter-spacing:0.4px;-moz-letter-spacing:0.4px;-ms-letter-spacing:0.4px;letter-spacing:0.4px;}",
+              "li.jsx-3148834294:last-child{border-right:none;}",
+            ],
+            "styleId": "3148834294",
+          },
+          "ref": null,
+          "rendered": null,
+          "type": [Function],
+        },
+      ],
+      "type": Symbol(react.fragment),
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+      },
+    },
+  },
+}
+`;

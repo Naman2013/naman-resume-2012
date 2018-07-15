@@ -1,0 +1,342 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GuideTopics should render correctly 1`] = `
+ShallowWrapper {
+  "length": 1,
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <GuideTopics
+    list={
+      Array [
+        Object {
+          "iconURL": "https://vega.slooh.com/icons/home/observatory.png",
+          "title": "Saturn",
+        },
+        Object {
+          "iconURL": "https://vega.slooh.com/icons/home/jupiter-icon.png",
+          "title": "Mars",
+        },
+      ]
+    }
+  />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "function",
+    "props": Object {
+      "breakpoints": Array [
+        "screen and (min-width: 768px)",
+        "screen and (min-width: 1024px)",
+        "screen and (min-width: 1366px)",
+      ],
+      "children": Array [
+        <ul
+          className="jsx-1394131357"
+        >
+          <li
+            className="jsx-1394131357 topic"
+          >
+            <LailaTile
+              iconURL="https://vega.slooh.com/icons/home/observatory.png"
+              title="Saturn"
+            />
+          </li>
+          <li
+            className="jsx-1394131357 topic"
+          >
+            <LailaTile
+              iconURL="https://vega.slooh.com/icons/home/jupiter-icon.png"
+              title="Mars"
+            />
+          </li>
+        </ul>,
+        <JSXStyle
+          css={
+            Array [
+              "ul.jsx-1394131357{margin:0 auto;padding:0;list-style-type:none;width:96%;}",
+              ".topic.jsx-1394131357{margin-bottom:10px;}",
+              "@media screen and (min-width: 768px){ul.jsx-1394131357{width:100%;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-wrap:wrap;-ms-flex-wrap:wrap;flex-wrap:wrap;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;}}",
+            ]
+          }
+          styleId="1394131357"
+        />,
+      ],
+      "theme": Object {},
+      "widths": Array [
+        "620px",
+        "940px",
+        "940px",
+      ],
+    },
+    "ref": null,
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": Array [
+            <li
+              className="jsx-1394131357 topic"
+            >
+              <LailaTile
+                iconURL="https://vega.slooh.com/icons/home/observatory.png"
+                title="Saturn"
+              />
+            </li>,
+            <li
+              className="jsx-1394131357 topic"
+            >
+              <LailaTile
+                iconURL="https://vega.slooh.com/icons/home/jupiter-icon.png"
+                title="Mars"
+              />
+            </li>,
+          ],
+          "className": "jsx-1394131357",
+        },
+        "ref": null,
+        "rendered": Array [
+          Object {
+            "instance": null,
+            "key": "https://vega.slooh.com/icons/home/observatory.png-Saturn",
+            "nodeType": "host",
+            "props": Object {
+              "children": <LailaTile
+                iconURL="https://vega.slooh.com/icons/home/observatory.png"
+                title="Saturn"
+              />,
+              "className": "jsx-1394131357 topic",
+            },
+            "ref": null,
+            "rendered": Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "function",
+              "props": Object {
+                "iconURL": "https://vega.slooh.com/icons/home/observatory.png",
+                "title": "Saturn",
+              },
+              "ref": null,
+              "rendered": null,
+              "type": [Function],
+            },
+            "type": "li",
+          },
+          Object {
+            "instance": null,
+            "key": "https://vega.slooh.com/icons/home/jupiter-icon.png-Mars",
+            "nodeType": "host",
+            "props": Object {
+              "children": <LailaTile
+                iconURL="https://vega.slooh.com/icons/home/jupiter-icon.png"
+                title="Mars"
+              />,
+              "className": "jsx-1394131357 topic",
+            },
+            "ref": null,
+            "rendered": Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "function",
+              "props": Object {
+                "iconURL": "https://vega.slooh.com/icons/home/jupiter-icon.png",
+                "title": "Mars",
+              },
+              "ref": null,
+              "rendered": null,
+              "type": [Function],
+            },
+            "type": "li",
+          },
+        ],
+        "type": "ul",
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
+          "css": Array [
+            "ul.jsx-1394131357{margin:0 auto;padding:0;list-style-type:none;width:96%;}",
+            ".topic.jsx-1394131357{margin-bottom:10px;}",
+            "@media screen and (min-width: 768px){ul.jsx-1394131357{width:100%;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-wrap:wrap;-ms-flex-wrap:wrap;flex-wrap:wrap;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;}}",
+          ],
+          "styleId": "1394131357",
+        },
+        "ref": null,
+        "rendered": null,
+        "type": [Function],
+      },
+    ],
+    "type": [Function],
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "function",
+      "props": Object {
+        "breakpoints": Array [
+          "screen and (min-width: 768px)",
+          "screen and (min-width: 1024px)",
+          "screen and (min-width: 1366px)",
+        ],
+        "children": Array [
+          <ul
+            className="jsx-1394131357"
+          >
+            <li
+              className="jsx-1394131357 topic"
+            >
+              <LailaTile
+                iconURL="https://vega.slooh.com/icons/home/observatory.png"
+                title="Saturn"
+              />
+            </li>
+            <li
+              className="jsx-1394131357 topic"
+            >
+              <LailaTile
+                iconURL="https://vega.slooh.com/icons/home/jupiter-icon.png"
+                title="Mars"
+              />
+            </li>
+          </ul>,
+          <JSXStyle
+            css={
+              Array [
+                "ul.jsx-1394131357{margin:0 auto;padding:0;list-style-type:none;width:96%;}",
+                ".topic.jsx-1394131357{margin-bottom:10px;}",
+                "@media screen and (min-width: 768px){ul.jsx-1394131357{width:100%;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-wrap:wrap;-ms-flex-wrap:wrap;flex-wrap:wrap;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;}}",
+              ]
+            }
+            styleId="1394131357"
+          />,
+        ],
+        "theme": Object {},
+        "widths": Array [
+          "620px",
+          "940px",
+          "940px",
+        ],
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": Array [
+              <li
+                className="jsx-1394131357 topic"
+              >
+                <LailaTile
+                  iconURL="https://vega.slooh.com/icons/home/observatory.png"
+                  title="Saturn"
+                />
+              </li>,
+              <li
+                className="jsx-1394131357 topic"
+              >
+                <LailaTile
+                  iconURL="https://vega.slooh.com/icons/home/jupiter-icon.png"
+                  title="Mars"
+                />
+              </li>,
+            ],
+            "className": "jsx-1394131357",
+          },
+          "ref": null,
+          "rendered": Array [
+            Object {
+              "instance": null,
+              "key": "https://vega.slooh.com/icons/home/observatory.png-Saturn",
+              "nodeType": "host",
+              "props": Object {
+                "children": <LailaTile
+                  iconURL="https://vega.slooh.com/icons/home/observatory.png"
+                  title="Saturn"
+                />,
+                "className": "jsx-1394131357 topic",
+              },
+              "ref": null,
+              "rendered": Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "function",
+                "props": Object {
+                  "iconURL": "https://vega.slooh.com/icons/home/observatory.png",
+                  "title": "Saturn",
+                },
+                "ref": null,
+                "rendered": null,
+                "type": [Function],
+              },
+              "type": "li",
+            },
+            Object {
+              "instance": null,
+              "key": "https://vega.slooh.com/icons/home/jupiter-icon.png-Mars",
+              "nodeType": "host",
+              "props": Object {
+                "children": <LailaTile
+                  iconURL="https://vega.slooh.com/icons/home/jupiter-icon.png"
+                  title="Mars"
+                />,
+                "className": "jsx-1394131357 topic",
+              },
+              "ref": null,
+              "rendered": Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "function",
+                "props": Object {
+                  "iconURL": "https://vega.slooh.com/icons/home/jupiter-icon.png",
+                  "title": "Mars",
+                },
+                "ref": null,
+                "rendered": null,
+                "type": [Function],
+              },
+              "type": "li",
+            },
+          ],
+          "type": "ul",
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "css": Array [
+              "ul.jsx-1394131357{margin:0 auto;padding:0;list-style-type:none;width:96%;}",
+              ".topic.jsx-1394131357{margin-bottom:10px;}",
+              "@media screen and (min-width: 768px){ul.jsx-1394131357{width:100%;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-wrap:wrap;-ms-flex-wrap:wrap;flex-wrap:wrap;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;}}",
+            ],
+            "styleId": "1394131357",
+          },
+          "ref": null,
+          "rendered": null,
+          "type": [Function],
+        },
+      ],
+      "type": [Function],
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+      },
+    },
+  },
+}
+`;

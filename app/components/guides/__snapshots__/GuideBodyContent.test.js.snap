@@ -1,0 +1,188 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GuideBodyContent should render correctly 1`] = `
+ShallowWrapper {
+  "length": 1,
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <GuideBodyContent
+    content="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+    title=""
+  />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "host",
+    "props": Object {
+      "children": Array [
+        <h4
+          className="jsx-3529671003 title"
+        >
+          
+        </h4>,
+        <p
+          className="jsx-3529671003"
+        >
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </p>,
+        <JSXStyle
+          css={
+            Array [
+              ".root.jsx-3529671003{color:#415671;font-family:brandon-grotesque, sans-serif;padding:0 35px;padding-bottom:35px;}",
+              ".title.jsx-3529671003{margin:0;padding:26px 0;text-transform:uppercase;font-size:12px;-webkit-letter-spacing:2px;-moz-letter-spacing:2px;-ms-letter-spacing:2px;letter-spacing:2px;}",
+              "p.jsx-3529671003{color:#6e7b8c;margin:0;padding:0;margin-bottom:32px;font-family:adobe-garamond-pro, serif;font-size:18px;line-height:1.75;}",
+              "@media screen and (min-width: 768px){.root.jsx-3529671003{padding:0 55px;padding-bottom:55px;margin-top:-20px;}.title.jsx-3529671003{padding-top:60px;padding-bottom:30px;}}",
+              "@media screen and (min-width: 1024px){.root.jsx-3529671003{padding:0 75px;padding-bottom:75px;}}",
+              "@media screen and (min-width: 1366px){.root.jsx-3529671003{padding:0 95px;padding-bottom:95px;}}",
+            ]
+          }
+          styleId="3529671003"
+        />,
+      ],
+      "className": "jsx-3529671003 root",
+    },
+    "ref": null,
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": "",
+          "className": "jsx-3529671003 title",
+        },
+        "ref": null,
+        "rendered": "",
+        "type": "h4",
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+          "className": "jsx-3529671003",
+        },
+        "ref": null,
+        "rendered": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+        "type": "p",
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
+          "css": Array [
+            ".root.jsx-3529671003{color:#415671;font-family:brandon-grotesque, sans-serif;padding:0 35px;padding-bottom:35px;}",
+            ".title.jsx-3529671003{margin:0;padding:26px 0;text-transform:uppercase;font-size:12px;-webkit-letter-spacing:2px;-moz-letter-spacing:2px;-ms-letter-spacing:2px;letter-spacing:2px;}",
+            "p.jsx-3529671003{color:#6e7b8c;margin:0;padding:0;margin-bottom:32px;font-family:adobe-garamond-pro, serif;font-size:18px;line-height:1.75;}",
+            "@media screen and (min-width: 768px){.root.jsx-3529671003{padding:0 55px;padding-bottom:55px;margin-top:-20px;}.title.jsx-3529671003{padding-top:60px;padding-bottom:30px;}}",
+            "@media screen and (min-width: 1024px){.root.jsx-3529671003{padding:0 75px;padding-bottom:75px;}}",
+            "@media screen and (min-width: 1366px){.root.jsx-3529671003{padding:0 95px;padding-bottom:95px;}}",
+          ],
+          "styleId": "3529671003",
+        },
+        "ref": null,
+        "rendered": null,
+        "type": [Function],
+      },
+    ],
+    "type": "div",
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": Array [
+          <h4
+            className="jsx-3529671003 title"
+          >
+            
+          </h4>,
+          <p
+            className="jsx-3529671003"
+          >
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+          </p>,
+          <JSXStyle
+            css={
+              Array [
+                ".root.jsx-3529671003{color:#415671;font-family:brandon-grotesque, sans-serif;padding:0 35px;padding-bottom:35px;}",
+                ".title.jsx-3529671003{margin:0;padding:26px 0;text-transform:uppercase;font-size:12px;-webkit-letter-spacing:2px;-moz-letter-spacing:2px;-ms-letter-spacing:2px;letter-spacing:2px;}",
+                "p.jsx-3529671003{color:#6e7b8c;margin:0;padding:0;margin-bottom:32px;font-family:adobe-garamond-pro, serif;font-size:18px;line-height:1.75;}",
+                "@media screen and (min-width: 768px){.root.jsx-3529671003{padding:0 55px;padding-bottom:55px;margin-top:-20px;}.title.jsx-3529671003{padding-top:60px;padding-bottom:30px;}}",
+                "@media screen and (min-width: 1024px){.root.jsx-3529671003{padding:0 75px;padding-bottom:75px;}}",
+                "@media screen and (min-width: 1366px){.root.jsx-3529671003{padding:0 95px;padding-bottom:95px;}}",
+              ]
+            }
+            styleId="3529671003"
+          />,
+        ],
+        "className": "jsx-3529671003 root",
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": "",
+            "className": "jsx-3529671003 title",
+          },
+          "ref": null,
+          "rendered": "",
+          "type": "h4",
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+            "className": "jsx-3529671003",
+          },
+          "ref": null,
+          "rendered": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+          "type": "p",
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "css": Array [
+              ".root.jsx-3529671003{color:#415671;font-family:brandon-grotesque, sans-serif;padding:0 35px;padding-bottom:35px;}",
+              ".title.jsx-3529671003{margin:0;padding:26px 0;text-transform:uppercase;font-size:12px;-webkit-letter-spacing:2px;-moz-letter-spacing:2px;-ms-letter-spacing:2px;letter-spacing:2px;}",
+              "p.jsx-3529671003{color:#6e7b8c;margin:0;padding:0;margin-bottom:32px;font-family:adobe-garamond-pro, serif;font-size:18px;line-height:1.75;}",
+              "@media screen and (min-width: 768px){.root.jsx-3529671003{padding:0 55px;padding-bottom:55px;margin-top:-20px;}.title.jsx-3529671003{padding-top:60px;padding-bottom:30px;}}",
+              "@media screen and (min-width: 1024px){.root.jsx-3529671003{padding:0 75px;padding-bottom:75px;}}",
+              "@media screen and (min-width: 1366px){.root.jsx-3529671003{padding:0 95px;padding-bottom:95px;}}",
+            ],
+            "styleId": "3529671003",
+          },
+          "ref": null,
+          "rendered": null,
+          "type": [Function],
+        },
+      ],
+      "type": "div",
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+      },
+    },
+  },
+}
+`;

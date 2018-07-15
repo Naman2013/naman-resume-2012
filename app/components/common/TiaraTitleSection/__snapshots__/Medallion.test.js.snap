@@ -1,0 +1,178 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Medallion should render correctly 1`] = `
+ShallowWrapper {
+  "length": 1,
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <Medallion
+    dimension={50}
+    theme={Object {}}
+  />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "host",
+    "props": Object {
+      "children": Array [
+        <img
+          alt=""
+          className="jsx-1285550702"
+          height={25}
+          src={undefined}
+          width={25}
+        />,
+        <JSXStyle
+          css={
+            Array [
+              "div.__jsx-style-dynamic-selector{position:relative;width:50px;height:50px;border-radius:50%;border:6px solid #e2b979;background:url(https://vega.slooh.com/assets/v4/common/Dark_Pattern_Featured_LargeCanvas.png);margin:0;padding:0;}",
+              "img.__jsx-style-dynamic-selector{position:absolute;top:50%;left:50%;-webkit-transform:translate(-50%,-50%);-ms-transform:translate(-50%,-50%);transform:translate(-50%,-50%);}",
+            ]
+          }
+          dynamic={
+            Array [
+              50,
+              50,
+              "#e2b979",
+              "https://vega.slooh.com/assets/v4/common/Dark_Pattern_Featured_LargeCanvas.png",
+            ]
+          }
+          styleId="4212983649"
+        />,
+      ],
+      "className": "jsx-1285550702",
+      "style": Object {},
+    },
+    "ref": null,
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "alt": "",
+          "className": "jsx-1285550702",
+          "height": 25,
+          "src": undefined,
+          "width": 25,
+        },
+        "ref": null,
+        "rendered": null,
+        "type": "img",
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
+          "css": Array [
+            "div.__jsx-style-dynamic-selector{position:relative;width:50px;height:50px;border-radius:50%;border:6px solid #e2b979;background:url(https://vega.slooh.com/assets/v4/common/Dark_Pattern_Featured_LargeCanvas.png);margin:0;padding:0;}",
+            "img.__jsx-style-dynamic-selector{position:absolute;top:50%;left:50%;-webkit-transform:translate(-50%,-50%);-ms-transform:translate(-50%,-50%);transform:translate(-50%,-50%);}",
+          ],
+          "dynamic": Array [
+            50,
+            50,
+            "#e2b979",
+            "https://vega.slooh.com/assets/v4/common/Dark_Pattern_Featured_LargeCanvas.png",
+          ],
+          "styleId": "4212983649",
+        },
+        "ref": null,
+        "rendered": null,
+        "type": [Function],
+      },
+    ],
+    "type": "div",
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": Array [
+          <img
+            alt=""
+            className="jsx-1285550702"
+            height={25}
+            src={undefined}
+            width={25}
+          />,
+          <JSXStyle
+            css={
+              Array [
+                "div.__jsx-style-dynamic-selector{position:relative;width:50px;height:50px;border-radius:50%;border:6px solid #e2b979;background:url(https://vega.slooh.com/assets/v4/common/Dark_Pattern_Featured_LargeCanvas.png);margin:0;padding:0;}",
+                "img.__jsx-style-dynamic-selector{position:absolute;top:50%;left:50%;-webkit-transform:translate(-50%,-50%);-ms-transform:translate(-50%,-50%);transform:translate(-50%,-50%);}",
+              ]
+            }
+            dynamic={
+              Array [
+                50,
+                50,
+                "#e2b979",
+                "https://vega.slooh.com/assets/v4/common/Dark_Pattern_Featured_LargeCanvas.png",
+              ]
+            }
+            styleId="4212983649"
+          />,
+        ],
+        "className": "jsx-1285550702",
+        "style": Object {},
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "alt": "",
+            "className": "jsx-1285550702",
+            "height": 25,
+            "src": undefined,
+            "width": 25,
+          },
+          "ref": null,
+          "rendered": null,
+          "type": "img",
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "css": Array [
+              "div.__jsx-style-dynamic-selector{position:relative;width:50px;height:50px;border-radius:50%;border:6px solid #e2b979;background:url(https://vega.slooh.com/assets/v4/common/Dark_Pattern_Featured_LargeCanvas.png);margin:0;padding:0;}",
+              "img.__jsx-style-dynamic-selector{position:absolute;top:50%;left:50%;-webkit-transform:translate(-50%,-50%);-ms-transform:translate(-50%,-50%);transform:translate(-50%,-50%);}",
+            ],
+            "dynamic": Array [
+              50,
+              50,
+              "#e2b979",
+              "https://vega.slooh.com/assets/v4/common/Dark_Pattern_Featured_LargeCanvas.png",
+            ],
+            "styleId": "4212983649",
+          },
+          "ref": null,
+          "rendered": null,
+          "type": [Function],
+        },
+      ],
+      "type": "div",
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+      },
+    },
+  },
+}
+`;

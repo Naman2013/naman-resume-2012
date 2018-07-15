@@ -3,6 +3,11 @@ import { Enum } from 'enumify';
 const DESKTOP_MINIMUM_PIXELS = 1024;
 const TABLET_MINIMUM_PIXELS = 768;
 
+export const SCREEN_MEDIUM = 768;
+export const SCREEN_LARGE = 1024;
+export const SCREEN_XLARGE = 1366;
+
+
 class DeviceConfiguration extends Enum {}
 DeviceConfiguration.initEnum({
   DESKTOP: {
@@ -21,5 +26,9 @@ export const isTablet = currentWidth =>
 
 export const isMobile = currentWidth =>
   !isDesktop(currentWidth) && !isTablet(currentWidth);
+
+export const isScreenMedium = currentWidth => currentWidth >= SCREEN_MEDIUM;
+export const isScreenLarge = currentWidth => currentWidth >= SCREEN_LARGE;
+export const isScreenXLarge = currentWidth => currentWidth >= SCREEN_XLARGE;
 
 export default DeviceConfiguration;

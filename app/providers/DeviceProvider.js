@@ -9,27 +9,42 @@
 
   render() {
     return (
-    <div>
+    <Fragment>
       <DeviceContext.Consumer>
         {context => <MyComponent {...context} />}
       </DeviceContext.Consumer>
-    </div>
+    </Fragment>
   );
   }
 */
 
 import React, { Component } from 'react';
-import debounce from 'lodash/debounce';
-import { isDesktop, isTablet, isMobile } from './deviceConfiguration';
+import PropTypes from 'prop-types';
+import throttle from 'lodash/throttle';
+import {
+  isDesktop,
+  isTablet,
+  isMobile,
+  isScreenMedium,
+  isScreenLarge,
+  isScreenXLarge,
+} from './deviceConfiguration';
 
-const PAGE_RESIZE_DEBOUNCE = 500;
+const PAGE_RESIZE_THROTTLE_DURATION = 250;
 export const DeviceContext = React.createContext();
 
 class DeviceProvider extends Component {
+  static propTypes = {
+    children: PropTypes.node.isRequired,
+  }
+
   state = {
     isDesktop: isDesktop(window.innerWidth),
     isMobile: isMobile(window.innerWidth),
     isTablet: isTablet(window.innerWidth),
+    isScreenMedium: isScreenMedium(window.innerWidth),
+    isScreenLarge: isScreenLarge(window.innerWidth),
+    isScreenXLarge: isScreenXLarge(window.innerWidth),
     windowWidth: window.innerWidth,
   }
 
@@ -41,14 +56,17 @@ class DeviceProvider extends Component {
     window.removeEventListener('resize', this.handleResize);
   }
 
-  handleResize = debounce(() => {
+  handleResize = throttle(() => {
     this.setState({
       isDesktop: isDesktop(window.innerWidth),
       isMobile: isMobile(window.innerWidth),
       isTablet: isTablet(window.innerWidth),
+      isScreenMedium: isScreenMedium(window.innerWidth),
+      isScreenLarge: isScreenLarge(window.innerWidth),
+      isScreenXLarge: isScreenXLarge(window.innerWidth),
       windowWidth: window.innerWidth,
     });
-  }, PAGE_RESIZE_DEBOUNCE)
+  }, PAGE_RESIZE_THROTTLE_DURATION)
 
   render() {
     const { children } = this.props;

@@ -1,0 +1,577 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TiaraTitleSection should render correctly 1`] = `
+ShallowWrapper {
+  "length": 1,
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <TiaraTitleSection
+    iconURL="foo.com"
+    preTitle="A guide to"
+    title="The solar system"
+  />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "host",
+    "props": Object {
+      "children": Array [
+        <div
+          className="jsx-1727865174 center-line"
+        />,
+        <CenterColumn
+          breakpoints={
+            Array [
+              "screen and (min-width: 768px)",
+              "screen and (min-width: 1024px)",
+              "screen and (min-width: 1366px)",
+            ]
+          }
+          theme={
+            Object {
+              "background": "url(https://vega.slooh.com/assets/v4/common/White_Paper_Subtle.png)",
+              "boxShadow": "rgb(191, 191, 191) 0px 11px 20px -10px",
+              "position": "relative",
+              "zIndex": "10",
+            }
+          }
+          widths={
+            Array [
+              "620px",
+              "780px",
+              "940px",
+            ]
+          }
+        >
+          <Medallion
+            dimension={70}
+            iconURL="foo.com"
+            theme={
+              Object {
+                "left": "50%",
+                "position": "absolute",
+                "top": "-30px",
+                "transform": "translateX(-50%)",
+                "zIndex": "20",
+              }
+            }
+          />
+          <HR
+            theme={
+              Object {
+                "borderTop": "2px solid #c2a068",
+                "top": "6px",
+              }
+            }
+          />
+          <HR
+            theme={
+              Object {
+                "borderTop": "1px solid #e2b979",
+                "top": "9px",
+              }
+            }
+          />
+          <h2
+            className="jsx-1727865174 title"
+          >
+            <span
+              className="jsx-1727865174 pre-title"
+            >
+              A guide to
+            </span>
+            The solar system
+          </h2>
+        </CenterColumn>,
+        <JSXStyle
+          css={
+            Array [
+              ".root.jsx-1727865174{position:relative;text-align:center;font-family:brandon-grotesque, sans-serif;color:#415671;background:url(https://vega.slooh.com/assets/v4/common/Dark_Pattern_Featured_LargeCanvas.png);padding-top:70px;}",
+              ".center-line.jsx-1727865174{position:absolute;top:0;z-index:5;width:100%;height:100%;width:50%;border-right:2px solid #415671;}",
+              ".title.jsx-1727865174{padding-top:80px;padding-bottom:60px;font-weight:300;text-transform:capitalize;font-size:22px;font-family:adobe-garamond-pro, serif;}",
+              ".pre-title.jsx-1727865174{display:block;text-transform:uppercase;font-weight:bold;-webkit-letter-spacing:2px;-moz-letter-spacing:2px;-ms-letter-spacing:2px;letter-spacing:2px;font-size:10px;margin-bottom:20px;font-family:brandon-grotesque, sans-serif;}",
+              "@media screen and (min-width: 768px){.root.jsx-1727865174{padding-top:120px;}.title.jsx-1727865174{font-size:36px;}}",
+              "@media screen and (min-width: 1024px){.title.jsx-1727865174{font-size:44px;padding-bottom:120px;}.pre-title.jsx-1727865174{margin-bottom:50px;}}",
+              "@media screen and (min-width: 1366px){.root.jsx-1727865174{padding-top:160px;}.title.jsx-1727865174{font-size:42px;}}",
+            ]
+          }
+          styleId="1727865174"
+        />,
+      ],
+      "className": "jsx-1727865174 root",
+    },
+    "ref": null,
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "className": "jsx-1727865174 center-line",
+        },
+        "ref": null,
+        "rendered": null,
+        "type": "div",
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "function",
+        "props": Object {
+          "breakpoints": Array [
+            "screen and (min-width: 768px)",
+            "screen and (min-width: 1024px)",
+            "screen and (min-width: 1366px)",
+          ],
+          "children": Array [
+            <Medallion
+              dimension={70}
+              iconURL="foo.com"
+              theme={
+                Object {
+                  "left": "50%",
+                  "position": "absolute",
+                  "top": "-30px",
+                  "transform": "translateX(-50%)",
+                  "zIndex": "20",
+                }
+              }
+            />,
+            <HR
+              theme={
+                Object {
+                  "borderTop": "2px solid #c2a068",
+                  "top": "6px",
+                }
+              }
+            />,
+            <HR
+              theme={
+                Object {
+                  "borderTop": "1px solid #e2b979",
+                  "top": "9px",
+                }
+              }
+            />,
+            <h2
+              className="jsx-1727865174 title"
+            >
+              <span
+                className="jsx-1727865174 pre-title"
+              >
+                A guide to
+              </span>
+              The solar system
+            </h2>,
+          ],
+          "theme": Object {
+            "background": "url(https://vega.slooh.com/assets/v4/common/White_Paper_Subtle.png)",
+            "boxShadow": "rgb(191, 191, 191) 0px 11px 20px -10px",
+            "position": "relative",
+            "zIndex": "10",
+          },
+          "widths": Array [
+            "620px",
+            "780px",
+            "940px",
+          ],
+        },
+        "ref": null,
+        "rendered": Array [
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "function",
+            "props": Object {
+              "dimension": 70,
+              "iconURL": "foo.com",
+              "theme": Object {
+                "left": "50%",
+                "position": "absolute",
+                "top": "-30px",
+                "transform": "translateX(-50%)",
+                "zIndex": "20",
+              },
+            },
+            "ref": null,
+            "rendered": null,
+            "type": [Function],
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "function",
+            "props": Object {
+              "theme": Object {
+                "borderTop": "2px solid #c2a068",
+                "top": "6px",
+              },
+            },
+            "ref": null,
+            "rendered": null,
+            "type": [Function],
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "function",
+            "props": Object {
+              "theme": Object {
+                "borderTop": "1px solid #e2b979",
+                "top": "9px",
+              },
+            },
+            "ref": null,
+            "rendered": null,
+            "type": [Function],
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": Array [
+                <span
+                  className="jsx-1727865174 pre-title"
+                >
+                  A guide to
+                </span>,
+                "The solar system",
+              ],
+              "className": "jsx-1727865174 title",
+            },
+            "ref": null,
+            "rendered": Array [
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": "A guide to",
+                  "className": "jsx-1727865174 pre-title",
+                },
+                "ref": null,
+                "rendered": "A guide to",
+                "type": "span",
+              },
+              "The solar system",
+            ],
+            "type": "h2",
+          },
+        ],
+        "type": [Function],
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
+          "css": Array [
+            ".root.jsx-1727865174{position:relative;text-align:center;font-family:brandon-grotesque, sans-serif;color:#415671;background:url(https://vega.slooh.com/assets/v4/common/Dark_Pattern_Featured_LargeCanvas.png);padding-top:70px;}",
+            ".center-line.jsx-1727865174{position:absolute;top:0;z-index:5;width:100%;height:100%;width:50%;border-right:2px solid #415671;}",
+            ".title.jsx-1727865174{padding-top:80px;padding-bottom:60px;font-weight:300;text-transform:capitalize;font-size:22px;font-family:adobe-garamond-pro, serif;}",
+            ".pre-title.jsx-1727865174{display:block;text-transform:uppercase;font-weight:bold;-webkit-letter-spacing:2px;-moz-letter-spacing:2px;-ms-letter-spacing:2px;letter-spacing:2px;font-size:10px;margin-bottom:20px;font-family:brandon-grotesque, sans-serif;}",
+            "@media screen and (min-width: 768px){.root.jsx-1727865174{padding-top:120px;}.title.jsx-1727865174{font-size:36px;}}",
+            "@media screen and (min-width: 1024px){.title.jsx-1727865174{font-size:44px;padding-bottom:120px;}.pre-title.jsx-1727865174{margin-bottom:50px;}}",
+            "@media screen and (min-width: 1366px){.root.jsx-1727865174{padding-top:160px;}.title.jsx-1727865174{font-size:42px;}}",
+          ],
+          "styleId": "1727865174",
+        },
+        "ref": null,
+        "rendered": null,
+        "type": [Function],
+      },
+    ],
+    "type": "div",
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": Array [
+          <div
+            className="jsx-1727865174 center-line"
+          />,
+          <CenterColumn
+            breakpoints={
+              Array [
+                "screen and (min-width: 768px)",
+                "screen and (min-width: 1024px)",
+                "screen and (min-width: 1366px)",
+              ]
+            }
+            theme={
+              Object {
+                "background": "url(https://vega.slooh.com/assets/v4/common/White_Paper_Subtle.png)",
+                "boxShadow": "rgb(191, 191, 191) 0px 11px 20px -10px",
+                "position": "relative",
+                "zIndex": "10",
+              }
+            }
+            widths={
+              Array [
+                "620px",
+                "780px",
+                "940px",
+              ]
+            }
+          >
+            <Medallion
+              dimension={70}
+              iconURL="foo.com"
+              theme={
+                Object {
+                  "left": "50%",
+                  "position": "absolute",
+                  "top": "-30px",
+                  "transform": "translateX(-50%)",
+                  "zIndex": "20",
+                }
+              }
+            />
+            <HR
+              theme={
+                Object {
+                  "borderTop": "2px solid #c2a068",
+                  "top": "6px",
+                }
+              }
+            />
+            <HR
+              theme={
+                Object {
+                  "borderTop": "1px solid #e2b979",
+                  "top": "9px",
+                }
+              }
+            />
+            <h2
+              className="jsx-1727865174 title"
+            >
+              <span
+                className="jsx-1727865174 pre-title"
+              >
+                A guide to
+              </span>
+              The solar system
+            </h2>
+          </CenterColumn>,
+          <JSXStyle
+            css={
+              Array [
+                ".root.jsx-1727865174{position:relative;text-align:center;font-family:brandon-grotesque, sans-serif;color:#415671;background:url(https://vega.slooh.com/assets/v4/common/Dark_Pattern_Featured_LargeCanvas.png);padding-top:70px;}",
+                ".center-line.jsx-1727865174{position:absolute;top:0;z-index:5;width:100%;height:100%;width:50%;border-right:2px solid #415671;}",
+                ".title.jsx-1727865174{padding-top:80px;padding-bottom:60px;font-weight:300;text-transform:capitalize;font-size:22px;font-family:adobe-garamond-pro, serif;}",
+                ".pre-title.jsx-1727865174{display:block;text-transform:uppercase;font-weight:bold;-webkit-letter-spacing:2px;-moz-letter-spacing:2px;-ms-letter-spacing:2px;letter-spacing:2px;font-size:10px;margin-bottom:20px;font-family:brandon-grotesque, sans-serif;}",
+                "@media screen and (min-width: 768px){.root.jsx-1727865174{padding-top:120px;}.title.jsx-1727865174{font-size:36px;}}",
+                "@media screen and (min-width: 1024px){.title.jsx-1727865174{font-size:44px;padding-bottom:120px;}.pre-title.jsx-1727865174{margin-bottom:50px;}}",
+                "@media screen and (min-width: 1366px){.root.jsx-1727865174{padding-top:160px;}.title.jsx-1727865174{font-size:42px;}}",
+              ]
+            }
+            styleId="1727865174"
+          />,
+        ],
+        "className": "jsx-1727865174 root",
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "className": "jsx-1727865174 center-line",
+          },
+          "ref": null,
+          "rendered": null,
+          "type": "div",
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "function",
+          "props": Object {
+            "breakpoints": Array [
+              "screen and (min-width: 768px)",
+              "screen and (min-width: 1024px)",
+              "screen and (min-width: 1366px)",
+            ],
+            "children": Array [
+              <Medallion
+                dimension={70}
+                iconURL="foo.com"
+                theme={
+                  Object {
+                    "left": "50%",
+                    "position": "absolute",
+                    "top": "-30px",
+                    "transform": "translateX(-50%)",
+                    "zIndex": "20",
+                  }
+                }
+              />,
+              <HR
+                theme={
+                  Object {
+                    "borderTop": "2px solid #c2a068",
+                    "top": "6px",
+                  }
+                }
+              />,
+              <HR
+                theme={
+                  Object {
+                    "borderTop": "1px solid #e2b979",
+                    "top": "9px",
+                  }
+                }
+              />,
+              <h2
+                className="jsx-1727865174 title"
+              >
+                <span
+                  className="jsx-1727865174 pre-title"
+                >
+                  A guide to
+                </span>
+                The solar system
+              </h2>,
+            ],
+            "theme": Object {
+              "background": "url(https://vega.slooh.com/assets/v4/common/White_Paper_Subtle.png)",
+              "boxShadow": "rgb(191, 191, 191) 0px 11px 20px -10px",
+              "position": "relative",
+              "zIndex": "10",
+            },
+            "widths": Array [
+              "620px",
+              "780px",
+              "940px",
+            ],
+          },
+          "ref": null,
+          "rendered": Array [
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "function",
+              "props": Object {
+                "dimension": 70,
+                "iconURL": "foo.com",
+                "theme": Object {
+                  "left": "50%",
+                  "position": "absolute",
+                  "top": "-30px",
+                  "transform": "translateX(-50%)",
+                  "zIndex": "20",
+                },
+              },
+              "ref": null,
+              "rendered": null,
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "function",
+              "props": Object {
+                "theme": Object {
+                  "borderTop": "2px solid #c2a068",
+                  "top": "6px",
+                },
+              },
+              "ref": null,
+              "rendered": null,
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "function",
+              "props": Object {
+                "theme": Object {
+                  "borderTop": "1px solid #e2b979",
+                  "top": "9px",
+                },
+              },
+              "ref": null,
+              "rendered": null,
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": Array [
+                  <span
+                    className="jsx-1727865174 pre-title"
+                  >
+                    A guide to
+                  </span>,
+                  "The solar system",
+                ],
+                "className": "jsx-1727865174 title",
+              },
+              "ref": null,
+              "rendered": Array [
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": "A guide to",
+                    "className": "jsx-1727865174 pre-title",
+                  },
+                  "ref": null,
+                  "rendered": "A guide to",
+                  "type": "span",
+                },
+                "The solar system",
+              ],
+              "type": "h2",
+            },
+          ],
+          "type": [Function],
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "css": Array [
+              ".root.jsx-1727865174{position:relative;text-align:center;font-family:brandon-grotesque, sans-serif;color:#415671;background:url(https://vega.slooh.com/assets/v4/common/Dark_Pattern_Featured_LargeCanvas.png);padding-top:70px;}",
+              ".center-line.jsx-1727865174{position:absolute;top:0;z-index:5;width:100%;height:100%;width:50%;border-right:2px solid #415671;}",
+              ".title.jsx-1727865174{padding-top:80px;padding-bottom:60px;font-weight:300;text-transform:capitalize;font-size:22px;font-family:adobe-garamond-pro, serif;}",
+              ".pre-title.jsx-1727865174{display:block;text-transform:uppercase;font-weight:bold;-webkit-letter-spacing:2px;-moz-letter-spacing:2px;-ms-letter-spacing:2px;letter-spacing:2px;font-size:10px;margin-bottom:20px;font-family:brandon-grotesque, sans-serif;}",
+              "@media screen and (min-width: 768px){.root.jsx-1727865174{padding-top:120px;}.title.jsx-1727865174{font-size:36px;}}",
+              "@media screen and (min-width: 1024px){.title.jsx-1727865174{font-size:44px;padding-bottom:120px;}.pre-title.jsx-1727865174{margin-bottom:50px;}}",
+              "@media screen and (min-width: 1366px){.root.jsx-1727865174{padding-top:160px;}.title.jsx-1727865174{font-size:42px;}}",
+            ],
+            "styleId": "1727865174",
+          },
+          "ref": null,
+          "rendered": null,
+          "type": [Function],
+        },
+      ],
+      "type": "div",
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+      },
+    },
+  },
+}
+`;

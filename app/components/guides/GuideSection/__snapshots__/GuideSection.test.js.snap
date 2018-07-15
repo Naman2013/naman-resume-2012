@@ -1,0 +1,315 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GuideSection should render correctly 1`] = `
+ShallowWrapper {
+  "length": 1,
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <GuideSection
+    alignContent="left"
+    column={[Function]}
+    content={[Function]}
+  />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "host",
+    "props": Object {
+      "children": Array [
+        <div
+          className="jsx-1986333135 jsx-3104837453 column-container"
+        >
+          <AbelList
+            list={
+              Array [
+                "contains 10 objects",
+                "object type guide",
+                "beginners and up",
+              ]
+            }
+          />
+        </div>,
+        <div
+          className="jsx-1986333135 jsx-3104837453 content-container"
+        >
+          Mauris non tempor quam, et lacinia sapien. Mauris accumsan eros eget libero lorem posuere vulputate. Etiam elit elit, elementum sed varius at, adipiscing evitae est. Sed nec felis loren posuere posuere, rutrum eu ipsum. Aliquam eget odio sed ligula dolae iaculis consequat at eget orci. Mauris moleistie sit amet metus loi mass imattis varius Donec sit amet ligula eget nisi sodales lorem a molestie bibendum. Etiam nisi anteni consectetur eget placerat a, tempus a neque. Donec ut elit urna. Etiam venenatis leni eleifend urna eget scelerisqueliquam in nunc.
+
+Donec sit amet ligula eget nisi sodales egestas. Aliquam interdum dolor aliquet dolor  iaculis consequat at eget orci. Mauris moleistie sit amet metus loi mass imattis varius Donec sit amet ligula eget nisi sodales lorem a molestie bibendum. Etiam nisi anteni
+posuere vulputate. Etiam elit elit, elementum sed varius at.
+        </div>,
+        <JSXStyle
+          css={
+            Array [
+              ".content-container.jsx-1986333135,.column-container.jsx-1986333135{margin:0;padding:0;}",
+            ]
+          }
+          styleId="1986333135"
+        />,
+        <JSXStyle
+          css={
+            Array [
+              "@media screen and (min-width: 1024px){.column-container.__jsx-style-dynamic-selector{float:left;margin-right: 100px; margin-bottom:40px;width:30%;}}",
+            ]
+          }
+          dynamic={
+            Array [
+              "screen and (min-width: 1024px)",
+              "left",
+              "margin-right: 100px;",
+            ]
+          }
+          styleId="2105177132"
+        />,
+      ],
+      "className": "jsx-1986333135 jsx-3104837453 root",
+    },
+    "ref": null,
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": <AbelList
+            list={
+              Array [
+                "contains 10 objects",
+                "object type guide",
+                "beginners and up",
+              ]
+            }
+          />,
+          "className": "jsx-1986333135 jsx-3104837453 column-container",
+        },
+        "ref": null,
+        "rendered": Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "function",
+          "props": Object {
+            "list": Array [
+              "contains 10 objects",
+              "object type guide",
+              "beginners and up",
+            ],
+          },
+          "ref": null,
+          "rendered": null,
+          "type": [Function],
+        },
+        "type": "div",
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": "Mauris non tempor quam, et lacinia sapien. Mauris accumsan eros eget libero lorem posuere vulputate. Etiam elit elit, elementum sed varius at, adipiscing evitae est. Sed nec felis loren posuere posuere, rutrum eu ipsum. Aliquam eget odio sed ligula dolae iaculis consequat at eget orci. Mauris moleistie sit amet metus loi mass imattis varius Donec sit amet ligula eget nisi sodales lorem a molestie bibendum. Etiam nisi anteni consectetur eget placerat a, tempus a neque. Donec ut elit urna. Etiam venenatis leni eleifend urna eget scelerisqueliquam in nunc.
+
+Donec sit amet ligula eget nisi sodales egestas. Aliquam interdum dolor aliquet dolor  iaculis consequat at eget orci. Mauris moleistie sit amet metus loi mass imattis varius Donec sit amet ligula eget nisi sodales lorem a molestie bibendum. Etiam nisi anteni
+posuere vulputate. Etiam elit elit, elementum sed varius at.",
+          "className": "jsx-1986333135 jsx-3104837453 content-container",
+        },
+        "ref": null,
+        "rendered": "Mauris non tempor quam, et lacinia sapien. Mauris accumsan eros eget libero lorem posuere vulputate. Etiam elit elit, elementum sed varius at, adipiscing evitae est. Sed nec felis loren posuere posuere, rutrum eu ipsum. Aliquam eget odio sed ligula dolae iaculis consequat at eget orci. Mauris moleistie sit amet metus loi mass imattis varius Donec sit amet ligula eget nisi sodales lorem a molestie bibendum. Etiam nisi anteni consectetur eget placerat a, tempus a neque. Donec ut elit urna. Etiam venenatis leni eleifend urna eget scelerisqueliquam in nunc.
+
+Donec sit amet ligula eget nisi sodales egestas. Aliquam interdum dolor aliquet dolor  iaculis consequat at eget orci. Mauris moleistie sit amet metus loi mass imattis varius Donec sit amet ligula eget nisi sodales lorem a molestie bibendum. Etiam nisi anteni
+posuere vulputate. Etiam elit elit, elementum sed varius at.",
+        "type": "div",
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
+          "css": Array [
+            ".content-container.jsx-1986333135,.column-container.jsx-1986333135{margin:0;padding:0;}",
+          ],
+          "styleId": "1986333135",
+        },
+        "ref": null,
+        "rendered": null,
+        "type": [Function],
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
+          "css": Array [
+            "@media screen and (min-width: 1024px){.column-container.__jsx-style-dynamic-selector{float:left;margin-right: 100px; margin-bottom:40px;width:30%;}}",
+          ],
+          "dynamic": Array [
+            "screen and (min-width: 1024px)",
+            "left",
+            "margin-right: 100px;",
+          ],
+          "styleId": "2105177132",
+        },
+        "ref": null,
+        "rendered": null,
+        "type": [Function],
+      },
+    ],
+    "type": "div",
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": Array [
+          <div
+            className="jsx-1986333135 jsx-3104837453 column-container"
+          >
+            <AbelList
+              list={
+                Array [
+                  "contains 10 objects",
+                  "object type guide",
+                  "beginners and up",
+                ]
+              }
+            />
+          </div>,
+          <div
+            className="jsx-1986333135 jsx-3104837453 content-container"
+          >
+            Mauris non tempor quam, et lacinia sapien. Mauris accumsan eros eget libero lorem posuere vulputate. Etiam elit elit, elementum sed varius at, adipiscing evitae est. Sed nec felis loren posuere posuere, rutrum eu ipsum. Aliquam eget odio sed ligula dolae iaculis consequat at eget orci. Mauris moleistie sit amet metus loi mass imattis varius Donec sit amet ligula eget nisi sodales lorem a molestie bibendum. Etiam nisi anteni consectetur eget placerat a, tempus a neque. Donec ut elit urna. Etiam venenatis leni eleifend urna eget scelerisqueliquam in nunc.
+
+Donec sit amet ligula eget nisi sodales egestas. Aliquam interdum dolor aliquet dolor  iaculis consequat at eget orci. Mauris moleistie sit amet metus loi mass imattis varius Donec sit amet ligula eget nisi sodales lorem a molestie bibendum. Etiam nisi anteni
+posuere vulputate. Etiam elit elit, elementum sed varius at.
+          </div>,
+          <JSXStyle
+            css={
+              Array [
+                ".content-container.jsx-1986333135,.column-container.jsx-1986333135{margin:0;padding:0;}",
+              ]
+            }
+            styleId="1986333135"
+          />,
+          <JSXStyle
+            css={
+              Array [
+                "@media screen and (min-width: 1024px){.column-container.__jsx-style-dynamic-selector{float:left;margin-right: 100px; margin-bottom:40px;width:30%;}}",
+              ]
+            }
+            dynamic={
+              Array [
+                "screen and (min-width: 1024px)",
+                "left",
+                "margin-right: 100px;",
+              ]
+            }
+            styleId="2105177132"
+          />,
+        ],
+        "className": "jsx-1986333135 jsx-3104837453 root",
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": <AbelList
+              list={
+                Array [
+                  "contains 10 objects",
+                  "object type guide",
+                  "beginners and up",
+                ]
+              }
+            />,
+            "className": "jsx-1986333135 jsx-3104837453 column-container",
+          },
+          "ref": null,
+          "rendered": Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "function",
+            "props": Object {
+              "list": Array [
+                "contains 10 objects",
+                "object type guide",
+                "beginners and up",
+              ],
+            },
+            "ref": null,
+            "rendered": null,
+            "type": [Function],
+          },
+          "type": "div",
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": "Mauris non tempor quam, et lacinia sapien. Mauris accumsan eros eget libero lorem posuere vulputate. Etiam elit elit, elementum sed varius at, adipiscing evitae est. Sed nec felis loren posuere posuere, rutrum eu ipsum. Aliquam eget odio sed ligula dolae iaculis consequat at eget orci. Mauris moleistie sit amet metus loi mass imattis varius Donec sit amet ligula eget nisi sodales lorem a molestie bibendum. Etiam nisi anteni consectetur eget placerat a, tempus a neque. Donec ut elit urna. Etiam venenatis leni eleifend urna eget scelerisqueliquam in nunc.
+
+Donec sit amet ligula eget nisi sodales egestas. Aliquam interdum dolor aliquet dolor  iaculis consequat at eget orci. Mauris moleistie sit amet metus loi mass imattis varius Donec sit amet ligula eget nisi sodales lorem a molestie bibendum. Etiam nisi anteni
+posuere vulputate. Etiam elit elit, elementum sed varius at.",
+            "className": "jsx-1986333135 jsx-3104837453 content-container",
+          },
+          "ref": null,
+          "rendered": "Mauris non tempor quam, et lacinia sapien. Mauris accumsan eros eget libero lorem posuere vulputate. Etiam elit elit, elementum sed varius at, adipiscing evitae est. Sed nec felis loren posuere posuere, rutrum eu ipsum. Aliquam eget odio sed ligula dolae iaculis consequat at eget orci. Mauris moleistie sit amet metus loi mass imattis varius Donec sit amet ligula eget nisi sodales lorem a molestie bibendum. Etiam nisi anteni consectetur eget placerat a, tempus a neque. Donec ut elit urna. Etiam venenatis leni eleifend urna eget scelerisqueliquam in nunc.
+
+Donec sit amet ligula eget nisi sodales egestas. Aliquam interdum dolor aliquet dolor  iaculis consequat at eget orci. Mauris moleistie sit amet metus loi mass imattis varius Donec sit amet ligula eget nisi sodales lorem a molestie bibendum. Etiam nisi anteni
+posuere vulputate. Etiam elit elit, elementum sed varius at.",
+          "type": "div",
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "css": Array [
+              ".content-container.jsx-1986333135,.column-container.jsx-1986333135{margin:0;padding:0;}",
+            ],
+            "styleId": "1986333135",
+          },
+          "ref": null,
+          "rendered": null,
+          "type": [Function],
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "css": Array [
+              "@media screen and (min-width: 1024px){.column-container.__jsx-style-dynamic-selector{float:left;margin-right: 100px; margin-bottom:40px;width:30%;}}",
+            ],
+            "dynamic": Array [
+              "screen and (min-width: 1024px)",
+              "left",
+              "margin-right: 100px;",
+            ],
+            "styleId": "2105177132",
+          },
+          "ref": null,
+          "rendered": null,
+          "type": [Function],
+        },
+      ],
+      "type": "div",
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+      },
+    },
+  },
+}
+`;

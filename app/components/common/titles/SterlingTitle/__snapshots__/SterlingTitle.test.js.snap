@@ -1,0 +1,194 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SterlingTitle should render correctly 1`] = `
+ShallowWrapper {
+  "length": 1,
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <SterlingTitle
+    subTitle="Bar"
+    theme={
+      Object {
+        "subTitle": Object {},
+        "title": Object {},
+      }
+    }
+    title="Foo"
+  />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "host",
+    "props": Object {
+      "children": Array [
+        <h4
+          className="jsx-2667217236 title"
+          style={Object {}}
+        >
+          Foo
+        </h4>,
+        <p
+          className="jsx-2667217236 sub-title"
+          style={Object {}}
+        >
+          Bar
+        </p>,
+        <JSXStyle
+          css={
+            Array [
+              ".root.jsx-2667217236{text-align:center;color:#41566F;padding:40px 40px 20px 40px;}",
+              ".title.jsx-2667217236{margin:0;padding:0;font-size:16px;font-family:brandon-grotesque, sans-serif;-webkit-letter-spacing:1.5px;-moz-letter-spacing:1.5px;-ms-letter-spacing:1.5px;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px;font-weight:800;}",
+              ".sub-title.jsx-2667217236{margin:0;padding:0;opacity:0;font-size:16px;font-family:adobe-garamond-pro, serif;-webkit-transition:opacity 0.25s ease-in;transition:opacity 0.25s ease-in;text-transform:capitalize;}",
+              "@media screen and (min-width: 768px){.root.jsx-2667217236{padding-top:60px;padding-bottom:40px;}.sub-title.jsx-2667217236{opacity:1;}}",
+            ]
+          }
+          styleId="2667217236"
+        />,
+      ],
+      "className": "jsx-2667217236 root",
+    },
+    "ref": null,
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": "Foo",
+          "className": "jsx-2667217236 title",
+          "style": Object {},
+        },
+        "ref": null,
+        "rendered": "Foo",
+        "type": "h4",
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": "Bar",
+          "className": "jsx-2667217236 sub-title",
+          "style": Object {},
+        },
+        "ref": null,
+        "rendered": "Bar",
+        "type": "p",
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
+          "css": Array [
+            ".root.jsx-2667217236{text-align:center;color:#41566F;padding:40px 40px 20px 40px;}",
+            ".title.jsx-2667217236{margin:0;padding:0;font-size:16px;font-family:brandon-grotesque, sans-serif;-webkit-letter-spacing:1.5px;-moz-letter-spacing:1.5px;-ms-letter-spacing:1.5px;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px;font-weight:800;}",
+            ".sub-title.jsx-2667217236{margin:0;padding:0;opacity:0;font-size:16px;font-family:adobe-garamond-pro, serif;-webkit-transition:opacity 0.25s ease-in;transition:opacity 0.25s ease-in;text-transform:capitalize;}",
+            "@media screen and (min-width: 768px){.root.jsx-2667217236{padding-top:60px;padding-bottom:40px;}.sub-title.jsx-2667217236{opacity:1;}}",
+          ],
+          "styleId": "2667217236",
+        },
+        "ref": null,
+        "rendered": null,
+        "type": [Function],
+      },
+    ],
+    "type": "div",
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": Array [
+          <h4
+            className="jsx-2667217236 title"
+            style={Object {}}
+          >
+            Foo
+          </h4>,
+          <p
+            className="jsx-2667217236 sub-title"
+            style={Object {}}
+          >
+            Bar
+          </p>,
+          <JSXStyle
+            css={
+              Array [
+                ".root.jsx-2667217236{text-align:center;color:#41566F;padding:40px 40px 20px 40px;}",
+                ".title.jsx-2667217236{margin:0;padding:0;font-size:16px;font-family:brandon-grotesque, sans-serif;-webkit-letter-spacing:1.5px;-moz-letter-spacing:1.5px;-ms-letter-spacing:1.5px;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px;font-weight:800;}",
+                ".sub-title.jsx-2667217236{margin:0;padding:0;opacity:0;font-size:16px;font-family:adobe-garamond-pro, serif;-webkit-transition:opacity 0.25s ease-in;transition:opacity 0.25s ease-in;text-transform:capitalize;}",
+                "@media screen and (min-width: 768px){.root.jsx-2667217236{padding-top:60px;padding-bottom:40px;}.sub-title.jsx-2667217236{opacity:1;}}",
+              ]
+            }
+            styleId="2667217236"
+          />,
+        ],
+        "className": "jsx-2667217236 root",
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": "Foo",
+            "className": "jsx-2667217236 title",
+            "style": Object {},
+          },
+          "ref": null,
+          "rendered": "Foo",
+          "type": "h4",
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": "Bar",
+            "className": "jsx-2667217236 sub-title",
+            "style": Object {},
+          },
+          "ref": null,
+          "rendered": "Bar",
+          "type": "p",
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "css": Array [
+              ".root.jsx-2667217236{text-align:center;color:#41566F;padding:40px 40px 20px 40px;}",
+              ".title.jsx-2667217236{margin:0;padding:0;font-size:16px;font-family:brandon-grotesque, sans-serif;-webkit-letter-spacing:1.5px;-moz-letter-spacing:1.5px;-ms-letter-spacing:1.5px;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px;font-weight:800;}",
+              ".sub-title.jsx-2667217236{margin:0;padding:0;opacity:0;font-size:16px;font-family:adobe-garamond-pro, serif;-webkit-transition:opacity 0.25s ease-in;transition:opacity 0.25s ease-in;text-transform:capitalize;}",
+              "@media screen and (min-width: 768px){.root.jsx-2667217236{padding-top:60px;padding-bottom:40px;}.sub-title.jsx-2667217236{opacity:1;}}",
+            ],
+            "styleId": "2667217236",
+          },
+          "ref": null,
+          "rendered": null,
+          "type": [Function],
+        },
+      ],
+      "type": "div",
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+      },
+    },
+  },
+}
+`;
