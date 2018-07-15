@@ -1,22 +1,25 @@
-/**
-* V4 Reveal Submit Form
+/***********************************
+* V4 Single Submit Fort
 
 You must pass a submit function, then we will pass a callback to the submit function
 the callback function can be called to handle clearing the form & showing a response message.
 
 callback (error (string), message (string)); If error is null, the component will display message and clear form
 
-*/
+if you do not want to use this components modal, set useModal to false and do not use callback
+***********************************/
 import React, { Component } from 'react';
+import noop from 'lodash/noop';
 import PropTypes from 'prop-types';
-import Modal from 'react-modal';
 import PhotoUploadButton from 'components/common/style/buttons/PhotoUploadButton';
+import Modal from 'react-modal';
 import deletePostImage from 'services/post-creation/delete-post-image';
 import setPostImages from 'modules/set-post-images';
 import Button from 'components/common/style/buttons/Button';
-import BackBar from 'components/common/style/buttons/BackBar';
-import { modalStyleFullPage } from 'styles/mixins/utilities';
-import styles from './RevealSubmitForm.style';
+import { customModalStylesV4 } from 'styles/mixins/utilities';
+import styles from './SingleFieldSubmitForm.style';
+
+
 const {
   bool,
   func,
@@ -25,13 +28,15 @@ const {
   string,
 } = PropTypes;
 
-class RevealSubmitForm extends Component {
+class SingleFieldSubmitForm extends Component {
   static propTypes = {
     imageClass: string,
     maxLength: number,
     placeholder: string,
+    renderFormHeader: func,
     submitForm: func.isRequired,
     submitLabel: string,
+    useModal: bool,
     uuid: string,
     user: shape({
       at: string,
@@ -43,14 +48,16 @@ class RevealSubmitForm extends Component {
     imageClass: 'discussion',
     maxLength: 100,
     placeholder: 'Write something...',
+    renderFormHeader: noop,
     submitLabel: 'Post',
+    useModal: true,
     uuid: null,
   }
 
   state = {
     formText: '',
     showPopup: false,
-    modalDescription: null,
+    responseMessage: null,
     uploadError: null,
     uploadLoading: false,
     S3URLs: [],
@@ -59,7 +66,7 @@ class RevealSubmitForm extends Component {
   onTextChange = (e) => {
     this.setState({
       formText: e.target.value,
-    });
+    })
   }
 
   submitForm = (e) => {
@@ -76,24 +83,16 @@ class RevealSubmitForm extends Component {
     if (!error) {
       this.setState({
         showPopup: true,
-        modalDescription: message || 'Your response has been submitted.',
+        responseMessage: message || 'Your response has been submitted.',
         formText: '',
         S3URLs: [],
       });
     } else {
       this.setState({
         showPopup: true,
-        modalDescription: message || 'There was an issue submitting the form.',
+        responseMessage: message || 'There was an issue submitting the form.',
       });
     }
-  }
-
-  displayForm = (e) => {
-    e.preventDefault();
-    this.setState({
-      showPopup: true,
-      modalDescription: null,
-    });
   }
 
   closeModal = (e) => {
@@ -106,13 +105,13 @@ class RevealSubmitForm extends Component {
     event.preventDefault();
 
     const { cid, token, at } = this.props.user;
-    const { uuid } = this.props;
+    const { uuid, imageClass } = this.props;
     const data = new FormData();
     data.append('cid', cid);
     data.append('token', token);
     data.append('at', at);
     data.append('uniqueId', uuid);
-    data.append('imageClass', 'discussion');
+    data.append('imageClass', imageClass);
     data.append('attachment', event.target.files[0]);
 
     this.setState({
@@ -132,8 +131,8 @@ class RevealSubmitForm extends Component {
     if (!imageURL) { return; }
 
     const { cid, token, at } = this.props.user;
-    const { uuid, imageClass } = this.props;
-
+    const { uuid } = this.props;
+    const imageClass = 'discussion';
     deletePostImage({
       cid,
       token,
@@ -153,34 +152,29 @@ class RevealSubmitForm extends Component {
 
   render () {
     const {
-      maxLength,
       placeholder,
-      submitLabel
+      renderFormHeader,
+      submitLabel,
+      maxLength,
+      useModal,
+      user,
     } = this.props;
 
     const {
       formText,
-      modalDescription,
+      responseMessage,
       showPopup,
       uploadError,
       uploadLoading,
     } = this.state;
 
     return (
-      <div className="root">
-        <div className="fake-input" dangerouslySetInnerHTML={{ __html: placeholder }} onClick={this.displayForm} />
-        <Modal
-          ariaHideApp={false}
-          isOpen={showPopup}
-          style={modalStyleFullPage}
-          contentLabel="Comment"
-          onRequestClose={this.closeModal}
-        >
-          <BackBar onClickEvent={this.closeModal} />
-          {modalDescription ? <p className="" dangerouslySetInnerHTML={{ __html: modalDescription }} /> : null}
+      <div className="form-container">
+        <div>
+          {renderFormHeader ? renderFormHeader() : null}
           <form className="form">
             <textarea
-              className="reveal-form-input"
+              className="form-input"
               onChange={this.onTextChange}
               maxLength={maxLength}
               value={formText}
@@ -198,11 +192,20 @@ class RevealSubmitForm extends Component {
               </div>
             </div>
           </form>
-        </Modal>
+          {useModal ? <Modal
+            ariaHideApp={false}
+            isOpen={showPopup}
+            style={customModalStylesV4}
+            contentLabel="Form"
+            onRequestClose={this.closeModal}
+          >
+            {responseMessage ? <p className="" dangerouslySetInnerHTML={{ __html: responseMessage }} /> : null}
+          </Modal> : null}
+        </div>
         <style jsx>{styles}</style>
       </div>
     )
   }
 }
 
-export default RevealSubmitForm;
+export default SingleFieldSubmitForm;

@@ -23,6 +23,7 @@ import { screenLarge, screenMedium } from 'styles/variables/breakpoints';
 const {
   bool,
   number,
+  shape,
   string,
 } = PropTypes;
 
@@ -32,12 +33,22 @@ class ActivityForm extends Component {
     forumId: number,
     canPost: bool,
     placeholder: string,
+    user: shape({
+      at: string,
+      token: string,
+      cid: string,
+    }).isRequired,
   }
   static defaultProps = {
     topicId: 0,
     forumId: 0,
     canPost: false,
     placeholder: 'Write something...',
+    user: {
+      at: '',
+      token: '',
+      cid: '',
+    },
   }
 
   state = {

@@ -41,7 +41,7 @@ const CountButton = ({
 );
 
 CountButton.propTypes = {
-  text: oneOfType([string, number]).isRequired,
+  count: oneOfType([string, number]).isRequired,
   icon: string.isRequired,
   onClickEvent: func.isRequired,
 };
