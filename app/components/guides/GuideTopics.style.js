@@ -1,4 +1,5 @@
 import css from 'styled-jsx/css';
+import { screenMedium, screenLarge } from 'styles/variables/breakpoints';
 
 export default css`
   ul {
@@ -10,5 +11,14 @@ export default css`
 
   .topic {
     margin-bottom: 10px;
+  }
+
+  @media ${screenMedium} {
+    ul {
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
   }
 `;

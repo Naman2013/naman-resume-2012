@@ -32,10 +32,10 @@ ShallowWrapper {
     "props": Object {
       "children": Array [
         <ul
-          className="jsx-166479955"
+          className="jsx-1394131357"
         >
           <li
-            className="jsx-166479955 topic"
+            className="jsx-1394131357 topic"
           >
             <LailaTile
               iconURL="https://vega.slooh.com/icons/home/observatory.png"
@@ -43,7 +43,7 @@ ShallowWrapper {
             />
           </li>
           <li
-            className="jsx-166479955 topic"
+            className="jsx-1394131357 topic"
           >
             <LailaTile
               iconURL="https://vega.slooh.com/icons/home/jupiter-icon.png"
@@ -54,11 +54,12 @@ ShallowWrapper {
         <JSXStyle
           css={
             Array [
-              "ul.jsx-166479955{margin:0 auto;padding:0;list-style-type:none;width:96%;}",
-              ".topic.jsx-166479955{margin-bottom:10px;}",
+              "ul.jsx-1394131357{margin:0 auto;padding:0;list-style-type:none;width:96%;}",
+              ".topic.jsx-1394131357{margin-bottom:10px;}",
+              "@media screen and (min-width: 768px){ul.jsx-1394131357{width:100%;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-wrap:wrap;-ms-flex-wrap:wrap;flex-wrap:wrap;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;}}",
             ]
           }
-          styleId="166479955"
+          styleId="1394131357"
         />,
       ],
       "theme": Object {},
@@ -72,7 +73,7 @@ ShallowWrapper {
         "props": Object {
           "children": Array [
             <li
-              className="jsx-166479955 topic"
+              className="jsx-1394131357 topic"
             >
               <LailaTile
                 iconURL="https://vega.slooh.com/icons/home/observatory.png"
@@ -80,7 +81,7 @@ ShallowWrapper {
               />
             </li>,
             <li
-              className="jsx-166479955 topic"
+              className="jsx-1394131357 topic"
             >
               <LailaTile
                 iconURL="https://vega.slooh.com/icons/home/jupiter-icon.png"
@@ -88,7 +89,7 @@ ShallowWrapper {
               />
             </li>,
           ],
-          "className": "jsx-166479955",
+          "className": "jsx-1394131357",
         },
         "ref": null,
         "rendered": Array [
@@ -101,7 +102,7 @@ ShallowWrapper {
                 iconURL="https://vega.slooh.com/icons/home/observatory.png"
                 title="Saturn"
               />,
-              "className": "jsx-166479955 topic",
+              "className": "jsx-1394131357 topic",
             },
             "ref": null,
             "rendered": Object {
@@ -127,7 +128,7 @@ ShallowWrapper {
                 iconURL="https://vega.slooh.com/icons/home/jupiter-icon.png"
                 title="Mars"
               />,
-              "className": "jsx-166479955 topic",
+              "className": "jsx-1394131357 topic",
             },
             "ref": null,
             "rendered": Object {
@@ -153,10 +154,11 @@ ShallowWrapper {
         "nodeType": "class",
         "props": Object {
           "css": Array [
-            "ul.jsx-166479955{margin:0 auto;padding:0;list-style-type:none;width:96%;}",
-            ".topic.jsx-166479955{margin-bottom:10px;}",
+            "ul.jsx-1394131357{margin:0 auto;padding:0;list-style-type:none;width:96%;}",
+            ".topic.jsx-1394131357{margin-bottom:10px;}",
+            "@media screen and (min-width: 768px){ul.jsx-1394131357{width:100%;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-wrap:wrap;-ms-flex-wrap:wrap;flex-wrap:wrap;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;}}",
           ],
-          "styleId": "166479955",
+          "styleId": "1394131357",
         },
         "ref": null,
         "rendered": null,
@@ -173,10 +175,10 @@ ShallowWrapper {
       "props": Object {
         "children": Array [
           <ul
-            className="jsx-166479955"
+            className="jsx-1394131357"
           >
             <li
-              className="jsx-166479955 topic"
+              className="jsx-1394131357 topic"
             >
               <LailaTile
                 iconURL="https://vega.slooh.com/icons/home/observatory.png"
@@ -184,7 +186,7 @@ ShallowWrapper {
               />
             </li>
             <li
-              className="jsx-166479955 topic"
+              className="jsx-1394131357 topic"
             >
               <LailaTile
                 iconURL="https://vega.slooh.com/icons/home/jupiter-icon.png"
@@ -195,11 +197,12 @@ ShallowWrapper {
           <JSXStyle
             css={
               Array [
-                "ul.jsx-166479955{margin:0 auto;padding:0;list-style-type:none;width:96%;}",
-                ".topic.jsx-166479955{margin-bottom:10px;}",
+                "ul.jsx-1394131357{margin:0 auto;padding:0;list-style-type:none;width:96%;}",
+                ".topic.jsx-1394131357{margin-bottom:10px;}",
+                "@media screen and (min-width: 768px){ul.jsx-1394131357{width:100%;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-wrap:wrap;-ms-flex-wrap:wrap;flex-wrap:wrap;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;}}",
               ]
             }
-            styleId="166479955"
+            styleId="1394131357"
           />,
         ],
         "theme": Object {},
@@ -213,7 +216,7 @@ ShallowWrapper {
           "props": Object {
             "children": Array [
               <li
-                className="jsx-166479955 topic"
+                className="jsx-1394131357 topic"
               >
                 <LailaTile
                   iconURL="https://vega.slooh.com/icons/home/observatory.png"
@@ -221,7 +224,7 @@ ShallowWrapper {
                 />
               </li>,
               <li
-                className="jsx-166479955 topic"
+                className="jsx-1394131357 topic"
               >
                 <LailaTile
                   iconURL="https://vega.slooh.com/icons/home/jupiter-icon.png"
@@ -229,7 +232,7 @@ ShallowWrapper {
                 />
               </li>,
             ],
-            "className": "jsx-166479955",
+            "className": "jsx-1394131357",
           },
           "ref": null,
           "rendered": Array [
@@ -242,7 +245,7 @@ ShallowWrapper {
                   iconURL="https://vega.slooh.com/icons/home/observatory.png"
                   title="Saturn"
                 />,
-                "className": "jsx-166479955 topic",
+                "className": "jsx-1394131357 topic",
               },
               "ref": null,
               "rendered": Object {
@@ -268,7 +271,7 @@ ShallowWrapper {
                   iconURL="https://vega.slooh.com/icons/home/jupiter-icon.png"
                   title="Mars"
                 />,
-                "className": "jsx-166479955 topic",
+                "className": "jsx-1394131357 topic",
               },
               "ref": null,
               "rendered": Object {
@@ -294,10 +297,11 @@ ShallowWrapper {
           "nodeType": "class",
           "props": Object {
             "css": Array [
-              "ul.jsx-166479955{margin:0 auto;padding:0;list-style-type:none;width:96%;}",
-              ".topic.jsx-166479955{margin-bottom:10px;}",
+              "ul.jsx-1394131357{margin:0 auto;padding:0;list-style-type:none;width:96%;}",
+              ".topic.jsx-1394131357{margin-bottom:10px;}",
+              "@media screen and (min-width: 768px){ul.jsx-1394131357{width:100%;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-wrap:wrap;-ms-flex-wrap:wrap;flex-wrap:wrap;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;}}",
             ],
-            "styleId": "166479955",
+            "styleId": "1394131357",
           },
           "ref": null,
           "rendered": null,

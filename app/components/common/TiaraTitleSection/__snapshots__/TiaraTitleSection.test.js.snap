@@ -5,11 +5,7 @@ ShallowWrapper {
   "length": 1,
   Symbol(enzyme.__root__): [Circular],
   Symbol(enzyme.__unrendered__): <TiaraTitleSection
-    iconURL={
-      Object {
-        "process": [Function],
-      }
-    }
+    iconURL="foo.com"
     preTitle="A guide to"
     title="The solar system"
   />,
@@ -41,11 +37,7 @@ ShallowWrapper {
         >
           <Medallion
             dimension={70}
-            iconURL={
-              Object {
-                "process": [Function],
-              }
-            }
+            iconURL="foo.com"
             theme={
               Object {
                 "left": "50%",
@@ -121,11 +113,7 @@ ShallowWrapper {
           "children": Array [
             <Medallion
               dimension={70}
-              iconURL={
-                Object {
-                  "process": [Function],
-                }
-              }
+              iconURL="foo.com"
               theme={
                 Object {
                   "left": "50%",
@@ -178,9 +166,7 @@ ShallowWrapper {
             "nodeType": "function",
             "props": Object {
               "dimension": 70,
-              "iconURL": Object {
-                "process": [Function],
-              },
+              "iconURL": "foo.com",
               "theme": Object {
                 "left": "50%",
                 "position": "absolute",
@@ -302,11 +288,7 @@ ShallowWrapper {
           >
             <Medallion
               dimension={70}
-              iconURL={
-                Object {
-                  "process": [Function],
-                }
-              }
+              iconURL="foo.com"
               theme={
                 Object {
                   "left": "50%",
@@ -382,11 +364,7 @@ ShallowWrapper {
             "children": Array [
               <Medallion
                 dimension={70}
-                iconURL={
-                  Object {
-                    "process": [Function],
-                  }
-                }
+                iconURL="foo.com"
                 theme={
                   Object {
                     "left": "50%",
@@ -439,9 +417,7 @@ ShallowWrapper {
               "nodeType": "function",
               "props": Object {
                 "dimension": 70,
-                "iconURL": Object {
-                  "process": [Function],
-                },
+                "iconURL": "foo.com",
                 "theme": Object {
                   "left": "50%",
                   "position": "absolute",
