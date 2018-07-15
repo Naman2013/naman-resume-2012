@@ -26,6 +26,7 @@ const CenterColumn = ({
             width: ${widths[1]}
           }
         }
+
         @media ${breakpoints[2]} {
           .root {
             width: ${widths[2]}

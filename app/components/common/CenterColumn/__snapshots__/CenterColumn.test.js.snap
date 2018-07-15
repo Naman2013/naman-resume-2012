@@ -63,10 +63,10 @@ ShallowWrapper {
               "940px",
             ]
           }
-          styleId="2989590773"
+          styleId="212936544"
         />,
       ],
-      "className": "jsx-711544156 jsx-3002582582 root",
+      "className": "jsx-711544156 jsx-3856841995 root",
       "style": Object {},
     },
     "ref": null,
@@ -112,7 +112,7 @@ ShallowWrapper {
             "screen and (min-width: 1366px)",
             "940px",
           ],
-          "styleId": "2989590773",
+          "styleId": "212936544",
         },
         "ref": null,
         "rendered": null,
@@ -155,10 +155,10 @@ ShallowWrapper {
                 "940px",
               ]
             }
-            styleId="2989590773"
+            styleId="212936544"
           />,
         ],
-        "className": "jsx-711544156 jsx-3002582582 root",
+        "className": "jsx-711544156 jsx-3856841995 root",
         "style": Object {},
       },
       "ref": null,
@@ -204,7 +204,7 @@ ShallowWrapper {
               "screen and (min-width: 1366px)",
               "940px",
             ],
-            "styleId": "2989590773",
+            "styleId": "212936544",
           },
           "ref": null,
           "rendered": null,
