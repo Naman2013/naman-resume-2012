@@ -1,5 +1,6 @@
 import './AbelList';
 import './AudioPlayer';
+import './Buttons';
 import './design-system';
 import './DiscussionsBoard';
 import './GlobalNavigation';

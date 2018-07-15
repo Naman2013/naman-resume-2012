@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 import DiscussionComments from './DiscussionComments';
 import { likeThread } from 'services/discussions/like';
 import PulsePostThumbnails from 'components/pulse/pulse-post-image-thumbnails';
-import Heart from '../heart/heart';
+import LikeButton from 'components/common/LikeButton';
 import { profPic } from './styles';
 import { dropShadowContainer } from 'styles/mixins/utilities';
 
@@ -119,14 +119,14 @@ class DiscussionsItem extends Component {
         </div>
         <div className="activity-actions">
           <div className="action-left">
-            <Heart
-              likeAction={likeThread}
-              theme="dark"
-              count={likesCount}
-              authorId={customerId}
-              showLikePrompt={showLikePrompt}
+            <LikeButton
+              likeHandler={likeThread}
+              likesCount={likesCount}
               likePrompt={likePrompt}
-              params={likeParams}
+              likeParams={likeParams}
+              showLikePrompt={showLikePrompt}
+              user={user}
+              customerId={customerId}
             />
             <span>Comments ({replyCount})</span>
           </div>

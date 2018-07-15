@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ButtonWithIcon from './ButtonWithIcon';
+import Button from './Button';
+import SmallButtonWithIcon from './SmallButtonWithIcon';
+import { DeviceContext } from 'providers/DeviceProvider';
 
 const {
   func,
@@ -9,14 +11,13 @@ const {
   string,
 } = PropTypes;
 
-const LikeButton = ({ count, onClickEvent }) => (
-  <div>
-    <ButtonWithIcon
-      text={count}
-      onClickEvent={onClickEvent}
-      icon="https://vega.slooh.com/assets/v4/common/heart.svg"
-    />
-  </div>
+const LikeButton = ({ count, onClickEvent }) => (<div>
+  <SmallButtonWithIcon
+    text={count}
+    onClickEvent={onClickEvent}
+    icon="https://vega.slooh.com/assets/v4/common/heart.svg"
+  />
+</div>
 );
 
 LikeButton.propTypes = {

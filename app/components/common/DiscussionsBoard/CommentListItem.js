@@ -16,12 +16,11 @@ import {
   geyser,
 } from 'styles/variables/colors_tiles_v4';
 import { primaryFont, secondaryFont } from 'styles/variables/fonts';
-import LikeButton from 'components/common/style/buttons/LikeButton';
 import CommentButton from 'components/common/style/buttons/CommentButton';
-import { customModalStyles, dropShadowContainer } from 'styles/mixins/utilities';
+import { dropShadowContainer } from 'styles/mixins/utilities';
 import { profPic } from './styles';
 import CommentRepliesList from './CommentRepliesList';
-
+import LikeButton from 'components/common/LikeButton';
 
 const {
   bool,
@@ -97,54 +96,6 @@ class CommentListItem extends Component {
     });
   }
 
-  likeReply = (e) => {
-    // TODO: refactor this into a reusable component
-    e.preventDefault();
-    const {
-      customerId,
-      likeParams,
-      showLikePrompt,
-      user,
-    } = this.props;
-
-    if (showLikePrompt) {
-      this.setModal();
-    } else {
-      likeReply({
-        ...likeParams,
-        authorId: customerId,
-        token: user.token,
-        at: user.at,
-        cid: user.cid,
-      }).then(this.handleLikeResult);
-    }
-  }
-
-  handleLikeResult = (res) => {
-    const {
-      apiError,
-      showLikePrompt,
-      count,
-      likePrompt,
-    } = res.data;
-    if (!apiError) {
-      this.setState({
-        likesCount: count,
-      });
-    }
-
-    if (showLikePrompt) {
-      this.setState({
-        likePrompt,
-      });
-      this.setModal();
-    }
-  }
-
-  setModal = () => {
-    this.props.openModal(this.state.likePrompt);
-  }
-
   render() {
     const {
       avatarURL,
@@ -156,9 +107,12 @@ class CommentListItem extends Component {
       displayName,
       forumId,
       likeParams,
+      likePrompt,
       membershipDisplay,
+      openModal,
       replyCount,
       replyId,
+      showLikePrompt,
       threadId,
       topicId,
       user,
@@ -181,7 +135,16 @@ class CommentListItem extends Component {
         <div className="content" dangerouslySetInnerHTML={{ __html: content }} />
         <div className="activity-actions">
           <div className="action-left">
-            <LikeButton onClickEvent={this.likeReply} count={likesCount} />
+            <LikeButton
+              liekHandler={likeReply}
+              likesCount={likesCount}
+              likePrompt={likePrompt}
+              likeParams={likeParams}
+              openModel={openModal}
+              showLikePrompt={showLikePrompt}
+              user={user}
+              customerId={customerId}
+            />
             <CommentButton onClickEvent={this.toggleAllReplies} count={replyCount} />
           </div>
           <div className="action-right"></div>

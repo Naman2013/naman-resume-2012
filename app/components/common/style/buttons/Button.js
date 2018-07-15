@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { astronaut, romance } from 'styles/variables/colors_tiles_v4';
+import styles from './Button.style';
 
 const {
   func,
@@ -24,34 +24,7 @@ const Button = ({
   >
     {text ? <span className="text" dangerouslySetInnerHTML={{ __html: text }} /> : null}
     {icon ? <img className="text" src={icon} /> : null}
-    <style jsx>
-      {`
-        .text {
-          vertical-align: middle;
-          font-size: 11px;
-          margin: 0 auto;
-        }
-        .button-container {
-          background-color: transparent;
-          display: block;
-          border: 1px dashed ${astronaut};
-          border-radius: 100px;
-          width: 110px;
-          margin: 15px 0;
-          font-size: 11px;
-          font-weight: bold;
-          padding: 5px 0;
-          text-transform: uppercase;
-          height: 40px;
-          width: 140px;
-        }
-
-        .circular {
-          width: 40px;
-          height: 40px;
-        }
-      `}
-    </style>
+    <style jsx>{styles}</style>
   </button>
 );
 

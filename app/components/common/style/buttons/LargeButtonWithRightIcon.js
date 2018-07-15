@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { astronaut, romance } from 'styles/variables/colors_tiles_v4';
-
+import styles from './LargeButtonWithRightIcon.style';
 const {
   func,
   number,
@@ -19,36 +18,7 @@ const LargeButtonWithRightIcon = ({ text, onClickEvent, icon }) => (
       className="icon"
       src={icon}
     />
-    <style jsx>
-      {`
-        .text {
-          vertical-align: middle;
-          font-size: 11px;
-          margin: 0 10px;
-        }
-        .button-container {
-          position: relative;
-          display: block;
-          border: 1px dashed ${astronaut};
-          border-radius: 100px;
-          width: 140px;
-          height: 40px;
-          margin: 15px 0;
-          font-size: 11px;
-          font-weight: bold;
-          padding: 10px 0;
-          text-align: left;
-          text-transform: uppercase;
-          background-color: transparent;
-        }
-
-        .icon {
-          position: absolute;
-          right: 10px;
-          top: 14px;
-        }
-      `}
-    </style>
+    <style jsx>{styles}</style>
   </button>
 );
 
