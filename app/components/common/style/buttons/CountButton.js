@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Button from './Button';
 import { DeviceContext } from 'providers/DeviceProvider';
-import styles from './SmallButtonWithIcon.style';
+import styles from './CountButton.style';
 
 const {
   func,
@@ -11,8 +11,8 @@ const {
   string,
 } = PropTypes;
 
-const SmallButtonWithIcon = ({
-  text,
+const CountButton = ({
+  count,
   icon,
   onClickEvent,
 }) => (
@@ -27,7 +27,7 @@ const SmallButtonWithIcon = ({
             <img
               src={icon}
             />
-            <span className="text" dangerouslySetInnerHTML={{ __html: text }} />
+            <span className="text" dangerouslySetInnerHTML={{ __html: count }} />
           </button> :
           <Button
             onClickEvent={onClickEvent}
@@ -40,11 +40,11 @@ const SmallButtonWithIcon = ({
   </div>
 );
 
-SmallButtonWithIcon.propTypes = {
+CountButton.propTypes = {
   text: oneOfType([string, number]).isRequired,
   icon: string.isRequired,
   onClickEvent: func.isRequired,
 };
-SmallButtonWithIcon.defaultProps = {};
+CountButton.defaultProps = {};
 
-export default SmallButtonWithIcon;
+export default CountButton;

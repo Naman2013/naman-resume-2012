@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import SmallButtonWithIcon from './SmallButtonWithIcon';
+import CountButton from './CountButton';
 
 const {
   func,
@@ -11,8 +11,8 @@ const {
 
 const CommentButton = ({ count, onClickEvent }) => (
   <div>
-    <SmallButtonWithIcon
-      text={count}
+    <CountButton
+      count={count}
       onClickEvent={onClickEvent}
       icon="https://vega.slooh.com/assets/v4/common/comment.svg"
     />
