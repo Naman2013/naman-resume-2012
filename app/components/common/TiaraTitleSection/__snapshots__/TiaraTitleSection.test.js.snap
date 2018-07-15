@@ -26,6 +26,13 @@ ShallowWrapper {
           className="jsx-1727865174 center-line"
         />,
         <CenterColumn
+          breakpoints={
+            Array [
+              "screen and (min-width: 768px)",
+              "screen and (min-width: 1024px)",
+              "screen and (min-width: 1366px)",
+            ]
+          }
           theme={
             Object {
               "background": "url(https://vega.slooh.com/assets/v4/common/White_Paper_Subtle.png)",
@@ -110,6 +117,11 @@ ShallowWrapper {
         "key": undefined,
         "nodeType": "function",
         "props": Object {
+          "breakpoints": Array [
+            "screen and (min-width: 768px)",
+            "screen and (min-width: 1024px)",
+            "screen and (min-width: 1366px)",
+          ],
           "children": Array [
             <Medallion
               dimension={70}
@@ -277,6 +289,13 @@ ShallowWrapper {
             className="jsx-1727865174 center-line"
           />,
           <CenterColumn
+            breakpoints={
+              Array [
+                "screen and (min-width: 768px)",
+                "screen and (min-width: 1024px)",
+                "screen and (min-width: 1366px)",
+              ]
+            }
             theme={
               Object {
                 "background": "url(https://vega.slooh.com/assets/v4/common/White_Paper_Subtle.png)",
@@ -361,6 +380,11 @@ ShallowWrapper {
           "key": undefined,
           "nodeType": "function",
           "props": Object {
+            "breakpoints": Array [
+              "screen and (min-width: 768px)",
+              "screen and (min-width: 1024px)",
+              "screen and (min-width: 1366px)",
+            ],
             "children": Array [
               <Medallion
                 dimension={70}

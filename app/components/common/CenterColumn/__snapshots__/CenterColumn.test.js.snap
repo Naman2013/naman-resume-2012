@@ -5,6 +5,13 @@ ShallowWrapper {
   "length": 1,
   Symbol(enzyme.__root__): [Circular],
   Symbol(enzyme.__unrendered__): <CenterColumn
+    breakpoints={
+      Array [
+        "screen and (min-width: 768px)",
+        "screen and (min-width: 1024px)",
+        "screen and (min-width: 1366px)",
+      ]
+    }
     theme={Object {}}
   >
     <div />
@@ -26,16 +33,16 @@ ShallowWrapper {
         <JSXStyle
           css={
             Array [
-              ".root.jsx-774188919{width:100%;margin:0 auto;-webkit-transition:width 0.25s;transition:width 0.25s;}",
-              "@media screen and (min-width: 768px){.root.jsx-774188919{width:620px;}}",
-              "@media screen and (min-width: 1024px){.root.jsx-774188919{width:780px;}}",
-              "@media screen and (min-width: 1366px){.root.jsx-774188919{width:940px;}}",
+              ".root.jsx-573045076{width:100%;margin:0 auto;-webkit-transition:width 0.25s;transition:width 0.25s;}",
+              "@media screen and (min-width: 768px){.root.jsx-573045076{width:620px;}}",
+              "@media screen and (min-width: 1024px){.root.jsx-573045076{width:780px;}}",
+              "@media screen and (min-width: 1366px){.root.jsx-573045076{width:940px;}}",
             ]
           }
-          styleId="774188919"
+          styleId="573045076"
         />,
       ],
-      "className": "jsx-774188919 root",
+      "className": "jsx-573045076 root",
       "style": Object {},
     },
     "ref": null,
@@ -55,12 +62,12 @@ ShallowWrapper {
         "nodeType": "class",
         "props": Object {
           "css": Array [
-            ".root.jsx-774188919{width:100%;margin:0 auto;-webkit-transition:width 0.25s;transition:width 0.25s;}",
-            "@media screen and (min-width: 768px){.root.jsx-774188919{width:620px;}}",
-            "@media screen and (min-width: 1024px){.root.jsx-774188919{width:780px;}}",
-            "@media screen and (min-width: 1366px){.root.jsx-774188919{width:940px;}}",
+            ".root.jsx-573045076{width:100%;margin:0 auto;-webkit-transition:width 0.25s;transition:width 0.25s;}",
+            "@media screen and (min-width: 768px){.root.jsx-573045076{width:620px;}}",
+            "@media screen and (min-width: 1024px){.root.jsx-573045076{width:780px;}}",
+            "@media screen and (min-width: 1366px){.root.jsx-573045076{width:940px;}}",
           ],
-          "styleId": "774188919",
+          "styleId": "573045076",
         },
         "ref": null,
         "rendered": null,
@@ -80,16 +87,16 @@ ShallowWrapper {
           <JSXStyle
             css={
               Array [
-                ".root.jsx-774188919{width:100%;margin:0 auto;-webkit-transition:width 0.25s;transition:width 0.25s;}",
-                "@media screen and (min-width: 768px){.root.jsx-774188919{width:620px;}}",
-                "@media screen and (min-width: 1024px){.root.jsx-774188919{width:780px;}}",
-                "@media screen and (min-width: 1366px){.root.jsx-774188919{width:940px;}}",
+                ".root.jsx-573045076{width:100%;margin:0 auto;-webkit-transition:width 0.25s;transition:width 0.25s;}",
+                "@media screen and (min-width: 768px){.root.jsx-573045076{width:620px;}}",
+                "@media screen and (min-width: 1024px){.root.jsx-573045076{width:780px;}}",
+                "@media screen and (min-width: 1366px){.root.jsx-573045076{width:940px;}}",
               ]
             }
-            styleId="774188919"
+            styleId="573045076"
           />,
         ],
-        "className": "jsx-774188919 root",
+        "className": "jsx-573045076 root",
         "style": Object {},
       },
       "ref": null,
@@ -109,12 +116,12 @@ ShallowWrapper {
           "nodeType": "class",
           "props": Object {
             "css": Array [
-              ".root.jsx-774188919{width:100%;margin:0 auto;-webkit-transition:width 0.25s;transition:width 0.25s;}",
-              "@media screen and (min-width: 768px){.root.jsx-774188919{width:620px;}}",
-              "@media screen and (min-width: 1024px){.root.jsx-774188919{width:780px;}}",
-              "@media screen and (min-width: 1366px){.root.jsx-774188919{width:940px;}}",
+              ".root.jsx-573045076{width:100%;margin:0 auto;-webkit-transition:width 0.25s;transition:width 0.25s;}",
+              "@media screen and (min-width: 768px){.root.jsx-573045076{width:620px;}}",
+              "@media screen and (min-width: 1024px){.root.jsx-573045076{width:780px;}}",
+              "@media screen and (min-width: 1366px){.root.jsx-573045076{width:940px;}}",
             ],
-            "styleId": "774188919",
+            "styleId": "573045076",
           },
           "ref": null,
           "rendered": null,

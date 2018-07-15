@@ -30,6 +30,11 @@ ShallowWrapper {
     "key": undefined,
     "nodeType": "function",
     "props": Object {
+      "breakpoints": Array [
+        "screen and (min-width: 768px)",
+        "screen and (min-width: 1024px)",
+        "screen and (min-width: 1366px)",
+      ],
       "children": Array [
         <ul
           className="jsx-1394131357"
@@ -173,6 +178,11 @@ ShallowWrapper {
       "key": undefined,
       "nodeType": "function",
       "props": Object {
+        "breakpoints": Array [
+          "screen and (min-width: 768px)",
+          "screen and (min-width: 1024px)",
+          "screen and (min-width: 1366px)",
+        ],
         "children": Array [
           <ul
             className="jsx-1394131357"
