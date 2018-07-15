@@ -8,7 +8,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import Modal from 'react-modal';
 import { likeReply } from 'services/discussions/like';
 import {
   midnight_express,
@@ -20,10 +19,11 @@ import CommentButton from 'components/common/style/buttons/CommentButton';
 import { dropShadowContainer } from 'styles/mixins/utilities';
 import { profPic } from './styles';
 import CommentRepliesList from './CommentRepliesList';
-import LikeButton from 'components/common/LikeButton';
+import LikeSomethingButton from 'components/common/LikeSomethingButton';
 
 const {
   bool,
+  func,
   number,
   oneOfType,
   shape,
@@ -36,6 +36,7 @@ class CommentListItem extends Component {
     count: 10,
     forumId: null,
     likeParams: {},
+    openModal: func.isRequired,
     threadId: null,
     topicId: null,
   };
@@ -135,12 +136,12 @@ class CommentListItem extends Component {
         <div className="content" dangerouslySetInnerHTML={{ __html: content }} />
         <div className="activity-actions">
           <div className="action-left">
-            <LikeButton
-              liekHandler={likeReply}
+            <LikeSomethingButton
+              likeHandler={likeReply}
               likesCount={likesCount}
               likePrompt={likePrompt}
               likeParams={likeParams}
-              openModel={openModal}
+              openModal={openModal}
               showLikePrompt={showLikePrompt}
               user={user}
               customerId={customerId}

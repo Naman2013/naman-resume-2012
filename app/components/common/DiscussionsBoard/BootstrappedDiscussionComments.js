@@ -16,7 +16,7 @@ import Form from './ReplyForm';
 import PaginateSet from '../../common/paginate-full-set/PaginateSet';
 import { astronaut, romance, shadows } from 'styles/variables/colors_tiles_v4';
 import { primaryFont } from 'styles/variables/fonts';
-import { dropShadowContainer, customModalStyles } from 'styles/mixins/utilities';
+import { dropShadowContainer, customModalStylesV4 } from 'styles/mixins/utilities';
 
 
 
@@ -220,7 +220,7 @@ class CommentList extends Component {
         <Modal
           ariaHideApp={false}
           isOpen={isOpen}
-          style={customModalStyles}
+          style={customModalStylesV4}
           contentLabel="Comment Item"
           onRequestClose={this.closeModal}
         >

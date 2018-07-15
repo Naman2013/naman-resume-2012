@@ -132,7 +132,7 @@ class LikeHeartButton extends Component {
       <LikeButton onClickEvent={this.likeItem} count={likesCount} />
       <Modal
         ariaHideApp={false}
-        isModalOpen={isModalOpen}
+        isOpen={isModalOpen}
         style={customModalStylesV4}
         contentLabel="Like"
         onRequestClose={this.closeModal}
