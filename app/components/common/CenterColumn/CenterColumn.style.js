@@ -1,12 +1,8 @@
 import css from 'styled-jsx/css';
 import { defaultScale } from 'styles/variables/breakpoints';
-import {
-  screenMediumWidth,
-  screenLargeWidth,
-  screenXLargeWidth,
-} from './constants';
+import { defaultWidths } from './constants';
 
-export default function generateStyle(breakpoints = defaultScale) {
+export default function generateStyle(breakpoints = defaultScale, widths = defaultWidths) {
   return css`
     .root {
       width: 100%;
@@ -16,18 +12,18 @@ export default function generateStyle(breakpoints = defaultScale) {
 
     @media ${breakpoints[0]} {
       .root {
-        width: ${screenMediumWidth}
+        width: ${widths[0]}
       }
     }
 
     @media ${breakpoints[1]} {
       .root {
-        width: ${screenLargeWidth}
+        width: ${widths[1]}
       }
     }
     @media ${breakpoints[2]} {
       .root {
-        width: ${screenXLargeWidth}
+        width: ${widths[2]}
       }
     }
   `;

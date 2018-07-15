@@ -1,3 +1,1 @@
-export const screenMediumWidth = '620px';
-export const screenLargeWidth = '780px';
-export const screenXLargeWidth = '940px';
+export const defaultWidths = ['620px', '780px', '940px'];

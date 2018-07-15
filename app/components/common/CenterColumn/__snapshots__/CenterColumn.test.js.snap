@@ -33,16 +33,16 @@ ShallowWrapper {
         <JSXStyle
           css={
             Array [
-              ".root.jsx-573045076{width:100%;margin:0 auto;-webkit-transition:width 0.25s;transition:width 0.25s;}",
-              "@media screen and (min-width: 768px){.root.jsx-573045076{width:620px;}}",
-              "@media screen and (min-width: 1024px){.root.jsx-573045076{width:780px;}}",
-              "@media screen and (min-width: 1366px){.root.jsx-573045076{width:940px;}}",
+              ".root.jsx-2216268433{width:100%;margin:0 auto;-webkit-transition:width 0.25s;transition:width 0.25s;}",
+              "@media screen and (min-width: 768px){.root.jsx-2216268433{width:620px;}}",
+              "@media screen and (min-width: 1024px){.root.jsx-2216268433{width:780px;}}",
+              "@media screen and (min-width: 1366px){.root.jsx-2216268433{width:940px;}}",
             ]
           }
-          styleId="573045076"
+          styleId="2216268433"
         />,
       ],
-      "className": "jsx-573045076 root",
+      "className": "jsx-2216268433 root",
       "style": Object {},
     },
     "ref": null,
@@ -62,12 +62,12 @@ ShallowWrapper {
         "nodeType": "class",
         "props": Object {
           "css": Array [
-            ".root.jsx-573045076{width:100%;margin:0 auto;-webkit-transition:width 0.25s;transition:width 0.25s;}",
-            "@media screen and (min-width: 768px){.root.jsx-573045076{width:620px;}}",
-            "@media screen and (min-width: 1024px){.root.jsx-573045076{width:780px;}}",
-            "@media screen and (min-width: 1366px){.root.jsx-573045076{width:940px;}}",
+            ".root.jsx-2216268433{width:100%;margin:0 auto;-webkit-transition:width 0.25s;transition:width 0.25s;}",
+            "@media screen and (min-width: 768px){.root.jsx-2216268433{width:620px;}}",
+            "@media screen and (min-width: 1024px){.root.jsx-2216268433{width:780px;}}",
+            "@media screen and (min-width: 1366px){.root.jsx-2216268433{width:940px;}}",
           ],
-          "styleId": "573045076",
+          "styleId": "2216268433",
         },
         "ref": null,
         "rendered": null,
@@ -87,16 +87,16 @@ ShallowWrapper {
           <JSXStyle
             css={
               Array [
-                ".root.jsx-573045076{width:100%;margin:0 auto;-webkit-transition:width 0.25s;transition:width 0.25s;}",
-                "@media screen and (min-width: 768px){.root.jsx-573045076{width:620px;}}",
-                "@media screen and (min-width: 1024px){.root.jsx-573045076{width:780px;}}",
-                "@media screen and (min-width: 1366px){.root.jsx-573045076{width:940px;}}",
+                ".root.jsx-2216268433{width:100%;margin:0 auto;-webkit-transition:width 0.25s;transition:width 0.25s;}",
+                "@media screen and (min-width: 768px){.root.jsx-2216268433{width:620px;}}",
+                "@media screen and (min-width: 1024px){.root.jsx-2216268433{width:780px;}}",
+                "@media screen and (min-width: 1366px){.root.jsx-2216268433{width:940px;}}",
               ]
             }
-            styleId="573045076"
+            styleId="2216268433"
           />,
         ],
-        "className": "jsx-573045076 root",
+        "className": "jsx-2216268433 root",
         "style": Object {},
       },
       "ref": null,
@@ -116,12 +116,12 @@ ShallowWrapper {
           "nodeType": "class",
           "props": Object {
             "css": Array [
-              ".root.jsx-573045076{width:100%;margin:0 auto;-webkit-transition:width 0.25s;transition:width 0.25s;}",
-              "@media screen and (min-width: 768px){.root.jsx-573045076{width:620px;}}",
-              "@media screen and (min-width: 1024px){.root.jsx-573045076{width:780px;}}",
-              "@media screen and (min-width: 1366px){.root.jsx-573045076{width:940px;}}",
+              ".root.jsx-2216268433{width:100%;margin:0 auto;-webkit-transition:width 0.25s;transition:width 0.25s;}",
+              "@media screen and (min-width: 768px){.root.jsx-2216268433{width:620px;}}",
+              "@media screen and (min-width: 1024px){.root.jsx-2216268433{width:780px;}}",
+              "@media screen and (min-width: 1366px){.root.jsx-2216268433{width:940px;}}",
             ],
-            "styleId": "573045076",
+            "styleId": "2216268433",
           },
           "ref": null,
           "rendered": null,
