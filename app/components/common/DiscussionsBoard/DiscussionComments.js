@@ -12,6 +12,7 @@ import BootstrappedDiscussionComments from './BootstrappedDiscussionComments';
 import { THREAD_REPLIES } from 'services/discussions';
 
 const {
+  bool,
   number,
   oneOfType,
   shape,
@@ -25,6 +26,7 @@ const DiscussionsBoardComments = ({
   forumId,
   threadId,
   topicId,
+  isDesktop,
   user,
 }) => (
   <Request
@@ -52,6 +54,7 @@ const DiscussionsBoardComments = ({
           forumId={forumId}
           threadId={threadId}
           user={user}
+          isDesktop={isDesktop}
           commentsCount={commentsCount}
           {...serviceResponse}
         />}
@@ -64,6 +67,7 @@ DiscussionsBoardComments.propTypes = {
   callSource: string,
   count: number,
   commentsCount: number,
+  isDesktop: bool.isRequired,
   forumId: oneOfType([number, string]),
   threadId: oneOfType([number, string]),
   topicId: oneOfType([number, string]),

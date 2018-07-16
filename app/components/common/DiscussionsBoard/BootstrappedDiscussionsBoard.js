@@ -118,6 +118,7 @@ class BootstrappedDiscussionsBoard extends Component {
             {...thread}
             callSource={callSource}
             forumId={forumId}
+            isDesktop={isDesktop}
             key={thread.threadId}
             likeParams={likeParams}
             topicId={topicId}

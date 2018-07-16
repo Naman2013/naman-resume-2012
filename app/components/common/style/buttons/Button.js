@@ -4,6 +4,7 @@ import classnames from 'classnames';
 import styles from './Button.style';
 
 const {
+  bool,
   func,
   number,
   oneOfType,
@@ -11,6 +12,7 @@ const {
 } = PropTypes;
 
 const Button = ({
+  isActive,
   text,
   icon,
   onClickEvent,
@@ -18,6 +20,7 @@ const Button = ({
   <button
     className={classnames('button-container', {
       circular: icon && !text,
+      active: isActive,
     })}
 
     onClick={onClickEvent}
@@ -29,10 +32,15 @@ const Button = ({
 );
 
 Button.propTypes = {
+  isActive: bool,
   text: oneOfType([string, number]),
   icon: string,
   onClickEvent: func.isRequired,
 };
-Button.defaultProps = {};
+Button.defaultProps = {
+  isActive: false,
+  icon: null,
+  text: null,
+};
 
 export default Button;

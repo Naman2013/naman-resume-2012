@@ -35,6 +35,7 @@ class DiscussionsCard extends Component {
     freshness: string.isRequired,
     likeHandler: func,
     likeParams: shape(any),
+    isDesktop: bool.isRequired,
     user: shape({
       at: oneOfType([number, string]),
       token: oneOfType([number, string]),
@@ -75,6 +76,7 @@ class DiscussionsCard extends Component {
       content,
       customerId,
       displayName,
+      isDesktop,
       likeHandler,
       likeParams,
       likePrompt,
@@ -96,39 +98,41 @@ class DiscussionsCard extends Component {
     } = this;
 
     return (
-      <div className="comment-item" key={uniqueId()}>
-        <div className="user-info-container">
-          <div className="user-info">
-            <div style={profPic(avatarURL)} />
-            <div className="display-name" dangerouslySetInnerHTML={{ __html: displayName }} />
+      <div className="root" key={uniqueId()}>
+        <div className="comment-item">
+          <div className="user-info-container">
+            <div className="user-info">
+              <div style={profPic(avatarURL)} />
+              <div className="display-name" dangerouslySetInnerHTML={{ __html: displayName }} />
+            </div>
+            <span className="date">{moment(creationDate).fromNow()}</span>
           </div>
-          <span className="date">{moment(creationDate).fromNow()}</span>
-        </div>
 
-        <div className="content" dangerouslySetInnerHTML={{ __html: title || content }} />
-        <div className="explainantion-container">
-          <div className="explainantion-item">{moment(creationDate).fromNow()}</div>
-          <div className="explainantion-item">Likes: {likesCount}     Comments: {replyCount}</div>
-        </div>
-        <div className="activity-actions">
-          <div className="action-left">
-            <LikeSomethingButton
-              likeHandler={likeHandler}
-              likesCount={likesCount}
-              likePrompt={likePrompt}
-              likeParams={likeParams}
-              openModal={openModal}
-              showLikePrompt={showLikePrompt}
-              user={user}
-              customerId={customerId}
-            />
-            <CommentButton onClickEvent={toggleAllComments} count={replyCount} />
+          <div className="content" dangerouslySetInnerHTML={{ __html: title || content }} />
+          <div className="explainantion-container">
+            <div className="explainantion-item">{moment(creationDate).fromNow()}</div>
+            <div className="explainantion-item">Likes: {likesCount}     Comments: {replyCount}</div>
           </div>
-          <div className="action-right">
-            <Button text="Reply" />
+          <div className="activity-actions">
+            <div className="action-left">
+              <LikeSomethingButton
+                likeHandler={likeHandler}
+                likesCount={likesCount}
+                likePrompt={likePrompt}
+                likeParams={likeParams}
+                openModal={openModal}
+                showLikePrompt={showLikePrompt}
+                user={user}
+                customerId={customerId}
+              />
+              <CommentButton isActive={showAllComments} onClickEvent={toggleAllComments} count={replyCount} />
+            </div>
+            <div className="action-right">
+              <Button text="Reply" />
+            </div>
           </div>
-          {showAllComments ? renderChildReplies() : null}
         </div>
+        {showAllComments ? renderChildReplies() : null}
         <style jsx>{styles}</style>
       </div>
     );

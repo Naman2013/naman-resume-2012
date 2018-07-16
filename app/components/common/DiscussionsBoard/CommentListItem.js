@@ -29,6 +29,7 @@ const CommentListItem = props => (
     <DiscussionsCard
       {...props}
       likeHandler={likeReply}
+      isDesktop={props.isDesktop}
       renderChildReplies={() => (<CommentRepliesList
         count={props.count}
         replyId={props.replyId}
@@ -37,12 +38,14 @@ const CommentListItem = props => (
         threadId={props.threadId}
         callSource={props.callSource}
         user={props.user}
+        isDesktop={props.isDesktop}
       />)}
     />
   </div>
 );
 
 CommentListItem.defaultProps = {
+  isDesktop: bool.isRequired,
   callSource: null,
   count: 10,
   forumId: null,

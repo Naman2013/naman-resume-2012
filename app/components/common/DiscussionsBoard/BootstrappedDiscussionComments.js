@@ -17,7 +17,7 @@ import PaginateSet from '../../common/paginate-full-set/PaginateSet';
 import { astronaut, romance, shadows } from 'styles/variables/colors_tiles_v4';
 import { primaryFont } from 'styles/variables/fonts';
 import { dropShadowContainer, customModalStylesV4 } from 'styles/mixins/utilities';
-
+import Button from 'components/common/style/buttons/Button';
 
 
 const {
@@ -33,7 +33,8 @@ class CommentList extends Component {
   static propTypes = {
     callSource: string,
     count: number,
-    commentsCount: number,
+    resultsCount: number,
+    isDesktop: bool.isRequired,
     fetching: bool,
     forumId: oneOfType([number, string]),
     replies: arrayOf(shape({})),
@@ -50,7 +51,7 @@ class CommentList extends Component {
   static defaultProps = {
     callSource: null,
     count: 10,
-    commentsCount: 0,
+    resultsCount: 0,
     fetching: false,
     forumId: null,
     replies: [],
@@ -151,9 +152,10 @@ class CommentList extends Component {
 
   render() {
     const {
-      commentsCount,
+      resultsCount,
       fetching,
       forumId,
+      isDesktop,
       count,
       threadId,
       topicId,
@@ -172,23 +174,8 @@ class CommentList extends Component {
     const { displayedCommentsObjs } = this;
     return (
       <div className="comment" key={threadId}>
-        <Form
-          avatarURL={user.avatarURL}
-          callSource={callSource}
-          disableButton={submitting}
-          forumId={forumId}
-          key={uniqueId()}
-          replyTo={threadId}
-          showSubmitError={submitError}
-          showSubmitLoader={submitting}
-          submitReply={this.handleReply}
-          submitted={submitted}
-          threadId={threadId}
-          topicId={topicId}
-          user={user}
-        />
         {!fetching ? <div className="comments-bar">
-          Comments ({commentsCount})
+          Replies ({resultsCount})
         </div> : null}
         {displayedCommentsObjs.map((displayedComment) => {
           const likeParams = {
@@ -201,6 +188,7 @@ class CommentList extends Component {
             key={displayedComment.replyId}
             {...displayedComment}
             likeParams={likeParams}
+            isDesktop={isDesktop}
             threadId={threadId}
             topicId={topicId}
             forumId={forumId}
@@ -217,6 +205,23 @@ class CommentList extends Component {
           totalCount={comments.length}
           page={page}
         />}
+        <Button icon="" />
+        <Form
+          avatarURL={user.avatarURL}
+          callSource={callSource}
+          disableButton={submitting}
+          forumId={forumId}
+          key={uniqueId()}
+          replyTo={threadId}
+          showSubmitError={submitError}
+          showSubmitLoader={submitting}
+          submitReply={this.handleReply}
+          submitted={submitted}
+          threadId={threadId}
+          topicId={topicId}
+          user={user}
+          isDesktop={isDesktop}
+        />
         <Modal
           ariaHideApp={false}
           isOpen={isOpen}
@@ -231,13 +236,14 @@ class CommentList extends Component {
           .root {
             font-family: ${primaryFont};
             color: ${astronaut};
+            margin-bottom: 10px;
           }
           .comments-bar {
             font-size: 12px;
             text-transform: uppercase;
-            color: ${astronaut};
+            color: ${romance};
+            background-color: ${astronaut};
             font-weight: bold;
-            margin: 25px;
             padding: 25px;
             ${dropShadowContainer}
           }

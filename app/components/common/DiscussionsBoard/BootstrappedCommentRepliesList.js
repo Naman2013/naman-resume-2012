@@ -137,6 +137,7 @@ class CommentRepliesList extends Component {
       replyId,
       topicId,
       user,
+      isDesktop,
     } = this.props;
     const {
       page,
@@ -163,6 +164,7 @@ class CommentRepliesList extends Component {
           threadId={threadId}
           topicId={topicId}
           user={user}
+          isDesktop={isDesktop}
         />
         {fetching && <div>Loading</div>}
         {displayedRepliesObjs.map((displayedComment) => {

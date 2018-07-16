@@ -1,5 +1,5 @@
 import css from 'styled-jsx/css';
-import { astronaut } from 'styles/variables/colors_tiles_v4';
+import { astronaut, romance } from 'styles/variables/colors_tiles_v4';
 import { primaryFont } from 'styles/variables/fonts';
 
 export default css`
@@ -23,4 +23,14 @@ export default css`
     width: 50px;
     height: 40px;
   }
+
+  .active.button-container {
+    background-color: ${astronaut};
+  }
+  .active .button-icon,
+  .active .text {
+    color: ${romance};
+  }
+
+
 `;

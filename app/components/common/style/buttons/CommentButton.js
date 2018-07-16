@@ -9,9 +9,10 @@ const {
   string,
 } = PropTypes;
 
-const CommentButton = ({ count, onClickEvent }) => (
+const CommentButton = ({ count, isActive, onClickEvent }) => (
   <div>
     <CountButton
+      isActive={isActive}
       count={count}
       onClickEvent={onClickEvent}
       icon="https://vega.slooh.com/assets/v4/common/comment.svg"

@@ -13,6 +13,10 @@ export const profPic = photoUrl => Object.assign(profilePhotoStyle(photoUrl), {
 });
 
 export default css`
+  .root {
+      margin: 15px 0;
+  }
+
   .comment-item {
     ${dropShadowContainer};
     padding: 25px;

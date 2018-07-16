@@ -44,6 +44,7 @@ class CommentRepliesListItem extends Component {
     likeParams: shape({}),
     likePrompt: string.isRequired,
     likesCount: number.isRequired,
+    isDesktop: bool.isRequired,
     membershipDisplay: string.isRequired,
     replyId: number.isRequired,
     showLikePrompt: bool.isRequired,

@@ -30,6 +30,7 @@ const DiscussionsItem = props => (
     <DiscussionsCard
       {...props}
       likeHandler={likeThread}
+      isDesktop={props.isDesktop}
       renderChildReplies={() => (<DiscussionComments
         callSource={props.callSource}
         threadId={props.threadId}
@@ -37,6 +38,7 @@ const DiscussionsItem = props => (
         topicId={props.topicId}
         forumId={props.forumId}
         user={props.user}
+        isDesktop={props.isDesktop}
       />)}
     />
   </div>);
@@ -56,6 +58,7 @@ DiscussionsItem.propTypes = {
     token: oneOfType([number, string]),
     cid: oneOfType([number, string]),
   }).isRequired,
+  isDesktop: bool.isRequired,
   likePrompt: string.isRequired,
   likesCount: number.isRequired,
   membershipDisplay: string.isRequired,
