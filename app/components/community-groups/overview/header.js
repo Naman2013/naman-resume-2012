@@ -37,7 +37,7 @@ const GroupsHeader = ({
       <div className="groups-header-image"></div>
       <div className="main-container">
         <div className="groups-header-title desktop-hide" dangerouslySetInnerHTML={{ __html: title }} />
-        <LabeledTitleTiles tiles={pick(subtitleList)} />
+        <LabeledTitleTiles tiles={subtitleList} />
         <div className="action-container">
           {showJoinPrompt &&
             <LargeButtonWithRightIcon

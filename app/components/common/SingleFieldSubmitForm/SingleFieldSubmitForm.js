@@ -46,7 +46,7 @@ class SingleFieldSubmitForm extends Component {
   }
   static defaultProps = {
     imageClass: 'discussion',
-    maxLength: 100,
+    maxLength: null,
     placeholder: 'Write something...',
     renderFormHeader: noop,
     submitLabel: 'Post',
@@ -180,7 +180,7 @@ class SingleFieldSubmitForm extends Component {
               value={formText}
               placeholder={placeholder}
             />
-            <div className="flex-right">{formText.length}/<span dangerouslySetInnerHTML={{__html: maxLength }} /></div>
+            {maxLength ? <div className="flex-right">{formText.length}/<span dangerouslySetInnerHTML={{__html: maxLength }} /></div> : null}
             <div className="flex-container">
               <div>
                 <PhotoUploadButton handleUploadImage={this.handleUploadImage} />

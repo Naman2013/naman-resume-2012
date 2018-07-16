@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 import uniqueId from 'lodash/uniqueId';
 import DiscussionComments from './DiscussionComments';
 import { likeThread } from 'services/discussions/like';
-import ApproachPass from 'components/common/ApproachPass';
+import DiscussionsCard from 'components/common/DiscussionsCard';
 
 
 const {
@@ -27,7 +27,7 @@ const DiscussionsItem = props => (
   <div
     key={uniqueId()}
   >
-    <ApproachPass
+    <DiscussionsCard
       {...props}
       likeHandler={likeThread}
       renderChildReplies={() => (<DiscussionComments

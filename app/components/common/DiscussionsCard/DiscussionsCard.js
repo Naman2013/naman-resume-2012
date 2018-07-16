@@ -11,8 +11,8 @@ import uniqueId from 'lodash/uniqueId';
 import moment from 'moment';
 import CommentButton from 'components/common/style/buttons/CommentButton';
 import LikeSomethingButton from 'components/common/LikeSomethingButton';
-
-import styles, { profPic } from './ApproachPass.style'
+import Button from 'components/common/style/buttons/Button';
+import styles, { profPic } from './DiscussionsCard.style'
 
 const {
   any,
@@ -25,7 +25,7 @@ const {
   string,
 } = PropTypes;
 
-class ApproachPass extends Component {
+class DiscussionsCard extends Component {
 
   static propTypes = {
     avatarURL: string.isRequired,
@@ -106,6 +106,10 @@ class ApproachPass extends Component {
         </div>
 
         <div className="content" dangerouslySetInnerHTML={{ __html: title || content }} />
+        <div className="explainantion-container">
+          <div className="explainantion-item">{moment(creationDate).fromNow()}</div>
+          <div className="explainantion-item">Likes: {likesCount}     Comments: {replyCount}</div>
+        </div>
         <div className="activity-actions">
           <div className="action-left">
             <LikeSomethingButton
@@ -120,7 +124,9 @@ class ApproachPass extends Component {
             />
             <CommentButton onClickEvent={toggleAllComments} count={replyCount} />
           </div>
-          <div className="action-right"></div>
+          <div className="action-right">
+            <Button text="Reply" />
+          </div>
           {showAllComments ? renderChildReplies() : null}
         </div>
         <style jsx>{styles}</style>
@@ -129,4 +135,4 @@ class ApproachPass extends Component {
   }
 }
 
-export default ApproachPass;
+export default DiscussionsCard;
