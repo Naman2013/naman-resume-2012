@@ -38,6 +38,7 @@ const DiscussionsItem = props => (
         topicId={props.topicId}
         forumId={props.forumId}
         user={props.user}
+        replyTo={props.threadId}
         isDesktop={props.isDesktop}
       />)}
     />

@@ -14,10 +14,8 @@ import { submitReply } from 'services/discussions/submit-reply';
 import CommentListItem from './CommentListItem';
 import Form from './ReplyForm';
 import PaginateSet from '../../common/paginate-full-set/PaginateSet';
-import { astronaut, romance, shadows } from 'styles/variables/colors_tiles_v4';
-import { primaryFont } from 'styles/variables/fonts';
-import { dropShadowContainer, customModalStylesV4 } from 'styles/mixins/utilities';
 import Button from 'components/common/style/buttons/Button';
+import styles from './DiscussionsBoard.style';
 
 
 const {
@@ -31,6 +29,7 @@ const {
 
 class CommentList extends Component {
   static propTypes = {
+    allowReplies: bool,
     callSource: string,
     count: number,
     resultsCount: number,
@@ -49,6 +48,7 @@ class CommentList extends Component {
     }).isRequired,
   };
   static defaultProps = {
+    allowReplies: true,
     callSource: null,
     count: 10,
     resultsCount: 0,
@@ -115,6 +115,7 @@ class CommentList extends Component {
 
   render() {
     const {
+      allowReplies,
       resultsCount,
       fetching,
       forumId,
@@ -131,7 +132,7 @@ class CommentList extends Component {
     } = this.state;
     const { displayedCommentsObjs } = this;
     return (
-      <div className="comment" key={threadId}>
+      <div className="comment" key={uniqueId()}>
         {!fetching ? <div className="comments-bar">
           Replies ({resultsCount})
         </div> : null}
@@ -144,6 +145,7 @@ class CommentList extends Component {
           };
           return (<CommentListItem
             key={displayedComment.replyId}
+            allowReplies={allowReplies}
             {...displayedComment}
             likeParams={likeParams}
             isDesktop={isDesktop}
@@ -170,29 +172,13 @@ class CommentList extends Component {
           forumId={forumId}
           key={uniqueId()}
           replyTo={threadId}
-
           submitReply={this.handleReply}
           threadId={threadId}
           topicId={topicId}
           user={user}
           isDesktop={isDesktop}
         />
-        <style jsx>{`
-          .root {
-            font-family: ${primaryFont};
-            color: ${astronaut};
-            margin-bottom: 10px;
-          }
-          .comments-bar {
-            font-size: 12px;
-            text-transform: uppercase;
-            color: ${romance};
-            background-color: ${astronaut};
-            font-weight: bold;
-            padding: 25px;
-            ${dropShadowContainer}
-          }
-        `}</style>
+        <style jsx>{styles}</style>
 
       </div>
     );

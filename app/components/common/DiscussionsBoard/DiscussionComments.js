@@ -20,12 +20,14 @@ const {
 } = PropTypes;
 
 const DiscussionsBoardComments = ({
+  allowReplies,
   callSource,
   commentsCount,
   count,
   forumId,
   threadId,
   topicId,
+  replyTo,
   isDesktop,
   user,
 }) => (
@@ -39,7 +41,7 @@ const DiscussionsBoardComments = ({
       topicId,
       threadId,
       forumId,
-      replyTo: threadId,
+      replyTo,
     }}
     render={({
       fetchingContent,
@@ -47,6 +49,7 @@ const DiscussionsBoardComments = ({
     }) => (
       <div>
         {<BootstrappedDiscussionComments
+          allowReplies={allowReplies}
           fetching={fetchingContent}
           callSource={callSource}
           count={count}
@@ -55,7 +58,6 @@ const DiscussionsBoardComments = ({
           threadId={threadId}
           user={user}
           isDesktop={isDesktop}
-          commentsCount={commentsCount}
           {...serviceResponse}
         />}
       </div>
@@ -64,6 +66,7 @@ const DiscussionsBoardComments = ({
 );
 
 DiscussionsBoardComments.propTypes = {
+  allowReplies: bool,
   callSource: string,
   count: number,
   commentsCount: number,
@@ -78,6 +81,7 @@ DiscussionsBoardComments.propTypes = {
   }).isRequired,
 };
 DiscussionsBoardComments.defaultProps = {
+  allowReplies: true,
   callSource: null,
   commentsCount: null,
   count: 10,

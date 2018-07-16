@@ -13,7 +13,8 @@ import { submitReply } from 'services/discussions/submit-reply';
 import Form from './ReplyForm';
 import CommentRepliesListItem from './CommentRepliesListItem';
 import PaginateSet from '../paginate-full-set/PaginateSet';
-
+import Button from 'components/common/style/buttons/Button';
+import styles from './DiscussionsBoard.style'
 const {
   arrayOf,
   bool,
@@ -114,6 +115,7 @@ class CommentRepliesList extends Component {
       fetching,
       forumId,
       threadId,
+      resultsCount,
       replyId,
       topicId,
       user,
@@ -125,20 +127,10 @@ class CommentRepliesList extends Component {
     } = this.state;
     const { displayedRepliesObjs } = this;
     return (
-      <div className="comment" key={threadId}>
-        <Form
-          avatarURL={user.avatarURL}
-          callSource={callSource}
-          forumId={forumId}
-          key={uniqueId()}
-          replyId={replyId}
-          replyTo={replyId}
-          submitReply={this.handleReply}
-          threadId={threadId}
-          topicId={topicId}
-          user={user}
-          isDesktop={isDesktop}
-        />
+      <div className="comment" key={uniqueId()}>
+      {!fetching ? <div className="comments-bar">
+        Replies ({ resultsCount })
+      </div> : null}
         {fetching && <div>Loading</div>}
         {displayedRepliesObjs.map((displayedComment) => {
           const likeParams = {
@@ -161,8 +153,21 @@ class CommentRepliesList extends Component {
           totalCount={replies.length}
           page={page}
         />}
-        <style jsx>{`
-        `}</style>
+        <Button />
+        <Form
+          avatarURL={user.avatarURL}
+          callSource={callSource}
+          forumId={forumId}
+          key={uniqueId()}
+          replyId={replyId}
+          replyTo={replyId}
+          submitReply={this.handleReply}
+          threadId={threadId}
+          topicId={topicId}
+          user={user}
+          isDesktop={isDesktop}
+        />
+        <style jsx>{styles}</style>
       </div>
 
     );

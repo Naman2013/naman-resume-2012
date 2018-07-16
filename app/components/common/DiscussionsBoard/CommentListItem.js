@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 import uniqueId from 'lodash/uniqueId';
 import { likeReply } from 'services/discussions/like';;
 import DiscussionsCard from 'components/common/DiscussionsCard';
-import CommentRepliesList from './CommentRepliesList';
+import DiscussionComments from './DiscussionComments';
 
 const {
   bool,
@@ -30,16 +30,18 @@ const CommentListItem = props => (
       {...props}
       likeHandler={likeReply}
       isDesktop={props.isDesktop}
-      renderChildReplies={() => (<CommentRepliesList
+      renderChildReplies={props.allowReplies ? () => (<DiscussionComments
         count={props.count}
         replyId={props.replyId}
         topicId={props.topicId}
         forumId={props.forumId}
+        replyTo={props.replyId}
         threadId={props.threadId}
         callSource={props.callSource}
         user={props.user}
         isDesktop={props.isDesktop}
-      />)}
+        allowReplies={false}
+      />) : null}
     />
   </div>
 );

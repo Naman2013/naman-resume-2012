@@ -125,14 +125,18 @@ class DiscussionsCard extends Component {
                 user={user}
                 customerId={customerId}
               />
-              <CommentButton isActive={showAllComments} onClickEvent={toggleAllComments} count={replyCount} />
+              {renderChildReplies ? <CommentButton
+                isActive={showAllComments}
+                onClickEvent={toggleAllComments}
+                count={replyCount}
+              /> : null}
             </div>
             <div className="action-right">
               <Button text="Reply" />
             </div>
           </div>
         </div>
-        {showAllComments ? renderChildReplies() : null}
+        {showAllComments && renderChildReplies ? renderChildReplies() : null}
         <style jsx>{styles}</style>
       </div>
     );
