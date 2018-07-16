@@ -52,7 +52,6 @@ class ReplyForm extends Component {
 
 
   submitForm = (content, S3URLs, callback) => {
-    e.preventDefault();
     const {
       callSource,
       replyTo,
@@ -74,11 +73,12 @@ class ReplyForm extends Component {
       token: user.token,
       cid: user.cid,
       callSource,
-    }).then((data) => {
-      const message = data.apiError ? 'There was an error submitting your comment.' : 'Your comment has been submitted';
-      callback(data.apiError, message);
-    });
+    }, (data) => this.handleSubmitReply(data, callback));
+  }
 
+  handleSubmitReply = (data, callback) => {
+    const message = data.apiError ? 'There was an error submitting your comment.' : 'Your comment has been submitted';
+    callback(data.apiError, message);
   }
 
   render() {
@@ -89,8 +89,11 @@ class ReplyForm extends Component {
 
     return (
       <div className="reply-form-container">
-        {isDesktop ? <FormHeader avatarURL={avatarURL} /> : null}
-        <RevealSubmitForm {...this.props} submitForm={this.submitForm} />
+        <RevealSubmitForm
+          {...this.props}
+          submitForm={this.submitForm}
+          placeholder="Write a public comment"
+        />
         <style jsx>{`
           .reply-form-container {
             ${dropShadowContainer}

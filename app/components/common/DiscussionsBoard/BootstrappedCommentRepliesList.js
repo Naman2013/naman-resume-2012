@@ -57,9 +57,6 @@ class CommentRepliesList extends Component {
     displayedReplies: [],
     page: 1,
     replies: [],
-    submitError: false,
-    submitted: false,
-    submitting: false,
   }
 
   componentWillReceiveProps(nextProps) {
@@ -82,17 +79,7 @@ class CommentRepliesList extends Component {
     });
   }
 
-  get displayedRepliesObjs () {
-    const { displayedReplies, replies } = this.state;
-    return [].concat(replies).filter(reply => displayedReplies.indexOf(reply.replyId) > -1);
-  }
-
-  handleReply = (params) => {
-    this.setState({
-      submitted: false,
-      submitError: false,
-      submitting: true,
-    });
+  handleReply = (params, callback) => {
     submitReply(params).then((res) => {
       const { apiError, reply } = res.data;
       if (!apiError) {
@@ -105,26 +92,19 @@ class CommentRepliesList extends Component {
           newDisplayedReplies = newDisplayedReplies.concat(replies, reply.replyId);
         }
         this.setState({
-          submitting: false,
-          submitted: true,
           displayedReplies: newDisplayedReplies,
           replies: newAllReplies,
         });
-      } else {
-        this.setState({
-          submitting: false,
-          submitError: true,
-          submitted: true,
-        });
-      }
 
-      setTimeout(() => {
-        this.setState({
-          submitError: false,
-          submitted: false,
-        });
-      }, 3000);
-    });
+      }
+      callback(res.data);
+  });
+}
+
+
+  get displayedRepliesObjs () {
+    const { displayedReplies, replies } = this.state;
+    return [].concat(replies).filter(reply => displayedReplies.indexOf(reply.replyId) > -1);
   }
 
   render() {
@@ -142,9 +122,6 @@ class CommentRepliesList extends Component {
     const {
       page,
       replies,
-      submitting,
-      submitError,
-      submitted,
     } = this.state;
     const { displayedRepliesObjs } = this;
     return (
@@ -152,15 +129,11 @@ class CommentRepliesList extends Component {
         <Form
           avatarURL={user.avatarURL}
           callSource={callSource}
-          disableButton={submitting}
           forumId={forumId}
           key={uniqueId()}
           replyId={replyId}
           replyTo={replyId}
-          showSubmitError={submitError}
-          showSubmitLoader={submitting}
           submitReply={this.handleReply}
-          submitted={submitted}
           threadId={threadId}
           topicId={topicId}
           user={user}

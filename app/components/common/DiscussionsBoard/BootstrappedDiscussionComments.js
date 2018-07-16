@@ -64,12 +64,7 @@ class CommentList extends Component {
   state = {
     comments: [],
     displayedComments: [],
-    isOpen: false,
-    prompt: '',
     page: 1,
-    submitError: false,
-    submitted: false,
-    submitting: false,
   }
 
   componentWillReceiveProps(nextProps) {
@@ -96,57 +91,25 @@ class CommentList extends Component {
     });
   }
 
-  handleReply = (params) => {
-    this.setState({
-      submitting: true,
-      submitError: false,
-      submitted: false,
-    });
+  handleReply = (params, callback) => {
     submitReply(params).then((res) => {
       const { apiError, reply } = res.data;
       if (!apiError) {
         const { count } = this.props;
-        const { comments, page, displayedComments } = this.state;
-        const lastPage = (Math.ceil(comments.length / count)) || 1;
-        let newDisplayedComments = [].concat(displayedComments);
-        const newAllComments = [].concat(comments, Object.assign({ likesCount: 0 }, reply));
+        const { replies, page, displayedReplies } = this.state;
+        const lastPage = (Math.ceil(replies.length / count)) || 1;
+        let newDisplayedReplies = [].concat(displayedReplies);
+        const newAllReplies = [].concat(replies, Object.assign({ likesCount: 0 }, reply));
         if (page === lastPage) {
-          newDisplayedComments = newDisplayedComments.concat(comments, reply.replyId);
+          newDisplayedReplies = newDisplayedReplies.concat(replies, reply.replyId);
         }
         this.setState({
-          submitting: false,
-          submitted: true,
-          displayedComments: newDisplayedComments,
-          comments: newAllComments,
+          displayedReplies: newDisplayedReplies,
+          replies: newAllReplies,
         });
-      } else {
-        this.setState({
-          submitting: false,
-          submitError: true,
-          submitted: true,
-        });
+
       }
-
-      setTimeout(() => {
-        this.setState({
-          submitError: false,
-          submitted: false,
-        });
-      }, 3000);
-    });
-  }
-
-  openModal = (prompt) => {
-    this.setState({
-      isOpen: true,
-      prompt,
-    });
-  }
-
-  closeModal = (e) => {
-    e.preventDefault();
-    this.setState({
-      isOpen: false,
+      callback(res.data);
     });
   }
 
@@ -164,12 +127,7 @@ class CommentList extends Component {
     } = this.props;
     const {
       comments,
-      isOpen,
-      prompt,
       page,
-      submitError,
-      submitted,
-      submitting,
     } = this.state;
     const { displayedCommentsObjs } = this;
     return (
@@ -209,29 +167,16 @@ class CommentList extends Component {
         <Form
           avatarURL={user.avatarURL}
           callSource={callSource}
-          disableButton={submitting}
           forumId={forumId}
           key={uniqueId()}
           replyTo={threadId}
-          showSubmitError={submitError}
-          showSubmitLoader={submitting}
+
           submitReply={this.handleReply}
-          submitted={submitted}
           threadId={threadId}
           topicId={topicId}
           user={user}
           isDesktop={isDesktop}
         />
-        <Modal
-          ariaHideApp={false}
-          isOpen={isOpen}
-          style={customModalStylesV4}
-          contentLabel="Comment Item"
-          onRequestClose={this.closeModal}
-        >
-          <i className="fa fa-close" onClick={this.closeModal} />
-          <p className="" dangerouslySetInnerHTML={{ __html: prompt }} />
-        </Modal>
         <style jsx>{`
           .root {
             font-family: ${primaryFont};
