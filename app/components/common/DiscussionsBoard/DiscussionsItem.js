@@ -11,7 +11,7 @@ import uniqueId from 'lodash/uniqueId';
 import DiscussionComments from './DiscussionComments';
 import { likeThread } from 'services/discussions/like';
 import DiscussionsCard from 'components/common/DiscussionsCard';
-
+import styles from './DiscussionsBoard.style'
 
 const {
   any,
@@ -25,6 +25,7 @@ const {
 
 const DiscussionsItem = props => (
   <div
+    className="margin"
     key={uniqueId()}
   >
     <DiscussionsCard
@@ -42,6 +43,7 @@ const DiscussionsItem = props => (
         isDesktop={props.isDesktop}
       />)}
     />
+    <style jsx>{styles}</style>
   </div>);
 
 

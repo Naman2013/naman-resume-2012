@@ -9,6 +9,9 @@ export default css`
     color: ${astronaut};
     margin-bottom: 10px;
   }
+  .margin {
+    margin: 15px 0;
+  }
   .comments-bar {
     font-size: 12px;
     text-transform: uppercase;
