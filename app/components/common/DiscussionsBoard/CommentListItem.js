@@ -30,7 +30,9 @@ const CommentListItem = props => (
       {...props}
       likeHandler={likeReply}
       isDesktop={props.isDesktop}
-      renderChildReplies={props.allowReplies ? () => (<DiscussionComments
+      renderChildReplies={props.allowReplies ? ({
+        renderToggle,
+      }) => (<DiscussionComments
         count={props.count}
         replyId={props.replyId}
         topicId={props.topicId}
@@ -41,6 +43,7 @@ const CommentListItem = props => (
         user={props.user}
         isDesktop={props.isDesktop}
         allowReplies={false}
+        renderToggle={renderToggle}
       />) : null}
     />
   </div>

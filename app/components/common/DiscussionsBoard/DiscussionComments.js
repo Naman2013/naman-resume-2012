@@ -23,6 +23,7 @@ const DiscussionsBoardComments = ({
   allowReplies,
   callSource,
   commentsCount,
+  renderToggle,
   count,
   forumId,
   threadId,
@@ -58,6 +59,7 @@ const DiscussionsBoardComments = ({
           threadId={threadId}
           user={user}
           isDesktop={isDesktop}
+          renderToggle={renderToggle}
           {...serviceResponse}
         />}
       </div>

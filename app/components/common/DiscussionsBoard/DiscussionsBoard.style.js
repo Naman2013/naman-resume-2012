@@ -21,4 +21,10 @@ export default css`
     padding: 25px;
     ${dropShadowContainer}
   }
+
+  .flex {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
 `;

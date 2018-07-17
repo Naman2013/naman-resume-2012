@@ -51,6 +51,7 @@ class BootstrappedDiscussionsBoard extends Component {
     threadCount: 0,
     threads: [],
     topicId: null,
+    showAllComments: false,
   };
 
   state = {
@@ -75,6 +76,14 @@ class BootstrappedDiscussionsBoard extends Component {
       }
 
       return res.payload;
+    });
+  }
+
+  toggleAllComments = () => {
+    const { showAllComments } = this.state;
+
+    this.setState({
+      showAllComments: !showAllComments,
     });
   }
 

@@ -32,7 +32,9 @@ const DiscussionsItem = props => (
       {...props}
       likeHandler={likeThread}
       isDesktop={props.isDesktop}
-      renderChildReplies={() => (<DiscussionComments
+      renderChildReplies={({
+        renderToggle,
+      }) => (<DiscussionComments
         callSource={props.callSource}
         threadId={props.threadId}
         count={props.count}
@@ -41,6 +43,7 @@ const DiscussionsItem = props => (
         user={props.user}
         replyTo={props.threadId}
         isDesktop={props.isDesktop}
+        renderToggle={renderToggle}
       />)}
     />
     <style jsx>{styles}</style>

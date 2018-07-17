@@ -136,7 +136,9 @@ class DiscussionsCard extends Component {
             </div>
           </div>
         </div>
-        {showAllComments && renderChildReplies ? renderChildReplies() : null}
+        {showAllComments && renderChildReplies ? renderChildReplies({
+          renderToggle: () => <Button icon="https://vega.slooh.com/assets/v4/common/plus_icon.svg" onClickEvent={toggleAllComments} />
+        }) : null}
         <style jsx>{styles}</style>
       </div>
     );

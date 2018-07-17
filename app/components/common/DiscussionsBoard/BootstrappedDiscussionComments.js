@@ -21,6 +21,7 @@ import styles from './DiscussionsBoard.style';
 const {
   arrayOf,
   bool,
+  func,
   number,
   oneOfType,
   shape,
@@ -116,21 +117,23 @@ class CommentList extends Component {
   render() {
     const {
       allowReplies,
-      resultsCount,
+      callSource,
+      count,
       fetching,
       forumId,
       isDesktop,
-      count,
+      renderToggle,
+      resultsCount,
       threadId,
       topicId,
       user,
-      callSource,
     } = this.props;
     const {
       comments,
       page,
     } = this.state;
     const { displayedCommentsObjs } = this;
+
     return (
       <div className="comment" key={uniqueId()}>
         {!fetching ? <div className="comments-bar">
@@ -158,14 +161,16 @@ class CommentList extends Component {
             openModal={this.openModal}
           />)
        })}
-        {displayedCommentsObjs.length > 0 && <ShowMoreFullSet
-          handleShowMore={this.handleShowMore}
-          fullDataSet={comments}
-          count={count}
-          totalCount={comments.length}
-          page={page}
-        />}
-        <Button icon="" />
+        <div className="flex">
+          {displayedCommentsObjs.length > 0 && <ShowMoreFullSet
+            handleShowMore={this.handleShowMore}
+            fullDataSet={comments}
+            count={count}
+            totalCount={comments.length}
+            page={page}
+          />}
+          {renderToggle()}
+        </div>
         <Form
           avatarURL={user.avatarURL}
           callSource={callSource}
