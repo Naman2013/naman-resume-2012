@@ -3,8 +3,7 @@ import { shallow } from 'enzyme';
 import SubjectGuideList from './SubjectGuideList';
 
 describe('SubjectGuideList', () => {
-  const createLink = jest.fn();
-  const mockList = [{ title: 'Foo', anchorText: 'Bar', createLink }, { title: 'Foo', anchorText: 'Bar', createLink }];
+  const mockList = [{ title: 'Foo', anchorText: 'Bar', link: '#' }, { title: 'Foo', anchorText: 'Bar', link: '#' }];
   const shallowWrapper = shallow(<SubjectGuideList list={mockList} />);
 
   it('should render correctly', () => {

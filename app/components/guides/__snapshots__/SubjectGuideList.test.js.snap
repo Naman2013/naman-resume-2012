@@ -9,12 +9,12 @@ ShallowWrapper {
       Array [
         Object {
           "anchorText": "Bar",
-          "createLink": [MockFunction],
+          "link": "#",
           "title": "Foo",
         },
         Object {
           "anchorText": "Bar",
-          "createLink": [MockFunction],
+          "link": "#",
           "title": "Foo",
         },
       ]
@@ -33,41 +33,106 @@ ShallowWrapper {
     "nodeType": "host",
     "props": Object {
       "children": Array [
-        <LeighTile
-          anchorText="Bar"
-          createLink={[MockFunction]}
-          title="Foo"
-        />,
-        <LeighTile
-          anchorText="Bar"
-          createLink={[MockFunction]}
-          title="Foo"
+        Array [
+          <li
+            className="jsx-2486111897"
+          >
+            <LeighTile
+              anchorText="Bar"
+              link="#"
+              title="Foo"
+            />
+          </li>,
+          <li
+            className="jsx-2486111897"
+          >
+            <LeighTile
+              anchorText="Bar"
+              link="#"
+              title="Foo"
+            />
+          </li>,
+        ],
+        <JSXStyle
+          css={
+            Array [
+              "ul.jsx-2486111897{margin:0;padding:0;list-style-type:none;}",
+              "li.jsx-2486111897{margin-bottom:20px;}",
+            ]
+          }
+          styleId="2486111897"
         />,
       ],
+      "className": "jsx-2486111897",
     },
     "ref": null,
     "rendered": Array [
       Object {
         "instance": null,
-        "key": "leight-tile-Foo",
-        "nodeType": "function",
+        "key": "leigh-tile-Foo",
+        "nodeType": "host",
         "props": Object {
-          "anchorText": "Bar",
-          "createLink": [MockFunction],
-          "title": "Foo",
+          "children": <LeighTile
+            anchorText="Bar"
+            link="#"
+            title="Foo"
+          />,
+          "className": "jsx-2486111897",
         },
         "ref": null,
-        "rendered": null,
-        "type": [Function],
+        "rendered": Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "function",
+          "props": Object {
+            "anchorText": "Bar",
+            "link": "#",
+            "title": "Foo",
+          },
+          "ref": null,
+          "rendered": null,
+          "type": [Function],
+        },
+        "type": "li",
       },
       Object {
         "instance": null,
-        "key": "leight-tile-Foo",
-        "nodeType": "function",
+        "key": "leigh-tile-Foo",
+        "nodeType": "host",
         "props": Object {
-          "anchorText": "Bar",
-          "createLink": [MockFunction],
-          "title": "Foo",
+          "children": <LeighTile
+            anchorText="Bar"
+            link="#"
+            title="Foo"
+          />,
+          "className": "jsx-2486111897",
+        },
+        "ref": null,
+        "rendered": Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "function",
+          "props": Object {
+            "anchorText": "Bar",
+            "link": "#",
+            "title": "Foo",
+          },
+          "ref": null,
+          "rendered": null,
+          "type": [Function],
+        },
+        "type": "li",
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
+          "css": Array [
+            "ul.jsx-2486111897{margin:0;padding:0;list-style-type:none;}",
+            "li.jsx-2486111897{margin-bottom:20px;}",
+          ],
+          "styleId": "2486111897",
         },
         "ref": null,
         "rendered": null,
@@ -83,41 +148,106 @@ ShallowWrapper {
       "nodeType": "host",
       "props": Object {
         "children": Array [
-          <LeighTile
-            anchorText="Bar"
-            createLink={[MockFunction]}
-            title="Foo"
-          />,
-          <LeighTile
-            anchorText="Bar"
-            createLink={[MockFunction]}
-            title="Foo"
+          Array [
+            <li
+              className="jsx-2486111897"
+            >
+              <LeighTile
+                anchorText="Bar"
+                link="#"
+                title="Foo"
+              />
+            </li>,
+            <li
+              className="jsx-2486111897"
+            >
+              <LeighTile
+                anchorText="Bar"
+                link="#"
+                title="Foo"
+              />
+            </li>,
+          ],
+          <JSXStyle
+            css={
+              Array [
+                "ul.jsx-2486111897{margin:0;padding:0;list-style-type:none;}",
+                "li.jsx-2486111897{margin-bottom:20px;}",
+              ]
+            }
+            styleId="2486111897"
           />,
         ],
+        "className": "jsx-2486111897",
       },
       "ref": null,
       "rendered": Array [
         Object {
           "instance": null,
-          "key": "leight-tile-Foo",
-          "nodeType": "function",
+          "key": "leigh-tile-Foo",
+          "nodeType": "host",
           "props": Object {
-            "anchorText": "Bar",
-            "createLink": [MockFunction],
-            "title": "Foo",
+            "children": <LeighTile
+              anchorText="Bar"
+              link="#"
+              title="Foo"
+            />,
+            "className": "jsx-2486111897",
           },
           "ref": null,
-          "rendered": null,
-          "type": [Function],
+          "rendered": Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "function",
+            "props": Object {
+              "anchorText": "Bar",
+              "link": "#",
+              "title": "Foo",
+            },
+            "ref": null,
+            "rendered": null,
+            "type": [Function],
+          },
+          "type": "li",
         },
         Object {
           "instance": null,
-          "key": "leight-tile-Foo",
-          "nodeType": "function",
+          "key": "leigh-tile-Foo",
+          "nodeType": "host",
           "props": Object {
-            "anchorText": "Bar",
-            "createLink": [MockFunction],
-            "title": "Foo",
+            "children": <LeighTile
+              anchorText="Bar"
+              link="#"
+              title="Foo"
+            />,
+            "className": "jsx-2486111897",
+          },
+          "ref": null,
+          "rendered": Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "function",
+            "props": Object {
+              "anchorText": "Bar",
+              "link": "#",
+              "title": "Foo",
+            },
+            "ref": null,
+            "rendered": null,
+            "type": [Function],
+          },
+          "type": "li",
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "css": Array [
+              "ul.jsx-2486111897{margin:0;padding:0;list-style-type:none;}",
+              "li.jsx-2486111897{margin-bottom:20px;}",
+            ],
+            "styleId": "2486111897",
           },
           "ref": null,
           "rendered": null,
