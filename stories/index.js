@@ -5,6 +5,7 @@ import './DiscussionsBoard';
 import './GlobalNavigation';
 import './guides/GuideSection';
 import './Headers';
+import './icons';
 import './InAppNavigation';
 import './MissionAudio';
 import './svg-mask';
