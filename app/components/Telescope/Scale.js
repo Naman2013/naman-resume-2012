@@ -1,7 +1,7 @@
 import React from 'react';
-import Polyline from 'components/SVG/Polyline';
 import PropTypes from 'prop-types';
-import { monoFont } from 'styles/variables/fonts';
+import Polyline from '../../components/SVG/Polyline';
+import { monoFont } from '../../styles/variables/fonts';
 
 const Scale = ({ dimension, scale, scaleText, style }) => {
   const lineLength = (dimension * 0.10);

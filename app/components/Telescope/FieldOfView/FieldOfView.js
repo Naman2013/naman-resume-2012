@@ -12,8 +12,6 @@ const FieldOfView = ({
   const activeTelescope = getTelescope(activeInstrumentID);
   const previousTelescope = getTelescope(previousInstrumentID);
 
-  if (!previousTelescope) return null;
-
   return (
     <g>
       <FOV
@@ -30,12 +28,6 @@ const FieldOfView = ({
         gridWidth={previousTelescope.PORTAL.horizontal}
         largeRectGridWidth={previousTelescope.FOV.horizontal}
         stroke="aqua"
-      />
-
-      <FOV
-        tickSpacing={tickSpacing}
-        canvasWidth={canvasWidth}
-        gridWidth={12}
       />
     </g>
   );

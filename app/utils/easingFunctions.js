@@ -1,6 +1,10 @@
+// ==============================================================================
+// DO NOT REFACTOR, THE NATURAL ORDER OF OPERATIONS IS REQUIRED
+// ==============================================================================
 function linearInterpolation(source, target, amount) {
   return source + amount * (target - source);
 }
+// ==============================================================================
 
 // Validation methods
 const checkNum = n => (typeof n === 'number' ? n : null);
