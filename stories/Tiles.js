@@ -11,5 +11,8 @@ storiesOf('Common Tiles', module)
     />
   ))
   .add('LeighTile', () => (
-    <LeighTile />
+    <LeighTile
+      title="Astronomical time"
+      anchorText="Topic 1"
+    />
   ));
