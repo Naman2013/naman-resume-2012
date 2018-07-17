@@ -13,7 +13,7 @@ import take from 'lodash/take';
 import { submitReply } from 'services/discussions/submit-reply';
 import CommentListItem from './CommentListItem';
 import Form from './ReplyForm';
-import PaginateSet from '../../common/paginate-full-set/PaginateSet';
+import ShowMoreFullSet from '../../common/ShowMoreFullSet';
 import Button from 'components/common/style/buttons/Button';
 import styles from './DiscussionsBoard.style';
 
@@ -84,7 +84,7 @@ class CommentList extends Component {
     return [].concat(comments).filter(reply => displayedComments.indexOf(reply.replyId) > -1);
   }
 
-  handlePageChange = (paginatedSet, page) => {
+  handleShowMore = (paginatedSet, page) => {
     this.setState({
       displayedComments: paginatedSet,
       page,
@@ -158,8 +158,8 @@ class CommentList extends Component {
             openModal={this.openModal}
           />)
        })}
-        {displayedCommentsObjs.length > 0 && <PaginateSet
-          handlePageChange={this.handlePageChange}
+        {displayedCommentsObjs.length > 0 && <ShowMoreFullSet
+          handleShowMore={this.handleShowMore}
           fullDataSet={comments}
           count={count}
           totalCount={comments.length}
