@@ -43,6 +43,7 @@ import ObjectDetailsQuests from './containers/object-details/ObjectDetailsQuests
 import ObjectDetailsStories from './containers/object-details/ObjectDetailsStories';
 import ObjectDetailsShows from './containers/object-details/ObjectDetailsShows';
 import Guides from './containers/guides';
+import SubjectGuides from './containers/guides/SubjectGuides';
 
 // pages
 import TelescopeOverview from './pages/telescope-overview';
@@ -478,7 +479,9 @@ ReactDOM.render(
         <Route path="bookclub" component={BookclubHandoff} />
 
         <Route path="guide-details/:guideId" component={GuideDetails} onEnter={validateUser} />
-        <Route path="guides" component={Guides} onEnter={validateUser} />
+
+        <Route path="guides" component={Guides} />
+        <Route path="guides/subject" component={SubjectGuides} />
 
         <Route path="object-details/:objectId" component={ObjectDetails} onEnter={validateUser}>
           <IndexRedirect to="overview" />
