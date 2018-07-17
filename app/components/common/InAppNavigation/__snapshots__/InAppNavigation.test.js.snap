@@ -5,7 +5,8 @@ ShallowWrapper {
   "length": 1,
   Symbol(enzyme.__root__): [Circular],
   Symbol(enzyme.__unrendered__): <InAppNavigation
-    previousText=""
+    previousText="guide"
+    title="topic 1: stuff..."
   />,
   Symbol(enzyme.__renderer__): Object {
     "batchedUpdates": [Function],
@@ -24,8 +25,13 @@ ShallowWrapper {
           className="jsx-213213374 back-text"
         >
           back
-          
+           to guide
         </p>,
+        <h5
+          className="jsx-213213374 title"
+        >
+          topic 1: stuff...
+        </h5>,
         <JSXStyle
           css={
             Array [
@@ -46,16 +52,28 @@ ShallowWrapper {
         "props": Object {
           "children": Array [
             "back",
-            "",
+            " to guide",
           ],
           "className": "jsx-213213374 back-text",
         },
         "ref": null,
         "rendered": Array [
           "back",
-          "",
+          " to guide",
         ],
         "type": "p",
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": "topic 1: stuff...",
+          "className": "jsx-213213374 title",
+        },
+        "ref": null,
+        "rendered": "topic 1: stuff...",
+        "type": "h5",
       },
       Object {
         "instance": null,
@@ -85,8 +103,13 @@ ShallowWrapper {
             className="jsx-213213374 back-text"
           >
             back
-            
+             to guide
           </p>,
+          <h5
+            className="jsx-213213374 title"
+          >
+            topic 1: stuff...
+          </h5>,
           <JSXStyle
             css={
               Array [
@@ -107,16 +130,28 @@ ShallowWrapper {
           "props": Object {
             "children": Array [
               "back",
-              "",
+              " to guide",
             ],
             "className": "jsx-213213374 back-text",
           },
           "ref": null,
           "rendered": Array [
             "back",
-            "",
+            " to guide",
           ],
           "type": "p",
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": "topic 1: stuff...",
+            "className": "jsx-213213374 title",
+          },
+          "ref": null,
+          "rendered": "topic 1: stuff...",
+          "type": "h5",
         },
         Object {
           "instance": null,
