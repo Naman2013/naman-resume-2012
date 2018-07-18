@@ -169,7 +169,7 @@ class CommentList extends Component {
             totalCount={comments.length}
             page={page}
           />}
-          {renderToggle()}
+          {renderToggle ? renderToggle() : null}
         </div>
         <Form
           avatarURL={user.avatarURL}
