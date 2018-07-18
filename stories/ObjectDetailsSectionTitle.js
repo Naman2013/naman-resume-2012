@@ -7,7 +7,7 @@ storiesOf('ObjectDetailsSectionTitle', module)
   .add('Default', () => (
     <Fragment>
       <DeviceProvider>
-        <ObjectDetailsSectionTitle list={['The Moons', 'Upcoming Missions']} />
+        <ObjectDetailsSectionTitle title="The Moon's" subTitle="Featured Observations" />
       </DeviceProvider>
     </Fragment>
   ));

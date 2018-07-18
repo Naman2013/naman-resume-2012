@@ -1,28 +1,22 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { DeviceContext } from '../../../providers/DeviceProvider';
-import SectionTitle from './SectionTitle';
+import style from './SectionTitle.style';
 
-const ObjectDetailsSectionTitle = ( { list } ) => (
-  <Fragment>
-    <DeviceContext.Consumer>
-      {
-        (context) => {
-          if (!context.isMobile) {
-            return ( <SectionTitle list={list} /> );
-          }
-        }
-      }
-    </DeviceContext.Consumer>
-  </Fragment>
+const ObjectDetailsSectionTitle = ( { title, subTitle } ) => (
+  <div className="title-bg">
+    {title}
+    <h1>{subTitle}</h1>
+  <style jsx>{style}</style>
+  </div>
 );
 
 ObjectDetailsSectionTitle.propTypes = {
-  list: PropTypes.arrayOf(PropTypes.string),
+  title: PropTypes.string.isRequired,
+  subTitle: PropTypes.string,
 };
 
 ObjectDetailsSectionTitle.defaultProps = {
-  list: [],
+  subTitle: '',
 };
 
 export default ObjectDetailsSectionTitle;
