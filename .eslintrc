@@ -11,6 +11,7 @@
     "window": true,
     "EventSource": true,
     "describe": true,
-    "body": true
+    "body": true,
+    "jest": true
   }
 }

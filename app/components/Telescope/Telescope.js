@@ -2,15 +2,16 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Measure from 'react-measure';
 import noop from 'lodash/noop';
-import Fade from 'components/common/Fade';
-import FadeSVG from 'components/common/Fade/FadeSVG';
-import easingFunctions, { animateValues } from 'utils/easingFunctions';
-import { black } from 'styles/variables/colors';
+import Fade from '../../components/common/Fade';
+import FadeSVG from '../../components/common/Fade/FadeSVG';
+import easingFunctions, { animateValues } from '../../utils/easingFunctions';
+import { black } from '../../styles/variables/colors';
 
 import TelescopeFrame from './TelescopeFrame';
 import Mask from './Mask';
 import Scale from './Scale';
 import UnitText from './TelescopeFrame/UnitText';
+import HowBig from './HowBig';
 
 import { getTelescope } from './telescopeConfig';
 import FieldOfView from './FieldOfView/FieldOfView';
@@ -18,23 +19,28 @@ import FieldOfView from './FieldOfView/FieldOfView';
 const MAX_RESOLUTION = 250;
 const MAX_DURATION = 10000;
 const ZOOM_OUT_DURATION = MAX_DURATION / 2;
-const MAX_FOV_FLIPS = 6;
+const MAX_FOV_FLIPS = 5;
 
 class Telescope extends Component {
   static propTypes = {
     activeInstrumentID: PropTypes.string.isRequired,
     previousInstrumentID: PropTypes.string.isRequired,
+    missionMetaData: PropTypes.shape({
+      missionTargetID: PropTypes.number,
+      referenceObjectScale: PropTypes.number,
+      domain: PropTypes.string,
+      targetObjectScale: PropTypes.number,
+      targetObjectURL: PropTypes.string,
+      targetObjectName: PropTypes.string,
+    }),
     render: PropTypes.func,
-    verticalResolution: PropTypes.number,
-    horizontalResolution: PropTypes.number,
     increment: PropTypes.number,
   };
 
   static defaultProps = {
-    verticalResolution: 75,
-    horizontalResolution: 75,
     increment: 5,
     render: noop,
+    missionMetaData: { missionTargetID: 0 },
   };
 
   state = {
@@ -45,17 +51,9 @@ class Telescope extends Component {
     horizontalResolution: getTelescope(this.props.activeInstrumentID).FOV.horizontal,
     verticalResolution: getTelescope(this.props.activeInstrumentID).FOV.horizontal,
     increment: this.props.increment,
+    awaitingMission: (this.props.missionMetaData.missionTargetID === 0),
+    transitionScale: false,
     portalDimensions: {
-      bottom: 0,
-      height: 0,
-      left: 0,
-      right: 0,
-      top: 0,
-      width: 0,
-      x: 0,
-      y: 0,
-    },
-    imageDimensions: {
       bottom: 0,
       height: 0,
       left: 0,
@@ -70,12 +68,30 @@ class Telescope extends Component {
   componentWillReceiveProps({
     activeInstrumentID,
     previousInstrumentID,
-    horizontalResolution,
-    verticalResolution,
+    missionMetaData,
   }) {
     if (activeInstrumentID !== this.props.activeInstrumentID) {
-      this.setState(() => ({ activeInstrumentID, previousInstrumentID }));
+      this.setState(() => ({
+        activeInstrumentID: previousInstrumentID,
+        previousInstrumentID: activeInstrumentID,
+      }));
       this.transitionZoomOut();
+    }
+
+    if (missionMetaData.missionTargetID === 0) {
+      this.setState(() => ({
+        awaitingMission: true,
+        transitionScale: false,
+      }));
+    }
+
+    if (missionMetaData.missionTargetID !== 0) {
+      this.setState(() => ({
+        awaitingMission: false,
+        transitionScale: (
+          missionMetaData.missionTargetID !== this.props.missionMetaData.missionTargetID
+        ),
+      }));
     }
   }
 
@@ -111,6 +127,7 @@ class Telescope extends Component {
   }
 
   transitionPOV() {
+    this.setState({ timesFlippedInstrumentBorder: 0 });
     this.doFOVTransitionInterval = setInterval(() => {
       this.setState((prevState) => {
         const {
@@ -125,7 +142,7 @@ class Telescope extends Component {
           return {};
         }
 
-      const updatedFOVFlipState = {
+        const updatedFOVFlipState = {
           timesFlippedInstrumentBorder: (timesFlippedInstrumentBorder + 1),
           activeInstrumentID:
             (activeInstrumentID === this.state.activeInstrumentID)
@@ -145,7 +162,6 @@ class Telescope extends Component {
   tearDownTransitionPOV() {
     if (this.doFOVTransitionInterval) {
       clearInterval(this.doFOVTransitionInterval);
-      this.setState(() => ({ timesFlippedInstrumentBorder: 0 }));
     }
   }
 
@@ -189,27 +205,30 @@ class Telescope extends Component {
     );
   }
 
-  handleImageResize = (imageBounds) => {
-    this.setState({ imageDimensions: { ...imageBounds } });
-  }
-
   handlePortalResize = (contentBox) => {
     this.setState({ portalDimensions: { ...contentBox.bounds } });
+  }
+
+  handleCompleteHowBigAnimation = () => {
+    this.setState(() => ({ transitionScale: false }));
   }
 
   render() {
     const {
       portalDimensions: { width },
-      imageDimensions,
       increment,
       horizontalResolution,
       verticalResolution,
       isTransitioningTelescope,
       activeInstrumentID,
+      previousInstrumentID,
+      transitionScale,
+      awaitingMission,
     } = this.state;
 
+    const { missionMetaData } = this.props;
+
     const activeInstrument = getTelescope(activeInstrumentID);
-    const imageX = (imageDimensions.width - width) / 2;
     const tickSpacing = (width / horizontalResolution);
     const midPoint = (width / 2);
     const arcMinuteLabelLetterSpacing = (width * 0.03);
@@ -236,54 +255,77 @@ class Telescope extends Component {
                   version="1.1"
                   xmlns="http://www.w3.org/2000/svg"
                 >
+                  {/**
+                    TODO:
+                    move non-scale transition elements into a component to keep this more readable
+                  */}
+                  <FadeSVG isHidden={transitionScale}>
+                    <FadeSVG isHidden={isTransitioningTelescope}>
+                      <Mask />
+                    </FadeSVG>
 
-                  <FadeSVG isHidden={isTransitioningTelescope}>
-                    <Mask />
+                    {
+                      activeInstrumentID
+                      && previousInstrumentID
+                      &&
+                      <FadeSVG isHidden={!isTransitioningTelescope}>
+                        <FieldOfView
+                          activeInstrumentID={activeInstrumentID}
+                          previousInstrumentID={previousInstrumentID}
+                          tickSpacing={tickSpacing}
+                          canvasWidth={width}
+                        />
+                      </FadeSVG>
+                    }
+
+                    <TelescopeFrame
+                      isGridVisible={isTransitioningTelescope}
+                      isScaleVisible={!isTransitioningTelescope}
+                      horizontalResolution={horizontalResolution}
+                      verticalResolution={verticalResolution}
+                      increment={increment}
+                      length={width}
+                    />
+
+                    <FadeSVG isHidden={isTransitioningTelescope}>
+                      <Scale
+                        dimension={width}
+                        scale={(tickSpacing * activeInstrument.directionMarkerLengthArcMinutes)}
+                        scaleText={activeInstrument.directionMarkerLengthArcMinutes}
+                        style={{ stroke: 'aqua' }}
+                      />
+
+                      <UnitText
+                        text="arcminutes"
+                        x={midPoint}
+                        y={40}
+                        style={{ letterSpacing: arcMinuteLabelLetterSpacing }}
+                      />
+
+                      <UnitText
+                        text="arcminutes"
+                        x={-midPoint}
+                        y={(width - 40)}
+                        style={{
+                          letterSpacing: arcMinuteLabelLetterSpacing,
+                          transform: 'rotate(-90)',
+                        }}
+                      />
+                    </FadeSVG>
                   </FadeSVG>
 
-                  <FadeSVG isHidden={!isTransitioningTelescope}>
-                    <FieldOfView
-                      activeInstrumentID={this.state.activeInstrumentID}
-                      previousInstrumentID={this.state.previousInstrumentID}
-                      tickSpacing={tickSpacing}
-                      canvasWidth={width}
-                    />
-                  </FadeSVG>
-
-                  <TelescopeFrame
-                    isGridVisible={isTransitioningTelescope}
-                    isScaleVisible={!isTransitioningTelescope}
-                    horizontalResolution={horizontalResolution}
-                    verticalResolution={verticalResolution}
-                    increment={increment}
-                    length={width}
-                  />
-
-                  <FadeSVG isHidden={isTransitioningTelescope}>
-                    <Scale
-                      dimension={width}
-                      scale={(tickSpacing * activeInstrument.directionMarkerLengthArcMinutes)}
-                      scaleText={activeInstrument.directionMarkerLengthArcMinutes}
-                      style={{ stroke: 'aqua' }}
-                    />
-
-                    <UnitText
-                      text="arcminutes"
-                      x={midPoint}
-                      y={40}
-                      style={{ letterSpacing: arcMinuteLabelLetterSpacing }}
-                    />
-
-                    <UnitText
-                      text="arcminutes"
-                      x={-midPoint}
-                      y={(width - 40)}
-                      style={{
-                        letterSpacing: arcMinuteLabelLetterSpacing,
-                        transform: 'rotate(-90)',
-                      }}
-                    />
-                  </FadeSVG>
+                  {
+                    transitionScale &&
+                      <HowBig
+                        dimension={width}
+                        referenceObjectScale={missionMetaData.referenceObjectScale}
+                        domain={missionMetaData.domain}
+                        targetObjectScale={missionMetaData.targetObjectScale}
+                        targetObjectURL={missionMetaData.targetObjectURL}
+                        targetObjectName={missionMetaData.targetObjectName}
+                        onComplete={this.handleCompleteHowBigAnimation}
+                      />
+                  }
                 </svg>
 
                 <style jsx>{`

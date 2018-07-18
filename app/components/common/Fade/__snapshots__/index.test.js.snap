@@ -1,0 +1,155 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AutoFadeSVG should render correctly 1`] = `
+ShallowWrapper {
+  "length": 1,
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <AutoFadeSVG
+    duration={5}
+  >
+    <g
+      className="test-container"
+    />
+  </AutoFadeSVG>,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "host",
+    "props": Object {
+      "children": Array [
+        <g
+          className="test-container"
+        />,
+        <JSXStyle
+          css={
+            Array [
+              ".auto-fade-svg.__jsx-style-dynamic-selector{-webkit-animation:FADE-IN-__jsx-style-dynamic-selector 5s;animation:FADE-IN-__jsx-style-dynamic-selector 5s;-webkit-animation-fill-mode:forwards;animation-fill-mode:forwards;-webkit-animation-timing-function:ease-out;animation-timing-function:ease-out;}",
+              "@-webkit-keyframes FADE-IN-__jsx-style-dynamic-selector{0%{opacity:0;}100%{opacity:1;}}",
+              "@keyframes FADE-IN-__jsx-style-dynamic-selector{0%{opacity:0;}100%{opacity:1;}}",
+            ]
+          }
+          dynamic={
+            Array [
+              5,
+            ]
+          }
+          styleId="3211801733"
+        />,
+      ],
+      "className": "jsx-559850450 auto-fade-svg",
+    },
+    "ref": null,
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "className": "test-container",
+        },
+        "ref": null,
+        "rendered": null,
+        "type": "g",
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
+          "css": Array [
+            ".auto-fade-svg.__jsx-style-dynamic-selector{-webkit-animation:FADE-IN-__jsx-style-dynamic-selector 5s;animation:FADE-IN-__jsx-style-dynamic-selector 5s;-webkit-animation-fill-mode:forwards;animation-fill-mode:forwards;-webkit-animation-timing-function:ease-out;animation-timing-function:ease-out;}",
+            "@-webkit-keyframes FADE-IN-__jsx-style-dynamic-selector{0%{opacity:0;}100%{opacity:1;}}",
+            "@keyframes FADE-IN-__jsx-style-dynamic-selector{0%{opacity:0;}100%{opacity:1;}}",
+          ],
+          "dynamic": Array [
+            5,
+          ],
+          "styleId": "3211801733",
+        },
+        "ref": null,
+        "rendered": null,
+        "type": [Function],
+      },
+    ],
+    "type": "g",
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": Array [
+          <g
+            className="test-container"
+          />,
+          <JSXStyle
+            css={
+              Array [
+                ".auto-fade-svg.__jsx-style-dynamic-selector{-webkit-animation:FADE-IN-__jsx-style-dynamic-selector 5s;animation:FADE-IN-__jsx-style-dynamic-selector 5s;-webkit-animation-fill-mode:forwards;animation-fill-mode:forwards;-webkit-animation-timing-function:ease-out;animation-timing-function:ease-out;}",
+                "@-webkit-keyframes FADE-IN-__jsx-style-dynamic-selector{0%{opacity:0;}100%{opacity:1;}}",
+                "@keyframes FADE-IN-__jsx-style-dynamic-selector{0%{opacity:0;}100%{opacity:1;}}",
+              ]
+            }
+            dynamic={
+              Array [
+                5,
+              ]
+            }
+            styleId="3211801733"
+          />,
+        ],
+        "className": "jsx-559850450 auto-fade-svg",
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "className": "test-container",
+          },
+          "ref": null,
+          "rendered": null,
+          "type": "g",
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "css": Array [
+              ".auto-fade-svg.__jsx-style-dynamic-selector{-webkit-animation:FADE-IN-__jsx-style-dynamic-selector 5s;animation:FADE-IN-__jsx-style-dynamic-selector 5s;-webkit-animation-fill-mode:forwards;animation-fill-mode:forwards;-webkit-animation-timing-function:ease-out;animation-timing-function:ease-out;}",
+              "@-webkit-keyframes FADE-IN-__jsx-style-dynamic-selector{0%{opacity:0;}100%{opacity:1;}}",
+              "@keyframes FADE-IN-__jsx-style-dynamic-selector{0%{opacity:0;}100%{opacity:1;}}",
+            ],
+            "dynamic": Array [
+              5,
+            ],
+            "styleId": "3211801733",
+          },
+          "ref": null,
+          "rendered": null,
+          "type": [Function],
+        },
+      ],
+      "type": "g",
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+      },
+    },
+  },
+}
+`;

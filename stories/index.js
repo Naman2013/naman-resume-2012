@@ -20,3 +20,9 @@ import './cards/CardObservations';
 
 // guides
 import './guides/GuideSection';
+
+// Tiles
+import './Tiles';
+
+// Titles
+import './Titles';

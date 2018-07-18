@@ -20,7 +20,7 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import debounce from 'lodash/debounce';
+import throttle from 'lodash/throttle';
 import {
   isDesktop,
   isTablet,
@@ -30,7 +30,7 @@ import {
   isScreenXLarge,
 } from './deviceConfiguration';
 
-const PAGE_RESIZE_DEBOUNCE = 500;
+const PAGE_RESIZE_THROTTLE_DURATION = 250;
 export const DeviceContext = React.createContext();
 
 class DeviceProvider extends Component {
@@ -56,7 +56,7 @@ class DeviceProvider extends Component {
     window.removeEventListener('resize', this.handleResize);
   }
 
-  handleResize = debounce(() => {
+  handleResize = throttle(() => {
     this.setState({
       isDesktop: isDesktop(window.innerWidth),
       isMobile: isMobile(window.innerWidth),
@@ -66,7 +66,7 @@ class DeviceProvider extends Component {
       isScreenXLarge: isScreenXLarge(window.innerWidth),
       windowWidth: window.innerWidth,
     });
-  }, PAGE_RESIZE_DEBOUNCE)
+  }, PAGE_RESIZE_THROTTLE_DURATION)
 
   render() {
     const { children } = this.props;

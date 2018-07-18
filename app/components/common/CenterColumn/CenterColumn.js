@@ -1,52 +1,52 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { screenMedium, screenLarge, screenXLarge } from '../../../styles/variables/breakpoints';
-import {
-  screenMediumWidth,
-  screenLargeWidth,
-  screenXLargeWidth,
-} from './constants';
+import style from './CenterColumn.style';
+import { defaultScale } from 'styles/variables/breakpoints';
+import { defaultWidths } from './constants';
 
-const CenterColumn = ({ children, theme }) => (
+const CenterColumn = ({
+  children,
+  theme,
+  breakpoints,
+  widths,
+}) => (
   <div className="root" style={theme}>
     {children}
-
+    <style jsx>{style}</style>
     <style jsx>
       {`
-        .root {
-          width: 100%;
-          margin: 0 auto;
-          transition: width 0.25s;
-        }
-
-        @media ${screenMedium} {
+        @media ${breakpoints[0]} {
           .root {
-            width: ${screenMediumWidth}
+            width: ${widths[0]}
           }
         }
 
-        @media ${screenLarge} {
+        @media ${breakpoints[1]} {
           .root {
-            width: ${screenLargeWidth}
+            width: ${widths[1]}
           }
         }
-        @media ${screenXLarge} {
+
+        @media ${breakpoints[2]} {
           .root {
-            width: ${screenXLargeWidth}
+            width: ${widths[2]}
           }
         }
       `}
     </style>
-  </div>
-);
+  </div>);
 
 CenterColumn.propTypes = {
   children: PropTypes.node.isRequired,
   theme: PropTypes.shape({}),
+  breakpoints: PropTypes.arrayOf(PropTypes.string),
+  widths: PropTypes.arrayOf(PropTypes.string),
 };
 
 CenterColumn.defaultProps = {
   theme: {},
+  breakpoints: defaultScale,
+  widths: defaultWidths,
 };
 
 export default CenterColumn;

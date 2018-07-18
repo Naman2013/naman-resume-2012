@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Fade = ({ children, isHidden }) => (
+const FadeSVG = ({ children, isHidden }) => (
   <g className="root" style={{ opacity: (isHidden) ? 0 : 1 }}>
     {children}
 
@@ -14,13 +14,13 @@ const Fade = ({ children, isHidden }) => (
   </g>
 );
 
-Fade.propTypes = {
+FadeSVG.propTypes = {
   children: PropTypes.node.isRequired,
   isHidden: PropTypes.bool,
 };
 
-Fade.defaultProps = {
+FadeSVG.defaultProps = {
   isHidden: false,
 };
 
-export default Fade;
+export default FadeSVG;

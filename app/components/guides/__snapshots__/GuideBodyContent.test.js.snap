@@ -22,28 +22,30 @@ ShallowWrapper {
     "props": Object {
       "children": Array [
         <h4
-          className="jsx-3694983414 title"
+          className="jsx-3529671003 title"
         >
           
         </h4>,
         <p
-          className="jsx-3694983414"
+          className="jsx-3529671003"
         >
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
         </p>,
         <JSXStyle
           css={
             Array [
-              ".root.jsx-3694983414{color:#415671;font-family:brandon-grotesque, sans-serif;}",
-              ".title.jsx-3694983414{margin:0;padding:26px 0;text-transform:uppercase;font-size:12px;-webkit-letter-spacing:2px;-moz-letter-spacing:2px;-ms-letter-spacing:2px;letter-spacing:2px;}",
-              "p.jsx-3694983414{color:#6e7b8c;margin:0;padding:0;margin-bottom:32px;font-family:adobe-garamond-pro, serif;font-size:18px;line-height:1.75;}",
-              "@media screen and (min-width: 768px){.title.jsx-3694983414{padding-top:60px;padding-bottom:30px;}}",
+              ".root.jsx-3529671003{color:#415671;font-family:brandon-grotesque, sans-serif;padding:0 35px;padding-bottom:35px;}",
+              ".title.jsx-3529671003{margin:0;padding:26px 0;text-transform:uppercase;font-size:12px;-webkit-letter-spacing:2px;-moz-letter-spacing:2px;-ms-letter-spacing:2px;letter-spacing:2px;}",
+              "p.jsx-3529671003{color:#6e7b8c;margin:0;padding:0;margin-bottom:32px;font-family:adobe-garamond-pro, serif;font-size:18px;line-height:1.75;}",
+              "@media screen and (min-width: 768px){.root.jsx-3529671003{padding:0 55px;padding-bottom:55px;margin-top:-20px;}.title.jsx-3529671003{padding-top:60px;padding-bottom:30px;}}",
+              "@media screen and (min-width: 1024px){.root.jsx-3529671003{padding:0 75px;padding-bottom:75px;}}",
+              "@media screen and (min-width: 1366px){.root.jsx-3529671003{padding:0 95px;padding-bottom:95px;}}",
             ]
           }
-          styleId="3694983414"
+          styleId="3529671003"
         />,
       ],
-      "className": "jsx-3694983414 root",
+      "className": "jsx-3529671003 root",
     },
     "ref": null,
     "rendered": Array [
@@ -53,7 +55,7 @@ ShallowWrapper {
         "nodeType": "host",
         "props": Object {
           "children": "",
-          "className": "jsx-3694983414 title",
+          "className": "jsx-3529671003 title",
         },
         "ref": null,
         "rendered": "",
@@ -65,7 +67,7 @@ ShallowWrapper {
         "nodeType": "host",
         "props": Object {
           "children": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-          "className": "jsx-3694983414",
+          "className": "jsx-3529671003",
         },
         "ref": null,
         "rendered": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
@@ -77,12 +79,14 @@ ShallowWrapper {
         "nodeType": "class",
         "props": Object {
           "css": Array [
-            ".root.jsx-3694983414{color:#415671;font-family:brandon-grotesque, sans-serif;}",
-            ".title.jsx-3694983414{margin:0;padding:26px 0;text-transform:uppercase;font-size:12px;-webkit-letter-spacing:2px;-moz-letter-spacing:2px;-ms-letter-spacing:2px;letter-spacing:2px;}",
-            "p.jsx-3694983414{color:#6e7b8c;margin:0;padding:0;margin-bottom:32px;font-family:adobe-garamond-pro, serif;font-size:18px;line-height:1.75;}",
-            "@media screen and (min-width: 768px){.title.jsx-3694983414{padding-top:60px;padding-bottom:30px;}}",
+            ".root.jsx-3529671003{color:#415671;font-family:brandon-grotesque, sans-serif;padding:0 35px;padding-bottom:35px;}",
+            ".title.jsx-3529671003{margin:0;padding:26px 0;text-transform:uppercase;font-size:12px;-webkit-letter-spacing:2px;-moz-letter-spacing:2px;-ms-letter-spacing:2px;letter-spacing:2px;}",
+            "p.jsx-3529671003{color:#6e7b8c;margin:0;padding:0;margin-bottom:32px;font-family:adobe-garamond-pro, serif;font-size:18px;line-height:1.75;}",
+            "@media screen and (min-width: 768px){.root.jsx-3529671003{padding:0 55px;padding-bottom:55px;margin-top:-20px;}.title.jsx-3529671003{padding-top:60px;padding-bottom:30px;}}",
+            "@media screen and (min-width: 1024px){.root.jsx-3529671003{padding:0 75px;padding-bottom:75px;}}",
+            "@media screen and (min-width: 1366px){.root.jsx-3529671003{padding:0 95px;padding-bottom:95px;}}",
           ],
-          "styleId": "3694983414",
+          "styleId": "3529671003",
         },
         "ref": null,
         "rendered": null,
@@ -99,28 +103,30 @@ ShallowWrapper {
       "props": Object {
         "children": Array [
           <h4
-            className="jsx-3694983414 title"
+            className="jsx-3529671003 title"
           >
             
           </h4>,
           <p
-            className="jsx-3694983414"
+            className="jsx-3529671003"
           >
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
           </p>,
           <JSXStyle
             css={
               Array [
-                ".root.jsx-3694983414{color:#415671;font-family:brandon-grotesque, sans-serif;}",
-                ".title.jsx-3694983414{margin:0;padding:26px 0;text-transform:uppercase;font-size:12px;-webkit-letter-spacing:2px;-moz-letter-spacing:2px;-ms-letter-spacing:2px;letter-spacing:2px;}",
-                "p.jsx-3694983414{color:#6e7b8c;margin:0;padding:0;margin-bottom:32px;font-family:adobe-garamond-pro, serif;font-size:18px;line-height:1.75;}",
-                "@media screen and (min-width: 768px){.title.jsx-3694983414{padding-top:60px;padding-bottom:30px;}}",
+                ".root.jsx-3529671003{color:#415671;font-family:brandon-grotesque, sans-serif;padding:0 35px;padding-bottom:35px;}",
+                ".title.jsx-3529671003{margin:0;padding:26px 0;text-transform:uppercase;font-size:12px;-webkit-letter-spacing:2px;-moz-letter-spacing:2px;-ms-letter-spacing:2px;letter-spacing:2px;}",
+                "p.jsx-3529671003{color:#6e7b8c;margin:0;padding:0;margin-bottom:32px;font-family:adobe-garamond-pro, serif;font-size:18px;line-height:1.75;}",
+                "@media screen and (min-width: 768px){.root.jsx-3529671003{padding:0 55px;padding-bottom:55px;margin-top:-20px;}.title.jsx-3529671003{padding-top:60px;padding-bottom:30px;}}",
+                "@media screen and (min-width: 1024px){.root.jsx-3529671003{padding:0 75px;padding-bottom:75px;}}",
+                "@media screen and (min-width: 1366px){.root.jsx-3529671003{padding:0 95px;padding-bottom:95px;}}",
               ]
             }
-            styleId="3694983414"
+            styleId="3529671003"
           />,
         ],
-        "className": "jsx-3694983414 root",
+        "className": "jsx-3529671003 root",
       },
       "ref": null,
       "rendered": Array [
@@ -130,7 +136,7 @@ ShallowWrapper {
           "nodeType": "host",
           "props": Object {
             "children": "",
-            "className": "jsx-3694983414 title",
+            "className": "jsx-3529671003 title",
           },
           "ref": null,
           "rendered": "",
@@ -142,7 +148,7 @@ ShallowWrapper {
           "nodeType": "host",
           "props": Object {
             "children": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-            "className": "jsx-3694983414",
+            "className": "jsx-3529671003",
           },
           "ref": null,
           "rendered": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
@@ -154,12 +160,14 @@ ShallowWrapper {
           "nodeType": "class",
           "props": Object {
             "css": Array [
-              ".root.jsx-3694983414{color:#415671;font-family:brandon-grotesque, sans-serif;}",
-              ".title.jsx-3694983414{margin:0;padding:26px 0;text-transform:uppercase;font-size:12px;-webkit-letter-spacing:2px;-moz-letter-spacing:2px;-ms-letter-spacing:2px;letter-spacing:2px;}",
-              "p.jsx-3694983414{color:#6e7b8c;margin:0;padding:0;margin-bottom:32px;font-family:adobe-garamond-pro, serif;font-size:18px;line-height:1.75;}",
-              "@media screen and (min-width: 768px){.title.jsx-3694983414{padding-top:60px;padding-bottom:30px;}}",
+              ".root.jsx-3529671003{color:#415671;font-family:brandon-grotesque, sans-serif;padding:0 35px;padding-bottom:35px;}",
+              ".title.jsx-3529671003{margin:0;padding:26px 0;text-transform:uppercase;font-size:12px;-webkit-letter-spacing:2px;-moz-letter-spacing:2px;-ms-letter-spacing:2px;letter-spacing:2px;}",
+              "p.jsx-3529671003{color:#6e7b8c;margin:0;padding:0;margin-bottom:32px;font-family:adobe-garamond-pro, serif;font-size:18px;line-height:1.75;}",
+              "@media screen and (min-width: 768px){.root.jsx-3529671003{padding:0 55px;padding-bottom:55px;margin-top:-20px;}.title.jsx-3529671003{padding-top:60px;padding-bottom:30px;}}",
+              "@media screen and (min-width: 1024px){.root.jsx-3529671003{padding:0 75px;padding-bottom:75px;}}",
+              "@media screen and (min-width: 1366px){.root.jsx-3529671003{padding:0 95px;padding-bottom:95px;}}",
             ],
-            "styleId": "3694983414",
+            "styleId": "3529671003",
           },
           "ref": null,
           "rendered": null,

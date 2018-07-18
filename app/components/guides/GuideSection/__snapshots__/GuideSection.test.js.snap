@@ -23,7 +23,7 @@ ShallowWrapper {
     "props": Object {
       "children": Array [
         <div
-          className="jsx-170255760 jsx-2344170974 column-container"
+          className="jsx-1986333135 jsx-3104837453 column-container"
         >
           <AbelList
             list={
@@ -36,7 +36,7 @@ ShallowWrapper {
           />
         </div>,
         <div
-          className="jsx-170255760 jsx-2344170974 content-container"
+          className="jsx-1986333135 jsx-3104837453 content-container"
         >
           Mauris non tempor quam, et lacinia sapien. Mauris accumsan eros eget libero lorem posuere vulputate. Etiam elit elit, elementum sed varius at, adipiscing evitae est. Sed nec felis loren posuere posuere, rutrum eu ipsum. Aliquam eget odio sed ligula dolae iaculis consequat at eget orci. Mauris moleistie sit amet metus loi mass imattis varius Donec sit amet ligula eget nisi sodales lorem a molestie bibendum. Etiam nisi anteni consectetur eget placerat a, tempus a neque. Donec ut elit urna. Etiam venenatis leni eleifend urna eget scelerisqueliquam in nunc.
 
@@ -46,30 +46,28 @@ posuere vulputate. Etiam elit elit, elementum sed varius at.
         <JSXStyle
           css={
             Array [
-              ".root.jsx-170255760{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;padding:0 40px;}",
-              "@media screen and (min-width: undefinedpx){.root.jsx-170255760{padding:0 0;}.content-container.jsx-170255760{padding:0 60px;}}",
-              "@media screen and (min-width: undefinedpx){.root.jsx-170255760{padding:0 80px;}}",
-              "@media screen and (min-width: undefinedpx){.root.jsx-170255760{padding:0 100px;}}",
+              ".content-container.jsx-1986333135,.column-container.jsx-1986333135{margin:0;padding:0;}",
             ]
           }
-          styleId="170255760"
+          styleId="1986333135"
         />,
         <JSXStyle
           css={
             Array [
-              "@media screen and (min-width: undefinedpx){.root.__jsx-style-dynamic-selector{-webkit-flex-direction:row;-ms-flex-direction:row;flex-direction:row;}}",
+              "@media screen and (min-width: 1024px){.column-container.__jsx-style-dynamic-selector{float:left;margin-right: 100px; margin-bottom:40px;width:30%;}}",
             ]
           }
           dynamic={
             Array [
-              "screen and (min-width: undefinedpx)",
-              "row",
+              "screen and (min-width: 1024px)",
+              "left",
+              "margin-right: 100px;",
             ]
           }
-          styleId="493373226"
+          styleId="2105177132"
         />,
       ],
-      "className": "jsx-170255760 jsx-2344170974 root",
+      "className": "jsx-1986333135 jsx-3104837453 root",
     },
     "ref": null,
     "rendered": Array [
@@ -87,7 +85,7 @@ posuere vulputate. Etiam elit elit, elementum sed varius at.
               ]
             }
           />,
-          "className": "jsx-170255760 jsx-2344170974 column-container",
+          "className": "jsx-1986333135 jsx-3104837453 column-container",
         },
         "ref": null,
         "rendered": Object {
@@ -116,7 +114,7 @@ posuere vulputate. Etiam elit elit, elementum sed varius at.
 
 Donec sit amet ligula eget nisi sodales egestas. Aliquam interdum dolor aliquet dolor  iaculis consequat at eget orci. Mauris moleistie sit amet metus loi mass imattis varius Donec sit amet ligula eget nisi sodales lorem a molestie bibendum. Etiam nisi anteni
 posuere vulputate. Etiam elit elit, elementum sed varius at.",
-          "className": "jsx-170255760 jsx-2344170974 content-container",
+          "className": "jsx-1986333135 jsx-3104837453 content-container",
         },
         "ref": null,
         "rendered": "Mauris non tempor quam, et lacinia sapien. Mauris accumsan eros eget libero lorem posuere vulputate. Etiam elit elit, elementum sed varius at, adipiscing evitae est. Sed nec felis loren posuere posuere, rutrum eu ipsum. Aliquam eget odio sed ligula dolae iaculis consequat at eget orci. Mauris moleistie sit amet metus loi mass imattis varius Donec sit amet ligula eget nisi sodales lorem a molestie bibendum. Etiam nisi anteni consectetur eget placerat a, tempus a neque. Donec ut elit urna. Etiam venenatis leni eleifend urna eget scelerisqueliquam in nunc.
@@ -131,12 +129,9 @@ posuere vulputate. Etiam elit elit, elementum sed varius at.",
         "nodeType": "class",
         "props": Object {
           "css": Array [
-            ".root.jsx-170255760{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;padding:0 40px;}",
-            "@media screen and (min-width: undefinedpx){.root.jsx-170255760{padding:0 0;}.content-container.jsx-170255760{padding:0 60px;}}",
-            "@media screen and (min-width: undefinedpx){.root.jsx-170255760{padding:0 80px;}}",
-            "@media screen and (min-width: undefinedpx){.root.jsx-170255760{padding:0 100px;}}",
+            ".content-container.jsx-1986333135,.column-container.jsx-1986333135{margin:0;padding:0;}",
           ],
-          "styleId": "170255760",
+          "styleId": "1986333135",
         },
         "ref": null,
         "rendered": null,
@@ -148,13 +143,14 @@ posuere vulputate. Etiam elit elit, elementum sed varius at.",
         "nodeType": "class",
         "props": Object {
           "css": Array [
-            "@media screen and (min-width: undefinedpx){.root.__jsx-style-dynamic-selector{-webkit-flex-direction:row;-ms-flex-direction:row;flex-direction:row;}}",
+            "@media screen and (min-width: 1024px){.column-container.__jsx-style-dynamic-selector{float:left;margin-right: 100px; margin-bottom:40px;width:30%;}}",
           ],
           "dynamic": Array [
-            "screen and (min-width: undefinedpx)",
-            "row",
+            "screen and (min-width: 1024px)",
+            "left",
+            "margin-right: 100px;",
           ],
-          "styleId": "493373226",
+          "styleId": "2105177132",
         },
         "ref": null,
         "rendered": null,
@@ -171,7 +167,7 @@ posuere vulputate. Etiam elit elit, elementum sed varius at.",
       "props": Object {
         "children": Array [
           <div
-            className="jsx-170255760 jsx-2344170974 column-container"
+            className="jsx-1986333135 jsx-3104837453 column-container"
           >
             <AbelList
               list={
@@ -184,7 +180,7 @@ posuere vulputate. Etiam elit elit, elementum sed varius at.",
             />
           </div>,
           <div
-            className="jsx-170255760 jsx-2344170974 content-container"
+            className="jsx-1986333135 jsx-3104837453 content-container"
           >
             Mauris non tempor quam, et lacinia sapien. Mauris accumsan eros eget libero lorem posuere vulputate. Etiam elit elit, elementum sed varius at, adipiscing evitae est. Sed nec felis loren posuere posuere, rutrum eu ipsum. Aliquam eget odio sed ligula dolae iaculis consequat at eget orci. Mauris moleistie sit amet metus loi mass imattis varius Donec sit amet ligula eget nisi sodales lorem a molestie bibendum. Etiam nisi anteni consectetur eget placerat a, tempus a neque. Donec ut elit urna. Etiam venenatis leni eleifend urna eget scelerisqueliquam in nunc.
 
@@ -194,30 +190,28 @@ posuere vulputate. Etiam elit elit, elementum sed varius at.
           <JSXStyle
             css={
               Array [
-                ".root.jsx-170255760{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;padding:0 40px;}",
-                "@media screen and (min-width: undefinedpx){.root.jsx-170255760{padding:0 0;}.content-container.jsx-170255760{padding:0 60px;}}",
-                "@media screen and (min-width: undefinedpx){.root.jsx-170255760{padding:0 80px;}}",
-                "@media screen and (min-width: undefinedpx){.root.jsx-170255760{padding:0 100px;}}",
+                ".content-container.jsx-1986333135,.column-container.jsx-1986333135{margin:0;padding:0;}",
               ]
             }
-            styleId="170255760"
+            styleId="1986333135"
           />,
           <JSXStyle
             css={
               Array [
-                "@media screen and (min-width: undefinedpx){.root.__jsx-style-dynamic-selector{-webkit-flex-direction:row;-ms-flex-direction:row;flex-direction:row;}}",
+                "@media screen and (min-width: 1024px){.column-container.__jsx-style-dynamic-selector{float:left;margin-right: 100px; margin-bottom:40px;width:30%;}}",
               ]
             }
             dynamic={
               Array [
-                "screen and (min-width: undefinedpx)",
-                "row",
+                "screen and (min-width: 1024px)",
+                "left",
+                "margin-right: 100px;",
               ]
             }
-            styleId="493373226"
+            styleId="2105177132"
           />,
         ],
-        "className": "jsx-170255760 jsx-2344170974 root",
+        "className": "jsx-1986333135 jsx-3104837453 root",
       },
       "ref": null,
       "rendered": Array [
@@ -235,7 +229,7 @@ posuere vulputate. Etiam elit elit, elementum sed varius at.
                 ]
               }
             />,
-            "className": "jsx-170255760 jsx-2344170974 column-container",
+            "className": "jsx-1986333135 jsx-3104837453 column-container",
           },
           "ref": null,
           "rendered": Object {
@@ -264,7 +258,7 @@ posuere vulputate. Etiam elit elit, elementum sed varius at.
 
 Donec sit amet ligula eget nisi sodales egestas. Aliquam interdum dolor aliquet dolor  iaculis consequat at eget orci. Mauris moleistie sit amet metus loi mass imattis varius Donec sit amet ligula eget nisi sodales lorem a molestie bibendum. Etiam nisi anteni
 posuere vulputate. Etiam elit elit, elementum sed varius at.",
-            "className": "jsx-170255760 jsx-2344170974 content-container",
+            "className": "jsx-1986333135 jsx-3104837453 content-container",
           },
           "ref": null,
           "rendered": "Mauris non tempor quam, et lacinia sapien. Mauris accumsan eros eget libero lorem posuere vulputate. Etiam elit elit, elementum sed varius at, adipiscing evitae est. Sed nec felis loren posuere posuere, rutrum eu ipsum. Aliquam eget odio sed ligula dolae iaculis consequat at eget orci. Mauris moleistie sit amet metus loi mass imattis varius Donec sit amet ligula eget nisi sodales lorem a molestie bibendum. Etiam nisi anteni consectetur eget placerat a, tempus a neque. Donec ut elit urna. Etiam venenatis leni eleifend urna eget scelerisqueliquam in nunc.
@@ -279,12 +273,9 @@ posuere vulputate. Etiam elit elit, elementum sed varius at.",
           "nodeType": "class",
           "props": Object {
             "css": Array [
-              ".root.jsx-170255760{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;padding:0 40px;}",
-              "@media screen and (min-width: undefinedpx){.root.jsx-170255760{padding:0 0;}.content-container.jsx-170255760{padding:0 60px;}}",
-              "@media screen and (min-width: undefinedpx){.root.jsx-170255760{padding:0 80px;}}",
-              "@media screen and (min-width: undefinedpx){.root.jsx-170255760{padding:0 100px;}}",
+              ".content-container.jsx-1986333135,.column-container.jsx-1986333135{margin:0;padding:0;}",
             ],
-            "styleId": "170255760",
+            "styleId": "1986333135",
           },
           "ref": null,
           "rendered": null,
@@ -296,13 +287,14 @@ posuere vulputate. Etiam elit elit, elementum sed varius at.",
           "nodeType": "class",
           "props": Object {
             "css": Array [
-              "@media screen and (min-width: undefinedpx){.root.__jsx-style-dynamic-selector{-webkit-flex-direction:row;-ms-flex-direction:row;flex-direction:row;}}",
+              "@media screen and (min-width: 1024px){.column-container.__jsx-style-dynamic-selector{float:left;margin-right: 100px; margin-bottom:40px;width:30%;}}",
             ],
             "dynamic": Array [
-              "screen and (min-width: undefinedpx)",
-              "row",
+              "screen and (min-width: 1024px)",
+              "left",
+              "margin-right: 100px;",
             ],
-            "styleId": "493373226",
+            "styleId": "2105177132",
           },
           "ref": null,
           "rendered": null,

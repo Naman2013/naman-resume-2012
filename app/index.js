@@ -35,16 +35,17 @@ import DiscussionsListWrapper from './containers/discussions/DiscussionsListWrap
 import DiscussionsTopicsWrapper from './containers/discussions/DiscussionsTopicsWrapper';
 import DiscussionsSearch from './containers/discussions/DiscussionsSearch';
 
-//V 4 containers
+// V4 containers
 import AskAstronomer from './containers/ask-astronomer/AskAstronomer';
 import ObjectDetailsOverview from './containers/object-details/ObjectDetailsOverview';
 import ObjectDetailsMissions from './containers/object-details/ObjectDetailsMissions';
 import ObjectDetailsQuests from './containers/object-details/ObjectDetailsQuests';
 import ObjectDetailsStories from './containers/object-details/ObjectDetailsStories';
 import ObjectDetailsShows from './containers/object-details/ObjectDetailsShows';
+import Guides from './containers/guides';
+import SubjectGuides from './containers/guides/SubjectGuides';
 
 // pages
-import Home from './pages/home';
 import TelescopeOverview from './pages/telescope-overview';
 import TelescopeDetails from './pages/telescope-details/telescope-details';
 import NewMissions from './pages/new-missions';
@@ -478,6 +479,9 @@ ReactDOM.render(
         <Route path="bookclub" component={BookclubHandoff} />
 
         <Route path="guide-details/:guideId" component={GuideDetails} onEnter={validateUser} />
+
+        <Route path="guides" component={Guides} />
+        <Route path="guides/subject" component={SubjectGuides} />
 
         <Route path="object-details/:objectId" component={ObjectDetails} onEnter={validateUser}>
           <IndexRedirect to="overview" />

@@ -1,0 +1,283 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LeighTile should render correctly 1`] = `
+ShallowWrapper {
+  "length": 1,
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <LeighTile
+    anchorText="Topic 1"
+    link="#"
+    title="Foo"
+  />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "host",
+    "props": Object {
+      "children": Array [
+        <h5
+          className="jsx-3798973262 title"
+        >
+          Foo
+        </h5>,
+        <div
+          className="jsx-3798973262 action-container"
+        >
+          <a
+            className="jsx-3798973262 action"
+            href="#"
+          >
+            Topic 1
+          </a>
+          <img
+            alt=""
+            className="jsx-3798973262"
+            src="https://vega.slooh.com/assets/v4/common/arrow_horz.svg"
+          />
+        </div>,
+        <JSXStyle
+          css={
+            Array [
+              ".root.jsx-3798973262{margin:0 auto;padding:0;padding:40px;box-shadow:0px 0px 8px 1px rgba(65,86,113,.2);width:96%;}",
+              ".title.jsx-3798973262{margin:0;padding:0;font-family:adobe-garamond-pro, serif;font-weight:normal;font-size:18px;text-transform:capitalize;color:#41566F;border-bottom:1px solid #d9dee5;padding-bottom:30px;}",
+              ".action-container.jsx-3798973262{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;padding-top:20px;}",
+              ".action.jsx-3798973262{margin:0;padding:0;font-family:brandon-grotesque, sans-serif;font-weight:800;text-transform:uppercase;-webkit-text-decoration:none;text-decoration:none;font-size:10px;color:#41566F;}",
+              "@media screen and (min-width: 768px){.root.jsx-3798973262{width:100%;}}",
+            ]
+          }
+          styleId="3798973262"
+        />,
+      ],
+      "className": "jsx-3798973262 root",
+    },
+    "ref": null,
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": "Foo",
+          "className": "jsx-3798973262 title",
+        },
+        "ref": null,
+        "rendered": "Foo",
+        "type": "h5",
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": Array [
+            <a
+              className="jsx-3798973262 action"
+              href="#"
+            >
+              Topic 1
+            </a>,
+            <img
+              alt=""
+              className="jsx-3798973262"
+              src="https://vega.slooh.com/assets/v4/common/arrow_horz.svg"
+            />,
+          ],
+          "className": "jsx-3798973262 action-container",
+        },
+        "ref": null,
+        "rendered": Array [
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": "Topic 1",
+              "className": "jsx-3798973262 action",
+              "href": "#",
+            },
+            "ref": null,
+            "rendered": "Topic 1",
+            "type": "a",
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "alt": "",
+              "className": "jsx-3798973262",
+              "src": "https://vega.slooh.com/assets/v4/common/arrow_horz.svg",
+            },
+            "ref": null,
+            "rendered": null,
+            "type": "img",
+          },
+        ],
+        "type": "div",
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
+          "css": Array [
+            ".root.jsx-3798973262{margin:0 auto;padding:0;padding:40px;box-shadow:0px 0px 8px 1px rgba(65,86,113,.2);width:96%;}",
+            ".title.jsx-3798973262{margin:0;padding:0;font-family:adobe-garamond-pro, serif;font-weight:normal;font-size:18px;text-transform:capitalize;color:#41566F;border-bottom:1px solid #d9dee5;padding-bottom:30px;}",
+            ".action-container.jsx-3798973262{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;padding-top:20px;}",
+            ".action.jsx-3798973262{margin:0;padding:0;font-family:brandon-grotesque, sans-serif;font-weight:800;text-transform:uppercase;-webkit-text-decoration:none;text-decoration:none;font-size:10px;color:#41566F;}",
+            "@media screen and (min-width: 768px){.root.jsx-3798973262{width:100%;}}",
+          ],
+          "styleId": "3798973262",
+        },
+        "ref": null,
+        "rendered": null,
+        "type": [Function],
+      },
+    ],
+    "type": "div",
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": Array [
+          <h5
+            className="jsx-3798973262 title"
+          >
+            Foo
+          </h5>,
+          <div
+            className="jsx-3798973262 action-container"
+          >
+            <a
+              className="jsx-3798973262 action"
+              href="#"
+            >
+              Topic 1
+            </a>
+            <img
+              alt=""
+              className="jsx-3798973262"
+              src="https://vega.slooh.com/assets/v4/common/arrow_horz.svg"
+            />
+          </div>,
+          <JSXStyle
+            css={
+              Array [
+                ".root.jsx-3798973262{margin:0 auto;padding:0;padding:40px;box-shadow:0px 0px 8px 1px rgba(65,86,113,.2);width:96%;}",
+                ".title.jsx-3798973262{margin:0;padding:0;font-family:adobe-garamond-pro, serif;font-weight:normal;font-size:18px;text-transform:capitalize;color:#41566F;border-bottom:1px solid #d9dee5;padding-bottom:30px;}",
+                ".action-container.jsx-3798973262{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;padding-top:20px;}",
+                ".action.jsx-3798973262{margin:0;padding:0;font-family:brandon-grotesque, sans-serif;font-weight:800;text-transform:uppercase;-webkit-text-decoration:none;text-decoration:none;font-size:10px;color:#41566F;}",
+                "@media screen and (min-width: 768px){.root.jsx-3798973262{width:100%;}}",
+              ]
+            }
+            styleId="3798973262"
+          />,
+        ],
+        "className": "jsx-3798973262 root",
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": "Foo",
+            "className": "jsx-3798973262 title",
+          },
+          "ref": null,
+          "rendered": "Foo",
+          "type": "h5",
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": Array [
+              <a
+                className="jsx-3798973262 action"
+                href="#"
+              >
+                Topic 1
+              </a>,
+              <img
+                alt=""
+                className="jsx-3798973262"
+                src="https://vega.slooh.com/assets/v4/common/arrow_horz.svg"
+              />,
+            ],
+            "className": "jsx-3798973262 action-container",
+          },
+          "ref": null,
+          "rendered": Array [
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": "Topic 1",
+                "className": "jsx-3798973262 action",
+                "href": "#",
+              },
+              "ref": null,
+              "rendered": "Topic 1",
+              "type": "a",
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "alt": "",
+                "className": "jsx-3798973262",
+                "src": "https://vega.slooh.com/assets/v4/common/arrow_horz.svg",
+              },
+              "ref": null,
+              "rendered": null,
+              "type": "img",
+            },
+          ],
+          "type": "div",
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "css": Array [
+              ".root.jsx-3798973262{margin:0 auto;padding:0;padding:40px;box-shadow:0px 0px 8px 1px rgba(65,86,113,.2);width:96%;}",
+              ".title.jsx-3798973262{margin:0;padding:0;font-family:adobe-garamond-pro, serif;font-weight:normal;font-size:18px;text-transform:capitalize;color:#41566F;border-bottom:1px solid #d9dee5;padding-bottom:30px;}",
+              ".action-container.jsx-3798973262{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;padding-top:20px;}",
+              ".action.jsx-3798973262{margin:0;padding:0;font-family:brandon-grotesque, sans-serif;font-weight:800;text-transform:uppercase;-webkit-text-decoration:none;text-decoration:none;font-size:10px;color:#41566F;}",
+              "@media screen and (min-width: 768px){.root.jsx-3798973262{width:100%;}}",
+            ],
+            "styleId": "3798973262",
+          },
+          "ref": null,
+          "rendered": null,
+          "type": [Function],
+        },
+      ],
+      "type": "div",
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+      },
+    },
+  },
+}
+`;
