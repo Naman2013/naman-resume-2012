@@ -5,16 +5,15 @@
 *   Multi-National Languages.....
 ***********************************/
 
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import classnames from 'classnames';
-import has from 'lodash/has';
 import {
   fetchObjectDetailsAction,
   fetchObjectMissionsAction,
 } from '../../modules/object-details/actions';
+import DeviceProvider from '../../../app/providers/DeviceProvider';
+import ObjectDetailsSectionTitle from '../../components/object-details/ObjectDetailsSectionTitle';
 
 const mapStateToProps = ({ objectDetails, appConfig, user }) => ({
   objectMissions: objectDetails.objectMissions,
@@ -58,8 +57,11 @@ class Missions extends Component {
 
 
     return (
+      <Fragment>
+        <DeviceProvider>
+          <ObjectDetailsSectionTitle title={objectDetails.objectTitle + "'s"} subTitle="Upcoming Missions" />
+        </DeviceProvider>
       <div className="contain">
-
         <h4>{objectMissions.missionListTitle}</h4>
         {objectMissions && objectMissions.missionsCount > 0 ? (
           <div className="card-container__missions">
@@ -144,6 +146,7 @@ class Missions extends Component {
         `}</style>
 
       </div>
+      </Fragment>
     )
   }
 }

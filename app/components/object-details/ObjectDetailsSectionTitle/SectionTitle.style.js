@@ -31,7 +31,7 @@ export default css`
     .title-bg {
       background: url(${white_tile_texture});
       background-size: 15px;
-      height: 148px;
+      height: 223px;
       padding-top: 75px;
       box-shadow: 0px 15px 30px 2px rgba(237,240,242,1);
     }
