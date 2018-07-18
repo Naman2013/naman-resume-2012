@@ -60,6 +60,7 @@ const DiscussionsBoardComments = ({
           user={user}
           isDesktop={isDesktop}
           renderToggle={renderToggle}
+          replyTo={replyTo}
           {...serviceResponse}
         />}
       </div>

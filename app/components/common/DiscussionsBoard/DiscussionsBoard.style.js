@@ -9,6 +9,9 @@ export default css`
     color: ${astronaut};
     margin-bottom: 10px;
   }
+  .shadowed-container {
+    ${dropShadowContainer}
+  }
   .margin {
     margin: 15px 0;
   }

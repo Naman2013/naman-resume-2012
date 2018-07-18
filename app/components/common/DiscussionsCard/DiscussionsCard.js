@@ -9,8 +9,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import uniqueId from 'lodash/uniqueId';
 import moment from 'moment';
+import { submitReply } from 'services/discussions/submit-reply';
 import CommentButton from 'components/common/style/buttons/CommentButton';
 import LikeSomethingButton from 'components/common/LikeSomethingButton';
+import ReplyForm from 'components/common/DiscussionsBoard/ReplyForm';
 import Button from 'components/common/style/buttons/Button';
 import styles, { profPic } from './DiscussionsCard.style'
 
@@ -29,6 +31,7 @@ class DiscussionsCard extends Component {
 
   static propTypes = {
     avatarURL: string.isRequired,
+    allowReplies: bool,
     customerId: oneOfType([number, string]).isRequired,
     displayName: string.isRequired,
     openModal: func,
@@ -45,21 +48,25 @@ class DiscussionsCard extends Component {
     likesCount: number.isRequired,
     replyCount: number.isRequired,
     S3Files: arrayOf(string),
+    submitReply: func,
     showLikePrompt: bool.isRequired,
     renderChildReplies: func,
   };
 
   static defaultProps = {
+    allowReplies: true,
     likeHandler: null,
     likeParams: {},
     openModal: null,
     S3Files: [],
     renderChildReplies: null,
+    submitReply: null,
   };
 
   state = {
     showAllComments: false,
   };
+
 
   toggleAllComments = () => {
     const { showAllComments } = this.state;
@@ -72,6 +79,7 @@ class DiscussionsCard extends Component {
   render () {
     const {
       avatarURL,
+      allowReplies,
       creationDate,
       content,
       customerId,
@@ -84,7 +92,9 @@ class DiscussionsCard extends Component {
       openModal,
       renderChildReplies,
       replyCount,
+      replyTo,
       showLikePrompt,
+      submitReply,
       title,
       user,
     } = this.props;
@@ -132,12 +142,18 @@ class DiscussionsCard extends Component {
               /> : null}
             </div>
             <div className="action-right">
-              <Button text="Reply" />
+              {allowReplies ? <ReplyForm
+                {...this.props}
+                replyTo={replyTo}
+                submitForm={submitReply}
+                revealButtonRender={btnProps => <Button text="Reply" onClickEvent={btnProps.displayForm} />}
+              /> : null }
+
             </div>
           </div>
         </div>
         {showAllComments && renderChildReplies ? renderChildReplies({
-          renderToggle: () => <Button icon="https://vega.slooh.com/assets/v4/common/plus_icon.svg" onClickEvent={toggleAllComments} />
+          renderToggle: () => <Button icon="https://vega.slooh.com/assets/v4/common/close_icon.svg" onClickEvent={toggleAllComments} />
         }) : null}
         <style jsx>{styles}</style>
       </div>

@@ -20,6 +20,7 @@ import styles from './RevealSubmitForm.style';
 const {
   bool,
   func,
+  instanceOf,
   number,
   shape,
   string,
@@ -30,6 +31,7 @@ class RevealSubmitForm extends Component {
     imageClass: string,
     maxLength: number,
     placeholder: string,
+    revealButtonRender: func,
     submitForm: func.isRequired,
     submitLabel: string,
     uuid: string,
@@ -43,6 +45,7 @@ class RevealSubmitForm extends Component {
     imageClass: 'discussion',
     maxLength: null,
     placeholder: 'Write something...',
+    revealButtonRender: null,
     submitLabel: 'Post',
     uuid: null,
   }
@@ -155,7 +158,8 @@ class RevealSubmitForm extends Component {
     const {
       maxLength,
       placeholder,
-      submitLabel
+      submitLabel,
+      revealButtonRender,
     } = this.props;
 
     const {
@@ -168,7 +172,9 @@ class RevealSubmitForm extends Component {
 
     return (
       <div className="root">
-        <div className="fake-input" dangerouslySetInnerHTML={{ __html: placeholder }} onClick={this.displayForm} />
+        {revealButtonRender ? revealButtonRender({
+          displayForm: this.displayForm,
+        }) : <div className="fake-input" dangerouslySetInnerHTML={{ __html: placeholder }} onClick={this.displayForm} />}
         <Modal
           ariaHideApp={false}
           isOpen={showPopup}

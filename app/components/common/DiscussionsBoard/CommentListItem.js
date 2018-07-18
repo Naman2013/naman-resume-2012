@@ -30,6 +30,7 @@ const CommentListItem = props => (
       {...props}
       likeHandler={likeReply}
       isDesktop={props.isDesktop}
+      allowReplies={props.allowReplies}
       renderChildReplies={props.allowReplies ? ({
         renderToggle,
       }) => (<DiscussionComments
@@ -56,6 +57,7 @@ CommentListItem.defaultProps = {
   forumId: null,
   likeParams: {},
   openModal: func.isRequired,
+  submitReply: func.isRequired,
   threadId: null,
   topicId: null,
 };

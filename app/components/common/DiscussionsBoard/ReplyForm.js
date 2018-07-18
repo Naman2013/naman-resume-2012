@@ -7,6 +7,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import FormHeader from 'components/common/FormHeader';
+import SingleFieldSubmitForm from 'components/common/SingleFieldSubmitForm';
 import RevealSubmitForm from 'components/common/RevealSubmitForm';
 import { romance, astronaut, shadows } from 'styles/variables/colors_tiles_v4';
 import { dropShadowContainer } from 'styles/mixins/utilities';
@@ -83,8 +84,10 @@ class ReplyForm extends Component {
 
   render() {
     const {
+      revealButtonRender,
       avatarURL,
       isDesktop,
+      user,
     } = this.props;
 
     return (
@@ -93,12 +96,9 @@ class ReplyForm extends Component {
           {...this.props}
           submitForm={this.submitForm}
           placeholder="Write a public comment"
+          revealButtonRender={revealButtonRender}
         />
-        <style jsx>{`
-          .reply-form-container {
-            ${dropShadowContainer}
-          }
-        `}</style>
+
       </div>
     );
   }

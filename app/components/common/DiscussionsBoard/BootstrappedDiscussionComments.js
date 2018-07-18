@@ -97,16 +97,16 @@ class CommentList extends Component {
       const { apiError, reply } = res.data;
       if (!apiError) {
         const { count } = this.props;
-        const { replies, page, displayedReplies } = this.state;
-        const lastPage = (Math.ceil(replies.length / count)) || 1;
-        let newDisplayedReplies = [].concat(displayedReplies);
-        const newAllReplies = [].concat(replies, Object.assign({ likesCount: 0 }, reply));
+        const { comments, page, displayedComments } = this.state;
+        const lastPage = (Math.ceil(comments.length / count)) || 1;
+        let newDisplayedReplies = [].concat(displayedComments);
+        const newAllReplies = [].concat(comments, Object.assign({ likesCount: 0 }, reply));
         if (page === lastPage) {
-          newDisplayedReplies = newDisplayedReplies.concat(replies, reply.replyId);
+          newDisplayedReplies = newDisplayedReplies.concat(comments, reply.replyId);
         }
         this.setState({
-          displayedReplies: newDisplayedReplies,
-          replies: newAllReplies,
+          displayedComments: newDisplayedReplies,
+          comments: newAllReplies,
         });
 
       }
@@ -124,6 +124,7 @@ class CommentList extends Component {
       isDesktop,
       renderToggle,
       resultsCount,
+      replyTo,
       threadId,
       topicId,
       user,
@@ -154,7 +155,9 @@ class CommentList extends Component {
             isDesktop={isDesktop}
             threadId={threadId}
             topicId={topicId}
+            replyTo={displayedComment.replyId}
             forumId={forumId}
+            submitReply={this.handleReply}
             count={count}
             callSource={callSource}
             user={user}
@@ -171,18 +174,20 @@ class CommentList extends Component {
           />}
           {renderToggle ? renderToggle() : null}
         </div>
-        <Form
-          avatarURL={user.avatarURL}
-          callSource={callSource}
-          forumId={forumId}
-          key={uniqueId()}
-          replyTo={threadId}
-          submitReply={this.handleReply}
-          threadId={threadId}
-          topicId={topicId}
-          user={user}
-          isDesktop={isDesktop}
-        />
+        <div className="shadowed-container">
+          <Form
+            avatarURL={user.avatarURL}
+            callSource={callSource}
+            forumId={forumId}
+            key={uniqueId()}
+            replyTo={replyTo}
+            submitReply={this.handleReply}
+            threadId={threadId}
+            topicId={topicId}
+            user={user}
+            isDesktop={isDesktop}
+          />
+        </div>
         <style jsx>{styles}</style>
 
       </div>

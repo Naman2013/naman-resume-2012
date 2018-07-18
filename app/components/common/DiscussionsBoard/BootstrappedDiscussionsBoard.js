@@ -9,6 +9,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import DiscussionsItem from './DiscussionsItem';
 import CREATE_THREAD_FORM from './DiscussionsThreadFormInterface';
+import { submitReply } from 'services/discussions/submit-reply';
+
 
 const {
   any,
@@ -87,6 +89,28 @@ class BootstrappedDiscussionsBoard extends Component {
     });
   }
 
+  handleReply = (params, callback) => {
+    submitReply(params).then((res) => {
+      const { apiError, reply } = res.data;
+      if (!apiError) {
+        const { threadsList } = this.state;
+        const newThreadsList = [].concat(threadsList);
+
+        newThreadsList.map((thread) => {
+          if (thread.threadId === params.threadId) {
+            thread.replyCount = thread.replyCount + 1;
+          }
+          return thread;
+        });
+        this.setState({
+          threadsList: newThreadsList
+        });
+
+      }
+      callback(res.data);
+    });
+  }
+
   render() {
     const {
       callSource,
@@ -132,8 +156,10 @@ class BootstrappedDiscussionsBoard extends Component {
             likeParams={likeParams}
             topicId={topicId}
             count={count}
+            submitReply={this.handleReply}
             page={page}
             user={user}
+            replyTo={thread.threadId}
           />)
         })}
       </div>}
