@@ -22,38 +22,39 @@ ShallowWrapper {
     "props": Object {
       "children": Array [
         <div
-          className="jsx-1574755409 back-text-container"
+          className="jsx-3636028183 back-text-container"
         >
           <img
             alt=""
-            className="jsx-1574755409 icon-arrow"
+            className="jsx-3636028183 icon-arrow"
             src="https://vega.slooh.com/assets/v4/common/arrow_horz.svg"
           />
           <p
-            className="jsx-1574755409 back-text"
+            className="jsx-3636028183 back-text"
           >
             back
              to guide
           </p>
         </div>,
         <h5
-          className="jsx-1574755409 title"
+          className="jsx-3636028183 title"
         >
           topic 1: stuff...
         </h5>,
         <JSXStyle
           css={
             Array [
-              ".back-text-container.jsx-1574755409{padding:20px 25px;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;}",
-              ".icon-arrow.jsx-1574755409{-webkit-transform:rotate(180deg);-ms-transform:rotate(180deg);transform:rotate(180deg);}",
-              ".back-text.jsx-1574755409{padding:0;margin:0;-webkit-letter-spacing:1.25px;-moz-letter-spacing:1.25px;-ms-letter-spacing:1.25px;letter-spacing:1.25px;font-family:brandon-grotesque, sans-serif;text-transform:uppercase;background-color:white;padding-left:12px;font-size:12px;font-weight:800;color:#415671;}",
-              ".title.jsx-1574755409{padding:40px;margin:0;font-family:adobe-garamond-pro, serif;background-color:#253446;color:white;font-weight:100;text-transform:capitalize;font-size:16px;}",
+              ".back-text-container.jsx-3636028183{padding:20px 25px;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;}",
+              ".icon-arrow.jsx-3636028183{-webkit-transform:rotate(180deg);-ms-transform:rotate(180deg);transform:rotate(180deg);}",
+              ".back-text.jsx-3636028183{padding:0;margin:0;-webkit-letter-spacing:1.25px;-moz-letter-spacing:1.25px;-ms-letter-spacing:1.25px;letter-spacing:1.25px;font-family:brandon-grotesque, sans-serif;text-transform:uppercase;background-color:white;padding-left:12px;font-size:12px;font-weight:800;color:#415671;}",
+              ".title.jsx-3636028183{padding:40px;margin:0;font-family:adobe-garamond-pro, serif;background-color:#253446;color:white;font-weight:100;text-transform:capitalize;font-size:16px;}",
+              "@media screen and (min-width: 768px){}",
             ]
           }
-          styleId="1574755409"
+          styleId="3636028183"
         />,
       ],
-      "className": "jsx-1574755409 root",
+      "className": "jsx-3636028183 root",
     },
     "ref": null,
     "rendered": Array [
@@ -65,17 +66,17 @@ ShallowWrapper {
           "children": Array [
             <img
               alt=""
-              className="jsx-1574755409 icon-arrow"
+              className="jsx-3636028183 icon-arrow"
               src="https://vega.slooh.com/assets/v4/common/arrow_horz.svg"
             />,
             <p
-              className="jsx-1574755409 back-text"
+              className="jsx-3636028183 back-text"
             >
               back
                to guide
             </p>,
           ],
-          "className": "jsx-1574755409 back-text-container",
+          "className": "jsx-3636028183 back-text-container",
         },
         "ref": null,
         "rendered": Array [
@@ -85,7 +86,7 @@ ShallowWrapper {
             "nodeType": "host",
             "props": Object {
               "alt": "",
-              "className": "jsx-1574755409 icon-arrow",
+              "className": "jsx-3636028183 icon-arrow",
               "src": "https://vega.slooh.com/assets/v4/common/arrow_horz.svg",
             },
             "ref": null,
@@ -101,7 +102,7 @@ ShallowWrapper {
                 "back",
                 " to guide",
               ],
-              "className": "jsx-1574755409 back-text",
+              "className": "jsx-3636028183 back-text",
             },
             "ref": null,
             "rendered": Array [
@@ -119,7 +120,7 @@ ShallowWrapper {
         "nodeType": "host",
         "props": Object {
           "children": "topic 1: stuff...",
-          "className": "jsx-1574755409 title",
+          "className": "jsx-3636028183 title",
         },
         "ref": null,
         "rendered": "topic 1: stuff...",
@@ -131,12 +132,13 @@ ShallowWrapper {
         "nodeType": "class",
         "props": Object {
           "css": Array [
-            ".back-text-container.jsx-1574755409{padding:20px 25px;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;}",
-            ".icon-arrow.jsx-1574755409{-webkit-transform:rotate(180deg);-ms-transform:rotate(180deg);transform:rotate(180deg);}",
-            ".back-text.jsx-1574755409{padding:0;margin:0;-webkit-letter-spacing:1.25px;-moz-letter-spacing:1.25px;-ms-letter-spacing:1.25px;letter-spacing:1.25px;font-family:brandon-grotesque, sans-serif;text-transform:uppercase;background-color:white;padding-left:12px;font-size:12px;font-weight:800;color:#415671;}",
-            ".title.jsx-1574755409{padding:40px;margin:0;font-family:adobe-garamond-pro, serif;background-color:#253446;color:white;font-weight:100;text-transform:capitalize;font-size:16px;}",
+            ".back-text-container.jsx-3636028183{padding:20px 25px;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;}",
+            ".icon-arrow.jsx-3636028183{-webkit-transform:rotate(180deg);-ms-transform:rotate(180deg);transform:rotate(180deg);}",
+            ".back-text.jsx-3636028183{padding:0;margin:0;-webkit-letter-spacing:1.25px;-moz-letter-spacing:1.25px;-ms-letter-spacing:1.25px;letter-spacing:1.25px;font-family:brandon-grotesque, sans-serif;text-transform:uppercase;background-color:white;padding-left:12px;font-size:12px;font-weight:800;color:#415671;}",
+            ".title.jsx-3636028183{padding:40px;margin:0;font-family:adobe-garamond-pro, serif;background-color:#253446;color:white;font-weight:100;text-transform:capitalize;font-size:16px;}",
+            "@media screen and (min-width: 768px){}",
           ],
-          "styleId": "1574755409",
+          "styleId": "3636028183",
         },
         "ref": null,
         "rendered": null,
@@ -153,38 +155,39 @@ ShallowWrapper {
       "props": Object {
         "children": Array [
           <div
-            className="jsx-1574755409 back-text-container"
+            className="jsx-3636028183 back-text-container"
           >
             <img
               alt=""
-              className="jsx-1574755409 icon-arrow"
+              className="jsx-3636028183 icon-arrow"
               src="https://vega.slooh.com/assets/v4/common/arrow_horz.svg"
             />
             <p
-              className="jsx-1574755409 back-text"
+              className="jsx-3636028183 back-text"
             >
               back
                to guide
             </p>
           </div>,
           <h5
-            className="jsx-1574755409 title"
+            className="jsx-3636028183 title"
           >
             topic 1: stuff...
           </h5>,
           <JSXStyle
             css={
               Array [
-                ".back-text-container.jsx-1574755409{padding:20px 25px;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;}",
-                ".icon-arrow.jsx-1574755409{-webkit-transform:rotate(180deg);-ms-transform:rotate(180deg);transform:rotate(180deg);}",
-                ".back-text.jsx-1574755409{padding:0;margin:0;-webkit-letter-spacing:1.25px;-moz-letter-spacing:1.25px;-ms-letter-spacing:1.25px;letter-spacing:1.25px;font-family:brandon-grotesque, sans-serif;text-transform:uppercase;background-color:white;padding-left:12px;font-size:12px;font-weight:800;color:#415671;}",
-                ".title.jsx-1574755409{padding:40px;margin:0;font-family:adobe-garamond-pro, serif;background-color:#253446;color:white;font-weight:100;text-transform:capitalize;font-size:16px;}",
+                ".back-text-container.jsx-3636028183{padding:20px 25px;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;}",
+                ".icon-arrow.jsx-3636028183{-webkit-transform:rotate(180deg);-ms-transform:rotate(180deg);transform:rotate(180deg);}",
+                ".back-text.jsx-3636028183{padding:0;margin:0;-webkit-letter-spacing:1.25px;-moz-letter-spacing:1.25px;-ms-letter-spacing:1.25px;letter-spacing:1.25px;font-family:brandon-grotesque, sans-serif;text-transform:uppercase;background-color:white;padding-left:12px;font-size:12px;font-weight:800;color:#415671;}",
+                ".title.jsx-3636028183{padding:40px;margin:0;font-family:adobe-garamond-pro, serif;background-color:#253446;color:white;font-weight:100;text-transform:capitalize;font-size:16px;}",
+                "@media screen and (min-width: 768px){}",
               ]
             }
-            styleId="1574755409"
+            styleId="3636028183"
           />,
         ],
-        "className": "jsx-1574755409 root",
+        "className": "jsx-3636028183 root",
       },
       "ref": null,
       "rendered": Array [
@@ -196,17 +199,17 @@ ShallowWrapper {
             "children": Array [
               <img
                 alt=""
-                className="jsx-1574755409 icon-arrow"
+                className="jsx-3636028183 icon-arrow"
                 src="https://vega.slooh.com/assets/v4/common/arrow_horz.svg"
               />,
               <p
-                className="jsx-1574755409 back-text"
+                className="jsx-3636028183 back-text"
               >
                 back
                  to guide
               </p>,
             ],
-            "className": "jsx-1574755409 back-text-container",
+            "className": "jsx-3636028183 back-text-container",
           },
           "ref": null,
           "rendered": Array [
@@ -216,7 +219,7 @@ ShallowWrapper {
               "nodeType": "host",
               "props": Object {
                 "alt": "",
-                "className": "jsx-1574755409 icon-arrow",
+                "className": "jsx-3636028183 icon-arrow",
                 "src": "https://vega.slooh.com/assets/v4/common/arrow_horz.svg",
               },
               "ref": null,
@@ -232,7 +235,7 @@ ShallowWrapper {
                   "back",
                   " to guide",
                 ],
-                "className": "jsx-1574755409 back-text",
+                "className": "jsx-3636028183 back-text",
               },
               "ref": null,
               "rendered": Array [
@@ -250,7 +253,7 @@ ShallowWrapper {
           "nodeType": "host",
           "props": Object {
             "children": "topic 1: stuff...",
-            "className": "jsx-1574755409 title",
+            "className": "jsx-3636028183 title",
           },
           "ref": null,
           "rendered": "topic 1: stuff...",
@@ -262,12 +265,13 @@ ShallowWrapper {
           "nodeType": "class",
           "props": Object {
             "css": Array [
-              ".back-text-container.jsx-1574755409{padding:20px 25px;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;}",
-              ".icon-arrow.jsx-1574755409{-webkit-transform:rotate(180deg);-ms-transform:rotate(180deg);transform:rotate(180deg);}",
-              ".back-text.jsx-1574755409{padding:0;margin:0;-webkit-letter-spacing:1.25px;-moz-letter-spacing:1.25px;-ms-letter-spacing:1.25px;letter-spacing:1.25px;font-family:brandon-grotesque, sans-serif;text-transform:uppercase;background-color:white;padding-left:12px;font-size:12px;font-weight:800;color:#415671;}",
-              ".title.jsx-1574755409{padding:40px;margin:0;font-family:adobe-garamond-pro, serif;background-color:#253446;color:white;font-weight:100;text-transform:capitalize;font-size:16px;}",
+              ".back-text-container.jsx-3636028183{padding:20px 25px;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;}",
+              ".icon-arrow.jsx-3636028183{-webkit-transform:rotate(180deg);-ms-transform:rotate(180deg);transform:rotate(180deg);}",
+              ".back-text.jsx-3636028183{padding:0;margin:0;-webkit-letter-spacing:1.25px;-moz-letter-spacing:1.25px;-ms-letter-spacing:1.25px;letter-spacing:1.25px;font-family:brandon-grotesque, sans-serif;text-transform:uppercase;background-color:white;padding-left:12px;font-size:12px;font-weight:800;color:#415671;}",
+              ".title.jsx-3636028183{padding:40px;margin:0;font-family:adobe-garamond-pro, serif;background-color:#253446;color:white;font-weight:100;text-transform:capitalize;font-size:16px;}",
+              "@media screen and (min-width: 768px){}",
             ],
-            "styleId": "1574755409",
+            "styleId": "3636028183",
           },
           "ref": null,
           "rendered": null,

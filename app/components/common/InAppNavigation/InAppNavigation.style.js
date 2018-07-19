@@ -37,4 +37,8 @@ export default css`
     text-transform: capitalize;
     font-size: 16px;
   }
+
+  @media ${screenMedium} {
+
+  }
 `;
