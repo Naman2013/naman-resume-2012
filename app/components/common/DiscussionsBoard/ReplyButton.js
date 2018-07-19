@@ -6,8 +6,7 @@
 ***********************************/
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import FormHeader from 'components/common/FormHeader';
-import SingleFieldSubmitForm from 'components/common/SingleFieldSubmitForm';
+import Button from 'components/common/style/buttons/Button';
 import RevealSubmitForm from 'components/common/RevealSubmitForm';
 import { romance, astronaut, shadows } from 'styles/variables/colors_tiles_v4';
 import { dropShadowContainer } from 'styles/mixins/utilities';
@@ -24,7 +23,7 @@ const {
 } = PropTypes;
 
 
-class ReplyForm extends Component {
+class ReplyButton extends Component {
   static defaultProps = {
     avatarURL: '',
     replyTo: null,
@@ -91,21 +90,15 @@ class ReplyForm extends Component {
 
     return (
       <div className="reply-form-container">
-        {isDesktop ? <div>
-          <FormHeader avatarURL={user.avatarURL} />
-          <SingleFieldSubmitForm {...this.props} submitForm={this.submitForm} />
-        </div> :
         <RevealSubmitForm
           {...this.props}
           submitForm={this.submitForm}
           placeholder="Write a public comment"
+          revealButtonRender={btnProps => <Button text="Reply" onClickEvent={btnProps.displayForm} />}
         />
-      }
-
-
       </div>
     );
   }
 }
 
-export default ReplyForm;
+export default ReplyButton;

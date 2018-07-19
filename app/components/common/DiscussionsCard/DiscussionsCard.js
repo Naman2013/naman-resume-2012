@@ -9,10 +9,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import uniqueId from 'lodash/uniqueId';
 import moment from 'moment';
-import { submitReply } from 'services/discussions/submit-reply';
 import CommentButton from 'components/common/style/buttons/CommentButton';
 import LikeSomethingButton from 'components/common/LikeSomethingButton';
 import ReplyForm from 'components/common/DiscussionsBoard/ReplyForm';
+import ReplyButton from 'components/common/DiscussionsBoard/ReplyButton';
 import Button from 'components/common/style/buttons/Button';
 import styles, { profPic } from './DiscussionsCard.style'
 
@@ -142,11 +142,10 @@ class DiscussionsCard extends Component {
               /> : null}
             </div>
             <div className="action-right">
-              {allowReplies ? <ReplyForm
+              {allowReplies ? <ReplyButton
                 {...this.props}
                 replyTo={replyTo}
                 submitForm={submitReply}
-                revealButtonRender={btnProps => <Button text="Reply" onClickEvent={btnProps.displayForm} />}
               /> : null }
 
             </div>
