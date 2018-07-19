@@ -1,15 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import BackArrow from 'components/common/icons/BackArrow';
 import style from './InAppNavigation.style';
 import { horizontalArrow } from 'styles/variables/iconURLs';
 
 const InAppNavigation = ({ previousText, title }) => (
   <div className="root">
-    <div className="back-text-container">
+    <div className="mobile-back-text-container">
       <img className="icon-arrow" alt="" src={horizontalArrow} />
       <p className="back-text">back{previousText && ` to ${previousText}`}</p>
     </div>
-    <h5 className="title">{title}</h5>
+
+    <div className="core-navigation-container">
+      <button className="back-arrow"><BackArrow /></button>
+      <h5 className="title">{title}</h5>
+    </div>
+
     <style jsx>{style}</style>
   </div>
 );

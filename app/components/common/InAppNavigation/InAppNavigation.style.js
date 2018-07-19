@@ -4,7 +4,7 @@ import { astronaut } from 'styles/variables/colors_tiles_v4';
 import { screenMedium } from 'styles/variables/breakpoints';
 
 export default css`
-  .back-text-container {
+  .mobile-back-text-container {
     padding: 20px 25px;
     display: flex;
     align-items: center;
@@ -27,18 +27,23 @@ export default css`
     color: ${astronaut};
   }
 
-  .title {
-    padding: 40px;
-    margin: 0;
-    font-family: ${secondaryFont};
+  .core-navigation-container {
     background-color: #253446;
+    padding: 40px 0;
+    font-family: ${secondaryFont};
     color: white;
+  }
+
+  .title {
+    padding: 0;
+    margin: 0;
+    padding-left: 40px;
     font-weight: 100;
     text-transform: capitalize;
     font-size: 16px;
   }
 
   @media ${screenMedium} {
-
+    .mobile-back-text-container { display: none; }
   }
 `;

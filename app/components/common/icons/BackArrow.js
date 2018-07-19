@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import SVGRoot from './SVGRoot';
 
 const BackArrow = ({ theme }) => (
-  <SVGRoot>
+  <SVGRoot width={18} height={12}>
     <g className="group-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
       <g className="group-2" transform="translate(-40.000000, -40.000000)" fill={theme.arrowColor} fillRule="nonzero">
         <g className="group-3" transform="translate(40.000000, 40.000000)">
