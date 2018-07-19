@@ -29,7 +29,6 @@ const generateNavItems = (objectId) => ([
     title: 'Shows',
     link:`/object-details/${objectId}/shows`
   },
-  /*
   {
     title: 'Stories',
     link:`/object-details/${objectId}/stories`
@@ -38,7 +37,6 @@ const generateNavItems = (objectId) => ([
     title: 'Observations',
     link:`/object-details/${objectId}/log`
   },
-  */
 ]);
 
 const Navigation = ({ items, objectId }) => (
