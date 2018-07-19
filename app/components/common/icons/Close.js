@@ -1,14 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import SVGRoot from './SVGRoot';
 
 const Close = ({ theme }) => (
-  <svg
-    version="1.1"
-    xmlns="http://www.w3.org/2000/svg"
-    width="12px"
-    height="12px"
-    viewBox="0 0 12 12"
-  >
+  <SVGRoot>
     <g className="close-root-group" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
       <g className="close-icon-shape" transform="translate(-715.000000, -101.000000)" fill="#41566F" fillRule="nonzero">
         <g className="close-group" transform="translate(674.000000, 60.000000)">
@@ -20,9 +15,8 @@ const Close = ({ theme }) => (
         </g>
       </g>
     </g>
-
     <style jsx>{`${theme}`}</style>
-  </svg>
+  </SVGRoot>
 );
 
 Close.propTypes = {
