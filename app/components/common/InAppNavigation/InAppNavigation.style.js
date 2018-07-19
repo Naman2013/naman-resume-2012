@@ -1,6 +1,6 @@
 import css from 'styled-jsx/css';
 import { primaryFont, secondaryFont } from 'styles/variables/fonts';
-import { astronaut } from 'styles/variables/colors_tiles_v4';
+import { astronaut, dukeBlue } from 'styles/variables/colors_tiles_v4';
 import { screenMedium } from 'styles/variables/breakpoints';
 
 export default css`
@@ -28,11 +28,16 @@ export default css`
   }
 
   .core-navigation-container {
+    height: 100px;
+    display: flex;
+    align-items: center;
     background-color: #253446;
-    padding: 40px 0;
+    padding: 0;
     font-family: ${secondaryFont};
     color: white;
   }
+
+  .back-arrow { display: none; }
 
   .title {
     padding: 0;
@@ -43,7 +48,18 @@ export default css`
     font-size: 16px;
   }
 
+  .back-arrow {
+    background: none;
+    height: 100%;
+    width: 100px;
+    height: 100px;
+    border: none;
+    border-right: 1px solid ${dukeBlue};
+    cursor: pointer;
+  }
+
   @media ${screenMedium} {
     .mobile-back-text-container { display: none; }
+    .back-arrow { display: block; }
   }
 `;

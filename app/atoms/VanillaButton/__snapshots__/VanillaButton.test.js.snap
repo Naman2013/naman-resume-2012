@@ -1,0 +1,187 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`VanillaButton should render correctly 1`] = `
+ShallowWrapper {
+  "length": 1,
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <VanillaButton
+    theme=""
+  />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "function",
+    "props": Object {
+      "children": Array [
+        <button
+          className="jsx-4172969875 jsx-3734600704"
+        />,
+        <JSXStyle
+          css={
+            Array [
+              "button.jsx-4172969875{background:none;border:none;margin:0;padding:0;}",
+            ]
+          }
+          styleId="4172969875"
+        />,
+        <JSXStyle
+          css={
+            Array [
+              ".__jsx-style-dynamic-selector{;}",
+            ]
+          }
+          dynamic={
+            Array [
+              "",
+            ]
+          }
+          styleId="3930774036"
+        />,
+      ],
+    },
+    "ref": null,
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": undefined,
+          "className": "jsx-4172969875 jsx-3734600704",
+        },
+        "ref": null,
+        "rendered": null,
+        "type": "button",
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
+          "css": Array [
+            "button.jsx-4172969875{background:none;border:none;margin:0;padding:0;}",
+          ],
+          "styleId": "4172969875",
+        },
+        "ref": null,
+        "rendered": null,
+        "type": [Function],
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
+          "css": Array [
+            ".__jsx-style-dynamic-selector{;}",
+          ],
+          "dynamic": Array [
+            "",
+          ],
+          "styleId": "3930774036",
+        },
+        "ref": null,
+        "rendered": null,
+        "type": [Function],
+      },
+    ],
+    "type": Symbol(react.fragment),
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "function",
+      "props": Object {
+        "children": Array [
+          <button
+            className="jsx-4172969875 jsx-3734600704"
+          />,
+          <JSXStyle
+            css={
+              Array [
+                "button.jsx-4172969875{background:none;border:none;margin:0;padding:0;}",
+              ]
+            }
+            styleId="4172969875"
+          />,
+          <JSXStyle
+            css={
+              Array [
+                ".__jsx-style-dynamic-selector{;}",
+              ]
+            }
+            dynamic={
+              Array [
+                "",
+              ]
+            }
+            styleId="3930774036"
+          />,
+        ],
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": undefined,
+            "className": "jsx-4172969875 jsx-3734600704",
+          },
+          "ref": null,
+          "rendered": null,
+          "type": "button",
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "css": Array [
+              "button.jsx-4172969875{background:none;border:none;margin:0;padding:0;}",
+            ],
+            "styleId": "4172969875",
+          },
+          "ref": null,
+          "rendered": null,
+          "type": [Function],
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "css": Array [
+              ".__jsx-style-dynamic-selector{;}",
+            ],
+            "dynamic": Array [
+              "",
+            ],
+            "styleId": "3930774036",
+          },
+          "ref": null,
+          "rendered": null,
+          "type": [Function],
+        },
+      ],
+      "type": Symbol(react.fragment),
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+      },
+    },
+  },
+}
+`;

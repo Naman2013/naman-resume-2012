@@ -22,6 +22,7 @@ export const romance            = '#ffffff';
 export const golden_yellow      = '#ffde00';
 export const golden             = '#c2a068';
 export const golda              = '#e2b979';
+export const dukeBlue           = '#1c2633';
 
 export const white_tile         = 'https://vega.slooh.com/assets/v4/common/LightBlueDiamondPattern_NO_TEXTURE.png';
 export const white_tile_texture = 'https://vega.slooh.com/assets/v4/common/LightBlueDiamondPattern_WithTexture.png';
