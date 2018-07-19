@@ -14,6 +14,8 @@ import {
 } from '../../../styles/variables/colors_tiles_v4';
 import { screenLarge } from 'styles/variables/breakpoints';
 import { createActivity } from '../../../modules/community-group-activity-list/actions';
+import { fetchGroupMembers } from 'modules/community-group-overview/actions';
+
 import MembersList from './members-list';
 import DiscussionsBoard from 'components/common/DiscussionsBoard';
 
@@ -36,6 +38,7 @@ const mapStateToProps = ({
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
     createActivity,
+    fetchGroupMembers,
   }, dispatch),
 });
 
@@ -59,6 +62,7 @@ class FullInformationOverview extends Component {
     joinOrLeaveGroup: func.isRequired,
     joinPrompt: string,
     membersCount: number,
+    membersSort: string.isRequired,
     membersList: arrayOf(shape({})),
     showJoinPrompt: bool,
   };
@@ -86,6 +90,7 @@ class FullInformationOverview extends Component {
       descriptionHeading,
       detailsHeading,
       detailsList,
+      discussionGroupId,
       context,
       heading,
       pageMeta,
@@ -93,6 +98,7 @@ class FullInformationOverview extends Component {
       joinPrompt,
       membersCount,
       membersList,
+      membersSort,
       showJoinPrompt,
       user,
     } = this.props;
@@ -120,8 +126,12 @@ class FullInformationOverview extends Component {
           </div>
           <aside className="flex-child right-container">
             <MembersList
+              membersSort={membersSort}
               membersList={membersList}
               membersCount={membersCount}
+              discussionGroupId={discussionGroupId}
+              fetchGroupMembers={actions.fetchGroupMembers}
+              isDesktop={context.isDesktop}
             />
           </aside>
       <style jsx>{`
@@ -141,12 +151,13 @@ class FullInformationOverview extends Component {
 
         @media ${screenLarge} {
           .left-container {
-            width: 620px;
+            width: 674px;
+            padding: 15px 0;
           }
 
           .right-container {
             display: block;
-            width: 300px;
+            width: 350px;
           }
 
         }

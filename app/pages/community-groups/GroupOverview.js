@@ -119,6 +119,7 @@ class CommunityGroupOverview extends Component {
             <FullInformationOverview
               joinOrLeaveGroup={this.joinLeaveGroup}
               context={context}
+              discussionGroupId={groupId}
             />
           )}
         </DeviceContext.Consumer>
