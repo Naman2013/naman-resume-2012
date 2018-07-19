@@ -32,6 +32,15 @@ export default css`
     text-decoration: none;
   }
 
+  
+  .active:after {
+    width: 100%; 
+    height: 23px; 
+    content: ""; 
+    background: url("https://vega.slooh.com/assets/v4/common/icon_navarrow.svg") no-repeat center center; 
+    display: block;
+  }
+
   .link {
     color: #9CB4D2;
     transition: color .25s ease-in-out;
@@ -41,9 +50,13 @@ export default css`
     color: ${romance}; 
   }
 
-  .active:hover {
-    font-weight: 800;
-    color: ${romance};
-  }  
+  a {
+   color: ${romance}; 
+  }
+
+  a.active .link {
+    color: white;
+  }
+
 
 `;

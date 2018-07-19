@@ -5,14 +5,13 @@
 *   Multi-National Languages.....
 ***********************************/
 
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { Component, Fragment} from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import ObjectStoryList from '../../components/object-post/object-story-list';
 import GenericLoadingBox from '../../components/common/loading-screens/generic-loading-box';
-import classnames from 'classnames';
-import has from 'lodash/has';
+import DeviceProvider from '../../../app/providers/DeviceProvider';
+import ObjectDetailsSectionTitle from '../../components/object-details/ObjectDetailsSectionTitle';
 import {
   fetchObjectDetailsAction,
   fetchObjectDataAction,
@@ -34,7 +33,7 @@ const mapStateToProps = ({ objectDetails, objectPostList, appConfig, user }) => 
   objectData: objectDetails.objectData,
   entryType: objectProps.entryType,
   filterType: objectProps.filterType,
-  SlugLookupId: objectDetails.objectData.slugLookupId,
+  slugLookupId: objectDetails.objectData.slugLookupId,
   fetchingPosts: objectPostList.fetching,
   objectPosts: objectPostList.objectPosts,
   pages: objectPostList.pages,
@@ -56,6 +55,7 @@ const mapDispatchToProps = dispatch => ({
 });
 
 @connect(mapStateToProps, mapDispatchToProps)
+
 class Stories extends Component {
   constructor(props) {
     super(props);
@@ -84,7 +84,7 @@ class Stories extends Component {
     actions.fetchObjectPosts({
       type: [filterType],
       entryType,
-      SlugLookupId,
+      slugLookupId,
     });
   }
 
@@ -99,58 +99,66 @@ class Stories extends Component {
         objectId,
       },
       objectDetails,
-      SlugLookupId,
+      slugLookupId,
       fetchingPosts,
-      fetchObjectLatestContent,
+      // fetchObjectLatestContent,
       firstPostIndex,
       objectPosts,
       pages,
       count,
       page,
       postsCount,
+      actions: {
+        fetchObjectLatestContent
+      }
     } = this.props;
 
-    const sId = SlugLookupId;
+    const sId = slugLookupId;
     const slugId = toString(sId);
 
-    console.log (this.props);
+    //console.log (this.props);
 
     return (
-      <div className="contain">
+      <Fragment>
+        <DeviceProvider>
+          <ObjectDetailsSectionTitle title={objectDetails.objectTitle + "'s"} subTitle="Related Stories" />
+        </DeviceProvider>
+        <div className="contain">
 
-        <h4>Stories about {objectDetails.objectTitle}</h4>
-        
-        {
-          fetchingPosts ?
-            <GenericLoadingBox />
-          :
-            <ObjectStoryList
-              objectPosts={objectPosts}
-              pages={pages}
-              page={page}
-              count={count}
-              /*path={path}*/
-              postsCount={postsCount}
-              fetchObjectLatestContent={fetchObjectLatestContent}
-              SlugLookupId={slugId}
-              firstPostIndex={firstPostIndex}
-              className={'card-container__stories'}
-            />
-        }
-
-        <style jsx>{`
-          h4 {
-            font-weight: 600;
+          <h4>Stories about {objectDetails.objectTitle}</h4>
+          
+          {
+            fetchingPosts ?
+              <GenericLoadingBox />
+            :
+              <ObjectStoryList
+                objectPosts={objectPosts}
+                pages={pages}
+                page={page}
+                count={count}
+                /*path={path}*/
+                postsCount={postsCount}
+                fetchObjectLatestContent={fetchObjectLatestContent}
+                SlugLookupId={slugId}
+                firstPostIndex={firstPostIndex}
+                className={'card-container__stories'}
+              />
           }
-          .contain {
-            margin: 5%;
-            padding: 25px;
-            background-color: #f2f2f2;
-            text-transform: uppercase;
-          }
-        `}</style>
 
-      </div>
+          <style jsx>{`
+            h4 {
+              font-weight: 600;
+            }
+            .contain {
+              margin: 5%;
+              padding: 25px;
+              background-color: #f2f2f2;
+              text-transform: uppercase;
+            }
+          `}</style>
+
+        </div>
+      </Fragment>
     )
   }
 }

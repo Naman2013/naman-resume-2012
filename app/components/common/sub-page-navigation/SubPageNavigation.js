@@ -19,7 +19,7 @@ const SubPageNavigation = ({ items }) => (
               activeClassName="active"
               to={item.link}
             >
-              <span className="link">
+              <span className="link" >
                 {item.title}
               </span>
             </Link>

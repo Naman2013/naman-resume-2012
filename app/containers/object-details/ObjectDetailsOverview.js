@@ -13,6 +13,7 @@ import {
   fetchObjectDataAction, 
   fetchObjectSpecialistsAction 
 } from '../../modules/object-details/actions';
+import CenterColumn from 'components/common/CenterColumn';
 
 const mapStateToProps = ({ objectDetails, appConfig, user }) => ({
   objectData: objectDetails.objectData,
@@ -56,18 +57,19 @@ class Overview extends Component {
 
     return (
       <div>
-        <div className="contain">
+
+        <CenterColumn widths={['620px', '940px', '940px']}>
+        <h1>{objectData.objectSubtitle}</h1>
           <ul>
             Details:
             <li>Object Type: ?</li>
             <li>Object Domain: {objectData.objectDomain}</li>
             <li>Object Constellation: {objectData.objectConstellation}</li>
             <li>Best Telescope: ?</li>
-          </ul>
-          <h4>{objectData.objectSubtitle}</h4>
+          </ul>          
           <p>{objectData.objectDescription}</p>
           <a href="#">Read More + </a> <a href="#">Follow {objectData.objectTitle}</a>
-        </div>
+        </CenterColumn>
 
         <div className="contain">Fun fact: {objectData.objectTagline}</div>
         
@@ -113,9 +115,10 @@ class Overview extends Component {
             float: right;
             list-style: none;
           }
-          h4 {
-            text-transform: uppercase;
+          h1 {
+            font-size: 30px;
             font-weight: 600;
+            border-bottom: solid 2px;
           }
           .card-container__specialists {
             display: flex;
