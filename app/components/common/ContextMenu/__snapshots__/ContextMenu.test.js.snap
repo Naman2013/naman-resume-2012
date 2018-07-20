@@ -17,77 +17,8 @@ ShallowWrapper {
     "key": undefined,
     "nodeType": "host",
     "props": Object {
-      "children": <VanillaButton
-        handleClick={[Function]}
-        theme={
-          Object {
-            "backgroundColor": "#253446",
-            "height": "100px",
-            "width": "100px",
-          }
-        }
-      >
-        <Dots
-          height={4}
-          theme={
-            Object {
-              "circleColor": "white",
-            }
-          }
-          width={18}
-        />
-      </VanillaButton>,
-      "className": "root",
-    },
-    "ref": null,
-    "rendered": Object {
-      "instance": null,
-      "key": undefined,
-      "nodeType": "function",
-      "props": Object {
-        "children": <Dots
-          height={4}
-          theme={
-            Object {
-              "circleColor": "white",
-            }
-          }
-          width={18}
-        />,
-        "handleClick": [Function],
-        "theme": Object {
-          "backgroundColor": "#253446",
-          "height": "100px",
-          "width": "100px",
-        },
-      },
-      "ref": null,
-      "rendered": Object {
-        "instance": null,
-        "key": undefined,
-        "nodeType": "function",
-        "props": Object {
-          "height": 4,
-          "theme": Object {
-            "circleColor": "white",
-          },
-          "width": 18,
-        },
-        "ref": null,
-        "rendered": null,
-        "type": [Function],
-      },
-      "type": [Function],
-    },
-    "type": "div",
-  },
-  Symbol(enzyme.__nodes__): Array [
-    Object {
-      "instance": null,
-      "key": undefined,
-      "nodeType": "host",
-      "props": Object {
-        "children": <VanillaButton
+      "children": Array [
+        <VanillaButton
           handleClick={[Function]}
           theme={
             Object {
@@ -107,10 +38,59 @@ ShallowWrapper {
             width={18}
           />
         </VanillaButton>,
-        "className": "root",
-      },
-      "ref": null,
-      "rendered": Object {
+        <div
+          className="jsx-1794528811 menu-container"
+          style={
+            Object {
+              "right": "-440px",
+            }
+          }
+        >
+          <h5
+            className="jsx-1794528811"
+          >
+            Sample title
+          </h5>
+          <ul
+            className="jsx-1794528811"
+          >
+            <ol
+              className="jsx-1794528811"
+            >
+              Astronomical Time
+            </ol>
+            <ol
+              className="jsx-1794528811"
+            >
+              Astronomical distance
+            </ol>
+            <ol
+              className="jsx-1794528811"
+            >
+              Magnitudes
+            </ol>
+            <ol
+              className="jsx-1794528811"
+            >
+              Celestial Sphere & Coordinates
+            </ol>
+          </ul>
+        </div>,
+        <JSXStyle
+          css={
+            Array [
+              ".root.jsx-1794528811{display:relative;width:100px;overflow:hidden;}",
+              ".menu-container.jsx-1794528811{position:absolute;top:100px;width:440px;height:100%;background-color:#f8f8f8;-webkit-transition:right ease-out 0.15s;transition:right ease-out 0.15s;}",
+            ]
+          }
+          styleId="1794528811"
+        />,
+      ],
+      "className": "jsx-1794528811 root",
+    },
+    "ref": null,
+    "rendered": Array [
+      Object {
         "instance": null,
         "key": undefined,
         "nodeType": "function",
@@ -149,6 +129,438 @@ ShallowWrapper {
         },
         "type": [Function],
       },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": Array [
+            <h5
+              className="jsx-1794528811"
+            >
+              Sample title
+            </h5>,
+            <ul
+              className="jsx-1794528811"
+            >
+              <ol
+                className="jsx-1794528811"
+              >
+                Astronomical Time
+              </ol>
+              <ol
+                className="jsx-1794528811"
+              >
+                Astronomical distance
+              </ol>
+              <ol
+                className="jsx-1794528811"
+              >
+                Magnitudes
+              </ol>
+              <ol
+                className="jsx-1794528811"
+              >
+                Celestial Sphere & Coordinates
+              </ol>
+            </ul>,
+          ],
+          "className": "jsx-1794528811 menu-container",
+          "style": Object {
+            "right": "-440px",
+          },
+        },
+        "ref": null,
+        "rendered": Array [
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": "Sample title",
+              "className": "jsx-1794528811",
+            },
+            "ref": null,
+            "rendered": "Sample title",
+            "type": "h5",
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": Array [
+                <ol
+                  className="jsx-1794528811"
+                >
+                  Astronomical Time
+                </ol>,
+                <ol
+                  className="jsx-1794528811"
+                >
+                  Astronomical distance
+                </ol>,
+                <ol
+                  className="jsx-1794528811"
+                >
+                  Magnitudes
+                </ol>,
+                <ol
+                  className="jsx-1794528811"
+                >
+                  Celestial Sphere & Coordinates
+                </ol>,
+              ],
+              "className": "jsx-1794528811",
+            },
+            "ref": null,
+            "rendered": Array [
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": "Astronomical Time",
+                  "className": "jsx-1794528811",
+                },
+                "ref": null,
+                "rendered": "Astronomical Time",
+                "type": "ol",
+              },
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": "Astronomical distance",
+                  "className": "jsx-1794528811",
+                },
+                "ref": null,
+                "rendered": "Astronomical distance",
+                "type": "ol",
+              },
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": "Magnitudes",
+                  "className": "jsx-1794528811",
+                },
+                "ref": null,
+                "rendered": "Magnitudes",
+                "type": "ol",
+              },
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": "Celestial Sphere & Coordinates",
+                  "className": "jsx-1794528811",
+                },
+                "ref": null,
+                "rendered": "Celestial Sphere & Coordinates",
+                "type": "ol",
+              },
+            ],
+            "type": "ul",
+          },
+        ],
+        "type": "div",
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
+          "css": Array [
+            ".root.jsx-1794528811{display:relative;width:100px;overflow:hidden;}",
+            ".menu-container.jsx-1794528811{position:absolute;top:100px;width:440px;height:100%;background-color:#f8f8f8;-webkit-transition:right ease-out 0.15s;transition:right ease-out 0.15s;}",
+          ],
+          "styleId": "1794528811",
+        },
+        "ref": null,
+        "rendered": null,
+        "type": [Function],
+      },
+    ],
+    "type": "div",
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": Array [
+          <VanillaButton
+            handleClick={[Function]}
+            theme={
+              Object {
+                "backgroundColor": "#253446",
+                "height": "100px",
+                "width": "100px",
+              }
+            }
+          >
+            <Dots
+              height={4}
+              theme={
+                Object {
+                  "circleColor": "white",
+                }
+              }
+              width={18}
+            />
+          </VanillaButton>,
+          <div
+            className="jsx-1794528811 menu-container"
+            style={
+              Object {
+                "right": "-440px",
+              }
+            }
+          >
+            <h5
+              className="jsx-1794528811"
+            >
+              Sample title
+            </h5>
+            <ul
+              className="jsx-1794528811"
+            >
+              <ol
+                className="jsx-1794528811"
+              >
+                Astronomical Time
+              </ol>
+              <ol
+                className="jsx-1794528811"
+              >
+                Astronomical distance
+              </ol>
+              <ol
+                className="jsx-1794528811"
+              >
+                Magnitudes
+              </ol>
+              <ol
+                className="jsx-1794528811"
+              >
+                Celestial Sphere & Coordinates
+              </ol>
+            </ul>
+          </div>,
+          <JSXStyle
+            css={
+              Array [
+                ".root.jsx-1794528811{display:relative;width:100px;overflow:hidden;}",
+                ".menu-container.jsx-1794528811{position:absolute;top:100px;width:440px;height:100%;background-color:#f8f8f8;-webkit-transition:right ease-out 0.15s;transition:right ease-out 0.15s;}",
+              ]
+            }
+            styleId="1794528811"
+          />,
+        ],
+        "className": "jsx-1794528811 root",
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "function",
+          "props": Object {
+            "children": <Dots
+              height={4}
+              theme={
+                Object {
+                  "circleColor": "white",
+                }
+              }
+              width={18}
+            />,
+            "handleClick": [Function],
+            "theme": Object {
+              "backgroundColor": "#253446",
+              "height": "100px",
+              "width": "100px",
+            },
+          },
+          "ref": null,
+          "rendered": Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "function",
+            "props": Object {
+              "height": 4,
+              "theme": Object {
+                "circleColor": "white",
+              },
+              "width": 18,
+            },
+            "ref": null,
+            "rendered": null,
+            "type": [Function],
+          },
+          "type": [Function],
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": Array [
+              <h5
+                className="jsx-1794528811"
+              >
+                Sample title
+              </h5>,
+              <ul
+                className="jsx-1794528811"
+              >
+                <ol
+                  className="jsx-1794528811"
+                >
+                  Astronomical Time
+                </ol>
+                <ol
+                  className="jsx-1794528811"
+                >
+                  Astronomical distance
+                </ol>
+                <ol
+                  className="jsx-1794528811"
+                >
+                  Magnitudes
+                </ol>
+                <ol
+                  className="jsx-1794528811"
+                >
+                  Celestial Sphere & Coordinates
+                </ol>
+              </ul>,
+            ],
+            "className": "jsx-1794528811 menu-container",
+            "style": Object {
+              "right": "-440px",
+            },
+          },
+          "ref": null,
+          "rendered": Array [
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": "Sample title",
+                "className": "jsx-1794528811",
+              },
+              "ref": null,
+              "rendered": "Sample title",
+              "type": "h5",
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": Array [
+                  <ol
+                    className="jsx-1794528811"
+                  >
+                    Astronomical Time
+                  </ol>,
+                  <ol
+                    className="jsx-1794528811"
+                  >
+                    Astronomical distance
+                  </ol>,
+                  <ol
+                    className="jsx-1794528811"
+                  >
+                    Magnitudes
+                  </ol>,
+                  <ol
+                    className="jsx-1794528811"
+                  >
+                    Celestial Sphere & Coordinates
+                  </ol>,
+                ],
+                "className": "jsx-1794528811",
+              },
+              "ref": null,
+              "rendered": Array [
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": "Astronomical Time",
+                    "className": "jsx-1794528811",
+                  },
+                  "ref": null,
+                  "rendered": "Astronomical Time",
+                  "type": "ol",
+                },
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": "Astronomical distance",
+                    "className": "jsx-1794528811",
+                  },
+                  "ref": null,
+                  "rendered": "Astronomical distance",
+                  "type": "ol",
+                },
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": "Magnitudes",
+                    "className": "jsx-1794528811",
+                  },
+                  "ref": null,
+                  "rendered": "Magnitudes",
+                  "type": "ol",
+                },
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": "Celestial Sphere & Coordinates",
+                    "className": "jsx-1794528811",
+                  },
+                  "ref": null,
+                  "rendered": "Celestial Sphere & Coordinates",
+                  "type": "ol",
+                },
+              ],
+              "type": "ul",
+            },
+          ],
+          "type": "div",
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "css": Array [
+              ".root.jsx-1794528811{display:relative;width:100px;overflow:hidden;}",
+              ".menu-container.jsx-1794528811{position:absolute;top:100px;width:440px;height:100%;background-color:#f8f8f8;-webkit-transition:right ease-out 0.15s;transition:right ease-out 0.15s;}",
+            ],
+            "styleId": "1794528811",
+          },
+          "ref": null,
+          "rendered": null,
+          "type": [Function],
+        },
+      ],
       "type": "div",
     },
   ],

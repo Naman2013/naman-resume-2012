@@ -24,6 +24,7 @@ export const golden             = '#c2a068';
 export const golda              = '#e2b979';
 export const dukeBlue           = '#1c2633';
 export const thatBlue           = '#253446';
+export const faintGray          = '#f8f8f8';
 
 export const white_tile         = 'https://vega.slooh.com/assets/v4/common/LightBlueDiamondPattern_NO_TEXTURE.png';
 export const white_tile_texture = 'https://vega.slooh.com/assets/v4/common/LightBlueDiamondPattern_WithTexture.png';

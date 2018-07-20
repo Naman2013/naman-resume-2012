@@ -4,6 +4,10 @@ import VanillaButton from 'atoms/VanillaButton';
 import Dots from 'atoms/icons/Dots';
 import Close from 'atoms/icons/Close';
 import { thatBlue, astronaut } from 'styles/variables/colors_tiles_v4';
+import style from './ContextMenu.style';
+
+const OPEN_LOCATION = 0;
+const CLOSED_LOCATION = -440;
 
 class ContextMenu extends Component {
   state = {
@@ -14,6 +18,7 @@ class ContextMenu extends Component {
 
   render() {
     const { isOpen } = this.state;
+    const containerLeft = (isOpen) ? OPEN_LOCATION : CLOSED_LOCATION;
     return (
       <div className="root">
         <VanillaButton
@@ -22,6 +27,22 @@ class ContextMenu extends Component {
         >
           {(isOpen) ? <Close theme={{ fillColor: astronaut }} /> : <Dots />}
         </VanillaButton>
+
+        <div
+          className="menu-container"
+          style={{
+            right: `${containerLeft}px`,
+          }}
+        >
+          <h5>Sample title</h5>
+          <ul>
+            <ol>Astronomical Time</ol>
+            <ol>Astronomical distance</ol>
+            <ol>Magnitudes</ol>
+            <ol>Celestial Sphere & Coordinates</ol>
+          </ul>
+        </div>
+        <style jsx>{style}</style>
       </div>
     );
   }
