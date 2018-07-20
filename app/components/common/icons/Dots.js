@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import SVGRoot from './SVGRoot';
 
-const Dots = ({ theme }) => (
-  <SVGRoot>
+const Dots = ({ theme, width, height }) => (
+  <SVGRoot width={width} height={height}>
     <g className="dots-group-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
       <g className="dots-group-2" transform="translate(-713.000000, -44.000000)" fill={theme.circleColor}>
         <g className="dots-group-3" transform="translate(696.000000, 20.000000)">
@@ -22,12 +22,16 @@ Dots.propTypes = {
   theme: PropTypes.shape({
     circleColor: PropTypes.string,
   }),
+  width: PropTypes.number,
+  height: PropTypes.number,
 };
 
 Dots.defaultProps = {
   theme: {
     circleColor: 'white',
   },
+  width: 18,
+  height: 4,
 };
 
 export default Dots;

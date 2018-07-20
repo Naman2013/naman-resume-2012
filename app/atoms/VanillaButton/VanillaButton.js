@@ -2,16 +2,19 @@ import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import style from './VanillaButton.style';
 
-const VanillaButton = ({ children, theme }) => (
+const VanillaButton = ({ children, theme, handleClick }) => (
   <Fragment>
-    <button>
+    <button onClick={handleClick} style={theme}>
       {children}
     </button>
     <style jsx>{style}</style>
-    <style jsx>{`${theme}`}</style>
   </Fragment>
 );
 
-VanillaButton.propTypes = { children: PropTypes.node.isRequired, theme: PropTypes.string };
-VanillaButton.defaultProps = { theme: '' };
+VanillaButton.propTypes = {
+  children: PropTypes.node.isRequired,
+  theme: PropTypes.shape({}),
+  handleClick: PropTypes.func.isRequired,
+};
+VanillaButton.defaultProps = { theme: {} };
 export default VanillaButton;

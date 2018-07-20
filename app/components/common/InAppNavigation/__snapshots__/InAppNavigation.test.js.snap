@@ -22,25 +22,25 @@ ShallowWrapper {
     "props": Object {
       "children": Array [
         <div
-          className="jsx-3331212698 mobile-back-text-container"
+          className="jsx-58399408 mobile-back-text-container"
         >
           <img
             alt=""
-            className="jsx-3331212698 icon-arrow"
+            className="jsx-58399408 icon-arrow"
             src="https://vega.slooh.com/assets/v4/common/arrow_horz.svg"
           />
           <p
-            className="jsx-3331212698 back-text"
+            className="jsx-58399408 back-text"
           >
             back
              to guide
           </p>
         </div>,
         <div
-          className="jsx-3331212698 core-navigation-container"
+          className="jsx-58399408 core-navigation-container"
         >
           <button
-            className="jsx-3331212698 back-arrow"
+            className="jsx-58399408 back-arrow"
           >
             <BackArrow
               theme={
@@ -51,12 +51,12 @@ ShallowWrapper {
             />
           </button>
           <h5
-            className="jsx-3331212698 title"
+            className="jsx-58399408 title"
           >
             topic 1: stuff...
           </h5>
           <div
-            className="jsx-3331212698 context-menu-container"
+            className="jsx-58399408 context-menu-container"
           >
             <ContextMenu />
           </div>
@@ -64,20 +64,22 @@ ShallowWrapper {
         <JSXStyle
           css={
             Array [
-              ".mobile-back-text-container.jsx-3331212698{padding:20px 25px;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;}",
-              ".icon-arrow.jsx-3331212698{-webkit-transform:rotate(180deg);-ms-transform:rotate(180deg);transform:rotate(180deg);}",
-              ".back-text.jsx-3331212698{padding:0;margin:0;-webkit-letter-spacing:1.25px;-moz-letter-spacing:1.25px;-ms-letter-spacing:1.25px;letter-spacing:1.25px;font-family:brandon-grotesque, sans-serif;text-transform:uppercase;background-color:white;padding-left:12px;font-size:12px;font-weight:800;color:#415671;}",
-              ".core-navigation-container.jsx-3331212698{height:100px;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;background-color:#253446;padding:0;font-family:adobe-garamond-pro, serif;color:white;}",
-              ".back-arrow.jsx-3331212698{display:none;}",
-              ".title.jsx-3331212698{padding:0;margin:0;padding-left:40px;font-weight:100;text-transform:capitalize;font-size:16px;}",
-              ".back-arrow.jsx-3331212698{background:none;height:100%;width:100px;height:100px;border:none;border-right:1px solid #1c2633;cursor:pointer;}",
-              "@media screen and (min-width: 768px){.mobile-back-text-container.jsx-3331212698{display:none;}.back-arrow.jsx-3331212698{display:block;}}",
+              ".mobile-back-text-container.jsx-58399408{padding:20px 25px;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;}",
+              ".icon-arrow.jsx-58399408{-webkit-transform:rotate(180deg);-ms-transform:rotate(180deg);transform:rotate(180deg);}",
+              ".back-text.jsx-58399408{padding:0;margin:0;-webkit-letter-spacing:1.25px;-moz-letter-spacing:1.25px;-ms-letter-spacing:1.25px;letter-spacing:1.25px;font-family:brandon-grotesque, sans-serif;text-transform:uppercase;background-color:white;padding-left:12px;font-size:12px;font-weight:800;color:#415671;}",
+              ".core-navigation-container.jsx-58399408{height:100px;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;background-color:#253446;padding:0;font-family:adobe-garamond-pro, serif;color:white;}",
+              ".back-arrow.jsx-58399408{display:none;}",
+              ".context-menu-container.jsx-58399408{display:none;}",
+              ".back-arrow.jsx-58399408{background:none;height:100%;width:100px;height:100px;border:none;border-right:1px solid #1c2633;cursor:pointer;}",
+              ".title.jsx-58399408{padding:0;margin:0;-webkit-box-flex:1;-webkit-flex-grow:1;-ms-flex-positive:1;flex-grow:1;padding-left:40px;font-weight:100;text-transform:capitalize;font-size:16px;}",
+              ".context-menu-container.jsx-58399408{border-left:1px solid #1c2633;}",
+              "@media screen and (min-width: 768px){.mobile-back-text-container.jsx-58399408{display:none;}.back-arrow.jsx-58399408{display:block;}.context-menu-container.jsx-58399408{display:block;}}",
             ]
           }
-          styleId="3331212698"
+          styleId="58399408"
         />,
       ],
-      "className": "jsx-3331212698 root",
+      "className": "jsx-58399408 root",
     },
     "ref": null,
     "rendered": Array [
@@ -89,17 +91,17 @@ ShallowWrapper {
           "children": Array [
             <img
               alt=""
-              className="jsx-3331212698 icon-arrow"
+              className="jsx-58399408 icon-arrow"
               src="https://vega.slooh.com/assets/v4/common/arrow_horz.svg"
             />,
             <p
-              className="jsx-3331212698 back-text"
+              className="jsx-58399408 back-text"
             >
               back
                to guide
             </p>,
           ],
-          "className": "jsx-3331212698 mobile-back-text-container",
+          "className": "jsx-58399408 mobile-back-text-container",
         },
         "ref": null,
         "rendered": Array [
@@ -109,7 +111,7 @@ ShallowWrapper {
             "nodeType": "host",
             "props": Object {
               "alt": "",
-              "className": "jsx-3331212698 icon-arrow",
+              "className": "jsx-58399408 icon-arrow",
               "src": "https://vega.slooh.com/assets/v4/common/arrow_horz.svg",
             },
             "ref": null,
@@ -125,7 +127,7 @@ ShallowWrapper {
                 "back",
                 " to guide",
               ],
-              "className": "jsx-3331212698 back-text",
+              "className": "jsx-58399408 back-text",
             },
             "ref": null,
             "rendered": Array [
@@ -144,7 +146,7 @@ ShallowWrapper {
         "props": Object {
           "children": Array [
             <button
-              className="jsx-3331212698 back-arrow"
+              className="jsx-58399408 back-arrow"
             >
               <BackArrow
                 theme={
@@ -155,17 +157,17 @@ ShallowWrapper {
               />
             </button>,
             <h5
-              className="jsx-3331212698 title"
+              className="jsx-58399408 title"
             >
               topic 1: stuff...
             </h5>,
             <div
-              className="jsx-3331212698 context-menu-container"
+              className="jsx-58399408 context-menu-container"
             >
               <ContextMenu />
             </div>,
           ],
-          "className": "jsx-3331212698 core-navigation-container",
+          "className": "jsx-58399408 core-navigation-container",
         },
         "ref": null,
         "rendered": Array [
@@ -181,7 +183,7 @@ ShallowWrapper {
                   }
                 }
               />,
-              "className": "jsx-3331212698 back-arrow",
+              "className": "jsx-58399408 back-arrow",
             },
             "ref": null,
             "rendered": Object {
@@ -205,7 +207,7 @@ ShallowWrapper {
             "nodeType": "host",
             "props": Object {
               "children": "topic 1: stuff...",
-              "className": "jsx-3331212698 title",
+              "className": "jsx-58399408 title",
             },
             "ref": null,
             "rendered": "topic 1: stuff...",
@@ -217,13 +219,13 @@ ShallowWrapper {
             "nodeType": "host",
             "props": Object {
               "children": <ContextMenu />,
-              "className": "jsx-3331212698 context-menu-container",
+              "className": "jsx-58399408 context-menu-container",
             },
             "ref": null,
             "rendered": Object {
               "instance": null,
               "key": undefined,
-              "nodeType": "function",
+              "nodeType": "class",
               "props": Object {},
               "ref": null,
               "rendered": null,
@@ -240,16 +242,18 @@ ShallowWrapper {
         "nodeType": "class",
         "props": Object {
           "css": Array [
-            ".mobile-back-text-container.jsx-3331212698{padding:20px 25px;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;}",
-            ".icon-arrow.jsx-3331212698{-webkit-transform:rotate(180deg);-ms-transform:rotate(180deg);transform:rotate(180deg);}",
-            ".back-text.jsx-3331212698{padding:0;margin:0;-webkit-letter-spacing:1.25px;-moz-letter-spacing:1.25px;-ms-letter-spacing:1.25px;letter-spacing:1.25px;font-family:brandon-grotesque, sans-serif;text-transform:uppercase;background-color:white;padding-left:12px;font-size:12px;font-weight:800;color:#415671;}",
-            ".core-navigation-container.jsx-3331212698{height:100px;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;background-color:#253446;padding:0;font-family:adobe-garamond-pro, serif;color:white;}",
-            ".back-arrow.jsx-3331212698{display:none;}",
-            ".title.jsx-3331212698{padding:0;margin:0;padding-left:40px;font-weight:100;text-transform:capitalize;font-size:16px;}",
-            ".back-arrow.jsx-3331212698{background:none;height:100%;width:100px;height:100px;border:none;border-right:1px solid #1c2633;cursor:pointer;}",
-            "@media screen and (min-width: 768px){.mobile-back-text-container.jsx-3331212698{display:none;}.back-arrow.jsx-3331212698{display:block;}}",
+            ".mobile-back-text-container.jsx-58399408{padding:20px 25px;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;}",
+            ".icon-arrow.jsx-58399408{-webkit-transform:rotate(180deg);-ms-transform:rotate(180deg);transform:rotate(180deg);}",
+            ".back-text.jsx-58399408{padding:0;margin:0;-webkit-letter-spacing:1.25px;-moz-letter-spacing:1.25px;-ms-letter-spacing:1.25px;letter-spacing:1.25px;font-family:brandon-grotesque, sans-serif;text-transform:uppercase;background-color:white;padding-left:12px;font-size:12px;font-weight:800;color:#415671;}",
+            ".core-navigation-container.jsx-58399408{height:100px;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;background-color:#253446;padding:0;font-family:adobe-garamond-pro, serif;color:white;}",
+            ".back-arrow.jsx-58399408{display:none;}",
+            ".context-menu-container.jsx-58399408{display:none;}",
+            ".back-arrow.jsx-58399408{background:none;height:100%;width:100px;height:100px;border:none;border-right:1px solid #1c2633;cursor:pointer;}",
+            ".title.jsx-58399408{padding:0;margin:0;-webkit-box-flex:1;-webkit-flex-grow:1;-ms-flex-positive:1;flex-grow:1;padding-left:40px;font-weight:100;text-transform:capitalize;font-size:16px;}",
+            ".context-menu-container.jsx-58399408{border-left:1px solid #1c2633;}",
+            "@media screen and (min-width: 768px){.mobile-back-text-container.jsx-58399408{display:none;}.back-arrow.jsx-58399408{display:block;}.context-menu-container.jsx-58399408{display:block;}}",
           ],
-          "styleId": "3331212698",
+          "styleId": "58399408",
         },
         "ref": null,
         "rendered": null,
@@ -266,25 +270,25 @@ ShallowWrapper {
       "props": Object {
         "children": Array [
           <div
-            className="jsx-3331212698 mobile-back-text-container"
+            className="jsx-58399408 mobile-back-text-container"
           >
             <img
               alt=""
-              className="jsx-3331212698 icon-arrow"
+              className="jsx-58399408 icon-arrow"
               src="https://vega.slooh.com/assets/v4/common/arrow_horz.svg"
             />
             <p
-              className="jsx-3331212698 back-text"
+              className="jsx-58399408 back-text"
             >
               back
                to guide
             </p>
           </div>,
           <div
-            className="jsx-3331212698 core-navigation-container"
+            className="jsx-58399408 core-navigation-container"
           >
             <button
-              className="jsx-3331212698 back-arrow"
+              className="jsx-58399408 back-arrow"
             >
               <BackArrow
                 theme={
@@ -295,12 +299,12 @@ ShallowWrapper {
               />
             </button>
             <h5
-              className="jsx-3331212698 title"
+              className="jsx-58399408 title"
             >
               topic 1: stuff...
             </h5>
             <div
-              className="jsx-3331212698 context-menu-container"
+              className="jsx-58399408 context-menu-container"
             >
               <ContextMenu />
             </div>
@@ -308,20 +312,22 @@ ShallowWrapper {
           <JSXStyle
             css={
               Array [
-                ".mobile-back-text-container.jsx-3331212698{padding:20px 25px;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;}",
-                ".icon-arrow.jsx-3331212698{-webkit-transform:rotate(180deg);-ms-transform:rotate(180deg);transform:rotate(180deg);}",
-                ".back-text.jsx-3331212698{padding:0;margin:0;-webkit-letter-spacing:1.25px;-moz-letter-spacing:1.25px;-ms-letter-spacing:1.25px;letter-spacing:1.25px;font-family:brandon-grotesque, sans-serif;text-transform:uppercase;background-color:white;padding-left:12px;font-size:12px;font-weight:800;color:#415671;}",
-                ".core-navigation-container.jsx-3331212698{height:100px;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;background-color:#253446;padding:0;font-family:adobe-garamond-pro, serif;color:white;}",
-                ".back-arrow.jsx-3331212698{display:none;}",
-                ".title.jsx-3331212698{padding:0;margin:0;padding-left:40px;font-weight:100;text-transform:capitalize;font-size:16px;}",
-                ".back-arrow.jsx-3331212698{background:none;height:100%;width:100px;height:100px;border:none;border-right:1px solid #1c2633;cursor:pointer;}",
-                "@media screen and (min-width: 768px){.mobile-back-text-container.jsx-3331212698{display:none;}.back-arrow.jsx-3331212698{display:block;}}",
+                ".mobile-back-text-container.jsx-58399408{padding:20px 25px;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;}",
+                ".icon-arrow.jsx-58399408{-webkit-transform:rotate(180deg);-ms-transform:rotate(180deg);transform:rotate(180deg);}",
+                ".back-text.jsx-58399408{padding:0;margin:0;-webkit-letter-spacing:1.25px;-moz-letter-spacing:1.25px;-ms-letter-spacing:1.25px;letter-spacing:1.25px;font-family:brandon-grotesque, sans-serif;text-transform:uppercase;background-color:white;padding-left:12px;font-size:12px;font-weight:800;color:#415671;}",
+                ".core-navigation-container.jsx-58399408{height:100px;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;background-color:#253446;padding:0;font-family:adobe-garamond-pro, serif;color:white;}",
+                ".back-arrow.jsx-58399408{display:none;}",
+                ".context-menu-container.jsx-58399408{display:none;}",
+                ".back-arrow.jsx-58399408{background:none;height:100%;width:100px;height:100px;border:none;border-right:1px solid #1c2633;cursor:pointer;}",
+                ".title.jsx-58399408{padding:0;margin:0;-webkit-box-flex:1;-webkit-flex-grow:1;-ms-flex-positive:1;flex-grow:1;padding-left:40px;font-weight:100;text-transform:capitalize;font-size:16px;}",
+                ".context-menu-container.jsx-58399408{border-left:1px solid #1c2633;}",
+                "@media screen and (min-width: 768px){.mobile-back-text-container.jsx-58399408{display:none;}.back-arrow.jsx-58399408{display:block;}.context-menu-container.jsx-58399408{display:block;}}",
               ]
             }
-            styleId="3331212698"
+            styleId="58399408"
           />,
         ],
-        "className": "jsx-3331212698 root",
+        "className": "jsx-58399408 root",
       },
       "ref": null,
       "rendered": Array [
@@ -333,17 +339,17 @@ ShallowWrapper {
             "children": Array [
               <img
                 alt=""
-                className="jsx-3331212698 icon-arrow"
+                className="jsx-58399408 icon-arrow"
                 src="https://vega.slooh.com/assets/v4/common/arrow_horz.svg"
               />,
               <p
-                className="jsx-3331212698 back-text"
+                className="jsx-58399408 back-text"
               >
                 back
                  to guide
               </p>,
             ],
-            "className": "jsx-3331212698 mobile-back-text-container",
+            "className": "jsx-58399408 mobile-back-text-container",
           },
           "ref": null,
           "rendered": Array [
@@ -353,7 +359,7 @@ ShallowWrapper {
               "nodeType": "host",
               "props": Object {
                 "alt": "",
-                "className": "jsx-3331212698 icon-arrow",
+                "className": "jsx-58399408 icon-arrow",
                 "src": "https://vega.slooh.com/assets/v4/common/arrow_horz.svg",
               },
               "ref": null,
@@ -369,7 +375,7 @@ ShallowWrapper {
                   "back",
                   " to guide",
                 ],
-                "className": "jsx-3331212698 back-text",
+                "className": "jsx-58399408 back-text",
               },
               "ref": null,
               "rendered": Array [
@@ -388,7 +394,7 @@ ShallowWrapper {
           "props": Object {
             "children": Array [
               <button
-                className="jsx-3331212698 back-arrow"
+                className="jsx-58399408 back-arrow"
               >
                 <BackArrow
                   theme={
@@ -399,17 +405,17 @@ ShallowWrapper {
                 />
               </button>,
               <h5
-                className="jsx-3331212698 title"
+                className="jsx-58399408 title"
               >
                 topic 1: stuff...
               </h5>,
               <div
-                className="jsx-3331212698 context-menu-container"
+                className="jsx-58399408 context-menu-container"
               >
                 <ContextMenu />
               </div>,
             ],
-            "className": "jsx-3331212698 core-navigation-container",
+            "className": "jsx-58399408 core-navigation-container",
           },
           "ref": null,
           "rendered": Array [
@@ -425,7 +431,7 @@ ShallowWrapper {
                     }
                   }
                 />,
-                "className": "jsx-3331212698 back-arrow",
+                "className": "jsx-58399408 back-arrow",
               },
               "ref": null,
               "rendered": Object {
@@ -449,7 +455,7 @@ ShallowWrapper {
               "nodeType": "host",
               "props": Object {
                 "children": "topic 1: stuff...",
-                "className": "jsx-3331212698 title",
+                "className": "jsx-58399408 title",
               },
               "ref": null,
               "rendered": "topic 1: stuff...",
@@ -461,13 +467,13 @@ ShallowWrapper {
               "nodeType": "host",
               "props": Object {
                 "children": <ContextMenu />,
-                "className": "jsx-3331212698 context-menu-container",
+                "className": "jsx-58399408 context-menu-container",
               },
               "ref": null,
               "rendered": Object {
                 "instance": null,
                 "key": undefined,
-                "nodeType": "function",
+                "nodeType": "class",
                 "props": Object {},
                 "ref": null,
                 "rendered": null,
@@ -484,16 +490,18 @@ ShallowWrapper {
           "nodeType": "class",
           "props": Object {
             "css": Array [
-              ".mobile-back-text-container.jsx-3331212698{padding:20px 25px;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;}",
-              ".icon-arrow.jsx-3331212698{-webkit-transform:rotate(180deg);-ms-transform:rotate(180deg);transform:rotate(180deg);}",
-              ".back-text.jsx-3331212698{padding:0;margin:0;-webkit-letter-spacing:1.25px;-moz-letter-spacing:1.25px;-ms-letter-spacing:1.25px;letter-spacing:1.25px;font-family:brandon-grotesque, sans-serif;text-transform:uppercase;background-color:white;padding-left:12px;font-size:12px;font-weight:800;color:#415671;}",
-              ".core-navigation-container.jsx-3331212698{height:100px;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;background-color:#253446;padding:0;font-family:adobe-garamond-pro, serif;color:white;}",
-              ".back-arrow.jsx-3331212698{display:none;}",
-              ".title.jsx-3331212698{padding:0;margin:0;padding-left:40px;font-weight:100;text-transform:capitalize;font-size:16px;}",
-              ".back-arrow.jsx-3331212698{background:none;height:100%;width:100px;height:100px;border:none;border-right:1px solid #1c2633;cursor:pointer;}",
-              "@media screen and (min-width: 768px){.mobile-back-text-container.jsx-3331212698{display:none;}.back-arrow.jsx-3331212698{display:block;}}",
+              ".mobile-back-text-container.jsx-58399408{padding:20px 25px;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;}",
+              ".icon-arrow.jsx-58399408{-webkit-transform:rotate(180deg);-ms-transform:rotate(180deg);transform:rotate(180deg);}",
+              ".back-text.jsx-58399408{padding:0;margin:0;-webkit-letter-spacing:1.25px;-moz-letter-spacing:1.25px;-ms-letter-spacing:1.25px;letter-spacing:1.25px;font-family:brandon-grotesque, sans-serif;text-transform:uppercase;background-color:white;padding-left:12px;font-size:12px;font-weight:800;color:#415671;}",
+              ".core-navigation-container.jsx-58399408{height:100px;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;background-color:#253446;padding:0;font-family:adobe-garamond-pro, serif;color:white;}",
+              ".back-arrow.jsx-58399408{display:none;}",
+              ".context-menu-container.jsx-58399408{display:none;}",
+              ".back-arrow.jsx-58399408{background:none;height:100%;width:100px;height:100px;border:none;border-right:1px solid #1c2633;cursor:pointer;}",
+              ".title.jsx-58399408{padding:0;margin:0;-webkit-box-flex:1;-webkit-flex-grow:1;-ms-flex-positive:1;flex-grow:1;padding-left:40px;font-weight:100;text-transform:capitalize;font-size:16px;}",
+              ".context-menu-container.jsx-58399408{border-left:1px solid #1c2633;}",
+              "@media screen and (min-width: 768px){.mobile-back-text-container.jsx-58399408{display:none;}.back-arrow.jsx-58399408{display:block;}.context-menu-container.jsx-58399408{display:block;}}",
             ],
-            "styleId": "3331212698",
+            "styleId": "58399408",
           },
           "ref": null,
           "rendered": null,

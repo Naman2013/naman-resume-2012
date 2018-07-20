@@ -38,15 +38,7 @@ export default css`
   }
 
   .back-arrow { display: none; }
-
-  .title {
-    padding: 0;
-    margin: 0;
-    padding-left: 40px;
-    font-weight: 100;
-    text-transform: capitalize;
-    font-size: 16px;
-  }
+  .context-menu-container { display: none }
 
   .back-arrow {
     background: none;
@@ -58,8 +50,23 @@ export default css`
     cursor: pointer;
   }
 
+  .title {
+    padding: 0;
+    margin: 0;
+    flex-grow: 1;
+    padding-left: 40px;
+    font-weight: 100;
+    text-transform: capitalize;
+    font-size: 16px;
+  }
+
+  .context-menu-container {
+    border-left: 1px solid ${dukeBlue};
+  }
+
   @media ${screenMedium} {
     .mobile-back-text-container { display: none; }
     .back-arrow { display: block; }
+    .context-menu-container { display: block; }
   }
 `;
