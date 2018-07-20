@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import VanillaButton from 'atoms/VanillaButton';
-import Dots from 'components/common/icons/Dots';
-import Close from 'components/common/icons/Close';
+import Dots from 'atoms/icons/Dots';
+import Close from 'atoms/icons/Close';
 import { thatBlue, astronaut } from 'styles/variables/colors_tiles_v4';
 
 class ContextMenu extends Component {

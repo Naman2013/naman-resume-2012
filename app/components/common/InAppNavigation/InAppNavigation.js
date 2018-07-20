@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ContextMenu from 'components/common/ContextMenu';
-import BackArrow from 'components/common/icons/BackArrow';
+import BackArrow from 'atoms/icons/BackArrow';
 import style from './InAppNavigation.style';
 import { horizontalArrow } from 'styles/variables/iconURLs';
 
