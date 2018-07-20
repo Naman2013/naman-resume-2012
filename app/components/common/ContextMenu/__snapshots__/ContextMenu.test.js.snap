@@ -21,7 +21,7 @@ ShallowWrapper {
         handleClick={[Function]}
         theme={
           Object {
-            "backgroundColor": "#1c2633",
+            "backgroundColor": "#253446",
             "height": "100px",
             "width": "100px",
           }
@@ -56,7 +56,7 @@ ShallowWrapper {
         />,
         "handleClick": [Function],
         "theme": Object {
-          "backgroundColor": "#1c2633",
+          "backgroundColor": "#253446",
           "height": "100px",
           "width": "100px",
         },
@@ -91,7 +91,7 @@ ShallowWrapper {
           handleClick={[Function]}
           theme={
             Object {
-              "backgroundColor": "#1c2633",
+              "backgroundColor": "#253446",
               "height": "100px",
               "width": "100px",
             }
@@ -126,7 +126,7 @@ ShallowWrapper {
           />,
           "handleClick": [Function],
           "theme": Object {
-            "backgroundColor": "#1c2633",
+            "backgroundColor": "#253446",
             "height": "100px",
             "width": "100px",
           },

@@ -1,6 +1,6 @@
 import css from 'styled-jsx/css';
 import { primaryFont, secondaryFont } from 'styles/variables/fonts';
-import { astronaut, dukeBlue } from 'styles/variables/colors_tiles_v4';
+import { astronaut, dukeBlue, thatBlue } from 'styles/variables/colors_tiles_v4';
 import { screenMedium } from 'styles/variables/breakpoints';
 
 export default css`
@@ -31,7 +31,7 @@ export default css`
     height: 100px;
     display: flex;
     align-items: center;
-    background-color: #253446;
+    background-color: ${thatBlue};
     padding: 0;
     font-family: ${secondaryFont};
     color: white;
