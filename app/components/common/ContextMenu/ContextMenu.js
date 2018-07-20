@@ -4,10 +4,10 @@ import VanillaButton from 'atoms/VanillaButton';
 import Dots from 'atoms/icons/Dots';
 import Close from 'atoms/icons/Close';
 import { thatBlue, astronaut } from 'styles/variables/colors_tiles_v4';
-import style from './ContextMenu.style';
+import style, { CONTAINER_WIDTH } from './ContextMenu.style';
 
 const OPEN_LOCATION = 0;
-const CLOSED_LOCATION = -440;
+export const CLOSE_LOCATION = -CONTAINER_WIDTH;
 
 class ContextMenu extends Component {
   state = {
@@ -18,7 +18,7 @@ class ContextMenu extends Component {
 
   render() {
     const { isOpen } = this.state;
-    const containerLeft = (isOpen) ? OPEN_LOCATION : CLOSED_LOCATION;
+    const containerLeft = (isOpen) ? OPEN_LOCATION : CLOSE_LOCATION;
     return (
       <div className="root">
         <VanillaButton

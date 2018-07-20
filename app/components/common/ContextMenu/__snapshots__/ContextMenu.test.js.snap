@@ -39,7 +39,7 @@ ShallowWrapper {
           />
         </VanillaButton>,
         <div
-          className="jsx-1794528811 menu-container"
+          className="jsx-3798100782 menu-container"
           style={
             Object {
               "right": "-440px",
@@ -47,30 +47,30 @@ ShallowWrapper {
           }
         >
           <h5
-            className="jsx-1794528811"
+            className="jsx-3798100782"
           >
             Sample title
           </h5>
           <ul
-            className="jsx-1794528811"
+            className="jsx-3798100782"
           >
             <ol
-              className="jsx-1794528811"
+              className="jsx-3798100782"
             >
               Astronomical Time
             </ol>
             <ol
-              className="jsx-1794528811"
+              className="jsx-3798100782"
             >
               Astronomical distance
             </ol>
             <ol
-              className="jsx-1794528811"
+              className="jsx-3798100782"
             >
               Magnitudes
             </ol>
             <ol
-              className="jsx-1794528811"
+              className="jsx-3798100782"
             >
               Celestial Sphere & Coordinates
             </ol>
@@ -79,14 +79,14 @@ ShallowWrapper {
         <JSXStyle
           css={
             Array [
-              ".root.jsx-1794528811{display:relative;width:100px;overflow:hidden;}",
-              ".menu-container.jsx-1794528811{position:absolute;top:100px;width:440px;height:100%;background-color:#f8f8f8;-webkit-transition:right ease-out 0.15s;transition:right ease-out 0.15s;}",
+              ".root.jsx-3798100782{display:relative;width:100px;overflow:hidden;}",
+              ".menu-container.jsx-3798100782{position:absolute;top:108px;width:440px;height:100%;background-color:#f8f8f8;-webkit-transition:right ease-out 0.15s;transition:right ease-out 0.15s;}",
             ]
           }
-          styleId="1794528811"
+          styleId="3798100782"
         />,
       ],
-      "className": "jsx-1794528811 root",
+      "className": "jsx-3798100782 root",
     },
     "ref": null,
     "rendered": Array [
@@ -136,36 +136,36 @@ ShallowWrapper {
         "props": Object {
           "children": Array [
             <h5
-              className="jsx-1794528811"
+              className="jsx-3798100782"
             >
               Sample title
             </h5>,
             <ul
-              className="jsx-1794528811"
+              className="jsx-3798100782"
             >
               <ol
-                className="jsx-1794528811"
+                className="jsx-3798100782"
               >
                 Astronomical Time
               </ol>
               <ol
-                className="jsx-1794528811"
+                className="jsx-3798100782"
               >
                 Astronomical distance
               </ol>
               <ol
-                className="jsx-1794528811"
+                className="jsx-3798100782"
               >
                 Magnitudes
               </ol>
               <ol
-                className="jsx-1794528811"
+                className="jsx-3798100782"
               >
                 Celestial Sphere & Coordinates
               </ol>
             </ul>,
           ],
-          "className": "jsx-1794528811 menu-container",
+          "className": "jsx-3798100782 menu-container",
           "style": Object {
             "right": "-440px",
           },
@@ -178,7 +178,7 @@ ShallowWrapper {
             "nodeType": "host",
             "props": Object {
               "children": "Sample title",
-              "className": "jsx-1794528811",
+              "className": "jsx-3798100782",
             },
             "ref": null,
             "rendered": "Sample title",
@@ -191,27 +191,27 @@ ShallowWrapper {
             "props": Object {
               "children": Array [
                 <ol
-                  className="jsx-1794528811"
+                  className="jsx-3798100782"
                 >
                   Astronomical Time
                 </ol>,
                 <ol
-                  className="jsx-1794528811"
+                  className="jsx-3798100782"
                 >
                   Astronomical distance
                 </ol>,
                 <ol
-                  className="jsx-1794528811"
+                  className="jsx-3798100782"
                 >
                   Magnitudes
                 </ol>,
                 <ol
-                  className="jsx-1794528811"
+                  className="jsx-3798100782"
                 >
                   Celestial Sphere & Coordinates
                 </ol>,
               ],
-              "className": "jsx-1794528811",
+              "className": "jsx-3798100782",
             },
             "ref": null,
             "rendered": Array [
@@ -221,7 +221,7 @@ ShallowWrapper {
                 "nodeType": "host",
                 "props": Object {
                   "children": "Astronomical Time",
-                  "className": "jsx-1794528811",
+                  "className": "jsx-3798100782",
                 },
                 "ref": null,
                 "rendered": "Astronomical Time",
@@ -233,7 +233,7 @@ ShallowWrapper {
                 "nodeType": "host",
                 "props": Object {
                   "children": "Astronomical distance",
-                  "className": "jsx-1794528811",
+                  "className": "jsx-3798100782",
                 },
                 "ref": null,
                 "rendered": "Astronomical distance",
@@ -245,7 +245,7 @@ ShallowWrapper {
                 "nodeType": "host",
                 "props": Object {
                   "children": "Magnitudes",
-                  "className": "jsx-1794528811",
+                  "className": "jsx-3798100782",
                 },
                 "ref": null,
                 "rendered": "Magnitudes",
@@ -257,7 +257,7 @@ ShallowWrapper {
                 "nodeType": "host",
                 "props": Object {
                   "children": "Celestial Sphere & Coordinates",
-                  "className": "jsx-1794528811",
+                  "className": "jsx-3798100782",
                 },
                 "ref": null,
                 "rendered": "Celestial Sphere & Coordinates",
@@ -275,10 +275,10 @@ ShallowWrapper {
         "nodeType": "class",
         "props": Object {
           "css": Array [
-            ".root.jsx-1794528811{display:relative;width:100px;overflow:hidden;}",
-            ".menu-container.jsx-1794528811{position:absolute;top:100px;width:440px;height:100%;background-color:#f8f8f8;-webkit-transition:right ease-out 0.15s;transition:right ease-out 0.15s;}",
+            ".root.jsx-3798100782{display:relative;width:100px;overflow:hidden;}",
+            ".menu-container.jsx-3798100782{position:absolute;top:108px;width:440px;height:100%;background-color:#f8f8f8;-webkit-transition:right ease-out 0.15s;transition:right ease-out 0.15s;}",
           ],
-          "styleId": "1794528811",
+          "styleId": "3798100782",
         },
         "ref": null,
         "rendered": null,
@@ -315,7 +315,7 @@ ShallowWrapper {
             />
           </VanillaButton>,
           <div
-            className="jsx-1794528811 menu-container"
+            className="jsx-3798100782 menu-container"
             style={
               Object {
                 "right": "-440px",
@@ -323,30 +323,30 @@ ShallowWrapper {
             }
           >
             <h5
-              className="jsx-1794528811"
+              className="jsx-3798100782"
             >
               Sample title
             </h5>
             <ul
-              className="jsx-1794528811"
+              className="jsx-3798100782"
             >
               <ol
-                className="jsx-1794528811"
+                className="jsx-3798100782"
               >
                 Astronomical Time
               </ol>
               <ol
-                className="jsx-1794528811"
+                className="jsx-3798100782"
               >
                 Astronomical distance
               </ol>
               <ol
-                className="jsx-1794528811"
+                className="jsx-3798100782"
               >
                 Magnitudes
               </ol>
               <ol
-                className="jsx-1794528811"
+                className="jsx-3798100782"
               >
                 Celestial Sphere & Coordinates
               </ol>
@@ -355,14 +355,14 @@ ShallowWrapper {
           <JSXStyle
             css={
               Array [
-                ".root.jsx-1794528811{display:relative;width:100px;overflow:hidden;}",
-                ".menu-container.jsx-1794528811{position:absolute;top:100px;width:440px;height:100%;background-color:#f8f8f8;-webkit-transition:right ease-out 0.15s;transition:right ease-out 0.15s;}",
+                ".root.jsx-3798100782{display:relative;width:100px;overflow:hidden;}",
+                ".menu-container.jsx-3798100782{position:absolute;top:108px;width:440px;height:100%;background-color:#f8f8f8;-webkit-transition:right ease-out 0.15s;transition:right ease-out 0.15s;}",
               ]
             }
-            styleId="1794528811"
+            styleId="3798100782"
           />,
         ],
-        "className": "jsx-1794528811 root",
+        "className": "jsx-3798100782 root",
       },
       "ref": null,
       "rendered": Array [
@@ -412,36 +412,36 @@ ShallowWrapper {
           "props": Object {
             "children": Array [
               <h5
-                className="jsx-1794528811"
+                className="jsx-3798100782"
               >
                 Sample title
               </h5>,
               <ul
-                className="jsx-1794528811"
+                className="jsx-3798100782"
               >
                 <ol
-                  className="jsx-1794528811"
+                  className="jsx-3798100782"
                 >
                   Astronomical Time
                 </ol>
                 <ol
-                  className="jsx-1794528811"
+                  className="jsx-3798100782"
                 >
                   Astronomical distance
                 </ol>
                 <ol
-                  className="jsx-1794528811"
+                  className="jsx-3798100782"
                 >
                   Magnitudes
                 </ol>
                 <ol
-                  className="jsx-1794528811"
+                  className="jsx-3798100782"
                 >
                   Celestial Sphere & Coordinates
                 </ol>
               </ul>,
             ],
-            "className": "jsx-1794528811 menu-container",
+            "className": "jsx-3798100782 menu-container",
             "style": Object {
               "right": "-440px",
             },
@@ -454,7 +454,7 @@ ShallowWrapper {
               "nodeType": "host",
               "props": Object {
                 "children": "Sample title",
-                "className": "jsx-1794528811",
+                "className": "jsx-3798100782",
               },
               "ref": null,
               "rendered": "Sample title",
@@ -467,27 +467,27 @@ ShallowWrapper {
               "props": Object {
                 "children": Array [
                   <ol
-                    className="jsx-1794528811"
+                    className="jsx-3798100782"
                   >
                     Astronomical Time
                   </ol>,
                   <ol
-                    className="jsx-1794528811"
+                    className="jsx-3798100782"
                   >
                     Astronomical distance
                   </ol>,
                   <ol
-                    className="jsx-1794528811"
+                    className="jsx-3798100782"
                   >
                     Magnitudes
                   </ol>,
                   <ol
-                    className="jsx-1794528811"
+                    className="jsx-3798100782"
                   >
                     Celestial Sphere & Coordinates
                   </ol>,
                 ],
-                "className": "jsx-1794528811",
+                "className": "jsx-3798100782",
               },
               "ref": null,
               "rendered": Array [
@@ -497,7 +497,7 @@ ShallowWrapper {
                   "nodeType": "host",
                   "props": Object {
                     "children": "Astronomical Time",
-                    "className": "jsx-1794528811",
+                    "className": "jsx-3798100782",
                   },
                   "ref": null,
                   "rendered": "Astronomical Time",
@@ -509,7 +509,7 @@ ShallowWrapper {
                   "nodeType": "host",
                   "props": Object {
                     "children": "Astronomical distance",
-                    "className": "jsx-1794528811",
+                    "className": "jsx-3798100782",
                   },
                   "ref": null,
                   "rendered": "Astronomical distance",
@@ -521,7 +521,7 @@ ShallowWrapper {
                   "nodeType": "host",
                   "props": Object {
                     "children": "Magnitudes",
-                    "className": "jsx-1794528811",
+                    "className": "jsx-3798100782",
                   },
                   "ref": null,
                   "rendered": "Magnitudes",
@@ -533,7 +533,7 @@ ShallowWrapper {
                   "nodeType": "host",
                   "props": Object {
                     "children": "Celestial Sphere & Coordinates",
-                    "className": "jsx-1794528811",
+                    "className": "jsx-3798100782",
                   },
                   "ref": null,
                   "rendered": "Celestial Sphere & Coordinates",
@@ -551,10 +551,10 @@ ShallowWrapper {
           "nodeType": "class",
           "props": Object {
             "css": Array [
-              ".root.jsx-1794528811{display:relative;width:100px;overflow:hidden;}",
-              ".menu-container.jsx-1794528811{position:absolute;top:100px;width:440px;height:100%;background-color:#f8f8f8;-webkit-transition:right ease-out 0.15s;transition:right ease-out 0.15s;}",
+              ".root.jsx-3798100782{display:relative;width:100px;overflow:hidden;}",
+              ".menu-container.jsx-3798100782{position:absolute;top:108px;width:440px;height:100%;background-color:#f8f8f8;-webkit-transition:right ease-out 0.15s;transition:right ease-out 0.15s;}",
             ],
-            "styleId": "1794528811",
+            "styleId": "3798100782",
           },
           "ref": null,
           "rendered": null,
