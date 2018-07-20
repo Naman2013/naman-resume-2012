@@ -14,6 +14,7 @@ import LikeSomethingButton from 'components/common/LikeSomethingButton';
 import ReplyForm from 'components/common/DiscussionsBoard/ReplyForm';
 import ReplyButton from 'components/common/DiscussionsBoard/ReplyButton';
 import Button from 'components/common/style/buttons/Button';
+import ViewImagesButton from 'components/common/style/buttons/ViewImagesButton';
 import styles, { profPic } from './DiscussionsCard.style'
 
 const {
@@ -93,6 +94,7 @@ class DiscussionsCard extends Component {
       renderChildReplies,
       replyCount,
       replyTo,
+      S3Files,
       showLikePrompt,
       submitReply,
       title,
@@ -106,7 +108,7 @@ class DiscussionsCard extends Component {
     const {
       toggleAllComments,
     } = this;
-
+    console.log(S3Files)
     return (
       <div className="root" key={uniqueId()}>
         <div className="comment-item">
@@ -140,6 +142,7 @@ class DiscussionsCard extends Component {
                 onClickEvent={toggleAllComments}
                 count={replyCount}
               /> : null}
+              {S3Files.length > 0 ? <ViewImagesButton images={S3Files} /> : null}
             </div>
             <div className="action-right">
               {allowReplies ? <ReplyButton

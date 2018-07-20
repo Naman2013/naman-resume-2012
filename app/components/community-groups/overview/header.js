@@ -45,7 +45,7 @@ const GroupsHeader = ({
               text={joinPrompt}
               onClickEvent={joinOrLeaveGroup}
             />}
-            <Button icon="https://vega.slooh.com/assets/v4/common/info_icon.svg" onClickEvent={showInformation} />
+            {/*<Button icon="https://vega.slooh.com/assets/v4/common/info_icon.svg" onClickEvent={showInformation} />*/}
         </div>
       </div>
     </div>

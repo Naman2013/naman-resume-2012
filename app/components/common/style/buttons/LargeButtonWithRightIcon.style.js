@@ -24,4 +24,9 @@ export default css`
     text-transform: uppercase;
     background-color: transparent;
   }
+
+  .circular {
+    width: 40px;
+    height: 40px;
+  }
 `;

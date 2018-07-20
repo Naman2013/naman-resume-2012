@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classnames from 'classnames';
 import styles from './LargeButtonWithRightIcon.style';
+
 const {
   func,
   number,
@@ -8,25 +10,32 @@ const {
   string,
 } = PropTypes;
 
-const LargeButtonWithRightIcon = ({ text, onClickEvent, icon }) => (
+const LargeButtonWithRightIcon = ({ text, onClickEvent, icon, renderIcon }) => (
   <button
-    className="button-container"
+    className={classnames('button-container', {
+      circular: icon && !text,
+    })}
     onClick={onClickEvent}
   >
     <span className="text" dangerouslySetInnerHTML={{ __html: text }} />
-    <img
+    {icon ? <img
       className="icon"
       src={icon}
-    />
+    /> : null}
+    {renderIcon ? renderIcon() : null}
     <style jsx>{styles}</style>
   </button>
 );
 
 LargeButtonWithRightIcon.propTypes = {
-  icon: string.isRequired,
+  icon: string,
   text: oneOfType([string, number]).isRequired,
   onClickEvent: func.isRequired,
+  renderIcon: func,
 };
-LargeButtonWithRightIcon.defaultProps = {};
+LargeButtonWithRightIcon.defaultProps = {
+  icon: null,
+  renderIcon: null,
+};
 
 export default LargeButtonWithRightIcon;

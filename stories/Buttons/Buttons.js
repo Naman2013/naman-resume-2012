@@ -10,6 +10,10 @@ import CommentButton from '../../app/components/common/style/buttons/CommentButt
 import PhotoUploadButton from '../../app/components/common/style/buttons/PhotoUploadButton';
 import LargeButtonWithRightIcon from '../../app/components/common/style/buttons/LargeButtonWithRightIcon';
 import LikeSomethingButton from '../../app/components/common/LikeSomethingButton';
+import ViewImagesButton from '../../app/components/common/style/buttons/ViewImagesButton';
+
+const images = ['https://castor.slooh.com/dev101/2018/07/720d/b712/1530882220.jpg', 'https://castor.slooh.com/dev101/2018/07/9879/452d/1531688297.JPG']
+
 
 storiesOf('Buttons ', module)
   .addDecorator(getStory => <DeviceProvider>{getStory()}</DeviceProvider>)
@@ -48,5 +52,10 @@ storiesOf('Buttons ', module)
         at: '3',
         token: '05ab823d9323f02d0ae3667200c5f5b8f7acbd70',
       }}
+    />
+  ))
+  .add('Renders an adaptive button that opens a lightbox of images', () => (
+    <ViewImagesButton
+      images={images}
     />
   ));
