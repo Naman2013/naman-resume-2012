@@ -30,7 +30,7 @@ ShallowWrapper {
     "props": Object {
       "children": Array [
         <button
-          className="jsx-1715659863"
+          className="jsx-627253360"
           onClick={
             [MockFunction] {
               "calls": Array [
@@ -45,10 +45,11 @@ ShallowWrapper {
         <JSXStyle
           css={
             Array [
-              "button.jsx-1715659863{background:none;border:none;margin:0;padding:0;cursor:pointer;}",
+              "button.jsx-627253360{background:none;border:none;margin:0;padding:0;cursor:pointer;-webkit-transition:background-color 0.25s ease-in-out;transition:background-color 0.25s ease-in-out;}",
+              "button.jsx-627253360:focus{outline:none;}",
             ]
           }
-          styleId="1715659863"
+          styleId="627253360"
         />,
       ],
     },
@@ -60,7 +61,7 @@ ShallowWrapper {
         "nodeType": "host",
         "props": Object {
           "children": <div />,
-          "className": "jsx-1715659863",
+          "className": "jsx-627253360",
           "onClick": [MockFunction] {
             "calls": Array [
               Array [],
@@ -86,9 +87,10 @@ ShallowWrapper {
         "nodeType": "class",
         "props": Object {
           "css": Array [
-            "button.jsx-1715659863{background:none;border:none;margin:0;padding:0;cursor:pointer;}",
+            "button.jsx-627253360{background:none;border:none;margin:0;padding:0;cursor:pointer;-webkit-transition:background-color 0.25s ease-in-out;transition:background-color 0.25s ease-in-out;}",
+            "button.jsx-627253360:focus{outline:none;}",
           ],
-          "styleId": "1715659863",
+          "styleId": "627253360",
         },
         "ref": null,
         "rendered": null,
@@ -105,7 +107,7 @@ ShallowWrapper {
       "props": Object {
         "children": Array [
           <button
-            className="jsx-1715659863"
+            className="jsx-627253360"
             onClick={
               [MockFunction] {
                 "calls": Array [
@@ -120,10 +122,11 @@ ShallowWrapper {
           <JSXStyle
             css={
               Array [
-                "button.jsx-1715659863{background:none;border:none;margin:0;padding:0;cursor:pointer;}",
+                "button.jsx-627253360{background:none;border:none;margin:0;padding:0;cursor:pointer;-webkit-transition:background-color 0.25s ease-in-out;transition:background-color 0.25s ease-in-out;}",
+                "button.jsx-627253360:focus{outline:none;}",
               ]
             }
-            styleId="1715659863"
+            styleId="627253360"
           />,
         ],
       },
@@ -135,7 +138,7 @@ ShallowWrapper {
           "nodeType": "host",
           "props": Object {
             "children": <div />,
-            "className": "jsx-1715659863",
+            "className": "jsx-627253360",
             "onClick": [MockFunction] {
               "calls": Array [
                 Array [],
@@ -161,9 +164,10 @@ ShallowWrapper {
           "nodeType": "class",
           "props": Object {
             "css": Array [
-              "button.jsx-1715659863{background:none;border:none;margin:0;padding:0;cursor:pointer;}",
+              "button.jsx-627253360{background:none;border:none;margin:0;padding:0;cursor:pointer;-webkit-transition:background-color 0.25s ease-in-out;transition:background-color 0.25s ease-in-out;}",
+              "button.jsx-627253360:focus{outline:none;}",
             ],
-            "styleId": "1715659863",
+            "styleId": "627253360",
           },
           "ref": null,
           "rendered": null,
