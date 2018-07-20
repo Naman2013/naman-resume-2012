@@ -4,7 +4,7 @@ import ContextMenu from '../app/components/common/ContextMenu';
 
 storiesOf('ContextMenu', module)
   .add('Starting closed', () => (
-    <div style={{ overflow: 'hidden', float: 'right' }}>
+    <div style={{ overFlow: 'hidden', float: 'right' }}>
       <ContextMenu />
     </div>
   ));

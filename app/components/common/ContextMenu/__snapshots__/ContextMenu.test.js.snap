@@ -39,54 +39,89 @@ ShallowWrapper {
           />
         </VanillaButton>,
         <div
-          className="jsx-3798100782 menu-container"
+          className="jsx-266486770 menu-container"
           style={
             Object {
               "right": "-440px",
             }
           }
         >
-          <h5
-            className="jsx-3798100782"
+          <div
+            className="jsx-266486770 header-container"
           >
-            Sample title
-          </h5>
-          <ul
-            className="jsx-3798100782"
+            <h5
+              className="jsx-266486770 context-header"
+            >
+              Sample title
+            </h5>
+            <p
+              className="jsx-266486770 available-sections"
+            >
+              ( 8 )
+            </p>
+          </div>
+          <ol
+            className="jsx-266486770 menu-list"
           >
-            <ol
-              className="jsx-3798100782"
+            <li
+              className="jsx-266486770 menu-item"
             >
-              Astronomical Time
-            </ol>
-            <ol
-              className="jsx-3798100782"
+              <a
+                className="jsx-266486770 action"
+                href="#"
+              >
+                Astronomical Time
+              </a>
+            </li>
+            <li
+              className="jsx-266486770 menu-item"
             >
-              Astronomical distance
-            </ol>
-            <ol
-              className="jsx-3798100782"
+              <a
+                className="jsx-266486770 action"
+                href="#"
+              >
+                Astronomical Time
+              </a>
+            </li>
+            <li
+              className="jsx-266486770 menu-item"
             >
-              Magnitudes
-            </ol>
-            <ol
-              className="jsx-3798100782"
+              <a
+                className="jsx-266486770 action"
+                href="#"
+              >
+                Astronomical Time
+              </a>
+            </li>
+            <li
+              className="jsx-266486770 menu-item"
             >
-              Celestial Sphere & Coordinates
-            </ol>
-          </ul>
+              <a
+                className="jsx-266486770 action"
+                href="#"
+              >
+                Astronomical Time
+              </a>
+            </li>
+          </ol>
         </div>,
         <JSXStyle
           css={
             Array [
-              ".root.jsx-3798100782{display:relative;width:100px;overflow:hidden;}",
-              ".menu-container.jsx-3798100782{position:absolute;top:108px;width:440px;height:100%;background-color:#f8f8f8;-webkit-transition:right ease-out 0.15s;transition:right ease-out 0.15s;}",
+              ".root.jsx-266486770{width:100px;overflow:hidden;}",
+              ".menu-container.jsx-266486770{position:absolute;padding:0;margin:0;top:110px;width:440px;height:100%;background-color:#f8f8f8;-webkit-transition:right ease-out 0.15s;transition:right ease-out 0.15s;}",
+              ".header-container.jsx-266486770{margin:0;padding:40px;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;color:#415671;background-color:white;}",
+              ".context-header.jsx-266486770{margin:0;padding:0;font-family:brandon-grotesque, sans-serif;font-size:12px;text-transform:uppercase;-webkit-letter-spacing:1.5px;-moz-letter-spacing:1.5px;-ms-letter-spacing:1.5px;letter-spacing:1.5px;font-weight:800;}",
+              ".available-sections.jsx-266486770{margin:0;padding:0;font-family:brandon-grotesque, sans-serif;font-size:12px;}",
+              ".menu-list.jsx-266486770{margin:0;padding:0;padding-top:10px;font-family:adobe-garamond-pro, serif;}",
+              ".menu-item.jsx-266486770{margin:0;padding:0;margin-left:70px;width:75%;color:#415671;}",
+              ".action.jsx-266486770{display:block;padding-bottom:30px;padding-top:40px;margin-left:-15px;padding-left:20px;border-bottom:1px solid #d9dee5;text-transform:capitalize;-webkit-text-decoration:none;text-decoration:none;color:#415671;}",
             ]
           }
-          styleId="3798100782"
+          styleId="266486770"
         />,
       ],
-      "className": "jsx-3798100782 root",
+      "className": "jsx-266486770 root",
     },
     "ref": null,
     "rendered": Array [
@@ -135,37 +170,66 @@ ShallowWrapper {
         "nodeType": "host",
         "props": Object {
           "children": Array [
-            <h5
-              className="jsx-3798100782"
+            <div
+              className="jsx-266486770 header-container"
             >
-              Sample title
-            </h5>,
-            <ul
-              className="jsx-3798100782"
+              <h5
+                className="jsx-266486770 context-header"
+              >
+                Sample title
+              </h5>
+              <p
+                className="jsx-266486770 available-sections"
+              >
+                ( 8 )
+              </p>
+            </div>,
+            <ol
+              className="jsx-266486770 menu-list"
             >
-              <ol
-                className="jsx-3798100782"
+              <li
+                className="jsx-266486770 menu-item"
               >
-                Astronomical Time
-              </ol>
-              <ol
-                className="jsx-3798100782"
+                <a
+                  className="jsx-266486770 action"
+                  href="#"
+                >
+                  Astronomical Time
+                </a>
+              </li>
+              <li
+                className="jsx-266486770 menu-item"
               >
-                Astronomical distance
-              </ol>
-              <ol
-                className="jsx-3798100782"
+                <a
+                  className="jsx-266486770 action"
+                  href="#"
+                >
+                  Astronomical Time
+                </a>
+              </li>
+              <li
+                className="jsx-266486770 menu-item"
               >
-                Magnitudes
-              </ol>
-              <ol
-                className="jsx-3798100782"
+                <a
+                  className="jsx-266486770 action"
+                  href="#"
+                >
+                  Astronomical Time
+                </a>
+              </li>
+              <li
+                className="jsx-266486770 menu-item"
               >
-                Celestial Sphere & Coordinates
-              </ol>
-            </ul>,
+                <a
+                  className="jsx-266486770 action"
+                  href="#"
+                >
+                  Astronomical Time
+                </a>
+              </li>
+            </ol>,
           ],
-          "className": "jsx-3798100782 menu-container",
+          "className": "jsx-266486770 menu-container",
           "style": Object {
             "right": "-440px",
           },
@@ -177,41 +241,19 @@ ShallowWrapper {
             "key": undefined,
             "nodeType": "host",
             "props": Object {
-              "children": "Sample title",
-              "className": "jsx-3798100782",
-            },
-            "ref": null,
-            "rendered": "Sample title",
-            "type": "h5",
-          },
-          Object {
-            "instance": null,
-            "key": undefined,
-            "nodeType": "host",
-            "props": Object {
               "children": Array [
-                <ol
-                  className="jsx-3798100782"
+                <h5
+                  className="jsx-266486770 context-header"
                 >
-                  Astronomical Time
-                </ol>,
-                <ol
-                  className="jsx-3798100782"
+                  Sample title
+                </h5>,
+                <p
+                  className="jsx-266486770 available-sections"
                 >
-                  Astronomical distance
-                </ol>,
-                <ol
-                  className="jsx-3798100782"
-                >
-                  Magnitudes
-                </ol>,
-                <ol
-                  className="jsx-3798100782"
-                >
-                  Celestial Sphere & Coordinates
-                </ol>,
+                  ( 8 )
+                </p>,
               ],
-              "className": "jsx-3798100782",
+              "className": "jsx-266486770 header-container",
             },
             "ref": null,
             "rendered": Array [
@@ -220,51 +262,197 @@ ShallowWrapper {
                 "key": undefined,
                 "nodeType": "host",
                 "props": Object {
-                  "children": "Astronomical Time",
-                  "className": "jsx-3798100782",
+                  "children": "Sample title",
+                  "className": "jsx-266486770 context-header",
                 },
                 "ref": null,
-                "rendered": "Astronomical Time",
-                "type": "ol",
+                "rendered": "Sample title",
+                "type": "h5",
               },
               Object {
                 "instance": null,
                 "key": undefined,
                 "nodeType": "host",
                 "props": Object {
-                  "children": "Astronomical distance",
-                  "className": "jsx-3798100782",
+                  "children": "( 8 )",
+                  "className": "jsx-266486770 available-sections",
                 },
                 "ref": null,
-                "rendered": "Astronomical distance",
-                "type": "ol",
-              },
-              Object {
-                "instance": null,
-                "key": undefined,
-                "nodeType": "host",
-                "props": Object {
-                  "children": "Magnitudes",
-                  "className": "jsx-3798100782",
-                },
-                "ref": null,
-                "rendered": "Magnitudes",
-                "type": "ol",
-              },
-              Object {
-                "instance": null,
-                "key": undefined,
-                "nodeType": "host",
-                "props": Object {
-                  "children": "Celestial Sphere & Coordinates",
-                  "className": "jsx-3798100782",
-                },
-                "ref": null,
-                "rendered": "Celestial Sphere & Coordinates",
-                "type": "ol",
+                "rendered": "( 8 )",
+                "type": "p",
               },
             ],
-            "type": "ul",
+            "type": "div",
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": Array [
+                <li
+                  className="jsx-266486770 menu-item"
+                >
+                  <a
+                    className="jsx-266486770 action"
+                    href="#"
+                  >
+                    Astronomical Time
+                  </a>
+                </li>,
+                <li
+                  className="jsx-266486770 menu-item"
+                >
+                  <a
+                    className="jsx-266486770 action"
+                    href="#"
+                  >
+                    Astronomical Time
+                  </a>
+                </li>,
+                <li
+                  className="jsx-266486770 menu-item"
+                >
+                  <a
+                    className="jsx-266486770 action"
+                    href="#"
+                  >
+                    Astronomical Time
+                  </a>
+                </li>,
+                <li
+                  className="jsx-266486770 menu-item"
+                >
+                  <a
+                    className="jsx-266486770 action"
+                    href="#"
+                  >
+                    Astronomical Time
+                  </a>
+                </li>,
+              ],
+              "className": "jsx-266486770 menu-list",
+            },
+            "ref": null,
+            "rendered": Array [
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": <a
+                    className="jsx-266486770 action"
+                    href="#"
+                  >
+                    Astronomical Time
+                  </a>,
+                  "className": "jsx-266486770 menu-item",
+                },
+                "ref": null,
+                "rendered": Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": "Astronomical Time",
+                    "className": "jsx-266486770 action",
+                    "href": "#",
+                  },
+                  "ref": null,
+                  "rendered": "Astronomical Time",
+                  "type": "a",
+                },
+                "type": "li",
+              },
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": <a
+                    className="jsx-266486770 action"
+                    href="#"
+                  >
+                    Astronomical Time
+                  </a>,
+                  "className": "jsx-266486770 menu-item",
+                },
+                "ref": null,
+                "rendered": Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": "Astronomical Time",
+                    "className": "jsx-266486770 action",
+                    "href": "#",
+                  },
+                  "ref": null,
+                  "rendered": "Astronomical Time",
+                  "type": "a",
+                },
+                "type": "li",
+              },
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": <a
+                    className="jsx-266486770 action"
+                    href="#"
+                  >
+                    Astronomical Time
+                  </a>,
+                  "className": "jsx-266486770 menu-item",
+                },
+                "ref": null,
+                "rendered": Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": "Astronomical Time",
+                    "className": "jsx-266486770 action",
+                    "href": "#",
+                  },
+                  "ref": null,
+                  "rendered": "Astronomical Time",
+                  "type": "a",
+                },
+                "type": "li",
+              },
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": <a
+                    className="jsx-266486770 action"
+                    href="#"
+                  >
+                    Astronomical Time
+                  </a>,
+                  "className": "jsx-266486770 menu-item",
+                },
+                "ref": null,
+                "rendered": Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": "Astronomical Time",
+                    "className": "jsx-266486770 action",
+                    "href": "#",
+                  },
+                  "ref": null,
+                  "rendered": "Astronomical Time",
+                  "type": "a",
+                },
+                "type": "li",
+              },
+            ],
+            "type": "ol",
           },
         ],
         "type": "div",
@@ -275,10 +463,16 @@ ShallowWrapper {
         "nodeType": "class",
         "props": Object {
           "css": Array [
-            ".root.jsx-3798100782{display:relative;width:100px;overflow:hidden;}",
-            ".menu-container.jsx-3798100782{position:absolute;top:108px;width:440px;height:100%;background-color:#f8f8f8;-webkit-transition:right ease-out 0.15s;transition:right ease-out 0.15s;}",
+            ".root.jsx-266486770{width:100px;overflow:hidden;}",
+            ".menu-container.jsx-266486770{position:absolute;padding:0;margin:0;top:110px;width:440px;height:100%;background-color:#f8f8f8;-webkit-transition:right ease-out 0.15s;transition:right ease-out 0.15s;}",
+            ".header-container.jsx-266486770{margin:0;padding:40px;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;color:#415671;background-color:white;}",
+            ".context-header.jsx-266486770{margin:0;padding:0;font-family:brandon-grotesque, sans-serif;font-size:12px;text-transform:uppercase;-webkit-letter-spacing:1.5px;-moz-letter-spacing:1.5px;-ms-letter-spacing:1.5px;letter-spacing:1.5px;font-weight:800;}",
+            ".available-sections.jsx-266486770{margin:0;padding:0;font-family:brandon-grotesque, sans-serif;font-size:12px;}",
+            ".menu-list.jsx-266486770{margin:0;padding:0;padding-top:10px;font-family:adobe-garamond-pro, serif;}",
+            ".menu-item.jsx-266486770{margin:0;padding:0;margin-left:70px;width:75%;color:#415671;}",
+            ".action.jsx-266486770{display:block;padding-bottom:30px;padding-top:40px;margin-left:-15px;padding-left:20px;border-bottom:1px solid #d9dee5;text-transform:capitalize;-webkit-text-decoration:none;text-decoration:none;color:#415671;}",
           ],
-          "styleId": "3798100782",
+          "styleId": "266486770",
         },
         "ref": null,
         "rendered": null,
@@ -315,54 +509,89 @@ ShallowWrapper {
             />
           </VanillaButton>,
           <div
-            className="jsx-3798100782 menu-container"
+            className="jsx-266486770 menu-container"
             style={
               Object {
                 "right": "-440px",
               }
             }
           >
-            <h5
-              className="jsx-3798100782"
+            <div
+              className="jsx-266486770 header-container"
             >
-              Sample title
-            </h5>
-            <ul
-              className="jsx-3798100782"
+              <h5
+                className="jsx-266486770 context-header"
+              >
+                Sample title
+              </h5>
+              <p
+                className="jsx-266486770 available-sections"
+              >
+                ( 8 )
+              </p>
+            </div>
+            <ol
+              className="jsx-266486770 menu-list"
             >
-              <ol
-                className="jsx-3798100782"
+              <li
+                className="jsx-266486770 menu-item"
               >
-                Astronomical Time
-              </ol>
-              <ol
-                className="jsx-3798100782"
+                <a
+                  className="jsx-266486770 action"
+                  href="#"
+                >
+                  Astronomical Time
+                </a>
+              </li>
+              <li
+                className="jsx-266486770 menu-item"
               >
-                Astronomical distance
-              </ol>
-              <ol
-                className="jsx-3798100782"
+                <a
+                  className="jsx-266486770 action"
+                  href="#"
+                >
+                  Astronomical Time
+                </a>
+              </li>
+              <li
+                className="jsx-266486770 menu-item"
               >
-                Magnitudes
-              </ol>
-              <ol
-                className="jsx-3798100782"
+                <a
+                  className="jsx-266486770 action"
+                  href="#"
+                >
+                  Astronomical Time
+                </a>
+              </li>
+              <li
+                className="jsx-266486770 menu-item"
               >
-                Celestial Sphere & Coordinates
-              </ol>
-            </ul>
+                <a
+                  className="jsx-266486770 action"
+                  href="#"
+                >
+                  Astronomical Time
+                </a>
+              </li>
+            </ol>
           </div>,
           <JSXStyle
             css={
               Array [
-                ".root.jsx-3798100782{display:relative;width:100px;overflow:hidden;}",
-                ".menu-container.jsx-3798100782{position:absolute;top:108px;width:440px;height:100%;background-color:#f8f8f8;-webkit-transition:right ease-out 0.15s;transition:right ease-out 0.15s;}",
+                ".root.jsx-266486770{width:100px;overflow:hidden;}",
+                ".menu-container.jsx-266486770{position:absolute;padding:0;margin:0;top:110px;width:440px;height:100%;background-color:#f8f8f8;-webkit-transition:right ease-out 0.15s;transition:right ease-out 0.15s;}",
+                ".header-container.jsx-266486770{margin:0;padding:40px;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;color:#415671;background-color:white;}",
+                ".context-header.jsx-266486770{margin:0;padding:0;font-family:brandon-grotesque, sans-serif;font-size:12px;text-transform:uppercase;-webkit-letter-spacing:1.5px;-moz-letter-spacing:1.5px;-ms-letter-spacing:1.5px;letter-spacing:1.5px;font-weight:800;}",
+                ".available-sections.jsx-266486770{margin:0;padding:0;font-family:brandon-grotesque, sans-serif;font-size:12px;}",
+                ".menu-list.jsx-266486770{margin:0;padding:0;padding-top:10px;font-family:adobe-garamond-pro, serif;}",
+                ".menu-item.jsx-266486770{margin:0;padding:0;margin-left:70px;width:75%;color:#415671;}",
+                ".action.jsx-266486770{display:block;padding-bottom:30px;padding-top:40px;margin-left:-15px;padding-left:20px;border-bottom:1px solid #d9dee5;text-transform:capitalize;-webkit-text-decoration:none;text-decoration:none;color:#415671;}",
               ]
             }
-            styleId="3798100782"
+            styleId="266486770"
           />,
         ],
-        "className": "jsx-3798100782 root",
+        "className": "jsx-266486770 root",
       },
       "ref": null,
       "rendered": Array [
@@ -411,37 +640,66 @@ ShallowWrapper {
           "nodeType": "host",
           "props": Object {
             "children": Array [
-              <h5
-                className="jsx-3798100782"
+              <div
+                className="jsx-266486770 header-container"
               >
-                Sample title
-              </h5>,
-              <ul
-                className="jsx-3798100782"
+                <h5
+                  className="jsx-266486770 context-header"
+                >
+                  Sample title
+                </h5>
+                <p
+                  className="jsx-266486770 available-sections"
+                >
+                  ( 8 )
+                </p>
+              </div>,
+              <ol
+                className="jsx-266486770 menu-list"
               >
-                <ol
-                  className="jsx-3798100782"
+                <li
+                  className="jsx-266486770 menu-item"
                 >
-                  Astronomical Time
-                </ol>
-                <ol
-                  className="jsx-3798100782"
+                  <a
+                    className="jsx-266486770 action"
+                    href="#"
+                  >
+                    Astronomical Time
+                  </a>
+                </li>
+                <li
+                  className="jsx-266486770 menu-item"
                 >
-                  Astronomical distance
-                </ol>
-                <ol
-                  className="jsx-3798100782"
+                  <a
+                    className="jsx-266486770 action"
+                    href="#"
+                  >
+                    Astronomical Time
+                  </a>
+                </li>
+                <li
+                  className="jsx-266486770 menu-item"
                 >
-                  Magnitudes
-                </ol>
-                <ol
-                  className="jsx-3798100782"
+                  <a
+                    className="jsx-266486770 action"
+                    href="#"
+                  >
+                    Astronomical Time
+                  </a>
+                </li>
+                <li
+                  className="jsx-266486770 menu-item"
                 >
-                  Celestial Sphere & Coordinates
-                </ol>
-              </ul>,
+                  <a
+                    className="jsx-266486770 action"
+                    href="#"
+                  >
+                    Astronomical Time
+                  </a>
+                </li>
+              </ol>,
             ],
-            "className": "jsx-3798100782 menu-container",
+            "className": "jsx-266486770 menu-container",
             "style": Object {
               "right": "-440px",
             },
@@ -453,41 +711,19 @@ ShallowWrapper {
               "key": undefined,
               "nodeType": "host",
               "props": Object {
-                "children": "Sample title",
-                "className": "jsx-3798100782",
-              },
-              "ref": null,
-              "rendered": "Sample title",
-              "type": "h5",
-            },
-            Object {
-              "instance": null,
-              "key": undefined,
-              "nodeType": "host",
-              "props": Object {
                 "children": Array [
-                  <ol
-                    className="jsx-3798100782"
+                  <h5
+                    className="jsx-266486770 context-header"
                   >
-                    Astronomical Time
-                  </ol>,
-                  <ol
-                    className="jsx-3798100782"
+                    Sample title
+                  </h5>,
+                  <p
+                    className="jsx-266486770 available-sections"
                   >
-                    Astronomical distance
-                  </ol>,
-                  <ol
-                    className="jsx-3798100782"
-                  >
-                    Magnitudes
-                  </ol>,
-                  <ol
-                    className="jsx-3798100782"
-                  >
-                    Celestial Sphere & Coordinates
-                  </ol>,
+                    ( 8 )
+                  </p>,
                 ],
-                "className": "jsx-3798100782",
+                "className": "jsx-266486770 header-container",
               },
               "ref": null,
               "rendered": Array [
@@ -496,51 +732,197 @@ ShallowWrapper {
                   "key": undefined,
                   "nodeType": "host",
                   "props": Object {
-                    "children": "Astronomical Time",
-                    "className": "jsx-3798100782",
+                    "children": "Sample title",
+                    "className": "jsx-266486770 context-header",
                   },
                   "ref": null,
-                  "rendered": "Astronomical Time",
-                  "type": "ol",
+                  "rendered": "Sample title",
+                  "type": "h5",
                 },
                 Object {
                   "instance": null,
                   "key": undefined,
                   "nodeType": "host",
                   "props": Object {
-                    "children": "Astronomical distance",
-                    "className": "jsx-3798100782",
+                    "children": "( 8 )",
+                    "className": "jsx-266486770 available-sections",
                   },
                   "ref": null,
-                  "rendered": "Astronomical distance",
-                  "type": "ol",
-                },
-                Object {
-                  "instance": null,
-                  "key": undefined,
-                  "nodeType": "host",
-                  "props": Object {
-                    "children": "Magnitudes",
-                    "className": "jsx-3798100782",
-                  },
-                  "ref": null,
-                  "rendered": "Magnitudes",
-                  "type": "ol",
-                },
-                Object {
-                  "instance": null,
-                  "key": undefined,
-                  "nodeType": "host",
-                  "props": Object {
-                    "children": "Celestial Sphere & Coordinates",
-                    "className": "jsx-3798100782",
-                  },
-                  "ref": null,
-                  "rendered": "Celestial Sphere & Coordinates",
-                  "type": "ol",
+                  "rendered": "( 8 )",
+                  "type": "p",
                 },
               ],
-              "type": "ul",
+              "type": "div",
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": Array [
+                  <li
+                    className="jsx-266486770 menu-item"
+                  >
+                    <a
+                      className="jsx-266486770 action"
+                      href="#"
+                    >
+                      Astronomical Time
+                    </a>
+                  </li>,
+                  <li
+                    className="jsx-266486770 menu-item"
+                  >
+                    <a
+                      className="jsx-266486770 action"
+                      href="#"
+                    >
+                      Astronomical Time
+                    </a>
+                  </li>,
+                  <li
+                    className="jsx-266486770 menu-item"
+                  >
+                    <a
+                      className="jsx-266486770 action"
+                      href="#"
+                    >
+                      Astronomical Time
+                    </a>
+                  </li>,
+                  <li
+                    className="jsx-266486770 menu-item"
+                  >
+                    <a
+                      className="jsx-266486770 action"
+                      href="#"
+                    >
+                      Astronomical Time
+                    </a>
+                  </li>,
+                ],
+                "className": "jsx-266486770 menu-list",
+              },
+              "ref": null,
+              "rendered": Array [
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": <a
+                      className="jsx-266486770 action"
+                      href="#"
+                    >
+                      Astronomical Time
+                    </a>,
+                    "className": "jsx-266486770 menu-item",
+                  },
+                  "ref": null,
+                  "rendered": Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "host",
+                    "props": Object {
+                      "children": "Astronomical Time",
+                      "className": "jsx-266486770 action",
+                      "href": "#",
+                    },
+                    "ref": null,
+                    "rendered": "Astronomical Time",
+                    "type": "a",
+                  },
+                  "type": "li",
+                },
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": <a
+                      className="jsx-266486770 action"
+                      href="#"
+                    >
+                      Astronomical Time
+                    </a>,
+                    "className": "jsx-266486770 menu-item",
+                  },
+                  "ref": null,
+                  "rendered": Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "host",
+                    "props": Object {
+                      "children": "Astronomical Time",
+                      "className": "jsx-266486770 action",
+                      "href": "#",
+                    },
+                    "ref": null,
+                    "rendered": "Astronomical Time",
+                    "type": "a",
+                  },
+                  "type": "li",
+                },
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": <a
+                      className="jsx-266486770 action"
+                      href="#"
+                    >
+                      Astronomical Time
+                    </a>,
+                    "className": "jsx-266486770 menu-item",
+                  },
+                  "ref": null,
+                  "rendered": Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "host",
+                    "props": Object {
+                      "children": "Astronomical Time",
+                      "className": "jsx-266486770 action",
+                      "href": "#",
+                    },
+                    "ref": null,
+                    "rendered": "Astronomical Time",
+                    "type": "a",
+                  },
+                  "type": "li",
+                },
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": <a
+                      className="jsx-266486770 action"
+                      href="#"
+                    >
+                      Astronomical Time
+                    </a>,
+                    "className": "jsx-266486770 menu-item",
+                  },
+                  "ref": null,
+                  "rendered": Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "host",
+                    "props": Object {
+                      "children": "Astronomical Time",
+                      "className": "jsx-266486770 action",
+                      "href": "#",
+                    },
+                    "ref": null,
+                    "rendered": "Astronomical Time",
+                    "type": "a",
+                  },
+                  "type": "li",
+                },
+              ],
+              "type": "ol",
             },
           ],
           "type": "div",
@@ -551,10 +933,16 @@ ShallowWrapper {
           "nodeType": "class",
           "props": Object {
             "css": Array [
-              ".root.jsx-3798100782{display:relative;width:100px;overflow:hidden;}",
-              ".menu-container.jsx-3798100782{position:absolute;top:108px;width:440px;height:100%;background-color:#f8f8f8;-webkit-transition:right ease-out 0.15s;transition:right ease-out 0.15s;}",
+              ".root.jsx-266486770{width:100px;overflow:hidden;}",
+              ".menu-container.jsx-266486770{position:absolute;padding:0;margin:0;top:110px;width:440px;height:100%;background-color:#f8f8f8;-webkit-transition:right ease-out 0.15s;transition:right ease-out 0.15s;}",
+              ".header-container.jsx-266486770{margin:0;padding:40px;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;color:#415671;background-color:white;}",
+              ".context-header.jsx-266486770{margin:0;padding:0;font-family:brandon-grotesque, sans-serif;font-size:12px;text-transform:uppercase;-webkit-letter-spacing:1.5px;-moz-letter-spacing:1.5px;-ms-letter-spacing:1.5px;letter-spacing:1.5px;font-weight:800;}",
+              ".available-sections.jsx-266486770{margin:0;padding:0;font-family:brandon-grotesque, sans-serif;font-size:12px;}",
+              ".menu-list.jsx-266486770{margin:0;padding:0;padding-top:10px;font-family:adobe-garamond-pro, serif;}",
+              ".menu-item.jsx-266486770{margin:0;padding:0;margin-left:70px;width:75%;color:#415671;}",
+              ".action.jsx-266486770{display:block;padding-bottom:30px;padding-top:40px;margin-left:-15px;padding-left:20px;border-bottom:1px solid #d9dee5;text-transform:capitalize;-webkit-text-decoration:none;text-decoration:none;color:#415671;}",
             ],
-            "styleId": "3798100782",
+            "styleId": "266486770",
           },
           "ref": null,
           "rendered": null,

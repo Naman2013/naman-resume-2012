@@ -19,6 +19,7 @@ class ContextMenu extends Component {
   render() {
     const { isOpen } = this.state;
     const containerLeft = (isOpen) ? OPEN_LOCATION : CLOSE_LOCATION;
+
     return (
       <div className="root">
         <VanillaButton
@@ -34,13 +35,17 @@ class ContextMenu extends Component {
             right: `${containerLeft}px`,
           }}
         >
-          <h5>Sample title</h5>
-          <ul>
-            <ol>Astronomical Time</ol>
-            <ol>Astronomical distance</ol>
-            <ol>Magnitudes</ol>
-            <ol>Celestial Sphere & Coordinates</ol>
-          </ul>
+          <div className="header-container">
+            <h5 className="context-header">Sample title</h5>
+            <p className="available-sections">( 8 )</p>
+          </div>
+
+          <ol className="menu-list">
+            <li className="menu-item"><a className="action" href="#">Astronomical Time</a></li>
+            <li className="menu-item"><a className="action" href="#">Astronomical Time</a></li>
+            <li className="menu-item"><a className="action" href="#">Astronomical Time</a></li>
+            <li className="menu-item"><a className="action" href="#">Astronomical Time</a></li>
+          </ol>
         </div>
         <style jsx>{style}</style>
       </div>
