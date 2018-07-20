@@ -28,8 +28,8 @@ class BootstrappedDiscussionsBoard extends Component {
     callSource: string,
     count: number,
     createThread: func.isRequired,
-    createThreadFormParams: shape(any).isRequired,
-    error: bool.isRequired,
+    createThreadFormParams: shape({}),
+    apiError: bool,
     errorMessage: string,
     fetching: bool.isRequired,
     forumId: oneOfType([number, string]),
@@ -45,8 +45,10 @@ class BootstrappedDiscussionsBoard extends Component {
   }
 
   static defaultProps = {
+    apiError: false,
     callSource: null,
     count: 10,
+    createThreadFormParams: {},
     errorMessage: 'There was an error fetching list',
     forumId: null,
     isDesktop: true,
@@ -116,7 +118,7 @@ class BootstrappedDiscussionsBoard extends Component {
       callSource,
       count,
       createThreadFormParams,
-      error,
+      apiError,
       errorMessage,
       fetching,
       forumId,
@@ -136,9 +138,9 @@ class BootstrappedDiscussionsBoard extends Component {
         isDesktop,
       })}
       {fetching && <div>Loading</div>}
-      {(!fetching && error) && <div dangerouslySetInnerHTML={{ __html: errorMessage }} />}
-      {(!fetching && !error && threadCount === 0) && <div>There is nothing to show here</div>}
-      {(!fetching && !error && threadCount > 0) && <div>
+      {(!fetching && apiError) && <div dangerouslySetInnerHTML={{ __html: errorMessage }} />}
+      {(!fetching && !apiError && threadCount === 0) && <div>There is nothing to show here</div>}
+      {(!fetching && !apiError && threadCount > 0) && <div>
         {threadsList.map((thread) => {
           const likeParams = {
             forumId,

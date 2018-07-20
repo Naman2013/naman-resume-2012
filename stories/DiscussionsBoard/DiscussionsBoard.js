@@ -6,6 +6,7 @@ import mock from './mockResponse'
 storiesOf('Discussions Board', module)
   .add('Renders Discussions Board List of Threads', () => (
     <DiscussionsBoard
+      createThreadFormParams={{}}
       callSource="groups"
       user={{
         cid: '310006',

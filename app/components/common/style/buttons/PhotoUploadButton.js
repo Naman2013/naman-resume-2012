@@ -15,7 +15,7 @@ const PhotoUploadButton = ({
   handleUploadImage,
 }) => (
   <div className="button-input-container">
-    <label for="file-upload">
+    <label htmlFor="file-upload">
       <div
         className="button-container"
       >

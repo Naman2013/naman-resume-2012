@@ -8,6 +8,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'react-modal';
+import noop from 'lodash/noop'
 import { likeReply } from 'services/discussions/like';
 import LikeButton from 'components/common/style/buttons/LikeButton';
 import { customModalStylesV4 } from 'styles/mixins/utilities';
@@ -39,6 +40,9 @@ class LikeHeartButton extends Component {
 
   static defaultProps = {
     likeHandler: likeReply,
+    likeParams: {},
+    openModal: noop,
+    showLikePrompt: true,
   }
 
   state = {

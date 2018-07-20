@@ -55,11 +55,11 @@ DiscussionsItem.propTypes = {
   avatarURL: string.isRequired,
   callSource: string,
   count: number,
-  customerId: string.isRequired,
+  customerId: oneOfType([number, string]).isRequired,
   displayName: string.isRequired,
   forumId: number.isRequired,
   freshness: string.isRequired,
-  likeParams: shape(any),
+  likeParams: shape({}),
   user: shape({
     at: oneOfType([number, string]),
     token: oneOfType([number, string]),
@@ -68,7 +68,7 @@ DiscussionsItem.propTypes = {
   isDesktop: bool.isRequired,
   likePrompt: string.isRequired,
   likesCount: number.isRequired,
-  membershipDisplay: string.isRequired,
+  membershipDisplay: string,
   replyCount: number.isRequired,
   S3Files: arrayOf(string),
   showLikePrompt: bool.isRequired,
@@ -82,6 +82,7 @@ DiscussionsItem.defaultProps = {
   count: 10,
   likeParams: {},
   S3Files: [],
+  membershipDisplay: '',
 };
 
 export default DiscussionsItem;

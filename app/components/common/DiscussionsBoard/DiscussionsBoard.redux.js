@@ -87,7 +87,7 @@ DiscussionsBoard.propTypes = {
   page: number,
   topicId: number,
   createThread: func.isRequired,
-  createThreadFormParams: shape(any).isRequired,
+  createThreadFormParams: shape({}),
 };
 DiscussionsBoard.defaultProps = {
   callSource: null,
@@ -96,6 +96,7 @@ DiscussionsBoard.defaultProps = {
   forumId: null,
   page: 1,
   topicId: null,
+  createThreadFormParams: {},
 };
 
 export default DiscussionsBoard;

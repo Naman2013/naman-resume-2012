@@ -38,7 +38,7 @@ class DiscussionsCard extends Component {
     openModal: func,
     freshness: string.isRequired,
     likeHandler: func,
-    likeParams: shape(any),
+    likeParams: shape({}),
     isDesktop: bool.isRequired,
     user: shape({
       at: oneOfType([number, string]),
@@ -108,7 +108,6 @@ class DiscussionsCard extends Component {
     const {
       toggleAllComments,
     } = this;
-    console.log(S3Files)
     return (
       <div className="root" key={uniqueId()}>
         <div className="comment-item">
