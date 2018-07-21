@@ -1,6 +1,6 @@
 import css from 'styled-jsx/css';
-import { primaryFont, secondaryFont } from 'styles/variables/fonts';
-import { faintGray, astronaut, geyser } from 'styles/variables/colors_tiles_v4';
+import { primaryFont } from 'styles/variables/fonts';
+import { faintGray, astronaut } from 'styles/variables/colors_tiles_v4';
 
 export const CONTAINER_WIDTH = 440;
 
@@ -46,32 +46,5 @@ export default css`
     padding: 0;
     font-family: ${primaryFont};
     font-size: 12px;
-  }
-
-  .menu-list {
-    margin: 0;
-    padding: 0;
-    padding-top: 10px;
-    font-family: ${secondaryFont};
-  }
-
-  .menu-item {
-    margin: 0;
-    padding: 0;
-    margin-left: 70px;
-    width: 75%;
-    color: ${astronaut};
-  }
-
-  .action {
-    display: block;
-    padding-bottom: 30px;
-    padding-top: 40px;
-    margin-left: -15px;
-    padding-left: 20px;
-    border-bottom: 1px solid ${geyser};
-    text-transform: capitalize;
-    text-decoration: none;
-    color: ${astronaut};
   }
 `;

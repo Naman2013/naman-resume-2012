@@ -1,0 +1,749 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ContextMenu should render correctly 1`] = `
+ShallowWrapper {
+  "length": 1,
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <ContextMenu />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "host",
+    "props": Object {
+      "children": Array [
+        <VanillaButton
+          handleClick={[Function]}
+          theme={
+            Object {
+              "backgroundColor": "#253446",
+              "height": "100px",
+              "width": "100px",
+            }
+          }
+        >
+          <Dots
+            height={4}
+            theme={
+              Object {
+                "circleColor": "white",
+              }
+            }
+            width={18}
+          />
+        </VanillaButton>,
+        <div
+          className="jsx-2499475602 menu-container"
+          style={
+            Object {
+              "right": "-440px",
+            }
+          }
+        >
+          <div
+            className="jsx-2499475602 header-container"
+          >
+            <h5
+              className="jsx-2499475602 context-header"
+            >
+              Sample title
+            </h5>
+            <p
+              className="jsx-2499475602 available-sections"
+            >
+              ( 8 )
+            </p>
+          </div>
+          <Menu />
+        </div>,
+        <JSXStyle
+          css={
+            Array [
+              ".root.jsx-2499475602{width:100px;overflow:hidden;}",
+              ".menu-container.jsx-2499475602{position:absolute;padding:0;margin:0;top:110px;width:440px;height:100%;background-color:#f8f8f8;-webkit-transition:right ease-out 0.15s;transition:right ease-out 0.15s;}",
+              ".header-container.jsx-2499475602{margin:0;padding:40px;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;color:#415671;background-color:white;}",
+              ".context-header.jsx-2499475602{margin:0;padding:0;font-family:brandon-grotesque, sans-serif;font-size:12px;text-transform:uppercase;-webkit-letter-spacing:1.5px;-moz-letter-spacing:1.5px;-ms-letter-spacing:1.5px;letter-spacing:1.5px;font-weight:800;}",
+              ".available-sections.jsx-2499475602{margin:0;padding:0;font-family:brandon-grotesque, sans-serif;font-size:12px;}",
+            ]
+          }
+          styleId="2499475602"
+        />,
+      ],
+      "className": "jsx-2499475602 root",
+    },
+    "ref": null,
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "function",
+        "props": Object {
+          "children": <Dots
+            height={4}
+            theme={
+              Object {
+                "circleColor": "white",
+              }
+            }
+            width={18}
+          />,
+          "handleClick": [Function],
+          "theme": Object {
+            "backgroundColor": "#253446",
+            "height": "100px",
+            "width": "100px",
+          },
+        },
+        "ref": null,
+        "rendered": Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "function",
+          "props": Object {
+            "height": 4,
+            "theme": Object {
+              "circleColor": "white",
+            },
+            "width": 18,
+          },
+          "ref": null,
+          "rendered": null,
+          "type": [Function],
+        },
+        "type": [Function],
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": Array [
+            <div
+              className="jsx-2499475602 header-container"
+            >
+              <h5
+                className="jsx-2499475602 context-header"
+              >
+                Sample title
+              </h5>
+              <p
+                className="jsx-2499475602 available-sections"
+              >
+                ( 8 )
+              </p>
+            </div>,
+            <Menu />,
+          ],
+          "className": "jsx-2499475602 menu-container",
+          "style": Object {
+            "right": "-440px",
+          },
+        },
+        "ref": null,
+        "rendered": Array [
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": Array [
+                <h5
+                  className="jsx-2499475602 context-header"
+                >
+                  Sample title
+                </h5>,
+                <p
+                  className="jsx-2499475602 available-sections"
+                >
+                  ( 8 )
+                </p>,
+              ],
+              "className": "jsx-2499475602 header-container",
+            },
+            "ref": null,
+            "rendered": Array [
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": "Sample title",
+                  "className": "jsx-2499475602 context-header",
+                },
+                "ref": null,
+                "rendered": "Sample title",
+                "type": "h5",
+              },
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": "( 8 )",
+                  "className": "jsx-2499475602 available-sections",
+                },
+                "ref": null,
+                "rendered": "( 8 )",
+                "type": "p",
+              },
+            ],
+            "type": "div",
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "function",
+            "props": Object {},
+            "ref": null,
+            "rendered": null,
+            "type": [Function],
+          },
+        ],
+        "type": "div",
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
+          "css": Array [
+            ".root.jsx-2499475602{width:100px;overflow:hidden;}",
+            ".menu-container.jsx-2499475602{position:absolute;padding:0;margin:0;top:110px;width:440px;height:100%;background-color:#f8f8f8;-webkit-transition:right ease-out 0.15s;transition:right ease-out 0.15s;}",
+            ".header-container.jsx-2499475602{margin:0;padding:40px;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;color:#415671;background-color:white;}",
+            ".context-header.jsx-2499475602{margin:0;padding:0;font-family:brandon-grotesque, sans-serif;font-size:12px;text-transform:uppercase;-webkit-letter-spacing:1.5px;-moz-letter-spacing:1.5px;-ms-letter-spacing:1.5px;letter-spacing:1.5px;font-weight:800;}",
+            ".available-sections.jsx-2499475602{margin:0;padding:0;font-family:brandon-grotesque, sans-serif;font-size:12px;}",
+          ],
+          "styleId": "2499475602",
+        },
+        "ref": null,
+        "rendered": null,
+        "type": [Function],
+      },
+    ],
+    "type": "div",
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": Array [
+          <VanillaButton
+            handleClick={[Function]}
+            theme={
+              Object {
+                "backgroundColor": "#253446",
+                "height": "100px",
+                "width": "100px",
+              }
+            }
+          >
+            <Dots
+              height={4}
+              theme={
+                Object {
+                  "circleColor": "white",
+                }
+              }
+              width={18}
+            />
+          </VanillaButton>,
+          <div
+            className="jsx-2499475602 menu-container"
+            style={
+              Object {
+                "right": "-440px",
+              }
+            }
+          >
+            <div
+              className="jsx-2499475602 header-container"
+            >
+              <h5
+                className="jsx-2499475602 context-header"
+              >
+                Sample title
+              </h5>
+              <p
+                className="jsx-2499475602 available-sections"
+              >
+                ( 8 )
+              </p>
+            </div>
+            <Menu />
+          </div>,
+          <JSXStyle
+            css={
+              Array [
+                ".root.jsx-2499475602{width:100px;overflow:hidden;}",
+                ".menu-container.jsx-2499475602{position:absolute;padding:0;margin:0;top:110px;width:440px;height:100%;background-color:#f8f8f8;-webkit-transition:right ease-out 0.15s;transition:right ease-out 0.15s;}",
+                ".header-container.jsx-2499475602{margin:0;padding:40px;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;color:#415671;background-color:white;}",
+                ".context-header.jsx-2499475602{margin:0;padding:0;font-family:brandon-grotesque, sans-serif;font-size:12px;text-transform:uppercase;-webkit-letter-spacing:1.5px;-moz-letter-spacing:1.5px;-ms-letter-spacing:1.5px;letter-spacing:1.5px;font-weight:800;}",
+                ".available-sections.jsx-2499475602{margin:0;padding:0;font-family:brandon-grotesque, sans-serif;font-size:12px;}",
+              ]
+            }
+            styleId="2499475602"
+          />,
+        ],
+        "className": "jsx-2499475602 root",
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "function",
+          "props": Object {
+            "children": <Dots
+              height={4}
+              theme={
+                Object {
+                  "circleColor": "white",
+                }
+              }
+              width={18}
+            />,
+            "handleClick": [Function],
+            "theme": Object {
+              "backgroundColor": "#253446",
+              "height": "100px",
+              "width": "100px",
+            },
+          },
+          "ref": null,
+          "rendered": Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "function",
+            "props": Object {
+              "height": 4,
+              "theme": Object {
+                "circleColor": "white",
+              },
+              "width": 18,
+            },
+            "ref": null,
+            "rendered": null,
+            "type": [Function],
+          },
+          "type": [Function],
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": Array [
+              <div
+                className="jsx-2499475602 header-container"
+              >
+                <h5
+                  className="jsx-2499475602 context-header"
+                >
+                  Sample title
+                </h5>
+                <p
+                  className="jsx-2499475602 available-sections"
+                >
+                  ( 8 )
+                </p>
+              </div>,
+              <Menu />,
+            ],
+            "className": "jsx-2499475602 menu-container",
+            "style": Object {
+              "right": "-440px",
+            },
+          },
+          "ref": null,
+          "rendered": Array [
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": Array [
+                  <h5
+                    className="jsx-2499475602 context-header"
+                  >
+                    Sample title
+                  </h5>,
+                  <p
+                    className="jsx-2499475602 available-sections"
+                  >
+                    ( 8 )
+                  </p>,
+                ],
+                "className": "jsx-2499475602 header-container",
+              },
+              "ref": null,
+              "rendered": Array [
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": "Sample title",
+                    "className": "jsx-2499475602 context-header",
+                  },
+                  "ref": null,
+                  "rendered": "Sample title",
+                  "type": "h5",
+                },
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": "( 8 )",
+                    "className": "jsx-2499475602 available-sections",
+                  },
+                  "ref": null,
+                  "rendered": "( 8 )",
+                  "type": "p",
+                },
+              ],
+              "type": "div",
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "function",
+              "props": Object {},
+              "ref": null,
+              "rendered": null,
+              "type": [Function],
+            },
+          ],
+          "type": "div",
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "css": Array [
+              ".root.jsx-2499475602{width:100px;overflow:hidden;}",
+              ".menu-container.jsx-2499475602{position:absolute;padding:0;margin:0;top:110px;width:440px;height:100%;background-color:#f8f8f8;-webkit-transition:right ease-out 0.15s;transition:right ease-out 0.15s;}",
+              ".header-container.jsx-2499475602{margin:0;padding:40px;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;color:#415671;background-color:white;}",
+              ".context-header.jsx-2499475602{margin:0;padding:0;font-family:brandon-grotesque, sans-serif;font-size:12px;text-transform:uppercase;-webkit-letter-spacing:1.5px;-moz-letter-spacing:1.5px;-ms-letter-spacing:1.5px;letter-spacing:1.5px;font-weight:800;}",
+              ".available-sections.jsx-2499475602{margin:0;padding:0;font-family:brandon-grotesque, sans-serif;font-size:12px;}",
+            ],
+            "styleId": "2499475602",
+          },
+          "ref": null,
+          "rendered": null,
+          "type": [Function],
+        },
+      ],
+      "type": "div",
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+      },
+    },
+  },
+}
+`;
+
+exports[`Menu should render correctly 1`] = `
+ShallowWrapper {
+  "length": 1,
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <Menu />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "host",
+    "props": Object {
+      "children": Array [
+        <MenuItem />,
+        <JSXStyle
+          css={
+            Array [
+              ".menu-list.jsx-3731609075{margin:0;padding:0;padding-top:10px;}",
+            ]
+          }
+          styleId="3731609075"
+        />,
+      ],
+      "className": "jsx-3731609075 menu-list",
+    },
+    "ref": null,
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "function",
+        "props": Object {},
+        "ref": null,
+        "rendered": null,
+        "type": [Function],
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
+          "css": Array [
+            ".menu-list.jsx-3731609075{margin:0;padding:0;padding-top:10px;}",
+          ],
+          "styleId": "3731609075",
+        },
+        "ref": null,
+        "rendered": null,
+        "type": [Function],
+      },
+    ],
+    "type": "ol",
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": Array [
+          <MenuItem />,
+          <JSXStyle
+            css={
+              Array [
+                ".menu-list.jsx-3731609075{margin:0;padding:0;padding-top:10px;}",
+              ]
+            }
+            styleId="3731609075"
+          />,
+        ],
+        "className": "jsx-3731609075 menu-list",
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "function",
+          "props": Object {},
+          "ref": null,
+          "rendered": null,
+          "type": [Function],
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "css": Array [
+              ".menu-list.jsx-3731609075{margin:0;padding:0;padding-top:10px;}",
+            ],
+            "styleId": "3731609075",
+          },
+          "ref": null,
+          "rendered": null,
+          "type": [Function],
+        },
+      ],
+      "type": "ol",
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+      },
+    },
+  },
+}
+`;
+
+exports[`MenuItem should render correctly 1`] = `
+ShallowWrapper {
+  "length": 1,
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <MenuItem />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "function",
+    "props": Object {
+      "children": Array [
+        <li
+          className="jsx-3645762491 menu-item"
+        >
+          <a
+            className="jsx-3645762491 action"
+            href="#"
+          >
+            Astronomical Time
+          </a>
+        </li>,
+        <JSXStyle
+          css={
+            Array [
+              ".menu-item.jsx-3645762491{margin:0;padding:0;margin-left:70px;width:75%;color:#415671;}",
+              ".action.jsx-3645762491{display:block;padding-bottom:30px;padding-top:40px;margin-left:-15px;padding-left:20px;font-family:adobe-garamond-pro, serif;border-bottom:1px solid #d9dee5;text-transform:capitalize;-webkit-text-decoration:none;text-decoration:none;color:#415671;}",
+            ]
+          }
+          styleId="3645762491"
+        />,
+      ],
+    },
+    "ref": null,
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": <a
+            className="jsx-3645762491 action"
+            href="#"
+          >
+            Astronomical Time
+          </a>,
+          "className": "jsx-3645762491 menu-item",
+        },
+        "ref": null,
+        "rendered": Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": "Astronomical Time",
+            "className": "jsx-3645762491 action",
+            "href": "#",
+          },
+          "ref": null,
+          "rendered": "Astronomical Time",
+          "type": "a",
+        },
+        "type": "li",
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
+          "css": Array [
+            ".menu-item.jsx-3645762491{margin:0;padding:0;margin-left:70px;width:75%;color:#415671;}",
+            ".action.jsx-3645762491{display:block;padding-bottom:30px;padding-top:40px;margin-left:-15px;padding-left:20px;font-family:adobe-garamond-pro, serif;border-bottom:1px solid #d9dee5;text-transform:capitalize;-webkit-text-decoration:none;text-decoration:none;color:#415671;}",
+          ],
+          "styleId": "3645762491",
+        },
+        "ref": null,
+        "rendered": null,
+        "type": [Function],
+      },
+    ],
+    "type": Symbol(react.fragment),
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "function",
+      "props": Object {
+        "children": Array [
+          <li
+            className="jsx-3645762491 menu-item"
+          >
+            <a
+              className="jsx-3645762491 action"
+              href="#"
+            >
+              Astronomical Time
+            </a>
+          </li>,
+          <JSXStyle
+            css={
+              Array [
+                ".menu-item.jsx-3645762491{margin:0;padding:0;margin-left:70px;width:75%;color:#415671;}",
+                ".action.jsx-3645762491{display:block;padding-bottom:30px;padding-top:40px;margin-left:-15px;padding-left:20px;font-family:adobe-garamond-pro, serif;border-bottom:1px solid #d9dee5;text-transform:capitalize;-webkit-text-decoration:none;text-decoration:none;color:#415671;}",
+              ]
+            }
+            styleId="3645762491"
+          />,
+        ],
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": <a
+              className="jsx-3645762491 action"
+              href="#"
+            >
+              Astronomical Time
+            </a>,
+            "className": "jsx-3645762491 menu-item",
+          },
+          "ref": null,
+          "rendered": Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": "Astronomical Time",
+              "className": "jsx-3645762491 action",
+              "href": "#",
+            },
+            "ref": null,
+            "rendered": "Astronomical Time",
+            "type": "a",
+          },
+          "type": "li",
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "css": Array [
+              ".menu-item.jsx-3645762491{margin:0;padding:0;margin-left:70px;width:75%;color:#415671;}",
+              ".action.jsx-3645762491{display:block;padding-bottom:30px;padding-top:40px;margin-left:-15px;padding-left:20px;font-family:adobe-garamond-pro, serif;border-bottom:1px solid #d9dee5;text-transform:capitalize;-webkit-text-decoration:none;text-decoration:none;color:#415671;}",
+            ],
+            "styleId": "3645762491",
+          },
+          "ref": null,
+          "rendered": null,
+          "type": [Function],
+        },
+      ],
+      "type": Symbol(react.fragment),
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+      },
+    },
+  },
+}
+`;

@@ -1,6 +1,8 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import ContextMenu from './ContextMenu';
+import Menu from './Menu';
+import MenuItem from './MenuItem';
 
 describe('ContextMenu', () => {
   const shallowWrapper = shallow(<ContextMenu />);
@@ -22,5 +24,19 @@ describe('ContextMenu', () => {
       shallowWrapper.find('VanillaButton').dive().find('button').simulate('click');
       expect(shallowWrapper.state('isOpen')).toEqual(false);
     });
+  });
+});
+
+describe('Menu', () => {
+  const menuShallowWrapper = shallow(<Menu />);
+  it('should render correctly', () => {
+    expect(menuShallowWrapper).toMatchSnapshot();
+  });
+});
+
+describe('MenuItem', () => {
+  const menuItemShallowWrapper = shallow(<MenuItem />);
+  it('should render correctly', () => {
+    expect(menuItemShallowWrapper).toMatchSnapshot();
   });
 });

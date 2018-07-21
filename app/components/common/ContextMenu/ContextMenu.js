@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import Menu from './Menu';
 import VanillaButton from 'atoms/VanillaButton';
 import Dots from 'atoms/icons/Dots';
 import Close from 'atoms/icons/Close';
@@ -40,12 +41,7 @@ class ContextMenu extends Component {
             <p className="available-sections">( 8 )</p>
           </div>
 
-          <ol className="menu-list">
-            <li className="menu-item"><a className="action" href="#">Astronomical Time</a></li>
-            <li className="menu-item"><a className="action" href="#">Astronomical Time</a></li>
-            <li className="menu-item"><a className="action" href="#">Astronomical Time</a></li>
-            <li className="menu-item"><a className="action" href="#">Astronomical Time</a></li>
-          </ol>
+          <Menu />
         </div>
         <style jsx>{style}</style>
       </div>
