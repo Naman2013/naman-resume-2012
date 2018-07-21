@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Menu from './Menu';
+import Fade from 'components/common/Fade';
 import VanillaButton from 'atoms/VanillaButton';
 import Dots from 'atoms/icons/Dots';
 import Close from 'atoms/icons/Close';
@@ -23,12 +24,18 @@ class ContextMenu extends Component {
 
     return (
       <div className="root">
+        <Fade isHidden={!isOpen}>
+          <div className="application-veil" />
+        </Fade>
+
         <VanillaButton
           handleClick={this.toggle}
           theme={{
             width: '100px',
             height: '100px',
             backgroundColor: (isOpen) ? 'white' : thatBlue,
+            position: 'relative',
+            zIndex: '10',
           }}
         >
           {(isOpen)
@@ -49,6 +56,8 @@ class ContextMenu extends Component {
 
           <Menu />
         </div>
+
+
         <style jsx>{style}</style>
       </div>
     );
