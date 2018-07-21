@@ -12,7 +12,7 @@ export const CLOSE_LOCATION = -CONTAINER_WIDTH;
 
 class ContextMenu extends Component {
   state = {
-    isOpen: false,
+    isOpen: this.props.isOpen,
   };
 
   toggle = () => { this.setState(prevState => ({ isOpen: !prevState.isOpen })); }
@@ -48,5 +48,13 @@ class ContextMenu extends Component {
     );
   }
 }
+
+ContextMenu.propTypes = {
+  isOpen: PropTypes.bool,
+};
+
+ContextMenu.defaultProps = {
+  isOpen: false,
+};
 
 export default ContextMenu;

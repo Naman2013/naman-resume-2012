@@ -4,7 +4,9 @@ exports[`ContextMenu should render correctly 1`] = `
 ShallowWrapper {
   "length": 1,
   Symbol(enzyme.__root__): [Circular],
-  Symbol(enzyme.__unrendered__): <ContextMenu />,
+  Symbol(enzyme.__unrendered__): <ContextMenu
+    isOpen={false}
+  />,
   Symbol(enzyme.__renderer__): Object {
     "batchedUpdates": [Function],
     "getNode": [Function],
@@ -593,6 +595,17 @@ ShallowWrapper {
         <li
           className="jsx-3645762491 menu-item"
         >
+          <span
+            className="jsx-3645762491 dot-container"
+          >
+            <MiraDot
+              theme={
+                Object {
+                  "dimension": 10,
+                }
+              }
+            />
+          </span>
           <a
             className="jsx-3645762491 action"
             href="#"
@@ -618,28 +631,73 @@ ShallowWrapper {
         "key": undefined,
         "nodeType": "host",
         "props": Object {
-          "children": <a
-            className="jsx-3645762491 action"
-            href="#"
-          >
-            Astronomical Time
-          </a>,
+          "children": Array [
+            <span
+              className="jsx-3645762491 dot-container"
+            >
+              <MiraDot
+                theme={
+                  Object {
+                    "dimension": 10,
+                  }
+                }
+              />
+            </span>,
+            <a
+              className="jsx-3645762491 action"
+              href="#"
+            >
+              Astronomical Time
+            </a>,
+          ],
           "className": "jsx-3645762491 menu-item",
         },
         "ref": null,
-        "rendered": Object {
-          "instance": null,
-          "key": undefined,
-          "nodeType": "host",
-          "props": Object {
-            "children": "Astronomical Time",
-            "className": "jsx-3645762491 action",
-            "href": "#",
+        "rendered": Array [
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": <MiraDot
+                theme={
+                  Object {
+                    "dimension": 10,
+                  }
+                }
+              />,
+              "className": "jsx-3645762491 dot-container",
+            },
+            "ref": null,
+            "rendered": Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "function",
+              "props": Object {
+                "theme": Object {
+                  "dimension": 10,
+                },
+              },
+              "ref": null,
+              "rendered": null,
+              "type": [Function],
+            },
+            "type": "span",
           },
-          "ref": null,
-          "rendered": "Astronomical Time",
-          "type": "a",
-        },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": "Astronomical Time",
+              "className": "jsx-3645762491 action",
+              "href": "#",
+            },
+            "ref": null,
+            "rendered": "Astronomical Time",
+            "type": "a",
+          },
+        ],
         "type": "li",
       },
       Object {
@@ -670,6 +728,17 @@ ShallowWrapper {
           <li
             className="jsx-3645762491 menu-item"
           >
+            <span
+              className="jsx-3645762491 dot-container"
+            >
+              <MiraDot
+                theme={
+                  Object {
+                    "dimension": 10,
+                  }
+                }
+              />
+            </span>
             <a
               className="jsx-3645762491 action"
               href="#"
@@ -695,28 +764,73 @@ ShallowWrapper {
           "key": undefined,
           "nodeType": "host",
           "props": Object {
-            "children": <a
-              className="jsx-3645762491 action"
-              href="#"
-            >
-              Astronomical Time
-            </a>,
+            "children": Array [
+              <span
+                className="jsx-3645762491 dot-container"
+              >
+                <MiraDot
+                  theme={
+                    Object {
+                      "dimension": 10,
+                    }
+                  }
+                />
+              </span>,
+              <a
+                className="jsx-3645762491 action"
+                href="#"
+              >
+                Astronomical Time
+              </a>,
+            ],
             "className": "jsx-3645762491 menu-item",
           },
           "ref": null,
-          "rendered": Object {
-            "instance": null,
-            "key": undefined,
-            "nodeType": "host",
-            "props": Object {
-              "children": "Astronomical Time",
-              "className": "jsx-3645762491 action",
-              "href": "#",
+          "rendered": Array [
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": <MiraDot
+                  theme={
+                    Object {
+                      "dimension": 10,
+                    }
+                  }
+                />,
+                "className": "jsx-3645762491 dot-container",
+              },
+              "ref": null,
+              "rendered": Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "function",
+                "props": Object {
+                  "theme": Object {
+                    "dimension": 10,
+                  },
+                },
+                "ref": null,
+                "rendered": null,
+                "type": [Function],
+              },
+              "type": "span",
             },
-            "ref": null,
-            "rendered": "Astronomical Time",
-            "type": "a",
-          },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": "Astronomical Time",
+                "className": "jsx-3645762491 action",
+                "href": "#",
+              },
+              "ref": null,
+              "rendered": "Astronomical Time",
+              "type": "a",
+            },
+          ],
           "type": "li",
         },
         Object {

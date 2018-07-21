@@ -5,7 +5,7 @@ import BackArrow from 'atoms/icons/BackArrow';
 import style from './InAppNavigation.style';
 import { horizontalArrow } from 'styles/variables/iconURLs';
 
-const InAppNavigation = ({ previousText, title }) => (
+const InAppNavigation = ({ previousText, title, isOpen }) => (
   <div className="root">
     <div className="mobile-back-text-container">
       <img className="icon-arrow" alt="" src={horizontalArrow} />
@@ -16,7 +16,7 @@ const InAppNavigation = ({ previousText, title }) => (
       <button className="back-arrow"><BackArrow /></button>
       <h5 className="title">{title}</h5>
       <div className="context-menu-container">
-        <ContextMenu />
+        <ContextMenu isOpen={isOpen} />
       </div>
     </div>
 
@@ -27,10 +27,12 @@ const InAppNavigation = ({ previousText, title }) => (
 InAppNavigation.propTypes = {
   previousText: PropTypes.string,
   title: PropTypes.string.isRequired,
+  isOpen: PropTypes.bool,
 };
 
 InAppNavigation.defaultProps = {
   previousText: '',
+  isOpen: false,
 };
 
 export default InAppNavigation;
