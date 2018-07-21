@@ -1,6 +1,7 @@
 import css from 'styled-jsx/css';
 import { primaryFont } from 'styles/variables/fonts';
 import { faintGray, astronaut, lightHeadedAstronaut } from 'styles/variables/colors_tiles_v4';
+import { shadyBottomShadow } from 'styles/variables/shadows';
 
 export const CONTAINER_WIDTH = 440;
 
@@ -33,6 +34,7 @@ export default css`
   }
 
   .header-container {
+    ${shadyBottomShadow}
     margin: 0;
     padding: 40px;
     display: flex;

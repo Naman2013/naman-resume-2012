@@ -31,7 +31,7 @@ ShallowWrapper {
           }
         >
           <div
-            className="jsx-4073597209 dots-container"
+            className="jsx-3469728956 dots-container"
           >
             <Dots
               height={4}
@@ -45,7 +45,7 @@ ShallowWrapper {
           </div>
         </VanillaButton>,
         <div
-          className="jsx-4073597209 menu-container"
+          className="jsx-3469728956 menu-container"
           style={
             Object {
               "right": "-440px",
@@ -53,15 +53,15 @@ ShallowWrapper {
           }
         >
           <div
-            className="jsx-4073597209 header-container"
+            className="jsx-3469728956 header-container"
           >
             <h5
-              className="jsx-4073597209 context-header"
+              className="jsx-3469728956 context-header"
             >
               Sample title
             </h5>
             <p
-              className="jsx-4073597209 available-sections"
+              className="jsx-3469728956 available-sections"
             >
               ( 8 )
             </p>
@@ -71,18 +71,18 @@ ShallowWrapper {
         <JSXStyle
           css={
             Array [
-              ".root.jsx-4073597209{width:100px;overflow:hidden;}",
-              ".dots-container.jsx-4073597209{margin:0 auto;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-box-pack:space-evenly;-webkit-justify-content:space-evenly;-ms-flex-pack:space-evenly;justify-content:space-evenly;border-radius:50%;width:52px;height:52px;background-color:#41566f;}",
-              ".menu-container.jsx-4073597209{position:absolute;padding:0;margin:0;top:110px;width:440px;height:100%;background-color:#f8f8f8;-webkit-transition:right ease-out 0.15s;transition:right ease-out 0.15s;}",
-              ".header-container.jsx-4073597209{margin:0;padding:40px;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;color:#415671;background-color:white;}",
-              ".context-header.jsx-4073597209{margin:0;padding:0;font-family:brandon-grotesque, sans-serif;font-size:12px;text-transform:uppercase;-webkit-letter-spacing:1.5px;-moz-letter-spacing:1.5px;-ms-letter-spacing:1.5px;letter-spacing:1.5px;font-weight:800;}",
-              ".available-sections.jsx-4073597209{margin:0;padding:0;font-family:brandon-grotesque, sans-serif;font-size:12px;}",
+              ".root.jsx-3469728956{width:100px;overflow:hidden;}",
+              ".dots-container.jsx-3469728956{margin:0 auto;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-box-pack:space-evenly;-webkit-justify-content:space-evenly;-ms-flex-pack:space-evenly;justify-content:space-evenly;border-radius:50%;width:52px;height:52px;background-color:#41566f;}",
+              ".menu-container.jsx-3469728956{position:absolute;padding:0;margin:0;top:110px;width:440px;height:100%;background-color:#f8f8f8;-webkit-transition:right ease-out 0.15s;transition:right ease-out 0.15s;}",
+              ".header-container.jsx-3469728956{box-shadow: 8px 5px 20px -5px rgba(88, 88, 88, 0.5); margin:0;padding:40px;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;color:#415671;background-color:white;}",
+              ".context-header.jsx-3469728956{margin:0;padding:0;font-family:brandon-grotesque, sans-serif;font-size:12px;text-transform:uppercase;-webkit-letter-spacing:1.5px;-moz-letter-spacing:1.5px;-ms-letter-spacing:1.5px;letter-spacing:1.5px;font-weight:800;}",
+              ".available-sections.jsx-3469728956{margin:0;padding:0;font-family:brandon-grotesque, sans-serif;font-size:12px;}",
             ]
           }
-          styleId="4073597209"
+          styleId="3469728956"
         />,
       ],
-      "className": "jsx-4073597209 root",
+      "className": "jsx-3469728956 root",
     },
     "ref": null,
     "rendered": Array [
@@ -92,7 +92,7 @@ ShallowWrapper {
         "nodeType": "function",
         "props": Object {
           "children": <div
-            className="jsx-4073597209 dots-container"
+            className="jsx-3469728956 dots-container"
           >
             <Dots
               height={4}
@@ -126,7 +126,7 @@ ShallowWrapper {
               }
               width={18}
             />,
-            "className": "jsx-4073597209 dots-container",
+            "className": "jsx-3469728956 dots-container",
           },
           "ref": null,
           "rendered": Object {
@@ -155,22 +155,22 @@ ShallowWrapper {
         "props": Object {
           "children": Array [
             <div
-              className="jsx-4073597209 header-container"
+              className="jsx-3469728956 header-container"
             >
               <h5
-                className="jsx-4073597209 context-header"
+                className="jsx-3469728956 context-header"
               >
                 Sample title
               </h5>
               <p
-                className="jsx-4073597209 available-sections"
+                className="jsx-3469728956 available-sections"
               >
                 ( 8 )
               </p>
             </div>,
             <Menu />,
           ],
-          "className": "jsx-4073597209 menu-container",
+          "className": "jsx-3469728956 menu-container",
           "style": Object {
             "right": "-440px",
           },
@@ -184,17 +184,17 @@ ShallowWrapper {
             "props": Object {
               "children": Array [
                 <h5
-                  className="jsx-4073597209 context-header"
+                  className="jsx-3469728956 context-header"
                 >
                   Sample title
                 </h5>,
                 <p
-                  className="jsx-4073597209 available-sections"
+                  className="jsx-3469728956 available-sections"
                 >
                   ( 8 )
                 </p>,
               ],
-              "className": "jsx-4073597209 header-container",
+              "className": "jsx-3469728956 header-container",
             },
             "ref": null,
             "rendered": Array [
@@ -204,7 +204,7 @@ ShallowWrapper {
                 "nodeType": "host",
                 "props": Object {
                   "children": "Sample title",
-                  "className": "jsx-4073597209 context-header",
+                  "className": "jsx-3469728956 context-header",
                 },
                 "ref": null,
                 "rendered": "Sample title",
@@ -216,7 +216,7 @@ ShallowWrapper {
                 "nodeType": "host",
                 "props": Object {
                   "children": "( 8 )",
-                  "className": "jsx-4073597209 available-sections",
+                  "className": "jsx-3469728956 available-sections",
                 },
                 "ref": null,
                 "rendered": "( 8 )",
@@ -243,14 +243,14 @@ ShallowWrapper {
         "nodeType": "class",
         "props": Object {
           "css": Array [
-            ".root.jsx-4073597209{width:100px;overflow:hidden;}",
-            ".dots-container.jsx-4073597209{margin:0 auto;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-box-pack:space-evenly;-webkit-justify-content:space-evenly;-ms-flex-pack:space-evenly;justify-content:space-evenly;border-radius:50%;width:52px;height:52px;background-color:#41566f;}",
-            ".menu-container.jsx-4073597209{position:absolute;padding:0;margin:0;top:110px;width:440px;height:100%;background-color:#f8f8f8;-webkit-transition:right ease-out 0.15s;transition:right ease-out 0.15s;}",
-            ".header-container.jsx-4073597209{margin:0;padding:40px;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;color:#415671;background-color:white;}",
-            ".context-header.jsx-4073597209{margin:0;padding:0;font-family:brandon-grotesque, sans-serif;font-size:12px;text-transform:uppercase;-webkit-letter-spacing:1.5px;-moz-letter-spacing:1.5px;-ms-letter-spacing:1.5px;letter-spacing:1.5px;font-weight:800;}",
-            ".available-sections.jsx-4073597209{margin:0;padding:0;font-family:brandon-grotesque, sans-serif;font-size:12px;}",
+            ".root.jsx-3469728956{width:100px;overflow:hidden;}",
+            ".dots-container.jsx-3469728956{margin:0 auto;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-box-pack:space-evenly;-webkit-justify-content:space-evenly;-ms-flex-pack:space-evenly;justify-content:space-evenly;border-radius:50%;width:52px;height:52px;background-color:#41566f;}",
+            ".menu-container.jsx-3469728956{position:absolute;padding:0;margin:0;top:110px;width:440px;height:100%;background-color:#f8f8f8;-webkit-transition:right ease-out 0.15s;transition:right ease-out 0.15s;}",
+            ".header-container.jsx-3469728956{box-shadow: 8px 5px 20px -5px rgba(88, 88, 88, 0.5); margin:0;padding:40px;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;color:#415671;background-color:white;}",
+            ".context-header.jsx-3469728956{margin:0;padding:0;font-family:brandon-grotesque, sans-serif;font-size:12px;text-transform:uppercase;-webkit-letter-spacing:1.5px;-moz-letter-spacing:1.5px;-ms-letter-spacing:1.5px;letter-spacing:1.5px;font-weight:800;}",
+            ".available-sections.jsx-3469728956{margin:0;padding:0;font-family:brandon-grotesque, sans-serif;font-size:12px;}",
           ],
-          "styleId": "4073597209",
+          "styleId": "3469728956",
         },
         "ref": null,
         "rendered": null,
@@ -277,7 +277,7 @@ ShallowWrapper {
             }
           >
             <div
-              className="jsx-4073597209 dots-container"
+              className="jsx-3469728956 dots-container"
             >
               <Dots
                 height={4}
@@ -291,7 +291,7 @@ ShallowWrapper {
             </div>
           </VanillaButton>,
           <div
-            className="jsx-4073597209 menu-container"
+            className="jsx-3469728956 menu-container"
             style={
               Object {
                 "right": "-440px",
@@ -299,15 +299,15 @@ ShallowWrapper {
             }
           >
             <div
-              className="jsx-4073597209 header-container"
+              className="jsx-3469728956 header-container"
             >
               <h5
-                className="jsx-4073597209 context-header"
+                className="jsx-3469728956 context-header"
               >
                 Sample title
               </h5>
               <p
-                className="jsx-4073597209 available-sections"
+                className="jsx-3469728956 available-sections"
               >
                 ( 8 )
               </p>
@@ -317,18 +317,18 @@ ShallowWrapper {
           <JSXStyle
             css={
               Array [
-                ".root.jsx-4073597209{width:100px;overflow:hidden;}",
-                ".dots-container.jsx-4073597209{margin:0 auto;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-box-pack:space-evenly;-webkit-justify-content:space-evenly;-ms-flex-pack:space-evenly;justify-content:space-evenly;border-radius:50%;width:52px;height:52px;background-color:#41566f;}",
-                ".menu-container.jsx-4073597209{position:absolute;padding:0;margin:0;top:110px;width:440px;height:100%;background-color:#f8f8f8;-webkit-transition:right ease-out 0.15s;transition:right ease-out 0.15s;}",
-                ".header-container.jsx-4073597209{margin:0;padding:40px;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;color:#415671;background-color:white;}",
-                ".context-header.jsx-4073597209{margin:0;padding:0;font-family:brandon-grotesque, sans-serif;font-size:12px;text-transform:uppercase;-webkit-letter-spacing:1.5px;-moz-letter-spacing:1.5px;-ms-letter-spacing:1.5px;letter-spacing:1.5px;font-weight:800;}",
-                ".available-sections.jsx-4073597209{margin:0;padding:0;font-family:brandon-grotesque, sans-serif;font-size:12px;}",
+                ".root.jsx-3469728956{width:100px;overflow:hidden;}",
+                ".dots-container.jsx-3469728956{margin:0 auto;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-box-pack:space-evenly;-webkit-justify-content:space-evenly;-ms-flex-pack:space-evenly;justify-content:space-evenly;border-radius:50%;width:52px;height:52px;background-color:#41566f;}",
+                ".menu-container.jsx-3469728956{position:absolute;padding:0;margin:0;top:110px;width:440px;height:100%;background-color:#f8f8f8;-webkit-transition:right ease-out 0.15s;transition:right ease-out 0.15s;}",
+                ".header-container.jsx-3469728956{box-shadow: 8px 5px 20px -5px rgba(88, 88, 88, 0.5); margin:0;padding:40px;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;color:#415671;background-color:white;}",
+                ".context-header.jsx-3469728956{margin:0;padding:0;font-family:brandon-grotesque, sans-serif;font-size:12px;text-transform:uppercase;-webkit-letter-spacing:1.5px;-moz-letter-spacing:1.5px;-ms-letter-spacing:1.5px;letter-spacing:1.5px;font-weight:800;}",
+                ".available-sections.jsx-3469728956{margin:0;padding:0;font-family:brandon-grotesque, sans-serif;font-size:12px;}",
               ]
             }
-            styleId="4073597209"
+            styleId="3469728956"
           />,
         ],
-        "className": "jsx-4073597209 root",
+        "className": "jsx-3469728956 root",
       },
       "ref": null,
       "rendered": Array [
@@ -338,7 +338,7 @@ ShallowWrapper {
           "nodeType": "function",
           "props": Object {
             "children": <div
-              className="jsx-4073597209 dots-container"
+              className="jsx-3469728956 dots-container"
             >
               <Dots
                 height={4}
@@ -372,7 +372,7 @@ ShallowWrapper {
                 }
                 width={18}
               />,
-              "className": "jsx-4073597209 dots-container",
+              "className": "jsx-3469728956 dots-container",
             },
             "ref": null,
             "rendered": Object {
@@ -401,22 +401,22 @@ ShallowWrapper {
           "props": Object {
             "children": Array [
               <div
-                className="jsx-4073597209 header-container"
+                className="jsx-3469728956 header-container"
               >
                 <h5
-                  className="jsx-4073597209 context-header"
+                  className="jsx-3469728956 context-header"
                 >
                   Sample title
                 </h5>
                 <p
-                  className="jsx-4073597209 available-sections"
+                  className="jsx-3469728956 available-sections"
                 >
                   ( 8 )
                 </p>
               </div>,
               <Menu />,
             ],
-            "className": "jsx-4073597209 menu-container",
+            "className": "jsx-3469728956 menu-container",
             "style": Object {
               "right": "-440px",
             },
@@ -430,17 +430,17 @@ ShallowWrapper {
               "props": Object {
                 "children": Array [
                   <h5
-                    className="jsx-4073597209 context-header"
+                    className="jsx-3469728956 context-header"
                   >
                     Sample title
                   </h5>,
                   <p
-                    className="jsx-4073597209 available-sections"
+                    className="jsx-3469728956 available-sections"
                   >
                     ( 8 )
                   </p>,
                 ],
-                "className": "jsx-4073597209 header-container",
+                "className": "jsx-3469728956 header-container",
               },
               "ref": null,
               "rendered": Array [
@@ -450,7 +450,7 @@ ShallowWrapper {
                   "nodeType": "host",
                   "props": Object {
                     "children": "Sample title",
-                    "className": "jsx-4073597209 context-header",
+                    "className": "jsx-3469728956 context-header",
                   },
                   "ref": null,
                   "rendered": "Sample title",
@@ -462,7 +462,7 @@ ShallowWrapper {
                   "nodeType": "host",
                   "props": Object {
                     "children": "( 8 )",
-                    "className": "jsx-4073597209 available-sections",
+                    "className": "jsx-3469728956 available-sections",
                   },
                   "ref": null,
                   "rendered": "( 8 )",
@@ -489,14 +489,14 @@ ShallowWrapper {
           "nodeType": "class",
           "props": Object {
             "css": Array [
-              ".root.jsx-4073597209{width:100px;overflow:hidden;}",
-              ".dots-container.jsx-4073597209{margin:0 auto;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-box-pack:space-evenly;-webkit-justify-content:space-evenly;-ms-flex-pack:space-evenly;justify-content:space-evenly;border-radius:50%;width:52px;height:52px;background-color:#41566f;}",
-              ".menu-container.jsx-4073597209{position:absolute;padding:0;margin:0;top:110px;width:440px;height:100%;background-color:#f8f8f8;-webkit-transition:right ease-out 0.15s;transition:right ease-out 0.15s;}",
-              ".header-container.jsx-4073597209{margin:0;padding:40px;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;color:#415671;background-color:white;}",
-              ".context-header.jsx-4073597209{margin:0;padding:0;font-family:brandon-grotesque, sans-serif;font-size:12px;text-transform:uppercase;-webkit-letter-spacing:1.5px;-moz-letter-spacing:1.5px;-ms-letter-spacing:1.5px;letter-spacing:1.5px;font-weight:800;}",
-              ".available-sections.jsx-4073597209{margin:0;padding:0;font-family:brandon-grotesque, sans-serif;font-size:12px;}",
+              ".root.jsx-3469728956{width:100px;overflow:hidden;}",
+              ".dots-container.jsx-3469728956{margin:0 auto;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-box-pack:space-evenly;-webkit-justify-content:space-evenly;-ms-flex-pack:space-evenly;justify-content:space-evenly;border-radius:50%;width:52px;height:52px;background-color:#41566f;}",
+              ".menu-container.jsx-3469728956{position:absolute;padding:0;margin:0;top:110px;width:440px;height:100%;background-color:#f8f8f8;-webkit-transition:right ease-out 0.15s;transition:right ease-out 0.15s;}",
+              ".header-container.jsx-3469728956{box-shadow: 8px 5px 20px -5px rgba(88, 88, 88, 0.5); margin:0;padding:40px;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;color:#415671;background-color:white;}",
+              ".context-header.jsx-3469728956{margin:0;padding:0;font-family:brandon-grotesque, sans-serif;font-size:12px;text-transform:uppercase;-webkit-letter-spacing:1.5px;-moz-letter-spacing:1.5px;-ms-letter-spacing:1.5px;letter-spacing:1.5px;font-weight:800;}",
+              ".available-sections.jsx-3469728956{margin:0;padding:0;font-family:brandon-grotesque, sans-serif;font-size:12px;}",
             ],
-            "styleId": "4073597209",
+            "styleId": "3469728956",
           },
           "ref": null,
           "rendered": null,
