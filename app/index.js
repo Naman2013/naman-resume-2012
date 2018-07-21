@@ -132,6 +132,7 @@ import UserPublicProfile from './pages/profiles/public-profile';
 import CommunityGroups from './pages/community-groups/Groups';
 import CommunityGroupsList from './pages/community-groups/GroupsListPage';
 import CommunityGroupOverview from './pages/community-groups/GroupOverview';
+import GroupOverviewInfo from './pages/community-groups/GroupOverviewInfo';
 import ImageDetails from './pages/image-details';
 
 import DashboardPage from 'components/Dashboard';
@@ -514,7 +515,8 @@ ReactDOM.render(
           <Route path="popular" component={CommunityGroupsList} />
         </Route>
 
-        <Route path="community-groups/:groupId" component={CommunityGroupOverview} />
+        <Route path="community-groups/:groupId" onEnter={validateUser} component={CommunityGroupOverview} />
+        <Route path="community-groups/:groupId/info" onEnter={validateUser} component={GroupOverviewInfo} />
 
       </Route>
       <Redirect from="*" to="/" />

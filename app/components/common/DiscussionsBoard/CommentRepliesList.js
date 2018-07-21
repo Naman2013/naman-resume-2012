@@ -12,6 +12,7 @@ import BootstrappedCommentRepliesList from './BootstrappedCommentRepliesList';
 import { THREAD_REPLIES } from 'services/discussions';
 
 const {
+  bool,
   number,
   oneOfType,
   shape,
@@ -22,6 +23,7 @@ const CommentRepliesList = ({
   callSource,
   count,
   forumId,
+  isDesktop,
   replyId,
   threadId,
   topicId,
@@ -49,6 +51,7 @@ const CommentRepliesList = ({
           count={count}
           fetching={fetchingContent}
           forumId={forumId}
+          isDesktop={isDesktop}
           replyId={replyId}
           threadId={threadId}
           topicId={topicId}
@@ -64,6 +67,7 @@ CommentRepliesList.propTypes = {
   callSource: string,
   count: number,
   forumId: oneOfType([number, string]),
+  isDesktop: bool.isRequired,
   replyId: oneOfType([number, string]),
   threadId: oneOfType([number, string]),
   topicId: oneOfType([number, string]),

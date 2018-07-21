@@ -10,12 +10,13 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import {
-  darkBlueGray,
-  white,
-} from '../../../styles/variables/colors';
+  astronaut,
+} from '../../../styles/variables/colors_tiles_v4';
+import { screenLarge } from 'styles/variables/breakpoints';
 import { createActivity } from '../../../modules/community-group-activity-list/actions';
+import { fetchGroupMembers } from 'modules/community-group-overview/actions';
+
 import MembersList from './members-list';
-import FullInformation from './full-information';
 import DiscussionsBoard from 'components/common/DiscussionsBoard';
 
 const {
@@ -37,6 +38,7 @@ const mapStateToProps = ({
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
     createActivity,
+    fetchGroupMembers,
   }, dispatch),
 });
 
@@ -48,14 +50,19 @@ class FullInformationOverview extends Component {
     descriptionHeading: string,
     detailsHeading: string,
     detailsList: shape({}),
+    context: shape({
+      isDesktop: bool,
+      isTablet: bool,
+      isMobile: bool,
+    }),
     heading: string,
     pageMeta: shape({
-      headingList: arrayOf(string),
       canPost: bool,
     }),
     joinOrLeaveGroup: func.isRequired,
     joinPrompt: string,
     membersCount: number,
+    membersSort: string.isRequired,
     membersList: arrayOf(shape({})),
     showJoinPrompt: bool,
   };
@@ -65,9 +72,9 @@ class FullInformationOverview extends Component {
     description: '',
     descriptionHeading: '',
     detailsHeading: '',
+    context: {},
     heading: '',
     pageMeta: {
-      headingList: [],
       canPost: false,
     },
     joinPrompt: '',
@@ -83,12 +90,15 @@ class FullInformationOverview extends Component {
       descriptionHeading,
       detailsHeading,
       detailsList,
+      discussionGroupId,
+      context,
       heading,
       pageMeta,
       joinOrLeaveGroup,
       joinPrompt,
       membersCount,
       membersList,
+      membersSort,
       showJoinPrompt,
       user,
     } = this.props;
@@ -103,22 +113,8 @@ class FullInformationOverview extends Component {
     };
 
     return (
-      <div>
-        <div className="full-info">
-          <div className="flex-child">
-            <FullInformation
-              description={description}
-              descriptionHeading={descriptionHeading}
-              detailsHeading={detailsHeading}
-              detailsList={detailsList}
-              heading={heading}
-              joinPrompt={joinPrompt}
-              showJoinPrompt={showJoinPrompt}
-              joinOrLeaveGroup={joinOrLeaveGroup}
-            />
-          </div>
+      <div className="root">
           <div className="flex-child left-container">
-            {pageMeta.headingList.length > 0 && pageMeta.headingList.join(' ')}
             <DiscussionsBoard
               errorMessage="There was an error fetching list"
               topicId={pageMeta.topicId}
@@ -130,31 +126,45 @@ class FullInformationOverview extends Component {
           </div>
           <aside className="flex-child right-container">
             <MembersList
+              membersSort={membersSort}
               membersList={membersList}
               membersCount={membersCount}
+              discussionGroupId={discussionGroupId}
+              fetchGroupMembers={actions.fetchGroupMembers}
+              isDesktop={context.isDesktop}
             />
           </aside>
-        </div>
-        <style jsx>{`
-          .full-info {
-            display: flex;
-            flex-direction: row;
-            flex-wrap: wrap;
-            padding: 25px;
-          }
-          .flex-child:first-child {
-            width: 100%;
-          }
+      <style jsx>{`
+        .root {
+          display: flex;
+          flex-direction: row;
+          flex-wrap: wrap;
+        }
 
+        .left-container {
+          width: 100%;
+        }
+
+        .right-container {
+          display: none;
+        }
+
+        @media ${screenLarge} {
           .left-container {
-            flex: 3;
+            width: 674px;
+            padding: 15px 0;
           }
 
           .right-container {
-            flex: 1;
+            display: block;
+            width: 350px;
           }
-        `}</style>
-      </div>
+
+        }
+
+
+      `}</style>
+    </div>
     )
   }
 }

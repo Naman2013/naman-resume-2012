@@ -9,11 +9,15 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import take from 'lodash/take';
+import uniqueId from 'lodash/uniqueId';
+import BlueLineDrop from 'components/common/BlueLineDrop';
+import ShowMoreFullSet from 'components/common/ShowMoreFullSet';
+import MembersListSort from './members-list-sort';
+import MembersCardList from './members-list-card-list';
 import {
-  fullWidthBtn,
-  dropShadowedContainer,
   profPic,
 } from '../styles';
+import styles from './members-list.style';
 
 const {
   arrayOf,
@@ -26,84 +30,92 @@ const {
 
 class GroupMemberList extends Component {
   static propTypes = {
+    fetchGroupMembers: func.isRequired,
     membersCount: number.isRequired,
     membersList: arrayOf(shape({})).isRequired,
+    count: number,
   }
 
-  static defaultProps = {}
+  static defaultProps = {
+    count: 5,
+  }
 
   state = {
-    displayedNumber: 8,
-    showingAll: false,
+    displayedMembers: [],
+    members: [],
+    page: 1,
   }
 
-  toggleSeeAll = (e) => {
-    e.preventDefault();
-    const { membersCount } = this.props;
-    const { showingAll } = this.state;
-    const displayedNumber = showingAll ? 8 : membersCount;
+  componentWillReceiveProps(nextProps) {
+    const { count, membersList } = this.props;
+    if (membersList.length !== nextProps.membersList.length) {
+      const displayedMembers = take([].concat(nextProps.membersList), nextProps.count)
+        .map(member => member.customerId);
+        this.setState({
+          displayedMembers,
+          members: nextProps.membersList,
+        });
+    }
+  }
+
+  get displayedMembersObjs() {
+    const { displayedMembers, members } = this.state;
+    return [].concat(members).filter(member => displayedMembers.indexOf(member.customerId) > -1);
+  }
+
+  handleShowMore = (paginatedSet, page) => {
     this.setState({
-      displayedNumber,
-      showingAll: !showingAll,
+      displayedMembers: paginatedSet,
+      page,
     });
   }
 
   render() {
     const {
+      isDesktop,
       membersCount,
       membersList,
+      membersSort,
+      count,
+      discussionGroupId,
+      fetchGroupMembers,
+      renderToggle,
     } = this.props;
 
     const {
-      displayedNumber,
+      members,
+      displayedMembers,
+      page,
     } = this.state;
-
     return (
       <div className="members-list">
-        Group Members
-        <div className="members-container">
-          <h5>Group Members: {membersCount}</h5>
-          <div className="img-container">
-            {take(membersList, displayedNumber).map((member) => {
-              const avatarStyle = Object.assign(profPic(member.iconUrl), {
-                height: '50px',
-                width: '50px',
-                display: 'inline-block',
-                padding: '5px',
-                cursor: 'pointer',
-              });
-              return (<div key={199637} className="avatar-img">
-                {member.hasLink ? <Link to={member.linkUrl}>
-                  <div style={avatarStyle} />
-                </Link> : <img src={member.iconUrl} />}
-              </div>)
-            })}
-          </div>
-          <button onClick={this.toggleSeeAll} className="see-all">{this.state.showingAll ? 'See Less' : 'See All'}</button>
-        </div>
-        <style jsx>{`
-          .members-list {
-            min-width: 350px;
-            padding: 15px;
-          }
-          .members-container {
-            ${dropShadowedContainer}
-          }
+        <BlueLineDrop
+          title={`Group Members (${membersCount})`}
+          isDesktop={isDesktop}
+          render={() => (
+            <div className="members-container">
+              <MembersListSort
+                membersSort={membersSort}
+                discussionGroupId={discussionGroupId}
+                renderList={() => <MembersCardList list={this.displayedMembersObjs} />}
+                fetchGroupMembers={fetchGroupMembers}
+              />
+              <div className="button-container">
+                {this.displayedMembersObjs.length > 0 && <ShowMoreFullSet
+                  handleShowMore={this.handleShowMore}
+                  fullDataSet={members}
+                  count={count}
+                  totalCount={members.length}
+                  page={page}
+                  idField="customerId"
+                  buttonText="More Members"
+                />}
+                {renderToggle ? renderToggle() : null}
+              </div>
+            </div>)}
+        />
 
-          .img-container {
-            display: flex;
-            flex-direction: row;
-            flex-wrap: wrap;
-          }
-
-          .avatar-img {
-            margin: 5px;
-          }
-
-          .see-all {
-            ${fullWidthBtn}
-          }
-        `}</style>
+        <style jsx>{styles}</style>
       </div>
     )
   }

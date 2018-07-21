@@ -1,6 +1,7 @@
-const SCREEN_MEDIUM = 768;
-const SCREEN_LARGE = 1024;
-const SCREEN_XLARGE = 1366;
+export const SCREEN_SMALL = 320;
+export const SCREEN_MEDIUM = 768;
+export const SCREEN_LARGE = 1024;
+export const SCREEN_XLARGE = 1366;
 
 function createMediaQuery(size = 0) {
   return `screen and (min-width: ${size}px)`;
