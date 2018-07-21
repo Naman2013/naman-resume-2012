@@ -21,9 +21,9 @@ import {
   romance,
 } from 'styles/variables/colors_tiles_v4';
 import {
-  screenSmallPx,
-  screenMediumPx,
-  screenLargePx,
+  SCREEN_SMALL,
+  SCREEN_MEDIUM,
+  SCREEN_LARGE,
   screenMedium,
   screenLarge,
 } from 'styles/variables/breakpoints'
@@ -126,19 +126,19 @@ class CommunityGroupOverview extends Component {
         <style jsx>{`
           .root {
             margin: 0 auto;
-            width: ${screenSmallPx};
+            width: ${SCREEN_SMALL}px;
             color: ${astronaut};
             background-color: ${romance};
           }
           @media ${screenMedium} {
             .root {
-              width: ${screenMediumPx};
+              width: ${SCREEN_MEDIUM}px;
             }
           }
           @media ${screenLarge} {
             .root {
               margin-top: 25px;
-              width: ${screenLargePx};
+              width: ${SCREEN_LARGE}px;
             }
           }
         `}</style>
