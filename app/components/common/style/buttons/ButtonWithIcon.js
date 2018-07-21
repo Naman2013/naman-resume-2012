@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { darkGray } from 'styles/variables/colors';
+import { astronaut, romance } from 'styles/variables/colors_tiles_v4';
 
 const {
   func,
@@ -10,24 +10,29 @@ const {
 } = PropTypes;
 
 const ButtonWithIcon = ({
-  text,
+  count,
+  icon,
   onClickEvent,
 }) => (
   <button
     className="button-container"
     onClick={onClickEvent}
   >
-    <span className="text" dangerouslySetInnerHTML={{ __html: text }} />
+    <img
+      src={icon}
+    />
+    <span className="count" dangerouslySetInnerHTML={{ __html: count }} />
     <style jsx>
       {`
-        .text {
+        .count {
           vertical-align: middle;
           font-size: 13px;
-          margin: 0 auto;
+          margin: 0 5px;
         }
         .button-container {
           display: block;
-          border: 1px dotted ${darkGray};
+          border: 1px dashed ${astronaut};
+          background-color: ${romance};
           border-radius: 100px;
           width: 110px;
           margin: 15px 0;
@@ -36,6 +41,7 @@ const ButtonWithIcon = ({
           padding: 5px 0;
           text-transform: uppercase;
           width: 50px;
+          height: 40px;
         }
       `}
     </style>
@@ -43,7 +49,7 @@ const ButtonWithIcon = ({
 );
 
 ButtonWithIcon.propTypes = {
-  text: oneOfType([string, number]).isRequired,
+  count: oneOfType([string, number]).isRequired,
   icon: string.isRequired,
   onClickEvent: func.isRequired,
 };

@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import uniqueId from 'lodash/uniqueId';
 import { profilePhotoStyle } from 'styles/mixins/utilities';
-import { darkGray, lightGray, gray } from 'styles/variables/colors';
+import { astronaut, geyser, shadows } from 'styles/variables/colors_tiles_v4';
 import { secondaryFont } from 'styles/variables/fonts';
 
 
@@ -275,7 +275,7 @@ class ObjectDetailList extends Component {
     <style jsx>{`
       .title-container {
         text-transform: uppercase;
-        color: ${darkGray};
+        color: ${astronaut};
         font-weight: bold;
         font-size: 12px;
         display: flex;
@@ -293,7 +293,7 @@ class ObjectDetailList extends Component {
 
       .wide-info-item {
         flex: 1 1 0;
-        border: 1px solid ${gray};
+        border: 1px solid ${shadows};
         padding: 25px;
         text-align: left;
         max-height: 135px;
@@ -307,7 +307,7 @@ class ObjectDetailList extends Component {
 
       .info {
         padding: 25px;
-        border: 1px solid ${gray};
+        border: 1px solid ${shadows};
       }
 
       .wide-info-block-header {
@@ -324,20 +324,20 @@ class ObjectDetailList extends Component {
 
       .detail-label {
         text-transform: uppercase;
-        color: ${darkGray};
+        color: ${astronaut};
         font-weight: bold;
         font-size: 10px;
       }
 
       .detail-text {
         text-transform: uppercase;
-        color: ${darkGray};
+        color: ${astronaut};
         font-weight: bold;
         font-size: 12px;
       }
       .detail-text-detail {
         text-transform: uppercase;
-        color: ${darkGray};
+        color: ${astronaut};
         font-weight: bold;
         font-size: 12px;
       }
@@ -347,15 +347,15 @@ class ObjectDetailList extends Component {
         flex-direction: row;
         flex-wrap: wrap;
         margin: 25px;
-        -moz-box-shadow: 0 2px 4px 1px ${gray};
-        -webkit-box-shadow: 0 2px 4px 1px ${gray};
-        box-shadow: 0 2px 4px 1px ${gray};
+        -moz-box-shadow: 0 2px 4px 1px ${shadows};
+        -webkit-box-shadow: 0 2px 4px 1px ${shadows};
+        box-shadow: 0 2px 4px 1px ${shadows};
       }
       .detail-note,
       .link {
         font-family: ${secondaryFont};
         font-size: 12px;
-        color: ${lightGray};
+        color: ${geyser};
         font-style: italic;
       }
 

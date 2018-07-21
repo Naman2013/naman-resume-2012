@@ -17,7 +17,7 @@ import {
 } from 'styles/variables/colors';
 import { primaryFont, secondaryFont } from 'styles/variables/fonts';
 import { customModalStyles, dropShadowContainer } from 'styles/mixins/utilities';
-import LikeButton from 'components/common/style/LikeButton';
+import LikeButton from 'components/common/style/buttons/LikeButton';
 import { profPic } from './styles';
 
 

@@ -16,8 +16,8 @@ import {
   geyser,
 } from 'styles/variables/colors_tiles_v4';
 import { primaryFont, secondaryFont } from 'styles/variables/fonts';
-import LikeButton from 'components/common/style/LikeButton';
-import CommentButton from 'components/common/style/CommentButton';
+import LikeButton from 'components/common/style/buttons/LikeButton';
+import CommentButton from 'components/common/style/buttons/CommentButton';
 import { customModalStyles, dropShadowContainer } from 'styles/mixins/utilities';
 import { profPic } from './styles';
 import CommentRepliesList from './CommentRepliesList';

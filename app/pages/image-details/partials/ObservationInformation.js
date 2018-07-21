@@ -12,7 +12,7 @@ import { likeImage } from 'services/my-pictures/like-image';
 import Modal from 'react-modal';
 import { primaryFont, secondaryFont } from 'styles/variables/fonts';
 import { customModalStyles } from 'styles/mixins/utilities';
-import LikeButton from 'components/common/style/LikeButton';
+import LikeButton from 'components/common/style/buttons/LikeButton';
 
 const {
   any,

@@ -52,8 +52,9 @@ const FullInformation = ({
         .overview-container {
           display: flex;
           flex-direction: row;
+          justify-content: center;
           ${dropShadowContainer}
-          padding: 25px;
+
         }
 
         .emphasis {

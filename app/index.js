@@ -515,6 +515,7 @@ ReactDOM.render(
         </Route>
 
         <Route path="community-groups/:groupId" onEnter={validateUser} component={CommunityGroupOverview} />
+        <Route path="community-groups/:groupId/info" onEnter={validateUser} component={CommunityGroupOverview} />
 
       </Route>
       <Redirect from="*" to="/" />

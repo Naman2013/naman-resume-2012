@@ -118,7 +118,7 @@ class FullInformationOverview extends Component {
             />
           </div>
           <div className="flex-child left-container">
-            {pageMeta.headingList.length > 0 && pageMeta.headingList.join(' ')}
+            {pageMeta.headingList && pageMeta.headingList.length > 0 && pageMeta.headingList.join(' ')}
             <DiscussionsBoard
               errorMessage="There was an error fetching list"
               topicId={pageMeta.topicId}
@@ -140,7 +140,6 @@ class FullInformationOverview extends Component {
             display: flex;
             flex-direction: row;
             flex-wrap: wrap;
-            padding: 25px;
           }
           .flex-child:first-child {
             width: 100%;

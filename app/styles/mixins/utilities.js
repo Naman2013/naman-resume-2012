@@ -51,6 +51,23 @@ export const customModalStyles = {
   },
 };
 
+export const customModalStylesV4 = {
+  content: {
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)',
+    maxWidth: '650px',
+    padding: '50px 25px',
+    fontFamily: primaryFont,
+  },
+  overlay: {
+    backgroundColor: 'rgba(255, 255, 255, 0)',
+  },
+};
+
 export const dropShadowContainer = `
   -moz-box-shadow: 0 2px 4px 1px ${shadows};
   -webkit-box-shadow: 0 2px 4px 1px ${shadows};

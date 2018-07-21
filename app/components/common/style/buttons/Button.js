@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { darkGray } from 'styles/variables/colors';
+import { astronaut, romance } from 'styles/variables/colors_tiles_v4';
 
 const {
   func,
@@ -10,7 +10,7 @@ const {
 } = PropTypes;
 
 const ButtonWithIcon = ({
-  count,
+  text,
   icon,
   onClickEvent,
 }) => (
@@ -18,20 +18,19 @@ const ButtonWithIcon = ({
     className="button-container"
     onClick={onClickEvent}
   >
-    <img
-      src={icon}
-    />
-    <span className="count" dangerouslySetInnerHTML={{ __html: count }} />
+    {text ? <span className="text" dangerouslySetInnerHTML={{ __html: text }} /> : null}
+    {icon ? <img className="text" src={icon} /> : null}
     <style jsx>
       {`
-        .count {
+        .text {
           vertical-align: middle;
-          font-size: 13px;
-          margin: 0 5px;
+          font-size: 11px;
+          margin: 0 auto;
         }
         .button-container {
+          background-color: ${romance};
           display: block;
-          border: 1px dotted ${darkGray};
+          border: 1px dashed ${astronaut};
           border-radius: 100px;
           width: 110px;
           margin: 15px 0;
@@ -39,7 +38,8 @@ const ButtonWithIcon = ({
           font-weight: bold;
           padding: 5px 0;
           text-transform: uppercase;
-          width: 50px;
+          width: 40px;
+          height: 40px;
         }
       `}
     </style>
@@ -47,8 +47,8 @@ const ButtonWithIcon = ({
 );
 
 ButtonWithIcon.propTypes = {
-  count: oneOfType([string, number]).isRequired,
-  icon: string.isRequired,
+  text: oneOfType([string, number]),
+  icon: string,
   onClickEvent: func.isRequired,
 };
 ButtonWithIcon.defaultProps = {};
