@@ -56,3 +56,9 @@ export const dropShadowContainer = `
   -webkit-box-shadow: 0 2px 4px 1px ${shadows};
   box-shadow: 0 2px 4px 1px ${shadows};
 `;
+
+export const smallProfPic = photoUrl => Object.assign(profilePhotoStyle(photoUrl), {
+  height: '50px',
+  width: '50px',
+  backgroundSize: 'cover',
+});

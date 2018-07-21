@@ -7,11 +7,12 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 import PropTypes from 'prop-types';
-import ModalGeneric from '../../common/modals/modal-generic';
-import { prepareThread } from '../../../services/discussions/prepare-thread';
-import deletePostImage from '../../../services/post-creation/delete-post-image';
-import setPostImages from '../../../modules/set-post-images';
-import { black, darkBlueGray, white } from '../../../styles/variables/colors';
+import FormHeader from 'components/common/FormHeader';
+import ModalGeneric from 'components/common/modals/modal-generic';
+import { prepareThread } from 'services/discussions/prepare-thread';
+import deletePostImage from 'services/post-creation/delete-post-image';
+import setPostImages from 'modules/set-post-images';
+import { astronaut, romance } from 'styles/variables/colors_tiles_v4';
 import { dropShadowContainer } from 'styles/mixins/utilities';
 
 
@@ -165,6 +166,7 @@ class ActivityForm extends Component {
       showJoinPrompt,
       joinOrLeaveGroup,
       canPost,
+      user,
     } = this.props;
 
     const {
@@ -177,6 +179,7 @@ class ActivityForm extends Component {
 
     return (
       <div className="form-container">
+        <FormHeader avatarURL={user.avatarURL} />
         <form className="form">
           <textarea
             className="activity-input"
@@ -213,7 +216,7 @@ class ActivityForm extends Component {
         />
         <style jsx>{`
           .form-container {
-            background-color: ${white};
+            background-color: ${romance};
             ${dropShadowContainer}
           }
           .flex-right {
@@ -235,12 +238,12 @@ class ActivityForm extends Component {
           .activity-button {
             display: block;
             width: 100px;
-            background-color: ${darkBlueGray};
+            background-color: ${astronaut};
             padding: 5px 10px;
             text-transform: uppercase;
             font-weight: bold;
             font-size: 10px;
-            color: ${white};
+            color: ${romance};
             margin-top: 10px;
           }
         `}</style>

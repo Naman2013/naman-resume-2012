@@ -6,7 +6,7 @@
 ***********************************/
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { profPic } from './styles';
+import FormHeader from 'components/common/FormHeader';
 import { romance, astronaut, shadows } from 'styles/variables/colors_tiles_v4';
 import { dropShadowContainer } from 'styles/mixins/utilities';
 
@@ -112,12 +112,7 @@ class ReplyForm extends Component {
         {(submitted && showSubmitError) && <div>There was an error submitting this form.</div>}
         {!showSubmitLoader && !submitted && <form className="reply-form">
           <div className="input-container">
-            <div className="comment-title-container">
-              <div className="comment-title-avatar-container">
-                <div className="comment-title-avatar" style={Object.assign({ margin: '0 auto' }, profPic(avatarURL))} />
-              </div>
-              <div className="comment-title-text">Write a Public Comment</div>
-            </div>
+            <FormHeader avatarURL={avatarURL} />
             <div className="reply-input-container">
               <textarea
                 className="reply-input"
