@@ -4,11 +4,18 @@ import { secondaryFont } from 'styles/variables/fonts';
 
 export default css`
 .menu-item {
+  position: relative;
   margin: 0;
   padding: 0;
   margin-left: 70px;
   width: 75%;
   color: ${astronaut};
+}
+
+.dot-container {
+  position: absolute;
+  left: -50px;
+  top: 43px;
 }
 
 .action {

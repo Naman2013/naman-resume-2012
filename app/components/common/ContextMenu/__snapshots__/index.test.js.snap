@@ -593,10 +593,10 @@ ShallowWrapper {
     "props": Object {
       "children": Array [
         <li
-          className="jsx-3645762491 menu-item"
+          className="jsx-1734102901 menu-item"
         >
           <span
-            className="jsx-3645762491 dot-container"
+            className="jsx-1734102901 dot-container"
           >
             <MiraDot
               theme={
@@ -607,7 +607,7 @@ ShallowWrapper {
             />
           </span>
           <a
-            className="jsx-3645762491 action"
+            className="jsx-1734102901 action"
             href="#"
           >
             Astronomical Time
@@ -616,11 +616,12 @@ ShallowWrapper {
         <JSXStyle
           css={
             Array [
-              ".menu-item.jsx-3645762491{margin:0;padding:0;margin-left:70px;width:75%;color:#415671;}",
-              ".action.jsx-3645762491{display:block;padding-bottom:30px;padding-top:40px;margin-left:-15px;padding-left:20px;font-family:adobe-garamond-pro, serif;border-bottom:1px solid #d9dee5;text-transform:capitalize;-webkit-text-decoration:none;text-decoration:none;color:#415671;}",
+              ".menu-item.jsx-1734102901{position:relative;margin:0;padding:0;margin-left:70px;width:75%;color:#415671;}",
+              ".dot-container.jsx-1734102901{position:absolute;left:-50px;top:43px;}",
+              ".action.jsx-1734102901{display:block;padding-bottom:30px;padding-top:40px;margin-left:-15px;padding-left:20px;font-family:adobe-garamond-pro, serif;border-bottom:1px solid #d9dee5;text-transform:capitalize;-webkit-text-decoration:none;text-decoration:none;color:#415671;}",
             ]
           }
-          styleId="3645762491"
+          styleId="1734102901"
         />,
       ],
     },
@@ -633,7 +634,7 @@ ShallowWrapper {
         "props": Object {
           "children": Array [
             <span
-              className="jsx-3645762491 dot-container"
+              className="jsx-1734102901 dot-container"
             >
               <MiraDot
                 theme={
@@ -644,13 +645,13 @@ ShallowWrapper {
               />
             </span>,
             <a
-              className="jsx-3645762491 action"
+              className="jsx-1734102901 action"
               href="#"
             >
               Astronomical Time
             </a>,
           ],
-          "className": "jsx-3645762491 menu-item",
+          "className": "jsx-1734102901 menu-item",
         },
         "ref": null,
         "rendered": Array [
@@ -666,7 +667,7 @@ ShallowWrapper {
                   }
                 }
               />,
-              "className": "jsx-3645762491 dot-container",
+              "className": "jsx-1734102901 dot-container",
             },
             "ref": null,
             "rendered": Object {
@@ -690,7 +691,7 @@ ShallowWrapper {
             "nodeType": "host",
             "props": Object {
               "children": "Astronomical Time",
-              "className": "jsx-3645762491 action",
+              "className": "jsx-1734102901 action",
               "href": "#",
             },
             "ref": null,
@@ -706,10 +707,11 @@ ShallowWrapper {
         "nodeType": "class",
         "props": Object {
           "css": Array [
-            ".menu-item.jsx-3645762491{margin:0;padding:0;margin-left:70px;width:75%;color:#415671;}",
-            ".action.jsx-3645762491{display:block;padding-bottom:30px;padding-top:40px;margin-left:-15px;padding-left:20px;font-family:adobe-garamond-pro, serif;border-bottom:1px solid #d9dee5;text-transform:capitalize;-webkit-text-decoration:none;text-decoration:none;color:#415671;}",
+            ".menu-item.jsx-1734102901{position:relative;margin:0;padding:0;margin-left:70px;width:75%;color:#415671;}",
+            ".dot-container.jsx-1734102901{position:absolute;left:-50px;top:43px;}",
+            ".action.jsx-1734102901{display:block;padding-bottom:30px;padding-top:40px;margin-left:-15px;padding-left:20px;font-family:adobe-garamond-pro, serif;border-bottom:1px solid #d9dee5;text-transform:capitalize;-webkit-text-decoration:none;text-decoration:none;color:#415671;}",
           ],
-          "styleId": "3645762491",
+          "styleId": "1734102901",
         },
         "ref": null,
         "rendered": null,
@@ -726,10 +728,10 @@ ShallowWrapper {
       "props": Object {
         "children": Array [
           <li
-            className="jsx-3645762491 menu-item"
+            className="jsx-1734102901 menu-item"
           >
             <span
-              className="jsx-3645762491 dot-container"
+              className="jsx-1734102901 dot-container"
             >
               <MiraDot
                 theme={
@@ -740,7 +742,7 @@ ShallowWrapper {
               />
             </span>
             <a
-              className="jsx-3645762491 action"
+              className="jsx-1734102901 action"
               href="#"
             >
               Astronomical Time
@@ -749,11 +751,12 @@ ShallowWrapper {
           <JSXStyle
             css={
               Array [
-                ".menu-item.jsx-3645762491{margin:0;padding:0;margin-left:70px;width:75%;color:#415671;}",
-                ".action.jsx-3645762491{display:block;padding-bottom:30px;padding-top:40px;margin-left:-15px;padding-left:20px;font-family:adobe-garamond-pro, serif;border-bottom:1px solid #d9dee5;text-transform:capitalize;-webkit-text-decoration:none;text-decoration:none;color:#415671;}",
+                ".menu-item.jsx-1734102901{position:relative;margin:0;padding:0;margin-left:70px;width:75%;color:#415671;}",
+                ".dot-container.jsx-1734102901{position:absolute;left:-50px;top:43px;}",
+                ".action.jsx-1734102901{display:block;padding-bottom:30px;padding-top:40px;margin-left:-15px;padding-left:20px;font-family:adobe-garamond-pro, serif;border-bottom:1px solid #d9dee5;text-transform:capitalize;-webkit-text-decoration:none;text-decoration:none;color:#415671;}",
               ]
             }
-            styleId="3645762491"
+            styleId="1734102901"
           />,
         ],
       },
@@ -766,7 +769,7 @@ ShallowWrapper {
           "props": Object {
             "children": Array [
               <span
-                className="jsx-3645762491 dot-container"
+                className="jsx-1734102901 dot-container"
               >
                 <MiraDot
                   theme={
@@ -777,13 +780,13 @@ ShallowWrapper {
                 />
               </span>,
               <a
-                className="jsx-3645762491 action"
+                className="jsx-1734102901 action"
                 href="#"
               >
                 Astronomical Time
               </a>,
             ],
-            "className": "jsx-3645762491 menu-item",
+            "className": "jsx-1734102901 menu-item",
           },
           "ref": null,
           "rendered": Array [
@@ -799,7 +802,7 @@ ShallowWrapper {
                     }
                   }
                 />,
-                "className": "jsx-3645762491 dot-container",
+                "className": "jsx-1734102901 dot-container",
               },
               "ref": null,
               "rendered": Object {
@@ -823,7 +826,7 @@ ShallowWrapper {
               "nodeType": "host",
               "props": Object {
                 "children": "Astronomical Time",
-                "className": "jsx-3645762491 action",
+                "className": "jsx-1734102901 action",
                 "href": "#",
               },
               "ref": null,
@@ -839,10 +842,11 @@ ShallowWrapper {
           "nodeType": "class",
           "props": Object {
             "css": Array [
-              ".menu-item.jsx-3645762491{margin:0;padding:0;margin-left:70px;width:75%;color:#415671;}",
-              ".action.jsx-3645762491{display:block;padding-bottom:30px;padding-top:40px;margin-left:-15px;padding-left:20px;font-family:adobe-garamond-pro, serif;border-bottom:1px solid #d9dee5;text-transform:capitalize;-webkit-text-decoration:none;text-decoration:none;color:#415671;}",
+              ".menu-item.jsx-1734102901{position:relative;margin:0;padding:0;margin-left:70px;width:75%;color:#415671;}",
+              ".dot-container.jsx-1734102901{position:absolute;left:-50px;top:43px;}",
+              ".action.jsx-1734102901{display:block;padding-bottom:30px;padding-top:40px;margin-left:-15px;padding-left:20px;font-family:adobe-garamond-pro, serif;border-bottom:1px solid #d9dee5;text-transform:capitalize;-webkit-text-decoration:none;text-decoration:none;color:#415671;}",
             ],
-            "styleId": "3645762491",
+            "styleId": "1734102901",
           },
           "ref": null,
           "rendered": null,
