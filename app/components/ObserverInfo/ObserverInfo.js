@@ -30,15 +30,15 @@ const profPic = photoUrl => Object.assign(profilePhotoStyle(photoUrl), {
 
 const ObserverInfo = ({
   avatarURL,
-  device,
+  isDesktop,
   displayName,
   gravityRankLabel,
 }) => (<div className="root component-container">
-  {device === 'desktop' ? <div className="title-container">
+  {isDesktop ? <div className="title-container">
     <span className="title">Observer:</span>
   </div> : null}
   <div className="observer-info-container">
-    {device !== 'desktop' ? <div className="title">Observer:</div> : null }
+    {!isDesktop ? <div className="title">Observer:</div> : null }
     <div className="flex-item">
       <span className="name" dangerouslySetInnerHTML={{ __html: displayName }} />
       <span className="gravity-desc" dangerouslySetInnerHTML={{ __html: gravityRankLabel }} />
@@ -169,7 +169,7 @@ const ObserverInfo = ({
 </div>);
 
 ObserverInfo.propTypes = {
-  device: string,
+  isDesktop: bool,
   avatarURL: string,
   displayName: string,
   gravityRankLabel: string,
@@ -177,7 +177,7 @@ ObserverInfo.propTypes = {
 }
 
 ObserverInfo.defaultProps = {
-  device: 'desktop',
+  isDesktop: false,
   avatarURL: '',
   displayName: '',
   gravityRankLabel: '',

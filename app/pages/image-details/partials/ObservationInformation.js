@@ -29,7 +29,9 @@ class BootstrappedImageDetails extends Component {
   static propTypes = {
     canLikeFlag: bool,
     customerImageId: oneOfType([number, string]),
-    fileData: shape({}),
+    fileData: shape({
+      'Photo By': string,
+    }),
     likesCount: number,
     likePrompt: string,
     showLikePrompt: bool,
@@ -46,6 +48,9 @@ class BootstrappedImageDetails extends Component {
   static defaultProps = {
     canLikeFlag: true,
     customerImageId: '',
+    fileData: {
+      'Photo By': '',
+    },
     likesCount: 0,
     likePrompt: '',
     showLikePrompt: true,

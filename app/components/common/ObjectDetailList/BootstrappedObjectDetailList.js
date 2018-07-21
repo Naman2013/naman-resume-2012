@@ -23,7 +23,7 @@ const {
 
 class ObjectDetailList extends Component {
   static propTypes = {
-    device: string,
+    isDesktop: bool,
     listTitle: string,
     objectDetailList: shape({
       constellation: shape({
@@ -63,7 +63,7 @@ class ObjectDetailList extends Component {
   }
 
   static defaultProps = {
-    device: 'desktop',
+    isDesktop: true,
     listTitle: '',
     objectDetailList: {
       name: {},
@@ -80,7 +80,7 @@ class ObjectDetailList extends Component {
 
   render() {
     const {
-      device,
+      isDesktop,
       listTitle,
       objectDetailList,
     } = this.props;
@@ -92,7 +92,7 @@ class ObjectDetailList extends Component {
 
     return (
   <div className="root">
-    {device === 'desktop' ? (
+    {isDesktop ? (
       <div className="wide-info-block">
         {objectDetailList.name ? (
           <div className="wide-info-item">
@@ -138,7 +138,7 @@ class ObjectDetailList extends Component {
         ) : null}
       </div>
     ) : null}
-    {device !== 'desktop' ? (
+    {!isDesktop ? (
       <div>
         <div className="title-container">
           <span
