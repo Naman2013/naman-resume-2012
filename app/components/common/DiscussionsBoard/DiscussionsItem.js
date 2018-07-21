@@ -11,7 +11,9 @@ import DiscussionComments from './DiscussionComments';
 import { likeThread } from 'services/discussions/like';
 import PulsePostThumbnails from 'components/pulse/pulse-post-image-thumbnails';
 import Heart from '../heart/heart';
-import { dropShadowedContainer, profPic } from './styles';
+import { profPic } from './styles';
+import { dropShadowContainer } from 'styles/mixins/utilities';
+
 
 const {
   any,
@@ -145,7 +147,7 @@ class DiscussionsItem extends Component {
         </div>
         <style jsx>{`
           .activity-item {
-            ${dropShadowedContainer}
+            ${dropShadowContainer}
           }
 
           .activity-info {

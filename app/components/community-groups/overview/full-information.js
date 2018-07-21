@@ -6,9 +6,11 @@
 ***********************************/
 import React from 'react';
 import PropTypes from 'prop-types';
-import { darkBlueGray } from '../../../styles/variables/colors';
-import { secondaryFont } from '../../../styles/variables/fonts';
-import { fullWidthBtn, dropShadowedContainer } from '../styles';
+import { darkBlueGray } from 'styles/variables/colors';
+import { secondaryFont } from 'styles/variables/fonts';
+import { fullWidthBtn } from '../styles';
+import { dropShadowContainer } from 'styles/mixins/utilities';
+
 
 const {
   func,
@@ -44,13 +46,13 @@ const FullInformation = ({
       </div>
       <style jsx>{`
         .overview {
-          
+
         }
 
         .overview-container {
           display: flex;
           flex-direction: row;
-          ${dropShadowedContainer}
+          ${dropShadowContainer}
           padding: 25px;
         }
 

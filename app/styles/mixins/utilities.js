@@ -1,4 +1,5 @@
 import { primaryFont } from 'styles/variables/fonts';
+import { shadows } from 'styles/variables/colors_tiles_v4';
 
 export const profilePhotoStyle = photoUrl => ({
   backgroundImage: `url(${photoUrl})`,
@@ -49,3 +50,9 @@ export const customModalStyles = {
     backgroundColor: 'rgba(255, 255, 255, 0)',
   },
 };
+
+export const dropShadowContainer = `
+  -moz-box-shadow: 0 2px 4px 1px ${shadows};
+  -webkit-box-shadow: 0 2px 4px 1px ${shadows};
+  box-shadow: 0 2px 4px 1px ${shadows};
+`;

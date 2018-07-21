@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 import Modal from 'react-modal';
 import { customModalStyles } from 'styles/mixins/utilities';
-import { darkGray, gray, lightGray } from 'styles/variables/colors';
+import { astronaut, shadows } from 'styles/variables/colors_tiles_v4';
 import { primaryFont, secondaryFont } from 'styles/variables/fonts';
 
 const {
@@ -180,16 +180,16 @@ class ObservationsForm extends Component {
 
         .root {
           font-family: ${primaryFont};
-          color: ${darkGray};
+          color: ${astronaut};
           margin: 25px;
           padding: 50px;
-          -moz-box-shadow: 0 2px 4px 1px ${gray};
-          -webkit-box-shadow: 0 2px 4px 1px ${gray};
-          box-shadow: 0 2px 4px 1px ${gray};
+          -moz-box-shadow: 0 2px 4px 1px ${shadows};
+          -webkit-box-shadow: 0 2px 4px 1px ${shadows};
+          box-shadow: 0 2px 4px 1px ${shadows};
         }
 
         .header {
-          border-bottom: 1px solid ${gray};
+          border-bottom: 1px solid ${shadows};
           padding-bottom: 25px;
           margin-bottom: 25px;
         }
@@ -219,11 +219,11 @@ class ObservationsForm extends Component {
           display: block;
           width: 100%;
           padding: 15px;
-          background-color: ${gray};
-          -moz-box-shadow: 0 2px 4px 1px ${gray};
-          -webkit-box-shadow: 0 2px 4px 1px ${gray};
-          box-shadow: 0 2px 4px 1px ${gray};
-          border: 1px solid ${gray};
+          background-color: ${shadows};
+          -moz-box-shadow: 0 2px 4px 1px ${shadows};
+          -webkit-box-shadow: 0 2px 4px 1px ${shadows};
+          box-shadow: 0 2px 4px 1px ${shadows};
+          border: 1px solid ${shadows};
           outline: none;
         }
         .obs-form-textarea {
@@ -231,16 +231,16 @@ class ObservationsForm extends Component {
           display: block;
           width: 100%;
           padding: 15px;
-          background-color: ${gray};
-          -moz-box-shadow: 0 2px 4px 1px ${gray};
-          -webkit-box-shadow: 0 2px 4px 1px ${gray};
-          box-shadow: 0 2px 4px 1px ${gray};
-          border: 1px solid ${gray};
+          background-color: ${shadows};
+          -moz-box-shadow: 0 2px 4px 1px ${shadows};
+          -webkit-box-shadow: 0 2px 4px 1px ${shadows};
+          box-shadow: 0 2px 4px 1px ${shadows};
+          border: 1px solid ${shadows};
           outline: none;
         }
         .obs-form-button {
           display: block;
-          border: 1px dotted ${darkGray};
+          border: 1px dotted ${astronaut};
           border-radius: 100px;
           width: 110px;
           margin: 15px 0;

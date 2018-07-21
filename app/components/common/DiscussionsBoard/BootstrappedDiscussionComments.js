@@ -13,8 +13,10 @@ import { submitReply } from 'services/discussions/submit-reply';
 import CommentListItem from './CommentListItem';
 import Form from './ReplyForm';
 import PaginateSet from '../../common/paginate-full-set/PaginateSet';
-import { darkBlueGray, white, darkGray, gray } from 'styles/variables/colors';
+import { astronaut, romance, shadows } from 'styles/variables/colors_tiles_v4';
 import { primaryFont } from 'styles/variables/fonts';
+import { dropShadowContainer } from 'styles/mixins/utilities';
+
 
 
 const {
@@ -198,18 +200,16 @@ class CommentList extends Component {
         <style jsx>{`
           .root {
             font-family: ${primaryFont};
-            color: ${darkGray};
+            color: ${astronaut};
           }
           .comments-bar {
             font-size: 12px;
             text-transform: uppercase;
-            color: ${darkBlueGray};
+            color: ${astronaut};
             font-weight: bold;
             margin: 25px;
             padding: 25px;
-            -moz-box-shadow: 0 2px 4px 1px ${gray};
-            -webkit-box-shadow: 0 2px 4px 1px ${gray};
-            box-shadow: 0 2px 4px 1px ${gray};
+            ${dropShadowContainer}
           }
         `}</style>
 

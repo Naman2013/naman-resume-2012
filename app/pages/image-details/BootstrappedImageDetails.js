@@ -8,7 +8,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { backgroundImageCover } from 'styles/mixins/utilities';
+import { backgroundImageCover, dropShadowContainer } from 'styles/mixins/utilities';
 import ResponsiveTwoColumnContainer from 'components/ResponsiveTwoColumnContainer';
 import DiscussionComments from 'components/common/DiscussionsBoard/DiscussionComments';
 import MissionDetailList from 'components/common/MissionDetailList';
@@ -17,7 +17,7 @@ import MissionImageDetailList from 'components/common/MissionImageDetailList';
 import ObservationsForm from 'components/ObservationsForm';
 import ObserverInfo from 'components/ObserverInfo';
 import ObservationInformation from './partials/ObservationInformation';
-import { darkGray, gray } from 'styles/variables/colors';
+import { astronaut, shadows } from 'styles/variables/colors_tiles_v4';
 import { primaryFont, secondaryFont } from 'styles/variables/fonts';
 
 const {
@@ -153,7 +153,7 @@ const BootstrappedImageDetails = ({
 
       .root {
         font-family: ${primaryFont};
-        color: ${darkGray};
+        color: ${astronaut};
         max-width: 940px;
         margin: 0 auto;
       }
@@ -161,9 +161,7 @@ const BootstrappedImageDetails = ({
 
       .component-container {
         margin: 25px;
-        -moz-box-shadow: 0 2px 4px 1px ${gray};
-        -webkit-box-shadow: 0 2px 4px 1px ${gray};
-        box-shadow: 0 2px 4px 1px ${gray};
+        ${dropShadowContainer}
       }
 
       .is-hidden {

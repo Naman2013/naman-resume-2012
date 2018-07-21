@@ -12,7 +12,8 @@ import { prepareThread } from '../../../services/discussions/prepare-thread';
 import deletePostImage from '../../../services/post-creation/delete-post-image';
 import setPostImages from '../../../modules/set-post-images';
 import { black, darkBlueGray, white } from '../../../styles/variables/colors';
-import { dropShadowedContainer } from '../styles';
+import { dropShadowContainer } from 'styles/mixins/utilities';
+
 
 const {
   bool,
@@ -213,7 +214,7 @@ class ActivityForm extends Component {
         <style jsx>{`
           .form-container {
             background-color: ${white};
-            ${dropShadowedContainer}
+            ${dropShadowContainer}
           }
           .flex-right {
             display: flex;

@@ -12,7 +12,7 @@ import { likeThread } from '../../../services/discussions/like';
 import Heart from '../../common/heart/heart';
 import CommentList from './comment-list';
 import PulsePostThumbnails from '../../../components/pulse/pulse-post-image-thumbnails';
-import { dropShadowedContainer, profPic } from '../styles';
+import { dropShadowContainer } from 'styles/mixins/utilities';
 import {
   darkBlueGray,
   white,
@@ -98,7 +98,7 @@ const ActivityListItem = ({
     </div>
     <style jsx>{`
       .activity-item {
-        ${dropShadowedContainer}
+        ${dropShadowContainer}
       }
 
       .activity-info {

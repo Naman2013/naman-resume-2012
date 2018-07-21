@@ -7,7 +7,7 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { darkGray, gray } from 'styles/variables/colors';
+import { astronaut, shadows } from 'styles/variables/colors_tiles_v4';
 import { likeImage } from 'services/my-pictures/like-image';
 import Modal from 'react-modal';
 import { primaryFont, secondaryFont } from 'styles/variables/fonts';
@@ -165,21 +165,21 @@ class BootstrappedImageDetails extends Component {
 
         .root {
           font-family: ${primaryFont};
-          color: ${darkGray};
+          color: ${astronaut};
         }
 
         .component-container {
           margin: 25px;
-          -moz-box-shadow: 0 2px 4px 3px ${gray};
-          -webkit-box-shadow: 0 2px 4px 3px ${gray};
-          box-shadow: 0 2px 4px 3px ${gray};
+          -moz-box-shadow: 0 2px 4px 1px ${shadows};
+          -webkit-box-shadow: 0 2px 4px 1px ${shadows};
+          box-shadow: 0 2px 4px 1px ${shadows};
           padding: 25px;
         }
         .obs-title {
           font-family: ${secondaryFont};
           font-size: 24px;
           padding: 15px 0;
-          border-bottom: 1px solid ${darkGray};
+          border-bottom: 1px solid ${astronaut};
         }
         .obs-name-and-time {
           display: flex;

@@ -16,9 +16,10 @@ import {
   lightGray,
 } from 'styles/variables/colors';
 import { primaryFont, secondaryFont } from 'styles/variables/fonts';
-import { customModalStyles } from 'styles/mixins/utilities';
+import { customModalStyles, dropShadowContainer } from 'styles/mixins/utilities';
 import LikeButton from 'components/common/style/LikeButton';
-import { profPic, dropShadowedContainer } from './styles';
+import { profPic } from './styles';
+
 
 const {
   any,
@@ -172,7 +173,7 @@ class CommentRepliesListItem extends Component {
         </Modal>
         <style jsx>{`
           .comment-item {
-            ${dropShadowedContainer};
+            ${dropShadowContainer};
             margin: 25px;
             padding: 25px;
             font-family: ${primaryFont};

@@ -11,18 +11,16 @@ import moment from 'moment';
 import Modal from 'react-modal';
 import { likeReply } from 'services/discussions/like';
 import {
-  black,
-  darkGray,
-  lightGray,
-} from 'styles/variables/colors';
+  midnight_express,
+  astronaut,
+  geyser,
+} from 'styles/variables/colors_tiles_v4';
 import { primaryFont, secondaryFont } from 'styles/variables/fonts';
 import LikeButton from 'components/common/style/LikeButton';
-import Button from 'components/common/style/Button';
 import CommentButton from 'components/common/style/CommentButton';
-import { customModalStyles } from 'styles/mixins/utilities';
-import { profPic, dropShadowedContainer } from './styles';
+import { customModalStyles, dropShadowContainer } from 'styles/mixins/utilities';
+import { profPic } from './styles';
 import CommentRepliesList from './CommentRepliesList';
-import Form from './ReplyForm';
 
 
 const {
@@ -221,11 +219,11 @@ class CommentListItem extends Component {
         </Modal>
         <style jsx>{`
           .comment-item {
-            ${dropShadowedContainer};
+            ${dropShadowContainer};
             margin: 25px;
             padding: 25px;
             font-family: ${primaryFont};
-            color: ${darkGray};
+            color: ${astronaut};
           }
 
           .user-info, .user-info-container {
@@ -241,7 +239,7 @@ class CommentListItem extends Component {
             width: 100%;
             justify-content: space-between;
             padding-bottom: 15px;
-            border-bottom: 1px solid ${lightGray};
+            border-bottom: 1px solid ${geyser};
           }
           .display-name {
             margin-left: 10px;
@@ -250,7 +248,7 @@ class CommentListItem extends Component {
           .content {
             font-family: ${secondaryFont};
             font-size: 19px;
-            color: ${darkGray};
+            color: ${astronaut};
             padding: 25px 0;
           }
 

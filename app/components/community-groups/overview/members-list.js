@@ -11,9 +11,10 @@ import { Link } from 'react-router';
 import take from 'lodash/take';
 import {
   fullWidthBtn,
-  dropShadowedContainer,
   profPic,
 } from '../styles';
+import { dropShadowContainer } from 'styles/mixins/utilities';
+
 
 const {
   arrayOf,
@@ -87,7 +88,7 @@ class GroupMemberList extends Component {
             padding: 15px;
           }
           .members-container {
-            ${dropShadowedContainer}
+            ${dropShadowContainer}
           }
 
           .img-container {

@@ -7,7 +7,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { profPic } from './styles';
-import { darkBlueGray, white, darkGray, gray } from 'styles/variables/colors';
+import { romance, astronaut, shadows } from 'styles/variables/colors_tiles_v4';
+import { dropShadowContainer } from 'styles/mixins/utilities';
 
 const {
   arrayOf,
@@ -137,9 +138,7 @@ class ReplyForm extends Component {
         <style jsx>{`
           .reply-form-container {
             margin: 25px;
-            -moz-box-shadow: 0 2px 4px 1px ${gray};
-            -webkit-box-shadow: 0 2px 4px 1px ${gray};
-            box-shadow: 0 2px 4px 1px ${gray};
+            ${dropShadowContainer}
           }
 
           .reply-form {
@@ -165,9 +164,9 @@ class ReplyForm extends Component {
           .comment-title-avatar-container {
             flex: 1;
             padding: 25px;
-            border-top: 1px solid ${gray};
-            border-bottom: 1px solid ${gray};
-            border-left: 1px solid ${gray};
+            border-top: 1px solid ${shadows};
+            border-bottom: 1px solid ${shadows};
+            border-left: 1px solid ${shadows};
           }
           .comment-title-text {
             display: flex;
@@ -177,11 +176,11 @@ class ReplyForm extends Component {
             font-size: 12px;
             text-transform: uppercase;
             padding: 25px;
-            border-top: 1px solid ${gray};
-            border-bottom: 1px solid ${gray};
-            border-left: 1px solid ${gray};
-            border-top: 1px solid ${gray};
-            border-right: 1px solid ${gray};
+            border-top: 1px solid ${shadows};
+            border-bottom: 1px solid ${shadows};
+            border-left: 1px solid ${shadows};
+            border-top: 1px solid ${shadows};
+            border-right: 1px solid ${shadows};
           }
 
           .reply-input-container {
@@ -193,11 +192,9 @@ class ReplyForm extends Component {
             display: block;
             width: 100%;
             padding: 15px;
-            background-color: ${gray};
-            -moz-box-shadow: 0 2px 4px 1px ${gray};
-            -webkit-box-shadow: 0 2px 4px 1px ${gray};
-            box-shadow: 0 2px 4px 1px ${gray};
-            border: 1px solid ${gray};
+            background-color: ${shadows};
+            ${dropShadowContainer}
+            border: 1px solid ${shadows};
             outline: none;
             -webkit-box-sizing: border-box;
             -moz-box-sizing: border-box;
@@ -205,10 +202,10 @@ class ReplyForm extends Component {
           }
           .reply-button {
             display: block;
-            border: 1px dotted ${darkGray};
+            border: 1px dotted ${astronaut};
             border-radius: 100px;
-            background-color: ${white};
-            color: ${darkGray};
+            background-color: ${romance};
+            color: ${astronaut};
             width: 110px;
             margin: 15px 0;
             font-size: 11px;
