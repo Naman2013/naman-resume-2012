@@ -25,9 +25,15 @@ class ContextMenu extends Component {
       <div className="root">
         <VanillaButton
           handleClick={this.toggle}
-          theme={{ width: '100px', height: '100px', backgroundColor: (isOpen) ? 'white' : thatBlue }}
+          theme={{
+            width: '100px',
+            height: '100px',
+            backgroundColor: (isOpen) ? 'white' : thatBlue,
+          }}
         >
-          {(isOpen) ? <Close theme={{ fillColor: astronaut }} /> : <Dots />}
+          {(isOpen)
+            ? <Close theme={{ fillColor: astronaut }} />
+            : <div className="dots-container"><Dots /></div>}
         </VanillaButton>
 
         <div

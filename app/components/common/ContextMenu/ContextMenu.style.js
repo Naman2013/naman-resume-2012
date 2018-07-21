@@ -1,6 +1,6 @@
 import css from 'styled-jsx/css';
 import { primaryFont } from 'styles/variables/fonts';
-import { faintGray, astronaut } from 'styles/variables/colors_tiles_v4';
+import { faintGray, astronaut, lightHeadedAstronaut } from 'styles/variables/colors_tiles_v4';
 
 export const CONTAINER_WIDTH = 440;
 
@@ -8,6 +8,17 @@ export default css`
   .root {
     width: 100px;
     overflow: hidden;
+  }
+
+  .dots-container {
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    border-radius: 50%;
+    width: 52px;
+    height: 52px;
+    background-color: ${lightHeadedAstronaut};
   }
 
   .menu-container {
