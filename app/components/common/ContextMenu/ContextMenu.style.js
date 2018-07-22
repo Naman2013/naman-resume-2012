@@ -11,15 +11,6 @@ export default css`
     overflow: hidden;
   }
 
-  .application-veil {
-    width: 100vw;
-    height: 100vh;
-    position: fixed;
-    top: 0;
-    left: 0;
-    background: rgba(100, 100, 100, 0.5);
-  }
-
   .dots-container {
     margin: 0 auto;
     display: flex;
@@ -35,7 +26,6 @@ export default css`
     position: absolute;
     padding: 0;
     margin: 0;
-    top: 98px;
     width: ${Math.abs(CONTAINER_WIDTH)}px;
     height: 100%;
     background-color: ${faintGray};

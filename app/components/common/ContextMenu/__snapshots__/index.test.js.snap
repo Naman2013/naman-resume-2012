@@ -6,6 +6,7 @@ ShallowWrapper {
   Symbol(enzyme.__root__): [Circular],
   Symbol(enzyme.__unrendered__): <ContextMenu
     isOpen={false}
+    menuTopAdjustment={98}
   />,
   Symbol(enzyme.__renderer__): Object {
     "batchedUpdates": [Function],
@@ -24,7 +25,7 @@ ShallowWrapper {
           isHidden={true}
         >
           <div
-            className="jsx-2256940138 application-veil"
+            className="jsx-1455065717 jsx-753840697 application-veil"
           />
         </Fade>,
         <VanillaButton
@@ -40,7 +41,7 @@ ShallowWrapper {
           }
         >
           <div
-            className="jsx-2256940138 dots-container"
+            className="jsx-1455065717 jsx-753840697 dots-container"
           >
             <Dots
               height={4}
@@ -54,7 +55,7 @@ ShallowWrapper {
           </div>
         </VanillaButton>,
         <div
-          className="jsx-2256940138 menu-container"
+          className="jsx-1455065717 jsx-753840697 menu-container"
           style={
             Object {
               "right": "-440px",
@@ -62,15 +63,15 @@ ShallowWrapper {
           }
         >
           <div
-            className="jsx-2256940138 header-container"
+            className="jsx-1455065717 jsx-753840697 header-container"
           >
             <h5
-              className="jsx-2256940138 context-header"
+              className="jsx-1455065717 jsx-753840697 context-header"
             >
               Sample title
             </h5>
             <p
-              className="jsx-2256940138 available-sections"
+              className="jsx-1455065717 jsx-753840697 available-sections"
             >
               ( 8 )
             </p>
@@ -80,19 +81,33 @@ ShallowWrapper {
         <JSXStyle
           css={
             Array [
-              ".root.jsx-2256940138{width:100px;overflow:hidden;}",
-              ".application-veil.jsx-2256940138{width:100vw;height:100vh;position:fixed;top:0;left:0;background:rgba(100,100,100,0.5);}",
-              ".dots-container.jsx-2256940138{margin:0 auto;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-box-pack:space-evenly;-webkit-justify-content:space-evenly;-ms-flex-pack:space-evenly;justify-content:space-evenly;border-radius:50%;width:52px;height:52px;background-color:#41566f;}",
-              ".menu-container.jsx-2256940138{position:absolute;padding:0;margin:0;top:98px;width:440px;height:100%;background-color:#f8f8f8;-webkit-transition:right ease-out 0.15s;transition:right ease-out 0.15s;}",
-              ".header-container.jsx-2256940138{box-shadow: 8px 5px 20px -5px rgba(88, 88, 88, 0.5); margin:0;padding:40px;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;color:#415671;background-color:white;}",
-              ".context-header.jsx-2256940138{margin:0;padding:0;font-family:brandon-grotesque, sans-serif;font-size:12px;text-transform:uppercase;-webkit-letter-spacing:1.5px;-moz-letter-spacing:1.5px;-ms-letter-spacing:1.5px;letter-spacing:1.5px;font-weight:800;}",
-              ".available-sections.jsx-2256940138{margin:0;padding:0;font-family:brandon-grotesque, sans-serif;font-size:12px;}",
+              ".root.jsx-1455065717{width:100px;overflow:hidden;}",
+              ".dots-container.jsx-1455065717{margin:0 auto;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-box-pack:space-evenly;-webkit-justify-content:space-evenly;-ms-flex-pack:space-evenly;justify-content:space-evenly;border-radius:50%;width:52px;height:52px;background-color:#41566f;}",
+              ".menu-container.jsx-1455065717{position:absolute;padding:0;margin:0;width:440px;height:100%;background-color:#f8f8f8;-webkit-transition:right ease-out 0.15s;transition:right ease-out 0.15s;}",
+              ".header-container.jsx-1455065717{box-shadow: 8px 5px 20px -5px rgba(88, 88, 88, 0.5); margin:0;padding:40px;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;color:#415671;background-color:white;}",
+              ".context-header.jsx-1455065717{margin:0;padding:0;font-family:brandon-grotesque, sans-serif;font-size:12px;text-transform:uppercase;-webkit-letter-spacing:1.5px;-moz-letter-spacing:1.5px;-ms-letter-spacing:1.5px;letter-spacing:1.5px;font-weight:800;}",
+              ".available-sections.jsx-1455065717{margin:0;padding:0;font-family:brandon-grotesque, sans-serif;font-size:12px;}",
             ]
           }
-          styleId="2256940138"
+          styleId="1455065717"
+        />,
+        <JSXStyle
+          css={
+            Array [
+              ".menu-container.__jsx-style-dynamic-selector{top:98px;}",
+              ".application-veil.__jsx-style-dynamic-selector{width:100vw;height:100%;position:absolute;top:98px;left:0;background-color:rgba(0,0,0,0.5);}",
+            ]
+          }
+          dynamic={
+            Array [
+              98,
+              98,
+            ]
+          }
+          styleId="676685133"
         />,
       ],
-      "className": "jsx-2256940138 root",
+      "className": "jsx-1455065717 jsx-753840697 root",
     },
     "ref": null,
     "rendered": Array [
@@ -102,7 +117,7 @@ ShallowWrapper {
         "nodeType": "function",
         "props": Object {
           "children": <div
-            className="jsx-2256940138 application-veil"
+            className="jsx-1455065717 jsx-753840697 application-veil"
           />,
           "isHidden": true,
         },
@@ -112,7 +127,7 @@ ShallowWrapper {
           "key": undefined,
           "nodeType": "host",
           "props": Object {
-            "className": "jsx-2256940138 application-veil",
+            "className": "jsx-1455065717 jsx-753840697 application-veil",
           },
           "ref": null,
           "rendered": null,
@@ -126,7 +141,7 @@ ShallowWrapper {
         "nodeType": "function",
         "props": Object {
           "children": <div
-            className="jsx-2256940138 dots-container"
+            className="jsx-1455065717 jsx-753840697 dots-container"
           >
             <Dots
               height={4}
@@ -162,7 +177,7 @@ ShallowWrapper {
               }
               width={18}
             />,
-            "className": "jsx-2256940138 dots-container",
+            "className": "jsx-1455065717 jsx-753840697 dots-container",
           },
           "ref": null,
           "rendered": Object {
@@ -191,22 +206,22 @@ ShallowWrapper {
         "props": Object {
           "children": Array [
             <div
-              className="jsx-2256940138 header-container"
+              className="jsx-1455065717 jsx-753840697 header-container"
             >
               <h5
-                className="jsx-2256940138 context-header"
+                className="jsx-1455065717 jsx-753840697 context-header"
               >
                 Sample title
               </h5>
               <p
-                className="jsx-2256940138 available-sections"
+                className="jsx-1455065717 jsx-753840697 available-sections"
               >
                 ( 8 )
               </p>
             </div>,
             <Menu />,
           ],
-          "className": "jsx-2256940138 menu-container",
+          "className": "jsx-1455065717 jsx-753840697 menu-container",
           "style": Object {
             "right": "-440px",
           },
@@ -220,17 +235,17 @@ ShallowWrapper {
             "props": Object {
               "children": Array [
                 <h5
-                  className="jsx-2256940138 context-header"
+                  className="jsx-1455065717 jsx-753840697 context-header"
                 >
                   Sample title
                 </h5>,
                 <p
-                  className="jsx-2256940138 available-sections"
+                  className="jsx-1455065717 jsx-753840697 available-sections"
                 >
                   ( 8 )
                 </p>,
               ],
-              "className": "jsx-2256940138 header-container",
+              "className": "jsx-1455065717 jsx-753840697 header-container",
             },
             "ref": null,
             "rendered": Array [
@@ -240,7 +255,7 @@ ShallowWrapper {
                 "nodeType": "host",
                 "props": Object {
                   "children": "Sample title",
-                  "className": "jsx-2256940138 context-header",
+                  "className": "jsx-1455065717 jsx-753840697 context-header",
                 },
                 "ref": null,
                 "rendered": "Sample title",
@@ -252,7 +267,7 @@ ShallowWrapper {
                 "nodeType": "host",
                 "props": Object {
                   "children": "( 8 )",
-                  "className": "jsx-2256940138 available-sections",
+                  "className": "jsx-1455065717 jsx-753840697 available-sections",
                 },
                 "ref": null,
                 "rendered": "( 8 )",
@@ -279,15 +294,33 @@ ShallowWrapper {
         "nodeType": "class",
         "props": Object {
           "css": Array [
-            ".root.jsx-2256940138{width:100px;overflow:hidden;}",
-            ".application-veil.jsx-2256940138{width:100vw;height:100vh;position:fixed;top:0;left:0;background:rgba(100,100,100,0.5);}",
-            ".dots-container.jsx-2256940138{margin:0 auto;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-box-pack:space-evenly;-webkit-justify-content:space-evenly;-ms-flex-pack:space-evenly;justify-content:space-evenly;border-radius:50%;width:52px;height:52px;background-color:#41566f;}",
-            ".menu-container.jsx-2256940138{position:absolute;padding:0;margin:0;top:98px;width:440px;height:100%;background-color:#f8f8f8;-webkit-transition:right ease-out 0.15s;transition:right ease-out 0.15s;}",
-            ".header-container.jsx-2256940138{box-shadow: 8px 5px 20px -5px rgba(88, 88, 88, 0.5); margin:0;padding:40px;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;color:#415671;background-color:white;}",
-            ".context-header.jsx-2256940138{margin:0;padding:0;font-family:brandon-grotesque, sans-serif;font-size:12px;text-transform:uppercase;-webkit-letter-spacing:1.5px;-moz-letter-spacing:1.5px;-ms-letter-spacing:1.5px;letter-spacing:1.5px;font-weight:800;}",
-            ".available-sections.jsx-2256940138{margin:0;padding:0;font-family:brandon-grotesque, sans-serif;font-size:12px;}",
+            ".root.jsx-1455065717{width:100px;overflow:hidden;}",
+            ".dots-container.jsx-1455065717{margin:0 auto;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-box-pack:space-evenly;-webkit-justify-content:space-evenly;-ms-flex-pack:space-evenly;justify-content:space-evenly;border-radius:50%;width:52px;height:52px;background-color:#41566f;}",
+            ".menu-container.jsx-1455065717{position:absolute;padding:0;margin:0;width:440px;height:100%;background-color:#f8f8f8;-webkit-transition:right ease-out 0.15s;transition:right ease-out 0.15s;}",
+            ".header-container.jsx-1455065717{box-shadow: 8px 5px 20px -5px rgba(88, 88, 88, 0.5); margin:0;padding:40px;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;color:#415671;background-color:white;}",
+            ".context-header.jsx-1455065717{margin:0;padding:0;font-family:brandon-grotesque, sans-serif;font-size:12px;text-transform:uppercase;-webkit-letter-spacing:1.5px;-moz-letter-spacing:1.5px;-ms-letter-spacing:1.5px;letter-spacing:1.5px;font-weight:800;}",
+            ".available-sections.jsx-1455065717{margin:0;padding:0;font-family:brandon-grotesque, sans-serif;font-size:12px;}",
           ],
-          "styleId": "2256940138",
+          "styleId": "1455065717",
+        },
+        "ref": null,
+        "rendered": null,
+        "type": [Function],
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
+          "css": Array [
+            ".menu-container.__jsx-style-dynamic-selector{top:98px;}",
+            ".application-veil.__jsx-style-dynamic-selector{width:100vw;height:100%;position:absolute;top:98px;left:0;background-color:rgba(0,0,0,0.5);}",
+          ],
+          "dynamic": Array [
+            98,
+            98,
+          ],
+          "styleId": "676685133",
         },
         "ref": null,
         "rendered": null,
@@ -307,7 +340,7 @@ ShallowWrapper {
             isHidden={true}
           >
             <div
-              className="jsx-2256940138 application-veil"
+              className="jsx-1455065717 jsx-753840697 application-veil"
             />
           </Fade>,
           <VanillaButton
@@ -323,7 +356,7 @@ ShallowWrapper {
             }
           >
             <div
-              className="jsx-2256940138 dots-container"
+              className="jsx-1455065717 jsx-753840697 dots-container"
             >
               <Dots
                 height={4}
@@ -337,7 +370,7 @@ ShallowWrapper {
             </div>
           </VanillaButton>,
           <div
-            className="jsx-2256940138 menu-container"
+            className="jsx-1455065717 jsx-753840697 menu-container"
             style={
               Object {
                 "right": "-440px",
@@ -345,15 +378,15 @@ ShallowWrapper {
             }
           >
             <div
-              className="jsx-2256940138 header-container"
+              className="jsx-1455065717 jsx-753840697 header-container"
             >
               <h5
-                className="jsx-2256940138 context-header"
+                className="jsx-1455065717 jsx-753840697 context-header"
               >
                 Sample title
               </h5>
               <p
-                className="jsx-2256940138 available-sections"
+                className="jsx-1455065717 jsx-753840697 available-sections"
               >
                 ( 8 )
               </p>
@@ -363,19 +396,33 @@ ShallowWrapper {
           <JSXStyle
             css={
               Array [
-                ".root.jsx-2256940138{width:100px;overflow:hidden;}",
-                ".application-veil.jsx-2256940138{width:100vw;height:100vh;position:fixed;top:0;left:0;background:rgba(100,100,100,0.5);}",
-                ".dots-container.jsx-2256940138{margin:0 auto;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-box-pack:space-evenly;-webkit-justify-content:space-evenly;-ms-flex-pack:space-evenly;justify-content:space-evenly;border-radius:50%;width:52px;height:52px;background-color:#41566f;}",
-                ".menu-container.jsx-2256940138{position:absolute;padding:0;margin:0;top:98px;width:440px;height:100%;background-color:#f8f8f8;-webkit-transition:right ease-out 0.15s;transition:right ease-out 0.15s;}",
-                ".header-container.jsx-2256940138{box-shadow: 8px 5px 20px -5px rgba(88, 88, 88, 0.5); margin:0;padding:40px;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;color:#415671;background-color:white;}",
-                ".context-header.jsx-2256940138{margin:0;padding:0;font-family:brandon-grotesque, sans-serif;font-size:12px;text-transform:uppercase;-webkit-letter-spacing:1.5px;-moz-letter-spacing:1.5px;-ms-letter-spacing:1.5px;letter-spacing:1.5px;font-weight:800;}",
-                ".available-sections.jsx-2256940138{margin:0;padding:0;font-family:brandon-grotesque, sans-serif;font-size:12px;}",
+                ".root.jsx-1455065717{width:100px;overflow:hidden;}",
+                ".dots-container.jsx-1455065717{margin:0 auto;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-box-pack:space-evenly;-webkit-justify-content:space-evenly;-ms-flex-pack:space-evenly;justify-content:space-evenly;border-radius:50%;width:52px;height:52px;background-color:#41566f;}",
+                ".menu-container.jsx-1455065717{position:absolute;padding:0;margin:0;width:440px;height:100%;background-color:#f8f8f8;-webkit-transition:right ease-out 0.15s;transition:right ease-out 0.15s;}",
+                ".header-container.jsx-1455065717{box-shadow: 8px 5px 20px -5px rgba(88, 88, 88, 0.5); margin:0;padding:40px;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;color:#415671;background-color:white;}",
+                ".context-header.jsx-1455065717{margin:0;padding:0;font-family:brandon-grotesque, sans-serif;font-size:12px;text-transform:uppercase;-webkit-letter-spacing:1.5px;-moz-letter-spacing:1.5px;-ms-letter-spacing:1.5px;letter-spacing:1.5px;font-weight:800;}",
+                ".available-sections.jsx-1455065717{margin:0;padding:0;font-family:brandon-grotesque, sans-serif;font-size:12px;}",
               ]
             }
-            styleId="2256940138"
+            styleId="1455065717"
+          />,
+          <JSXStyle
+            css={
+              Array [
+                ".menu-container.__jsx-style-dynamic-selector{top:98px;}",
+                ".application-veil.__jsx-style-dynamic-selector{width:100vw;height:100%;position:absolute;top:98px;left:0;background-color:rgba(0,0,0,0.5);}",
+              ]
+            }
+            dynamic={
+              Array [
+                98,
+                98,
+              ]
+            }
+            styleId="676685133"
           />,
         ],
-        "className": "jsx-2256940138 root",
+        "className": "jsx-1455065717 jsx-753840697 root",
       },
       "ref": null,
       "rendered": Array [
@@ -385,7 +432,7 @@ ShallowWrapper {
           "nodeType": "function",
           "props": Object {
             "children": <div
-              className="jsx-2256940138 application-veil"
+              className="jsx-1455065717 jsx-753840697 application-veil"
             />,
             "isHidden": true,
           },
@@ -395,7 +442,7 @@ ShallowWrapper {
             "key": undefined,
             "nodeType": "host",
             "props": Object {
-              "className": "jsx-2256940138 application-veil",
+              "className": "jsx-1455065717 jsx-753840697 application-veil",
             },
             "ref": null,
             "rendered": null,
@@ -409,7 +456,7 @@ ShallowWrapper {
           "nodeType": "function",
           "props": Object {
             "children": <div
-              className="jsx-2256940138 dots-container"
+              className="jsx-1455065717 jsx-753840697 dots-container"
             >
               <Dots
                 height={4}
@@ -445,7 +492,7 @@ ShallowWrapper {
                 }
                 width={18}
               />,
-              "className": "jsx-2256940138 dots-container",
+              "className": "jsx-1455065717 jsx-753840697 dots-container",
             },
             "ref": null,
             "rendered": Object {
@@ -474,22 +521,22 @@ ShallowWrapper {
           "props": Object {
             "children": Array [
               <div
-                className="jsx-2256940138 header-container"
+                className="jsx-1455065717 jsx-753840697 header-container"
               >
                 <h5
-                  className="jsx-2256940138 context-header"
+                  className="jsx-1455065717 jsx-753840697 context-header"
                 >
                   Sample title
                 </h5>
                 <p
-                  className="jsx-2256940138 available-sections"
+                  className="jsx-1455065717 jsx-753840697 available-sections"
                 >
                   ( 8 )
                 </p>
               </div>,
               <Menu />,
             ],
-            "className": "jsx-2256940138 menu-container",
+            "className": "jsx-1455065717 jsx-753840697 menu-container",
             "style": Object {
               "right": "-440px",
             },
@@ -503,17 +550,17 @@ ShallowWrapper {
               "props": Object {
                 "children": Array [
                   <h5
-                    className="jsx-2256940138 context-header"
+                    className="jsx-1455065717 jsx-753840697 context-header"
                   >
                     Sample title
                   </h5>,
                   <p
-                    className="jsx-2256940138 available-sections"
+                    className="jsx-1455065717 jsx-753840697 available-sections"
                   >
                     ( 8 )
                   </p>,
                 ],
-                "className": "jsx-2256940138 header-container",
+                "className": "jsx-1455065717 jsx-753840697 header-container",
               },
               "ref": null,
               "rendered": Array [
@@ -523,7 +570,7 @@ ShallowWrapper {
                   "nodeType": "host",
                   "props": Object {
                     "children": "Sample title",
-                    "className": "jsx-2256940138 context-header",
+                    "className": "jsx-1455065717 jsx-753840697 context-header",
                   },
                   "ref": null,
                   "rendered": "Sample title",
@@ -535,7 +582,7 @@ ShallowWrapper {
                   "nodeType": "host",
                   "props": Object {
                     "children": "( 8 )",
-                    "className": "jsx-2256940138 available-sections",
+                    "className": "jsx-1455065717 jsx-753840697 available-sections",
                   },
                   "ref": null,
                   "rendered": "( 8 )",
@@ -562,15 +609,33 @@ ShallowWrapper {
           "nodeType": "class",
           "props": Object {
             "css": Array [
-              ".root.jsx-2256940138{width:100px;overflow:hidden;}",
-              ".application-veil.jsx-2256940138{width:100vw;height:100vh;position:fixed;top:0;left:0;background:rgba(100,100,100,0.5);}",
-              ".dots-container.jsx-2256940138{margin:0 auto;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-box-pack:space-evenly;-webkit-justify-content:space-evenly;-ms-flex-pack:space-evenly;justify-content:space-evenly;border-radius:50%;width:52px;height:52px;background-color:#41566f;}",
-              ".menu-container.jsx-2256940138{position:absolute;padding:0;margin:0;top:98px;width:440px;height:100%;background-color:#f8f8f8;-webkit-transition:right ease-out 0.15s;transition:right ease-out 0.15s;}",
-              ".header-container.jsx-2256940138{box-shadow: 8px 5px 20px -5px rgba(88, 88, 88, 0.5); margin:0;padding:40px;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;color:#415671;background-color:white;}",
-              ".context-header.jsx-2256940138{margin:0;padding:0;font-family:brandon-grotesque, sans-serif;font-size:12px;text-transform:uppercase;-webkit-letter-spacing:1.5px;-moz-letter-spacing:1.5px;-ms-letter-spacing:1.5px;letter-spacing:1.5px;font-weight:800;}",
-              ".available-sections.jsx-2256940138{margin:0;padding:0;font-family:brandon-grotesque, sans-serif;font-size:12px;}",
+              ".root.jsx-1455065717{width:100px;overflow:hidden;}",
+              ".dots-container.jsx-1455065717{margin:0 auto;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-box-pack:space-evenly;-webkit-justify-content:space-evenly;-ms-flex-pack:space-evenly;justify-content:space-evenly;border-radius:50%;width:52px;height:52px;background-color:#41566f;}",
+              ".menu-container.jsx-1455065717{position:absolute;padding:0;margin:0;width:440px;height:100%;background-color:#f8f8f8;-webkit-transition:right ease-out 0.15s;transition:right ease-out 0.15s;}",
+              ".header-container.jsx-1455065717{box-shadow: 8px 5px 20px -5px rgba(88, 88, 88, 0.5); margin:0;padding:40px;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;color:#415671;background-color:white;}",
+              ".context-header.jsx-1455065717{margin:0;padding:0;font-family:brandon-grotesque, sans-serif;font-size:12px;text-transform:uppercase;-webkit-letter-spacing:1.5px;-moz-letter-spacing:1.5px;-ms-letter-spacing:1.5px;letter-spacing:1.5px;font-weight:800;}",
+              ".available-sections.jsx-1455065717{margin:0;padding:0;font-family:brandon-grotesque, sans-serif;font-size:12px;}",
             ],
-            "styleId": "2256940138",
+            "styleId": "1455065717",
+          },
+          "ref": null,
+          "rendered": null,
+          "type": [Function],
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "css": Array [
+              ".menu-container.__jsx-style-dynamic-selector{top:98px;}",
+              ".application-veil.__jsx-style-dynamic-selector{width:100vw;height:100%;position:absolute;top:98px;left:0;background-color:rgba(0,0,0,0.5);}",
+            ],
+            "dynamic": Array [
+              98,
+              98,
+            ],
+            "styleId": "676685133",
           },
           "ref": null,
           "rendered": null,
