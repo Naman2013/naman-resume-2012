@@ -44,6 +44,7 @@ import ObjectDetailsStories from './containers/object-details/ObjectDetailsStori
 import ObjectDetailsShows from './containers/object-details/ObjectDetailsShows';
 import Guides from './containers/guides';
 import SubjectGuides from './containers/guides/SubjectGuides';
+import TopicGuides from './containers/guides/TopicGuides';
 
 // pages
 import TelescopeOverview from './pages/telescope-overview';
@@ -483,6 +484,7 @@ ReactDOM.render(
 
         <Route path="guides" component={Guides} />
         <Route path="guides/subject" component={SubjectGuides} />
+        <Route path="guides/topic" component={TopicGuides} />
 
         <Route path="object-details/:objectId" component={ObjectDetails} onEnter={validateUser}>
           <IndexRedirect to="overview" />

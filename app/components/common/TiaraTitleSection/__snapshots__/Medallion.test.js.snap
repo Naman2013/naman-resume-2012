@@ -6,6 +6,7 @@ ShallowWrapper {
   Symbol(enzyme.__root__): [Circular],
   Symbol(enzyme.__unrendered__): <Medallion
     dimension={50}
+    iconURL=""
     theme={Object {}}
   />,
   Symbol(enzyme.__renderer__): Object {
@@ -25,7 +26,7 @@ ShallowWrapper {
           alt=""
           className="jsx-1285550702"
           height={25}
-          src={undefined}
+          src=""
           width={25}
         />,
         <JSXStyle
@@ -59,7 +60,7 @@ ShallowWrapper {
           "alt": "",
           "className": "jsx-1285550702",
           "height": 25,
-          "src": undefined,
+          "src": "",
           "width": 25,
         },
         "ref": null,
@@ -101,7 +102,7 @@ ShallowWrapper {
             alt=""
             className="jsx-1285550702"
             height={25}
-            src={undefined}
+            src=""
             width={25}
           />,
           <JSXStyle
@@ -135,7 +136,7 @@ ShallowWrapper {
             "alt": "",
             "className": "jsx-1285550702",
             "height": 25,
-            "src": undefined,
+            "src": "",
             "width": 25,
           },
           "ref": null,
