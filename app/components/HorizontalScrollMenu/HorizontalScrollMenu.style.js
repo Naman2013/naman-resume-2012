@@ -6,18 +6,30 @@ import { resetMarginPadding } from 'styles/variables/utils';
 export default css`
   ul {
     ${resetMarginPadding}
-    padding: 0 35px;
+    padding: 0 30px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     list-style-type: none;
     background: linear-gradient(to bottom, #0b121b 0%,#263344 74%);
     overflow: hidden;
+    overflow-x: scroll;
+  }
+
+  ul::-webkit-scrollbar {
+    width: 0px;
+  }
+
+  ul::-webkit-scrollbar-track-piece {
+    background-color: transparent;
+    border-radius: 6px;
   }
 
   a {
     ${resetMarginPadding}
-    padding: 29px 0;
+    padding: 30px 0;
+    padding-bottom: 20px;
+    margin-right: 60px;
     display: inline-block;
     text-align: center;
     text-decoration: none;
@@ -27,6 +39,6 @@ export default css`
     font-size: 11px;
     font-weight: 800;
     letter-spacing: 1.4px;
-    min-width: 150px;
+    white-space: nowrap;
   }
 `;
