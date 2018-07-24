@@ -12,7 +12,7 @@ export default css`
     background: url(${white_tile});
     background-size: 22px;
     box-shadow: 0px 0px 3px 1px rgba(0,0,0,0.2);
-    margin: 3px;
+    margin: 3px auto;
     color: ${astronaut};
     font-family: ${secondaryFont};
     transition: width 0.4s ease-in-out, height 0.4s ease-in-out;

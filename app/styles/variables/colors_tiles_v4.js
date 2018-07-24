@@ -9,6 +9,7 @@
 ///////////////
 export const midnight_express     = '#1a2636';
 export const astronaut            = '#415671';
+export const nightfall            = '#253446';
 export const lightHeadedAstronaut = '#41566f';
 export const lynch                = '#6e7b8c';
 export const hawkesBlue           = '#d9dee4';
