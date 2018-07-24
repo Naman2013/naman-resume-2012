@@ -31,6 +31,7 @@ export default css`
     padding-bottom: 20px;
     margin-right: 60px;
     display: inline-block;
+    position: relative;
     text-align: center;
     text-decoration: none;
     text-transform: uppercase;
