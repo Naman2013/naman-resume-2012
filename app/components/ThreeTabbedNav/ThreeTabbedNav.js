@@ -11,6 +11,7 @@ import classnames from 'classnames';
 import { dropShadowContainer } from 'styles/mixins/utilities';
 import { astronaut, geyser } from 'styles/variables/colors_tiles_v4';
 import { primaryFont, secondaryFont } from 'styles/variables/fonts';
+import styles from './ThreeTabbedNav.style';
 
 const {
   any,
@@ -24,7 +25,7 @@ const {
   string,
 } = PropTypes;
 
-class TwoTabbedNav extends Component {
+class ThreeTabbedNav extends Component {
   static propTypes = {
     firstTitle: string.isRequired,
     firstTabIsActive: bool,
@@ -32,11 +33,15 @@ class TwoTabbedNav extends Component {
     secondTitle: string.isRequired,
     secondTabIsActive: bool,
     secondTabOnClick: func.isRequired,
+    thirdTitle: string.isRequired,
+    thirdTabIsActive: bool,
+    thirdTabOnClick: func.isRequired,
   }
 
   static defaultProps = {
     firstTabIsActive: true,
     secondTabIsActive: false,
+    thirdTabIsActive: false,
   };
 
   state = {
@@ -50,6 +55,9 @@ class TwoTabbedNav extends Component {
       secondTitle,
       secondTabIsActive,
       secondTabOnClick,
+      thirdTitle,
+      thirdTabIsActive,
+      thirdTabOnClick,
     } = this.props;
     return (<div className="root component-container">
       <div className="split-nav-item-container" onClick={firstTabOnClick}>
@@ -65,43 +73,15 @@ class TwoTabbedNav extends Component {
           'is-hidden': !secondTabIsActive,
         })} />
       </div>
-      <style jsx>{`
-
-        .root {
-          align-items: center;
-          display: flex;
-          flex-direction: row;
-          font-size: 11px;
-          font-weight: bold;
-          justify-content: space-evenly;
-          padding: 0;
-          text-align: center;
-          text-transform: uppercase;
-          width: 100%;
-        }
-
-        .is-hidden {
-          visibility: hidden;
-        }
-
-        .split-nav-item {
-          margin: 0 5px;
-          margin-top: 15px;
-        }
-
-        .component-container {
-          margin: 0 25px;
-          ${dropShadowContainer}
-        }
-
-        .split-nav-item-container {
-          border: 1px solid ${geyser};
-          flex: 0 50%;
-        }
-
-      `}</style>
+      <div className="split-nav-item-container" onClick={thirdTabOnClick}>
+        <div className="split-nav-item" dangerouslySetInnerHTML={{ __html: thirdTitle }} />
+        <img src="https://vega.slooh.com/assets/v4/common/status_triangle_up.svg" className={classnames('arrow',{
+          'is-hidden': !thirdTabIsActive,
+        })} />
+      </div>
+      <style jsx>{styles}</style>
     </div>);
   }
 }
 
-export default TwoTabbedNav;
+export default ThreeTabbedNav;

@@ -7,11 +7,8 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import classnames from 'classnames';
-import { backgroundImageCover, dropShadowContainer } from 'styles/mixins/utilities';
-import TwoTabbedNav from 'components/TwoTabbedNav';
+import ThreeTabbedNav from 'components/ThreeTabbedNav';
 import ResponsiveTwoColumnContainer from 'components/ResponsiveTwoColumnContainer';
-import ObjectDetailList from 'components/common/ObjectDetailList';
 import HeaderContainer from './partials/HeaderContainer'
 import MainContainer from './partials/MainContainer';
 import AsideContainer from './partials/AsideContainer';
@@ -29,47 +26,100 @@ const {
   string,
 } = PropTypes;
 
-const BootstrappedShow = (props) => {
-  const {
-    isScreenMedium,
-    isScreenLarge,
-  } = props;
-console.log(props)
-  return (<div className="root">
-    <CenterColumn>
-      <HeaderContainer {...props} />
-      <div className="main-container">
-        <ResponsiveTwoColumnContainer
-          renderNavigationComponent={navProps =>
-            (<TwoTabbedNav
-              firstTitle="Observations"
-              secondTitle="Details"
-              firstTabIsActive={navProps.showMainContainer}
-              firstTabOnClick={navProps.onShowMainContainer}
-              secondTabIsActive={navProps.showAsideContainer}
-              secondTabOnClick={navProps.onShowAsideContainer}
-            />)
-          }
-          renderAsideContent={() => (<div {...props} />)}
-          isScreenLarge={isScreenLarge}
-          renderMainContent={() => <div {...props} />}
-        />
+class BootstrappedShow extends Component {
+  static propTypes = {
+    user: shape({
+      at: oneOfType([number, string]),
+      token: oneOfType([number, string]),
+      cid: oneOfType([number, string]),
+    }).isRequired,
+  };
+
+  static defaultProps = {
+
+  };
+
+  state = {
+    aboutIsActive: false,
+    commentsIsActive: false,
+    detailsIsActive: false,
+  }
+
+  showAbout = () => {
+    this.setState({
+      aboutIsActive: true,
+      commentsIsActive: false,
+      detailsIsActive: false,
+    });
+  }
+
+  showComments = () => {
+    this.setState({
+      aboutIsActive: false,
+      commentsIsActive: true,
+      detailsIsActive: false,
+    });
+  }
+
+  showDetails = () => {
+    this.setState({
+      aboutIsActive: false,
+      commentsIsActive: false,
+      detailsIsActive: true,
+    });
+  }
+
+  render() {
+    const {
+      isScreenMedium,
+      isScreenLarge,
+    } = this.props;
+
+    const {
+      aboutIsActive,
+      commentsIsActive,
+      detailsIsActive,
+    } = this.state;
+
+    return (
+      <div className="root">
+        <CenterColumn>
+          <HeaderContainer {...this.props} />
+          <div className="main-container">
+            <ResponsiveTwoColumnContainer
+              renderNavigationComponent={() =>
+                (<ThreeTabbedNav
+                  firstTitle="About"
+                  secondTitle="Comments"
+                  thirdTitle="Details"
+                  firstTabIsActive={aboutIsActive}
+                  firstTabOnClick={this.showAbout}
+                  secondTabIsActive={commentsIsActive}
+                  secondTabOnClick={this.showComments}
+                  thirdTabIsActive={detailsIsActive}
+                  thirdTabOnClick={this.showDetails}
+                />)
+              }
+              renderAsideContent={() => (<div
+                {...this.props}
+                aboutIsActive={aboutIsActive}
+                commentsIsActive={commentsIsActive}
+                detailsIsActive={detailsIsActive}
+              />)}
+              isScreenLarge={isScreenLarge}
+              renderMainContent={() => (<div
+                {...this.props}
+                aboutIsActive={aboutIsActive}
+                commentsIsActive={commentsIsActive}
+                detailsIsActive={detailsIsActive}
+              />)}
+            />
+          </div>
+        </CenterColumn>
+        <style jsx>{styles}</style>
       </div>
-    </CenterColumn>
-    <style jsx>{styles}</style>
-  </div>);
-};
-
-BootstrappedShow.propTypes = {
-  user: shape({
-    at: oneOfType([number, string]),
-    token: oneOfType([number, string]),
-    cid: oneOfType([number, string]),
-  }).isRequired,
-};
-
-BootstrappedShow.defaultProps = {
-
-};
+    );
+  }
+}
 
 export default BootstrappedShow;

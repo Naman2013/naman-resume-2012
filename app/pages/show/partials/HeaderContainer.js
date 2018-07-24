@@ -20,9 +20,9 @@ const HeaderContainer = ({
   showStreamURL,
   showStreamCode,
 }) => {
-  const height = '320';
-  const width = '340';
-  const videoContainerStyle = { width: `${width}px` };
+  // const height = '320';
+  const width = '100';
+  const videoContainerStyle = { width: `${width}%` };
   return (
     <div>
       {/*  Dropdown component + mute */}
@@ -30,13 +30,11 @@ const HeaderContainer = ({
         <VideoImageLoader
           teleStreamCode={showStreamCode}
           teleStreamURL={showStreamURL}
-          teleStreamThumbnailVideoWidth={height}
-          teleStreamThumbnailVideoHeight={width}
           showVideoControls={1}
           showInfo={1}
         />
       </div>
-      <MonotonousTile label={'Airing Now'} text={title} />
+      <MonotonousTile label="Airing Now" text={title} />
       <style jsx>{styles}</style>
     </div>
   );
