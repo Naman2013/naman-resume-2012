@@ -12,7 +12,6 @@ export default css`
     justify-content: space-between;
     list-style-type: none;
     background: linear-gradient(to bottom, #0b121b 0%,#263344 74%);
-    overflow: hidden;
     overflow-x: scroll;
   }
 
@@ -23,15 +22,19 @@ export default css`
   ul::-webkit-scrollbar-track-piece {
     background-color: transparent;
     border-radius: 6px;
+    display: none;
+  }
+
+  li {
+    position: relative;
   }
 
   a {
     ${resetMarginPadding}
     padding: 30px 0;
     padding-bottom: 20px;
-    margin-right: 60px;
+    min-width: 120px;
     display: inline-block;
-    position: relative;
     text-align: center;
     text-decoration: none;
     text-transform: uppercase;
@@ -41,5 +44,13 @@ export default css`
     font-weight: 800;
     letter-spacing: 1.4px;
     white-space: nowrap;
+  }
+
+  .triangle {
+    display: block;
+    position: absolute;
+    top: 52px;
+    left: 50%;
+    transform: translate(-50%);
   }
 `;
