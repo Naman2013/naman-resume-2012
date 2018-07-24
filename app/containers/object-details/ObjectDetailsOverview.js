@@ -14,6 +14,7 @@ import {
   fetchObjectSpecialistsAction 
 } from '../../modules/object-details/actions';
 import CenterColumn from 'components/common/CenterColumn';
+import style from './ObjectDetailsOverview.style';
 
 const mapStateToProps = ({ objectDetails, appConfig, user }) => ({
   objectData: objectDetails.objectData,
@@ -103,44 +104,7 @@ class Overview extends Component {
             </div>
           )}
         </div>
-        
-
-        <style jsx>{`
-          .contain {
-            margin: 5%;
-            padding: 25px;
-            background-color: #f2f2f2;
-          }
-          .contain ul {
-            float: right;
-            list-style: none;
-          }
-          h1 {
-            font-size: 30px;
-            font-weight: 600;
-            border-bottom: solid 2px;
-          }
-          .card-container__specialists {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-          }
-          .specialists-card {
-            font-size: 1em;
-            background-color: white;
-            padding: 25px;
-            margin: 25px 0;
-            min-width: 28%;
-          }
-          .specialists-icon {
-            background-color: #3C4A55;
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
-            padding: 10px;
-          }
-        `}</style>
-
+        <style jsx>{style}</style>
       </div>
     )
   }

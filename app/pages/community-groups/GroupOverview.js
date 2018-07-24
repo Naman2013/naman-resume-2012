@@ -8,26 +8,34 @@
 import React, { Component, cloneElement } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { browserHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
-
-import Header from '../../components/community-groups/overview/header';
-import ShortInformationOverview from '../../components/community-groups/overview/short-information-container';
-import FullInformationOverview from '../../components/community-groups/overview/full-information-container';
+import { DeviceContext } from 'providers/DeviceProvider';
+import Header from 'components/community-groups/overview/header';
+import FullInformationOverview from 'components/community-groups/overview/full-information-container';
 import {
   joinOrLeaveGroup,
-} from '../../modules/community-groups/actions';
+} from 'modules/community-groups/actions';
 import {
-  gray,
-  white,
-} from '../../styles/variables/colors';
+  astronaut,
+  romance,
+} from 'styles/variables/colors_tiles_v4';
+import {
+  SCREEN_SMALL,
+  SCREEN_MEDIUM,
+  SCREEN_LARGE,
+  screenMedium,
+  screenLarge,
+} from 'styles/variables/breakpoints'
 import {
   fetchGroupOverviewPageMeta,
   fetchGroupOverview,
-} from '../../modules/community-group-overview/actions';
+} from 'modules/community-group-overview/actions';
 
 const mapStateToProps = ({
   communityGroupOverview,
 }) => ({
+  communityGroupOverview,
   pageMeta: communityGroupOverview.pageMeta,
 });
 
@@ -81,24 +89,57 @@ class CommunityGroupOverview extends Component {
     })
   }
 
+  showInformation = (e) => {
+    const {
+      routeParams: { groupId },
+    } = this.props;
+    e.preventDefault();
+
+    browserHistory.push(`community-groups/${groupId}/info`)
+  }
+
   render() {
     const {
+      communityGroupOverview,
       pageMeta,
       routeParams: { groupId },
       actions,
     } = this.props;
     return (
-      <div className="group-overview">
+      <div className="root">
         <Header
+          showInformation={this.showInformation}
           joinOrLeaveGroup={this.joinLeaveGroup}
           discussionGroupId={groupId}
+          {...communityGroupOverview}
           {...pageMeta}
         />
-        {pageMeta.showGroupOverview && <ShortInformationOverview joinOrLeaveGroup={this.joinLeaveGroup} />}
-        {pageMeta.showGroupInformation && <FullInformationOverview joinOrLeaveGroup={this.joinLeaveGroup} />}
+        <DeviceContext.Consumer>
+          {context => (
+            <FullInformationOverview
+              joinOrLeaveGroup={this.joinLeaveGroup}
+              context={context}
+              discussionGroupId={groupId}
+            />
+          )}
+        </DeviceContext.Consumer>
         <style jsx>{`
-          .group-overview {
-            background-color: ${gray};
+          .root {
+            margin: 0 auto;
+            width: ${SCREEN_SMALL}px;
+            color: ${astronaut};
+            background-color: ${romance};
+          }
+          @media ${screenMedium} {
+            .root {
+              width: ${SCREEN_MEDIUM}px;
+            }
+          }
+          @media ${screenLarge} {
+            .root {
+              margin-top: 25px;
+              width: ${SCREEN_LARGE}px;
+            }
           }
         `}</style>
       </div>

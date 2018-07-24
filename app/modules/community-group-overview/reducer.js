@@ -9,8 +9,11 @@ import {
   FETCH_GROUP_MEMBERS_START,
   FETCH_GROUP_MEMBERS_SUCCESS,
   FETCH_GROUP_MEMBERS_FAIL,
+  SORT_AZ,
+  SORT_ZA,
+  SORT_RANK,
+  SORT_DATE,
 } from './actions';
-
 import { TOGGLE_JOIN_GROUP_SUCCESS } from '../community-groups/actions';
 
 const initialState = {
@@ -21,6 +24,7 @@ const initialState = {
   membersCount: 0,
   membersCallError: false,
   membersCallFetching: false,
+  membersSort: SORT_AZ,
 };
 
 export default createReducer(initialState, {
@@ -90,11 +94,12 @@ export default createReducer(initialState, {
     };
   },
   [FETCH_GROUP_MEMBERS_SUCCESS](state, { payload }) {
-    const { membersList, membersCount } = payload;
+    const { membersList, membersCount, sortBy } = payload;
     return {
       ...state,
       membersList,
       membersCount,
+      membersSort: sortBy,
       membersCallError: false,
       membersCallFetching: false,
     };

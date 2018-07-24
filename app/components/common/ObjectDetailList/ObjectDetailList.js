@@ -12,13 +12,14 @@ import BootstrappedObjectDetailList from './BootstrappedObjectDetailList';
 import { OBJECT_DETAIL_LIST } from 'services/objects';
 
 const {
+  bool,
   number,
   oneOfType,
   string,
 } = PropTypes;
 
 const ObjectDetailList = ({
-  device,
+  isDesktop,
   objectId,
   scheduledMissionId,
 }) => (
@@ -37,7 +38,7 @@ const ObjectDetailList = ({
     }) => (
       <div>
         {<BootstrappedObjectDetailList
-          device={device}
+          isDesktop={isDesktop}
           fetching={fetchingContent}
           objectId={objectId}
           scheduledMissionId={scheduledMissionId}
@@ -49,10 +50,12 @@ const ObjectDetailList = ({
 );
 
 ObjectDetailList.propTypes = {
+  isDesktop: bool,
   objectId: oneOfType([number, string]),
   scheduledMissionId: oneOfType([number, string]),
 };
 ObjectDetailList.defaultProps = {
+  isDesktop: false,
   objectId: null,
   scheduledMissionId: null,
 };

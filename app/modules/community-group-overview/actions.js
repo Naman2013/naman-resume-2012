@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { fetchGroupActivity } from '../community-group-activity-list/actions';
+
 export const FETCH_GROUP_OVERVIEW_START = 'FETCH_GROUP_OVERVIEW_START';
 export const FETCH_GROUP_OVERVIEW_SUCCESS = 'FETCH_GROUP_OVERVIEW_SUCCESS';
 export const FETCH_GROUP_OVERVIEW_FAIL = 'FETCH_GROUP_OVERVIEW_FAIL';
@@ -9,6 +10,12 @@ export const FETCH_GROUP_OVERVIEW_PAGE_META_FAIL = 'FETCH_GROUP_OVERVIEW_PAGE_ME
 export const FETCH_GROUP_MEMBERS_START = 'FETCH_GROUP_MEMBERS_START';
 export const FETCH_GROUP_MEMBERS_SUCCESS = 'FETCH_GROUP_MEMBERS_SUCCESS';
 export const FETCH_GROUP_MEMBERS_FAIL = 'FETCH_GROUP_MEMBERS_FAIL';
+export const GROUP_MEMBERS_CHANGE_SORT = 'GROUP_MEMBERS_CHANGE_SORT';
+
+export const SORT_AZ = 'atoz';
+export const SORT_ZA = 'ztoa';
+export const SORT_RANK = 'rank';
+export const SORT_DATE = 'date';
 
 const fetchGroupOverviewStart = payload => ({
   type: FETCH_GROUP_OVERVIEW_START,
@@ -48,22 +55,23 @@ export const fetchGroupOverview = ({
   .catch(error => dispatch(fetchGroupOverviewFail(error)));
 };
 const fetchGroupMembersStart = payload => ({
-  type: FETCH_GROUP_OVERVIEW_START,
+  type: FETCH_GROUP_MEMBERS_START,
   payload,
 });
 
 const fetchGroupMembersSuccess = payload => ({
-  type: FETCH_GROUP_OVERVIEW_SUCCESS,
+  type: FETCH_GROUP_MEMBERS_SUCCESS,
   payload,
 });
 
 const fetchGroupMembersFail = payload => ({
-  type: FETCH_GROUP_OVERVIEW_FAIL,
+  type: FETCH_GROUP_MEMBERS_FAIL,
   payload,
 });
 
 export const fetchGroupMembers = ({
   discussionGroupId,
+  sortBy,
   lang,
   page,
   ver,
@@ -74,12 +82,13 @@ export const fetchGroupMembers = ({
     at,
     cid,
     discussionGroupId,
+    sortBy,
     lang,
     page,
     token,
     ver,
   })
-  .then(result => dispatch(fetchGroupMembersSuccess(result.data)))
+  .then(result => dispatch(fetchGroupMembersSuccess(Object.assign({ sortBy }, result.data))))
   .catch(error => dispatch(fetchGroupMembersFail(error)));
 };
 
@@ -114,12 +123,14 @@ export const fetchGroupOverviewPageMeta = ({
     discussionGroupId,
   })
     .then((result) => {
+      const { membersSort } = getState().communityGroupOverview;
       const informationMap = {
         showGroupInformation: 'full',
         showGroupOverview: 'short',
       };
       dispatch(fetchGroupMembers({
         discussionGroupId,
+        sortBy: membersSort,
       }));
       if (!result.data.apiError) {
         const display = (result.data.showGroupInformation &&  informationMap.showGroupInformation) ||

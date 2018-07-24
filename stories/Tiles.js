@@ -3,7 +3,7 @@ import { storiesOf } from '@storybook/react';
 import LailaTile from '../app/components/common/tiles/LailaTile';
 import LeighTile from 'components/common/tiles/LeighTile';
 
-storiesOf('Common Tiles', module)
+storiesOf('Tiles', module)
   .add('LailaTile', () => (
     <LailaTile
       title="Venus"

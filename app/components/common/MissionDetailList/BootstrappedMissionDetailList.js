@@ -24,7 +24,7 @@ const {
 
 class BootstrappedMissionDetailList extends Component {
   static propTypes = {
-    device: string,
+    isDesktop: bool,
     listTitle: string,
     missionDetailList: shape({
       missiondate: shape({
@@ -75,7 +75,7 @@ class BootstrappedMissionDetailList extends Component {
   }
 
   static defaultProps = {
-    device: '',
+    isDesktop: false,
     listTitle: '',
     missionDetailList: {
       scheduledby: {},
@@ -86,7 +86,7 @@ class BootstrappedMissionDetailList extends Component {
   };
 
   state = {
-    showInfo: this.props.device !== 'desktop',
+    showInfo: !this.props.isDesktop,
   };
 
   toggleInfo = (e) => {
@@ -101,7 +101,7 @@ class BootstrappedMissionDetailList extends Component {
 
   render() {
     const {
-      device,
+      isDesktop,
       listTitle,
       missionDetailList,
     } = this.props;
@@ -113,9 +113,9 @@ class BootstrappedMissionDetailList extends Component {
     });
 
     return (<div className={classnames({
-      'component-container': device === 'desktop',
+      'component-container': isDesktop,
     })}>
-      {device === 'desktop' ? <div className="title-container">
+      {isDesktop ? <div className="title-container">
         <span className="title" dangerouslySetInnerHTML={{ __html: listTitle}} />
         <img
           className={classnames('action', {
@@ -127,9 +127,9 @@ class BootstrappedMissionDetailList extends Component {
       </div> : null}
 
       {showInfo ? <div className="container-detail-items">
-        {device !== 'desktop' ? <div className="title" dangerouslySetInnerHTML={{ __html: listTitle}} /> : null}
+        {!isDesktop ? <div className="title" dangerouslySetInnerHTML={{ __html: listTitle}} /> : null}
         <div className={classnames('detail-items', {
-          'component-container': device !== 'desktop',
+          'component-container': !isDesktop,
         })}>
           {missionDetailList.missiondate ? (
           <div className="info half-info" key={uniqueId()}>
