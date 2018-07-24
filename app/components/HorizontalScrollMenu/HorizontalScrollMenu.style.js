@@ -10,7 +10,6 @@ export default css`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 68px;
     list-style-type: none;
     background: linear-gradient(to bottom, #0b121b 0%,#263344 74%);
     overflow: hidden;
@@ -18,6 +17,7 @@ export default css`
 
   a {
     ${resetMarginPadding}
+    padding: 29px 0;
     display: inline-block;
     text-align: center;
     text-decoration: none;
