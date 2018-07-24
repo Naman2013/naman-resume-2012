@@ -12,13 +12,14 @@ import BootstrappedMissionDetailList from './BootstrappedMissionDetailList';
 import { MISSION_DETAIL_LIST } from 'services/missions';
 
 const {
+  bool,
   number,
   oneOfType,
   string,
 } = PropTypes;
 
 const MissionDetailList = ({
-  device,
+  isDesktop,
   customerImageId,
   scheduledMissionId,
 }) => (
@@ -36,7 +37,7 @@ const MissionDetailList = ({
     }) => (
       <div>
         {<BootstrappedMissionDetailList
-          device={device}
+          isDesktop={isDesktop}
           fetching={fetchingContent}
           customerImageId={customerImageId}
           scheduledMissionId={scheduledMissionId}
@@ -48,12 +49,12 @@ const MissionDetailList = ({
 );
 
 MissionDetailList.propTypes = {
-  device: string,
+  isDesktop: bool,
   customerImageId: oneOfType([number, string]),
   scheduledMissionId: oneOfType([number, string]),
 };
 MissionDetailList.defaultProps = {
-  device: '',
+  isDesktop: false,
   customerImageId: null,
   scheduledMissionId: null,
 };

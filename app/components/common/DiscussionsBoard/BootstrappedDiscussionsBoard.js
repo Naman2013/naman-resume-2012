@@ -9,6 +9,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import DiscussionsItem from './DiscussionsItem';
 import CREATE_THREAD_FORM from './DiscussionsThreadFormInterface';
+import { submitReply } from 'services/discussions/submit-reply';
+
 
 const {
   any,
@@ -26,11 +28,12 @@ class BootstrappedDiscussionsBoard extends Component {
     callSource: string,
     count: number,
     createThread: func.isRequired,
-    createThreadFormParams: shape(any).isRequired,
-    error: bool.isRequired,
+    createThreadFormParams: shape({}),
+    apiError: bool,
     errorMessage: string,
     fetching: bool.isRequired,
     forumId: oneOfType([number, string]),
+    isDesktop: bool,
     threadCount: number,
     threads: arrayOf(shape({})),
     topicId: oneOfType([number, string]),
@@ -42,13 +45,17 @@ class BootstrappedDiscussionsBoard extends Component {
   }
 
   static defaultProps = {
+    apiError: false,
     callSource: null,
     count: 10,
+    createThreadFormParams: {},
     errorMessage: 'There was an error fetching list',
     forumId: null,
+    isDesktop: true,
     threadCount: 0,
     threads: [],
     topicId: null,
+    showAllComments: false,
   };
 
   state = {
@@ -76,15 +83,46 @@ class BootstrappedDiscussionsBoard extends Component {
     });
   }
 
+  toggleAllComments = () => {
+    const { showAllComments } = this.state;
+
+    this.setState({
+      showAllComments: !showAllComments,
+    });
+  }
+
+  handleReply = (params, callback) => {
+    submitReply(params).then((res) => {
+      const { apiError, reply } = res.data;
+      if (!apiError) {
+        const { threadsList } = this.state;
+        const newThreadsList = [].concat(threadsList);
+
+        newThreadsList.map((thread) => {
+          if (thread.threadId === params.threadId) {
+            thread.replyCount = thread.replyCount + 1;
+          }
+          return thread;
+        });
+        this.setState({
+          threadsList: newThreadsList
+        });
+
+      }
+      callback(res.data);
+    });
+  }
+
   render() {
     const {
       callSource,
       count,
-      error,
+      createThreadFormParams,
+      apiError,
       errorMessage,
       fetching,
-      createThreadFormParams,
       forumId,
+      isDesktop,
       page,
       threadCount,
       topicId,
@@ -97,11 +135,12 @@ class BootstrappedDiscussionsBoard extends Component {
       {CREATE_THREAD_FORM[callSource].render({
         ...createThreadFormParams,
         createThread: this.createThread,
+        isDesktop,
       })}
       {fetching && <div>Loading</div>}
-      {(!fetching && error) && <div dangerouslySetInnerHTML={{ __html: errorMessage }} />}
-      {(!fetching && !error && threadCount === 0) && <div>There is nothing to show here</div>}
-      {(!fetching && !error && threadCount > 0) && <div>
+      {(!fetching && apiError) && <div dangerouslySetInnerHTML={{ __html: errorMessage }} />}
+      {(!fetching && !apiError && threadCount === 0) && <div>There is nothing to show here</div>}
+      {(!fetching && !apiError && threadCount > 0) && <div>
         {threadsList.map((thread) => {
           const likeParams = {
             forumId,
@@ -114,12 +153,15 @@ class BootstrappedDiscussionsBoard extends Component {
             {...thread}
             callSource={callSource}
             forumId={forumId}
+            isDesktop={isDesktop}
             key={thread.threadId}
             likeParams={likeParams}
             topicId={topicId}
             count={count}
+            submitReply={this.handleReply}
             page={page}
             user={user}
+            replyTo={thread.threadId}
           />)
         })}
       </div>}

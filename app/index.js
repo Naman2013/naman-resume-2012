@@ -44,6 +44,7 @@ import ObjectDetailsStories from './containers/object-details/ObjectDetailsStori
 import ObjectDetailsShows from './containers/object-details/ObjectDetailsShows';
 import Guides from './containers/guides';
 import SubjectGuides from './containers/guides/SubjectGuides';
+import TopicGuides from './containers/guides/TopicGuides';
 
 // pages
 import TelescopeOverview from './pages/telescope-overview';
@@ -132,6 +133,7 @@ import UserPublicProfile from './pages/profiles/public-profile';
 import CommunityGroups from './pages/community-groups/Groups';
 import CommunityGroupsList from './pages/community-groups/GroupsListPage';
 import CommunityGroupOverview from './pages/community-groups/GroupOverview';
+import GroupOverviewInfo from './pages/community-groups/GroupOverviewInfo';
 import ImageDetails from './pages/image-details';
 
 import DashboardPage from 'components/Dashboard';
@@ -482,6 +484,7 @@ ReactDOM.render(
 
         <Route path="guides" component={Guides} />
         <Route path="guides/subject" component={SubjectGuides} />
+        <Route path="guides/topic" component={TopicGuides} />
 
         <Route path="object-details/:objectId" component={ObjectDetails} onEnter={validateUser}>
           <IndexRedirect to="overview" />
@@ -514,7 +517,8 @@ ReactDOM.render(
           <Route path="popular" component={CommunityGroupsList} />
         </Route>
 
-        <Route path="community-groups/:groupId" component={CommunityGroupOverview} />
+        <Route path="community-groups/:groupId" onEnter={validateUser} component={CommunityGroupOverview} />
+        <Route path="community-groups/:groupId/info" onEnter={validateUser} component={GroupOverviewInfo} />
 
       </Route>
       <Redirect from="*" to="/" />
