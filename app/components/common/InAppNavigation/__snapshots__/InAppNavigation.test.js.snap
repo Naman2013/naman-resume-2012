@@ -6,6 +6,7 @@ ShallowWrapper {
   Symbol(enzyme.__root__): [Circular],
   Symbol(enzyme.__unrendered__): <InAppNavigation
     isOpen={false}
+    menuTopAdjustment={98}
     previousText="guide"
     title="topic 1: stuff..."
   />,
