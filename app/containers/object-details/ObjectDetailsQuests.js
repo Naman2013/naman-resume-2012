@@ -10,6 +10,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import DeviceProvider from '../../../app/providers/DeviceProvider';
 import ObjectDetailsSectionTitle from '../../components/object-details/ObjectDetailsSectionTitle';
+import QuestTile from '../../components/common/tiles/QuestTile';
 
 import {
   fetchObjectDetailsAction,
@@ -69,12 +70,14 @@ class Quests extends Component {
             <div className="card-container__quests">
               {Object.keys(objectQuests.questsList).map(function(key) {
                 return(
-                  <div className="quest-card" key={'card_' + key}>
-                    {objectQuests.questsList[key].label}
-                    <h4>{objectQuests.questsList[key].title}</h4>
-                    <div className="quest-icon"><img src={objectQuests.questsList[key].iconURL}/></div>               
-                    <div className="quest-btn">{objectQuests.questsList[key].linkLabel}</div>
-                  </div>
+                  <Fragment>
+                    <QuestTile
+                      key={'card_' + key}
+                      title={objectQuests.questsList[key].title}
+                      iconURL={objectQuests.questsList[key].iconURL}
+                      anchorText={objectQuests.questsList[key].linkLabel}
+                    />
+                  </Fragment>
                 )
               })}
             </div>
