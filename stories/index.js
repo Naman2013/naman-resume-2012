@@ -3,6 +3,7 @@ import './AudioPlayer';
 import './BlueLineDrop';
 import './Buttons';
 import './cards/CardObservations';
+import './CenterColumn';
 import './ContextMenu';
 import './design-system';
 import './DiscussionsBoard';
