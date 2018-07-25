@@ -2,6 +2,7 @@ import './AbelList';
 import './AudioPlayer';
 import './BlueLineDrop';
 import './Buttons';
+import './CenterColumn';
 import './ContextMenu';
 import './design-system';
 import './DiscussionsBoard';
