@@ -92,15 +92,16 @@ class LiveShowVideoViewer extends Component {
         <Tabs onSelect={this.handleSelect} selectedIndex={selectedTab}>
           <TabList className="tablist">
             <Tab>
-              <div style={getInlineBgStyle(eventIconURL)} />
+              <div className="show-tab live-show">
+                <div style={getInlineBgStyle(eventIconURL)} />
+              </div>
             </Tab>
             {
               additionalFeeds.map(feed => (
                 <Tab key={uniqueId()}>
-                  <div>
-                    <h6>{feed.tabDesc}</h6>
+                  <div className="show-tab">
+                    <div style={getInlineBgStyle(feed.tabIconURL)} />
                   </div>
-                  <div style={getInlineBgStyle(feed.tabIconURL)} />
                 </Tab>
               ))
             }
