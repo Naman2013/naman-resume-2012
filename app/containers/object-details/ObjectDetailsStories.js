@@ -12,6 +12,8 @@ import ObjectStoryList from '../../components/object-post/object-story-list';
 import GenericLoadingBox from '../../components/common/loading-screens/generic-loading-box';
 import DeviceProvider from '../../../app/providers/DeviceProvider';
 import ObjectDetailsSectionTitle from '../../components/object-details/ObjectDetailsSectionTitle';
+import StoryTile from 'components/common/tiles/StoryTile';
+
 import {
   fetchObjectDetailsAction,
   fetchObjectDataAction,
@@ -60,17 +62,6 @@ class Stories extends Component {
   constructor(props) {
     super(props);
     this.updateList(props);
-  }
-
-  componentWillReceiveProps(nextProps) {
-  }
-
-  componentWillUpdate(nextProps) {
-
-  }
-
-  componentWillMount() {
-    //console.log(this.props)
   }
 
   updateList(requestProps) {
@@ -124,9 +115,6 @@ class Stories extends Component {
           <ObjectDetailsSectionTitle title={objectDetails.objectTitle + "'s"} subTitle="Related Stories" />
         </DeviceProvider>
         <div className="contain">
-
-          <h4>Stories about {objectDetails.objectTitle}</h4>
-          
           {
             fetchingPosts ?
               <GenericLoadingBox />

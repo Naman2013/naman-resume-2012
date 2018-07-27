@@ -5,6 +5,7 @@ import LailaTile from '../app/components/common/tiles/LailaTile';
 import LeighTile from 'components/common/tiles/LeighTile';
 import QuestTile from 'components/common/tiles/QuestTile';
 import MissionTile from 'components/common/tiles/MissionTile';
+import StoryTile from 'components/common/tiles/StoryTile';
 
 storiesOf('Tiles', module)
   .add('LailaTile', () => (
@@ -35,4 +36,11 @@ storiesOf('Tiles', module)
         thyme="00:00"
       />
     </DeviceProvider>
+  ))
+  .add('StoryTile', () => (
+    <StoryTile
+      iconURL="https://vega.slooh.com/icons/home/observatory.png"
+      title="Constellation Stories with Helen Avery"
+      author="BY HELEN AVERY"
+    />
   ));

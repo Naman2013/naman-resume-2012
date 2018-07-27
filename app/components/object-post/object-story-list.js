@@ -4,16 +4,13 @@ import Pagination from 'rc-pagination';
 import { Link } from 'react-router';
 import uniqueId from 'lodash/uniqueId';
 import isEmpty from 'lodash/isEmpty';
-import ByUserTag from '../../components/common/by-user-tag/by-user-tag';
-import CommunityPostTools from '../../components/community/tools/community-post-tools';
-import styles from './object-story.scss';
+import StoryTile from 'components/common/tiles/StoryTile';
 
 class ObjectStoryList extends Component {
 
   prepareData(objectPosts, firstPostIndex) {
     return objectPosts.map((v, k) =>
       <div key={uniqueId()} className={styles.storyCard}>
-        SLOOH STORIES
         <div key={v.postId}>
 
           <figure className={styles.ObjectStoryListInfo}>
@@ -24,28 +21,6 @@ class ObjectStoryList extends Component {
             <figcaption className={styles.ObjectStoryListInfoDesc}>
               <span dangerouslySetInnerHTML={{ __html: (v.rubric || v.excerpt) }}></span>
             </figcaption>
-              
-            <ByUserTag
-              photo={v.avatarURL}
-              name={v.displayName}
-              accountType={v.membershipType}
-              memberSince={v.memberSince}
-              location={v.location}
-              theme="light"
-            />
-
-            {/*<div className={styles.ObjectStoryListToolsHot}>
-              <CommunityPostTools
-                type={v.type}
-                authorId={v.customerId}
-                objectSlug={v.slug}
-                likesCount={v.likesCount}
-                showLikePrompt={v.showLikePrompt}
-                likePrompt={v.likePrompt}
-                likeId={v.postId}
-              />
-            </div>*/}
-
           </figure>
 
         </div>
