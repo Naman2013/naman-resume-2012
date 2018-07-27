@@ -70,6 +70,7 @@ class ContextMenu extends Component {
               top: ${this.props.menuTopAdjustment}px;
               left: 0;
               background-color: rgba(0, 0, 0, 0.5);
+              pointer-events: none;
             }
           `}
         </style>

@@ -21,17 +21,18 @@ ShallowWrapper {
     "props": Object {
       "children": Array [
         <h2
-          className="jsx-2801015158"
+          className="jsx-2575439962"
         >
           Foo
         </h2>,
         <JSXStyle
           css={
             Array [
-              "h2.jsx-2801015158{font-family:adobe-garamond-pro, serif;color:#415671;font-size:22px;border-bottom:1px solid #d9dee5;margin:0 35px;margin-top:40px;padding-bottom:20px;text-transform:capitalize;}",
+              "h2.jsx-2575439962{font-family:adobe-garamond-pro, serif;color:#415671;font-size:22px;border-bottom:1px solid #d9dee5;margin:0 35px;padding-top:40px;padding-bottom:20px;text-transform:capitalize;}",
+              "@media screen and (min-width: 768px){h2.jsx-2575439962{font-size:32px;border-bottom:3px solid #415671;margin:0;}}",
             ]
           }
-          styleId="2801015158"
+          styleId="2575439962"
         />,
       ],
     },
@@ -43,7 +44,7 @@ ShallowWrapper {
         "nodeType": "host",
         "props": Object {
           "children": "Foo",
-          "className": "jsx-2801015158",
+          "className": "jsx-2575439962",
         },
         "ref": null,
         "rendered": "Foo",
@@ -55,9 +56,10 @@ ShallowWrapper {
         "nodeType": "class",
         "props": Object {
           "css": Array [
-            "h2.jsx-2801015158{font-family:adobe-garamond-pro, serif;color:#415671;font-size:22px;border-bottom:1px solid #d9dee5;margin:0 35px;margin-top:40px;padding-bottom:20px;text-transform:capitalize;}",
+            "h2.jsx-2575439962{font-family:adobe-garamond-pro, serif;color:#415671;font-size:22px;border-bottom:1px solid #d9dee5;margin:0 35px;padding-top:40px;padding-bottom:20px;text-transform:capitalize;}",
+            "@media screen and (min-width: 768px){h2.jsx-2575439962{font-size:32px;border-bottom:3px solid #415671;margin:0;}}",
           ],
-          "styleId": "2801015158",
+          "styleId": "2575439962",
         },
         "ref": null,
         "rendered": null,
@@ -74,17 +76,18 @@ ShallowWrapper {
       "props": Object {
         "children": Array [
           <h2
-            className="jsx-2801015158"
+            className="jsx-2575439962"
           >
             Foo
           </h2>,
           <JSXStyle
             css={
               Array [
-                "h2.jsx-2801015158{font-family:adobe-garamond-pro, serif;color:#415671;font-size:22px;border-bottom:1px solid #d9dee5;margin:0 35px;margin-top:40px;padding-bottom:20px;text-transform:capitalize;}",
+                "h2.jsx-2575439962{font-family:adobe-garamond-pro, serif;color:#415671;font-size:22px;border-bottom:1px solid #d9dee5;margin:0 35px;padding-top:40px;padding-bottom:20px;text-transform:capitalize;}",
+                "@media screen and (min-width: 768px){h2.jsx-2575439962{font-size:32px;border-bottom:3px solid #415671;margin:0;}}",
               ]
             }
-            styleId="2801015158"
+            styleId="2575439962"
           />,
         ],
       },
@@ -96,7 +99,7 @@ ShallowWrapper {
           "nodeType": "host",
           "props": Object {
             "children": "Foo",
-            "className": "jsx-2801015158",
+            "className": "jsx-2575439962",
           },
           "ref": null,
           "rendered": "Foo",
@@ -108,9 +111,10 @@ ShallowWrapper {
           "nodeType": "class",
           "props": Object {
             "css": Array [
-              "h2.jsx-2801015158{font-family:adobe-garamond-pro, serif;color:#415671;font-size:22px;border-bottom:1px solid #d9dee5;margin:0 35px;margin-top:40px;padding-bottom:20px;text-transform:capitalize;}",
+              "h2.jsx-2575439962{font-family:adobe-garamond-pro, serif;color:#415671;font-size:22px;border-bottom:1px solid #d9dee5;margin:0 35px;padding-top:40px;padding-bottom:20px;text-transform:capitalize;}",
+              "@media screen and (min-width: 768px){h2.jsx-2575439962{font-size:32px;border-bottom:3px solid #415671;margin:0;}}",
             ],
-            "styleId": "2801015158",
+            "styleId": "2575439962",
           },
           "ref": null,
           "rendered": null,

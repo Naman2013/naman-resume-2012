@@ -17,7 +17,6 @@ export default css`
     text-transform: uppercase;
     border-top: 1px solid ${glitter};
     border-bottom: 1px solid ${glitter};
-    box-shadow: inset 0px 5px 20px -5px #e0e0e0;
   }
 
   li {
