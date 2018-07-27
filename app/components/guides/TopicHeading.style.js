@@ -1,7 +1,7 @@
 import css from 'styled-jsx/css';
 import { astronaut, geyser } from 'styles/variables/colors_tiles_v4';
 import { secondaryFont } from 'styles/variables/fonts';
-import { screenMedium } from 'styles/variables/breakpoints';
+import { screenMedium, screenLarge } from 'styles/variables/breakpoints';
 
 export default css`
   h2 {
@@ -18,8 +18,14 @@ export default css`
   @media ${screenMedium} {
     h2 {
       font-size: 32px;
-      border-bottom: 3px solid ${astronaut};
+      border-bottom: 4px solid ${astronaut};
       margin: 0;
+    }
+  }
+
+  @media ${screenLarge} {
+    h2 {
+      font-size: 38px;
     }
   }
 `;
