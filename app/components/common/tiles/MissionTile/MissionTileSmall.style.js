@@ -5,10 +5,10 @@ import { golda, geyser, lightHeadedAstronaut } from 'styles/variables/colors_til
 
 export default css`
   .root {
-    margin: 0 auto;
+    margin: 40px auto;
     padding: 40px;
     box-shadow: 0px 0px 8px 1px rgba(65,86,113,.2);
-    width: 220px;
+    width: 300px;
     color: ${lightHeadedAstronaut};
     border-bottom: solid 2px ${golda};
   }

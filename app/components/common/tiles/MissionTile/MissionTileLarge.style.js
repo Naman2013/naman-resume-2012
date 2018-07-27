@@ -6,15 +6,17 @@ import { screenMedium } from 'styles/variables/breakpoints';
 
 export default css`
   .root {
+    position: relative;
     margin: 40px auto;
     padding: 0;
     box-shadow: 0px 0px 8px 1px rgba(65,86,113,.2);
-    width: 96%;
+    width: 100%;
     color: ${lightHeadedAstronaut};
+    display: flex;
   }
 
   .left {
-    width: 32%;
+    flex: 50%;
     border-right: 1px solid #d9dee5;
     height: 100%;
     padding: 40px;
@@ -44,19 +46,17 @@ export default css`
   }
 
   .right {
-    position: absolute;
-    top: 0;
-    left: calc(30% + 40px);
+    flex: 50%;
     padding: 40px;
-    display: flex;
     justify-content: space-between;
     flex-wrap: nowrap;
-    width: 47%;
+    width: 50%;
     font-family: ${primaryFont};
+    display: flex;
   }
 
   .dat {
-    padding-top: 20px;
+    align-self: flex-end;
     font-weight: 400;
     text-transform: uppercase;
     text-decoration: none;
@@ -65,40 +65,34 @@ export default css`
   }
 
   .thyme {
+    align-self: flex-end;
     font-size: 46px;
+    line-height: 46px;
     font-weight: 100;
-    padding: 20px;
     transition: font-size 0.25s ease-in-out;
   }
 
-  .thyme:after {
-    content: "UTC";
-    position: absolute;
+  .utc {
     font-size: 10px;
     transform: rotate(90deg);
     letter-spacing: 2px;
     font-weight: 400;
-    bottom: 80px;
+    position: absolute;
+    bottom: 30px;
+    right: 15px;
   }
 
   @media ${screenMedium} {
     .left {
-      width: 50%;
+      flex: 40%;
     }
     .right {
-      left: calc(50% + 40px);
-      width: 33%;
-    }
-    .dat {
-      padding-top: 34px;
+      flex: 60%;
     }
     .thyme {
       font-size: 56px;
-      padding: 5px;
+      line-height: 56px;
       font-weight: 100;
-    }
-    .thyme:after {
-      bottom: 69px;
     }
   }
 

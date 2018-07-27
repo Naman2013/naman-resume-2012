@@ -63,7 +63,7 @@ class Missions extends Component {
         <DeviceProvider>
           <ObjectDetailsSectionTitle title={objectDetails.objectTitle + "'s"} subTitle="Upcoming Missions" />
         </DeviceProvider>
-        <CenterColumn>
+        <CenterColumn> 
           {objectMissions && objectMissions.missionsCount > 0 ? (
 
             
@@ -73,33 +73,15 @@ class Missions extends Component {
                   <MissionTile
                     key={'mission_' + key}
                     title={objectMissions.missionsList[key].title}
-                    telescope="Canary Three"
-                    dat="MON. JAN. 06"
-                    thyme="00:00"
+                    telescope={objectMissions.missionsList[key].missionDetails.telescope.itemText}
+                    dat={objectMissions.missionsList[key].missionDetails.date.itemText}
+                    thyme={objectMissions.missionsList[key].missionDetails.time.itemText.slice(0, -4)}
                   />
                 )})}              
             </div>
-            //       <div className="mission-card" key={'card_' + key}>                
-            //         <div className="mission-icon"><img src={objectMissions.missionsList[key].iconURL}/></div>
-            //         <h4>{objectMissions.missionsList[key].title}</h4>
-            //         {objectDetails.objectSubtitle}
-            //         <ul>
-            //           {Object.keys(objectMissions.missionsList[key].missionDetails).map(function(indx) {
-            //             return( 
-            //               <li key={indx}><img src={objectMissions.missionsList[key].missionDetails[indx].itemiconURL}/>{objectMissions.missionsList[key].missionDetails[indx].itemText}</li>
-            //             )
-            //           })}
-            //         </ul>
-            //         {objectMissions.missionsList[key].canJoinFlag &&                 
-            //           <div className="mission-btn">{objectMissions.missionsList[key].joinPrompt}</div>
-            //         }
-            //       </div>
-            //     )
-            //   })}
-            // </div>
           ) : (
             <div>
-              Sorry, there are no mission available for {objectDetails.objectTitle} at this time.
+              Sorry, there are no missions available for {objectDetails.objectTitle} at this time.
             </div>
           )}
         </CenterColumn>

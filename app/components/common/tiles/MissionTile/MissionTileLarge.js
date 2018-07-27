@@ -9,8 +9,9 @@ const MissionTileLarge = ({ title, telescope, dat, thyme }) => (
       <div className="telescope">{telescope}</div>
     </div>
     <div className="right">
-      <h5 className="dat">{dat}</h5>
-      <div className="thyme">{thyme}</div>
+      <div className="dat">{dat}</div>
+      <div className="thyme">{thyme}<span className="utc">UTC</span>
+      </div>
     </div>
     <style jsx>{style}</style>
   </div>

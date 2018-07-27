@@ -10,9 +10,9 @@ export default css`
     background-color: white;
     color: ${astronaut};
     font-family: ${secondaryFont};
-    transition: height 0.4s ease-in-out;
+    transition: height 0.4s ease-in-out, font-size 0.4s ease-in-out;
     width: 100%;
-    height: 80px;
+    height: 130px;
     padding-top: 60px;
     font-size: 16px;
     color: ${astronaut};
@@ -25,6 +25,7 @@ export default css`
     font-weight: 800;
     letter-spacing: 4px;
     text-transform: uppercase;
+    transition: font-size 0.4s ease-in-out;
   }
 
   @media ${screenXLarge} {
