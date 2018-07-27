@@ -10,6 +10,7 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import uniqueId from 'lodash/uniqueId';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import Select from 'react-select';
 import TelescopeImageViewer from 'components/common/telescope-image-viewer/telescope-image-viewer';
 import VideoImageLoader from 'components/common/telescope-image-loader/video-image-loader';
 import styles from './LiveShowVideoViewer.style';
@@ -24,6 +25,13 @@ const {
   shape,
   string,
 } = PropTypes;
+
+const CustomOption = ({ innerRef, innerProps, children }) => (
+  <div ref={innerRef} {...innerProps} className="dropdown-opt">
+    <Tab className="react-tabs__option">{children}</Tab>
+  </div>
+);
+CustomOption.tabsRole = 'Tab';
 
 const getInlineBgStyle = imgUrl => ({
   backgroundImage: `url(${imgUrl})`,
@@ -63,49 +71,103 @@ class LiveShowVideoViewer extends Component {
     additionalFeeds: [],
   };
 
-  state = {
-    selectedTab: 0,
+  constructor(props) {
+    super(props);
+    const options = [
+      {
+        value: 0,
+        label: (
+          <div>
+            <div className="opt-icon" style={getInlineBgStyle(props.EventIconUrl)} />
+            <span className="opt-desc">Live Show</span>
+          </div>
+        )
+      },
+    ];
+
+    props.additionalFeeds.forEach((feed, i) => {
+        options.push({
+          value: i + 1,
+          label: (
+            <div>
+              <div className="opt-icon" style={getInlineBgStyle(feed.tabIconURL)} />
+              <span className="opt-desc" dangerouslySetInnerHTML={{ __html: feed.tabDesc }} />
+            </div>
+          )
+        });
+      });
+
+    this.state = {
+      selectedTab: 0,
+      options,
+    }
   }
 
-  handleSelect = (index, last) => {
+
+  handleSelect = (index) => {
     window.scrollTo(0, 0);
     this.setState({
       selectedTab: index,
     });
   }
 
+  handleChange = (selectedOption) => {
+    this.setState({
+      selectedTab: Number(selectedOption.value),
+    });
+  }
+
   render() {
     const {
       additionalFeeds,
-      eventIconURL,
+      EventIconUrl,
       showStreamCode,
       showStreamURL,
+      isScreenMedium,
+      isScreenLarge,
+      isScreenXLarge,
     } = this.props;
 
     const {
+      options,
       selectedTab,
     } = this.state;
     const width = '100';
     const videoContainerStyle = { width: `${width}%` };
+
     return (
       <div className="root">
         <Tabs onSelect={this.handleSelect} selectedIndex={selectedTab}>
-          <TabList className="tablist">
-            <Tab>
-              <div className="show-tab live-show">
-                <div style={getInlineBgStyle(eventIconURL)} />
-              </div>
-            </Tab>
-            {
-              additionalFeeds.map(feed => (
-                <Tab key={uniqueId()}>
-                  <div className="show-tab">
-                    <div style={getInlineBgStyle(feed.tabIconURL)} />
-                  </div>
-                </Tab>
-              ))
-            }
-          </TabList>
+          {!isScreenXLarge && !isScreenLarge && !isScreenMedium ? (
+            <TabList className="tablist">
+              <Select
+                components={{ Option: CustomOption }}
+                defaultValue={options[0]}
+                onChange={this.handleChange}
+                options={options}
+                value={options[selectedTab]}
+                isSearchable={false}
+                classNamePrefix="react-select"
+              />
+            </TabList>
+          ) : (
+            <TabList className="tablist">
+              <Tab>
+                <div className="show-tab live-show">
+                  <div className="tab-icon" style={getInlineBgStyle(EventIconUrl)} />
+                </div>
+              </Tab>
+              {
+                additionalFeeds.map(feed => (
+                  <Tab key={uniqueId()}>
+                    <div className="show-tab">
+                      <div className="tab-icon" style={getInlineBgStyle(feed.tabIconURL)} />
+                    </div>
+                  </Tab>
+                ))
+              }
+            </TabList>
+          )}
           <TabPanel
             forceRender={true}
             className={classnames({

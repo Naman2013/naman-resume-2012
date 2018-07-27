@@ -35,6 +35,35 @@ export default css`
     border-radius: 50%;
   }
 
+  .tab-icon {
+    width: 100%;
+    height: 100%;
+    border-radius: 100%;
+  }
+
+  :global(.dropdown-opt) {
+
+  }
+
+  :global(.opt-icon) {
+    display: inline-block;
+    width: 35px;
+    height: 35px;
+    border-radius: 100%;
+    background-color: ${astronaut};
+    margin: 8px;
+    vertical-align: middle;
+
+  }
+
+  :global(.opt-desc) {
+    display: inline-block;
+    margin: 8px;
+    vertical-align: middle;
+
+
+  }
+
   :global(.react-tabs__tab) {
     width: 110px;
     height: 110px;
@@ -42,10 +71,19 @@ export default css`
     border-right: 1px solid ${geyser};
   }
 
-  #react-tabs-0 {
+   :global(.react-tabs__tab):first-child {
     width: 138px;
     height: 110px;
-    margin-right: 100px;
+    // margin-right: 100px;
+  }
+
+  :global(.react-select__control),
+  :global(.react-select__control--is-focused){
+    margin: 0 auto;
+    min-width: 200px;
+    height: 50px;
+    border-radius: 26px !important;
+    ${faintShadow}
   }
 
   :global(.active-tele-tab) {
@@ -60,5 +98,10 @@ export default css`
     border-color: transparent;
     border-bottom: 4px solid ${astronaut};
     ${faintShadow}
+  }
+
+  :global(.react-tabs__option) {
+
+
   }
 `;

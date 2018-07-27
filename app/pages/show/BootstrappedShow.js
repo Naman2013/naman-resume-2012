@@ -25,9 +25,9 @@ const {
 const BootstrappedShow = props => (
   <div>
     <CenterColumn>
-    {props.inProgressFlag ? <Live {...props} /> : null}
-    {props.previousFlag ? <div /> : null}
-    {props.upcomingFlag ? <div /> : null}
+      {props.inProgressFlag ? <Live {...props} /> : null}
+      {props.previousFlag ? <div /> : null}
+      {props.upcomingFlag ? <div /> : null}
     </CenterColumn>
   </div>
 );
