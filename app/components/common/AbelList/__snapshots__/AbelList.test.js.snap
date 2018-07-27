@@ -12,6 +12,12 @@ ShallowWrapper {
         "beginners and up",
       ]
     }
+    theme={
+      Object {
+        "horizontalList": Object {},
+        "verticalList": Object {},
+      }
+    }
   />,
   Symbol(enzyme.__renderer__): Object {
     "batchedUpdates": [Function],

@@ -9,6 +9,23 @@ export default css`
 
   .guide-container {
     background: white;
+    padding-bottom: 60px;
+  }
+
+  .title-container {
+    margin: 0;
+    background: white;
+  }
+
+  @media ${screenMedium} {
+    .title-container {
+      background: none;
+    }
+
+    .guide-container {
+      margin: 0;
+      margin-top: 10px;
+    }
   }
 
   @media ${screenLarge} {

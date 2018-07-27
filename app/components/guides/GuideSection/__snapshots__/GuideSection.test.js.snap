@@ -33,6 +33,12 @@ ShallowWrapper {
                 "beginners and up",
               ]
             }
+            theme={
+              Object {
+                "horizontalList": Object {},
+                "verticalList": Object {},
+              }
+            }
           />
         </div>,
         <div
@@ -84,6 +90,12 @@ posuere vulputate. Etiam elit elit, elementum sed varius at.
                 "beginners and up",
               ]
             }
+            theme={
+              Object {
+                "horizontalList": Object {},
+                "verticalList": Object {},
+              }
+            }
           />,
           "className": "jsx-1986333135 jsx-3104837453 column-container",
         },
@@ -98,6 +110,10 @@ posuere vulputate. Etiam elit elit, elementum sed varius at.
               "object type guide",
               "beginners and up",
             ],
+            "theme": Object {
+              "horizontalList": Object {},
+              "verticalList": Object {},
+            },
           },
           "ref": null,
           "rendered": null,
@@ -177,6 +193,12 @@ posuere vulputate. Etiam elit elit, elementum sed varius at.",
                   "beginners and up",
                 ]
               }
+              theme={
+                Object {
+                  "horizontalList": Object {},
+                  "verticalList": Object {},
+                }
+              }
             />
           </div>,
           <div
@@ -228,6 +250,12 @@ posuere vulputate. Etiam elit elit, elementum sed varius at.
                   "beginners and up",
                 ]
               }
+              theme={
+                Object {
+                  "horizontalList": Object {},
+                  "verticalList": Object {},
+                }
+              }
             />,
             "className": "jsx-1986333135 jsx-3104837453 column-container",
           },
@@ -242,6 +270,10 @@ posuere vulputate. Etiam elit elit, elementum sed varius at.
                 "object type guide",
                 "beginners and up",
               ],
+              "theme": Object {
+                "horizontalList": Object {},
+                "verticalList": Object {},
+              },
             },
             "ref": null,
             "rendered": null,
