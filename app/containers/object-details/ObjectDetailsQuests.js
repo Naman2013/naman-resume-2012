@@ -11,6 +11,7 @@ import { bindActionCreators } from 'redux';
 import DeviceProvider from '../../../app/providers/DeviceProvider';
 import ObjectDetailsSectionTitle from '../../components/object-details/ObjectDetailsSectionTitle';
 import QuestTile from '../../components/common/tiles/QuestTile';
+import CenterColumn from '../../../app/components/common/CenterColumn';
 
 import {
   fetchObjectDetailsAction,
@@ -37,17 +38,6 @@ class Quests extends Component {
     super(props);
   }
 
-  componentWillReceiveProps(nextProps) {
-  }
-
-  componentWillUpdate(nextProps) {
-
-  }
-
-  componentWillMount() {
-    //console.log(this.props)
-  }
-
   render() {
     const {
       params: {
@@ -57,15 +47,12 @@ class Quests extends Component {
       objectQuests,
     } = this.props;
 
-    //console.log (objectQuests);
-
     return (
       <Fragment>
         <DeviceProvider>
           <ObjectDetailsSectionTitle title={objectDetails.objectTitle + "'s"} subTitle="Related Quests" />
         </DeviceProvider>
-        <div className="contain">        
-          <h4>Related Quests: {objectDetails.objectTitle}</h4>
+        <CenterColumn> 
           {objectQuests && objectQuests.questsCount > 0 ? (
             <div className="card-container__quests">
               {Object.keys(objectQuests.questsList).map(function(key) {
@@ -82,50 +69,11 @@ class Quests extends Component {
               })}
             </div>
           ) : (
-            <div className="card-container__quests">
+            <div>
               <p>Sorry, there are no quests available for {objectDetails.objectTitle} at this time.</p>
             </div>
           )}
-
-          <style jsx>{`
-            h4 {
-              font-weight: 600;
-            }
-            .contain {
-              margin: 5%;
-              padding: 25px;
-              background-color: #f2f2f2;
-              text-transform: uppercase;
-            }
-            .card-container__quests {
-              display: flex;
-              flex-wrap: wrap;
-              justify-content: space-between;
-            }
-            .quest-card {
-              font-size: 1em;
-              background-color: #3E4B5C;
-              padding: 25px;
-              margin: 25px 0;
-              min-width: 28%;
-              text-align: center;
-              color: white;
-            }
-            .quest-icon {
-              background-color: #1E2631;
-              width: 90px;
-              height: 90px;
-              border-radius: 50%;
-              padding: 10px;
-              margin: 50px auto 60px;
-            }
-            .quest-btn {
-              cursor: pointer;
-              margin: 10px auto;
-            }
-          `}</style>
-
-        </div>
+        </CenterColumn>
       </Fragment>
     )
   }

@@ -1,7 +1,7 @@
 import css from 'styled-jsx/css';
 import { primaryFont, secondaryFont } from '../../../styles/variables/fonts';
-import { astronaut, lynch, geyser, iron, white_tile_texture } from '../../../styles/variables/colors_tiles_v4';
-import { screenLarge, screenXLarge } from '../../../styles/variables/breakpoints';
+import { astronaut, white_tile_texture } from '../../../styles/variables/colors_tiles_v4';
+import { screenXLarge } from '../../../styles/variables/breakpoints';
 
 export default css`
 

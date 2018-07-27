@@ -37,17 +37,6 @@ class Missions extends Component {
     super(props);
   }
 
-  componentWillReceiveProps(nextProps) {
-  }
-
-  componentWillUpdate(nextProps) {
-
-  }
-
-  componentWillMount() {
-    //console.log(this.props)
-  }
-
   render() {
     const {
       params: {
@@ -57,16 +46,13 @@ class Missions extends Component {
       objectMissions,
     } = this.props;
 
-
     return (
       <Fragment>
         <DeviceProvider>
           <ObjectDetailsSectionTitle title={objectDetails.objectTitle + "'s"} subTitle="Upcoming Missions" />
         </DeviceProvider>
         <CenterColumn> 
-          {objectMissions && objectMissions.missionsCount > 0 ? (
-
-            
+          {objectMissions && objectMissions.missionsCount > 0 ? (            
             <div>
               {Object.keys(objectMissions.missionsList).map(function(key) {
                 return(
