@@ -12,7 +12,7 @@ import ObjectStoryList from '../../components/object-post/object-story-list';
 import GenericLoadingBox from '../../components/common/loading-screens/generic-loading-box';
 import DeviceProvider from '../../../app/providers/DeviceProvider';
 import ObjectDetailsSectionTitle from '../../components/object-details/ObjectDetailsSectionTitle';
-import StoryTile from 'components/common/tiles/StoryTile';
+import CenterColumn from '../../../app/components/common/CenterColumn';
 
 import {
   fetchObjectDetailsAction,
@@ -114,7 +114,7 @@ class Stories extends Component {
         <DeviceProvider>
           <ObjectDetailsSectionTitle title={objectDetails.objectTitle + "'s"} subTitle="Related Stories" />
         </DeviceProvider>
-        <div className="contain">
+        <CenterColumn>
           {
             fetchingPosts ?
               <GenericLoadingBox />
@@ -132,20 +132,7 @@ class Stories extends Component {
                 className={'card-container__stories'}
               />
           }
-
-          <style jsx>{`
-            h4 {
-              font-weight: 600;
-            }
-            .contain {
-              margin: 5%;
-              padding: 25px;
-              background-color: #f2f2f2;
-              text-transform: uppercase;
-            }
-          `}</style>
-
-        </div>
+        </CenterColumn>
       </Fragment>
     )
   }

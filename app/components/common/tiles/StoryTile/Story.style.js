@@ -16,6 +16,7 @@ export default css`
     background-color: ${romance};
     background-size: 30px;
     transition: width, height 0.15s ease-out;
+    margin: 20px auto;
   }
 
   .container {
@@ -88,6 +89,7 @@ export default css`
     font-size: 22px;
     padding-top: 50px;
     width: 80%;
+    text-transform: none;
   }
 
   .author {
