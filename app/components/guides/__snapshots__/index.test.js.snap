@@ -955,7 +955,10 @@ exports[`TopicBodyContent should render correctly 1`] = `
 ShallowWrapper {
   "length": 1,
   Symbol(enzyme.__root__): [Circular],
-  Symbol(enzyme.__unrendered__): <TopicBodyContent />,
+  Symbol(enzyme.__unrendered__): <TopicBodyContent
+    content="Some sample content"
+    title="Test"
+  />,
   Symbol(enzyme.__renderer__): Object {
     "batchedUpdates": [Function],
     "getNode": [Function],
@@ -967,9 +970,42 @@ ShallowWrapper {
     "instance": null,
     "key": undefined,
     "nodeType": "host",
-    "props": Object {},
+    "props": Object {
+      "children": Array [
+        <h3>
+          Test
+        </h3>,
+        <p>
+          Some sample content
+        </p>,
+      ],
+      "className": "root",
+    },
     "ref": null,
-    "rendered": null,
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": "Test",
+        },
+        "ref": null,
+        "rendered": "Test",
+        "type": "h3",
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": "Some sample content",
+        },
+        "ref": null,
+        "rendered": "Some sample content",
+        "type": "p",
+      },
+    ],
     "type": "div",
   },
   Symbol(enzyme.__nodes__): Array [
@@ -977,9 +1013,42 @@ ShallowWrapper {
       "instance": null,
       "key": undefined,
       "nodeType": "host",
-      "props": Object {},
+      "props": Object {
+        "children": Array [
+          <h3>
+            Test
+          </h3>,
+          <p>
+            Some sample content
+          </p>,
+        ],
+        "className": "root",
+      },
       "ref": null,
-      "rendered": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": "Test",
+          },
+          "ref": null,
+          "rendered": "Test",
+          "type": "h3",
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": "Some sample content",
+          },
+          "ref": null,
+          "rendered": "Some sample content",
+          "type": "p",
+        },
+      ],
       "type": "div",
     },
   ],

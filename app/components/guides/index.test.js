@@ -52,7 +52,7 @@ describe('SubjectGuideList', () => {
 });
 
 describe('TopicBodyContent', () => {
-  const shallowWrapper = shallow(<TopicBodyContent />);
+  const shallowWrapper = shallow(<TopicBodyContent title="Test" content="Some sample content" />);
   it('should render correctly', () => {
     expect(shallowWrapper).toMatchSnapshot();
   });
