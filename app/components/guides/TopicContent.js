@@ -3,6 +3,7 @@ import CenterColumn from 'components/common/CenterColumn';
 import TopicHeading from './TopicHeading';
 import GuideSection from './GuideSection';
 import GuideBodyContent from './GuideBodyContent';
+import TopicBodyContent from './TopicBodyContent';
 import TopicContentList from './TopicContentList';
 import style from './TopicContent.style';
 
@@ -21,7 +22,7 @@ const TopicContent = () => (
     <CenterColumn>
       <div className="guide-container">
         <GuideSection
-          content={() => <GuideBodyContent title="About this guide" content={bodyContent} />}
+          content={() => <TopicBodyContent title="About this guide" content={bodyContent} />}
           column={() => (<TopicContentList list={['contains 10 objects', 'object type guide', 'beginners and up']} />)}
           alignContent="left"
         />
