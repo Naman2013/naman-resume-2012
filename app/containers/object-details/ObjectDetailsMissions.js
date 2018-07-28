@@ -5,16 +5,17 @@
 *   Multi-National Languages.....
 ***********************************/
 
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import classnames from 'classnames';
-import has from 'lodash/has';
 import {
   fetchObjectDetailsAction,
   fetchObjectMissionsAction,
 } from '../../modules/object-details/actions';
+import DeviceProvider from '../../../app/providers/DeviceProvider';
+import ObjectDetailsSectionTitle from '../../components/object-details/ObjectDetailsSectionTitle';
+import MissionTile from 'components/common/tiles/MissionTile';
+import CenterColumn from '../../../app/components/common/CenterColumn';
 
 const mapStateToProps = ({ objectDetails, appConfig, user }) => ({
   objectMissions: objectDetails.objectMissions,
@@ -36,17 +37,6 @@ class Missions extends Component {
     super(props);
   }
 
-  componentWillReceiveProps(nextProps) {
-  }
-
-  componentWillUpdate(nextProps) {
-
-  }
-
-  componentWillMount() {
-    //console.log(this.props)
-  }
-
   render() {
     const {
       params: {
@@ -56,94 +46,32 @@ class Missions extends Component {
       objectMissions,
     } = this.props;
 
-
     return (
-      <div className="contain">
-
-        <h4>{objectMissions.missionListTitle}</h4>
-        {objectMissions && objectMissions.missionsCount > 0 ? (
-          <div className="card-container__missions">
-            {Object.keys(objectMissions.missionsList).map(function(key) {
-              return(
-                <div className="mission-card" key={'card_' + key}>                
-                  <div className="mission-icon"><img src={objectMissions.missionsList[key].iconURL}/></div>
-                  <h4>{objectMissions.missionsList[key].title}</h4>
-                  {objectDetails.objectSubtitle}
-                  <ul>
-                    {Object.keys(objectMissions.missionsList[key].missionDetails).map(function(indx) {
-                      return( 
-                        <li key={indx}><img src={objectMissions.missionsList[key].missionDetails[indx].itemiconURL}/>{objectMissions.missionsList[key].missionDetails[indx].itemText}</li>
-                      )
-                    })}
-                  </ul>
-                  {objectMissions.missionsList[key].canJoinFlag &&                 
-                    <div className="mission-btn">{objectMissions.missionsList[key].joinPrompt}</div>
-                  }
-                </div>
-              )
-            })}
-          </div>
-        ) : (
-          <div className="card-container__missions">
-            Sorry, there are no mission available for {objectDetails.objectTitle} at this time.
-          </div>
-        )}
-
-        <style jsx>{`
-          h4 {
-            font-weight: 600;
-          }
-          .contain {
-            margin: 5%;
-            padding: 25px;
-            background-color: #f2f2f2;
-            text-transform: uppercase;
-          }
-          .card-container__missions {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-          }
-          .mission-card {
-            font-size: 1em;
-            background-color: white;
-            padding: 25px;
-            margin: 25px 0;
-            min-width: 28%;
-          }
-          .mission-icon {
-            background-color: #3C4A55;
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
-            padding: 10px;
-          }
-          .mission-card ul {
-            list-style: none;
-            padding: 0;
-            margin: 15px 0;
-          }
-          .mission-card li {
-            border-top: 1px solid;
-            padding: 10px 0;
-          }
-          .mission-card li img {
-            height: 1em;
-            width: 1em;
-            margin: -0.2em 1em 0 0;
-          }
-          .mission-btn {
-            padding: 7px 10px;
-            background-color: #3C4A55;
-            width: 50%;
-            border-radius: 19px;
-            color: white;
-            text-align: center;
-            cursor: pointer;
-          }
-        `}</style>
-
-      </div>
+      <Fragment>
+        <DeviceProvider>
+          <ObjectDetailsSectionTitle title={objectDetails.objectTitle + "'s"} subTitle="Upcoming Missions" />
+        </DeviceProvider>
+        <CenterColumn> 
+          {objectMissions && objectMissions.missionsCount > 0 ? (            
+            <div>
+              {Object.keys(objectMissions.missionsList).map(function(key) {
+                return(
+                  <MissionTile
+                    key={'mission_' + key}
+                    title={objectMissions.missionsList[key].title}
+                    telescope={objectMissions.missionsList[key].missionDetails.telescope.itemText}
+                    dat={objectMissions.missionsList[key].missionDetails.date.itemText}
+                    thyme={objectMissions.missionsList[key].missionDetails.time.itemText.slice(0, -4)}
+                  />
+                )})}              
+            </div>
+          ) : (
+            <div>
+              Sorry, there are no missions available for {objectDetails.objectTitle} at this time.
+            </div>
+          )}
+        </CenterColumn>
+      </Fragment>
     )
   }
 }

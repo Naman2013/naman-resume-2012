@@ -7,6 +7,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 import PropTypes from 'prop-types';
+import style from './SubPageNavigation.style';
 
 const SubPageNavigation = ({ items }) => (
   <div className="navigation-root">
@@ -18,7 +19,7 @@ const SubPageNavigation = ({ items }) => (
               activeClassName="active"
               to={item.link}
             >
-              <span className="link">
+              <span className="link" >
                 {item.title}
               </span>
             </Link>
@@ -26,32 +27,7 @@ const SubPageNavigation = ({ items }) => (
         ))
       }
     </ul>
-    <style jsx>{`
-
-      .navigation {
-        display: flex;
-        flex-direction: row;
-      }
-
-      .item {
-        list-style-type: none;
-        padding: 0 25px;
-      }
-
-      :global(.active),
-      :global(.active):link,
-      :global(.active):active,
-      :global(.active):visited {
-        font-weight: normal;
-        text-transform: none;
-        display: block;
-        text-decoration: none;
-      }
-
-      :global(.active) .link {
-        font-weight: bold;
-      }
-    `}</style>
+    <style jsx>{style}</style>
   </div>
 );
 

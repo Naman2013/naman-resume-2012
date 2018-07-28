@@ -14,7 +14,7 @@ const generateNavItems = (objectId) => ([
     link:`/object-details/${objectId}/overview`
   },
   {
-    title: 'Upcoming Missions',
+    title: 'Missions',
     link:`/object-details/${objectId}/missions`
   },
   {
@@ -25,18 +25,18 @@ const generateNavItems = (objectId) => ([
     title: 'Ask an Astronomer',
     link:`/object-details/${objectId}/ask`
   },
-  /*{
-    title: 'Observation Log',
-    link:`/object-details/${objectId}/log`
+  {
+    title: 'Shows',
+    link:`/object-details/${objectId}/shows`
   },
   {
     title: 'Stories',
     link:`/object-details/${objectId}/stories`
-  },
+  },  
   {
-    title: 'Shows',
-    link:`/object-details/${objectId}/shows`
-  }*/
+    title: 'Observations',
+    link:`/object-details/${objectId}/log`
+  },
 ]);
 
 const Navigation = ({ items, objectId }) => (

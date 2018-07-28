@@ -9,21 +9,16 @@ import React, { Component, cloneElement } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import classnames from 'classnames';
-import has from 'lodash/has';
-
 import {
   fetchObjectDetailsAction,
   fetchObjectDataAction,
   fetchObjectMissionsAction,
   fetchObjectQuestsAction,
-  fetchObjectFollowAction,
   fetchObjectSpecialistsAction
 } from '../../modules/object-details/actions';
-
 import Navigation from '../../components/object-details/Navigation';
-import { darkBlueGray, white } from '../../styles/variables/colors';
-
+import FollowObject from '../../components/object-details/FollowObject';
+import style from './ObjectDetails.style';
 
 
 
@@ -124,6 +119,7 @@ class ObjectDetails extends Component {
         showFollowPromptFlag,
         followPrompt,
       },
+      user,
       children
     } = this.props;
 
@@ -132,46 +128,21 @@ class ObjectDetails extends Component {
         <header className="header">
           <div className="icon"></div>
           {objectTitle}
+          {/*
           <div className="subtitle">{objectSubtitle}</div>
-          {!showFollowPromptFlag &&
-            <div className="follow-btn">Follow Object</div>
-          }
+          {showFollowPromptFlag && 
+            <FollowObject 
+              objectId={objectId}
+              user={user}
+              prompt={followPrompt}
+            />            
+          }     
+          */} 
         </header>
         <Navigation objectId={objectId} />
         {cloneElement(children)}
-        <style jsx>{`
-          .header {
-            position: relative;
-            height: 300px;
-            width: 100%;
-            background-color: ${darkBlueGray};
-            color: ${white};
-            text-transform: uppercase;
-            padding: 5%;
-            font-size: 45px;
-          }
-          .subtitle {
-            font-size: 14px;
-          }
-          .follow-btn {
-            position: absolute;
-            padding: 10px 5px;
-            border: 1px solid ${white};
-            font-size: 14px;
-            width: 160px;
-            text-align: center;
-            left: 5%;
-            bottom: 10%;
-            cursor: pointer;
-          }
-          .icon {
-            width: 150px;
-            height: 150px;
-            background-image: url(${objectIconURL});
-            background-size: cover;
-            float: right;
-          }
-        `}</style>
+        <style jsx>{style}</style>
+        <style jsx>{`.icon { mask-image: url(${objectIconURL}); } `}</style>
       </div>
     )
   }

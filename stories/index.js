@@ -2,6 +2,7 @@ import './AbelList';
 import './AudioPlayer';
 import './BlueLineDrop';
 import './Buttons';
+import './cards/CardObservations';
 import './ContextMenu';
 import './design-system';
 import './DiscussionsBoard';
@@ -13,6 +14,7 @@ import './icons';
 import './InAppNavigation';
 import './LabeledTitleTiles';
 import './MissionAudio';
+import './ObjectDetailsSectionTitle';
 import './ResponsiveTwoColumnContainer';
 import './RevealSubmitForm';
 import './SingleFieldSubmitForm';
@@ -22,6 +24,8 @@ import './Tabs';
 import './Telescope';
 import './TelescopeThumbnailView';
 import './TiaraTitleSection';
+
+// Tiles
 import './Tiles';
 import './Titles';
 import './Timestamp';

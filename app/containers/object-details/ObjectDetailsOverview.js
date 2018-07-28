@@ -5,16 +5,24 @@
 *   Multi-National Languages.....
 ***********************************/
 
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import classnames from 'classnames';
-import has from 'lodash/has';
 import { 
   fetchObjectDataAction, 
   fetchObjectSpecialistsAction 
 } from '../../modules/object-details/actions';
+import CenterColumn from '../../../app/components/common/CenterColumn';
+import GuideSection from '../../../app/components/guides/GuideSection';
+import GuideBodyContent from '../../../app/components/guides/GuideBodyContent';
+import GuideContentList from '../../../app/components/guides/GuideContentList';
+import DeviceProvider from '../../../app/providers/DeviceProvider';
+import FollowObject from '../../../app/components/object-details/FollowObject';
+import CardObservations from '../../../app/components/common/CardObservations';
+import SterlingTitle from '../../../app/components/common/titles/SterlingTitle';
+
+import style from './ObjectDetailsOverview.style';
 
 const mapStateToProps = ({ objectDetails, appConfig, user }) => ({
   objectData: objectDetails.objectData,
@@ -36,13 +44,6 @@ class Overview extends Component {
     super(props);
   }
 
-  componentWillReceiveProps(nextProps) {
-  }
-
-  componentWillUpdate(nextProps) {
-
-  }
-
   componentWillMount() {
     //console.log(this.props);
   }
@@ -56,91 +57,65 @@ class Overview extends Component {
       objectSpecialists,
     } = this.props;
 
+    const topProps = {
+      content: () => <GuideBodyContent title="About this object" content={objectData.objectDescription} />,
+      column: () => (<GuideContentList list={['object type?', objectData.objectDomain, objectData.objectConstellation, <FollowObject / >]} />),
+      alignContent: 'left',
+    };
+
+
     return (
-      <div>
-        <div className="contain">
-          <ul>
-            Details:
-            <li>Object Type: ?</li>
-            <li>Object Domain: {objectData.objectDomain}</li>
-            <li>Object Constellation: {objectData.objectConstellation}</li>
-            <li>Best Telescope: ?</li>
-          </ul>
-          <h4>{objectData.objectSubtitle}</h4>
-          <p>{objectData.objectDescription}</p>
-          <a href="#">Read More + </a> <a href="#">Follow {objectData.objectTitle}</a>
-        </div>
+      <Fragment>
 
-        <div className="contain">Fun fact: {objectData.objectTagline}</div>
+        <section className="white-paper-bg">
+          <CenterColumn theme={{
+              position: 'relative',
+              boxShadow: 'rgb(191, 191, 191) 0px 11px 20px -10px',
+            }}
+          >
+            <h1>{objectData.objectSubtitle}</h1>
+            <DeviceProvider>
+              <GuideSection {...topProps} />
+            </DeviceProvider>
+          </CenterColumn>
+        </section>
+
+        <section className="blue-tile-bg">
+          <DeviceProvider>
+            <SterlingTitle title='featured observation' subTitle='community observation' theme={{ title: { color: 'white' }, subTitle: { color: 'white' } }} />
+            <CardObservations />
+          </DeviceProvider>
+        </section>
+
+        <section className="off-white-bg">
+          <SterlingTitle title='Prepare for your next mission' subTitle='Tools to help plan your next mission to The Moon' />
         
-        {objectData.objectAudioURL !== "" &&
-          <div className="contain">
-            Audio Clip:<br/>
-            <audio src={objectData.objectAudioURL} controls playsInline controlsList="nodownload"/>
-          </div>
-        }
+          <SterlingTitle title='MVP Astronomers' subTitle={"Most Active on " + objectData.objectTitle} />
+          <CenterColumn>
+            {objectSpecialists && objectSpecialists.specialistsCount > 0 ? (
+              <div className="card-container__specialists">
+                {Object.keys(objectSpecialists.specialistsList).map(function(key) {
+                  return(
+                    <div className="specialists-card" key={'card_' + key}>
+                      <div className="specialists-icon"><img src={objectSpecialists.specialistsList[key].iconURL}/></div>
+                      <h5>{objectSpecialists.specialistsList[key].displayName}</h5>
+                      {objectSpecialists.specialistsList[key].hasLinkFlag &&                 
+                        <a className="specialists-btn" href={objectSpecialists.specialistsList[key].linkURL}>View Specialist</a>
+                      }
+                    </div>
+                  )
+                })}
+              </div>
+            ) : (
+              <div className="card-container__specialists">
+                Sorry, there are no specialists for {objectData.objectTitle} available at this time.
+              </div>
+            )}
+          </CenterColumn>
+        </section>
 
-
-        <div className="contain">
-          <h4>Most Active Astronomers on {objectData.objectTitle}</h4>
-          {objectSpecialists && objectSpecialists.specialistsCount > 0 ? (
-            <div className="card-container__specialists">
-              {Object.keys(objectSpecialists.specialistsList).map(function(key) {
-                return(
-                  <div className="specialists-card" key={'card_' + key}>
-                    <div className="specialists-icon"><img src={objectSpecialists.specialistsList[key].iconURL}/></div>
-                    <h5>{objectSpecialists.specialistsList[key].displayName}</h5>
-                    {objectSpecialists.specialistsList[key].hasLinkFlag &&                 
-                      <a className="specialists-btn" href={objectSpecialists.specialistsList[key].linkURL}>View Specialist</a>
-                    }
-                  </div>
-                )
-              })}
-            </div>
-          ) : (
-            <div className="card-container__specialists">
-              Sorry, there are no specialists available at this time.
-            </div>
-          )}
-        </div>
-        
-
-        <style jsx>{`
-          .contain {
-            margin: 5%;
-            padding: 25px;
-            background-color: #f2f2f2;
-          }
-          .contain ul {
-            float: right;
-            list-style: none;
-          }
-          h4 {
-            text-transform: uppercase;
-            font-weight: 600;
-          }
-          .card-container__specialists {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-          }
-          .specialists-card {
-            font-size: 1em;
-            background-color: white;
-            padding: 25px;
-            margin: 25px 0;
-            min-width: 28%;
-          }
-          .specialists-icon {
-            background-color: #3C4A55;
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
-            padding: 10px;
-          }
-        `}</style>
-
-      </div>
+        <style jsx>{style}</style>
+      </Fragment>
     )
   }
 }
