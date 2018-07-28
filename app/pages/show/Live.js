@@ -9,6 +9,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ThreeTabbedNav from 'components/ThreeTabbedNav';
 import ResponsiveTwoColumnContainer from 'components/ResponsiveTwoColumnContainer';
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import HeaderContainer from './partials/HeaderContainer'
 import MainContainer from './partials/MainContainer';
 import AsideContainer from './partials/AsideContainer';
@@ -43,6 +44,7 @@ class LiveShow extends Component {
     aboutIsActive: false,
     commentsIsActive: false,
     detailsIsActive: false,
+    selectedTab: 0,
   }
 
   showAbout = () => {
@@ -69,6 +71,14 @@ class LiveShow extends Component {
     });
   }
 
+  handleSelect = (index) => {
+    console.log("selecting", index)
+    window.scrollTo(0, 0);
+    this.setState({
+      selectedTab: index,
+    });
+  }
+
   render() {
     const {
       additionalFeeds,
@@ -80,41 +90,49 @@ class LiveShow extends Component {
       aboutIsActive,
       commentsIsActive,
       detailsIsActive,
+      selectedTab,
     } = this.state;
 
     return (
       <div className="root">
-        <HeaderContainer {...this.props} />
-        <div className="main-container">
-          <ResponsiveTwoColumnContainer
-            renderNavigationComponent={() =>
-              (<ThreeTabbedNav
-                firstTitle="About"
-                secondTitle="Comments"
-                thirdTitle="Details"
-                firstTabIsActive={aboutIsActive}
-                firstTabOnClick={this.showAbout}
-                secondTabIsActive={commentsIsActive}
-                secondTabOnClick={this.showComments}
-                thirdTabIsActive={detailsIsActive}
-                thirdTabOnClick={this.showDetails}
-              />)
-            }
-            renderAsideContent={() => (<div
-              {...this.props}
-              aboutIsActive={aboutIsActive}
-              commentsIsActive={commentsIsActive}
-              detailsIsActive={detailsIsActive}
-            />)}
-            isScreenLarge={isScreenLarge}
-            renderMainContent={() => (<div
-              {...this.props}
-              aboutIsActive={aboutIsActive}
-              commentsIsActive={commentsIsActive}
-              detailsIsActive={detailsIsActive}
-            />)}
+          <HeaderContainer
+            {...this.props}
+            label="Airing Now"
+            handleSelect={this.handleSelect}
+            selectedTab={selectedTab}
           />
-        </div>
+          <div className="main-container">
+            <ResponsiveTwoColumnContainer
+              renderNavigationComponent={() =>
+                (<ThreeTabbedNav
+                  firstTitle="About"
+                  secondTitle="Comments"
+                  thirdTitle="Details"
+                  firstTabIsActive={aboutIsActive}
+                  firstTabOnClick={this.showAbout}
+                  secondTabIsActive={commentsIsActive}
+                  secondTabOnClick={this.showComments}
+                  thirdTabIsActive={detailsIsActive}
+                  thirdTabOnClick={this.showDetails}
+                />)
+              }
+              renderAsideContent={() => (<div
+                {...this.props}
+                aboutIsActive={aboutIsActive}
+                commentsIsActive={commentsIsActive}
+                detailsIsActive={detailsIsActive}
+              />)}
+              isScreenLarge={isScreenLarge}
+              renderMainContent={() => (<MainContainer
+                {...this.props}
+                selectedTab={selectedTab}
+                handleSelect={this.handleSelect}
+                aboutIsActive={aboutIsActive}
+                commentsIsActive={commentsIsActive}
+                detailsIsActive={detailsIsActive}
+              />)}
+            />
+          </div>
         <style jsx>{styles}</style>
       </div>
     );

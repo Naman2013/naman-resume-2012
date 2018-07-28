@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import MonotonousTile from 'components/common/tiles/MonotonousTile'
-import LiveShowVideoViewer from 'components/LiveShowVideoViewer';
+import LiveShowVideoViewerNav from 'components/LiveShowVideoViewer/LiveShowVideoViewerNav';
+import BigBoxInfoContainer from './BigBoxInfoContainer';
 import styles from './HeaderContainer.style';
 
 const {
@@ -13,15 +13,15 @@ const {
   string,
 } = PropTypes;
 
-const HeaderContainer = (props) => {
-  return (
-    <div>
-      <LiveShowVideoViewer {...props} />
-      <MonotonousTile label="Airing Now" text={props.title} />
-      <style jsx>{styles}</style>
-    </div>
-  );
-};
+const HeaderContainer = (props) => (
+  <div>
+    <LiveShowVideoViewerNav {...props} />
+    {!props.isScreenLarge ?
+      <BigBoxInfoContainer {...props} />:
+    null}
+    <style jsx>{styles}</style>
+  </div>
+);
 
 HeaderContainer.propTypes = {
   isScreenLarge: bool,
