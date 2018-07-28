@@ -9,7 +9,6 @@ export default css`
 
   .guide-container {
     background: white;
-    padding-bottom: 60px;
   }
 
   .title-container {

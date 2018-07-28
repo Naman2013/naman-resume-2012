@@ -972,14 +972,31 @@ ShallowWrapper {
     "nodeType": "host",
     "props": Object {
       "children": Array [
-        <h3>
-          Test
-        </h3>,
-        <p>
+        <div
+          className="jsx-3931563762 title-wrapper"
+        >
+          <RubyTitle
+            text="Test"
+          />
+        </div>,
+        <p
+          className="jsx-3931563762"
+        >
           Some sample content
         </p>,
+        <JSXStyle
+          css={
+            Array [
+              ".root.jsx-3931563762{background-color:white;padding:20px 35px;}",
+              ".title-wrapper.jsx-3931563762{padding:15px 0;}",
+              "p.jsx-3931563762{font-family:adobe-garamond-pro, serif;line-height:1.5;font-size:18px;}",
+              "@media screen and (min-width: 768px){.root.jsx-3931563762{padding:60px 40px;}}",
+            ]
+          }
+          styleId="3931563762"
+        />,
       ],
-      "className": "root",
+      "className": "jsx-3931563762 root",
     },
     "ref": null,
     "rendered": Array [
@@ -988,11 +1005,24 @@ ShallowWrapper {
         "key": undefined,
         "nodeType": "host",
         "props": Object {
-          "children": "Test",
+          "children": <RubyTitle
+            text="Test"
+          />,
+          "className": "jsx-3931563762 title-wrapper",
         },
         "ref": null,
-        "rendered": "Test",
-        "type": "h3",
+        "rendered": Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "function",
+          "props": Object {
+            "text": "Test",
+          },
+          "ref": null,
+          "rendered": null,
+          "type": [Function],
+        },
+        "type": "div",
       },
       Object {
         "instance": null,
@@ -1000,10 +1030,28 @@ ShallowWrapper {
         "nodeType": "host",
         "props": Object {
           "children": "Some sample content",
+          "className": "jsx-3931563762",
         },
         "ref": null,
         "rendered": "Some sample content",
         "type": "p",
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
+          "css": Array [
+            ".root.jsx-3931563762{background-color:white;padding:20px 35px;}",
+            ".title-wrapper.jsx-3931563762{padding:15px 0;}",
+            "p.jsx-3931563762{font-family:adobe-garamond-pro, serif;line-height:1.5;font-size:18px;}",
+            "@media screen and (min-width: 768px){.root.jsx-3931563762{padding:60px 40px;}}",
+          ],
+          "styleId": "3931563762",
+        },
+        "ref": null,
+        "rendered": null,
+        "type": [Function],
       },
     ],
     "type": "div",
@@ -1015,14 +1063,31 @@ ShallowWrapper {
       "nodeType": "host",
       "props": Object {
         "children": Array [
-          <h3>
-            Test
-          </h3>,
-          <p>
+          <div
+            className="jsx-3931563762 title-wrapper"
+          >
+            <RubyTitle
+              text="Test"
+            />
+          </div>,
+          <p
+            className="jsx-3931563762"
+          >
             Some sample content
           </p>,
+          <JSXStyle
+            css={
+              Array [
+                ".root.jsx-3931563762{background-color:white;padding:20px 35px;}",
+                ".title-wrapper.jsx-3931563762{padding:15px 0;}",
+                "p.jsx-3931563762{font-family:adobe-garamond-pro, serif;line-height:1.5;font-size:18px;}",
+                "@media screen and (min-width: 768px){.root.jsx-3931563762{padding:60px 40px;}}",
+              ]
+            }
+            styleId="3931563762"
+          />,
         ],
-        "className": "root",
+        "className": "jsx-3931563762 root",
       },
       "ref": null,
       "rendered": Array [
@@ -1031,11 +1096,24 @@ ShallowWrapper {
           "key": undefined,
           "nodeType": "host",
           "props": Object {
-            "children": "Test",
+            "children": <RubyTitle
+              text="Test"
+            />,
+            "className": "jsx-3931563762 title-wrapper",
           },
           "ref": null,
-          "rendered": "Test",
-          "type": "h3",
+          "rendered": Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "function",
+            "props": Object {
+              "text": "Test",
+            },
+            "ref": null,
+            "rendered": null,
+            "type": [Function],
+          },
+          "type": "div",
         },
         Object {
           "instance": null,
@@ -1043,10 +1121,28 @@ ShallowWrapper {
           "nodeType": "host",
           "props": Object {
             "children": "Some sample content",
+            "className": "jsx-3931563762",
           },
           "ref": null,
           "rendered": "Some sample content",
           "type": "p",
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "css": Array [
+              ".root.jsx-3931563762{background-color:white;padding:20px 35px;}",
+              ".title-wrapper.jsx-3931563762{padding:15px 0;}",
+              "p.jsx-3931563762{font-family:adobe-garamond-pro, serif;line-height:1.5;font-size:18px;}",
+              "@media screen and (min-width: 768px){.root.jsx-3931563762{padding:60px 40px;}}",
+            ],
+            "styleId": "3931563762",
+          },
+          "ref": null,
+          "rendered": null,
+          "type": [Function],
         },
       ],
       "type": "div",
@@ -1098,7 +1194,7 @@ ShallowWrapper {
           }
         >
           <div
-            className="jsx-2689957223 title-container"
+            className="jsx-2900280927 title-container"
           >
             <TopicHeading
               text="Astronomical time"
@@ -1123,7 +1219,7 @@ ShallowWrapper {
           }
         >
           <div
-            className="jsx-2689957223 guide-container"
+            className="jsx-2900280927 guide-container"
           >
             <GuideSection
               alignContent="left"
@@ -1135,17 +1231,17 @@ ShallowWrapper {
         <JSXStyle
           css={
             Array [
-              ".root.jsx-2689957223{background:url(https://vega.slooh.com/assets/v4/common/White_Paper_Subtle.png);}",
-              ".guide-container.jsx-2689957223{background:white;padding-bottom:60px;}",
-              ".title-container.jsx-2689957223{margin:0;background:white;}",
-              "@media screen and (min-width: 768px){.title-container.jsx-2689957223{background:none;}.guide-container.jsx-2689957223{margin:0;margin-top:10px;}}",
-              "@media screen and (min-width: 1024px){.guide-container.jsx-2689957223{background:none;}}",
+              ".root.jsx-2900280927{background:url(https://vega.slooh.com/assets/v4/common/White_Paper_Subtle.png);}",
+              ".guide-container.jsx-2900280927{background:white;}",
+              ".title-container.jsx-2900280927{margin:0;background:white;}",
+              "@media screen and (min-width: 768px){.title-container.jsx-2900280927{background:none;}.guide-container.jsx-2900280927{margin:0;margin-top:10px;}}",
+              "@media screen and (min-width: 1024px){.guide-container.jsx-2900280927{background:none;}}",
             ]
           }
-          styleId="2689957223"
+          styleId="2900280927"
         />,
       ],
-      "className": "jsx-2689957223 root",
+      "className": "jsx-2900280927 root",
     },
     "ref": null,
     "rendered": Array [
@@ -1160,7 +1256,7 @@ ShallowWrapper {
             "screen and (min-width: 1366px)",
           ],
           "children": <div
-            className="jsx-2689957223 title-container"
+            className="jsx-2900280927 title-container"
           >
             <TopicHeading
               text="Astronomical time"
@@ -1182,7 +1278,7 @@ ShallowWrapper {
             "children": <TopicHeading
               text="Astronomical time"
             />,
-            "className": "jsx-2689957223 title-container",
+            "className": "jsx-2900280927 title-container",
           },
           "ref": null,
           "rendered": Object {
@@ -1211,7 +1307,7 @@ ShallowWrapper {
             "screen and (min-width: 1366px)",
           ],
           "children": <div
-            className="jsx-2689957223 guide-container"
+            className="jsx-2900280927 guide-container"
           >
             <GuideSection
               alignContent="left"
@@ -1237,7 +1333,7 @@ ShallowWrapper {
               column={[Function]}
               content={[Function]}
             />,
-            "className": "jsx-2689957223 guide-container",
+            "className": "jsx-2900280927 guide-container",
           },
           "ref": null,
           "rendered": Object {
@@ -1263,13 +1359,13 @@ ShallowWrapper {
         "nodeType": "class",
         "props": Object {
           "css": Array [
-            ".root.jsx-2689957223{background:url(https://vega.slooh.com/assets/v4/common/White_Paper_Subtle.png);}",
-            ".guide-container.jsx-2689957223{background:white;padding-bottom:60px;}",
-            ".title-container.jsx-2689957223{margin:0;background:white;}",
-            "@media screen and (min-width: 768px){.title-container.jsx-2689957223{background:none;}.guide-container.jsx-2689957223{margin:0;margin-top:10px;}}",
-            "@media screen and (min-width: 1024px){.guide-container.jsx-2689957223{background:none;}}",
+            ".root.jsx-2900280927{background:url(https://vega.slooh.com/assets/v4/common/White_Paper_Subtle.png);}",
+            ".guide-container.jsx-2900280927{background:white;}",
+            ".title-container.jsx-2900280927{margin:0;background:white;}",
+            "@media screen and (min-width: 768px){.title-container.jsx-2900280927{background:none;}.guide-container.jsx-2900280927{margin:0;margin-top:10px;}}",
+            "@media screen and (min-width: 1024px){.guide-container.jsx-2900280927{background:none;}}",
           ],
-          "styleId": "2689957223",
+          "styleId": "2900280927",
         },
         "ref": null,
         "rendered": null,
@@ -1303,7 +1399,7 @@ ShallowWrapper {
             }
           >
             <div
-              className="jsx-2689957223 title-container"
+              className="jsx-2900280927 title-container"
             >
               <TopicHeading
                 text="Astronomical time"
@@ -1328,7 +1424,7 @@ ShallowWrapper {
             }
           >
             <div
-              className="jsx-2689957223 guide-container"
+              className="jsx-2900280927 guide-container"
             >
               <GuideSection
                 alignContent="left"
@@ -1340,17 +1436,17 @@ ShallowWrapper {
           <JSXStyle
             css={
               Array [
-                ".root.jsx-2689957223{background:url(https://vega.slooh.com/assets/v4/common/White_Paper_Subtle.png);}",
-                ".guide-container.jsx-2689957223{background:white;padding-bottom:60px;}",
-                ".title-container.jsx-2689957223{margin:0;background:white;}",
-                "@media screen and (min-width: 768px){.title-container.jsx-2689957223{background:none;}.guide-container.jsx-2689957223{margin:0;margin-top:10px;}}",
-                "@media screen and (min-width: 1024px){.guide-container.jsx-2689957223{background:none;}}",
+                ".root.jsx-2900280927{background:url(https://vega.slooh.com/assets/v4/common/White_Paper_Subtle.png);}",
+                ".guide-container.jsx-2900280927{background:white;}",
+                ".title-container.jsx-2900280927{margin:0;background:white;}",
+                "@media screen and (min-width: 768px){.title-container.jsx-2900280927{background:none;}.guide-container.jsx-2900280927{margin:0;margin-top:10px;}}",
+                "@media screen and (min-width: 1024px){.guide-container.jsx-2900280927{background:none;}}",
               ]
             }
-            styleId="2689957223"
+            styleId="2900280927"
           />,
         ],
-        "className": "jsx-2689957223 root",
+        "className": "jsx-2900280927 root",
       },
       "ref": null,
       "rendered": Array [
@@ -1365,7 +1461,7 @@ ShallowWrapper {
               "screen and (min-width: 1366px)",
             ],
             "children": <div
-              className="jsx-2689957223 title-container"
+              className="jsx-2900280927 title-container"
             >
               <TopicHeading
                 text="Astronomical time"
@@ -1387,7 +1483,7 @@ ShallowWrapper {
               "children": <TopicHeading
                 text="Astronomical time"
               />,
-              "className": "jsx-2689957223 title-container",
+              "className": "jsx-2900280927 title-container",
             },
             "ref": null,
             "rendered": Object {
@@ -1416,7 +1512,7 @@ ShallowWrapper {
               "screen and (min-width: 1366px)",
             ],
             "children": <div
-              className="jsx-2689957223 guide-container"
+              className="jsx-2900280927 guide-container"
             >
               <GuideSection
                 alignContent="left"
@@ -1442,7 +1538,7 @@ ShallowWrapper {
                 column={[Function]}
                 content={[Function]}
               />,
-              "className": "jsx-2689957223 guide-container",
+              "className": "jsx-2900280927 guide-container",
             },
             "ref": null,
             "rendered": Object {
@@ -1468,13 +1564,13 @@ ShallowWrapper {
           "nodeType": "class",
           "props": Object {
             "css": Array [
-              ".root.jsx-2689957223{background:url(https://vega.slooh.com/assets/v4/common/White_Paper_Subtle.png);}",
-              ".guide-container.jsx-2689957223{background:white;padding-bottom:60px;}",
-              ".title-container.jsx-2689957223{margin:0;background:white;}",
-              "@media screen and (min-width: 768px){.title-container.jsx-2689957223{background:none;}.guide-container.jsx-2689957223{margin:0;margin-top:10px;}}",
-              "@media screen and (min-width: 1024px){.guide-container.jsx-2689957223{background:none;}}",
+              ".root.jsx-2900280927{background:url(https://vega.slooh.com/assets/v4/common/White_Paper_Subtle.png);}",
+              ".guide-container.jsx-2900280927{background:white;}",
+              ".title-container.jsx-2900280927{margin:0;background:white;}",
+              "@media screen and (min-width: 768px){.title-container.jsx-2900280927{background:none;}.guide-container.jsx-2900280927{margin:0;margin-top:10px;}}",
+              "@media screen and (min-width: 1024px){.guide-container.jsx-2900280927{background:none;}}",
             ],
-            "styleId": "2689957223",
+            "styleId": "2900280927",
           },
           "ref": null,
           "rendered": null,

@@ -1,10 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import RubyTitle from 'atoms/titles/RubyTitle';
+import style from './TopicBodyContent.style';
 
 const TopicBodyContent = ({ title, content }) => (
   <div className="root">
-    <h3>{title}</h3>
+    <div className="title-wrapper">
+      <RubyTitle text={title} />
+    </div>
     <p>{content}</p>
+    <style jsx>{style}</style>
   </div>
 );
 
