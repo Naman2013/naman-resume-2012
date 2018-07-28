@@ -13,15 +13,13 @@ const {
   string,
 } = PropTypes;
 
-const BigBoxInfoContainer = (props) => {
-  return (
-    <div>
-      <LiveShowVideoViewer {...props} />
-      <MonotonousTile label="Airing Now" text={props.title} />
-      <style jsx>{styles}</style>
-    </div>
+const BigBoxInfoContainer = (props) => (
+  <div>
+    <LiveShowVideoViewer {...props} />
+    <MonotonousTile label="Airing Now" text={props.title} />
+    <style jsx>{styles}</style>
+  </div>
   );
-};
 
 BigBoxInfoContainer.propTypes = {
   isScreenLarge: bool,

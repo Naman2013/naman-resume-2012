@@ -9,7 +9,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import uniqueId from 'lodash/uniqueId';
-import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import { Tabs, TabPanel } from 'react-tabs';
 import TelescopeImageViewer from 'components/common/telescope-image-viewer/telescope-image-viewer';
 import VideoImageLoader from 'components/common/telescope-image-loader/video-image-loader';
 import styles from './LiveShowVideoViewer.style';

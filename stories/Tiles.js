@@ -65,7 +65,7 @@ storiesOf('Tiles', module)
   ))
   .add('MonotonousTile', () => (
     <MonotonousTile
-      title="Astronomical time"
+      label="Astronomical time"
       text="Topic 1"
     />
   ));

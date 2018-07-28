@@ -9,7 +9,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ThreeTabbedNav from 'components/ThreeTabbedNav';
 import ResponsiveTwoColumnContainer from 'components/ResponsiveTwoColumnContainer';
-import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import HeaderContainer from './partials/HeaderContainer'
 import MainContainer from './partials/MainContainer';
 import AsideContainer from './partials/AsideContainer';
@@ -29,6 +28,7 @@ const {
 class LiveShow extends Component {
   static propTypes = {
     additionalFeeds: arrayOf(shape({})),
+    isDesktop: bool.isRequired,
     user: shape({
       at: oneOfType([number, string]),
       token: oneOfType([number, string]),
@@ -41,7 +41,7 @@ class LiveShow extends Component {
   };
 
   state = {
-    aboutIsActive: false,
+    aboutIsActive: true,
     commentsIsActive: false,
     detailsIsActive: false,
     selectedTab: 0,
@@ -72,7 +72,6 @@ class LiveShow extends Component {
   }
 
   handleSelect = (index) => {
-    console.log("selecting", index)
     window.scrollTo(0, 0);
     this.setState({
       selectedTab: index,
@@ -116,7 +115,7 @@ class LiveShow extends Component {
                   thirdTabOnClick={this.showDetails}
                 />)
               }
-              renderAsideContent={() => (<div
+              renderAsideContent={() => (<AsideContainer
                 {...this.props}
                 aboutIsActive={aboutIsActive}
                 commentsIsActive={commentsIsActive}

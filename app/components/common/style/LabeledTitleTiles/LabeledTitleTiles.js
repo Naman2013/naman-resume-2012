@@ -8,22 +8,27 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import uniqueId from 'lodash/uniqueId';
+import classnames from 'classnames';
 import { profilePhotoStyle } from 'styles/mixins/utilities';
 import { astronaut, geyser, shadows } from 'styles/variables/colors_tiles_v4';
 import { secondaryFont } from 'styles/variables/fonts';
 import { screenLarge } from 'styles/variables/breakpoints';
+import { faintShadow } from 'styles/variables/shadows';
 
 const {
   arrayOf,
+  oneOf,
   bool,
   shape,
   string,
 } = PropTypes;
 
 const LabeledTitleTiles = ({
+  direction,
+  theme,
   tiles,
 }) => (
-  <div className="wide-info-block">
+  <div className={classnames('wide-info-block', { column: direction === 'column' })} style={theme}>
     {Object.keys(tiles).map(tilesItem => (
       <div className="wide-info-item" key={uniqueId()}>
         <div
@@ -44,10 +49,11 @@ const LabeledTitleTiles = ({
         align-items: center;
         height: 100px;
         color: ${astronaut};
+        ${faintShadow}
       }
 
 
-      .wide-info-item {
+      :not(.column) .wide-info-item {
         flex: 1 1 0;
         border-top: 1px solid ${shadows};
         border-right: 1px solid ${shadows};
@@ -55,6 +61,23 @@ const LabeledTitleTiles = ({
         text-align: left;
         overflow: hidden;
         min-height: 100px;
+      }
+
+      .column {
+        flex-direction: column;
+        height: 400px;
+        margin: 0 25px;
+      }
+
+      .column .wide-info-item {
+        flex: 1 1 0;
+        border-bottom: 1px solid ${shadows};
+        border-right: 1px solid ${shadows};
+        border-left: 1px solid ${shadows};
+        text-align: left;
+        min-height: 100px;
+        width: 100%;
+        padding: 25px;
       }
 
       .wide-info-item:first-child {
@@ -88,11 +111,15 @@ const LabeledTitleTiles = ({
 );
 
 LabeledTitleTiles.propTypes = {
+  direction: oneOf(['row', 'column']),
+  theme: shape({}),
   tiles: shape({}),
 };
 
 LabeledTitleTiles.defaultProps = {
+  direction: 'row',
+  theme: {},
   tiles: [],
-}
+};
 
 export default LabeledTitleTiles;

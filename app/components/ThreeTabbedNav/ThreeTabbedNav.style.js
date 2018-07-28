@@ -18,6 +18,10 @@ export default css`
   width: 100%;
 }
 
+.arrow {
+  margin-bottom: -5px;
+}
+
 .is-hidden {
   visibility: hidden;
 }
@@ -28,7 +32,6 @@ export default css`
 }
 
 .component-container {
-  margin: 0 25px;
   ${faintShadow}
 }
 

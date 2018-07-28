@@ -7,12 +7,9 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import classnames from 'classnames';
 import uniqueId from 'lodash/uniqueId';
-import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import { Tab, Tabs, TabList } from 'react-tabs';
 import Select from 'react-select';
-import TelescopeImageViewer from 'components/common/telescope-image-viewer/telescope-image-viewer';
-import VideoImageLoader from 'components/common/telescope-image-loader/video-image-loader';
 import styles from './LiveShowVideoViewerNav.style';
 
 const {
@@ -123,7 +120,6 @@ class LiveShowVideoViewerNav extends Component {
     const {
       options,
     } = this.state;
-    console.log('selectedTab', selectedTab)
     return (
       <div className="root">
         <Tabs onSelect={this.props.handleSelect} selectedIndex={selectedTab}>
