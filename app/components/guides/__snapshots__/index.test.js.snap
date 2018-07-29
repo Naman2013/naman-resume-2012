@@ -973,31 +973,31 @@ ShallowWrapper {
     "props": Object {
       "children": Array [
         <div
-          className="jsx-2111641450 title-wrapper"
+          className="jsx-689003795 title-wrapper"
         >
           <RubyTitle
             text="Test"
           />
         </div>,
         <p
-          className="jsx-2111641450"
+          className="jsx-689003795"
         >
           Some sample content
         </p>,
         <JSXStyle
           css={
             Array [
-              ".root.jsx-2111641450{background:white;padding:20px 35px;}",
-              ".title-wrapper.jsx-2111641450{padding:15px 0;}",
-              "p.jsx-2111641450{font-family:adobe-garamond-pro, serif;line-height:1.5;font-size:18px;}",
-              "@media screen and (min-width: 768px){.root.jsx-2111641450{padding:60px 40px;}.title-wrapper.jsx-2111641450{padding-bottom:40px;}}",
-              "@media screen and (min-width: 1024px){.root.jsx-2111641450{padding:80px;width:90%;}}",
+              ".root.jsx-689003795{background:white;padding:20px 35px;}",
+              ".title-wrapper.jsx-689003795{padding:15px 0;}",
+              "p.jsx-689003795{font-family:adobe-garamond-pro, serif;line-height:1.5;font-size:18px;}",
+              "@media screen and (min-width: 768px){.root.jsx-689003795{padding:60px 40px;}.title-wrapper.jsx-689003795{padding-bottom:40px;}}",
+              "@media screen and (min-width: 1024px){.root.jsx-689003795{padding:70px;width:90%;}}",
             ]
           }
-          styleId="2111641450"
+          styleId="689003795"
         />,
       ],
-      "className": "jsx-2111641450 root",
+      "className": "jsx-689003795 root",
     },
     "ref": null,
     "rendered": Array [
@@ -1009,7 +1009,7 @@ ShallowWrapper {
           "children": <RubyTitle
             text="Test"
           />,
-          "className": "jsx-2111641450 title-wrapper",
+          "className": "jsx-689003795 title-wrapper",
         },
         "ref": null,
         "rendered": Object {
@@ -1031,7 +1031,7 @@ ShallowWrapper {
         "nodeType": "host",
         "props": Object {
           "children": "Some sample content",
-          "className": "jsx-2111641450",
+          "className": "jsx-689003795",
         },
         "ref": null,
         "rendered": "Some sample content",
@@ -1043,13 +1043,13 @@ ShallowWrapper {
         "nodeType": "class",
         "props": Object {
           "css": Array [
-            ".root.jsx-2111641450{background:white;padding:20px 35px;}",
-            ".title-wrapper.jsx-2111641450{padding:15px 0;}",
-            "p.jsx-2111641450{font-family:adobe-garamond-pro, serif;line-height:1.5;font-size:18px;}",
-            "@media screen and (min-width: 768px){.root.jsx-2111641450{padding:60px 40px;}.title-wrapper.jsx-2111641450{padding-bottom:40px;}}",
-            "@media screen and (min-width: 1024px){.root.jsx-2111641450{padding:80px;width:90%;}}",
+            ".root.jsx-689003795{background:white;padding:20px 35px;}",
+            ".title-wrapper.jsx-689003795{padding:15px 0;}",
+            "p.jsx-689003795{font-family:adobe-garamond-pro, serif;line-height:1.5;font-size:18px;}",
+            "@media screen and (min-width: 768px){.root.jsx-689003795{padding:60px 40px;}.title-wrapper.jsx-689003795{padding-bottom:40px;}}",
+            "@media screen and (min-width: 1024px){.root.jsx-689003795{padding:70px;width:90%;}}",
           ],
-          "styleId": "2111641450",
+          "styleId": "689003795",
         },
         "ref": null,
         "rendered": null,
@@ -1066,31 +1066,31 @@ ShallowWrapper {
       "props": Object {
         "children": Array [
           <div
-            className="jsx-2111641450 title-wrapper"
+            className="jsx-689003795 title-wrapper"
           >
             <RubyTitle
               text="Test"
             />
           </div>,
           <p
-            className="jsx-2111641450"
+            className="jsx-689003795"
           >
             Some sample content
           </p>,
           <JSXStyle
             css={
               Array [
-                ".root.jsx-2111641450{background:white;padding:20px 35px;}",
-                ".title-wrapper.jsx-2111641450{padding:15px 0;}",
-                "p.jsx-2111641450{font-family:adobe-garamond-pro, serif;line-height:1.5;font-size:18px;}",
-                "@media screen and (min-width: 768px){.root.jsx-2111641450{padding:60px 40px;}.title-wrapper.jsx-2111641450{padding-bottom:40px;}}",
-                "@media screen and (min-width: 1024px){.root.jsx-2111641450{padding:80px;width:90%;}}",
+                ".root.jsx-689003795{background:white;padding:20px 35px;}",
+                ".title-wrapper.jsx-689003795{padding:15px 0;}",
+                "p.jsx-689003795{font-family:adobe-garamond-pro, serif;line-height:1.5;font-size:18px;}",
+                "@media screen and (min-width: 768px){.root.jsx-689003795{padding:60px 40px;}.title-wrapper.jsx-689003795{padding-bottom:40px;}}",
+                "@media screen and (min-width: 1024px){.root.jsx-689003795{padding:70px;width:90%;}}",
               ]
             }
-            styleId="2111641450"
+            styleId="689003795"
           />,
         ],
-        "className": "jsx-2111641450 root",
+        "className": "jsx-689003795 root",
       },
       "ref": null,
       "rendered": Array [
@@ -1102,7 +1102,7 @@ ShallowWrapper {
             "children": <RubyTitle
               text="Test"
             />,
-            "className": "jsx-2111641450 title-wrapper",
+            "className": "jsx-689003795 title-wrapper",
           },
           "ref": null,
           "rendered": Object {
@@ -1124,7 +1124,7 @@ ShallowWrapper {
           "nodeType": "host",
           "props": Object {
             "children": "Some sample content",
-            "className": "jsx-2111641450",
+            "className": "jsx-689003795",
           },
           "ref": null,
           "rendered": "Some sample content",
@@ -1136,13 +1136,13 @@ ShallowWrapper {
           "nodeType": "class",
           "props": Object {
             "css": Array [
-              ".root.jsx-2111641450{background:white;padding:20px 35px;}",
-              ".title-wrapper.jsx-2111641450{padding:15px 0;}",
-              "p.jsx-2111641450{font-family:adobe-garamond-pro, serif;line-height:1.5;font-size:18px;}",
-              "@media screen and (min-width: 768px){.root.jsx-2111641450{padding:60px 40px;}.title-wrapper.jsx-2111641450{padding-bottom:40px;}}",
-              "@media screen and (min-width: 1024px){.root.jsx-2111641450{padding:80px;width:90%;}}",
+              ".root.jsx-689003795{background:white;padding:20px 35px;}",
+              ".title-wrapper.jsx-689003795{padding:15px 0;}",
+              "p.jsx-689003795{font-family:adobe-garamond-pro, serif;line-height:1.5;font-size:18px;}",
+              "@media screen and (min-width: 768px){.root.jsx-689003795{padding:60px 40px;}.title-wrapper.jsx-689003795{padding-bottom:40px;}}",
+              "@media screen and (min-width: 1024px){.root.jsx-689003795{padding:70px;width:90%;}}",
             ],
-            "styleId": "2111641450",
+            "styleId": "689003795",
           },
           "ref": null,
           "rendered": null,
