@@ -11,6 +11,7 @@ ShallowWrapper {
         "bar",
       ]
     }
+    theme={Object {}}
   />,
   Symbol(enzyme.__renderer__): Object {
     "batchedUpdates": [Function],
@@ -26,15 +27,16 @@ ShallowWrapper {
     "props": Object {
       "children": Array [
         <ul
-          className="jsx-3148834294"
+          className="jsx-1531660989"
+          style={Object {}}
         >
           <li
-            className="jsx-3148834294"
+            className="jsx-1531660989"
           >
             foo
           </li>
           <li
-            className="jsx-3148834294"
+            className="jsx-1531660989"
           >
             bar
           </li>
@@ -42,12 +44,12 @@ ShallowWrapper {
         <JSXStyle
           css={
             Array [
-              "ul.jsx-3148834294{margin:0;padding:0;list-style-type:none;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;font-family:brandon-grotesque, sans-serif;color:#415671;text-transform:uppercase;border-top:1px solid #eaf0f9;border-bottom:1px solid #eaf0f9;box-shadow:inset 0px 5px 20px -5px #e0e0e0;}",
-              "li.jsx-3148834294{-webkit-box-flex:1;-webkit-flex-grow:1;-ms-flex-positive:1;flex-grow:1;font-weight:bold;padding:29.5px 0;padding-left:30px;font-size:11px;border-right:1px solid #eaf0f9;-webkit-letter-spacing:0.4px;-moz-letter-spacing:0.4px;-ms-letter-spacing:0.4px;letter-spacing:0.4px;}",
-              "li.jsx-3148834294:last-child{border-right:none;}",
+              "ul.jsx-1531660989{margin:0;padding:0;list-style-type:none;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;font-family:brandon-grotesque, sans-serif;color:#415671;text-transform:uppercase;border-top:1px solid #eaf0f9;border-bottom:1px solid #eaf0f9;}",
+              "li.jsx-1531660989{-webkit-box-flex:1;-webkit-flex-grow:1;-ms-flex-positive:1;flex-grow:1;font-weight:bold;padding:29.5px 0;padding-left:30px;font-size:11px;border-right:1px solid #eaf0f9;-webkit-letter-spacing:0.4px;-moz-letter-spacing:0.4px;-ms-letter-spacing:0.4px;letter-spacing:0.4px;}",
+              "li.jsx-1531660989:last-child{border-right:none;}",
             ]
           }
-          styleId="3148834294"
+          styleId="1531660989"
         />,
       ],
     },
@@ -60,17 +62,18 @@ ShallowWrapper {
         "props": Object {
           "children": Array [
             <li
-              className="jsx-3148834294"
+              className="jsx-1531660989"
             >
               foo
             </li>,
             <li
-              className="jsx-3148834294"
+              className="jsx-1531660989"
             >
               bar
             </li>,
           ],
-          "className": "jsx-3148834294",
+          "className": "jsx-1531660989",
+          "style": Object {},
         },
         "ref": null,
         "rendered": Array [
@@ -80,7 +83,7 @@ ShallowWrapper {
             "nodeType": "host",
             "props": Object {
               "children": "foo",
-              "className": "jsx-3148834294",
+              "className": "jsx-1531660989",
             },
             "ref": null,
             "rendered": "foo",
@@ -92,7 +95,7 @@ ShallowWrapper {
             "nodeType": "host",
             "props": Object {
               "children": "bar",
-              "className": "jsx-3148834294",
+              "className": "jsx-1531660989",
             },
             "ref": null,
             "rendered": "bar",
@@ -107,11 +110,11 @@ ShallowWrapper {
         "nodeType": "class",
         "props": Object {
           "css": Array [
-            "ul.jsx-3148834294{margin:0;padding:0;list-style-type:none;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;font-family:brandon-grotesque, sans-serif;color:#415671;text-transform:uppercase;border-top:1px solid #eaf0f9;border-bottom:1px solid #eaf0f9;box-shadow:inset 0px 5px 20px -5px #e0e0e0;}",
-            "li.jsx-3148834294{-webkit-box-flex:1;-webkit-flex-grow:1;-ms-flex-positive:1;flex-grow:1;font-weight:bold;padding:29.5px 0;padding-left:30px;font-size:11px;border-right:1px solid #eaf0f9;-webkit-letter-spacing:0.4px;-moz-letter-spacing:0.4px;-ms-letter-spacing:0.4px;letter-spacing:0.4px;}",
-            "li.jsx-3148834294:last-child{border-right:none;}",
+            "ul.jsx-1531660989{margin:0;padding:0;list-style-type:none;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;font-family:brandon-grotesque, sans-serif;color:#415671;text-transform:uppercase;border-top:1px solid #eaf0f9;border-bottom:1px solid #eaf0f9;}",
+            "li.jsx-1531660989{-webkit-box-flex:1;-webkit-flex-grow:1;-ms-flex-positive:1;flex-grow:1;font-weight:bold;padding:29.5px 0;padding-left:30px;font-size:11px;border-right:1px solid #eaf0f9;-webkit-letter-spacing:0.4px;-moz-letter-spacing:0.4px;-ms-letter-spacing:0.4px;letter-spacing:0.4px;}",
+            "li.jsx-1531660989:last-child{border-right:none;}",
           ],
-          "styleId": "3148834294",
+          "styleId": "1531660989",
         },
         "ref": null,
         "rendered": null,
@@ -128,15 +131,16 @@ ShallowWrapper {
       "props": Object {
         "children": Array [
           <ul
-            className="jsx-3148834294"
+            className="jsx-1531660989"
+            style={Object {}}
           >
             <li
-              className="jsx-3148834294"
+              className="jsx-1531660989"
             >
               foo
             </li>
             <li
-              className="jsx-3148834294"
+              className="jsx-1531660989"
             >
               bar
             </li>
@@ -144,12 +148,12 @@ ShallowWrapper {
           <JSXStyle
             css={
               Array [
-                "ul.jsx-3148834294{margin:0;padding:0;list-style-type:none;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;font-family:brandon-grotesque, sans-serif;color:#415671;text-transform:uppercase;border-top:1px solid #eaf0f9;border-bottom:1px solid #eaf0f9;box-shadow:inset 0px 5px 20px -5px #e0e0e0;}",
-                "li.jsx-3148834294{-webkit-box-flex:1;-webkit-flex-grow:1;-ms-flex-positive:1;flex-grow:1;font-weight:bold;padding:29.5px 0;padding-left:30px;font-size:11px;border-right:1px solid #eaf0f9;-webkit-letter-spacing:0.4px;-moz-letter-spacing:0.4px;-ms-letter-spacing:0.4px;letter-spacing:0.4px;}",
-                "li.jsx-3148834294:last-child{border-right:none;}",
+                "ul.jsx-1531660989{margin:0;padding:0;list-style-type:none;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;font-family:brandon-grotesque, sans-serif;color:#415671;text-transform:uppercase;border-top:1px solid #eaf0f9;border-bottom:1px solid #eaf0f9;}",
+                "li.jsx-1531660989{-webkit-box-flex:1;-webkit-flex-grow:1;-ms-flex-positive:1;flex-grow:1;font-weight:bold;padding:29.5px 0;padding-left:30px;font-size:11px;border-right:1px solid #eaf0f9;-webkit-letter-spacing:0.4px;-moz-letter-spacing:0.4px;-ms-letter-spacing:0.4px;letter-spacing:0.4px;}",
+                "li.jsx-1531660989:last-child{border-right:none;}",
               ]
             }
-            styleId="3148834294"
+            styleId="1531660989"
           />,
         ],
       },
@@ -162,17 +166,18 @@ ShallowWrapper {
           "props": Object {
             "children": Array [
               <li
-                className="jsx-3148834294"
+                className="jsx-1531660989"
               >
                 foo
               </li>,
               <li
-                className="jsx-3148834294"
+                className="jsx-1531660989"
               >
                 bar
               </li>,
             ],
-            "className": "jsx-3148834294",
+            "className": "jsx-1531660989",
+            "style": Object {},
           },
           "ref": null,
           "rendered": Array [
@@ -182,7 +187,7 @@ ShallowWrapper {
               "nodeType": "host",
               "props": Object {
                 "children": "foo",
-                "className": "jsx-3148834294",
+                "className": "jsx-1531660989",
               },
               "ref": null,
               "rendered": "foo",
@@ -194,7 +199,7 @@ ShallowWrapper {
               "nodeType": "host",
               "props": Object {
                 "children": "bar",
-                "className": "jsx-3148834294",
+                "className": "jsx-1531660989",
               },
               "ref": null,
               "rendered": "bar",
@@ -209,11 +214,11 @@ ShallowWrapper {
           "nodeType": "class",
           "props": Object {
             "css": Array [
-              "ul.jsx-3148834294{margin:0;padding:0;list-style-type:none;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;font-family:brandon-grotesque, sans-serif;color:#415671;text-transform:uppercase;border-top:1px solid #eaf0f9;border-bottom:1px solid #eaf0f9;box-shadow:inset 0px 5px 20px -5px #e0e0e0;}",
-              "li.jsx-3148834294{-webkit-box-flex:1;-webkit-flex-grow:1;-ms-flex-positive:1;flex-grow:1;font-weight:bold;padding:29.5px 0;padding-left:30px;font-size:11px;border-right:1px solid #eaf0f9;-webkit-letter-spacing:0.4px;-moz-letter-spacing:0.4px;-ms-letter-spacing:0.4px;letter-spacing:0.4px;}",
-              "li.jsx-3148834294:last-child{border-right:none;}",
+              "ul.jsx-1531660989{margin:0;padding:0;list-style-type:none;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;font-family:brandon-grotesque, sans-serif;color:#415671;text-transform:uppercase;border-top:1px solid #eaf0f9;border-bottom:1px solid #eaf0f9;}",
+              "li.jsx-1531660989{-webkit-box-flex:1;-webkit-flex-grow:1;-ms-flex-positive:1;flex-grow:1;font-weight:bold;padding:29.5px 0;padding-left:30px;font-size:11px;border-right:1px solid #eaf0f9;-webkit-letter-spacing:0.4px;-moz-letter-spacing:0.4px;-ms-letter-spacing:0.4px;letter-spacing:0.4px;}",
+              "li.jsx-1531660989:last-child{border-right:none;}",
             ],
-            "styleId": "3148834294",
+            "styleId": "1531660989",
           },
           "ref": null,
           "rendered": null,

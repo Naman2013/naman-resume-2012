@@ -1,6 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import SterlingTitle from '../../app/components/common/titles/SterlingTitle';
+import RubyTitle from '../../app/atoms/titles/RubyTitle';
 
 const TITLE = 'Objects within this guide';
 const SUB_TITLE = 'Select an Object for more information';
@@ -14,4 +15,7 @@ storiesOf('Titles', module)
   ))
   .add('SterlingTitle customized', () => (
     <SterlingTitle title={TITLE} subTitle={SUB_TITLE} theme={{ title: { color: 'aqua' }, subTitle: { color: 'red' } }} />
+  ))
+  .add('RubyTitle', () => (
+    <RubyTitle text={TITLE} />
   ));

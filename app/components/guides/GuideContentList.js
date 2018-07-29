@@ -5,7 +5,7 @@ import style from './GuideContentList.style';
 
 const GuideContentList = ({ list }) => (
   <div className="root">
-    <AbelList list={list} />
+    <AbelList theme={{ horizontalList: { boxShadow: 'inset 0px 5px 20px -5px #e0e0e0' } }} list={list} />
     <style jsx>{style}</style>
   </div>
 );
