@@ -25,8 +25,6 @@ const TopicContent = () => (
         <TopicBodyContent title="About this guide" content={bodyContent} />
       </div>
     </CenterColumn>
-
-
     <style jsx>{style}</style>
   </div>
 );
