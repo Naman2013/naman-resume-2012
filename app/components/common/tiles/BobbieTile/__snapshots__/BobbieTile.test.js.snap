@@ -24,40 +24,49 @@ ShallowWrapper {
     "props": Object {
       "children": Array [
         <div
-          className="jsx-1850234071 tile-content-container"
+          className="jsx-1108228381 jsx-2134468856 tile-content-container"
         >
           <h3
-            className="jsx-1850234071 title"
+            className="jsx-1108228381 jsx-2134468856 title"
           >
             Check out this tutorial
           </h3>
           <div
-            className="jsx-1850234071 post-meta-data"
+            className="jsx-1108228381 jsx-2134468856 post-meta-data"
           >
             <ul
-              className="jsx-1850234071"
+              className="jsx-1108228381 jsx-2134468856"
             >
               <li
-                className="jsx-1850234071 read-duration"
+                className="jsx-1108228381 jsx-2134468856 read-duration"
               >
                 30
+                 mins
               </li>
               <li
-                className="jsx-1850234071 author-name"
+                className="jsx-1108228381 jsx-2134468856 author-name"
               >
-                By 
-                Paul Cox
-                 
+                <div
+                  className="jsx-1108228381 jsx-2134468856"
+                >
+                  <span
+                    className="jsx-1108228381 jsx-2134468856"
+                  >
+                    By
+                  </span>
+                   
+                  Paul Cox
+                </div>
                 <img
                   alt=""
-                  className="jsx-1850234071"
+                  className="jsx-1108228381 jsx-2134468856"
                   src="https://vega.slooh.com/assets/v4/common/arrow_horz.svg"
                 />
               </li>
             </ul>
           </div>
           <div
-            className="jsx-1850234071 html-blob-content-container"
+            className="jsx-1108228381 jsx-2134468856 __html-blob-content-container__"
             dangerouslySetInnerHTML={
               Object {
                 "__html": "<h1>Hello world...</h1>",
@@ -68,22 +77,31 @@ ShallowWrapper {
         <JSXStyle
           css={
             Array [
-              "div.jsx-1850234071,h3.jsx-1850234071,ul.jsx-1850234071,li.jsx-1850234071{
+              "div.jsx-1108228381,h3.jsx-1108228381,ul.jsx-1108228381,li.jsx-1108228381{
   margin: 0;
   padding: 0;
 ;}",
-              ".root.jsx-1850234071{box-shadow: 0px 0px 5px 0px rgba(88, 88, 88, 0.5); background:white;}",
-              ".tile-content-container.jsx-1850234071{padding:40px;}",
-              ".title.jsx-1850234071{font-family:adobe-garamond-pro, serif;font-size:20px;color:#415671;border-bottom:1px solid #d9dee5;font-weight:300;padding-bottom:20px;}",
-              "ul.jsx-1850234071{list-style-type:none;font-family:brandon-grotesque, sans-serif;color:#415671;text-transform:uppercase;font-size:10px;font-weight:bold;padding-top:20px;}",
-              ".author-name.jsx-1850234071{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;}",
-              ".html-blob-content-container.jsx-1850234071,.read-duration.jsx-1850234071{display:none;}",
+              ".root.jsx-1108228381{box-shadow: 0px 0px 5px 0px rgba(88, 88, 88, 0.5); background:white;}",
+              ".tile-content-container.jsx-1108228381{padding:40px;}",
+              ".title.jsx-1108228381{font-family:adobe-garamond-pro, serif;font-size:20px;color:#415671;border-bottom:1px solid #d9dee5;font-weight:300;padding-bottom:20px;}",
+              "ul.jsx-1108228381{list-style-type:none;font-family:brandon-grotesque, sans-serif;color:#415671;text-transform:uppercase;font-size:10px;font-weight:bold;padding-top:20px;}",
+              ".author-name.jsx-1108228381{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;}",
+              ".__html-blob-content-container__.jsx-1108228381,.read-duration.jsx-1108228381{display:none;}",
+              "@media screen and (min-width: 768px){.__html-blob-content-container__.jsx-1108228381,.read-duration.jsx-1108228381{display:block;}.author-name.jsx-1108228381 img.jsx-1108228381,.author-name.jsx-1108228381 span.jsx-1108228381{display:none;}.tile-content-container.jsx-1108228381{padding:45px 50px;}ul.jsx-1108228381{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;}.read-duration.jsx-1108228381{border-right:1px solid #d9dee5;padding-right:10px;margin-right:10px;}}",
             ]
           }
-          styleId="1850234071"
+          styleId="1108228381"
+        />,
+        <JSXStyle
+          css={
+            Array [
+              ".__html-blob-content-container__.jsx-2134468856 .contentImageEmbedCaption{border:1px solid red;}",
+            ]
+          }
+          styleId="2134468856"
         />,
       ],
-      "className": "jsx-1850234071 root",
+      "className": "jsx-1108228381 jsx-2134468856 root",
     },
     "ref": null,
     "rendered": Array [
@@ -94,37 +112,46 @@ ShallowWrapper {
         "props": Object {
           "children": Array [
             <h3
-              className="jsx-1850234071 title"
+              className="jsx-1108228381 jsx-2134468856 title"
             >
               Check out this tutorial
             </h3>,
             <div
-              className="jsx-1850234071 post-meta-data"
+              className="jsx-1108228381 jsx-2134468856 post-meta-data"
             >
               <ul
-                className="jsx-1850234071"
+                className="jsx-1108228381 jsx-2134468856"
               >
                 <li
-                  className="jsx-1850234071 read-duration"
+                  className="jsx-1108228381 jsx-2134468856 read-duration"
                 >
                   30
+                   mins
                 </li>
                 <li
-                  className="jsx-1850234071 author-name"
+                  className="jsx-1108228381 jsx-2134468856 author-name"
                 >
-                  By 
-                  Paul Cox
-                   
+                  <div
+                    className="jsx-1108228381 jsx-2134468856"
+                  >
+                    <span
+                      className="jsx-1108228381 jsx-2134468856"
+                    >
+                      By
+                    </span>
+                     
+                    Paul Cox
+                  </div>
                   <img
                     alt=""
-                    className="jsx-1850234071"
+                    className="jsx-1108228381 jsx-2134468856"
                     src="https://vega.slooh.com/assets/v4/common/arrow_horz.svg"
                   />
                 </li>
               </ul>
             </div>,
             <div
-              className="jsx-1850234071 html-blob-content-container"
+              className="jsx-1108228381 jsx-2134468856 __html-blob-content-container__"
               dangerouslySetInnerHTML={
                 Object {
                   "__html": "<h1>Hello world...</h1>",
@@ -132,7 +159,7 @@ ShallowWrapper {
               }
             />,
           ],
-          "className": "jsx-1850234071 tile-content-container",
+          "className": "jsx-1108228381 jsx-2134468856 tile-content-container",
         },
         "ref": null,
         "rendered": Array [
@@ -142,7 +169,7 @@ ShallowWrapper {
             "nodeType": "host",
             "props": Object {
               "children": "Check out this tutorial",
-              "className": "jsx-1850234071 title",
+              "className": "jsx-1108228381 jsx-2134468856 title",
             },
             "ref": null,
             "rendered": "Check out this tutorial",
@@ -154,27 +181,36 @@ ShallowWrapper {
             "nodeType": "host",
             "props": Object {
               "children": <ul
-                className="jsx-1850234071"
+                className="jsx-1108228381 jsx-2134468856"
               >
                 <li
-                  className="jsx-1850234071 read-duration"
+                  className="jsx-1108228381 jsx-2134468856 read-duration"
                 >
                   30
+                   mins
                 </li>
                 <li
-                  className="jsx-1850234071 author-name"
+                  className="jsx-1108228381 jsx-2134468856 author-name"
                 >
-                  By 
-                  Paul Cox
-                   
+                  <div
+                    className="jsx-1108228381 jsx-2134468856"
+                  >
+                    <span
+                      className="jsx-1108228381 jsx-2134468856"
+                    >
+                      By
+                    </span>
+                     
+                    Paul Cox
+                  </div>
                   <img
                     alt=""
-                    className="jsx-1850234071"
+                    className="jsx-1108228381 jsx-2134468856"
                     src="https://vega.slooh.com/assets/v4/common/arrow_horz.svg"
                   />
                 </li>
               </ul>,
-              "className": "jsx-1850234071 post-meta-data",
+              "className": "jsx-1108228381 jsx-2134468856 post-meta-data",
             },
             "ref": null,
             "rendered": Object {
@@ -184,24 +220,33 @@ ShallowWrapper {
               "props": Object {
                 "children": Array [
                   <li
-                    className="jsx-1850234071 read-duration"
+                    className="jsx-1108228381 jsx-2134468856 read-duration"
                   >
                     30
+                     mins
                   </li>,
                   <li
-                    className="jsx-1850234071 author-name"
+                    className="jsx-1108228381 jsx-2134468856 author-name"
                   >
-                    By 
-                    Paul Cox
-                     
+                    <div
+                      className="jsx-1108228381 jsx-2134468856"
+                    >
+                      <span
+                        className="jsx-1108228381 jsx-2134468856"
+                      >
+                        By
+                      </span>
+                       
+                      Paul Cox
+                    </div>
                     <img
                       alt=""
-                      className="jsx-1850234071"
+                      className="jsx-1108228381 jsx-2134468856"
                       src="https://vega.slooh.com/assets/v4/common/arrow_horz.svg"
                     />
                   </li>,
                 ],
-                "className": "jsx-1850234071",
+                "className": "jsx-1108228381 jsx-2134468856",
               },
               "ref": null,
               "rendered": Array [
@@ -210,11 +255,17 @@ ShallowWrapper {
                   "key": undefined,
                   "nodeType": "host",
                   "props": Object {
-                    "children": "30",
-                    "className": "jsx-1850234071 read-duration",
+                    "children": Array [
+                      "30",
+                      " mins",
+                    ],
+                    "className": "jsx-1108228381 jsx-2134468856 read-duration",
                   },
                   "ref": null,
-                  "rendered": "30",
+                  "rendered": Array [
+                    "30",
+                    " mins",
+                  ],
                   "type": "li",
                 },
                 Object {
@@ -223,29 +274,69 @@ ShallowWrapper {
                   "nodeType": "host",
                   "props": Object {
                     "children": Array [
-                      "By ",
-                      "Paul Cox",
-                      " ",
+                      <div
+                        className="jsx-1108228381 jsx-2134468856"
+                      >
+                        <span
+                          className="jsx-1108228381 jsx-2134468856"
+                        >
+                          By
+                        </span>
+                         
+                        Paul Cox
+                      </div>,
                       <img
                         alt=""
-                        className="jsx-1850234071"
+                        className="jsx-1108228381 jsx-2134468856"
                         src="https://vega.slooh.com/assets/v4/common/arrow_horz.svg"
                       />,
                     ],
-                    "className": "jsx-1850234071 author-name",
+                    "className": "jsx-1108228381 jsx-2134468856 author-name",
                   },
                   "ref": null,
                   "rendered": Array [
-                    "By ",
-                    "Paul Cox",
-                    " ",
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": Array [
+                          <span
+                            className="jsx-1108228381 jsx-2134468856"
+                          >
+                            By
+                          </span>,
+                          " ",
+                          "Paul Cox",
+                        ],
+                        "className": "jsx-1108228381 jsx-2134468856",
+                      },
+                      "ref": null,
+                      "rendered": Array [
+                        Object {
+                          "instance": null,
+                          "key": undefined,
+                          "nodeType": "host",
+                          "props": Object {
+                            "children": "By",
+                            "className": "jsx-1108228381 jsx-2134468856",
+                          },
+                          "ref": null,
+                          "rendered": "By",
+                          "type": "span",
+                        },
+                        " ",
+                        "Paul Cox",
+                      ],
+                      "type": "div",
+                    },
                     Object {
                       "instance": null,
                       "key": undefined,
                       "nodeType": "host",
                       "props": Object {
                         "alt": "",
-                        "className": "jsx-1850234071",
+                        "className": "jsx-1108228381 jsx-2134468856",
                         "src": "https://vega.slooh.com/assets/v4/common/arrow_horz.svg",
                       },
                       "ref": null,
@@ -265,7 +356,7 @@ ShallowWrapper {
             "key": undefined,
             "nodeType": "host",
             "props": Object {
-              "className": "jsx-1850234071 html-blob-content-container",
+              "className": "jsx-1108228381 jsx-2134468856 __html-blob-content-container__",
               "dangerouslySetInnerHTML": Object {
                 "__html": "<h1>Hello world...</h1>",
               },
@@ -283,18 +374,33 @@ ShallowWrapper {
         "nodeType": "class",
         "props": Object {
           "css": Array [
-            "div.jsx-1850234071,h3.jsx-1850234071,ul.jsx-1850234071,li.jsx-1850234071{
+            "div.jsx-1108228381,h3.jsx-1108228381,ul.jsx-1108228381,li.jsx-1108228381{
   margin: 0;
   padding: 0;
 ;}",
-            ".root.jsx-1850234071{box-shadow: 0px 0px 5px 0px rgba(88, 88, 88, 0.5); background:white;}",
-            ".tile-content-container.jsx-1850234071{padding:40px;}",
-            ".title.jsx-1850234071{font-family:adobe-garamond-pro, serif;font-size:20px;color:#415671;border-bottom:1px solid #d9dee5;font-weight:300;padding-bottom:20px;}",
-            "ul.jsx-1850234071{list-style-type:none;font-family:brandon-grotesque, sans-serif;color:#415671;text-transform:uppercase;font-size:10px;font-weight:bold;padding-top:20px;}",
-            ".author-name.jsx-1850234071{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;}",
-            ".html-blob-content-container.jsx-1850234071,.read-duration.jsx-1850234071{display:none;}",
+            ".root.jsx-1108228381{box-shadow: 0px 0px 5px 0px rgba(88, 88, 88, 0.5); background:white;}",
+            ".tile-content-container.jsx-1108228381{padding:40px;}",
+            ".title.jsx-1108228381{font-family:adobe-garamond-pro, serif;font-size:20px;color:#415671;border-bottom:1px solid #d9dee5;font-weight:300;padding-bottom:20px;}",
+            "ul.jsx-1108228381{list-style-type:none;font-family:brandon-grotesque, sans-serif;color:#415671;text-transform:uppercase;font-size:10px;font-weight:bold;padding-top:20px;}",
+            ".author-name.jsx-1108228381{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;}",
+            ".__html-blob-content-container__.jsx-1108228381,.read-duration.jsx-1108228381{display:none;}",
+            "@media screen and (min-width: 768px){.__html-blob-content-container__.jsx-1108228381,.read-duration.jsx-1108228381{display:block;}.author-name.jsx-1108228381 img.jsx-1108228381,.author-name.jsx-1108228381 span.jsx-1108228381{display:none;}.tile-content-container.jsx-1108228381{padding:45px 50px;}ul.jsx-1108228381{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;}.read-duration.jsx-1108228381{border-right:1px solid #d9dee5;padding-right:10px;margin-right:10px;}}",
           ],
-          "styleId": "1850234071",
+          "styleId": "1108228381",
+        },
+        "ref": null,
+        "rendered": null,
+        "type": [Function],
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
+          "css": Array [
+            ".__html-blob-content-container__.jsx-2134468856 .contentImageEmbedCaption{border:1px solid red;}",
+          ],
+          "styleId": "2134468856",
         },
         "ref": null,
         "rendered": null,
@@ -311,40 +417,49 @@ ShallowWrapper {
       "props": Object {
         "children": Array [
           <div
-            className="jsx-1850234071 tile-content-container"
+            className="jsx-1108228381 jsx-2134468856 tile-content-container"
           >
             <h3
-              className="jsx-1850234071 title"
+              className="jsx-1108228381 jsx-2134468856 title"
             >
               Check out this tutorial
             </h3>
             <div
-              className="jsx-1850234071 post-meta-data"
+              className="jsx-1108228381 jsx-2134468856 post-meta-data"
             >
               <ul
-                className="jsx-1850234071"
+                className="jsx-1108228381 jsx-2134468856"
               >
                 <li
-                  className="jsx-1850234071 read-duration"
+                  className="jsx-1108228381 jsx-2134468856 read-duration"
                 >
                   30
+                   mins
                 </li>
                 <li
-                  className="jsx-1850234071 author-name"
+                  className="jsx-1108228381 jsx-2134468856 author-name"
                 >
-                  By 
-                  Paul Cox
-                   
+                  <div
+                    className="jsx-1108228381 jsx-2134468856"
+                  >
+                    <span
+                      className="jsx-1108228381 jsx-2134468856"
+                    >
+                      By
+                    </span>
+                     
+                    Paul Cox
+                  </div>
                   <img
                     alt=""
-                    className="jsx-1850234071"
+                    className="jsx-1108228381 jsx-2134468856"
                     src="https://vega.slooh.com/assets/v4/common/arrow_horz.svg"
                   />
                 </li>
               </ul>
             </div>
             <div
-              className="jsx-1850234071 html-blob-content-container"
+              className="jsx-1108228381 jsx-2134468856 __html-blob-content-container__"
               dangerouslySetInnerHTML={
                 Object {
                   "__html": "<h1>Hello world...</h1>",
@@ -355,22 +470,31 @@ ShallowWrapper {
           <JSXStyle
             css={
               Array [
-                "div.jsx-1850234071,h3.jsx-1850234071,ul.jsx-1850234071,li.jsx-1850234071{
+                "div.jsx-1108228381,h3.jsx-1108228381,ul.jsx-1108228381,li.jsx-1108228381{
   margin: 0;
   padding: 0;
 ;}",
-                ".root.jsx-1850234071{box-shadow: 0px 0px 5px 0px rgba(88, 88, 88, 0.5); background:white;}",
-                ".tile-content-container.jsx-1850234071{padding:40px;}",
-                ".title.jsx-1850234071{font-family:adobe-garamond-pro, serif;font-size:20px;color:#415671;border-bottom:1px solid #d9dee5;font-weight:300;padding-bottom:20px;}",
-                "ul.jsx-1850234071{list-style-type:none;font-family:brandon-grotesque, sans-serif;color:#415671;text-transform:uppercase;font-size:10px;font-weight:bold;padding-top:20px;}",
-                ".author-name.jsx-1850234071{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;}",
-                ".html-blob-content-container.jsx-1850234071,.read-duration.jsx-1850234071{display:none;}",
+                ".root.jsx-1108228381{box-shadow: 0px 0px 5px 0px rgba(88, 88, 88, 0.5); background:white;}",
+                ".tile-content-container.jsx-1108228381{padding:40px;}",
+                ".title.jsx-1108228381{font-family:adobe-garamond-pro, serif;font-size:20px;color:#415671;border-bottom:1px solid #d9dee5;font-weight:300;padding-bottom:20px;}",
+                "ul.jsx-1108228381{list-style-type:none;font-family:brandon-grotesque, sans-serif;color:#415671;text-transform:uppercase;font-size:10px;font-weight:bold;padding-top:20px;}",
+                ".author-name.jsx-1108228381{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;}",
+                ".__html-blob-content-container__.jsx-1108228381,.read-duration.jsx-1108228381{display:none;}",
+                "@media screen and (min-width: 768px){.__html-blob-content-container__.jsx-1108228381,.read-duration.jsx-1108228381{display:block;}.author-name.jsx-1108228381 img.jsx-1108228381,.author-name.jsx-1108228381 span.jsx-1108228381{display:none;}.tile-content-container.jsx-1108228381{padding:45px 50px;}ul.jsx-1108228381{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;}.read-duration.jsx-1108228381{border-right:1px solid #d9dee5;padding-right:10px;margin-right:10px;}}",
               ]
             }
-            styleId="1850234071"
+            styleId="1108228381"
+          />,
+          <JSXStyle
+            css={
+              Array [
+                ".__html-blob-content-container__.jsx-2134468856 .contentImageEmbedCaption{border:1px solid red;}",
+              ]
+            }
+            styleId="2134468856"
           />,
         ],
-        "className": "jsx-1850234071 root",
+        "className": "jsx-1108228381 jsx-2134468856 root",
       },
       "ref": null,
       "rendered": Array [
@@ -381,37 +505,46 @@ ShallowWrapper {
           "props": Object {
             "children": Array [
               <h3
-                className="jsx-1850234071 title"
+                className="jsx-1108228381 jsx-2134468856 title"
               >
                 Check out this tutorial
               </h3>,
               <div
-                className="jsx-1850234071 post-meta-data"
+                className="jsx-1108228381 jsx-2134468856 post-meta-data"
               >
                 <ul
-                  className="jsx-1850234071"
+                  className="jsx-1108228381 jsx-2134468856"
                 >
                   <li
-                    className="jsx-1850234071 read-duration"
+                    className="jsx-1108228381 jsx-2134468856 read-duration"
                   >
                     30
+                     mins
                   </li>
                   <li
-                    className="jsx-1850234071 author-name"
+                    className="jsx-1108228381 jsx-2134468856 author-name"
                   >
-                    By 
-                    Paul Cox
-                     
+                    <div
+                      className="jsx-1108228381 jsx-2134468856"
+                    >
+                      <span
+                        className="jsx-1108228381 jsx-2134468856"
+                      >
+                        By
+                      </span>
+                       
+                      Paul Cox
+                    </div>
                     <img
                       alt=""
-                      className="jsx-1850234071"
+                      className="jsx-1108228381 jsx-2134468856"
                       src="https://vega.slooh.com/assets/v4/common/arrow_horz.svg"
                     />
                   </li>
                 </ul>
               </div>,
               <div
-                className="jsx-1850234071 html-blob-content-container"
+                className="jsx-1108228381 jsx-2134468856 __html-blob-content-container__"
                 dangerouslySetInnerHTML={
                   Object {
                     "__html": "<h1>Hello world...</h1>",
@@ -419,7 +552,7 @@ ShallowWrapper {
                 }
               />,
             ],
-            "className": "jsx-1850234071 tile-content-container",
+            "className": "jsx-1108228381 jsx-2134468856 tile-content-container",
           },
           "ref": null,
           "rendered": Array [
@@ -429,7 +562,7 @@ ShallowWrapper {
               "nodeType": "host",
               "props": Object {
                 "children": "Check out this tutorial",
-                "className": "jsx-1850234071 title",
+                "className": "jsx-1108228381 jsx-2134468856 title",
               },
               "ref": null,
               "rendered": "Check out this tutorial",
@@ -441,27 +574,36 @@ ShallowWrapper {
               "nodeType": "host",
               "props": Object {
                 "children": <ul
-                  className="jsx-1850234071"
+                  className="jsx-1108228381 jsx-2134468856"
                 >
                   <li
-                    className="jsx-1850234071 read-duration"
+                    className="jsx-1108228381 jsx-2134468856 read-duration"
                   >
                     30
+                     mins
                   </li>
                   <li
-                    className="jsx-1850234071 author-name"
+                    className="jsx-1108228381 jsx-2134468856 author-name"
                   >
-                    By 
-                    Paul Cox
-                     
+                    <div
+                      className="jsx-1108228381 jsx-2134468856"
+                    >
+                      <span
+                        className="jsx-1108228381 jsx-2134468856"
+                      >
+                        By
+                      </span>
+                       
+                      Paul Cox
+                    </div>
                     <img
                       alt=""
-                      className="jsx-1850234071"
+                      className="jsx-1108228381 jsx-2134468856"
                       src="https://vega.slooh.com/assets/v4/common/arrow_horz.svg"
                     />
                   </li>
                 </ul>,
-                "className": "jsx-1850234071 post-meta-data",
+                "className": "jsx-1108228381 jsx-2134468856 post-meta-data",
               },
               "ref": null,
               "rendered": Object {
@@ -471,24 +613,33 @@ ShallowWrapper {
                 "props": Object {
                   "children": Array [
                     <li
-                      className="jsx-1850234071 read-duration"
+                      className="jsx-1108228381 jsx-2134468856 read-duration"
                     >
                       30
+                       mins
                     </li>,
                     <li
-                      className="jsx-1850234071 author-name"
+                      className="jsx-1108228381 jsx-2134468856 author-name"
                     >
-                      By 
-                      Paul Cox
-                       
+                      <div
+                        className="jsx-1108228381 jsx-2134468856"
+                      >
+                        <span
+                          className="jsx-1108228381 jsx-2134468856"
+                        >
+                          By
+                        </span>
+                         
+                        Paul Cox
+                      </div>
                       <img
                         alt=""
-                        className="jsx-1850234071"
+                        className="jsx-1108228381 jsx-2134468856"
                         src="https://vega.slooh.com/assets/v4/common/arrow_horz.svg"
                       />
                     </li>,
                   ],
-                  "className": "jsx-1850234071",
+                  "className": "jsx-1108228381 jsx-2134468856",
                 },
                 "ref": null,
                 "rendered": Array [
@@ -497,11 +648,17 @@ ShallowWrapper {
                     "key": undefined,
                     "nodeType": "host",
                     "props": Object {
-                      "children": "30",
-                      "className": "jsx-1850234071 read-duration",
+                      "children": Array [
+                        "30",
+                        " mins",
+                      ],
+                      "className": "jsx-1108228381 jsx-2134468856 read-duration",
                     },
                     "ref": null,
-                    "rendered": "30",
+                    "rendered": Array [
+                      "30",
+                      " mins",
+                    ],
                     "type": "li",
                   },
                   Object {
@@ -510,29 +667,69 @@ ShallowWrapper {
                     "nodeType": "host",
                     "props": Object {
                       "children": Array [
-                        "By ",
-                        "Paul Cox",
-                        " ",
+                        <div
+                          className="jsx-1108228381 jsx-2134468856"
+                        >
+                          <span
+                            className="jsx-1108228381 jsx-2134468856"
+                          >
+                            By
+                          </span>
+                           
+                          Paul Cox
+                        </div>,
                         <img
                           alt=""
-                          className="jsx-1850234071"
+                          className="jsx-1108228381 jsx-2134468856"
                           src="https://vega.slooh.com/assets/v4/common/arrow_horz.svg"
                         />,
                       ],
-                      "className": "jsx-1850234071 author-name",
+                      "className": "jsx-1108228381 jsx-2134468856 author-name",
                     },
                     "ref": null,
                     "rendered": Array [
-                      "By ",
-                      "Paul Cox",
-                      " ",
+                      Object {
+                        "instance": null,
+                        "key": undefined,
+                        "nodeType": "host",
+                        "props": Object {
+                          "children": Array [
+                            <span
+                              className="jsx-1108228381 jsx-2134468856"
+                            >
+                              By
+                            </span>,
+                            " ",
+                            "Paul Cox",
+                          ],
+                          "className": "jsx-1108228381 jsx-2134468856",
+                        },
+                        "ref": null,
+                        "rendered": Array [
+                          Object {
+                            "instance": null,
+                            "key": undefined,
+                            "nodeType": "host",
+                            "props": Object {
+                              "children": "By",
+                              "className": "jsx-1108228381 jsx-2134468856",
+                            },
+                            "ref": null,
+                            "rendered": "By",
+                            "type": "span",
+                          },
+                          " ",
+                          "Paul Cox",
+                        ],
+                        "type": "div",
+                      },
                       Object {
                         "instance": null,
                         "key": undefined,
                         "nodeType": "host",
                         "props": Object {
                           "alt": "",
-                          "className": "jsx-1850234071",
+                          "className": "jsx-1108228381 jsx-2134468856",
                           "src": "https://vega.slooh.com/assets/v4/common/arrow_horz.svg",
                         },
                         "ref": null,
@@ -552,7 +749,7 @@ ShallowWrapper {
               "key": undefined,
               "nodeType": "host",
               "props": Object {
-                "className": "jsx-1850234071 html-blob-content-container",
+                "className": "jsx-1108228381 jsx-2134468856 __html-blob-content-container__",
                 "dangerouslySetInnerHTML": Object {
                   "__html": "<h1>Hello world...</h1>",
                 },
@@ -570,18 +767,33 @@ ShallowWrapper {
           "nodeType": "class",
           "props": Object {
             "css": Array [
-              "div.jsx-1850234071,h3.jsx-1850234071,ul.jsx-1850234071,li.jsx-1850234071{
+              "div.jsx-1108228381,h3.jsx-1108228381,ul.jsx-1108228381,li.jsx-1108228381{
   margin: 0;
   padding: 0;
 ;}",
-              ".root.jsx-1850234071{box-shadow: 0px 0px 5px 0px rgba(88, 88, 88, 0.5); background:white;}",
-              ".tile-content-container.jsx-1850234071{padding:40px;}",
-              ".title.jsx-1850234071{font-family:adobe-garamond-pro, serif;font-size:20px;color:#415671;border-bottom:1px solid #d9dee5;font-weight:300;padding-bottom:20px;}",
-              "ul.jsx-1850234071{list-style-type:none;font-family:brandon-grotesque, sans-serif;color:#415671;text-transform:uppercase;font-size:10px;font-weight:bold;padding-top:20px;}",
-              ".author-name.jsx-1850234071{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;}",
-              ".html-blob-content-container.jsx-1850234071,.read-duration.jsx-1850234071{display:none;}",
+              ".root.jsx-1108228381{box-shadow: 0px 0px 5px 0px rgba(88, 88, 88, 0.5); background:white;}",
+              ".tile-content-container.jsx-1108228381{padding:40px;}",
+              ".title.jsx-1108228381{font-family:adobe-garamond-pro, serif;font-size:20px;color:#415671;border-bottom:1px solid #d9dee5;font-weight:300;padding-bottom:20px;}",
+              "ul.jsx-1108228381{list-style-type:none;font-family:brandon-grotesque, sans-serif;color:#415671;text-transform:uppercase;font-size:10px;font-weight:bold;padding-top:20px;}",
+              ".author-name.jsx-1108228381{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;}",
+              ".__html-blob-content-container__.jsx-1108228381,.read-duration.jsx-1108228381{display:none;}",
+              "@media screen and (min-width: 768px){.__html-blob-content-container__.jsx-1108228381,.read-duration.jsx-1108228381{display:block;}.author-name.jsx-1108228381 img.jsx-1108228381,.author-name.jsx-1108228381 span.jsx-1108228381{display:none;}.tile-content-container.jsx-1108228381{padding:45px 50px;}ul.jsx-1108228381{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;}.read-duration.jsx-1108228381{border-right:1px solid #d9dee5;padding-right:10px;margin-right:10px;}}",
             ],
-            "styleId": "1850234071",
+            "styleId": "1108228381",
+          },
+          "ref": null,
+          "rendered": null,
+          "type": [Function],
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "css": Array [
+              ".__html-blob-content-container__.jsx-2134468856 .contentImageEmbedCaption{border:1px solid red;}",
+            ],
+            "styleId": "2134468856",
           },
           "ref": null,
           "rendered": null,

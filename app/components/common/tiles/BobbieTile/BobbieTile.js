@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { horizontalArrow } from 'styles/variables/iconURLs';
 import style from './BobbieTile.style';
+import CMSStyle from './CMS.style';
 
 /**
   @BobbieTile
@@ -25,16 +26,21 @@ const BobbieTile = ({
       <h3 className="title">{title}</h3>
       <div className="post-meta-data">
         <ul>
-          <li className="read-duration">{readDuration}</li>
-          <li className="author-name">By {authorName} <img alt="" src={horizontalArrow} /></li>
+          <li className="read-duration">{readDuration} mins</li>
+          <li className="author-name">
+            <div>
+              <span>By</span> {authorName}
+            </div>
+            <img alt="" src={horizontalArrow} /></li>
         </ul>
       </div>
       <div
-        className="html-blob-content-container"
+        className="__html-blob-content-container__"
         dangerouslySetInnerHTML={{ __html: HTMLBlob }}
       />
     </div>
     <style jsx>{style}</style>
+    <style jsx>{CMSStyle}</style>
   </div>
 );
 
