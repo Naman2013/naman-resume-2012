@@ -1,10 +1,10 @@
 import css from 'styled-jsx/css';
 import { secondaryFont } from 'styles/variables/fonts';
-import { screenMedium } from 'styles/variables/breakpoints';
+import { screenMedium, screenLarge } from 'styles/variables/breakpoints';
 
 export default css`
   .root {
-    background-color: white;
+    background: white;
     padding: 20px 35px;
   }
 
@@ -23,6 +23,15 @@ export default css`
       padding: 60px 40px;
     }
 
-    .title-wrapper {}
+    .title-wrapper {
+      padding-bottom: 40px;
+    }
+  }
+
+  @media ${screenLarge} {
+    .root {
+      padding: 80px;
+      width: 90%;
+    }
   }
 `;
