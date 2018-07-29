@@ -1,5 +1,6 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
+import { horizontalArrow } from 'styles/variables/iconURLs';
 import style from './BobbieTile.style';
 
 /**
@@ -19,17 +20,22 @@ const BobbieTile = ({
   authorName,
   HTMLBlob,
 }) => (
-  <Fragment>
-    <h3>{title}</h3>
-    <div className="post-meta-data">
-      <ul>
-        <li>{readDuration}</li>
-        <li>{authorName}</li>
-      </ul>
+  <div className="root">
+    <div className="tile-content-container">
+      <h3 className="title">{title}</h3>
+      <div className="post-meta-data">
+        <ul>
+          <li className="read-duration">{readDuration}</li>
+          <li className="author-name">By {authorName} <img alt="" src={horizontalArrow} /></li>
+        </ul>
+      </div>
+      <div
+        className="html-blob-content-container"
+        dangerouslySetInnerHTML={{ __html: HTMLBlob }}
+      />
     </div>
-    <div dangerouslySetInnerHTML={{ __html: HTMLBlob }} />
     <style jsx>{style}</style>
-  </Fragment>
+  </div>
 );
 
 BobbieTile.propTypes = {

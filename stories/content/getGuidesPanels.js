@@ -1,4 +1,4 @@
-export const SAMPLE_IMAGE_HTML_BLOG = `
+export const SAMPLE_IMAGE_HTML_BLOB = `
 <table class="table_40_60_split" width="100%">
   <tbody>
     <tr class="table_row_40_60_split">
