@@ -1,3 +1,3 @@
-import BobbieTile from './BobbieTitle';
+import BobbieTile from './BobbieTile';
 
 export default BobbieTile;
