@@ -11,10 +11,20 @@ import { SAMPLE_IMAGE_HTML_BLOG, SAMPLE_VIDEO_HTML_BLOB } from './content/getGui
 
 storiesOf('Tiles', module)
   .add('BobbieTile - 40_60_SPLIT with image', () => (
-    <BobbieTile HTMLBlob={SAMPLE_IMAGE_HTML_BLOG} />
+    <BobbieTile
+      title="Check out this tutorial"
+      readDuration="30"
+      authorName="Paul Cox"
+      HTMLBlob={SAMPLE_IMAGE_HTML_BLOG}
+    />
   ))
   .add('BobbieTile - 60_40_SPLIT with video', () => (
-    <BobbieTile HTMLBlob={SAMPLE_VIDEO_HTML_BLOB} />
+    <BobbieTile
+      title="Check out this tutorial"
+      readDuration="30"
+      authorName="Paul Cox"
+      HTMLBlob={SAMPLE_VIDEO_HTML_BLOB}
+    />
   ))
   .add('LailaTile', () => (
     <LailaTile

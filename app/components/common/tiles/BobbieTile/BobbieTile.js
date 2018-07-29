@@ -13,15 +13,35 @@ import style from './BobbieTile.style';
   https://docs.google.com/document/d/1PK8X1clsV618gHQWtBnwRcFCVsTbpMhSbIYvnz8MW6Y/edit#
 */
 
-const BobbieTile = ({ HTMLBlob }) => (
+const BobbieTile = ({
+  title,
+  readDuration,
+  authorName,
+  HTMLBlob,
+}) => (
   <Fragment>
+    <h3>{title}</h3>
+    <div className="post-meta-data">
+      <ul>
+        <li>{readDuration}</li>
+        <li>{authorName}</li>
+      </ul>
+    </div>
     <div dangerouslySetInnerHTML={{ __html: HTMLBlob }} />
     <style jsx>{style}</style>
   </Fragment>
 );
 
 BobbieTile.propTypes = {
+  title: PropTypes.string.isRequired,
+  readDuration: PropTypes.string,
+  authorName: PropTypes.string,
   HTMLBlob: PropTypes.string.isRequired,
+};
+
+BobbieTile.defaultProps = {
+  readDuration: '',
+  authorName: '',
 };
 
 export default BobbieTile;
