@@ -1,5 +1,6 @@
 import css from 'styled-jsx/css';
 import { white_tile_paper } from 'styles/variables/colors_tiles_v4';
+import { shadyBottomShadow } from 'styles/variables/shadows';
 import { screenMedium, screenLarge } from 'styles/variables/breakpoints';
 
 export default css`
@@ -17,6 +18,11 @@ export default css`
   }
 
   @media ${screenMedium} {
+    .root {
+      ${shadyBottomShadow}
+      padding-bottom: 60px;
+    }
+
     .title-container {
       background: none;
     }
@@ -28,6 +34,10 @@ export default css`
   }
 
   @media ${screenLarge} {
+    .root {
+      padding-bottom: 80px;
+    }
+
     .guide-container {
       background: none;
       display: flex;

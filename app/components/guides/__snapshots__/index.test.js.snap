@@ -1198,7 +1198,7 @@ ShallowWrapper {
           }
         >
           <div
-            className="jsx-3818665052 title-container"
+            className="jsx-968165992 title-container"
           >
             <TopicHeading
               text="Astronomical time"
@@ -1223,7 +1223,7 @@ ShallowWrapper {
           }
         >
           <div
-            className="jsx-3818665052 guide-container"
+            className="jsx-968165992 guide-container"
           >
             <TopicContentList
               list={
@@ -1247,17 +1247,17 @@ posuere vulputate. Etiam elit elit, elementum sed varius at."
         <JSXStyle
           css={
             Array [
-              ".root.jsx-3818665052{background:url(https://vega.slooh.com/assets/v4/common/White_Paper_Subtle.png);}",
-              ".guide-container.jsx-3818665052{background:white;}",
-              ".title-container.jsx-3818665052{margin:0;background:white;}",
-              "@media screen and (min-width: 768px){.title-container.jsx-3818665052{background:none;}.guide-container.jsx-3818665052{margin:0;margin-top:10px;}}",
-              "@media screen and (min-width: 1024px){.guide-container.jsx-3818665052{background:none;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;margin:0;}}",
+              ".root.jsx-968165992{background:url(https://vega.slooh.com/assets/v4/common/White_Paper_Subtle.png);}",
+              ".guide-container.jsx-968165992{background:white;}",
+              ".title-container.jsx-968165992{margin:0;background:white;}",
+              "@media screen and (min-width: 768px){.root.jsx-968165992{box-shadow: 8px 5px 20px -5px rgba(88, 88, 88, 0.5); padding-bottom:60px;}.title-container.jsx-968165992{background:none;}.guide-container.jsx-968165992{margin:0;margin-top:10px;}}",
+              "@media screen and (min-width: 1024px){.root.jsx-968165992{padding-bottom:80px;}.guide-container.jsx-968165992{background:none;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;margin:0;}}",
             ]
           }
-          styleId="3818665052"
+          styleId="968165992"
         />,
       ],
-      "className": "jsx-3818665052 root",
+      "className": "jsx-968165992 root",
     },
     "ref": null,
     "rendered": Array [
@@ -1272,7 +1272,7 @@ posuere vulputate. Etiam elit elit, elementum sed varius at."
             "screen and (min-width: 1366px)",
           ],
           "children": <div
-            className="jsx-3818665052 title-container"
+            className="jsx-968165992 title-container"
           >
             <TopicHeading
               text="Astronomical time"
@@ -1294,7 +1294,7 @@ posuere vulputate. Etiam elit elit, elementum sed varius at."
             "children": <TopicHeading
               text="Astronomical time"
             />,
-            "className": "jsx-3818665052 title-container",
+            "className": "jsx-968165992 title-container",
           },
           "ref": null,
           "rendered": Object {
@@ -1323,7 +1323,7 @@ posuere vulputate. Etiam elit elit, elementum sed varius at."
             "screen and (min-width: 1366px)",
           ],
           "children": <div
-            className="jsx-3818665052 guide-container"
+            className="jsx-968165992 guide-container"
           >
             <TopicContentList
               list={
@@ -1375,7 +1375,7 @@ posuere vulputate. Etiam elit elit, elementum sed varius at."
                 title="About this guide"
               />,
             ],
-            "className": "jsx-3818665052 guide-container",
+            "className": "jsx-968165992 guide-container",
           },
           "ref": null,
           "rendered": Array [
@@ -1421,13 +1421,13 @@ posuere vulputate. Etiam elit elit, elementum sed varius at.",
         "nodeType": "class",
         "props": Object {
           "css": Array [
-            ".root.jsx-3818665052{background:url(https://vega.slooh.com/assets/v4/common/White_Paper_Subtle.png);}",
-            ".guide-container.jsx-3818665052{background:white;}",
-            ".title-container.jsx-3818665052{margin:0;background:white;}",
-            "@media screen and (min-width: 768px){.title-container.jsx-3818665052{background:none;}.guide-container.jsx-3818665052{margin:0;margin-top:10px;}}",
-            "@media screen and (min-width: 1024px){.guide-container.jsx-3818665052{background:none;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;margin:0;}}",
+            ".root.jsx-968165992{background:url(https://vega.slooh.com/assets/v4/common/White_Paper_Subtle.png);}",
+            ".guide-container.jsx-968165992{background:white;}",
+            ".title-container.jsx-968165992{margin:0;background:white;}",
+            "@media screen and (min-width: 768px){.root.jsx-968165992{box-shadow: 8px 5px 20px -5px rgba(88, 88, 88, 0.5); padding-bottom:60px;}.title-container.jsx-968165992{background:none;}.guide-container.jsx-968165992{margin:0;margin-top:10px;}}",
+            "@media screen and (min-width: 1024px){.root.jsx-968165992{padding-bottom:80px;}.guide-container.jsx-968165992{background:none;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;margin:0;}}",
           ],
-          "styleId": "3818665052",
+          "styleId": "968165992",
         },
         "ref": null,
         "rendered": null,
@@ -1461,7 +1461,7 @@ posuere vulputate. Etiam elit elit, elementum sed varius at.",
             }
           >
             <div
-              className="jsx-3818665052 title-container"
+              className="jsx-968165992 title-container"
             >
               <TopicHeading
                 text="Astronomical time"
@@ -1486,7 +1486,7 @@ posuere vulputate. Etiam elit elit, elementum sed varius at.",
             }
           >
             <div
-              className="jsx-3818665052 guide-container"
+              className="jsx-968165992 guide-container"
             >
               <TopicContentList
                 list={
@@ -1510,17 +1510,17 @@ posuere vulputate. Etiam elit elit, elementum sed varius at."
           <JSXStyle
             css={
               Array [
-                ".root.jsx-3818665052{background:url(https://vega.slooh.com/assets/v4/common/White_Paper_Subtle.png);}",
-                ".guide-container.jsx-3818665052{background:white;}",
-                ".title-container.jsx-3818665052{margin:0;background:white;}",
-                "@media screen and (min-width: 768px){.title-container.jsx-3818665052{background:none;}.guide-container.jsx-3818665052{margin:0;margin-top:10px;}}",
-                "@media screen and (min-width: 1024px){.guide-container.jsx-3818665052{background:none;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;margin:0;}}",
+                ".root.jsx-968165992{background:url(https://vega.slooh.com/assets/v4/common/White_Paper_Subtle.png);}",
+                ".guide-container.jsx-968165992{background:white;}",
+                ".title-container.jsx-968165992{margin:0;background:white;}",
+                "@media screen and (min-width: 768px){.root.jsx-968165992{box-shadow: 8px 5px 20px -5px rgba(88, 88, 88, 0.5); padding-bottom:60px;}.title-container.jsx-968165992{background:none;}.guide-container.jsx-968165992{margin:0;margin-top:10px;}}",
+                "@media screen and (min-width: 1024px){.root.jsx-968165992{padding-bottom:80px;}.guide-container.jsx-968165992{background:none;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;margin:0;}}",
               ]
             }
-            styleId="3818665052"
+            styleId="968165992"
           />,
         ],
-        "className": "jsx-3818665052 root",
+        "className": "jsx-968165992 root",
       },
       "ref": null,
       "rendered": Array [
@@ -1535,7 +1535,7 @@ posuere vulputate. Etiam elit elit, elementum sed varius at."
               "screen and (min-width: 1366px)",
             ],
             "children": <div
-              className="jsx-3818665052 title-container"
+              className="jsx-968165992 title-container"
             >
               <TopicHeading
                 text="Astronomical time"
@@ -1557,7 +1557,7 @@ posuere vulputate. Etiam elit elit, elementum sed varius at."
               "children": <TopicHeading
                 text="Astronomical time"
               />,
-              "className": "jsx-3818665052 title-container",
+              "className": "jsx-968165992 title-container",
             },
             "ref": null,
             "rendered": Object {
@@ -1586,7 +1586,7 @@ posuere vulputate. Etiam elit elit, elementum sed varius at."
               "screen and (min-width: 1366px)",
             ],
             "children": <div
-              className="jsx-3818665052 guide-container"
+              className="jsx-968165992 guide-container"
             >
               <TopicContentList
                 list={
@@ -1638,7 +1638,7 @@ posuere vulputate. Etiam elit elit, elementum sed varius at."
                   title="About this guide"
                 />,
               ],
-              "className": "jsx-3818665052 guide-container",
+              "className": "jsx-968165992 guide-container",
             },
             "ref": null,
             "rendered": Array [
@@ -1684,13 +1684,13 @@ posuere vulputate. Etiam elit elit, elementum sed varius at.",
           "nodeType": "class",
           "props": Object {
             "css": Array [
-              ".root.jsx-3818665052{background:url(https://vega.slooh.com/assets/v4/common/White_Paper_Subtle.png);}",
-              ".guide-container.jsx-3818665052{background:white;}",
-              ".title-container.jsx-3818665052{margin:0;background:white;}",
-              "@media screen and (min-width: 768px){.title-container.jsx-3818665052{background:none;}.guide-container.jsx-3818665052{margin:0;margin-top:10px;}}",
-              "@media screen and (min-width: 1024px){.guide-container.jsx-3818665052{background:none;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;margin:0;}}",
+              ".root.jsx-968165992{background:url(https://vega.slooh.com/assets/v4/common/White_Paper_Subtle.png);}",
+              ".guide-container.jsx-968165992{background:white;}",
+              ".title-container.jsx-968165992{margin:0;background:white;}",
+              "@media screen and (min-width: 768px){.root.jsx-968165992{box-shadow: 8px 5px 20px -5px rgba(88, 88, 88, 0.5); padding-bottom:60px;}.title-container.jsx-968165992{background:none;}.guide-container.jsx-968165992{margin:0;margin-top:10px;}}",
+              "@media screen and (min-width: 1024px){.root.jsx-968165992{padding-bottom:80px;}.guide-container.jsx-968165992{background:none;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;margin:0;}}",
             ],
-            "styleId": "3818665052",
+            "styleId": "968165992",
           },
           "ref": null,
           "rendered": null,
