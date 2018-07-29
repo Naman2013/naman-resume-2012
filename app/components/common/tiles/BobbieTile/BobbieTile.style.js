@@ -64,7 +64,7 @@ export default css`
 
     ul {
       display: flex;
-      padding-bottom: 20px;
+      padding: 10px 0;
       margin-bottom: 20px;
       border-bottom: 1px solid ${geyser};
     }
