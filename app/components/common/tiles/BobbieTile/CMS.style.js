@@ -25,10 +25,12 @@ export default css`
      padding: 1px;
      border: 1px solid ${geyser};
      margin-bottom: 10px;
+     width: 90%;
    }
 
    ${stylePrefix} :global(.videoEmbedIFrame ) {
      margin-bottom: 10px;
+     width: 90%;
    }
 
    ${stylePrefix} :global(.contentImageEmbedCaption, .videoEmbedCaption) {
