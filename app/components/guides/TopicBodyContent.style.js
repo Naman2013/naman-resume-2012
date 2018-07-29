@@ -30,7 +30,7 @@ export default css`
 
   @media ${screenLarge} {
     .root {
-      padding: 80px;
+      padding: 70px;
       width: 90%;
     }
   }
