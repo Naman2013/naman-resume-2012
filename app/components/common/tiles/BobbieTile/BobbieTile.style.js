@@ -3,7 +3,7 @@ import { primaryFont, secondaryFont } from 'styles/variables/fonts';
 import { faintShadow } from 'styles/variables/shadows';
 import { astronaut, geyser } from 'styles/variables/colors_tiles_v4';
 import { resetMarginPadding } from 'styles/variables/utils';
-import { screenMedium } from 'styles/variables/breakpoints';
+import { screenMedium, screenLarge } from 'styles/variables/breakpoints';
 
 export default css`
   div, h3, ul, li {
@@ -59,17 +59,30 @@ export default css`
     .author-name span { display: none; }
 
     .tile-content-container {
-      padding: 45px 50px;
+      padding: 40px 50px;
     }
 
     ul {
       display: flex;
+      padding-bottom: 20px;
+      margin-bottom: 20px;
+      border-bottom: 1px solid ${geyser};
     }
 
     .read-duration {
       border-right: 1px solid ${geyser};
       padding-right: 10px;
       margin-right: 10px;
+    }
+  }
+
+  @media ${screenLarge} {
+    .tile-content-container {
+      padding: 80px;
+    }
+
+    .title {
+      font-size: 24px;
     }
   }
 `;
