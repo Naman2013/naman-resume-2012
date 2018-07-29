@@ -4,7 +4,9 @@ exports[`BobbieTile should render correctly 1`] = `
 ShallowWrapper {
   "length": 1,
   Symbol(enzyme.__root__): [Circular],
-  Symbol(enzyme.__unrendered__): <BobbieTile />,
+  Symbol(enzyme.__unrendered__): <BobbieTile
+    HTMLBlob="<h1>Hello world...</h1>"
+  />,
   Symbol(enzyme.__renderer__): Object {
     "batchedUpdates": [Function],
     "getNode": [Function],
@@ -15,29 +17,105 @@ ShallowWrapper {
   Symbol(enzyme.__node__): Object {
     "instance": null,
     "key": undefined,
-    "nodeType": "host",
+    "nodeType": "function",
     "props": Object {
-      "dangerouslySetInnerHTML": Object {
-        "__html": undefined,
-      },
+      "children": Array [
+        <div
+          className="jsx-3313364838"
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "<h1>Hello world...</h1>",
+            }
+          }
+        />,
+        <JSXStyle
+          css={Array []}
+          styleId="3313364838"
+        />,
+      ],
     },
     "ref": null,
-    "rendered": null,
-    "type": "div",
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "className": "jsx-3313364838",
+          "dangerouslySetInnerHTML": Object {
+            "__html": "<h1>Hello world...</h1>",
+          },
+        },
+        "ref": null,
+        "rendered": null,
+        "type": "div",
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
+          "css": Array [],
+          "styleId": "3313364838",
+        },
+        "ref": null,
+        "rendered": null,
+        "type": [Function],
+      },
+    ],
+    "type": Symbol(react.fragment),
   },
   Symbol(enzyme.__nodes__): Array [
     Object {
       "instance": null,
       "key": undefined,
-      "nodeType": "host",
+      "nodeType": "function",
       "props": Object {
-        "dangerouslySetInnerHTML": Object {
-          "__html": undefined,
-        },
+        "children": Array [
+          <div
+            className="jsx-3313364838"
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "<h1>Hello world...</h1>",
+              }
+            }
+          />,
+          <JSXStyle
+            css={Array []}
+            styleId="3313364838"
+          />,
+        ],
       },
       "ref": null,
-      "rendered": null,
-      "type": "div",
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "className": "jsx-3313364838",
+            "dangerouslySetInnerHTML": Object {
+              "__html": "<h1>Hello world...</h1>",
+            },
+          },
+          "ref": null,
+          "rendered": null,
+          "type": "div",
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "css": Array [],
+            "styleId": "3313364838",
+          },
+          "ref": null,
+          "rendered": null,
+          "type": [Function],
+        },
+      ],
+      "type": Symbol(react.fragment),
     },
   ],
   Symbol(enzyme.__options__): Object {
