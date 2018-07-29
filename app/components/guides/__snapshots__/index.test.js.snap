@@ -973,30 +973,31 @@ ShallowWrapper {
     "props": Object {
       "children": Array [
         <div
-          className="jsx-3931563762 title-wrapper"
+          className="jsx-2111641450 title-wrapper"
         >
           <RubyTitle
             text="Test"
           />
         </div>,
         <p
-          className="jsx-3931563762"
+          className="jsx-2111641450"
         >
           Some sample content
         </p>,
         <JSXStyle
           css={
             Array [
-              ".root.jsx-3931563762{background-color:white;padding:20px 35px;}",
-              ".title-wrapper.jsx-3931563762{padding:15px 0;}",
-              "p.jsx-3931563762{font-family:adobe-garamond-pro, serif;line-height:1.5;font-size:18px;}",
-              "@media screen and (min-width: 768px){.root.jsx-3931563762{padding:60px 40px;}}",
+              ".root.jsx-2111641450{background:white;padding:20px 35px;}",
+              ".title-wrapper.jsx-2111641450{padding:15px 0;}",
+              "p.jsx-2111641450{font-family:adobe-garamond-pro, serif;line-height:1.5;font-size:18px;}",
+              "@media screen and (min-width: 768px){.root.jsx-2111641450{padding:60px 40px;}.title-wrapper.jsx-2111641450{padding-bottom:40px;}}",
+              "@media screen and (min-width: 1024px){.root.jsx-2111641450{padding:80px;width:90%;}}",
             ]
           }
-          styleId="3931563762"
+          styleId="2111641450"
         />,
       ],
-      "className": "jsx-3931563762 root",
+      "className": "jsx-2111641450 root",
     },
     "ref": null,
     "rendered": Array [
@@ -1008,7 +1009,7 @@ ShallowWrapper {
           "children": <RubyTitle
             text="Test"
           />,
-          "className": "jsx-3931563762 title-wrapper",
+          "className": "jsx-2111641450 title-wrapper",
         },
         "ref": null,
         "rendered": Object {
@@ -1030,7 +1031,7 @@ ShallowWrapper {
         "nodeType": "host",
         "props": Object {
           "children": "Some sample content",
-          "className": "jsx-3931563762",
+          "className": "jsx-2111641450",
         },
         "ref": null,
         "rendered": "Some sample content",
@@ -1042,12 +1043,13 @@ ShallowWrapper {
         "nodeType": "class",
         "props": Object {
           "css": Array [
-            ".root.jsx-3931563762{background-color:white;padding:20px 35px;}",
-            ".title-wrapper.jsx-3931563762{padding:15px 0;}",
-            "p.jsx-3931563762{font-family:adobe-garamond-pro, serif;line-height:1.5;font-size:18px;}",
-            "@media screen and (min-width: 768px){.root.jsx-3931563762{padding:60px 40px;}}",
+            ".root.jsx-2111641450{background:white;padding:20px 35px;}",
+            ".title-wrapper.jsx-2111641450{padding:15px 0;}",
+            "p.jsx-2111641450{font-family:adobe-garamond-pro, serif;line-height:1.5;font-size:18px;}",
+            "@media screen and (min-width: 768px){.root.jsx-2111641450{padding:60px 40px;}.title-wrapper.jsx-2111641450{padding-bottom:40px;}}",
+            "@media screen and (min-width: 1024px){.root.jsx-2111641450{padding:80px;width:90%;}}",
           ],
-          "styleId": "3931563762",
+          "styleId": "2111641450",
         },
         "ref": null,
         "rendered": null,
@@ -1064,30 +1066,31 @@ ShallowWrapper {
       "props": Object {
         "children": Array [
           <div
-            className="jsx-3931563762 title-wrapper"
+            className="jsx-2111641450 title-wrapper"
           >
             <RubyTitle
               text="Test"
             />
           </div>,
           <p
-            className="jsx-3931563762"
+            className="jsx-2111641450"
           >
             Some sample content
           </p>,
           <JSXStyle
             css={
               Array [
-                ".root.jsx-3931563762{background-color:white;padding:20px 35px;}",
-                ".title-wrapper.jsx-3931563762{padding:15px 0;}",
-                "p.jsx-3931563762{font-family:adobe-garamond-pro, serif;line-height:1.5;font-size:18px;}",
-                "@media screen and (min-width: 768px){.root.jsx-3931563762{padding:60px 40px;}}",
+                ".root.jsx-2111641450{background:white;padding:20px 35px;}",
+                ".title-wrapper.jsx-2111641450{padding:15px 0;}",
+                "p.jsx-2111641450{font-family:adobe-garamond-pro, serif;line-height:1.5;font-size:18px;}",
+                "@media screen and (min-width: 768px){.root.jsx-2111641450{padding:60px 40px;}.title-wrapper.jsx-2111641450{padding-bottom:40px;}}",
+                "@media screen and (min-width: 1024px){.root.jsx-2111641450{padding:80px;width:90%;}}",
               ]
             }
-            styleId="3931563762"
+            styleId="2111641450"
           />,
         ],
-        "className": "jsx-3931563762 root",
+        "className": "jsx-2111641450 root",
       },
       "ref": null,
       "rendered": Array [
@@ -1099,7 +1102,7 @@ ShallowWrapper {
             "children": <RubyTitle
               text="Test"
             />,
-            "className": "jsx-3931563762 title-wrapper",
+            "className": "jsx-2111641450 title-wrapper",
           },
           "ref": null,
           "rendered": Object {
@@ -1121,7 +1124,7 @@ ShallowWrapper {
           "nodeType": "host",
           "props": Object {
             "children": "Some sample content",
-            "className": "jsx-3931563762",
+            "className": "jsx-2111641450",
           },
           "ref": null,
           "rendered": "Some sample content",
@@ -1133,12 +1136,13 @@ ShallowWrapper {
           "nodeType": "class",
           "props": Object {
             "css": Array [
-              ".root.jsx-3931563762{background-color:white;padding:20px 35px;}",
-              ".title-wrapper.jsx-3931563762{padding:15px 0;}",
-              "p.jsx-3931563762{font-family:adobe-garamond-pro, serif;line-height:1.5;font-size:18px;}",
-              "@media screen and (min-width: 768px){.root.jsx-3931563762{padding:60px 40px;}}",
+              ".root.jsx-2111641450{background:white;padding:20px 35px;}",
+              ".title-wrapper.jsx-2111641450{padding:15px 0;}",
+              "p.jsx-2111641450{font-family:adobe-garamond-pro, serif;line-height:1.5;font-size:18px;}",
+              "@media screen and (min-width: 768px){.root.jsx-2111641450{padding:60px 40px;}.title-wrapper.jsx-2111641450{padding-bottom:40px;}}",
+              "@media screen and (min-width: 1024px){.root.jsx-2111641450{padding:80px;width:90%;}}",
             ],
-            "styleId": "3931563762",
+            "styleId": "2111641450",
           },
           "ref": null,
           "rendered": null,
@@ -1194,7 +1198,7 @@ ShallowWrapper {
           }
         >
           <div
-            className="jsx-2900280927 title-container"
+            className="jsx-3818665052 title-container"
           >
             <TopicHeading
               text="Astronomical time"
@@ -1219,29 +1223,41 @@ ShallowWrapper {
           }
         >
           <div
-            className="jsx-2900280927 guide-container"
+            className="jsx-3818665052 guide-container"
           >
-            <GuideSection
-              alignContent="left"
-              column={[Function]}
-              content={[Function]}
+            <TopicContentList
+              list={
+                Array [
+                  "contains 10 objects",
+                  "object type guide",
+                  "beginners and up",
+                ]
+              }
+              theme={Object {}}
+            />
+            <TopicBodyContent
+              content="Mauris non tempor quam, et lacinia sapien. Mauris accumsan eros eget libero lorem posuere vulputate. Etiam elit elit, elementum sed varius at, adipiscing evitae est. Sed nec felis loren posuere posuere, rutrum eu ipsum. Aliquam eget odio sed ligula dolae iaculis consequat at eget orci. Mauris moleistie sit amet metus loi mass imattis varius Donec sit amet ligula eget nisi sodales lorem a molestie bibendum. Etiam nisi anteni consectetur eget placerat a, tempus a neque. Donec ut elit urna. Etiam venenatis leni eleifend urna eget scelerisqueliquam in nunc.
+
+Donec sit amet ligula eget nisi sodales egestas. Aliquam interdum dolor aliquet dolor  iaculis consequat at eget orci. Mauris moleistie sit amet metus loi mass imattis varius Donec sit amet ligula eget nisi sodales lorem a molestie bibendum. Etiam nisi anteni
+posuere vulputate. Etiam elit elit, elementum sed varius at."
+              title="About this guide"
             />
           </div>
         </CenterColumn>,
         <JSXStyle
           css={
             Array [
-              ".root.jsx-2900280927{background:url(https://vega.slooh.com/assets/v4/common/White_Paper_Subtle.png);}",
-              ".guide-container.jsx-2900280927{background:white;}",
-              ".title-container.jsx-2900280927{margin:0;background:white;}",
-              "@media screen and (min-width: 768px){.title-container.jsx-2900280927{background:none;}.guide-container.jsx-2900280927{margin:0;margin-top:10px;}}",
-              "@media screen and (min-width: 1024px){.guide-container.jsx-2900280927{background:none;}}",
+              ".root.jsx-3818665052{background:url(https://vega.slooh.com/assets/v4/common/White_Paper_Subtle.png);}",
+              ".guide-container.jsx-3818665052{background:white;}",
+              ".title-container.jsx-3818665052{margin:0;background:white;}",
+              "@media screen and (min-width: 768px){.title-container.jsx-3818665052{background:none;}.guide-container.jsx-3818665052{margin:0;margin-top:10px;}}",
+              "@media screen and (min-width: 1024px){.guide-container.jsx-3818665052{background:none;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;margin:0;}}",
             ]
           }
-          styleId="2900280927"
+          styleId="3818665052"
         />,
       ],
-      "className": "jsx-2900280927 root",
+      "className": "jsx-3818665052 root",
     },
     "ref": null,
     "rendered": Array [
@@ -1256,7 +1272,7 @@ ShallowWrapper {
             "screen and (min-width: 1366px)",
           ],
           "children": <div
-            className="jsx-2900280927 title-container"
+            className="jsx-3818665052 title-container"
           >
             <TopicHeading
               text="Astronomical time"
@@ -1278,7 +1294,7 @@ ShallowWrapper {
             "children": <TopicHeading
               text="Astronomical time"
             />,
-            "className": "jsx-2900280927 title-container",
+            "className": "jsx-3818665052 title-container",
           },
           "ref": null,
           "rendered": Object {
@@ -1307,12 +1323,24 @@ ShallowWrapper {
             "screen and (min-width: 1366px)",
           ],
           "children": <div
-            className="jsx-2900280927 guide-container"
+            className="jsx-3818665052 guide-container"
           >
-            <GuideSection
-              alignContent="left"
-              column={[Function]}
-              content={[Function]}
+            <TopicContentList
+              list={
+                Array [
+                  "contains 10 objects",
+                  "object type guide",
+                  "beginners and up",
+                ]
+              }
+              theme={Object {}}
+            />
+            <TopicBodyContent
+              content="Mauris non tempor quam, et lacinia sapien. Mauris accumsan eros eget libero lorem posuere vulputate. Etiam elit elit, elementum sed varius at, adipiscing evitae est. Sed nec felis loren posuere posuere, rutrum eu ipsum. Aliquam eget odio sed ligula dolae iaculis consequat at eget orci. Mauris moleistie sit amet metus loi mass imattis varius Donec sit amet ligula eget nisi sodales lorem a molestie bibendum. Etiam nisi anteni consectetur eget placerat a, tempus a neque. Donec ut elit urna. Etiam venenatis leni eleifend urna eget scelerisqueliquam in nunc.
+
+Donec sit amet ligula eget nisi sodales egestas. Aliquam interdum dolor aliquet dolor  iaculis consequat at eget orci. Mauris moleistie sit amet metus loi mass imattis varius Donec sit amet ligula eget nisi sodales lorem a molestie bibendum. Etiam nisi anteni
+posuere vulputate. Etiam elit elit, elementum sed varius at."
+              title="About this guide"
             />
           </div>,
           "theme": Object {},
@@ -1328,27 +1356,61 @@ ShallowWrapper {
           "key": undefined,
           "nodeType": "host",
           "props": Object {
-            "children": <GuideSection
-              alignContent="left"
-              column={[Function]}
-              content={[Function]}
-            />,
-            "className": "jsx-2900280927 guide-container",
+            "children": Array [
+              <TopicContentList
+                list={
+                  Array [
+                    "contains 10 objects",
+                    "object type guide",
+                    "beginners and up",
+                  ]
+                }
+                theme={Object {}}
+              />,
+              <TopicBodyContent
+                content="Mauris non tempor quam, et lacinia sapien. Mauris accumsan eros eget libero lorem posuere vulputate. Etiam elit elit, elementum sed varius at, adipiscing evitae est. Sed nec felis loren posuere posuere, rutrum eu ipsum. Aliquam eget odio sed ligula dolae iaculis consequat at eget orci. Mauris moleistie sit amet metus loi mass imattis varius Donec sit amet ligula eget nisi sodales lorem a molestie bibendum. Etiam nisi anteni consectetur eget placerat a, tempus a neque. Donec ut elit urna. Etiam venenatis leni eleifend urna eget scelerisqueliquam in nunc.
+
+Donec sit amet ligula eget nisi sodales egestas. Aliquam interdum dolor aliquet dolor  iaculis consequat at eget orci. Mauris moleistie sit amet metus loi mass imattis varius Donec sit amet ligula eget nisi sodales lorem a molestie bibendum. Etiam nisi anteni
+posuere vulputate. Etiam elit elit, elementum sed varius at."
+                title="About this guide"
+              />,
+            ],
+            "className": "jsx-3818665052 guide-container",
           },
           "ref": null,
-          "rendered": Object {
-            "instance": null,
-            "key": undefined,
-            "nodeType": "function",
-            "props": Object {
-              "alignContent": "left",
-              "column": [Function],
-              "content": [Function],
+          "rendered": Array [
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "function",
+              "props": Object {
+                "list": Array [
+                  "contains 10 objects",
+                  "object type guide",
+                  "beginners and up",
+                ],
+                "theme": Object {},
+              },
+              "ref": null,
+              "rendered": null,
+              "type": [Function],
             },
-            "ref": null,
-            "rendered": null,
-            "type": [Function],
-          },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "function",
+              "props": Object {
+                "content": "Mauris non tempor quam, et lacinia sapien. Mauris accumsan eros eget libero lorem posuere vulputate. Etiam elit elit, elementum sed varius at, adipiscing evitae est. Sed nec felis loren posuere posuere, rutrum eu ipsum. Aliquam eget odio sed ligula dolae iaculis consequat at eget orci. Mauris moleistie sit amet metus loi mass imattis varius Donec sit amet ligula eget nisi sodales lorem a molestie bibendum. Etiam nisi anteni consectetur eget placerat a, tempus a neque. Donec ut elit urna. Etiam venenatis leni eleifend urna eget scelerisqueliquam in nunc.
+
+Donec sit amet ligula eget nisi sodales egestas. Aliquam interdum dolor aliquet dolor  iaculis consequat at eget orci. Mauris moleistie sit amet metus loi mass imattis varius Donec sit amet ligula eget nisi sodales lorem a molestie bibendum. Etiam nisi anteni
+posuere vulputate. Etiam elit elit, elementum sed varius at.",
+                "title": "About this guide",
+              },
+              "ref": null,
+              "rendered": null,
+              "type": [Function],
+            },
+          ],
           "type": "div",
         },
         "type": [Function],
@@ -1359,13 +1421,13 @@ ShallowWrapper {
         "nodeType": "class",
         "props": Object {
           "css": Array [
-            ".root.jsx-2900280927{background:url(https://vega.slooh.com/assets/v4/common/White_Paper_Subtle.png);}",
-            ".guide-container.jsx-2900280927{background:white;}",
-            ".title-container.jsx-2900280927{margin:0;background:white;}",
-            "@media screen and (min-width: 768px){.title-container.jsx-2900280927{background:none;}.guide-container.jsx-2900280927{margin:0;margin-top:10px;}}",
-            "@media screen and (min-width: 1024px){.guide-container.jsx-2900280927{background:none;}}",
+            ".root.jsx-3818665052{background:url(https://vega.slooh.com/assets/v4/common/White_Paper_Subtle.png);}",
+            ".guide-container.jsx-3818665052{background:white;}",
+            ".title-container.jsx-3818665052{margin:0;background:white;}",
+            "@media screen and (min-width: 768px){.title-container.jsx-3818665052{background:none;}.guide-container.jsx-3818665052{margin:0;margin-top:10px;}}",
+            "@media screen and (min-width: 1024px){.guide-container.jsx-3818665052{background:none;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;margin:0;}}",
           ],
-          "styleId": "2900280927",
+          "styleId": "3818665052",
         },
         "ref": null,
         "rendered": null,
@@ -1399,7 +1461,7 @@ ShallowWrapper {
             }
           >
             <div
-              className="jsx-2900280927 title-container"
+              className="jsx-3818665052 title-container"
             >
               <TopicHeading
                 text="Astronomical time"
@@ -1424,29 +1486,41 @@ ShallowWrapper {
             }
           >
             <div
-              className="jsx-2900280927 guide-container"
+              className="jsx-3818665052 guide-container"
             >
-              <GuideSection
-                alignContent="left"
-                column={[Function]}
-                content={[Function]}
+              <TopicContentList
+                list={
+                  Array [
+                    "contains 10 objects",
+                    "object type guide",
+                    "beginners and up",
+                  ]
+                }
+                theme={Object {}}
+              />
+              <TopicBodyContent
+                content="Mauris non tempor quam, et lacinia sapien. Mauris accumsan eros eget libero lorem posuere vulputate. Etiam elit elit, elementum sed varius at, adipiscing evitae est. Sed nec felis loren posuere posuere, rutrum eu ipsum. Aliquam eget odio sed ligula dolae iaculis consequat at eget orci. Mauris moleistie sit amet metus loi mass imattis varius Donec sit amet ligula eget nisi sodales lorem a molestie bibendum. Etiam nisi anteni consectetur eget placerat a, tempus a neque. Donec ut elit urna. Etiam venenatis leni eleifend urna eget scelerisqueliquam in nunc.
+
+Donec sit amet ligula eget nisi sodales egestas. Aliquam interdum dolor aliquet dolor  iaculis consequat at eget orci. Mauris moleistie sit amet metus loi mass imattis varius Donec sit amet ligula eget nisi sodales lorem a molestie bibendum. Etiam nisi anteni
+posuere vulputate. Etiam elit elit, elementum sed varius at."
+                title="About this guide"
               />
             </div>
           </CenterColumn>,
           <JSXStyle
             css={
               Array [
-                ".root.jsx-2900280927{background:url(https://vega.slooh.com/assets/v4/common/White_Paper_Subtle.png);}",
-                ".guide-container.jsx-2900280927{background:white;}",
-                ".title-container.jsx-2900280927{margin:0;background:white;}",
-                "@media screen and (min-width: 768px){.title-container.jsx-2900280927{background:none;}.guide-container.jsx-2900280927{margin:0;margin-top:10px;}}",
-                "@media screen and (min-width: 1024px){.guide-container.jsx-2900280927{background:none;}}",
+                ".root.jsx-3818665052{background:url(https://vega.slooh.com/assets/v4/common/White_Paper_Subtle.png);}",
+                ".guide-container.jsx-3818665052{background:white;}",
+                ".title-container.jsx-3818665052{margin:0;background:white;}",
+                "@media screen and (min-width: 768px){.title-container.jsx-3818665052{background:none;}.guide-container.jsx-3818665052{margin:0;margin-top:10px;}}",
+                "@media screen and (min-width: 1024px){.guide-container.jsx-3818665052{background:none;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;margin:0;}}",
               ]
             }
-            styleId="2900280927"
+            styleId="3818665052"
           />,
         ],
-        "className": "jsx-2900280927 root",
+        "className": "jsx-3818665052 root",
       },
       "ref": null,
       "rendered": Array [
@@ -1461,7 +1535,7 @@ ShallowWrapper {
               "screen and (min-width: 1366px)",
             ],
             "children": <div
-              className="jsx-2900280927 title-container"
+              className="jsx-3818665052 title-container"
             >
               <TopicHeading
                 text="Astronomical time"
@@ -1483,7 +1557,7 @@ ShallowWrapper {
               "children": <TopicHeading
                 text="Astronomical time"
               />,
-              "className": "jsx-2900280927 title-container",
+              "className": "jsx-3818665052 title-container",
             },
             "ref": null,
             "rendered": Object {
@@ -1512,12 +1586,24 @@ ShallowWrapper {
               "screen and (min-width: 1366px)",
             ],
             "children": <div
-              className="jsx-2900280927 guide-container"
+              className="jsx-3818665052 guide-container"
             >
-              <GuideSection
-                alignContent="left"
-                column={[Function]}
-                content={[Function]}
+              <TopicContentList
+                list={
+                  Array [
+                    "contains 10 objects",
+                    "object type guide",
+                    "beginners and up",
+                  ]
+                }
+                theme={Object {}}
+              />
+              <TopicBodyContent
+                content="Mauris non tempor quam, et lacinia sapien. Mauris accumsan eros eget libero lorem posuere vulputate. Etiam elit elit, elementum sed varius at, adipiscing evitae est. Sed nec felis loren posuere posuere, rutrum eu ipsum. Aliquam eget odio sed ligula dolae iaculis consequat at eget orci. Mauris moleistie sit amet metus loi mass imattis varius Donec sit amet ligula eget nisi sodales lorem a molestie bibendum. Etiam nisi anteni consectetur eget placerat a, tempus a neque. Donec ut elit urna. Etiam venenatis leni eleifend urna eget scelerisqueliquam in nunc.
+
+Donec sit amet ligula eget nisi sodales egestas. Aliquam interdum dolor aliquet dolor  iaculis consequat at eget orci. Mauris moleistie sit amet metus loi mass imattis varius Donec sit amet ligula eget nisi sodales lorem a molestie bibendum. Etiam nisi anteni
+posuere vulputate. Etiam elit elit, elementum sed varius at."
+                title="About this guide"
               />
             </div>,
             "theme": Object {},
@@ -1533,27 +1619,61 @@ ShallowWrapper {
             "key": undefined,
             "nodeType": "host",
             "props": Object {
-              "children": <GuideSection
-                alignContent="left"
-                column={[Function]}
-                content={[Function]}
-              />,
-              "className": "jsx-2900280927 guide-container",
+              "children": Array [
+                <TopicContentList
+                  list={
+                    Array [
+                      "contains 10 objects",
+                      "object type guide",
+                      "beginners and up",
+                    ]
+                  }
+                  theme={Object {}}
+                />,
+                <TopicBodyContent
+                  content="Mauris non tempor quam, et lacinia sapien. Mauris accumsan eros eget libero lorem posuere vulputate. Etiam elit elit, elementum sed varius at, adipiscing evitae est. Sed nec felis loren posuere posuere, rutrum eu ipsum. Aliquam eget odio sed ligula dolae iaculis consequat at eget orci. Mauris moleistie sit amet metus loi mass imattis varius Donec sit amet ligula eget nisi sodales lorem a molestie bibendum. Etiam nisi anteni consectetur eget placerat a, tempus a neque. Donec ut elit urna. Etiam venenatis leni eleifend urna eget scelerisqueliquam in nunc.
+
+Donec sit amet ligula eget nisi sodales egestas. Aliquam interdum dolor aliquet dolor  iaculis consequat at eget orci. Mauris moleistie sit amet metus loi mass imattis varius Donec sit amet ligula eget nisi sodales lorem a molestie bibendum. Etiam nisi anteni
+posuere vulputate. Etiam elit elit, elementum sed varius at."
+                  title="About this guide"
+                />,
+              ],
+              "className": "jsx-3818665052 guide-container",
             },
             "ref": null,
-            "rendered": Object {
-              "instance": null,
-              "key": undefined,
-              "nodeType": "function",
-              "props": Object {
-                "alignContent": "left",
-                "column": [Function],
-                "content": [Function],
+            "rendered": Array [
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "function",
+                "props": Object {
+                  "list": Array [
+                    "contains 10 objects",
+                    "object type guide",
+                    "beginners and up",
+                  ],
+                  "theme": Object {},
+                },
+                "ref": null,
+                "rendered": null,
+                "type": [Function],
               },
-              "ref": null,
-              "rendered": null,
-              "type": [Function],
-            },
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "function",
+                "props": Object {
+                  "content": "Mauris non tempor quam, et lacinia sapien. Mauris accumsan eros eget libero lorem posuere vulputate. Etiam elit elit, elementum sed varius at, adipiscing evitae est. Sed nec felis loren posuere posuere, rutrum eu ipsum. Aliquam eget odio sed ligula dolae iaculis consequat at eget orci. Mauris moleistie sit amet metus loi mass imattis varius Donec sit amet ligula eget nisi sodales lorem a molestie bibendum. Etiam nisi anteni consectetur eget placerat a, tempus a neque. Donec ut elit urna. Etiam venenatis leni eleifend urna eget scelerisqueliquam in nunc.
+
+Donec sit amet ligula eget nisi sodales egestas. Aliquam interdum dolor aliquet dolor  iaculis consequat at eget orci. Mauris moleistie sit amet metus loi mass imattis varius Donec sit amet ligula eget nisi sodales lorem a molestie bibendum. Etiam nisi anteni
+posuere vulputate. Etiam elit elit, elementum sed varius at.",
+                  "title": "About this guide",
+                },
+                "ref": null,
+                "rendered": null,
+                "type": [Function],
+              },
+            ],
             "type": "div",
           },
           "type": [Function],
@@ -1564,13 +1684,13 @@ ShallowWrapper {
           "nodeType": "class",
           "props": Object {
             "css": Array [
-              ".root.jsx-2900280927{background:url(https://vega.slooh.com/assets/v4/common/White_Paper_Subtle.png);}",
-              ".guide-container.jsx-2900280927{background:white;}",
-              ".title-container.jsx-2900280927{margin:0;background:white;}",
-              "@media screen and (min-width: 768px){.title-container.jsx-2900280927{background:none;}.guide-container.jsx-2900280927{margin:0;margin-top:10px;}}",
-              "@media screen and (min-width: 1024px){.guide-container.jsx-2900280927{background:none;}}",
+              ".root.jsx-3818665052{background:url(https://vega.slooh.com/assets/v4/common/White_Paper_Subtle.png);}",
+              ".guide-container.jsx-3818665052{background:white;}",
+              ".title-container.jsx-3818665052{margin:0;background:white;}",
+              "@media screen and (min-width: 768px){.title-container.jsx-3818665052{background:none;}.guide-container.jsx-3818665052{margin:0;margin-top:10px;}}",
+              "@media screen and (min-width: 1024px){.guide-container.jsx-3818665052{background:none;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;margin:0;}}",
             ],
-            "styleId": "2900280927",
+            "styleId": "3818665052",
           },
           "ref": null,
           "rendered": null,

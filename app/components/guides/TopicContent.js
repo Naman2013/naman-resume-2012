@@ -21,11 +21,8 @@ const TopicContent = () => (
     </CenterColumn>
     <CenterColumn>
       <div className="guide-container">
-        <GuideSection
-          content={() => <TopicBodyContent title="About this guide" content={bodyContent} />}
-          column={() => (<TopicContentList list={['contains 10 objects', 'object type guide', 'beginners and up']} />)}
-          alignContent="left"
-        />
+        <TopicContentList list={['contains 10 objects', 'object type guide', 'beginners and up']} />
+        <TopicBodyContent title="About this guide" content={bodyContent} />
       </div>
     </CenterColumn>
 

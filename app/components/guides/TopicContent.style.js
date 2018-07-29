@@ -30,6 +30,8 @@ export default css`
   @media ${screenLarge} {
     .guide-container {
       background: none;
+      display: flex;
+      margin: 0;
     }
   }
 `;
