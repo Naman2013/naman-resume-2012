@@ -140,6 +140,7 @@ class ResponsiveTwoColumnContainer extends Component {
 
         .split-nav {
           display: flex;
+          width: 100%;
         }
 
 

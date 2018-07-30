@@ -6,7 +6,7 @@ import { screenMedium } from 'styles/variables/breakpoints';
 import { backgroundImageCover, dropShadowContainer } from 'styles/mixins/utilities';
 
 export default css`
-  .video-container {
-    margin: 0 auto;
+  .full-width {
+    width: 100%;
   }
 `;

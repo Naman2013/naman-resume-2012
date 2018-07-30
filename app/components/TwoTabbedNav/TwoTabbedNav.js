@@ -9,7 +9,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { dropShadowContainer } from 'styles/mixins/utilities';
-import { astronaut, geyser } from 'styles/variables/colors_tiles_v4';
+import { astronaut, geyser, romance } from 'styles/variables/colors_tiles_v4';
 import { primaryFont, secondaryFont } from 'styles/variables/fonts';
 
 const {
@@ -78,6 +78,7 @@ class TwoTabbedNav extends Component {
           text-align: center;
           text-transform: uppercase;
           width: 100%;
+          background-color: ${romance};
         }
 
         .is-hidden {
@@ -90,7 +91,7 @@ class TwoTabbedNav extends Component {
         }
 
         .component-container {
-          margin: 0 25px;
+          width: 100%;
           ${dropShadowContainer}
         }
 

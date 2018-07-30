@@ -107,7 +107,7 @@ class LiveShow extends Component {
           <div className="main-container">
             <ResponsiveTwoColumnContainer
               renderNavigationComponent={() =>
-                (<div>{hasDiscussionThread ? <ThreeTabbedNav
+                (<div className="full-width">{hasDiscussionThread ? <ThreeTabbedNav
                   firstTitle="About"
                   secondTitle="Comments"
                   thirdTitle="Details"
