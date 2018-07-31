@@ -129,6 +129,7 @@ class LiveShow extends Component {
               }
               renderAsideContent={() => (<AsideContainer
                 {...this.props}
+                headerTitle="Slooh Live Show"
                 aboutIsActive={aboutIsActive}
                 commentsIsActive={commentsIsActive}
                 detailsIsActive={detailsIsActive}

@@ -9,6 +9,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import LikeSomethingButton from 'components/common/LikeSomethingButton';
 import { romance } from 'styles/variables/colors_tiles_v4';
+import BlueLineDrop from 'components/common/BlueLineDrop';
 import RelatedShows from 'components/RelatedShows';
 import RelatedStories from 'components/RelatedStories';
 import RelatedGuides from 'components/RelatedGuides';
@@ -56,6 +57,7 @@ class DetailsTab extends Component {
       discussionTopicId,
       isDesktop,
       isScreenMedium,
+      isScreenLarge,
       relatedObject,
       showId,
       user,
@@ -64,9 +66,31 @@ class DetailsTab extends Component {
     return (
       <div>
         <RelatedObject {...relatedObject} user={user} />
-        <RelatedShows showId={showId} />
-        <RelatedStories showId={showId} />
-        <RelatedGuides showId={showId} />
+        <BlueLineDrop
+          title="Related Shows"
+          isDesktop={isDesktop}
+          theme={{ margin: isScreenLarge ? '25px 0' : '25px' }}
+          render={() => (
+            <RelatedShows showId={showId} />
+          )}
+        />
+        <BlueLineDrop
+          title="Related Stories"
+          isDesktop={isDesktop}
+          theme={{ margin: isScreenLarge ? '25px 0' : '25px' }}
+          render={() => (
+            <RelatedStories showId={showId} />
+          )}
+        />
+        <BlueLineDrop
+          title="Related Guides"
+          isDesktop={isDesktop}
+          theme={{ margin: isScreenLarge ? '25px 0' : '25px' }}
+          render={() => (
+            <RelatedGuides showId={showId} />
+          )}
+        />
+
         <style jsx>{styles}</style>
       </div>
     );

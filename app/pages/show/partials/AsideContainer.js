@@ -68,9 +68,7 @@ class LiveShowAsideContent extends Component {
       showAbout,
       showComments,
       showDetails,
-      inProgressFlag,
-      previousFlag,
-      upcomingFlag,
+      headerTitle,
     } = this.props;
 
     const {
@@ -79,7 +77,7 @@ class LiveShowAsideContent extends Component {
 
     return (
       <div className="root">
-        <div className="header-title">Slooh Show</div>
+        <div className="header-title" dangerouslySetInnerHTML={{ __html: headerTitle }} />
         <div className="full-width">{hasDiscussionThread ? (<ThreeTabbedNav
           firstTitle="About"
           secondTitle="Comments"
@@ -99,9 +97,9 @@ class LiveShowAsideContent extends Component {
           secondTabOnClick={showDetails}
         />)
         }</div>
-        {aboutIsActive ? <AboutTab {...this.props} />: null}
-        {commentsIsActive ? <CommentsTab {...this.props} />: null}
-        {detailsIsActive ? <DetailsTab {...this.props} />: null}
+        {aboutIsActive ? <AboutTab {...this.props} /> : null}
+        {commentsIsActive ? <CommentsTab {...this.props} /> : null}
+        {detailsIsActive ? <DetailsTab {...this.props} /> : null}
 
         <style jsx>{styles}</style>
       </div>

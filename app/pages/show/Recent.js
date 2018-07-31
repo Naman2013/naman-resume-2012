@@ -129,6 +129,7 @@ class RecentShow extends Component {
               }
               renderAsideContent={() => (<AsideContainer
                 {...this.props}
+                headerTitle="Slooh Show"
                 aboutIsActive={aboutIsActive}
                 commentsIsActive={commentsIsActive}
                 detailsIsActive={detailsIsActive}
