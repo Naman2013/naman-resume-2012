@@ -10,6 +10,7 @@ import PropTypes from 'prop-types';
 import LikeSomethingButton from 'components/common/LikeSomethingButton';
 import { romance } from 'styles/variables/colors_tiles_v4';
 import RelatedShows from 'components/RelatedShows';
+import RelatedStories from 'components/RelatedStories';
 import styles from './MainContent.style';
 
 const {
@@ -60,6 +61,7 @@ class DetailsTab extends Component {
     return (
       <div>
         <RelatedShows showId={showId} />
+        <RelatedStories showId={showId} />
         <style jsx>{styles}</style>
       </div>
     );

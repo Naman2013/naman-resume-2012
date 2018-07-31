@@ -1,5 +1,5 @@
 /***********************************
-* V4 Related Shows populated with info
+* V4 Related Stories populated with info
 *
 *
 *
@@ -10,9 +10,9 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import classnames from 'classnames';
 import uniqueId from 'lodash/uniqueId';
-import WinstonTile from 'components/common/tiles/WinstonTile';
+import AveryTile from 'components/common/tiles/AveryTile';
 
-import styles from './RelatedShows.style';
+import styles from './RelatedStories.style';
 
 const {
   arrayOf,
@@ -22,17 +22,17 @@ const {
   string,
 } = PropTypes;
 
-class BootstrappedRelatedShows extends Component {
+class BootstrappedRelatedStories extends Component {
   static propTypes = {
     isDesktop: bool,
-    showList: arrayOf(shape()),
-    showCount: number,
+    posts: arrayOf(shape()),
+    postsCount: number,
   }
 
   static defaultProps = {
     isDesktop: false,
-    showList: [],
-    showCount: 0,
+    posts: [],
+    postsCount: 0,
 
   };
 
@@ -45,14 +45,14 @@ class BootstrappedRelatedShows extends Component {
   render() {
     const {
       isDesktop,
-      showList,
-      showCount,
+      posts,
+      postsCount,
     } = this.props;
 
     return (<div className="root">
-      <div className="related-shows-title">Related Shows <span className="related-shows-count">({showCount})</span></div>
-      {showList.length > 0  ?
-        <WinstonTile title={showList[0].showTitle} linkUrl={showList[0].linkUrl} linkText={showList[0].linkText} /> :
+      <div className="related-stories-title">Related Stories <span className="related-stories-count">({postsCount})</span></div>
+      {posts.length > 0  ?
+        <AveryTile title={posts[0].title} avatarURL={posts[0].avatarURL} /> :
         null
       }
       <style jsx>{styles}</style>
@@ -60,4 +60,4 @@ class BootstrappedRelatedShows extends Component {
   }
 }
 
-export default BootstrappedRelatedShows;
+export default BootstrappedRelatedStories;

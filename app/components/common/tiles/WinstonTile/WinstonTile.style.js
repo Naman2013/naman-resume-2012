@@ -11,8 +11,8 @@ export default css`
     justify-content: center;
     ${faintShadow}
     font-family: ${primaryFont};
-    width: 300px;
-    height: 300px;
+    width: 280px;
+    height: 200px;
     color: ${romance};
     text-align: center;
     background-color: ${astronaut};
