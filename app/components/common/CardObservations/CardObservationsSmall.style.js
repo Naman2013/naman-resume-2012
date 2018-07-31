@@ -60,6 +60,11 @@ export default css`
     padding-top: 20px;
   }
 
+  .card-bottom a {
+    text-decoration: none;
+    color: ${astronaut};
+  }
+  
   ul {
     margin: 0;
     padding: 0;
@@ -79,11 +84,13 @@ export default css`
     font-size: 11px;
     border-right: 1px solid ${geyser};
     letter-spacing: 1px;
+    text-decoration: none;
   }
 
   li:last-child {
     border-right: none;
-    flex-grow: 2;
+    text-decoration: none;
+    padding-right: 15px;
   }
 
 `;

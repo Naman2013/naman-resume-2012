@@ -60,6 +60,7 @@ export default css`
     padding: 10px 0;
     margin-top: 10px;
   }
+
   .card-obs-desc {
     font-size: 18px;
     font-weight: 100;
@@ -71,6 +72,10 @@ export default css`
     position: absolute;
     bottom: 0;
     width: 100%;
+  }
+
+  .card-bottom a {
+    text-decoration: none;
   }
 
   ul {
@@ -92,6 +97,7 @@ export default css`
     font-size: 11px;
     border-right: 1px solid ${geyser};
     letter-spacing: 1px;
+    text-decoration: none;
   }
 
   li:last-child {
@@ -100,6 +106,7 @@ export default css`
     flex-grow: 3;
     text-align: right;
     padding-right: 30px;
+    text-decoration: none;
   }
 
   li:nth-last-child(2) {

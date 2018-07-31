@@ -10,6 +10,9 @@ const props = {
   author: 'JESSICA ANDERSON',
   descContent: descriptionContent,
   imageSrcUrl: 'https://vega.slooh.com/assets/v4/placeholder/moon_sample.jpg',
+  likesCount: '1000',
+  commentsCount: '007',
+  detailsLinkUrl: 'https://www.slooh.com/',
   capturedDate: 'Jan 22, 2018',
 };
 

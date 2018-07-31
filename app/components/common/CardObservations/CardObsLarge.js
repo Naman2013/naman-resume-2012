@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import style from './CardObservationsLarge.style';
 
-const CardObsLarge = ({ title, author, descContent, imageSrcUrl, capturedDate }) => (
+const CardObsLarge = ({ title, author, descContent, imageSrcUrl, capturedDate, likesCount, commentsCount, detailsLinkUrl }) => (
   <Fragment>
     <div className="card-obs">
       <div className="media-card-img-right"><img src={imageSrcUrl} alt="Observation" /></div>
@@ -13,9 +13,9 @@ const CardObsLarge = ({ title, author, descContent, imageSrcUrl, capturedDate })
       </div>
       <div className="card-bottom">
         <ul>
-          <li><img src="https://vega.slooh.com/assets/v4/common/heart.svg" /> 22</li>
-          <li><img src="https://vega.slooh.com/assets/v4/common/comment.svg" /> 04</li>
-          <li>DETAILS <img src="https://vega.slooh.com/assets/v4/common/arrow_horz.svg" /></li>
+          <li><img src="https://vega.slooh.com/assets/v4/common/heart.svg" alt="" /> {likesCount}</li>
+          <li><img src="https://vega.slooh.com/assets/v4/common/comment.svg" alt="" /> {commentsCount}</li>
+          <a href={detailsLinkUrl} ><li>DETAILS <img src="https://vega.slooh.com/assets/v4/common/arrow_horz.svg" alt="" /></li></a>
           <li>Captured: {capturedDate}</li>
         </ul>
       </div>
@@ -30,6 +30,9 @@ CardObsLarge.propTypes = {
   descContent: PropTypes.string.isRequired,
   imageSrcUrl: PropTypes.string.isRequired,
   capturedDate: PropTypes.string.isRequired,
+  likesCount: PropTypes.string.isRequired,
+  commentsCount: PropTypes.string.isRequired,
+  detailsLinkUrl: PropTypes.string.isRequired,
 };
 
 export default CardObsLarge;
