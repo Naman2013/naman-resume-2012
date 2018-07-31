@@ -13,15 +13,13 @@ const {
   string,
 } = PropTypes;
 
-const BigBoxInfoContainer = (props) => {
-  console.log(props)
-  return (
+const BigBoxInfoContainer = (props) => (
   <div className="root">
     <LiveShowVideoViewer {...props} />
     <MonotonousTile label={props.headerLabel} text={props.title} />
     <style jsx>{styles}</style>
   </div>
-  )};
+);
 
 BigBoxInfoContainer.propTypes = {
   headerLabel: string,

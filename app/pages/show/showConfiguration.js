@@ -6,7 +6,6 @@ export const modelWithInfoBlocks = {
   name: 'DATA_WITH_SHOW_INFO_BASED_ON_STATUS',
   model: function getInfoBlocks(API_RAW) {
     const { inProgressFlag, upcomingFlag, previousFlag, v4datablocks } = API_RAW;
-    console.log('API_RAW', API_RAW)
     const newResult = Object.assign({}, API_RAW);
 
     if (inProgressFlag) {
