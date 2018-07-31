@@ -3,15 +3,15 @@ import { DeviceContext } from '../../../providers/DeviceProvider';
 import CardObsLarge from './CardObsLarge';
 import CardObsSmall from './CardObsSmall';
 
-const CardObs = () => (
+const CardObs = (props) => (
   <Fragment>
     <DeviceContext.Consumer>
       {
         (context) => {
           if (!context.isMobile) {
-            return ( <CardObsLarge /> );
+            return ( <CardObsLarge {...props} /> );
           }
-          return ( <CardObsSmall />);
+          return ( <CardObsSmall {...props} />);
         }
       }
 
