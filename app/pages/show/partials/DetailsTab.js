@@ -12,6 +12,7 @@ import { romance } from 'styles/variables/colors_tiles_v4';
 import RelatedShows from 'components/RelatedShows';
 import RelatedStories from 'components/RelatedStories';
 import RelatedGuides from 'components/RelatedGuides';
+import RelatedObject from 'components/RelatedObject';
 import styles from './MainContent.style';
 
 const {
@@ -55,12 +56,14 @@ class DetailsTab extends Component {
       discussionTopicId,
       isDesktop,
       isScreenMedium,
+      relatedObject,
       showId,
       user,
     } = this.props;
 
     return (
       <div>
+        <RelatedObject {...relatedObject} user={user} />
         <RelatedShows showId={showId} />
         <RelatedStories showId={showId} />
         <RelatedGuides showId={showId} />

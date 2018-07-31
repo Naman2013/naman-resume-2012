@@ -46,7 +46,7 @@ const ObserverInfo = ({
     </div>
     <div className="avatar-container flex-item">
       <div className="observer-avatar" style={profPic(avatarURL)} />
-      <div className="avatar-line"/>
+      <div className="avatar-line" />
     </div>
   </div>
 
