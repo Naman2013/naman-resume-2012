@@ -11,7 +11,7 @@ storiesOf('ResponsiveTwoColumnContainer', module)
         height: '500px',
         'background-color': 'red',
       }}>This should be on the right</div>}
-      isDesktop={true}
+      isScreenLarge={true}
       mainContainerTitle="Observations"
       renderMainContent={() => <div style={{
         width: '100%',

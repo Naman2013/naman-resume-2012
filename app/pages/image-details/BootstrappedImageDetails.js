@@ -34,6 +34,7 @@ const BootstrappedImageDetails = (props) => {
     imageTitle,
     imageURL,
     isDesktop,
+    isScreenLarge,
     objectId,
     scheduledMissionId,
   } = props;
@@ -74,7 +75,7 @@ const BootstrappedImageDetails = (props) => {
             <AsideContainer {...props} showMissionRelatedInfo={showMissionRelatedInfo} /> :
             null}
         </div>)}
-        isDesktop={isDesktop}
+        isScreenLarge={isScreenLarge}
         renderMainContent={() => <MainContainer {...props} />}
       />
     </div>
@@ -182,7 +183,7 @@ BootstrappedImageDetails.propTypes = {
   }),
   imageTitle: string,
   imageURL: string,
-  isDesktop: bool,
+  isScreenLarge: bool,
   likePrompt: string,
   likesCount: number,
   objectId: string,
@@ -216,7 +217,7 @@ BootstrappedImageDetails.defaultProps = {
   gravityRankLabel: '',
   imageTitle: '',
   imageURL: '',
-  isDesktop: true,
+  isScreenLarge: true,
   likesCount: 0,
   likePrompt: '',
   showLikePrompt: true,
