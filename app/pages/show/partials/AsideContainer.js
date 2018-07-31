@@ -68,7 +68,9 @@ class LiveShowAsideContent extends Component {
       showAbout,
       showComments,
       showDetails,
-
+      inProgressFlag,
+      previousFlag,
+      upcomingFlag,
     } = this.props;
 
     const {

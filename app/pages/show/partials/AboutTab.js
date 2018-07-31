@@ -34,6 +34,9 @@ class AboutTab extends Component {
     likesCount: number,
     showLikePrompt: bool,
     likePrompt: string,
+    showInfoTiles: shape({
+      list: shape({})
+    }),
     user: shape({
       at: oneOfType([number, string]),
       token: oneOfType([number, string]),
@@ -42,6 +45,7 @@ class AboutTab extends Component {
   };
 
   static defaultProps = {
+    showInfoTiles: {},
     content: '',
     likesCount: 0,
     showLikePrompt: false,
@@ -56,13 +60,14 @@ class AboutTab extends Component {
 
   render() {
     const {
-      showId,
       content,
-      likesCount,
-      likePrompt,
-      showLikePrompt,
       isDesktop,
       isScreenMedium,
+      likePrompt,
+      likesCount,
+      showId,
+      showInfoTiles,
+      showLikePrompt,
       user,
     } = this.props;
 
@@ -89,21 +94,8 @@ class AboutTab extends Component {
     return (
       <div>
         <LabeledTitleTiles
-          theme={{ margin: isDesktop ? 0 : '15px', backgroundColor: romance }}
-          tiles={{
-            Host: {
-              text: 'Paul Cox',
-              label: 'Host:',
-            },
-            'Watch Time': {
-              text: '45 Minutes',
-              label: 'Watch Time:',
-            },
-            Subject: {
-              text: 'Constellations',
-              label: 'Subject:',
-            },
-          }}
+          theme={{ margin: isDesktop ? 0 : '15px', backgroundColor: romance, height: 'auto' }}
+          tiles={showInfoTiles.list}
           direction="column"
         />
         <DescriptionContainer title="" content={content} theme={{ backgroundColor: romance }} footer={contentFooter} />

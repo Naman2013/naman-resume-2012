@@ -27,7 +27,9 @@ const LabeledTitleTiles = ({
   direction,
   theme,
   tiles,
-}) => (
+}) => {
+  console.log(tiles)
+  return (
   <div className={classnames('wide-info-block', { column: direction === 'column' })} style={theme}>
     {Object.keys(tiles).map(tilesItem => (
       <div className="wide-info-item" key={uniqueId()}>
@@ -108,7 +110,7 @@ const LabeledTitleTiles = ({
       }
     `}</style>
   </div>
-);
+)};
 
 LabeledTitleTiles.propTypes = {
   direction: oneOf(['row', 'column']),

@@ -13,6 +13,8 @@ import { DeviceContext } from 'providers/DeviceProvider';
 import Request from 'components/common/network/Request';
 import { LIVE_SHOW_INFO } from 'services/events';
 import BootstrappedShow from './BootstrappedShow';
+import { modelWithInfoBlocks } from './showConfiguration';
+
 
 const mapStateToProps = ({
   user,
@@ -42,6 +44,7 @@ class Show extends Component {
           authorizationRedirect={true}
           serviceURL={LIVE_SHOW_INFO}
           method="POST"
+          model={modelWithInfoBlocks}
           serviceExpiresFieldName="expires"
           requestBody={{
             customerId: user.cid,
@@ -49,7 +52,7 @@ class Show extends Component {
           }}
           render={({
             fetchingContent,
-            serviceResponse,
+            modeledResponses: { DATA_WITH_SHOW_INFO_BASED_ON_STATUS },
           }) => (
             <div>
               <DeviceContext.Consumer>
@@ -58,7 +61,7 @@ class Show extends Component {
                   fetching={fetchingContent}
                   showId={showId}
                   {...context}
-                  {...serviceResponse}
+                  {...DATA_WITH_SHOW_INFO_BASED_ON_STATUS}
                 />)}
               </DeviceContext.Consumer>
             </div>
