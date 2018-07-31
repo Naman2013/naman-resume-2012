@@ -9,8 +9,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import LikeSomethingButton from 'components/common/LikeSomethingButton';
 import { romance } from 'styles/variables/colors_tiles_v4';
-import GuideSection from 'components/guides/GuideSection';
-import GuideBodyContent from 'components/guides/GuideBodyContent';
+import DescriptionContainer from './DescriptionContainer';
 import like from 'services/events/like';
 import LabeledTitleTiles from 'components/common/style/LabeledTitleTiles';
 import styles from './MainContent.style';
@@ -90,7 +89,7 @@ class AboutTab extends Component {
     return (
       <div>
         <LabeledTitleTiles
-          theme={{ margin: '15px', backgroundColor: romance }}
+          theme={{ margin: isDesktop ? 0 : '15px', backgroundColor: romance }}
           tiles={{
             Host: {
               text: 'Paul Cox',
@@ -107,9 +106,7 @@ class AboutTab extends Component {
           }}
           direction="column"
         />
-        <GuideSection
-          content={() => (<GuideBodyContent title="" content={content} theme={{ backgroundColor: romance }} footer={contentFooter} />)}
-        />
+        <DescriptionContainer title="" content={content} theme={{ backgroundColor: romance }} footer={contentFooter} />
         <style jsx>{styles}</style>
       </div>
     );

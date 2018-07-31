@@ -13,20 +13,24 @@ const {
   string,
 } = PropTypes;
 
-const BigBoxInfoContainer = (props) => (
+const BigBoxInfoContainer = (props) => {
+  console.log(props)
+  return (
   <div className="root">
     <LiveShowVideoViewer {...props} />
-    <MonotonousTile label="Airing Now" text={props.title} />
+    <MonotonousTile label={props.headerLabel} text={props.title} />
     <style jsx>{styles}</style>
   </div>
-  );
+  )};
 
 BigBoxInfoContainer.propTypes = {
+  headerLabel: string,
   isScreenLarge: bool,
   isScreenMedium: bool,
 };
 
 BigBoxInfoContainer.defaultProps = {
+  headerLabel: '',
   isScreenLarge: true,
   isScreenMedium: false,
 };

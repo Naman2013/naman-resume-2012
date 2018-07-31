@@ -27,6 +27,7 @@ const {
 
 class LiveShowMainContent extends Component {
   static propTypes = {
+    headerLabel: string,
     aboutIsActive: bool.isRequired,
     commentsIsActive: bool.isRequired,
     content: string,
@@ -41,6 +42,7 @@ class LiveShowMainContent extends Component {
   };
 
   static defaultProps = {
+    headerLabel: '',
     content: '',
   };
 
@@ -68,7 +70,7 @@ class LiveShowMainContent extends Component {
       <div className="root">
         {isDesktop ? (
           <div>
-            <BigBoxInfoContainer {...this.props} />
+            <BigBoxInfoContainer {...this.props} headerLabel={this.props.headerLabel} />
           </div>
         ) : (
           <div>

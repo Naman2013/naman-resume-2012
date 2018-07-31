@@ -1,5 +1,5 @@
 /***********************************
-* V4 Observations Page
+* V4 LiveShow
 *
 *
 *
@@ -13,7 +13,7 @@ import ResponsiveTwoColumnContainer from 'components/ResponsiveTwoColumnContaine
 import HeaderContainer from './partials/HeaderContainer'
 import MainContainer from './partials/MainContainer';
 import AsideContainer from './partials/AsideContainer';
-import styles from './LiveShow.style';
+import styles from './Show.style';
 
 const {
   any,
@@ -94,13 +94,13 @@ class LiveShow extends Component {
       selectedTab,
     } = this.state;
 
-
+    const headerLabel = 'Airing Now';
 
     return (
       <div className="root">
           <HeaderContainer
             {...this.props}
-            label="Airing Now"
+            headerLabel={headerLabel}
             handleSelect={this.handleSelect}
             selectedTab={selectedTab}
           />
@@ -132,10 +132,14 @@ class LiveShow extends Component {
                 aboutIsActive={aboutIsActive}
                 commentsIsActive={commentsIsActive}
                 detailsIsActive={detailsIsActive}
+                showDetails={this.showDetails}
+                showAbout={this.showAbout}
+                showComments={this.showComments}
               />)}
               isScreenLarge={isScreenLarge}
               renderMainContent={() => (<MainContainer
                 {...this.props}
+                headerLabel={headerLabel}
                 selectedTab={selectedTab}
                 handleSelect={this.handleSelect}
                 aboutIsActive={aboutIsActive}

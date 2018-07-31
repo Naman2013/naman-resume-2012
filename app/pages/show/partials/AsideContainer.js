@@ -7,8 +7,15 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import noop from 'lodash/noop'
 import BigBoxInfoContainer from './BigBoxInfoContainer';
-import styles from './MainContent.style';
+import ThreeTabbedNav from 'components/ThreeTabbedNav';
+import TwoTabbedNav from 'components/TwoTabbedNav';
+import ResponsiveTwoColumnContainer from 'components/ResponsiveTwoColumnContainer';
+import AboutTab from './AboutTab';
+import CommentsTab from './CommentsTab';
+import DetailsTab from './DetailsTab';
+import styles from './AsideContent.style';
 
 const {
   any,
@@ -26,6 +33,10 @@ class LiveShowAsideContent extends Component {
     aboutIsActive: bool.isRequired,
     commentsIsActive: bool.isRequired,
     detailsIsActive: bool.isRequired,
+    hasDiscussionThread: bool,
+    showAbout: func,
+    showComments: func,
+    showDetails: func,
     user: shape({
       at: oneOfType([number, string]),
       token: oneOfType([number, string]),
@@ -34,6 +45,10 @@ class LiveShowAsideContent extends Component {
   };
 
   static defaultProps = {
+    hasDiscussionThread: false,
+    showAbout: noop,
+    showComments: noop,
+    showDetails: noop,
   };
 
   state = {
@@ -47,8 +62,12 @@ class LiveShowAsideContent extends Component {
       aboutIsActive,
       commentsIsActive,
       detailsIsActive,
+      hasDiscussionThread,
       isScreenMedium,
       isScreenLarge,
+      showAbout,
+      showComments,
+      showDetails,
 
     } = this.props;
 
@@ -58,7 +77,30 @@ class LiveShowAsideContent extends Component {
 
     return (
       <div className="root">
-        {aboutIsActive ? <div></div> : null}
+        <div className="header-title">Slooh Show</div>
+        <div className="full-width">{hasDiscussionThread ? (<ThreeTabbedNav
+          firstTitle="About"
+          secondTitle="Comments"
+          thirdTitle="Details"
+          firstTabIsActive={aboutIsActive}
+          firstTabOnClick={showAbout}
+          secondTabIsActive={commentsIsActive}
+          secondTabOnClick={showComments}
+          thirdTabIsActive={detailsIsActive}
+          thirdTabOnClick={showDetails}
+        />) : (<TwoTabbedNav
+          firstTitle="About"
+          secondTitle="Details"
+          firstTabIsActive={aboutIsActive}
+          firstTabOnClick={showAbout}
+          secondTabIsActive={detailsIsActive}
+          secondTabOnClick={showDetails}
+        />)
+        }</div>
+        {aboutIsActive ? <AboutTab {...this.props} />: null}
+        {commentsIsActive ? <CommentsTab {...this.props} />: null}
+        {detailsIsActive ? <DetailsTab {...this.props} />: null}
+
         <style jsx>{styles}</style>
       </div>
     );
