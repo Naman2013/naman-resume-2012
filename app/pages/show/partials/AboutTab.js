@@ -9,7 +9,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import BigBoxInfoContainer from './BigBoxInfoContainer';
 import { romance } from 'styles/variables/colors_tiles_v4';
-import AboutTab from './AboutTab';
+import GuideSection from 'components/guides/GuideSection';
+import GuideBodyContent from 'components/guides/GuideBodyContent';
+import LabeledTitleTiles from 'components/common/style/LabeledTitleTiles';
 import styles from './MainContent.style';
 
 const {
@@ -23,12 +25,9 @@ const {
   string,
 } = PropTypes;
 
-class LiveShowMainContent extends Component {
+class AboutTab extends Component {
   static propTypes = {
-    aboutIsActive: bool.isRequired,
-    commentsIsActive: bool.isRequired,
     content: string,
-    detailsIsActive: bool.isRequired,
     isDesktop: bool.isRequired,
     isScreenMedium: bool.isRequired,
     user: shape({
@@ -50,10 +49,7 @@ class LiveShowMainContent extends Component {
 
   render() {
     const {
-      aboutIsActive,
-      commentsIsActive,
       content,
-      detailsIsActive,
       isDesktop,
       isScreenMedium,
     } = this.props;
@@ -63,23 +59,32 @@ class LiveShowMainContent extends Component {
     } = this.state;
 
     return (
-      <div className="root">
-        {isDesktop ? (
-          <div>
-            <BigBoxInfoContainer {...this.props} />
-          </div>
-        ) : (
-          <div>
-            {aboutIsActive ?
-              <AboutTab {...this.props} /> :
-            null}
-
-          </div>
-        )}
+      <div>
+        <LabeledTitleTiles
+          theme={{ margin: '15px', backgroundColor: romance }}
+          tiles={{
+            Host: {
+              text: 'Paul Cox',
+              label: 'Host:',
+            },
+            'Watch Time': {
+              text: '45 Minutes',
+              label: 'Watch Time:',
+            },
+            Subject: {
+              text: 'Constellations',
+              label: 'Subject:',
+            },
+          }}
+          direction="column"
+        />
+        <GuideSection
+          content={() => (<GuideBodyContent title="" content={content} theme={{ backgroundColor: romance }} />)}
+        />
         <style jsx>{styles}</style>
       </div>
     );
   }
 }
 
-export default LiveShowMainContent;
+export default AboutTab;

@@ -9,6 +9,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Live from './Live';
 import CenterColumn from 'components/common/CenterColumn';
+import { seashell } from 'styles/variables/colors_tiles_v4';
 import styles from './BootstrappedShow.style';
 
 const {
@@ -23,12 +24,13 @@ const {
 } = PropTypes;
 
 const BootstrappedShow = props => (
-  <div>
-    <CenterColumn>
+  <div className="root">
+    <CenterColumn theme={{ backgroundColor: seashell }}>
       {props.inProgressFlag ? <Live {...props} /> : null}
       {props.previousFlag ? <div /> : null}
       {props.upcomingFlag ? <div /> : null}
     </CenterColumn>
+    <style jsx>{styles}</style>
   </div>
 );
 

@@ -14,7 +14,7 @@ const {
 } = PropTypes;
 
 const BigBoxInfoContainer = (props) => (
-  <div>
+  <div className="root">
     <LiveShowVideoViewer {...props} />
     <MonotonousTile label="Airing Now" text={props.title} />
     <style jsx>{styles}</style>

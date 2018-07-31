@@ -14,7 +14,7 @@ const {
 } = PropTypes;
 
 const HeaderContainer = (props) => (
-  <div>
+  <div className="root">
     <LiveShowVideoViewerNav {...props} />
     {!props.isScreenLarge ?
       <BigBoxInfoContainer {...props} />:
