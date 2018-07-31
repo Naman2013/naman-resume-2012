@@ -24,7 +24,7 @@ const {
 
 class LikeHeartButton extends Component {
   static propTypes = {
-    customerId: number.isRequired,
+    customerId: oneOfType([number, string]).isRequired,
     likeHandler: func,
     likeParams: shape({}),
     showLikePrompt: bool,

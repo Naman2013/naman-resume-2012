@@ -1,5 +1,5 @@
 /***********************************
-* V4 Shows CommentsTab
+* V4 Shows DetailsTab
 *
 *
 *
@@ -9,7 +9,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import LikeSomethingButton from 'components/common/LikeSomethingButton';
 import { romance } from 'styles/variables/colors_tiles_v4';
-import DiscussionComments from 'components/common/DiscussionsBoard/DiscussionComments';
+import RelatedShows from 'components/RelatedShows';
 import styles from './MainContent.style';
 
 const {
@@ -23,9 +23,9 @@ const {
   string,
 } = PropTypes;
 
-class CommentsTab extends Component {
+class DetailsTab extends Component {
   static propTypes = {
-    content: string,
+    showId: oneOfType([number, string]).isRequired,
     isDesktop: bool.isRequired,
     isScreenMedium: bool.isRequired,
     user: shape({
@@ -49,25 +49,21 @@ class CommentsTab extends Component {
     const {
       content,
       discussionForumId,
-      discussionTopicId,
       discussionThreadId,
+      discussionTopicId,
       isDesktop,
       isScreenMedium,
+      showId,
       user,
     } = this.props;
 
     return (
       <div>
-        <DiscussionComments
-          forumId={discussionForumId}
-          threadId={discussionThreadId}
-          topicId={discussionTopicId}
-          user={user}
-        />
+        <RelatedShows showId={showId} />
         <style jsx>{styles}</style>
       </div>
     );
   }
 }
 
-export default CommentsTab;
+export default DetailsTab;

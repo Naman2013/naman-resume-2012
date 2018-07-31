@@ -83,7 +83,6 @@ class LiveShowVideoViewer extends Component {
 
     return (
       <div className="root">
-        <Tabs onSelect={handleSelect} selectedIndex={selectedTab}>
           <TabPanel
             forceRender={true}
             className={classnames({
@@ -137,7 +136,6 @@ class LiveShowVideoViewer extends Component {
               </div>
             </TabPanel>
           ))}
-        </Tabs>
         <style jsx>{styles}</style>
       </div>
     );

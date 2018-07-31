@@ -8,6 +8,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ThreeTabbedNav from 'components/ThreeTabbedNav';
+import TwoTabbedNav from 'components/TwoTabbedNav';
 import ResponsiveTwoColumnContainer from 'components/ResponsiveTwoColumnContainer';
 import HeaderContainer from './partials/HeaderContainer'
 import MainContainer from './partials/MainContainer';
@@ -83,6 +84,7 @@ class LiveShow extends Component {
       additionalFeeds,
       isScreenMedium,
       isScreenLarge,
+      hasDiscussionThread,
     } = this.props;
 
     const {
@@ -91,6 +93,8 @@ class LiveShow extends Component {
       detailsIsActive,
       selectedTab,
     } = this.state;
+
+
 
     return (
       <div className="root">
@@ -103,7 +107,7 @@ class LiveShow extends Component {
           <div className="main-container">
             <ResponsiveTwoColumnContainer
               renderNavigationComponent={() =>
-                (<ThreeTabbedNav
+                (<div>{hasDiscussionThread ? <ThreeTabbedNav
                   firstTitle="About"
                   secondTitle="Comments"
                   thirdTitle="Details"
@@ -113,7 +117,15 @@ class LiveShow extends Component {
                   secondTabOnClick={this.showComments}
                   thirdTabIsActive={detailsIsActive}
                   thirdTabOnClick={this.showDetails}
-                />)
+                /> : <TwoTabbedNav
+                  firstTitle="About"
+                  secondTitle="Details"
+                  firstTabIsActive={aboutIsActive}
+                  firstTabOnClick={this.showAbout}
+                  secondTabIsActive={detailsIsActive}
+                  secondTabOnClick={this.showDetails}
+                /> }
+                </div>)
               }
               renderAsideContent={() => (<AsideContainer
                 {...this.props}

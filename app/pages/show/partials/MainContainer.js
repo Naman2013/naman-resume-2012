@@ -11,6 +11,7 @@ import BigBoxInfoContainer from './BigBoxInfoContainer';
 import { romance } from 'styles/variables/colors_tiles_v4';
 import AboutTab from './AboutTab';
 import CommentsTab from './CommentsTab';
+import DetailsTab from './DetailsTab';
 import styles from './MainContent.style';
 
 const {
@@ -76,6 +77,9 @@ class LiveShowMainContent extends Component {
             null}
             {commentsIsActive ?
               <CommentsTab {...this.props} /> :
+            null}
+            {detailsIsActive ?
+              <DetailsTab {...this.props} /> :
             null}
           </div>
         )}
