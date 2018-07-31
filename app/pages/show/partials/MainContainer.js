@@ -10,6 +10,7 @@ import PropTypes from 'prop-types';
 import BigBoxInfoContainer from './BigBoxInfoContainer';
 import { romance } from 'styles/variables/colors_tiles_v4';
 import AboutTab from './AboutTab';
+import CommentsTab from './CommentsTab';
 import styles from './MainContent.style';
 
 const {
@@ -73,7 +74,9 @@ class LiveShowMainContent extends Component {
             {aboutIsActive ?
               <AboutTab {...this.props} /> :
             null}
-
+            {commentsIsActive ?
+              <CommentsTab {...this.props} /> :
+            null}
           </div>
         )}
         <style jsx>{styles}</style>

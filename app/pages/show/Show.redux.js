@@ -56,6 +56,7 @@ class Show extends Component {
                 {context => (<BootstrappedShow
                   user={user}
                   fetching={fetchingContent}
+                  showId={showId}
                   {...context}
                   {...serviceResponse}
                 />)}

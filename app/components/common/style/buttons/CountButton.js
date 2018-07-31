@@ -14,6 +14,7 @@ const {
 } = PropTypes;
 
 const CountButton = ({
+  alwaysShowCount,
   count,
   icon,
   isActive,
@@ -22,7 +23,7 @@ const CountButton = ({
   <div>
     <DeviceContext.Consumer>
       {context => (<div>
-        {context.isDesktop ?
+        {context.isDesktop || alwaysShowCount ?
           <button
             className={classnames('button-container', { active: isActive })}
             onClick={onClickEvent}
@@ -46,12 +47,14 @@ const CountButton = ({
 );
 
 CountButton.propTypes = {
+  alwaysShowCount: bool,
   isActive: bool,
   count: oneOfType([string, number]).isRequired,
   icon: string.isRequired,
   onClickEvent: func.isRequired,
 };
 CountButton.defaultProps = {
+  alwaysShowCount: false,
   isActive: false,
 };
 

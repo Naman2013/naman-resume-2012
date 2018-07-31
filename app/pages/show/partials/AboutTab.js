@@ -1,16 +1,17 @@
 /***********************************
-* V4 Shows Main Container
-* This will show the video on desktop
-* on tablet and mobile, it will hold the content
-* associated with the three tabbed nav.
+* V4 Shows About Tab
+*
+*
+*
 ***********************************/
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import BigBoxInfoContainer from './BigBoxInfoContainer';
+import LikeSomethingButton from 'components/common/LikeSomethingButton';
 import { romance } from 'styles/variables/colors_tiles_v4';
 import GuideSection from 'components/guides/GuideSection';
 import GuideBodyContent from 'components/guides/GuideBodyContent';
+import like from 'services/events/like';
 import LabeledTitleTiles from 'components/common/style/LabeledTitleTiles';
 import styles from './MainContent.style';
 
@@ -30,6 +31,10 @@ class AboutTab extends Component {
     content: string,
     isDesktop: bool.isRequired,
     isScreenMedium: bool.isRequired,
+    showId: string.isRequired,
+    likesCount: number,
+    showLikePrompt: bool,
+    likePrompt: string,
     user: shape({
       at: oneOfType([number, string]),
       token: oneOfType([number, string]),
@@ -39,6 +44,9 @@ class AboutTab extends Component {
 
   static defaultProps = {
     content: '',
+    likesCount: 0,
+    showLikePrompt: false,
+    likePrompt: '',
   };
 
   state = {
@@ -49,15 +57,36 @@ class AboutTab extends Component {
 
   render() {
     const {
+      showId,
       content,
+      likesCount,
+      likePrompt,
+      showLikePrompt,
       isDesktop,
       isScreenMedium,
+      user,
     } = this.props;
 
     const {
 
     } = this.state;
-
+    const likeParams = {
+      likeId: showId,
+      likeType: 'show',
+    };
+    const contentFooter = () => (
+      <div>
+        <LikeSomethingButton
+          likeHandler={like}
+          likesCount={likesCount}
+          likePrompt={likePrompt}
+          likeParams={likeParams}
+          showLikePrompt={showLikePrompt}
+          user={user}
+          customerId={user.cid}
+        />
+      </div>
+    );
     return (
       <div>
         <LabeledTitleTiles
@@ -79,7 +108,7 @@ class AboutTab extends Component {
           direction="column"
         />
         <GuideSection
-          content={() => (<GuideBodyContent title="" content={content} theme={{ backgroundColor: romance }} />)}
+          content={() => (<GuideBodyContent title="" content={content} theme={{ backgroundColor: romance }} footer={contentFooter} />)}
         />
         <style jsx>{styles}</style>
       </div>
