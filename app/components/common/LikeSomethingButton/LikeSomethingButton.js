@@ -24,10 +24,11 @@ const {
 
 class LikeHeartButton extends Component {
   static propTypes = {
-    customerId: number.isRequired,
+    customerId: oneOfType([number, string]).isRequired,
     likeHandler: func,
     likeParams: shape({}),
     showLikePrompt: bool,
+    alwaysShowCount: bool,
     likePrompt: string.isRequired,
     likesCount: number.isRequired,
     openModal: func,
@@ -42,6 +43,7 @@ class LikeHeartButton extends Component {
     likeHandler: likeReply,
     likeParams: {},
     openModal: noop,
+    alwaysShowCount: false,
     showLikePrompt: true,
   }
 
@@ -133,7 +135,7 @@ class LikeHeartButton extends Component {
       isModalOpen,
     } = this.state;
     return (<div>
-      <LikeButton onClickEvent={this.likeItem} count={likesCount} />
+      <LikeButton onClickEvent={this.likeItem} count={likesCount} alwaysShowCount />
       <Modal
         ariaHideApp={false}
         isOpen={isModalOpen}

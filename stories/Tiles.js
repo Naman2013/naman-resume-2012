@@ -7,6 +7,10 @@ import QuestTile from 'components/common/tiles/QuestTile';
 import MissionTile from 'components/common/tiles/MissionTile';
 import StoryTile from 'components/common/tiles/StoryTile';
 import BobbieTile from 'components/common/tiles/BobbieTile';
+import MonotonousTile from 'components/common/tiles/MonotonousTile';
+import WinstonTile from 'components/common/tiles/WinstonTile';
+import AveryTile from 'components/common/tiles/AveryTile';
+
 import { SAMPLE_IMAGE_HTML_BLOB, SAMPLE_VIDEO_HTML_BLOB } from './content/getGuidesPanels';
 
 storiesOf('Tiles', module)
@@ -60,5 +64,24 @@ storiesOf('Tiles', module)
       iconURL="https://vega.slooh.com/icons/home/observatory.png"
       title="Constellation Stories with Helen Avery"
       author="BY HELEN AVERY"
+    />
+  ))
+  .add('MonotonousTile', () => (
+    <MonotonousTile
+      label="Astronomical time"
+      text="Topic 1"
+    />
+  ))
+  .add('WinstonTile', () => (
+    <WinstonTile
+      linkText="Upcoming Show"
+      linkUrl=""
+      title="Countdown to the Slooh Show"
+    />
+  ))
+  .add('AveryTile', () => (
+    <AveryTile
+      linkText="Upcoming Show"
+      avatarURL="https://vega.slooh.com/icons/placeholders/avatar-dummy.png"
     />
   ));

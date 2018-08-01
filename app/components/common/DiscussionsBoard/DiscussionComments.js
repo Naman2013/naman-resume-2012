@@ -30,6 +30,7 @@ const DiscussionsBoardComments = ({
   topicId,
   replyTo,
   isDesktop,
+  isSimple,
   user,
 }) => (
   <Request
@@ -59,6 +60,7 @@ const DiscussionsBoardComments = ({
           threadId={threadId}
           user={user}
           isDesktop={isDesktop}
+          isSimple={isSimple}
           renderToggle={renderToggle}
           replyTo={replyTo}
           {...serviceResponse}
@@ -74,6 +76,7 @@ DiscussionsBoardComments.propTypes = {
   count: number,
   commentsCount: number,
   isDesktop: bool.isRequired,
+  isSimple: bool,
   forumId: oneOfType([number, string]),
   threadId: oneOfType([number, string]),
   topicId: oneOfType([number, string]),
@@ -88,6 +91,7 @@ DiscussionsBoardComments.defaultProps = {
   callSource: null,
   commentsCount: null,
   count: 10,
+  isSimple: false,
   forumId: null,
   threadId: null,
   topicId: null,

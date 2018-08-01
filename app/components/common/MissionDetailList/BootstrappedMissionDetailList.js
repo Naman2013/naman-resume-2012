@@ -11,7 +11,7 @@ import { Link } from 'react-router';
 import classnames from 'classnames';
 import uniqueId from 'lodash/uniqueId';
 import { profilePhotoStyle } from 'styles/mixins/utilities';
-import { darkGray, lightGray, gray } from 'styles/variables/colors';
+import { astronaut, geyser, shadows } from 'styles/variables/colors_tiles_v4';
 import { secondaryFont } from 'styles/variables/fonts';
 
 
@@ -299,17 +299,17 @@ class BootstrappedMissionDetailList extends Component {
 
         .component-container {
           margin: 25px;
-          -moz-box-shadow: 0 2px 4px 1px ${gray};
-          -webkit-box-shadow: 0 2px 4px 1px ${gray};
-          box-shadow: 0 2px 4px 1px ${gray};
+          -moz-box-shadow: 0 2px 4px 1px ${shadows};
+          -webkit-box-shadow: 0 2px 4px 1px ${shadows};
+          box-shadow: 0 2px 4px 1px ${shadows};
         }
 
         .title-container {
           text-transform: uppercase;
-          color: ${darkGray};
+          color: ${astronaut};
           font-weight: bold;
           font-size: 12px;
-          border-bottom: 4px solid ${darkGray};
+          border-bottom: 4px solid ${astronaut};
           display: flex;
           flex-direction: row;
           align-items: center;
@@ -341,20 +341,20 @@ class BootstrappedMissionDetailList extends Component {
 
         .detail-label {
           text-transform: uppercase;
-          color: ${darkGray};
+          color: ${astronaut};
           font-weight: bold;
           font-size: 10px;
         }
 
         .detail-text {
           text-transform: uppercase;
-          color: ${darkGray};
+          color: ${astronaut};
           font-weight: bold;
           font-size: 12px;
         }
         .detail-text-detail {
           text-transform: uppercase;
-          color: ${darkGray};
+          color: ${astronaut};
           font-weight: bold;
           font-size: 12px;
 
@@ -362,14 +362,14 @@ class BootstrappedMissionDetailList extends Component {
         .info {
           flex: 0 100%;
           padding: 25px;
-          border: 1px solid ${gray};
+          border: 1px solid ${shadows};
         }
 
         .detail-note,
         .link {
           font-family: ${secondaryFont};
           font-size: 12px;
-          color: ${lightGray};
+          color: ${geyser};
           font-style: italic;
         }
 

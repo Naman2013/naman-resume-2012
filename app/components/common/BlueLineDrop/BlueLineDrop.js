@@ -46,10 +46,11 @@ class BlueLineDrop extends Component {
     const {
       isDesktop,
       title,
+      theme,
       render,
     } = this.props;
     const { showInfo } = this.state;
-    return (<div className={classnames({
+    return (<div style={theme} className={classnames({
       'component-container': isDesktop,
     })}>
       {isDesktop ? <div className="title-container">

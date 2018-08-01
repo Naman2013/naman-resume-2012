@@ -31,6 +31,7 @@ import './TiaraTitleSection';
 import './Tiles';
 import './Titles';
 import './Timestamp';
+import './ThreeTabbedNav';
 import './TwoTabbedNav';
 import './UpcomingMissionList';
 import './VirtualTelescopeViewer';

@@ -5,14 +5,16 @@ import CountButton from './CountButton';
 import { DeviceContext } from 'providers/DeviceProvider';
 
 const {
+  bool,
   func,
   number,
   oneOfType,
   string,
 } = PropTypes;
 
-const LikeButton = ({ count, onClickEvent }) => (<div>
+const LikeButton = ({ count, onClickEvent, alwaysShowCount }) => (<div>
   <CountButton
+    alwaysShowCount={alwaysShowCount}
     count={count}
     onClickEvent={onClickEvent}
     icon="https://vega.slooh.com/assets/v4/common/heart.svg"
@@ -21,9 +23,12 @@ const LikeButton = ({ count, onClickEvent }) => (<div>
 );
 
 LikeButton.propTypes = {
+  alwaysShowCount: bool,
   count: oneOfType([string, number]).isRequired,
   onClickEvent: func.isRequired,
 };
-LikeButton.defaultProps = {};
+LikeButton.defaultProps = {
+  alwaysShowCount: false,
+};
 
 export default LikeButton;

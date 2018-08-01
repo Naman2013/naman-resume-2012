@@ -35,6 +35,7 @@ class CommentList extends Component {
     count: number,
     resultsCount: number,
     isDesktop: bool.isRequired,
+    isSimple: bool,
     fetching: bool,
     forumId: oneOfType([number, string]),
     replies: arrayOf(shape({})),
@@ -52,6 +53,7 @@ class CommentList extends Component {
     allowReplies: true,
     callSource: null,
     count: 10,
+    isSimple: false,
     resultsCount: 0,
     fetching: false,
     forumId: null,
@@ -122,6 +124,7 @@ class CommentList extends Component {
       fetching,
       forumId,
       isDesktop,
+      isSimple,
       renderToggle,
       resultsCount,
       replyTo,
@@ -153,6 +156,7 @@ class CommentList extends Component {
             {...displayedComment}
             likeParams={likeParams}
             isDesktop={isDesktop}
+            isSimple={isSimple}
             threadId={threadId}
             topicId={topicId}
             replyTo={displayedComment.replyId}

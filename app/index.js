@@ -63,8 +63,6 @@ import RecentShows from './pages/browse-video-viewer/RecentShows';
 import SloohMotion from './pages/browse-video-viewer/SloohMotion';
 import UpcomingShows from './pages/browse-video-viewer/UpcomingShows';
 
-import ShowVideoViewer from './pages/show-video-viewer/ShowVideoViewer';
-
 import BrowseShowsWrapper from './pages/browse-video-viewer/BrowseShowsWrapper';
 
 import Job from './pages/about/job';
@@ -135,6 +133,7 @@ import CommunityGroupsList from './pages/community-groups/GroupsListPage';
 import CommunityGroupOverview from './pages/community-groups/GroupOverview';
 import GroupOverviewInfo from './pages/community-groups/GroupOverviewInfo';
 import ImageDetails from './pages/image-details';
+import Show from './pages/show';
 
 import DashboardPage from 'components/Dashboard';
 // router functions
@@ -366,7 +365,7 @@ ReactDOM.render(
 
         <Route
           path="shows/video-viewer(/:showId)"
-          component={ShowVideoViewer}
+          component={Show}
           onEnter={validateUser}
         />
         <Route
