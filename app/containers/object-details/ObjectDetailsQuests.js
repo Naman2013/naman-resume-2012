@@ -38,6 +38,8 @@ class Quests extends Component {
     super(props);
   }
 
+
+
   render() {
     const {
       params: {
@@ -51,29 +53,41 @@ class Quests extends Component {
       <Fragment>
         <DeviceProvider>
           <ObjectDetailsSectionTitle title={objectDetails.objectTitle + "'s"} subTitle="Related Quests" />
-        </DeviceProvider>
-        <CenterColumn> 
-          {objectQuests && objectQuests.questsCount > 0 ? (
-            <div className="card-container__quests">
-              {Object.keys(objectQuests.questsList).map(function(key) {
-                return(
-                  <Fragment>
-                    <QuestTile
-                      key={'card_' + key}
-                      title={objectQuests.questsList[key].title}
-                      iconURL={objectQuests.questsList[key].iconURL}
-                      anchorText={objectQuests.questsList[key].linkLabel}
-                    />
-                  </Fragment>
-                )
-              })}
-            </div>
-          ) : (
-            <div>
-              <p>Sorry, there are no quests available for {objectDetails.objectTitle} at this time.</p>
-            </div>
-          )}
-        </CenterColumn>
+
+          <CenterColumn> 
+
+            {/* THIS IS FOR INITIAL LAYOUT ONLY */}
+            <QuestTile
+              title="Capture The Solar System"
+              iconURL="https://vega.slooh.com/icons/home/observatory.png"
+              anchorText="Beginner"
+            />
+
+            {/* THIS IS HOW THE ACTUAL DISPLAY SHOULD WORK ONCE QUEST DATA IS AVAILABLE
+            
+              {objectQuests && objectQuests.questsCount > 0 ? (
+              <div className="card-container__quests">
+                {Object.keys(objectQuests.questsList).map(function(key) {
+                  return(
+                    <Fragment>
+                      <QuestTile
+                        key={'card_' + key}
+                        title={objectQuests.questsList[key].title}
+                        iconURL={objectQuests.questsList[key].iconURL}
+                        anchorText={objectQuests.questsList[key].linkLabel}
+                      />
+                    </Fragment>
+                  )
+                })}
+              </div>
+            ) : (
+              <div>
+                <p>Sorry, there are no quests available for {objectDetails.objectTitle} at this time.</p>
+              </div>
+            )} */}
+          </CenterColumn>
+
+        </DeviceProvider>        
       </Fragment>
     )
   }

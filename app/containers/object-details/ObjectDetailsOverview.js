@@ -57,6 +57,18 @@ class Overview extends Component {
       objectSpecialists,
     } = this.props;
 
+    const descriptionContent = 'Nam dapibus nisl vitae elit fringilla rutrum. Aenean lene lorem sollicitudin, erat a elementum toirutrum neeque sem pretium metuis, quis mollis nisl nunc it tristique de ullam ecorpere pretium…';
+    const tempProps = {
+      title: 'The Moon!',
+      author: 'JESSICA ANDERSON',
+      descContent: descriptionContent,
+      imageSrcUrl: 'https://vega.slooh.com/assets/v4/placeholder/moon_sample.jpg',
+      likesCount: '1000',
+      commentsCount: '007',
+      detailsLinkUrl: 'https://www.slooh.com/',
+      capturedDate: 'Jan 22, 2018',
+    };
+
     const topProps = {
       content: () => <GuideBodyContent title="About this object" content={objectData.objectDescription} />,
       column: () => (<GuideContentList list={['object type?', objectData.objectDomain, objectData.objectConstellation, <FollowObject / >]} />),
@@ -83,7 +95,9 @@ class Overview extends Component {
         <section className="blue-tile-bg">
           <DeviceProvider>
             <SterlingTitle title='featured observation' subTitle='community observation' theme={{ title: { color: 'white' }, subTitle: { color: 'white' } }} />
-            <CardObservations />
+            <CenterColumn>
+              <CardObservations {...tempProps} />
+            </CenterColumn>
           </DeviceProvider>
         </section>
 

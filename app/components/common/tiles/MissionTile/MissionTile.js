@@ -4,7 +4,6 @@ import MissionTileLarge from './MissionTileLarge';
 import MissionTileSmall from './MissionTileSmall';
 
 const MissionTile = (props) => (
-
   <Fragment>
     <DeviceContext.Consumer>
       {

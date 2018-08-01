@@ -16,6 +16,7 @@ export default css`
     background-size: cover;
     background-repeat: no-repeat;
     transition: width, height 0.15s ease-out;
+    margin: 0 auto;
   }
 
   .container {
@@ -61,6 +62,7 @@ export default css`
     border-bottom: none;
     padding-top: 180px;
     padding-bottom: 0;
+    text-transform: initial;
   }
 
   .button-container {

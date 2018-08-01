@@ -1,13 +1,13 @@
 import css from 'styled-jsx/css';
 import { primaryFont, secondaryFont } from '../../../styles/variables/fonts';
-import { astronaut, white_tile_texture } from '../../../styles/variables/colors_tiles_v4';
+import { astronaut, romance, white_tile_texture } from '../../../styles/variables/colors_tiles_v4';
 import { screenXLarge } from '../../../styles/variables/breakpoints';
 
 export default css`
 
   .title-bg {
     letter-spacing: 1px;
-    background-color: white;
+    background-color: ${romance};
     color: ${astronaut};
     font-family: ${secondaryFont};
     transition: height 0.4s ease-in-out, font-size 0.4s ease-in-out;
@@ -17,6 +17,7 @@ export default css`
     font-size: 16px;
     color: ${astronaut};
     text-align: center;
+    margin-bottom: 40px;
   }
 
   h1 {
@@ -35,6 +36,7 @@ export default css`
       height: 223px;
       padding-top: 75px;
       box-shadow: 0px 15px 30px 2px rgba(237,240,242,1);
+      margin-bottom: 40px;
     }
     
     h1 {
