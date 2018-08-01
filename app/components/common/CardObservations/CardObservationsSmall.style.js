@@ -49,7 +49,7 @@ export default css`
   }
 
   .card-obs-desc {
-    font-size: 18px;
+    font-size: 15px;
     font-weight: 100;
     color: ${lynch};
     padding: 20px 0;

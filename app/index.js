@@ -42,6 +42,7 @@ import ObjectDetailsMissions from './containers/object-details/ObjectDetailsMiss
 import ObjectDetailsQuests from './containers/object-details/ObjectDetailsQuests';
 import ObjectDetailsStories from './containers/object-details/ObjectDetailsStories';
 import ObjectDetailsShows from './containers/object-details/ObjectDetailsShows';
+import ObjectDetailsObservations from './containers/object-details/ObjectDetailsObservations';
 import Guides from './containers/guides';
 import SubjectGuides from './containers/guides/SubjectGuides';
 import TopicGuides from './containers/guides/TopicGuides';
@@ -493,6 +494,7 @@ ReactDOM.render(
           <Route path="quests" component={ObjectDetailsQuests} onEnter={validateUser} />
           <Route path="stories" component={ObjectDetailsStories} onEnter={validateUser} />
           <Route path="shows" component={ObjectDetailsShows} onEnter={validateUser} />
+          <Route path="observations" component={ObjectDetailsObservations} onEnter={validateUser} />
           <Route path="ask" component={AskAstronomer} onEnter={validateUser} />
         </Route>
 

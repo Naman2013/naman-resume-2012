@@ -16,14 +16,15 @@ export default css`
     color: ${astronaut};
     font-family: ${secondaryFont};
     transition: width 0.4s ease-in-out, height 0.4s ease-in-out;
-    width: 620px;
+    width: 100%;
     height: 396px;
   }
 
   .obs-left {
     text-align: left;
-    width: 236px;
+    width: 55%;
     padding-left: 50px;
+    transition: width 0.4s ease-in-out, height 0.4s ease-in-out;
   }
 
   .card-obs-title {
@@ -40,13 +41,13 @@ export default css`
     border: solid 1px ${iron};
     right: 50px;
     top: 50px;
-    width: 246px;
-    height: 246px;
+    width: calc(40% - 50px);
+    transition: width 0.4s ease-in-out, height 0.4s ease-in-out;
   }
 
   .media-card-img-right img {
     border: 2px solid white;
-    width: 98%;
+    width: 100%;
   }
 
   .card-obs-author {
@@ -62,10 +63,11 @@ export default css`
   }
 
   .card-obs-desc {
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 100;
     color: ${lynch};
     padding: 20px 0;
+    transition: font-size 0.4s ease-in-out;
   }
 
   .card-bottom {
@@ -115,39 +117,28 @@ export default css`
 
   @media ${screenXLarge} {
     .card-obs {
-      width: 940px;
+      width: 100%;
       height: 480px;
     }
+
     .obs-left {
-      width: 400px;
+      width: 50%;
       padding-left: 75px;
     }
+
     .card-obs-title {
       padding-top: 75px;
     }
+
     .media-card-img-right {
       right: 75px;
       top: 75px;
       width: 300px;
       height: 300px;
     }
-  }
-  
-  .card-obs-author {
-    font-family: ${primaryFont};
-    font-size: 10px;
-    font-weight: 400;
-    letter-spacing: 1.5px;
-    border-top: solid 1px ${geyser};
-    border-bottom: solid 1px ${geyser};
-    text-transform: uppercase;
-    padding: 10px 0;
-    margin-top: 10px;
-  }
-  .card-obs-desc {
-    font-size: 18px;
-    font-weight: 100;
-    color: ${lynch};
-    padding: 20px 0;
+
+    .card-obs-desc {
+      font-size: 18px;
+    }
   }
 `;
