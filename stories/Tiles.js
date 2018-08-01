@@ -1,11 +1,13 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import DeviceProvider from '../app/providers/DeviceProvider';
+import CenterColumn from '../app/components/common/CenterColumn';
 import LailaTile from '../app/components/common/tiles/LailaTile';
 import LeighTile from 'components/common/tiles/LeighTile';
 import QuestTile from 'components/common/tiles/QuestTile';
 import MissionTile from 'components/common/tiles/MissionTile';
 import StoryTile from 'components/common/tiles/StoryTile';
+import ShowTile from 'components/common/tiles/ShowTile';
 
 storiesOf('Tiles', module)
   .add('LailaTile', () => (
@@ -43,4 +45,15 @@ storiesOf('Tiles', module)
       title="Constellation Stories with Helen Avery"
       author="BY HELEN AVERY"
     />
+  ))
+  .add('ShowTile', () => (
+    <CenterColumn>
+      <ShowTile
+        header="Upcoming Show"
+        title="Countdown to the Slooh Messier Marathon"
+        time="30 mins"
+        author="Helen Avery"
+        linkUrl="#"
+      />
+    </CenterColumn>
   ));
