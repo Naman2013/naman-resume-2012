@@ -62,6 +62,7 @@ export default css`
     border-bottom: none;
     padding-top: 180px;
     padding-bottom: 0;
+    text-transform: initial;
   }
 
   .button-container {
