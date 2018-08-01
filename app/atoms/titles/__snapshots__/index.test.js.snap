@@ -1,0 +1,143 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RubyTitle should render correctly 1`] = `
+ShallowWrapper {
+  "length": 1,
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <RubyTitle
+    text="Test"
+  />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "function",
+    "props": Object {
+      "children": Array [
+        <h3
+          className="jsx-3247648496 title"
+        >
+          Test
+        </h3>,
+        <JSXStyle
+          css={
+            Array [
+              ".title.jsx-3247648496{
+  margin: 0;
+  padding: 0;
+ font-family:brandon-grotesque, sans-serif;color:#415671;font-weight:800;-webkit-letter-spacing:1.5px;-moz-letter-spacing:1.5px;-ms-letter-spacing:1.5px;letter-spacing:1.5px;text-transform:uppercase;font-size:12px;}",
+            ]
+          }
+          styleId="3247648496"
+        />,
+      ],
+    },
+    "ref": null,
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": "Test",
+          "className": "jsx-3247648496 title",
+        },
+        "ref": null,
+        "rendered": "Test",
+        "type": "h3",
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
+          "css": Array [
+            ".title.jsx-3247648496{
+  margin: 0;
+  padding: 0;
+ font-family:brandon-grotesque, sans-serif;color:#415671;font-weight:800;-webkit-letter-spacing:1.5px;-moz-letter-spacing:1.5px;-ms-letter-spacing:1.5px;letter-spacing:1.5px;text-transform:uppercase;font-size:12px;}",
+          ],
+          "styleId": "3247648496",
+        },
+        "ref": null,
+        "rendered": null,
+        "type": [Function],
+      },
+    ],
+    "type": Symbol(react.fragment),
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "function",
+      "props": Object {
+        "children": Array [
+          <h3
+            className="jsx-3247648496 title"
+          >
+            Test
+          </h3>,
+          <JSXStyle
+            css={
+              Array [
+                ".title.jsx-3247648496{
+  margin: 0;
+  padding: 0;
+ font-family:brandon-grotesque, sans-serif;color:#415671;font-weight:800;-webkit-letter-spacing:1.5px;-moz-letter-spacing:1.5px;-ms-letter-spacing:1.5px;letter-spacing:1.5px;text-transform:uppercase;font-size:12px;}",
+              ]
+            }
+            styleId="3247648496"
+          />,
+        ],
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": "Test",
+            "className": "jsx-3247648496 title",
+          },
+          "ref": null,
+          "rendered": "Test",
+          "type": "h3",
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "css": Array [
+              ".title.jsx-3247648496{
+  margin: 0;
+  padding: 0;
+ font-family:brandon-grotesque, sans-serif;color:#415671;font-weight:800;-webkit-letter-spacing:1.5px;-moz-letter-spacing:1.5px;-ms-letter-spacing:1.5px;letter-spacing:1.5px;text-transform:uppercase;font-size:12px;}",
+            ],
+            "styleId": "3247648496",
+          },
+          "ref": null,
+          "rendered": null,
+          "type": [Function],
+        },
+      ],
+      "type": Symbol(react.fragment),
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+      },
+    },
+  },
+}
+`;

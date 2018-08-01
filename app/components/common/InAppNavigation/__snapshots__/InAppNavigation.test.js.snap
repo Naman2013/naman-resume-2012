@@ -6,6 +6,7 @@ ShallowWrapper {
   Symbol(enzyme.__root__): [Circular],
   Symbol(enzyme.__unrendered__): <InAppNavigation
     isOpen={false}
+    menuTopAdjustment={98}
     previousText="guide"
     title="topic 1: stuff..."
   />,
@@ -61,6 +62,7 @@ ShallowWrapper {
           >
             <ContextMenu
               isOpen={false}
+              menuTopAdjustment={98}
             />
           </div>
         </div>,
@@ -169,6 +171,7 @@ ShallowWrapper {
             >
               <ContextMenu
                 isOpen={false}
+                menuTopAdjustment={98}
               />
             </div>,
           ],
@@ -225,6 +228,7 @@ ShallowWrapper {
             "props": Object {
               "children": <ContextMenu
                 isOpen={false}
+                menuTopAdjustment={98}
               />,
               "className": "jsx-3916293460 context-menu-container",
             },
@@ -235,6 +239,7 @@ ShallowWrapper {
               "nodeType": "class",
               "props": Object {
                 "isOpen": false,
+                "menuTopAdjustment": 98,
               },
               "ref": null,
               "rendered": null,
@@ -317,6 +322,7 @@ ShallowWrapper {
             >
               <ContextMenu
                 isOpen={false}
+                menuTopAdjustment={98}
               />
             </div>
           </div>,
@@ -425,6 +431,7 @@ ShallowWrapper {
               >
                 <ContextMenu
                   isOpen={false}
+                  menuTopAdjustment={98}
                 />
               </div>,
             ],
@@ -481,6 +488,7 @@ ShallowWrapper {
               "props": Object {
                 "children": <ContextMenu
                   isOpen={false}
+                  menuTopAdjustment={98}
                 />,
                 "className": "jsx-3916293460 context-menu-container",
               },
@@ -491,6 +499,7 @@ ShallowWrapper {
                 "nodeType": "class",
                 "props": Object {
                   "isOpen": false,
+                  "menuTopAdjustment": 98,
                 },
                 "ref": null,
                 "rendered": null,

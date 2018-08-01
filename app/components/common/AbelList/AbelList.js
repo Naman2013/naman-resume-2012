@@ -5,16 +5,16 @@ import HorizontalList from './HorizontalList';
 import VerticalList from './VerticalList';
 import style from './AbelList.style';
 
-const AbelList = ({ list }) => (
+const AbelList = ({ list, theme }) => (
   <Fragment>
     <DeviceContext.Consumer>
       {
         (context) => {
           if (context.isScreenMedium && !context.isScreenLarge) {
-            return (<HorizontalList list={list} />);
+            return (<HorizontalList theme={theme.horizontalList} list={list} />);
           }
 
-          return (<VerticalList list={list} />);
+          return (<VerticalList theme={theme.verticalList} list={list} />);
         }
       }
 
@@ -25,10 +25,18 @@ const AbelList = ({ list }) => (
 
 AbelList.propTypes = {
   list: PropTypes.arrayOf(PropTypes.string),
+  theme: PropTypes.shape({
+    horizontalList: PropTypes.shape({}),
+    verticalList: PropTypes.shape({}),
+  }),
 };
 
 AbelList.defaultProps = {
   list: [],
+  theme: {
+    horizontalList: {},
+    verticalList: {},
+  },
 };
 
 export default AbelList;

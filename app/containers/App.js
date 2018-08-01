@@ -42,7 +42,10 @@ class App extends Component {
   render() {
     const { isLanding } = this.props;
     return (
-      <div className={`wrapper ${isLanding ? 'is-landing' : null}`}>
+      <div
+        style={{ overflow: 'hidden' }}
+        className={`wrapper ${isLanding ? 'is-landing' : null}`}
+      >
         <DeviceProvider>
           <PageMetaManagement />
 
@@ -57,12 +60,6 @@ class App extends Component {
           </section>
           <Footer />
         </DeviceProvider>
-
-        <style jsx>{`
-          .navigation {
-
-          }
-        `}</style>
       </div>
     );
   }

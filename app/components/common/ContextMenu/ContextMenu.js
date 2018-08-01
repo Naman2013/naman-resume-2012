@@ -53,12 +53,27 @@ class ContextMenu extends Component {
             <h5 className="context-header">Sample title</h5>
             <p className="available-sections">( 8 )</p>
           </div>
-
           <Menu />
         </div>
 
-
         <style jsx>{style}</style>
+        <style jsx>
+          {`
+            .menu-container {
+              top: ${this.props.menuTopAdjustment}px;
+            }
+
+            .application-veil {
+              width: 100vw;
+              height: 100%;
+              position: absolute;
+              top: ${this.props.menuTopAdjustment}px;
+              left: 0;
+              background-color: rgba(0, 0, 0, 0.5);
+              pointer-events: none;
+            }
+          `}
+        </style>
       </div>
     );
   }
@@ -66,10 +81,12 @@ class ContextMenu extends Component {
 
 ContextMenu.propTypes = {
   isOpen: PropTypes.bool,
+  menuTopAdjustment: PropTypes.number,
 };
 
 ContextMenu.defaultProps = {
   isOpen: false,
+  menuTopAdjustment: 98,
 };
 
 export default ContextMenu;

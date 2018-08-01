@@ -43,6 +43,6 @@ class Mock extends Component {
 }
 
 storiesOf('ShowMoreFullSet', module)
-  .add('Renders a submit form when a fake submit form is clicked', () => (
+  .add('Renders a button that reveals more items in a list', () => (
     <Mock />
   ));
