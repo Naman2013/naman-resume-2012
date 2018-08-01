@@ -58,8 +58,7 @@ class Observations extends Component {
     return (
       <Fragment>
         <DeviceProvider>
-          <ObjectDetailsSectionTitle title={objectDetails.objectTitle + "'s"} subTitle="Observations" />
-        
+          <ObjectDetailsSectionTitle title={objectDetails.objectTitle + "'s"} subTitle="Observations" />        
           <CenterColumn> 
             <CardObservations {...tempProps} />
           </CenterColumn>

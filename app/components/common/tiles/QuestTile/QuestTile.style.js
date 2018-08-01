@@ -16,6 +16,7 @@ export default css`
     background-size: cover;
     background-repeat: no-repeat;
     transition: width, height 0.15s ease-out;
+    margin: 0 auto;
   }
 
   .container {
