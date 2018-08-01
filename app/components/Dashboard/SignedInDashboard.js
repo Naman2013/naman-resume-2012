@@ -21,10 +21,6 @@ const Dashboard = () => (
     }) => (
       <div className="root">
         <BootstrappedSignedInDashboard {...serviceResponse} />
-        <style jsx>{`
-
-        `}
-        </style>
       </div>
     )}
   />

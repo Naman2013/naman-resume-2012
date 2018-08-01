@@ -31,21 +31,7 @@ const Observations = ({
     const sliderConfig = getSliderConfiguration(serviceResponse.imageList);
     return (
       <div className="root">
-        <SloohSlider
-          {...sliderConfig}
-        />
-
-        <style jsx>{`
-
-        `}
-        </style>
-
-        <style jsx global>
-          {`
-
-
-          `}
-        </style>
+        <SloohSlider {...sliderConfig} />
       </div>)
   }}
 />);
