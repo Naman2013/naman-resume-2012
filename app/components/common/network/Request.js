@@ -47,7 +47,7 @@ class Request extends Component {
       model: PropTypes.func.isRequired,
     })),
     serviceResponseHandler: PropTypes.func,
-    requestBody: PropTypes.any, // any set due to disambiguity of the request
+    requestBody: PropTypes.shape({}), // any set due to disambiguity of the request
 
     // provided by global state
     user: PropTypes.shape({
