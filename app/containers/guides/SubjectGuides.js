@@ -10,8 +10,6 @@ import SterlingTitle from 'components/common/titles/SterlingTitle';
 import Fade from 'components/common/Fade';
 import { GUIDE_ENDPOINT_URL } from 'services/guides/guide-data';
 
-import { USE_CASE_1 } from 'content/api-page-guide';
-
 const bodyContent = `Mauris non tempor quam, et lacinia sapien. Mauris accumsan eros eget libero lorem posuere vulputate. Etiam elit elit, elementum sed varius at, adipiscing evitae est. Sed nec felis loren posuere posuere, rutrum eu ipsum. Aliquam eget odio sed ligula dolae iaculis consequat at eget orci. Mauris moleistie sit amet metus loi mass imattis varius Donec sit amet ligula eget nisi sodales lorem a molestie bibendum. Etiam nisi anteni consectetur eget placerat a, tempus a neque. Donec ut elit urna. Etiam venenatis leni eleifend urna eget scelerisqueliquam in nunc.
 
 Donec sit amet ligula eget nisi sodales egestas. Aliquam interdum dolor aliquet dolor  iaculis consequat at eget orci. Mauris moleistie sit amet metus loi mass imattis varius Donec sit amet ligula eget nisi sodales lorem a molestie bibendum. Etiam nisi anteni
@@ -78,9 +76,7 @@ const SubjectGuides = () => (
       requestBody={{ guideId: 39 }}
       render={({
         fetchingContent,
-        modeledResponses: {
-          SUBJECT_GUIDE_MODEL,
-        },
+        modeledResponses: { SUBJECT_GUIDE_MODEL },
       }) => (
         <Fragment>
           {

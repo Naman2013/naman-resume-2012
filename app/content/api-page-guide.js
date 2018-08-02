@@ -80,29 +80,13 @@ export default {
     chapterNavigationInfo: {
       chapterNumber: 1,
       chapterCount: 2,
-      chapterList: [
-        {
-          chapterNumber: 1,
-          guideId: 37,
-          guideTitle: 'A Guide to Astronomical Time',
-          quideReferenceTitle: 'Astronomical Time',
-          guideIconURL: 'https://vega.slooh.com/icons/placeholders/objects/feb4/Solar_System_White.svg',
-          link: '/guide-details/37',
-        },
-        {
-          chapterNumber: 2,
-          guideId: 38,
-          guideTitle: 'A Guide to Astronomical Distances',
-          quideReferenceTitle: 'Astronomical Distances',
-          guideIconURL: 'https://vega.slooh.com/icons/placeholders/objects/feb4/Solar_System_White.svg',
-          link: '/guide-details/38',
-        },
-      ],
+      chapterList: [{
+        chapterNumber: 1, guideId: 37, guideTitle: 'A Guide to Astronomical Time', quideReferenceTitle: 'Astronomical Time', guideIconURL: 'https://vega.slooh.com/icons/placeholders/objects/feb4/Solar_System_White.svg', link: '/guide-details/37',
+      }, {
+        chapterNumber: 2, guideId: 38, guideTitle: 'A Guide to Astronomical Distances', quideReferenceTitle: 'Astronomical Distances', guideIconURL: 'https://vega.slooh.com/icons/placeholders/objects/feb4/Solar_System_White.svg', link: '/guide-details/38',
+      }],
       parentInfo: {
-        guideId: '36',
-        guideTitle: 'A Guide to Observing',
-        guideReferenceTitle: 'Observing',
-        guideIconURL: 'https://vega.slooh.com/icons/placeholders/objects/feb4/Solar_System_White.svg',
+        guideId: '36', guideTitle: 'A Guide to Observing', guideReferenceTitle: 'Observing', guideIconURL: 'https://vega.slooh.com/icons/placeholders/objects/feb4/Solar_System_White.svg',
       },
     },
     showReadingListPromptFlag: true,
