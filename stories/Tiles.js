@@ -1,26 +1,13 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import DeviceProvider from '../app/providers/DeviceProvider';
-<<<<<<< HEAD
 import CenterColumn from '../app/components/common/CenterColumn';
 import LailaTile from '../app/components/common/tiles/LailaTile';
-=======
-import LailaTile from 'components/common/tiles/LailaTile';
->>>>>>> v4-develop
 import LeighTile from 'components/common/tiles/LeighTile';
 import QuestTile from 'components/common/tiles/QuestTile';
 import MissionTile from 'components/common/tiles/MissionTile';
 import StoryTile from 'components/common/tiles/StoryTile';
-<<<<<<< HEAD
 import ShowTile from 'components/common/tiles/ShowTile';
-=======
-import BobbieTile from 'components/common/tiles/BobbieTile';
-import MonotonousTile from 'components/common/tiles/MonotonousTile';
-import WinstonTile from 'components/common/tiles/WinstonTile';
-import AveryTile from 'components/common/tiles/AveryTile';
-
-import { SAMPLE_IMAGE_HTML_BLOB, SAMPLE_VIDEO_HTML_BLOB } from './content/getGuidesPanels';
->>>>>>> v4-develop
 
 storiesOf('Tiles', module)
   .add('BobbieTile - 40_60_SPLIT with image', () => (
@@ -85,6 +72,7 @@ storiesOf('Tiles', module)
         linkUrl="#"
       />
     </CenterColumn>
+  ))
   .add('MonotonousTile', () => (
     <MonotonousTile
       label="Astronomical time"

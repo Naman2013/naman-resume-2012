@@ -21,6 +21,7 @@ import DeviceProvider from '../../../app/providers/DeviceProvider';
 import FollowObject from '../../../app/components/object-details/FollowObject';
 import CardObservations from '../../../app/components/common/CardObservations';
 import SterlingTitle from '../../../app/components/common/titles/SterlingTitle';
+import BurnhamsCorner from '../../../app/components/common/BurnhamsCorner';
 
 import style from './ObjectDetailsOverview.style';
 
@@ -69,6 +70,14 @@ class Overview extends Component {
       capturedDate: 'Jan 22, 2018',
     };
 
+    const bcDesc = 'Nam dapibus nisl vitae elit fringilla rutrum. Aenean lene lorem sollicitudin, erat a elementum toirutrum neeque sem pretium metuis, quis mollis nisl nunc it  tristique de ullam ecorpere pretium…';
+    const bcProps = {
+      title: 'Lorem Ipsum Dolar Set',
+      author: 'Paul Cox',
+      descContent: bcDesc,
+      imageSrcUrl: 'https://vega.slooh.com/assets/v4/placeholder/moon_sample.jpg',
+    };
+
     const topProps = {
       content: () => <GuideBodyContent title="About this object" content={objectData.objectDescription} />,
       column: () => (<GuideContentList list={['object type?', objectData.objectDomain, objectData.objectConstellation, <FollowObject / >]} />),
@@ -103,7 +112,14 @@ class Overview extends Component {
 
         <section className="off-white-bg">
           <SterlingTitle title='Prepare for your next mission' subTitle='Tools to help plan your next mission to The Moon' />
-        
+        </section>
+
+        <section className="off-white-bg-top-shadow">
+          <SterlingTitle title="Burnham's Corner" subTitle="Get Inspired with this find from Burnham's books" />
+          <CenterColumn>
+            <BurnhamsCorner {...bcProps} />
+          </CenterColumn>
+          
           <SterlingTitle title='MVP Astronomers' subTitle={"Most Active on " + objectData.objectTitle} />
           <CenterColumn>
             {objectSpecialists && objectSpecialists.specialistsCount > 0 ? (

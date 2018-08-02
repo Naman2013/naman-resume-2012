@@ -1,6 +1,7 @@
 import './AbelList';
 import './AudioPlayer';
 import './BlueLineDrop';
+import './cards/BurnhamsCorner';
 import './Buttons';
 import './cards/CardObservations';
 import './CenterColumn';

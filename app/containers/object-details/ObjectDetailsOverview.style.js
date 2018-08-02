@@ -24,6 +24,12 @@ export default css`
   .off-white-bg {
     background-color: ${faintGray};
   }
+  .off-white-bg-top-shadow {
+    background-color: ${faintGray};
+    box-shadow: inset 0 10px 30px 10px rgba(237,240,242,.7);
+  }
+
+  
   h1 {
     font-size: 30px;
     font-weight: 600;
