@@ -1219,7 +1219,7 @@ ShallowWrapper {
             className="jsx-968165992 title-container"
           >
             <TopicHeading
-              text="Astronomical time"
+              text={undefined}
             />
           </div>
         </CenterColumn>,
@@ -1244,21 +1244,12 @@ ShallowWrapper {
             className="jsx-968165992 guide-container"
           >
             <TopicContentList
-              list={
-                Array [
-                  "contains 10 objects",
-                  "object type guide",
-                  "beginners and up",
-                ]
-              }
+              list={Array []}
               theme={Object {}}
             />
             <TopicBodyContent
-              content="Mauris non tempor quam, et lacinia sapien. Mauris accumsan eros eget libero lorem posuere vulputate. Etiam elit elit, elementum sed varius at, adipiscing evitae est. Sed nec felis loren posuere posuere, rutrum eu ipsum. Aliquam eget odio sed ligula dolae iaculis consequat at eget orci. Mauris moleistie sit amet metus loi mass imattis varius Donec sit amet ligula eget nisi sodales lorem a molestie bibendum. Etiam nisi anteni consectetur eget placerat a, tempus a neque. Donec ut elit urna. Etiam venenatis leni eleifend urna eget scelerisqueliquam in nunc.
-
-Donec sit amet ligula eget nisi sodales egestas. Aliquam interdum dolor aliquet dolor  iaculis consequat at eget orci. Mauris moleistie sit amet metus loi mass imattis varius Donec sit amet ligula eget nisi sodales lorem a molestie bibendum. Etiam nisi anteni
-posuere vulputate. Etiam elit elit, elementum sed varius at."
-              title="About this guide"
+              content={undefined}
+              title={undefined}
             />
           </div>
         </CenterColumn>,
@@ -1293,7 +1284,7 @@ posuere vulputate. Etiam elit elit, elementum sed varius at."
             className="jsx-968165992 title-container"
           >
             <TopicHeading
-              text="Astronomical time"
+              text={undefined}
             />
           </div>,
           "theme": Object {},
@@ -1310,7 +1301,7 @@ posuere vulputate. Etiam elit elit, elementum sed varius at."
           "nodeType": "host",
           "props": Object {
             "children": <TopicHeading
-              text="Astronomical time"
+              text={undefined}
             />,
             "className": "jsx-968165992 title-container",
           },
@@ -1320,7 +1311,7 @@ posuere vulputate. Etiam elit elit, elementum sed varius at."
             "key": undefined,
             "nodeType": "function",
             "props": Object {
-              "text": "Astronomical time",
+              "text": undefined,
             },
             "ref": null,
             "rendered": null,
@@ -1344,21 +1335,12 @@ posuere vulputate. Etiam elit elit, elementum sed varius at."
             className="jsx-968165992 guide-container"
           >
             <TopicContentList
-              list={
-                Array [
-                  "contains 10 objects",
-                  "object type guide",
-                  "beginners and up",
-                ]
-              }
+              list={Array []}
               theme={Object {}}
             />
             <TopicBodyContent
-              content="Mauris non tempor quam, et lacinia sapien. Mauris accumsan eros eget libero lorem posuere vulputate. Etiam elit elit, elementum sed varius at, adipiscing evitae est. Sed nec felis loren posuere posuere, rutrum eu ipsum. Aliquam eget odio sed ligula dolae iaculis consequat at eget orci. Mauris moleistie sit amet metus loi mass imattis varius Donec sit amet ligula eget nisi sodales lorem a molestie bibendum. Etiam nisi anteni consectetur eget placerat a, tempus a neque. Donec ut elit urna. Etiam venenatis leni eleifend urna eget scelerisqueliquam in nunc.
-
-Donec sit amet ligula eget nisi sodales egestas. Aliquam interdum dolor aliquet dolor  iaculis consequat at eget orci. Mauris moleistie sit amet metus loi mass imattis varius Donec sit amet ligula eget nisi sodales lorem a molestie bibendum. Etiam nisi anteni
-posuere vulputate. Etiam elit elit, elementum sed varius at."
-              title="About this guide"
+              content={undefined}
+              title={undefined}
             />
           </div>,
           "theme": Object {},
@@ -1376,21 +1358,12 @@ posuere vulputate. Etiam elit elit, elementum sed varius at."
           "props": Object {
             "children": Array [
               <TopicContentList
-                list={
-                  Array [
-                    "contains 10 objects",
-                    "object type guide",
-                    "beginners and up",
-                  ]
-                }
+                list={Array []}
                 theme={Object {}}
               />,
               <TopicBodyContent
-                content="Mauris non tempor quam, et lacinia sapien. Mauris accumsan eros eget libero lorem posuere vulputate. Etiam elit elit, elementum sed varius at, adipiscing evitae est. Sed nec felis loren posuere posuere, rutrum eu ipsum. Aliquam eget odio sed ligula dolae iaculis consequat at eget orci. Mauris moleistie sit amet metus loi mass imattis varius Donec sit amet ligula eget nisi sodales lorem a molestie bibendum. Etiam nisi anteni consectetur eget placerat a, tempus a neque. Donec ut elit urna. Etiam venenatis leni eleifend urna eget scelerisqueliquam in nunc.
-
-Donec sit amet ligula eget nisi sodales egestas. Aliquam interdum dolor aliquet dolor  iaculis consequat at eget orci. Mauris moleistie sit amet metus loi mass imattis varius Donec sit amet ligula eget nisi sodales lorem a molestie bibendum. Etiam nisi anteni
-posuere vulputate. Etiam elit elit, elementum sed varius at."
-                title="About this guide"
+                content={undefined}
+                title={undefined}
               />,
             ],
             "className": "jsx-968165992 guide-container",
@@ -1402,11 +1375,7 @@ posuere vulputate. Etiam elit elit, elementum sed varius at."
               "key": undefined,
               "nodeType": "function",
               "props": Object {
-                "list": Array [
-                  "contains 10 objects",
-                  "object type guide",
-                  "beginners and up",
-                ],
+                "list": Array [],
                 "theme": Object {},
               },
               "ref": null,
@@ -1418,11 +1387,8 @@ posuere vulputate. Etiam elit elit, elementum sed varius at."
               "key": undefined,
               "nodeType": "function",
               "props": Object {
-                "content": "Mauris non tempor quam, et lacinia sapien. Mauris accumsan eros eget libero lorem posuere vulputate. Etiam elit elit, elementum sed varius at, adipiscing evitae est. Sed nec felis loren posuere posuere, rutrum eu ipsum. Aliquam eget odio sed ligula dolae iaculis consequat at eget orci. Mauris moleistie sit amet metus loi mass imattis varius Donec sit amet ligula eget nisi sodales lorem a molestie bibendum. Etiam nisi anteni consectetur eget placerat a, tempus a neque. Donec ut elit urna. Etiam venenatis leni eleifend urna eget scelerisqueliquam in nunc.
-
-Donec sit amet ligula eget nisi sodales egestas. Aliquam interdum dolor aliquet dolor  iaculis consequat at eget orci. Mauris moleistie sit amet metus loi mass imattis varius Donec sit amet ligula eget nisi sodales lorem a molestie bibendum. Etiam nisi anteni
-posuere vulputate. Etiam elit elit, elementum sed varius at.",
-                "title": "About this guide",
+                "content": undefined,
+                "title": undefined,
               },
               "ref": null,
               "rendered": null,
@@ -1482,7 +1448,7 @@ posuere vulputate. Etiam elit elit, elementum sed varius at.",
               className="jsx-968165992 title-container"
             >
               <TopicHeading
-                text="Astronomical time"
+                text={undefined}
               />
             </div>
           </CenterColumn>,
@@ -1507,21 +1473,12 @@ posuere vulputate. Etiam elit elit, elementum sed varius at.",
               className="jsx-968165992 guide-container"
             >
               <TopicContentList
-                list={
-                  Array [
-                    "contains 10 objects",
-                    "object type guide",
-                    "beginners and up",
-                  ]
-                }
+                list={Array []}
                 theme={Object {}}
               />
               <TopicBodyContent
-                content="Mauris non tempor quam, et lacinia sapien. Mauris accumsan eros eget libero lorem posuere vulputate. Etiam elit elit, elementum sed varius at, adipiscing evitae est. Sed nec felis loren posuere posuere, rutrum eu ipsum. Aliquam eget odio sed ligula dolae iaculis consequat at eget orci. Mauris moleistie sit amet metus loi mass imattis varius Donec sit amet ligula eget nisi sodales lorem a molestie bibendum. Etiam nisi anteni consectetur eget placerat a, tempus a neque. Donec ut elit urna. Etiam venenatis leni eleifend urna eget scelerisqueliquam in nunc.
-
-Donec sit amet ligula eget nisi sodales egestas. Aliquam interdum dolor aliquet dolor  iaculis consequat at eget orci. Mauris moleistie sit amet metus loi mass imattis varius Donec sit amet ligula eget nisi sodales lorem a molestie bibendum. Etiam nisi anteni
-posuere vulputate. Etiam elit elit, elementum sed varius at."
-                title="About this guide"
+                content={undefined}
+                title={undefined}
               />
             </div>
           </CenterColumn>,
@@ -1556,7 +1513,7 @@ posuere vulputate. Etiam elit elit, elementum sed varius at."
               className="jsx-968165992 title-container"
             >
               <TopicHeading
-                text="Astronomical time"
+                text={undefined}
               />
             </div>,
             "theme": Object {},
@@ -1573,7 +1530,7 @@ posuere vulputate. Etiam elit elit, elementum sed varius at."
             "nodeType": "host",
             "props": Object {
               "children": <TopicHeading
-                text="Astronomical time"
+                text={undefined}
               />,
               "className": "jsx-968165992 title-container",
             },
@@ -1583,7 +1540,7 @@ posuere vulputate. Etiam elit elit, elementum sed varius at."
               "key": undefined,
               "nodeType": "function",
               "props": Object {
-                "text": "Astronomical time",
+                "text": undefined,
               },
               "ref": null,
               "rendered": null,
@@ -1607,21 +1564,12 @@ posuere vulputate. Etiam elit elit, elementum sed varius at."
               className="jsx-968165992 guide-container"
             >
               <TopicContentList
-                list={
-                  Array [
-                    "contains 10 objects",
-                    "object type guide",
-                    "beginners and up",
-                  ]
-                }
+                list={Array []}
                 theme={Object {}}
               />
               <TopicBodyContent
-                content="Mauris non tempor quam, et lacinia sapien. Mauris accumsan eros eget libero lorem posuere vulputate. Etiam elit elit, elementum sed varius at, adipiscing evitae est. Sed nec felis loren posuere posuere, rutrum eu ipsum. Aliquam eget odio sed ligula dolae iaculis consequat at eget orci. Mauris moleistie sit amet metus loi mass imattis varius Donec sit amet ligula eget nisi sodales lorem a molestie bibendum. Etiam nisi anteni consectetur eget placerat a, tempus a neque. Donec ut elit urna. Etiam venenatis leni eleifend urna eget scelerisqueliquam in nunc.
-
-Donec sit amet ligula eget nisi sodales egestas. Aliquam interdum dolor aliquet dolor  iaculis consequat at eget orci. Mauris moleistie sit amet metus loi mass imattis varius Donec sit amet ligula eget nisi sodales lorem a molestie bibendum. Etiam nisi anteni
-posuere vulputate. Etiam elit elit, elementum sed varius at."
-                title="About this guide"
+                content={undefined}
+                title={undefined}
               />
             </div>,
             "theme": Object {},
@@ -1639,21 +1587,12 @@ posuere vulputate. Etiam elit elit, elementum sed varius at."
             "props": Object {
               "children": Array [
                 <TopicContentList
-                  list={
-                    Array [
-                      "contains 10 objects",
-                      "object type guide",
-                      "beginners and up",
-                    ]
-                  }
+                  list={Array []}
                   theme={Object {}}
                 />,
                 <TopicBodyContent
-                  content="Mauris non tempor quam, et lacinia sapien. Mauris accumsan eros eget libero lorem posuere vulputate. Etiam elit elit, elementum sed varius at, adipiscing evitae est. Sed nec felis loren posuere posuere, rutrum eu ipsum. Aliquam eget odio sed ligula dolae iaculis consequat at eget orci. Mauris moleistie sit amet metus loi mass imattis varius Donec sit amet ligula eget nisi sodales lorem a molestie bibendum. Etiam nisi anteni consectetur eget placerat a, tempus a neque. Donec ut elit urna. Etiam venenatis leni eleifend urna eget scelerisqueliquam in nunc.
-
-Donec sit amet ligula eget nisi sodales egestas. Aliquam interdum dolor aliquet dolor  iaculis consequat at eget orci. Mauris moleistie sit amet metus loi mass imattis varius Donec sit amet ligula eget nisi sodales lorem a molestie bibendum. Etiam nisi anteni
-posuere vulputate. Etiam elit elit, elementum sed varius at."
-                  title="About this guide"
+                  content={undefined}
+                  title={undefined}
                 />,
               ],
               "className": "jsx-968165992 guide-container",
@@ -1665,11 +1604,7 @@ posuere vulputate. Etiam elit elit, elementum sed varius at."
                 "key": undefined,
                 "nodeType": "function",
                 "props": Object {
-                  "list": Array [
-                    "contains 10 objects",
-                    "object type guide",
-                    "beginners and up",
-                  ],
+                  "list": Array [],
                   "theme": Object {},
                 },
                 "ref": null,
@@ -1681,11 +1616,8 @@ posuere vulputate. Etiam elit elit, elementum sed varius at."
                 "key": undefined,
                 "nodeType": "function",
                 "props": Object {
-                  "content": "Mauris non tempor quam, et lacinia sapien. Mauris accumsan eros eget libero lorem posuere vulputate. Etiam elit elit, elementum sed varius at, adipiscing evitae est. Sed nec felis loren posuere posuere, rutrum eu ipsum. Aliquam eget odio sed ligula dolae iaculis consequat at eget orci. Mauris moleistie sit amet metus loi mass imattis varius Donec sit amet ligula eget nisi sodales lorem a molestie bibendum. Etiam nisi anteni consectetur eget placerat a, tempus a neque. Donec ut elit urna. Etiam venenatis leni eleifend urna eget scelerisqueliquam in nunc.
-
-Donec sit amet ligula eget nisi sodales egestas. Aliquam interdum dolor aliquet dolor  iaculis consequat at eget orci. Mauris moleistie sit amet metus loi mass imattis varius Donec sit amet ligula eget nisi sodales lorem a molestie bibendum. Etiam nisi anteni
-posuere vulputate. Etiam elit elit, elementum sed varius at.",
-                  "title": "About this guide",
+                  "content": undefined,
+                  "title": undefined,
                 },
                 "ref": null,
                 "rendered": null,

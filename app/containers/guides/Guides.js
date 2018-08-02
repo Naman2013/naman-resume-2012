@@ -15,48 +15,39 @@ const bodyContent = `Mauris non tempor quam, et lacinia sapien. Mauris accumsan 
 Donec sit amet ligula eget nisi sodales egestas. Aliquam interdum dolor aliquet dolor  iaculis consequat at eget orci. Mauris moleistie sit amet metus loi mass imattis varius Donec sit amet ligula eget nisi sodales lorem a molestie bibendum. Etiam nisi anteni
 posuere vulputate. Etiam elit elit, elementum sed varius at.`;
 
-const stubGuideSectionContent = {
-  content: () => <GuideBodyContent title="About this guide" content={bodyContent} />,
-  column: () => (<GuideContentList list={['contains 10 objects', 'object type guide', 'beginners and up']} />),
-  alignContent: 'right',
-};
-
-const stubTileList = [
-  { title: 'Venus', iconURL: 'https://vega.slooh.com/icons/home/jupiter-icon.png' },
-  { title: 'Mars', iconURL: 'https://vega.slooh.com/icons/home/jupiter-icon.png' },
-  { title: 'Saturn', iconURL: 'https://vega.slooh.com/icons/home/jupiter-icon.png' },
-  { title: 'Jupiter', iconURL: 'https://vega.slooh.com/icons/home/jupiter-icon.png' },
-  { title: 'Uranus', iconURL: 'https://vega.slooh.com/icons/home/jupiter-icon.png' },
-  { title: 'Neptune', iconURL: 'https://vega.slooh.com/icons/home/jupiter-icon.png' },
-];
-
 const guidePageModel = {
   name: 'GUIDE_PAGE_MODEL',
-  model: (resp) => {
-    return {
-      tiaraTitleProps: {
-        preTitle: resp.guideHeader,
-        title: resp.guideReferenceTitle,
-        iconURL: resp.guideIconURL,
-      },
-      guideSectionProps: {
-        content: () => <GuideBodyContent title="About this guide" content={bodyContent} />,
-        column: () => (<GuideContentList list={[resp.guideBulletPoint1, resp.guideBulletPoint2, resp.guideBulletPoint3]} />),
-        alignContent: 'right',
-      },
-      sterlingTitleProps: {
-        title: 'Objects within this guide',
-        subTitle: 'Select an Object for more information',
-      },
-      guideTopicsProps: {
-        list: resp.chapterNavigationInfo.chapterList.map(chapter => ({
-          title: chapter.guideTitle,
-          iconURL: chapter.guideIconURL,
-          linkURL: chapter.link,
-        })),
-      },
-    };
-  },
+  model: resp => ({
+    tiaraTitleProps: {
+      preTitle: resp.guideHeader,
+      title: resp.guideReferenceTitle,
+      iconURL: resp.guideIconURL,
+    },
+    guideSectionProps: {
+      content: () => <GuideBodyContent title="About this guide" content={bodyContent} />,
+      column: () => (
+        <GuideContentList
+          list={[
+            resp.guideBulletPoint1,
+            resp.guideBulletPoint2,
+            resp.guideBulletPoint3,
+          ]}
+        />
+      ),
+      alignContent: 'right',
+    },
+    sterlingTitleProps: {
+      title: 'Objects within this guide',
+      subTitle: 'Select an Object for more information',
+    },
+    guideTopicsProps: {
+      list: resp.chapterNavigationInfo.chapterList.map(chapter => ({
+        title: chapter.guideTitle,
+        iconURL: chapter.guideIconURL,
+        linkURL: chapter.link,
+      })),
+    },
+  }),
 };
 
 const Guides = () => (
