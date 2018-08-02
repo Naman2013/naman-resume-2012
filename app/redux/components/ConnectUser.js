@@ -3,10 +3,10 @@ import { connect } from 'react-redux';
 
 const propTypes = {
   user: PropTypes.shape({
-    isAuthorized: PropTypes.bool.isRequired,
-    apiError: PropTypes.bool.isRequired,
-    fname: PropTypes.string.isRequired,
-    avatarURL: PropTypes.string.isRequired,
+    isAuthorized: PropTypes.bool,
+    apiError: PropTypes.bool,
+    fname: PropTypes.string,
+    avatarURL: PropTypes.string,
   }),
 };
 
