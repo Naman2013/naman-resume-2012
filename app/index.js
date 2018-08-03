@@ -482,9 +482,9 @@ ReactDOM.render(
 
         <Route path="guide-details/:guideId" component={GuideDetails} onEnter={validateUser} />
 
-        <Route path="guides/object-category/:guideId" component={ObjectCategoryGuide} />
         <Route path="guides/subject/:guideId" component={SubjectGuides} />
         <Route path="guides/topic/:guideId" component={TopicGuides} />
+        <Route path="guides/object-category/:guideId" component={ObjectCategoryGuide} />
 
         <Route path="object-details/:objectId" component={ObjectDetails} onEnter={validateUser}>
           <IndexRedirect to="overview" />
