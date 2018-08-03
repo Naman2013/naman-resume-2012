@@ -43,7 +43,7 @@ import ObjectDetailsQuests from './containers/object-details/ObjectDetailsQuests
 import ObjectDetailsStories from './containers/object-details/ObjectDetailsStories';
 import ObjectDetailsShows from './containers/object-details/ObjectDetailsShows';
 import ObjectDetailsObservations from './containers/object-details/ObjectDetailsObservations';
-import Guides from './containers/guides';
+import ObjectCategoryGuide from './containers/guides/ObjectCategoryGuide';
 import SubjectGuides from './containers/guides/SubjectGuides';
 import TopicGuides from './containers/guides/TopicGuides';
 
@@ -482,7 +482,7 @@ ReactDOM.render(
 
         <Route path="guide-details/:guideId" component={GuideDetails} onEnter={validateUser} />
 
-        <Route path="guides" component={Guides} />
+        <Route path="guides/object-category" component={ObjectCategoryGuide} />
         <Route path="guides/subject" component={SubjectGuides} />
         <Route path="guides/topic" component={TopicGuides} />
 
