@@ -111,15 +111,45 @@ class Overview extends Component {
         </section>
 
         <section className="off-white-bg">
-          <SterlingTitle title='Prepare for your next mission' subTitle='Tools to help plan your next mission to The Moon' />
+          <SterlingTitle title='Prepare for your next mission' subTitle={"Tools to help plan your next mission to " + objectData.objectTitle} />
+          <CenterColumn>
+            <section className="object-details-grid">
+              <div className="f4">
+                <h2>Scientific Name:</h2>
+                <p>Lorem Ipsum</p>
+              </div>
+              <div className="f4">
+                <h2>Celestial Coordinates:</h2>
+                <p>RA:  00h   42m   44.3s</p>
+                <p>Dec:  +41°  16'  08"</p>
+              </div>
+              <div className="f2">
+                <h2>Magnitude:</h2>
+                <p>-27.00</p>
+              </div>
+              <div className="f2">
+                <h2>Apparent Angular Size:</h2>
+                <p>0° 31' 50"</p>
+              </div>
+              <div className="f4">
+                <h2>Visibility Season:</h2>
+                <p>Chile: Aug - Feb</p>
+                <p>Canary Islands: Jul - Apr</p>
+              </div>
+              <div className="f4">
+                <h2>midnight culmination:</h2>
+                <p>November 22</p>
+                Lorem Ipsum viverra eleifent nun varius
+              </div>
+            </section>
+          </CenterColumn>
         </section>
-
         <section className="off-white-bg-top-shadow">
           <SterlingTitle title="Burnham's Corner" subTitle="Get Inspired with this find from Burnham's books" />
           <CenterColumn>
             <BurnhamsCorner {...bcProps} />
           </CenterColumn>
-          
+
           <SterlingTitle title='MVP Astronomers' subTitle={"Most Active on " + objectData.objectTitle} />
           <CenterColumn>
             {objectSpecialists && objectSpecialists.specialistsCount > 0 ? (

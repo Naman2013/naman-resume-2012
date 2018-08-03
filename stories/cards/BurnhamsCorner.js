@@ -17,7 +17,7 @@ storiesOf('BurnhamsCorner', module)
   .add('BurnhamsCorner', () => (
     <DeviceProvider>
       <CenterColumn>
-        <BurnhamsCorner {...props} />
+        <BurnhamsCorner {...bcProps} />
       </CenterColumn>
     </DeviceProvider>
   ));
