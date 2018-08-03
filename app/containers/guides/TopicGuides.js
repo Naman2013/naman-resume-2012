@@ -30,20 +30,23 @@ const subjectGuideModel = {
   name: 'SUBJECT_GUIDE_MODEL',
   model: resp => ({
     inAppNavigationProps: {
-      title: 'Topic 1: Astronomical Time',
+      title: resp.guideTitle,
+      contextMenuTitle: resp.topicHeading1,
+      contextMenuCount: resp.chapterNavigationInfo.chapterCount,
+      list: resp
+        .chapterNavigationInfo
+        .chapterList
+        .map(chapter => ({ title: chapter.guideTitle, linkURL: chapter.link })),
     },
     topicContentProps: {
       title: resp.guideTitle,
       topicContentList: [resp.guideBulletPoint1, resp.guideBulletPoint2, resp.guideBulletPoint3],
-      aboutTitle: 'Stand in title',
-      aboutContent: `Mauris non tempor quam, et lacinia sapien. Mauris accumsan eros eget libero lorem posuere vulputate. Etiam elit elit, elementum sed varius at, adipiscing evitae est. Sed nec felis loren posuere posuere, rutrum eu ipsum. Aliquam eget odio sed ligula dolae iaculis consequat at eget orci. Mauris moleistie sit amet metus loi mass imattis varius Donec sit amet ligula eget nisi sodales lorem a molestie bibendum. Etiam nisi anteni consectetur eget placerat a, tempus a neque. Donec ut elit urna. Etiam venenatis leni eleifend urna eget scelerisqueliquam in nunc.
-
-      Donec sit amet ligula eget nisi sodales egestas. Aliquam interdum dolor aliquet dolor  iaculis consequat at eget orci. Mauris moleistie sit amet metus loi mass imattis varius Donec sit amet ligula eget nisi sodales lorem a molestie bibendum. Etiam nisi anteni
-      posuere vulputate. Etiam elit elit, elementum sed varius at.`,
+      aboutTitle: resp.AboutThisTitle,
+      aboutContent: resp.AboutThisContent,
     },
     sterlingTitleProps: {
-      title: 'Title stub...',
-      subTitle: 'Sub title stub...',
+      title: resp.topicHeading1,
+      subTitle: resp.topicHeading2,
     },
     topicListProps: {
       list: TEST_PANEL_LIST,
@@ -56,7 +59,7 @@ const TopicGuides = () => (
     <Request
       serviceURL={GUIDE_ENDPOINT_URL}
       model={subjectGuideModel}
-      requestBody={{ guideId: 39 }}
+      requestBody={{ guideId: 37 }}
       render={({
         fetchingContent,
         modeledResponses: { SUBJECT_GUIDE_MODEL },

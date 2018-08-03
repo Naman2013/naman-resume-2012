@@ -5,6 +5,7 @@ ShallowWrapper {
   "length": 1,
   Symbol(enzyme.__root__): [Circular],
   Symbol(enzyme.__unrendered__): <InAppNavigation
+    contextMenuCount={0}
     isOpen={false}
     menuTopAdjustment={98}
     previousText="guide"
@@ -61,8 +62,11 @@ ShallowWrapper {
             className="jsx-3916293460 context-menu-container"
           >
             <ContextMenu
+              count={0}
               isOpen={false}
+              list={undefined}
               menuTopAdjustment={98}
+              title={undefined}
             />
           </div>
         </div>,
@@ -170,8 +174,11 @@ ShallowWrapper {
               className="jsx-3916293460 context-menu-container"
             >
               <ContextMenu
+                count={0}
                 isOpen={false}
+                list={undefined}
                 menuTopAdjustment={98}
+                title={undefined}
               />
             </div>,
           ],
@@ -227,8 +234,11 @@ ShallowWrapper {
             "nodeType": "host",
             "props": Object {
               "children": <ContextMenu
+                count={0}
                 isOpen={false}
+                list={undefined}
                 menuTopAdjustment={98}
+                title={undefined}
               />,
               "className": "jsx-3916293460 context-menu-container",
             },
@@ -238,8 +248,11 @@ ShallowWrapper {
               "key": undefined,
               "nodeType": "class",
               "props": Object {
+                "count": 0,
                 "isOpen": false,
+                "list": undefined,
                 "menuTopAdjustment": 98,
+                "title": undefined,
               },
               "ref": null,
               "rendered": null,
@@ -321,8 +334,11 @@ ShallowWrapper {
               className="jsx-3916293460 context-menu-container"
             >
               <ContextMenu
+                count={0}
                 isOpen={false}
+                list={undefined}
                 menuTopAdjustment={98}
+                title={undefined}
               />
             </div>
           </div>,
@@ -430,8 +446,11 @@ ShallowWrapper {
                 className="jsx-3916293460 context-menu-container"
               >
                 <ContextMenu
+                  count={0}
                   isOpen={false}
+                  list={undefined}
                   menuTopAdjustment={98}
+                  title={undefined}
                 />
               </div>,
             ],
@@ -487,8 +506,11 @@ ShallowWrapper {
               "nodeType": "host",
               "props": Object {
                 "children": <ContextMenu
+                  count={0}
                   isOpen={false}
+                  list={undefined}
                   menuTopAdjustment={98}
+                  title={undefined}
                 />,
                 "className": "jsx-3916293460 context-menu-container",
               },
@@ -498,8 +520,11 @@ ShallowWrapper {
                 "key": undefined,
                 "nodeType": "class",
                 "props": Object {
+                  "count": 0,
                   "isOpen": false,
+                  "list": undefined,
                   "menuTopAdjustment": 98,
+                  "title": undefined,
                 },
                 "ref": null,
                 "rendered": null,

@@ -8,6 +8,9 @@ import { horizontalArrow } from 'styles/variables/iconURLs';
 const InAppNavigation = ({
   previousText,
   title,
+  contextMenuTitle,
+  contextMenuCount,
+  list,
   isOpen,
   menuTopAdjustment,
 }) => (
@@ -21,7 +24,13 @@ const InAppNavigation = ({
       <button className="back-arrow"><BackArrow /></button>
       <h5 className="title">{title}</h5>
       <div className="context-menu-container">
-        <ContextMenu isOpen={isOpen} menuTopAdjustment={menuTopAdjustment} />
+        <ContextMenu
+          title={contextMenuTitle}
+          count={contextMenuCount}
+          list={list}
+          isOpen={isOpen}
+          menuTopAdjustment={menuTopAdjustment}
+        />
       </div>
     </div>
 
@@ -32,6 +41,12 @@ const InAppNavigation = ({
 InAppNavigation.propTypes = {
   previousText: PropTypes.string,
   title: PropTypes.string.isRequired,
+  contextMenuTitle: PropTypes.string.isRequired,
+  contextMenuCount: PropTypes.number,
+  list: PropTypes.arrayOf(PropTypes.shape({
+    title: PropTypes.string,
+    linkURL: PropTypes.string,
+  })).isRequired,
   isOpen: PropTypes.bool,
   menuTopAdjustment: PropTypes.number,
 };
@@ -40,6 +55,7 @@ InAppNavigation.defaultProps = {
   previousText: '',
   isOpen: false,
   menuTopAdjustment: 98,
+  contextMenuCount: 0,
 };
 
 export default InAppNavigation;
