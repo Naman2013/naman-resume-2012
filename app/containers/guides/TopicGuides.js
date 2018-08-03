@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import PropTypes from 'prop-types';
 import Request from 'components/common/network/Request';
 import InAppNavigation from 'components/common/InAppNavigation';
 import TopicContent from 'components/guides/TopicContent';
@@ -54,12 +55,12 @@ const subjectGuideModel = {
   }),
 };
 
-const TopicGuides = () => (
+const TopicGuides = ({ params: { guideId } }) => (
   <div>
     <Request
       serviceURL={GUIDE_ENDPOINT_URL}
       model={subjectGuideModel}
-      requestBody={{ guideId: 37 }}
+      requestBody={{ guideId }}
       render={({
         fetchingContent,
         modeledResponses: { SUBJECT_GUIDE_MODEL },
@@ -92,5 +93,11 @@ const TopicGuides = () => (
     />
   </div>
 );
+
+TopicGuides.propTypes = {
+  params: {
+    guideId: PropTypes.string.isRequired,
+  },
+};
 
 export default TopicGuides;
