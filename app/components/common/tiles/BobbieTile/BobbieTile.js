@@ -23,7 +23,8 @@ const BobbieTile = ({
 }) => (
   <div className="root">
     <div className="tile-content-container">
-      <h3 className="title">{title}</h3>
+      <h3 style={{ marginBottom: '20px' }} className="title">{title}</h3>
+      {/*
       <div className="post-meta-data">
         <ul>
           <li className="read-duration">{readDuration} mins</li>
@@ -34,6 +35,7 @@ const BobbieTile = ({
             <img alt="" src={horizontalArrow} /></li>
         </ul>
       </div>
+      */}
       <div
         className="__html-blob-content-container__"
         dangerouslySetInnerHTML={{ __html: HTMLBlob }}
