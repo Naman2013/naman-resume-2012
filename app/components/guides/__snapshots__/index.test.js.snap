@@ -405,6 +405,7 @@ ShallowWrapper {
           >
             <LailaTile
               iconURL="https://vega.slooh.com/icons/home/observatory.png"
+              linkURL={undefined}
               title="Saturn"
             />
           </li>
@@ -413,6 +414,7 @@ ShallowWrapper {
           >
             <LailaTile
               iconURL="https://vega.slooh.com/icons/home/jupiter-icon.png"
+              linkURL={undefined}
               title="Mars"
             />
           </li>
@@ -448,6 +450,7 @@ ShallowWrapper {
             >
               <LailaTile
                 iconURL="https://vega.slooh.com/icons/home/observatory.png"
+                linkURL={undefined}
                 title="Saturn"
               />
             </li>,
@@ -456,6 +459,7 @@ ShallowWrapper {
             >
               <LailaTile
                 iconURL="https://vega.slooh.com/icons/home/jupiter-icon.png"
+                linkURL={undefined}
                 title="Mars"
               />
             </li>,
@@ -471,6 +475,7 @@ ShallowWrapper {
             "props": Object {
               "children": <LailaTile
                 iconURL="https://vega.slooh.com/icons/home/observatory.png"
+                linkURL={undefined}
                 title="Saturn"
               />,
               "className": "jsx-1394131357 topic",
@@ -482,6 +487,7 @@ ShallowWrapper {
               "nodeType": "function",
               "props": Object {
                 "iconURL": "https://vega.slooh.com/icons/home/observatory.png",
+                "linkURL": undefined,
                 "title": "Saturn",
               },
               "ref": null,
@@ -497,6 +503,7 @@ ShallowWrapper {
             "props": Object {
               "children": <LailaTile
                 iconURL="https://vega.slooh.com/icons/home/jupiter-icon.png"
+                linkURL={undefined}
                 title="Mars"
               />,
               "className": "jsx-1394131357 topic",
@@ -508,6 +515,7 @@ ShallowWrapper {
               "nodeType": "function",
               "props": Object {
                 "iconURL": "https://vega.slooh.com/icons/home/jupiter-icon.png",
+                "linkURL": undefined,
                 "title": "Mars",
               },
               "ref": null,
@@ -558,6 +566,7 @@ ShallowWrapper {
             >
               <LailaTile
                 iconURL="https://vega.slooh.com/icons/home/observatory.png"
+                linkURL={undefined}
                 title="Saturn"
               />
             </li>
@@ -566,6 +575,7 @@ ShallowWrapper {
             >
               <LailaTile
                 iconURL="https://vega.slooh.com/icons/home/jupiter-icon.png"
+                linkURL={undefined}
                 title="Mars"
               />
             </li>
@@ -601,6 +611,7 @@ ShallowWrapper {
               >
                 <LailaTile
                   iconURL="https://vega.slooh.com/icons/home/observatory.png"
+                  linkURL={undefined}
                   title="Saturn"
                 />
               </li>,
@@ -609,6 +620,7 @@ ShallowWrapper {
               >
                 <LailaTile
                   iconURL="https://vega.slooh.com/icons/home/jupiter-icon.png"
+                  linkURL={undefined}
                   title="Mars"
                 />
               </li>,
@@ -624,6 +636,7 @@ ShallowWrapper {
               "props": Object {
                 "children": <LailaTile
                   iconURL="https://vega.slooh.com/icons/home/observatory.png"
+                  linkURL={undefined}
                   title="Saturn"
                 />,
                 "className": "jsx-1394131357 topic",
@@ -635,6 +648,7 @@ ShallowWrapper {
                 "nodeType": "function",
                 "props": Object {
                   "iconURL": "https://vega.slooh.com/icons/home/observatory.png",
+                  "linkURL": undefined,
                   "title": "Saturn",
                 },
                 "ref": null,
@@ -650,6 +664,7 @@ ShallowWrapper {
               "props": Object {
                 "children": <LailaTile
                   iconURL="https://vega.slooh.com/icons/home/jupiter-icon.png"
+                  linkURL={undefined}
                   title="Mars"
                 />,
                 "className": "jsx-1394131357 topic",
@@ -661,6 +676,7 @@ ShallowWrapper {
                 "nodeType": "function",
                 "props": Object {
                   "iconURL": "https://vega.slooh.com/icons/home/jupiter-icon.png",
+                  "linkURL": undefined,
                   "title": "Mars",
                 },
                 "ref": null,

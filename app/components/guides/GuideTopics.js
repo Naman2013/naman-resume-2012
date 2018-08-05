@@ -16,6 +16,7 @@ const GuideTopics = ({ list }) => (
             <LailaTile
               iconURL={topic.iconURL}
               title={topic.title}
+              linkURL={topic.linkURL}
             />
           </li>))
       }
@@ -28,6 +29,7 @@ GuideTopics.propTypes = {
   list: PropTypes.arrayOf(PropTypes.shape({
     title: PropTypes.string,
     iconURL: PropTypes.string,
+    linkURL: PropTypes.string,
   })).isRequired,
 };
 

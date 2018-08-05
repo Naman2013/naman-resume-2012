@@ -22,23 +22,23 @@ ShallowWrapper {
     "props": Object {
       "children": Array [
         <div
-          className="jsx-277360442 container"
+          className="jsx-4067610709 container"
         >
           <div
-            className="jsx-277360442 icon-container"
+            className="jsx-4067610709 icon-container"
           >
             <div
-              className="jsx-277360442 center-line"
+              className="jsx-4067610709 center-line"
             />
             <div
-              className="jsx-277360442 border"
+              className="jsx-4067610709 border"
             >
               <div
-                className="jsx-277360442 icon"
+                className="jsx-4067610709 icon"
               >
                 <img
                   alt=""
-                  className="jsx-277360442 icon-content"
+                  className="jsx-4067610709 icon-content"
                   height="40"
                   src="https://vega.slooh.com/icons/home/jupiter-icon.png"
                   width="40"
@@ -47,22 +47,23 @@ ShallowWrapper {
             </div>
           </div>
           <h5
-            className="jsx-277360442 title"
+            className="jsx-4067610709 title"
           >
             Test
           </h5>
           <div
-            className="jsx-277360442 button-container"
+            className="jsx-4067610709 button-container"
           >
-            <a
-              className="jsx-277360442 button"
-              href="#"
+            <Link
+              onlyActiveOnIndex={false}
+              style={Object {}}
+              to={undefined}
             >
               Explore now
-            </a>
+            </Link>
             <img
               alt=""
-              className="jsx-277360442"
+              className="jsx-4067610709"
               src="https://vega.slooh.com/assets/v4/common/arrow_horz.svg"
             />
           </div>
@@ -70,23 +71,23 @@ ShallowWrapper {
         <JSXStyle
           css={
             Array [
-              ".root.jsx-277360442{width:100%;height:142px;box-size:border-box;padding:0;box-shadow:0px 0px 8px 1px rgba(65,86,113,.2);color:#415671;list-style-type:none;background:url(https://vega.slooh.com/assets/v4/common/LightBlueDiamondPattern_NO_TEXTURE.png);background-size:30px;-webkit-transition:width,height 0.15s ease-out;transition:width,height 0.15s ease-out;}",
-              ".container.jsx-277360442{width:80%;margin:0 auto;}",
-              ".icon-container.jsx-277360442{display:none;}",
-              ".center-line.jsx-277360442{border-right:1px solid #D9DEE4;width:50%;height:60px;}",
-              ".border.jsx-277360442{width:115px;height:115px;border:1px dashed #D9DEE4;border-radius:50%;margin:0 auto;position:relative;}",
-              ".icon.jsx-277360442{position:absolute;width:100px;height:100px;margin:0 auto;border-radius:50%;background:url(https://vega.slooh.com/assets/v4/common/Darkest_Pattern_Canvas.png);top:50%;left:50%;-webkit-transform:translate(-50%,-50%);-ms-transform:translate(-50%,-50%);transform:translate(-50%,-50%);}",
-              ".icon-content.jsx-277360442{position:absolute;top:50%;left:50%;-webkit-transform:translate(-50%,-50%);-ms-transform:translate(-50%,-50%);transform:translate(-50%,-50%);}",
-              ".title.jsx-277360442{padding:30px 0 20px 0;margin:0;font-size:14px;font-family:adobe-garamond-pro, serif;font-weight:300;font-size:18px;border-bottom:1px solid #D9DEE4;}",
-              ".button-container.jsx-277360442{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;padding-top:20px;}",
-              ".button.jsx-277360442{display:block;padding:0;color:#415671;-webkit-text-decoration:none;text-decoration:none;text-transform:uppercase;font-family:brandon-grotesque, sans-serif;font-size:10px;font-weight:bold;-webkit-letter-spacing:2px;-moz-letter-spacing:2px;-ms-letter-spacing:2px;letter-spacing:2px;}",
-              "@media screen and (min-width: 768px){.root.jsx-277360442{width:300px;height:332px;text-align:center;}.icon-container.jsx-277360442{display:block;}.title.jsx-277360442{border-bottom:none;padding-top:50px;padding-bottom:0;}.button-container.jsx-277360442{-webkit-box-pack:center;-webkit-justify-content:center;-ms-flex-pack:center;justify-content:center;}.button.jsx-277360442{padding-right:10px;}}",
+              ".root.jsx-4067610709{width:100%;height:142px;box-size:border-box;padding:0;box-shadow:0px 0px 8px 1px rgba(65,86,113,.2);color:#415671;list-style-type:none;background:url(https://vega.slooh.com/assets/v4/common/LightBlueDiamondPattern_NO_TEXTURE.png);background-size:30px;-webkit-transition:width,height 0.15s ease-out;transition:width,height 0.15s ease-out;}",
+              ".container.jsx-4067610709{width:80%;margin:0 auto;}",
+              ".icon-container.jsx-4067610709{display:none;}",
+              ".center-line.jsx-4067610709{border-right:1px solid #D9DEE4;width:50%;height:60px;}",
+              ".border.jsx-4067610709{width:115px;height:115px;border:1px dashed #D9DEE4;border-radius:50%;margin:0 auto;position:relative;}",
+              ".icon.jsx-4067610709{position:absolute;width:100px;height:100px;margin:0 auto;border-radius:50%;background:url(https://vega.slooh.com/assets/v4/common/Darkest_Pattern_Canvas.png);top:50%;left:50%;-webkit-transform:translate(-50%,-50%);-ms-transform:translate(-50%,-50%);transform:translate(-50%,-50%);}",
+              ".icon-content.jsx-4067610709{position:absolute;top:50%;left:50%;-webkit-transform:translate(-50%,-50%);-ms-transform:translate(-50%,-50%);transform:translate(-50%,-50%);}",
+              ".title.jsx-4067610709{padding:30px 0 20px 0;margin:0;font-size:14px;font-family:adobe-garamond-pro, serif;font-weight:300;font-size:18px;border-bottom:1px solid #D9DEE4;}",
+              ".button-container.jsx-4067610709{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;padding-top:20px;}",
+              ".button-container.jsx-4067610709 a{display:block;padding:0;color:#415671;-webkit-text-decoration:none;text-decoration:none;text-transform:uppercase;font-family:brandon-grotesque, sans-serif;font-size:10px;font-weight:bold;-webkit-letter-spacing:2px;-moz-letter-spacing:2px;-ms-letter-spacing:2px;letter-spacing:2px;}",
+              "@media screen and (min-width: 768px){.root.jsx-4067610709{width:300px;height:332px;text-align:center;}.icon-container.jsx-4067610709{display:block;}.title.jsx-4067610709{border-bottom:none;padding-top:50px;padding-bottom:0;}.button-container.jsx-4067610709{-webkit-box-pack:center;-webkit-justify-content:center;-ms-flex-pack:center;justify-content:center;}.button-container.jsx-4067610709 a{padding-right:10px;}}",
             ]
           }
-          styleId="277360442"
+          styleId="4067610709"
         />,
       ],
-      "className": "jsx-277360442 root",
+      "className": "jsx-4067610709 root",
     },
     "ref": null,
     "rendered": Array [
@@ -97,20 +98,20 @@ ShallowWrapper {
         "props": Object {
           "children": Array [
             <div
-              className="jsx-277360442 icon-container"
+              className="jsx-4067610709 icon-container"
             >
               <div
-                className="jsx-277360442 center-line"
+                className="jsx-4067610709 center-line"
               />
               <div
-                className="jsx-277360442 border"
+                className="jsx-4067610709 border"
               >
                 <div
-                  className="jsx-277360442 icon"
+                  className="jsx-4067610709 icon"
                 >
                   <img
                     alt=""
-                    className="jsx-277360442 icon-content"
+                    className="jsx-4067610709 icon-content"
                     height="40"
                     src="https://vega.slooh.com/icons/home/jupiter-icon.png"
                     width="40"
@@ -119,27 +120,28 @@ ShallowWrapper {
               </div>
             </div>,
             <h5
-              className="jsx-277360442 title"
+              className="jsx-4067610709 title"
             >
               Test
             </h5>,
             <div
-              className="jsx-277360442 button-container"
+              className="jsx-4067610709 button-container"
             >
-              <a
-                className="jsx-277360442 button"
-                href="#"
+              <Link
+                onlyActiveOnIndex={false}
+                style={Object {}}
+                to={undefined}
               >
                 Explore now
-              </a>
+              </Link>
               <img
                 alt=""
-                className="jsx-277360442"
+                className="jsx-4067610709"
                 src="https://vega.slooh.com/assets/v4/common/arrow_horz.svg"
               />
             </div>,
           ],
-          "className": "jsx-277360442 container",
+          "className": "jsx-4067610709 container",
         },
         "ref": null,
         "rendered": Array [
@@ -150,17 +152,17 @@ ShallowWrapper {
             "props": Object {
               "children": Array [
                 <div
-                  className="jsx-277360442 center-line"
+                  className="jsx-4067610709 center-line"
                 />,
                 <div
-                  className="jsx-277360442 border"
+                  className="jsx-4067610709 border"
                 >
                   <div
-                    className="jsx-277360442 icon"
+                    className="jsx-4067610709 icon"
                   >
                     <img
                       alt=""
-                      className="jsx-277360442 icon-content"
+                      className="jsx-4067610709 icon-content"
                       height="40"
                       src="https://vega.slooh.com/icons/home/jupiter-icon.png"
                       width="40"
@@ -168,7 +170,7 @@ ShallowWrapper {
                   </div>
                 </div>,
               ],
-              "className": "jsx-277360442 icon-container",
+              "className": "jsx-4067610709 icon-container",
             },
             "ref": null,
             "rendered": Array [
@@ -177,7 +179,7 @@ ShallowWrapper {
                 "key": undefined,
                 "nodeType": "host",
                 "props": Object {
-                  "className": "jsx-277360442 center-line",
+                  "className": "jsx-4067610709 center-line",
                 },
                 "ref": null,
                 "rendered": null,
@@ -189,17 +191,17 @@ ShallowWrapper {
                 "nodeType": "host",
                 "props": Object {
                   "children": <div
-                    className="jsx-277360442 icon"
+                    className="jsx-4067610709 icon"
                   >
                     <img
                       alt=""
-                      className="jsx-277360442 icon-content"
+                      className="jsx-4067610709 icon-content"
                       height="40"
                       src="https://vega.slooh.com/icons/home/jupiter-icon.png"
                       width="40"
                     />
                   </div>,
-                  "className": "jsx-277360442 border",
+                  "className": "jsx-4067610709 border",
                 },
                 "ref": null,
                 "rendered": Object {
@@ -209,12 +211,12 @@ ShallowWrapper {
                   "props": Object {
                     "children": <img
                       alt=""
-                      className="jsx-277360442 icon-content"
+                      className="jsx-4067610709 icon-content"
                       height="40"
                       src="https://vega.slooh.com/icons/home/jupiter-icon.png"
                       width="40"
                     />,
-                    "className": "jsx-277360442 icon",
+                    "className": "jsx-4067610709 icon",
                   },
                   "ref": null,
                   "rendered": Object {
@@ -223,7 +225,7 @@ ShallowWrapper {
                     "nodeType": "host",
                     "props": Object {
                       "alt": "",
-                      "className": "jsx-277360442 icon-content",
+                      "className": "jsx-4067610709 icon-content",
                       "height": "40",
                       "src": "https://vega.slooh.com/icons/home/jupiter-icon.png",
                       "width": "40",
@@ -245,7 +247,7 @@ ShallowWrapper {
             "nodeType": "host",
             "props": Object {
               "children": "Test",
-              "className": "jsx-277360442 title",
+              "className": "jsx-4067610709 title",
             },
             "ref": null,
             "rendered": "Test",
@@ -257,34 +259,36 @@ ShallowWrapper {
             "nodeType": "host",
             "props": Object {
               "children": Array [
-                <a
-                  className="jsx-277360442 button"
-                  href="#"
+                <Link
+                  onlyActiveOnIndex={false}
+                  style={Object {}}
+                  to={undefined}
                 >
                   Explore now
-                </a>,
+                </Link>,
                 <img
                   alt=""
-                  className="jsx-277360442"
+                  className="jsx-4067610709"
                   src="https://vega.slooh.com/assets/v4/common/arrow_horz.svg"
                 />,
               ],
-              "className": "jsx-277360442 button-container",
+              "className": "jsx-4067610709 button-container",
             },
             "ref": null,
             "rendered": Array [
               Object {
                 "instance": null,
                 "key": undefined,
-                "nodeType": "host",
+                "nodeType": "class",
                 "props": Object {
                   "children": "Explore now",
-                  "className": "jsx-277360442 button",
-                  "href": "#",
+                  "onlyActiveOnIndex": false,
+                  "style": Object {},
+                  "to": undefined,
                 },
                 "ref": null,
                 "rendered": "Explore now",
-                "type": "a",
+                "type": [Function],
               },
               Object {
                 "instance": null,
@@ -292,7 +296,7 @@ ShallowWrapper {
                 "nodeType": "host",
                 "props": Object {
                   "alt": "",
-                  "className": "jsx-277360442",
+                  "className": "jsx-4067610709",
                   "src": "https://vega.slooh.com/assets/v4/common/arrow_horz.svg",
                 },
                 "ref": null,
@@ -311,19 +315,19 @@ ShallowWrapper {
         "nodeType": "class",
         "props": Object {
           "css": Array [
-            ".root.jsx-277360442{width:100%;height:142px;box-size:border-box;padding:0;box-shadow:0px 0px 8px 1px rgba(65,86,113,.2);color:#415671;list-style-type:none;background:url(https://vega.slooh.com/assets/v4/common/LightBlueDiamondPattern_NO_TEXTURE.png);background-size:30px;-webkit-transition:width,height 0.15s ease-out;transition:width,height 0.15s ease-out;}",
-            ".container.jsx-277360442{width:80%;margin:0 auto;}",
-            ".icon-container.jsx-277360442{display:none;}",
-            ".center-line.jsx-277360442{border-right:1px solid #D9DEE4;width:50%;height:60px;}",
-            ".border.jsx-277360442{width:115px;height:115px;border:1px dashed #D9DEE4;border-radius:50%;margin:0 auto;position:relative;}",
-            ".icon.jsx-277360442{position:absolute;width:100px;height:100px;margin:0 auto;border-radius:50%;background:url(https://vega.slooh.com/assets/v4/common/Darkest_Pattern_Canvas.png);top:50%;left:50%;-webkit-transform:translate(-50%,-50%);-ms-transform:translate(-50%,-50%);transform:translate(-50%,-50%);}",
-            ".icon-content.jsx-277360442{position:absolute;top:50%;left:50%;-webkit-transform:translate(-50%,-50%);-ms-transform:translate(-50%,-50%);transform:translate(-50%,-50%);}",
-            ".title.jsx-277360442{padding:30px 0 20px 0;margin:0;font-size:14px;font-family:adobe-garamond-pro, serif;font-weight:300;font-size:18px;border-bottom:1px solid #D9DEE4;}",
-            ".button-container.jsx-277360442{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;padding-top:20px;}",
-            ".button.jsx-277360442{display:block;padding:0;color:#415671;-webkit-text-decoration:none;text-decoration:none;text-transform:uppercase;font-family:brandon-grotesque, sans-serif;font-size:10px;font-weight:bold;-webkit-letter-spacing:2px;-moz-letter-spacing:2px;-ms-letter-spacing:2px;letter-spacing:2px;}",
-            "@media screen and (min-width: 768px){.root.jsx-277360442{width:300px;height:332px;text-align:center;}.icon-container.jsx-277360442{display:block;}.title.jsx-277360442{border-bottom:none;padding-top:50px;padding-bottom:0;}.button-container.jsx-277360442{-webkit-box-pack:center;-webkit-justify-content:center;-ms-flex-pack:center;justify-content:center;}.button.jsx-277360442{padding-right:10px;}}",
+            ".root.jsx-4067610709{width:100%;height:142px;box-size:border-box;padding:0;box-shadow:0px 0px 8px 1px rgba(65,86,113,.2);color:#415671;list-style-type:none;background:url(https://vega.slooh.com/assets/v4/common/LightBlueDiamondPattern_NO_TEXTURE.png);background-size:30px;-webkit-transition:width,height 0.15s ease-out;transition:width,height 0.15s ease-out;}",
+            ".container.jsx-4067610709{width:80%;margin:0 auto;}",
+            ".icon-container.jsx-4067610709{display:none;}",
+            ".center-line.jsx-4067610709{border-right:1px solid #D9DEE4;width:50%;height:60px;}",
+            ".border.jsx-4067610709{width:115px;height:115px;border:1px dashed #D9DEE4;border-radius:50%;margin:0 auto;position:relative;}",
+            ".icon.jsx-4067610709{position:absolute;width:100px;height:100px;margin:0 auto;border-radius:50%;background:url(https://vega.slooh.com/assets/v4/common/Darkest_Pattern_Canvas.png);top:50%;left:50%;-webkit-transform:translate(-50%,-50%);-ms-transform:translate(-50%,-50%);transform:translate(-50%,-50%);}",
+            ".icon-content.jsx-4067610709{position:absolute;top:50%;left:50%;-webkit-transform:translate(-50%,-50%);-ms-transform:translate(-50%,-50%);transform:translate(-50%,-50%);}",
+            ".title.jsx-4067610709{padding:30px 0 20px 0;margin:0;font-size:14px;font-family:adobe-garamond-pro, serif;font-weight:300;font-size:18px;border-bottom:1px solid #D9DEE4;}",
+            ".button-container.jsx-4067610709{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;padding-top:20px;}",
+            ".button-container.jsx-4067610709 a{display:block;padding:0;color:#415671;-webkit-text-decoration:none;text-decoration:none;text-transform:uppercase;font-family:brandon-grotesque, sans-serif;font-size:10px;font-weight:bold;-webkit-letter-spacing:2px;-moz-letter-spacing:2px;-ms-letter-spacing:2px;letter-spacing:2px;}",
+            "@media screen and (min-width: 768px){.root.jsx-4067610709{width:300px;height:332px;text-align:center;}.icon-container.jsx-4067610709{display:block;}.title.jsx-4067610709{border-bottom:none;padding-top:50px;padding-bottom:0;}.button-container.jsx-4067610709{-webkit-box-pack:center;-webkit-justify-content:center;-ms-flex-pack:center;justify-content:center;}.button-container.jsx-4067610709 a{padding-right:10px;}}",
           ],
-          "styleId": "277360442",
+          "styleId": "4067610709",
         },
         "ref": null,
         "rendered": null,
@@ -340,23 +344,23 @@ ShallowWrapper {
       "props": Object {
         "children": Array [
           <div
-            className="jsx-277360442 container"
+            className="jsx-4067610709 container"
           >
             <div
-              className="jsx-277360442 icon-container"
+              className="jsx-4067610709 icon-container"
             >
               <div
-                className="jsx-277360442 center-line"
+                className="jsx-4067610709 center-line"
               />
               <div
-                className="jsx-277360442 border"
+                className="jsx-4067610709 border"
               >
                 <div
-                  className="jsx-277360442 icon"
+                  className="jsx-4067610709 icon"
                 >
                   <img
                     alt=""
-                    className="jsx-277360442 icon-content"
+                    className="jsx-4067610709 icon-content"
                     height="40"
                     src="https://vega.slooh.com/icons/home/jupiter-icon.png"
                     width="40"
@@ -365,22 +369,23 @@ ShallowWrapper {
               </div>
             </div>
             <h5
-              className="jsx-277360442 title"
+              className="jsx-4067610709 title"
             >
               Test
             </h5>
             <div
-              className="jsx-277360442 button-container"
+              className="jsx-4067610709 button-container"
             >
-              <a
-                className="jsx-277360442 button"
-                href="#"
+              <Link
+                onlyActiveOnIndex={false}
+                style={Object {}}
+                to={undefined}
               >
                 Explore now
-              </a>
+              </Link>
               <img
                 alt=""
-                className="jsx-277360442"
+                className="jsx-4067610709"
                 src="https://vega.slooh.com/assets/v4/common/arrow_horz.svg"
               />
             </div>
@@ -388,23 +393,23 @@ ShallowWrapper {
           <JSXStyle
             css={
               Array [
-                ".root.jsx-277360442{width:100%;height:142px;box-size:border-box;padding:0;box-shadow:0px 0px 8px 1px rgba(65,86,113,.2);color:#415671;list-style-type:none;background:url(https://vega.slooh.com/assets/v4/common/LightBlueDiamondPattern_NO_TEXTURE.png);background-size:30px;-webkit-transition:width,height 0.15s ease-out;transition:width,height 0.15s ease-out;}",
-                ".container.jsx-277360442{width:80%;margin:0 auto;}",
-                ".icon-container.jsx-277360442{display:none;}",
-                ".center-line.jsx-277360442{border-right:1px solid #D9DEE4;width:50%;height:60px;}",
-                ".border.jsx-277360442{width:115px;height:115px;border:1px dashed #D9DEE4;border-radius:50%;margin:0 auto;position:relative;}",
-                ".icon.jsx-277360442{position:absolute;width:100px;height:100px;margin:0 auto;border-radius:50%;background:url(https://vega.slooh.com/assets/v4/common/Darkest_Pattern_Canvas.png);top:50%;left:50%;-webkit-transform:translate(-50%,-50%);-ms-transform:translate(-50%,-50%);transform:translate(-50%,-50%);}",
-                ".icon-content.jsx-277360442{position:absolute;top:50%;left:50%;-webkit-transform:translate(-50%,-50%);-ms-transform:translate(-50%,-50%);transform:translate(-50%,-50%);}",
-                ".title.jsx-277360442{padding:30px 0 20px 0;margin:0;font-size:14px;font-family:adobe-garamond-pro, serif;font-weight:300;font-size:18px;border-bottom:1px solid #D9DEE4;}",
-                ".button-container.jsx-277360442{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;padding-top:20px;}",
-                ".button.jsx-277360442{display:block;padding:0;color:#415671;-webkit-text-decoration:none;text-decoration:none;text-transform:uppercase;font-family:brandon-grotesque, sans-serif;font-size:10px;font-weight:bold;-webkit-letter-spacing:2px;-moz-letter-spacing:2px;-ms-letter-spacing:2px;letter-spacing:2px;}",
-                "@media screen and (min-width: 768px){.root.jsx-277360442{width:300px;height:332px;text-align:center;}.icon-container.jsx-277360442{display:block;}.title.jsx-277360442{border-bottom:none;padding-top:50px;padding-bottom:0;}.button-container.jsx-277360442{-webkit-box-pack:center;-webkit-justify-content:center;-ms-flex-pack:center;justify-content:center;}.button.jsx-277360442{padding-right:10px;}}",
+                ".root.jsx-4067610709{width:100%;height:142px;box-size:border-box;padding:0;box-shadow:0px 0px 8px 1px rgba(65,86,113,.2);color:#415671;list-style-type:none;background:url(https://vega.slooh.com/assets/v4/common/LightBlueDiamondPattern_NO_TEXTURE.png);background-size:30px;-webkit-transition:width,height 0.15s ease-out;transition:width,height 0.15s ease-out;}",
+                ".container.jsx-4067610709{width:80%;margin:0 auto;}",
+                ".icon-container.jsx-4067610709{display:none;}",
+                ".center-line.jsx-4067610709{border-right:1px solid #D9DEE4;width:50%;height:60px;}",
+                ".border.jsx-4067610709{width:115px;height:115px;border:1px dashed #D9DEE4;border-radius:50%;margin:0 auto;position:relative;}",
+                ".icon.jsx-4067610709{position:absolute;width:100px;height:100px;margin:0 auto;border-radius:50%;background:url(https://vega.slooh.com/assets/v4/common/Darkest_Pattern_Canvas.png);top:50%;left:50%;-webkit-transform:translate(-50%,-50%);-ms-transform:translate(-50%,-50%);transform:translate(-50%,-50%);}",
+                ".icon-content.jsx-4067610709{position:absolute;top:50%;left:50%;-webkit-transform:translate(-50%,-50%);-ms-transform:translate(-50%,-50%);transform:translate(-50%,-50%);}",
+                ".title.jsx-4067610709{padding:30px 0 20px 0;margin:0;font-size:14px;font-family:adobe-garamond-pro, serif;font-weight:300;font-size:18px;border-bottom:1px solid #D9DEE4;}",
+                ".button-container.jsx-4067610709{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;padding-top:20px;}",
+                ".button-container.jsx-4067610709 a{display:block;padding:0;color:#415671;-webkit-text-decoration:none;text-decoration:none;text-transform:uppercase;font-family:brandon-grotesque, sans-serif;font-size:10px;font-weight:bold;-webkit-letter-spacing:2px;-moz-letter-spacing:2px;-ms-letter-spacing:2px;letter-spacing:2px;}",
+                "@media screen and (min-width: 768px){.root.jsx-4067610709{width:300px;height:332px;text-align:center;}.icon-container.jsx-4067610709{display:block;}.title.jsx-4067610709{border-bottom:none;padding-top:50px;padding-bottom:0;}.button-container.jsx-4067610709{-webkit-box-pack:center;-webkit-justify-content:center;-ms-flex-pack:center;justify-content:center;}.button-container.jsx-4067610709 a{padding-right:10px;}}",
               ]
             }
-            styleId="277360442"
+            styleId="4067610709"
           />,
         ],
-        "className": "jsx-277360442 root",
+        "className": "jsx-4067610709 root",
       },
       "ref": null,
       "rendered": Array [
@@ -415,20 +420,20 @@ ShallowWrapper {
           "props": Object {
             "children": Array [
               <div
-                className="jsx-277360442 icon-container"
+                className="jsx-4067610709 icon-container"
               >
                 <div
-                  className="jsx-277360442 center-line"
+                  className="jsx-4067610709 center-line"
                 />
                 <div
-                  className="jsx-277360442 border"
+                  className="jsx-4067610709 border"
                 >
                   <div
-                    className="jsx-277360442 icon"
+                    className="jsx-4067610709 icon"
                   >
                     <img
                       alt=""
-                      className="jsx-277360442 icon-content"
+                      className="jsx-4067610709 icon-content"
                       height="40"
                       src="https://vega.slooh.com/icons/home/jupiter-icon.png"
                       width="40"
@@ -437,27 +442,28 @@ ShallowWrapper {
                 </div>
               </div>,
               <h5
-                className="jsx-277360442 title"
+                className="jsx-4067610709 title"
               >
                 Test
               </h5>,
               <div
-                className="jsx-277360442 button-container"
+                className="jsx-4067610709 button-container"
               >
-                <a
-                  className="jsx-277360442 button"
-                  href="#"
+                <Link
+                  onlyActiveOnIndex={false}
+                  style={Object {}}
+                  to={undefined}
                 >
                   Explore now
-                </a>
+                </Link>
                 <img
                   alt=""
-                  className="jsx-277360442"
+                  className="jsx-4067610709"
                   src="https://vega.slooh.com/assets/v4/common/arrow_horz.svg"
                 />
               </div>,
             ],
-            "className": "jsx-277360442 container",
+            "className": "jsx-4067610709 container",
           },
           "ref": null,
           "rendered": Array [
@@ -468,17 +474,17 @@ ShallowWrapper {
               "props": Object {
                 "children": Array [
                   <div
-                    className="jsx-277360442 center-line"
+                    className="jsx-4067610709 center-line"
                   />,
                   <div
-                    className="jsx-277360442 border"
+                    className="jsx-4067610709 border"
                   >
                     <div
-                      className="jsx-277360442 icon"
+                      className="jsx-4067610709 icon"
                     >
                       <img
                         alt=""
-                        className="jsx-277360442 icon-content"
+                        className="jsx-4067610709 icon-content"
                         height="40"
                         src="https://vega.slooh.com/icons/home/jupiter-icon.png"
                         width="40"
@@ -486,7 +492,7 @@ ShallowWrapper {
                     </div>
                   </div>,
                 ],
-                "className": "jsx-277360442 icon-container",
+                "className": "jsx-4067610709 icon-container",
               },
               "ref": null,
               "rendered": Array [
@@ -495,7 +501,7 @@ ShallowWrapper {
                   "key": undefined,
                   "nodeType": "host",
                   "props": Object {
-                    "className": "jsx-277360442 center-line",
+                    "className": "jsx-4067610709 center-line",
                   },
                   "ref": null,
                   "rendered": null,
@@ -507,17 +513,17 @@ ShallowWrapper {
                   "nodeType": "host",
                   "props": Object {
                     "children": <div
-                      className="jsx-277360442 icon"
+                      className="jsx-4067610709 icon"
                     >
                       <img
                         alt=""
-                        className="jsx-277360442 icon-content"
+                        className="jsx-4067610709 icon-content"
                         height="40"
                         src="https://vega.slooh.com/icons/home/jupiter-icon.png"
                         width="40"
                       />
                     </div>,
-                    "className": "jsx-277360442 border",
+                    "className": "jsx-4067610709 border",
                   },
                   "ref": null,
                   "rendered": Object {
@@ -527,12 +533,12 @@ ShallowWrapper {
                     "props": Object {
                       "children": <img
                         alt=""
-                        className="jsx-277360442 icon-content"
+                        className="jsx-4067610709 icon-content"
                         height="40"
                         src="https://vega.slooh.com/icons/home/jupiter-icon.png"
                         width="40"
                       />,
-                      "className": "jsx-277360442 icon",
+                      "className": "jsx-4067610709 icon",
                     },
                     "ref": null,
                     "rendered": Object {
@@ -541,7 +547,7 @@ ShallowWrapper {
                       "nodeType": "host",
                       "props": Object {
                         "alt": "",
-                        "className": "jsx-277360442 icon-content",
+                        "className": "jsx-4067610709 icon-content",
                         "height": "40",
                         "src": "https://vega.slooh.com/icons/home/jupiter-icon.png",
                         "width": "40",
@@ -563,7 +569,7 @@ ShallowWrapper {
               "nodeType": "host",
               "props": Object {
                 "children": "Test",
-                "className": "jsx-277360442 title",
+                "className": "jsx-4067610709 title",
               },
               "ref": null,
               "rendered": "Test",
@@ -575,34 +581,36 @@ ShallowWrapper {
               "nodeType": "host",
               "props": Object {
                 "children": Array [
-                  <a
-                    className="jsx-277360442 button"
-                    href="#"
+                  <Link
+                    onlyActiveOnIndex={false}
+                    style={Object {}}
+                    to={undefined}
                   >
                     Explore now
-                  </a>,
+                  </Link>,
                   <img
                     alt=""
-                    className="jsx-277360442"
+                    className="jsx-4067610709"
                     src="https://vega.slooh.com/assets/v4/common/arrow_horz.svg"
                   />,
                 ],
-                "className": "jsx-277360442 button-container",
+                "className": "jsx-4067610709 button-container",
               },
               "ref": null,
               "rendered": Array [
                 Object {
                   "instance": null,
                   "key": undefined,
-                  "nodeType": "host",
+                  "nodeType": "class",
                   "props": Object {
                     "children": "Explore now",
-                    "className": "jsx-277360442 button",
-                    "href": "#",
+                    "onlyActiveOnIndex": false,
+                    "style": Object {},
+                    "to": undefined,
                   },
                   "ref": null,
                   "rendered": "Explore now",
-                  "type": "a",
+                  "type": [Function],
                 },
                 Object {
                   "instance": null,
@@ -610,7 +618,7 @@ ShallowWrapper {
                   "nodeType": "host",
                   "props": Object {
                     "alt": "",
-                    "className": "jsx-277360442",
+                    "className": "jsx-4067610709",
                     "src": "https://vega.slooh.com/assets/v4/common/arrow_horz.svg",
                   },
                   "ref": null,
@@ -629,19 +637,19 @@ ShallowWrapper {
           "nodeType": "class",
           "props": Object {
             "css": Array [
-              ".root.jsx-277360442{width:100%;height:142px;box-size:border-box;padding:0;box-shadow:0px 0px 8px 1px rgba(65,86,113,.2);color:#415671;list-style-type:none;background:url(https://vega.slooh.com/assets/v4/common/LightBlueDiamondPattern_NO_TEXTURE.png);background-size:30px;-webkit-transition:width,height 0.15s ease-out;transition:width,height 0.15s ease-out;}",
-              ".container.jsx-277360442{width:80%;margin:0 auto;}",
-              ".icon-container.jsx-277360442{display:none;}",
-              ".center-line.jsx-277360442{border-right:1px solid #D9DEE4;width:50%;height:60px;}",
-              ".border.jsx-277360442{width:115px;height:115px;border:1px dashed #D9DEE4;border-radius:50%;margin:0 auto;position:relative;}",
-              ".icon.jsx-277360442{position:absolute;width:100px;height:100px;margin:0 auto;border-radius:50%;background:url(https://vega.slooh.com/assets/v4/common/Darkest_Pattern_Canvas.png);top:50%;left:50%;-webkit-transform:translate(-50%,-50%);-ms-transform:translate(-50%,-50%);transform:translate(-50%,-50%);}",
-              ".icon-content.jsx-277360442{position:absolute;top:50%;left:50%;-webkit-transform:translate(-50%,-50%);-ms-transform:translate(-50%,-50%);transform:translate(-50%,-50%);}",
-              ".title.jsx-277360442{padding:30px 0 20px 0;margin:0;font-size:14px;font-family:adobe-garamond-pro, serif;font-weight:300;font-size:18px;border-bottom:1px solid #D9DEE4;}",
-              ".button-container.jsx-277360442{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;padding-top:20px;}",
-              ".button.jsx-277360442{display:block;padding:0;color:#415671;-webkit-text-decoration:none;text-decoration:none;text-transform:uppercase;font-family:brandon-grotesque, sans-serif;font-size:10px;font-weight:bold;-webkit-letter-spacing:2px;-moz-letter-spacing:2px;-ms-letter-spacing:2px;letter-spacing:2px;}",
-              "@media screen and (min-width: 768px){.root.jsx-277360442{width:300px;height:332px;text-align:center;}.icon-container.jsx-277360442{display:block;}.title.jsx-277360442{border-bottom:none;padding-top:50px;padding-bottom:0;}.button-container.jsx-277360442{-webkit-box-pack:center;-webkit-justify-content:center;-ms-flex-pack:center;justify-content:center;}.button.jsx-277360442{padding-right:10px;}}",
+              ".root.jsx-4067610709{width:100%;height:142px;box-size:border-box;padding:0;box-shadow:0px 0px 8px 1px rgba(65,86,113,.2);color:#415671;list-style-type:none;background:url(https://vega.slooh.com/assets/v4/common/LightBlueDiamondPattern_NO_TEXTURE.png);background-size:30px;-webkit-transition:width,height 0.15s ease-out;transition:width,height 0.15s ease-out;}",
+              ".container.jsx-4067610709{width:80%;margin:0 auto;}",
+              ".icon-container.jsx-4067610709{display:none;}",
+              ".center-line.jsx-4067610709{border-right:1px solid #D9DEE4;width:50%;height:60px;}",
+              ".border.jsx-4067610709{width:115px;height:115px;border:1px dashed #D9DEE4;border-radius:50%;margin:0 auto;position:relative;}",
+              ".icon.jsx-4067610709{position:absolute;width:100px;height:100px;margin:0 auto;border-radius:50%;background:url(https://vega.slooh.com/assets/v4/common/Darkest_Pattern_Canvas.png);top:50%;left:50%;-webkit-transform:translate(-50%,-50%);-ms-transform:translate(-50%,-50%);transform:translate(-50%,-50%);}",
+              ".icon-content.jsx-4067610709{position:absolute;top:50%;left:50%;-webkit-transform:translate(-50%,-50%);-ms-transform:translate(-50%,-50%);transform:translate(-50%,-50%);}",
+              ".title.jsx-4067610709{padding:30px 0 20px 0;margin:0;font-size:14px;font-family:adobe-garamond-pro, serif;font-weight:300;font-size:18px;border-bottom:1px solid #D9DEE4;}",
+              ".button-container.jsx-4067610709{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;padding-top:20px;}",
+              ".button-container.jsx-4067610709 a{display:block;padding:0;color:#415671;-webkit-text-decoration:none;text-decoration:none;text-transform:uppercase;font-family:brandon-grotesque, sans-serif;font-size:10px;font-weight:bold;-webkit-letter-spacing:2px;-moz-letter-spacing:2px;-ms-letter-spacing:2px;letter-spacing:2px;}",
+              "@media screen and (min-width: 768px){.root.jsx-4067610709{width:300px;height:332px;text-align:center;}.icon-container.jsx-4067610709{display:block;}.title.jsx-4067610709{border-bottom:none;padding-top:50px;padding-bottom:0;}.button-container.jsx-4067610709{-webkit-box-pack:center;-webkit-justify-content:center;-ms-flex-pack:center;justify-content:center;}.button-container.jsx-4067610709 a{padding-right:10px;}}",
             ],
-            "styleId": "277360442",
+            "styleId": "4067610709",
           },
           "ref": null,
           "rendered": null,
