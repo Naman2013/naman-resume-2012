@@ -5,7 +5,7 @@ import InAppNavigation from 'components/common/InAppNavigation';
 import TopicContent from 'components/guides/TopicContent';
 import SterlingTitle from 'components/common/titles/SterlingTitle';
 import TopicList from 'components/guides/TopicList';
-import { GUIDE_ENDPOINT_URL } from 'services/guides/guide-data';
+import { GUIDE_ENDPOINT_URL, GUIDE_PANEL_ENPOINT_URL } from 'services/guides/guide-data';
 import { SAMPLE_IMAGE_HTML_BLOB, SAMPLE_VIDEO_HTML_BLOB } from '../../../stories/content/getGuidesPanels';
 
 const TEST_PANEL_LIST = [
@@ -55,6 +55,13 @@ const subjectGuideModel = {
   }),
 };
 
+const guidePanelsModel = {
+  name: 'GUIDE_PANELS',
+  model: resp => ({
+    topicListProps: { list: resp.panelList },
+  }),
+};
+
 const TopicGuides = ({ params: { guideId } }) => (
   <div>
     <Request
@@ -85,7 +92,20 @@ const TopicGuides = ({ params: { guideId } }) => (
                 </div>
                 <TopicContent {...SUBJECT_GUIDE_MODEL.topicContentProps} />
                 <SterlingTitle {...SUBJECT_GUIDE_MODEL.sterlingTitleProps} />
-                <TopicList {...SUBJECT_GUIDE_MODEL.topicListProps} />
+
+                <Request
+                  serviceURL={GUIDE_PANEL_ENPOINT_URL}
+                  model={guidePanelsModel}
+                  requestBody={{ guideId }}
+                  render={guidePanelResults => (
+                    <Fragment>
+                      {
+                        !guidePanelResults.fetchingContent &&
+                          <TopicList {...guidePanelResults.modeledResponses.GUIDE_PANELS.topicListProps} />
+                      }
+                    </Fragment>
+                  )}
+                />
               </Fragment>
           }
         </Fragment>
@@ -95,9 +115,9 @@ const TopicGuides = ({ params: { guideId } }) => (
 );
 
 TopicGuides.propTypes = {
-  params: {
+  params: PropTypes.shape({
     guideId: PropTypes.string.isRequired,
-  },
+  }).isRequired,
 };
 
 export default TopicGuides;
