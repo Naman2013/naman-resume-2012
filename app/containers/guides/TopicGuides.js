@@ -101,7 +101,9 @@ const TopicGuides = ({ params: { guideId } }) => (
                     <Fragment>
                       {
                         !guidePanelResults.fetchingContent &&
-                          <TopicList {...guidePanelResults.modeledResponses.GUIDE_PANELS.topicListProps} />
+                          <TopicList
+                            {...guidePanelResults.modeledResponses.GUIDE_PANELS.topicListProps}
+                          />
                       }
                     </Fragment>
                   )}
