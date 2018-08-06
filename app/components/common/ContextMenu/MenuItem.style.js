@@ -18,7 +18,7 @@ export default css`
   top: 43px;
 }
 
-.action {
+.menu-item :global(a) {
   display: block;
   padding-bottom: 30px;
   padding-top: 40px;
@@ -29,5 +29,13 @@ export default css`
   text-transform: capitalize;
   text-decoration: none;
   color: ${astronaut};
+}
+
+.menu-item :global(a .dot-container) {
+  opacity: 0;
+}
+
+.menu-item :global(a.active .dot-container) {
+  opacity: 1;
 }
 `;

@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import PropTypes from 'prop-types';
 import Request from 'components/common/network/Request';
 import CenterColumn from 'components/common/CenterColumn';
 import TiaraTitleSection from 'components/common/TiaraTitleSection';
@@ -50,11 +51,11 @@ const guidePageModel = {
   }),
 };
 
-const Guides = () => (
+const Guides = ({ params: { guideId } }) => (
   <Request
     serviceURL={GUIDE_ENDPOINT_URL}
     model={guidePageModel}
-    requestBody={{ guideId: 37 }}
+    requestBody={{ guideId }}
     render={({
       fetchingContent,
       modeledResponses: { GUIDE_PAGE_MODEL },
@@ -80,5 +81,11 @@ const Guides = () => (
     )}
   />
 );
+
+Guides.propTypes = {
+  params: PropTypes.shape({
+    guideId: PropTypes.string.isRequired,
+  }).isRequired,
+};
 
 export default Guides;

@@ -67,16 +67,17 @@ ShallowWrapper {
           >
             <h5
               className="jsx-1455065717 jsx-2010396083 context-header"
-            >
-              Sample title
-            </h5>
+            />
             <p
               className="jsx-1455065717 jsx-2010396083 available-sections"
             >
-              ( 8 )
+              ( 
+               )
             </p>
           </div>
-          <Menu />
+          <Menu
+            list={undefined}
+          />
         </div>,
         <JSXStyle
           css={
@@ -210,16 +211,17 @@ ShallowWrapper {
             >
               <h5
                 className="jsx-1455065717 jsx-2010396083 context-header"
-              >
-                Sample title
-              </h5>
+              />
               <p
                 className="jsx-1455065717 jsx-2010396083 available-sections"
               >
-                ( 8 )
+                ( 
+                 )
               </p>
             </div>,
-            <Menu />,
+            <Menu
+              list={undefined}
+            />,
           ],
           "className": "jsx-1455065717 jsx-2010396083 menu-container",
           "style": Object {
@@ -236,13 +238,12 @@ ShallowWrapper {
               "children": Array [
                 <h5
                   className="jsx-1455065717 jsx-2010396083 context-header"
-                >
-                  Sample title
-                </h5>,
+                />,
                 <p
                   className="jsx-1455065717 jsx-2010396083 available-sections"
                 >
-                  ( 8 )
+                  ( 
+                   )
                 </p>,
               ],
               "className": "jsx-1455065717 jsx-2010396083 header-container",
@@ -254,11 +255,11 @@ ShallowWrapper {
                 "key": undefined,
                 "nodeType": "host",
                 "props": Object {
-                  "children": "Sample title",
+                  "children": undefined,
                   "className": "jsx-1455065717 jsx-2010396083 context-header",
                 },
                 "ref": null,
-                "rendered": "Sample title",
+                "rendered": null,
                 "type": "h5",
               },
               Object {
@@ -266,11 +267,19 @@ ShallowWrapper {
                 "key": undefined,
                 "nodeType": "host",
                 "props": Object {
-                  "children": "( 8 )",
+                  "children": Array [
+                    "( ",
+                    undefined,
+                    " )",
+                  ],
                   "className": "jsx-1455065717 jsx-2010396083 available-sections",
                 },
                 "ref": null,
-                "rendered": "( 8 )",
+                "rendered": Array [
+                  "( ",
+                  undefined,
+                  " )",
+                ],
                 "type": "p",
               },
             ],
@@ -280,7 +289,9 @@ ShallowWrapper {
             "instance": null,
             "key": undefined,
             "nodeType": "function",
-            "props": Object {},
+            "props": Object {
+              "list": undefined,
+            },
             "ref": null,
             "rendered": null,
             "type": [Function],
@@ -382,16 +393,17 @@ ShallowWrapper {
             >
               <h5
                 className="jsx-1455065717 jsx-2010396083 context-header"
-              >
-                Sample title
-              </h5>
+              />
               <p
                 className="jsx-1455065717 jsx-2010396083 available-sections"
               >
-                ( 8 )
+                ( 
+                 )
               </p>
             </div>
-            <Menu />
+            <Menu
+              list={undefined}
+            />
           </div>,
           <JSXStyle
             css={
@@ -525,16 +537,17 @@ ShallowWrapper {
               >
                 <h5
                   className="jsx-1455065717 jsx-2010396083 context-header"
-                >
-                  Sample title
-                </h5>
+                />
                 <p
                   className="jsx-1455065717 jsx-2010396083 available-sections"
                 >
-                  ( 8 )
+                  ( 
+                   )
                 </p>
               </div>,
-              <Menu />,
+              <Menu
+                list={undefined}
+              />,
             ],
             "className": "jsx-1455065717 jsx-2010396083 menu-container",
             "style": Object {
@@ -551,13 +564,12 @@ ShallowWrapper {
                 "children": Array [
                   <h5
                     className="jsx-1455065717 jsx-2010396083 context-header"
-                  >
-                    Sample title
-                  </h5>,
+                  />,
                   <p
                     className="jsx-1455065717 jsx-2010396083 available-sections"
                   >
-                    ( 8 )
+                    ( 
+                     )
                   </p>,
                 ],
                 "className": "jsx-1455065717 jsx-2010396083 header-container",
@@ -569,11 +581,11 @@ ShallowWrapper {
                   "key": undefined,
                   "nodeType": "host",
                   "props": Object {
-                    "children": "Sample title",
+                    "children": undefined,
                     "className": "jsx-1455065717 jsx-2010396083 context-header",
                   },
                   "ref": null,
-                  "rendered": "Sample title",
+                  "rendered": null,
                   "type": "h5",
                 },
                 Object {
@@ -581,11 +593,19 @@ ShallowWrapper {
                   "key": undefined,
                   "nodeType": "host",
                   "props": Object {
-                    "children": "( 8 )",
+                    "children": Array [
+                      "( ",
+                      undefined,
+                      " )",
+                    ],
                     "className": "jsx-1455065717 jsx-2010396083 available-sections",
                   },
                   "ref": null,
-                  "rendered": "( 8 )",
+                  "rendered": Array [
+                    "( ",
+                    undefined,
+                    " )",
+                  ],
                   "type": "p",
                 },
               ],
@@ -595,7 +615,9 @@ ShallowWrapper {
               "instance": null,
               "key": undefined,
               "nodeType": "function",
-              "props": Object {},
+              "props": Object {
+                "list": undefined,
+              },
               "ref": null,
               "rendered": null,
               "type": [Function],
@@ -659,7 +681,16 @@ exports[`Menu should render correctly 1`] = `
 ShallowWrapper {
   "length": 1,
   Symbol(enzyme.__root__): [Circular],
-  Symbol(enzyme.__unrendered__): <Menu />,
+  Symbol(enzyme.__unrendered__): <Menu
+    list={
+      Array [
+        Object {
+          "linkURL": "#",
+          "title": "foo",
+        },
+      ]
+    }
+  />,
   Symbol(enzyme.__renderer__): Object {
     "batchedUpdates": [Function],
     "getNode": [Function],
@@ -673,7 +704,12 @@ ShallowWrapper {
     "nodeType": "host",
     "props": Object {
       "children": Array [
-        <MenuItem />,
+        Array [
+          <MenuItem
+            linkURL="#"
+            title="foo"
+          />,
+        ],
         <JSXStyle
           css={
             Array [
@@ -689,9 +725,12 @@ ShallowWrapper {
     "rendered": Array [
       Object {
         "instance": null,
-        "key": undefined,
+        "key": "context-menu-foo",
         "nodeType": "function",
-        "props": Object {},
+        "props": Object {
+          "linkURL": "#",
+          "title": "foo",
+        },
         "ref": null,
         "rendered": null,
         "type": [Function],
@@ -720,7 +759,12 @@ ShallowWrapper {
       "nodeType": "host",
       "props": Object {
         "children": Array [
-          <MenuItem />,
+          Array [
+            <MenuItem
+              linkURL="#"
+              title="foo"
+            />,
+          ],
           <JSXStyle
             css={
               Array [
@@ -736,9 +780,12 @@ ShallowWrapper {
       "rendered": Array [
         Object {
           "instance": null,
-          "key": undefined,
+          "key": "context-menu-foo",
           "nodeType": "function",
-          "props": Object {},
+          "props": Object {
+            "linkURL": "#",
+            "title": "foo",
+          },
           "ref": null,
           "rendered": null,
           "type": [Function],
@@ -790,35 +837,38 @@ ShallowWrapper {
     "props": Object {
       "children": Array [
         <li
-          className="jsx-1734102901 menu-item"
+          className="jsx-3109833365 menu-item"
         >
-          <span
-            className="jsx-1734102901 dot-container"
+          <Link
+            activeClassName="active"
+            onlyActiveOnIndex={false}
+            style={Object {}}
+            to={undefined}
           >
-            <MiraDot
-              theme={
-                Object {
-                  "dimension": 10,
+            <span
+              className="jsx-3109833365 dot-container"
+            >
+              <MiraDot
+                theme={
+                  Object {
+                    "dimension": 10,
+                  }
                 }
-              }
-            />
-          </span>
-          <a
-            className="jsx-1734102901 action"
-            href="#"
-          >
-            Astronomical Time
-          </a>
+              />
+            </span>
+          </Link>
         </li>,
         <JSXStyle
           css={
             Array [
-              ".menu-item.jsx-1734102901{position:relative;margin:0;padding:0;margin-left:70px;width:75%;color:#415671;}",
-              ".dot-container.jsx-1734102901{position:absolute;left:-50px;top:43px;}",
-              ".action.jsx-1734102901{display:block;padding-bottom:30px;padding-top:40px;margin-left:-15px;padding-left:20px;font-family:adobe-garamond-pro, serif;border-bottom:1px solid #d9dee5;text-transform:capitalize;-webkit-text-decoration:none;text-decoration:none;color:#415671;}",
+              ".menu-item.jsx-3109833365{position:relative;margin:0;padding:0;margin-left:70px;width:75%;color:#415671;}",
+              ".dot-container.jsx-3109833365{position:absolute;left:-50px;top:43px;}",
+              ".menu-item.jsx-3109833365 a{display:block;padding-bottom:30px;padding-top:40px;margin-left:-15px;padding-left:20px;font-family:adobe-garamond-pro, serif;border-bottom:1px solid #d9dee5;text-transform:capitalize;-webkit-text-decoration:none;text-decoration:none;color:#415671;}",
+              ".menu-item.jsx-3109833365 a .dot-container{opacity:0;}",
+              ".menu-item.jsx-3109833365 a.active .dot-container{opacity:1;}",
             ]
           }
-          styleId="1734102901"
+          styleId="3109833365"
         />,
       ],
     },
@@ -829,106 +879,14 @@ ShallowWrapper {
         "key": undefined,
         "nodeType": "host",
         "props": Object {
-          "children": Array [
-            <span
-              className="jsx-1734102901 dot-container"
-            >
-              <MiraDot
-                theme={
-                  Object {
-                    "dimension": 10,
-                  }
-                }
-              />
-            </span>,
-            <a
-              className="jsx-1734102901 action"
-              href="#"
-            >
-              Astronomical Time
-            </a>,
-          ],
-          "className": "jsx-1734102901 menu-item",
-        },
-        "ref": null,
-        "rendered": Array [
-          Object {
-            "instance": null,
-            "key": undefined,
-            "nodeType": "host",
-            "props": Object {
-              "children": <MiraDot
-                theme={
-                  Object {
-                    "dimension": 10,
-                  }
-                }
-              />,
-              "className": "jsx-1734102901 dot-container",
-            },
-            "ref": null,
-            "rendered": Object {
-              "instance": null,
-              "key": undefined,
-              "nodeType": "function",
-              "props": Object {
-                "theme": Object {
-                  "dimension": 10,
-                },
-              },
-              "ref": null,
-              "rendered": null,
-              "type": [Function],
-            },
-            "type": "span",
-          },
-          Object {
-            "instance": null,
-            "key": undefined,
-            "nodeType": "host",
-            "props": Object {
-              "children": "Astronomical Time",
-              "className": "jsx-1734102901 action",
-              "href": "#",
-            },
-            "ref": null,
-            "rendered": "Astronomical Time",
-            "type": "a",
-          },
-        ],
-        "type": "li",
-      },
-      Object {
-        "instance": null,
-        "key": undefined,
-        "nodeType": "class",
-        "props": Object {
-          "css": Array [
-            ".menu-item.jsx-1734102901{position:relative;margin:0;padding:0;margin-left:70px;width:75%;color:#415671;}",
-            ".dot-container.jsx-1734102901{position:absolute;left:-50px;top:43px;}",
-            ".action.jsx-1734102901{display:block;padding-bottom:30px;padding-top:40px;margin-left:-15px;padding-left:20px;font-family:adobe-garamond-pro, serif;border-bottom:1px solid #d9dee5;text-transform:capitalize;-webkit-text-decoration:none;text-decoration:none;color:#415671;}",
-          ],
-          "styleId": "1734102901",
-        },
-        "ref": null,
-        "rendered": null,
-        "type": [Function],
-      },
-    ],
-    "type": Symbol(react.fragment),
-  },
-  Symbol(enzyme.__nodes__): Array [
-    Object {
-      "instance": null,
-      "key": undefined,
-      "nodeType": "function",
-      "props": Object {
-        "children": Array [
-          <li
-            className="jsx-1734102901 menu-item"
+          "children": <Link
+            activeClassName="active"
+            onlyActiveOnIndex={false}
+            style={Object {}}
+            to={undefined}
           >
             <span
-              className="jsx-1734102901 dot-container"
+              className="jsx-3109833365 dot-container"
             >
               <MiraDot
                 theme={
@@ -938,35 +896,19 @@ ShallowWrapper {
                 }
               />
             </span>
-            <a
-              className="jsx-1734102901 action"
-              href="#"
-            >
-              Astronomical Time
-            </a>
-          </li>,
-          <JSXStyle
-            css={
-              Array [
-                ".menu-item.jsx-1734102901{position:relative;margin:0;padding:0;margin-left:70px;width:75%;color:#415671;}",
-                ".dot-container.jsx-1734102901{position:absolute;left:-50px;top:43px;}",
-                ".action.jsx-1734102901{display:block;padding-bottom:30px;padding-top:40px;margin-left:-15px;padding-left:20px;font-family:adobe-garamond-pro, serif;border-bottom:1px solid #d9dee5;text-transform:capitalize;-webkit-text-decoration:none;text-decoration:none;color:#415671;}",
-              ]
-            }
-            styleId="1734102901"
-          />,
-        ],
-      },
-      "ref": null,
-      "rendered": Array [
-        Object {
+          </Link>,
+          "className": "jsx-3109833365 menu-item",
+        },
+        "ref": null,
+        "rendered": Object {
           "instance": null,
           "key": undefined,
-          "nodeType": "host",
+          "nodeType": "class",
           "props": Object {
+            "activeClassName": "active",
             "children": Array [
               <span
-                className="jsx-1734102901 dot-container"
+                className="jsx-3109833365 dot-container"
               >
                 <MiraDot
                   theme={
@@ -976,14 +918,11 @@ ShallowWrapper {
                   }
                 />
               </span>,
-              <a
-                className="jsx-1734102901 action"
-                href="#"
-              >
-                Astronomical Time
-              </a>,
+              undefined,
             ],
-            "className": "jsx-1734102901 menu-item",
+            "onlyActiveOnIndex": false,
+            "style": Object {},
+            "to": undefined,
           },
           "ref": null,
           "rendered": Array [
@@ -999,7 +938,7 @@ ShallowWrapper {
                     }
                   }
                 />,
-                "className": "jsx-1734102901 dot-container",
+                "className": "jsx-3109833365 dot-container",
               },
               "ref": null,
               "rendered": Object {
@@ -1017,20 +956,164 @@ ShallowWrapper {
               },
               "type": "span",
             },
-            Object {
-              "instance": null,
-              "key": undefined,
-              "nodeType": "host",
-              "props": Object {
-                "children": "Astronomical Time",
-                "className": "jsx-1734102901 action",
-                "href": "#",
-              },
-              "ref": null,
-              "rendered": "Astronomical Time",
-              "type": "a",
-            },
+            undefined,
           ],
+          "type": [Function],
+        },
+        "type": "li",
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
+          "css": Array [
+            ".menu-item.jsx-3109833365{position:relative;margin:0;padding:0;margin-left:70px;width:75%;color:#415671;}",
+            ".dot-container.jsx-3109833365{position:absolute;left:-50px;top:43px;}",
+            ".menu-item.jsx-3109833365 a{display:block;padding-bottom:30px;padding-top:40px;margin-left:-15px;padding-left:20px;font-family:adobe-garamond-pro, serif;border-bottom:1px solid #d9dee5;text-transform:capitalize;-webkit-text-decoration:none;text-decoration:none;color:#415671;}",
+            ".menu-item.jsx-3109833365 a .dot-container{opacity:0;}",
+            ".menu-item.jsx-3109833365 a.active .dot-container{opacity:1;}",
+          ],
+          "styleId": "3109833365",
+        },
+        "ref": null,
+        "rendered": null,
+        "type": [Function],
+      },
+    ],
+    "type": Symbol(react.fragment),
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "function",
+      "props": Object {
+        "children": Array [
+          <li
+            className="jsx-3109833365 menu-item"
+          >
+            <Link
+              activeClassName="active"
+              onlyActiveOnIndex={false}
+              style={Object {}}
+              to={undefined}
+            >
+              <span
+                className="jsx-3109833365 dot-container"
+              >
+                <MiraDot
+                  theme={
+                    Object {
+                      "dimension": 10,
+                    }
+                  }
+                />
+              </span>
+            </Link>
+          </li>,
+          <JSXStyle
+            css={
+              Array [
+                ".menu-item.jsx-3109833365{position:relative;margin:0;padding:0;margin-left:70px;width:75%;color:#415671;}",
+                ".dot-container.jsx-3109833365{position:absolute;left:-50px;top:43px;}",
+                ".menu-item.jsx-3109833365 a{display:block;padding-bottom:30px;padding-top:40px;margin-left:-15px;padding-left:20px;font-family:adobe-garamond-pro, serif;border-bottom:1px solid #d9dee5;text-transform:capitalize;-webkit-text-decoration:none;text-decoration:none;color:#415671;}",
+                ".menu-item.jsx-3109833365 a .dot-container{opacity:0;}",
+                ".menu-item.jsx-3109833365 a.active .dot-container{opacity:1;}",
+              ]
+            }
+            styleId="3109833365"
+          />,
+        ],
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": <Link
+              activeClassName="active"
+              onlyActiveOnIndex={false}
+              style={Object {}}
+              to={undefined}
+            >
+              <span
+                className="jsx-3109833365 dot-container"
+              >
+                <MiraDot
+                  theme={
+                    Object {
+                      "dimension": 10,
+                    }
+                  }
+                />
+              </span>
+            </Link>,
+            "className": "jsx-3109833365 menu-item",
+          },
+          "ref": null,
+          "rendered": Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "class",
+            "props": Object {
+              "activeClassName": "active",
+              "children": Array [
+                <span
+                  className="jsx-3109833365 dot-container"
+                >
+                  <MiraDot
+                    theme={
+                      Object {
+                        "dimension": 10,
+                      }
+                    }
+                  />
+                </span>,
+                undefined,
+              ],
+              "onlyActiveOnIndex": false,
+              "style": Object {},
+              "to": undefined,
+            },
+            "ref": null,
+            "rendered": Array [
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": <MiraDot
+                    theme={
+                      Object {
+                        "dimension": 10,
+                      }
+                    }
+                  />,
+                  "className": "jsx-3109833365 dot-container",
+                },
+                "ref": null,
+                "rendered": Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "function",
+                  "props": Object {
+                    "theme": Object {
+                      "dimension": 10,
+                    },
+                  },
+                  "ref": null,
+                  "rendered": null,
+                  "type": [Function],
+                },
+                "type": "span",
+              },
+              undefined,
+            ],
+            "type": [Function],
+          },
           "type": "li",
         },
         Object {
@@ -1039,11 +1122,13 @@ ShallowWrapper {
           "nodeType": "class",
           "props": Object {
             "css": Array [
-              ".menu-item.jsx-1734102901{position:relative;margin:0;padding:0;margin-left:70px;width:75%;color:#415671;}",
-              ".dot-container.jsx-1734102901{position:absolute;left:-50px;top:43px;}",
-              ".action.jsx-1734102901{display:block;padding-bottom:30px;padding-top:40px;margin-left:-15px;padding-left:20px;font-family:adobe-garamond-pro, serif;border-bottom:1px solid #d9dee5;text-transform:capitalize;-webkit-text-decoration:none;text-decoration:none;color:#415671;}",
+              ".menu-item.jsx-3109833365{position:relative;margin:0;padding:0;margin-left:70px;width:75%;color:#415671;}",
+              ".dot-container.jsx-3109833365{position:absolute;left:-50px;top:43px;}",
+              ".menu-item.jsx-3109833365 a{display:block;padding-bottom:30px;padding-top:40px;margin-left:-15px;padding-left:20px;font-family:adobe-garamond-pro, serif;border-bottom:1px solid #d9dee5;text-transform:capitalize;-webkit-text-decoration:none;text-decoration:none;color:#415671;}",
+              ".menu-item.jsx-3109833365 a .dot-container{opacity:0;}",
+              ".menu-item.jsx-3109833365 a.active .dot-container{opacity:1;}",
             ],
-            "styleId": "1734102901",
+            "styleId": "3109833365",
           },
           "ref": null,
           "rendered": null,

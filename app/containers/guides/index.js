@@ -1,3 +1,3 @@
-import Guides from './Guides';
+import ObjectCategoryGuide from './ObjectCategoryGuide';
 
-export default Guides;
+export default ObjectCategoryGuide;

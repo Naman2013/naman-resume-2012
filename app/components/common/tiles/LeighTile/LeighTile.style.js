@@ -32,7 +32,7 @@ export default css`
     padding-top: 20px;
   }
 
-  .action {
+  .action-container :global(a) {
     margin: 0;
     padding: 0;
     font-family: ${primaryFont};
