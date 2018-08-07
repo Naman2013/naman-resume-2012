@@ -36,6 +36,7 @@ const subjectGuideModel = {
       contextMenuCount: resp.chapterNavigationInfo.chapterCount,
       list: resp
         .chapterNavigationInfo
+	.chapterList
         .map(chapter => ({ title: chapter.guideTitle, linkURL: chapter.link })),
     },
     topicContentProps: {
