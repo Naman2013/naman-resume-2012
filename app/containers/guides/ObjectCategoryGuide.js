@@ -44,7 +44,7 @@ const guidePageModel = {
       subTitle: 'Select an Object for more information',
     },
     guideTopicsProps: {
-      list: resp.chapterNavigationInfo.map(chapter => ({
+      list: resp.chapterNavigationInfo.chapterList.map(chapter => ({
         title: chapter.guideTitle,
         iconURL: chapter.guideIconURL,
         linkURL: chapter.link,
