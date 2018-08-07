@@ -5,7 +5,7 @@ import InAppNavigation from 'components/common/InAppNavigation';
 import TopicContent from 'components/guides/TopicContent';
 import SterlingTitle from 'components/common/titles/SterlingTitle';
 import TopicList from 'components/guides/TopicList';
-import { GUIDE_ENDPOINT_URL, GUIDE_PANEL_ENPOINT_URL } from 'services/guides/guide-data';
+import { GUIDE_ENDPOINT_URL, GUIDE_PANEL_ENDPOINT_URL } from 'services/guides/guide-data';
 import { SAMPLE_IMAGE_HTML_BLOB, SAMPLE_VIDEO_HTML_BLOB } from '../../../stories/content/getGuidesPanels';
 
 const TEST_PANEL_LIST = [
@@ -93,7 +93,7 @@ const TopicGuides = ({ params: { guideId } }) => (
                 <TopicContent {...SUBJECT_GUIDE_MODEL.topicContentProps} />
 
                 <Request
-                  serviceURL={GUIDE_PANEL_ENPOINT_URL}
+                  serviceURL={GUIDE_PANEL_ENDPOINT_URL}
                   model={guidePanelsModel}
                   requestBody={{ guideId }}
                   render={guidePanelResults => (

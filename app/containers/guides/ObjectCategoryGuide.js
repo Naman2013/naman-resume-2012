@@ -9,12 +9,7 @@ import GuideContentList from 'components/guides/GuideContentList';
 import FeaturedGallery from 'components/guides/FeaturedGallery';
 import SterlingTitle from 'components/common/titles/SterlingTitle';
 import GuideTopics from 'components/guides/GuideTopics';
-import { GUIDE_ENDPOINT_URL } from 'services/guides/guide-data';
-
-const bodyContent = `Mauris non tempor quam, et lacinia sapien. Mauris accumsan eros eget libero lorem posuere vulputate. Etiam elit elit, elementum sed varius at, adipiscing evitae est. Sed nec felis loren posuere posuere, rutrum eu ipsum. Aliquam eget odio sed ligula dolae iaculis consequat at eget orci. Mauris moleistie sit amet metus loi mass imattis varius Donec sit amet ligula eget nisi sodales lorem a molestie bibendum. Etiam nisi anteni consectetur eget placerat a, tempus a neque. Donec ut elit urna. Etiam venenatis leni eleifend urna eget scelerisqueliquam in nunc.
-
-Donec sit amet ligula eget nisi sodales egestas. Aliquam interdum dolor aliquet dolor  iaculis consequat at eget orci. Mauris moleistie sit amet metus loi mass imattis varius Donec sit amet ligula eget nisi sodales lorem a molestie bibendum. Etiam nisi anteni
-posuere vulputate. Etiam elit elit, elementum sed varius at.`;
+import { GUIDE_ENDPOINT_URL, GUIDE_OBJECTS_ENDPOINT_URL } from 'services/guides/guide-data';
 
 const guidePageModel = {
   name: 'GUIDE_PAGE_MODEL',
@@ -53,6 +48,19 @@ const guidePageModel = {
   }),
 };
 
+const guideObjectsModel = {
+  name: 'GUIDE_OBJECTS',
+  model: resp => ({
+    guideTopicsProps: {
+      list: resp.objectList.map(spaceObject => ({
+        title: spaceObject.popularName,
+        iconURL: spaceObject.iconURL,
+        linkURL: spaceObject.link,
+      })),
+    },
+  }),
+};
+
 const Guides = ({ params: { guideId } }) => (
   <Request
     serviceURL={GUIDE_ENDPOINT_URL}
@@ -75,8 +83,20 @@ const Guides = ({ params: { guideId } }) => (
               <FeaturedGallery />
 
               <SterlingTitle {...GUIDE_PAGE_MODEL.sterlingTitleProps} />
+              <Request
+                serviceURL={GUIDE_OBJECTS_ENDPOINT_URL}
+                model={guideObjectsModel}
+                requestBody={{ guideId }}
+                render={results => (
+                  <Fragment>
+                    {
+                      !results.fetchingContent &&
+                        <GuideTopics {...results.modeledResponses.GUIDE_OBJECTS.guideTopicsProps} />
+                    }
+                  </Fragment>
 
-              <GuideTopics {...GUIDE_PAGE_MODEL.guideTopicsProps} />
+                )}
+              />
             </Fragment>
         }
       </div>
