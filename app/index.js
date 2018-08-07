@@ -43,9 +43,6 @@ import ObjectDetailsQuests from './containers/object-details/ObjectDetailsQuests
 import ObjectDetailsStories from './containers/object-details/ObjectDetailsStories';
 import ObjectDetailsShows from './containers/object-details/ObjectDetailsShows';
 import ObjectDetailsObservations from './containers/object-details/ObjectDetailsObservations';
-import ObjectCategoryGuide from './containers/guides/ObjectCategoryGuide';
-import SubjectGuides from './containers/guides/SubjectGuides';
-import TopicGuides from './containers/guides/TopicGuides';
 
 // pages
 import TelescopeOverview from './pages/telescope-overview';
@@ -105,6 +102,10 @@ import NewDiscussionsThread from './pages/discussions/threads/NewDiscussionsThre
 import DiscussionsReplyTo from './pages/discussions/replies/DiscussionsReplyTo';
 import DiscussionsThreadWrapper from './pages/discussions/threads/DiscussionsThreadWrapper';
 import DiscussionsTopicsList from './pages/discussions/topics/DiscussionsTopicsList';
+
+import ObjectCategoryGuide from './containers/guides/ObjectCategoryGuide';
+import SubjectGuides from './containers/guides/SubjectGuides';
+import TopicGuides from './containers/guides/TopicGuides';
 
 import Landing from './pages/landing/Landing';
 
