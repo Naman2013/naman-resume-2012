@@ -25,7 +25,9 @@ const guidePageModel = {
       iconURL: resp.guideIconURL,
     },
     guideSectionProps: {
-      content: () => <GuideBodyContent title="About this guide" content={bodyContent} />,
+      content: () => (
+        <GuideBodyContent title={resp.AboutThisTitle} content={resp.AboutThisContent} />
+      ),
       column: () => (
         <GuideContentList
           list={[

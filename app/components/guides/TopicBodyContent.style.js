@@ -12,7 +12,7 @@ export default css`
     padding: 15px 0;
   }
 
-  p {
+  .root :global(p) {
     font-family: ${secondaryFont};
     line-height: 1.5;
     font-size: 18px;

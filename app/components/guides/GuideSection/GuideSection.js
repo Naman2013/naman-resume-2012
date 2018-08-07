@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import noop from 'lodash/noop';
-import { screenMedium, screenLarge, screenXLarge } from '../../../styles/variables/breakpoints';
+import { screenLarge } from '../../../styles/variables/breakpoints';
 import style from './GuideSection.style';
 
 const LEFT = 'left';

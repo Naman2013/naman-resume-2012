@@ -36,7 +36,6 @@ const subjectGuideModel = {
       contextMenuCount: resp.chapterNavigationInfo.chapterCount,
       list: resp
         .chapterNavigationInfo
-        .chapterList
         .map(chapter => ({ title: chapter.guideTitle, linkURL: chapter.link })),
     },
     topicContentProps: {
@@ -44,10 +43,6 @@ const subjectGuideModel = {
       topicContentList: [resp.guideBulletPoint1, resp.guideBulletPoint2, resp.guideBulletPoint3],
       aboutTitle: resp.AboutThisTitle,
       aboutContent: resp.AboutThisContent,
-    },
-    sterlingTitleProps: {
-      title: resp.topicHeading1,
-      subTitle: resp.topicHeading2,
     },
     topicListProps: {
       list: TEST_PANEL_LIST,
@@ -59,6 +54,10 @@ const guidePanelsModel = {
   name: 'GUIDE_PANELS',
   model: resp => ({
     topicListProps: { list: resp.panelList },
+    sterlingTitleProps: {
+      title: resp.panelHeading1,
+      subTitle: resp.panelHeading2,
+    },
   }),
 };
 
@@ -91,7 +90,6 @@ const TopicGuides = ({ params: { guideId } }) => (
                   TODO - ADD HEADER FROM MATT
                 </div>
                 <TopicContent {...SUBJECT_GUIDE_MODEL.topicContentProps} />
-                <SterlingTitle {...SUBJECT_GUIDE_MODEL.sterlingTitleProps} />
 
                 <Request
                   serviceURL={GUIDE_PANEL_ENPOINT_URL}
@@ -101,7 +99,15 @@ const TopicGuides = ({ params: { guideId } }) => (
                     <Fragment>
                       {
                         !guidePanelResults.fetchingContent &&
-                          <TopicList {...guidePanelResults.modeledResponses.GUIDE_PANELS.topicListProps} />
+                          <Fragment>
+                            <SterlingTitle
+                              {...guidePanelResults
+                                .modeledResponses.GUIDE_PANELS.sterlingTitleProps}
+                            />
+                            <TopicList
+                              {...guidePanelResults.modeledResponses.GUIDE_PANELS.topicListProps}
+                            />
+                          </Fragment>
                       }
                     </Fragment>
                   )}
