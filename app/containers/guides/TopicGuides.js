@@ -5,7 +5,7 @@ import InAppNavigation from 'components/common/InAppNavigation';
 import TopicContent from 'components/guides/TopicContent';
 import SterlingTitle from 'components/common/titles/SterlingTitle';
 import TopicList from 'components/guides/TopicList';
-import { GUIDE_ENDPOINT_URL, GUIDE_PANEL_ENPOINT_URL } from 'services/guides/guide-data';
+import { GUIDE_ENDPOINT_URL, GUIDE_PANEL_ENDPOINT_URL } from 'services/guides/guide-data';
 import { SAMPLE_IMAGE_HTML_BLOB, SAMPLE_VIDEO_HTML_BLOB } from '../../../stories/content/getGuidesPanels';
 
 const TEST_PANEL_LIST = [
@@ -31,13 +31,14 @@ const subjectGuideModel = {
   name: 'SUBJECT_GUIDE_MODEL',
   model: resp => ({
     inAppNavigationProps: {
-      title: resp.guideTitle,
+      title: resp.chapterNavigationInfo.parentInfo.guideTitle,
       contextMenuTitle: resp.topicHeading1,
       contextMenuCount: resp.chapterNavigationInfo.chapterCount,
       list: resp
         .chapterNavigationInfo
-	.chapterList
+        .chapterList
         .map(chapter => ({ title: chapter.guideTitle, linkURL: chapter.link })),
+      backLinkURL: resp.chapterNavigationInfo.parentInfo.link,
     },
     topicContentProps: {
       title: resp.guideTitle,
@@ -93,7 +94,7 @@ const TopicGuides = ({ params: { guideId } }) => (
                 <TopicContent {...SUBJECT_GUIDE_MODEL.topicContentProps} />
 
                 <Request
-                  serviceURL={GUIDE_PANEL_ENPOINT_URL}
+                  serviceURL={GUIDE_PANEL_ENDPOINT_URL}
                   model={guidePanelsModel}
                   requestBody={{ guideId }}
                   render={guidePanelResults => (

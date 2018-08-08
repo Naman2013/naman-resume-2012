@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router';
 import ContextMenu from 'components/common/ContextMenu';
 import BackArrow from 'atoms/icons/BackArrow';
 import style from './InAppNavigation.style';
@@ -13,15 +14,20 @@ const InAppNavigation = ({
   list,
   isOpen,
   menuTopAdjustment,
+  backLinkURL,
 }) => (
   <div className="root">
     <div className="mobile-back-text-container">
-      <img className="icon-arrow" alt="" src={horizontalArrow} />
-      <p className="back-text">back{previousText && ` to ${previousText}`}</p>
+      <Link to={backLinkURL}>
+        <img className="icon-arrow" alt="" src={horizontalArrow} />
+        <p className="back-text">back{previousText && ` to ${previousText}`}</p>
+      </Link>
     </div>
 
     <div className="core-navigation-container">
-      <button className="back-arrow"><BackArrow /></button>
+      <span className="back-arrow">
+        <Link to={backLinkURL}><BackArrow /></Link>
+      </span>
       <h5 className="title">{title}</h5>
       <div className="context-menu-container">
         <ContextMenu
@@ -49,6 +55,7 @@ InAppNavigation.propTypes = {
   })).isRequired,
   isOpen: PropTypes.bool,
   menuTopAdjustment: PropTypes.number,
+  backLinkURL: PropTypes.string.isRequired,
 };
 
 InAppNavigation.defaultProps = {
