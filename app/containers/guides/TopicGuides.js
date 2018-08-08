@@ -31,7 +31,7 @@ const subjectGuideModel = {
   name: 'SUBJECT_GUIDE_MODEL',
   model: resp => ({
     inAppNavigationProps: {
-      title: resp.guideTitle,
+      title: resp.chapterNavigationInfo.parentInfo.guideTitle,
       contextMenuTitle: resp.topicHeading1,
       contextMenuCount: resp.chapterNavigationInfo.chapterCount,
       list: resp
