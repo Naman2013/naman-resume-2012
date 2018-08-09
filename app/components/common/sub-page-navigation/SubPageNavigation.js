@@ -11,7 +11,7 @@ import style from './SubPageNavigation.style';
 
 const SubPageNavigation = ({ items }) => (
   <Fragment>
-    <ul className="navigation">
+    <ul className="subnav">
       {
         items.map(item => (
           <li className="item" key={item.link}>

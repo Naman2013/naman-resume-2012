@@ -1,28 +1,38 @@
 import css from 'styled-jsx/css';
-import { primaryFont, secondaryFont } from '../../../styles/variables/fonts';
-import { midnight_express, nightfall, romance, glitter } from '../../../styles/variables/colors_tiles_v4';
-import { screenLarge } from '../../../styles/variables/breakpoints';
+import { nightfall, romance } from '../../../styles/variables/colors_tiles_v4';
+import { screenLarge, screenMedium } from '../../../styles/variables/breakpoints';
 
 export default css`
 
-  .navigation {
+  .subnav {
+    box-sizing: border-box; 
     display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    -ms-overflow-style: -ms-autohiding-scrollbar;   
+    text-align: left;
     background-color: ${nightfall};
     box-shadow: inset 0 40px 40px -7px rgba(0,0,0,0.3);
     height: 68px;
-    padding-top: 30px;
-    text-transform: uppercase;
-    font-size: 10px;
-    letter-spacing: 2px;
     margin: 0;
+    padding: 30px 0 0 0;
+    text-transform: uppercase;
+    font-size: 11px;
+    letter-spacing: 2px;
     transition: font-size 0.4s ease-in-out;
+    width: 100vw;
   }
 
+  .subnav::-webkit-scrollbar {
+    display: none;
+  }
+
+
   .item {
+    flex: 0 0 auto;
     list-style-type: none;
-    padding: 0 11px;
+    padding: 0 30px;
     color: #9CB4D2;
     transition: padding 0.4s ease-in-out;
   }
@@ -55,11 +65,25 @@ export default css`
     text-decoration: none;
   }
 
+  @media ${screenMedium} {
+    .subnav {
+      padding-top: 30px;
+      font-size: 11px;
+      letter-spacing: 2px;
+      justify-content: space-evenly;
+    }
+    .item {
+      padding: 0 15px;
+    }
+  }
+
+
   @media ${screenLarge} {
-    .navigation {
+    .subnav {
       padding-top: 29px;
       font-size: 11px;
       letter-spacing: 2px;
+      justify-content: space-evenly;
     }
     .item {
       padding: 0 25px;
