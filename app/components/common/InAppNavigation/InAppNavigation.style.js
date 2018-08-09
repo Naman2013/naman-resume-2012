@@ -10,6 +10,10 @@ export default css`
     align-items: center;
   }
 
+  .mobile-back-text-container :global(a) {
+    display: flex;
+  }
+
   .icon-arrow {
     transform: rotate(180deg);
   }
@@ -40,7 +44,10 @@ export default css`
   .back-arrow { display: none; }
   .context-menu-container { display: none }
 
-  .back-arrow {
+  .back-arrow :global(a) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background: none;
     height: 100%;
     width: 100px;

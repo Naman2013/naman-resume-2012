@@ -23,39 +23,40 @@ ShallowWrapper {
     "props": Object {
       "children": Array [
         <h5
-          className="jsx-3798973262 title"
+          className="jsx-3489063679 title"
         >
           Foo
         </h5>,
         <div
-          className="jsx-3798973262 action-container"
+          className="jsx-3489063679 action-container"
         >
-          <a
-            className="jsx-3798973262 action"
-            href="#"
+          <Link
+            onlyActiveOnIndex={false}
+            style={Object {}}
+            to="#"
           >
             Topic 1
-          </a>
+          </Link>
           <img
             alt=""
-            className="jsx-3798973262"
+            className="jsx-3489063679"
             src="https://vega.slooh.com/assets/v4/common/arrow_horz.svg"
           />
         </div>,
         <JSXStyle
           css={
             Array [
-              ".root.jsx-3798973262{margin:0 auto;padding:0;padding:40px;box-shadow:0px 0px 8px 1px rgba(65,86,113,.2);width:96%;}",
-              ".title.jsx-3798973262{margin:0;padding:0;font-family:adobe-garamond-pro, serif;font-weight:normal;font-size:18px;text-transform:capitalize;color:#41566F;border-bottom:1px solid #d9dee5;padding-bottom:30px;}",
-              ".action-container.jsx-3798973262{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;padding-top:20px;}",
-              ".action.jsx-3798973262{margin:0;padding:0;font-family:brandon-grotesque, sans-serif;font-weight:800;text-transform:uppercase;-webkit-text-decoration:none;text-decoration:none;font-size:10px;color:#41566F;}",
-              "@media screen and (min-width: 768px){.root.jsx-3798973262{width:100%;}}",
+              ".root.jsx-3489063679{margin:0 auto;padding:0;padding:40px;box-shadow:0px 0px 8px 1px rgba(65,86,113,.2);width:96%;}",
+              ".title.jsx-3489063679{margin:0;padding:0;font-family:adobe-garamond-pro, serif;font-weight:normal;font-size:18px;text-transform:capitalize;color:#41566F;border-bottom:1px solid #d9dee5;padding-bottom:30px;}",
+              ".action-container.jsx-3489063679{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;padding-top:20px;}",
+              ".action-container.jsx-3489063679 a{margin:0;padding:0;font-family:brandon-grotesque, sans-serif;font-weight:800;text-transform:uppercase;-webkit-text-decoration:none;text-decoration:none;font-size:10px;color:#41566F;}",
+              "@media screen and (min-width: 768px){.root.jsx-3489063679{width:100%;}}",
             ]
           }
-          styleId="3798973262"
+          styleId="3489063679"
         />,
       ],
-      "className": "jsx-3798973262 root",
+      "className": "jsx-3489063679 root",
     },
     "ref": null,
     "rendered": Array [
@@ -65,7 +66,7 @@ ShallowWrapper {
         "nodeType": "host",
         "props": Object {
           "children": "Foo",
-          "className": "jsx-3798973262 title",
+          "className": "jsx-3489063679 title",
         },
         "ref": null,
         "rendered": "Foo",
@@ -77,34 +78,36 @@ ShallowWrapper {
         "nodeType": "host",
         "props": Object {
           "children": Array [
-            <a
-              className="jsx-3798973262 action"
-              href="#"
+            <Link
+              onlyActiveOnIndex={false}
+              style={Object {}}
+              to="#"
             >
               Topic 1
-            </a>,
+            </Link>,
             <img
               alt=""
-              className="jsx-3798973262"
+              className="jsx-3489063679"
               src="https://vega.slooh.com/assets/v4/common/arrow_horz.svg"
             />,
           ],
-          "className": "jsx-3798973262 action-container",
+          "className": "jsx-3489063679 action-container",
         },
         "ref": null,
         "rendered": Array [
           Object {
             "instance": null,
             "key": undefined,
-            "nodeType": "host",
+            "nodeType": "class",
             "props": Object {
               "children": "Topic 1",
-              "className": "jsx-3798973262 action",
-              "href": "#",
+              "onlyActiveOnIndex": false,
+              "style": Object {},
+              "to": "#",
             },
             "ref": null,
             "rendered": "Topic 1",
-            "type": "a",
+            "type": [Function],
           },
           Object {
             "instance": null,
@@ -112,7 +115,7 @@ ShallowWrapper {
             "nodeType": "host",
             "props": Object {
               "alt": "",
-              "className": "jsx-3798973262",
+              "className": "jsx-3489063679",
               "src": "https://vega.slooh.com/assets/v4/common/arrow_horz.svg",
             },
             "ref": null,
@@ -128,13 +131,13 @@ ShallowWrapper {
         "nodeType": "class",
         "props": Object {
           "css": Array [
-            ".root.jsx-3798973262{margin:0 auto;padding:0;padding:40px;box-shadow:0px 0px 8px 1px rgba(65,86,113,.2);width:96%;}",
-            ".title.jsx-3798973262{margin:0;padding:0;font-family:adobe-garamond-pro, serif;font-weight:normal;font-size:18px;text-transform:capitalize;color:#41566F;border-bottom:1px solid #d9dee5;padding-bottom:30px;}",
-            ".action-container.jsx-3798973262{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;padding-top:20px;}",
-            ".action.jsx-3798973262{margin:0;padding:0;font-family:brandon-grotesque, sans-serif;font-weight:800;text-transform:uppercase;-webkit-text-decoration:none;text-decoration:none;font-size:10px;color:#41566F;}",
-            "@media screen and (min-width: 768px){.root.jsx-3798973262{width:100%;}}",
+            ".root.jsx-3489063679{margin:0 auto;padding:0;padding:40px;box-shadow:0px 0px 8px 1px rgba(65,86,113,.2);width:96%;}",
+            ".title.jsx-3489063679{margin:0;padding:0;font-family:adobe-garamond-pro, serif;font-weight:normal;font-size:18px;text-transform:capitalize;color:#41566F;border-bottom:1px solid #d9dee5;padding-bottom:30px;}",
+            ".action-container.jsx-3489063679{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;padding-top:20px;}",
+            ".action-container.jsx-3489063679 a{margin:0;padding:0;font-family:brandon-grotesque, sans-serif;font-weight:800;text-transform:uppercase;-webkit-text-decoration:none;text-decoration:none;font-size:10px;color:#41566F;}",
+            "@media screen and (min-width: 768px){.root.jsx-3489063679{width:100%;}}",
           ],
-          "styleId": "3798973262",
+          "styleId": "3489063679",
         },
         "ref": null,
         "rendered": null,
@@ -151,39 +154,40 @@ ShallowWrapper {
       "props": Object {
         "children": Array [
           <h5
-            className="jsx-3798973262 title"
+            className="jsx-3489063679 title"
           >
             Foo
           </h5>,
           <div
-            className="jsx-3798973262 action-container"
+            className="jsx-3489063679 action-container"
           >
-            <a
-              className="jsx-3798973262 action"
-              href="#"
+            <Link
+              onlyActiveOnIndex={false}
+              style={Object {}}
+              to="#"
             >
               Topic 1
-            </a>
+            </Link>
             <img
               alt=""
-              className="jsx-3798973262"
+              className="jsx-3489063679"
               src="https://vega.slooh.com/assets/v4/common/arrow_horz.svg"
             />
           </div>,
           <JSXStyle
             css={
               Array [
-                ".root.jsx-3798973262{margin:0 auto;padding:0;padding:40px;box-shadow:0px 0px 8px 1px rgba(65,86,113,.2);width:96%;}",
-                ".title.jsx-3798973262{margin:0;padding:0;font-family:adobe-garamond-pro, serif;font-weight:normal;font-size:18px;text-transform:capitalize;color:#41566F;border-bottom:1px solid #d9dee5;padding-bottom:30px;}",
-                ".action-container.jsx-3798973262{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;padding-top:20px;}",
-                ".action.jsx-3798973262{margin:0;padding:0;font-family:brandon-grotesque, sans-serif;font-weight:800;text-transform:uppercase;-webkit-text-decoration:none;text-decoration:none;font-size:10px;color:#41566F;}",
-                "@media screen and (min-width: 768px){.root.jsx-3798973262{width:100%;}}",
+                ".root.jsx-3489063679{margin:0 auto;padding:0;padding:40px;box-shadow:0px 0px 8px 1px rgba(65,86,113,.2);width:96%;}",
+                ".title.jsx-3489063679{margin:0;padding:0;font-family:adobe-garamond-pro, serif;font-weight:normal;font-size:18px;text-transform:capitalize;color:#41566F;border-bottom:1px solid #d9dee5;padding-bottom:30px;}",
+                ".action-container.jsx-3489063679{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;padding-top:20px;}",
+                ".action-container.jsx-3489063679 a{margin:0;padding:0;font-family:brandon-grotesque, sans-serif;font-weight:800;text-transform:uppercase;-webkit-text-decoration:none;text-decoration:none;font-size:10px;color:#41566F;}",
+                "@media screen and (min-width: 768px){.root.jsx-3489063679{width:100%;}}",
               ]
             }
-            styleId="3798973262"
+            styleId="3489063679"
           />,
         ],
-        "className": "jsx-3798973262 root",
+        "className": "jsx-3489063679 root",
       },
       "ref": null,
       "rendered": Array [
@@ -193,7 +197,7 @@ ShallowWrapper {
           "nodeType": "host",
           "props": Object {
             "children": "Foo",
-            "className": "jsx-3798973262 title",
+            "className": "jsx-3489063679 title",
           },
           "ref": null,
           "rendered": "Foo",
@@ -205,34 +209,36 @@ ShallowWrapper {
           "nodeType": "host",
           "props": Object {
             "children": Array [
-              <a
-                className="jsx-3798973262 action"
-                href="#"
+              <Link
+                onlyActiveOnIndex={false}
+                style={Object {}}
+                to="#"
               >
                 Topic 1
-              </a>,
+              </Link>,
               <img
                 alt=""
-                className="jsx-3798973262"
+                className="jsx-3489063679"
                 src="https://vega.slooh.com/assets/v4/common/arrow_horz.svg"
               />,
             ],
-            "className": "jsx-3798973262 action-container",
+            "className": "jsx-3489063679 action-container",
           },
           "ref": null,
           "rendered": Array [
             Object {
               "instance": null,
               "key": undefined,
-              "nodeType": "host",
+              "nodeType": "class",
               "props": Object {
                 "children": "Topic 1",
-                "className": "jsx-3798973262 action",
-                "href": "#",
+                "onlyActiveOnIndex": false,
+                "style": Object {},
+                "to": "#",
               },
               "ref": null,
               "rendered": "Topic 1",
-              "type": "a",
+              "type": [Function],
             },
             Object {
               "instance": null,
@@ -240,7 +246,7 @@ ShallowWrapper {
               "nodeType": "host",
               "props": Object {
                 "alt": "",
-                "className": "jsx-3798973262",
+                "className": "jsx-3489063679",
                 "src": "https://vega.slooh.com/assets/v4/common/arrow_horz.svg",
               },
               "ref": null,
@@ -256,13 +262,13 @@ ShallowWrapper {
           "nodeType": "class",
           "props": Object {
             "css": Array [
-              ".root.jsx-3798973262{margin:0 auto;padding:0;padding:40px;box-shadow:0px 0px 8px 1px rgba(65,86,113,.2);width:96%;}",
-              ".title.jsx-3798973262{margin:0;padding:0;font-family:adobe-garamond-pro, serif;font-weight:normal;font-size:18px;text-transform:capitalize;color:#41566F;border-bottom:1px solid #d9dee5;padding-bottom:30px;}",
-              ".action-container.jsx-3798973262{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;padding-top:20px;}",
-              ".action.jsx-3798973262{margin:0;padding:0;font-family:brandon-grotesque, sans-serif;font-weight:800;text-transform:uppercase;-webkit-text-decoration:none;text-decoration:none;font-size:10px;color:#41566F;}",
-              "@media screen and (min-width: 768px){.root.jsx-3798973262{width:100%;}}",
+              ".root.jsx-3489063679{margin:0 auto;padding:0;padding:40px;box-shadow:0px 0px 8px 1px rgba(65,86,113,.2);width:96%;}",
+              ".title.jsx-3489063679{margin:0;padding:0;font-family:adobe-garamond-pro, serif;font-weight:normal;font-size:18px;text-transform:capitalize;color:#41566F;border-bottom:1px solid #d9dee5;padding-bottom:30px;}",
+              ".action-container.jsx-3489063679{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;padding-top:20px;}",
+              ".action-container.jsx-3489063679 a{margin:0;padding:0;font-family:brandon-grotesque, sans-serif;font-weight:800;text-transform:uppercase;-webkit-text-decoration:none;text-decoration:none;font-size:10px;color:#41566F;}",
+              "@media screen and (min-width: 768px){.root.jsx-3489063679{width:100%;}}",
             ],
-            "styleId": "3798973262",
+            "styleId": "3489063679",
           },
           "ref": null,
           "rendered": null,

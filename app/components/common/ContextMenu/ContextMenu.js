@@ -12,6 +12,22 @@ const OPEN_LOCATION = 0;
 export const CLOSE_LOCATION = -CONTAINER_WIDTH;
 
 class ContextMenu extends Component {
+  static propTypes = {
+    isOpen: PropTypes.bool,
+    menuTopAdjustment: PropTypes.number,
+    title: PropTypes.string.isRequired,
+    count: PropTypes.number.isRequired,
+    list: PropTypes.arrayOf(PropTypes.shape({
+      title: PropTypes.string,
+      linkURL: PropTypes.string,
+    })).isRequired,
+  };
+
+  static defaultProps = {
+    isOpen: false,
+    menuTopAdjustment: 98,
+  };
+
   state = {
     isOpen: this.props.isOpen,
   };
@@ -50,10 +66,11 @@ class ContextMenu extends Component {
           }}
         >
           <div className="header-container">
-            <h5 className="context-header">Sample title</h5>
-            <p className="available-sections">( 8 )</p>
+            <h5 className="context-header">{this.props.title}</h5>
+            <p className="available-sections">( {this.props.count} )</p>
           </div>
-          <Menu />
+
+          <Menu list={this.props.list} />
         </div>
 
         <style jsx>{style}</style>
@@ -78,15 +95,5 @@ class ContextMenu extends Component {
     );
   }
 }
-
-ContextMenu.propTypes = {
-  isOpen: PropTypes.bool,
-  menuTopAdjustment: PropTypes.number,
-};
-
-ContextMenu.defaultProps = {
-  isOpen: false,
-  menuTopAdjustment: 98,
-};
 
 export default ContextMenu;

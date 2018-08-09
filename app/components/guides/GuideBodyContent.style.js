@@ -19,7 +19,7 @@ export default css`
     letter-spacing: 2px;
   }
 
-  p {
+  .__html-content__ :global(p) {
     color: ${lynch};
     margin: 0;
     padding: 0;
@@ -46,6 +46,11 @@ export default css`
     .root {
       padding: 0 75px;
       padding-bottom: 75px;
+    }
+
+    .__html-content__ {
+      min-height: 140px;
+      display: inline-block;
     }
   }
 

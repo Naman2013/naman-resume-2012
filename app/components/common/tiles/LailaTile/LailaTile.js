@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router';
 import style from './Laila.style';
 import { horizontalArrow } from 'styles/variables/iconURLs';
 
-const LailaTile = ({ iconURL, title }) => (
+const LailaTile = ({ iconURL, linkURL, title }) => (
   <div className="root">
     <div className="container">
 
@@ -18,7 +19,7 @@ const LailaTile = ({ iconURL, title }) => (
 
       <h5 className="title">{title}</h5>
       <div className="button-container">
-        <a className="button" href="#">Explore now</a>
+        <Link to={linkURL}>Explore now</Link>
         <img alt="" src={horizontalArrow} />
       </div>
     </div>
@@ -28,6 +29,7 @@ const LailaTile = ({ iconURL, title }) => (
 
 LailaTile.propTypes = {
   iconURL: PropTypes.string.isRequired,
+  linkURL: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
 };
 

@@ -7,10 +7,10 @@
 */
 
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import compact from 'lodash/compact';
-import PropTypes from 'prop-types';
 import isMatch from 'lodash/isMatch';
 import axios from 'axios';
 import { validateResponseAccess } from 'modules/authorization/actions';
@@ -34,20 +34,40 @@ class Request extends Component {
   static propTypes = {
     // provided by client
     authorizationRedirect: PropTypes.bool,
+
+    // service URL the requester is asking
     serviceURL: PropTypes.string.isRequired,
+
+    // see render props on the internet for more information
     render: PropTypes.func.isRequired,
+
+    // informs this component on a timestamp that may have
+    // been provided as part of the RAW API response and will
+    // recall the API with the original parameters and call the render prop
     serviceExpiresFieldName: PropTypes.string,
-    method: PropTypes.string,
+
+    // provided by caller, default is 'POST'
+    method: PropTypes.oneOf([POST, GET]),
+
+    // convience prop that takes a single model
     model: PropTypes.shape({
       name: PropTypes.string.isRequired,
       model: PropTypes.func.isRequired,
     }),
+
+    // array of models focused on doing work against RAW API DATA
+    // and will provide these generated responses as a MAP under `modeledResponses`
     models: PropTypes.arrayOf(PropTypes.shape({
       name: PropTypes.string.isRequired,
       model: PropTypes.func.isRequired,
     })),
+
+    // will be called with the RAW API DATA as an argument
+    // TODO: should we also provide error?
     serviceResponseHandler: PropTypes.func,
-    requestBody: PropTypes.any, // any set due to disambiguity of the request
+
+    // object with the request body to be sent to the target API
+    requestBody: PropTypes.shape({}),
 
     // provided by global state
     user: PropTypes.shape({
@@ -69,6 +89,7 @@ class Request extends Component {
     method: POST,
     serviceExpiresFieldName: 'expires',
     serviceResponseHandler: null,
+    requestBody: {},
   };
 
   state = {
@@ -91,12 +112,20 @@ class Request extends Component {
     this.tearDown();
   }
 
-  timerPointer = undefined; // maintains a pointer to the running timer
+  // maintains a pointer to the running timer
+  timerPointer = undefined;
+
   source = undefined;
 
+  // TODO: need to design validation to prevent client
+  // challenges with debugging
+
+  // TODO: how do we validate the response prior to running models?
   handleServiceResponse(result) {
     const {
+      // actions should be removed
       actions,
+      // this should be removed
       authorizationRedirect,
       serviceExpiresFieldName,
       serviceResponseHandler,
@@ -105,19 +134,24 @@ class Request extends Component {
     } = this.props;
 
     const consolidatedModels = compact([model, ...models]);
+
+    // refactor into reduce
     let modeledResponses = {};
 
+    // brittle...
     if (result[serviceExpiresFieldName]) {
       this.configureTimer({
         expires: result[serviceExpiresFieldName],
-        timestamp: result.timestamp
+        timestamp: result.timestamp,
       });
     }
 
+    // TODO: this should go...
     if (authorizationRedirect) {
       actions.validateResponseAccess(result);
     }
 
+    // this is part of the reduce refactor suggested from earlier
     // build the models defined by the client
     consolidatedModels.forEach((_model) => {
       modeledResponses = Object.assign({}, modeledResponses, {
@@ -125,14 +159,15 @@ class Request extends Component {
       });
     });
 
+    if (serviceResponseHandler) {
+      serviceResponseHandler(result);
+    }
+
     this.setState(() => ({
       fetchingContent: false,
       serviceResponse: result,
       modeledResponses,
     }));
-    if (serviceResponseHandler) {
-      serviceResponseHandler(result);
-    }
   }
 
   tearDown() {

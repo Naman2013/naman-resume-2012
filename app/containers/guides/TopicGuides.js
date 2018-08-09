@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { Fragment } from 'react';
+import PropTypes from 'prop-types';
+import Request from 'components/common/network/Request';
 import InAppNavigation from 'components/common/InAppNavigation';
-import CenterColumn from 'components/common/CenterColumn';
 import TopicContent from 'components/guides/TopicContent';
 import SterlingTitle from 'components/common/titles/SterlingTitle';
 import TopicList from 'components/guides/TopicList';
-
+import { GUIDE_ENDPOINT_URL, GUIDE_PANEL_ENDPOINT_URL } from 'services/guides/guide-data';
 import { SAMPLE_IMAGE_HTML_BLOB, SAMPLE_VIDEO_HTML_BLOB } from '../../../stories/content/getGuidesPanels';
 
 const TEST_PANEL_LIST = [
@@ -26,29 +27,105 @@ const TEST_PANEL_LIST = [
   },
 ];
 
-const TopicGuides = () => (
+const subjectGuideModel = {
+  name: 'SUBJECT_GUIDE_MODEL',
+  model: resp => ({
+    inAppNavigationProps: {
+      title: resp.chapterNavigationInfo.parentInfo.guideTitle,
+      contextMenuTitle: resp.topicHeading1,
+      contextMenuCount: resp.chapterNavigationInfo.chapterCount,
+      list: resp
+        .chapterNavigationInfo
+        .chapterList
+        .map(chapter => ({ title: chapter.guideTitle, linkURL: chapter.link })),
+      backLinkURL: resp.chapterNavigationInfo.parentInfo.link,
+    },
+    topicContentProps: {
+      title: resp.guideTitle,
+      topicContentList: [resp.guideBulletPoint1, resp.guideBulletPoint2, resp.guideBulletPoint3],
+      aboutTitle: resp.AboutThisTitle,
+      aboutContent: resp.AboutThisContent,
+    },
+    topicListProps: {
+      list: TEST_PANEL_LIST,
+    },
+  }),
+};
+
+const guidePanelsModel = {
+  name: 'GUIDE_PANELS',
+  model: resp => ({
+    topicListProps: { list: resp.panelList },
+    sterlingTitleProps: {
+      title: resp.panelHeading1,
+      subTitle: resp.panelHeading2,
+    },
+  }),
+};
+
+const TopicGuides = ({ params: { guideId } }) => (
   <div>
-    <InAppNavigation
-      title="Topic 1: Astronomical Time"
-      menuTopAdjustment={162}
+    <Request
+      serviceURL={GUIDE_ENDPOINT_URL}
+      model={subjectGuideModel}
+      requestBody={{ guideId }}
+      render={({
+        fetchingContent,
+        modeledResponses: { SUBJECT_GUIDE_MODEL },
+      }) => (
+        <Fragment>
+          {
+            !fetchingContent &&
+              <Fragment>
+                <InAppNavigation
+                  menuTopAdjustment={162}
+                  {...SUBJECT_GUIDE_MODEL.inAppNavigationProps}
+                />
+                <div
+                  style={{
+                    backgroundColor: 'aqua',
+                    textAlign: 'center',
+                    color: 'white',
+                    padding: '20px 0',
+                  }}
+                >
+                  TODO - ADD HEADER FROM MATT
+                </div>
+                <TopicContent {...SUBJECT_GUIDE_MODEL.topicContentProps} />
+
+                <Request
+                  serviceURL={GUIDE_PANEL_ENDPOINT_URL}
+                  model={guidePanelsModel}
+                  requestBody={{ guideId }}
+                  render={guidePanelResults => (
+                    <Fragment>
+                      {
+                        !guidePanelResults.fetchingContent &&
+                          <Fragment>
+                            <SterlingTitle
+                              {...guidePanelResults
+                                .modeledResponses.GUIDE_PANELS.sterlingTitleProps}
+                            />
+                            <TopicList
+                              {...guidePanelResults.modeledResponses.GUIDE_PANELS.topicListProps}
+                            />
+                          </Fragment>
+                      }
+                    </Fragment>
+                  )}
+                />
+              </Fragment>
+          }
+        </Fragment>
+      )}
     />
-    <div
-      style={{
-        backgroundColor: 'aqua',
-        textAlign: 'center',
-        color: 'white',
-        padding: '20px 0',
-      }}
-    >
-      TODO - ADD HEADER FROM MATT
-    </div>
-    <TopicContent />
-    <SterlingTitle
-      title="Things to know"
-      subTitle="Noteworthy facts from your friends at Slooh"
-    />
-    <TopicList list={TEST_PANEL_LIST} />
   </div>
 );
+
+TopicGuides.propTypes = {
+  params: PropTypes.shape({
+    guideId: PropTypes.string.isRequired,
+  }).isRequired,
+};
 
 export default TopicGuides;

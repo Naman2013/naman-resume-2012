@@ -8,6 +8,12 @@ import QuestTile from 'components/common/tiles/QuestTile';
 import MissionTile from 'components/common/tiles/MissionTile';
 import StoryTile from 'components/common/tiles/StoryTile';
 import ShowTile from 'components/common/tiles/ShowTile';
+import BobbieTile from 'components/common/tiles/BobbieTile';
+import MonotonousTile from 'components/common/tiles/MonotonousTile';
+import WinstonTile from 'components/common/tiles/WinstonTile';
+import AveryTile from 'components/common/tiles/AveryTile';
+
+import { SAMPLE_IMAGE_HTML_BLOB, SAMPLE_VIDEO_HTML_BLOB } from './content/getGuidesPanels';
 
 storiesOf('Tiles', module)
   .add('BobbieTile - 40_60_SPLIT with image', () => (

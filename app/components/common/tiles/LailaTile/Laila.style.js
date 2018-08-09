@@ -78,7 +78,7 @@ export default css`
     padding-top: 20px;
   }
 
-  .button {
+  .button-container :global(a) {
     display: block;
     padding: 0;
     color: ${astronaut};
@@ -111,7 +111,7 @@ export default css`
       justify-content: center;
     }
 
-    .button {
+    .button-container :global(a) {
       padding-right: 10px;
     }
   }

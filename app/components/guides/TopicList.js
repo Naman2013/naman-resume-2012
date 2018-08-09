@@ -16,9 +16,9 @@ const TopicList = ({ list }) => (
 TopicList.propTypes = {
   list: PropTypes.arrayOf(PropTypes.shape({
     title: PropTypes.string.isRequired,
-    authorName: PropTypes.string,
-    readDuration: PropTypes.string,
     content: PropTypes.string.isRequired,
+    // authorName: PropTypes.string,
+    // readDuration: PropTypes.string,
   })).isRequired,
 };
 

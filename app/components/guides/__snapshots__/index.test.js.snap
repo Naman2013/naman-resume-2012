@@ -180,12 +180,12 @@ ShallowWrapper {
     "props": Object {
       "children": Array [
         <h4
-          className="jsx-3529671003 title"
+          className="jsx-3934087097 title"
         >
           
         </h4>,
-        <p
-          className="jsx-3529671003"
+        <span
+          className="jsx-3934087097 __html-content__"
           dangerouslySetInnerHTML={
             Object {
               "__html": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
@@ -196,18 +196,18 @@ ShallowWrapper {
         <JSXStyle
           css={
             Array [
-              ".root.jsx-3529671003{color:#415671;font-family:brandon-grotesque, sans-serif;padding:0 35px;padding-bottom:35px;}",
-              ".title.jsx-3529671003{margin:0;padding:26px 0;text-transform:uppercase;font-size:12px;-webkit-letter-spacing:2px;-moz-letter-spacing:2px;-ms-letter-spacing:2px;letter-spacing:2px;}",
-              "p.jsx-3529671003{color:#6e7b8c;margin:0;padding:0;margin-bottom:32px;font-family:adobe-garamond-pro, serif;font-size:18px;line-height:1.75;}",
-              "@media screen and (min-width: 768px){.root.jsx-3529671003{padding:0 55px;padding-bottom:55px;margin-top:-20px;}.title.jsx-3529671003{padding-top:60px;padding-bottom:30px;}}",
-              "@media screen and (min-width: 1024px){.root.jsx-3529671003{padding:0 75px;padding-bottom:75px;}}",
-              "@media screen and (min-width: 1366px){.root.jsx-3529671003{padding:0 95px;padding-bottom:95px;}}",
+              ".root.jsx-3934087097{color:#415671;font-family:brandon-grotesque, sans-serif;padding:0 35px;padding-bottom:35px;}",
+              ".title.jsx-3934087097{margin:0;padding:26px 0;text-transform:uppercase;font-size:12px;-webkit-letter-spacing:2px;-moz-letter-spacing:2px;-ms-letter-spacing:2px;letter-spacing:2px;}",
+              ".__html-content__.jsx-3934087097 p{color:#6e7b8c;margin:0;padding:0;margin-bottom:32px;font-family:adobe-garamond-pro, serif;font-size:18px;line-height:1.75;}",
+              "@media screen and (min-width: 768px){.root.jsx-3934087097{padding:0 55px;padding-bottom:55px;margin-top:-20px;}.title.jsx-3934087097{padding-top:60px;padding-bottom:30px;}}",
+              "@media screen and (min-width: 1024px){.root.jsx-3934087097{padding:0 75px;padding-bottom:75px;}.__html-content__.jsx-3934087097{min-height:140px;display:inline-block;}}",
+              "@media screen and (min-width: 1366px){.root.jsx-3934087097{padding:0 95px;padding-bottom:95px;}}",
             ]
           }
-          styleId="3529671003"
+          styleId="3934087097"
         />,
       ],
-      "className": "jsx-3529671003 root",
+      "className": "jsx-3934087097 root",
       "style": Object {},
     },
     "ref": null,
@@ -218,7 +218,7 @@ ShallowWrapper {
         "nodeType": "host",
         "props": Object {
           "children": "",
-          "className": "jsx-3529671003 title",
+          "className": "jsx-3934087097 title",
         },
         "ref": null,
         "rendered": "",
@@ -229,14 +229,14 @@ ShallowWrapper {
         "key": undefined,
         "nodeType": "host",
         "props": Object {
-          "className": "jsx-3529671003",
+          "className": "jsx-3934087097 __html-content__",
           "dangerouslySetInnerHTML": Object {
             "__html": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
           },
         },
         "ref": null,
         "rendered": null,
-        "type": "p",
+        "type": "span",
       },
       null,
       Object {
@@ -245,14 +245,14 @@ ShallowWrapper {
         "nodeType": "class",
         "props": Object {
           "css": Array [
-            ".root.jsx-3529671003{color:#415671;font-family:brandon-grotesque, sans-serif;padding:0 35px;padding-bottom:35px;}",
-            ".title.jsx-3529671003{margin:0;padding:26px 0;text-transform:uppercase;font-size:12px;-webkit-letter-spacing:2px;-moz-letter-spacing:2px;-ms-letter-spacing:2px;letter-spacing:2px;}",
-            "p.jsx-3529671003{color:#6e7b8c;margin:0;padding:0;margin-bottom:32px;font-family:adobe-garamond-pro, serif;font-size:18px;line-height:1.75;}",
-            "@media screen and (min-width: 768px){.root.jsx-3529671003{padding:0 55px;padding-bottom:55px;margin-top:-20px;}.title.jsx-3529671003{padding-top:60px;padding-bottom:30px;}}",
-            "@media screen and (min-width: 1024px){.root.jsx-3529671003{padding:0 75px;padding-bottom:75px;}}",
-            "@media screen and (min-width: 1366px){.root.jsx-3529671003{padding:0 95px;padding-bottom:95px;}}",
+            ".root.jsx-3934087097{color:#415671;font-family:brandon-grotesque, sans-serif;padding:0 35px;padding-bottom:35px;}",
+            ".title.jsx-3934087097{margin:0;padding:26px 0;text-transform:uppercase;font-size:12px;-webkit-letter-spacing:2px;-moz-letter-spacing:2px;-ms-letter-spacing:2px;letter-spacing:2px;}",
+            ".__html-content__.jsx-3934087097 p{color:#6e7b8c;margin:0;padding:0;margin-bottom:32px;font-family:adobe-garamond-pro, serif;font-size:18px;line-height:1.75;}",
+            "@media screen and (min-width: 768px){.root.jsx-3934087097{padding:0 55px;padding-bottom:55px;margin-top:-20px;}.title.jsx-3934087097{padding-top:60px;padding-bottom:30px;}}",
+            "@media screen and (min-width: 1024px){.root.jsx-3934087097{padding:0 75px;padding-bottom:75px;}.__html-content__.jsx-3934087097{min-height:140px;display:inline-block;}}",
+            "@media screen and (min-width: 1366px){.root.jsx-3934087097{padding:0 95px;padding-bottom:95px;}}",
           ],
-          "styleId": "3529671003",
+          "styleId": "3934087097",
         },
         "ref": null,
         "rendered": null,
@@ -269,12 +269,12 @@ ShallowWrapper {
       "props": Object {
         "children": Array [
           <h4
-            className="jsx-3529671003 title"
+            className="jsx-3934087097 title"
           >
             
           </h4>,
-          <p
-            className="jsx-3529671003"
+          <span
+            className="jsx-3934087097 __html-content__"
             dangerouslySetInnerHTML={
               Object {
                 "__html": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
@@ -285,18 +285,18 @@ ShallowWrapper {
           <JSXStyle
             css={
               Array [
-                ".root.jsx-3529671003{color:#415671;font-family:brandon-grotesque, sans-serif;padding:0 35px;padding-bottom:35px;}",
-                ".title.jsx-3529671003{margin:0;padding:26px 0;text-transform:uppercase;font-size:12px;-webkit-letter-spacing:2px;-moz-letter-spacing:2px;-ms-letter-spacing:2px;letter-spacing:2px;}",
-                "p.jsx-3529671003{color:#6e7b8c;margin:0;padding:0;margin-bottom:32px;font-family:adobe-garamond-pro, serif;font-size:18px;line-height:1.75;}",
-                "@media screen and (min-width: 768px){.root.jsx-3529671003{padding:0 55px;padding-bottom:55px;margin-top:-20px;}.title.jsx-3529671003{padding-top:60px;padding-bottom:30px;}}",
-                "@media screen and (min-width: 1024px){.root.jsx-3529671003{padding:0 75px;padding-bottom:75px;}}",
-                "@media screen and (min-width: 1366px){.root.jsx-3529671003{padding:0 95px;padding-bottom:95px;}}",
+                ".root.jsx-3934087097{color:#415671;font-family:brandon-grotesque, sans-serif;padding:0 35px;padding-bottom:35px;}",
+                ".title.jsx-3934087097{margin:0;padding:26px 0;text-transform:uppercase;font-size:12px;-webkit-letter-spacing:2px;-moz-letter-spacing:2px;-ms-letter-spacing:2px;letter-spacing:2px;}",
+                ".__html-content__.jsx-3934087097 p{color:#6e7b8c;margin:0;padding:0;margin-bottom:32px;font-family:adobe-garamond-pro, serif;font-size:18px;line-height:1.75;}",
+                "@media screen and (min-width: 768px){.root.jsx-3934087097{padding:0 55px;padding-bottom:55px;margin-top:-20px;}.title.jsx-3934087097{padding-top:60px;padding-bottom:30px;}}",
+                "@media screen and (min-width: 1024px){.root.jsx-3934087097{padding:0 75px;padding-bottom:75px;}.__html-content__.jsx-3934087097{min-height:140px;display:inline-block;}}",
+                "@media screen and (min-width: 1366px){.root.jsx-3934087097{padding:0 95px;padding-bottom:95px;}}",
               ]
             }
-            styleId="3529671003"
+            styleId="3934087097"
           />,
         ],
-        "className": "jsx-3529671003 root",
+        "className": "jsx-3934087097 root",
         "style": Object {},
       },
       "ref": null,
@@ -307,7 +307,7 @@ ShallowWrapper {
           "nodeType": "host",
           "props": Object {
             "children": "",
-            "className": "jsx-3529671003 title",
+            "className": "jsx-3934087097 title",
           },
           "ref": null,
           "rendered": "",
@@ -318,14 +318,14 @@ ShallowWrapper {
           "key": undefined,
           "nodeType": "host",
           "props": Object {
-            "className": "jsx-3529671003",
+            "className": "jsx-3934087097 __html-content__",
             "dangerouslySetInnerHTML": Object {
               "__html": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
             },
           },
           "ref": null,
           "rendered": null,
-          "type": "p",
+          "type": "span",
         },
         null,
         Object {
@@ -334,14 +334,14 @@ ShallowWrapper {
           "nodeType": "class",
           "props": Object {
             "css": Array [
-              ".root.jsx-3529671003{color:#415671;font-family:brandon-grotesque, sans-serif;padding:0 35px;padding-bottom:35px;}",
-              ".title.jsx-3529671003{margin:0;padding:26px 0;text-transform:uppercase;font-size:12px;-webkit-letter-spacing:2px;-moz-letter-spacing:2px;-ms-letter-spacing:2px;letter-spacing:2px;}",
-              "p.jsx-3529671003{color:#6e7b8c;margin:0;padding:0;margin-bottom:32px;font-family:adobe-garamond-pro, serif;font-size:18px;line-height:1.75;}",
-              "@media screen and (min-width: 768px){.root.jsx-3529671003{padding:0 55px;padding-bottom:55px;margin-top:-20px;}.title.jsx-3529671003{padding-top:60px;padding-bottom:30px;}}",
-              "@media screen and (min-width: 1024px){.root.jsx-3529671003{padding:0 75px;padding-bottom:75px;}}",
-              "@media screen and (min-width: 1366px){.root.jsx-3529671003{padding:0 95px;padding-bottom:95px;}}",
+              ".root.jsx-3934087097{color:#415671;font-family:brandon-grotesque, sans-serif;padding:0 35px;padding-bottom:35px;}",
+              ".title.jsx-3934087097{margin:0;padding:26px 0;text-transform:uppercase;font-size:12px;-webkit-letter-spacing:2px;-moz-letter-spacing:2px;-ms-letter-spacing:2px;letter-spacing:2px;}",
+              ".__html-content__.jsx-3934087097 p{color:#6e7b8c;margin:0;padding:0;margin-bottom:32px;font-family:adobe-garamond-pro, serif;font-size:18px;line-height:1.75;}",
+              "@media screen and (min-width: 768px){.root.jsx-3934087097{padding:0 55px;padding-bottom:55px;margin-top:-20px;}.title.jsx-3934087097{padding-top:60px;padding-bottom:30px;}}",
+              "@media screen and (min-width: 1024px){.root.jsx-3934087097{padding:0 75px;padding-bottom:75px;}.__html-content__.jsx-3934087097{min-height:140px;display:inline-block;}}",
+              "@media screen and (min-width: 1366px){.root.jsx-3934087097{padding:0 95px;padding-bottom:95px;}}",
             ],
-            "styleId": "3529671003",
+            "styleId": "3934087097",
           },
           "ref": null,
           "rendered": null,
@@ -405,6 +405,7 @@ ShallowWrapper {
           >
             <LailaTile
               iconURL="https://vega.slooh.com/icons/home/observatory.png"
+              linkURL={undefined}
               title="Saturn"
             />
           </li>
@@ -413,6 +414,7 @@ ShallowWrapper {
           >
             <LailaTile
               iconURL="https://vega.slooh.com/icons/home/jupiter-icon.png"
+              linkURL={undefined}
               title="Mars"
             />
           </li>
@@ -448,6 +450,7 @@ ShallowWrapper {
             >
               <LailaTile
                 iconURL="https://vega.slooh.com/icons/home/observatory.png"
+                linkURL={undefined}
                 title="Saturn"
               />
             </li>,
@@ -456,6 +459,7 @@ ShallowWrapper {
             >
               <LailaTile
                 iconURL="https://vega.slooh.com/icons/home/jupiter-icon.png"
+                linkURL={undefined}
                 title="Mars"
               />
             </li>,
@@ -471,6 +475,7 @@ ShallowWrapper {
             "props": Object {
               "children": <LailaTile
                 iconURL="https://vega.slooh.com/icons/home/observatory.png"
+                linkURL={undefined}
                 title="Saturn"
               />,
               "className": "jsx-1394131357 topic",
@@ -482,6 +487,7 @@ ShallowWrapper {
               "nodeType": "function",
               "props": Object {
                 "iconURL": "https://vega.slooh.com/icons/home/observatory.png",
+                "linkURL": undefined,
                 "title": "Saturn",
               },
               "ref": null,
@@ -497,6 +503,7 @@ ShallowWrapper {
             "props": Object {
               "children": <LailaTile
                 iconURL="https://vega.slooh.com/icons/home/jupiter-icon.png"
+                linkURL={undefined}
                 title="Mars"
               />,
               "className": "jsx-1394131357 topic",
@@ -508,6 +515,7 @@ ShallowWrapper {
               "nodeType": "function",
               "props": Object {
                 "iconURL": "https://vega.slooh.com/icons/home/jupiter-icon.png",
+                "linkURL": undefined,
                 "title": "Mars",
               },
               "ref": null,
@@ -558,6 +566,7 @@ ShallowWrapper {
             >
               <LailaTile
                 iconURL="https://vega.slooh.com/icons/home/observatory.png"
+                linkURL={undefined}
                 title="Saturn"
               />
             </li>
@@ -566,6 +575,7 @@ ShallowWrapper {
             >
               <LailaTile
                 iconURL="https://vega.slooh.com/icons/home/jupiter-icon.png"
+                linkURL={undefined}
                 title="Mars"
               />
             </li>
@@ -601,6 +611,7 @@ ShallowWrapper {
               >
                 <LailaTile
                   iconURL="https://vega.slooh.com/icons/home/observatory.png"
+                  linkURL={undefined}
                   title="Saturn"
                 />
               </li>,
@@ -609,6 +620,7 @@ ShallowWrapper {
               >
                 <LailaTile
                   iconURL="https://vega.slooh.com/icons/home/jupiter-icon.png"
+                  linkURL={undefined}
                   title="Mars"
                 />
               </li>,
@@ -624,6 +636,7 @@ ShallowWrapper {
               "props": Object {
                 "children": <LailaTile
                   iconURL="https://vega.slooh.com/icons/home/observatory.png"
+                  linkURL={undefined}
                   title="Saturn"
                 />,
                 "className": "jsx-1394131357 topic",
@@ -635,6 +648,7 @@ ShallowWrapper {
                 "nodeType": "function",
                 "props": Object {
                   "iconURL": "https://vega.slooh.com/icons/home/observatory.png",
+                  "linkURL": undefined,
                   "title": "Saturn",
                 },
                 "ref": null,
@@ -650,6 +664,7 @@ ShallowWrapper {
               "props": Object {
                 "children": <LailaTile
                   iconURL="https://vega.slooh.com/icons/home/jupiter-icon.png"
+                  linkURL={undefined}
                   title="Mars"
                 />,
                 "className": "jsx-1394131357 topic",
@@ -661,6 +676,7 @@ ShallowWrapper {
                 "nodeType": "function",
                 "props": Object {
                   "iconURL": "https://vega.slooh.com/icons/home/jupiter-icon.png",
+                  "linkURL": undefined,
                   "title": "Mars",
                 },
                 "ref": null,
@@ -991,31 +1007,34 @@ ShallowWrapper {
     "props": Object {
       "children": Array [
         <div
-          className="jsx-689003795 title-wrapper"
+          className="jsx-3359366045 title-wrapper"
         >
           <RubyTitle
             text="Test"
           />
         </div>,
-        <p
-          className="jsx-689003795"
-        >
-          Some sample content
-        </p>,
+        <span
+          className="jsx-3359366045"
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "Some sample content",
+            }
+          }
+        />,
         <JSXStyle
           css={
             Array [
-              ".root.jsx-689003795{background:white;padding:20px 35px;}",
-              ".title-wrapper.jsx-689003795{padding:15px 0;}",
-              "p.jsx-689003795{font-family:adobe-garamond-pro, serif;line-height:1.5;font-size:18px;}",
-              "@media screen and (min-width: 768px){.root.jsx-689003795{padding:60px 40px;}.title-wrapper.jsx-689003795{padding-bottom:40px;}}",
-              "@media screen and (min-width: 1024px){.root.jsx-689003795{padding:70px;width:90%;}}",
+              ".root.jsx-3359366045{background:white;padding:20px 35px;}",
+              ".title-wrapper.jsx-3359366045{padding:15px 0;}",
+              ".root.jsx-3359366045 p{font-family:adobe-garamond-pro, serif;line-height:1.5;font-size:18px;}",
+              "@media screen and (min-width: 768px){.root.jsx-3359366045{padding:60px 40px;}.title-wrapper.jsx-3359366045{padding-bottom:40px;}}",
+              "@media screen and (min-width: 1024px){.root.jsx-3359366045{padding:70px;width:90%;}}",
             ]
           }
-          styleId="689003795"
+          styleId="3359366045"
         />,
       ],
-      "className": "jsx-689003795 root",
+      "className": "jsx-3359366045 root",
     },
     "ref": null,
     "rendered": Array [
@@ -1027,7 +1046,7 @@ ShallowWrapper {
           "children": <RubyTitle
             text="Test"
           />,
-          "className": "jsx-689003795 title-wrapper",
+          "className": "jsx-3359366045 title-wrapper",
         },
         "ref": null,
         "rendered": Object {
@@ -1048,12 +1067,14 @@ ShallowWrapper {
         "key": undefined,
         "nodeType": "host",
         "props": Object {
-          "children": "Some sample content",
-          "className": "jsx-689003795",
+          "className": "jsx-3359366045",
+          "dangerouslySetInnerHTML": Object {
+            "__html": "Some sample content",
+          },
         },
         "ref": null,
-        "rendered": "Some sample content",
-        "type": "p",
+        "rendered": null,
+        "type": "span",
       },
       Object {
         "instance": null,
@@ -1061,13 +1082,13 @@ ShallowWrapper {
         "nodeType": "class",
         "props": Object {
           "css": Array [
-            ".root.jsx-689003795{background:white;padding:20px 35px;}",
-            ".title-wrapper.jsx-689003795{padding:15px 0;}",
-            "p.jsx-689003795{font-family:adobe-garamond-pro, serif;line-height:1.5;font-size:18px;}",
-            "@media screen and (min-width: 768px){.root.jsx-689003795{padding:60px 40px;}.title-wrapper.jsx-689003795{padding-bottom:40px;}}",
-            "@media screen and (min-width: 1024px){.root.jsx-689003795{padding:70px;width:90%;}}",
+            ".root.jsx-3359366045{background:white;padding:20px 35px;}",
+            ".title-wrapper.jsx-3359366045{padding:15px 0;}",
+            ".root.jsx-3359366045 p{font-family:adobe-garamond-pro, serif;line-height:1.5;font-size:18px;}",
+            "@media screen and (min-width: 768px){.root.jsx-3359366045{padding:60px 40px;}.title-wrapper.jsx-3359366045{padding-bottom:40px;}}",
+            "@media screen and (min-width: 1024px){.root.jsx-3359366045{padding:70px;width:90%;}}",
           ],
-          "styleId": "689003795",
+          "styleId": "3359366045",
         },
         "ref": null,
         "rendered": null,
@@ -1084,31 +1105,34 @@ ShallowWrapper {
       "props": Object {
         "children": Array [
           <div
-            className="jsx-689003795 title-wrapper"
+            className="jsx-3359366045 title-wrapper"
           >
             <RubyTitle
               text="Test"
             />
           </div>,
-          <p
-            className="jsx-689003795"
-          >
-            Some sample content
-          </p>,
+          <span
+            className="jsx-3359366045"
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "Some sample content",
+              }
+            }
+          />,
           <JSXStyle
             css={
               Array [
-                ".root.jsx-689003795{background:white;padding:20px 35px;}",
-                ".title-wrapper.jsx-689003795{padding:15px 0;}",
-                "p.jsx-689003795{font-family:adobe-garamond-pro, serif;line-height:1.5;font-size:18px;}",
-                "@media screen and (min-width: 768px){.root.jsx-689003795{padding:60px 40px;}.title-wrapper.jsx-689003795{padding-bottom:40px;}}",
-                "@media screen and (min-width: 1024px){.root.jsx-689003795{padding:70px;width:90%;}}",
+                ".root.jsx-3359366045{background:white;padding:20px 35px;}",
+                ".title-wrapper.jsx-3359366045{padding:15px 0;}",
+                ".root.jsx-3359366045 p{font-family:adobe-garamond-pro, serif;line-height:1.5;font-size:18px;}",
+                "@media screen and (min-width: 768px){.root.jsx-3359366045{padding:60px 40px;}.title-wrapper.jsx-3359366045{padding-bottom:40px;}}",
+                "@media screen and (min-width: 1024px){.root.jsx-3359366045{padding:70px;width:90%;}}",
               ]
             }
-            styleId="689003795"
+            styleId="3359366045"
           />,
         ],
-        "className": "jsx-689003795 root",
+        "className": "jsx-3359366045 root",
       },
       "ref": null,
       "rendered": Array [
@@ -1120,7 +1144,7 @@ ShallowWrapper {
             "children": <RubyTitle
               text="Test"
             />,
-            "className": "jsx-689003795 title-wrapper",
+            "className": "jsx-3359366045 title-wrapper",
           },
           "ref": null,
           "rendered": Object {
@@ -1141,12 +1165,14 @@ ShallowWrapper {
           "key": undefined,
           "nodeType": "host",
           "props": Object {
-            "children": "Some sample content",
-            "className": "jsx-689003795",
+            "className": "jsx-3359366045",
+            "dangerouslySetInnerHTML": Object {
+              "__html": "Some sample content",
+            },
           },
           "ref": null,
-          "rendered": "Some sample content",
-          "type": "p",
+          "rendered": null,
+          "type": "span",
         },
         Object {
           "instance": null,
@@ -1154,13 +1180,13 @@ ShallowWrapper {
           "nodeType": "class",
           "props": Object {
             "css": Array [
-              ".root.jsx-689003795{background:white;padding:20px 35px;}",
-              ".title-wrapper.jsx-689003795{padding:15px 0;}",
-              "p.jsx-689003795{font-family:adobe-garamond-pro, serif;line-height:1.5;font-size:18px;}",
-              "@media screen and (min-width: 768px){.root.jsx-689003795{padding:60px 40px;}.title-wrapper.jsx-689003795{padding-bottom:40px;}}",
-              "@media screen and (min-width: 1024px){.root.jsx-689003795{padding:70px;width:90%;}}",
+              ".root.jsx-3359366045{background:white;padding:20px 35px;}",
+              ".title-wrapper.jsx-3359366045{padding:15px 0;}",
+              ".root.jsx-3359366045 p{font-family:adobe-garamond-pro, serif;line-height:1.5;font-size:18px;}",
+              "@media screen and (min-width: 768px){.root.jsx-3359366045{padding:60px 40px;}.title-wrapper.jsx-3359366045{padding-bottom:40px;}}",
+              "@media screen and (min-width: 1024px){.root.jsx-3359366045{padding:70px;width:90%;}}",
             ],
-            "styleId": "689003795",
+            "styleId": "3359366045",
           },
           "ref": null,
           "rendered": null,
@@ -1219,7 +1245,7 @@ ShallowWrapper {
             className="jsx-968165992 title-container"
           >
             <TopicHeading
-              text="Astronomical time"
+              text={undefined}
             />
           </div>
         </CenterColumn>,
@@ -1244,21 +1270,12 @@ ShallowWrapper {
             className="jsx-968165992 guide-container"
           >
             <TopicContentList
-              list={
-                Array [
-                  "contains 10 objects",
-                  "object type guide",
-                  "beginners and up",
-                ]
-              }
+              list={Array []}
               theme={Object {}}
             />
             <TopicBodyContent
-              content="Mauris non tempor quam, et lacinia sapien. Mauris accumsan eros eget libero lorem posuere vulputate. Etiam elit elit, elementum sed varius at, adipiscing evitae est. Sed nec felis loren posuere posuere, rutrum eu ipsum. Aliquam eget odio sed ligula dolae iaculis consequat at eget orci. Mauris moleistie sit amet metus loi mass imattis varius Donec sit amet ligula eget nisi sodales lorem a molestie bibendum. Etiam nisi anteni consectetur eget placerat a, tempus a neque. Donec ut elit urna. Etiam venenatis leni eleifend urna eget scelerisqueliquam in nunc.
-
-Donec sit amet ligula eget nisi sodales egestas. Aliquam interdum dolor aliquet dolor  iaculis consequat at eget orci. Mauris moleistie sit amet metus loi mass imattis varius Donec sit amet ligula eget nisi sodales lorem a molestie bibendum. Etiam nisi anteni
-posuere vulputate. Etiam elit elit, elementum sed varius at."
-              title="About this guide"
+              content={undefined}
+              title={undefined}
             />
           </div>
         </CenterColumn>,
@@ -1293,7 +1310,7 @@ posuere vulputate. Etiam elit elit, elementum sed varius at."
             className="jsx-968165992 title-container"
           >
             <TopicHeading
-              text="Astronomical time"
+              text={undefined}
             />
           </div>,
           "theme": Object {},
@@ -1310,7 +1327,7 @@ posuere vulputate. Etiam elit elit, elementum sed varius at."
           "nodeType": "host",
           "props": Object {
             "children": <TopicHeading
-              text="Astronomical time"
+              text={undefined}
             />,
             "className": "jsx-968165992 title-container",
           },
@@ -1320,7 +1337,7 @@ posuere vulputate. Etiam elit elit, elementum sed varius at."
             "key": undefined,
             "nodeType": "function",
             "props": Object {
-              "text": "Astronomical time",
+              "text": undefined,
             },
             "ref": null,
             "rendered": null,
@@ -1344,21 +1361,12 @@ posuere vulputate. Etiam elit elit, elementum sed varius at."
             className="jsx-968165992 guide-container"
           >
             <TopicContentList
-              list={
-                Array [
-                  "contains 10 objects",
-                  "object type guide",
-                  "beginners and up",
-                ]
-              }
+              list={Array []}
               theme={Object {}}
             />
             <TopicBodyContent
-              content="Mauris non tempor quam, et lacinia sapien. Mauris accumsan eros eget libero lorem posuere vulputate. Etiam elit elit, elementum sed varius at, adipiscing evitae est. Sed nec felis loren posuere posuere, rutrum eu ipsum. Aliquam eget odio sed ligula dolae iaculis consequat at eget orci. Mauris moleistie sit amet metus loi mass imattis varius Donec sit amet ligula eget nisi sodales lorem a molestie bibendum. Etiam nisi anteni consectetur eget placerat a, tempus a neque. Donec ut elit urna. Etiam venenatis leni eleifend urna eget scelerisqueliquam in nunc.
-
-Donec sit amet ligula eget nisi sodales egestas. Aliquam interdum dolor aliquet dolor  iaculis consequat at eget orci. Mauris moleistie sit amet metus loi mass imattis varius Donec sit amet ligula eget nisi sodales lorem a molestie bibendum. Etiam nisi anteni
-posuere vulputate. Etiam elit elit, elementum sed varius at."
-              title="About this guide"
+              content={undefined}
+              title={undefined}
             />
           </div>,
           "theme": Object {},
@@ -1376,21 +1384,12 @@ posuere vulputate. Etiam elit elit, elementum sed varius at."
           "props": Object {
             "children": Array [
               <TopicContentList
-                list={
-                  Array [
-                    "contains 10 objects",
-                    "object type guide",
-                    "beginners and up",
-                  ]
-                }
+                list={Array []}
                 theme={Object {}}
               />,
               <TopicBodyContent
-                content="Mauris non tempor quam, et lacinia sapien. Mauris accumsan eros eget libero lorem posuere vulputate. Etiam elit elit, elementum sed varius at, adipiscing evitae est. Sed nec felis loren posuere posuere, rutrum eu ipsum. Aliquam eget odio sed ligula dolae iaculis consequat at eget orci. Mauris moleistie sit amet metus loi mass imattis varius Donec sit amet ligula eget nisi sodales lorem a molestie bibendum. Etiam nisi anteni consectetur eget placerat a, tempus a neque. Donec ut elit urna. Etiam venenatis leni eleifend urna eget scelerisqueliquam in nunc.
-
-Donec sit amet ligula eget nisi sodales egestas. Aliquam interdum dolor aliquet dolor  iaculis consequat at eget orci. Mauris moleistie sit amet metus loi mass imattis varius Donec sit amet ligula eget nisi sodales lorem a molestie bibendum. Etiam nisi anteni
-posuere vulputate. Etiam elit elit, elementum sed varius at."
-                title="About this guide"
+                content={undefined}
+                title={undefined}
               />,
             ],
             "className": "jsx-968165992 guide-container",
@@ -1402,11 +1401,7 @@ posuere vulputate. Etiam elit elit, elementum sed varius at."
               "key": undefined,
               "nodeType": "function",
               "props": Object {
-                "list": Array [
-                  "contains 10 objects",
-                  "object type guide",
-                  "beginners and up",
-                ],
+                "list": Array [],
                 "theme": Object {},
               },
               "ref": null,
@@ -1418,11 +1413,8 @@ posuere vulputate. Etiam elit elit, elementum sed varius at."
               "key": undefined,
               "nodeType": "function",
               "props": Object {
-                "content": "Mauris non tempor quam, et lacinia sapien. Mauris accumsan eros eget libero lorem posuere vulputate. Etiam elit elit, elementum sed varius at, adipiscing evitae est. Sed nec felis loren posuere posuere, rutrum eu ipsum. Aliquam eget odio sed ligula dolae iaculis consequat at eget orci. Mauris moleistie sit amet metus loi mass imattis varius Donec sit amet ligula eget nisi sodales lorem a molestie bibendum. Etiam nisi anteni consectetur eget placerat a, tempus a neque. Donec ut elit urna. Etiam venenatis leni eleifend urna eget scelerisqueliquam in nunc.
-
-Donec sit amet ligula eget nisi sodales egestas. Aliquam interdum dolor aliquet dolor  iaculis consequat at eget orci. Mauris moleistie sit amet metus loi mass imattis varius Donec sit amet ligula eget nisi sodales lorem a molestie bibendum. Etiam nisi anteni
-posuere vulputate. Etiam elit elit, elementum sed varius at.",
-                "title": "About this guide",
+                "content": undefined,
+                "title": undefined,
               },
               "ref": null,
               "rendered": null,
@@ -1482,7 +1474,7 @@ posuere vulputate. Etiam elit elit, elementum sed varius at.",
               className="jsx-968165992 title-container"
             >
               <TopicHeading
-                text="Astronomical time"
+                text={undefined}
               />
             </div>
           </CenterColumn>,
@@ -1507,21 +1499,12 @@ posuere vulputate. Etiam elit elit, elementum sed varius at.",
               className="jsx-968165992 guide-container"
             >
               <TopicContentList
-                list={
-                  Array [
-                    "contains 10 objects",
-                    "object type guide",
-                    "beginners and up",
-                  ]
-                }
+                list={Array []}
                 theme={Object {}}
               />
               <TopicBodyContent
-                content="Mauris non tempor quam, et lacinia sapien. Mauris accumsan eros eget libero lorem posuere vulputate. Etiam elit elit, elementum sed varius at, adipiscing evitae est. Sed nec felis loren posuere posuere, rutrum eu ipsum. Aliquam eget odio sed ligula dolae iaculis consequat at eget orci. Mauris moleistie sit amet metus loi mass imattis varius Donec sit amet ligula eget nisi sodales lorem a molestie bibendum. Etiam nisi anteni consectetur eget placerat a, tempus a neque. Donec ut elit urna. Etiam venenatis leni eleifend urna eget scelerisqueliquam in nunc.
-
-Donec sit amet ligula eget nisi sodales egestas. Aliquam interdum dolor aliquet dolor  iaculis consequat at eget orci. Mauris moleistie sit amet metus loi mass imattis varius Donec sit amet ligula eget nisi sodales lorem a molestie bibendum. Etiam nisi anteni
-posuere vulputate. Etiam elit elit, elementum sed varius at."
-                title="About this guide"
+                content={undefined}
+                title={undefined}
               />
             </div>
           </CenterColumn>,
@@ -1556,7 +1539,7 @@ posuere vulputate. Etiam elit elit, elementum sed varius at."
               className="jsx-968165992 title-container"
             >
               <TopicHeading
-                text="Astronomical time"
+                text={undefined}
               />
             </div>,
             "theme": Object {},
@@ -1573,7 +1556,7 @@ posuere vulputate. Etiam elit elit, elementum sed varius at."
             "nodeType": "host",
             "props": Object {
               "children": <TopicHeading
-                text="Astronomical time"
+                text={undefined}
               />,
               "className": "jsx-968165992 title-container",
             },
@@ -1583,7 +1566,7 @@ posuere vulputate. Etiam elit elit, elementum sed varius at."
               "key": undefined,
               "nodeType": "function",
               "props": Object {
-                "text": "Astronomical time",
+                "text": undefined,
               },
               "ref": null,
               "rendered": null,
@@ -1607,21 +1590,12 @@ posuere vulputate. Etiam elit elit, elementum sed varius at."
               className="jsx-968165992 guide-container"
             >
               <TopicContentList
-                list={
-                  Array [
-                    "contains 10 objects",
-                    "object type guide",
-                    "beginners and up",
-                  ]
-                }
+                list={Array []}
                 theme={Object {}}
               />
               <TopicBodyContent
-                content="Mauris non tempor quam, et lacinia sapien. Mauris accumsan eros eget libero lorem posuere vulputate. Etiam elit elit, elementum sed varius at, adipiscing evitae est. Sed nec felis loren posuere posuere, rutrum eu ipsum. Aliquam eget odio sed ligula dolae iaculis consequat at eget orci. Mauris moleistie sit amet metus loi mass imattis varius Donec sit amet ligula eget nisi sodales lorem a molestie bibendum. Etiam nisi anteni consectetur eget placerat a, tempus a neque. Donec ut elit urna. Etiam venenatis leni eleifend urna eget scelerisqueliquam in nunc.
-
-Donec sit amet ligula eget nisi sodales egestas. Aliquam interdum dolor aliquet dolor  iaculis consequat at eget orci. Mauris moleistie sit amet metus loi mass imattis varius Donec sit amet ligula eget nisi sodales lorem a molestie bibendum. Etiam nisi anteni
-posuere vulputate. Etiam elit elit, elementum sed varius at."
-                title="About this guide"
+                content={undefined}
+                title={undefined}
               />
             </div>,
             "theme": Object {},
@@ -1639,21 +1613,12 @@ posuere vulputate. Etiam elit elit, elementum sed varius at."
             "props": Object {
               "children": Array [
                 <TopicContentList
-                  list={
-                    Array [
-                      "contains 10 objects",
-                      "object type guide",
-                      "beginners and up",
-                    ]
-                  }
+                  list={Array []}
                   theme={Object {}}
                 />,
                 <TopicBodyContent
-                  content="Mauris non tempor quam, et lacinia sapien. Mauris accumsan eros eget libero lorem posuere vulputate. Etiam elit elit, elementum sed varius at, adipiscing evitae est. Sed nec felis loren posuere posuere, rutrum eu ipsum. Aliquam eget odio sed ligula dolae iaculis consequat at eget orci. Mauris moleistie sit amet metus loi mass imattis varius Donec sit amet ligula eget nisi sodales lorem a molestie bibendum. Etiam nisi anteni consectetur eget placerat a, tempus a neque. Donec ut elit urna. Etiam venenatis leni eleifend urna eget scelerisqueliquam in nunc.
-
-Donec sit amet ligula eget nisi sodales egestas. Aliquam interdum dolor aliquet dolor  iaculis consequat at eget orci. Mauris moleistie sit amet metus loi mass imattis varius Donec sit amet ligula eget nisi sodales lorem a molestie bibendum. Etiam nisi anteni
-posuere vulputate. Etiam elit elit, elementum sed varius at."
-                  title="About this guide"
+                  content={undefined}
+                  title={undefined}
                 />,
               ],
               "className": "jsx-968165992 guide-container",
@@ -1665,11 +1630,7 @@ posuere vulputate. Etiam elit elit, elementum sed varius at."
                 "key": undefined,
                 "nodeType": "function",
                 "props": Object {
-                  "list": Array [
-                    "contains 10 objects",
-                    "object type guide",
-                    "beginners and up",
-                  ],
+                  "list": Array [],
                   "theme": Object {},
                 },
                 "ref": null,
@@ -1681,11 +1642,8 @@ posuere vulputate. Etiam elit elit, elementum sed varius at."
                 "key": undefined,
                 "nodeType": "function",
                 "props": Object {
-                  "content": "Mauris non tempor quam, et lacinia sapien. Mauris accumsan eros eget libero lorem posuere vulputate. Etiam elit elit, elementum sed varius at, adipiscing evitae est. Sed nec felis loren posuere posuere, rutrum eu ipsum. Aliquam eget odio sed ligula dolae iaculis consequat at eget orci. Mauris moleistie sit amet metus loi mass imattis varius Donec sit amet ligula eget nisi sodales lorem a molestie bibendum. Etiam nisi anteni consectetur eget placerat a, tempus a neque. Donec ut elit urna. Etiam venenatis leni eleifend urna eget scelerisqueliquam in nunc.
-
-Donec sit amet ligula eget nisi sodales egestas. Aliquam interdum dolor aliquet dolor  iaculis consequat at eget orci. Mauris moleistie sit amet metus loi mass imattis varius Donec sit amet ligula eget nisi sodales lorem a molestie bibendum. Etiam nisi anteni
-posuere vulputate. Etiam elit elit, elementum sed varius at.",
-                  "title": "About this guide",
+                  "content": undefined,
+                  "title": undefined,
                 },
                 "ref": null,
                 "rendered": null,

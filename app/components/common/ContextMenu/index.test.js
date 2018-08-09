@@ -28,7 +28,7 @@ describe('ContextMenu', () => {
 });
 
 describe('Menu', () => {
-  const menuShallowWrapper = shallow(<Menu />);
+  const menuShallowWrapper = shallow(<Menu list={[{ title: 'foo', linkURL: '#' }]} />);
   it('should render correctly', () => {
     expect(menuShallowWrapper).toMatchSnapshot();
   });
