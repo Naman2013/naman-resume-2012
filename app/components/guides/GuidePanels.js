@@ -21,17 +21,19 @@ const GuidePanels = ({ guideId }) => (
     serviceURL={GUIDE_PANEL_ENDPOINT_URL}
     model={guidePanelsModel}
     requestBody={{ guideId }}
-    render={guidePanelResults => (
+    render={({
+      fetchingContent,
+      modeledResponses: { GUIDE_PANELS },
+    }) => (
       <Fragment>
         {
-          !guidePanelResults.fetchingContent &&
+          !fetchingContent &&
             <Fragment>
               <SterlingTitle
-                {...guidePanelResults
-                  .modeledResponses.GUIDE_PANELS.sterlingTitleProps}
+                {...GUIDE_PANELS.sterlingTitleProps}
               />
               <TopicList
-                {...guidePanelResults.modeledResponses.GUIDE_PANELS.topicListProps}
+                {...GUIDE_PANELS.topicListProps}
               />
             </Fragment>
         }
