@@ -1,42 +1,55 @@
 import css from 'styled-jsx/css';
 import { primaryFont, secondaryFont } from '../../../styles/variables/fonts';
-import { astronaut, lynch, geyser, iron, romance } from '../../../styles/variables/colors_tiles_v4';
+import { astronaut, romance, lynch, geyser, iron } from '../../../styles/variables/colors_tiles_v4';
+import { screenLarge, screenXLarge } from '../../../styles/variables/breakpoints';
 
 export default css`
-  .card-obs {
+
+  .bc {
+    position: relative;
     letter-spacing: 1px;
     background-color: ${romance};
+    background-size: 22px;
     box-shadow: 0px 0px 3px 1px rgba(0,0,0,0.2);
-    margin: 3px;
+    margin: 3px auto;
     color: ${astronaut};
     font-family: ${secondaryFont};
     transition: width 0.4s ease-in-out, height 0.4s ease-in-out;
-    width: 90%;
-    margin: 0 auto;
+    width: 100%;
+    height: 396px;
   }
 
-  .obs-left {
+  .bc-left {
     text-align: left;
-    width: 80%;
-    margin: 0 auto;
-    padding-top: 40px;
+    width: 55%;
+    padding-left: 50px;
+    transition: width 0.4s ease-in-out, height 0.4s ease-in-out;
   }
 
-  .card-obs-title {
+  .bc-title {
     font-family: ${secondaryFont};
-    font-size: 20px;
+    font-size: 22px;
     color: ${astronaut};
     letter-spacing: 1px;
     font-weight: 400;
+    padding-top: 50px;
   }
 
-  .obs-left img {
+  .bc-img-right {
+    position: absolute;
     border: solid 1px ${iron};
-    padding: 2px;
-    width: 98%;
+    right: 50px;
+    top: 50px;
+    width: calc(40% - 50px);
+    transition: width 0.4s ease-in-out, height 0.4s ease-in-out;
   }
 
-  .card-obs-author {
+  .bc-img-right img {
+    border: 2px solid white;
+    width: 100%;
+  }
+
+  .bc-author {
     font-family: ${primaryFont};
     font-size: 10px;
     font-weight: 400;
@@ -44,27 +57,28 @@ export default css`
     border-top: solid 1px ${geyser};
     border-bottom: solid 1px ${geyser};
     text-transform: uppercase;
-    padding: 5px 0;
+    padding: 10px 0;
     margin-top: 10px;
   }
 
-  .card-obs-desc {
-    font-size: 15px;
+  .bc-desc {
+    font-size: 16px;
     font-weight: 100;
     color: ${lynch};
     padding: 20px 0;
+    transition: font-size 0.4s ease-in-out;
   }
 
   .card-bottom {
+    position: absolute;
+    bottom: 0;
     width: 100%;
-    padding-top: 20px;
   }
 
   .card-bottom a {
     text-decoration: none;
-    color: ${astronaut};
   }
-  
+
   ul {
     margin: 0;
     padding: 0;
@@ -89,8 +103,41 @@ export default css`
 
   li:last-child {
     border-right: none;
+    color: ${lynch};
+    flex-grow: 3;
+    text-align: right;
+    padding-right: 30px;
     text-decoration: none;
-    padding-right: 15px;
   }
 
+  li:nth-last-child(2) {
+    border-right: none;
+  }
+
+  @media ${screenXLarge} {
+    .bc {
+      width: 100%;
+      height: 480px;
+    }
+
+    .bc-left {
+      width: 50%;
+      padding-left: 75px;
+    }
+
+    .bc-title {
+      padding-top: 75px;
+    }
+
+    .bc-img-right {
+      right: 75px;
+      top: 75px;
+      width: 300px;
+      height: 300px;
+    }
+
+    .bc-desc {
+      font-size: 18px;
+    }
+  }
 `;

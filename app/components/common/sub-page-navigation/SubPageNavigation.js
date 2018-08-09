@@ -4,31 +4,30 @@
 *  Currently used by V4 Object Details and V4 Guide Details
 ***********************************/
 
-import React, { Component } from 'react';
+import React, { Fragment } from 'react';
 import { Link } from 'react-router';
 import PropTypes from 'prop-types';
 import style from './SubPageNavigation.style';
 
 const SubPageNavigation = ({ items }) => (
-  <div className="navigation-root">
-    <ul className="navigation">
+  <Fragment>
+    <ul className="subnav">
       {
         items.map(item => (
           <li className="item" key={item.link}>
             <Link
-              activeClassName="active"
+              activeClassName="subnav-active"
+              className="subnav-link"              
               to={item.link}
             >
-              <span className="link" >
-                {item.title}
-              </span>
+              {item.title}
             </Link>
           </li>
         ))
       }
     </ul>
-    <style jsx>{style}</style>
-  </div>
+    <style jsx global>{style}</style>
+  </Fragment>
 );
 
 SubPageNavigation.defaultProps = {

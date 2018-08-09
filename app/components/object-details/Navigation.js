@@ -3,8 +3,7 @@
 *  Wrapper for SubPageNavigation component
 ***********************************/
 
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
 import SubPageNavigation from '../common/sub-page-navigation';
 
 
@@ -22,7 +21,7 @@ const generateNavItems = (objectId) => ([
     link:`/object-details/${objectId}/quests`
   },
   {
-    title: 'Ask an Astronomer',
+    title: 'Ask',
     link:`/object-details/${objectId}/ask`
   },
   {
