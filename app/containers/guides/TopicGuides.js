@@ -3,29 +3,8 @@ import PropTypes from 'prop-types';
 import Request from 'components/common/network/Request';
 import InAppNavigation from 'components/common/InAppNavigation';
 import TopicContent from 'components/guides/TopicContent';
-import SterlingTitle from 'components/common/titles/SterlingTitle';
-import TopicList from 'components/guides/TopicList';
-import { GUIDE_ENDPOINT_URL, GUIDE_PANEL_ENDPOINT_URL } from 'services/guides/guide-data';
-import { SAMPLE_IMAGE_HTML_BLOB, SAMPLE_VIDEO_HTML_BLOB } from '../../../stories/content/getGuidesPanels';
-
-const TEST_PANEL_LIST = [
-  {
-    guidePanelId: '12345',
-    displayOrder: '10',
-    title: 'Not a real title',
-    authorName: 'Made Up Dude',
-    readDuration: '10',
-    content: SAMPLE_VIDEO_HTML_BLOB,
-  },
-  {
-    guidePanelId: '3232',
-    displayOrder: '2',
-    title: 'Not a real title',
-    authorName: 'Made Up Dude',
-    readDuration: '10',
-    content: SAMPLE_IMAGE_HTML_BLOB,
-  },
-];
+import GuidePanels from 'components/guides/GuidePanels';
+import { GUIDE_ENDPOINT_URL } from 'services/guides/guide-data';
 
 const subjectGuideModel = {
   name: 'SUBJECT_GUIDE_MODEL',
@@ -45,20 +24,6 @@ const subjectGuideModel = {
       topicContentList: [resp.guideBulletPoint1, resp.guideBulletPoint2, resp.guideBulletPoint3],
       aboutTitle: resp.AboutThisTitle,
       aboutContent: resp.AboutThisContent,
-    },
-    topicListProps: {
-      list: TEST_PANEL_LIST,
-    },
-  }),
-};
-
-const guidePanelsModel = {
-  name: 'GUIDE_PANELS',
-  model: resp => ({
-    topicListProps: { list: resp.panelList },
-    sterlingTitleProps: {
-      title: resp.panelHeading1,
-      subTitle: resp.panelHeading2,
     },
   }),
 };
@@ -91,29 +56,11 @@ const TopicGuides = ({ params: { guideId } }) => (
                 >
                   TODO - ADD HEADER FROM MATT
                 </div>
+
                 <TopicContent {...SUBJECT_GUIDE_MODEL.topicContentProps} />
 
-                <Request
-                  serviceURL={GUIDE_PANEL_ENDPOINT_URL}
-                  model={guidePanelsModel}
-                  requestBody={{ guideId }}
-                  render={guidePanelResults => (
-                    <Fragment>
-                      {
-                        !guidePanelResults.fetchingContent &&
-                          <Fragment>
-                            <SterlingTitle
-                              {...guidePanelResults
-                                .modeledResponses.GUIDE_PANELS.sterlingTitleProps}
-                            />
-                            <TopicList
-                              {...guidePanelResults.modeledResponses.GUIDE_PANELS.topicListProps}
-                            />
-                          </Fragment>
-                      }
-                    </Fragment>
-                  )}
-                />
+                <GuidePanels guideId={guideId} />
+
               </Fragment>
           }
         </Fragment>
