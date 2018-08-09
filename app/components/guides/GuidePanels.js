@@ -28,6 +28,7 @@ const GuidePanels = ({ guideId }) => (
       <Fragment>
         {
           !fetchingContent &&
+          (GUIDE_PANELS.topicListProps.list.length > 0) &&
             <Fragment>
               <SterlingTitle
                 {...GUIDE_PANELS.sterlingTitleProps}
