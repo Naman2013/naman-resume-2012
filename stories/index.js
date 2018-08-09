@@ -20,6 +20,7 @@ import './MissionAudio';
 import './ObjectDetailsSectionTitle';
 import './ResponsiveTwoColumnContainer';
 import './RevealSubmitForm';
+import './SubPageNavigation';
 import './SingleFieldSubmitForm';
 import './svg-mask';
 import './ShowMoreFullSet';

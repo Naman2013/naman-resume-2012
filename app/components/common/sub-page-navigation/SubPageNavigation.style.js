@@ -1,4 +1,5 @@
 import css from 'styled-jsx/css';
+import { primaryFont } from '../../../styles/variables/fonts';
 import { nightfall, romance } from '../../../styles/variables/colors_tiles_v4';
 import { screenLarge, screenMedium } from '../../../styles/variables/breakpoints';
 
@@ -17,6 +18,7 @@ export default css`
     height: 68px;
     margin: 0;
     padding: 30px 0 0 0;
+    font-family: ${primaryFont};
     text-transform: uppercase;
     font-size: 11px;
     letter-spacing: 2px;
