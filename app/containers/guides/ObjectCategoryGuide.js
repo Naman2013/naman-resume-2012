@@ -3,12 +3,13 @@ import PropTypes from 'prop-types';
 import Request from 'components/common/network/Request';
 import CenterColumn from 'components/common/CenterColumn';
 import TiaraTitleSection from 'components/common/TiaraTitleSection';
+import SterlingTitle from 'components/common/titles/SterlingTitle';
 import GuideSection from 'components/guides/GuideSection';
 import GuideBodyContent from 'components/guides/GuideBodyContent';
 import GuideContentList from 'components/guides/GuideContentList';
 import FeaturedGallery from 'components/guides/FeaturedGallery';
-import SterlingTitle from 'components/common/titles/SterlingTitle';
 import GuideTopics from 'components/guides/GuideTopics';
+import GuidePanels from 'components/guides/GuidePanels';
 import { GUIDE_ENDPOINT_URL, GUIDE_OBJECTS_ENDPOINT_URL } from 'services/guides/guide-data';
 
 const guidePageModel = {
@@ -81,6 +82,8 @@ const Guides = ({ params: { guideId } }) => (
               </CenterColumn>
 
               <FeaturedGallery />
+
+              <GuidePanels guideId={guideId} />
 
               <SterlingTitle {...GUIDE_PAGE_MODEL.sterlingTitleProps} />
               <Request
