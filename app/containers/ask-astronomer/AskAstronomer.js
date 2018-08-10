@@ -5,7 +5,7 @@
 *   Multi-National Languages.....
 ***********************************/
 
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -18,6 +18,9 @@ import {
 } from '../../modules/ask-astronomer-answers/actions';
 import QuestionList from '../../components/ask-astronomer/question-list';
 import AskAstronomerQuestionForm from '../../components/ask-astronomer/question-form';
+import DeviceProvider from '../../../app/providers/DeviceProvider';
+import ObjectDetailsSectionTitle from '../../components/object-details/ObjectDetailsSectionTitle';
+
 const {
   bool,
   func,
@@ -55,6 +58,7 @@ const mapDispatchToProps = dispatch => ({
 });
 
 @connect(mapStateToProps, mapDispatchToProps)
+
 class AskAstronomer extends Component {
 
   static propTypes = {
@@ -148,52 +152,57 @@ class AskAstronomer extends Component {
       user,
     } = this.props;
     return (
-      <div className="ask-astronomer">
-        <div className="left">
-          {fetchingQuestions && <div className="fa fa-spinner loader" />}
-          {!fetchingQuestions && <QuestionList
-            allAnswers={allAnswers}
-            allDisplayedAnswers={allDisplayedAnswers}
-            count={count}
-            fetchingAnswers={fetchingAnswers}
-            handlePageChange={this.handlePageChange}
-            objectId={objectId}
-            page={page}
-            questions={questions}
-            toggleAllAnswersAndDisplay={actions.toggleAllAnswersAndDisplay}
-            totalCount={totalCount}
-          />}
-        </div>
-        <div className="right">
-          <AskAstronomerQuestionForm
-            objectId={objectId}
-            topicId={faqTopicId}
-            objectTitle={objectTitle}
-            user={user}
-          />
-        </div>
-        <style jsx>{`
-          .ask-astronomer {
-            display: flex;
-            flex-direction: row;
-            padding: 10px 25px;
-          }
-          .loader {
-            display: block;
-            text-align: center;
-            margin: 25px;
-            padding: 25px;
-          }
+      <Fragment>
+        <DeviceProvider>
+            <ObjectDetailsSectionTitle title={objectTitle + "'s"} subTitle="Ask An Astronomer" />
+        </DeviceProvider>
+        <div className="ask-astronomer">
+          <div className="left">
+            {fetchingQuestions && <div className="fa fa-spinner loader" />}
+            {!fetchingQuestions && <QuestionList
+              allAnswers={allAnswers}
+              allDisplayedAnswers={allDisplayedAnswers}
+              count={count}
+              fetchingAnswers={fetchingAnswers}
+              handlePageChange={this.handlePageChange}
+              objectId={objectId}
+              page={page}
+              questions={questions}
+              toggleAllAnswersAndDisplay={actions.toggleAllAnswersAndDisplay}
+              totalCount={totalCount}
+            />}
+          </div>
+          <div className="right">
+            <AskAstronomerQuestionForm
+              objectId={objectId}
+              topicId={faqTopicId}
+              objectTitle={objectTitle}
+              user={user}
+            />
+          </div>
+          <style jsx>{`
+            .ask-astronomer {
+              display: flex;
+              flex-direction: row;
+              padding: 10px 25px;
+            }
+            .loader {
+              display: block;
+              text-align: center;
+              margin: 25px;
+              padding: 25px;
+            }
 
-          .left {
-            flex: 3;
-          }
+            .left {
+              flex: 3;
+            }
 
-          .right {
-            flex: 1;
-          }
-        `}</style>
-      </div>
+            .right {
+              flex: 1;
+            }
+          `}</style>
+        </div>
+      </Fragment>
     )
   }
 }
