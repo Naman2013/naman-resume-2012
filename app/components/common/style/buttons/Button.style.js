@@ -2,16 +2,6 @@ import css from 'styled-jsx/css';
 import { astronaut, romance } from 'styles/variables/colors_tiles_v4';
 import { primaryFont } from 'styles/variables/fonts';
 
-
-export const activeStyles = css`
-  .active.button-container {
-    background-color: ${astronaut};
-  }
-  .active .button-icon,
-  .active .text {
-    color: ${romance};
-}`;
-
 export default css`
   .text {
     vertical-align: middle;
@@ -46,5 +36,4 @@ export default css`
   .active .text {
     color: ${romance};
   }
-
 `;
