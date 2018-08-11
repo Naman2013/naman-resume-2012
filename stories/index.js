@@ -12,7 +12,6 @@ import './DiscussionsCard';
 import './GlobalNavigation';
 import './guides/GuideSection';
 import './Headers';
-import './HorizontalScrollMenu';
 import './icons';
 import './InAppNavigation';
 import './LabeledTitleTiles';
