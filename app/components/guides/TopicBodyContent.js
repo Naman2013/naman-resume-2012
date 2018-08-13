@@ -1,6 +1,6 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import GenericButton from 'components/common/style/buttons/Button';
+import TopicActions from './TopicActions';
 import RubyTitle from 'atoms/titles/RubyTitle';
 import style from './TopicBodyContent.style';
 
@@ -10,6 +10,9 @@ const TopicBodyContent = ({ title, content }) => (
       <RubyTitle text={title} />
     </div>
     <span dangerouslySetInnerHTML={{ __html: content }} />
+    <div className="action-container">
+      <TopicActions />
+    </div>
     <style jsx>{style}</style>
   </div>
 );

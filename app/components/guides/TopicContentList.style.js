@@ -12,6 +12,8 @@ export default css`
     padding: 0;
     margin-top: -10px;
   }
+
+  .action-container { display: none; }
 }
 
 @media ${screenLarge} {
@@ -20,5 +22,7 @@ export default css`
     margin-right: 30px;
     margin-top: 10px;
   }
+
+  .action-container { display: block; }
 }
 `;
