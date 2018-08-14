@@ -203,8 +203,8 @@ class AskAstronomerQuestionForm extends Component {
     return (
       <div>
         <div className="header">
-          <h4>{`Don't see an answer?`}</h4>
-          <h3>Ask an Astronomer</h3>
+          {/*<h4>{`Don't see an answer?`}</h4>
+          <h3>Ask an Astronomer</h3>*/}
         </div>
         <form className="form">
           <div className="avatars">

@@ -20,6 +20,8 @@ import QuestionList from '../../components/ask-astronomer/question-list';
 import AskAstronomerQuestionForm from '../../components/ask-astronomer/question-form';
 import DeviceProvider from '../../../app/providers/DeviceProvider';
 import ObjectDetailsSectionTitle from '../../components/object-details/ObjectDetailsSectionTitle';
+import CenterColumn from '../../../app/components/common/CenterColumn';
+import style from './AskAstronomer.style';
 
 const {
   bool,
@@ -154,54 +156,36 @@ class AskAstronomer extends Component {
     return (
       <Fragment>
         <DeviceProvider>
-            <ObjectDetailsSectionTitle title={objectTitle + "'s"} subTitle="Ask An Astronomer" />
+          <ObjectDetailsSectionTitle title={objectTitle + "'s"} subTitle="Ask An Astronomer" />        
+          <CenterColumn>
+            <div className="ask-astronomer">
+             <div className="right">
+                <AskAstronomerQuestionForm
+                  objectId={objectId}
+                  topicId={faqTopicId}
+                  objectTitle={objectTitle}
+                  user={user}
+                />
+              </div>
+              <div className="left">
+                {fetchingQuestions && <div className="fa fa-spinner loader" />}
+                {!fetchingQuestions && <QuestionList
+                  allAnswers={allAnswers}
+                  allDisplayedAnswers={allDisplayedAnswers}
+                  count={count}
+                  fetchingAnswers={fetchingAnswers}
+                  handlePageChange={this.handlePageChange}
+                  objectId={objectId}
+                  page={page}
+                  questions={questions}
+                  toggleAllAnswersAndDisplay={actions.toggleAllAnswersAndDisplay}
+                  totalCount={totalCount}
+                />}
+              </div>
+            </div>
+          </CenterColumn>
         </DeviceProvider>
-        <div className="ask-astronomer">
-          <div className="left">
-            {fetchingQuestions && <div className="fa fa-spinner loader" />}
-            {!fetchingQuestions && <QuestionList
-              allAnswers={allAnswers}
-              allDisplayedAnswers={allDisplayedAnswers}
-              count={count}
-              fetchingAnswers={fetchingAnswers}
-              handlePageChange={this.handlePageChange}
-              objectId={objectId}
-              page={page}
-              questions={questions}
-              toggleAllAnswersAndDisplay={actions.toggleAllAnswersAndDisplay}
-              totalCount={totalCount}
-            />}
-          </div>
-          <div className="right">
-            <AskAstronomerQuestionForm
-              objectId={objectId}
-              topicId={faqTopicId}
-              objectTitle={objectTitle}
-              user={user}
-            />
-          </div>
-          <style jsx>{`
-            .ask-astronomer {
-              display: flex;
-              flex-direction: row;
-              padding: 10px 25px;
-            }
-            .loader {
-              display: block;
-              text-align: center;
-              margin: 25px;
-              padding: 25px;
-            }
-
-            .left {
-              flex: 3;
-            }
-
-            .right {
-              flex: 1;
-            }
-          `}</style>
-        </div>
+        <style jsx>{style}</style>
       </Fragment>
     )
   }

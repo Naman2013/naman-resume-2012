@@ -43,12 +43,12 @@ const AnswerListItem = ({
   toggleAnswers,
   topicId,
 }) => {
-  const avatarStyle = Object.assign(avatarImgStyle(answer.avatarURL), { height: '50px', width: '50px'});
+  //const avatarStyle = Object.assign(avatarImgStyle(answer.avatarURL), { height: '50px', width: '50px'});
   return (
     <div className="answer">
       {isTopAnswer && <div className="top-answer">Top Answer</div>}
       <div>
-        <div style={avatarStyle} />
+        {/* <div style={avatarStyle} /> */}
         <span className="display-name">{answer.displayName}</span>
       </div>
       <div className="content">
@@ -89,24 +89,19 @@ const AnswerListItem = ({
 
       <style jsx>{`
         .answer {
-          padding: 15px;
-          margin-left: 25px;
-
-        }
-
-        .answer:not(:last-child) {
-          border-bottom: 1px solid ${black};
+          width: 100%;
         }
 
         .top-answer {
-          background-color: ${darkBlueGray};
-          padding: 5px 10px;
+          background-color: #3C4A55;
+          padding: 20px;
+          margin: 0 -40px;
           text-transform: uppercase;
           font-weight: bold;
-          font-size: 10px;
-          color: ${white};
-          float: right;
-          margin-top: -15px;
+          font-size: 11px;
+          color: #fff;
+          height: 50px;
+          margin-bottom: 40px;
         }
 
         .action-item,
@@ -132,6 +127,16 @@ const AnswerListItem = ({
           font-weight: bold;
           text-transform: uppercase;
           font-size: 10px;
+          height: 14px;
+          margin-left: 5px;
+          letter-spacing: 1px;
+        }
+
+        .display-name:before {
+          content: url("https://vega.slooh.com/assets/v4/common/ask_avatar.svg");
+          position: relative;
+          left: -5px;
+          top: 3px;
         }
 
         .action-item:first-child {
