@@ -44,7 +44,7 @@ class UpcomingShow extends Component {
 
   static defaultProps = {
     showInfoTiles: {},
-s  };
+  };
 
   state = {
     aboutIsActive: true,
