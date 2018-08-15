@@ -102,12 +102,20 @@ describe('TopicList', () => {
       content: SAMPLE_IMAGE_HTML_BLOB,
     },
   ];
-  // const shallowWrapper = shallow(<TopicList list={TEST_PANEL_LIST} />);
-  // it('should render correctly', () => {
-  //   expect(shallowWrapper).toMatchSnapshot();
-  // });
-  //
-  // it('renders BobbieTiles for each topic presented', () => {
-  //   expect(shallowWrapper.find('BobbieTile').length).toEqual(2);
-  // });
+  const shallowWrapper = shallow(<TopicList
+    list={TEST_PANEL_LIST}
+    topicActionProps={{
+      followButtonText: 'Test',
+      followButtonIconURL: '',
+      showActions: true,
+    }}
+    guideID="37"
+  />);
+  it('should render correctly', () => {
+    expect(shallowWrapper).toMatchSnapshot();
+  });
+
+  it('renders BobbieTiles for each topic presented', () => {
+    expect(shallowWrapper.find('BobbieTile').length).toEqual(2);
+  });
 });
