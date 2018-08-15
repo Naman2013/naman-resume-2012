@@ -159,7 +159,6 @@ class RelatedObject extends Component {
           <span className="icon-line-horz" />
           <div className="icon-container flex-item">
             <div className="icon" style={profPic(objectIconURL)} />
-            <div className="icon-line" />
           </div>
           <span className="icon-line-horz" />
           <div className="info-list">

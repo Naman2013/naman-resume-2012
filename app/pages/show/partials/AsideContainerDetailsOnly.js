@@ -7,13 +7,7 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import noop from 'lodash/noop'
-import BigBoxInfoContainer from './BigBoxInfoContainer';
-import ThreeTabbedNav from 'components/ThreeTabbedNav';
-import TwoTabbedNav from 'components/TwoTabbedNav';
-import ResponsiveTwoColumnContainer from 'components/ResponsiveTwoColumnContainer';
-import AboutTab from './AboutTab';
-import CommentsTab from './CommentsTab';
+import Host from 'components/Host';
 import DetailsTab from './DetailsTab';
 import styles from './AsideContainerDetailsOnly.style';
 
@@ -30,6 +24,7 @@ const {
 
 class AsideContainerDetailsOnly extends Component {
   static propTypes = {
+    hosts: arrayOf(shape({})),
     user: shape({
       at: oneOfType([number, string]),
       token: oneOfType([number, string]),
@@ -38,7 +33,7 @@ class AsideContainerDetailsOnly extends Component {
   };
 
   static defaultProps = {
-
+    hosts: [],
   };
 
   state = {
@@ -49,6 +44,7 @@ class AsideContainerDetailsOnly extends Component {
 
   render() {
     const {
+      hosts,
     } = this.props;
 
     const {
@@ -57,6 +53,7 @@ class AsideContainerDetailsOnly extends Component {
 
     return (
       <div className="root">
+        {hosts.map(host => <Host {...host} />)}
         <DetailsTab {...this.props} />
         <style jsx>{styles}</style>
       </div>

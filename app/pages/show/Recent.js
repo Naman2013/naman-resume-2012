@@ -120,11 +120,13 @@ class RecentShow extends Component {
             />
           </div>
           <MonotonousTile label={headerLabel} text={title} />
-          <LabeledTitleTiles
-            theme={{ margin: isDesktop ? 0 : '15px', backgroundColor: romance, height: 'auto' }}
-            tiles={showInfoTiles.list}
-            direction="row"
-          />
+          <div className="hide-on-mobile">
+            <LabeledTitleTiles
+              theme={{ margin: isDesktop ? 0 : '15px', backgroundColor: romance, height: 'auto' }}
+              tiles={showInfoTiles.list}
+              direction="row"
+            />
+          </div>
         </div>
           <div className="recent-main-container">
             <ResponsiveTwoColumnContainer

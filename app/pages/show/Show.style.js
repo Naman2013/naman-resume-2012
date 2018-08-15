@@ -2,12 +2,16 @@ import css from 'styled-jsx/css';
 import { faintShadow } from 'styles/variables/shadows';
 import { astronaut, romance } from 'styles/variables/colors_tiles_v4';
 import { primaryFont, secondaryFont } from 'styles/variables/fonts';
-import { screenMedium } from 'styles/variables/breakpoints';
+import { screenLarge } from 'styles/variables/breakpoints';
 import { backgroundImageCover, dropShadowContainer } from 'styles/mixins/utilities';
 
 export default css`
   .root {
     padding-bottom: 25px;
+  }
+
+  .hide-on-mobile {
+    display: none;
   }
 
   .big-box {
@@ -27,6 +31,14 @@ export default css`
     justify-content: center;
     align-items: center;
     ${faintShadow}
+  }
+
+  @media ${screenLarge} {
+    .hide-on-mobile {
+      display: block;
+    }
+
+
   }
 
 `;
