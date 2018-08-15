@@ -15,7 +15,7 @@ import ResponsiveTwoColumnContainer from 'components/ResponsiveTwoColumnContaine
 import AboutTab from './AboutTab';
 import CommentsTab from './CommentsTab';
 import DetailsTab from './DetailsTab';
-import styles from './AsideContent.style';
+import styles from './AsideContainerWithTabs.style';
 
 const {
   any,
@@ -28,7 +28,7 @@ const {
   string,
 } = PropTypes;
 
-class LiveShowAsideContent extends Component {
+class AsideContainerWithTabs extends Component {
   static propTypes = {
     aboutIsActive: bool.isRequired,
     commentsIsActive: bool.isRequired,
@@ -107,4 +107,4 @@ class LiveShowAsideContent extends Component {
   }
 }
 
-export default LiveShowAsideContent;
+export default AsideContainerWithTabs;

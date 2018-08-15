@@ -39,6 +39,15 @@ export default css`
     margin: 0 auto;
   }
 
+  .icon-background {
+    position: absolute;
+    margin: 0 auto;
+    height: 105px;
+    width: 105px;
+    border-radius: 50%;
+
+  }
+
   .info-container {
     display: flex;
     flex-direction: column;

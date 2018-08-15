@@ -30,6 +30,7 @@ const DiscussionsBoardComments = ({
   topicId,
   replyTo,
   isDesktop,
+  canSubmitReplies,
   isSimple,
   user,
 }) => (
@@ -54,6 +55,7 @@ const DiscussionsBoardComments = ({
           allowReplies={allowReplies}
           fetching={fetchingContent}
           callSource={callSource}
+          canSubmitReplies={canSubmitReplies}
           count={count}
           topicId={topicId}
           forumId={forumId}

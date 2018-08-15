@@ -32,6 +32,7 @@ class CommentList extends Component {
   static propTypes = {
     allowReplies: bool,
     callSource: string,
+    canSubmitReplies: bool,
     count: number,
     resultsCount: number,
     isDesktop: bool.isRequired,
@@ -52,6 +53,7 @@ class CommentList extends Component {
   static defaultProps = {
     allowReplies: true,
     callSource: null,
+    canSubmitReplies: true,
     count: 10,
     isSimple: false,
     resultsCount: 0,
@@ -120,6 +122,7 @@ class CommentList extends Component {
     const {
       allowReplies,
       callSource,
+      canSubmitReplies,
       count,
       fetching,
       forumId,
@@ -137,7 +140,6 @@ class CommentList extends Component {
       page,
     } = this.state;
     const { displayedCommentsObjs } = this;
-
     return (
       <div className="comment" key={uniqueId()}>
         {!fetching ? <div className="comments-bar">
@@ -152,7 +154,7 @@ class CommentList extends Component {
           };
           return (<CommentListItem
             key={displayedComment.replyId}
-            allowReplies={allowReplies}
+            allowReplies={allowReplies && canSubmitReplies}
             {...displayedComment}
             likeParams={likeParams}
             isDesktop={isDesktop}
@@ -179,7 +181,7 @@ class CommentList extends Component {
           {renderToggle ? renderToggle() : null}
         </div>
         <div className="shadowed-container">
-          <Form
+          {canSubmitReplies ? <Form
             avatarURL={user.avatarURL}
             callSource={callSource}
             forumId={forumId}
@@ -190,7 +192,7 @@ class CommentList extends Component {
             topicId={topicId}
             user={user}
             isDesktop={isDesktop}
-          />
+          /> : null}
         </div>
         <style jsx>{styles}</style>
 

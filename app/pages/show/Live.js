@@ -12,7 +12,7 @@ import TwoTabbedNav from 'components/TwoTabbedNav';
 import ResponsiveTwoColumnContainer from 'components/ResponsiveTwoColumnContainer';
 import HeaderContainer from './partials/HeaderContainer'
 import MainContainer from './partials/MainContainer';
-import AsideContainer from './partials/AsideContainer';
+import AsideContainerWithTabs from './partials/AsideContainerWithTabs';
 import styles from './Show.style';
 
 const {
@@ -127,7 +127,7 @@ class LiveShow extends Component {
                 /> }
                 </div>)
               }
-              renderAsideContent={() => (<AsideContainer
+              renderAsideContent={() => (<AsideContainerWithTabs
                 {...this.props}
                 headerTitle="Slooh Live Show"
                 aboutIsActive={aboutIsActive}

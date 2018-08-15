@@ -1,18 +1,21 @@
 /***********************************
-* V4 Shows About Tab
-*
-*
-*
+* V4 Shows Main Container
+* This will show the video on desktop
+* on tablet and mobile, it will hold the content
+* associated with the three tabbed nav.
 ***********************************/
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import LikeSomethingButton from 'components/common/LikeSomethingButton';
 import { romance } from 'styles/variables/colors_tiles_v4';
+import LabeledTitleTiles from 'components/common/style/LabeledTitleTiles';
+import LikeSomethingButton from 'components/common/LikeSomethingButton';
 import DescriptionContainer from './DescriptionContainer';
 import like from 'services/events/like';
-import LabeledTitleTiles from 'components/common/style/LabeledTitleTiles';
-import styles from './AboutTab.style';
+import AboutTab from './AboutTab';
+import CommentsTab from './CommentsTab';
+import DetailsTab from './DetailsTab';
+import styles from './MainContainerWithDiscussions.style';
 
 const {
   any,
@@ -25,19 +28,19 @@ const {
   string,
 } = PropTypes;
 
-class AboutTab extends Component {
+class MainContainerWithDiscussions extends Component {
   static propTypes = {
+    aboutIsActive: bool.isRequired,
+    commentsIsActive: bool.isRequired,
     content: string,
+    detailsIsActive: bool.isRequired,
+    headerLabel: string,
     isDesktop: bool.isRequired,
     isScreenMedium: bool.isRequired,
-    showId: string.isRequired,
-    likesCount: number,
-    showLikePrompt: bool,
     likePrompt: string,
-    showInfoTileDirection: string,
-    showInfoTiles: shape({
-      list: shape({})
-    }),
+    likesCount: number,
+    showId: string.isRequired,
+    showLikePrompt: bool,
     user: shape({
       at: oneOfType([number, string]),
       token: oneOfType([number, string]),
@@ -46,12 +49,12 @@ class AboutTab extends Component {
   };
 
   static defaultProps = {
-    showInfoTiles: {},
-    showInfoTileDirection: 'column',
     content: '',
-    likesCount: 0,
-    showLikePrompt: false,
+    headerLabel: '',
     likePrompt: '',
+    likesCount: 0,
+    showInfoTiles: {},
+    showLikePrompt: false,
   };
 
   state = {
@@ -62,25 +65,23 @@ class AboutTab extends Component {
 
   render() {
     const {
+      aboutIsActive,
+      commentsIsActive,
       content,
+      detailsIsActive,
       isDesktop,
-      isScreenMedium,
       likePrompt,
       likesCount,
       showId,
-      showInfoTiles,
-      showInfoTileDirection,
       showLikePrompt,
       user,
     } = this.props;
 
-    const {
-
-    } = this.state;
     const likeParams = {
       likeId: showId,
       likeType: 'show',
     };
+
     const contentFooter = () => (
       <div>
         <LikeSomethingButton
@@ -94,18 +95,31 @@ class AboutTab extends Component {
         />
       </div>
     );
+
     return (
       <div className="root">
-        <LabeledTitleTiles
-          theme={{ margin: isDesktop ? 0 : '15px', backgroundColor: romance, height: 'auto' }}
-          tiles={showInfoTiles.list}
-          direction={showInfoTileDirection}
-        />
-        <DescriptionContainer title="" content={content} theme={{ backgroundColor: romance }} footer={contentFooter} />
+        {isDesktop ? (
+          <div className="main-content-container">
+            <DescriptionContainer title="" content={content} theme={{ backgroundColor: romance }} footer={contentFooter} />
+            <CommentsTab {...this.props} />
+          </div>
+        ) : (
+          <div>
+            {aboutIsActive ?
+              <AboutTab {...this.props} /> :
+            null}
+            {commentsIsActive ?
+              <CommentsTab {...this.props} /> :
+            null}
+            {detailsIsActive ?
+              <DetailsTab {...this.props} /> :
+            null}
+          </div>
+        )}
         <style jsx>{styles}</style>
       </div>
     );
   }
 }
 
-export default AboutTab;
+export default MainContainerWithDiscussions;
