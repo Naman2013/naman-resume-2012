@@ -54,7 +54,16 @@ describe('SubjectGuideList', () => {
 });
 
 describe('TopicBodyContent', () => {
-  const shallowWrapper = shallow(<TopicBodyContent title="Test" content="Some sample content" />);
+  const shallowWrapper = shallow(<TopicBodyContent
+    topicActionProps={{
+      followButtonText: 'test',
+      followButtonIconURL: '',
+      showActions: true,
+    }}
+    title="Test"
+    content="Some sample content"
+    guideID="37"
+  />);
   it('should render correctly', () => {
     expect(shallowWrapper).toMatchSnapshot();
   });
@@ -93,7 +102,15 @@ describe('TopicList', () => {
       content: SAMPLE_IMAGE_HTML_BLOB,
     },
   ];
-  const shallowWrapper = shallow(<TopicList list={TEST_PANEL_LIST} />);
+  const shallowWrapper = shallow(<TopicList
+    list={TEST_PANEL_LIST}
+    topicActionProps={{
+      followButtonText: 'Test',
+      followButtonIconURL: '',
+      showActions: true,
+    }}
+    guideID="37"
+  />);
   it('should render correctly', () => {
     expect(shallowWrapper).toMatchSnapshot();
   });

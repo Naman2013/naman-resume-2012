@@ -8,6 +8,8 @@ export default css`
     padding: 20px 35px;
   }
 
+  .action-container { display: none; }
+
   .title-wrapper {
     padding: 15px 0;
   }
@@ -26,6 +28,8 @@ export default css`
     .title-wrapper {
       padding-bottom: 40px;
     }
+
+    .action-container { display: block; }
   }
 
   @media ${screenLarge} {
@@ -33,5 +37,7 @@ export default css`
       padding: 70px;
       width: 90%;
     }
+
+    .action-container { display: none; }
   }
 `;
