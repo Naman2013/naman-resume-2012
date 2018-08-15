@@ -100,8 +100,12 @@ class MainContainerWithDiscussions extends Component {
       <div className="root">
         {isDesktop ? (
           <div className="main-content-container">
-            <DescriptionContainer title="" content={content} theme={{ backgroundColor: romance }} footer={contentFooter} />
-            <CommentsTab {...this.props} />
+            <div className="shadowed">
+              <DescriptionContainer title="" content={content} theme={{ backgroundColor: romance }} footer={contentFooter} />
+            </div>
+            <div className="comment-container shadowed">
+              <CommentsTab {...this.props} />
+            </div>
           </div>
         ) : (
           <div>

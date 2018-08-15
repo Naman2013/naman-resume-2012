@@ -10,7 +10,11 @@ export default css`
     margin-top: 25px;
   }
 
-  .main-content-container {
+  .shadowed {
     ${faintShadow}
+  }
+
+  .comment-container {
+    margin: 25px 0;
   }
 `;
