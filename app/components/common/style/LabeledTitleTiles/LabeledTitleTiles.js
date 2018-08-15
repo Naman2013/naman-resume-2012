@@ -60,7 +60,10 @@ const LabeledTitleTiles = ({
       border-bottom: 1px solid ${shadows};
       text-align: left;
       overflow: hidden;
-      min-height: 100px;
+      padding: 25px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
 
     .column {
@@ -75,9 +78,12 @@ const LabeledTitleTiles = ({
       border-right: 1px solid ${shadows};
       border-left: 1px solid ${shadows};
       text-align: left;
-      min-height: 100px;
       width: 100%;
       padding: 25px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-height: 100px;
     }
 
     .wide-info-item:first-child {

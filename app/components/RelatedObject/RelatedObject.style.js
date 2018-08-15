@@ -21,7 +21,7 @@ export default css`
     display: flex;
     flex-direction: row;
     align-items: center;
-    padding: 25px 15px;;
+    padding: 25px;
   }
 
   .icon-line-horz {

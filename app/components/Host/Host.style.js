@@ -11,6 +11,7 @@ export default css`
     margin: 25px;
     ${faintShadow}
     background-color: ${romance};
+    font-family: ${primaryFont};
   }
   .title-container {
     text-transform: uppercase;
@@ -21,7 +22,7 @@ export default css`
     display: flex;
     flex-direction: row;
     align-items: center;
-    padding: 25px 15px;;
+    padding: 25px;
   }
 
   .icon-line-horz {
@@ -68,7 +69,20 @@ export default css`
   .gravity-label {
     flex: 0 100%;
     display: block;
-    border-right: 1px solid ${astronaut};
+    font-size: 10px;
+    text-transform: uppercase;
+    color: ${astronaut};
+    border-right: 1px solid ${shadows};
+  }
+
+  .star {
+    margin-right: 15px;
+  }
+
+  .gravity-text {
+    font-size: 10px;
+    text-transform: uppercase;
+    color: ${astronaut};
   }
 
   .gravity-container {

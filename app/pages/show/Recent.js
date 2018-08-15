@@ -31,7 +31,6 @@ const {
 
 class RecentShow extends Component {
   static propTypes = {
-    additionalFeeds: arrayOf(shape({})),
     isDesktop: bool.isRequired,
     showInfoTiles: shape({
       list: shape({})
@@ -45,7 +44,6 @@ class RecentShow extends Component {
 
   static defaultProps = {
     showInfoTiles: {},
-    additionalFeeds: [],
   };
 
   state = {
@@ -122,7 +120,7 @@ class RecentShow extends Component {
           <MonotonousTile label={headerLabel} text={title} />
           <div className="hide-on-mobile">
             <LabeledTitleTiles
-              theme={{ margin: isDesktop ? 0 : '15px', backgroundColor: romance, height: 'auto' }}
+              theme={{ margin: isDesktop ? 0 : '15px', backgroundColor: romance }}
               tiles={showInfoTiles.list}
               direction="row"
             />

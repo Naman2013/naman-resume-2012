@@ -62,7 +62,7 @@ class Hosts extends Component {
       hostURL,
       hostPhotoURL,
       hostTitle,
-      gravity,
+      hostGravity,
     } = this.props;
 
 
@@ -80,7 +80,7 @@ class Hosts extends Component {
             <span className="gravity-label" dangerouslySetInnerHTML={{ __html: hostTitle }} />
             <div className="gravity-container">
               <img className= "star" src="https://vega.slooh.com/assets/v4/common/star_icon.svg" />
-              <span dangerouslySetInnerHTML={{ __html: gravity }} />
+              <span className="gravity-text" dangerouslySetInnerHTML={{ __html: hostGravity }} />
             </div>
           </div>
         </div>
