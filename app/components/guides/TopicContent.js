@@ -11,6 +11,8 @@ const TopicContent = ({
   topicContentList,
   aboutTitle,
   aboutContent,
+  topicActionProps,
+  guideID,
 }) => (
   <div className="root">
     <CenterColumn>
@@ -20,8 +22,17 @@ const TopicContent = ({
     </CenterColumn>
     <CenterColumn>
       <div className="guide-container">
-        <TopicContentList list={topicContentList} />
-        <TopicBodyContent title={aboutTitle} content={aboutContent} />
+        <TopicContentList
+          list={topicContentList}
+          topicActionProps={topicActionProps}
+          guideID={guideID}
+        />
+        <TopicBodyContent
+          title={aboutTitle}
+          content={aboutContent}
+          topicActionProps={topicActionProps}
+          guideID={guideID}
+        />
       </div>
     </CenterColumn>
     <style jsx>{style}</style>
@@ -33,6 +44,11 @@ TopicContent.propTypes = {
   topicContentList: PropTypes.arrayOf(PropTypes.string).isRequired,
   aboutTitle: PropTypes.string.isRequired,
   aboutContent: PropTypes.string.isRequired,
+  topicActionProps: PropTypes.shape({
+    followButtonText: PropTypes.string.isRequired,
+    followButtonIconURL: PropTypes.string.isRequired,
+  }).isRequired,
+  guideID: PropTypes.string.isRequired,
 };
 
 export default TopicContent;

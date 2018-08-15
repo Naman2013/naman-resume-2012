@@ -28,6 +28,11 @@ const subjectGuideModel = {
       topicContentList: [resp.guideBulletPoint1, resp.guideBulletPoint2, resp.guideBulletPoint3],
       aboutTitle: resp.AboutThisTitle,
       aboutContent: resp.AboutThisContent,
+      topicActionProps: {
+        followButtonText: resp.readingListPrompt,
+        followButtonIconURL: resp.promptIconUrl,
+        showActions: resp.toggleReadingListFlag,
+      },
     },
   }),
 };
@@ -53,7 +58,10 @@ const TopicGuides = ({ params: { guideId } }) => (
 
                 <SubPageNavigation {...SUBJECT_GUIDE_MODEL.subPageNavigationProps} />
 
-                <TopicContent {...SUBJECT_GUIDE_MODEL.topicContentProps} />
+                <TopicContent
+                  {...SUBJECT_GUIDE_MODEL.topicContentProps}
+                  guideID={guideId}
+                />
 
                 <GuidePanels guideId={guideId} />
 
