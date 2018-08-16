@@ -22,9 +22,9 @@ export default css`
     width: 100%;
   }
 
-  .video-container {
+  .show-video-container {
     display:block;
-    background: #1F1F1F;
+    background: ${astronaut};
     width: 100%;
     margin-top: 10px;
     position: relative;
@@ -32,6 +32,7 @@ export default css`
     align-items: center;
     ${faintShadow}
   }
+
 
   @media ${screenLarge} {
     .hide-on-mobile {

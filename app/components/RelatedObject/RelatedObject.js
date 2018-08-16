@@ -44,8 +44,8 @@ class RelatedObject extends Component {
     linkURL: string,
     LinkLabel: string,
     dataBlocks: shape({
-      list: shape({}),
-      listCount: shape({
+      listCount: number,
+      list: shape({
         constellation: shape({
           text: string,
         }),

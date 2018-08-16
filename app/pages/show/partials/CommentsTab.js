@@ -67,6 +67,7 @@ class CommentsTab extends Component {
           topicId={discussionTopicId}
           user={user}
           isDesktop={isDesktop}
+          header="Comments"
           canSubmitReplies={canSubmitReplies}
           callSource="shows"
         />

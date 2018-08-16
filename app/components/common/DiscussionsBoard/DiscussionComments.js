@@ -23,6 +23,7 @@ const DiscussionsBoardComments = ({
   allowReplies,
   callSource,
   commentsCount,
+  header,
   renderToggle,
   count,
   forumId,
@@ -57,6 +58,7 @@ const DiscussionsBoardComments = ({
           callSource={callSource}
           canSubmitReplies={canSubmitReplies}
           count={count}
+          header={header}
           topicId={topicId}
           forumId={forumId}
           threadId={threadId}

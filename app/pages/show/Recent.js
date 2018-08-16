@@ -109,7 +109,7 @@ class RecentShow extends Component {
     return (
       <div className="root">
         <div className="big-box">
-          <div className="video-container">
+          <div className="show-video-container">
             <VideoImageLoader
               teleStreamCode={showStreamCode}
               teleStreamURL={showStreamURL}

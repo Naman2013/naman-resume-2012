@@ -34,6 +34,7 @@ class CommentList extends Component {
     callSource: string,
     canSubmitReplies: bool,
     count: number,
+    header: string,
     resultsCount: number,
     isDesktop: bool.isRequired,
     isSimple: bool,
@@ -55,6 +56,7 @@ class CommentList extends Component {
     callSource: null,
     canSubmitReplies: true,
     count: 10,
+    header: 'Replies',
     isSimple: false,
     resultsCount: 0,
     fetching: false,
@@ -126,6 +128,7 @@ class CommentList extends Component {
       count,
       fetching,
       forumId,
+      header,
       isDesktop,
       isSimple,
       renderToggle,
@@ -143,7 +146,7 @@ class CommentList extends Component {
     return (
       <div className="comment" key={uniqueId()}>
         {!fetching ? <div className="comments-bar">
-          Replies ({resultsCount})
+          {header} ({resultsCount})
         </div> : null}
         {displayedCommentsObjs.map((displayedComment) => {
           const likeParams = {
