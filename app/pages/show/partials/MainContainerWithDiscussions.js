@@ -36,6 +36,7 @@ class MainContainerWithDiscussions extends Component {
     content: string,
     detailsIsActive: bool.isRequired,
     headerLabel: string,
+    hasDiscussionThread: bool,
     isDesktop: bool.isRequired,
     isScreenMedium: bool.isRequired,
     likePrompt: string,
@@ -52,6 +53,7 @@ class MainContainerWithDiscussions extends Component {
   static defaultProps = {
     content: '',
     headerLabel: '',
+    hasDiscussionThread: false,
     likePrompt: '',
     likesCount: 0,
     showInfoTiles: {},
@@ -71,6 +73,7 @@ class MainContainerWithDiscussions extends Component {
       content,
       detailsIsActive,
       isDesktop,
+      hasDiscussionThread,
       likePrompt,
       likesCount,
       serverTime,
@@ -114,7 +117,7 @@ class MainContainerWithDiscussions extends Component {
               <DescriptionContainer title="" content={content} theme={{ backgroundColor: romance }} footer={contentFooter} />
             </div>
             <div className="comment-container shadowed">
-              <CommentsTab {...this.props} />
+              {hasDiscussionThread ? <CommentsTab {...this.props} /> : null}
             </div>
           </div>
         ) : (
