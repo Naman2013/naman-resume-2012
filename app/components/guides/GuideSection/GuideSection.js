@@ -15,10 +15,15 @@ function getMargin(contentAlignment = LEFT) {
   return (contentAlignment === LEFT) ? 'margin-right: 100px;' : 'margin-left: 100px;';
 }
 
-const GuideSection = ({ content, column, alignContent }) => (
+const GuideSection = ({
+  content,
+  column,
+  alignContent,
+  guideId,
+}) => (
   <div className="root">
-    <div className="column-container">{column()}</div>
-    <div className="content-container">{content()}</div>
+    <div className="column-container">{column({ guideId })}</div>
+    <div className="content-container">{content({ guideId })}</div>
 
     <style jsx>{style}</style>
     <style jsx>
@@ -40,6 +45,7 @@ GuideSection.propTypes = {
   content: PropTypes.func.isRequired,
   column: PropTypes.func,
   alignContent: PropTypes.oneOf([LEFT, RIGHT]),
+  guideId: PropTypes.string.isRequired,
 };
 
 GuideSection.defaultProps = {

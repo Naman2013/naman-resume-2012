@@ -24,13 +24,18 @@ const guidePageModel = {
       content: () => (
         <GuideBodyContent title={resp.AboutThisTitle} content={resp.AboutThisContent} />
       ),
-      column: () => (
+      column: ({ guideId }) => (
         <GuideContentList
           list={[
             resp.guideBulletPoint1,
             resp.guideBulletPoint2,
             resp.guideBulletPoint3,
           ]}
+          topicActionProps={{
+            followButtonIconURL: resp.promptIconUrl,
+            followButtonText: resp.readingListPrompt,
+          }}
+          guideId={guideId}
         />
       ),
       alignContent: 'right',
@@ -78,7 +83,7 @@ const Guides = ({ params: { guideId } }) => (
               <TiaraTitleSection {...GUIDE_PAGE_MODEL.tiaraTitleProps} />
 
               <CenterColumn theme={{ boxShadow: 'rgba(65, 86, 113, 0.2) 0px 3px 8px 1px', marginBottom: '60px' }}>
-                <GuideSection {...GUIDE_PAGE_MODEL.guideSectionProps} />
+                <GuideSection {...GUIDE_PAGE_MODEL.guideSectionProps} guideId={guideId} />
               </CenterColumn>
 
               <FeaturedGallery />
