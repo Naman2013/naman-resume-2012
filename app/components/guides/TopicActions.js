@@ -19,13 +19,6 @@ const TopicActions = ({ followButtonIconURL, followButtonText, guideID }) => (
       />
     </li>
 
-    <li>
-      <GenericButton
-        onClickEvent={() => {}}
-        icon="https://vega.slooh.com/assets/v4/common/comment.svg"
-      />
-    </li>
-
     <style jsx>{style}</style>
   </ul>
 );
