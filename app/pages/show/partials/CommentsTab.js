@@ -68,7 +68,7 @@ class CommentsTab extends Component {
           user={user}
           isDesktop={isDesktop}
           canSubmitReplies={canSubmitReplies}
-          callSource="groups"
+          callSource="shows"
         />
         <style jsx>{styles}</style>
       </div>

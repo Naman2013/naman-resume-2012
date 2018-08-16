@@ -70,6 +70,15 @@ export default css`
 
   .info-list-item {
     border-top: 1px solid ${shadows};
+    padding: 10px;
+  }
+
+  .info-list-item:first-child {
+    border-top: 0;
+    padding: 10px;
+  }
+
+  .info-list-item:last-child {
     border-bottom: 1px solid ${shadows};
     padding: 10px;
   }

@@ -10,6 +10,7 @@ import PropTypes from 'prop-types';
 import { romance } from 'styles/variables/colors_tiles_v4';
 import LabeledTitleTiles from 'components/common/style/LabeledTitleTiles';
 import LikeSomethingButton from 'components/common/LikeSomethingButton';
+import UpcomingShowCountdown from 'components/UpcomingShowCountdown';
 import DescriptionContainer from './DescriptionContainer';
 import like from 'services/events/like';
 import AboutTab from './AboutTab';
@@ -72,6 +73,8 @@ class MainContainerWithDiscussions extends Component {
       isDesktop,
       likePrompt,
       likesCount,
+      serverTime,
+      startDate,
       showId,
       showLikePrompt,
       user,
@@ -100,6 +103,13 @@ class MainContainerWithDiscussions extends Component {
       <div className="root">
         {isDesktop ? (
           <div className="main-content-container">
+            <div className="shadowed">
+              {Number(serverTime) < Number(startDate) ? <UpcomingShowCountdown
+                eventStartTime={Number(startDate)}
+                eventId={showId}
+                serverTime={serverTime}
+              /> : null}
+            </div>
             <div className="shadowed">
               <DescriptionContainer title="" content={content} theme={{ backgroundColor: romance }} footer={contentFooter} />
             </div>
