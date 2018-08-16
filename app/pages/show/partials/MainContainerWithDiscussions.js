@@ -116,7 +116,7 @@ class MainContainerWithDiscussions extends Component {
             <div className="shadowed">
               <DescriptionContainer title="" content={content} theme={{ backgroundColor: romance }} footer={contentFooter} />
             </div>
-            <div className="comment-container shadowed">
+            <div className="comment-container">
               {hasDiscussionThread ? <CommentsTab {...this.props} /> : null}
             </div>
           </div>

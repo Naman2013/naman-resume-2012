@@ -7,6 +7,5 @@ import { backgroundImageCover, dropShadowContainer } from 'styles/mixins/utiliti
 
 export default css`
   .root {
-    background-color: ${romance};
   }
 `;

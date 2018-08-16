@@ -102,7 +102,11 @@ class ReplyForm extends Component {
         />
       }
 
-
+      <style jsx>{`
+        .reply-form-container {
+          background-color: ${romance};
+        }
+      `}</style>
       </div>
     );
   }
