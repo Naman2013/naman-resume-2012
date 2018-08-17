@@ -106,7 +106,7 @@ class MainContainerWithDiscussions extends Component {
       <div className="root">
         {isDesktop ? (
           <div className="main-content-container">
-            <div className="shadowed">
+            <div>
               {Number(serverTime) < Number(startDate) ? <UpcomingShowCountdown
                 eventStartTime={Number(startDate)}
                 eventId={showId}

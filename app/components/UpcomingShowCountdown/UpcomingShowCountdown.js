@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import CountdownCircleTimer from 'components/common/CountdownCircleTimer';
+import styles from './UpcomingShowCountdown.style';
 
 const { bool, number, string, shape, oneOfType } = PropTypes;
 
@@ -105,12 +106,14 @@ export default class UpcomingShowCountdown extends PureComponent {
 
     if (eventStartTime) {
       return (
-        <div className="countdown">
+        <div className="root">
+          <span className="countdown-title">Countdown to show</span>
           <CountdownCircleTimer
             lineWidth={5}
             size={100}
             countdownEventTimer={this.state}
           />
+          <style jsx>{styles}</style>
         </div>
       );
     }

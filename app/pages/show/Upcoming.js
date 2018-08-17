@@ -94,6 +94,7 @@ class UpcomingShow extends Component {
       showInfoTiles,
       showStreamCode,
       showStreamURL,
+      tagLine,
       title,
     } = this.props;
 
@@ -109,15 +110,10 @@ class UpcomingShow extends Component {
     return (
       <div className="root">
         <div className="big-box">
-          <div className="show-video-container">
-            <VideoImageLoader
-              teleStreamCode={showStreamCode}
-              teleStreamURL={showStreamURL}
-              teleStreamThumbnailVideoWidth="800"
-              teleStreamThumbnailVideoHeight="550"
-            />
+          <div className="big-box-background">
+            <span className="big-box-header" dangerouslySetInnerHTML={{ __html: tagLine }} />
+            <span className="big-box-title" dangerouslySetInnerHTML={{ __html: title }} />
           </div>
-          <MonotonousTile label={headerLabel} text={title} />
           <div className="hide-on-mobile">
             <LabeledTitleTiles
               theme={{ margin: isDesktop ? 0 : '15px', backgroundColor: romance }}

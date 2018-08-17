@@ -60,7 +60,7 @@ const LabeledTitleTiles = ({
       border-bottom: 1px solid ${shadows};
       text-align: left;
       overflow: hidden;
-      padding: 25px;
+      padding-left: 25px;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -79,7 +79,7 @@ const LabeledTitleTiles = ({
       border-left: 1px solid ${shadows};
       text-align: left;
       width: 100%;
-      padding: 25px;
+      padding-left: 25px;
       display: flex;
       flex-direction: column;
       justify-content: center;
