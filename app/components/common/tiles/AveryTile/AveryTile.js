@@ -11,11 +11,14 @@ const profPic = photoUrl => Object.assign(profilePhotoStyle(photoUrl), {
 });
 const AveryTile = ({ title, avatarURL }) => (
   <div className="root">
-    <div className="avatar-container">
-      <div className="avatar-img" style={profPic(avatarURL)} />
-      <div className="avatar-line" />
+    <div className="inner-container">
+      <div className="avatar-container">
+        <div className="avatar-img" style={profPic(avatarURL)} />
+        <div className="avatar-line" />
+        <div className="avatar-circle" />
+      </div>
+      <div className="title-text" dangerouslySetInnerHTML={{ __html: title }} />
     </div>
-    <div className="title-text" dangerouslySetInnerHTML={{ __html: title }} />
     <style jsx>{style}</style>
   </div>
 );

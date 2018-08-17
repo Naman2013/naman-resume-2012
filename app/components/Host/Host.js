@@ -74,6 +74,7 @@ class Hosts extends Component {
           <span className="icon-line-horz" />
           <div className="icon-container flex-item">
             <div className="icon" style={profPic(hostPhotoURL)} />
+            <span className="circle-icon-line" />
           </div>
           <span className="icon-line-horz" />
           <div className="member-info">

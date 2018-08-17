@@ -111,6 +111,16 @@ export default css`
     padding: 5px 0;
   }
 
+  .circle-icon-line {
+    display: block;
+    border: 1px solid ${shadows};
+    width: 115px;
+    height: 115px;
+    border-radius: 50%;
+    margin: 0 auto;
+    margin-top: -111px;
+  }
+
   .icon-line {
     display: block;
     position: absolute;

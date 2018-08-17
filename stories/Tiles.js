@@ -95,7 +95,7 @@ storiesOf('Tiles', module)
   ))
   .add('AveryTile', () => (
     <AveryTile
-      linkText="Upcoming Show"
+      title="Constellations Stories with Helen Avery"
       avatarURL="https://vega.slooh.com/icons/placeholders/avatar-dummy.png"
     />
   ))

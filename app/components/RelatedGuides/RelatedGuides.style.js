@@ -7,6 +7,8 @@ import { backgroundImageCover, dropShadowContainer } from 'styles/mixins/utiliti
 
 export default css`
   .root {
+    background-repeat: no-repeat;
+    background-size: cover;
     margin: 25px;
   }
   .related-shows-title {
