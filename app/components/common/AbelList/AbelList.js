@@ -1,24 +1,25 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { DeviceContext } from '../../../providers/DeviceProvider';
+import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
 import HorizontalList from './HorizontalList';
 import VerticalList from './VerticalList';
 import style from './AbelList.style';
 
 const AbelList = ({ list, theme }) => (
   <Fragment>
-    <DeviceContext.Consumer>
-      {
-        (context) => {
-          if (context.isScreenMedium && !context.isScreenLarge) {
-            return (<HorizontalList theme={theme.horizontalList} list={list} />);
-          }
+    <DisplayAtBreakpoint
+      screenMedium
+    >
+      <HorizontalList theme={theme.horizontalList} list={list} />
+    </DisplayAtBreakpoint>
 
-          return (<VerticalList theme={theme.verticalList} list={list} />);
-        }
-      }
-
-    </DeviceContext.Consumer>
+    <DisplayAtBreakpoint
+      screenSmall
+      screenLarge
+      screenXLarge
+    >
+      <VerticalList theme={theme.verticalList} list={list} />
+    </DisplayAtBreakpoint>
     <style jsx>{style}</style>
   </Fragment>
 );
