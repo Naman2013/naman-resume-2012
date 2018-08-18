@@ -1,17 +1,17 @@
-/***********************************
-* V4 Object Details Overview
-*   Markdown support on elements????
-*   UTF-8 support....
-*   Multi-National Languages.....
-***********************************/
+/** *********************************
+  * V4 Object Details Overview
+  *   Markdown support on elements????
+  *   UTF-8 support....
+  *   Multi-National Languages.....
+********************************** */
 
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { 
-  fetchObjectDataAction, 
-  fetchObjectSpecialistsAction 
+import {
+  fetchObjectDataAction,
+  fetchObjectSpecialistsAction,
 } from '../../modules/object-details/actions';
 import CenterColumn from '../../../app/components/common/CenterColumn';
 import GuideSection from '../../../app/components/guides/GuideSection';
@@ -35,20 +35,12 @@ const mapStateToProps = ({ objectDetails, appConfig, user }) => ({
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
     fetchObjectDataAction,
-    fetchObjectSpecialistsAction
+    fetchObjectSpecialistsAction,
   }, dispatch),
 });
 
 @connect(mapStateToProps, mapDispatchToProps)
 class Overview extends Component {
-  constructor(props) {
-    super(props);
-  }
-
-  componentWillMount() {
-    //console.log(this.props);
-  }
-
   render() {
     const {
       params: {
@@ -80,7 +72,7 @@ class Overview extends Component {
 
     const topProps = {
       content: () => <GuideBodyContent title="About this object" content={objectData.objectDescription} />,
-      column: () => (<GuideContentList list={['object type?', objectData.objectDomain, objectData.objectConstellation, <FollowObject / >]} />),
+      column: () => (<GuideContentList list={['object type?', objectData.objectDomain, objectData.objectConstellation, <FollowObject />]} />),
       alignContent: 'left',
     };
 
@@ -103,7 +95,11 @@ class Overview extends Component {
 
         <section className="blue-tile-bg">
           <DeviceProvider>
-            <SterlingTitle title='featured observation' subTitle='community observation' theme={{ title: { color: 'white' }, subTitle: { color: 'white' } }} />
+            <SterlingTitle
+              title="featured observation"
+              subTitle="community observation"
+              theme={{ title: { color: 'white' }, subTitle: { color: 'white' } }}
+            />
             <CenterColumn>
               <CardObservations {...tempProps} />
             </CenterColumn>
@@ -111,7 +107,11 @@ class Overview extends Component {
         </section>
 
         <section className="off-white-bg">
-          <SterlingTitle title='Prepare for your next mission' subTitle={"Tools to help plan your next mission to " + objectData.objectTitle} />
+          <SterlingTitle
+            title="Prepare for your next mission"
+            subTitle={`Tools to help plan your next mission to ${objectData.objectTitle}`}
+          />
+
           <CenterColumn>
             <section className="object-details-grid">
               <div className="f4">
@@ -120,8 +120,8 @@ class Overview extends Component {
               </div>
               <div className="f4">
                 <h2>Celestial Coordinates:</h2>
-                <p>RA:  00h   42m   44.3s</p>
-                <p>Dec:  +41°  16'  08"</p>
+                <p>RA: 00h 42m 44.3s</p>
+                <p>Dec:  +41°  16  08</p>
               </div>
               <div className="f2">
                 <h2>Magnitude:</h2>
@@ -129,7 +129,7 @@ class Overview extends Component {
               </div>
               <div className="f2">
                 <h2>Apparent Angular Size:</h2>
-                <p>0° 31' 50"</p>
+                <p>0° 31&apost; 50&quote;</p>
               </div>
               <div className="f4">
                 <h2>Visibility Season:</h2>
@@ -150,21 +150,25 @@ class Overview extends Component {
             <BurnhamsCorner {...bcProps} />
           </CenterColumn>
 
-          <SterlingTitle title='MVP Astronomers' subTitle={"Most Active on " + objectData.objectTitle} />
+          <SterlingTitle
+            title="MVP Astronomers"
+            subTitle={`Most Active on ${objectData.objectTitle}`}
+          />
+
           <CenterColumn>
             {objectSpecialists && objectSpecialists.specialistsCount > 0 ? (
               <div className="card-container__specialists">
-                {Object.keys(objectSpecialists.specialistsList).map(function(key) {
-                  return(
-                    <div className="specialists-card" key={'card_' + key}>
-                      <div className="specialists-icon"><img src={objectSpecialists.specialistsList[key].iconURL}/></div>
-                      <h5>{objectSpecialists.specialistsList[key].displayName}</h5>
-                      {objectSpecialists.specialistsList[key].hasLinkFlag &&                 
-                        <a className="specialists-btn" href={objectSpecialists.specialistsList[key].linkURL}>View Specialist</a>
-                      }
+                {Object.keys(objectSpecialists.specialistsList).map(key => (
+                  <div className="specialists-card" key={`card_${key}`}>
+                    <div className="specialists-icon">
+                      <img alt="" src={objectSpecialists.specialistsList[key].iconURL} />
                     </div>
-                  )
-                })}
+                    <h5>{objectSpecialists.specialistsList[key].displayName}</h5>
+                    {objectSpecialists.specialistsList[key].hasLinkFlag &&
+                      <a className="specialists-btn" href={objectSpecialists.specialistsList[key].linkURL}>View Specialist</a>
+                    }
+                  </div>
+                ))}
               </div>
             ) : (
               <div className="card-container__specialists">
@@ -176,18 +180,15 @@ class Overview extends Component {
 
         <style jsx>{style}</style>
       </Fragment>
-    )
+    );
   }
 }
-export default Overview;
+
 Overview.propTypes = {
   params: PropTypes.shape({
-    objectId: PropTypes.string,
+    objectId: PropTypes.string.isRequired,
   }).isRequired,
   actions: PropTypes.shape({ }).isRequired,
 };
 
-Overview.defaultProps = {
-  actions: { },
-  objectId: '',
-};
+export default Overview;
