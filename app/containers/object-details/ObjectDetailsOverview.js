@@ -17,6 +17,9 @@ import CenterColumn from '../../../app/components/common/CenterColumn';
 import GuideSection from '../../../app/components/guides/GuideSection';
 import GuideBodyContent from '../../../app/components/guides/GuideBodyContent';
 import GuideContentList from '../../../app/components/guides/GuideContentList';
+
+import TopicContent from 'components/guides/TopicContent';
+
 import DeviceProvider from '../../../app/providers/DeviceProvider';
 import FollowObject from '../../../app/components/object-details/FollowObject';
 import CardObservations from '../../../app/components/common/CardObservations';
@@ -39,6 +42,26 @@ const mapDispatchToProps = dispatch => ({
   }, dispatch),
 });
 
+const descriptionContent = 'Nam dapibus nisl vitae elit fringilla rutrum. Aenean lene lorem sollicitudin, erat a elementum toirutrum neeque sem pretium metuis, quis mollis nisl nunc it tristique de ullam ecorpere pretium…';
+const tempProps = {
+  title: 'The Moon!',
+  author: 'JESSICA ANDERSON',
+  descContent: descriptionContent,
+  imageSrcUrl: 'https://vega.slooh.com/assets/v4/placeholder/moon_sample.jpg',
+  likesCount: '1000',
+  commentsCount: '007',
+  detailsLinkUrl: 'https://www.slooh.com/',
+  capturedDate: 'Jan 22, 2018',
+};
+
+const bcDesc = 'Nam dapibus nisl vitae elit fringilla rutrum. Aenean lene lorem sollicitudin, erat a elementum toirutrum neeque sem pretium metuis, quis mollis nisl nunc it  tristique de ullam ecorpere pretium…';
+const bcProps = {
+  title: 'Lorem Ipsum Dolar Set',
+  author: 'Paul Cox',
+  descContent: bcDesc,
+  imageSrcUrl: 'https://vega.slooh.com/assets/v4/placeholder/moon_sample.jpg',
+};
+
 @connect(mapStateToProps, mapDispatchToProps)
 class Overview extends Component {
   render() {
@@ -50,36 +73,14 @@ class Overview extends Component {
       objectSpecialists,
     } = this.props;
 
-    const descriptionContent = 'Nam dapibus nisl vitae elit fringilla rutrum. Aenean lene lorem sollicitudin, erat a elementum toirutrum neeque sem pretium metuis, quis mollis nisl nunc it tristique de ullam ecorpere pretium…';
-    const tempProps = {
-      title: 'The Moon!',
-      author: 'JESSICA ANDERSON',
-      descContent: descriptionContent,
-      imageSrcUrl: 'https://vega.slooh.com/assets/v4/placeholder/moon_sample.jpg',
-      likesCount: '1000',
-      commentsCount: '007',
-      detailsLinkUrl: 'https://www.slooh.com/',
-      capturedDate: 'Jan 22, 2018',
-    };
-
-    const bcDesc = 'Nam dapibus nisl vitae elit fringilla rutrum. Aenean lene lorem sollicitudin, erat a elementum toirutrum neeque sem pretium metuis, quis mollis nisl nunc it  tristique de ullam ecorpere pretium…';
-    const bcProps = {
-      title: 'Lorem Ipsum Dolar Set',
-      author: 'Paul Cox',
-      descContent: bcDesc,
-      imageSrcUrl: 'https://vega.slooh.com/assets/v4/placeholder/moon_sample.jpg',
-    };
-
     const topProps = {
       content: () => <GuideBodyContent title="About this object" content={objectData.objectDescription} />,
       column: () => (<GuideContentList list={['object type?', objectData.objectDomain, objectData.objectConstellation, <FollowObject />]} />),
       alignContent: 'left',
     };
 
-
     return (
       <Fragment>
-
         <section className="white-paper-bg">
           <CenterColumn theme={{
               position: 'relative',

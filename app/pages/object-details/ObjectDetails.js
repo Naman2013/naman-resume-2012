@@ -56,54 +56,31 @@ class ObjectDetails extends Component {
     actions: PropTypes.shape({ }).isRequired,
   }
 
-  static defaultProps = {
-    actions: { },
-    objectId: '',
-  }
-
   constructor(props) {
     super(props);
-  }
 
-  componentWillReceiveProps(nextProps) {
-    const {
-      params: {
-        objectId,
-      }
-    } = nextProps;
+    const { params: { objectId } } = this.props;
 
-    if (this.props.objectDetails.objectId != nextProps.objectDetails.objectId) {
-      //console.log('Object has been loaded.....gather more data....');
-      this.props.actions.fetchObjectMissionsAction(nextProps.objectDetails.objectId);
-      this.props.actions.fetchObjectQuestsAction(nextProps.objectDetails.objectId);
-      this.props.actions.fetchObjectSpecialistsAction(nextProps.objectDetails.objectId);
-    }
-
-    // console.log(this.props.params.objectId);
-    // console.log(nextProps.objectDetails.objectId); // NOTE : LOGGING AS "UNDEFINED"
-
-    // fetch the object details, the object page has been changed.
-    if (this.props.params.objectId != nextProps.params.objectId) {
+    if (this.props.objectDetails.objectId != objectId) {
+      // fetch the object-level meta data only if the objectId changes.
       this.props.actions.fetchObjectDetailsAction(objectId);
       this.props.actions.fetchObjectDataAction(objectId);
     }
   }
 
-  componentWillUpdate(nextProps) {
+  componentWillReceiveProps(nextProps) {
+    const { params: { objectId } } = nextProps;
 
-  }
+    if (this.props.objectDetails.objectId != nextProps.objectDetails.objectId) {
+      this.props.actions.fetchObjectMissionsAction(nextProps.objectDetails.objectId);
+      this.props.actions.fetchObjectQuestsAction(nextProps.objectDetails.objectId);
+      this.props.actions.fetchObjectSpecialistsAction(nextProps.objectDetails.objectId);
+    }
 
-  componentWillMount() {
-    const {
-      params: {
-        objectId,
-      }
-    } = this.props;
-
-    if (this.props.objectDetails.objectId != objectId) {
-        //fetch the object-level meta data only if the objectId changes.
-        this.props.actions.fetchObjectDetailsAction(objectId);
-        this.props.actions.fetchObjectDataAction(objectId);
+    // fetch the object details, the object page has been changed.
+    if (this.props.params.objectId != nextProps.params.objectId) {
+      this.props.actions.fetchObjectDetailsAction(objectId);
+      this.props.actions.fetchObjectDataAction(objectId);
     }
   }
 
@@ -130,14 +107,14 @@ class ObjectDetails extends Component {
           {objectTitle}
           {/*
           <div className="subtitle">{objectSubtitle}</div>
-          {showFollowPromptFlag && 
-            <FollowObject 
+          {showFollowPromptFlag &&
+            <FollowObject
               objectId={objectId}
               user={user}
               prompt={followPrompt}
-            />            
-          }     
-          */} 
+            />
+          }
+          */}
         </header>
         <Navigation objectId={objectId} />
         {cloneElement(children)}
