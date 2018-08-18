@@ -7,6 +7,7 @@ import './cards/CardObservations';
 import './CenterColumn';
 import './ContextMenu';
 import './design-system';
+import './DisplayAtBreakpoint';
 import './DiscussionsBoard';
 import './DiscussionsCard';
 import './GlobalNavigation';
