@@ -21,8 +21,16 @@ const guidePageModel = {
       iconURL: resp.guideIconURL,
     },
     guideSectionProps: {
-      content: () => (
-        <GuideBodyContent title={resp.AboutThisTitle} content={resp.AboutThisContent} />
+      content: ({ guideId }) => (
+        <GuideBodyContent
+          title={resp.AboutThisTitle}
+          content={resp.AboutThisContent}
+          topicActionProps={{
+            followButtonIconURL: resp.promptIconUrl,
+            followButtonText: resp.readingListPrompt,
+          }}
+          guideId={guideId}
+        />
       ),
       column: ({ guideId }) => (
         <GuideContentList
