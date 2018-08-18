@@ -48,7 +48,7 @@ storiesOf(' DisplayAtBreakpoint', module)
       <TestComponent text="Screen is XLarge" />
     </DisplayAtBreakpoint>
   ))
-  .add('Display at small and large only', () => (
+  .add('Display at small or large only', () => (
     <DisplayAtBreakpoint
       screenSmall
       screenLarge
@@ -56,11 +56,20 @@ storiesOf(' DisplayAtBreakpoint', module)
       <TestComponent text="Screen is either small or large" />
     </DisplayAtBreakpoint>
   ))
-  .add('Display at medium and XLarge only', () => (
+  .add('Display at medium or XLarge only', () => (
     <DisplayAtBreakpoint
       screenMedium
       screenXLarge
     >
       <TestComponent text="Screen is either medium or Xlarge" />
+    </DisplayAtBreakpoint>
+  ))
+  .add('Display at small, medium or XLarge only', () => (
+    <DisplayAtBreakpoint
+      screenSmall
+      screenMedium
+      screenXLarge
+    >
+      <TestComponent text="Screen is small, medium or XLarge" />
     </DisplayAtBreakpoint>
   ));
