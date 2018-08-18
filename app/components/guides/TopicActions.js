@@ -4,25 +4,18 @@ import { toggleReadingListState, GUIDE } from 'services/reading-lists';
 import GenericButton from 'components/common/style/buttons/Button';
 import style from './TopicAction.style';
 
-const TopicActions = ({ followButtonIconURL, followButtonText, guideID }) => (
+const TopicActions = ({ followButtonIconURL, followButtonText, guideId }) => (
   <ul className="button-container">
     <li>
       <GenericButton
         onClickEvent={() => {
           toggleReadingListState({
-            listItemId: guideID,
+            listItemId: guideId,
             readingListType: GUIDE,
           });
         }}
         text={followButtonText}
         icon={followButtonIconURL}
-      />
-    </li>
-
-    <li>
-      <GenericButton
-        onClickEvent={() => {}}
-        icon="https://vega.slooh.com/assets/v4/common/comment.svg"
       />
     </li>
 
@@ -33,7 +26,7 @@ const TopicActions = ({ followButtonIconURL, followButtonText, guideID }) => (
 TopicActions.propTypes = {
   followButtonIconURL: PropTypes.string.isRequired,
   followButtonText: PropTypes.string.isRequired,
-  guideID: PropTypes.string.isRequired,
+  guideId: PropTypes.string.isRequired,
 };
 
 export default TopicActions;

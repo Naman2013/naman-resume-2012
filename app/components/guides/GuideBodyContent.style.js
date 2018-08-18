@@ -46,6 +46,7 @@ export default css`
     .root {
       padding: 0 75px;
       padding-bottom: 75px;
+      min-height: 400px;
     }
 
     .__html-content__ {

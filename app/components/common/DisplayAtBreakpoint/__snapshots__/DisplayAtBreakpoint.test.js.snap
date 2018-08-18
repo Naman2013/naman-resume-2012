@@ -1,0 +1,140 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DisplayAtBreakpoint should render correctly 1`] = `
+ShallowWrapper {
+  "length": 1,
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <DisplayAtBreakpoint
+    screenLarge={false}
+    screenMedium={false}
+    screenSmall={false}
+    screenXLarge={false}
+  >
+    <div />
+  </DisplayAtBreakpoint>,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "host",
+    "props": Object {
+      "children": Array [
+        <div />,
+        <JSXStyle
+          css={
+            Array [
+              ".root.jsx-2300362078{display:none;}",
+              ".root.screenSmall.jsx-2300362078{display:block;}",
+              "@media screen and (min-width: 768px){.root.screenSmall.jsx-2300362078{display:none;}.root.screenMedium.jsx-2300362078{display:block;}}",
+              "@media screen and (min-width: 1024px){.root.screenSmall.jsx-2300362078{display:none;}.root.screenMedium.jsx-2300362078{display:none;}.root.screenLarge.jsx-2300362078{display:block;}}",
+              "@media screen and (min-width: 1366px){.root.screenSmall.jsx-2300362078{display:none;}.root.screenMedium.jsx-2300362078{display:none;}.root.screenLarge.jsx-2300362078{display:none;}.root.screenXLarge.jsx-2300362078{display:block;}}",
+            ]
+          }
+          styleId="2300362078"
+        />,
+      ],
+      "className": "jsx-2300362078 root",
+    },
+    "ref": null,
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {},
+        "ref": null,
+        "rendered": null,
+        "type": "div",
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
+          "css": Array [
+            ".root.jsx-2300362078{display:none;}",
+            ".root.screenSmall.jsx-2300362078{display:block;}",
+            "@media screen and (min-width: 768px){.root.screenSmall.jsx-2300362078{display:none;}.root.screenMedium.jsx-2300362078{display:block;}}",
+            "@media screen and (min-width: 1024px){.root.screenSmall.jsx-2300362078{display:none;}.root.screenMedium.jsx-2300362078{display:none;}.root.screenLarge.jsx-2300362078{display:block;}}",
+            "@media screen and (min-width: 1366px){.root.screenSmall.jsx-2300362078{display:none;}.root.screenMedium.jsx-2300362078{display:none;}.root.screenLarge.jsx-2300362078{display:none;}.root.screenXLarge.jsx-2300362078{display:block;}}",
+          ],
+          "styleId": "2300362078",
+        },
+        "ref": null,
+        "rendered": null,
+        "type": [Function],
+      },
+    ],
+    "type": "div",
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": Array [
+          <div />,
+          <JSXStyle
+            css={
+              Array [
+                ".root.jsx-2300362078{display:none;}",
+                ".root.screenSmall.jsx-2300362078{display:block;}",
+                "@media screen and (min-width: 768px){.root.screenSmall.jsx-2300362078{display:none;}.root.screenMedium.jsx-2300362078{display:block;}}",
+                "@media screen and (min-width: 1024px){.root.screenSmall.jsx-2300362078{display:none;}.root.screenMedium.jsx-2300362078{display:none;}.root.screenLarge.jsx-2300362078{display:block;}}",
+                "@media screen and (min-width: 1366px){.root.screenSmall.jsx-2300362078{display:none;}.root.screenMedium.jsx-2300362078{display:none;}.root.screenLarge.jsx-2300362078{display:none;}.root.screenXLarge.jsx-2300362078{display:block;}}",
+              ]
+            }
+            styleId="2300362078"
+          />,
+        ],
+        "className": "jsx-2300362078 root",
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {},
+          "ref": null,
+          "rendered": null,
+          "type": "div",
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "css": Array [
+              ".root.jsx-2300362078{display:none;}",
+              ".root.screenSmall.jsx-2300362078{display:block;}",
+              "@media screen and (min-width: 768px){.root.screenSmall.jsx-2300362078{display:none;}.root.screenMedium.jsx-2300362078{display:block;}}",
+              "@media screen and (min-width: 1024px){.root.screenSmall.jsx-2300362078{display:none;}.root.screenMedium.jsx-2300362078{display:none;}.root.screenLarge.jsx-2300362078{display:block;}}",
+              "@media screen and (min-width: 1366px){.root.screenSmall.jsx-2300362078{display:none;}.root.screenMedium.jsx-2300362078{display:none;}.root.screenLarge.jsx-2300362078{display:none;}.root.screenXLarge.jsx-2300362078{display:block;}}",
+            ],
+            "styleId": "2300362078",
+          },
+          "ref": null,
+          "rendered": null,
+          "type": [Function],
+        },
+      ],
+      "type": "div",
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+      },
+    },
+  },
+}
+`;
