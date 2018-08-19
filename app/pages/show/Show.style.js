@@ -1,6 +1,6 @@
 import css from 'styled-jsx/css';
 import { faintShadow } from 'styles/variables/shadows';
-import { astronaut, romance, golden_yellow } from 'styles/variables/colors_tiles_v4';
+import { astronaut, romance, golden_yellow, shadows } from 'styles/variables/colors_tiles_v4';
 import { primaryFont, secondaryFont } from 'styles/variables/fonts';
 import { screenLarge } from 'styles/variables/breakpoints';
 import { backgroundImageCover, dropShadowContainer } from 'styles/mixins/utilities';
@@ -66,7 +66,28 @@ export default css`
       display: block;
     }
 
+    .live-show :global(.root.component-container) {
+      box-shadow: none;
+      margin-bottom: 15px;
+      background-color: transparent;
+      border: 0;
+      border-bottom: 1px solid ${shadows};
+    }
 
+    .live-show :global(.split-nav-item-container) {
+      background-color: transparent;
+      border: 0;
+      color: ${shadows};
+    }
+
+    .live-show :global(.arrow) {
+      visibility: hidden;
+    }
+
+    .live-show :global(.split-nav-item-container.active-item) {
+      color: ${astronaut};
+      border-bottom: 2px solid ${astronaut};
+    }
   }
 
 `;

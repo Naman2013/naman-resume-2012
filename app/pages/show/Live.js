@@ -97,7 +97,7 @@ class LiveShow extends Component {
     const headerLabel = 'Airing Now';
 
     return (
-      <div className="root">
+      <div className="root live-show">
           <HeaderContainer
             {...this.props}
             headerLabel={headerLabel}
