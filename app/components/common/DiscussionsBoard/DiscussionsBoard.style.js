@@ -17,6 +17,7 @@ export default css`
   }
   .comments-bar {
     font-size: 12px;
+    margin: 15px 0;
     text-transform: uppercase;
     color: ${romance};
     background-color: ${astronaut};

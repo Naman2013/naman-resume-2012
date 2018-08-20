@@ -36,7 +36,7 @@ class DiscussionsCard extends Component {
     customerId: oneOfType([number, string]).isRequired,
     displayName: string.isRequired,
     openModal: func,
-    freshness: string.isRequired,
+    freshness: string,
     likeHandler: func,
     likeParams: shape({}),
     isDesktop: bool.isRequired,

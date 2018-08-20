@@ -9,10 +9,13 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ThreeTabbedNav from 'components/ThreeTabbedNav';
 import TwoTabbedNav from 'components/TwoTabbedNav';
+import LabeledTitleTiles from 'components/common/style/LabeledTitleTiles';
+import MonotonousTile from 'components/common/tiles/MonotonousTile'
+import VideoImageLoader from 'components/common/telescope-image-loader/video-image-loader';
 import ResponsiveTwoColumnContainer from 'components/ResponsiveTwoColumnContainer';
-import HeaderContainer from './partials/HeaderContainer'
-import MainContainer from './partials/MainContainer';
-import AsideContainer from './partials/AsideContainer';
+import MainContainerWithDiscussions from './partials/MainContainerWithDiscussions';
+import AsideContainerDetailsOnly from './partials/AsideContainerDetailsOnly';
+import { romance } from 'styles/variables/colors_tiles_v4';
 import styles from './Show.style';
 
 const {
@@ -28,8 +31,10 @@ const {
 
 class RecentShow extends Component {
   static propTypes = {
-    additionalFeeds: arrayOf(shape({})),
     isDesktop: bool.isRequired,
+    showInfoTiles: shape({
+      list: shape({})
+    }),
     user: shape({
       at: oneOfType([number, string]),
       token: oneOfType([number, string]),
@@ -38,7 +43,7 @@ class RecentShow extends Component {
   };
 
   static defaultProps = {
-    additionalFeeds: [],
+    showInfoTiles: {},
   };
 
   state = {
@@ -81,10 +86,15 @@ class RecentShow extends Component {
 
   render() {
     const {
-      additionalFeeds,
-      isScreenMedium,
-      isScreenLarge,
       hasDiscussionThread,
+      headerLabel,
+      isDesktop,
+      isScreenLarge,
+      isScreenMedium,
+      showInfoTiles,
+      showStreamCode,
+      showStreamURL,
+      title,
     } = this.props;
 
     const {
@@ -98,13 +108,25 @@ class RecentShow extends Component {
 
     return (
       <div className="root">
-          <HeaderContainer
-            {...this.props}
-            headerLabel=""
-            handleSelect={this.handleSelect}
-            selectedTab={selectedTab}
-          />
-          <div className="main-container">
+        <div className="big-box">
+          <div className="show-video-container">
+            <VideoImageLoader
+              teleStreamCode={showStreamCode}
+              teleStreamURL={showStreamURL}
+              teleStreamThumbnailVideoWidth="800"
+              teleStreamThumbnailVideoHeight="550"
+            />
+          </div>
+          <MonotonousTile label={headerLabel} text={title} />
+          <div className="hide-on-mobile">
+            <LabeledTitleTiles
+              theme={{ margin: isDesktop ? 0 : '15px', backgroundColor: romance }}
+              tiles={showInfoTiles.list}
+              direction="row"
+            />
+          </div>
+        </div>
+          <div className="recent-main-container">
             <ResponsiveTwoColumnContainer
               renderNavigationComponent={() =>
                 (<div className="full-width">{hasDiscussionThread ? <ThreeTabbedNav
@@ -127,18 +149,11 @@ class RecentShow extends Component {
                 /> }
                 </div>)
               }
-              renderAsideContent={() => (<AsideContainer
+              renderAsideContent={() => (<AsideContainerDetailsOnly
                 {...this.props}
-                headerTitle="Slooh Show"
-                aboutIsActive={aboutIsActive}
-                commentsIsActive={commentsIsActive}
-                detailsIsActive={detailsIsActive}
-                showDetails={this.showDetails}
-                showAbout={this.showAbout}
-                showComments={this.showComments}
               />)}
               isScreenLarge={isScreenLarge}
-              renderMainContent={() => (<MainContainer
+              renderMainContent={() => (<MainContainerWithDiscussions
                 {...this.props}
                 selectedTab={selectedTab}
                 handleSelect={this.handleSelect}

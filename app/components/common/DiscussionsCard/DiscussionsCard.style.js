@@ -1,8 +1,9 @@
 import css from 'styled-jsx/css';
 import { profilePhotoStyle } from 'styles/mixins/utilities';
 
-import { astronaut, geyser, shadows } from 'styles/variables/colors_tiles_v4';
+import { astronaut, geyser, shadows, romance } from 'styles/variables/colors_tiles_v4';
 import { primaryFont, secondaryFont } from 'styles/variables/fonts';
+import { faintShadow } from 'styles/variables/shadows';
 import { dropShadowContainer } from 'styles/mixins/utilities';
 import { screenMedium, screenLarge } from 'styles/variables/breakpoints';
 
@@ -14,6 +15,9 @@ export const profPic = photoUrl => Object.assign(profilePhotoStyle(photoUrl), {
 
 export default css`
   .root {
+    background-color: ${romance};
+    ${faintShadow}
+    margin: 15px 0;
   }
 
   .comment-item {

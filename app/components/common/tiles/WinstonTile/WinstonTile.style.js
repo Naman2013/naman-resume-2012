@@ -11,10 +11,11 @@ export default css`
     justify-content: center;
     ${faintShadow}
     font-family: ${primaryFont};
-    width: 280px;
+    width: 300px;
     height: 200px;
     color: ${romance};
     text-align: center;
+    background-repeat: no-repeat;
     background-color: ${astronaut};
   }
 

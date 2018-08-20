@@ -11,6 +11,7 @@ export default css`
     margin: 25px;
     ${faintShadow}
     background-color: ${romance};
+    font-family: ${primaryFont};
   }
   .title-container {
     text-transform: uppercase;
@@ -61,36 +62,63 @@ export default css`
     height: 200px;
   }
 
-  .info-list {
-    font-family: ${primaryFont};
-    color: ${astronaut};
-    display: flex;
-    flex-direction: column;
-  }
-
-  .info-list-item {
-    border-top: 1px solid ${shadows};
-    padding: 10px;
-  }
-
-  .info-list-item:first-child {
-    border-top: 0;
-    padding: 10px;
-  }
-
-  .info-list-item:last-child {
-    border-bottom: 1px solid ${shadows};
-    padding: 10px;
-  }
-
   .flex-item {
     flex: 0 50%;
   }
 
-  .object-name {
+  .gravity-label {
+    flex: 0 100%;
+    display: block;
+    font-size: 10px;
+    text-transform: uppercase;
+    color: ${astronaut};
+    border-right: 1px solid ${shadows};
+  }
+
+  .star {
+    margin-right: 15px;
+  }
+
+  .gravity-text {
+    font-size: 10px;
+    text-transform: uppercase;
+    color: ${astronaut};
+  }
+
+  .gravity-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0 10px;
+  }
+
+  .member-info {
+    display: flex;
+    flex-direction: row;
+    font-family: ${primaryFont};
+    font-weight: bold;
+    font-size: 10px;
+    justify-content: space-between;
+    height: 35px;
+    align-items: center;
+  }
+
+  .host-name {
+    display: block;
+    font-size: 20px;
     color: ${astronaut};
     font-family: ${secondaryFont};
-    font-size: 20px;
+    padding: 5px 0;
+  }
+
+  .circle-icon-line {
+    display: block;
+    border: 1px solid ${shadows};
+    width: 115px;
+    height: 115px;
+    border-radius: 50%;
+    margin: 0 auto;
+    margin-top: -111px;
   }
 
   .icon-line {

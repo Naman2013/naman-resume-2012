@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux';
 import generateSseImageLoader from '../../../utils/generate-sse-image-source';
 import { updateActiveSSE, resetActiveSSE } from '../../../modules/telescope-details/actions';
 import { setImageDataToSnapshot, resetImageToSnap } from '../../../modules/starshare-camera/starshare-camera-actions';
-import './video-image-loader.scss';
+import styles from './ShowVideoImageLoader.style';
 
 const SSE = 'SSE';
 
@@ -20,7 +20,7 @@ const mapDispatchToProps = dispatch => ({
 });
 
 @connect(null, mapDispatchToProps)
-class VideoImageLoader extends Component {
+class ShowVideoImageLoader extends Component {
 
   static propTypes = {
     teleStreamCode: PropTypes.string.isRequired,
@@ -122,10 +122,10 @@ class VideoImageLoader extends Component {
           frameBorder="0"
           allow="autoplay;"
         />
-
+        <style jsx>{styles}</style>
       </div>
     );
   }
 }
 
-export default VideoImageLoader;
+export default ShowVideoImageLoader;

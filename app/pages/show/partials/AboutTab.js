@@ -12,7 +12,7 @@ import { romance } from 'styles/variables/colors_tiles_v4';
 import DescriptionContainer from './DescriptionContainer';
 import like from 'services/events/like';
 import LabeledTitleTiles from 'components/common/style/LabeledTitleTiles';
-import styles from './MainContent.style';
+import styles from './AboutTab.style';
 
 const {
   any,
@@ -34,6 +34,7 @@ class AboutTab extends Component {
     likesCount: number,
     showLikePrompt: bool,
     likePrompt: string,
+    showInfoTileDirection: string,
     showInfoTiles: shape({
       list: shape({})
     }),
@@ -46,6 +47,7 @@ class AboutTab extends Component {
 
   static defaultProps = {
     showInfoTiles: {},
+    showInfoTileDirection: 'column',
     content: '',
     likesCount: 0,
     showLikePrompt: false,
@@ -67,6 +69,7 @@ class AboutTab extends Component {
       likesCount,
       showId,
       showInfoTiles,
+      showInfoTileDirection,
       showLikePrompt,
       user,
     } = this.props;
@@ -92,11 +95,11 @@ class AboutTab extends Component {
       </div>
     );
     return (
-      <div>
+      <div className="root">
         <LabeledTitleTiles
           theme={{ margin: isDesktop ? 0 : '15px', backgroundColor: romance, height: 'auto' }}
           tiles={showInfoTiles.list}
-          direction="column"
+          direction={showInfoTileDirection}
         />
         <DescriptionContainer title="" content={content} theme={{ backgroundColor: romance }} footer={contentFooter} />
         <style jsx>{styles}</style>

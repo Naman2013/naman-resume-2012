@@ -11,7 +11,7 @@ import classnames from 'classnames';
 import uniqueId from 'lodash/uniqueId';
 import { Tabs, TabPanel } from 'react-tabs';
 import TelescopeImageViewer from 'components/common/telescope-image-viewer/telescope-image-viewer';
-import VideoImageLoader from 'components/common/telescope-image-loader/video-image-loader';
+import ShowVideoImageLoader from 'components/common/ShowVideoImageLoader';
 import styles from './LiveShowVideoViewer.style';
 
 const {
@@ -95,7 +95,7 @@ class LiveShowVideoViewer extends Component {
               className="live-video-container"
             >
               {showStreamCode && showStreamURL ? (
-                <VideoImageLoader
+                <ShowVideoImageLoader
                   teleStreamCode={showStreamCode}
                   teleStreamURL={showStreamURL}
                   showVideoControls={1}
@@ -110,7 +110,7 @@ class LiveShowVideoViewer extends Component {
             >
               <div style={videoContainerStyle} className="live-video-container">
               {feed.imageSourceType === 'video' ?
-                <VideoImageLoader
+                <ShowVideoImageLoader
                   teleStreamCode={feed.videoStreamCode}
                   teleStreamURL={feed.videoStreamURL}
                   cameraSourceType={feed.cameraSourceType}

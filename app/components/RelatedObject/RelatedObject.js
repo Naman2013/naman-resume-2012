@@ -44,8 +44,8 @@ class RelatedObject extends Component {
     linkURL: string,
     LinkLabel: string,
     dataBlocks: shape({
-      list: shape({}),
-      listCount: shape({
+      listCount: number,
+      list: shape({
         constellation: shape({
           text: string,
         }),
@@ -159,7 +159,6 @@ class RelatedObject extends Component {
           <span className="icon-line-horz" />
           <div className="icon-container flex-item">
             <div className="icon" style={profPic(objectIconURL)} />
-            <div className="icon-line" />
           </div>
           <span className="icon-line-horz" />
           <div className="info-list">

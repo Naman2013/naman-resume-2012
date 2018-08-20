@@ -80,7 +80,6 @@ CommentListItem.propTypes = {
   likeParams: shape({}),
   likePrompt: string.isRequired,
   likesCount: number.isRequired,
-  openModal: func.isRequired,
   replyCount: number.isRequired,
   replyId: number.isRequired,
   showLikePrompt: bool.isRequired,

@@ -32,7 +32,9 @@ class CommentList extends Component {
   static propTypes = {
     allowReplies: bool,
     callSource: string,
+    canSubmitReplies: bool,
     count: number,
+    header: string,
     resultsCount: number,
     isDesktop: bool.isRequired,
     isSimple: bool,
@@ -52,7 +54,9 @@ class CommentList extends Component {
   static defaultProps = {
     allowReplies: true,
     callSource: null,
+    canSubmitReplies: true,
     count: 10,
+    header: 'Replies',
     isSimple: false,
     resultsCount: 0,
     fetching: false,
@@ -120,9 +124,11 @@ class CommentList extends Component {
     const {
       allowReplies,
       callSource,
+      canSubmitReplies,
       count,
       fetching,
       forumId,
+      header,
       isDesktop,
       isSimple,
       renderToggle,
@@ -137,11 +143,10 @@ class CommentList extends Component {
       page,
     } = this.state;
     const { displayedCommentsObjs } = this;
-
     return (
       <div className="comment" key={uniqueId()}>
         {!fetching ? <div className="comments-bar">
-          Replies ({resultsCount})
+          {header} ({resultsCount})
         </div> : null}
         {displayedCommentsObjs.map((displayedComment) => {
           const likeParams = {
@@ -152,7 +157,7 @@ class CommentList extends Component {
           };
           return (<CommentListItem
             key={displayedComment.replyId}
-            allowReplies={allowReplies}
+            allowReplies={allowReplies && canSubmitReplies}
             {...displayedComment}
             likeParams={likeParams}
             isDesktop={isDesktop}
@@ -179,7 +184,7 @@ class CommentList extends Component {
           {renderToggle ? renderToggle() : null}
         </div>
         <div className="shadowed-container">
-          <Form
+          {canSubmitReplies ? <Form
             avatarURL={user.avatarURL}
             callSource={callSource}
             forumId={forumId}
@@ -190,7 +195,7 @@ class CommentList extends Component {
             topicId={topicId}
             user={user}
             isDesktop={isDesktop}
-          />
+          /> : null}
         </div>
         <style jsx>{styles}</style>
 

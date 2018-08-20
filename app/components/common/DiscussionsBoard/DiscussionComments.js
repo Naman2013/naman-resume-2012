@@ -23,6 +23,7 @@ const DiscussionsBoardComments = ({
   allowReplies,
   callSource,
   commentsCount,
+  header,
   renderToggle,
   count,
   forumId,
@@ -30,6 +31,7 @@ const DiscussionsBoardComments = ({
   topicId,
   replyTo,
   isDesktop,
+  canSubmitReplies,
   isSimple,
   user,
 }) => (
@@ -54,7 +56,9 @@ const DiscussionsBoardComments = ({
           allowReplies={allowReplies}
           fetching={fetchingContent}
           callSource={callSource}
+          canSubmitReplies={canSubmitReplies}
           count={count}
+          header={header}
           topicId={topicId}
           forumId={forumId}
           threadId={threadId}
