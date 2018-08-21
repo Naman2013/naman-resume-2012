@@ -62,6 +62,20 @@ const bcProps = {
   imageSrcUrl: 'https://vega.slooh.com/assets/v4/placeholder/moon_sample.jpg',
 };
 
+const modelData = resp => ({
+  topicContentProps: {
+    title: resp.objectSubtitle,
+    topicContentList: ['Placeholder 1', 'Placeholder 2', 'Placeholder 3'],
+    aboutTitle: 'About stuff',
+    aboutContent: '<p>Some rando content...</p>',
+    topicActionProps: {
+      followButtonText: resp.followPrompt,
+      followButtonIconURL: resp.followPromptIconUrl,
+      showActions: resp.followActionIconUrl,
+    },
+  },
+});
+
 @connect(mapStateToProps, mapDispatchToProps)
 class Overview extends Component {
   render() {
@@ -79,20 +93,11 @@ class Overview extends Component {
       alignContent: 'left',
     };
 
+    const modeledResult = modelData(objectData);
+
     return (
       <Fragment>
-        <section className="white-paper-bg">
-          <CenterColumn theme={{
-              position: 'relative',
-              boxShadow: 'rgb(191, 191, 191) 0px 11px 20px -10px',
-            }}
-          >
-            <h1>{objectData.objectSubtitle}</h1>
-            <DeviceProvider>
-              <GuideSection {...topProps} />
-            </DeviceProvider>
-          </CenterColumn>
-        </section>
+        <TopicContent {...modeledResult.topicContentProps} />
 
         <section className="blue-tile-bg">
           <DeviceProvider>
