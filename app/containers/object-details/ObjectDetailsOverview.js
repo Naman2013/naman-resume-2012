@@ -97,7 +97,7 @@ class Overview extends Component {
 
     return (
       <Fragment>
-        <TopicContent {...modeledResult.topicContentProps} />
+        <TopicContent {...modeledResult.topicContentProps} guideId={objectId} />
 
         <section className="blue-tile-bg">
           <DeviceProvider>

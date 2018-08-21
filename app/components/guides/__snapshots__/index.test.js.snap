@@ -1436,14 +1436,14 @@ ShallowWrapper {
             className="jsx-968165992 guide-container"
           >
             <TopicContentList
-              guideID={undefined}
+              guideId={undefined}
               list={Array []}
               theme={Object {}}
               topicActionProps={undefined}
             />
             <TopicBodyContent
               content={undefined}
-              guideID={undefined}
+              guideId={undefined}
               title={undefined}
               topicActionProps={undefined}
             />
@@ -1531,14 +1531,14 @@ ShallowWrapper {
             className="jsx-968165992 guide-container"
           >
             <TopicContentList
-              guideID={undefined}
+              guideId={undefined}
               list={Array []}
               theme={Object {}}
               topicActionProps={undefined}
             />
             <TopicBodyContent
               content={undefined}
-              guideID={undefined}
+              guideId={undefined}
               title={undefined}
               topicActionProps={undefined}
             />
@@ -1558,14 +1558,14 @@ ShallowWrapper {
           "props": Object {
             "children": Array [
               <TopicContentList
-                guideID={undefined}
+                guideId={undefined}
                 list={Array []}
                 theme={Object {}}
                 topicActionProps={undefined}
               />,
               <TopicBodyContent
                 content={undefined}
-                guideID={undefined}
+                guideId={undefined}
                 title={undefined}
                 topicActionProps={undefined}
               />,
@@ -1579,7 +1579,7 @@ ShallowWrapper {
               "key": undefined,
               "nodeType": "function",
               "props": Object {
-                "guideID": undefined,
+                "guideId": undefined,
                 "list": Array [],
                 "theme": Object {},
                 "topicActionProps": undefined,
@@ -1594,7 +1594,7 @@ ShallowWrapper {
               "nodeType": "function",
               "props": Object {
                 "content": undefined,
-                "guideID": undefined,
+                "guideId": undefined,
                 "title": undefined,
                 "topicActionProps": undefined,
               },
@@ -1681,14 +1681,14 @@ ShallowWrapper {
               className="jsx-968165992 guide-container"
             >
               <TopicContentList
-                guideID={undefined}
+                guideId={undefined}
                 list={Array []}
                 theme={Object {}}
                 topicActionProps={undefined}
               />
               <TopicBodyContent
                 content={undefined}
-                guideID={undefined}
+                guideId={undefined}
                 title={undefined}
                 topicActionProps={undefined}
               />
@@ -1776,14 +1776,14 @@ ShallowWrapper {
               className="jsx-968165992 guide-container"
             >
               <TopicContentList
-                guideID={undefined}
+                guideId={undefined}
                 list={Array []}
                 theme={Object {}}
                 topicActionProps={undefined}
               />
               <TopicBodyContent
                 content={undefined}
-                guideID={undefined}
+                guideId={undefined}
                 title={undefined}
                 topicActionProps={undefined}
               />
@@ -1803,14 +1803,14 @@ ShallowWrapper {
             "props": Object {
               "children": Array [
                 <TopicContentList
-                  guideID={undefined}
+                  guideId={undefined}
                   list={Array []}
                   theme={Object {}}
                   topicActionProps={undefined}
                 />,
                 <TopicBodyContent
                   content={undefined}
-                  guideID={undefined}
+                  guideId={undefined}
                   title={undefined}
                   topicActionProps={undefined}
                 />,
@@ -1824,7 +1824,7 @@ ShallowWrapper {
                 "key": undefined,
                 "nodeType": "function",
                 "props": Object {
-                  "guideID": undefined,
+                  "guideId": undefined,
                   "list": Array [],
                   "theme": Object {},
                   "topicActionProps": undefined,
@@ -1839,7 +1839,7 @@ ShallowWrapper {
                 "nodeType": "function",
                 "props": Object {
                   "content": undefined,
-                  "guideID": undefined,
+                  "guideId": undefined,
                   "title": undefined,
                   "topicActionProps": undefined,
                 },
