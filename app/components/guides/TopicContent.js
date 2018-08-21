@@ -12,7 +12,7 @@ const TopicContent = ({
   aboutTitle,
   aboutContent,
   topicActionProps,
-  guideID,
+  guideId,
 }) => (
   <div className="root">
     <CenterColumn>
@@ -25,13 +25,13 @@ const TopicContent = ({
         <TopicContentList
           list={topicContentList}
           topicActionProps={topicActionProps}
-          guideID={guideID}
+          guideId={guideId}
         />
         <TopicBodyContent
           title={aboutTitle}
           content={aboutContent}
           topicActionProps={topicActionProps}
-          guideID={guideID}
+          guideId={guideId}
         />
       </div>
     </CenterColumn>
@@ -48,7 +48,7 @@ TopicContent.propTypes = {
     followButtonText: PropTypes.string.isRequired,
     followButtonIconURL: PropTypes.string.isRequired,
   }).isRequired,
-  guideID: PropTypes.string.isRequired,
+  guideId: PropTypes.string.isRequired,
 };
 
 export default TopicContent;
