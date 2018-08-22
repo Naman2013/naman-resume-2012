@@ -13,12 +13,14 @@ import {
   fetchObjectDataAction,
   fetchObjectSpecialistsAction,
 } from '../../modules/object-details/actions';
+import { BURNHAMS_CORNER_CONTENT } from 'services/content';
+
 import CenterColumn from '../../../app/components/common/CenterColumn';
-import GuideSection from '../../../app/components/guides/GuideSection';
 import GuideBodyContent from '../../../app/components/guides/GuideBodyContent';
 import GuideContentList from '../../../app/components/guides/GuideContentList';
 
 import TopicContent from 'components/guides/TopicContent';
+import Request from 'components/common/network/Request';
 
 import DeviceProvider from '../../../app/providers/DeviceProvider';
 import FollowObject from '../../../app/components/object-details/FollowObject';
@@ -56,17 +58,21 @@ const tempProps = {
 
 const bcDesc = 'Nam dapibus nisl vitae elit fringilla rutrum. Aenean lene lorem sollicitudin, erat a elementum toirutrum neeque sem pretium metuis, quis mollis nisl nunc it  tristique de ullam ecorpere pretium…';
 const bcProps = {
-  title: 'Lorem Ipsum Dolar Set',
-  author: 'Paul Cox',
-  descContent: bcDesc,
-  imageSrcUrl: 'https://vega.slooh.com/assets/v4/placeholder/moon_sample.jpg',
+  name: 'BURNHAMS_CORNER',
+  model: resp => ({
+    title: resp.title,
+    subTitle: resp.subTitle,
+    author: 'Paul Cox',
+    descContent: bcDesc,
+    imageSrcUrl: 'https://vega.slooh.com/assets/v4/placeholder/moon_sample.jpg',
+  }),
 };
 
 const modelData = resp => ({
   topicContentProps: {
-    title: resp.objectSubtitle,
+    title: resp.objectTitle,
     topicContentList: ['Placeholder 1', 'Placeholder 2', 'Placeholder 3'],
-    aboutTitle: 'About stuff',
+    aboutTitle: resp.objectSubtitle,
     aboutContent: '<p>Some rando content...</p>',
     topicActionProps: {
       followButtonText: resp.followPrompt,
@@ -97,7 +103,10 @@ class Overview extends Component {
 
     return (
       <Fragment>
-        <TopicContent {...modeledResult.topicContentProps} guideId={objectId} />
+        <TopicContent
+          {...modeledResult.topicContentProps}
+          guideId={objectId}
+        />
 
         <section className="blue-tile-bg">
           <DeviceProvider>
@@ -122,20 +131,20 @@ class Overview extends Component {
             <section className="object-details-grid">
               <div className="f4">
                 <h2>Scientific Name:</h2>
-                <p>Lorem Ipsum</p>
+                <p>{objectData.objectTitle}</p>
               </div>
               <div className="f4">
                 <h2>Celestial Coordinates:</h2>
-                <p>RA: 00h 42m 44.3s</p>
-                <p>Dec:  +41°  16  08</p>
+                <p>RA: {objectData.objectRA}</p>
+                <p>Dec: {objectData.objectDeclination}</p>
               </div>
               <div className="f2">
                 <h2>Magnitude:</h2>
-                <p>-27.00</p>
+                <p>{objectData.objectMagnitude}</p>
               </div>
               <div className="f2">
                 <h2>Apparent Angular Size:</h2>
-                <p>0° 31&apost; 50&quote;</p>
+                <p dangerouslySetInnerHTML={{ __html: '0° 31&#39; 50&#34;' }} />
               </div>
               <div className="f4">
                 <h2>Visibility Season:</h2>
@@ -150,11 +159,30 @@ class Overview extends Component {
             </section>
           </CenterColumn>
         </section>
+
         <section className="off-white-bg-top-shadow">
-          <SterlingTitle title="Burnham's Corner" subTitle="Get Inspired with this find from Burnham's books" />
-          <CenterColumn>
-            <BurnhamsCorner {...bcProps} />
-          </CenterColumn>
+          {
+            objectData.hasBurnhamsData &&
+              <Request
+                model={bcProps}
+                serviceURL={BURNHAMS_CORNER_CONTENT}
+                requestBody={{ objectId }}
+                render={({
+                  fetchingContent,
+                  modeledResponses: { BURNHAMS_CORNER },
+                }) => !fetchingContent && (
+                  <Fragment>
+                    <SterlingTitle
+                      title={BURNHAMS_CORNER.title}
+                      subTitle={BURNHAMS_CORNER.subTitle}
+                    />
+                    <CenterColumn>
+                      <BurnhamsCorner {...bcProps} />
+                    </CenterColumn>
+                  </Fragment>
+                )}
+              />
+          }
 
           <SterlingTitle
             title="MVP Astronomers"
@@ -195,6 +223,14 @@ Overview.propTypes = {
     objectId: PropTypes.string.isRequired,
   }).isRequired,
   actions: PropTypes.shape({ }).isRequired,
+  objectData: PropTypes.shape({
+    objectTitle: PropTypes.string.isRequired,
+    objectSubtitle: PropTypes.string.isRequired,
+    objectRA: PropTypes.number.isRequired,
+    objectDeclination: PropTypes.number.isRequired,
+    objectMagnitude: PropTypes.number.isRequired,
+    hasBurnhamsData: PropTypes.bool.isRequired,
+  }).isRequired,
 };
 
 export default Overview;
