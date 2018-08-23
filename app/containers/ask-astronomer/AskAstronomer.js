@@ -18,6 +18,8 @@ import {
 } from '../../modules/ask-astronomer-answers/actions';
 import QuestionList from '../../components/ask-astronomer/question-list';
 import AskAstronomerQuestionForm from '../../components/ask-astronomer/question-form';
+import noop from 'lodash/noop';
+import GenericButton from '../../components/common/style/buttons/Button';
 import DeviceProvider from '../../../app/providers/DeviceProvider';
 import ObjectDetailsSectionTitle from '../../components/object-details/ObjectDetailsSectionTitle';
 import CenterColumn from '../../../app/components/common/CenterColumn';
@@ -159,13 +161,31 @@ class AskAstronomer extends Component {
           <ObjectDetailsSectionTitle title={objectTitle + "'s"} subTitle="Ask An Astronomer" />        
           <CenterColumn>
             <div className="ask-astronomer">
+              <div className="ask-mobile-header">         
+                <div className="icon-container">
+                  <div className="border">
+                    <div className="icon">
+                      <img className="icon-content" alt="" width="180" height="180" src="https://vega.slooh.com/assets/v4/common/ask_mobile_bg.png" />
+                    </div>
+                  </div>
+                </div>
+                <div className="center-line" />
+                <span className="btn-nav">Questions</span>
+                <span className="btn-nav">Ask Now</span>      
+              </div>
              <div className="right">
-                <AskAstronomerQuestionForm
+                {/*<AskAstronomerQuestionForm
                   objectId={objectId}
                   topicId={faqTopicId}
                   objectTitle={objectTitle}
                   user={user}
-                />
+                />*/}
+                <div className="ask-question-tile">
+                  <span className="dek">Have a Question?</span>
+                  <h2>Ask an Astronomer!</h2>
+                  <p>Nam dapibus nisl vitae elitem fringilla rutrum. Aenean lener  elementum rutrum.</p>
+                  <GenericButton onClickEvent={noop} text="SUBMIT A QUESTION"icon="https://vega.slooh.com/assets/v4/common/plus_icon.svg" />
+                </div>
               </div>
               <div className="left">
                 {fetchingQuestions && <div className="fa fa-spinner loader" />}
