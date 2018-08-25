@@ -57,14 +57,17 @@ const tempProps = {
 };
 
 const bcDesc = 'Nam dapibus nisl vitae elit fringilla rutrum. Aenean lene lorem sollicitudin, erat a elementum toirutrum neeque sem pretium metuis, quis mollis nisl nunc it  tristique de ullam ecorpere pretium…';
-const bcProps = {
+
+const burnhamsModel = {
   name: 'BURNHAMS_CORNER',
   model: resp => ({
     title: resp.title,
     subTitle: resp.subTitle,
-    author: 'Paul Cox',
-    descContent: bcDesc,
-    imageSrcUrl: 'https://vega.slooh.com/assets/v4/placeholder/moon_sample.jpg',
+    burnhamTileContent: {
+      objectTitle: resp.objectTitle,
+      content: resp.content,
+      imageURL: resp.imageURL,
+    },
   }),
 };
 
@@ -92,12 +95,6 @@ class Overview extends Component {
       objectData,
       objectSpecialists,
     } = this.props;
-
-    const topProps = {
-      content: () => <GuideBodyContent title="About this object" content={objectData.objectDescription} />,
-      column: () => (<GuideContentList list={['object type?', objectData.objectDomain, objectData.objectConstellation, <FollowObject />]} />),
-      alignContent: 'left',
-    };
 
     const modeledResult = modelData(objectData);
 
@@ -164,7 +161,7 @@ class Overview extends Component {
           {
             objectData.hasBurnhamsData &&
               <Request
-                model={bcProps}
+                model={burnhamsModel}
                 serviceURL={BURNHAMS_CORNER_CONTENT}
                 requestBody={{ objectId }}
                 render={({
@@ -177,7 +174,7 @@ class Overview extends Component {
                       subTitle={BURNHAMS_CORNER.subTitle}
                     />
                     <CenterColumn>
-                      <BurnhamsCorner {...bcProps} />
+                      <BurnhamsCorner {...BURNHAMS_CORNER.burnhamTileContent} />
                     </CenterColumn>
                   </Fragment>
                 )}
