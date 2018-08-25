@@ -12,6 +12,7 @@ export default css`
     padding: 10px 20px;
     background-color: transparent;
     border: 1px dashed ${astronaut};
+    text-align: left;
     text-transform: uppercase;
     font-size: 11px;
     font-weight: bold;
