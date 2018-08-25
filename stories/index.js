@@ -13,6 +13,7 @@ import './DiscussionsCard';
 import './GlobalNavigation';
 import './guides/GuideSection';
 import './Headers';
+import './HubHeader';
 import './icons';
 import './InAppNavigation';
 import './LabeledTitleTiles';

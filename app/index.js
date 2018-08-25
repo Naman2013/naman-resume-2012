@@ -136,6 +136,8 @@ import CommunityGroupOverview from './pages/community-groups/GroupOverview';
 import GroupOverviewInfo from './pages/community-groups/GroupOverviewInfo';
 import ImageDetails from './pages/image-details';
 import Show from './pages/show';
+import GuidesHub from './containers/guides-hub';
+
 
 import DashboardPage from 'components/Dashboard';
 // router functions
@@ -480,7 +482,7 @@ ReactDOM.render(
         <Route path="help/privacy" component={Privacy} />
 
         <Route path="bookclub" component={BookclubHandoff} />
-
+        <Route path="guides" component={GuidesHub} onEnter={validateUser} />
         <Route path="guide-details/:guideId" component={GuideDetails} onEnter={validateUser} />
 
         <Route path="guides/subject/:guideId" component={SubjectGuides} onEnter={validateUser} />
