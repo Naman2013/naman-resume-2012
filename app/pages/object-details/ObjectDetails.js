@@ -1,9 +1,9 @@
-/***********************************
+/** *********************************
 * V4 Object Details Page
 *   Markdown support on elements????
 *   UTF-8 support....
 *   Multi-National Languages.....
-***********************************/
+********************************** */
 
 import React, { Component, cloneElement } from 'react';
 import PropTypes from 'prop-types';
