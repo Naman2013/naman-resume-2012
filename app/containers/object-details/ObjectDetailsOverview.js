@@ -67,6 +67,9 @@ const burnhamsModel = {
       objectTitle: resp.objectTitle,
       content: resp.content,
       imageURL: resp.imageURL,
+      hasLink: resp.hasLink,
+      linkLabel: resp.linkLabel,
+      linkURL: resp.linkURL,
     },
   }),
 };
