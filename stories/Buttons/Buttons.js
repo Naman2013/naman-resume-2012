@@ -46,7 +46,7 @@ storiesOf('Buttons ', module)
       customerId="310006"
       likePrompt="You cannot like your own comment"
       likesCount={3}
-      showLikePrompt={true}
+      showLikePrompt
       user={{
         cid: '310006',
         at: '3',

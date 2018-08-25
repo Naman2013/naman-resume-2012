@@ -1,29 +1,18 @@
 import css from 'styled-jsx/css';
 import { primaryFont, secondaryFont } from '../../../styles/variables/fonts';
 import { astronaut, romance, lynch, geyser, iron } from '../../../styles/variables/colors_tiles_v4';
-import { screenLarge, screenXLarge } from '../../../styles/variables/breakpoints';
+import { screenXLarge } from '../../../styles/variables/breakpoints';
 
 export default css`
-
   .bc {
-    position: relative;
+    display: flex;
     letter-spacing: 1px;
     background-color: ${romance};
     background-size: 22px;
     box-shadow: 0px 0px 3px 1px rgba(0,0,0,0.2);
-    margin: 3px auto;
     color: ${astronaut};
     font-family: ${secondaryFont};
-    transition: width 0.4s ease-in-out, height 0.4s ease-in-out;
-    width: 100%;
-    height: 396px;
-  }
-
-  .bc-left {
-    text-align: left;
-    width: 55%;
-    padding-left: 50px;
-    transition: width 0.4s ease-in-out, height 0.4s ease-in-out;
+    padding: 50px;
   }
 
   .bc-title {
@@ -32,27 +21,27 @@ export default css`
     color: ${astronaut};
     letter-spacing: 1px;
     font-weight: 400;
-    padding-top: 50px;
   }
 
   .bc-img-right {
-    position: absolute;
-    border: solid 1px ${iron};
-    right: 50px;
-    top: 50px;
-    width: calc(40% - 50px);
-    transition: width 0.4s ease-in-out, height 0.4s ease-in-out;
+    width: 45%;
+  }
+
+  .bc-left {
+    width: 55%;
+    padding-right: 40px;
   }
 
   .bc-img-right img {
-    border: 2px solid white;
     width: 100%;
+    padding: 2px;
+    border: solid 1px ${iron};
   }
 
   .bc-author {
     font-family: ${primaryFont};
     font-size: 10px;
-    font-weight: 400;
+    font-weight: 600;
     letter-spacing: 1.5px;
     border-top: solid 1px ${geyser};
     border-bottom: solid 1px ${geyser};
@@ -115,27 +104,6 @@ export default css`
   }
 
   @media ${screenXLarge} {
-    .bc {
-      width: 100%;
-      height: 480px;
-    }
-
-    .bc-left {
-      width: 50%;
-      padding-left: 75px;
-    }
-
-    .bc-title {
-      padding-top: 75px;
-    }
-
-    .bc-img-right {
-      right: 75px;
-      top: 75px;
-      width: 300px;
-      height: 300px;
-    }
-
     .bc-desc {
       font-size: 18px;
     }
