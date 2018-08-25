@@ -7,19 +7,11 @@ export default css`
     letter-spacing: 1px;
     background-color: ${romance};
     box-shadow: 0px 0px 3px 1px rgba(0,0,0,0.2);
-    margin: 3px;
     color: ${astronaut};
     font-family: ${secondaryFont};
-    transition: width 0.4s ease-in-out, height 0.4s ease-in-out;
     width: 90%;
     margin: 0 auto;
-  }
-
-  .bc-left {
-    text-align: left;
-    width: 80%;
-    margin: 0 auto;
-    padding-top: 40px;
+    padding: 50px;
   }
 
   .bc-title {
@@ -36,10 +28,16 @@ export default css`
     width: 98%;
   }
 
+  .action-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+
   .bc-author {
     font-family: ${primaryFont};
     font-size: 10px;
-    font-weight: 400;
+    font-weight: 600;
     letter-spacing: 1.5px;
     border-top: solid 1px ${geyser};
     border-bottom: solid 1px ${geyser};

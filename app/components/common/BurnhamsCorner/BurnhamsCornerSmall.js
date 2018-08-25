@@ -1,15 +1,32 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
+import TileButton from './TileButton';
 import style from './BurnhamsCornerSmall.style';
 
-const BurnhamsCornerSmall = ({ title, author, descContent, imageSrcUrl }) => (
+const BurnhamsCornerSmall = ({
+  objectTitle,
+  content,
+  imageURL,
+  hasLink,
+  linkLabel,
+  linkURL,
+}) => (
   <Fragment>
     <div className="bc">
       <div className="bc-left">
-        <div className="bc-title">{title}</div>
-        <div className="bc-author">Added BY {author}</div>
-        <div className="bc-desc">{descContent}</div>
-        <img src={imageSrcUrl} alt="Burnhams Corner" />
+        <div className="bc-title">{objectTitle}</div>
+        <div className="bc-author">Burnham&#39;s Corner</div>
+        <div className="bc-desc">{content}</div>
+        <img src={imageURL} alt="" />
+        {
+          hasLink &&
+            <div className="action-container">
+              <TileButton
+                text={linkLabel}
+                linkURL={linkURL}
+              />
+            </div>
+        }
       </div>
     </div>
     <style jsx>{style}</style>
@@ -17,10 +34,12 @@ const BurnhamsCornerSmall = ({ title, author, descContent, imageSrcUrl }) => (
 );
 
 BurnhamsCornerSmall.propTypes = {
-  title: PropTypes.string.isRequired,
-  author: PropTypes.string.isRequired,
-  descContent: PropTypes.string.isRequired,
-  imageSrcUrl: PropTypes.string.isRequired,
+  objectTitle: PropTypes.string.isRequired,
+  content: PropTypes.string.isRequired,
+  imageURL: PropTypes.string.isRequired,
+  hasLink: PropTypes.string.isRequired,
+  linkLabel: PropTypes.string.isRequired,
+  linkURL: PropTypes.string.isRequired,
 };
 
 export default BurnhamsCornerSmall;
