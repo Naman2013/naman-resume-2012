@@ -74,7 +74,7 @@ const burnhamsModel = {
 const modelData = resp => ({
   topicContentProps: {
     title: resp.objectTitle,
-    topicContentList: ['Placeholder 1', 'Placeholder 2', 'Placeholder 3'],
+    topicContentList: Object.values(resp.pointsList.list),
     aboutTitle: resp.objectSubtitle,
     aboutContent: '<p>Some rando content...</p>',
     topicActionProps: {
@@ -123,7 +123,7 @@ class Overview extends Component {
     } = this.props;
 
     const modeledResult = modelData(objectData);
-
+    console.log(modeledResult);
     if (!modeledResult.topicContentProps.title) { return null; }
 
     return (
