@@ -37,7 +37,7 @@ BurnhamsCornerSmall.propTypes = {
   objectTitle: PropTypes.string.isRequired,
   content: PropTypes.string.isRequired,
   imageURL: PropTypes.string.isRequired,
-  hasLink: PropTypes.string.isRequired,
+  hasLink: PropTypes.bool.isRequired,
   linkLabel: PropTypes.string.isRequired,
   linkURL: PropTypes.string.isRequired,
 };

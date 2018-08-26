@@ -9,11 +9,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import classnames from 'classnames';
-import has from 'lodash/has';
-import {
-  fetchGuideDataAction,
-} from '../../modules/guide-details/actions';
+import { fetchGuideDataAction } from '../../modules/guide-details/actions';
 
 const mapStateToProps = ({ guideDetails, appConfig, user }) => ({
   guideData: guideDetails.guideData,
@@ -29,10 +25,6 @@ const mapDispatchToProps = dispatch => ({
 
 @connect(mapStateToProps, mapDispatchToProps)
 class GuideDetails extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   componentWillReceiveProps(nextProps) {
     const {
       params: {
