@@ -80,7 +80,7 @@ const modelData = resp => ({
     topicActionProps: {
       followButtonText: resp.followPrompt,
       followButtonIconURL: resp.followPromptIconUrl,
-      showActions: resp.followActionIconUrl,
+      showActions: resp.showFollowPromptFlag,
     },
   },
   statisticsTitle: {
@@ -100,6 +100,15 @@ const modelData = resp => ({
       linkUrl: resp.featuredObservation.linkUrl,
     },
   },
+  objectDetails: {
+    objectRA: resp.objectRA,
+    objectDEC: resp.objectDeclination,
+    objectMagnitude: resp.objectMagnitude,
+  },
+  visibilitySeason: {
+    title: resp.visibilitySeason.label,
+    observatories: resp.visibilitySeason.observatories.map(obs => <p>{obs}</p>),
+  },
 });
 
 @connect(mapStateToProps, mapDispatchToProps)
@@ -114,6 +123,8 @@ class Overview extends Component {
     } = this.props;
 
     const modeledResult = modelData(objectData);
+
+    if (!modeledResult.topicContentProps.title) { return null; }
 
     return (
       <Fragment>
@@ -145,21 +156,20 @@ class Overview extends Component {
               </div>
               <div className="f4">
                 <h2>Celestial Coordinates:</h2>
-                <p>RA: {objectData.objectRA}</p>
-                <p>Dec: {objectData.objectDeclination}</p>
+                <p>RA: {modeledResult.objectDetails.objectRA}</p>
+                <p>Dec: {modeledResult.objectDetails.objectDEC}</p>
               </div>
               <div className="f2">
                 <h2>Magnitude:</h2>
-                <p>{objectData.objectMagnitude}</p>
+                <p>{modeledResult.objectDetails.objectMagnitude}</p>
               </div>
               <div className="f2">
                 <h2>Apparent Angular Size:</h2>
-                <p dangerouslySetInnerHTML={{ __html: '0° 31&#39; 50&#34;' }} />
+                <p dangerouslySetInnerHTML={{ __html: '---PLACEHOLDER---' }} />
               </div>
               <div className="f4">
-                <h2>Visibility Season:</h2>
-                <p>Chile: Aug - Feb</p>
-                <p>Canary Islands: Jul - Apr</p>
+                <h2>{modeledResult.visibilitySeason.title}</h2>
+                /* insert visibility content */
               </div>
               <div className="f4">
                 <h2>midnight culmination:</h2>
