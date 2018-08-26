@@ -9,21 +9,19 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { BURNHAMS_CORNER_CONTENT } from 'services/content';
+
 import {
   fetchObjectDataAction,
   fetchObjectSpecialistsAction,
 } from '../../modules/object-details/actions';
-import { BURNHAMS_CORNER_CONTENT } from 'services/content';
 
 import CenterColumn from '../../../app/components/common/CenterColumn';
-import GuideBodyContent from '../../../app/components/guides/GuideBodyContent';
-import GuideContentList from '../../../app/components/guides/GuideContentList';
 
 import TopicContent from 'components/guides/TopicContent';
 import Request from 'components/common/network/Request';
 
 import DeviceProvider from '../../../app/providers/DeviceProvider';
-import FollowObject from '../../../app/components/object-details/FollowObject';
 import CardObservations from '../../../app/components/common/CardObservations';
 import SterlingTitle from '../../../app/components/common/titles/SterlingTitle';
 import BurnhamsCorner from '../../../app/components/common/BurnhamsCorner';
@@ -86,6 +84,14 @@ const modelData = resp => ({
       showActions: resp.followActionIconUrl,
     },
   },
+  statisticsTitle: {
+    title: resp.objectSubtitle,
+    subTitle: resp.objectTagline,
+  },
+  featuredObservation: {
+    title: resp.featuredObservation.title,
+    subTitle: resp.featuredObservation.subTitle,
+  },
 });
 
 @connect(mapStateToProps, mapDispatchToProps)
@@ -111,8 +117,7 @@ class Overview extends Component {
         <section className="blue-tile-bg">
           <DeviceProvider>
             <SterlingTitle
-              title="featured observation"
-              subTitle="community observation"
+              {...modeledResult.featuredObservation}
               theme={{ title: { color: 'white' }, subTitle: { color: 'white' } }}
             />
             <CenterColumn>
@@ -122,10 +127,7 @@ class Overview extends Component {
         </section>
 
         <section className="off-white-bg">
-          <SterlingTitle
-            title="Prepare for your next mission"
-            subTitle={`Tools to help plan your next mission to ${objectData.objectTitle}`}
-          />
+          <SterlingTitle {...modeledResult.statisticsTitle} />
 
           <CenterColumn>
             <section className="object-details-grid">
