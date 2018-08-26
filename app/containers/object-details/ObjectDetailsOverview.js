@@ -43,6 +43,7 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const descriptionContent = 'Nam dapibus nisl vitae elit fringilla rutrum. Aenean lene lorem sollicitudin, erat a elementum toirutrum neeque sem pretium metuis, quis mollis nisl nunc it tristique de ullam ecorpere pretium…';
+
 const tempProps = {
   title: 'The Moon!',
   author: 'JESSICA ANDERSON',
@@ -53,8 +54,6 @@ const tempProps = {
   detailsLinkUrl: 'https://www.slooh.com/',
   capturedDate: 'Jan 22, 2018',
 };
-
-const bcDesc = 'Nam dapibus nisl vitae elit fringilla rutrum. Aenean lene lorem sollicitudin, erat a elementum toirutrum neeque sem pretium metuis, quis mollis nisl nunc it  tristique de ullam ecorpere pretium…';
 
 const burnhamsModel = {
   name: 'BURNHAMS_CORNER',
@@ -91,6 +90,15 @@ const modelData = resp => ({
   featuredObservation: {
     title: resp.featuredObservation.title,
     subTitle: resp.featuredObservation.subTitle,
+    tileContent: {
+      title: resp.featuredObservation.title,
+      subTitle: resp.featuredObservation.subTitle,
+      description: resp.featuredObservation.description,
+      imageUrl: resp.featuredObservation.imageUrl,
+      hasLink: resp.featuredObservation.hasLink,
+      linkLabel: resp.featuredObservation.linkLabel,
+      linkUrl: resp.featuredObservation.linkUrl,
+    },
   },
 });
 
@@ -121,7 +129,7 @@ class Overview extends Component {
               theme={{ title: { color: 'white' }, subTitle: { color: 'white' } }}
             />
             <CenterColumn>
-              <CardObservations {...tempProps} />
+              <CardObservations {...modeledResult.featuredObservation.tileContent} />
             </CenterColumn>
           </DeviceProvider>
         </section>
