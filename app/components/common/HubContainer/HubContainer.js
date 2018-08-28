@@ -12,6 +12,7 @@ import style from './HubContainer.style';
 const {
   number,
   arrayOf,
+  shape,
   string,
   func,
 } = PropTypes;
@@ -20,13 +21,54 @@ class HubContainer extends Component {
 
   static propTypes = {
     hubTitle: string,
+    location: shape({
+      query: shape({
+        filter: string,
+        page: string,
+        sort: string,
+      }),
+    }),
   };
 
   static defaultProps = {
     hubTitle: '',
+    location: {
+      query: {},
+    },
   };
 
   state = {
+    filter: this.props.location.query.filter || 'all',
+    page: this.props.location.query.page || 1,
+    sort: this.props.location.query || 'aToZ',
+  }
+
+  componentWillReceiveProps(nextProps) {
+    let { filter, page, sort } = this.props.location.query;
+    const { filter: nextFilter, page: nextPage, sort: nextSort } = nextProps.location.query;
+    let changeState = false;
+
+    if (filter !== nextFilter) {
+      filter = nextFilter;
+      changeState = true;
+    }
+
+    if (page !== nextPage) {
+      page = nextPage;
+      changeState = true;
+    }
+
+    if (sort !== nextSort) {
+      sort = nextSort;
+      changeState = true;
+    }
+    if (changeState) {
+      this.setState(() => ({
+        filter,
+        page,
+        sort,
+      }));
+    }
   }
 
   handleClick = (idx) => {

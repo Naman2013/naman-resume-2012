@@ -6,7 +6,7 @@ import HubContainer from 'components/common/HubContainer';
 import { DeviceContext } from 'providers/DeviceProvider';
 import { GUIDE_ENDPOINT_URL } from 'services/guides/guide-data';
 
-const Guides = () => (
+const Guides = props => (
   <div>
     <Request
       serviceURL={GUIDE_ENDPOINT_URL}
@@ -24,6 +24,7 @@ const Guides = () => (
                 <DeviceContext.Consumer>
                   {context => (
                     <HubContainer
+                      {...props}
                       {...serviceResponse}
                       {...context}
                       hubTitle="Guides"
