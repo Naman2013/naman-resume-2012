@@ -7,8 +7,7 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import CenterColumn from 'components/common/CenterColumn';
-import HubHeader from 'components/common/HubHeader';
+import HubContainer from 'components/common/HubContainer';
 import { seashell } from 'styles/variables/colors_tiles_v4';
 import styles from './BootstrappedGuidesHub.style';
 
@@ -25,14 +24,17 @@ const {
 
 class BootstrappedGuidesHub extends Component {
 
+  state = {
+    filter: null,
+    sort: null,
+  };
+
   render() {
     const {} = this.props;
 
     return (
       <div className="root">
-        <HubHeader icon="https://vega.slooh.com/assets/v4/common/arrow_horz.svg" title="Guides" />
-        <CenterColumn theme={{ backgroundColor: seashell }}>
-        </CenterColumn>
+        
         <style jsx>{styles}</style>
       </div>
     )

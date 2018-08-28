@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import Request from 'components/common/network/Request';
 import BootstrappedGuidesHub from './BootstrappedGuidesHub';
+import HubContainer from 'components/common/HubContainer';
 import { DeviceContext } from 'providers/DeviceProvider';
 import { GUIDE_ENDPOINT_URL } from 'services/guides/guide-data';
 
@@ -13,6 +14,7 @@ const Guides = () => (
       // requestBody={{}}
       render={({
         fetchingContent,
+        serviceResponse,
         // modeledResponses: { SUBJECT_GUIDE_MODEL },
       }) => (
         <Fragment>
@@ -20,7 +22,13 @@ const Guides = () => (
             !fetchingContent &&
               <Fragment>
                 <DeviceContext.Consumer>
-                  {context => <BootstrappedGuidesHub {...context} />}
+                  {context => (
+                    <HubContainer
+                      {...serviceResponse}
+                      {...context}
+                      hubTitle="Guides"
+                    />
+                  )}
                 </DeviceContext.Consumer>
               </Fragment>
           }

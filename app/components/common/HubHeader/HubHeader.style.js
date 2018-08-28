@@ -7,8 +7,10 @@ import { backgroundImageCover, dropShadowContainer } from 'styles/mixins/utiliti
 
 export default css`
   .root {
+    font-family: ${primaryFont};
     padding: 50px;
     display: flex;
+    flex-wrap: wrap;
     flex-direction: row;
     height: 200px;
     align-items: flex-start;
@@ -20,6 +22,7 @@ export default css`
   }
 
   .hub-header-title {
+    flex: 1;
     display: flex;
     align-items: center;
     width: 100%;
@@ -32,7 +35,8 @@ export default css`
   }
 
   .hub-header-nav {
-    border-top: 1px solid ${shadows};
+    width: 100%;
+    border: 0;
   }
 
   @media ${screenMedium} {
@@ -51,12 +55,18 @@ export default css`
     }
 
     .hub-header-title {
+      flex: 1;
       height: 100px;
       font-size: 29px;
       padding: 0;
       padding-left: 50px;
       border: 1px solid ${shadows};
       border-left: 0;
+    }
+
+    .hub-header-nav {
+      width: 100%;
+      border-top: 1px solid ${shadows};
     }
   }
 
