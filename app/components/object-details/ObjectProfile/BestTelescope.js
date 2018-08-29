@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import classnames from 'classnames';
+import style from './BestTelescope.style';
 
 const TELESCOPE_INDEX = 'data-telescope-index';
 
@@ -31,6 +33,7 @@ class BestTelescope extends Component {
             .map((telescopeNav, index) => (
               <li>
                 <button
+                  className={classnames({ active: this.state.activeTelescope === index })}
                   onClick={this.updateActiveTelescope}
                   data-telescope-index={index}
                 >
@@ -40,6 +43,8 @@ class BestTelescope extends Component {
             ))}
         </ul>
         <p>{this.props.telescopes[this.state.activeTelescope].description}</p>
+
+        <style jsx>{style}</style>
       </div>
     );
   }
