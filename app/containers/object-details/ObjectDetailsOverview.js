@@ -16,15 +16,15 @@ import {
   fetchObjectSpecialistsAction,
 } from '../../modules/object-details/actions';
 
-import CenterColumn from '../../../app/components/common/CenterColumn';
-
+import CenterColumn from 'components/common/CenterColumn';
 import TopicContent from 'components/guides/TopicContent';
 import Request from 'components/common/network/Request';
 
-import DeviceProvider from '../../../app/providers/DeviceProvider';
-import CardObservations from '../../../app/components/common/CardObservations';
-import SterlingTitle from '../../../app/components/common/titles/SterlingTitle';
-import BurnhamsCorner from '../../../app/components/common/BurnhamsCorner';
+import DeviceProvider from 'providers/DeviceProvider';
+import ObjectProfile from 'components/object-details/ObjectProfile';
+import CardObservations from 'components/common/CardObservations';
+import SterlingTitle from 'components/common/titles/SterlingTitle';
+import BurnhamsCorner from 'components/common/BurnhamsCorner';
 
 import style from './ObjectDetailsOverview.style';
 
@@ -107,7 +107,15 @@ const modelData = resp => ({
   },
   visibilitySeason: {
     title: resp.visibilitySeason.label,
-    observatories: resp.visibilitySeason.observatories.map(obs => <p>{obs}</p>),
+    observatories: resp
+      .visibilitySeason
+      .observatories
+      .map(obs => <p>{obs.label} {obs.text}</p>),
+  },
+  midnightCulmination: {
+    label: resp.midnightCulmination.label,
+    text: resp.midnightCulmination.text,
+    description: resp.midnightCulmination.description,
   },
 });
 
@@ -148,34 +156,22 @@ class Overview extends Component {
           <SterlingTitle {...modeledResult.statisticsTitle} />
 
           <CenterColumn>
-            <section className="object-details-grid">
-              <div className="f4">
-                <h2>Scientific Name:</h2>
-                <p>{objectData.objectTitle}</p>
-              </div>
-              <div className="f4">
-                <h2>Celestial Coordinates:</h2>
-                <p>RA: {modeledResult.objectDetails.objectRA}</p>
-                <p>Dec: {modeledResult.objectDetails.objectDEC}</p>
-              </div>
-              <div className="f2">
-                <h2>Magnitude:</h2>
-                <p>{modeledResult.objectDetails.objectMagnitude}</p>
-              </div>
-              <div className="f2">
-                <h2>Apparent Angular Size:</h2>
-                <p dangerouslySetInnerHTML={{ __html: '---PLACEHOLDER---' }} />
-              </div>
-              <div className="f4">
-                <h2>{modeledResult.visibilitySeason.title}</h2>
-                /* insert visibility content */
-              </div>
-              <div className="f4">
-                <h2>midnight culmination:</h2>
-                <p>November 22</p>
-                Lorem Ipsum viverra eleifent nun varius
-              </div>
-            </section>
+            <ObjectProfile
+              scienceName={objectData.objectTitle}
+              objectSpecs={{
+                ra: modeledResult.objectDetails.objectRA,
+                dec: modeledResult.objectDetails.objectDEC,
+              }}
+              visibilitySeason={{
+                title: modeledResult.visibilitySeason.title,
+                observatories: modeledResult.visibilitySeason.observatories,
+              }}
+              midnightCulmination={{
+                label: modeledResult.midnightCulmination.label,
+                text: modeledResult.midnightCulmination.text,
+                description: modeledResult.midnightCulmination.description,
+              }}
+            />
           </CenterColumn>
         </section>
 
