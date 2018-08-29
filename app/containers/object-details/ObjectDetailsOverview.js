@@ -76,7 +76,7 @@ const modelData = resp => ({
     title: resp.objectTitle,
     topicContentList: Object.values(resp.pointsList.list),
     aboutTitle: resp.objectSubtitle,
-    aboutContent: '<p>Some rando content...</p>',
+    aboutContent: resp.objectDescription,
     topicActionProps: {
       followButtonText: resp.followPrompt,
       followButtonIconURL: resp.followPromptIconUrl,
@@ -88,8 +88,8 @@ const modelData = resp => ({
     subTitle: resp.objectTagline,
   },
   featuredObservation: {
-    title: resp.featuredObservation.title,
-    subTitle: resp.featuredObservation.subTitle,
+    title: 'Featured observation',
+    subTitle: 'Community Observation',
     tileContent: {
       title: resp.featuredObservation.title,
       subTitle: resp.featuredObservation.subTitle,
@@ -123,7 +123,6 @@ class Overview extends Component {
     } = this.props;
 
     const modeledResult = modelData(objectData);
-    console.log(modeledResult);
     if (!modeledResult.topicContentProps.title) { return null; }
 
     return (
