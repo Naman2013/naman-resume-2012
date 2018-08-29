@@ -1,29 +1,24 @@
 import css from 'styled-jsx/css';
-import { romance, lightHeadedAstronaut, geyser } from 'styles/variables/colors_tiles_v4';
+import { romance, lightHeadedAstronaut, geyser, hawkesBlue } from 'styles/variables/colors_tiles_v4';
 import { primaryFont, secondaryFont } from 'styles/variables/fonts';
+import { screenMedium } from 'styles/variables/breakpoints';
+import { resetMarginPadding } from 'styles/variables/utils';
 
 export default css`
+  div {
+    ${resetMarginPadding}
+    color: ${lightHeadedAstronaut};
+  }
+
   .object-details-grid {
-    display: flex;
-    flex-wrap: wrap;
+    ${resetMarginPadding}
     box-shadow: 0px 0px 3px 1px rgba(0,0,0,0.1);
-    width: 90%;
-    margin: 0 auto;
     background-color: ${romance};
     font-family: ${secondaryFont};
     font-size: 18px;
-    transition: width 0.3s ease-in-out;
   }
 
-  .object-details-grid div {
-    color: ${lightHeadedAstronaut};
-    padding: 40px;
-    transition: width 0.4s ease-in-out, height 0.4s ease-in-out;
-    border-bottom: solid 1px ${geyser};
-    width: 100%;
-  }
-
-  .object-details-grid h2 {
+  h2 {
     font-size: 11px;
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -33,11 +28,29 @@ export default css`
     margin-bottom: 25px;
   }
 
-  .object-details-grid p {
+  p {
     margin: 0;
     padding: 0;
     font-size: 20px;
     letter-spacing: 1px;
     font-family: ${secondaryFont};
+  }
+
+  .column {
+    padding: 40px;
+  }
+
+  .row,
+  .row-3-1 {
+    border-bottom: solid 1px ${geyser};
+  }
+
+  .row-3-1 {
+    display: flex;
+  }
+
+  .row-3-1 .column:first-child {
+    flex: 75%;
+    border-right: 1px solid ${geyser};
   }
 `;
