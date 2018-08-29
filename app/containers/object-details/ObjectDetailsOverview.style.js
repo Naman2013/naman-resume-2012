@@ -37,10 +37,6 @@ export default css`
     box-shadow: inset 0 10px 30px 10px rgba(237,240,242,.7);
   }
 
-
-
-
-
   h1 {
     font-size: 30px;
     font-weight: 600;
