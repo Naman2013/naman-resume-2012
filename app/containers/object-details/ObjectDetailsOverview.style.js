@@ -4,7 +4,6 @@ import { screenMedium } from '../../styles/variables/breakpoints';
 import {
   hawkesBlue,
   romance,
-  geyser,
   lightHeadedAstronaut,
   faintGray,
   midnight_express,
@@ -86,28 +85,10 @@ export default css`
     padding: 10px;
   }
 
-  .f1, .f2, .f3, .f4 {
-    flex: 100%;
-  }
-
-  .f2:first-of-type { border-right: none; }
-
-
 
   @media ${screenMedium} {
-    .object-details-grid {
-      width: 100%;
-    }
-
     .specialists-card {
       width: 100%;
     }
-
-    .f1 { flex: 25%; }
-    .f2 { flex: 50%; }
-    .f3 { flex: 75%; }
-    .f4 { flex: 100%; }
-
-    .f2:first-of-type { border-right: 1px solid ${hawkesBlue}; }
   }
 `;
