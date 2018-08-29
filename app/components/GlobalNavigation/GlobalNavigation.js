@@ -1,8 +1,3 @@
-/***********************************
-* V4 Global Navigation
-*
-***********************************/
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import Request from 'components/common/network/Request';
