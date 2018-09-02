@@ -15,7 +15,7 @@ export default css`
     background: none;
     border: none;
     font-family: ${secondaryFont};
-    font-size: 20px;
+    font-size: 18px;
     color: ${thatGrayWeForgot};
     margin-right: 40px;
     padding-bottom: 5px;
