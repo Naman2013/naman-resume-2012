@@ -7,6 +7,7 @@ const ObjectProfile = ({
   scienceName,
   objectSpecs,
   visibilitySeason,
+  bestTelescope,
   midnightCulmination,
 }) => (
   <section className="object-details-grid">
@@ -60,11 +61,8 @@ const ObjectProfile = ({
 
     <div className="row">
       <div className="column">
-        <BestTelescope telescopes={[
-          { title: 'Canary Three', description: 'Here is why, fusce vehicula dolor arcu, sit amet blait dolor mollis nec. Donec viverra eleifend lacus, vitae maecenas eu varius risus, eu aliquet arcu.' },
-          { title: 'Canary Four', description: 'I had a about four scotches on the way to Seattle Washington..! :D' },
-        ]}
-        />
+        <h2>{bestTelescope.label}</h2>
+        <BestTelescope telescopes={bestTelescope.list} />
       </div>
     </div>
 
@@ -87,6 +85,13 @@ ObjectProfile.propTypes = {
     label: PropTypes.string.isRequired,
     text: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
+  }).isRequired,
+  bestTelescope: PropTypes.shape({
+    label: PropTypes.string.isRequired,
+    list: PropTypes.arrayOf(PropTypes.shape({
+      title: PropTypes.string.isRequired,
+      description: PropTypes.string.isRequired,
+    })),
   }).isRequired,
 };
 
