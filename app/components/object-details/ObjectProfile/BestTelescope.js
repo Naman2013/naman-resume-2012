@@ -21,7 +21,7 @@ class BestTelescope extends Component {
 
   updateActiveTelescope = (event) => {
     this.setState({
-      activeTelescope: event.target.getAttribute(TELESCOPE_INDEX),
+      activeTelescope: parseInt(event.target.getAttribute(TELESCOPE_INDEX), 10),
     });
   }
 
