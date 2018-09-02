@@ -18,11 +18,13 @@ export default css`
     font-size: 20px;
     color: ${thatGrayWeForgot};
     margin-right: 40px;
+    padding-bottom: 5px;
     cursor: pointer;
   }
 
   button.active {
     color: ${lightHeadedAstronaut};
+    border-bottom: 2px solid ${lightHeadedAstronaut};
   }
 
   button:active,

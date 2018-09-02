@@ -20,5 +20,12 @@ storiesOf('ObjectProfile', module)
         text: 'Sample text',
         description: 'And this is a description',
       }}
+      bestTelescope={{
+        label: 'Best telescopes to use',
+        list: [
+          { title: 'Canary Three', description: 'Heres why, fusce vehicula dolor arcu, sit amet blait dolor mollis nec. Donec viverra eleifend lacus, vitae maecenas eu varius risus, eu aliquet arcu.' },
+          { title: 'Canary Five', description: String.prototype.split.call('Heres why, fusce vehicula dolor arcu, sit amet blait dolor mollis nec. Donec viverra eleifend lacus, vitae maecenas eu varius risus, eu aliquet arcu.', '').reverse().join('') },
+        ],
+      }}
     />
   ));

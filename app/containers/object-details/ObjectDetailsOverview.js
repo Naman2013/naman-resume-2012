@@ -117,6 +117,10 @@ const modelData = resp => ({
     text: resp.midnightCulmination.text,
     description: resp.midnightCulmination.description,
   },
+  bestTelescope: {
+    label: resp.bestTelescopes.listTitle,
+    list: resp.bestTelescopes.list,
+  },
 });
 
 @connect(mapStateToProps, mapDispatchToProps)
@@ -170,6 +174,10 @@ class Overview extends Component {
                 label: modeledResult.midnightCulmination.label,
                 text: modeledResult.midnightCulmination.text,
                 description: modeledResult.midnightCulmination.description,
+              }}
+              bestTelescope={{
+                label: modeledResult.bestTelescope.label,
+                list: modeledResult.bestTelescope.list,
               }}
             />
           </CenterColumn>
