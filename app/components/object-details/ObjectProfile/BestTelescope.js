@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
+import GenericButton from 'components/common/style/buttons/Button';
+import { horizontalArrow } from 'styles/variables/iconURLs';
 import style from './BestTelescope.style';
 
 const TELESCOPE_INDEX = 'data-telescope-index';
@@ -10,6 +12,7 @@ class BestTelescope extends Component {
     telescopes: PropTypes.arrayOf(PropTypes.shape({
       title: PropTypes.string.isRequired,
       description: PropTypes.string.isRequired,
+      linkURL: PropTypes.string.isRequired,
     })),
   };
 
@@ -26,6 +29,8 @@ class BestTelescope extends Component {
   }
 
   render() {
+    const { activeTelescope } = this.state;
+    const telescope = this.props.telescopes[activeTelescope];
     return (
       <div>
         <ul className="navigation">
@@ -42,8 +47,12 @@ class BestTelescope extends Component {
               </li>
             ))}
         </ul>
-        <p>{this.props.telescopes[this.state.activeTelescope].description}</p>
-
+        <p>{telescope.description}</p>
+        <GenericButton
+          onClickEvent={() => { window.location = telescope.linkURL; }}
+          text="Visit telescope"
+          icon={horizontalArrow}
+        />
         <style jsx>{style}</style>
       </div>
     );

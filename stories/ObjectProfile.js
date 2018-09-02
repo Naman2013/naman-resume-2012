@@ -23,8 +23,8 @@ storiesOf('ObjectProfile', module)
       bestTelescope={{
         label: 'Best telescopes to use',
         list: [
-          { title: 'Canary Three', description: 'Heres why, fusce vehicula dolor arcu, sit amet blait dolor mollis nec. Donec viverra eleifend lacus, vitae maecenas eu varius risus, eu aliquet arcu.' },
-          { title: 'Canary Five', description: String.prototype.split.call('Heres why, fusce vehicula dolor arcu, sit amet blait dolor mollis nec. Donec viverra eleifend lacus, vitae maecenas eu varius risus, eu aliquet arcu.', '').reverse().join('') },
+          { title: 'Canary Three', description: 'Heres why, fusce vehicula dolor arcu, sit amet blait dolor mollis nec. Donec viverra eleifend lacus, vitae maecenas eu varius risus, eu aliquet arcu.', linkURL: '#' },
+          { title: 'Canary Five', description: String.prototype.split.call('Heres why, fusce vehicula dolor arcu, sit amet blait dolor mollis nec. Donec viverra eleifend lacus, vitae maecenas eu varius risus, eu aliquet arcu.', '').reverse().join(''), linkURL: '#' },
         ],
       }}
     />
