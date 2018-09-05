@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
+import findIndex from 'lodash/findIndex';
+import find from 'lodash/find';
 import classnames from 'classnames';
 import noop from 'lodash/noop';
 import style from './UnderlineNav.style';
@@ -8,6 +10,7 @@ import style from './UnderlineNav.style';
 const {
   number,
   arrayOf,
+  shape,
   string,
   func,
 } = PropTypes;
@@ -15,7 +18,10 @@ const {
 class UnderlineNav extends Component {
   static propTypes = {
     defaultIndex: number,
-    navItems: arrayOf(string),
+    navItems: arrayOf(shape({
+      name: string,
+      filter: string,
+    })),
     onItemClick: func,
   };
 
@@ -25,36 +31,41 @@ class UnderlineNav extends Component {
     onItemClick: noop,
 
   };
+
   state = {
     activeIndex: this.props.defaultIndex,
   }
 
-  handleClick = (idx) => {
-    const { onItemClick } = this.props;
+  handleClick = (e, item) => {
+    e.preventDefault();
+    const {
+      onItemClick,
+      navItems,
+    } = this.props;
 
     this.setState({
-      activeIndex: idx
+      activeIndex: findIndex(navItems, navItem => navItem.filter === item.filter),
     });
 
-    onItemClick(idx);
+    onItemClick(item.filter);
   }
 
   render() {
     const {
       navItems,
     } = this.props;
-
     const { activeIndex } = this.state;
 
     return (
       <div className="root">
         {navItems.map((item, i) => (
           <a
-            className={classnames({
-              isActive: activeIndex === i,
+            key={`${item.name}+${i}`}
+            className={classnames('nav-item', {
+              'is-active': activeIndex === i,
             })}
-            onClick={handleClick}
-            dangerouslySetInnerHTML={{ __html: item }}
+            onClick={(e) => this.handleClick(e, item)}
+            dangerouslySetInnerHTML={{ __html: item.name }}
           />
         ))}
         <style jsx>{style}</style>

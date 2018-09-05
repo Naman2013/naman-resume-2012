@@ -6,4 +6,13 @@ import { screenLarge } from 'styles/variables/breakpoints';
 import { backgroundImageCover, dropShadowContainer } from 'styles/mixins/utilities';
 
 export default css`
+
+  .nav-item {
+    padding: 0 15px;
+    cursor: pointer;
+  }
+
+  .is-active {
+    font-weight: bold;
+  }
 `;

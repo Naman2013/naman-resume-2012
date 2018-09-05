@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router';
+import queryString from 'query-string';
+import { Link, browserHistory } from 'react-router';
 import classnames from 'classnames';
 import noop from 'lodash/noop';
 import CenterColumn from 'components/common/CenterColumn';
@@ -21,6 +22,10 @@ class HubContainer extends Component {
 
   static propTypes = {
     hubTitle: string,
+    filterOptions: arrayOf(shape({
+      name: string,
+      filter: string,
+    })),
     location: shape({
       query: shape({
         filter: string,
@@ -32,15 +37,16 @@ class HubContainer extends Component {
 
   static defaultProps = {
     hubTitle: '',
+    filterOptions: [],
     location: {
       query: {},
     },
   };
 
   state = {
-    filter: this.props.location.query.filter || 'all',
+    filter: this.props.location.query.filter || '*',
     page: this.props.location.query.page || 1,
-    sort: this.props.location.query || 'aToZ',
+    sort: this.props.location.query.sort || 'aToZ',
   }
 
   componentWillReceiveProps(nextProps) {
@@ -62,32 +68,54 @@ class HubContainer extends Component {
       sort = nextSort;
       changeState = true;
     }
+
     if (changeState) {
-      this.setState(() => ({
-        filter,
-        page,
-        sort,
-      }));
+      this.setState(state => {
+        this.setQueryParams({ filter, page, sort });
+        return ({
+          filter,
+          page,
+          sort,
+        });
+      });
+
+
     }
   }
 
-  handleClick = (idx) => {
+  setQueryParams = (query) => {
+    const params = queryString.stringify(query);
+    browserHistory.push({
+      pathname: '/guides',
+      search: `?${params}`,
+    });
+  }
 
+  handleFilterChange = (filter) => {
+    this.setState(state => {
+      const query = Object.assign({}, state, { filter });
+      this.setQueryParams(query);
+      return ({
+        filter,
+      });
+    });
   }
 
   render() {
     const {
       hubTitle,
+      filterOptions,
     } = this.props;
-
-    const { activeIndex } = this.state;
-
     return (
       <div className="root">
         <HubHeader
           icon="https://vega.slooh.com/assets/v4/common/arrow_horz.svg"
           title={hubTitle}
-          renderNav={() => (<UnderlineNav navItems={[]} />)}
+          renderNav={() => (
+            <UnderlineNav
+              navItems={filterOptions}
+              onItemClick={this.handleFilterChange}
+            />)}
         />
         <CenterColumn
           theme={{ backgroundColor: seashell }}

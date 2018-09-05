@@ -1,21 +1,46 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
+import values from 'lodash/values';
 import Request from 'components/common/network/Request';
 import BootstrappedGuidesHub from './BootstrappedGuidesHub';
 import HubContainer from 'components/common/HubContainer';
 import { DeviceContext } from 'providers/DeviceProvider';
 import { GUIDE_ENDPOINT_URL } from 'services/guides/guide-data';
 
+const MOCK_DATA = {
+  guideFilterOptions: [
+     {
+       "filterOption1": {
+              name: "All Guides",
+              filter: "*"
+       }
+     },
+     {
+       "filterOption2": {
+              name: "Object Type",
+              filter: "objectType"
+     }
+   },
+ ],
+};
+
+const guidesHubModel = {
+  name: 'GUIDE_HUB_MODEL',
+  model: resp => ({
+    filterOptions: MOCK_DATA.guideFilterOptions.map(opt => values(opt)[0]),
+  }),
+};
+
 const Guides = props => (
   <div>
     <Request
       serviceURL={GUIDE_ENDPOINT_URL}
-      // model={{}}
+      model={guidesHubModel}
       // requestBody={{}}
       render={({
         fetchingContent,
-        serviceResponse,
-        // modeledResponses: { SUBJECT_GUIDE_MODEL },
+        // serviceResponse,
+        modeledResponses: { GUIDE_HUB_MODEL },
       }) => (
         <Fragment>
           {
@@ -25,7 +50,7 @@ const Guides = props => (
                   {context => (
                     <HubContainer
                       {...props}
-                      {...serviceResponse}
+                      {...GUIDE_HUB_MODEL}
                       {...context}
                       hubTitle="Guides"
                     />

@@ -10,7 +10,7 @@ const HubHeader = ({ title, icon, renderNav }) => (
       <div className="hub-header-icon"><img src={icon} className="hub-icon"/></div>
       <div className="hub-header-title" dangerouslySetInnerHTML={{ __html: title }} />
       {renderNav ?
-        <div className="hub-header-nav">renderNav()</div> : null}
+        <div className="hub-header-nav">{renderNav()}</div> : null}
     </div>
     <style jsx>{style}</style>
   </Fragment>
