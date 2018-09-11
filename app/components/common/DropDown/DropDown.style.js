@@ -7,14 +7,16 @@ import { backgroundImageCover, dropShadowContainer } from 'styles/mixins/utiliti
 
 export default css`
   .root {
+    border-radius: 26px;
   }
 
   :global(.slooh-select__control) {
+    background-color: ${romance};
+    padding: 0 5px !important;
     margin: 0 auto;
     min-width: 200px;
     height: 50px;
     border-radius: 26px !important;
-    background: transparent;
     border: 0 !important;
     box-shadow: none !important;
     ${faintShadow}
@@ -42,15 +44,16 @@ export default css`
   }
 
   :global(.slooh-select__menu) {
+    background-color: ${romance};
     border-top: 0 !important;
-    border-radius: 0 0 26px 26px !important;
+    border-radius: 26px !important;
     box-shadow: none !important;
     margin-top: -5px !important;
   }
 
   :global(.slooh-select__menu-list) {
     border-top: 0 !important;
-    border-radius: 0 0 26px 26px !important;
+    border-radius: 26px !important;
   }
 
   :global(.slooh-select__option) {
