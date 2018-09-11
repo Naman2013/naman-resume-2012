@@ -12,7 +12,6 @@ export default css`
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
-    height: 200px;
     align-items: flex-start;
     background-color: ${romance};
     ${faintShadow}
@@ -66,7 +65,6 @@ export default css`
 
     .hub-header-nav {
       width: 100%;
-      border-top: 1px solid ${shadows};
     }
   }
 

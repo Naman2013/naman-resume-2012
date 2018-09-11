@@ -59,14 +59,17 @@ class UnderlineNav extends Component {
     return (
       <div className="root">
         {navItems.map((item, i) => (
-          <a
-            key={`${item.name}+${i}`}
-            className={classnames('nav-item', {
-              'is-active': activeIndex === i,
+          <div className={classnames('item-container', {
+            'is-active': activeIndex === i,
             })}
-            onClick={(e) => this.handleClick(e, item)}
-            dangerouslySetInnerHTML={{ __html: item.name }}
-          />
+          >
+            <a
+              key={`${item.name}+${i}`}
+              className="nav-item"
+              onClick={(e) => this.handleClick(e, item)}
+              dangerouslySetInnerHTML={{ __html: item.name }}
+            />
+          </div>
         ))}
         <style jsx>{style}</style>
       </div>
