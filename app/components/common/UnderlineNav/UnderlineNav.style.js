@@ -25,11 +25,11 @@ export default css`
     text-transform: uppercase;
     font-family: ${primaryFont};
     font-size: 11px;
-    color: ${astronaut};
+    color: ${shadows};
     cursor: pointer;
   }
 
-  .is-active {
-    font-weight: bold;
+  .is-active .nav-item{
+    color: ${astronaut};
   }
 `;

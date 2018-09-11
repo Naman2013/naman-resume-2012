@@ -17,6 +17,12 @@ const MOCK_DATA = {
      },
      {
        "filterOption2": {
+              name: "Another Type",
+              filter: "another"
+        }
+     },
+     {
+       "filterOption2": {
               name: "Object Type",
               filter: "objectType"
      }
@@ -27,7 +33,7 @@ const MOCK_DATA = {
 const guidesHubModel = {
   name: 'GUIDE_HUB_MODEL',
   model: resp => ({
-    filterOptions: MOCK_DATA.guideFilterOptions.map(opt => values(opt)[0]),
+    filterOptions: MOCK_DATA.guideFilterOptions.map(opt => values(opt)[0]).map(opt => ({ label: opt.name, value: opt.filter })),
   }),
 };
 

@@ -5,6 +5,8 @@ import findIndex from 'lodash/findIndex';
 import find from 'lodash/find';
 import classnames from 'classnames';
 import noop from 'lodash/noop';
+import DropDown from 'components/common/DropDown';
+import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
 import style from './UnderlineNav.style';
 
 const {
@@ -19,8 +21,8 @@ class UnderlineNav extends Component {
   static propTypes = {
     defaultIndex: number,
     navItems: arrayOf(shape({
-      name: string,
-      filter: string,
+      label: string,
+      value: string,
     })),
     onItemClick: func,
   };
@@ -36,18 +38,19 @@ class UnderlineNav extends Component {
     activeIndex: this.props.defaultIndex,
   }
 
-  handleClick = (e, item) => {
-    e.preventDefault();
+  handleClick = (e, value) => {
+    if (e) e.preventDefault();
+
     const {
       onItemClick,
       navItems,
     } = this.props;
 
-    this.setState({
-      activeIndex: findIndex(navItems, navItem => navItem.filter === item.filter),
-    });
+    this.setState(() => ({
+      activeIndex: findIndex(navItems, navItem => navItem.value === value),
+    }));
 
-    onItemClick(item.filter);
+    onItemClick(value);
   }
 
   render() {
@@ -58,19 +61,36 @@ class UnderlineNav extends Component {
 
     return (
       <div className="root">
-        {navItems.map((item, i) => (
-          <div className={classnames('item-container', {
-            'is-active': activeIndex === i,
-            })}
-          >
-            <a
-              key={`${item.name}+${i}`}
-              className="nav-item"
-              onClick={(e) => this.handleClick(e, item)}
-              dangerouslySetInnerHTML={{ __html: item.name }}
-            />
-          </div>
-        ))}
+        <DisplayAtBreakpoint
+          screenMedium
+          screenLarge
+          screenXLarge
+        >
+          {navItems.map((item, i) => (
+            <div className={classnames('item-container', {
+              'is-active': activeIndex === i,
+              })}
+              key={`${item.label}+${i}`}
+            >
+              <a
+                className="nav-item"
+                onClick={(e) => this.handleClick(e, item)}
+                dangerouslySetInnerHTML={{ __html: item.label }}
+              />
+            </div>
+          ))}
+        </DisplayAtBreakpoint>
+
+        <DisplayAtBreakpoint
+          screenSmall
+        >
+          <DropDown
+            handleSelect={this.handleClick}
+            selectedIndex={activeIndex}
+            options={navItems}
+          />
+        </DisplayAtBreakpoint>
+
         <style jsx>{style}</style>
       </div>
     )

@@ -19,7 +19,6 @@ const {
 } = PropTypes;
 
 class HubContainer extends Component {
-
   static propTypes = {
     hubTitle: string,
     filterOptions: arrayOf(shape({
