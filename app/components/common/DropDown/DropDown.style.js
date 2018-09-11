@@ -21,9 +21,6 @@ export default css`
   }
 
   :global(.slooh-select__value-container--has-value) {
-    position: absolute;
-    width: 238px;
-    left: 5px;
     height: 40px;
     border-radius: 26px !important;
     background: transparent;
