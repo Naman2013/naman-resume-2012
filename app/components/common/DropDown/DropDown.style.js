@@ -11,8 +11,8 @@ export default css`
   }
 
   :global(.slooh-select__control) {
-    background-color: ${romance};
     padding: 0 5px !important;
+    background: transparent !important;
     margin: 0 auto;
     min-width: 200px;
     height: 50px;
@@ -48,7 +48,6 @@ export default css`
     border-top: 0 !important;
     border-radius: 26px !important;
     box-shadow: none !important;
-    margin-top: -5px !important;
   }
 
   :global(.slooh-select__menu-list) {
