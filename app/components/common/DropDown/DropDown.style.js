@@ -7,17 +7,15 @@ import { backgroundImageCover, dropShadowContainer } from 'styles/mixins/utiliti
 
 export default css`
   .root {
-    width: 250px;
   }
 
-  :global(.slooh-select__control),
-  :global(.slooh-select__control--is-focused){
+  :global(.slooh-select__control) {
     margin: 0 auto;
     min-width: 200px;
     height: 50px;
-    border: 0 !important;
     border-radius: 26px !important;
     background: transparent;
+    border: 0 !important;
     box-shadow: none !important;
     ${faintShadow}
   }
@@ -30,6 +28,10 @@ export default css`
     border-radius: 26px !important;
     background: transparent;
     border: 1px dashed ${astronaut};
+    color: ${astronaut} !important;
+    text-transform: uppercase !important;
+    font-size: 11px !important;
+    font-weight: bold !important;
   }
 
   :global(.slooh-select__indicators) {
@@ -43,20 +45,19 @@ export default css`
   }
 
   :global(.slooh-select__menu) {
-    margin-top: -50px !important;
-    border-radius: 26px !important;
+    border-top: 0 !important;
+    border-radius: 0 0 26px 26px !important;
+    box-shadow: none !important;
+    margin-top: -5px !important;
   }
 
   :global(.slooh-select__menu-list) {
-    border-radius: 26px !important;
+    border-top: 0 !important;
+    border-radius: 0 0 26px 26px !important;
   }
 
   :global(.slooh-select__option) {
     border-top: 1px solid ${shadows};
-    color: ${astronaut} !important;
-    text-transform: uppercase;
-    font-size: 11px;
-    font-weight: bold;
   }
 
   :global(.slooh-select__option):first-child {
@@ -80,6 +81,10 @@ export default css`
 
   :global(.dropdown-name) {
     display: inline-block;
+    color: ${astronaut} !important;
+    text-transform: uppercase !important;
+    font-size: 11px !important;
+    font-weight: bold !important;
   }
 
   :global(.dropdown-opt) :global(.focused-ind) {
