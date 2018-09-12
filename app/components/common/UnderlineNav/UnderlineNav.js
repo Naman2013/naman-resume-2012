@@ -38,7 +38,7 @@ class UnderlineNav extends Component {
     activeIndex: this.props.defaultIndex,
   }
 
-  handleClick = (e, value) => {
+  handleClick = (e, selected) => {
     if (e) e.preventDefault();
 
     const {
@@ -47,10 +47,10 @@ class UnderlineNav extends Component {
     } = this.props;
 
     this.setState(() => ({
-      activeIndex: findIndex(navItems, navItem => navItem.value === value),
+      activeIndex: findIndex(navItems, navItem => navItem.value === selected.value),
     }));
 
-    onItemClick(value);
+    onItemClick(selected.value);
   }
 
   render() {

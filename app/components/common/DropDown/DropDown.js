@@ -32,6 +32,7 @@ const CustomOption = ({ innerRef, innerProps, children }) => (
 class DropDown extends Component {
   static propTypes = {
     selectedIndex: number,
+    placeholder: string,
     options: arrayOf(shape({
       value: oneOfType([number, string]),
       label: string,
@@ -44,11 +45,12 @@ class DropDown extends Component {
   };
 
   handleChange = (selectedOption) => {
-    this.props.handleSelect(null, selectedOption.value);
+    this.props.handleSelect(null, selectedOption);
   }
 
   render() {
     const {
+      placeholder,
       options,
       selectedIndex,
     } = this.props;
@@ -62,6 +64,7 @@ class DropDown extends Component {
           options={options}
           value={options[selectedIndex]}
           isSearchable={false}
+          placeholder={placeholder}
           classNamePrefix="slooh-select"
         />
         <style jsx>{styles}</style>

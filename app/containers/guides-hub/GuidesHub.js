@@ -28,12 +28,27 @@ const MOCK_DATA = {
      }
    },
  ],
+ guideSortOptions: [
+    {
+      "sortOption2": {
+             name: "A-Z",
+             sort: "asc"
+       }
+    },
+    {
+      "sortOption2": {
+             name: "Z-A",
+             sort: "desc"
+    }
+  },
+],
 };
 
 const guidesHubModel = {
   name: 'GUIDE_HUB_MODEL',
   model: resp => ({
     filterOptions: MOCK_DATA.guideFilterOptions.map(opt => values(opt)[0]).map(opt => ({ label: opt.name, value: opt.filter })),
+    sortOptions: MOCK_DATA.guideSortOptions.map(opt => values(opt)[0]).map(opt => ({ label: opt.name, value: opt.sort })),
   }),
 };
 

@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import queryString from 'query-string';
 import { Link, browserHistory } from 'react-router';
-import classnames from 'classnames';
-import noop from 'lodash/noop';
+import findIndex from 'lodash/findIndex';
+import pick from 'lodash/pick';
 import CenterColumn from 'components/common/CenterColumn';
 import HubHeader from 'components/common/HubHeader';
+import HubSort from 'components/common/HubSort';
 import UnderlineNav from 'components/common/UnderlineNav';
 import { seashell } from 'styles/variables/colors_tiles_v4';
 import style from './HubContainer.style';
@@ -18,12 +19,23 @@ const {
   func,
 } = PropTypes;
 
+const getDefaultIndex = (set, item) => {
+  const idx = findIndex(set, setItem => setItem.value === item);
+  return idx < 0 ? 0 : idx;
+};
+
+const QUERY_TYPES = ['sort', 'filter', 'page'];
+
 class HubContainer extends Component {
   static propTypes = {
     hubTitle: string,
     filterOptions: arrayOf(shape({
-      name: string,
-      filter: string,
+      label: string,
+      value: string,
+    })),
+    sortOptions: arrayOf(shape({
+      label: string,
+      value: string,
     })),
     location: shape({
       query: shape({
@@ -37,6 +49,7 @@ class HubContainer extends Component {
   static defaultProps = {
     hubTitle: '',
     filterOptions: [],
+    sortOptions: [],
     location: {
       query: {},
     },
@@ -45,7 +58,9 @@ class HubContainer extends Component {
   state = {
     filter: this.props.location.query.filter || '*',
     page: this.props.location.query.page || 1,
-    sort: this.props.location.query.sort || 'aToZ',
+    sort: this.props.location.query.sort || 'asc',
+    defaultFilterIndex: getDefaultIndex(this.props.filterOptions, this.props.location.query.filter || '*'),
+    defaultSortIndex: getDefaultIndex(this.props.sortOptions, this.props.location.query.sort || 'asc'),
   }
 
   componentWillReceiveProps(nextProps) {
@@ -91,30 +106,57 @@ class HubContainer extends Component {
   }
 
   handleFilterChange = (filter) => {
-    this.setState(state => {
+    this.setState((state) => {
       const query = Object.assign({}, state, { filter });
-      this.setQueryParams(query);
+      this.setQueryParams(pick(query, QUERY_TYPES));
       return ({
+        ...state,
         filter,
+      });
+    });
+  }
+
+  handleSortChange = (sort) => {
+    this.setState((state) => {
+      const query = Object.assign({}, state, { sort });
+      this.setQueryParams(pick(query, QUERY_TYPES));
+      return ({
+        ...state,
+        sort,
       });
     });
   }
 
   render() {
     const {
-      hubTitle,
       filterOptions,
+      hubTitle,
+      sortOptions,
     } = this.props;
+
+    const {
+      defaultFilterIndex,
+      defaultSortIndex,
+    } = this.state;
     return (
       <div className="root">
         <HubHeader
           icon="https://vega.slooh.com/assets/v4/common/arrow_horz.svg"
           title={hubTitle}
           renderNav={() => (
-            <UnderlineNav
-              navItems={filterOptions}
-              onItemClick={this.handleFilterChange}
-            />)}
+            <div className="navigation-bar">
+              <UnderlineNav
+                defaultIndex={defaultFilterIndex}
+                navItems={filterOptions}
+                onItemClick={this.handleFilterChange}
+              />
+              <HubSort
+                defaultIndex={defaultSortIndex}
+                handleSort={this.handleSortChange}
+                sortItems={sortOptions}
+              />
+            </div>
+          )}
         />
         <CenterColumn
           theme={{ backgroundColor: seashell }}
