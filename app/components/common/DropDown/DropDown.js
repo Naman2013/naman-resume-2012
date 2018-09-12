@@ -25,7 +25,7 @@ const {
 const CustomOption = ({ innerRef, innerProps, children }) => (
   <div ref={innerRef} {...innerProps} className="dropdown-opt">
     <div className="dropdown-name">{children}</div>
-    <img src="https://vega.slooh.com/assets/v4/common/arrow_horz.svg" className="focused-ind" />
+    <div className="focused-ind" />
   </div>
 );
 

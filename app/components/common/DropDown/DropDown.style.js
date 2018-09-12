@@ -94,5 +94,10 @@ export default css`
     display: inline-block;
     position: absolute;
     right: 5px;
+    top: 15px;
+    background-color: ${astronaut};
+    border-radius: 100%;
+    height: 10px;
+    width: 10px;
   }
 `;

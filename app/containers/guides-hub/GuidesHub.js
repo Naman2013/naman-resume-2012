@@ -6,6 +6,7 @@ import BootstrappedGuidesHub from './BootstrappedGuidesHub';
 import HubContainer from 'components/common/HubContainer';
 import { DeviceContext } from 'providers/DeviceProvider';
 import { GUIDE_ENDPOINT_URL } from 'services/guides/guide-data';
+import { goldCompass } from 'styles/variables/iconURLs';
 
 const MOCK_DATA = {
   guideFilterOptions: [
@@ -73,6 +74,7 @@ const Guides = props => (
                       {...props}
                       {...GUIDE_HUB_MODEL}
                       {...context}
+                      iconURL={goldCompass}
                       hubTitle="Guides"
                     />
                   )}

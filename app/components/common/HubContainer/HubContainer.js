@@ -9,6 +9,7 @@ import HubHeader from 'components/common/HubHeader';
 import HubSort from 'components/common/HubSort';
 import UnderlineNav from 'components/common/UnderlineNav';
 import { seashell } from 'styles/variables/colors_tiles_v4';
+import { goldCompass } from 'styles/variables/iconURLs';
 import style from './HubContainer.style';
 
 const {
@@ -37,6 +38,7 @@ class HubContainer extends Component {
       label: string,
       value: string,
     })),
+    iconURL: string,
     location: shape({
       query: shape({
         filter: string,
@@ -48,6 +50,7 @@ class HubContainer extends Component {
 
   static defaultProps = {
     hubTitle: '',
+    iconURL: goldCompass,
     filterOptions: [],
     sortOptions: [],
     location: {
@@ -131,6 +134,7 @@ class HubContainer extends Component {
     const {
       filterOptions,
       hubTitle,
+      iconURL,
       sortOptions,
     } = this.props;
 
@@ -141,7 +145,7 @@ class HubContainer extends Component {
     return (
       <div className="root">
         <HubHeader
-          icon="https://vega.slooh.com/assets/v4/common/arrow_horz.svg"
+          icon={iconURL}
           title={hubTitle}
           renderNav={() => (
             <div className="navigation-bar">
