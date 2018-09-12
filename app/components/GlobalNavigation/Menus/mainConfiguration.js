@@ -35,7 +35,7 @@ export default {
     ],
   },
   secondary: {
-    component: <SecondaryButton />,
+    render: props => (<SecondaryButton {...props} />),
     content: [
       {
         _ID: uniqueId(),

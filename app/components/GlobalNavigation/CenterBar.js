@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { romance, astronaut } from '../../styles/variables/colors_tiles_v4';
+import { romance, shadows } from '../../styles/variables/colors_tiles_v4';
 import { primaryFont } from '../../styles/variables/fonts';
 
 const propTypes = {
@@ -30,7 +30,7 @@ const CenterBar = ({ remainingCredits }) => (
         letter-spacing: 1.3px;
 
         color: ${romance};
-        border-right: 1px solid ${astronaut};
+        border-right: 1px solid ${shadows};
       }
     `}</style>
   </div>
