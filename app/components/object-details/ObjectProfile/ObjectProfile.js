@@ -11,6 +11,7 @@ const ObjectProfile = ({
   midnightCulmination,
 }) => (
   <section className="object-details-grid">
+
     <div className="row-3-1">
       <div className="column">
         <h2>Scientific Name:</h2>
@@ -59,12 +60,15 @@ const ObjectProfile = ({
       </div>
     </div>
 
-    <div className="row">
-      <div className="column">
-        <h2>{bestTelescope.label}</h2>
-        <BestTelescope telescopes={bestTelescope.list} />
-      </div>
-    </div>
+    {
+      bestTelescope.list.length > 0 &&
+        <div className="row">
+          <div className="column">
+            <h2>{bestTelescope.label}</h2>
+            <BestTelescope telescopes={bestTelescope.list} />
+          </div>
+        </div>
+    }
 
     <style jsx>{style}</style>
   </section>
@@ -73,9 +77,9 @@ const ObjectProfile = ({
 ObjectProfile.propTypes = {
   scienceName: PropTypes.string.isRequired,
   objectSpecs: PropTypes.shape({
-    ra: PropTypes.string.isRequired,
-    dec: PropTypes.string.isRequired,
-    magnitude: PropTypes.string.isRequired,
+    ra: PropTypes.number.isRequired,
+    dec: PropTypes.number.isRequired,
+    magnitude: PropTypes.number.isRequired,
   }).isRequired,
   visibilitySeason: PropTypes.shape({
     title: PropTypes.string.isRequired,

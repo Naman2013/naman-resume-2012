@@ -13,7 +13,7 @@ storiesOf('ObjectProfile', module)
       }}
       visibilitySeason={{
         title: 'Sample visibility',
-        observatories: [<p>Sample Test</p>, <p>Sample Test</p>],
+        observatories: [<p key="sample-test-0">Sample Test</p>, <p key="sample-test-1">Sample Test</p>],
       }}
       midnightCulmination={{
         label: 'Sample label',

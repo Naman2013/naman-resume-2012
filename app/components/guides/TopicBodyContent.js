@@ -8,7 +8,7 @@ const TopicBodyContent = ({
   title,
   content,
   topicActionProps,
-  guideID,
+  guideId,
 }) => (
   <div className="root">
     <div className="title-wrapper">
@@ -20,7 +20,7 @@ const TopicBodyContent = ({
         topicActionProps.showActions &&
           <TopicActions
             {...topicActionProps}
-            guideID={guideID}
+            guideId={guideId}
           />
       }
     </div>
@@ -36,7 +36,7 @@ TopicBodyContent.propTypes = {
     followButtonIconURL: PropTypes.string.isRequired,
     showActions: PropTypes.bool.isRequired,
   }).isRequired,
-  guideID: PropTypes.string.isRequired,
+  guideId: PropTypes.string.isRequired,
 };
 
 export default TopicBodyContent;

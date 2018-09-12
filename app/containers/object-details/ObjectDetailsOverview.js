@@ -101,16 +101,16 @@ const modelData = resp => ({
     },
   },
   objectDetails: {
-    objectRA: resp.objectRA,
-    objectDEC: resp.objectDeclination,
-    objectMagnitude: resp.objectMagnitude,
+    ra: resp.objectRA,
+    dec: resp.objectDeclination,
+    magnitude: resp.objectMagnitude,
   },
   visibilitySeason: {
     title: resp.visibilitySeason.label,
     observatories: resp
       .visibilitySeason
       .observatories
-      .map(obs => <p>{obs.label} {obs.text}</p>),
+      .map(obs => <p key={`visibility-season-${obs.label}-${obs.text}`}>{obs.label} {obs.text}</p>),
   },
   midnightCulmination: {
     label: resp.midnightCulmination.label,
@@ -135,6 +135,8 @@ class Overview extends Component {
     } = this.props;
 
     const modeledResult = modelData(objectData);
+
+    // TODO: need something more substantial than this to prevent bad renders
     if (!modeledResult.topicContentProps.title) { return null; }
 
     return (
@@ -162,10 +164,7 @@ class Overview extends Component {
           <CenterColumn>
             <ObjectProfile
               scienceName={objectData.objectTitle}
-              objectSpecs={{
-                ra: modeledResult.objectDetails.objectRA,
-                dec: modeledResult.objectDetails.objectDEC,
-              }}
+              objectSpecs={modeledResult.objectDetails}
               visibilitySeason={{
                 title: modeledResult.visibilitySeason.title,
                 observatories: modeledResult.visibilitySeason.observatories,

@@ -43,9 +43,6 @@ export default css`
   .row,
   .row-3-1 {
     border-bottom: solid 1px ${geyser};
-  }
-
-  .row-3-1 {
     display: flex;
   }
 
