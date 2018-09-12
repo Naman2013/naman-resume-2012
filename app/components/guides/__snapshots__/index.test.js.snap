@@ -1109,7 +1109,7 @@ ShallowWrapper {
           <TopicActions
             followButtonIconURL=""
             followButtonText="test"
-            guideID="37"
+            guideId={undefined}
             showActions={true}
           />
         </div>,
@@ -1177,7 +1177,7 @@ ShallowWrapper {
           "children": <TopicActions
             followButtonIconURL=""
             followButtonText="test"
-            guideID="37"
+            guideId={undefined}
             showActions={true}
           />,
           "className": "jsx-2180095966 action-container",
@@ -1190,7 +1190,7 @@ ShallowWrapper {
           "props": Object {
             "followButtonIconURL": "",
             "followButtonText": "test",
-            "guideID": "37",
+            "guideId": undefined,
             "showActions": true,
           },
           "ref": null,
@@ -1249,7 +1249,7 @@ ShallowWrapper {
             <TopicActions
               followButtonIconURL=""
               followButtonText="test"
-              guideID="37"
+              guideId={undefined}
               showActions={true}
             />
           </div>,
@@ -1317,7 +1317,7 @@ ShallowWrapper {
             "children": <TopicActions
               followButtonIconURL=""
               followButtonText="test"
-              guideID="37"
+              guideId={undefined}
               showActions={true}
             />,
             "className": "jsx-2180095966 action-container",
@@ -1330,7 +1330,7 @@ ShallowWrapper {
             "props": Object {
               "followButtonIconURL": "",
               "followButtonText": "test",
-              "guideID": "37",
+              "guideId": undefined,
               "showActions": true,
             },
             "ref": null,

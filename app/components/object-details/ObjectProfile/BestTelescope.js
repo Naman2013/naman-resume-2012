@@ -36,7 +36,7 @@ class BestTelescope extends Component {
         <ul className="navigation">
           {this.props.telescopes
             .map((telescopeNav, index) => (
-              <li>
+              <li key={`best-telescopes-${telescopeNav.title}`}>
                 <button
                   className={classnames({ active: this.state.activeTelescope === index })}
                   onClick={this.updateActiveTelescope}
