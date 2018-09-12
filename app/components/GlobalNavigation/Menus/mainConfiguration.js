@@ -15,22 +15,32 @@ export default {
       {
         _ID: uniqueId(),
         text: 'Telescopes',
-        anchor: '/telescope-overview/3f332115-7908-11e6-a635-0eb2b1774883',
+        anchor: '/telescopes',
       },
       {
         _ID: uniqueId(),
         text: 'My Observations',
-        anchor: '/my-pictures/missions',
+        anchor: '/my-pictures',
       },
       {
         _ID: uniqueId(),
         text: 'Guides',
-        anchor: '#',
+        anchor: '/guides',
+      },
+      {
+        _ID: uniqueId(),
+        text: 'Quests',
+        anchor: '/quests',
       },
       {
         _ID: uniqueId(),
         text: 'Shows',
-        anchor: '/shows/situation-room',
+        anchor: '/shows',
+      },
+      {
+        _ID: uniqueId(),
+        text: 'Stories',
+        anchor: '/stories',
       },
     ],
   },

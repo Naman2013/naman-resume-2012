@@ -1,31 +1,31 @@
 import React from 'react';
-import BorderedContainer from './BorderedContainer';
-import { romance } from '../../../../styles/variables/colors_tiles_v4';
+import { astronaut, shadows } from '../../../../styles/variables/colors_tiles_v4';
 
 const SocialMenu = () => (
   <div className="root">
-    <BorderedContainer>
-      <ul className="buttons">
-        <li>
-          <a className="action" href="#">
-            <span className="fa fa-twitter" />
-          </a>
-        </li>
-        <li>
-          <a className="action" href="#">
-            <span className="fa fa-facebook" />
-          </a>
-        </li>
-        <li>
-          <a className="action" href="#">
-            <span className="fa fa-instagram" />
-          </a>
-        </li>
-      </ul>
-    </BorderedContainer>
+    <ul className="buttons">
+      <li>
+        <a className="action" href="#">
+          <span className="fa fa-twitter" />
+        </a>
+      </li>
+      <li>
+        <a className="action" href="#">
+          <span className="fa fa-facebook" />
+        </a>
+      </li>
+      <li>
+        <a className="action" href="#">
+          <span className="fa fa-instagram" />
+        </a>
+      </li>
+    </ul>
 
     <style jsx>{`
-
+      .root {
+        padding: 25px;
+        border-bottom: 1px solid ${shadows};
+      }
       .buttons {
         display: flex;
         list-style-type: none;
@@ -33,7 +33,7 @@ const SocialMenu = () => (
       }
 
       .action {
-        color: ${romance};
+        color: ${astronaut};
         width: auto;
         font-size: 22px;
         display: inline-block;

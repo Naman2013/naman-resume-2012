@@ -11,6 +11,8 @@ const SecondaryButton = ({ anchor, text }) => (
         font-size: 10px;
         font-family: ${primaryFont};
         color: ${astronaut};
+        font-size: 12px;
+        font-weight: bold;
         text-transform: uppercase;
       }
 
