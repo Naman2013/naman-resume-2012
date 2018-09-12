@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
-import { white, pink } from 'styles/variables/colors';
+import { astronaut, golda } from 'styles/variables/colors_tiles_v4';
 import { primaryFont } from 'styles/variables/fonts';
 
 const PrimaryButton = ({ text, anchor }) => (
@@ -10,7 +10,7 @@ const PrimaryButton = ({ text, anchor }) => (
     <style jsx>{`
       .primary-button {
         font-family: ${primaryFont};
-        color: ${white};
+        color: ${astronaut};
         text-transform: uppercase;
         font-size: 13px;
       }
@@ -20,14 +20,14 @@ const PrimaryButton = ({ text, anchor }) => (
       }
 
       .primary-button :global(.action) {
-        color: ${white};
+        color: ${astronaut};
         text-decoration: none;
         display: inline-block;
         padding: 20px 0 20px 20px;
       }
 
       .primary-button :global(.action:hover) {
-        color: ${pink};
+        color: ${golda};
       }
     `}
     </style>

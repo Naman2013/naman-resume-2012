@@ -1,6 +1,6 @@
 import React from 'react';
 import { primaryFont } from 'styles/variables/fonts';
-import { white, blueBlack, pink } from 'styles/variables/colors';
+import { romance, astronaut, golda } from 'styles/variables/colors_tiles_v4';
 import Request from 'components/common/network/Request';
 import { OBSERVATORIES_COMPACT } from 'services/observatories';
 import BorderContainer from './partials/BorderedContainer';
@@ -31,7 +31,7 @@ const Telescopes = () => (
 
         <style jsx>{`
           .root {
-            color: ${white};
+            color: ${romance};
             font-family: ${primaryFont};
           }
 
@@ -45,12 +45,12 @@ const Telescopes = () => (
             background: none;
             padding: 20px 40px;
             border: none;
-            color: ${white};
-            background: ${blueBlack};
+            color: ${romance};
+            background: ${astronaut};
           }
 
           .action:hover {
-            background: ${pink};
+            background: ${golda};
           }
         `}
         </style>

@@ -2,7 +2,7 @@ import React, { cloneElement } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import MenuTitleBar from './Menus/partials/MenuTitleBar';
-import { grayer } from '../../styles/variables/colors';
+import { seashell } from '../../styles/variables/colors_tiles_v4';
 
 const LEFT = 'left';
 const RIGHT = 'right';
@@ -58,7 +58,7 @@ const Menu = ({
           overflow-y: auto;
           min-height: 100vh;
           height: 100%;
-          background: ${grayer};
+          background: ${seashell};
           transition-property: left, right;
           transition-duration: 0.15s;
           transition-timing-function: ease-in-out;

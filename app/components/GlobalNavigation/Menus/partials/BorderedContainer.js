@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { black } from 'styles/variables/colors';
+import { astronaut } from 'styles/variables/colors_tiles_v4';
 
 const propTypes = {
   top: PropTypes.bool,
@@ -14,7 +14,7 @@ const defaultProps = {
 };
 
 function hasBorder(hasBorder) {
-  return (hasBorder) ? `1px solid ${black}` : 'none';
+  return (hasBorder) ? `1px solid ${astronaut}` : 'none';
 }
 
 const BorderContainer = ({ children, top, bottom }) => {

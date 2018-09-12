@@ -1,6 +1,6 @@
 import React from 'react';
 import BorderedContainer from './BorderedContainer';
-import { white } from '../../../../styles/variables/colors';
+import { romance } from '../../../../styles/variables/colors_tiles_v4';
 
 const SocialMenu = () => (
   <div className="root">
@@ -33,7 +33,7 @@ const SocialMenu = () => (
       }
 
       .action {
-        color: ${white};
+        color: ${romance};
         width: auto;
         font-size: 22px;
         display: inline-block;

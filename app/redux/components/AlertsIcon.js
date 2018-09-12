@@ -2,7 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { connect } from 'react-redux';
-import { red, white, black } from 'styles/variables/colors';
+import { romance, astronaut } from 'styles/variables/colors_tiles_v4';
+import {
+  sloohLogoAstronaut,
+  threeLinesAstronaut,
+  telescopeAstronaut,
+  searchAstronaut,
+  userAstronaut,
+} from 'styles/variables/iconURLs';
 const AlertsIcon = ({ notificationsCount }) => (
   <span className="root">
     <span className="fa fa-bell" />
@@ -14,11 +21,15 @@ const AlertsIcon = ({ notificationsCount }) => (
         display: block;
         position: relative;
       }
+
+      .fa-bell {
+        color: ${astronaut};
+      }
       .count {
         position: absolute;
         top: -5px;
         right: 5px;
-        background-color: ${red};
+        background-color: red;
         border-radius: 50%;
         width: 15px;
         height: 15px;
@@ -26,8 +37,8 @@ const AlertsIcon = ({ notificationsCount }) => (
       }
 
       .zero {
-        background-color: ${black};
-        color: ${white};
+        background-color: ${astronaut};
+        color: ${romance};
       }
     `}</style>
   </span>

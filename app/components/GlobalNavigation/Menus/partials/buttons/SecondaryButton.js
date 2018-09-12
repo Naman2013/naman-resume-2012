@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
-import { white, pink } from '../../../../../styles/variables/colors';
+import { astronaut, golda } from '../../../../../styles/variables/colors_tiles_v4';
 import { primaryFont } from '../../../../../styles/variables/fonts';
 
 const SecondaryButton = ({ anchor, text }) => (
@@ -10,19 +10,19 @@ const SecondaryButton = ({ anchor, text }) => (
       .secondary-button {
         font-size: 10px;
         font-family: ${primaryFont};
-        color: ${white};
+        color: ${astronaut};
         text-transform: uppercase;
       }
 
       .secondary-button :global(.action) {
-        color: ${white};
+        color: ${astronaut};
         text-decoration: none;
         display: inline-block;
         padding: 20px 0 20px 20px;
       }
 
       .secondary-button :global(.action:hover) {
-        color: ${pink};
+        color: ${golda};
       }
     `}
     </style>

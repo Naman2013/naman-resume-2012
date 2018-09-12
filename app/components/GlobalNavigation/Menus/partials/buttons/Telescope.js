@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { Link } from 'react-router';
-import { darkGray, brightGreen, white, pink } from 'styles/variables/colors';
+import { astronaut, online, romance  } from 'styles/variables/colors_tiles_v4';
 import { primaryFont } from 'styles/variables/fonts';
 
 const propTypes = {
@@ -47,11 +47,12 @@ const Telescope = ({
 
       .online-status {
         font-size: 10px;
-        color: ${darkGray};
+        visibility: hidden;
       }
 
       .online-status.is-online {
-        color: ${brightGreen};
+        color: ${online};
+        visibility: visible;
       }
 
       .telescope-image {
@@ -63,13 +64,13 @@ const Telescope = ({
       }
 
       .telescope-link :global(.action) {
-        color: ${white};
+        color: ${astronaut};
         text-decoration: none;
         font-size: 14px;
       }
 
       .telescope-link :global(.action:hover) {
-        color: ${pink};
+        color: ${astronaut};
       }
     `}
     </style>

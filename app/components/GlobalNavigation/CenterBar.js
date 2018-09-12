@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { white, darkGray } from '../../styles/variables/colors';
+import { romance, astronaut } from '../../styles/variables/colors_tiles_v4';
 import { primaryFont } from '../../styles/variables/fonts';
 
 const propTypes = {
@@ -13,7 +13,7 @@ const defaultProps = {
 
 const CenterBar = ({ remainingCredits }) => (
   <div className="root">
-    <p>Remaining credits: { remainingCredits }</p>
+    {/*<p>Remaining credits: { remainingCredits }</p>*/}
 
     <style jsx>{`
       .root {
@@ -29,8 +29,8 @@ const CenterBar = ({ remainingCredits }) => (
         font-weight: 600;
         letter-spacing: 1.3px;
 
-        color: ${white};
-        border-right: 1px solid ${darkGray};
+        color: ${romance};
+        border-right: 1px solid ${astronaut};
       }
     `}</style>
   </div>

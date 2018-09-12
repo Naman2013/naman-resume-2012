@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import noop from 'lodash/noop';
-import { white, black } from '../../../../styles/variables/colors';
+import { romance, astronaut } from '../../../../styles/variables/colors_tiles_v4';
 import { primaryFont } from '../../../../styles/variables/fonts';
 import COMMON_STYLE from '../../common-style';
 
@@ -28,10 +28,10 @@ const MenuTitleBar = ({ title, handleCloseClick }) => (
         display: flex;
         justify-content: space-between;
         padding-left: ${COMMON_STYLE.menuLeftPadding}px;
-        color: ${white};
+        color: ${romance};
         text-transform: uppercase;
         font-family: ${primaryFont};
-        border-bottom: 1px solid ${black};
+        border-bottom: 1px solid ${astronaut};
       }
 
       h4 { font-size: 12px; padding: 10px 0; }
@@ -39,9 +39,9 @@ const MenuTitleBar = ({ title, handleCloseClick }) => (
       .action {
         width: 70px;
         font-size: 22px;
-        background: ${black};
+        background: ${astronaut};
         border: none;
-        color: ${white};
+        color: ${romance};
         cursor: pointer;
       }
 

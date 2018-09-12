@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
-import { white, darkGray, lightGray } from 'styles/variables/colors';
+import { romance, astronaut, shadows } from 'styles/variables/colors_tiles_v4';
 import { primaryFont } from 'styles/variables/fonts';
 
 const {
@@ -76,9 +76,9 @@ class AlertTile extends Component {
           .root {
             width: 90%;
             margin: 0 auto;
-            background: ${white};
+            background: ${romance};
             padding: 15px;
-            color: ${darkGray};
+            color: ${astronaut};
             font-family: ${primaryFont};
             margin-bottom: 10px;
           }
@@ -95,8 +95,8 @@ class AlertTile extends Component {
             height: 20px;
             width: 20px;
             border-radius: 50%;
-            background-color: ${lightGray};
-            color: ${white};
+            background-color: ${shadows};
+            color: ${romance};
             text-align: center;
           }
         `}
