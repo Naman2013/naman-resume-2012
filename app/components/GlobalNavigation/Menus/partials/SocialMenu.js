@@ -23,13 +23,14 @@ const SocialMenu = () => (
 
     <style jsx>{`
       .root {
-        padding: 25px;
-        border-bottom: 1px solid ${shadows};
+
       }
       .buttons {
         display: flex;
         list-style-type: none;
-        margin: 0;
+        margin: 25px 25px 0 25px;
+        padding-bottom: 25px;
+        border-bottom: 1px solid ${shadows};
       }
 
       .action {

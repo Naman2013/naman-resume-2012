@@ -47,7 +47,7 @@ const Menu = ({
           />
       }
 
-      { render({ isOpen }) }
+      <div className="menu-list">{ render({ isOpen }) }</div>
 
       <style jsx>{`
         .root {
@@ -62,6 +62,10 @@ const Menu = ({
           transition-property: left, right;
           transition-duration: 0.15s;
           transition-timing-function: ease-in-out;
+        }
+
+        .menu-list {
+          padding-top: 50px;
         }
       `}
       </style>

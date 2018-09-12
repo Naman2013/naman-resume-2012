@@ -26,6 +26,8 @@ const MenuTitleBar = ({ title, handleCloseClick }) => (
     }
     <style jsx>{`
       .root {
+        position: fixed;
+        width: 400px;
         display: flex;
         justify-content: space-between;
         padding-left: ${COMMON_STYLE.menuLeftPadding}px;
