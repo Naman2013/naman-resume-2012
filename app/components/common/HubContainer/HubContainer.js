@@ -113,7 +113,6 @@ class HubContainer extends Component {
       const query = Object.assign({}, state, { filter });
       this.setQueryParams(pick(query, QUERY_TYPES));
       return ({
-        ...state,
         filter,
       });
     });
@@ -124,7 +123,6 @@ class HubContainer extends Component {
       const query = Object.assign({}, state, { sort });
       this.setQueryParams(pick(query, QUERY_TYPES));
       return ({
-        ...state,
         sort,
       });
     });
