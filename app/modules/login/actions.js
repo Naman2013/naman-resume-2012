@@ -35,7 +35,6 @@ export const logUserIn = loginForm => (dispatch) => {
     } else {
       dispatch(resetLogIn());
       dispatch(storeUser(result.data));
-      window.location.reload();
     }
   })
     .catch(error => dispatch(logUserInFail(error)));
