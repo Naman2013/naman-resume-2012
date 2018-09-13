@@ -8,37 +8,51 @@ import COMMON_STYLE from '../../common-style';
 
 const propTypes = {
   title: PropTypes.string.isRequired,
-  handleCloseClick: PropTypes.func,
+  iconURL: PropTypes.string,
 };
 
 const defaultProps = {
-  handleCloseClick: null,
+  iconURL: '',
 };
 
-const MenuTitleBar = ({ title, handleCloseClick }) => (
+const MenuTitleBar = ({ title, iconURL, children }) => (
   <div className="root">
-    <h4 className="title">{title}</h4>
-    {
-      handleCloseClick &&
-        <button className="action" onClick={handleCloseClick}>
-          <span className="fa fa-times"></span>
-        </button>
-    }
+    <div className="tippy-top">
+      <h4 className="title">{title}</h4>
+      {iconURL ? <img src={iconURL} className="icon" /> : null}
+    </div>
+    {children ? <div>{children}</div> : null}
     <style jsx>{`
       .root {
-        position: fixed;
         width: 400px;
+        min-height: 90px;
         display: flex;
-        justify-content: space-between;
+        flex-direction: column;
         padding-left: ${COMMON_STYLE.menuLeftPadding}px;
         background-color: ${romance};
         color: ${astronaut};
         text-transform: uppercase;
+        justify-content: center;
         font-weight: bold;
         font-family: ${primaryFont};
         font-size: 12px;
+        align-items: center;
         border-bottom: 1px solid ${shadows};
         ${faintShadow}
+      }
+
+      .tippy-top {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .icon {
+        height: 25px;
+        width: 25px;
+        margin-right: 25px;
       }
 
       h4 { font-size: 12px; padding: 10px 0; }

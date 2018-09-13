@@ -1,7 +1,6 @@
 import React, { cloneElement } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import MenuTitleBar from './Menus/partials/MenuTitleBar';
 import { seashell } from '../../styles/variables/colors_tiles_v4';
 
 const LEFT = 'left';
@@ -38,14 +37,6 @@ const Menu = ({
 
   return (
     <div className={`root ${rootClasses}`} style={inlineStyle}>
-
-      {/*
-        title &&
-          <MenuTitleBar
-            title={title}
-            handleCloseClick={handleClose}
-          />
-      */}
 
       <div className="menu-list">{ render({ isOpen }) }</div>
 

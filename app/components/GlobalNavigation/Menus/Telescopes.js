@@ -7,7 +7,11 @@ import { OBSERVATORIES_COMPACT } from 'services/observatories';
 import BorderContainer from './partials/BorderedContainer';
 import Button from 'components/common/style/buttons/Button';
 import MenuList from './partials/MenuList';
+import MenuTitleBar from './partials/MenuTitleBar';
 import TELESCOPE_CONFIGURATION, { modelTelescopesFromObsList } from './telescopeConfiguration';
+import {
+  telescopeAstronaut,
+} from 'styles/variables/iconURLs';
 
 const Telescopes = () => (
   <Request
@@ -20,12 +24,14 @@ const Telescopes = () => (
       serviceResponse: { observatoryList },
     }) => (
       <div className="root">
-        <BorderContainer top={false}>
+        <MenuTitleBar
+          title="Telescopes"
+        >
           <div className="center-buttons">
             <Button text="SET-UP" theme={{ display: 'inline-block', marginRight: '15px' }} onClickEvent={() => browserHistory.push('/')} />
             <Button text="MY PHOTOS" theme={{ display: 'inline-block' }} onClickEvent={() => browserHistory.push('/')} />
           </div>
-        </BorderContainer>
+        </MenuTitleBar>
         {
           !fetchingContent &&
             <MenuList items={TELESCOPE_CONFIGURATION(TELESCOPES_ONLY)} />
