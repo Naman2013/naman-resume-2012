@@ -30,17 +30,16 @@ class GlobalNavigation extends Component {
 
   componentDidMount() {
     window.addEventListener('scroll', this.closeAll);
-}
-
-  componentWillUnmount() {
-      window.removeEventListener('scroll', this.closeAll);
   }
-
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.routeKey !== this.props.routeKey) {
       this.closeAll();
     }
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.closeAll);
   }
 
   closeAll = () => {
