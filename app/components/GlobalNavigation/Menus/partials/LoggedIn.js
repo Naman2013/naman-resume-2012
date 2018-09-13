@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
+import PrimaryButton from './buttons/PrimaryButton';
 import Logout from 'redux/components/Logout';
 import MenuTitleBar from './MenuTitleBar';
 import MenuList from './MenuList';
@@ -26,7 +27,9 @@ const LoggedIn = ({ displayName, avatarURL, menuItems }) => (
       </div>
     </MenuTitleBar>
     <MenuList items={menuItems} />
-    <Logout />
+    <Logout
+      render={() => <PrimaryButton text="Log Out" anchor="#" />}
+    />
     <style jsx>{`
       .root {
         width: 100%;
@@ -62,7 +65,7 @@ LoggedIn.propTypes = {
   userInfo: PropTypes.shape({
     displayName: PropTypes.string,
   }),
-  userLinks: PropTypes.arrayOf(PropTypes.shape({
+  menuLinks: PropTypes.arrayOf(PropTypes.shape({
     name: PropTypes.string,
     link: PropTypes.string,
   })),
