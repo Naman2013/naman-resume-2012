@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import BestTelescope from './BestTelescope';
+import Row from '../grid/Row';
+import StaticCell from '../grid/StaticCell';
 import style from './ObjectProfile.style';
 
 const ObjectProfile = ({
@@ -12,38 +14,52 @@ const ObjectProfile = ({
 }) => (
   <section className="object-details-grid">
 
-    <div className="row-3-1">
-      <div className="column">
-        <h2>Scientific Name:</h2>
+    <Row>
+      <StaticCell title="Scientific Name" flexScale={['100%']} hasBorderScale={[true]}>
         <p>{scienceName}</p>
-      </div>
+      </StaticCell>
+      <StaticCell>
+        <div style={{ background: 'blue', width: '50px', height: '50px', display: 'inline-block', padding: '5px' }} />
+      </StaticCell>
+    </Row>
 
-      <div className="column">
-        <div style={{ background: 'blue', width: '50px', height: '50px' }} />
-      </div>
-    </div>
-
-    <div className="row">
-      <div className="column">
-        <h2>Celestial Coordinates:</h2>
+    <Row wrap>
+      <StaticCell
+        title="Celestial Coordinates"
+        flexScale={['100%', '100%', '40%']}
+        hasBorderScale={[false, false, true]}
+        minHeight="100px"
+      >
         <p>RA: {objectSpecs.ra}</p>
         <p>Dec: {objectSpecs.dec}</p>
-      </div>
-    </div>
+      </StaticCell>
 
-    <div className="row">
-      <div className="column">
-        <h2>Magnitude:</h2>
+      <StaticCell
+        title="Magnitude"
+        flexScale={['100%', '40%', '10%']}
+        hasBorderScale={[false, true]}
+        minHeight="100px"
+      >
         <p>{objectSpecs.magnitude}</p>
-      </div>
-    </div>
+      </StaticCell>
 
-    <div className="row">
-      <div className="column">
-        <h2>Apparent Angular Size:</h2>
+      <StaticCell
+        title="Apparent Angular Size"
+        flexScale={['100%', '40%', '20%']}
+        minHeight="100px"
+      >
         <p dangerouslySetInnerHTML={{ __html: '---PLACEHOLDER---' }} />
-      </div>
-    </div>
+      </StaticCell>
+    </Row>
+
+
+
+
+
+
+
+
+
 
     <div className="row">
       <div className="column">
