@@ -18,7 +18,7 @@ const Profile = ({ user, userMenu }) => {
 
       {
         !user.isAuthorized &&
-          <Login />
+          <Login avatarURL={user.avatarURL} />
       }
     </div>
   );
