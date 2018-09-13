@@ -11,3 +11,5 @@ export const checkAstronaut = 'https://vega.slooh.com/assets/v4/icons/check_astr
 export const closeAstronaut = 'https://vega.slooh.com/assets/v4/icons/close_astronaut.svg';
 export const closeWhite = 'https://vega.slooh.com/assets/icons/menu/menu-close.svg';
 export const userAstronaut = 'https://vega.slooh.com/assets/v4/icons/user_astronaut.svg';
+
+export const goldCompass = 'https://vega.slooh.com/assets/v4/icons/gold_compass.svg';
