@@ -18,10 +18,10 @@ const defaultProps = {
 const MenuTitleBar = ({ title, iconURL, children }) => (
   <div className="root">
     <div className="tippy-top">
-      <h4 className="title">{title}</h4>
+      {title ? <h4 className="title">{title}</h4> : null}
       {iconURL ? <img src={iconURL} className="icon" /> : null}
     </div>
-    {children ? <div>{children}</div> : null}
+    {children ? <div className="large">{children}</div> : null}
     <style jsx>{`
       .root {
         width: 400px;
@@ -68,6 +68,10 @@ const MenuTitleBar = ({ title, iconURL, children }) => (
 
       .action:focus {
         outline: none;
+      }
+
+      .large {
+        width: 100%;
       }
     `}</style>
   </div>

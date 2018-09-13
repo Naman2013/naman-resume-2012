@@ -21,9 +21,10 @@ const defaultProps = {
   title: '',
 };
 
-const Menu = ({
-  isOpen, position, handleClose, title, render,
-}) => {
+const Menu = (props) => {
+  const {
+    isOpen, position, handleClose, title, render,
+  } = props;
   const rootClasses = classnames({
     open: isOpen,
   });
@@ -34,7 +35,6 @@ const Menu = ({
     left: isLeft ? (isOpen) ? 0 : `${-MENU_WIDTH}px` : 'auto',
     right: isLeft ? 'auto' : (isOpen) ? 0 : `${-MENU_WIDTH}px`,
   };
-
   return (
     <div className={`root ${rootClasses}`} style={inlineStyle}>
 

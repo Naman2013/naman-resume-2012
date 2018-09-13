@@ -2,13 +2,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Login from 'containers/Login';
 import LoggedIn from './partials/LoggedIn';
+import PROFILE_CONFIGURATION from './profileConfiguration';
 
-const Profile = ({ user }) => {
+const Profile = ({ user, userMenu }) => {
   return (
     <div>
       {
         user.isAuthorized &&
-          <LoggedIn userName={user.fname} />
+          <LoggedIn
+            {...user}
+            {...userMenu.userInfo}
+            menuItems={PROFILE_CONFIGURATION(userMenu.userLinks)}
+          />
       }
 
       {
@@ -25,6 +30,15 @@ Profile.propTypes = {
     apiError: PropTypes.bool,
     fname: PropTypes.string,
   }),
+  userMenu: PropTypes.shape({
+    userInfo: PropTypes.shape({
+      displayName: PropTypes.string,
+    }),
+    userLinks: PropTypes.arrayOf(PropTypes.shape({
+      name: PropTypes.string,
+      link: PropTypes.string,
+    })),
+  }),
 };
 
 Profile.defaultProps = {
@@ -32,6 +46,10 @@ Profile.defaultProps = {
     isAuthorized: false,
     apiError: false,
     fname: 'Guest',
+  },
+  userMenu: {
+    userInfo: {},
+    userLinks: [],
   },
 };
 

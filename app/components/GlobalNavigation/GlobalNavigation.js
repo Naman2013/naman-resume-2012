@@ -1,162 +1,87 @@
-import React, { Component } from 'react';
+/***********************************
+* V4 Global Navigation
+*
+***********************************/
+
+import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import TopBar from './TopBar';
-import Menu from './Menu';
-import MENU_INTERFACE, {
-  isLeft,
-  isRight,
-} from './Menus/MenuInterface';
+import Request from 'components/common/network/Request';
+import BootstrappedGlobalNavigation from './BootstrappedGlobalNavigation';
+import { GET_MAIN_NAVIGATION } from 'services/navigation';
 
-const mapStateToProps = ({ routing: { locationBeforeTransitions: { key } }, user }) => ({
-  routeKey: key,
-  user,
-});
+const {
+  bool,
+  number,
+  oneOfType,
+  shape,
+  string,
+} = PropTypes;
 
-@connect(mapStateToProps, null)
-class GlobalNavigation extends Component {
-  static propTypes = {
-    routeKey: PropTypes.string.isRequired,
-  };
-
-  state = {
-    isLeftOpen: false,
-    isRightOpen: false,
-    isNotificationMenuOpen: false,
-    activeMenu: MENU_INTERFACE.DEFAULT.name,
-    activeLeft: MENU_INTERFACE.DEFAULT.name,
-    activeRight: MENU_INTERFACE.DEFAULT.name,
-  };
-
-  componentDidMount() {
-    window.addEventListener('scroll', this.closeAll);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.routeKey !== this.props.routeKey) {
-      this.closeAll();
-    }
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('scroll', this.closeAll);
-  }
-
-  closeAll = () => {
-    this.setState({
-      activeMenu: MENU_INTERFACE.DEFAULT.name,
-      isLeftOpen: false,
-      isRightOpen: false,
-      isNotificationMenuOpen: false,
-    });
-  }
-
-  handleMenuClick = (menuName) => {
-    const { activeMenu } = this.state;
-    const sameMenu = menuName === activeMenu;
-    const nextMenu = (sameMenu) ? MENU_INTERFACE.DEFAULT.name : menuName;
-    const isDefault = (menuName) === MENU_INTERFACE.DEFAULT.name;
-    const isLeftUpdate = !sameMenu && !isDefault && isLeft(menuName);
-    const isRightUpdate = !sameMenu && !isDefault && isRight(menuName);
-
-    this.setState(prevState => ({
-      activeMenu: nextMenu,
-      isLeftOpen: isLeftUpdate,
-      isRightOpen: isRightUpdate,
-      activeLeft: (isLeftUpdate) ? menuName : prevState.activeLeft,
-      activeRight: (isRightUpdate) ? menuName : prevState.activeRight,
-      isNotificationMenuOpen: false,
-    }));
-  }
-
-  handleNotificationClick = (menuName) => {
-    const { activeMenu } = this.state;
-    const sameMenu = menuName === activeMenu;
-    const nextMenu = (sameMenu) ? MENU_INTERFACE.DEFAULT.name : menuName;
-    const isDefault = (menuName) === MENU_INTERFACE.DEFAULT.name;
-    const isRightUpdate = !sameMenu && !isDefault && isRight(menuName);
-
-    this.setState(prevState => ({
-      activeMenu: nextMenu,
-      isNotificationMenuOpen: isRightUpdate,
-    }));
-  }
-
-  render() {
-    const {
-      activeLeft,
-      activeMenu,
-      activeRight,
-      isLeftOpen,
-      isNotificationMenuOpen,
-      isRightOpen,
-    } = this.state;
-    const { user } = this.props;
-
-    const leftMenuContent = MENU_INTERFACE[activeLeft];
-    const rightMenuContent = MENU_INTERFACE[activeRight];
-    const notificationMenuContent = MENU_INTERFACE[MENU_INTERFACE.ALERTS.name]
-
-    return (
-      <div className="root">
-        <div className="top-bar">
-          <TopBar
-            activeMenu={activeMenu}
-            handleMenuClick={this.handleMenuClick}
-            handleNotificationClick={this.handleNotificationClick}
-          />
-        </div>
-
-        <Menu
-          title={leftMenuContent.title}
-          handleClose={this.closeAll}
-          position="left"
-          isOpen={isLeftOpen}
-          render={props => (
-            leftMenuContent.render(props)
-          )}
-        />
-
-        <Menu
-          title={rightMenuContent.title}
-          handleClose={this.closeAll}
-          position="right"
-          isOpen={isRightOpen}
-          render={props => (
-            rightMenuContent.render(props)
-          )}
-        />
-        {/* Prerender Notification Menu */}
-        {user.isAuthorized ? <Menu
-          title={notificationMenuContent.title}
-          handleClose={this.closeAll}
-          position="right"
-          isOpen={isNotificationMenuOpen}
-          render={props => (
-            notificationMenuContent.render(props)
-          )}
-        /> : null}
-
-        <style jsx>{`
-          .root {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            z-index: 9999;
-            position: relative;
-            overflow-x: hidden;
-          }
-
-          .menus {
-            z-index: 9999;
-            min-height: 100vh;
-            height: 100%;
-          }
-        `}
-        </style>
-      </div>
-    );
-  }
+const MOCK_RESPONSE = {
+    userInfo: {
+        displayName: 'Tara Lerias Bird',
+        userLinks: {
+          userLink1: {
+            'name': 'My Photo Hub',
+            'link': '/my-pictures',
+          },
+          userLink2: {
+            'name': 'My Lists',
+            'link': '/lists/my-lists',
+          },
+          userLink3: {
+            'name': 'My Q&A',
+            'link': '/qa/my-qa',
+          },
+          userLink4: {
+            'name': 'My Quests',
+            'link': '/quests/my-quests',
+          },
+          userLink5: {
+            'name': 'My Groups',
+            'link': '/community-groups/my-groups',
+          },
+          userLink6: {
+            'name': 'Account Control',
+            'link': '/account-settings',
+          },
+          userLink7: {
+            'name': 'Upgrade Membership',
+            'link': '/upgrade',
+          },
+        }
+    },
 }
+
+const userMenuModel = {
+  name: 'USER_MENU',
+  model: resp => ({
+    userInfo: MOCK_RESPONSE.userInfo,
+    userLinks: Object.values(MOCK_RESPONSE.userInfo.userLinks),
+  }),
+};
+
+
+const GlobalNavigation = () => (
+  <Request
+    serviceURL={GET_MAIN_NAVIGATION}
+    method="POST"
+    serviceExpiresFieldName="expires"
+    models={[userMenuModel]}
+    render={({
+      fetchingContent,
+      serviceResponse,
+      modeledResponses: { USER_MENU },
+    }) => (
+      <div>
+        {<BootstrappedGlobalNavigation
+          userMenu={USER_MENU}
+          {...serviceResponse}
+        />}
+      </div>
+    )}
+  />
+);
+
 
 export default GlobalNavigation;
