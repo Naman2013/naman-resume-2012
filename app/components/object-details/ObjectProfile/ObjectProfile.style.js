@@ -18,14 +18,8 @@ export default css`
     font-size: 18px;
   }
 
-  h2 {
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    font-weight: 600;
-    font-family: ${primaryFont};
-    margin: 0;
-    margin-bottom: 25px;
+  .row {
+    display: flex;
   }
 
   p {
@@ -34,20 +28,5 @@ export default css`
     font-size: 20px;
     letter-spacing: 1px;
     font-family: ${secondaryFont};
-  }
-
-  .column {
-    padding: 40px;
-  }
-
-  .row,
-  .row-3-1 {
-    border-bottom: solid 1px ${geyser};
-    display: flex;
-  }
-
-  .row-3-1 .column:first-child {
-    flex: 75%;
-    border-right: 1px solid ${geyser};
   }
 `;

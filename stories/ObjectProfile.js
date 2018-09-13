@@ -7,9 +7,9 @@ storiesOf('ObjectProfile', module)
     <ObjectProfile
       scienceName="Mars"
       objectSpecs={{
-        ra: '1',
-        dec: '2',
-        magnitude: '100',
+        ra: 1,
+        dec: 2,
+        magnitude: 100,
       }}
       visibilitySeason={{
         title: 'Sample visibility',
