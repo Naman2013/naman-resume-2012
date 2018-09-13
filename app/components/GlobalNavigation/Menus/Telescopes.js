@@ -1,4 +1,5 @@
 import React from 'react';
+import { browserHistory } from 'react-router';
 import { primaryFont } from 'styles/variables/fonts';
 import { romance, astronaut, golda } from 'styles/variables/colors_tiles_v4';
 import Request from 'components/common/network/Request';
@@ -21,8 +22,8 @@ const Telescopes = () => (
       <div className="root">
         <BorderContainer top={false}>
           <div className="center-buttons">
-          <Button text="SET-UP" theme={{ display: 'inline-block', marginRight: '15px' }} />
-          <Button text="MY PHOTOS" theme={{ display: 'inline-block' }} />
+            <Button text="SET-UP" theme={{ display: 'inline-block', marginRight: '15px' }} onClickEvent={() => browserHistory.push('/')} />
+            <Button text="MY PHOTOS" theme={{ display: 'inline-block' }} onClickEvent={() => browserHistory.push('/')} />
           </div>
         </BorderContainer>
         {
