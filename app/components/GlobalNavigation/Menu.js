@@ -39,13 +39,13 @@ const Menu = ({
   return (
     <div className={`root ${rootClasses}`} style={inlineStyle}>
 
-      {
+      {/*
         title &&
           <MenuTitleBar
             title={title}
             handleCloseClick={handleClose}
           />
-      }
+      */}
 
       <div className="menu-list">{ render({ isOpen }) }</div>
 
@@ -54,7 +54,7 @@ const Menu = ({
           position: fixed;
           z-index: 9999;
           width: 400px;
-          top: 0;
+          top: 60px;
           overflow-y: auto;
           min-height: 100vh;
           height: 100%;
@@ -65,7 +65,6 @@ const Menu = ({
         }
 
         .menu-list {
-          padding-top: 50px;
         }
       `}
       </style>

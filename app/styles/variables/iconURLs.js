@@ -7,4 +7,5 @@ export const telescopeAstronaut = 'https://vega.slooh.com/assets/v4/icons/telesc
 
 export const checkAstronaut = 'https://vega.slooh.com/assets/v4/icons/check_astronaut.svg';
 export const closeAstronaut = 'https://vega.slooh.com/assets/v4/icons/close_astronaut.svg';
+export const closeWhite = 'https://vega.slooh.com/assets/icons/menu/menu-close.svg';
 export const userAstronaut = 'https://vega.slooh.com/assets/v4/icons/user_astronaut.svg';

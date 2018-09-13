@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { romance, shadows } from 'styles/variables/colors_tiles_v4';
+import { astronaut, romance, shadows } from 'styles/variables/colors_tiles_v4';
 import { primaryFont } from 'styles/variables/fonts';
 
 const propTypes = {
@@ -36,7 +36,7 @@ const Button = ({
       .action {
         border: none;
         cursor: pointer;
-        color: ${romance};
+        color: ${astronaut};
         border-right: 1px solid ${shadows};
         text-align: center;
         background: none;
@@ -48,10 +48,9 @@ const Button = ({
         transition-timing-function: ease-in-out;
       }
 
-      .action:hover,
       .action.active {
-        color: ${shadows};
-        background: ${romance};
+        color: ${romance};
+        background: ${astronaut};
       }
 
       .action:focus {

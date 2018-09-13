@@ -10,9 +10,11 @@ import {
   searchAstronaut,
   userAstronaut,
 } from 'styles/variables/iconURLs';
-const AlertsIcon = ({ notificationsCount }) => (
+const AlertsIcon = ({ notificationsCount, isActive }) => (
   <span className="root">
-    <span className="fa fa-bell" />
+    <span className={classnames('fa fa-bell', {
+      'is-active': isActive,
+    })}/>
     <span className={classnames('count', {
       zero: notificationsCount === 0,
     })}>{notificationsCount}</span>
@@ -25,10 +27,15 @@ const AlertsIcon = ({ notificationsCount }) => (
       .fa-bell {
         color: ${astronaut};
       }
+
+      .fa-bell.is-active {
+        color: ${romance};
+      }
       .count {
         position: absolute;
         top: -5px;
         right: 5px;
+        color: ${romance};
         background-color: red;
         border-radius: 50%;
         width: 15px;

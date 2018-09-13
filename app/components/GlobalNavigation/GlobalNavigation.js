@@ -28,6 +28,15 @@ class GlobalNavigation extends Component {
     activeRight: MENU_INTERFACE.DEFAULT.name,
   };
 
+  componentDidMount() {
+    window.addEventListener('scroll', this.closeAll);
+}
+
+  componentWillUnmount() {
+      window.removeEventListener('scroll', this.closeAll);
+  }
+
+
   componentWillReceiveProps(nextProps) {
     if (nextProps.routeKey !== this.props.routeKey) {
       this.closeAll();
