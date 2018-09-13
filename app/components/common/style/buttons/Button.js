@@ -17,13 +17,14 @@ const Button = ({
   renderIcon,
   icon, // remove prop when refactoring for icon library
   onClickEvent,
+  theme = {},
 }) => (
   <button
     className={classnames('button-container', {
       circular: icon && !text || renderIcon && !text,
       active: isActive,
     })}
-
+    style={theme}
     onClick={onClickEvent}
   >
     {text ? <span className="text" dangerouslySetInnerHTML={{ __html: text }} /> : null}

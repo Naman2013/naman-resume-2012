@@ -4,6 +4,7 @@ import { romance, astronaut, golda } from 'styles/variables/colors_tiles_v4';
 import Request from 'components/common/network/Request';
 import { OBSERVATORIES_COMPACT } from 'services/observatories';
 import BorderContainer from './partials/BorderedContainer';
+import Button from 'components/common/style/buttons/Button';
 import MenuList from './partials/MenuList';
 import TELESCOPE_CONFIGURATION, { modelTelescopesFromObsList } from './telescopeConfiguration';
 
@@ -19,11 +20,11 @@ const Telescopes = () => (
     }) => (
       <div className="root">
         <BorderContainer top={false}>
-          <button className="action">Setup a mission</button>
+          <div className="center-buttons">
+          <Button text="SET-UP" theme={{ display: 'inline-block', marginRight: '15px' }} />
+          <Button text="MY PHOTOS" theme={{ display: 'inline-block' }} />
+          </div>
         </BorderContainer>
-
-        <h4 className="title">Visit our telescope channels</h4>
-
         {
           !fetchingContent &&
             <MenuList items={TELESCOPE_CONFIGURATION(TELESCOPES_ONLY)} />
@@ -31,13 +32,17 @@ const Telescopes = () => (
 
         <style jsx>{`
           .root {
-            color: ${romance};
+            color: ${astronaut};
             font-family: ${primaryFont};
           }
 
           .title {
             font-size: 14px;
             text-transform: uppercase;
+          }
+
+          .center-buttons {
+            text-align: center;
           }
 
           .action {
