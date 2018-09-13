@@ -1,5 +1,6 @@
 export const horizontalArrow = 'https://vega.slooh.com/assets/v4/common/arrow_horz.svg';
 export const horizontalArrowRightAstronaut = 'https://vega.slooh.com/assets/v4/icons/horz_arrow_right_astronaut.svg';
+export const horizontalArrowRightWhite = 'https://vega.slooh.com/assets/v4/icons/horz_arrow_right_white.svg';
 
 export const threeLinesAstronaut = 'https://vega.slooh.com/assets/v4/icons/three_lines_astronaut.svg';
 export const searchAstronaut = 'https://vega.slooh.com/assets/v4/icons/search_astronaut.svg';

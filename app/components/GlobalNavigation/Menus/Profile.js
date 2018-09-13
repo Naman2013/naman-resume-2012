@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Login from 'containers/Login';
+import Login from './partials/LogIn';
 import LoggedIn from './partials/LoggedIn';
 import PROFILE_CONFIGURATION from './profileConfiguration';
 
