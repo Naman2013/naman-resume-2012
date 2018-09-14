@@ -4,13 +4,14 @@ import { resetMarginPadding } from 'styles/variables/utils';
 import { lightHeadedAstronaut, thatGrayWeForgot } from 'styles/variables/colors_tiles_v4';
 
 export default css`
-  ul {
+  .navigation {
     ${resetMarginPadding}
     display: flex;
     list-style-type: none;
+    margin-bottom: 20px;
   }
 
-  button {
+  .action-tab {
     ${resetMarginPadding}
     background: none;
     border: none;
@@ -22,13 +23,17 @@ export default css`
     cursor: pointer;
   }
 
-  button.active {
+  .action-tab.active {
     color: ${lightHeadedAstronaut};
     border-bottom: 2px solid ${lightHeadedAstronaut};
   }
 
-  button:active,
-  button:focus {
+  .action-tab:active,
+  .action-tab:focus {
     outline: none;
   }
+
+  .description { margin-bottom: 20px; }
+
+  .action-link-container { margin-top: 10px; }
 `;

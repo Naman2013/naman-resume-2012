@@ -15,11 +15,12 @@ const ObjectProfile = ({
 }) => (
   <section className="object-details-grid">
     <Row>
-      <StaticCell title="Scientific Name" flexScale={['100%']} hasBorderScale={[true]}>
+      <StaticCell
+        title="Scientific Name"
+        flexScale={['100%']}
+        hasBorderScale={[true]}
+      >
         <p>{scienceName}</p>
-      </StaticCell>
-      <StaticCell>
-        <div style={{ background: 'blue', width: '50px', height: '50px', display: 'inline-block', padding: '5px' }} />
       </StaticCell>
     </Row>
 
@@ -28,7 +29,7 @@ const ObjectProfile = ({
         title="Celestial Coordinates"
         flexScale={['100%', '100%', '40%']}
         hasBorderScale={[false, false, true]}
-        theme={{ minHeight: '100px' }}
+        theme={{ minHeight: '165px' }}
       >
         <p>RA: {objectSpecs.ra}</p>
         <p>Dec: {objectSpecs.dec}</p>
@@ -38,7 +39,7 @@ const ObjectProfile = ({
         title="Magnitude"
         flexScale={['100%', '40%', '10%']}
         hasBorderScale={[false, true]}
-        theme={{ minHeight: '100px' }}
+        theme={{ minHeight: '165px' }}
       >
         <p>{objectSpecs.magnitude}</p>
       </StaticCell>
@@ -46,9 +47,9 @@ const ObjectProfile = ({
       <StaticCell
         title="Apparent Angular Size"
         flexScale={['100%', '40%', '20%']}
-        theme={{ minHeight: '100px' }}
+        theme={{ minHeight: '165px' }}
       >
-        <p dangerouslySetInnerHTML={{ __html: '---PLACEHOLDER---' }} />
+        <p dangerouslySetInnerHTML={{ __html: 'PLACEHOLDER' }} />
       </StaticCell>
     </Row>
 
@@ -56,7 +57,7 @@ const ObjectProfile = ({
       <StaticCell
         flexScale={['100%', '100%', '20%']}
         hasBorderScale={[true]}
-        theme={{ minHeight: '240px' }}
+        theme={{ minHeight: '360px' }}
         displayAtBreakpoints={{
           screenSmall: false,
           screenMedium: false,
@@ -87,7 +88,7 @@ const ObjectProfile = ({
         <StaticCell
           flexScale={['100%', '100%', '40%']}
           title={bestTelescope.label}
-          theme={{ minHeight: '240px' }}
+          theme={{ minHeight: '360px', alignSelf: 'flex-start' }}
         >
           <BestTelescope telescopes={bestTelescope.list} />
         </StaticCell>
@@ -119,6 +120,7 @@ ObjectProfile.propTypes = {
     list: PropTypes.arrayOf(PropTypes.shape({
       title: PropTypes.string.isRequired,
       description: PropTypes.string.isRequired,
+      linkUrl: PropTypes.string.isRequired,
     })),
   }).isRequired,
 };
