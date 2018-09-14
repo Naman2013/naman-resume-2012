@@ -13,6 +13,10 @@ export default css`
     border-bottom: 1px solid;
   }
 
+  .positioning-container {
+    width: 100%;
+  }
+
   .title {
     font-size: 11px;
     text-transform: uppercase;

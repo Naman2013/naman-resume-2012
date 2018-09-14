@@ -2,7 +2,7 @@ import css from 'styled-jsx/css';
 import { screenMedium, screenLarge, screenXLarge } from 'styles/variables/breakpoints';
 
 export default css`
-  .root { display: none; }
+  .root { display: none; width: 100%; }
 
   .root.screenSmall { display: block; }
 

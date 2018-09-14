@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import isUndefined from 'lodash/isUndefined';
+import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
 import { screenMedium, screenLarge, screenXLarge } from 'styles/variables/breakpoints';
 import { geyser } from 'styles/variables/colors_tiles_v4';
 import style from './StaticCell.style';
@@ -14,23 +15,24 @@ function getBorderStyle(hasBorder = false) {
 }
 
 const StaticCell = ({
-  title,
+  children,
+  displayAtBreakpoints,
   flexScale,
   hasBorderScale,
-  minHeight,
-  children,
+  title,
+  theme,
 }) => (
   <div
     className="root"
-    style={{
-      minHeight,
+    style={Object.assign({
       borderColor: geyser,
-    }}
+    }, theme)}
   >
     <div className="positioning-container">
       { title && <h2 className="title">{title}:</h2> }
       {children}
     </div>
+
     <style jsx>{style}</style>
     <style jsx>
       {`
@@ -67,17 +69,29 @@ const StaticCell = ({
 
 StaticCell.propTypes = {
   title: PropTypes.string,
+  displayAtBreakpoints: PropTypes.shape({
+    screenSmall: PropTypes.bool,
+    screenMedium: PropTypes.bool,
+    screenLarge: PropTypes.bool,
+    screenXLarge: PropTypes.bool,
+  }),
   flexScale: PropTypes.arrayOf(PropTypes.string),
   hasBorderScale: PropTypes.arrayOf(PropTypes.bool),
-  minHeight: PropTypes.string,
   children: PropTypes.node.isRequired,
+  theme: PropTypes.shape({ }),
 };
 
 StaticCell.defaultProps = {
   title: '',
+  displayAtBreakpoints: {
+    screenSmall: true,
+    screenMedium: true,
+    screenLarge: true,
+    screenXLarge: true,
+  },
   flexScale: ['auto'],
   hasBorderScale: [false],
-  minHeight: 'auto',
+  theme: {},
 };
 
 export default StaticCell;
