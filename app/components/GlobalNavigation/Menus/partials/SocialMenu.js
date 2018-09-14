@@ -1,39 +1,40 @@
 import React from 'react';
-import BorderedContainer from './BorderedContainer';
-import { white } from '../../../../styles/variables/colors';
+import { astronaut, shadows } from '../../../../styles/variables/colors_tiles_v4';
 
 const SocialMenu = () => (
   <div className="root">
-    <BorderedContainer>
-      <ul className="buttons">
-        <li>
-          <a className="action" href="#">
-            <span className="fa fa-twitter" />
-          </a>
-        </li>
-        <li>
-          <a className="action" href="#">
-            <span className="fa fa-facebook" />
-          </a>
-        </li>
-        <li>
-          <a className="action" href="#">
-            <span className="fa fa-instagram" />
-          </a>
-        </li>
-      </ul>
-    </BorderedContainer>
+    <ul className="buttons">
+      <li>
+        <a className="action" href="#">
+          <span className="fa fa-twitter" />
+        </a>
+      </li>
+      <li>
+        <a className="action" href="#">
+          <span className="fa fa-facebook" />
+        </a>
+      </li>
+      <li>
+        <a className="action" href="#">
+          <span className="fa fa-instagram" />
+        </a>
+      </li>
+    </ul>
 
     <style jsx>{`
+      .root {
 
+      }
       .buttons {
         display: flex;
         list-style-type: none;
-        margin: 0;
+        margin: 25px 25px 0 25px;
+        padding-bottom: 25px;
+        border-bottom: 1px solid ${shadows};
       }
 
       .action {
-        color: ${white};
+        color: ${astronaut};
         width: auto;
         font-size: 22px;
         display: inline-block;

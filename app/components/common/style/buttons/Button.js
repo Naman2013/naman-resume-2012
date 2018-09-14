@@ -14,16 +14,19 @@ const {
 const Button = ({
   isActive,
   text,
+  type,
   renderIcon,
   icon, // remove prop when refactoring for icon library
   onClickEvent,
+  theme = {},
 }) => (
   <button
+    type={type}
     className={classnames('button-container', {
       circular: icon && !text || renderIcon && !text,
       active: isActive,
     })}
-
+    style={theme}
     onClick={onClickEvent}
   >
     {text ? <span className="text" dangerouslySetInnerHTML={{ __html: text }} /> : null}
@@ -39,8 +42,10 @@ Button.propTypes = {
   icon: string,
   onClickEvent: func.isRequired,
   renderIcon: func,
+  type: string,
 };
 Button.defaultProps = {
+  type: 'text',
   isActive: false,
   icon: null,
   text: null,

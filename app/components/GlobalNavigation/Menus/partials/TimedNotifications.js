@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'react-modal';
+import MenuTitleBar from './MenuTitleBar';
 import MenuList from './MenuList';
 import AlertTile from './AlertTile';
 import { primaryFont } from 'styles/variables/fonts';
@@ -145,6 +146,9 @@ class TimedNotifications extends Component {
 
     return (
       <div>
+        <MenuTitleBar
+          title="Alerts"
+        />
         <MenuList items={notificationConfig({ alerts, dismissAlert: this.dismissAlert })} />
         <Modal
           ariaHideApp={false}

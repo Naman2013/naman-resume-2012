@@ -1,11 +1,17 @@
 import React from 'react';
+import { browserHistory } from 'react-router';
 import { primaryFont } from 'styles/variables/fonts';
-import { white, blueBlack, pink } from 'styles/variables/colors';
+import { romance, astronaut, golda } from 'styles/variables/colors_tiles_v4';
 import Request from 'components/common/network/Request';
 import { OBSERVATORIES_COMPACT } from 'services/observatories';
 import BorderContainer from './partials/BorderedContainer';
+import Button from 'components/common/style/buttons/Button';
 import MenuList from './partials/MenuList';
+import MenuTitleBar from './partials/MenuTitleBar';
 import TELESCOPE_CONFIGURATION, { modelTelescopesFromObsList } from './telescopeConfiguration';
+import {
+  telescopeAstronaut,
+} from 'styles/variables/iconURLs';
 
 const Telescopes = () => (
   <Request
@@ -18,12 +24,14 @@ const Telescopes = () => (
       serviceResponse: { observatoryList },
     }) => (
       <div className="root">
-        <BorderContainer top={false}>
-          <button className="action">Setup a mission</button>
-        </BorderContainer>
-
-        <h4 className="title">Visit our telescope channels</h4>
-
+        <MenuTitleBar
+          title="Telescopes"
+        >
+          <div className="center-buttons">
+            <Button text="SET-UP" theme={{ display: 'inline-block', marginRight: '15px' }} onClickEvent={() => browserHistory.push('/')} />
+            <Button text="MY PHOTOS" theme={{ display: 'inline-block' }} onClickEvent={() => browserHistory.push('/my-pictures')} />
+          </div>
+        </MenuTitleBar>
         {
           !fetchingContent &&
             <MenuList items={TELESCOPE_CONFIGURATION(TELESCOPES_ONLY)} />
@@ -31,7 +39,7 @@ const Telescopes = () => (
 
         <style jsx>{`
           .root {
-            color: ${white};
+            color: ${astronaut};
             font-family: ${primaryFont};
           }
 
@@ -40,17 +48,21 @@ const Telescopes = () => (
             text-transform: uppercase;
           }
 
+          .center-buttons {
+            text-align: center;
+          }
+
           .action {
             border-radius: 5%;
             background: none;
             padding: 20px 40px;
             border: none;
-            color: ${white};
-            background: ${blueBlack};
+            color: ${romance};
+            background: ${astronaut};
           }
 
           .action:hover {
-            background: ${pink};
+            background: ${golda};
           }
         `}
         </style>

@@ -10,11 +10,12 @@ const {
   string,
 } = PropTypes;
 
-const LargeButtonWithRightIcon = ({ text, onClickEvent, icon, renderIcon }) => (
+const LargeButtonWithRightIcon = ({ text, onClickEvent, icon, renderIcon, theme }) => (
   <button
     className={classnames('button-container', {
       circular: icon && !text,
     })}
+    style={theme}
     onClick={onClickEvent}
   >
     <span className="text" dangerouslySetInnerHTML={{ __html: text }} />

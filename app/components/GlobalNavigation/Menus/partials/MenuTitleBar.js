@@ -1,37 +1,58 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import noop from 'lodash/noop';
-import { white, black } from '../../../../styles/variables/colors';
+import { romance, astronaut, shadows } from '../../../../styles/variables/colors_tiles_v4';
+import { faintShadow } from 'styles/variables/shadows';
 import { primaryFont } from '../../../../styles/variables/fonts';
 import COMMON_STYLE from '../../common-style';
 
 const propTypes = {
   title: PropTypes.string.isRequired,
-  handleCloseClick: PropTypes.func,
+  iconURL: PropTypes.string,
 };
 
 const defaultProps = {
-  handleCloseClick: null,
+  iconURL: '',
 };
 
-const MenuTitleBar = ({ title, handleCloseClick }) => (
+const MenuTitleBar = ({ title, iconURL, children }) => (
   <div className="root">
-    <h4 className="title">{title}</h4>
-    {
-      handleCloseClick &&
-        <button className="action" onClick={handleCloseClick}>
-          <span className="fa fa-times"></span>
-        </button>
-    }
+    <div className="tippy-top">
+      {title ? <h4 className="title">{title}</h4> : null}
+      {iconURL ? <img src={iconURL} className="icon" /> : null}
+    </div>
+    {children ? <div className="large">{children}</div> : null}
     <style jsx>{`
       .root {
+        width: 400px;
+        min-height: 90px;
         display: flex;
-        justify-content: space-between;
+        flex-direction: column;
         padding-left: ${COMMON_STYLE.menuLeftPadding}px;
-        color: ${white};
+        background-color: ${romance};
+        color: ${astronaut};
         text-transform: uppercase;
+        justify-content: center;
+        font-weight: bold;
         font-family: ${primaryFont};
-        border-bottom: 1px solid ${black};
+        font-size: 12px;
+        align-items: center;
+        border-bottom: 1px solid ${shadows};
+        ${faintShadow}
+      }
+
+      .tippy-top {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .icon {
+        height: 25px;
+        width: 25px;
+        margin-right: 25px;
       }
 
       h4 { font-size: 12px; padding: 10px 0; }
@@ -39,14 +60,18 @@ const MenuTitleBar = ({ title, handleCloseClick }) => (
       .action {
         width: 70px;
         font-size: 22px;
-        background: ${black};
+        background: ${astronaut};
         border: none;
-        color: ${white};
+        color: ${romance};
         cursor: pointer;
       }
 
       .action:focus {
         outline: none;
+      }
+
+      .large {
+        width: 100%;
       }
     `}</style>
   </div>

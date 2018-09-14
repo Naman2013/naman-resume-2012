@@ -80,6 +80,9 @@ import usersUpcomingMission from './Users-Upcoming-Missions';
 import videoViewerBrowser from './browse-video-viewer/reducer';
 import videoViewerShow from './show-video-viewer/reducer';
 
+// v4
+import logIn from 'modules/login/reducer';
+
 export default combineReducers({
   routing: routerReducer,
   form: reducer,
@@ -162,4 +165,5 @@ export default combineReducers({
   usersUpcomingMission,
   videoViewerBrowser,
   videoViewerShow,
+  logIn,
 });

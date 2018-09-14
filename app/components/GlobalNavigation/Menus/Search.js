@@ -11,8 +11,13 @@ const defaultProps = {
 };
 
 const Search = ({ isOpen }) => (
-  <div>
+  <div className="root">
     <BrowseTaggedDataSearch isOpen={isOpen} />
+    <style jsx>{`
+      .root {
+        height: 100%;
+      }
+    `}</style>
   </div>
 );
 

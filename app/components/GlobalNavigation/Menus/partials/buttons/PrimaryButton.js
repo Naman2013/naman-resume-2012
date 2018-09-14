@@ -1,18 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router';
-import { white, pink } from 'styles/variables/colors';
+import { astronaut, golda, shadows } from 'styles/variables/colors_tiles_v4';
 import { primaryFont } from 'styles/variables/fonts';
 
 const PrimaryButton = ({ text, anchor }) => (
   <div className="primary-button">
-    <span className="fa fa-circle" />
-    <Link className="action" to={anchor}>{text}</Link>
+    <Link className="action" to={anchor}><a className="link-text">{text}</a></Link>
     <style jsx>{`
       .primary-button {
         font-family: ${primaryFont};
-        color: ${white};
+        color: ${astronaut};
         text-transform: uppercase;
-        font-size: 13px;
       }
 
       .fa {
@@ -20,15 +18,29 @@ const PrimaryButton = ({ text, anchor }) => (
       }
 
       .primary-button :global(.action) {
-        color: ${white};
+        color: ${astronaut};
         text-decoration: none;
-        display: inline-block;
-        padding: 20px 0 20px 20px;
+        display: block;
+        width: 100%;
+        padding: 0 20px;
       }
 
       .primary-button :global(.action:hover) {
-        color: ${pink};
+        color: ${golda};
       }
+
+      .link-text {
+        display: block;
+        width: 100%;
+        border-bottom: 1px solid ${shadows};
+        font-size: 16px;
+        font-weight: bold;
+        color: ${astronaut};
+        text-transform: uppercase;
+        font-weight: bold;
+        padding: 20px;
+      }
+
     `}
     </style>
   </div>
