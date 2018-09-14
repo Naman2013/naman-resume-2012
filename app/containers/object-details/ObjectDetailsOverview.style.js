@@ -17,20 +17,25 @@ export default css`
     padding: 25px;
     background-color: #f2f2f2;
   }
+
   .white-paper-bg {
     padding: 80px 0;
     background: url(${white_tile_texture});
     background-size: 16px;
   }
+
   .blue-tile-bg {
     text-align: center;
     background-image: url(${blue_tile_guides});
     background-size: 100px;
     padding: 40px 0 100px 0;
   }
+
   .off-white-bg {
     background-color: ${faintGray};
+    padding-bottom: 50px;
   }
+
   .off-white-bg-top-shadow {
     background-color: ${faintGray};
     box-shadow: inset 0 10px 30px 10px rgba(237,240,242,.7);
@@ -46,12 +51,12 @@ export default css`
     padding-bottom: 30px;
   }
 
-
   .card-container__specialists {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
   }
+
   .specialists-card {
     background-color: ${romance};
     width: 90%;
@@ -62,6 +67,7 @@ export default css`
     box-shadow: 0px 0px 3px 1px rgba(0,0,0,0.1);
     transition: width 0.4s ease-in-out, height 0.4s ease-in-out;
   }
+
   .specialists-card h5 {
     font-family: ${secondaryFont};
     color: ${lightHeadedAstronaut};
@@ -69,6 +75,7 @@ export default css`
     border-bottom: 1px solid ${hawkesBlue};
     padding: 15px 0;
   }
+
   .specialists-card a {
     font-size: 10px;
     text-transform: uppercase;
@@ -77,6 +84,7 @@ export default css`
     color: ${lightHeadedAstronaut};
     font-family: ${primaryFont};
   }
+
   .specialists-icon {
     background-color: ${midnight_express};
     width: 40px;
@@ -84,7 +92,6 @@ export default css`
     border-radius: 50%;
     padding: 10px;
   }
-
 
   @media ${screenMedium} {
     .specialists-card {
