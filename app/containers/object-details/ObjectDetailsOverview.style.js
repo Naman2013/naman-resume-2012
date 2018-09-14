@@ -57,6 +57,11 @@ export default css`
     justify-content: space-between;
   }
 
+  .error-message {
+    text-align: center;
+    padding-bottom: 50px;
+  }
+
   .specialists-card {
     background-color: ${romance};
     width: 90%;

@@ -213,9 +213,9 @@ class Overview extends Component {
                 ))}
               </div>
             ) : (
-              <div className="card-container__specialists">
+              <p className="error-message">
                 Sorry, there are no specialists for {objectData.objectTitle} available at this time.
-              </div>
+              </p>
             )}
           </CenterColumn>
         </section>
