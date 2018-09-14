@@ -545,6 +545,10 @@ ReactDOM.render(
         <Route path="community-groups/:groupId" onEnter={validateUser} component={CommunityGroupOverview} />
         <Route path="community-groups/:groupId/info" onEnter={validateUser} component={GroupOverviewInfo} />
       </Route>
+
+      <Route path="sitemap" component={PlaceholderPage} onEnter={validateUser} />
+      
+      <Route path="patent" component={PlaceholderPage} onEnter={validateUser} />
       <Redirect from="*" to="/" />
     </Router>
   </Provider>,

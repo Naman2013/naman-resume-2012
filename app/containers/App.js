@@ -7,7 +7,7 @@ import PageMetaManagement from '../components/PageMetaManagement';
 
 import GlobalNavigation from '../components/GlobalNavigation';
 
-import Footer from '../components/common/footer';
+import Footer from '../components/footer';
 import { fetchEvents } from '../modules/upcoming-events/upcoming-events-actions';
 
 function mapDispatchToProps(dispatch) {

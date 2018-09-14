@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import { browserHistory } from 'react-router';
 import Button from './Button';
 import CenterBar from './CenterBar';
 import MENU_INTERFACE from './Menus/MenuInterface';
@@ -40,7 +41,7 @@ const TopBar = ({ handleMenuClick, activeMenu, handleNotificationClick }) => {
               <ul className="button-list">
                 <li>
                   <Button
-                    handleClick={() => { handleMenuClick(MENU_INTERFACE.DEFAULT.name); }}
+                    handleClick={() => { browserHistory.push('/'); }}
                   >
                     <div className="nav-icon" style={getIconStyle(sloohLogoAstronaut)} />
                   </Button>
