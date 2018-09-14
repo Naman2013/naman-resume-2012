@@ -8,7 +8,10 @@ export default css`
     padding: 20px 35px;
   }
 
-  .action-container { display: none; }
+  .action-container {
+    margin-top: 20px;
+    display: none;
+  }
 
   .title-wrapper {
     padding: 15px 0;
