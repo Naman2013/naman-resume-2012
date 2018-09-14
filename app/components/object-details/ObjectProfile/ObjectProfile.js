@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
 import BestTelescope from './BestTelescope';
 import Row from '../grid/Row';
 import StaticCell from '../grid/StaticCell';
@@ -13,7 +14,6 @@ const ObjectProfile = ({
   midnightCulmination,
 }) => (
   <section className="object-details-grid">
-
     <Row>
       <StaticCell title="Scientific Name" flexScale={['100%']} hasBorderScale={[true]}>
         <p>{scienceName}</p>
@@ -28,7 +28,7 @@ const ObjectProfile = ({
         title="Celestial Coordinates"
         flexScale={['100%', '100%', '40%']}
         hasBorderScale={[false, false, true]}
-        minHeight="100px"
+        theme={{ minHeight: '100px' }}
       >
         <p>RA: {objectSpecs.ra}</p>
         <p>Dec: {objectSpecs.dec}</p>
@@ -38,7 +38,7 @@ const ObjectProfile = ({
         title="Magnitude"
         flexScale={['100%', '40%', '10%']}
         hasBorderScale={[false, true]}
-        minHeight="100px"
+        theme={{ minHeight: '100px' }}
       >
         <p>{objectSpecs.magnitude}</p>
       </StaticCell>
@@ -46,45 +46,53 @@ const ObjectProfile = ({
       <StaticCell
         title="Apparent Angular Size"
         flexScale={['100%', '40%', '20%']}
-        minHeight="100px"
+        theme={{ minHeight: '100px' }}
       >
         <p dangerouslySetInnerHTML={{ __html: '---PLACEHOLDER---' }} />
       </StaticCell>
     </Row>
 
+    <Row wrap>
+      <StaticCell
+        flexScale={['100%', '100%', '20%']}
+        hasBorderScale={[true]}
+        theme={{ minHeight: '240px' }}
+        displayAtBreakpoints={{
+          screenSmall: false,
+          screenMedium: false,
+          screenLarge: true,
+          screenXLarge: true,
+        }}
+      >
+        <Row wrap>
+          <StaticCell
+            title={visibilitySeason.title}
+            theme={{ padding: 0, marginBottom: '20px' }}
+          >
+            {visibilitySeason.observatories}
+          </StaticCell>
+          <StaticCell
+            flexScale={['100%']}
+            title={midnightCulmination.label}
+            theme={{ padding: 0, borderBottom: 'none' }}
+          >
+            <p>{midnightCulmination.text}</p>
+            {midnightCulmination.description}
+          </StaticCell>
+        </Row>
+      </StaticCell>
 
-
-
-
-
-
-
-
-
-    <div className="row">
-      <div className="column">
-        <h2>{visibilitySeason.title}</h2>
-        {visibilitySeason.observatories}
-      </div>
-    </div>
-
-    <div className="row">
-      <div className="column">
-        <h2>{midnightCulmination.label}</h2>
-        <p>{midnightCulmination.text}</p>
-        {midnightCulmination.description}
-      </div>
-    </div>
-
-    {
-      bestTelescope.list.length > 0 &&
-        <div className="row">
-          <div className="column">
-            <h2>{bestTelescope.label}</h2>
-            <BestTelescope telescopes={bestTelescope.list} />
-          </div>
-        </div>
-    }
+      {
+        bestTelescope.list.length > 0 &&
+        <StaticCell
+          flexScale={['100%', '100%', '40%']}
+          title={bestTelescope.label}
+          theme={{ minHeight: '240px' }}
+        >
+          <BestTelescope telescopes={bestTelescope.list} />
+        </StaticCell>
+      }
+    </Row>
 
     <style jsx>{style}</style>
   </section>
