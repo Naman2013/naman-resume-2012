@@ -29,7 +29,7 @@ const Telescopes = () => (
         >
           <div className="center-buttons">
             <Button text="SET-UP" theme={{ display: 'inline-block', marginRight: '15px' }} onClickEvent={() => browserHistory.push('/')} />
-            <Button text="MY PHOTOS" theme={{ display: 'inline-block' }} onClickEvent={() => browserHistory.push('/')} />
+            <Button text="MY PHOTOS" theme={{ display: 'inline-block' }} onClickEvent={() => browserHistory.push('/my-pictures')} />
           </div>
         </MenuTitleBar>
         {

@@ -38,7 +38,7 @@ const MOCK_RESPONSE = {
         },
         primaryLink5: {
           'name': 'Groups',
-          'link': '/groups/public',
+          'link': '/community-groups/public',
         },
         primaryLink6: {
           'name': 'Quests',
