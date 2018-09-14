@@ -500,6 +500,27 @@ ReactDOM.render(
           <Route path="ask" component={AskAstronomer} onEnter={validateUser} />
         </Route>
 
+        <Route path="telescopes" component={PlaceholderPage} onEnter={validateUser} />
+
+        <Route path="shows" component={PlaceholderPage} onEnter={validateUser} />
+
+        <Route path="stories" component={PlaceholderPage} onEnter={validateUser} />
+
+        <Route path="lists" component={PlaceholderPage} onEnter={validateUser}>
+          <IndexRedirect to="my-lists" />
+          <Route path="my-lists" component={PlaceholderPage} />
+        </Route>
+
+        <Route path="qa" component={PlaceholderPage} onEnter={validateUser}>
+          <IndexRedirect to="my-qa" />
+          <Route path="my-qa" component={PlaceholderPage} />
+        </Route>
+
+        <Route path="quests" component={PlaceholderPage} onEnter={validateUser}>
+          <IndexRedirect to="my-quests" />
+          <Route path="my-quests" component={PlaceholderPage} />
+        </Route>
+
         <Route path="quest-details/:questId" component={QuestDetails} onEnter={validateUser} />
 
         <Route path="profile/private" component={UserPrivateProfile} onEnter={validateUser} />
@@ -523,7 +544,6 @@ ReactDOM.render(
 
         <Route path="community-groups/:groupId" onEnter={validateUser} component={CommunityGroupOverview} />
         <Route path="community-groups/:groupId/info" onEnter={validateUser} component={GroupOverviewInfo} />
-
       </Route>
       <Redirect from="*" to="/" />
     </Router>

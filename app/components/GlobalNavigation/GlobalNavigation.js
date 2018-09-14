@@ -60,15 +60,15 @@ const MOCK_RESPONSE = {
         },
         secondaryLink2: {
           'name': 'Memberships',
-          'link': '/telescopes',
+          'link': '/joinApprentice.php?action=joinmenu',
         },
         secondaryLink3: {
           'name': 'Partner with Slooh',
-          'link': '/my-pictures',
+          'link': '/about/mission',
         },
         secondaryLink4: {
           'name': 'Slooh Careers',
-          'link': '/guides',
+          'link': '/about/jobs',
         },
       }
     },
