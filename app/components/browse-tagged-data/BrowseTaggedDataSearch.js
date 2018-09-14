@@ -6,8 +6,8 @@ import { Button } from 'react-bootstrap';
 import { Link } from 'react-router';
 import clone from 'lodash/clone';
 import { fetchBrowseTaggedDataAction } from '../../modules/browse-tagged-data/actions';
-import { black, white, grayer } from '../../styles/variables/colors';
-
+import { shadows, astronaut, romance, gainsboro, seashell } from '../../styles/variables/colors_tiles_v4';
+import { primaryFont, secondaryFont } from 'styles/variables/fonts';
 
 const mapStateToProps = ({
   browseTaggedData,
@@ -231,7 +231,7 @@ class BrowseTaggedDataSearch extends Component {
         return (
           <div className="search-results-set">
             {Object.keys(browseTaggedData.taggedData).length === 0 && Object.keys(renderTaggedData.taggedData).length === 0 && <p>Loading....</p>}
-            {Object.keys(browseTaggedData.taggedData).length > 0 && Object.keys(renderTaggedData.taggedData).length === 0 && <h1 className="search-results-noresultsfoundtext">No results found for: {topNavSearchTerm}.</h1>}
+            {Object.keys(browseTaggedData.taggedData).length > 0 && Object.keys(renderTaggedData.taggedData).length === 0 && <div className="search-results-noresultsfoundtext">No results found for: {topNavSearchTerm}.</div>}
 
             {Object.keys(renderTaggedData.taggedData).length > 0 && topNavSearchTerm === '' &&
               <div>
@@ -252,25 +252,33 @@ class BrowseTaggedDataSearch extends Component {
                   min-height: 320px;
                   height: 320px;
                   max-height: 320px;
+
               }
 
               .search-results-noresultsfoundtext {
-                  font-size: 1.5em;
+                  font-size: 20px;
               }
 
               .search-results-grandparent {
-                font-size: 1.5em;
+                font-size: 20px;
+                padding: 15px 0;
+                border-top: 1px solid ${shadows};
               }
 
               .search-results-parent {
-                font-size: 1.5em;
+                font-size: 15px;
+                padding: 15px 0;
                 margin-left: 75px;
               }
 
               .search-results-item {
-                font-size: 1.25em;
+                font-size: 12px;
+                font-weight: bold;
+                font-family: ${primaryFont};
+                text-transform: uppercase;
+                padding: 15px 0;
                 margin-left: 150px;
-                color: ${white};
+                color: ${astronaut};
               }
               `}</style>
           </div>
@@ -290,11 +298,11 @@ class BrowseTaggedDataSearch extends Component {
           {Object.keys(renderTaggedData.taggedData).map(function (grandParentKey) {
               return (
                 <div>
-                  <h1 className="search-results-grandparent">{renderTaggedData.taggedData[grandParentKey].title}</h1>
+                  <div className="search-results-grandparent">{renderTaggedData.taggedData[grandParentKey].title}</div>
                   {Object.keys(renderTaggedData.taggedData[grandParentKey].subnodes).map(function (parentKey) {
                       return (
                         <div>
-                          <h2 className="search-results-parent">{renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].title}</h2>
+                          <div className="search-results-parent">{renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].title}</div>
                           {Object.keys(renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].subnodes).map(function (itemKey) {
                               return (
                                 <div className="search-results-item">
@@ -330,7 +338,7 @@ class BrowseTaggedDataSearch extends Component {
             {Object.keys(renderTaggedData.taggedData).map(function (grandParentKey) {
                 return (
                   <div>
-                    <h1 onClick={(event) => { this.changeGrandParentNodeID(grandParentKey) }} className="search-results-grandparent">{renderTaggedData.taggedData[grandParentKey].title}</h1>
+                    <div onClick={(event) => { this.changeGrandParentNodeID(grandParentKey) }} className="search-results-grandparent">{renderTaggedData.taggedData[grandParentKey].title}</div>
                   </div>
                 )
               }, this)
@@ -342,11 +350,11 @@ class BrowseTaggedDataSearch extends Component {
             {Object.keys(renderTaggedData.taggedData).map(function (grandParentKey) {
                 return (
                   <div>
-                    <h1 onClick={(event) => { this.changeGrandParentNodeID(grandParentKey) }} className="search-results-grandparent">{renderTaggedData.taggedData[grandParentKey].title}</h1>
+                    <div onClick={(event) => { this.changeGrandParentNodeID(grandParentKey) }} className="search-results-grandparent">{renderTaggedData.taggedData[grandParentKey].title}</div>
                     {Object.keys(renderTaggedData.taggedData[grandParentKey].subnodes).map(function (parentKey) {
                         return (
                           <div>
-                            {grandParentKey === grandParentNodeID && <h2 onClick={(event) => { this.changeParentNodeID(parentKey) }} className="search-results-parent">{renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].title}</h2>}
+                            {grandParentKey === grandParentNodeID && <div onClick={(event) => { this.changeParentNodeID(parentKey) }} className="search-results-parent">{renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].title}</div>}
                           </div>
                         )
                       }, this)
@@ -362,11 +370,11 @@ class BrowseTaggedDataSearch extends Component {
             {Object.keys(renderTaggedData.taggedData).map(function (grandParentKey) {
                 return (
                   <div>
-                    <h1 onClick={(event) => { this.changeGrandParentNodeID(grandParentKey) }} className="search-results-grandparent">{renderTaggedData.taggedData[grandParentKey].title}</h1>
+                    <div onClick={(event) => { this.changeGrandParentNodeID(grandParentKey) }} className="search-results-grandparent">{renderTaggedData.taggedData[grandParentKey].title}</div>
                     {Object.keys(renderTaggedData.taggedData[grandParentKey].subnodes).map(function (parentKey) {
                         return (
                           <div>
-                            {grandParentKey === grandParentNodeID && <h2 onClick={(event) => { this.changeParentNodeID(parentKey) }} className="search-results-parent">{renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].title}</h2>}
+                            {grandParentKey === grandParentNodeID && <div onClick={(event) => { this.changeParentNodeID(parentKey) }} className="search-results-parent">{renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].title}</div>}
                             {Object.keys(renderTaggedData.taggedData[grandParentKey].subnodes[parentKey].subnodes).map(function (itemKey) {
                                 return (
                                   <div className="search-results-item">
@@ -397,8 +405,8 @@ class BrowseTaggedDataSearch extends Component {
       //console.log(renderTaggedData.taggedData);
 
       return (
-        <div className="search-site-bytags">
-          <p className="search-text">Search:</p>
+        <div className="root">
+          <span className="search-text">Search:</span>
           <input
             id="BrowseTaggedDataSearchInputField"
             onClick={(event) => { this.handleClick({ value: event.target.value}); }}
@@ -409,33 +417,25 @@ class BrowseTaggedDataSearch extends Component {
           />
 
           {topNavSearchEnabled == true && <div className="search-results-container">
-              <h1 className="search-results-headertext">Browse / Search Results:</h1>
-              <hr/>
+              <span className="search-text">Search Results:</span>
               {this.renderTaggedDataDisplay()}
             </div>
           }
           <style jsx>{`
-            .search-site-bytags {
+            .root {
               position: relative;
-              max-width: 375px;
-              min-width: 375px;
               display: inline-block;
-              margin-top: -10px;
-              margin-left: 25px;
+              margin: 50px 25px;
+              padding-left: 25px;
+              background-color: ${romance};
+              height: 100%;
+              width: 100%;
+              margin-bottom: 200px;
             }
 
             .search-results-container {
-              display: inline-block;
-              height: 400px;
-              border: 0px solid ${black};
-              background-color: ${grayer};
-              color: ${white};
-              z-index: 1;
-              max-width: 375px;
-              min-width: 375px;
-              margin-left: -160px;
-              position: absolute;
-              margin-top: 30px;
+              display: block;
+              color: ${astronaut};
             }
 
             .search-results-headertext {
@@ -444,14 +444,27 @@ class BrowseTaggedDataSearch extends Component {
             }
 
             .search-text {
-                margin-top: 20px;
-                color: ${white};
+                margin: 20px 0;
+                color: ${astronaut};
+                font-weight: bold;
+                font-family: ${primaryFont};
+                font-size: 12px;
+                text-transform: uppercase;
             }
 
             .search-input-field {
-              background-color: gray;
-              color: ${white};
-              font-weight: bold;
+              display: block;
+              width: 95%;
+              padding: 10px;
+              margin: 25px 0;
+              font-size: 30px;
+              font-family: ${secondaryFont};
+              font-weight: normal;
+              line-height: 1.5;
+              background-color: ${seashell};
+              background-clip: padding-box;
+              border: 1px solid ${shadows};
+              border-radius: .25rem;
             }
             `}</style>
         </div>

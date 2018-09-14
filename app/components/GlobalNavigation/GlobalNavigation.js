@@ -18,6 +18,60 @@ const {
 } = PropTypes;
 
 const MOCK_RESPONSE = {
+    mainMenu: {
+      primaryLinks: {
+        primaryLink1: {
+          'name': 'Home',
+          'link': '/',
+        },
+        primaryLink2: {
+          'name': 'Telescopes',
+          'link': '/telescopes',
+        },
+        primaryLink3: {
+          'name': 'My Observations',
+          'link': '/my-pictures',
+        },
+        primaryLink4: {
+          'name': 'Guides',
+          'link': '/guides',
+        },
+        primaryLink5: {
+          'name': 'Groups',
+          'link': '/groups/public',
+        },
+        primaryLink6: {
+          'name': 'Quests',
+          'link': '/quests',
+        },
+        primaryLink7: {
+          'name': 'Shows',
+          'link': '/shows',
+        },
+        primaryLink8: {
+          'name': 'Stories',
+          'link': '/stories',
+        },
+      },
+      secondaryLinks: {
+        secondaryLink1: {
+          'name': 'About Slooh',
+          'link': '/welcome',
+        },
+        secondaryLink2: {
+          'name': 'Memberships',
+          'link': '/telescopes',
+        },
+        secondaryLink3: {
+          'name': 'Partner with Slooh',
+          'link': '/my-pictures',
+        },
+        secondaryLink4: {
+          'name': 'Slooh Careers',
+          'link': '/guides',
+        },
+      }
+    },
     userInfo: {
         displayName: 'Tara Lerias Bird',
         userLinks: {
@@ -61,22 +115,33 @@ const userMenuModel = {
   }),
 };
 
+const mainMenuModel = {
+  name: 'MAIN_MENU',
+  model: resp => ({
+    primaryLinks: Object.values(MOCK_RESPONSE.mainMenu.primaryLinks),
+    secondaryLinks: Object.values(MOCK_RESPONSE.mainMenu.secondaryLinks),
+  }),
+};
+
 
 const GlobalNavigation = () => (
   <Request
     serviceURL={GET_MAIN_NAVIGATION}
     method="POST"
     serviceExpiresFieldName="expires"
-    models={[userMenuModel]}
+    models={[
+      userMenuModel,
+      mainMenuModel,
+    ]}
     render={({
       fetchingContent,
-      serviceResponse,
-      modeledResponses: { USER_MENU },
+      // serviceResponse,
+      modeledResponses: { USER_MENU, MAIN_MENU },
     }) => (
       <div>
         {<BootstrappedGlobalNavigation
           userMenu={USER_MENU}
-          {...serviceResponse}
+          mainMenu={MAIN_MENU}
         />}
       </div>
     )}

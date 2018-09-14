@@ -91,7 +91,7 @@ class GlobalNavigation extends Component {
       isNotificationMenuOpen,
       isRightOpen,
     } = this.state;
-    const { user, userMenu } = this.props;
+    const { user, userMenu, mainMenu } = this.props;
 
     const leftMenuContent = MENU_INTERFACE[activeLeft];
     const rightMenuContent = MENU_INTERFACE[activeRight];
@@ -111,9 +111,12 @@ class GlobalNavigation extends Component {
           title={leftMenuContent.title}
           handleClose={this.closeAll}
           position="left"
+          width={leftMenuContent.menuWidth}
+          widthUnits={leftMenuContent.menuWidthUnits}
+          theme={leftMenuContent.theme}
           isOpen={isLeftOpen}
           render={props => (
-            leftMenuContent.render(Object.assign({}, props, { userMenu }))
+            leftMenuContent.render(Object.assign({}, props, { userMenu, mainMenu }))
           )}
         />
 
@@ -122,8 +125,11 @@ class GlobalNavigation extends Component {
           handleClose={this.closeAll}
           position="right"
           isOpen={isRightOpen}
+          width={rightMenuContent.menuWidth}
+          widthUnits={rightMenuContent.menuWidthUnits}
+          theme={rightMenuContent.theme}
           render={props => (
-            rightMenuContent.render(Object.assign({}, props, { userMenu }))
+            rightMenuContent.render(Object.assign({}, props, { userMenu, mainMenu }))
           )}
         />
         {/* Prerender Notification Menu */}

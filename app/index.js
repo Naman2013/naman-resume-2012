@@ -505,17 +505,17 @@ ReactDOM.render(
         <Route path="profile/private" component={UserPrivateProfile} onEnter={validateUser} />
         <Route path="profile/public/:cid" component={UserPublicProfile} onEnter={validateUser} />
 
-        <Route path="community-groups/private" component={CommunityGroups} onEnter={validateUser}>
+        <Route path="groups/private" component={CommunityGroups} onEnter={validateUser}>
           <IndexRedirect to="alphabetic" />
           <Route path="alphabetic" component={CommunityGroupsList} onEnter={validateUser} />
           <Route path="popular" component={CommunityGroupsList} onEnter={validateUser} />
         </Route>
-        <Route path="community-groups/public" component={CommunityGroups} onEnter={validateUser}>
+        <Route path="groups/public" component={CommunityGroups} onEnter={validateUser}>
           <IndexRedirect to="alphabetic" />
           <Route path="alphabetic" component={CommunityGroupsList} onEnter={validateUser} />
           <Route path="popular" component={CommunityGroupsList} onEnter={validateUser} />
         </Route>
-        <Route path="community-groups/my-groups" component={CommunityGroups}>
+        <Route path="groups/my-groups" component={CommunityGroups}>
           <IndexRedirect to="alphabetic" />
           <Route path="alphabetic" component={CommunityGroupsList} />
           <Route path="popular" component={CommunityGroupsList} />
