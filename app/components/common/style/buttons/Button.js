@@ -23,15 +23,21 @@ const Button = ({
   <button
     type={type}
     className={classnames('button-container', {
-      circular: icon && !text || renderIcon && !text,
+      circular: (icon && !text) || (renderIcon && !text),
       active: isActive,
     })}
     style={theme}
     onClick={onClickEvent}
   >
-    {text ? <span className="text" dangerouslySetInnerHTML={{ __html: text }} /> : null}
-    {icon ? <img className="text" src={icon} /> : null}
-    {renderIcon ? renderIcon() : null}
+    {
+      text &&
+        <span className="text" dangerouslySetInnerHTML={{ __html: text }} />
+    }
+
+    {icon && <img alt="" className="icon" src={icon} />}
+
+    {renderIcon && renderIcon()}
+
     <style jsx>{styles}</style>
   </button>
 );

@@ -7,6 +7,8 @@ export default css`
   padding: 0 35px;
 }
 
+.action-container { margin-top: 10px; }
+
 @media ${screenMedium} {
   .root {
     padding: 0;

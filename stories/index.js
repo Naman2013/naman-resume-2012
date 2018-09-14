@@ -19,6 +19,7 @@ import './InAppNavigation';
 import './LabeledTitleTiles';
 import './MissionAudio';
 import './ObjectDetailsSectionTitle';
+import './ObjectProfile';
 import './ResponsiveTwoColumnContainer';
 import './RevealSubmitForm';
 import './SubPageNavigation';

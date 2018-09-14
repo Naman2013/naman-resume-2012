@@ -8,7 +8,7 @@ const TopicContentList = ({
   list,
   theme,
   topicActionProps,
-  guideID,
+  guideId,
 }) => (
   <div style={theme} className="root">
     <AbelList list={list} />
@@ -17,7 +17,7 @@ const TopicContentList = ({
         topicActionProps.showActions &&
           <TopicActions
             {...topicActionProps}
-            guideID={guideID}
+            guideId={guideId}
           />
       }
     </div>
@@ -33,7 +33,7 @@ TopicContentList.propTypes = {
     followButtonIconURL: PropTypes.string.isRequired,
     showActions: PropTypes.bool.isRequired,
   }).isRequired,
-  guideID: PropTypes.string.isRequired,
+  guideId: PropTypes.string.isRequired,
 };
 
 TopicContentList.defaultProps = {

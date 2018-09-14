@@ -1089,14 +1089,14 @@ ShallowWrapper {
     "props": Object {
       "children": Array [
         <div
-          className="jsx-2180095966 title-wrapper"
+          className="jsx-2043866159 title-wrapper"
         >
           <RubyTitle
             text="Test"
           />
         </div>,
         <span
-          className="jsx-2180095966"
+          className="jsx-2043866159"
           dangerouslySetInnerHTML={
             Object {
               "__html": "Some sample content",
@@ -1104,30 +1104,30 @@ ShallowWrapper {
           }
         />,
         <div
-          className="jsx-2180095966 action-container"
+          className="jsx-2043866159 action-container"
         >
           <TopicActions
             followButtonIconURL=""
             followButtonText="test"
-            guideID="37"
+            guideId={undefined}
             showActions={true}
           />
         </div>,
         <JSXStyle
           css={
             Array [
-              ".root.jsx-2180095966{background:white;padding:20px 35px;}",
-              ".action-container.jsx-2180095966{display:none;}",
-              ".title-wrapper.jsx-2180095966{padding:15px 0;}",
-              ".root.jsx-2180095966 p{font-family:adobe-garamond-pro, serif;line-height:1.5;font-size:18px;}",
-              "@media screen and (min-width: 768px){.root.jsx-2180095966{padding:60px 40px;}.title-wrapper.jsx-2180095966{padding-bottom:40px;}.action-container.jsx-2180095966{display:block;}}",
-              "@media screen and (min-width: 1024px){.root.jsx-2180095966{padding:70px;width:90%;}.action-container.jsx-2180095966{display:none;}}",
+              ".root.jsx-2043866159{background:white;padding:20px 35px;}",
+              ".action-container.jsx-2043866159{margin-top:20px;display:none;}",
+              ".title-wrapper.jsx-2043866159{padding:15px 0;}",
+              ".root.jsx-2043866159 p{font-family:adobe-garamond-pro, serif;line-height:1.5;font-size:18px;}",
+              "@media screen and (min-width: 768px){.root.jsx-2043866159{padding:60px 40px;}.title-wrapper.jsx-2043866159{padding-bottom:40px;}.action-container.jsx-2043866159{display:block;}}",
+              "@media screen and (min-width: 1024px){.root.jsx-2043866159{padding:70px;width:90%;}.action-container.jsx-2043866159{display:none;}}",
             ]
           }
-          styleId="2180095966"
+          styleId="2043866159"
         />,
       ],
-      "className": "jsx-2180095966 root",
+      "className": "jsx-2043866159 root",
     },
     "ref": null,
     "rendered": Array [
@@ -1139,7 +1139,7 @@ ShallowWrapper {
           "children": <RubyTitle
             text="Test"
           />,
-          "className": "jsx-2180095966 title-wrapper",
+          "className": "jsx-2043866159 title-wrapper",
         },
         "ref": null,
         "rendered": Object {
@@ -1160,7 +1160,7 @@ ShallowWrapper {
         "key": undefined,
         "nodeType": "host",
         "props": Object {
-          "className": "jsx-2180095966",
+          "className": "jsx-2043866159",
           "dangerouslySetInnerHTML": Object {
             "__html": "Some sample content",
           },
@@ -1177,10 +1177,10 @@ ShallowWrapper {
           "children": <TopicActions
             followButtonIconURL=""
             followButtonText="test"
-            guideID="37"
+            guideId={undefined}
             showActions={true}
           />,
-          "className": "jsx-2180095966 action-container",
+          "className": "jsx-2043866159 action-container",
         },
         "ref": null,
         "rendered": Object {
@@ -1190,7 +1190,7 @@ ShallowWrapper {
           "props": Object {
             "followButtonIconURL": "",
             "followButtonText": "test",
-            "guideID": "37",
+            "guideId": undefined,
             "showActions": true,
           },
           "ref": null,
@@ -1205,14 +1205,14 @@ ShallowWrapper {
         "nodeType": "class",
         "props": Object {
           "css": Array [
-            ".root.jsx-2180095966{background:white;padding:20px 35px;}",
-            ".action-container.jsx-2180095966{display:none;}",
-            ".title-wrapper.jsx-2180095966{padding:15px 0;}",
-            ".root.jsx-2180095966 p{font-family:adobe-garamond-pro, serif;line-height:1.5;font-size:18px;}",
-            "@media screen and (min-width: 768px){.root.jsx-2180095966{padding:60px 40px;}.title-wrapper.jsx-2180095966{padding-bottom:40px;}.action-container.jsx-2180095966{display:block;}}",
-            "@media screen and (min-width: 1024px){.root.jsx-2180095966{padding:70px;width:90%;}.action-container.jsx-2180095966{display:none;}}",
+            ".root.jsx-2043866159{background:white;padding:20px 35px;}",
+            ".action-container.jsx-2043866159{margin-top:20px;display:none;}",
+            ".title-wrapper.jsx-2043866159{padding:15px 0;}",
+            ".root.jsx-2043866159 p{font-family:adobe-garamond-pro, serif;line-height:1.5;font-size:18px;}",
+            "@media screen and (min-width: 768px){.root.jsx-2043866159{padding:60px 40px;}.title-wrapper.jsx-2043866159{padding-bottom:40px;}.action-container.jsx-2043866159{display:block;}}",
+            "@media screen and (min-width: 1024px){.root.jsx-2043866159{padding:70px;width:90%;}.action-container.jsx-2043866159{display:none;}}",
           ],
-          "styleId": "2180095966",
+          "styleId": "2043866159",
         },
         "ref": null,
         "rendered": null,
@@ -1229,14 +1229,14 @@ ShallowWrapper {
       "props": Object {
         "children": Array [
           <div
-            className="jsx-2180095966 title-wrapper"
+            className="jsx-2043866159 title-wrapper"
           >
             <RubyTitle
               text="Test"
             />
           </div>,
           <span
-            className="jsx-2180095966"
+            className="jsx-2043866159"
             dangerouslySetInnerHTML={
               Object {
                 "__html": "Some sample content",
@@ -1244,30 +1244,30 @@ ShallowWrapper {
             }
           />,
           <div
-            className="jsx-2180095966 action-container"
+            className="jsx-2043866159 action-container"
           >
             <TopicActions
               followButtonIconURL=""
               followButtonText="test"
-              guideID="37"
+              guideId={undefined}
               showActions={true}
             />
           </div>,
           <JSXStyle
             css={
               Array [
-                ".root.jsx-2180095966{background:white;padding:20px 35px;}",
-                ".action-container.jsx-2180095966{display:none;}",
-                ".title-wrapper.jsx-2180095966{padding:15px 0;}",
-                ".root.jsx-2180095966 p{font-family:adobe-garamond-pro, serif;line-height:1.5;font-size:18px;}",
-                "@media screen and (min-width: 768px){.root.jsx-2180095966{padding:60px 40px;}.title-wrapper.jsx-2180095966{padding-bottom:40px;}.action-container.jsx-2180095966{display:block;}}",
-                "@media screen and (min-width: 1024px){.root.jsx-2180095966{padding:70px;width:90%;}.action-container.jsx-2180095966{display:none;}}",
+                ".root.jsx-2043866159{background:white;padding:20px 35px;}",
+                ".action-container.jsx-2043866159{margin-top:20px;display:none;}",
+                ".title-wrapper.jsx-2043866159{padding:15px 0;}",
+                ".root.jsx-2043866159 p{font-family:adobe-garamond-pro, serif;line-height:1.5;font-size:18px;}",
+                "@media screen and (min-width: 768px){.root.jsx-2043866159{padding:60px 40px;}.title-wrapper.jsx-2043866159{padding-bottom:40px;}.action-container.jsx-2043866159{display:block;}}",
+                "@media screen and (min-width: 1024px){.root.jsx-2043866159{padding:70px;width:90%;}.action-container.jsx-2043866159{display:none;}}",
               ]
             }
-            styleId="2180095966"
+            styleId="2043866159"
           />,
         ],
-        "className": "jsx-2180095966 root",
+        "className": "jsx-2043866159 root",
       },
       "ref": null,
       "rendered": Array [
@@ -1279,7 +1279,7 @@ ShallowWrapper {
             "children": <RubyTitle
               text="Test"
             />,
-            "className": "jsx-2180095966 title-wrapper",
+            "className": "jsx-2043866159 title-wrapper",
           },
           "ref": null,
           "rendered": Object {
@@ -1300,7 +1300,7 @@ ShallowWrapper {
           "key": undefined,
           "nodeType": "host",
           "props": Object {
-            "className": "jsx-2180095966",
+            "className": "jsx-2043866159",
             "dangerouslySetInnerHTML": Object {
               "__html": "Some sample content",
             },
@@ -1317,10 +1317,10 @@ ShallowWrapper {
             "children": <TopicActions
               followButtonIconURL=""
               followButtonText="test"
-              guideID="37"
+              guideId={undefined}
               showActions={true}
             />,
-            "className": "jsx-2180095966 action-container",
+            "className": "jsx-2043866159 action-container",
           },
           "ref": null,
           "rendered": Object {
@@ -1330,7 +1330,7 @@ ShallowWrapper {
             "props": Object {
               "followButtonIconURL": "",
               "followButtonText": "test",
-              "guideID": "37",
+              "guideId": undefined,
               "showActions": true,
             },
             "ref": null,
@@ -1345,14 +1345,14 @@ ShallowWrapper {
           "nodeType": "class",
           "props": Object {
             "css": Array [
-              ".root.jsx-2180095966{background:white;padding:20px 35px;}",
-              ".action-container.jsx-2180095966{display:none;}",
-              ".title-wrapper.jsx-2180095966{padding:15px 0;}",
-              ".root.jsx-2180095966 p{font-family:adobe-garamond-pro, serif;line-height:1.5;font-size:18px;}",
-              "@media screen and (min-width: 768px){.root.jsx-2180095966{padding:60px 40px;}.title-wrapper.jsx-2180095966{padding-bottom:40px;}.action-container.jsx-2180095966{display:block;}}",
-              "@media screen and (min-width: 1024px){.root.jsx-2180095966{padding:70px;width:90%;}.action-container.jsx-2180095966{display:none;}}",
+              ".root.jsx-2043866159{background:white;padding:20px 35px;}",
+              ".action-container.jsx-2043866159{margin-top:20px;display:none;}",
+              ".title-wrapper.jsx-2043866159{padding:15px 0;}",
+              ".root.jsx-2043866159 p{font-family:adobe-garamond-pro, serif;line-height:1.5;font-size:18px;}",
+              "@media screen and (min-width: 768px){.root.jsx-2043866159{padding:60px 40px;}.title-wrapper.jsx-2043866159{padding-bottom:40px;}.action-container.jsx-2043866159{display:block;}}",
+              "@media screen and (min-width: 1024px){.root.jsx-2043866159{padding:70px;width:90%;}.action-container.jsx-2043866159{display:none;}}",
             ],
-            "styleId": "2180095966",
+            "styleId": "2043866159",
           },
           "ref": null,
           "rendered": null,
@@ -1436,14 +1436,14 @@ ShallowWrapper {
             className="jsx-968165992 guide-container"
           >
             <TopicContentList
-              guideID={undefined}
+              guideId={undefined}
               list={Array []}
               theme={Object {}}
               topicActionProps={undefined}
             />
             <TopicBodyContent
               content={undefined}
-              guideID={undefined}
+              guideId={undefined}
               title={undefined}
               topicActionProps={undefined}
             />
@@ -1531,14 +1531,14 @@ ShallowWrapper {
             className="jsx-968165992 guide-container"
           >
             <TopicContentList
-              guideID={undefined}
+              guideId={undefined}
               list={Array []}
               theme={Object {}}
               topicActionProps={undefined}
             />
             <TopicBodyContent
               content={undefined}
-              guideID={undefined}
+              guideId={undefined}
               title={undefined}
               topicActionProps={undefined}
             />
@@ -1558,14 +1558,14 @@ ShallowWrapper {
           "props": Object {
             "children": Array [
               <TopicContentList
-                guideID={undefined}
+                guideId={undefined}
                 list={Array []}
                 theme={Object {}}
                 topicActionProps={undefined}
               />,
               <TopicBodyContent
                 content={undefined}
-                guideID={undefined}
+                guideId={undefined}
                 title={undefined}
                 topicActionProps={undefined}
               />,
@@ -1579,7 +1579,7 @@ ShallowWrapper {
               "key": undefined,
               "nodeType": "function",
               "props": Object {
-                "guideID": undefined,
+                "guideId": undefined,
                 "list": Array [],
                 "theme": Object {},
                 "topicActionProps": undefined,
@@ -1594,7 +1594,7 @@ ShallowWrapper {
               "nodeType": "function",
               "props": Object {
                 "content": undefined,
-                "guideID": undefined,
+                "guideId": undefined,
                 "title": undefined,
                 "topicActionProps": undefined,
               },
@@ -1681,14 +1681,14 @@ ShallowWrapper {
               className="jsx-968165992 guide-container"
             >
               <TopicContentList
-                guideID={undefined}
+                guideId={undefined}
                 list={Array []}
                 theme={Object {}}
                 topicActionProps={undefined}
               />
               <TopicBodyContent
                 content={undefined}
-                guideID={undefined}
+                guideId={undefined}
                 title={undefined}
                 topicActionProps={undefined}
               />
@@ -1776,14 +1776,14 @@ ShallowWrapper {
               className="jsx-968165992 guide-container"
             >
               <TopicContentList
-                guideID={undefined}
+                guideId={undefined}
                 list={Array []}
                 theme={Object {}}
                 topicActionProps={undefined}
               />
               <TopicBodyContent
                 content={undefined}
-                guideID={undefined}
+                guideId={undefined}
                 title={undefined}
                 topicActionProps={undefined}
               />
@@ -1803,14 +1803,14 @@ ShallowWrapper {
             "props": Object {
               "children": Array [
                 <TopicContentList
-                  guideID={undefined}
+                  guideId={undefined}
                   list={Array []}
                   theme={Object {}}
                   topicActionProps={undefined}
                 />,
                 <TopicBodyContent
                   content={undefined}
-                  guideID={undefined}
+                  guideId={undefined}
                   title={undefined}
                   topicActionProps={undefined}
                 />,
@@ -1824,7 +1824,7 @@ ShallowWrapper {
                 "key": undefined,
                 "nodeType": "function",
                 "props": Object {
-                  "guideID": undefined,
+                  "guideId": undefined,
                   "list": Array [],
                   "theme": Object {},
                   "topicActionProps": undefined,
@@ -1839,7 +1839,7 @@ ShallowWrapper {
                 "nodeType": "function",
                 "props": Object {
                   "content": undefined,
-                  "guideID": undefined,
+                  "guideId": undefined,
                   "title": undefined,
                   "topicActionProps": undefined,
                 },

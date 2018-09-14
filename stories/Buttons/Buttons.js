@@ -26,6 +26,13 @@ storiesOf('Buttons ', module)
   .add('Button without text', () => (
     <GenericButton onClickEvent={noop} icon="https://vega.slooh.com/assets/v4/common/comment.svg" />
   ))
+  .add('Button with looong text', () => (
+    <GenericButton
+      text="Purchase burnhams celestial handbook here..."
+      onClickEvent={noop}
+      icon="https://vega.slooh.com/assets/v4/common/comment.svg"
+    />
+  ))
   .add('LikeButton', () => (
     <LikeButton onClickEvent={noop} count="1" />
   ))
@@ -46,7 +53,7 @@ storiesOf('Buttons ', module)
       customerId="310006"
       likePrompt="You cannot like your own comment"
       likesCount={3}
-      showLikePrompt={true}
+      showLikePrompt
       user={{
         cid: '310006',
         at: '3',

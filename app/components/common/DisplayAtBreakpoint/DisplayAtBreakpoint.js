@@ -10,7 +10,8 @@ const DisplayAtBreakpoint = ({
   screenLarge,
   screenXLarge,
 }) => (
-  <div className={classnames('root', {
+  <div
+    className={classnames('root', {
     screenSmall,
     screenMedium,
     screenLarge,
