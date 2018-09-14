@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
+import { browserHistory } from 'react-router';
 import GenericButton from 'components/common/style/buttons/Button';
 import { horizontalArrow } from 'styles/variables/iconURLs';
 import style from './BestTelescope.style';
@@ -10,9 +11,9 @@ const TELESCOPE_INDEX = 'data-telescope-index';
 class BestTelescope extends Component {
   static propTypes = {
     telescopes: PropTypes.arrayOf(PropTypes.shape({
-      title: PropTypes.string.isRequired,
+      label: PropTypes.string.isRequired,
       description: PropTypes.string.isRequired,
-      linkURL: PropTypes.string.isRequired,
+      linkUrl: PropTypes.string.isRequired,
     })),
   };
 
@@ -36,23 +37,25 @@ class BestTelescope extends Component {
         <ul className="navigation">
           {this.props.telescopes
             .map((telescopeNav, index) => (
-              <li key={`best-telescopes-${telescopeNav.title}`}>
+              <li key={`best-telescopes-${telescopeNav.label}`}>
                 <button
-                  className={classnames({ active: this.state.activeTelescope === index })}
+                  className={classnames('action-tab', { active: this.state.activeTelescope === index })}
                   onClick={this.updateActiveTelescope}
                   data-telescope-index={index}
                 >
-                  {telescopeNav.title}
+                  {telescopeNav.label}
                 </button>
               </li>
             ))}
         </ul>
-        <p>{telescope.description}</p>
-        <GenericButton
-          onClickEvent={() => { window.location = telescope.linkURL; }}
-          text="Visit telescope"
-          icon={horizontalArrow}
-        />
+        <p className="description">{telescope.description}</p>
+        <div className="action-link-container">
+          <GenericButton
+            onClickEvent={() => { browserHistory.push(telescope.linkUrl); }}
+            text="Visit telescope"
+            icon={horizontalArrow}
+          />
+        </div>
         <style jsx>{style}</style>
       </div>
     );

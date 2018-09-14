@@ -6,11 +6,12 @@ import { resetMarginPadding } from 'styles/variables/utils';
 export default css`
   .root {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     ${resetMarginPadding}
     color: ${lightHeadedAstronaut};
-    padding: 35px;
+    padding: 30px;
     border-bottom: 1px solid;
+    min-height: 130px;
   }
 
   .positioning-container {
