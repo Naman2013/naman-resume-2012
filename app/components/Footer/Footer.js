@@ -1,7 +1,6 @@
 /***********************************
-* V4 Common Discussions Board Comments
+* V4 Footer
 *
-* we call for all replies and paginate on the front end.
 *
 ***********************************/
 
