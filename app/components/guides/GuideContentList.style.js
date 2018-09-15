@@ -17,7 +17,7 @@ export default css`
   @media ${screenLarge} {
     .root {
       width: 78%;
-      margin-top: 95px;
+      margin-top: 65px;
     }
   }
 `;
