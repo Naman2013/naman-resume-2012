@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
+import GridContainer from '../grid/GridContainer';
 import BestTelescope from './BestTelescope';
 import Row from '../grid/Row';
 import StaticCell from '../grid/StaticCell';
@@ -13,7 +13,7 @@ const ObjectProfile = ({
   bestTelescope,
   midnightCulmination,
 }) => (
-  <section className="object-details-grid">
+  <GridContainer>
     <Row>
       <StaticCell
         title="Scientific Name"
@@ -96,7 +96,7 @@ const ObjectProfile = ({
     </Row>
 
     <style jsx>{style}</style>
-  </section>
+  </GridContainer>
 );
 
 ObjectProfile.propTypes = {

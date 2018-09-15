@@ -10,14 +10,6 @@ export default css`
     color: ${lightHeadedAstronaut};
   }
 
-  .object-details-grid {
-    ${resetMarginPadding}
-    box-shadow: 0px 0px 3px 1px rgba(0,0,0,0.1);
-    background-color: ${romance};
-    font-family: ${secondaryFont};
-    font-size: 18px;
-  }
-
   .row {
     display: flex;
   }
