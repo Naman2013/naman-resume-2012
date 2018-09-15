@@ -12,10 +12,10 @@ const ObjectVisibilityProfile = () => (
       </StaticCell>
     </Row>
     <Row>
-      <StaticCell title="Rise">
+      <StaticCell title="Rise" hasBorderScale={[true]}>
         <p>6&#58;08 am</p>
       </StaticCell>
-      <StaticCell title="Transit">
+      <StaticCell title="Transit" hasBorderScale={[true]}>
         <p>10&#58;44 am</p>
       </StaticCell>
       <StaticCell title="Set">
