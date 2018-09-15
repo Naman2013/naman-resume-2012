@@ -18,7 +18,6 @@ const ObjectProfile = ({
       <StaticCell
         title="Scientific Name"
         flexScale={['100%']}
-        hasBorderScale={[true]}
       >
         <p>{scienceName}</p>
       </StaticCell>
