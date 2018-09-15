@@ -10,14 +10,31 @@ const bodyContent = `Mauris non tempor quam, et lacinia sapien. Mauris accumsan 
 Donec sit amet ligula eget nisi sodales egestas. Aliquam interdum dolor aliquet dolor  iaculis consequat at eget orci. Mauris moleistie sit amet metus loi mass imattis varius Donec sit amet ligula eget nisi sodales lorem a molestie bibendum. Etiam nisi anteni
 posuere vulputate. Etiam elit elit, elementum sed varius at.`;
 
+const topicActionProps = {
+  followButtonText: 'Follow',
+  followButtonIconURL: 'https://vega.slooh.com/assets/v4/common/plus_icon.svg',
+};
+
 const props = {
-  content: () => <GuideBodyContent title="About this guide" content={bodyContent} />,
-  column: () => (<GuideContentList list={['contains 10 objects', 'object type guide', 'beginners and up']} />),
+  guideId: '3',
+  content: () => (
+    <GuideBodyContent
+      title="About this guide"
+      content={bodyContent}
+      topicActionProps={topicActionProps}
+    />
+  ),
+  column: () => (
+    <GuideContentList
+      list={['contains 10 objects', 'object type guide', 'beginners and up']}
+      topicActionProps={topicActionProps}
+    />
+  ),
   alignContent: 'right',
 };
 
 storiesOf('GuideSection', module)
-  .add('Left', () => (
+  .add('default', () => (
     <DeviceProvider>
       <GuideSection {...props} />
     </DeviceProvider>
