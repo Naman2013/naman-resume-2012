@@ -1,4 +1,8 @@
-export const months = [
+export const DEFAULT_MONTH = 1;
+export const DEFAULT_DAY = 1;
+export const DEFAULT_YEAR = 2018;
+
+export const MONTHS = [
   { name: 'Jan', value: 1 },
   { name: 'Feb', value: 2 },
   { name: 'March', value: 3 },

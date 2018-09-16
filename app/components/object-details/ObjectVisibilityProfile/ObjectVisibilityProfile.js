@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import getDaysByMonth from 'utils/date-utils/get-days-by-month';
 import GridContainer from '../grid/GridContainer';
 import Row from '../grid/Row';
 import StaticCell from '../grid/StaticCell';
@@ -42,6 +43,17 @@ class ObjectVisibilityProfile extends Component {
     console.log(event.target.value);
   }
 
+  generateDays() {
+    const { month, year } = this.state;
+    const days = [];
+    const totalDays = getDaysByMonth(month, year);
+    for (let i = 0; i < totalDays; i += 1) {
+      const value = i + 1;
+      days.push({ value, name: value });
+    }
+    return days;
+  }
+
   render() {
     return (
       <GridContainer theme={{ margin: '20px 0 0 0' }}>
@@ -50,30 +62,26 @@ class ObjectVisibilityProfile extends Component {
         >
           <Row>
             <StaticCell title="Rise &#38; set times">
-              <select onChange={this.handleMonthChange} id="month-select">
+              <select value={this.state.month} onChange={this.handleMonthChange} id="month-select">
                 {MONTHS.map(month => (
                   <option
-                    key={`month-select-${month}`}
+                    key={`month-select-${month.value}`}
                     value={month.value}
-                    selected={this.state.month === month.value}
                   >
                     {month.name}
-                  </option>))}
+                  </option>
+                ))}
               </select>
 
               <select onChange={this.handleChangeDay} id="day-select">
-                <option value="01">1</option>
-                <option value="02">2</option>
-                <option value="03">3</option>
-                <option value="04">4</option>
-                <option value="05">5</option>
-                <option value="06">6</option>
-                <option value="07">7</option>
-                <option value="08">8</option>
-                <option value="09">9</option>
-                <option value="10">10</option>
-                <option value="11">11</option>
-                <option value="12">12</option>
+                {this.generateDays().map(day => (
+                  <option
+                    key={`day-select-${day.value}`}
+                    value={day.value}
+                  >
+                    {day.name}
+                  </option>
+                ))}
               </select>
 
               <select onChange={this.handleChangeYear} id="year-select">
