@@ -10,8 +10,8 @@ import {
   DEFAULT_DAY,
   DEFAULT_YEAR,
   MONTHS,
+  YEARS,
 } from './constants';
-
 
 class ObjectVisibilityProfile extends Component {
   static propTypes = {
@@ -84,13 +84,14 @@ class ObjectVisibilityProfile extends Component {
               </select>
 
               <select value={this.state.year} onChange={this.handleYearChange}>
-                <option value="2004">2004</option>
-                <option value="2019">2019</option>
-                <option value="2020">2020</option>
-                <option value="2021">2021</option>
-                <option value="2022">2022</option>
-                <option value="2023">2023</option>
-                <option value="2024">2024</option>
+                {YEARS.map(year => (
+                  <option
+                    key={`year-select-${year.value}`}
+                    value={year.value}
+                  >
+                    {year.name}
+                  </option>
+                ))}
               </select>
             </StaticCell>
           </Row>
