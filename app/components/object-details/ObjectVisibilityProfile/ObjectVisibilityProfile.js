@@ -1,6 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import getDaysByMonth from 'utils/date-utils/get-days-by-month';
+import Request from 'components/common/network/Request';
+import { RISE_SET_TIMES } from 'services/objects';
 import GridContainer from '../grid/GridContainer';
 import Row from '../grid/Row';
 import StaticCell from '../grid/StaticCell';
@@ -57,63 +59,85 @@ class ObjectVisibilityProfile extends Component {
   }
 
   render() {
+    const {
+      day,
+      month,
+      year,
+      objectId,
+      obsId,
+    } = this.state;
+
     return (
       <GridContainer theme={{ margin: '20px 0 0 0' }}>
         <form
           method="POST"
         >
-          <Row>
-            <StaticCell title="Rise &#38; set times">
-              <select value={this.state.month} onChange={this.handleMonthChange}>
-                {MONTHS.map(month => (
-                  <option
-                    key={`month-select-${month.value}`}
-                    value={month.value}
-                  >
-                    {month.name}
-                  </option>
-                ))}
-              </select>
+          <Request
+            serviceURL={RISE_SET_TIMES}
+            requestBody={{
+              day,
+              month,
+              year,
+              objectId,
+              obsId,
+            }}
+            render={() => (
+              <Fragment>
+                <Row>
+                  <StaticCell title="Rise &#38; set times">
+                    <select value={this.state.month} onChange={this.handleMonthChange}>
+                      {MONTHS.map(currentMonth => (
+                        <option
+                          key={`month-select-${currentMonth.value}`}
+                          value={currentMonth.value}
+                        >
+                          {currentMonth.name}
+                        </option>
+                      ))}
+                    </select>
 
-              <select value={this.state.day} onChange={this.handleDayChange}>
-                {this.generateDays().map(day => (
-                  <option
-                    key={`day-select-${day.value}`}
-                    value={day.value}
-                  >
-                    {day.name}
-                  </option>
-                ))}
-              </select>
+                    <select value={this.state.day} onChange={this.handleDayChange}>
+                      {this.generateDays().map(currentDay => (
+                        <option
+                          key={`day-select-${currentDay.value}`}
+                          value={currentDay.value}
+                        >
+                          {currentDay.name}
+                        </option>
+                      ))}
+                    </select>
 
-              <select value={this.state.year} onChange={this.handleYearChange}>
-                {YEARS.map(year => (
-                  <option
-                    key={`year-select-${year.value}`}
-                    value={year.value}
-                  >
-                    {year.name}
-                  </option>
-                ))}
-              </select>
-            </StaticCell>
-          </Row>
-          <Row>
-            <StaticCell title="Rise" hasBorderScale={[true]}>
-              <p>6&#58;08 am</p>
-            </StaticCell>
-            <StaticCell title="Transit" hasBorderScale={[true]}>
-              <p>10&#58;44 am</p>
-            </StaticCell>
-            <StaticCell title="Set">
-              <p>3&#58;18 pm</p>
-            </StaticCell>
-          </Row>
-          <Row>
-            <StaticCell title="Notes">
-              <p>Slightly difficult to see...</p>
-            </StaticCell>
-          </Row>
+                    <select value={this.state.year} onChange={this.handleYearChange}>
+                      {YEARS.map(currentYear => (
+                        <option
+                          key={`year-select-${currentYear.value}`}
+                          value={currentYear.value}
+                        >
+                          {currentYear.name}
+                        </option>
+                      ))}
+                    </select>
+                  </StaticCell>
+                </Row>
+                <Row>
+                  <StaticCell title="Rise" hasBorderScale={[true]}>
+                    <p>6&#58;08 am</p>
+                  </StaticCell>
+                  <StaticCell title="Transit" hasBorderScale={[true]}>
+                    <p>10&#58;44 am</p>
+                  </StaticCell>
+                  <StaticCell title="Set">
+                    <p>3&#58;18 pm</p>
+                  </StaticCell>
+                </Row>
+                <Row>
+                  <StaticCell title="Notes">
+                    <p>Slightly difficult to see...</p>
+                  </StaticCell>
+                </Row>
+              </Fragment>
+            )}
+          />
         </form>
       </GridContainer>
     );
