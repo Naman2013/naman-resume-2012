@@ -20,8 +20,6 @@ class ObjectVisibilityProfile extends Component {
   }
 
   state = {
-    riseAndSetTimeAPIResponse: undefined,
-    fetching: false,
     month: DEFAULT_MONTH,
     day: DEFAULT_DAY,
     year: DEFAULT_YEAR,
