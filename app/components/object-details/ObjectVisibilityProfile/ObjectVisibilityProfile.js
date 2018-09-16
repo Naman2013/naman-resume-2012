@@ -30,15 +30,16 @@ class ObjectVisibilityProfile extends Component {
   }
 
   handleMonthChange = (event) => {
-    this.setState(() => ({ month: event.target.value }));
+    this.setState({ month: event.target.value, day: DEFAULT_DAY });
   }
 
   handleDayChange = (event) => {
     console.log(event.target.value);
+    this.setState({ day: event.target.value });
   }
 
   handleYearChange = (event) => {
-    console.log(event.target.value);
+    this.setState({ year: event.target.value });
   }
 
   generateDays() {
@@ -60,7 +61,7 @@ class ObjectVisibilityProfile extends Component {
         >
           <Row>
             <StaticCell title="Rise &#38; set times">
-              <select value={this.state.month} onChange={this.handleMonthChange} id="month-select">
+              <select value={this.state.month} onChange={this.handleMonthChange}>
                 {MONTHS.map(month => (
                   <option
                     key={`month-select-${month.value}`}
@@ -71,7 +72,7 @@ class ObjectVisibilityProfile extends Component {
                 ))}
               </select>
 
-              <select onChange={this.handleChangeDay} id="day-select">
+              <select value={this.state.day} onChange={this.handleDayChange}>
                 {this.generateDays().map(day => (
                   <option
                     key={`day-select-${day.value}`}
@@ -82,7 +83,7 @@ class ObjectVisibilityProfile extends Component {
                 ))}
               </select>
 
-              <select onChange={this.handleChangeYear} id="year-select">
+              <select value={this.state.year} onChange={this.handleYearChange}>
                 <option value="2004">2004</option>
                 <option value="2019">2019</option>
                 <option value="2020">2020</option>
