@@ -30,11 +30,10 @@ class ObjectVisibilityProfile extends Component {
   }
 
   handleMonthChange = (event) => {
-    this.setState({ month: event.target.value, day: DEFAULT_DAY });
+    this.setState({ month: event.target.value });
   }
 
   handleDayChange = (event) => {
-    console.log(event.target.value);
     this.setState({ day: event.target.value });
   }
 
@@ -43,13 +42,17 @@ class ObjectVisibilityProfile extends Component {
   }
 
   generateDays() {
-    const { month, year } = this.state;
+    const { day, month, year } = this.state;
     const days = [];
     const totalDays = getDaysByMonth(month, year);
     for (let i = 0; i < totalDays; i += 1) {
       const value = i + 1;
       days.push({ value, name: value });
     }
+
+    // validation for when the selected day exceeds the total days
+    if (day > totalDays) { this.setState({ day: totalDays }); }
+
     return days;
   }
 
