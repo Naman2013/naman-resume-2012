@@ -10,15 +10,14 @@ const sliderConfiguration = {
 };
 
 const getRecommendedStoriesItems = (storiesList = []) =>
-storiesList.map(object => 
-    
-    <StoryTile
-      key={uniqueId()}
-      iconURL={object.iconURL}
-      title={object.title}
-      author={'BY ' + object.author}
-    />
-)
+storiesList.map(object => ({
+  render: () => (<StoryTile
+    key={uniqueId()}
+    iconURL={object.iconURL}
+    title={object.title}
+    author={'BY ' + object.author}
+  />),
+}));
 
 export const getSliderConfiguration = (slideList = []) => (
   Object.assign({

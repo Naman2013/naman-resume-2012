@@ -20,20 +20,21 @@ const {
   string,
 } = PropTypes;
 
-const Observations = ({
-}) => (<Request
-  serviceURL={SHARED_MEMBER_PHOTOS}
-  method="POST"
-  render={({
-    fetchingContent,
-    serviceResponse,
-  }) => {
-    const sliderConfig = getSliderConfiguration(serviceResponse.imageList);
-    return (
-      <div className="root">
-        <SloohSlider {...sliderConfig} />
-      </div>)
-  }}
-/>);
+const Observations = () => (
+  <Request
+    serviceURL={SHARED_MEMBER_PHOTOS}
+    method="POST"
+    render={({
+      fetchingContent,
+      serviceResponse,
+    }) => {
+      const sliderConfig = getSliderConfiguration(serviceResponse.imageList);
+
+      return (
+        <div className="root">
+          <SloohSlider {...sliderConfig} />
+        </div>)
+    }}
+  />);
 
 export default Observations;

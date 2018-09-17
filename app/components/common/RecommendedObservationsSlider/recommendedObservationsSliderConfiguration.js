@@ -9,8 +9,11 @@ const sliderConfiguration = {
   emptyMessage: 'There are no recommended observations.',
 };
 
-const getRecommendedObservationsItems = (imageList = []) =>
-imageList.map(object => <RecommendedObservationSliderItem key={uniqueId()} {...object} />)
+const getRecommendedObservationsItems = (imageList = []) => {
+  return imageList.map(object => ({
+    render: (sliderProps) =>  <RecommendedObservationSliderItem key={uniqueId()} {...sliderProps} {...object}  />,
+  }))
+}
 
 export const getSliderConfiguration = (slideList = []) => (
   Object.assign({
