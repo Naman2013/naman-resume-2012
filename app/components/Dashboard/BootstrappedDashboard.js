@@ -1,5 +1,5 @@
 /***********************************
-* V4 Dashboard for a signed in user with request information
+* V4 Dashboard with request information
 *
 *
 *
@@ -10,7 +10,7 @@ import uniqueId from 'lodash/uniqueId';
 import TourPopup from './tour-popup/TourPopup';
 import PromoPanel from 'components/home/promo-panel';
 import { getSectionComponent } from './dashboardPanelItemsConfiguration';
-
+import DashNav from './nav/DashboardNav';
 // import { connect } from 'react-redux';
 
 const {
@@ -154,30 +154,7 @@ class BootstrappedDashboard extends Component {
           promoArray.map(promoObject => <PromoPanel {...promoObject} key={uniqueId()} />) : null
         }
         <div className="dash-nav">
-          <div className="dash-nav-item">
-            <img alt="missions" src="https://vega.slooh.com/assets/v4/dashboard/icon_missions.svg" />
-            <div>missions</div>
-          </div>
-          <div className="dash-nav-item">
-            <img alt="guides" src="https://vega.slooh.com/assets/v4/dashboard/icon_guides.svg" />
-            <div>guides</div>
-          </div>
-          <div className="dash-nav-item">
-            <img alt="quests" src="https://vega.slooh.com/assets/v4/dashboard/icon_quests.svg" />
-            <div>quests</div>
-          </div>
-          <div className="dash-nav-item">
-            <img alt="shows" src="https://vega.slooh.com/assets/v4/dashboard/icon_shows.svg" />
-            <div>shows</div>
-            </div>
-          <div className="dash-nav-item">
-            <img alt="stories" src="https://vega.slooh.com/assets/v4/dashboard/icon_stories.svg" />
-            <div>stories</div>
-          </div>
-          <div className="dash-nav-item">
-            <img alt="groups" src="https://vega.slooh.com/assets/v4/dashboard/icon_groups.svg" />
-            <div>groups</div>
-          </div>
+          <DashNav />
         </div>
 
         {sectionOrder.map((section, i) => (
@@ -204,36 +181,12 @@ class BootstrappedDashboard extends Component {
             transition: height ease-in-out 0.3s;
           }
           .dash-nav {
-            position:absolute;
+            position: absolute;
             top: 687px;
-            background-color: rgba(0, 0, 0, 0.2);
-            box-shadow: inset 0 40px 40px -7px rgba(0,0,0,0.3);
             height: 160px;
             width: 100%;
-            font-weight: 400;
-            text-transform: uppercase;
-            font-size: 11px;
-            letter-spacing: 1px;
-            color: white;
-            display: flex;
-            justify-content: space-evenly;
-            transition: height ease-in-out 0.3s;
           }
-          .dash-nav-item {
-            text-align: center;
-            height: 100%;
-            width: 17%;
-          }
-          .dash-nav-item + .dash-nav-item {
-            border-left: solid 2px #171F29;
-          }
-          .dash-nav-item img {
-            height: 30px;
-            margin: 50px 0 30px 0;
-          }
-          .dash-nav-item div:hover {
-            font-weight: 600;
-          }
+
 
           @media all and (min-width: 641px) and (max-width: 768px) {
             .dash-hero {

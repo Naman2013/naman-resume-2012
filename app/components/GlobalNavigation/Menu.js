@@ -14,7 +14,7 @@ const propTypes = {
   handleClose: PropTypes.func.isRequired,
   title: PropTypes.string,
   render: PropTypes.func.isRequired,
-  width: PropTypes.number,
+  width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   width: PropTypes.string,
 };
 
