@@ -13,12 +13,13 @@ import { bindActionCreators } from 'redux';
 import { DeviceContext } from 'providers/DeviceProvider';
 import Header from 'components/community-groups/overview/header';
 import FullInformationOverview from 'components/community-groups/overview/full-information-container';
+import CenterColumn from 'components/common/CenterColumn';
 import {
   joinOrLeaveGroup,
 } from 'modules/community-groups/actions';
 import {
   astronaut,
-  romance,
+  seashell,
 } from 'styles/variables/colors_tiles_v4';
 import {
   SCREEN_SMALL,
@@ -107,40 +108,30 @@ class CommunityGroupOverview extends Component {
     } = this.props;
     return (
       <div className="root">
-        <Header
-          showInformation={this.showInformation}
-          joinOrLeaveGroup={this.joinLeaveGroup}
-          discussionGroupId={groupId}
-          {...communityGroupOverview}
-          {...pageMeta}
-        />
-        <DeviceContext.Consumer>
-          {context => (
-            <FullInformationOverview
-              joinOrLeaveGroup={this.joinLeaveGroup}
-              context={context}
-              discussionGroupId={groupId}
-            />
-          )}
-        </DeviceContext.Consumer>
+        <CenterColumn>
+          <Header
+            showInformation={this.showInformation}
+            joinOrLeaveGroup={this.joinLeaveGroup}
+            discussionGroupId={groupId}
+            {...communityGroupOverview}
+            {...pageMeta}
+          />
+          <DeviceContext.Consumer>
+            {context => (
+              <FullInformationOverview
+                joinOrLeaveGroup={this.joinLeaveGroup}
+                context={context}
+                discussionGroupId={groupId}
+              />
+            )}
+          </DeviceContext.Consumer>
+        </CenterColumn>
         <style jsx>{`
           .root {
-            margin: 0 auto;
-            width: ${SCREEN_SMALL}px;
             color: ${astronaut};
-            background-color: ${romance};
+            background-color: ${seashell};
           }
-          @media ${screenMedium} {
-            .root {
-              width: ${SCREEN_MEDIUM}px;
-            }
-          }
-          @media ${screenLarge} {
-            .root {
-              margin-top: 25px;
-              width: ${SCREEN_LARGE}px;
-            }
-          }
+
         `}</style>
       </div>
     )

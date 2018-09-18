@@ -15,6 +15,8 @@ import {
 import { screenLarge } from 'styles/variables/breakpoints';
 import { createActivity } from '../../../modules/community-group-activity-list/actions';
 import { fetchGroupMembers } from 'modules/community-group-overview/actions';
+import ResponsiveTwoColumnContainer from 'components/ResponsiveTwoColumnContainer';
+import TwoTabbedNav from 'components/TwoTabbedNav';
 
 import MembersList from './members-list';
 import DiscussionsBoard from 'components/common/DiscussionsBoard';
@@ -111,10 +113,32 @@ class FullInformationOverview extends Component {
       topicId: pageMeta.topicId,
       user,
     };
-
     return (
       <div className="root">
-          <div className="flex-child left-container">
+        <ResponsiveTwoColumnContainer
+          renderNavigationComponent={navProps =>
+            (<TwoTabbedNav
+              firstTitle="Activity"
+              secondTitle="Members"
+              firstTabIsActive={navProps.showMainContainer}
+              firstTabOnClick={navProps.onShowMainContainer}
+              secondTabIsActive={navProps.showAsideContainer}
+              secondTabOnClick={navProps.onShowAsideContainer}
+            />)
+          }
+          renderAsideContent={() => (<div>
+              <MembersList
+                membersSort={membersSort}
+                membersList={membersList}
+                membersCount={membersCount}
+                discussionGroupId={discussionGroupId}
+                fetchGroupMembers={actions.fetchGroupMembers}
+                isDesktop={context.isDesktop}
+              />
+            </div>)
+          }
+          isScreenLarge={context.isScreenLarge}
+          renderMainContent={() => (<div className="discuss-container">
             <DiscussionsBoard
               errorMessage="There was an error fetching list"
               topicId={pageMeta.topicId}
@@ -123,44 +147,18 @@ class FullInformationOverview extends Component {
               createThread={actions.createActivity}
               createThreadFormParams={createThreadFormParams}
             />
-          </div>
-          <aside className="flex-child right-container">
-            <MembersList
-              membersSort={membersSort}
-              membersList={membersList}
-              membersCount={membersCount}
-              discussionGroupId={discussionGroupId}
-              fetchGroupMembers={actions.fetchGroupMembers}
-              isDesktop={context.isDesktop}
-            />
-          </aside>
+          </div>)}
+        />
+
       <style jsx>{`
         .root {
-          display: flex;
-          flex-direction: row;
-          flex-wrap: wrap;
         }
 
-        .left-container {
-          width: 100%;
+        .discuss-container {
+          margin-top: 15px;
         }
 
-        .right-container {
-          display: none;
-        }
 
-        @media ${screenLarge} {
-          .left-container {
-            width: 674px;
-            padding: 15px 0;
-          }
-
-          .right-container {
-            display: block;
-            width: 350px;
-          }
-
-        }
 
 
       `}</style>

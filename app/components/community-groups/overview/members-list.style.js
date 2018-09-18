@@ -13,6 +13,7 @@ export default css`
   .members-list {
     margin: 15px 0;
     margin-left: 15px;
+    background-color: ${romance};
   }
   .members-container {
     display: flex;

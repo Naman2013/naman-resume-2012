@@ -124,6 +124,10 @@ class ResponsiveTwoColumnContainer extends Component {
           display: flex;
         }
 
+        .left-container {
+          margin: 0 auto;
+        }
+
         .split-nav {
           display: none;
           width: 100%;

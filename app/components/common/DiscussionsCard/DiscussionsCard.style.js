@@ -25,6 +25,8 @@ export default css`
     padding: 25px;
     font-family: ${primaryFont};
     color: ${astronaut};
+    text-transform: uppercase;
+
   }
 
   .user-info, .user-info-container {
@@ -34,6 +36,7 @@ export default css`
     align-items: center;
     text-transform: uppercase;
     font-weight: bold;
+    text-transform: uppercase;
   }
 
   .user-info-container {
@@ -51,6 +54,7 @@ export default css`
     font-size: 19px;
     color: ${astronaut};
     padding: 25px 0;
+    text-transform:none;
   }
 
   .date {
@@ -69,6 +73,7 @@ export default css`
     flex-direction: row;
     justify-content: space-evenly;
     min-width: 100px;
+    align-items: center;
   }
 
 

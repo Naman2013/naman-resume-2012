@@ -11,7 +11,7 @@ import pick from 'lodash/pick';
 import LabeledTitleTiles from 'components/common/style/LabeledTitleTiles';
 import LargeButtonWithRightIcon from 'components/common/style/buttons/LargeButtonWithRightIcon';
 import Button from 'components/common/style/buttons/Button';
-import { astronaut, romance, white_tile_paper } from 'styles/variables/colors_tiles_v4';
+import { astronaut, romance, white_tile_paper, nightfall } from 'styles/variables/colors_tiles_v4';
 import { secondaryFont } from 'styles/variables/fonts';
 import {
   screenMedium,
@@ -34,7 +34,12 @@ const GroupsHeader = ({
 }) => (
   <div className="root">
     <div className="image-and-main-container">
-      <div className="groups-header-image"></div>
+      <div className="groups-header-image">
+        <img
+          className="header-img"
+          src="https://s3.amazonaws.com/webassets-slooh-com/assets/v4/icons/Group_Graphic_Placeholder.png"
+        />
+      </div>
       <div className="main-container">
         <div className="groups-header-title desktop-hide" dangerouslySetInnerHTML={{ __html: title }} />
         <LabeledTitleTiles tiles={subtitleList} />
@@ -78,11 +83,18 @@ const GroupsHeader = ({
         padding: 0 30px;
       }
 
+      .header-img {
+        height: 65%;
+        margin-top: 50%;
+        transform: translateY(-90%);
+      }
+
       .groups-header-image {
         margin: 0 auto;
         height: 200px;
         width: 300px;
-        background-color: ${astronaut};
+        background-color: ${nightfall};
+        text-align: center;
       }
 
       .groups-header-title {
@@ -163,7 +175,7 @@ const GroupsHeader = ({
         }
 
         .info-inner-container {
-          width: 480px;
+          width: 300px;
           margin: 0 auto;
         }
 

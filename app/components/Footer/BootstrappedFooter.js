@@ -45,10 +45,11 @@ Footer.propTypes = {
     name: PropTypes.string,
     link: PropTypes.string,
   })),
-  copyrightText: PropTypes.string.isRequired,
+  copyrightText: PropTypes.string,
 };
 
 Footer.defaultProps = {
+  copyrightText: '',
   primaryLinks: [],
 };
 
