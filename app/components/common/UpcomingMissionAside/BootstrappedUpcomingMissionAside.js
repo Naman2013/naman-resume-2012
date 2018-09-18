@@ -62,6 +62,7 @@ BootstrappedUpcomingMissionAside.defaultProps = {
   hasUpcomingMissions: false,
   isDesktop: false,
   title: '',
+  upcomingMissionArray: [],
 
 };
 
