@@ -16,7 +16,7 @@ const mapStateToProps = ({ routing: { locationBeforeTransitions: { key } }, user
 @connect(mapStateToProps, null)
 class GlobalNavigation extends Component {
   static propTypes = {
-    routeKey: PropTypes.string.isRequired,
+    routeKey: PropTypes.string,
   };
 
   state = {

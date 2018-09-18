@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import MissionDetailList from 'components/common/MissionDetailList';
 import MissionImageDetailList from 'components/common/MissionImageDetailList';
+import MissionSnapDetails from 'components/common/MissionSnapDetails';
 import ObserverInfo from 'components/ObserverInfo';
 import ObjectDetailList from 'components/common/ObjectDetailList';
 
@@ -21,6 +22,8 @@ const AsideContainer = ({
   gravityRankLabel,
   isDesktop,
   objectId,
+  obsId,
+  domeId,
   scheduledMissionId,
   showMissionRelatedInfo,
 }) => (
@@ -51,6 +54,13 @@ const AsideContainer = ({
       <MissionImageDetailList
         isDesktop={isDesktop}
         scheduledMissionId={scheduledMissionId}
+      />
+    </div> : null}
+    {showMissionRelatedInfo ? <div>
+      <MissionSnapDetails
+        isDesktop={isDesktop}
+        obsId={obsId}
+        domeId={domeId}
       />
     </div> : null}
   </div>

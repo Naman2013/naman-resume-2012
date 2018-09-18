@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 import PropTypes from 'prop-types';
+import uniqueId from 'lodash/uniqueId';
 import SocialMenu from 'components/GlobalNavigation/Menus/partials/SocialMenu';
 import style from './Footer.style';
 
@@ -13,7 +14,7 @@ const Footer = ({
       <div dangerouslySetInnerHTML={{ __html: copyrightText }} />
       <ul className="buttons">
         {primaryLinks.map(item => (
-          <li>
+          <li key={uniqueId()}>
             <Link to={item.link}><span className="action">{item.name}</span></Link>
           </li>
         ))}
