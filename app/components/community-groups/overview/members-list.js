@@ -57,8 +57,8 @@ class GroupMemberList extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { count, membersList } = this.props;
-    if (membersList.length !== nextProps.membersList.length) {
+    const { count, membersList, membersSort } = this.props;
+    if (membersList.length !== nextProps.membersList.length || (membersSort !== nextProps.membersSort)) {
       const displayedMembers = take([].concat(nextProps.membersList), nextProps.count)
         .map(member => member.customerId);
         this.setState({
