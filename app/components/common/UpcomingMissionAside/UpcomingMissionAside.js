@@ -8,7 +8,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Request from 'components/common/network/Request';
-import BootstrappedMissionSnapDetails from './BootstrappedMissionSnapDetails';
+import BootstrappedUpcomingMissionAside from './BootstrappedUpcomingMissionAside';
 import { UPCOMING_MISSION } from 'services/reservations';
 
 const {
@@ -19,9 +19,11 @@ const {
 } = PropTypes;
 
 const MissionSnapDetails = ({
+  domeId,
   isDesktop,
   obsId,
-  domeId,
+  title,
+  telescope,
 }) => (
   <Request
     authorizationRedirect={true}
@@ -30,18 +32,21 @@ const MissionSnapDetails = ({
     serviceExpiresFieldName="expires"
     requestBody={{
       domeId,
+      obsId,
     }}
     render={({
       fetchingContent,
       serviceResponse,
     }) => (
       <div>
-        {<BootstrappedMissionSnapDetails
-          isDesktop={isDesktop}
-          fetching={fetchingContent}
-          obsId={obsId}
-          domeId={domeId}
+        {<BootstrappedUpcomingMissionAside
           {...serviceResponse}
+          domeId={domeId}
+          fetching={fetchingContent}
+          isDesktop={isDesktop}
+          obsId={obsId}
+          title={title}
+          telescope={telescope}
         />}
       </div>
     )}
