@@ -5,7 +5,7 @@
  *
  ***********************************/
 
-import React, { Component } from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import BlueLineDrop from 'components/common/BlueLineDrop';
@@ -34,17 +34,19 @@ const BootstrappedUpcomingMissionAside = ({
         }
         const momentTime = moment(time);
         return (
-          <div className="root">
-            <h5 className="title">{upcomingMissionArray[0].upcomingTitle}</h5>
-            {time ? <div className="thyme-container">
-              <div className="thyme">{momentTime.format('HH:mm')}<span className="utc">UTC</span>
+          <Fragment>
+            {upcomingMissionArray[0] ? <div className="root">
+              <h5 className="title">{upcomingMissionArray[0].upcomingTitle}</h5>
+              {time ? <div className="thyme-container">
+                <div className="thyme">{momentTime.format('HH:mm')}<span className="utc">UTC</span>
+                </div>
+              </div> : null}
+              <div className="bottom">
+                <div className="dat">{momentTime.format('ddd. MMM. DD')}</div>
+                <div className="telescope">{telescope}</div>
               </div>
-            </div> : null}
-            <div className="bottom">
-              <div className="dat">{momentTime.format('ddd. MMM. DD')}</div>
-              <div className="telescope">{telescope}</div>
-            </div>
-        </div>
+          </div> : null}
+        </Fragment>
         );
       }}
     />
