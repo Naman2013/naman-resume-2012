@@ -14,7 +14,10 @@ const TopicBodyContent = ({
     <div className="title-wrapper">
       <RubyTitle text={title} />
     </div>
-    <span dangerouslySetInnerHTML={{ __html: content }} />
+    <span
+      className="cms-content"
+      dangerouslySetInnerHTML={{ __html: content }}
+    />
     <div className="action-container">
       {
         topicActionProps.showActions &&

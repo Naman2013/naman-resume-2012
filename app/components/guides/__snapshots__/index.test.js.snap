@@ -2,6 +2,7 @@
 
 exports[`FeaturedGallery should render correctly 1`] = `
 ShallowWrapper {
+  "length": 1,
   Symbol(enzyme.__root__): [Circular],
   Symbol(enzyme.__unrendered__): <FeaturedGallery
     items={Array []}
@@ -10,7 +11,6 @@ ShallowWrapper {
     "batchedUpdates": [Function],
     "getNode": [Function],
     "render": [Function],
-    "simulateError": [Function],
     "simulateEvent": [Function],
     "unmount": [Function],
   },
@@ -53,11 +53,13 @@ ShallowWrapper {
             "_context": [Circular],
           },
           "_calculateChangedBits": null,
+          "_changedBits": 0,
+          "_changedBits2": 0,
           "_currentRenderer": null,
           "_currentRenderer2": null,
           "_currentValue": undefined,
           "_currentValue2": undefined,
-          "unstable_read": [Function],
+          "_defaultValue": undefined,
         },
       },
       Object {
@@ -117,11 +119,13 @@ ShallowWrapper {
               "_context": [Circular],
             },
             "_calculateChangedBits": null,
+            "_changedBits": 0,
+            "_changedBits2": 0,
             "_currentRenderer": null,
             "_currentRenderer2": null,
             "_currentValue": undefined,
             "_currentValue2": undefined,
-            "unstable_read": [Function],
+            "_defaultValue": undefined,
           },
         },
         Object {
@@ -146,26 +150,15 @@ ShallowWrapper {
     "adapter": ReactSixteenAdapter {
       "options": Object {
         "enableComponentDidUpdateOnSetState": true,
-        "lifecycles": Object {
-          "componentDidUpdate": Object {
-            "onSetState": true,
-          },
-          "getDerivedStateFromProps": true,
-          "getSnapshotBeforeUpdate": true,
-          "setState": Object {
-            "skipsComponentDidUpdateOnNullish": true,
-          },
-        },
       },
     },
-    "attachTo": undefined,
-    "hydrateIn": undefined,
   },
 }
 `;
 
 exports[`GuideBodyContent should render correctly 1`] = `
 ShallowWrapper {
+  "length": 1,
   Symbol(enzyme.__root__): [Circular],
   Symbol(enzyme.__unrendered__): <GuideBodyContent
     content="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
@@ -177,7 +170,6 @@ ShallowWrapper {
     "batchedUpdates": [Function],
     "getNode": [Function],
     "render": [Function],
-    "simulateError": [Function],
     "simulateEvent": [Function],
     "unmount": [Function],
   },
@@ -437,26 +429,15 @@ ShallowWrapper {
     "adapter": ReactSixteenAdapter {
       "options": Object {
         "enableComponentDidUpdateOnSetState": true,
-        "lifecycles": Object {
-          "componentDidUpdate": Object {
-            "onSetState": true,
-          },
-          "getDerivedStateFromProps": true,
-          "getSnapshotBeforeUpdate": true,
-          "setState": Object {
-            "skipsComponentDidUpdateOnNullish": true,
-          },
-        },
       },
     },
-    "attachTo": undefined,
-    "hydrateIn": undefined,
   },
 }
 `;
 
 exports[`GuideTopics should render correctly 1`] = `
 ShallowWrapper {
+  "length": 1,
   Symbol(enzyme.__root__): [Circular],
   Symbol(enzyme.__unrendered__): <GuideTopics
     list={
@@ -476,7 +457,6 @@ ShallowWrapper {
     "batchedUpdates": [Function],
     "getNode": [Function],
     "render": [Function],
-    "simulateError": [Function],
     "simulateEvent": [Function],
     "unmount": [Function],
   },
@@ -806,26 +786,15 @@ ShallowWrapper {
     "adapter": ReactSixteenAdapter {
       "options": Object {
         "enableComponentDidUpdateOnSetState": true,
-        "lifecycles": Object {
-          "componentDidUpdate": Object {
-            "onSetState": true,
-          },
-          "getDerivedStateFromProps": true,
-          "getSnapshotBeforeUpdate": true,
-          "setState": Object {
-            "skipsComponentDidUpdateOnNullish": true,
-          },
-        },
       },
     },
-    "attachTo": undefined,
-    "hydrateIn": undefined,
   },
 }
 `;
 
 exports[`SubjectGuideList should render correctly 1`] = `
 ShallowWrapper {
+  "length": 1,
   Symbol(enzyme.__root__): [Circular],
   Symbol(enzyme.__unrendered__): <SubjectGuideList
     list={
@@ -847,7 +816,6 @@ ShallowWrapper {
     "batchedUpdates": [Function],
     "getNode": [Function],
     "render": [Function],
-    "simulateError": [Function],
     "simulateEvent": [Function],
     "unmount": [Function],
   },
@@ -1085,26 +1053,15 @@ ShallowWrapper {
     "adapter": ReactSixteenAdapter {
       "options": Object {
         "enableComponentDidUpdateOnSetState": true,
-        "lifecycles": Object {
-          "componentDidUpdate": Object {
-            "onSetState": true,
-          },
-          "getDerivedStateFromProps": true,
-          "getSnapshotBeforeUpdate": true,
-          "setState": Object {
-            "skipsComponentDidUpdateOnNullish": true,
-          },
-        },
       },
     },
-    "attachTo": undefined,
-    "hydrateIn": undefined,
   },
 }
 `;
 
 exports[`TopicBodyContent should render correctly 1`] = `
 ShallowWrapper {
+  "length": 1,
   Symbol(enzyme.__root__): [Circular],
   Symbol(enzyme.__unrendered__): <TopicBodyContent
     content="Some sample content"
@@ -1122,7 +1079,6 @@ ShallowWrapper {
     "batchedUpdates": [Function],
     "getNode": [Function],
     "render": [Function],
-    "simulateError": [Function],
     "simulateEvent": [Function],
     "unmount": [Function],
   },
@@ -1133,14 +1089,14 @@ ShallowWrapper {
     "props": Object {
       "children": Array [
         <div
-          className="jsx-2043866159 title-wrapper"
+          className="jsx-1613891826 title-wrapper"
         >
           <RubyTitle
             text="Test"
           />
         </div>,
         <span
-          className="jsx-2043866159"
+          className="jsx-1613891826 cms-content"
           dangerouslySetInnerHTML={
             Object {
               "__html": "Some sample content",
@@ -1148,7 +1104,7 @@ ShallowWrapper {
           }
         />,
         <div
-          className="jsx-2043866159 action-container"
+          className="jsx-1613891826 action-container"
         >
           <TopicActions
             followButtonIconURL=""
@@ -1160,18 +1116,18 @@ ShallowWrapper {
         <JSXStyle
           css={
             Array [
-              ".root.jsx-2043866159{background:white;padding:20px 35px;}",
-              ".action-container.jsx-2043866159{margin-top:20px;display:none;}",
-              ".title-wrapper.jsx-2043866159{padding:15px 0;}",
-              ".root.jsx-2043866159 p{font-family:adobe-garamond-pro, serif;line-height:1.5;font-size:18px;}",
-              "@media screen and (min-width: 768px){.root.jsx-2043866159{padding:60px 40px;}.title-wrapper.jsx-2043866159{padding-bottom:40px;}.action-container.jsx-2043866159{display:block;}}",
-              "@media screen and (min-width: 1024px){.root.jsx-2043866159{padding:70px;width:90%;}.action-container.jsx-2043866159{display:none;}}",
+              ".root.jsx-1613891826{background:white;padding:20px 35px;}",
+              ".action-container.jsx-1613891826{margin-top:20px;display:none;}",
+              ".title-wrapper.jsx-1613891826{padding:15px 0;}",
+              ".cms-content.jsx-1613891826 p{font-family:adobe-garamond-pro, serif;line-height:1.5;font-size:18px;margin-bottom:10px;}",
+              "@media screen and (min-width: 768px){.root.jsx-1613891826{padding:60px 40px;}.title-wrapper.jsx-1613891826{padding-bottom:40px;}.action-container.jsx-1613891826{display:block;}}",
+              "@media screen and (min-width: 1024px){.root.jsx-1613891826{padding:70px;width:90%;}.action-container.jsx-1613891826{display:none;}}",
             ]
           }
-          styleId="2043866159"
+          styleId="1613891826"
         />,
       ],
-      "className": "jsx-2043866159 root",
+      "className": "jsx-1613891826 root",
     },
     "ref": null,
     "rendered": Array [
@@ -1183,7 +1139,7 @@ ShallowWrapper {
           "children": <RubyTitle
             text="Test"
           />,
-          "className": "jsx-2043866159 title-wrapper",
+          "className": "jsx-1613891826 title-wrapper",
         },
         "ref": null,
         "rendered": Object {
@@ -1204,7 +1160,7 @@ ShallowWrapper {
         "key": undefined,
         "nodeType": "host",
         "props": Object {
-          "className": "jsx-2043866159",
+          "className": "jsx-1613891826 cms-content",
           "dangerouslySetInnerHTML": Object {
             "__html": "Some sample content",
           },
@@ -1224,7 +1180,7 @@ ShallowWrapper {
             guideId={undefined}
             showActions={true}
           />,
-          "className": "jsx-2043866159 action-container",
+          "className": "jsx-1613891826 action-container",
         },
         "ref": null,
         "rendered": Object {
@@ -1249,14 +1205,14 @@ ShallowWrapper {
         "nodeType": "class",
         "props": Object {
           "css": Array [
-            ".root.jsx-2043866159{background:white;padding:20px 35px;}",
-            ".action-container.jsx-2043866159{margin-top:20px;display:none;}",
-            ".title-wrapper.jsx-2043866159{padding:15px 0;}",
-            ".root.jsx-2043866159 p{font-family:adobe-garamond-pro, serif;line-height:1.5;font-size:18px;}",
-            "@media screen and (min-width: 768px){.root.jsx-2043866159{padding:60px 40px;}.title-wrapper.jsx-2043866159{padding-bottom:40px;}.action-container.jsx-2043866159{display:block;}}",
-            "@media screen and (min-width: 1024px){.root.jsx-2043866159{padding:70px;width:90%;}.action-container.jsx-2043866159{display:none;}}",
+            ".root.jsx-1613891826{background:white;padding:20px 35px;}",
+            ".action-container.jsx-1613891826{margin-top:20px;display:none;}",
+            ".title-wrapper.jsx-1613891826{padding:15px 0;}",
+            ".cms-content.jsx-1613891826 p{font-family:adobe-garamond-pro, serif;line-height:1.5;font-size:18px;margin-bottom:10px;}",
+            "@media screen and (min-width: 768px){.root.jsx-1613891826{padding:60px 40px;}.title-wrapper.jsx-1613891826{padding-bottom:40px;}.action-container.jsx-1613891826{display:block;}}",
+            "@media screen and (min-width: 1024px){.root.jsx-1613891826{padding:70px;width:90%;}.action-container.jsx-1613891826{display:none;}}",
           ],
-          "styleId": "2043866159",
+          "styleId": "1613891826",
         },
         "ref": null,
         "rendered": null,
@@ -1273,14 +1229,14 @@ ShallowWrapper {
       "props": Object {
         "children": Array [
           <div
-            className="jsx-2043866159 title-wrapper"
+            className="jsx-1613891826 title-wrapper"
           >
             <RubyTitle
               text="Test"
             />
           </div>,
           <span
-            className="jsx-2043866159"
+            className="jsx-1613891826 cms-content"
             dangerouslySetInnerHTML={
               Object {
                 "__html": "Some sample content",
@@ -1288,7 +1244,7 @@ ShallowWrapper {
             }
           />,
           <div
-            className="jsx-2043866159 action-container"
+            className="jsx-1613891826 action-container"
           >
             <TopicActions
               followButtonIconURL=""
@@ -1300,18 +1256,18 @@ ShallowWrapper {
           <JSXStyle
             css={
               Array [
-                ".root.jsx-2043866159{background:white;padding:20px 35px;}",
-                ".action-container.jsx-2043866159{margin-top:20px;display:none;}",
-                ".title-wrapper.jsx-2043866159{padding:15px 0;}",
-                ".root.jsx-2043866159 p{font-family:adobe-garamond-pro, serif;line-height:1.5;font-size:18px;}",
-                "@media screen and (min-width: 768px){.root.jsx-2043866159{padding:60px 40px;}.title-wrapper.jsx-2043866159{padding-bottom:40px;}.action-container.jsx-2043866159{display:block;}}",
-                "@media screen and (min-width: 1024px){.root.jsx-2043866159{padding:70px;width:90%;}.action-container.jsx-2043866159{display:none;}}",
+                ".root.jsx-1613891826{background:white;padding:20px 35px;}",
+                ".action-container.jsx-1613891826{margin-top:20px;display:none;}",
+                ".title-wrapper.jsx-1613891826{padding:15px 0;}",
+                ".cms-content.jsx-1613891826 p{font-family:adobe-garamond-pro, serif;line-height:1.5;font-size:18px;margin-bottom:10px;}",
+                "@media screen and (min-width: 768px){.root.jsx-1613891826{padding:60px 40px;}.title-wrapper.jsx-1613891826{padding-bottom:40px;}.action-container.jsx-1613891826{display:block;}}",
+                "@media screen and (min-width: 1024px){.root.jsx-1613891826{padding:70px;width:90%;}.action-container.jsx-1613891826{display:none;}}",
               ]
             }
-            styleId="2043866159"
+            styleId="1613891826"
           />,
         ],
-        "className": "jsx-2043866159 root",
+        "className": "jsx-1613891826 root",
       },
       "ref": null,
       "rendered": Array [
@@ -1323,7 +1279,7 @@ ShallowWrapper {
             "children": <RubyTitle
               text="Test"
             />,
-            "className": "jsx-2043866159 title-wrapper",
+            "className": "jsx-1613891826 title-wrapper",
           },
           "ref": null,
           "rendered": Object {
@@ -1344,7 +1300,7 @@ ShallowWrapper {
           "key": undefined,
           "nodeType": "host",
           "props": Object {
-            "className": "jsx-2043866159",
+            "className": "jsx-1613891826 cms-content",
             "dangerouslySetInnerHTML": Object {
               "__html": "Some sample content",
             },
@@ -1364,7 +1320,7 @@ ShallowWrapper {
               guideId={undefined}
               showActions={true}
             />,
-            "className": "jsx-2043866159 action-container",
+            "className": "jsx-1613891826 action-container",
           },
           "ref": null,
           "rendered": Object {
@@ -1389,14 +1345,14 @@ ShallowWrapper {
           "nodeType": "class",
           "props": Object {
             "css": Array [
-              ".root.jsx-2043866159{background:white;padding:20px 35px;}",
-              ".action-container.jsx-2043866159{margin-top:20px;display:none;}",
-              ".title-wrapper.jsx-2043866159{padding:15px 0;}",
-              ".root.jsx-2043866159 p{font-family:adobe-garamond-pro, serif;line-height:1.5;font-size:18px;}",
-              "@media screen and (min-width: 768px){.root.jsx-2043866159{padding:60px 40px;}.title-wrapper.jsx-2043866159{padding-bottom:40px;}.action-container.jsx-2043866159{display:block;}}",
-              "@media screen and (min-width: 1024px){.root.jsx-2043866159{padding:70px;width:90%;}.action-container.jsx-2043866159{display:none;}}",
+              ".root.jsx-1613891826{background:white;padding:20px 35px;}",
+              ".action-container.jsx-1613891826{margin-top:20px;display:none;}",
+              ".title-wrapper.jsx-1613891826{padding:15px 0;}",
+              ".cms-content.jsx-1613891826 p{font-family:adobe-garamond-pro, serif;line-height:1.5;font-size:18px;margin-bottom:10px;}",
+              "@media screen and (min-width: 768px){.root.jsx-1613891826{padding:60px 40px;}.title-wrapper.jsx-1613891826{padding-bottom:40px;}.action-container.jsx-1613891826{display:block;}}",
+              "@media screen and (min-width: 1024px){.root.jsx-1613891826{padding:70px;width:90%;}.action-container.jsx-1613891826{display:none;}}",
             ],
-            "styleId": "2043866159",
+            "styleId": "1613891826",
           },
           "ref": null,
           "rendered": null,
@@ -1410,33 +1366,21 @@ ShallowWrapper {
     "adapter": ReactSixteenAdapter {
       "options": Object {
         "enableComponentDidUpdateOnSetState": true,
-        "lifecycles": Object {
-          "componentDidUpdate": Object {
-            "onSetState": true,
-          },
-          "getDerivedStateFromProps": true,
-          "getSnapshotBeforeUpdate": true,
-          "setState": Object {
-            "skipsComponentDidUpdateOnNullish": true,
-          },
-        },
       },
     },
-    "attachTo": undefined,
-    "hydrateIn": undefined,
   },
 }
 `;
 
 exports[`TopicContent should render correctly 1`] = `
 ShallowWrapper {
+  "length": 1,
   Symbol(enzyme.__root__): [Circular],
   Symbol(enzyme.__unrendered__): <TopicContent />,
   Symbol(enzyme.__renderer__): Object {
     "batchedUpdates": [Function],
     "getNode": [Function],
     "render": [Function],
-    "simulateError": [Function],
     "simulateEvent": [Function],
     "unmount": [Function],
   },
@@ -1934,26 +1878,15 @@ ShallowWrapper {
     "adapter": ReactSixteenAdapter {
       "options": Object {
         "enableComponentDidUpdateOnSetState": true,
-        "lifecycles": Object {
-          "componentDidUpdate": Object {
-            "onSetState": true,
-          },
-          "getDerivedStateFromProps": true,
-          "getSnapshotBeforeUpdate": true,
-          "setState": Object {
-            "skipsComponentDidUpdateOnNullish": true,
-          },
-        },
       },
     },
-    "attachTo": undefined,
-    "hydrateIn": undefined,
   },
 }
 `;
 
 exports[`TopicHeading should render correctly 1`] = `
 ShallowWrapper {
+  "length": 1,
   Symbol(enzyme.__root__): [Circular],
   Symbol(enzyme.__unrendered__): <TopicHeading
     text="Foo"
@@ -1962,7 +1895,6 @@ ShallowWrapper {
     "batchedUpdates": [Function],
     "getNode": [Function],
     "render": [Function],
-    "simulateError": [Function],
     "simulateEvent": [Function],
     "unmount": [Function],
   },
@@ -2084,26 +2016,15 @@ ShallowWrapper {
     "adapter": ReactSixteenAdapter {
       "options": Object {
         "enableComponentDidUpdateOnSetState": true,
-        "lifecycles": Object {
-          "componentDidUpdate": Object {
-            "onSetState": true,
-          },
-          "getDerivedStateFromProps": true,
-          "getSnapshotBeforeUpdate": true,
-          "setState": Object {
-            "skipsComponentDidUpdateOnNullish": true,
-          },
-        },
       },
     },
-    "attachTo": undefined,
-    "hydrateIn": undefined,
   },
 }
 `;
 
 exports[`TopicList should render correctly 1`] = `
 ShallowWrapper {
+  "length": 1,
   Symbol(enzyme.__root__): [Circular],
   Symbol(enzyme.__unrendered__): <TopicList
     guideID="37"
@@ -2181,7 +2102,6 @@ ShallowWrapper {
     "batchedUpdates": [Function],
     "getNode": [Function],
     "render": [Function],
-    "simulateError": [Function],
     "simulateEvent": [Function],
     "unmount": [Function],
   },
@@ -2871,20 +2791,8 @@ ShallowWrapper {
     "adapter": ReactSixteenAdapter {
       "options": Object {
         "enableComponentDidUpdateOnSetState": true,
-        "lifecycles": Object {
-          "componentDidUpdate": Object {
-            "onSetState": true,
-          },
-          "getDerivedStateFromProps": true,
-          "getSnapshotBeforeUpdate": true,
-          "setState": Object {
-            "skipsComponentDidUpdateOnNullish": true,
-          },
-        },
       },
     },
-    "attachTo": undefined,
-    "hydrateIn": undefined,
   },
 }
 `;

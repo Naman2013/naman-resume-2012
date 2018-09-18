@@ -17,10 +17,11 @@ export default css`
     padding: 15px 0;
   }
 
-  .root :global(p) {
+  .cms-content :global(p) {
     font-family: ${secondaryFont};
     line-height: 1.5;
     font-size: 18px;
+    margin-bottom: 10px;
   }
 
   @media ${screenMedium} {
