@@ -2,6 +2,7 @@
 
 exports[`FeaturedGallery should render correctly 1`] = `
 ShallowWrapper {
+  "length": 1,
   Symbol(enzyme.__root__): [Circular],
   Symbol(enzyme.__unrendered__): <FeaturedGallery
     items={Array []}
@@ -10,7 +11,6 @@ ShallowWrapper {
     "batchedUpdates": [Function],
     "getNode": [Function],
     "render": [Function],
-    "simulateError": [Function],
     "simulateEvent": [Function],
     "unmount": [Function],
   },
@@ -53,11 +53,13 @@ ShallowWrapper {
             "_context": [Circular],
           },
           "_calculateChangedBits": null,
+          "_changedBits": 0,
+          "_changedBits2": 0,
           "_currentRenderer": null,
           "_currentRenderer2": null,
           "_currentValue": undefined,
           "_currentValue2": undefined,
-          "unstable_read": [Function],
+          "_defaultValue": undefined,
         },
       },
       Object {
@@ -117,11 +119,13 @@ ShallowWrapper {
               "_context": [Circular],
             },
             "_calculateChangedBits": null,
+            "_changedBits": 0,
+            "_changedBits2": 0,
             "_currentRenderer": null,
             "_currentRenderer2": null,
             "_currentValue": undefined,
             "_currentValue2": undefined,
-            "unstable_read": [Function],
+            "_defaultValue": undefined,
           },
         },
         Object {
@@ -146,26 +150,15 @@ ShallowWrapper {
     "adapter": ReactSixteenAdapter {
       "options": Object {
         "enableComponentDidUpdateOnSetState": true,
-        "lifecycles": Object {
-          "componentDidUpdate": Object {
-            "onSetState": true,
-          },
-          "getDerivedStateFromProps": true,
-          "getSnapshotBeforeUpdate": true,
-          "setState": Object {
-            "skipsComponentDidUpdateOnNullish": true,
-          },
-        },
       },
     },
-    "attachTo": undefined,
-    "hydrateIn": undefined,
   },
 }
 `;
 
 exports[`GuideBodyContent should render correctly 1`] = `
 ShallowWrapper {
+  "length": 1,
   Symbol(enzyme.__root__): [Circular],
   Symbol(enzyme.__unrendered__): <GuideBodyContent
     content="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
@@ -177,7 +170,6 @@ ShallowWrapper {
     "batchedUpdates": [Function],
     "getNode": [Function],
     "render": [Function],
-    "simulateError": [Function],
     "simulateEvent": [Function],
     "unmount": [Function],
   },
@@ -188,17 +180,12 @@ ShallowWrapper {
     "props": Object {
       "children": Array [
         <h4
-          className="jsx-3714836284 title"
+          className="jsx-1764815259 title"
         >
           
         </h4>,
-        <span
-          className="jsx-3714836284 __html-content__"
-          dangerouslySetInnerHTML={
-            Object {
-              "__html": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-            }
-          }
+        <AboutContent
+          content="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
         />,
         <DisplayAtBreakpoint
           screenLarge={false}
@@ -214,18 +201,17 @@ ShallowWrapper {
         <JSXStyle
           css={
             Array [
-              ".root.jsx-3714836284{color:#415671;font-family:brandon-grotesque, sans-serif;padding:0 35px;padding-bottom:35px;}",
-              ".title.jsx-3714836284{margin:0;padding:26px 0;text-transform:uppercase;font-size:12px;-webkit-letter-spacing:2px;-moz-letter-spacing:2px;-ms-letter-spacing:2px;letter-spacing:2px;}",
-              ".__html-content__.jsx-3714836284 p{color:#6e7b8c;margin:0;padding:0;margin-bottom:32px;font-family:adobe-garamond-pro, serif;font-size:18px;line-height:1.75;}",
-              "@media screen and (min-width: 768px){.root.jsx-3714836284{padding:0 55px;padding-bottom:55px;margin-top:-20px;}.title.jsx-3714836284{padding-top:60px;padding-bottom:30px;}}",
-              "@media screen and (min-width: 1024px){.root.jsx-3714836284{padding:0 75px;padding-bottom:75px;min-height:400px;}.__html-content__.jsx-3714836284{min-height:140px;display:inline-block;}}",
-              "@media screen and (min-width: 1366px){.root.jsx-3714836284{padding:0 95px;padding-bottom:95px;}}",
+              ".root.jsx-1764815259{color:#415671;font-family:brandon-grotesque, sans-serif;padding:0 35px;padding-bottom:35px;}",
+              ".title.jsx-1764815259{margin:0;padding:26px 0;text-transform:uppercase;font-size:12px;-webkit-letter-spacing:2px;-moz-letter-spacing:2px;-ms-letter-spacing:2px;letter-spacing:2px;}",
+              "@media screen and (min-width: 768px){.root.jsx-1764815259{padding:0 55px;padding-bottom:55px;margin-top:-20px;}.title.jsx-1764815259{padding-top:60px;padding-bottom:30px;}}",
+              "@media screen and (min-width: 1024px){.root.jsx-1764815259{padding:0 75px;padding-bottom:75px;min-height:400px;}}",
+              "@media screen and (min-width: 1366px){.root.jsx-1764815259{padding:0 95px;padding-bottom:95px;}}",
             ]
           }
-          styleId="3714836284"
+          styleId="1764815259"
         />,
       ],
-      "className": "jsx-3714836284 root",
+      "className": "jsx-1764815259 root",
       "style": Object {},
     },
     "ref": null,
@@ -236,7 +222,7 @@ ShallowWrapper {
         "nodeType": "host",
         "props": Object {
           "children": "",
-          "className": "jsx-3714836284 title",
+          "className": "jsx-1764815259 title",
         },
         "ref": null,
         "rendered": "",
@@ -245,16 +231,13 @@ ShallowWrapper {
       Object {
         "instance": null,
         "key": undefined,
-        "nodeType": "host",
+        "nodeType": "class",
         "props": Object {
-          "className": "jsx-3714836284 __html-content__",
-          "dangerouslySetInnerHTML": Object {
-            "__html": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-          },
+          "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
         },
         "ref": null,
         "rendered": null,
-        "type": "span",
+        "type": [Function],
       },
       Object {
         "instance": null,
@@ -290,14 +273,13 @@ ShallowWrapper {
         "nodeType": "class",
         "props": Object {
           "css": Array [
-            ".root.jsx-3714836284{color:#415671;font-family:brandon-grotesque, sans-serif;padding:0 35px;padding-bottom:35px;}",
-            ".title.jsx-3714836284{margin:0;padding:26px 0;text-transform:uppercase;font-size:12px;-webkit-letter-spacing:2px;-moz-letter-spacing:2px;-ms-letter-spacing:2px;letter-spacing:2px;}",
-            ".__html-content__.jsx-3714836284 p{color:#6e7b8c;margin:0;padding:0;margin-bottom:32px;font-family:adobe-garamond-pro, serif;font-size:18px;line-height:1.75;}",
-            "@media screen and (min-width: 768px){.root.jsx-3714836284{padding:0 55px;padding-bottom:55px;margin-top:-20px;}.title.jsx-3714836284{padding-top:60px;padding-bottom:30px;}}",
-            "@media screen and (min-width: 1024px){.root.jsx-3714836284{padding:0 75px;padding-bottom:75px;min-height:400px;}.__html-content__.jsx-3714836284{min-height:140px;display:inline-block;}}",
-            "@media screen and (min-width: 1366px){.root.jsx-3714836284{padding:0 95px;padding-bottom:95px;}}",
+            ".root.jsx-1764815259{color:#415671;font-family:brandon-grotesque, sans-serif;padding:0 35px;padding-bottom:35px;}",
+            ".title.jsx-1764815259{margin:0;padding:26px 0;text-transform:uppercase;font-size:12px;-webkit-letter-spacing:2px;-moz-letter-spacing:2px;-ms-letter-spacing:2px;letter-spacing:2px;}",
+            "@media screen and (min-width: 768px){.root.jsx-1764815259{padding:0 55px;padding-bottom:55px;margin-top:-20px;}.title.jsx-1764815259{padding-top:60px;padding-bottom:30px;}}",
+            "@media screen and (min-width: 1024px){.root.jsx-1764815259{padding:0 75px;padding-bottom:75px;min-height:400px;}}",
+            "@media screen and (min-width: 1366px){.root.jsx-1764815259{padding:0 95px;padding-bottom:95px;}}",
           ],
-          "styleId": "3714836284",
+          "styleId": "1764815259",
         },
         "ref": null,
         "rendered": null,
@@ -314,17 +296,12 @@ ShallowWrapper {
       "props": Object {
         "children": Array [
           <h4
-            className="jsx-3714836284 title"
+            className="jsx-1764815259 title"
           >
             
           </h4>,
-          <span
-            className="jsx-3714836284 __html-content__"
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-              }
-            }
+          <AboutContent
+            content="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
           />,
           <DisplayAtBreakpoint
             screenLarge={false}
@@ -340,18 +317,17 @@ ShallowWrapper {
           <JSXStyle
             css={
               Array [
-                ".root.jsx-3714836284{color:#415671;font-family:brandon-grotesque, sans-serif;padding:0 35px;padding-bottom:35px;}",
-                ".title.jsx-3714836284{margin:0;padding:26px 0;text-transform:uppercase;font-size:12px;-webkit-letter-spacing:2px;-moz-letter-spacing:2px;-ms-letter-spacing:2px;letter-spacing:2px;}",
-                ".__html-content__.jsx-3714836284 p{color:#6e7b8c;margin:0;padding:0;margin-bottom:32px;font-family:adobe-garamond-pro, serif;font-size:18px;line-height:1.75;}",
-                "@media screen and (min-width: 768px){.root.jsx-3714836284{padding:0 55px;padding-bottom:55px;margin-top:-20px;}.title.jsx-3714836284{padding-top:60px;padding-bottom:30px;}}",
-                "@media screen and (min-width: 1024px){.root.jsx-3714836284{padding:0 75px;padding-bottom:75px;min-height:400px;}.__html-content__.jsx-3714836284{min-height:140px;display:inline-block;}}",
-                "@media screen and (min-width: 1366px){.root.jsx-3714836284{padding:0 95px;padding-bottom:95px;}}",
+                ".root.jsx-1764815259{color:#415671;font-family:brandon-grotesque, sans-serif;padding:0 35px;padding-bottom:35px;}",
+                ".title.jsx-1764815259{margin:0;padding:26px 0;text-transform:uppercase;font-size:12px;-webkit-letter-spacing:2px;-moz-letter-spacing:2px;-ms-letter-spacing:2px;letter-spacing:2px;}",
+                "@media screen and (min-width: 768px){.root.jsx-1764815259{padding:0 55px;padding-bottom:55px;margin-top:-20px;}.title.jsx-1764815259{padding-top:60px;padding-bottom:30px;}}",
+                "@media screen and (min-width: 1024px){.root.jsx-1764815259{padding:0 75px;padding-bottom:75px;min-height:400px;}}",
+                "@media screen and (min-width: 1366px){.root.jsx-1764815259{padding:0 95px;padding-bottom:95px;}}",
               ]
             }
-            styleId="3714836284"
+            styleId="1764815259"
           />,
         ],
-        "className": "jsx-3714836284 root",
+        "className": "jsx-1764815259 root",
         "style": Object {},
       },
       "ref": null,
@@ -362,7 +338,7 @@ ShallowWrapper {
           "nodeType": "host",
           "props": Object {
             "children": "",
-            "className": "jsx-3714836284 title",
+            "className": "jsx-1764815259 title",
           },
           "ref": null,
           "rendered": "",
@@ -371,16 +347,13 @@ ShallowWrapper {
         Object {
           "instance": null,
           "key": undefined,
-          "nodeType": "host",
+          "nodeType": "class",
           "props": Object {
-            "className": "jsx-3714836284 __html-content__",
-            "dangerouslySetInnerHTML": Object {
-              "__html": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-            },
+            "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
           },
           "ref": null,
           "rendered": null,
-          "type": "span",
+          "type": [Function],
         },
         Object {
           "instance": null,
@@ -416,14 +389,13 @@ ShallowWrapper {
           "nodeType": "class",
           "props": Object {
             "css": Array [
-              ".root.jsx-3714836284{color:#415671;font-family:brandon-grotesque, sans-serif;padding:0 35px;padding-bottom:35px;}",
-              ".title.jsx-3714836284{margin:0;padding:26px 0;text-transform:uppercase;font-size:12px;-webkit-letter-spacing:2px;-moz-letter-spacing:2px;-ms-letter-spacing:2px;letter-spacing:2px;}",
-              ".__html-content__.jsx-3714836284 p{color:#6e7b8c;margin:0;padding:0;margin-bottom:32px;font-family:adobe-garamond-pro, serif;font-size:18px;line-height:1.75;}",
-              "@media screen and (min-width: 768px){.root.jsx-3714836284{padding:0 55px;padding-bottom:55px;margin-top:-20px;}.title.jsx-3714836284{padding-top:60px;padding-bottom:30px;}}",
-              "@media screen and (min-width: 1024px){.root.jsx-3714836284{padding:0 75px;padding-bottom:75px;min-height:400px;}.__html-content__.jsx-3714836284{min-height:140px;display:inline-block;}}",
-              "@media screen and (min-width: 1366px){.root.jsx-3714836284{padding:0 95px;padding-bottom:95px;}}",
+              ".root.jsx-1764815259{color:#415671;font-family:brandon-grotesque, sans-serif;padding:0 35px;padding-bottom:35px;}",
+              ".title.jsx-1764815259{margin:0;padding:26px 0;text-transform:uppercase;font-size:12px;-webkit-letter-spacing:2px;-moz-letter-spacing:2px;-ms-letter-spacing:2px;letter-spacing:2px;}",
+              "@media screen and (min-width: 768px){.root.jsx-1764815259{padding:0 55px;padding-bottom:55px;margin-top:-20px;}.title.jsx-1764815259{padding-top:60px;padding-bottom:30px;}}",
+              "@media screen and (min-width: 1024px){.root.jsx-1764815259{padding:0 75px;padding-bottom:75px;min-height:400px;}}",
+              "@media screen and (min-width: 1366px){.root.jsx-1764815259{padding:0 95px;padding-bottom:95px;}}",
             ],
-            "styleId": "3714836284",
+            "styleId": "1764815259",
           },
           "ref": null,
           "rendered": null,
@@ -437,26 +409,15 @@ ShallowWrapper {
     "adapter": ReactSixteenAdapter {
       "options": Object {
         "enableComponentDidUpdateOnSetState": true,
-        "lifecycles": Object {
-          "componentDidUpdate": Object {
-            "onSetState": true,
-          },
-          "getDerivedStateFromProps": true,
-          "getSnapshotBeforeUpdate": true,
-          "setState": Object {
-            "skipsComponentDidUpdateOnNullish": true,
-          },
-        },
       },
     },
-    "attachTo": undefined,
-    "hydrateIn": undefined,
   },
 }
 `;
 
 exports[`GuideTopics should render correctly 1`] = `
 ShallowWrapper {
+  "length": 1,
   Symbol(enzyme.__root__): [Circular],
   Symbol(enzyme.__unrendered__): <GuideTopics
     list={
@@ -476,7 +437,6 @@ ShallowWrapper {
     "batchedUpdates": [Function],
     "getNode": [Function],
     "render": [Function],
-    "simulateError": [Function],
     "simulateEvent": [Function],
     "unmount": [Function],
   },
@@ -806,26 +766,15 @@ ShallowWrapper {
     "adapter": ReactSixteenAdapter {
       "options": Object {
         "enableComponentDidUpdateOnSetState": true,
-        "lifecycles": Object {
-          "componentDidUpdate": Object {
-            "onSetState": true,
-          },
-          "getDerivedStateFromProps": true,
-          "getSnapshotBeforeUpdate": true,
-          "setState": Object {
-            "skipsComponentDidUpdateOnNullish": true,
-          },
-        },
       },
     },
-    "attachTo": undefined,
-    "hydrateIn": undefined,
   },
 }
 `;
 
 exports[`SubjectGuideList should render correctly 1`] = `
 ShallowWrapper {
+  "length": 1,
   Symbol(enzyme.__root__): [Circular],
   Symbol(enzyme.__unrendered__): <SubjectGuideList
     list={
@@ -847,7 +796,6 @@ ShallowWrapper {
     "batchedUpdates": [Function],
     "getNode": [Function],
     "render": [Function],
-    "simulateError": [Function],
     "simulateEvent": [Function],
     "unmount": [Function],
   },
@@ -1085,26 +1033,15 @@ ShallowWrapper {
     "adapter": ReactSixteenAdapter {
       "options": Object {
         "enableComponentDidUpdateOnSetState": true,
-        "lifecycles": Object {
-          "componentDidUpdate": Object {
-            "onSetState": true,
-          },
-          "getDerivedStateFromProps": true,
-          "getSnapshotBeforeUpdate": true,
-          "setState": Object {
-            "skipsComponentDidUpdateOnNullish": true,
-          },
-        },
       },
     },
-    "attachTo": undefined,
-    "hydrateIn": undefined,
   },
 }
 `;
 
 exports[`TopicBodyContent should render correctly 1`] = `
 ShallowWrapper {
+  "length": 1,
   Symbol(enzyme.__root__): [Circular],
   Symbol(enzyme.__unrendered__): <TopicBodyContent
     content="Some sample content"
@@ -1122,7 +1059,6 @@ ShallowWrapper {
     "batchedUpdates": [Function],
     "getNode": [Function],
     "render": [Function],
-    "simulateError": [Function],
     "simulateEvent": [Function],
     "unmount": [Function],
   },
@@ -1133,22 +1069,17 @@ ShallowWrapper {
     "props": Object {
       "children": Array [
         <div
-          className="jsx-2043866159 title-wrapper"
+          className="jsx-346039440 title-wrapper"
         >
           <RubyTitle
             text="Test"
           />
         </div>,
-        <span
-          className="jsx-2043866159"
-          dangerouslySetInnerHTML={
-            Object {
-              "__html": "Some sample content",
-            }
-          }
+        <AboutContent
+          content="Some sample content"
         />,
         <div
-          className="jsx-2043866159 action-container"
+          className="jsx-346039440 action-container"
         >
           <TopicActions
             followButtonIconURL=""
@@ -1160,18 +1091,17 @@ ShallowWrapper {
         <JSXStyle
           css={
             Array [
-              ".root.jsx-2043866159{background:white;padding:20px 35px;}",
-              ".action-container.jsx-2043866159{margin-top:20px;display:none;}",
-              ".title-wrapper.jsx-2043866159{padding:15px 0;}",
-              ".root.jsx-2043866159 p{font-family:adobe-garamond-pro, serif;line-height:1.5;font-size:18px;}",
-              "@media screen and (min-width: 768px){.root.jsx-2043866159{padding:60px 40px;}.title-wrapper.jsx-2043866159{padding-bottom:40px;}.action-container.jsx-2043866159{display:block;}}",
-              "@media screen and (min-width: 1024px){.root.jsx-2043866159{padding:70px;width:90%;}.action-container.jsx-2043866159{display:none;}}",
+              ".root.jsx-346039440{background:white;padding:20px 35px;}",
+              ".action-container.jsx-346039440{margin-top:20px;display:none;}",
+              ".title-wrapper.jsx-346039440{padding:15px 0;}",
+              "@media screen and (min-width: 768px){.root.jsx-346039440{padding:60px 40px;}.title-wrapper.jsx-346039440{padding-bottom:40px;}.action-container.jsx-346039440{display:block;}}",
+              "@media screen and (min-width: 1024px){.root.jsx-346039440{padding:70px;width:90%;}.action-container.jsx-346039440{display:none;}}",
             ]
           }
-          styleId="2043866159"
+          styleId="346039440"
         />,
       ],
-      "className": "jsx-2043866159 root",
+      "className": "jsx-346039440 root",
     },
     "ref": null,
     "rendered": Array [
@@ -1183,7 +1113,7 @@ ShallowWrapper {
           "children": <RubyTitle
             text="Test"
           />,
-          "className": "jsx-2043866159 title-wrapper",
+          "className": "jsx-346039440 title-wrapper",
         },
         "ref": null,
         "rendered": Object {
@@ -1202,16 +1132,13 @@ ShallowWrapper {
       Object {
         "instance": null,
         "key": undefined,
-        "nodeType": "host",
+        "nodeType": "class",
         "props": Object {
-          "className": "jsx-2043866159",
-          "dangerouslySetInnerHTML": Object {
-            "__html": "Some sample content",
-          },
+          "content": "Some sample content",
         },
         "ref": null,
         "rendered": null,
-        "type": "span",
+        "type": [Function],
       },
       Object {
         "instance": null,
@@ -1224,7 +1151,7 @@ ShallowWrapper {
             guideId={undefined}
             showActions={true}
           />,
-          "className": "jsx-2043866159 action-container",
+          "className": "jsx-346039440 action-container",
         },
         "ref": null,
         "rendered": Object {
@@ -1249,14 +1176,13 @@ ShallowWrapper {
         "nodeType": "class",
         "props": Object {
           "css": Array [
-            ".root.jsx-2043866159{background:white;padding:20px 35px;}",
-            ".action-container.jsx-2043866159{margin-top:20px;display:none;}",
-            ".title-wrapper.jsx-2043866159{padding:15px 0;}",
-            ".root.jsx-2043866159 p{font-family:adobe-garamond-pro, serif;line-height:1.5;font-size:18px;}",
-            "@media screen and (min-width: 768px){.root.jsx-2043866159{padding:60px 40px;}.title-wrapper.jsx-2043866159{padding-bottom:40px;}.action-container.jsx-2043866159{display:block;}}",
-            "@media screen and (min-width: 1024px){.root.jsx-2043866159{padding:70px;width:90%;}.action-container.jsx-2043866159{display:none;}}",
+            ".root.jsx-346039440{background:white;padding:20px 35px;}",
+            ".action-container.jsx-346039440{margin-top:20px;display:none;}",
+            ".title-wrapper.jsx-346039440{padding:15px 0;}",
+            "@media screen and (min-width: 768px){.root.jsx-346039440{padding:60px 40px;}.title-wrapper.jsx-346039440{padding-bottom:40px;}.action-container.jsx-346039440{display:block;}}",
+            "@media screen and (min-width: 1024px){.root.jsx-346039440{padding:70px;width:90%;}.action-container.jsx-346039440{display:none;}}",
           ],
-          "styleId": "2043866159",
+          "styleId": "346039440",
         },
         "ref": null,
         "rendered": null,
@@ -1273,22 +1199,17 @@ ShallowWrapper {
       "props": Object {
         "children": Array [
           <div
-            className="jsx-2043866159 title-wrapper"
+            className="jsx-346039440 title-wrapper"
           >
             <RubyTitle
               text="Test"
             />
           </div>,
-          <span
-            className="jsx-2043866159"
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "Some sample content",
-              }
-            }
+          <AboutContent
+            content="Some sample content"
           />,
           <div
-            className="jsx-2043866159 action-container"
+            className="jsx-346039440 action-container"
           >
             <TopicActions
               followButtonIconURL=""
@@ -1300,18 +1221,17 @@ ShallowWrapper {
           <JSXStyle
             css={
               Array [
-                ".root.jsx-2043866159{background:white;padding:20px 35px;}",
-                ".action-container.jsx-2043866159{margin-top:20px;display:none;}",
-                ".title-wrapper.jsx-2043866159{padding:15px 0;}",
-                ".root.jsx-2043866159 p{font-family:adobe-garamond-pro, serif;line-height:1.5;font-size:18px;}",
-                "@media screen and (min-width: 768px){.root.jsx-2043866159{padding:60px 40px;}.title-wrapper.jsx-2043866159{padding-bottom:40px;}.action-container.jsx-2043866159{display:block;}}",
-                "@media screen and (min-width: 1024px){.root.jsx-2043866159{padding:70px;width:90%;}.action-container.jsx-2043866159{display:none;}}",
+                ".root.jsx-346039440{background:white;padding:20px 35px;}",
+                ".action-container.jsx-346039440{margin-top:20px;display:none;}",
+                ".title-wrapper.jsx-346039440{padding:15px 0;}",
+                "@media screen and (min-width: 768px){.root.jsx-346039440{padding:60px 40px;}.title-wrapper.jsx-346039440{padding-bottom:40px;}.action-container.jsx-346039440{display:block;}}",
+                "@media screen and (min-width: 1024px){.root.jsx-346039440{padding:70px;width:90%;}.action-container.jsx-346039440{display:none;}}",
               ]
             }
-            styleId="2043866159"
+            styleId="346039440"
           />,
         ],
-        "className": "jsx-2043866159 root",
+        "className": "jsx-346039440 root",
       },
       "ref": null,
       "rendered": Array [
@@ -1323,7 +1243,7 @@ ShallowWrapper {
             "children": <RubyTitle
               text="Test"
             />,
-            "className": "jsx-2043866159 title-wrapper",
+            "className": "jsx-346039440 title-wrapper",
           },
           "ref": null,
           "rendered": Object {
@@ -1342,16 +1262,13 @@ ShallowWrapper {
         Object {
           "instance": null,
           "key": undefined,
-          "nodeType": "host",
+          "nodeType": "class",
           "props": Object {
-            "className": "jsx-2043866159",
-            "dangerouslySetInnerHTML": Object {
-              "__html": "Some sample content",
-            },
+            "content": "Some sample content",
           },
           "ref": null,
           "rendered": null,
-          "type": "span",
+          "type": [Function],
         },
         Object {
           "instance": null,
@@ -1364,7 +1281,7 @@ ShallowWrapper {
               guideId={undefined}
               showActions={true}
             />,
-            "className": "jsx-2043866159 action-container",
+            "className": "jsx-346039440 action-container",
           },
           "ref": null,
           "rendered": Object {
@@ -1389,14 +1306,13 @@ ShallowWrapper {
           "nodeType": "class",
           "props": Object {
             "css": Array [
-              ".root.jsx-2043866159{background:white;padding:20px 35px;}",
-              ".action-container.jsx-2043866159{margin-top:20px;display:none;}",
-              ".title-wrapper.jsx-2043866159{padding:15px 0;}",
-              ".root.jsx-2043866159 p{font-family:adobe-garamond-pro, serif;line-height:1.5;font-size:18px;}",
-              "@media screen and (min-width: 768px){.root.jsx-2043866159{padding:60px 40px;}.title-wrapper.jsx-2043866159{padding-bottom:40px;}.action-container.jsx-2043866159{display:block;}}",
-              "@media screen and (min-width: 1024px){.root.jsx-2043866159{padding:70px;width:90%;}.action-container.jsx-2043866159{display:none;}}",
+              ".root.jsx-346039440{background:white;padding:20px 35px;}",
+              ".action-container.jsx-346039440{margin-top:20px;display:none;}",
+              ".title-wrapper.jsx-346039440{padding:15px 0;}",
+              "@media screen and (min-width: 768px){.root.jsx-346039440{padding:60px 40px;}.title-wrapper.jsx-346039440{padding-bottom:40px;}.action-container.jsx-346039440{display:block;}}",
+              "@media screen and (min-width: 1024px){.root.jsx-346039440{padding:70px;width:90%;}.action-container.jsx-346039440{display:none;}}",
             ],
-            "styleId": "2043866159",
+            "styleId": "346039440",
           },
           "ref": null,
           "rendered": null,
@@ -1410,33 +1326,21 @@ ShallowWrapper {
     "adapter": ReactSixteenAdapter {
       "options": Object {
         "enableComponentDidUpdateOnSetState": true,
-        "lifecycles": Object {
-          "componentDidUpdate": Object {
-            "onSetState": true,
-          },
-          "getDerivedStateFromProps": true,
-          "getSnapshotBeforeUpdate": true,
-          "setState": Object {
-            "skipsComponentDidUpdateOnNullish": true,
-          },
-        },
       },
     },
-    "attachTo": undefined,
-    "hydrateIn": undefined,
   },
 }
 `;
 
 exports[`TopicContent should render correctly 1`] = `
 ShallowWrapper {
+  "length": 1,
   Symbol(enzyme.__root__): [Circular],
   Symbol(enzyme.__unrendered__): <TopicContent />,
   Symbol(enzyme.__renderer__): Object {
     "batchedUpdates": [Function],
     "getNode": [Function],
     "render": [Function],
-    "simulateError": [Function],
     "simulateEvent": [Function],
     "unmount": [Function],
   },
@@ -1934,26 +1838,15 @@ ShallowWrapper {
     "adapter": ReactSixteenAdapter {
       "options": Object {
         "enableComponentDidUpdateOnSetState": true,
-        "lifecycles": Object {
-          "componentDidUpdate": Object {
-            "onSetState": true,
-          },
-          "getDerivedStateFromProps": true,
-          "getSnapshotBeforeUpdate": true,
-          "setState": Object {
-            "skipsComponentDidUpdateOnNullish": true,
-          },
-        },
       },
     },
-    "attachTo": undefined,
-    "hydrateIn": undefined,
   },
 }
 `;
 
 exports[`TopicHeading should render correctly 1`] = `
 ShallowWrapper {
+  "length": 1,
   Symbol(enzyme.__root__): [Circular],
   Symbol(enzyme.__unrendered__): <TopicHeading
     text="Foo"
@@ -1962,7 +1855,6 @@ ShallowWrapper {
     "batchedUpdates": [Function],
     "getNode": [Function],
     "render": [Function],
-    "simulateError": [Function],
     "simulateEvent": [Function],
     "unmount": [Function],
   },
@@ -2084,26 +1976,15 @@ ShallowWrapper {
     "adapter": ReactSixteenAdapter {
       "options": Object {
         "enableComponentDidUpdateOnSetState": true,
-        "lifecycles": Object {
-          "componentDidUpdate": Object {
-            "onSetState": true,
-          },
-          "getDerivedStateFromProps": true,
-          "getSnapshotBeforeUpdate": true,
-          "setState": Object {
-            "skipsComponentDidUpdateOnNullish": true,
-          },
-        },
       },
     },
-    "attachTo": undefined,
-    "hydrateIn": undefined,
   },
 }
 `;
 
 exports[`TopicList should render correctly 1`] = `
 ShallowWrapper {
+  "length": 1,
   Symbol(enzyme.__root__): [Circular],
   Symbol(enzyme.__unrendered__): <TopicList
     guideID="37"
@@ -2181,7 +2062,6 @@ ShallowWrapper {
     "batchedUpdates": [Function],
     "getNode": [Function],
     "render": [Function],
-    "simulateError": [Function],
     "simulateEvent": [Function],
     "unmount": [Function],
   },
@@ -2871,20 +2751,8 @@ ShallowWrapper {
     "adapter": ReactSixteenAdapter {
       "options": Object {
         "enableComponentDidUpdateOnSetState": true,
-        "lifecycles": Object {
-          "componentDidUpdate": Object {
-            "onSetState": true,
-          },
-          "getDerivedStateFromProps": true,
-          "getSnapshotBeforeUpdate": true,
-          "setState": Object {
-            "skipsComponentDidUpdateOnNullish": true,
-          },
-        },
       },
     },
-    "attachTo": undefined,
-    "hydrateIn": undefined,
   },
 }
 `;

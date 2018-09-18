@@ -49,6 +49,10 @@ export default css`
     display: none;
   }
 
+  .__html-blob-content-container__ :global(p) {
+    margin-bottom: 10px;
+  }
+
   @media ${screenMedium} {
     .__html-blob-content-container__,
     .read-duration {

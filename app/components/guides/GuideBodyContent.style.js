@@ -1,7 +1,7 @@
 import css from 'styled-jsx/css';
-import { primaryFont, secondaryFont } from '../../styles/variables/fonts';
+import { primaryFont } from '../../styles/variables/fonts';
 import { screenMedium, screenLarge, screenXLarge } from '../../styles/variables/breakpoints';
-import { astronaut, lynch } from '../../styles/variables/colors_tiles_v4';
+import { astronaut } from '../../styles/variables/colors_tiles_v4';
 
 export default css`
   .root {
@@ -17,16 +17,6 @@ export default css`
     text-transform: uppercase;
     font-size: 12px;
     letter-spacing: 2px;
-  }
-
-  .__html-content__ :global(p) {
-    color: ${lynch};
-    margin: 0;
-    padding: 0;
-    margin-bottom: 32px;
-    font-family: ${secondaryFont};
-    font-size: 18px;
-    line-height: 1.75;
   }
 
   @media ${screenMedium} {
@@ -47,11 +37,6 @@ export default css`
       padding: 0 75px;
       padding-bottom: 75px;
       min-height: 400px;
-    }
-
-    .__html-content__ {
-      min-height: 140px;
-      display: inline-block;
     }
   }
 

@@ -32,9 +32,10 @@ export default css`
     padding-top: 20px;
   }
 
-  .action-container :global(a) {
+  .action-container {
     margin: 0;
     padding: 0;
+    padding-top: 20px;
     font-family: ${primaryFont};
     font-weight: 800;
     text-transform: uppercase;

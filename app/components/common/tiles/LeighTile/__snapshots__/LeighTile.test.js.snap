@@ -2,6 +2,7 @@
 
 exports[`LeighTile should render correctly 1`] = `
 ShallowWrapper {
+  "length": 1,
   Symbol(enzyme.__root__): [Circular],
   Symbol(enzyme.__unrendered__): <LeighTile
     anchorText="Topic 1"
@@ -12,51 +13,50 @@ ShallowWrapper {
     "batchedUpdates": [Function],
     "getNode": [Function],
     "render": [Function],
-    "simulateError": [Function],
     "simulateEvent": [Function],
     "unmount": [Function],
   },
   Symbol(enzyme.__node__): Object {
     "instance": null,
     "key": undefined,
-    "nodeType": "host",
+    "nodeType": "class",
     "props": Object {
       "children": Array [
-        <h5
-          className="jsx-3489063679 title"
-        >
-          Foo
-        </h5>,
         <div
-          className="jsx-3489063679 action-container"
+          className="jsx-2130902709 root"
         >
-          <Link
-            onlyActiveOnIndex={false}
-            style={Object {}}
-            to="#"
+          <h5
+            className="jsx-2130902709 title"
+          >
+            Foo
+          </h5>
+          <div
+            className="jsx-2130902709 action-container"
           >
             Topic 1
-          </Link>
-          <img
-            alt=""
-            className="jsx-3489063679"
-            src="https://vega.slooh.com/assets/v4/common/arrow_horz.svg"
-          />
+            <img
+              alt=""
+              className="jsx-2130902709"
+              src="https://vega.slooh.com/assets/v4/common/arrow_horz.svg"
+            />
+          </div>
         </div>,
         <JSXStyle
           css={
             Array [
-              ".root.jsx-3489063679{margin:0 auto;padding:0;padding:40px;box-shadow:0px 0px 8px 1px rgba(65,86,113,.2);width:96%;}",
-              ".title.jsx-3489063679{margin:0;padding:0;font-family:adobe-garamond-pro, serif;font-weight:normal;font-size:18px;text-transform:capitalize;color:#41566F;border-bottom:1px solid #d9dee5;padding-bottom:30px;}",
-              ".action-container.jsx-3489063679{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;padding-top:20px;}",
-              ".action-container.jsx-3489063679 a{margin:0;padding:0;font-family:brandon-grotesque, sans-serif;font-weight:800;text-transform:uppercase;-webkit-text-decoration:none;text-decoration:none;font-size:10px;color:#41566F;}",
-              "@media screen and (min-width: 768px){.root.jsx-3489063679{width:100%;}}",
+              ".root.jsx-2130902709{margin:0 auto;padding:0;padding:40px;box-shadow:0px 0px 8px 1px rgba(65,86,113,.2);width:96%;}",
+              ".title.jsx-2130902709{margin:0;padding:0;font-family:adobe-garamond-pro, serif;font-weight:normal;font-size:18px;text-transform:capitalize;color:#41566F;border-bottom:1px solid #d9dee5;padding-bottom:30px;}",
+              ".action-container.jsx-2130902709{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;padding-top:20px;}",
+              ".action-container.jsx-2130902709{margin:0;padding:0;padding-top:20px;font-family:brandon-grotesque, sans-serif;font-weight:800;text-transform:uppercase;-webkit-text-decoration:none;text-decoration:none;font-size:10px;color:#41566F;}",
+              "@media screen and (min-width: 768px){.root.jsx-2130902709{width:100%;}}",
             ]
           }
-          styleId="3489063679"
+          styleId="2130902709"
         />,
       ],
-      "className": "jsx-3489063679 root",
+      "onlyActiveOnIndex": false,
+      "style": Object {},
+      "to": "#",
     },
     "ref": null,
     "rendered": Array [
@@ -65,62 +65,72 @@ ShallowWrapper {
         "key": undefined,
         "nodeType": "host",
         "props": Object {
-          "children": "Foo",
-          "className": "jsx-3489063679 title",
-        },
-        "ref": null,
-        "rendered": "Foo",
-        "type": "h5",
-      },
-      Object {
-        "instance": null,
-        "key": undefined,
-        "nodeType": "host",
-        "props": Object {
           "children": Array [
-            <Link
-              onlyActiveOnIndex={false}
-              style={Object {}}
-              to="#"
+            <h5
+              className="jsx-2130902709 title"
+            >
+              Foo
+            </h5>,
+            <div
+              className="jsx-2130902709 action-container"
             >
               Topic 1
-            </Link>,
-            <img
-              alt=""
-              className="jsx-3489063679"
-              src="https://vega.slooh.com/assets/v4/common/arrow_horz.svg"
-            />,
+              <img
+                alt=""
+                className="jsx-2130902709"
+                src="https://vega.slooh.com/assets/v4/common/arrow_horz.svg"
+              />
+            </div>,
           ],
-          "className": "jsx-3489063679 action-container",
+          "className": "jsx-2130902709 root",
         },
         "ref": null,
         "rendered": Array [
           Object {
             "instance": null,
             "key": undefined,
-            "nodeType": "class",
+            "nodeType": "host",
             "props": Object {
-              "children": "Topic 1",
-              "onlyActiveOnIndex": false,
-              "style": Object {},
-              "to": "#",
+              "children": "Foo",
+              "className": "jsx-2130902709 title",
             },
             "ref": null,
-            "rendered": "Topic 1",
-            "type": [Function],
+            "rendered": "Foo",
+            "type": "h5",
           },
           Object {
             "instance": null,
             "key": undefined,
             "nodeType": "host",
             "props": Object {
-              "alt": "",
-              "className": "jsx-3489063679",
-              "src": "https://vega.slooh.com/assets/v4/common/arrow_horz.svg",
+              "children": Array [
+                "Topic 1",
+                <img
+                  alt=""
+                  className="jsx-2130902709"
+                  src="https://vega.slooh.com/assets/v4/common/arrow_horz.svg"
+                />,
+              ],
+              "className": "jsx-2130902709 action-container",
             },
             "ref": null,
-            "rendered": null,
-            "type": "img",
+            "rendered": Array [
+              "Topic 1",
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "alt": "",
+                  "className": "jsx-2130902709",
+                  "src": "https://vega.slooh.com/assets/v4/common/arrow_horz.svg",
+                },
+                "ref": null,
+                "rendered": null,
+                "type": "img",
+              },
+            ],
+            "type": "div",
           },
         ],
         "type": "div",
@@ -131,63 +141,63 @@ ShallowWrapper {
         "nodeType": "class",
         "props": Object {
           "css": Array [
-            ".root.jsx-3489063679{margin:0 auto;padding:0;padding:40px;box-shadow:0px 0px 8px 1px rgba(65,86,113,.2);width:96%;}",
-            ".title.jsx-3489063679{margin:0;padding:0;font-family:adobe-garamond-pro, serif;font-weight:normal;font-size:18px;text-transform:capitalize;color:#41566F;border-bottom:1px solid #d9dee5;padding-bottom:30px;}",
-            ".action-container.jsx-3489063679{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;padding-top:20px;}",
-            ".action-container.jsx-3489063679 a{margin:0;padding:0;font-family:brandon-grotesque, sans-serif;font-weight:800;text-transform:uppercase;-webkit-text-decoration:none;text-decoration:none;font-size:10px;color:#41566F;}",
-            "@media screen and (min-width: 768px){.root.jsx-3489063679{width:100%;}}",
+            ".root.jsx-2130902709{margin:0 auto;padding:0;padding:40px;box-shadow:0px 0px 8px 1px rgba(65,86,113,.2);width:96%;}",
+            ".title.jsx-2130902709{margin:0;padding:0;font-family:adobe-garamond-pro, serif;font-weight:normal;font-size:18px;text-transform:capitalize;color:#41566F;border-bottom:1px solid #d9dee5;padding-bottom:30px;}",
+            ".action-container.jsx-2130902709{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;padding-top:20px;}",
+            ".action-container.jsx-2130902709{margin:0;padding:0;padding-top:20px;font-family:brandon-grotesque, sans-serif;font-weight:800;text-transform:uppercase;-webkit-text-decoration:none;text-decoration:none;font-size:10px;color:#41566F;}",
+            "@media screen and (min-width: 768px){.root.jsx-2130902709{width:100%;}}",
           ],
-          "styleId": "3489063679",
+          "styleId": "2130902709",
         },
         "ref": null,
         "rendered": null,
         "type": [Function],
       },
     ],
-    "type": "div",
+    "type": [Function],
   },
   Symbol(enzyme.__nodes__): Array [
     Object {
       "instance": null,
       "key": undefined,
-      "nodeType": "host",
+      "nodeType": "class",
       "props": Object {
         "children": Array [
-          <h5
-            className="jsx-3489063679 title"
-          >
-            Foo
-          </h5>,
           <div
-            className="jsx-3489063679 action-container"
+            className="jsx-2130902709 root"
           >
-            <Link
-              onlyActiveOnIndex={false}
-              style={Object {}}
-              to="#"
+            <h5
+              className="jsx-2130902709 title"
+            >
+              Foo
+            </h5>
+            <div
+              className="jsx-2130902709 action-container"
             >
               Topic 1
-            </Link>
-            <img
-              alt=""
-              className="jsx-3489063679"
-              src="https://vega.slooh.com/assets/v4/common/arrow_horz.svg"
-            />
+              <img
+                alt=""
+                className="jsx-2130902709"
+                src="https://vega.slooh.com/assets/v4/common/arrow_horz.svg"
+              />
+            </div>
           </div>,
           <JSXStyle
             css={
               Array [
-                ".root.jsx-3489063679{margin:0 auto;padding:0;padding:40px;box-shadow:0px 0px 8px 1px rgba(65,86,113,.2);width:96%;}",
-                ".title.jsx-3489063679{margin:0;padding:0;font-family:adobe-garamond-pro, serif;font-weight:normal;font-size:18px;text-transform:capitalize;color:#41566F;border-bottom:1px solid #d9dee5;padding-bottom:30px;}",
-                ".action-container.jsx-3489063679{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;padding-top:20px;}",
-                ".action-container.jsx-3489063679 a{margin:0;padding:0;font-family:brandon-grotesque, sans-serif;font-weight:800;text-transform:uppercase;-webkit-text-decoration:none;text-decoration:none;font-size:10px;color:#41566F;}",
-                "@media screen and (min-width: 768px){.root.jsx-3489063679{width:100%;}}",
+                ".root.jsx-2130902709{margin:0 auto;padding:0;padding:40px;box-shadow:0px 0px 8px 1px rgba(65,86,113,.2);width:96%;}",
+                ".title.jsx-2130902709{margin:0;padding:0;font-family:adobe-garamond-pro, serif;font-weight:normal;font-size:18px;text-transform:capitalize;color:#41566F;border-bottom:1px solid #d9dee5;padding-bottom:30px;}",
+                ".action-container.jsx-2130902709{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;padding-top:20px;}",
+                ".action-container.jsx-2130902709{margin:0;padding:0;padding-top:20px;font-family:brandon-grotesque, sans-serif;font-weight:800;text-transform:uppercase;-webkit-text-decoration:none;text-decoration:none;font-size:10px;color:#41566F;}",
+                "@media screen and (min-width: 768px){.root.jsx-2130902709{width:100%;}}",
               ]
             }
-            styleId="3489063679"
+            styleId="2130902709"
           />,
         ],
-        "className": "jsx-3489063679 root",
+        "onlyActiveOnIndex": false,
+        "style": Object {},
+        "to": "#",
       },
       "ref": null,
       "rendered": Array [
@@ -196,62 +206,72 @@ ShallowWrapper {
           "key": undefined,
           "nodeType": "host",
           "props": Object {
-            "children": "Foo",
-            "className": "jsx-3489063679 title",
-          },
-          "ref": null,
-          "rendered": "Foo",
-          "type": "h5",
-        },
-        Object {
-          "instance": null,
-          "key": undefined,
-          "nodeType": "host",
-          "props": Object {
             "children": Array [
-              <Link
-                onlyActiveOnIndex={false}
-                style={Object {}}
-                to="#"
+              <h5
+                className="jsx-2130902709 title"
+              >
+                Foo
+              </h5>,
+              <div
+                className="jsx-2130902709 action-container"
               >
                 Topic 1
-              </Link>,
-              <img
-                alt=""
-                className="jsx-3489063679"
-                src="https://vega.slooh.com/assets/v4/common/arrow_horz.svg"
-              />,
+                <img
+                  alt=""
+                  className="jsx-2130902709"
+                  src="https://vega.slooh.com/assets/v4/common/arrow_horz.svg"
+                />
+              </div>,
             ],
-            "className": "jsx-3489063679 action-container",
+            "className": "jsx-2130902709 root",
           },
           "ref": null,
           "rendered": Array [
             Object {
               "instance": null,
               "key": undefined,
-              "nodeType": "class",
+              "nodeType": "host",
               "props": Object {
-                "children": "Topic 1",
-                "onlyActiveOnIndex": false,
-                "style": Object {},
-                "to": "#",
+                "children": "Foo",
+                "className": "jsx-2130902709 title",
               },
               "ref": null,
-              "rendered": "Topic 1",
-              "type": [Function],
+              "rendered": "Foo",
+              "type": "h5",
             },
             Object {
               "instance": null,
               "key": undefined,
               "nodeType": "host",
               "props": Object {
-                "alt": "",
-                "className": "jsx-3489063679",
-                "src": "https://vega.slooh.com/assets/v4/common/arrow_horz.svg",
+                "children": Array [
+                  "Topic 1",
+                  <img
+                    alt=""
+                    className="jsx-2130902709"
+                    src="https://vega.slooh.com/assets/v4/common/arrow_horz.svg"
+                  />,
+                ],
+                "className": "jsx-2130902709 action-container",
               },
               "ref": null,
-              "rendered": null,
-              "type": "img",
+              "rendered": Array [
+                "Topic 1",
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "alt": "",
+                    "className": "jsx-2130902709",
+                    "src": "https://vega.slooh.com/assets/v4/common/arrow_horz.svg",
+                  },
+                  "ref": null,
+                  "rendered": null,
+                  "type": "img",
+                },
+              ],
+              "type": "div",
             },
           ],
           "type": "div",
@@ -262,40 +282,28 @@ ShallowWrapper {
           "nodeType": "class",
           "props": Object {
             "css": Array [
-              ".root.jsx-3489063679{margin:0 auto;padding:0;padding:40px;box-shadow:0px 0px 8px 1px rgba(65,86,113,.2);width:96%;}",
-              ".title.jsx-3489063679{margin:0;padding:0;font-family:adobe-garamond-pro, serif;font-weight:normal;font-size:18px;text-transform:capitalize;color:#41566F;border-bottom:1px solid #d9dee5;padding-bottom:30px;}",
-              ".action-container.jsx-3489063679{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;padding-top:20px;}",
-              ".action-container.jsx-3489063679 a{margin:0;padding:0;font-family:brandon-grotesque, sans-serif;font-weight:800;text-transform:uppercase;-webkit-text-decoration:none;text-decoration:none;font-size:10px;color:#41566F;}",
-              "@media screen and (min-width: 768px){.root.jsx-3489063679{width:100%;}}",
+              ".root.jsx-2130902709{margin:0 auto;padding:0;padding:40px;box-shadow:0px 0px 8px 1px rgba(65,86,113,.2);width:96%;}",
+              ".title.jsx-2130902709{margin:0;padding:0;font-family:adobe-garamond-pro, serif;font-weight:normal;font-size:18px;text-transform:capitalize;color:#41566F;border-bottom:1px solid #d9dee5;padding-bottom:30px;}",
+              ".action-container.jsx-2130902709{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;padding-top:20px;}",
+              ".action-container.jsx-2130902709{margin:0;padding:0;padding-top:20px;font-family:brandon-grotesque, sans-serif;font-weight:800;text-transform:uppercase;-webkit-text-decoration:none;text-decoration:none;font-size:10px;color:#41566F;}",
+              "@media screen and (min-width: 768px){.root.jsx-2130902709{width:100%;}}",
             ],
-            "styleId": "3489063679",
+            "styleId": "2130902709",
           },
           "ref": null,
           "rendered": null,
           "type": [Function],
         },
       ],
-      "type": "div",
+      "type": [Function],
     },
   ],
   Symbol(enzyme.__options__): Object {
     "adapter": ReactSixteenAdapter {
       "options": Object {
         "enableComponentDidUpdateOnSetState": true,
-        "lifecycles": Object {
-          "componentDidUpdate": Object {
-            "onSetState": true,
-          },
-          "getDerivedStateFromProps": true,
-          "getSnapshotBeforeUpdate": true,
-          "setState": Object {
-            "skipsComponentDidUpdateOnNullish": true,
-          },
-        },
       },
     },
-    "attachTo": undefined,
-    "hydrateIn": undefined,
   },
 }
 `;

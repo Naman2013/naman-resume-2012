@@ -1,5 +1,4 @@
 import css from 'styled-jsx/css';
-import { secondaryFont } from 'styles/variables/fonts';
 import { screenMedium, screenLarge } from 'styles/variables/breakpoints';
 
 export default css`
@@ -15,12 +14,6 @@ export default css`
 
   .title-wrapper {
     padding: 15px 0;
-  }
-
-  .root :global(p) {
-    font-family: ${secondaryFont};
-    line-height: 1.5;
-    font-size: 18px;
   }
 
   @media ${screenMedium} {

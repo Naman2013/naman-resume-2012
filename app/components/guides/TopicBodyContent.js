@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import TopicActions from './TopicActions';
 import RubyTitle from 'atoms/titles/RubyTitle';
+import AboutContent from './AboutContent';
 import style from './TopicBodyContent.style';
 
 const TopicBodyContent = ({
@@ -14,7 +15,7 @@ const TopicBodyContent = ({
     <div className="title-wrapper">
       <RubyTitle text={title} />
     </div>
-    <span dangerouslySetInnerHTML={{ __html: content }} />
+    <AboutContent content={content} />
     <div className="action-container">
       {
         topicActionProps.showActions &&

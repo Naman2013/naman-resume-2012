@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import TopicActions from './TopicActions';
 import DisplayAtBreakpoint from 'components/common/DisplayAtBreakpoint';
+import AboutContent from './AboutContent';
 import style from './GuideBodyContent.style';
 
 const GuideBodyContent = ({
@@ -14,7 +15,7 @@ const GuideBodyContent = ({
 }) => (
   <div className="root" style={theme}>
     <h4 className="title">{title}</h4>
-    <span className="__html-content__" dangerouslySetInnerHTML={{ __html: content }} />
+    <AboutContent content={content} />
     <DisplayAtBreakpoint
       screenMedium
     >
