@@ -24,6 +24,12 @@ export default css`
     height: 85px;
   }
 
+  .title-container.open {
+    border-bottom: 0px;
+    padding-bottom: 4px;
+    ${dropShadowContainer};
+  }
+
   .title {
     padding: 25px;
     text-align: center;

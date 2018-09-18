@@ -143,6 +143,7 @@ const TopBar = ({ handleMenuClick, activeMenu, handleNotificationClick }) => {
 
             <style jsx>{`
               .root {
+                position: fixed;
                 display: flex;
                 justify-content: space-between;
                 width: 100%;

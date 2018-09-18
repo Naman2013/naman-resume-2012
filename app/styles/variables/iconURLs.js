@@ -11,5 +11,14 @@ export const checkAstronaut = 'https://vega.slooh.com/assets/v4/icons/check_astr
 export const closeAstronaut = 'https://vega.slooh.com/assets/v4/icons/close_astronaut.svg';
 export const closeWhite = 'https://vega.slooh.com/assets/icons/menu/menu-close.svg';
 export const userAstronaut = 'https://vega.slooh.com/assets/v4/icons/user_astronaut.svg';
+export const commentWhite = 'https://vega.slooh.com/assets/v4/icons/comment_white.svg';
+export const commentAstronaut = 'https://vega.slooh.com/assets/v4/common/comment.svg';
 
 export const goldCompass = 'https://vega.slooh.com/assets/v4/icons/gold_compass.svg';
+
+export const missions = 'https://vega.slooh.com/assets/v4/dashboard/icon_missions.svg';
+export const guides = 'https://vega.slooh.com/assets/v4/dashboard/icon_guides.svg';
+export const quests = 'https://vega.slooh.com/assets/v4/dashboard/icon_quests.svg';
+export const shows = 'https://vega.slooh.com/assets/v4/dashboard/icon_shows.svg';
+export const stories = 'https://vega.slooh.com/assets/v4/dashboard/icon_stories.svg';
+export const groups = 'https://vega.slooh.com/assets/v4/dashboard/icon_groups.svg';

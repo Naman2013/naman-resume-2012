@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'react-modal';
+import xorBy from 'lodash/xorBy';
 import MenuTitleBar from './MenuTitleBar';
 import MenuList from './MenuList';
 import AlertTile from './AlertTile';
@@ -33,8 +34,8 @@ class TimedNotifications extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { alertsOnly, notificationsCount, updateNotificationsCount } = this.props;
-    if (alertsOnly.length !== nextProps.alertsOnly.length) {
+    const { notificationsCount, updateNotificationsCount } = this.props;
+    if (xorBy(this.state.alerts, nextProps.alertsOnly, 'eventId').length > 0) {
       this.setState(() => ({
         alerts: nextProps.alertsOnly,
       }));

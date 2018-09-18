@@ -143,7 +143,7 @@ class BootstrappedShow extends Component {
 
     return (
       <div className="root">
-        <CenterColumn theme={{ backgroundColor: seashell }}>
+        <CenterColumn theme={{ backgroundColor: seashell }} theme={{ paddingTop: '25px' }}>
           {isLiveShow ? <Live {...this.props} /> : null}
           {isRecentShow ? <Recent {...this.props} /> : null}
           {isUpcomingShow ? <Upcoming {...this.props} /> : null}

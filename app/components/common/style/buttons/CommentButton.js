@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import CountButton from './CountButton';
+import { commentWhite, commentAstronaut } from 'styles/variables/iconURLs';
 
 const {
   func,
@@ -15,7 +16,7 @@ const CommentButton = ({ count, isActive, onClickEvent }) => (
       isActive={isActive}
       count={count}
       onClickEvent={onClickEvent}
-      icon="https://vega.slooh.com/assets/v4/common/comment.svg"
+      icon={isActive ? commentWhite : commentAstronaut}
     />
   </div>
 );

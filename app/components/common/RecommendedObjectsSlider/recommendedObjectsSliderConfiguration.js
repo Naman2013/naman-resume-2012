@@ -11,7 +11,9 @@ const sliderConfiguration = {
 };
 
 const getRecommendedObjectsItems = (recommendedObjectsList = []) =>
-recommendedObjectsList.map(object => <RecommendedObjectsItem key={uniqueId()} {...object} />)
+recommendedObjectsList.map(object => ({
+  render: () => <RecommendedObjectsItem key={uniqueId()} {...object} />,
+}))
 
 export const getSliderConfiguration = (slideList = []) => (
   Object.assign({

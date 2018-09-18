@@ -1,5 +1,10 @@
 import css from 'styled-jsx/css';
-import { astronaut, romance, glitter } from 'styles/variables/colors_tiles_v4';
+import {
+  astronaut,
+  romance,
+  glitter,
+  seashell,
+} from 'styles/variables/colors_tiles_v4';
 import { primaryFont, secondaryFont } from 'styles/variables/fonts';
 import {
   fullWidthBtn,
@@ -13,12 +18,12 @@ export default css`
   .members-list {
     margin: 15px 0;
     margin-left: 15px;
+    background-color: transparent;
   }
   .members-container {
     display: flex;
     flex-direction: column;
     width: 100%;
-    ${dropShadowContainer}
   }
 
   .img-container {
@@ -56,6 +61,7 @@ export default css`
   .members-list-card {
     margin: 15px 5px;
     padding: 15px;
+    background-color: ${romance};
     font-family: ${primaryFont};
     ${dropShadowContainer}
   }
@@ -75,12 +81,15 @@ export default css`
     border-top: 1px solid ${astronaut};
     height: 35px;
     align-items: center;
+
   }
 
   .gravity-label {
     flex: 0 100%;
     display: block;
     border-right: 1px solid ${astronaut};
+    text-transform: uppercase;
+    line-spacing: 1px;
   }
 
   .gravity-container {
@@ -106,6 +115,14 @@ export default css`
     height: 50px;
     align-content: center;
     flex-wrap: wrap;
+    font-size: 12px;
+    text-transform: uppercase;
+    font-family: ${primaryFont};
+    font-weight: bold;
+    background-color: ${astronaut};
+    padding-top: 10px;
+    overflow: hidden;
+
 
   }
   .caret {

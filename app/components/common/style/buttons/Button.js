@@ -31,7 +31,9 @@ const Button = ({
   >
     {
       text &&
-        <span className="text" dangerouslySetInnerHTML={{ __html: text }} />
+        <span className={classnames('text', {
+          'pad-right': text && icon,
+        })} dangerouslySetInnerHTML={{ __html: text }} />
     }
 
     {icon && <img alt="" className="icon" src={icon} />}

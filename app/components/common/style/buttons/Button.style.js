@@ -22,13 +22,17 @@ export default css`
   .circular {
     width: 40px;
     height: 40px;
+    padding: 0;
   }
 
   .text {
     display: inline-block;
-    padding-right: 40px;
     font-size: 11px;
     margin: 0 auto;
+  }
+
+  .pad-right {
+    padding-right: 40px;
   }
 
   .active.button-container {

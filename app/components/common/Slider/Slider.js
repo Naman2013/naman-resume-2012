@@ -24,7 +24,7 @@ const {
 
 class SloohSlider extends Component {
   static propTypes = {
-    slideList: arrayOf(any).isRequired,
+    slideList: arrayOf(any),
     slidesToShow: number,
     slidesToScroll: number,
     initialSlide: number,
@@ -32,6 +32,7 @@ class SloohSlider extends Component {
   }
 
   static defaultProps = {
+    slideList: [],
     slidesToShow: 1,
     slidesToScroll: 1,
     initialSlide: null,
@@ -108,7 +109,7 @@ class SloohSlider extends Component {
               {...sliderSettings}
               ref={(c) => { this.slider = c; }}
             >
-              {slideList.map(slideElement => <div>{slideElement}</div>)}
+              {slideList.map(slideElement => <div>{slideElement.render({ currentIndex })}</div>)}
             </Slider>
           </div>
         }

@@ -14,8 +14,8 @@ const propTypes = {
   handleClose: PropTypes.func.isRequired,
   title: PropTypes.string,
   render: PropTypes.func.isRequired,
-  width: PropTypes.number,
-  width: PropTypes.string,
+  width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  widthUnits: PropTypes.string,
 };
 
 const defaultProps = {

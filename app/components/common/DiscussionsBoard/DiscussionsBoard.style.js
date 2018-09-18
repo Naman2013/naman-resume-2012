@@ -8,6 +8,7 @@ export default css`
     font-family: ${primaryFont};
     color: ${astronaut};
     margin-bottom: 10px;
+    background-color: ${romance};
   }
   .shadowed-container {
     ${dropShadowContainer}

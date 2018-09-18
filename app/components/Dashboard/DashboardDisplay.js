@@ -1,5 +1,5 @@
 /***********************************
-* V4 Dashboard for a signed in user (the new homepage)
+* V4 Dashboard (new homepage)
 *
 *
 *
@@ -8,7 +8,7 @@
 import React from 'react';
 import Request from 'components/common/network/Request';
 import { DASHBOARD_META_DATA } from 'services/dashboard';
-import BootstrappedSignedInDashboard  from './BootstrappedSignedInDashboard';
+import BootstrappedDashboard  from './BootstrappedDashboard';
 
 const Dashboard = () => (
   <Request
@@ -20,7 +20,7 @@ const Dashboard = () => (
       serviceResponse,
     }) => (
       <div className="root">
-        <BootstrappedSignedInDashboard {...serviceResponse} />
+        <BootstrappedDashboard {...serviceResponse} />
       </div>
     )}
   />

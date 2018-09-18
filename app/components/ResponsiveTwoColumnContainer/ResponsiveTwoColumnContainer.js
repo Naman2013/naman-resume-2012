@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { darkGray, gray } from 'styles/variables/colors';
 import { primaryFont, secondaryFont } from 'styles/variables/fonts';
-import { screenMedium } from 'styles/variables/breakpoints';
+import { screenMedium, screenLarge, screenXLarge } from 'styles/variables/breakpoints';
 
 const {
   any,
@@ -110,7 +110,7 @@ class ResponsiveTwoColumnContainer extends Component {
         .root {
           font-family: ${primaryFont};
           color: ${darkGray};
-          max-width: 940px;
+          width: 320px;
           min-height: 100px;
           margin: 0 auto;
         }
@@ -122,16 +122,16 @@ class ResponsiveTwoColumnContainer extends Component {
 
         .main-container {
           display: flex;
+          width: 100%;
         }
 
-        .split-nav {
-          display: none;
-          width: 100%;
+        .left-container {
+          margin: 0 auto;
         }
 
         .left-container,
         .right-container {
-          width: 620px;
+          width: 100%;
         }
 
         .arrow {
@@ -146,7 +146,7 @@ class ResponsiveTwoColumnContainer extends Component {
 
         @media ${screenMedium} {
           .root {
-            max-width: 940px;
+            width: 768px;
           }
 
           .split-nav {
@@ -156,6 +156,46 @@ class ResponsiveTwoColumnContainer extends Component {
 
           .right-container {
             width: 300px;
+          }
+
+        }
+
+        @media ${screenLarge} {
+          .root {
+            width: 940px;
+          }
+
+          .split-nav {
+            display: none;
+            width: 100%;
+          }
+
+          .right-container {
+            width: 300px;
+          }
+
+          .left-container {
+            width: 620px;
+          }
+
+        }
+
+        @media ${screenXLarge} {
+          .root {
+            width: 940px;
+          }
+
+          .split-nav {
+            display: none;
+            width: 100%;
+          }
+
+          .right-container {
+            width: 300px;
+          }
+
+          .left-container {
+            width: 620px;
           }
 
         }
