@@ -108,7 +108,7 @@ class CommunityGroupOverview extends Component {
     } = this.props;
     return (
       <div className="root">
-        <CenterColumn widths={['768px', '940px', '940px']}>
+        <CenterColumn widths={['768px', '940px', '940px']} theme={{ paddingTop: '25px' }}>
           <Header
             showInformation={this.showInformation}
             joinOrLeaveGroup={this.joinLeaveGroup}

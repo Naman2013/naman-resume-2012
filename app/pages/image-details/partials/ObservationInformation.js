@@ -7,7 +7,7 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { astronaut, shadows } from 'styles/variables/colors_tiles_v4';
+import { astronaut, shadows, romance } from 'styles/variables/colors_tiles_v4';
 import { likeImage } from 'services/my-pictures/like-image';
 import Modal from 'react-modal';
 import { primaryFont, secondaryFont } from 'styles/variables/fonts';
@@ -166,10 +166,12 @@ class BootstrappedImageDetails extends Component {
         .root {
           font-family: ${primaryFont};
           color: ${astronaut};
+
         }
 
         .component-container {
           margin: 25px;
+          background-color: ${romance};
           -moz-box-shadow: 0 2px 4px 1px ${shadows};
           -webkit-box-shadow: 0 2px 4px 1px ${shadows};
           box-shadow: 0 2px 4px 1px ${shadows};

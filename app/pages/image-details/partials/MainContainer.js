@@ -14,6 +14,7 @@ const {
 } = PropTypes;
 
 const MainContainer = ({
+  actions,
   callSource,
   canEditFlag,
   canLikeFlag,
@@ -45,6 +46,7 @@ const MainContainer = ({
     user={user}
   />}
   {canEditFlag && <ObservationsForm
+    actions={actions}
     customerImageId={customerImageId}
     observationLog={observationLog}
     observationTitle={observationTitle}

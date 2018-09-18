@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import uniqueId from 'lodash/uniqueId';
 import { profilePhotoStyle } from 'styles/mixins/utilities';
-import { astronaut, geyser, shadows } from 'styles/variables/colors_tiles_v4';
+import { astronaut, geyser, shadows, romance } from 'styles/variables/colors_tiles_v4';
 import { secondaryFont } from 'styles/variables/fonts';
 
 
@@ -289,6 +289,7 @@ class ObjectDetailList extends Component {
         justify-content: space-evenly;
         align-items: center;
         margin-top: 25px;
+
       }
 
       .wide-info-item {
@@ -314,6 +315,7 @@ class ObjectDetailList extends Component {
         font-weight: bold;
         font-size: 11px;
         padding: 10px;
+        text-transform: uppercase;
       }
 
       .wide-info-block-name {
@@ -350,6 +352,7 @@ class ObjectDetailList extends Component {
         -moz-box-shadow: 0 2px 4px 1px ${shadows};
         -webkit-box-shadow: 0 2px 4px 1px ${shadows};
         box-shadow: 0 2px 4px 1px ${shadows};
+        background-color: ${romance};
       }
       .detail-note,
       .link {

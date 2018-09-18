@@ -1,9 +1,9 @@
 /***********************************
-* V4 Mission Detail List populated with info
-*
-*
-*
-***********************************/
+ * V4 Mission Detail List populated with info
+ *
+ *
+ *
+ ***********************************/
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
@@ -11,16 +11,11 @@ import { Link } from 'react-router';
 import classnames from 'classnames';
 import uniqueId from 'lodash/uniqueId';
 import { profilePhotoStyle } from 'styles/mixins/utilities';
-import { astronaut, geyser, shadows } from 'styles/variables/colors_tiles_v4';
+import BlueLineDrop from 'components/common/BlueLineDrop';
+import { astronaut, geyser, shadows, romance } from 'styles/variables/colors_tiles_v4';
 import { secondaryFont } from 'styles/variables/fonts';
 
-
-const {
-  arrayOf,
-  bool,
-  shape,
-  string,
-} = PropTypes;
+const { arrayOf, bool, shape, string } = PropTypes;
 
 class BootstrappedMissionDetailList extends Component {
   static propTypes = {
@@ -36,7 +31,7 @@ class BootstrappedMissionDetailList extends Component {
         linkUrl: string,
         text: string,
         textDetail: string,
-        textNote: string,
+        textNote: string
       }),
       observatory: shape({
         hasIconFlag: bool,
@@ -47,7 +42,7 @@ class BootstrappedMissionDetailList extends Component {
         linkUrl: string,
         text: string,
         textDetail: string,
-        textNote: string,
+        textNote: string
       }),
       scheduledby: shape({
         hasIconFlag: bool,
@@ -58,7 +53,7 @@ class BootstrappedMissionDetailList extends Component {
         linkUrl: string,
         text: string,
         textDetail: string,
-        textNote: string,
+        textNote: string
       }),
       telescope: shape({
         hasIconFlag: bool,
@@ -69,367 +64,340 @@ class BootstrappedMissionDetailList extends Component {
         linkUrl: string,
         text: string,
         textDetail: string,
-        textNote: string,
-      }),
-    }),
-  }
+        textNote: string
+      })
+    })
+  };
 
   static defaultProps = {
     isDesktop: false,
-    listTitle: '',
+    listTitle: "",
     missionDetailList: {
       scheduledby: {},
       observatory: {},
       missiondate: {},
-      telescope: {},
-    },
+      telescope: {}
+    }
   };
 
   state = {
-    showInfo: !this.props.isDesktop,
+    showInfo: !this.props.isDesktop
   };
 
-  toggleInfo = (e) => {
+  toggleInfo = e => {
     e.preventDefault();
 
     this.setState(state => ({
-      showInfo: !state.showInfo,
+      showInfo: !state.showInfo
     }));
-  }
-
-
+  };
 
   render() {
-    const {
-      isDesktop,
-      listTitle,
-      missionDetailList,
-    } = this.props;
+    const { isDesktop, listTitle, missionDetailList, isScreenLarge } = this.props;
     const { showInfo } = this.state;
-    const profPic = photoUrl => Object.assign(profilePhotoStyle(photoUrl), {
-      height: '50px',
-      width: '50px',
-      backgroundSize: 'cover',
-    });
+    const profPic = photoUrl =>
+      Object.assign(profilePhotoStyle(photoUrl), {
+        height: "50px",
+        width: "50px",
+        backgroundSize: "cover"
+      });
 
-    return (<div className={classnames({
-      'component-container': isDesktop,
-    })}>
-      {isDesktop ? <div className="title-container">
-        <span className="title" dangerouslySetInnerHTML={{ __html: listTitle}} />
-        <img
-          className={classnames('action', {
-            up: showInfo,
-          })}
-          onClick={this.toggleInfo}
-          src="https://vega.slooh.com/assets/v4/common/arrow_down.svg"
+    return (
+      <div>
+        <BlueLineDrop
+          title={listTitle}
+          isDesktop={isDesktop}
+          theme={{ margin: isScreenLarge ? '25px 0' : '25px' }}
+          render={() => (
+            <div>
+              {!isDesktop ? (
+                <div
+                  className="title"
+                  dangerouslySetInnerHTML={{ __html: listTitle }}
+                />
+              ) : null}
+              <div
+                className={classnames("detail-items", {
+                  "component-container": !isDesktop
+                })}
+              >
+                {missionDetailList.missiondate ? (
+                  <div className="info half-info" key={uniqueId()}>
+                    {missionDetailList.missiondate.hasIconFlag ? (
+                      <div
+                        style={profPic(missionDetailList.missiondate.iconUrl)}
+                      />
+                    ) : null}
+                    <div
+                      className="detail-label"
+                      dangerouslySetInnerHTML={{
+                        __html: missionDetailList.missiondate.label
+                      }}
+                    />
+                    <div
+                      className="detail-text"
+                      dangerouslySetInnerHTML={{
+                        __html: missionDetailList.missiondate.text
+                      }}
+                    />
+                    <div
+                      className="detail-text-detail"
+                      dangerouslySetInnerHTML={{
+                        __html: missionDetailList.missiondate.textDetail
+                      }}
+                    />
+                    <div
+                      className="detail-note"
+                      dangerouslySetInnerHTML={{
+                        __html: missionDetailList.missiondate.textNote
+                      }}
+                    />
+                    {missionDetailList.missiondate.hasLinkFlag ? (
+                      <Link to={missionDetailList.missiondate.linkUrl}>
+                        <span
+                          className="link"
+                          dangerouslySetInnerHTML={{
+                            __html: missionDetailList.missiondate.linkLabel
+                          }}
+                        />
+                      </Link>
+                    ) : null}
+                  </div>
+                ) : null}
+                {missionDetailList.scheduledby ? (
+                  <div className="info scheduledby" key={uniqueId()}>
+                    {missionDetailList.scheduledby.hasIconFlag ? (
+                      <div
+                        style={profPic(missionDetailList.scheduledby.iconUrl)}
+                      />
+                    ) : null}
+                    <div
+                      className="detail-label"
+                      dangerouslySetInnerHTML={{
+                        __html: missionDetailList.scheduledby.label
+                      }}
+                    />
+                    <div
+                      className="detail-text"
+                      dangerouslySetInnerHTML={{
+                        __html: missionDetailList.scheduledby.text
+                      }}
+                    />
+                    <div
+                      className="detail-text-detail"
+                      dangerouslySetInnerHTML={{
+                        __html: missionDetailList.scheduledby.textDetail
+                      }}
+                    />
+                    <div
+                      className="detail-note"
+                      dangerouslySetInnerHTML={{
+                        __html: missionDetailList.scheduledby.textNote
+                      }}
+                    />
+                    {missionDetailList.scheduledby.hasLinkFlag ? (
+                      <Link to={missionDetailList.scheduledby.linkUrl}>
+                        <span
+                          className="link"
+                          dangerouslySetInnerHTML={{
+                            __html: missionDetailList.scheduledby.linkLabel
+                          }}
+                        />
+                      </Link>
+                    ) : null}
+                  </div>
+                ) : null}
+                {missionDetailList.observatory ? (
+                  <div className="info" key={uniqueId()}>
+                    {missionDetailList.observatory.hasIconFlag ? (
+                      <div
+                        style={profPic(missionDetailList.observatory.iconUrl)}
+                      />
+                    ) : null}
+                    <div
+                      className="detail-label"
+                      dangerouslySetInnerHTML={{
+                        __html: missionDetailList.observatory.label
+                      }}
+                    />
+                    <div
+                      className="detail-text"
+                      dangerouslySetInnerHTML={{
+                        __html: missionDetailList.observatory.text
+                      }}
+                    />
+                    <div
+                      className="detail-text-detail"
+                      dangerouslySetInnerHTML={{
+                        __html: missionDetailList.observatory.textDetail
+                      }}
+                    />
+                    <div
+                      className="detail-note"
+                      dangerouslySetInnerHTML={{
+                        __html: missionDetailList.observatory.textNote
+                      }}
+                    />
+                    {missionDetailList.observatory.hasLinkFlag ? (
+                      <Link to={missionDetailList.observatory.linkUrl}>
+                        <span
+                          className="link"
+                          dangerouslySetInnerHTML={{
+                            __html: missionDetailList.observatory.linkLabel
+                          }}
+                        />
+                      </Link>
+                    ) : null}
+                  </div>
+                ) : null}
+                {missionDetailList.telescope ? (
+                  <div className="info" key={uniqueId()}>
+                    {missionDetailList.telescope.hasIconFlag ? (
+                      <div
+                        style={profPic(missionDetailList.telescope.iconUrl)}
+                      />
+                    ) : null}
+                    <div
+                      className="detail-label"
+                      dangerouslySetInnerHTML={{
+                        __html: missionDetailList.telescope.label
+                      }}
+                    />
+                    <div
+                      className="detail-text"
+                      dangerouslySetInnerHTML={{
+                        __html: missionDetailList.telescope.text
+                      }}
+                    />
+                    <div
+                      className="detail-text-detail"
+                      dangerouslySetInnerHTML={{
+                        __html: missionDetailList.telescope.textDetail
+                      }}
+                    />
+                    <div
+                      className="detail-note"
+                      dangerouslySetInnerHTML={{
+                        __html: missionDetailList.telescope.textNote
+                      }}
+                    />
+                    {missionDetailList.telescope.hasLinkFlag ? (
+                      <Link to={missionDetailList.telescope.linkUrl}>
+                        <span
+                          className="link"
+                          dangerouslySetInnerHTML={{
+                            __html: missionDetailList.telescope.linkLabel
+                          }}
+                        />
+                      </Link>
+                    ) : null}
+                  </div>
+                ) : null}
+              </div>
+            </div>
+          )}
         />
-      </div> : null}
-
-      {showInfo ? <div className="container-detail-items">
-        {!isDesktop ? <div className="title" dangerouslySetInnerHTML={{ __html: listTitle}} /> : null}
-        <div className={classnames('detail-items', {
-          'component-container': !isDesktop,
-        })}>
-          {missionDetailList.missiondate ? (
-          <div className="info half-info" key={uniqueId()}>
-            {missionDetailList.missiondate.hasIconFlag ? (
-              <div style={profPic(missionDetailList.missiondate.iconUrl)} />
-            ) : null}
-            <div
-              className="detail-label"
-              dangerouslySetInnerHTML={{
-                __html: missionDetailList.missiondate.label
-              }}
-            />
-            <div
-              className="detail-text"
-              dangerouslySetInnerHTML={{
-                __html: missionDetailList.missiondate.text
-              }}
-            />
-            <div
-              className="detail-text-detail"
-              dangerouslySetInnerHTML={{
-                __html: missionDetailList.missiondate.textDetail
-              }}
-            />
-            <div
-              className="detail-note"
-              dangerouslySetInnerHTML={{
-                __html: missionDetailList.missiondate.textNote
-              }}
-            />
-            {missionDetailList.missiondate.hasLinkFlag ? (
-              <Link to={missionDetailList.missiondate.linkUrl}>
-                <span
-                  className="link"
-                  dangerouslySetInnerHTML={{
-                    __html: missionDetailList.missiondate.linkLabel
-                  }}
-                />
-              </Link>
-            ) : null}
-          </div>
-        ) : null}
-        {missionDetailList.scheduledby ? (
-          <div className="info scheduledby" key={uniqueId()}>
-            {missionDetailList.scheduledby.hasIconFlag ? (
-              <div style={profPic(missionDetailList.scheduledby.iconUrl)} />
-            ) : null}
-            <div
-              className="detail-label"
-              dangerouslySetInnerHTML={{
-                __html: missionDetailList.scheduledby.label
-              }}
-            />
-            <div
-              className="detail-text"
-              dangerouslySetInnerHTML={{ __html: missionDetailList.scheduledby.text }}
-            />
-            <div
-              className="detail-text-detail"
-              dangerouslySetInnerHTML={{
-                __html: missionDetailList.scheduledby.textDetail
-              }}
-            />
-            <div
-              className="detail-note"
-              dangerouslySetInnerHTML={{
-                __html: missionDetailList.scheduledby.textNote
-              }}
-            />
-            {missionDetailList.scheduledby.hasLinkFlag ? (
-              <Link to={missionDetailList.scheduledby.linkUrl}>
-                <span
-                  className="link"
-                  dangerouslySetInnerHTML={{
-                    __html: missionDetailList.scheduledby.linkLabel
-                  }}
-                />
-              </Link>
-            ) : null}
-          </div>
-        ) : null}
-        {missionDetailList.observatory ? (
-          <div className="info" key={uniqueId()}>
-            {missionDetailList.observatory.hasIconFlag ? (
-              <div style={profPic(missionDetailList.observatory.iconUrl)} />
-            ) : null}
-            <div
-              className="detail-label"
-              dangerouslySetInnerHTML={{
-                __html: missionDetailList.observatory.label
-              }}
-            />
-            <div
-              className="detail-text"
-              dangerouslySetInnerHTML={{
-                __html: missionDetailList.observatory.text
-              }}
-            />
-            <div
-              className="detail-text-detail"
-              dangerouslySetInnerHTML={{
-                __html: missionDetailList.observatory.textDetail
-              }}
-            />
-            <div
-              className="detail-note"
-              dangerouslySetInnerHTML={{
-                __html: missionDetailList.observatory.textNote
-              }}
-            />
-            {missionDetailList.observatory.hasLinkFlag ? (
-              <Link to={missionDetailList.observatory.linkUrl}>
-                <span
-                  className="link"
-                  dangerouslySetInnerHTML={{
-                    __html: missionDetailList.observatory.linkLabel
-                  }}
-                />
-              </Link>
-            ) : null}
-          </div>
-        ) : null}
-        {missionDetailList.telescope ? (
-          <div className="info" key={uniqueId()}>
-            {missionDetailList.telescope.hasIconFlag ? (
-              <div style={profPic(missionDetailList.telescope.iconUrl)} />
-            ) : null}
-            <div
-              className="detail-label"
-              dangerouslySetInnerHTML={{
-                __html: missionDetailList.telescope.label
-              }}
-            />
-            <div
-              className="detail-text"
-              dangerouslySetInnerHTML={{
-                __html: missionDetailList.telescope.text
-              }}
-            />
-            <div
-              className="detail-text-detail"
-              dangerouslySetInnerHTML={{
-                __html: missionDetailList.telescope.textDetail
-              }}
-            />
-            <div
-              className="detail-note"
-              dangerouslySetInnerHTML={{
-                __html: missionDetailList.telescope.textNote
-              }}
-            />
-            {missionDetailList.telescope.hasLinkFlag ? (
-              <Link to={missionDetailList.telescope.linkUrl}>
-                <span
-                  className="link"
-                  dangerouslySetInnerHTML={{
-                    __html: missionDetailList.telescope.linkLabel
-                  }}
-                />
-              </Link>
-            ) : null}
-          </div>
-        ) : null}
-        </div>
-      </div> : null}
-      <style jsx>{`
-
-        .component-container {
-          margin: 25px;
-          -moz-box-shadow: 0 2px 4px 1px ${shadows};
-          -webkit-box-shadow: 0 2px 4px 1px ${shadows};
-          box-shadow: 0 2px 4px 1px ${shadows};
-        }
-
-        .title-container {
-          text-transform: uppercase;
-          color: ${astronaut};
-          font-weight: bold;
-          font-size: 12px;
-          border-bottom: 4px solid ${astronaut};
-          display: flex;
-          flex-direction: row;
-          align-items: center;
-        }
-
-        .title {
-          padding: 25px;
-          text-align: center;
-          width: 85%;
-        }
-
-        .info {
-          padding: 25px;
-        }
-
-        .up {
-          -webkit-transform: rotate(180deg);
-          -moz-transform: rotate(180deg);
-          -o-transform: rotate(180deg);
-          -ms-transform: rotate(180deg);
-          transform: rotate(180deg);
-        }
-
-        .detail-items {
-          display: flex;
-          flex-direction: row;
-          flex-wrap: wrap;
-        }
-
-        .detail-label {
-          text-transform: uppercase;
-          color: ${astronaut};
-          font-weight: bold;
-          font-size: 10px;
-        }
-
-        .detail-text {
-          text-transform: uppercase;
-          color: ${astronaut};
-          font-weight: bold;
-          font-size: 12px;
-        }
-        .detail-text-detail {
-          text-transform: uppercase;
-          color: ${astronaut};
-          font-weight: bold;
-          font-size: 12px;
-
-        }
-        .info {
-          flex: 0 100%;
-          padding: 25px;
-          border: 1px solid ${shadows};
-        }
-
-        .detail-note,
-        .link {
-          font-family: ${secondaryFont};
-          font-size: 12px;
-          color: ${geyser};
-          font-style: italic;
-        }
-
-        .container-detail-items {
-          display: flex;
-          flex-direction: column;
-          flex-wrap: wrap;
-        }
-
-        @media all and (min-width: 641px) and (max-width: 768px) {
-          .container-detail-items {
-            flex-direction: row;
-          }
-
-          .scheduledby {
-            flex: 0 0 100%;
-          }
-
+        <style jsx>{`
 
           .title {
-            flex: 0 0 100%;
-            font-size: 12px;
-            padding: 10px 0;
+            padding: 25px;
             text-align: center;
-            width: 100%;
+            width: 85%;
           }
 
-          .half-info {
-            width: 50%;
+          .info {
+            padding: 25px;
           }
 
-        }
-        @media all and (max-width: 640px){
-          .container-detail-items {
+
+          .detail-items {
+            display: flex;
             flex-direction: row;
+            flex-wrap: wrap;
+            background-color: ${romance};
           }
 
-          .scheduledby {
-            flex: 0 0 100%;
+          .detail-label {
+            text-transform: uppercase;
+            color: ${astronaut};
+            font-weight: bold;
+            font-size: 10px;
           }
 
-          .observer-avatar {
-            margin: 0 auto;
-          }
-
-          .title {
-            flex: 0 0 100%;
+          .detail-text {
+            text-transform: uppercase;
+            color: ${astronaut};
+            font-weight: bold;
             font-size: 12px;
-            padding: 10px 0;
-            text-align: center;
-            width: 100%;
+          }
+          .detail-text-detail {
+            text-transform: uppercase;
+            color: ${astronaut};
+            font-weight: bold;
+            font-size: 12px;
+          }
+          .info {
+            flex: 0 100%;
+            padding: 25px;
+            border: 1px solid ${shadows};
           }
 
-          .half-info {
-            width: 50%;
+          .detail-note,
+          .link {
+            font-family: ${secondaryFont};
+            font-size: 12px;
+            color: ${geyser};
+            font-style: italic;
           }
 
-        }
-      `}</style>
-    </div>);
+          .container-detail-items {
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+          }
+
+          @media all and (min-width: 641px) and (max-width: 768px) {
+
+            .scheduledby {
+              flex: 0 0 100%;
+            }
+
+            .title {
+              flex: 0 0 100%;
+              font-size: 12px;
+              padding: 10px 0;
+              text-align: center;
+              width: 100%;
+            }
+
+            .half-info {
+              width: 50%;
+            }
+          }
+          @media all and (max-width: 640px) {
+            .scheduledby {
+              flex: 0 0 100%;
+            }
+
+            .observer-avatar {
+              margin: 0 auto;
+            }
+
+            .title {
+              flex: 0 0 100%;
+              font-size: 12px;
+              padding: 10px 0;
+              text-align: center;
+              width: 100%;
+            }
+
+            .half-info {
+              width: 50%;
+            }
+          }
+        `}</style>
+      </div>
+    );
   }
 }
 
