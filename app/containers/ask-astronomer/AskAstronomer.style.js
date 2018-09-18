@@ -51,6 +51,7 @@ export default css`
     transform: translate(-50%, -50%);
   }
 
+
   .btn-nav {
     position: absolute;
     bottom: 20px;
@@ -60,6 +61,7 @@ export default css`
     font-size: 11px;
     font-weight: 600;
     letter-spacing: 2px;
+    cursor: pointer;
   }
 
   .btn-nav:first-of-type {
@@ -69,6 +71,22 @@ export default css`
   .btn-nav:last-of-type {
     right: 50px;
   }
+
+  .btn-nav.active {
+    color: ${astronaut};
+    font-weight: 600;
+  }
+
+  .btn-nav.active:after {
+    content: ""; 
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 10px;
+    bottom: -21px;
+    background: url("https://vega.slooh.com/assets/v4/common/icon_navarrow_blue.svg") no-repeat center center; 
+  }
+
 
   .center-line {
     border-right: 1px solid ${hawkesBlue};

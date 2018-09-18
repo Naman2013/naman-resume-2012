@@ -135,6 +135,10 @@ class AskAstronomer extends Component {
     });
   };
 
+  handleClick = () => {
+    console.log('this is:', this);
+  }
+
   render() {
     const {
       actions,
@@ -170,7 +174,7 @@ class AskAstronomer extends Component {
                   </div>
                 </div>
                 <div className="center-line" />
-                <span className="btn-nav">Questions</span>
+                <span className="btn-nav active" onClick={this.handleClick}>Questions</span>
                 <span className="btn-nav">Ask Now</span>      
               </div>
              <div className="right">
