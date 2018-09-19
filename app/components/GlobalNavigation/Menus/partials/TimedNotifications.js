@@ -28,6 +28,7 @@ class TimedNotifications extends Component {
 
   state = {
     alerts: [],
+    dismissedAlerts: [],
     timers: [],
     showPrompt: false,
     promptText: '',
@@ -36,8 +37,13 @@ class TimedNotifications extends Component {
   componentWillReceiveProps(nextProps) {
     const { notificationsCount, updateNotificationsCount } = this.props;
     if (xorBy(this.state.alerts, nextProps.alertsOnly, 'eventId').length > 0) {
+      // remove all dismissed alerts
+      let newAlerts = nextProps.alertsOnly;
+      this.state.dismissedAlerts.forEach(_dismissed => {
+        newAlerts = newAlerts.filter(_alert => _alert.eventId === _dismissed);
+      });
       this.setState(() => ({
-        alerts: nextProps.alertsOnly,
+        alerts: newAlerts,
       }));
 
       this.createTimers(nextProps.alertsOnly);
@@ -99,9 +105,11 @@ class TimedNotifications extends Component {
       eventId,
     }).then((res) => {
       if (res.successFlag) {
+        const dismissedAlerts = [].concat(this.state.dismissedAlerts, eventId);
         const newAlerts = this.state.alerts.filter(_storedAlert => _storedAlert.eventId !== eventId);
         this.setState(() => ({
           alerts: newAlerts,
+          dismissedAlerts,
         }));
       }
 
