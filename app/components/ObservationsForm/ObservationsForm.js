@@ -117,9 +117,11 @@ class ObservationsForm extends Component {
             })
           });
         }
+
+        actions.validateResponseAccess(res)
       });
 
-      actions.validateResponseAccess(res)
+
     }
   }
 
