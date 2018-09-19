@@ -167,7 +167,7 @@ class Overview extends Component {
               }}
             />
 
-            <ObjectVisibilityProfile />
+            <ObjectVisibilityProfile objectId={objectId} />
           </CenterColumn>
         </section>
 

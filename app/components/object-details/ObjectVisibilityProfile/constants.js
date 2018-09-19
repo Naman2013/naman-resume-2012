@@ -1,6 +1,7 @@
 export const DEFAULT_MONTH = 1;
 export const DEFAULT_DAY = 1;
 export const DEFAULT_YEAR = 2018;
+export const DEFAULT_OBSID = 'chile';
 const START_YEAR = 2004;
 const END_YEAR = new Date().getFullYear() + 1;
 

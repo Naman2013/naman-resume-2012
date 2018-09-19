@@ -11,20 +11,31 @@ import {
   DEFAULT_MONTH,
   DEFAULT_DAY,
   DEFAULT_YEAR,
+  DEFAULT_OBSID,
   MONTHS,
   YEARS,
 } from './constants';
 
+const riseSetModel = {
+  name: 'RISE_SET_MODEL',
+  model: resp => ({
+    rise: resp.riseText,
+    transit: resp.transitText,
+    set: resp.setText,
+    notes: resp.notesText,
+  }),
+};
+
 class ObjectVisibilityProfile extends Component {
   static propTypes = {
     objectId: PropTypes.string.isRequired,
-    obsId: PropTypes.string.isRequired,
   }
 
   state = {
     month: DEFAULT_MONTH,
     day: DEFAULT_DAY,
     year: DEFAULT_YEAR,
+    obsId: DEFAULT_OBSID,
   }
 
   fetchRiseSetData = () => {
@@ -58,14 +69,19 @@ class ObjectVisibilityProfile extends Component {
     return days;
   }
 
+  handleObservatoryChange = (event) => {
+    this.setState({ obsId: event.target.value });
+  }
+
   render() {
     const {
       day,
       month,
       year,
-      objectId,
       obsId,
     } = this.state;
+
+    const { objectId } = this.props;
 
     return (
       <GridContainer theme={{ margin: '20px 0 0 0' }}>
@@ -81,10 +97,14 @@ class ObjectVisibilityProfile extends Component {
               objectId,
               obsId,
             }}
-            render={() => (
+            model={riseSetModel}
+            render={({
+              fetchingContent,
+              modeledResponses: { RISE_SET_MODEL },
+            }) => (
               <Fragment>
                 <Row>
-                  <StaticCell title="Rise &#38; set times">
+                  <StaticCell hasBorderScale={[true]} title="Rise &#38; set times">
                     <select value={this.state.month} onChange={this.handleMonthChange}>
                       {MONTHS.map(currentMonth => (
                         <option
@@ -118,21 +138,27 @@ class ObjectVisibilityProfile extends Component {
                       ))}
                     </select>
                   </StaticCell>
+                  <StaticCell title="Observatory">
+                    <select value={this.state.obsId} onChange={this.handleObservatoryChange}>
+                      <option value="chile">Chile</option>
+                      <option value="teide">Teide</option>
+                    </select>
+                  </StaticCell>
                 </Row>
                 <Row>
                   <StaticCell title="Rise" hasBorderScale={[true]}>
-                    <p>6&#58;08 am</p>
+                    <p>{ (fetchingContent) ? 'Loading...' : RISE_SET_MODEL.rise }</p>
                   </StaticCell>
                   <StaticCell title="Transit" hasBorderScale={[true]}>
-                    <p>10&#58;44 am</p>
+                    <p>{ (fetchingContent) ? 'Loading...' : RISE_SET_MODEL.transit }</p>
                   </StaticCell>
                   <StaticCell title="Set">
-                    <p>3&#58;18 pm</p>
+                    <p>{ (fetchingContent) ? 'Loading...' : RISE_SET_MODEL.set }</p>
                   </StaticCell>
                 </Row>
                 <Row>
                   <StaticCell title="Notes">
-                    <p>Slightly difficult to see...</p>
+                    <p>{ (fetchingContent) ? 'Loading...' : RISE_SET_MODEL.notes }</p>
                   </StaticCell>
                 </Row>
               </Fragment>
