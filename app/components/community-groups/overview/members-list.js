@@ -90,6 +90,7 @@ class GroupMemberList extends Component {
       discussionGroupId,
       fetchGroupMembers,
       renderToggle,
+      theme,
     } = this.props;
 
     const {
@@ -99,7 +100,7 @@ class GroupMemberList extends Component {
     } = this.state;
 
     return (
-      <div className="members-list">
+      <div className="members-list" style={theme}>
         <BlueLineDrop
           title={`Group Members (${membersCount})`}
           isDesktop={isDesktop}
