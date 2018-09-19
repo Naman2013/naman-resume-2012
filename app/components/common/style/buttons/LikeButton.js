@@ -24,7 +24,7 @@ const LikeButton = ({ count, onClickEvent, alwaysShowCount }) => (<div>
 
 LikeButton.propTypes = {
   alwaysShowCount: bool,
-  count: oneOfType([string, number]).isRequired,
+  count: oneOfType([string, number]),
   onClickEvent: func.isRequired,
 };
 LikeButton.defaultProps = {
