@@ -49,6 +49,7 @@ const Telescopes = () => (
           }
 
           .center-buttons {
+            padding: 5px 0 15px 0;
             text-align: center;
           }
 
