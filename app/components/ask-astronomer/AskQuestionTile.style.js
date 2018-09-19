@@ -6,7 +6,6 @@ import { screenMedium, screenLarge, screenXLarge } from '../../styles/variables/
 export default css`
 
   .ask-question-tile {
-    width: 100%;
     box-shadow: 0px 0px 3px 1px rgba(0,0,0,0.1);
     margin: 10px;
     width: calc(100% - 20px);
@@ -77,8 +76,10 @@ export default css`
   @media ${screenMedium} {
 
     .ask-question-tile {
+      width: 100%;
       display: flex;
       flex-direction: row;
+      margin: 0;
     }
 
     .icon-container {
@@ -104,6 +105,7 @@ export default css`
       height: 400px;
       display: block;
       position: relative;
+      margin: 10px;
     }
 
     .icon-container {

@@ -89,9 +89,16 @@ class AskAstronomer extends Component {
     actions: { },
     objectId: '',
   }
+
+
   constructor(props) {
     super(props);
 
+    this.state = {
+      leftView: "hidden",
+      rightView: "show",
+    };
+  
   }
 
   componentWillReceiveProps(nextProps) {
@@ -136,8 +143,18 @@ class AskAstronomer extends Component {
     });
   };
 
-  handleClick = () => {
-    console.log('this is:', this);
+
+  handleMobileClick = () => {
+    let lefty = (this.state.leftView === "hidden") ? "show" : "hidden";
+    this.setState({"leftView":lefty});
+    let righty = (this.state.rightView === "hidden") ? "show" : "hidden";
+    this.setState({"rightView":righty});
+
+    this.updateAstroView ();
+  }
+
+  updateAstroView = () => {
+    console.log('this is:', this.state);   
   }
 
   render() {
@@ -162,7 +179,6 @@ class AskAstronomer extends Component {
     } = this.props;
     return (
       <Fragment>
-        <DeviceProvider>
           <ObjectDetailsSectionTitle title={objectTitle + "'s"} subTitle="Ask An Astronomer" />        
           <CenterColumn>
             <div className="ask-astronomer">
@@ -175,19 +191,10 @@ class AskAstronomer extends Component {
                   </div>
                 </div>
                 <div className="center-line" />
-                <span className="btn-nav active" onClick={this.handleClick}>Questions</span>
-                <span className="btn-nav">Ask Now</span>      
-              </div>
-             <div className="right">
-                {/*<AskAstronomerQuestionForm
-                  objectId={objectId}
-                  topicId={faqTopicId}
-                  objectTitle={objectTitle}
-                  user={user}
-                />*/}
-                <AskQuestionTile></AskQuestionTile>
-              </div>              
-              <div className="left">
+                <span className="btn-nav active" onClick={this.handleMobileClick}>Questions</span>
+                <span className="btn-nav" onClick={this.handleMobileClick}>Ask Now</span>      
+              </div>            
+              <div className={'left ' + this.state.leftView}>
                 {fetchingQuestions && <div className="fa fa-spinner loader" />}
                 {!fetchingQuestions && <QuestionList
                   allAnswers={allAnswers}
@@ -202,9 +209,17 @@ class AskAstronomer extends Component {
                   totalCount={totalCount}
                 />}
               </div>
+              <div className={'right ' + this.state.rightView}>
+                {/*<AskAstronomerQuestionForm
+                  objectId={objectId}
+                  topicId={faqTopicId}
+                  objectTitle={objectTitle}
+                  user={user}
+                />*/}
+                <AskQuestionTile></AskQuestionTile>
+              </div>  
             </div>
           </CenterColumn>
-        </DeviceProvider>
         <style jsx>{style}</style>
       </Fragment>
     )

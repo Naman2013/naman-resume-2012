@@ -9,13 +9,7 @@ export default css`
     background-color: #F2F3F4;
   }
 
-  .left {
-      display: none;
-    }
-
-  .right {
-    display: block;
-  }
+  
 
   .loader {
     display: block;
@@ -95,6 +89,14 @@ export default css`
     background: url("https://vega.slooh.com/assets/v4/common/icon_navarrow_blue.svg") no-repeat center center; 
   }
 
+  .show {
+    display: block;
+  }
+
+  .hidden {
+    display: none;
+  }
+
 
   .center-line {
     border-right: 1px solid ${hawkesBlue};
@@ -111,8 +113,9 @@ export default css`
     .ask-astronomer {
       display: flex;
       flex-direction: row;
-      padding: 10px 25px;
+      padding: 0;
     }
+
     .loader {
       display: block;
       text-align: center;
@@ -129,4 +132,14 @@ export default css`
     }
   }
 
+  @media ${screenXLarge} {
+
+    .show {
+      display: block;
+    }
+
+    .hidden {
+      display: block;
+    }
+  }
 `;
