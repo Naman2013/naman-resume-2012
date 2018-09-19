@@ -13,6 +13,7 @@ import LargeButtonWithRightIcon from 'components/common/style/buttons/LargeButto
 import Button from 'components/common/style/buttons/Button';
 import { astronaut, romance, white_tile_paper, nightfall } from 'styles/variables/colors_tiles_v4';
 import { secondaryFont } from 'styles/variables/fonts';
+import { info } from 'styles/variables/iconURLs';
 import {
   screenMedium,
   screenLarge,
@@ -24,13 +25,14 @@ const {
 } = PropTypes;
 
 const GroupsHeader = ({
-  title,
-  subtitleList={},
-  showJoinPrompt,
-  joinPrompt,
-  joinOrLeaveGroup,
-  showInformation,
   description,
+  isMobile,
+  joinOrLeaveGroup,
+  joinPrompt,
+  showInformation,
+  showJoinPrompt,
+  subtitleList={},
+  title,
 }) => (
   <div className="root">
     <div className="image-and-main-container">
@@ -42,15 +44,15 @@ const GroupsHeader = ({
       </div>
       <div className="main-container">
         <div className="groups-header-title desktop-hide" dangerouslySetInnerHTML={{ __html: title }} />
-        <LabeledTitleTiles tiles={subtitleList} />
+        <LabeledTitleTiles tiles={subtitleList} theme={{ boxShadow: 'none' }} />
         <div className="action-container">
-          {showJoinPrompt &&
+          {showJoinPrompt ?
             <LargeButtonWithRightIcon
               icon="https://vega.slooh.com/assets/v4/common/comment.svg"
               text={joinPrompt}
               onClickEvent={joinOrLeaveGroup}
-            />}
-            {/*<Button icon="https://vega.slooh.com/assets/v4/common/info_icon.svg" onClickEvent={showInformation} />*/}
+            /> : null}
+            {isMobile ? <Button icon={info} onClickEvent={showInformation} /> : null}
         </div>
       </div>
     </div>
@@ -107,6 +109,7 @@ const GroupsHeader = ({
         display: flex;
         flex-direction: row;
         justify-content: space-evenly;
+        align-items: center;
       }
 
       .left {

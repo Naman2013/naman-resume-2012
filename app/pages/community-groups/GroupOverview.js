@@ -10,10 +10,14 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
+import Modal from 'react-modal';
 import { DeviceContext } from 'providers/DeviceProvider';
 import Header from 'components/community-groups/overview/header';
 import FullInformationOverview from 'components/community-groups/overview/full-information-container';
 import CenterColumn from 'components/common/CenterColumn';
+import { modalStyleFullPage } from 'styles/mixins/utilities';
+import BackBar from 'components/common/style/buttons/BackBar';
+
 import {
   joinOrLeaveGroup,
 } from 'modules/community-groups/actions';
@@ -56,8 +60,8 @@ class CommunityGroupOverview extends Component {
   static defaultProps = {
   }
 
-  constructor(props) {
-    super(props);
+  state = {
+    showPopup: false,
   }
 
   componentWillMount() {
@@ -91,12 +95,16 @@ class CommunityGroupOverview extends Component {
   }
 
   showInformation = (e) => {
-    const {
-      routeParams: { groupId },
-    } = this.props;
-    e.preventDefault();
+    this.setState({
+      showPopup: true,
+    });
 
-    browserHistory.push(`community-groups/${groupId}/info`)
+  }
+
+  closeModal = (e) => {
+    this.setState({
+      showPopup: false,
+    });
   }
 
   render() {
@@ -106,26 +114,39 @@ class CommunityGroupOverview extends Component {
       routeParams: { groupId },
       actions,
     } = this.props;
+    const { showPopup } = this.state;
+
     return (
       <div className="root">
-        <CenterColumn widths={['768px', '940px', '940px']} theme={{ paddingTop: '25px' }}>
-          <Header
-            showInformation={this.showInformation}
-            joinOrLeaveGroup={this.joinLeaveGroup}
-            discussionGroupId={groupId}
-            {...communityGroupOverview}
-            {...pageMeta}
-          />
-          <DeviceContext.Consumer>
-            {context => (
-              <FullInformationOverview
-                joinOrLeaveGroup={this.joinLeaveGroup}
-                context={context}
-                discussionGroupId={groupId}
-              />
-            )}
-          </DeviceContext.Consumer>
-        </CenterColumn>
+      <DeviceContext.Consumer>
+          {context => (<CenterColumn widths={['768px', '940px', '940px']} theme={{ paddingTop: '25px' }}>
+            <Header
+              showInformation={this.showInformation}
+              joinOrLeaveGroup={this.joinLeaveGroup}
+              discussionGroupId={groupId}
+              {...context}
+              {...communityGroupOverview}
+              {...pageMeta}
+            />
+
+            <FullInformationOverview
+              joinOrLeaveGroup={this.joinLeaveGroup}
+              context={context}
+              discussionGroupId={groupId}
+            />
+
+          </CenterColumn>)}
+        </DeviceContext.Consumer>
+        <Modal
+          ariaHideApp={false}
+          isOpen={showPopup}
+          style={modalStyleFullPage}
+          contentLabel="Group Info"
+          onRequestClose={this.closeModal}
+        >
+          <BackBar onClickEvent={this.closeModal} />
+
+        </Modal>
         <style jsx>{`
           .root {
             color: ${astronaut};

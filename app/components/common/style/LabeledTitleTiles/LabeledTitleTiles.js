@@ -86,11 +86,13 @@ const LabeledTitleTiles = ({
       min-height: 100px;
     }
 
-    .wide-info-item:first-child {
+    .column .wide-info-item:last-child,
+    :not(.column) .wide-info-item:last-child {
       border-left: 0;
     }
 
-    .wide-info-item:last-child {
+    .column .wide-info-item:last-child,
+    :not(.column) .wide-info-item:last-child {
       border-right: 0;
     }
 

@@ -110,9 +110,8 @@ class ResponsiveTwoColumnContainer extends Component {
         .root {
           font-family: ${primaryFont};
           color: ${darkGray};
-          width: 320px;
           min-height: 100px;
-          margin: 0 auto;
+
         }
 
 
@@ -147,6 +146,7 @@ class ResponsiveTwoColumnContainer extends Component {
         @media ${screenMedium} {
           .root {
             width: 768px;
+            margin: 0 auto;
           }
 
           .split-nav {
@@ -163,6 +163,7 @@ class ResponsiveTwoColumnContainer extends Component {
         @media ${screenLarge} {
           .root {
             width: 940px;
+            margin: 0 auto;
           }
 
           .split-nav {
@@ -183,6 +184,7 @@ class ResponsiveTwoColumnContainer extends Component {
         @media ${screenXLarge} {
           .root {
             width: 940px;
+            margin: 0 auto;
           }
 
           .split-nav {
