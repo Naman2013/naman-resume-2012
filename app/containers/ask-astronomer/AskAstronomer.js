@@ -16,6 +16,7 @@ import {
 import {
   toggleAllAnswersAndDisplay,
 } from '../../modules/ask-astronomer-answers/actions';
+import AskQuestionTile from '../../components/ask-astronomer/AskQuestionTile';
 import QuestionList from '../../components/ask-astronomer/question-list';
 import AskAstronomerQuestionForm from '../../components/ask-astronomer/question-form';
 import noop from 'lodash/noop';
@@ -184,13 +185,8 @@ class AskAstronomer extends Component {
                   objectTitle={objectTitle}
                   user={user}
                 />*/}
-                <div className="ask-question-tile">
-                  <span className="dek">Have a Question?</span>
-                  <h2>Ask an Astronomer!</h2>
-                  <p>Nam dapibus nisl vitae elitem fringilla rutrum. Aenean lener  elementum rutrum.</p>
-                  <GenericButton onClickEvent={noop} text="SUBMIT A QUESTION"icon="https://vega.slooh.com/assets/v4/common/plus_icon.svg" />
-                </div>
-              </div>
+                <AskQuestionTile></AskQuestionTile>
+              </div>              
               <div className="left">
                 {fetchingQuestions && <div className="fa fa-spinner loader" />}
                 {!fetchingQuestions && <QuestionList

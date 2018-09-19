@@ -9,6 +9,14 @@ export default css`
     background-color: #F2F3F4;
   }
 
+  .left {
+      display: none;
+    }
+
+  .right {
+    display: block;
+  }
+
   .loader {
     display: block;
     text-align: center;
@@ -92,44 +100,6 @@ export default css`
     border-right: 1px solid ${hawkesBlue};
     width: 50%;
     height: 60px;
-  }
-
-  .ask-question-tile {
-    width: 100%;
-    box-shadow: 0px 0px 3px 1px rgba(0,0,0,0.1);
-    margin: 10px;
-    width: calc(100% - 20px);
-    padding: 40px;
-    background-color: ${romance};
-    font-size: 18px;
-    font-family: ${secondaryFont};
-    color: #616E7D;
-  }
-
-  .ask-question-tile .dek {
-    font-family: ${primaryFont};
-    text-transform: uppercase;
-    font-size: 11px;
-    font-weight: 600;
-    color: ${lightHeadedAstronaut};
-  }
-
-  .ask-question-tile h2 {
-    font-size: 20px;
-    border-bottom: 1px solid ${hawkesBlue};
-    padding: 15px 0;
-    color: ${lightHeadedAstronaut};
-    margin: 0;
-  }
-
-  .ask-question-tile p {
-    padding: 20px 0 15px 0;
-  }
-
-  .ask-question-tile button {
-    letter-spacing: 1px;
-    width: 100%;
-    max-width: 210px;
   }
 
   @media ${screenMedium} {
