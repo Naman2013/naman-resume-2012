@@ -5,7 +5,7 @@
 *
 ***********************************/
 
-import React, { Component, cloneElement } from 'react';
+import React, { Component, cloneElement, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
@@ -16,6 +16,7 @@ import Header from 'components/community-groups/overview/header';
 import FullInformationOverview from 'components/community-groups/overview/full-information-container';
 import CenterColumn from 'components/common/CenterColumn';
 import { modalStyleFullPage } from 'styles/mixins/utilities';
+import MembersList from 'components/community-groups/overview/members-list';
 import BackBar from 'components/common/style/buttons/BackBar';
 
 import {
@@ -116,11 +117,41 @@ class CommunityGroupOverview extends Component {
     } = this.props;
     const { showPopup } = this.state;
 
+    const modalStyles = modalStyleFullPage;
+
+     modalStyles.content = Object.assign(modalStyleFullPage.content, { backgroundColor: seashell });
+
     return (
       <div className="root">
       <DeviceContext.Consumer>
-          {context => (<CenterColumn widths={['768px', '940px', '940px']} theme={{ paddingTop: '25px' }}>
+          {context => (<Fragment>
+            <CenterColumn widths={['768px', '940px', '940px']} theme={{ paddingTop: '25px' }}>
+              <Header
+                condensed={false}
+                showInformation={this.showInformation}
+                joinOrLeaveGroup={this.joinLeaveGroup}
+                discussionGroupId={groupId}
+                {...context}
+                {...communityGroupOverview}
+                {...pageMeta}
+              />
+
+              <FullInformationOverview
+                joinOrLeaveGroup={this.joinLeaveGroup}
+                context={context}
+                discussionGroupId={groupId}
+              />
+          </CenterColumn>
+          <Modal
+            ariaHideApp={false}
+            isOpen={showPopup}
+            style={modalStyles}
+            contentLabel="Group Info"
+            onRequestClose={this.closeModal}
+          >
+            <BackBar onClickEvent={this.closeModal} />
             <Header
+              condensed={true}
               showInformation={this.showInformation}
               joinOrLeaveGroup={this.joinLeaveGroup}
               discussionGroupId={groupId}
@@ -129,28 +160,40 @@ class CommunityGroupOverview extends Component {
               {...pageMeta}
             />
 
-            <FullInformationOverview
-              joinOrLeaveGroup={this.joinLeaveGroup}
-              context={context}
+            <h2 className="groupmembers-contain"><span className="groupmembers">Group members</span>{` (${communityGroupOverview.membersCount})`}</h2>
+            <MembersList
+              membersSort={communityGroupOverview.membersSort}
+              membersList={communityGroupOverview.membersList}
+              membersCount={communityGroupOverview.membersCount}
               discussionGroupId={groupId}
+              fetchGroupMembers={actions.fetchGroupMembers}
+              isDesktop={context.isDesktop}
+              theme={{ marginLeft: 0 }}
             />
 
-          </CenterColumn>)}
-        </DeviceContext.Consumer>
-        <Modal
-          ariaHideApp={false}
-          isOpen={showPopup}
-          style={modalStyleFullPage}
-          contentLabel="Group Info"
-          onRequestClose={this.closeModal}
-        >
-          <BackBar onClickEvent={this.closeModal} />
+          </Modal>
+        </Fragment>)}
 
-        </Modal>
+        </DeviceContext.Consumer>
+
         <style jsx>{`
           .root {
             color: ${astronaut};
             background-color: ${seashell};
+          }
+
+          .groupmembers-contain {
+            color: ${astronaut};
+            font-size: 16px;
+            text-transform: uppercase;
+            margin: 25px 0;
+            text-align: center;
+
+          }
+
+          .groupmembers {
+            font-weight: normal;
+            font-weight: bold;
           }
 
         `}</style>

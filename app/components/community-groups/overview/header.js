@@ -25,6 +25,7 @@ const {
 } = PropTypes;
 
 const GroupsHeader = ({
+  condensed=false,
   description,
   isMobile,
   joinOrLeaveGroup,
@@ -36,15 +37,16 @@ const GroupsHeader = ({
 }) => (
   <div className="root">
     <div className="image-and-main-container">
-      <div className="groups-header-image">
+      {!condensed ? <div className="groups-header-image">
         <img
           className="header-img"
           src="https://s3.amazonaws.com/webassets-slooh-com/assets/v4/icons/Group_Graphic_Placeholder.png"
         />
-      </div>
+      </div> : null}
       <div className="main-container">
         <div className="groups-header-title desktop-hide" dangerouslySetInnerHTML={{ __html: title }} />
         <LabeledTitleTiles tiles={subtitleList} theme={{ boxShadow: 'none' }} />
+        {condensed ? (<div className="groups-header-information" dangerouslySetInnerHTML={{ __html:   description }} />) : null}
         <div className="action-container">
           {showJoinPrompt ?
             <LargeButtonWithRightIcon
@@ -52,19 +54,18 @@ const GroupsHeader = ({
               text={joinPrompt}
               onClickEvent={joinOrLeaveGroup}
             /> : null}
-            {isMobile ? <Button icon={info} onClickEvent={showInformation} /> : null}
+            {isMobile && !condensed ? <Button icon={info} onClickEvent={showInformation} /> : null}
         </div>
       </div>
     </div>
 
-    <div className="info-container">
+    {!condensed ? (<div className="info-container">
       <div className="info-inner-container">
         <div className="groups-header-subtitle">Community Group</div>
         <div className="groups-header-title" dangerouslySetInnerHTML={{ __html: title }} />
         <div className="groups-header-information" dangerouslySetInnerHTML={{ __html:   description }} />
       </div>
-
-    </div>
+    </div>) : null}
 
     <style jsx>{`
       .root {
@@ -103,6 +104,11 @@ const GroupsHeader = ({
         font-size: 22px;
         padding: 15px 0;
         font-family: ${secondaryFont};
+      }
+
+      .groups-header-information {
+        font-family: ${secondaryFont};
+        font-size: 19px;
       }
 
       .action-container {

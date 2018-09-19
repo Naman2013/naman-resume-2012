@@ -60,7 +60,7 @@ export default css`
 
   .members-list-card {
     margin: 15px 5px;
-    padding: 15px;
+    padding: 25px;
     background-color: ${romance};
     font-family: ${primaryFont};
     ${dropShadowContainer}
