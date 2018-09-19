@@ -103,8 +103,12 @@ class ObjectVisibilityProfile extends Component {
               modeledResponses: { RISE_SET_MODEL },
             }) => (
               <Fragment>
-                <Row>
-                  <StaticCell hasBorderScale={[true]} title="Rise &#38; set times">
+                <Row wrap>
+                  <StaticCell
+                    flexScale={['100%', '50%']}
+                    hasBorderScale={[true]}
+                    title="Rise &#38; set times"
+                  >
                     <select value={this.state.month} onChange={this.handleMonthChange}>
                       {MONTHS.map(currentMonth => (
                         <option
@@ -138,7 +142,7 @@ class ObjectVisibilityProfile extends Component {
                       ))}
                     </select>
                   </StaticCell>
-                  <StaticCell title="Observatory">
+                  <StaticCell title="Observatory" flexScale={['100%', '25%']}>
                     <select value={this.state.obsId} onChange={this.handleObservatoryChange}>
                       <option value="chile">Chile</option>
                       <option value="teide">Teide</option>
