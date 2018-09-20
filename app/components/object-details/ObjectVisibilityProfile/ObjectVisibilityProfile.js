@@ -3,9 +3,11 @@ import PropTypes from 'prop-types';
 import getDaysByMonth from 'utils/date-utils/get-days-by-month';
 import Request from 'components/common/network/Request';
 import { RISE_SET_TIMES } from 'services/objects';
+import { downwardFacingChevron } from 'styles/variables/iconURLs';
 import GridContainer from '../grid/GridContainer';
 import Row from '../grid/Row';
 import StaticCell from '../grid/StaticCell';
+import style from './ObjectVisibilityProfile.style';
 
 import {
   DEFAULT_MONTH,
@@ -109,16 +111,32 @@ class ObjectVisibilityProfile extends Component {
                     hasBorderScale={[true]}
                     title="Rise &#38; set times"
                   >
-                    <select value={this.state.month} onChange={this.handleMonthChange}>
-                      {MONTHS.map(currentMonth => (
-                        <option
-                          key={`month-select-${currentMonth.value}`}
-                          value={currentMonth.value}
-                        >
-                          {currentMonth.name}
-                        </option>
-                      ))}
-                    </select>
+                    <div className="select-field">
+                      <label
+                        className="option-label"
+                        htmlFor="select-month"
+                      >
+                        <span className="field-value-name">
+                          {MONTHS.filter(filterMonth => filterMonth.value == this.state.month)[0].name}
+                        </span>
+                        <img alt="" width="8" src={downwardFacingChevron} />
+                      </label>
+                      <select
+                        className="select"
+                        id="select-month"
+                        value={this.state.month}
+                        onChange={this.handleMonthChange}
+                      >
+                        {MONTHS.map(currentMonth => (
+                          <option
+                            key={`month-select-${currentMonth.value}`}
+                            value={currentMonth.value}
+                          >
+                            {currentMonth.name}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
 
                     <select value={this.state.day} onChange={this.handleDayChange}>
                       {this.generateDays().map(currentDay => (
@@ -169,6 +187,7 @@ class ObjectVisibilityProfile extends Component {
             )}
           />
         </form>
+        <style jsx>{style}</style>
       </GridContainer>
     );
   }
