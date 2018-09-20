@@ -138,16 +138,32 @@ class ObjectVisibilityProfile extends Component {
                       </select>
                     </div>
 
-                    <select value={this.state.day} onChange={this.handleDayChange}>
-                      {this.generateDays().map(currentDay => (
-                        <option
-                          key={`day-select-${currentDay.value}`}
-                          value={currentDay.value}
-                        >
-                          {currentDay.name}
-                        </option>
-                      ))}
-                    </select>
+                    <div className="select-field">
+                      <label
+                        className="option-label"
+                        htmlFor="select-day"
+                      >
+                        <span className="field-value-name">
+                          {this.generateDays().filter(filterDay => filterDay.value == this.state.day)[0].name}
+                        </span>
+                        <img alt="" width="8" src={downwardFacingChevron} />
+                      </label>
+                      <select
+                        className="select"
+                        id="select-day"
+                        value={this.state.day}
+                        onChange={this.handleDayChange}
+                      >
+                        {this.generateDays().map(currentDay => (
+                          <option
+                            key={`day-select-${currentDay.value}`}
+                            value={currentDay.value}
+                          >
+                            {currentDay.name}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
 
                     <select value={this.state.year} onChange={this.handleYearChange}>
                       {YEARS.map(currentYear => (
