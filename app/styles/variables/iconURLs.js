@@ -15,3 +15,5 @@ export const userAstronaut = 'https://vega.slooh.com/assets/v4/icons/user_astron
 export const goldCompass = 'https://vega.slooh.com/assets/v4/icons/gold_compass.svg';
 
 export const plus = 'https://vega.slooh.com/assets/v4/common/plus_icon.svg';
+
+export const downwardFacingChevron = 'https://vega.slooh.com/assets/v4/common/arrow_down.svg';
