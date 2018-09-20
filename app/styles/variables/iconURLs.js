@@ -24,6 +24,7 @@ export const stories = 'https://vega.slooh.com/assets/v4/dashboard/icon_stories.
 export const groups = 'https://vega.slooh.com/assets/v4/dashboard/icon_groups.svg';
 
 export const info = 'https://vega.slooh.com/assets/v4/common/info_icon.svg';
+
 export const plus = 'https://vega.slooh.com/assets/v4/common/plus_icon.svg';
 
 export const downwardFacingChevron = 'https://vega.slooh.com/assets/v4/common/arrow_down.svg';
