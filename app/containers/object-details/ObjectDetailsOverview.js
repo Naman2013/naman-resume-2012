@@ -22,6 +22,7 @@ import Request from 'components/common/network/Request';
 
 import DeviceProvider from 'providers/DeviceProvider';
 import ObjectProfile from 'components/object-details/ObjectProfile';
+import ObjectVisibilityProfile from  'components/object-details/ObjectVisibilityProfile';
 import CardObservations from 'components/common/CardObservations';
 import SterlingTitle from 'components/common/titles/SterlingTitle';
 import BurnhamsCorner from 'components/common/BurnhamsCorner';
@@ -165,6 +166,8 @@ class Overview extends Component {
                 list: modeledResult.bestTelescope.list,
               }}
             />
+
+            <ObjectVisibilityProfile objectId={objectId} />
           </CenterColumn>
         </section>
 

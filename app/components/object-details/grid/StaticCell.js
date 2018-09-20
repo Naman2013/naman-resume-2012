@@ -16,7 +16,6 @@ function getBorderStyle(hasBorder = false) {
 
 const StaticCell = ({
   children,
-  displayAtBreakpoints,
   flexScale,
   hasBorderScale,
   title,

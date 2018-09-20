@@ -24,7 +24,6 @@ import './ResponsiveTwoColumnContainer';
 import './RevealSubmitForm';
 import './SubPageNavigation';
 import './SingleFieldSubmitForm';
-import './svg-mask';
 import './ShowMoreFullSet';
 import './Tabs';
 import './Telescope';

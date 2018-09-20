@@ -8,6 +8,7 @@ export default css`
     display: flex;
     justify-content: space-between;
     list-style-type: none;
+    margin-top: 20px;
   }
 
   li:first-child {
