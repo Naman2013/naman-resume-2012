@@ -1,5 +1,5 @@
 import { primaryFont } from 'styles/variables/fonts';
-import { shadows } from 'styles/variables/colors_tiles_v4';
+import { shadows, romance } from 'styles/variables/colors_tiles_v4';
 
 export const profilePhotoStyle = photoUrl => ({
   backgroundImage: `url(${photoUrl})`,
@@ -79,9 +79,10 @@ export const modalStyleFullPage = {
     padding: 0,
     fontFamily: primaryFont,
     borderRadius: 0,
+    backgroundColor: romance,
   },
   overlay: {
-    backgroundColor: 'rgba(255, 255, 255, 0)',
+    backgroundColor: romance,
   },
 };
 

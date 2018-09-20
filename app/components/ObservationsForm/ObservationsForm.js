@@ -28,6 +28,7 @@ class ObservationsForm extends Component {
     observationTitle: string,
     observationLog: string,
     saveLabel: string,
+    canShareFlag: bool,
     scheduledMissionId: oneOfType([number, string]).isRequired,
     user: shape({
       at: oneOfType([number, string]).isRequired,
@@ -41,6 +42,7 @@ class ObservationsForm extends Component {
     saveLabel: '',
     observationLog: '',
     observationTitle: '',
+    canShareFlag: true,
   };
 
   state = {
@@ -48,11 +50,16 @@ class ObservationsForm extends Component {
     observation: this.props.observationLog || '',
     showPrompt: false,
     promptText: '',
+    saveLabelText: this.props.saveLabel,
+    allowShare: this.props.canShareFlag,
   };
 
   componentWillReceiveProps(nextProps) {
     let title = this.state.observationTitle;
     let observation = this.state.observationLog;
+    let allowShare = this.state.allowShare;
+    let saveLabelText = this.state.saveLabelText;
+
     if (nextProps.observationTitle !== this.state.observationTitle) {
       title = nextProps.observationTitle;
     }
@@ -60,9 +67,19 @@ class ObservationsForm extends Component {
       observation = nextProps.observationLog;
     }
 
+    if (nextProps.canShareFlag !== this.state.allowShare) {
+      allowShare = nextProps.canShareFlag;
+    }
+
+    if (nextProps.saveLabel !== this.state.saveLabelText) {
+      saveLabelText = nextProps.saveLabel;
+    }
+
     this.setState({
       title,
       observation,
+      allowShare,
+      saveLabelText,
     });
   }
 
@@ -104,7 +121,7 @@ class ObservationsForm extends Component {
         cid: user.cid,
       }).then((res) => {
 
-        if (!res.data.apiError) {
+        if (!res.data.apiError && this.state.allowShare) {
           axios.post('/api/images/shareMemberPicture', {
             customerImageId,
             at: user.at,
@@ -114,12 +131,16 @@ class ObservationsForm extends Component {
             this.setState({
               showPrompt: shareRes.data.showSharePrompt,
               promptText: shareRes.data.sharePrompt,
-            })
+              allowShare: false,
+              saveLabelText: 'Save',
+            });
           });
         }
+
+        actions.validateResponseAccess(res)
       });
 
-      actions.validateResponseAccess(res)
+
     }
   }
 
@@ -131,13 +152,13 @@ class ObservationsForm extends Component {
 
   render() {
     const {
-      saveLabel,
     } = this.props;
     const {
       title,
       observation,
       showPrompt,
       promptText,
+      saveLabelText
     } = this.state;
 
 
@@ -164,7 +185,7 @@ class ObservationsForm extends Component {
         <span className="obs-form-required">*required</span>
         <Button
           onClickEvent={this.onSubmitForm}
-          text={saveLabel}
+          text={saveLabelText}
         />
       </form>
       <Modal

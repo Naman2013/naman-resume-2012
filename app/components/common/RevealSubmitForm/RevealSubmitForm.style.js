@@ -2,6 +2,7 @@ import css from 'styled-jsx/css';
 import {
   seashell,
   shadows,
+  romance,
 } from 'styles/variables/colors_tiles_v4';
 import { secondaryFont } from 'styles/variables/fonts';
 import { screenMedium, screenLarge } from 'styles/variables/breakpoints';
@@ -26,6 +27,7 @@ export default css`
   }
   .form {
     padding: 15px;
+    background-color: ${romance};
 
   }
   .fake-input {

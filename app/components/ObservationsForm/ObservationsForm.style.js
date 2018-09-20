@@ -15,6 +15,7 @@ export default css`
     -moz-box-shadow: 0 2px 4px 1px ${shadows};
     -webkit-box-shadow: 0 2px 4px 1px ${shadows};
     box-shadow: 0 2px 4px 1px ${shadows};
+    background-color: ${romance};
   }
 
   .header {
