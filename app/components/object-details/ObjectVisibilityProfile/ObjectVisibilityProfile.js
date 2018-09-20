@@ -165,22 +165,54 @@ class ObjectVisibilityProfile extends Component {
                       </select>
                     </div>
 
-                    <select value={this.state.year} onChange={this.handleYearChange}>
-                      {YEARS.map(currentYear => (
-                        <option
-                          key={`year-select-${currentYear.value}`}
-                          value={currentYear.value}
-                        >
-                          {currentYear.name}
-                        </option>
-                      ))}
-                    </select>
+                    <div className="select-field">
+                      <label
+                        className="option-label"
+                        htmlFor="select-year"
+                      >
+                        <span className="field-value-name">
+                          {YEARS.filter(filterYear => filterYear.value == this.state.year)[0].name}
+                        </span>
+                        <img alt="" width="8" src={downwardFacingChevron} />
+                      </label>
+                      <select
+                        className="select"
+                        id="select-year"
+                        value={this.state.year}
+                        onChange={this.handleYearChange}
+                      >
+                        {YEARS.map(currentYear => (
+                          <option
+                            key={`year-select-${currentYear.value}`}
+                            value={currentYear.value}
+                          >
+                            {currentYear.name}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
                   </StaticCell>
                   <StaticCell title="Observatory" flexScale={['100%', '25%']}>
-                    <select value={this.state.obsId} onChange={this.handleObservatoryChange}>
-                      <option value="chile">Chile</option>
-                      <option value="teide">Teide</option>
-                    </select>
+                    <div className="select-field">
+                      <label
+                        className="option-label"
+                        htmlFor="select-obsId"
+                      >
+                        <span className="field-value-name">
+                          {this.state.obsId}
+                        </span>
+                        <img alt="" width="8" src={downwardFacingChevron} />
+                      </label>
+                      <select
+                        className="select"
+                        id="select-obsId"
+                        value={this.state.obsId}
+                        onChange={this.handleObservatoryChange}
+                      >
+                        <option value="chile">Chile</option>
+                        <option value="teide">Teide</option>
+                      </select>
+                    </div>
                   </StaticCell>
                 </Row>
                 <Row>

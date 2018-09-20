@@ -10,7 +10,7 @@ export default css`
     ${resetMarginPadding}
     display: inline-block;
     position: relative;
-    margin-right: 20px;
+    margin-right: 10px;
   }
 
   .option-label {
@@ -25,7 +25,7 @@ export default css`
 
   .field-value-name {
     display: inline-block;
-    margin-right: 60px;
+    margin-right: 40px;
   }
 
   .select {
