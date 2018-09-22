@@ -1,48 +1,50 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import values from 'lodash/values';
+
 import Request from 'components/common/network/Request';
-import BootstrappedGuidesHub from './BootstrappedGuidesHub';
 import HubContainer from 'components/common/HubContainer';
-import { DeviceContext } from 'providers/DeviceProvider';
 import { GUIDE_ENDPOINT_URL } from 'services/guides/guide-data';
+import { DeviceContext } from 'providers/DeviceProvider';
 import { goldCompass } from 'styles/variables/iconURLs';
+
+import BootstrappedGuidesHub from './BootstrappedGuidesHub';
 
 const MOCK_DATA = {
   guideFilterOptions: [
-     {
-       "filterOption1": {
-              name: "All Guides",
-              filter: "*"
-       }
-     },
-     {
-       "filterOption2": {
-              name: "Another Type",
-              filter: "another"
-        }
-     },
-     {
-       "filterOption2": {
-              name: "Object Type",
-              filter: "objectType"
-     }
-   },
- ],
- guideSortOptions: [
     {
-      "sortOption2": {
-             name: "A-Z",
-             sort: "asc"
-       }
+      filterOption1: {
+        name: 'All Guides',
+        filter: '*',
+      },
     },
     {
-      "sortOption2": {
-             name: "Z-A",
-             sort: "desc"
-    }
-  },
-],
+      filterOption2: {
+        name: 'Another Type',
+        filter: 'another',
+      },
+    },
+    {
+      filterOption2: {
+        name: 'Object Type',
+        filter: 'objectType',
+      },
+    },
+  ],
+  guideSortOptions: [
+    {
+      sortOption2: {
+        name: 'A-Z',
+        sort: 'asc',
+      },
+    },
+    {
+      sortOption2: {
+        name: 'Z-A',
+        sort: 'desc',
+      },
+    },
+  ],
 };
 
 const guidesHubModel = {
@@ -58,10 +60,9 @@ const Guides = props => (
     <Request
       serviceURL={GUIDE_ENDPOINT_URL}
       model={guidesHubModel}
-      // requestBody={{}}
+      requestBody={{}}
       render={({
         fetchingContent,
-        // serviceResponse,
         modeledResponses: { GUIDE_HUB_MODEL },
       }) => (
         <Fragment>
