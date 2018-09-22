@@ -4,7 +4,6 @@ import Request from 'components/common/network/Request';
 import InAppNavigation from 'components/common/InAppNavigation';
 import TopicContent from 'components/guides/TopicContent';
 import GuidePanels from 'components/guides/GuidePanels';
-import SubPageNavigation from 'components/common/sub-page-navigation';
 import { GUIDE_ENDPOINT_URL } from 'services/guides/guide-data';
 
 const subjectGuideModel = {
@@ -20,14 +19,11 @@ const subjectGuideModel = {
         .map(chapter => ({ title: chapter.guideTitle, linkURL: chapter.link })),
       backLinkURL: resp.chapterNavigationInfo.parentInfo.link,
     },
-    subPageNavigationProps: {
-      items: [{ title: 'Example title', link: '#' }, { title: 'Example title', link: '#' }, { title: 'Example title', link: '#' }],
-    },
     topicContentProps: {
       title: resp.guideTitle,
       topicContentList: [resp.guideBulletPoint1, resp.guideBulletPoint2, resp.guideBulletPoint3],
       aboutTitle: resp.AboutThisTitle,
-      aboutContent: resp.AboutThisContent,
+      aboutContent: resp.AboutThisContent || '',
       topicActionProps: {
         followButtonText: resp.readingListPrompt,
         followButtonIconURL: resp.promptIconUrl,
@@ -56,11 +52,9 @@ const TopicGuides = ({ params: { guideId } }) => (
                   {...SUBJECT_GUIDE_MODEL.inAppNavigationProps}
                 />
 
-                <SubPageNavigation {...SUBJECT_GUIDE_MODEL.subPageNavigationProps} />
-
                 <TopicContent
                   {...SUBJECT_GUIDE_MODEL.topicContentProps}
-                  guideID={guideId}
+                  guideId={guideId}
                 />
 
                 <GuidePanels guideId={guideId} />
