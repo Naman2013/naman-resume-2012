@@ -127,7 +127,6 @@ import BookclubHandoff from './pages/bookclub-handoff/BookclubHandoff';
 import GuideDetails from './pages/guide-details/GuideDetails';
 import ObjectDetails from './pages/object-details/ObjectDetails';
 import QuestDetails from './pages/quest-details/QuestDetails';
-import UserProfile from './pages/profiles/Profile';
 import UserPrivateProfile from './pages/profiles/private-profile';
 import UserPublicProfile from './pages/profiles/public-profile';
 import CommunityGroups from './pages/community-groups/Groups';
@@ -547,7 +546,7 @@ ReactDOM.render(
       </Route>
 
       <Route path="sitemap" component={PlaceholderPage} onEnter={validateUser} />
-      
+
       <Route path="patent" component={PlaceholderPage} onEnter={validateUser} />
       <Redirect from="*" to="/" />
     </Router>
