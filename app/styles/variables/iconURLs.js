@@ -28,3 +28,5 @@ export const info = 'https://vega.slooh.com/assets/v4/common/info_icon.svg';
 export const plus = 'https://vega.slooh.com/assets/v4/common/plus_icon.svg';
 
 export const downwardFacingChevron = 'https://vega.slooh.com/assets/v4/common/arrow_down.svg';
+
+export const guideCorner = 'https://vega.slooh.com/assets/v4/common/guide_corner.svg';

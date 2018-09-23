@@ -109,5 +109,5 @@ storiesOf('Tiles', module)
     />
   ))
   .add('GuideTile', () => (
-    <GuideTile />
+    <GuideTile title="A Guide to" subTitle="Object guide name" />
   ));
