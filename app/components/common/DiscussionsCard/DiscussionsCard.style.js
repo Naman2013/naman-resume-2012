@@ -16,12 +16,19 @@ export const profPic = photoUrl => Object.assign(profilePhotoStyle(photoUrl), {
 export default css`
   .root {
     background-color: ${romance};
-    ${faintShadow}
-    margin: 15px 0;
+    border: 1px solid ${shadows};
+    border-bottom: 1px solid ${shadows};
+  }
+
+  .root:first-child {
+    border-top: 0;
+  }
+
+  .root:last-child {
+    border-bottom: 0;
   }
 
   .comment-item {
-    ${dropShadowContainer};
     padding: 25px;
     font-family: ${primaryFont};
     color: ${astronaut};

@@ -8,6 +8,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'react-modal';
+import omit from 'lodash/omit';
 import uniqueId from 'lodash/uniqueId';
 import take from 'lodash/take';
 import { submitReply } from 'services/discussions/submit-reply';
@@ -36,13 +37,13 @@ class CommentList extends Component {
     count: number,
     header: string,
     resultsCount: number,
+    parentComments: arrayOf(shape({})),
     isDesktop: bool.isRequired,
     isSimple: bool,
     fetching: bool,
     forumId: oneOfType([number, string]),
     replies: arrayOf(shape({})),
     replyId: oneOfType([number, string]),
-    resultsCount: number,
     threadId: oneOfType([number, string]),
     topicId: oneOfType([number, string]),
     user: shape({
@@ -63,7 +64,6 @@ class CommentList extends Component {
     forumId: null,
     replies: [],
     replyId: null,
-    resultsCount: null,
     threadId: null,
     topicId: null,
   }
@@ -72,10 +72,11 @@ class CommentList extends Component {
     comments: [],
     displayedComments: [],
     page: 1,
+    displayedResults: this.props.resultsCount,
   }
 
   componentWillReceiveProps(nextProps) {
-    const { resultsCount, replies } = this.props;
+    const { replies } = this.props;
     if (replies.length !== nextProps.replies.length) {
       const displayedComments = take([].concat(nextProps.replies), nextProps.count)
         .map(reply => reply.replyId);
@@ -83,6 +84,12 @@ class CommentList extends Component {
           displayedComments,
           comments: nextProps.replies,
         });
+    }
+    const { resultsCount } = nextProps;
+    if (resultsCount !== this.state.displayedResults) {
+      this.setState({
+        displayedResults: resultsCount
+      })
     }
   }
 
@@ -102,18 +109,23 @@ class CommentList extends Component {
     submitReply(params).then((res) => {
       const { apiError, reply } = res.data;
       if (!apiError) {
-        const { count } = this.props;
+        const { count, replyId } = this.props;
         const { comments, page, displayedComments } = this.state;
         const lastPage = (Math.ceil(comments.length / count)) || 1;
-        let newDisplayedReplies = [].concat(displayedComments);
-        const newAllReplies = [].concat(comments, Object.assign({ likesCount: 0 }, reply));
-        if (page === lastPage) {
-          newDisplayedReplies = newDisplayedReplies.concat(comments, reply.replyId);
+
+        if (!replyId || replyId === params.replyTo) { // if it is a reply to a thread/comment
+          let newDisplayedReplies = [].concat(displayedComments);
+          const newAllReplies = [].concat(comments, Object.assign({ likesCount: 0 }, reply));
+          if (page === lastPage) {
+            newDisplayedReplies = [].concat(newDisplayedReplies, reply.replyId);
+          }
+          this.setState({
+            displayedComments: newDisplayedReplies,
+            comments: newAllReplies,
+          });
+        } else if (replyId === params.replyTo) { // if it is a reply to reply
+          // open comments list of it is not already open and append comments
         }
-        this.setState({
-          displayedComments: newDisplayedReplies,
-          comments: newAllReplies,
-        });
 
       }
       callback(res.data);
@@ -141,49 +153,12 @@ class CommentList extends Component {
     const {
       comments,
       page,
+      displayedResults,
     } = this.state;
     const { displayedCommentsObjs } = this;
     return (
       <div className="comment" key={uniqueId()}>
-        {!fetching ? <div className="comments-bar">
-          {header} ({resultsCount})
-        </div> : null}
-        {displayedCommentsObjs.map((displayedComment) => {
-          const likeParams = {
-            callSource,
-            replyId: displayedComment.replyId,
-            topicId,
-            forumId,
-          };
-          return (<CommentListItem
-            key={displayedComment.replyId}
-            allowReplies={allowReplies && canSubmitReplies}
-            {...displayedComment}
-            likeParams={likeParams}
-            isDesktop={isDesktop}
-            isSimple={isSimple}
-            threadId={threadId}
-            topicId={topicId}
-            replyTo={displayedComment.replyId}
-            forumId={forumId}
-            submitReply={this.handleReply}
-            count={count}
-            callSource={callSource}
-            user={user}
-            openModal={this.openModal}
-          />)
-       })}
-        <div className="flex">
-          {displayedCommentsObjs.length > 0 && <ShowMoreFullSet
-            handleShowMore={this.handleShowMore}
-            fullDataSet={comments}
-            count={count}
-            totalCount={comments.length}
-            page={page}
-          />}
-          {renderToggle ? renderToggle() : null}
-        </div>
-        <div className="shadowed-container">
+        <div className="bordered-container">
           {canSubmitReplies ? <Form
             avatarURL={user.avatarURL}
             callSource={callSource}
@@ -196,6 +171,49 @@ class CommentList extends Component {
             user={user}
             isDesktop={isDesktop}
           /> : null}
+        </div>
+        {displayedResults > 0 ? <div className="replies-list-contanier">
+          <div className="num-replies">
+            <span className="replies-number">Replies: {displayedResults}</span>
+          </div>
+          <div className="replies-list">
+            {displayedCommentsObjs.map((displayedComment) => {
+              const likeParams = {
+                callSource,
+                replyId: displayedComment.replyId,
+                topicId,
+                forumId,
+              };
+              return (<CommentListItem
+                key={displayedComment.replyId}
+                allowReplies={allowReplies && canSubmitReplies}
+                {...displayedComment}
+                likeParams={likeParams}
+                isDesktop={isDesktop}
+                isSimple={isSimple}
+                threadId={threadId}
+                topicId={topicId}
+                replyTo={displayedComment.replyId}
+                forumId={forumId}
+                submitReply={this.handleReply}
+                count={count}
+                callSource={callSource}
+                user={user}
+                openModal={this.openModal}
+              />)
+           })}
+           </div>
+        </div> : null}
+
+        <div className="flex toggle-container">
+          {displayedCommentsObjs.length > 0 && <ShowMoreFullSet
+            handleShowMore={this.handleShowMore}
+            fullDataSet={comments}
+            count={count}
+            totalCount={comments.length}
+            page={page}
+          />}
+          {renderToggle ? renderToggle() : null}
         </div>
         <style jsx>{styles}</style>
 

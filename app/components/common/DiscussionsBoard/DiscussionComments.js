@@ -29,6 +29,7 @@ const DiscussionsBoardComments = ({
   forumId,
   threadId,
   topicId,
+  replyId,
   replyTo,
   isDesktop,
   canSubmitReplies,
@@ -66,6 +67,7 @@ const DiscussionsBoardComments = ({
           isDesktop={isDesktop}
           isSimple={isSimple}
           renderToggle={renderToggle}
+          replyId={replyId}
           replyTo={replyTo}
           {...serviceResponse}
         />}

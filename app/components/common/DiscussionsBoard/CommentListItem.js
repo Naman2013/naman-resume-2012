@@ -12,6 +12,7 @@ import { likeReply } from 'services/discussions/like';;
 import DiscussionsCard from 'components/common/DiscussionsCard';
 import DiscussionsCardSimple from 'components/common/DiscussionsCardSimple';
 import DiscussionComments from './DiscussionComments';
+import styles from './DiscussionsBoard.style';
 
 const {
   bool,
@@ -25,6 +26,7 @@ const {
 
 const CommentListItem = props => (
   <div
+    className="comment-list-item"
     key={uniqueId()}
   >
     {props.isSimple ?
@@ -53,6 +55,7 @@ const CommentListItem = props => (
           renderToggle={renderToggle}
         />) : null}
       />}
+      <style jsx>{styles}</style>
   </div>
 );
 

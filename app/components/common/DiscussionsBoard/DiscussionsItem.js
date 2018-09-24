@@ -25,7 +25,7 @@ const {
 
 const DiscussionsItem = props => (
   <div
-    className="margin"
+    className="shadowed-container margin"
     key={uniqueId()}
   >
     <DiscussionsCard
