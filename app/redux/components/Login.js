@@ -79,7 +79,7 @@ class Login extends Component {
 
           <div className="register-container">
             <span className="title-link">{`Don't have an account?`}</span>
-            <Link to="/join">
+            <Link to="/join/step1">
               <LargeButtonWithRightIcon
                 icon={horizontalArrowRightWhite}
                 theme={{
