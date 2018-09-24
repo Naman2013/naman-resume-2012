@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 import DiscussionsItem from './DiscussionsItem';
 import CREATE_THREAD_FORM from './DiscussionsThreadFormInterface';
 import { submitReply } from 'services/discussions/submit-reply';
-
+import styles from './DiscussionsBoard.style';
 
 const {
   any,
@@ -138,6 +138,9 @@ class BootstrappedDiscussionsBoard extends Component {
         isDesktop,
       })}
       {fetching && <div>Loading</div>}
+      {!fetching ? <div className="comments-bar">
+        Comments ({threadCount})
+      </div> : null}
       {(!fetching && apiError) && <div dangerouslySetInnerHTML={{ __html: errorMessage }} />}
       {(!fetching && !apiError && threadCount === 0) && <div>There is nothing to show here</div>}
       {(!fetching && !apiError && threadCount > 0) && <div>
@@ -165,9 +168,7 @@ class BootstrappedDiscussionsBoard extends Component {
           />)
         })}
       </div>}
-      <style jsx>{`
-
-      `}</style>
+      <style jsx>{styles}</style>
     </div>);
   }
 }

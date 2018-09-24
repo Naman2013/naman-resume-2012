@@ -15,7 +15,7 @@ export default css`
     position: relative;
     border: 1px dashed ${astronaut};
     border-radius: 100px;
-    width: 140px;
+    width: auto;
     height: 40px;
     margin: 15px 0;
     font-size: 11px;

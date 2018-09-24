@@ -91,16 +91,11 @@ class ReplyForm extends Component {
 
     return (
       <div className="reply-form-container">
-        {isDesktop ? <div>
-          <FormHeader avatarURL={user.avatarURL} />
-          <SingleFieldSubmitForm {...this.props} submitForm={this.submitForm} />
-        </div> :
         <RevealSubmitForm
           {...this.props}
           submitForm={this.submitForm}
-          placeholder="Write a public comment"
+          placeholder="Reply to this comment"
         />
-      }
 
       <style jsx>{`
         .reply-form-container {
