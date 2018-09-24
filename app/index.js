@@ -82,6 +82,12 @@ import UpgradeAstronomer from './pages/registration/UpgradeAstronomer';
 import SignIn from './pages/registration/SignIn';
 import Upgrade from './pages/registration/Upgrade';
 
+import JoinStep1 from './pages/registration/JoinStep1';
+import JoinStep2 from './pages/registration/JoinStep2';
+import JoinStep3 from './pages/registration/JoinStep3';
+import JoinByInviteStep1 from './pages/registration/JoinByInviteStep1';
+
+
 import Notifications from './pages/settings/Notifications';
 import PaymentInfo from './pages/settings/PaymentInfo';
 import Profile from './pages/settings/Profile';
@@ -188,6 +194,7 @@ ReactDOM.render(
         <Route path="leadership" component={Leadership} title="Leadership" subTitle=" " />
       </Route>
 
+
       <Route path="registration" component={StaticAppContainer} onEnter={validateRegistrationPaths}>
         <Route path="sign-in" component={SignIn} />
         <Route path="upgrade-apprentice" component={UpgradeApprentice} />
@@ -204,6 +211,13 @@ ReactDOM.render(
 
       <Route path="/" component={App}>
         <IndexRoute component={DashboardPage} onEnter={validateUser} />
+
+        <Route path="join">
+          <Route path="step1" component={JoinStep1}/>
+          <Route path="step2" component={JoinStep2}/>
+          <Route path="step3" component={JoinStep3}/>
+          <Route path="acceptInvite/:invitationId/:creationDateEpoch" component={JoinByInviteStep1}/>
+        </Route>
 
         <Route
           path="telescope-overview/:observatoryId"
