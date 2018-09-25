@@ -25,6 +25,15 @@ const {
 
 class BootstrappedDiscussionsBoard extends Component {
   static propTypes = {
+    discussions: shape({
+      threadsList: arrayOf(shape({})),
+      displayedThreads: arrayOf(number),
+      threadsCount: number,
+    }),
+    discussionsActions: shape({
+      updateThreadsProps: func.isRequired,
+      updateCommentsList: func.isRequired,
+    }).isRequired,
     callSource: string,
     count: number,
     createThread: func.isRequired,
@@ -45,6 +54,11 @@ class BootstrappedDiscussionsBoard extends Component {
   }
 
   static defaultProps = {
+    discussions: {
+      threadsList: [],
+      displayedThreads: [],
+      threadsCount: 0,
+    },
     apiError: false,
     callSource: null,
     count: 10,
@@ -55,39 +69,30 @@ class BootstrappedDiscussionsBoard extends Component {
     threadCount: 0,
     threads: [],
     topicId: null,
-    showAllComments: false,
-  };
-
-  state = {
-    threadsList: [],
   };
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.threads.length !== nextProps.threads.length) {
-      this.setState({
-        threadsList: nextProps.threads,
-      });
+    if (
+      this.props.discussions.threadsList.length !== nextProps.threads.length ||
+      this.props.discussions.threadsCount !== nextProps.threadCount
+    ) {
+      this.props.discussionsActions.updateThreadsProps(nextProps.threads, nextProps.threadCount);
     }
   }
 
+
   createThread = (params) => {
-    const { createThread } = this.props;
+    const {
+      createThread,
+      discussionsActions: { updateThreadsProps },
+      discussions: { threadsList, threadsCount },
+    } = this.props;
     return createThread(params).then((res) => {
       if (!res.payload.apiError) {
-        this.setState(state => ({
-          threadsList: [res.payload.thread].concat(state.threadsList),
-        }));
+        updateThreadsProps([res.payload.thread].concat(threadsList), threadsCount + 1);
       }
 
       return res.payload;
-    });
-  }
-
-  toggleAllComments = () => {
-    const { showAllComments } = this.state;
-
-    this.setState({
-      showAllComments: !showAllComments,
     });
   }
 
@@ -95,7 +100,10 @@ class BootstrappedDiscussionsBoard extends Component {
     submitReply(params).then((res) => {
       const { apiError, reply } = res.data;
       if (!apiError) {
-        const { threadsList } = this.state;
+        const {
+          discussions: { threadsList },
+          discussionsActions: { updateThreadsProps },
+        } = this.props;
         const newThreadsList = [].concat(threadsList);
 
         newThreadsList.map((thread) => {
@@ -104,9 +112,7 @@ class BootstrappedDiscussionsBoard extends Component {
           }
           return thread;
         });
-        this.setState({
-          threadsList: newThreadsList
-        });
+        updateThreadsProps(newThreadsList)
 
       }
       callback(res.data);
@@ -115,10 +121,12 @@ class BootstrappedDiscussionsBoard extends Component {
 
   render() {
     const {
+      apiError,
       callSource,
       count,
+      discussionsActions,
+      discussions,
       createThreadFormParams,
-      apiError,
       errorMessage,
       fetching,
       forumId,
@@ -129,8 +137,6 @@ class BootstrappedDiscussionsBoard extends Component {
       user,
     } = this.props;
 
-    const { threadsList } = this.state;
-
     return (<div className="root">
       {CREATE_THREAD_FORM[callSource].render({
         ...createThreadFormParams,
@@ -139,12 +145,12 @@ class BootstrappedDiscussionsBoard extends Component {
       })}
       {fetching && <div>Loading</div>}
       {!fetching ? <div className="comments-bar">
-        Comments ({threadCount})
+        Comments ({discussions.threadsCount})
       </div> : null}
       {(!fetching && apiError) && <div dangerouslySetInnerHTML={{ __html: errorMessage }} />}
       {(!fetching && !apiError && threadCount === 0) && <div>There is nothing to show here</div>}
       {(!fetching && !apiError && threadCount > 0) && <div>
-        {threadsList.map((thread) => {
+        {discussions.threadsList.map((thread) => {
           const likeParams = {
             forumId,
             callSource,
@@ -154,6 +160,8 @@ class BootstrappedDiscussionsBoard extends Component {
 
           return (<DiscussionsItem
             {...thread}
+            discussionsActions={discussionsActions}
+            discussions={discussions}
             callSource={callSource}
             forumId={forumId}
             isDesktop={isDesktop}
