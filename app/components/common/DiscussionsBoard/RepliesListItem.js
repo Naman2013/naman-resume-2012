@@ -11,7 +11,7 @@ import uniqueId from 'lodash/uniqueId';
 import { likeReply } from 'services/discussions/like';;
 import DiscussionsCard from 'components/common/DiscussionsCard';
 import DiscussionsCardSimple from 'components/common/DiscussionsCardSimple';
-import DiscussionReplies from './DiscussionReplies';
+import DiscussionReplies from './DiscussionComments';
 import styles from './DiscussionsBoard.style';
 
 const {
@@ -24,41 +24,23 @@ const {
 } = PropTypes;
 
 
-const CommentListItem = props => (
+const RepliesListItem = props => (
   <div
     className="comment-list-item"
     key={uniqueId()}
   >
-    {props.isSimple ?
-      <DiscussionsCardSimple
-        {...props}
-        likeHandler={likeReply}
-      /> :
-      <DiscussionsCard
-        {...props}
-        likeHandler={likeReply}
-        isDesktop={props.isDesktop}
-        allowReplies={props.allowReplies}
-        renderChildReplies={props.allowReplies ? ({
-          renderToggle,
-        }) => (<DiscussionReplies
-          count={props.count}
-          replyId={props.replyId}
-          topicId={props.topicId}
-          forumId={props.forumId}
-          replyTo={props.replyId}
-          threadId={props.threadId}
-          callSource={props.callSource}
-          user={props.user}
-          isDesktop={props.isDesktop}
-          renderToggle={renderToggle}
-        />) : null}
-      />}
-      <style jsx>{styles}</style>
+    <DiscussionsCard
+      {...props}
+      likeHandler={likeReply}
+      isDesktop={props.isDesktop}
+      allowReplies={false}
+      renderChildReplies={false}
+    />
+    <style jsx>{styles}</style>
   </div>
 );
 
-CommentListItem.defaultProps = {
+RepliesListItem.defaultProps = {
   isDesktop: true,
   isSimple: false,
   callSource: null,
@@ -69,7 +51,7 @@ CommentListItem.defaultProps = {
   topicId: null,
 };
 
-CommentListItem.propTypes = {
+RepliesListItem.propTypes = {
   avatarURL: string.isRequired,
   callSource: string,
   content: string.isRequired,
@@ -96,4 +78,4 @@ CommentListItem.propTypes = {
 };
 
 
-export default CommentListItem;
+export default RepliesListItem;

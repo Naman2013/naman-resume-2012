@@ -12,7 +12,7 @@ import omit from 'lodash/omit';
 import uniqueId from 'lodash/uniqueId';
 import take from 'lodash/take';
 import { submitReply } from 'services/discussions/submit-reply';
-import CommentListItem from './CommentListItem';
+import RepliesListItem from './RepliesListItem';
 import Form from './ReplyForm';
 import ShowMoreFullSet from '../../common/ShowMoreFullSet';
 import Button from 'components/common/style/buttons/Button';
@@ -29,7 +29,7 @@ const {
   string,
 } = PropTypes;
 
-class CommentList extends Component {
+class DiscussionReplies extends Component {
   static propTypes = {
     allowReplies: bool,
     callSource: string,
@@ -113,7 +113,7 @@ class CommentList extends Component {
         const { comments, page, displayedComments } = this.state;
         const lastPage = (Math.ceil(comments.length / count)) || 1;
 
-        if (!replyId) { // if it is a reply to a thread/comment
+        if (replyId === params.replyTo) {
           let newDisplayedReplies = [].concat(displayedComments);
           const newAllReplies = [].concat(comments, Object.assign({ likesCount: 0 }, reply));
           if (page === lastPage) {
@@ -125,6 +125,7 @@ class CommentList extends Component {
             displayedResults: Number(state.displayedResults) + 1,
           }));
         }
+
       }
       callback(res.data);
     });
@@ -182,18 +183,14 @@ class CommentList extends Component {
                 topicId,
                 forumId,
               };
-              return (<CommentListItem
+              return (<RepliesListItem
                 key={displayedComment.replyId}
-                allowReplies={allowReplies && canSubmitReplies}
                 {...displayedComment}
                 likeParams={likeParams}
                 isDesktop={isDesktop}
-                isSimple={isSimple}
                 threadId={threadId}
                 topicId={topicId}
-                replyTo={displayedComment.replyId}
                 forumId={forumId}
-                submitReply={this.handleReply}
                 count={count}
                 callSource={callSource}
                 user={user}
@@ -221,4 +218,4 @@ class CommentList extends Component {
 }
 
 
-export default CommentList;
+export default DiscussionReplies;
