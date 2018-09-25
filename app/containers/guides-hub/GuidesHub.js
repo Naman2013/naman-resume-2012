@@ -4,6 +4,7 @@ import values from 'lodash/values';
 
 import Request from 'components/common/network/Request';
 import HubContainer from 'components/common/HubContainer';
+import GuideTiles from 'components/guides-hub/guide-tiles';
 import { GUIDE_ENDPOINT_URL } from 'services/guides/guide-data';
 import { DeviceContext } from 'providers/DeviceProvider';
 import { goldCompass } from 'styles/variables/iconURLs';
@@ -47,6 +48,12 @@ const MOCK_DATA = {
   ],
 };
 
+const guideTiles = [
+  { title: 'A guide to', subTitle: 'Object guide name' },
+  { title: 'A guide to', subTitle: 'Object guide name' },
+  { title: 'A guide to', subTitle: 'Object guide name' },
+];
+
 const guidesHubModel = {
   name: 'GUIDE_HUB_MODEL',
   model: resp => ({
@@ -71,13 +78,16 @@ const Guides = props => (
               <Fragment>
                 <DeviceContext.Consumer>
                   {context => (
-                    <HubContainer
-                      {...props}
-                      {...GUIDE_HUB_MODEL}
-                      {...context}
-                      iconURL={goldCompass}
-                      hubTitle="Guides"
-                    />
+                    <Fragment>
+                      <HubContainer
+                        {...props}
+                        {...GUIDE_HUB_MODEL}
+                        {...context}
+                        iconURL={goldCompass}
+                        hubTitle="Guides"
+                      />
+                      <GuideTiles guides={guideTiles} />
+                    </Fragment>
                   )}
                 </DeviceContext.Consumer>
               </Fragment>
