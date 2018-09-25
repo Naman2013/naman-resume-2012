@@ -30,12 +30,15 @@ const DiscussionsItem = props => (
   >
     <DiscussionsCard
       {...props}
+      toggleComments={() => props.discussionsActions.toggleThreadComments(props.threadId)}
       likeHandler={likeThread}
       isDesktop={props.isDesktop}
       allowReplies={true}
       renderChildReplies={({
         renderToggle,
       }) => (<DiscussionComments
+        discussions={props.discussions}
+        discussionsActions={props.discussionsActions}
         callSource={props.callSource}
         threadId={props.threadId}
         count={props.count}
