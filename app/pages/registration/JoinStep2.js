@@ -16,8 +16,16 @@ class JoinStep2 extends Component {
     super(props);
   }
 
+  handleFieldChange({ field, value }) {
+    this.setState({
+      [field]: value,
+    });
+  }
+
   handleSubmit = (formValues) => {
     formValues.preventDefault();
+
+    console.log(this.state);
   }
 
   render() {
@@ -32,19 +40,84 @@ class JoinStep2 extends Component {
         <br/>
         <br/>
         <form className="form" onSubmit={this.handleSubmit}>
-          <Field
-            name="username"
-            type="email"
-            label="Email Address"
-            component={InputField}
-          />
-          <Button theme={{ margin: '0 auto'}} type="submit" text="Step 2" onClickEvent={null} />
+          <p>* First Name:
+            <Field
+              name="firstName"
+              type="name"
+              label="Given Name"
+              component={InputField}
+              onChange={(event) => { this.handleFieldChange({ field: 'firstName', value: event.target.value }); }}
+              />
+          </p>
+          <br/>
+          <p>* Last Name:
+            <Field
+              name="lastName"
+              type="name"
+              label="Last Name"
+              component={InputField}
+              onChange={(event) => { this.handleFieldChange({ field: 'lastName', value: event.target.value }); }}
+            />
+          </p>
+          <br/>
+          <p>Display Name:
+            <Field
+              name="displayName"
+              type="name"
+              label="Enter a Display Name (Optionnal)"
+              component={InputField}
+              onChange={(event) => { this.handleFieldChange({ field: 'displayName', value: event.target.value }); }}
+            />
+          </p>
+          <br/>
+          <p>* Login Email Address:
+            <Field
+              name="loginEmailAddress"
+              type="email"
+              label="Enter your Email Address"
+              component={InputField}
+              onChange={(event) => { this.handleFieldChange({ field: 'loginEmailAddress', value: event.target.value }); }}
+            />
+          </p>
+          <br/>
+          <p>* Confirm Email Address:
+            <Field
+              name="loginEmailAddressVerification"
+              type="email"
+              label="Re-enter your Email Address"
+              component={InputField}
+              onChange={(event) => { this.handleFieldChange({ field: 'loginEmailAddressVerification', value: event.target.value }); }}
+            />
+          </p>
+          <br/>
+          <p>* Password:
+            <Field
+              name="password"
+              type="password"
+              label="Create your Password"
+              component={InputField}
+              onChange={(event) => { this.handleFieldChange({ field: 'password', value: event.target.value }); }}
+            />
+          </p>
+          <br/>
+          <p>* Confirm password:
+            <Field
+              name="passwordVerification"
+              type="password"
+              label="Re-enter your password"
+              component={InputField}
+              onChange={(event) => { this.handleFieldChange({ field: 'passwordVerification', value: event.target.value }); }}
+            />
+          </p>
+
+          <Button theme={{ margin: '0 auto'}} type="submit" text="Goto Payment" onClickEvent={null} />
+          <br/>
+          <br/>
+          <Link to="/join/step1"><Button theme={{ margin: '0 auto'}} type="button" text="Go Back"/></Link><br/>
+
         </form>
         <br/>
         <br/>
-        <Link to="/join/step1">Go Back</Link><br/>
-        <br/>
-        <Link to="/join/step3">Goto Payment</Link>
       </div>
     )
   }
