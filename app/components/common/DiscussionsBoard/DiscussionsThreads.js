@@ -51,7 +51,6 @@ class DiscussionsThreads extends Component {
   }
 
   static defaultProps = {
-    apiError: false,
     callSource: null,
     count: 10,
     createThreadFormParams: {},
@@ -90,10 +89,11 @@ class DiscussionsThreads extends Component {
           const { threads, threadCount } = res.data;
           let newThreads = [].concat(threads);
           newThreads = newThreads.map((thread) => {
-            const newThread = Object.assign({}, thread);
-            newThread.showComments = false;
-            newThread.page = 1;
-            return newThread;
+            const currentThread = Object.assign({}, thread);
+            currentThread.showComments = false;
+            currentThread.page = 1;
+            currentThread.key = currentThread.threadId;
+            return currentThread;
           });
           updateThreadsProps(newThreads, threadCount);
         }
@@ -114,6 +114,8 @@ class DiscussionsThreads extends Component {
     return createThread(params).then((res) => {
       if (!res.payload.apiError) {
         const newThread = Object.assign({
+          likesCount: 0,
+          replyCount: 0,
           showComments: false,
           page: 1,
         }, res.payload.thread)
@@ -133,27 +135,36 @@ class DiscussionsThreads extends Component {
           discussions: { threadsList, commentsList, displayedComments },
           discussionsActions: { updateThreadsProps, updateCommentsProps },
         } = this.props;
-        const newThreadsList = [].concat(threadsList);
-
-        newThreadsList.map((thread) => {
+        let newThreadsList = [].concat(threadsList);
+        let page = 1;
+        newThreadsList = newThreadsList.map((thread) => {
           const newThread = Object.assign({}, thread);
           if (newThread.threadId === params.threadId) {
-            newThread.replyCount += 1;
+            newThread.replyCount = newThread.replyCount + 1;
+            if (!newThread.showComments) {
+              newThread.showComments = true;
+            }
+            page = newThread.page;
           }
           return newThread;
         });
         updateThreadsProps(newThreadsList);
 
         const comments = Object.assign({}, commentsList);
-        const { page } = comments;
         const displayed = displayedComments[params.threadId] || [];
-        const lastPage = (Math.ceil(comments.length / count)) || 1;
+
         let newDisplayedComments = [].concat(displayed);
         let currentCommentsList = comments[params.threadId] || [];
         currentCommentsList = [].concat(
           currentCommentsList,
-          Object.assign({ likesCount: 0 }, reply)
+          Object.assign({
+            likesCount: 0,
+            replyCount: 0,
+            showComments: false,
+            page: 1,
+          }, reply)
         );
+        const lastPage = (Math.ceil(currentCommentsList.length / count)) || 1;
         if (page === lastPage) { // if there's only one page of comments, append the new comment to the displayed comments
           newDisplayedComments = [].concat(newDisplayedComments, reply.replyId);
         }
@@ -165,17 +176,17 @@ class DiscussionsThreads extends Component {
 
   render() {
     const {
-      apiError,
       callSource,
       count,
-      discussionsActions,
-      discussions,
       createThreadFormParams,
+      discussions,
+      discussionsActions,
       errorMessage,
       forumId,
       isDesktop,
       topicId,
       user,
+      validateResponseAccess,
     } = this.props;
     const { fetching } = this.state;
 
@@ -201,6 +212,7 @@ class DiscussionsThreads extends Component {
 
           return (<DiscussionsItem
             {...thread}
+            validateResponseAccess={validateResponseAccess}
             discussionsActions={discussionsActions}
             toggleComments={() => discussionsActions.toggleThreadComments(thread.threadId)}
             discussions={discussions}
