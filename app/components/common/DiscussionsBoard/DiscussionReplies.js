@@ -1,5 +1,5 @@
 /***********************************
-* V4 Common Discussions Board Comments
+* V4 Common Discussions Board Replies
 *
 * we call for all replies and paginate on the front end.
 *
@@ -8,7 +8,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Request from 'components/common/network/Request';
-import BootstrappedCommentRepliesList from './BootstrappedCommentRepliesList';
+import BootstrappedDiscussionReplies from './BootstrappedDiscussionReplies';
 import { THREAD_REPLIES } from 'services/discussions';
 
 const {
@@ -19,14 +19,18 @@ const {
   string,
 } = PropTypes;
 
-const CommentRepliesList = ({
+const DiscussionsBoardReplies = ({
   callSource,
+  commentsCount,
+  header,
+  renderToggle,
   count,
   forumId,
-  isDesktop,
-  replyId,
   threadId,
   topicId,
+  replyId,
+  replyTo,
+  isDesktop,
   user,
 }) => (
   <Request
@@ -39,23 +43,26 @@ const CommentRepliesList = ({
       topicId,
       threadId,
       forumId,
-      replyTo: replyId,
+      replyTo,
     }}
     render={({
       fetchingContent,
       serviceResponse,
     }) => (
       <div>
-        {<BootstrappedCommentRepliesList
+        {<BootstrappedDiscussionReplies
+          fetching={fetchingContent}
           callSource={callSource}
           count={count}
-          fetching={fetchingContent}
-          forumId={forumId}
-          isDesktop={isDesktop}
-          replyId={replyId}
-          threadId={threadId}
+          header={header}
           topicId={topicId}
+          forumId={forumId}
+          threadId={threadId}
           user={user}
+          isDesktop={isDesktop}
+          renderToggle={renderToggle}
+          replyId={replyId}
+          replyTo={replyTo}
           {...serviceResponse}
         />}
       </div>
@@ -63,12 +70,14 @@ const CommentRepliesList = ({
   />
 );
 
-CommentRepliesList.propTypes = {
+DiscussionsBoardReplies.propTypes = {
+  allowReplies: bool,
   callSource: string,
   count: number,
-  forumId: oneOfType([number, string]),
+  commentsCount: number,
   isDesktop: bool.isRequired,
-  replyId: oneOfType([number, string]),
+  isSimple: bool,
+  forumId: oneOfType([number, string]),
   threadId: oneOfType([number, string]),
   topicId: oneOfType([number, string]),
   user: shape({
@@ -77,13 +86,15 @@ CommentRepliesList.propTypes = {
     cid: oneOfType([number, string]),
   }).isRequired,
 };
-CommentRepliesList.defaultProps = {
+DiscussionsBoardReplies.defaultProps = {
+  allowReplies: true,
   callSource: null,
+  commentsCount: null,
   count: 10,
+  isSimple: false,
   forumId: null,
-  replyId: null,
   threadId: null,
   topicId: null,
 };
 
-export default CommentRepliesList;
+export default DiscussionsBoardReplies;
