@@ -52,5 +52,9 @@ export default css`
     font-size: 20px;
   }
 
-  @media ${screenMedium} {}
+  @media ${screenMedium} {
+    .guide-tile-root {
+      width: 33%;
+    }
+  }
 `;
