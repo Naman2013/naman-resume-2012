@@ -13,6 +13,7 @@ import Request from 'components/common/network/Request';
 import TiaraTitleSection from 'components/common/TiaraTitleSection';
 import CenterColumn from 'components/common/CenterColumn';
 import SterlingTitle from 'components/common/titles/SterlingTitle';
+import BobbieTile from 'components/common/tiles/BobbieTile';
 
 
 import JoinStep2 from 'pages/registration/JoinStep2';
@@ -55,15 +56,15 @@ class JoinStep1 extends Component {
                     <ul style={{'listItemType': 'none', 'marginLeft': 'auto', 'marginRight': 'auto', 'width': '400px'}}>
                       {SUBSCRIPTION_PLANS_MODEL.subscriptionPlans.map(subscriptionPlan => <li style={{'paddingTop': '10px', 'paddingBottom': '10px'}} key={`subscriptionplan-tile-${subscriptionPlan.planID}`}>
                         <div style={{'border': '1px solid'}}>
-                          {subscriptionPlan.planName}<br/>
+                          <br/>
                           <br/>
                           {subscriptionPlan.planDescription}<br/>
                           <br/>
                           <br/>
                           <br/>
-                          {subscriptionPlan.aboutThisPlan}<br/>
+                          <div dangerouslySetInnerHTML={{ __html: subscriptionPlan.aboutThisPlan }}/><br/>
 
-                          <Link to={'/join/step2/' + subscriptionPlan.planID}><Button theme={{ margin: '0 auto'}} type="button" text={subscriptionPlan.selectButtonText}/></Link><br/>
+                          <Link to={'/join/step2/' + subscriptionPlan.planID}><Button onClickEvent={null} theme={{ margin: '0 auto'}} type="button" text={subscriptionPlan.selectButtonText}/></Link><br/>
                         </div>
                       </li>)}
                     </ul>
