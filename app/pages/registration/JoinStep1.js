@@ -6,6 +6,7 @@ import React, { Component, cloneElement } from 'react';
 import { Link } from 'react-router';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import Button from 'components/common/style/buttons/Button';
 
 class JoinStep1 extends Component {
   constructor(props) {
@@ -21,7 +22,7 @@ class JoinStep1 extends Component {
         <h3>Step 1: Select your Membership</h3>
         <br/>
         <br/>
-        <Link to="/join/step2">Select Plan</Link><br/>
+        <Link to="/join/step2"><Button theme={{ margin: '0 auto'}} type="button" text="Select Plan"/></Link><br/>
       </div>
     )
   }
