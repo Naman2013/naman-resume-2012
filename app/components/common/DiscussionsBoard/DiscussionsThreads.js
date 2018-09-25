@@ -7,9 +7,11 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import axios from 'axios';
 import DiscussionsItem from './DiscussionsItem';
 import CREATE_THREAD_FORM from './DiscussionsThreadFormInterface';
 import { submitReply } from 'services/discussions/submit-reply';
+import { THREAD_LIST } from 'services/discussions';
 import styles from './DiscussionsBoard.style';
 
 const {
@@ -23,28 +25,23 @@ const {
   string,
 } = PropTypes;
 
-class BootstrappedDiscussionsBoard extends Component {
+class DiscussionsThreads extends Component {
   static propTypes = {
     discussions: shape({
-      threadsList: arrayOf(shape({})),
-      displayedThreads: arrayOf(number),
-      threadsCount: number,
-    }),
+      threadsList: arrayOf(shape({})).isRequired,
+      displayedThreads: arrayOf(number).isRequired,
+      threadsCount: number.isRequired,
+    }).isRequired,
     discussionsActions: shape({
       updateThreadsProps: func.isRequired,
-      updateCommentsList: func.isRequired,
     }).isRequired,
     callSource: string,
     count: number,
     createThread: func.isRequired,
     createThreadFormParams: shape({}),
-    apiError: bool,
     errorMessage: string,
-    fetching: bool.isRequired,
     forumId: oneOfType([number, string]),
     isDesktop: bool,
-    threadCount: number,
-    threads: arrayOf(shape({})),
     topicId: oneOfType([number, string]),
     user: shape({
       at: oneOfType([number, string]),
@@ -54,11 +51,6 @@ class BootstrappedDiscussionsBoard extends Component {
   }
 
   static defaultProps = {
-    discussions: {
-      threadsList: [],
-      displayedThreads: [],
-      threadsCount: 0,
-    },
     apiError: false,
     callSource: null,
     count: 10,
@@ -66,20 +58,52 @@ class BootstrappedDiscussionsBoard extends Component {
     errorMessage: 'There was an error fetching list',
     forumId: null,
     isDesktop: true,
-    threadCount: 0,
-    threads: [],
     topicId: null,
   };
 
-  componentWillReceiveProps(nextProps) {
-    if (
-      this.props.discussions.threadsList.length !== nextProps.threads.length ||
-      this.props.discussions.threadsCount !== nextProps.threadCount
-    ) {
-      this.props.discussionsActions.updateThreadsProps(nextProps.threads, nextProps.threadCount);
-    }
+  state = {
+    fetching: true,
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (this.props.topicId !== nextProps.topicId) {
+      const {
+        callSource,
+        count,
+        topicId,
+        validateResponseAccess,
+        user,
+        discussionsActions: { updateThreadsProps },
+      } = nextProps;
+
+      axios.post(THREAD_LIST, {
+        callSource,
+        count,
+        page: 1,
+        topicId,
+        at: user.at,
+        token: user.token,
+        cid: user.cid,
+      }).then((res) => {
+        validateResponseAccess(res);
+        if (!res.data.apiError) {
+          const { threads, threadCount } = res.data;
+          let newThreads = [].concat(threads);
+          newThreads = newThreads.map((thread) => {
+            const newThread = Object.assign({}, thread);
+            newThread.showComments = false;
+            newThread.page = 1;
+            return newThread;
+          });
+          updateThreadsProps(newThreads, threadCount);
+        }
+
+        this.setState({
+          fetching: false,
+        });
+      });
+    }
+  }
 
   createThread = (params) => {
     const {
@@ -89,7 +113,11 @@ class BootstrappedDiscussionsBoard extends Component {
     } = this.props;
     return createThread(params).then((res) => {
       if (!res.payload.apiError) {
-        updateThreadsProps([res.payload.thread].concat(threadsList), threadsCount + 1);
+        const newThread = Object.assign({
+          showComments: false,
+          page: 1,
+        }, res.payload.thread)
+        updateThreadsProps([newThread].concat(threadsList), threadsCount + 1);
       }
 
       return res.payload;
@@ -99,21 +127,37 @@ class BootstrappedDiscussionsBoard extends Component {
   handleReply = (params, callback) => {
     submitReply(params).then((res) => {
       const { apiError, reply } = res.data;
+      const { count } = this.props;
       if (!apiError) {
         const {
-          discussions: { threadsList },
-          discussionsActions: { updateThreadsProps },
+          discussions: { threadsList, commentsList, displayedComments },
+          discussionsActions: { updateThreadsProps, updateCommentsProps },
         } = this.props;
         const newThreadsList = [].concat(threadsList);
 
         newThreadsList.map((thread) => {
-          if (thread.threadId === params.threadId) {
-            thread.replyCount = thread.replyCount + 1;
+          const newThread = Object.assign({}, thread);
+          if (newThread.threadId === params.threadId) {
+            newThread.replyCount += 1;
           }
-          return thread;
+          return newThread;
         });
-        updateThreadsProps(newThreadsList)
+        updateThreadsProps(newThreadsList);
 
+        const comments = Object.assign({}, commentsList);
+        const { page } = comments;
+        const displayed = displayedComments[params.threadId] || [];
+        const lastPage = (Math.ceil(comments.length / count)) || 1;
+        let newDisplayedComments = [].concat(displayed);
+        let currentCommentsList = comments[params.threadId] || [];
+        currentCommentsList = [].concat(
+          currentCommentsList,
+          Object.assign({ likesCount: 0 }, reply)
+        );
+        if (page === lastPage) { // if there's only one page of comments, append the new comment to the displayed comments
+          newDisplayedComments = [].concat(newDisplayedComments, reply.replyId);
+        }
+        updateCommentsProps(params.threadId, currentCommentsList, newDisplayedComments);
       }
       callback(res.data);
     });
@@ -128,14 +172,12 @@ class BootstrappedDiscussionsBoard extends Component {
       discussions,
       createThreadFormParams,
       errorMessage,
-      fetching,
       forumId,
       isDesktop,
-      page,
-      threadCount,
       topicId,
       user,
     } = this.props;
+    const { fetching } = this.state;
 
     return (<div className="root">
       {CREATE_THREAD_FORM[callSource].render({
@@ -143,13 +185,12 @@ class BootstrappedDiscussionsBoard extends Component {
         createThread: this.createThread,
         isDesktop,
       })}
-      {fetching && <div>Loading</div>}
-      {!fetching ? <div className="comments-bar">
+      <div className="comments-bar">
         Comments ({discussions.threadsCount})
-      </div> : null}
-      {(!fetching && apiError) && <div dangerouslySetInnerHTML={{ __html: errorMessage }} />}
-      {(!fetching && !apiError && threadCount === 0) && <div>There is nothing to show here</div>}
-      {(!fetching && !apiError && threadCount > 0) && <div>
+      </div>
+      {fetching && <div>Loading</div>}
+      {!fetching && discussions.threadsCount === 0 ? <div>There is nothing to show here</div> : null}
+      {!fetching && discussions.threadsCount > 0 && <div>
         {discussions.threadsList.map((thread) => {
           const likeParams = {
             forumId,
@@ -161,6 +202,7 @@ class BootstrappedDiscussionsBoard extends Component {
           return (<DiscussionsItem
             {...thread}
             discussionsActions={discussionsActions}
+            toggleComments={() => discussionsActions.toggleThreadComments(thread.threadId)}
             discussions={discussions}
             callSource={callSource}
             forumId={forumId}
@@ -170,7 +212,7 @@ class BootstrappedDiscussionsBoard extends Component {
             topicId={topicId}
             count={count}
             submitReply={this.handleReply}
-            page={page}
+            page={thread.page}
             user={user}
             replyTo={thread.threadId}
           />)
@@ -181,4 +223,4 @@ class BootstrappedDiscussionsBoard extends Component {
   }
 }
 
-export default BootstrappedDiscussionsBoard;
+export default DiscussionsThreads;

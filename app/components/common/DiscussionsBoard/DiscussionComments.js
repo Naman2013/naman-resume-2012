@@ -13,6 +13,7 @@ import { THREAD_REPLIES } from 'services/discussions';
 
 const {
   bool,
+  func,
   number,
   oneOfType,
   shape,
@@ -20,9 +21,9 @@ const {
 } = PropTypes;
 
 const DiscussionsBoardComments = ({
-  allowReplies,
+  discussionsActions,
+  discussions,
   callSource,
-  commentsCount,
   header,
   renderToggle,
   count,
@@ -54,7 +55,8 @@ const DiscussionsBoardComments = ({
     }) => (
       <div>
         {<BootstrappedDiscussionComments
-          allowReplies={allowReplies}
+          discussions={discussions}
+          discussionsActions={discussionsActions}
           fetching={fetchingContent}
           callSource={callSource}
           canSubmitReplies={canSubmitReplies}
@@ -65,7 +67,6 @@ const DiscussionsBoardComments = ({
           threadId={threadId}
           user={user}
           isDesktop={isDesktop}
-          isSimple={isSimple}
           renderToggle={renderToggle}
           replyId={replyId}
           replyTo={replyTo}
@@ -77,12 +78,16 @@ const DiscussionsBoardComments = ({
 );
 
 DiscussionsBoardComments.propTypes = {
-  allowReplies: bool,
   callSource: string,
   count: number,
-  commentsCount: number,
   isDesktop: bool.isRequired,
-  isSimple: bool,
+  discussions: shape({
+    commentsList: shape({}).isRequired,
+    displayedComments: shape({}).isRequired,
+  }).isRequired,
+  discussionsActions: shape({
+    updateCommentsProps: func.isRequired,
+  }).isRequired,
   forumId: oneOfType([number, string]),
   threadId: oneOfType([number, string]),
   topicId: oneOfType([number, string]),
@@ -93,11 +98,8 @@ DiscussionsBoardComments.propTypes = {
   }).isRequired,
 };
 DiscussionsBoardComments.defaultProps = {
-  allowReplies: true,
   callSource: null,
-  commentsCount: null,
   count: 10,
-  isSimple: false,
   forumId: null,
   threadId: null,
   topicId: null,
