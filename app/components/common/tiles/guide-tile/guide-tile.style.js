@@ -8,7 +8,7 @@ export default css`
     position: relative;
     background: url(${blue_tile_feat});
     width: 100%;
-    height: 200px;
+    height: 250px;
     text-align: center;
   }
 
@@ -33,14 +33,23 @@ export default css`
 
 
   .title {
+    margin: 0;
+    margin-bottom: 10px;
+    padding-top: 100px;
     font-family: ${primaryFont};
     color: ${golden};
     text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 2px;
+    font-size: 12px;
   }
 
   .subTitle {
+    margin: 0;
     font-family: ${secondaryFont};
     color: white;
+    font-weight: 300;
+    font-size: 20px;
   }
 
   @media ${screenMedium} {}
