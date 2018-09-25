@@ -39,6 +39,9 @@ class JoinStep2 extends Component {
         <h3>Step 2: ACCOUNT DETAILS</h3>
         <br/>
         <br/>
+        <p>Selected Plan ID: {this.props.params.subscriptionPlanID}</p>
+        <br/>
+        <br/>
         <form className="form" onSubmit={this.handleSubmit}>
           <p>* First Name:
             <Field
