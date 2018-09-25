@@ -50,27 +50,29 @@ class DiscussionsBoard extends Component {
     displayedComments: {},
   };
 
-  updateThreadsProps = (threadsList, threadsCount) => {
+  updateThreadsProps = (threadsList, threadsCount, displayed) => {
     const newThreadsList = threadsList || this.state.threadsList;
     const newThreadsCount = threadsCount || this.state.threadsCount;
+    const displayedThreads = displayed || this.state.displayedThreads;
+
     this.setState({
       threadsList: newThreadsList,
       threadsCount: newThreadsCount,
+      displayedThreads: displayedThreads,
     });
   }
 
-  updateCommentsProps = (threadId, comments, displayed) => {
+  updateCommentsProps = (id, comments, displayed) => {
     const { commentsList, displayedComments } = this.state;
     const newCommentsList = Object.assign({}, commentsList);
     const newDisplayedComments = Object.assign({}, displayedComments);
-
-    if (threadId) {
-      if (typeof comments !== 'undefined') {
-        newCommentsList[threadId] = comments;
+    if (id) {
+      if (comments) {
+        newCommentsList[id] = comments;
       }
 
-      if (typeof displayed !== 'undefined') {
-        newDisplayedComments[threadId] = displayed;
+      if (displayed) {
+        newDisplayedComments[id] = displayed;
       }
     }
 
@@ -90,9 +92,25 @@ class DiscussionsBoard extends Component {
       }
       return newThread;
     });
-
     this.setState({
       threadsList: newThreadsList,
+    });
+  }
+
+  toggleCommentsReplies = (replyId) => {
+    const { commentsList } = this.state;
+    const newCommentsList = Object.assign({}, commentsList);
+    let comments = newCommentsList[replyId] || [];
+    comments = comments.map((reply) => {
+      const newReply = Object.assign({}, reply);
+      if (newReply.replyId === replyId) {
+        newReply.showComments = !newReply.showComments;
+      }
+      return newReply;
+    });
+
+    this.setState({
+      commentsList: comments,
     });
   }
 
@@ -102,6 +120,7 @@ class DiscussionsBoard extends Component {
       updateThreadsProps,
       updateCommentsProps,
       toggleThreadComments,
+      toggleCommentsReplies,
     } = this;
 
     const {
@@ -119,6 +138,7 @@ class DiscussionsBoard extends Component {
       updateThreadsProps,
       updateCommentsProps,
       toggleThreadComments,
+      toggleCommentsReplies,
     };
 
     return (

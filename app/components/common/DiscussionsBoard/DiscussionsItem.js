@@ -37,11 +37,15 @@ const DiscussionsItem = props => (
       renderChildReplies={({
         renderToggle,
       }) => (<DiscussionComments
+        validateResponseAccess={props.validateResponseAccess}
         discussions={props.discussions}
         discussionsActions={props.discussionsActions}
         callSource={props.callSource}
         threadId={props.threadId}
+        showThreadComments={props.showComments}
         count={props.count}
+        replyCount={props.replyCount}
+        page={props.page}
         topicId={props.topicId}
         forumId={props.forumId}
         user={props.user}

@@ -52,7 +52,6 @@ const DiscussionsCard = (props) => {
     title,
     user,
   } = props;
-  console.log('toggleComments', toggleComments);
   return (
     <div className="root" key={uniqueId()}>
       <div className="comment-item">
