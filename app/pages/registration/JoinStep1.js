@@ -12,6 +12,7 @@ class JoinStep1 extends Component {
     super(props);
   }
 
+
   render() {
     return (
       <div>
@@ -20,10 +21,14 @@ class JoinStep1 extends Component {
         <h3>Step 1: Select your Membership</h3>
         <br/>
         <br/>
-        <Link to="/join/step2">Step 2</Link>
+        <Link to="/join/step2">Select Plan</Link><br/>
       </div>
     )
   }
 }
 
-export default JoinStep1;
+const mapStateToProps = ({ appConfig }) => ({
+  appConfig,
+});
+
+export default connect(mapStateToProps, null)(JoinStep1);
