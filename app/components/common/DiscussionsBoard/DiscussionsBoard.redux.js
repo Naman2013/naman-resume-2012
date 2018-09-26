@@ -5,15 +5,18 @@
 *
 ***********************************/
 
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import ConnectUserAndResponseAccess from 'redux/components/ConnectUserAndResponseAccess';
 import { DeviceContext } from 'providers/DeviceProvider';
 import DiscussionsThreads from './DiscussionsThreads';
+import DiscussionComments from './DiscussionComments';
+
 
 const {
   any,
+  bool,
   func,
   number,
   shape,
@@ -28,6 +31,7 @@ class DiscussionsBoard extends Component {
     forumId: number,
     page: number,
     topicId: number,
+    topLevelThread: bool,
     createThread: func.isRequired,
     createThreadFormParams: shape({}),
   };
@@ -39,6 +43,7 @@ class DiscussionsBoard extends Component {
     forumId: null,
     page: 1,
     topicId: null,
+    topLevelThread: true,
     createThreadFormParams: {},
   };
 
@@ -133,6 +138,8 @@ class DiscussionsBoard extends Component {
       forumId,
       page,
       topicId,
+      threadId,
+      topLevelThread,
       createThread,
       createThreadFormParams,
     } = props;
@@ -150,21 +157,36 @@ class DiscussionsBoard extends Component {
           render={({ user, validateResponseAccess }) => (
             <DeviceContext.Consumer>
               {context => (
-                <DiscussionsThreads
-                  validateResponseAccess={validateResponseAccess}
-                  discussions={this.state}
-                  discussionsActions={discussionsActions}
-                  errorMessage={errorMessage}
-                  callSource={callSource}
-                  count={count}
-                  page={page}
-                  topicId={topicId}
-                  forumId={forumId}
-                  user={user}
-                  createThread={createThread}
-                  createThreadFormParams={createThreadFormParams}
-                  {...context}
-                />
+                <Fragment>
+                  {topLevelThread ? <DiscussionsThreads
+                    validateResponseAccess={validateResponseAccess}
+                    discussions={this.state}
+                    discussionsActions={discussionsActions}
+                    errorMessage={errorMessage}
+                    callSource={callSource}
+                    count={count}
+                    page={page}
+                    topicId={topicId}
+                    forumId={forumId}
+                    user={user}
+                    createThread={createThread}
+                    createThreadFormParams={createThreadFormParams}
+                    {...context}
+                  /> : <DiscussionComments
+                    validateResponseAccess={validateResponseAccess}
+                    discussions={this.state}
+                    discussionsActions={discussionsActions}
+                    errorMessage={errorMessage}
+                    callSource={callSource}
+                    count={count}
+                    threadId={threadId}
+                    formPlaceholder="Write a public comment"
+                    page={page}
+                    topicId={topicId}
+                    forumId={forumId}
+                    user={user}
+                   />}
+                </Fragment>
               )}
             </DeviceContext.Consumer>
           )}

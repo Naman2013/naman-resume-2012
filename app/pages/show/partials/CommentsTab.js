@@ -9,7 +9,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import LikeSomethingButton from 'components/common/LikeSomethingButton';
 import { romance } from 'styles/variables/colors_tiles_v4';
-import DiscussionComments from 'components/common/DiscussionsBoard/DiscussionComments';
+import DiscussionComments from 'components/common/DiscussionsBoard';
 import styles from './CommentsTab.style';
 
 const {
@@ -61,6 +61,7 @@ class CommentsTab extends Component {
     return (
       <div className="root">
         <DiscussionComments
+          topLevelThread={false}
           forumId={discussionForumId}
           threadId={discussionThreadId}
           replyTo={discussionThreadId}

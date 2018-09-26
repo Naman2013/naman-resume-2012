@@ -10,6 +10,7 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 import uniqueId from 'lodash/uniqueId';
 import take from 'lodash/take';
+import noop from 'lodash/noop';
 import find from 'lodash/find';
 import { submitReply } from 'services/discussions/submit-reply';
 import { THREAD_REPLIES } from 'services/discussions';
@@ -38,11 +39,11 @@ class DiscussionsComment extends Component {
       threadsList: arrayOf(shape({})).isRequired,
       commentsList: shape({}).isRequired,
       displayedComments: shape({}).isRequired,
-    }).isRequired,
+    }),
     discussionsActions: shape({
       updateThreadsProps: func.isRequired,
       updateCommentsProps: func.isRequired,
-    }).isRequired,
+    }),
     isDesktop: bool.isRequired,
     forumId: oneOfType([number, string]),
     threadId: oneOfType([number, string]),
@@ -54,6 +55,16 @@ class DiscussionsComment extends Component {
     }).isRequired,
   };
   static defaultProps = {
+    discussionsActions: {
+      updateThreadsProps: noop,
+      updateCommentsProps: noop,
+    },
+    discussions: {
+      threadsList: [],
+      commentsList: [],
+      displayedComments: [],
+      displayedThreads: [],
+    },
     callSource: null,
     count: 10,
     forumId: null,
@@ -252,15 +263,16 @@ class DiscussionsComment extends Component {
       count,
       discussions,
       discussionsActions,
-      validateResponseAccess,
+      formPlaceholder,
       forumId,
       isDesktop,
+      page,
       renderToggle,
+      replyCount,
       threadId,
       topicId,
       user,
-      page,
-      replyCount,
+      validateResponseAccess,
     } = this.props;
 
     const { commentsList } = discussions;
@@ -282,11 +294,12 @@ class DiscussionsComment extends Component {
             topicId={topicId}
             user={user}
             isDesktop={isDesktop}
+            placeholder={formPlaceholder}
           /> : null}
         </div>
-        {replyCount > 0 ? <div className="replies-list-contanier">
+        {comments.length > 0 ? <div className="replies-list-contanier">
           <div className="num-replies">
-            <span className="replies-number">Replies: {replyCount}</span>
+            <span className="replies-number">Replies: {comments.length}</span>
           </div>
           <div className="replies-list">
             {displayedCommentsObjs.map((displayedComment) => {

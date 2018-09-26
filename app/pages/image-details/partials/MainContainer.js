@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import DiscussionComments from 'components/common/DiscussionsBoard/DiscussionComments';
+import DiscussionsBoard from 'components/common/DiscussionsBoard';
 import ObservationsForm from 'components/ObservationsForm';
 import ObservationInformation from './ObservationInformation';
 
@@ -56,7 +56,8 @@ const MainContainer = ({
     scheduledMissionId={scheduledMissionId}
     user={user}
   />}
-  {showCommentsLink ? <DiscussionComments
+  {showCommentsLink ? <DiscussionsBoard
+    topLevelThread={false}
     callSource={callSource}
     count={10}
     commentsCount={commentsCount}
