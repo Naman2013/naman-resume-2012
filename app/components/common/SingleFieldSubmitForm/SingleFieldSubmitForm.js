@@ -16,6 +16,7 @@ import Modal from 'react-modal';
 import deletePostImage from 'services/post-creation/delete-post-image';
 import setPostImages from 'modules/set-post-images';
 import Button from 'components/common/style/buttons/Button';
+import ViewImagesButton from 'components/common/style/buttons/ViewImagesButton';
 import { customModalStylesV4 } from 'styles/mixins/utilities';
 import styles from './SingleFieldSubmitForm.style';
 
@@ -161,6 +162,7 @@ class SingleFieldSubmitForm extends Component {
     } = this.props;
 
     const {
+      S3URLs,
       formText,
       responseMessage,
       showPopup,
@@ -182,10 +184,11 @@ class SingleFieldSubmitForm extends Component {
             />
             {maxLength ? <div className="flex-right">{formText.length}/<span dangerouslySetInnerHTML={{__html: maxLength }} /></div> : null}
             <div className="flex-container">
-              <div>
+              <div className="flex-container">
                 <PhotoUploadButton handleUploadImage={this.handleUploadImage} />
                 {uploadError && <span className="errorMsg">{uploadError}</span>}
                 {(!uploadError && uploadLoading) && <div className="fa fa-spinner" />}
+                {S3URLs.length > 0 ? <ViewImagesButton images={S3URLs} /> : null}
               </div>
               <div>
                 <Button text={submitLabel} onClickEvent={this.submitForm} />
