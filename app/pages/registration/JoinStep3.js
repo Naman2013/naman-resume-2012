@@ -9,9 +9,8 @@ import { connect } from 'react-redux';
 
 import Request from 'components/common/network/Request';
 
-const mapStateToProps = ({ appConfig, isBraintreeReady }) => ({
+const mapStateToProps = ({ appConfig }) => ({
   appConfig,
-  isBraintreeReady,
 });
 
 @connect(mapStateToProps, null)
@@ -22,12 +21,16 @@ class JoinStep3 extends Component  {
   }
 
   componentDidMount() {
+    //Listen for a message from the Window/IFrames to capture the ECommerce Hosted Payment Form Messaging
     window.addEventListener('message', this.handleIframeTask);
   }
 
   handleIframeTask = (e) => {
+    /* Verify there is data in this event) */
     if (e.data) {
       const paymentNonceTokenData = e.data + '';
+
+      /* make sure the data message we received is an ECommerce Payment Token */
       if (paymentNonceTokenData.startsWith('token')) {
         console.log('Payment Token!! ' + paymentNonceTokenData);
       }
@@ -52,7 +55,7 @@ class JoinStep3 extends Component  {
       <Request
         serviceURL={JOIN_PAGE_ENDPOINT_URL}
         model={joinPageModel}
-        requestBody={{ 'callSource': 'selectSubscriptionPlan' }}
+        requestBody={{ 'callSource': 'providePaymentDetails', 'selectedPlanID': this.props.params.subscriptionPlanID }}
         render={({
           fetchingContent,
           modeledResponses: { JOIN_PAGE_MODEL },
@@ -61,8 +64,6 @@ class JoinStep3 extends Component  {
             {
               !fetchingContent &&
                 <Fragment>
-
-
                   <header className="header">
                     <div className="icon"></div>
                   </header>
@@ -71,8 +72,7 @@ class JoinStep3 extends Component  {
                   <h3>Step 3: {JOIN_PAGE_MODEL.sectionHeading}</h3>
                   <br/>
                   <br/>
-                  <iframe style={{'width': '100%', 'minHeight': '400px'}} src="{JOIN_PAGE_MODEL.hostedPaymentFormURL}"></iframe>
-                  <Link to="/join/complete">Submit to Join!</Link>
+                  <iframe style={{'width': '100%', 'minHeight': '400px'}} src={JOIN_PAGE_MODEL.hostedPaymentFormURL}></iframe>
                 </Fragment>
               }
               </Fragment>
