@@ -52,6 +52,9 @@ const guideTiles = [
   { title: 'A guide to', subTitle: 'Object guide name' },
   { title: 'A guide to', subTitle: 'Object guide name' },
   { title: 'A guide to', subTitle: 'Object guide name' },
+  { title: 'A guide to', subTitle: 'Object guide name' },
+  { title: 'A guide to', subTitle: 'Object guide name' },
+  { title: 'A guide to', subTitle: 'Object guide name' },
 ];
 
 const guidesHubModel = {
