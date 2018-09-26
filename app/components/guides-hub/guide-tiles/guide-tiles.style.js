@@ -1,17 +1,15 @@
 import css from 'styled-jsx/css';
+import { resetMarginPadding } from 'styles/variables/utils';
 
 export default css`
   .guide-tiles-root {
-    margin: 0;
-    margin-top: 10px;
-    padding: 0;
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
+    ${resetMarginPadding}
     list-style-type: none;
+    margin-top: 10px;
   }
 
   .tile {
-    width: 33%;
+    margin-bottom: 10px;
+    padding: 0 10px;
   }
 `;
