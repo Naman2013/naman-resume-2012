@@ -44,7 +44,7 @@ const DiscussionsItem = props => (
         callSource={props.callSource}
         threadId={props.threadId}
         count={props.count}
-        replyCount={props.replyCount}
+        replyToponlyCount={props.replyToponlyCount}
         page={props.page}
         topicId={props.topicId}
         forumId={props.forumId}
@@ -75,7 +75,7 @@ DiscussionsItem.propTypes = {
   likePrompt: string.isRequired,
   likesCount: number.isRequired,
   membershipDisplay: string,
-  replyCount: number.isRequired,
+  replyToponlyCount: number.isRequired,
   S3Files: arrayOf(string),
   showLikePrompt: bool.isRequired,
   threadId: number.isRequired,

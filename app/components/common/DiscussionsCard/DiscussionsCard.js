@@ -42,7 +42,7 @@ const DiscussionsCard = (props) => {
     likesCount,
     openModal,
     renderChildReplies,
-    replyCount,
+    replyToponlyCount,
     replyTo,
     S3Files,
     toggleComments,
@@ -67,7 +67,7 @@ const DiscussionsCard = (props) => {
         <div className="content" dangerouslySetInnerHTML={{ __html: title || content }} />
         <div className="explainantion-container">
           <div className="explainantion-item">{moment(creationDate).fromNow()}</div>
-          <div className="explainantion-item">Likes: {likesCount}     Comments: {replyCount}</div>
+          <div className="explainantion-item">Likes: {likesCount}     Comments: {replyToponlyCount}</div>
         </div>
         <div className="activity-actions">
           <div className="action-left">
@@ -84,7 +84,7 @@ const DiscussionsCard = (props) => {
             {renderChildReplies ? <CommentButton
               isActive={showComments}
               onClickEvent={toggleComments}
-              count={replyCount}
+              count={replyToponlyCount}
             /> : null}
             {S3Files.length > 0 ? <ViewImagesButton images={S3Files} /> : null}
           </div>
@@ -123,7 +123,7 @@ DiscussionsCard.propTypes = {
   }).isRequired,
   likePrompt: string.isRequired,
   likesCount: number.isRequired,
-  replyCount: number.isRequired,
+  replyToponlyCount: number.isRequired,
   S3Files: arrayOf(string),
   submitReply: func,
   showLikePrompt: bool.isRequired,

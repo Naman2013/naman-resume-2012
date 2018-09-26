@@ -49,7 +49,7 @@ const CommentListItem = props => (
         forumId={props.forumId}
         threadId={props.threadId}
         callSource={props.callSource}
-        replyCount={props.replyCount}
+        replyToponlyCount={props.replyToponlyCount}
         user={props.user}
         isDesktop={props.isDesktop}
         renderToggle={renderToggle}
@@ -81,7 +81,7 @@ CommentListItem.propTypes = {
   likeParams: shape({}),
   likePrompt: string.isRequired,
   likesCount: number.isRequired,
-  replyCount: number.isRequired,
+  replyToponlyCount: number.isRequired,
   replyId: number.isRequired,
   showLikePrompt: bool.isRequired,
   submitReply: func.isRequired,

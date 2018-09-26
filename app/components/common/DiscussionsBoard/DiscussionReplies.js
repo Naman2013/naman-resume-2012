@@ -146,7 +146,6 @@ class DiscussionsReplies extends Component {
       threadId,
       topicId,
       user,
-      replyCount,
       page,
     } = this.props;
 
