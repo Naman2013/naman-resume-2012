@@ -52,6 +52,7 @@ const DiscussionsCard = (props) => {
     title,
     user,
   } = props;
+
   return (
     <div className="root" key={uniqueId()}>
       <div className="comment-item">

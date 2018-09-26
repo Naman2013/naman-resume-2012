@@ -30,20 +30,24 @@ const CommentListItem = props => (
   >
     <DiscussionsCard
       {...props}
-      toggleComments={() => props.discussionsActions.toggleCommentsReplies(props.replyId)}
+      replyTo={props.replyId}
+      toggleComments={() => props.discussionsActions.toggleCommentsReplies(props.threadId, props.replyId)}
       likeHandler={likeReply}
       isDesktop={props.isDesktop}
       allowReplies={props.allowReplies}
       renderChildReplies={({
         renderToggle,
       }) => (<DiscussionReplies
+        validateResponseAccess={props.validateResponseAccess}
+        discussions={props.discussions}
+        discussionsActions={props.discussionsActions}
         count={props.count}
         replyId={props.replyId}
         topicId={props.topicId}
         forumId={props.forumId}
-        replyTo={props.replyId}
         threadId={props.threadId}
         callSource={props.callSource}
+        replyCount={props.replyCount}
         user={props.user}
         isDesktop={props.isDesktop}
         renderToggle={renderToggle}

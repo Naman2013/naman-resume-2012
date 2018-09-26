@@ -7,18 +7,14 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Modal from 'react-modal';
 import axios from 'axios';
-import omit from 'lodash/omit';
 import uniqueId from 'lodash/uniqueId';
-import isMatch from 'lodash/isMatch';
 import take from 'lodash/take';
 import { submitReply } from 'services/discussions/submit-reply';
 import { THREAD_REPLIES } from 'services/discussions';
 import CommentListItem from './CommentListItem';
 import Form from './ReplyForm';
 import ShowMoreFullSet from '../../common/ShowMoreFullSet';
-import Button from 'components/common/style/buttons/Button';
 import styles from './DiscussionsBoard.style';
 
 
@@ -35,6 +31,7 @@ const {
 class DiscussionsComment extends Component {
   static propTypes = {
     callSource: string,
+    canSubmitReplies: bool,
     count: number,
     discussions: shape({
       threadsList: arrayOf(shape({})).isRequired,
@@ -61,6 +58,7 @@ class DiscussionsComment extends Component {
     forumId: null,
     threadId: null,
     topicId: null,
+    canSubmitReplies: true,
   }
 
   componentDidMount() {
@@ -82,7 +80,7 @@ class DiscussionsComment extends Component {
         topicId,
         threadId,
         forumId,
-        replyTo: threadId,
+        replyTo: threadId, // should be threadId
         page: 1,
         at: user.at,
         token: user.token,
@@ -152,7 +150,7 @@ class DiscussionsComment extends Component {
           discussionsActions: { updateCommentsProps, updateThreadsProps },
         } = this.props;
         if (commentsList[threadId]) {
-          let newThreadsList = Object.assign({}, threadsList);
+          let newThreadsList = [].concat(threadsList);
           const comments = commentsList[threadId];
           const { page } = comments;
           const displayed = displayedComments[threadId] || [];
@@ -186,11 +184,12 @@ class DiscussionsComment extends Component {
       callSource,
       canSubmitReplies,
       count,
-      discussions: { commentsList },
+      discussions,
+      discussionsActions,
+      validateResponseAccess,
       forumId,
       isDesktop,
       renderToggle,
-      replyTo,
       threadId,
       topicId,
       user,
@@ -198,18 +197,20 @@ class DiscussionsComment extends Component {
       replyCount,
     } = this.props;
 
+    const { commentsList } = discussions;
+
     const comments = commentsList[threadId] || [];
     const { displayedCommentsObjs } = this;
 
     return (
       <div className="comment" key={uniqueId()}>
-        <div className="bordered-container">
+        <div>
           {canSubmitReplies ? <Form
             avatarURL={user.avatarURL}
             callSource={callSource}
             forumId={forumId}
             key={uniqueId()}
-            replyTo={replyTo}
+            replyTo={threadId}
             submitReply={this.handleReply}
             threadId={threadId}
             topicId={topicId}
@@ -231,19 +232,20 @@ class DiscussionsComment extends Component {
               };
               return (<CommentListItem
                 key={displayedComment.replyId}
+                validateResponseAccess={validateResponseAccess}
+                discussions={discussions}
+                discussionsActions={discussionsActions}
                 allowReplies={canSubmitReplies}
                 {...displayedComment}
                 likeParams={likeParams}
                 isDesktop={isDesktop}
                 threadId={threadId}
                 topicId={topicId}
-                replyTo={displayedComment.replyId}
                 forumId={forumId}
                 submitReply={this.handleReply}
                 count={count}
                 callSource={callSource}
                 user={user}
-                openModal={this.openModal}
               />)
            })}
            </div>

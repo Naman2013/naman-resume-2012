@@ -31,18 +31,16 @@ const RepliesListItem = props => (
   >
     <DiscussionsCard
       {...props}
+      replyTo={props.replyId}
       likeHandler={likeReply}
       isDesktop={props.isDesktop}
       allowReplies={false}
-      renderChildReplies={false}
     />
     <style jsx>{styles}</style>
   </div>
 );
 
 RepliesListItem.defaultProps = {
-  isDesktop: true,
-  isSimple: false,
   callSource: null,
   count: 10,
   forumId: null,

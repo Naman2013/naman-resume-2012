@@ -30,6 +30,7 @@ const DiscussionsItem = props => (
   >
     <DiscussionsCard
       {...props}
+      replyTo={props.threadId}
       toggleComments={() => props.discussionsActions.toggleThreadComments(props.threadId)}
       likeHandler={likeThread}
       isDesktop={props.isDesktop}
@@ -42,14 +43,12 @@ const DiscussionsItem = props => (
         discussionsActions={props.discussionsActions}
         callSource={props.callSource}
         threadId={props.threadId}
-        showThreadComments={props.showComments}
         count={props.count}
         replyCount={props.replyCount}
         page={props.page}
         topicId={props.topicId}
         forumId={props.forumId}
         user={props.user}
-        replyTo={props.threadId}
         isDesktop={props.isDesktop}
         renderToggle={renderToggle}
       />)}

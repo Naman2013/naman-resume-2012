@@ -58,7 +58,7 @@ class DiscussionsBoard extends Component {
     this.setState({
       threadsList: newThreadsList,
       threadsCount: newThreadsCount,
-      displayedThreads: displayedThreads,
+      displayedThreads,
     });
   }
 
@@ -97,10 +97,10 @@ class DiscussionsBoard extends Component {
     });
   }
 
-  toggleCommentsReplies = (replyId) => {
+  toggleCommentsReplies = (threadId, replyId) => {
     const { commentsList } = this.state;
     const newCommentsList = Object.assign({}, commentsList);
-    let comments = newCommentsList[replyId] || [];
+    let comments = newCommentsList[threadId] || [];
     comments = comments.map((reply) => {
       const newReply = Object.assign({}, reply);
       if (newReply.replyId === replyId) {
@@ -109,8 +109,10 @@ class DiscussionsBoard extends Component {
       return newReply;
     });
 
+    newCommentsList[threadId] = comments;
+
     this.setState({
-      commentsList: comments,
+      commentsList: newCommentsList,
     });
   }
 
