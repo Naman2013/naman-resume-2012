@@ -13,11 +13,9 @@ import { goldCompass } from 'styles/variables/iconURLs';
 import style from './HubContainer.style';
 
 const {
-  number,
   arrayOf,
   shape,
   string,
-  func,
 } = PropTypes;
 
 const getDefaultIndex = (set, item) => {
@@ -87,16 +85,8 @@ class HubContainer extends Component {
     }
 
     if (changeState) {
-      this.setState(state => {
-        this.setQueryParams({ filter, page, sort });
-        return ({
-          filter,
-          page,
-          sort,
-        });
-      });
-
-
+      this.setState({ filter, page, sort });
+      this.setQueryParams({ filter, page, sort });
     }
   }
 
@@ -160,10 +150,7 @@ class HubContainer extends Component {
             </div>
           )}
         />
-        <CenterColumn
-          theme={{ backgroundColor: seashell }}
-        >
-        </CenterColumn>
+        <CenterColumn theme={{ backgroundColor: seashell }} />
         <style jsx>{style}</style>
       </div>
     )
