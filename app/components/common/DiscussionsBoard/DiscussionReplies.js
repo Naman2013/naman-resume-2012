@@ -28,11 +28,12 @@ const {
   string,
 } = PropTypes;
 
-class DiscussionsComment extends Component {
+class DiscussionsReplies extends Component {
   static propTypes = {
     callSource: string,
     canSubmitReplies: bool,
     count: number,
+    handleReplyToComment: func.isRequired,
     discussions: shape({
       threadsList: arrayOf(shape({})).isRequired,
       commentsList: shape({}).isRequired,
@@ -113,54 +114,22 @@ class DiscussionsComment extends Component {
 
   handleShowMore = (paginatedSet, page) => {
     const {
+      threadId,
       replyId,
       discussionsActions: { updateCommentsProps },
       discussions: { commentsList },
     } = this.props;
     const newCommentList = Object.assign({}, commentsList);
-    let comments = newCommentList[replyId] || [];
-
+    let comments = newCommentList[threadId] || [];
     comments = comments.map((reply) => {
       const currentReply = Object.assign({}, reply);
-      if (currentReply.threadId === replyId) {
+      if (currentReply.replyId === replyId) {
         currentReply.page = page;
       }
       return currentReply;
     });
-    updateCommentsProps(replyId, comments, paginatedSet);
-  }
-
-  handleReply = (params, callback) => {
-    submitReply(params).then((res) => {
-      const { apiError, reply } = res.data;
-      if (!apiError) {
-        const {
-          count,
-          replyId,
-          discussions: { commentsList, displayedComments },
-          discussionsActions: { updateCommentsProps },
-        } = this.props;
-        debugger;
-        if (commentsList[replyId]) {
-          const comments = commentsList[replyId];
-          const { page } = comments;
-          const displayed = displayedComments[replyId] || [];
-          const lastPage = (Math.ceil(comments.length / count)) || 1;
-          let newDisplayedComments = [].concat(displayed);
-
-          // add new comment to the thread's list of commments in state
-          const newCommentsList = [].concat(comments, Object.assign({ likesCount: 0, replyCount: 0 }, reply));
-
-          if (page === lastPage) { // if there's only one page of comments, append the new comment to the displayed comments
-            newDisplayedComments = [].concat(newDisplayedComments, reply.replyId);
-          }
-
-          // set state in parent component
-          updateCommentsProps(replyId, newCommentsList, newDisplayedComments);
-        }
-      }
-      callback(res.data);
-    });
+    updateCommentsProps(threadId, comments, null);
+    updateCommentsProps(replyId, null, paginatedSet);
   }
 
   render() {
@@ -172,32 +141,35 @@ class DiscussionsComment extends Component {
       discussions: { commentsList },
       forumId,
       isDesktop,
+      handleReplyToComment,
       renderToggle,
       threadId,
       topicId,
       user,
-      page,
       replyCount,
+      page,
     } = this.props;
 
-    const comments = commentsList[threadId] || [];
+    const comments = commentsList[replyId] || [];
     const { displayedCommentsObjs } = this;
 
     return (
       <div className="comment" key={uniqueId()}>
-        {replyCount > 0 ? <div className="replies-list-contanier">
+        <div>
           {canSubmitReplies ? <Form
             avatarURL={user.avatarURL}
             callSource={callSource}
             forumId={forumId}
             key={uniqueId()}
             replyTo={replyId}
-            submitReply={this.handleReply}
+            submitReply={handleReplyToComment}
             threadId={threadId}
             topicId={topicId}
             user={user}
             isDesktop={isDesktop}
           /> : null}
+        </div>
+        {replyCount > 0 ? <div className="replies-list-contanier">
           <div className="num-replies">
             <span className="replies-number">Replies: {replyCount}</span>
           </div>
@@ -243,4 +215,4 @@ class DiscussionsComment extends Component {
 }
 
 
-export default DiscussionsComment;
+export default DiscussionsReplies;
