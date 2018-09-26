@@ -68,7 +68,7 @@ class JoinStep2 extends Component {
                     <h3>Step 2: {JOIN_PAGE_MODEL.sectionHeading}</h3>
                     <br/>
                     <br/>
-                    <p>Selected Plan: {JOIN_PAGE_ENDPOINT_URL.selectedSubscriptionPlan.planName} (Plan ID: {this.props.params.subscriptionPlanID})</p>
+                    <p>Selected Plan: {JOIN_PAGE_MODEL.selectedSubscriptionPlan.planName} (Plan ID: {this.props.params.subscriptionPlanID})</p>
                     <br/>
                     <br/>
                     <form className="form" onSubmit={this.handleSubmit}>
