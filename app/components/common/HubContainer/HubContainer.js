@@ -153,10 +153,8 @@ class HubContainer extends Component {
         <CenterColumn theme={{ backgroundColor: seashell }} />
         <style jsx>{style}</style>
       </div>
-    )
+    );
   }
 }
-
-
 
 export default HubContainer;
