@@ -26,7 +26,7 @@ class ShowMoreFullSet extends Component {
     totalCount: number,
     handleShowMore: func.isRequired,
     idField: string,
-    buttonText: string,
+    buttonText: arrayOf('string'),
   }
 
   static defaultProps = {
@@ -35,7 +35,7 @@ class ShowMoreFullSet extends Component {
     page: 1,
     totalCount: 0,
     idField: 'replyId',
-    buttonText: 'MORE REPLIES',
+    buttonText: ['MORE REPLY', 'MORE REPLIES'],
   }
 
   showMore = (e) => {
@@ -64,7 +64,7 @@ class ShowMoreFullSet extends Component {
     const remaining = totalCount - (count * page);
     return (
       <div>
-        {remaining > 0 ? <Button text={`${remaining} ${buttonText}`} onClickEvent={this.showMore} /> : null}
+        {remaining > 0 ? <Button text={`${remaining} ${remaining > 1 ? buttonText[1]: buttonText[0]}`} onClickEvent={this.showMore} /> : null}
       </div>
     )
   }
