@@ -1,20 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import CenterColumn from 'components/common/CenterColumn';
 import GuideTile from 'components/common/tiles/guide-tile';
 import style from './guide-tiles.style';
 
 const GuideTiles = ({ guides }) => (
-  <ul className="guide-tiles-root">
-    {guides.map(guide => (
-      <li
-        key={`guide-tile-${guide.subTitle}`}
-        className="tile"
-      >
-        <GuideTile {...guide} />
-      </li>
-    ))}
+  <CenterColumn breakpoints={['630px', '945px', '945px']}>
+    <ul className="guide-tiles-root">
+      {guides.map(guide => (
+        <li
+          key={`guide-tile-${guide.subTitle}`}
+          className="tile"
+        >
+          <GuideTile {...guide} />
+        </li>
+      ))}
+    </ul>
     <style jsx>{style}</style>
-  </ul>
+  </CenterColumn>
 );
 
 GuideTiles.propTypes = {
