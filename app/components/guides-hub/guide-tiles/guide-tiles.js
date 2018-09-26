@@ -5,7 +5,7 @@ import GuideTile from 'components/common/tiles/guide-tile';
 import style from './guide-tiles.style';
 
 const GuideTiles = ({ guides }) => (
-  <CenterColumn breakpoints={['630px', '945px', '945px']}>
+  <CenterColumn widths={['645px', '965px', '965px']}>
     <ul className="guide-tiles-root">
       {guides.map(guide => (
         <li

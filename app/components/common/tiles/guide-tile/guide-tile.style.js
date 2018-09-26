@@ -8,7 +8,6 @@ export default css`
     position: relative;
     background: url(${blue_tile_feat});
     width: 100%;
-    margin: 0 auto;
     height: 200px;
     text-align: center;
   }
