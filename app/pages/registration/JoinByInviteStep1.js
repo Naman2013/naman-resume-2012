@@ -16,7 +16,7 @@ class JoinByInviteStep1 extends Component {
     const myData = this.props.params;
 
     return (
-      <div style={{'paddingTop': '55px'}}>
+      <div style={{'paddingTop': '55px', 'marginLeft': 'auto', 'marginRight': 'auto', 'width': '600px'}}>
         <table style={{'marginLeft': 'auto', 'marginRight': 'auto'}} width="300px">
         {Object.keys(myData).map(function (key) {
             if ( typeof myData[key] != 'object') {
@@ -47,7 +47,7 @@ class JoinByInviteStep1 extends Component {
         <p>Password:</p>
         <p>Confirm Password:</p>
         <p>Are you under the Age of 13?</p>
-        
+
         <Link to="/join/step2">Submit to Join!</Link>
       </div>
     )
