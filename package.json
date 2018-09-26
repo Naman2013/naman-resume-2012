@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --https",
+    "start": "webpack-dev-server",
     "start:prod": "webpack-dev-server",
     "test": "jest --coverage",
     "update-snapshots": "jest -u",
