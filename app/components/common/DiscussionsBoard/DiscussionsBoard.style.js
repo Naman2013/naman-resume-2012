@@ -14,10 +14,6 @@ export default css`
     ${faintShadow}
   }
 
-  .bordered-container {
-    border: 1px solid ${shadows};
-  }
-
   .margin {
     margin: 15px 0;
   }
@@ -46,10 +42,17 @@ export default css`
   .replies-list-contanier {
     display: flex;
     flex-direction: row;
+    border-top: 1px solid ${shadows};
   }
 
   .replies-list {
     flex: 0 0 93%;
+
+  }
+
+  .comment-replies-list {
+    flex: 0 0 92.5%;
+
   }
 
   .comment-list-item {

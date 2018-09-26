@@ -226,7 +226,6 @@ class DiscussionsThreads extends Component {
             submitReply={this.handleReply}
             page={thread.page}
             user={user}
-            replyTo={thread.threadId}
           />)
         })}
       </div>}
