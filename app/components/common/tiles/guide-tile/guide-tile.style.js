@@ -9,7 +9,7 @@ export default css`
     background: url(${blue_tile_feat});
     width: 100%;
     margin: 0 auto;
-    height: 250px;
+    height: 200px;
     text-align: center;
   }
 
@@ -36,7 +36,7 @@ export default css`
   .title {
     margin: 0;
     margin-bottom: 10px;
-    padding-top: 125px;
+    padding-top: 80px;
     font-family: ${primaryFont};
     color: ${golden};
     text-transform: uppercase;
@@ -57,6 +57,10 @@ export default css`
     .guide-tile-root {
       width: 300px;
       height: 300px;
+    }
+
+    .title {
+      padding-top: 130px;
     }
   }
 `;
