@@ -115,7 +115,7 @@ class DiscussionsThreads extends Component {
       if (!res.payload.apiError) {
         const newThread = Object.assign({
           likesCount: 0,
-          replyCount: 0,
+          replyToponlyCount: 0,
           showComments: false,
           page: 1,
         }, res.payload.thread)
@@ -140,7 +140,7 @@ class DiscussionsThreads extends Component {
         newThreadsList = newThreadsList.map((thread) => {
           const newThread = Object.assign({}, thread);
           if (newThread.threadId === params.threadId) {
-            newThread.replyCount = newThread.replyCount + 1;
+            newThread.replyToponlyCount = newThread.replyToponlyCount + 1;
             if (!newThread.showComments) {
               newThread.showComments = true;
             }
@@ -159,7 +159,7 @@ class DiscussionsThreads extends Component {
           currentCommentsList,
           Object.assign({
             likesCount: 0,
-            replyCount: 0,
+            replyToponlyCount: 0,
             showComments: false,
             page: 1,
           }, reply)

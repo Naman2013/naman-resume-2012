@@ -170,12 +170,12 @@ class DiscussionsComment extends Component {
           let newDisplayedComments = [].concat(displayed);
 
           // add new comment to the thread's list of commments in state
-          const newCommentsList = [].concat(comments, Object.assign({ likesCount: 0, replyCount: 0 }, reply));
+          const newCommentsList = [].concat(comments, Object.assign({ likesCount: 0, replyToponlyCount: 0 }, reply));
           // update comment count on the thread
           newThreadsList = newThreadsList.map((thread) => {
             const newThread = Object.assign({}, thread);
             if (thread.threadId === threadId) {
-              newThread.replyCount = newThread.replyCount + 1;
+              newThread.replyToponlyCount = newThread.replyToponlyCount + 1;
             }
 
             return newThread;
@@ -216,17 +216,17 @@ class DiscussionsComment extends Component {
             let newDisplayedComments = [].concat(displayed);
             let newThreadComments = commentsList[threadId] || [];
             // add new comment to the thread's list of commments in state
-            const newCommentsList = [].concat(comments, Object.assign({ likesCount: 0, replyCount: 0 }, reply));
+            const newCommentsList = [].concat(comments, Object.assign({ likesCount: 0, replyToponlyCount: 0 }, reply));
 
             if (page === lastPage) { // if there's only one page of comments, append the new comment to the displayed comments
               newDisplayedComments = [].concat(newDisplayedComments, reply.replyId);
             }
 
-            // need to update parent replyCount
+            // need to update parent replyToponlyCount
             newThreadComments = newThreadComments.map((comment) => {
               const currentComment= Object.assign({}, comment);
               if (replyTo === currentComment.replyId) {
-                currentComment.replyCount = currentComment.replyCount + 1;
+                currentComment.replyToponlyCount = currentComment.replyToponlyCount + 1;
               }
               return currentComment;
             });
@@ -237,11 +237,11 @@ class DiscussionsComment extends Component {
             // toggle showComments so we do a fresh API call to get the comments
             let newThreadComments = commentsList[threadId] || [];
 
-            // need to update parent replyCount and showComments
+            // need to update parent replyToponlyCount and showComments
             newThreadComments = newThreadComments.map((comment) => {
               const currentComment= Object.assign({}, comment);
               if (replyTo === currentComment.replyId) {
-                currentComment.replyCount = currentComment.replyCount + 1;
+                currentComment.replyToponlyCount = currentComment.replyToponlyCount + 1;
                 currentComment.showComments = true;
               }
               return currentComment;
@@ -268,7 +268,7 @@ class DiscussionsComment extends Component {
       isDesktop,
       page,
       renderToggle,
-      replyCount,
+      replyToponlyCount,
       threadId,
       topicId,
       user,
