@@ -63,22 +63,23 @@ class DiscussionsBoard extends Component {
   }
 
   updateCommentsProps = (id, comments, displayed) => {
-    const { commentsList, displayedComments } = this.state;
-    const newCommentsList = Object.assign({}, commentsList);
-    const newDisplayedComments = Object.assign({}, displayedComments);
-    if (id) {
-      if (comments) {
-        newCommentsList[id] = comments;
-      }
+    this.setState(state => {
+      const { commentsList, displayedComments } = state;
+      const newCommentsList = Object.assign({}, commentsList);
+      const newDisplayedComments = Object.assign({}, displayedComments);
+      if (id) {
+        if (comments) {
+          newCommentsList[id] = comments;
+        }
 
-      if (displayed) {
-        newDisplayedComments[id] = displayed;
+        if (displayed) {
+          newDisplayedComments[id] = displayed;
+        }
       }
-    }
-
-    this.setState({
-      commentsList: newCommentsList,
-      displayedComments: newDisplayedComments,
+      return ({
+        commentsList: newCommentsList,
+        displayedComments: newDisplayedComments,
+      })
     });
   }
 

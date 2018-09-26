@@ -38,10 +38,12 @@ const CommentListItem = props => (
       renderChildReplies={({
         renderToggle,
       }) => (<DiscussionReplies
+        handleReplyToComment={props.submitReply}
         validateResponseAccess={props.validateResponseAccess}
         discussions={props.discussions}
         discussionsActions={props.discussionsActions}
         count={props.count}
+        page={props.page}
         replyId={props.replyId}
         topicId={props.topicId}
         forumId={props.forumId}
