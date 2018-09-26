@@ -169,9 +169,9 @@ class DiscussionsReplies extends Component {
             isDesktop={isDesktop}
           /> : null}
         </div>
-        {replyCount > 0 ? <div className="replies-list-contanier">
+        {comments.length > 0 ? <div className="replies-list-contanier">
           <div className="num-replies">
-            <span className="replies-number">Replies: {replyCount}</span>
+            <span className="replies-number">Replies: {comments.length}</span>
           </div>
           <div className="comment-replies-list">
             {displayedCommentsObjs.map((displayedComment) => {

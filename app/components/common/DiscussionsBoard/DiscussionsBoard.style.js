@@ -65,6 +65,7 @@ export default css`
 
 
   .num-replies {
+    background-color: ${romance};
     width: 45px
   }
 
