@@ -8,6 +8,7 @@ export default css`
     position: relative;
     background: url(${blue_tile_feat});
     width: 100%;
+    margin: 0 auto;
     height: 250px;
     text-align: center;
   }
@@ -35,7 +36,7 @@ export default css`
   .title {
     margin: 0;
     margin-bottom: 10px;
-    padding-top: 100px;
+    padding-top: 125px;
     font-family: ${primaryFont};
     color: ${golden};
     text-transform: uppercase;
@@ -54,7 +55,8 @@ export default css`
 
   @media ${screenMedium} {
     .guide-tile-root {
-      width: 33%;
+      width: 300px;
+      height: 300px;
     }
   }
 `;
