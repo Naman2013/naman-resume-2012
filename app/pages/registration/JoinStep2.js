@@ -25,17 +25,20 @@ class JoinStep2 extends Component {
   handleSubmit = (formValues) => {
     formValues.preventDefault();
 
+    store.setState( { "joinAccountForm": formValues } );
+
     console.log(this.state);
   }
 
   render() {
     return (
-      <div>
+      <div style={{'paddingTop': '55px', 'marginLeft': 'auto', 'marginRight': 'auto', 'width': '600px'}}>
         <header className="header">
           <div className="icon"></div>
         </header>
         <h1>Joining Slooh is Easy</h1>
         <h2>Join Slooh in three easy steps!  Simply select a plan, enter your details, make your payment, and youre in!</h2>
+        <br/>
         <h3>Step 2: ACCOUNT DETAILS</h3>
         <br/>
         <br/>
@@ -67,7 +70,7 @@ class JoinStep2 extends Component {
             <Field
               name="displayName"
               type="name"
-              label="Enter a Display Name (Optionnal)"
+              label="Enter a Display Name (Optional)"
               component={InputField}
               onChange={(event) => { this.handleFieldChange({ field: 'displayName', value: event.target.value }); }}
             />
@@ -113,7 +116,7 @@ class JoinStep2 extends Component {
             />
           </p>
 
-          <Button theme={{ margin: '0 auto'}} type="submit" text="Goto Payment" onClickEvent={null} />
+          <Link to="/join/step3"><Button theme={{ margin: '0 auto'}} type="submit" text="Goto Payment" onClickEvent={null} /></Link>
           <br/>
           <br/>
           <Link to="/join/step1"><Button theme={{ margin: '0 auto'}} type="button" text="Go Back"/></Link><br/>
@@ -135,4 +138,4 @@ const joinStep2Validation = createValidator({
   username: [required],
 });
 
-export default connect(mapStateToProps, null)(reduxForm({ form: 'joinForm', validate: joinStep2Validation })(JoinStep2));
+export default connect(mapStateToProps, null)(reduxForm({ form: 'joinAccountForm', validate: joinStep2Validation })(JoinStep2));
