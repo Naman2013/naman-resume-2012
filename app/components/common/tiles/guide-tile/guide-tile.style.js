@@ -12,6 +12,12 @@ export default css`
     text-align: center;
   }
 
+  .guide-tile-root :global(a) {
+    display: block;
+    height: 100%;
+    border: 1px solid red;
+  }
+
   .guide-tile-frame {
     position: absolute;
     width: 100%;

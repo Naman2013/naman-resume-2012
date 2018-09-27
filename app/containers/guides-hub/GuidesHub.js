@@ -49,12 +49,17 @@ const MOCK_DATA = {
 };
 
 const guideTiles = [
-  { title: 'A guide to', subTitle: 'Object guide name' },
-  { title: 'A guide to', subTitle: 'Object guide name' },
-  { title: 'A guide to', subTitle: 'Object guide name' },
-  { title: 'A guide to', subTitle: 'Object guide name' },
-  { title: 'A guide to', subTitle: 'Object guide name' },
-  { title: 'A guide to', subTitle: 'Object guide name' },
+  { title: 'A guide to', subTitle: 'Object guide name', linkURL: '#' },
+  { title: 'A guide to', subTitle: 'Object guide name', linkURL: '#' },
+  { title: 'A guide to', subTitle: 'Object guide name', linkURL: '#' },
+  { title: 'A guide to', subTitle: 'Object guide name', linkURL: '#' },
+  { title: 'A guide to', subTitle: 'Object guide name', linkURL: '#' },
+  { title: 'A guide to', subTitle: 'Object guide name', linkURL: '#' },
+  { title: 'A guide to', subTitle: 'Object guide name', linkURL: '#' },
+  { title: 'A guide to', subTitle: 'Object guide name', linkURL: '#' },
+  { title: 'A guide to', subTitle: 'Object guide name', linkURL: '#' },
+  { title: 'A guide to', subTitle: 'Object guide name', linkURL: '#' },
+  { title: 'A guide to', subTitle: 'Object guide name', linkURL: '#' },
 ];
 
 const guidesHubModel = {
