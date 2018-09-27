@@ -27,6 +27,7 @@ const {
 class ReplyForm extends Component {
   static defaultProps = {
     avatarURL: '',
+    placeholder: 'Reply to this comment',
     replyTo: null,
     callSource: null,
     user: {
@@ -87,20 +88,16 @@ class ReplyForm extends Component {
       avatarURL,
       isDesktop,
       user,
+      placeholder,
     } = this.props;
 
     return (
       <div className="reply-form-container">
-        {isDesktop ? <div>
-          <FormHeader avatarURL={user.avatarURL} />
-          <SingleFieldSubmitForm {...this.props} submitForm={this.submitForm} />
-        </div> :
         <RevealSubmitForm
           {...this.props}
           submitForm={this.submitForm}
-          placeholder="Write a public comment"
+          placeholder={placeholder}
         />
-      }
 
       <style jsx>{`
         .reply-form-container {

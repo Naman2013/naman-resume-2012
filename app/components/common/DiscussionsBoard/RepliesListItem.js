@@ -10,7 +10,8 @@ import PropTypes from 'prop-types';
 import uniqueId from 'lodash/uniqueId';
 import { likeReply } from 'services/discussions/like';;
 import DiscussionsCard from 'components/common/DiscussionsCard';
-import DiscussionReplies from './DiscussionReplies';
+import DiscussionsCardSimple from 'components/common/DiscussionsCardSimple';
+import DiscussionReplies from './DiscussionComments';
 import styles from './DiscussionsBoard.style';
 
 const {
@@ -23,7 +24,7 @@ const {
 } = PropTypes;
 
 
-const CommentListItem = props => (
+const RepliesListItem = props => (
   <div
     className="comment-list-item"
     key={uniqueId()}
@@ -31,36 +32,15 @@ const CommentListItem = props => (
     <DiscussionsCard
       {...props}
       replyTo={props.replyId}
-      toggleComments={() => props.discussionsActions.toggleCommentsReplies(props.threadId, props.replyId)}
       likeHandler={likeReply}
       isDesktop={props.isDesktop}
-      allowReplies={props.allowReplies}
-      renderChildReplies={({
-        renderToggle,
-      }) => (<DiscussionReplies
-        handleReplyToComment={props.submitReply}
-        validateResponseAccess={props.validateResponseAccess}
-        discussions={props.discussions}
-        discussionsActions={props.discussionsActions}
-        count={props.count}
-        page={props.page}
-        replyId={props.replyId}
-        topicId={props.topicId}
-        forumId={props.forumId}
-        threadId={props.threadId}
-        callSource={props.callSource}
-        replyToponlyCount={props.replyToponlyCount}
-        user={props.user}
-        isDesktop={props.isDesktop}
-        renderToggle={renderToggle}
-      />)}
+      allowReplies={false}
     />
     <style jsx>{styles}</style>
   </div>
 );
 
-CommentListItem.defaultProps = {
-  isDesktop: true,
+RepliesListItem.defaultProps = {
   callSource: null,
   count: 10,
   forumId: null,
@@ -69,7 +49,7 @@ CommentListItem.defaultProps = {
   topicId: null,
 };
 
-CommentListItem.propTypes = {
+RepliesListItem.propTypes = {
   avatarURL: string.isRequired,
   callSource: string,
   content: string.isRequired,
@@ -95,4 +75,4 @@ CommentListItem.propTypes = {
 };
 
 
-export default CommentListItem;
+export default RepliesListItem;
