@@ -15,7 +15,6 @@ export default css`
   .guide-tile-root :global(a) {
     display: block;
     height: 100%;
-    border: 1px solid red;
   }
 
   .guide-tile-frame {
