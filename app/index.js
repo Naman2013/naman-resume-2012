@@ -173,7 +173,7 @@ history.listen((location) => {
     location: pathname,
   });
   store.dispatch(fetchPlayer({ pageURL: pathname }));
-  console.log(location);
+  //console.log(location);
 });
 
 ReactDOM.render(
