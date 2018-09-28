@@ -9,26 +9,35 @@ import { connect } from 'react-redux';
 
 import Request from 'components/common/network/Request';
 
-const mapStateToProps = ({ appConfig, isBraintreeReady }) => ({
+const mapStateToProps = ({ appConfig }) => ({
   appConfig,
-  isBraintreeReady,
 });
 
 @connect(mapStateToProps, null)
 class JoinStep3 extends Component  {
+
+  state = {
+    'paymentToken': '',
+  };
 
   constructor(props) {
     super(props);
   }
 
   componentDidMount() {
+    //Listen for a message from the Window/IFrames to capture the ECommerce Hosted Payment Form Messaging
     window.addEventListener('message', this.handleIframeTask);
   }
 
   handleIframeTask = (e) => {
+    /* Verify there is data in this event) */
     if (e.data) {
-      const paymentNonceTokenData = e.data + '';
-      if (paymentNonceTokenData.startsWith('token')) {
+      const paymentMessageData = e.data + '';
+
+      /* make sure the data message we received is an ECommerce Payment Token */
+      if (paymentMessageData.startsWith('__ECOMMERCE_PAYMENT_TOKEN__')) {
+        const paymentNonceTokenData = String.prototype.replace.call(paymentMessageData, '__ECOMMERCE_PAYMENT_TOKEN__', '');
+        this.setState( { 'paymentToken': paymentNonceTokenData });
         console.log('Payment Token!! ' + paymentNonceTokenData);
       }
     }
@@ -47,12 +56,14 @@ class JoinStep3 extends Component  {
       }),
     };
 
+    const paymentTokenNonce = this.state.paymentToken;
+
     return (
       <div style={{'paddingTop': '55px', 'marginLeft': 'auto', 'marginRight': 'auto', 'width': '600px'}}>
       <Request
         serviceURL={JOIN_PAGE_ENDPOINT_URL}
         model={joinPageModel}
-        requestBody={{ 'callSource': 'selectSubscriptionPlan' }}
+        requestBody={{ 'callSource': 'providePaymentDetails', 'selectedPlanID': this.props.params.subscriptionPlanID }}
         render={({
           fetchingContent,
           modeledResponses: { JOIN_PAGE_MODEL },
@@ -61,8 +72,6 @@ class JoinStep3 extends Component  {
             {
               !fetchingContent &&
                 <Fragment>
-
-
                   <header className="header">
                     <div className="icon"></div>
                   </header>
@@ -71,8 +80,11 @@ class JoinStep3 extends Component  {
                   <h3>Step 3: {JOIN_PAGE_MODEL.sectionHeading}</h3>
                   <br/>
                   <br/>
-                  <iframe style={{'width': '100%', 'minHeight': '400px'}} src="{JOIN_PAGE_MODEL.hostedPaymentFormURL}"></iframe>
-                  <Link to="/join/complete">Submit to Join!</Link>
+                  <p style={{'fontWeight': 'bold', 'fontSize': '1.3em'}}>Payment Token nonce:</p>
+                  {paymentTokenNonce}<br/>
+                  <br/>
+                  <br/>
+                  <iframe frameBorder="0" style={{'width': '100%', 'minHeight': '600px'}} src={JOIN_PAGE_MODEL.hostedPaymentFormURL}></iframe>
                 </Fragment>
               }
               </Fragment>

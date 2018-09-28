@@ -42,6 +42,7 @@ class JoinStep2 extends Component {
         pageHeading2: resp.pageHeading2,
         sectionHeading: resp.sectionHeading,
         selectedSubscriptionPlan: resp.selectedSubscriptionPlan,
+        formFieldLabels: resp.formFieldLabels,
       }),
     };
 
@@ -68,75 +69,75 @@ class JoinStep2 extends Component {
                     <h3>Step 2: {JOIN_PAGE_MODEL.sectionHeading}</h3>
                     <br/>
                     <br/>
-                    <p>Selected Plan: {JOIN_PAGE_ENDPOINT_URL.selectedSubscriptionPlan.planName} (Plan ID: {this.props.params.subscriptionPlanID})</p>
+                    <p>Selected Plan: {JOIN_PAGE_MODEL.selectedSubscriptionPlan.planName} (Plan ID: {this.props.params.subscriptionPlanID})</p>
                     <br/>
                     <br/>
                     <form className="form" onSubmit={this.handleSubmit}>
-                      <p>* First Name:
+                      <p>{JOIN_PAGE_MODEL.formFieldLabels.firstname.label}:
                         <Field
                           name="firstName"
                           type="name"
-                          label="Given Name"
+                          label={JOIN_PAGE_MODEL.formFieldLabels.firstname.hintText}
                           component={InputField}
                           onChange={(event) => { this.handleFieldChange({ field: 'firstName', value: event.target.value }); }}
                           />
                       </p>
                       <br/>
-                      <p>* Last Name:
+                      <p>{JOIN_PAGE_MODEL.formFieldLabels.lastname.label}:
                         <Field
                           name="lastName"
                           type="name"
-                          label="Last Name"
+                          label={JOIN_PAGE_MODEL.formFieldLabels.lastname.hintText}
                           component={InputField}
                           onChange={(event) => { this.handleFieldChange({ field: 'lastName', value: event.target.value }); }}
                         />
                       </p>
                       <br/>
-                      <p>Display Name:
+                      <p>{JOIN_PAGE_MODEL.formFieldLabels.displayname.label}:
                         <Field
                           name="displayName"
                           type="name"
-                          label="Enter a Display Name (Optional)"
+                          label={JOIN_PAGE_MODEL.formFieldLabels.displayname.hintText}
                           component={InputField}
                           onChange={(event) => { this.handleFieldChange({ field: 'displayName', value: event.target.value }); }}
                         />
                       </p>
                       <br/>
-                      <p>* Login Email Address:
+                      <p>{JOIN_PAGE_MODEL.formFieldLabels.loginemailaddress.label}:
                         <Field
                           name="loginEmailAddress"
                           type="email"
-                          label="Enter your Email Address"
+                          label={JOIN_PAGE_MODEL.formFieldLabels.loginemailaddress.hintText}
                           component={InputField}
                           onChange={(event) => { this.handleFieldChange({ field: 'loginEmailAddress', value: event.target.value }); }}
                         />
                       </p>
                       <br/>
-                      <p>* Confirm Email Address:
+                      <p>{JOIN_PAGE_MODEL.formFieldLabels.loginemailaddressverification.label}:
                         <Field
                           name="loginEmailAddressVerification"
                           type="email"
-                          label="Re-enter your Email Address"
+                          label={JOIN_PAGE_MODEL.formFieldLabels.loginemailaddressverification.hintText}
                           component={InputField}
                           onChange={(event) => { this.handleFieldChange({ field: 'loginEmailAddressVerification', value: event.target.value }); }}
                         />
                       </p>
                       <br/>
-                      <p>* Password:
+                      <p>{JOIN_PAGE_MODEL.formFieldLabels.password.label}:
                         <Field
                           name="password"
                           type="password"
-                          label="Create your Password"
+                          label={JOIN_PAGE_MODEL.formFieldLabels.password.hintText}
                           component={InputField}
                           onChange={(event) => { this.handleFieldChange({ field: 'password', value: event.target.value }); }}
                         />
                       </p>
                       <br/>
-                      <p>* Confirm password:
+                      <p>{JOIN_PAGE_MODEL.formFieldLabels.passwordverification.label}:
                         <Field
                           name="passwordVerification"
                           type="password"
-                          label="Re-enter your password"
+                          label={JOIN_PAGE_MODEL.formFieldLabels.passwordverification.hintText}
                           component={InputField}
                           onChange={(event) => { this.handleFieldChange({ field: 'passwordVerification', value: event.target.value }); }}
                         />
