@@ -14,6 +14,8 @@ import { faintShadow } from 'styles/variables/shadows';
 import { primaryFont } from 'styles/variables/fonts';
 import{ horizontalArrowRightWhite } from 'styles/variables/iconURLs';
 
+import { GoogleLogin } from 'react-google-login';
+
 const propTypes = {
   forgotPasswordURL: PropTypes.string,
   registerNewMemberURL: PropTypes.string,
@@ -41,6 +43,10 @@ class Login extends Component {
   handleSubmit = (formValues) => {
     const { actions } = this.props;
     actions.logUserIn(formValues);
+  }
+
+  responseGoogle = (response) => {
+    console.log(response);
   }
 
   render() {
@@ -76,6 +82,15 @@ class Login extends Component {
             <span className="forgot title-link">Forgot Your Password?</span>
           </Link>
           <Button theme={{ margin: '0 auto', color: astronaut }} type="submit" text="Sign in with email" onClickEvent={null} />
+
+          <div style={{'paddingTop': '15px', 'marginLeft': 'auto', 'marginRight': 'auto', 'textAlign': 'center'}}>
+            <GoogleLogin
+                clientId="740697517987-vhu4bpsjdfoq852ppj1jihtecoa4idrt.apps.googleusercontent.com"
+                buttonText="Login with Google"
+                onSuccess={this.responseGoogle}
+                onFailure={this.responseGoogle}
+              />
+          </div>
 
           <div className="register-container">
             <span className="title-link">{`Don't have an account?`}</span>
