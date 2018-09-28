@@ -79,7 +79,7 @@ class Login extends Component {
 
           <div className="register-container">
             <span className="title-link">{`Don't have an account?`}</span>
-            <Link to={registerNewMemberURL}>
+            <Link to="/join/step1">
               <LargeButtonWithRightIcon
                 icon={horizontalArrowRightWhite}
                 theme={{
@@ -89,7 +89,6 @@ class Login extends Component {
                   width: '100%',
                 }}
                 text="Join Slooh Today"
-                onClickEvent={() => {}}
               />
             </Link>
           </div>
