@@ -46,7 +46,16 @@ class Login extends Component {
   }
 
   responseGoogle = (response) => {
-    console.log(response);
+    //process the Google Response Token data
+    const googleProfileData = {
+      email: response.profileObj.email,
+      givenName: response.profileObj.givenName,
+      familyName: response.profileObj.familyName,
+      googleId: response.profileObj.googleId,
+      name: response.profileObj.name
+    }
+
+    console.log(googleProfileData);
   }
 
   render() {
