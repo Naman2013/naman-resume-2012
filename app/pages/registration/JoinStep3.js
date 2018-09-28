@@ -16,6 +16,10 @@ const mapStateToProps = ({ appConfig }) => ({
 @connect(mapStateToProps, null)
 class JoinStep3 extends Component  {
 
+  state = {
+    'paymentToken': '',
+  };
+
   constructor(props) {
     super(props);
   }
@@ -33,6 +37,7 @@ class JoinStep3 extends Component  {
       /* make sure the data message we received is an ECommerce Payment Token */
       if (paymentMessageData.startsWith('__ECOMMERCE_PAYMENT_TOKEN__')) {
         const paymentNonceTokenData = String.prototype.replace.call(paymentMessageData, '__ECOMMERCE_PAYMENT_TOKEN__', '');
+        this.setState( { 'paymentToken': paymentNonceTokenData });
         console.log('Payment Token!! ' + paymentNonceTokenData);
       }
     }
@@ -50,6 +55,8 @@ class JoinStep3 extends Component  {
         hostedPaymentFormURL: resp.hostedPaymentFormURL,
       }),
     };
+
+    const paymentTokenNonce = this.state.paymentToken;
 
     return (
       <div style={{'paddingTop': '55px', 'marginLeft': 'auto', 'marginRight': 'auto', 'width': '600px'}}>
@@ -73,7 +80,11 @@ class JoinStep3 extends Component  {
                   <h3>Step 3: {JOIN_PAGE_MODEL.sectionHeading}</h3>
                   <br/>
                   <br/>
-                  <iframe style={{'width': '100%', 'minHeight': '400px'}} src={JOIN_PAGE_MODEL.hostedPaymentFormURL}></iframe>
+                  <p style={{'fontWeight': 'bold', 'fontSize': '1.3em'}}>Payment Token nonce:</p>
+                  {paymentTokenNonce}<br/>
+                  <br/>
+                  <br/>
+                  <iframe frameBorder="0" style={{'width': '100%', 'minHeight': '600px'}} src={JOIN_PAGE_MODEL.hostedPaymentFormURL}></iframe>
                 </Fragment>
               }
               </Fragment>
