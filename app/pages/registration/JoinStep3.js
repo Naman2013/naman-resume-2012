@@ -28,10 +28,11 @@ class JoinStep3 extends Component  {
   handleIframeTask = (e) => {
     /* Verify there is data in this event) */
     if (e.data) {
-      const paymentNonceTokenData = e.data + '';
+      const paymentMessageData = e.data + '';
 
       /* make sure the data message we received is an ECommerce Payment Token */
-      if (paymentNonceTokenData.startsWith('token')) {
+      if (paymentMessageData.startsWith('__ECOMMERCE_PAYMENT_TOKEN__')) {
+        const paymentNonceTokenData = String.prototype.replace.call(paymentMessageData, '__ECOMMERCE_PAYMENT_TOKEN__', '');
         console.log('Payment Token!! ' + paymentNonceTokenData);
       }
     }
