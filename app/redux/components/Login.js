@@ -65,13 +65,14 @@ class Login extends Component {
         const res = response.data;
         if (res.apiError == false) {
           const googleProfileResult = {
+            apiFlowState: res.flow_state,
             googleAccessToken: res.googleAccessToken,
             googleRefreshToken: res.googleRefreshToken,
             googleProfileId: res.googleProfileId,
             googleProfileEmail: res.googleProfileInfo.email,
             googleProfileGivenName: res.googleProfileInfo.givenName,
             googleProfileFamilyName: res.googleProfileInfo.familyName,
-            googleProfilePictureURL: res.googleProfileInfo.googleProfilePictureURL,
+            googleProfilePictureURL: res.googleProfileInfo.profilePictureURL,
           }
 
           console.log(googleProfileResult);
