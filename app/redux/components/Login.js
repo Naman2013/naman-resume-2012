@@ -59,7 +59,7 @@ class Login extends Component {
     /* Process the token and get back information about this user, etc. */
     const googleSSOResult = axios.post('/api/registration/processGoogleSSOSignin',
       {
-        accessToken: googleTokenData.code
+        authenticationCode: googleTokenData.code
       })
       .then(response => {
         const res = response.data;
@@ -153,8 +153,8 @@ class Login extends Component {
                             scope={GOOGLE_CLIENT_ID_MODEL.googleClientScope}
                             clientId={GOOGLE_CLIENT_ID_MODEL.googleClientID}
                             buttonText={GOOGLE_CLIENT_ID_MODEL.loginButtonText}
-                            onSuccess={this.responseGoogle}
-                            onFailure={this.responseGoogle}
+                            onSuccess={this.processGoogleSuccessResponse}
+                            onFailure={this.processGoogleFailureResponse}
                           />
                       </div>
                     </Fragment>
