@@ -20,6 +20,7 @@ import './LabeledTitleTiles';
 import './MissionAudio';
 import './ObjectDetailsSectionTitle';
 import './ObjectProfile';
+import './pagination';
 import './ResponsiveTwoColumnContainer';
 import './RevealSubmitForm';
 import './SubPageNavigation';
