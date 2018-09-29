@@ -112,6 +112,7 @@ class Login extends Component {
           <Button theme={{ margin: '0 auto', color: astronaut }} type="submit" text="Sign in with email" onClickEvent={null} />
 
           <GoogleLogin
+              fetchBasicProfile="true"
               responseType="code token"
               accessType="offline"
               scope="profile email https://www.googleapis.com/auth/classroom.courses.readonly https://www.googleapis.com/auth/classroom.rosters.readonly"
