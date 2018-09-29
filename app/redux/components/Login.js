@@ -62,10 +62,18 @@ class Login extends Component {
         authenticationCode: googleTokenData.code
       })
       .then(response => {
-        console.log(response);
         const res = response.data;
-        if (res.success) {
-          console.log(res);
+        if (res.apiError == false) {
+          const googleProfileResult = {
+            googleAccessToken: res.googleAccessToken,
+            googleRefreshToken: res.googleRefreshToken,
+            googleProfileId: res.googleProfileId,
+            googleProfileEmail: res.googleProfileInfo.email,
+            googleProfileGivenName: res.googleProfileInfo.givenName,
+            googleProfileFamilyName: res.googleProfileInfo.familyName,
+            googleProfilePictureURL: res.googleProfileInfo.googleProfilePictureURL,
+          }
+          console.log(googleProfileResult);
         }
       })
       .catch(err => {
