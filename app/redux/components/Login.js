@@ -49,13 +49,17 @@ class Login extends Component {
     actions.logUserIn(formValues);
   }
 
-  responseGoogle = (googleToken) => {
-    console.log(googleToken);
+  processGoogleFailureResponse = (googleMessageData) => {
+      console.log(googleMessageData);
+  };
+
+  processGoogleSuccessResponse = (googleTokenData) => {
+    console.log(googleTokenData);
 
     /* Process the token and get back information about this user, etc. */
     const googleSSOResult = axios.post('/api/registration/processGoogleSSOSignin',
       {
-        accessToken: googleToken
+        accessToken: googleTokenData.code
       })
       .then(response => {
         const res = response.data;
