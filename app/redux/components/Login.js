@@ -15,6 +15,7 @@ import { primaryFont } from 'styles/variables/fonts';
 import{ horizontalArrowRightWhite } from 'styles/variables/iconURLs';
 
 import Request from 'components/common/network/Request';
+import axios from 'axios';
 
 import { GoogleLogin } from 'react-google-login';
 
@@ -48,8 +49,25 @@ class Login extends Component {
     actions.logUserIn(formValues);
   }
 
-  responseGoogle = (response) => {
-    console.log(response);
+  responseGoogle = (googleToken) => {
+    console.log(googleToken);
+
+    /* Process the token and get back information about this user, etc. */
+    const googleSSOResult = axios.post('/api/registration/processGoogleSSOSignin',
+      {
+        accessToken: googleToken
+      })
+      .then(response => {
+        const res = response.data;
+        if (res.success) {
+          console.log(res);
+        }
+      })
+      .catch(err => {
+        throw ('Error: ', err);
+      });
+
+     console.log(googleSSOResult);
 
     //process the Google Response Token data
     //const googleProfileData = {
