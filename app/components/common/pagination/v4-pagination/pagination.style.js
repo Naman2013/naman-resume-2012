@@ -13,6 +13,7 @@ export default css`
 
   .page-select {
     display: inline-block;
+    padding: 0 10px;
   }
 
   .page-select :global(a) {
