@@ -14,7 +14,6 @@ import ViewImagesButton from '../../app/components/common/style/buttons/ViewImag
 
 const images = ['https://castor.slooh.com/dev101/2018/07/720d/b712/1530882220.jpg', 'https://castor.slooh.com/dev101/2018/07/9879/452d/1531688297.JPG']
 
-
 storiesOf('Buttons ', module)
   .addDecorator(getStory => <DeviceProvider>{getStory()}</DeviceProvider>)
   .add('Back Bar', () => (
