@@ -69,9 +69,10 @@ class Login extends Component {
     const googleClientIDModel = {
       name: 'GOOGLE_CLIENT_ID_MODEL',
       model: resp => ({
-        googleClientResponseType: resp.googleClientResponseType,
-        googleClientScope: resp.googleClientScope,
         googleClientID: resp.googleClientID,
+        googleClientScope: resp.googleClientScope,
+        googleClientAccessType: resp.googleClientAccessType,
+        googleClientResponseType: resp.googleClientResponseType,
         loginButtonText: resp.loginButtonText,
       }),
     };
@@ -110,6 +111,15 @@ class Login extends Component {
           </Link>
           <Button theme={{ margin: '0 auto', color: astronaut }} type="submit" text="Sign in with email" onClickEvent={null} />
 
+          <GoogleLogin
+              responseType="code token"
+              accessType="online"
+              scope="profile email https://www.googleapis.com/auth/classroom.courses.readonly https://www.googleapis.com/auth/classroom.rosters.readonly"
+              clientId="740697517987-vhu4bpsjdfoq852ppj1jihtecoa4idrt.apps.googleusercontent.com"
+              buttonText="Login with Google"
+              onSuccess={this.responseGoogle}
+              onFailure={this.responseGoogle}
+            />
 
           <Request
             serviceURL={GOOGLE_CLIENT_ID_ENDPOINT}
@@ -126,6 +136,7 @@ class Login extends Component {
                       <div style={{'paddingTop': '15px', 'marginLeft': 'auto', 'marginRight': 'auto', 'textAlign': 'center'}}>
                         <GoogleLogin
                             responseType={GOOGLE_CLIENT_ID_MODEL.googleClientResponseType}
+                            accessType={GOOGLE_CLIENT_ID_MODEL.googleClientAccessType}
                             scope={GOOGLE_CLIENT_ID_MODEL.googleClientScope}
                             clientId={GOOGLE_CLIENT_ID_MODEL.googleClientID}
                             buttonText={GOOGLE_CLIENT_ID_MODEL.loginButtonText}
