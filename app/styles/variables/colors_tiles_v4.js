@@ -26,6 +26,7 @@ export const golda                = '#e2b979';
 export const shadows              = '#ced2d8';
 export const dukeBlue             = '#1c2633';
 export const chillBlue            = '#9cb4d2';
+export const faintBlue            = '#BCC2CA';
 export const thatBlue             = '#253446';
 export const faintGray            = '#f8f8f8';
 export const online               = '#4AB375';
