@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router';
@@ -14,7 +14,10 @@ import { faintShadow } from 'styles/variables/shadows';
 import { primaryFont } from 'styles/variables/fonts';
 import{ horizontalArrowRightWhite } from 'styles/variables/iconURLs';
 
+import Request from 'components/common/network/Request';
+
 import { GoogleLogin } from 'react-google-login';
+
 
 const propTypes = {
   forgotPasswordURL: PropTypes.string,
@@ -61,11 +64,24 @@ class Login extends Component {
   }
 
   render() {
+    const GOOGLE_CLIENT_ID_ENDPOINT = '/api/registration/getGoogleClientID';
+
+    const googleClientIDModel = {
+      name: 'GOOGLE_CLIENT_ID_MODEL',
+      model: resp => ({
+        googleClientResponseType: resp.googleClientResponseType,
+        googleClientScope: resp.googleClientScope,
+        googleClientID: resp.googleClientID,
+        loginButtonText: resp.loginButtonText,
+      }),
+    };
+
     const {
       loginFailed,
       registerNewMemberURL,
       forgotPasswordURL,
     } = this.props;
+
     return (
       <div className="root">
         <form
@@ -94,16 +110,34 @@ class Login extends Component {
           </Link>
           <Button theme={{ margin: '0 auto', color: astronaut }} type="submit" text="Sign in with email" onClickEvent={null} />
 
-          <div style={{'paddingTop': '15px', 'marginLeft': 'auto', 'marginRight': 'auto', 'textAlign': 'center'}}>
-            <GoogleLogin
-                responseType="code"
-                scope="profile email https://www.googleapis.com/auth/classroom.courses.readonly https://www.googleapis.com/auth/classroom.rosters.readonly"
-                clientId="740697517987-vhu4bpsjdfoq852ppj1jihtecoa4idrt.apps.googleusercontent.com"
-                buttonText="Login with Google"
-                onSuccess={this.responseGoogle}
-                onFailure={this.responseGoogle}
+
+          <Request
+            serviceURL={GOOGLE_CLIENT_ID_ENDPOINT}
+            model={googleClientIDModel}
+            requestBody={{ }}
+            render={({
+              fetchingContent,
+              modeledResponses: { GOOGLE_CLIENT_ID_MODEL },
+            }) => (
+              <Fragment>
+                {
+                  !fetchingContent &&
+                    <Fragment>
+                      <div style={{'paddingTop': '15px', 'marginLeft': 'auto', 'marginRight': 'auto', 'textAlign': 'center'}}>
+                        <GoogleLogin
+                            responseType={GOOGLE_CLIENT_ID_MODEL.googleClientResponseType}
+                            scope={GOOGLE_CLIENT_ID_MODEL.googleClientScope}
+                            clientId={GOOGLE_CLIENT_ID_MODEL.googleClientID}
+                            buttonText={GOOGLE_CLIENT_ID_MODEL.loginButtonText}
+                            onSuccess={this.responseGoogle}
+                            onFailure={this.responseGoogle}
+                          />
+                      </div>
+                    </Fragment>
+                  }
+                  </Fragment>
+                )}
               />
-          </div>
 
           <div className="register-container">
             <span className="title-link">{`Don't have an account?`}</span>
