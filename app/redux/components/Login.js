@@ -113,7 +113,7 @@ class Login extends Component {
 
           <GoogleLogin
               fetchBasicProfile="true"
-              responseType="code token"
+              responseType="code"
               accessType="offline"
               scope="profile email https://www.googleapis.com/auth/classroom.courses.readonly https://www.googleapis.com/auth/classroom.rosters.readonly"
               clientId="740697517987-vhu4bpsjdfoq852ppj1jihtecoa4idrt.apps.googleusercontent.com"
