@@ -8,19 +8,27 @@ import style from './pagination.style';
 
 const Pagination = ({ pages }) => (
   <div className="pagination-root">
-    <div className="buttons">
-      <GenericButton text="First" />
-      <GenericButton icon={horizontalArrow} />
-    </div>
+    <ul className="buttons">
+      <li className="button">
+        <GenericButton text="First" />
+      </li>
+      <li className="button">
+        <GenericButton theme={{ transform: 'rotate(180deg)' }} icon={horizontalArrow} />
+      </li>
+    </ul>
 
     <div>
       <Pages pages={pages} />
     </div>
 
-    <div className="buttons">
-      <GenericButton icon={horizontalArrow} />
-      <GenericButton text="Last" />
-    </div>
+    <ul className="buttons">
+      <li className="button">
+        <GenericButton icon={horizontalArrow} />
+      </li>
+      <li className="button">
+        <GenericButton text="Last" />
+      </li>
+    </ul>
     <style jsx>{style}</style>
   </div>
 );

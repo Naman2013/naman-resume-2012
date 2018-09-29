@@ -6,7 +6,7 @@ import { primaryFont } from 'styles/variables/fonts';
 export default css`
   .page-select-root {
     ${resetMarginPadding}
-    margin: 0 25px;
+    margin: 0 15px;
     list-style-type: none;
     font-family: ${primaryFont};
     font-weight: 800;
