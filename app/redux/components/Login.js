@@ -62,6 +62,7 @@ class Login extends Component {
         authenticationCode: googleTokenData.code
       })
       .then(response => {
+        console.log(response);
         const res = response.data;
         if (res.success) {
           console.log(res);
@@ -70,8 +71,6 @@ class Login extends Component {
       .catch(err => {
         throw ('Error: ', err);
       });
-
-     console.log(googleSSOResult);
 
     //process the Google Response Token data
     //const googleProfileData = {
