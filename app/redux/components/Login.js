@@ -59,7 +59,7 @@ class Login extends Component {
     /* Process the token and get back information about this user, etc. */
     const googleSSOResult = axios.post('/api/registration/processGoogleSSOSignin',
       {
-        authenticationCode: googleTokenData.code
+        authenticationCode: googleTokenData.code + 'abc'
       })
       .then(response => {
         const res = response.data;
@@ -73,6 +73,7 @@ class Login extends Component {
             googleProfileFamilyName: res.googleProfileInfo.familyName,
             googleProfilePictureURL: res.googleProfileInfo.googleProfilePictureURL,
           }
+
           console.log(googleProfileResult);
         }
       })
