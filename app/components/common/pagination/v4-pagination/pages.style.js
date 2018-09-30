@@ -17,7 +17,10 @@ export default css`
     padding: 0 10px;
   }
 
-  .page-select :global(a) {
+  .action {
+    outline: none;
+    background: none;
+    cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;

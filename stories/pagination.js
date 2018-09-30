@@ -5,7 +5,7 @@ import PaginateWithNetwork from '../app/components/common/paginate-with-network'
 
 storiesOf('Pagination', module)
   .add('Pagination component', () => (
-    <Pagination />
+    <Pagination activePage={1} />
   ))
   .add('Paginate stories API', () => (
     <PaginateWithNetwork />
