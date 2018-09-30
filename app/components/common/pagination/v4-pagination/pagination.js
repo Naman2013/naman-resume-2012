@@ -1,12 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router';
 import GenericButton from 'components/common/style/buttons/Button';
 import { horizontalArrow } from 'styles/variables/iconURLs';
 import Pages from './pages';
 import style from './pagination.style';
 
-const Pagination = ({ pages }) => (
+const Pagination = ({ pages, activePage }) => (
   <div className="pagination-root">
     <ul className="buttons">
       <li className="button">
@@ -18,7 +17,11 @@ const Pagination = ({ pages }) => (
     </ul>
 
     <div>
-      <Pages pages={pages} />
+      <Pages
+        pages={pages}
+        activePage={activePage}
+        onPageSelect={(selectedPage) => { console.log(selectedPage); }}
+      />
     </div>
 
     <ul className="buttons">
@@ -35,6 +38,7 @@ const Pagination = ({ pages }) => (
 
 Pagination.propTypes = {
   pages: PropTypes.arrayOf(PropTypes.number),
+  activePage: PropTypes.number.isRequired,
 };
 
 Pagination.defaultProps = {

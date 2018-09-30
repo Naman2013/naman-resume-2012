@@ -23,11 +23,12 @@ class PaginateWithNetwork extends Component {
     filterOptions: {},
   }
 
-  state = {}
+  state = { activePage: this.props.activePageNumber }
 
   render() {
+    const { activePage } = this.state;
     return (
-      <Pagination />
+      <Pagination activePage={activePage} />
     );
   }
 }
