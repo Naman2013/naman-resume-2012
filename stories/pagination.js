@@ -1,12 +1,12 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import Pagination from '../app/components/common/pagination';
-import PaginateStories from '../app/components/common/paginate-stories';
+import PaginateWithNetwork from '../app/components/common/paginate-with-network';
 
 storiesOf('Pagination', module)
   .add('Pagination component', () => (
     <Pagination />
   ))
   .add('Paginate stories API', () => (
-    <PaginateStories />
+    <PaginateWithNetwork />
   ));
