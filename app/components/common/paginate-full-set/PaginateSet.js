@@ -17,7 +17,6 @@ const {
 } = PropTypes;
 
 class PaginateFullSet extends Component {
-
   static propTypes = {
     fullDataSet: arrayOf(any),
     count: number,
@@ -31,10 +30,6 @@ class PaginateFullSet extends Component {
     count: 10,
     page: 1,
     totalCount: 0,
-  }
-
-  constructor(props) {
-    super(props);
   }
 
   onChange = (page) => {
