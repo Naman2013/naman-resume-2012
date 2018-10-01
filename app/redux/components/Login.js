@@ -261,6 +261,7 @@ const mapStateToProps = ({
   loginFailed: logIn.loginFailed,
   forgotPasswordURL: appConfig.forgotPasswordURL,
   registerNewMemberURL: appConfig.registerNewMemberURL,
+  googleProfileData: googleProfileData,
 });
 
 const mapDispatchToProps = dispatch => ({
