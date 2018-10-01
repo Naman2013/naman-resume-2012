@@ -40,7 +40,7 @@ class Login extends Component {
   static defaultProps = defaultProps;
 
   state = {
-    'googleProfileData' = {};
+    'googleProfileData': {};
   };
 
   componentWillUnmount() {
