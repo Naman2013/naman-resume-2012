@@ -85,7 +85,7 @@ class Login extends Component {
             googleProfilePictureURL: res.googleProfileInfo.profilePictureURL,
           }
 
-          this.setState({'googleProfileData': googleProfileResult});
+          this.setState({googleProfileData: googleProfileResult});
           console.log(googleProfileResult);
         }
       })
