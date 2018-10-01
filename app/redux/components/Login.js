@@ -8,7 +8,7 @@ import Button from 'components/common/style/buttons/Button';
 import LargeButtonWithRightIcon from 'components/common/style/buttons/LargeButtonWithRightIcon';
 import InputField from 'components/form/InputField';
 import { createValidator, required } from 'modules/utils/validation';
-import { resetLogIn, logUserIn } from 'modules/login/actions';
+import { resetLogIn, logUserIn, logGoogleUserIn } from 'modules/login/actions';
 import { nightfall, astronaut, romance, shadows } from 'styles/variables/colors_tiles_v4';
 import { faintShadow } from 'styles/variables/shadows';
 import { primaryFont } from 'styles/variables/fonts';
@@ -26,6 +26,7 @@ const propTypes = {
   actions: PropTypes.shape({
     logUserIn: PropTypes.func.isRequired,
     resetLogIn: PropTypes.func.isRequired,
+    logGoogleUserIn: PropTypes.func.isRequired,
   }).isRequired,
 };
 
@@ -88,7 +89,9 @@ class Login extends Component {
           }
 
           this.setState({'googleProfileData': googleProfileResult});
-          console.log(googleProfileResult);
+
+          /* Log this user in via Google SSO */
+          actions.logGoogleUserIn(googleProfileResult);
         }
       })
       .catch(err => {
@@ -271,6 +274,7 @@ const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
     resetLogIn,
     logUserIn,
+    logGoogleUserIn,
   }, dispatch),
 });
 
