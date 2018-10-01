@@ -32,22 +32,24 @@ const propTypes = {
 const defaultProps = {
   forgotPasswordURL: '',
   registerNewMemberURL: '',
-  googleProfileData: {
-    googleAPIFlowState: '',
-    googleAccessToken: '',
-    googleRefreshToken: '',
-    googleProfileId: '',
-    googleProfileEmail: '',
-    googleProfileGivenName: '',
-    googleProfileFamilyName: '',
-    googleProfilePictureURL: '',
-  },
-
 };
 
 class Login extends Component {
   static propTypes = propTypes;
   static defaultProps = defaultProps;
+
+  state = {
+    'googleProfileData': {
+      googleAPIFlowState: '',
+      googleAccessToken: '',
+      googleRefreshToken: '',
+      googleProfileId: '',
+      googleProfileEmail: '',
+      googleProfileGivenName: '',
+      googleProfileFamilyName: '',
+      googleProfilePictureURL: '',
+    },
+  };
 
   componentWillUnmount() {
     const { actions } = this.props;
@@ -85,7 +87,7 @@ class Login extends Component {
             googleProfilePictureURL: res.googleProfileInfo.profilePictureURL,
           }
 
-          this.setState({googleProfileData: googleProfileResult});
+          this.setState({'googleProfileData': googleProfileResult});
           console.log(googleProfileResult);
         }
       })
@@ -124,8 +126,9 @@ class Login extends Component {
       loginFailed,
       registerNewMemberURL,
       forgotPasswordURL,
-      googleProfileData,
     } = this.props;
+
+    const googleProfileData = this.state.googleProfileData;
 
     return (
       <div className="root">
