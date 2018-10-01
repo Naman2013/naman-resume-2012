@@ -59,10 +59,17 @@ class Pagination extends Component {
 
   handlePrevPage = () => {
     const { activePage, pages } = this.state;
-    const [minPage] = pages;
-
-    if (activePage > minPage) {
+    const { pagesPerPage } = this.props;
+    const [firstPageInSet] = pages;
+    if (activePage > firstPageInSet) {
       this.setState(prevState => ({ activePage: (prevState.activePage - 1) }));
+    }
+
+    if (activePage === firstPageInSet && activePage > 1) {
+      this.setState(() => ({
+        pages: createPages((firstPageInSet - (pagesPerPage)), pagesPerPage),
+        activePage: (firstPageInSet - 1),
+      }));
     }
   }
 
