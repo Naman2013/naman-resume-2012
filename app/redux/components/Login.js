@@ -39,6 +39,10 @@ class Login extends Component {
   static propTypes = propTypes;
   static defaultProps = defaultProps;
 
+  state = {
+    'googleProfileData' = {};
+  };
+
   componentWillUnmount() {
     const { actions } = this.props;
     actions.resetLogIn();
@@ -75,6 +79,7 @@ class Login extends Component {
             googleProfilePictureURL: res.googleProfileInfo.profilePictureURL,
           }
 
+          this.setState({'googleProfileData', googleProfileResult});
           console.log(googleProfileResult);
         }
       })
@@ -100,6 +105,7 @@ class Login extends Component {
     const googleClientIDModel = {
       name: 'GOOGLE_CLIENT_ID_MODEL',
       model: resp => ({
+        googleAPIFlowState: resp.apiFlowState,
         googleClientID: resp.googleClientID,
         googleClientScope: resp.googleClientScope,
         googleClientAccessType: resp.googleClientAccessType,
@@ -141,6 +147,11 @@ class Login extends Component {
             <span className="forgot title-link">Forgot Your Password?</span>
           </Link>
           <Button theme={{ margin: '0 auto', color: astronaut }} type="submit" text="Sign in with email" onClickEvent={null} />
+
+          <p>Flow State for Google: {googleProfileData.googleAPIFlowState}</p>
+          <p>Google Profile ID: {googleProfileData.googleProfileId}</p>
+          <p>Google Profile Name: {googleProfileData.googleProfileGivenName} {googleProfileData.googleProfileFamilyName}</p>
+          <p>Google Profile Email: {googleProfileData.googleProfileEmail}</p>
 
           <Request
             serviceURL={GOOGLE_CLIENT_ID_ENDPOINT}
@@ -235,6 +246,7 @@ class Login extends Component {
 
 const mapStateToProps = ({
   appConfig,
+  googleProfileData,
   logIn,
 }) => ({
   loginFailed: logIn.loginFailed,
