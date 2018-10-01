@@ -5,20 +5,35 @@ import { horizontalArrow } from 'styles/variables/iconURLs';
 import Pages from './pages';
 import style from './pagination.style';
 
+function createPages(pageStart = 0, numberOfPages) {
+  const pages = [];
+  for (let i = 0; i < numberOfPages; i += 1) {
+    pages.push((pageStart + i));
+  }
+
+  return pages;
+}
+
+
 class Pagination extends Component {
   static propTypes = {
     activePage: PropTypes.number,
+    pagesPerPage: PropTypes.number,
+    totalPageCount: PropTypes.number,
     pages: PropTypes.arrayOf(PropTypes.number),
   }
 
   static defaultProps = {
     activePage: 1,
+    pagesPerPage: 4,
+    totalPageCount: 10,
     pages: [1, 2, 3, 4],
   }
 
   state = {
     pages: this.props.pages,
     activePage: this.props.activePage,
+    totalPageCount: this.props.totalPageCount,
   }
 
   handlePageSelect = ({ pageNumber }) => {
@@ -26,11 +41,19 @@ class Pagination extends Component {
   }
 
   handleNextPage = () => {
-    const { activePage, pages } = this.state;
-    const maxPage = pages[pages.length - 1];
-
-    if (activePage < maxPage) {
+    const { activePage, pages, totalPageCount } = this.state;
+    const { pagesPerPage } = this.props;
+    const lastPageInSet = pages[pages.length - 1];
+    const pageCount = ((totalPageCount - activePage) > pagesPerPage) ? pagesPerPage : (totalPageCount - activePage);
+    if (activePage < lastPageInSet) {
       this.setState(prevState => ({ activePage: (prevState.activePage + 1) }));
+    }
+
+    if (activePage === lastPageInSet && activePage < totalPageCount) {
+      this.setState(() => ({
+        pages: createPages((lastPageInSet + 1), pageCount),
+        activePage: (lastPageInSet + 1),
+      }));
     }
   }
 
@@ -43,6 +66,22 @@ class Pagination extends Component {
     }
   }
 
+  handleFirstPage = () => {
+    const { pagesPerPage } = this.props;
+    const FIRST_PAGE = 1;
+    this.setState({ pages: createPages(FIRST_PAGE, pagesPerPage), activePage: FIRST_PAGE });
+  }
+
+  handleLastPage = () => {
+    const { totalPageCount } = this.state;
+    const { pagesPerPage } = this.props;
+    const lastPagePageCount = (totalPageCount % pagesPerPage);
+    this.setState({
+      pages: createPages(((totalPageCount - lastPagePageCount) + 1), lastPagePageCount),
+      activePage: totalPageCount,
+    });
+  }
+
   render() {
     const { pages, activePage } = this.state;
 
@@ -50,7 +89,10 @@ class Pagination extends Component {
       <div className="pagination-root">
         <ul className="buttons">
           <li className="button">
-            <GenericButton text="First" />
+            <GenericButton
+              text="First"
+              onClickEvent={this.handleFirstPage}
+            />
           </li>
           <li className="button">
             <GenericButton
@@ -74,7 +116,10 @@ class Pagination extends Component {
             <GenericButton onClickEvent={this.handleNextPage} icon={horizontalArrow} />
           </li>
           <li className="button">
-            <GenericButton text="Last" />
+            <GenericButton
+              text="Last"
+              onClickEvent={this.handleLastPage}
+            />
           </li>
         </ul>
         <style jsx>{style}</style>
