@@ -32,6 +32,16 @@ const propTypes = {
 const defaultProps = {
   forgotPasswordURL: '',
   registerNewMemberURL: '',
+  googleProfileData: {
+    googleAPIFlowState: '',
+    googleAccessToken: '',
+    googleRefreshToken: '',
+    googleProfileId: '',
+    googleProfileEmail: '',
+    googleProfileGivenName: '',
+    googleProfileFamilyName: '',
+    googleProfilePictureURL: '',
+  },
 
 };
 
@@ -65,7 +75,7 @@ class Login extends Component {
         const res = response.data;
         if (res.apiError == false) {
           const googleProfileResult = {
-            apiFlowState: res.flow_state,
+            googleAPIFlowState: res.flow_state,
             googleAccessToken: res.googleAccessToken,
             googleRefreshToken: res.googleRefreshToken,
             googleProfileId: res.googleProfileId,
@@ -145,15 +155,13 @@ class Login extends Component {
           </Link>
           <Button theme={{ margin: '0 auto', color: astronaut }} type="submit" text="Sign in with email" onClickEvent={null} />
 
-          {googleProfileData && <div>
+          <div>
             <p>Flow State for Google: {googleProfileData.googleAPIFlowState}</p>
             <p>Google Profile ID: {googleProfileData.googleProfileId}</p>
             <p>Google Profile Name: {googleProfileData.googleProfileGivenName} {googleProfileData.googleProfileFamilyName}</p>
             <p>Google Profile Email: {googleProfileData.googleProfileEmail}</p>
+          </div>
 
-            </div>
-          }
-          
           <Request
             serviceURL={GOOGLE_CLIENT_ID_ENDPOINT}
             model={googleClientIDModel}
