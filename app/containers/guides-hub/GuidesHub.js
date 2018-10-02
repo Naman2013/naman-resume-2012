@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import values from 'lodash/values';
 
@@ -73,56 +73,75 @@ const guidesHubModel = {
   }),
 };
 
-const Guides = props => (
-  <div>
-    <Request
-      serviceURL={GUIDE_ENDPOINT_URL}
-      model={guidesHubModel}
-      requestBody={{}}
-      render={({
-        fetchingContent,
-        modeledResponses: { GUIDE_HUB_MODEL },
-      }) => (
-        <Fragment>
-          {
-            !fetchingContent &&
-              <Fragment>
-                <DeviceContext.Consumer>
-                  {context => (
-                    <Fragment>
-                      <HubContainer
-                        {...props}
-                        {...GUIDE_HUB_MODEL}
-                        {...context}
-                        iconURL={goldCompass}
-                        hubTitle="Guides"
-                      />
-                      <GuideTiles guides={guideTiles} />
-                      <div className="pagination-container">
-                        <PaginateWithNetwork
-                          apiURL={GET_STORIES}
-                          filterOptions={{
-                            sortBy: 'recent',
-                            page: 1,
-                          }}
-                        />
-                      </div>
-                    </Fragment>
-                  )}
-                </DeviceContext.Consumer>
-              </Fragment>
-          }
-        </Fragment>
-      )}
-    />
-    <style jsx>{style}</style>
-  </div>
-);
+class Guides extends Component {
+  static propTypes = {
+    params: PropTypes.shape({
+      guideId: PropTypes.string.isRequired,
+    }).isRequired,
+  }
 
-Guides.propTypes = {
-  params: PropTypes.shape({
-    guideId: PropTypes.string.isRequired,
-  }).isRequired,
-};
+  handlePaginationResponse(resp) {
+    console.log(resp);
+  }
+
+  state = { currentPage: 1 }
+
+  handlePaginationChange = ({ activePage }) => {
+    this.setState({ currentPage: activePage });
+  }
+
+  render() {
+    const { currentPage } = this.state;
+
+    return (
+      <div>
+        <Request
+          serviceURL={GUIDE_ENDPOINT_URL}
+          model={guidesHubModel}
+          requestBody={{}}
+          render={({
+            fetchingContent,
+            modeledResponses: { GUIDE_HUB_MODEL },
+          }) => (
+            <Fragment>
+              {
+                !fetchingContent &&
+                  <Fragment>
+                    <DeviceContext.Consumer>
+                      {context => (
+                        <Fragment>
+                          <HubContainer
+                            {...this.props}
+                            {...GUIDE_HUB_MODEL}
+                            {...context}
+                            iconURL={goldCompass}
+                            hubTitle="Guides"
+                          />
+                          <GuideTiles guides={guideTiles} />
+                          <div className="pagination-container">
+                            <PaginateWithNetwork
+                              apiURL={GET_STORIES}
+                              activePageNumber={currentPage}
+                              onServiceResponse={this.handlePaginationResponse}
+                              onPaginationChange={this.handlePaginationChange}
+                              filterOptions={{
+                                sortBy: 'recent',
+                                page: currentPage,
+                              }}
+                            />
+                          </div>
+                        </Fragment>
+                      )}
+                    </DeviceContext.Consumer>
+                  </Fragment>
+              }
+            </Fragment>
+          )}
+        />
+        <style jsx>{style}</style>
+      </div>
+    );
+  }
+}
 
 export default Guides;
