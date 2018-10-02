@@ -44,8 +44,8 @@ class Pagination extends Component {
   }
 
   handleNextPage = () => {
-    const { activePage, pages, totalPageCount } = this.state;
-    const { pagesPerPage } = this.props;
+    const { activePage, pages  } = this.state;
+    const { pagesPerPage, totalPageCount } = this.props;
     const lastPageInSet = pages[pages.length - 1];
     const pageCount = ((totalPageCount - activePage) > pagesPerPage) ? pagesPerPage : (totalPageCount - activePage);
     if (activePage < lastPageInSet) {
@@ -100,8 +100,7 @@ class Pagination extends Component {
   }
 
   handleLastPage = () => {
-    const { totalPageCount } = this.state;
-    const { pagesPerPage } = this.props;
+    const { pagesPerPage, totalPageCount } = this.props;
     const lastPagePageCount = (totalPageCount % pagesPerPage);
     this.setState({
       pages: createPages(((totalPageCount - lastPagePageCount) + 1), lastPagePageCount),
