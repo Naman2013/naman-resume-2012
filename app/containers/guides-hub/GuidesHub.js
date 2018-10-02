@@ -11,7 +11,7 @@ import GuideTiles from 'components/guides-hub/guide-tiles';
 import { GUIDE_ENDPOINT_URL } from 'services/guides/guide-data';
 import { DeviceContext } from 'providers/DeviceProvider';
 import { goldCompass } from 'styles/variables/iconURLs';
-
+import style from './guides-hub.style';
 import BootstrappedGuidesHub from './BootstrappedGuidesHub';
 
 const MOCK_DATA = {
@@ -98,13 +98,15 @@ const Guides = props => (
                         hubTitle="Guides"
                       />
                       <GuideTiles guides={guideTiles} />
-                      <PaginateWithNetwork
-                        apiURL={GET_STORIES}
-                        filterOptions={{
-                          sortBy: 'recent',
-                          page: 1,
-                        }}
-                      />
+                      <div className="pagination-container">
+                        <PaginateWithNetwork
+                          apiURL={GET_STORIES}
+                          filterOptions={{
+                            sortBy: 'recent',
+                            page: 1,
+                          }}
+                        />
+                      </div>
                     </Fragment>
                   )}
                 </DeviceContext.Consumer>
@@ -113,6 +115,7 @@ const Guides = props => (
         </Fragment>
       )}
     />
+    <style jsx>{style}</style>
   </div>
 );
 
